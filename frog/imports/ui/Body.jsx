@@ -7,22 +7,19 @@ import Analytics from './Analytics.jsx';
 
 export default class Body extends Component {
   render() {
+    // The Body components is the main component of the application
+    // It simply performs a switch on the app property set by the App component
     switch(this.props.app) {
       case "home":
         return (<p>Welcome to FROG project</p>);
-        break;
       case "repository":
         return (<Repository />);
-        break;
       case "editor":
         return (<Editor />);
-        break;
       case "engine":
         return (<Engine />);
-        break;
       case "analytics":
         return (<Analytics />);
-        break;
       default:
         return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);
     }

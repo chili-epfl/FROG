@@ -14,7 +14,7 @@ export default class App extends Component {
     };
   }
 
-  // This is badly written. Let's rewrite it 
+  // This is badly written. Let's rewrite it when we will be more proficient with REACT
   setHome() { this.setState({app: "home",}); }
   setRepository() { this.setState({app: "repository",}); }
   setEditor() { this.setState({app: "editor",}); }
