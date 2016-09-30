@@ -40,6 +40,10 @@ body {
   border-color: white
 }
 
+.select:first-letter {
+    text-transform:capitalize;
+}
+
 h1 {
   font-size: 1.5em;
   min-width: 100%;
