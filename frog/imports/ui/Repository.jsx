@@ -30,11 +30,42 @@ export default class Repository extends Component {
 
 class Activity extends Component {
 
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isClicked: false,
+		}
+	}
+
+	activityHandler(event) {
+		this.setState({
+			isClicked: !this.state.isClicked,
+		});
+	}
+
+	renderObjectProperties(object) {
+				var properties = []
+
+				for(var prop in object) {
+					if(object.hasOwnProperty(prop)) {
+						properties.push(React.DOM.div(null, prop + ": "+ object[prop]));
+					}
+				}
+
+		return properties;
+	}
+
 
 	render() {
 		return (
 			<div className="activity-summary">
-			<li>{this.props.name}, type:{this.props.type}, plane:{this.props.plane}</li>
+			<li onClick={this.activityHandler.bind(this)}>{this.props.name}, type:{this.props.type}, plane:{this.props.plane}</li>
+			{
+				this.state.isClicked ? 
+					<div className="activity-complete"><br/>{this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane} {this.renderObjectProperties(this.props.object)}<br/></div> 
+					: ""
+			}
 			</div>
 		);
 	}
