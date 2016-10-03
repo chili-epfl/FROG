@@ -3,6 +3,18 @@ import React, { Component } from 'react';
 import Body from './Body.jsx';
 import HeaderButton from './HeaderButton.jsx';
 
+const apps = ["home","repository","editor","engine","analytics"];
+
+const Buttons = ({apps, changeFn}) => {
+  return(
+    <div>
+      {apps.map(app => (
+        <HeaderButton data={{id: app, onClick: () => changeFn(app)}} key={app}/>
+      ))}
+    </div>
+  )
+}
+
 // App component - represents the whole app
 export default class App extends Component {
   constructor(props) {
@@ -15,22 +27,12 @@ export default class App extends Component {
     };
   }
 
-  renderButtons() {
-    var apps = ["home","repository","editor","engine","analytics"];
-    return apps.map((app) => ({
-      id: app,
-      onClick: ()=>(this.setState({ app: app })),
-    })).map((app) => (
-      <HeaderButton data={app} key={app.id}/>
-    ));
-  }
-
   render() {
     return (
       <div>
         <div id="header">
           <h1>FROG - FABRICATING AND RUNNING ORCHESTRATION GRAPHS</h1>
-          {this.renderButtons()}
+          <Buttons apps={apps} changeFn={(app) => this.setState({app: app})}/>
         </div>
         <div id="body">
           <Body app={this.state.app} />
