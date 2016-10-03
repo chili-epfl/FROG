@@ -7,19 +7,19 @@ export default class Admin extends Component {
 
   createBasicActivities() {
     console.log("creating activities");
-    Activities.upsert({
-      _id: "quizz_std_1",
-    }, {
-      $set: {
-        type: "quizz",
-        name: "Simple qizz about the standard deviation",
-        plane: 3,
-        object: {
-          Q: "sigma = E[(X-E[X])^2] ?",
-          A: ['True','False'],
-        },
-      }
-    });
+    // Badly written, need to find a better way to write it 
+    import { quizz_std_1 } from '../../data/activities/quizz_std_1.js';
+    import { quizz_std_2 } from '../../data/activities/quizz_std_2.js';
+    import { video_std_1 } from '../../data/activities/video_std_1.js';
+    import { video_std_2 } from '../../data/activities/video_std_2.js';
+    import { lecture_std_1 } from '../../data/activities/lecture_std_1.js';
+    import { lecture_std_2} from '../../data/activities/lecture_std_2.js';
+    Activities.insert(quizz_std_1);
+    Activities.insert(quizz_std_2);
+    Activities.insert(video_std_1);
+    Activities.insert(video_std_2);
+    Activities.insert(lecture_std_1);
+    Activities.insert(lecture_std_2);
   }
 
   renderList() {
