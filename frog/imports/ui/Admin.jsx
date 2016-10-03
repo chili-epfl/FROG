@@ -14,6 +14,7 @@ export default class Admin extends Component {
     import { video_std_2 } from '../../data/activities/video_std_2.js';
     import { lecture_std_1 } from '../../data/activities/lecture_std_1.js';
     import { lecture_std_2} from '../../data/activities/lecture_std_2.js';
+    // Raises error insert fail if objects already in the DB
     Activities.insert(quizz_std_1);
     Activities.insert(quizz_std_2);
     Activities.insert(video_std_1);
