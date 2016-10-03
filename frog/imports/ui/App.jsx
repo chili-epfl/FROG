@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Body from './Body.jsx';
 import HeaderButton from './HeaderButton.jsx';
 
-const apps = ["home","repository","editor","engine","analytics"];
+const apps = ["home","repository","editor","engine","analytics","admin"];
 
 const Buttons = ({apps, changeFn}) => {
   return(

@@ -4,6 +4,7 @@ import Repository from './Repository.jsx';
 import Editor from './Editor.jsx';
 import Engine from './Engine.jsx';
 import Analytics from './Analytics.jsx';
+import Admin from './Admin.jsx';
 
 export default class Body extends Component {
   render() {
@@ -20,6 +21,8 @@ export default class Body extends Component {
         return (<Engine />);
       case "analytics":
         return (<Analytics />);
+      case "admin":
+        return (<Admin />);
       default:
         return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);
     }
