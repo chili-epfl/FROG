@@ -9,4 +9,3 @@ export default class HeaderButton extends Component {
     );
   }
 }
-

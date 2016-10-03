@@ -16,7 +16,7 @@ export default class App extends Component {
   }
 
   renderButtons() {
-    var apps = ["home","repository","editor","engine","analytics"];
+    var apps = ["home","repository","editor","engine","analytics","admin"];
     return apps.map((app) => ({
       id: app,
       onClick: ()=>(this.setState({ app: app })),
