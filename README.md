@@ -6,9 +6,8 @@ Fabricating and running orchestration graphs
 - install meteor
 
 - run the commands
-`meteor npm install`
-`meteor npm install --save react react-dom`
-`meteor`
+    * `meteor npm install`
+    * `meteor`
 
 - Go to http://localhost:3000/ on your browser
 
