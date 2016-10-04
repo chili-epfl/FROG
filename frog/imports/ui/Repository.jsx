@@ -44,12 +44,14 @@ class Activity extends Component {
 		});
 	}
 
-	renderObjectProperties(object) {
+	renderObjectProperties(object, key) {
 				var properties = []
-
+				var i = 0;
 				for(var prop in object) {
 					if(object.hasOwnProperty(prop)) {
-						properties.push(React.DOM.div(null, prop + ": "+ object[prop]));
+						properties.push(React.DOM.br({key: {key} + "-br" + i}));
+						properties.push(React.DOM.a({key: {key} + "-a" + i}, prop + ": "+ object[prop]));
+						++i;
 					}
 				}
 
@@ -63,7 +65,7 @@ class Activity extends Component {
 			<li onClick={this.activityHandler.bind(this)}>{this.props.name}, type:{this.props.type}, plane:{this.props.plane}</li>
 			{
 				this.state.isClicked ? 
-					<div className="activity-complete"><br/>{this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane} {this.renderObjectProperties(this.props.object)}<br/></div> 
+					<div className="activity-complete"><br/>{this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane} {this.renderObjectProperties(this.props.object, this.props._id)}<br/><br/></div> 
 					: ""
 			}
 			</div>
