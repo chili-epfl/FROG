@@ -9,7 +9,13 @@ export default class Repository extends Component {
 		return (
 			this.props.activities ?
 				this.props.activities.map ((activity) => (
-						<Activity key={activity._id} id={activity._id} type={activity.type} name={activity.name} plane={activity.plane} object={activity.object} />
+						<Activity 
+							key={activity._id} 
+							id={activity._id} 
+							type={activity.type} 
+							name={activity.name} 
+							plane={activity.plane} 
+							object={activity.object} />
 					)) : <li>No activity</li>
 		);
 	}
@@ -62,10 +68,17 @@ class Activity extends Component {
 	render() {
 		return (
 			<div className="activity-summary">
-			<li onClick={this.activityHandler.bind(this)}>{this.props.name}, type:{this.props.type}, plane:{this.props.plane}</li>
+			<li onClick={this.activityHandler.bind(this)}>
+				{this.props.name}, type:{this.props.type}, plane:{this.props.plane}
+			</li>
 			{
 				this.state.isClicked ? 
-					<div className="activity-complete"><br/>{this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane} {this.renderObjectProperties(this.props.object, this.props._id)}<br/><br/></div> 
+					<div className="activity-complete">
+						<br/>
+							{this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane} 
+							{this.renderObjectProperties(this.props.object, this.props._id)}
+						<br/><br/>
+					</div> 
 					: ""
 			}
 			</div>
