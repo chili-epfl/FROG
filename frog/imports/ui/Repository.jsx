@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import { Activities } from '../api/activities.js'; 
+import { Activities } from '../api/activities.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
- 
-export default class Repository extends Component { 
-  
+
+export default class Repository extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       nameFilterText:"",
+      //The elements in the following lists are the attributes of the activities
+      //we want to filter
       plane: [],
       type: [],
     }
@@ -16,6 +18,8 @@ export default class Repository extends Component {
 
   toggleFilterPlane(planeNumber) {
 
+    //If the plane planeNumber is already in the filter list, removes it from
+    //the list, otherwise add it in the list
     let index = this.state.plane.indexOf(planeNumber);
     let newPlane = this.state.plane;
 
@@ -32,6 +36,8 @@ export default class Repository extends Component {
 
   toggleFilterType(value) {
 
+    //If the type value is already in the filter list, removes it from the list
+    //otherwise add it in the list
     let index = this.state.type.indexOf(value);
     let newType = this.state.type;
 
@@ -47,6 +53,8 @@ export default class Repository extends Component {
   }
 
   createFilterBoxPlane(value) {
+    //Creates the checkboxes for the plane filter, the box is checked if the
+    //user wants to show the activities of the given plane
     return (
       <span>
         <input
@@ -60,6 +68,8 @@ export default class Repository extends Component {
   }
 
   createFilterBoxType(value) {
+    //Creates the checkboxes for the type filter, the box is checked if the
+    //user wants to show the activities of the given type
     return (
       <span>
         <input
@@ -93,31 +103,36 @@ export default class Repository extends Component {
         this.props.activities
           //Filters activities with a name containing the text from the nameFilter input.
           .filter((activity) => activity.name.indexOf(this.state.nameFilterText) != -1)
+          //Filters activities with respect to the list of filters
           .filter((activity) => this.state.plane.indexOf(activity.plane) == -1)
           .filter((activity) => typesLowerCase.indexOf(activity.type) == -1)
           .map ((activity) => (
-            <Activity 
-              key={activity._id} 
-              id={activity._id} 
-              type={activity.type} 
-              name={activity.name} 
-              plane={activity.plane} 
+            <Activity
+              key={activity._id}
+              id={activity._id}
+              type={activity.type}
+              name={activity.name}
+              plane={activity.plane}
               object={activity.object} />
           )) : <li>No activity</li>
     );
   }
 
   render() {
+
+    //To add a new filter for the planes or types, just add the corresponding
+    //checkbox by using a createFilterBox and the rest is taken care of by
+    //the code.
     return (
         <div>
           <h2>Activities:</h2>
-          
-          <form className="input-filter-name" 
-            onInput={this.handleFilterName.bind(this)} 
+
+          <form className="input-filter-name"
+            onInput={this.handleFilterName.bind(this)}
             onSubmit={this.handleFilterNameSubmit.bind(this)}>
 
-            <input 
-              type="text" 
+            <input
+              type="text"
               ref ="nameFilter"
               placeholder="Filter by name"
             /><br/><br/>
@@ -165,7 +180,7 @@ class Activity extends Component {
   renderObjectProperties(object, key) {
         var properties = []
         var i = 0;
-        for(var prop in object) { 
+        for(var prop in object) {
           if(object.hasOwnProperty(prop)) {
             //Iterates over properties of the object (as we don't know what they are)
             //These special keys are created so that they are unique for each element of the array
@@ -187,15 +202,15 @@ class Activity extends Component {
       </li>
 
       {
-        //If the user has clicked on the activity, put prevous properties in addition 
+        //If the user has clicked on the activity, put prevous properties in addition
         //to hidden properties (returned by the renderObjectProperties)
-        this.state.isClicked ? 
+        this.state.isClicked ?
           <div className="activity-complete">
             <br/>
-              {this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane} 
+              {this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane}
               {this.renderObjectProperties(this.props.object, this.props.id)}
             <br/><br/>
-          </div> 
+          </div>
           : ""
       }
 
@@ -207,7 +222,7 @@ class Activity extends Component {
 Repository.propTypes = {
   activities: PropTypes.array.isRequired,
 };
- 
+
 export default createContainer(() => {
   return {
     activities: Activities.find({}).fetch(),
