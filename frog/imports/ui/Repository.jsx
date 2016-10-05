@@ -23,6 +23,7 @@ export default class Repository extends Component {
     return (
       this.props.activities ?
         this.props.activities
+          //Filters activities with a name containing the text from the nameFilter input.
           .filter((activity) => activity.name.indexOf(this.state.nameFilterText) != -1)
           .map ((activity) => (
             <Activity 
@@ -99,6 +100,8 @@ class Activity extends Component {
       </li>
 
       {
+        //If the user has clicked on the activity, put prevous properties in addition 
+        //to hidden properties (returned by the renderObjectProperties)
         this.state.isClicked ? 
           <div className="activity-complete">
             <br/>
