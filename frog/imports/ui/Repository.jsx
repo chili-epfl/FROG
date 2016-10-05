@@ -9,8 +9,70 @@ export default class Repository extends Component {
     super(props);
     this.state = {
       nameFilterText:"",
+      plane: [],
+      type: [],
     }
   }
+
+  toggleFilterPlane(planeNumber) {
+
+    let index = this.state.plane.indexOf(planeNumber);
+    let newPlane = this.state.plane;
+
+    if(index != -1) {
+      newPlane = newPlane.filter(num => num != planeNumber);
+    } else {
+      newPlane.push(planeNumber);
+    }
+
+    this.setState({
+      plane: newPlane,
+    });
+  }
+
+  toggleFilterType(value) {
+
+    let index = this.state.type.indexOf(value);
+    let newType = this.state.type;
+
+    if(index != -1) {
+      newType = newType.filter(val => val != value);
+    } else {
+      newType.push(value);
+    }
+
+    this.setState({
+      type: newType,
+    });
+  }
+
+  createFilterBoxPlane(value) {
+    return (
+      <span>
+        <input
+          type="checkbox"
+          readOnly
+          checked={this.state.plane.indexOf(value) == -1}
+          onClick={this.toggleFilterPlane.bind(this, value)}
+        /> {value}
+      </span>
+    );
+  }
+
+  createFilterBoxType(value) {
+    return (
+      <span>
+        <input
+          type="checkbox"
+          readOnly
+          checked={this.state.type.indexOf(value) == -1}
+          onClick={this.toggleFilterType.bind(this, value)}
+        /> {value}
+      </span>
+    );
+  }
+
+
 
   handleFilterName(event) {
     event.preventDefault();
@@ -18,13 +80,21 @@ export default class Repository extends Component {
     this.setState({nameFilterText:text});
   }
 
+  handleFilterNameSubmit(event) {
+    event.preventDefault();
+  }
+
   renderListActivities() {
+
+    var typesLowerCase = this.state.type.map(type => type.toLowerCase())
 
     return (
       this.props.activities ?
         this.props.activities
           //Filters activities with a name containing the text from the nameFilter input.
           .filter((activity) => activity.name.indexOf(this.state.nameFilterText) != -1)
+          .filter((activity) => this.state.plane.indexOf(activity.plane) == -1)
+          .filter((activity) => typesLowerCase.indexOf(activity.type) == -1)
           .map ((activity) => (
             <Activity 
               key={activity._id} 
@@ -41,12 +111,29 @@ export default class Repository extends Component {
     return (
         <div>
           <h2>Activities:</h2>
-          <form className="input-filter-name" onInput={this.handleFilterName.bind(this)}>
+          
+          <form className="input-filter-name" 
+            onInput={this.handleFilterName.bind(this)} 
+            onSubmit={this.handleFilterNameSubmit.bind(this)}>
+
             <input 
               type="text" 
               ref ="nameFilter"
               placeholder="Filter by name"
-            />
+            /><br/><br/>
+
+            <label className="filters">
+            Show only plane(s):
+              {this.createFilterBoxPlane(1)}
+              {this.createFilterBoxPlane(2)}
+              {this.createFilterBoxPlane(3)}
+              <br/>
+            Show only the following type(s) of activities:
+              {this.createFilterBoxType("Lecture")}
+              {this.createFilterBoxType("Quizz")}
+              {this.createFilterBoxType("Video")}
+            </label>
+
           </form>
           <ul>
             {this.renderListActivities()}
