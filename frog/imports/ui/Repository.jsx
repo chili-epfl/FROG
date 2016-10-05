@@ -17,7 +17,7 @@ export default class Repository extends Component {
   }
 
   toggleFilterPlane(planeNumber) {
-
+    event.preventDefault();
     //If the plane planeNumber is already in the filter list, removes it from
     //the list, otherwise add it in the list
     let index = this.state.plane.indexOf(planeNumber);
@@ -35,7 +35,7 @@ export default class Repository extends Component {
   }
 
   toggleFilterType(value) {
-
+    event.preventDefault();
     //If the type value is already in the filter list, removes it from the list
     //otherwise add it in the list
     let index = this.state.type.indexOf(value);
