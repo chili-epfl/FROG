@@ -1,14 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { Activities } from '../api/activities.js'; 
 import { createContainer } from 'meteor/react-meteor-data';
+import ReactDOM from 'react-dom';
  
 export default class Repository extends Component { 
   
+  constructor(props) {
+  	super(props);
+  	this.state = {
+  		nameFilterText:"",
+  	}
+  }
+
+	handleFilterName(event) {
+		event.preventDefault();
+		const text = ReactDOM.findDOMNode(this.refs.nameFilter).value.trim();
+		this.setState({nameFilterText:text});
+	}
 
 	renderListActivities() {
+
 		return (
 			this.props.activities ?
-				this.props.activities.map ((activity) => (
+				this.props.activities
+					.filter((activity) => activity.name.indexOf(this.state.nameFilterText) != -1)
+					.map ((activity) => (
 						<Activity 
 							key={activity._id} 
 							id={activity._id} 
@@ -24,6 +40,13 @@ export default class Repository extends Component {
 		return (
 				<div>
 					<h2>Activities:</h2>
+					<form className="input-filter-name" onInput={this.handleFilterName.bind(this)}>
+						<input 
+							type="text" 
+							ref ="nameFilter"
+							placeholder="Filter by name"
+						/>
+					</form>
 					<ul>
 						{this.renderListActivities()}
 					</ul>
@@ -45,6 +68,7 @@ class Activity extends Component {
 	}
 
 	activityHandler(event) {
+		event.preventDefault();
 		this.setState({
 			isClicked: !this.state.isClicked,
 		});
@@ -89,8 +113,6 @@ class Activity extends Component {
 		);
 	}
 }
-
-export default Repository
 
 Repository.propTypes = {
   activities: PropTypes.array.isRequired,
