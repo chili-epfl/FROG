@@ -137,7 +137,7 @@ export default class Repository extends Component {
               placeholder="Filter by name"
             /><br/><br/>
 
-            <label className="filters">
+            <div className="filters">
             Show only plane(s):
               {this.createFilterBoxPlane(1)}
               {this.createFilterBoxPlane(2)}
@@ -147,7 +147,7 @@ export default class Repository extends Component {
               {this.createFilterBoxType("Lecture")}
               {this.createFilterBoxType("Quizz")}
               {this.createFilterBoxType("Video")}
-            </label>
+            </div>
 
           </form>
           <ul>
