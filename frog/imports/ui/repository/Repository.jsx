@@ -10,47 +10,38 @@ export default class Repository extends Component {
     super(props);
     this.state = {
       nameFilterText:"",
-      //The elements in the following lists are the attributes of the activities
-      //we want to filter
-      plane: [],
-      type: [],
+
+      plane: {
+        1: true,
+        2: true,
+        3: true,
+      },
+      type: {
+        lecture: true,
+        quizz: true,
+        video: true,
+      },
     }
   }
 
-  toggleFilterPlane(planeNumber) {
-    event.preventDefault();
-    //If the plane planeNumber is already in the filter list, removes it from
-    //the list, otherwise add it in the list
-    let index = this.state.plane.indexOf(planeNumber);
-    let newPlane = this.state.plane;
 
-    if(index != -1) {
-      newPlane = newPlane.filter(num => num != planeNumber);
+
+  toggleFilter(filter, value) {
+
+    if (filter == "type") {
+      this.state.type[value] = !this.state.type[value];
+
+      this.setState({
+        type: this.state.type,
+      });
+
     } else {
-      newPlane.push(planeNumber);
+      this.state.plane[value] = ! this.state.plane[value];
+
+      this.setState({
+        plane: this.state.plane,
+      });
     }
-
-    this.setState({
-      plane: newPlane,
-    });
-  }
-
-  toggleFilterType(value) {
-    event.preventDefault();
-    //If the type value is already in the filter list, removes it from the list
-    //otherwise add it in the list
-    let index = this.state.type.indexOf(value);
-    let newType = this.state.type;
-
-    if(index != -1) {
-      newType = newType.filter(val => val != value);
-    } else {
-      newType.push(value);
-    }
-
-    this.setState({
-      type: newType,
-    });
   }
 
   createFilterBoxPlane(value) {
@@ -61,8 +52,8 @@ export default class Repository extends Component {
         <input
           type="checkbox"
           readOnly
-          checked={this.state.plane.indexOf(value) == -1}
-          onClick={this.toggleFilterPlane.bind(this, value)}
+          checked={this.state.plane[value]}
+          onClick={this.toggleFilter.bind(this, "plane", value)}
         /> {value}
       </span>
     );
@@ -76,14 +67,12 @@ export default class Repository extends Component {
         <input
           type="checkbox"
           readOnly
-          checked={this.state.type.indexOf(value) == -1}
-          onClick={this.toggleFilterType.bind(this, value)}
+          checked={this.state.type[value.toLowerCase()]}
+          onClick={this.toggleFilter.bind(this, "type", value.toLowerCase())}
         /> {value}
       </span>
     );
   }
-
-
 
   handleFilterName(event) {
     event.preventDefault();
@@ -97,16 +86,17 @@ export default class Repository extends Component {
 
   renderListActivities() {
 
-    var typesLowerCase = this.state.type.map(type => type.toLowerCase())
+    //var typesLowerCase = this.state.type.map(type => type.toLowerCase())
 
     return (
       this.props.activities ?
         this.props.activities
           //Filters activities with a name containing the text from the nameFilter input.
-          .filter((activity) => activity.name.indexOf(this.state.nameFilterText) != -1)
+          .filter((activity) => activity.name.toLowerCase()
+            .indexOf(this.state.nameFilterText) != -1)
           //Filters activities with respect to the list of filters
-          .filter((activity) => this.state.plane.indexOf(activity.plane) == -1)
-          .filter((activity) => typesLowerCase.indexOf(activity.type) == -1)
+          .filter((activity) => this.state.type[activity.type])
+          .filter((activity) => this.state.plane[activity.plane])
           .map ((activity) => (
             <Activity
               key={activity._id}
@@ -121,9 +111,6 @@ export default class Repository extends Component {
 
   render() {
 
-    //To add a new filter for the planes or types, just add the corresponding
-    //checkbox by using a createFilterBox and the rest is taken care of by
-    //the code.
     return (
         <div>
           <h2>Activities:</h2>
