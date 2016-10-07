@@ -5,6 +5,7 @@ import Editor from './Editor.jsx';
 import Engine from './Engine.jsx';
 import Analytics from './Analytics.jsx';
 import Admin from './Admin.jsx';
+import Home from './Home.jsx';
 
 export default class Body extends Component {
   render() {
@@ -12,7 +13,7 @@ export default class Body extends Component {
     // It simply performs a switch on the app property set by the App component
     switch(this.props.app) {
       case "home":
-        return (<p>Welcome to FROG project</p>);
+        return (<Home />);
       case "repository":
         return (<Repository />);
       case "editor":
