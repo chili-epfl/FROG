@@ -1,6 +1,6 @@
 {
   "_id": "graph_std_2",
-  "name": "Lesson 1 about standard deviation",
+  "name": "Lesson 2 about standard deviation",
   "nodes": [
     "video_std_1","lecture_std_1","quiz_std_1","video_std_2","lecture_std_2","quiz_std_2"
   ],
@@ -9,6 +9,6 @@
     { "from": "lecture_std_1", "to": "quiz_std_1", "operator": null },
     { "from": "quiz_std_1", "to": "video_std_2", "operator": null },
     { "from": "video_std_2", "to": "lecture_std_2", "operator": null },
-    { "from": "lecture_std_2", "to": "quiz_std_2", "operator": null },
+    { "from": "lecture_std_2", "to": "quiz_std_2", "operator": null }
   ]
 }
