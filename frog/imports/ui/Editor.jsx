@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
- 
-const Editor = () => { 
-  return(
-      <p>You are on the Editor app</p>
-  )
-}
+  import React, { Component } from 'react';
 
-export default Editor
+export default class Editor extends Component {
+
+}
