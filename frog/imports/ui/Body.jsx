@@ -14,33 +14,33 @@ export default class Body extends Component {
     // The Body components is the main component of the application
     // It simply performs a switch on the app property set by the App component
     if (this.props.currentUser) {
-    switch(this.props.app) {
-      case "home":
-        return (<Home />);
-      case "repository":
-        return (<Repository />);
-      case "editor":
-        return (<Editor />);
-      case "engine":
-        return (<Engine />);
-      case "analytics":
-        return (<Analytics />);
-      case "admin":
-        return (<Admin />);
-      default:
-        return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
+      switch(this.props.app) {
+        case "home":
+          return (<Home />);
+        case "repository":
+          return (<Repository />);
+        case "editor":
+          return (<Editor />);
+        case "engine":
+          return (<Engine />);
+        case "analytics":
+          return (<Analytics />);
+        case "admin":
+          return (<Admin />);
+        default:
+          return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
     } else {
-      return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP.</p>);
+      return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP. HELLO.</p>);
     }
   };
 }
 
 Body.propTypes = {
-  currentUser: PropTypes.object,
+  currentUser: PropTypes.string,
 };
 
 export default createContainer(() => {
   return {
-    currentUser: Meteor.user(),
+    currentUser: Meteor.userId(),
   };
 }, Body);
