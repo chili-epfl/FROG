@@ -17,7 +17,7 @@ export default class Repository extends Component {
         3: true,
       },
       type: {
-        lecture: true,
+        lecture: true, 
         quizz: true,
         video: true,
       },
@@ -74,6 +74,7 @@ export default class Repository extends Component {
     );
   }
 
+
   handleFilterNameSubmit(event) {
     event.preventDefault();
   }
@@ -84,6 +85,7 @@ export default class Repository extends Component {
   }
 
   renderListActivities() {
+
 
     return (
       this.props.activities ?
