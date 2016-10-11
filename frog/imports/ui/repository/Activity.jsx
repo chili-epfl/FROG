@@ -20,19 +20,22 @@ export default class Activity extends Component {
   }
 
   renderObjectProperties(object, key) {
-        var properties = []
-        var i = 0;
-        for(var prop in object) {
-          if(object.hasOwnProperty(prop)) {
-            //Iterates over properties of the object (as we don't know what they are)
-            //These special keys are created so that they are unique for each element of the array
-            properties.push(React.DOM.br({key: key + "-br" + i}));
-            properties.push(React.DOM.a({key: key + "-a" + i}, prop + ": "+ object[prop]));
-            ++i;
+
+        class Property extends Component {
+          render() {
+            return(
+              <div>
+                <br/>
+                <a>{this.props.data.prop + ": " + this.props.data.value}</a>
+              </div>
+            );
           }
         }
 
-    return properties;
+        return (Object.keys(object).map((prop) =>(
+          <Property key={prop} data = {{prop:prop, value:object[prop]}} />
+        )));
+
   }
 
 
@@ -51,7 +54,7 @@ export default class Activity extends Component {
             <br/>
               {this.props.id}: {this.props.name}, type:{this.props.type}, plane:{this.props.plane}
               {this.renderObjectProperties(this.props.object, this.props.id)}
-            <br/><br/>
+            <br/>
           </div>
           : ""
       }

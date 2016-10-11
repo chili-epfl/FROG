@@ -18,3 +18,9 @@ https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
 
 - Learn Meteor framework with REACT:
 https://www.meteor.com/tutorials/react/creating-an-app
+
+## Code style
+
+- Use indentation of length 2 and using spaces
+
+- Avoid lines longer than the text editor window
