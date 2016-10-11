@@ -90,7 +90,7 @@ export default class Repository extends Component {
         this.props.activities
           //Filters activities with a name containing the text from the nameFilter input.
           .filter((activity) => activity.name.toLowerCase()
-            .indexOf(this.state.nameFilterText) != -1)
+            .indexOf(this.state.nameFilterText.toLowerCase()) != -1)
           //Filters activities with respect to the list of filters
           .filter((activity) => this.state.type[activity.type])
           .filter((activity) => this.state.plane[activity.plane])
@@ -112,15 +112,14 @@ export default class Repository extends Component {
         <div>
           <h2>Activities:</h2>
 
-          <form className="input-filter-name">
-
+          <form className="input-filter-name"
+            onSubmit={this.handleFilterNameSubmit.bind(this)}>
 
             <input
               type="text"
               ref ="nameFilter"
               placeholder="Filter by name"
               onChange={this.handleFilterNameChange.bind(this)}
-              onSubmit={this.handleFilterNameSubmit.bind(this)}
             /><br/><br/>
 
             <div className="filters">
