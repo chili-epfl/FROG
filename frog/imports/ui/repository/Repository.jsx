@@ -18,7 +18,7 @@ export default class Repository extends Component {
       },
       type: {
         lecture: true, 
-        quizz: true,
+        quiz: true,
         video: true,
       },
     }
@@ -132,7 +132,7 @@ export default class Repository extends Component {
               <br/>
             Show only the following type(s) of activities:
               {this.createFilterBoxType("Lecture")}
-              {this.createFilterBoxType("Quizz")}
+              {this.createFilterBoxType("Quiz")}
               {this.createFilterBoxType("Video")}
             </div>
 
