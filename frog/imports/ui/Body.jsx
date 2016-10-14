@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import Repository from './Repository.jsx';
+import Repository from './repository/Repository.jsx';
 import Editor from './Editor.jsx';
 import Engine from './Engine.jsx';
 import Analytics from './Analytics.jsx';

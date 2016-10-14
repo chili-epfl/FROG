@@ -1,9 +1,9 @@
 {
   "_id": "video_std_1",
   "type": "video",
-  "name": "Simple qizz about the standard deviation",
-  "plane": 3,
+  "name": "Video about the standard deviation",
+  "plane": 2,
   "object": {
-    "url": "url"
+    "url": "https://www.youtube.com/watch?v=HvDqbzu0i0E"
   }
 }
