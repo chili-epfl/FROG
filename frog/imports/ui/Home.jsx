@@ -11,6 +11,7 @@ export default class Home extends Component {
       this.props.presentUsers ? 
       this.props.presentUsers
         .map((user)=> user.userId)
+        .filter(onlyUnique)
         .map((userId) =>
           <li key={userId}>{Meteor.users.findOne({_id: userId}).username}</li>
       ) : <li>empty</li>
@@ -34,8 +35,18 @@ export default class Home extends Component {
     return (
       this.props.messages ?
       this.props.messages.map((msg) => (
-        <li key={msg.createdAt}><b>{msg.username} on {msg.createdAt.toUTCString()}:</b> {msg.text}</li>))
+        <li key={msg._id}><b>{msg.username} on {msg.createdAt.toUTCString()}:</b> {msg.text}</li>))
       : <li>No Messages yet</li>
+    );
+  }
+
+  getPresentCount(){
+    return (
+      this.props.presentUsers ? 
+      this.props.presentUsers
+        .map((user)=> user.userId)
+        .filter(onlyUnique)
+        .length : 0
     );
   }
 
@@ -44,7 +55,7 @@ export default class Home extends Component {
       <div>
         <p>Welcome to FROG project</p>
         <h3>Active Users:</h3>
-        <p> There are {this.props.presentCount} online users.</p>
+        <p> There are {this.getPresentCount()} online users.</p>
         <p> {this.renderUsers()} </p>
         <h3>Chat Box:</h3>
         <form className="chatbox"
@@ -63,11 +74,14 @@ export default class Home extends Component {
 
 }
 
+function onlyUnique(value, index, self) { 
+  return self.indexOf(value) === index;
+}
+
 Home.propTypes = {
   currentUser: PropTypes.string,
   messages: PropTypes.array.isRequired,
   presentUsers: PropTypes.array.isRequired,
-  presentCount: PropTypes.number,
 };
 
 export default createContainer(() => {
@@ -75,6 +89,5 @@ export default createContainer(() => {
     currentUser: Meteor.userId(),
     messages: Messages.find({}, {sort:{createdAt: -1}}).fetch(),
     presentUsers: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true }}).fetch(),
-    presentCount: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true }}).count(),
   };
 }, Home);
