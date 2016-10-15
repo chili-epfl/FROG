@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Body from './Body.jsx';
 import HeaderButton from './HeaderButton.jsx';
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 const apps = ["home","repository","editor","engine","analytics","admin"];
 
@@ -33,6 +34,7 @@ export default class App extends Component {
         <div id="header">
           <h1>FROG - FABRICATING AND RUNNING ORCHESTRATION GRAPHS</h1>
           <Buttons apps={apps} changeFn={(app) => this.setState({app: app})}/>
+          <AccountsUIWrapper />
         </div>
         <div id="body">
           <Body app={this.state.app} />
