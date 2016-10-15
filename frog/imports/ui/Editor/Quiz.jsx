@@ -34,6 +34,7 @@ export default class Quiz extends Component {
       return text;
     }
 
+
     handleQuestionChange(event) {
       event.preventDefault();
       this.setState({question:event.target.value.trim()});
