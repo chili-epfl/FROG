@@ -17,8 +17,8 @@ export default class Repository extends Component {
         3: true,
       },
       type: {
-        lecture: true,
-        quizz: true,
+        lecture: true, 
+        quiz: true,
         video: true,
       },
     }
@@ -74,26 +74,25 @@ export default class Repository extends Component {
     );
   }
 
-  handleFilterName(event) {
-    event.preventDefault();
-    const text = ReactDOM.findDOMNode(this.refs.nameFilter).value.trim();
-    this.setState({nameFilterText:text});
-  }
 
   handleFilterNameSubmit(event) {
     event.preventDefault();
   }
+  
+  handleFilterNameChange(event) {
+    event.preventDefault();
+    this.setState({nameFilterText:event.target.value.trim()});
+  }
 
   renderListActivities() {
 
-    //var typesLowerCase = this.state.type.map(type => type.toLowerCase())
 
     return (
       this.props.activities ?
         this.props.activities
           //Filters activities with a name containing the text from the nameFilter input.
           .filter((activity) => activity.name.toLowerCase()
-            .indexOf(this.state.nameFilterText) != -1)
+            .indexOf(this.state.nameFilterText.toLowerCase()) != -1)
           //Filters activities with respect to the list of filters
           .filter((activity) => this.state.type[activity.type])
           .filter((activity) => this.state.plane[activity.plane])
@@ -116,13 +115,13 @@ export default class Repository extends Component {
           <h2>Activities:</h2>
 
           <form className="input-filter-name"
-            onInput={this.handleFilterName.bind(this)}
             onSubmit={this.handleFilterNameSubmit.bind(this)}>
 
             <input
               type="text"
               ref ="nameFilter"
               placeholder="Filter by name"
+              onChange={this.handleFilterNameChange.bind(this)}
             /><br/><br/>
 
             <div className="filters">
