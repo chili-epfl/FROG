@@ -27,6 +27,10 @@ export default class Activity extends Component {
     this.state.name !== "" &&
     this.refs.activityType.haveFieldsCompleted();
   }
+
+  areAnswersInChoices() {
+    return this.refs.activityType.areAnswersInChoices();
+  }
   
 
   handleIDChange(event) {
@@ -42,6 +46,7 @@ export default class Activity extends Component {
   handleTypeChange(event) {
     event.preventDefault();
     this.setState({type:event.target.value});
+    this.refs.activityType.setState({listQuiz:[]});
   }
 
   handlePlaneChange(event) {

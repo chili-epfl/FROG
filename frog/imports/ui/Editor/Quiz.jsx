@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import QuizChoice from './QuizChoice.jsx';
 
 
 /*
@@ -8,7 +9,6 @@ export default class Quiz extends Component {
 
   //class constants, in functions
   QUESTION_REF() {return "Question "+(this.props.id+1); }
-  CHOICES_REF() {return "Choices "+(this.props.id+1); }
   ANSWER_REF() {return "Answer "+(this.props.id+1); }
 
   constructor(props) {
@@ -16,20 +16,88 @@ export default class Quiz extends Component {
 
     this.state = {
       question:"",
-      choices:"",
       answer:"",
+      listChoices:[],
     }
+  }
+
+  //To avoid problems with unbounded number of choices
+  tooManyChoices() {
+    return this.state.listChoices.length >= 5;
+  }
+
+  enoughChoices() {
+    return this.state.listChoices.length > 0;
+  }
+
+
+  //Used to delete a choice, when delete button is hit. Deletes only last choice created.
+  deleteChoice(event) {
+    event.preventDefault();
+
+    if(this.enoughChoices()) {
+      var allChoices = this.state.listChoices.slice(0, this.state.listChoices.length - 1);
+      this.setState({listChoices:allChoices});
+    }
+  }
+
+  //Used to create a choice, when create button is hit. Creates only in the end of the list of choices.
+  createChoice(event) {
+    event.preventDefault();
+
+    if(!this.tooManyChoices()) {
+      var allChoices = this.state.listChoices.concat(("Choice" + this.state.listChoices.length));
+      this.setState({listChoices:allChoices});
+    }
+
+  }
+
+  //Once requested, this component generates the form answer of all choices
+  generateChoicesAnswers() {
+
+    var choices = this.state.listChoices.map((ref) => {
+      var choice = (this.refs[ref]);
+      return choice.getChoice();
+    });
+
+    return choices;
+  }
+
+  renderAllChoices() {
+    return(
+      <div>
+      {this.state.listChoices.map((ref, i) => <QuizChoice ref={ref} key={ref} id={i} />)}
+      </div>
+      );
   }
 
   //To say if all sub-form fields have been filled
   haveFieldsCompleted() {
-    return this.state.question !== "" && this.state.choices !== "" && this.state.answer !== "";
+
+    var choicesFieldsCompleted = (this.state.listChoices.length !== 0);
+
+    this.state.listChoices.forEach((ref) => {
+      var choice = (this.refs[ref]);
+      choicesFieldsCompleted = choicesFieldsCompleted && choice.haveFieldsCompleted();
+    });
+
+    return this.state.question !== "" && choicesFieldsCompleted && this.state.answer !== "";
+  }
+
+  isAnswerInChoices() {
+
+    var answerInChoices = false;
+    this.state.listChoices.forEach((ref) => {
+      var choice = (this.refs[ref]);
+      answerInChoices = answerInChoices || (this.state.answer === choice.getChoice());
+    });
+    return answerInChoices;
   }
 
   //Once requested, this component generates the sub-form answer
   generateQuiz() {
     var text = {question: this.state.question,
-      choices: this.state.choices,
+      choices: this.generateChoicesAnswers(),
       answer: this.state.answer,}
       return text;
     }
@@ -40,11 +108,6 @@ export default class Quiz extends Component {
       this.setState({question:event.target.value.trim()});
     }
 
-    handleChoicesChange(event) {
-      event.preventDefault();
-      this.setState({choices:event.target.value.trim()});
-    }
-
     handleAnswerChange(event) {
       event.preventDefault();
       this.setState({answer:event.target.value.trim()});
@@ -53,19 +116,27 @@ export default class Quiz extends Component {
     render() {
       return (
         <div >
+        <fieldset>
         <label>{this.QUESTION_REF()}</label><br/>
         <input
         type="text"
         ref={this.QUESTION_REF()} 
         onChange={this.handleQuestionChange.bind(this)}
-        onSubmit={this.handleQuestionChange.bind(this)}/><br/>
+        onSubmit={this.handleQuestionChange.bind(this)}/><br/><br/>
 
-        <label>{this.CHOICES_REF()}</label><br/>
-        <input
-        type="text"
-        ref={this.CHOICES_REF()}
-        onChange={this.handleChoicesChange.bind(this)}
-        onSubmit={this.handleChoicesChange.bind(this)}/><br/>
+
+        <div>
+        <button
+        type="submit"
+        onClick={this.createChoice.bind(this)}
+        disabled={this.tooManyChoices()}>Create new Choice</button><br/><br/>
+        {this.renderAllChoices()}<br/>
+        <button
+        type="submit"
+        onClick={this.deleteChoice.bind(this)}
+        disabled={!this.enoughChoices()}>Delete last Choice</button>
+        </div>
+        <br/>
 
         <label>{this.ANSWER_REF()}</label><br/>
         <input
@@ -73,6 +144,7 @@ export default class Quiz extends Component {
         ref={this.ANSWER_REF()}
         onChange={this.handleAnswerChange.bind(this)}
         onSubmit={this.handleAnswerChange.bind(this)}/><br/>
+        </fieldset>
         </div>
         );
     }
