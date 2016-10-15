@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
- 
+
 
 /*
 Class used to display a QCM
@@ -12,14 +12,14 @@ export default class Quiz extends Component {
   ANSWER_REF() {return "Answer "+(this.props.id+1); }
 
   constructor(props) {
-      super(props);
+    super(props);
 
-      this.state = {
-        question:"",
-        choices:"",
-        answer:"",
-      }
+    this.state = {
+      question:"",
+      choices:"",
+      answer:"",
     }
+  }
 
   //To say if all sub-form fields have been filled
   haveFieldsCompleted() {
@@ -29,52 +29,52 @@ export default class Quiz extends Component {
   //Once requested, this component generates the sub-form answer
   generateQuiz() {
     var text = {question: this.state.question,
-                choices: this.state.choices,
-                answer: this.state.answer,}
-    return text;
-  }
+      choices: this.state.choices,
+      answer: this.state.answer,}
+      return text;
+    }
 
-  handleQuestionChange(event) {
-    event.preventDefault();
-    this.setState({question:event.target.value.trim()});
-  }
+    handleQuestionChange(event) {
+      event.preventDefault();
+      this.setState({question:event.target.value.trim()});
+    }
 
-  handleChoicesChange(event) {
-    event.preventDefault();
-    this.setState({choices:event.target.value.trim()});
-  }
+    handleChoicesChange(event) {
+      event.preventDefault();
+      this.setState({choices:event.target.value.trim()});
+    }
 
-  handleAnswerChange(event) {
-    event.preventDefault();
-    this.setState({answer:event.target.value.trim()});
-  }
+    handleAnswerChange(event) {
+      event.preventDefault();
+      this.setState({answer:event.target.value.trim()});
+    }
 
-  render() {
-    return (
-      <div >
+    render() {
+      return (
+        <div >
         <label>{this.QUESTION_REF()}</label><br/>
         <input
-          type="text"
-          ref={this.QUESTION_REF()} 
-          onChange={this.handleQuestionChange.bind(this)}
-          onSubmit={this.handleQuestionChange.bind(this)}/><br/>
+        type="text"
+        ref={this.QUESTION_REF()} 
+        onChange={this.handleQuestionChange.bind(this)}
+        onSubmit={this.handleQuestionChange.bind(this)}/><br/>
 
         <label>{this.CHOICES_REF()}</label><br/>
         <input
-          type="text"
-          ref={this.CHOICES_REF()}
-          onChange={this.handleChoicesChange.bind(this)}
-          onSubmit={this.handleChoicesChange.bind(this)}/><br/>
+        type="text"
+        ref={this.CHOICES_REF()}
+        onChange={this.handleChoicesChange.bind(this)}
+        onSubmit={this.handleChoicesChange.bind(this)}/><br/>
 
         <label>{this.ANSWER_REF()}</label><br/>
         <input
-          type="text"
-          ref={this.ANSWER_REF()}
-          onChange={this.handleAnswerChange.bind(this)}
-          onSubmit={this.handleAnswerChange.bind(this)}/><br/>
-      </div>
-    );
-  }
+        type="text"
+        ref={this.ANSWER_REF()}
+        onChange={this.handleAnswerChange.bind(this)}
+        onSubmit={this.handleAnswerChange.bind(this)}/><br/>
+        </div>
+        );
+    }
 
-	
-}
+    
+  }
