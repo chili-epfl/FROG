@@ -19,6 +19,7 @@ export default class ActivityType extends Component {
     }
 	}
 
+  //Used to delete a quiz, when delete button is hit. Deletes only last quiz created.
   deleteQuiz(event) {
     event.preventDefault();
 
@@ -31,6 +32,7 @@ export default class ActivityType extends Component {
     });
   }
 
+  //Used to create a quiz, when create button is hit. Creates only in the end of the list of quiz.
   createQuiz(event) {
     event.preventDefault();
 
@@ -44,6 +46,7 @@ export default class ActivityType extends Component {
 
   }
 
+  //Once requested, this component generates the sub-form answer
   generateAnswers() {
     switch (this.props.type) {
       case this.props.LECTURE_TYPE:
@@ -60,7 +63,7 @@ export default class ActivityType extends Component {
     }
   }
 
-
+  //Once requested, this component generates the form answer of all quizzes
   generateQuizAnswers() {
     
     var questions= [];
@@ -92,6 +95,7 @@ export default class ActivityType extends Component {
     this.setState({videoURL:event.target.value});
   }
 
+  //Renders according to the type given in the props
   renderType() {
     switch (this.props.type) {
       case this.props.LECTURE_TYPE:

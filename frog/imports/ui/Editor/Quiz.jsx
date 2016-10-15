@@ -6,6 +6,7 @@ Class used to display a QCM
 */
 export default class Quiz extends Component {
 
+  //class constants, in functions
   QUESTION_REF() {return "Question "+(this.props.id+1); }
   CHOICES_REF() {return "Choices "+(this.props.id+1); }
   ANSWER_REF() {return "Answer "+(this.props.id+1); }
@@ -20,16 +21,11 @@ export default class Quiz extends Component {
       }
     }
 
+  //Once requested, this component generates the sub-form answer
   generateQuiz() {
     var text = {question: this.state.question,
                 choices: this.state.choices,
                 answer: this.state.answer,}
-
-    /*
-    var text = "question:" + this.state.question + "\n" +
-              "choices:" + this.state.choices + "\n" +
-              "answer:" + this.state.answer + "\n";
-              */
     return text;
   }
 

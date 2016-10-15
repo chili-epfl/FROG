@@ -43,6 +43,7 @@ export default class Activity extends Component {
     this.setState({plane:event.target.value});
   }
 
+  //Once requested, this component generates the whole form answer
 	generateActivity() {
 		var text =   {_id: this.state.id,
 								 type: this.state.type,
