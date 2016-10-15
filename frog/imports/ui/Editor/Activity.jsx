@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import ActivityType from './ActivityType.jsx';
  
-export default class EditorTest extends Component {
+/*
+Class used to display the form to create a new activity
+*/
+export default class Activity extends Component {
+
+  LECTURE_TYPE() { return "Lecture"; }
+  QUIZ_TYPE() { return "Quiz"; }
+  VIDEO_TYPE() { return "Video"; }
 
 	constructor(props) {
 		super(props);
-
-		LECTURE_TYPE = "Lecture";
-    QUIZ_TYPE = "Quiz";
-    VIDEO_TYPE = "Video";
 
     this.state = {
 
         id: "",
         name: "",
-        type: LECTURE_TYPE,
+        type: this.LECTURE_TYPE(),
         plane: 1,
         object: [],
     }
@@ -79,15 +82,19 @@ export default class EditorTest extends Component {
           </select><br/><br/>
 
           <label>Type</label><br/>
-          <select ref="type" defaultValue={LECTURE_TYPE} onChange={this.handleTypeChange.bind(this)}>
-            <option value={LECTURE_TYPE}>{LECTURE_TYPE}</option>
-            <option value={QUIZ_TYPE}>{QUIZ_TYPE}</option>
-            <option value={VIDEO_TYPE}>{VIDEO_TYPE}</option>
+          <select ref="type" defaultValue={this.LECTURE_TYPE()} onChange={this.handleTypeChange.bind(this)}>
+            <option value={this.LECTURE_TYPE()}>{this.LECTURE_TYPE()}</option>
+            <option value={this.QUIZ_TYPE()}>{this.QUIZ_TYPE()}</option>
+            <option value={this.VIDEO_TYPE()}>{this.VIDEO_TYPE()}</option>
           </select><br/><br/>
 
         </form>
 
-        <ActivityType ref="activityType" type={this.state.type} LECTURE_TYPE={LECTURE_TYPE} QUIZ_TYPE={QUIZ_TYPE} VIDEO_TYPE={VIDEO_TYPE}/>
+        <ActivityType 
+        ref="activityType" type={this.state.type} 
+        LECTURE_TYPE={this.LECTURE_TYPE()} 
+        QUIZ_TYPE={this.QUIZ_TYPE()} 
+        VIDEO_TYPE={this.VIDEO_TYPE()}/>
 
       </div>
 	  )

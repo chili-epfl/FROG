@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
  
-export default class EditorTest extends Component {
 
-constructor(props) {
-    super(props);
+/*
+Class used to display a QCM
+*/
+export default class Quiz extends Component {
 
-    QUESTION_REF = "Question";
-    CHOICES_REF = "Choices";
-    ANSWER_REF = "Answer";
+  QUESTION_REF() {return "Question "+(this.props.id+1); }
+  CHOICES_REF() {return "Choices "+(this.props.id+1); }
+  ANSWER_REF() {return "Answer "+(this.props.id+1); }
 
-    this.state = {
-      question:"",
-      choices:"",
-      answer:"",
+  constructor(props) {
+      super(props);
+
+      this.state = {
+        question:"",
+        choices:"",
+        answer:"",
+      }
     }
-  }
 
-  generateQA() {
+  generateQuiz() {
     var text = {question: this.state.question,
                 choices: this.state.choices,
                 answer: this.state.answer,}
@@ -47,24 +51,24 @@ constructor(props) {
   render() {
     return (
       <div >
-        <label>{QUESTION_REF}</label><br/>
+        <label>{this.QUESTION_REF()}</label><br/>
         <input
           type="text"
-          ref={QUESTION_REF} 
+          ref={this.QUESTION_REF()} 
           onChange={this.handleQuestionChange.bind(this)}
           onSubmit={this.handleQuestionChange.bind(this)}/><br/>
 
-        <label>{CHOICES_REF}</label><br/>
+        <label>{this.CHOICES_REF()}</label><br/>
         <input
           type="text"
-          ref={CHOICES_REF}
+          ref={this.CHOICES_REF()}
           onChange={this.handleChoicesChange.bind(this)}
           onSubmit={this.handleChoicesChange.bind(this)}/><br/>
 
-        <label>{ANSWER_REF}</label><br/>
+        <label>{this.ANSWER_REF()}</label><br/>
         <input
           type="text"
-          ref={ANSWER_REF}
+          ref={this.ANSWER_REF()}
           onChange={this.handleAnswerChange.bind(this)}
           onSubmit={this.handleAnswerChange.bind(this)}/><br/>
       </div>

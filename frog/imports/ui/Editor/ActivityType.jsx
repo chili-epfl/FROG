@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import QA from './QA.jsx';
+import Quiz from './Quiz.jsx';
  
-export default class EditorTest extends Component {
+
+/*
+Class used for the form to be dynamic and change when the user chooses between the different types
+*/
+export default class ActivityType extends Component {
 
 	constructor(props) {
 		super(props);
@@ -11,28 +15,28 @@ export default class EditorTest extends Component {
       lectureURL:"",
       videoURL:"",
       nbQuestions:0,
-      listQA:[],
+      listQuiz:[],
     }
 	}
 
-  deleteQA(event) {
+  deleteQuiz(event) {
     event.preventDefault();
 
-    var allQA = this.state.listQA;
-    allQA.pop();
-    this.setState({listQA:allQA});
+    var allQuiz = this.state.listQuiz;
+    allQuiz.pop();
+    this.setState({listQuiz:allQuiz});
 
     this.setState({
       nbQuestions: this.state.nbQuestions - 1,
     });
   }
 
-  createQA(event) {
+  createQuiz(event) {
     event.preventDefault();
 
-    var allQA = this.state.listQA;
-    allQA.push("QA" + this.state.nbQuestions);
-    this.setState({listQA:allQA});
+    var allQuiz = this.state.listQuiz;
+    allQuiz.push("Quiz" + this.state.nbQuestions);
+    this.setState({listQuiz:allQuiz});
 
     this.setState({
       nbQuestions: this.state.nbQuestions + 1,
@@ -49,7 +53,7 @@ export default class EditorTest extends Component {
         return ({url: + this.state.videoURL});
 
       case this.props.QUIZ_TYPE:
-        return (this.generateQAAnswers());
+        return (this.generateQuizAnswers());
 
       default:
         return("");
@@ -57,23 +61,23 @@ export default class EditorTest extends Component {
   }
 
 
-  generateQAAnswers() {
+  generateQuizAnswers() {
     
     var questions= [];
     for (let i=0; i < this.state.nbQuestions; ++i) {
-      var ref = this.state.listQA[i];
+      var ref = this.state.listQuiz[i];
       var text = (this.refs[ref]);
-      questions.push( text.generateQA() );
+      questions.push( text.generateQuiz() );
 
     }
 
     return questions.toString();
   }
 
-  renderAllQA() {
+  renderAllQuiz() {
     return(
       <div>
-      {this.state.listQA.map((ref) => <QA ref={ref} key={ref} />)}
+      {this.state.listQuiz.map((ref, i) => <Quiz ref={ref} key={ref} id={i} />)}
       </div>
     );
   }
@@ -108,7 +112,7 @@ export default class EditorTest extends Component {
             <input
               type="text"
               ref ="videoPath"
-              placeholder="Enter the URL"
+              placeholder="Enter the Youtube URL"
               onChange={this.handleVideoURLChange.bind(this)}
               onSubmit={this.handleVideoURLChange.bind(this)} /><br/>          
           </div>
@@ -119,11 +123,11 @@ export default class EditorTest extends Component {
           <div>
             <button
             type="submit"
-            onClick={this.createQA.bind(this)}>Create new Question</button>
-            {this.renderAllQA()}
+            onClick={this.createQuiz.bind(this)}>Create new Question</button>
+            {this.renderAllQuiz()}
             <button
             type="submit"
-            onClick={this.deleteQA.bind(this)}
+            onClick={this.deleteQuiz.bind(this)}
             disabled={this.state.nbQuestions == 0}
             >Delete last Question</button>
           </div>
