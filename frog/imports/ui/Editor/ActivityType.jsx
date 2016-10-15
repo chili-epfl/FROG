@@ -27,11 +27,12 @@ export default class ActivityType extends Component {
         return this.state.videoURL !== "";
       case this.props.QUIZ_TYPE:
         var quizzesFieldsCompleted = (this.state.listQuiz.length !== 0);
-        for (let i=0; i < this.state.nbQuestions; ++i) {
-          var ref = this.state.listQuiz[i];
-          var text = (this.refs[ref]);
-          quizzesFieldsCompleted = quizzesFieldsCompleted && text.haveFieldsCompleted();
-        }
+
+        this.state.listQuiz.forEach((ref) => {
+          var quiz = (this.refs[ref]);
+          quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
+        });
+
         return quizzesFieldsCompleted;
       default:
         return false; //If we don't know what type it is, we can't submit
@@ -56,7 +57,7 @@ export default class ActivityType extends Component {
     event.preventDefault();
 
     var allQuiz = this.state.listQuiz;
-    allQuiz.push("Quiz" + this.state.nbQuestions);
+    allQuiz.push(this.props.QUIZ_TYPE + this.state.nbQuestions);
     this.setState({listQuiz:allQuiz});
 
     this.setState({
@@ -84,16 +85,13 @@ export default class ActivityType extends Component {
 
   //Once requested, this component generates the form answer of all quizzes
   generateQuizAnswers() {
-    
-    var questions= [];
-    for (let i=0; i < this.state.nbQuestions; ++i) {
-      var ref = this.state.listQuiz[i];
-      var text = (this.refs[ref]);
-      questions.push( text.generateQuiz() );
 
-    }
+    var questions = this.state.listQuiz.map((ref) => {
+      var quiz = (this.refs[ref]);
+      return quiz.generateQuiz();
+    });
 
-    return questions.toString();
+    return questions;
   }
 
   renderAllQuiz() {
@@ -106,12 +104,12 @@ export default class ActivityType extends Component {
 
   handleLectureURLChange(event) {
     event.preventDefault();
-    this.setState({lectureURL:event.target.value});
+    this.setState({lectureURL:event.target.value.trim()});
   }
 
   handleVideoURLChange(event) {
     event.preventDefault();
-    this.setState({videoURL:event.target.value});
+    this.setState({videoURL:event.target.value.trim()});
   }
 
   //Renders according to the type given in the props

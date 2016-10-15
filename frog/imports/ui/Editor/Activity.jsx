@@ -32,12 +32,12 @@ export default class Activity extends Component {
 
 	handleIDChange(event) {
 		event.preventDefault();
-		this.setState({id:event.target.value});
+		this.setState({id:event.target.value.trim()});
 	}
 
 	handleNameChange(event) {
 		event.preventDefault();
-		this.setState({name:event.target.value});
+		this.setState({name:event.target.value.trim()});
 	}
 
 	handleTypeChange(event) {

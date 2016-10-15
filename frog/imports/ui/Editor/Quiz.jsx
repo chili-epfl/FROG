@@ -36,17 +36,17 @@ export default class Quiz extends Component {
 
   handleQuestionChange(event) {
     event.preventDefault();
-    this.setState({question:event.target.value});
+    this.setState({question:event.target.value.trim()});
   }
 
   handleChoicesChange(event) {
     event.preventDefault();
-    this.setState({choices:event.target.value});
+    this.setState({choices:event.target.value.trim()});
   }
 
   handleAnswerChange(event) {
     event.preventDefault();
-    this.setState({answer:event.target.value});
+    this.setState({answer:event.target.value.trim()});
   }
 
   render() {
