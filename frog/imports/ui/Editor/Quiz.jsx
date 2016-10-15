@@ -21,6 +21,11 @@ export default class Quiz extends Component {
       }
     }
 
+  //To say if all sub-form fields have been filled
+  haveFieldsCompleted() {
+    return this.state.question !== "" && this.state.choices !== "" && this.state.answer !== "";
+  }
+
   //Once requested, this component generates the sub-form answer
   generateQuiz() {
     var text = {question: this.state.question,

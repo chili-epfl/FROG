@@ -19,6 +19,25 @@ export default class ActivityType extends Component {
     }
 	}
 
+  haveFieldsCompleted() {
+    switch (this.props.type) {
+      case this.props.LECTURE_TYPE:
+        return this.state.lectureURL !== "";
+      case this.props.VIDEO_TYPE:
+        return this.state.videoURL !== "";
+      case this.props.QUIZ_TYPE:
+        var quizzesFieldsCompleted = (this.state.listQuiz.length !== 0);
+        for (let i=0; i < this.state.nbQuestions; ++i) {
+          var ref = this.state.listQuiz[i];
+          var text = (this.refs[ref]);
+          quizzesFieldsCompleted = quizzesFieldsCompleted && text.haveFieldsCompleted();
+        }
+        return quizzesFieldsCompleted;
+      default:
+        return false; //If we don't know what type it is, we can't submit
+    }
+  }
+
   //Used to delete a quiz, when delete button is hit. Deletes only last quiz created.
   deleteQuiz(event) {
     event.preventDefault();

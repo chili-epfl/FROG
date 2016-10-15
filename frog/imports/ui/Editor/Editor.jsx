@@ -5,7 +5,12 @@ export default class Editor extends Component {
 
 	//For now, we show the result of the form with an alert, but of course it'll be then added to the database.
 	handleSubmit() {
-		alert(JSON.stringify(this.refs.newActivity.generateActivity()));
+		if(this.refs.newActivity.haveFieldsCompleted()) {
+			alert(JSON.stringify(this.refs.newActivity.generateActivity()));
+		}
+		else {
+			alert("Not all fields have been filled !");
+		}
 	}
 
 	render() {

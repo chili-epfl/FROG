@@ -19,9 +19,16 @@ export default class Activity extends Component {
         name: "",
         type: this.LECTURE_TYPE(),
         plane: 1,
-        object: [],
     }
 	}
+
+  //To say if all form fields have been filled
+  haveFieldsCompleted() {
+    return this.state.id !== "" &&
+            this.state.name !== "" &&
+            this.refs.activityType.haveFieldsCompleted();
+  }
+  
 
 	handleIDChange(event) {
 		event.preventDefault();
