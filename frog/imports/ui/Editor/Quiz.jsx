@@ -9,7 +9,7 @@ export default class Quiz extends Component {
 
   //class constants, in functions
   QUESTION_REF() {return "Question "+(this.props.id+1); }
-  ANSWER_REF() {return "Answer "+(this.props.id+1); }
+  ANSWER_REF() {return "Answer " +(this.props.id+1); }
 
   constructor(props) {
     super(props);
@@ -17,6 +17,7 @@ export default class Quiz extends Component {
     this.state = {
       question:"",
       answer:"",
+      show: true,
       listChoices:[],
     }
   }
@@ -94,6 +95,10 @@ export default class Quiz extends Component {
     return answerInChoices;
   }
 
+  isDeleted() {
+    return !this.state.show;
+  }
+
   //Once requested, this component generates the sub-form answer
   generateQuiz() {
     var text = {question: this.state.question,
@@ -102,6 +107,11 @@ export default class Quiz extends Component {
       return text;
     }
 
+  deleteQuiz(event) {
+    event.preventDefault(event);
+
+    this.setState({show:!this.state.show});
+  }
 
     handleQuestionChange(event) {
       event.preventDefault();
@@ -115,14 +125,18 @@ export default class Quiz extends Component {
 
     render() {
       return (
+
+        this.state.show ? (
         <div >
         <fieldset>
         <label>{this.QUESTION_REF()}</label><br/>
         <input
         type="text"
-        ref={this.QUESTION_REF()} 
+        ref={this.QUESTION_REF()}
         onChange={this.handleQuestionChange.bind(this)}
-        onSubmit={this.handleQuestionChange.bind(this)}/><br/><br/>
+        onSubmit={this.handleQuestionChange.bind(this)}/>
+        <button ref="delete" onClick={this.deleteQuiz.bind(this)}>Delete</button><br/>
+
 
 
         <div>
@@ -146,8 +160,9 @@ export default class Quiz extends Component {
         onSubmit={this.handleAnswerChange.bind(this)}/><br/>
         </fieldset>
         </div>
-        );
+      ): <div/>
+      );
     }
 
-    
+
   }
