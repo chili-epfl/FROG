@@ -14,17 +14,29 @@ export default class ActivityType extends Component {
     this.state = {
       lectureURL:"",
       videoURL:"",
-      nbQuestions:0,
+      //nbQuestions:0,
       listQuiz:[],
     }
   }
 
+  //To avoid problems with unbounded number of quizzes
+  tooManyQuiz() {
+    return this.state.listQuiz.length >= 20;
+  }
+
+  enoughQuiz() {
+    return this.state.listQuiz.length > 0;
+  }
+
   haveFieldsCompleted() {
     switch (this.props.type) {
+
       case this.props.LECTURE_TYPE:
       return this.state.lectureURL !== "";
+
       case this.props.VIDEO_TYPE:
       return this.state.videoURL !== "";
+
       case this.props.QUIZ_TYPE:
 			cleanQuizList();
       var quizzesFieldsCompleted = (this.state.listQuiz.length !== 0);
@@ -35,35 +47,46 @@ export default class ActivityType extends Component {
       });
 
       return quizzesFieldsCompleted;
+
       default:
         return false; //If we don't know what type it is, we can't submit
       }
+    }
+
+    areAnswersInChoices() {
+
+      var answersInChoices = true;
+
+      if(this.props.type === this.props.QUIZ_TYPE) {
+
+        this.state.listQuiz.forEach((ref) => {
+          var quiz = (this.refs[ref]);
+          answersInChoices = answersInChoices && quiz.isAnswerInChoices();
+        });
+
+      }
+
+      return answersInChoices;
     }
 
   //Used to delete a quiz, when delete button is hit. Deletes only last quiz created.
   deleteQuiz(event) {
     event.preventDefault();
 
-    var allQuiz = this.state.listQuiz;
-    allQuiz.pop();
-    this.setState({listQuiz:allQuiz});
-
-    this.setState({
-      nbQuestions: this.state.nbQuestions - 1,
-    });
+    if(this.enoughQuiz()) {
+      var allQuiz = this.state.listQuiz.slice(0, this.state.listQuiz.length - 1);
+      this.setState({listQuiz:allQuiz});
+    }
   }
 
-  //Used to create a quiz, when create button is hit. Creates only in the end of the list of quiz.
+  //Used to create a quiz, when create button is hit. Creates only in the end of the list of quizzes.
   createQuiz(event) {
     event.preventDefault();
 
-    var allQuiz = this.state.listQuiz;
-    allQuiz.push(this.props.QUIZ_TYPE + this.state.nbQuestions);
-    this.setState({listQuiz:allQuiz});
-
-    this.setState({
-      nbQuestions: this.state.nbQuestions + 1,
-    });
+    if(!this.tooManyQuiz()) {
+      var allQuiz = this.state.listQuiz.concat((this.props.QUIZ_TYPE + this.state.listQuiz.length));
+      this.setState({listQuiz:allQuiz});
+    }
 
   }
 
@@ -74,7 +97,7 @@ export default class ActivityType extends Component {
       return ({path: this.state.lectureURL});
 
       case this.props.VIDEO_TYPE:
-      return ({url: + this.state.videoURL});
+      return ({url: this.state.videoURL});
 
       case this.props.QUIZ_TYPE:
       return (this.generateQuizAnswers());
@@ -120,13 +143,9 @@ export default class ActivityType extends Component {
 		this.setState({listQuiz: newListQuiz});
 	}
 
-  handleLectureURLChange(event) {
+  handleVideoOrURLChange(event) {
     event.preventDefault();
     this.setState({lectureURL:event.target.value.trim()});
-  }
-
-  handleVideoURLChange(event) {
-    event.preventDefault();
     this.setState({videoURL:event.target.value.trim()});
   }
 
@@ -140,8 +159,8 @@ export default class ActivityType extends Component {
         type="text"
         ref ="lectureURL"
         placeholder="Enter the path"
-        onChange={this.handleLectureURLChange.bind(this)}
-        onSubmit={this.handleLectureURLChange.bind(this)} /><br/>
+        onChange={this.handleVideoOrURLChange.bind(this)}
+        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
         </div>
         );
 
@@ -152,8 +171,8 @@ export default class ActivityType extends Component {
         type="text"
         ref ="videoPath"
         placeholder="Enter the Youtube URL"
-        onChange={this.handleVideoURLChange.bind(this)}
-        onSubmit={this.handleVideoURLChange.bind(this)} /><br/>
+        onChange={this.handleVideoOrURLChange.bind(this)}
+        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>          
         </div>
         );
 
@@ -162,13 +181,13 @@ export default class ActivityType extends Component {
         <div>
         <button
         type="submit"
-        onClick={this.createQuiz.bind(this)}>Create new Question</button>
+        onClick={this.createQuiz.bind(this)}
+        disabled={this.tooManyQuiz()}>Create new Question</button>
         {this.renderAllQuiz()}
         <button
         type="submit"
         onClick={this.deleteQuiz.bind(this)}
-        disabled={this.state.nbQuestions == 0}
-        >Delete last Question</button>
+        disabled={!this.enoughQuiz()}>Delete last Question</button>
         </div>
         );
 
