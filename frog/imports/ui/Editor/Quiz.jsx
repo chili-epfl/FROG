@@ -17,7 +17,7 @@ export default class Quiz extends Component {
     this.state = {
       question:"",
       answer:"",
-      show: true,
+      selected: false,
       listChoices:[],
     }
   }
@@ -29,17 +29,6 @@ export default class Quiz extends Component {
 
   enoughChoices() {
     return this.state.listChoices.length > 0;
-  }
-
-
-  //Used to delete a choice, when delete button is hit. Deletes only last choice created.
-  deleteChoice(event) {
-    event.preventDefault();
-
-    if(this.enoughChoices()) {
-      var allChoices = this.state.listChoices.slice(0, this.state.listChoices.length - 1);
-      this.setState({listChoices:allChoices});
-    }
   }
 
   //Used to create a choice, when create button is hit. Creates only in the end of the list of choices.
@@ -95,8 +84,21 @@ export default class Quiz extends Component {
     return answerInChoices;
   }
 
-  isDeleted() {
-    return !this.state.show;
+  isSelected() {
+    return this.state.selected;
+  }
+
+  //Keep only the unselected choices
+  cleanChoiceList(event) {
+    event.preventDefault();
+
+    var newChoiceList = this.state.listChoices.filter((ref) =>{
+			var choice = (this.refs[ref]);
+			return !choice.isSelected();
+		});
+
+		this.setState({listChoices: newChoiceList});
+
   }
 
   //Once requested, this component generates the sub-form answer
@@ -107,62 +109,58 @@ export default class Quiz extends Component {
       return text;
     }
 
-  deleteQuiz(event) {
-    event.preventDefault(event);
-
-    this.setState({show:!this.state.show});
+  selectQuiz() {
+    this.setState({selected:!this.state.selected});
   }
 
-    handleQuestionChange(event) {
-      event.preventDefault();
-      this.setState({question:event.target.value.trim()});
-    }
+  handleQuestionChange(event) {
+    event.preventDefault();
+    this.setState({question:event.target.value.trim()});
+  }
 
-    handleAnswerChange(event) {
-      event.preventDefault();
-      this.setState({answer:event.target.value.trim()});
-    }
+  handleAnswerChange(event) {
+    event.preventDefault();
+    this.setState({answer:event.target.value.trim()});
+  }
 
-    render() {
-      return (
-
-        this.state.show ? (
-        <div >
+  render() {
+    return (
+      <div >
         <fieldset>
-        <label>{this.QUESTION_REF()}</label><br/>
-        <input
-        type="text"
-        ref={this.QUESTION_REF()}
-        onChange={this.handleQuestionChange.bind(this)}
-        onSubmit={this.handleQuestionChange.bind(this)}/>
-        <button ref="delete" onClick={this.deleteQuiz.bind(this)}>Delete</button><br/>
+          <label>{this.QUESTION_REF()}</label>
+          <input type="checkbox"
+            readOnly
+            checked={this.state.selected}
+            onClick={this.selectQuiz.bind(this)}/>
+          <br/>
+          <input
+            type="text"
+            ref={this.QUESTION_REF()}
+            onChange={this.handleQuestionChange.bind(this)}
+            onSubmit={this.handleQuestionChange.bind(this)} /><br/>
 
+          <div>
+          <button
+            type="submit"
+            onClick={this.createChoice.bind(this)}
+            disabled={this.tooManyChoices()}>Create new Choice</button><br/><br/>
+          {this.renderAllChoices()}<br/>
+          <button
+            type="delete"
+            onClick={this.cleanChoiceList.bind(this)}
+            disabled={!this.enoughChoices()}>Delete selected Choices</button>
 
+          </div>
+          <br/>
 
-        <div>
-        <button
-        type="submit"
-        onClick={this.createChoice.bind(this)}
-        disabled={this.tooManyChoices()}>Create new Choice</button><br/><br/>
-        {this.renderAllChoices()}<br/>
-        <button
-        type="submit"
-        onClick={this.deleteChoice.bind(this)}
-        disabled={!this.enoughChoices()}>Delete last Choice</button>
-        </div>
-        <br/>
-
-        <label>{this.ANSWER_REF()}</label><br/>
-        <input
-        type="text"
-        ref={this.ANSWER_REF()}
-        onChange={this.handleAnswerChange.bind(this)}
-        onSubmit={this.handleAnswerChange.bind(this)}/><br/>
+          <label>{this.ANSWER_REF()}</label><br/>
+          <input
+            type="text"
+            ref={this.ANSWER_REF()}
+            onChange={this.handleAnswerChange.bind(this)}
+            onSubmit={this.handleAnswerChange.bind(this)}/><br/>
         </fieldset>
-        </div>
-      ): <div/>
-      );
-    }
-
-
+      </div>
+    );
   }
+}

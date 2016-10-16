@@ -38,13 +38,10 @@ export default class ActivityType extends Component {
       return this.state.videoURL !== "";
 
       case this.props.QUIZ_TYPE:
+			var lQuiz = this.state.listQuiz;
+      var quizzesFieldsCompleted = (lQuiz.length !== 0);
 
-			var cleanedQuizList = this.cleanQuizList();
-
-			alert(JSON.stringify(this.generateQuizAnswers()));
-      var quizzesFieldsCompleted = (cleanedQuizList.length !== 0);
-
-      cleanedQuizList.forEach((ref) => {
+      lQuiz.forEach((ref) => {
         var quiz = (this.refs[ref]);
         quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
       });
@@ -71,16 +68,6 @@ export default class ActivityType extends Component {
 
       return answersInChoices;
     }
-
-  //Used to delete a quiz, when delete button is hit. Deletes only last quiz created.
-  deleteQuiz(event) {
-    event.preventDefault();
-
-    if(this.enoughQuiz()) {
-      var allQuiz = this.state.listQuiz.slice(0, this.state.listQuiz.length - 1);
-      this.setState({listQuiz:allQuiz});
-    }
-  }
 
   //Used to create a quiz, when create button is hit. Creates only in the end of the list of quizzes.
   createQuiz(event) {
@@ -124,19 +111,22 @@ export default class ActivityType extends Component {
   renderAllQuiz() {
     return(
       <div>
-      {this.state.listQuiz.map((ref, i) => <Quiz ref={ref} key={ref + this.state.nbQuestions} id={i}
-			callBackParent={this.cleanQuizList.bind(this)}/>)}
+      {this.state.listQuiz.map((ref, i) =>
+				<Quiz ref={ref} key={ref} id={i}/>)}
       </div>
       );
   }
 
-	cleanQuizList() {
+	//Keep only the unselected quizzes
+	cleanQuizList(event) {
+		event.preventDefault();
+
 		var newListQuiz = this.state.listQuiz.filter((ref) =>{
 			var quiz = (this.refs[ref]);
-			return !quiz.isDeleted();
+			return !quiz.isSelected();
 		});
-		//this.setState({listQuiz: newListQuiz});
-		return newListQuiz;
+
+		this.setState({listQuiz: newListQuiz});
 	}
 
   handleVideoOrURLChange(event) {
@@ -151,39 +141,39 @@ export default class ActivityType extends Component {
       case this.props.LECTURE_TYPE:
       return (
         <div>
-        <input
-        type="text"
-        ref ="lectureURL"
-        placeholder="Enter the path"
-        onChange={this.handleVideoOrURLChange.bind(this)}
-        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
+	        <input
+		        type="text"
+		        ref ="lectureURL"
+		        placeholder="Enter the path"
+		        onChange={this.handleVideoOrURLChange.bind(this)}
+		        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
         </div>
         );
 
       case this.props.VIDEO_TYPE:
       return (
         <div>
-        <input
-        type="text"
-        ref ="videoPath"
-        placeholder="Enter the Youtube URL"
-        onChange={this.handleVideoOrURLChange.bind(this)}
-        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
+	        <input
+		        type="text"
+		        ref ="videoPath"
+		        placeholder="Enter the Youtube URL"
+		        onChange={this.handleVideoOrURLChange.bind(this)}
+		        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
         </div>
         );
 
       case this.props.QUIZ_TYPE:
       return (
-        <div>
-        <button
-        type="submit"
-        onClick={this.createQuiz.bind(this)}
-        disabled={this.tooManyQuiz()}>Create new Question</button>
-        {this.renderAllQuiz()}
-        <button
-        type="submit"
-        onClick={this.deleteQuiz.bind(this)}
-        disabled={!this.enoughQuiz()}>Delete last Question</button>
+        <div >
+	        <button
+		        type="submit"
+		        onClick={this.createQuiz.bind(this)}
+		        disabled={this.tooManyQuiz()}>Create new Question</button>
+		        {this.renderAllQuiz()}
+					<button
+						type="delete"
+						onClick={this.cleanQuizList.bind(this)}
+						disabled={!this.enoughQuiz()}>Delete selected Questions</button>
         </div>
         );
 

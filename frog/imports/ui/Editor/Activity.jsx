@@ -67,46 +67,44 @@ export default class Activity extends Component {
    render() {
      return(
       <div>
+        <form>
+          <label>ID</label><br/>
+          <textarea
+            type="text"
+            ref="id"
+            onChange={this.handleIDChange.bind(this)}
+            onSubmit={this.handleIDChange.bind(this)}/>
+          <br/><br/>
 
+          <label>Name</label><br/>
+          <textarea
+            type="text"
+            ref="name"
+            onChange={this.handleNameChange.bind(this)}
+            onSubmit={this.handleNameChange.bind(this)}/>
+          <br/><br/>
 
-      <form>
-      <label>ID</label><br/>
-      <textarea
-      type="text"
-      ref="id"
-      onChange={this.handleIDChange.bind(this)}
-      onSubmit={this.handleIDChange.bind(this)}/>
-      <br/><br/>
+          <label>Plane</label><br/>
+          <select ref="plane" defaultValue={1} onChange={this.handlePlaneChange.bind(this)}>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          </select><br/><br/>
 
-      <label>Name</label><br/>
-      <textarea
-      type="text"
-      ref="name"
-      onChange={this.handleNameChange.bind(this)}
-      onSubmit={this.handleNameChange.bind(this)}/>
-      <br/><br/>
+          <label>Type</label><br/>
+          <select ref="type" defaultValue={this.LECTURE_TYPE()} onChange={this.handleTypeChange.bind(this)}>
+          <option value={this.LECTURE_TYPE()}>{this.LECTURE_TYPE()}</option>
+          <option value={this.QUIZ_TYPE()}>{this.QUIZ_TYPE()}</option>
+          <option value={this.VIDEO_TYPE()}>{this.VIDEO_TYPE()}</option>
+          </select><br/><br/>
 
-      <label>Plane</label><br/>
-      <select ref="plane" defaultValue={1} onChange={this.handlePlaneChange.bind(this)}>
-      <option value={1}>1</option>
-      <option value={2}>2</option>
-      <option value={3}>3</option>
-      </select><br/><br/>
-
-      <label>Type</label><br/>
-      <select ref="type" defaultValue={this.LECTURE_TYPE()} onChange={this.handleTypeChange.bind(this)}>
-      <option value={this.LECTURE_TYPE()}>{this.LECTURE_TYPE()}</option>
-      <option value={this.QUIZ_TYPE()}>{this.QUIZ_TYPE()}</option>
-      <option value={this.VIDEO_TYPE()}>{this.VIDEO_TYPE()}</option>
-      </select><br/><br/>
-
-      </form>
+        </form>
 
       <ActivityType
-      ref="activityType" type={this.state.type}
-      LECTURE_TYPE={this.LECTURE_TYPE()}
-      QUIZ_TYPE={this.QUIZ_TYPE()}
-      VIDEO_TYPE={this.VIDEO_TYPE()}/>
+        ref="activityType" type={this.state.type}
+        LECTURE_TYPE={this.LECTURE_TYPE()}
+        QUIZ_TYPE={this.QUIZ_TYPE()}
+        VIDEO_TYPE={this.VIDEO_TYPE()}/>
 
       </div>
       )
