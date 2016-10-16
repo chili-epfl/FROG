@@ -7,9 +7,9 @@ Class used to display a QCM
 export default class Quiz extends Component {
 
   //class constants, in functions
-  QUESTION_REF() {return "Question "+(this.props.id+1); }
-  CHOICES_REF() {return "Choices "+(this.props.id+1); }
-  ANSWER_REF() {return "Answer "+(this.props.id+1); }
+  QUESTION_REF() {return "Question "} //+(this.props.id+1); }
+  CHOICES_REF() {return "Choices "}//+(this.props.id+1); }
+  ANSWER_REF() {return "Answer "}//+(this.props.id+1); }
 
   constructor(props) {
     super(props);
@@ -18,12 +18,17 @@ export default class Quiz extends Component {
       question:"",
       choices:"",
       answer:"",
+      show: true,
     }
   }
 
   //To say if all sub-form fields have been filled
   haveFieldsCompleted() {
     return this.state.question !== "" && this.state.choices !== "" && this.state.answer !== "";
+  }
+
+  isDeleted() {
+    return this.state.show;
   }
 
   //Once requested, this component generates the sub-form answer
@@ -34,6 +39,11 @@ export default class Quiz extends Component {
       return text;
     }
 
+  deleteQuiz(event) {
+    event.preventDefault(event);
+    this.setState({show:!this.state.show});
+    //this.props.callBackParent(this.props.id);
+  }
 
     handleQuestionChange(event) {
       event.preventDefault();
@@ -52,13 +62,16 @@ export default class Quiz extends Component {
 
     render() {
       return (
-        <div >
+
+        this.state.show ? (
+        <div>
         <label>{this.QUESTION_REF()}</label><br/>
         <input
         type="text"
-        ref={this.QUESTION_REF()} 
+        ref={this.QUESTION_REF()}
         onChange={this.handleQuestionChange.bind(this)}
-        onSubmit={this.handleQuestionChange.bind(this)}/><br/>
+        onSubmit={this.handleQuestionChange.bind(this)}/>
+        <button ref="delete" onClick={this.deleteQuiz.bind(this)}>Delete</button><br/>
 
         <label>{this.CHOICES_REF()}</label><br/>
         <input
@@ -74,8 +87,9 @@ export default class Quiz extends Component {
         onChange={this.handleAnswerChange.bind(this)}
         onSubmit={this.handleAnswerChange.bind(this)}/><br/>
         </div>
-        );
+      ): <div/>
+      );
     }
 
-    
+
   }

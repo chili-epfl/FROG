@@ -26,9 +26,10 @@ export default class ActivityType extends Component {
       case this.props.VIDEO_TYPE:
       return this.state.videoURL !== "";
       case this.props.QUIZ_TYPE:
+			cleanQuizList();
       var quizzesFieldsCompleted = (this.state.listQuiz.length !== 0);
 
-      this.state.listQuiz.forEach((ref) => {
+      this.state.listQuiz.forEach((ref, _) => {
         var quiz = (this.refs[ref]);
         quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
       });
@@ -97,10 +98,27 @@ export default class ActivityType extends Component {
   renderAllQuiz() {
     return(
       <div>
-      {this.state.listQuiz.map((ref, i) => <Quiz ref={ref} key={ref} id={i} />)}
+      {this.state.listQuiz.map((ref, i) => <Quiz ref={ref} key={ref} id={i}/>)}
       </div>
       );
   }
+
+	cleanQuizList() {
+		var newListQuiz = [];
+		this.state.listQuiz.forEach((ref) => {
+			var quiz = (this.refs[ref]);
+			if (!quiz.isDeleted) {
+				newListQuiz.push(quiz);
+			} else {
+				this.setState({
+					nbQuestions: this.state.nbQuestions -1,
+				});
+				alert("Delete" + id);
+			}
+		});
+
+		this.setState({listQuiz: newListQuiz});
+	}
 
   handleLectureURLChange(event) {
     event.preventDefault();
@@ -135,7 +153,7 @@ export default class ActivityType extends Component {
         ref ="videoPath"
         placeholder="Enter the Youtube URL"
         onChange={this.handleVideoURLChange.bind(this)}
-        onSubmit={this.handleVideoURLChange.bind(this)} /><br/>          
+        onSubmit={this.handleVideoURLChange.bind(this)} /><br/>
         </div>
         );
 
@@ -168,5 +186,5 @@ export default class ActivityType extends Component {
       )
   }
 
-  
+
 }
