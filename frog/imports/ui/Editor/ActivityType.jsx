@@ -14,7 +14,7 @@ export default class ActivityType extends Component {
     this.state = {
       lectureURL:"",
       videoURL:"",
-      //nbQuestions:0,
+      nbQuestions:0,
       listQuiz:[],
     }
   }
@@ -38,10 +38,13 @@ export default class ActivityType extends Component {
       return this.state.videoURL !== "";
 
       case this.props.QUIZ_TYPE:
-			cleanQuizList();
-      var quizzesFieldsCompleted = (this.state.listQuiz.length !== 0);
 
-      this.state.listQuiz.forEach((ref, _) => {
+			var cleanedQuizList = this.cleanQuizList();
+
+			alert(JSON.stringify(this.generateQuizAnswers()));
+      var quizzesFieldsCompleted = (cleanedQuizList.length !== 0);
+
+      cleanedQuizList.forEach((ref) => {
         var quiz = (this.refs[ref]);
         quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
       });
@@ -85,7 +88,7 @@ export default class ActivityType extends Component {
 
     if(!this.tooManyQuiz()) {
       var allQuiz = this.state.listQuiz.concat((this.props.QUIZ_TYPE + this.state.listQuiz.length));
-      this.setState({listQuiz:allQuiz});
+      this.setState({listQuiz:allQuiz, nbQuestions: this.state.nbQuestions + 1});
     }
 
   }
@@ -121,26 +124,19 @@ export default class ActivityType extends Component {
   renderAllQuiz() {
     return(
       <div>
-      {this.state.listQuiz.map((ref, i) => <Quiz ref={ref} key={ref} id={i}/>)}
+      {this.state.listQuiz.map((ref, i) => <Quiz ref={ref} key={ref + this.state.nbQuestions} id={i}
+			callBackParent={this.cleanQuizList.bind(this)}/>)}
       </div>
       );
   }
 
 	cleanQuizList() {
-		var newListQuiz = [];
-		this.state.listQuiz.forEach((ref) => {
+		var newListQuiz = this.state.listQuiz.filter((ref) =>{
 			var quiz = (this.refs[ref]);
-			if (!quiz.isDeleted) {
-				newListQuiz.push(quiz);
-			} else {
-				this.setState({
-					nbQuestions: this.state.nbQuestions -1,
-				});
-				alert("Delete" + id);
-			}
+			return !quiz.isDeleted();
 		});
-
-		this.setState({listQuiz: newListQuiz});
+		//this.setState({listQuiz: newListQuiz});
+		return newListQuiz;
 	}
 
   handleVideoOrURLChange(event) {
@@ -172,7 +168,7 @@ export default class ActivityType extends Component {
         ref ="videoPath"
         placeholder="Enter the Youtube URL"
         onChange={this.handleVideoOrURLChange.bind(this)}
-        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>          
+        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
         </div>
         );
 

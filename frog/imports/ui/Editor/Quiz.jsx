@@ -8,8 +8,8 @@ Class used to display a QCM
 export default class Quiz extends Component {
 
   //class constants, in functions
-  QUESTION_REF() {return "Question "}//+(this.props.id+1); }
-  ANSWER_REF() {return "Answer " }//+(this.props.id+1); }
+  QUESTION_REF() {return "Question "+(this.props.id+1); }
+  ANSWER_REF() {return "Answer " +(this.props.id+1); }
 
   constructor(props) {
     super(props);
@@ -96,7 +96,7 @@ export default class Quiz extends Component {
   }
 
   isDeleted() {
-    return this.state.show;
+    return !this.state.show;
   }
 
   //Once requested, this component generates the sub-form answer
@@ -109,8 +109,8 @@ export default class Quiz extends Component {
 
   deleteQuiz(event) {
     event.preventDefault(event);
+
     this.setState({show:!this.state.show});
-    //this.props.callBackParent(this.props.id);
   }
 
     handleQuestionChange(event) {

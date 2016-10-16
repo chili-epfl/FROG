@@ -25,7 +25,7 @@ export default class Editor extends Component {
 			type="submit"
 			onClick={this.handleSubmit.bind(this)}>Submit</button>
 			</div>
-			)
+		)
 	}
 
 }
