@@ -32,6 +32,7 @@ export default class QuizChoice extends Component {
   }
 
   selectChoice() {
+    this.props.callBack(!this.state.selected);
     this.setState({selected: !this.state.selected});
   }
 

@@ -14,7 +14,7 @@ export default class ActivityType extends Component {
     this.state = {
       lectureURL:"",
       videoURL:"",
-      //nbSelected:0,
+      nbSelected:0,
 			nbQuiz:0, //need this to have unique keys
       listQuiz:[],
     }
@@ -28,7 +28,7 @@ export default class ActivityType extends Component {
   enoughQuiz() {
     return this.state.listQuiz.length > 0;
   }
-	/*
+
 	countSelected(bool) {
 		var newCount = this.state.nbSelected;
 		if(bool) {
@@ -39,7 +39,7 @@ export default class ActivityType extends Component {
 
 		this.setState({nbSelected: newCount});
 	}
-	*/
+
 
   haveFieldsCompleted() {
     switch (this.props.type) {
@@ -125,7 +125,8 @@ export default class ActivityType extends Component {
     return(
       <div>
       {this.state.listQuiz.map((ref, i) =>
-				<Quiz ref={ref} key={ref} id={i}/>)}
+				<Quiz ref={ref} key={ref} id={i}
+					callBack={this.countSelected.bind(this)}/>)}
 
       </div>
       );
@@ -140,7 +141,7 @@ export default class ActivityType extends Component {
 			return !quiz.isSelected();
 		});
 
-		this.setState({listQuiz: newListQuiz});
+		this.setState({listQuiz: newListQuiz, nbSelected: 0});
 	}
 
   handleVideoOrURLChange(event) {
@@ -188,7 +189,8 @@ export default class ActivityType extends Component {
 						type="delete"
 						onClick={this.cleanQuizList.bind(this)}
 						disabled={!this.enoughQuiz()}>
-						Delete selected	Questions</button>
+						Delete {this.state.nbSelected} selected
+						Question{this.state.nbSelected < 2 ? '' : 's'}</button>
         </div>
         );
 

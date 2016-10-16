@@ -19,6 +19,7 @@ export default class Quiz extends Component {
       answer:"",
       selected: false,
       nbChoice: 0, //need this to have unique keys
+      nbSelected: 0,
       listChoices:[],
     }
   }
@@ -57,7 +58,9 @@ export default class Quiz extends Component {
   renderAllChoices() {
     return(
       <div>
-      {this.state.listChoices.map((ref, i) => <QuizChoice ref={ref} key={ref} id={i} />)}
+      {this.state.listChoices.map((ref, i) =>
+        <QuizChoice ref={ref} key={ref} id={i}
+          callBack={this.countSelected.bind(this)}/>)}
       </div>
       );
   }
@@ -89,6 +92,17 @@ export default class Quiz extends Component {
     return this.state.selected;
   }
 
+  countSelected(bool) {
+		var newCount = this.state.nbSelected;
+		if(bool) {
+			newCount += 1;
+		} else {
+			newCount -= 1;
+		}
+
+		this.setState({nbSelected: newCount});
+	}
+
   //Keep only the unselected choices
   cleanChoiceList(event) {
     event.preventDefault();
@@ -98,7 +112,7 @@ export default class Quiz extends Component {
 			return !choice.isSelected();
 		});
 
-		this.setState({listChoices: newChoiceList});
+		this.setState({listChoices: newChoiceList, nbSelected: 0});
 
   }
 
@@ -111,7 +125,7 @@ export default class Quiz extends Component {
     }
 
   selectQuiz() {
-    //this.props.callBack(!this.state.selected);
+    this.props.callBack(!this.state.selected);
     this.setState({selected:!this.state.selected});
   }
 
@@ -150,7 +164,9 @@ export default class Quiz extends Component {
           <button
             type="delete"
             onClick={this.cleanChoiceList.bind(this)}
-            disabled={!this.enoughChoices()}>Delete selected Choices</button>
+            disabled={!this.enoughChoices()}>
+            Delete {this.state.nbSelected} selected
+						Choice{this.state.nbSelected < 2 ? '' : 's'}</button>
 
           </div>
           <br/>
