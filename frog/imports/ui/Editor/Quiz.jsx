@@ -18,6 +18,7 @@ export default class Quiz extends Component {
       question:"",
       answer:"",
       selected: false,
+      nbChoice: 0, //need this to have unique keys
       listChoices:[],
     }
   }
@@ -36,8 +37,8 @@ export default class Quiz extends Component {
     event.preventDefault();
 
     if(!this.tooManyChoices()) {
-      var allChoices = this.state.listChoices.concat(("Choice" + this.state.listChoices.length));
-      this.setState({listChoices:allChoices});
+      var allChoices = this.state.listChoices.concat(("Choice" + this.state.nbChoice));
+      this.setState({listChoices:allChoices, nbChoice: this.state.nbChoice + 1});
     }
 
   }
@@ -110,6 +111,7 @@ export default class Quiz extends Component {
     }
 
   selectQuiz() {
+    //this.props.callBack(!this.state.selected);
     this.setState({selected:!this.state.selected});
   }
 

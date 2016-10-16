@@ -14,7 +14,8 @@ export default class ActivityType extends Component {
     this.state = {
       lectureURL:"",
       videoURL:"",
-      nbQuestions:0,
+      //nbSelected:0,
+			nbQuiz:0, //need this to have unique keys
       listQuiz:[],
     }
   }
@@ -27,55 +28,67 @@ export default class ActivityType extends Component {
   enoughQuiz() {
     return this.state.listQuiz.length > 0;
   }
+	/*
+	countSelected(bool) {
+		var newCount = this.state.nbSelected;
+		if(bool) {
+			newCount += 1;
+		} else {
+			newCount -= 1;
+		}
+
+		this.setState({nbSelected: newCount});
+	}
+	*/
 
   haveFieldsCompleted() {
     switch (this.props.type) {
 
       case this.props.LECTURE_TYPE:
-      return this.state.lectureURL !== "";
+      	return this.state.lectureURL !== "";
 
       case this.props.VIDEO_TYPE:
-      return this.state.videoURL !== "";
+      	return this.state.videoURL !== "";
 
       case this.props.QUIZ_TYPE:
-			var lQuiz = this.state.listQuiz;
-      var quizzesFieldsCompleted = (lQuiz.length !== 0);
+				var lQuiz = this.state.listQuiz;
+	      var quizzesFieldsCompleted = (lQuiz.length !== 0);
 
-      lQuiz.forEach((ref) => {
-        var quiz = (this.refs[ref]);
-        quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
-      });
+	      lQuiz.forEach((ref) => {
+	        var quiz = (this.refs[ref]);
+	        quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
+	      });
 
-      return quizzesFieldsCompleted;
+      	return quizzesFieldsCompleted;
 
       default:
         return false; //If we don't know what type it is, we can't submit
-      }
+    }
+  }
+
+  areAnswersInChoices() {
+
+    var answersInChoices = true;
+
+    if(this.props.type === this.props.QUIZ_TYPE) {
+
+      this.state.listQuiz.forEach((ref) => {
+        var quiz = (this.refs[ref]);
+        answersInChoices = answersInChoices && quiz.isAnswerInChoices();
+      });
+
     }
 
-    areAnswersInChoices() {
-
-      var answersInChoices = true;
-
-      if(this.props.type === this.props.QUIZ_TYPE) {
-
-        this.state.listQuiz.forEach((ref) => {
-          var quiz = (this.refs[ref]);
-          answersInChoices = answersInChoices && quiz.isAnswerInChoices();
-        });
-
-      }
-
-      return answersInChoices;
-    }
+    return answersInChoices;
+  }
 
   //Used to create a quiz, when create button is hit. Creates only in the end of the list of quizzes.
   createQuiz(event) {
     event.preventDefault();
 
     if(!this.tooManyQuiz()) {
-      var allQuiz = this.state.listQuiz.concat((this.props.QUIZ_TYPE + this.state.listQuiz.length));
-      this.setState({listQuiz:allQuiz, nbQuestions: this.state.nbQuestions + 1});
+      var allQuiz = this.state.listQuiz.concat((this.props.QUIZ_TYPE + this.state.nbQuiz));
+      this.setState({listQuiz:allQuiz, nbQuiz: this.state.nbQuiz + 1});
     }
 
   }
@@ -113,6 +126,7 @@ export default class ActivityType extends Component {
       <div>
       {this.state.listQuiz.map((ref, i) =>
 				<Quiz ref={ref} key={ref} id={i}/>)}
+
       </div>
       );
   }
@@ -173,7 +187,8 @@ export default class ActivityType extends Component {
 					<button
 						type="delete"
 						onClick={this.cleanQuizList.bind(this)}
-						disabled={!this.enoughQuiz()}>Delete selected Questions</button>
+						disabled={!this.enoughQuiz()}>
+						Delete selected	Questions</button>
         </div>
         );
 
