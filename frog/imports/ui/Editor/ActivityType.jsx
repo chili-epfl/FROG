@@ -15,7 +15,7 @@ export default class ActivityType extends Component {
       lectureURL:"",
       videoURL:"",
       nbSelected:0,
-			nbQuiz:0, //need this to have unique keys
+      nbQuiz:0, //need this to have unique keys
       listQuiz:[],
     }
   }
@@ -125,7 +125,10 @@ export default class ActivityType extends Component {
     return(
       <div>
       {this.state.listQuiz.map((ref, i) =>
-				<Quiz ref={ref} key={ref} id={i}
+				<Quiz
+					ref={ref}
+					key={ref}
+					id={i}
 					callBack={this.countSelected.bind(this)}/>)}
 
       </div>

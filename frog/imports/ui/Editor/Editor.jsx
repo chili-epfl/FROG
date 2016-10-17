@@ -22,8 +22,8 @@ export default class Editor extends Component {
 			<h2>Insert a new Activity:</h2>
 			<Activity ref="newActivity" />
 			<button
-			type="submit"
-			onClick={this.handleSubmit.bind(this)}>Submit</button>
+				type="submit"
+				onClick={this.handleSubmit.bind(this)}>Submit</button>
 			</div>
 		)
 	}

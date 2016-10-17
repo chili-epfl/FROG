@@ -58,6 +58,4 @@ export default class QuizChoice extends Component {
       </div>
       );
   }
-
-
 }

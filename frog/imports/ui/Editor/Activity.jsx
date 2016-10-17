@@ -23,9 +23,9 @@ export default class Activity extends Component {
 
   //To say if all form fields have been filled
   haveFieldsCompleted() {
-    return this.state.id !== "" &&
-    this.state.name !== "" &&
-    this.refs.activityType.haveFieldsCompleted();
+    return this.state.id !== ""
+    && this.state.name !== ""
+    && this.refs.activityType.haveFieldsCompleted();
   }
 
   areAnswersInChoices() {
