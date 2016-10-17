@@ -8,8 +8,8 @@ dependencies:
     - cd frog && npm install
 
 test: 
-  post: 
-    - pwd
+  post:
+    - cd frog && meteor test --once --driver-package dispatch:mocha-phantomjs
 
 checkout:
   post:
