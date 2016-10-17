@@ -8,12 +8,12 @@ Class used for the form to be dynamic and change when the user chooses between t
 */
 export default class ActivityType extends Component {
 
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
     this.state = {
-      nbQuiz:0, //need this to have unique keys
-      listQuiz:[],
+    nbQuiz:0, //need this to have unique keys
+    listQuiz:[],
     }
   }
 
@@ -30,22 +30,22 @@ export default class ActivityType extends Component {
     switch (this.props.type) {
 
       case this.props.LECTURE_TYPE:
-				return this.refs["lecturePath"].value.trim() !=="";
-      	//return this.state.lectureURL !== "";
+        return this.refs["lecturePath"].value.trim() !=="";
+
 
       case this.props.VIDEO_TYPE:
-      	return this.refs["videoURL"].value.trim() !== "";
+        return this.refs["videoURL"].value.trim() !== "";
 
       case this.props.QUIZ_TYPE:
-				var lQuiz = this.state.listQuiz;
-	      var quizzesFieldsCompleted = (lQuiz.length !== 0);
+        var lQuiz = this.state.listQuiz;
+        var quizzesFieldsCompleted = (lQuiz.length !== 0);
 
-	      lQuiz.forEach((ref) => {
-	        var quiz = (this.refs[ref]);
-	        quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
-	      });
+        lQuiz.forEach((ref) => {
+        var quiz = (this.refs[ref]);
+        quizzesFieldsCompleted = quizzesFieldsCompleted && quiz.haveFieldsCompleted();
+        });
 
-      	return quizzesFieldsCompleted;
+        return quizzesFieldsCompleted;
 
       default:
         return false; //If we don't know what type it is, we can't submit
@@ -110,58 +110,58 @@ export default class ActivityType extends Component {
   renderAllQuiz() {
     return(
       <div>
-      {this.state.listQuiz.map((ref, i) =>
-				<Quiz
-					ref={ref}
-					key={ref}
-					id={i}
-					refID={ref}
-					callBack={this.deleteQuiz.bind(this)}/>)}
+        {this.state.listQuiz.map((ref, i) =>
+        <Quiz
+          ref={ref}
+          key={ref}
+          id={i}
+          refID={ref}
+          callBack={this.deleteQuiz.bind(this)}/>)}
       </div>
-      );
+    );
   }
 
-	deleteQuiz(id) {
-		var newListQuiz = this.state.listQuiz.filter((ref) =>{
-			var quiz = (this.refs[ref]);
-			return quiz.props.refID != id;
-		});
+  deleteQuiz(id) {
+    var newListQuiz = this.state.listQuiz.filter((ref) =>{
+    var quiz = (this.refs[ref]);
+      return quiz.props.refID != id;
+    });
 
-		this.setState({listQuiz: newListQuiz});
-	}
+    this.setState({listQuiz: newListQuiz});
+  }
 
   //Renders according to the type given in the props
   renderType() {
     switch (this.props.type) {
       case this.props.LECTURE_TYPE:
-      return (
-        <div>
-	        <input
-		        type="text"
-		        ref ="lecturePath"
-		        placeholder="Enter the path"/><br/>
-        </div>
+        return (
+          <div>
+            <input
+              type="text"
+              ref ="lecturePath"
+              placeholder="Enter the path"/><br/>
+          </div>
         );
 
       case this.props.VIDEO_TYPE:
-      return (
-        <div>
-	        <input
-		        type="text"
-		        ref ="videoURL"
-		        placeholder="Enter the Youtube URL"/><br/>
-        </div>
+        return (
+          <div>
+            <input
+              type="text"
+              ref ="videoURL"
+              placeholder="Enter the Youtube URL"/><br/>
+          </div>
         );
 
       case this.props.QUIZ_TYPE:
-      return (
-        <div >
-	        <button
-		        type="submit"
-		        onClick={this.createQuiz.bind(this)}
-		        disabled={this.tooManyQuiz()}>Create new Question</button>
-		        {this.renderAllQuiz()}
-        </div>
+        return (
+          <div >
+            <button
+              type="submit"
+              onClick={this.createQuiz.bind(this)}
+              disabled={this.tooManyQuiz()}>Create new Question</button>
+            {this.renderAllQuiz()}
+          </div>
         );
 
       default:
@@ -173,10 +173,8 @@ export default class ActivityType extends Component {
   render() {
     return(
       <div>
-      	{this.renderType()}
+        {this.renderType()}
       </div>
-      )
+    )
   }
-
-
 }
