@@ -12,8 +12,6 @@ export default class ActivityType extends Component {
 		super(props);
 
     this.state = {
-      lectureURL:"",
-      videoURL:"",
       nbQuiz:0, //need this to have unique keys
       listQuiz:[],
     }
@@ -32,10 +30,11 @@ export default class ActivityType extends Component {
     switch (this.props.type) {
 
       case this.props.LECTURE_TYPE:
-      	return this.state.lectureURL !== "";
+				return this.refs["lecturePath"].value.trim() !=="";
+      	//return this.state.lectureURL !== "";
 
       case this.props.VIDEO_TYPE:
-      	return this.state.videoURL !== "";
+      	return this.refs["videoURL"].value.trim() !== "";
 
       case this.props.QUIZ_TYPE:
 				var lQuiz = this.state.listQuiz;
@@ -84,10 +83,10 @@ export default class ActivityType extends Component {
   generateAnswers() {
     switch (this.props.type) {
       case this.props.LECTURE_TYPE:
-      return ({path: this.state.lectureURL});
+      return ({path: this.refs["lecturePath"].value.trim()});
 
       case this.props.VIDEO_TYPE:
-      return ({url: this.state.videoURL});
+      return ({url: this.refs["videoURL"].value.trim()});
 
       case this.props.QUIZ_TYPE:
       return (this.generateQuizAnswers());
@@ -122,12 +121,6 @@ export default class ActivityType extends Component {
       );
   }
 
-  handleVideoOrURLChange(event) {
-    event.preventDefault();
-    this.setState({lectureURL:event.target.value.trim()});
-    this.setState({videoURL:event.target.value.trim()});
-  }
-
 	deleteQuiz(id) {
 		var newListQuiz = this.state.listQuiz.filter((ref) =>{
 			var quiz = (this.refs[ref]);
@@ -137,12 +130,6 @@ export default class ActivityType extends Component {
 		this.setState({listQuiz: newListQuiz});
 	}
 
-  handleVideoOrURLChange(event) {
-    event.preventDefault();
-    this.setState({lectureURL:event.target.value.trim()});
-    this.setState({videoURL:event.target.value.trim()});
-  }
-
   //Renders according to the type given in the props
   renderType() {
     switch (this.props.type) {
@@ -151,10 +138,8 @@ export default class ActivityType extends Component {
         <div>
 	        <input
 		        type="text"
-		        ref ="lectureURL"
-		        placeholder="Enter the path"
-		        onChange={this.handleVideoOrURLChange.bind(this)}
-		        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
+		        ref ="lecturePath"
+		        placeholder="Enter the path"/><br/>
         </div>
         );
 
@@ -163,10 +148,8 @@ export default class ActivityType extends Component {
         <div>
 	        <input
 		        type="text"
-		        ref ="videoPath"
-		        placeholder="Enter the Youtube URL"
-		        onChange={this.handleVideoOrURLChange.bind(this)}
-		        onSubmit={this.handleVideoOrURLChange.bind(this)} /><br/>
+		        ref ="videoURL"
+		        placeholder="Enter the Youtube URL"/><br/>
         </div>
         );
 
