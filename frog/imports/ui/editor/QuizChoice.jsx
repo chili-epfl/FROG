@@ -8,31 +8,14 @@ export default class QuizChoice extends Component {
 
   CHOICE_REF() {return "Choice "+(this.props.id+1); }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      choice:"",
-    }
-  }
-
   //To say if all sub-form fields have been filled
   haveFieldsCompleted() {
-    return this.state.choice !== "";
-  }
-
-  isSelected() {
-    return this.state.selected;
+    return this.refs[this.CHOICE_REF()].value.trim() !== "";
   }
 
   //Once requested, this component generates the sub-form answer
   getChoice() {
-    return this.state.choice;
-  }
-
-  handleChoiceChange(event) {
-    event.preventDefault();
-    this.setState({choice:event.target.value.trim()});
+    return this.refs[this.CHOICE_REF()].value.trim();
   }
 
   render() {
@@ -41,9 +24,7 @@ export default class QuizChoice extends Component {
         <label>{this.CHOICE_REF()}</label><br/>
         <input
           type="text"
-          ref={this.CHOICE_REF()}
-          onChange={this.handleChoiceChange.bind(this)}
-          onSubmit={this.handleChoiceChange.bind(this)}/>
+          ref={this.CHOICE_REF()} />
         <button
           type="delete"
           onClick={this.props.callBack.bind(this, this.props.refID)}>&times;</button>

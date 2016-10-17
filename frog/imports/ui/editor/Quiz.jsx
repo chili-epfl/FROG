@@ -15,8 +15,6 @@ export default class Quiz extends Component {
     super(props);
 
     this.state = {
-      question:"",
-      answer:"",
       nbChoice: 0, //need this to have unique keys
       listChoices:[],
     }
@@ -77,7 +75,8 @@ export default class Quiz extends Component {
       choicesFieldsCompleted = choicesFieldsCompleted && choice.haveFieldsCompleted();
     });
 
-    return this.state.question !== "" && choicesFieldsCompleted && this.state.answer !== "";
+    return this.refs[this.QUESTION_REF()].value.trim() !== ""
+      && choicesFieldsCompleted && this.refs[this.ANSWER_REF()].value.trim() !== "";
   }
 
   isAnswerInChoices() {
@@ -85,7 +84,8 @@ export default class Quiz extends Component {
     var answerInChoices = false;
     this.state.listChoices.forEach((ref) => {
       var choice = (this.refs[ref]);
-      answerInChoices = answerInChoices || (this.state.answer === choice.getChoice());
+      answerInChoices = answerInChoices
+        || (this.refs[this.ANSWER_REF()].value.trim() === choice.getChoice());
     });
     return answerInChoices;
   }
@@ -104,20 +104,11 @@ export default class Quiz extends Component {
 
   //Once requested, this component generates the sub-form answer
   generateQuiz() {
-    var text = {question: this.state.question,
+    var text = {question: this.refs[this.QUESTION_REF()].value.trim(),
       choices: this.generateChoicesAnswers(),
-      answer: this.state.answer,}
-      return text;
-    }
+      answer: this.refs[this.ANSWER_REF()].value.trim()};
 
-  handleQuestionChange(event) {
-    event.preventDefault();
-    this.setState({question:event.target.value.trim()});
-  }
-
-  handleAnswerChange(event) {
-    event.preventDefault();
-    this.setState({answer:event.target.value.trim()});
+    return text;
   }
 
   render() {
@@ -134,10 +125,7 @@ export default class Quiz extends Component {
           <br/>
           <input
             type="text"
-            ref={this.QUESTION_REF()}
-            onChange={this.handleQuestionChange.bind(this)}
-            onSubmit={this.handleQuestionChange.bind(this)} /><br/>
-
+            ref={this.QUESTION_REF()} /><br/>
           <div>
             <button
               type="submit"
@@ -149,9 +137,7 @@ export default class Quiz extends Component {
           <label>{this.ANSWER_REF()}</label><br/>
           <input
             type="text"
-            ref={this.ANSWER_REF()}
-            onChange={this.handleAnswerChange.bind(this)}
-            onSubmit={this.handleAnswerChange.bind(this)}/><br/>
+            ref={this.ANSWER_REF()}/><br/>
         </fieldset>
       </div>
     );
