@@ -4,7 +4,7 @@ machine:
 dependencies:
   override:
     - curl https://install.meteor.com | /bin/sh
-    - npm install
+    - cd frog && npm install
 checkout:
   post:
     - git submodule update --init
