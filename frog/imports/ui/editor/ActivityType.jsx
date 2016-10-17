@@ -14,7 +14,6 @@ export default class ActivityType extends Component {
     this.state = {
       lectureURL:"",
       videoURL:"",
-      nbSelected:0,
       nbQuiz:0, //need this to have unique keys
       listQuiz:[],
     }
@@ -28,18 +27,6 @@ export default class ActivityType extends Component {
   enoughQuiz() {
     return this.state.listQuiz.length > 0;
   }
-
-	countSelected(bool) {
-		var newCount = this.state.nbSelected;
-		if(bool) {
-			newCount += 1;
-		} else {
-			newCount -= 1;
-		}
-
-		this.setState({nbSelected: newCount});
-	}
-
 
   haveFieldsCompleted() {
     switch (this.props.type) {
@@ -129,22 +116,25 @@ export default class ActivityType extends Component {
 					ref={ref}
 					key={ref}
 					id={i}
-					callBack={this.countSelected.bind(this)}/>)}
-
+					refID={ref}
+					callBack={this.deleteQuiz.bind(this)}/>)}
       </div>
       );
   }
 
-	//Keep only the unselected quizzes
-	cleanQuizList(event) {
-		event.preventDefault();
+  handleVideoOrURLChange(event) {
+    event.preventDefault();
+    this.setState({lectureURL:event.target.value.trim()});
+    this.setState({videoURL:event.target.value.trim()});
+  }
 
+	deleteQuiz(id) {
 		var newListQuiz = this.state.listQuiz.filter((ref) =>{
 			var quiz = (this.refs[ref]);
-			return !quiz.isSelected();
+			return quiz.props.refID != id;
 		});
 
-		this.setState({listQuiz: newListQuiz, nbSelected: 0});
+		this.setState({listQuiz: newListQuiz});
 	}
 
   handleVideoOrURLChange(event) {
@@ -188,12 +178,6 @@ export default class ActivityType extends Component {
 		        onClick={this.createQuiz.bind(this)}
 		        disabled={this.tooManyQuiz()}>Create new Question</button>
 		        {this.renderAllQuiz()}
-					<button
-						type="delete"
-						onClick={this.cleanQuizList.bind(this)}
-						disabled={!this.enoughQuiz()}>
-						Delete {this.state.nbSelected} selected
-						Question{this.state.nbSelected < 2 ? '' : 's'}</button>
         </div>
         );
 
@@ -206,7 +190,7 @@ export default class ActivityType extends Component {
   render() {
     return(
       <div>
-      {this.renderType()}
+      	{this.renderType()}
       </div>
       )
   }

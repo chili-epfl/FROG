@@ -17,9 +17,7 @@ export default class Quiz extends Component {
     this.state = {
       question:"",
       answer:"",
-      selected: false,
       nbChoice: 0, //need this to have unique keys
-      nbSelected: 0,
       listChoices:[],
     }
   }
@@ -63,7 +61,8 @@ export default class Quiz extends Component {
           ref={ref}
           key={ref}
           id={i}
-          callBack={this.countSelected.bind(this)}/>)}
+          refID={ref}
+          callBack={this.deleteChoice.bind(this)}/>)}
       </div>
       );
   }
@@ -91,30 +90,15 @@ export default class Quiz extends Component {
     return answerInChoices;
   }
 
-  isSelected() {
-    return this.state.selected;
-  }
-
-  countSelected(bool) {
-    var newCount = this.state.nbSelected;
-    if(bool) {
-      newCount += 1;
-    } else {
-      newCount -= 1;
-    }
-
-    this.setState({nbSelected: newCount});
-  }
-
   //Keep only the unselected choices
-  cleanChoiceList(event) {
+  deleteChoice(id) {
     event.preventDefault();
     var newChoiceList = this.state.listChoices.filter((ref) =>{
       var choice = (this.refs[ref]);
-      return !choice.isSelected();
+      return choice.props.refID != id;
     });
 
-    this.setState({listChoices: newChoiceList, nbSelected: 0});
+    this.setState({listChoices: newChoiceList});
 
   }
 
@@ -125,11 +109,6 @@ export default class Quiz extends Component {
       answer: this.state.answer,}
       return text;
     }
-
-  selectQuiz() {
-    this.props.callBack(!this.state.selected);
-    this.setState({selected:!this.state.selected});
-  }
 
   handleQuestionChange(event) {
     event.preventDefault();
@@ -146,10 +125,12 @@ export default class Quiz extends Component {
       <div >
         <fieldset>
           <label>{this.QUESTION_REF()}</label>
-          <input type="checkbox"
-            readOnly
-            checked={this.state.selected}
-            onClick={this.selectQuiz.bind(this)}/>
+          <button
+            type="delete"
+            onClick={this.props.callBack.bind(this, this.props.refID)}>
+            &times;
+          </button>
+
           <br/>
           <input
             type="text"
@@ -158,20 +139,12 @@ export default class Quiz extends Component {
             onSubmit={this.handleQuestionChange.bind(this)} /><br/>
 
           <div>
-          <button
-            type="submit"
-            onClick={this.createChoice.bind(this)}
-            disabled={this.tooManyChoices()}>Create new Choice</button><br/><br/>
-          {this.renderAllChoices()}<br/>
-          <button
-            type="delete"
-            onClick={this.cleanChoiceList.bind(this)}
-            disabled={!this.enoughChoices()}>
-            Delete {this.state.nbSelected} Selected
-            Choice{this.state.nbSelected < 2 ? '' : 's'}</button>
-
-          </div>
-          <br/>
+            <button
+              type="submit"
+              onClick={this.createChoice.bind(this)}
+              disabled={this.tooManyChoices()}>Create new Choice</button><br/><br/>
+            {this.renderAllChoices()}<br/>
+          </div><br/>
 
           <label>{this.ANSWER_REF()}</label><br/>
           <input

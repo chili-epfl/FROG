@@ -13,7 +13,6 @@ export default class QuizChoice extends Component {
 
     this.state = {
       choice:"",
-      selected: false,
     }
   }
 
@@ -31,11 +30,6 @@ export default class QuizChoice extends Component {
     return this.state.choice;
   }
 
-  selectChoice() {
-    this.props.callBack(!this.state.selected);
-    this.setState({selected: !this.state.selected});
-  }
-
   handleChoiceChange(event) {
     event.preventDefault();
     this.setState({choice:event.target.value.trim()});
@@ -50,11 +44,9 @@ export default class QuizChoice extends Component {
           ref={this.CHOICE_REF()}
           onChange={this.handleChoiceChange.bind(this)}
           onSubmit={this.handleChoiceChange.bind(this)}/>
-        <input
-          type="checkbox"
-          readOnly
-          onClick={this.selectChoice.bind(this)}
-          checked={this.state.selected} /><br/>
+        <button
+          type="delete"
+          onClick={this.props.callBack.bind(this, this.props.refID)}>&times;</button>
       </div>
       );
   }
