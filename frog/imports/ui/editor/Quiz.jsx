@@ -62,7 +62,7 @@ export default class Quiz extends Component {
           refID={ref}
           callBack={this.deleteChoice.bind(this)}/>)}
       </div>
-      );
+    );
   }
 
   //To say if all sub-form fields have been filled

@@ -100,11 +100,11 @@ export default class Activity extends Component {
 
         </form>
 
-      <ActivityType
-        ref="activityType" type={this.state.type}
-        LECTURE_TYPE={this.LECTURE_TYPE()}
-        QUIZ_TYPE={this.QUIZ_TYPE()}
-        VIDEO_TYPE={this.VIDEO_TYPE()}/>
+        <ActivityType
+          ref="activityType" type={this.state.type}
+          LECTURE_TYPE={this.LECTURE_TYPE()}
+          QUIZ_TYPE={this.QUIZ_TYPE()}
+          VIDEO_TYPE={this.VIDEO_TYPE()}/>
 
       </div>
       )
