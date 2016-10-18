@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 /*
-Class used to display a QCM Choices
+Class used to display a MCQ Choices
 */
 export default class QuizChoice extends Component {
 

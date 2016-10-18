@@ -3,7 +3,7 @@ import QuizChoice from './QuizChoice.jsx';
 
 
 /*
-Class used to display a QCM
+Class used to display a MCQ
 */
 export default class Quiz extends Component {
 

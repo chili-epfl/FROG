@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Activity from './Activity.jsx';
+import { Activities } from '../../api/activities.js';
 
 export default class Editor extends Component {
 
@@ -12,7 +13,10 @@ export default class Editor extends Component {
       alert("Not all answers are in the choices !");
     }
     else {
-      alert(JSON.stringify(this.refs.newActivity.generateActivity()));
+      var item = this.refs.newActivity.generateActivity();
+      Activities.remove(item['_id']);
+      Activities.insert(item);
+      alert("Your actitvity has been added in the repository.");
     }
   }
 

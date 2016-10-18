@@ -89,7 +89,7 @@ export default class ActivityType extends Component {
       return ({url: this.refs["videoURL"].value.trim()});
 
       case this.props.QUIZ_TYPE:
-      return (this.generateQuizAnswers());
+      return ({questions: this.generateQuizAnswers()});
 
       default:
       return("");

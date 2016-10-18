@@ -57,7 +57,7 @@ export default class Activity extends Component {
   //Once requested, this component generates the whole form answer
   generateActivity() {
     var text =   {_id: this.state.id,
-     type: this.state.type,
+     type: this.state.type.toLowerCase(),
      name: this.state.name,
      plane: this.state.plane,
      object: this.refs.activityType.generateAnswers(), };
