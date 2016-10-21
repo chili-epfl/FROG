@@ -25,3 +25,4 @@ accounts-password
 react-meteor-data
 tmeasday:presence
 check
+dispatch:mocha-phantomjs
