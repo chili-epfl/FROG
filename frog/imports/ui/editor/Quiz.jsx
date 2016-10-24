@@ -92,7 +92,6 @@ export default class Quiz extends Component {
 
   //Keep only the unselected choices
   deleteChoice(id) {
-    event.preventDefault();
     var newChoiceList = this.state.listChoices.filter((ref) =>{
       var choice = (this.refs[ref]);
       return choice.props.refID != id;
