@@ -12,5 +12,9 @@
     "react-addons-pure-render-mixin": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2"
+  },
+  "scripts": {
+    "test": "meteor test --once --driver-package dispatch:mocha-phatomjs",
+    "start": "meteor run"
   }
 }
