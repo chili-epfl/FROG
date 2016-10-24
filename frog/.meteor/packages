@@ -24,4 +24,6 @@ accounts-ui@1.1.9
 accounts-password@1.3.0
 react-meteor-data
 practicalmeteor:mocha
+tmeasday:presence
+check
 dispatch:mocha-phantomjs

@@ -90,6 +90,7 @@ templating-runtime@1.2.15
 templating-tools@1.0.5
 tmeasday:check-npm-versions@0.2.0
 tmeasday:test-reporter-helpers@0.2.1
+tmeasday:presence@1.0.6
 tracker@1.1.0
 ui@1.0.12
 underscore@1.0.9
