@@ -17,7 +17,6 @@ export default class Editor extends Component {
     }
     else {
       var item = this.refs.newActivity.generateActivity();
-      Activities.remove(item['_id']);
       Activities.insert(item);
       alert("Your actitvity has been added in the repository.");
     }
