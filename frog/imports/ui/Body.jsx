@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Repository from './repository/Repository.jsx';
-import Editor from './Editor/Editor.jsx';
+import Editor from './editor/Editor.jsx';
 import Engine from './Engine.jsx';
 import Analytics from './Analytics.jsx';
 import Admin from './Admin.jsx';
@@ -13,7 +13,7 @@ export default class Body extends Component {
   render() {
     // The Body components is the main component of the application
     // It simply performs a switch on the app property set by the App component
-    if (this.props.currentUser) {
+    //if (this.props.currentUser) {
       switch(this.props.app) {
         case "home":
           return (<Home />);
@@ -29,9 +29,9 @@ export default class Body extends Component {
           return (<Admin />);
         default:
           return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
-    } else {
-      return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP. HELLO.</p>);
-    }
+    //} else {
+      //return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP. HELLO.</p>);
+    //}
   };
 }
 
