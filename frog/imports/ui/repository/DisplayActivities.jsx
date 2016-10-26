@@ -3,52 +3,9 @@ import { Activities } from '../../api/activities.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
 import  Activity  from './Activity.jsx';
-import DisplayActivities from './DisplayActivities.jsx';
-import DisplayGraphs from './DisplayGraphs.jsx';
 
-export default class Repository extends Component {
+export default class DisplayActivities extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      content: "activity",
-    }
-  }
-
-  handleRadio(event) {
-    event.preventDefault();
-    this.setState({content: event.target.value});
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Select what to display </h1>
-        <form>
-          <input
-            type="radio"
-            name="contentSelector"
-            value="activity"
-            checked
-            onChange={this.handleRadio.bind(this)}/>Activities
-
-          <input
-            type="radio"
-            name="contentSelector"
-            value="graph"
-            onChange={this.handleRadio.bind(this)}/>Graphs
-      
-        </form>
-
-        {this.state.content == 'activity' ?
-          <DisplayActivities key='activity'/> : <DisplayGraphs key='graph'/>}
-      </div>
-    );
-  }
-
-}
-/*
   constructor(props) {
     super(props);
     this.state = {
@@ -128,8 +85,6 @@ export default class Repository extends Component {
   }
 
   renderListActivities() {
-
-
     return (
       this.props.activities ?
         this.props.activities
@@ -187,11 +142,10 @@ export default class Repository extends Component {
       );
   }
 
-
 }
 
 
-Repository.propTypes = {
+DisplayActivities.propTypes = {
   activities: PropTypes.array.isRequired,
 };
 
@@ -199,5 +153,4 @@ export default createContainer(() => {
   return {
     activities: Activities.find({}).fetch(),
   };
-}, Repository);
-*/
+}, DisplayActivities);
