@@ -5,10 +5,13 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "chai": "^3.5.0",
+    "enzyme": "^2.5.1",
     "check": "^1.0.0",
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.3.2",
     "react-addons-pure-render-mixin": "^15.3.2",
+    "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2"
   },
   "scripts": {
