@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
 import  Activity  from './Activity.jsx';
 
-export default class Repository extends Component {
+class Repository extends Component {
 
   constructor(props) {
     super(props);

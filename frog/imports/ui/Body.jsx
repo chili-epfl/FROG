@@ -9,7 +9,7 @@ import Home from './Home.jsx';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-export default class Body extends Component {
+class Body extends Component {
   render() {
     // The Body components is the main component of the application
     // It simply performs a switch on the app property set by the App component
