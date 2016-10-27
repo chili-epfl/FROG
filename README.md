@@ -7,6 +7,7 @@ Fabricating and running orchestration graphs
 
 - run the commands
     * `meteor npm install`
+    * If you have problem with bcrypt you can try `meteor npm install --python=python2.7`
     * `meteor`
 
 - Go to http://localhost:3000/ on your browser
