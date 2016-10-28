@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Messages } from '../api/messages.js';
 
-export default class Home extends Component {
+class Home extends Component {
 
   renderUsers(){
     return (

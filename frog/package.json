@@ -2,18 +2,27 @@
   "name": "frog",
   "private": true,
   "scripts": {
+    "test": "meteor test --once --driver-package dispatch:mocha-phantomjs",
     "start": "meteor run"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
+    "chai": "^3.5.0",
     "check": "^1.0.0",
+    "enzyme": "^2.5.1",
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.3.2",
     "react-addons-pure-render-mixin": "^15.3.2",
+<<<<<<< HEAD
     "react-dom": "^15.3.2",
     "react-player": "^0.12.0"
   },
   "scripts": {
     "test": "meteor test --once --driver-package dispatch:mocha-phantomjs",
     "start": "meteor run"
+=======
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2"
+>>>>>>> develop
   }
 }

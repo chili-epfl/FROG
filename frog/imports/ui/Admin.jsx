@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Activities } from '../api/activities.js'; 
 import { Graphs } from '../api/graphs.js'; 
 
-export default class Admin extends Component {
+class Admin extends Component {
 
   createBasicActivities() {
     const activityItems = [

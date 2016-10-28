@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
 import  Activity  from './Activity.jsx';
 
-export default class Repository extends Component {
+class Repository extends Component {
 
   constructor(props) {
     super(props);
@@ -17,7 +17,7 @@ export default class Repository extends Component {
         3: true,
       },
       type: {
-        lecture: true, 
+        lecture: true,
         quiz: true,
         video: true,
       },
@@ -29,17 +29,19 @@ export default class Repository extends Component {
   toggleFilter(filter, value) {
 
     if (filter == "type") {
-      this.state.type[value] = !this.state.type[value];
+      var updatedType = this.state.type;
+      updatedType[value] = !updatedType[value];
 
       this.setState({
-        type: this.state.type,
+        type: updatedType,
       });
 
     } else {
-      this.state.plane[value] = ! this.state.plane[value];
+      var updatedPlane = this.state.plane;
+      updatedPlane[value] = !updatedPlane[value];
 
       this.setState({
-        plane: this.state.plane,
+        plane: updatedPlane,
       });
     }
   }
@@ -78,7 +80,7 @@ export default class Repository extends Component {
   handleFilterNameSubmit(event) {
     event.preventDefault();
   }
-  
+
   handleFilterNameChange(event) {
     event.preventDefault();
     this.setState({nameFilterText:event.target.value.trim()});
