@@ -18,5 +18,16 @@ const zip = function(xs) {
   });
 }
 
+export const config = {
+  title: 'Configuration for Random Group Formation',
+  type: 'object',
+  properties: {
+    'groupSize': {
+      type: 'number',
+      title: 'Group size'
+    },
+  }
+}
+
 // Obviously assumes even array
-export default (names) => zip(splitAt(names.length/2, shuffle(names)))
+export const operator = (names) => zip(splitAt(names.length/2, shuffle(names)))
