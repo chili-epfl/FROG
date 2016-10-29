@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Repository from './repository/Repository.jsx';
-import Editor from './Editor.jsx';
+import Editor from './editor/Editor.jsx';
 import Engine from './Engine.jsx';
 import Analytics from './Analytics.jsx';
 import Admin from './Admin.jsx';
@@ -9,7 +9,7 @@ import Home from './Home.jsx';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-export default class Body extends Component {
+class Body extends Component {
   render() {
     // The Body components is the main component of the application
     // It simply performs a switch on the app property set by the App component

@@ -6,7 +6,7 @@ import  Activity  from './Activity.jsx';
 import DisplayActivities from './DisplayActivities.jsx';
 import DisplayGraphs from './DisplayGraphs.jsx';
 
-export default class Repository extends Component {
+class Repository extends Component {
 
   constructor(props) {
     super(props);
@@ -72,17 +72,19 @@ export default class Repository extends Component {
   toggleFilter(filter, value) {
 
     if (filter == "type") {
-      this.state.type[value] = !this.state.type[value];
+      var updatedType = this.state.type;
+      updatedType[value] = !updatedType[value];
 
       this.setState({
-        type: this.state.type,
+        type: updatedType,
       });
 
     } else {
-      this.state.plane[value] = ! this.state.plane[value];
+      var updatedPlane = this.state.plane;
+      updatedPlane[value] = !updatedPlane[value];
 
       this.setState({
-        plane: this.state.plane,
+        plane: updatedPlane,
       });
     }
   }
