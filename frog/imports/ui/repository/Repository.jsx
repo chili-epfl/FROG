@@ -6,7 +6,7 @@ import  Activity  from './Activity.jsx';
 import DisplayActivities from './DisplayActivities.jsx';
 import DisplayGraphs from './DisplayGraphs.jsx';
 
-class Repository extends Component {
+export default class Repository extends Component {
 
   constructor(props) {
     super(props);
@@ -38,7 +38,7 @@ class Repository extends Component {
             name="contentSelector"
             value="graph"
             onChange={this.handleRadio.bind(this)}/>Graphs
-      
+
         </form>
 
         {this.state.content == 'activity' ?

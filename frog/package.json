@@ -10,6 +10,7 @@
     "chai": "^3.5.0",
     "check": "^1.0.0",
     "enzyme": "^2.5.1",
+    "highcharts": "^5.0.2",
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.3.2",
     "react-addons-pure-render-mixin": "^15.3.2",
