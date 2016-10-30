@@ -27,14 +27,14 @@ export default class Editor extends Component {
           type="radio" 
           value="activity"
           readOnly
-          //checked={this.state.editorType === "activity"}
+          checked={this.state.editorType === "activity"}
           onChange={this.handleEditorChange.bind(this)}
           />Activity<br/>
         <input 
           type="radio" 
           value="graph"
           readOnly
-          //checked={this.state.editorType === "graph"} 
+          checked={this.state.editorType === "graph"} 
           onChange={this.handleEditorChange.bind(this)}
           />Graph<br/>
          </form> 
