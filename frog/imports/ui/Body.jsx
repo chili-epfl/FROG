@@ -1,8 +1,7 @@
-<<<<<<< HEAD
-﻿import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Repository from './repository/Repository.jsx';
-import Editor from './Editor.jsx';
+import Editor from './editor/Editor.jsx';
 import Engine from './engine/Engine.jsx';
 import Analytics from './Analytics.jsx';
 import Admin from './Admin.jsx';
