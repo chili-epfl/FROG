@@ -4,7 +4,6 @@ import { Activities } from '../../api/activities.js';
 
 export default class ActivityEditor extends Component {
 
-  //For now, we show the result of the form with an alert, but of course it'll be then added to the database.
   handleSubmit() {
     if(!this.refs.newActivity.haveFieldsCompleted()) {
       alert("Not all fields have been filled !");
