@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ReactDOM from 'react-dom';
 import  ActivityDisplay  from './ActivityDisplay.jsx';
 
-export default class Engine extends Component {
+class Engine extends Component {
 
   constructor(props) {
     super(props);
