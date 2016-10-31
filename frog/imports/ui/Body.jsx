@@ -6,6 +6,7 @@ import Engine from './Engine.jsx';
 import Analytics from './Analytics.jsx';
 import Admin from './Admin.jsx';
 import Home from './Home.jsx';
+import Activities from './Activities.jsx'
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -27,6 +28,8 @@ class Body extends Component {
           return (<Analytics />);
         case "admin":
           return (<Admin />);
+        case "activities":
+          return (<Activities />);
         default:
           return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
     } else {
