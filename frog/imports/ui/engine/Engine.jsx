@@ -112,7 +112,7 @@ class Engine extends Component {
 
     return (
         <div>
-          <h2>Activities:</h2>
+          <h2>Activities Selector:</h2>
 
           <form className="input-filter-name"
             onSubmit={this.handleFilterNameSubmit.bind(this)}>
