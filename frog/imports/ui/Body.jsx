@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Repository from './repository/Repository.jsx';
 import Editor from './editor/Editor.jsx';
-import Engine from './Engine.jsx';
+import Engine from './engine/Engine.jsx';
 import Analytics from './Analytics.jsx';
 import Admin from './Admin.jsx';
 import Home from './Home.jsx';
@@ -30,7 +30,7 @@ class Body extends Component {
         default:
           return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
     } else {
-      return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP. HELLO.</p>);
+      return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP.</p>);
     }
   };
 }
