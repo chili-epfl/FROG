@@ -29,7 +29,9 @@ class Engine extends Component {
     }
   }
   getActivity = () => {
-    cur = this.props.activities.filter(x => x._id == this.props.appstate.currentActivity)[0]
+    const cur = this.props.activities.length > 0 ?  
+      this.props.activities.filter(x => x._id == this.props.appstate.currentActivity)[0] :
+      null
     return cur
   }
     
@@ -48,6 +50,7 @@ class Engine extends Component {
         } />
         </td></tr></tbody></table>
         <h1>Log</h1>
+        <button onClick={() => this.props.log.forEach(x => Log.remove({_id: x._id})) }>Remove all</button> 
         <table>
           <tbody>
         { take(reverse(sortBy(this.props.log, 'created_at', false)),10).map(x => <tr key={x._id} style={{color: ColorHash.hex(x.user)}}><td>{x.created_at}</td><td>{x.user}</td><td>{x.message}</td></tr>) }

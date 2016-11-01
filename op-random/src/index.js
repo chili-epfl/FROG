@@ -31,3 +31,5 @@ export const config = {
 
 // Obviously assumes even array
 export const operator = (names) => zip(splitAt(names.length/2, shuffle(names)))
+
+export default {operator: operator, config: config}

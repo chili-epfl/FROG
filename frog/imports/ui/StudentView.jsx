@@ -13,13 +13,13 @@ const getSpecificActivity = (activities, id) =>
    activities.filter(x => x._id == id)[0]
 
 const RunActivity = ( { activity } ) => {
-  runActivity = getActivity(activity.activity_type)
+  const runActivity = getActivity(activity.activity_type)
   return(<runActivity.activity config = { activity.data } logger={createLogger({activity: activity._id, user: Meteor.userId()}) }/>)
 }
 
 const createLogger = (merge) => { 
-  logger = (x) => {
-    logentry = {...merge, _id: uuid(), created_at: Date(), message: x}
+  const logger = (x) => {
+    const logentry = {...merge, _id: uuid(), created_at: Date(), message: x}
     Log.insert(logentry)
   }
   return logger

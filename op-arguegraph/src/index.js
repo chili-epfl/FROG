@@ -47,3 +47,4 @@ export const config = {
 }
 
 export const operator = () => null
+export default {operator: operator, config: config}

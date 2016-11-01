@@ -52,3 +52,5 @@ export const activity = ( { config, logger }) =>
     onProgress={(x) => logger('progress' + JSON.stringify(x))}
   />
 
+
+export default {activity: activity, config: config, meta: meta}

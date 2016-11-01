@@ -28,3 +28,5 @@ export const config = {
 
 export const activity = ( { config }) => 
   <div><h1>{config.title}</h1>{config.text}</div>
+
+export default {activity: activity, config: config, meta: meta}

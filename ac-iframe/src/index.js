@@ -26,3 +26,6 @@ export const activity = ({ config }) =>
         <div>
           <iframe src = {config.url} width={750} height={600} />
         </div>
+
+
+export default {activity: activity, config: config, meta: meta}
