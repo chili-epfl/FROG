@@ -41,7 +41,7 @@ export default class QuestionDisplay extends Component {
 
   render() {
     return (
-      <div key={this.props.key}>
+      <div>
         {this.props.question}<br/>
         {this.renderQuestionChoices()}
         <button onClick={this.checkQuestion.bind(this)}>Submit Answer</button>
