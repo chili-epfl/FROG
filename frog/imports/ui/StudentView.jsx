@@ -26,7 +26,7 @@ const createLogger = (merge) => {
 }
 
 const ActivityBody = ({appstate, activities}) => 
-  appstate.currentActivity ? <RunActivity activity={getSpecificActivity(activities, appstate.currentActivity)} /> : null
+  appstate.currentActivity ? <RunActivity activity={getSpecificActivity(activities, appstate.currentActivity)} /> : <h1>Pause</h1>
 
 export default createContainer(() => {
   return {

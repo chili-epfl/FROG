@@ -11,13 +11,13 @@ const ColorHash = new colorHash
 
 import Activities from '../activities'
 
-const getActivity = (id) => Activities.filter(x => x.meta.id == id)[0]
-
 const ActivityList = ( { activities, setFn } ) => { return(
+  <div>
   <ul>
       { activities.map(x => <li key={x._id}><a href='#' onClick={() => setFn(x)}>{x.data.name}</a></li>) }
-      { activities.length > 0 ? <button onClick={ () => activities.forEach(x => Act.remove({_id: x._id})) }>Remove all</button> : null }
   </ul>
+  <button onClick={() => setFn({_id: null})} >Pause</button>
+    </div>
 )}
 
 class Engine extends Component {
@@ -40,7 +40,7 @@ class Engine extends Component {
           <tbody>
             <tr><td>
         <h1>Running activity</h1>
-        { this.getActivity() ? this.getActivity().data.name  : null }
+        { this.getActivity() ? this.getActivity().data.name  : 'Paused' }
         </td><td>
         <h1>Activity list</h1>
         <ActivityList activities={this.props.activities} setFn={

@@ -26,7 +26,7 @@ const createLogger = (merge) => {
 
 const ActivityList = ( { activities, setFn } ) => { return(
   <ul>
-      { activities.map(x => <li key={x._id}><a href='#' onClick={() => setFn(x)}>{x.data.name}</a></li>) }
+      { activities.map(x => <li key={x._id}>{x.data.name}</li>) }
       { activities.length > 0 ? <button onClick={ () => activities.forEach(x => Act.remove({_id: x._id})) }>Remove all</button> : null }
   </ul>
 )}
@@ -50,17 +50,13 @@ class ActivityBody extends Component {
   render() {
     return(
       <div>
-        <h1>Running activity</h1>
-        { this.state.currentActivity ? <RunActivity activity={this.state.currentActivity} /> : null } 
-        <hr />
-        <h1>Log</h1>
-        { take(reverse(sortBy(this.props.log, 'created_at', false)),10).map(x => <li key={x._id}>da{x.created_at}: USER {x.user} MSG {x.message}</li>) }
+        { this.state.form ? <Form schema={this.state.form.config} onSubmit={(data) => this.addActivity(this.state.form.meta.id, data.formData)}
+            liveValidate={true} /> : null }
+          <hr />
         <h1>Activity list</h1>
         <ActivityList activities={this.props.activities} setFn={(x) => this.setState({currentActivity: x})} />
         <hr />
         <h1>Add activity</h1>
-        { this.state.form ? <Form schema={this.state.form.config} onSubmit={(data) => this.addActivity(this.state.form.meta.id, data.formData)}
-            liveValidate={true} /> : null }
       {Activities.map((x) => 
         <li key={x.meta.id}><a href='#' onClick={() => this.setState({form: x})}>{x.meta.name}</a></li>)}
       </div>
