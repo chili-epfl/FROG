@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
+import { objectize } from '../../lib/utils'
 
 import Activities from '../activities'
 import Form from "react-jsonschema-form";
@@ -53,7 +54,7 @@ class ActivityBody extends Component {
         { this.state.currentActivity ? <RunActivity activity={this.state.currentActivity} /> : null } 
         <hr />
         <h1>Log</h1>
-        { take(reverse(sortBy(this.props.log, 'created_at', false)),10).map(x => <li key={x._id}>{x.created_at}: USER {x.user} MSG {x.message}</li>) }
+        { take(reverse(sortBy(this.props.log, 'created_at', false)),10).map(x => <li key={x._id}>da{x.created_at}: USER {x.user} MSG {x.message}</li>) }
         <h1>Activity list</h1>
         <ActivityList activities={this.props.activities} setFn={(x) => this.setState({currentActivity: x})} />
         <hr />
@@ -71,6 +72,6 @@ class ActivityBody extends Component {
 export default createContainer(() => {
   return {
     activities: Act.find({}).fetch(),
-    log: Log.find({}).fetch()
+    log: Log.find({}).fetch(),
   }
 }, ActivityBody)

@@ -7,6 +7,7 @@ import Analytics from './Analytics.jsx';
 import Admin from './Admin.jsx';
 import Home from './Home.jsx';
 import Activities from './Activities.jsx'
+import StudentView from './StudentView.jsx'
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -30,6 +31,8 @@ class Body extends Component {
           return (<Admin />);
         case "activities":
           return (<Activities />);
+        case "studentview":
+          return (<StudentView />);
         default:
           return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
     } else {
