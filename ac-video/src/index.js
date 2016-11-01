@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
+import { booleanize } from 'frog-utils'
 
 export const meta = {
   id: 'ac-video',
@@ -39,10 +40,15 @@ export const config = {
   }
 }
 
-const booleanize = (bool) => (bool == 'true') ? true : false
 
-export const activity = ( { config }) => <ReactPlayer 
-  url={config.url}
-  playing={booleanize(config.playing)}
-  loop={booleanize(config.loop)}
-/>
+export const activity = ( { config, logger }) => 
+  <ReactPlayer 
+    url={config.url}
+    playing={booleanize(config.playing)}
+    loop={booleanize(config.loop)}
+    onStart={() => logger('starting play')}
+    onPause={() => logger('pausing video')}
+    onEnded={() => logger('video ended')}
+    onProgress={(x) => logger('progress' + JSON.stringify(x))}
+  />
+

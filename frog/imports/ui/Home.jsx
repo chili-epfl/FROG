@@ -87,7 +87,7 @@ Home.propTypes = {
 export default createContainer(() => {
   return {
     currentUser: Meteor.userId(),
-    messages: Messages.find({}, {sort:{createdAt: -1}}).fetch(),
+    messages: Messages.find({}, {sort:{createdAt: 1}, limit: 10}).fetch(),
     presentUsers: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true }}).fetch(),
   };
 }, Home);

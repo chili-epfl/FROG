@@ -24,5 +24,5 @@ export const config = {
 
 export const activity = ({ config }) => 
         <div>
-          <iframe src = {config.url} width={750} />
+          <iframe src = {config.url} width={750} height={600} />
         </div>
