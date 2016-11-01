@@ -31,4 +31,3 @@ npm link ac-iframe
 npm link ac-form
 npm link ac-text
 npm install
-meteor install
