@@ -1,37 +1,26 @@
 #!/bin/bash
-cd frog-utils
+FROG=`pwd`
+
+# install package frog-utils
+cd $FROG/frog-utils
 npm install
 npm link
-cd ../ac-form
+
+# install activities and operators packages
+for dir in `ls $FROG/ac |grep 'ac'` `ls $FROG/op |grep 'op'`
+do
+    cd $FROG/$dir
+    npm link frog-utils
+    npm install
+    npm link
+done
+
+# links all packages to the frog/ meteor project
+cd $FROG/frog
 npm link frog-utils
-npm install
-npm link
-cd ../ac-iframe
-npm link frog-utils
-npm install
-npm link
-cd ../ac-text
-npm link frog-utils
-npm install
-npm link
-cd ../ac-video
-npm link frog-utils
-npm install
-npm link
-cd ../op-random
-npm link frog-utils
-npm install
-npm link
-cd ../op-arguegraph
-npm link frog-utils
-npm install
-npm link
-cd ../FROG
-npm link frog-utils
-npm link op-random
-npm link op-arguegraph
-npm link ac-video
-npm link ac-iframe
-npm link ac-form
-npm link ac-text
-npm install
+for dir in `ls $FROG/ac |grep 'ac'` `ls $FROG/op |grep 'op'`
+do
+    npm link $dir
+done
+
+npm install --python=python2.7
