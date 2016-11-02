@@ -7,9 +7,9 @@ npm install
 npm link
 
 # install activities and operators packages
-for dir in `ls $FROG/ac |grep 'ac'` `ls $FROG/op |grep 'op'`
+for dir in $FROG/ac/ac-*/ $FROG/op/op-*/
 do
-    cd $FROG/$dir
+    cd $dir
     npm link frog-utils
     npm install
     npm link
