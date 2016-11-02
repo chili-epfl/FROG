@@ -2,15 +2,15 @@
 cd frog-utils
 npm install
 npm link
-cd ac-form
+cd ../ac-form
 npm link frog-utils
 npm install
 npm link
-cd ac-iframe
+cd ../ac-iframe
 npm link frog-utils
 npm install
 npm link
-cd op-random
+cd ../op-random
 npm link frog-utils
 npm install
 npm link
