@@ -16,6 +16,7 @@
     "react-addons-pure-render-mixin": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-iframe": "0.0.4",
     "react-jsonschema-form": "^0.40.0"
   },
   "devDependencies": {

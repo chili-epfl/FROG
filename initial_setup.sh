@@ -23,4 +23,4 @@ do
     npm link $dir
 done
 
-npm install --python=python2.7
+npm install
