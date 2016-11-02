@@ -10,15 +10,19 @@ cd ../ac-iframe
 npm link frog-utils
 npm install
 npm link
+cd ../ac-text
+npm link frog-utils
+npm install
+npm link
+cd ../ac-video
+npm link frog-utils
+npm install
+npm link
 cd ../op-random
 npm link frog-utils
 npm install
 npm link
 cd ../op-arguegraph
-npm link frog-utils
-npm install
-npm link
-cd ../ac-video
 npm link frog-utils
 npm install
 npm link
