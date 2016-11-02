@@ -4,4 +4,3 @@ import acText from 'ac-text'
 import acForm from 'ac-form'
 
 export default [acVideo, acIframe, acText, acForm]
-console.log([acVideo, acIframe, acText, acForm])

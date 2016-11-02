@@ -4,7 +4,7 @@ import Body from './Body.jsx';
 import HeaderButton from './HeaderButton.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-const apps = ["home","repository","editor","engine","analytics","admin", "activities", "studentview"];
+const apps = ["home","repository","editor","teacherview"];
 
 const Buttons = ({apps, changeFn}) => {
   return(

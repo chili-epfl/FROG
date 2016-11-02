@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Act, Log, AppState } from '../api/act'
+import { Activities, Logs } from '../api/db'
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, find } from 'lodash'
 import { objectize } from '../../lib/utils'
 
-import Activities from '../activities'
+import ActivityTypes from '../activities'
 
 const getActivity = (id) => Activities.filter(x => x.meta.id == id)[0]
+
 const getSpecificActivity = (activities, id) => 
    activities.filter(x => x._id == id)[0]
 
@@ -26,11 +27,10 @@ const createLogger = (merge) => {
 }
 
 const ActivityBody = ({appstate, activities}) => 
-  appstate.currentActivity ? <RunActivity activity={getSpecificActivity(activities, appstate.currentActivity)} /> : <h1>Pause</h1>
+  false ? <RunActivity activity={getSpecificActivity(null,null)} /> : <h1>Pause</h1>
 
 export default createContainer(() => {
   return {
-    activities: Act.find({}).fetch(),
-    appstate: objectize(AppState.find({}).fetch())
+    activities: Activities.find({}).fetch(),
   }
 }, ActivityBody)
