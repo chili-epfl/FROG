@@ -1,36 +1,31 @@
-import React, { Component } from 'react';
-import { Act, Log, AppState } from '../api/act'
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { uuid } from 'frog-utils'
-import { sortBy, reverse, take, find } from 'lodash'
-import { objectize } from '../../lib/utils'
+import React from 'react'
+import { Meteor } from 'meteor/meteor'
+import { createContainer } from 'meteor/react-meteor-data'
 
-import Activities from '../activities'
-
-const getActivity = (id) => Activities.filter(x => x.meta.id == id)[0]
-const getSpecificActivity = (activities, id) => 
-   activities.filter(x => x._id == id)[0]
+import { activity_types_obj } from '../activity_types'
+import { createLogger } from '../api/log'
+import { objectize} from '../../lib/utils'
+import { AppState } from '../api/appstate'
 
 const RunActivity = ( { activity } ) => {
-  const runActivity = getActivity(activity.activity_type)
-  return(<runActivity.activity config = { activity.data } logger={createLogger({activity: activity._id, user: Meteor.userId()}) }/>)
+  const activity_type = activity_types_obj[activity.activity_type]
+  console.log(activity_type)
+  const logger = createLogger({
+    activity: activity._id, 
+    activity_type: activity.activity_type, 
+    user: Meteor.userId()})
+
+  return(<activity_type.ActivityRunner 
+    config = {activity.data} 
+    logger = { logger } />)
 }
 
-const createLogger = (merge) => { 
-  const logger = (x) => {
-    const logentry = {...merge, _id: uuid(), created_at: Date(), message: x}
-    Log.insert(logentry)
-  }
-  return logger
-}
+// either show the current activity, or Pause
+const ActivityBody = ( { currentActivity } ) => 
+  currentActivity && currentActivity._id ? 
+    <RunActivity activity={currentActivity} /> : 
+    <h1>Pause</h1>
 
-const ActivityBody = ({appstate, activities}) => 
-  appstate.currentActivity ? <RunActivity activity={getSpecificActivity(activities, appstate.currentActivity)} /> : <h1>Pause</h1>
-
-export default createContainer(() => {
-  return {
-    activities: Act.find({}).fetch(),
-    appstate: objectize(AppState.find({}).fetch())
-  }
-}, ActivityBody)
+export default createContainer(() => ({
+    currentActivity: objectize(AppState.find({}).fetch()).currentActivity
+  }) , ActivityBody)

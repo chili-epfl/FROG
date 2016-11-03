@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactIframe from 'react-iframe'
 
 export const meta = {
-  id: 'ac-text',
   name: 'HTML text component',
   type: 'react-component'
 }
@@ -26,7 +25,7 @@ export const config = {
   }
 }
 
-export const activity = ( { config }) => 
+export const ActivityRunner = ( { config }) => 
   <div><h1>{config.title}</h1>{config.text}</div>
 
-export default {activity: activity, config: config, meta: meta}
+export default { id: 'ac-text', ActivityRunner: ActivityRunner, config: config, meta: meta }

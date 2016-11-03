@@ -1,61 +1,85 @@
 import React, { Component } from 'react';
-import { Act, Log, AppState } from '../api/act'
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { uuid } from 'frog-utils'
-import { find, sortBy, reverse, take } from 'lodash'
+import { chain, sortBy, reverse, take } from 'lodash'
 import colorHash from 'color-hash'
+import { uuid } from 'frog-utils'
+
 import { objectize } from '../../lib/utils'
+import { activity_types } from '../api/activities'
+import { AppState } from '../api/appstate'
+import { Activities } from '../api/activities'
+import { Log, flushLogs } from '../api/log'
+
 const ColorHash = new colorHash
 
+const Activity = ({ data, setFn }) => 
+  <li key = {data._id}>
+    <a href='#' onClick={ () => setFn() }>
+      {data.data.name}
+    </a>
+  </li>
 
-import Activities from '../activities'
-
-const ActivityList = ( { activities, setFn } ) => { return(
+const ActivityList = ({ activities, setFn }) =>  
   <div>
-  <ul>
-      { activities.map(x => <li key={x._id}><a href='#' onClick={() => setFn(x)}>{x.data.name}</a></li>) }
-  </ul>
-  <button onClick={() => setFn({_id: null})} >Pause</button>
+    <ul>
+      { activities.map(x => <Activity data = {x} key = {x._id} setFn = {() => setFn(x)} />) }
+    </ul>
+
+    <button onClick={() => setFn({_id: null})} >Pause</button>
+  </div>
+
+
+const LogEntry = ({ logdata }) => 
+  <tr style={{color: ColorHash.hex(logdata.user)}}>
+    <td>{logdata.created_at}</td>
+    <td>{logdata.user}</td>
+    <td>{logdata.message}</td>
+  </tr>
+
+const LogView = ({ logstream }) => {
+  const logs = 
+    chain(logstream).
+    sortBy('created_at', false).
+    reverse().
+    take(10).
+    value()
+  
+  return(
+    <div>
+      <h1>Log</h1>
+      <button onClick={flushLogs}>
+        Remove all
+      </button> 
+      <table>
+        <tbody>
+          { logs.map(x => <LogEntry logdata = {x} key = {x._id} />) }
+        </tbody>
+      </table>
     </div>
-)}
+  )
+}
+
 
 class Engine extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      form: false,
-      currentActivity: null
-    }
+    this.state = { form: false }
   }
-  getActivity = () => {
-    const cur = this.props.activities.length > 0 ?  
-      this.props.activities.filter(x => x._id == this.props.appstate.currentActivity)[0] :
-      null
-    return cur
-  }
-    
-    render() {
+  
+  render() {
     return(
       <div>
-        <table>
-          <tbody>
-            <tr><td>
-        <h1>Running activity</h1>
-        { this.getActivity() ? this.getActivity().data.name  : 'Paused' }
-        </td><td>
-        <h1>Activity list</h1>
-        <ActivityList activities={this.props.activities} setFn={
-          (x) => AppState.upsert( 'currentActivity', {$set: {value: x._id}} )
-        } />
-        </td></tr></tbody></table>
-        <h1>Log</h1>
-        <button onClick={() => this.props.log.forEach(x => Log.remove({_id: x._id})) }>Remove all</button> 
-        <table>
-          <tbody>
-        { take(reverse(sortBy(this.props.log, 'created_at', false)),10).map(x => <tr key={x._id} style={{color: ColorHash.hex(x.user)}}><td>{x.created_at}</td><td>{x.user}</td><td>{x.message}</td></tr>) }
-      </tbody>
-      </table>
+        <h3>Running activity</h3>
+        { this.props.currentActivity && this.props.currentActivity._id ? 
+          this.props.currentActivity.data.name  :
+            <i>Paused</i> }
+        <h3>Activity list</h3>
+        <ActivityList 
+          activities = {this.props.activities} 
+          setFn={ (x) => AppState.upsert( 'currentActivity', {$set: {value: x}} ) } />
+        <hr />
+        <LogView logstream = {this.props.log} />
       </div>
     )
   }
@@ -64,9 +88,9 @@ class Engine extends Component {
 
 export default createContainer(() => {
   return {
-    activities: Act.find({}).fetch(),
+    activities: Activities.find({}).fetch(),
     log: Log.find({}).fetch(),
-    appstate: objectize(AppState.find({}).fetch())
+    currentActivity: objectize(AppState.find({}).fetch()).currentActivity
   }
 }, Engine)
 
