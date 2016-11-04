@@ -6,7 +6,7 @@ import { uuid } from 'frog-utils';
 import { sortBy, reverse, take, find } from 'lodash';
 import { objectize } from '../../lib/utils';
 
-import { createLogger } from '../api/log';
+import { createLogger } from '../api/logs';
 import { Sessions } from '../api/sessions';
 
 import { activity_types_obj } from '../activity_types';

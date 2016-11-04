@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 
 import Body from './Body.jsx';
-import HeaderButton from './HeaderButton.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 const apps = ["home","repository","editor","teacherview","studentview"];
 
-const HeaderButton = ( { onClick, data } ) => { return (
-  <p className="select" onClick={onClick}>{data}</p>
-)}
-
 const Buttons = ({apps, changeFn}) => { return(
   <div>
     {apps.map(app => (
-      <HeaderButton data={{id: app, onClick: () => changeFn(app)}} key={app}/>
+      <p className="select" onClick={() => changeFn(app)} key={app}>{app}</p>
     ))}
   </div>
   )

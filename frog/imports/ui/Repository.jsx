@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Activities, Graphs } from '../api/db';
 import { createContainer } from 'meteor/react-meteor-data';
-import ReactDOM from 'react-dom';
+
+import { Activities } from '../api/activities';
+import { Graphs } from '../api/graphs';
 
 class Repository extends Component {
 

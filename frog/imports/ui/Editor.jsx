@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Activities, Graphs } from '../api/db'
-import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data'
+import Form from 'react-jsonschema-form'
+
+import { Activities, addActivity } from '../api/activities';
+import { Graphs } from '../api/graphs';import { Meteor } from 'meteor/meteor';
+
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
 import { objectize } from '../../lib/utils'
 
-import ActivityTypes from '../activities'
-import Form from 'react-jsonschema-form'
+import { activity_types } from '../activity_types';
 
 const ActivityList = ( { activities } ) => { return(
   <ul> { 
@@ -40,9 +42,9 @@ class ActivityBody extends Component {
     }
   }
 
-  addActivity = (type, data) => {
+  addActivity(type, data) {
     this.setState({ form: null })
-    Activities.insert({_id: uuid(), activity_type: type, data: data, created_at: new Date()})
+    addActivity(type, data);
   }
 
   render() {
@@ -60,7 +62,7 @@ class ActivityBody extends Component {
         <ActivityList activities={this.props.activities} />
         <hr />
         <h1>Add activity</h1>
-        <ActivityTypeList activity_types={ActivityTypes} />
+        <ActivityTypeList activity_types={activity_types} />
       </div>
     )
   }
