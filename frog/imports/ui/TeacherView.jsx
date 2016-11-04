@@ -26,7 +26,7 @@ const SessionControl = ( { id, activities } ) => {
   const session = getCurrentSession(id);
   return(
     <div>
-      <p>Controling {id}, state={session.state}, activity={session.activity}</p>
+      <p>session={id}, state={session.state}, activity={session.activity}</p>
       <ul> { 
         activities.map((activity) => 
           <li key={activity._id}>
@@ -39,7 +39,8 @@ const SessionControl = ( { id, activities } ) => {
       <button onClick={() => changeCurrentSessionState(id,'PAUSED') }>Pause</button>
       <button onClick={() => changeCurrentSessionState(id,'STOPPED')}>Stop </button>
     </div>
-)}
+  )
+}
 
 const SessionList = ( { sessions, setSession } ) => { return(
   <ul> { 
@@ -57,8 +58,7 @@ class TeacherView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentSession:null,
-      a:'a'
+      currentSession:null
     }
   }
 
@@ -73,7 +73,7 @@ class TeacherView extends Component {
           />
           : <p>Chose a session</p>
         }
-        
+
         <h1>Session list</h1>
         <button onClick={ () => Sessions.insert({state:"CREATED"}) }>Add session</button>
         <SessionList sessions={this.props.sessions} setSession={ (id) => this.setState({currentSession:id}) } />

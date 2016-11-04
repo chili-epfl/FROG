@@ -71,7 +71,6 @@ class Home extends Component {
       </div>
     );
   }
-
 }
 
 function onlyUnique(value, index, self) { 
@@ -88,6 +87,6 @@ export default createContainer(() => {
   return {
     currentUser: Meteor.userId(),
     messages: Messages.find({}, {sort:{createdAt: -1}, limit: 10}).fetch(),
-    presentUsers: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true }}).fetch(),
+    presentUsers: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true } }).fetch(),
   };
 }, Home);
