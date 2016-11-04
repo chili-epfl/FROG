@@ -5,5 +5,4 @@ import '../imports/api/graphs.js';
 
 import '../imports/api/sessions.js';
 
-import '../imports/api/appstate.js';
 import '../imports/api/logs.js';

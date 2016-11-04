@@ -12,7 +12,7 @@ import { Activities } from '../api/activities';
 
 import { activity_types_obj } from '../activity_types';
 
-const setUserCurrentSession = (session_id) => {
+const setStudentSession = (session_id) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.currentSession':session_id}})
 }
 
@@ -20,7 +20,7 @@ const SessionList = ( { sessions } ) => { return(
   <ul> { 
     sessions.filter((session) => session.state=='CREATED').map((session) => 
       <li key={session._id}>
-        <button onClick={ () => setUserCurrentSession(session._id) }>Join</button>
+        <button onClick={ () => setStudentSession(session._id) }>Join</button>
         {session.state}
         {session._id}
       </li>

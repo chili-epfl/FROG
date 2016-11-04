@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor'
 import { uuid } from 'frog-utils'
 
-export const Logs = new Mongo.Collection('log');
+export const Logs = new Mongo.Collection('logs');
 
 // generates a logging function which is pre-loaded with a JSON object
 // the logging function is called with a message, and inserts into the
