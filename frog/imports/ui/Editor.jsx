@@ -13,36 +13,44 @@ import { activity_types } from '../activity_types';
 
 const ActivityList = ( { activities } ) => { return(
   <ul> { 
-    activities.map((x) => 
-      <li key={x._id}>
-        <button onClick={ () => Activities.remove({_id: x._id}) }>x</button>
-        {x.data.name}
+    activities.map((activity) => 
+      <li key={activity._id}>
+        <button onClick={ () => Activities.remove({_id: activity._id}) }>x</button>
+        {activity.data.name}
       </li>
     ) 
   } </ul>
 )}
 
-const ActivityTypeList = ( { activity_types } ) => {
+const ActivityTypeList = ( { activity_types, setFn } ) => {
   return(
   <ul> { 
-    activity_types.map((x) => 
-      <li key={x.id}>
-        <a href='#' onClick={() => this.setState({form: x})}>{x.meta.name}</a>
+    activity_types.map((activity_type) => 
+      <li key={activity_type.id}>
+        <a href='#' onClick={() => setFn(activity_type)}>{activity_type.meta.name}</a>
       </li>
     )
   } </ul>
+)}
+
+const ActivityForm = ( { form, submit } ) => { return (
+  form ? 
+    <Form 
+      schema={form.config} 
+      onSubmit={(data) => submit(form.id, data.formData)}
+      liveValidate={true} /> 
+  : <p>Please chose an activity type</p>
 )}
 
 class ActivityBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: false,
-      currentActivity: null
+      form: null
     }
   }
 
-  addActivity(type, data) {
+  submitAddActivity(type, data) {
     this.setState({ form: null })
     addActivity(type, data);
   }
@@ -50,19 +58,15 @@ class ActivityBody extends Component {
   render() {
     return(
       <div>
-        { this.state.form ? 
-          <Form 
-            schema={this.state.form.config} 
-            onSubmit={(data) => this.addActivity(this.state.form.meta.id, data.formData)}
-            liveValidate={true} /> 
-          : null 
-        }
+        <h1>Form</h1>
+        <ActivityForm form={this.state.form} submit={this.submitAddActivity.bind(this)}/>
+        <pre>{JSON.stringify(this.state, null, 2)}</pre>
         <hr />
         <h1>Activity list</h1>
         <ActivityList activities={this.props.activities} />
         <hr />
         <h1>Add activity</h1>
-        <ActivityTypeList activity_types={activity_types} />
+        <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
       </div>
     )
   }
