@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Form from "react-jsonschema-form";
 
 export const meta = {
-  id: 'ac-form',
   name: 'Simple form',
   type: 'react-component'
 }
@@ -27,7 +26,7 @@ export const config = {
 }
 
 // Obviously assumes even array
-export const activity = ({ config, logger, result }) => {
+export const ActivityRunner = ({ config, logger, result }) => {
   const propdef = config.questions.split(',').reduce(
     (acc, x, i) => ({...acc, [i + '']: { type: 'string', title: x}}),
     {} )
@@ -41,5 +40,4 @@ export const activity = ({ config, logger, result }) => {
   )
 }
 
-
-export default { meta: meta, config: config, activity: activity }
+export default { id: 'ac-form', meta: meta, config: config, ActivityRunner: ActivityRunner }

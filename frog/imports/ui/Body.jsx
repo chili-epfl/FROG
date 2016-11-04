@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
+import Home from './Home.jsx';
 import Repository from './Repository.jsx';
 import Editor from './Editor.jsx';
-import Engine from './Engine.jsx';
-import Analytics from './Analytics.jsx';
-import Home from './Home.jsx';
-import StudentView from './StudentView.jsx'
-import TeacherView from './TeacherView.jsx'
+import StudentView from './StudentView.jsx';
+import TeacherView from './TeacherView.jsx';
+
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -22,10 +21,6 @@ class Body extends Component {
           return (<Repository />);
         case "editor":
           return (<Editor />);
-        case "engine":
-          return (<Engine />);
-        case "analytics":
-          return (<Analytics />);
         case "studentview":
           return (<StudentView />);
         case "teacherview":

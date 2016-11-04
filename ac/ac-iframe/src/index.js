@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactIframe from 'react-iframe'
 
 export const meta = {
-  id: 'ac-iframe',
   name: 'Embedded website',
   type: 'react-component'
 }
@@ -22,10 +21,10 @@ export const config = {
   }
 }
 
-export const activity = ({ config }) => 
+export const ActivityRunner = ({ config }) => 
         <div>
           <iframe src = {config.url} width={750} height={600} />
         </div>
 
 
-export default {activity: activity, config: config, meta: meta}
+export default { id: 'ac-iframe', ActivityRunner: ActivityRunner, config: config, meta: meta }

@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactPlayer from 'react-player'
 import { booleanize } from 'frog-utils'
 
 export const meta = {
-  id: 'ac-video',
   name: 'Video player',
   type: 'react-component'
 }
@@ -41,7 +40,7 @@ export const config = {
 }
 
 
-export const activity = ( { config, logger }) => 
+export const ActivityRunner = ( { config, logger }) => 
   <ReactPlayer 
     url={config.url}
     playing={booleanize(config.playing)}
@@ -53,4 +52,4 @@ export const activity = ( { config, logger }) =>
   />
 
 
-export default {activity: activity, config: config, meta: meta}
+export default { id: 'ac-video', ActivityRunner: ActivityRunner, config: config, meta: meta }
