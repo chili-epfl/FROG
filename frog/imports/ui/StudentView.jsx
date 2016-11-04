@@ -8,6 +8,7 @@ import { objectize } from '../../lib/utils';
 
 import { createLogger } from '../api/logs';
 import { Sessions } from '../api/sessions';
+import { Activities } from '../api/activities';
 
 import { activity_types_obj } from '../activity_types';
 
@@ -27,24 +28,25 @@ const SessionList = ( { sessions } ) => { return(
   } </ul>
 )}
 
-const RunActivity = ( { activity } ) => {
-  const activity_type = activity_types_obj[activity.activity_type]
-  console.log(activity_type)
-  const logger = createLogger({
-    activity: activity._id, 
-    activity_type: activity.activity_type, 
-    user: Meteor.userId()})
+const ActivityBody = ( { activity } ) => {
+  const Runner = ( { activity } ) => {
+    const activity_type = activity_types_obj[activity.activity_type]
 
-  return(<activity_type.ActivityRunner 
-    config = {activity.data} 
-    logger = { logger } />)
+    const logger = createLogger({
+      activity: activity._id, 
+      activity_type: activity.activity_type, 
+      user: Meteor.userId()
+    })
+    return(<activity_type.ActivityRunner config={activity.data} logger={logger}/>)
+  }
+  return(activity ? <Runner activity={activity}/>:<p>No activity selected</p>)
 }
 
 const SessionBody = ( { session } ) =>  { return (
   session ? 
     <div>
       <p>session={session._id}, state={session.state}, activity={session.activity}</p> 
-      <RunActivity activity={Activities.findOne({_id:session.activity})} />
+      <ActivityBody activity={Activities.findOne({_id:session.activity})} />
     </div>
     : <p>Please chose a sesssion</p> 
 )}

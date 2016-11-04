@@ -8,7 +8,7 @@ import colorHash from 'color-hash';
 import { objectize } from '../../lib/utils';
 
 import { AppState } from '../api/appstate';
-import { addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
+import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
 import { Activities } from '../api/activities';
 import { Logs, flushLogs } from '../api/logs';
 
@@ -20,14 +20,14 @@ const SessionControl = ( { id, activities } ) => {
       <ul> { 
         activities.map((activity) => 
           <li key={activity._id}>
-            <button onClick={() => changeCurrentSessionActivity(id,activity._id)}>Select</button>
+            <button onClick={() => updateSessionActivity(id,activity._id)}>Select</button>
             {activity.data.name}
           </li>
         )
       } </ul>
-      <button onClick={() => changeCurrentSessionState(id,'STARTED')}>Start</button>
-      <button onClick={() => changeCurrentSessionState(id,'PAUSED') }>Pause</button>
-      <button onClick={() => changeCurrentSessionState(id,'STOPPED')}>Stop </button>
+      <button onClick={() => updateSessionState(id,'STARTED')}>Start</button>
+      <button onClick={() => updateSessionState(id,'PAUSED') }>Pause</button>
+      <button onClick={() => updateSessionState(id,'STOPPED')}>Stop </button>
     </div>
   )
 }

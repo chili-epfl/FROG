@@ -26,7 +26,7 @@ const ActivityTypeList = ( { activity_types } ) => {
   return(
   <ul> { 
     activity_types.map((x) => 
-      <li key={x.meta.id}>
+      <li key={x.id}>
         <a href='#' onClick={() => this.setState({form: x})}>{x.meta.name}</a>
       </li>
     )

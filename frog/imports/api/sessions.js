@@ -13,7 +13,7 @@ export const addSession = () => {
   })
 }
 
-export const changeCurrentSessionState = (id,state) => {
+export const updateSessionState = (id,state) => {
   Sessions.update({_id:id},{$set: {state:state}})
 }
 
