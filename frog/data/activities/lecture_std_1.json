@@ -1,9 +1,0 @@
-{
-  "_id": "lecture_std_1",
-  "type": "lecture",
-  "name": "Lecture about the standard deviation",
-  "plane": 1,
-  "object": {
-    "path": "path"
-  }
-}
