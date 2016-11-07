@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Quiz from './Quiz.jsx';
+import QuizSchema from './QuizSchema.jsx';
 
 
 /*
@@ -156,11 +157,7 @@ export default class ActivityType extends Component {
       case this.props.QUIZ_TYPE:
         return (
           <div >
-            <button
-              type="submit"
-              onClick={this.createQuiz.bind(this)}
-              disabled={this.tooManyQuiz()}>Create new Question</button>
-            {this.renderAllQuiz()}
+            <QuizSchema ref="quizzes" />
           </div>
         );
 

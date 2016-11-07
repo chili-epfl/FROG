@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GraphActivity from './GraphActivity.jsx';
+import TestGoogleCharts from './TestGoogleCharts.jsx';
 
 /*
 Class used to display the form to create a new graph
@@ -139,6 +140,8 @@ export default class Graph extends Component {
               disabled={this.tooManyActivities()}>Add an activity</button><br/><br/>
 
         {this.renderAllActivities()}
+
+        <TestGoogleCharts />
 
       </div>
     );

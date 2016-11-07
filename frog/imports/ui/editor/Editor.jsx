@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ActivityEditor from './ActivityEditor.jsx';
 import GraphEditor from './GraphEditor.jsx';
 import { Activities } from '../../api/activities.js';
+import QuizSchema from './QuizSchema.jsx';
 
 export default class Editor extends Component {
 
@@ -19,6 +20,7 @@ export default class Editor extends Component {
   }
 
   render() {
+
     return(
       <div>
         <h2>Editor</h2>
