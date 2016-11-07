@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactIframe from 'react-iframe'
 
 export const meta = {
   name: 'HTML text component',
