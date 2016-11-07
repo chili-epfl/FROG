@@ -6,17 +6,15 @@ import { Messages } from '../api/messages.js';
 
 class Home extends Component {
 
-  renderUsers(){
-    return (
-      this.props.presentUsers ? 
-      this.props.presentUsers
-        .map((user)=> user.userId)
+  renderActiveUserList(){ return (
+      this.props.activeUsers
+        .map((user) => user.userId)
         .filter(onlyUnique)
-        .map((userId) =>
-          <li key={userId}>{Meteor.users.findOne({_id: userId}).username}</li>
-      ) : <li>empty</li>
-    );
-  }
+        .map((userId) => Meteor.users.findOne({_id:userId}))
+        // removes undefined
+        .filter((user) => user)
+        .map((user) => <li key={user._id}>{user.username}</li>)
+  );}
 
   handleMessage(event) {
     event.preventDefault();
@@ -31,19 +29,16 @@ class Home extends Component {
     }
   }
 
-  renderMessages(){
-    return (
-      this.props.messages ?
-      this.props.messages.map((msg) => (
-        <li key={msg._id}><b>{msg.username} on {msg.createdAt.toUTCString()}:</b> {msg.text}</li>))
-      : <li>No Messages yet</li>
-    );
-  }
+  renderMessages() { return (
+    this.props.messages.map((msg) => (
+      <li key={msg._id}><b>{msg.username} on {msg.createdAt.toUTCString()}:</b> {msg.text}</li>)
+    )
+  )}
 
   getPresentCount(){
     return (
-      this.props.presentUsers ? 
-      this.props.presentUsers
+      this.props.activeUsers ? 
+      this.props.activeUsers
         .map((user)=> user.userId)
         .filter(onlyUnique)
         .length : 0
@@ -53,11 +48,11 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <p>Welcome to FROG project</p>
-        <h3>Active Users:</h3>
+        <h1>Welcome to FROG project</h1>
+        <h1>Active Users</h1>
         <p> There are {this.getPresentCount()} online users.</p>
-        <p> {this.renderUsers()} </p>
-        <h3>Chat Box:</h3>
+        <p> {this.renderActiveUserList()} </p>
+        <h1>Chat Box</h1>
         <form className="chatbox"
           onInput={this.handleMessage.bind(this)}
           onSubmit={this.handleMessageSubmit.bind(this)}>
@@ -80,13 +75,13 @@ function onlyUnique(value, index, self) {
 Home.propTypes = {
   currentUser: PropTypes.string,
   messages: PropTypes.array.isRequired,
-  presentUsers: PropTypes.array.isRequired,
+  activeUsers: PropTypes.array.isRequired,
 };
 
 export default createContainer(() => {
   return {
     currentUser: Meteor.userId(),
     messages: Messages.find({}, {sort:{createdAt: -1}, limit: 10}).fetch(),
-    presentUsers: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true } }).fetch(),
+    activeUsers: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true } }).fetch(),
   };
 }, Home);
