@@ -10,8 +10,10 @@ import { createLogger } from '../api/logs';
 import { Sessions } from '../api/sessions';
 import { Activities } from '../api/activities';
 import { ActivityData, reactiveData } from '../api/activity_data';
+import CollabRunner from './student_view/CollabRunner.jsx'
 
 import { activity_types_obj } from '../activity_types';
+window.meteor = Meteor
 
 const setStudentSession = (session_id) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.currentSession':session_id}})
@@ -30,6 +32,14 @@ const SessionList = ( { sessions } ) => { return(
   } </ul>
 )}
 
+// hard-coding for testing purposes
+const social_structure = {
+  "Z7HN7hvJqPg5eiHwQ": 1,
+  "swDPDmYLk9vBT9Agj": 1,
+  "56CCzkmP79ePebWJ7": 2,
+  "42GRqF7KkjKJfddeb": 2
+}
+
 // should be separated into its own file
 const Runner = ( { activity } ) => {
   const activity_type = activity_types_obj[activity.activity_type]
@@ -41,22 +51,11 @@ const Runner = ( { activity } ) => {
   })
 
   if(activity_type.meta.mode == 'collab') { 
-    const reactiveFn = reactiveData(1, 1, 1)
-    const runner = <activity_type.ActivityRunner 
-      config={activity.data} 
+    return <CollabRunner 
+      activity={activity} 
       logger={logger} 
-      reactiveFn = {reactiveFn} /> 
-
-      // //        reactive: ActivityData.find({session_id: 1, activity_id: 1, group_id: 1}).fetch() 
-      // const ex = createContainer(() => {
-      //   return {
-      //     sessions: Sessions.find().fetch(),
-      //     user: Meteor.users.findOne({_id:Meteor.userId()})
-      //   }
-      // }, runner)
-    // runwrapped = ex
-  return runner
-
+      session_id={1} 
+      group_id={social_structure[Meteor.userId()]} />
   } else {
     return <activity_type.ActivityRunner 
       config={activity.data} 
@@ -89,6 +88,7 @@ const StudentView = ( { user, sessions } ) => { return(
 export default createContainer(() => {
   return {
     sessions: Sessions.find().fetch(),
-    user: Meteor.users.findOne({_id:Meteor.userId()})
+    user: Meteor.users.findOne({_id:Meteor.userId()}),
+    reactive: ActivityData.find({session_id: 1, activity_id: 1, group_id: 1}).fetch() 
   }
 }, StudentView)
