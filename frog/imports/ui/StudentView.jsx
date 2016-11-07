@@ -28,7 +28,7 @@ const SessionList = ( { sessions } ) => { return(
   } </ul>
 )}
 
-const ActivityBody = ( { activity } ) => {
+const ActivityBody = ( { activity, state } ) => {
   const Runner = ( { activity } ) => {
     const activity_type = activity_types_obj[activity.activity_type]
 
@@ -39,14 +39,18 @@ const ActivityBody = ( { activity } ) => {
     })
     return(<activity_type.ActivityRunner config={activity.data} logger={logger}/>)
   }
-  return(activity ? <Runner activity={activity}/>:<p>No activity selected</p>)
+  return(state=='STARTED'?
+    (activity ? 
+      <Runner activity={activity}/>
+      :<h1>No activity selected</h1>)
+    :<h1>Paused</h1>)
 }
 
 const SessionBody = ( { session } ) =>  { return (
   session ? 
     <div>
       <p>session={session._id}, state={session.state}, activity={session.activity}</p> 
-      <ActivityBody activity={Activities.findOne({_id:session.activity})} />
+      <ActivityBody activity={Activities.findOne({_id:session.activity})} state={session.state}/>
     </div>
     : <p>Please chose a sesssion</p> 
 )}
