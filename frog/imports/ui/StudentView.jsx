@@ -36,10 +36,10 @@ const social_structure = {
   "Z7HN7hvJqPg5eiHwQ": 1,
   "swDPDmYLk9vBT9Agj": 1,
   "56CCzkmP79ePebWJ7": 2,
-  "42GRqF7KkjKJfddeb": 2
+  "42GRqF7KkjKDfddeb": 2
 }
 
-// should be separated into its own file
+
 const Runner = ( { activity } ) => {
   const activity_type = activity_types_obj[activity.activity_type]
 
@@ -60,11 +60,14 @@ const Runner = ( { activity } ) => {
       config={activity.data} 
       logger={logger} />
   }
-  return(state=='STARTED'?
+}
+
+const ActivityBody = ( { activity, state } ) => {
+  return(state=='STARTED' ?
     (activity ? 
-      <Runner activity={activity}/>
-      :<h1>No activity selected</h1>)
-    :<h1>Paused</h1>)
+      <Runner activity={activity}/> :
+        <h1>No activity selected</h1>) :
+      <h1>Paused</h1>)
 }
 
 const SessionBody = ( { session } ) =>  { return (
@@ -89,6 +92,5 @@ export default createContainer(() => {
   return {
     sessions: Sessions.find().fetch(),
     user: Meteor.users.findOne({_id:Meteor.userId()}),
-    reactive: ActivityData.find({session_id: 1, activity_id: 1, group_id: 1}).fetch() 
   }
 }, StudentView)

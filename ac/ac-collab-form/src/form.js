@@ -31,7 +31,7 @@ class CollabForm extends Component {
   render() { return(
     <Form 
       schema={this.formdef} 
-      formData={this.props.reactiveData && this.props.reactiveData.formData || {}}
+      formData={this.props.reactiveData.key && this.props.reactiveData.key.formData || {}}
       onSubmit={this.props.result} 
       onChange={this.onChange} />
   )}

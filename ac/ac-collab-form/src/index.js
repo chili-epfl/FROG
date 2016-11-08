@@ -1,5 +1,6 @@
 import React from 'react'
 import ActivityRunner from './form'
+import Chat from './chat'
 
 export const meta = {
   name: 'Simple collab form',
@@ -26,10 +27,11 @@ export const config = {
   }
 }
 
-export const ActivityRunnerWrapper = (props) => { 
-  console.log(props)
-  return( <ActivityRunner {...props} /> )
-}
+export const ActivityRunnerWrapper = (props) => 
+  <div>
+    <div className='col-md-4'><ActivityRunner {...props} /> </div>
+    <div className='col-md-4'><Chat {...props} /></div>
+  </div>
 
 
 export default { id: 'ac-collab-form', meta: meta, config: config, ActivityRunner: ActivityRunnerWrapper }
