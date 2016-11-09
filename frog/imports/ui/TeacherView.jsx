@@ -9,10 +9,9 @@ const ColorHash = new colorHash
 import { objectize } from '../../lib/utils';
 
 import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
+import { activity_types_obj } from '../activity_types'
 import { Activities } from '../api/activities';
 import { Logs, flushLogs } from '../api/logs';
-
-
 
 const setTeacherSession = (session_id) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.controlSession':session_id}})
@@ -64,12 +63,27 @@ const LogView = ( { logs } ) => { return (
         <tr key={log._id} style={{color: ColorHash.hex(log.user)}}>
           <td>{log.created_at}</td>
           <td>{log.user}</td>
-          <td>{log.message}</td>
+          <td>{log.msg}</td>
         </tr>
       )}
     </tbody></table>
   </div>
 )}
+
+const DashView = ({ user, logs }) => {
+  const session = user.profile? Sessions.findOne({_id:user.profile.currentSession}):null
+  const activity = Activities.findOne({_id:session.activity})
+  const activity_type = activity_types_obj[activity.activity_type]
+  if (!activity_type.Dashboard) { 
+    return null 
+  } else {
+    return (
+      <div><h1>Dashboard</h1>
+        <activity_type.Dashboard logs={logs} />
+      </div>
+    )
+  }
+}
 
 const TeacherView = ( { activities, sessions, logs, user } ) => { return(
   <div>
@@ -77,11 +91,12 @@ const TeacherView = ( { activities, sessions, logs, user } ) => { return(
       session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
       activities={activities}
     />
+    <DashView
+      user={user}
+      logs={logs} 
+    />
     <SessionList 
       sessions={sessions} 
-    />
-    <LogView 
-      logs={logs} 
     />
   </div>
 )}
