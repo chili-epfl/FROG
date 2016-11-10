@@ -6,9 +6,8 @@ Fabricating and running orchestration graphs
 - install meteor
 
 - run the commands
-    * `meteor npm install`
-    * If you have problem with bcrypt you can try `meteor npm install --python=python2.7`
-    * `meteor`
+    * `./initial_setup.sh` (if problem occur with bcrypt you can try to run `meteor npm install --python=python2.7` from the `frog/` directory)
+    * go to the `frog/` directory and run `meteor`
 
 - Go to http://localhost:3000/ on your browser
 
