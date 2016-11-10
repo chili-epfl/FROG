@@ -3,14 +3,21 @@ import React, { Component } from 'react';
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-const apps = ["home","repository","editor","teacherview","studentview"];
+const apps = ["home","editor","teacherview","studentview"];
 
-const Buttons = ({apps, changeFn}) => { return(
-  <div>
+const Buttons = ({apps, changeFn, currentApp}) => { return(
+  <ul className='nav nav-pills'>
     {apps.map(app => (
-      <p className="select" onClick={() => changeFn(app)} key={app}>{app}</p>
+      <li className={app == currentApp ? 'active' : ''}>
+        <a href='#' onClick={() => changeFn(app)} key={app}>
+          {app}
+        </a>
+      </li>
     ))}
-  </div>
+    <div style={{float: 'right'}}>
+          <AccountsUIWrapper />
+        </div>
+  </ul>
   )
 }
 
@@ -26,10 +33,11 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div id="header">
-          <h1>FROG - FABRICATING AND RUNNING ORCHESTRATION GRAPHS</h1>
-          <Buttons apps={apps} changeFn={(app) => this.setState({app: app})}/>
-          <AccountsUIWrapper />
+        <div className="page-header">
+          <h1>FROG <small> - Fabricating and Running Orchestration Graphs</small></h1>
+        </div>
+        <div>
+          <Buttons apps={apps} currentApp={this.state.app} changeFn={(app) => this.setState({app: app})}/>
         </div>
         <div id="body">
           <Body app={this.state.app} />

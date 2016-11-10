@@ -23,19 +23,24 @@ const SessionController = ( { session, activities } ) => {
     session ? 
       <div>
         <h3>Session control</h3>
-        <p>session={session._id}, state={session.state}, activity={session.activity}</p>
+        Current state <b>{session.state}</b>. Control the session through selecting an activity below, or Starting/Pausing/Stopping the session.
+        <h4>Available activities</h4>
         <ul> { 
-          activities.map((activity) => 
+          activities.map((activity) => {
+            const running = activity._id == session.activity
+            return (
             <li key={activity._id}>
               <a href='#' onClick={() => updateSessionActivity(session._id,activity._id)}>
-                {activity.data.name}
+                {activity.data.name} {running ? <i> (running)</i> : ''}
               </a>
             </li>
+            )
+          }
           )
         } </ul>
-        <button onClick={() => updateSessionState(session._id,'STARTED')}>Start</button>
-        <button onClick={() => updateSessionState(session._id,'PAUSED') }>Pause</button>
-        <button onClick={() => updateSessionState(session._id,'STOPPED')}>Stop </button>
+      <button className='btn btn-primary btn-sm' onClick={() => updateSessionState(session._id,'STARTED')}>Start</button>&nbsp;
+        <button className='btn btn-warning btn-sm' onClick={() => updateSessionState(session._id,'PAUSED') }>Pause</button>&nbsp;
+        <button className='btn btn-danger btn-sm' onClick={() => updateSessionState(session._id,'STOPPED')}>Stop </button>&nbsp;
       </div>
     : <p>Chose a session</p>
   )
@@ -44,16 +49,20 @@ const SessionController = ( { session, activities } ) => {
 const SessionList = ( { sessions } ) => { return(
   <div>
     <h3>Session list</h3>
-    <button onClick={addSession}>Add session</button>
     <ul> { 
       sessions.map((session) => 
         <li key={session._id}>
-          <button onClick={() => Sessions.remove({_id:session._id})}>Delete</button>
-          <button onClick={ () => setTeacherSession(session._id) }>control</button>
+          <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
+            <i className="fa fa-times"></i>&nbsp;
+          </a>
+          <a href='#' onClick={ () => setTeacherSession(session._id) }>
+            <i className="fa fa-pencil"></i>&nbsp;
+          </a>&nbsp;
           {session._id}
         </li>
       ) 
     } </ul>
+    <button className='btn btn-primary btn-sm' onClick={addSession}>Add session</button>
   </div>
 )}
 
@@ -96,6 +105,7 @@ const TeacherView = ( { activities, sessions, logs, user } ) => { return(
       user={user}
       logs={logs} 
     />
+    <hr />
     <SessionController 
       session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
       activities={activities}

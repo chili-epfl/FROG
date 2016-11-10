@@ -51,7 +51,6 @@ class Home extends Component {
         <h1>Welcome to FROG project</h1>
         <h4>Active Users</h4>
         <p> There are {this.getPresentCount()} online users.</p>
-        <p> {this.renderActiveUserList()} </p>
       </div>
     );
   }
@@ -70,7 +69,6 @@ Home.propTypes = {
 export default createContainer(() => {
   return {
     currentUser: Meteor.userId(),
-    messages: Messages.find({}, {sort:{createdAt: -1}, limit: 10}).fetch(),
     activeUsers: Presences.find({ userId: { $exists: true }}, { fields: { state: true, userId: true } }).fetch(),
   };
 }, Home);

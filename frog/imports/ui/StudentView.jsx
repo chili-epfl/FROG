@@ -24,9 +24,8 @@ const SessionList = ( { sessions } ) => { return(
     //sessions.filter((session) => session.state=='CREATED').map((session) => 
     sessions.map((session) => 
       <li key={session._id}>
-        <button onClick={ () => setStudentSession(session._id) }>Join</button>
-        {session.state}
-        {session._id}
+        <button className='btn btn-primary btn-sm' onClick={ () => setStudentSession(session._id) }>Join</button>
+        {session._id} <i>({session.state}) </i>
       </li>
     ) 
   } </ul>
