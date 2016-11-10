@@ -23,7 +23,7 @@ export const config = {
     },
     'questions': {
       type: 'string',
-      title: 'Type in true/false questions, separated by comma'
+      title: 'Type in questions, separated by comma'
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils'
 import { Logs } from './logs'
 import Stringify from 'json-stable-stringify'
@@ -18,6 +19,8 @@ export const addProduct = (activity_id, activity_type, user_id, data, group) => 
     activity_id: activity_id, 
     user_id: user_id,
     data: data, 
+    group_id: group,
+    username: Meteor.users.findOne({_id: Meteor.userId()}).username,
     created_at: new Date() })
 }
 

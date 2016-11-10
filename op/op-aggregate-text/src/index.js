@@ -26,7 +26,7 @@ export const operator = (config, products) => {
     const snippet = JSONPath({path: config.path, json: x.data})
     return(
       `<li key=${x._id}>
-        ${config.anonymous ? `<span>${x.user_id}: </span>` : ''}
+        ${!config.anonymize ? `<span>${x.group_id ? 'Group: ' + x.group_id : x.username}: </span>` : ''}
         ${snippet}
       </li>`
     )

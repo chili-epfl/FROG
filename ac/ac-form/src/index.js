@@ -7,7 +7,7 @@ export const meta = {
 }
 
 export const config = {
-  title: 'Configuration for Form (provisional)',
+  title: 'Configuration for Form',
   type: 'object',
   properties: {
     'name': {
@@ -20,7 +20,7 @@ export const config = {
     },
     'questions': {
       type: 'string',
-      title: 'Type in true/false questions, separated by comma'
+      title: 'Type in questions, separated by comma'
     }
   }
 }

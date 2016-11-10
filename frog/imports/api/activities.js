@@ -17,6 +17,9 @@ export const addActivity = (activity_type, data, id) => {
   }
 } 
 
+export const duplicateActivity = (activity) =>
+  Activities.insert({...activity, _id: uuid(), data: {...activity.data, name: activity.data.name + ' (copy)'}})
+
 export const addOperator = (operator_type, data, id) => {
   if(id) { 
     Operators.update(id, {$set: {data: data}})

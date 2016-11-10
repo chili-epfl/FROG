@@ -26,9 +26,9 @@ export const OperatorList = ( { operators, activities, setFn } ) => {
               <i className="fa fa-pencil" />
             </a>
             &nbsp;
-            {act_map[operator.data.from].data.name} 
-            <b>-></b> 
-            <span className='text-success'>[{operator.operator_type}]</span> <b>-></b> 
+            {act_map[operator.data.from].data.name}
+            <b> 
+              <span className='text-success'> -> {'<'}{operator_types_obj[operator.operator_type].meta.name}> -> </span></b> 
             {act_map[operator.data.to].data.name}
           </li>
           )

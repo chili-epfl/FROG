@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import Form from 'react-jsonschema-form'
 
-import { Activities, addActivity, Operators, addOperator } from '../api/activities';
+import { Activities, addActivity, duplicateActivity, Operators, addOperator } from '../api/activities';
 import { Graphs } from '../api/graphs';import { Meteor } from 'meteor/meteor';
 
 import { uuid } from 'frog-utils'
@@ -27,6 +27,9 @@ const ActivityList = ( { activities, setFn } ) => {
             &nbsp;
             <a href='#' onClick={ () => setFn(activity.activity_type, activity) } >
               <i className="fa fa-pencil" />
+            </a>
+            <a href='#' onClick={ () => duplicateActivity(activity) } >
+              <i className="fa fa-copy" />
             </a>
             &nbsp;
             {activity.data.name} <i>({activity.activity_type})</i>
