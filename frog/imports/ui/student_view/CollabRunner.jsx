@@ -7,7 +7,7 @@ import { createLogger } from '../../api/logs'
 import { addProduct } from '../../api/products'
 
 // should be separated into its own file
-const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList }) => {
+const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList, input }) => {
   const activity_type = activity_types_obj[activity.activity_type]
   const logger = createLogger({
     activity: activity._id, 
@@ -26,7 +26,8 @@ const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList }) 
       user={{name: Meteor.user().username, id: Meteor.userId() }}
       reactiveFn = {reactiveFn(1, activity._id, group_id)}
       reactiveData = {{key: reactiveKey[0], list: reactiveList}}
-      onCompletion = {onCompletion} /> 
+      onCompletion = {onCompletion} 
+      data = {input}/> 
   </div>
   )
 }

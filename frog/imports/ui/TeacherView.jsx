@@ -10,12 +10,31 @@ import { objectize } from '../../lib/utils';
 
 import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
 import { activity_types_obj } from '../activity_types'
-import { Activities } from '../api/activities';
+import { Activities, Operators, addResult } from '../api/activities';
 import { Logs, flushLogs } from '../api/logs';
 import { Products } from '../api/products'
 
+import { operator_types_obj } from '../operator_types'
+
 const setTeacherSession = (session_id) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.controlSession':session_id}})
+}
+
+// check if there are any operators, and run these first
+const switchActivity = (sessionid, activityid) => {
+  const ops = Operators.find({'data.to': activityid}, {reactive: false}).fetch()
+  if(ops.length > 0) {
+    const op = ops[0]
+    const operator_type = operator_types_obj[op.operator_type]
+    const prod = Products.find({activity_id: op.data.from}, {reactive: false}).fetch()
+    if(prod.length > 0) {
+      const result = operator_type.operator(op.data, prod)
+      addResult(activityid, result)
+      console.log(result)
+    }
+  }
+      
+  updateSessionActivity(sessionid,activityid)
 }
 
 const SessionController = ( { session, activities } ) => { 
@@ -30,7 +49,7 @@ const SessionController = ( { session, activities } ) => {
             const running = activity._id == session.activity
             return (
             <li key={activity._id}>
-              <a href='#' onClick={() => updateSessionActivity(session._id,activity._id)}>
+              <a href='#' onClick={() => switchActivity(session._id,activity._id)}>
                 {activity.data.name} - <i>{activity.activity_type}</i> {running ? <i> (running)</i> : ''}
               </a>
             </li>

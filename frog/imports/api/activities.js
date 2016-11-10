@@ -3,6 +3,7 @@ import { uuid } from 'frog-utils'
  
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
+export const Results = new Mongo.Collection('results');
 
 export const addActivity = (activity_type, data, id) => {
   if(id) { 
@@ -26,6 +27,10 @@ export const addOperator = (operator_type, data, id) => {
       data: data, 
       created_at: new Date() })
   }
+} 
+
+export const addResult = (activity_id, result) => {
+  Results.update(activity_id, {$set: {result: result, created_at: new Date()}}, {upsert: true})
 } 
 
 export const flushActivities = () =>

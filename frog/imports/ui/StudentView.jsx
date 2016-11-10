@@ -8,7 +8,7 @@ import { objectize } from '../../lib/utils';
 
 import { createLogger } from '../api/logs';
 import { Sessions } from '../api/sessions';
-import { Activities } from '../api/activities';
+import { Activities, Results } from '../api/activities';
 import { ActivityData, reactiveData } from '../api/activity_data';
 import { Products, addProduct } from '../api/products'
 import CollabRunner from './student_view/CollabRunner.jsx'
@@ -42,13 +42,16 @@ const social_structure = {
 const Runner = ( { activity } ) => {
   const activity_type = activity_types_obj[activity.activity_type]
   const onCompletion = (data) => addProduct(activity._id, activity.activity_type, Meteor.userId(), data)
+  const input_raw = Results.findOne(activity._id)
+  const input = input_raw && input_raw.result
 
   if(activity_type.meta.mode == 'collab') { 
     return <CollabRunner 
       activity={activity} 
       session_id={1} 
       group_id={social_structure[Meteor.userId()]}
-      onCompletion={onCompletion}/>
+      onCompletion={onCompletion}
+      data={input}/>
   } else {
     const logger = createLogger({
       activity: activity._id, 
@@ -60,6 +63,7 @@ const Runner = ( { activity } ) => {
       config={activity.data} 
       logger={logger}
       onCompletion={onCompletion}
+      data={input}
       />
   }
 }
