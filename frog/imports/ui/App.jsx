@@ -33,12 +33,16 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div className="page-header">
-          <h1>FROG <small> - Fabricating and Running Orchestration Graphs</small></h1>
-        </div>
         <div>
           <Buttons apps={apps} currentApp={this.state.app} changeFn={(app) => this.setState({app: app})}/>
         </div>
+        { this.state.app == 'home' ?
+        <div className="page-header" style={{marginTop: '0px'}}>
+          <h1>FROG <small> - Fabricating and Running Orchestration Graphs</small></h1>
+        </div> :
+            null
+        }
+
         <div id="body">
           <Body app={this.state.app} />
         </div>
