@@ -6,7 +6,7 @@ const Chatmsg = ({ msg }) =>
 
   export default (props) => 
   <div>
-    <h1>Chat</h1>
+    <h4>Chat</h4>
     <ul>
       {props.reactiveData.list.map(chatmsg => <Chatmsg msg={chatmsg.value} key={chatmsg._id} />)}
     </ul>
