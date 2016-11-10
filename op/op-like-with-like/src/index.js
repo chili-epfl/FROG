@@ -17,7 +17,6 @@ export const config = {
 export const operator = (_, products) => {
   const groups = groupBy(products, x => Stringify(x.data))
   const res = map(groups, v => v)
-  ;w
 
   return res
 }
