@@ -33,7 +33,7 @@ export const addOperator = (operator_type, data, id) => {
 } 
 
 export const addResult = (activity_id, result) => {
-  Results.update(activity_id, {$set: {result: result, created_at: new Date()}}, {upsert: true})
+  Results.update(activity_id, {$set: {result: result, created_at: new Date(), type: 'product'}}, {upsert: true})
 } 
 
 export const flushActivities = () =>

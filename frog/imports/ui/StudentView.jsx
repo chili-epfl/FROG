@@ -42,7 +42,7 @@ const social_structure = {
 const Runner = ( { activity } ) => {
   const activity_type = activity_types_obj[activity.activity_type]
   const onCompletion = (data) => addProduct(activity._id, activity.activity_type, Meteor.userId(), data)
-  const input_raw = Results.findOne(activity._id)
+  const input_raw = Results.findOne({_id: activity._id, type: 'product'})
   const input = input_raw && input_raw.result
 
   if(activity_type.meta.mode == 'collab') { 

@@ -1,12 +1,12 @@
 {
-  "name": "op-random",
+  "name": "op-like-with-like",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-   "build": "babel src --presets babel-preset-react,babel-preset-es2015 --out-dir dist",
+    "build": "babel src --presets babel-preset-react,babel-preset-es2015 --out-dir dist",
     "watch": "watch 'npm run build' ./src",
-    "prepublish": "npm run build"    
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
@@ -15,5 +15,9 @@
     "watch": "^0.18.0"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "json-stable-stringify": "^1.0.1",
+    "lodash": "^4.16.6"
+  }
 }
