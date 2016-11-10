@@ -1,6 +1,7 @@
 import React from 'react'
 import ActivityRunner from './form'
 import Chat from './chat'
+import Dashboard from './dashboard'
 
 export const meta = {
   name: 'Simple collab form',
@@ -34,4 +35,4 @@ export const ActivityRunnerWrapper = (props) =>
   </div>
 
 
-export default { id: 'ac-collab-form', meta: meta, config: config, ActivityRunner: ActivityRunnerWrapper }
+export default { id: 'ac-collab-form', meta: meta, config: config, ActivityRunner: ActivityRunnerWrapper, Dashboard: Dashboard }

@@ -25,6 +25,7 @@ class CollabForm extends Component {
 
   onChange = (x) => {
     this.setState({formData: x.formData})
+    this.props.logger({form: x.formData})
     this.props.reactiveFn.keySet('formData', x.formData)
   }
 

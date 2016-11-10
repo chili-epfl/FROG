@@ -26,8 +26,9 @@ const SessionController = ( { session, activities } ) => {
         <ul> { 
           activities.map((activity) => 
             <li key={activity._id}>
-              <button onClick={() => updateSessionActivity(session._id,activity._id)}>Select</button>
-              {activity.data.name}
+              <a href='#' onClick={() => updateSessionActivity(session._id,activity._id)}>
+                {activity.data.name}
+              </a>
             </li>
           )
         } </ul>
@@ -74,12 +75,13 @@ const DashView = ({ user, logs }) => {
   const session = user.profile? Sessions.findOne({_id:user.profile.currentSession}):null
   const activity = Activities.findOne({_id:session.activity})
   const activity_type = activity_types_obj[activity.activity_type]
+  const specific_logs = logs.filter(x => x.activity == activity._id)
   if (!activity_type.Dashboard) { 
     return null 
   } else {
     return (
       <div><h1>Dashboard</h1>
-        <activity_type.Dashboard logs={logs} />
+        <activity_type.Dashboard logs={specific_logs} />
       </div>
     )
   }

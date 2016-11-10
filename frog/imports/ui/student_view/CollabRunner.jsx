@@ -3,10 +3,17 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { ActivityData, reactiveFn } from '../../api/activity_data';
 import { activity_types_obj } from '../../activity_types';
+import { createLogger } from '../../api/logs'
 
 // should be separated into its own file
-const Runner = ( { session_id, group_id, activity, logger, reactiveKey, reactiveList  }) => {
+const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList  }) => {
   const activity_type = activity_types_obj[activity.activity_type]
+  const logger = createLogger({
+    activity: activity._id, 
+    activity_type: activity.activity_type, 
+    user: Meteor.userId(),
+    group: group_id
+  })
 
   return (
     <div>

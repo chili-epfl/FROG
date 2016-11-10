@@ -43,19 +43,17 @@ const social_structure = {
 const Runner = ( { activity } ) => {
   const activity_type = activity_types_obj[activity.activity_type]
 
-  const logger = createLogger({
-    activity: activity._id, 
-    activity_type: activity.activity_type, 
-    user: Meteor.userId()
-  })
-
   if(activity_type.meta.mode == 'collab') { 
     return <CollabRunner 
       activity={activity} 
-      logger={logger} 
       session_id={1} 
       group_id={social_structure[Meteor.userId()]} />
   } else {
+    const logger = createLogger({
+      activity: activity._id, 
+      activity_type: activity.activity_type, 
+      user: Meteor.userId()
+    })
     return <activity_type.ActivityRunner 
       config={activity.data} 
       logger={logger} />
