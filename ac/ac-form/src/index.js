@@ -26,7 +26,7 @@ export const config = {
 }
 
 // Obviously assumes even array
-export const ActivityRunner = ({ config, logger, result }) => {
+export const ActivityRunner = ({ config, logger, onCompletion }) => {
   const propdef = config.questions.split(',').reduce(
     (acc, x, i) => ({...acc, [i + '']: { type: 'string', title: x}}),
     {} )
@@ -36,7 +36,7 @@ export const ActivityRunner = ({ config, logger, result }) => {
     properties: propdef
   } 
   return (
-    <Form schema={formdef} onSubmit={result} onChange={(x) => logger('form changed: ' + JSON.stringify(x))} />
+    <Form schema={formdef} onSubmit={(x) => onCompletion(x.formData)} onChange={(x) => logger({form: x.formData})} />
   )
 }
 

@@ -10,6 +10,7 @@ import { createLogger } from '../api/logs';
 import { Sessions } from '../api/sessions';
 import { Activities } from '../api/activities';
 import { ActivityData, reactiveData } from '../api/activity_data';
+import { Products, addProduct } from '../api/products'
 import CollabRunner from './student_view/CollabRunner.jsx'
 
 import { activity_types_obj } from '../activity_types';
@@ -39,28 +40,36 @@ const social_structure = {
   "42GRqF7KkjKDfddeb": 2
 }
 
-
 const Runner = ( { activity } ) => {
   const activity_type = activity_types_obj[activity.activity_type]
+  const onCompletion = (data) => addProduct(activity._id, activity.activity_type, Meteor.userId(), data)
 
   if(activity_type.meta.mode == 'collab') { 
     return <CollabRunner 
       activity={activity} 
       session_id={1} 
-      group_id={social_structure[Meteor.userId()]} />
+      group_id={social_structure[Meteor.userId()]}
+      onCompletion={onCompletion}/>
   } else {
     const logger = createLogger({
       activity: activity._id, 
       activity_type: activity.activity_type, 
       user: Meteor.userId()
     })
+    const onCompletion = (data) => addProduct(activity._id, activity.activity_type, Meteor.userId(), data)
     return <activity_type.ActivityRunner 
       config={activity.data} 
-      logger={logger} />
+      logger={logger}
+      onCompletion={onCompletion}
+      />
   }
 }
 
-const ActivityBody = ( { activity, state } ) => {
+const ActivityBody = ( { activity, state, products } ) => {
+  // check if product has been submitted - means completed (might change this to also allow completion
+  // of product-less activities)
+  if (products.filter(x => x.activity_id == activity._id).length > 0) { return(<h1>Waiting for next activity</h1>) }
+
   return(state=='STARTED' ?
     (activity ? 
       <Runner activity={activity}/> :
@@ -68,20 +77,20 @@ const ActivityBody = ( { activity, state } ) => {
       <h1>Paused</h1>)
 }
 
-const SessionBody = ( { session } ) =>  { return (
+const SessionBody = ( { session, products } ) =>  { return (
+      // <p>session={session._id}, state={session.state}, activity={session.activity}</p>
   session ? 
     <div>
-      <p>session={session._id}, state={session.state}, activity={session.activity}</p> 
-      <ActivityBody activity={Activities.findOne({_id:session.activity})} state={session.state}/>
+      <ActivityBody activity={Activities.findOne({_id:session.activity})} state={session.state} products={products}/>
     </div>
     : <p>Please chose a sesssion</p> 
 )}
 
-const StudentView = ( { user, sessions } ) => { return(
+const StudentView = ( { user, sessions, products } ) => { return(
   <div>
-    <h1>Session</h1>
-    <SessionBody session={user.profile? Sessions.findOne({_id:user.profile.currentSession}):null} />
-    <h1>Session list</h1>
+    <SessionBody session={user.profile? Sessions.findOne({_id:user.profile.currentSession}):null} products={products}/>
+    <hr />
+    <h3>Session list</h3>
     <SessionList sessions={sessions} />
   </div>
 )}
@@ -90,5 +99,6 @@ export default createContainer(() => {
   return {
     sessions: Sessions.find().fetch(),
     user: Meteor.users.findOne({_id:Meteor.userId()}),
+    products: Products.find({user_id:Meteor.userId()}).fetch()
   }
 }, StudentView)

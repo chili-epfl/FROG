@@ -7,3 +7,4 @@ import '../imports/api/sessions.js';
 
 import '../imports/api/logs.js';
 import '../imports/api/activity_data.js';
+import '../imports/api/products.js';

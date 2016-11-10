@@ -12,6 +12,7 @@ import { Sessions, addSession, updateSessionState, updateSessionActivity } from 
 import { activity_types_obj } from '../activity_types'
 import { Activities } from '../api/activities';
 import { Logs, flushLogs } from '../api/logs';
+import { Products } from '../api/products'
 
 const setTeacherSession = (session_id) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.controlSession':session_id}})
@@ -21,7 +22,7 @@ const SessionController = ( { session, activities } ) => {
   return(
     session ? 
       <div>
-        <h1>Session control</h1>
+        <h3>Session control</h3>
         <p>session={session._id}, state={session.state}, activity={session.activity}</p>
         <ul> { 
           activities.map((activity) => 
@@ -42,7 +43,7 @@ const SessionController = ( { session, activities } ) => {
 
 const SessionList = ( { sessions } ) => { return(
   <div>
-    <h1>Session list</h1>
+    <h3>Session list</h3>
     <button onClick={addSession}>Add session</button>
     <ul> { 
       sessions.map((session) => 
@@ -80,7 +81,7 @@ const DashView = ({ user, logs }) => {
     return null 
   } else {
     return (
-      <div><h1>Dashboard</h1>
+      <div><h3>Dashboard</h3>
         <activity_type.Dashboard logs={specific_logs} />
       </div>
     )
@@ -89,13 +90,13 @@ const DashView = ({ user, logs }) => {
 
 const TeacherView = ( { activities, sessions, logs, user } ) => { return(
   <div>
-    <SessionController 
-      session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
-      activities={activities}
-    />
     <DashView
       user={user}
       logs={logs} 
+    />
+    <SessionController 
+      session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
+      activities={activities}
     />
     <SessionList 
       sessions={sessions} 

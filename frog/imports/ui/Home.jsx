@@ -49,20 +49,9 @@ class Home extends Component {
     return (
       <div>
         <h1>Welcome to FROG project</h1>
-        <h1>Active Users</h1>
+        <h4>Active Users</h4>
         <p> There are {this.getPresentCount()} online users.</p>
         <p> {this.renderActiveUserList()} </p>
-        <h1>Chat Box</h1>
-        <form className="chatbox"
-          onInput={this.handleMessage.bind(this)}
-          onSubmit={this.handleMessageSubmit.bind(this)}>
-          <input
-            type="text"
-            ref ="msg"
-            placeholder="Enter your message"
-          /><br/><br/>
-        </form>
-        <p> {this.renderMessages()} </p>
       </div>
     );
   }

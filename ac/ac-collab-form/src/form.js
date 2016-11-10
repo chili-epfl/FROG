@@ -33,7 +33,7 @@ class CollabForm extends Component {
     <Form 
       schema={this.formdef} 
       formData={this.props.reactiveData.key && this.props.reactiveData.key.formData || {}}
-      onSubmit={this.props.result} 
+      onSubmit={(x) => this.props.onCompletion(x.formData)} 
       onChange={this.onChange} />
   )}
 }

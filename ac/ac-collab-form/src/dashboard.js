@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { groupBy, map } from 'lodash'
 import color from './color_range'
+import { some } from 'lodash'
 
 const GroupView = ({ members, group }) => {
+  const completed = some(members, x => x.completed) 
   return (
     <div>
-      <h2>Group {group}</h2>
+      <h2>Group {group} {completed ? '(completed)' : ''}</h2>
       {members.map(x => {
-        const textcolor = color(x.updated_at)
+        const textcolor = completed ? 'blue' : color(x.updated_at)
         return(
-          <li> <span style={{color: textcolor}}>{x.username}</span></li>
+          <li key={x.username}> <span style={{color: textcolor}}>{x.username}</span></li>
         )
       }) }
     </div>
@@ -35,7 +37,6 @@ class CollabForm extends Component {
   render() {
     const groups = groupBy(this.props.logs, x => x.group)
     return(<div>
-      <h2>Student activity</h2>
       {map(groups, (v, k) => <GroupView members={v} group={k} key={k} />)}
     </div>)
   }
