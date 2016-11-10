@@ -17,7 +17,7 @@ const VideoProgress = ({ data }) => {
     bsStyle: 'danger' 
   }
   return (
-    <div className='container'>
+    <div className='container-fluid'>
       <h4 
         style={{
           float: 'left', 

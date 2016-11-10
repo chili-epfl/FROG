@@ -8,7 +8,7 @@ const apps = ["home","editor","teacherview","studentview"];
 const Buttons = ({apps, changeFn, currentApp}) => { return(
   <ul className='nav nav-pills'>
     {apps.map(app => (
-      <li className={app == currentApp ? 'active' : ''}>
+      <li key={app} className={app == currentApp ? 'active' : ''}>
         <a href='#' onClick={() => changeFn(app)} key={app}>
           {app}
         </a>

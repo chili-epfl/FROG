@@ -31,7 +31,7 @@ const SessionController = ( { session, activities } ) => {
             return (
             <li key={activity._id}>
               <a href='#' onClick={() => updateSessionActivity(session._id,activity._id)}>
-                {activity.data.name} {running ? <i> (running)</i> : ''}
+                {activity.data.name} - <i>{activity.activity_type}</i> {running ? <i> (running)</i> : ''}
               </a>
             </li>
             )
@@ -63,21 +63,6 @@ const SessionList = ( { sessions } ) => { return(
       ) 
     } </ul>
     <button className='btn btn-primary btn-sm' onClick={addSession}>Add session</button>
-  </div>
-)}
-
-const LogView = ( { logs } ) => { return (
-  <div>
-    <h1>Logs</h1>
-    <table><tbody>
-      { logs.map((log) => 
-        <tr key={log._id} style={{color: ColorHash.hex(log.user)}}>
-          <td>{log.created_at}</td>
-          <td>{log.user}</td>
-          <td>{log.msg}</td>
-        </tr>
-      )}
-    </tbody></table>
   </div>
 )}
 
