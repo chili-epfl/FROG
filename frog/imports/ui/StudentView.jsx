@@ -68,13 +68,11 @@ const Runner = ( { activity } ) => {
 const ActivityBody = ( { activity, state, products } ) => {
   // check if product has been submitted - means completed (might change this to also allow completion
   // of product-less activities)
+  if(state != 'STARTED') { return <h1>Paused</h1> }
+  if(!activity) { return <h1>No activity selected</h1> }
   if (products.filter(x => x.activity_id == activity._id).length > 0) { return(<h1>Waiting for next activity</h1>) }
 
-  return(state=='STARTED' ?
-    (activity ? 
-      <Runner activity={activity}/> :
-        <h1>No activity selected</h1>) :
-      <h1>Paused</h1>)
+  return( <Runner activity={activity}/> )
 }
 
 const SessionBody = ( { session, products } ) =>  { return (

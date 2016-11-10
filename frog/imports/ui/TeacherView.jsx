@@ -74,7 +74,9 @@ const LogView = ( { logs } ) => { return (
 
 const DashView = ({ user, logs }) => {
   const session = user.profile? Sessions.findOne({_id:user.profile.currentSession}):null
+  if(!session) { return null }
   const activity = Activities.findOne({_id:session.activity})
+  if(!activity) { return null }
   const activity_type = activity_types_obj[activity.activity_type]
   const specific_logs = logs.filter(x => x.activity == activity._id)
   if (!activity_type.Dashboard) { 

@@ -54,14 +54,13 @@ const ActivityTypeList = ( { activity_types, setFn } ) => { return(
 )}
 
 const ActivityForm = ( { form, submit, existing } ) => { 
-  console.log(form)
-  
+  const existing_id = existing ? existing._id : null 
   return (
   <div>
     {form ? 
       <Form 
       schema={activity_types_obj[form].config} 
-      onSubmit={(data) => submit(form, data.formData, existing._id)}
+      onSubmit={(data) => submit(form, data.formData, existing_id)}
       formData={existing ? existing.data : {}}
       liveValidate={true} /> 
     : <p>Please chose an existing activity to edit or an activity type to add a new activity</p>
