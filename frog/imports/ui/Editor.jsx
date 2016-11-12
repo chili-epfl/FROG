@@ -68,9 +68,8 @@ const GraphDisplay = ( {reference} ) => { return(
   </div>
 )}
 
-const ActivityDraggableList = ( {activities, graph} ) => { return(
+const ActivityDraggableList = ( {activities} ) => { return(
   <div>
-      {alert(graph.getBoundingClientRect())}
       {activities.map((activity, index) => 
         <Draggable grid={[20, 20]} key={activity._id}>
           <div>
@@ -101,8 +100,8 @@ class ActivityBody extends Component {
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>
         <ActivityList activities={this.props.activities} />
         <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
-        <GraphDisplay reference="Graph"/>
-        <ActivityDraggableList activities={this.props.activities} graph={this.refs.Graph} />
+        <GraphDisplay />
+        <ActivityDraggableList activities={this.props.activities} />
       </div>
     )
   }
