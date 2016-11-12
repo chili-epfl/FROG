@@ -4,8 +4,9 @@ machine:
 
 dependencies:
   override:
+    - npm -g install npm@latest
     - curl https://install.meteor.com | /bin/sh
-    - cd frog && npm install
+    - ./initial_setup.sh
 
 test: 
   post:

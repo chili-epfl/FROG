@@ -1,9 +1,0 @@
-{
-  "_id": "video_std_2",
-  "type": "video",
-  "name": "Video about the standard deviation",
-  "plane": 3,
-  "object": {
-    "url": "https://www.youtube.com/watch?v=E4HAYd0QnRc"
-  }
-}
