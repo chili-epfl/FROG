@@ -154,7 +154,7 @@ Repository.propTypes = {
   activities: PropTypes.array.isRequired,
 };
 
-export default createContainer(() => {
+default createContainer(() => {
   return {
     activities: Activities.find({}).fetch(),
   };

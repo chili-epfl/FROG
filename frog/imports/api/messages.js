@@ -14,7 +14,6 @@ Meteor.methods({
     }
  
     Messages.insert({
-      _id: new Date().toString().concat(Meteor.users.findOne(this.userId).username),
       text:text,
       createdAt: new Date(),
       owner: this.userId,
