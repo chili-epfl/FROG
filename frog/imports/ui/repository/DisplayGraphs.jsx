@@ -52,7 +52,7 @@ class DisplayGraphs extends Component {
             .indexOf(this.state.nameFilterText.toLowerCase()) != -1)
           .map((graph, i) => (
           <DraggableAc
-            interaction='false'
+            editorMode='false'
             plane={graph.}
         )) : <li>No graph</li>
     );
@@ -62,20 +62,20 @@ class DisplayGraphs extends Component {
     return(
       <div>
         <DraggableAc
-          interaction={true}
+          editorMode={true}
           plane={2}
           key={2}
           startTime={0}
           duration={45}/>
         <DraggableAc
-          interaction={true}
+          editorMode={true}
           plane={1}
           key={1}
           startTime={60}
           duration={90}/>
 
         <DraggableAc
-          interaction={true}
+          editorMode={true}
           plane={3}
           key={3}
           startTime={165}
