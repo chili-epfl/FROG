@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import Form from 'react-jsonschema-form'
+import ReactDOM from 'react-dom';
 
 import { Activities, addActivity } from '../api/activities';
 import { Graphs } from '../api/graphs';import { Meteor } from 'meteor/meteor';
@@ -53,8 +54,8 @@ const ActivityForm = ( { form, submit } ) => { return (
   </div>
 )}
 
-const GraphDisplay = ( {reference} ) => { return(
-  <div ref={reference}>
+const GraphDisplay = () => { return(
+  <div>
     <svg width="100%" height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflow: "scroll"}}>
       <text x="0%" y="10%">Plane 1</text>
       <line x1="10%" y1="10%" x2="100%" y2="10%" style={{stroke: 'black', strokeWidth:"2"}} />
@@ -68,10 +69,10 @@ const GraphDisplay = ( {reference} ) => { return(
   </div>
 )}
 
-const ActivityDraggableList = ( {activities} ) => { return(
+const ActivityDraggableList = ( {activities, dimensions} ) => { return(
   <div>
       {activities.map((activity, index) => 
-        <Draggable grid={[20, 20]} key={activity._id}>
+        <Draggable grid={[20, 20]} key={activity._id} bounds={dimensions}>
           <div>
             <div>{activity.data.name}</div>
           </div>
@@ -101,7 +102,7 @@ class ActivityBody extends Component {
         <ActivityList activities={this.props.activities} />
         <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
         <GraphDisplay />
-        <ActivityDraggableList activities={this.props.activities} />
+        <ActivityDraggableList activities = {this.props.activities} dimensions={{top: -100, left: -100, right: 100, bottom: 100}} />
       </div>
     )
   }
