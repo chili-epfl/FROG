@@ -7,18 +7,18 @@ import Form from "react-jsonschema-form";
 import { objectize } from '../../lib/utils'
 import { Activities, addActivity, flushActivities } from '../api/activities'
 import { activity_types } from '../activity_types'
-import { Log } from '../api/log'
+import { Log } from '../api/logs'
 
 
-const ActivityList = ( { activities, setFn } ) => { 
+const ActivityList = ( { activities, setFn } ) => {
   return(
   <div>
     <ul>
       { activities.map( x => <li key={x._id}>{x.data.name}</li>) }
     </ul>
 
-    { activities.length > 0 ? 
-      <button onClick = {flushActivities} >Remove all</button> : 
+    { activities.length > 0 ?
+      <button onClick = {flushActivities} >Remove all</button> :
         null }
   </div>
 )}
@@ -34,16 +34,16 @@ class ActivityBody extends Component {
     addActivity(id, data)
   }
 
-  form = () => this.state.form ? 
-    <Form 
-      schema={this.state.form.config} 
+  form = () => this.state.form ?
+    <Form
+      schema={this.state.form.config}
       onSubmit={(data) => this.submitAddActivity(this.state.form.id, data.formData)}
-      liveValidate={true} /> : 
+      liveValidate={true} /> :
     null
 
-  type_list = activity_types.map((x) => 
+  type_list = activity_types.map((x) =>
     <li key = {x.id}>
-      <a href='#' 
+      <a href='#'
         onClick={() => this.setState({form: x})}>
         {x.meta.name}
       </a>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Home from './Home.jsx';
-import Repository from './Repository.jsx';
+import Repository from './repository/Repository.jsx';
 import Editor from './Editor.jsx';
 import StudentView from './StudentView.jsx';
 import TeacherView from './TeacherView.jsx';
@@ -13,7 +13,7 @@ class Body extends Component {
   render() {
     // The Body components is the main component of the application
     // It simply performs a switch on the app property set by the App component
-    //if (this.props.currentUser) {
+    if (this.props.currentUser) {
       switch(this.props.app) {
         case "home":
           return (<Home />);
@@ -27,11 +27,11 @@ class Body extends Component {
           return (<TeacherView />);
         default:
           return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
-    /*
+
     } else {
       return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP. HELLO.</p>);
     }
-    */
+
   };
 }
 

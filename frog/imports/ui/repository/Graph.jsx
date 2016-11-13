@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import ReactHighcharts from 'react-highcharts'
 //import { Highcharts } from 'react-highcharts/Highcharts'
 
+/*
 export default class Graph extends Component {
   constructor(props) {
     super(props);
@@ -59,7 +59,7 @@ export default class Graph extends Component {
                 leftArrow = ['M', 100, 0, 'L', 0, 0, 'L', 5, 5, 'M', 0, 0, 'L', 5, -5];
 
 
-            /*
+            
             // Separator, client from service
             ren.path(['M', 120, 40, 'L', 120, 330])
                 .attr({
@@ -68,7 +68,7 @@ export default class Graph extends Component {
                     dashstyle: 'dash'
                 })
                 .add();
-                */
+
 
             {context.loadActivities(ren, colors)}
           },
@@ -93,14 +93,14 @@ export default class Graph extends Component {
       }],
     }
 
-      /*
+
       xAxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
       },
       series: [{
         data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 295.6, 454.4]
       }],
-      */
+
 
 
   }
@@ -122,3 +122,4 @@ export default class Graph extends Component {
       );
   }
 }
+*/
