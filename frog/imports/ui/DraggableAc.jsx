@@ -10,9 +10,14 @@ const divStyle = {
   height: 40,
   margin: 10,
   padding: 10,
-  float: "left"
+  float: "left",
+  position: "absolute"
 
 }
+
+const unitTime = 2
+
+const startOffset = 70
 
 export default class DraggableAc extends Component {
 
@@ -20,11 +25,12 @@ export default class DraggableAc extends Component {
     return {
       background: style.background,
       border: style.border,
-      width: this.props.duration * 40,
+      width: this.props.duration * unitTime,
       height: style.height,
       margin: style.margin,
       padding: style.padding,
-      float: style.float
+      float: style.float,
+      position: style.position
 
     }
   }
@@ -34,10 +40,10 @@ export default class DraggableAc extends Component {
   }
 
   getY() {
-    return (this.props.plane - 1) * 80 + 50;
+    return (this.props.plane - 1) * 80 + 10;
   }
   getX() {
-    return this.props.startTime * 10;
+    return this.props.startTime  * unitTime + startOffset;
   }
 
   handleStart() {}
@@ -50,15 +56,17 @@ export default class DraggableAc extends Component {
     return(
       <Draggable
         axis='x'
+
         defaultPosition={{
           x: this.getX(),
           y: this.getY()
         }}
         disabled={!this.props.interaction}
+        bounds={{left: startOffset}}
         onStart={this.handleStart()}
         onDrag={this.handleDrag()}
         onStop={this.handleStop()}
-        grid={[25, 25]}>
+        grid={[30, 30]}>
           <div style={this.AcDivStyle(divStyle)}>
 
             This is an activity of plane {this.props.plane}
