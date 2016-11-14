@@ -25,43 +25,53 @@ var meta = exports.meta = {
 };
 
 var config = exports.config = {
-  title: "MCQ",
-  type: "array",
-  items: {
-    type: "object",
-    title: "New Question",
-    required: [
-      "title"
-    ],
-    properties: {
-      title: {
-        type: "string",
-        title: "Question"
-      },
-      answers: {
-        type: "array",
-        title: "Possible answers",
-        items: {
-          type: "object",
-          required: [
-            "title"
-          ],
-          properties: {
-            title: {
-              type: "string",
-              title: "Answer"
-            },
-            answer: {
-              type: "boolean",
-              title: "This is an answer",
-              default: false
+  title: 'Configuration for MCQ',
+  type: 'object',
+  properties: {
+    'name': {
+      type: 'string',
+      title: 'Activity name'
+    },
+    'MCQ': {
+      title: "MCQ",
+      type: "array",
+      items: {
+        type: "object",
+        title: "New Question",
+        required: [
+          "title"
+        ],
+        properties: {
+          title: {
+            type: "string",
+            title: "Question"
+          },
+          answers: {
+            type: "array",
+            title: "Possible answers",
+            items: {
+              type: "object",
+              required: [
+                "title"
+              ],
+              properties: {
+                title: {
+                  type: "string",
+                  title: "Answer"
+                },
+                answer: {
+                  type: "boolean",
+                  title: "This is an answer",
+                  default: false
+                }
+              }
             }
+          },
+          details: {
+            type: "string",
+            title: "Enter an explanation",
           }
         }
-      },
-      details: {
-        type: "string",
-        title: "Enter an explanation",
       }
     }
   }
