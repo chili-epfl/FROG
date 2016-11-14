@@ -102,7 +102,7 @@ export const OperatorTypeList = ({ setFn }) => { return(
           <a href='#' onClick={() => setFn(operator_type.id)}>
             <i className="fa fa-plus"></i>&nbsp;
           </a>
-          {operator_type.meta.name}
+          {operator_type.meta.name} <i>({operator_type.meta.type})</i>
         </li>
       )
     } </ul>

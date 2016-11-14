@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { uuid } from 'frog-utils';
 import { sortBy, reverse, take, find } from 'lodash';
-import { objectize } from '../../lib/utils';
+import { objectize, objectIndex } from '../../lib/utils';
 
 import { createLogger } from '../api/logs';
 import { Sessions } from '../api/sessions';
@@ -34,27 +34,24 @@ const SessionList = ( { sessions } ) => { return(
   </div>
 )}
 
-// hard-coding for testing purposes
-const social_structure = {
-  "Z7HN7hvJqPg5eiHwQ": 1,
-  "swDPDmYLk9vBT9Agj": 1,
-  "56CCzkmP79ePebWJ7": 2,
-  "42GRqF7KkjKDfddeb": 2
-}
-
 const Runner = ( { activity } ) => {
   const activity_type = activity_types_obj[activity.activity_type]
   const onCompletion = (data) => addProduct(activity._id, activity.activity_type, Meteor.userId(), data)
-  const input_raw = Results.findOne({_id: activity._id, type: 'product'})
-  const input = input_raw && input_raw.result
+  const input_raw = Results.findOne({activity_id: activity._id, type: 'product'})
+  const data = input_raw && input_raw.result
+
+  const social = Results.findOne({activity_id: activity._id, type: 'social'})
+
+  // if no social operator, assign entire class to group 0
+  const group_id = social ? objectIndex(social.result)[Meteor.userId()] : 0
 
   if(activity_type.meta.mode == 'collab') { 
     return <CollabRunner 
       activity={activity} 
       session_id={1} 
-      group_id={social_structure[Meteor.userId()]}
+      group_id={group_id}
       onCompletion={onCompletion}
-      data={input}/>
+      data={data}/>
   } else {
     const logger = createLogger({
       activity: activity._id, 
@@ -66,7 +63,7 @@ const Runner = ( { activity } ) => {
       config={activity.data} 
       logger={logger}
       onCompletion={onCompletion}
-      data={input}
+      data={data}
       />
   }
 }

@@ -4,7 +4,7 @@ import TextInput from './text_input'
 const Chatmsg = ({ msg }) => 
   <li>{msg.user}: {msg.msg}</li>
 
-  export default (props) => 
+export default (props) => 
   <div>
     <h4>Chat</h4>
     <ul>
