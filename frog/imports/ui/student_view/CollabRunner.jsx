@@ -22,12 +22,12 @@ const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList, da
   return (
     <div>
       <p>Group id: {group_id}</p>
-    <activity_type.ActivityRunner 
-      config={activity.data} 
-      reactiveFn = {reactiveFn(1, activity._id, group_id)}
-      reactiveData = {{key: reactiveKey[0], list: reactiveList}}
-      onCompletion = {onCompletion} 
-      data = {data}/> 
+      <activity_type.ActivityRunner 
+        config={activity.data} 
+        reactiveFn = {reactiveFn(1, activity._id, group_id)}
+        reactiveData = {{key: reactiveKey[0], list: reactiveList}}
+        onCompletion = {onCompletion} 
+        data = {data}/> 
   </div>
   )
 }

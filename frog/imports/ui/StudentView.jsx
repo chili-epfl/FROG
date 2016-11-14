@@ -49,7 +49,7 @@ const Runner = ( { activity } ) => {
     return <CollabRunner 
       activity={activity} 
       session_id={1} 
-      group_id={social}
+      group_id={group_id}
       onCompletion={onCompletion}
       data={data}/>
   } else {
