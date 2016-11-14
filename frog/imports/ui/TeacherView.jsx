@@ -104,13 +104,13 @@ const DashView = ({ user, logs }) => {
 
 const TeacherView = ( { activities, sessions, logs, user } ) => { return(
   <div>
-    <DashView
-      user={user}
-      logs={logs} 
-    />
     <SessionController 
       session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
       activities={activities}
+    />
+    <DashView
+      user={user}
+      logs={logs} 
     />
     <SessionList 
       sessions={sessions} 
