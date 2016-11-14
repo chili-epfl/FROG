@@ -47,4 +47,5 @@ export const config = {
 }
 
 export const operator = () => null
-export default { id: 'op-arguegraph', operator: operator, config: config }
+
+export default { id: 'op-arguegraph', operator: operator, config: config, meta: {name: 'ArgueGraph'} }
