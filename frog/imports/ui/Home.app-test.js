@@ -7,6 +7,6 @@ import { $ } from 'meteor/jquery';
 
 if (Meteor.isClient) {
   it('renders the correct list when routed to', () => {
-        assert.equal($('h1')[0].textContent, "FROG  - Fabricating and Running Orchestration Graphs");
+    assert.equal($('h1')[0].textContent, "FROG  - Fabricating and Running Orchestration Graphs");
   });
 };

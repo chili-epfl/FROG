@@ -26,5 +26,4 @@ export const ActivityRunner = ({ config }) =>
     <iframe src = {config.url} width={750} height={600} />
   </div>
 
-
 export default { id: 'ac-iframe', ActivityRunner: ActivityRunner, config: config, meta: meta }

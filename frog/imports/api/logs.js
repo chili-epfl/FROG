@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor'
 import { uuid } from 'frog-utils'
+
 import Stringify from 'json-stable-stringify'
 
 export const Logs = new Mongo.Collection('logs');
@@ -28,7 +29,6 @@ export const flushLogs = () =>
 
 Meteor.methods({
   'logs.flush'() {
-
     Logs.remove({})
   }
 })

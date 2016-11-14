@@ -7,4 +7,5 @@ import acCollabForm from 'ac-collab-form'
 import { keyBy } from 'lodash'
 
 export const activity_types = [acVideo, acIframe, acText, acForm, acCollabForm]
+
 export const activity_types_obj = keyBy(activity_types, 'id')

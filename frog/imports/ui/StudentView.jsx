@@ -10,9 +10,9 @@ import { createLogger } from '../api/logs';
 import { Sessions } from '../api/sessions';
 import { Activities, Results } from '../api/activities';
 import { ActivityData, reactiveData } from '../api/activity_data';
-import { Products, addProduct } from '../api/products'
-import CollabRunner from './student_view/CollabRunner.jsx'
+import { Products, addProduct } from '../api/products';
 
+import CollabRunner from './student_view/CollabRunner.jsx';
 import { activity_types_obj } from '../activity_types';
 
 const setStudentSession = (session_id) => {
@@ -20,15 +20,18 @@ const setStudentSession = (session_id) => {
 }
 
 const SessionList = ( { sessions } ) => { return(
-  <ul> { 
-    //sessions.filter((session) => session.state=='CREATED').map((session) => 
-    sessions.map((session) => 
-      <li key={session._id}>
-        <button className='btn btn-primary btn-sm' onClick={ () => setStudentSession(session._id) }>Join</button>
-        {session._id} <i>({session.state}) </i>
-      </li>
-    ) 
-  } </ul>
+  <div>
+    <h3>Session list</h3>
+    <ul> { 
+      //sessions.filter((session) => session.state=='CREATED').map((session) => 
+      sessions.map((session) => 
+        <li key={session._id}>
+          <button className='btn btn-primary btn-sm' onClick={ () => setStudentSession(session._id) }>Join</button>
+          {session._id} <i>({session.state}) </i>
+        </li>
+      ) 
+    } </ul>
+  </div>
 )}
 
 // hard-coding for testing purposes
@@ -71,10 +74,15 @@ const Runner = ( { activity } ) => {
 const ActivityBody = ( { activity, state, products } ) => {
   // check if product has been submitted - means completed (might change this to also allow completion
   // of product-less activities)
-  if(state != 'STARTED') { return <h1>Paused</h1> }
-  if(!activity) { return <h1>No activity selected</h1> }
-  if (products.filter(x => x.activity_id == activity._id).length > 0) { return(<h1>Waiting for next activity</h1>) }
-
+  if(state != 'STARTED') { 
+    return( <h1>Paused</h1> )
+  }
+  if(!activity) { 
+    return( <h1>No activity selected</h1> )
+  }
+  if(products.filter(x => x.activity_id == activity._id).length > 0) { 
+    return( <h1>Waiting for next activity</h1> ) 
+  }
   return( <Runner activity={activity}/> )
 }
 
@@ -89,10 +97,11 @@ const SessionBody = ( { session, products } ) =>  { return (
 
 const StudentView = ( { user, sessions, products } ) => { return(
   <div>
-    <SessionBody session={user.profile? Sessions.findOne({_id:user.profile.currentSession}):null} products={products}/>
-    <hr />
-    <h3>Session list</h3>
-    <SessionList sessions={sessions} />
+    <SessionBody 
+      session={user.profile? Sessions.findOne({_id:user.profile.currentSession}):null} 
+      products={products} />
+    <SessionList 
+      sessions={sessions} />
   </div>
 )}
 
