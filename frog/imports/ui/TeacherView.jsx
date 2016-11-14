@@ -5,16 +5,17 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { uuid } from 'frog-utils';
 import { find, sortBy, reverse, take } from 'lodash';
 import colorHash from 'color-hash';
-const ColorHash = new colorHash
 import { objectize } from '../../lib/utils';
 
 import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
-import { activity_types_obj } from '../activity_types'
 import { Activities, Operators, addResult } from '../api/activities';
 import { Logs, flushLogs } from '../api/logs';
-import { Products } from '../api/products'
+import { Products } from '../api/products';
 
-import { operator_types_obj } from '../operator_types'
+import { activity_types_obj } from '../activity_types';
+import { operator_types_obj } from '../operator_types';
+
+const ColorHash = new colorHash
 
 const setTeacherSession = (session_id) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.controlSession':session_id}})
@@ -54,7 +55,6 @@ const switchActivity = (sessionid, activityid) => {
   runSocial(sessionid, activityid)
   updateSessionActivity(sessionid,activityid)
 }
-
 const SessionController = ( { session, activities } ) => { 
   return(
     session ? 
@@ -75,7 +75,7 @@ const SessionController = ( { session, activities } ) => {
           }
           )
         } </ul>
-      <button className='btn btn-primary btn-sm' onClick={() => updateSessionState(session._id,'STARTED')}>Start</button>&nbsp;
+        <button className='btn btn-primary btn-sm' onClick={() => updateSessionState(session._id,'STARTED')}>Start</button>&nbsp;
         <button className='btn btn-warning btn-sm' onClick={() => updateSessionState(session._id,'PAUSED') }>Pause</button>&nbsp;
         <button className='btn btn-danger btn-sm' onClick={() => updateSessionState(session._id,'STOPPED')}>Stop </button>&nbsp;
       </div>
@@ -123,14 +123,13 @@ const DashView = ({ user, logs }) => {
 
 const TeacherView = ( { activities, sessions, logs, user } ) => { return(
   <div>
-    <DashView
-      user={user}
-      logs={logs} 
-    />
-    <hr />
     <SessionController 
       session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
       activities={activities}
+    />
+    <DashView
+      user={user}
+      logs={logs} 
     />
     <SessionList 
       sessions={sessions} 

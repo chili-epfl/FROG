@@ -48,10 +48,9 @@ const ActivityTypeList = ({ setFn }) => { return(
       activity_types.map((activity_type) => 
         <li key={activity_type.id} style={{listStyle: 'none'}} >
           <a href='#' onClick={() => setFn(activity_type.id)}>
-
-<i className="fa fa-plus"></i>&nbsp;
-</a>
-            {activity_type.meta.name}
+            <i className="fa fa-plus"></i>&nbsp;
+          </a>
+          {activity_type.meta.name}
         </li>
       )
     } </ul>
@@ -68,7 +67,7 @@ const ActivityForm = ( { form, submit, existing } ) => {
       onSubmit={(data) => submit(form, data.formData, existing_id)}
       formData={existing ? existing.data : {}}
       liveValidate={true} /> 
-    : <p>Please chose an existing activity to edit or an activity type to add a new activity</p>
+      : <p>Please chose an existing activity to edit or an activity type to add a new activity</p>
     }
   </div>
 )}

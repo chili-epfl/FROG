@@ -18,8 +18,7 @@ const Buttons = ({apps, changeFn, currentApp}) => { return(
           <AccountsUIWrapper />
         </div>
   </ul>
-  )
-}
+)}
 
 // App component - represents the whole app
 export default class App extends Component {
