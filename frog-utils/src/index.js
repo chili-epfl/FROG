@@ -48,3 +48,23 @@ export const getKey = (key, array) => {
   return false
 }
 
+// list utils
+const splitAt = function(i, xs) {
+  var a = xs.slice(0, i);
+  var b = xs.slice(i, xs.length);
+  return [a, b];
+};
+
+const shuffleList = function(xs) {
+  return xs.slice(0).sort(function() {
+    return .5 - Math.random();
+  });
+};
+
+const zipList = function(xs) {
+  return xs[0].map(function(_,i) {
+    return xs.map(function(x) {
+      return x[i];
+    });
+  });
+}

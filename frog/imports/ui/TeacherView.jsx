@@ -5,36 +5,60 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { uuid } from 'frog-utils';
 import { find, sortBy, reverse, take } from 'lodash';
 import colorHash from 'color-hash';
-const ColorHash = new colorHash
 import { objectize } from '../../lib/utils';
 
 import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
-import { Activities } from '../api/activities';
+import { Activities, Operators, addResult } from '../api/activities';
 import { Logs, flushLogs } from '../api/logs';
+import { Products } from '../api/products';
 
+import { activity_types_obj } from '../activity_types';
+import { operator_types_obj } from '../operator_types';
 
+const ColorHash = new colorHash
 
 const setTeacherSession = (session_id) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.controlSession':session_id}})
 }
 
+// check if there are any operators, and run these first
+const switchActivity = (sessionid, activityid) => {
+  const ops = Operators.find({'data.to': activityid}, {reactive: false}).fetch()
+  if(ops.length > 0) {
+    const op = ops[0]
+    const operator_type = operator_types_obj[op.operator_type]
+    const prod = Products.find({activity_id: op.data.from}, {reactive: false}).fetch()
+    if(prod.length > 0) {
+      const result = operator_type.operator(op.data, prod)
+      addResult(activityid, result)
+      console.log(result)
+    }
+  }
+  updateSessionActivity(sessionid,activityid)
+}
 const SessionController = ( { session, activities } ) => { 
   return(
     session ? 
       <div>
-        <h1>Session control</h1>
-        <p>session={session._id}, state={session.state}, activity={session.activity}</p>
+        <h3>Session control</h3>
+        Current state <b>{session.state}</b>. Control the session through selecting an activity below, or Starting/Pausing/Stopping the session.
+        <h4>Available activities</h4>
         <ul> { 
-          activities.map((activity) => 
+          activities.map((activity) => {
+            const running = activity._id == session.activity
+            return (
             <li key={activity._id}>
-              <button onClick={() => updateSessionActivity(session._id,activity._id)}>Select</button>
-              {activity.data.name}
+              <a href='#' onClick={() => switchActivity(session._id,activity._id)}>
+                {activity.data.name} - <i>{activity.activity_type}</i> {running ? <i> (running)</i> : ''}
+              </a>
             </li>
+            )
+          }
           )
         } </ul>
-        <button onClick={() => updateSessionState(session._id,'STARTED')}>Start</button>
-        <button onClick={() => updateSessionState(session._id,'PAUSED') }>Pause</button>
-        <button onClick={() => updateSessionState(session._id,'STOPPED')}>Stop </button>
+        <button className='btn btn-primary btn-sm' onClick={() => updateSessionState(session._id,'STARTED')}>Start</button>&nbsp;
+        <button className='btn btn-warning btn-sm' onClick={() => updateSessionState(session._id,'PAUSED') }>Pause</button>&nbsp;
+        <button className='btn btn-danger btn-sm' onClick={() => updateSessionState(session._id,'STOPPED')}>Stop </button>&nbsp;
       </div>
     : <p>Chose a session</p>
   )
@@ -42,34 +66,41 @@ const SessionController = ( { session, activities } ) => {
 
 const SessionList = ( { sessions } ) => { return(
   <div>
-    <h1>Session list</h1>
-    <button onClick={addSession}>Add session</button>
+    <h3>Session list</h3>
     <ul> { 
       sessions.map((session) => 
         <li key={session._id}>
-          <button onClick={() => Sessions.remove({_id:session._id})}>Delete</button>
-          <button onClick={ () => setTeacherSession(session._id) }>control</button>
+          <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
+            <i className="fa fa-times"></i>&nbsp;
+          </a>
+          <a href='#' onClick={ () => setTeacherSession(session._id) }>
+            <i className="fa fa-pencil"></i>&nbsp;
+          </a>&nbsp;
           {session._id}
         </li>
       ) 
     } </ul>
+    <button className='btn btn-primary btn-sm' onClick={addSession}>Add session</button>
   </div>
 )}
 
-const LogView = ( { logs } ) => { return (
-  <div>
-    <h1>Logs</h1>
-    <table><tbody>
-      { logs.map((log) => 
-        <tr key={log._id} style={{color: ColorHash.hex(log.user)}}>
-          <td>{log.created_at}</td>
-          <td>{log.user}</td>
-          <td>{log.message}</td>
-        </tr>
-      )}
-    </tbody></table>
-  </div>
-)}
+const DashView = ({ user, logs }) => {
+  const session = user.profile? Sessions.findOne({_id:user.profile.currentSession}):null
+  if(!session) { return null }
+  const activity = Activities.findOne({_id:session.activity})
+  if(!activity) { return null }
+  const activity_type = activity_types_obj[activity.activity_type]
+  const specific_logs = logs.filter(x => x.activity == activity._id)
+  if (!activity_type.Dashboard) { 
+    return null 
+  } else {
+    return (
+      <div><h3>Dashboard</h3>
+        <activity_type.Dashboard logs={specific_logs} />
+      </div>
+    )
+  }
+}
 
 const TeacherView = ( { activities, sessions, logs, user } ) => { return(
   <div>
@@ -77,11 +108,12 @@ const TeacherView = ( { activities, sessions, logs, user } ) => { return(
       session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
       activities={activities}
     />
+    <DashView
+      user={user}
+      logs={logs} 
+    />
     <SessionList 
       sessions={sessions} 
-    />
-    <LogView 
-      logs={logs} 
     />
   </div>
 )}
