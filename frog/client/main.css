@@ -15,39 +15,34 @@ body {
   font-size: 14px;
 }
 
+.item {
+  position: absolute;
+  border: 1px solid black;
+  background-color: #ddddff;
+}
+
+#container {
+  border: 1px solid gray;
+  width: 100%;
+  height: 500px;
+}
+
+.title {
+  padding: 10px;
+  cursor: move;
+}
+  
+.connect {
+  width: 100%;
+  height: 20px;
+  background-color: white;
+  cursor: pointer;
+}
+
 #body {
   padding: 20px 15px 20px 15px;
   max-height: 100%;
   max-width: 800px;
   margin: 0 auto;
   background: #eee;
-}
-
-#header {
-  padding: 20px 15px 10px 15px;
-  max-width: 800px;
-  margin: 0 auto;
-  background: #a11;
-}
-
-.select {
-  display: inline-block;
-  margin: auto;
-  padding: 20px 15px 20px 15px;
-  width: 12%;
-  color: white;
-  font-size: 1em;
-  border-color: white
-}
-
-.select:first-letter {
-    text-transform:capitalize;
-}
-
-h1 {
-  font-size: 1.5em;
-  min-width: 100%;
-  margin: 0 auto;
-  display: inline-block;
-  color: #fff;
 }

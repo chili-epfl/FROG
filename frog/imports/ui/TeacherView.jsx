@@ -85,7 +85,7 @@ const SessionList = ( { sessions } ) => { return(
 )}
 
 const DashView = ({ user, logs }) => {
-  const session = user.profile? Sessions.findOne({_id:user.profile.currentSession}):null
+  const session = user.profile? Sessions.findOne({_id:user.profile.controlSession}):null
   if(!session) { return null }
   const activity = Activities.findOne({_id:session.activity})
   if(!activity) { return null }

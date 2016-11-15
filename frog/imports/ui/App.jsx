@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-const apps = ["home","editor","teacherview","studentview"];
+const apps = ["Home","Activity Editor","Graph Editor","Teacher View","Student View"];
 
 const Buttons = ({apps, changeFn, currentApp}) => { return(
   <ul className='nav nav-pills'>
@@ -25,7 +25,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      app: "home",
+      app: "Home",
     };
   }
 

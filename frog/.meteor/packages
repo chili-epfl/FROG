@@ -27,3 +27,4 @@ practicalmeteor:mocha
 tmeasday:presence
 check@1.2.4
 dispatch:mocha-phantomjs
+jsplumb:jsplumb
