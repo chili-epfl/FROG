@@ -35,7 +35,7 @@ export default class App extends Component {
         <div>
           <Buttons apps={apps} currentApp={this.state.app} changeFn={(app) => this.setState({app: app})}/>
         </div>
-        { this.state.app == 'home' ?
+        { this.state.app == 'Home' ?
         <div className="page-header" style={{marginTop: '0px'}}>
           <h1>FROG <small> - Fabricating and Running Orchestration Graphs</small></h1>
         </div> :
