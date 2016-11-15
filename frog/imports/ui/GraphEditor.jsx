@@ -21,41 +21,34 @@ class GraphEditor extends Component {
       jsPlumb.setContainer($('#container'));
       var i = 0;
       
-      $('#container').dblclick(function(e) {
+      ['#solo','#group','#class'].forEach(function(plane) {
+        $(plane).dblclick(function(e) {
 
-        var newState = $('<div>').attr('id', 'state' + i).addClass('item');
-        var title = $('<div>').addClass('title').text('State ' + i);
-        var connect = $('<div>').addClass('connect');
-            
-        newState.css({
-          'top': e.pageY,
-          'left': e.pageX
-        });
-        
-        newState.append(title);
-        newState.append(connect);
-        
-        $('#container').append(newState);
-        
-        jsPlumb.makeTarget(newState, {
-          anchor: 'Continuous'
-        });
-        
-        jsPlumb.makeSource(connect, {
-          parent: newState,
-          anchor: 'Continuous'
-        });     
-        
-        jsPlumb.draggable(newState, {
-          containment: 'parent'
-        });
+          var activity = $('<div>').attr('id', 'activity' + i).addClass('item');
+          var name = $('<div>').addClass('title').text('Activity ' + i);
+          var product = $('<div>').addClass('product').text('product');
+          var object = $('<div>').addClass('object').text('object');
+          
+          activity.append(name);
+          activity.append(product);
+          activity.append(object);
+          
+          $(plane).append(activity);
+          
+          jsPlumb.makeTarget(object, { anchor: 'Continuous' });
+          jsPlumb.makeSource(product, { anchor: 'Continuous' });     
+          
+          jsPlumb.draggable(activity, { axis:'x', containment: 'parent' });
 
-        newState.dblclick(function(e) {
-          jsPlumb.detachAllConnections($(this));
-          $(this).remove();
-          e.stopPropagation();
+          activity.dblclick(function(e) {
+            jsPlumb.detachAllConnections($(this));
+            $(this).remove();
+            e.stopPropagation();
+          });
+
+          i++;
+
         });
-        i++;
       });
     });
   }
@@ -64,7 +57,11 @@ class GraphEditor extends Component {
     <div>
       <h3>Graph editor</h3>
       <p>Double click for creating</p>
-      <div id="container"></div>
+      <div id='container'>
+        <div className='plane' id='solo'><p style={{float:'right'}}>solo</p></div>
+        <div className='plane' id='group'><p style={{float:'right'}}>group</p></div>
+        <div className='plane' id='class'><p style={{float:'right'}}>class</p></div>
+      </div>
     </div>
   )}
 }

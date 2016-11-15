@@ -18,21 +18,51 @@ body {
 .item {
   position: absolute;
   border: 1px solid black;
-  background-color: #ddddff;
-}
-
-#container {
-  border: 1px solid gray;
-  width: 100%;
-  height: 500px;
+  background-color: #bbbbee;
+  height: 100%;
 }
 
 .title {
   padding: 10px;
   cursor: move;
 }
-  
-.connect {
+
+#container {
+  position: relative;
+  border: 1px solid gray;
+  background-color: #ffffff;
+  width: 100%;
+  height: 300px;
+}
+
+.plane {
+  position: relative;
+  border: 1px solid gray;
+  background-color: #ddddff;
+  width: 100%;
+  height: 100px;
+}
+
+#solo {
+  background-color: #eeeeff;
+}
+
+#group {
+  background-color: #eeffee;
+}
+
+#class {
+  background-color: #eedddd;
+}
+
+.product {
+  width: 100%;
+  height: 20px;
+  background-color: #ccccff;
+  cursor: pointer;
+}
+
+.object {
   width: 100%;
   height: 20px;
   background-color: white;
