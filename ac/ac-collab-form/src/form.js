@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Form from "react-jsonschema-form";
 
-// Obviously assumes even array
 class CollabForm extends Component {
   constructor(props) {
     super(props);
