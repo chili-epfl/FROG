@@ -23,7 +23,6 @@ const SessionList = ( { sessions } ) => { return(
   <div>
     <h3>Session list</h3>
     <ul> { 
-      //sessions.filter((session) => session.state=='CREATED').map((session) => 
       sessions.map((session) => 
         <li key={session._id}>
           <button className='btn btn-primary btn-sm' onClick={ () => setStudentSession(session._id) }>Join</button>
@@ -84,7 +83,6 @@ const ActivityBody = ( { activity, state, products } ) => {
 }
 
 const SessionBody = ( { session, products } ) =>  { return (
-      // <p>session={session._id}, state={session.state}, activity={session.activity}</p>
   session ? 
     <div>
       <ActivityBody activity={Activities.findOne({_id:session.activity})} state={session.state} products={products}/>
@@ -99,6 +97,8 @@ const StudentView = ( { user, sessions, products } ) => { return(
       products={products} />
     <SessionList 
       sessions={sessions} />
+      sessions={sessions}
+      curSessionId={curSession && curSession._id} />
   </div>
 )}
 
