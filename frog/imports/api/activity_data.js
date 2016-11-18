@@ -16,6 +16,7 @@ export const reactiveFn = (session_id, activity_id, group_id) => ({
   keyDel: (k) => Meteor.call('reactive_data.key_set', session_id, activity_id, group_id, k),
 
   listAdd: (item) => Meteor.call('reactive_data.list_add', session_id, activity_id, group_id, item),
+  listAddNoClobber: (id, item) => Meteor.call('reactive_data.list_add_no_clobber', session_id, activity_id, group_id, id, item),
   listSet: (id, item) => Meteor.call('reactive_data.list_set', session_id, activity_id, group_id, id, item),
   listDel: (id) => Meteor.call('reactive_data.list_del', session_id, activity_id, group_id, d)
 })
@@ -24,8 +25,23 @@ Meteor.methods({
   'reactive_data.key_set'(session_id, activity_id, group_id, k, v) {
     ActivityData.update({type: 'kv', session_id: session_id, activity_id: activity_id, group_id: group_id}, {$set: {[k]: v}}, {upsert: true})
   },
+
   'reactive_data.list_add'(session_id, activity_id, group_id, item) {
     ActivityData.insert({type: 'list', session_id: session_id, activity_id: activity_id, group_id: group_id, value: item})
+  },
+
+  'reactive_data.list_set'(session_id, activity_id, group_id, id, val) {
+    ActivityData.update({_id: id, type: 'list', session_id: session_id, activity_id: activity_id, group_id: group_id},{$set: {value: val}})
+  },
+
+  'reactive_data.list_add_no_clobber'(session_id, activity_id, group_id, id, val) {
+    const idobj = {_id: id, type: 'list', session_id: session_id, activity_id: activity_id, group_id: group_id}
+
+    if(!ActivityData.findOne(idobj)) {
+    ActivityData.insert({type: 'list', session_id: session_id, activity_id: activity_id, group_id: group_id, _id: id, value: val})
+    }
   }
 })
+
+
 

@@ -1,29 +1,21 @@
 import React from 'react'
-import ActivityRunner from './form'
-import { Chat } from 'frog-utils'
+import ActivityRunner from './board'
+import Chat from './chat'
 import Dashboard from './dashboard'
 
 export const meta = {
-  name: 'Simple collab form',
+  name: 'Common Knowledge Board activity',
   type: 'react-component',
   mode: 'collab'
 }
 
 export const config = {
-  title: 'Configuration for Simple Collab Form',
+  title: 'Configuration for Common Knowledge Board activity',
   type: 'object',
   properties: {
     'name': {
       type: 'string',
       title: 'Activity name'
-    },
-    'title': {
-      type: 'string',
-      title: 'Form title'
-    },
-    'questions': {
-      type: 'string',
-      title: 'Type in questions, separated by comma'
     }
   }
 }
@@ -35,4 +27,4 @@ export const ActivityRunnerWrapper = (props) =>
   </div>
 
 
-export default { id: 'ac-collab-form', meta: meta, config: config, ActivityRunner: ActivityRunnerWrapper, Dashboard: Dashboard }
+export default { id: 'ac-ck-board', meta: meta, config: config, ActivityRunner: ActivityRunnerWrapper, Dashboard: Dashboard }
