@@ -1,4 +1,5 @@
 import JSONPath from 'jsonpath-plus'
+import { unrollProducts } from 'frog-utils'
 
 export const meta = {
   name: 'Aggregate Text',
@@ -20,9 +21,8 @@ export const config = {
   }
 }
 
-// Obviously assumes even array
 export const operator = (config, products) => {
-  const ret = products.map(x => {
+  const ret = unrollProducts(products).map(x => {
     const snippet = JSONPath({path: config.path, json: x.data})
     return(
       `<li key=${x._id}>
