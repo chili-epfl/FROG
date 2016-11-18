@@ -22,10 +22,16 @@ export const reactiveFn = (session_id, activity_id, group_id) => ({
 
 Meteor.methods({
   'reactive_data.key_set'(session_id, activity_id, group_id, k, v) {
+    console.log('keyset', k, v)
     ActivityData.update({type: 'kv', session_id: session_id, activity_id: activity_id, group_id: group_id}, {$set: {[k]: v}}, {upsert: true})
   },
+
   'reactive_data.list_add'(session_id, activity_id, group_id, item) {
     ActivityData.insert({type: 'list', session_id: session_id, activity_id: activity_id, group_id: group_id, value: item})
+  },
+
+  'reactive_data.list_set'(session_id, activity_id, group_id, id, val) {
+    ActivityData.update({_id: id, type: 'list', session_id: session_id, activity_id: activity_id, group_id: group_id},{$set: {value: val}})
   }
 })
 
