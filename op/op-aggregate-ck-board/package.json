@@ -1,10 +1,10 @@
 {
-  "name": "op-arguegraph",
+  "name": "op-aggregate-ck-board",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --presets babel-preset-react,babel-preset-es2015 --out-dir dist; node dist/index.js",
+    "build": "babel src --presets babel-preset-react,babel-preset-es2015 --out-dir dist",
     "watch": "watch 'npm run build' ./src",
     "prepublish": "npm run build"
   },
@@ -17,6 +17,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "memoizejs": "^0.1.1"
+    "jsonpath-plus": "^0.15.0"
   }
 }

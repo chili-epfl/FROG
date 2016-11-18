@@ -8,8 +8,7 @@ import { createLogger } from '../../api/logs'
 import { addProduct } from '../../api/products'
 
 // should be separated into its own file
-const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList, input, products }) => {
-  if(products.length >0) { return (<h1>Waiting for next activity</h1>)  }
+const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList, data, products }) => {
   const activity_type = activity_types_obj[activity.activity_type]
   const logger = createLogger({
     activity: activity._id, 
@@ -22,19 +21,19 @@ const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList, in
   return (
     <div>
       <p>Group id: {group_id}</p>
-    <activity_type.ActivityRunner 
-      config={activity.data} 
-      logger={logger} 
-      user={{name: Meteor.user().username, id: Meteor.userId() }}
-      reactiveFn = {reactiveFn(1, activity._id, group_id)}
-      reactiveData = {{key: reactiveKey[0], list: reactiveList}}
-      onCompletion = {onCompletion} 
-      data = {input}/> 
+      <activity_type.ActivityRunner 
+        config={activity.data} 
+        logger={logger} 
+        user={{name: Meteor.user().username, id: Meteor.userId() }}
+        reactiveFn = {reactiveFn(1, activity._id, group_id)}
+        reactiveData = {{key: reactiveKey[0], list: reactiveList}}
+        onCompletion = {onCompletion} 
+        data = {data}/> 
   </div>
   )
 }
 
-export default createContainer(({ session_id, group_id, activity, logger }) => {
+export default createContainer(({ session_id, group_id, activity, logger, data }) => {
   return {
     reactiveKey: ActivityData.find({session_id: 1, activity_id: activity._id, group_id: group_id, type: 'kv'}).fetch(),
     reactiveList: ActivityData.find({session_id: 1, activity_id: activity._id, group_id: group_id, type: 'list'}).fetch(),
@@ -42,6 +41,7 @@ export default createContainer(({ session_id, group_id, activity, logger }) => {
     activity: activity,
     logger: logger,
     session_id: session_id,
-    group_id: group_id
+    group_id: group_id,
+    data: data
   }
 }, Runner)

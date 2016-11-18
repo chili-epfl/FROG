@@ -1,3 +1,7 @@
+import { Meteor } from 'meteor/meteor'
+
+Meteor.publish('userData', () => Meteor.users.find({}))
+
 import '../imports/api/messages.js';
 
 import '../imports/api/activities.js';
