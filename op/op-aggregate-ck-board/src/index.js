@@ -1,5 +1,5 @@
 import JSONPath from 'jsonpath-plus'
-import { booleanize } from 'frog-utils'
+import { booleanize, unrollProducts } from 'frog-utils'
 
 export const meta = {
   name: 'Aggregate CK Board',
@@ -28,19 +28,15 @@ const rnd = () => Math.floor(Math.random()*300)
 
 // Obviously assumes even array
 export const operator = (config, products) => {
-  const ret = products.reduce( (acc, y) => {
-    return(
-    ([
-      ...acc, 
-      ...y.data.map(x => {
-        const title = JSONPath({path: config.title_path, json: x})[0]
-        const content = JSONPath({path: config.content_path, json: x})[0]
+  const ret = unrollProducts(products).map(x => {
+        const title = JSONPath({path: config.title_path, json: x.data})[0]
+        const content = JSONPath({path: config.content_path, json: x.data})[0]
         const full_content = booleanize(config.anonymize) ? 
           content :
-          content + ' (' + y.username + ')'
-        return({user_id: y.user_id, title: title, content: full_content, x: rnd(), y: rnd()})})
-    ]))}, [])
-  console.log(ret)
+          content + ' (' + x.username + ')'
+    return({user_id: x.user_id, title: title, content: full_content, x: rnd(), y: rnd()})
+  })
+   
   return ret
 }
 

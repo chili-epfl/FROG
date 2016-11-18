@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import ObservationContainer from './obs_container';
 import ObservationDetail from './obs_detail';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Stringify from 'json-stable-stringify'
 import { map } from 'lodash'
 
 class Cluster extends Component {
   constructor(props) {
     super(props);
     this.state = {}
-    if(!(this.props.reactiveData.key && this.props.reactiveData.key.imported)) { 
-      this.props.data.map(e => this.props.reactiveFn.listAdd(e))
-      this.props.reactiveFn.keySet('imported', true)
-    }
+    this.props.data.forEach(e => {
+      const id = Stringify(e)
+      this.props.reactiveFn.listAddNoClobber(id, e)
+    })
   }
+
   render() { 
 
     const List = this.props.reactiveData.list.map(y => {

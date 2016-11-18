@@ -9,7 +9,6 @@ import { addProduct } from '../../api/products'
 
 // should be separated into its own file
 const Runner = ( { session_id, group_id, activity, reactiveKey, reactiveList, data, products }) => {
-  if(products.length >0) { return (<h1>Waiting for next activity</h1>)  }
   const activity_type = activity_types_obj[activity.activity_type]
   const logger = createLogger({
     activity: activity._id, 
