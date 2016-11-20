@@ -4,31 +4,40 @@ import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 
 const divStyleNeg = {
-  background: "red",
-  border: 1,
+  background: "white",
+  border: 2,
   width: 60,
   height: 40,
   margin: 10,
   padding: 10,
   float: "left",
-  position: "absolute"
+  position: "absolute",
+  borderStyle: "solid",
+  borderColor: "red"
 
 }
 
 const divStyle = {
-  background: "green",
-  border: 1,
+  background: "white",
+  border: 2,
   width: 60,
   height: 40,
   margin: 10,
   padding: 10,
   float: "left",
-  position: "absolute"
+  position: "absolute",
+  borderStyle: "solid",
+  borderColor: "green"
 
 }
 const unitTime = 2
 
 const startOffset = 70
+
+const editorPosition = {x: 0, y: 310}
+
+
+
 
 export default class DraggableAc extends Component {
 
@@ -38,7 +47,8 @@ export default class DraggableAc extends Component {
     this.state = {
       correctPlace: false,
       deltaPosition: {x: 0, y: 0},
-      controlledPosition: {x: 0, y:0}
+      controlledPosition: {x: 0, y:0},
+      hover: false
     }
   }
 
@@ -51,16 +61,26 @@ export default class DraggableAc extends Component {
       margin: style.margin,
       padding: style.padding,
       float: style.float,
-      position: style.position
+      position: "absolute",
+      borderStyle: style.borderStyle,
+      borderColor: style.borderColor
 
     }
   }
 
-  getY() {
+  getCorrectY() {
     return (this.props.plane - 1) * 80 + 10;
   }
   getX() {
     return this.props.startTime  * unitTime + startOffset;
+  }
+
+  defaultPosition = () => {
+
+    return {
+      x: this.props.editorMode ? editorPosition.x : this.getX(),
+      y: this.props.editorMode ? editorPosition.y : this.getCorrectY()
+    }
   }
 
   handleStart = (event) => {
@@ -69,7 +89,8 @@ export default class DraggableAc extends Component {
 
   handleDrag = (event, ui) => {
     event.preventDefault();
-    const {x, y} = this.state.deltaPosition;
+    var {x, y} = this.state.deltaPosition;
+
     this.setState({
       deltaPosition: {
         x: x + ui.deltaX,
@@ -81,20 +102,59 @@ export default class DraggableAc extends Component {
 
   handleStop = (event) => {
     event.preventDefault();
-    const {x, y} = this.state.deltaPosition;
-    this.setState({
-      controlledPosition: {
-        x: this.getX() + x,
-        y: this.getY() + y,
-      }
-    });
+    var delta = this.state.deltaPosition;
 
-    var newPlace = false;
-    if(this.getY() + y == this.getY()) {
-      newPlace = true;
+    var position = this.checkLayout(delta);
+
+    this.setState({
+      deltaPosition: position.newDelta,
+      correctPlace: position.newPlace,
+      controlledPosition: position.newControlledPostition
+    });
+  }
+
+  checkPosition = (delta) => {
+    var ey = editorPosition.y;
+    var newPlace = (delta.y == this.getCorrectY() - ey);
+
+    var newDelta = delta;
+    if(!newPlace) {
+      newDelta = {x: 0, y: 0};
     }
 
-    this.setState({correctPlace: newPlace});
+    var newControlledPostition = {x: editorPosition.x + delta.x, y:ey + delta.y};
+
+    return {
+      newPlace: newPlace,
+      newDelta: newDelta,
+      newControlledPostition: newControlledPostition
+    };
+  }
+
+  checkLayout = (delta) => {
+    var ey = editorPosition.y;
+    var newPlace = (ey + delta.y <= 200); //corresponding to height of parent's svg
+
+    var newDelta = {x: delta.x, y: this.getCorrectY() - ey};
+    var newY = this.getCorrectY();
+    if(!newPlace) {
+      newDelta = {x: 0, y: 0};
+      newY = editorPosition.y;
+    }
+
+    var newControlledPostition = {x: editorPosition.x + delta.x, y:newY};
+
+    return {
+      newPlace: newPlace,
+      newDelta: newDelta,
+      newControlledPostition: newControlledPostition
+    };
+  }
+
+  positionAndReset = () => {
+    return this.state.correctPlace ?
+      this.state.controlledPosition
+      : this.defaultPosition(this.props.editorMode);
   }
 
   render() {
@@ -102,23 +162,25 @@ export default class DraggableAc extends Component {
       <Draggable
         axis='both'
 
-        defaultPosition={{
-          x: this.getX(),
-          y: this.getY()
-        }}
+        defaultPosition={this.defaultPosition()}
+        position={this.positionAndReset()}
+
         disabled={!this.props.editorMode}
-        bounds={{left: startOffset}}
+        bounds={{left: startOffset, top: 0}}
         onStart={this.handleStart}
         onDrag={this.handleDrag}
         onStop={this.handleStop}
-        grid={[30, 30]}>
-          <div style={
-            this.state.correctPlace ? this.AcDivStyle(divStyle)
-              : this.AcDivStyle(divStyleNeg)
-          }>
+        grid={[30, 20]}>
+          <div>
+            <div
+              style={
+                this.state.correctPlace ? this.AcDivStyle(divStyle)
+                  : this.AcDivStyle(divStyleNeg)
+                }>
 
-            This is an activity of plane {this.props.plane}
-            {this.state.controlledPosition.y}
+              Plane {this.props.plane}<br/>
+              {this.state.controlledPosition.y}
+            </div>
           </div>
         </Draggable>
 
