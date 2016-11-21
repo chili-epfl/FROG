@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 
@@ -34,7 +34,7 @@ const unitTime = 2
 
 const startOffset = 70
 
-const editorPosition = {x: 0, y: 310}
+const editorPosition = {x: 0, y: 0}
 
 
 
@@ -63,7 +63,8 @@ export default class DraggableAc extends Component {
       float: style.float,
       position: "absolute",
       borderStyle: style.borderStyle,
-      borderColor: style.borderColor
+      borderColor: style.borderColor,
+      zIndex: 10
 
     }
   }
@@ -76,10 +77,11 @@ export default class DraggableAc extends Component {
   }
 
   defaultPosition = () => {
+    var { defaultPosition } = this.props;
 
     return {
-      x: this.props.editorMode ? editorPosition.x : this.getX(),
-      y: this.props.editorMode ? editorPosition.y : this.getCorrectY()
+      x: this.props.editorMode ? defaultPosition.x : this.getX(),
+      y: this.props.editorMode ? defaultPosition.y : this.getCorrectY()
     }
   }
 
@@ -166,7 +168,7 @@ export default class DraggableAc extends Component {
         position={this.positionAndReset()}
 
         disabled={!this.props.editorMode}
-        bounds={{left: startOffset, top: 0}}
+        bounds={{top: 0}}
         onStart={this.handleStart}
         onDrag={this.handleDrag}
         onStop={this.handleStop}
@@ -174,8 +176,8 @@ export default class DraggableAc extends Component {
           <div>
             <div
               style={
-                this.state.correctPlace ? this.AcDivStyle(divStyle)
-                  : this.AcDivStyle(divStyleNeg)
+                (this.state.correctPlace || !this.props.editorMode)
+                ? this.AcDivStyle(divStyle) : this.AcDivStyle(divStyleNeg)
                 }>
 
               Plane {this.props.plane}<br/>
@@ -191,7 +193,9 @@ export default class DraggableAc extends Component {
 
 DraggableAc.propTypes = {
   editorMode: PropTypes.bool.isRequired,
+  inGraph: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
   startTime: PropTypes.number.isRequired,
-  duration: PropTypes.number.isRequired
+  duration: PropTypes.number.isRequired,
+  defaultPosition: PropTypes.object.isRequired
 };

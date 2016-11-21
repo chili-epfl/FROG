@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Home from './Home.jsx';
-import Repository from './repository/Repository.jsx';
+import Repository from './Repository.jsx';
 import Editor from './Editor.jsx';
 import StudentView from './StudentView.jsx';
 import TeacherView from './TeacherView.jsx';

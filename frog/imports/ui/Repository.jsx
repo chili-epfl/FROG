@@ -7,6 +7,7 @@ import { Graphs } from '../api/graphs';
 import { activity_types } from '../activity_types';
 
 import { get } from 'lodash';
+import GraphDisplay from './repository/GraphDisplay';
 
 const activity_types_id = activity_types.map((type)=>type.id)
 
@@ -55,6 +56,7 @@ const GraphListDisplay = ( { graphs } ) => { return (
       <li key={graph._id}>
         {graph._id}:
         {graph.name}
+        <GraphDisplay graph={graph}/>
       </li>
     )) } </ul>
   </div>
