@@ -3,8 +3,7 @@ import { uuid } from 'frog-utils'
  
 export const Graphs = new Mongo.Collection('graphs');
 
-export const addActivity = () =>
-  Graphs.insert({
-    _id: uuid(),
-    created_at: new Date() 
-  })
+export const addOrUpdateGraph = (graph) => {
+  Graphs.remove(graph._id)
+  Graphs.insert(graph)
+}

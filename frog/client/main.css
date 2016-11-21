@@ -19,6 +19,7 @@ body {
   position: absolute;
   border: 1px solid black;
   background-color: #bbbbee;
+  width: 100px;
   height: 100%;
 }
 

@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils'
+import { uuid } from 'frog-utils';
  
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
