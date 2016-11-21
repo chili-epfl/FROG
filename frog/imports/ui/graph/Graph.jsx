@@ -165,7 +165,6 @@ export default class Graph extends Component {
   render() {
     return (
       <div className="graph-summary">
-        <div>
           <div>
             {this.state.currentDraggable}
             <RenderDraggable
@@ -174,7 +173,7 @@ export default class Graph extends Component {
             <RenderGraph activities={[]} editable={true}/>
           </div>
       </div>
-      );
+    );
   }
 }
 
