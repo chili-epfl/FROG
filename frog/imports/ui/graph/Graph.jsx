@@ -52,10 +52,24 @@ const divStyleNeg = {
 
 }
 
+const divStyleAc = {
+  background: "white",
+  border: 2,
+  width: 60,
+  height: 40,
+  margin: 10,
+  padding: 10,
+  float: "left",
+  position: "relative",
+  borderStyle: "solid",
+  borderColor: "red"
+
+}
+
 const BoxAc = ( {hoverStart, hoverStop, plane} ) => {
   return(
     <div
-      style={divStyleNeg}
+      style={divStyleAc}
       onMouseOver={hoverStart}
       onMouseOut={hoverStop}>
       Plane {plane}
@@ -93,15 +107,15 @@ const RenderDraggable = ( {handleHoverStart, handleHoverStop}) => {return(
     */
     <div style={divListStyle}>
       <BoxAc
-        hoverStart={handleHoverStart}
+        hoverStart={(event) => handleHoverStart(event, 1)}
         hoverStop={handleHoverStop}
         plane={1} />
       <BoxAc
-        hoverStart={handleHoverStart}
+        hoverStart={(event) => handleHoverStart(event, 2)}
         hoverStop={handleHoverStop}
         plane={2} />
       <BoxAc
-        hoverStart={handleHoverStart}
+        hoverStart={(event) => handleHoverStart(event, 3)}
         hoverStop={handleHoverStop}
         plane={3} />
     </div>
@@ -118,7 +132,7 @@ const RenderGraph = ( {activities, editable} ) => {
           <DraggableAc
             editorMode={true}
             inGraph={true}
-            plane={activity.plane}
+            plane={1}
             key={activity.key}
             startTime={activity.data.startTime}
             duration={activity.data.duration}/>
@@ -143,12 +157,12 @@ export default class Graph extends Component {
   }
 
 
-  handleHoverStart = (event) => {
+  handleHoverStart = (event, plane) => {
     event.preventDefault();
     var newDrag = <DraggableAc
       editorMode={true}
       inGraph={false}
-      plane={event.target.plane}
+      plane={plane}
       key={1}
       startTime={60}
       duration={90}/>;
@@ -159,7 +173,6 @@ export default class Graph extends Component {
   handleHoverStop = (event) => {
     event.preventDefault();
     this.setState({currentDraggable: null});
-
   }
 
   render() {
