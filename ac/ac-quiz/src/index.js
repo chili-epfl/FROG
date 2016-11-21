@@ -61,11 +61,11 @@ export const config = {
 
 export const ActivityRunner = ({ config, logger, onCompletion }) => {
   const propdef = config.MCQ.reduce(
-    (acc, x, i) => ({...acc, [i + '']: { 
+    (questionAcc, question, questionIndex) => ({...questionAcc, [questionIndex + '']: { 
       type: 'string', 
-      title: x.title,
-      description: x.details,
-      enum: x.answers.reduce((accum, y, j) => ([...accum, y.title]), {})
+      title: question.title,
+      description: question.details,
+      enum: question.answers.reduce((answerAcc, answer, answerIndex) => ([...answerAcc, answer.title]), {})
     }}),
     {} )
   const formdef = { 
