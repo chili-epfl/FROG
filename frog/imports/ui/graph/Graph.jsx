@@ -135,7 +135,8 @@ const RenderGraph = ( {activities, editable} ) => {
             plane={1}
             key={activity.key}
             startTime={activity.data.startTime}
-            duration={activity.data.duration}/>
+            duration={activity.data.duration}
+            defaultPosition={{x: 0, y:0}} />
         )}
         <div style={{top: 50}}>
           <AxisDisplay />
@@ -165,7 +166,8 @@ export default class Graph extends Component {
       plane={plane}
       key={1}
       startTime={60}
-      duration={90}/>;
+      duration={90}
+      defaultPosition={{x: 0, y: 0}}/>;
 
     this.setState({currentDraggable: newDrag});
   }
@@ -189,4 +191,3 @@ export default class Graph extends Component {
     );
   }
 }
-
