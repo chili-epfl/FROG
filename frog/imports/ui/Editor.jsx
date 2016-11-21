@@ -14,6 +14,8 @@ import { activity_types } from '../activity_types';
 
 import Draggable, {DraggableCore} from 'react-draggable';
 
+import Graph from './graph/Graph.jsx'
+
 
 const ActivityGraphForm = ( { form, activities, submit } ) => { return (
   <div>
@@ -159,9 +161,7 @@ class ActivityBody extends Component {
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>
         <ActivityList activities={this.props.activities} />
         <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
-        <GraphDisplay />
-        <ActivityDraggableList activities={this.state.activitiesInGraph} createElementIfMoved={this.createElementIfMoved.bind(this)}  />
-        <ActivityGraphForm form={this.formAddActivityGraph.bind(this)} activities={this.props.activities} submit={this.onActivityGraphSubmit.bind(this)} />
+        <Graph />
       </div>
     )
   }
