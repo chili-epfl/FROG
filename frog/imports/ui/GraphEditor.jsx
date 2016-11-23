@@ -12,41 +12,34 @@ import { $ } from 'meteor/jquery';
 
 const planeNames = ['solo','group','class'];
 
-class ActivityInEditor extends Component { 
+const ActivityInEditor = ( { activity, index, dragActivity, addOperator }  ) => { 
 
-  constructor(props) {
-    super(props);
-    this.activityID = this.props.index
-  }
-
-  eventLogger = (e, data) => {
+  const eventLogger = (e, data) => {
     console.log('Event: ', event);
     console.log('Data: ', data);
-    this.props.dragActivity(data.x, this.activityID)
+    dragActivity(data.x, index)
   }
 
-  render() { 
-    return (
-      <Draggable
-        axis='x'
-        bounds='parent'
-        handle='.title'
-        onStop={this.eventLogger} >
-        <div className={'item'} style={{left: this.props.xPosition}}>
-          <div className={'title'}> {this.props.activity.name + this.props.index} </div>
-          <button
-            id={'connector' + this.props.index}
-            className='btn btn-primary btn-sm connector' 
-            onClick={() => this.props.addOperator(this.props.index-1,this.props.index)}>
-            Connect
-          </button>
-        </div>
-      </Draggable>
-    )
-  }
+  return (
+    <Draggable
+      axis='x'
+      bounds='parent'
+      handle='.title'
+      onStop={eventLogger} >
+      <div className={'item'} style={{left: activity.xPosition}}>
+        <div className={'title'}> {activity.name + index} </div>
+        <button
+          id={'connector' + index}
+          className='btn btn-primary btn-sm connector'
+          style={{bottom: 0,width:'100%'}}>
+          Connect
+        </button>
+      </div>
+    </Draggable>
+  )
 }
 
-const GraphList = ( { graphs, editGraph } ) => { 
+const GraphList = ( { graphs, editSavedGraph } ) => { 
   return(
     <div>
       <h3>Graph list</h3>
@@ -55,7 +48,7 @@ const GraphList = ( { graphs, editGraph } ) => {
           <a href='#' onClick={ () => Graphs.remove({_id: graph._id}) }>
             <i className="fa fa-times" />
           </a>
-          <a href='#' onClick={ () => editGraph(graph) } >
+          <a href='#' onClick={ () => editSavedGraph(graph) } >
             <i className="fa fa-pencil" />
           </a>
           {graph.name}
@@ -78,36 +71,20 @@ class GraphEditor extends Component {
   }
 
   newGraph = () => {
-    this.setState({
-      name: 'untitled',
-      activities: [],
-      operators: []
-    })
+      this.jsPlumbRemoveAll()
+     this.setState({name: 'untitled',activities: [],operators: []}) 
   }
-
-  editGraph = (graph) => {
-    console.log('editGraph')
-    this.setState(graph)
+  editSavedGraph = (graph) => {
+      this.jsPlumbRemoveAll() 
+      this.setState(graph) 
   }
+  saveCurrentGraph = () => { addOrUpdateGraph(this.state) }
+  renameCurrentGraph = (name) => { this.setState({ name: name }) }
+  copyCurrentGraph = () => { this.setState({ _id: uuid() })}
 
-  saveCurrentGraph = () => { 
-    addOrUpdateGraph(this.state)
-  }
-
-  renameCurrentGraph = (name) => { 
-    this.setState({ name: name }) 
-  }
-
-  addActivity = (name, plane) => {
-    console.log('addActivity')
-    const activities = this.state.activities
-    activities.push({ 
-      name:name, 
-      plane: plane, 
-      _id:uuid(),
-      xPosition: 100 * activities.length
-    })
-    this.setState({ activities: activities })
+  addActivity = (info) => {
+    this.state.activities.push({...info, _id:uuid()})
+    this.forceUpdate()
   }
 
   addOperator= (source, target) => {
@@ -134,10 +111,20 @@ class GraphEditor extends Component {
     this.jsPlumbInstance = jsPlumb.getInstance();
     this.jsPlumbInstance.setContainer($('#container'));
 
+    this.jsPlumbInstance.bind('connection', function(info,originalEvent) {
+      console.log('connection made!')
+      console.log(info)
+      console.log(originalEvent)
+      // testing if the event comes from a human
+      if (originalEvent) {
+        that.addOperator(info.sourceId,info.targetId)
+      }
+    });
+
     planeNames.forEach(plane => {
       $('#'+plane).dblclick(e => {
-        console.log('dbclick')
-        that.addActivity('Activity',plane)
+        console.log(e)
+        that.addActivity({ name: 'Activity', plane:plane, xPosition:e.offsetX})
       })
     })
   }
@@ -147,17 +134,31 @@ class GraphEditor extends Component {
     this.jsPlumbRemoveAllAndDrawAgain()
   }
 
-  jsPlumbRemoveAllAndDrawAgain = () => {
-    console.log('jsPlumbRemoveAllAndDrawAgain')
+  jsPlumbRemoveAll = () => {
     this.jsPlumbInstance.detachEveryConnection();
     this.jsPlumbInstance.deleteEveryEndpoint();
+    this.jsPlumbInstance.unmakeEveryTarget();
+    this.jsPlumbInstance.unmakeEverySource();
+  }
+
+  jsPlumbDrawAll = () => {
+    this.state.activities.forEach((activity,index) => {
+      this.jsPlumbInstance.makeSource($('#connector'+index),{anchor:'Continuous'})
+      this.jsPlumbInstance.makeTarget($('#connector'+index),{anchor:'Continuous'})
+    })
     this.state.operators.forEach(operator => {
       this.jsPlumbInstance.connect({
-        source:$('#connector'+operator.source),
-        target:$('#connector'+operator.target),
+        source:$('#'+operator.source),
+        target:$('#'+operator.target),
         anchors:['Continuous','Continuous']
       })
     })
+  }
+
+  jsPlumbRemoveAllAndDrawAgain = () => {
+    console.log('jsPlumbRemoveAllAndDrawAgain')
+    this.jsPlumbRemoveAll()
+    this.jsPlumbDrawAll()
   }
 
   render() { return(
@@ -173,13 +174,11 @@ class GraphEditor extends Component {
                 { this.state.activities.map((activity,index) =>
                   activity.plane==plane ?
                     <ActivityInEditor 
+                      key={uuid()} 
                       activity={activity} 
                       index={index}
-                      key={uuid()} 
-                      jsPlumbInstance={this.jsPlumbInstance}
                       dragActivity={this.dragActivity}
                       addOperator={this.addOperator}
-                      xPosition={activity.xPosition}
                     />
                   :null
                 ) }
@@ -191,13 +190,13 @@ class GraphEditor extends Component {
             value={this.state.name}
           />
           <button className='btn btn-primary btn-sm' onClick={this.saveCurrentGraph}>Save</button>
+          <button className='btn btn-primary btn-sm' onClick={this.copyCurrentGraph}>Copy</button>
           <button className='btn btn-danger btn-sm' onClick={this.newGraph}>Delete</button>
-          <button className='btn btn-danger btn-sm' onClick={this.jsPlumbRemoveAllAndDrawAgain}>Redraw</button>
         </div>
       </div>
       <GraphList 
         graphs={this.props.graphs} 
-        editGraph={this.editGraph}
+        editSavedGraph={this.editSavedGraph}
       />
       <pre>{JSON.stringify(this.state, null, 2)}</pre>
     </div>
