@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
 import { ProgressBar } from 'react-bootstrap'
-import color from './color_range'
+import {color_range as color} from 'frog-utils'
 
 const VideoProgress = ({ data }) => {
   let backgroundColor

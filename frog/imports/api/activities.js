@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
+import { uuid } from 'frog-utils'
+import { operator_types_obj } from '../operator_types'
  
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
@@ -27,13 +28,14 @@ export const addOperator = (operator_type, data, id) => {
     Operators.insert({
       _id: uuid(), 
       operator_type: operator_type, 
+      type: operator_types_obj[operator_type].meta.type,
       data: data, 
       created_at: new Date() })
   }
 } 
 
-export const addResult = (activity_id, result) => {
-  Results.update(activity_id, {$set: {result: result, created_at: new Date(), type: 'product'}}, {upsert: true})
+export const addResult = (type, activity_id, result) => {
+  Results.update(activity_id + ":" + type, {$set: {type: type, activity_id: activity_id, result: result, created_at: new Date()}}, {upsert: true})
 } 
 
 export const flushActivities = () =>

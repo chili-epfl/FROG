@@ -16,7 +16,8 @@ export const config = {
 // Obviously assumes even array
 export const operator = (_, products) => {
   const groups = groupBy(products, x => Stringify(x.data))
-  const res = map(groups, v => v)
+  const res = map(groups, v => v.map(x => x.user_id))
+
 
   return res
 }

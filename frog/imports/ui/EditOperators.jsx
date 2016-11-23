@@ -60,7 +60,7 @@ const OperatorFormComponent = (props) => {
       type: "string",
       title: 'Source node (activity)',
       enum: map(props.activities, (k, v) => k._id),
-      enumNames: props.activities.map(k => k.data.name)
+      enumNames: props.activities.map(k => `${k.data.name} (${k.activity_type})`)
     }
   }
 
@@ -69,7 +69,7 @@ const OperatorFormComponent = (props) => {
       type: "string",
       title: 'Target node (activity)',
       enum: map(props.activities, (k, v) => k._id),
-      enumNames: props.activities.map(k => k.data.name)
+      enumNames: props.activities.map(k => `${k.data.name} (${k.activity_type})`)
     }
   }
 
@@ -102,7 +102,7 @@ export const OperatorTypeList = ({ setFn }) => { return(
           <a href='#' onClick={() => setFn(operator_type.id)}>
             <i className="fa fa-plus"></i>&nbsp;
           </a>
-          {operator_type.meta.name}
+          {operator_type.meta.name} <i>({operator_type.meta.type})</i>
         </li>
       )
     } </ul>

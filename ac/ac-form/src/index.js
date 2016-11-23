@@ -1,43 +1,72 @@
-import React from 'react';
-import Form from "react-jsonschema-form";
+import React, { Component } from 'react';
+import JsonschemaForm from "react-jsonschema-form";
+import { booleanize } from 'frog-utils'
+import { default as config } from './config'
 
 export const meta = {
   name: 'Simple form',
   type: 'react-component'
 }
 
-export const config = {
-  title: 'Configuration for Form',
-  type: 'object',
-  properties: {
-    'name': {
-      type: 'string',
-      title: 'Activity name'
-    },
-    'title': {
-      type: 'string',
-      title: 'Form title'
-    },
-    'questions': {
-      type: 'string',
-      title: 'Type in questions, separated by comma'
-    }
-  }
-}
-
-// Obviously assumes even array
-export const ActivityRunner = ({ config, logger, onCompletion }) => {
-  const propdef = config.questions.split(',').reduce(
+const modifyForm = (questions, title) => {
+  const propdef = questions.split(',').reduce(
     (acc, x, i) => ({...acc, [i + '']: { type: 'string', title: x}}),
     {} )
+
   const formdef = { 
-    title: config.title,
+    title: title,
     type: 'object',
     properties: propdef
   } 
-  return (
-    <Form schema={formdef} onSubmit={(x) => onCompletion(x.formData)} onChange={(x) => logger({form: x.formData})} />
-  )
+
+  return formdef
 }
 
-export default { id: 'ac-form', meta: meta, config: config, ActivityRunner: ActivityRunner }
+class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {},
+      existing: []
+    }
+
+    this.formDef = modifyForm(this.props.config.questions, this.props.config.title)
+  }
+
+  onChange = (x) => {
+    this.setState({formData: x.formData})
+    this.props.logger({form: x.formData})
+  }
+
+  onSubmitFn = (x) => {
+    if(booleanize(this.props.config.multiple)) {
+      const existing = [...this.state.existing, this.state.formData]
+      this.props.onCompletion(existing)
+    } else {
+      this.props.onCompletion(x.formData)
+    }
+  }
+
+  onAddAnother = () => {
+    this.setState({
+      existing: [...this.state.existing, this.state.formData],
+      formData: {}
+    })
+  }
+
+  render() { return (
+    <div>
+      <JsonschemaForm schema={this.formDef} formData={this.state.formData} onSubmit={this.onSubmitFn} onChange={this.onChange} />
+
+      { booleanize(this.props.config.multiple) ? 
+          <button className='btn btn-primary btn-sm' onClick={this.onAddAnother}>Save and add another</button> : 
+          null
+      }
+    </div>
+  )}
+}
+
+const ActivityRunner = (props) => 
+  <Form {...props} />
+
+  export default { id: 'ac-form', meta: meta, config: config, ActivityRunner: ActivityRunner }
