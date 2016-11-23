@@ -25,11 +25,6 @@ class ActivityInEditor extends Component { 
     this.props.dragActivity(data.x, this.activityID)
   }
 
-  componentWillReceiveProps() {
-    console.log('update >> repainting all')
-    this.props.jsPlumbInstance.repaintEverything()
-  }
-
   render() { 
     return (
       <Draggable
@@ -51,7 +46,7 @@ class ActivityInEditor extends Component { 
   }
 }
 
-const GraphList = ( { graphs, createNewGraph, setFn } ) => { 
+const GraphList = ( { graphs, editGraph } ) => { 
   return(
     <div>
       <h3>Graph list</h3>
@@ -60,7 +55,7 @@ const GraphList = ( { graphs, createNewGraph, setFn } ) => {
           <a href='#' onClick={ () => Graphs.remove({_id: graph._id}) }>
             <i className="fa fa-times" />
           </a>
-          <a href='#' onClick={ () => setFn(graph) } >
+          <a href='#' onClick={ () => editGraph(graph) } >
             <i className="fa fa-pencil" />
           </a>
           {graph.name}
@@ -88,12 +83,15 @@ class GraphEditor extends Component {
       activities: [],
       operators: []
     })
-    this.jsPlumbRemoveAllAndDrawAgain()
+  }
+
+  editGraph = (graph) => {
+    console.log('editGraph')
+    this.setState(graph)
   }
 
   saveCurrentGraph = () => { 
     addOrUpdateGraph(this.state)
-    this.jsPlumbRemoveAllAndDrawAgain()
   }
 
   renameCurrentGraph = (name) => { 
@@ -110,7 +108,6 @@ class GraphEditor extends Component {
       xPosition: 100 * activities.length
     })
     this.setState({ activities: activities })
-    this.jsPlumbRemoveAllAndDrawAgain()
   }
 
   addOperator= (source, target) => {
@@ -123,14 +120,11 @@ class GraphEditor extends Component {
     this.setState({
       operators: operators
     })
-
-    this.jsPlumbRemoveAllAndDrawAgain()
   }
 
   dragActivity = (deltaX,index) => {
     this.state.activities[index].xPosition += deltaX
     this.forceUpdate()
-    this.jsPlumbRemoveAllAndDrawAgain()
   }
 
   componentDidMount() {
@@ -146,7 +140,10 @@ class GraphEditor extends Component {
         that.addActivity('Activity',plane)
       })
     })
+  }
 
+  componentDidUpdate() {
+    console.log('update')
     this.jsPlumbRemoveAllAndDrawAgain()
   }
 
@@ -200,8 +197,7 @@ class GraphEditor extends Component {
       </div>
       <GraphList 
         graphs={this.props.graphs} 
-        createNewGraph={this.createNewGraph}
-        setFn={(graph) => this.setState(graph)}
+        editGraph={this.editGraph}
       />
       <pre>{JSON.stringify(this.state, null, 2)}</pre>
     </div>
