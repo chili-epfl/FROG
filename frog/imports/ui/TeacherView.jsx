@@ -139,7 +139,7 @@ const TeacherView = ( { activities, sessions, logs, user } ) => { return(
 
 export default createContainer(() => {
   return {
-    activities: Activities.find({}).fetch(),
+    activities: Activities.find({status:'OUT'}).fetch(),
     sessions: Sessions.find({}).fetch(),
     logs: Logs.find({}, {sort:{created_at: -1}, limit: 100}).fetch(),
     user: Meteor.users.findOne({_id:Meteor.userId()})

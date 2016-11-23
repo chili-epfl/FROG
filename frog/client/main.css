@@ -32,6 +32,10 @@ body {
   position:absolute;
 }
 
+.selector {
+  position:absolute;
+}
+
 .item {
   position: absolute;
   display: inline-block;

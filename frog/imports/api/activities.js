@@ -14,12 +14,34 @@ export const addActivity = (activity_type, data, id) => {
       _id: uuid(), 
       activity_type: activity_type, 
       data: data, 
-      created_at: new Date() })
+      created_at: new Date(),
+      status: 'OUT'
+    })
   }
 } 
 
 export const duplicateActivity = (activity) =>
   Activities.insert({...activity, _id: uuid(), data: {...activity.data, name: activity.data.name + ' (copy)'}})
+
+export const addGraphActivity = (params) => {
+  const id = uuid()
+  Activities.insert({...params, created_at: new Date(), _id:id, status: 'IN'})
+  return(id)
+}
+
+export const copyActivityIntoGraphActivity = (graphActivityId, fromActivityId) => {
+  const data = Activities.findOne({_id:fromActivityId}).data
+  Activities.update(graphActivityId, {$set: {data: data}})
+}
+
+export const deleteGraphActivities = ( graphId ) => {
+  Meteor.call('graphActivities.flush',graphId)
+}
+
+export const dragGraphActivity = ( id, newPosition) => {
+  console.log('dragGraphActivity')
+  Activities.update(id, {$set: {xPosition: newPosition}})
+}
 
 export const addOperator = (operator_type, data, id) => {
   if(id) { 
@@ -43,7 +65,11 @@ export const flushActivities = () =>
 
 Meteor.methods({
   'activities.flush'() {
-
     Activities.remove({})
+  },
+  'graphActivities.flush'(graphId){
+    console.log('graphActivities.flush')
+    console.log(graphId)
+    Activities.remove({graphId:graphId})
   }
 })
