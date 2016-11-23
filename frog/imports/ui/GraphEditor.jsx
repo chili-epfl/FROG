@@ -71,12 +71,12 @@ class GraphEditor extends Component {
   }
 
   newGraph = () => {
-      this.jsPlumbRemoveAll()
-     this.setState({name: 'untitled',activities: [],operators: []}) 
+    this.jsPlumbRemoveAll()
+    this.setState({name: 'untitled',activities: [],operators: []}) 
   }
   editSavedGraph = (graph) => {
-      this.jsPlumbRemoveAll() 
-      this.setState(graph) 
+    this.jsPlumbRemoveAll() 
+    this.setState(graph) 
   }
   saveCurrentGraph = () => { addOrUpdateGraph(this.state) }
   renameCurrentGraph = (name) => { this.setState({ name: name }) }
