@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor';
+import Draggable from 'react-draggable';
 
 import { Activities, Operators } from '../api/activities';
 import { Graphs, addOrUpdateGraph } from '../api/graphs';
@@ -11,53 +12,41 @@ import { $ } from 'meteor/jquery';
 
 const planeNames = ['solo','group','class'];
 
-const Editor = ( { graph, saveCurrentGraph, renameCurrentGraph, jsPlumbInstance } ) => { return(
-    <div>
-      <h3>Graph editor</h3>
-      <div>
-        <p>Double click for creating</p>
-        <div id='container'>
-          {planeNames.map((plane) => { return(
-            <div className='plane' id={plane} key={plane}>
-              <p style={{float:'right'}}>{plane}</p>
-              { graph ? graph.activities.filter(activity => activity.plane==plane).map(activity =>
-                <ActivityInEditor activity={activity} key={uuid()} jsPlumbInstance={jsPlumbInstance} />
-              ) : null }
-            </div>
-          )})}
-        </div>
-        <input
-          onChange={(event) => renameCurrentGraph(event.target.value)}
-          value={graph.name}
-        />
-        <button className='btn btn-primary btn-sm' onClick={() => saveCurrentGraph()}>Save</button>
-      </div>
-    </div>
-)}
-
 class ActivityInEditor extends Component { 
 
   constructor(props) {
     super(props);
-    this.activityID = this.props.activity._id;
-    this.productID = 'product' + this.activityID;
-    this.objectID = 'object' + this.activityID;
+    this.activityID = this.props.index
   }
 
-  componentDidMount() {
-    const that = this
-    this.props.jsPlumbInstance.makeTarget($('#'+that.objectID), { anchor: 'Continuous' });
-    this.props.jsPlumbInstance.makeSource($('#'+that.productID), { anchor: 'Continuous' });     
-    this.props.jsPlumbInstance.draggable($('#'+that.activityID), { axis:'x', containment: 'parent' });
+  eventLogger = (e, data) => {
+    console.log('Event: ', event);
+    console.log('Data: ', data);
+    this.props.dragActivity(data.x, this.activityID)
+  }
+
+  componentWillReceiveProps() {
+    console.log('update >> repainting all')
+    this.props.jsPlumbInstance.repaintEverything()
   }
 
   render() { 
     return (
-      <div id={this.activityID} className={'item'}>
-        <div className={'title'}> {this.props.activity.name} </div>
-        <div id={this.productID} className={'product'}> product </div>
-        <div id={this.objectID} className={'object'}> object </div>
-      </div>
+      <Draggable
+        axis='x'
+        bounds='parent'
+        handle='.title'
+        onStop={this.eventLogger} >
+        <div className={'item'} style={{left: this.props.xPosition}}>
+          <div className={'title'}> {this.props.activity.name + this.props.index} </div>
+          <button
+            id={'connector' + this.props.index}
+            className='btn btn-primary btn-sm connector' 
+            onClick={() => this.props.addOperator(this.props.index-1,this.props.index)}>
+            Connect
+          </button>
+        </div>
+      </Draggable>
     )
   }
 }
@@ -93,49 +82,128 @@ class GraphEditor extends Component {
     }
   }
 
-  saveCurrentGraph = () => {
-    addOrUpdateGraph(this.state)
+  newGraph = () => {
+    this.setState({
+      name: 'untitled',
+      activities: [],
+      operators: []
+    })
+    this.jsPlumbRemoveAllAndDrawAgain()
   }
 
-  renameCurrentGraph = (name) => {
-    this.setState({ name: name })
+  saveCurrentGraph = () => { 
+    addOrUpdateGraph(this.state)
+    this.jsPlumbRemoveAllAndDrawAgain()
+  }
+
+  renameCurrentGraph = (name) => { 
+    this.setState({ name: name }) 
   }
 
   addActivity = (name, plane) => {
+    console.log('addActivity')
     const activities = this.state.activities
-    activities.push({ name:name, plane: plane, _id:uuid() })
+    activities.push({ 
+      name:name, 
+      plane: plane, 
+      _id:uuid(),
+      xPosition: 100 * activities.length
+    })
     this.setState({ activities: activities })
+    this.jsPlumbRemoveAllAndDrawAgain()
+  }
+
+  addOperator= (source, target) => {
+    console.log('addOperator')
+    const operators = this.state.operators
+    operators.push({
+      source:source,
+      target:target
+    })
+    this.setState({
+      operators: operators
+    })
+
+    this.jsPlumbRemoveAllAndDrawAgain()
+  }
+
+  dragActivity = (deltaX,index) => {
+    this.state.activities[index].xPosition += deltaX
+    this.forceUpdate()
+    this.jsPlumbRemoveAllAndDrawAgain()
   }
 
   componentDidMount() {
+    console.log('mount')
     const that = this
-    
+
     this.jsPlumbInstance = jsPlumb.getInstance();
     this.jsPlumbInstance.setContainer($('#container'));
-    
-    var i = 0;
+
     planeNames.forEach(plane => {
       $('#'+plane).dblclick(e => {
-        that.addActivity('Activity'+i,plane)
-        i++;
-      });
-    });
+        console.log('dbclick')
+        that.addActivity('Activity',plane)
+      })
+    })
+
+    this.jsPlumbRemoveAllAndDrawAgain()
+  }
+
+  jsPlumbRemoveAllAndDrawAgain = () => {
+    console.log('jsPlumbRemoveAllAndDrawAgain')
+    this.jsPlumbInstance.detachEveryConnection();
+    this.jsPlumbInstance.deleteEveryEndpoint();
+    this.state.operators.forEach(operator => {
+      this.jsPlumbInstance.connect({
+        source:$('#connector'+operator.source),
+        target:$('#connector'+operator.target),
+        anchors:['Continuous','Continuous']
+      })
+    })
   }
 
   render() { return(
     <div>
-      <pre>{JSON.stringify(this.state, null, 2)}</pre>
-      <Editor 
-        graph={this.state} 
-        saveCurrentGraph={this.saveCurrentGraph}
-        renameCurrentGraph={this.renameCurrentGraph}
-        jsPlumbInstance={this.jsPlumbInstance}
-      />
+      <div>
+        <h3>Graph editor</h3>
+        <div>
+          <p>Double click for creating</p>
+          <div id='container'>
+            {planeNames.map((plane) => { return(
+              <div className='plane' id={plane} key={plane}>
+                <p style={{float:'right'}}>{plane}</p>
+                { this.state.activities.map((activity,index) =>
+                  activity.plane==plane ?
+                    <ActivityInEditor 
+                      activity={activity} 
+                      index={index}
+                      key={uuid()} 
+                      jsPlumbInstance={this.jsPlumbInstance}
+                      dragActivity={this.dragActivity}
+                      addOperator={this.addOperator}
+                      xPosition={activity.xPosition}
+                    />
+                  :null
+                ) }
+              </div>
+            )})}
+          </div>
+          <input
+            onChange={(event) => this.renameCurrentGraph(event.target.value)}
+            value={this.state.name}
+          />
+          <button className='btn btn-primary btn-sm' onClick={this.saveCurrentGraph}>Save</button>
+          <button className='btn btn-danger btn-sm' onClick={this.newGraph}>Delete</button>
+          <button className='btn btn-danger btn-sm' onClick={this.jsPlumbRemoveAllAndDrawAgain}>Redraw</button>
+        </div>
+      </div>
       <GraphList 
         graphs={this.props.graphs} 
         createNewGraph={this.createNewGraph}
         setFn={(graph) => this.setState(graph)}
       />
+      <pre>{JSON.stringify(this.state, null, 2)}</pre>
     </div>
   )}
 }

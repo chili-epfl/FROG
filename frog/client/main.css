@@ -15,8 +15,26 @@ body {
   font-size: 14px;
 }
 
+.window { 
+  position: fixed;
+  z-index:20; }
+.jtk-connector { 
+  position: fixed;
+  z-index:4; }
+.jtk-endpoint { 
+  position: fixed;
+  z-index:5; }
+.jtk-overlay { 
+  position: fixed;
+  z-index:6; }
+
+.connector {
+  position:absolute;
+}
+
 .item {
   position: absolute;
+  display: inline-block;
   border: 1px solid black;
   background-color: #bbbbee;
   width: 100px;
@@ -33,27 +51,28 @@ body {
   border: 1px solid gray;
   background-color: #ffffff;
   width: 100%;
-  height: 300px;
+  height: 302px;
 }
 
 .plane {
-  position: relative;
+  position: absolute;
   border: 1px solid gray;
-  background-color: #ddddff;
   width: 100%;
   height: 100px;
 }
 
 #solo {
-  background-color: #eeeeff;
+  top: 0px;
 }
 
 #group {
-  background-color: #eeffee;
+  top: 100px;
+
 }
 
 #class {
-  background-color: #eedddd;
+  top: 200px;
+
 }
 
 .product {
