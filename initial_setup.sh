@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# include hidden files (like node_modules/.bin)
+shopt -s dotglob
+
 FROG=`pwd`
 YARN=yarn
 which yarn | grep -qw yarn || npm install yarn  
