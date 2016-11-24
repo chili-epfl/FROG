@@ -127,6 +127,6 @@ class ActivityBody extends Component {
 export default createContainer(() => {
   return {
     activities: Activities.find({status:'OUT'}).fetch(),
-    operators: Operators.find({}).fetch(),
+    operators: Operators.find({status:'OUT'}).fetch(),
   }
 }, ActivityBody)

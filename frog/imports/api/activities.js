@@ -29,9 +29,20 @@ export const addGraphActivity = (params) => {
   return(id)
 }
 
+export const addGraphOperator = (params) => {
+  const id = uuid()
+  Operators.insert({...params, created_at: new Date(), _id:id, status: 'IN'})
+  return(id)
+}
+
 export const copyActivityIntoGraphActivity = (graphActivityId, fromActivityId) => {
   const data = Activities.findOne({_id:fromActivityId}).data
   Activities.update(graphActivityId, {$set: {data: data}})
+}
+
+export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) => {
+  const data = Operators.findOne({_id:fromOperatorId}).data
+  Operators.update(graphOperatorId, {$set: {data: data}})
 }
 
 export const deleteGraphActivities = ( graphId ) => {
@@ -52,6 +63,7 @@ export const addOperator = (operator_type, data, id) => {
       operator_type: operator_type, 
       type: operator_types_obj[operator_type].meta.type,
       data: data, 
+      status: 'OUT',
       created_at: new Date() })
   }
 } 

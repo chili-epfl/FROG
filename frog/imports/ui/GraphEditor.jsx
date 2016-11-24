@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import Draggable from 'react-draggable';
 import Form from 'react-jsonschema-form'
 
-import { Activities, Operators, addGraphActivity, copyActivityIntoGraphActivity, dragGraphActivity, deleteGraphActivities } from '../api/activities';
+import { Activities, Operators, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, deleteGraphActivities } from '../api/activities';
 import { Graphs, addOrUpdateGraph } from '../api/graphs';
 import { uuid } from 'frog-utils'
 
@@ -12,6 +12,8 @@ import jsPlump from 'jsplumb';
 import { $ } from 'meteor/jquery';
 
 const planeNames = ['solo','group','class'];
+
+
 
 const ActivityChoiceComponent = ( { outActivities, ownId } ) => {
   var selectedActivity = outActivities[0]._id
@@ -62,7 +64,24 @@ const ActivityInEditor = ( { activity, addOperator, outActivities }  ) => { 
   )
 }
 
-const EditorView = ( { graph, inActivities, outActivities, addOperator, setState, jsPlumbRemoveAll } ) => {
+const OperatorChoiceComponent = ({ outOperators, ownId }) => {
+  var selectedOperator = outOperators[0]._id
+  
+  const changeOperatorChoice = (event) => {selectedOperator = event.target.value}
+  
+  const submitOperatorChoice = () => { copyOperatorIntoGraphOperator(ownId, selectedOperator) }
+
+  return (
+    <form className='selector' onSubmit={submitOperatorChoice} >
+      <select onChange={changeOperatorChoice}>
+        {outOperators.map(operator => <option key={operator._id} value={operator._id}>{operator.operator_type}</option>)}
+      </select>
+      <input type="submit" value="Submit" />
+    </form>
+  )
+}
+
+const EditorView = ( { graph, inActivities, inOperators, outActivities, outOperators, addOperator, setState, jsPlumbRemoveAll } ) => {
   
   const deleteAll = () => {
     jsPlumbRemoveAll()
@@ -92,7 +111,7 @@ const EditorView = ( { graph, inActivities, outActivities, addOperator, setState
                     addOperator={addOperator}
                   />
                 :null
-              ) }
+              )}
             </div>
           )})}
         </div>
@@ -104,6 +123,14 @@ const EditorView = ( { graph, inActivities, outActivities, addOperator, setState
         <button className='btn btn-primary btn-sm' onClick={copyCurrentGraph}>Copy</button>
         <button className='btn btn-danger btn-sm' onClick={deleteAll}>Delete</button>
       </div>
+      { inOperators.map(operator => 
+        operator.data ? null 
+        : <OperatorChoiceComponent
+          key={operator._id}
+          outOperators={outOperators} 
+          ownId={operator._id} 
+        /> 
+      )}
     </div>
   )
 }
@@ -113,7 +140,8 @@ const EditorViewContainer = createContainer((props) => {
   console.log(props)
   return({
     ...props,
-    inActivities: Activities.find({ graphId: props.graph._id }).fetch()
+    inActivities: Activities.find({ graphId: props.graph._id }).fetch(),
+    inOperators: Operators.find({ graphId: props.graph._id }).fetch()
   })
 }, EditorView)
 
@@ -153,7 +181,8 @@ class GraphEditor extends Component {
   }
 
   addOperator= (source, target) => {
-    this.state.operators.push({source:source, target:target })
+    const id = addGraphOperator({ graphId: this.state._id })
+    this.state.operators.push({_id: id, source:source, target:target })
     this.forceUpdate()
   }
 
@@ -221,6 +250,7 @@ class GraphEditor extends Component {
       <EditorViewContainer 
         graph={this.state}
         outActivities={this.props.outActivities}
+        outOperators={this.props.outOperators}
         addOperator={this.addOperator}
         jsPlumbRemoveAll={this.jsPlumbRemoveAll}
         setState={(x) => this.setState(x)}
@@ -238,7 +268,7 @@ class GraphEditor extends Component {
 export default createContainer(() => {
   return {
     outActivities: Activities.find({status:'OUT'}).fetch(),
-    operators: Operators.find({}).fetch(),
+    outOperators: Operators.find({status:'OUT'}).fetch(),
     graphs: Graphs.find({}).fetch()
   }
 }, GraphEditor)
