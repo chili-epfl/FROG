@@ -36,13 +36,13 @@ export const addGraphOperator = (params) => {
 }
 
 export const copyActivityIntoGraphActivity = (graphActivityId, fromActivityId) => {
-  const data = Activities.findOne({_id:fromActivityId}).data
-  Activities.update(graphActivityId, {$set: {data: data}})
+  const fromActivity = Activities.findOne({_id:fromActivityId})
+  Activities.update(graphActivityId, {$set: {data: fromActivity.data, activity_type: fromActivity.activity_type}})
 }
 
 export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) => {
-  const data = Operators.findOne({_id:fromOperatorId}).data
-  Operators.update(graphOperatorId, {$set: {data: data}})
+  const fromOperator = Operators.findOne({_id:fromOperatorId})
+  Operators.update(graphOperatorId, {$set: {data: fromOperator.data, operator_type: fromOperator.operator_type}})
 }
 
 export const deleteGraphActivities = ( graphId ) => {

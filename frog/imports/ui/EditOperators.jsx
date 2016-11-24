@@ -21,11 +21,9 @@ export const OperatorList = ( { operators, activities, setFn } ) => {
             <a href='#' onClick={ () => Operators.remove({_id: operator._id}) }>
               <i className="fa fa-times" />
             </a>
-            &nbsp;
             <a href='#' onClick={ () => setFn(operator.operator_type, operator) } >
               <i className="fa fa-pencil" />
             </a>
-            &nbsp;
             {act_map[operator.data.from].data.name}
             <b> 
               <span className='text-success'> 

@@ -9,6 +9,7 @@ import { objectize } from '../../lib/utils';
 
 import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
 import { Activities, Operators, addResult } from '../api/activities';
+import { Graphs } from '../api/graphs';
 import { Logs, flushLogs } from '../api/logs';
 import { Products } from '../api/products';
 
@@ -55,6 +56,7 @@ const switchActivity = (sessionid, activityid) => {
   runSocial(sessionid, activityid)
   updateSessionActivity(sessionid,activityid)
 }
+
 const SessionController = ( { session, activities } ) => { 
   return(
     session ? 
@@ -83,31 +85,56 @@ const SessionController = ( { session, activities } ) => {
   )
 }
 
-const SessionList = ( { sessions } ) => { return(
-  <div>
-    <h3>Session list</h3>
-    <ul> { 
-      sessions.map((session) => 
-        <li key={session._id}>
-          <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
-            <i className="fa fa-times"></i>&nbsp;
-          </a>
-          <a href='#' onClick={ () => setTeacherSession(session._id) }>
-            <i className="fa fa-pencil"></i>&nbsp;
-          </a>&nbsp;
-          {session._id}
-        </li>
-      ) 
-    } </ul>
-    <button className='btn btn-primary btn-sm' onClick={addSession}>Add session</button>
-  </div>
-)}
+const SessionControllerContainer = createContainer(({ session }) => {
+  console.log(session)
+  return({
+    session: session,
+    activities: session? Activities.find({graphId: session.graphId}).fetch() :null
+  })
+}, SessionController)
+
+const SessionList = ( { sessions, graphs } ) => { 
+  var selectedGraph = graphs[0] ? graphs[0]._id: null
+
+  const changeGraph = (event) => {
+    selectedGraph = event.target.value
+  }
+
+  const submitAddSession = () => {
+    console.log(selectedGraph)
+    addSession(selectedGraph)
+  }
+
+  return(
+    <div>
+      <h3>Session list</h3> 
+      <select onChange={changeGraph}>
+        {graphs.map(graph => <option key={graph._id} value={graph._id} >{graph.name}</option>)}
+      </select>
+      <button className='btn btn-primary btn-sm' onClick={submitAddSession} >Add session</button>
+      <ul> { 
+        sessions.map((session) => 
+          <li key={session._id}>
+            <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
+              <i className="fa fa-times"></i>
+            </a>
+            <a href='#' onClick={ () => setTeacherSession(session._id) }>
+              <i className="fa fa-pencil"></i>
+            </a>
+            {session._id}
+          </li>
+        ) 
+      } </ul>
+    </div>
+  )
+}
 
 const DashView = ({ user, logs }) => {
   const session = user.profile? Sessions.findOne({_id:user.profile.controlSession}):null
   if(!session) { return null }
   const activity = Activities.findOne({_id:session.activity})
   if(!activity) { return null }
+  console.log(activity)
   const activity_type = activity_types_obj[activity.activity_type]
   const specific_logs = logs.filter(x => x.activity == activity._id)
   if (!activity_type.Dashboard) { 
@@ -121,26 +148,26 @@ const DashView = ({ user, logs }) => {
   }
 }
 
-const TeacherView = ( { activities, sessions, logs, user } ) => { return(
+const TeacherView = ( { graphs, sessions, logs, user } ) => { return(
   <div>
-    <SessionController 
+    <SessionControllerContainer
       session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
-      activities={activities}
     />
     <DashView
       user={user}
       logs={logs} 
     />
     <SessionList 
-      sessions={sessions} 
+      sessions={sessions}
+      graphs={graphs}
     />
   </div>
 )}
 
 export default createContainer(() => {
   return {
-    activities: Activities.find({status:'OUT'}).fetch(),
     sessions: Sessions.find({}).fetch(),
+    graphs: Graphs.find({}).fetch(),
     logs: Logs.find({}, {sort:{created_at: -1}, limit: 100}).fetch(),
     user: Meteor.users.findOne({_id:Meteor.userId()})
   }

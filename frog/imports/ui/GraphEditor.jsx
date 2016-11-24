@@ -16,7 +16,7 @@ const planeNames = ['solo','group','class'];
 
 
 const ActivityChoiceComponent = ( { outActivities, ownId } ) => {
-  var selectedActivity = outActivities[0]._id
+  var selectedActivity = outActivities[0] ? outActivities[0]._id :null
   
   const changeActivityChoice = (event) => {selectedActivity = event.target.value}
   
@@ -65,7 +65,7 @@ const ActivityInEditor = ( { activity, addOperator, outActivities }  ) => { 
 }
 
 const OperatorChoiceComponent = ({ outOperators, ownId }) => {
-  var selectedOperator = outOperators[0]._id
+  var selectedOperator = outOperators[0] ? outOperators[0]._id: null
   
   const changeOperatorChoice = (event) => {selectedOperator = event.target.value}
   
