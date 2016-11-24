@@ -263,7 +263,6 @@ class GraphEditor extends Component {
         editSavedGraph={this.editSavedGraph}
         currentGraphId={this.state._id}
       />
-      <pre>{JSON.stringify(this.state, null, 2)}</pre>
     </div>
   )}
 }
