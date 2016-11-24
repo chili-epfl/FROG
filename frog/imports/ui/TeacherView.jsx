@@ -24,11 +24,11 @@ const setTeacherSession = (session_id) => {
 
 // check if there are any operators, and run these first
 const runProduct = (sessionid, activityid) => {
-  const ops = Operators.find({'data.to': activityid, type: 'product'}, {reactive: false}).fetch()
+  const ops = Operators.find({to: activityid, type: 'product'}, {reactive: false}).fetch()
   if(ops.length > 0) {
     const op = ops[0]
     const operator_type = operator_types_obj[op.operator_type]
-    const prod = Products.find({activity_id: op.data.from}, {reactive: false}).fetch()
+    const prod = Products.find({activity_id: op.from}, {reactive: false}).fetch()
     if(prod.length > 0) {
       const result = operator_type.operator(op.data, prod)
       addResult('product', activityid, result)
@@ -38,11 +38,11 @@ const runProduct = (sessionid, activityid) => {
 }
 
 const runSocial = (sessionid, activityid) => {
-  const ops = Operators.find({'data.to': activityid, type: 'social'}, {reactive: false}).fetch()
+  const ops = Operators.find({to: activityid, type: 'social'}, {reactive: false}).fetch()
   if(ops.length > 0) {
     const op = ops[0]
     const operator_type = operator_types_obj[op.operator_type]
-    const prod = Products.find({activity_id: op.data.from}, {reactive: false}).fetch()
+    const prod = Products.find({activity_id: op.from}, {reactive: false}).fetch()
     if(prod.length > 0) {
       const result = operator_type.operator(op.data, prod)
       addResult('social', activityid, result)

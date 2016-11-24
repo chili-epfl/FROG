@@ -51,13 +51,13 @@ const ActivityInEditor = ( { activity, addOperator, outActivities }  ) => { 
       bounds='parent'
       handle='.title'
       onStop={eventLogger} >
-      <div className={'item'} id={activity._id} style={{left: activity.xPosition}}>
+      <div className={'item'} style={{left: activity.xPosition}}>
         { activity.data ? 
           <div className={'title'}> {activity.data.name} </div>
           : <ActivityChoiceComponent outActivities={outActivities} ownId={activity._id} />
         }
         <button
-          id={'connector' + activity._id}
+          id={activity._id}
           className='btn btn-primary btn-sm connector'
           style={{bottom: 0,width:'100%'}}>
           Connect
@@ -184,7 +184,7 @@ class GraphEditor extends Component {
   }
 
   addOperator= (source, target) => {
-    const id = addGraphOperator({ graphId: this.state._id })
+    const id = addGraphOperator({ graphId: this.state._id, from:source, to:target })
     this.state.operators.push({_id: id, source:source, target:target })
     this.forceUpdate()
   }
@@ -230,8 +230,8 @@ class GraphEditor extends Component {
   jsPlumbDrawAll = () => {
     console.log('jsPlumbDrawAll')
     this.state.activities.forEach((activityId) => {
-      this.jsPlumbInstance.makeSource($('#connector'+activityId),{anchor:'Continuous'})
-      this.jsPlumbInstance.makeTarget($('#connector'+activityId),{anchor:'Continuous'})
+      this.jsPlumbInstance.makeSource($('#'+activityId),{anchor:'Continuous'})
+      this.jsPlumbInstance.makeTarget($('#'+activityId),{anchor:'Continuous'})
     })
     this.state.operators.forEach(operator => {
       this.jsPlumbInstance.connect({
