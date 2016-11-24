@@ -20,7 +20,10 @@ const ActivityChoiceComponent = ( { outActivities, ownId } ) => {
   
   const changeActivityChoice = (event) => {selectedActivity = event.target.value}
   
-  const submitActivityChoice = () => { copyActivityIntoGraphActivity(ownId, selectedActivity) }
+  const submitActivityChoice = (e) => { 
+    e.preventDefault()
+    copyActivityIntoGraphActivity(ownId, selectedActivity) 
+  }
 
   return (
     <form className='selector' onSubmit={submitActivityChoice} >
