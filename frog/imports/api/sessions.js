@@ -9,7 +9,8 @@ export const addSession = () => {
   Sessions.insert({
     _id: uuid(),
     state: 'CREATED',
-    activity: null
+    activity: null,
+    startedAt: null
   })
 }
 
@@ -18,5 +19,5 @@ export const updateSessionState = (id,state) => {
 }
 
 export const updateSessionActivity = (id,activity) => {
-  Sessions.update({_id:id},{$set: {activity:activity}})
+  Sessions.update({_id:id},{$set: {activity:activity, startedAt:new Date()}})
 }
