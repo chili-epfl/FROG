@@ -5,7 +5,7 @@ import DraggableAc from './../DraggableAc.jsx';
 //to be put in graph.jxs
 const AxisDisplay = ( {reference} ) => { return(
   <div ref={reference} style={{overflowX: scroll}}>
-    <svg width="100%" height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflow: "scroll"}}>
+    <svg width="1000px" height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflow: "scroll"}}>
       <text x="0%" y="20%">Plane 1</text>
       <line x1="10%" y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
@@ -166,6 +166,7 @@ export default class Graph extends Component {
       key={1}
       startTime={60}
       duration={90}/>;
+      alert(event.target.getBoundingClientRect());
 
     this.setState({currentDraggable: newDrag});
   }
