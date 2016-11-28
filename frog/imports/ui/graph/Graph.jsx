@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import DraggableAc from './../DraggableAc.jsx';
+import DraggableAc from './DraggableAc.jsx';
 
 //to be put in graph.jxs
 const AxisDisplay = ( {reference} ) => { return(
@@ -18,10 +18,20 @@ const AxisDisplay = ( {reference} ) => { return(
   </div>
 )}
 
+const Separator = ( {onHover} ) => {
+  return (
+    <div onMouseOver={onHover}>
+      <svg width="100%" height = "2px" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0%" y1="0%" x2="100%" y2="0%" style={{stroke: 'black', strokeWidth:"1"}} />
+      </svg>
+    </div>
+  )
+}
+
 const divStyle = {
   position: "relative",
   height: 300,
-  width: "60%",
+  width: "100%",
   overflowX: "scroll",
   border: 2,
   borderStyle: "solid",
@@ -29,10 +39,9 @@ const divStyle = {
 }
 
 const divListStyle = {
-  position: "absolute",
-  left: "65%",
+  position: "relative",
   height: 300,
-  width: "40%",
+  width: "100%",
   border: 1,
   borderStyle: "solid",
   borderColor: "black"
@@ -77,35 +86,7 @@ const BoxAc = ( {hoverStart, hoverStop, plane} ) => {
   )
 };
 
-const RenderDraggable = ( {handleHoverStart, handleHoverStop, activities}) => {return(
-      /*
-      <div style={divListStyle}>
-
-        <DraggableAc
-          editorMode={editable}
-          inGraph={false}
-          plane={2}
-          key={2}
-          startTime={1}
-          duration={45}/>
-        <DraggableAc
-          editorMode={editable}
-          inGraph={false}
-          plane={1}
-          key={1}
-          startTime={60}
-          duration={90}/>
-
-        <DraggableAc
-          editorMode={editable}
-          inGraph={false}
-          plane={3}
-          key={3}
-          startTime={165}
-          duration={45}/>
-    </div>
-    {currentDraggable}
-    */
+const RenderDraggable = ( { handleHoverStart, handleHoverStop, activities}) => {return(
     <div>
       <div style={divListStyle}>
 
@@ -117,13 +98,14 @@ const RenderDraggable = ( {handleHoverStart, handleHoverStop, activities}) => {r
           plane={i+1} />
         })}
       </div>
+
     </div>
 
   )
 }
 
 
-const RenderGraph = ( {activities, editable, dragStop, currentDraggable, handleDragStop} ) => {
+const RenderGraph = ( {activities, editable, dragStop}) => {
   return(
 
       <div style={divStyle}>
@@ -142,18 +124,6 @@ const RenderGraph = ( {activities, editable, dragStop, currentDraggable, handleD
           <AxisDisplay />
         </div>
 
-      {currentDraggable ? 
-      <DraggableAc
-        editorMode={true}
-        inGraph={false}
-        plane={1}
-        key={1}
-        startTime={60}
-        duration={90}
-        onStop={handleDragStop}
-        defaultPosition={{x: 0, y: 0}}
-        />
-        : "" }
       </div>
 
     );
@@ -166,16 +136,24 @@ export default class Graph extends Component {
 
     this.state = {
       addedActivities: [],
-      currentDraggable: null
+      currentDraggable: null,
+      separatorHeight: -1,
+      mousePosition: {x: 0, y:0}
     };
   }
 
+  handleHoverSeparator = (event) => {
+    var pos = event.target.getBoundingClientRect();
+    this.setState({separatorHeight: pos.top});
+  }
 
   handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
-    this.setState({currentDraggable: activity});
-    /*
     var pos = event.target.getBoundingClientRect();
+
+    this.setState({currentDraggable: activity, mousePosition: {x: pos.left, y: pos.top}});
+    /*
+
 
     var newDrag = <DraggableAc
       editorMode={true}
@@ -214,17 +192,11 @@ export default class Graph extends Component {
     }
   }
 
-  handleDragStop = (event, position) => {
+  handleDragStop = (event) => {
     event.preventDefault();
-    alert(position)
     var pos = event.target.getBoundingClientRect();
 
-    alert(pos.top + " " + pos.right + " " + pos.down + " " + pos.left)
-
-    if(pos.top < this.topPos() &&
-      pos.top > this.bottomPos() &&
-      pos.left > this.leftPos() &&
-      pos.right < this.rightPos()) 
+    if(pos.down < this.state.separatorHeight)
     {
       var activitiesMore = this.state.addedActivities.concat(event.target)
       this.setState({addedActivities: activitiesMore});
@@ -232,7 +204,7 @@ export default class Graph extends Component {
     else {
       var index = this.state.addedActivities.indexOf(event.target)
       if(index != -1) {
-        var activitiesLess = 
+        var activitiesLess =
           this.state.addedActivities.slice(0, index).concat(this.state.addedActivities.slice(index+1, this.state.addedActivities.length))
         this.setState({addedActivities: activitiesLess});
       }
@@ -242,19 +214,37 @@ export default class Graph extends Component {
   }
 
   render() {
+    var position = {x: this.state.mousePosition.x, y: this.state.mousePosition.y }
     return (
       <div className="graph-summary">
           <div>
+            {this.state.currentDraggable ?
+              <div style={{position: "absolute", zIndex:4}}>
+                <DraggableAc
+                  editorMode={true}
+                  inGraph={false}
+                  plane={1}
+                  key={1}
+                  startTime={60}
+                  duration={90}
+                  onStop={this.handleDragStop}
+                  defaultPosition={position}
+                />
+              </div>
+              : "" }
 
+            <RenderGraph
+              activities={this.state.addedActivities}
+              editable={true}
+              dragStop={this.handleDragStop}
+            />
+            <Separator onHover={this.handleHoverSeparator} />
             <RenderDraggable
               handleHoverStart={this.handleHoverStart}
               handleHoverStop={this.handleHoverStop}
               activities = {this.props.activities}
               />
-            <RenderGraph activities={this.state.addedActivities} editable={true} dragStop={this.handleDragStop} 
-            currentDraggable={this.state.currentDraggable}
-            handleDragStop={this.handleDragStop}
-            />
+
           </div>
       </div>
     );

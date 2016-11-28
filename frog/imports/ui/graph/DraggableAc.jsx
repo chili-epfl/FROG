@@ -104,8 +104,7 @@ export default class DraggableAc extends Component {
 
   handleStop = (event) => {
     event.preventDefault();
-    //this.props.onStop(event, position)
-    alert('HeyStop')
+    this.props.onStop(event)
 
     var delta = this.state.deltaPosition;
 
@@ -171,7 +170,7 @@ export default class DraggableAc extends Component {
         position={this.positionAndReset()}
 
         disabled={!this.props.editorMode}
-        bounds={{top: 0}}
+
         onStart={this.handleStart}
         onDrag={this.handleDrag}
         onStop={this.handleStop}
@@ -184,7 +183,7 @@ export default class DraggableAc extends Component {
                 }>
 
               Plane {this.props.plane}<br/>
-              {this.state.controlledPosition.y}
+              {this.props.defaultPosition.y}
             </div>
           </div>
         </Draggable>
