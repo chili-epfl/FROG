@@ -32,7 +32,7 @@ const divStyle = {
 }
 const unitTime = 2
 
-const startOffset = 70
+const startOffset = 0
 
 const editorPosition = {x: 0, y: 0}
 

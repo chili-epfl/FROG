@@ -78,10 +78,15 @@ export default class DraggableAc extends Component {
 
   defaultPosition = () => {
     var { defaultPosition } = this.props;
+    var position = defaultPosition;
+    if(this.props.editorMode && this.props.inGraph) {
+      position.x = this.getX();
+      position.y = this.correctY();
+    }
 
     return {
-      x: this.props.editorMode ? defaultPosition.x : this.getX(),
-      y: this.props.editorMode ? defaultPosition.y : this.getCorrectY()
+      x: position.x,
+      y: position.y
     }
   }
 
