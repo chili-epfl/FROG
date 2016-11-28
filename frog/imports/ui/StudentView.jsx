@@ -84,7 +84,7 @@ const ActivityBody = ( { activity, state, products } ) => {
     return( <h1>Waiting for next activity</h1> ) 
   }
   const createdAt = Sessions.findOne({activity: activity._id}).startedAt
-  return( <TimerExample start={createdAt} activity={activity} /> )
+  return( <TimerExample start={createdAt} activity={activity} duration={activity.data.duration} /> )
 }
 
 const SessionBody = ( { session, products } ) =>  { return (
@@ -148,17 +148,19 @@ var TimerExample = React.createClass({
         var elapsed = Math.round(this.state.elapsed / 100);
 
         // This will give a number with one digit after the decimal dot (xx.x):
-        var seconds = (elapsed / 10).toFixed(1);    
+        var seconds = (this.props.duration - (elapsed / 10)).toFixed(1);    
 
    
      // Although we return an entire <p> element, react will smartly update
         // only the changed parts, which contain the seconds variable.
 
-        return ( seconds > 100 ? <h1>Time-out for this activity</h1> :
-          <div>
-            <p>This example was started <b>{seconds} seconds</b> ago.</p>
-            <Runner activity={this.props.activity}/>
-          </div>
+        return ( this.props.duration == 0 ? <Runner activity={this.props.activity}/> : 
+          ( seconds < 0 ? <h1>Time-out for this activity</h1> :
+            <div>
+              <p>This activity will end in <b>{seconds} seconds</b>.</p>
+              <Runner activity={this.props.activity}/>
+            </div>
+          )
         );
     }
 });

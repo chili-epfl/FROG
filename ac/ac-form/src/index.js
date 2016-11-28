@@ -13,7 +13,7 @@ const modifyForm = (questions, title) => {
     (acc, x, i) => ({...acc, [i + '']: { type: 'string', title: x}}),
     {} )
 
-  const formdef = { 
+  const formdef = {
     title: title,
     type: 'object',
     properties: propdef
