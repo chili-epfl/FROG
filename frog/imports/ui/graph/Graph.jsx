@@ -77,7 +77,7 @@ const BoxAc = ( {hoverStart, hoverStop, plane} ) => {
   )
 };
 
-const RenderDraggable = ( {handleHoverStart, handleHoverStop, currentDraggable}) => {return(
+const RenderDraggable = ( {handleHoverStart, handleHoverStop, activities}) => {return(
       /*
       <div style={divListStyle}>
 
@@ -104,24 +104,18 @@ const RenderDraggable = ( {handleHoverStart, handleHoverStop, currentDraggable})
           startTime={165}
           duration={45}/>
     </div>
+    {currentDraggable}
     */
     <div>
       <div style={divListStyle}>
-        <BoxAc
-          hoverStart={(event) => handleHoverStart(event, 1)}
+
+        {activities.map((activity, i) => {
+          return <BoxAc
+          hoverStart={(event) => handleHoverStart(event, i+1, activity)}
           hoverStop={handleHoverStop}
-          plane={1} />
-        <BoxAc
-          hoverStart={(event) => handleHoverStart(event, 2)}
-          hoverStop={handleHoverStop}
-          plane={2} />
-        <BoxAc
-          hoverStart={(event) => handleHoverStart(event, 3)}
-          hoverStop={handleHoverStop}
-          plane={3} />
-      </div>
-      <div>
-        {currentDraggable}
+          key={i}
+          plane={i+1} />
+        })}
       </div>
     </div>
 
@@ -129,7 +123,7 @@ const RenderDraggable = ( {handleHoverStart, handleHoverStop, currentDraggable})
 }
 
 
-const RenderGraph = ( {activities, editable, dragStop} ) => {
+const RenderGraph = ( {activities, editable, dragStop, currentDraggable, handleDragStop} ) => {
   return(
 
       <div style={divStyle}>
@@ -147,6 +141,19 @@ const RenderGraph = ( {activities, editable, dragStop} ) => {
         <div style={{top: 50}}>
           <AxisDisplay />
         </div>
+
+      {currentDraggable ? 
+      <DraggableAc
+        editorMode={true}
+        inGraph={false}
+        plane={1}
+        key={1}
+        startTime={60}
+        duration={90}
+        onStop={handleDragStop}
+        defaultPosition={{x: 0, y: 0}}
+        />
+        : "" }
       </div>
 
     );
@@ -164,9 +171,10 @@ export default class Graph extends Component {
   }
 
 
-  handleHoverStart = (event, plane) => {
+  handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
-
+    this.setState({currentDraggable: activity});
+    /*
     var pos = event.target.getBoundingClientRect();
 
     var newDrag = <DraggableAc
@@ -177,10 +185,10 @@ export default class Graph extends Component {
       startTime={60}
       duration={90}
       onStop={this.handleDragStop}
-      defaultPosition={{x: pos.left-event.target.offsetWidth, y: 0}}/>;
+      defaultPosition={{x: pos.left-100, y: 0}}/>;
 
-    this.setState({currentDraggable: newDrag});
-  }
+    this.setState({currentDraggable: newDrag
+    */  }
 
   leftPos() {
     return 0;
@@ -206,12 +214,12 @@ export default class Graph extends Component {
     }
   }
 
-  handleDragStop = (event) => {
+  handleDragStop = (event, position) => {
     event.preventDefault();
     alert(position)
     var pos = event.target.getBoundingClientRect();
 
-    alert(pos.top + " " + top.right + " " + top.down + " " + top.left)
+    alert(pos.top + " " + pos.right + " " + pos.down + " " + pos.left)
 
     if(pos.top < this.topPos() &&
       pos.top > this.bottomPos() &&
@@ -237,14 +245,23 @@ export default class Graph extends Component {
     return (
       <div className="graph-summary">
           <div>
+
             <RenderDraggable
               handleHoverStart={this.handleHoverStart}
               handleHoverStop={this.handleHoverStop}
-              currentDraggable={this.state.currentDraggable}
+              activities = {this.props.activities}
               />
-            <RenderGraph activities={[]} editable={true} dragStop={this.handleDragStop}/>
+            <RenderGraph activities={this.state.addedActivities} editable={true} dragStop={this.handleDragStop} 
+            currentDraggable={this.state.currentDraggable}
+            handleDragStop={this.handleDragStop}
+            />
           </div>
       </div>
     );
   }
 }
+
+
+Graph.propTypes = {
+  activities: PropTypes.array.isRequired,
+};

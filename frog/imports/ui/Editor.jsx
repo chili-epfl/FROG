@@ -161,7 +161,7 @@ class ActivityBody extends Component {
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>
         <ActivityList activities={this.props.activities} />
         <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
-        <Graph />
+        <Graph activities={this.props.activities} />
       </div>
     )
   }
