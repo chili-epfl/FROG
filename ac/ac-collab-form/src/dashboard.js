@@ -19,7 +19,6 @@ const GroupView = ({ members, group }) => {
 
 const CollabForm = ( {logs, timeNow} ) => { 
   const groups = groupBy(logs, x => x.group)
-  console.log(logs, groups)
   return(
     <div>
       {map(groups, (v, k) => <GroupView members={v} group={k} key={k} timeNow={timeNow} />)}
