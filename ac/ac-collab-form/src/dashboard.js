@@ -17,7 +17,7 @@ const GroupView = ({ members, group }) => {
   )
 }
 
-const CollabForm = ( {logs, timeNow} ) => { 
+const Dashboard = ( {logs, timeNow} ) => { 
   const groups = groupBy(logs, x => x.group)
   return(
     <div>
@@ -26,4 +26,4 @@ const CollabForm = ( {logs, timeNow} ) => {
   )
 }
 
-export default TimedComponent(CollabForm)
+export default TimedComponent(Dashboard)
