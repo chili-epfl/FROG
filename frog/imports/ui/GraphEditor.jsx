@@ -5,45 +5,82 @@ import Draggable from 'react-draggable';
 import Form from 'react-jsonschema-form'
 
 import { Activities, Operators, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, deleteGraphActivities } from '../api/activities';
-import { Graphs, addOrUpdateGraph } from '../api/graphs';
+import { Graphs, addGraph, renameGraph } from '../api/graphs';
 import { uuid } from 'frog-utils'
 
 import jsPlump from 'jsplumb';
 import { $ } from 'meteor/jquery';
 
-const planeNames = ['solo','group','class'];
+const planeNames = ['class','group','individual'];
 
-
-
-const ActivityChoiceComponent = ( { outActivities, ownId } ) => {
-  var selectedActivity = outActivities[0] ? outActivities[0]._id :null
-  
-  const changeActivityChoice = (event) => {selectedActivity = event.target.value}
-  
-  const submitActivityChoice = (e) => { 
-    e.preventDefault()
-    copyActivityIntoGraphActivity(ownId, selectedActivity) 
-  }
-
-  return (
-    <form className='selector' onSubmit={submitActivityChoice} >
-      <select onChange={changeActivityChoice}>
-        {outActivities.map(activity => <option key={activity._id} value={activity._id}>{activity.data.name}</option>)}
-      </select>
-      <input type="submit" value="Submit" />
-    </form>
-  )
+const setCurrentGraph = (graphId) => {
+  Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.editingGraph': graphId}})
 }
 
-const ActivityInEditor = ( { activity, addOperator, outActivities }  ) => { 
+var jsPlumbInstance = null
+
+jsPlumbRemoveAll = () => {
+  console.log('jsPlumbRemoveAll')
+  jsPlumbInstance.detachEveryConnection();
+  jsPlumbInstance.deleteEveryEndpoint();
+  jsPlumbInstance.unmakeEveryTarget();
+  jsPlumbInstance.unmakeEverySource();
+}
+
+jsPlumbDrawAll = (activities,operators) => {
+  console.log('jsPlumbDrawAll')
+  activities.forEach(activity => {
+    jsPlumbInstance.makeSource($('#'+activity._id),{anchor:'Continuous'})
+    jsPlumbInstance.makeTarget($('#'+activity._id),{anchor:'Continuous'})
+  })
+  operators.forEach(operator => {
+    jsPlumbInstance.connect({
+      source:$('#'+operator.source),
+      target:$('#'+operator.target),
+      anchors:['Continuous','Continuous']
+    })
+  })
+}
+
+jsPlumbRemoveAllAndDrawAgain = (activities,operators) => {
+  console.log('jsPlumbRemoveAllAndDrawAgain')
+  jsPlumbRemoveAll()
+  jsPlumbDrawAll(activities,operators)
+}
+
+const ActivityChoiceComponent = createContainer(
+  (props) => { return ({
+    ...props,
+    activities: Activities.find({status:'OUT'}).fetch()
+  })},
+  ( { activities, ownId } ) => {
+    var selectedActivity = activities[0] ? activities[0]._id :null
+    
+    const changeActivityChoice = (event) => { selectedActivity = event.target.value }
+
+    const submitActivityChoice = (e) => { 
+      e.preventDefault()
+      copyActivityIntoGraphActivity(ownId, selectedActivity) 
+    }
+
+    return (
+      <form className='selector' onSubmit={submitActivityChoice} >
+        <select onChange={changeActivityChoice}>
+          {activities.map(activity => <option key={activity._id} value={activity._id}>{activity.data.name}</option>)}
+        </select>
+        <input type="submit" value="Submit" />
+      </form>
+    )
+  }
+)
+
+const ActivityInEditor = ( { activity }  ) => { 
 
   const eventLogger = (e, data) => {
     console.log('Event: ', event);
     console.log('Data: ', data);
     dragGraphActivity(activity._id, activity.xPosition)
   }
-
-  console.log(activity)
 
   return (
     <Draggable
@@ -54,7 +91,7 @@ const ActivityInEditor = ( { activity, addOperator, outActivities }  ) => { 
       <div className={'item'} style={{left: activity.xPosition}}>
         { activity.data ? 
           <div className={'title'}> {activity.data.name} </div>
-          : <ActivityChoiceComponent outActivities={outActivities} ownId={activity._id} />
+          : <ActivityChoiceComponent ownId={activity._id} />
         }
         <button
           id={activity._id}
@@ -67,8 +104,12 @@ const ActivityInEditor = ( { activity, addOperator, outActivities }  ) => { 
   )
 }
 
-const OperatorChoiceComponent = ({ outOperators, ownId }) => {
-  var selectedOperator = outOperators[0] ? outOperators[0]._id: null
+const OperatorChoiceComponent = createContainer(() => {
+  return {
+    operators: Operators.find({status:'OUT'}).fetch()
+  }
+}, ({ outOperators, ownId }) => {
+  var selectedOperator = operators[0] ? operators[0]._id: null
   
   const changeOperatorChoice = (event) => {selectedOperator = event.target.value}
   
@@ -77,26 +118,29 @@ const OperatorChoiceComponent = ({ outOperators, ownId }) => {
   return (
     <form className='selector' onSubmit={submitOperatorChoice} >
       <select onChange={changeOperatorChoice}>
-        {outOperators.map(operator => <option key={operator._id} value={operator._id}>{operator.operator_type}</option>)}
+        {operators.map(operator => <option key={operator._id} value={operator._id}>{operator.operator_type}</option>)}
       </select>
       <input type="submit" value="Submit" />
     </form>
   )
-}
+})
 
-const EditorView = ( { graph, inActivities, inOperators, outActivities, outOperators, addOperator, setState, jsPlumbRemoveAll } ) => {
+class GraphEditorClass extends Component {
   
-  const deleteAll = () => {
+  deleteAll = () => {
     jsPlumbRemoveAll()
-    deleteGraphActivities(graph._id)
+    deleteGraphActivities(this.props.graph._id)
     setState({name: 'untitled',activities: [],operators: []})
   }
-  const renameCurrentGraph = (name) => { setState({ name: name }) }
-  const copyCurrentGraph = () => { setState({ _id: uuid() })}
+  renameCurrentGraph = (name) => { console.log('rename') }
+  copyCurrentGraph = () => { console.log('copy') }
+  saveCurrentGraph = () => { addOrUpdateGraph(graph) }
 
-  const saveCurrentGraph = () => { addOrUpdateGraph(graph) }
+  componentDidUpdate() {
+    jsPlumbRemoveAllAndDrawAgain(this.props.activities,this.props.operators)
+  }
 
-  return(
+  render() { return(
     <div>
       <h3>Graph editor</h3>
       <div>
@@ -105,13 +149,11 @@ const EditorView = ( { graph, inActivities, inOperators, outActivities, outOpera
           {planeNames.map((plane) => { return(
             <div className='plane' id={plane} key={plane}>
               <p style={{float:'right'}}>{plane}</p>
-              { inActivities.map(activity =>
+              { this.props.activities.map(activity =>
                 plane==activity.plane ?
                   <ActivityInEditor
                     key={activity._id}
-                    outActivities={outActivities}
                     activity={activity} 
-                    addOperator={addOperator}
                   />
                 :null
               )}
@@ -119,85 +161,91 @@ const EditorView = ( { graph, inActivities, inOperators, outActivities, outOpera
           )})}
         </div>
         <input
-          onChange={(event) => renameCurrentGraph(event.target.value)}
-          value={graph.name}
+          onChange={(event) => renameGraph(this.props.graphId, event.target.value)}
+          value={this.props.graph? this.props.graph.name: 'untitled'}
         />
-        <button className='btn btn-primary btn-sm' onClick={saveCurrentGraph}>Save</button>
-        <button className='btn btn-primary btn-sm' onClick={copyCurrentGraph}>Copy</button>
-        <button className='btn btn-danger btn-sm' onClick={deleteAll}>Delete</button>
       </div>
-      { inOperators.map(operator => 
-        operator.data ? null 
-        : <OperatorChoiceComponent
-          key={operator._id}
-          outOperators={outOperators} 
-          ownId={operator._id} 
-        /> 
+      { this.props.operators.map(operator => 
+          operator.data ? 
+            null 
+          : <OperatorChoiceComponent
+              key={operator._id}
+              ownId={operator._id} 
+            /> 
       )}
     </div>
-  )
+  )}
 }
 
-const EditorViewContainer = createContainer((props) => {
-  console.log('EditorViewContainer')
-  console.log(props)
-  return({
-    ...props,
-    inActivities: Activities.find({ graphId: props.graph._id }).fetch(),
-    inOperators: Operators.find({ graphId: props.graph._id }).fetch()
-  })
-}, EditorView)
+const GraphEditor = createContainer(
+  (props) => { 
+    return( {
+      ...props,
+      graph: props.graphId? Graphs.findOne({ _id: props.graphId }) :null,
+      activities: props.graphId? Activities.find({ graphId: props.graphId }).fetch() :null,
+      operators: props.graphId? Operators.find({ graphId: props.graphId }).fetch() :null
+    })
+  }, 
+  GraphEditorClass
+)
 
-const GraphList = ( { graphs, editSavedGraph, currentGraphId } ) => { return(
-  <div>
-    <h3>Graph list</h3>
-    <ul> { graphs.map((graph) => 
-      <li style={{listStyle: 'none'}} key={graph._id}>
-        <a href='#' onClick={ () => Graphs.remove({_id: graph._id}) }><i className="fa fa-times" /></a>
-        <a href='#' onClick={ () => editSavedGraph(graph) } ><i className="fa fa-pencil" /></a>
-        {graph.name} {graph._id==currentGraphId? '(current)':null}
-      </li>
-    )} </ul>
-  </div>
-  )
-}
+const GraphList = createContainer(
+  (props) => {
+    return({
+      currentGraphId: props.graphId? props.graphId :null,
+      graphs: Graphs.find().fetch()
+    })
+  },
+  ( { graphs, editSavedGraph, currentGraphId } ) => { 
 
-class GraphEditor extends Component { 
-  constructor(props) {
-    super(props);
-    this.state = {
-      _id: uuid(),
-      name: 'untitled',
-      activities: [],
-      operators: [] 
+    const editGraph = (graphId) => {
+      jsPlumbRemoveAll() 
+      console.log('edit')
+      setCurrentGraph(graphId)
     }
+    
+    const newGraph = () => { 
+      const id = addGraph()
+      editGraph(id)
+    }
+
+    return(
+      <div>
+        <h3>Graph list</h3>
+        <button className='btn btn-primary btn-sm' onClick={newGraph}>New</button>
+        <ul> { graphs.map((graph) => 
+          <li style={{listStyle: 'none'}} key={graph._id}>
+            <a href='#' onClick={ () => Graphs.remove({_id: graph._id}) }><i className="fa fa-times" /></a>
+            <a href='#' onClick={ () => editGraph(graph._id) } ><i className="fa fa-pencil" /></a>
+            {graph.name} {graph._id==currentGraphId? '(current)':null}
+          </li>
+        )} </ul>
+      </div>
+    )
   }
-  
-  editSavedGraph = (graph) => {
-    this.jsPlumbRemoveAll() 
-    this.setState(graph) 
-  }
+)
+
+class Main extends Component { 
   
   addActivity = (activityId) => {
-    this.state.activities.push(activityId)
+    console.log('addActivity')
     this.forceUpdate()
   }
 
   addOperator= (source, target) => {
     const id = addGraphOperator({ graphId: this.state._id, from:source, to:target })
-    this.state.operators.push({_id: id, source:source, target:target })
+    this.state.operators.push(id)
     this.forceUpdate()
   }
 
   componentDidMount() {
     const that = this
 
-    this.jsPlumbInstance = jsPlumb.getInstance();
-    this.jsPlumbInstance.setContainer($('#container'));
+    jsPlumbInstance = jsPlumb.getInstance();
+    jsPlumbInstance.setContainer($('#container'));
 
-    this.jsPlumbInstance.bind('connection', function(info,originalEvent) {
-      // testing if the event comes from a human
-      if (originalEvent) {
+    jsPlumbInstance.bind('connection', function(info,originalEvent) {
+      if (originalEvent) { // testing if the event comes from a human
         that.addOperator(info.sourceId,info.targetId)
       }
     });
@@ -205,72 +253,36 @@ class GraphEditor extends Component {
     planeNames.forEach(plane => {
       $('#'+plane).dblclick(e => {
         console.log(e)
-        const newGraphActivityId = addGraphActivity({ 
-          plane:plane, 
-          xPosition:e.offsetX, 
-          graphId:that.state._id 
-        })
-        that.addActivity(newGraphActivityId)
+        if(this.props.graphId && Graphs.findOne({ _id: this.props.graphId })) {
+          const newGraphActivityId = addGraphActivity({ 
+            plane:plane, 
+            xPosition:e.offsetX, 
+            graphId: this.props.graphId
+          })
+          that.addActivity(newGraphActivityId)
+        } else {
+          alert('you need to select a graph to edit or create a new one')
+        }
       })
     })
-  }
-
-  componentDidUpdate() {
-    this.jsPlumbRemoveAllAndDrawAgain()
-  }
-
-  jsPlumbRemoveAll = () => {
-    console.log('jsPlumbRemoveAll')
-    this.jsPlumbInstance.detachEveryConnection();
-    this.jsPlumbInstance.deleteEveryEndpoint();
-    this.jsPlumbInstance.unmakeEveryTarget();
-    this.jsPlumbInstance.unmakeEverySource();
-  }
-
-  jsPlumbDrawAll = () => {
-    console.log('jsPlumbDrawAll')
-    this.state.activities.forEach((activityId) => {
-      this.jsPlumbInstance.makeSource($('#'+activityId),{anchor:'Continuous'})
-      this.jsPlumbInstance.makeTarget($('#'+activityId),{anchor:'Continuous'})
-    })
-    this.state.operators.forEach(operator => {
-      this.jsPlumbInstance.connect({
-        source:$('#'+operator.source),
-        target:$('#'+operator.target),
-        anchors:['Continuous','Continuous']
-      })
-    })
-  }
-
-  jsPlumbRemoveAllAndDrawAgain = () => {
-    console.log('jsPlumbRemoveAllAndDrawAgain')
-    this.jsPlumbRemoveAll()
-    this.jsPlumbDrawAll()
   }
 
   render() { return(
     <div>
-      <EditorViewContainer 
-        graph={this.state}
-        outActivities={this.props.outActivities}
-        outOperators={this.props.outOperators}
-        addOperator={this.addOperator}
-        jsPlumbRemoveAll={this.jsPlumbRemoveAll}
-        setState={(x) => this.setState(x)}
-      />
-      <GraphList 
-        graphs={this.props.graphs} 
-        editSavedGraph={this.editSavedGraph}
-        currentGraphId={this.state._id}
-      />
+      <GraphEditor graphId={this.props.graphId} />
+      <GraphList graphId={this.props.graphId} />
     </div>
   )}
 }
 
-export default createContainer(() => {
-  return {
-    outActivities: Activities.find({status:'OUT'}).fetch(),
-    outOperators: Operators.find({status:'OUT'}).fetch(),
-    graphs: Graphs.find({}).fetch()
-  }
-}, GraphEditor)
+export default createContainer(
+  () => {
+    const user = Meteor.users.findOne({_id:Meteor.userId()})
+    const graphId = user.profile? user.profile.editingGraph :null
+    return({ 
+      user: user,
+      graphId: graphId 
+    })
+  },
+  Main
+)

@@ -86,7 +86,6 @@ const SessionController = ( { session, activities } ) => {
 }
 
 const SessionControllerContainer = createContainer(({ session }) => {
-  console.log(session)
   return({
     session: session,
     activities: session? Activities.find({graphId: session.graphId}).fetch() :null
