@@ -47,7 +47,7 @@ jsPlumbRemoveAllAndDrawAgain = (activities,operators) => {
   jsPlumbDrawAll(activities,operators)
 }
 
-const ChoiceComponent = ({ choices, ownId, submitChoiceFn }) => {
+const ChoiceComponent = ({ choices, ownId, submitChoiceFn, displayFn }) => {
   var selectedChoice = choices[0] ? choices[0]._id :null
   
   const changeChoice = (event) => { selectedChoice = event.target.value }
@@ -60,7 +60,7 @@ const ChoiceComponent = ({ choices, ownId, submitChoiceFn }) => {
   return (
     <form className='selector' onSubmit={submitChoice} >
       <select onChange={changeChoice}>
-        {choices.map(choice => <option key={choice._id} value={choice._id}>{choice._id}</option>)}
+        {choices.map(choice => <option key={choice._id} value={choice._id}>{displayFn(choice)}</option>)}
       </select>
       <input type="submit" value="Submit" />
     </form>
@@ -71,7 +71,8 @@ const ActivityChoiceComponent = createContainer(
   (props) => { return ({
     ...props,
     choices: Activities.find({status:'OUT'}).fetch(),
-    submitChoiceFn: copyActivityIntoGraphActivity
+    submitChoiceFn: copyActivityIntoGraphActivity,
+    displayFn: (activity => activity.data.name)
   })},
   ChoiceComponent
 )
@@ -79,8 +80,9 @@ const ActivityChoiceComponent = createContainer(
 const OperatorChoiceComponent = createContainer(
   (props) => { return({ 
     ...props,
-    operators: Operators.find({status:'OUT'}).fetch(),
-    submitChoiceFn: copyOperatorIntoGraphOperator
+    choices: Operators.find({status:'OUT'}).fetch(),
+    submitChoiceFn: copyOperatorIntoGraphOperator,
+    displayFn: (operator => operator.operator_type)
   })}, 
   ChoiceComponent
 )
