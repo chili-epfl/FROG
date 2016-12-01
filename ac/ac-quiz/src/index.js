@@ -89,4 +89,4 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
   )
 }
 
-export default ({ id: 'ac-quiz', meta: meta, config: config, Runner: ActivityRunner }: ActivityPackageT)
+export default ({ id: 'ac-quiz', meta: meta, config: config, ActivityRunner: ActivityRunner }: ActivityPackageT)
