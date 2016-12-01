@@ -74,34 +74,37 @@ const ActivityChoiceComponent = createContainer(
   }
 )
 
-const ActivityInEditor = ( { activity }  ) => { 
+class ActivityInEditor extends Component { 
 
-  const eventLogger = (e, data) => {
+  eventLogger = (e, data) => {
     console.log('Event: ', event);
     console.log('Data: ', data);
-    dragGraphActivity(activity._id, activity.xPosition)
+    dragGraphActivity(this.props.activity._id, data.x)
+    this.forceUpdate()
   }
 
-  return (
-    <Draggable
-      axis='x'
-      bounds='parent'
-      handle='.title'
-      onStop={eventLogger} >
-      <div className={'item'} style={{left: activity.xPosition}}>
-        { activity.data ? 
-          <div className={'title'}> {activity.data.name} </div>
-          : <ActivityChoiceComponent ownId={activity._id} />
-        }
-        <button
-          id={activity._id}
-          className='btn btn-primary btn-sm connector'
-          style={{bottom: 0,width:'100%'}}>
-          Connect
-        </button>
-      </div>
-    </Draggable>
-  )
+  render() { return (
+    <div >
+      <Draggable
+        axis='x'
+        handle='.title'
+        position={{x:0,y:0}}
+        onStop={this.eventLogger} >
+        <div className={'item'} style={{ left: this.props.activity.xPosition+'px' }}>
+          { this.props.activity.data ? 
+            <div className={'title'}> {this.props.activity.data.name} {this.props.activity.xPosition} </div>
+            : <ActivityChoiceComponent ownId={this.props.activity._id} />
+          }
+          <button 
+            className='btn btn-primary btn-sm connector' 
+            style={{ bottom: 0, width:'100%', position:'absolute' }}
+            id={this.props.activity._id} > 
+            Connect 
+          </button>
+        </div>
+      </Draggable>
+    </div>
+  )}
 }
 
 const OperatorChoiceComponent = createContainer(() => {
@@ -181,9 +184,9 @@ const GraphEditor = createContainer(
   (props) => { 
     return( {
       ...props,
-      graph: props.graphId? Graphs.findOne({ _id: props.graphId }) :null,
-      activities: props.graphId? Activities.find({ graphId: props.graphId }).fetch() :null,
-      operators: props.graphId? Operators.find({ graphId: props.graphId }).fetch() :null
+      graph: Graphs.findOne({ _id: props.graphId }),
+      activities: Activities.find({ graphId: props.graphId }).fetch(),
+      operators: Operators.find({ graphId: props.graphId }).fetch()
     })
   }, 
   GraphEditorClass
@@ -226,7 +229,7 @@ const GraphList = createContainer(
 )
 
 class Main extends Component { 
-  
+
   addActivity = (activityId) => {
     console.log('addActivity')
     this.forceUpdate()
@@ -267,8 +270,14 @@ class Main extends Component {
     })
   }
 
+  refresh = () => {
+    console.log('refresh')
+    this.forceUpdate()
+  }
+
   render() { return(
     <div>
+      <button onClick={this.refresh}>Update</button>
       <GraphEditor graphId={this.props.graphId} />
       <GraphList graphId={this.props.graphId} />
     </div>

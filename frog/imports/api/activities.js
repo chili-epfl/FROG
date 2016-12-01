@@ -49,9 +49,9 @@ export const deleteGraphActivities = ( graphId ) => {
   Meteor.call('graphActivities.flush',graphId)
 }
 
-export const dragGraphActivity = ( id, newPosition) => {
+export const dragGraphActivity = ( id, xPosition ) => {
   console.log('dragGraphActivity')
-  Activities.update(id, {$set: {xPosition: newPosition}})
+  Activities.update(id, {$inc: {xPosition: xPosition}})
 }
 
 export const addOperator = (operator_type, data, id) => {

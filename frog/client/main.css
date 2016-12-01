@@ -17,13 +17,19 @@ body {
 
 .window { 
   position: fixed;
-  z-index:20; }
+  z-index:20; 
+}
+
 .jtk-connector { 
   position: fixed;
-  z-index:4; }
+  z-index:4; 
+}
+
 .jtk-endpoint { 
   position: fixed;
-  z-index:5; }
+  z-index:5; 
+}
+
 .jtk-overlay { 
   position: fixed;
   z-index:6; }
@@ -38,11 +44,10 @@ body {
 
 .item {
   position: absolute;
-  display: inline-block;
   border: 1px solid black;
   background-color: #bbbbee;
   width: 100px;
-  height: 100%;
+  height: 98px;
 }
 
 .title {
@@ -59,38 +64,22 @@ body {
 }
 
 .plane {
-  position: absolute;
+  position: relative;
   border: 1px solid gray;
   width: 100%;
   height: 100px;
 }
 
-#solo {
+#individual {
   top: 0px;
 }
 
 #group {
-  top: 100px;
-
+  top: 0px;
 }
 
 #class {
-  top: 200px;
-
-}
-
-.product {
-  width: 100%;
-  height: 20px;
-  background-color: #ccccff;
-  cursor: pointer;
-}
-
-.object {
-  width: 100%;
-  height: 20px;
-  background-color: white;
-  cursor: pointer;
+  top: 0px;
 }
 
 #body {
