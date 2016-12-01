@@ -13,6 +13,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "flow-copy-source": "^1.1.0"
+    "flow-copy-source": "^1.1.0",
+    "yarn": "^0.17.10"
   }
 }
