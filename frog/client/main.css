@@ -39,7 +39,7 @@ body {
 }
 
 .selector {
-  position:absolute;
+  position:relative;
 }
 
 .item {

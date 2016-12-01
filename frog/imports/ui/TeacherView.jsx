@@ -66,11 +66,11 @@ const SessionController = ( { session, activities } ) => {
         <h4>Available activities</h4>
         <ul> { 
           activities.map((activity) => {
-            const running = activity._id == session.activity
+            const running = (activity._id == session.activity)
             return (
             <li key={activity._id}>
               <a href='#' onClick={() => switchActivity(session._id,activity._id)}>
-                {activity.data.name} - <i>{activity.activity_type}</i> {running ? <i> (running)</i> : ''}
+                {!!activity.data && activity.data.name} - <i>{activity.activity_type}</i> {!!running && <i> (running)</i>}
               </a>
             </li>
             )
@@ -96,12 +96,13 @@ const SessionList = ( { sessions, graphs } ) => {
   var selectedGraph = graphs[0] ? graphs[0]._id: null
 
   const changeGraph = (event) => {
+    event.preventDefault()
     selectedGraph = event.target.value
   }
 
-  const submitAddSession = () => {
-    console.log(selectedGraph)
-    addSession(selectedGraph)
+  const submitAddSession = (event) => {
+    event.preventDefault() 
+    addSession(selectedGraph) 
   }
 
   return(
@@ -133,7 +134,6 @@ const DashView = ({ user, logs }) => {
   if(!session) { return null }
   const activity = Activities.findOne({_id:session.activity})
   if(!activity) { return null }
-  console.log(activity)
   const activity_type = activity_types_obj[activity.activity_type]
   const specific_logs = logs.filter(x => x.activity == activity._id)
   if (!activity_type.Dashboard) { 

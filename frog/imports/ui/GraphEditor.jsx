@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor';
 import Draggable from 'react-draggable';
-import Form from 'react-jsonschema-form'
 
-import { Activities, Operators, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, deleteGraphActivities } from '../api/activities';
+import { Activities, Operators, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities';
 import { Graphs, addGraph, renameGraph } from '../api/graphs';
-import { uuid } from 'frog-utils'
 
 import jsPlump from 'jsplumb';
 import { $ } from 'meteor/jquery';
@@ -20,30 +18,31 @@ const setCurrentGraph = (graphId) => {
 var jsPlumbInstance = null
 
 jsPlumbRemoveAll = () => {
-  console.log('jsPlumbRemoveAll')
-  jsPlumbInstance.detachEveryConnection();
-  jsPlumbInstance.deleteEveryEndpoint();
-  jsPlumbInstance.unmakeEveryTarget();
-  jsPlumbInstance.unmakeEverySource();
+  if(jsPlumbInstance){
+    jsPlumbInstance.detachEveryConnection();
+    jsPlumbInstance.deleteEveryEndpoint();
+    jsPlumbInstance.unmakeEveryTarget();
+    jsPlumbInstance.unmakeEverySource();
+  }
 }
 
 jsPlumbDrawAll = (activities,operators) => {
-  console.log('jsPlumbDrawAll')
-  activities.forEach(activity => {
-    jsPlumbInstance.makeSource($('#'+activity._id),{anchor:'Continuous'})
-    jsPlumbInstance.makeTarget($('#'+activity._id),{anchor:'Continuous'})
-  })
-  operators.forEach(operator => {
-    jsPlumbInstance.connect({
-      source:$('#'+operator.source),
-      target:$('#'+operator.target),
-      anchors:['Continuous','Continuous']
+  if(jsPlumbInstance){
+    activities.forEach(activity => {
+      jsPlumbInstance.makeSource($('#'+activity._id),{anchor:'Continuous'})
+      jsPlumbInstance.makeTarget($('#'+activity._id),{anchor:'Continuous'})
     })
-  })
+    operators.forEach(operator => {
+      jsPlumbInstance.connect({
+        source:$('#'+operator.from),
+        target:$('#'+operator.to),
+        anchors:['Continuous','Continuous']
+      })
+    })
+  }
 }
 
 jsPlumbRemoveAllAndDrawAgain = (activities,operators) => {
-  console.log('jsPlumbRemoveAllAndDrawAgain')
   jsPlumbRemoveAll()
   jsPlumbDrawAll(activities,operators)
 }
@@ -58,8 +57,8 @@ const ActivityChoiceComponent = createContainer(
     
     const changeActivityChoice = (event) => { selectedActivity = event.target.value }
 
-    const submitActivityChoice = (e) => { 
-      e.preventDefault()
+    const submitActivityChoice = (event) => { 
+      event.preventDefault()
       copyActivityIntoGraphActivity(ownId, selectedActivity) 
     }
 
@@ -76,9 +75,7 @@ const ActivityChoiceComponent = createContainer(
 
 class ActivityInEditor extends Component { 
 
-  eventLogger = (e, data) => {
-    console.log('Event: ', event);
-    console.log('Data: ', data);
+  eventLogger = (event, data) => {
     dragGraphActivity(this.props.activity._id, data.x)
     this.forceUpdate()
   }
@@ -92,7 +89,7 @@ class ActivityInEditor extends Component { 
         onStop={this.eventLogger} >
         <div className={'item'} style={{ left: this.props.activity.xPosition+'px' }}>
           { this.props.activity.data ? 
-            <div className={'title'}> {this.props.activity.data.name} {this.props.activity.xPosition} </div>
+            <div className={'title'}> {this.props.activity.data.name} </div>
             : <ActivityChoiceComponent ownId={this.props.activity._id} />
           }
           <button 
@@ -107,37 +104,63 @@ class ActivityInEditor extends Component { 
   )}
 }
 
-const OperatorChoiceComponent = createContainer(() => {
-  return {
-    operators: Operators.find({status:'OUT'}).fetch()
+const OperatorChoiceComponent = createContainer(
+  (props) => { return({ 
+    ...props,
+    operators: Operators.find({status:'OUT'}).fetch() 
+  })}, 
+  ({ operators, ownId }) => {
+    var selectedOperator = operators[0] ? operators[0]._id: null
+    
+    const changeOperatorChoice = (event) => {selectedOperator = event.target.value}
+    
+    const submitOperatorChoice = (event) => { 
+      event.preventDefault()
+      copyOperatorIntoGraphOperator(ownId, selectedOperator) 
+    }
+    return (
+      <form className='selector' onSubmit={submitOperatorChoice} >
+        <select onChange={changeOperatorChoice}>
+          {operators.map(operator => <option key={operator._id} value={operator._id}>{operator.operator_type}</option>)}
+        </select>
+        <input type="submit" value="Submit" />
+      </form>
+    )
   }
-}, ({ outOperators, ownId }) => {
-  var selectedOperator = operators[0] ? operators[0]._id: null
-  
-  const changeOperatorChoice = (event) => {selectedOperator = event.target.value}
-  
-  const submitOperatorChoice = () => { copyOperatorIntoGraphOperator(ownId, selectedOperator) }
-
-  return (
-    <form className='selector' onSubmit={submitOperatorChoice} >
-      <select onChange={changeOperatorChoice}>
-        {operators.map(operator => <option key={operator._id} value={operator._id}>{operator.operator_type}</option>)}
-      </select>
-      <input type="submit" value="Submit" />
-    </form>
-  )
-})
+)
 
 class GraphEditorClass extends Component {
-  
-  deleteAll = () => {
-    jsPlumbRemoveAll()
-    deleteGraphActivities(this.props.graph._id)
-    setState({name: 'untitled',activities: [],operators: []})
+
+  componentDidMount() {
+
+    jsPlumbInstance = jsPlumb.getInstance();
+    jsPlumbInstance.setContainer($('#container'));
+
+    // creating an operator in the graph
+    jsPlumbInstance.bind('connection', (info,originalEvent) => {
+      if (originalEvent) { // testing if the event comes from a human
+        addGraphOperator({ graphId: this.props.graphId , from: info.sourceId, to: info.targetId })
+      }
+    });
+
+    // creating an activity in the graph
+    planeNames.forEach(plane => {
+      $('#'+plane).dblclick(event => {
+        event.preventDefault()
+        if(this.props.graphId && Graphs.findOne({ _id: this.props.graphId })) {
+          const newGraphActivityId = addGraphActivity({ 
+            plane: plane, 
+            xPosition: event.offsetX, 
+            graphId: this.props.graphId
+          })
+        } else {
+          alert('you need to select a graph to edit or create a new one')
+        }
+      })
+    })
+
+    jsPlumbDrawAll(this.props.activities,this.props.operators)
   }
-  renameCurrentGraph = (name) => { console.log('rename') }
-  copyCurrentGraph = () => { console.log('copy') }
-  saveCurrentGraph = () => { addOrUpdateGraph(graph) }
 
   componentDidUpdate() {
     jsPlumbRemoveAllAndDrawAgain(this.props.activities,this.props.operators)
@@ -168,27 +191,22 @@ class GraphEditorClass extends Component {
           value={this.props.graph? this.props.graph.name: 'untitled'}
         />
       </div>
-      { this.props.operators.map(operator => 
-          operator.data ? 
-            null 
-          : <OperatorChoiceComponent
-              key={operator._id}
-              ownId={operator._id} 
-            /> 
-      )}
+      { this.props.operators.map(operator => {
+        return(
+          !operator.data && <OperatorChoiceComponent key={operator._id} ownId={operator._id} />
+        )
+      })}
     </div>
   )}
 }
 
 const GraphEditor = createContainer(
-  (props) => { 
-    return( {
-      ...props,
-      graph: Graphs.findOne({ _id: props.graphId }),
-      activities: Activities.find({ graphId: props.graphId }).fetch(),
-      operators: Operators.find({ graphId: props.graphId }).fetch()
-    })
-  }, 
+  (props) => { return({
+    ...props,
+    graph: Graphs.findOne({ _id: props.graphId }),
+    activities: Activities.find({ graphId: props.graphId }).fetch(),
+    operators: Operators.find({ graphId: props.graphId }).fetch(),
+  })}, 
   GraphEditorClass
 )
 
@@ -199,26 +217,25 @@ const GraphList = createContainer(
       graphs: Graphs.find().fetch()
     })
   },
-  ( { graphs, editSavedGraph, currentGraphId } ) => { 
+  ( { graphs, editSavedGraph, currentGraphId } ) => {
 
     const editGraph = (graphId) => {
       jsPlumbRemoveAll() 
-      console.log('edit')
       setCurrentGraph(graphId)
     }
-    
-    const newGraph = () => { 
-      const id = addGraph()
-      editGraph(id)
+
+    const submitRemoveGraph = (graphId) => {
+      jsPlumbRemoveAll()
+      removeGraph(graphId)
     }
 
     return(
       <div>
         <h3>Graph list</h3>
-        <button className='btn btn-primary btn-sm' onClick={newGraph}>New</button>
+        <button className='btn btn-primary btn-sm' onClick={() => editGraph(addGraph())}>New</button>
         <ul> { graphs.map((graph) => 
           <li style={{listStyle: 'none'}} key={graph._id}>
-            <a href='#' onClick={ () => Graphs.remove({_id: graph._id}) }><i className="fa fa-times" /></a>
+            <a href='#' onClick={ () => submitRemoveGraph(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => editGraph(graph._id) } ><i className="fa fa-pencil" /></a>
             {graph.name} {graph._id==currentGraphId? '(current)':null}
           </li>
@@ -227,62 +244,6 @@ const GraphList = createContainer(
     )
   }
 )
-
-class Main extends Component { 
-
-  addActivity = (activityId) => {
-    console.log('addActivity')
-    this.forceUpdate()
-  }
-
-  addOperator= (source, target) => {
-    const id = addGraphOperator({ graphId: this.state._id, from:source, to:target })
-    this.state.operators.push(id)
-    this.forceUpdate()
-  }
-
-  componentDidMount() {
-    const that = this
-
-    jsPlumbInstance = jsPlumb.getInstance();
-    jsPlumbInstance.setContainer($('#container'));
-
-    jsPlumbInstance.bind('connection', function(info,originalEvent) {
-      if (originalEvent) { // testing if the event comes from a human
-        that.addOperator(info.sourceId,info.targetId)
-      }
-    });
-
-    planeNames.forEach(plane => {
-      $('#'+plane).dblclick(e => {
-        console.log(e)
-        if(this.props.graphId && Graphs.findOne({ _id: this.props.graphId })) {
-          const newGraphActivityId = addGraphActivity({ 
-            plane:plane, 
-            xPosition:e.offsetX, 
-            graphId: this.props.graphId
-          })
-          that.addActivity(newGraphActivityId)
-        } else {
-          alert('you need to select a graph to edit or create a new one')
-        }
-      })
-    })
-  }
-
-  refresh = () => {
-    console.log('refresh')
-    this.forceUpdate()
-  }
-
-  render() { return(
-    <div>
-      <button onClick={this.refresh}>Update</button>
-      <GraphEditor graphId={this.props.graphId} />
-      <GraphList graphId={this.props.graphId} />
-    </div>
-  )}
-}
 
 export default createContainer(
   () => {
@@ -293,5 +254,10 @@ export default createContainer(
       graphId: graphId 
     })
   },
-  Main
+  ({ graphId, user }) => { return(
+    <div>
+      <GraphEditor graphId={graphId} />
+      <GraphList graphId={graphId} />
+    </div>
+  )}
 )

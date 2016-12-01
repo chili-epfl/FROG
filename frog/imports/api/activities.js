@@ -1,7 +1,8 @@
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils'
-import { operator_types_obj } from '../operator_types'
- 
+import { uuid } from 'frog-utils';
+import { operator_types_obj } from '../operator_types';
+import { Graphs } from './graphs';
+
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Results = new Mongo.Collection('results');
@@ -45,12 +46,11 @@ export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) =
   Operators.update(graphOperatorId, {$set: {data: fromOperator.data, operator_type: fromOperator.operator_type, type:fromOperator.type}})
 }
 
-export const deleteGraphActivities = ( graphId ) => {
-  Meteor.call('graphActivities.flush',graphId)
+export const removeGraph = ( graphId ) => {
+  Meteor.call('graph.flush', graphId)
 }
 
 export const dragGraphActivity = ( id, xPosition ) => {
-  console.log('dragGraphActivity')
   Activities.update(id, {$inc: {xPosition: xPosition}})
 }
 
@@ -79,9 +79,10 @@ Meteor.methods({
   'activities.flush'() {
     Activities.remove({})
   },
-  'graphActivities.flush'(graphId){
-    console.log('graphActivities.flush')
-    console.log(graphId)
-    Activities.remove({graphId:graphId})
+
+  'graph.flush'(graphId){
+    Graphs.remove({ _id: graphId })
+    Activities.remove({ graphId: graphId })
+    Operators.remove({ graphId: graphId })
   }
 })
