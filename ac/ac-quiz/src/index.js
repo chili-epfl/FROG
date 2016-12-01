@@ -2,7 +2,7 @@
 import React from 'react';
 import Form from "react-jsonschema-form";
 import type { ActivityRunnerT, ActivityPackageT }  from 'frog-utils'
-i
+
 export const meta = {
   name: 'Quiz with Multiple-Choice Questions',
   type: 'react-component'
@@ -89,4 +89,4 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
   )
 }
 
-export default ({ id: 'ac-quiz', meta: meta, config: config, ActivityRunner: ActivityRunner }: ActivityPackageT)
+export default ({ id: 'ac-quiz', meta: meta, config: config, Runner: ActivityRunner }: ActivityPackageT)
