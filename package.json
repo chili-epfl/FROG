@@ -8,12 +8,10 @@
     "babel-preset-es2017": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
+    "flow-copy-source": "^1.1.0",
+    "yarn": "^0.17.10",
     "flow-bin": "^0.36.0",
     "watch": "^1.0.1"
   },
-  "license": "ISC",
-  "dependencies": {
-    "flow-copy-source": "^1.1.0",
-    "yarn": "^0.17.10"
-  }
+  "license": "ISC"
 }
