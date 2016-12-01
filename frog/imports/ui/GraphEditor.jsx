@@ -47,30 +47,42 @@ jsPlumbRemoveAllAndDrawAgain = (activities,operators) => {
   jsPlumbDrawAll(activities,operators)
 }
 
+const ChoiceComponent = ({ choices, ownId, submitChoiceFn }) => {
+  var selectedChoice = choices[0] ? choices[0]._id :null
+  
+  const changeChoice = (event) => { selectedChoice = event.target.value }
+
+  const submitChoice = (event) => { 
+    event.preventDefault()
+    submitChoiceFn(ownId, selectedChoice) 
+  }
+
+  return (
+    <form className='selector' onSubmit={submitChoice} >
+      <select onChange={changeChoice}>
+        {choices.map(choice => <option key={choice._id} value={choice._id}>{choice._id}</option>)}
+      </select>
+      <input type="submit" value="Submit" />
+    </form>
+  )
+}
+
 const ActivityChoiceComponent = createContainer(
   (props) => { return ({
     ...props,
-    activities: Activities.find({status:'OUT'}).fetch()
+    choices: Activities.find({status:'OUT'}).fetch(),
+    submitChoiceFn: copyActivityIntoGraphActivity
   })},
-  ( { activities, ownId } ) => {
-    var selectedActivity = activities[0] ? activities[0]._id :null
-    
-    const changeActivityChoice = (event) => { selectedActivity = event.target.value }
+  ChoiceComponent
+)
 
-    const submitActivityChoice = (event) => { 
-      event.preventDefault()
-      copyActivityIntoGraphActivity(ownId, selectedActivity) 
-    }
-
-    return (
-      <form className='selector' onSubmit={submitActivityChoice} >
-        <select onChange={changeActivityChoice}>
-          {activities.map(activity => <option key={activity._id} value={activity._id}>{activity.data.name}</option>)}
-        </select>
-        <input type="submit" value="Submit" />
-      </form>
-    )
-  }
+const OperatorChoiceComponent = createContainer(
+  (props) => { return({ 
+    ...props,
+    operators: Operators.find({status:'OUT'}).fetch(),
+    submitChoiceFn: copyOperatorIntoGraphOperator
+  })}, 
+  ChoiceComponent
 )
 
 class ActivityInEditor extends Component { 
@@ -103,31 +115,6 @@ class ActivityInEditor extends Component { 
     </div>
   )}
 }
-
-const OperatorChoiceComponent = createContainer(
-  (props) => { return({ 
-    ...props,
-    operators: Operators.find({status:'OUT'}).fetch() 
-  })}, 
-  ({ operators, ownId }) => {
-    var selectedOperator = operators[0] ? operators[0]._id: null
-    
-    const changeOperatorChoice = (event) => {selectedOperator = event.target.value}
-    
-    const submitOperatorChoice = (event) => { 
-      event.preventDefault()
-      copyOperatorIntoGraphOperator(ownId, selectedOperator) 
-    }
-    return (
-      <form className='selector' onSubmit={submitOperatorChoice} >
-        <select onChange={changeOperatorChoice}>
-          {operators.map(operator => <option key={operator._id} value={operator._id}>{operator.operator_type}</option>)}
-        </select>
-        <input type="submit" value="Submit" />
-      </form>
-    )
-  }
-)
 
 class GraphEditorClass extends Component {
 
