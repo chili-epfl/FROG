@@ -3,11 +3,11 @@ import { uuid } from 'frog-utils'
  
 export const Graphs = new Mongo.Collection('graphs');
 
-export const addGraph = () => {
+export const addGraph = (name='untitled') => {
   const id = uuid()
   Graphs.insert({
     _id: id,
-    name: 'untitled',
+    name: name,
     created_at: new Date()
   })
   return(id)
