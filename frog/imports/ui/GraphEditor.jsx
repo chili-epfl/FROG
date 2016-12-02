@@ -6,7 +6,7 @@ import Draggable from 'react-draggable';
 import { Activities, Operators, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities';
 import { Graphs, addGraph, renameGraph } from '../api/graphs';
 
-import jsPlump from 'jsplumb';
+import jsPlumb from 'jsplumb';
 import { $ } from 'meteor/jquery';
 
 const planeNames = ['class','group','individual'];
@@ -243,10 +243,9 @@ export default createContainer(
       graphId: graphId 
     })
   },
-  ({ graphId, user }) => { return(
+  ({ graphId, user }) =>
     <div>
       <GraphEditor graphId={graphId} />
       <GraphList graphId={graphId} />
     </div>
-  )}
 )

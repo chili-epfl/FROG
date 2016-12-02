@@ -92,28 +92,33 @@ const SessionControllerContainer = createContainer(({ session }) => {
   })
 }, SessionController)
 
-const SessionList = ( { sessions, graphs } ) => { 
-  var selectedGraph = graphs[0] ? graphs[0]._id: null
+class SessionList extends Component { 
+  constructor(props){
+    super(props)
+    this.state={
+      graph: this.props.graphs[0] ? this.props.graphs[0]._id : null
+    }
+  }
 
-  const changeGraph = (event) => {
+  changeGraph = (event) => {
     event.preventDefault()
-    selectedGraph = event.target.value
+    this.setState({ graph: event.target.value })
   }
 
-  const submitAddSession = (event) => {
+  submitAddSession = (event) => {
     event.preventDefault() 
-    addSession(selectedGraph) 
+    addSession(this.state.graph) 
   }
 
-  return(
+  render() { return(
     <div>
       <h3>Session list</h3> 
-      <select onChange={changeGraph}>
-        {graphs.map(graph => <option key={graph._id} value={graph._id} >{graph.name}</option>)}
+      <select onChange={this.changeGraph}>
+        {this.props.graphs.map(graph => <option key={graph._id} value={graph._id} >{graph.name}</option>)}
       </select>
-      <button className='btn btn-primary btn-sm' onClick={submitAddSession} >Add session</button>
+      <button className='btn btn-primary btn-sm' onClick={this.submitAddSession} >Add session</button>
       <ul> { 
-        sessions.map((session) => 
+        this.props.sessions.map((session) => 
           <li key={session._id}>
             <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
               <i className="fa fa-times"></i>
@@ -126,7 +131,7 @@ const SessionList = ( { sessions, graphs } ) => {
         ) 
       } </ul>
     </div>
-  )
+  )}
 }
 
 const DashView = ({ user, logs }) => {
@@ -147,7 +152,7 @@ const DashView = ({ user, logs }) => {
   }
 }
 
-const TeacherView = ( { graphs, sessions, logs, user } ) => { return(
+const TeacherView = ( { graphs, sessions, logs, user } ) => 
   <div>
     <SessionControllerContainer
       session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
@@ -161,7 +166,6 @@ const TeacherView = ( { graphs, sessions, logs, user } ) => { return(
       graphs={graphs}
     />
   </div>
-)}
 
 export default createContainer(() => {
   return {
