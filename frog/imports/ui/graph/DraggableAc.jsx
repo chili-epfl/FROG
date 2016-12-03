@@ -47,6 +47,12 @@ export default class DraggableAc extends Component {
     }
   }
 
+  componentDidMount () {
+    if(this.props.editorMode) {
+      this.setState({deltaPosition: {x: this.props.defaultPosition.x, y:0}})
+    }
+  }
+
   AcDivStyle(style) {
     return {
       background: style.background,
@@ -75,7 +81,7 @@ export default class DraggableAc extends Component {
     var { defaultPosition, editorMode } = this.props;
     return {
       x: editorMode ? defaultPosition.x : this.getX(),
-      y: editorMode ? defaultPosition.y : this.getCorrectY()
+      y: this.getCorrectY()
     }
   }
 
@@ -180,7 +186,7 @@ export default class DraggableAc extends Component {
               style={this.AcDivStyle(divStyle)}>
 
               Plane {this.props.plane}<br/>
-              Pos {this.defaultPosition().x}<br/>
+              Pos {this.state.controlledPosition.x}<br/>
             </div>
           </div>
         </Draggable>

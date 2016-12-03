@@ -78,10 +78,11 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
     <div style={{position: "absolute", zIndex:2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
       {current ?
       <div style={{position: "absolute"}}>
-      <DragAc
-        plane={plane}
-        position={position}
-      /></div>
+        <DragAc
+          plane={plane}
+          position={position}
+        />
+      </div>
     : "" }
     </div>
   )
@@ -96,11 +97,11 @@ const RenderGraph = ( {activities, positions, deleteAc}) => {
           <DraggableAc
             activity={activity}
             editorMode={true}
-            plane={1}
+            plane={positions[i].plane}
             key={i}
             startTime={45}
             duration={60}
-            defaultPosition={positions[i]}
+            defaultPosition={positions[i].position}
             delete = {deleteAc}/>
         )}
         <div style={{top: 50}}>
@@ -176,12 +177,16 @@ export default class Graph extends Component {
     event.preventDefault();
     var {top, down} = this.state.separatorHeight
     var pos = event.target.getBoundingClientRect();
+
     if(pos.top < down - top && pos.top > top) {
-      var newPosition = this.state.mousePosition
-      var activitiesMore = this.state.addedActivities.concat(this.state.currentDraggable)
-      var positionsMore = this.state.addedPositions.concat(newPosition)
+      var newElement = {position: this.state.mousePosition, plane: plane}
+      alert("element" + newElement.plane)
+      var activitiesMore = this.state.addedActivities.concat(activity)
+      var positionsMore = this.state.addedPositions.concat(newElement)
+
       this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
     }
+
     this.setState({currentDraggable: null});
   }
 
