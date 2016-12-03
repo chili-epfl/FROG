@@ -72,16 +72,11 @@ export default class DraggableAc extends Component {
   }
 
   defaultPosition = () => {
-    var { defaultPosition } = this.props;
+    var { defaultPosition, editorMode } = this.props;
     return {
-      x: this.getX(),y: this.getCorrectY()
+      x: editorMode ? defaultPosition.x : this.getX(),
+      y: editorMode ? defaultPosition.y : this.getCorrectY()
     }
-    /*
-    return {
-      x: this.props.editorMode ? this.props.defaultPosition.x : this.getX(),
-      y: this.props.editorMode ? this.props.defaultPosition.y : this.getCorrectY()
-    }
-    */
   }
 
   handleStart = (event) => {
@@ -138,16 +133,15 @@ export default class DraggableAc extends Component {
   */
 
   checkLayout = (delta, event) => {
-    var ey = 0 //editorPosition.y;
-    var newPlace = (ey + delta.y <= 200); //corresponding to height of parent's svg
+    var newPlace = (delta.y <= 200); //corresponding to height of parent's svg
 
-    var newDelta = {x: delta.x, y: this.getCorrectY() - ey};
+    var newDelta = {x: delta.x, y: this.getCorrectY()};
     var newY = this.getCorrectY();
 
     if(!newPlace) {
 
       newDelta = {x: 0, y: 0};
-      newY = ey;
+      newY = 0;
 
       this.props.delete(this.props.activity)
     }
@@ -199,7 +193,6 @@ export default class DraggableAc extends Component {
 DraggableAc.propTypes = {
   activity: PropTypes.object.isRequired,
   editorMode: PropTypes.bool.isRequired,
-  inGraph: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
   startTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,

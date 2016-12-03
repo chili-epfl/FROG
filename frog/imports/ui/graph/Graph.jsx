@@ -29,12 +29,11 @@ const Separator = ( {onHover} ) => {
   )
 }
 
-const DragAc = ( {position, handleDragStop, plane}) => {
+const DragAc = ( {position, plane}) => {
   return (
     <Draggable
       position= {position}
       axis='both'
-      onStop = {handleDragStop}
       disabled= {false}>
         <div style={divStyleNeg}>
           Plane {plane}
@@ -76,12 +75,11 @@ const RenderDraggable = ( { handleHoverStart, handleHoverStop, activities}) => {
 
 const TempAc = ({handleDragStop, position, plane, current}) => {
   return (
-    <div style={{position: "absolute", zIndex:2}} onMouseUp={handleDragStop}>
+    <div style={{position: "absolute", zIndex:2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
       {current ?
       <div style={{position: "absolute"}}>
       <DragAc
         plane={plane}
-        handleDragStop={handleDragStop}
         position={position}
       /></div>
     : "" }
@@ -90,7 +88,7 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
 }
 
 
-const RenderGraph = ( {activities, editable, dragStop, deleteAc}) => {
+const RenderGraph = ( {activities, positions, deleteAc}) => {
   return(
 
       <div style={divStyle}>
@@ -98,13 +96,11 @@ const RenderGraph = ( {activities, editable, dragStop, deleteAc}) => {
           <DraggableAc
             activity={activity}
             editorMode={true}
-            inGraph={true}
             plane={1}
-            onStop={dragStop}
             key={i}
             startTime={45}
             duration={60}
-            defaultPosition={{x: 0, y:0}}
+            defaultPosition={positions[i]}
             delete = {deleteAc}/>
         )}
         <div style={{top: 50}}>
@@ -123,47 +119,44 @@ export default class Graph extends Component {
 
     this.state = {
       addedActivities: [],
+      addedPositions: [],
       currentDraggable: null,
       currentPlane: 0,
       defPos: {x: 0, y:0},
-      separatorHeight: {top: 0, down: 0},
+      separatorHeight: {top: 0, down: 0, left: 0},
       mousePosition: {x: 0, y:0}
     };
   }
 
   handleHoverTopSeparator = (event) => {
     var pos = event.target.getBoundingClientRect()
-    if(this.state.separatorHeight.top == 0) {
-      var down = this.state.separatorHeight.down
-      this.setState({separatorHeight: {top: pos.top + window.scrollY, down: down}});
-    }
+    var down = this.state.separatorHeight.down
+    this.setState({separatorHeight: {top: pos.top + window.scrollY, down: down, left:pos.left}});
+
   }
 
   handleHoverDownSeparator = (event) => {
     var pos = event.target.getBoundingClientRect()
-    if(this.state.separatorHeight.down == 0) {
-      var top = this.state.separatorHeight.top
-      this.setState({separatorHeight: {top: top, down: pos.top + window.scrollY}});
-    }
+    var top = this.state.separatorHeight.top
+    this.setState({separatorHeight: {top: top, down: pos.top + window.scrollY, left:pos.left}});
+
   }
 
   handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
     var pos = event.target.getBoundingClientRect()
-    //var length = (pos.right - pos.left)/2.0
-    //alert("pos x:" + (pos.left - length + window.scrollX) + " pos y:" + (pos.top + window.scrollY + this.state.separatorHeight.down))
+    var width_correction = (pos.right - pos.left)/2.0
+    var height_correction = (pos.bottom - pos.top)/2.0
+    var x_corrected = pos.left + window.scrollX - this.state.separatorHeight.left
+    var y_corrected = pos.top + window.scrollY - this.state.separatorHeight.down - height_correction
     this.setState({
       currentPlane: plane,
       currentDraggable: activity,
-      mousePosition: {x: (pos.left + window.scrollX), y: (pos.top + window.scrollY - this.state.separatorHeight.down)}});
+      mousePosition: {x: x_corrected, y: y_corrected}})
   }
 
   handleHoverStop = (event) => {
     event.preventDefault();
-
-    if(event.buttons == 0) {
-
-    }
     this.setState({currentDraggable: null});
 
   }
@@ -173,24 +166,27 @@ export default class Graph extends Component {
     if(index != -1) {
       var activitiesLess =
         this.state.addedActivities.slice(0, index).concat(this.state.addedActivities.slice(index+1, this.state.addedActivities.length))
-      this.setState({addedActivities: activitiesLess});
+        var positionsLess =
+          this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
+      this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
   }
 
-  handleDragStop = (event) => {
+  handleDragStop = (event, plane, activity) => {
     event.preventDefault();
     var {top, down} = this.state.separatorHeight
     var pos = event.target.getBoundingClientRect();
-    var correctedPos = pos.top + window.scrollX
-    if(correctedPos < down - top && correctedPos > top) {
+    if(pos.top < down - top && pos.top > top) {
+      var newPosition = this.state.mousePosition
       var activitiesMore = this.state.addedActivities.concat(this.state.currentDraggable)
-      this.setState({addedActivities: activitiesMore});
+      var positionsMore = this.state.addedPositions.concat(newPosition)
+      this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
     }
     this.setState({currentDraggable: null});
   }
 
   render() {
-    var position = {x: this.state.mousePosition.x, y: this.state.mousePosition.y}
+    var position = this.state.mousePosition
     return (
       <div className="graph-summary">
           <div style={{position: 'relative'}}>
@@ -199,8 +195,7 @@ export default class Graph extends Component {
 
             <RenderGraph
               activities={this.state.addedActivities}
-              editable={true}
-              dragStop={this.handleDragStop}
+              positions={this.state.addedPositions}
               deleteAc={this.deleteInGraphAc}/>
 
             <Separator key={2} onHover={this.handleHoverDownSeparator} />
