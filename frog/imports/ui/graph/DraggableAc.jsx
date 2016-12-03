@@ -34,11 +34,6 @@ const unitTime = 2
 
 const startOffset = 0
 
-const editorPosition = {x: 0, y: 0}
-
-
-
-
 export default class DraggableAc extends Component {
 
   constructor(props) {
@@ -78,11 +73,15 @@ export default class DraggableAc extends Component {
 
   defaultPosition = () => {
     var { defaultPosition } = this.props;
-
     return {
-      x: this.props.editorMode ? defaultPosition.x : this.getX(),
-      y: this.props.editorMode ? defaultPosition.y : this.getCorrectY()
+      x: this.getX(),y: this.getCorrectY()
     }
+    /*
+    return {
+      x: this.props.editorMode ? this.props.defaultPosition.x : this.getX(),
+      y: this.props.editorMode ? this.props.defaultPosition.y : this.getCorrectY()
+    }
+    */
   }
 
   handleStart = (event) => {
@@ -104,11 +103,9 @@ export default class DraggableAc extends Component {
 
   handleStop = (event) => {
     event.preventDefault();
-    this.props.onStop(event)
-
     var delta = this.state.deltaPosition;
 
-    var position = this.checkLayout(delta);
+    var position = this.checkLayout(delta, event);
 
     this.setState({
       deltaPosition: position.newDelta,
@@ -117,6 +114,7 @@ export default class DraggableAc extends Component {
     });
   }
 
+  /*
   checkPosition = (delta) => {
     var ey = editorPosition.y;
     var newPlace = (delta.y == this.getCorrectY() - ey);
@@ -128,25 +126,33 @@ export default class DraggableAc extends Component {
 
     var newControlledPostition = {x: editorPosition.x + delta.x, y:ey + delta.y};
 
+    if(!this.props.inGraph) {
+      newControlledPostition = this.props.defaultPosition;
+    }
     return {
       newPlace: newPlace,
       newDelta: newDelta,
       newControlledPostition: newControlledPostition
     };
   }
+  */
 
-  checkLayout = (delta) => {
-    var ey = editorPosition.y;
+  checkLayout = (delta, event) => {
+    var ey = 0 //editorPosition.y;
     var newPlace = (ey + delta.y <= 200); //corresponding to height of parent's svg
 
     var newDelta = {x: delta.x, y: this.getCorrectY() - ey};
     var newY = this.getCorrectY();
-    if(!newPlace) {
-      newDelta = {x: 0, y: 0};
-      newY = editorPosition.y;
-    }
 
-    var newControlledPostition = {x: editorPosition.x + delta.x, y:newY};
+    if(!newPlace) {
+
+      newDelta = {x: 0, y: 0};
+      newY = ey;
+
+      this.props.delete(this.props.activity)
+    }
+    var newControlledPostition = {x: delta.x, y:newY};
+
 
     return {
       newPlace: newPlace,
@@ -177,13 +183,10 @@ export default class DraggableAc extends Component {
         grid={[30, 20]}>
           <div>
             <div
-              style={
-                (this.state.correctPlace || !this.props.editorMode)
-                ? this.AcDivStyle(divStyle) : this.AcDivStyle(divStyleNeg)
-                }>
+              style={this.AcDivStyle(divStyle)}>
 
               Plane {this.props.plane}<br/>
-              {this.props.defaultPosition.y}
+              Pos {this.defaultPosition().x}<br/>
             </div>
           </div>
         </Draggable>
@@ -194,10 +197,12 @@ export default class DraggableAc extends Component {
 }
 
 DraggableAc.propTypes = {
+  activity: PropTypes.object.isRequired,
   editorMode: PropTypes.bool.isRequired,
   inGraph: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
   startTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
-  defaultPosition: PropTypes.object.isRequired
+  defaultPosition: PropTypes.object.isRequired,
+  delete: PropTypes.func
 };
