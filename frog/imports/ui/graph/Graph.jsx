@@ -32,7 +32,7 @@ const Separator = ( {onHover} ) => {
 const DragAc = ( {position, handleDragStop, plane}) => {
   return (
     <Draggable
-      defaultPosition= {position}
+      position= {position}
       axis='both'
       onStop = {handleDragStop}
       disabled= {false}>
@@ -160,11 +160,12 @@ export default class Graph extends Component {
 
   handleHoverStop = (event) => {
     event.preventDefault();
-    /*
+
     if(event.buttons == 0) {
-      this.setState({currentDraggable: null});
+
     }
-*/
+    this.setState({currentDraggable: null});
+
   }
 
   deleteInGraphAc = (activity) => {
@@ -180,7 +181,8 @@ export default class Graph extends Component {
     event.preventDefault();
     var {top, down} = this.state.separatorHeight
     var pos = event.target.getBoundingClientRect();
-    if(pos.top + window.scrollX < down - top) {
+    var correctedPos = pos.top + window.scrollX
+    if(correctedPos < down - top && correctedPos > top) {
       var activitiesMore = this.state.addedActivities.concat(this.state.currentDraggable)
       this.setState({addedActivities: activitiesMore});
     }
