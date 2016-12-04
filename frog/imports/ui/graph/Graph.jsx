@@ -21,9 +21,9 @@ const AxisDisplay = ( {reference} ) => { return(
   </div>
 )}
 
-const Separator = ( {onHover} ) => {
+const Separator = ( {id, onHover} ) => {
   return (
-    <div onMouseOver={onHover}>
+    <div id={id} onMouseOver={onHover}>
       <svg width="100%" height = "5px" xmlns="http://www.w3.org/2000/svg">
         <line x1="0%" y1="0%" x2="100%" y2="0%" style={{stroke: 'red', strokeWidth:"2"}} />
       </svg>
@@ -130,8 +130,15 @@ export default class Graph extends Component {
       mousePosition: {x: 0, y:0}
     };
   }
-
+  /*
+  componentDidMount() {
+    var separator = {top: $("#top").offset().top, down: $("#down").offset().top, left: $("down").position().left}
+    this.setState({separatorHeight: separator})
+  }
+  */
   handleHoverTopSeparator = (event) => {
+    event.preventDefault()
+
     var pos = event.target.getBoundingClientRect()
     var down = this.state.separatorHeight.down
     this.setState({separatorHeight: {top: pos.top + window.scrollY, down: down, left:pos.left}});
@@ -139,9 +146,12 @@ export default class Graph extends Component {
   }
 
   handleHoverDownSeparator = (event) => {
+    event.preventDefault()
+
     var pos = event.target.getBoundingClientRect()
     var top = this.state.separatorHeight.top
     this.setState({separatorHeight: {top: top, down: pos.top + window.scrollY, left:pos.left}});
+
 
   }
 
@@ -185,7 +195,7 @@ export default class Graph extends Component {
       var correctedPosition = this.state.mousePosition
       correctedPosition.x += innerGraphScrollX
       var newElement = {position: correctedPosition, plane: plane}
-      alert("element" + newElement.plane + innerGraphScrollX)
+      newElement.plane += 0 //TODO insertion fail if a field of newElement is not used at least once before
       var activitiesMore = this.state.addedActivities.concat(activity)
       var positionsMore = this.state.addedPositions.concat(newElement)
 
@@ -201,14 +211,14 @@ export default class Graph extends Component {
       <div className="graph-summary">
           <div style={{position: 'relative'}}>
 
-            <Separator key={1} onHover={this.handleHoverTopSeparator} />
+            <Separator id='top' key={1} onHover={this.handleHoverTopSeparator} />
 
             <RenderGraph
               activities={this.state.addedActivities}
               positions={this.state.addedPositions}
               deleteAc={this.deleteInGraphAc}/>
 
-            <Separator key={2} onHover={this.handleHoverDownSeparator} />
+            <Separator id='down' key={2} onHover={this.handleHoverDownSeparator} />
 
             <TempAc
               handleDragStop = {this.handleDragStop}
