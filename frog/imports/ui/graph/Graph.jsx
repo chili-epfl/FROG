@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 
+import { $ } from 'meteor/jquery';
+
 //to be put in graph.jxs
 const AxisDisplay = ( {reference} ) => { return(
   <div ref={reference} style={{overflowX: scroll}}>
@@ -92,7 +94,7 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
 const RenderGraph = ( {activities, positions, deleteAc}) => {
   return(
 
-      <div style={divStyle}>
+      <div id='inner_graph' style={divStyle}>
         {activities.map( (activity, i) =>
           <DraggableAc
             activity={activity}
@@ -179,8 +181,11 @@ export default class Graph extends Component {
     var pos = event.target.getBoundingClientRect();
 
     if(pos.top < down - top && pos.top > top) {
-      var newElement = {position: this.state.mousePosition, plane: plane}
-      alert("element" + newElement.plane)
+      var innerGraphScrollX =  $("#inner_graph").scrollLeft()
+      var correctedPosition = this.state.mousePosition
+      correctedPosition.x += innerGraphScrollX
+      var newElement = {position: correctedPosition, plane: plane}
+      alert("element" + newElement.plane + innerGraphScrollX)
       var activitiesMore = this.state.addedActivities.concat(activity)
       var positionsMore = this.state.addedPositions.concat(newElement)
 
