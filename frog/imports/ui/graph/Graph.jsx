@@ -4,6 +4,7 @@ import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 
 import { $ } from 'meteor/jquery';
+import jsPlumb from 'jsplumb';
 
 //to be put in graph.jxs
 const AxisDisplay = ( {reference} ) => { return(
@@ -115,6 +116,31 @@ const RenderGraph = ( {activities, positions, deleteAc}) => {
     );
 }
 
+var jsp = null;
+
+var common = {
+    isSource:true,
+    isTarget:true,
+    connector: ["Straight"],
+    endpoint: ['Rectangle', { width:10, height:8 } ],
+    endpointStyle:{fillStyle:'rgb(243,229,0)'}
+};
+
+const wrapActivity = (activity) => {
+  var id = $('#drag_' + activity._id)
+  jsp.makeSource(id, {anchor: 'Continuous'})
+  jsp.makeTarget(id, {anchor: 'Continuous'})
+  //jsp.addEndpoint(id, {anchor: ["Left"]}, common)
+  //jsp.addEndpoint(id, {anchor: ["Right"]}, common)
+}
+
+const wrapActivities = (activities) => {
+  if (jsp == null) return
+
+  activities.forEach( (activity) => {
+    wrapActivity(activity)
+  })
+}
 
 export default class Graph extends Component {
   constructor(props) {
@@ -130,12 +156,16 @@ export default class Graph extends Component {
       mousePosition: {x: 0, y:0}
     };
   }
-  /*
+
   componentDidMount() {
+    /*
     var separator = {top: $("#top").offset().top, down: $("#down").offset().top, left: $("down").position().left}
     this.setState({separatorHeight: separator})
+    */
+    jsp = jsPlumb.getInstance()
+    jsp.setContainer($('#inner_graph'))
   }
-  */
+
   handleHoverTopSeparator = (event) => {
     event.preventDefault()
 
@@ -198,7 +228,7 @@ export default class Graph extends Component {
       newElement.plane += 0 //TODO insertion fail if a field of newElement is not used at least once before
       var activitiesMore = this.state.addedActivities.concat(activity)
       var positionsMore = this.state.addedPositions.concat(newElement)
-
+      wrapActivity(activity)
       this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
     }
 

@@ -181,14 +181,14 @@ export default class DraggableAc extends Component {
         onDrag={this.handleDrag}
         onStop={this.handleStop}
         grid={[30, 20]}>
-          <div>
-            <div
-              style={this.AcDivStyle(divStyle)}>
+          <div
+            id = {'drag_' + this.props.activity._id}
+            style={this.AcDivStyle(divStyle)}>
 
-              Plane {this.props.plane}<br/>
-              Pos {this.state.controlledPosition.x}<br/>
-            </div>
+            Plane {this.props.plane}<br/>
+            Pos {this.state.controlledPosition.x}<br/>
           </div>
+
         </Draggable>
 
     );
