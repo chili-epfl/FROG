@@ -193,8 +193,8 @@ const GraphEditor = createContainer(
   (props) => { return({
     ...props,
     graph: Graphs.findOne({ _id: props.graphId }),
-    activities: Activities.find({ graphId: props.graphId }).fetch(),
-    operators: Operators.find({ graphId: props.graphId }).fetch(),
+    activities: props.graphId ? Activities.find({ graphId: props.graphId }).fetch() : [],
+    operators: props.graphId ? Operators.find({ graphId: props.graphId }).fetch() : [],
   })}, 
   GraphEditorClass
 )
@@ -202,7 +202,7 @@ const GraphEditor = createContainer(
 const GraphList = createContainer(
   (props) => {
     return({
-      currentGraphId: props.graphId? props.graphId :null,
+      ...props,
       graphs: Graphs.find().fetch()
     })
   },
@@ -237,7 +237,7 @@ const GraphList = createContainer(
 export default createContainer(
   () => {
     const user = Meteor.users.findOne({_id:Meteor.userId()})
-    const graphId = user.profile? user.profile.editingGraph :null
+    const graphId = user.profile ? user.profile.editingGraph : null
     return({ 
       user: user,
       graphId: graphId 
