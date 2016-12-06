@@ -44,6 +44,9 @@ body {
 
 .item {
   position: absolute;
+  margin-top: 1px;
+  top:0px;
+  left:0px;
   border: 1px solid black;
   background-color: #bbbbee;
   width: 100px;

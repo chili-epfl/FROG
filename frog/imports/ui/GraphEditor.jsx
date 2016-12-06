@@ -28,19 +28,37 @@ jsPlumbRemoveAll = () => {
 
 jsPlumbDrawAll = (activities,operators) => {
   if(jsPlumbInstance){
+    console.log('for each activity')
     activities.forEach(activity => {
       const connector = $('#'+activity._id)
-      jsPlumbInstance.makeSource(connector,{anchor:'Continuous'})
-      jsPlumbInstance.makeTarget(connector,{anchor:'Continuous'})
+      jsPlumbInstance.makeSource(connector, { anchor: 'Continuous' })
+      jsPlumbInstance.makeTarget(connector, { anchor:'Continuous' })
     })
+    console.log('for each operator')
     operators.forEach(operator => {
       jsPlumbInstance.connect({
         source:$('#'+operator.from),
         target:$('#'+operator.to),
         anchors:['Continuous','Continuous']
       })
+      jsPlumbRepaintWithId(operator.from)
+      jsPlumbRepaintWithId(operator.to)
     })
   }
+}
+
+getPosition = (id) => {
+  const connectorP = $('#'+id).position()
+  const itemP = $('#item'+id).position()
+  return({
+      left: itemP.left,
+      top: itemP.top + connectorP.top
+  })
+} 
+
+jsPlumbRepaintWithId = (activityId) => {
+  const connector = $('#'+activityId)
+  jsPlumbInstance.repaint(connector,getPosition(activityId))
 }
 
 jsPlumbRemoveAllAndDrawAgain = (activities,operators) => {
@@ -95,6 +113,10 @@ class ActivityInEditor extends Component { 
     this.forceUpdate()
   }
 
+  onDrag = (event, data) => {
+    jsPlumbRepaintWithId(this.props.activity._id)
+  }
+
   submitRemoveActivity = () => {
     jsPlumbRemoveAll()
     removeGraphActivity(this.props.activity._id)
@@ -105,8 +127,9 @@ class ActivityInEditor extends Component { 
       axis='x'
       handle='.title'
       position={{x:0,y:0}}
+      onDrag={this.onDrag}
       onStop={this.onStop} >
-      <div className={'item'} style={{left:this.props.activity.xPosition}} id={'item'+this.props.activity._id}>
+      <div className={'item'} style={{left:this.props.activity.xPosition, top:this.props.activity.yPosition}} id={'item'+this.props.activity._id}>
         { this.props.activity.data ? 
           <div className={'title'} > {this.props.activity.data.name} </div>
           : <ActivityChoiceComponent ownId={this.props.activity._id} />
@@ -150,6 +173,7 @@ class GraphEditorClass extends Component {
           const newGraphActivityId = addGraphActivity({ 
             plane: plane, 
             xPosition: event.offsetX, 
+            yPosition: plane=='class' ? 0 : (plane=='group' ? 100 : 200),
             graphId: this.props.graphId
           })
         } else {
@@ -171,19 +195,14 @@ class GraphEditorClass extends Component {
       <div>
         <p>Double click for creating</p>
         <div id='container'>
-          {planeNames.map((plane) => { return(
+          { planeNames.map((plane) => 
             <div className='plane' id={plane} key={plane}>
               <p style={{float:'right'}}>{plane}</p>
-              { this.props.activities.map(activity =>
-                plane==activity.plane ?
-                  <ActivityInEditor
-                    key={activity._id}
-                    activity={activity} 
-                  />
-                :null
-              )}
             </div>
-          )})}
+          )}
+          { this.props.activities.map(activity =>
+            <ActivityInEditor key={activity._id} activity={activity} />
+          )}
         </div>
         <input
           onChange={(event) => renameGraph(this.props.graphId, event.target.value)}
