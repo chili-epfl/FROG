@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor';
 import Draggable from 'react-draggable';
 
-import { Activities, Operators, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities';
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities';
 import { Graphs, addGraph, renameGraph } from '../api/graphs';
 
 import jsPlumb from 'jsplumb';
@@ -29,8 +29,9 @@ jsPlumbRemoveAll = () => {
 jsPlumbDrawAll = (activities,operators) => {
   if(jsPlumbInstance){
     activities.forEach(activity => {
-      jsPlumbInstance.makeSource($('#'+activity._id),{anchor:'Continuous'})
-      jsPlumbInstance.makeTarget($('#'+activity._id),{anchor:'Continuous'})
+      const connector = $('#'+activity._id)
+      jsPlumbInstance.makeSource(connector,{anchor:'Continuous'})
+      jsPlumbInstance.makeTarget(connector,{anchor:'Continuous'})
     })
     operators.forEach(operator => {
       jsPlumbInstance.connect({
@@ -89,32 +90,41 @@ const OperatorChoiceComponent = createContainer(
 
 class ActivityInEditor extends Component { 
 
-  eventLogger = (event, data) => {
+  onStop = (event, data) => {
     dragGraphActivity(this.props.activity._id, data.x)
     this.forceUpdate()
   }
 
+  submitRemoveActivity = () => {
+    jsPlumbRemoveAll()
+    removeGraphActivity(this.props.activity._id)
+  }
+
   render() { return (
-    <div >
-      <Draggable
-        axis='x'
-        handle='.title'
-        position={{x:0,y:0}}
-        onStop={this.eventLogger} >
-        <div className={'item'} style={{ left: this.props.activity.xPosition+'px' }}>
-          { this.props.activity.data ? 
-            <div className={'title'}> {this.props.activity.data.name} </div>
-            : <ActivityChoiceComponent ownId={this.props.activity._id} />
-          }
-          <button 
-            className='btn btn-primary btn-sm connector' 
-            style={{ bottom: 0, width:'100%', position:'absolute' }}
-            id={this.props.activity._id} > 
-            Connect 
-          </button>
-        </div>
-      </Draggable>
-    </div>
+    <Draggable
+      axis='x'
+      handle='.title'
+      position={{x:0,y:0}}
+      onStop={this.onStop} >
+      <div className={'item'} style={{left:this.props.activity.xPosition}} id={'item'+this.props.activity._id}>
+        { this.props.activity.data ? 
+          <div className={'title'} > {this.props.activity.data.name} </div>
+          : <ActivityChoiceComponent ownId={this.props.activity._id} />
+        }
+        <a 
+          href='#' 
+          onClick={this.submitRemoveActivity}
+          style={{ position: 'absolute', top: 0, right: 0 }}>
+          <i className="fa fa-times" />
+        </a>
+        <button 
+          className='btn btn-primary btn-sm connector' 
+          style={{ bottom: 0, width:'100%', position:'absolute' }}
+          id={this.props.activity._id} > 
+          Connect 
+        </button>
+      </div>
+    </Draggable>
   )}
 }
 
@@ -206,7 +216,7 @@ const GraphList = createContainer(
       graphs: Graphs.find().fetch()
     })
   },
-  ( { graphs, editSavedGraph, currentGraphId } ) => {
+  ( { graphs, editSavedGraph, graphId } ) => {
 
     const editGraph = (graphId) => {
       jsPlumbRemoveAll() 
@@ -226,7 +236,7 @@ const GraphList = createContainer(
           <li style={{listStyle: 'none'}} key={graph._id}>
             <a href='#' onClick={ () => submitRemoveGraph(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => editGraph(graph._id) } ><i className="fa fa-pencil" /></a>
-            {graph.name} {graph._id==currentGraphId? '(current)':null}
+            {graph.name} {graph._id==graphId? '(current)':null}
           </li>
         )} </ul>
       </div>

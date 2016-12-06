@@ -30,6 +30,9 @@ export const addGraphActivity = (params) => {
   return(id)
 }
 
+export const removeGraphActivity = (activityId) => 
+  Meteor.call('graph.flush.activity', activityId)
+
 export const addGraphOperator = (params) => {
   const id = uuid()
   Operators.insert({...params, created_at: new Date(), _id:id, status: 'IN'})
@@ -46,9 +49,8 @@ export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) =
   Operators.update(graphOperatorId, {$set: {data: fromOperator.data, operator_type: fromOperator.operator_type, type:fromOperator.type}})
 }
 
-export const removeGraph = ( graphId ) => {
-  Meteor.call('graph.flush', graphId)
-}
+export const removeGraph = ( graphId ) => 
+  Meteor.call('graph.flush.all', graphId)
 
 export const dragGraphActivity = ( id, xPosition ) => {
   Activities.update(id, {$inc: {xPosition: xPosition}})
@@ -80,9 +82,15 @@ Meteor.methods({
     Activities.remove({})
   },
 
-  'graph.flush'(graphId){
+  'graph.flush.all'(graphId){
     Graphs.remove({ _id: graphId })
     Activities.remove({ graphId: graphId })
     Operators.remove({ graphId: graphId })
+  },
+
+  'graph.flush.activity'(activityId){
+    Operators.remove({ from: activityId })
+    Operators.remove({ to: activityId })
+    Activities.remove({ _id: activityId })
   }
 })
