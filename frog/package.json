@@ -2,7 +2,7 @@
   "name": "frog",
   "private": true,
   "scripts": {
-    "test": "meteor test --once --full-app --driver-package dispatch:mocha-phantomjs",
+    "test": "meteor test --once --full-app --driver-package dispatch:mocha-phantomjs && flow",
     "start": "meteor run"
   },
   "dependencies": {
