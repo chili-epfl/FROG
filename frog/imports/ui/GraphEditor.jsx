@@ -93,7 +93,7 @@ const ChoiceComponent = ({ choices, ownId, submitChoiceFn, displayFn }) => {
 const ActivityChoiceComponent = createContainer(
   (props) => { return ({
     ...props,
-    choices: Activities.find({ graphId: null }).fetch(),
+    choices: Activities.find({ graphId: null, sessionId: null }).fetch(),
     submitChoiceFn: copyActivityIntoGraphActivity,
     displayFn: (activity => activity.data.name)
   })},
@@ -103,7 +103,7 @@ const ActivityChoiceComponent = createContainer(
 const OperatorChoiceComponent = createContainer(
   (props) => { return({ 
     ...props,
-    choices: Operators.find({ graphId: null }).fetch(),
+    choices: Operators.find({ graphId: null, sessionId: null }).fetch(),
     submitChoiceFn: copyOperatorIntoGraphOperator,
     displayFn: (operator => operator.operator_type)
   })}, 
@@ -172,9 +172,10 @@ class GraphEditorClass extends Component {
     // creating an activity in the graph
     planeNames.forEach(plane => {
       $('#'+plane).dblclick(event => {
+        console.log('hello')
         event.preventDefault()
-        if(this.props.graphId && Graphs.findOne({ _id: this.props.graphId })) {
-          const newGraphActivityId = addGraphActivity({ 
+        if(this.props.graph) {
+          addGraphActivity({ 
             plane: plane, 
             xPosition: event.offsetX, 
             yPosition: plane=='class' ? 0 : (plane=='group' ? 100 : 200),

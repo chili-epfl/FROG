@@ -7,7 +7,7 @@ import { find, sortBy, reverse, take } from 'lodash';
 import colorHash from 'color-hash';
 import { objectize } from '../../lib/utils';
 
-import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
+import { Sessions, addSession, removeSession, updateSessionState, updateSessionActivity } from '../api/sessions';
 import { Activities, Operators, addResult } from '../api/activities';
 import { Graphs } from '../api/graphs';
 import { Logs, flushLogs } from '../api/logs';
@@ -60,7 +60,7 @@ const switchActivity = (sessionid, activityid) => {
 const SessionController = createContainer(
   ( { session } ) => { return({
     session: session,
-    activities: (session ? Activities.find({ graphId: session.graphId }).fetch() : null)
+    activities: (session ? Activities.find({ sessionId: session._id }).fetch() : null)
   })}, 
   ( { session, activities } ) => { return(
     session ? 
@@ -93,18 +93,18 @@ class SessionList extends Component {
   constructor(props){
     super(props)
     this.state={
-      graph: this.props.graphs[0] ? this.props.graphs[0]._id : null
+      graphId: this.props.graphs[0] ? this.props.graphs[0]._id : null
     }
   }
 
   changeGraph = (event) => {
     event.preventDefault()
-    this.setState({ graph: event.target.value })
+    this.setState({ graphId: event.target.value })
   }
 
   submitAddSession = (event) => {
     event.preventDefault() 
-    addSession(this.state.graph) 
+    addSession(this.state.graphId) 
   }
 
   render() { return(
@@ -117,7 +117,7 @@ class SessionList extends Component {
       <ul> { 
         this.props.sessions.map((session) => 
           <li key={session._id}>
-            <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
+            <a href='#' onClick={() => removeSession(session._id)}>
               <i className="fa fa-times"></i>
             </a>
             <a href='#' onClick={ () => setTeacherSession(session._id) }>
