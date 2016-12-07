@@ -16,7 +16,6 @@ export const addActivity = (activity_type, data, id) => {
       activity_type: activity_type, 
       data: data, 
       created_at: new Date(),
-      status: 'OUT'
     })
   }
 } 
@@ -26,7 +25,7 @@ export const duplicateActivity = (activity) =>
 
 export const addGraphActivity = (params) => {
   const id = uuid()
-  Activities.insert({...params, created_at: new Date(), _id:id, status: 'IN'})
+  Activities.insert({ ...params, created_at: new Date(), _id: id })
   return(id)
 }
 
@@ -35,7 +34,7 @@ export const removeGraphActivity = (activityId) =>
 
 export const addGraphOperator = (params) => {
   const id = uuid()
-  Operators.insert({...params, created_at: new Date(), _id:id, status: 'IN'})
+  Operators.insert({...params, created_at: new Date(), _id:id })
   return(id)
 }
 
@@ -65,7 +64,6 @@ export const addOperator = (operator_type, data, id) => {
       operator_type: operator_type, 
       type: operator_types_obj[operator_type].meta.type,
       data: data, 
-      status: 'OUT',
       created_at: new Date() })
   }
 } 

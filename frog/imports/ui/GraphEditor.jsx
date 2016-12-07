@@ -50,10 +50,10 @@ jsPlumbDrawAll = (activities,operators) => {
 getPosition = (id) => {
   const connectorP = $('#'+id).position()
   const itemP = $('#item'+id).position()
-  return({
+  return( (connectorP && itemP) ? {
       left: itemP.left,
       top: itemP.top + connectorP.top
-  })
+  } : { left: 0, top: 0 } )
 } 
 
 jsPlumbRepaintWithId = (activityId) => {
@@ -89,7 +89,7 @@ const ChoiceComponent = ({ choices, ownId, submitChoiceFn, displayFn }) => {
 const ActivityChoiceComponent = createContainer(
   (props) => { return ({
     ...props,
-    choices: Activities.find({status:'OUT'}).fetch(),
+    choices: Activities.find({ graphId: null }).fetch(),
     submitChoiceFn: copyActivityIntoGraphActivity,
     displayFn: (activity => activity.data.name)
   })},
@@ -99,7 +99,7 @@ const ActivityChoiceComponent = createContainer(
 const OperatorChoiceComponent = createContainer(
   (props) => { return({ 
     ...props,
-    choices: Operators.find({status:'OUT'}).fetch(),
+    choices: Operators.find({ graphId: null }).fetch(),
     submitChoiceFn: copyOperatorIntoGraphOperator,
     displayFn: (operator => operator.operator_type)
   })}, 
