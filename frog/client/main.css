@@ -69,9 +69,16 @@ body {
 
 .plane {
   position: relative;
-  border: 1px solid gray;
   width: 100%;
   height: 100px;
+}
+
+.lineInPlane {
+  position: absolute;
+  border: 1px solid gray;
+  top: 50%;
+  width: 100%;
+  height: 0px;
 }
 
 #body {

@@ -201,7 +201,8 @@ class GraphEditorClass extends Component {
         <div id='container'>
           { planeNames.map((plane) => 
             <div className='plane' id={plane} key={plane}>
-              <p style={{float:'right'}}>{plane}</p>
+              <div className='lineInPlane' ></div>
+              <p style={{ position: 'absolute', top: '33%' }}>{plane}</p>
             </div>
           )}
           { this.props.activities.map(activity =>
