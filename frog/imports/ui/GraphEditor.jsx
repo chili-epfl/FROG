@@ -57,8 +57,12 @@ getPosition = (id) => {
 } 
 
 jsPlumbRepaintWithId = (activityId) => {
-  const connector = $('#'+activityId)
-  jsPlumbInstance.repaint(connector,getPosition(activityId))
+  try {
+    const connector = $('#'+activityId)
+    jsPlumbInstance.repaint(connector,getPosition(activityId))
+  } catch(err) { 
+    // Nothing to repaint
+  }
 }
 
 jsPlumbRemoveAllAndDrawAgain = (activities,operators) => {
