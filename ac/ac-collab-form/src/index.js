@@ -17,6 +17,10 @@ export const config = {
       type: 'string',
       title: 'Activity name'
     },
+    'duration': {
+      type: 'number',
+      title: 'Duration in seconds (0 for infinity)'
+    },
     'title': {
       type: 'string',
       title: 'Form title'

@@ -146,6 +146,7 @@ const DashView = ({ user, logs }) => {
   } else {
     return (
       <div><h3>Dashboard</h3>
+        <p>The current time is {activity_type.Dashboard.timeNow}</p>
         <activity_type.Dashboard logs={specific_logs} />
       </div>
     )
