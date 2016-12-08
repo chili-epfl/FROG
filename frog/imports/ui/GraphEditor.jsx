@@ -28,13 +28,11 @@ jsPlumbRemoveAll = () => {
 
 jsPlumbDrawAll = (activities,operators) => {
   if(jsPlumbInstance){
-    console.log('for each activity')
     activities.forEach(activity => {
       const connector = $('#'+activity._id)
       jsPlumbInstance.makeSource(connector, { anchor: 'Continuous' })
       jsPlumbInstance.makeTarget(connector, { anchor:'Continuous' })
     })
-    console.log('for each operator')
     operators.forEach(operator => {
       jsPlumbInstance.connect({
         source:$('#'+operator.from),
@@ -172,7 +170,6 @@ class GraphEditorClass extends Component {
     // creating an activity in the graph
     planeNames.forEach(plane => {
       $('#'+plane).dblclick(event => {
-        console.log('hello')
         event.preventDefault()
         if(this.props.graph) {
           addGraphActivity({ 
