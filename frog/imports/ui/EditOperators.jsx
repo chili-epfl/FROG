@@ -50,7 +50,7 @@ const OperatorFormComponent = (props) => {
 
 export const OperatorForm = createContainer(() => {
   return {
-    activities: Activities.find({status:'OUT'}).fetch(),
+    activities: Activities.find({ graphId: null }).fetch(),
   }
 }, OperatorFormComponent)
 

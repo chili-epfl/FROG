@@ -3,7 +3,7 @@ body {
   background-color: #fff;
   background-attachment: fixed;
 
-  position: absolute;
+  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
@@ -39,11 +39,14 @@ body {
 }
 
 .selector {
-  position:relative;
+  position: relative;
 }
 
 .item {
   position: absolute;
+  margin-top: 1px;
+  top:0px;
+  left:0px;
   border: 1px solid black;
   background-color: #bbbbee;
   width: 100px;
@@ -51,6 +54,7 @@ body {
 }
 
 .title {
+  position: absolute;
   padding: 10px;
   cursor: move;
 }
@@ -65,26 +69,20 @@ body {
 
 .plane {
   position: relative;
-  border: 1px solid gray;
   width: 100%;
   height: 100px;
 }
 
-#individual {
-  top: 0px;
-}
-
-#group {
-  top: 0px;
-}
-
-#class {
-  top: 0px;
+.lineInPlane {
+  position: absolute;
+  border: 1px solid gray;
+  top: 50%;
+  width: 100%;
+  height: 0px;
 }
 
 #body {
   padding: 20px 15px 20px 15px;
-  max-height: 100%;
   max-width: 800px;
   margin: 0 auto;
   background: #eee;

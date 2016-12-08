@@ -7,7 +7,7 @@ import { find, sortBy, reverse, take } from 'lodash';
 import colorHash from 'color-hash';
 import { objectize } from '../../lib/utils';
 
-import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
+import { Sessions, addSession, removeSession, updateSessionState, updateSessionActivity } from '../api/sessions';
 import { Activities, Operators, addResult } from '../api/activities';
 import { Graphs } from '../api/graphs';
 import { Logs, flushLogs } from '../api/logs';
@@ -57,8 +57,12 @@ const switchActivity = (sessionid, activityid) => {
   updateSessionActivity(sessionid,activityid)
 }
 
-const SessionController = ( { session, activities } ) => { 
-  return(
+const SessionController = createContainer(
+  ( { session } ) => { return({
+    session: session,
+    activities: (session ? Activities.find({ sessionId: session._id }).fetch() : null)
+  })}, 
+  ( { session, activities } ) => { return(
     session ? 
       <div>
         <h3>Session control</h3>
@@ -82,32 +86,25 @@ const SessionController = ( { session, activities } ) => {
         <button className='btn btn-danger btn-sm' onClick={() => updateSessionState(session._id,'STOPPED')}>Stop </button>&nbsp;
       </div>
     : <p>Chose a session</p>
-  )
-}
-
-const SessionControllerContainer = createContainer(({ session }) => {
-  return({
-    session: session,
-    activities: session? Activities.find({graphId: session.graphId}).fetch() :null
-  })
-}, SessionController)
+  )}
+)
 
 class SessionList extends Component { 
   constructor(props){
     super(props)
     this.state={
-      graph: this.props.graphs[0] ? this.props.graphs[0]._id : null
+      graphId: this.props.graphs[0] ? this.props.graphs[0]._id : null
     }
   }
 
   changeGraph = (event) => {
     event.preventDefault()
-    this.setState({ graph: event.target.value })
+    this.setState({ graphId: event.target.value })
   }
 
   submitAddSession = (event) => {
     event.preventDefault() 
-    addSession(this.state.graph) 
+    addSession(this.state.graphId) 
   }
 
   render() { return(
@@ -120,7 +117,7 @@ class SessionList extends Component {
       <ul> { 
         this.props.sessions.map((session) => 
           <li key={session._id}>
-            <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
+            <a href='#' onClick={() => removeSession(session._id)}>
               <i className="fa fa-times"></i>
             </a>
             <a href='#' onClick={ () => setTeacherSession(session._id) }>
@@ -153,26 +150,22 @@ const DashView = ({ user, logs }) => {
   }
 }
 
-const TeacherView = ( { graphs, sessions, logs, user } ) => 
-  <div>
-    <SessionControllerContainer
-      session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
-    />
-    <DashView
-      user={user}
-      logs={logs} 
-    />
-    <SessionList 
-      sessions={sessions}
-      graphs={graphs}
-    />
-  </div>
-
-export default createContainer(() => {
-  return {
-    sessions: Sessions.find({}).fetch(),
-    graphs: Graphs.find({}).fetch(),
-    logs: Logs.find({}, {sort:{created_at: -1}, limit: 100}).fetch(),
-    user: Meteor.users.findOne({_id:Meteor.userId()})
-  }
-}, TeacherView)
+export default createContainer(
+  () => {
+    const user = Meteor.users.findOne({_id:Meteor.userId()})
+    const session = user.profile ? Sessions.findOne({_id:user.profile.controlSession}) : null
+    return {
+      sessions: Sessions.find().fetch(),
+      session: session,
+      graphs: Graphs.find().fetch(),
+      logs: Logs.find({}, {sort:{created_at: -1}, limit: 100}).fetch(),
+      user: user
+    }
+  }, 
+  ( { graphs, session, sessions, logs, user } ) =>
+    <div>
+      <SessionController session={session} />
+      <DashView user={user} logs={logs} />
+      <SessionList sessions={sessions} graphs={graphs} />
+    </div>
+)
