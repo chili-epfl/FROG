@@ -50,5 +50,5 @@ const colorRange = (val) => {
 
 export default (time) => {
   const milliseconds = Date.now() - Date.parse(time)
-  return colorRange(milliseconds/500)
+  return colorRange(milliseconds / 500)
 }
