@@ -5,9 +5,10 @@ import { Activities } from './activities';
  
 export const Sessions = new Mongo.Collection('sessions');
 
-export const addSession = () => {
+export const addSession = ( graphId ) => {
   Sessions.insert({
     _id: uuid(),
+    graphId: graphId,
     state: 'CREATED',
     activity: null,
     startedAt: null,

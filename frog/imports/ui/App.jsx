@@ -4,7 +4,7 @@ import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import { Meteor } from 'meteor/meteor'
 
-const apps = ["home","editor","teacherview","studentview"];
+const apps = ["Home","Activity Editor","Graph Editor","Teacher View","Student View"];
 
 const Buttons = ({apps, changeFn, currentApp}) => { return(
   <ul className='nav nav-pills'>
@@ -15,9 +15,6 @@ const Buttons = ({apps, changeFn, currentApp}) => { return(
         </a>
       </li>
     ))}
-    <div style={{float: 'right'}}>
-      <AccountsUIWrapper />
-    </div>
   </ul>
 )}
 
@@ -27,7 +24,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      app: 'home'
+      app: "Home",
     }
 
     // once user collection is subscribed to, switch based on which user is logged in
@@ -39,34 +36,34 @@ export default class App extends Component {
     let appset
     switch(username) {
       case null:
-        appset = 'home'
+        appset = 'Home'
         break
       case 'teacher':
-        appset = 'teacherview'
+        appset = 'Teacher View'
         break
       default:
-        appset = 'studentview'
+        appset = 'Student View'
     }
     this.setState({app: appset})
   }
 
-  render() {
-    return (
+  render() { return (
+    <div>
       <div>
-        <div>
-          <Buttons apps={apps} currentApp={this.state.app} changeFn={(app) => this.setState({app: app})}/>
-        </div>
-        { this.state.app == 'home' ?
-            <div className="page-header" style={{marginTop: '0px'}}>
-              <h1>FROG <small> - Fabricating and Running Orchestration Graphs</small></h1>
-            </div> :
-            null
-        }
-
-        <div id="body">
-          <Body app={this.state.app} />
-        </div>
+        <Buttons apps={apps} currentApp={this.state.app} changeFn={(app) => this.setState({app: app})}/>
       </div>
-    );
-  }
+      <div>
+        <AccountsUIWrapper />
+      </div>
+      { this.state.app == 'Home' ?
+        <div className="page-header" style={{marginTop: '0px'}}>
+          <h1>FROG <small> - Fabricating and Running Orchestration Graphs</small></h1>
+        </div> 
+        : null 
+      }
+      <div id="body">
+        <Body app={this.state.app} />
+      </div>
+    </div>
+  )}
 }

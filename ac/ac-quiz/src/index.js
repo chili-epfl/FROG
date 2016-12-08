@@ -1,11 +1,12 @@
+// @flow
 import React from 'react';
 import Form from "react-jsonschema-form";
+import type { ActivityRunnerT, ActivityPackageT }  from 'frog-utils'
 
 export const meta = {
   name: 'Quiz with Multiple-Choice Questions',
   type: 'react-component'
 }
-
 export const config = {
   title: 'Configuration for MCQ',
   type: 'object',
@@ -63,7 +64,10 @@ export const config = {
   }
 }
 
-export const ActivityRunner = ({ config, logger, onCompletion }) => {
+
+export const ActivityRunner = (props: ActivityRunnerT) => {
+  const { config, logger, onCompletion } = props
+
   const propdef = config.MCQ.reduce(
     (questionAcc, question, questionIndex) => ({...questionAcc, [questionIndex + '']: { 
       type: 'string', 
@@ -89,4 +93,4 @@ export const ActivityRunner = ({ config, logger, onCompletion }) => {
   )
 }
 
-export default { id: 'ac-quiz', meta: meta, config: config, ActivityRunner: ActivityRunner }
+export default ({ id: 'ac-quiz', meta: meta, config: config, ActivityRunner: ActivityRunner }: ActivityPackageT)
