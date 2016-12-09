@@ -7,8 +7,9 @@ import { find, sortBy, reverse, take } from 'lodash';
 import colorHash from 'color-hash';
 import { objectize } from '../../lib/utils';
 
-import { Sessions, addSession, updateSessionState, updateSessionActivity } from '../api/sessions';
+import { Sessions, addSession, removeSession, updateSessionState, updateSessionActivity } from '../api/sessions';
 import { Activities, Operators, addResult } from '../api/activities';
+import { Graphs } from '../api/graphs';
 import { Logs, flushLogs } from '../api/logs';
 import { Products } from '../api/products';
 
@@ -23,11 +24,11 @@ const setTeacherSession = (session_id) => {
 
 // check if there are any operators, and run these first
 const runProduct = (sessionid, activityid) => {
-  const ops = Operators.find({'data.to': activityid, type: 'product'}, {reactive: false}).fetch()
+  const ops = Operators.find({to: activityid, type: 'product'}, {reactive: false}).fetch()
   if(ops.length > 0) {
     const op = ops[0]
     const operator_type = operator_types_obj[op.operator_type]
-    const prod = Products.find({activity_id: op.data.from}, {reactive: false}).fetch()
+    const prod = Products.find({activity_id: op.from}, {reactive: false}).fetch()
     if(prod.length > 0) {
       const result = operator_type.operator(op.data, prod)
       addResult('product', activityid, result)
@@ -37,11 +38,11 @@ const runProduct = (sessionid, activityid) => {
 }
 
 const runSocial = (sessionid, activityid) => {
-  const ops = Operators.find({'data.to': activityid, type: 'social'}, {reactive: false}).fetch()
+  const ops = Operators.find({to: activityid, type: 'social'}, {reactive: false}).fetch()
   if(ops.length > 0) {
     const op = ops[0]
     const operator_type = operator_types_obj[op.operator_type]
-    const prod = Products.find({activity_id: op.data.from}, {reactive: false}).fetch()
+    const prod = Products.find({activity_id: op.from}, {reactive: false}).fetch()
     if(prod.length > 0) {
       const result = operator_type.operator(op.data, prod)
       addResult('social', activityid, result)
@@ -55,8 +56,13 @@ const switchActivity = (sessionid, activityid) => {
   runSocial(sessionid, activityid)
   updateSessionActivity(sessionid,activityid)
 }
-const SessionController = ( { session, activities } ) => { 
-  return(
+
+const SessionController = createContainer(
+  ( { session } ) => { return({
+    session: session,
+    activities: (session ? Activities.find({ sessionId: session._id }).fetch() : null)
+  })}, 
+  ( { session, activities } ) => { return(
     session ? 
       <div>
         <h3>Session control</h3>
@@ -64,11 +70,11 @@ const SessionController = ( { session, activities } ) => {
         <h4>Available activities</h4>
         <ul> { 
           activities.map((activity) => {
-            const running = activity._id == session.activity
+            const running = (activity._id == session.activity)
             return (
             <li key={activity._id}>
               <a href='#' onClick={() => switchActivity(session._id,activity._id)}>
-                {activity.data.name} - <i>{activity.activity_type}</i> {running ? <i> (running)</i> : ''}
+                {!!activity.data && activity.data.name} - <i>{activity.activity_type}</i> {!!running && <i> (running)</i>}
               </a>
             </li>
             )
@@ -80,28 +86,50 @@ const SessionController = ( { session, activities } ) => {
         <button className='btn btn-danger btn-sm' onClick={() => updateSessionState(session._id,'STOPPED')}>Stop </button>&nbsp;
       </div>
     : <p>Chose a session</p>
-  )
-}
+  )}
+)
 
-const SessionList = ( { sessions } ) => { return(
-  <div>
-    <h3>Session list</h3>
-    <ul> { 
-      sessions.map((session) => 
-        <li key={session._id}>
-          <a href='#' onClick={() => Sessions.remove({_id:session._id})}>
-            <i className="fa fa-times"></i>&nbsp;
-          </a>
-          <a href='#' onClick={ () => setTeacherSession(session._id) }>
-            <i className="fa fa-pencil"></i>&nbsp;
-          </a>&nbsp;
-          {session._id}
-        </li>
-      ) 
-    } </ul>
-    <button className='btn btn-primary btn-sm' onClick={addSession}>Add session</button>
-  </div>
-)}
+class SessionList extends Component { 
+  constructor(props){
+    super(props)
+    this.state={
+      graphId: this.props.graphs[0] ? this.props.graphs[0]._id : null
+    }
+  }
+
+  changeGraph = (event) => {
+    event.preventDefault()
+    this.setState({ graphId: event.target.value })
+  }
+
+  submitAddSession = (event) => {
+    event.preventDefault() 
+    addSession(this.state.graphId) 
+  }
+
+  render() { return(
+    <div>
+      <h3>Session list</h3> 
+      <select onChange={this.changeGraph}>
+        {this.props.graphs.map(graph => <option key={graph._id} value={graph._id} >{graph.name}</option>)}
+      </select>
+      <button className='btn btn-primary btn-sm' onClick={this.submitAddSession} >Add session</button>
+      <ul> { 
+        this.props.sessions.map((session) => 
+          <li key={session._id}>
+            <a href='#' onClick={() => removeSession(session._id)}>
+              <i className="fa fa-times"></i>
+            </a>
+            <a href='#' onClick={ () => setTeacherSession(session._id) }>
+              <i className="fa fa-pencil"></i>
+            </a>
+            {session._id}
+          </li>
+        ) 
+      } </ul>
+    </div>
+  )}
+}
 
 const DashView = ({ user, logs }) => {
   const session = user.profile? Sessions.findOne({_id:user.profile.controlSession}):null
@@ -115,33 +143,29 @@ const DashView = ({ user, logs }) => {
   } else {
     return (
       <div><h3>Dashboard</h3>
+        <p>The current time is {activity_type.Dashboard.timeNow}</p>
         <activity_type.Dashboard logs={specific_logs} />
       </div>
     )
   }
 }
 
-const TeacherView = ( { activities, sessions, logs, user } ) => { return(
-  <div>
-    <SessionController 
-      session={user.profile? Sessions.findOne({_id:user.profile.controlSession}):null}
-      activities={activities}
-    />
-    <DashView
-      user={user}
-      logs={logs} 
-    />
-    <SessionList 
-      sessions={sessions} 
-    />
-  </div>
-)}
-
-export default createContainer(() => {
-  return {
-    activities: Activities.find({}).fetch(),
-    sessions: Sessions.find({}).fetch(),
-    logs: Logs.find({}, {sort:{created_at: -1}, limit: 100}).fetch(),
-    user: Meteor.users.findOne({_id:Meteor.userId()})
-  }
-}, TeacherView)
+export default createContainer(
+  () => {
+    const user = Meteor.users.findOne({_id:Meteor.userId()})
+    const session = user.profile ? Sessions.findOne({_id:user.profile.controlSession}) : null
+    return {
+      sessions: Sessions.find().fetch(),
+      session: session,
+      graphs: Graphs.find().fetch(),
+      logs: Logs.find({}, {sort:{created_at: -1}, limit: 100}).fetch(),
+      user: user
+    }
+  }, 
+  ( { graphs, session, sessions, logs, user } ) =>
+    <div>
+      <SessionController session={session} />
+      <DashView user={user} logs={logs} />
+      <SessionList sessions={sessions} graphs={graphs} />
+    </div>
+)

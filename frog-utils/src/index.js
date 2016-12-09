@@ -1,19 +1,23 @@
+// @flow
+
 export { default as color_range } from './color_range'
 export { default as Chat } from './chat'
 export { default as unrollProducts } from './unroll_products'
 export { default as TimedComponent } from './TimedComponent'
+export type { ActivityPackageT, ActivityRunnerT } from './types'
 
 export const uuid = () =>
+// $FlowFixMe
   ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,a=>(a^Math.random()*16>>a/4).toString(16))
 
-export const currentDate = () => {
+export const currentDate = (): string => {
   let d = new Date()
   return d.toString()
 }
 
-export const booleanize = (bool) => (bool == 'true') ? true : false
+export const booleanize = (bool: string): boolean => (bool == 'true') ? true : false
 
-export const shorten = (text, length) => {
+export const shorten = (text: string, length: number): string => {
   let t = text || ''
   if (t.length < length) {
     return t
@@ -22,51 +26,29 @@ export const shorten = (text, length) => {
   }
 }
 
-export const compose = (...args) => initial => args.reduce(
-    (result, fn) => fn(result),
-    initial
-)
-
-export const composeReducers = (...args) => {
-  const ret = (initState, action) => args.reduce(
-    (state, fn) => fn(state, action),
-      initState
-  )
-  return ret
-}
-
 // checks that some of the values in an object are not empty
-export const notEmpty = (obj) => {
+export const notEmpty = (obj: Object): boolean => {
   if(!obj) { return false }
   return Object.keys(obj).reduce(
     (acc, val) => acc || Boolean(obj[val]), false)
 }
 
-export const identity = (e) => e
-
-// for classState and studentState, we are getting an array from Horizon, but
-// we will only have one element of each type with a given class/student ID
-// this let's us easily pick that element out and switch on it
-// for example getKey('tablet_locked', classState) will return the value if
-// the element exists, and undefined if it does not
-export const getKey = (key, array) => {
-  return false
-}
+export const identity = (e: any): any => e
 
 // list utils
-const splitAt = function(i, xs) {
+export const splitAt = function(i: number, xs: Array<any>): Array<Array<any>> {
   var a = xs.slice(0, i);
   var b = xs.slice(i, xs.length);
   return [a, b];
 };
 
-const shuffleList = function(xs) {
+export const shuffleList = function(xs: Array<any>): Array<any> {
   return xs.slice(0).sort(function() {
     return .5 - Math.random();
   });
 };
 
-const zipList = function(xs) {
+export const zipList = function(xs: Array<any>): Array<any> {
   return xs[0].map(function(_,i) {
     return xs.map(function(x) {
       return x[i];

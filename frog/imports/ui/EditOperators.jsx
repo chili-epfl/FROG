@@ -8,32 +8,21 @@ import { Activities, addOperator, Operators } from '../api/activities'
 import { keyBy, map } from 'lodash'
 
 
-export const OperatorList = ( { operators, activities, setFn } ) => { 
+export const OperatorList = ( { operators, setFn } ) => { 
   return(
     <div>
       <h3>Operator list</h3>
       <ul> { 
-        operators.map((operator) => {
-          const act_map = keyBy(activities, x => x._id)
-          return(
-
+        operators.map((operator) => { return(
           <li style={{listStyle: 'none'}} key={operator._id}>
             <a href='#' onClick={ () => Operators.remove({_id: operator._id}) }>
               <i className="fa fa-times" />
             </a>
-            &nbsp;
             <a href='#' onClick={ () => setFn(operator.operator_type, operator) } >
               <i className="fa fa-pencil" />
             </a>
-            &nbsp;
-            {act_map[operator.data.from].data.name}
-            <b> 
-              <span className='text-success'> 
-                -> {'<'}{operator_types_obj[operator.operator_type].meta.name} > 
-                -> 
-              </span>
-            </b> 
-            {act_map[operator.data.to].data.name}
+            {operator_types_obj[operator.operator_type].meta.name}
+            <pre>{JSON.stringify(operator.data, null, 2)}</pre>
           </li>
           )
         }
@@ -44,36 +33,9 @@ export const OperatorList = ( { operators, activities, setFn } ) => {
   )
 }
 
-
-function validate(formData, errors) {
-  if (formData.from == formData.to) {
-    errors.from.addError("Source and target nodes cannot be identical");
-  }
-  return errors;
-}
-
 const OperatorFormComponent = (props) => {
-  const schema_orig = operator_types_obj[props.form].config
-
-  const from = {
-    from: {
-      type: "string",
-      title: 'Source node (activity)',
-      enum: map(props.activities, (k, v) => k._id),
-      enumNames: props.activities.map(k => `${k.data.name} (${k.activity_type})`)
-    }
-  }
-
-  const to = {
-    to: {
-      type: "string",
-      title: 'Target node (activity)',
-      enum: map(props.activities, (k, v) => k._id),
-      enumNames: props.activities.map(k => `${k.data.name} (${k.activity_type})`)
-    }
-  }
-
-  const schema = {...schema_orig, properties: { ...schema_orig.properties, ...from, ...to }}
+  
+  const schema = operator_types_obj[props.form].config
   const existing_id = props.existing ? props.existing._id : null 
 
   return (
@@ -81,14 +43,14 @@ const OperatorFormComponent = (props) => {
       schema={schema} 
       onSubmit={(data) => props.submit(props.form, data.formData, existing_id)}
       formData={props.existing ? props.existing.data : {}}
-      validate={validate}/> 
+    /> 
   )
 }
 
 
 export const OperatorForm = createContainer(() => {
   return {
-    activities: Activities.find({}).fetch(),
+    activities: Activities.find({ graphId: null }).fetch(),
   }
 }, OperatorFormComponent)
 
