@@ -4,7 +4,7 @@ import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 
 import { $ } from 'meteor/jquery';
-import jsPlumb from 'jsplumb';
+import jsplumb from 'jsplumb';
 
 //to be put in graph.jxs
 const AxisDisplay = ( {getRightMostPosition} ) => { 
@@ -80,9 +80,9 @@ const RenderDraggable = ( { handleHoverStart, handleHoverStop, activities}) => {
 
 const TempAc = ({handleDragStop, position, plane, current}) => {
   return (
-    <div style={{position: "absolute", zIndex:2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
+    <div id="dragac" style={{position: "absolute", zIndex: 2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
       {current ?
-      <div style={{position: "absolute"}}>
+      <div  style={{position: "absolute"}}>
         <DragAc
           plane={plane}
           position={position}
@@ -100,6 +100,7 @@ const RenderGraph = ( {activities, positions, deleteAc, handleMove, getRightMost
       <div id='inner_graph' style={divStyle}>
         {activities.map( (activity, i) =>
           <DraggableAc
+            id={'drag' + activity._id}
             activity={activity}
             editorMode={true}
             plane={positions[i].plane}
@@ -124,26 +125,57 @@ var jsp = null;
 
 var common = {
     isSource:true,
+    isTarget:false,
+    endpoint: 'Rectangle',
+    anchor: 'Right'
+}
+
+var commonTarget = {
+    isSource:false,
     isTarget:true,
-    connector: ["Straight"],
-    endpoint: ['Rectangle', { width:10, height:8 } ],
-    endpointStyle:{fillStyle:'rgb(243,229,0)'}
-};
+    endpoint: 'Dot',
+    anchor: 'Left'
+}
+
+const wrapActivity = (activity, i) => {
 
 const wrapActivity = (activity) => {
-  let id = $('#drag_' + activity._id)
-  //jsp.makeSource(id, {anchor: 'Continuous'})
-  //jsp.makeTarget(id, {anchor: 'Continuous'})
-  //jsp.addEndpoint(id, {anchor: ["Left"]}, common)
+  let id = $('#' + activity._id)
+  //alert(""+id)
+  //jsp.draggable(id)
+  jsp.makeSource(id, {anchor: 'Continuous'})
+  jsp.makeTarget(id, {anchor: 'Continuous'})
+  //jsp.addEndpoint(id, {anchor: ["Left"]}, commonTarget)
   //jsp.addEndpoint(id, {anchor: ["Right"]}, common)
+
 }
 
 const wrapActivities = (activities) => {
+  /*
+  let ids = activities.map(activity => activity._id)
+  jsp.addEndpoints(ids, {anchor: ["Left"]}, commonTarget)
+  */
+  activities.map( (activity) => {
+    var id = $('#' + activity._id)
+    //jsp.makeSource(id, {anchor: 'Right', endpoint: 'Rectangle'})
+    //jsp.makeTarget(id, {anchor: 'Left', endpoint: 'Dot'})
+    jsp.addEndpoint(id, {anchor: ["Left"]}, commonTarget)
+    jsp.addEndpoint(id, {anchor: ["Right"]}, common)
+  })
+
+}
+
+const drawOperators = (operators) => {
   if (jsp == null) return
 
-  activities.forEach( (activity) => {
-    wrapActivity(activity)
+  operators.forEach( (operator) => {
+    jsp.connect({source: $('#' + operator.from), target: $('#' + operator.to), anchors: ['Continuous', 'Continuous']})
   })
+}
+
+const getElemPosition = () => {
+  let pos = $('#dragac').position();
+  return pos;
 }
 
 export default class Graph extends Component {
@@ -153,6 +185,7 @@ export default class Graph extends Component {
     this.state = {
       addedActivities: [],
       addedPositions: [],
+      addedOperators: [],
       currentDraggable: null,
       currentPlane: 0,
       defPos: {x: 0, y:0},
@@ -161,13 +194,31 @@ export default class Graph extends Component {
     };
   }
 
+  componentDidUpdate() {
+    jsp.detachEveryConnection();
+    jsp.deleteEveryEndpoint();
+    jsp.unmakeEveryTarget();
+    jsp.unmakeEverySource();
+    wrapActivities(this.state.addedActivities)
+    drawOperators(this.state.addedOperators)
+  }
+
   componentDidMount() {
     /*
     var separator = {top: $("#top").offset().top, down: $("#down").offset().top, left: $("down").position().left}
     this.setState({separatorHeight: separator})
     */
-    jsp = jsPlumb.getInstance()
-    jsp.setContainer($('#inner_graph'))
+    jsp = jsplumb// .getInstance()
+    jsp.setContainer($('#graph_summary'))
+
+    jsp.bind('connection', (info,originalEvent) => {
+      alert("connection")
+      if (originalEvent) {
+        let operator = {from: info.sourceId, to: info.targetId }
+        let updatedOp = this.state.addedOperators.concat(operator)
+        this.setState({addedOperators: updatedOp})
+      }
+    });
   }
 
   handleHoverTopSeparator = (event) => {
@@ -188,6 +239,8 @@ export default class Graph extends Component {
 
 
   }
+
+
 
   handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
@@ -223,16 +276,17 @@ export default class Graph extends Component {
     event.preventDefault();
     var {top, down} = this.state.separatorHeight
     var pos = event.target.getBoundingClientRect();
+    //alert("elem " + getElemPosition().top+ " down " + down)
 
     if(pos.top < down - top && pos.top > top) {
       var innerGraphScrollX =  $("#inner_graph").scrollLeft()
       var correctedPosition = this.state.mousePosition
       correctedPosition.x += innerGraphScrollX
+      //correctedPosition.y += this.state.separatorHeight.top
       var newElement = {position: correctedPosition, plane: plane}
       newElement.plane += 0 //TODO insertion fail if a field of newElement is not used at least once before
       var activitiesMore = this.state.addedActivities.concat(activity)
       var positionsMore = this.state.addedPositions.concat(newElement)
-      wrapActivity(activity)
       this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
     }
 
@@ -258,10 +312,9 @@ export default class Graph extends Component {
   render() {
     var position = this.state.mousePosition
     return (
-      <div className="graph-summary">
-          <div style={{position: 'relative'}}>
+      <div id="graph-summary">
+          <Separator id='top' key={1} onHover={this.handleHoverTopSeparator} />
 
-            <Separator id='top' key={1} onHover={this.handleHoverTopSeparator} />
 
             <RenderGraph
               activities={this.state.addedActivities}
@@ -269,20 +322,19 @@ export default class Graph extends Component {
               deleteAc={this.deleteInGraphAc}
               handleMove={this.handleMove}
               getRightMostPosition={this.getRightMostPosition} />
+          <Separator id='down' key={2} onHover={this.handleHoverDownSeparator} />
 
-            <Separator id='down' key={2} onHover={this.handleHoverDownSeparator} />
+          <TempAc
+            handleDragStop = {this.handleDragStop}
+            position = {position}
+            plane = {this.state.currentPlane}
+            current = {this.state.currentDraggable}/>
 
-            <TempAc
-              handleDragStop = {this.handleDragStop}
-              position = {position}
-              plane = {this.state.currentPlane}
-              current = {this.state.currentDraggable}/>
+          <RenderDraggable
+            handleHoverStart={this.handleHoverStart}
+            handleHoverStop={this.handleHoverStop}
+            activities = {this.props.activities}/>
 
-            <RenderDraggable
-              handleHoverStart={this.handleHoverStart}
-              handleHoverStop={this.handleHoverStop}
-              activities = {this.props.activities}/>
-          </div>
       </div>
     );
   }
@@ -294,7 +346,8 @@ Graph.propTypes = {
 };
 
 const divStyle = {
-  position: "relative",
+  position: "static",
+  zIndex: 0,
   height: 300,
   width: "100%",
   overflowX: "scroll",

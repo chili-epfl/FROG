@@ -5,15 +5,14 @@ import Draggable from 'react-draggable';
 
 const divStyleNeg = {
   background: "white",
-  border: 2,
+  top: 30,
   width: 60,
-  height: 40,
+  height: 10,
   margin: 10,
   padding: 10,
-  float: "left",
-  position: "absolute",
-  borderStyle: "solid",
-  borderColor: "red"
+  zIndex: 0,
+  position: "absolute"
+
 
 }
 
@@ -25,7 +24,7 @@ const divStyle = {
   margin: 10,
   padding: 10,
   float: "left",
-  position: "absolute",
+  position: "relative",
   borderStyle: "solid",
   borderColor: "green"
 
@@ -49,7 +48,7 @@ export default class DraggableAc extends Component {
 
   componentDidMount () {
     if(this.props.editorMode) {
-      this.setState({deltaPosition: {x: this.props.defaultPosition.x, y:0}})
+      this.setState({deltaPosition: {x: this.props.defaultPosition.x, y:0, controlledPosition: this.defaultPosition()}})
     }
   }
 
@@ -58,14 +57,14 @@ export default class DraggableAc extends Component {
       background: style.background,
       border: style.border,
       width: this.props.duration * unitTime,
-      height: style.height,
+      height: 40,
       margin: style.margin,
       padding: style.padding,
       float: style.float,
       position: "absolute",
       borderStyle: style.borderStyle,
       borderColor: style.borderColor,
-      zIndex: 10
+      zIndex: 1
 
     }
   }
@@ -140,7 +139,7 @@ export default class DraggableAc extends Component {
   */
 
   checkLayout = (delta, event) => {
-    var newPlace = (delta.y <= 200); //corresponding to height of parent's svg
+    var newPlace = (delta.y <= 170); //corresponding to height of parent's svg
 
     var newDelta = {x: delta.x, y: this.getCorrectY()};
     var newY = this.getCorrectY();
@@ -182,13 +181,11 @@ export default class DraggableAc extends Component {
         onDrag={this.handleDrag}
         onStop={this.handleStop}
         grid={[30, 20]}>
-          <div
-            style={this.AcDivStyle(divStyle)}>
-
+        <div  style={{position: 'relative', zIndex: 1}}>
+          <div id = {this.props.activity._id}  style={this.AcDivStyle(divStyle)}>
             Plane {this.props.plane}<br/>
-            Pos {this.state.controlledPosition.x}<br/>
           </div>
-
+        </div>
         </Draggable>
 
     );
