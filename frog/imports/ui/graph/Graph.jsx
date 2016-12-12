@@ -137,18 +137,16 @@ var commonTarget = {
     anchor: 'Left'
 }
 
-const wrapActivity = (activity, i) => {
-
-const wrapActivity = (activity) => {
-  let id = $('#' + activity._id)
+//const wrapActivity = (activity) => {
+  //let id = $('#' + activity._id)
   //alert(""+id)
   //jsp.draggable(id)
-  jsp.makeSource(id, {anchor: 'Continuous'})
-  jsp.makeTarget(id, {anchor: 'Continuous'})
+  //jsp.makeSource(id, {anchor: 'Continuous'})
+  //jsp.makeTarget(id, {anchor: 'Continuous'})
   //jsp.addEndpoint(id, {anchor: ["Left"]}, commonTarget)
   //jsp.addEndpoint(id, {anchor: ["Right"]}, common)
 
-}
+//}
 
 
 const getPosition = (id) => {
