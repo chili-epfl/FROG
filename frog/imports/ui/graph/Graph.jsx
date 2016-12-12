@@ -7,9 +7,11 @@ import { $ } from 'meteor/jquery';
 import jsPlumb from 'jsplumb';
 
 //to be put in graph.jxs
-const AxisDisplay = ( {reference} ) => { return(
-  <div ref={reference} style={{overflowX: scroll}}>
-    <svg width="1000px" height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflow: "scroll"}}>
+const AxisDisplay = ( {getRightMostPosition} ) => { 
+  if(getRightMostPosition() != 1000) alert(getRightMostPosition()+"px")
+  return(
+  <div>
+    <svg width={getRightMostPosition()+"px"} height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
       <text x="0%" y="20%">Plane 1</text>
       <line x1="10%" y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
@@ -92,7 +94,7 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
 }
 
 
-const RenderGraph = ( {activities, positions, deleteAc}) => {
+const RenderGraph = ( {activities, positions, deleteAc, handleMove, getRightMostPosition}) => {
   return(
 
       <div id='inner_graph' style={divStyle}>
@@ -105,10 +107,12 @@ const RenderGraph = ( {activities, positions, deleteAc}) => {
             startTime={45}
             duration={60}
             defaultPosition={positions[i].position}
+            arrayIndex={i}
+            handleMove={handleMove}
             delete = {deleteAc}/>
         )}
         <div style={{top: 50}}>
-          <AxisDisplay />
+          <AxisDisplay getRightMostPosition={getRightMostPosition}/>
         </div>
 
       </div>
@@ -127,9 +131,9 @@ var common = {
 };
 
 const wrapActivity = (activity) => {
-  var id = $('#drag_' + activity._id)
-  jsp.makeSource(id, {anchor: 'Continuous'})
-  jsp.makeTarget(id, {anchor: 'Continuous'})
+  let id = $('#drag_' + activity._id)
+  //jsp.makeSource(id, {anchor: 'Continuous'})
+  //jsp.makeTarget(id, {anchor: 'Continuous'})
   //jsp.addEndpoint(id, {anchor: ["Left"]}, common)
   //jsp.addEndpoint(id, {anchor: ["Right"]}, common)
 }
@@ -208,7 +212,7 @@ export default class Graph extends Component {
     var index = this.state.addedActivities.indexOf(activity)
     if(index != -1) {
       var activitiesLess =
-        this.state.addedActivities.slice(0, index).concat(this.state.addedActivities.slice(index+1, this.state.addedActivities.length))
+        this.state.addedActivities.slice(0, index).concat(this.state.addedActivities.slice(index+1, this.state.addedActivities.drag))
         var positionsLess =
           this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
@@ -235,6 +239,22 @@ export default class Graph extends Component {
     this.setState({currentDraggable: null});
   }
 
+  handleMove = (arrayIndex, position) => {
+    let activityMoved = this.state.addedPositions[arrayIndex]
+    activityMoved.position = position
+    let modifiedAddedPositions = this.state.addedPositions
+      .slice(0, arrayIndex)
+      .concat(activityMoved)
+      .concat(this.state.addedPositions
+                .slice(arrayIndex+1, this.state.addedPositions.length))
+    this.setState({addedPositions: modifiedAddedPositions})
+  }
+
+  getRightMostPosition = () => {
+    let position = this.state.addedPositions.indexOf(Math.max(...this.state.addedPositions.map(addedPosition => addedPosition.position.x)))
+    return (position >= 1000) ? position : 1000;
+  }
+
   render() {
     var position = this.state.mousePosition
     return (
@@ -246,7 +266,9 @@ export default class Graph extends Component {
             <RenderGraph
               activities={this.state.addedActivities}
               positions={this.state.addedPositions}
-              deleteAc={this.deleteInGraphAc}/>
+              deleteAc={this.deleteInGraphAc}
+              handleMove={this.handleMove}
+              getRightMostPosition={this.getRightMostPosition} />
 
             <Separator id='down' key={2} onHover={this.handleHoverDownSeparator} />
 

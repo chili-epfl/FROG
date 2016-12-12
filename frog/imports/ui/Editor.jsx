@@ -66,25 +66,46 @@ const ActivityForm = ( { form, submit } ) => { return (
   </div>
 )}
 
-const GraphDisplay = () => { 
+const divGraphStyle = {
+  position: "absolute",
+}
+
+const GraphDisplay = (activities) => { 
   return(
-  <div style={{overflow: "auto"}}>
+  <div style={{overflow: "auto", position: "absolute"}}>
     <h1>Graph</h1>
+
+    <div style={divGraphStyle}>
+    <ActivityDraggableList activities={activities}  />
     <svg width="100%" height="50%" xmlns="http://www.w3.org/2000/svg" style={{overflow: "scroll"}}>
-      <text x="0%" y="10%">Plane 1</text>
-      <line x1="10%" y1="10%" x2="100%" y2="10%" style={{stroke: 'black', strokeWidth:"2"}} />
+      <text x="0%" y="50%">Plane 1</text>
+      <line x1="10%" y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"2"}} />
+    </svg>
+    </div>
+
+    <div style={divGraphStyle}>
+    <ActivityDraggableList activities={activities} />
+    <svg width="100%" height="50%" xmlns="http://www.w3.org/2000/svg" style={{overflow: "scroll"}}>
       <text x="0%" y="50%">Plane 2</text>
       <line x1="10%" y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"2"}}/>
-      <text x="0%" y="90%">Plane 3</text>
-      <line x1="10%" y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"2"}}/>
     </svg>
+    </div>
+
+    <div style={divGraphStyle}>
+    <ActivityDraggableList activities={activities} />
+    <svg width="100%" height="50%" xmlns="http://www.w3.org/2000/svg" style={{overflow: "scroll"}}>
+      <text x="0%" y="50%">Plane 3</text>
+      <line x1="10%" y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"2"}}/>
+    </svg>
+    </div>
   </div>
 )}
 
-const ActivityDraggableList = ( {activities, createElementIfMoved} ) => { return(
+const ActivityDraggableList = ( activities ) => { 
+  return(
   <div>
-      {activities.map((activity) => 
-        <Draggable grid={[20, 20]} key={activity.key} onStart={(event) => createElementIfMoved(event, activity)}>
+      {activities.activities.activities.map((activity) => 
+        <Draggable grid={[20, 20]} key={activity.key} axis='x' /*onStart={(event) => createElementIfMoved(event, activity)}*/>
           <div  style={{position:'absolute', background:'white'}}>
             <div>{activity.data.name}</div>
           </div>
@@ -148,12 +169,12 @@ class ActivityBody extends Component {
     this.setState({activitiesInGraph: activitiesInGraphPlusNew})
   }
 
-  createElementIfMoved(event, activity) {
+  /*createElementIfMoved(event, activity) {
     event.preventDefault();
     let rect = event.target.getBoundingClientRect()
     alert("top:" + rect.top + " left:" + rect.left + " down:" + rect.down + " right:" + rect.right)
     this.createNewGraphActivity(activity, activity.plane)
-  }
+  }*/
 
   render() {
     return(
@@ -161,7 +182,7 @@ class ActivityBody extends Component {
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>
         <ActivityList activities={this.props.activities} />
         <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
-        <Graph activities={this.props.activities} />
+        <Graph activities = {this.props.activities}/>
       </div>
     )
   }

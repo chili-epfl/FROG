@@ -107,6 +107,7 @@ export default class DraggableAc extends Component {
     var delta = this.state.deltaPosition;
 
     var position = this.checkLayout(delta, event);
+    this.props.handleMove(this.props.arrayIndex, position)
 
     this.setState({
       deltaPosition: position.newDelta,
@@ -171,7 +172,7 @@ export default class DraggableAc extends Component {
     return(
       <Draggable
         axis='both'
-
+        id = {'drag_' + this.props.activity._id}
         defaultPosition={this.defaultPosition()}
         position={this.positionAndReset()}
 
@@ -182,7 +183,6 @@ export default class DraggableAc extends Component {
         onStop={this.handleStop}
         grid={[30, 20]}>
           <div
-            id = {'drag_' + this.props.activity._id}
             style={this.AcDivStyle(divStyle)}>
 
             Plane {this.props.plane}<br/>
@@ -203,5 +203,7 @@ DraggableAc.propTypes = {
   startTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   defaultPosition: PropTypes.object.isRequired,
+  handleMove: PropTypes.func.isRequired,
+  arrayIndex: PropTypes.number.isRequired,
   delete: PropTypes.func
 };
