@@ -4,10 +4,9 @@ import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 
 import { $ } from 'meteor/jquery';
-import jsplumb from 'jsplumb';
 
 //to be put in graph.jxs
-const AxisDisplay = ( {getRightMostPosition} ) => { 
+const AxisDisplay = ( {getRightMostPosition} ) => {
   if(getRightMostPosition() != 1000) alert(getRightMostPosition()+"px")
   return(
   <div>
@@ -58,7 +57,7 @@ const BoxAc = ( {hoverStart, hoverStop, plane} ) => {
       Plane {plane}
     </div>
   )
-};
+}
 
 const RenderDraggable = ( { handleHoverStart, handleHoverStop, activities}) => {return(
     <div>
@@ -172,6 +171,7 @@ const drawOperators = (operators) => {
   })
 }
 
+
 const getElemPosition = () => {
   let pos = $('#dragac').position();
   return pos;
@@ -184,83 +184,12 @@ export default class Graph extends Component {
     this.state = {
       addedActivities: [],
       addedPositions: [],
-      addedOperators: [],
-      currentSource: null,
       currentDraggable: null,
       currentPlane: 0,
       defPos: {x: 0, y:0},
       separatorHeight: {top: 0, down: 0, left: 0},
       mousePosition: {x: 0, y:0}
     };
-  }
-
-  wrapActivities = (activities) => {
-    if (!jsp) return
-    /*
-    let ids = activities.map(activity => activity._id)
-    jsp.addEndpoints(ids, {anchor: ["Left"]}, commonTarget)
-    */
-    let jspi = jsp.getInstance();
-    //alert(Object.keys(jspi))
-    activities.forEach( (activity) => {
-      const id = $('#' + activity._id)
-      //let source = jsp.makeSource(id, {anchor: 'Right', isSource:true, endpoint: 'Rectangle'})
-      //let target = jsp.makeTarget(id, {anchor: 'Left', isTarget:true,  endpoint: 'Dot'})
-      let target = jspi.addEndpoint(id, {anchor: "Left"}, commonTarget)
-      let source = jspi.addEndpoint(id, {anchor: "Right"}, commonSource)
-      console.log("hello " + source);
-
-
-      source.bind('click', (endpoint, originalEvent) => {
-        //alert(endpoint.getElement().id)
-        this.setState({currentSource: endpoint.getElement().id})
-      })
-      target.bind('click', (endpoint, originalEvent) => {
-        if (this.state.currentSource != null) {
-          alert(endpoint.getElement().id)
-          let operator = {from: this.state.currentSource, to: endpoint.getElement().id}
-          operator.to += ""
-          let updatedOp = this.state.addedOperators.concat(operator)
-          this.setState({currentSource: null, addedOperators: updatedOp})
-        }
-      })
-      target.bind('mousedown', (endpoint, originalEvent) => {
-        this.setState({currentSource: null})
-      })
-
-    })
-
-  }
-
-  componentDidUpdate() {
-    jsp.detachEveryConnection();
-    jsp.deleteEveryEndpoint();
-    jsp.unmakeEveryTarget();
-    jsp.unmakeEverySource();
-    jsp.reset();
-    this.wrapActivities(this.state.addedActivities)
-    drawOperators(this.state.addedOperators)
-  }
-
-  componentDidMount() {
-    /*
-    var separator = {top: $("#top").offset().top, down: $("#down").offset().top, left: $("down").position().left}
-    this.setState({separatorHeight: separator})
-    */
-    jsplumb.bind('ready', () => {
-      jsp = jsplumb//.getInstance()
-      jsp.setContainer($('#graph_summary'))
-    })
-
-
-    jsp.bind('connection', (info,originalEvent) => {
-      alert("connection")
-      //if (originalEvent) {
-        let operator = {from: info.sourceId, to: info.targetId }
-        let updatedOp = this.state.addedOperators.concat(operator)
-        this.setState({addedOperators: updatedOp})
-      //}
-    });
   }
 
   handleHoverTopSeparator = (event) => {
@@ -278,10 +207,7 @@ export default class Graph extends Component {
     var pos = event.target.getBoundingClientRect()
     var top = this.state.separatorHeight.top
     this.setState({separatorHeight: {top: top, down: pos.top + window.scrollY, left:pos.left}});
-
-
   }
-
 
 
   handleHoverStart = (event, plane, activity) => {
