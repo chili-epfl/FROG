@@ -13,5 +13,9 @@
     "flow-bin": "^0.36.0",
     "watch": "^1.0.1"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jsplumb": "^2.2.6",
+    "react-draggable": "^2.2.3"
+  }
 }
