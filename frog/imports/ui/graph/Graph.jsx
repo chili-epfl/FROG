@@ -123,15 +123,15 @@ const RenderGraph = ( {activities, positions, deleteAc, handleMove, getRightMost
 
 var jsp = null;
 
-var common = {
+var commonSource = {
     isSource:true,
-    isTarget:true,
+    isTarget:false,
     endpoint: 'Rectangle',
     anchor: 'Right'
 }
 
 var commonTarget = {
-    isSource:true,
+    isSource:false,
     isTarget:true,
     endpoint: 'Dot',
     anchor: 'Left'
@@ -164,7 +164,7 @@ const drawOperators = (operators) => {
   if (jsp == null) return
 
   operators.forEach( (operator) => {
-    jsp.addEndpoint(operator.from, {anchor: 'Right'}, common)
+    jsp.addEndpoint(operator.from, {anchor: 'Right'}, commonSource)
     jsp.addEndpoint(operator.to, {anchor: 'Left'}, commonTarget)
     jsp.connect({source: operator.from, target: operator.to})
     jsp.repaint($('#' + operator.from), getPosition(operator.from))
@@ -200,14 +200,15 @@ export default class Graph extends Component {
     let ids = activities.map(activity => activity._id)
     jsp.addEndpoints(ids, {anchor: ["Left"]}, commonTarget)
     */
-    activities.forEach( (activity, i) => {
+    let jspi = jsp.getInstance();
+    //alert(Object.keys(jspi))
+    activities.forEach( (activity) => {
       const id = $('#' + activity._id)
-      var jspi = jsp.getInstance()
-      //jsp.makeSource(id, {anchor: 'Right', endpoint: 'Rectangle'})
-      //jsp.makeTarget(id, {anchor: 'Left', endpoint: 'Dot'})
-      var target = jspi.addEndpoint(id, {anchor: ["Left"]}, commonTarget)
-      var source = jspi.addEndpoint(id, {anchor: ["Right"]}, common)
-
+      //let source = jsp.makeSource(id, {anchor: 'Right', isSource:true, endpoint: 'Rectangle'})
+      //let target = jsp.makeTarget(id, {anchor: 'Left', isTarget:true,  endpoint: 'Dot'})
+      let target = jspi.addEndpoint(id, {anchor: "Left"}, commonTarget)
+      let source = jspi.addEndpoint(id, {anchor: "Right"}, commonSource)
+      console.log("hello " + source);
 
 
       source.bind('click', (endpoint, originalEvent) => {
