@@ -55,6 +55,7 @@ export default class DraggableAc extends Component {
   AcDivStyle(style) {
     return {
       background: style.background,
+      textAlign:"center",
       border: style.border,
       width: this.props.duration * unitTime,
       height: 40,
@@ -180,10 +181,17 @@ export default class DraggableAc extends Component {
         onStart={this.handleStart}
         onDrag={this.handleDrag}
         onStop={this.handleStop}
-        grid={[30, 20]}>
+        grid={[30, 20]}
+        cancel="svg">
         <div  style={{position: 'relative', zIndex: 1}}>
           <div id = {this.props.activity._id}  style={this.AcDivStyle(divStyle)}>
-            Plane {this.props.plane}<br/>
+            <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.targetOperator(this.props.activity)}>
+              <circle cx="5" cy="5" r="5" stroke="black" fill="white" id={"target" + this.props.activity._id}/>
+            </svg> 
+            <span>  Plane {this.props.plane}  </span>
+            <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.sourceOperator(this.props.activity)}>
+              <circle cx="5" cy="5" r="5" stroke="black" fill={this.props.isSourceClicked ? "red" : "white"} id={"source" + this.props.activity._id} />
+            </svg> 
           </div>
         </div>
         </Draggable>
@@ -202,5 +210,8 @@ DraggableAc.propTypes = {
   defaultPosition: PropTypes.object.isRequired,
   handleMove: PropTypes.func.isRequired,
   arrayIndex: PropTypes.number.isRequired,
-  delete: PropTypes.func
+  delete: PropTypes.func,
+  sourceOperator: PropTypes.func,
+  targetOperator: PropTypes.func,
+  isSourceClicked: PropTypes.bool,
 };

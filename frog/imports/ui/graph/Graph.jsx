@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
+import { uuid } from 'frog-utils'
+import { sortBy, reverse, take } from 'lodash'
 
 import { $ } from 'meteor/jquery';
 
 //to be put in graph.jxs
 const AxisDisplay = ( {getRightMostPosition} ) => {
-  if(getRightMostPosition() != 1000) alert(getRightMostPosition()+"px")
   return(
   <div>
     <svg width={getRightMostPosition()+"px"} height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
@@ -31,6 +32,25 @@ const Separator = ( {id, onHover} ) => {
       </svg>
     </div>
   )
+}
+
+const Operators =  ({operators}) => {
+  return(
+
+    <div style={{position: 'relative', zIndex: 1}}>
+      {operators.map( (operator, i) => {
+        let sourcePos = $("#"+"source"+operator.from._id).position()
+        let targetPos = $("#"+"target"+operator.from._id).position()
+        return (
+          <svg key={i} className="poulpe" style={{position: 'absolute'}}>
+            <line x1={sourcePos.left} y1={sourcePos.top} x2={targetPos.left} y2={targetPos.top} stroke="#000" strokeWidth="5" style={{position: 'absolute'}}/>
+          </svg>
+        );
+      })}
+
+    </div>
+
+  );
 }
 
 const DragAc = ( {position, plane}) => {
@@ -93,26 +113,33 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
 }
 
 
-const RenderGraph = ( {activities, positions, deleteAc, handleMove, getRightMostPosition}) => {
+const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, getRightMostPosition, sourceOperator, targetOperator, activitySourceClicked}) => {
   return(
 
       <div id='inner_graph' style={divStyle}>
-        {activities.map( (activity, i) =>
-          <DraggableAc
-            id={'drag' + activity._id}
+        {activities.map( (activity, i) => {
+
+          return (<DraggableAc
             activity={activity}
             editorMode={true}
             plane={positions[i].plane}
-            key={i}
+            key={activity._id}
             startTime={45}
             duration={60}
             defaultPosition={positions[i].position}
             arrayIndex={i}
             handleMove={handleMove}
-            delete = {deleteAc}/>
-        )}
-        <div style={{top: 50}}>
+            delete = {deleteAc}
+            sourceOperator = {sourceOperator}
+            targetOperator = {targetOperator}
+            isSourceClicked = {activitySourceClicked == activity ? true : false}
+            />)
+        })}
+        <div style={{top: 50}} >
           <AxisDisplay getRightMostPosition={getRightMostPosition}/>
+        </div>
+        <div style={{position: "relative"}}>
+          <Operators operators={operators} />
         </div>
 
       </div>
@@ -136,18 +163,6 @@ var commonTarget = {
     anchor: 'Left'
 }
 
-//const wrapActivity = (activity) => {
-  //let id = $('#' + activity._id)
-  //alert(""+id)
-  //jsp.draggable(id)
-  //jsp.makeSource(id, {anchor: 'Continuous'})
-  //jsp.makeTarget(id, {anchor: 'Continuous'})
-  //jsp.addEndpoint(id, {anchor: ["Left"]}, commonTarget)
-  //jsp.addEndpoint(id, {anchor: ["Right"]}, common)
-
-//}
-
-
 const getPosition = (id) => {
   const connectorP = $('#'+id).position()
   const itemP = $('#item'+id).position()
@@ -155,20 +170,6 @@ const getPosition = (id) => {
       left: itemP.left,
       top: itemP.top + connectorP.top
   } : { left: 0, top: 0 } )
-}
-
-
-
-const drawOperators = (operators) => {
-  if (jsp == null) return
-
-  operators.forEach( (operator) => {
-    jsp.addEndpoint(operator.from, {anchor: 'Right'}, commonSource)
-    jsp.addEndpoint(operator.to, {anchor: 'Left'}, commonTarget)
-    jsp.connect({source: operator.from, target: operator.to})
-    jsp.repaint($('#' + operator.from), getPosition(operator.from))
-    jsp.repaint($('#' + operator.to), getPosition(operator.to))
-  })
 }
 
 
@@ -188,7 +189,9 @@ export default class Graph extends Component {
       currentPlane: 0,
       defPos: {x: 0, y:0},
       separatorHeight: {top: 0, down: 0, left: 0},
-      mousePosition: {x: 0, y:0}
+      mousePosition: {x: 0, y:0},
+      operators: [],
+      currentSource: null,
     };
   }
 
@@ -246,14 +249,20 @@ export default class Graph extends Component {
     var pos = event.target.getBoundingClientRect();
     //alert("elem " + getElemPosition().top+ " down " + down)
 
+    console.log("pos " + pos.top)
+    console.log("expected " + top + " --- " + down)
     if(pos.top < down - top && pos.top > top) {
+
+      let newActivity = _.clone(activity, true);
+      newActivity._id = uuid();
+
       var innerGraphScrollX =  $("#inner_graph").scrollLeft()
       var correctedPosition = this.state.mousePosition
       correctedPosition.x += innerGraphScrollX
       //correctedPosition.y += this.state.separatorHeight.top
       var newElement = {position: correctedPosition, plane: plane}
       newElement.plane += 0 //TODO insertion fail if a field of newElement is not used at least once before
-      var activitiesMore = this.state.addedActivities.concat(activity)
+      var activitiesMore = this.state.addedActivities.concat(newActivity)
       var positionsMore = this.state.addedPositions.concat(newElement)
       this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
     }
@@ -277,6 +286,17 @@ export default class Graph extends Component {
     return (position >= 1000) ? position : 1000;
   }
 
+  sourceClicked = (source) => {
+    this.setState({currentSource:source});
+  }
+
+  addNewOperator = (target) => {
+    if(this.state.currentSource != null) {
+      let newOperators = this.state.operators.concat({from:this.state.currentSource, to:target});
+      this.setState({currentSource:null, operators:newOperators});
+    }
+  }
+
   render() {
     var position = this.state.mousePosition
     return (
@@ -287,9 +307,13 @@ export default class Graph extends Component {
             <RenderGraph
               activities={this.state.addedActivities}
               positions={this.state.addedPositions}
+              operators={this.state.operators}
               deleteAc={this.deleteInGraphAc}
               handleMove={this.handleMove}
-              getRightMostPosition={this.getRightMostPosition} />
+              getRightMostPosition={this.getRightMostPosition} 
+              sourceOperator = {this.sourceClicked}
+              targetOperator = {this.addNewOperator} 
+              activitySourceClicked = {this.state.currentSource}/>
           <Separator id='down' key={2} onHover={this.handleHoverDownSeparator} />
 
           <TempAc
