@@ -125,13 +125,13 @@ var jsp = null;
 
 var common = {
     isSource:true,
-    isTarget:false,
+    isTarget:true,
     endpoint: 'Rectangle',
     anchor: 'Right'
 }
 
 var commonTarget = {
-    isSource:false,
+    isSource:true,
     isTarget:true,
     endpoint: 'Dot',
     anchor: 'Left'
@@ -150,26 +150,27 @@ const wrapActivity = (activity) => {
 
 }
 
-const wrapActivities = (activities) => {
-  /*
-  let ids = activities.map(activity => activity._id)
-  jsp.addEndpoints(ids, {anchor: ["Left"]}, commonTarget)
-  */
-  activities.map( (activity) => {
-    var id = $('#' + activity._id)
-    //jsp.makeSource(id, {anchor: 'Right', endpoint: 'Rectangle'})
-    //jsp.makeTarget(id, {anchor: 'Left', endpoint: 'Dot'})
-    jsp.addEndpoint(id, {anchor: ["Left"]}, commonTarget)
-    jsp.addEndpoint(id, {anchor: ["Right"]}, common)
-  })
 
+const getPosition = (id) => {
+  const connectorP = $('#'+id).position()
+  const itemP = $('#item'+id).position()
+  return( (connectorP && itemP) ? {
+      left: itemP.left,
+      top: itemP.top + connectorP.top
+  } : { left: 0, top: 0 } )
 }
+
+
 
 const drawOperators = (operators) => {
   if (jsp == null) return
 
   operators.forEach( (operator) => {
-    jsp.connect({source: $('#' + operator.from), target: $('#' + operator.to), anchors: ['Continuous', 'Continuous']})
+    jsp.addEndpoint(operator.from, {anchor: 'Right'}, common)
+    jsp.addEndpoint(operator.to, {anchor: 'Left'}, commonTarget)
+    jsp.connect({source: operator.from, target: operator.to})
+    jsp.repaint($('#' + operator.from), getPosition(operator.from))
+    jsp.repaint($('#' + operator.to), getPosition(operator.to))
   })
 }
 
@@ -186,6 +187,7 @@ export default class Graph extends Component {
       addedActivities: [],
       addedPositions: [],
       addedOperators: [],
+      currentSource: null,
       currentDraggable: null,
       currentPlane: 0,
       defPos: {x: 0, y:0},
@@ -194,12 +196,50 @@ export default class Graph extends Component {
     };
   }
 
+  wrapActivities = (activities) => {
+    if (!jsp) return
+    /*
+    let ids = activities.map(activity => activity._id)
+    jsp.addEndpoints(ids, {anchor: ["Left"]}, commonTarget)
+    */
+    activities.forEach( (activity, i) => {
+      const id = $('#' + activity._id)
+      var jspi = jsp.getInstance()
+      //jsp.makeSource(id, {anchor: 'Right', endpoint: 'Rectangle'})
+      //jsp.makeTarget(id, {anchor: 'Left', endpoint: 'Dot'})
+      var target = jspi.addEndpoint(id, {anchor: ["Left"]}, commonTarget)
+      var source = jspi.addEndpoint(id, {anchor: ["Right"]}, common)
+
+
+
+      source.bind('click', (endpoint, originalEvent) => {
+        //alert(endpoint.getElement().id)
+        this.setState({currentSource: endpoint.getElement().id})
+      })
+      target.bind('click', (endpoint, originalEvent) => {
+        if (this.state.currentSource != null) {
+          alert(endpoint.getElement().id)
+          let operator = {from: this.state.currentSource, to: endpoint.getElement().id}
+          operator.to += ""
+          let updatedOp = this.state.addedOperators.concat(operator)
+          this.setState({currentSource: null, addedOperators: updatedOp})
+        }
+      })
+      target.bind('mousedown', (endpoint, originalEvent) => {
+        this.setState({currentSource: null})
+      })
+
+    })
+
+  }
+
   componentDidUpdate() {
     jsp.detachEveryConnection();
     jsp.deleteEveryEndpoint();
     jsp.unmakeEveryTarget();
     jsp.unmakeEverySource();
-    wrapActivities(this.state.addedActivities)
+    jsp.reset();
+    this.wrapActivities(this.state.addedActivities)
     drawOperators(this.state.addedOperators)
   }
 
@@ -208,16 +248,19 @@ export default class Graph extends Component {
     var separator = {top: $("#top").offset().top, down: $("#down").offset().top, left: $("down").position().left}
     this.setState({separatorHeight: separator})
     */
-    jsp = jsplumb// .getInstance()
-    jsp.setContainer($('#graph_summary'))
+    jsplumb.bind('ready', () => {
+      jsp = jsplumb//.getInstance()
+      jsp.setContainer($('#graph_summary'))
+    })
+
 
     jsp.bind('connection', (info,originalEvent) => {
       alert("connection")
-      if (originalEvent) {
+      //if (originalEvent) {
         let operator = {from: info.sourceId, to: info.targetId }
         let updatedOp = this.state.addedOperators.concat(operator)
         this.setState({addedOperators: updatedOp})
-      }
+      //}
     });
   }
 
@@ -312,7 +355,7 @@ export default class Graph extends Component {
   render() {
     var position = this.state.mousePosition
     return (
-      <div id="graph-summary">
+      <div id="graph-summary" >
           <Separator id='top' key={1} onHover={this.handleHoverTopSeparator} />
 
 
