@@ -43,10 +43,10 @@ const Operators =  ({operators, getRightMostPosition}) => {
       {operators.map( (operator, i) => {
         let sourcePos = $("#"+"source"+operator.from._id).position()
         let targetPos = $("#"+"target"+operator.to._id).position()
+        let top = $("#top").position()
+        let scroll = $("#inner_graph").scrollLeft()
         return (
-
-            <line key ={i} x1={Math.floor(sourcePos.left)} y1={Math.floor(sourcePos.top)} x2={Math.floor(targetPos.left)} y2={Math.floor(targetPos.top)} style={{stroke:"blue", strokeWidth:"5"}}/>
-
+            <line key ={i} x1={Math.floor(sourcePos.left + scroll)} y1={Math.floor(sourcePos.top - top.top)} x2={Math.floor(targetPos.left + scroll)} y2={Math.floor(targetPos.top - top.top)} style={{stroke:"blue", strokeWidth:"5", zIndex:5}}/>
         );
       })}
         </svg>
@@ -165,15 +165,6 @@ var commonTarget = {
     isTarget:true,
     endpoint: 'Dot',
     anchor: 'Left'
-}
-
-const getPosition = (id) => {
-  const connectorP = $('#'+id).position()
-  const itemP = $('#item'+id).position()
-  return( (connectorP && itemP) ? {
-      left: itemP.left,
-      top: itemP.top + connectorP.top
-  } : { left: 0, top: 0 } )
 }
 
 
