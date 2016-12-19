@@ -34,21 +34,23 @@ const Separator = ( {id, onHover} ) => {
   )
 }
 
-const Operators =  ({operators}) => {
+const Operators =  ({operators, getRightMostPosition}) => {
+
+
   return(
 
-    <div style={{position: 'relative', zIndex: 1}}>
+      <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
       {operators.map( (operator, i) => {
         let sourcePos = $("#"+"source"+operator.from._id).position()
-        let targetPos = $("#"+"target"+operator.from._id).position()
+        let targetPos = $("#"+"target"+operator.to._id).position()
         return (
-          <svg key={i} className="poulpe" style={{position: 'absolute'}}>
-            <line x1={sourcePos.left} y1={sourcePos.top} x2={targetPos.left} y2={targetPos.top} stroke="#000" strokeWidth="5" style={{position: 'absolute'}}/>
-          </svg>
+
+            <line key ={i} x1={Math.floor(sourcePos.left)} y1={Math.floor(sourcePos.top)} x2={Math.floor(targetPos.left)} y2={Math.floor(targetPos.top)} style={{stroke:"blue", strokeWidth:"5"}}/>
+
         );
       })}
+        </svg>
 
-    </div>
 
   );
 }
@@ -117,6 +119,9 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
   return(
 
       <div id='inner_graph' style={divStyle}>
+        <div style={{position: "absolute"}}>
+          <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
+        </div>
         {activities.map( (activity, i) => {
 
           return (<DraggableAc
@@ -135,12 +140,11 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
             isSourceClicked = {activitySourceClicked == activity ? true : false}
             />)
         })}
+
         <div style={{top: 50}} >
           <AxisDisplay getRightMostPosition={getRightMostPosition}/>
         </div>
-        <div style={{position: "relative"}}>
-          <Operators operators={operators} />
-        </div>
+
 
       </div>
 
@@ -271,6 +275,7 @@ export default class Graph extends Component {
   }
 
   handleMove = (arrayIndex, position) => {
+
     let activityMoved = this.state.addedPositions[arrayIndex]
     activityMoved.position = position
     let modifiedAddedPositions = this.state.addedPositions
@@ -282,8 +287,10 @@ export default class Graph extends Component {
   }
 
   getRightMostPosition = () => {
+
     let position = this.state.addedPositions.indexOf(Math.max(...this.state.addedPositions.map(addedPosition => addedPosition.position.x)))
     return (position >= 1000) ? position : 1000;
+
   }
 
   sourceClicked = (source) => {
@@ -303,17 +310,17 @@ export default class Graph extends Component {
       <div id="graph-summary" >
           <Separator id='top' key={1} onHover={this.handleHoverTopSeparator} />
 
+          <RenderGraph
+            activities={this.state.addedActivities}
+            positions={this.state.addedPositions}
+            operators={this.state.operators}
+            deleteAc={this.deleteInGraphAc}
+            handleMove={this.handleMove}
+            getRightMostPosition={this.getRightMostPosition}
+            sourceOperator = {this.sourceClicked}
+            targetOperator = {this.addNewOperator}
+            activitySourceClicked = {this.state.currentSource}/>
 
-            <RenderGraph
-              activities={this.state.addedActivities}
-              positions={this.state.addedPositions}
-              operators={this.state.operators}
-              deleteAc={this.deleteInGraphAc}
-              handleMove={this.handleMove}
-              getRightMostPosition={this.getRightMostPosition} 
-              sourceOperator = {this.sourceClicked}
-              targetOperator = {this.addNewOperator} 
-              activitySourceClicked = {this.state.currentSource}/>
           <Separator id='down' key={2} onHover={this.handleHoverDownSeparator} />
 
           <TempAc

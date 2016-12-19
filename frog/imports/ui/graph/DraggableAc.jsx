@@ -187,11 +187,11 @@ export default class DraggableAc extends Component {
           <div id = {this.props.activity._id}  style={this.AcDivStyle(divStyle)}>
             <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.targetOperator(this.props.activity)}>
               <circle cx="5" cy="5" r="5" stroke="black" fill="white" id={"target" + this.props.activity._id}/>
-            </svg> 
+            </svg>
             <span>  Plane {this.props.plane}  </span>
             <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.sourceOperator(this.props.activity)}>
               <circle cx="5" cy="5" r="5" stroke="black" fill={this.props.isSourceClicked ? "red" : "white"} id={"source" + this.props.activity._id} />
-            </svg> 
+            </svg>
           </div>
         </div>
         </Draggable>
