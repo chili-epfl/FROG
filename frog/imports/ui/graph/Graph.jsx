@@ -39,17 +39,26 @@ const Operators =  ({operators, getRightMostPosition}) => {
 
   return(
 
-      <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
+      <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute'}}>
       {operators.map( (operator, i) => {
         let sourcePos = $("#"+"source"+operator.from._id).position()
         let targetPos = $("#"+"target"+operator.to._id).position()
+        let topPos = $("#top").position()
+
+        let sourceX = sourcePos.left - topPos.left
+        let sourceY = sourcePos.top - topPos.top
+        let targetX = targetPos.left - topPos.left
+        let targetY = targetPos.top - topPos.top
+
+        console.log("Source position " + sourceX + " --- " + sourceY)
+        console.log("Target position " + targetX + " --- " + targetY)
         return (
-
-            <line key ={i} x1={Math.floor(sourcePos.left)} y1={Math.floor(sourcePos.top)} x2={Math.floor(targetPos.left)} y2={Math.floor(targetPos.top)} style={{stroke:"blue", strokeWidth:"5"}}/>
-
+          <div key={"j"+i} >
+            <line key ={i} x1={sourceX} y1={sourceY} x2={targetX} y2={targetY} style={{stroke:"blue", strokeWidth:"5"}}/>
+          </div>
         );
       })}
-        </svg>
+      </svg>
 
 
   );
@@ -119,9 +128,10 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
   return(
 
       <div id='inner_graph' style={divStyle}>
-        <div style={{position: "absolute"}}>
+        <div style={{position: "absolute", zIndex:4}}>
           <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
         </div>
+
         {activities.map( (activity, i) => {
 
           return (<DraggableAc
