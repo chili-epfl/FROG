@@ -1,12 +1,9 @@
-import { Meteor } from 'meteor/meteor';
-import { Tracker } from 'meteor/tracker';
-import { DDP } from 'meteor/ddp-client';
+import { Meteor } from 'meteor/meteor'
 import { assert } from 'meteor/practicalmeteor:chai';
-import { Promise } from 'meteor/promise';
-import { $ } from 'meteor/jquery';
+import { $ } from 'meteor/jquery'
 
 if (Meteor.isClient) {
-  it('renders the correct list when routed to', () => {
-    assert.equal($('h1')[0].textContent, "FROG  - Fabricating and Running Orchestration Graphs");
-  });
-};
+  it('renders the correct list when routed to', () => { // eslint-disable-line
+    assert.equal($('h1')[0].textContent, 'FROG  - Fabricating and Running Orchestration Graphs');
+  })
+}

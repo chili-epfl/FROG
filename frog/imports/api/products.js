@@ -1,26 +1,30 @@
-import { Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo'
+import { Meteor } from 'meteor/meteor'
 import { uuid } from 'frog-utils'
-import { Logs } from './logs'
 import Stringify from 'json-stable-stringify'
- 
-export const Products = new Mongo.Collection('products');
 
-export const addProduct = (activity_id, activity_type, user_id, data, group) => {
+import { Logs } from './logs'
+
+export const Products = new Mongo.Collection('products')
+
+export const addProduct = (activityId, activityType, userId, data, groupId) => {
   const merge = {
-    activity: activity_id, 
-    activity_type: activity_type,
-    user: user_id,
-    group: group
+    activityId,
+    activityType,
+    userId,
+    groupId
   }
-  Logs.update(Stringify(merge), {$set: {...merge, group: group, completed: true, updated_at: Date()}}, {upsert: true})
+  Logs.update(
+    Stringify(merge),
+    { $set: { ...merge, groupId, completed: true, updatedAt: Date() } },
+    { upsert: true }
+  )
   Products.insert({
-    _id: uuid(), 
-    activity_id: activity_id, 
-    user_id: user_id,
-    data: data, 
-    group_id: group,
-    username: Meteor.users.findOne({_id: Meteor.userId()}).username,
-    created_at: new Date() })
+    _id: uuid(),
+    activityId,
+    userId,
+    data,
+    groupId,
+    username: Meteor.users.findOne({ _id: Meteor.userId() }).username,
+    createdAt: new Date() })
 }
-
