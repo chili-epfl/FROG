@@ -1,6 +1,9 @@
 {
   "name": "frog-package",
   "version": "1.0.0",
+  "scripts": {
+    "test": "flow && eslint frog/imports/*"
+  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
