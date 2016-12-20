@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor';
 import Draggable from 'react-draggable';
 
-import { Activities, Operators, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities';
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities';
 import { Graphs, addGraph, renameGraph } from '../api/graphs';
 
 import jsPlumb from 'jsplumb';
@@ -29,8 +29,9 @@ jsPlumbRemoveAll = () => {
 jsPlumbDrawAll = (activities,operators) => {
   if(jsPlumbInstance){
     activities.forEach(activity => {
-      jsPlumbInstance.makeSource($('#'+activity._id),{anchor:'Continuous'})
-      jsPlumbInstance.makeTarget($('#'+activity._id),{anchor:'Continuous'})
+      const connector = $('#'+activity._id)
+      jsPlumbInstance.makeSource(connector, { anchor: 'Continuous' })
+      jsPlumbInstance.makeTarget(connector, { anchor:'Continuous' })
     })
     operators.forEach(operator => {
       jsPlumbInstance.connect({
@@ -38,7 +39,27 @@ jsPlumbDrawAll = (activities,operators) => {
         target:$('#'+operator.to),
         anchors:['Continuous','Continuous']
       })
+      jsPlumbRepaintWithId(operator.from)
+      jsPlumbRepaintWithId(operator.to)
     })
+  }
+}
+
+getPosition = (id) => {
+  const connectorP = $('#'+id).position()
+  const itemP = $('#item'+id).position()
+  return( (connectorP && itemP) ? {
+      left: itemP.left,
+      top: itemP.top + connectorP.top
+  } : { left: 0, top: 0 } )
+} 
+
+jsPlumbRepaintWithId = (activityId) => {
+  try {
+    const connector = $('#'+activityId)
+    jsPlumbInstance.repaint(connector,getPosition(activityId))
+  } catch(err) { 
+    // Nothing to repaint
   }
 }
 
@@ -70,7 +91,7 @@ const ChoiceComponent = ({ choices, ownId, submitChoiceFn, displayFn }) => {
 const ActivityChoiceComponent = createContainer(
   (props) => { return ({
     ...props,
-    choices: Activities.find({status:'OUT'}).fetch(),
+    choices: Activities.find({ graphId: null, sessionId: null }).fetch(),
     submitChoiceFn: copyActivityIntoGraphActivity,
     displayFn: (activity => activity.data.name)
   })},
@@ -80,7 +101,7 @@ const ActivityChoiceComponent = createContainer(
 const OperatorChoiceComponent = createContainer(
   (props) => { return({ 
     ...props,
-    choices: Operators.find({status:'OUT'}).fetch(),
+    choices: Operators.find({ graphId: null, sessionId: null }).fetch(),
     submitChoiceFn: copyOperatorIntoGraphOperator,
     displayFn: (operator => operator.operator_type)
   })}, 
@@ -89,32 +110,46 @@ const OperatorChoiceComponent = createContainer(
 
 class ActivityInEditor extends Component { 
 
-  eventLogger = (event, data) => {
+  onStop = (event, data) => {
     dragGraphActivity(this.props.activity._id, data.x)
     this.forceUpdate()
   }
 
+  onDrag = (event, data) => {
+    jsPlumbRepaintWithId(this.props.activity._id)
+  }
+
+  submitRemoveActivity = () => {
+    jsPlumbRemoveAll()
+    removeGraphActivity(this.props.activity._id)
+  }
+
   render() { return (
-    <div >
-      <Draggable
-        axis='x'
-        handle='.title'
-        position={{x:0,y:0}}
-        onStop={this.eventLogger} >
-        <div className={'item'} style={{ left: this.props.activity.xPosition+'px' }}>
-          { this.props.activity.data ? 
-            <div className={'title'}> {this.props.activity.data.name} </div>
-            : <ActivityChoiceComponent ownId={this.props.activity._id} />
-          }
-          <button 
-            className='btn btn-primary btn-sm connector' 
-            style={{ bottom: 0, width:'100%', position:'absolute' }}
-            id={this.props.activity._id} > 
-            Connect 
-          </button>
-        </div>
-      </Draggable>
-    </div>
+    <Draggable
+      axis='x'
+      handle='.title'
+      position={{x:0,y:0}}
+      onDrag={this.onDrag}
+      onStop={this.onStop} >
+      <div className={'item'} style={{left:this.props.activity.xPosition, top:this.props.activity.yPosition}} id={'item'+this.props.activity._id}>
+        { this.props.activity.data ? 
+          <div className={'title'} > {this.props.activity.data.name} </div>
+          : <ActivityChoiceComponent ownId={this.props.activity._id} />
+        }
+        <a 
+          href='#' 
+          onClick={this.submitRemoveActivity}
+          style={{ position: 'absolute', top: 0, right: 0 }}>
+          <i className="fa fa-times" />
+        </a>
+        <button 
+          className='btn btn-primary btn-sm connector' 
+          style={{ bottom: 0, width:'100%', position:'absolute' }}
+          id={this.props.activity._id} > 
+          Connect 
+        </button>
+      </div>
+    </Draggable>
   )}
 }
 
@@ -136,10 +171,11 @@ class GraphEditorClass extends Component {
     planeNames.forEach(plane => {
       $('#'+plane).dblclick(event => {
         event.preventDefault()
-        if(this.props.graphId && Graphs.findOne({ _id: this.props.graphId })) {
-          const newGraphActivityId = addGraphActivity({ 
+        if(this.props.graph) {
+          addGraphActivity({ 
             plane: plane, 
             xPosition: event.offsetX, 
+            yPosition: plane=='class' ? 0 : (plane=='group' ? 100 : 200),
             graphId: this.props.graphId
           })
         } else {
@@ -161,19 +197,15 @@ class GraphEditorClass extends Component {
       <div>
         <p>Double click for creating</p>
         <div id='container'>
-          {planeNames.map((plane) => { return(
+          { planeNames.map((plane) => 
             <div className='plane' id={plane} key={plane}>
-              <p style={{float:'right'}}>{plane}</p>
-              { this.props.activities.map(activity =>
-                plane==activity.plane ?
-                  <ActivityInEditor
-                    key={activity._id}
-                    activity={activity} 
-                  />
-                :null
-              )}
+              <div className='lineInPlane' ></div>
+              <p style={{ position: 'absolute', top: '33%' }}>{plane}</p>
             </div>
-          )})}
+          )}
+          { this.props.activities.map(activity =>
+            <ActivityInEditor key={activity._id} activity={activity} />
+          )}
         </div>
         <input
           onChange={(event) => renameGraph(this.props.graphId, event.target.value)}
@@ -193,8 +225,8 @@ const GraphEditor = createContainer(
   (props) => { return({
     ...props,
     graph: Graphs.findOne({ _id: props.graphId }),
-    activities: Activities.find({ graphId: props.graphId }).fetch(),
-    operators: Operators.find({ graphId: props.graphId }).fetch(),
+    activities: props.graphId ? Activities.find({ graphId: props.graphId }).fetch() : [],
+    operators: props.graphId ? Operators.find({ graphId: props.graphId }).fetch() : [],
   })}, 
   GraphEditorClass
 )
@@ -202,11 +234,11 @@ const GraphEditor = createContainer(
 const GraphList = createContainer(
   (props) => {
     return({
-      currentGraphId: props.graphId? props.graphId :null,
+      ...props,
       graphs: Graphs.find().fetch()
     })
   },
-  ( { graphs, editSavedGraph, currentGraphId } ) => {
+  ( { graphs, editSavedGraph, graphId } ) => {
 
     const editGraph = (graphId) => {
       jsPlumbRemoveAll() 
@@ -226,7 +258,7 @@ const GraphList = createContainer(
           <li style={{listStyle: 'none'}} key={graph._id}>
             <a href='#' onClick={ () => submitRemoveGraph(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => editGraph(graph._id) } ><i className="fa fa-pencil" /></a>
-            {graph.name} {graph._id==currentGraphId? '(current)':null}
+            {graph.name} {graph._id==graphId? '(current)':null}
           </li>
         )} </ul>
       </div>
@@ -237,7 +269,7 @@ const GraphList = createContainer(
 export default createContainer(
   () => {
     const user = Meteor.users.findOne({_id:Meteor.userId()})
-    const graphId = user.profile? user.profile.editingGraph :null
+    const graphId = user.profile ? user.profile.editingGraph : null
     return({ 
       user: user,
       graphId: graphId 
