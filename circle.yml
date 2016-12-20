@@ -10,7 +10,6 @@ dependencies:
 
 test: 
   post:
-    - npm test
     - cd frog && npm test
 
 checkout:
