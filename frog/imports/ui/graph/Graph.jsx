@@ -44,18 +44,17 @@ const Operators =  ({operators, getRightMostPosition}) => {
         let sourcePos = $("#"+"source"+operator.from._id).position()
         let targetPos = $("#"+"target"+operator.to._id).position()
         let topPos = $("#top").position()
+        let scroll = $("#inner_graph").scrollLeft()
 
-        let sourceX = sourcePos.left - topPos.left
+        let sourceX = sourcePos.left - topPos.left + scroll
         let sourceY = sourcePos.top - topPos.top
-        let targetX = targetPos.left - topPos.left
+        let targetX = targetPos.left - topPos.left + scroll
         let targetY = targetPos.top - topPos.top
 
-        console.log("Source position " + sourceX + " --- " + sourceY)
-        console.log("Target position " + targetX + " --- " + targetY)
+        console.log("render")
+
         return (
-          <div key={"j"+i} >
-            <line key ={i} x1={sourceX} y1={sourceY} x2={targetX} y2={targetY} style={{stroke:"blue", strokeWidth:"5"}}/>
-          </div>
+            <line key ={i} x1={sourceX} y1={sourceY} x2={targetX} y2={targetY} style={{stroke:"blue", strokeWidth:"5", zIndex:6}}/>
         );
       })}
       </svg>
@@ -128,7 +127,7 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
   return(
 
       <div id='inner_graph' style={divStyle}>
-        <div style={{position: "absolute", zIndex:4}}>
+        <div style={{position: "absolute"}}>
           <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
         </div>
 
@@ -177,15 +176,6 @@ var commonTarget = {
     anchor: 'Left'
 }
 
-const getPosition = (id) => {
-  const connectorP = $('#'+id).position()
-  const itemP = $('#item'+id).position()
-  return( (connectorP && itemP) ? {
-      left: itemP.left,
-      top: itemP.top + connectorP.top
-  } : { left: 0, top: 0 } )
-}
-
 
 const getElemPosition = () => {
   let pos = $('#dragac').position();
@@ -206,8 +196,10 @@ export default class Graph extends Component {
       mousePosition: {x: 0, y:0},
       operators: [],
       currentSource: null,
+      test: 0,
     };
   }
+
 
   handleHoverTopSeparator = (event) => {
     event.preventDefault()
@@ -304,7 +296,12 @@ export default class Graph extends Component {
   }
 
   sourceClicked = (source) => {
-    this.setState({currentSource:source});
+    if(source === this.state.currentSource) {
+      this.setState({currentSource:null});
+    }
+    else {
+      this.setState({currentSource:source});
+    }
   }
 
   addNewOperator = (target) => {
@@ -329,7 +326,8 @@ export default class Graph extends Component {
             getRightMostPosition={this.getRightMostPosition}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
-            activitySourceClicked = {this.state.currentSource}/>
+            activitySourceClicked = {this.state.currentSource}
+            />
 
           <Separator id='down' key={2} onHover={this.handleHoverDownSeparator} />
 

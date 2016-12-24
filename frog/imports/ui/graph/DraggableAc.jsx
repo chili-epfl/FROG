@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 
+import { $ } from 'meteor/jquery';
+
 const divStyleNeg = {
   background: "white",
   top: 30,
@@ -170,6 +172,7 @@ export default class DraggableAc extends Component {
 
   render() {
     return(
+
       <Draggable
         axis='both'
         id = {'drag_' + this.props.activity._id}
@@ -192,6 +195,14 @@ export default class DraggableAc extends Component {
             <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.sourceOperator(this.props.activity)}>
               <circle cx="5" cy="5" r="5" stroke="black" fill={this.props.isSourceClicked ? "red" : "white"} id={"source" + this.props.activity._id} />
             </svg>
+            {
+              let pos = $("#top").position()
+              return(
+                <svg width="1000px" height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'relative'}}>
+                  <line x1="0" y1="0" x2={pos.left} y2={pos.top} style={{stroke:"red", strokeWidth:"5"}}/>
+                </svg>
+              );
+            }
           </div>
         </div>
         </Draggable>
