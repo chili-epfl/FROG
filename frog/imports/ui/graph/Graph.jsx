@@ -225,7 +225,7 @@ export default class Graph extends Component {
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
     let filteredOperators = this.state.operators.filter((operator) => {
-      return operator.from._id != activity.id && operator.to._id != activity._id
+      return (operator.from._id != activity._id && operator.to._id != activity._id)
     })
 
     this.setState({operators: filteredOperators})
@@ -273,9 +273,15 @@ export default class Graph extends Component {
   }
 
   getRightMostPosition = () => {
-
-    let position = this.state.addedPositions.indexOf(Math.max(...this.state.addedPositions.map(addedPosition => addedPosition.position.x)))
-    return (position >= 1000) ? position : 1000;
+    let {addedPositions} = this.state
+    let position = 0
+    if(addedPositions.length > 0) {
+      let mappedPosition = addedPositions.map(addedPosition => {return addedPosition.position.x})
+      position = Math.max(...mappedPosition)
+      console.log(position)
+    }
+    console.log("right most" + position)
+    return (position >= 1000) ? position + 300 : 1000;
 
   }
 
