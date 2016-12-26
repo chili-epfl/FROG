@@ -77,7 +77,7 @@ export default class DraggableAc extends Component {
   }
 
   getCorrectY() {
-    console.log("y" + (computeTopPosition("#plane" + this.props.plane)))
+    console.log("y " + (computeTopPosition("#plane" + this.props.plane)))
     return computeTopPosition("#plane" + this.props.plane)
   }
   getX() {
