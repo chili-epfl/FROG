@@ -34,25 +34,23 @@ const Separator = ( {id, onHover} ) => {
   )
 }
 
-const Operators =  ({operators, getRightMostPosition}) => {
+const Operators =  ({scroll, operators, getRightMostPosition}) => {
   return(
       <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
-      {operators.map( (operator, i) => {
-        let sourcePos = $("#"+"source"+operator.from._id).position()
-        let targetPos = $("#"+"target"+operator.to._id).position()
-        let top = $("#top").position()
-        let scroll = $("#inner_graph").scrollLeft()
-        let tsp = computeTopPosition("#source" + operator.from._id)
-        let ttp = computeTopPosition("#target" + operator.to._id)
-        let lsp = computeLeftPosition("#source" + operator.from._id)
-        let ltp = computeLeftPosition("#target" + operator.to._id)
-        return (
-          <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
-        );
-      })}
+        {operators.map( (operator, i) => {
+          let tsp = computeTopPosition("#source" + operator.from._id)
+          let ttp = computeTopPosition("#target" + operator.to._id)
+          let lsp = computeLeftPosition("#source" + operator.from._id)
+          let ltp = computeLeftPosition("#target" + operator.to._id)
+          return (
+            <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
+          );
+        })}
         </svg>
   );
 }
+
+
 
 const DragAc = ( {position, plane}) => {
   return (
@@ -113,13 +111,22 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
   )
 }
 
-
-const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, getRightMostPosition, sourceOperator, targetOperator, activitySourceClicked}) => {
+const RenderGraph = ( {
+  activities,
+  positions,
+  operators,
+  scroll,
+  deleteAc,
+  handleMove,
+  getRightMostPosition,
+  sourceOperator,
+  targetOperator,
+  activitySourceClicked}) => {
   return(
 
       <div id='inner_graph' style={divStyle}>
         <div style={{position: "absolute"}}>
-          <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
+          <Operators scroll={$("#inner_graph").scrollLeft()} operators={operators} getRightMostPosition={getRightMostPosition} />
         </div>
         {activities.map( (activity, i) => {
 
@@ -175,6 +182,7 @@ export default class Graph extends Component {
       mousePosition: {x: 0, y:0},
       operators: [],
       currentSource: null,
+      inner_scroll: 0
     };
   }
 
@@ -213,6 +221,8 @@ export default class Graph extends Component {
         this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
+
+    
   }
 
   handleDragStop = (event, plane, activity) => {
@@ -284,6 +294,7 @@ export default class Graph extends Component {
 
           <RenderGraph
             id = 'planes'
+            scroll={this.state.inner_scroll}
             activities={this.state.addedActivities}
             positions={this.state.addedPositions}
             operators={this.state.operators}

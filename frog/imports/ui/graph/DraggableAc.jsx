@@ -58,6 +58,20 @@ export default class DraggableAc extends Component {
     }
   }
 
+  updatePosition = () => {
+    let {controlledPosition, deltaPosition} = this.state
+    let updatedPosition = controlledPosition + deltaPosition
+    this.setState({controlledPosition: updatedPosition})
+    this.props.handleMove(this.props.arrayIndex, updatedPosition)
+  }
+
+  handleStart = (event) => {
+    event.preventDefault()
+    this.setState({
+      deltaPosition: {x: 0, y:0}
+    })
+  }
+
   handleDrag = (event, ui) => {
     event.preventDefault();
     var {x, y} = this.state.deltaPosition;
@@ -68,6 +82,13 @@ export default class DraggableAc extends Component {
         y: y + ui.deltaY,
       }
     });
+    this.updatePosition()
+
+  }
+
+  handleStop = (event) => {
+    event.preventDefault()
+    this.updatePosition()
   }
 
   render() {
@@ -78,7 +99,9 @@ export default class DraggableAc extends Component {
         id = {'drag_' + activity._id}
         defaultPosition={this.defaultPosition()}
         disabled={!this.props.editorMode}
+        onStart={this.handleStart}
         onDrag={this.handleDrag}
+        onStop={this.handleStop}
         grid={[30, 20]}
         cancel="svg">
         <div  style={{position: 'relative', zIndex: 1}}>
