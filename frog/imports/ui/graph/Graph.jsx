@@ -35,23 +35,22 @@ const Separator = ( {id, onHover} ) => {
 }
 
 const Operators =  ({operators, getRightMostPosition}) => {
-
-
   return(
-
       <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
       {operators.map( (operator, i) => {
         let sourcePos = $("#"+"source"+operator.from._id).position()
         let targetPos = $("#"+"target"+operator.to._id).position()
         let top = $("#top").position()
         let scroll = $("#inner_graph").scrollLeft()
+        let tsp = computeTopPosition("#source" + operator.from._id)
+        let ttp = computeTopPosition("#target" + operator.to._id)
+        let lsp = computeLeftPosition("#source" + operator.from._id)
+        let ltp = computeLeftPosition("#target" + operator.to._id)
         return (
-            <line key ={i} x1={Math.floor(sourcePos.left + scroll)} y1={Math.floor(sourcePos.top - top.top)} x2={Math.floor(targetPos.left + scroll)} y2={Math.floor(targetPos.top - top.top)} style={{stroke:"blue", strokeWidth:"5", zIndex:5}}/>
+          <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
         );
       })}
         </svg>
-
-
   );
 }
 
@@ -145,36 +144,20 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
         <div style={{top: 50}} >
           <AxisDisplay getRightMostPosition={getRightMostPosition}/>
         </div>
-
-
       </div>
 
     );
 }
 
-var commonSource = {
-    isSource:true,
-    isTarget:false,
-    endpoint: 'Rectangle',
-    anchor: 'Right'
-}
-
-var commonTarget = {
-    isSource:false,
-    isTarget:true,
-    endpoint: 'Dot',
-    anchor: 'Left'
-}
-
-
-const getElemPosition = () => {
-  let pos = $('#dragac').position();
-  return pos;
-}
-
 const computeTopPosition = (object) => {
   let inner = $("#inner_graph").offset().top
   let elem = $(object).offset().top
+  return elem - inner
+}
+
+const computeLeftPosition = (object) => {
+  let inner = $("#inner_graph").offset().left
+  let elem = $(object).offset().left
   return elem - inner
 }
 
@@ -199,9 +182,6 @@ export default class Graph extends Component {
     let inner = $("#inner_graph").offset()
     let top = computeTopPosition("#top")
     let down = computeTopPosition("#down")
-    console.log("top height" + top)
-    console.log("down height" + down)
-
     this.setState({separatorHeight: {top: top, down: down, left: inner.left}})
   }
 
@@ -229,8 +209,8 @@ export default class Graph extends Component {
     if(index != -1) {
       var activitiesLess =
         this.state.addedActivities.slice(0, index).concat(this.state.addedActivities.slice(index+1, this.state.addedActivities.drag))
-        var positionsLess =
-          this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
+      var positionsLess =
+        this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
   }
