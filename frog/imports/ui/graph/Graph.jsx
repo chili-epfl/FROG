@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import DraggableAc from './DraggableAc2.jsx';
+import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
@@ -38,7 +38,6 @@ const Operators =  ({scroll, operators, getRightMostPosition}) => {
   return(
 
       <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
-<<<<<<< HEAD
         {operators.map( (operator, i) => {
           let tsp = computeTopPosition("#source" + operator.from._id)
           let ttp = computeTopPosition("#target" + operator.to._id)
@@ -48,23 +47,6 @@ const Operators =  ({scroll, operators, getRightMostPosition}) => {
             <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
           );
         })}
-=======
-
-      {operators.map( (operator, i) => {
-        let sourcePos = $("#"+"source"+operator.from._id).position()
-        let targetPos = $("#"+"target"+operator.to._id).position()
-        let topPos = $("#top").position()
-        let scroll = $("#inner_graph").scrollLeft()
-
-        let tsp = computeTopPosition("#source" + operator.from._id)
-        let ttp = computeTopPosition("#target" + operator.to._id)
-        let lsp = computeLeftPosition("#source" + operator.from._id)
-        let ltp = computeLeftPosition("#target" + operator.to._id)
-        return (
-          <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
-        );
-      })}
->>>>>>> 92ecfe50ceff2354667c862787b5f16b7e231ff5
         </svg>
   );
 }
@@ -242,7 +224,11 @@ export default class Graph extends Component {
         this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
+    let filteredOperators = this.state.operators.filter((operator) => {
+      return operator.from._id != activity.id && operator.to._id != activity._id
+    })
 
+    this.setState({operators: filteredOperators})
 
   }
 
