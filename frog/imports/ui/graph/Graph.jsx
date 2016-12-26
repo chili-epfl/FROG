@@ -5,7 +5,8 @@ import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
 
-import { $ } from 'meteor/jquery';
+import { $ } from 'meteor/jquery'
+import ReactTooltip from 'react-tooltip'
 
 //to be put in graph.jxs
 const AxisDisplay = ( {getRightMostPosition} ) => {
@@ -45,8 +46,8 @@ const Operators =  ({operators, getRightMostPosition}) => {
           let lsp = computeLeftPosition("#source" + operator.from._id)
           let ltp = computeLeftPosition("#target" + operator.to._id)
           return (
-            <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"2", zIndex:1}}/>
-          );
+              <line id={i}  key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"2", zIndex:1}}/>
+        );
         })}
         </svg>
   );
@@ -60,9 +61,10 @@ const DragAc = ( {position, plane}) => {
       position= {position}
       axis='both'
       disabled= {false}>
-        <div style={divStyleNeg}>
+        <div data-tip data-for="dragac_tip" data-event-off='mouseDown' style={divStyleNeg}>
           Plane {plane}
           {position.y}
+          <ReactTooltip id="dragac_tip" type="light" effect="solid">Some data</ReactTooltip>
         </div>
     </Draggable>
   )

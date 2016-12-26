@@ -5,6 +5,8 @@ import Draggable from 'react-draggable';
 
 import { $ } from 'meteor/jquery';
 
+import ReactTooltip from 'react-tooltip'
+
 const computeTopPosition = (object) => {
   let inner = $("#inner_graph").offset().top
   let elem = $(object).offset().top
@@ -107,7 +109,7 @@ export default class DraggableAc extends Component {
         onStop={this.handleStop}
         grid={[30, 20]}
         cancel="svg">
-        <div  style={{position: 'relative', zIndex: 1}}>
+        <div  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 1}}>
           <div id = {activity._id}  style={divStyle(this.props.duration)}>
             <Anchor
               onClick={(event) => this.props.targetOperator(activity)}
@@ -122,6 +124,7 @@ export default class DraggableAc extends Component {
               onClick={(event) => this.props.sourceOperator(activity)}
               fill={this.props.isSourceClicked ? "red" : "white"}
               id={"source" + activity._id} />
+            <ReactTooltip id={"tip"+activity._id} type="light">Activity: {activity._id}</ReactTooltip>
           </div>
         </div>
       </Draggable>
