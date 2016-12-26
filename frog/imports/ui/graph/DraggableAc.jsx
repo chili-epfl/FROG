@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 
+<<<<<<< HEAD
 import { $ } from 'meteor/jquery';
 
 const divStyleNeg = {
@@ -16,24 +17,41 @@ const divStyleNeg = {
   position: "absolute"
 
 
+=======
+const computeTopPosition = (object) => {
+  let inner = $("#inner_graph").offset().top
+  let elem = $(object).offset().top
+  return elem - inner
+>>>>>>> 02abdc1a87e04909daf6c3a9339eb0252dee0394
 }
 
-const divStyle = {
-  background: "white",
-  border: 2,
-  width: 60,
-  height: 40,
-  margin: 10,
-  padding: 10,
-  float: "left",
-  position: "relative",
-  borderStyle: "solid",
-  borderColor: "green"
-
-}
 const unitTime = 2
 
-const startOffset = 0
+const boxHeight = 40
+
+const divStyle = (duration) => {
+  return {
+    background: "white",
+    textAlign:"center",
+    border: 2,
+    width: duration * unitTime,
+    height: boxHeight,
+    margin: 10,
+    padding: 10,
+    float: "left",
+    position: "absolute",
+    borderStyle: "solid",
+    borderColor: "green"
+  }
+}
+
+const Anchor = ({id, fill, onClick}) => {
+  return (
+    <svg height="10" width="10" style={{position: "relative"}} onClick={onClick}>
+      <circle cx="5" cy="5" r="5" stroke="black" fill={fill} id={id}/>
+    </svg>
+  )
+}
 
 export default class DraggableAc extends Component {
 
@@ -41,54 +59,19 @@ export default class DraggableAc extends Component {
     super(props)
 
     this.state = {
-      correctPlace: false,
+      remove: false,
       deltaPosition: {x: 0, y: 0},
       controlledPosition: {x: 0, y:0},
       hover: false
     }
   }
 
-  componentDidMount () {
-    if(this.props.editorMode) {
-      this.setState({deltaPosition: {x: this.props.defaultPosition.x, y:0, controlledPosition: this.defaultPosition()}})
-    }
-  }
-
-  AcDivStyle(style) {
-    return {
-      background: style.background,
-      textAlign:"center",
-      border: style.border,
-      width: this.props.duration * unitTime,
-      height: 40,
-      margin: style.margin,
-      padding: style.padding,
-      float: style.float,
-      position: "absolute",
-      borderStyle: style.borderStyle,
-      borderColor: style.borderColor,
-      zIndex: 1
-
-    }
-  }
-
-  getCorrectY() {
-    return (this.props.plane - 1) * 80 + 10;
-  }
-  getX() {
-    return this.props.startTime  * unitTime + startOffset;
-  }
-
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
     return {
-      x: editorMode ? defaultPosition.x : this.getX(),
-      y: this.getCorrectY()
+      x: editorMode ? defaultPosition.x : this.props.startTime  * unitTime,
+      y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2
     }
-  }
-
-  handleStart = (event) => {
-
   }
 
   handleDrag = (event, ui) => {
@@ -101,92 +84,22 @@ export default class DraggableAc extends Component {
         y: y + ui.deltaY,
       }
     });
-
-  }
-
-  handleStop = (event) => {
-    event.preventDefault();
-    var delta = this.state.deltaPosition;
-
-    var position = this.checkLayout(delta, event);
-    this.props.handleMove(this.props.arrayIndex, position)
-
-    this.setState({
-      deltaPosition: position.newDelta,
-      correctPlace: position.newPlace,
-      controlledPosition: position.newControlledPostition
-    });
-  }
-
-  /*
-  checkPosition = (delta) => {
-    var ey = editorPosition.y;
-    var newPlace = (delta.y == this.getCorrectY() - ey);
-
-    var newDelta = delta;
-    if(!newPlace) {
-      newDelta = {x: 0, y: 0};
-    }
-
-    var newControlledPostition = {x: editorPosition.x + delta.x, y:ey + delta.y};
-
-    if(!this.props.inGraph) {
-      newControlledPostition = this.props.defaultPosition;
-    }
-    return {
-      newPlace: newPlace,
-      newDelta: newDelta,
-      newControlledPostition: newControlledPostition
-    };
-  }
-  */
-
-  checkLayout = (delta, event) => {
-    var newPlace = (delta.y <= 170); //corresponding to height of parent's svg
-
-    var newDelta = {x: delta.x, y: this.getCorrectY()};
-    var newY = this.getCorrectY();
-
-    if(!newPlace) {
-
-      newDelta = {x: 0, y: 0};
-      newY = 0;
-
-      this.props.delete(this.props.activity)
-    }
-    var newControlledPostition = {x: delta.x, y:newY};
-
-
-    return {
-      newPlace: newPlace,
-      newDelta: newDelta,
-      newControlledPostition: newControlledPostition
-    };
-  }
-
-  positionAndReset = () => {
-    return this.state.correctPlace ?
-      this.state.controlledPosition
-      : this.defaultPosition(this.props.editorMode);
   }
 
   render() {
+    let {activity} = this.props
     return(
 
       <Draggable
-        axis='both'
-        id = {'drag_' + this.props.activity._id}
+        axis='x'
+        id = {'drag_' + activity._id}
         defaultPosition={this.defaultPosition()}
-        position={this.positionAndReset()}
-
         disabled={!this.props.editorMode}
-
-        onStart={this.handleStart}
         onDrag={this.handleDrag}
-        onStop={this.handleStop}
         grid={[30, 20]}
         cancel="svg">
         <div  style={{position: 'relative', zIndex: 1}}>
+<<<<<<< HEAD
           <div id = {this.props.activity._id}  style={this.AcDivStyle(divStyle)}>
             <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.targetOperator(this.props.activity)}>
               <circle cx="5" cy="5" r="5" stroke="black" fill="white" id={"target" + this.props.activity._id}/>
@@ -203,9 +116,25 @@ export default class DraggableAc extends Component {
                 </svg>
               );
             }
+=======
+          <div id = {activity._id}  style={divStyle(this.props.duration)}>
+            <Anchor
+              onClick={(event) => this.props.targetOperator(activity)}
+              fill="white"
+              id={"target" + activity._id}/>
+            <span>  Plane {this.props.plane}
+              {this.props.remove ?
+                <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
+              }
+            </span>
+            <Anchor
+              onClick={(event) => this.props.sourceOperator(activity)}
+              fill={this.props.isSourceClicked ? "red" : "white"}
+              id={"source" + activity._id} />
+>>>>>>> 02abdc1a87e04909daf6c3a9339eb0252dee0394
           </div>
         </div>
-        </Draggable>
+      </Draggable>
 
     );
 
@@ -218,9 +147,9 @@ DraggableAc.propTypes = {
   plane: PropTypes.number.isRequired,
   startTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
-  defaultPosition: PropTypes.object.isRequired,
   handleMove: PropTypes.func.isRequired,
   arrayIndex: PropTypes.number.isRequired,
+  remove: PropTypes.bool.isRequired,
   delete: PropTypes.func,
   sourceOperator: PropTypes.func,
   targetOperator: PropTypes.func,
