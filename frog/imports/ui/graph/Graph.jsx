@@ -130,6 +130,7 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
             plane={positions[i].plane}
             key={activity._id}
             startTime={45}
+            remove={true}
             duration={60}
             defaultPosition={positions[i].position}
             arrayIndex={i}

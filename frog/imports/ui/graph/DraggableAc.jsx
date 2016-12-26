@@ -11,13 +11,15 @@ const computeTopPosition = (object) => {
 
 const unitTime = 2
 
+const boxHeight = 40
+
 const divStyle = (duration) => {
   return {
     background: "white",
     textAlign:"center",
     border: 2,
     width: duration * unitTime,
-    height: 40,
+    height: boxHeight,
     margin: 10,
     padding: 10,
     float: "left",
@@ -25,6 +27,14 @@ const divStyle = (duration) => {
     borderStyle: "solid",
     borderColor: "green"
   }
+}
+
+const Anchor = ({id, fill, onClick}) => {
+  return (
+    <svg height="10" width="10" style={{position: "relative"}} onClick={onClick}>
+      <circle cx="5" cy="5" r="5" stroke="black" fill={fill} id={id}/>
+    </svg>
+  )
 }
 
 export default class DraggableAc extends Component {
@@ -44,7 +54,7 @@ export default class DraggableAc extends Component {
     var { defaultPosition, editorMode } = this.props;
     return {
       x: editorMode ? defaultPosition.x : this.props.startTime  * unitTime,
-      y: computeTopPosition("#plane" + this.props.plane)
+      y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2
     }
   }
 
@@ -61,27 +71,34 @@ export default class DraggableAc extends Component {
   }
 
   render() {
+    let {activity} = this.props
     return(
       <Draggable
         axis='x'
-        id = {'drag_' + this.props.activity._id}
+        id = {'drag_' + activity._id}
         defaultPosition={this.defaultPosition()}
         disabled={!this.props.editorMode}
         onDrag={this.handleDrag}
         grid={[30, 20]}
         cancel="svg">
         <div  style={{position: 'relative', zIndex: 1}}>
-          <div id = {this.props.activity._id}  style={divStyle(this.props.duration)}>
-            <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.targetOperator(this.props.activity)}>
-              <circle cx="5" cy="5" r="5" stroke="black" fill="white" id={"target" + this.props.activity._id}/>
-            </svg>
-            <span>  Plane {this.props.plane}  </span>
-            <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.sourceOperator(this.props.activity)}>
-              <circle cx="5" cy="5" r="5" stroke="black" fill={this.props.isSourceClicked ? "red" : "white"} id={"source" + this.props.activity._id} />
-            </svg>
+          <div id = {activity._id}  style={divStyle(this.props.duration)}>
+            <Anchor
+              onClick={(event) => this.props.targetOperator(activity)}
+              fill="white"
+              id={"target" + activity._id}/>
+            <span>  Plane {this.props.plane}
+              {this.props.remove ?
+                <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
+              }
+            </span>
+            <Anchor
+              onClick={(event) => this.props.sourceOperator(activity)}
+              fill={this.props.isSourceClicked ? "red" : "white"}
+              id={"source" + activity._id} />
           </div>
         </div>
-        </Draggable>
+      </Draggable>
 
     );
 
@@ -96,6 +113,7 @@ DraggableAc.propTypes = {
   duration: PropTypes.number.isRequired,
   handleMove: PropTypes.func.isRequired,
   arrayIndex: PropTypes.number.isRequired,
+  remove: PropTypes.bool.isRequired,
   delete: PropTypes.func,
   sourceOperator: PropTypes.func,
   targetOperator: PropTypes.func,
