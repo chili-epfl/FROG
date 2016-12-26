@@ -35,31 +35,25 @@ const Separator = ( {id, onHover} ) => {
 }
 
 const Operators =  ({operators, getRightMostPosition}) => {
-
-
   return(
 
-      <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute'}}>
+      <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
+
       {operators.map( (operator, i) => {
         let sourcePos = $("#"+"source"+operator.from._id).position()
         let targetPos = $("#"+"target"+operator.to._id).position()
         let topPos = $("#top").position()
         let scroll = $("#inner_graph").scrollLeft()
 
-        let sourceX = sourcePos.left - topPos.left + scroll
-        let sourceY = sourcePos.top - topPos.top
-        let targetX = targetPos.left - topPos.left + scroll
-        let targetY = targetPos.top - topPos.top
-
-        console.log("render")
-
+        let tsp = computeTopPosition("#source" + operator.from._id)
+        let ttp = computeTopPosition("#target" + operator.to._id)
+        let lsp = computeLeftPosition("#source" + operator.from._id)
+        let ltp = computeLeftPosition("#target" + operator.to._id)
         return (
-            <line key ={i} x1={sourceX} y1={sourceY} x2={targetX} y2={targetY} style={{stroke:"blue", strokeWidth:"5", zIndex:6}}/>
+          <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
         );
       })}
-      </svg>
-
-
+        </svg>
   );
 }
 
@@ -156,36 +150,20 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
         <div style={{top: 50}} >
           <AxisDisplay getRightMostPosition={getRightMostPosition}/>
         </div>
-
-
       </div>
 
     );
 }
 
-var commonSource = {
-    isSource:true,
-    isTarget:false,
-    endpoint: 'Rectangle',
-    anchor: 'Right'
-}
-
-var commonTarget = {
-    isSource:false,
-    isTarget:true,
-    endpoint: 'Dot',
-    anchor: 'Left'
-}
-
-
-const getElemPosition = () => {
-  let pos = $('#dragac').position();
-  return pos;
-}
-
 const computeTopPosition = (object) => {
   let inner = $("#inner_graph").offset().top
   let elem = $(object).offset().top
+  return elem - inner
+}
+
+const computeLeftPosition = (object) => {
+  let inner = $("#inner_graph").offset().left
+  let elem = $(object).offset().left
   return elem - inner
 }
 
@@ -212,9 +190,6 @@ export default class Graph extends Component {
     let inner = $("#inner_graph").offset()
     let top = computeTopPosition("#top")
     let down = computeTopPosition("#down")
-    console.log("top height" + top)
-    console.log("down height" + down)
-
     this.setState({separatorHeight: {top: top, down: down, left: inner.left}})
   }
 
@@ -240,8 +215,8 @@ export default class Graph extends Component {
     if(index != -1) {
       var activitiesLess =
         this.state.addedActivities.slice(0, index).concat(this.state.addedActivities.slice(index+1, this.state.addedActivities.drag))
-        var positionsLess =
-          this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
+      var positionsLess =
+        this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
   }
@@ -253,8 +228,6 @@ export default class Graph extends Component {
     //TODO correct position
     let pos = {top: 250, left: bpos.left + window.scrollX}
 
-    console.log("pos " + pos.top)
-    console.log("expected " + top + " --- " + down)
     if(pos.top < down && pos.top > top) {
 
       let newActivity = _.clone(activity, true);
@@ -262,15 +235,14 @@ export default class Graph extends Component {
 
       var innerGraphScrollX =  $("#inner_graph").scrollLeft()
       let correctedPosition = {x: pos.left, y: pos.top}
-      //var correctedPosition = this.state.mousePosition
-      console.log("position" + correctedPosition.x + correctedPosition.y)
+
       correctedPosition.x += innerGraphScrollX
       //correctedPosition.y += this.state.separatorHeight.top
       var newElement = {position: correctedPosition, plane: plane}
       newElement.plane += 0 //TODO insertion fail if a field of newElement is not used at least once before
       var activitiesMore = this.state.addedActivities.concat(newActivity)
       var positionsMore = this.state.addedPositions.concat(newElement)
-      console.log("activities" + activitiesMore.length)
+
       this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
     }
 
