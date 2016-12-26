@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import DraggableAc from './DraggableAc.jsx';
+import DraggableAc from './DraggableAc2.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
@@ -36,7 +36,9 @@ const Separator = ( {id, onHover} ) => {
 
 const Operators =  ({scroll, operators, getRightMostPosition}) => {
   return(
+
       <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
+<<<<<<< HEAD
         {operators.map( (operator, i) => {
           let tsp = computeTopPosition("#source" + operator.from._id)
           let ttp = computeTopPosition("#target" + operator.to._id)
@@ -46,6 +48,23 @@ const Operators =  ({scroll, operators, getRightMostPosition}) => {
             <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
           );
         })}
+=======
+
+      {operators.map( (operator, i) => {
+        let sourcePos = $("#"+"source"+operator.from._id).position()
+        let targetPos = $("#"+"target"+operator.to._id).position()
+        let topPos = $("#top").position()
+        let scroll = $("#inner_graph").scrollLeft()
+
+        let tsp = computeTopPosition("#source" + operator.from._id)
+        let ttp = computeTopPosition("#target" + operator.to._id)
+        let lsp = computeLeftPosition("#source" + operator.from._id)
+        let ltp = computeLeftPosition("#target" + operator.to._id)
+        return (
+          <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
+        );
+      })}
+>>>>>>> 92ecfe50ceff2354667c862787b5f16b7e231ff5
         </svg>
   );
 }
@@ -67,9 +86,10 @@ const DragAc = ( {position, plane}) => {
 }
 
 
-const BoxAc = ( {hoverStart, hoverStop, plane} ) => {
+const BoxAc = ( {hoverStart, hoverStop, plane, activityID} ) => {
   return(
     <div
+      id={"box" + activityID}
       style={divStyleAc}
       onMouseOver={hoverStart}
       onMouseUp={hoverStop}>
@@ -87,6 +107,7 @@ const RenderDraggable = ( { handleHoverStart, handleHoverStop, activities}) => {
           hoverStart={(event) => handleHoverStart(event, i%3 +1, activity)}
           hoverStop={handleHoverStop}
           key={i}
+          activityID={activity._id}
           plane={i%3 +1} />
         })}
       </div>
@@ -128,6 +149,7 @@ const RenderGraph = ( {
         <div style={{position: "absolute"}}>
           <Operators scroll={$("#inner_graph").scrollLeft()} operators={operators} getRightMostPosition={getRightMostPosition} />
         </div>
+
         {activities.map( (activity, i) => {
 
           return (<DraggableAc
@@ -179,12 +201,13 @@ export default class Graph extends Component {
       currentPlane: 0,
       defPos: {x: 0, y:0},
       separatorHeight: {top: 0, down: 0, left: 0},
-      mousePosition: {x: 0, y:0},
+      hoverBoxPosition: {x: 0, y:0},
       operators: [],
       currentSource: null,
-      inner_scroll: 0
+      test: 0,
     };
   }
+
 
   componentDidMount() {
     let inner = $("#inner_graph").offset()
@@ -195,15 +218,13 @@ export default class Graph extends Component {
 
   handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
-    var pos = event.target.getBoundingClientRect()
-    var width_correction = (pos.right - pos.left)/2.0
-    var height_correction = (pos.bottom - pos.top)
-    var x_corrected = pos.left + window.scrollX - this.state.separatorHeight.left
-    var y_corrected = computeTopPosition(event.target)- this.state.separatorHeight.down - height_correction
+
+    let position = $("#box" + activity._id).position()
+
     this.setState({
       currentPlane: plane,
       currentDraggable: activity,
-      mousePosition: {x: x_corrected, y: y_corrected}})
+      hoverBoxPosition: {x: position.left, y: position.top}})
   }
 
   handleHoverStop = (event) => {
@@ -222,7 +243,7 @@ export default class Graph extends Component {
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
 
-    
+
   }
 
   handleDragStop = (event, plane, activity) => {
@@ -232,8 +253,6 @@ export default class Graph extends Component {
     //TODO correct position
     let pos = {top: 250, left: bpos.left + window.scrollX}
 
-    console.log("pos " + pos.top)
-    console.log("expected " + top + " --- " + down)
     if(pos.top < down && pos.top > top) {
 
       let newActivity = _.clone(activity, true);
@@ -241,15 +260,14 @@ export default class Graph extends Component {
 
       var innerGraphScrollX =  $("#inner_graph").scrollLeft()
       let correctedPosition = {x: pos.left, y: pos.top}
-      //var correctedPosition = this.state.mousePosition
-      console.log("position" + correctedPosition.x + correctedPosition.y)
+
       correctedPosition.x += innerGraphScrollX
       //correctedPosition.y += this.state.separatorHeight.top
       var newElement = {position: correctedPosition, plane: plane}
       newElement.plane += 0 //TODO insertion fail if a field of newElement is not used at least once before
       var activitiesMore = this.state.addedActivities.concat(newActivity)
       var positionsMore = this.state.addedPositions.concat(newElement)
-      console.log("activities" + activitiesMore.length)
+
       this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
     }
 
@@ -276,7 +294,12 @@ export default class Graph extends Component {
   }
 
   sourceClicked = (source) => {
-    this.setState({currentSource:source});
+    if(source === this.state.currentSource) {
+      this.setState({currentSource:null});
+    }
+    else {
+      this.setState({currentSource:source});
+    }
   }
 
   addNewOperator = (target) => {
@@ -287,7 +310,6 @@ export default class Graph extends Component {
   }
 
   render() {
-    var position = this.state.mousePosition
     return (
       <div id="graph-summary" >
           <Separator id='top' key={1} style={{position: 'relative'}}/>
@@ -303,13 +325,14 @@ export default class Graph extends Component {
             getRightMostPosition={this.getRightMostPosition}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
-            activitySourceClicked = {this.state.currentSource}/>
+            activitySourceClicked = {this.state.currentSource}
+            />
 
           <Separator id='down' key={2} style = {{position: 'relative'}} />
 
           <TempAc
             handleDragStop = {this.handleDragStop}
-            position = {position}
+            position = {this.state.hoverBoxPosition}
             plane = {this.state.currentPlane}
             current = {this.state.currentDraggable}/>
 
