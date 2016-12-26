@@ -32,11 +32,19 @@ export default class DraggableAc extends Component {
   constructor(props) {
     super(props)
 
-    this.setState = {
+    this.state = {
       remove: false,
       deltaPosition: {x: 0, y: 0},
       controlledPosition: {x: 0, y:0},
       hover: false
+    }
+  }
+
+  defaultPosition = () => {
+    var { defaultPosition, editorMode } = this.props;
+    return {
+      x: editorMode ? defaultPosition.x : this.props.startTime  * unitTime,
+      y: computeTopPosition("#plane" + this.props.plane)
     }
   }
 
@@ -58,13 +66,8 @@ export default class DraggableAc extends Component {
         axis='x'
         id = {'drag_' + this.props.activity._id}
         defaultPosition={this.defaultPosition()}
-        position={this.positionAndReset()}
-
         disabled={!this.props.editorMode}
-
-        onStart={this.handleStart}
         onDrag={this.handleDrag}
-        onStop={this.handleStop}
         grid={[30, 20]}
         cancel="svg">
         <div  style={{position: 'relative', zIndex: 1}}>
@@ -87,6 +90,7 @@ export default class DraggableAc extends Component {
 
 DraggableAc.propTypes = {
   activity: PropTypes.object.isRequired,
+  editorMode: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
   startTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
