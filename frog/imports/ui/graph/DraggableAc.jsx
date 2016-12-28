@@ -108,14 +108,16 @@ export default class DraggableAc extends Component {
               onClick={(event) => this.props.targetOperator(activity)}
               fill="white"
               id={"target" + activity._id}/>
-            <span>  Plane {this.props.plane}            </span>
+            <span>              
+              {this.props.remove ?
+                <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
+              }
+            </span>
             <Anchor
               onClick={(event) => this.props.sourceOperator(activity)}
               fill={this.props.isSourceClicked ? "red" : "white"}
               id={"source" + activity._id} />
-            <span>              {this.props.remove ?
-                <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
-              }</span>
+
             <ReactTooltip 
               id={"tip"+activity._id}
               place={this.props.plane == 1 ? "bottom" : this.props.plane == 2 ? "left" : "top"}

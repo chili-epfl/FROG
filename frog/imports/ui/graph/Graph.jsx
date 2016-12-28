@@ -82,20 +82,27 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget}) => {
   let cornerDown = 0
   let startX = 0
   let startY = 0
+  //If the source is up left
   if(!up && right) {
     cornerTop = 80
     cornerDown = width - 80
-  } else if (!up && !right) {
+  } 
+  //If the source is up right
+  else if (!up && !right) {
     startX = width
     cornerTop =  width - 80
     cornerDown = 80
     width = 0
-  } else if (up && right) {
+  } 
+  //If the source is bottom left
+  else if (up && right) {
     cornerTop = 80
     cornerDown = width - 80
     startY = height
     height = 0
-  } else {
+  } 
+  //If the source is bottom right
+  else {
     startX = width
     cornerTop = width-80
     cornerDown = 80
