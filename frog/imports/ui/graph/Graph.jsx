@@ -54,6 +54,53 @@ const Operators =  ({operators, getRightMostPosition}) => {
   );
 }
 */
+/*
+<line
+  data-tip data-for={"operator" + i}
+  id={i}
+  key ={i}
+  x1={goRight ? width : 0}
+  y1={goUp ? 0 : height}
+  x2={goRight ? 0 : width}
+  y2={goUp ? height : 0}
+  style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
+  */
+const OpPath = ({up, right, i, width, height}) => {
+  let cornerTop = 0
+  let cornerDown = 0
+  let startX = 0
+  let startY = 0
+  if(!up && right) {
+    cornerTop = 80
+    cornerDown = width - 80
+  } else if (!up && !right) {
+    startX = width
+    cornerTop =  width - 80
+    cornerDown = 80
+    width = 0
+  } else if (up && right) {
+    cornerTop = 80
+    cornerDown = width - 80
+    startY = height
+    height = 0
+  } else {
+    startX = width
+    cornerTop = width-80
+    cornerDown = 80 
+    startY = height
+    height = 0
+    width = 0
+  }
+
+  return(
+    <path
+      data-tip data-for={"operator" + i}
+      id={i}
+      key ={i}
+      d={"M" + startX + "," + startY + " C"+ cornerTop + "," + startY + " " + cornerDown + "," + height + " " + width + "," + height}
+      style={{fill: 'none', stroke: 'blue', strokeWidth: 2}}/>
+  )
+}
 
 const Operators =  ({operators, getRightMostPosition}) => {
   return(
@@ -74,16 +121,8 @@ const Operators =  ({operators, getRightMostPosition}) => {
           return (
             <span key={i} style={{position: 'relative'}}>
               <svg key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} style={{zIndex: 0, position: 'absolute', top: top + scroll, left: left}}>
-                <line
-                  data-tip data-for={"operator" + i}
-                  id={i}
-                  key ={i}
-                  x1={goRight ? width : 0}
-                  y1={goUp ? 0 : height}
-                  x2={goRight ? 0 : width}
-                  y2={goUp ? height : 0}
-                  style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
-                </svg>
+                <OpPath up={goUp} right={goRight} i={i} width={width} height={height} />
+              </svg>
               <ReactTooltip id={"operator" + i} type="light" style={{zIndex: 10}}>Operator</ReactTooltip>
             </span>
           )
