@@ -35,6 +35,7 @@ const Separator = ( {id, onHover} ) => {
   )
 }
 
+/*
 const Operators =  ({operators, getRightMostPosition}) => {
   return(
 
@@ -52,7 +53,32 @@ const Operators =  ({operators, getRightMostPosition}) => {
         </svg>
   );
 }
+*/
 
+const Operators =  ({operators, getRightMostPosition}) => {
+  return(
+
+      <div className="poulpe" style={{position: 'absolute', zIndex: 0, width:(getRightMostPosition()+"px"), height:"200px"}}>
+        {operators.map( (operator, i) => {
+          let scroll = $("#inner_graph").scrollLeft()
+          let tsp = computeTopPosition("#source" + operator.from._id)
+          let ttp = computeTopPosition("#target" + operator.to._id)
+          let lsp = computeLeftPosition("#source" + operator.from._id)
+          let ltp = computeLeftPosition("#target" + operator.to._id)
+          let width = Math.abs(ltp-lsp)
+          let height = Math.abs(tsp -ttp)
+          return (
+            <div key={i}>
+              <svg key={i} width={width} height={height}style={{position: 'relative', top:Math.min(tsp, ttp) + scroll, left:Math.min(lsp, ltp) }}>
+                <line data-tip data-for={"operator" + i} id={i}  key ={i} x1={0} y1={0} x2={width} y2={height} style={{stroke:"blue", strokeWidth:"2", zIndex:1}}/>
+              </svg>
+              <ReactTooltip id={"operator" + i} type="light">Operator</ReactTooltip>
+            </div>
+      );
+        })}
+      </div>
+  );
+}
 
 
 const DragAc = ( {position, plane}) => {
