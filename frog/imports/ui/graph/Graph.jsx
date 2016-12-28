@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import DraggableAc from './DraggableAc2.jsx';
+import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
 
-import { $ } from 'meteor/jquery';
+import { $ } from 'meteor/jquery'
+import ReactTooltip from 'react-tooltip'
 
 //to be put in graph.jxs
 const AxisDisplay = ( {getRightMostPosition} ) => {
@@ -34,10 +35,12 @@ const Separator = ( {id, onHover} ) => {
   )
 }
 
+/*
 const Operators =  ({operators, getRightMostPosition}) => {
   return(
 
       <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
+<<<<<<< HEAD
 
       {operators.map( (operator, i) => {
         let scroll = $("#inner_graph").scrollLeft()
@@ -48,11 +51,60 @@ const Operators =  ({operators, getRightMostPosition}) => {
         let ltp = computeLeftPosition("#target" + operator.to._id)
         return (
           <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
+=======
+        {operators.map( (operator, i) => {
+          let scroll = $("#inner_graph").scrollLeft()
+          let tsp = computeTopPosition("#source" + operator.from._id)
+          let ttp = computeTopPosition("#target" + operator.to._id)
+          let lsp = computeLeftPosition("#source" + operator.from._id)
+          let ltp = computeLeftPosition("#target" + operator.to._id)
+          return (
+              <line id={i}  key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"2", zIndex:1}}/>
+>>>>>>> bf22098e0715c8e2a9ae3e13e12d76035018f263
         );
-      })}
+        })}
         </svg>
   );
 }
+*/
+
+const Operators =  ({operators, getRightMostPosition}) => {
+  return(
+
+      <div className="poulpe" style={{position: 'absolute', zIndex: 0, width:(getRightMostPosition()+"px"), height:"200px"}}>
+        {operators.map( (operator, i) => {
+          let scroll = $("#inner_graph").scrollLeft()
+          let tsp = computeTopPosition("#source" + operator.from._id)
+          let ttp = computeTopPosition("#target" + operator.to._id)
+          let lsp = computeLeftPosition("#source" + operator.from._id)
+          let ltp = computeLeftPosition("#target" + operator.to._id)
+          let top = Math.min(tsp, ttp)
+          let left = Math.min(lsp, ltp)
+          let width = Math.abs(ltp-lsp)
+          let height = Math.abs(tsp -ttp)
+          let goUp = (top == ttp)
+          let goRight = (left == lsp)
+          return (
+            <span key={i} style={{position: 'relative'}}>
+              <svg key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} style={{zIndex: 0, position: 'absolute', top: top + scroll, left: left}}>
+                <line
+                  data-tip data-for={"operator" + i}
+                  id={i}
+                  key ={i}
+                  x1={goRight ? width : 0}
+                  y1={goUp ? 0 : height}
+                  x2={goRight ? 0 : width}
+                  y2={goUp ? height : 0}
+                  style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
+                </svg>
+              <ReactTooltip id={"operator" + i} type="light" style={{zIndex: 10}}>Operator</ReactTooltip>
+            </span>
+          )
+        })}
+      </div>
+  )
+}
+
 
 const DragAc = ( {position, plane}) => {
   return (
@@ -60,8 +112,10 @@ const DragAc = ( {position, plane}) => {
       position= {position}
       axis='both'
       disabled= {false}>
-        <div style={divStyleNeg}>
+        <div data-tip data-for="dragac_tip" data-event-off='mouseDown' style={divStyleNeg}>
           Plane {plane}
+          {position.y}
+          <ReactTooltip id="dragac_tip" type="light" effect="solid">Some data</ReactTooltip>
         </div>
     </Draggable>
   )
@@ -114,12 +168,20 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
   )
 }
 
-
-const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, getRightMostPosition, sourceOperator, targetOperator, activitySourceClicked}) => {
+const RenderGraph = ( {
+  activities,
+  positions,
+  operators,
+  deleteAc,
+  handleMove,
+  getRightMostPosition,
+  sourceOperator,
+  targetOperator,
+  activitySourceClicked}) => {
   return(
 
       <div id='inner_graph' style={divStyle}>
-        <div style={{position: "absolute"}}>
+        <div style={{position: "relative"}}>
           <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
         </div>
         {activities.map( (activity, i) => {
@@ -207,6 +269,12 @@ export default class Graph extends Component {
           this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
+    let filteredOperators = this.state.operators.filter((operator) => {
+      return (operator.from._id != activity._id && operator.to._id != activity._id)
+    })
+
+    this.setState({operators: filteredOperators})
+
   }
 
   handleDragStop = (event, plane, activity) => {
@@ -236,33 +304,6 @@ export default class Graph extends Component {
       this.setState({addedActivities: newActivities, addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});
-
-/*
-    var {top, down} = this.state.separatorHeight
-    var bpos = event.target.getBoundingClientRect();
-    //TODO correct position
-    let pos = {top: 250, left: bpos.left + window.scrollX}
-
-    if(pos.top < down && pos.top > top) {
-
-      let newActivity = _.clone(activity, true);
-      newActivity._id = uuid();
-
-      var innerGraphScrollX =  $("#inner_graph").scrollLeft()
-      let correctedPosition = {x: pos.left, y: pos.top}
-
-      correctedPosition.x += innerGraphScrollX
-      //correctedPosition.y += this.state.separatorHeight.top
-      var newElement = {position: correctedPosition, plane: plane}
-      newElement.plane += 0 //TODO insertion fail if a field of newElement is not used at least once before
-      var activitiesMore = this.state.addedActivities.concat(newActivity)
-      var positionsMore = this.state.addedPositions.concat(newElement)
-
-      this.setState({addedActivities: activitiesMore, addedPositions: positionsMore})
-    }
-
-    this.setState({currentDraggable: null});
-    */
   }
 
   handleMove = (arrayIndex, position) => {
@@ -278,9 +319,15 @@ export default class Graph extends Component {
   }
 
   getRightMostPosition = () => {
-
-    let position = this.state.addedPositions.indexOf(Math.max(...this.state.addedPositions.map(addedPosition => addedPosition.position.x)))
-    return (position >= 1000) ? position : 1000;
+    let {addedPositions} = this.state
+    let position = 0
+    if(addedPositions.length > 0) {
+      let mappedPosition = addedPositions.map(addedPosition => {return addedPosition.position.x})
+      position = Math.max(...mappedPosition)
+      console.log(position)
+    }
+    console.log("right most" + position)
+    return (position >= 1000) ? position + 300 : 1000;
 
   }
 

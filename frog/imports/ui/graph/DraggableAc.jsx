@@ -3,26 +3,14 @@ import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 
-<<<<<<< HEAD
 import { $ } from 'meteor/jquery';
 
-const divStyleNeg = {
-  background: "white",
-  top: 30,
-  width: 60,
-  height: 10,
-  margin: 10,
-  padding: 10,
-  zIndex: 0,
-  position: "absolute"
+import ReactTooltip from 'react-tooltip'
 
-
-=======
 const computeTopPosition = (object) => {
   let inner = $("#inner_graph").offset().top
   let elem = $(object).offset().top
   return elem - inner
->>>>>>> 02abdc1a87e04909daf6c3a9339eb0252dee0394
 }
 
 const unitTime = 2
@@ -38,6 +26,7 @@ const divStyle = (duration) => {
     height: boxHeight,
     margin: 10,
     padding: 10,
+    zIndex: 1,
     float: "left",
     position: "absolute",
     borderStyle: "solid",
@@ -74,6 +63,20 @@ export default class DraggableAc extends Component {
     }
   }
 
+  updatePosition = () => {
+    let {controlledPosition, deltaPosition} = this.state
+    let updatedPosition = controlledPosition + deltaPosition
+    this.setState({controlledPosition: updatedPosition})
+    this.props.handleMove(this.props.arrayIndex, updatedPosition)
+  }
+
+  handleStart = (event) => {
+    event.preventDefault()
+    this.setState({
+      deltaPosition: {x: 0, y:0}
+    })
+  }
+
   handleDrag = (event, ui) => {
     event.preventDefault();
     var {x, y} = this.state.deltaPosition;
@@ -84,6 +87,13 @@ export default class DraggableAc extends Component {
         y: y + ui.deltaY,
       }
     });
+    this.updatePosition()
+
+  }
+
+  handleStop = (event) => {
+    event.preventDefault()
+    this.updatePosition()
   }
 
   render() {
@@ -95,28 +105,12 @@ export default class DraggableAc extends Component {
         id = {'drag_' + activity._id}
         defaultPosition={this.defaultPosition()}
         disabled={!this.props.editorMode}
+        onStart={this.handleStart}
         onDrag={this.handleDrag}
+        onStop={this.handleStop}
         grid={[30, 20]}
         cancel="svg">
-        <div  style={{position: 'relative', zIndex: 1}}>
-<<<<<<< HEAD
-          <div id = {this.props.activity._id}  style={this.AcDivStyle(divStyle)}>
-            <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.targetOperator(this.props.activity)}>
-              <circle cx="5" cy="5" r="5" stroke="black" fill="white" id={"target" + this.props.activity._id}/>
-            </svg>
-            <span>  Plane {this.props.plane}  </span>
-            <svg height="10" width="10" style={{position: "relative"}} onClick={(event) => this.props.sourceOperator(this.props.activity)}>
-              <circle cx="5" cy="5" r="5" stroke="black" fill={this.props.isSourceClicked ? "red" : "white"} id={"source" + this.props.activity._id} />
-            </svg>
-            {
-              let pos = $("#top").position()
-              return(
-                <svg width="1000px" height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'relative'}}>
-                  <line x1="0" y1="0" x2={pos.left} y2={pos.top} style={{stroke:"red", strokeWidth:"5"}}/>
-                </svg>
-              );
-            }
-=======
+        <div  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 1}}>
           <div id = {activity._id}  style={divStyle(this.props.duration)}>
             <Anchor
               onClick={(event) => this.props.targetOperator(activity)}
@@ -131,7 +125,7 @@ export default class DraggableAc extends Component {
               onClick={(event) => this.props.sourceOperator(activity)}
               fill={this.props.isSourceClicked ? "red" : "white"}
               id={"source" + activity._id} />
->>>>>>> 02abdc1a87e04909daf6c3a9339eb0252dee0394
+            <ReactTooltip id={"tip"+activity._id} type="light">Activity: {activity._id}</ReactTooltip>
           </div>
         </div>
       </Draggable>
