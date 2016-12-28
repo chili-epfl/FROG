@@ -158,29 +158,30 @@ const Operators =  ({operators, getRightMostPosition}) => {
 }
 
 
-const DragAc = ( {position, plane}) => {
+const DragAc = ( {activity, position, plane}) => {
   return (
     <Draggable
       position= {position}
       axis='both'
       disabled= {false}>
-        <div data-tip data-for="dragac_tip" data-event-off='mouseDown' style={divStyleNeg}>
-          Plane {plane}
-          <ReactTooltip id="dragac_tip" type="light" effect="solid">Some data</ReactTooltip>
+        <div data-tip data-for="dragac_tip" data-event-off='mouseDown' style={divStyleNeg(activity.data.name ? activity.data.name.length : 6)}>
+          {activity.data.name}
+          <ReactTooltip id="dragac_tip" type="light" effect="solid"><pre>{JSON.stringify(activity.data, null, 2)}</pre></ReactTooltip>
         </div>
     </Draggable>
   )
 }
 
 
-const BoxAc = ( {hoverStart, hoverStop, plane, activityID} ) => {
+const BoxAc = ( {hoverStart, hoverStop, plane, activity} ) => {
+
   return(
     <div
-      id={"box" + activityID}
-      style={divStyleAc}
+      id={"box" + activity._id}
+      style={divStyleAc(activity.data.name ? activity.data.name.length : 6)}
       onMouseOver={hoverStart}
       onMouseUp={hoverStop}>
-      Plane {plane}
+      {activity.data.name}
     </div>
   )
 }
@@ -194,7 +195,7 @@ const RenderDraggable = ( { handleHoverStart, handleHoverStop, activities}) => {
           hoverStart={(event) => handleHoverStart(event, i%3 +1, activity)}
           hoverStop={handleHoverStop}
           key={i}
-          activityID={activity._id}
+          activity={activity}
           plane={i%3 +1} />
         })}
       </div>
@@ -210,6 +211,7 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
       {current ?
       <div  style={{position: "absolute"}}>
         <DragAc
+          activity={current}
           plane={plane}
           position={position}
         />
@@ -438,6 +440,8 @@ Graph.propTypes = {
   activities: PropTypes.array.isRequired,
 };
 
+const charSize = 9;
+
 const divStyle = {
   position: "static",
   zIndex: 0,
@@ -459,10 +463,11 @@ const divListStyle = {
   borderColor: "black"
 }
 
-const divStyleNeg = {
+const divStyleNeg = (textSize) => { return {
+
   background: "white",
   border: 2,
-  width: 60,
+  width: textSize * charSize,
   height: 40,
   margin: 10,
   padding: 10,
@@ -470,13 +475,13 @@ const divStyleNeg = {
   position: "absolute",
   borderStyle: "solid",
   borderColor: "red"
-
+  }
 }
 
-const divStyleAc = {
+const divStyleAc = (textSize) => { return {
   background: "white",
   border: 2,
-  width: 60,
+  width: textSize * charSize,
   height: 40,
   margin: 10,
   padding: 10,
@@ -484,5 +489,5 @@ const divStyleAc = {
   position: "relative",
   borderStyle: "solid",
   borderColor: "grey"
-
+  }
 }
