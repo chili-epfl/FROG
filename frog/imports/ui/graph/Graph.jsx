@@ -65,7 +65,7 @@ const Operators =  ({operators, getRightMostPosition}) => {
   y2={goUp ? height : 0}
   style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
   */
-const OpPath = ({up, right, i, width, height}) => {
+const OpPath = ({up, right, i, width, height, leftSource, leftTarget}) => {
   let cornerTop = 0
   let cornerDown = 0
   let startX = 0
@@ -86,10 +86,24 @@ const OpPath = ({up, right, i, width, height}) => {
   } else {
     startX = width
     cornerTop = width-80
-    cornerDown = 80 
+    cornerDown = 80
     startY = height
     height = 0
     width = 0
+  }
+
+  if(Math.abs(leftSource-leftTarget) < 30) {
+    return (
+      <line
+        data-tip data-for={"operator" + i}
+        id={i}
+        key ={i}
+        x1={right ? width : 0}
+        y1={up ? 0 : height}
+        x2={right ? 0 : width}
+        y2={up ? height : 0}
+        style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
+    )
   }
 
   return(
@@ -121,7 +135,7 @@ const Operators =  ({operators, getRightMostPosition}) => {
           return (
             <span key={i} style={{position: 'relative'}}>
               <svg key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} style={{zIndex: 0, position: 'absolute', top: top + scroll, left: left}}>
-                <OpPath up={goUp} right={goRight} i={i} width={width} height={height} />
+                <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp}/>
               </svg>
               <ReactTooltip id={"operator" + i} type="light" style={{zIndex: 10}}>Operator</ReactTooltip>
             </span>
