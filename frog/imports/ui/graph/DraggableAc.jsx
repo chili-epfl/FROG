@@ -26,6 +26,7 @@ const divStyle = (duration) => {
     height: boxHeight,
     margin: 10,
     padding: 10,
+    zIndex: 1,
     float: "left",
     position: "absolute",
     borderStyle: "solid",

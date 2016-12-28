@@ -65,19 +65,31 @@ const Operators =  ({operators, getRightMostPosition}) => {
           let ttp = computeTopPosition("#target" + operator.to._id)
           let lsp = computeLeftPosition("#source" + operator.from._id)
           let ltp = computeLeftPosition("#target" + operator.to._id)
+          let top = Math.min(tsp, ttp)
+          let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
           let height = Math.abs(tsp -ttp)
+          let goUp = (top == ttp)
+          let goRight = (left == lsp)
           return (
-            <div key={i}>
-              <svg key={i} width={width} height={height}style={{position: 'relative', top:Math.min(tsp, ttp) + scroll, left:Math.min(lsp, ltp) }}>
-                <line data-tip data-for={"operator" + i} id={i}  key ={i} x1={0} y1={0} x2={width} y2={height} style={{stroke:"blue", strokeWidth:"2", zIndex:1}}/>
-              </svg>
-              <ReactTooltip id={"operator" + i} type="light">Operator</ReactTooltip>
-            </div>
-      );
+            <span key={i} style={{position: 'relative'}}>
+              <svg key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} style={{zIndex: 0, position: 'absolute', top: top + scroll, left: left}}>
+                <line
+                  data-tip data-for={"operator" + i}
+                  id={i}
+                  key ={i}
+                  x1={goRight ? width : 0}
+                  y1={goUp ? 0 : height}
+                  x2={goRight ? 0 : width}
+                  y2={goUp ? height : 0}
+                  style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
+                </svg>
+              <ReactTooltip id={"operator" + i} type="light" style={{zIndex: 10}}>Operator</ReactTooltip>
+            </span>
+          )
         })}
       </div>
-  );
+  )
 }
 
 
