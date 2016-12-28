@@ -9,10 +9,10 @@ import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
 
 //to be put in graph.jxs
-const AxisDisplay = ( {getRightMostPosition} ) => {
+const AxisDisplay = ({rightMostPosition}) => {
   return(
   <div>
-    <svg width={getRightMostPosition()+"px"} height="300px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
+    <svg width={rightMostPosition+"px"} height="300px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
       <text x="0" y="20%" id="plane1">Plane 1</text>
       <line x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
@@ -128,10 +128,10 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget}) => {
   )
 }
 
-const Operators =  ({operators, getRightMostPosition}) => {
+const Operators =  ({operators, rightMostPosition}) => {
   return(
 
-      <div className="poulpe" style={{position: 'absolute', zIndex: 0, width:(getRightMostPosition()+"px"), height:"200px"}}>
+      <div className="poulpe" style={{position: 'absolute', zIndex: 0, width:(rightMostPosition+"px"), height:"200px"}}>
         {operators.map( (operator, i) => {
           let scroll = $("#inner_graph").scrollLeft()
           let tsp = computeTopPosition("#source" + operator.from._id)
@@ -164,9 +164,15 @@ const DragAc = ( {activity, position, plane}) => {
       position= {position}
       axis='both'
       disabled= {false}>
-        <div data-tip data-for="dragac_tip" data-event-off='mouseDown' style={divStyleNeg(activity.data.name ? activity.data.name.length : 6)}>
+        <div data-tip data-for="dragac_tip" data-event-off='mouseDown' 
+            style={divStyleNeg(activity.data.name ? activity.data.name.length : 6)}>
           {activity.data.name}
-          <ReactTooltip id="dragac_tip" type="light" effect="solid"><pre>{JSON.stringify(activity.data, null, 2)}</pre></ReactTooltip>
+          <ReactTooltip 
+            id="dragac_tip" 
+            type="light" 
+            effect="solid">
+            <pre>{JSON.stringify(activity.data, null, 2)}</pre>
+          </ReactTooltip>
         </div>
     </Draggable>
   )
@@ -227,15 +233,17 @@ const RenderGraph = ( {
   operators,
   deleteAc,
   handleMove,
-  getRightMostPosition,
   sourceOperator,
   targetOperator,
   activitySourceClicked}) => {
+
+  const rightMostPosition = getRightMostPosition(positions);
+
   return(
 
       <div id='inner_graph' style={divStyle}>
         <div style={{position: "relative"}}>
-          <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
+          <Operators operators={operators} rightMostPosition={rightMostPosition} />
         </div>
         {activities.map( (activity, i) => {
 
@@ -258,11 +266,22 @@ const RenderGraph = ( {
         })}
 
         <div style={{top: 50}} >
-          <AxisDisplay getRightMostPosition={getRightMostPosition}/>
+          <AxisDisplay rightMostPosition = {rightMostPosition} />
         </div>
       </div>
 
     );
+}
+
+const getRightMostPosition = (positions) => {
+    let rightMostPosition = 0
+
+    if(positions.length > 0) {
+      let mappedPosition = positions.map(position => {return position.position.x})
+      rightMostPosition = Math.max(...mappedPosition)
+    }
+
+    return (rightMostPosition >= 1000) ? rightMostPosition + 300 : 1100;
 }
 
 const computeTopPosition = (object) => {
@@ -296,13 +315,14 @@ export default class Graph extends Component {
 
   handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
+    if(event.buttons === 0) {
+      let position = $("#box" + activity._id).position()
 
-    let position = $("#box" + activity._id).position()
-
-    this.setState({
-      currentPlane: plane,
-      currentDraggable: activity,
-      hoverBoxPosition: {x: position.left, y: position.top}})
+      this.setState({
+        currentPlane: plane,
+        currentDraggable: activity,
+        hoverBoxPosition: {x: position.left, y: position.top}})
+    }
   }
 
   handleHoverStop = (event) => {
@@ -371,19 +391,6 @@ export default class Graph extends Component {
     this.setState({addedPositions: modifiedAddedPositions})
   }
 
-  getRightMostPosition = () => {
-    let {addedPositions} = this.state
-    let position = 0
-
-    if(addedPositions.length > 0) {
-      let mappedPosition = addedPositions.map(addedPosition => {return addedPosition.position.x})
-      position = Math.max(...mappedPosition)
-    }
-
-    return (position >= 1000) ? position + 300 : 1100;
-
-  }
-
   sourceClicked = (source) => {
     if(source === this.state.currentSource) {
       this.setState({currentSource:null});
@@ -411,7 +418,6 @@ export default class Graph extends Component {
             operators={this.state.operators}
             deleteAc={this.deleteInGraphAc}
             handleMove={this.handleMove}
-            getRightMostPosition={this.getRightMostPosition}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
