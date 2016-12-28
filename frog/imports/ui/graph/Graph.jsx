@@ -146,7 +146,7 @@ const Operators =  ({operators, getRightMostPosition}) => {
           let goRight = (left == lsp)
           return (
             <span key={i} style={{position: 'relative'}}>
-              <svg key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} style={{zIndex: 0, position: 'absolute', top: top + scroll, left: left}}>
+              <svg key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} style={{zIndex: 0, position: 'absolute', top: top, left: left + scroll}}>
                 <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp}/>
               </svg>
               <ReactTooltip id={"operator" + i} type="light" style={{zIndex: 10}}>Operator</ReactTooltip>
