@@ -12,15 +12,15 @@ import ReactTooltip from 'react-tooltip'
 const AxisDisplay = ( {getRightMostPosition} ) => {
   return(
   <div>
-    <svg width={getRightMostPosition()+"px"} height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
+    <svg width={getRightMostPosition()+"px"} height="300px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
       <text x="0%" y="20%" id="plane1">Plane 1</text>
       <line x1="10%" y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <text x="0%" y="60%" id="plane2">Plane 2</text>
-      <line x1="10%" y1="60%" x2="100%" y2="60%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x="0%" y="50%" id="plane2">Plane 2</text>
+      <line x1="10%" y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x="0%" y="100%" id="plane3">Plane 3</text>
-      <line x1="10%" y1="100%" x2="100%" y2="100%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x="0%" y="80%" id="plane3">Plane 3</text>
+      <line x1="10%" y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
     </svg>
   </div>
 )}
@@ -166,7 +166,6 @@ const DragAc = ( {position, plane}) => {
       disabled= {false}>
         <div data-tip data-for="dragac_tip" data-event-off='mouseDown' style={divStyleNeg}>
           Plane {plane}
-          {position.y}
           <ReactTooltip id="dragac_tip" type="light" effect="solid">Some data</ReactTooltip>
         </div>
     </Draggable>
