@@ -66,8 +66,7 @@ const Operators =  ({operators, getRightMostPosition}) => {
         </svg>
   );
 }
-*/
-/*
+
 <line
   data-tip data-for={"operator" + i}
   id={i}
