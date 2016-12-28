@@ -76,8 +76,7 @@ export default class DraggableAc extends Component {
     }
   }
 
-  getCorrectY() {
-    console.log("y " + (computeTopPosition("#plane" + this.props.plane)))
+  getY() {
     return computeTopPosition("#plane" + this.props.plane)
   }
   getX() {
@@ -86,9 +85,10 @@ export default class DraggableAc extends Component {
 
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
+    console.log(this.getX() + " --d-- "+ defaultPosition.x);
     return {
       x: editorMode ? defaultPosition.x : this.getX(),
-      y: this.getCorrectY()
+      y: editorMode ? defaultPosition.y : this.getY()
     }
   }
 
@@ -125,9 +125,8 @@ export default class DraggableAc extends Component {
 
   checkLayout = (delta, event) => {
     var newPlace = (delta.y <= 170); //corresponding to height of parent's svg
-
-    var newDelta = {x: delta.x, y: this.getCorrectY()};
-    var newY = this.getCorrectY();
+    var newDelta = {x: delta.x, y: this.getY()};
+    var newY = this.defaultPosition().y;
 
     if(!newPlace) {
 
@@ -137,7 +136,6 @@ export default class DraggableAc extends Component {
       this.props.delete(this.props.activity)
     }
     var newControlledPostition = {x: delta.x, y:newY};
-
 
     return {
       newPlace: newPlace,

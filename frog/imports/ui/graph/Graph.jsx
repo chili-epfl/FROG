@@ -11,7 +11,7 @@ import { $ } from 'meteor/jquery';
 const AxisDisplay = ( {getRightMostPosition} ) => {
   return(
   <div>
-    <svg width={getRightMostPosition()+"px"} height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
+    <svg width={getRightMostPosition()+"px"} height="200px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
       <text x="0%" y="20%" id="plane1">Plane 1</text>
       <line x1="10%" y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
@@ -40,9 +40,6 @@ const Operators =  ({operators, getRightMostPosition}) => {
       <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
 
       {operators.map( (operator, i) => {
-        let sourcePos = $("#"+"source"+operator.from._id).position()
-        let targetPos = $("#"+"target"+operator.to._id).position()
-        let topPos = $("#top").position()
         let scroll = $("#inner_graph").scrollLeft()
 
         let tsp = computeTopPosition("#source" + operator.from._id)
@@ -65,7 +62,6 @@ const DragAc = ( {position, plane}) => {
       disabled= {false}>
         <div style={divStyleNeg}>
           Plane {plane}
-          {position.y}
         </div>
     </Draggable>
   )
@@ -126,7 +122,7 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
         <div style={{position: "absolute"}}>
           <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
         </div>
-
+        {console.log(positions.map((position) => position.position.y))}
         {activities.map( (activity, i) => {
 
           return (<DraggableAc
@@ -177,20 +173,11 @@ export default class Graph extends Component {
       currentDraggable: null,
       currentPlane: 0,
       defPos: {x: 0, y:0},
-      separatorHeight: {top: 0, down: 0, left: 0},
       hoverBoxPosition: {x: 0, y:0},
       operators: [],
       currentSource: null,
       test: 0,
     };
-  }
-
-
-  componentDidMount() {
-    let inner = $("#inner_graph").offset()
-    let top = computeTopPosition("#top")
-    let down = computeTopPosition("#down")
-    this.setState({separatorHeight: {top: top, down: down, left: inner.left}})
   }
 
   handleHoverStart = (event, plane, activity) => {
@@ -214,15 +201,44 @@ export default class Graph extends Component {
     var index = this.state.addedActivities.indexOf(activity)
     if(index != -1) {
       var activitiesLess =
-        this.state.addedActivities.slice(0, index).concat(this.state.addedActivities.slice(index+1, this.state.addedActivities.drag))
+        this.state.addedActivities.slice(0, index).concat(
+          this.state.addedActivities.slice(index+1, this.state.addedActivities.drag));
       var positionsLess =
-        this.state.addedPositions.slice(0, index).concat(this.state.addedPositions.slice(index+1, this.state.addedPositions.length))
+        this.state.addedPositions.slice(0, index).concat(
+          this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
   }
 
   handleDragStop = (event, plane, activity) => {
     event.preventDefault();
+
+    const top = $("#inner_graph").offset().top
+    const down = top + $("#inner_graph").height();
+    const posY = event.clientY + window.scrollY;
+
+    //If we are within the bounds
+    if(down > posY && posY > top) {
+      //We clone the activity for the draggable element
+      let newActivity = _.clone(activity, true);
+      newActivity._id = uuid();
+
+      //We obtain the components to set its location in the graph (relative)
+      const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").offset().left;
+      const planeY = computeTopPosition("#plane" + plane) - 20; //20 is a constant so that the component 
+      //is not put under the line but on the line
+
+      let newPosition = {x: event.clientX + window.scrollX + innerGraphScrollX, y: planeY};
+      let newElement = {position: newPosition, plane: plane};
+
+      let newActivities = this.state.addedActivities.concat(newActivity);
+      let newPositions = this.state.addedPositions.concat(newElement);
+
+      this.setState({addedActivities: newActivities, addedPositions: newPositions})
+    }
+    this.setState({currentDraggable: null});
+
+/*
     var {top, down} = this.state.separatorHeight
     var bpos = event.target.getBoundingClientRect();
     //TODO correct position
@@ -247,10 +263,12 @@ export default class Graph extends Component {
     }
 
     this.setState({currentDraggable: null});
+    */
   }
 
   handleMove = (arrayIndex, position) => {
 
+    console.log(this.state.addedPositions.map((position) => position.position.y));
     let activityMoved = this.state.addedPositions[arrayIndex]
     activityMoved.position = position
     let modifiedAddedPositions = this.state.addedPositions
@@ -287,7 +305,6 @@ export default class Graph extends Component {
   render() {
     return (
       <div id="graph-summary" >
-          <Separator id='top' key={1} style={{position: 'relative'}}/>
 
           <RenderGraph
             id = 'planes'
@@ -302,7 +319,6 @@ export default class Graph extends Component {
             activitySourceClicked = {this.state.currentSource}
             />
 
-          <Separator id='down' key={2} style = {{position: 'relative'}} />
 
           <TempAc
             handleDragStop = {this.handleDragStop}
