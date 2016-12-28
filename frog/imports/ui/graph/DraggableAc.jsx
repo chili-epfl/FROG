@@ -116,7 +116,13 @@ export default class DraggableAc extends Component {
             <span>              {this.props.remove ?
                 <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
               }</span>
-            <ReactTooltip id={"tip"+activity._id} type="light">Activity: {activity._id}</ReactTooltip>
+            <ReactTooltip 
+              id={"tip"+activity._id}
+              place={this.props.plane == 1 ? "bottom" : this.props.plane == 2 ? "left" : "top"}
+              type="light">
+              Activity: {activity._id}
+              <pre>{JSON.stringify(activity.data, null, 2)}</pre>
+            </ReactTooltip>
           </div>
         </div>
       </Draggable>

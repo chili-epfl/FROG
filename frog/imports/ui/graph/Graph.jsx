@@ -131,7 +131,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget}) => {
 const Operators =  ({operators, rightMostPosition}) => {
   return(
 
-      <div className="poulpe" style={{position: 'absolute', zIndex: 0, width:(rightMostPosition+"px"), height:"200px"}}>
+      <div className="operator" style={{position: 'absolute', zIndex: 0, width:(rightMostPosition+"px"), height:"200px"}}>
         {operators.map( (operator, i) => {
           let scroll = $("#inner_graph").scrollLeft()
           let tsp = computeTopPosition("#source" + operator.from._id)
@@ -309,7 +309,6 @@ export default class Graph extends Component {
       hoverBoxPosition: {x: 0, y:0},
       operators: [],
       currentSource: null,
-      test: 0,
     };
   }
 
