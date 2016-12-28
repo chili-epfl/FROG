@@ -81,8 +81,6 @@ export default class DraggableAc extends Component {
       y: ui.deltaY,
     };
 
-    console.log(deltaPosition)
-
     this.updatePosition(deltaPosition)
   }
 

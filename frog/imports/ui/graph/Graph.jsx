@@ -379,7 +379,7 @@ export default class Graph extends Component {
       let mappedPosition = addedPositions.map(addedPosition => {return addedPosition.position.x})
       position = Math.max(...mappedPosition)
     }
-    console.log("right most" + position)
+
     return (position >= 1000) ? position + 300 : 1100;
 
   }
