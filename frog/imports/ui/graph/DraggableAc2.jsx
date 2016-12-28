@@ -85,7 +85,6 @@ export default class DraggableAc extends Component {
 
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
-    console.log(this.getX() + " --d-- "+ defaultPosition.x);
     return {
       x: editorMode ? defaultPosition.x : this.getX(),
       y: editorMode ? defaultPosition.y : this.getY()
@@ -114,7 +113,7 @@ export default class DraggableAc extends Component {
     var delta = this.state.deltaPosition;
 
     var position = this.checkLayout(delta, event);
-    this.props.handleMove(this.props.arrayIndex, position)
+    this.props.handleMove(this.props.arrayIndex, position.newControlledPostition)
 
     this.setState({
       deltaPosition: position.newDelta,

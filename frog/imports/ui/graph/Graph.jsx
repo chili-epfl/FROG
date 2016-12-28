@@ -122,7 +122,6 @@ const RenderGraph = ( {activities, positions, operators, deleteAc, handleMove, g
         <div style={{position: "absolute"}}>
           <Operators operators={operators} getRightMostPosition={getRightMostPosition} />
         </div>
-        {console.log(positions.map((position) => position.position.y))}
         {activities.map( (activity, i) => {
 
           return (<DraggableAc
@@ -268,7 +267,6 @@ export default class Graph extends Component {
 
   handleMove = (arrayIndex, position) => {
 
-    console.log(this.state.addedPositions.map((position) => position.position.y));
     let activityMoved = this.state.addedPositions[arrayIndex]
     activityMoved.position = position
     let modifiedAddedPositions = this.state.addedPositions
