@@ -13,14 +13,14 @@ const AxisDisplay = ( {getRightMostPosition} ) => {
   return(
   <div>
     <svg width={getRightMostPosition()+"px"} height="300px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
-      <text x="0%" y="20%" id="plane1">Plane 1</text>
-      <line x1="10%" y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x="0" y="20%" id="plane1">Plane 1</text>
+      <line x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <text x="0%" y="50%" id="plane2">Plane 2</text>
-      <line x1="10%" y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x="0" y="50%" id="plane2">Plane 2</text>
+      <line x1={charSize * 7} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x="0%" y="80%" id="plane3">Plane 3</text>
-      <line x1="10%" y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x="0" y="80%" id="plane3">Plane 3</text>
+      <line x1={charSize * 7} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
     </svg>
   </div>
 )}
@@ -374,13 +374,13 @@ export default class Graph extends Component {
   getRightMostPosition = () => {
     let {addedPositions} = this.state
     let position = 0
+
     if(addedPositions.length > 0) {
       let mappedPosition = addedPositions.map(addedPosition => {return addedPosition.position.x})
       position = Math.max(...mappedPosition)
-      console.log(position)
     }
     console.log("right most" + position)
-    return (position >= 1000) ? position + 300 : 1000;
+    return (position >= 1000) ? position + 300 : 1100;
 
   }
 

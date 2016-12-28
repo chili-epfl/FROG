@@ -49,8 +49,6 @@ export default class DraggableAc extends Component {
 
     this.state = {
       remove: false,
-      deltaPosition: {x: 0, y: 0},
-      controlledPosition: {x: 0, y:0},
       hover: false
     }
   }
@@ -63,37 +61,33 @@ export default class DraggableAc extends Component {
     }
   }
 
-  updatePosition = () => {
-    let {controlledPosition, deltaPosition} = this.state
-    let updatedPosition = controlledPosition + deltaPosition
-    this.setState({controlledPosition: updatedPosition})
-    this.props.handleMove(this.props.arrayIndex, updatedPosition)
+  updatePosition = (deltaPosition) => {
+    const defaultPosition = this.defaultPosition();
+    const updatedPosition = {x: deltaPosition.x, y: 0}
+    const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
+
+    this.props.handleMove(this.props.arrayIndex, totalPosition)
   }
 
   handleStart = (event) => {
     event.preventDefault()
-    this.setState({
-      deltaPosition: {x: 0, y:0}
-    })
   }
 
   handleDrag = (event, ui) => {
     event.preventDefault();
-    var {x, y} = this.state.deltaPosition;
 
-    this.setState({
-      deltaPosition: {
-        x: x + ui.deltaX,
-        y: y + ui.deltaY,
-      }
-    });
-    this.updatePosition()
+    const deltaPosition = {
+      x: ui.deltaX,
+      y: ui.deltaY,
+    };
 
+    console.log(deltaPosition)
+
+    this.updatePosition(deltaPosition)
   }
 
   handleStop = (event) => {
     event.preventDefault()
-    this.updatePosition()
   }
 
   render() {
