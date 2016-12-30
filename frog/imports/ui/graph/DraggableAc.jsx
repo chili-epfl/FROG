@@ -109,6 +109,7 @@ export default class DraggableAc extends Component {
         onDragStop={this.handleStop}
         moveGrid={[30, 20]}
         resizeGrid={[30, 0]}
+        zIndex={0}
         style={divStyle(this.props.duration)}
         >
         <span  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 1}}>

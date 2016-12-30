@@ -178,7 +178,7 @@ const DragAc = ( {activity, position, plane}) => {
             id="dragac_tip"
             type="light"
             effect="solid">
-            <pre>{JSON.stringify(activity.data, null, 2)}</pre>
+            <pre>{JSON.stringify(activity, null, 2)}</pre>
           </ReactTooltip>
         </div>
     </Draggable>
@@ -452,7 +452,7 @@ Graph.propTypes = {
   activities: PropTypes.array.isRequired,
 };
 
-const charSize = 9;
+const charSize = 12;
 
 const divStyle = {
   position: "static",
@@ -479,7 +479,7 @@ const divStyleNeg = (textSize) => { return {
 
   background: "white",
   border: 2,
-  width: textSize * charSize,
+  width: textSize * charSize > 60 ? (textSize * charSize) : 60,
   height: 40,
   margin: 10,
   padding: 10,
@@ -493,7 +493,7 @@ const divStyleNeg = (textSize) => { return {
 const divStyleAc = (textSize) => { return {
   background: "white",
   border: 2,
-  width: textSize * charSize,
+  width: textSize * charSize > 60 ? (textSize * charSize) : 60,
   height: 40,
   margin: 10,
   padding: 10,
