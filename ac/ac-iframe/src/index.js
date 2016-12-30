@@ -14,6 +14,10 @@ export const config = {
       type: 'string',
       title: 'Activity name'
     },
+    'duration': {
+      type: 'number',
+      title: 'Duration in seconds (0 for infinity)'
+    },
     'url': {
       type: 'string',
       title: 'URL of website'
@@ -22,9 +26,8 @@ export const config = {
 }
 
 export const ActivityRunner = ({ config }) => 
-        <div>
-          <iframe src = {config.url} width={750} height={600} />
-        </div>
-
+  <div>
+    <iframe src = {config.url} width={750} height={600} />
+  </div>
 
 export default { id: 'ac-iframe', ActivityRunner: ActivityRunner, config: config, meta: meta }

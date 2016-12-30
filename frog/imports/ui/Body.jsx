@@ -2,9 +2,12 @@ import React, { Component, PropTypes } from 'react';
 
 import Home from './Home.jsx';
 import Repository from './Repository.jsx';
-import Editor from './Editor.jsx';
+import ActivityEditor from './ActivityEditor.jsx';
+import GraphEditor from './GraphEditor.jsx';
 import StudentView from './StudentView.jsx';
 import TeacherView from './TeacherView.jsx';
+
+import Editor from './Editor.jsx';
 
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -15,19 +18,19 @@ class Body extends Component {
     // It simply performs a switch on the app property set by the App component
     if (this.props.currentUser) {
       switch(this.props.app) {
-        case "home":
+        case "Home":
           return (<Home />);
-        case "repository":
-          return (<Repository />);
-        case "editor":
+        case "Activity Editor":
+          return (<ActivityEditor />);
+        case "Graph Editor":
           return (<Editor />);
-        case "studentview":
+          //return (<GraphEditor />);
+        case "Student View":
           return (<StudentView />);
-        case "teacherview":
+        case "Teacher View":
           return (<TeacherView />);
         default:
-          return (<p>MISSING OR WRONG STATE IN APP COMPONENT</p>);}
-
+          return (<p>MISSING OR WRONG STATE IN APP COMPONENT: {this.props.app}</p>);}
     } else {
       return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP. HELLO.</p>);
     }

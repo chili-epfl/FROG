@@ -13,6 +13,10 @@ export const config = {
       type: 'string',
       title: 'Activity name'
     },
+    'duration': {
+      type: 'number',
+      title: 'Duration in seconds (0 for infinity)'
+    },
     'title': {
       type: 'string',
       title: 'Title'
@@ -24,7 +28,7 @@ export const config = {
   }
 }
 
-export const ActivityRunner = ( { config }) => 
-  <div><h1>{config.title}</h1>{config.text}</div>
+export const ActivityRunner = ( { config, data }) => 
+  <div><h1>{config.title}</h1>{config.text}<hr/><div dangerouslySetInnerHTML={{__html: data}} /></div>
 
 export default { id: 'ac-text', ActivityRunner: ActivityRunner, config: config, meta: meta }

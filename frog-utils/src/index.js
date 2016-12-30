@@ -1,50 +1,48 @@
-export const uuid = () =>
-  ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,a=>(a^Math.random()*16>>a/4).toString(16))
+// @flow
 
-export const currentDate = () => {
-  let d = new Date()
+export { default as colorRange } from './color_range'
+export { default as Chat } from './chat'
+export { default as unrollProducts } from './unroll_products'
+export { default as TimedComponent } from './TimedComponent'
+export type { ActivityPackageT, ActivityRunnerT } from './types'
+
+export const uuid = (): string =>
+  // $FlowFixMe
+  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (a) => (a ^ Math.random() * 16 >> a / 4).toString(16)) // eslint-disable-line
+
+export const currentDate = (): string => {
+  const d = new Date()
   return d.toString()
 }
 
-export const booleanize = (bool) => (bool == 'true') ? true : false
+export const booleanize = (bool: string): boolean => (bool === 'true')
 
-export const shorten = (text, length) => {
-  let t = text || ''
+export const shorten = (text: string, length: number): string => {
+  const t = text || ''
   if (t.length < length) {
     return t
-  } else {
-    return t.slice(0, length-3)+'...'
   }
-}
-
-export const compose = (...args) => initial => args.reduce(
-    (result, fn) => fn(result),
-    initial
-)
-
-export const composeReducers = (...args) => {
-  const ret = (initState, action) => args.reduce(
-    (state, fn) => fn(state, action),
-      initState
-  )
-  return ret
+  return `${t.slice(0, length - 3)}...`
 }
 
 // checks that some of the values in an object are not empty
-export const notEmpty = (obj) => {
-  if(!obj) { return false }
+export const notEmpty = (obj: Object): boolean => {
+  if (!obj) { return false }
   return Object.keys(obj).reduce(
     (acc, val) => acc || Boolean(obj[val]), false)
 }
 
-export const identity = (e) => e
+export const identity = <T>(e: T): T => e
 
-// for classState and studentState, we are getting an array from Horizon, but
-// we will only have one element of each type with a given class/student ID
-// this let's us easily pick that element out and switch on it
-// for example getKey('tablet_locked', classState) will return the value if
-// the element exists, and undefined if it does not
-export const getKey = (key, array) => {
-  return false
+// list utils
+export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
+  const first = xs.slice(0, i);
+  const second = xs.slice(i, xs.length);
+  return [first, second];
 }
 
+export const shuffleList = (xs: Array<any>): Array<any> =>
+  xs.slice(0).sort(() => 0.5 - Math.random())
+
+export const zipList = (xs: Array<any>): Array<any> =>
+  xs[0].map((_, i) => xs.map((x) => x[i]))

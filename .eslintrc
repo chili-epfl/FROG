@@ -1,0 +1,9 @@
+{
+	'extends': ['airbnb', 'plugin:flowtype/recommended'],
+	'plugins': ['flowtype'],
+	'rules': {
+		'semi': 'off',
+		'comma-dangle': ['error', 'never'],
+		'arrow-parens': ['error', 'always']
+	}
+}
