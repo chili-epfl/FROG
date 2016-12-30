@@ -86,21 +86,21 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget}) => {
   if(!up && right) {
     cornerTop = 80
     cornerDown = width - 80
-  } 
+  }
   //If the source is up right
   else if (!up && !right) {
     startX = width
     cornerTop =  width - 80
     cornerDown = 80
     width = 0
-  } 
+  }
   //If the source is bottom left
   else if (up && right) {
     cornerTop = 80
     cornerDown = width - 80
     startY = height
     height = 0
-  } 
+  }
   //If the source is bottom right
   else {
     startX = width
@@ -171,12 +171,12 @@ const DragAc = ( {activity, position, plane}) => {
       position= {position}
       axis='both'
       disabled= {false}>
-        <div data-tip data-for="dragac_tip" data-event-off='mouseDown' 
+        <div data-tip data-for="dragac_tip" data-event-off='mouseDown'
             style={divStyleNeg(activity.data.name ? activity.data.name.length : 6)}>
           {activity.data.name}
-          <ReactTooltip 
-            id="dragac_tip" 
-            type="light" 
+          <ReactTooltip
+            id="dragac_tip"
+            type="light"
             effect="solid">
             <pre>{JSON.stringify(activity.data, null, 2)}</pre>
           </ReactTooltip>
@@ -321,14 +321,14 @@ export default class Graph extends Component {
 
   handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
-    if(event.buttons === 0) {
+    //if(event.buttons === 0) {
       let position = $("#box" + activity._id).position()
 
       this.setState({
         currentPlane: plane,
         currentDraggable: activity,
         hoverBoxPosition: {x: position.left, y: position.top}})
-    }
+    //}
   }
 
   handleHoverStop = (event) => {
@@ -371,7 +371,7 @@ export default class Graph extends Component {
 
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").offset().left;
-      const planeY = computeTopPosition("#plane" + plane) - 20; //20 is a constant so that the component 
+      const planeY = computeTopPosition("#plane" + plane) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
 
       let newPosition = {x: event.clientX + window.scrollX + innerGraphScrollX, y: planeY};

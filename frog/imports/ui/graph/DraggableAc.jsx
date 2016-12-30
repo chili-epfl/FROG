@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
+import Rnd from 'react-rnd';
 
 import { $ } from 'meteor/jquery';
 
@@ -92,23 +93,31 @@ export default class DraggableAc extends Component {
     let {activity} = this.props
     return(
 
-      <Draggable
-        axis='x'
+      <Rnd
+        moveAxis={this.props.editorMode ? 'x' : 'none'}
         id = {'drag_' + activity._id}
-        defaultPosition={this.defaultPosition()}
-        disabled={!this.props.editorMode}
-        onStart={this.handleStart}
+        initial={{
+          x: this.defaultPosition().x,
+          y: this.defaultPosition().y,
+          height: 40,
+          width: divStyle(this.props.duration).width
+        }}
+        minWidth= {40}
+        maxWidth= {400}
+        onDragStart={this.handleStart}
         onDrag={this.handleDrag}
-        onStop={this.handleStop}
-        grid={[30, 20]}
-        cancel="svg">
-        <div  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 1}}>
-          <div id = {activity._id}  style={divStyle(this.props.duration)}>
+        onDragStop={this.handleStop}
+        moveGrid={[30, 20]}
+        resizeGrid={[30, 0]}
+        style={divStyle(this.props.duration)}
+        >
+        <span  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 1}}>
+          <div id = {activity._id}>
             <Anchor
               onClick={(event) => this.props.targetOperator(activity)}
               fill="white"
               id={"target" + activity._id}/>
-            <span>              
+            <span>
               {this.props.remove ?
                 <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
               }
@@ -118,7 +127,7 @@ export default class DraggableAc extends Component {
               fill={this.props.isSourceClicked ? "red" : "white"}
               id={"source" + activity._id} />
 
-            <ReactTooltip 
+            <ReactTooltip
               id={"tip"+activity._id}
               place={this.props.plane == 1 ? "bottom" : this.props.plane == 2 ? "left" : "top"}
               type="light">
@@ -126,8 +135,8 @@ export default class DraggableAc extends Component {
               <pre>{JSON.stringify(activity.data, null, 2)}</pre>
             </ReactTooltip>
           </div>
-        </div>
-      </Draggable>
+        </span>
+      </Rnd>
 
     );
 
