@@ -237,23 +237,26 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
 const RenderGraph = ( {
   activities,
   positions,
+  sizes,
   operators,
   deleteAc,
   handleMove,
   sourceOperator,
   targetOperator,
-  activitySourceClicked}) => {
+  activitySourceClicked,
+  onResize,
+  onStartResize,
+  resizing}) => {
 
   const rightMostPosition = getRightMostPosition(positions);
 
   return(
 
-      <div id='inner_graph' style={divStyle}>
+      <div id='inner_graph' style={divStyle(resizing)} onMouseMove={onResize}>
         <div style={{position: "relative"}}>
-          <Operators operators={operators} rightMostPosition={rightMostPosition} />
+          <Operators operators={operators} rightMostPosition={rightMostPosition}/>
         </div>
         {activities.map( (activity, i) => {
-
           return (<DraggableAc
             activity={activity}
             editorMode={true}
@@ -262,6 +265,7 @@ const RenderGraph = ( {
             startTime={45}
             remove={true}
             duration={60}
+            size={sizes[i]}
             defaultPosition={positions[i].position}
             arrayIndex={i}
             handleMove={handleMove}
@@ -269,6 +273,8 @@ const RenderGraph = ( {
             sourceOperator = {sourceOperator}
             targetOperator = {targetOperator}
             isSourceClicked = {activitySourceClicked == activity ? true : false}
+            onStartResize={onStartResize}
+            resizing={resizing}
             />)
         })}
 
@@ -310,7 +316,10 @@ export default class Graph extends Component {
     this.state = {
       addedActivities: [],
       addedPositions: [],
+      addedSizes: [],
       currentDraggable: null,
+      currentResizable: -1,
+      oldXPos:-1,
       currentPlane: 0,
       defPos: {x: 0, y:0},
       hoverBoxPosition: {x: 0, y:0},
@@ -346,7 +355,10 @@ export default class Graph extends Component {
       var positionsLess =
         this.state.addedPositions.slice(0, index).concat(
           this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
-      this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
+      var sizesLess =
+        this.state.addedSizes.slice(0, index).concat(
+          this.state.addedSizes.slice(index+1, this.state.addedSizes.length));
+      this.setState({addedActivities: activitiesLess, addedPositions: positionsLess, addedSizes:sizesLess})
     }
     let filteredOperators = this.state.operators.filter((operator) => {
       return (operator.from._id != activity._id && operator.to._id != activity._id)
@@ -379,8 +391,9 @@ export default class Graph extends Component {
 
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
+      let newSizes = this.state.addedSizes.concat(100);
 
-      this.setState({addedActivities: newActivities, addedPositions: newPositions})
+      this.setState({addedActivities: newActivities, addedPositions: newPositions, addedSizes:newSizes})
     }
     this.setState({currentDraggable: null});
   }
@@ -395,6 +408,45 @@ export default class Graph extends Component {
       .concat(this.state.addedPositions
                 .slice(arrayIndex+1, this.state.addedPositions.length))
     this.setState({addedPositions: modifiedAddedPositions})
+  }
+
+  handleStartResize = (arrayIndex) => {
+    if(this.currentResizable !== arrayIndex) {
+      this.setState({currentResizable: arrayIndex, oldXPos: -1});
+    }
+  }
+
+  handleResize = (event) => {
+    event.preventDefault();
+
+    if(this.state.currentResizable != -1) {
+
+      const posX = $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left 
+        + $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).outerWidth() 
+      const mouseX = event.clientX + window.scrollX
+
+      if(event.buttons !== 0) {
+        if(this.state.oldXPos == -1) {
+          this.setState({oldXPos: event.clientX + window.scrollX});
+        }
+        else {
+          let newDuration = mouseX - $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left;
+          newDuration = newDuration < 100 ? 100 : newDuration;
+
+          let modifiedAddedSizes = this.state.addedSizes
+            .slice(0, this.state.currentResizable)
+            .concat(newDuration)
+            .concat(this.state.addedSizes
+                      .slice(this.state.currentResizable+1, this.state.addedSizes.length))
+
+          this.setState({oldXPos: mouseX, addedSizes: modifiedAddedSizes});
+        }
+
+      }
+      else if(Math.abs(mouseX - posX) > 2) {
+        this.setState({currentResizable: -1, oldXPos:-1});
+      }
+    }
   }
 
   sourceClicked = (source) => {
@@ -421,12 +473,16 @@ export default class Graph extends Component {
             id = 'planes'
             activities={this.state.addedActivities}
             positions={this.state.addedPositions}
+            sizes= {this.state.addedSizes}
             operators={this.state.operators}
             deleteAc={this.deleteInGraphAc}
             handleMove={this.handleMove}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
+            onResize = {this.handleResize}
+            onStartResize={this.handleStartResize}
+            resizing = {this.state.currentResizable != -1}
             />
 
 
@@ -454,7 +510,8 @@ Graph.propTypes = {
 
 const charSize = 12;
 
-const divStyle = {
+const divStyle = (resizing) => {
+  return {
   position: "static",
   zIndex: 0,
   height: 300,
@@ -463,7 +520,9 @@ const divStyle = {
   overflowY: "hidden",
   border: 2,
   borderStyle: "solid",
-  borderColor: "yellow"
+  borderColor: "yellow",
+  cursor: resizing ? "ew-resize" : "auto",
+  }
 }
 
 const divListStyle = {
