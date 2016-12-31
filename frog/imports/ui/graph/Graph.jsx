@@ -321,14 +321,14 @@ export default class Graph extends Component {
 
   handleHoverStart = (event, plane, activity) => {
     event.preventDefault();
-    //if(event.buttons === 0) {
+    if(event.buttons === 0) {
       let position = $("#box" + activity._id).position()
 
       this.setState({
         currentPlane: plane,
         currentDraggable: activity,
         hoverBoxPosition: {x: position.left, y: position.top}})
-    //}
+    }
   }
 
   handleHoverStop = (event) => {
@@ -370,7 +370,7 @@ export default class Graph extends Component {
       newActivity._id = uuid();
 
       //We obtain the components to set its location in the graph (relative)
-      const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").offset().left;
+      const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").position().left;
       const planeY = computeTopPosition("#plane" + plane) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
 
@@ -480,7 +480,7 @@ const divStyleNeg = (activity) => { return {
   background: "white",
   border: 2,
   width: $("#box" + activity._id).outerWidth(),
-  height: 40,
+  height: $("#box" + activity._id).outerHeight(),
   margin: 10,
   padding: 10,
   float: "left",
