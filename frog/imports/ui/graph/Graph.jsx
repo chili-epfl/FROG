@@ -172,7 +172,7 @@ const DragAc = ( {activity, position, plane}) => {
       axis='both'
       disabled= {false}>
         <div data-tip data-for="dragac_tip" data-event-off='mouseDown'
-            style={divStyleNeg(activity.data.name ? activity.data.name.length : 6)}>
+            style={divStyleNeg(activity)}>
           {activity.data.name}
           <ReactTooltip
             id="dragac_tip"
@@ -191,7 +191,7 @@ const BoxAc = ( {hoverStart, hoverStop, plane, activity} ) => {
   return(
     <div
       id={"box" + activity._id}
-      style={divStyleAc(activity.data.name ? activity.data.name.length : 6)}
+      style={divStyleAc()}
       onMouseOver={hoverStart}
       onMouseUp={hoverStop}>
       {activity.data.name}
@@ -475,11 +475,11 @@ const divListStyle = {
   borderColor: "black"
 }
 
-const divStyleNeg = (textSize) => { return {
+const divStyleNeg = (activity) => { return {
 
   background: "white",
   border: 2,
-  width: textSize * charSize > 60 ? (textSize * charSize) : 60,
+  width: $("#box" + activity._id).outerWidth(),
   height: 40,
   margin: 10,
   padding: 10,
@@ -490,10 +490,9 @@ const divStyleNeg = (textSize) => { return {
   }
 }
 
-const divStyleAc = (textSize) => { return {
+const divStyleAc = () => { return {
   background: "white",
   border: 2,
-  width: textSize * charSize > 60 ? (textSize * charSize) : 60,
   height: 40,
   margin: 10,
   padding: 10,
