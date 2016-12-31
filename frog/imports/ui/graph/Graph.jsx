@@ -178,7 +178,7 @@ const DragAc = ( {activity, position, plane}) => {
             id="dragac_tip"
             type="light"
             effect="solid">
-            <pre>{JSON.stringify(activity, null, 2)}</pre>
+            <pre>{JSON.stringify(activity.data, null, 2)}</pre>
           </ReactTooltip>
         </div>
     </Draggable>
@@ -434,7 +434,7 @@ export default class Graph extends Component {
             handleDragStop = {this.handleDragStop}
             position = {this.state.hoverBoxPosition}
             plane = {this.state.currentPlane}
-            current = {this.state.currentDraggable}/>
+            current = {this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}/>
 
           <RenderDraggable
             id='list'
