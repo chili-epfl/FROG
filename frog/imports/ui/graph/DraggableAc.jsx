@@ -27,7 +27,7 @@ const divStyle = (duration) => {
     height: boxHeight,
     margin: 10,
     padding: 10,
-    zIndex: 1,
+    zIndex: 0,
     float: "left",
     position: "absolute",
     borderStyle: "solid",
@@ -92,52 +92,53 @@ export default class DraggableAc extends Component {
   render() {
     let {activity} = this.props
     return(
+      <div style={{position: 'relative', zIndex: 0}}>
+        <Rnd
+          moveAxis={this.props.editorMode ? 'x' : 'none'}
+          id = {'drag_' + activity._id}
+          initial={{
+            x: this.defaultPosition().x,
+            y: this.defaultPosition().y,
+            height: 40,
+            width: divStyle(this.props.duration).width
+          }}
+          minWidth= {40}
+          maxWidth= {400}
+          onDragStart={this.handleStart}
+          onDrag={this.handleDrag}
+          onDragStop={this.handleStop}
+          moveGrid={[30, 20]}
+          resizeGrid={[30, 0]}
+          zIndex={0}
+          style={divStyle(this.props.duration)}
+          >
+          <span  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 0}}>
+            <div id = {activity._id}>
+              <Anchor
+                onClick={(event) => this.props.targetOperator(activity)}
+                fill="white"
+                id={"target" + activity._id}/>
+              <span>
+                {this.props.remove ?
+                  <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
+                }
+              </span>
+              <Anchor
+                onClick={(event) => this.props.sourceOperator(activity)}
+                fill={this.props.isSourceClicked ? "red" : "white"}
+                id={"source" + activity._id} />
 
-      <Rnd
-        moveAxis={this.props.editorMode ? 'x' : 'none'}
-        id = {'drag_' + activity._id}
-        initial={{
-          x: this.defaultPosition().x,
-          y: this.defaultPosition().y,
-          height: 40,
-          width: divStyle(this.props.duration).width
-        }}
-        minWidth= {40}
-        maxWidth= {400}
-        onDragStart={this.handleStart}
-        onDrag={this.handleDrag}
-        onDragStop={this.handleStop}
-        moveGrid={[30, 20]}
-        resizeGrid={[30, 0]}
-        zIndex={0}
-        style={divStyle(this.props.duration)}
-        >
-        <span  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 1}}>
-          <div id = {activity._id}>
-            <Anchor
-              onClick={(event) => this.props.targetOperator(activity)}
-              fill="white"
-              id={"target" + activity._id}/>
-            <span>
-              {this.props.remove ?
-                <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
-              }
-            </span>
-            <Anchor
-              onClick={(event) => this.props.sourceOperator(activity)}
-              fill={this.props.isSourceClicked ? "red" : "white"}
-              id={"source" + activity._id} />
-
-            <ReactTooltip
-              id={"tip"+activity._id}
-              place={this.props.plane == 1 ? "bottom" : this.props.plane == 2 ? "left" : "top"}
-              type="light">
-              Activity: {activity._id}
-              <pre>{JSON.stringify(activity.data, null, 2)}</pre>
-            </ReactTooltip>
-          </div>
-        </span>
-      </Rnd>
+              <ReactTooltip
+                id={"tip"+activity._id}
+                place={this.props.plane == 1 ? "bottom" : this.props.plane == 2 ? "left" : "top"}
+                type="light">
+                Activity: {activity._id}
+                <pre>{JSON.stringify(activity.data, null, 2)}</pre>
+              </ReactTooltip>
+            </div>
+          </span>
+        </Rnd>
+      </div>
 
     );
 
