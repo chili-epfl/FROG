@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { createContainer } from 'meteor/react-meteor-data'
 import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
+
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
@@ -168,7 +171,7 @@ const Operators =  ({operators, rightMostPosition}) => {
 }
 */
 
-const Operators =  ({operators, rightMostPosition}) => {
+const RenderOperators =  ({operators, rightMostPosition}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
@@ -235,13 +238,13 @@ const DragAc = ( {activity, position, plane}) => {
 }
 
 
-const BoxAc = ( {onClick, hoverStop, plane, activity} ) => {
+const BoxAc = ( {onHoverStart, hoverStop, plane, activity} ) => {
 
   return(
     <div
       id={"box" + activity._id}
       style={divStyleAc()}
-      onClick={onClick}
+      onMouseOver={onHoverStart}
       onMouseUp={hoverStop}>
       {activity.data.name}
     </div>
@@ -254,7 +257,7 @@ const RenderDraggable = ( { handleClick, handleHoverStop, activities}) => {retur
 
         {activities.map((activity, i) => {
           return <BoxAc
-          onClick={(event) => handleClick(event, i%3 +1, activity)}
+          onHoverStart={(event) => handleClick(event, i%3 +1, activity)}
           hoverStop={handleHoverStop}
           key={i}
           activity={activity}
@@ -322,7 +325,7 @@ const RenderGraph = ( {
               })}
             </div>
           </foreignObject>
-          <Operators operators={operators} rightMostPosition={rightMostPosition} />
+          <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
 
         </svg>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
@@ -357,7 +360,7 @@ const computeLeftPosition = (object) => {
   return elem - inner
 }
 
-export default class Graph extends Component {
+class Graph extends Component {
   constructor(props) {
     super(props);
 
@@ -371,6 +374,21 @@ export default class Graph extends Component {
       operators: [],
       currentSource: null,
     };
+  }
+
+  componentDidMount() {
+    let positions = this.props.addedActivities.map( (activity) => {
+      return {
+        plane: activity.plane,
+        position: {x: activity.xPosition, y: 0}
+      }
+    })
+
+    this.setState({
+      addedActivities: this.props.addedActivities,
+      operators: this.props.addedOperators,
+      addedPositions: positions
+    })
   }
 
   handleClick = (event, plane, activity) => {
@@ -405,7 +423,7 @@ export default class Graph extends Component {
     let filteredOperators = this.state.operators.filter((operator) => {
       return (operator.from._id != activity._id && operator.to._id != activity._id)
     })
-
+    removeGraphActivity(activity._id)
     this.setState({operators: filteredOperators})
 
   }
@@ -433,7 +451,7 @@ export default class Graph extends Component {
 
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
-
+      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, xPosition: newPosition.x, data: activity.data, plane: plane})
       this.setState({addedActivities: newActivities, addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});
@@ -448,6 +466,7 @@ export default class Graph extends Component {
       .concat(activityMoved)
       .concat(this.state.addedPositions
                 .slice(arrayIndex+1, this.state.addedPositions.length))
+
     this.setState({addedPositions: modifiedAddedPositions})
   }
 
@@ -464,6 +483,7 @@ export default class Graph extends Component {
     if(this.state.currentSource != null) {
       let newOperators = this.state.operators.concat({from:this.state.currentSource, to:target});
       this.setState({currentSource:null, operators:newOperators});
+      addGraphOperator({graphId: this.props.graphId, from: this.state.currentSource, to:target})
     }
   }
 
@@ -504,7 +524,29 @@ export default class Graph extends Component {
 
 Graph.propTypes = {
   activities: PropTypes.array.isRequired,
+  operators: PropTypes.array.isRequired,
 };
+
+export default createContainer(
+  (props) => {
+    const user = Meteor.users.findOne({_id:Meteor.userId()})
+
+    let curentGraphId = ""
+    if(user.profile) {
+      currentGraphId = user.profile.editingGraph
+    } else {
+      currentGraphId = uuid()
+      Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.editingGraph': currentGraphId}})
+    }
+    return({
+      ...props,
+      graphId: currentGraphId,
+      addedActivities: Activities.find({ graphId: currentGraphId }).fetch(),
+      addedOperators: Operators.find({ graphId: currentGraphId }).fetch()
+    })
+  },
+  Graph
+)
 
 const charSize = 12;
 

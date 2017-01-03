@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data'
 import Form from 'react-jsonschema-form'
 import ReactDOM from 'react-dom';
 
-import { Activities, addActivity } from '../api/activities';
+import { Activities, addActivity, Operators } from '../api/activities';
 import { Graphs } from '../api/graphs';import { Meteor } from 'meteor/meteor';
 
 import { uuid } from 'frog-utils'
@@ -19,23 +19,23 @@ import Graph from './graph/Graph.jsx'
 
 const ActivityGraphForm = ( { form, activities, submit } ) => { return (
   <div>
-      <Form 
-      schema={form(activities)} 
+      <Form
+      schema={form(activities)}
       onSubmit={(data) => submit(data)}
-      liveValidate={true} /> 
+      liveValidate={true} />
   </div>
 )}
 
 const ActivityList = ( { activities } ) => { return(
   <div>
     <h1>Activity list</h1>
-    <ul> { 
-      activities.map((activity) => 
+    <ul> {
+      activities.map((activity) =>
         <li key={activity._id}>
           <button onClick={ () => Activities.remove({_id: activity._id}) }>x</button>
           {activity.data.name}
         </li>
-      ) 
+      )
     } </ul>
   </div>
 )}
@@ -43,8 +43,8 @@ const ActivityList = ( { activities } ) => { return(
 const ActivityTypeList = ( { activity_types, setFn } ) => { return(
   <div>
     <h1>Add activity</h1>
-    <ul> { 
-      activity_types.map((activity_type) => 
+    <ul> {
+      activity_types.map((activity_type) =>
         <li key={activity_type.id}>
           <a href='#' onClick={() => setFn(activity_type)}>{activity_type.meta.name}</a>
         </li>
@@ -56,11 +56,11 @@ const ActivityTypeList = ( { activity_types, setFn } ) => { return(
 const ActivityForm = ( { form, submit } ) => { return (
   <div>
     <h1>Form</h1>
-    {form ? 
-      <Form 
-      schema={form.config} 
+    {form ?
+      <Form
+      schema={form.config}
       onSubmit={(data) => submit(form.id, data.formData)}
-      liveValidate={true} /> 
+      liveValidate={true} />
     : <p>Please chose an activity type</p>
     }
   </div>
@@ -70,7 +70,7 @@ const divGraphStyle = {
   position: "absolute",
 }
 
-const GraphDisplay = (activities) => { 
+const GraphDisplay = (activities) => {
   return(
   <div style={{overflow: "auto", position: "absolute"}}>
     <h1>Graph</h1>
@@ -101,16 +101,16 @@ const GraphDisplay = (activities) => {
   </div>
 )}
 
-const ActivityDraggableList = ( activities ) => { 
+const ActivityDraggableList = ( activities ) => {
   return(
   <div>
-      {activities.activities.activities.map((activity) => 
+      {activities.activities.activities.map((activity) =>
         <Draggable grid={[20, 20]} key={activity.key} axis='x' /*onStart={(event) => createElementIfMoved(event, activity)}*/>
           <div  style={{position:'absolute', background:'white'}}>
             <div>{activity.data.name}</div>
           </div>
         </Draggable>
-      ) 
+      )
     }
   </div>
 )}
@@ -182,7 +182,7 @@ class ActivityBody extends Component {
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>
         <ActivityList activities={this.props.activities} />
         <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
-        <Graph activities = {this.props.activities}/>
+        <Graph activities = {this.props.activities} operators = {this.props.operators}/>
       </div>
     )
   }
@@ -190,6 +190,7 @@ class ActivityBody extends Component {
 
 export default createContainer(() => {
   return {
-    activities: Activities.find({}).fetch(),
+    activities: Activities.find({ graphId: null}).fetch(),
+    operators: Operators.find({ graphId: null }).fetch()
   }
 }, ActivityBody)
