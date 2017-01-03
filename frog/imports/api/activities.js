@@ -54,8 +54,8 @@ export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) =
 export const removeGraph = ( graphId ) =>
   Meteor.call('graph.flush.all', graphId)
 
-export const dragGraphActivity = ( id, xPosition ) => {
-  Activities.update(id, {$set: {xPosition: xPosition}})
+export const dragGraphActivity = ( id, position ) => {
+  Activities.update({_id: id}, {$set: {position: position}})
 }
 
 export const addOperator = (operator_type, data, id) => {

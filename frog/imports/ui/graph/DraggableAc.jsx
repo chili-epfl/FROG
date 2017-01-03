@@ -53,6 +53,7 @@ export default class DraggableAc extends Component {
     this.state = {
       remove: false,
       hover: false,
+      totalPosition: 0,
       y: 0
     }
   }
@@ -73,7 +74,7 @@ export default class DraggableAc extends Component {
     const defaultPosition = this.defaultPosition();
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
-
+    this.setState({totalPosition: totalPosition})
     this.props.handleMove(this.props.arrayIndex, totalPosition)
   }
 
@@ -94,6 +95,7 @@ export default class DraggableAc extends Component {
 
   handleStop = (event) => {
     event.preventDefault()
+    this.props.handleStop(this.props.arrayIndex, this.state.totalPosition)
   }
 
   render() {

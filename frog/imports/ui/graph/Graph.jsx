@@ -108,7 +108,6 @@ const RenderOperators =  ({operators, rightMostPosition}) => {
           let ttp = computeTopPosition("#target" + operator.to._id)
           let lsp = computeLeftPosition("#source" + operator.from._id)
           let ltp = computeLeftPosition("#target" + operator.to._id)
-          console.log(tsp + " " + ttp + " " + lsp + " " + ltp)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -223,8 +222,10 @@ const RenderGraph = ( {
   operators,
   deleteAc,
   handleMove,
+  handleStop,
   sourceOperator,
   targetOperator,
+  loaded,
   activitySourceClicked}) => {
 
   const rightMostPosition = getRightMostPosition(positions);
@@ -248,6 +249,7 @@ const RenderGraph = ( {
                     defaultPosition={positions[i].position}
                     arrayIndex={i}
                     handleMove={handleMove}
+                    handleStop={handleStop}
                     delete = {deleteAc}
                     sourceOperator = {sourceOperator}
                     targetOperator = {targetOperator}
@@ -256,8 +258,9 @@ const RenderGraph = ( {
                 })}
               </div>
             </foreignObject>
+            {loaded ?
             <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
-
+            : ""}
           </svg>
         </div>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
@@ -296,10 +299,15 @@ const computeLeftPosition = (object) => {
 class Graph extends Component {
   constructor(props) {
     super(props);
-
+    let positions = props.addedActivities.map( (activity) => {
+      return {
+        plane: activity.plane,
+        position: activity.position
+      }
+    })
     this.state = {
-      addedActivities: [],
-      addedPositions: [],
+      addedActivities: props.addedActivities,
+      addedPositions: positions,
       addedSizes: [],
       currentDraggable: null,
       currentResizable: -1,
@@ -307,26 +315,36 @@ class Graph extends Component {
       currentPlane: 0,
       defPos: {x: 0, y:0},
       hoverBoxPosition: {x: 0, y:0},
-      addedOperators: [],
-      currentSource: null
+      addedOperators: props.addedOperators,
+      currentSource: null,
+      loaded: false
     };
   }
 
   componentDidMount() {
-    console.log("mount")
-    let positions = this.props.addedActivities.map( (activity) => {
-      return {
-        plane: activity.plane,
-        position: activity.position
-      }
-    })
-    this.setState({
-      addedActivities: this.props.addedActivities,
-      addedOperators: this.props.addedOperators,
-      addedPositions: positions
-    })
+    this.setState({loaded: true})
   }
+  /*
+  shouldComponentUpdate(nprops, nstate) {
 
+    if(!this.state.loaded){
+      let positions = nprops.addedActivities.map( (activity) => {
+        return {
+          plane: activity.plane,
+          position: activity.position
+        }
+      })
+      this.setState({
+        addedActivities: nprops.addedActivities,
+        addedOperators: nprops.addedOperators,
+        addedPositions: positions,
+        loaded: true
+      })
+
+    }
+      return true
+  }
+*/
   handleClick = (event, plane, activity) => {
     event.preventDefault();
     //if(event.buttons === 0) {
@@ -411,7 +429,12 @@ class Graph extends Component {
                 .slice(arrayIndex+1, this.state.addedPositions.length))
 
     this.setState({addedPositions: modifiedAddedPositions})
-    dragGraphActivity(activityMoved._id, position.x)
+    return activityMoved
+  }
+
+  handleStop = (arrayIndex, position) => {
+    console.log("x " + position.x)
+    dragGraphActivity(this.handleMove(arrayIndex, position)._id, position.x)
   }
 
   handleResize = (event) => {
@@ -474,9 +497,11 @@ class Graph extends Component {
             operators={this.state.addedOperators}
             deleteAc={this.deleteInGraphAc}
             handleMove={this.handleMove}
+            handleStop={this.handleStop}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
+            loaded={this.state.loaded}
             />
 
           <TempAc
