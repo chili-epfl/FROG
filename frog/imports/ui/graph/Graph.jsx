@@ -313,14 +313,13 @@ class Graph extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.addedActivities.length)
+    console.log("mount")
     let positions = this.props.addedActivities.map( (activity) => {
       return {
         plane: activity.plane,
         position: activity.position
       }
     })
-    console.log(positions.length)
     this.setState({
       addedActivities: this.props.addedActivities,
       addedOperators: this.props.addedOperators,
@@ -364,6 +363,7 @@ class Graph extends Component {
     let filteredOperators = this.state.addedOperators.filter((operator) => {
       return (operator.from._id != activity._id && operator.to._id != activity._id)
     })
+    removeGraphActivity(activity._id)
     this.setState({addedOperators: filteredOperators})
 
   }
@@ -413,18 +413,6 @@ class Graph extends Component {
     this.setState({addedPositions: modifiedAddedPositions})
     dragGraphActivity(activityMoved._id, position.x)
   }
-
-  /*
-  handleMove = (activity, position) => {
-    dragGraphActivity(activity._id, position.x)
-  }
-
-  handleStartResize = (arrayIndex) => {
-    if(this.currentResizable !== arrayIndex) {
-      this.setState({currentResizable: arrayIndex, oldXPos: -1});
-    }
-  }
-  */
 
   handleResize = (event) => {
     event.preventDefault();

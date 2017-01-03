@@ -74,7 +74,7 @@ export default class DraggableAc extends Component {
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
 
-    this.props.handleMove(this.props.activity, totalPosition)
+    this.props.handleMove(this.props.arrayIndex, totalPosition)
   }
 
   handleStart = (event) => {
