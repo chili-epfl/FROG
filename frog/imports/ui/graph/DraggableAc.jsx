@@ -67,7 +67,7 @@ export default class DraggableAc extends Component {
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
 
-    this.props.handleMove(this.props.arrayIndex, totalPosition)
+    this.props.handleMove(this.props.activity, totalPosition)
   }
 
   handleStart = (event) => {
@@ -128,13 +128,6 @@ export default class DraggableAc extends Component {
                 fill={this.props.isSourceClicked ? "red" : "white"}
                 id={"source" + activity._id} />
 
-              <ReactTooltip
-                id={"tip"+activity._id}
-                place={this.props.plane == 1 ? "bottom" : this.props.plane == 2 ? "left" : "top"}
-                type="light">
-                Activity: {activity._id}
-                <pre>{JSON.stringify(activity.data, null, 2)}</pre>
-              </ReactTooltip>
             </div>
           </span>
         </Rnd>

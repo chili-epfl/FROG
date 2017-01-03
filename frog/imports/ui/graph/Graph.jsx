@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import { createContainer } from 'meteor/react-meteor-data'
 import ReactDOM from 'react-dom';
 import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
+
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
@@ -35,48 +38,6 @@ const Separator = ( {id, onHover} ) => {
   )
 }
 
-/*
-const Operators =  ({operators, getRightMostPosition}) => {
-  return(
-
-      <svg width={getRightMostPosition()+'px'} height = "200px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{position: 'absolute', zIndex: 0}}>
-<<<<<<< HEAD
-
-      {operators.map( (operator, i) => {
-        let scroll = $("#inner_graph").scrollLeft()
-
-        let tsp = computeTopPosition("#source" + operator.from._id)
-        let ttp = computeTopPosition("#target" + operator.to._id)
-        let lsp = computeLeftPosition("#source" + operator.from._id)
-        let ltp = computeLeftPosition("#target" + operator.to._id)
-        return (
-          <line key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
-=======
-        {operators.map( (operator, i) => {
-          let scroll = $("#inner_graph").scrollLeft()
-          let tsp = computeTopPosition("#source" + operator.from._id)
-          let ttp = computeTopPosition("#target" + operator.to._id)
-          let lsp = computeLeftPosition("#source" + operator.from._id)
-          let ltp = computeLeftPosition("#target" + operator.to._id)
-          return (
-              <line id={i}  key ={i} x1={lsp + scroll} y1={tsp} x2={ltp + scroll} y2={ttp} style={{stroke:"blue", strokeWidth:"2", zIndex:1}}/>
->>>>>>> bf22098e0715c8e2a9ae3e13e12d76035018f263
-        );
-        })}
-        </svg>
-  );
-}
-
-<line
-  data-tip data-for={"operator" + i}
-  id={i}
-  key ={i}
-  x1={goRight ? width : 0}
-  y1={goUp ? 0 : height}
-  x2={goRight ? 0 : width}
-  y2={goUp ? height : 0}
-  style={{stroke:"blue", strokeWidth:"2", zIndex:10}}/>
-  */
 const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}) => {
   let cornerTop = 0
   let cornerDown = 0
@@ -168,7 +129,7 @@ const Operators =  ({operators, rightMostPosition}) => {
 }
 */
 
-const Operators =  ({operators, rightMostPosition}) => {
+const RenderOperators =  ({operators, rightMostPosition}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
@@ -193,11 +154,21 @@ const Operators =  ({operators, rightMostPosition}) => {
   )
 }
 
-const DrawToolTip = ( {operators}) => {
+const DrawToolTip = ( {operators, activities, positions}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
-        return <ReactTooltip key={i} id={"operator" + i} type="light" effect='float' style={{position: 'absolute', zIndex: 10}}>Operator</ReactTooltip>
+        return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" effect='float' style={{position: 'absolute', zIndex: 10}}>Operator</ReactTooltip>
+      })}
+      {activities.map( (activity, i) => {
+        return <ReactTooltip
+          key={"actip" + i}
+          id={"tip"+activity._id}
+          place={activity.plane == 1 ? "bottom" : activity.plane == 2 ? "left" : "top"}
+          type="light">
+          Activity: {activity._id}
+          <pre>{JSON.stringify(activity, null, 2)}</pre>
+        </ReactTooltip>
       })}
     </span>
   )
@@ -284,38 +255,36 @@ const RenderGraph = ( {
   activitySourceClicked}) => {
 
   const rightMostPosition = getRightMostPosition(positions);
-
+  console.log("ici")
   return(
 
       <div id='inner_graph' style={divStyle}>
-        <svg width={rightMostPosition+'px'} height = "300px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{overflowX: "scroll", position: 'absolute', zIndex: 0}}>
-          <foreignObject>
-            <div xmlns="http://www.w3.org/1999/xhtml" style={{zIndex: -1}}>
-              {activities.map( (activity, i) => {
+        <div style={{position: 'relative'}}>
+          <svg width={rightMostPosition+'px'} height = "300px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{overflowX: "scroll", position: 'absolute', zIndex: 0}}>
+            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
+          </svg>
+          {activities.map( (activity, i) => {
+            return (<DraggableAc
+              activity={activity}
+              editorMode={true}
+              plane={activity.plane}
+              key={activity._id}
+              startTime={45}
+              remove={true}
+              duration={60}
+              defaultPosition={{x: activity.xPosition, y: 0}}
+              arrayIndex={i}
+              handleMove={handleMove}
+              delete = {deleteAc}
+              sourceOperator = {sourceOperator}
+              targetOperator = {targetOperator}
+              isSourceClicked = {activitySourceClicked != null ? (activitySourceClicked._id == activity._id) : false}
+              />)
+          })}
+        </div>
 
-                return (<DraggableAc
-                  activity={activity}
-                  editorMode={true}
-                  plane={positions[i].plane}
-                  key={activity._id}
-                  startTime={45}
-                  remove={true}
-                  duration={60}
-                  defaultPosition={positions[i].position}
-                  arrayIndex={i}
-                  handleMove={handleMove}
-                  delete = {deleteAc}
-                  sourceOperator = {sourceOperator}
-                  targetOperator = {targetOperator}
-                  isSourceClicked = {activitySourceClicked == activity ? true : false}
-                  />)
-              })}
-            </div>
-          </foreignObject>
-          <Operators operators={operators} rightMostPosition={rightMostPosition} />
 
-        </svg>
-        <DrawToolTip operators={operators} />
+        <DrawToolTip operators={operators} activities={activities} positions={positions}/>
         <div style={{top: 50}} >
           <AxisDisplay rightMostPosition = {rightMostPosition} />
         </div>
@@ -358,9 +327,18 @@ export default class Graph extends Component {
       currentPlane: 0,
       defPos: {x: 0, y:0},
       hoverBoxPosition: {x: 0, y:0},
-      operators: [],
+      addedOperators: [],
       currentSource: null,
     };
+  }
+
+
+  componentWillReceiveProps() {
+    this.setState({addedActivities: this.props.addedActivities})
+  }
+
+  componentDidMount() {
+    this.setState({addedActivities: this.props.addedActivities})
   }
 
   handleClick = (event, plane, activity) => {
@@ -381,6 +359,7 @@ export default class Graph extends Component {
 
   }
 
+  /*
   deleteInGraphAc = (activity) => {
     var index = this.state.addedActivities.indexOf(activity)
     if(index != -1) {
@@ -392,11 +371,28 @@ export default class Graph extends Component {
           this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
-    let filteredOperators = this.state.operators.filter((operator) => {
+    let filteredOperators = this.state.addedOperators.filter((operator) => {
       return (operator.from._id != activity._id && operator.to._id != activity._id)
     })
 
-    this.setState({operators: filteredOperators})
+    this.setState({addedOperators: filteredOperators})
+
+  }
+  */
+
+  deleteInGraphAc = (activity) => {
+    var index = this.state.addedActivities.indexOf(activity)
+    if(index != -1) {
+      var positionsLess =
+        this.state.addedPositions.slice(0, index).concat(
+          this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
+      this.setState({addedPositions: positionsLess})
+    }
+    let filteredOperators = this.state.addedOperators.filter((operator) => {
+      return (operator.from._id != activity._id && operator.to._id != activity._id)
+    })
+    removeGraphActivity(activity._id)
+    this.setState({addedOperators: filteredOperators})
 
   }
 
@@ -420,15 +416,16 @@ export default class Graph extends Component {
 
       let newPosition = {x: event.clientX + window.scrollX + innerGraphScrollX, y: planeY};
       let newElement = {position: newPosition, plane: plane};
-
-      let newActivities = this.state.addedActivities.concat(newActivity);
+      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, xPosition: newPosition.x, data: activity.data, plane: plane})
+      //let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
 
-      this.setState({addedActivities: newActivities, addedPositions: newPositions})
+      this.setState({addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});
   }
 
+  /*
   handleMove = (arrayIndex, position) => {
 
     let activityMoved = this.state.addedPositions[arrayIndex]
@@ -439,6 +436,11 @@ export default class Graph extends Component {
       .concat(this.state.addedPositions
                 .slice(arrayIndex+1, this.state.addedPositions.length))
     this.setState({addedPositions: modifiedAddedPositions})
+  }
+  */
+
+  handleMove = (activity, position) => {
+    dragGraphActivity(activity._id, position.x)
   }
 
   sourceClicked = (source) => {
@@ -452,27 +454,26 @@ export default class Graph extends Component {
 
   addNewOperator = (target) => {
     if(this.state.currentSource != null) {
-      let newOperators = this.state.operators.concat({from:this.state.currentSource, to:target});
-      this.setState({currentSource:null, operators:newOperators});
+      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
+      addGraphOperator({ graphId: this.props.graphId, from: this.state.currentSource, to: target})
+      this.setState({currentSource:null, addedOperators:newOperators});
     }
   }
 
   render() {
     return (
       <div id="graph-summary" >
-
           <RenderGraph
             id = 'planes'
-            activities={this.state.addedActivities}
+            activities={this.props.addedActivities}
             positions={this.state.addedPositions}
-            operators={this.state.operators}
+            operators={this.props.addedOperators}
             deleteAc={this.deleteInGraphAc}
             handleMove={this.handleMove}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
             />
-
 
           <TempAc
             handleDragStop = {this.handleDragStop}
@@ -494,7 +495,27 @@ export default class Graph extends Component {
 
 Graph.propTypes = {
   activities: PropTypes.array.isRequired,
+  operators: PropTypes.array.isRequired,
+  addedActivities: PropTypes.array.isRequired,
+  addedOperators: PropTypes.array.isRequired,
+  graphId: PropTypes.string.isRequired
 };
+
+/*
+export default createContainer(
+  (props) => {
+    const user = Meteor.users.findOne({_id:Meteor.userId()})
+    const currentGraphId = user.profile ? user.profile.editingGraph : uuid()
+    return({
+      ...props,
+      graphId: currentGraphId,
+      addedActivities: Activities.find({ graphId: currentGraphId }).fetch(),
+      addedOperators: Operators.find({ graphId: currentGraphId }).fetch()
+    })
+  },
+  Graph
+)
+*/
 
 const charSize = 12;
 
