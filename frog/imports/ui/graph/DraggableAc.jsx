@@ -18,12 +18,14 @@ const unitTime = 2
 
 const boxHeight = 40
 
+const resizeStep = 25
+
 const divStyle = (duration) => {
   return {
     background: "white",
     textAlign:"center",
     border: 2,
-    width: duration * unitTime,
+    width: duration*unitTime,
     height: boxHeight,
     margin: 10,
     padding: 10,
@@ -50,15 +52,20 @@ export default class DraggableAc extends Component {
 
     this.state = {
       remove: false,
-      hover: false
+      hover: false,
+      y: 0
     }
+  }
+
+  componentDidMount() {
+    this.setState({y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2})
   }
 
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
     return {
       x: editorMode ? defaultPosition.x : this.props.startTime  * unitTime,
-      y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2
+      y: this.state.y
     }
   }
 
@@ -67,7 +74,7 @@ export default class DraggableAc extends Component {
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
 
-    this.props.handleMove(this.props.arrayIndex, totalPosition)
+    this.props.handleMove(this.props.activity, totalPosition)
   }
 
   handleStart = (event) => {
@@ -102,6 +109,7 @@ export default class DraggableAc extends Component {
             height: 40,
             width: divStyle(this.props.duration).width
           }}
+          isResizable= {{ top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
           minWidth= {40}
           maxWidth= {400}
           onDragStart={this.handleStart}

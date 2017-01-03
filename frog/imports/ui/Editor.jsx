@@ -177,6 +177,7 @@ class ActivityBody extends Component {
   }*/
 
   render() {
+
     return(
       <div>
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>

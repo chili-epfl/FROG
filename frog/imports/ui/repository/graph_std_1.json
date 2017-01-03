@@ -2,7 +2,9 @@
   "_id": "graph_std_1",
   "name": "Lesson 1 about standard deviation",
   "nodes": [
-    "video_std_1","lecture_std_1","quiz_std_1"
+    {"activity": "video_std_1", "startTime": 0, "duration": 0},
+    {"activity": "lecture_std_1", "startTime": 0, "duration": 0},
+    {"activity": "quiz_std_1", "startTime": 0, "duration": 0}
   ],
   "edges": [
     { "from": "video_std_1", "to": "lecture_std_1", "operator": null },
