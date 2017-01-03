@@ -25,7 +25,7 @@ const divStyle = (duration) => {
     background: "white",
     textAlign:"center",
     border: 2,
-    width: duration,
+    width: duration*unitTime,
     height: boxHeight,
     margin: 10,
     padding: 10,
@@ -109,6 +109,7 @@ export default class DraggableAc extends Component {
             height: 40,
             width: divStyle(this.props.duration).width
           }}
+          isResizable= {{ top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
           minWidth= {40}
           maxWidth= {400}
           onDragStart={this.handleStart}
