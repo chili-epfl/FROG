@@ -1,9 +1,10 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor'
 
-import { TimedComponent, objectIndex } from 'frog-utils'
+import { TimedComponent } from 'frog-utils'
 
 import { activityTypesObj } from '../../activityTypes'
+import { objectIndex } from '../../../lib/utils'
 
 import { createLogger } from '../../api/logs'
 import { Sessions } from '../../api/sessions'

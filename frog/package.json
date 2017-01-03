@@ -6,7 +6,6 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "bcrypt": "^1.0.2",
     "chai": "^3.5.0",
     "check": "^1.0.0",
     "color-hash": "^1.0.3",
