@@ -53,17 +53,19 @@ export default class DraggableAc extends Component {
     this.state = {
       remove: false,
       hover: false,
-      resizing: false,
-      oldXPos:-1,
-      duration:this.props.duration,
+      y: 0
     }
+  }
+
+  componentDidMount() {
+    this.setState({y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2})
   }
 
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
     return {
       x: editorMode ? defaultPosition.x : this.props.startTime  * unitTime,
-      y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2
+      y: this.state.y
     }
   }
 
