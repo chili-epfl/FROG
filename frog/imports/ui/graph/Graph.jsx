@@ -193,11 +193,21 @@ const Operators =  ({operators, rightMostPosition}) => {
   )
 }
 
-const DrawToolTip = ( {operators}) => {
+const DrawToolTip = ( {operators, activities, positions}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
-        return <ReactTooltip key={i} id={"operator" + i} type="light" effect='float' style={{position: 'absolute', zIndex: 10}}>Operator</ReactTooltip>
+        return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" effect='float' style={{position: 'absolute', zIndex: 10}}>Operator</ReactTooltip>
+      })}
+      {activities.map( (activity, i) => {
+        return <ReactTooltip
+          key={"actip" + i}
+          id={"tip"+activity._id}
+          place={activity.plane == 1 ? "bottom" : activity.plane == 2 ? "left" : "top"}
+          type="light">
+          Activity: {activity._id}
+          <pre>{JSON.stringify(activity, null, 2)}</pre>
+        </ReactTooltip>
       })}
     </span>
   )
@@ -315,7 +325,7 @@ const RenderGraph = ( {
           <Operators operators={operators} rightMostPosition={rightMostPosition} />
 
         </svg>
-        <DrawToolTip operators={operators} />
+        <DrawToolTip operators={operators} activities={activities} positions={positions}/>
         <div style={{top: 50}} >
           <AxisDisplay rightMostPosition = {rightMostPosition} />
         </div>

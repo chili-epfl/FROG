@@ -128,13 +128,6 @@ export default class DraggableAc extends Component {
                 fill={this.props.isSourceClicked ? "red" : "white"}
                 id={"source" + activity._id} />
 
-              <ReactTooltip
-                id={"tip"+activity._id}
-                place={this.props.plane == 1 ? "bottom" : this.props.plane == 2 ? "left" : "top"}
-                type="light">
-                Activity: {activity._id}
-                <pre>{JSON.stringify(activity.data, null, 2)}</pre>
-              </ReactTooltip>
             </div>
           </span>
         </Rnd>
