@@ -11,6 +11,7 @@
     'import/prefer-default-export': 'off',
     'prefer-template': 'off',
     'react/prop-types': 'off',
+    'react/no-multi-comp': 'off',
     'jsx-a11y/href-no-hash': 'off',
 
     'jsx-quotes': ['error', 'prefer-single'],
