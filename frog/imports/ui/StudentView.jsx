@@ -1,12 +1,12 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import React from 'react'
+import { Meteor } from 'meteor/meteor'
+import { createContainer } from 'meteor/react-meteor-data'
 
-import { Sessions } from '../api/sessions';
-import { Activities } from '../api/activities';
-import { Products } from '../api/products';
+import { Sessions } from '../api/sessions'
+import { Activities } from '../api/activities'
+import { Products } from '../api/products'
 
-import Runner from './studentView/Runner.jsx';
+import Runner from './studentView/Runner.jsx'
 
 const setStudentSession = (sessionId) => {
   Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.currentSession': sessionId } })

@@ -50,7 +50,7 @@ Meteor.methods({
     activities.forEach((activity) => {
       matching[activity._id] = addSessionActivity({
         data: activity.data,
-        activity_type: activity.activity_type,
+        activityType: activity.activityType,
         sessionId
       })
     })

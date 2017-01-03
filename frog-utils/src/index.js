@@ -6,6 +6,14 @@ export { default as unrollProducts } from './unroll_products'
 export { default as TimedComponent } from './TimedComponent'
 export type { ActivityPackageT, ActivityRunnerT } from './types'
 
+export const objectIndex = (a) => {
+  const [_, dict] = a.reduce( 
+    ([cnt, dict], x) => ([cnt + 1, {...dict, ...arrayConstKey(x, cnt)}])
+    , [0, {}])
+  
+  return dict
+}
+
 export const uuid = (): string =>
   // $FlowFixMe
   ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (a) => (a ^ Math.random() * 16 >> a / 4).toString(16)) // eslint-disable-line

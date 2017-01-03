@@ -136,7 +136,7 @@ const DashView = ({ user, logs }) => {
   const activity = Activities.findOne({ _id: session.activity })
   if (!activity) { return null }
   const activityType = activityTypesObj[activity.activityType]
-  const specificLogs = logs.filter((x) => x.activity === activity._id)
+  const specificLogs = logs.filter((log) => log.activity === activity._id)
   if (!activityType.Dashboard) { return null }
   return (
     <div><h3>Dashboard</h3>

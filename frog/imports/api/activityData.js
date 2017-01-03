@@ -3,14 +3,6 @@ import { Mongo } from 'meteor/mongo'
 
 export const ActivityData = new Mongo.Collection('activity_data')
 
-export const activityDataSetter = (sessionId, activityId, groupId) => // eslint-disable-line
-  Activities.insert({ // eslint-disable-line
-    _id: uuid(), // eslint-disable-line
-    sessionId: activity_type, // eslint-disable-line
-    activityId: data, // eslint-disable-line
-    groupId: data, // eslint-disable-line
-    created_at: new Date() }) // eslint-disable-line
-
 export const reactiveFn = (sessionId, activityId, groupId) => ({
   keySet: (k, v) => Meteor.call('reactive_data.key_set', sessionId, activityId, groupId, k, v),
   keyDel: (k) => Meteor.call('reactive_data.key_set', sessionId, activityId, groupId, k),
