@@ -178,12 +178,6 @@ class ActivityBody extends Component {
 
   render() {
 
-    let user = Meteor.users.findOne({_id:Meteor.userId()})
-    let currentGraphId = user.profile ? user.profile.editingGraph : uuid()
-
-    let addedActivities= Activities.find({ graphId: currentGraphId }).fetch()
-    let addedOperators= Operators.find({ graphId: currentGraphId }).fetch()
-
     return(
       <div>
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>
@@ -191,10 +185,7 @@ class ActivityBody extends Component {
         <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
         <Graph
           activities = {this.props.activities}
-          operators = {this.props.operators}
-          addedActivities = {addedActivities}
-          addedOperators = {addedOperators}
-          graphId={currentGraphId}/>
+          operators = {this.props.operators}/>
       </div>
     )
   }

@@ -129,7 +129,7 @@ const Operators =  ({operators, rightMostPosition}) => {
 }
 */
 
-const RenderOperators =  ({operators, rightMostPosition}) => {
+const RenderOperators =  ({operators, rightMostPosition, opPos}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
@@ -151,6 +151,7 @@ const RenderOperators =  ({operators, rightMostPosition}) => {
           )
         })}
       </g>
+
   )
 }
 
@@ -252,7 +253,8 @@ const RenderGraph = ( {
   handleMove,
   sourceOperator,
   targetOperator,
-  activitySourceClicked}) => {
+  activitySourceClicked,
+  operatorPositions}) => {
 
   const rightMostPosition = getRightMostPosition(positions);
   console.log("ici")
@@ -261,7 +263,7 @@ const RenderGraph = ( {
       <div id='inner_graph' style={divStyle}>
         <div style={{position: 'relative'}}>
           <svg width={rightMostPosition+'px'} height = "300px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{overflowX: "scroll", position: 'absolute', zIndex: 0}}>
-            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
+            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} opPos={operatorPositions}/>
           </svg>
           {activities.map( (activity, i) => {
             return (<DraggableAc
@@ -305,8 +307,9 @@ const getRightMostPosition = (positions) => {
 }
 
 const computeTopPosition = (object) => {
-  let inner = $("#inner_graph").offset().top
   let elem = $(object).offset().top
+  let inner = $("#inner_graph").offset().top
+
   return elem - inner
 }
 
@@ -316,30 +319,38 @@ const computeLeftPosition = (object) => {
   return elem - inner
 }
 
-export default class Graph extends Component {
+class Graph extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      addedActivities: [],
+      addedActivities: props.addedActivities,
       addedPositions: [],
       currentDraggable: null,
       currentPlane: 0,
       defPos: {x: 0, y:0},
       hoverBoxPosition: {x: 0, y:0},
-      addedOperators: [],
+      addedOperators: props.addedOperators,
       currentSource: null,
+      operatorPositions: []
     };
   }
 
 
-  componentWillReceiveProps() {
-    this.setState({addedActivities: this.props.addedActivities})
+  componentDidMount() {
+    console.log(this.state.addedActivities.length + " " + this.state.addedOperators.length)
+    /*
+    let opPos = this.props.addedOperators.map((operator,i) => {
+      let tsp = computeTopPosition("#source" + operator.from._id)
+      let ttp = computeTopPosition("#target" + operator.to._id)
+      let lsp = computeLeftPosition("#source" + operator.from._id)
+      let ltp = computeLeftPosition("#target" + operator.to._id)
+      return {tsp: tsp, ttp: ttp, lsp: lsp, ltp:ltp}
+    })
+    this.setState({operatorPositions: opPos})
+    */
   }
 
-  componentDidMount() {
-    this.setState({addedActivities: this.props.addedActivities})
-  }
 
   handleClick = (event, plane, activity) => {
     event.preventDefault();
@@ -453,10 +464,11 @@ export default class Graph extends Component {
   }
 
   addNewOperator = (target) => {
+    console.log(this.props.addedOperators.length)
     if(this.state.currentSource != null) {
       let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
       addGraphOperator({ graphId: this.props.graphId, from: this.state.currentSource, to: target})
-      this.setState({currentSource:null, addedOperators:newOperators});
+      this.setState({currentSource:null});
     }
   }
 
@@ -473,6 +485,7 @@ export default class Graph extends Component {
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
+            operatorPositions={this.state.operatorPositions}
             />
 
           <TempAc
@@ -495,13 +508,10 @@ export default class Graph extends Component {
 
 Graph.propTypes = {
   activities: PropTypes.array.isRequired,
-  operators: PropTypes.array.isRequired,
-  addedActivities: PropTypes.array.isRequired,
-  addedOperators: PropTypes.array.isRequired,
-  graphId: PropTypes.string.isRequired
+  operators: PropTypes.array.isRequired
 };
 
-/*
+
 export default createContainer(
   (props) => {
     const user = Meteor.users.findOne({_id:Meteor.userId()})
@@ -515,7 +525,7 @@ export default createContainer(
   },
   Graph
 )
-*/
+
 
 const charSize = 12;
 
