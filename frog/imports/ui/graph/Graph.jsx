@@ -463,45 +463,6 @@ class Graph extends Component {
     dragGraphActivity(activity._id, position.x)
   }
 
-  handleStartResize = (arrayIndex) => {
-    if(this.currentResizable !== arrayIndex) {
-      this.setState({currentResizable: arrayIndex, oldXPos: -1});
-    }
-  }
-
-  handleResize = (event) => {
-    event.preventDefault();
-
-    if(this.state.currentResizable != -1) {
-
-      const posX = $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left 
-        + $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).outerWidth() 
-      const mouseX = event.clientX + window.scrollX
-
-      if(event.buttons !== 0) {
-        if(this.state.oldXPos == -1) {
-          this.setState({oldXPos: event.clientX + window.scrollX});
-        }
-        else {
-          let newDuration = mouseX - $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left;
-          newDuration = newDuration < 100 ? 100 : newDuration;
-
-          let modifiedAddedSizes = this.state.addedSizes
-            .slice(0, this.state.currentResizable)
-            .concat(newDuration)
-            .concat(this.state.addedSizes
-                      .slice(this.state.currentResizable+1, this.state.addedSizes.length))
-
-          this.setState({oldXPos: mouseX, addedSizes: modifiedAddedSizes});
-        }
-
-      }
-      else if(Math.abs(mouseX - posX) > 2) {
-        this.setState({currentResizable: -1, oldXPos:-1});
-      }
-    }
-  }
-
   sourceClicked = (source) => {
     if(source === this.state.currentSource) {
       this.setState({currentSource:null});

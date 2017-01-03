@@ -98,6 +98,7 @@ export default class DraggableAc extends Component {
 
   render() {
     let {activity} = this.props
+    console.log(this.defaultPosition().x)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
@@ -110,6 +111,7 @@ export default class DraggableAc extends Component {
             width: divStyle(this.props.duration).width
           }}
           isResizable= {{ top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+          bounds={{left: 69}}
           minWidth= {40}
           maxWidth= {400}
           onDragStart={this.handleStart}
