@@ -16,7 +16,7 @@ export const OperatorList = ({ operators, setFn }) => (
         <a href='#' onClick={() => setFn(operator.operator_type, operator)} >
           <i className='fa fa-pencil' />
         </a>
-        {operatorTypesObj[operator.operator_type].meta.name}
+        {operatorTypesObj[operator.operatorType].meta.name}
         <pre>{JSON.stringify(operator.data, null, 2)}</pre>
       </li>
     ))} </ul>

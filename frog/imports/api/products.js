@@ -8,12 +8,7 @@ import { Logs } from './logs'
 export const Products = new Mongo.Collection('products')
 
 export const addProduct = (activityId, activityType, userId, data, groupId) => {
-  const merge = {
-    activityId,
-    activityType,
-    userId,
-    groupId
-  }
+  const merge = { activityId, activityType, userId, groupId }
   Logs.update(
     Stringify(merge),
     { $set: { ...merge, groupId, completed: true, updatedAt: Date() } },
@@ -25,6 +20,7 @@ export const addProduct = (activityId, activityType, userId, data, groupId) => {
     userId,
     data,
     groupId,
-    username: Meteor.users.findOne({ _id: Meteor.userId() }).username,
-    createdAt: new Date() })
+    username: Meteor.user().username,
+    createdAt: new Date()
+  })
 }

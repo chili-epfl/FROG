@@ -105,7 +105,7 @@ const OperatorChoiceComponent = createContainer(
     ...props,
     choices: Operators.find({ graphId: null, sessionId: null }).fetch(),
     submitChoiceFn: copyOperatorIntoGraphOperator,
-    displayFn: ((operator) => operator.operator_type)
+    displayFn: ((operator) => operator.operatorType)
   }),
   ChoiceComponent
 )

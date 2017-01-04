@@ -11,7 +11,7 @@ const Runner = ({ groupId, activity, reactiveKey, reactiveList, data, onCompleti
   const activityType = activityTypesObj[activity.activityType]
   const logger = createLogger({
     activity: activity._id,
-    activity_type: activity.activityType,
+    activityType: activity.activityType,
     user: Meteor.userId(),
     groupId
   })
@@ -33,7 +33,7 @@ const Runner = ({ groupId, activity, reactiveKey, reactiveList, data, onCompleti
 }
 
 export default createContainer(({ sessionId, groupId, activity, logger, data }) => {
-  const reactiveKey = ActivityData.find({ sessionId, activityId: activity._id, groupId, type: 'kv' }).fetch()
-  const reactiveList = ActivityData.find({ sessionId, activityId: activity._id, groupId, type: 'list' }).fetch()
+  const reactiveKey = ActivityData.find({ activityId: activity._id, groupId, type: 'kv' }).fetch()
+  const reactiveList = ActivityData.find({ activityId: activity._id, groupId, type: 'list' }).fetch()
   return { reactiveKey, reactiveList, activity, logger, sessionId, groupId, data }
 }, Runner)

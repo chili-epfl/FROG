@@ -61,7 +61,8 @@ Meteor.methods({
         data: operator.data,
         from: matching[operator.from],
         to: matching[operator.to],
-        operator_type: operator.operator_type,
+        type: operator.type,
+        operatorType: operator.operatorType,
         sessionId
       })
     })

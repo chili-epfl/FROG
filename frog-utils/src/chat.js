@@ -14,6 +14,7 @@ export default (props) =>
       callbackFn = {(e) => {
         props.reactiveFn.listAdd({msg: e, user: props.user.name})
         props.logger({chat: e})
-      }} />
+      }} 
+    />
   </div>
 

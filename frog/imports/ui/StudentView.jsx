@@ -29,7 +29,7 @@ const ActivityBody = ({ activity, state, products }) => {
   // (might change this to also allow completion of product-less activities)
   if (state !== 'STARTED') { return (<h1>Paused</h1>) }
   if (!activity) { return (<h1>No activity selected</h1>) }
-  if (products.filter((x) => x.activity_id === activity._id).length > 0) {
+  if (products.filter((product) => product.activityId === activity._id).length > 0) {
     return (<h1>Waiting for next activity</h1>)
   }
   return (<Runner activity={activity} />)

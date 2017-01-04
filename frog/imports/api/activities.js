@@ -85,7 +85,7 @@ export const addOperator = (operatorType, data, id) => {
 
 export const addResult = (type, activityId, result) => {
   Results.update(
-    { activityId: type },
+    { _id: activityId + type },
     { $set: { type, activityId, result, createdAt: new Date() } },
     { upsert: true }
   )
