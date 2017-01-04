@@ -30,7 +30,6 @@ const runProduct = (sessionId, activityId) => {
 }
 
 const runSocial = (sessionId, activityId) => {
-  console.log('runsocial')
   const ops = Operators.find({ to: activityId, type: 'social' }, { reactive: false }).fetch()
   if (ops.length > 0) {
     const op = ops[0]
