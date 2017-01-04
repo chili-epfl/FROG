@@ -81,13 +81,7 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
     type: 'object',
     properties: propdef
   }
-  const uiSchema = {
-    'MCQ': {
-      "ui:options": {
-        "backgroundColor": "pink"
-      }
-    }
-  }
+  const uiSchema = { 'MCQ': { 'ui:options': { 'backgroundColor': 'pink' } } }
   return (
     <Form schema={formdef} uiSchema={uiSchema} onSubmit={(x) => onCompletion(x.formData)} onChange={(x) => logger({form: x.formData})} />
   )

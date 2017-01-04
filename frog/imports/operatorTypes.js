@@ -4,5 +4,5 @@ import opAggregateCKBoard from 'op-aggregate-ck-board'
 
 import { keyBy } from 'lodash'
 
-export const operator_types = [opLikeWithLike, opAggregateText, opAggregateCKBoard]
-export const operator_types_obj = keyBy(operator_types, 'id')
+export const operatorTypes = [opLikeWithLike, opAggregateText, opAggregateCKBoard]
+export const operatorTypesObj = keyBy(operatorTypes, 'id')
