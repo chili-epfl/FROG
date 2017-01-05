@@ -236,9 +236,8 @@ export const RenderGraph = ( {
 
       <div id='inner_graph' style={divStyle}>
         <div style={{position:'relative'}}>
-          <svg width={rightMostPosition+'px'} height = "300px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{overflowX: "scroll", position: 'absolute', zIndex: 0}}>
-            <foreignObject>
-              <div xmlns="http://www.w3.org/1999/xhtml" style={{zIndex: -1}}>
+
+              <div style={{zIndex: -1}}>
                 {activities.map( (activity, i) => {
                   console.log(activity._id + " " + i)
                   return (<DraggableAc
@@ -260,11 +259,12 @@ export const RenderGraph = ( {
                     />)
                 })}
               </div>
-            </foreignObject>
+
+            <svg>
             {loaded ?
             <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
             : ""}
-          </svg>
+            </svg>
         </div>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
         <div style={{top: 50}} >
