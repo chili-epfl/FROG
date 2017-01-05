@@ -152,6 +152,7 @@ export default class DraggableAc extends Component {
             width: divStyle(duration).width
           }}
           isResizable= {{ top: false, right: editorMode && true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+          bounds={{left: 69}}
           minWidth= {40}
           maxWidth= {400}
           onDragStart={this.handleStart}
