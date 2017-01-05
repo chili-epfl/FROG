@@ -100,7 +100,7 @@ export default class DraggableAc extends Component {
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
     return {
-      x: editorMode ? defaultPosition.x : this.props.startTime  * unitTime,
+      x: defaultPosition.x,
       y: this.state.y
     }
   }
@@ -165,13 +165,16 @@ export default class DraggableAc extends Component {
           zIndex={0}
           style={divStyle(duration)}
           >
-          <span  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 0}}>
+          <span style={{position: 'relative', zIndex: 0}}>
             <div id = {activity._id}>
               <Anchor
                 onClick={(event) => this.props.targetOperator(activity)}
                 fill="white"
                 id={"target" + activity._id}/>
               <span>
+                <span data-tip data-for={"tip" + activity._id}>
+                  <i className="fa fa-info" />
+                </span>
                 {this.props.editorMode ?
                   <a
                     href='#'
