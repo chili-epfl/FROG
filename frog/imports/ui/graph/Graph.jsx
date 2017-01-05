@@ -235,7 +235,7 @@ export const RenderGraph = ( {
   return(
 
       <div id='inner_graph' style={divStyle}>
-        <div style={{position:'relative'}}>
+        <div style={{position:'absolute'}}>
 
               <div style={{zIndex: -1}}>
                 {activities.map( (activity, i) => {
