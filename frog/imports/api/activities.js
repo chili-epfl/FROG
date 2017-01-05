@@ -32,6 +32,10 @@ export const addSessionActivity = (params) => {
   return(id)
 }
 
+export const updateGraphActivityDuration = (activityId, duration) => {
+  Activities.update({_id: activityId}, {$set: {"data.duration": duration}})
+}
+
 export const removeGraphActivity = (activityId) =>
   Meteor.call('graph.flush.activity', activityId)
 
@@ -54,10 +58,13 @@ export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) =
 export const removeGraph = ( graphId ) =>
   Meteor.call('graph.flush.all', graphId)
 
-export const dragGraphActivity = ( id, xPosition ) => {
-  Activities.update(id, {$set: {xPosition: xPosition}})
+export const dragGraphActivity = ( id, position ) => {
+  Activities.update({_id: id}, {$set: {position: position}})
 }
 
+export const removeGraphOperator = (id, graphId) => {
+  Operators.remove({_id: id}, {graphId: graphId})
+}
 export const addOperator = (operator_type, data, id) => {
   if(id) {
     Operators.update(id, {$set: {data: data}})

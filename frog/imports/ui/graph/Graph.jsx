@@ -6,7 +6,7 @@ import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
 
-import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, removeGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
 import { $ } from 'meteor/jquery'
@@ -18,7 +18,7 @@ const AxisDisplay = ({rightMostPosition}) => {
   <div>
     <svg width={rightMostPosition+"px"} height="300px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
       <text x="0" y="20%" id="plane1">Plane 1</text>
-      <line x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <line id='line' x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
       <text x="0" y="50%" id="plane2">Plane 2</text>
       <line x1={charSize * 7} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
@@ -99,46 +99,15 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
   )
 }
 
-/*
-const Operators =  ({operators, rightMostPosition}) => {
-  return(
-
-      <div className="operator" style={{position: 'absolute', zIndex: -1, width:(rightMostPosition+"px"), height:"200px"}}>
-        {operators.map( (operator, i) => {
-          let scroll = $("#inner_graph").scrollLeft()
-          let tsp = computeTopPosition("#source" + operator.from._id)
-          let ttp = computeTopPosition("#target" + operator.to._id)
-          let lsp = computeLeftPosition("#source" + operator.from._id)
-          let ltp = computeLeftPosition("#target" + operator.to._id)
-          let top = Math.min(tsp, ttp)
-          let left = Math.min(lsp, ltp)
-          let width = Math.abs(ltp-lsp)
-          let height = Math.abs(tsp -ttp)
-          let goUp = (top == ttp)
-          let goRight = (left == lsp)
-          return (
-            <span key={i} style={{position: 'relative'}}>
-              <svg key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} style={{zIndex: 0, position: 'absolute', top: top, left: left + scroll}}>
-                <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp}/>
-              </svg>
-              <ReactTooltip id={"operator" + i} type="light" style={{zIndex: 10}}>Operator</ReactTooltip>
-            </span>
-          )
-        })}
-      </div>
-  )
-}
-*/
-
-const RenderOperators =  ({operators, rightMostPosition, opPos}) => {
+const RenderOperators =  ({operators, rightMostPosition}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#inner_graph").scrollLeft()
-          let tsp = computeTopPosition("#source" + operator.from._id)
-          let ttp = computeTopPosition("#target" + operator.to._id)
-          let lsp = computeLeftPosition("#source" + operator.from._id)
-          let ltp = computeLeftPosition("#target" + operator.to._id)
+          let tsp = computeTopPosition("#source" + operator.from)
+          let ttp = computeTopPosition("#target" + operator.to)
+          let lsp = computeLeftPosition("#source" + operator.from)
+          let ltp = computeLeftPosition("#target" + operator.to)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -198,13 +167,13 @@ const DragAc = ( {activity, position, plane}) => {
 }
 
 
-const BoxAc = ( {onClick, hoverStop, plane, activity} ) => {
+const BoxAc = ( {onHoverStart, hoverStop, plane, activity} ) => {
 
   return(
     <div
       id={"box" + activity._id}
       style={divStyleAc()}
-      onClick={onClick}
+      onMouseOver={onHoverStart}
       onMouseUp={hoverStop}>
       {activity.data.name}
     </div>
@@ -217,7 +186,7 @@ const RenderDraggable = ( { handleClick, handleHoverStop, activities}) => {retur
 
         {activities.map((activity, i) => {
           return <BoxAc
-          onClick={(event) => handleClick(event, i%3 +1, activity)}
+          onHoverStart={(event) => handleClick(event, i%3 +1, activity)}
           hoverStop={handleHoverStop}
           key={i}
           activity={activity}
@@ -253,40 +222,47 @@ const RenderGraph = ( {
   operators,
   deleteAc,
   handleMove,
+  handleStop,
   sourceOperator,
   targetOperator,
-  activitySourceClicked,
-  operatorPositions}) => {
+  loaded,
+  activitySourceClicked}) => {
 
   const rightMostPosition = getRightMostPosition(positions);
   return(
 
       <div id='inner_graph' style={divStyle}>
-        <div style={{position: 'relative'}}>
+        <div style={{position:'relative'}}>
           <svg width={rightMostPosition+'px'} height = "300px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{overflowX: "scroll", position: 'absolute', zIndex: 0}}>
-            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} opPos={operatorPositions}/>
+            <foreignObject>
+              <div xmlns="http://www.w3.org/1999/xhtml" style={{zIndex: -1}}>
+                {activities.map( (activity, i) => {
+
+                  return (<DraggableAc
+                    activity={activity}
+                    editorMode={true}
+                    plane={positions[i].plane}
+                    key={activity._id}
+                    startTime={45}
+                    remove={true}
+                    duration={60}
+                    defaultPosition={positions[i].position}
+                    arrayIndex={i}
+                    handleMove={handleMove}
+                    handleStop={handleStop}
+                    delete = {deleteAc}
+                    sourceOperator = {sourceOperator}
+                    targetOperator = {targetOperator}
+                    isSourceClicked = {activitySourceClicked == activity ? true : false}
+                    />)
+                })}
+              </div>
+            </foreignObject>
+            {loaded ?
+            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
+            : ""}
           </svg>
-          {activities.map( (activity, i) => {
-            return (<DraggableAc
-              activity={activity}
-              editorMode={true}
-              plane={activity.plane}
-              key={activity._id}
-              startTime={45}
-              remove={true}
-              duration={60}
-              defaultPosition={{x: activity.xPosition, y: 0}}
-              arrayIndex={i}
-              handleMove={handleMove}
-              delete = {deleteAc}
-              sourceOperator = {sourceOperator}
-              targetOperator = {targetOperator}
-              isSourceClicked = {activitySourceClicked != null ? (activitySourceClicked._id == activity._id) : false}
-              />)
-          })}
         </div>
-
-
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
         <div style={{top: 50}} >
           <AxisDisplay rightMostPosition = {rightMostPosition} />
@@ -323,10 +299,15 @@ const computeLeftPosition = (object) => {
 class Graph extends Component {
   constructor(props) {
     super(props);
-
+    let positions = props.addedActivities.map( (activity) => {
+      return {
+        plane: activity.plane,
+        position: activity.position
+      }
+    })
     this.state = {
       addedActivities: props.addedActivities,
-      addedPositions: [],
+      addedPositions: positions,
       addedSizes: [],
       currentDraggable: null,
       currentResizable: -1,
@@ -336,27 +317,34 @@ class Graph extends Component {
       hoverBoxPosition: {x: 0, y:0},
       addedOperators: props.addedOperators,
       currentSource: null,
-      operatorPositions: []
+      loaded: false
     };
   }
 
-
-
   componentDidMount() {
-    console.log(this.state.addedActivities.length + " " + this.state.addedOperators.length)
-    /*
-    let opPos = this.props.addedOperators.map((operator,i) => {
-      let tsp = computeTopPosition("#source" + operator.from._id)
-      let ttp = computeTopPosition("#target" + operator.to._id)
-      let lsp = computeLeftPosition("#source" + operator.from._id)
-      let ltp = computeLeftPosition("#target" + operator.to._id)
-      return {tsp: tsp, ttp: ttp, lsp: lsp, ltp:ltp}
-    })
-    this.setState({operatorPositions: opPos})
-    */
+    this.setState({loaded: true})
   }
+  /*
+  shouldComponentUpdate(nprops, nstate) {
 
+    if(!this.state.loaded){
+      let positions = nprops.addedActivities.map( (activity) => {
+        return {
+          plane: activity.plane,
+          position: activity.position
+        }
+      })
+      this.setState({
+        addedActivities: nprops.addedActivities,
+        addedOperators: nprops.addedOperators,
+        addedPositions: positions,
+        loaded: true
+      })
 
+    }
+      return true
+  }
+*/
   handleClick = (event, plane, activity) => {
     event.preventDefault();
     //if(event.buttons === 0) {
@@ -375,7 +363,7 @@ class Graph extends Component {
 
   }
 
-  /*
+
   deleteInGraphAc = (activity) => {
     var index = this.state.addedActivities.indexOf(activity)
     if(index != -1) {
@@ -391,29 +379,19 @@ class Graph extends Component {
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess, addedSizes:sizesLess})
     }
     let filteredOperators = this.state.addedOperators.filter((operator) => {
-      return (operator.from._id != activity._id && operator.to._id != activity._id)
+      return (operator.from != activity._id && operator.to != activity._id)
     })
-
-    this.setState({addedOperators: filteredOperators})
-
-  }
-  */
-
-  deleteInGraphAc = (activity) => {
-    var index = this.state.addedActivities.indexOf(activity)
-    if(index != -1) {
-      var positionsLess =
-        this.state.addedPositions.slice(0, index).concat(
-          this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
-      this.setState({addedPositions: positionsLess})
-    }
-    let filteredOperators = this.state.addedOperators.filter((operator) => {
-      return (operator.from._id != activity._id && operator.to._id != activity._id)
+    let operatorsToDelete = this.state.addedOperators.forEach((operator) => {
+      if (!(operator.from != activity._id && operator.to != activity._id)) {
+        removeGraphOperator(operator._id, this.props.graphId)
+      }
     })
     removeGraphActivity(activity._id)
+
     this.setState({addedOperators: filteredOperators})
 
   }
+
 
   handleDragStop = (event, plane, activity) => {
     event.preventDefault();
@@ -435,17 +413,17 @@ class Graph extends Component {
 
       let newPosition = {x: event.clientX + window.scrollX + innerGraphScrollX, y: planeY};
       let newElement = {position: newPosition, plane: plane};
-      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, xPosition: newPosition.x, data: activity.data, plane: plane})
-      //let newActivities = this.state.addedActivities.concat(newActivity);
+      let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
-      let newSizes = this.state.addedSizes.concat(100);
 
-      this.setState({addedPositions: newPositions})
+      let newSizes = this.state.addedSizes.concat(100);
+      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, position: newPosition, data: activity.data, plane: plane})
+      this.setState({addedActivities: newActivities, addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});
   }
 
-  /*
+
   handleMove = (arrayIndex, position) => {
 
     let activityMoved = this.state.addedPositions[arrayIndex]
@@ -455,13 +433,49 @@ class Graph extends Component {
       .concat(activityMoved)
       .concat(this.state.addedPositions
                 .slice(arrayIndex+1, this.state.addedPositions.length))
+
     this.setState({addedPositions: modifiedAddedPositions})
   }
-  */
 
-  handleMove = (activity, position) => {
-    dragGraphActivity(activity._id, position.x)
+  handleStop = (arrayIndex, position) => {
+    this.handleMove(arrayIndex, position)
+    dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
   }
+
+  /*
+  handleResize = (event) => {
+    event.preventDefault();
+
+    if(this.state.currentResizable != -1) {
+
+      const posX = $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left
+        + $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).outerWidth()
+      const mouseX = event.clientX + window.scrollX
+
+      if(event.buttons !== 0) {
+        if(this.state.oldXPos == -1) {
+          this.setState({oldXPos: event.clientX + window.scrollX});
+        }
+        else {
+          let newDuration = mouseX - $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left;
+          newDuration = newDuration < 100 ? 100 : newDuration;
+
+          let modifiedAddedSizes = this.state.addedSizes
+            .slice(0, this.state.currentResizable)
+            .concat(newDuration)
+            .concat(this.state.addedSizes
+                      .slice(this.state.currentResizable+1, this.state.addedSizes.length))
+
+          this.setState({oldXPos: mouseX, addedSizes: modifiedAddedSizes});
+        }
+
+      }
+      else if(Math.abs(mouseX - posX) > 2) {
+        this.setState({currentResizable: -1, oldXPos:-1});
+      }
+    }
+  }
+  */
 
   sourceClicked = (source) => {
     if(source === this.state.currentSource) {
@@ -473,11 +487,10 @@ class Graph extends Component {
   }
 
   addNewOperator = (target) => {
-    console.log(this.props.addedOperators.length)
     if(this.state.currentSource != null) {
-      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
-      addGraphOperator({ graphId: this.props.graphId, from: this.state.currentSource, to: target})
-      this.setState({currentSource:null});
+      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource._id, to:target._id});
+      this.setState({currentSource:null, addedOperators:newOperators});
+      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: this.state.currentSource._id, to:target._id})
     }
   }
 
@@ -486,15 +499,16 @@ class Graph extends Component {
       <div id="graph-summary" >
           <RenderGraph
             id = 'planes'
-            activities={this.props.addedActivities}
+            activities={this.state.addedActivities}
             positions={this.state.addedPositions}
-            operators={this.props.addedOperators}
+            operators={this.state.addedOperators}
             deleteAc={this.deleteInGraphAc}
             handleMove={this.handleMove}
+            handleStop={this.handleStop}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
-            operatorPositions={this.state.operatorPositions}
+            loaded={this.state.loaded}
             />
 
           <TempAc
@@ -518,24 +532,19 @@ class Graph extends Component {
 Graph.propTypes = {
   activities: PropTypes.array.isRequired,
   operators: PropTypes.array.isRequired,
-  graphId: PropTypes.string.isRequired,
-  addedActivities: PropTypes.array.isRequired,
-  addedOperators: PropTypes.array.isRequired,
 };
-
 
 export default createContainer(
   (props) => {
     const user = Meteor.users.findOne({_id:Meteor.userId()})
-    let currentGraphId = "";
-    if(user.profile) {
-      currentGraphId = user.profile.editingGraph;
-    }
-    else {
-      currentGraphId = addGraph();
-      Meteor.users.update({_id:Meteor.userId()}, {$set: {'profile.editingGraph': currentGraphId}});
-    }
 
+    let curentGraphId = ""
+    if(user.profile) {
+      currentGraphId = user.profile.editingGraph
+    } else {
+      currentGraphId = uuid()
+      Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.editingGraph': currentGraphId}})
+    }
     return({
       ...props,
       graphId: currentGraphId,
@@ -545,7 +554,6 @@ export default createContainer(
   },
   Graph
 )
-
 
 const charSize = 12;
 
