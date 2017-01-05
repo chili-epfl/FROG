@@ -97,7 +97,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
       id={i}
       key ={i}
       d={"M" + (left + startX) + "," + (top + startY) + " c"+ cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
-      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: 10}}/>
+      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: -1}}/>
   )
 }
 
@@ -236,7 +236,7 @@ export const RenderGraph = ( {
 
       <div id='inner_graph' style={divStyle}>
         <div style={{position:'relative'}}>
-            <div style={{overflowX: "none", position: 'absolute', zIndex: 0}}>
+            <div style={{position: 'absolute', zIndex: 0}}>
               <div style={{position:'relative'}}>
                 {activities.map( (activity, i) => {
                   return (<DraggableAc
@@ -259,7 +259,7 @@ export const RenderGraph = ( {
                 })}
               </div>
 
-            <svg>
+            <svg id="icipoulp" xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
             {loaded ?
             <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
             : ""}
@@ -287,6 +287,7 @@ const getRightMostPosition = (positions) => {
 }
 
 const computeTopPosition = (object) => {
+  console.log(object)
   let elem = $(object).offset().top
   let inner = $("#inner_graph").offset().top
 
@@ -395,7 +396,7 @@ class Graph extends Component {
       let newActivity = _.clone(activity, true);
       newActivity._id = uuid();
 
-      const defaultTime = 10;
+      const defaultTime = 40;
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
       //We obtain the components to set its location in the graph (relative)
