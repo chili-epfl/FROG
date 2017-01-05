@@ -235,11 +235,10 @@ export const RenderGraph = ( {
   return(
 
       <div id='inner_graph' style={divStyle}>
-        <div style={{position:'absolute'}}>
-
-              <div style={{zIndex: -1}}>
+        <div style={{position:'relative'}}>
+            <div style={{overflowX: "none", position: 'absolute', zIndex: 0}}>
+              <div style={{position:'relative'}}>
                 {activities.map( (activity, i) => {
-                  console.log(activity._id + " " + i)
                   return (<DraggableAc
                     activity={activity}
                     editorMode={editorMode}
@@ -265,6 +264,7 @@ export const RenderGraph = ( {
             <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
             : ""}
             </svg>
+            </div>
         </div>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
         <div style={{top: 50}} >
@@ -397,7 +397,6 @@ class Graph extends Component {
 
       const defaultTime = 10;
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
-      console.log("Creation " + newActivity.data.duration)
 
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").position().left;

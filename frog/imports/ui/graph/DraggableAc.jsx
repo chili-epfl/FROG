@@ -136,13 +136,12 @@ export default class DraggableAc extends Component {
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
-    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('minute', styleSize.width))
+    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('seconds', styleSize.width))
   }
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx('second', activity.data.duration ? activity.data.duration : defaultTime)
-    console.log(divStyle(duration).width)
+    let duration = convertTimeToPx('seconds', activity.data.duration ? activity.data.duration : defaultTime)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
@@ -177,7 +176,6 @@ export default class DraggableAc extends Component {
               <span>
                 {this.props.editorMode ?
                   <a
-                    href='#'
                     onClick={(event) => this.props.delete(activity)}
                     >
                     <i className="fa fa-times" />
