@@ -28,8 +28,10 @@ const boxHeight = 40
 
 const resizeStep = 25
 
+const defaultTime = 10
+
 const adjustToGrid = (number) => {
-  let remaining = number % 30
+  let remaining = number % 10
   return Math.round(number - remaining)
 }
 
@@ -40,15 +42,15 @@ const convertTimeToPx = (unit, time) => {
 const getUnitInSeconds = (unit) => {
   switch(unit) {
     case 'hour':
-      return 3600
+      return 3600.0
     case 'minute':
-      return 60
-    default: return 1
+      return 60.0
+    default: return 1.0
   }
 }
 
 const convertPxToTime = (unit, time) => {
-  return getUnitInSeconds(unit) * time / unitTime
+  return time * getUnitInSeconds(unit) / unitTime
 }
 
 const divStyle = (duration) => {
@@ -139,7 +141,8 @@ export default class DraggableAc extends Component {
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx('minute', activity.data.duration)
+    let duration = convertTimeToPx('second', activity.data.duration ? activity.data.duration : defaultTime)
+    console.log(divStyle(duration).width)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
@@ -151,7 +154,7 @@ export default class DraggableAc extends Component {
             height: 40,
             width: divStyle(duration).width
           }}
-          isResizable= {{ top: false, right: editorMode && true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+          isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
           bounds={{left: 69}}
           minWidth= {40}
           maxWidth= {400}

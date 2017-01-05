@@ -29,6 +29,8 @@ const AxisDisplay = ({rightMostPosition}) => {
   </div>
 )}
 
+//const TimeAxis = ({})
+
 const Separator = ( {id, onHover} ) => {
   return (
     <div id={id} onMouseOver={onHover}>
@@ -237,7 +239,7 @@ const RenderGraph = ( {
             <foreignObject>
               <div xmlns="http://www.w3.org/1999/xhtml" style={{zIndex: -1}}>
                 {activities.map( (activity, i) => {
-
+                  console.log(activity._id + " " + i)
                   return (<DraggableAc
                     activity={activity}
                     editorMode={true}
@@ -406,6 +408,10 @@ class Graph extends Component {
       let newActivity = _.clone(activity, true);
       newActivity._id = uuid();
 
+      const defaultTime = 10;
+      newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
+      console.log("Creation " + newActivity.data.duration)
+
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").position().left;
       const planeY = computeTopPosition("#plane" + plane) - 20; //20 is a constant so that the component
@@ -417,7 +423,7 @@ class Graph extends Component {
       let newPositions = this.state.addedPositions.concat(newElement);
 
       let newSizes = this.state.addedSizes.concat(100);
-      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, position: newPosition, data: activity.data, plane: plane})
+      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, position: newPosition, data: newActivity.data, plane: plane})
       this.setState({addedActivities: newActivities, addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});
