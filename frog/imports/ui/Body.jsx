@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Home from './Home.jsx';
 import Repository from './Repository.jsx';
 import ActivityEditor from './ActivityEditor.jsx';
-import GraphEditor from './GraphEditor.jsx';
+import GraphEditor from './graph/GraphEditor.jsx';
 import StudentView from './StudentView.jsx';
 import TeacherView from './TeacherView.jsx';
 

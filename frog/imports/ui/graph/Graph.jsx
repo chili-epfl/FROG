@@ -215,7 +215,8 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
   )
 }
 
-const RenderGraph = ( {
+export const RenderGraph = ( {
+  editorMode,
   activities,
   positions,
   sizes,
@@ -240,13 +241,13 @@ const RenderGraph = ( {
 
                   return (<DraggableAc
                     activity={activity}
-                    editorMode={true}
-                    plane={positions[i].plane}
+                    editorMode={editorMode}
+                    plane={activity.plane ? activity.plane : positions[i].plane}
                     key={activity._id}
                     startTime={45}
                     remove={true}
                     duration={60}
-                    defaultPosition={positions[i].position}
+                    defaultPosition={activity.position ? activity.position : positions[i].position}
                     arrayIndex={i}
                     handleMove={handleMove}
                     handleStop={handleStop}
@@ -324,27 +325,13 @@ class Graph extends Component {
   componentDidMount() {
     this.setState({loaded: true})
   }
-  /*
-  shouldComponentUpdate(nprops, nstate) {
 
-    if(!this.state.loaded){
-      let positions = nprops.addedActivities.map( (activity) => {
-        return {
-          plane: activity.plane,
-          position: activity.position
-        }
-      })
-      this.setState({
-        addedActivities: nprops.addedActivities,
-        addedOperators: nprops.addedOperators,
-        addedPositions: positions,
-        loaded: true
-      })
-
-    }
-      return true
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      addedActivities: nextProps.addedActivities
+    })
   }
-*/
+
   handleClick = (event, plane, activity) => {
     event.preventDefault();
     //if(event.buttons === 0) {
@@ -499,6 +486,7 @@ class Graph extends Component {
       <div id="graph-summary" >
           <RenderGraph
             id = 'planes'
+            editorMode={true}
             activities={this.state.addedActivities}
             positions={this.state.addedPositions}
             operators={this.state.addedOperators}
@@ -542,7 +530,7 @@ export default createContainer(
     if(user.profile) {
       currentGraphId = user.profile.editingGraph
     } else {
-      currentGraphId = uuid()
+      currentGraphId = addGraph()
       Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.editingGraph': currentGraphId}})
     }
     return({
