@@ -53,7 +53,7 @@ export default class DraggableAc extends Component {
     this.state = {
       remove: false,
       hover: false,
-      totalPosition: 0,
+      totalPosition: props.defaultPosition,
       y: 0
     }
   }

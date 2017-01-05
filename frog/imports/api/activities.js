@@ -58,6 +58,9 @@ export const dragGraphActivity = ( id, position ) => {
   Activities.update({_id: id}, {$set: {position: position}})
 }
 
+export const removeGraphOperator = (id, graphId) => {
+  Operators.remove({_id: id}, {graphId: graphId})
+}
 export const addOperator = (operator_type, data, id) => {
   if(id) {
     Operators.update(id, {$set: {data: data}})

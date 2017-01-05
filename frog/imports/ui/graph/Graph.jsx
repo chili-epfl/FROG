@@ -6,7 +6,7 @@ import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
 
-import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, removeGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
 import { $ } from 'meteor/jquery'
@@ -104,10 +104,10 @@ const RenderOperators =  ({operators, rightMostPosition}) => {
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#inner_graph").scrollLeft()
-          let tsp = computeTopPosition("#source" + operator.from._id)
-          let ttp = computeTopPosition("#target" + operator.to._id)
-          let lsp = computeLeftPosition("#source" + operator.from._id)
-          let ltp = computeLeftPosition("#target" + operator.to._id)
+          let tsp = computeTopPosition("#source" + operator.from)
+          let ttp = computeTopPosition("#target" + operator.to)
+          let lsp = computeLeftPosition("#source" + operator.from)
+          let ltp = computeLeftPosition("#target" + operator.to)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -379,9 +379,15 @@ class Graph extends Component {
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess, addedSizes:sizesLess})
     }
     let filteredOperators = this.state.addedOperators.filter((operator) => {
-      return (operator.from._id != activity._id && operator.to._id != activity._id)
+      return (operator.from != activity._id && operator.to != activity._id)
+    })
+    let operatorsToDelete = this.state.addedOperators.forEach((operator) => {
+      if (!(operator.from != activity._id && operator.to != activity._id)) {
+        removeGraphOperator(operator._id, this.props.graphId)
+      }
     })
     removeGraphActivity(activity._id)
+  
     this.setState({addedOperators: filteredOperators})
 
   }
@@ -429,12 +435,11 @@ class Graph extends Component {
                 .slice(arrayIndex+1, this.state.addedPositions.length))
 
     this.setState({addedPositions: modifiedAddedPositions})
-    return activityMoved
   }
 
   handleStop = (arrayIndex, position) => {
-    console.log("x " + position.x)
-    dragGraphActivity(this.handleMove(arrayIndex, position)._id, position.x)
+    this.handleMove(arrayIndex, position)
+    dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
   }
 
   handleResize = (event) => {
@@ -481,9 +486,9 @@ class Graph extends Component {
 
   addNewOperator = (target) => {
     if(this.state.currentSource != null) {
-      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
+      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource._id, to:target._id});
       this.setState({currentSource:null, addedOperators:newOperators});
-      addGraphOperator({graphId: this.props.graphId, from: this.state.currentSource, to:target})
+      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: this.state.currentSource._id, to:target._id})
     }
   }
 
