@@ -29,6 +29,8 @@ const AxisDisplay = ({rightMostPosition}) => {
   </div>
 )}
 
+//const TimeAxis = ({})
+
 const Separator = ( {id, onHover} ) => {
   return (
     <div id={id} onMouseOver={onHover}>
@@ -95,7 +97,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
       id={i}
       key ={i}
       d={"M" + (left + startX) + "," + (top + startY) + " c"+ cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
-      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: 10}}/>
+      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: -1}}/>
   )
 }
 
@@ -234,19 +236,20 @@ export const RenderGraph = ( {
 
       <div id='inner_graph' style={divStyle}>
         <div style={{position:'relative'}}>
-          <svg width={rightMostPosition+'px'} height = "300px" xmlns="http://www.w3.org/2000/svg" className="poulpe" style={{overflowX: "scroll", position: 'absolute', zIndex: 0}}>
-            <foreignObject>
-              <div xmlns="http://www.w3.org/1999/xhtml" style={{zIndex: -1}}>
-                {activities.map( (activity, i) => {
+            <div style={{position: 'absolute', zIndex: 0}}>
 
+            <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
+            {loaded ?
+            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
+            : ""}
+            </svg>
+              <div style={{position:'relative'}}>
+                {activities.map( (activity, i) => {
                   return (<DraggableAc
                     activity={activity}
                     editorMode={editorMode}
                     plane={activity.plane ? activity.plane : positions[i].plane}
                     key={activity._id}
-                    startTime={45}
-                    remove={true}
-                    duration={60}
                     defaultPosition={activity.position ? activity.position : positions[i].position}
                     arrayIndex={i}
                     handleMove={handleMove}
@@ -258,14 +261,10 @@ export const RenderGraph = ( {
                     />)
                 })}
               </div>
-            </foreignObject>
-            {loaded ?
-            <RenderOperators operators={operators} rightMostPosition={rightMostPosition}/>
-            : ""}
-          </svg>
+            </div>
         </div>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
-        <div style={{top: 50}} >
+        <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} />
         </div>
       </div>
@@ -328,7 +327,7 @@ class Graph extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       addedActivities: nextProps.addedActivities,
-      addedOperators: nextProps.addedOperators
+      addedOperators: nextProps.addedOperators,
     })
   }
 
@@ -388,6 +387,9 @@ class Graph extends Component {
       //We clone the activity for the draggable element
       let newActivity = _.clone(activity, true);
       newActivity._id = uuid();
+
+      const defaultTime = 40;
+      newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").position().left;

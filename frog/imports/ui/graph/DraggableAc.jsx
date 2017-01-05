@@ -28,6 +28,8 @@ const boxHeight = 40
 
 const resizeStep = 25
 
+const defaultTime = 10
+
 const adjustToGrid = (number) => {
   let remaining = number % 30
   return Math.round(number - remaining)
@@ -40,15 +42,15 @@ const convertTimeToPx = (unit, time) => {
 const getUnitInSeconds = (unit) => {
   switch(unit) {
     case 'hour':
-      return 3600
+      return 3600.0
     case 'minute':
-      return 60
-    default: return 1
+      return 60.0
+    default: return 1.0
   }
 }
 
 const convertPxToTime = (unit, time) => {
-  return getUnitInSeconds(unit) * time / unitTime
+  return time * getUnitInSeconds(unit) / unitTime
 }
 
 const divStyle = (duration) => {
@@ -106,9 +108,10 @@ export default class DraggableAc extends Component {
   }
 
   updatePosition = (deltaPosition) => {
-    const defaultPosition = this.defaultPosition();
+    const defaultPosition = this.state.totalPosition//this.defaultPosition();
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
+    //console.log("dd " + updatedPosition.x)
     this.setState({totalPosition: totalPosition})
     this.props.handleMove(this.props.arrayIndex, totalPosition)
   }
@@ -139,7 +142,8 @@ export default class DraggableAc extends Component {
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx('minute', activity.data.duration)
+    let duration = convertTimeToPx('minute', activity.data.duration ? activity.data.duration : defaultTime)
+    //console.log(this.defaultPosition().x)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
@@ -151,7 +155,7 @@ export default class DraggableAc extends Component {
             height: 40,
             width: divStyle(duration).width
           }}
-          isResizable= {{ top: false, right: editorMode && true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+          isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
           bounds={{left: 69}}
           minWidth= {40}
           maxWidth= {400}
@@ -177,7 +181,6 @@ export default class DraggableAc extends Component {
                 </span>
                 {this.props.editorMode ?
                   <a
-                    href='#'
                     onClick={(event) => this.props.delete(activity)}
                     >
                     <i className="fa fa-times" />
@@ -203,11 +206,8 @@ DraggableAc.propTypes = {
   activity: PropTypes.object.isRequired,
   editorMode: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
-  startTime: PropTypes.number.isRequired,
-  duration: PropTypes.number.isRequired,
   handleMove: PropTypes.func,
   arrayIndex: PropTypes.number.isRequired,
-  remove: PropTypes.bool,
   delete: PropTypes.func,
   sourceOperator: PropTypes.func,
   targetOperator: PropTypes.func,
