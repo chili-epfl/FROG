@@ -237,6 +237,12 @@ export const RenderGraph = ( {
       <div id='inner_graph' style={divStyle}>
         <div style={{position:'relative'}}>
             <div style={{position: 'absolute', zIndex: 0}}>
+
+            <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
+            {loaded ?
+            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
+            : ""}
+            </svg>
               <div style={{position:'relative'}}>
                 {activities.map( (activity, i) => {
                   return (<DraggableAc
@@ -258,12 +264,6 @@ export const RenderGraph = ( {
                     />)
                 })}
               </div>
-
-            <svg id="icipoulp" xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
-            {loaded ?
-            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
-            : ""}
-            </svg>
             </div>
         </div>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
