@@ -108,9 +108,10 @@ export default class DraggableAc extends Component {
   }
 
   updatePosition = (deltaPosition) => {
-    const defaultPosition = this.defaultPosition();
+    const defaultPosition = this.state.totalPosition//this.defaultPosition();
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
+    //console.log("dd " + updatedPosition.x)
     this.setState({totalPosition: totalPosition})
     this.props.handleMove(this.props.arrayIndex, totalPosition)
   }
@@ -142,6 +143,7 @@ export default class DraggableAc extends Component {
   render() {
     let {activity, editorMode} = this.props
     let duration = convertTimeToPx('seconds', activity.data.duration ? activity.data.duration : defaultTime)
+    //console.log(this.defaultPosition().x)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
