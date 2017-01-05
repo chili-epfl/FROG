@@ -175,8 +175,13 @@ export default class DraggableAc extends Component {
                 fill="white"
                 id={"target" + activity._id}/>
               <span>
-                {this.props.remove ?
-                  <button className="delete" onClick={(event) => this.props.delete(activity)}>&times;</button> : ""
+                {this.props.editorMode ?
+                  <a
+                    href='#'
+                    onClick={(event) => this.props.delete(activity)}
+                    >
+                    <i className="fa fa-times" />
+                  </a> : ""
                 }
               </span>
               <Anchor
@@ -200,9 +205,9 @@ DraggableAc.propTypes = {
   plane: PropTypes.number.isRequired,
   startTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
-  handleMove: PropTypes.func.isRequired,
+  handleMove: PropTypes.func,
   arrayIndex: PropTypes.number.isRequired,
-  remove: PropTypes.bool.isRequired,
+  remove: PropTypes.bool,
   delete: PropTypes.func,
   sourceOperator: PropTypes.func,
   targetOperator: PropTypes.func,
