@@ -32,6 +32,10 @@ export const addSessionActivity = (params) => {
   return(id)
 }
 
+export const updateGraphActivityDuration = (activityId, duration) => {
+  Activities.update({_id: activityId}, {$set: {"data.duration": duration}})
+}
+
 export const removeGraphActivity = (activityId) =>
   Meteor.call('graph.flush.activity', activityId)
 

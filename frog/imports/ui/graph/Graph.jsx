@@ -18,7 +18,7 @@ const AxisDisplay = ({rightMostPosition}) => {
   <div>
     <svg width={rightMostPosition+"px"} height="300px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
       <text x="0" y="20%" id="plane1">Plane 1</text>
-      <line x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <line id='line' x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
       <text x="0" y="50%" id="plane2">Plane 2</text>
       <line x1={charSize * 7} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
@@ -387,7 +387,7 @@ class Graph extends Component {
       }
     })
     removeGraphActivity(activity._id)
-  
+
     this.setState({addedOperators: filteredOperators})
 
   }
@@ -442,6 +442,7 @@ class Graph extends Component {
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
   }
 
+  /*
   handleResize = (event) => {
     event.preventDefault();
 
@@ -474,6 +475,7 @@ class Graph extends Component {
       }
     }
   }
+  */
 
   sourceClicked = (source) => {
     if(source === this.state.currentSource) {

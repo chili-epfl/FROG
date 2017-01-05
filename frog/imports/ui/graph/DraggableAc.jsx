@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 import Rnd from 'react-rnd';
 
+import { updateGraphActivityDuration } from '../../api/activities'
+
 import { $ } from 'meteor/jquery';
 
 import ReactTooltip from 'react-tooltip'
@@ -14,18 +16,47 @@ const computeTopPosition = (object) => {
   return elem - inner
 }
 
+const computeLeftPosition = (object) => {
+  let inner = $("#inner_graph").offset().left
+  let elem = $(object).offset().left
+  return elem - inner
+}
+
 const unitTime = 2
 
 const boxHeight = 40
 
 const resizeStep = 25
 
+const adjustToGrid = (number) => {
+  let remaining = number % 30
+  return Math.round(number - remaining)
+}
+
+const convertTimeToPx = (unit, time) => {
+  return adjustToGrid(time / getUnitInSeconds(unit) * unitTime)
+}
+
+const getUnitInSeconds = (unit) => {
+  switch(unit) {
+    case 'hour':
+      return 3600
+    case 'minute':
+      return 60
+    default: return 1
+  }
+}
+
+const convertPxToTime = (unit, time) => {
+  return getUnitInSeconds(unit) * time / unitTime
+}
+
 const divStyle = (duration) => {
   return {
     background: "white",
     textAlign:"center",
     border: 2,
-    width: duration*unitTime,
+    width: duration,
     height: boxHeight,
     margin: 10,
     padding: 10,
@@ -54,12 +85,16 @@ export default class DraggableAc extends Component {
       remove: false,
       hover: false,
       totalPosition: props.defaultPosition,
-      y: 0
+      y: 0,
+      leftBound: 0
     }
   }
 
   componentDidMount() {
-    this.setState({y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2})
+    this.setState({
+      y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2,
+      leftBound: computeLeftPosition("#line")
+    })
   }
 
   defaultPosition = () => {
@@ -98,8 +133,13 @@ export default class DraggableAc extends Component {
     this.props.handleStop(this.props.arrayIndex, this.state.totalPosition)
   }
 
+  handleResizeStop = (direction, styleSize, clientSize, delta) => {
+    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('minute', styleSize.width))
+  }
+
   render() {
-    let {activity} = this.props
+    let {activity, editorMode} = this.props
+    let duration = convertTimeToPx('minute', activity.data.duration)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
@@ -109,18 +149,20 @@ export default class DraggableAc extends Component {
             x: this.defaultPosition().x,
             y: this.defaultPosition().y,
             height: 40,
-            width: divStyle(this.props.duration).width
+            width: divStyle(duration).width
           }}
-          isResizable= {{ top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+          isResizable= {{ top: false, right: editorMode && true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
           minWidth= {40}
           maxWidth= {400}
           onDragStart={this.handleStart}
           onDrag={this.handleDrag}
           onDragStop={this.handleStop}
-          moveGrid={[30, 20]}
+          onResizeStop={this.handleResizeStop}
+          moveGrid={[editorMode ? 30 : 0, 0]}
           resizeGrid={[30, 0]}
+          bounds={{left: this.state.leftBound}}
           zIndex={0}
-          style={divStyle(this.props.duration)}
+          style={divStyle(duration)}
           >
           <span  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 0}}>
             <div id = {activity._id}>
