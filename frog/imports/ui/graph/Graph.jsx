@@ -14,30 +14,32 @@ import ReactTooltip from 'react-tooltip'
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition}) => {
+  const leftMargin = 10;
+  const textSizeAndMargin = charSize*7 + leftMargin;
   return(
   <div>
     <svg width={rightMostPosition+"px"} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
-      <text x="0" y="20%" id="plane1">Plane 1</text>
-      <line id='line1' x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x={leftMargin} y="20%" id="plane1">Plane 1</text>
+      <line id ='line1' x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <text x="0" y="50%" id="plane2">Plane 2</text>
-      <line id ='line2' x1={charSize * 7} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="50%" id="plane2">Plane 2</text>
+      <line id ='line2' x1={textSizeAndMargin} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x="0" y="80%" id="plane3">Plane 3</text>
-      <line id='line3' x1={charSize * 7} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="80%" id="plane3">Plane 3</text>
+      <line id ='line3' x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <TimeAxis width={rightMostPosition} interval={30} unit="minutes"/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={30} unit="minutes"/>
     </svg>
   </div>
 )}
 
-const TimeAxis = ({width, interval, unit}) => {
+const TimeAxis = ({totalLeftMargin, width, interval, unit}) => {
   return(
     <g>
-    <line x1={charSize * 7} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
+    <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
     {
       _.range(0, width, interval).map((timeGraduated, i) => {
-        return <line key={i} x1={charSize*7 + timeGraduated} y1="90%" x2={charSize*7 + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+        return <line key={i} x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
       })
     }
     </g>
@@ -661,14 +663,15 @@ const divStyle = {
   width: "100%",
   overflowX: "scroll",
   overflowY: "hidden",
-  border: 2,
+  border: 1,
   borderStyle: "solid",
-  borderColor: "yellow",
+  borderColor: "black",
 }
 
 const divListStyle = {
   position: "relative",
-  height: 300,
+  //height: 300,
+  display:"inline-block",
   width: "100%",
   border: 1,
   borderStyle: "solid",
