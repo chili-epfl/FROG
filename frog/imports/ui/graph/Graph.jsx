@@ -101,7 +101,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
   )
 }
 
-/*
+
 
 const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators}) => {
   return(
@@ -127,8 +127,8 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
       </g>
 
   )
-}*/
-
+}
+/*
 const RenderOperators =  ({operators, rightMostPosition, loaded}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
@@ -154,7 +154,7 @@ const RenderOperators =  ({operators, rightMostPosition, loaded}) => {
       </g>
 
   )
-}
+}*/
 
 const DrawToolTip = ( {operators, activities, positions}) => {
   return(
@@ -304,8 +304,6 @@ export const RenderGraph = ( {
           {
             clickedOperator ? listAvailableOperators() : ""
           }
-
-        </div>
           {loaded ?
           <DrawToolTip operators={operators} activities={activities} positions={positions}/>
           : ""}
@@ -367,6 +365,7 @@ class Graph extends Component {
 
   componentDidMount() {
     console.log("mount")
+    /*
     let opos = this.state.addedOperators.map((operator) => {
 
       let tsp = computeTopPosition("#source" + operator.from)
@@ -376,7 +375,8 @@ class Graph extends Component {
       return {tsp: tsp, ttp: ttp, lsp:lsp, ltp:ltp}
     })
     JSON.stringify(opos, null, 2)
-    this.setState({loaded: opos})
+    */
+    this.setState({loaded: true})
     this.props.handleLoaded()
   }
 
