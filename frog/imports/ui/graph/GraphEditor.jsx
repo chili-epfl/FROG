@@ -98,7 +98,7 @@ class GraphEditor extends Component {
 
 export default createContainer(() => {
   const user = Meteor.users.findOne({_id:Meteor.userId()})
-  let curentGraphId = ""
+  let currentGraphId = ""
   if(user.profile) {
     currentGraphId = user.profile.editingGraph
   }
