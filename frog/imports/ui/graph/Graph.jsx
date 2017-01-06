@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
-import { sortBy, reverse, take } from 'lodash'
+import { sortBy, reverse, take, range } from 'lodash'
 
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
@@ -26,14 +26,21 @@ const AxisDisplay = ({rightMostPosition}) => {
       <text x="0" y="80%" id="plane3">Plane 3</text>
       <line x1={charSize * 7} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <TimeAxis />
+      <TimeAxis width={rightMostPosition} interval={20} unit="minutes"/>
     </svg>
   </div>
 )}
 
-const TimeAxis = () => {
+const TimeAxis = ({width, interval, unit}) => {
   return(
+    <g>
     <line x1={charSize * 7} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
+    {
+      _.range(0, width, interval).map((timeGraduated, i) => {
+        return <line key={i} x1={charSize*7 + timeGraduated} y1="89%" x2={charSize*7 + timeGraduated} y2="91%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      })
+    }
+    </g>
   );
 }
 

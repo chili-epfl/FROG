@@ -145,7 +145,6 @@ export default class DraggableAc extends Component {
   render() {
     let {activity, editorMode} = this.props
     let duration = convertTimeToPx('minute', activity.data.duration ? activity.data.duration : defaultTime)
-    //console.log(this.defaultPosition().x)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
