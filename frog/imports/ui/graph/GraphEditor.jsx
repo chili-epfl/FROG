@@ -5,7 +5,7 @@ import { uuid } from 'frog-utils'
 
 import { Graphs, addGraph, remameGraph } from '../../api/graphs'
 import { Activities, Operators, removeGraph } from '../../api/activities'
-import Graph, { RenderGraph } from './Graph'
+import Graph, { RenderGraph, computeTopPosition } from './Graph'
 
 const setCurrentGraph = (graphId) => {
   Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.editingGraph': graphId}})
@@ -22,12 +22,16 @@ class RenderRepoGraph extends Component {
       activities: activities,
       operators: operators,
       positions: positions,
-      loaded: false
+      loaded: false,
+      planes: {plane1:0, plane2: 0, plane3:0}
     }
   }
 
   componentDidMount() {
-    this.setState({loaded: true})
+    let plane1 = computeTopPosition("#plane1")
+    let plane2 = computeTopPosition("#plane2")
+    let plane3 = computeTopPosition("#plane3")
+    this.setState({loaded: true, planes: {plane1: plane1, plane2:plane2, plane3:plane3}})
   }
 
   render() {
@@ -37,7 +41,8 @@ class RenderRepoGraph extends Component {
         operators={this.state.operators}
         editorMode={false}
         loaded={this.state.loaded}
-        positions={this.state.positions}/>
+        positions={this.state.positions}
+        plane={this.state.planes}/>
     )
   }
 }

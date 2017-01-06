@@ -103,15 +103,17 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 
 
-const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators}) => {
+const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#inner_graph").scrollLeft()
-          let tsp = computeTopPosition("#source" + operator.from)
-          let ttp = computeTopPosition("#target" + operator.to)
-          let lsp = computeLeftPosition("#source" + operator.from)
-          let ltp = computeLeftPosition("#target" + operator.to)
+          $("inner_graph")
+          //let mock = computeTopPosition("#source" + operator.from._id)
+          let tsp = getHeight(operator.from.plane, planes)
+          let ttp = getHeight(operator.to.plane, planes)
+          let lsp = computeLeftPosition("#source" + operator.from._id)
+          let ltp = computeLeftPosition("#target" + operator.to._id)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -267,6 +269,7 @@ export const RenderGraph = ( {
   sourceOperator,
   targetOperator,
   loaded,
+  plane,
   activitySourceClicked}) => {
 
   const rightMostPosition = getRightMostPosition(positions);
@@ -277,7 +280,13 @@ export const RenderGraph = ( {
 
               <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
               {loaded ?
-              <RenderOperators operators={operators} rightMostPosition={rightMostPosition} onClickOperator={onClickOperator} clickedOperator={clickedOperator} listAvailableOperators={listAvailableOperators}/>
+                <RenderOperators
+                  operators={operators}
+                  rightMostPosition={rightMostPosition}
+                  onClickOperator={onClickOperator}
+                  clickedOperator={clickedOperator}
+                  listAvailableOperators={listAvailableOperators}
+                  planes={plane}/>
               : ""}
               </svg>
 
@@ -305,7 +314,7 @@ export const RenderGraph = ( {
             clickedOperator ? listAvailableOperators() : ""
           }
           {loaded ?
-          <DrawToolTip operators={operators} activities={activities} positions={positions}/>
+            <DrawToolTip operators={operators} activities={activities} positions={positions}/>
           : ""}
         <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} />
@@ -326,7 +335,7 @@ const getRightMostPosition = (positions) => {
     return (rightMostPosition >= 1000) ? rightMostPosition + 300 : 1100;
 }
 
-const computeTopPosition = (object) => {
+export const computeTopPosition = (object) => {
   let elem = $(object).offset().top
   let inner = $("#inner_graph").offset().top
 
@@ -337,6 +346,17 @@ const computeLeftPosition = (object) => {
   let inner = $("#inner_graph").offset().left
   let elem = $(object).offset().left
   return elem - inner
+}
+
+const getHeight = (plane, planes) => {
+  switch(plane) {
+    case 1:
+      return planes.plane1
+    case 2:
+      return planes.plane2
+    case 3:
+      return planes.plane3
+  }
 }
 
 class Graph extends Component {
@@ -360,23 +380,16 @@ class Graph extends Component {
       loaded: false,
       clickedOperator: null,
       clickedOperatorPosition: null,
+      plane: {plane1: 0, plane2: 0, plane3: 0}
     };
   }
 
   componentDidMount() {
     console.log("mount")
-    /*
-    let opos = this.state.addedOperators.map((operator) => {
-
-      let tsp = computeTopPosition("#source" + operator.from)
-      let ttp = computeTopPosition("#target" + operator.to)
-      let lsp = computeLeftPosition("#source" + operator.from)
-      let ltp = computeLeftPosition("#target" + operator.to)
-      return {tsp: tsp, ttp: ttp, lsp:lsp, ltp:ltp}
-    })
-    JSON.stringify(opos, null, 2)
-    */
-    this.setState({loaded: true})
+    let plane1 = computeTopPosition("#plane1")
+    let plane2 = computeTopPosition("#plane2")
+    let plane3 = computeTopPosition("#plane3")
+    this.setState({loaded: true, plane: {plane1: plane1, plane2:plane2, plane3:plane3}})
     this.props.handleLoaded()
   }
 
@@ -384,6 +397,7 @@ class Graph extends Component {
     this.setState({
       addedActivities: nextProps.addedActivities,
       addedOperators: nextProps.addedOperators,
+      loaded: nextProps.loaded
     })
   }
 
@@ -417,10 +431,10 @@ class Graph extends Component {
       this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
     let filteredOperators = this.state.addedOperators.filter((operator) => {
-      return (operator.from != activity._id && operator.to != activity._id)
+      return (operator.from._id != activity._id && operator.to._id != activity._id)
     })
     let operatorsToDelete = this.state.addedOperators.forEach((operator) => {
-      if (!(operator.from != activity._id && operator.to != activity._id)) {
+      if (!(operator.from._id != activity._id && operator.to._id != activity._id)) {
         removeGraphOperator(operator._id, this.props.graphId)
         if(this.state.clickedOperator == operator) {
           this.setState({clickedOperator:null, clickedOperatorPosition:null})
@@ -496,9 +510,9 @@ class Graph extends Component {
 
   addNewOperator = (target) => {
     if(this.state.currentSource != null) {
-      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource._id, to:target._id});
+      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
       this.setState({currentSource:null, addedOperators:newOperators});
-      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: this.state.currentSource._id, to:target._id})
+      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: this.state.currentSource, to:target})
     }
   }
 
@@ -559,6 +573,7 @@ class Graph extends Component {
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
             loaded={this.state.loaded}
+            plane={this.state.plane}
             />
 
           <TempAc
