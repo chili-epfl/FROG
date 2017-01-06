@@ -15,18 +15,19 @@ import ReactTooltip from 'react-tooltip'
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition}) => {
   const leftMargin = 10;
-  const textSizeAndMargin = charSize*7 + leftMargin;
+  const textSizeAndMargin = charSize*10 + leftMargin;
   return(
   <div>
-    <svg width={rightMostPosition+"px"} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
-      <text x={leftMargin} y="20%" id="plane1">Plane 1</text>
-      <line id ='line1' x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
+    <svg width={rightMostPosition} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
 
-      <text x={leftMargin} y="50%" id="plane2">Plane 2</text>
+      <text x={leftMargin} y="20%" id="plane3">Class</text>
+      <line id ='line3' x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
+
+      <text x={leftMargin} y="50%" id="plane2">Team</text>
       <line id ='line2' x1={textSizeAndMargin} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x={leftMargin} y="80%" id="plane3">Plane 3</text>
-      <line id ='line3' x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="80%" id="plane1">Individual</text>
+      <line id ='line1' x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
       <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={30} unit="minutes"/>
     </svg>
@@ -120,7 +121,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes}) => {
   return(
-      <g width={rightMostPosition + 'px'} height={divStyle.height}  style={{position: 'absolute', zIndex: 0}}>
+      <g width={rightMostPosition} height={divStyle.height}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#inner_graph").scrollLeft()
           //let mock = computeTopPosition("#source" + operator.from._id)
@@ -240,13 +241,13 @@ const BoxAc = ( {onHoverStart, hoverStop, plane, activity} ) => {
   )
 }
 
-const RenderDraggable = ( { handleClick, handleHoverStop, activities}) => {return(
+const RenderDraggable = ( { handleHover, handleHoverStop, activities}) => {return(
     <div>
       <div style={divListStyle}>
 
         {activities.map((activity, i) => {
           return <BoxAc
-          onHoverStart={(event) => handleClick(event, i%3 +1, activity)}
+          onHoverStart={(event) => handleHover(event, i%3 +1, activity)}
           hoverStop={handleHoverStop}
           key={i}
           activity={activity}
@@ -300,7 +301,7 @@ export const RenderGraph = ( {
       <div id='inner_graph' style={divStyle}>
         <div style={{position:'relative'}}>
             <div style={{position: 'absolute', zIndex: 0}}>
-              <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
+              <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {divStyle.height}>
               {loaded ?
                 <RenderOperators
                   operators={operators}
@@ -430,7 +431,7 @@ class Graph extends Component {
     }
   }
 
-  handleClick = (event, plane, activity) => {
+  handleHover = (event, plane, activity) => {
     event.preventDefault();
     let position = $("#box" + activity._id).position()
 
@@ -617,7 +618,7 @@ class Graph extends Component {
 
           <RenderDraggable
             id='list'
-            handleClick={this.handleClick}
+            handleHover={this.handleHover}
             handleHoverStop={this.handleHoverStop}
             activities = {this.props.activities}/>
 
@@ -670,7 +671,6 @@ const divStyle = {
 
 const divListStyle = {
   position: "relative",
-  //height: 300,
   display:"inline-block",
   width: "100%",
   border: 1,
