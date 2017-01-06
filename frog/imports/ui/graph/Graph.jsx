@@ -6,7 +6,7 @@ import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take } from 'lodash'
 
-import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, removeGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
 import { $ } from 'meteor/jquery'
@@ -80,7 +80,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
   if(Math.abs(leftSource-leftTarget) < 30) {
     return (
       <line
-        data-tip data-for={"operator" + i} data-event='click focus'
+        data-tip data-for={"operator" + i} data-event-off='mouseDown'
         id={i}
         key ={i}
         x1={right ? width + left : left}
@@ -93,15 +93,17 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
   return(
     <path
-      data-tip data-for={"operator" + i} data-event='click focus'
+      data-tip data-for={"operator" + i}  data-event-off='mouseDown'
       id={i}
       key ={i}
       d={"M" + (left + startX) + "," + (top + startY) + " c"+ cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
       style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: 10}}/>
   )
 }
+
 /*
-const RenderOperators =  ({operators, rightMostPosition}) => {
+
+const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
@@ -117,7 +119,7 @@ const RenderOperators =  ({operators, rightMostPosition}) => {
           let goUp = (top == ttp)
           let goRight = (left == lsp)
           return (
-            <g key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} x={top} y={left + scroll} style={{zIndex: 0, position: 'absolute'}}>
+            <g key={"op"+i} width={Math.max(width, 5)} height={Math.max(height, 5)} x={top} y={left + scroll} style={{zIndex: 0, position: 'absolute'}} onClick={(event) => onClickOperator(event, operator, left+width/2, top+height/2)}>
               <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp} top={top} left={left + scroll}/>
             </g>
           )
@@ -158,7 +160,12 @@ const DrawToolTip = ( {operators, activities, positions}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
-        return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" effect='float' style={{position: 'absolute', zIndex: 10}}>Operator</ReactTooltip>
+        return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" style={{position: 'absolute', zIndex: 10}}>
+          Operator
+          <pre>{
+            JSON.stringify({"operator_type":operator.operator_type, "type":operator.type, "data":operator.data}, null, 2)
+          }</pre>
+        </ReactTooltip>
       })}
       {activities.map( (activity, i) => {
         return <ReactTooltip
@@ -244,12 +251,16 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
   )
 }
 
+
 export const RenderGraph = ( {
   editorMode,
   activities,
   positions,
   sizes,
   operators,
+  onClickOperator,
+  clickedOperator,
+  listAvailableOperators,
   deleteAc,
   handleMove,
   handleStop,
@@ -264,9 +275,13 @@ export const RenderGraph = ( {
       <div id='inner_graph' style={divStyle}>
         <div style={{position:'relative'}}>
 
-            <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
-            <foreignObject>
-              <div xmlns="http://www.w3.org/1999/xhtml" style={{zIndex: -1}}>
+              <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
+              {loaded ?
+              <RenderOperators operators={operators} rightMostPosition={rightMostPosition} onClickOperator={onClickOperator} clickedOperator={clickedOperator} listAvailableOperators={listAvailableOperators}/>
+              : ""}
+              </svg>
+
+              <div style={{position:'relative'}}>
                 {activities.map( (activity, i) => {
                   return (<DraggableAc
                     activity={activity}
@@ -284,14 +299,16 @@ export const RenderGraph = ( {
                     />)
                 })}
               </div>
-            </foreignObject>
-            {loaded.length != 0 ?
-            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} loaded={loaded}/>
-            : ""}
-            </svg>
+            </div>
+
+          {
+            clickedOperator ? listAvailableOperators() : ""
+          }
 
         </div>
-        <DrawToolTip operators={operators} activities={activities} positions={positions}/>
+          {loaded ?
+          <DrawToolTip operators={operators} activities={activities} positions={positions}/>
+          : ""}
         <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} />
         </div>
@@ -342,7 +359,9 @@ class Graph extends Component {
       hoverBoxPosition: {x: 0, y:0},
       addedOperators: props.addedOperators,
       currentSource: null,
-      loaded: []
+      loaded: false,
+      clickedOperator: null,
+      clickedOperatorPosition: null,
     };
   }
 
@@ -403,6 +422,9 @@ class Graph extends Component {
     let operatorsToDelete = this.state.addedOperators.forEach((operator) => {
       if (!(operator.from != activity._id && operator.to != activity._id)) {
         removeGraphOperator(operator._id, this.props.graphId)
+        if(this.state.clickedOperator == operator) {
+          this.setState({clickedOperator:null, clickedOperatorPosition:null})
+        }
       }
     })
     removeGraphActivity(activity._id)
@@ -480,6 +502,44 @@ class Graph extends Component {
     }
   }
 
+  clickedOperator = (event, operator, x, y) => {
+    event.preventDefault();
+    if(this.state.clickedOperator != operator) {
+      this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x-60, y:y-19}})
+    }
+  }
+
+  operatorChosen = (event) => {
+    event.preventDefault();
+    if(event.target.value >= 0) {
+      const chosenOperator = this.props.operators[event.target.value];
+      this.state.clickedOperator.operator_type = chosenOperator.operator_type;
+      this.state.clickedOperator.type = chosenOperator.type;
+      this.state.clickedOperator.data = chosenOperator.data;
+      modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type, chosenOperator.type, chosenOperator.data)
+    }
+    this.setState({clickedOperator:null, clickedOperatorPosition:null})
+  }
+
+  listAvailableOperators = () => {
+    return (
+      <div style={{position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
+      <select id="operators" size="2" onChange={(event) => this.operatorChosen(event)}>
+        <option key={"cancel"} value={-1}>Cancel</option>
+        {
+          this.props.operators.map((operator, i) => {
+            return <option key={"choice"+i} value={i}>
+                      {operator.operator_type}
+                   </option>
+          })
+        }
+      </select>
+      </div>
+    )
+  }
+
+
+
   render() {
     return (
       <div id="graph-summary" >
@@ -489,6 +549,9 @@ class Graph extends Component {
             activities={this.state.addedActivities}
             positions={this.state.addedPositions}
             operators={this.state.addedOperators}
+            onClickOperator={this.clickedOperator}
+            clickedOperator={this.state.clickedOperator}
+            listAvailableOperators={this.listAvailableOperators}
             deleteAc={this.deleteInGraphAc}
             handleMove={this.handleMove}
             handleStop={this.handleStop}

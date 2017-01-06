@@ -93,10 +93,12 @@ export default class DraggableAc extends Component {
   }
 
   componentDidMount() {
+
     this.setState({
       y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2,
       leftBound: computeLeftPosition("#line")
     })
+
   }
 
   defaultPosition = () => {
