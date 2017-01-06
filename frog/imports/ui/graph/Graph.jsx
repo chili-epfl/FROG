@@ -277,7 +277,9 @@ export const RenderGraph = ( {
             clickedOperator ? listAvailableOperators() : ""
           }
         </div>
-        <DrawToolTip operators={operators} activities={activities} positions={positions}/>
+          {loaded ?
+          <DrawToolTip operators={operators} activities={activities} positions={positions}/>
+          : ""}
         <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} />
         </div>
