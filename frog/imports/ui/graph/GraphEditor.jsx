@@ -90,6 +90,7 @@ class GraphEditor extends Component {
 
         <h3>Graph editor</h3>
         <button className='btn btn-primary btn-sm' onClick={() => this.submitReplace(addGraph())}>New</button>
+        <br/>
         <Graph activities = {this.props.activities} operators = {this.props.operators} loaded={this.state.loaded} handleLoaded={this.handleLoaded}/>
       </div>
     )

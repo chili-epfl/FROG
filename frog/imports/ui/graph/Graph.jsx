@@ -434,6 +434,7 @@ class Graph extends Component {
   handleHover = (event, plane, activity) => {
     event.preventDefault();
     let position = $("#box" + activity._id).position()
+    console.log(position.left + " " + position.top)
 
     this.setState({
       currentPlane: plane,
@@ -591,6 +592,7 @@ class Graph extends Component {
   render() {
     return (
       <div id="graph-summary" >
+          <br />
           <RenderGraph
             id = 'planes'
             editorMode={true}
@@ -609,13 +611,12 @@ class Graph extends Component {
             loaded={this.state.loaded}
             plane={this.state.plane}
             />
-
+          <br/>
           <TempAc
             handleDragStop = {this.handleDragStop}
             position = {this.state.hoverBoxPosition}
             plane = {this.state.currentPlane}
             current = {this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}/>
-
           <RenderDraggable
             id='list'
             handleHover={this.handleHover}
