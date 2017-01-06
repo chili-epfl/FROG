@@ -30,6 +30,8 @@ const resizeStep = 25
 
 const defaultTime = 10
 
+const circleRadius = 6
+
 const adjustToGrid = (number) => {
   let remaining = number % 30
   return Math.round(number - remaining)
@@ -72,8 +74,8 @@ const divStyle = (duration) => {
 
 const Anchor = ({id, fill, onClick}) => {
   return (
-    <svg height="10" width="10" style={{position: "relative"}} onClick={onClick}>
-      <circle cx="5" cy="5" r="5" stroke="black" fill={fill} id={id}/>
+    <svg height={2*circleRadius} width={2*circleRadius} style={{position: "relative"}} onClick={onClick}>
+      <circle cx={circleRadius} cy={circleRadius} r={circleRadius} stroke="black" fill={fill} id={id}/>
     </svg>
   )
 }
@@ -171,11 +173,23 @@ export default class DraggableAc extends Component {
           style={divStyle(duration)}
           >
           <span style={{position: 'relative', zIndex: 0}}>
-            <div id = {activity._id}>
-              <Anchor
+            <div style={{position: 'relative', zIndex: 0}}>
+              <div style={{position: 'absolute', zIndex: 0, left:-4*circleRadius}}>
+                <Anchor
                 onClick={(event) => this.props.targetOperator(activity)}
                 fill="white"
-                id={"target" + activity._id}/>
+                id={"target" + activity._id}
+                />
+              </div>
+              <div style={{position: 'absolute', zIndex: 0, right:-4*circleRadius}}>
+                <Anchor
+                onClick={(event) => this.props.sourceOperator(activity)}
+                fill={this.props.isSourceClicked ? "red" : "white"}
+                id={"source" + activity._id} 
+                />
+              </div>
+            </div>
+            <div id = {activity._id}>
               <span>
                 <span data-tip data-for={"tip" + activity._id}>
                   <i className="fa fa-info" />
@@ -188,10 +202,6 @@ export default class DraggableAc extends Component {
                   </a> : ""
                 }
               </span>
-              <Anchor
-                onClick={(event) => this.props.sourceOperator(activity)}
-                fill={this.props.isSourceClicked ? "red" : "white"}
-                id={"source" + activity._id} />
 
             </div>
           </span>
