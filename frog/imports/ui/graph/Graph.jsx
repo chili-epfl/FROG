@@ -255,9 +255,6 @@ export const RenderGraph = ( {
                     editorMode={editorMode}
                     plane={activity.plane ? activity.plane : positions[i].plane}
                     key={activity._id}
-                    startTime={45}
-                    remove={true}
-                    duration={60}
                     defaultPosition={activity.position ? activity.position : positions[i].position}
                     arrayIndex={i}
                     handleMove={handleMove}
@@ -276,7 +273,7 @@ export const RenderGraph = ( {
           }
         </div>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
-        <div style={{top: 50}} >
+        <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} />
         </div>
       </div>
@@ -296,7 +293,6 @@ const getRightMostPosition = (positions) => {
 }
 
 const computeTopPosition = (object) => {
-
   let elem = $(object).offset().top
   let inner = $("#inner_graph").offset().top
 
@@ -321,10 +317,7 @@ class Graph extends Component {
     this.state = {
       addedActivities: props.addedActivities,
       addedPositions: positions,
-      addedSizes: [],
       currentDraggable: null,
-      currentResizable: -1,
-      oldXPos:-1,
       currentPlane: 0,
       defPos: {x: 0, y:0},
       hoverBoxPosition: {x: 0, y:0},
@@ -337,25 +330,27 @@ class Graph extends Component {
   }
 
   componentDidMount() {
+    console.log("mount")
     this.setState({loaded: true})
+    this.props.handleLoaded()
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      addedActivities: nextProps.addedActivities
+      addedActivities: nextProps.addedActivities,
+      addedOperators: nextProps.addedOperators,
     })
   }
 
   handleClick = (event, plane, activity) => {
     event.preventDefault();
-    //if(event.buttons === 0) {
-      let position = $("#box" + activity._id).position()
+    let position = $("#box" + activity._id).position()
 
-      this.setState({
-        currentPlane: plane,
-        currentDraggable: activity,
-        hoverBoxPosition: {x: position.left, y: position.top}})
-    //}
+    this.setState({
+      currentPlane: plane,
+      currentDraggable: activity,
+      hoverBoxPosition: {x: position.left, y: position.top}})
+
   }
 
   handleHoverStop = (event) => {
@@ -363,7 +358,6 @@ class Graph extends Component {
     this.setState({currentDraggable: null});
 
   }
-
 
   deleteInGraphAc = (activity) => {
     var index = this.state.addedActivities.indexOf(activity)
@@ -374,10 +368,8 @@ class Graph extends Component {
       var positionsLess =
         this.state.addedPositions.slice(0, index).concat(
           this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
-      var sizesLess =
-        this.state.addedSizes.slice(0, index).concat(
-          this.state.addedSizes.slice(index+1, this.state.addedSizes.length));
-      this.setState({addedActivities: activitiesLess, addedPositions: positionsLess, addedSizes:sizesLess})
+
+      this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
     }
     let filteredOperators = this.state.addedOperators.filter((operator) => {
       return (operator.from != activity._id && operator.to != activity._id)
@@ -420,8 +412,7 @@ class Graph extends Component {
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
 
-      let newSizes = this.state.addedSizes.concat(100);
-      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, position: newPosition, data: newActivity.data, plane: plane})
+      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, position: newPosition, data: activity.data, plane: plane})
       this.setState({addedActivities: newActivities, addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});
@@ -445,41 +436,6 @@ class Graph extends Component {
     this.handleMove(arrayIndex, position)
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
   }
-
-  /*
-  handleResize = (event) => {
-    event.preventDefault();
-
-    if(this.state.currentResizable != -1) {
-
-      const posX = $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left
-        + $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).outerWidth()
-      const mouseX = event.clientX + window.scrollX
-
-      if(event.buttons !== 0) {
-        if(this.state.oldXPos == -1) {
-          this.setState({oldXPos: event.clientX + window.scrollX});
-        }
-        else {
-          let newDuration = mouseX - $("#draggable" + this.state.addedActivities[this.state.currentResizable]._id).offset().left;
-          newDuration = newDuration < 100 ? 100 : newDuration;
-
-          let modifiedAddedSizes = this.state.addedSizes
-            .slice(0, this.state.currentResizable)
-            .concat(newDuration)
-            .concat(this.state.addedSizes
-                      .slice(this.state.currentResizable+1, this.state.addedSizes.length))
-
-          this.setState({oldXPos: mouseX, addedSizes: modifiedAddedSizes});
-        }
-
-      }
-      else if(Math.abs(mouseX - posX) > 2) {
-        this.setState({currentResizable: -1, oldXPos:-1});
-      }
-    }
-  }
-  */
 
   sourceClicked = (source) => {
     if(source === this.state.currentSource) {
@@ -597,6 +553,7 @@ export default createContainer(
   },
   Graph
 )
+
 
 const charSize = 12;
 

@@ -23,8 +23,8 @@ class Body extends Component {
         case "Activity Editor":
           return (<ActivityEditor />);
         case "Graph Editor":
-          return (<Editor />);
-          //return (<GraphEditor />);
+          //return (<Editor />);
+          return (<GraphEditor />);
         case "Student View":
           return (<StudentView />);
         case "Teacher View":

@@ -31,7 +31,7 @@ const resizeStep = 25
 const defaultTime = 10
 
 const adjustToGrid = (number) => {
-  let remaining = number % 10
+  let remaining = number % 30
   return Math.round(number - remaining)
 }
 
@@ -104,7 +104,7 @@ export default class DraggableAc extends Component {
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
     return {
-      x: editorMode ? defaultPosition.x : this.props.startTime  * unitTime,
+      x: defaultPosition.x,
       y: this.state.y
     }
   }
@@ -139,12 +139,12 @@ export default class DraggableAc extends Component {
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
-    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('seconds', styleSize.width))
+    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('minute', styleSize.width))
   }
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx('seconds', activity.data.duration ? activity.data.duration : defaultTime)
+    let duration = convertTimeToPx('minute', activity.data.duration ? activity.data.duration : defaultTime)
     //console.log(this.defaultPosition().x)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
@@ -171,13 +171,16 @@ export default class DraggableAc extends Component {
           zIndex={0}
           style={divStyle(duration)}
           >
-          <span  data-tip data-for={"tip" + activity._id} style={{position: 'relative', zIndex: 0}}>
+          <span style={{position: 'relative', zIndex: 0}}>
             <div id = {activity._id}>
               <Anchor
                 onClick={(event) => this.props.targetOperator(activity)}
                 fill="white"
                 id={"target" + activity._id}/>
               <span>
+                <span data-tip data-for={"tip" + activity._id}>
+                  <i className="fa fa-info" />
+                </span>
                 {this.props.editorMode ?
                   <a
                     onClick={(event) => this.props.delete(activity)}
@@ -205,11 +208,8 @@ DraggableAc.propTypes = {
   activity: PropTypes.object.isRequired,
   editorMode: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
-  startTime: PropTypes.number.isRequired,
-  duration: PropTypes.number.isRequired,
   handleMove: PropTypes.func,
   arrayIndex: PropTypes.number.isRequired,
-  remove: PropTypes.bool,
   delete: PropTypes.func,
   sourceOperator: PropTypes.func,
   targetOperator: PropTypes.func,
