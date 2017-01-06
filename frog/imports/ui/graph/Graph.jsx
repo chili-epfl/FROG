@@ -463,11 +463,13 @@ class Graph extends Component {
 
   operatorChosen = (event) => {
     event.preventDefault();
-    const chosenOperator = this.props.operators[event.target.value];
-    this.state.clickedOperator.operator_type = chosenOperator.operator_type;
-    this.state.clickedOperator.type = chosenOperator.type;
-    this.state.clickedOperator.data = chosenOperator.data;
-    modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type, chosenOperator.type, chosenOperator.data)
+    if(event.target.value != null) {
+      const chosenOperator = this.props.operators[event.target.value];
+      this.state.clickedOperator.operator_type = chosenOperator.operator_type;
+      this.state.clickedOperator.type = chosenOperator.type;
+      this.state.clickedOperator.data = chosenOperator.data;
+      modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type, chosenOperator.type, chosenOperator.data)
+    }
     this.setState({clickedOperator:null, clickedOperatorPosition:null})
   }
 
@@ -475,6 +477,7 @@ class Graph extends Component {
     return (
       <div style={{position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
       <select id="operators" size="2" onChange={(event) => this.operatorChosen(event)}>
+        <option key={"cancel"} value={null}>Cancel</option>
         {
           this.props.operators.map((operator, i) => {
             return <option key={"choice"+i} value={i}>
