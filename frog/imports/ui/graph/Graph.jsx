@@ -97,10 +97,10 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
       id={i}
       key ={i}
       d={"M" + (left + startX) + "," + (top + startY) + " c"+ cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
-      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: -1}}/>
+      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: 10}}/>
   )
 }
-
+/*
 const RenderOperators =  ({operators, rightMostPosition}) => {
   return(
       <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
@@ -110,6 +110,33 @@ const RenderOperators =  ({operators, rightMostPosition}) => {
           let ttp = computeTopPosition("#target" + operator.to)
           let lsp = computeLeftPosition("#source" + operator.from)
           let ltp = computeLeftPosition("#target" + operator.to)
+          let top = Math.min(tsp, ttp)
+          let left = Math.min(lsp, ltp)
+          let width = Math.abs(ltp-lsp)
+          let height = Math.abs(tsp -ttp)
+          let goUp = (top == ttp)
+          let goRight = (left == lsp)
+          return (
+            <g key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} x={top} y={left + scroll} style={{zIndex: 0, position: 'absolute'}}>
+              <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp} top={top} left={left + scroll}/>
+            </g>
+          )
+        })}
+      </g>
+
+  )
+}*/
+
+const RenderOperators =  ({operators, rightMostPosition, loaded}) => {
+  return(
+      <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
+        {operators.map( (operator, i) => {
+          let scroll = $("#inner_graph").scrollLeft()
+          let opos = loaded[i]
+          let tsp = opos.tsp
+          let ttp = opos.ttp
+          let lsp = opos.lsp
+          let ltp = opos.ltp
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -236,14 +263,10 @@ export const RenderGraph = ( {
 
       <div id='inner_graph' style={divStyle}>
         <div style={{position:'relative'}}>
-            <div style={{position: 'absolute', zIndex: 0}}>
 
             <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition+'px'} height = {divStyle.height}>
-            {loaded ?
-            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} />
-            : ""}
-            </svg>
-              <div style={{position:'relative'}}>
+            <foreignObject>
+              <div xmlns="http://www.w3.org/1999/xhtml" style={{zIndex: -1}}>
                 {activities.map( (activity, i) => {
                   return (<DraggableAc
                     activity={activity}
@@ -261,7 +284,12 @@ export const RenderGraph = ( {
                     />)
                 })}
               </div>
-            </div>
+            </foreignObject>
+            {loaded.length != 0 ?
+            <RenderOperators operators={operators} rightMostPosition={rightMostPosition} loaded={loaded}/>
+            : ""}
+            </svg>
+
         </div>
         <DrawToolTip operators={operators} activities={activities} positions={positions}/>
         <div>
@@ -314,13 +342,22 @@ class Graph extends Component {
       hoverBoxPosition: {x: 0, y:0},
       addedOperators: props.addedOperators,
       currentSource: null,
-      loaded: false
+      loaded: []
     };
   }
 
   componentDidMount() {
     console.log("mount")
-    this.setState({loaded: true})
+    let opos = this.state.addedOperators.map((operator) => {
+
+      let tsp = computeTopPosition("#source" + operator.from)
+      let ttp = computeTopPosition("#target" + operator.to)
+      let lsp = computeLeftPosition("#source" + operator.from)
+      let ltp = computeLeftPosition("#target" + operator.to)
+      return {tsp: tsp, ttp: ttp, lsp:lsp, ltp:ltp}
+    })
+    JSON.stringify(opos, null, 2)
+    this.setState({loaded: opos})
     this.props.handleLoaded()
   }
 
