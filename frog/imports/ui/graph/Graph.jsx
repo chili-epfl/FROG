@@ -80,7 +80,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
   if(Math.abs(leftSource-leftTarget) < 30) {
     return (
       <line
-        data-tip data-for={"operator" + i} data-event='click focus'
+        data-tip data-for={"operator" + i} data-event-off='mouseDown'
         id={i}
         key ={i}
         x1={right ? width + left : left}
@@ -93,7 +93,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
   return(
     <path
-      data-tip data-for={"operator" + i} data-event='click focus'
+      data-tip data-for={"operator" + i}  data-event-off='mouseDown'
       id={i}
       key ={i}
       d={"M" + (left + startX) + "," + (top + startY) + " c"+ cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
@@ -117,7 +117,7 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
           let goUp = (top == ttp)
           let goRight = (left == lsp)
           return (
-            <g key={"op"+i} id={"op"+i} width={Math.max(width, 5)} height={Math.max(height, 5)} x={top} y={left + scroll} style={{zIndex: 0, position: 'absolute'}} onClick={(event) => onClickOperator(event, operator, left+width/2, top+height/2, "#op"+i)}>
+            <g key={"op"+i} width={Math.max(width, 5)} height={Math.max(height, 5)} x={top} y={left + scroll} style={{zIndex: 0, position: 'absolute'}} onClick={(event) => onClickOperator(event, operator, left+width/2, top+height/2)}>
               <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp} top={top} left={left + scroll}/>
             </g>
           )
@@ -131,7 +131,12 @@ const DrawToolTip = ( {operators, activities, positions}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
-        return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" effect='float' style={{position: 'absolute', zIndex: 10}}>Operator</ReactTooltip>
+        return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" style={{position: 'absolute', zIndex: 10}}>
+          Operator
+          <pre>{
+            JSON.stringify({"operator_type":operator.operator_type, "type":operator.type, "data":operator.data}, null, 2)
+          }</pre>
+        </ReactTooltip>
       })}
       {activities.map( (activity, i) => {
         return <ReactTooltip
@@ -377,6 +382,9 @@ class Graph extends Component {
     let operatorsToDelete = this.state.addedOperators.forEach((operator) => {
       if (!(operator.from != activity._id && operator.to != activity._id)) {
         removeGraphOperator(operator._id, this.props.graphId)
+        if(this.state.clickedOperator == operator) {
+          this.setState({clickedOperator:null, clickedOperatorPosition:null})
+        }
       }
     })
     removeGraphActivity(activity._id)
@@ -454,7 +462,7 @@ class Graph extends Component {
     }
   }
 
-  clickedOperator = (event, operator, x, y, name) => {
+  clickedOperator = (event, operator, x, y) => {
     event.preventDefault();
     if(this.state.clickedOperator != operator) {
       this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x-60, y:y-19}})
@@ -463,7 +471,7 @@ class Graph extends Component {
 
   operatorChosen = (event) => {
     event.preventDefault();
-    if(event.target.value != null) {
+    if(event.target.value >= 0) {
       const chosenOperator = this.props.operators[event.target.value];
       this.state.clickedOperator.operator_type = chosenOperator.operator_type;
       this.state.clickedOperator.type = chosenOperator.type;
@@ -477,7 +485,7 @@ class Graph extends Component {
     return (
       <div style={{position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
       <select id="operators" size="2" onChange={(event) => this.operatorChosen(event)}>
-        <option key={"cancel"} value={null}>Cancel</option>
+        <option key={"cancel"} value={-1}>Cancel</option>
         {
           this.props.operators.map((operator, i) => {
             return <option key={"choice"+i} value={i}>
