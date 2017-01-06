@@ -42,6 +42,9 @@ export const removeGraphActivity = (activityId) =>
 export const addGraphOperator = (params) =>
   Operators.insert({ ...params, graphId: params.graphId, created_at: new Date(), _id: uuid() })
 
+export const modifyGraphOperator = (operatorId, opType, type, data) =>
+  Operators.update(operatorId, {$set: {operator_type: opType, type: type, data: data}})
+
 export const addSessionOperator = (params) =>
   Operators.insert({ ...params, sessionId: params.sessionId, created_at: new Date(), _id: uuid() })
 
