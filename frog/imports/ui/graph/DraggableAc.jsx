@@ -88,7 +88,7 @@ export default class DraggableAc extends Component {
       hover: false,
       totalPosition: props.defaultPosition,
       y: 0,
-      leftBound: 0
+      leftBound: 69
     }
   }
 
@@ -158,7 +158,7 @@ export default class DraggableAc extends Component {
             width: divStyle(duration).width
           }}
           isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
-          bounds={{left: 69}}
+          bounds={{left: this.state.leftBound}}
           minWidth= {40}
           maxWidth= {400}
           onDragStart={this.handleStart}

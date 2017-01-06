@@ -16,7 +16,7 @@ import ReactTooltip from 'react-tooltip'
 const AxisDisplay = ({rightMostPosition}) => {
   return(
   <div>
-    <svg width={rightMostPosition+"px"} height="300px" xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
+    <svg width={rightMostPosition+"px"} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
       <text x="0" y="20%" id="plane1">Plane 1</text>
       <line id='line' x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
@@ -25,11 +25,17 @@ const AxisDisplay = ({rightMostPosition}) => {
 
       <text x="0" y="80%" id="plane3">Plane 3</text>
       <line x1={charSize * 7} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
+
+      <TimeAxis />
     </svg>
   </div>
 )}
 
-//const TimeAxis = ({})
+const TimeAxis = () => {
+  return(
+    <line x1={charSize * 7} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
+  );
+}
 
 const Separator = ( {id, onHover} ) => {
   return (
@@ -105,15 +111,14 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes}) => {
   return(
-      <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
+      <g width={rightMostPosition + 'px'} height={divStyle.height}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#inner_graph").scrollLeft()
-          $("inner_graph")
           //let mock = computeTopPosition("#source" + operator.from._id)
           let tsp = getHeight(operator.from.plane, planes)
           let ttp = getHeight(operator.to.plane, planes)
-          let lsp = computeLeftPosition("#source" + operator.from._id)
-          let ltp = computeLeftPosition("#target" + operator.to._id)
+          let lsp = computeLeftPosition("#source" + operator.from._id) 
+          let ltp = computeLeftPosition("#target" + operator.to._id) 
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -121,8 +126,16 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
           let goUp = (top == ttp)
           let goRight = (left == lsp)
           return (
-            <g key={"op"+i} width={Math.max(width, 5)} height={Math.max(height, 5)} x={top} y={left + scroll} style={{zIndex: 0, position: 'absolute'}} onClick={(event) => onClickOperator(event, operator, left+width/2, top+height/2)}>
-              <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp} top={top} left={left + scroll}/>
+            <g key={"op"+i} width={Math.max(width, 5)} 
+                            height={Math.max(height, 5)} 
+                            x={top} y={left + scroll} 
+                            style={{zIndex: 0, position: 'absolute'}} 
+                            onClick={(event) => {
+                              return onClickOperator(event, operator, left+width/2 + scroll, top+height/2)}}>
+              <OpPath up={goUp} right={goRight} i={i} 
+                      width={width} height={height} 
+                      leftSource={lsp} leftTarget={ltp} 
+                      top={top} left={left + scroll}/>
             </g>
           )
         })}
@@ -173,10 +186,10 @@ const DrawToolTip = ( {operators, activities, positions}) => {
         return <ReactTooltip
           key={"actip" + i}
           id={"tip"+activity._id}
-          place={activity.plane == 1 ? "bottom" : activity.plane == 2 ? "left" : "top"}
+          place="bottom"
           type="light">
           Activity: {activity._id}
-          <pre>{JSON.stringify(activity, null, 2)}</pre>
+          <pre>{JSON.stringify(activity.data, null, 2)}</pre>
         </ReactTooltip>
       })}
     </span>
@@ -519,6 +532,7 @@ class Graph extends Component {
   clickedOperator = (event, operator, x, y) => {
     event.preventDefault();
     if(this.state.clickedOperator != operator) {
+      $("#inner_graph").scrollLeft() - $("#inner_graph").position().left
       this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x-75, y:y-19}})
     }
   }
