@@ -18,15 +18,15 @@ const AxisDisplay = ({rightMostPosition}) => {
   <div>
     <svg width={rightMostPosition+"px"} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
       <text x="0" y="20%" id="plane1">Plane 1</text>
-      <line id='line' x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <line id='line1' x1={charSize * 7} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}} />
 
       <text x="0" y="50%" id="plane2">Plane 2</text>
-      <line x1={charSize * 7} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <line id ='line2' x1={charSize * 7} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
       <text x="0" y="80%" id="plane3">Plane 3</text>
-      <line x1={charSize * 7} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <line id='line3' x1={charSize * 7} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <TimeAxis width={rightMostPosition} interval={20} unit="minutes"/>
+      <TimeAxis width={rightMostPosition} interval={30} unit="minutes"/>
     </svg>
   </div>
 )}
@@ -37,7 +37,7 @@ const TimeAxis = ({width, interval, unit}) => {
     <line x1={charSize * 7} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
     {
       _.range(0, width, interval).map((timeGraduated, i) => {
-        return <line key={i} x1={charSize*7 + timeGraduated} y1="89%" x2={charSize*7 + timeGraduated} y2="91%" style={{stroke: 'black', strokeWidth:"1"}}/>
+        return <line key={i} x1={charSize*7 + timeGraduated} y1="90%" x2={charSize*7 + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
       })
     }
     </g>
@@ -124,8 +124,8 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
           //let mock = computeTopPosition("#source" + operator.from._id)
           let tsp = getHeight(operator.from.plane, planes)
           let ttp = getHeight(operator.to.plane, planes)
-          let lsp = computeLeftPosition("#source" + operator.from._id) 
-          let ltp = computeLeftPosition("#target" + operator.to._id) 
+          let lsp = computeLeftPosition("#source" + operator.from._id)
+          let ltp = computeLeftPosition("#target" + operator.to._id)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -133,15 +133,15 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
           let goUp = (top == ttp)
           let goRight = (left == lsp)
           return (
-            <g key={"op"+i} width={Math.max(width, 5)} 
-                            height={Math.max(height, 5)} 
-                            x={top} y={left + scroll} 
-                            style={{zIndex: 0, position: 'absolute'}} 
+            <g key={"op"+i} width={Math.max(width, 5)}
+                            height={Math.max(height, 5)}
+                            x={top} y={left + scroll}
+                            style={{zIndex: 0, position: 'absolute'}}
                             onClick={(event) => {
                               return onClickOperator(event, operator, left+width/2 + scroll, top+height/2)}}>
-              <OpPath up={goUp} right={goRight} i={i} 
-                      width={width} height={height} 
-                      leftSource={lsp} leftTarget={ltp} 
+              <OpPath up={goUp} right={goRight} i={i}
+                      width={width} height={height}
+                      leftSource={lsp} leftTarget={ltp}
                       top={top} left={left + scroll}/>
             </g>
           )
@@ -406,9 +406,9 @@ class Graph extends Component {
 
   componentDidMount() {
     console.log("mount")
-    let plane1 = computeTopPosition("#plane1")
-    let plane2 = computeTopPosition("#plane2")
-    let plane3 = computeTopPosition("#plane3")
+    let plane1 = computeTopPosition("#line1")
+    let plane2 = computeTopPosition("#line2")
+    let plane3 = computeTopPosition("#line3")
     this.setState({loaded: true, plane: {plane1: plane1, plane2:plane2, plane3:plane3}})
     this.props.handleLoaded()
   }
@@ -419,6 +419,13 @@ class Graph extends Component {
       addedOperators: nextProps.addedOperators,
       loaded: nextProps.loaded
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.loaded) {
+      this.setState({loaded: true})
+      this.props.handleLoaded()
+    }
   }
 
   handleClick = (event, plane, activity) => {

@@ -28,9 +28,9 @@ class RenderRepoGraph extends Component {
   }
 
   componentDidMount() {
-    let plane1 = computeTopPosition("#plane1")
-    let plane2 = computeTopPosition("#plane2")
-    let plane3 = computeTopPosition("#plane3")
+    let plane1 = computeTopPosition("#line1")
+    let plane2 = computeTopPosition("#line2")
+    let plane3 = computeTopPosition("#line3")
     this.setState({loaded: true, planes: {plane1: plane1, plane2:plane2, plane3:plane3}})
   }
 
