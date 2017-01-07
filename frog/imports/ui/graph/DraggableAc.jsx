@@ -10,14 +10,14 @@ import { $ } from 'meteor/jquery';
 
 import ReactTooltip from 'react-tooltip'
 
-const computeTopPosition = (object) => {
-  let inner = $("#inner_graph").offset().top
+const computeTopPosition = (object, graphId) => {
+  let inner = $("#" + graphId + "inner_graph").offset().top
   let elem = $(object).offset().top
   return elem - inner
 }
 
-const computeLeftPosition = (object) => {
-  let inner = $("#inner_graph").offset().left
+const computeLeftPosition = (object, graphId) => {
+  let inner = $("#" + graphId + "inner_graph").offset().left
   let elem = $(object).offset().left
   return elem - inner
 }
@@ -95,10 +95,10 @@ export default class DraggableAc extends Component {
   }
 
   componentDidMount() {
-
+    let {graphId} = this.props
     this.setState({
-      y: computeTopPosition("#plane" + this.props.plane) - boxHeight/2,
-      leftBound: computeLeftPosition("#line1")
+      y: computeTopPosition("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2,
+      leftBound: computeLeftPosition("#" + graphId + "line1", graphId)
     })
 
   }
@@ -178,14 +178,14 @@ export default class DraggableAc extends Component {
                 <Anchor
                 onClick={(event) => this.props.targetOperator(activity)}
                 fill="white"
-                id={"target" + activity._id}
+                id={"target" + this.props.graphId + activity._id}
                 />
               </div>
               <div style={{position: 'absolute', zIndex: 0, right:0}}>
                 <Anchor
                 onClick={(event) => this.props.sourceOperator(activity)}
                 fill={this.props.isSourceClicked ? "red" : "white"}
-                id={"source" + activity._id} 
+                id={"source" + this.props.graphId + activity._id}
                 />
               </div>
             </div>
@@ -224,4 +224,5 @@ DraggableAc.propTypes = {
   targetOperator: PropTypes.func,
   isSourceClicked: PropTypes.bool,
   interval: PropTypes.number.isRequired,
+  graphId: PropTypes.string.isRequired
 };
