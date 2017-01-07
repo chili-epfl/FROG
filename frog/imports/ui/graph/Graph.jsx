@@ -15,6 +15,7 @@ import ReactTooltip from 'react-tooltip'
 const charSize = 11;
 const interval = 30;
 const graphSize = 300
+const unit="seconds"
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
@@ -22,7 +23,7 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
   const textSizeAndMargin = charSize*10 + leftMargin;
   return(
   <div>
-    <svg width={rightMostPosition} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
+    <svg width={rightMostPosition + textSizeAndMargin} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
 
       <text x={leftMargin} y="20%" id={graphId + "plane3"}>Class</text>
       <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
@@ -33,7 +34,7 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
       <text x={leftMargin} y="80%" id={graphId + "plane1"}>Individual</text>
       <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit="minutes" cursor={cursor}/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit={unit} cursor={cursor}/>
     </svg>
   </div>
 )}
@@ -41,33 +42,34 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
 const TimeAxis = ({totalLeftMargin, width, interval, unit, cursor}) => {
   return(
     <g>
-    <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
-    {
-      <g>
-        {
-        _.range(0, width, interval).map((timeGraduated, i) => {
-          if(cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
-            return ""
+      <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x="10" y="90%">Time ({unit})</text>
+      {
+        <g>
+          {
+          _.range(0, width+totalLeftMargin, interval).map((timeGraduated, i) => {
+            if(cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
+              return ""
+            }
+            else {
+            return (
+              <g key={i}>
+                <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+                <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "65%"}}>{timeGraduated}</text>
+              </g>
+              );
+            }
+          })}
+          {
+            (cursor >= 0) ?
+              <g>
+                <line x1={totalLeftMargin + cursor} y1="90%" x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+                <text x={totalLeftMargin + cursor} y="93%" style={{writingMode: "tb", fontSize: "65%"}}>{cursor}</text>
+              </g>
+              : ""
           }
-          else {
-          return (
-            <g key={i}>
-              <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-              <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{timeGraduated}</text>
-            </g>
-            );
-          }
-        })}
-        {
-          (cursor >= 0) ?
-            <g>
-              <line x1={totalLeftMargin + cursor} y1="90%" x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-              <text x={totalLeftMargin + cursor} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{cursor}</text>
-            </g>
-            : ""
-        }
-      </g>
-    }
+        </g>
+      }
     </g>
   );
 }
@@ -313,6 +315,7 @@ export const RenderGraph = ( {
   deleteAc,
   handleMove,
   handleStop,
+  handleResize,
   sourceOperator,
   targetOperator,
   loaded,
@@ -352,6 +355,7 @@ export const RenderGraph = ( {
                     arrayIndex={i}
                     handleMove={handleMove}
                     handleStop={handleStop}
+                    handleResize={handleResize}
                     delete = {deleteAc}
                     sourceOperator = {sourceOperator}
                     targetOperator = {targetOperator}
@@ -382,11 +386,11 @@ const getRightMostPosition = (positions) => {
     let rightMostPosition = 0
 
     if(positions.length > 0) {
-      let mappedPosition = positions.map(position => {return position.position.x})
+      let mappedPosition = positions.map(position => {return position.position.x + position.size})
       rightMostPosition = Math.max(...mappedPosition)
     }
 
-    return (rightMostPosition >= 1000) ? rightMostPosition + 300 : 1100;
+    return (rightMostPosition >= 1000) ? rightMostPosition + 100 : 1100;
 }
 
 export const computeTopPosition = (object, graphId) => {
@@ -419,7 +423,8 @@ class Graph extends Component {
     let positions = props.addedActivities.map( (activity) => {
       return {
         plane: activity.plane,
-        position: activity.position
+        position: activity.position,
+        size: activity.data.duration
       }
     })
     this.state = {
@@ -562,6 +567,12 @@ class Graph extends Component {
     this.setState({addedPositions: modifiedAddedPositions})
   }
 
+  handleResize = (arrayIndex, size) => {
+    let activityResized = this.state.addedPositions[arrayIndex]
+    activityResized.size = size
+    this.setState({addedPositions:this.state.addedPositions})
+  }
+
   handleStop = (arrayIndex, position) => {
     this.handleMove(arrayIndex, position)
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
@@ -599,12 +610,15 @@ class Graph extends Component {
 
   operatorChosen = (event) => {
     event.preventDefault();
-    if(event.target.value >= 0) {
+    if(event.target.value > -1) {
       const chosenOperator = this.props.operators[event.target.value];
       this.state.clickedOperator.operator_type = chosenOperator.operator_type;
       this.state.clickedOperator.type = chosenOperator.type;
       this.state.clickedOperator.data = chosenOperator.data;
       modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type, chosenOperator.type, chosenOperator.data)
+    }
+    else {
+      removeGraphOperator(this.state.clickedOperator._id, this.props.graphId)
     }
     this.setState({clickedOperator:null, clickedOperatorPosition:null})
   }
@@ -625,6 +639,7 @@ class Graph extends Component {
                        </option>
               })
             }
+            <option key={"delete"} value={-2} style={{textAlign:"center"}}>Delete</option>
           </select>
         </div>
       </div>
@@ -649,6 +664,7 @@ class Graph extends Component {
             deleteAc={this.deleteInGraphAc}
             handleMove={this.handleMove}
             handleStop={this.handleStop}
+            handleResize={this.handleResize}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}

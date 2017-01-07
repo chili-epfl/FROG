@@ -149,6 +149,7 @@ export default class DraggableAc extends Component {
 
   handleResize = (direction, styleSize, clientSize, delta, newPos) => {
     this.props.moveCursor(this.state.totalPosition.x + styleSize.width)
+    this.props.handleResize(this.props.arrayIndex, styleSize.width)
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
@@ -230,6 +231,7 @@ DraggableAc.propTypes = {
   editorMode: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
   handleMove: PropTypes.func,
+  handleResize: PropTypes.func,
   arrayIndex: PropTypes.number.isRequired,
   delete: PropTypes.func,
   sourceOperator: PropTypes.func,
