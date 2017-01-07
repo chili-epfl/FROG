@@ -40,7 +40,7 @@ const adjustToGrid = (number, interval) => {
 }
 
 const convertTimeToPx = (unit, time, interval) => {
-  return adjustToGrid(time / getUnitInSeconds(unit) * unitTime, interval)
+  return time / getUnitInSeconds(unit) * unitTime
 }
 
 const getUnitInSeconds = (unit) => {
@@ -185,22 +185,26 @@ export default class DraggableAc extends Component {
           style={divStyle(duration)}
           >
           <span style={{position: 'relative', zIndex: 0}}>
-            <div style={{position: 'relative', zIndex: 0}}>
-              <div style={{position: 'absolute', zIndex: 0, left:-circleRadius}}>
-                <Anchor
-                onClick={(event) => this.props.targetOperator(activity)}
-                fill="white"
-                id={"target" + this.props.graphId + activity._id}
-                />
-              </div>
-              <div style={{position: 'absolute', zIndex: 0, right:-circleRadius}}>
-                <Anchor
-                onClick={(event) => this.props.sourceOperator(activity)}
-                fill={this.props.isSourceClicked ? "red" : "white"}
-                id={"source" + this.props.graphId + activity._id}
-                />
-              </div>
-            </div>
+            {
+              editorMode ?
+                <div style={{position: 'relative', zIndex: 0}}>
+                  <div style={{position: 'absolute', zIndex: 0, left:-circleRadius}}>
+                    <Anchor
+                    onClick={(event) => this.props.targetOperator(activity)}
+                    fill="white"
+                    id={"target" + this.props.graphId + activity._id}
+                    />
+                  </div>
+                  <div style={{position: 'absolute', zIndex: 0, right:-circleRadius}}>
+                    <Anchor
+                    onClick={(event) => this.props.sourceOperator(activity)}
+                    fill={this.props.isSourceClicked ? "red" : "white"}
+                    id={"source" + this.props.graphId + activity._id}
+                    />
+                  </div>
+                </div>
+                : ""
+            }
             <div id = {activity._id}>
               <span>
                 <span data-tip data-for={"tip" + activity._id}>
