@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 import { operator_types_obj } from '../operator_types';
-import { Graphs } from './graphs';
+import { Graphs, addGraph } from './graphs';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
@@ -80,6 +80,20 @@ export const addOperator = (operator_type, data, id) => {
 
 export const addResult = (type, activity_id, result) => {
   Results.update(activity_id + ":" + type, {$set: {type: type, activity_id: activity_id, result: result, created_at: new Date()}}, {upsert: true})
+}
+
+export const duplicateGraph = (graphId) => {
+  let activities = Activities.find({graphId: graphId}).fetch()
+  let newActivitiesId = activities.map((activity) => uuid())
+  let operators = Operators.find({graphId: graphId}).fetch()
+  let newGraphId = addGraph()
+  activities.forEach((activity, i) => addGraphActivity({ _id: newActivitiesId[i], graphId: newGraphId, position: activity.position, data: activity.data, plane: activity.plane}))
+  operators.forEach((operator) => {
+    let fromIndex = activities.indexOf(operator.from)
+    let toIndex = activities.indexOf(operator.to)
+    addGraphOperator({_id: uuid(), graphId: newGraphId, from: newActivitiesId[fromIndex], to: newActivitiesId[toIndex]})
+  })
+  return newGraphId
 }
 
 export const flushActivities = () =>
