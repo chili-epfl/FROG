@@ -304,7 +304,6 @@ export const RenderGraph = ( {
   plane,
   graphId,
   activitySourceClicked}) => {
-  console.log(graphId)
   const rightMostPosition = getRightMostPosition(positions);
   return(
 
@@ -506,15 +505,19 @@ class Graph extends Component {
       let newActivity = _.clone(activity, true);
       newActivity._id = uuid();
 
-      const defaultTime = 40;
+      const defaultTime = 60;
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left;
-      const planeY = computeTopPosition("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
+      const newY = computeTopPosition("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
 
-      let newPosition = {x: event.clientX + window.scrollX + innerGraphScrollX, y: planeY};
+      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - computeLeftPosition("#" + graphId + "line" + plane, graphId), 0)
+      const remaining = newX % interval
+      newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
+
+      let newPosition = {x: newX, y: newY};
       let newElement = {position: newPosition, plane: plane};
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
@@ -628,16 +631,28 @@ class Graph extends Component {
             graphId={this.props.graphId}
             />
           <br/>
-          <TempAc
-            handleDragStop = {this.handleDragStop}
-            position = {this.state.hoverBoxPosition}
-            plane = {this.state.currentPlane}
-            current = {this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}/>
-          <RenderDraggable
-            id='list'
-            handleHover={this.handleHover}
-            handleHoverStop={this.handleHoverStop}
-            activities = {this.props.activities}/>
+          {
+            this.props.activities.length == 0 ?
+              <div style = {divListStyleNoActivity}>
+                <br/>
+                <span>No activities</span>
+                <br/>
+                <br/>
+              </div>
+              :
+              <div>
+                <TempAc
+                  handleDragStop = {this.handleDragStop}
+                  position = {this.state.hoverBoxPosition}
+                  plane = {this.state.currentPlane}
+                  current = {this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}/>
+                <RenderDraggable
+                  id='list'
+                  handleHover={this.handleHover}
+                  handleHoverStop={this.handleHoverStop}
+                  activities = {this.props.activities}/>
+              </div>
+          }
 
       </div>
     );
@@ -702,6 +717,16 @@ const divListStyle = {
   display:"inline-block",
   width: "100%",
   border: 1,
+  borderStyle: "solid",
+  borderColor: "black"
+}
+
+const divListStyleNoActivity = {
+  position: "relative",
+  display:"inline-block",
+  width: "100%",
+  border: 1,
+  textAlign:"center",
   borderStyle: "solid",
   borderColor: "black"
 }

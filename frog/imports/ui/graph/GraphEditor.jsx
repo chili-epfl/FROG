@@ -92,7 +92,7 @@ class GraphEditor extends Component {
       <div>
         <h3>Graph list</h3>
         <ul> { this.props.graphs.map((graph) =>
-          <li style={{listStyle: 'none', display: "inline"}} key={graph._id}>
+          <li style={{listStyle: 'none'}} key={graph._id}>
             <a href='#' onClick={ () => this.handleRemove(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => this.submitReplace(graph._id) } ><i className="fa fa-pencil" /></a>
             <a href='#' onClick={ () => this.handleInfoClick(graph._id)} ><i className="fa fa-info" /></a>
