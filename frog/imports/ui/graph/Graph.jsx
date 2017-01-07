@@ -17,7 +17,7 @@ const interval = 30;
 const graphSize = 300
 
 //to be put in graph.jxs
-const AxisDisplay = ({rightMostPosition, graphId}) => {
+const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
   const leftMargin = 10;
   const textSizeAndMargin = charSize*10 + leftMargin;
   return(
@@ -33,24 +33,40 @@ const AxisDisplay = ({rightMostPosition, graphId}) => {
       <text x={leftMargin} y="80%" id={graphId + "plane1"}>Individual</text>
       <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit="minutes"/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit="minutes" cursor={cursor}/>
     </svg>
   </div>
 )}
 
-const TimeAxis = ({totalLeftMargin, width, interval, unit}) => {
+const TimeAxis = ({totalLeftMargin, width, interval, unit, cursor}) => {
   return(
     <g>
     <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
     {
-      _.range(0, width, interval).map((timeGraduated, i) => {
-        return (
-          <g key={i}>
-            <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-            <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{timeGraduated}</text>
-          </g>
-          );
-      })
+      <g>
+        {
+        _.range(0, width, interval).map((timeGraduated, i) => {
+          if(cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
+            return ""
+          }
+          else {
+          return (
+            <g key={i}>
+              <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+              <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{timeGraduated}</text>
+            </g>
+            );
+          }
+        })}
+        {
+          (cursor >= 0) ?
+            <g>
+              <line x1={totalLeftMargin + cursor} y1="90%" x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+              <text x={totalLeftMargin + cursor} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{cursor}</text>
+            </g>
+            : ""
+        }
+      </g>
     }
     </g>
   );
@@ -302,6 +318,8 @@ export const RenderGraph = ( {
   loaded,
   plane,
   graphId,
+  moveCursor,
+  cursor,
   activitySourceClicked}) => {
   const rightMostPosition = getRightMostPosition(positions);
   return(
@@ -339,6 +357,7 @@ export const RenderGraph = ( {
                     isSourceClicked = {activitySourceClicked == activity ? true : false}
                     interval = {interval}
                     graphId = {graphId}
+                    moveCursor={moveCursor}
                     />)
                 })}
               </div>
@@ -351,7 +370,7 @@ export const RenderGraph = ( {
             <DrawToolTip operators={operators} activities={activities} positions={positions}/>
           : ""}
         <div>
-          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId}/>
+          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor}/>
         </div>
       </div>
 
@@ -414,7 +433,8 @@ class Graph extends Component {
       loaded: false,
       clickedOperator: null,
       clickedOperatorPosition: null,
-      plane: {plane1: 0, plane2: 0, plane3: 0}
+      plane: {plane1: 0, plane2: 0, plane3: 0},
+      cursor:-1,
     };
   }
 
@@ -574,6 +594,10 @@ class Graph extends Component {
     }
   }
 
+  moveCursor = (newPosition) => {
+    this.setState({cursor:newPosition})
+  }
+
   operatorChosen = (event) => {
     event.preventDefault();
     if(event.target.value >= 0) {
@@ -630,7 +654,10 @@ class Graph extends Component {
             loaded={this.state.loaded}
             plane={this.state.plane}
             graphId={this.props.graphId}
+            moveCursor={this.moveCursor}
+            cursor={this.state.cursor}
             />
+          <br/>
           <br/>
           {
             this.props.activities.length == 0 ?
