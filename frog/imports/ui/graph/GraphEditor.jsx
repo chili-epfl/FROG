@@ -5,7 +5,7 @@ import { uuid } from 'frog-utils'
 import { $ } from 'meteor/jquery'
 
 import { Graphs, addGraph, setCurrentGraph, removeGraph, renameGraph } from '../../api/graphs'
-import { Activities, Operators } from '../../api/activities'
+import { Activities, Operators, duplicateGraph } from '../../api/activities'
 import Graph, { RenderGraph, computeTopPosition } from './Graph'
 
 class RenderRepoGraph extends Component {
@@ -91,6 +91,11 @@ class GraphEditor extends Component {
     }
   }
 
+  handleDuplicate = (graphId) => {
+    let newGraphId = duplicateGraph(graphId)
+    this.submitReplace(newGraphId)
+  }
+
   render() {
     return (
       <div>
@@ -100,6 +105,7 @@ class GraphEditor extends Component {
             <a href='#' onClick={ () => this.handleRemove(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => this.submitReplace(graph._id) } ><i className="fa fa-pencil" /></a>
             <a href='#' onClick={ () => this.handleInfoClick(graph._id)} ><i className="fa fa-info" /></a>
+            <a href='#' onClick={ () => this.handleDuplicate(graph._id)} ><i className="fa fa-copy" /></a>
             <input type="text" size="25" value={graph.name} onChange={(event) => this.handleRename(event, graph._id, graph.name)}/>
             {this.state.current == graph._id ? '(current)':null}
             {this.state.infoToDisplay == graph._id ?

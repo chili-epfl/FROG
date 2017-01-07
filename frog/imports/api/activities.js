@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 import { operator_types_obj } from '../operator_types';
-import { Graphs } from './graphs';
+import { Graphs, addGraph } from './graphs';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
@@ -80,6 +80,31 @@ export const addOperator = (operator_type, data, id) => {
 
 export const addResult = (type, activity_id, result) => {
   Results.update(activity_id + ":" + type, {$set: {type: type, activity_id: activity_id, result: result, created_at: new Date()}}, {upsert: true})
+}
+
+export const duplicateGraph = (graphId) => {
+  let activities = Activities.find({graphId: graphId}).fetch()
+  let oldActivitiesId = activities.map((activity) => activity._id)
+  const newActivitiesId = oldActivitiesId.map((id) => uuid())
+  let operators = Operators.find({graphId: graphId}).fetch()
+  let newGraphId = addGraph()
+  console.log(JSON.stringify(newActivitiesId, null, 2))
+  operators.forEach((operator) => {
+    let fromIndex = oldActivitiesId.indexOf(operator.from._id)
+    let toIndex = oldActivitiesId.indexOf(operator.to._id)
+    const fromObject = {plane: activities[fromIndex].plane, _id: newActivitiesId[fromIndex]}
+    const toObject = {plane: activities[toIndex].plane, _id:newActivitiesId[toIndex]}
+
+    console.log("from " + fromObject._id + " to " + toObject._id)
+    addGraphOperator({_id: uuid(), graphId: newGraphId, from: fromObject, to: toObject})
+  })
+  activities.forEach((activity, i) => {
+    let newActivity = _.clone(activity, true)
+    newActivity._id = newActivitiesId[i]
+    newActivity.graphId = newGraphId
+    addGraphActivity(newActivity)
+  })
+  return newGraphId
 }
 
 export const flushActivities = () =>

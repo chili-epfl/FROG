@@ -144,7 +144,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 
 
-const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes, graphId}) => {
+const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes, graphId, editorMode}) => {
   return(
       <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
@@ -164,9 +164,8 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
                             height={Math.max(height, 5)}
                             x={top} y={left + scroll}
                             style={{zIndex: 0, position: 'absolute'}}
-                            onClick={(event) => {
-                              console.log(scroll)
-                              return onClickOperator(event, operator, left+width/2 + scroll, top+height/2)}}>
+                            onClick={
+                              (event) => editorMode ? onClickOperator(event, operator, left+width/2 + scroll, top+height/2) : null}>
               <OpPath up={goUp} right={goRight} i={i}
                       width={width} height={height}
                       leftSource={lsp} leftTarget={ltp}
@@ -323,6 +322,8 @@ export const RenderGraph = ( {
   cursor,
   activitySourceClicked}) => {
   const rightMostPosition = getRightMostPosition(positions);
+  console.log(JSON.stringify(activities.map((activity) => activity._id), null, 2))
+  console.log(JSON.stringify(operators, null, 2))
   return(
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
@@ -337,7 +338,8 @@ export const RenderGraph = ( {
                   clickedOperator={clickedOperator}
                   listAvailableOperators={listAvailableOperators}
                   planes={plane}
-                  graphId={graphId}/>
+                  graphId={graphId}
+                  editorMode={editorMode}/>
               : ""}
               </svg>
 

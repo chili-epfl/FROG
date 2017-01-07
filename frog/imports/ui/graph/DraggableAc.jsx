@@ -101,7 +101,7 @@ export default class DraggableAc extends Component {
 
   componentDidMount() {
     let {graphId} = this.props
-    let newY = computeTopPosition("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2 
+    let newY = computeTopPosition("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2
     let newLeftBound = computeLeftPosition("#" + graphId + "line1", graphId) - rndMargin
 
     if(this.state.y != newY || this.state.leftBound != newLeftBound) {
@@ -152,13 +152,13 @@ export default class DraggableAc extends Component {
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
-    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('seconds', styleSize.width))
+    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('minute', styleSize.width))
     this.props.moveCursor(-1)
   }
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx('seconds', activity.data.duration ? activity.data.duration : defaultTime, this.props.interval)
+    let duration = convertTimeToPx('minute', activity.data.duration ? activity.data.duration : defaultTime, this.props.interval)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
