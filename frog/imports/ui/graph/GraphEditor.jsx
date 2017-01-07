@@ -3,13 +3,9 @@ import { createContainer } from 'meteor/react-meteor-data'
 import ReactDOM from 'react-dom'
 import { uuid } from 'frog-utils'
 
-import { Graphs, addGraph, remameGraph } from '../../api/graphs'
-import { Activities, Operators, removeGraph } from '../../api/activities'
+import { Graphs, addGraph, setCurrentGraph, removeGraph, remameGraph } from '../../api/graphs'
+import { Activities, Operators } from '../../api/activities'
 import Graph, { RenderGraph, computeTopPosition } from './Graph'
-
-const setCurrentGraph = (graphId) => {
-  Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.editingGraph': graphId}})
-}
 
 class RenderRepoGraph extends Component {
   constructor(props) {
@@ -73,13 +69,21 @@ class GraphEditor extends Component {
     this.setState({current: graphId, loaded: false})
   }
 
+  handleRemove = (graphId) => {
+    removeGraph(graphId)
+    if(this.state.current == graphId) {
+      setCurrentGraph(null)
+      this.setState({current: null, loaded: false})
+    }
+  }
+
   render() {
     return (
       <div>
         <h3>Graph list</h3>
         <ul> { this.props.graphs.map((graph) =>
           <li style={{listStyle: 'none'}} key={graph._id}>
-            <a href='#' onClick={ () => removeGraph(graph._id) }><i className="fa fa-times" /></a>
+            <a href='#' onClick={ () => this.handleRemove(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => this.submitReplace(graph._id) } ><i className="fa fa-pencil" /></a>
             <a href='#' onClick={ () => this.handleInfoClick(graph._id)} ><i className="fa fa-info" /></a>
             {graph._id} {this.state.current == graph._id ? '(current)':null}
@@ -90,8 +94,14 @@ class GraphEditor extends Component {
 
         <h3>Graph editor</h3>
         <button className='btn btn-primary btn-sm' onClick={() => this.submitReplace(addGraph())}>New</button>
-        <br/>
-        <Graph activities = {this.props.activities} operators = {this.props.operators} loaded={this.state.loaded} handleLoaded={this.handleLoaded}/>
+        {
+          this.state.current ? 
+            <div>
+              <br/>
+              <Graph activities = {this.props.activities} operators = {this.props.operators} graphId={this.state.current} loaded={this.state.loaded} handleLoaded={this.handleLoaded}/>
+            </div>
+            : ""
+        }
       </div>
     )
   }
@@ -100,7 +110,7 @@ class GraphEditor extends Component {
 export default createContainer(() => {
   const user = Meteor.users.findOne({_id:Meteor.userId()})
   let currentGraphId = ""
-  if(user.profile) {
+  if(user.profile && user.profile.editingGraph) {
     currentGraphId = user.profile.editingGraph
   }
   return {

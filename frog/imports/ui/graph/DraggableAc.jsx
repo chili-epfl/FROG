@@ -32,13 +32,13 @@ const defaultTime = 10
 
 const circleRadius = 6
 
-const adjustToGrid = (number) => {
-  let remaining = number % 30
+const adjustToGrid = (number, interval) => {
+  let remaining = number % interval
   return Math.round(number - remaining)
 }
 
-const convertTimeToPx = (unit, time) => {
-  return adjustToGrid(time / getUnitInSeconds(unit) * unitTime)
+const convertTimeToPx = (unit, time, interval) => {
+  return adjustToGrid(time / getUnitInSeconds(unit) * unitTime, interval)
 }
 
 const getUnitInSeconds = (unit) => {
@@ -146,7 +146,7 @@ export default class DraggableAc extends Component {
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx('minute', activity.data.duration ? activity.data.duration : defaultTime)
+    let duration = convertTimeToPx('minute', activity.data.duration ? activity.data.duration : defaultTime, this.props.interval)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
@@ -166,8 +166,8 @@ export default class DraggableAc extends Component {
           onDrag={this.handleDrag}
           onDragStop={this.handleStop}
           onResizeStop={this.handleResizeStop}
-          moveGrid={[editorMode ? 30 : 0, 0]}
-          resizeGrid={[30, 0]}
+          moveGrid={[editorMode ? this.props.interval : 0, 0]}
+          resizeGrid={[this.props.interval, 0]}
           bounds={{left: this.state.leftBound}}
           zIndex={0}
           style={divStyle(duration)}
@@ -223,4 +223,5 @@ DraggableAc.propTypes = {
   sourceOperator: PropTypes.func,
   targetOperator: PropTypes.func,
   isSourceClicked: PropTypes.bool,
+  interval: PropTypes.number.isRequired,
 };

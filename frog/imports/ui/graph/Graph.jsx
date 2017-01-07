@@ -6,11 +6,14 @@ import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
 
-import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity, removeGraph } from '../../api/activities';
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
+
+const charSize = 11;
+const interval = 30;
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition}) => {
@@ -29,7 +32,7 @@ const AxisDisplay = ({rightMostPosition}) => {
       <text x={leftMargin} y="80%" id="plane1">Individual</text>
       <line id ='line1' x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={30} unit="minutes"/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit="minutes"/>
     </svg>
   </div>
 )}
@@ -40,7 +43,12 @@ const TimeAxis = ({totalLeftMargin, width, interval, unit}) => {
     <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
     {
       _.range(0, width, interval).map((timeGraduated, i) => {
-        return <line key={i} x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+        return (
+          <g key={i}>
+            <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+            <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb"}}>{timeGraduated}</text>
+          </g>
+          );
       })
     }
     </g>
@@ -328,6 +336,7 @@ export const RenderGraph = ( {
                     sourceOperator = {sourceOperator}
                     targetOperator = {targetOperator}
                     isSourceClicked = {activitySourceClicked == activity ? true : false}
+                    interval = {interval}
                     />)
                 })}
               </div>
@@ -434,7 +443,6 @@ class Graph extends Component {
   handleHover = (event, plane, activity) => {
     event.preventDefault();
     let position = $("#box" + activity._id).position()
-    console.log(position.left + " " + position.top)
 
     this.setState({
       currentPlane: plane,
@@ -632,9 +640,10 @@ class Graph extends Component {
 Graph.propTypes = {
   activities: PropTypes.array.isRequired,
   operators: PropTypes.array.isRequired,
+  graphId: PropTypes.string.isRequired,
 };
 
-export default createContainer(
+/*export default createContainer(
   (props) => {
     const user = Meteor.users.findOne({_id:Meteor.userId()})
 
@@ -653,10 +662,19 @@ export default createContainer(
     })
   },
   Graph
+)*/
+
+export default createContainer(
+  (props) => {
+    return({
+      ...props,
+      addedActivities: Activities.find({ graphId: props.graphId }).fetch(),
+      addedOperators: Operators.find({ graphId: props.graphId }).fetch()
+    })
+  },
+  Graph
 )
 
-
-const charSize = 12;
 
 const divStyle = {
   position: "static",
