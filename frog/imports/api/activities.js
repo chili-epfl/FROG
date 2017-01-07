@@ -23,8 +23,8 @@ export const addActivity = (activity_type, data, id) => {
 export const duplicateActivity = (activity) =>
   Activities.insert({...activity, _id: uuid(), data: {...activity.data, name: activity.data.name + ' (copy)'}})
 
-export const addGraphActivity = (params) =>
-  Activities.insert({ ...params, graphId: params.graphId, created_at: new Date(), _id: uuid() })
+export const addGraphActivity = (params, id = uuid()) =>
+  Activities.insert({ ...params, graphId: params.graphId, created_at: new Date(), _id: id})
 
 export const addSessionActivity = (params) => {
   const id = uuid()
@@ -102,7 +102,8 @@ export const duplicateGraph = (graphId) => {
     let newActivity = _.clone(activity, true)
     newActivity._id = newActivitiesId[i]
     newActivity.graphId = newGraphId
-    addGraphActivity(newActivity)
+    console.log("newId " + newActivity._id)
+    addGraphActivity(newActivity, newActivity._id)
   })
   return newGraphId
 }

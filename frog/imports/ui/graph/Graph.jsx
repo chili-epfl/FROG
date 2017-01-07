@@ -321,9 +321,7 @@ export const RenderGraph = ( {
   moveCursor,
   cursor,
   activitySourceClicked}) => {
-  const rightMostPosition = getRightMostPosition(positions);
-  console.log(JSON.stringify(activities.map((activity) => activity._id), null, 2))
-  console.log(JSON.stringify(operators, null, 2))
+  const rightMostPosition = getRightMostPosition(positions)
   return(
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
