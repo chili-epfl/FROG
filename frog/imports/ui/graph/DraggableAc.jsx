@@ -172,8 +172,8 @@ export default class DraggableAc extends Component {
           onDrag={this.handleDrag}
           onDragStop={this.handleStop}
           onResizeStop={this.handleResizeStop}
-          moveGrid={[editorMode ? this.props.interval : 0, 0]}
-          resizeGrid={[this.props.interval, 0]}
+          moveGrid={[editorMode ? 1 : 0, 0]}
+          resizeGrid={[1, 0]}
           bounds={{left: this.state.leftBound}}
           zIndex={0}
           style={divStyle(duration)}

@@ -133,7 +133,6 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
       <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#" + graphId + "inner_graph").scrollLeft()
-          //let mock = computeTopPosition("#source" + operator.from._id)
           let tsp = getHeight(operator.from.plane, planes)
           let ttp = getHeight(operator.to.plane, planes)
           let lsp = computeLeftPosition("#source" + graphId + operator.from._id, graphId)
@@ -560,7 +559,9 @@ class Graph extends Component {
     if(this.state.currentSource != null) {
       let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
       this.setState({currentSource:null, addedOperators:newOperators});
-      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: this.state.currentSource, to:target})
+      const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
+      const toAc = {plane: target.plane, _id: target._id}
+      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: fromAc, to:toAc})
     }
   }
 
