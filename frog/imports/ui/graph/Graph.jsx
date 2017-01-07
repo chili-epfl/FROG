@@ -590,10 +590,8 @@ class Graph extends Component {
 
   clickedOperator = (event, operator, x, y) => {
     event.preventDefault();
-    let {graphId} = this.props
     if(this.state.clickedOperator != operator) {
-      $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left
-      this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x-75, y:y-19}})
+      this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x, y:y}})
     }
   }
 
@@ -615,20 +613,22 @@ class Graph extends Component {
 
   listAvailableOperators = () => {
     return (
-      <div style={{position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y, width:150, height:38}}>
-        <select id="operators" size="2" onChange={(event) => this.operatorChosen(event)}>
-          {
-            this.props.operators.length == 0 ? <option disabled>No operator to choose</option> : ""
-          }
-          <option key={"cancel"} value={-1}>Cancel</option>
-          {
-            this.props.operators.map((operator, i) => {
-              return <option key={"choice"+i} value={i}>
-                        {operator.operator_type}
-                     </option>
-            })
-          }
-        </select>
+      <div style={{position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
+        <div style={{position:'relative', left:"-50%", top:"-50%"}}>
+          <select id="operators" size="4" onChange={(event) => this.operatorChosen(event)}>
+            {
+              this.props.operators.length == 0 ? <option disabled>No operator to choose</option> : ""
+            }
+            <option key={"cancel"} value={-1} style={{textAlign:"center"}}>Cancel</option>
+            {
+              this.props.operators.map((operator, i) => {
+                return <option key={"choice"+i} value={i} style={{textAlign:"center"}}>
+                          {operator.operator_type}
+                       </option>
+              })
+            }
+          </select>
+        </div>
       </div>
     )
   }
