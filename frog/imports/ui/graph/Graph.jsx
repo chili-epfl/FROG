@@ -14,6 +14,7 @@ import ReactTooltip from 'react-tooltip'
 
 const charSize = 11;
 const interval = 30;
+const graphSize = 300
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId}) => {
@@ -21,7 +22,7 @@ const AxisDisplay = ({rightMostPosition, graphId}) => {
   const textSizeAndMargin = charSize*10 + leftMargin;
   return(
   <div>
-    <svg width={rightMostPosition} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
+    <svg width={rightMostPosition} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
 
       <text x={leftMargin} y="20%" id={graphId + "plane3"}>Class</text>
       <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
@@ -46,7 +47,7 @@ const TimeAxis = ({totalLeftMargin, width, interval, unit}) => {
         return (
           <g key={i}>
             <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-            <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb"}}>{timeGraduated}</text>
+            <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{timeGraduated}</text>
           </g>
           );
       })
@@ -129,7 +130,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes, graphId}) => {
   return(
-      <g width={rightMostPosition} height={divStyle.height}  style={{position: 'absolute', zIndex: 0}}>
+      <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#" + graphId + "inner_graph").scrollLeft()
           //let mock = computeTopPosition("#source" + operator.from._id)
@@ -310,7 +311,7 @@ export const RenderGraph = ( {
       <div id={graphId + 'inner_graph'} style={divStyle}>
         <div style={{position:'relative'}}>
             <div style={{position: 'absolute', zIndex: 0}}>
-              <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {divStyle.height}>
+              <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {graphSize}>
               {loaded ?
                 <RenderOperators
                   operators={operators}
@@ -686,7 +687,8 @@ export default createContainer(
 const divStyle = {
   position: "static",
   zIndex: 0,
-  height: 300,
+  display:"inline-block",
+  //height: 300,
   width: "100%",
   overflowX: "scroll",
   overflowY: "hidden",
