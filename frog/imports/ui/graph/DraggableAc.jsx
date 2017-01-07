@@ -22,7 +22,7 @@ const computeLeftPosition = (object, graphId) => {
   return elem - inner
 }
 
-const unitTime = 2
+const unitTime = 1
 
 const boxHeight = 40
 
@@ -31,6 +31,8 @@ const resizeStep = 25
 const defaultTime = 10
 
 const circleRadius = 6
+
+const rndMargin = 12
 
 const adjustToGrid = (number, interval) => {
   let remaining = number % interval
@@ -90,32 +92,36 @@ export default class DraggableAc extends Component {
       hover: false,
       totalPosition: props.defaultPosition,
       y: 0,
-      leftBound: 69
+      leftBound: 109,
     }
   }
 
   componentDidMount() {
     let {graphId} = this.props
-    this.setState({
-      y: computeTopPosition("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2,
-      leftBound: computeLeftPosition("#" + graphId + "line1", graphId)
-    })
+    let newY = computeTopPosition("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2
+    let newLeftBound = computeLeftPosition("#" + graphId + "line1", graphId) - rndMargin
+
+    if(this.state.y != newY || this.state.leftBound != newLeftBound) {
+      this.setState({
+        y: newY,
+        leftBound: newLeftBound,
+      })
+    }
 
   }
 
   defaultPosition = () => {
     var { defaultPosition, editorMode } = this.props;
     return {
-      x: defaultPosition.x,
+      x: defaultPosition.x + this.state.leftBound,
       y: this.state.y
     }
   }
 
   updatePosition = (deltaPosition) => {
-    const defaultPosition = this.state.totalPosition//this.defaultPosition();
+    const defaultPosition = this.state.totalPosition
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
-    //console.log("dd " + updatedPosition.x)
     this.setState({totalPosition: totalPosition})
     this.props.handleMove(this.props.arrayIndex, totalPosition)
   }
@@ -166,22 +172,22 @@ export default class DraggableAc extends Component {
           onDrag={this.handleDrag}
           onDragStop={this.handleStop}
           onResizeStop={this.handleResizeStop}
-          moveGrid={[editorMode ? this.props.interval : 0, 0]}
-          resizeGrid={[this.props.interval, 0]}
+          moveGrid={[editorMode ? 1 : 0, 0]}
+          resizeGrid={[1, 0]}
           bounds={{left: this.state.leftBound}}
           zIndex={0}
           style={divStyle(duration)}
           >
           <span style={{position: 'relative', zIndex: 0}}>
             <div style={{position: 'relative', zIndex: 0}}>
-              <div style={{position: 'absolute', zIndex: 0, left:-4*circleRadius}}>
+              <div style={{position: 'absolute', zIndex: 0, left:-circleRadius}}>
                 <Anchor
                 onClick={(event) => this.props.targetOperator(activity)}
                 fill="white"
                 id={"target" + this.props.graphId + activity._id}
                 />
               </div>
-              <div style={{position: 'absolute', zIndex: 0, right:-4*circleRadius}}>
+              <div style={{position: 'absolute', zIndex: 0, right:-circleRadius}}>
                 <Anchor
                 onClick={(event) => this.props.sourceOperator(activity)}
                 fill={this.props.isSourceClicked ? "red" : "white"}

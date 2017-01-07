@@ -14,6 +14,7 @@ import ReactTooltip from 'react-tooltip'
 
 const charSize = 11;
 const interval = 30;
+const graphSize = 300
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId}) => {
@@ -21,7 +22,7 @@ const AxisDisplay = ({rightMostPosition, graphId}) => {
   const textSizeAndMargin = charSize*10 + leftMargin;
   return(
   <div>
-    <svg width={rightMostPosition} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
+    <svg width={rightMostPosition} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
 
       <text x={leftMargin} y="20%" id={graphId + "plane3"}>Class</text>
       <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
@@ -46,7 +47,7 @@ const TimeAxis = ({totalLeftMargin, width, interval, unit}) => {
         return (
           <g key={i}>
             <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-            <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb"}}>{timeGraduated}</text>
+            <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{timeGraduated}</text>
           </g>
           );
       })
@@ -129,10 +130,9 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes, graphId, editorMode}) => {
   return(
-      <g width={rightMostPosition} height={divStyle.height}  style={{position: 'absolute', zIndex: 0}}>
+      <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $("#" + graphId + "inner_graph").scrollLeft()
-          //let mock = computeTopPosition("#source" + operator.from._id)
           let tsp = getHeight(operator.from.plane, planes)
           let ttp = getHeight(operator.to.plane, planes)
           let lsp = computeLeftPosition("#source" + graphId + operator.from._id, graphId)
@@ -303,14 +303,13 @@ export const RenderGraph = ( {
   plane,
   graphId,
   activitySourceClicked}) => {
-  console.log(graphId)
   const rightMostPosition = getRightMostPosition(positions);
   return(
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
         <div style={{position:'relative'}}>
             <div style={{position: 'absolute', zIndex: 0}}>
-              <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {divStyle.height}>
+              <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {graphSize}>
               {loaded ?
                 <RenderOperators
                   operators={operators}
@@ -506,15 +505,19 @@ class Graph extends Component {
       let newActivity = _.clone(activity, true);
       newActivity._id = uuid();
 
-      const defaultTime = 40;
+      const defaultTime = 60;
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left;
-      const planeY = computeTopPosition("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
+      const newY = computeTopPosition("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
 
-      let newPosition = {x: event.clientX + window.scrollX + innerGraphScrollX, y: planeY};
+      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - computeLeftPosition("#" + graphId + "line" + plane, graphId), 0)
+      const remaining = newX % interval
+      newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
+
+      let newPosition = {x: newX, y: newY};
       let newElement = {position: newPosition, plane: plane};
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
@@ -557,7 +560,9 @@ class Graph extends Component {
     if(this.state.currentSource != null) {
       let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
       this.setState({currentSource:null, addedOperators:newOperators});
-      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: this.state.currentSource, to:target})
+      const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
+      const toAc = {plane: target.plane, _id: target._id}
+      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: fromAc, to:toAc})
     }
   }
 
@@ -628,16 +633,28 @@ class Graph extends Component {
             graphId={this.props.graphId}
             />
           <br/>
-          <TempAc
-            handleDragStop = {this.handleDragStop}
-            position = {this.state.hoverBoxPosition}
-            plane = {this.state.currentPlane}
-            current = {this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}/>
-          <RenderDraggable
-            id='list'
-            handleHover={this.handleHover}
-            handleHoverStop={this.handleHoverStop}
-            activities = {this.props.activities}/>
+          {
+            this.props.activities.length == 0 ?
+              <div style = {divListStyleNoActivity}>
+                <br/>
+                <span>No activities</span>
+                <br/>
+                <br/>
+              </div>
+              :
+              <div>
+                <TempAc
+                  handleDragStop = {this.handleDragStop}
+                  position = {this.state.hoverBoxPosition}
+                  plane = {this.state.currentPlane}
+                  current = {this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}/>
+                <RenderDraggable
+                  id='list'
+                  handleHover={this.handleHover}
+                  handleHoverStop={this.handleHoverStop}
+                  activities = {this.props.activities}/>
+              </div>
+          }
 
       </div>
     );
@@ -687,7 +704,8 @@ export default createContainer(
 const divStyle = {
   position: "static",
   zIndex: 0,
-  height: 300,
+  display:"inline-block",
+  //height: 300,
   width: "100%",
   overflowX: "scroll",
   overflowY: "hidden",
@@ -701,6 +719,16 @@ const divListStyle = {
   display:"inline-block",
   width: "100%",
   border: 1,
+  borderStyle: "solid",
+  borderColor: "black"
+}
+
+const divListStyleNoActivity = {
+  position: "relative",
+  display:"inline-block",
+  width: "100%",
+  border: 1,
+  textAlign:"center",
   borderStyle: "solid",
   borderColor: "black"
 }

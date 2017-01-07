@@ -7,7 +7,6 @@ import { $ } from 'meteor/jquery'
 import { Graphs, addGraph, setCurrentGraph, removeGraph, renameGraph } from '../../api/graphs'
 import { Activities, Operators, duplicateGraph } from '../../api/activities'
 import Graph, { RenderGraph, computeTopPosition } from './Graph'
-import ContentEditable from 'react-contenteditable';
 
 class RenderRepoGraph extends Component {
   constructor(props) {
@@ -47,10 +46,6 @@ class RenderRepoGraph extends Component {
   }
 }
 
-removeHTML = (text) => {
-  return text.split(/<|&/)[0]
-}
-
 class GraphEditor extends Component {
 
   constructor(props) {
@@ -85,10 +80,9 @@ class GraphEditor extends Component {
     }
   }
 
-  handleRename = (event, id, previousName) => {
-    const newName = removeHTML(event.target.value).trim()
-    if(previousName != newName) {
-      console.log("new")
+  handleRename = (event, id, oldName) => {
+    const newName = event.target.value.trimLeft()
+    if(oldName != newName) {
       renameGraph(id, newName)
     }
   }
@@ -98,13 +92,13 @@ class GraphEditor extends Component {
       <div>
         <h3>Graph list</h3>
         <ul> { this.props.graphs.map((graph) =>
-          <li style={{listStyle: 'none', display: "inline"}} key={graph._id}>
+          <li style={{listStyle: 'none'}} key={graph._id}>
             <a href='#' onClick={ () => this.handleRemove(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => this.submitReplace(graph._id) } ><i className="fa fa-pencil" /></a>
             <a href='#' onClick={ () => this.handleInfoClick(graph._id)} ><i className="fa fa-info" /></a>
             <a href='#' onClick={ () => this.submitReplace(duplicateGraph(graph._id)) } ><i className="fa fa-copy" /></a>
-            <ContentEditable html={graph.name} disabled={false} onChange={(event) => this.handleRename(event, graph._id, graph.name)} />
-            {this.state.current == graph._id ? '(current)': ''}
+            <input type="text" size="25" value={graph.name} onChange={(event) => this.handleRename(event, graph._id, graph.name)}/>
+            {this.state.current == graph._id ? '(current)':null}
             {this.state.infoToDisplay == graph._id ?
               <RenderRepoGraph graphId= {graph._id} /> : "" }
           </li>
