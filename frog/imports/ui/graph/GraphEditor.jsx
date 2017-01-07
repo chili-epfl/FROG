@@ -26,9 +26,10 @@ class RenderRepoGraph extends Component {
   }
 
   componentDidMount() {
-    let plane1 = computeTopPosition("#line1")
-    let plane2 = computeTopPosition("#line2")
-    let plane3 = computeTopPosition("#line3")
+    let {graphId} = this.props
+    let plane1 = computeTopPosition("#repo" + graphId + "line1", "repo" + graphId)
+    let plane2 = computeTopPosition("#repo" + graphId + "line2", "repo" + graphId)
+    let plane3 = computeTopPosition("#repo" + graphId + "line3", "repo" + graphId)
     this.setState({loaded: true, planes: {plane1: plane1, plane2:plane2, plane3:plane3}})
   }
 
@@ -40,7 +41,8 @@ class RenderRepoGraph extends Component {
         editorMode={false}
         loaded={this.state.loaded}
         positions={this.state.positions}
-        plane={this.state.planes}/>
+        plane={this.state.planes}
+        graphId={"repo" + this.props.graphId}/>
     )
   }
 }
@@ -100,7 +102,7 @@ class GraphEditor extends Component {
             <a href='#' onClick={ () => this.handleRemove(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => this.submitReplace(graph._id) } ><i className="fa fa-pencil" /></a>
             <a href='#' onClick={ () => this.handleInfoClick(graph._id)} ><i className="fa fa-info" /></a>
-            
+
             <ContentEditable html={graph.name} disabled={false} onChange={(event) => this.handleRename(event, graph._id, graph.name)} />
             {this.state.current == graph._id ? '(current)':null}
             {this.state.infoToDisplay == graph._id ?
@@ -111,7 +113,7 @@ class GraphEditor extends Component {
         <h3>Graph editor</h3>
         <button className='btn btn-primary btn-sm' onClick={() => this.submitReplace(addGraph())}>New</button>
         {
-          this.state.current ? 
+          this.state.current ?
             <div>
               <br/>
               <Graph activities = {this.props.activities} operators = {this.props.operators} graphId={this.state.current} loaded={this.state.loaded} handleLoaded={this.handleLoaded}/>

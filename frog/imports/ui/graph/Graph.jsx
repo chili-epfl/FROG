@@ -16,21 +16,21 @@ const charSize = 11;
 const interval = 30;
 
 //to be put in graph.jxs
-const AxisDisplay = ({rightMostPosition}) => {
+const AxisDisplay = ({rightMostPosition, graphId}) => {
   const leftMargin = 10;
   const textSizeAndMargin = charSize*10 + leftMargin;
   return(
   <div>
     <svg width={rightMostPosition} height={divStyle.height} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
 
-      <text x={leftMargin} y="20%" id="plane3">Class</text>
-      <line id ='line3' x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="20%" id={graphId + "plane3"}>Class</text>
+      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x={leftMargin} y="50%" id="plane2">Team</text>
-      <line id ='line2' x1={textSizeAndMargin} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="50%" id={graphId + "plane2"}>Team</text>
+      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x={leftMargin} y="80%" id="plane1">Individual</text>
-      <line id ='line1' x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x={leftMargin} y="80%" id={graphId + "plane1"}>Individual</text>
+      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
       <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit="minutes"/>
     </svg>
@@ -127,16 +127,16 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 
 
-const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes}) => {
+const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, planes, graphId}) => {
   return(
       <g width={rightMostPosition} height={divStyle.height}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
-          let scroll = $("#inner_graph").scrollLeft()
+          let scroll = $("#" + graphId + "inner_graph").scrollLeft()
           //let mock = computeTopPosition("#source" + operator.from._id)
           let tsp = getHeight(operator.from.plane, planes)
           let ttp = getHeight(operator.to.plane, planes)
-          let lsp = computeLeftPosition("#source" + operator.from._id)
-          let ltp = computeLeftPosition("#target" + operator.to._id)
+          let lsp = computeLeftPosition("#source" + graphId + operator.from._id, graphId)
+          let ltp = computeLeftPosition("#target" + graphId + operator.to._id, graphId)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -301,12 +301,13 @@ export const RenderGraph = ( {
   targetOperator,
   loaded,
   plane,
+  graphId,
   activitySourceClicked}) => {
-
+  console.log(graphId)
   const rightMostPosition = getRightMostPosition(positions);
   return(
 
-      <div id='inner_graph' style={divStyle}>
+      <div id={graphId + 'inner_graph'} style={divStyle}>
         <div style={{position:'relative'}}>
             <div style={{position: 'absolute', zIndex: 0}}>
               <svg xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {divStyle.height}>
@@ -317,7 +318,8 @@ export const RenderGraph = ( {
                   onClickOperator={onClickOperator}
                   clickedOperator={clickedOperator}
                   listAvailableOperators={listAvailableOperators}
-                  planes={plane}/>
+                  planes={plane}
+                  graphId={graphId}/>
               : ""}
               </svg>
 
@@ -337,6 +339,7 @@ export const RenderGraph = ( {
                     targetOperator = {targetOperator}
                     isSourceClicked = {activitySourceClicked == activity ? true : false}
                     interval = {interval}
+                    graphId = {graphId}
                     />)
                 })}
               </div>
@@ -349,7 +352,7 @@ export const RenderGraph = ( {
             <DrawToolTip operators={operators} activities={activities} positions={positions}/>
           : ""}
         <div>
-          <AxisDisplay rightMostPosition = {rightMostPosition} />
+          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId}/>
         </div>
       </div>
 
@@ -367,15 +370,15 @@ const getRightMostPosition = (positions) => {
     return (rightMostPosition >= 1000) ? rightMostPosition + 300 : 1100;
 }
 
-export const computeTopPosition = (object) => {
+export const computeTopPosition = (object, graphId) => {
   let elem = $(object).offset().top
-  let inner = $("#inner_graph").offset().top
+  let inner = $("#" + graphId + "inner_graph").offset().top
 
   return elem - inner
 }
 
-const computeLeftPosition = (object) => {
-  let inner = $("#inner_graph").offset().left
+const computeLeftPosition = (object, graphId) => {
+  let inner = $("#" + graphId + "inner_graph").offset().left
   let elem = $(object).offset().left
   return elem - inner
 }
@@ -417,10 +420,11 @@ class Graph extends Component {
   }
 
   componentDidMount() {
+    let {graphId} = this.props
     console.log("mount")
-    let plane1 = computeTopPosition("#line1")
-    let plane2 = computeTopPosition("#line2")
-    let plane3 = computeTopPosition("#line3")
+    let plane1 = computeTopPosition("#" + graphId + "line1", graphId)
+    let plane2 = computeTopPosition("#" + graphId + "line2", graphId)
+    let plane3 = computeTopPosition("#" + graphId + "line3", graphId)
     this.setState({loaded: true, plane: {plane1: plane1, plane2:plane2, plane3:plane3}})
     this.props.handleLoaded()
   }
@@ -489,9 +493,10 @@ class Graph extends Component {
 
   handleDragStop = (event, plane, activity) => {
     event.preventDefault();
+    let {graphId} = this.props
 
-    const top = $("#inner_graph").offset().top
-    const down = top + $("#inner_graph").height();
+    const top = $("#" + graphId + "inner_graph").offset().top
+    const down = top + $("#" + graphId + "inner_graph").height();
     const posY = event.clientY + window.scrollY;
 
     //If we are within the bounds
@@ -504,8 +509,8 @@ class Graph extends Component {
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
       //We obtain the components to set its location in the graph (relative)
-      const innerGraphScrollX =  $("#inner_graph").scrollLeft() - $("#inner_graph").position().left;
-      const planeY = computeTopPosition("#plane" + plane) - 20; //20 is a constant so that the component
+      const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left;
+      const planeY = computeTopPosition("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
 
       let newPosition = {x: event.clientX + window.scrollX + innerGraphScrollX, y: planeY};
@@ -557,8 +562,9 @@ class Graph extends Component {
 
   clickedOperator = (event, operator, x, y) => {
     event.preventDefault();
+    let {graphId} = this.props
     if(this.state.clickedOperator != operator) {
-      $("#inner_graph").scrollLeft() - $("#inner_graph").position().left
+      $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left
       this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x-75, y:y-19}})
     }
   }
@@ -618,6 +624,7 @@ class Graph extends Component {
             activitySourceClicked = {this.state.currentSource}
             loaded={this.state.loaded}
             plane={this.state.plane}
+            graphId={this.props.graphId}
             />
           <br/>
           <TempAc
