@@ -85,19 +85,24 @@ export const addResult = (type, activity_id, result) => {
 export const duplicateGraph = (graphId) => {
   let activities = Activities.find({graphId: graphId}).fetch()
   let oldActivitiesId = activities.map((activity) => activity._id)
-  let newActivitiesId = activities.map((activity) => uuid())
+  const newActivitiesId = oldActivitiesId.map((id) => uuid())
   let operators = Operators.find({graphId: graphId}).fetch()
   let newGraphId = addGraph()
-  activities.forEach((activity, i) => addGraphActivity({ _id: newActivitiesId[i], graphId: newGraphId, position: activity.position, data: activity.data, plane: activity.plane}))
+  console.log(JSON.stringify(newActivitiesId, null, 2))
   operators.forEach((operator) => {
     let fromIndex = oldActivitiesId.indexOf(operator.from._id)
     let toIndex = oldActivitiesId.indexOf(operator.to._id)
-    console.log("from " + fromIndex + " to " + toIndex)
     const fromObject = {plane: activities[fromIndex].plane, _id: newActivitiesId[fromIndex]}
     const toObject = {plane: activities[toIndex].plane, _id:newActivitiesId[toIndex]}
 
     console.log("from " + fromObject._id + " to " + toObject._id)
     addGraphOperator({_id: uuid(), graphId: newGraphId, from: fromObject, to: toObject})
+  })
+  activities.forEach((activity, i) => {
+    let newActivity = _.clone(activity, true)
+    newActivity._id = newActivitiesId[i]
+    newActivity.graphId = newGraphId
+    addGraphActivity(newActivity)
   })
   return newGraphId
 }

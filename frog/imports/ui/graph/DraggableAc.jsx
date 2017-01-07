@@ -91,8 +91,11 @@ export default class DraggableAc extends Component {
       remove: false,
       hover: false,
       totalPosition: props.defaultPosition,
+      totalDuration: props.duration,
       y: 0,
       leftBound: 109,
+      moving: false,
+      resizing: false,
     }
   }
 
@@ -124,10 +127,7 @@ export default class DraggableAc extends Component {
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
     this.setState({totalPosition: totalPosition})
     this.props.handleMove(this.props.arrayIndex, totalPosition)
-  }
-
-  handleStart = (event) => {
-    event.preventDefault()
+    this.props.moveCursor(totalPosition.x)
   }
 
   handleDrag = (event, ui) => {
@@ -144,10 +144,16 @@ export default class DraggableAc extends Component {
   handleStop = (event) => {
     event.preventDefault()
     this.props.handleStop(this.props.arrayIndex, this.state.totalPosition)
+    this.props.moveCursor(-1)
+  }
+
+  handleResize = (direction, styleSize, clientSize, delta, newPos) => {
+    this.props.moveCursor(this.state.totalPosition.x + styleSize.width)
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
     updateGraphActivityDuration(this.props.activity._id, convertPxToTime('minute', styleSize.width))
+    this.props.moveCursor(-1)
   }
 
   render() {
@@ -168,9 +174,9 @@ export default class DraggableAc extends Component {
           bounds={{left: this.state.leftBound}}
           minWidth= {40}
           maxWidth= {400}
-          onDragStart={this.handleStart}
           onDrag={this.handleDrag}
           onDragStop={this.handleStop}
+          onResize={this.handleResize}
           onResizeStop={this.handleResizeStop}
           moveGrid={[editorMode ? 1 : 0, 0]}
           resizeGrid={[1, 0]}
@@ -230,5 +236,6 @@ DraggableAc.propTypes = {
   targetOperator: PropTypes.func,
   isSourceClicked: PropTypes.bool,
   interval: PropTypes.number.isRequired,
-  graphId: PropTypes.string.isRequired
+  graphId: PropTypes.string.isRequired,
+  moveCursor:PropTypes.func,
 };
