@@ -39,17 +39,19 @@ const adjustToGrid = (number, interval) => {
   return Math.round(number - remaining)
 }
 
-const convertTimeToPx = (unit, time, interval) => {
+export const convertTimeToPx = (unit, time) => {
   return time / getUnitInSeconds(unit) * unitTime
 }
 
 const getUnitInSeconds = (unit) => {
   switch(unit) {
-    case 'hour':
-      return 3600.0
-    case 'minute':
-      return 60.0
-    default: return 1.0
+    case 'days':
+      return 86400.0;
+    case 'hours':
+      return 3600.0;
+    case 'minutes':
+      return 60.0;
+    default: return 1.0;
   }
 }
 
@@ -113,10 +115,10 @@ export default class DraggableAc extends Component {
 
   }
 
-  defaultPosition = () => {
+  defaultPosition = (scale) => {
     var { defaultPosition, editorMode } = this.props;
     return {
-      x: defaultPosition.x + this.state.leftBound,
+      x: convertTimeToPx(scale, defaultPosition.x) + this.state.leftBound,
       y: this.state.y
     }
   }
@@ -153,21 +155,29 @@ export default class DraggableAc extends Component {
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
-    updateGraphActivityDuration(this.props.activity._id, convertPxToTime('seconds', styleSize.width))
+    updateGraphActivityDuration(this.props.activity._id, convertPxToTime(this.props.scale, styleSize.width))
     this.props.moveCursor(-1)
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if(this.props.scale != nextProps.scale) {
+      const position = this.defaultPosition(nextProps.scale)
+      this.rnd.updatePosition({ x: position.x, y: position.y })
+    }
   }
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx('seconds', activity.data.duration ? activity.data.duration : defaultTime, this.props.interval)
+    let duration = convertTimeToPx(this.props.scale, activity.data.duration ? activity.data.duration : defaultTime)
     return(
       <div style={{position: 'relative', zIndex: 0}}>
         <Rnd
+          ref={c => { this.rnd = c }}
           moveAxis={this.props.editorMode ? 'x' : 'none'}
           id = {'drag_' + activity._id}
           initial={{
-            x: this.defaultPosition().x,
-            y: this.defaultPosition().y,
+            x: this.defaultPosition(this.props.scale).x,
+            y: this.defaultPosition(this.props.scale).y,
             height: 40,
             width: divStyle(duration).width
           }}
@@ -240,4 +250,5 @@ DraggableAc.propTypes = {
   interval: PropTypes.number.isRequired,
   graphId: PropTypes.string.isRequired,
   moveCursor:PropTypes.func,
+  scale: PropTypes.string,
 };

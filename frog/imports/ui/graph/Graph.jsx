@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import ReactDOM from 'react-dom';
-import DraggableAc from './DraggableAc.jsx';
+import DraggableAc, {convertTimeToPx} from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
@@ -15,10 +15,9 @@ import ReactTooltip from 'react-tooltip'
 const charSize = 11;
 const interval = 30;
 const graphSize = 300
-const unit="seconds"
 
 //to be put in graph.jxs
-const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
+const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
   const leftMargin = 10;
   const textSizeAndMargin = charSize*10 + leftMargin;
   return(
@@ -34,7 +33,7 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
       <text x={leftMargin} y="80%" id={graphId + "plane1"}>Individual</text>
       <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit={unit} cursor={cursor}/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit={scale} cursor={cursor}/>
     </svg>
   </div>
 )}
@@ -323,8 +322,9 @@ export const RenderGraph = ( {
   graphId,
   moveCursor,
   cursor,
+  scale,
   activitySourceClicked}) => {
-  const rightMostPosition = getRightMostPosition(positions)
+  const rightMostPosition = getRightMostPosition(positions, scale)
   return(
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
@@ -363,6 +363,7 @@ export const RenderGraph = ( {
                     interval = {interval}
                     graphId = {graphId}
                     moveCursor={moveCursor}
+                    scale={scale}
                     />)
                 })}
               </div>
@@ -375,19 +376,32 @@ export const RenderGraph = ( {
             <DrawToolTip operators={operators} activities={activities} positions={positions}/>
           : ""}
         <div>
-          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor}/>
+          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scale}/>
         </div>
       </div>
 
     );
 }
 
-const getRightMostPosition = (positions) => {
+const scaleButton = (changeScale) => {
+  return(
+    <div onChange={changeScale}>
+      <select name="scale" defaultValue="seconds">
+        <option value="seconds">Seconds</option>
+        <option value="minutes" >Minutes</option>
+        <option value="hours">Hours</option>
+        <option value="days">Days</option>
+      </select>
+    </div>
+  );
+}
+
+const getRightMostPosition = (positions, scale) => {
     let rightMostPosition = 0
 
     if(positions.length > 0) {
       let mappedPosition = positions.map(position => {return position.position.x + position.size})
-      rightMostPosition = Math.max(...mappedPosition)
+      rightMostPosition = convertTimeToPx(scale, Math.max(...mappedPosition))
     }
 
     return (rightMostPosition >= 1000) ? rightMostPosition + 100 : 1100;
@@ -441,6 +455,7 @@ class Graph extends Component {
       clickedOperatorPosition: null,
       plane: {plane1: 0, plane2: 0, plane3: 0},
       cursor:-1,
+      scale:"seconds",
     };
   }
 
@@ -646,12 +661,15 @@ class Graph extends Component {
     )
   }
 
-
+  changeScale = (event) => {
+    this.setState({scale:event.target.value})
+  }
 
   render() {
     return (
       <div id="graph-summary" >
           <br />
+          {scaleButton(this.changeScale)}
           <RenderGraph
             id = 'planes'
             editorMode={true}
@@ -673,6 +691,7 @@ class Graph extends Component {
             graphId={this.props.graphId}
             moveCursor={this.moveCursor}
             cursor={this.state.cursor}
+            scale={this.state.scale}
             />
           <br/>
           <br/>
