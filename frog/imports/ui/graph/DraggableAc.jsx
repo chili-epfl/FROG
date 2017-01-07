@@ -174,14 +174,14 @@ export default class DraggableAc extends Component {
           >
           <span style={{position: 'relative', zIndex: 0}}>
             <div style={{position: 'relative', zIndex: 0}}>
-              <div style={{position: 'absolute', zIndex: 0, left:-4*circleRadius}}>
+              <div style={{position: 'absolute', zIndex: 0, left:0}}>
                 <Anchor
                 onClick={(event) => this.props.targetOperator(activity)}
                 fill="white"
                 id={"target" + activity._id}
                 />
               </div>
-              <div style={{position: 'absolute', zIndex: 0, right:-4*circleRadius}}>
+              <div style={{position: 'absolute', zIndex: 0, right:0}}>
                 <Anchor
                 onClick={(event) => this.props.sourceOperator(activity)}
                 fill={this.props.isSourceClicked ? "red" : "white"}
