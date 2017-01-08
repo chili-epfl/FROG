@@ -131,7 +131,7 @@ export const duplicateGraph = (graphId) => {
     addGraphActivity(newActivity, newActivity._id)
   })
   return newGraphId
-
+}
 
 
 
