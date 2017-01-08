@@ -155,7 +155,7 @@ export default class DraggableAc extends Component {
   handleResize = (direction, styleSize, clientSize, delta, newPos) => {
     this.props.moveCursor(this.state.totalPosition.x + styleSize.width)
     console.log("cursor " + (this.state.totalPosition.x + styleSize.width))
-    this.props.handleResize(this.props.arrayIndex, styleSize.width)
+    this.props.handleResize(this.props.arrayIndex, convertPxToTime(this.props.scale, styleSize.width))
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
@@ -185,7 +185,7 @@ export default class DraggableAc extends Component {
           initial={{
             x: this.defaultPosition().x,
             y: this.defaultPosition().y,
-            height: 40,
+            height: boxHeight,
             width: divStyle(duration).width
           }}
           isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
@@ -221,11 +221,8 @@ export default class DraggableAc extends Component {
             </div>
             {
               duration >= minRealBox ?
-                          <div id = {activity._id}>
+                          <div id = {activity._id} data-tip data-for={"tip" + activity._id}>
                             <span>
-                              <span data-tip data-for={"tip" + activity._id}>
-                                <i className="fa fa-info" />
-                              </span>
                               {this.props.editorMode ?
                                 <a
                                   onClick={(event) => this.props.delete(activity)}

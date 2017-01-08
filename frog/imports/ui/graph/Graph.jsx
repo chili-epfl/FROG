@@ -180,7 +180,7 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
   )
 }
 
-const DrawToolTip = ( {operators, activities, positions}) => {
+const DrawToolTip = ( {operators, activities, positions, scale}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
@@ -192,13 +192,16 @@ const DrawToolTip = ( {operators, activities, positions}) => {
         </ReactTooltip>
       })}
       {activities.map( (activity, i) => {
+        console.log(JSON.stringify(activity))
         return <ReactTooltip
           key={"actip" + i}
           id={"tip"+activity._id}
           place="bottom"
           type="light">
           Activity: {activity._id}
-          <pre>{JSON.stringify(activity, null, 2)}</pre>
+          <pre>{
+            JSON.stringify({"Data":activity.data, "Beginning":convertTimeToPx(scale, activity.position.x) + " " + scale}, null, 2)
+          }</pre>
         </ReactTooltip>
       })}
     </span>
@@ -347,7 +350,7 @@ export const RenderGraph = ( {
           }
             </div>
           {loaded ?
-            <DrawToolTip operators={operators} activities={activities} positions={positions}/>
+            <DrawToolTip operators={operators} activities={activities} positions={positions} scale={scales[scale]}/>
           : ""}
         <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scales[scale]}/>
@@ -548,13 +551,12 @@ class Graph extends Component {
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
-      console.log(newPosition.x + " " + newActivity.data.duration)
       let newElement = {position: newPosition, plane: plane};
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
 
       addGraphActivity({ _id: activity._id, graphId: this.props.graphId, position: newPosition, data: activity.data, plane: plane})
-      this.setState({addedActivities: newActivities, addedPositions: newPositions})
+      //this.setState({addedActivities: newActivities, addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});
   }
@@ -577,12 +579,13 @@ class Graph extends Component {
   handleResize = (arrayIndex, size) => {
     let activityResized = this.state.addedPositions[arrayIndex]
     activityResized.size = size
-    this.setState({addedPositions:this.state.addedPositions})
+    this.setState({addedPositions:this.state.addedPositions, loaded:false})
   }
 
   handleStop = (arrayIndex, position) => {
     //this.handleMove(arrayIndex, position)
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
+    this.setState({loaded:false})
   }
 
   sourceClicked = (source) => {
