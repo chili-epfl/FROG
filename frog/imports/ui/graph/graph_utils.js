@@ -33,3 +33,4 @@ export const getUnitInSeconds = (unit) => {
   }
 }
 
+export const scales = ['seconds', 'minutes', 'hours', 'days']

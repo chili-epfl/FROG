@@ -9,20 +9,19 @@ import { sortBy, reverse, take, range } from 'lodash'
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime } from './graph_utils.js'
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, scales } from './graph_utils.js'
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
 
 const charSize = 11;
 const interval = 30;
-const graphSize = 300
-export const scales = ['seconds', 'minutes', 'hours', 'days']
+const graphSize = 300;
+const leftMargin = 10;
+const textSizeAndMargin = charSize*10 + leftMargin;
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
-  const leftMargin = 10;
-  const textSizeAndMargin = charSize*10 + leftMargin;
   return(
   <div>
     <svg width={rightMostPosition + textSizeAndMargin} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
@@ -45,7 +44,7 @@ const TimeAxis = ({totalLeftMargin, width, interval, unit, cursor}) => {
   return(
     <g>
       <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
-      <text x="10" y="90%">Time ({unit})</text>
+      <text x={leftMargin} y="90%">Time ({unit})</text>
       {
         <g>
           {
@@ -194,7 +193,6 @@ const DrawToolTip = ( {operators, activities, positions, scale}) => {
         </ReactTooltip>
       })}
       {activities.map( (activity, i) => {
-        console.log(JSON.stringify(activity))
         return <ReactTooltip
           key={"actip" + i}
           id={"tip"+activity._id}
