@@ -69,7 +69,7 @@ class GraphEditor extends Component {
             <a href='#' onClick={ () => this.submitReplace(graph._id) } ><i className="fa fa-pencil" /></a>
             <a href='#' onClick={ () => this.handleInfoClick(graph._id)} ><i className="fa fa-info" /></a>
             <a href='#' onClick={ () => this.handleDuplicate(graph._id)} ><i className="fa fa-copy" /></a>
-            <input type="text" size="25" value={graph.name} onChange={(event) => this.handleRename(event, graph._id, graph.name)}/>
+            <input type="text" value={graph.name} onChange={(event) => this.handleRename(event, graph._id, graph.name)}/>
             {this.state.current == graph._id ? '(current)':null}
             {this.state.infoToDisplay == graph._id ?
               <Graph
