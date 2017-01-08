@@ -57,7 +57,7 @@ const getUnitInSeconds = (unit) => {
   }
 }
 
-const convertPxToTime = (unit, time) => {
+export const convertPxToTime = (unit, time) => {
   return time * getUnitInSeconds(unit) / unitTime
 }
 
@@ -219,7 +219,7 @@ export default class DraggableAc extends Component {
               </div>
             </div>
             {
-              duration >= minRealBox ? 
+              duration >= minRealBox ?
                           <div id = {activity._id}>
                             <span>
                               <span data-tip data-for={"tip" + activity._id}>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import ReactDOM from 'react-dom';
-import DraggableAc, {convertTimeToPx} from './DraggableAc.jsx';
+import DraggableAc, {convertTimeToPx, convertPxToTime} from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
@@ -198,7 +198,7 @@ const DrawToolTip = ( {operators, activities, positions}) => {
           place="bottom"
           type="light">
           Activity: {activity._id}
-          <pre>{JSON.stringify(activity.data, null, 2)}</pre>
+          <pre>{JSON.stringify(activity, null, 2)}</pre>
         </ReactTooltip>
       })}
     </span>
@@ -465,7 +465,7 @@ class Graph extends Component {
       addedActivities: nextProps.addedActivities,
       addedOperators: nextProps.addedOperators,
       addedPositions: positions,
-      loaded: nextProps.loaded,
+      loaded: nextProps.loaded,
       scale: this.state.scale < minScale ? minScale : this.state.scale,
       minScale: minScale
     })
@@ -546,12 +546,10 @@ class Graph extends Component {
       const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left;
       const newY = computeTopPosition("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
-
       let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - computeLeftPosition("#" + graphId + "line" + plane, graphId), 0)
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
-
-      let newPosition = {x: newX, y: newY};
+      let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
       let newElement = {position: newPosition, plane: plane};
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
@@ -657,7 +655,7 @@ class Graph extends Component {
   }
 
   changeScale = (event) => {
-    this.setState({scale:event.target.value})
+    this.setState({scale:event.target.value, loaded:false})
   }
 
   render() {
