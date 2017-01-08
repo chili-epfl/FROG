@@ -10,8 +10,8 @@ import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphO
           modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, 
-          convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval, 
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
+          convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval,
           graphSize, horizontalZoom } from './graph_utils.js'
 
 import { $ } from 'meteor/jquery'
@@ -59,7 +59,7 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
                 <line x1={totalLeftMargin + timeGraduated} y1="90%"
                       x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
                 <text x={totalLeftMargin + timeGraduated} y="93%"
-                      style={{writingMode: "tb", fontSize: "65%"}}>{timeGraduated}</text>
+                      style={{writingMode: "tb", fontSize: "65%"}}>{timeGraduated/horizontalZoom}</text>
               </g>
               );
             }
@@ -70,7 +70,7 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
                 <line x1={totalLeftMargin + cursor} y1="90%"
                       x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
                 <text x={totalLeftMargin + cursor} y="93%"
-                      style={{writingMode: "tb", fontSize: "65%"}}>{cursor}</text>
+                      style={{writingMode: "tb", fontSize: "65%"}}>{cursor / horizontalZoom}</text>
               </g>
               : ""
           }
@@ -208,7 +208,8 @@ const DrawToolTip = ( {operators, activities, scale}) => {
           type="light">
           Activity: {activity._id}
           <pre>{
-            JSON.stringify({"Data":activity.data, "Beginning":convertTimeToPx(scale, activity.position.x) + " " + scale}, null, 2)
+            //dividing by horizontalZoom since we only want the conversion seconds -> unit 
+            JSON.stringify({"Data":activity.data, "Beginning":convertTimeToPx(scale, activity.position.x)/horizontalZoom + " " + scale}, null, 2)
           }</pre>
         </ReactTooltip>
       })}
@@ -718,7 +719,7 @@ const divListStyleNoActivity = {
   borderColor: "white",
   background: "white",
 }
-
+//#b62020 dark red
 const divStyleNeg = (activity) => { return {
 
   background: "white",
