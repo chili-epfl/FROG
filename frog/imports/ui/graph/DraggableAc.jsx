@@ -9,7 +9,8 @@ import { updateGraphActivityDuration } from '../../api/activities'
 import { $ } from 'meteor/jquery';
 
 import ReactTooltip from 'react-tooltip'
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, textSizeAndMargin } from './graph_utils.js'
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, 
+          convertTimeToPx, convertPxToTime, textSizeAndMargin } from './graph_utils.js'
 
 
 const unitTime = 1
@@ -45,7 +46,8 @@ const divStyle = (duration) => {
 
 const Anchor = ({id, fill, onClick, duration}) => {
   return (
-    <svg height={Math.min(2*circleRadius, 0.2*duration)} width={Math.min(2*circleRadius, 0.2*duration)} style={{position: "relative"}} onClick={onClick}>
+    <svg height={Math.min(2*circleRadius, 0.2*duration)} width={Math.min(2*circleRadius, 0.2*duration)} 
+          style={{position: "relative"}} onClick={onClick}>
       <circle cx="50%" cy="50%" r="50%" stroke="black" fill={fill} id={id}/>
     </svg>
   )
@@ -146,7 +148,8 @@ export default class DraggableAc extends Component {
             height: boxHeight,
             width: divStyle(duration).width
           }}
-          isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+          isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, 
+                          bottomRight: false, bottomLeft: false, topLeft: false }}
           bounds={{left: textSizeAndMargin - rndMargin}}
           onDrag={this.handleDrag}
           onDragStop={this.handleStop}
