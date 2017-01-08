@@ -446,10 +446,17 @@ class Graph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let positions = nextProps.addedActivities.map( (activity) => {
+    /*
+    let activity = this.state.addedActivities[this.state.addedActivities.length -1]
+    console.log(activity._id)
+    console.log(nextProps.addedActivities[nextProps.addedActivities.length -1]._id)
+    activity._id = nextProps.addedActivities[nextProps.addedActivities.length -1]._id
+    nextProps.addedActivities[nextProps.addedActivities.length -1] = activity
+    */
+    let positions = nextProps.addedActivities.map( (activity, i) => {
       return {
-        plane: activity.plane,
-        position: activity.position,
+        plane: activity.plane ? activity.plane : this.state.addedPositions[i].plane,
+        position: activity.position ? activity.position : this.state.addedPositions[i].position,
         size: activity.data.duration
       }
     })
@@ -472,7 +479,7 @@ class Graph extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!prevState.loaded) {
+    if (!prevState.loaded || prevState.scale != this.state.scale) {
       this.setState({loaded: true})
       this.props.handleLoaded()
     }
@@ -554,7 +561,7 @@ class Graph extends Component {
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
 
-      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, position: newPosition, data: activity.data, plane: plane})
+      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, position: newPosition, data: newActivity.data, plane: plane}, newActivity._id)
       this.setState({addedActivities: newActivities, addedPositions: newPositions})
     }
     this.setState({currentDraggable: null});

@@ -155,7 +155,7 @@ export default class DraggableAc extends Component {
 
   handleResize = (direction, styleSize, clientSize, delta, newPos) => {
     this.props.moveCursor(this.state.totalPosition.x + styleSize.width)
-    this.props.handleResize(this.props.arrayIndex, styleSize.width)
+    this.props.handleResize(this.props.arrayIndex, convertPxToTime(this.props.scale, styleSize.width))
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
