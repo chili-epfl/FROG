@@ -461,12 +461,10 @@ class Graph extends Component {
       }
     })
 
-    let minScale = this.state.scale;
+    let minScale = 0;
     while(getRightMostPosition(positions, minScale) > 2000 && minScale < scales.length) {
       minScale += 1
     }
-    console.log(minScale)
-    console.log(getRightMostPosition(positions, minScale))
 
     this.setState({
       addedActivities: nextProps.addedActivities,
@@ -557,6 +555,7 @@ class Graph extends Component {
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
+      console.log(newPosition.x + " " + newActivity.data.duration)
       let newElement = {position: newPosition, plane: plane};
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
