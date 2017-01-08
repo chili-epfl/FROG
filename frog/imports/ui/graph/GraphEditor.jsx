@@ -42,14 +42,18 @@ class RenderRepoGraph extends Component {
 
   render() {
     return (
-      <RenderGraph
-        activities={this.state.activities}
-        operators={this.state.operators}
-        editorMode={false}
-        loaded={this.state.loaded}
-        positions={this.state.positions}
-        plane={this.state.planes}
-        graphId={"repo" + this.props.graphId}/>
+      <div>
+        <br/>
+        <RenderGraph
+          activities={this.state.activities}
+          operators={this.state.operators}
+          editorMode={false}
+          loaded={this.state.loaded}
+          positions={this.state.positions}
+          plane={this.state.planes}
+          graphId={"repo" + this.props.graphId}/>
+        <br/>
+      </div>
     )
   }
 }
@@ -105,7 +109,7 @@ class GraphEditor extends Component {
       <div>
         <h3>Graph list</h3>
         <ul> { this.props.graphs.map((graph) =>
-          <li style={{listStyle: 'none'}} key={graph._id}>
+          <li style={{listStyle: 'none', margin: "10px 0"}} key={graph._id}>
             <a href='#' onClick={ () => this.handleRemove(graph._id) }><i className="fa fa-times" /></a>
             <a href='#' onClick={ () => this.submitReplace(graph._id) } ><i className="fa fa-pencil" /></a>
             <a href='#' onClick={ () => this.handleInfoClick(graph._id)} ><i className="fa fa-info" /></a>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import ReactDOM from 'react-dom';
-import DraggableAc from './DraggableAc.jsx';
+import DraggableAc, {convertTimeToPx} from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
@@ -15,14 +15,15 @@ import ReactTooltip from 'react-tooltip'
 const charSize = 11;
 const interval = 30;
 const graphSize = 300
+const scales = ['seconds', 'minutes', 'hours', 'days']
 
 //to be put in graph.jxs
-const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
+const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
   const leftMargin = 10;
   const textSizeAndMargin = charSize*10 + leftMargin;
   return(
   <div>
-    <svg width={rightMostPosition} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "scroll"}}>
+    <svg width={rightMostPosition + textSizeAndMargin} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
 
       <text x={leftMargin} y="20%" id={graphId + "plane3"}>Class</text>
       <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
@@ -33,7 +34,7 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
       <text x={leftMargin} y="80%" id={graphId + "plane1"}>Individual</text>
       <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit="minutes" cursor={cursor}/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit={scale} cursor={cursor}/>
     </svg>
   </div>
 )}
@@ -41,33 +42,34 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor}) => {
 const TimeAxis = ({totalLeftMargin, width, interval, unit, cursor}) => {
   return(
     <g>
-    <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
-    {
-      <g>
-        {
-        _.range(0, width, interval).map((timeGraduated, i) => {
-          if(cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
-            return ""
+      <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x="10" y="90%">Time ({unit})</text>
+      {
+        <g>
+          {
+          _.range(0, width+totalLeftMargin, interval).map((timeGraduated, i) => {
+            if(cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
+              return ""
+            }
+            else {
+            return (
+              <g key={i}>
+                <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+                <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "65%"}}>{timeGraduated}</text>
+              </g>
+              );
+            }
+          })}
+          {
+            (cursor >= 0) ?
+              <g>
+                <line x1={totalLeftMargin + cursor} y1="90%" x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
+                <text x={totalLeftMargin + cursor} y="93%" style={{writingMode: "tb", fontSize: "65%"}}>{cursor}</text>
+              </g>
+              : ""
           }
-          else {
-          return (
-            <g key={i}>
-              <line x1={totalLeftMargin + timeGraduated} y1="90%" x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-              <text x={totalLeftMargin + timeGraduated} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{timeGraduated}</text>
-            </g>
-            );
-          }
-        })}
-        {
-          (cursor >= 0) ?
-            <g>
-              <line x1={totalLeftMargin + cursor} y1="90%" x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-              <text x={totalLeftMargin + cursor} y="93%" style={{writingMode: "tb", fontSize: "70%"}}>{cursor}</text>
-            </g>
-            : ""
-        }
-      </g>
-    }
+        </g>
+      }
     </g>
   );
 }
@@ -284,8 +286,9 @@ export const RenderGraph = ( {
   clickedOperator,
   listAvailableOperators,
   deleteAc,
-  handleMove,
+  //handleMove,
   handleStop,
+  handleResize,
   sourceOperator,
   targetOperator,
   loaded,
@@ -293,8 +296,9 @@ export const RenderGraph = ( {
   graphId,
   moveCursor,
   cursor,
+  scale,
   activitySourceClicked}) => {
-  const rightMostPosition = getRightMostPosition(positions)
+  const rightMostPosition = getRightMostPosition(positions, scale)
   return(
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
@@ -323,8 +327,9 @@ export const RenderGraph = ( {
                     key={activity._id}
                     defaultPosition={activity.position ? activity.position : positions[i].position}
                     arrayIndex={i}
-                    handleMove={handleMove}
+                    //handleMove={handleMove}
                     handleStop={handleStop}
+                    handleResize={handleResize}
                     delete = {deleteAc}
                     sourceOperator = {sourceOperator}
                     targetOperator = {targetOperator}
@@ -332,6 +337,7 @@ export const RenderGraph = ( {
                     interval = {interval}
                     graphId = {graphId}
                     moveCursor={moveCursor}
+                    scale={scales[scale]}
                     />)
                 })}
               </div>
@@ -344,22 +350,36 @@ export const RenderGraph = ( {
             <DrawToolTip operators={operators} activities={activities} positions={positions}/>
           : ""}
         <div>
-          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor}/>
+          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scales[scale]}/>
         </div>
       </div>
 
     );
 }
 
-const getRightMostPosition = (positions) => {
+const scaleButton = (changeScale, minScale) => {
+  return(
+      <div onChange={changeScale}>
+        <select name="scale" defaultValue={minScale}>
+          {
+            scales.map((scale, i) => 
+                i >= minScale ? <option key={i} value={i}>{scale}</option> : ""
+            )
+          }
+        </select>
+      </div>
+  );
+}
+
+const getRightMostPosition = (positions, scale) => {
     let rightMostPosition = 0
 
     if(positions.length > 0) {
-      let mappedPosition = positions.map(position => {return position.position.x})
-      rightMostPosition = Math.max(...mappedPosition)
+      let mappedPosition = positions.map(position => {return position.position.x + position.size})
+      rightMostPosition = convertTimeToPx(scales[scale], Math.max(...mappedPosition) || 0)
     }
 
-    return (rightMostPosition >= 1000) ? rightMostPosition + 300 : 1100;
+    return (rightMostPosition >= 1000) ? rightMostPosition + 100 : 1100;
 }
 
 export const computeTopPosition = (object, graphId) => {
@@ -392,7 +412,8 @@ class Graph extends Component {
     let positions = props.addedActivities.map( (activity) => {
       return {
         plane: activity.plane,
-        position: activity.position
+        position: activity.position,
+        size: activity.data.duration
       }
     })
     this.state = {
@@ -409,12 +430,13 @@ class Graph extends Component {
       clickedOperatorPosition: null,
       plane: {plane1: 0, plane2: 0, plane3: 0},
       cursor:-1,
+      scale:0,
+      minScale: 0,
     };
   }
 
   componentDidMount() {
     let {graphId} = this.props
-    console.log("mount")
     let plane1 = computeTopPosition("#" + graphId + "line1", graphId)
     let plane2 = computeTopPosition("#" + graphId + "line2", graphId)
     let plane3 = computeTopPosition("#" + graphId + "line3", graphId)
@@ -423,10 +445,28 @@ class Graph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let positions = nextProps.addedActivities.map( (activity) => {
+      return {
+        plane: activity.plane,
+        position: activity.position,
+        size: activity.data.duration
+      }
+    })
+
+    let minScale = this.state.scale;
+    while(getRightMostPosition(positions, minScale) > 2000 && minScale < scales.length) {
+      minScale += 1
+    }
+    console.log(minScale)
+    console.log(getRightMostPosition(positions, minScale))
+
     this.setState({
       addedActivities: nextProps.addedActivities,
       addedOperators: nextProps.addedOperators,
-      loaded: nextProps.loaded
+      addedPositions: positions,
+      loaded: nextProps.loaded,
+      scale: this.state.scale < minScale ? minScale : this.state.scale,
+      minScale: minScale
     })
   }
 
@@ -521,7 +561,7 @@ class Graph extends Component {
     this.setState({currentDraggable: null});
   }
 
-
+  /*
   handleMove = (arrayIndex, position) => {
 
     let activityMoved = this.state.addedPositions[arrayIndex]
@@ -534,9 +574,16 @@ class Graph extends Component {
 
     this.setState({addedPositions: modifiedAddedPositions})
   }
+  */
+
+  handleResize = (arrayIndex, size) => {
+    let activityResized = this.state.addedPositions[arrayIndex]
+    activityResized.size = size
+    this.setState({addedPositions:this.state.addedPositions})
+  }
 
   handleStop = (arrayIndex, position) => {
-    this.handleMove(arrayIndex, position)
+    //this.handleMove(arrayIndex, position)
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
   }
 
@@ -550,7 +597,7 @@ class Graph extends Component {
   }
 
   addNewOperator = (target) => {
-    if(this.state.currentSource != null) {
+    if(this.state.currentSource != null && target != this.state.currentSource) {
       let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
       this.setState({currentSource:null, addedOperators:newOperators});
       const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
@@ -572,12 +619,15 @@ class Graph extends Component {
 
   operatorChosen = (event) => {
     event.preventDefault();
-    if(event.target.value >= 0) {
+    if(event.target.value > -1) {
       const chosenOperator = this.props.operators[event.target.value];
       this.state.clickedOperator.operator_type = chosenOperator.operator_type;
       this.state.clickedOperator.type = chosenOperator.type;
       this.state.clickedOperator.data = chosenOperator.data;
       modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type, chosenOperator.type, chosenOperator.data)
+    }
+    else {
+      removeGraphOperator(this.state.clickedOperator._id, this.props.graphId)
     }
     this.setState({clickedOperator:null, clickedOperatorPosition:null})
   }
@@ -598,18 +648,22 @@ class Graph extends Component {
                        </option>
               })
             }
+            <option key={"delete"} value={-2} style={{textAlign:"center"}}>Delete</option>
           </select>
         </div>
       </div>
     )
   }
 
-
+  changeScale = (event) => {
+    this.setState({scale:event.target.value})
+  }
 
   render() {
     return (
       <div id="graph-summary" >
           <br />
+          {scaleButton(this.changeScale, this.state.minScale)}
           <RenderGraph
             id = 'planes'
             editorMode={true}
@@ -620,8 +674,9 @@ class Graph extends Component {
             clickedOperator={this.state.clickedOperator}
             listAvailableOperators={this.listAvailableOperators}
             deleteAc={this.deleteInGraphAc}
-            handleMove={this.handleMove}
+            //handleMove={this.handleMove}
             handleStop={this.handleStop}
+            handleResize={this.handleResize}
             sourceOperator = {this.sourceClicked}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
@@ -630,6 +685,7 @@ class Graph extends Component {
             graphId={this.props.graphId}
             moveCursor={this.moveCursor}
             cursor={this.state.cursor}
+            scale={this.state.scale}
             />
           <br/>
           <br/>
