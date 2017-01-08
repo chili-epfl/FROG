@@ -507,7 +507,7 @@ class Graph extends Component {
       const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left;
       const newY = computeTopPositionFromGraph("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
-      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - computeLeftPositionFromGraph("#" + graphId + "line" + plane, graphId), 0)
+      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - textSizeAndMargin, 0)
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
