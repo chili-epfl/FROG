@@ -450,17 +450,10 @@ class Graph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    /*
-    let activity = this.state.addedActivities[this.state.addedActivities.length -1]
-    console.log(activity._id)
-    console.log(nextProps.addedActivities[nextProps.addedActivities.length -1]._id)
-    activity._id = nextProps.addedActivities[nextProps.addedActivities.length -1]._id
-    nextProps.addedActivities[nextProps.addedActivities.length -1] = activity
-    */
     let positions = nextProps.addedActivities.map( (activity, i) => {
       return {
-        plane: activity.plane ? activity.plane : this.state.addedPositions[i].plane,
-        position: activity.position ? activity.position : this.state.addedPositions[i].position,
+        plane: activity.plane,
+        position: activity.position,
         size: activity.data.duration
       }
     })
@@ -480,15 +473,19 @@ class Graph extends Component {
     })
   }
 
+  /*
+   * Calling a render (to draw correctly the operators and the tooltips) when:
+   * - we are swapping for a new/other graph
+   * - rescaling the graph
+   * - a new activity/operator is inserted
+   * - an activity is dragged/resized
+   */
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.loaded || prevState.scale != this.state.scale
-      || prevState.addedActivities.length != prevProps.addedActivities.length
-      || prevState.addedOperators.length != prevProps.addedOperators.length
+      || this.props.addedActivities.length != prevProps.addedActivities.length
+      || this.props.addedOperators.length != prevProps.addedOperators.length
       || prevState.dragged
     ) {
-        console.log("prevProps" + prevProps.addedActivities.length)
-        console.log("prevState" + prevState.addedActivities.length)
-        console.log("current" + this.state.addedActivities.length)
       this.setState({loaded: true, dragged: false})
       this.props.handleLoaded()
     }
@@ -576,21 +573,6 @@ class Graph extends Component {
     this.setState({currentDraggable: null});
   }
 
-  /*
-  handleMove = (arrayIndex, position) => {
-
-    let activityMoved = this.state.addedPositions[arrayIndex]
-    activityMoved.position = position
-    let modifiedAddedPositions = this.state.addedPositions
-      .slice(0, arrayIndex)
-      .concat(activityMoved)
-      .concat(this.state.addedPositions
-                .slice(arrayIndex+1, this.state.addedPositions.length))
-
-    this.setState({addedPositions: modifiedAddedPositions})
-  }
-  */
-
   handleResize = (arrayIndex, size) => {
     let activityResized = this.state.addedPositions[arrayIndex]
     activityResized.size = size
@@ -629,8 +611,9 @@ class Graph extends Component {
     }
   }
 
-  moveCursor = (newPosition) => {
-    this.setState({cursor:newPosition})
+  //dragged is used only on ResizeStop to redraw the operator correctly
+  moveCursor = (newPosition, dragged = false) => {
+    this.setState({cursor:newPosition, dragged: dragged})
   }
 
   operatorChosen = (event) => {

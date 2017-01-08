@@ -129,7 +129,6 @@ export default class DraggableAc extends Component {
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
     this.setState({totalPosition: totalPosition})
-    //this.props.handleMove(this.props.arrayIndex, totalPosition)
     this.props.moveCursor(totalPosition.x)
   }
 
@@ -158,7 +157,7 @@ export default class DraggableAc extends Component {
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
     updateGraphActivityDuration(this.props.activity._id, convertPxToTime(this.props.scale, styleSize.width))
-    this.props.moveCursor(-1)
+    this.props.moveCursor(-1, true)
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -242,7 +241,6 @@ DraggableAc.propTypes = {
   activity: PropTypes.object.isRequired,
   editorMode: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
-  //handleMove: PropTypes.func,
   handleResize: PropTypes.func,
   arrayIndex: PropTypes.number.isRequired,
   delete: PropTypes.func,

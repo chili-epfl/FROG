@@ -8,90 +8,6 @@ import { Graphs, addGraph, setCurrentGraph, removeGraph, renameGraph } from '..
 import { Activities, Operators, duplicateGraph } from '../../api/activities'
 import Graph, { RenderGraph, computeTopPosition, scales, scaleButton } from './Graph'
 
-/*
-class RenderRepoGraph extends Component {
-  constructor(props) {
-    super(props)
-
-    let activities = Activities.find({graphId: props.graphId})
-    let operators = Operators.find({graphId: props.graphId})
-    let positions = activities.map((activity) => {
-      return {
-        plane: activity.plane,
-        position: activity.position,
-        size: activity.data.duration
-      }
-    })
-    this.state = {
-      activities: activities,
-      operators: operators,
-      positions: positions,
-      loaded: false,
-      planes: {plane1:0, plane2: 0, plane3:0},
-      scale:0,
-      minScale: 0,
-    }
-  }
-
-  componentDidMount() {
-    let {graphId} = this.props
-    let plane1 = computeTopPosition("#repo" + graphId + "line1", "repo" + graphId)
-    let plane2 = computeTopPosition("#repo" + graphId + "line2", "repo" + graphId)
-    let plane3 = computeTopPosition("#repo" + graphId + "line3", "repo" + graphId)
-    this.setState({loaded: true, planes: {plane1: plane1, plane2:plane2, plane3:plane3}})
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let positions = nextProps.addedActivities.map( (activity) => {
-      return {
-        plane: activity.plane,
-        position: activity.position,
-        size: activity.data.duration
-      }
-    })
-
-    let minScale = this.state.scale;
-    while(getRightMostPosition(positions, minScale) > 2000 && minScale < scales.length) {
-      minScale += 1
-    }
-    this.setState({
-      addedActivities: nextProps.addedActivities,
-      addedOperators: nextProps.addedOperators,
-      scale: this.state.scale < minScale ? minScale : this.state.scale,
-      minScale: minScale,
-    })
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevState.loaded) {
-      this.setState({loaded: true})
-    }
-  }
-
-  changeScale = (event) => {
-    this.setState({scale:event.target.value})
-  }
-
-  render() {
-    return (
-      <div>
-        <br/>
-        {scaleButton(this.changeScale, this.state.minScale)}
-        <RenderGraph
-          activities={this.state.activities}
-          operators={this.state.operators}
-          editorMode={false}
-          loaded={this.state.loaded}
-          positions={this.state.positions}
-          plane={this.state.planes}
-          graphId={"repo" + this.props.graphId}
-          scale={this.state.scale}/>
-        <br/>
-      </div>
-    )
-  }
-}
-*/
 class GraphEditor extends Component {
 
   constructor(props) {
@@ -161,7 +77,7 @@ class GraphEditor extends Component {
                 operators={[]}
                 graphId={graph._id}
                 loaded={this.state.current == graph._id ? this.state.loaded : this.state.repoLoaded}
-                handleLoaded={this.state.current == graph._id ? this.handleLoaded : this.handleRepoLoaded} 
+                handleLoaded={this.state.current == graph._id ? this.handleLoaded : this.handleRepoLoaded}
                 editorMode={false}/> : "" }
           </li>
         )} </ul>
