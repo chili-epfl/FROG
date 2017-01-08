@@ -13,6 +13,10 @@ export const computeLeftPositionFromGraph = (object, graphId) => {
   return elem - inner
 }
 
+export const scrollGraph = (time, graphId) => {
+  $("#" + graphId + 'inner_graph').scrollLeft(time);
+}
+
 export const convertTimeToPx = (unit, time, unitTime=1) => {
   return time / getUnitInSeconds(unit) * unitTime
 }

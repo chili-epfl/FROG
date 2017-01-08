@@ -9,7 +9,7 @@ import { sortBy, reverse, take, range } from 'lodash'
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, scales, leftMargin, textSizeAndMargin } from './graph_utils.js'
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin } from './graph_utils.js'
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
@@ -424,9 +424,11 @@ class Graph extends Component {
       minScale += 1
     }
 
+    const newScale = this.state.scale < minScale ? minScale : this.state.scale
+
     this.setState({
       loaded: nextProps.loaded,
-      scale: this.state.scale < minScale ? minScale : this.state.scale,
+      scale: newScale,
       minScale: minScale
     })
   }
@@ -589,6 +591,7 @@ class Graph extends Component {
 
   changeScale = (event) => {
     this.setState({scale:event.target.value, loaded:false})
+    scrollGraph(0, this.props.graphId)
   }
 
   render() {
