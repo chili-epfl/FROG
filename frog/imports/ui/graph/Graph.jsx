@@ -9,16 +9,13 @@ import { sortBy, reverse, take, range } from 'lodash'
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, scales } from './graph_utils.js'
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, scales, leftMargin, textSizeAndMargin } from './graph_utils.js'
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
 
-const charSize = 11;
 const interval = 30;
 const graphSize = 300;
-const leftMargin = 10;
-const textSizeAndMargin = charSize*10 + leftMargin;
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
