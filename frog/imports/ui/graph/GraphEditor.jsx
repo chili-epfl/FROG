@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom'
 import { uuid } from 'frog-utils'
 import { $ } from 'meteor/jquery'
 
-import { Graphs, addGraph, setCurrentGraph, removeGraph, renameGraph } from '../../api/graphs'
-import { Activities, Operators, duplicateGraph } from '../../api/activities'
+import { Graphs, addGraph, setCurrentGraph, renameGraph } from '../../api/graphs'
+import { Activities, Operators, duplicateGraph, removeGraph } from '../../api/activities'
 import Graph, { RenderGraph, computeTopPosition, scales, scaleButton } from './Graph'
 
 class GraphEditor extends Component {

@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import React, { Component } from 'react'
+import { createContainer } from 'meteor/react-meteor-data'
 
-import { Activities } from '../api/activities';
-import { Graphs } from '../api/graphs';
+import { get } from 'lodash'
 
-import { activity_types } from '../activity_types';
+import { Activities } from '../api/activities'
+import { Graphs } from '../api/graphs'
+import { activityTypes } from '../activityTypes'
 
-import { get } from 'lodash';
 import GraphDisplay from './repository/GraphDisplay';
 
-const activity_types_id = activity_types.map((type)=>type.id)
+const activityTypesId = activityTypes.map((type) => type.id)
 
 class ActivityDisplay extends Component {
   constructor(props) {
@@ -26,33 +26,35 @@ class ActivityDisplay extends Component {
     })
   }
 
-  render() { return (
-    <div>
-      <b onClick={this.toggleDisplay}>{this.props.activity.activity_type}:</b>
-      <p> {this.props.activity.data.name}</p>
-      { this.state.isClicked ?
-        <pre>{JSON.stringify(this.props.activity.data, null, 2)}</pre>
-        : <p></p>
-      }
-    </div>
-  )}
+  render() {
+    return (
+      <div>
+        <a href={'#'} onClick={this.toggleDisplay}>{this.props.activity.activityType}:</a>
+        <p> {this.props.activity.data.name}</p>
+        { this.state.isClicked ?
+          <pre>{JSON.stringify(this.props.activity.data, null, 2)}</pre>
+          : <p />
+        }
+      </div>
+    )
+  }
 }
 
-const ActivityListDisplay = ( { activities, typeFilter } ) => { return (
+const ActivityListDisplay = ({ activities, typeFilter }) =>
   <div>
-    <ul> { activities
-      .filter((activity) => get(typeFilter,activity.activity_type,true))
-      .map( (activity) => (
+    <ul> {(activities
+      .filter((activity) => get(typeFilter, activity.activityType, true))
+      .map((activity) => (
         <li key={activity._id}>
           <ActivityDisplay activity={activity} />
         </li>
-    )) } </ul>
+      )
+    ))} </ul>
   </div>
-)}
 
-const GraphListDisplay = ( { graphs } ) => { return (
+const GraphListDisplay = ({ graphs }) =>
   <div>
-    <ul> { graphs.map( (graph) => (
+    <ul> { graphs.map((graph) => (
       <li key={graph._id}>
         {graph._id}:
         {graph.name}
@@ -60,60 +62,60 @@ const GraphListDisplay = ( { graphs } ) => { return (
       </li>
     )) } </ul>
   </div>
-)}
 
-const TypeFilterControl = ( { typeFilter, toggleFn } ) => { return (
+const TypeFilterControl = ({ typeFilter, toggleFn }) =>
   <div>
-  { activity_types_id.map((type) =>
-    <span key={type}>
-      <input
-        type="checkbox"
-        readOnly
-        checked={get(typeFilter,type,true)}
-        onClick={() => toggleFn(type)}
-      /> {type}
-    </span>
-  )}
+    { activityTypesId.map((type) =>
+      <span key={type}>
+        <input
+          type='checkbox'
+          readOnly
+          checked={get(typeFilter, type, true)}
+          onClick={() => toggleFn(type)}
+        /> {type}
+      </span>
+    )}
   </div>
-)}
 
 class Repository extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      nameFilter:"",
+      nameFilter: '',
       // fields are true if undefinied
-      typeFilter:{}
+      typeFilter: {}
     }
   }
 
   toggleType = (type) => {
-    var filter = this.state.typeFilter
-    filter[type] = !get(filter,type,true)
-    this.setState({typeFilter:filter})
+    const filter = this.state.typeFilter
+    filter[type] = !get(filter, type, true)
+    this.setState({ typeFilter: filter })
   }
 
   render() {
     return (
       <div>
         <h1> Activities </h1>
-        <TypeFilterControl typeFilter={this.state.typeFilter} toggleFn={this.toggleType} />
-        <ActivityListDisplay activities={this.props.activities} typeFilter={this.state.typeFilter} />
+        <TypeFilterControl
+          typeFilter={this.state.typeFilter}
+          toggleFn={this.toggleType}
+        />
+        <ActivityListDisplay
+          activities={this.props.activities}
+          typeFilter={this.state.typeFilter}
+        />
         <h1> Graphs </h1>
-        <GraphListDisplay graphs={this.props.graphs} />
+        <GraphListDisplay
+          graphs={this.props.graphs}
+        />
       </div>
-    );
+    )
   }
 }
 
-Repository.propTypes = {
-  activities: PropTypes.array.isRequired,
-  graphs: PropTypes.array.isRequired
-};
-
 export default createContainer(() => {
-  return {
-    activities: Activities.find({}).fetch(),
-    graphs: Graphs.find({}).fetch()
-  };
-}, Repository);
+  const activities = Activities.find({}).fetch()
+  const graphs = Graphs.find({}).fetch()
+  return ({ activities, graphs })
+}, Repository)

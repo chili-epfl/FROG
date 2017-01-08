@@ -7,7 +7,7 @@ import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
 
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
-          modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
+          modifyGraphOperator, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, 
@@ -530,7 +530,7 @@ class Graph extends Component {
   }
 
   handleStop = (arrayIndex, position) => {
-    dragGraphActivity(this.props.addedActivities[arrayIndex]._id, position)
+    dragGraphActivitySet(this.props.addedActivities[arrayIndex]._id, position)
     this.setState({loaded: false, dragged: true})
   }
 

@@ -1,4 +1,4 @@
-// @flow 
+// @flow
 
 import acVideo from 'ac-video'
 import acIframe from 'ac-iframe'
@@ -12,7 +12,7 @@ import type { ActivityPackageT } from 'frog-utils'
 
 import { keyBy } from 'lodash'
 
-export const activity_types: Array<ActivityPackageT> = 
-	[acVideo, acIframe, acText, acForm, acCollabForm, acCKBoard, acQuiz]
+export const activityTypes: Array<ActivityPackageT> =
+  [acVideo, acIframe, acText, acForm, acCollabForm, acCKBoard, acQuiz]
 
-export const activity_types_obj = keyBy(activity_types, 'id')
+export const activityTypesObj = keyBy(activityTypes, 'id')
