@@ -128,7 +128,6 @@ export default class DraggableAc extends Component {
     const defaultPosition = this.state.totalPosition
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
-    console.log("totPos" + totalPosition.x)
     this.setState({totalPosition: totalPosition})
     //this.props.handleMove(this.props.arrayIndex, totalPosition)
     this.props.moveCursor(totalPosition.x)
@@ -154,7 +153,6 @@ export default class DraggableAc extends Component {
 
   handleResize = (direction, styleSize, clientSize, delta, newPos) => {
     this.props.moveCursor(this.state.totalPosition.x + styleSize.width)
-    console.log("cursor " + (this.state.totalPosition.x + styleSize.width))
     this.props.handleResize(this.props.arrayIndex, convertPxToTime(this.props.scale, styleSize.width))
   }
 
@@ -168,7 +166,6 @@ export default class DraggableAc extends Component {
       const position = this.defaultPosition(nextProps.defaultPosition, nextProps.scale)
       this.rnd.updatePosition({ x: position.x, y: position.y })
       const newTotalPosition = {x: position.x - this.state.leftBound, y: position.y}
-      console.log("--- " + newTotalPosition.x)
       this.setState({totalPosition: newTotalPosition})
     }
   }
@@ -219,25 +216,22 @@ export default class DraggableAc extends Component {
                 />
               </div>
             </div>
-            {
-              duration >= minRealBox ?
-                          <div id = {activity._id}>
-                            <span>
-                              <span data-tip data-for={"tip" + activity._id}>
-                                <i className="fa fa-info" />
-                              </span>
-                              {this.props.editorMode ?
-                                <a
-                                  onClick={(event) => this.props.delete(activity)}
-                                  >
-                                  <i className="fa fa-times" />
-                                </a> : ""
-                              }
-                            </span>
+            <div id = {activity._id}>
 
-                          </div>
-                          : ""
-            }
+              <span data-tip data-for={"tip" + activity._id}>
+                <i className="fa fa-info" />
+              </span>
+              {
+                duration >= minRealBox ?
+                                this.props.editorMode ?
+                                  <a
+                                    onClick={(event) => this.props.delete(activity)}
+                                    >
+                                    <i className="fa fa-times" />
+                                  </a> : ""
+                            : ""
+              }
+            </div>
           </span>
         </Rnd>
       </div>

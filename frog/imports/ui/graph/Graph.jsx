@@ -477,7 +477,10 @@ class Graph extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!prevState.loaded || prevState.scale != this.state.scale) {
+    if (!prevState.loaded || prevState.scale != this.state.scale || prevState.addedActivities.length != prevProps.addedActivities.length) {
+        console.log("prevProps" + prevProps.addedActivities.length)
+        console.log("prevState" + prevState.addedActivities.length)
+        console.log("current" + this.state.addedActivities.length)
       this.setState({loaded: true})
       this.props.handleLoaded()
     }
@@ -561,7 +564,7 @@ class Graph extends Component {
       let newPositions = this.state.addedPositions.concat(newElement);
 
       addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, position: newPosition, data: newActivity.data, plane: plane}, newActivity._id)
-      this.setState({addedActivities: newActivities, addedPositions: newPositions})
+      this.setState({addedActivities: newActivities, addedPositions: newPositions, loaded:false})
     }
     this.setState({currentDraggable: null});
   }
