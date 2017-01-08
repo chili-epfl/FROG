@@ -158,7 +158,7 @@ export default class DraggableAc extends Component {
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
     updateGraphActivityDuration(this.props.activity._id, convertPxToTime(this.props.scale, styleSize.width))
-    this.props.moveCursor(-1)
+    this.props.moveCursor(-1, true)
   }
 
   componentWillReceiveProps = (nextProps) => {
