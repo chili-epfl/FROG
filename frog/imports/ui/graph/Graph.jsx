@@ -426,6 +426,7 @@ class Graph extends Component {
       addedOperators: props.addedOperators,
       currentSource: null,
       loaded: false,
+      dragged: false,
       clickedOperator: null,
       clickedOperatorPosition: null,
       plane: {plane1: 0, plane2: 0, plane3: 0},
@@ -477,11 +478,15 @@ class Graph extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!prevState.loaded || prevState.scale != this.state.scale || prevState.addedActivities.length != prevProps.addedActivities.length) {
+    if (!prevState.loaded || prevState.scale != this.state.scale
+      || prevState.addedActivities.length != prevProps.addedActivities.length
+      || prevState.addedOperators.length != prevProps.addedOperators.length
+      || prevState.dragged
+    ) {
         console.log("prevProps" + prevProps.addedActivities.length)
         console.log("prevState" + prevState.addedActivities.length)
         console.log("current" + this.state.addedActivities.length)
-      this.setState({loaded: true})
+      this.setState({loaded: true, dragged: false})
       this.props.handleLoaded()
     }
   }
@@ -593,6 +598,7 @@ class Graph extends Component {
   handleStop = (arrayIndex, position) => {
     //this.handleMove(arrayIndex, position)
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
+    this.setState({loaded: false, dragged: true})
   }
 
   sourceClicked = (source) => {
@@ -607,7 +613,7 @@ class Graph extends Component {
   addNewOperator = (target) => {
     if(this.state.currentSource != null && target != this.state.currentSource) {
       let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
-      this.setState({currentSource:null, addedOperators:newOperators});
+      this.setState({currentSource:null, addedOperators:newOperators, loaded:false});
       const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
       const toAc = {plane: target.plane, _id: target._id}
       addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: fromAc, to:toAc})
