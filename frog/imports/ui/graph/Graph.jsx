@@ -479,8 +479,8 @@ class Graph extends Component {
    */
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.loaded || prevState.scale != this.state.scale
-      || prevState.addedActivities.length != prevProps.addedActivities.length
-      || prevState.addedOperators.length != prevProps.addedOperators.length
+      || this.props.addedActivities.length != prevProps.addedActivities.length
+      || this.props.addedOperators.length != prevProps.addedOperators.length
       || prevState.dragged
     ) {
       this.setState({loaded: true, dragged: false})
@@ -560,7 +560,6 @@ class Graph extends Component {
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
-      console.log(newPosition.x + " " + newActivity.data.duration)
       let newElement = {position: newPosition, plane: plane};
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);

@@ -129,7 +129,6 @@ export default class DraggableAc extends Component {
     const updatedPosition = {x: deltaPosition.x, y: 0}
     const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
     this.setState({totalPosition: totalPosition})
-    //this.props.handleMove(this.props.arrayIndex, totalPosition)
     this.props.moveCursor(totalPosition.x)
   }
 
@@ -245,7 +244,6 @@ DraggableAc.propTypes = {
   activity: PropTypes.object.isRequired,
   editorMode: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
-  //handleMove: PropTypes.func,
   handleResize: PropTypes.func,
   arrayIndex: PropTypes.number.isRequired,
   delete: PropTypes.func,
