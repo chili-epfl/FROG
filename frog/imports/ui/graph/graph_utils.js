@@ -34,3 +34,6 @@ export const getUnitInSeconds = (unit) => {
 }
 
 export const scales = ['seconds', 'minutes', 'hours', 'days']
+export const leftMargin = 10;
+const charSize = 11;
+export const textSizeAndMargin = charSize*10 + leftMargin;

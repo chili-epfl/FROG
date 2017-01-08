@@ -9,7 +9,7 @@ import { updateGraphActivityDuration } from '../../api/activities'
 import { $ } from 'meteor/jquery';
 
 import ReactTooltip from 'react-tooltip'
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime } from './graph_utils.js'
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, textSizeAndMargin } from './graph_utils.js'
 
 
 const unitTime = 1
@@ -28,7 +28,8 @@ const minRealBox = 45
 
 const divStyle = (duration) => {
   return {
-    background: "#FF7166",
+    background: "#fe8181",
+    borderRadius: 4,
     textAlign:"center",
     width: duration,
     height: boxHeight,
@@ -59,7 +60,6 @@ export default class DraggableAc extends Component {
       totalPosition: props.defaultPosition,
       totalDuration: props.duration,
       y: 0,
-      leftBound: 109,
       moving: false,
       resizing: false,
     }
@@ -68,12 +68,11 @@ export default class DraggableAc extends Component {
   componentDidMount() {
     let {graphId} = this.props
     let newY = computeTopPositionFromGraph("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2
-    let newLeftBound = computeLeftPositionFromGraph("#" + graphId + "line1", graphId) - rndMargin
+    let newLeftBound = textSizeAndMargin - rndMargin
 
-    if(this.state.y != newY || this.state.leftBound != newLeftBound) {
+    if(this.state.y != newY) {
       this.setState({
         y: newY,
-        leftBound: newLeftBound,
       })
     }
 
@@ -81,7 +80,7 @@ export default class DraggableAc extends Component {
 
   defaultPosition = (position=this.props.defaultPosition, scale=this.props.scale) => {
     return {
-      x: convertTimeToPx(scale, position.x) + this.state.leftBound,
+      x: convertTimeToPx(scale, position.x) + textSizeAndMargin - rndMargin,
       y: this.state.y
     }
   }
@@ -125,7 +124,7 @@ export default class DraggableAc extends Component {
     if(this.props.scale != nextProps.scale || this.props.defaultPosition != nextProps.defaultPosition) {
       const position = this.defaultPosition(nextProps.defaultPosition, nextProps.scale)
       this.rnd.updatePosition({ x: position.x, y: position.y })
-      const newTotalPosition = {x: position.x - this.state.leftBound, y: position.y}
+      const newTotalPosition = {x: position.x - (textSizeAndMargin - rndMargin), y: position.y}
       this.setState({totalPosition: newTotalPosition})
     }
   }
@@ -146,14 +145,13 @@ export default class DraggableAc extends Component {
             width: divStyle(duration).width
           }}
           isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
-          bounds={{left: this.state.leftBound}}
+          bounds={{left: textSizeAndMargin - rndMargin}}
           onDrag={this.handleDrag}
           onDragStop={this.handleStop}
           onResize={this.handleResize}
           onResizeStop={this.handleResizeStop}
           moveGrid={[editorMode ? 1 : 0, 0]}
           resizeGrid={[1, 0]}
-          bounds={{left: this.state.leftBound}}
           zIndex={0}
           style={divStyle(duration)}
           >
@@ -177,16 +175,16 @@ export default class DraggableAc extends Component {
               </div>
             </div>
             <div id = {activity._id} >
-              <span data-tip data-for={"tip" + activity._id}>
-                <i className="fa fa-info" />
-              </span>
+              <a data-tip data-for={"tip" + activity._id}>
+                <i className="fa fa-info" style={{color: 'white'}}/>
+              </a>
               {
                 <span>
                   {this.props.editorMode && duration >= minRealBox ?
                     <a
                       onClick={(event) => this.props.delete(activity)}
                       >
-                      <i className="fa fa-times" />
+                      <i className="fa fa-trash"  style={{color: 'white'}}/>
                     </a> : ""
                   }
                 </span>

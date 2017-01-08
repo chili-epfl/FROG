@@ -9,16 +9,13 @@ import { sortBy, reverse, take, range } from 'lodash'
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, scales } from './graph_utils.js'
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime, scales, leftMargin, textSizeAndMargin } from './graph_utils.js'
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
 
-const charSize = 11;
 const interval = 30;
 const graphSize = 320;
-const leftMargin = 10;
-const textSizeAndMargin = charSize*10 + leftMargin;
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
@@ -131,7 +128,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
         y1={up ? top : top + height}
         x2={right ? left : left + width}
         y2={up ? height + top : top}
-        style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
+        style={{stroke:'#b62020', strokeWidth:"5", zIndex:10}}/>
     )
   }
 
@@ -141,7 +138,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
       id={i}
       key ={i}
       d={"M" + (left + startX) + "," + (top + startY) + " c"+ cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
-      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: 10}}/>
+      style={{fill: 'none', stroke: '#b62020', strokeWidth: 5, zIndex: 10}}/>
   )
 }
 
@@ -481,7 +478,7 @@ class Graph extends Component {
       }
     })
     */
-    removeGraphOperator(this.props.graphId, activity._id)
+    removeGraphOperator(activity._id)
     removeGraphActivity(activity._id)
   }
 
@@ -507,7 +504,7 @@ class Graph extends Component {
       const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left;
       const newY = computeTopPositionFromGraph("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
-      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - computeLeftPositionFromGraph("#" + graphId + "line" + plane, graphId), 0)
+      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - textSizeAndMargin, 0)
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
@@ -680,7 +677,8 @@ const divStyle = {
   overflowY: "hidden",
   border: 1,
   borderStyle: "solid",
-  borderColor: "black",
+  borderColor: "white",
+  background: "#ffffff"
 }
 
 const divListStyle = {
@@ -689,7 +687,8 @@ const divListStyle = {
   width: "100%",
   border: 1,
   borderStyle: "solid",
-  borderColor: "black"
+  borderColor: "white",
+  background: "white",
 }
 
 const divListStyleNoActivity = {
@@ -699,12 +698,14 @@ const divListStyleNoActivity = {
   border: 1,
   textAlign:"center",
   borderStyle: "solid",
-  borderColor: "black"
+  borderColor: "white",
+  background: "white",
 }
 
 const divStyleNeg = (activity) => { return {
 
   background: "white",
+  borderRadius: 4,
   border: 2,
   width: $("#box" + activity._id).outerWidth(),
   height: $("#box" + activity._id).outerHeight(),
@@ -719,6 +720,7 @@ const divStyleNeg = (activity) => { return {
 
 const divStyleAc = () => { return {
   background: "white",
+  borderRadius: 4,
   border: 2,
   height: 40,
   margin: 10,
