@@ -16,7 +16,7 @@ import ReactTooltip from 'react-tooltip'
 
 const charSize = 11;
 const interval = 30;
-const graphSize = 300;
+const graphSize = 320;
 const leftMargin = 10;
 const textSizeAndMargin = charSize*10 + leftMargin;
 
@@ -26,14 +26,14 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
   <div>
     <svg width={rightMostPosition + textSizeAndMargin} height={graphSize} xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
 
-      <text x={leftMargin} y="20%" id={graphId + "plane3"}>Class</text>
-      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="20%" x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="18%" id={graphId + "plane3"}>Class</text>
+      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="18%" x2="100%" y2="18%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x={leftMargin} y="50%" id={graphId + "plane2"}>Team</text>
-      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1="50%" x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="43%" id={graphId + "plane2"}>Team</text>
+      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1="43%" x2="100%" y2="43%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x={leftMargin} y="80%" id={graphId + "plane1"}>Individual</text>
-      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x={leftMargin} y="68%" id={graphId + "plane1"}>Individual</text>
+      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="68%" x2="100%" y2="68%" style={{stroke: 'black', strokeWidth:"1"}} />
 
       <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit={scale} cursor={cursor}/>
     </svg>

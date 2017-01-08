@@ -28,9 +28,8 @@ const minRealBox = 45
 
 const divStyle = (duration) => {
   return {
-    background: "white",
+    background: "#FF7166",
     textAlign:"center",
-    border: 2,
     width: duration,
     height: boxHeight,
     margin: 10,
@@ -38,8 +37,6 @@ const divStyle = (duration) => {
     zIndex: 0,
     float: "left",
     position: "absolute",
-    borderStyle: "solid",
-    borderColor: "green"
   }
 }
 
