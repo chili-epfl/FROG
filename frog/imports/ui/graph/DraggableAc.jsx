@@ -9,18 +9,8 @@ import { updateGraphActivityDuration } from '../../api/activities'
 import { $ } from 'meteor/jquery';
 
 import ReactTooltip from 'react-tooltip'
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime } from './graph_utils.js'
 
-const computeTopPosition = (object, graphId) => {
-  let inner = $("#" + graphId + "inner_graph").offset().top
-  let elem = $(object).offset().top
-  return elem - inner
-}
-
-const computeLeftPosition = (object, graphId) => {
-  let inner = $("#" + graphId + "inner_graph").offset().left
-  let elem = $(object).offset().left
-  return elem - inner
-}
 
 const unitTime = 1
 
@@ -35,31 +25,6 @@ const circleRadius = 6
 const rndMargin = 12
 
 const minRealBox = 45
-
-const adjustToGrid = (number, interval) => {
-  let remaining = number % interval
-  return Math.round(number - remaining)
-}
-
-export const convertTimeToPx = (unit, time) => {
-  return time / getUnitInSeconds(unit) * unitTime
-}
-
-const getUnitInSeconds = (unit) => {
-  switch(unit) {
-    case 'days':
-      return 86400.0;
-    case 'hours':
-      return 3600.0;
-    case 'minutes':
-      return 60.0;
-    default: return 1.0;
-  }
-}
-
-export const convertPxToTime = (unit, time) => {
-  return time * getUnitInSeconds(unit) / unitTime
-}
 
 const divStyle = (duration) => {
   return {
@@ -105,8 +70,8 @@ export default class DraggableAc extends Component {
 
   componentDidMount() {
     let {graphId} = this.props
-    let newY = computeTopPosition("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2
-    let newLeftBound = computeLeftPosition("#" + graphId + "line1", graphId) - rndMargin
+    let newY = computeTopPositionFromGraph("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2
+    let newLeftBound = computeLeftPositionFromGraph("#" + graphId + "line1", graphId) - rndMargin
 
     if(this.state.y != newY || this.state.leftBound != newLeftBound) {
       this.setState({

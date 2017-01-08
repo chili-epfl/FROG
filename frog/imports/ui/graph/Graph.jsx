@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import ReactDOM from 'react-dom';
-import DraggableAc, {convertTimeToPx, convertPxToTime} from './DraggableAc.jsx';
+import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
 
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
+
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, convertPxToTime } from './graph_utils.js'
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
@@ -153,8 +155,8 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
           let scroll = $("#" + graphId + "inner_graph").scrollLeft()
           let tsp = getHeight(operator.from.plane, planes)
           let ttp = getHeight(operator.to.plane, planes)
-          let lsp = computeLeftPosition("#source" + graphId + operator.from._id, graphId)
-          let ltp = computeLeftPosition("#target" + graphId + operator.to._id, graphId)
+          let lsp = computeLeftPositionFromGraph("#source" + graphId + operator.from._id, graphId)
+          let ltp = computeLeftPositionFromGraph("#target" + graphId + operator.to._id, graphId)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -385,19 +387,6 @@ const getRightMostPosition = (positions, scale) => {
     return (rightMostPosition >= 1000) ? rightMostPosition + 100 : 1100;
 }
 
-export const computeTopPosition = (object, graphId) => {
-  let elem = $(object).offset().top
-  let inner = $("#" + graphId + "inner_graph").offset().top
-
-  return elem - inner
-}
-
-const computeLeftPosition = (object, graphId) => {
-  let inner = $("#" + graphId + "inner_graph").offset().left
-  let elem = $(object).offset().left
-  return elem - inner
-}
-
 const getHeight = (plane, planes) => {
   switch(plane) {
     case 1:
@@ -442,9 +431,9 @@ class Graph extends Component {
   componentDidMount() {
     let {graphId} = this.props
     withPrefixId = this.props.editorMode ? graphId : "repo" + graphId
-    let plane1 = computeTopPosition("#" + withPrefixId + "line1", withPrefixId)
-    let plane2 = computeTopPosition("#" + withPrefixId + "line2", withPrefixId)
-    let plane3 = computeTopPosition("#" + withPrefixId + "line3", withPrefixId)
+    let plane1 = computeTopPositionFromGraph("#" + withPrefixId + "line1", withPrefixId)
+    let plane2 = computeTopPositionFromGraph("#" + withPrefixId + "line2", withPrefixId)
+    let plane3 = computeTopPositionFromGraph("#" + withPrefixId + "line3", withPrefixId)
     this.setState({loaded: true, plane: {plane1: plane1, plane2:plane2, plane3:plane3}})
     this.props.handleLoaded()
   }
@@ -557,9 +546,9 @@ class Graph extends Component {
 
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - $("#" + graphId + "inner_graph").position().left;
-      const newY = computeTopPosition("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
+      const newY = computeTopPositionFromGraph("#" + graphId + "plane" + plane, graphId) - 20; //20 is a constant so that the component
       //is not put under the line but on the line
-      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - computeLeftPosition("#" + graphId + "line" + plane, graphId), 0)
+      let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - computeLeftPositionFromGraph("#" + graphId + "line" + plane, graphId), 0)
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
