@@ -117,7 +117,6 @@ export default class DraggableAc extends Component {
 
   handleResize = (direction, styleSize, clientSize, delta, newPos) => {
     this.props.moveCursor(this.state.totalPosition.x + styleSize.width)
-    this.props.handleResize(this.props.arrayIndex, convertPxToTime(this.props.scale, styleSize.width))
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
@@ -180,7 +179,10 @@ export default class DraggableAc extends Component {
                 />
               </div>
             </div>
-            <div id = {activity._id} data-tip data-for={"tip" + activity._id}>
+            <div id = {activity._id} >
+              <span data-tip data-for={"tip" + activity._id}>
+                <i className="fa fa-info" />
+              </span>
               {
                 <span>
                   {this.props.editorMode && duration >= minRealBox ?
@@ -206,7 +208,6 @@ DraggableAc.propTypes = {
   activity: PropTypes.object.isRequired,
   editorMode: PropTypes.bool.isRequired,
   plane: PropTypes.number.isRequired,
-  handleResize: PropTypes.func,
   arrayIndex: PropTypes.number.isRequired,
   delete: PropTypes.func,
   sourceOperator: PropTypes.func,

@@ -181,7 +181,7 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
   )
 }
 
-const DrawToolTip = ( {operators, activities, positions, scale}) => {
+const DrawToolTip = ( {operators, activities, scale}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
@@ -282,16 +282,13 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
 export const RenderGraph = ( {
   editorMode,
   activities,
-  positions,
   sizes,
   operators,
   onClickOperator,
   clickedOperator,
   listAvailableOperators,
   deleteAc,
-  //handleMove,
   handleStop,
-  handleResize,
   sourceOperator,
   targetOperator,
   loaded,
@@ -301,7 +298,7 @@ export const RenderGraph = ( {
   cursor,
   scale,
   activitySourceClicked}) => {
-  const rightMostPosition = getRightMostPosition(positions, scale)
+  const rightMostPosition = getRightMostPosition(activities, scale)
   return(
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
@@ -326,13 +323,11 @@ export const RenderGraph = ( {
                   return (<DraggableAc
                     activity={activity}
                     editorMode={editorMode}
-                    plane={activity.plane ? activity.plane : positions[i].plane}
+                    plane={activity.plane}
                     key={activity._id}
-                    defaultPosition={activity.position ? activity.position : positions[i].position}
+                    defaultPosition={activity.position}
                     arrayIndex={i}
-                    //handleMove={handleMove}
                     handleStop={handleStop}
-                    handleResize={handleResize}
                     delete = {deleteAc}
                     sourceOperator = {sourceOperator}
                     targetOperator = {targetOperator}
@@ -350,7 +345,7 @@ export const RenderGraph = ( {
           }
             </div>
           {loaded ?
-            <DrawToolTip operators={operators} activities={activities} positions={positions} scale={scales[scale]}/>
+            <DrawToolTip operators={operators} activities={activities} scale={scales[scale]}/>
           : ""}
         <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scales[scale]}/>
@@ -374,13 +369,13 @@ export const scaleButton = (changeScale, minScale) => {
   );
 }
 
-const getRightMostPosition = (positions, scale) => {
+const getRightMostPosition = (activities, scale) => {
     let rightMostPosition = 0
-
-    if(positions.length > 0) {
-      let mappedPosition = positions.map(position => {return position.position.x + position.size})
+    if(activities.length > 0) {
+      let mappedPosition = activities.map((activity) => {return activity.position.x + activity.data.duration})
       rightMostPosition = convertTimeToPx(scales[scale], Math.max(...mappedPosition) || 0)
     }
+
 
     return (rightMostPosition >= 1000) ? rightMostPosition + 100 : 1100;
 }
@@ -399,21 +394,11 @@ const getHeight = (plane, planes) => {
 class Graph extends Component {
   constructor(props) {
     super(props);
-    let positions = props.addedActivities.map( (activity) => {
-      return {
-        plane: activity.plane,
-        position: activity.position,
-        size: activity.data.duration
-      }
-    })
     this.state = {
-      addedActivities: props.addedActivities,
-      addedPositions: positions,
       currentDraggable: null,
       currentPlane: 0,
       defPos: {x: 0, y:0},
       hoverBoxPosition: {x: 0, y:0},
-      addedOperators: props.addedOperators,
       currentSource: null,
       loaded: false,
       dragged: false,
@@ -437,23 +422,12 @@ class Graph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let positions = nextProps.addedActivities.map( (activity, i) => {
-      return {
-        plane: activity.plane,
-        position: activity.position,
-        size: activity.data.duration
-      }
-    })
-
     let minScale = 0;
-    while(getRightMostPosition(positions, minScale) > 2000 && minScale < scales.length) {
+    while(getRightMostPosition(nextProps.addedActivities, minScale) > 2000 && minScale < scales.length) {
       minScale += 1
     }
 
     this.setState({
-      addedActivities: nextProps.addedActivities,
-      addedOperators: nextProps.addedOperators,
-      addedPositions: positions,
       loaded: nextProps.loaded,
       scale: this.state.scale < minScale ? minScale : this.state.scale,
       minScale: minScale
@@ -496,20 +470,8 @@ class Graph extends Component {
   }
 
   deleteInGraphAc = (activity) => {
-    var index = this.state.addedActivities.indexOf(activity)
-    if(index != -1) {
-      var activitiesLess =
-        this.state.addedActivities.slice(0, index).concat(
-          this.state.addedActivities.slice(index+1, this.state.addedActivities.drag));
-      var positionsLess =
-        this.state.addedPositions.slice(0, index).concat(
-          this.state.addedPositions.slice(index+1, this.state.addedPositions.length));
 
-      this.setState({addedActivities: activitiesLess, addedPositions: positionsLess})
-    }
-    let filteredOperators = this.state.addedOperators.filter((operator) => {
-      return (operator.from._id != activity._id && operator.to._id != activity._id)
-    })
+    /*
     let operatorsToDelete = this.state.addedOperators.forEach((operator) => {
       if (!(operator.from._id != activity._id && operator.to._id != activity._id)) {
         removeGraphOperator(operator._id, this.props.graphId)
@@ -518,10 +480,9 @@ class Graph extends Component {
         }
       }
     })
+    */
+    removeGraphOperator(this.props.graphId, activity._id)
     removeGraphActivity(activity._id)
-
-    this.setState({addedOperators: filteredOperators})
-
   }
 
 
@@ -550,25 +511,14 @@ class Graph extends Component {
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
-      let newElement = {position: newPosition, plane: plane};
-      let newActivities = this.state.addedActivities.concat(newActivity);
-      let newPositions = this.state.addedPositions.concat(newElement);
-
       this.setState({loaded:false})
       addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, position: newPosition, data: newActivity.data, plane: plane}, newActivity._id)
     }
     this.setState({currentDraggable: null});
   }
 
-  handleResize = (arrayIndex, size) => {
-    let activityResized = this.state.addedPositions[arrayIndex]
-    activityResized.size = size
-    this.setState({addedPositions:this.state.addedPositions, loaded:false})
-  }
-
   handleStop = (arrayIndex, position) => {
-    //this.handleMove(arrayIndex, position)
-    dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
+    dragGraphActivity(this.props.addedActivities[arrayIndex]._id, position)
     this.setState({loaded: false, dragged: true})
   }
 
@@ -583,8 +533,7 @@ class Graph extends Component {
 
   addNewOperator = (target) => {
     if(this.state.currentSource != null && target != this.state.currentSource) {
-      let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
-      this.setState({currentSource:null, addedOperators:newOperators, loaded:false});
+      this.setState({currentSource:null, loaded:false});
       const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
       const toAc = {plane: target.plane, _id: target._id}
       addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: fromAc, to:toAc})
@@ -654,16 +603,13 @@ class Graph extends Component {
           <RenderGraph
             id = 'planes'
             editorMode={editorMode}
-            activities={this.state.addedActivities}
-            positions={this.state.addedPositions}
-            operators={this.state.addedOperators}
+            activities={this.props.addedActivities}
+            operators={this.props.addedOperators}
             onClickOperator={editorMode ? this.clickedOperator : undefined}
             clickedOperator={editorMode ? this.state.clickedOperator : undefined}
             listAvailableOperators={editorMode ? this.listAvailableOperators: undefined}
             deleteAc={this.deleteInGraphAc}
-            //handleMove={this.handleMove}
             handleStop={editorMode ? this.handleStop : undefined}
-            handleResize={this.handleResize}
             sourceOperator = {editorMode ? this.sourceClicked : undefined}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
