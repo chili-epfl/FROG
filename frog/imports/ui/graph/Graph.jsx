@@ -15,6 +15,7 @@ import ReactTooltip from 'react-tooltip'
 const charSize = 11;
 const interval = 30;
 const graphSize = 300
+const scales = ['seconds', 'minutes', 'hours', 'days']
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
@@ -312,7 +313,7 @@ export const RenderGraph = ( {
   clickedOperator,
   listAvailableOperators,
   deleteAc,
-  handleMove,
+  //handleMove,
   handleStop,
   handleResize,
   sourceOperator,
@@ -353,7 +354,7 @@ export const RenderGraph = ( {
                     key={activity._id}
                     defaultPosition={activity.position ? activity.position : positions[i].position}
                     arrayIndex={i}
-                    handleMove={handleMove}
+                    //handleMove={handleMove}
                     handleStop={handleStop}
                     handleResize={handleResize}
                     delete = {deleteAc}
@@ -363,7 +364,7 @@ export const RenderGraph = ( {
                     interval = {interval}
                     graphId = {graphId}
                     moveCursor={moveCursor}
-                    scale={scale}
+                    scale={scales[scale]}
                     />)
                 })}
               </div>
@@ -376,23 +377,24 @@ export const RenderGraph = ( {
             <DrawToolTip operators={operators} activities={activities} positions={positions}/>
           : ""}
         <div>
-          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scale}/>
+          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scales[scale]}/>
         </div>
       </div>
 
     );
 }
 
-const scaleButton = (changeScale) => {
+const scaleButton = (changeScale, minScale) => {
   return(
-    <div onChange={changeScale}>
-      <select name="scale" defaultValue="seconds">
-        <option value="seconds">Seconds</option>
-        <option value="minutes" >Minutes</option>
-        <option value="hours">Hours</option>
-        <option value="days">Days</option>
-      </select>
-    </div>
+      <div onChange={changeScale}>
+        <select name="scale" defaultValue={minScale}>
+          {
+            scales.map((scale, i) => 
+                i >= minScale ? <option key={i} value={i}>{scale}</option> : ""
+            )
+          }
+        </select>
+      </div>
   );
 }
 
@@ -401,7 +403,7 @@ const getRightMostPosition = (positions, scale) => {
 
     if(positions.length > 0) {
       let mappedPosition = positions.map(position => {return position.position.x + position.size})
-      rightMostPosition = convertTimeToPx(scale, Math.max(...mappedPosition))
+      rightMostPosition = convertTimeToPx(scales[scale], Math.max(...mappedPosition) || 0)
     }
 
     return (rightMostPosition >= 1000) ? rightMostPosition + 100 : 1100;
@@ -455,13 +457,13 @@ class Graph extends Component {
       clickedOperatorPosition: null,
       plane: {plane1: 0, plane2: 0, plane3: 0},
       cursor:-1,
-      scale:"seconds",
+      scale:0,
+      minScale: 0,
     };
   }
 
   componentDidMount() {
     let {graphId} = this.props
-    console.log("mount")
     let plane1 = computeTopPosition("#" + graphId + "line1", graphId)
     let plane2 = computeTopPosition("#" + graphId + "line2", graphId)
     let plane3 = computeTopPosition("#" + graphId + "line3", graphId)
@@ -470,10 +472,28 @@ class Graph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let positions = nextProps.addedActivities.map( (activity) => {
+      return {
+        plane: activity.plane,
+        position: activity.position,
+        size: activity.data.duration
+      }
+    })
+
+    let minScale = this.state.scale;
+    while(getRightMostPosition(positions, minScale) > 2000 && minScale < scales.length) {
+      minScale += 1
+    }
+    console.log(minScale)
+    console.log(getRightMostPosition(positions, minScale))
+
     this.setState({
       addedActivities: nextProps.addedActivities,
       addedOperators: nextProps.addedOperators,
-      loaded: nextProps.loaded
+      addedPositions: positions,
+      loaded: nextProps.loaded,
+      scale: this.state.scale < minScale ? minScale : this.state.scale,
+      minScale: minScale
     })
   }
 
@@ -568,7 +588,7 @@ class Graph extends Component {
     this.setState({currentDraggable: null});
   }
 
-
+  /*
   handleMove = (arrayIndex, position) => {
 
     let activityMoved = this.state.addedPositions[arrayIndex]
@@ -581,6 +601,7 @@ class Graph extends Component {
 
     this.setState({addedPositions: modifiedAddedPositions})
   }
+  */
 
   handleResize = (arrayIndex, size) => {
     let activityResized = this.state.addedPositions[arrayIndex]
@@ -589,7 +610,7 @@ class Graph extends Component {
   }
 
   handleStop = (arrayIndex, position) => {
-    this.handleMove(arrayIndex, position)
+    //this.handleMove(arrayIndex, position)
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
   }
 
@@ -603,7 +624,7 @@ class Graph extends Component {
   }
 
   addNewOperator = (target) => {
-    if(this.state.currentSource != null) {
+    if(this.state.currentSource != null && target != this.state.currentSource) {
       let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
       this.setState({currentSource:null, addedOperators:newOperators});
       const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
@@ -669,7 +690,7 @@ class Graph extends Component {
     return (
       <div id="graph-summary" >
           <br />
-          {scaleButton(this.changeScale)}
+          {scaleButton(this.changeScale, this.state.minScale)}
           <RenderGraph
             id = 'planes'
             editorMode={true}
@@ -680,7 +701,7 @@ class Graph extends Component {
             clickedOperator={this.state.clickedOperator}
             listAvailableOperators={this.listAvailableOperators}
             deleteAc={this.deleteInGraphAc}
-            handleMove={this.handleMove}
+            //handleMove={this.handleMove}
             handleStop={this.handleStop}
             handleResize={this.handleResize}
             sourceOperator = {this.sourceClicked}
