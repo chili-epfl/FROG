@@ -11,13 +11,11 @@ import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphO
 import { addGraph } from '../../api/graphs';
 
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, 
-          convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin } from './graph_utils.js'
+          convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval, 
+          graphSize, horizontalZoom } from './graph_utils.js'
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
-
-const interval = 30;
-const graphSize = 300;
 
 
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
@@ -38,12 +36,12 @@ const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
       <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" 
                                     x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
 
-      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} interval={interval} unit={scale} cursor={cursor}/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} unit={scale} cursor={cursor}/>
     </svg>
   </div>
 )}
 
-const TimeAxis = ({totalLeftMargin, width, interval, unit, cursor}) => {
+const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
   return(
     <g>
       <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
@@ -343,7 +341,6 @@ export const RenderGraph = ( {
                     sourceOperator = {sourceOperator}
                     targetOperator = {targetOperator}
                     isSourceClicked = {activitySourceClicked == activity ? true : false}
-                    interval = {interval}
                     graphId = {graphId}
                     moveCursor={moveCursor}
                     scale={scales[scale]}

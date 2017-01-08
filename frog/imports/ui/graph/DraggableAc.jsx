@@ -10,7 +10,7 @@ import { $ } from 'meteor/jquery';
 
 import ReactTooltip from 'react-tooltip'
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, 
-          convertTimeToPx, convertPxToTime, textSizeAndMargin } from './graph_utils.js'
+          convertTimeToPx, convertPxToTime, textSizeAndMargin, interval, horizontalZoom } from './graph_utils.js'
 
 
 const unitTime = 1
@@ -213,7 +213,6 @@ DraggableAc.propTypes = {
   sourceOperator: PropTypes.func,
   targetOperator: PropTypes.func,
   isSourceClicked: PropTypes.bool,
-  interval: PropTypes.number.isRequired,
   graphId: PropTypes.string.isRequired,
   moveCursor:PropTypes.func,
   scale: PropTypes.string,
