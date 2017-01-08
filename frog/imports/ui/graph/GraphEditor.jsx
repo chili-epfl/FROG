@@ -6,21 +6,30 @@ import { $ } from 'meteor/jquery'
 
 import { Graphs, addGraph, setCurrentGraph, removeGraph, renameGraph } from '../../api/graphs'
 import { Activities, Operators, duplicateGraph } from '../../api/activities'
-import Graph, { RenderGraph, computeTopPosition } from './Graph'
+import Graph, { RenderGraph, computeTopPosition, scales, scaleButton } from './Graph'
 
+/*
 class RenderRepoGraph extends Component {
   constructor(props) {
     super(props)
 
     let activities = Activities.find({graphId: props.graphId})
     let operators = Operators.find({graphId: props.graphId})
-    let positions = activities.map((activity) => { return {plane: activity.plane, position: activity.position}})
+    let positions = activities.map((activity) => {
+      return {
+        plane: activity.plane,
+        position: activity.position,
+        size: activity.data.duration
+      }
+    })
     this.state = {
       activities: activities,
       operators: operators,
       positions: positions,
       loaded: false,
-      planes: {plane1:0, plane2: 0, plane3:0}
+      planes: {plane1:0, plane2: 0, plane3:0},
+      scale:0,
+      minScale: 0,
     }
   }
 
@@ -33,17 +42,41 @@ class RenderRepoGraph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let positions = nextProps.addedActivities.map( (activity) => {
+      return {
+        plane: activity.plane,
+        position: activity.position,
+        size: activity.data.duration
+      }
+    })
+
+    let minScale = this.state.scale;
+    while(getRightMostPosition(positions, minScale) > 2000 && minScale < scales.length) {
+      minScale += 1
+    }
     this.setState({
       addedActivities: nextProps.addedActivities,
       addedOperators: nextProps.addedOperators,
-      //loaded: nextProps.loaded
+      scale: this.state.scale < minScale ? minScale : this.state.scale,
+      minScale: minScale,
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.loaded) {
+      this.setState({loaded: true})
+    }
+  }
+
+  changeScale = (event) => {
+    this.setState({scale:event.target.value})
   }
 
   render() {
     return (
       <div>
         <br/>
+        {scaleButton(this.changeScale, this.state.minScale)}
         <RenderGraph
           activities={this.state.activities}
           operators={this.state.operators}
@@ -51,13 +84,14 @@ class RenderRepoGraph extends Component {
           loaded={this.state.loaded}
           positions={this.state.positions}
           plane={this.state.planes}
-          graphId={"repo" + this.props.graphId}/>
+          graphId={"repo" + this.props.graphId}
+          scale={this.state.scale}/>
         <br/>
       </div>
     )
   }
 }
-
+*/
 class GraphEditor extends Component {
 
   constructor(props) {
@@ -66,6 +100,7 @@ class GraphEditor extends Component {
     this.state = {
       infoToDisplay: "",
       loaded: false,
+      repoLoaded: false,
       current: props.graphId
     }
   }
@@ -77,6 +112,10 @@ class GraphEditor extends Component {
 
   handleLoaded = () => {
     this.setState({loaded: true})
+  }
+
+  handleRepoLoaded = () => {
+    this.setState({repoLoaded: true})
   }
 
   submitReplace = (graphId) => {
@@ -117,7 +156,13 @@ class GraphEditor extends Component {
             <input type="text" size="25" value={graph.name} onChange={(event) => this.handleRename(event, graph._id, graph.name)}/>
             {this.state.current == graph._id ? '(current)':null}
             {this.state.infoToDisplay == graph._id ?
-              <RenderRepoGraph graphId= {graph._id} /> : "" }
+              <Graph
+                activities={[]}
+                operators={[]}
+                graphId={graph._id}
+                loaded={this.state.current == graph._id ? this.state.loaded : this.state.repoLoaded}
+                handleLoaded={this.state.current == graph._id ? this.handleLoaded : this.handleRepoLoaded} 
+                editorMode={false}/> : "" }
           </li>
         )} </ul>
 
@@ -127,7 +172,13 @@ class GraphEditor extends Component {
           this.state.current ?
             <div>
               <br/>
-              <Graph activities = {this.props.activities} operators = {this.props.operators} graphId={this.state.current} loaded={this.state.loaded} handleLoaded={this.handleLoaded}/>
+              <Graph
+                activities = {this.props.activities}
+                operators = {this.props.operators}
+                graphId={this.state.current}
+                loaded={this.state.loaded}
+                handleLoaded={this.handleLoaded}
+                editorMode={true}/>
             </div>
             : ""
         }

@@ -15,7 +15,7 @@ import ReactTooltip from 'react-tooltip'
 const charSize = 11;
 const interval = 30;
 const graphSize = 300
-const scales = ['seconds', 'minutes', 'hours', 'days']
+export const scales = ['seconds', 'minutes', 'hours', 'days']
 
 //to be put in graph.jxs
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
@@ -357,12 +357,12 @@ export const RenderGraph = ( {
     );
 }
 
-const scaleButton = (changeScale, minScale) => {
+export const scaleButton = (changeScale, minScale) => {
   return(
       <div onChange={changeScale}>
         <select name="scale" defaultValue={minScale}>
           {
-            scales.map((scale, i) => 
+            scales.map((scale, i) =>
                 i >= minScale ? <option key={i} value={i}>{scale}</option> : ""
             )
           }
@@ -437,9 +437,10 @@ class Graph extends Component {
 
   componentDidMount() {
     let {graphId} = this.props
-    let plane1 = computeTopPosition("#" + graphId + "line1", graphId)
-    let plane2 = computeTopPosition("#" + graphId + "line2", graphId)
-    let plane3 = computeTopPosition("#" + graphId + "line3", graphId)
+    withPrefixId = this.props.editorMode ? graphId : "repo" + graphId
+    let plane1 = computeTopPosition("#" + withPrefixId + "line1", withPrefixId)
+    let plane2 = computeTopPosition("#" + withPrefixId + "line2", withPrefixId)
+    let plane3 = computeTopPosition("#" + withPrefixId + "line3", withPrefixId)
     this.setState({loaded: true, plane: {plane1: plane1, plane2:plane2, plane3:plane3}})
     this.props.handleLoaded()
   }
@@ -660,36 +661,38 @@ class Graph extends Component {
   }
 
   render() {
+    let {editorMode} = this.props
     return (
       <div id="graph-summary" >
           <br />
           {scaleButton(this.changeScale, this.state.minScale)}
           <RenderGraph
             id = 'planes'
-            editorMode={true}
+            editorMode={editorMode}
             activities={this.state.addedActivities}
             positions={this.state.addedPositions}
             operators={this.state.addedOperators}
-            onClickOperator={this.clickedOperator}
-            clickedOperator={this.state.clickedOperator}
-            listAvailableOperators={this.listAvailableOperators}
+            onClickOperator={editorMode ? this.clickedOperator : undefined}
+            clickedOperator={editorMode ? this.state.clickedOperator : undefined}
+            listAvailableOperators={editorMode ? this.listAvailableOperators: undefined}
             deleteAc={this.deleteInGraphAc}
             //handleMove={this.handleMove}
-            handleStop={this.handleStop}
+            handleStop={editorMode ? this.handleStop : undefined}
             handleResize={this.handleResize}
-            sourceOperator = {this.sourceClicked}
+            sourceOperator = {editorMode ? this.sourceClicked : undefined}
             targetOperator = {this.addNewOperator}
             activitySourceClicked = {this.state.currentSource}
             loaded={this.state.loaded}
             plane={this.state.plane}
-            graphId={this.props.graphId}
+            graphId={editorMode ? this.props.graphId : "repo" + this.props.graphId}
             moveCursor={this.moveCursor}
             cursor={this.state.cursor}
             scale={this.state.scale}
             />
           <br/>
           <br/>
-          {
+          {editorMode ?
+
             this.props.activities.length == 0 ?
               <div style = {divListStyleNoActivity}>
                 <br/>
@@ -710,7 +713,7 @@ class Graph extends Component {
                   handleHoverStop={this.handleHoverStop}
                   activities = {this.props.activities}/>
               </div>
-          }
+           : ""}
 
       </div>
     );
