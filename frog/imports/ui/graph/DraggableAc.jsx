@@ -29,26 +29,27 @@ const minRealBox = 45
 
 const divStyle = (duration) => {
   return {
-    background: "white",
+    background: "#fe8181",
+    borderRadius: 4,
     textAlign:"center",
-    border: 2,
     width: duration,
     height: boxHeight,
     margin: 10,
     padding: 10,
     zIndex: 0,
     float: "left",
-    position: "absolute",
+    border: 1,
     borderStyle: "solid",
-    borderColor: "green"
+    borderColor: "red",
+    position: "absolute",
   }
 }
 
 const Anchor = ({id, fill, onClick, duration}) => {
   return (
-    <svg height={Math.min(2*circleRadius, 0.2*duration)} width={Math.min(2*circleRadius, 0.2*duration)} 
+    <svg height={Math.min(2*circleRadius, 0.2*duration)} width={Math.min(2*circleRadius, 0.2*duration)}
           style={{position: "relative"}} onClick={onClick}>
-      <circle cx="50%" cy="50%" r="50%" stroke="black" fill={fill} id={id}/>
+      <circle cx="50%" cy="50%" r="50%" stroke="red" fill={fill} id={id}/>
     </svg>
   )
 }
@@ -148,7 +149,7 @@ export default class DraggableAc extends Component {
             height: boxHeight,
             width: divStyle(duration).width
           }}
-          isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false, 
+          isResizable= {{ top: false, right: editorMode, bottom: false, left: false, topRight: false,
                           bottomRight: false, bottomLeft: false, topLeft: false }}
           bounds={{left: textSizeAndMargin - rndMargin}}
           onDrag={this.handleDrag}
@@ -180,16 +181,16 @@ export default class DraggableAc extends Component {
               </div>
             </div>
             <div id = {activity._id} >
-              <span data-tip data-for={"tip" + activity._id}>
-                <i className="fa fa-info" />
-              </span>
+              <a data-tip data-for={"tip" + activity._id}>
+                <i className="fa fa-info" style={{color: 'white'}}/>
+              </a>
               {
                 <span>
                   {this.props.editorMode && duration >= minRealBox ?
                     <a
                       onClick={(event) => this.props.delete(activity)}
                       >
-                      <i className="fa fa-times" />
+                      <i className="fa fa-trash"  style={{color: 'white'}}/>
                     </a> : ""
                   }
                 </span>

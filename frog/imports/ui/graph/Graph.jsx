@@ -6,35 +6,46 @@ import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
 
-import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, 
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
           modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
+<<<<<<< HEAD
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, 
           convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval, 
           graphSize, horizontalZoom } from './graph_utils.js'
+=======
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
+          convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin } from './graph_utils.js'
+>>>>>>> 9b99e4c53010d70355f75caea11e48dc35ef3ce2
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
 
+<<<<<<< HEAD
+=======
+const interval = 30;
+const graphSize = 320;
+
+>>>>>>> 9b99e4c53010d70355f75caea11e48dc35ef3ce2
 
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
   return(
   <div>
-    <svg width={rightMostPosition + textSizeAndMargin} height={graphSize} 
+    <svg width={rightMostPosition + textSizeAndMargin} height={graphSize}
         xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
 
-      <text x={leftMargin} y="20%" id={graphId + "plane3"}>Class</text>
-      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="20%" 
-                                    x2="100%" y2="20%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="18%" id={graphId + "plane3"}>Class</text>
+      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="18%"
+                                    x2="100%" y2="18%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x={leftMargin} y="50%" id={graphId + "plane2"}>Team</text>
-      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1="50%" 
-                                    x2="100%" y2="50%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y="43%" id={graphId + "plane2"}>Team</text>
+      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1="43%"
+                                    x2="100%" y2="43%" style={{stroke: 'black', strokeWidth:"1"}}/>
 
-      <text x={leftMargin} y="80%" id={graphId + "plane1"}>Individual</text>
-      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="80%" 
-                                    x2="100%" y2="80%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x={leftMargin} y="68%" id={graphId + "plane1"}>Individual</text>
+      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="68%"
+                                    x2="100%" y2="68%" style={{stroke: 'black', strokeWidth:"1"}} />
 
       <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} unit={scale} cursor={cursor}/>
     </svg>
@@ -56,9 +67,9 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
             else {
             return (
               <g key={i}>
-                <line x1={totalLeftMargin + timeGraduated} y1="90%" 
+                <line x1={totalLeftMargin + timeGraduated} y1="90%"
                       x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-                <text x={totalLeftMargin + timeGraduated} y="93%" 
+                <text x={totalLeftMargin + timeGraduated} y="93%"
                       style={{writingMode: "tb", fontSize: "65%"}}>{timeGraduated}</text>
               </g>
               );
@@ -67,9 +78,9 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
           {
             (cursor >= 0) ?
               <g>
-                <line x1={totalLeftMargin + cursor} y1="90%" 
+                <line x1={totalLeftMargin + cursor} y1="90%"
                       x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-                <text x={totalLeftMargin + cursor} y="93%" 
+                <text x={totalLeftMargin + cursor} y="93%"
                       style={{writingMode: "tb", fontSize: "65%"}}>{cursor}</text>
               </g>
               : ""
@@ -136,7 +147,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
         y1={up ? top : top + height}
         x2={right ? left : left + width}
         y2={up ? height + top : top}
-        style={{stroke:"blue", strokeWidth:"5", zIndex:10}}/>
+        style={{stroke:'#b62020', strokeWidth:"5", zIndex:10}}/>
     )
   }
 
@@ -145,15 +156,15 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
       data-tip data-for={"operator" + i}  data-event-off='mouseDown'
       id={i}
       key ={i}
-      d={"M" + (left + startX) + "," + (top + startY) + " c"+ 
+      d={"M" + (left + startX) + "," + (top + startY) + " c"+
           cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
-      style={{fill: 'none', stroke: 'blue', strokeWidth: 5, zIndex: 10}}/>
+      style={{fill: 'none', stroke: '#b62020', strokeWidth: 5, zIndex: 10}}/>
   )
 }
 
 
 
-const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators, 
+const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators,
                             planes, graphId, editorMode}) => {
   return(
       <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
@@ -175,7 +186,7 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
                             x={top} y={left + scroll}
                             style={{zIndex: 0, position: 'absolute'}}
                             onClick={
-                              (event) => editorMode ? onClickOperator(event, operator, left+width/2 + scroll, top+height/2) 
+                              (event) => editorMode ? onClickOperator(event, operator, left+width/2 + scroll, top+height/2)
                                                     : null}>
               <OpPath up={goUp} right={goRight} i={i}
                       width={width} height={height}
@@ -312,7 +323,7 @@ export const RenderGraph = ( {
       <div id={graphId + 'inner_graph'} style={divStyle}>
         <div style={{position:'relative'}}>
             <div style={{position: 'absolute', zIndex: 0}}>
-              <svg xmlns="http://www.w3.org/2000/svg" 
+              <svg xmlns="http://www.w3.org/2000/svg"
                   style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {graphSize}>
               {loaded ?
                 <RenderOperators
@@ -491,7 +502,7 @@ class Graph extends Component {
       }
     })
     */
-    removeGraphOperator(this.props.graphId, activity._id)
+    removeGraphOperator(activity._id)
     removeGraphActivity(activity._id)
   }
 
@@ -514,16 +525,16 @@ class Graph extends Component {
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
       //We obtain the components to set its location in the graph (relative)
-      const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() - 
+      const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() -
                                   $("#" + graphId + "inner_graph").position().left;
-      const newY = computeTopPositionFromGraph("#" + graphId + "plane" + plane, graphId) - 20; 
+      const newY = computeTopPositionFromGraph("#" + graphId + "plane" + plane, graphId) - 20;
       //20 is a constant so that the component is not put under the line but on the line
       let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - textSizeAndMargin, 0)
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
       this.setState({loaded:false})
-      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, 
+      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId,
                           position: newPosition, data: newActivity.data, plane: plane}, newActivity._id)
     }
     this.setState({currentDraggable: null});
@@ -571,7 +582,7 @@ class Graph extends Component {
       this.state.clickedOperator.operator_type = chosenOperator.operator_type;
       this.state.clickedOperator.type = chosenOperator.type;
       this.state.clickedOperator.data = chosenOperator.data;
-      modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type, 
+      modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type,
                           chosenOperator.type, chosenOperator.data)
     }
     else {
@@ -694,7 +705,8 @@ const divStyle = {
   overflowY: "hidden",
   border: 1,
   borderStyle: "solid",
-  borderColor: "black",
+  borderColor: "white",
+  background: "#ffffff"
 }
 
 const divListStyle = {
@@ -703,7 +715,8 @@ const divListStyle = {
   width: "100%",
   border: 1,
   borderStyle: "solid",
-  borderColor: "black"
+  borderColor: "white",
+  background: "white",
 }
 
 const divListStyleNoActivity = {
@@ -713,12 +726,14 @@ const divListStyleNoActivity = {
   border: 1,
   textAlign:"center",
   borderStyle: "solid",
-  borderColor: "black"
+  borderColor: "white",
+  background: "white",
 }
 
 const divStyleNeg = (activity) => { return {
 
   background: "white",
+  borderRadius: 4,
   border: 2,
   width: $("#box" + activity._id).outerWidth(),
   height: $("#box" + activity._id).outerHeight(),
@@ -733,6 +748,7 @@ const divStyleNeg = (activity) => { return {
 
 const divStyleAc = () => { return {
   background: "white",
+  borderRadius: 4,
   border: 2,
   height: 40,
   margin: 10,
