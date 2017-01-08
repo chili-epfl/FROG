@@ -9,7 +9,7 @@ import { updateGraphActivityDuration } from '../../api/activities'
 import { $ } from 'meteor/jquery';
 
 import ReactTooltip from 'react-tooltip'
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, 
+import { computeTopPositionFromGraph, computeLeftPositionFromGraph,
           convertTimeToPx, convertPxToTime, textSizeAndMargin, interval, horizontalZoom } from './graph_utils.js'
 
 
@@ -26,7 +26,7 @@ const circleRadius = 6
 const rndMargin = 12
 
 const minRealBox = 45
-
+//#fe8181 ligth red
 const divStyle = (duration) => {
   return {
     background: "#337ab7",

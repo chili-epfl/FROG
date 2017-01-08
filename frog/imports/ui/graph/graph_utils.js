@@ -17,12 +17,12 @@ export const scrollGraph = (time, graphId) => {
   $("#" + graphId + 'inner_graph').scrollLeft(time);
 }
 
-export const convertTimeToPx = (unit, time, unitTime=1) => {
-  return time / getUnitInSeconds(unit) * unitTime
+export const convertTimeToPx = (unit, time) => {
+  return time / getUnitInSeconds(unit) * horizontalZoom
 }
 
-export const convertPxToTime = (unit, time, unitTime=1) => {
-  return time * getUnitInSeconds(unit) / unitTime
+export const convertPxToTime = (unit, time) => {
+  return time * getUnitInSeconds(unit) / horizontalZoom
 }
 
 export const getUnitInSeconds = (unit) => {
@@ -43,4 +43,4 @@ const charSize = 11;
 export const textSizeAndMargin = charSize*10 + leftMargin;
 export const interval = 30;
 export const horizontalZoom = 3;
-export const graphSize = 300;
+export const graphSize = 330;
