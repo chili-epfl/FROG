@@ -117,10 +117,9 @@ export default class DraggableAc extends Component {
 
   }
 
-  defaultPosition = (scale) => {
-    var { defaultPosition, editorMode } = this.props;
+  defaultPosition = (position=this.props.defaultPosition, scale=this.props.scale) => {
     return {
-      x: convertTimeToPx(scale, defaultPosition.x) + this.state.leftBound,
+      x: convertTimeToPx(scale, position.x) + this.state.leftBound,
       y: this.state.y
     }
   }
@@ -155,6 +154,7 @@ export default class DraggableAc extends Component {
 
   handleResize = (direction, styleSize, clientSize, delta, newPos) => {
     this.props.moveCursor(this.state.totalPosition.x + styleSize.width)
+    console.log("cursor " + (this.state.totalPosition.x + styleSize.width))
     this.props.handleResize(this.props.arrayIndex, styleSize.width)
   }
 
@@ -164,10 +164,11 @@ export default class DraggableAc extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if(this.props.scale != nextProps.scale) {
-      const position = this.defaultPosition(nextProps.scale)
+    if(this.props.scale != nextProps.scale || this.props.defaultPosition != nextProps.defaultPosition) {
+      const position = this.defaultPosition(nextProps.defaultPosition, nextProps.scale)
       this.rnd.updatePosition({ x: position.x, y: position.y })
       const newTotalPosition = {x: position.x - this.state.leftBound, y: position.y}
+      console.log("--- " + newTotalPosition.x)
       this.setState({totalPosition: newTotalPosition})
     }
   }
@@ -182,8 +183,8 @@ export default class DraggableAc extends Component {
           moveAxis={this.props.editorMode ? 'x' : 'none'}
           id = {'drag_' + activity._id}
           initial={{
-            x: this.defaultPosition(this.props.scale).x,
-            y: this.defaultPosition(this.props.scale).y,
+            x: this.defaultPosition().x,
+            y: this.defaultPosition().y,
             height: 40,
             width: divStyle(duration).width
           }}
