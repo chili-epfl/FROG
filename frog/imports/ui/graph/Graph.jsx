@@ -177,33 +177,6 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
 
   )
 }
-/*
-const RenderOperators =  ({operators, rightMostPosition, loaded}) => {
-  return(
-      <g width={rightMostPosition + 'px'} height='300px'  style={{position: 'absolute', zIndex: 0}}>
-        {operators.map( (operator, i) => {
-          let scroll = $("#inner_graph").scrollLeft()
-          let opos = loaded[i]
-          let tsp = opos.tsp
-          let ttp = opos.ttp
-          let lsp = opos.lsp
-          let ltp = opos.ltp
-          let top = Math.min(tsp, ttp)
-          let left = Math.min(lsp, ltp)
-          let width = Math.abs(ltp-lsp)
-          let height = Math.abs(tsp -ttp)
-          let goUp = (top == ttp)
-          let goRight = (left == lsp)
-          return (
-            <g key={i} width={Math.max(width, 5)} height={Math.max(height, 5)} x={top} y={left + scroll} style={{zIndex: 0, position: 'absolute'}}>
-              <OpPath up={goUp} right={goRight} i={i} width={width} height={height} leftSource={lsp} leftTarget={ltp} top={top} left={left + scroll}/>
-            </g>
-          )
-        })}
-      </g>
-
-  )
-}*/
 
 const DrawToolTip = ( {operators, activities, positions}) => {
   return(
@@ -694,27 +667,6 @@ Graph.propTypes = {
   operators: PropTypes.array.isRequired,
   graphId: PropTypes.string.isRequired,
 };
-
-/*export default createContainer(
-  (props) => {
-    const user = Meteor.users.findOne({_id:Meteor.userId()})
-
-    let currentGraphId = ""
-    if(user.profile && user.profile.editingGraph) {
-      currentGraphId = user.profile.editingGraph
-    } else {
-      currentGraphId = addGraph()
-      Meteor.users.update({_id:Meteor.userId()},{$set: {'profile.editingGraph': currentGraphId}})
-    }
-    return({
-      ...props,
-      graphId: currentGraphId,
-      addedActivities: Activities.find({ graphId: currentGraphId }).fetch(),
-      addedOperators: Operators.find({ graphId: currentGraphId }).fetch()
-    })
-  },
-  Graph
-)*/
 
 export default createContainer(
   (props) => {

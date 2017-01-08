@@ -32,6 +32,14 @@ class RenderRepoGraph extends Component {
     this.setState({loaded: true, planes: {plane1: plane1, plane2:plane2, plane3:plane3}})
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      addedActivities: nextProps.addedActivities,
+      addedOperators: nextProps.addedOperators,
+      //loaded: nextProps.loaded
+    })
+  }
+
   render() {
     return (
       <RenderGraph
