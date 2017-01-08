@@ -429,6 +429,7 @@ class Graph extends Component {
       addedOperators: props.addedOperators,
       currentSource: null,
       loaded: false,
+      dragged: false,
       clickedOperator: null,
       clickedOperatorPosition: null,
       plane: {plane1: 0, plane2: 0, plane3: 0},
@@ -449,10 +450,17 @@ class Graph extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let positions = nextProps.addedActivities.map( (activity) => {
+    /*
+    let activity = this.state.addedActivities[this.state.addedActivities.length -1]
+    console.log(activity._id)
+    console.log(nextProps.addedActivities[nextProps.addedActivities.length -1]._id)
+    activity._id = nextProps.addedActivities[nextProps.addedActivities.length -1]._id
+    nextProps.addedActivities[nextProps.addedActivities.length -1] = activity
+    */
+    let positions = nextProps.addedActivities.map( (activity, i) => {
       return {
-        plane: activity.plane,
-        position: activity.position,
+        plane: activity.plane ? activity.plane : this.state.addedPositions[i].plane,
+        position: activity.position ? activity.position : this.state.addedPositions[i].position,
         size: activity.data.duration
       }
     })
@@ -473,8 +481,15 @@ class Graph extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!prevState.loaded) {
-      this.setState({loaded: true})
+    if (!prevState.loaded || prevState.scale != this.state.scale
+      || prevState.addedActivities.length != prevProps.addedActivities.length
+      || prevState.addedOperators.length != prevProps.addedOperators.length
+      || prevState.dragged
+    ) {
+        console.log("prevProps" + prevProps.addedActivities.length)
+        console.log("prevState" + prevState.addedActivities.length)
+        console.log("current" + this.state.addedActivities.length)
+      this.setState({loaded: true, dragged: false})
       this.props.handleLoaded()
     }
   }
@@ -555,8 +570,8 @@ class Graph extends Component {
       let newActivities = this.state.addedActivities.concat(newActivity);
       let newPositions = this.state.addedPositions.concat(newElement);
 
-      addGraphActivity({ _id: activity._id, graphId: this.props.graphId, position: newPosition, data: activity.data, plane: plane})
-      //this.setState({addedActivities: newActivities, addedPositions: newPositions})
+      this.setState({loaded:false})
+      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, position: newPosition, data: newActivity.data, plane: plane}, newActivity._id)
     }
     this.setState({currentDraggable: null});
   }
@@ -585,7 +600,7 @@ class Graph extends Component {
   handleStop = (arrayIndex, position) => {
     //this.handleMove(arrayIndex, position)
     dragGraphActivity(this.state.addedActivities[arrayIndex]._id, position)
-    this.setState({loaded:false})
+    this.setState({loaded: false, dragged: true})
   }
 
   sourceClicked = (source) => {
@@ -600,7 +615,7 @@ class Graph extends Component {
   addNewOperator = (target) => {
     if(this.state.currentSource != null && target != this.state.currentSource) {
       let newOperators = this.state.addedOperators.concat({from:this.state.currentSource, to:target});
-      this.setState({currentSource:null, addedOperators:newOperators});
+      this.setState({currentSource:null, addedOperators:newOperators, loaded:false});
       const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
       const toAc = {plane: target.plane, _id: target._id}
       addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: fromAc, to:toAc})
