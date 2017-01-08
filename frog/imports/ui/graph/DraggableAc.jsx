@@ -29,7 +29,7 @@ const minRealBox = 45
 
 const divStyle = (duration) => {
   return {
-    background: "#fe8181",
+    background: "#337ab7",
     borderRadius: 4,
     textAlign:"center",
     width: duration,
@@ -40,7 +40,7 @@ const divStyle = (duration) => {
     float: "left",
     border: 1,
     borderStyle: "solid",
-    borderColor: "red",
+    borderColor: "blue",
     position: "absolute",
   }
 }
@@ -49,7 +49,7 @@ const Anchor = ({id, fill, onClick, duration}) => {
   return (
     <svg height={Math.min(2*circleRadius, 0.2*duration)} width={Math.min(2*circleRadius, 0.2*duration)}
           style={{position: "relative"}} onClick={onClick}>
-      <circle cx="50%" cy="50%" r="50%" stroke="red" fill={fill} id={id}/>
+      <circle cx="50%" cy="50%" r="50%" stroke="blue" fill={fill} id={id}/>
     </svg>
   )
 }
