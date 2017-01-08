@@ -136,7 +136,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
         y1={up ? top : top + height}
         x2={right ? left : left + width}
         y2={up ? height + top : top}
-        style={{stroke:'#b62020', strokeWidth:"5", zIndex:10}}/>
+        style={{stroke:'#286090', strokeWidth:"5", zIndex:10}}/>
     )
   }
 
@@ -147,7 +147,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
       key ={i}
       d={"M" + (left + startX) + "," + (top + startY) + " c"+
           cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
-      style={{fill: 'none', stroke: '#b62020', strokeWidth: 5, zIndex: 10}}/>
+      style={{fill: 'none', stroke: '#286090', strokeWidth: 5, zIndex: 10}}/>
   )
 }
 
@@ -261,7 +261,7 @@ const RenderDraggable = ( { handleHover, handleHoverStop, activities}) => {retur
           hoverStop={handleHoverStop}
           key={i}
           activity={activity}
-          plane={i%3 +1} />
+          plane={i%3 +1} /> //TODO to be changed with the real plane
         })}
       </div>
 
@@ -731,7 +731,8 @@ const divStyleNeg = (activity) => { return {
   float: "left",
   position: "absolute",
   borderStyle: "solid",
-  borderColor: "red"
+  color: '#286090',
+  borderColor: "#286090"
   }
 }
 
