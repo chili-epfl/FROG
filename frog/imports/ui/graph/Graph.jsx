@@ -10,24 +10,13 @@ import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphO
           modifyGraphOperator, removeGraphOperator, dragGraphActivity } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
-<<<<<<< HEAD
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx, 
           convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval, 
           graphSize, horizontalZoom } from './graph_utils.js'
-=======
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
-          convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin } from './graph_utils.js'
->>>>>>> 9b99e4c53010d70355f75caea11e48dc35ef3ce2
 
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
 
-<<<<<<< HEAD
-=======
-const interval = 30;
-const graphSize = 320;
-
->>>>>>> 9b99e4c53010d70355f75caea11e48dc35ef3ce2
 
 const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
   return(
