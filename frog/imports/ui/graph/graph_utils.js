@@ -3,7 +3,7 @@ import { $ } from 'meteor/jquery'
 export const scales = ['seconds', 'minutes', 'hours', 'days']
 export const leftMargin = 10;
 const charSize = 11;
-export const textSizeAndMargin = charSize * 10 + leftMargin;
+export const textSizeAndMargin = (charSize * 10) + leftMargin;
 export const interval = 30;
 export const horizontalZoom = 3;
 export const graphSize = 330;
@@ -37,9 +37,9 @@ const getUnitInSeconds = (unit) => {
 }
 
 export const convertTimeToPx = (unit, time) => {
-  return time / getUnitInSeconds(unit) * horizontalZoom
+  return (time / getUnitInSeconds(unit)) * horizontalZoom
 }
 
 export const convertPxToTime = (unit, time) => {
-  return time * getUnitInSeconds(unit) / horizontalZoom
+  return (time * getUnitInSeconds(unit)) / horizontalZoom
 }
