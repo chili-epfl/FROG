@@ -22,10 +22,8 @@ export const addActivity = (activityType, data, id) => {
 export const duplicateActivity = (activity) =>
   Activities.insert({ ...activity, _id: uuid(), data: { ...activity.data, name: activity.data.name + ' (copy)' } })
 
-export const addGraphActivity = (params, id = uuid()) => {
-    console.log("here"+params.graphId)
+export const addGraphActivity = (params, id = uuid()) =>
   Activities.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: id })
-}
 
 export const addSessionActivity = (params) => {
   const id = uuid()
@@ -122,13 +120,10 @@ export const duplicateGraph = (graphId) => {
   const operators = Operators.find({graphId}).fetch()
   const graph = Graphs.findOne({ _id: graphId })
   const newGraphId = addGraph(graph.name + ' (copy)')
-  console.log(graphId)
 
   operators.forEach((operator) => {
     const fromIndex = oldActivitiesId.indexOf(operator.from._id)
-    console.log(fromIndex)
     const toIndex = oldActivitiesId.indexOf(operator.to._id)
-    console.log(toIndex)
     const fromObject = { plane: activities[fromIndex].plane, _id: newActivitiesId[fromIndex] }
     const toObject = { plane: activities[toIndex].plane, _id: newActivitiesId[toIndex] }
     const opId = uuid()
@@ -142,7 +137,7 @@ export const duplicateGraph = (graphId) => {
     const newActivity = clone(activity, true)
     newActivity._id = newActivitiesId[i]
     newActivity.graphId = newGraphId
-    addGraphActivity({newActivity}, newActivity._id)
+    addGraphActivity(newActivity, newActivity._id)
   })
   return newGraphId
 }
