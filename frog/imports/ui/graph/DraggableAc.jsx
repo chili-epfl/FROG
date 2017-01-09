@@ -62,7 +62,7 @@ export default class DraggableAc extends Component {
     this.state = {
       remove: false,
       hover: false,
-      totalPosition: props.defaultPosition,
+      totalPosition: {x:convertTimeToPx(props.scale, props.defaultPosition.x), y: props.defaultPosition.y},
       totalDuration: props.duration,
       y: 0,
       moving: false,
@@ -156,8 +156,8 @@ export default class DraggableAc extends Component {
           onDragStop={this.handleStop}
           onResize={this.handleResize}
           onResizeStop={this.handleResizeStop}
-          moveGrid={[editorMode ? 1 : 0, 0]}
-          resizeGrid={[1, 0]}
+          moveGrid={[editorMode ? horizontalZoom : 0, 0]}
+          resizeGrid={[horizontalZoom, 0]}
           zIndex={0}
           style={divStyle(duration)}
           >

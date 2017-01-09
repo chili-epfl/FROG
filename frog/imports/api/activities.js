@@ -4,7 +4,6 @@ import { uuid } from 'frog-utils';
 import { Graphs, addGraph } from './graphs';
 
 import { operatorTypesObj } from '../operatorTypes'
-import { Graphs } from './graphs'
 
 export const Activities = new Mongo.Collection('activities')
 export const Operators = new Mongo.Collection('operators')
@@ -23,7 +22,7 @@ export const duplicateActivity = (activity) =>
   Activities.insert({ ...activity, _id: uuid(), data: { ...activity.data, name: activity.data.name + ' (copy)' } })
 
 export const addGraphActivity = (params, id = uuid()) =>
-  Activities.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: id})
+  Activities.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: id })
 
 export const addSessionActivity = (params) => {
   const id = uuid()
@@ -32,7 +31,7 @@ export const addSessionActivity = (params) => {
 }
 
 export const updateGraphActivityDuration = (activityId, duration) => {
-  Activities.update({_id: activityId}, {$set: {"data.duration": duration}})
+  Activities.update({ _id: activityId }, { $set: {'data.duration': duration } })
 }
 
 export const removeGraphActivity = (activityId) =>
@@ -43,7 +42,7 @@ export const addGraphOperator = (params) =>
 
 
 export const modifyGraphOperator = (operatorId, opType, type, data) =>
-  Operators.update(operatorId, {$set: {operator_type: opType, type: type, data: data}})
+  Operators.update(operatorId, { $set: { operatorType: opType, type: type, data: data } })
 
 export const addSessionOperator = (params) =>
   Operators.insert({ ...params, sessionId: params.sessionId, createdAt: new Date(), _id: uuid() })
@@ -82,7 +81,11 @@ export const dragGraphActivity = (id, xPosition) => {
   Activities.update(id, { $inc: { xPosition } })
 }
 
-export const removeGraphOperator = (activityId) => {
+export const removeGraphOperator = (operatorId) => {
+  Meteor.call('graph.flush.operator', operatorId)
+}
+
+export const removeGraphOperatorsLinkedToActivity = (activityId) => {
   Meteor.call('graph.flush.operators', activityId)
 }
 
@@ -119,9 +122,13 @@ export const duplicateGraph = (graphId) => {
   operators.forEach((operator) => {
     let fromIndex = oldActivitiesId.indexOf(operator.from._id)
     let toIndex = oldActivitiesId.indexOf(operator.to._id)
-    const fromObject = {plane: activities[fromIndex].plane, _id: newActivitiesId[fromIndex]}
-    const toObject = {plane: activities[toIndex].plane, _id:newActivitiesId[toIndex]}
-    addGraphOperator({_id: uuid(), graphId: newGraphId, from: fromObject, to: toObject})
+    const fromObject = { plane: activities[fromIndex].plane, _id: newActivitiesId[fromIndex] }
+    const toObject = { plane: activities[toIndex].plane, _id:newActivitiesId[toIndex] }
+    const opId = uuid()
+    addGraphOperator({ _id: opId, graphId: newGraphId, from: fromObject, to: toObject })
+    if(operator.operatorType) {
+      modifyGraphOperator(opId, operator.operatorType, operator.type, operator.data)
+    }
   })
 
   activities.forEach((activity, i) => {
@@ -144,9 +151,13 @@ Meteor.methods({
     Activities.remove({})
   },
 
-  'graph.flush.operators'(activityId) {
-    Operators.remove({"from._id": activityId})
-    Operators.remove({"to._id": activityId})
+  'graph.flush.operator': (operatorId) => {
+    Operators.remove({ _id: operatorId })
+  },
+
+  'graph.flush.operators': (activityId) => {
+    Operators.remove({ 'from._id': activityId })
+    Operators.remove({ 'to._id': activityId })
   },
 
   'graph.flush.all': (graphId) => {

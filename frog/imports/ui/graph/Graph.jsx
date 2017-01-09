@@ -7,7 +7,7 @@ import { uuid } from 'frog-utils'
 import { sortBy, reverse, take, range } from 'lodash'
 
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
-          modifyGraphOperator, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
+          modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
 import { addGraph } from '../../api/graphs';
 
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
@@ -196,7 +196,7 @@ const DrawToolTip = ( {operators, activities, scale}) => {
         return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" style={{position: 'absolute', zIndex: 10}}>
           Operator
           <pre>{
-            JSON.stringify({"operator_type":operator.operator_type, "type":operator.type, "data":operator.data}, null, 2)
+            JSON.stringify({"operatorType":operator.operatorType, "type":operator.type, "data":operator.data}, null, 2)
           }</pre>
         </ReactTooltip>
       })}
@@ -481,18 +481,7 @@ class Graph extends Component {
   }
 
   deleteInGraphAc = (activity) => {
-
-    /*
-    let operatorsToDelete = this.state.addedOperators.forEach((operator) => {
-      if (!(operator.from._id != activity._id && operator.to._id != activity._id)) {
-        removeGraphOperator(operator._id, this.props.graphId)
-        if(this.state.clickedOperator == operator) {
-          this.setState({clickedOperator:null, clickedOperatorPosition:null})
-        }
-      }
-    })
-    */
-    removeGraphOperator(activity._id)
+    removeGraphOperatorsLinkedToActivity(activity._id)
     removeGraphActivity(activity._id)
   }
 
@@ -569,14 +558,14 @@ class Graph extends Component {
     event.preventDefault();
     if(event.target.value > -1) {
       const chosenOperator = this.props.operators[event.target.value];
-      this.state.clickedOperator.operator_type = chosenOperator.operator_type;
+      this.state.clickedOperator.operatorType = chosenOperator.operatorType;
       this.state.clickedOperator.type = chosenOperator.type;
       this.state.clickedOperator.data = chosenOperator.data;
-      modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operator_type,
+      modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operatorType,
                           chosenOperator.type, chosenOperator.data)
     }
     else {
-      removeGraphOperator(this.state.clickedOperator._id, this.props.graphId)
+      removeGraphOperator(this.state.clickedOperator._id)
     }
     this.setState({clickedOperator:null, clickedOperatorPosition:null})
   }
@@ -593,7 +582,7 @@ class Graph extends Component {
             {
               this.props.operators.map((operator, i) => {
                 return <option key={"choice"+i} value={i} style={{textAlign:"center"}}>
-                          {operator.operator_type}
+                          {operator.operatorType}
                        </option>
               })
             }
@@ -689,7 +678,6 @@ const divStyle = {
   position: "static",
   zIndex: 0,
   display:"inline-block",
-  //height: 300,
   width: "100%",
   overflowX: "scroll",
   overflowY: "hidden",
