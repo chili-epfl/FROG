@@ -561,7 +561,7 @@ class Graph extends Component {
 
   operatorChosen = (event) => {
     event.preventDefault();
-    if (event.target.value > -1) {
+    if (event.target.value >= 0) {
       const chosenOperator = this.props.operators[event.target.value];
       this.state.clickedOperator.operatorType = chosenOperator.operatorType;
       this.state.clickedOperator.type = chosenOperator.type;
@@ -569,7 +569,7 @@ class Graph extends Component {
       modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operatorType,
                           chosenOperator.type, chosenOperator.data)
     }
-    else {
+    else if(event.target.value === -2) {
       removeGraphOperator(this.state.clickedOperator._id)
     }
     this.setState({clickedOperator:null, clickedOperatorPosition:null})
