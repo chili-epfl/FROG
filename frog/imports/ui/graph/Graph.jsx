@@ -15,6 +15,7 @@ import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeT
           convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval,
           graphSize, horizontalZoom } from './graph_utils.js'
 
+import { divStyle, divListStyle, divListStyleNoActivity, divStyleNeg, divStyleAc } from './graph_styles.js'
 
 const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => {
 return(
@@ -58,7 +59,7 @@ const TimeAxis = ({ totalLeftMargin, width, unit, cursor }) => {
         <g>
           {
             range(0, width+totalLeftMargin, interval).map((timeGraduated, i) => {
-              if (cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
+              if (cursor !== -1 && Math.abs(timeGraduated - cursor) < interval/2) {
                 return ''
               }
               return (
@@ -171,8 +172,8 @@ const RenderOperators =  ({ operators, rightMostPosition, onClickOperator, click
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
           let height = Math.abs(tsp -ttp)
-          let goUp = (top == ttp)
-          let goRight = (left == lsp)
+          let goUp = (top === ttp)
+          let goRight = (left === lsp)
           return (
             <g key={'op'+i} width={Math.max(width, 5)}
                             height={Math.max(height, 5)}
@@ -457,9 +458,9 @@ class Graph extends Component {
    * - an activity is dragged/resized
    */
   componentDidUpdate(prevProps, prevState) {
-    if (!prevState.loaded || prevState.scale != this.state.scale
-      || this.props.addedActivities.length != prevProps.addedActivities.length
-      || this.props.addedOperators.length != prevProps.addedOperators.length
+    if (!prevState.loaded || prevState.scale !== this.state.scale
+      || this.props.addedActivities.length !== prevProps.addedActivities.length
+      || this.props.addedOperators.length !== prevProps.addedOperators.length
       || prevState.dragged
     ) {
       this.setState({ loaded: true, dragged: false })
@@ -498,20 +499,20 @@ class Graph extends Component {
     const down = top + $('#' + graphId + 'inner_graph').height();
     const posY = event.clientY + window.scrollY;
 
-    //If we are within the bounds
+    // If we are within the bounds
     if (down > posY && posY > top) {
-      //We clone the activity for the draggable element
+      // We clone the activity for the draggable element
       let newActivity = clone(activity, true);
       newActivity._id = uuid();
 
       const defaultTime = 60;
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
-      //We obtain the components to set its location in the graph (relative)
+      // We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $('#' + graphId + 'inner_graph').scrollLeft() -
                                   $('#' + graphId + 'inner_graph').position().left;
       const newY = computeTopPositionFromGraph('#' + graphId + 'plane' + plane, graphId)-20;
-      //20 is a constant so that the component is not put under the line but on the line
+      // 20 is a constant so that the component is not put under the line but on the line
       let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - textSizeAndMargin, 0)
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
@@ -537,7 +538,7 @@ class Graph extends Component {
   }
 
   addNewOperator = (target) => {
-    if (this.state.currentSource != null && target !== this.state.currentSource) {
+    if (this.state.currentSource !== null && target !== this.state.currentSource) {
       this.setState({ currentSource: null, loaded: false });
       const fromAc = { plane: this.state.currentSource.plane, _id: this.state.currentSource._id }
       const toAc = { plane: target.plane, _id: target._id }
@@ -552,7 +553,7 @@ class Graph extends Component {
     }
   }
 
-  //dragged is used only on ResizeStop to redraw the operator correctly
+  // dragged is used only on ResizeStop to redraw the operator correctly
   moveCursor = (newPosition, dragged = false) => {
     this.setState({ cursor: newPosition, dragged: dragged })
   }
@@ -578,7 +579,7 @@ class Graph extends Component {
         <div style={{ position: 'relative', left: '-50%', top: '-50%' }}>
           <select id='operators' size='4' onChange={(event) => this.operatorChosen(event)}>
             {
-              this.props.operators.length == 0 ? <option disabled>No operator to choose</option> : ''
+              this.props.operators.length ===0 ? <option disabled>No operator to choose</option> : ''
             }
             <option key={'cancel'} value={-1} style={{ textAlign:'center'}}>Cancel</option>
             {
@@ -630,7 +631,7 @@ class Graph extends Component {
           <br />
           {editorMode ?
 
-            this.props.activities.length == 0 ?
+            this.props.activities.length ===0 ?
               <div style={divListStyleNoActivity}>
                 <br />
                 <span>No activities</span>
@@ -676,70 +677,3 @@ export default createContainer (
   },
   Graph
 )
-
-
-const divStyle = {
-  position: 'static',
-  zIndex: 0,
-  display:'inline-block',
-  width: '100%',
-  overflowX: 'scroll',
-  overflowY: 'hidden',
-  border: 1,
-  borderStyle: 'solid',
-  borderColor: 'white',
-  background: '#ffffff'
-}
-
-const divListStyle = {
-  position: 'relative',
-  display:'inline-block',
-  width: '100%',
-  border: 1,
-  borderStyle: 'solid',
-  borderColor: 'white',
-  background: 'white',
-}
-
-const divListStyleNoActivity = {
-  position: 'relative',
-  display:'inline-block',
-  width: '100%',
-  border: 1,
-  textAlign:'center',
-  borderStyle: 'solid',
-  borderColor: 'white',
-  background: 'white',
-}
-//#b62020 dark red
-const divStyleNeg = (activity) => {
-  return {
-    background: 'white',
-    borderRadius: 4,
-    border: 2,
-    width: $('#box' + activity._id).outerWidth() + 1,
-    height: $('#box' + activity._id).outerHeight(),
-    margin: 10,
-    padding: 10,
-    float: 'left',
-    position: 'absolute',
-    borderStyle: 'solid',
-    color: '#286090',
-    borderColor: '#286090'
-  }
-}
-
-const divStyleAc = () => {
-  return {
-    background: 'white',
-    borderRadius: 4,
-    border: 2,
-    height: 40,
-    margin: 10,
-    padding: 10,
-    float: 'left',
-    position: 'relative',
-    borderStyle: 'solid',
-    borderColor: 'grey'
-  }
-}
