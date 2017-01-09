@@ -76,7 +76,7 @@ export const removeGraph = (graphId) =>
   Meteor.call('graph.flush.all', graphId)
 
 export const dragGraphActivitySet = (id, position) => {
-  Activities.update(id, { $set: { position: position } })
+  Activities.update(id, { $set: { position } })
 }
 export const dragGraphActivity = (id, xPosition) => {
   Activities.update(id, { $inc: { xPosition } })

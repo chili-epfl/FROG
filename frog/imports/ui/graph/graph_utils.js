@@ -36,7 +36,7 @@ const getUnitInSeconds = (unit) => {
   }
 }
 
-export const convertTimeToPx = (unit, time) => 
+export const convertTimeToPx = (unit, time) =>
   (time / getUnitInSeconds(unit)) * horizontalZoom
 
 
