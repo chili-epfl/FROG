@@ -8,30 +8,30 @@ import { uuid } from 'frog-utils'
 
 import DraggableAc from './DraggableAc.jsx';
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
-          modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
+        modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
 
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
           convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval,
           graphSize, horizontalZoom } from './graph_utils.js'
 
 
-const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => {
-  return(
+const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => 
+{ return(
   <div>
     <svg width={rightMostPosition + textSizeAndMargin} height={graphSize}
-        xmlns="http://www.w3.org/2000/svg" style={{overflowX: "auto"}}>
+        xmlns='http://www.w3.org/2000/svg' style={{overflowX: 'auto'}}>
 
-      <text x={leftMargin} y="18%" id={graphId + "plane3"}>Class</text>
-      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1="18%"
-                                    x2="100%" y2="18%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y='18%' id={graphId + 'plane3'}>Class</text>
+      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1='18%'
+                                    x2='100%' y2='18%' style={{stroke: 'black', strokeWidth:'1'}}/>
 
-      <text x={leftMargin} y="43%" id={graphId + "plane2"}>Team</text>
-      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1="43%"
-                                    x2="100%" y2="43%" style={{stroke: 'black', strokeWidth:"1"}}/>
+      <text x={leftMargin} y='43%' id={graphId + 'plane2'}>Team</text>
+      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1='43%'
+                                    x2='100%' y2='43%' style={{stroke: 'black', strokeWidth:'1'}}/>
 
-      <text x={leftMargin} y="68%" id={graphId + "plane1"}>Individual</text>
-      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1="68%"
-                                    x2="100%" y2="68%" style={{stroke: 'black', strokeWidth:"1"}} />
+      <text x={leftMargin} y='68%' id={graphId + 'plane1'}>Individual</text>
+      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1='68%'
+                                    x2='100%' y2='68%' style={{stroke: 'black', strokeWidth:'1'}} />
 
       <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} unit={scale} cursor={cursor}/>
     </svg>
@@ -41,22 +41,22 @@ const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => {
 const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
   return(
     <g>
-      <line x1={totalLeftMargin} y1="90%" x2="100%" y2="90%" style={{stroke: 'black', strokeWidth:"1"}} />
-      <text x={leftMargin} y="90%">Time ({unit})</text>
+      <line x1={totalLeftMargin} y1='90%' x2='100%' y2='90%' style={{stroke: 'black', strokeWidth:'1'}} />
+      <text x={leftMargin} y='90%'>Time ({unit})</text>
       {
         <g>
           {
           _.range(0, width+totalLeftMargin, interval).map((timeGraduated, i) => {
             if(cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
-              return ""
+              return ''
             }
             else {
             return (
               <g key={i}>
-                <line x1={totalLeftMargin + timeGraduated} y1="90%"
-                      x2={totalLeftMargin + timeGraduated} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-                <text x={totalLeftMargin + timeGraduated} y="93%"
-                      style={{writingMode: "tb", fontSize: "65%"}}>{timeGraduated/horizontalZoom}</text>
+                <line x1={totalLeftMargin + timeGraduated} y1='90%'
+                      x2={totalLeftMargin + timeGraduated} y2='92%' style={{stroke: 'black', strokeWidth:'1'}}/>
+                <text x={totalLeftMargin + timeGraduated} y='93%'
+                      style={{writingMode: 'tb', fontSize: '65%'}}>{timeGraduated/horizontalZoom}</text>
               </g>
               );
             }
@@ -64,12 +64,12 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
           {
             (cursor >= 0) ?
               <g>
-                <line x1={totalLeftMargin + cursor} y1="90%"
-                      x2={totalLeftMargin + cursor} y2="92%" style={{stroke: 'black', strokeWidth:"1"}}/>
-                <text x={totalLeftMargin + cursor} y="93%"
-                      style={{writingMode: "tb", fontSize: "65%"}}>{cursor / horizontalZoom}</text>
+                <line x1={totalLeftMargin + cursor} y1='90%'
+                      x2={totalLeftMargin + cursor} y2='92%' style={{stroke: 'black', strokeWidth:'1'}}/>
+                <text x={totalLeftMargin + cursor} y='93%'
+                      style={{writingMode: 'tb', fontSize: '65%'}}>{cursor / horizontalZoom}</text>
               </g>
-              : ""
+              : ''
           }
         </g>
       }
@@ -80,8 +80,8 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
 const Separator = ( {id, onHover} ) => {
   return (
     <div id={id} onMouseOver={onHover}>
-      <svg width="100%" height = "5px" xmlns="http://www.w3.org/2000/svg">
-        <line x1="0%" y1="0%" x2="100%" y2="0%" style={{stroke: 'red', strokeWidth:"2"}} />
+      <svg width='100%' height = '5px' xmlns='http://www.w3.org/2000/svg'>
+        <line x1='0%' y1='0%' x2='100%' y2='0%' style={{stroke: 'red', strokeWidth:'2'}} />
       </svg>
     </div>
   )
@@ -126,24 +126,24 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
   if(Math.abs(leftSource-leftTarget) < 30) {
     return (
       <line
-        data-tip data-for={"operator" + i} data-event-off='mouseDown'
+        data-tip data-for={'operator' + i} data-event-off='mouseDown'
         id={i}
         key ={i}
         x1={right ? width + left : left}
         y1={up ? top : top + height}
         x2={right ? left : left + width}
         y2={up ? height + top : top}
-        style={{stroke:'#286090', strokeWidth:"5", zIndex:10}}/>
+        style={{stroke:'#286090', strokeWidth:'5', zIndex:10}}/>
     )
   }
 
   return(
     <path
-      data-tip data-for={"operator" + i}  data-event-off='mouseDown'
+      data-tip data-for={'operator' + i}  data-event-off='mouseDown'
       id={i}
       key ={i}
-      d={"M" + (left + startX) + "," + (top + startY) + " c"+
-          cornerTop + "," + 0 + " " + cornerDown + "," + h + " " + w + "," + h}
+      d={'M' + (left + startX) + ',' + (top + startY) + ' c'+
+          cornerTop + ',' + 0 + ' ' + cornerDown + ',' + h + ' ' + w + ',' + h}
       style={{fill: 'none', stroke: '#286090', strokeWidth: 5, zIndex: 10}}/>
   )
 }
@@ -155,11 +155,11 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
   return(
       <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
-          let scroll = $("#" + graphId + "inner_graph").scrollLeft()
+          let scroll = $('#' + graphId + 'inner_graph').scrollLeft()
           let tsp = getHeight(operator.from.plane, planes)
           let ttp = getHeight(operator.to.plane, planes)
-          let lsp = computeLeftPositionFromGraph("#source" + graphId + operator.from._id, graphId)
-          let ltp = computeLeftPositionFromGraph("#target" + graphId + operator.to._id, graphId)
+          let lsp = computeLeftPositionFromGraph('#source' + graphId + operator.from._id, graphId)
+          let ltp = computeLeftPositionFromGraph('#target' + graphId + operator.to._id, graphId)
           let top = Math.min(tsp, ttp)
           let left = Math.min(lsp, ltp)
           let width = Math.abs(ltp-lsp)
@@ -167,7 +167,7 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
           let goUp = (top == ttp)
           let goRight = (left == lsp)
           return (
-            <g key={"op"+i} width={Math.max(width, 5)}
+            <g key={'op'+i} width={Math.max(width, 5)}
                             height={Math.max(height, 5)}
                             x={top} y={left + scroll}
                             style={{zIndex: 0, position: 'absolute'}}
@@ -190,23 +190,23 @@ const DrawToolTip = ( {operators, activities, scale}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
-        return <ReactTooltip key={"optip" + i} id={"operator" + i} type="light" style={{position: 'absolute', zIndex: 10}}>
+        return <ReactTooltip key={'optip' + i} id={'operator' + i} type='light' style={{position: 'absolute', zIndex: 10}}>
           Operator
           <pre>{
-            JSON.stringify({"operatorType":operator.operatorType, "type":operator.type, "data":operator.data}, null, 2)
+            JSON.stringify({'operatorType': operator.operatorType, 'type': operator.type, 'data': operator.data}, null, 2)
           }</pre>
         </ReactTooltip>
       })}
       {activities.map( (activity, i) => {
         return <ReactTooltip
-          key={"actip" + i}
-          id={"tip"+activity._id}
-          place="bottom"
-          type="light">
+          key={'actip' + i}
+          id={'tip'+activity._id}
+          place='bottom'
+          type='light'>
           Activity: {activity._id}
           <pre>{
             //dividing by horizontalZoom since we only want the conversion seconds -> unit 
-            JSON.stringify({"Data":activity.data, "Beginning":convertTimeToPx(scale, activity.position.x)/horizontalZoom + " " + scale}, null, 2)
+            JSON.stringify({'Data': activity.data, 'Beginning': convertTimeToPx(scale, activity.position.x)/horizontalZoom + ' ' + scale}, null, 2)
           }</pre>
         </ReactTooltip>
       })}
@@ -221,13 +221,13 @@ const DragAc = ( {activity, position, plane}) => {
       position= {position}
       axis='both'
       disabled= {false}>
-        <div data-tip data-for="dragac_tip" data-event-off='mouseDown'
+        <div data-tip data-for='dragac_tip' data-event-off='mouseDown'
             style={divStyleNeg(activity)}>
           {activity.data.name}
           <ReactTooltip
-            id="dragac_tip"
-            type="light"
-            effect="solid">
+            id='dragac_tip'
+            type='light'
+            effect='solid'>
             <pre>{JSON.stringify(activity.data, null, 2)}</pre>
           </ReactTooltip>
         </div>
@@ -240,7 +240,7 @@ const BoxAc = ( {onHoverStart, hoverStop, plane, activity} ) => {
 
   return(
     <div
-      id={"box" + activity._id}
+      id={'box' + activity._id}
       style={divStyleAc()}
       onMouseOver={onHoverStart}
       onMouseUp={hoverStop}>
@@ -270,16 +270,16 @@ const RenderDraggable = ( { handleHover, handleHoverStop, activities}) => {retur
 
 const TempAc = ({handleDragStop, position, plane, current}) => {
   return (
-    <div id="dragac" style={{position: "absolute", zIndex: 2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
+    <div id='dragac' style={{position: 'absolute', zIndex: 2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
       {current ?
-      <div  style={{position: "absolute"}}>
+      <div  style={{position: 'absolute'}}>
         <DragAc
           activity={current}
           plane={plane}
           position={position}
         />
       </div>
-    : "" }
+    : '' }
     </div>
   )
 }
@@ -310,7 +310,7 @@ export const RenderGraph = ( {
       <div id={graphId + 'inner_graph'} style={divStyle}>
         <div style={{position:'relative'}}>
             <div style={{position: 'absolute', zIndex: 0}}>
-              <svg xmlns="http://www.w3.org/2000/svg"
+              <svg xmlns='http://www.w3.org/2000/svg'
                   style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {graphSize}>
               {loaded ?
                 <RenderOperators
@@ -322,7 +322,7 @@ export const RenderGraph = ( {
                   planes={plane}
                   graphId={graphId}
                   editorMode={editorMode}/>
-              : ""}
+              : ''}
               </svg>
 
               <div style={{position:'relative'}}>
@@ -347,12 +347,12 @@ export const RenderGraph = ( {
               </div>
             </div>
           {
-            clickedOperator ? listAvailableOperators() : ""
+            clickedOperator ? listAvailableOperators() : ''
           }
             </div>
           {loaded ?
             <DrawToolTip operators={operators} activities={activities} scale={scales[scale]}/>
-          : ""}
+          : ''}
         <div>
           <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scales[scale]}/>
         </div>
@@ -364,10 +364,10 @@ export const RenderGraph = ( {
 export const scaleButton = (changeScale, minScale) => {
   return(
       <div onChange={changeScale}>
-        <select name="scale" defaultValue={minScale}>
+        <select name='scale' defaultValue={minScale}>
           {
             scales.map((scale, i) =>
-                i >= minScale ? <option key={i} value={i}>{scale}</option> : ""
+                i >= minScale ? <option key={i} value={i}>{scale}</option> : ''
             )
           }
         </select>
@@ -419,10 +419,10 @@ class Graph extends Component {
 
   componentDidMount() {
     let {graphId} = this.props
-    withPrefixId = this.props.editorMode ? graphId : "repo" + graphId
-    let plane1 = computeTopPositionFromGraph("#" + withPrefixId + "line1", withPrefixId)
-    let plane2 = computeTopPositionFromGraph("#" + withPrefixId + "line2", withPrefixId)
-    let plane3 = computeTopPositionFromGraph("#" + withPrefixId + "line3", withPrefixId)
+    withPrefixId = this.props.editorMode ? graphId : 'repo' + graphId
+    let plane1 = computeTopPositionFromGraph('#' + withPrefixId + 'line1', withPrefixId)
+    let plane2 = computeTopPositionFromGraph('#' + withPrefixId + 'line2', withPrefixId)
+    let plane3 = computeTopPositionFromGraph('#' + withPrefixId + 'line3', withPrefixId)
     this.setState({loaded: true, plane: {plane1: plane1, plane2:plane2, plane3:plane3}})
     this.props.handleLoaded()
   }
@@ -462,7 +462,7 @@ class Graph extends Component {
 
   handleHover = (event, plane, activity) => {
     event.preventDefault();
-    let position = $("#box" + activity._id).position()
+    let position = $('#box' + activity._id).position()
 
     this.setState({
       currentPlane: plane,
@@ -487,8 +487,8 @@ class Graph extends Component {
     event.preventDefault();
     let {graphId} = this.props
 
-    const top = $("#" + graphId + "inner_graph").offset().top
-    const down = top + $("#" + graphId + "inner_graph").height();
+    const top = $('#' + graphId + 'inner_graph').offset().top
+    const down = top + $('#' + graphId + 'inner_graph').height();
     const posY = event.clientY + window.scrollY;
 
     //If we are within the bounds
@@ -501,9 +501,9 @@ class Graph extends Component {
       newActivity.data.duration = newActivity.data.duration ? newActivity.data.duration : defaultTime;
 
       //We obtain the components to set its location in the graph (relative)
-      const innerGraphScrollX =  $("#" + graphId + "inner_graph").scrollLeft() -
-                                  $("#" + graphId + "inner_graph").position().left;
-      const newY = computeTopPositionFromGraph("#" + graphId + "plane" + plane, graphId) - 20;
+      const innerGraphScrollX =  $('#' + graphId + 'inner_graph').scrollLeft() -
+                                  $('#' + graphId + 'inner_graph').position().left;
+      const newY = computeTopPositionFromGraph('#' + graphId + 'plane' + plane, graphId) - 20;
       //20 is a constant so that the component is not put under the line but on the line
       let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - textSizeAndMargin, 0)
       const remaining = newX % interval
@@ -570,20 +570,20 @@ class Graph extends Component {
   listAvailableOperators = () => {
     return (
       <div style={{position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
-        <div style={{position:'relative', left:"-50%", top:"-50%"}}>
-          <select id="operators" size="4" onChange={(event) => this.operatorChosen(event)}>
+        <div style={{position:'relative', left:'-50%', top:'-50%'}}>
+          <select id='operators' size='4' onChange={(event) => this.operatorChosen(event)}>
             {
-              this.props.operators.length == 0 ? <option disabled>No operator to choose</option> : ""
+              this.props.operators.length == 0 ? <option disabled>No operator to choose</option> : ''
             }
-            <option key={"cancel"} value={-1} style={{textAlign:"center"}}>Cancel</option>
+            <option key={'cancel'} value={-1} style={{textAlign:'center'}}>Cancel</option>
             {
               this.props.operators.map((operator, i) => {
-                return <option key={"choice"+i} value={i} style={{textAlign:"center"}}>
+                return <option key={'choice'+i} value={i} style={{textAlign:'center'}}>
                           {operator.operatorType}
                        </option>
               })
             }
-            <option key={"delete"} value={-2} style={{textAlign:"center"}}>Delete</option>
+            <option key={'delete'} value={-2} style={{textAlign:'center'}}>Delete</option>
           </select>
         </div>
       </div>
@@ -598,7 +598,7 @@ class Graph extends Component {
   render() {
     let {editorMode} = this.props
     return (
-      <div id="graph-summary" >
+      <div id='graph-summary' >
           <br />
           {scaleButton(this.changeScale, this.state.minScale)}
           <RenderGraph
@@ -616,7 +616,7 @@ class Graph extends Component {
             activitySourceClicked = {this.state.currentSource}
             loaded={this.state.loaded}
             plane={this.state.plane}
-            graphId={editorMode ? this.props.graphId : "repo" + this.props.graphId}
+            graphId={editorMode ? this.props.graphId : 'repo' + this.props.graphId}
             moveCursor={this.moveCursor}
             cursor={this.state.cursor}
             scale={this.state.scale}
@@ -645,7 +645,7 @@ class Graph extends Component {
                   handleHoverStop={this.handleHoverStop}
                   activities = {this.props.activities}/>
               </div>
-           : ""}
+           : ''}
 
       </div>
     );
@@ -672,66 +672,66 @@ export default createContainer(
 
 
 const divStyle = {
-  position: "static",
+  position: 'static',
   zIndex: 0,
-  display:"inline-block",
-  width: "100%",
-  overflowX: "scroll",
-  overflowY: "hidden",
+  display:'inline-block',
+  width: '100%',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
   border: 1,
-  borderStyle: "solid",
-  borderColor: "white",
-  background: "#ffffff"
+  borderStyle: 'solid',
+  borderColor: 'white',
+  background: '#ffffff'
 }
 
 const divListStyle = {
-  position: "relative",
-  display:"inline-block",
-  width: "100%",
+  position: 'relative',
+  display:'inline-block',
+  width: '100%',
   border: 1,
-  borderStyle: "solid",
-  borderColor: "white",
-  background: "white",
+  borderStyle: 'solid',
+  borderColor: 'white',
+  background: 'white',
 }
 
 const divListStyleNoActivity = {
-  position: "relative",
-  display:"inline-block",
-  width: "100%",
+  position: 'relative',
+  display:'inline-block',
+  width: '100%',
   border: 1,
-  textAlign:"center",
-  borderStyle: "solid",
-  borderColor: "white",
-  background: "white",
+  textAlign:'center',
+  borderStyle: 'solid',
+  borderColor: 'white',
+  background: 'white',
 }
 //#b62020 dark red
 const divStyleNeg = (activity) => { return {
 
-  background: "white",
+  background: 'white',
   borderRadius: 4,
   border: 2,
-  width: $("#box" + activity._id).outerWidth(),
-  height: $("#box" + activity._id).outerHeight(),
+  width: $('#box' + activity._id).outerWidth(),
+  height: $('#box' + activity._id).outerHeight(),
   margin: 10,
   padding: 10,
-  float: "left",
-  position: "absolute",
-  borderStyle: "solid",
+  float: 'left',
+  position: 'absolute',
+  borderStyle: 'solid',
   color: '#286090',
-  borderColor: "#286090"
+  borderColor: '#286090'
   }
 }
 
 const divStyleAc = () => { return {
-  background: "white",
+  background: 'white',
   borderRadius: 4,
   border: 2,
   height: 40,
   margin: 10,
   padding: 10,
-  float: "left",
-  position: "relative",
-  borderStyle: "solid",
-  borderColor: "grey"
+  float: 'left',
+  position: 'relative',
+  borderStyle: 'solid',
+  borderColor: 'grey'
   }
 }
