@@ -34,10 +34,11 @@ const divStyle = (duration) => {
 }
 
 const Anchor = ({ id, fill, onClick, duration }) =>
-    <svg height={Math.min(2*circleRadius, 0.2*duration)} 
-          width={Math.min(2*circleRadius, 0.2*duration)}
-          style={{position: "relative"}} onClick={onClick}>
-      <circle cx="50%" cy="50%" r="50%" stroke="blue" fill={fill} id={id}/>
+    <svg height = { Math.min(2*circleRadius, 0.2*duration) } 
+          width = { Math.min(2*circleRadius, 0.2*duration) }
+          style = { { position: 'relative' } } onClick={ onClick }
+    >
+      <circle cx='50%' cy='50%' r='50%' stroke='blue' fill={ fill } id={ id } />
     </svg>
 
 export default class DraggableAc extends Component {
@@ -48,39 +49,40 @@ export default class DraggableAc extends Component {
     this.state = {
       remove: false,
       hover: false,
-      totalPosition: {x:convertTimeToPx(props.scale, props.defaultPosition.x), y: props.defaultPosition.y},
+      totalPosition: { x:convertTimeToPx(props.scale, props.defaultPosition.x), 
+                       y: props.defaultPosition.y },
       totalDuration: props.duration,
       y: 0,
       moving: false,
-      resizing: false,
+      resizing: false
     }
   }
 
   componentDidMount() {
-    let {graphId} = this.props
-    let newY = computeTopPositionFromGraph("#" + graphId + "plane" + this.props.plane, graphId) - boxHeight/2
-    let newLeftBound = textSizeAndMargin - rndMargin
+    const {graphId} = this.props
+    const newY = computeTopPositionFromGraph('#' + graphId + 'plane' + this.props.plane, graphId) 
+                - boxHeight/2
 
-    if(this.state.y != newY) {
+    if (this.state.y !== newY) {
       this.setState({
-        y: newY,
+        y: newY
       })
     }
 
   }
 
-  defaultPosition = (position=this.props.defaultPosition, scale=this.props.scale) => {
-    return {
+  defaultPosition = (position = this.props.defaultPosition, scale = this.props.scale) =>
+    {
       x: convertTimeToPx(scale, position.x) + textSizeAndMargin - rndMargin,
       y: this.state.y
     }
-  }
 
   updatePosition = (deltaPosition) => {
     const defaultPosition = this.state.totalPosition
-    const updatedPosition = {x: deltaPosition.x, y: 0}
-    const totalPosition = {x: updatedPosition.x + defaultPosition.x, y: updatedPosition.y + defaultPosition.y}
-    this.setState({totalPosition: totalPosition})
+    const updatedPosition = { x: deltaPosition.x, y: 0 }
+    const totalPosition = { x: updatedPosition.x + defaultPosition.x, 
+                            y: updatedPosition.y + defaultPosition.y }
+    this.setState({ totalPosition: totalPosition })
     this.props.moveCursor(totalPosition.x)
   }
 
@@ -97,7 +99,8 @@ export default class DraggableAc extends Component {
 
   handleStop = (event) => {
     event.preventDefault()
-    let scaledTotalPosition = {x: convertPxToTime(this.props.scale, this.state.totalPosition.x), y: this.state.totalPosition.y}
+    let scaledTotalPosition = { x: convertPxToTime(this.props.scale, this.state.totalPosition.x), 
+                                y: this.state.totalPosition.y }
     this.props.handleStop(this.props.arrayIndex, scaledTotalPosition)
     this.props.moveCursor(-1)
   }
@@ -107,7 +110,8 @@ export default class DraggableAc extends Component {
   }
 
   handleResizeStop = (direction, styleSize, clientSize, delta) => {
-    updateGraphActivityDuration(this.props.activity._id, convertPxToTime(this.props.scale, styleSize.width))
+    updateGraphActivityDuration(this.props.activity._id, 
+                                convertPxToTime(this.props.scale, styleSize.width))
     this.props.moveCursor(-1, true)
   }
 
@@ -115,18 +119,20 @@ export default class DraggableAc extends Component {
     if(this.props.scale != nextProps.scale || this.props.defaultPosition != nextProps.defaultPosition) {
       const position = this.defaultPosition(nextProps.defaultPosition, nextProps.scale)
       this.rnd.updatePosition({ x: position.x, y: position.y })
-      const newTotalPosition = {x: position.x - (textSizeAndMargin - rndMargin), y: position.y}
-      this.setState({totalPosition: newTotalPosition})
+      const newTotalPosition = { x: position.x - (textSizeAndMargin - rndMargin), y: position.y }
+      this.setState({ totalPosition: newTotalPosition })
     }
   }
 
   render() {
     let {activity, editorMode} = this.props
-    let duration = convertTimeToPx(this.props.scale, activity.data.duration ? activity.data.duration : defaultTime)
+    let duration = convertTimeToPx(this.props.scale, activity.data.duration 
+                    ? activity.data.duration 
+                    : defaultTime)
     return(
-      <div style={{position: 'relative', zIndex: 0}}>
+      <div style = { { position: 'relative', zIndex: 0 } }>
         <Rnd
-          ref={c => { this.rnd = c }}
+          ref = { c => { this.rnd = c } }
           moveAxis={this.props.editorMode ? 'x' : 'none'}
           id = {'drag_' + activity._id}
           initial={{
@@ -147,28 +153,30 @@ export default class DraggableAc extends Component {
           zIndex={0}
           style={divStyle(duration)}
           >
-          <span style={{position: 'relative', zIndex: 0}}>
-            <div style={{position: 'relative', zIndex: 0}}>
-              <div style={{position: 'absolute', zIndex: 0, left:-circleRadius}}>
+          <span style = { { position: 'relative', zIndex: 0 } }>
+            <div style = { { position: 'relative', zIndex: 0 } }>
+              <div style= { { position: 'absolute', zIndex: 0, left:-circleRadius } }>
                 <Anchor
-                onClick={(event) => editorMode ? this.props.targetOperator(activity) : event.preventDefault()}
-                fill="white"
-                id={"target" + this.props.graphId + activity._id}
+                onClick = { (event) => editorMode ? this.props.targetOperator(activity) 
+                                                : event.preventDefault() }
+                fill = 'white'
+                id = { 'target' + this.props.graphId + activity._id }
                 duration={duration}
                 />
               </div>
-              <div style={{position: 'absolute', zIndex: 0, right:-circleRadius}}>
+              <div style = { { position: 'absolute', zIndex: 0, right:-circleRadius } } >
                 <Anchor
-                onClick={(event) => editorMode ? this.props.sourceOperator(activity) : event.preventDefault()}
-                fill={this.props.isSourceClicked ? "red" : "white"}
-                id={"source" + this.props.graphId + activity._id}
+                onClick = { (event) => editorMode ? this.props.sourceOperator(activity) 
+                                                : event.preventDefault() }
+                fill = { this.props.isSourceClicked ? 'red' : 'white' }
+                id = { 'source' + this.props.graphId + activity._id}
                 duration={duration}
                 />
               </div>
             </div>
-            <div id = {activity._id} >
-              <a data-tip data-for={"tip" + activity._id}>
-                <i className="fa fa-info" style={{color: 'white'}}/>
+            <div id = { activity._id } >
+              <a data-tip data-for = {'tip' + activity._id }>
+                <i className = 'fa fa-info' style = { { color: 'white' } }/>
               </a>
               {
                 <span>
@@ -176,8 +184,8 @@ export default class DraggableAc extends Component {
                     <a
                       onClick={(event) => this.props.delete(activity)}
                       >
-                      <i className="fa fa-trash"  style={{color: 'white'}}/>
-                    </a> : ""
+                      <i className='fa fa-trash'  style= { { color: 'white' } }/>
+                    </a> : ''
                   }
                 </span>
               }
