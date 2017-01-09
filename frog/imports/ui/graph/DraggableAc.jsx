@@ -15,7 +15,7 @@ const rndMargin = 12
 
 const minRealBox = 45
 // #fe8181 ligth red
-const divStyle = (duration) => 
+const divStyle = (duration) =>
 ({
   background: '#337ab7',
   borderRadius: 4,
@@ -33,14 +33,14 @@ const divStyle = (duration) =>
 })
 
 const Anchor = ({ id, fill, onClick, duration }) =>
-    <svg 
-      height={Math.min(2 * circleRadius, 0.2 * duration)}
-      width={Math.min(2 * circleRadius, 0.2 * duration)}
-      style={ { position: 'relative' } }
-      onClick={ onClick }
-    >
-      <circle cx='50%' cy='50%' r='50%' stroke='blue' fill={ fill } id={ id } />
-    </svg>
+  <svg
+    height={Math.min(2 * circleRadius, 0.2 * duration)}
+    width={Math.min(2 * circleRadius, 0.2 * duration)}
+    style={{ position: 'relative' }}
+    onClick={onClick}
+  >
+    <circle cx='50%' cy='50%' r='50%' stroke='blue' fill={fill} id={id} />
+  </svg>
 
 export default class DraggableAc extends Component {
 
@@ -50,8 +50,8 @@ export default class DraggableAc extends Component {
     this.state = {
       remove: false,
       hover: false,
-      totalPosition: { x:convertTimeToPx(props.scale, props.defaultPosition.x), 
-                       y: props.defaultPosition.y },
+      totalPosition: { x: convertTimeToPx(props.scale, props.defaultPosition.x),
+        y: props.defaultPosition.y },
       totalDuration: props.duration,
       y: 0,
       moving: false,
@@ -60,23 +60,17 @@ export default class DraggableAc extends Component {
   }
 
   componentDidMount() {
-    const {graphId} = this.props
-    const newY = computeTopPositionFromGraph('#' + graphId + 'plane' + this.props.plane, graphId) 
-                - boxHeight/2
+    const { graphId } = this.props
+    const newY = 
+      computeTopPositionFromGraph('#' + graphId + 'plane' + this.props.plane, graphId)
+        - (boxHeight / 2)
 
     if (this.state.y !== newY) {
       this.setState({
         y: newY
       })
     }
-
   }
-
-  defaultPosition = (position = this.props.defaultPosition, scale = this.props.scale) =>
-    ({
-      x: convertTimeToPx(scale, position.x) + textSizeAndMargin - rndMargin,
-      y: this.state.y
-    })
 
   updatePosition = (deltaPosition) => {
     const defaultPosition = this.state.totalPosition
@@ -124,6 +118,12 @@ export default class DraggableAc extends Component {
       this.setState({ totalPosition: newTotalPosition })
     }
   }
+
+  defaultPosition = (position = this.props.defaultPosition, scale = this.props.scale) =>
+  ({
+    x: convertTimeToPx(scale, position.x) + textSizeAndMargin - rndMargin,
+    y: this.state.y
+  })
 
   render() {
     let {activity, editorMode} = this.props
