@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Rnd from 'react-rnd';
 
 import { updateGraphActivityDuration } from '../../api/activities'
-import { computeTopPositionFromGraph, convertTimeToPx, 
+import { computeTopPositionFromGraph, convertTimeToPx,
           convertPxToTime, textSizeAndMargin, horizontalZoom } from './graph_utils.js'
 
 const boxHeight = 40
@@ -14,33 +14,31 @@ const circleRadius = 6
 const rndMargin = 12
 
 const minRealBox = 45
-//#fe8181 ligth red
+// #fe8181 ligth red
 const divStyle = (duration) => {
   return {
-    background: "#337ab7",
+    background: '#337ab7',
     borderRadius: 4,
-    textAlign:"center",
+    textAlign: 'center',
     width: duration,
     height: boxHeight,
     margin: 10,
     padding: 10,
     zIndex: 0,
-    float: "left",
+    float: 'left',
     border: 1,
-    borderStyle: "solid",
-    borderColor: "blue",
-    position: "absolute",
+    borderStyle: 'solid',
+    borderColor: 'blue',
+    position: 'absolute'
   }
 }
 
-const Anchor = ({id, fill, onClick, duration}) => {
-  return (
-    <svg height={Math.min(2*circleRadius, 0.2*duration)} width={Math.min(2*circleRadius, 0.2*duration)}
+const Anchor = ({ id, fill, onClick, duration }) =>
+    <svg height={Math.min(2*circleRadius, 0.2*duration)} 
+          width={Math.min(2*circleRadius, 0.2*duration)}
           style={{position: "relative"}} onClick={onClick}>
       <circle cx="50%" cy="50%" r="50%" stroke="blue" fill={fill} id={id}/>
     </svg>
-  )
-}
 
 export default class DraggableAc extends Component {
 

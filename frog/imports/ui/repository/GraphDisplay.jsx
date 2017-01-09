@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Graph from '../graph/Graph';
 
 export default class GraphDisplay extends Component {
@@ -19,13 +19,13 @@ export default class GraphDisplay extends Component {
     return (
       <div className='graph-summary'>
         <div>
-          <div onClick={this.graphHandler}>{this.props.graph.name}</div>
+          <a href='#' onClick={this.graphHandler}>{this.props.graph.name}</div>
           {this.state.isClicked ?
             <div>
               <Graph />
             </div>
           : ''}
-        </div>
+        </a>
 
       </div>
     );
