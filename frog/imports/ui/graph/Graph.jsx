@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import DraggableAc from './DraggableAc.jsx';
 import Draggable from 'react-draggable';
 import { uuid } from 'frog-utils'
-import { sortBy, reverse, take, range } from 'lodash'
+import { sortBy, reverse, take, range, clone } from 'lodash'
 
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
           modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';

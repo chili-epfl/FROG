@@ -4,10 +4,11 @@ import { uuid } from 'frog-utils';
 import { Graphs, addGraph } from './graphs';
 
 import { operatorTypesObj } from '../operatorTypes'
+import { clone } from 'lodash'
 
 export const Activities = new Mongo.Collection('activities')
 export const Operators = new Mongo.Collection('operators')
-export const Results = new Mongo.Collection('results');
+export const Results = new Mongo.Collection('results')
 
 
 export const addActivity = (activityType, data, id) => {
@@ -31,18 +32,18 @@ export const addSessionActivity = (params) => {
 }
 
 export const updateGraphActivityDuration = (activityId, duration) => {
-  Activities.update({ _id: activityId }, { $set: {'data.duration': duration } })
+  Activities.update({ _id: activityId }, { $set: { 'data.duration': duration } })
 }
 
 export const removeGraphActivity = (activityId) =>
   Meteor.call('graph.flush.activity', activityId)
 
-export const addGraphOperator = (params, id=uuid()) =>
+export const addGraphOperator = (params, id = uuid()) =>
   Operators.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: id })
 
 
 export const modifyGraphOperator = (operatorId, opType, type, data) =>
-  Operators.update(operatorId, { $set: { operatorType: opType, type: type, data: data } })
+  Operators.update( { _id: operatorId }, { $set: { operatorType: opType, type: type, data: data } })
 
 export const addSessionOperator = (params) =>
   Operators.insert({ ...params, sessionId: params.sessionId, createdAt: new Date(), _id: uuid() })
@@ -74,8 +75,8 @@ export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) =
 export const removeGraph = (graphId) =>
   Meteor.call('graph.flush.all', graphId)
 
-export const dragGraphActivitySet = ( id, position ) => {
-  Activities.update({_id: id}, {$set: {position: position}})
+export const dragGraphActivitySet = (id, position) => {
+  Activities.update({ _id: id }, { $set: { position: position } })
 }
 export const dragGraphActivity = (id, xPosition) => {
   Activities.update(id, { $inc: { xPosition } })
@@ -112,36 +113,33 @@ export const addResult = (type, activityId, result) => {
 }
 
 export const duplicateGraph = (graphId) => {
-  let activities = Activities.find({graphId: graphId}).fetch()
-  let oldActivitiesId = activities.map((activity) => activity._id)
-  const newActivitiesId = oldActivitiesId.map((id) => uuid())
-  let operators = Operators.find({graphId: graphId}).fetch()
-  let graph = Graphs.findOne({_id: graphId})
-  let newGraphId = addGraph(graph.name + ' (copy)')
+  const activities = Activities.find({ graphId: graphId }).fetch()
+  const oldActivitiesId = activities.map((activity) => activity._id)
+  const newActivitiesId = oldActivitiesId.map(() => uuid())
+  const operators = Operators.find({ graphId: graphId }).fetch()
+  const graph = Graphs.findOne({ _id: graphId })
+  const newGraphId = addGraph(graph.name + ' (copy)')
 
   operators.forEach((operator) => {
-    let fromIndex = oldActivitiesId.indexOf(operator.from._id)
-    let toIndex = oldActivitiesId.indexOf(operator.to._id)
+    const fromIndex = oldActivitiesId.indexOf(operator.from._id)
+    const toIndex = oldActivitiesId.indexOf(operator.to._id)
     const fromObject = { plane: activities[fromIndex].plane, _id: newActivitiesId[fromIndex] }
-    const toObject = { plane: activities[toIndex].plane, _id:newActivitiesId[toIndex] }
+    const toObject = { plane: activities[toIndex].plane, _id: newActivitiesId[toIndex] }
     const opId = uuid()
     addGraphOperator({ graphId: newGraphId, from: fromObject, to: toObject }, opId)
-    if(operator.operatorType) {
+    if (operator.operatorType) {
       modifyGraphOperator(opId, operator.operatorType, operator.type, operator.data)
     }
   })
 
   activities.forEach((activity, i) => {
-    let newActivity = _.clone(activity, true)
+    const newActivity = _.clone(activity, true)
     newActivity._id = newActivitiesId[i]
     newActivity.graphId = newGraphId
     addGraphActivity(newActivity, newActivity._id)
   })
   return newGraphId
 }
-
-
-
 
 export const flushActivities = () =>
   Meteor.call('activities.flush')
