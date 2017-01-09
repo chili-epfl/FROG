@@ -15,7 +15,7 @@ export const addActivity = (activityType, data, id) => {
   if (id) {
     Activities.update(id, { $set: { data } })
   } else {
-    Activities.insert({ _id: uuid(), activityType, data, createdAt: new Date() })
+    Activities.insert({ _id: uuid(), activityType: activityType, data, createdAt: new Date() })
   }
 }
 
