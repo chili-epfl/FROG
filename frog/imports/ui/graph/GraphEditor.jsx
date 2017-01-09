@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Meteor } from 'meteor/meteor'
 import { createContainer } from 'meteor/react-meteor-data'
-import { $ } from 'meteor/jquery'
 
 import { Graphs, addGraph, setCurrentGraph, renameGraph } from '../../api/graphs'
 import { Activities, Operators, duplicateGraph, removeGraph } from '../../api/activities'
@@ -48,7 +47,7 @@ class GraphEditor extends Component {
 
   handleRename = (event, id, oldName) => {
     const newName = event.target.value.trimLeft()
-    if(oldName !== newName) {
+    if (oldName !== newName) {
       renameGraph(id, newName)
     }
   }
@@ -63,20 +62,21 @@ class GraphEditor extends Component {
       <div>
         <h3>Graph list</h3>
         <ul> { this.props.graphs.map((graph) =>
-          <li style = { { listStyle: 'none', margin: '10px 0' } } key={ graph._id }>
+          <li style={{ listStyle: 'none', margin: '10px 0' }} key={graph._id}>
             <a href='#' onClick={() => this.handleRemove(graph._id)}><i className='fa fa-times' /></a>
             <a href='#' onClick={() => this.submitReplace(graph._id)}><i className='fa fa-pencil' /></a>
             <a href='#' onClick={() => this.handleInfoClick(graph._id)} ><i className='fa fa-info' /></a>
             <a href='#' onClick={() => this.handleDuplicate(graph._id)} ><i className='fa fa-copy' /></a>
-            <input type="text" value={graph.name} onChange={(event) => this.handleRename(event, graph._id, graph.name) }/>
+            <input type='text' value={graph.name} onChange={(event) => this.handleRename(event, graph._id, graph.name)} />
             {this.state.current === graph._id ? '(current)' : null}
             {this.state.infoToDisplay === graph._id ?
               <Graph
                 activities={[]}
                 operators={[]}
                 graphId={graph._id}
-                loaded={this.state.current === graph._id ? this.state.loaded : this.state.repoLoaded}
-                handleLoaded={this.state.current === graph._id ? this.handleLoaded  
+                loaded={this.state.current === graph._id ? this.state.loaded
+                                                          : this.state.repoLoaded}
+                handleLoaded={this.state.current === graph._id ? this.handleLoaded
                                                                 : this.handleRepoLoaded}
                 editorMode={false}
               /> 

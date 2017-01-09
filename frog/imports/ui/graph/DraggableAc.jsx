@@ -61,7 +61,7 @@ export default class DraggableAc extends Component {
 
   componentDidMount() {
     const { graphId } = this.props
-    const newY = 
+    const newY =
       computeTopPositionFromGraph('#' + graphId + 'plane' + this.props.plane, graphId)
         - (boxHeight / 2)
 

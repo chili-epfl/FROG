@@ -19,13 +19,13 @@ export default class GraphDisplay extends Component {
     return (
       <div className='graph-summary'>
         <div>
-          <a href='#' onClick={this.graphHandler}>{this.props.graph.name}</div>
+          <a href='#' onClick={this.graphHandler}>{this.props.graph.name}</a>
           {this.state.isClicked ?
             <div>
               <Graph />
             </div>
           : ''}
-        </a>
+        </div>
 
       </div>
     );
