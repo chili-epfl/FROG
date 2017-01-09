@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
+import { clone } from 'lodash'
 import { Graphs, addGraph } from './graphs';
 
 import { operatorTypesObj } from '../operatorTypes'
-import { clone } from 'lodash'
 
 export const Activities = new Mongo.Collection('activities')
 export const Operators = new Mongo.Collection('operators')
@@ -43,7 +43,7 @@ export const addGraphOperator = (params, id = uuid()) =>
 
 
 export const modifyGraphOperator = (operatorId, opType, type, data) =>
-  Operators.update( { _id: operatorId }, { $set: { operatorType: opType, type: type, data: data } })
+  Operators.update({ _id: operatorId }, { $set: { operatorType: opType, type: type, data: data } })
 
 export const addSessionOperator = (params) =>
   Operators.insert({ ...params, sessionId: params.sessionId, createdAt: new Date(), _id: uuid() })
@@ -133,7 +133,7 @@ export const duplicateGraph = (graphId) => {
   })
 
   activities.forEach((activity, i) => {
-    const newActivity = _.clone(activity, true)
+    const newActivity = clone(activity, true)
     newActivity._id = newActivitiesId[i]
     newActivity.graphId = newGraphId
     addGraphActivity(newActivity, newActivity._id)

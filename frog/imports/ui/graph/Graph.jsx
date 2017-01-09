@@ -497,7 +497,7 @@ class Graph extends Component {
     //If we are within the bounds
     if(down > posY && posY > top) {
       //We clone the activity for the draggable element
-      let newActivity = _.clone(activity, true);
+      let newActivity = clone(activity, true);
       newActivity._id = uuid();
 
       const defaultTime = 60;
