@@ -8,30 +8,37 @@ import { uuid } from 'frog-utils'
 
 import DraggableAc from './DraggableAc.jsx';
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
-        modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
+        modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
 
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
           convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval,
           graphSize, horizontalZoom } from './graph_utils.js'
 
 
-const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => 
-{ return(
+const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => {
+return(
   <div>
-    <svg width={rightMostPosition + textSizeAndMargin} height={graphSize}
-        xmlns='http://www.w3.org/2000/svg' style={{overflowX: 'auto'}}>
+    <svg 
+      width={rightMostPosition + textSizeAndMargin}
+      height={ graphSize }
+      xmlns='http://www.w3.org/2000/svg'
+      style={{overflowX: 'auto'}}
+    >
 
       <text x={leftMargin} y='18%' id={graphId + 'plane3'}>Class</text>
-      <line id ={graphId + 'line3'} x1={textSizeAndMargin} y1='18%'
-                                    x2='100%' y2='18%' style={{stroke: 'black', strokeWidth:'1'}}/>
+      <line id={graphId + 'line3'} x1={textSizeAndMargin} y1='18%'
+                                    x2='100%' y2='18%' style={{stroke: 'black', strokeWidth: '1' }}
+      />
 
       <text x={leftMargin} y='43%' id={graphId + 'plane2'}>Team</text>
-      <line id ={graphId + 'line2'} x1={textSizeAndMargin} y1='43%'
-                                    x2='100%' y2='43%' style={{stroke: 'black', strokeWidth:'1'}}/>
+      <line id={graphId + 'line2'} x1={textSizeAndMargin} y1='43%'
+                                    x2='100%' y2='43%' style={{stroke: 'black', strokeWidth: '1' }}
+      />
 
       <text x={leftMargin} y='68%' id={graphId + 'plane1'}>Individual</text>
-      <line id ={graphId + 'line1'} x1={textSizeAndMargin} y1='68%'
-                                    x2='100%' y2='68%' style={{stroke: 'black', strokeWidth:'1'}} />
+      <line id={graphId + 'line1'} x1={textSizeAndMargin} y1='68%'
+                                    x2='100%' y2='68%' style={{stroke: 'black', strokeWidth: '1' }}
+      />
 
       <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} unit={scale} cursor={cursor}/>
     </svg>
