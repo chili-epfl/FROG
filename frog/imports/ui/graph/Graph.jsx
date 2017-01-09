@@ -236,7 +236,7 @@ const DragAc = ( {activity, position, plane}) => {
             id='dragac_tip'
             type='light'
             effect='solid'>
-            <pre>{JSON.stringify(activity.data, null, 2)}</pre>
+            <pre>{JSON.stringify({'Data': activity.data, 'Activity Type': activity.activityType}, null, 2)}</pre>
           </ReactTooltip>
         </div>
     </Draggable>
@@ -718,7 +718,7 @@ const divStyleNeg = (activity) => { return {
   background: 'white',
   borderRadius: 4,
   border: 2,
-  width: $('#box' + activity._id).outerWidth(),
+  width: $('#box' + activity._id).outerWidth() + 1,
   height: $('#box' + activity._id).outerHeight(),
   margin: 10,
   padding: 10,
