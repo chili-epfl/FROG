@@ -49,7 +49,7 @@ return(
   </div>
 )}
 
-const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
+const TimeAxis = ({ totalLeftMargin, width, unit, cursor }) => {
   return(
     <g>
       <line x1={totalLeftMargin} y1='90%' x2='100%' y2='90%' style={{ stroke: 'black', strokeWidth: '1' }} />
@@ -92,7 +92,7 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
   );
 }
 
-const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}) => {
+const OpPath = ({ up, right, i, width, height, leftSource, leftTarget, top, left }) => {
   let cornerTop = 0
   let cornerDown = 0
   let startX = 0
@@ -157,8 +157,8 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 
 
-const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators,
-                            planes, graphId, editorMode}) => {
+const RenderOperators =  ({ operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators,
+                            planes, graphId, editorMode }) => {
   return (
       <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
@@ -184,7 +184,8 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
               <OpPath up={goUp} right={goRight} i={i}
                       width={width} height={height}
                       leftSource={lsp} leftTarget={ltp}
-                      top={top} left={left + scroll}/>
+                      top={top} left={left + scroll}
+              />
             </g>
           )
         })}
@@ -193,11 +194,11 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
   )
 }
 
-const DrawToolTip = ( {operators, activities, scale}) => {
+const DrawToolTip = ({ operators, activities, scale }) => {
   return(
     <span>
       {operators.map( (operator, i) => {
-        return <ReactTooltip key={'optip' + i} id={'operator' + i} type='light' style={{ position: 'absolute', zIndex: 10}}>
+        return <ReactTooltip key={'optip' + i} id={'operator' + i} type='light' style={{ position: 'absolute', zIndex: 10 }}>
           Operator
           <pre>{
             JSON.stringify({'operatorType': operator.operatorType, 'type': operator.type, 'data': operator.data}, null, 2)
@@ -223,7 +224,7 @@ const DrawToolTip = ( {operators, activities, scale}) => {
 }
 
 
-const DragAc = ( {activity, position, plane}) => {
+const DragAc = ({ activity, position, plane }) => {
   return (
     <Draggable
       position= {position}
@@ -244,7 +245,7 @@ const DragAc = ( {activity, position, plane}) => {
 }
 
 
-const BoxAc = ( {onHoverStart, hoverStop, plane, activity} ) => {
+const BoxAc = ({ onHoverStart, hoverStop, plane, activity }) => {
 
   return(
     <div
@@ -257,10 +258,10 @@ const BoxAc = ( {onHoverStart, hoverStop, plane, activity} ) => {
   )
 }
 
-const RenderDraggable = ( { handleHover, handleHoverStop, activities}) => {return(
+const RenderDraggable = ({ handleHover, handleHoverStop, activities }) => {
+  return(
     <div>
       <div style={divListStyle}>
-
         {activities.map((activity, i) => {
           return <BoxAc
           onHoverStart={(event) => handleHover(event, i%3 +1, activity)}
@@ -270,17 +271,15 @@ const RenderDraggable = ( { handleHover, handleHoverStop, activities}) => {retur
           plane={i%3 +1} /> //TODO to be changed with the real plane
         })}
       </div>
-
     </div>
-
   )
 }
 
-const TempAc = ({handleDragStop, position, plane, current}) => {
+const TempAc = ({ handleDragStop, position, plane, current }) => {
   return (
-    <div id='dragac' style={{ position: 'absolute', zIndex: 2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
+    <div id='dragac' style={{ position: 'absolute', zIndex: 2 }} onMouseUp={(event) => handleDragStop(event, plane, current)}>
       {current ?
-      <div  style={{ position: 'absolute'}}>
+      <div style={{ position: 'absolute' }}>
         <DragAc
           activity={current}
           plane={plane}
@@ -293,7 +292,7 @@ const TempAc = ({handleDragStop, position, plane, current}) => {
 }
 
 
-export const RenderGraph = ( {
+export const RenderGraph = ({
   editorMode,
   activities,
   sizes,
@@ -311,29 +310,31 @@ export const RenderGraph = ( {
   moveCursor,
   cursor,
   scale,
-  activitySourceClicked}) => {
+  activitySourceClicked }) => {
   const rightMostPosition = getRightMostPosition(activities, scale)
-  return(
+  return (
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
-        <div style={{ position:'relative'}}>
-            <div style={{ position: 'absolute', zIndex: 0}}>
-              <svg xmlns='http://www.w3.org/2000/svg'
-                  style={{ position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {graphSize}>
-              {loaded ?
-                <RenderOperators
-                  operators={operators}
-                  rightMostPosition={rightMostPosition}
-                  onClickOperator={onClickOperator}
-                  clickedOperator={clickedOperator}
-                  listAvailableOperators={listAvailableOperators}
-                  planes={plane}
-                  graphId={graphId}
-                  editorMode={editorMode}/>
-              : ''}
+        <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', zIndex: 0 }}>
+              <svg
+                xmlns='http://www.w3.org/2000/svg' style={{ position: 'absolute', zIndex: 0 }}
+                width={rightMostPosition} height={graphSize}>
+                {loaded ?
+                  <RenderOperators
+                    operators={operators}
+                    rightMostPosition={rightMostPosition}
+                    onClickOperator={onClickOperator}
+                    clickedOperator={clickedOperator}
+                    listAvailableOperators={listAvailableOperators}
+                    planes={plane}
+                    graphId={graphId}
+                    editorMode={editorMode}
+                  />
+                : ''}
               </svg>
 
-              <div style={{ position:'relative'}}>
+              <div style={{ position: 'relative '}}>
                 {activities.map( (activity, i) => {
                   return (<DraggableAc
                     activity={activity}
@@ -343,11 +344,11 @@ export const RenderGraph = ( {
                     defaultPosition={activity.position}
                     arrayIndex={i}
                     handleStop={handleStop}
-                    delete = {deleteAc}
-                    sourceOperator = {sourceOperator}
-                    targetOperator = {targetOperator}
-                    isSourceClicked = {activitySourceClicked == activity ? true : false}
-                    graphId = {graphId}
+                    delete={deleteAc}
+                    sourceOperator={sourceOperator}
+                    targetOperator={targetOperator}
+                    isSourceClicked={activitySourceClicked === activity ? true : false}
+                    graphId={graphId}
                     moveCursor={moveCursor}
                     scale={scales[scale]}
                     />)
@@ -357,15 +358,14 @@ export const RenderGraph = ( {
           {
             clickedOperator ? listAvailableOperators() : ''
           }
-            </div>
-          {loaded ?
-            <DrawToolTip operators={operators} activities={activities} scale={scales[scale]}/>
-          : ''}
+        </div>
+        {loaded ?
+          <DrawToolTip operators={operators} activities={activities} scale={scales[scale]} />
+        : ''}
         <div>
-          <AxisDisplay rightMostPosition = {rightMostPosition} graphId={graphId} cursor={cursor} scale={scales[scale]}/>
+          <AxisDisplay rightMostPosition={rightMostPosition} graphId={graphId} cursor={cursor} scale={scales[scale]} />
         </div>
       </div>
-
     );
 }
 
@@ -390,12 +390,11 @@ const getRightMostPosition = (activities, scale) => {
       rightMostPosition = convertTimeToPx(scales[scale], Math.max(...mappedPosition) || 0)
     }
 
-
     return (rightMostPosition >= 1000) ? rightMostPosition + 100 : 1100;
 }
 
 const getHeight = (plane, planes) => {
-  switch(plane) {
+  switch (plane) {
     case 1:
       return planes.plane1
     case 2:
@@ -426,12 +425,12 @@ class Graph extends Component {
   }
 
   componentDidMount() {
-    let {graphId} = this.props
+    let { graphId } = this.props
     withPrefixId = this.props.editorMode ? graphId : 'repo' + graphId
     let plane1 = computeTopPositionFromGraph('#' + withPrefixId + 'line1', withPrefixId)
     let plane2 = computeTopPositionFromGraph('#' + withPrefixId + 'line2', withPrefixId)
     let plane3 = computeTopPositionFromGraph('#' + withPrefixId + 'line3', withPrefixId)
-    this.setState({loaded: true, plane: {plane1: plane1, plane2:plane2, plane3:plane3}})
+    this.setState({ loaded: true, plane: { plane1: plane1, plane2: plane2, plane3: plane3 } })
     this.props.handleLoaded()
   }
 
@@ -463,7 +462,7 @@ class Graph extends Component {
       || this.props.addedOperators.length != prevProps.addedOperators.length
       || prevState.dragged
     ) {
-      this.setState({loaded: true, dragged: false})
+      this.setState({ loaded: true, dragged: false })
       this.props.handleLoaded()
     }
   }
@@ -475,13 +474,13 @@ class Graph extends Component {
     this.setState({
       currentPlane: plane,
       currentDraggable: activity,
-      hoverBoxPosition: {x: position.left, y: position.top}})
-
+      hoverBoxPosition: { x: position.left, y: position.top }
+    })
   }
 
   handleHoverStop = (event) => {
     event.preventDefault();
-    this.setState({currentDraggable: null});
+    this.setState({ currentDraggable: null });
 
   }
 
@@ -493,7 +492,7 @@ class Graph extends Component {
 
   handleDragStop = (event, plane, activity) => {
     event.preventDefault();
-    let {graphId} = this.props
+    let { graphId } = this.props
 
     const top = $('#' + graphId + 'inner_graph').offset().top
     const down = top + $('#' + graphId + 'inner_graph').height();
@@ -511,52 +510,51 @@ class Graph extends Component {
       //We obtain the components to set its location in the graph (relative)
       const innerGraphScrollX =  $('#' + graphId + 'inner_graph').scrollLeft() -
                                   $('#' + graphId + 'inner_graph').position().left;
-      const newY = computeTopPositionFromGraph('#' + graphId + 'plane' + plane, graphId) - 20;
+      const newY = computeTopPositionFromGraph('#' + graphId + 'plane' + plane, graphId)-20;
       //20 is a constant so that the component is not put under the line but on the line
       let newX = Math.max(event.clientX + window.scrollX + innerGraphScrollX - textSizeAndMargin, 0)
       const remaining = newX % interval
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
-      let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
+      let newPosition = { x: convertPxToTime(scales[this.state.scale], newX), y: newY };
       this.setState({loaded:false})
       addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, activityType: newActivity.activityType,
-                          position: newPosition, data: newActivity.data, plane: plane}, newActivity._id)
+                          position: newPosition, data: newActivity.data, plane: plane }, newActivity._id)
     }
-    this.setState({currentDraggable: null});
+    this.setState({ currentDraggable: null });
   }
 
   handleStop = (arrayIndex, position) => {
     dragGraphActivitySet(this.props.addedActivities[arrayIndex]._id, position)
-    this.setState({loaded: false, dragged: true})
+    this.setState({ loaded: false, dragged: true })
   }
 
   sourceClicked = (source) => {
     if (source === this.state.currentSource) {
-      this.setState({currentSource:null});
-    }
-    else {
-      this.setState({currentSource:source});
+      this.setState({ currentSource: null });
+    } else {
+      this.setState({ currentSource: source });
     }
   }
 
   addNewOperator = (target) => {
-    if (this.state.currentSource != null && target != this.state.currentSource) {
-      this.setState({currentSource:null, loaded:false});
-      const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
-      const toAc = {plane: target.plane, _id: target._id}
-      addGraphOperator({_id: uuid(), graphId: this.props.graphId, from: fromAc, to:toAc})
+    if (this.state.currentSource != null && target !== this.state.currentSource) {
+      this.setState({ currentSource: null, loaded: false });
+      const fromAc = { plane: this.state.currentSource.plane, _id: this.state.currentSource._id }
+      const toAc = { plane: target.plane, _id: target._id }
+      addGraphOperator({ _id: uuid(), graphId: this.props.graphId, from: fromAc, to: toAc })
     }
   }
 
   clickedOperator = (event, operator, x, y) => {
     event.preventDefault();
-    if (this.state.clickedOperator != operator) {
-      this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x, y:y}})
+    if (this.state.clickedOperator !== operator) {
+      this.setState({ clickedOperator: operator, clickedOperatorPosition: { x: x, y: y } })
     }
   }
 
   //dragged is used only on ResizeStop to redraw the operator correctly
   moveCursor = (newPosition, dragged = false) => {
-    this.setState({cursor:newPosition, dragged: dragged})
+    this.setState({ cursor: newPosition, dragged: dragged })
   }
 
   operatorChosen = (event) => {
@@ -568,17 +566,16 @@ class Graph extends Component {
       this.state.clickedOperator.data = chosenOperator.data;
       modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operatorType,
                           chosenOperator.type, chosenOperator.data)
-    }
-    else {
+    } else {
       removeGraphOperator(this.state.clickedOperator._id)
     }
-    this.setState({clickedOperator:null, clickedOperatorPosition:null})
+    this.setState({ clickedOperator: null, clickedOperatorPosition: null })
   }
 
   listAvailableOperators = () => {
     return (
-      <div style={{ position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
-        <div style={{ position:'relative', left:'-50%', top:'-50%'}}>
+      <div style={{ position: 'absolute', left: this.state.clickedOperatorPosition.x, top: this.state.clickedOperatorPosition.y }}>
+        <div style={{ position: 'relative', left: '-50%', top: '-50%' }}>
           <select id='operators' size='4' onChange={(event) => this.operatorChosen(event)}>
             {
               this.props.operators.length == 0 ? <option disabled>No operator to choose</option> : ''
@@ -586,12 +583,12 @@ class Graph extends Component {
             <option key={'cancel'} value={-1} style={{ textAlign:'center'}}>Cancel</option>
             {
               this.props.operators.map((operator, i) => {
-                return <option key={'choice'+i} value={i} style={{ textAlign:'center'}}>
+                return <option key={'choice'+i} value={i} style={{ textAlign: 'center' }}>
                           {operator.operatorType}
                        </option>
               })
             }
-            <option key={'delete'} value={-2} style={{ textAlign:'center'}}>Delete</option>
+            <option key={'delete'} value={-2} style={{ textAlign: 'center' }}>Delete</option>
           </select>
         </div>
       </div>
@@ -599,18 +596,18 @@ class Graph extends Component {
   }
 
   changeScale = (event) => {
-    this.setState({scale:event.target.value, loaded:false})
+    this.setState({ scale: event.target.value, loaded: false })
     scrollGraph(0, this.props.graphId)
   }
 
   render() {
-    let {editorMode} = this.props
+    let { editorMode } = this.props
     return (
       <div id='graph-summary' >
           <br />
           {scaleButton(this.changeScale, this.state.minScale)}
           <RenderGraph
-            id = 'planes'
+            id='planes'
             editorMode={editorMode}
             activities={this.props.addedActivities}
             operators={this.props.addedOperators}
@@ -619,39 +616,41 @@ class Graph extends Component {
             listAvailableOperators={editorMode ? this.listAvailableOperators: undefined}
             deleteAc={this.deleteInGraphAc}
             handleStop={editorMode ? this.handleStop : undefined}
-            sourceOperator = {editorMode ? this.sourceClicked : undefined}
-            targetOperator = {this.addNewOperator}
-            activitySourceClicked = {this.state.currentSource}
+            sourceOperator={editorMode ? this.sourceClicked : undefined}
+            targetOperator={this.addNewOperator}
+            activitySourceClicked={this.state.currentSource}
             loaded={this.state.loaded}
             plane={this.state.plane}
             graphId={editorMode ? this.props.graphId : 'repo' + this.props.graphId}
             moveCursor={this.moveCursor}
             cursor={this.state.cursor}
             scale={this.state.scale}
-            />
-          <br/>
-          <br/>
+          />
+          <br />
+          <br />
           {editorMode ?
 
             this.props.activities.length == 0 ?
-              <div style = {divListStyleNoActivity}>
-                <br/>
+              <div style={divListStyleNoActivity}>
+                <br />
                 <span>No activities</span>
-                <br/>
-                <br/>
+                <br />
+                <br />
               </div>
               :
               <div>
                 <TempAc
-                  handleDragStop = {this.handleDragStop}
-                  position = {this.state.hoverBoxPosition}
-                  plane = {this.state.currentPlane}
-                  current = {this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}/>
+                  handleDragStop={this.handleDragStop}
+                  position={this.state.hoverBoxPosition}
+                  plane={this.state.currentPlane}
+                  current={this.props.activities.includes(this.state.currentDraggable) ? this.state.currentDraggable : null}
+                />
                 <RenderDraggable
                   id='list'
                   handleHover={this.handleHover}
                   handleHoverStop={this.handleHoverStop}
-                  activities = {this.props.activities}/>
+                  activities={this.props.activities}
+                />
               </div>
            : ''}
 
@@ -667,7 +666,7 @@ Graph.propTypes = {
   graphId: PropTypes.string.isRequired,
 };
 
-export default createContainer(
+export default createContainer (
   (props) => {
     return({
       ...props,
@@ -713,33 +712,34 @@ const divListStyleNoActivity = {
   background: 'white',
 }
 //#b62020 dark red
-const divStyleNeg = (activity) => { return {
-
-  background: 'white',
-  borderRadius: 4,
-  border: 2,
-  width: $('#box' + activity._id).outerWidth() + 1,
-  height: $('#box' + activity._id).outerHeight(),
-  margin: 10,
-  padding: 10,
-  float: 'left',
-  position: 'absolute',
-  borderStyle: 'solid',
-  color: '#286090',
-  borderColor: '#286090'
+const divStyleNeg = (activity) => {
+  return {
+    background: 'white',
+    borderRadius: 4,
+    border: 2,
+    width: $('#box' + activity._id).outerWidth() + 1,
+    height: $('#box' + activity._id).outerHeight(),
+    margin: 10,
+    padding: 10,
+    float: 'left',
+    position: 'absolute',
+    borderStyle: 'solid',
+    color: '#286090',
+    borderColor: '#286090'
   }
 }
 
-const divStyleAc = () => { return {
-  background: 'white',
-  borderRadius: 4,
-  border: 2,
-  height: 40,
-  margin: 10,
-  padding: 10,
-  float: 'left',
-  position: 'relative',
-  borderStyle: 'solid',
-  borderColor: 'grey'
+const divStyleAc = () => {
+  return {
+    background: 'white',
+    borderRadius: 4,
+    border: 2,
+    height: 40,
+    margin: 10,
+    padding: 10,
+    float: 'left',
+    position: 'relative',
+    borderStyle: 'solid',
+    borderColor: 'grey'
   }
 }
