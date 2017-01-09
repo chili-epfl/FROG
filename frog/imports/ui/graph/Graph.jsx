@@ -207,7 +207,6 @@ const DrawToolTip = ({ operators, activities, scale }) => {
         </ReactTooltip>
       })}
       {activities.map( (activity, i) => {
-        console.log(activity.activityType)
         return <ReactTooltip
           key={'actip' + i}
           id={'tip'+activity._id}
@@ -560,7 +559,7 @@ class Graph extends Component {
 
   operatorChosen = (event) => {
     event.preventDefault();
-    if (event.target.value > -1) {
+    if (event.target.value >= 0) {
       const chosenOperator = this.props.operators[event.target.value];
       this.state.clickedOperator.operatorType = chosenOperator.operatorType;
       this.state.clickedOperator.type = chosenOperator.type;
