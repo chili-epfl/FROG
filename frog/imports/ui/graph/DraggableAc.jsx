@@ -1,23 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import ReactDOM from 'react-dom';
-import Draggable from 'react-draggable';
 import Rnd from 'react-rnd';
 
 import { updateGraphActivityDuration } from '../../api/activities'
-
-import { $ } from 'meteor/jquery';
-
-import ReactTooltip from 'react-tooltip'
-import { computeTopPositionFromGraph, computeLeftPositionFromGraph,
-          convertTimeToPx, convertPxToTime, textSizeAndMargin, interval, horizontalZoom } from './graph_utils.js'
-
-
-const unitTime = 1
+import { computeTopPositionFromGraph, convertTimeToPx, 
+          convertPxToTime, textSizeAndMargin, horizontalZoom } from './graph_utils.js'
 
 const boxHeight = 40
-
-const resizeStep = 25
 
 const defaultTime = 10
 
