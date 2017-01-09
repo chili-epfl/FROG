@@ -36,10 +36,9 @@ const getUnitInSeconds = (unit) => {
   }
 }
 
-export const convertTimeToPx = (unit, time) => {
-  return (time / getUnitInSeconds(unit)) * horizontalZoom
-}
+export const convertTimeToPx = (unit, time) => 
+  (time / getUnitInSeconds(unit)) * horizontalZoom
 
-export const convertPxToTime = (unit, time) => {
-  return (time * getUnitInSeconds(unit)) / horizontalZoom
-}
+
+export const convertPxToTime = (unit, time) =>
+  (time * getUnitInSeconds(unit)) / horizontalZoom
