@@ -37,8 +37,8 @@ export const updateGraphActivityDuration = (activityId, duration) => {
 export const removeGraphActivity = (activityId) =>
   Meteor.call('graph.flush.activity', activityId)
 
-export const addGraphOperator = (params) =>
-  Operators.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: uuid() })
+export const addGraphOperator = (params, id=uuid()) =>
+  Operators.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: id })
 
 
 export const modifyGraphOperator = (operatorId, opType, type, data) =>
@@ -125,7 +125,7 @@ export const duplicateGraph = (graphId) => {
     const fromObject = { plane: activities[fromIndex].plane, _id: newActivitiesId[fromIndex] }
     const toObject = { plane: activities[toIndex].plane, _id:newActivitiesId[toIndex] }
     const opId = uuid()
-    addGraphOperator({ _id: opId, graphId: newGraphId, from: fromObject, to: toObject })
+    addGraphOperator({ graphId: newGraphId, from: fromObject, to: toObject }, opId)
     if(operator.operatorType) {
       modifyGraphOperator(opId, operator.operatorType, operator.type, operator.data)
     }
