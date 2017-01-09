@@ -15,28 +15,29 @@ const rndMargin = 12
 
 const minRealBox = 45
 // #fe8181 ligth red
-const divStyle = (duration) => {
-  return {
-    background: '#337ab7',
-    borderRadius: 4,
-    textAlign: 'center',
-    width: duration,
-    height: boxHeight,
-    margin: 10,
-    padding: 10,
-    zIndex: 0,
-    float: 'left',
-    border: 1,
-    borderStyle: 'solid',
-    borderColor: 'blue',
-    position: 'absolute'
-  }
-}
+const divStyle = (duration) => 
+({
+  background: '#337ab7',
+  borderRadius: 4,
+  textAlign: 'center',
+  width: duration,
+  height: boxHeight,
+  margin: 10,
+  padding: 10,
+  zIndex: 0,
+  float: 'left',
+  border: 1,
+  borderStyle: 'solid',
+  borderColor: 'blue',
+  position: 'absolute'
+})
 
 const Anchor = ({ id, fill, onClick, duration }) =>
-    <svg height = { Math.min(2*circleRadius, 0.2*duration) } 
-          width = { Math.min(2*circleRadius, 0.2*duration) }
-          style = { { position: 'relative' } } onClick={ onClick }
+    <svg 
+      height={Math.min(2 * circleRadius, 0.2 * duration)}
+      width={Math.min(2 * circleRadius, 0.2 * duration)}
+      style={ { position: 'relative' } }
+      onClick={ onClick }
     >
       <circle cx='50%' cy='50%' r='50%' stroke='blue' fill={ fill } id={ id } />
     </svg>
