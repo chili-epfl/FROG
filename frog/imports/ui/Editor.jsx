@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 import Form from 'react-jsonschema-form'
-import ReactDOM from 'react-dom';
+import { clone } from 'lodash'
+import { uuid } from 'frog-utils'
+import Draggable from 'react-draggable';
 
 import { Activities, addActivity, Operators } from '../api/activities';
-import { Graphs } from '../api/graphs';import { Meteor } from 'meteor/meteor';
-
-import { uuid } from 'frog-utils'
-import { sortBy, reverse, take } from 'lodash'
-import { objectize } from '../../lib/utils'
-
-import { activity_types } from '../activity_types';
-
-import Draggable, {DraggableCore} from 'react-draggable';
-
+import { activityTypes } from '../activityTypes';
 import Graph from './graph/Graph.jsx'
-
 
 const ActivityGraphForm = ( { form, activities, submit } ) => { return (
   <div>
@@ -40,13 +32,13 @@ const ActivityList = ( { activities } ) => { return(
   </div>
 )}
 
-const ActivityTypeList = ( { activity_types, setFn } ) => { return(
+const ActivityTypeList = ( { activityTypes, setFn } ) => { return(
   <div>
     <h1>Add activity</h1>
     <ul> {
-      activity_types.map((activity_type) =>
-        <li key={activity_type.id}>
-          <a href='#' onClick={() => setFn(activity_type)}>{activity_type.meta.name}</a>
+      activityTypes.map((activityType) =>
+        <li key={activityType.id}>
+          <a href='#' onClick={ () => setFn(activityType) }>{ activityType.meta.name }</a>
         </li>
       )
     } </ul>
@@ -159,7 +151,7 @@ class ActivityBody extends Component {
   }
 
   createNewGraphActivity(activity, plane) {
-    let newActivity = _.clone(activity, true)
+    let newActivity = clone(activity, true)
     //newActivity.name=choosenActivity.data.name
     //TODO change plane place, as it's hardcoded in object
     newActivity.plane= plane
@@ -182,7 +174,7 @@ class ActivityBody extends Component {
       <div>
         <ActivityForm form={this.state.form} submit={this.submitAddActivity}/>
         <ActivityList activities={this.props.activities} />
-        <ActivityTypeList activity_types={activity_types} setFn={(form) => this.setState({form:form})} />
+        <ActivityTypeList activityTypes={activityTypes} setFn={(form) => this.setState({form:form})} />
         <Graph activities = {this.props.activities} operators = {this.props.operators}/>
       </div>
     )
