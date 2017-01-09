@@ -58,7 +58,7 @@ const GraphListDisplay = ({ graphs }) =>
       <li key={graph._id}>
         {graph._id}:
         {graph.name}
-        <GraphDisplay graph={graph}/>
+        <GraphDisplay graph={graph} />
       </li>
     )) } </ul>
   </div>

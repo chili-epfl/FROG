@@ -1,7 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, { Component } from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
-import ReactDOM from 'react-dom'
-import { uuid } from 'frog-utils'
 import { $ } from 'meteor/jquery'
 
 import { Graphs, addGraph, setCurrentGraph, renameGraph } from '../../api/graphs'
