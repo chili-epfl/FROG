@@ -42,6 +42,7 @@ export const addGraphOperator = (params, id = uuid()) =>
   Operators.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: id })
 
 
+
 export const modifyGraphOperator = (id, operatorType, type, data) =>
   Operators.update(id, { $set: { operatorType, type, data } })
 
@@ -113,10 +114,10 @@ export const addResult = (type, activityId, result) => {
 }
 
 export const duplicateGraph = (graphId) => {
-  const activities = Activities.find(graphId).fetch()
+  const activities = Activities.find({graphId}).fetch()
   const oldActivitiesId = activities.map((activity) => activity._id)
   const newActivitiesId = oldActivitiesId.map(() => uuid())
-  const operators = Operators.find(graphId).fetch()
+  const operators = Operators.find({graphId}).fetch()
   const graph = Graphs.findOne({ _id: graphId })
   const newGraphId = addGraph(graph.name + ' (copy)')
 
