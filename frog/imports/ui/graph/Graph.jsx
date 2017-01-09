@@ -1,24 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
-import ReactDOM from 'react-dom';
-import DraggableAc from './DraggableAc.jsx';
+import { clone } from 'lodash'
 import Draggable from 'react-draggable';
+import { $ } from 'meteor/jquery'
+import ReactTooltip from 'react-tooltip'
 import { uuid } from 'frog-utils'
-import { sortBy, reverse, take, range, clone } from 'lodash'
 
+import DraggableAc from './DraggableAc.jsx';
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
           modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
-import { addGraph } from '../../api/graphs';
 
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
           convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval,
           graphSize, horizontalZoom } from './graph_utils.js'
 
-import { $ } from 'meteor/jquery'
-import ReactTooltip from 'react-tooltip'
 
-
-const AxisDisplay = ({rightMostPosition, graphId, cursor, scale}) => {
+const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => {
   return(
   <div>
     <svg width={rightMostPosition + textSizeAndMargin} height={graphSize}

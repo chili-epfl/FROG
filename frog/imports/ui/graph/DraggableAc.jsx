@@ -72,10 +72,10 @@ export default class DraggableAc extends Component {
   }
 
   defaultPosition = (position = this.props.defaultPosition, scale = this.props.scale) =>
-    {
+    return ({
       x: convertTimeToPx(scale, position.x) + textSizeAndMargin - rndMargin,
       y: this.state.y
-    }
+    })
 
   updatePosition = (deltaPosition) => {
     const defaultPosition = this.state.totalPosition
