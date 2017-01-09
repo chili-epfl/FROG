@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
-import { clone } from 'lodash'
+import { clone, range } from 'lodash'
 import Draggable from 'react-draggable';
 import { $ } from 'meteor/jquery'
 import ReactTooltip from 'react-tooltip'
@@ -8,7 +8,8 @@ import { uuid } from 'frog-utils'
 
 import DraggableAc from './DraggableAc.jsx';
 import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator,
-        modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator, dragGraphActivitySet } from '../../api/activities';
+        modifyGraphOperator, removeGraphOperatorsLinkedToActivity, removeGraphOperator,
+        dragGraphActivitySet } from '../../api/activities';
 
 import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeToPx,
           convertPxToTime, scrollGraph, scales, leftMargin, textSizeAndMargin, interval,
@@ -22,25 +23,28 @@ return(
       width={rightMostPosition + textSizeAndMargin}
       height={ graphSize }
       xmlns='http://www.w3.org/2000/svg'
-      style={{overflowX: 'auto'}}
+      style={{ overflowX: 'auto'}}
     >
 
       <text x={leftMargin} y='18%' id={graphId + 'plane3'}>Class</text>
-      <line id={graphId + 'line3'} x1={textSizeAndMargin} y1='18%'
-                                    x2='100%' y2='18%' style={{stroke: 'black', strokeWidth: '1' }}
+      <line
+        id={graphId + 'line3'} x1={textSizeAndMargin} y1='18%'
+        x2='100%' y2='18%' style={{ stroke: 'black', strokeWidth: '1' }}
       />
 
       <text x={leftMargin} y='43%' id={graphId + 'plane2'}>Team</text>
-      <line id={graphId + 'line2'} x1={textSizeAndMargin} y1='43%'
-                                    x2='100%' y2='43%' style={{stroke: 'black', strokeWidth: '1' }}
+      <line
+        id={graphId + 'line2'} x1={textSizeAndMargin} y1='43%'
+        x2='100%' y2='43%' style={{ stroke: 'black', strokeWidth: '1' }}
       />
 
       <text x={leftMargin} y='68%' id={graphId + 'plane1'}>Individual</text>
-      <line id={graphId + 'line1'} x1={textSizeAndMargin} y1='68%'
-                                    x2='100%' y2='68%' style={{stroke: 'black', strokeWidth: '1' }}
+      <line
+        id={graphId + 'line1'} x1={textSizeAndMargin} y1='68%'
+        x2='100%' y2='68%' style={{ stroke: 'black', strokeWidth: '1' }}
       />
 
-      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} unit={scale} cursor={cursor}/>
+      <TimeAxis totalLeftMargin={textSizeAndMargin} width={rightMostPosition} unit={scale} cursor={cursor} />
     </svg>
   </div>
 )}
@@ -48,33 +52,37 @@ return(
 const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
   return(
     <g>
-      <line x1={totalLeftMargin} y1='90%' x2='100%' y2='90%' style={{stroke: 'black', strokeWidth:'1'}} />
+      <line x1={totalLeftMargin} y1='90%' x2='100%' y2='90%' style={{ stroke: 'black', strokeWidth: '1' }} />
       <text x={leftMargin} y='90%'>Time ({unit})</text>
       {
         <g>
           {
-          _.range(0, width+totalLeftMargin, interval).map((timeGraduated, i) => {
-            if(cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
-              return ''
-            }
-            else {
-            return (
-              <g key={i}>
-                <line x1={totalLeftMargin + timeGraduated} y1='90%'
-                      x2={totalLeftMargin + timeGraduated} y2='92%' style={{stroke: 'black', strokeWidth:'1'}}/>
-                <text x={totalLeftMargin + timeGraduated} y='93%'
-                      style={{writingMode: 'tb', fontSize: '65%'}}>{timeGraduated/horizontalZoom}</text>
-              </g>
+            range(0, width+totalLeftMargin, interval).map((timeGraduated, i) => {
+              if (cursor != -1 && Math.abs(timeGraduated - cursor) < interval/2) {
+                return ''
+              }
+              return (
+                <g key={i}>
+                  <line
+                    x1={totalLeftMargin + timeGraduated} y1='90%'
+                    x2={totalLeftMargin + timeGraduated} y2='92%' style={{stroke: 'black', strokeWidth:'1'}} />
+                  <text
+                    x={totalLeftMargin + timeGraduated} y='93%'
+                    style={{ writingMode: 'tb', fontSize: '65%' }}>{timeGraduated/horizontalZoom}</text>
+                </g>
               );
-            }
-          })}
+
+            })
+          }
           {
             (cursor >= 0) ?
               <g>
-                <line x1={totalLeftMargin + cursor} y1='90%'
-                      x2={totalLeftMargin + cursor} y2='92%' style={{stroke: 'black', strokeWidth:'1'}}/>
-                <text x={totalLeftMargin + cursor} y='93%'
-                      style={{writingMode: 'tb', fontSize: '65%'}}>{cursor / horizontalZoom}</text>
+                <line
+                  x1={totalLeftMargin + cursor} y1='90%'
+                  x2={totalLeftMargin + cursor} y2='92%' style={{ stroke: 'black', strokeWidth: '1' }} />
+                <text
+                  x={totalLeftMargin + cursor} y='93%'
+                  style={{ writingMode: 'tb', fontSize: '65%' }}>{cursor / horizontalZoom}</text>
               </g>
               : ''
           }
@@ -84,16 +92,6 @@ const TimeAxis = ({totalLeftMargin, width, unit, cursor}) => {
   );
 }
 
-const Separator = ( {id, onHover} ) => {
-  return (
-    <div id={id} onMouseOver={onHover}>
-      <svg width='100%' height = '5px' xmlns='http://www.w3.org/2000/svg'>
-        <line x1='0%' y1='0%' x2='100%' y2='0%' style={{stroke: 'red', strokeWidth:'2'}} />
-      </svg>
-    </div>
-  )
-}
-
 const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}) => {
   let cornerTop = 0
   let cornerDown = 0
@@ -101,36 +99,36 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
   let startY = 0
   let w = width
   let h = height
-  //If the source is up left
-  if(!up && right) {
+  // If the source is up left
+  if (!up && right) {
     cornerTop = 80
-    cornerDown = width - 80
+    cornerDown = width-80
   }
-  //If the source is up right
+  // If the source is up right
   else if (!up && !right) {
     startX = width
-    cornerTop =  - 80
-    cornerDown = 80 - width
+    cornerTop = -80
+    cornerDown = 80-width
     w = -width
   }
-  //If the source is bottom left
+  // If the source is bottom left
   else if (up && right) {
     cornerTop = 80
-    cornerDown =  width - 80
+    cornerDown =  width-80
     startY = height
     h = -height
   }
-  //If the source is bottom right
+  // If the source is bottom right
   else {
     startX = width
     cornerTop = -80
-    cornerDown = 80 - width
+    cornerDown = 80-width
     startY = height
     h = -height
     w = -width
   }
 
-  if(Math.abs(leftSource-leftTarget) < 30) {
+  if (Math.abs(leftSource-leftTarget) < 30) {
     return (
       <line
         data-tip data-for={'operator' + i} data-event-off='mouseDown'
@@ -140,7 +138,8 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
         y1={up ? top : top + height}
         x2={right ? left : left + width}
         y2={up ? height + top : top}
-        style={{stroke:'#286090', strokeWidth:'5', zIndex:10}}/>
+        style={{ stroke: '#286090', strokeWidth: '5', zIndex: 10 }}
+      />
     )
   }
 
@@ -151,7 +150,8 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
       key ={i}
       d={'M' + (left + startX) + ',' + (top + startY) + ' c'+
           cornerTop + ',' + 0 + ' ' + cornerDown + ',' + h + ' ' + w + ',' + h}
-      style={{fill: 'none', stroke: '#286090', strokeWidth: 5, zIndex: 10}}/>
+      style={{ fill: 'none', stroke: '#286090', strokeWidth: 5, zIndex: 10 }}
+    />
   )
 }
 
@@ -159,7 +159,7 @@ const OpPath = ({up, right, i, width, height, leftSource, leftTarget, top, left}
 
 const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clickedOperator, listAvailableOperators,
                             planes, graphId, editorMode}) => {
-  return(
+  return (
       <g width={rightMostPosition} height={graphSize}  style={{position: 'absolute', zIndex: 0}}>
         {operators.map( (operator, i) => {
           let scroll = $('#' + graphId + 'inner_graph').scrollLeft()
@@ -177,7 +177,7 @@ const RenderOperators =  ({operators, rightMostPosition, onClickOperator, clicke
             <g key={'op'+i} width={Math.max(width, 5)}
                             height={Math.max(height, 5)}
                             x={top} y={left + scroll}
-                            style={{zIndex: 0, position: 'absolute'}}
+                            style={{ zIndex: 0, position: 'absolute'}}
                             onClick={
                               (event) => editorMode ? onClickOperator(event, operator, left+width/2 + scroll, top+height/2)
                                                     : null}>
@@ -197,7 +197,7 @@ const DrawToolTip = ( {operators, activities, scale}) => {
   return(
     <span>
       {operators.map( (operator, i) => {
-        return <ReactTooltip key={'optip' + i} id={'operator' + i} type='light' style={{position: 'absolute', zIndex: 10}}>
+        return <ReactTooltip key={'optip' + i} id={'operator' + i} type='light' style={{ position: 'absolute', zIndex: 10}}>
           Operator
           <pre>{
             JSON.stringify({'operatorType': operator.operatorType, 'type': operator.type, 'data': operator.data}, null, 2)
@@ -278,9 +278,9 @@ const RenderDraggable = ( { handleHover, handleHoverStop, activities}) => {retur
 
 const TempAc = ({handleDragStop, position, plane, current}) => {
   return (
-    <div id='dragac' style={{position: 'absolute', zIndex: 2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
+    <div id='dragac' style={{ position: 'absolute', zIndex: 2}} onMouseUp={(event) => handleDragStop(event, plane, current)}>
       {current ?
-      <div  style={{position: 'absolute'}}>
+      <div  style={{ position: 'absolute'}}>
         <DragAc
           activity={current}
           plane={plane}
@@ -316,10 +316,10 @@ export const RenderGraph = ( {
   return(
 
       <div id={graphId + 'inner_graph'} style={divStyle}>
-        <div style={{position:'relative'}}>
-            <div style={{position: 'absolute', zIndex: 0}}>
+        <div style={{ position:'relative'}}>
+            <div style={{ position: 'absolute', zIndex: 0}}>
               <svg xmlns='http://www.w3.org/2000/svg'
-                  style={{position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {graphSize}>
+                  style={{ position: 'absolute', zIndex: 0}} width={rightMostPosition} height = {graphSize}>
               {loaded ?
                 <RenderOperators
                   operators={operators}
@@ -333,7 +333,7 @@ export const RenderGraph = ( {
               : ''}
               </svg>
 
-              <div style={{position:'relative'}}>
+              <div style={{ position:'relative'}}>
                 {activities.map( (activity, i) => {
                   return (<DraggableAc
                     activity={activity}
@@ -385,7 +385,7 @@ export const scaleButton = (changeScale, minScale) => {
 
 const getRightMostPosition = (activities, scale) => {
     let rightMostPosition = 0
-    if(activities.length > 0) {
+    if (activities.length > 0) {
       let mappedPosition = activities.map((activity) => {return activity.position.x + activity.data.duration})
       rightMostPosition = convertTimeToPx(scales[scale], Math.max(...mappedPosition) || 0)
     }
@@ -500,7 +500,7 @@ class Graph extends Component {
     const posY = event.clientY + window.scrollY;
 
     //If we are within the bounds
-    if(down > posY && posY > top) {
+    if (down > posY && posY > top) {
       //We clone the activity for the draggable element
       let newActivity = clone(activity, true);
       newActivity._id = uuid();
@@ -530,7 +530,7 @@ class Graph extends Component {
   }
 
   sourceClicked = (source) => {
-    if(source === this.state.currentSource) {
+    if (source === this.state.currentSource) {
       this.setState({currentSource:null});
     }
     else {
@@ -539,7 +539,7 @@ class Graph extends Component {
   }
 
   addNewOperator = (target) => {
-    if(this.state.currentSource != null && target != this.state.currentSource) {
+    if (this.state.currentSource != null && target != this.state.currentSource) {
       this.setState({currentSource:null, loaded:false});
       const fromAc = {plane: this.state.currentSource.plane, _id: this.state.currentSource._id}
       const toAc = {plane: target.plane, _id: target._id}
@@ -549,7 +549,7 @@ class Graph extends Component {
 
   clickedOperator = (event, operator, x, y) => {
     event.preventDefault();
-    if(this.state.clickedOperator != operator) {
+    if (this.state.clickedOperator != operator) {
       this.setState({clickedOperator:operator, clickedOperatorPosition:{x: x, y:y}})
     }
   }
@@ -561,7 +561,7 @@ class Graph extends Component {
 
   operatorChosen = (event) => {
     event.preventDefault();
-    if(event.target.value > -1) {
+    if (event.target.value > -1) {
       const chosenOperator = this.props.operators[event.target.value];
       this.state.clickedOperator.operatorType = chosenOperator.operatorType;
       this.state.clickedOperator.type = chosenOperator.type;
@@ -577,21 +577,21 @@ class Graph extends Component {
 
   listAvailableOperators = () => {
     return (
-      <div style={{position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
-        <div style={{position:'relative', left:'-50%', top:'-50%'}}>
+      <div style={{ position:'absolute', left:this.state.clickedOperatorPosition.x, top:this.state.clickedOperatorPosition.y}}>
+        <div style={{ position:'relative', left:'-50%', top:'-50%'}}>
           <select id='operators' size='4' onChange={(event) => this.operatorChosen(event)}>
             {
               this.props.operators.length == 0 ? <option disabled>No operator to choose</option> : ''
             }
-            <option key={'cancel'} value={-1} style={{textAlign:'center'}}>Cancel</option>
+            <option key={'cancel'} value={-1} style={{ textAlign:'center'}}>Cancel</option>
             {
               this.props.operators.map((operator, i) => {
-                return <option key={'choice'+i} value={i} style={{textAlign:'center'}}>
+                return <option key={'choice'+i} value={i} style={{ textAlign:'center'}}>
                           {operator.operatorType}
                        </option>
               })
             }
-            <option key={'delete'} value={-2} style={{textAlign:'center'}}>Delete</option>
+            <option key={'delete'} value={-2} style={{ textAlign:'center'}}>Delete</option>
           </select>
         </div>
       </div>

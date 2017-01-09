@@ -79,7 +79,7 @@ class GraphEditor extends Component {
                 handleLoaded={this.state.current === graph._id ? this.handleLoaded
                                                                 : this.handleRepoLoaded}
                 editorMode={false}
-              /> 
+              />
               : '' }
           </li>
         )} </ul>
@@ -114,8 +114,8 @@ export default createContainer(() => {
   }
   return {
     graphs: Graphs.find().fetch(),
-    activities: Activities.find({ graphId: null }).fetch(),
-    operators: Operators.find({ graphId: null }).fetch(),
+    activities: Activities.find({ graphId: null, sessionId: null }).fetch(),
+    operators: Operators.find({ graphId: null, sessionId: null }).fetch(),
     graphId: currentGraphId
   }
 }, GraphEditor)
