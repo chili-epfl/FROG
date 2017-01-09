@@ -18,7 +18,7 @@ import { computeTopPositionFromGraph, computeLeftPositionFromGraph, convertTimeT
 const AxisDisplay = ({ rightMostPosition, graphId, cursor, scale }) => {
 return(
   <div>
-    <svg 
+    <svg
       width={rightMostPosition + textSizeAndMargin}
       height={ graphSize }
       xmlns='http://www.w3.org/2000/svg'
@@ -205,6 +205,7 @@ const DrawToolTip = ( {operators, activities, scale}) => {
         </ReactTooltip>
       })}
       {activities.map( (activity, i) => {
+        console.log(activity.activityType)
         return <ReactTooltip
           key={'actip' + i}
           id={'tip'+activity._id}
@@ -212,8 +213,8 @@ const DrawToolTip = ( {operators, activities, scale}) => {
           type='light'>
           Activity: {activity._id}
           <pre>{
-            //dividing by horizontalZoom since we only want the conversion seconds -> unit 
-            JSON.stringify({'Data': activity.data, 'Beginning': convertTimeToPx(scale, activity.position.x)/horizontalZoom + ' ' + scale}, null, 2)
+            //dividing by horizontalZoom since we only want the conversion seconds -> unit
+            JSON.stringify({'Data': activity.data, 'Activity Type': activity.activityType, 'Beginning': convertTimeToPx(scale, activity.position.x)/horizontalZoom + ' ' + scale}, null, 2)
           }</pre>
         </ReactTooltip>
       })}
@@ -517,7 +518,7 @@ class Graph extends Component {
       newX =  2*remaining>interval ? Math.round(newX + interval - remaining) : Math.round(newX - remaining)
       let newPosition = {x: convertPxToTime(scales[this.state.scale], newX), y: newY};
       this.setState({loaded:false})
-      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId,
+      addGraphActivity({ _id: newActivity._id, graphId: this.props.graphId, activityType: newActivity.activityType,
                           position: newPosition, data: newActivity.data, plane: plane}, newActivity._id)
     }
     this.setState({currentDraggable: null});
