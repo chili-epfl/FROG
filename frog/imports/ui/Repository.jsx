@@ -7,6 +7,8 @@ import { Activities } from '../api/activities'
 import { Graphs } from '../api/graphs'
 import { activityTypes } from '../activityTypes'
 
+import GraphDisplay from './repository/GraphDisplay';
+
 const activityTypesId = activityTypes.map((type) => type.id)
 
 class ActivityDisplay extends Component {
@@ -56,6 +58,7 @@ const GraphListDisplay = ({ graphs }) =>
       <li key={graph._id}>
         {graph._id}:
         {graph.name}
+        <GraphDisplay graph={graph} />
       </li>
     )) } </ul>
   </div>

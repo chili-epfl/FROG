@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo'
 import { uuid } from 'frog-utils'
+import { Meteor } from 'meteor/meteor'
 
 export const Graphs = new Mongo.Collection('graphs')
 
@@ -9,5 +10,11 @@ export const addGraph = (name = 'untitled') => {
   return id
 }
 
-export const renameGraph = (graphId, name) =>
+export const renameGraph = (graphId, name) => {
   Graphs.update({ _id: graphId }, { $set: { name } })
+}
+
+export const setCurrentGraph = (graphId) => {
+  Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.editingGraph': graphId } })
+}
+

@@ -1,10 +1,9 @@
 import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
-
 import Home from './Home.jsx'
 import ActivityEditor from './ActivityEditor.jsx'
-import GraphEditor from './GraphEditor.jsx'
+import GraphEditor from './graph/GraphEditor.jsx'
 import StudentView from './StudentView.jsx'
 import TeacherView from './TeacherView.jsx'
 

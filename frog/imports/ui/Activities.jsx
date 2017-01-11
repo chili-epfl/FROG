@@ -3,6 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data'
 import Form from 'react-jsonschema-form'
 
 import { Activities, addActivity, flushActivities } from '../api/activities'
+
 import { activityTypes } from '../activityTypes'
 import { Log } from '../api/log'
 
