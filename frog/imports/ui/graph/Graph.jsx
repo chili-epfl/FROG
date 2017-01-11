@@ -566,7 +566,7 @@ class Graph extends Component {
       this.state.clickedOperator.data = chosenOperator.data;
       modifyGraphOperator(this.state.clickedOperator._id, chosenOperator.operatorType,
                           chosenOperator.type, chosenOperator.data)
-    } else {
+    else if(event.target.value === "-2") {
       removeGraphOperator(this.state.clickedOperator._id)
     }
     this.setState({ clickedOperator: null, clickedOperatorPosition: null })
