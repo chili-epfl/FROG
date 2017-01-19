@@ -26,6 +26,9 @@ export const duplicateActivity = (activity) =>
 export const addGraphActivity = (params) => 
   Activities.insert({ ...params, graphId: params.graphId, created_at: new Date(), _id: uuid() })
 
+export const importGraphActivity = (params, thisGraphId) => 
+  Activities.insert({ ...params, graphId: thisGraphId, created_at: new Date(), _id: params._id })
+
 export const addSessionActivity = (params) => {
   const id = uuid()
   Activities.insert({ ...params, sessionId: params.sessionId, created_at: new Date(), _id: id })
@@ -37,6 +40,9 @@ export const removeGraphActivity = (activityId) =>
 
 export const addGraphOperator = (params) => 
   Operators.insert({ ...params, graphId: params.graphId, created_at: new Date(), _id: uuid() })
+
+export const importGraphOperator = (params, thisGraphId) => 
+  Operators.insert({ ...params, graphId: thisGraphId, created_at: new Date(), _id: params._id })
 
 export const addSessionOperator = (params) =>
   Operators.insert({ ...params, sessionId: params.sessionId, created_at: new Date(), _id: uuid() })

@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor';
 import Draggable from 'react-draggable';
 
-import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities';
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph, importGraphOperator, importGraphActivity } from '../api/activities';
 import { Graphs, addGraph, renameGraph } from '../api/graphs';
 
 import jsPlumb from 'jsplumb';
@@ -246,6 +246,38 @@ class GraphEditorClass extends Component {
     download(JSON.stringify(obj), str, 'text/plain');
   }
 
+  importFromJSON = (event) => {
+    console.log(document.getElementById("json-file").files[0])
+    var thisGraphId = this.props.graphId
+    var files = document.getElementById('json-file').files;
+    if (files.length <= 0) {
+      return false;
+    }
+    var fr = new FileReader();
+    fr.onload = function(e) { 
+      var obj = JSON.parse(e.target.result);
+      console.log(obj)
+      var objstr = JSON.stringify(obj, null, 2);
+      if (obj.hasOwnProperty('graph') && obj.hasOwnProperty('activities') && obj.hasOwnProperty('operators')){
+        activities = Activities.find({ graphId: thisGraphId }).fetch()
+        for (var i = 0; i < activities.length; i++){
+          removeGraphActivity(activities[i]._id)
+        }
+        renameGraph(thisGraphId, obj.graph.name)
+        for (var i = 0; i < obj.activities.length; i++){
+          importGraphActivity(obj.activities[i], thisGraphId)
+        }
+        for (var i = 0; i < obj.operators.length; i++){
+          importGraphOperator(obj.operators[i], thisGraphId)
+        }
+        console.log('Graph uploaded')
+      } else {
+        console.log('Graph unrecognised')
+      }
+    }
+    fr.readAsText(files.item(0));
+  }
+
   render() { return(
     <div>
       <h3>Graph editor</h3>
@@ -273,6 +305,10 @@ class GraphEditorClass extends Component {
         )
       })}
       <button className='export button' onClick={this.exportToJSON}>Download the Graph</button>
+      <form encType="multipart/form-data" action="upload" method="post">
+        <input id="json-file" type="file" />
+      </form>
+      <button className='import button' onClick={this.importFromJSON}>Upload a Graph</button>
     </div>
   )}
 }
