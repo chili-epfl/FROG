@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 import { operator_types_obj } from '../operator_types';
 import { Graphs } from './graphs';
+import { Sessions } from './sessions';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
@@ -26,6 +27,9 @@ export const duplicateActivity = (activity) =>
 export const addGraphActivity = (params) => 
   Activities.insert({ ...params, graphId: params.graphId, created_at: new Date(), _id: uuid() })
 
+export const importActivity = (params) => 
+  Activities.insert({ ...params, created_at: new Date(), _id: params._id })
+
 export const importGraphActivity = (params, thisGraphId) => 
   Activities.insert({ ...params, graphId: thisGraphId, created_at: new Date(), _id: params._id })
 
@@ -40,6 +44,9 @@ export const removeGraphActivity = (activityId) =>
 
 export const addGraphOperator = (params) => 
   Operators.insert({ ...params, graphId: params.graphId, created_at: new Date(), _id: uuid() })
+
+export const importOperator = (params) => 
+  Operators.insert({ ...params, created_at: new Date(), _id: params._id })
 
 export const importGraphOperator = (params, thisGraphId) => 
   Operators.insert({ ...params, graphId: thisGraphId, created_at: new Date(), _id: params._id })
@@ -59,6 +66,9 @@ export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) =
 
 export const removeGraph = ( graphId ) => 
   Meteor.call('graph.flush.all', graphId)
+
+export const deleteDatabase = ( ) => 
+  Meteor.call('graph.flush.db')
 
 export const dragGraphActivity = ( id, xPosition ) => {
   Activities.update(id, {$inc: {xPosition: xPosition}})
@@ -93,6 +103,13 @@ Meteor.methods({
     Graphs.remove({ _id: graphId })
     Activities.remove({ graphId: graphId })
     Operators.remove({ graphId: graphId })
+  },
+
+  'graph.flush.db'(){
+    Graphs.remove({})
+    Activities.remove({})
+    Operators.remove({})
+    Sessions.remove({})
   },
 
   'graph.flush.activity'(activityId){
