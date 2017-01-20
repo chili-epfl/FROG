@@ -34,7 +34,7 @@ export const operator = (config, products) => {
         const full_content = booleanize(config.anonymize) ? 
           content :
           content + ' (' + x.username + ')'
-    return({user_id: x.user_id, title: title, content: full_content, x: rnd(), y: rnd()})
+    return({ userId: x.userId, title: title, content: full_content, x: rnd(), y: rnd()})
   })
    
   return ret

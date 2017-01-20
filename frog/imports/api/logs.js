@@ -1,6 +1,5 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor'
-import { uuid } from 'frog-utils'
 
 import Stringify from 'json-stable-stringify'
 
@@ -10,16 +9,19 @@ export const Logs = new Mongo.Collection('logs');
 // the logging function is called with a message, and inserts into the
 // logging store the message, merged with the preloaded object, and date
 
-// for example 
+// for example
 // const logger = createLogger({app: 'ac-form', user: 'stian'})
 // logger({'app started'}) => {app: 'ac-form', user: 'stian', message: 'app started',
 //                             date: 'Thursday 22...'}
 // TODO: Should perhaps accept an object to log, instead of a message, for more flexibility
 
-export const createLogger = (merge) => { 
-  const username = Meteor.users.findOne({_id:Meteor.userId()}).username
+export const createLogger = (merge) => {
+  const username = Meteor.users.findOne({ _id: Meteor.userId() }).username
   const logger = (x) => {
-    Logs.update(Stringify(merge), {$set: {...merge, ...x, username: username, updated_at: Date()}}, {upsert: true})
+    Logs.update(
+      Stringify(merge),
+      { $set: { ...merge, ...x, username, updatedAt: Date() } }, { upsert: true }
+    )
   }
   return logger
 }
@@ -28,7 +30,7 @@ export const flushLogs = () =>
   Meteor.call('logs.flush')
 
 Meteor.methods({
-  'logs.flush'() {
+  'logs.flush': () => {
     Logs.remove({})
   }
 })
