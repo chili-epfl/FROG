@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { groupBy, map, some } from 'lodash'
-import {color_range as color, TimedComponent} from 'frog-utils'
+import {colorRange as color, TimedComponent} from 'frog-utils'
 
 const GroupView = ({ members, group }) => {
   const completed = some(members, x => x.completed) 
