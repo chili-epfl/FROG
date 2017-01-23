@@ -25,10 +25,10 @@ export const addGraphActivity = (params) =>
   Activities.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: uuid() })
 
 export const importActivity = (params) => 
-  Activities.insert({ ...params, created_at: new Date(), _id: params._id })
+  Activities.insert({ ...params, createdAt: new Date(), _id: params._id })
 
 export const importGraphActivity = (params, thisGraphId) => 
-  Activities.insert({ ...params, graphId: thisGraphId, created_at: new Date(), _id: params._id })
+  Activities.insert({ ...params, graphId: thisGraphId, createdAt: new Date(), _id: params._id })
 
 export const addSessionActivity = (params) => {
   const id = uuid()
@@ -43,10 +43,10 @@ export const addGraphOperator = (params) =>
   Operators.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: uuid() })
 
 export const importOperator = (params) => 
-  Operators.insert({ ...params, created_at: new Date(), _id: params._id })
+  Operators.insert({ ...params, createdAt: new Date(), _id: params._id })
 
 export const importGraphOperator = (params, thisGraphId) => 
-  Operators.insert({ ...params, graphId: thisGraphId, created_at: new Date(), _id: params._id })
+  Operators.insert({ ...params, graphId: thisGraphId, createdAt: new Date(), _id: params._id })
 
 export const addSessionOperator = (params) =>
   Operators.insert({ ...params, sessionId: params.sessionId, createdAt: new Date(), _id: uuid() })

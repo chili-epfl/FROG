@@ -7,12 +7,15 @@ import ActivityEditor from './ActivityEditor.jsx'
 import GraphEditor from './GraphEditor.jsx'
 import StudentView from './StudentView.jsx'
 import TeacherView from './TeacherView.jsx'
+import Admin from './Admin.jsx'
 
 const Body = ({ userId, app }) => {
   if (userId) {
     switch (app) {
       case 'Home':
         return (<Home />)
+      case 'Admin':
+        return (<Admin />)
       case 'Activity Editor':
         return (<ActivityEditor />)
       case 'Graph Editor':

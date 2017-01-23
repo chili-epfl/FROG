@@ -306,9 +306,8 @@ class GraphEditorClass extends Component {
           />
         </div>
         {this.props.operators.map((operator) => (
-          !operator.data && <OperatorChoiceComponent key={operator._id} ownId={operator._id} />
-        )
-      })
+          !operator.data && <OperatorChoiceComponent key={operator._id} ownId={operator._id} />)
+        )}
       <button className='export button' onClick={this.exportToJSON}>Download the Graph</button>
       <form encType="multipart/form-data" action="upload" method="post">
         <input id="json-file" type="file" />
@@ -366,72 +365,10 @@ export default createContainer(
     return ({ graphId })
   },
   ({ graphId, user }) => {
-
-    const exportToJSON = () => {
-      var obj = {
-        'sessions': Sessions.find().fetch(),
-        'graphs': Graphs.find().fetch(),
-        'activities': Activities.find().fetch(),
-        'operators': Operators.find().fetch()
-      }
-      const str = 'database.json'
-      download(JSON.stringify(obj), str, 'text/plain');
-    }
-
-    const importFromJSON = () => {
-      console.log(document.getElementById("json-database").files[0])
-      var files = document.getElementById('json-database').files;
-      if (files.length <= 0) {
-        return false;
-      }
-      var fr = new FileReader();
-      fr.onload = function(e) { 
-        var obj = JSON.parse(e.target.result);
-        console.log(obj)
-        var objstr = JSON.stringify(obj, null, 2);
-        if (obj.hasOwnProperty('sessions') && obj.hasOwnProperty('graphs') && obj.hasOwnProperty('activities') && obj.hasOwnProperty('operators')){
-          deleteDatabase()
-          for (var i = 0; i < obj.graphs.length; i++){
-            importGraph(obj.graphs[i])
-          }
-          for (var i = 0; i < obj.sessions.length; i++){
-            importSession(obj.sessions[i])
-          }
-          for (var i = 0; i < obj.activities.length; i++){
-            importActivity(obj.activities[i])
-          }
-          for (var i = 0; i < obj.operators.length; i++){
-            importOperator(obj.operators[i])
-          }
-          console.log('Database uploaded')
-        } else {
-          console.log('Database unrecognised')
-        }
-      }
-      fr.readAsText(files.item(0));
-    }
-
-    const exportLogs = () => {
-      var obj = {
-        'logs': Logs.find().fetch()
-      }
-      const str = 'logs.json'
-      download(JSON.stringify(obj), str, 'text/plain');
-    }
-
     return(
       <div>
         <GraphEditor graphId={graphId} />
         <GraphList graphId={graphId} />
-        <button className='export database' onClick={() => exportToJSON()}>Download the database</button>
-        <form encType="multipart/form-data" action="upload" method="post">
-          <input id="json-database" type="file" />
-        </form>
-        <button className='import database' onClick={() => importFromJSON()}>Upload a database</button>
-        <br/>
-        <button className='delete database' onClick={() => deleteDatabase()}>Delete the database</button>
-        <br/>
-        <button className='export logs' onClick={() => exportLogs()}>Download the Logs</button>
       </div>
     )
   }
