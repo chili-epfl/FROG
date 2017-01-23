@@ -11,8 +11,8 @@ export const addGraph = (name = 'untitled') => {
 
 export const importGraph = (params) => {
   const id = params._id
-  Graphs.insert({...params, _id: id, createdAt: new Date() })
-  return(id)
+  Graphs.insert({ ...params, _id: id, createdAt: new Date() })
+  return (id)
 }
 
 export const renameGraph = (graphId, name) =>

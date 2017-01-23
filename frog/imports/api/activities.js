@@ -1,7 +1,7 @@
-import { Sessions } from './sessions';
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import { uuid } from 'frog-utils'
+import { Sessions } from './sessions'
 
 import { operatorTypesObj } from '../operatorTypes'
 import { Graphs } from './graphs'
@@ -24,10 +24,10 @@ export const duplicateActivity = (activity) =>
 export const addGraphActivity = (params) =>
   Activities.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: uuid() })
 
-export const importActivity = (params) => 
+export const importActivity = (params) =>
   Activities.insert({ ...params, createdAt: new Date(), _id: params._id })
 
-export const importGraphActivity = (params, thisGraphId) => 
+export const importGraphActivity = (params, thisGraphId) =>
   Activities.insert({ ...params, graphId: thisGraphId, createdAt: new Date(), _id: params._id })
 
 export const addSessionActivity = (params) => {
@@ -42,10 +42,10 @@ export const removeGraphActivity = (activityId) =>
 export const addGraphOperator = (params) =>
   Operators.insert({ ...params, graphId: params.graphId, createdAt: new Date(), _id: uuid() })
 
-export const importOperator = (params) => 
+export const importOperator = (params) =>
   Operators.insert({ ...params, createdAt: new Date(), _id: params._id })
 
-export const importGraphOperator = (params, thisGraphId) => 
+export const importGraphOperator = (params, thisGraphId) =>
   Operators.insert({ ...params, graphId: thisGraphId, createdAt: new Date(), _id: params._id })
 
 export const addSessionOperator = (params) =>
@@ -78,7 +78,7 @@ export const copyOperatorIntoGraphOperator = (graphOperatorId, fromOperatorId) =
 export const removeGraph = (graphId) =>
   Meteor.call('graph.flush.all', graphId)
 
-export const deleteDatabase = ( ) => 
+export const deleteDatabase = () =>
   Meteor.call('graph.flush.db')
 
 export const dragGraphActivity = (id, xPosition) => {
@@ -121,7 +121,7 @@ Meteor.methods({
     Operators.remove({ graphId })
   },
 
-  'graph.flush.db'(){
+  'graph.flush.db': () => {
     Graphs.remove({})
     Activities.remove({})
     Operators.remove({})
