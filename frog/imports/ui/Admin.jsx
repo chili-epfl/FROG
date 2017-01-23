@@ -14,7 +14,7 @@ function download(strData, strFileName, strMimeType) {
   a.href = 'data:' + strMimeType + 'charset=utf-8,' + escape(strData);
 
   if (this.window.MSBlobBuilder) { // IE10
-    const bb = new MSBlobBuilder();
+    const bb = new MSBlobBuilder(); // eslint-disable-line
     bb.append(strData);
     return this.navigator.msSaveBlob(bb, strFileName);
   } /* end if(window.MSBlobBuilder) */
@@ -66,7 +66,7 @@ export default createContainer(
       if (files.length <= 0) {
         return false;
       }
-      const fr = new FileReader();
+      const fr = new FileReader(); // eslint-disable-line
       fr.onload = function f3(e) {
         const obj = JSON.parse(e.target.result);
         if (Object.prototype.hasOwnProperty.call(obj, 'sessions') && Object.prototype.hasOwnProperty.call(obj, 'graphs') && Object.prototype.hasOwnProperty.call(obj, 'activities') && Object.prototype.hasOwnProperty.call(obj, 'operators')) {
