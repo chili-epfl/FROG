@@ -9,6 +9,9 @@ export const Sessions = new Mongo.Collection('sessions');
 export const addSession = (graphId) =>
   Meteor.call('add.session', graphId)
 
+export const importSession = (params) =>
+  Meteor.call('import.session', params)
+
 export const updateSessionState = (id, state) => {
   Sessions.update({ _id: id }, { $set: { state } })
   if (state === 'STARTED') {
@@ -62,6 +65,33 @@ Meteor.methods({
         from: matching[operator.from],
         to: matching[operator.to],
         type: operator.type,
+        operatorType: operator.operatorType,
+        sessionId
+      })
+    })
+  },
+
+  'import.session': (params) => {
+    const graphId = params.graphId
+    const sessionId = params._id
+    Sessions.insert({ ...params, _id: sessionId })
+
+    const matching = {}
+    const activities = Activities.find({ graphId }).fetch()
+    activities.forEach((activity) => {
+      matching[activity._id] = addSessionActivity({
+        data: activity.data,
+        activityType: activity.activityType,
+        sessionId
+      })
+    })
+
+    const operators = Operators.find({ graphId }).fetch()
+    operators.forEach((operator) => {
+      addSessionOperator({
+        data: operator.data,
+        from: matching[operator.from],
+        to: matching[operator.to],
         operatorType: operator.operatorType,
         sessionId
       })

@@ -9,5 +9,11 @@ export const addGraph = (name = 'untitled') => {
   return id
 }
 
+export const importGraph = (params) => {
+  const id = params._id
+  Graphs.insert({ ...params, _id: id, createdAt: new Date() })
+  return (id)
+}
+
 export const renameGraph = (graphId, name) =>
   Graphs.update({ _id: graphId }, { $set: { name } })

@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor'
 import Body from './Body.jsx'
 import AccountsUIWrapper from './AccountsUIWrapper.jsx'
 
-const apps = ['Home', 'Activity Editor', 'Graph Editor', 'Teacher View', 'Student View'];
+const apps = ['Home', 'Admin', 'Activity Editor', 'Graph Editor', 'Teacher View', 'Student View'];
 
 const Buttons = ({ appList, changeFn, currentApp }) => (
   <ul className='nav nav-pills'>

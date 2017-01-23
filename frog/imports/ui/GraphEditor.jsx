@@ -1,18 +1,54 @@
-import React, { Component } from 'react'
-import { createContainer } from 'meteor/react-meteor-data'
-import { Meteor } from 'meteor/meteor'
-
 import Draggable from 'react-draggable'
 import jsPlumb from 'jsplumb'
 import { $ } from 'meteor/jquery'
 
-import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph } from '../api/activities'
+import React, { Component } from 'react'
+import { createContainer } from 'meteor/react-meteor-data'
+import { Meteor } from 'meteor/meteor'
+
+import { Activities, Operators, removeGraphActivity, addGraphActivity, addGraphOperator, copyActivityIntoGraphActivity, copyOperatorIntoGraphOperator, dragGraphActivity, removeGraph, importGraphOperator, importGraphActivity } from '../api/activities'
 import { Graphs, addGraph, renameGraph } from '../api/graphs'
 
 const planeNames = ['class', 'group', 'individual']
 
 const setCurrentGraph = (graphId) => {
   Meteor.users.update({ _id: Meteor.userId() }, { $set: { 'profile.editingGraph': graphId } })
+}
+
+function download(strData, strFileName, strMimeType) {
+  const D = this.document
+  const a = D.createElement('a')
+
+  // build download link:
+  a.href = 'data:' + strMimeType + 'charset=utf-8,' + escape(strData);
+
+  if (this.window.MSBlobBuilder) { // IE10
+    const bb = new MSBlobBuilder(); // eslint-disable-line
+    bb.append(strData);
+    return this.navigator.msSaveBlob(bb, strFileName);
+  } /* end if(window.MSBlobBuilder) */
+
+  if ('download' in a) { // FF20, CH19
+    a.setAttribute('download', strFileName);
+    a.innerHTML = 'downloading...';
+    D.body.appendChild(a);
+    setTimeout(function f1() {
+      const e = D.createEvent('MouseEvents');
+      e.initMouseEvent('click', true, false, this.window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      a.dispatchEvent(e);
+      D.body.removeChild(a);
+    }, 66);
+    return true;
+  } /* end if('download' in a) */
+
+  // do iframe dataURL download: (older W3)
+  const f = D.createElement('iframe');
+  D.body.appendChild(f);
+  f.src = 'data:' + (strMimeType || 'application/octet-stream') + (this.window.btoa ? ';base64' : '') + ',' + (this.window.btoa ? this.window.btoa : escape)(strData);
+  setTimeout(function f2() {
+    D.body.removeChild(this.f);
+  }, 333);
+  return true;
 }
 
 let jsPlumbInstance = null
@@ -196,6 +232,45 @@ class GraphEditorClass extends Component {
     jsPlumbRemoveAllAndDrawAgain(this.props.activities, this.props.operators)
   }
 
+  exportToJSON = (event) => {
+    event.preventDefault()
+    const obj = {
+      graph: Graphs.findOne({ _id: this.props.graphId }),
+      activities: Activities.find({ graphId: this.props.graphId }).fetch(),
+      operators: Operators.find({ graphId: this.props.graphId }).fetch()
+    }
+    const str = 'graph' + String(this.props.graphId) + '.json'
+    download(JSON.stringify(obj), str, 'text/plain');
+  }
+
+  importFromJSON = (event) => {
+    event.preventDefault()
+    const thisGraphId = this.props.graphId
+    const files = this.document.getElementById('json-file').files;
+    if (files.length <= 0) {
+      return false;
+    }
+    const fr = new FileReader(); // eslint-disable-line
+    fr.onload = function f3(e) {
+      const obj = JSON.parse(e.target.result);
+      if (Object.prototype.hasOwnProperty.call(obj, 'graph') && Object.prototype.hasOwnProperty.call(obj, 'activities') && Object.prototype.hasOwnProperty.call(obj, 'operators')) {
+        const activities = Activities.find({ graphId: thisGraphId }).fetch()
+        for (let i = 0; i < activities.length; i += 1) {
+          removeGraphActivity(activities[i]._id)
+        }
+        renameGraph(thisGraphId, obj.graph.name)
+        for (let i = 0; i < obj.activities.length; i += 1) {
+          importGraphActivity(obj.activities[i], thisGraphId)
+        }
+        for (let i = 0; i < obj.operators.length; i += 1) {
+          importGraphOperator(obj.operators[i], thisGraphId)
+        }
+      }
+    }
+    fr.readAsText(files.item(0));
+    return true
+  }
+
   render() {
     return (
       <div>
@@ -219,8 +294,13 @@ class GraphEditorClass extends Component {
           />
         </div>
         {this.props.operators.map((operator) => (
-          !operator.data && <OperatorChoiceComponent key={operator._id} ownId={operator._id} />
-        ))}
+          !operator.data && <OperatorChoiceComponent key={operator._id} ownId={operator._id} />)
+        )}
+        <button className='export button' onClick={this.exportToJSON}>Download the Graph</button>
+        <form encType='multipart/form-data' action='upload' method='post'>
+          <input id='json-file' type='file' />
+        </form>
+        <button className='import button' onClick={this.importFromJSON}>Upload a Graph</button>
       </div>
     )
   }
@@ -273,9 +353,10 @@ export default createContainer(
     const graphId = user.profile ? user.profile.editingGraph : null
     return ({ graphId })
   },
-  ({ graphId }) =>
+  ({ graphId }) => (
     <div>
       <GraphEditor graphId={graphId} />
       <GraphList graphId={graphId} />
     </div>
+  )
 )
