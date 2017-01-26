@@ -38,6 +38,8 @@ const ShadedBox = ({ x, current }) => (
 
 const DragGuide = connect(({ store: { scale, panTime, rightEdgeTime }, ...rest }) => {
   const s = (x) => timeToPx(x, scale)
+  const current = Math.round(rest.current)
+  const length = Math.round(rest.length)
   let x, edge
   if(rest.x > rightEdgeTime) {
     x = rightEdgeTime
@@ -49,13 +51,19 @@ const DragGuide = connect(({ store: { scale, panTime, rightEdgeTime }, ...rest }
     edge = false
     x = Math.round(rest.x)
   }
-  const current = Math.round(rest.current)
 
   const middle = (x + current) / 2.0 
-  const timeText = Math.abs(Math.round(rest.x - rest.current)) + ' min.'
+  const timeText = Math.abs(x - current) + ' min.'
+  const lengthText = length + ' min.'
+  const activityMiddle = Math.round(rest.currentX) + (length / 2)
 
   return (
     <g>
+      <text x={s(activityMiddle)} y={rest.y - 20}>
+        {lengthText}
+      </text>
+      { (x - current) === 0 ? null :
+          <g>
       <text x={s(middle)} y={300}>
         {timeText}
       </text>
@@ -63,6 +71,8 @@ const DragGuide = connect(({ store: { scale, panTime, rightEdgeTime }, ...rest }
       { edge ? null : <VerticalLine x={s(x)} /> }
       <VerticalLine x={s(current)} />
       <ShadedBox x={s(x)} current={s(current)} />
+    </g>
+      }
     </g>
   );
 });
@@ -74,8 +84,11 @@ export default connect((
     if (mode === 'resizing') {
       return rightbound
         ? <DragGuide
-          x={rightbound.xScaled}
-          current={currentActivity.xScaled + currentActivity.widthScaled}
+          x={rightbound.startTime}
+          current={currentActivity.startTime + currentActivity.length}
+          currentX={currentActivity.startTime}
+          length={currentActivity.length}
+          y={currentActivity.y}
         />
         : null;
     }
@@ -90,8 +103,12 @@ export default connect((
                 ? <DragGuide
                   x={leftbound.startTime + leftbound.length}
                   current={currentActivity.startTime}
+                  currentX={currentActivity.startTime}
+                  length={currentActivity.length}
+                  y={currentActivity.y}
                 />
-                : <DragGuide x={0} current={currentActivity.startTime} />
+              : <DragGuide x={0} currentX={currentActivity.startTime} current={currentActivity.startTime} length={currentActivity.length} y={currentActivity.y}
+/>
               : null
           }
           {
@@ -100,10 +117,16 @@ export default connect((
               ? rightbound
                 ? <DragGuide
                   x={rightbound.startTime}
+                  length={currentActivity.length}
+                  y={currentActivity.y}
+                  currentX={currentActivity.startTime}
                   current={currentActivity.startTime + currentActivity.length}
                 />
                 : <DragGuide
                   x={4000}
+                  length={currentActivity.length}
+                  y={currentActivity.y}
+                  currentX={currentActivity.startTime}
                   current={currentActivity.startTime + currentActivity.length}
                 />
               : null
