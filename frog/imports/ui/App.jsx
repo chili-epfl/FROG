@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor'
 import Body from './Body.jsx'
 import AccountsUIWrapper from './AccountsUIWrapper.jsx'
 
-const apps = ['Home', 'Admin', 'Activity Editor', 'Graph Editor', 'Teacher View', 'Student View'];
+const apps = ['Home', 'Admin', 'Activity Editor', 'New Editor', 'Graph Editor', 'Teacher View', 'Student View'];
 
 const Buttons = ({ appList, changeFn, currentApp }) => (
   <ul className='nav nav-pills'>
@@ -28,7 +28,7 @@ export default class App extends Component {
 
   switchAppByUser = () => {
     const username = Meteor.user() ? Meteor.user().username : null
-    const app = username ? ({ teacher: 'Teacher View' }[username] || 'Student View') : 'Home'
+    const app = username ? ({ teacher: 'New Editor' }[username] || 'Student View') : 'Home'
     this.setState({ app })
   }
 
