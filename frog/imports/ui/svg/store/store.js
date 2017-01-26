@@ -126,6 +126,19 @@ export default class Store {
     }
   };
 
+  @computed get hasSelection() {
+    const sel = this.connections.concat(this.activities.concat(this.operators)).filter(x => x.selected)
+    if(sel.length === 0) { return false }
+    const selection = sel[0]
+    if(selection instanceof Activity) {
+      return(['activity', selection])
+    } else if(selection instanceof Operator) {
+      return(['operator', selection])
+    } else {
+      return(['connection', selection])
+    }
+  }
+
   @action cancelAll = () => {
     this.renameOpen = null;
     this.mode = ''

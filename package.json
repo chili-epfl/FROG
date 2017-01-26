@@ -26,7 +26,5 @@
   },
   "license": "ISC",
   "dependencies": {
-    "jsplumb": "^2.2.6",
-    "react-draggable": "^2.2.3"
   }
 }

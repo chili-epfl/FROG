@@ -6,6 +6,7 @@ import ScrollFields from "./ScrollFields";
 import DragGuides from "./DragGuides";
 import { connect, store } from "./store";
 import Operators from './Operators'
+import SidePanel from './SidePanel'
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -23,7 +24,7 @@ const mousemove = e => {
 
 export default connect((
   {
-    store: { mode, scale, scrollEnabled, canvasClick, socialCoords },
+    store: { mode, hasSelection, scale, scrollEnabled, canvasClick, socialCoords },
     width,
     height,
     hasPanMap,

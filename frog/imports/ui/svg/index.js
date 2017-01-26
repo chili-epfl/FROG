@@ -2,39 +2,74 @@ import React from "react";
 import { Provider } from "mobx-react";
 import Form from "react-jsonschema-form";
 import DevTools from "mobx-react-devtools";
+import styled from 'styled-components'
 
 import { connect, store } from "./store";
 import Graph from "./Graph";
 import Rename from "./Rename";
+import SidePanel from './SidePanel'
 
 import "./App.css";
 
-const App = connect(({ store: { panOffset } }) => (
+const Row = styled.div`
+  padding: 0px;
+  height: 1000px;
+  position: fixed;
+  top: 30px;
+  margin: 0;
+  display: flex;
+`
+
+  /* padding: 0; */
+const GraphContainer = styled.li`
+  list-style: none;
+  width: 1150px;
+  height: 1000px;
+`
+
+const SidebarContainer = styled.li`
+  list-style: none;
+  padding: 0px;
+  width: 300px;
+`
+
+const SettingsContainer = styled.div`
+  position: absolute;
+  top: 900px;
+`
+
+const App = connect(({ store: { panOffset, hasSelection } }) => (
   <div>
-    <DevTools />
-    <div className="App">
-      <div style={{ position: "fixed", top: "30px", left: "150px" }}>
-        <Graph
-          width={1000}
-          height={600}
-          viewBox={`${panOffset} 0 1000 600`}
-          preserveAspectRatio="xMinYMin slice"
-          scaleFactor={1}
-        />
-      </div>
-      <Rename />
-      <div style={{ position: "fixed", left: "150px", top: "650px" }}>
-        <Graph
-          width={1000}
-          height={150}
-          viewBox={"0 0 4000 600"}
-          preserveAspectRatio="xMinYMin slice"
-          hasPanMap
-          scaleFactor={4}
-        />
-        <Settings />
-      </div>
-    </div>
+    <Row>
+      <GraphContainer>
+        <div style={{ position: "fixed", top: "90px", left: "50px" }}>
+          <Graph
+            width={1000}
+            height={600}
+            viewBox={`${panOffset} 0 1000 600`}
+            preserveAspectRatio="xMinYMin slice"
+            scaleFactor={1}
+          />
+        </div>
+        <Rename />
+        <div style={{ position: "fixed", left: "50px", top: "720px" }}>
+          <Graph
+            width={1000}
+            height={150}
+            viewBox={"0 0 4000 600"}
+            preserveAspectRatio="xMinYMin slice"
+            hasPanMap
+            scaleFactor={4}
+          />
+        </div>
+      </GraphContainer>
+      <SidebarContainer>
+        { !!hasSelection && <SidePanel /> }
+      </SidebarContainer>
+    </Row>
+    <SettingsContainer>
+      <Settings />
+    </SettingsContainer>
   </div>
 ));
 
