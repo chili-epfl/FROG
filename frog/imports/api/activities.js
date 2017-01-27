@@ -8,6 +8,7 @@ import { Graphs } from './graphs'
 
 export const Activities = new Mongo.Collection('activities')
 export const Operators = new Mongo.Collection('operators')
+export const Connections = new Mongo.Collection('connections')
 export const Results = new Mongo.Collection('results');
 
 export const addActivity = (activityType, data, id) => {

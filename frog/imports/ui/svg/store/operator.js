@@ -67,5 +67,15 @@ export default class Operator {
     if(!e.shiftKey) {
       store.stopDragging()
     }
+    store.addHistory()
+  }
+
+  @computed get object() {
+    return {
+      _id: this.id,
+      time: this.time,
+      y: this.y,
+      type: this.type
+    }
   }
 }

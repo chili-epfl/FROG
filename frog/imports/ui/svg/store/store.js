@@ -1,4 +1,4 @@
-import { computed, action, observable } from "mobx";
+import { reaction, computed, action, observable } from "mobx";
 
 import { initialConnections, initialActivities } from "../data";
 
@@ -8,11 +8,23 @@ import Connection from "./connection";
 import { between, pxToTime, timeToPx } from "../utils";
 import getOffsets from "../utils/getOffsets";
 import Operator from './operator'
+import { mergeGraph } from '../../../api/graphs'
+
+import { Activities, Connections, Operators } from '../../../api/activities'
 
 const getid = ([activities, operators], id) => {
   const res = activities.concat(operators).filter(x => x.id === id);
   return res && res[0];
 };
+
+const getOne = (coll, crit) => {
+  const found = coll.filter(crit)
+  if (found.size === 0) { return undefined}
+  return found[0]
+}
+
+const getOneId = (coll, id) => getOne(coll, x => x.id === id)
+
 
 // find activities immediately to the left and to the right of the current activity
 // to draw boundary markers and control movement by dragging and resizing
@@ -28,16 +40,26 @@ const calculateBounds = (activity, activities) => {
 };
 
 export default class Store {
+
   constructor() {
-    this.addHistory();
   }
 
-  @observable connections = initialConnections.map(
-    x => new Connection(getid(this.activities, x[0]), getid(this.activities, x[1]))
-  );
-  @action addConnection = (from, to) => this.connections.push([ from, to ]);
+  findId = ({type, id}) => {
+    if(type === 'activity') {
+      return getOneId(this.activities, id)
+    } else if(type === 'operator') {
+      return getOneId(this.operators, id)
+    } else if(type === 'connection') {
+      return getOneId(this.connections, id)
+    } else { 
+      raise ('Wrong item type for findId!')
+    }
+  }
 
-  @observable activities = initialActivities.map(x => new Activity(...x));
+  @observable id
+  @observable connections = []
+  @observable activities = []
+  @observable operators = []
   @observable operatorType
   @observable history = [];
 
@@ -47,6 +69,8 @@ export default class Store {
       this.activities.map(x => ({ ...x })),
       this.operators.map(x => ({ ...x }))
     ]);
+    mergeGraph(this.objects)
+
   };
 
   @computed get canUndo() {
@@ -70,17 +94,43 @@ export default class Store {
           getid([this.activities, this.operators], x.target.id)
         )
     );
+    mergeGraph(this.objects)
   };
 
   @observable overlapAllowed = false;
   @action updateSettings = settings => this.overlapAllowed = settings.overlapAllowed;
   @observable currentlyOver;
 
+  @action setId = (id) => {
+    this.id = id
+    act = Activities.find({graphId: id}, {reactive: false}).fetch()
+    this.activities = act.map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id))
+    opt = Operators.find({graphId: id}, {reactive: false}).fetch()
+    this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id))
+    con = Connections.find({graphId: id}, {reactive: false}).fetch()
+    this.connections = con.map(x => {
+      const source = this.findId(x.source)
+      const target = this.findId(x.target)
+      return (new Connection(source, target, x._id))
+    })
+
+    const cursors = {
+      activities: Activities.find({graphId: this.id}),
+      operators: Operators.find({graphId: this.id}),
+      connections: Connections.find({graphId: this.id})
+    }
+
+    cursors.activities.observe({
+      added: (e) => console.log('added', e),
+      changed: (e, e2) => console.log('changed', e, e2),
+      removed: (e) => console.log('removed', e)
+    })
+  }
+
   @observable mode = "";
   @observable draggingFrom;
   @observable draggingFromActivity;
   @observable dragCoords;
-  @observable operators = []
 
   // user begins dragging a line to make a connection
   @action startDragging = activity => {
@@ -149,6 +199,7 @@ export default class Store {
       const coords = this.rawMouseToTime(e.clientX, e.clientY)
       this.operators.push(new Operator(coords[0], coords[1], this.operatorType))
       this.mode = ''
+      this.addHistory()
     }
     this.renameOpen = null;
   };
@@ -188,6 +239,7 @@ export default class Store {
     }
     this.cancelScroll();
   };
+
   @action setScale = x => {
     const oldscale = this.scale;
     this.scale = between(0.4, 3, x);
@@ -211,7 +263,7 @@ export default class Store {
     this.scrollIntervalID = interval;
   };
   @action cancelScroll = () => {
-    window.clearInterval(this.scrollIntervalID);
+    if(this.scrollIntervalId) { window.clearInterval(this.scrollIntervalID) }
     this.scrollIntervalID = false;
   };
 
@@ -230,6 +282,7 @@ export default class Store {
     this.currentActivity = activity;
     this.rightbound = calculateBounds(activity, this.activities)[1];
   };
+
   @action startMoving = activity => {
     this.mode = "moving";
     this.currentActivity = activity;
@@ -244,6 +297,7 @@ export default class Store {
     this.addHistory();
     this.cancelScroll();
   };
+
   @action stopResizing = () => {
     this.mode = "";
     this.addHistory();
@@ -271,6 +325,7 @@ export default class Store {
     const newActivity = new Activity(plane, x, "Unnamed", 5);
     this.activities.push(newActivity);
     this.renameOpen = newActivity;
+    this.addHistory()
   };
 
   @computed get panTime() {
@@ -282,8 +337,10 @@ export default class Store {
 
   @observable socialCoordsTime = []
   @action placeOperator = (type) => {
-    this.mode = 'placingOperator'
-    this.operatorType = type
+    if(!this.renameOpen) {
+      this.mode = 'placingOperator'
+      this.operatorType = type
+    }
   }
   rawMouseToTime = (rawX, rawY) => {
     const x = pxToTime(rawX - 150, this.scale) + this.panTime
@@ -337,5 +394,13 @@ export default class Store {
 
   @computed get panOffset() {
     return this.panx * 4 * this.scale;
+  }
+
+  @computed get objects() {
+    return {
+      activities: this.activities.map(x => ({...x.object, graphId: this.id})),
+      operators: this.operators.map(x => ({...x.object, graphId: this.id})),
+      connections: this.connections.map(x => ({...x.object, graphId: this.id}))
+    }
   }
 }

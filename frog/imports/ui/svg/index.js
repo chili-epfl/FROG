@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import { Provider } from "mobx-react";
 import Form from "react-jsonschema-form";
-import DevTools from "mobx-react-devtools";
 import styled from 'styled-components'
 
 import { connect, store } from "./store";
@@ -38,7 +37,8 @@ const SettingsContainer = styled.div`
   top: 900px;
 `
 
-const App = connect(({ store: { panOffset, hasSelection } }) => (
+const App = connect(({ store: { setId, panOffset, hasSelection }, id }) => {
+  return (
   <div>
     <Row>
       <GraphContainer>
@@ -71,13 +71,25 @@ const App = connect(({ store: { panOffset, hasSelection } }) => (
       <Settings />
     </SettingsContainer>
   </div>
-));
+  )
+});
 
-export default () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+export default class AppClass extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentWillMount() {
+    store.setId(1)
+  }
+
+  render() { return(
+    <Provider store={store}>
+      <div>
+        <App />
+      </div>
+    </Provider>
+  )}
+}
 
 const settingsSchema = {
   type: "object",

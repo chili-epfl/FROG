@@ -2,6 +2,21 @@ import cuid from "cuid";
 import { drawPath } from "../path";
 import { observable, action, computed } from "mobx";
 import { store } from "./index";
+import Activity from './activity'
+import Operator from './operator'
+
+
+const getType = (item) => {
+  if(item instanceof Activity) { 
+    return('activity') 
+  } else if (item instanceof Operator) {
+    return('operator') 
+  } else if (item instanceof Connection) {
+    return('connection')
+  } else {
+    throw 'Wrong object type in Connection'
+  }
+}
 
 export default class Connection {
   @observable source;
@@ -35,5 +50,13 @@ export default class Connection {
     const width = this.source.widthScaled || 0
     const x2 = this.target.xScaled
     return drawPath(x + width, this.source.y + 15, x2, this.target.y + 15);
+  }
+
+  @computed get object() {
+    return {
+      source: {type: getType(this.source), id: this.source.id},
+      target: {type: getType(this.target), id: this.target.id},
+      _id: this.id
+    }
   }
 }

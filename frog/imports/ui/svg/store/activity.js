@@ -47,6 +47,7 @@ export default class Activity {
 
   @action rename = (newname: string) => {
     this.title = newname;
+    store.addHistory()
     store.cancelAll();
   };
 
@@ -102,5 +103,15 @@ export default class Activity {
   @computed get y(): number {
     const offset = store.activityOffsets[this.id];
     return this.plane * 100 + 50 - offset * 30;
+  }
+
+  @computed get object() { 
+    return {
+      _id: this.id,
+      title: this.title,
+      startTime: this.startTime,
+      length: this.length,
+      plane: this.plane
+    }
   }
 }

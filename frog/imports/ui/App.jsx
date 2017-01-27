@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor'
 
 import Body from './Body.jsx'
 import AccountsUIWrapper from './AccountsUIWrapper.jsx'
+import DevTools from 'mobx-react-devtools'
 
 const apps = ['Home', 'Admin', 'Activity Editor', 'New Editor', 'Graph Editor', 'Teacher View', 'Student View'];
 
@@ -35,6 +36,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <DevTools />
         <Buttons
           appList={apps}
           currentApp={this.state.app}
