@@ -7,6 +7,7 @@ import { connect, store } from "./store";
 import Graph from "./Graph";
 import Rename from "./Rename";
 import SidePanel from './SidePanel'
+import * as constants from './constants'
 
 import "./App.css";
 
@@ -42,7 +43,7 @@ const App = connect(({ store: { setId, panOffset, hasSelection }, id }) => {
   <div>
     <Row>
       <GraphContainer>
-        <div style={{ position: "fixed", top: "90px", left: "50px" }}>
+        <div style={{ position: "fixed", top: `${constants.GRAPH_TOP}px`, left: `${constants.GRAPH_LEFT}px` }}>
           <Graph
             width={1000}
             height={600}

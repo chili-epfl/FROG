@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "./store";
 import { TextInput } from "./utils";
+import * as constants from './constants'
 
 const RenameField = connect((
   { store: { panx, renameOpen, rename, scale, cancelAll } }
@@ -9,14 +10,14 @@ const RenameField = connect((
     if (!renameOpen) {
       return null;
     }
-    const left = 152 + (renameOpen.x * scale - panx * 4 * scale);
+    const left = constants.GRAPH_LEFT + (renameOpen.x * scale - panx * 4 * scale);
     return (
       <div
         style={
           {
             position: "fixed",
             left: `${left}px`,
-            top: `${renameOpen.y + 33}px`
+            top: `${renameOpen.y + constants.GRAPH_TOP}px`
           }
         }
       >

@@ -40,6 +40,12 @@ export default class Activity {
     return timeToPx(Math.round(this.length), 1)
   }
 
+  @action update = (newact) => {
+    this.length = newact.length
+    this.startTime = newact.startTime
+    this.title = newact.title
+  }
+
   @action select = () => {
     store.unselect();
     this.selected = true;

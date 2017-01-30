@@ -9,6 +9,7 @@ import { between, pxToTime, timeToPx } from "../utils";
 import getOffsets from "../utils/getOffsets";
 import Operator from './operator'
 import { mergeGraph } from '../../../api/graphs'
+import * as constants from '../constants'
 
 import { Activities, Connections, Operators } from '../../../api/activities'
 
@@ -101,30 +102,32 @@ export default class Store {
   @action updateSettings = settings => this.overlapAllowed = settings.overlapAllowed;
   @observable currentlyOver;
 
+  updateActivities = {
+    added: (x) => this.activities.push(new Activity(x.plane, x.startTime, x.title, x.length, x._id)),
+    changed: (oldact, newact) => findId(this.activities, oldact._id).update(newact),
+    removed: (remact) => this.activities = this.activities.filter(x => x.id == remact._id)
+  }
+
   @action setId = (id) => {
     this.id = id
-    act = Activities.find({graphId: id}, {reactive: false}).fetch()
-    this.activities = act.map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id))
-    opt = Operators.find({graphId: id}, {reactive: false}).fetch()
-    this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id))
-    con = Connections.find({graphId: id}, {reactive: false}).fetch()
-    this.connections = con.map(x => {
-      const source = this.findId(x.source)
-      const target = this.findId(x.target)
-      return (new Connection(source, target, x._id))
-    })
+    // act = Activities.find({graphId: id}, {reactive: false}).fetch()
+    // this.activities = act.map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id))
+    // opt = Operators.find({graphId: id}, {reactive: false}).fetch()
+    // this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id))
+    // con = Connections.find({graphId: id}, {reactive: false}).fetch()
+    // this.connections = con.map(x => {
+    //   const source = this.findId(x.source)
+    //   const target = this.findId(x.target)
+    //   return (new Connection(source, target, x._id))
+    // })
 
-    const cursors = {
-      activities: Activities.find({graphId: this.id}),
-      operators: Operators.find({graphId: this.id}),
-      connections: Connections.find({graphId: this.id})
-    }
+    // const cursors = {
+    //   activities: Activities.find({graphId: this.id}),
+    //   operators: Operators.find({graphId: this.id}),
+    //   connections: Connections.find({graphId: this.id})
+    // }
 
-    cursors.activities.observe({
-      added: (e) => console.log('added', e),
-      changed: (e, e2) => console.log('changed', e, e2),
-      removed: (e) => console.log('removed', e)
-    })
+    // cursors.activities.observe(this.updateActivities)
   }
 
   @observable mode = "";
@@ -321,7 +324,7 @@ export default class Store {
 
   @observable panx = 0;
   @action addActivity = (plane, rawX) => {
-    const x = pxToTime(rawX - 150, this.scale) + this.panTime
+    const [x, _] = this.rawMouseToTime(rawX, 0)
     const newActivity = new Activity(plane, x, "Unnamed", 5);
     this.activities.push(newActivity);
     this.renameOpen = newActivity;
@@ -343,8 +346,8 @@ export default class Store {
     }
   }
   rawMouseToTime = (rawX, rawY) => {
-    const x = pxToTime(rawX - 150, this.scale) + this.panTime
-    const y = rawY - 30
+    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime
+    const y = rawY - constants.GRAPH_TOP 
     return [x, y]
   }
 
