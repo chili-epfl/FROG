@@ -107,6 +107,7 @@ const Settings = connect(({ store: { updateSettings, undo, canUndo } }) => (
 ));
 
 const keyDown = e => {
+  if(store.renameOpen) { return }
   if (e.keyCode === 27) {
     // esc
     store.cancelAll();
