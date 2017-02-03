@@ -1,17 +1,17 @@
-import { reaction, computed, action, observable } from "mobx";
+import { reaction, computed, action, observable } from 'mobx';
 
-import { initialConnections, initialActivities } from "../data";
+import { initialConnections, initialActivities } from '../data';
 
-import { drawPath } from "../utils/path";
-import Activity from "./activity";
-import Connection from "./connection";
-import { between, pxToTime, timeToPx } from "../utils";
-import getOffsets from "../utils/getOffsets";
-import Operator from './operator'
-import { mergeGraph } from '../../../api/graphs'
-import * as constants from '../constants'
+import { drawPath } from '../utils/path';
+import Activity from './activity';
+import Connection from './connection';
+import { between, pxToTime, timeToPx } from '../utils';
+import getOffsets from '../utils/getOffsets';
+import Operator from './operator';
+import { mergeGraph } from '../../../api/graphs';
+import * as constants from '../constants';
 
-import { Activities, Connections, Operators } from '../../../api/activities'
+import { Activities, Connections, Operators } from '../../../api/activities';
 
 const getid = ([activities, operators], id) => {
   const res = activities.concat(operators).filter(x => x.id === id);
@@ -19,13 +19,14 @@ const getid = ([activities, operators], id) => {
 };
 
 const getOne = (coll, crit) => {
-  const found = coll.filter(crit)
-  if (found.size === 0) { return undefined}
-  return found[0]
-}
+  const found = coll.filter(crit);
+  if (found.size === 0) {
+    return undefined;
+  }
+  return found[0];
+};
 
-const getOneId = (coll, id) => getOne(coll, x => x.id === id)
-
+const getOneId = (coll, id) => getOne(coll, x => x.id === id);
 
 // find activities immediately to the left and to the right of the current activity
 // to draw boundary markers and control movement by dragging and resizing
@@ -33,35 +34,36 @@ const calculateBounds = (activity, activities) => {
   const sorted = activities
     .filter(x => x.id !== activity.id)
     .sort((a, b) => a.startTime - b.startTime);
-  const leftbound = sorted.filter(act => act.startTime <= activity.startTime).pop();
+  const leftbound = sorted
+    .filter(act => act.startTime <= activity.startTime)
+    .pop();
   const rightbound = sorted
     .filter(act => act.startTime >= activity.startTime + activity.length)
     .shift();
-  return [ leftbound, rightbound ];
+  return [leftbound, rightbound];
 };
 
 export default class Store {
-
   constructor() {
   }
 
-  findId = ({type, id}) => {
-    if(type === 'activity') {
-      return getOneId(this.activities, id)
-    } else if(type === 'operator') {
-      return getOneId(this.operators, id)
-    } else if(type === 'connection') {
-      return getOneId(this.connections, id)
-    } else { 
-      raise ('Wrong item type for findId!')
+  findId = ({ type, id }) => {
+    if (type === 'activity') {
+      return getOneId(this.activities, id);
+    } else if (type === 'operator') {
+      return getOneId(this.operators, id);
+    } else if (type === 'connection') {
+      return getOneId(this.connections, id);
+    } else {
+      raise('Wrong item type for findId!');
     }
-  }
+  };
 
-  @observable id
-  @observable connections = []
-  @observable activities = []
-  @observable operators = []
-  @observable operatorType
+  @observable id;
+  @observable connections = [];
+  @observable activities = [];
+  @observable operators = [];
+  @observable operatorType;
   @observable history = [];
 
   @action addHistory = () => {
@@ -70,8 +72,7 @@ export default class Store {
       this.activities.map(x => ({ ...x })),
       this.operators.map(x => ({ ...x }))
     ]);
-    mergeGraph(this.objects)
-
+    mergeGraph(this.objects);
   };
 
   @computed get canUndo() {
@@ -79,7 +80,7 @@ export default class Store {
   }
 
   @action undo = () => {
-    const [ connections, activities, operators ] = this.history.length > 1
+    const [connections, activities, operators] = this.history.length > 1
       ? this.history.pop()
       : this.history[0];
     this.activities = activities.map(
@@ -95,21 +96,31 @@ export default class Store {
           getid([this.activities, this.operators], x.target.id)
         )
     );
-    mergeGraph(this.objects)
+    mergeGraph(this.objects);
   };
 
   @observable overlapAllowed = false;
-  @action updateSettings = settings => this.overlapAllowed = settings.overlapAllowed;
+  @action updateSettings = settings =>
+    this.overlapAllowed = settings.overlapAllowed;
   @observable currentlyOver;
 
   updateActivities = {
-    added: (x) => this.activities.push(new Activity(x.plane, x.startTime, x.title, x.length, x._id)),
-    changed: (oldact, newact) => findId(this.activities, oldact._id).update(newact),
-    removed: (remact) => this.activities = this.activities.filter(x => x.id == remact._id)
-  }
+    added: x =>
+      this.activities.push(new Activity(
+        x.plane,
+        x.startTime,
+        x.title,
+        x.length,
+        x._id
+      )),
+    changed: (oldact, newact) =>
+      findId(this.activities, oldact._id).update(newact),
+    removed: remact =>
+      this.activities = this.activities.filter(x => x.id == remact._id)
+  };
 
-  @action setId = (id) => {
-    this.id = id
+  @action setId = id => {
+    this.id = id;
     // act = Activities.find({graphId: id}, {reactive: false}).fetch()
     // this.activities = act.map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id))
     // opt = Operators.find({graphId: id}, {reactive: false}).fetch()
@@ -120,36 +131,31 @@ export default class Store {
     //   const target = this.findId(x.target)
     //   return (new Connection(source, target, x._id))
     // })
-
     // const cursors = {
     //   activities: Activities.find({graphId: this.id}),
     //   operators: Operators.find({graphId: this.id}),
     //   connections: Connections.find({graphId: this.id})
     // }
-
     // cursors.activities.observe(this.updateActivities)
-  }
+  };
 
-  @observable mode = "";
+  @observable mode = '';
   @observable draggingFrom;
   @observable draggingFromActivity;
   @observable dragCoords;
 
   // user begins dragging a line to make a connection
   @action startDragging = activity => {
-    this.mode = "dragging";
-    let coords
-    if(activity instanceof Activity) {
-      coords = [
-        activity.xScaled + activity.widthScaled - 10,
-        activity.y + 15
-      ]
+    this.mode = 'dragging';
+    let coords;
+    if (activity instanceof Activity) {
+      coords = [activity.xScaled + activity.widthScaled - 10, activity.y + 15];
     } else { // operator
-      coords = [activity.xScaled, activity.y] 
+      coords = [activity.xScaled + 30, activity.y + 30];
     }
-    this.draggingFrom = [ ...coords ];
+    this.draggingFrom = [...coords];
     this.draggingFromActivity = activity;
-    this.dragCoords = [ ...coords ];
+    this.dragCoords = [...coords];
   };
 
   @action deleteSelected = () => {
@@ -162,7 +168,7 @@ export default class Store {
       this.connections = this.connections.filter(
         x => x.target.id !== delAct.id && x.source.id !== delAct.id
       );
-    } else { 
+    } else {
       const delOperator = this.operators.filter(x => x.selected);
       if (delOperator.length > 0) {
         const delOpt = this.operators.filter(x => x.selected)[0];
@@ -174,35 +180,47 @@ export default class Store {
     this.connections = this.connections.filter(x => !x.selected);
     this.activities = this.activities.filter(x => !x.selected);
     this.operators = this.operators.filter(x => !x.selected);
-    if (conn !== this.connections.length || act !== this.activities.length || opt !== this.operators.length) {
+    if (
+      conn !== this.connections.length ||
+        act !== this.activities.length ||
+        opt !== this.operators.length
+    ) {
       this.addHistory();
     }
   };
 
   @computed get hasSelection() {
-    const sel = this.connections.concat(this.activities.concat(this.operators)).filter(x => x.selected)
-    if(sel.length === 0) { return false }
-    const selection = sel[0]
-    if(selection instanceof Activity) {
-      return(['activity', selection])
-    } else if(selection instanceof Operator) {
-      return(['operator', selection])
+    const sel = this.connections
+      .concat(this.activities.concat(this.operators))
+      .filter(x => x.selected);
+    if (sel.length === 0) {
+      return false;
+    }
+    const selection = sel[0];
+    if (selection instanceof Activity) {
+      return ['activity', selection];
+    } else if (selection instanceof Operator) {
+      return ['operator', selection];
     } else {
-      return(['connection', selection])
+      return ['connection', selection];
     }
   }
 
   @action cancelAll = () => {
     this.renameOpen = null;
-    this.mode = ''
+    this.mode = '';
   };
 
-  @action canvasClick = (e) => {
-    if(this.mode === 'placingOperator') {
-      const coords = this.rawMouseToTime(e.clientX, e.clientY)
-      this.operators.push(new Operator(coords[0], coords[1], this.operatorType))
-      this.mode = ''
-      this.addHistory()
+  @action canvasClick = e => {
+    if (this.mode === 'placingOperator') {
+      const coords = this.rawMouseToTime(e.clientX, e.clientY);
+      this.operators.push(new Operator(
+        coords[0],
+        coords[1],
+        this.operatorType
+      ));
+      this.mode = '';
+      this.addHistory();
     }
     this.renameOpen = null;
   };
@@ -219,7 +237,7 @@ export default class Store {
       this.dragCoords[1] + deltay
     ];
   @computed get dragPath() {
-    return this.mode === "dragging"
+    return this.mode === 'dragging'
       ? drawPath(...this.draggingFrom, ...this.dragCoords)
       : null;
   }
@@ -229,8 +247,10 @@ export default class Store {
     this.addHistory();
   };
   @action stopDragging = () => {
-    this.mode = "";
-    const targetAry = this.activities.filter(x => x.over).concat(this.operators.filter(x => x.over))
+    this.mode = '';
+    const targetAry = this.activities
+      .filter(x => x.over)
+      .concat(this.operators.filter(x => x.over));
     if (
       targetAry.length > 0 && this.draggingFromActivity.id !== targetAry[0].id
     ) {
@@ -238,7 +258,7 @@ export default class Store {
         this.draggingFromActivity,
         targetAry[0]
       ));
-      this.addHistory()
+      this.addHistory();
     }
     this.cancelScroll();
   };
@@ -266,7 +286,9 @@ export default class Store {
     this.scrollIntervalID = interval;
   };
   @action cancelScroll = () => {
-    if(this.scrollIntervalId) { window.clearInterval(this.scrollIntervalID) }
+    if (this.scrollIntervalId) {
+      window.clearInterval(this.scrollIntervalID);
+    }
     this.scrollIntervalID = false;
   };
 
@@ -281,41 +303,42 @@ export default class Store {
   }
 
   @action startResizing = activity => {
-    this.mode = "resizing";
+    this.mode = 'resizing';
     this.currentActivity = activity;
     this.rightbound = calculateBounds(activity, this.activities)[1];
   };
 
   @action startMoving = activity => {
-    this.mode = "moving";
+    this.mode = 'moving';
     this.currentActivity = activity;
-    let [ leftbound, rightbound ] = calculateBounds(activity, this.activities);
+    let [leftbound, rightbound] = calculateBounds(activity, this.activities);
     this.leftbound = leftbound;
     this.rightbound = rightbound;
     this.currentActivity.overdrag = 0;
   };
 
   @action stopMoving = () => {
-    this.mode = "";
+    this.mode = '';
     this.addHistory();
     this.cancelScroll();
   };
 
   @action stopResizing = () => {
-    this.mode = "";
+    this.mode = '';
     this.addHistory();
     this.cancelScroll();
   };
 
   @computed get scrollEnabled() {
-    return !![ "dragging", "moving", "resizing" ].includes(this.mode);
+    return !!['dragging', 'moving', 'resizing'].includes(this.mode);
   }
 
   // mouse pointer during line connection dragging
-  @action connectDragDelta = (xdelta, ydelta) => this.dragCoords = [ xdelta, ydelta ];
+  @action connectDragDelta = (xdelta, ydelta) =>
+    this.dragCoords = [xdelta, ydelta];
   @computed get activityOffsets() {
     const activities = this.activities;
-    return [ 1, 2, 3 ].reduce(
+    return [1, 2, 3].reduce(
       (acc, plane) => ({ ...acc, ...getOffsets(plane, activities) }),
       {}
     );
@@ -324,48 +347,48 @@ export default class Store {
 
   @observable panx = 0;
   @action addActivity = (plane, rawX) => {
-    const [x, _] = this.rawMouseToTime(rawX, 0)
-    const newActivity = new Activity(plane, x, "Unnamed", 5);
+    const [x, _] = this.rawMouseToTime(rawX, 0);
+    const newActivity = new Activity(plane, x, 'Unnamed', 5);
     this.activities.push(newActivity);
     this.renameOpen = newActivity;
-    this.addHistory()
+    this.addHistory();
   };
 
   @computed get panTime() {
-    return this.panx / 8.12  
+    return this.panx / 8.12;
   }
   @computed get rightEdgeTime() {
-    return this.panTime + (31 / this.scale)
+    return this.panTime + 31 / this.scale;
   }
 
-  @observable socialCoordsTime = []
-  @action placeOperator = (type) => {
-    if(!this.renameOpen) {
-      this.mode = 'placingOperator'
-      this.operatorType = type
+  @observable socialCoordsTime = [];
+  @action placeOperator = type => {
+    if (!this.renameOpen) {
+      this.mode = 'placingOperator';
+      this.operatorType = type;
     }
-  }
+  };
   rawMouseToTime = (rawX, rawY) => {
-    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime
-    const y = rawY - constants.GRAPH_TOP 
-    return [x, y]
-  }
+    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
+    const y = rawY - constants.GRAPH_TOP;
+    return [x, y];
+  };
 
   @action socialMove = (rawX, rawY) => {
-    this.socialCoordsTime = this.rawMouseToTime(rawX, rawY)
-  }
+    this.socialCoordsTime = this.rawMouseToTime(rawX, rawY);
+  };
 
   @computed get socialCoords() {
-    const [rawX, y] = this.socialCoordsTime
-    const x = timeToPx(rawX, 1)
-    return [x, y]
+    const [rawX, y] = this.socialCoordsTime;
+    const x = timeToPx(rawX, 1);
+    return [x, y];
   }
   @computed get socialCoordsScaled() {
-    const [rawX, y] = this.socialCoordsTime
-    const x = timeToPx(rawX, this.scale)
-    return [x, y]
+    const [rawX, y] = this.socialCoordsTime;
+    const x = timeToPx(rawX, this.scale);
+    return [x, y];
   }
-  
+
   @action panDelta = deltaX => {
     const oldpan = this.panx;
     const panBoxSize = 250 / this.scale;
@@ -375,17 +398,17 @@ export default class Store {
     this.panx = between(0, rightBoundary, newPan);
 
     if (oldpan !== this.panx) {
-      if (this.mode === "dragging") {
+      if (this.mode === 'dragging') {
         this.dragCoords[0] += deltaX * 4 * this.scale;
       }
-      if (this.mode === "resizing") {
+      if (this.mode === 'resizing') {
         const oldwidth = this.currentActivity.width;
         this.currentActivity.resize(deltaX * 4 * this.scale);
         if (oldwidth === this.currentActivity.width) {
           this.panx = oldpan;
         }
       }
-      if (this.mode === "moving") {
+      if (this.mode === 'moving') {
         const oldx = this.currentActivity.x;
         this.currentActivity.move(deltaX * 4 * this.scale);
         if (oldx === this.currentActivity.x) {
@@ -401,9 +424,12 @@ export default class Store {
 
   @computed get objects() {
     return {
-      activities: this.activities.map(x => ({...x.object, graphId: this.id})),
-      operators: this.operators.map(x => ({...x.object, graphId: this.id})),
-      connections: this.connections.map(x => ({...x.object, graphId: this.id}))
-    }
+      activities: this.activities.map(x => ({ ...x.object, graphId: this.id })),
+      operators: this.operators.map(x => ({ ...x.object, graphId: this.id })),
+      connections: this.connections.map(x => ({
+        ...x.object,
+        graphId: this.id
+      }))
+    };
   }
 }

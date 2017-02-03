@@ -5,6 +5,7 @@ module.name_mapper='^\/\(.*\)$' -> 'frog/\1'
 esproposal.decorators=ignore
 strip_root=true
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+unsafe.enable_getters_and_setters=true
 
 # Meteor none core package support
 # e.g. "meteor/kadira:flow-router"

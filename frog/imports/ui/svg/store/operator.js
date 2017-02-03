@@ -1,80 +1,96 @@
-import cuid from "cuid";
-import { observable, action, computed } from "mobx";
-import { store } from "./index";
-import { pxToTime, timeToPx } from '../utils'
+// @flow
+import cuid from 'cuid';
+import { observable, action, computed } from 'mobx';
+import { store } from './index';
+import { pxToTime, timeToPx } from '../utils';
 
 export default class Operator {
-  @observable y
-  @observable over
-  @observable time
-  @action init(time, y, type, id) {
-    this.time = time 
-    this.y = y
-    this.id = id || cuid()
-    this.type = type
+  id: string;
+  type: string;
+  @observable selected: boolean;
+  @observable y: number;
+  @observable over: boolean;
+  @observable time: number;
+  @action init(time: number, y: number, type: string, id: string) {
+    this.time = time;
+    this.y = y;
+    this.id = id || cuid();
+    this.type = type;
   }
 
-  constructor(...args) {
-    this.init(...args);
+  constructor(time: number, y: number, type: string, id: string) {
+    this.init(time, y, type, id);
   }
 
-  @computed get x() {
-    return timeToPx(this.time, 1)
+  @computed get x(): number {
+    return timeToPx(this.time, 1);
   }
 
-  @computed get xScaled() {
-    return timeToPx(this.time, store.scale)
+  @computed get xScaled(): number {
+    return timeToPx(this.time, store.scale);
   }
 
-  @computed get coordsScaled() {
-    return [this.xScaled, this.y]
+  @computed get coordsScaled(): [number, number] {
+    return [this.xScaled, this.y];
   }
 
-  @computed get coords() {
-    return [this.x, this.y]
+  @computed get coords(): [number, number] {
+    return [this.x, this.y];
   }
 
-  @action onClick = () => {
+  @action onClick = (): void => {
     store.unselect();
     this.selected = true;
   };
 
-  @action onOver = () => this.over = true;
-  @action onLeave = () => this.over = false;
+  @action onOver = (): true => this.over = true;
+  @action onLeave = (): false => this.over = false;
   @computed get highlighted(): boolean {
     return this.over &&
       store.draggingFromActivity !== this &&
-      store.mode === "dragging";
+      store.mode === 'dragging';
   }
 
-  @action startDragging = (e) => {
-    if(!e.shiftKey) { 
-      store.startDragging(this)
+  @action startDragging = (e: { shiftKey: boolean }): void => {
+    if (!e.shiftKey) {
+      store.startDragging(this);
     }
-  }
+  };
 
-  @action onDrag = (e, { deltaX, deltaY }) => {
-    if(!e.shiftKey) { 
-      store.dragging(deltaX, deltaY)
+  @action onDrag = (
+    e: { shiftKey: boolean },
+    { deltaX, deltaY }: { deltaX: number, deltaY: number }
+  ) => {
+    if (!e.shiftKey) {
+      store.dragging(deltaX, deltaY);
     } else {
-      this.time += pxToTime(deltaX, store.scale)
-      this.y += deltaY
+      this.time += pxToTime(deltaX, store.scale);
+      this.y += deltaY;
     }
-  }
+  };
 
-  @action stopDragging = (e) => {
-    if(!e.shiftKey) {
-      store.stopDragging()
+  @action stopDragging = (e: { shiftKey: boolean }): void => {
+    if (!e.shiftKey) {
+      store.stopDragging();
     }
-    store.addHistory()
-  }
+    store.addHistory();
+  };
 
-  @computed get object() {
+  @computed get object(): {
+    _id: string,
+    time: number,
+    y: number,
+    type: string
+  } {
     return {
       _id: this.id,
       time: this.time,
       y: this.y,
       type: this.type
-    }
+    };
+  }
+
+  @computed get dragPoint(): [number, number] {
+    return [this.xScaled + 30, this.y + 30];
   }
 }

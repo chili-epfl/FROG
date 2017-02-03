@@ -1,22 +1,21 @@
-import cuid from "cuid";
-import { drawPath } from "../utils/path";
-import { observable, action, computed } from "mobx";
-import { store } from "./index";
-import Activity from './activity'
-import Operator from './operator'
+import cuid from 'cuid';
+import { drawPath } from '../utils/path';
+import { observable, action, computed } from 'mobx';
+import { store } from './index';
+import Activity from './activity';
+import Operator from './operator';
 
-
-const getType = (item) => {
-  if(item instanceof Activity) { 
-    return('activity') 
+const getType = item => {
+  if (item instanceof Activity) {
+    return 'activity';
   } else if (item instanceof Operator) {
-    return('operator') 
+    return 'operator';
   } else if (item instanceof Connection) {
-    return('connection')
+    return 'connection';
   } else {
-    throw 'Wrong object type in Connection'
+    throw 'Wrong object type in Connection';
   }
-}
+};
 
 export default class Connection {
   @observable source;
@@ -46,17 +45,14 @@ export default class Connection {
     );
   }
   @computed get pathScaled() {
-    const x = this.source.xScaled
-    const width = this.source.widthScaled || 0
-    const x2 = this.target.xScaled
-    return drawPath(x + width, this.source.y + 15, x2, this.target.y + 15);
+    return drawPath(...this.source.dragPoint, ...this.target.dragPoint);
   }
 
   @computed get object() {
     return {
-      source: {type: getType(this.source), id: this.source.id},
-      target: {type: getType(this.target), id: this.target.id},
+      source: { type: getType(this.source), id: this.source.id },
+      target: { type: getType(this.target), id: this.target.id },
       _id: this.id
-    }
+    };
   }
 }

@@ -1,20 +1,33 @@
-import { observable, computed, action } from "mobx";
-import { store } from "./index";
-import cuid from "cuid";
-import { timeToPx, pxToTime, between } from "../utils";
+// @flow
+import { observable, computed, action } from 'mobx';
+import { store } from './index';
+import cuid from 'cuid';
+import { timeToPx, pxToTime, between } from '../utils';
 
 export default class Activity {
-  @action init = (plane: number, startTime: number, title: string, length: number, id: string) => {
+  @action init = (
+    plane: number,
+    startTime: number,
+    title: string,
+    length: number,
+    id: string
+  ) => {
     this.id = id || cuid();
     this.over = false; // is mouse over this activity
     this.overdrag = 0;
     this.plane = plane;
-    this.title = title || "";
+    this.title = title || '';
     this.length = length;
     this.startTime = startTime;
   };
 
-  constructor(plane: number, startTime: number, title: string, length: number, id: string) {
+  constructor(
+    plane: number,
+    startTime: number,
+    title: string,
+    length: number,
+    id: string
+  ) {
     this.init(plane, startTime, title, length, id);
   }
 
@@ -28,23 +41,23 @@ export default class Activity {
   @observable startTime: number;
 
   @computed get xScaled(): number {
-    return timeToPx(Math.round(this.startTime), store.scale)
+    return timeToPx(Math.round(this.startTime), store.scale);
   }
   @computed get x(): number {
-    return timeToPx(Math.round(this.startTime), 1)
+    return timeToPx(Math.round(this.startTime), 1);
   }
   @computed get widthScaled(): number {
-    return timeToPx(Math.round(this.length), store.scale)
+    return timeToPx(Math.round(this.length), store.scale);
   }
   @computed get width(): number {
-    return timeToPx(Math.round(this.length), 1)
+    return timeToPx(Math.round(this.length), 1);
   }
 
-  @action update = (newact) => {
-    this.length = newact.length
-    this.startTime = newact.startTime
-    this.title = newact.title
-  }
+  @action update = (newact: $Shape<Activity>) => {
+    this.length = newact.length;
+    this.startTime = newact.startTime;
+    this.title = newact.title;
+  };
 
   @action select = () => {
     store.unselect();
@@ -53,22 +66,28 @@ export default class Activity {
 
   @action rename = (newname: string) => {
     this.title = newname;
-    store.addHistory()
+    store.addHistory();
     store.cancelAll();
   };
 
   @action move = (deltax: number) => {
-    if (store.mode !== "moving") {
+    if (store.mode !== 'moving') {
       return;
     }
-    const deltaTime = pxToTime(deltax, store.scale)
+    const deltaTime = pxToTime(deltax, store.scale);
     if (store.overlapAllowed) {
-      this.startTime = between(0, 120 - this.length, this.startTime + deltaTime);
+      this.startTime = between(
+        0,
+        120 - this.length,
+        this.startTime + deltaTime
+      );
     } else {
       const oldTime = this.startTime;
       this.startTime = between(
         store.leftbound && store.leftbound.startTime + store.leftbound.length,
-        store.rightbound ? store.rightbound.startTime - this.length : 120 - this.length,
+        store.rightbound
+          ? store.rightbound.startTime - this.length
+          : 120 - this.length,
         this.startTime + deltaTime
       );
       if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
@@ -87,14 +106,14 @@ export default class Activity {
   };
 
   @action resize = (deltax: number) => {
-    const deltaTime = pxToTime(deltax, store.scale)
-    const rightbound = (store.rightbound && store.rightbound.startTime) || 120;
+    const deltaTime = pxToTime(deltax, store.scale);
+    const rightbound = store.rightbound && store.rightbound.startTime || 120;
     this.length = between(
       1,
       rightbound - this.startTime,
       this.length + deltaTime
     );
-    store.mode = "resizing";
+    store.mode = 'resizing';
   };
 
   @action onOver = () => this.over = true;
@@ -103,7 +122,7 @@ export default class Activity {
   @computed get highlighted(): boolean {
     return this.over &&
       store.draggingFromActivity !== this &&
-      store.mode === "dragging";
+      store.mode === 'dragging';
   }
 
   @computed get y(): number {
@@ -111,13 +130,23 @@ export default class Activity {
     return this.plane * 100 + 50 - offset * 30;
   }
 
-  @computed get object() { 
+  @computed get object(): {
+    _id: string,
+    title: string,
+    startTime: number,
+    length: number,
+    plane: number
+  } {
     return {
       _id: this.id,
       title: this.title,
       startTime: this.startTime,
       length: this.length,
       plane: this.plane
-    }
+    };
+  }
+
+  @computed get dragPoint(): [number, number] {
+    return [this.xScaled + this.widthScaled - 15, this.y + 15];
   }
 }
