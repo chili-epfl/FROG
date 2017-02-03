@@ -109,7 +109,6 @@ export default class Store {
   //**************************************** 
   updateActivities = {
     @action added: x => {
-      console.log('added', x)
       if(!this.findId({ type: 'activity', id: x._id })) {
         this.activities.push(new Activity(
           x.plane,
@@ -120,18 +119,15 @@ export default class Store {
         )) }
     },
     @action changed: (newact, oldact) => {
-      console.log('changed', oldact, newact)
       this.findId({type: 'activity', id: oldact._id}).update(newact)
     },
     @action removed: remact => {
-      console.log('removed', remact)
       this.activities = this.activities.filter(x => x.id !== remact._id)
     }
   };
 
   updateOperators = {
     @action added: x => {
-      console.log('added', x)
       if(!this.findId({ type: 'operator', id: x._id })) {
         this.operators.push(new Operator(
           x.time,
@@ -141,19 +137,15 @@ export default class Store {
         )) }
     },
     @action changed: (newx, oldx) => {
-      console.log('changed', oldx, newx)
-      console.log( this.findId({type: 'operator', id: oldx._id}))
       this.findId({type: 'operator', id: oldx._id}).update(newx)
     },
     @action removed: remx => {
-      console.log('removed', remx)
       this.operators = this.operators.filter(x => x.id !== remx._id)
     }
   };
 
   updateConnections = {
     @action added: x => {
-      console.log('added', x)
       if(!this.findId({ type: 'connection', id: x._id })) {
         this.connections.push(new Connection(
           this.findId(x.source),
@@ -163,7 +155,6 @@ export default class Store {
       }
     },
     @action removed: remact => {
-      console.log('removed', remact)
       this.connections = this.connections.filter(x => x.id !== remact._id)
     }
   };
