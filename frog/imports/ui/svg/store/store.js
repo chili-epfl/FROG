@@ -13,8 +13,9 @@ import * as constants from '../constants';
 
 import { Activities, Connections, Operators } from '../../../api/activities';
 
-const getid = ([activities, operators], id) => {
-  const res = activities.concat(operators).filter(x => x.id === id);
+const getid = (arys, id) => {
+  const joinedArys = arys.reduce( (acc, x) => acc.concat(...x), [])
+  const res = joinedArys.filter(x => x.id === id);
   return res && res[0];
 };
 
@@ -92,10 +93,11 @@ export default class Store {
     this.connections = connections.map(
       x =>
         new Connection(
-          getid([this.activities, this.operators], x.source.id),
-          getid([this.activities, this.operators], x.target.id)
+         getid([this.operators, this.activities], x.source.id), 
+         getid([this.operators, this.activities], x.target.id)
         )
     );
+
     mergeGraph(this.objects);
   };
 
@@ -104,6 +106,7 @@ export default class Store {
     this.overlapAllowed = settings.overlapAllowed;
   @observable currentlyOver;
 
+  //**************************************** 
   updateActivities = {
     @action added: x => {
       console.log('added', x)
@@ -126,6 +129,45 @@ export default class Store {
     }
   };
 
+  updateOperators = {
+    @action added: x => {
+      console.log('added', x)
+      if(!this.findId({ type: 'operator', id: x._id })) {
+        this.operators.push(new Operator(
+          x.time,
+          x.y,
+          x.type,
+          x._id
+        )) }
+    },
+    @action changed: (newx, oldx) => {
+      console.log('changed', oldx, newx)
+      console.log( this.findId({type: 'operator', id: oldx._id}))
+      this.findId({type: 'operator', id: oldx._id}).update(newx)
+    },
+    @action removed: remx => {
+      console.log('removed', remx)
+      this.operators = this.operators.filter(x => x.id !== remx._id)
+    }
+  };
+
+  updateConnections = {
+    @action added: x => {
+      console.log('added', x)
+      if(!this.findId({ type: 'connection', id: x._id })) {
+        this.connections.push(new Connection(
+          this.findId(x.source),
+          this.findId(x.target),
+          x._id
+        ))
+      }
+    },
+    @action removed: remact => {
+      console.log('removed', remact)
+      this.connections = this.connections.filter(x => x.id !== remact._id)
+    }
+  };
+
   @action setId = id => {
     this.id = id;
     act = Activities.find({graphId: id}, {reactive: false}).fetch()
@@ -144,7 +186,10 @@ export default class Store {
       connections: Connections.find({graphId: this.id})
     }
     cursors.activities.observe(this.updateActivities)
+    cursors.connections.observe(this.updateConnections)
+    cursors.operators.observe(this.updateOperators)
   };
+  //**************************************** 
 
   @observable mode = '';
   @observable draggingFrom;

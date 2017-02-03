@@ -93,4 +93,9 @@ export default class Operator {
   @computed get dragPoint(): [number, number] {
     return [this.xScaled + 30, this.y + 30];
   }
+
+  @action update = (newopt: $Shape<Operator>) => {
+    this.time = newopt.time;
+    this.y = newopt.y;
+  };
 }

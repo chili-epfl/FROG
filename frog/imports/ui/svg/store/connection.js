@@ -19,6 +19,7 @@ const getType = item => {
 
 export default class Connection {
   @observable source;
+  id: string
   @observable target;
   @observable selected;
   @action select = () => {
