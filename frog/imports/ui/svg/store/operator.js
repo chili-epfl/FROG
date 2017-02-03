@@ -1,5 +1,4 @@
 import cuid from "cuid";
-import { drawPath } from "../path";
 import { observable, action, computed } from "mobx";
 import { store } from "./index";
 import { pxToTime, timeToPx } from '../utils'

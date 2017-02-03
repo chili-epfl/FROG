@@ -2,7 +2,7 @@ import { reaction, computed, action, observable } from "mobx";
 
 import { initialConnections, initialActivities } from "../data";
 
-import { drawPath } from "../path";
+import { drawPath } from "../utils/path";
 import Activity from "./activity";
 import Connection from "./connection";
 import { between, pxToTime, timeToPx } from "../utils";
