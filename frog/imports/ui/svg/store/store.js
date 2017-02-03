@@ -105,38 +105,45 @@ export default class Store {
   @observable currentlyOver;
 
   updateActivities = {
-    added: x =>
-      this.activities.push(new Activity(
-        x.plane,
-        x.startTime,
-        x.title,
-        x.length,
-        x._id
-      )),
-    changed: (oldact, newact) =>
-      findId(this.activities, oldact._id).update(newact),
-    removed: remact =>
-      this.activities = this.activities.filter(x => x.id == remact._id)
+    @action added: x => {
+      console.log('added', x)
+      if(!this.findId({ type: 'activity', id: x._id })) {
+        this.activities.push(new Activity(
+          x.plane,
+          x.startTime,
+          x.title,
+          x.length,
+          x._id
+        )) }
+    },
+    @action changed: (newact, oldact) => {
+      console.log('changed', oldact, newact)
+      this.findId({type: 'activity', id: oldact._id}).update(newact)
+    },
+    @action removed: remact => {
+      console.log('removed', remact)
+      this.activities = this.activities.filter(x => x.id !== remact._id)
+    }
   };
 
   @action setId = id => {
     this.id = id;
-    // act = Activities.find({graphId: id}, {reactive: false}).fetch()
-    // this.activities = act.map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id))
-    // opt = Operators.find({graphId: id}, {reactive: false}).fetch()
-    // this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id))
-    // con = Connections.find({graphId: id}, {reactive: false}).fetch()
-    // this.connections = con.map(x => {
-    //   const source = this.findId(x.source)
-    //   const target = this.findId(x.target)
-    //   return (new Connection(source, target, x._id))
-    // })
-    // const cursors = {
-    //   activities: Activities.find({graphId: this.id}),
-    //   operators: Operators.find({graphId: this.id}),
-    //   connections: Connections.find({graphId: this.id})
-    // }
-    // cursors.activities.observe(this.updateActivities)
+    act = Activities.find({graphId: id}, {reactive: false}).fetch()
+    this.activities = act.map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id))
+    opt = Operators.find({graphId: id}, {reactive: false}).fetch()
+    this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id))
+    con = Connections.find({graphId: id}, {reactive: false}).fetch()
+    this.connections = con.map(x => {
+      const source = this.findId(x.source)
+      const target = this.findId(x.target)
+      return (new Connection(source, target, x._id))
+    })
+    const cursors = {
+      activities: Activities.find({graphId: this.id}),
+      operators: Operators.find({graphId: this.id}),
+      connections: Connections.find({graphId: this.id})
+    }
+    cursors.activities.observe(this.updateActivities)
   };
 
   @observable mode = '';
