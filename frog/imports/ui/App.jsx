@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import DevTools from 'mobx-react-devtools';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -46,7 +45,6 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <DevTools />
         <Buttons
           appList={apps}
           currentApp={this.state.app}
