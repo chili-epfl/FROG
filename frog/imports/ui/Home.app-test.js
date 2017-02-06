@@ -5,8 +5,8 @@ import { $ } from 'meteor/jquery';
 if (Meteor.isClient) {
   it('renders the top level menu', () => { // eslint-disable-line
     assert.equal(
-      $('li')[0].text(),
-      'Home'
+      $('li')[0].outerText,
+      'Home\n'
     );
   });
 }
