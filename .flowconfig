@@ -2,6 +2,10 @@
 # Absolute path support:
 # e.g. "/collections/todos"
 module.name_mapper='^\/\(.*\)$' -> 'frog/\1'
+esproposal.decorators=ignore
+strip_root=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+unsafe.enable_getters_and_setters=true
 
 # Meteor none core package support
 # e.g. "meteor/kadira:flow-router"
@@ -24,3 +28,6 @@ module.name_mapper='^meteor\/\(.*\)$' -> '../../.meteor/local/build/programs/web
 .*/.meteor/local/build/programs/web.browser/app/.*
 .*/.meteor/local/build/main.js
 .*/.meteor/packages/.*
+.*node_modules/fbjs.*
+.*node_modules/webpack.*
+.*node_modules/styled-components.*

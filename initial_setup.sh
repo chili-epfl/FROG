@@ -42,5 +42,4 @@ do
     ln -s $FROG/op/$dir node_modules/
 done
 
-$YARN install
-
+meteor npm install

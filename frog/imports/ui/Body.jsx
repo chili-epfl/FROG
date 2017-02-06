@@ -1,34 +1,37 @@
-import React from 'react'
-import { createContainer } from 'meteor/react-meteor-data'
-import { Meteor } from 'meteor/meteor'
+import React from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 
-import Home from './Home.jsx'
-import ActivityEditor from './ActivityEditor.jsx'
-import GraphEditor from './GraphEditor.jsx'
-import StudentView from './StudentView.jsx'
-import TeacherView from './TeacherView.jsx'
-import Admin from './Admin.jsx'
+import Home from './Home.jsx';
+import ActivityEditor from './ActivityEditor.jsx';
+import GraphEditor from './GraphEditor.jsx';
+import StudentView from './StudentView.jsx';
+import TeacherView from './TeacherView.jsx';
+import SVGEditor from './svg';
+import Admin from './Admin.jsx';
 
 const Body = ({ userId, app }) => {
   if (userId) {
     switch (app) {
       case 'Home':
-        return (<Home />)
+        return <Home />;
       case 'Admin':
-        return (<Admin />)
+        return <Admin />;
       case 'Activity Editor':
-        return (<ActivityEditor />)
+        return <ActivityEditor />;
+      case 'New Editor':
+        return <SVGEditor />;
       case 'Graph Editor':
-        return (<GraphEditor />)
+        return <GraphEditor />;
       case 'Student View':
-        return (<StudentView />)
+        return <StudentView />;
       case 'Teacher View':
-        return (<TeacherView />)
+        return <TeacherView />;
       default:
-        return (<p>MISSING OR WRONG STATE IN APP COMPONENT: {app}</p>)
+        return <p>MISSING OR WRONG STATE IN APP COMPONENT: {app}</p>;
     }
   }
-  return (<p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP.</p>)
-}
+  return <p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP.</p>;
+};
 
-export default createContainer(() => ({ userId: Meteor.userId() }), Body)
+export default createContainer(() => ({ userId: Meteor.userId() }), Body);
