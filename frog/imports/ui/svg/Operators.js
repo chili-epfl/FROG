@@ -9,9 +9,7 @@ export default connect((
     scaled
   }
 ) => {
-  let ops, 
-dragOp;
-  ops = operators.map(op => {
+  const ops = operators.map(op => {
     const coords = scaled ? op.coordsScaled : op.coords;
     return (
       <Social
@@ -30,6 +28,7 @@ dragOp;
       />
     );
   });
+  let dragOp;
   if (mode === 'placingOperator') {
     const coords = scaled ? socialCoordsScaled : socialCoords;
     dragOp = <Social type={operatorType} x={coords[0]} y={coords[1]} />;

@@ -347,7 +347,7 @@ export default class Store {
   @action startMoving = activity => {
     this.mode = 'moving';
     this.currentActivity = activity;
-    let [leftbound, rightbound] = calculateBounds(activity, this.activities);
+    const [leftbound, rightbound] = calculateBounds(activity, this.activities);
     this.leftbound = leftbound;
     this.rightbound = rightbound;
     this.currentActivity.overdrag = 0;

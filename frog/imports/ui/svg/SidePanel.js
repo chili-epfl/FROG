@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { connect } from './store';
 import Activities from '../Activities';
 
-export default connect(({ store: { hasSelection, objects } }) => {
+export default connect(({ store: { hasSelection } }) => {
   if (!hasSelection) {
     return null;
   }

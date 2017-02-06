@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "flow && npm run fix",
-    "fix": "eslint --fix --ext .js frog/imports/* && eslint --fix --ext .jsx frog/imports/*",
-    "eslint-test": "eslint --ext .js frog/imports/* && eslint --ext .jsx frog/imports/*; exit 0"
+    "fix": "eslint --fix --ext .js,.jsx frog/imports/*",
+    "eslint-test": "eslint --ext .js,.jsx frog/imports/*"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

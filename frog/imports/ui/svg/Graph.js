@@ -6,7 +6,6 @@ import ScrollFields from './ScrollFields';
 import DragGuides from './DragGuides';
 import { connect, store } from './store';
 import Operators from './Operators';
-import SidePanel from './SidePanel';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -24,18 +23,14 @@ const mousemove = e => {
 export default connect((
   {
     store: {
-      mode,
-      hasSelection,
       scale,
       scrollEnabled,
-      canvasClick,
-      socialCoords
+      canvasClick
     },
     width,
     height,
     hasPanMap,
-    viewBox,
-    scaleFactor = 1
+    viewBox
   }
 ) => (
   <svg

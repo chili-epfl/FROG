@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 export const timeToPx = (time, scale) => time * 3900 * scale / 120;
 export const pxToTime = (px, scale) => px / 3900 / scale * 120;
 
-export const between = (minval, maxval, x) => {
-  minval = minval || 0;
-  maxval = maxval || 99999;
+export const between = (rawminval, rawmaxval, x) => {
+  const minval = rawminval || 0;
+  const maxval = rawmaxval || 99999;
   return Math.min(Math.max(x, minval), maxval);
 };
 
@@ -34,10 +34,11 @@ export class TextInput extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit} onKeyDown={this.handleKey}>
+      <form onSubmit={this.onSubmit}>
         <input
           type="text"
           onChange={this.onChange}
+          onKeyDown={this.handleKey}
           value={this.state.val}
           ref={input => this.textInput = input}
         />

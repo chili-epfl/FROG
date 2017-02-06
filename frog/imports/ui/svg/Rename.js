@@ -4,7 +4,7 @@ import { TextInput } from './utils';
 import * as constants from './constants';
 
 const RenameField = connect((
-  { store: { panx, renameOpen, rename, scale, cancelAll } }
+  { store: { panx, renameOpen, scale, cancelAll } }
 ) => {
   if (!renameOpen) {
     return null;

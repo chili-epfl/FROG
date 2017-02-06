@@ -38,7 +38,7 @@ const SettingsContainer = styled.div`
   top: 900px;
 `;
 
-const App = connect(({ store: { setId, panOffset, hasSelection }, id }) => (
+const App = connect(({ store: { panOffset, hasSelection } }) => (
   <div>
     <Row>
       <GraphContainer>
@@ -80,9 +80,6 @@ const App = connect(({ store: { setId, panOffset, hasSelection }, id }) => (
 ));
 
 export default class AppClass extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentWillMount() {
     store.setId(1);
   }

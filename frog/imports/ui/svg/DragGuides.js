@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from './store';
-import { between, timeToPx, pxToTime } from './utils';
+import { timeToPx } from './utils';
 
 const TwoSidedArrow = ({ x }) => (
   <polygon
@@ -68,14 +68,14 @@ const DragGuide = connect((
       {x - current === 0
         ? null
         : <g>
-          <text x={s(middle)} y={300}>
+            <text x={s(middle)} y={300}>
               {timeText}
             </text>
-          <TwoSidedArrow x={s(middle)} />
-          {edge ? null : <VerticalLine x={s(x)} />}
-          <VerticalLine x={s(current)} />
-          <ShadedBox x={s(x)} current={s(current)} />
-        </g>}
+            <TwoSidedArrow x={s(middle)} />
+            {edge ? null : <VerticalLine x={s(x)} />}
+            <VerticalLine x={s(current)} />
+            <ShadedBox x={s(x)} current={s(current)} />
+          </g>}
     </g>
   );
 });
@@ -86,12 +86,12 @@ export default connect((
   if (mode === 'resizing') {
     return rightbound
       ? <DragGuide
-        x={rightbound.startTime}
-        current={currentActivity.startTime + currentActivity.length}
-        currentX={currentActivity.startTime}
-        length={currentActivity.length}
-        y={currentActivity.y}
-      />
+          x={rightbound.startTime}
+          current={currentActivity.startTime + currentActivity.length}
+          currentX={currentActivity.startTime}
+          length={currentActivity.length}
+          y={currentActivity.y}
+        />
       : null;
   }
   // below is quite ugly - maybe move calculations to store? idea is to not render bars anymore if the overlap is allowed, and
@@ -103,38 +103,38 @@ export default connect((
           leftbound.xScaled + leftbound.widthScaled < currentActivity.xScaled
           ? leftbound
               ? <DragGuide
-                x={leftbound.startTime + leftbound.length}
-                current={currentActivity.startTime}
-                currentX={currentActivity.startTime}
-                length={currentActivity.length}
-                y={currentActivity.y}
-              />
+                  x={leftbound.startTime + leftbound.length}
+                  current={currentActivity.startTime}
+                  currentX={currentActivity.startTime}
+                  length={currentActivity.length}
+                  y={currentActivity.y}
+                />
               : <DragGuide
-                x={0}
-                currentX={currentActivity.startTime}
-                current={currentActivity.startTime}
-                length={currentActivity.length}
-                y={currentActivity.y}
-              />
+                  x={0}
+                  currentX={currentActivity.startTime}
+                  current={currentActivity.startTime}
+                  length={currentActivity.length}
+                  y={currentActivity.y}
+                />
           : null}
         {rightbound &&
           rightbound.startTime >
             currentActivity.startTime + currentActivity.length
           ? rightbound
               ? <DragGuide
-                x={rightbound.startTime}
-                length={currentActivity.length}
-                y={currentActivity.y}
-                currentX={currentActivity.startTime}
-                current={currentActivity.startTime + currentActivity.length}
-              />
+                  x={rightbound.startTime}
+                  length={currentActivity.length}
+                  y={currentActivity.y}
+                  currentX={currentActivity.startTime}
+                  current={currentActivity.startTime + currentActivity.length}
+                />
               : <DragGuide
-                x={4000}
-                length={currentActivity.length}
-                y={currentActivity.y}
-                currentX={currentActivity.startTime}
-                current={currentActivity.startTime + currentActivity.length}
-              />
+                  x={4000}
+                  length={currentActivity.length}
+                  y={currentActivity.y}
+                  currentX={currentActivity.startTime}
+                  current={currentActivity.startTime + currentActivity.length}
+                />
           : null}
       </g>
     );
