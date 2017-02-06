@@ -10,7 +10,7 @@ import Operators from './Operators';
 const scrollMouse = e => {
   e.preventDefault();
   if (e.shiftKey) {
-    store.setScale(store.scale + e.deltaY * 0.01);
+    store.setScale(store.scale - e.deltaY * 0.01);
   } else {
     store.panDelta(e.deltaY);
   }
