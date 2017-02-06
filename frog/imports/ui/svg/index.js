@@ -14,7 +14,7 @@ import './App.css';
 const Row = styled.div`
   padding: 0px;
   height: 1000px;
-  position: relactive;
+  position: relative;
   top: 30px;
   margin: 0;
   display: flex;
