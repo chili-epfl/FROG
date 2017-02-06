@@ -2,9 +2,9 @@
   "name": "frog-package",
   "version": "1.0.0",
   "scripts": {
-    "test": "flow && npm run fix",
-    "fix": "eslint --fix --ext .js,.jsx frog/imports/*",
-    "eslint-test": "eslint --ext .js,.jsx frog/imports/*"
+    "test": "flow && npm run eslint-test",
+    "fix": "eslint --fix -c eslintrc-run-prettier --ext .js,.jsx frog/imports/*",
+    "eslint-test": "eslint -c eslintrc-run-prettier --ext .js,.jsx frog/imports/*"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

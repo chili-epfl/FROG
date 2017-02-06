@@ -1,4 +1,3 @@
-// @flow
 import { computed, action, observable } from 'mobx';
 
 import { drawPath } from '../utils/path';
@@ -102,77 +101,88 @@ export default class Store {
   @observable currentlyOver;
 
   //* ***************************************
-  updateActivities = {
-    @action added: x => {
-      if (!this.findId({ type: 'activity', id: x._id })) {
-        this.activities.push(new Activity(
-          x.plane,
-          x.startTime,
-          x.title,
-          x.length,
-          x._id
-        ));
-      }
-    },
-    @action changed: (newact, oldact) => {
-      this.findId({ type: 'activity', id: oldact._id }).update(newact);
-    },
-    @action removed: remact => {
-      this.activities = this.activities.filter(x => x.id !== remact._id);
+  @action mongoAddActivity = x => {
+    if (!this.findId({ type: 'activity', id: x._id })) {
+      this.activities.push(new Activity(
+        x.plane,
+        x.startTime,
+        x.title,
+        x.length,
+        x._id
+      ));
     }
   };
 
-  updateOperators = {
-    @action added: x => {
-      if (!this.findId({ type: 'operator', id: x._id })) {
-        this.operators.push(new Operator(x.time, x.y, x.type, x._id));
-      }
-    },
-    @action changed: (newx, oldx) => {
-      this.findId({ type: 'operator', id: oldx._id }).update(newx);
-    },
-    @action removed: remx => {
-      this.operators = this.operators.filter(x => x.id !== remx._id);
-    }
+  @action mongoChangeActivity = (newact, oldact) => {
+    this.findId({ type: 'activity', id: oldact._id }).update(newact);
   };
 
-  updateConnections = {
-    @action added: x => {
-      if (!this.findId({ type: 'connection', id: x._id })) {
-        this.connections.push(new Connection(
-          this.findId(x.source),
-          this.findId(x.target),
-          x._id
-        ));
-      }
-    },
-    @action removed: remact => {
-      this.connections = this.connections.filter(x => x.id !== remact._id);
+  @action mongoRemoveActivity = remact => {
+    this.activities = this.activities.filter(x => x.id !== remact._id);
+  };
+
+  @action mongoAddOperator = x => {
+    if (!this.findId({ type: 'operator', id: x._id })) {
+      this.operators.push(new Operator(x.time, x.y, x.type, x._id));
     }
+  };
+  @action mongoChangeOperator = (newx, oldx) => {
+    this.findId({ type: 'operator', id: oldx._id }).update(newx);
+  };
+  @action mongoRemoveOperator = remx => {
+    this.operators = this.operators.filter(x => x.id !== remx._id);
+  };
+
+  @action mongoAddConnection = x => {
+    if (!this.findId({ type: 'connection', id: x._id })) {
+      this.connections.push(new Connection(
+        this.findId(x.source),
+        this.findId(x.target),
+        x._id
+      ));
+    }
+  };
+  @action mongoRemoveConnection = remact => {
+    this.connections = this.connections.filter(x => x.id !== remact._id);
   };
 
   @action setId = id => {
     this.id = id;
-    const act = Activities.find({ graphId: id }, { reactive: false }).fetch();
-    this.activities = act.map(
-      x => new Activity(x.plane, x.startTime, x.title, x.length, x._id)
-    );
-    const opt = Operators.find({ graphId: id }, { reactive: false }).fetch();
-    this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id));
-    const con = Connections.find({ graphId: id }, { reactive: false }).fetch();
-    this.connections = con.map(x => {
-      const source = this.findId(x.source);
-      const target = this.findId(x.target);
-      return new Connection(source, target, x._id);
-    });
+    this.activities = Activities.find({ graphId: id }, { reactive: false })
+      .fetch()
+      .map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id));
+
+    this.operators = Operators.find({ graphId: id }, { reactive: false })
+      .fetch()
+      .map(x => new Operator(x.time, x.y, x.type, x._id));
+
+    this.connections = Connections.find({ graphId: id }, { reactive: false })
+      .fetch()
+      .map(x => {
+        const source = this.findId(x.source);
+        const target = this.findId(x.target);
+        return new Connection(source, target, x._id);
+      });
+
     const cursors = {
       activities: Activities.find({ graphId: this.id }),
       operators: Operators.find({ graphId: this.id }),
       connections: Connections.find({ graphId: this.id })
     };
-    cursors.activities.observe(this.updateActivities);
-    cursors.connections.observe(this.updateConnections);
-    cursors.operators.observe(this.updateOperators);
+    cursors.activities.observe({
+      added: this.mongoAddActivity,
+      changed: this.mongoChangeActivity,
+      removed: this.mongoRemoveActivity
+    });
+    cursors.connections.observe({
+      added: this.mongoAddConnection,
+      removed: this.mongoRemoveConnection
+    });
+    cursors.operators.observe({
+      added: this.mongoAddOperator,
+      changed: this.mongoChangeOperator,
+      removed: this.mongoRemoveOperator
+    });
   };
   //* ***************************************
 
@@ -372,6 +382,7 @@ export default class Store {
   // mouse pointer during line connection dragging
   @action connectDragDelta = (xdelta, ydelta) =>
     this.dragCoords = [xdelta, ydelta];
+
   @computed get activityOffsets() {
     const activities = this.activities;
     return [1, 2, 3].reduce(
@@ -382,6 +393,7 @@ export default class Store {
   @observable scale = 1;
 
   @observable panx = 0;
+
   @action addActivity = (plane, rawX) => {
     const [x, _] = this.rawMouseToTime(rawX, 0);
     const newActivity = new Activity(plane, x, 'Unnamed', 5);
@@ -393,17 +405,20 @@ export default class Store {
   @computed get panTime() {
     return this.panx / 8.12;
   }
+
   @computed get rightEdgeTime() {
     return this.panTime + 31 / this.scale;
   }
 
   @observable socialCoordsTime = [];
+
   @action placeOperator = type => {
     if (!this.renameOpen) {
       this.mode = 'placingOperator';
       this.operatorType = type;
     }
   };
+
   rawMouseToTime = (rawX, rawY) => {
     const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
     const y = rawY - constants.GRAPH_TOP;

@@ -30,3 +30,4 @@ module.name_mapper='^meteor\/\(.*\)$' -> '../../.meteor/local/build/programs/web
 .*/.meteor/packages/.*
 .*node_modules/fbjs.*
 .*node_modules/webpack.*
+.*node_modules/styled-components.*
