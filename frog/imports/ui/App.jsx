@@ -45,7 +45,6 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <DevTools />
         <Buttons
           appList={apps}
           currentApp={this.state.app}
