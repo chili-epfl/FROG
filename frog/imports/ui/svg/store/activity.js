@@ -1,7 +1,7 @@
 // @flow
 import { observable, computed, action } from 'mobx';
-import { store } from './index';
 import cuid from 'cuid';
+import { store } from './index';
 import { timeToPx, pxToTime, between } from '../utils';
 
 export default class Activity {

@@ -1,6 +1,6 @@
 import cuid from 'cuid';
-import { drawPath } from '../utils/path';
 import { observable, action, computed } from 'mobx';
+import { drawPath } from '../utils/path';
 import { store } from './index';
 import Activity from './activity';
 import Operator from './operator';
@@ -12,14 +12,13 @@ const getType = item => {
     return 'operator';
   } else if (item instanceof Connection) {
     return 'connection';
-  } else {
-    throw 'Wrong object type in Connection';
   }
+  throw 'Wrong object type in Connection';
 };
 
 export default class Connection {
   @observable source;
-  id: string
+  id: string;
   @observable target;
   @observable selected;
   @action select = () => {

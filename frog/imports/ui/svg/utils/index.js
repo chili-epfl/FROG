@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export const timeToPx = (time, scale) => time * 3900 * scale / 120;
 export const pxToTime = (px, scale) => px / 3900 / scale * 120;
@@ -12,7 +12,7 @@ export const between = (minval, maxval, x) => {
 export class TextInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { val: this.props.value || "" };
+    this.state = { val: this.props.value || '' };
   }
 
   componentDidMount() {

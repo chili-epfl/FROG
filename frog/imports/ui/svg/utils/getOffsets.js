@@ -4,7 +4,7 @@ export default (plane, activities) => {
     .filter(act => act.plane === plane)
     .sort((a, b) => a.startTime - b.startTime);
   const levels = ary.reduce(
-    ([ acc, res ], item) => {
+    ([acc, res], item) => {
       let l = 0;
       while (true) {
         if ((acc[l] || 0) <= item.startTime) {
@@ -17,9 +17,9 @@ export default (plane, activities) => {
         }
         l += 1;
       }
-      return [ acc, res ];
+      return [acc, res];
     },
-    [ [], {} ]
+    [[], {}]
   );
   return levels[1];
 };

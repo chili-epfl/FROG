@@ -2,7 +2,8 @@
   "name": "frog-package",
   "version": "1.0.0",
   "scripts": {
-    "test": "flow && eslint --ext .js frog/imports/* && eslint --ext .jsx frog/imports/*",
+    "test": "flow && npm run fix",
+    "fix": "eslint --fix --ext .js frog/imports/* && eslint --fix --ext .jsx frog/imports/*",
     "eslint-test": "eslint --ext .js frog/imports/* && eslint --ext .jsx frog/imports/*; exit 0"
   },
   "devDependencies": {
@@ -15,15 +16,20 @@
     "babel-preset-stage-0": "^6.16.0",
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-prettier": "^1.0.3",
     "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-prettier": "^2.0.0",
     "eslint-plugin-react": "^6.7.1",
     "flow-bin": "^0.38.0",
+    "flow-classy-type-wrapper": "^1.0.2",
     "flow-copy-source": "^1.1.0",
     "watch": "^1.0.1",
     "yarn": "^0.18.0"
   },
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "prettier": "^0.15.0"
+  }
 }

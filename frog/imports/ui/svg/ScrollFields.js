@@ -1,5 +1,5 @@
-import React from "react";
-import { connect, store } from "./store";
+import React from 'react';
+import { connect, store } from './store';
 
 const scrollInterval = direction => {
   if (!store.scrollIntervalID) {
@@ -21,7 +21,7 @@ const ScrollField = connect((
     y={0}
     width={50}
     height={height}
-    style={{ cursor: "ew-resize" }}
+    style={{ cursor: 'ew-resize' }}
   />
 ));
 

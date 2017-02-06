@@ -1,16 +1,30 @@
-import React from 'react'
-import { DraggableCore } from "react-draggable";
+import React from 'react';
+import { DraggableCore } from 'react-draggable';
 
-export default ({ x, y, onOver, onLeave, onClick, selected, type, highlighted, startDragging, onDrag, onStop }) => {
-  const stroke=selected ? "#ff9900" : "grey"
-  const fill=highlighted ? "yellow" : "white"
-  let icon
-  switch(type) {
+export default (
+  {
+    x,
+    y,
+    onOver,
+    onLeave,
+    onClick,
+    selected,
+    type,
+    highlighted,
+    startDragging,
+    onDrag,
+    onStop
+  }
+) => {
+  const stroke = selected ? '#ff9900' : 'grey';
+  const fill = highlighted ? 'yellow' : 'white';
+  let icon;
+  switch (type) {
     case 'social':
-      icon = <People />
-        break
+      icon = <People />;
+      break;
     case 'product':
-      icon = <Arrows />
+      icon = <Arrows />;
   }
 
   return (
@@ -28,24 +42,34 @@ export default ({ x, y, onOver, onLeave, onClick, selected, type, highlighted, s
     >
       <g>
 
-        <circle cx={300} cy={300} r={300} style={{fill: fill, stroke: stroke, strokeWidth: 60}} transform='translate(30,30)' />
-        { icon }
-        <DraggableCore
-          onStart={startDragging}
-          onDrag={onDrag}
-          onStop={onStop}
-        >
-          <circle cx={300} cy={300} r={350} style={{fill: 'transparent', stroke: 'transparent'}} transform='translate(30,30)' 
-            onMouseOver={onOver} onMouseLeave={onLeave} 
+        <circle
+          cx={300}
+          cy={300}
+          r={300}
+          style={{ fill, stroke, strokeWidth: 60 }}
+          transform="translate(30,30)"
+        />
+        {icon}
+        <DraggableCore onStart={startDragging} onDrag={onDrag} onStop={onStop}>
+          <circle
+            cx={300}
+            cy={300}
+            r={350}
+            style={{ fill: 'transparent', stroke: 'transparent' }}
+            transform="translate(30,30)"
+            onMouseOver={onOver}
+            onMouseLeave={onLeave}
             onClick={onClick}
           />
-        </DraggableCore> 
+        </DraggableCore>
       </g>
     </svg>
-  )};
+  );
+};
 
-const People = () => 
-  <path transform='translate(100,90),scale(0.9)'
+const People = () => (
+  <path
+    transform="translate(100,90),scale(0.9)"
     d="M147.128,91.076c0-37.95,30.766-68.716,68.721-68.716c37.95,0,68.719,30.766,68.719,68.716s-30.769,68.715-68.719,68.715
     C177.894,159.792,147.128,129.026,147.128,91.076z M248.873,206.607c0.689-14.963,5.84-28.812,14.127-40.261
     c-5.816-1.218-11.827-1.865-17.995-1.865h-58.304c-6.15,0-12.153,0.642-17.939,1.845c8.819,12.232,14.094,27.171,14.18,43.343
@@ -68,10 +92,11 @@ const People = () =>
     v65.709l0.166,1.023l4.528,1.412c34.214,10.699,64.761,15.616,91.292,17.153v-19.837
     C95.991,384.371,125.054,347.523,164.795,335.714z"
   />
+);
 
-const Arrows = () => 
-  <path 
-    transform='translate(110,100),scale(1.1)'
+const Arrows = () => (
+  <path
+    transform="translate(110,100),scale(1.1)"
     d="M383.904,40.45l-87.639,87.639l52.812,22.901c1.768,0.769,2.808,2.628,2.542,4.534c-0.261,1.906-1.779,3.407-3.688,3.655
 		l-131.544,17.2c-1.318,0.172-2.648-0.283-3.588-1.22c-0.94-0.94-1.396-2.264-1.224-3.591L228.77,40.028
 		c0.124-0.96,0.562-1.827,1.218-2.474c0.645-0.644,1.489-1.084,2.441-1.218c1.902-0.266,3.765,0.774,4.527,2.542l22.904,52.816
@@ -86,4 +111,6 @@ const Arrows = () =>
 		c1.679-1.679,1.685-4.397,0.006-6.064L290.703,259.857z M88.897,125.312l-52.818,22.901c-1.768,0.762-2.802,2.622-2.536,4.522
 		c0.136,0.954,0.567,1.797,1.211,2.438c0.656,0.656,1.513,1.102,2.483,1.218l131.538,17.2c1.33,0.171,2.654-0.284,3.594-1.22
 		c0.934-0.94,1.389-2.27,1.217-3.591L156.393,37.238c-0.248-1.912-1.75-3.425-3.653-3.691c-1.909-0.267-3.765,0.774-4.534,2.541
-		l-22.904,52.816L37.663,1.262c-1.673-1.679-4.392-1.679-6.07,0L1.259,31.602c-1.679,1.678-1.679,4.395,0,6.064L88.897,125.312z"/>
+		l-22.904,52.816L37.663,1.262c-1.673-1.679-4.392-1.679-6.07,0L1.259,31.602c-1.679,1.678-1.679,4.395,0,6.064L88.897,125.312z"
+  />
+);

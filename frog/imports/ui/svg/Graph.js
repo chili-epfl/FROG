@@ -1,12 +1,12 @@
-import React from "react";
-import Lines, { DragLine } from "./Lines";
-import Activities from "./Activities";
-import { LevelLines, PanMap, TimeScale } from "./fixed_components";
-import ScrollFields from "./ScrollFields";
-import DragGuides from "./DragGuides";
-import { connect, store } from "./store";
-import Operators from './Operators'
-import SidePanel from './SidePanel'
+import React from 'react';
+import Lines, { DragLine } from './Lines';
+import Activities from './Activities';
+import { LevelLines, PanMap, TimeScale } from './fixed_components';
+import ScrollFields from './ScrollFields';
+import DragGuides from './DragGuides';
+import { connect, store } from './store';
+import Operators from './Operators';
+import SidePanel from './SidePanel';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -17,14 +17,20 @@ const scrollMouse = e => {
   }
 };
 
-
 const mousemove = e => {
-  store.socialMove(e.clientX, e.clientY) 
-}
+  store.socialMove(e.clientX, e.clientY);
+};
 
 export default connect((
   {
-    store: { mode, hasSelection, scale, scrollEnabled, canvasClick, socialCoords },
+    store: {
+      mode,
+      hasSelection,
+      scale,
+      scrollEnabled,
+      canvasClick,
+      socialCoords
+    },
     width,
     height,
     hasPanMap,
@@ -32,7 +38,13 @@ export default connect((
     scaleFactor = 1
   }
 ) => (
-  <svg width={width} height={height} onMouseMove={mousemove} onWheel={scrollMouse} onClick={canvasClick}>
+  <svg
+    width={width}
+    height={height}
+    onMouseMove={mousemove}
+    onWheel={scrollMouse}
+    onClick={canvasClick}
+  >
     <svg viewBox={viewBox}>
       <rect
         x={0}
@@ -47,19 +59,16 @@ export default connect((
       <Lines scaled={!hasPanMap} />
       <Activities scaled={!hasPanMap} />
       {!hasPanMap && scrollEnabled && <DragLine />}
-      {!hasPanMap && (
-            <g>
-              <DragGuides />
-              <TimeScale />
-            </g>
-          )}
+      {!hasPanMap &&
+        <g>
+          <DragGuides />
+          <TimeScale />
+        </g>}
       <Operators scaled={!hasPanMap} />
     </svg>
     {!!hasPanMap && <PanMap />}
-    {
-      !hasPanMap &&
-        scrollEnabled &&
-        <ScrollFields width={width} height={height} />
-    }
+    {!hasPanMap &&
+      scrollEnabled &&
+      <ScrollFields width={width} height={height} />}
   </svg>
 ));

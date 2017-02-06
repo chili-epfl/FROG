@@ -1,6 +1,5 @@
-import { reaction, computed, action, observable } from 'mobx';
-
-import { initialConnections, initialActivities } from '../data';
+// @flow
+import { computed, action, observable } from 'mobx';
 
 import { drawPath } from '../utils/path';
 import Activity from './activity';
@@ -14,7 +13,7 @@ import * as constants from '../constants';
 import { Activities, Connections, Operators } from '../../../api/activities';
 
 const getid = (arys, id) => {
-  const joinedArys = arys.reduce( (acc, x) => acc.concat(...x), [])
+  const joinedArys = arys.reduce((acc, x) => acc.concat(...x), []);
   const res = joinedArys.filter(x => x.id === id);
   return res && res[0];
 };
@@ -45,9 +44,6 @@ const calculateBounds = (activity, activities) => {
 };
 
 export default class Store {
-  constructor() {
-  }
-
   findId = ({ type, id }) => {
     if (type === 'activity') {
       return getOneId(this.activities, id);
@@ -55,9 +51,8 @@ export default class Store {
       return getOneId(this.operators, id);
     } else if (type === 'connection') {
       return getOneId(this.connections, id);
-    } else {
-      raise('Wrong item type for findId!');
     }
+    throw 'Wrong item type for findId!';
   };
 
   @observable id;
@@ -93,8 +88,8 @@ export default class Store {
     this.connections = connections.map(
       x =>
         new Connection(
-         getid([this.operators, this.activities], x.source.id), 
-         getid([this.operators, this.activities], x.target.id)
+          getid([this.operators, this.activities], x.source.id),
+          getid([this.operators, this.activities], x.target.id)
         )
     );
 
@@ -106,81 +101,80 @@ export default class Store {
     this.overlapAllowed = settings.overlapAllowed;
   @observable currentlyOver;
 
-  //**************************************** 
+  //* ***************************************
   updateActivities = {
     @action added: x => {
-      if(!this.findId({ type: 'activity', id: x._id })) {
+      if (!this.findId({ type: 'activity', id: x._id })) {
         this.activities.push(new Activity(
           x.plane,
           x.startTime,
           x.title,
           x.length,
           x._id
-        )) }
+        ));
+      }
     },
     @action changed: (newact, oldact) => {
-      this.findId({type: 'activity', id: oldact._id}).update(newact)
+      this.findId({ type: 'activity', id: oldact._id }).update(newact);
     },
     @action removed: remact => {
-      this.activities = this.activities.filter(x => x.id !== remact._id)
+      this.activities = this.activities.filter(x => x.id !== remact._id);
     }
   };
 
   updateOperators = {
     @action added: x => {
-      if(!this.findId({ type: 'operator', id: x._id })) {
-        this.operators.push(new Operator(
-          x.time,
-          x.y,
-          x.type,
-          x._id
-        )) }
+      if (!this.findId({ type: 'operator', id: x._id })) {
+        this.operators.push(new Operator(x.time, x.y, x.type, x._id));
+      }
     },
     @action changed: (newx, oldx) => {
-      this.findId({type: 'operator', id: oldx._id}).update(newx)
+      this.findId({ type: 'operator', id: oldx._id }).update(newx);
     },
     @action removed: remx => {
-      this.operators = this.operators.filter(x => x.id !== remx._id)
+      this.operators = this.operators.filter(x => x.id !== remx._id);
     }
   };
 
   updateConnections = {
     @action added: x => {
-      if(!this.findId({ type: 'connection', id: x._id })) {
+      if (!this.findId({ type: 'connection', id: x._id })) {
         this.connections.push(new Connection(
           this.findId(x.source),
           this.findId(x.target),
           x._id
-        ))
+        ));
       }
     },
     @action removed: remact => {
-      this.connections = this.connections.filter(x => x.id !== remact._id)
+      this.connections = this.connections.filter(x => x.id !== remact._id);
     }
   };
 
   @action setId = id => {
     this.id = id;
-    act = Activities.find({graphId: id}, {reactive: false}).fetch()
-    this.activities = act.map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id))
-    opt = Operators.find({graphId: id}, {reactive: false}).fetch()
-    this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id))
-    con = Connections.find({graphId: id}, {reactive: false}).fetch()
+    const act = Activities.find({ graphId: id }, { reactive: false }).fetch();
+    this.activities = act.map(
+      x => new Activity(x.plane, x.startTime, x.title, x.length, x._id)
+    );
+    const opt = Operators.find({ graphId: id }, { reactive: false }).fetch();
+    this.operators = opt.map(x => new Operator(x.time, x.y, x.type, x._id));
+    const con = Connections.find({ graphId: id }, { reactive: false }).fetch();
     this.connections = con.map(x => {
-      const source = this.findId(x.source)
-      const target = this.findId(x.target)
-      return (new Connection(source, target, x._id))
-    })
+      const source = this.findId(x.source);
+      const target = this.findId(x.target);
+      return new Connection(source, target, x._id);
+    });
     const cursors = {
-      activities: Activities.find({graphId: this.id}),
-      operators: Operators.find({graphId: this.id}),
-      connections: Connections.find({graphId: this.id})
-    }
-    cursors.activities.observe(this.updateActivities)
-    cursors.connections.observe(this.updateConnections)
-    cursors.operators.observe(this.updateOperators)
+      activities: Activities.find({ graphId: this.id }),
+      operators: Operators.find({ graphId: this.id }),
+      connections: Connections.find({ graphId: this.id })
+    };
+    cursors.activities.observe(this.updateActivities);
+    cursors.connections.observe(this.updateConnections);
+    cursors.operators.observe(this.updateOperators);
   };
-  //**************************************** 
+  //* ***************************************
 
   @observable mode = '';
   @observable draggingFrom;
@@ -233,8 +227,8 @@ export default class Store {
   };
 
   @computed get hasSelection() {
-    const sel = this.connections
-      .concat(this.activities.concat(this.operators))
+    const sel = this
+      .connections.concat(this.activities.concat(this.operators))
       .filter(x => x.selected);
     if (sel.length === 0) {
       return false;
@@ -244,9 +238,8 @@ export default class Store {
       return ['activity', selection];
     } else if (selection instanceof Operator) {
       return ['operator', selection];
-    } else {
-      return ['connection', selection];
     }
+    return ['connection', selection];
   }
 
   @action cancelAll = () => {
@@ -269,9 +262,9 @@ export default class Store {
   };
 
   @action unselect = () => {
-    this.connections.map(x => x.selected = false);
-    this.activities.map(x => x.selected = false);
-    this.operators.map(x => x.selected = false);
+    this.connections.forEach(x => x.selected = false);
+    this.activities.forEach(x => x.selected = false);
+    this.operators.forEach(x => x.selected = false);
   };
 
   @action dragging = (deltax: number, deltay: number): void =>
@@ -291,8 +284,8 @@ export default class Store {
   };
   @action stopDragging = () => {
     this.mode = '';
-    const targetAry = this.activities
-      .filter(x => x.over)
+    const targetAry = this
+      .activities.filter(x => x.over)
       .concat(this.operators.filter(x => x.over));
     if (
       targetAry.length > 0 && this.draggingFromActivity.id !== targetAry[0].id
