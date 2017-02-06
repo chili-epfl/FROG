@@ -14,20 +14,20 @@ import './App.css';
 const Row = styled.div`
   padding: 0px;
   height: 1000px;
-  position: fixed;
+  position: relactive;
   top: 30px;
   margin: 0;
   display: flex;
 `;
 
 /* padding: 0; */
-const GraphContainer = styled.li`
+const GraphContainer = styled.div`
   list-style: none;
   width: 1150px;
   height: 1000px;
 `;
 
-const SidebarContainer = styled.li`
+const SidebarContainer = styled.div`
   list-style: none;
   padding: 0px;
   width: 300px;
