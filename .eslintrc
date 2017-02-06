@@ -24,10 +24,8 @@
 		'no-throw-literal': 'off',
 		'no-use-before-define': 'off',
 		'no-param-reassign': ['error', { 'props': false }],
-		"prettier/prettier": ['warn', {'singleQuote': true}],
 		'no-nested-ternary': 'off',
 		'no-constant-condition': 'off'
-
 	},
 	"parserOptions": {
 		"ecmaVersion": 2016,
