@@ -48,30 +48,18 @@ export const LevelLines = connect(({ store: { scale } }) => (
   </g>
 ));
 
-export const TimeScale = connect(({ store: { scale } }) => {
-  let a = 0;
-  const res = [];
-  while (a < 121) {
-    a += 1;
-    let text = null;
-    let length = 0;
-
-    const x = timeToPx(a, scale);
-    if (a % 15 === 0) {
-      length = 30;
-      text = <text x={x - 15} y={540}>{a + ' min.'}</text>;
-    } else if (a % 5 === 0) {
-      length = 15;
-    } else {
-      length = 5;
-    }
-
-    res.push(
-      <g key={a}>
-        <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />
-        {text}
-      </g>
-    );
-  }
-  return <g>{res}</g>;
-});
+export const TimeScale = connect(({ store: { scale } }) => (
+  <g>
+    {[...Array(120).keys()].map(index => {
+      const i = index + 1;
+      const length = (i % 15 === 0) * 15 + (i % 5 === 0) * 10 + 5;
+      const x = timeToPx(i, scale);
+      return (
+        <g key={i}>
+          <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />
+          {i % 15 === 0 ? <text x={x - 15} y={540}>{i + ' min.'}</text> : null}
+        </g>
+      );
+    })}
+  </g>
+));
