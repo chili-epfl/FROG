@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from './store';
 import { TextInput } from './utils';
-import * as constants from './constants';
 
 const RenameField = connect((
   { store: { panx, renameOpen, scale, cancelAll } }
@@ -9,7 +8,7 @@ const RenameField = connect((
   if (!renameOpen) {
     return null;
   }
-  const left = (renameOpen.x * scale - panx * 4 * scale);
+  const left = renameOpen.x * scale - panx * 4 * scale;
   return (
     <div
       style={{

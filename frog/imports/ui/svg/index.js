@@ -11,7 +11,6 @@ import { connect, store } from './store';
 import Graph from './Graph';
 import Rename from './Rename';
 import SidePanel from './SidePanel';
-import * as constants from './constants';
 
 import './App.css';
 
@@ -44,11 +43,9 @@ const SettingsContainer = styled.div`
   top: 900px;
 `;
 
-
 const GL = createContainer(
-  (props) => 
-    ({ ...props, graphs: Graphs.find().fetch() }),
-  ({ graphs, graphId }) => 
+  props => ({ ...props, graphs: Graphs.find().fetch() }),
+  ({ graphs, graphId }) => (
     <div>
       <h3>Graph list</h3>
       <button
@@ -59,23 +56,24 @@ const GL = createContainer(
       </button>
       <ul>
         {graphs.length ? graphs.map(graph => (
-          <li style={{ listStyle: 'none' }} key={graph._id}>
-            <a href="#" onClick={() => removeGraph(graph._id)}>
-              <i className="fa fa-times" />
-            </a>
-            <a href="#" onClick={() => store.setId(graph._id)}>
-              <i className="fa fa-pencil" />
-            </a>
-            {graph._id} {graph._id === graphId ? ' (current)' : null}
-          </li>
-        )) : <li>No graph</li>}
+              <li style={{ listStyle: 'none' }} key={graph._id}>
+                <a href="#" onClick={() => removeGraph(graph._id)}>
+                  <i className="fa fa-times" />
+                </a>
+                <a href="#" onClick={() => store.setId(graph._id)}>
+                  <i className="fa fa-pencil" />
+                </a>
+                {graph._id} {graph._id === graphId ? ' (current)' : null}
+              </li>
+            )) : <li>No graph</li>}
       </ul>
     </div>
-)
+  )
+);
 
-const GraphList = connect(({ store: { id } }) => ( <GL graphId={id} /> ));
+const GraphList = connect(({ store: { id } }) => <GL graphId={id} />);
 
-const App = connect(({ store: { panOffset, hasSelection, id } }) => (
+const App = connect(({ store: { panOffset, hasSelection } }) => (
   <div>
     <Row>
       <GraphContainer>
