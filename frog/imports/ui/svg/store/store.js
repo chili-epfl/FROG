@@ -259,7 +259,7 @@ export default class Store {
 
   @action canvasClick = e => {
     if (this.mode === 'placingOperator') {
-      const coords = this.rawMouseToTime(e.clientX, e.clientY);
+      const coords = this.rawMouseToTime(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
       this.operators.push(new Operator(
         coords[0],
         coords[1],
