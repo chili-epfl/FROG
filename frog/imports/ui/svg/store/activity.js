@@ -10,7 +10,7 @@ export default class Activity {
     startTime: number,
     title: string,
     length: number,
-    id: string
+    id: ?string
   ) => {
     this.id = id || cuid();
     this.over = false; // is mouse over this activity
@@ -26,7 +26,7 @@ export default class Activity {
     startTime: number,
     title: string,
     length: number,
-    id: string
+    id: ?string
   ) {
     this.init(plane, startTime, title, length, id);
   }

@@ -4,6 +4,8 @@ import { observable, action, computed } from 'mobx';
 import { store } from './index';
 import { pxToTime, timeToPx } from '../utils';
 
+export type OperatorTypes = 'product' | 'social'
+
 export default class Operator {
   id: string;
   type: string;
@@ -11,14 +13,14 @@ export default class Operator {
   @observable y: number;
   @observable over: boolean;
   @observable time: number;
-  @action init(time: number, y: number, type: string, id: string) {
+  @action init(time: number, y: number, type: string, id: ?string) {
     this.time = time;
     this.y = y;
     this.id = id || cuid();
     this.type = type;
   }
 
-  constructor(time: number, y: number, type: string, id: string) {
+  constructor(time: number, y: number, type: string, id: ?string) {
     this.init(time, y, type, id);
   }
 
