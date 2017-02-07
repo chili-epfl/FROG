@@ -7,7 +7,8 @@ import { connect, store } from './store';
 import Graph from './Graph';
 import Rename from './Rename';
 import SidePanel from './SidePanel';
-import { assignGraph, GraphList } from './GraphList';
+import { GraphList } from './GraphList';
+import { assignGraph } from '../../api/graphs';
 
 import './App.css';
 
@@ -76,7 +77,7 @@ const App = connect(({ store: { panOffset, hasSelection } }) => (
 
 export default class AppClass extends Component {
   componentWillMount() {
-    assignGraph();
+    store.setId(assignGraph());
   }
 
   render() {

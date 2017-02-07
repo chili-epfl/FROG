@@ -25,6 +25,27 @@ export const mergeGraph = mergeObj => {
   Meteor.call('graph.merge', mergeObj);
 };
 
+export const setCurrentGraph = graphId => {
+  Meteor.users.update({ _id: Meteor.userId() }, {
+    $set: { 'profile.editingGraph': graphId }
+  });
+};
+
+export const assignGraph = () => {
+  const user = Meteor.users.findOne({ _id: Meteor.userId() });
+  let graphId;
+  // Get the graph the user is editing and check if the graph exists
+  graphId = user.profile ? user.profile.editingGraph : null;
+  graphId = graphId && Graphs.findOne({ _id: graphId }) ? graphId : null;
+  // Assign the id of the first graph of the graph list if there is one
+  const oneGraph = Graphs.findOne();
+  if (!graphId) graphId = oneGraph ? oneGraph._id : null;
+  // If nothing worked create new graph
+  if (!graphId) graphId = addGraph();
+  setCurrentGraph(graphId);
+  return graphId;
+};
+
 Meteor.methods({
   'graph.merge': ({ connections, activities, operators, graphId }) => {
     activities.map(({ _id, ...rest }) =>

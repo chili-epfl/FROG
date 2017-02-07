@@ -6,7 +6,7 @@ import Connection from './connection';
 import { between, pxToTime, timeToPx } from '../utils';
 import getOffsets from '../utils/getOffsets';
 import Operator from './operator';
-import { mergeGraph } from '../../../api/graphs';
+import { mergeGraph, setCurrentGraph } from '../../../api/graphs';
 import * as constants from '../constants';
 
 import { Activities, Connections, Operators } from '../../../api/activities';
@@ -147,6 +147,8 @@ export default class Store {
   };
 
   @action setId = id => {
+    setCurrentGraph(id);
+
     this.id = id;
     this.activities = Activities.find({ graphId: id }, { reactive: false })
       .fetch()
