@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Provider } from 'mobx-react';
 import Form from 'react-jsonschema-form';
 import styled from 'styled-components';
+import { createContainer } from 'meteor/react-meteor-data';
+
+import { removeGraph } from '../../api/activities';
+import { Graphs, addGraph } from '../../api/graphs';
 
 import { connect, store } from './store';
 import Graph from './Graph';
@@ -14,21 +18,23 @@ import './App.css';
 const Row = styled.div`
   padding: 0px;
   height: 1000px;
-  position: fixed;
-  top: 30px;
+  position: relative;
   margin: 0;
   display: flex;
 `;
 
 /* padding: 0; */
-const GraphContainer = styled.li`
-  list-style: none;
+const GraphContainer = styled.div`
   width: 1150px;
   height: 1000px;
 `;
 
-const SidebarContainer = styled.li`
-  list-style: none;
+const SidebarContainer = styled.div`
+  padding: 0px;
+  width: 300px;
+`;
+
+const GraphListContainer = styled.div`
   padding: 0px;
   width: 300px;
 `;
@@ -38,40 +44,64 @@ const SettingsContainer = styled.div`
   top: 900px;
 `;
 
-const App = connect(({ store: { panOffset, hasSelection } }) => (
+
+const GL = createContainer(
+  (props) => 
+    ({ ...props, graphs: Graphs.find().fetch() }),
+  ({ graphs, graphId }) => 
+    <div>
+      <h3>Graph list</h3>
+      <button
+        className="btn btn-primary btn-sm"
+        onClick={() => store.setId(addGraph())}
+      >
+        New
+      </button>
+      <ul>
+        {graphs.length ? graphs.map(graph => (
+          <li style={{ listStyle: 'none' }} key={graph._id}>
+            <a href="#" onClick={() => removeGraph(graph._id)}>
+              <i className="fa fa-times" />
+            </a>
+            <a href="#" onClick={() => store.setId(graph._id)}>
+              <i className="fa fa-pencil" />
+            </a>
+            {graph._id} {graph._id === graphId ? ' (current)' : null}
+          </li>
+        )) : <li>No graph</li>}
+      </ul>
+    </div>
+)
+
+const GraphList = connect(({ store: { id } }) => ( <GL graphId={id} /> ));
+
+const App = connect(({ store: { panOffset, hasSelection, id } }) => (
   <div>
     <Row>
       <GraphContainer>
-        <div
-          style={{
-            position: 'fixed',
-            top: `${constants.GRAPH_TOP}px`,
-            left: `${constants.GRAPH_LEFT}px`
-          }}
-        >
-          <Graph
-            width={1000}
-            height={600}
-            viewBox={`${panOffset} 0 1000 600`}
-            preserveAspectRatio="xMinYMin slice"
-            scaleFactor={1}
-          />
-        </div>
+        <Graph
+          width={1000}
+          height={600}
+          viewBox={`${panOffset} 0 1000 600`}
+          preserveAspectRatio="xMinYMin slice"
+          scaleFactor={1}
+        />
         <Rename />
-        <div style={{ position: 'fixed', left: '50px', top: '720px' }}>
-          <Graph
-            width={1000}
-            height={150}
-            viewBox={'0 0 4000 600'}
-            preserveAspectRatio="xMinYMin slice"
-            hasPanMap
-            scaleFactor={4}
-          />
-        </div>
+        <Graph
+          width={1000}
+          height={150}
+          viewBox={'0 0 4000 600'}
+          preserveAspectRatio="xMinYMin slice"
+          hasPanMap
+          scaleFactor={4}
+        />
       </GraphContainer>
       <SidebarContainer>
         {!!hasSelection && <SidePanel />}
       </SidebarContainer>
+      <GraphListContainer>
+        <GraphList />
+      </GraphListContainer>
     </Row>
     <SettingsContainer>
       <Settings />

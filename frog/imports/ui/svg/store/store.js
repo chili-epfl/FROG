@@ -480,7 +480,8 @@ export default class Store {
       connections: this.connections.map(x => ({
         ...x.object,
         graphId: this.id
-      }))
+      })),
+      graphId: this.id
     };
   }
 }
