@@ -83,59 +83,23 @@ const DragGuide = connect((
 export default connect((
   { store: { leftbound, rightbound, mode, currentActivity } }
 ) => {
-  if (mode === 'resizing') {
-    return rightbound
-      ? <DragGuide
-          x={rightbound.startTime}
-          current={currentActivity.startTime + currentActivity.length}
+  if (currentActivity && (mode === 'resizing' || mode === 'moving')) {
+    return (
+      <g>
+        <DragGuide
+          x={leftbound ? leftbound.startTime + leftbound.length : 0}
+          current={currentActivity.startTime}
           currentX={currentActivity.startTime}
           length={currentActivity.length}
           y={currentActivity.y}
         />
-      : null;
-  }
-  // below is quite ugly - maybe move calculations to store? idea is to not render bars anymore if the overlap is allowed, and
-  // the activity has already moved past the boundary of the adjacent activity
-  if (mode === 'moving') {
-    return (
-      <g>
-        {leftbound &&
-          leftbound.xScaled + leftbound.widthScaled < currentActivity.xScaled
-          ? leftbound
-              ? <DragGuide
-                  x={leftbound.startTime + leftbound.length}
-                  current={currentActivity.startTime}
-                  currentX={currentActivity.startTime}
-                  length={currentActivity.length}
-                  y={currentActivity.y}
-                />
-              : <DragGuide
-                  x={0}
-                  currentX={currentActivity.startTime}
-                  current={currentActivity.startTime}
-                  length={currentActivity.length}
-                  y={currentActivity.y}
-                />
-          : null}
-        {rightbound &&
-          rightbound.startTime >
-            currentActivity.startTime + currentActivity.length
-          ? rightbound
-              ? <DragGuide
-                  x={rightbound.startTime}
-                  length={currentActivity.length}
-                  y={currentActivity.y}
-                  currentX={currentActivity.startTime}
-                  current={currentActivity.startTime + currentActivity.length}
-                />
-              : <DragGuide
-                  x={4000}
-                  length={currentActivity.length}
-                  y={currentActivity.y}
-                  currentX={currentActivity.startTime}
-                  current={currentActivity.startTime + currentActivity.length}
-                />
-          : null}
+        <DragGuide
+          x={rightbound ? rightbound.startTime : 4000}
+          length={currentActivity.length}
+          y={currentActivity.y}
+          currentX={currentActivity.startTime}
+          current={currentActivity.startTime + currentActivity.length}
+        />
       </g>
     );
   }
