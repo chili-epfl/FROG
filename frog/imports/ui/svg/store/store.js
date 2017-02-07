@@ -1,3 +1,4 @@
+// @flow
 import { computed, action, observable } from 'mobx';
 
 import { drawPath } from '../utils/path';
@@ -10,14 +11,16 @@ import { mergeGraph, setCurrentGraph } from '../../../api/graphs';
 import * as constants from '../constants';
 
 import { Activities, Connections, Operators } from '../../../api/activities';
+type Elem = Activity | Connection | Operator
+type Coll = Array<Elem>
 
-const getid = (arys, id) => {
+  const getid = (arys: Array<Coll>, id: string): ?Elem => {
   const joinedArys = arys.reduce((acc, x) => acc.concat(...x), []);
   const res = joinedArys.filter(x => x.id === id);
   return res && res[0];
 };
 
-const getOne = (coll, crit) => {
+const getOne = (coll: Coll, crit: Function): ?Elem => {
   const found = coll.filter(crit);
   if (found.size === 0) {
     return undefined;
@@ -29,7 +32,7 @@ const getOneId = (coll, id) => getOne(coll, x => x.id === id);
 
 // find activities immediately to the left and to the right of the current activity
 // to draw boundary markers and control movement by dragging and resizing
-const calculateBounds = (activity, activities) => {
+const calculateBounds = (activity: Activity, activities: Array<Activity>) => {
   const sorted = activities
     .filter(x => x.id !== activity.id)
     .sort((a, b) => a.startTime - b.startTime);
@@ -43,7 +46,7 @@ const calculateBounds = (activity, activities) => {
 };
 
 export default class Store {
-  findId = ({ type, id }) => {
+  findId = ({ type, id }: { type: string, id: string }) => {
     if (type === 'activity') {
       return getOneId(this.activities, id);
     } else if (type === 'operator') {
@@ -54,11 +57,11 @@ export default class Store {
     throw 'Wrong item type for findId!';
   };
 
-  @observable id;
-  @observable connections = [];
-  @observable activities = [];
-  @observable operators = [];
-  @observable operatorType;
+  @observable id: string;
+  @observable connections: Array<Connection> = [];
+  @observable activities: Array<Activity> = [];
+  @observable operators: Array<Operator> = [];
+  @observable operatorType: string;
   @observable history = [];
 
   @action addHistory = () => {
@@ -70,8 +73,8 @@ export default class Store {
     mergeGraph(this.objects);
   };
 
-  @computed get canUndo() {
-    return this.history.length > 0;
+  @computed get canUndo(): boolean {
+    return Boolean(this.history.length > 0);
   }
 
   @action undo = () => {
