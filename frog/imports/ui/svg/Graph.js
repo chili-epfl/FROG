@@ -17,7 +17,7 @@ const scrollMouse = e => {
 };
 
 const mousemove = e => {
-  store.socialMove(e.clientX, e.clientY);
+  store.socialMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
 };
 
 export default connect((

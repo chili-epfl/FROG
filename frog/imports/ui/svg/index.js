@@ -7,7 +7,8 @@ import { connect, store } from './store';
 import Graph from './Graph';
 import Rename from './Rename';
 import SidePanel from './SidePanel';
-import * as constants from './constants';
+import { GraphList } from './GraphList';
+import { assignGraph } from '../../api/graphs';
 
 import './App.css';
 
@@ -15,20 +16,22 @@ const Row = styled.div`
   padding: 0px;
   height: 1000px;
   position: relative;
-  top: 30px;
   margin: 0;
   display: flex;
 `;
 
 /* padding: 0; */
 const GraphContainer = styled.div`
-  list-style: none;
   width: 1150px;
   height: 1000px;
 `;
 
 const SidebarContainer = styled.div`
-  list-style: none;
+  padding: 0px;
+  width: 300px;
+`;
+
+const GraphListContainer = styled.div`
   padding: 0px;
   width: 300px;
 `;
@@ -42,36 +45,29 @@ const App = connect(({ store: { panOffset, hasSelection } }) => (
   <div>
     <Row>
       <GraphContainer>
-        <div
-          style={{
-            position: 'fixed',
-            top: `${constants.GRAPH_TOP}px`,
-            left: `${constants.GRAPH_LEFT}px`
-          }}
-        >
-          <Graph
-            width={1000}
-            height={600}
-            viewBox={`${panOffset} 0 1000 600`}
-            preserveAspectRatio="xMinYMin slice"
-            scaleFactor={1}
-          />
-        </div>
+        <Graph
+          width={1000}
+          height={600}
+          viewBox={`${panOffset} 0 1000 600`}
+          preserveAspectRatio="xMinYMin slice"
+          scaleFactor={1}
+        />
         <Rename />
-        <div style={{ position: 'fixed', left: '50px', top: '720px' }}>
-          <Graph
-            width={1000}
-            height={150}
-            viewBox={'0 0 4000 600'}
-            preserveAspectRatio="xMinYMin slice"
-            hasPanMap
-            scaleFactor={4}
-          />
-        </div>
+        <Graph
+          width={1000}
+          height={150}
+          viewBox={'0 0 4000 600'}
+          preserveAspectRatio="xMinYMin slice"
+          hasPanMap
+          scaleFactor={4}
+        />
       </GraphContainer>
       <SidebarContainer>
         {!!hasSelection && <SidePanel />}
       </SidebarContainer>
+      <GraphListContainer>
+        <GraphList />
+      </GraphListContainer>
     </Row>
     <SettingsContainer>
       <Settings />
@@ -81,7 +77,7 @@ const App = connect(({ store: { panOffset, hasSelection } }) => (
 
 export default class AppClass extends Component {
   componentWillMount() {
-    store.setId(1);
+    store.setId(assignGraph());
   }
 
   render() {
