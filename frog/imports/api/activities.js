@@ -71,6 +71,9 @@ export const addGraphOperator = params => Operators.insert({
 export const importOperator = params =>
   Operators.insert({ ...params, createdAt: new Date(), _id: params._id });
 
+export const importConnection = params =>
+  Connections.insert({ ...params, createdAt: new Date(), _id: params._id });
+
 export const importGraphOperator = (params, thisGraphId) => Operators.insert({
   ...params,
   graphId: thisGraphId,
@@ -153,12 +156,14 @@ Meteor.methods({
     Graphs.remove({ _id: graphId });
     Activities.remove({ graphId });
     Operators.remove({ graphId });
+    Connections.remove({ graphId });
   },
   'graph.flush.db': () => {
     Graphs.remove({});
     Activities.remove({});
     Operators.remove({});
     Sessions.remove({});
+    Connections.remove({});
   },
   'graph.flush.activity': activityId => {
     Operators.remove({ from: activityId });

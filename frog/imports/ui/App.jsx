@@ -8,7 +8,6 @@ const apps = [
   'Home',
   'Admin',
   'Activity Editor',
-  'New Editor',
   'Graph Editor',
   'Teacher View',
   'Student View'
@@ -35,10 +34,13 @@ export default class App extends Component {
   }
 
   switchAppByUser = () => {
-    const username = Meteor.user() ? Meteor.user().username : null;
-    const app = username
-      ? ({ teacher: 'New Editor' })[username] || 'Student View'
-      : 'Home';
+    const username = Meteor.user() ? Meteor.user().username : 'noname';
+    const app = ({
+      teacher: 'Graph Editor',
+      admin: 'Admin',
+      noname: 'Home'
+    })[username] ||
+      'Student View';
     this.setState({ app });
   };
 

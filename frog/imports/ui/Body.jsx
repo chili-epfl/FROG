@@ -4,7 +4,6 @@ import { Meteor } from 'meteor/meteor';
 
 import Home from './Home.jsx';
 import ActivityEditor from './ActivityEditor.jsx';
-import GraphEditor from './GraphEditor.jsx';
 import StudentView from './StudentView.jsx';
 import TeacherView from './TeacherView.jsx';
 import SVGEditor from './svg';
@@ -19,10 +18,8 @@ const Body = ({ userId, app }) => {
         return <Admin />;
       case 'Activity Editor':
         return <ActivityEditor />;
-      case 'New Editor':
-        return <SVGEditor />;
       case 'Graph Editor':
-        return <GraphEditor />;
+        return <SVGEditor />;
       case 'Student View':
         return <StudentView />;
       case 'Teacher View':

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Logs } from '../api/logs';
@@ -6,11 +6,104 @@ import { Sessions, importSession } from '../api/sessions';
 import {
   Activities,
   Operators,
+  Connections,
   importActivity,
   importOperator,
+  importConnection,
   deleteDatabase
 } from '../api/activities';
 import { Graphs, importGraph } from '../api/graphs';
+
+const fakeDatabase = {
+  sessions: [{ _id: 'S1', graphId: 'G1' }],
+  graphs: [{ _id: 'G1', name: 'Mixed Jigsaw' }],
+  activities: [
+    {
+      _id: 'A1',
+      title: 'Group Talk',
+      graphId: 'G1',
+      startTime: 0,
+      length: 5,
+      plane: 2
+    },
+    {
+      _id: 'A2',
+      title: 'Role Talk',
+      graphId: 'G1',
+      startTime: 5,
+      length: 5,
+      plane: 2
+    },
+    {
+      _id: 'A3',
+      title: 'Lecture',
+      graphId: 'G1',
+      startTime: 10,
+      length: 5,
+      plane: 1
+    },
+    {
+      _id: 'A4',
+      title: 'Mixed Group Talk',
+      graphId: 'G1',
+      startTime: 15,
+      length: 5,
+      plane: 2
+    }
+  ],
+  operators: [
+    {
+      _id: 'O1',
+      name: 'JigsawOp',
+      graphId: 'G1',
+      type: 'social',
+      time: 2,
+      y: 50
+    },
+    {
+      _id: 'O2',
+      name: 'MixJigOp',
+      graphId: 'G1',
+      type: 'social',
+      time: 14,
+      y: 50
+    }
+  ],
+  connections: [
+    {
+      _id: 'C1',
+      source: { type: 'operator', id: 'O1' },
+      target: { type: 'activity', id: 'A1' },
+      graphId: 'G1'
+    },
+    {
+      _id: 'C2',
+      source: { type: 'operator', id: 'O1' },
+      target: { type: 'activity', id: 'A2' },
+      graphId: 'G1'
+    },
+    {
+      _id: 'C3',
+      source: { type: 'operator', id: 'O1' },
+      target: { type: 'operator', id: 'O1' },
+      graphId: 'G1'
+    },
+    {
+      _id: 'C4',
+      source: { type: 'operator', id: 'O2' },
+      target: { type: 'activity', id: 'A4' },
+      graphId: 'G1'
+    }
+  ]
+};
+
+const loadDatabase = data => {
+  data.sessions.forEach(item => importSession(item));
+  data.graphs.forEach(item => importGraph(item));
+  data.activities.forEach(item => importActivity(item));
+  data.operators.forEach(item => importOperator(item));
+  data.connections.forEach(item => importConnection(item));
+};
 
 function download(strData, strFileName, strMimeType) {
   const D = this.document;
@@ -78,15 +171,43 @@ function download(strData, strFileName, strMimeType) {
   return true;
 }
 
+class DisplayData extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isClicked: false };
+  }
+
+  toggleDisplay = event => {
+    event.preventDefault();
+    this.setState({ isClicked: !this.state.isClicked });
+  };
+
+  render() {
+    return (
+      <ul>
+        {this.props.data.map(d => (
+          <li key={d._id}>
+            <a href={'#'} onClick={this.toggleDisplay}>{d._id}</a>
+            {this.state.isClicked
+              ? <pre>{JSON.stringify(d, null, 2)}</pre>
+              : null}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
+
 export default createContainer(
   () => {
     const sessions = Sessions.find().fetch();
     const graphs = Graphs.find().fetch();
     const activities = Activities.find().fetch();
     const operators = Operators.find().fetch();
-    return { sessions, graphs, activities, operators };
+    const connections = Connections.find().fetch();
+    return { sessions, graphs, activities, operators, connections };
   },
-  ({ sessions, graphs, activities, operators }) => {
+  ({ sessions, graphs, activities, operators, connections }) => {
     const exportToJSON = () => {
       const obj = {
         sessions,
@@ -155,6 +276,23 @@ export default createContainer(
         <button className="export logs" onClick={() => exportLogs()}>
           Download the Logs
         </button>
+        <br />
+        <button
+          className="export logs"
+          onClick={() => loadDatabase(fakeDatabase)}
+        >
+          Load fake database
+        </button>
+        <h1>Graphs</h1>
+        <DisplayData data={graphs} />
+        <h1>Activities</h1>
+        <DisplayData data={activities} />
+        <h1>Operators</h1>
+        <DisplayData data={operators} />
+        <h1>Connections</h1>
+        <DisplayData data={connections} />
+        <h1>Sessions</h1>
+        <DisplayData data={sessions} />
       </div>
     );
   }
