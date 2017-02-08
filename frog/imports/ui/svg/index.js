@@ -7,43 +7,64 @@ import { connect, store } from './store';
 import Graph from './Graph';
 import Rename from './Rename';
 import SidePanel from './SidePanel';
-import { GraphList } from './GraphList';
+import GraphConfigPanel from './GraphConfigPanel';
+import GraphList from './GraphList';
 import { assignGraph } from '../../api/graphs';
 
 import './App.css';
 
-const Row = styled.div`
-  padding: 0px;
-  height: 1000px;
+const GraphConfigPanelContainer = styled.div`
   position: relative;
-  margin: 0;
+  background-color: #ccccff;
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+
+const Row = styled.div`
+  position: relative;
+  padding: 0px;
+  height: 760px;
+  margin: 0px;
   display: flex;
 `;
 
 /* padding: 0; */
 const GraphContainer = styled.div`
+  position: relative;
   width: 1150px;
-  height: 1000px;
+  height: 760px;
 `;
 
 const SidebarContainer = styled.div`
   padding: 0px;
   width: 300px;
+  background-color: #ccffff;
+  margin-left: 10px;
 `;
 
 const GraphListContainer = styled.div`
   padding: 0px;
   width: 300px;
+  background-color: #ccffcc;
+  margin-right: 10px;
 `;
 
 const SettingsContainer = styled.div`
-  position: absolute;
-  top: 900px;
+  position: relative;
+  background-color: #ffcccc;
+  padding: 10px;
+  margin-top: 10px;
 `;
 
 const App = connect(({ store: { panOffset, hasSelection } }) => (
   <div>
+    <GraphConfigPanelContainer>
+      <GraphConfigPanel />
+    </GraphConfigPanelContainer>
     <Row>
+      <GraphListContainer>
+        <GraphList />
+      </GraphListContainer>
       <GraphContainer>
         <Graph
           width={1000}
@@ -65,9 +86,6 @@ const App = connect(({ store: { panOffset, hasSelection } }) => (
       <SidebarContainer>
         {!!hasSelection && <SidePanel />}
       </SidebarContainer>
-      <GraphListContainer>
-        <GraphList />
-      </GraphListContainer>
     </Row>
     <SettingsContainer>
       <Settings />
