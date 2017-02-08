@@ -1,10 +1,9 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import { connect, store } from './store';
 import { removeGraph } from '../../api/activities';
 import { Graphs, addGraph, assignGraph } from '../../api/graphs';
-
-import { connect, store } from './store';
 
 const submitRemoveGraph = id => {
   removeGraph(id);
@@ -31,7 +30,7 @@ const GL = createContainer(
                 <a href="#" onClick={() => store.setId(graph._id)}>
                   <i className="fa fa-pencil" />
                 </a>
-                {graph._id} {graph._id === graphId ? ' (current)' : null}
+                {graph.name} {graph._id === graphId ? ' (current)' : null}
               </li>
             )) : <li>No graph</li>}
       </ul>
@@ -39,4 +38,6 @@ const GL = createContainer(
   )
 );
 
-export const GraphList = connect(({ store: { id } }) => <GL graphId={id} />);
+const GraphList = connect(({ store: { id } }) => <GL graphId={id} />);
+
+export default GraphList;
