@@ -4,8 +4,6 @@ import { observable, action, computed } from 'mobx';
 import { store } from './index';
 import { pxToTime, timeToPx } from '../utils';
 
-export type OperatorTypes = 'product' | 'social'
-
 export default class Operator {
   id: string;
   type: string;
