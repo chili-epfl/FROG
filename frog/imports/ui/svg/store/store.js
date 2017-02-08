@@ -1,9 +1,19 @@
 // @flow
 import { computed, action, observable } from 'mobx';
+type ModeT = 
+  | { mode: 'dragging' | 'resizing', currentActivity: string} 
+  | { mode: 'normal' }
 
+const a: ModeT = {mode: 'normal'}
+const b: ModeT = {mode: 'dragging', currentActivity: 'alfred'}
+
+const c = ({mode: 'dragging', currentActivity}) => {
+  console.log(currentActivity)
+}
 import { drawPath } from '../utils/path';
-import Activity from './activity';
-import Connection from './connection';
+import ActivityStore from './activities'
+import OperatorStore from './operators'
+import ConnectionStore from './connections'
 import { between, pxToTime, timeToPx } from '../utils';
 import getOffsets from '../utils/getOffsets';
 import Operator, { type OperatorTypes }  from './operator';
@@ -39,21 +49,6 @@ const getOne = (coll: Coll, crit: Function): ?Elem => {
 
 const getOneId = (coll, id) => getOne(coll, x => x.id === id);
 
-// find activities immediately to the left and to the right of the current activity
-// to draw boundary markers and control movement by dragging and resizing
-const calculateBounds = (activity: Activity, activities: Array<Activity>) => {
-  const sorted = activities
-    .filter(x => x.id !== activity.id)
-    .sort((a, b) => a.startTime - b.startTime);
-  const leftbound = sorted
-    .filter(act => act.startTime <= activity.startTime)
-    .pop();
-  const rightbound = sorted
-    .filter(act => act.startTime >= activity.startTime + activity.length)
-    .shift();
-  return [leftbound, rightbound];
-};
-
 export default class Store {
   findId = ({ type, id }: { type: ElementTypes, id: string }) => {
     if (type === 'activity') {
@@ -64,18 +59,17 @@ export default class Store {
     return getOneId(this.connections, id);
   };
 
-  @observable id: string;
-  @observable connections: Array<Connection> = [];
-  @observable activities: Array<Activity> = [];
-  @observable operators: Array<Operator> = [];
-  @observable operatorType: string;
+  @observable GraphID: string;
+  @observable connectionStore = new ConnectionStore;
+  @observable activityStore = new ActivityStore;
+  @observable operatorStore = new OperatorStore;
   @observable history = [];
 
   @action addHistory = () => {
     this.history.push([
-      this.connections.map(x => ({ ...x })),
-      this.activities.map(x => ({ ...x })),
-      this.operators.map(x => ({ ...x }))
+      this.connectionStore.history,
+      this.activityStore.history,
+      this.operatorStore.history
     ]);
     mergeGraph(this.objects);
   };
@@ -111,45 +105,6 @@ export default class Store {
   @observable currentlyOver: boolean;
 
   //* ***************************************
-  @action mongoAddActivity = (x: any) => {
-    if (!this.findId({ type: 'activity', id: x._id })) {
-      this.activities.push(
-        new Activity(x.plane, x.startTime, x.title, x.length, x._id)
-      );
-    }
-  };
-
-  @action mongoChangeActivity = (newact: any, oldact: any) => {
-    this.findId({ type: 'activity', id: oldact._id }).update(newact);
-  };
-
-  @action mongoRemoveActivity = (remact: any) => {
-    this.activities = this.activities.filter(x => x.id !== remact._id);
-  };
-
-  @action mongoAddOperator = (x: any) => {
-    if (!this.findId({ type: 'operator', id: x._id })) {
-      this.operators.push(new Operator(x.time, x.y, x.type, x._id));
-    }
-  };
-  @action mongoChangeOperator = (newx, oldx) => {
-    this.findId({ type: 'operator', id: oldx._id }).update(newx);
-  };
-
-  @action mongoRemoveOperator = remx => {
-    this.operators = this.operators.filter(x => x.id !== remx._id);
-  };
-
-  @action mongoAddConnection = x => {
-    if (!this.findId({ type: 'connection', id: x._id })) {
-      this.connections.push(
-        new Connection(this.findId(x.source), this.findId(x.target), x._id)
-      );
-    }
-  };
-  @action mongoRemoveConnection = remact => {
-    this.connections = this.connections.filter(x => x.id !== remact._id);
-  };
 
   @action setId = (id: string) => {
     setCurrentGraph(id);
@@ -175,20 +130,9 @@ export default class Store {
       operators: Operators.find({ graphId: this.id }),
       connections: Connections.find({ graphId: this.id })
     };
-    cursors.activities.observe({
-      added: this.mongoAddActivity,
-      changed: this.mongoChangeActivity,
-      removed: this.mongoRemoveActivity
-    });
-    cursors.connections.observe({
-      added: this.mongoAddConnection,
-      removed: this.mongoRemoveConnection
-    });
-    cursors.operators.observe({
-      added: this.mongoAddOperator,
-      changed: this.mongoChangeOperator,
-      removed: this.mongoRemoveOperator
-    });
+    cursors.activities.observe(this.activityStore.mongoObservers)
+    cursors.connections.observe(this.connectionStore.mongoObservers)
+    cursors.operators.observe(this.operatorStore.mongoObservers)
   };
   //* ***************************************
 
