@@ -1,13 +1,10 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import { TimedComponent } from 'frog-utils';
-
 import { activityTypesObj } from '../../activityTypes';
 import { objectIndex } from '../../../lib/utils';
 
 import { createLogger } from '../../api/logs';
-import { Sessions } from '../../api/sessions';
 import { Results } from '../../api/activities';
 import { addProduct } from '../../api/products';
 
@@ -59,26 +56,4 @@ const Runner = ({ activity }) => {
   );
 };
 
-const TimedRunner = ({ activity, timeNow }) => {
-  //const duration = activity.data.duration;
-  const duration = 0;
-  //const createdAt = Sessions.findOne({ activityId: activity._id }).startedAt;
-  // This will give a number with one digit after the decimal dot (xx.x):
-  //const seconds = (duration - (timeNow - createdAt) / 1000).toFixed(1);
-  const seconds = 0
-
-  if (duration === 0) {
-    return <Runner activity={activity} />;
-  }
-  if (seconds < 0) {
-    return <h1>Time-out for this activity</h1>;
-  }
-  return (
-    <div>
-      <p>This activity will end in <b>{seconds} seconds</b>.</p>
-      <Runner activity={activity} />
-    </div>
-  );
-};
-
-export default TimedComponent(TimedRunner, 50);
+export default ({ activity }) => <Runner activity={activity} />;

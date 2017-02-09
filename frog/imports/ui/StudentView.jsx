@@ -57,22 +57,25 @@ const ActivityBody = ({ activity, state, products }) => {
 const SessionBody = TimedComponent(
   ({ session, products, timeNow }) => {
     if (session) {
-      const activities = Activities.find({ sessionId: session._id }).fetch()
-      const timeUnit = 1000
-      const sessionTime = (timeNow - session.startedAt) / timeUnit
-      const activity = activities.filter(ac => 
-        (ac.startTime < sessionTime && ac.startTime + ac.length > sessionTime)
-      )[0]
-      return (
-        activity ? <ActivityBody
-          activity={activity}
-          state={session.state}
-          products={products}
-        /> : <p>Wait for an activity {sessionTime}</p>
-      );
+      const activities = Activities.find({ sessionId: session._id }).fetch();
+      const timeUnit = 1000;
+      const sessionTime = (timeNow - session.startedAt) / timeUnit;
+      const activity = activities.filter(
+        ac =>
+          ac.startTime < sessionTime && ac.startTime + ac.length > sessionTime
+      )[0];
+      return activity
+        ? <ActivityBody
+            activity={activity}
+            state={session.state}
+            products={products}
+          />
+        : <p>Wait for an activity {sessionTime}</p>;
     }
     return <p>Please chose a session</p>;
-}, 100);
+  },
+  100
+);
 
 const StudentView = ({ user, sessions, products }) => {
   const curSession = user.profile

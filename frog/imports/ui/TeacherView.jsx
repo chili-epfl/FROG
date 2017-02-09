@@ -71,9 +71,12 @@ const SessionController = createContainer(
     const activities = session
       ? Activities.find({ sessionId: session._id }).fetch()
       : null;
-    return { session, activities };
+    const students = session
+      ? Meteor.users.find({ 'profile.currentSession': session._id }).fetch()
+      : null;
+    return { session, activities, students };
   },
-  ({ session, activities }) => {
+  ({ session, activities, students }) => {
     if (session) {
       return (
         <div>
@@ -84,21 +87,17 @@ const SessionController = createContainer(
           <pre>{JSON.stringify(session, null, 2)}</pre>
           <h3>Available activities</h3>
           <ul>
-            {activities.map(activity => {
-              const running = activity._id === session.activityId;
-              return (
-                <li key={activity._id}>
-                  <a
-                    href="#"
-                    onClick={() => switchActivity(session._id, activity._id)}
-                  >
-                    {activity.title} -
-                    <i>{activity.activityType}</i>
-                    {!!running && <i> (running)</i>}
-                  </a>
-                </li>
-              );
-            })}
+            {activities.map(activity => (
+              <li key={activity._id}>
+                <a
+                  href="#"
+                  onClick={() => switchActivity(session._id, activity._id)}
+                >
+                  {activity.title} -
+                  <i>{activity.activityType}</i>
+                </a>
+              </li>
+            ))}
           </ul>
           <button
             className="btn btn-primary btn-sm"
@@ -118,6 +117,14 @@ const SessionController = createContainer(
           >
             Stop
           </button>
+          <h3>Registered students</h3>
+          <ul>
+            {students ? students.map(student => (
+                  <li key={student._id}>
+                    <p>{student.username}</p>
+                  </li>
+                )) : <li>NO STUDENTS</li>}
+          </ul>
         </div>
       );
     }

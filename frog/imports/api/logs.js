@@ -2,7 +2,8 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 import Stringify from 'json-stable-stringify';
-import { uuid } from 'frog-utils'
+import { uuid } from 'frog-utils';
+
 export const Logs = new Mongo.Collection('logs');
 
 // generates a logging function which is pre-loaded with a JSON object
