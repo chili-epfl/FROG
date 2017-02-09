@@ -1,6 +1,17 @@
 // @flow
+import { action, observable, computed } from 'mobx';
+import { between, timeToPx, pxToTime } from '../utils'
+import { store } from './index'
+import * as constants from '../constants';
 
 export default class uiStore {
+  @observable panx: number;
+  @observable scale: number;
+
+  @computed get panOffset(): number {
+    return this.panx * 4 * this.scale;
+  }
+
   @action setScale = (x: number): void => {
     const oldscale = this.scale;
     this.scale = between(0.4, 3, x);
@@ -10,7 +21,7 @@ export default class uiStore {
     const needPanDelta = oldPanBoxSize / 2 - newPanBoxSize / 2;
 
     this.panDelta(needPanDelta);
-  };
+  }
 
   @observable scrollIntervalID: ?string;
   @action storeInterval = (interval: string) => {
@@ -31,34 +42,31 @@ export default class uiStore {
     const newPan = this.panx + deltaX;
     this.panx = between(0, rightBoundary, newPan);
 
-    if (oldpan !== this.panx) {
-      if (this.mode === 'dragging') {
-        this.dragCoords[0] += deltaX * 4 * this.scale;
-      }
-      if (this.mode === 'resizing') {
-        const oldlength = this.mode.currentActivity.length;
-        this.mode.currentActivity.resize(deltaX * 4 * this.scale);
-        if (oldlength === this.mode.currentActivity.length) {
-          this.panx = oldpan;
-        }
-      }
-      if (this.mode === 'moving') {
-        const oldx = this.mode.currentActivity.x;
-        this.mode.currentActivity.move(deltaX * 4 * this.scale);
-        if (oldx === this.mode.currentActivity.x) {
-          this.panx = oldpan;
-        }
-      }
-    }
+    // if (oldpan !== this.panx) {
+    //   if (this.mode === 'dragging') {
+    //     this.dragCoords[0] += deltaX * 4 * this.scale;
+    //   }
+    //   if (this.mode === 'resizing') {
+    //     const oldlength = this.mode.currentActivity.length;
+    //     this.mode.currentActivity.resize(deltaX * 4 * this.scale);
+    //     if (oldlength === store.mode.currentActivity.length) {
+    //       this.panx = oldpan;
+    //     }
+    //   }
+    //   if (this.mode === 'moving') {
+    //     const oldx = this.mode.currentActivity.x;
+    //     this.mode.currentActivity.move(deltaX * 4 * this.scale);
+    //     if (oldx === this.mode.currentActivity.x) {
+    //       this.panx = oldpan;
+    //     }
+    //   }
+    // }
   };
 
   @observable socialCoordsTime: [number, number] = [0, 0];
-  @computed get scrollEnabled(): boolean {
-    return !!['dragging', 'moving', 'resizing'].includes(this.mode);
-  }
 
-  @computed get panOffset(): number {
-    return this.panx * 4 * this.scale;
+  @computed get scrollEnabled(): boolean {
+    return !!['dragging', 'moving', 'resizing'].includes(store.state.mode);
   }
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {

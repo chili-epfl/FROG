@@ -1,4 +1,3 @@
-// @flow
 import cuid from 'cuid';
 import { observable, action, computed } from 'mobx';
 import { store } from './index';

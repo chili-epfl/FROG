@@ -1,4 +1,3 @@
-// @flow
 import { computed, action, observable } from 'mobx';
 import { store } from './store';
 import Operator from './operator';

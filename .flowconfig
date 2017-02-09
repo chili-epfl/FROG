@@ -30,4 +30,12 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*/.meteor/packages/.*
 .*node_modules/fbjs.*
 .*node_modules/webpack.*
-.*node_modules/styled-components.*
+.*/styled-components/src/.*
+
+[libs]
+*./flow_typed
+*./node_modules/styled-components/flow-typed/react-native.js
+*./node_modules/styled-components/flow-typed/glamor_vx.x.x.js
+*./node_modules/styled-components/flow-typed/lodash_v4.x.x.js
+*./node_modules/styled-components/flow-typed/inline-style-prefixer_vx.x.x.js
+

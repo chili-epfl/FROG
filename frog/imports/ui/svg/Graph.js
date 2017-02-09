@@ -51,15 +51,15 @@ export default connect((
         height={height * 4}
       />
       <LevelLines />
-      {/*<Lines scaled={!hasPanMap} /> */}
-      {/*<Activities scaled={!hasPanMap} /> */}
+      {/* <Lines scaled={!hasPanMap} /> */}
+      {/* <Activities scaled={!hasPanMap} /> */}
       {!hasPanMap && scrollEnabled && <DragLine />}
       {!hasPanMap &&
         <g>
           <DragGuides />
           <TimeScale />
         </g>}
-        {/* <Operators scaled={!hasPanMap} /> */}
+      {/* <Operators scaled={!hasPanMap} /> */}
     </svg>
     {!!hasPanMap && <PanMap />}
     {!hasPanMap &&

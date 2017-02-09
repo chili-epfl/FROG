@@ -1,4 +1,3 @@
-// @flow
 import { computed, action, observable } from 'mobx';
 
 import { store } from './store';
@@ -20,7 +19,8 @@ export default class ConnectionStore {
     let coords;
     if (activity instanceof Activity) {
       coords = [activity.xScaled + activity.widthScaled - 10, activity.y + 15];
-    } else { // operator
+    } else {
+      // operator
       coords = [activity.xScaled + 30, activity.y + 30];
     }
     this.draggingFrom = [...coords];
@@ -34,8 +34,8 @@ export default class ConnectionStore {
   }
   @action stopDragging = () => {
     this.mode = { mode: 'normal' };
-    const targetAry = this
-      .activities.filter(x => x.over)
+    const targetAry = this.activities
+      .filter(x => x.over)
       .concat(this.operators.filter(x => x.over));
     if (
       targetAry.length > 0 && this.draggingFromActivity.id !== targetAry[0].id
