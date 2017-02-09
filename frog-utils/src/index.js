@@ -6,9 +6,7 @@ export { default as unrollProducts } from './unroll_products'
 export { default as TimedComponent } from './TimedComponent'
 export type { ActivityPackageT, ActivityRunnerT } from './types'
 
-export const uuid = (): string =>
-  // $FlowFixMe
-  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (a) => (a ^ Math.random() * 16 >> a / 4).toString(16)) // eslint-disable-line
+export { default as uuid } from 'cuid'
 
 export const currentDate = (): string => {
   const d = new Date()
