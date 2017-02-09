@@ -1,15 +1,13 @@
 // @flow
 import { computed, action, observable } from 'mobx';
 
-import { drawPath } from '../utils/path';
 import ActivityStore from './activityStore';
 import OperatorStore, { OperatorTypes } from './operatorStore';
 import ConnectionStore from './connectionStore';
-import { between, pxToTime, timeToPx } from '../utils';
-import getOffsets from '../utils/getOffsets';
-import Operator, { type OperatorTypes }  from './operator';
+import Operator from './operator';
 import { mergeGraph, setCurrentGraph } from '../../../api/graphs';
-import * as constants from '../constants';
+import Activity from './activity'
+import Connection from './connection'
 
 import { Activities, Connections, Operators } from '../../../api/activities';
 

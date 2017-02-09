@@ -1,11 +1,11 @@
 import React from 'react';
-import Lines, { DragLine } from './Lines';
-import Activities from './Activities';
+// import Lines, { DragLine } from './Lines';
+// import Activities from './Activities';
 import { LevelLines, PanMap, TimeScale } from './fixed_components';
 import ScrollFields from './ScrollFields';
-import DragGuides from './DragGuides';
+// import DragGuides from './DragGuides';
 import { connect, store } from './store';
-import Operators from './Operators';
+// import Operators from './Operators';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -51,15 +51,15 @@ export default connect((
         height={height * 4}
       />
       <LevelLines />
-      <Lines scaled={!hasPanMap} />
-      <Activities scaled={!hasPanMap} />
+      {/*<Lines scaled={!hasPanMap} /> */}
+      {/*<Activities scaled={!hasPanMap} /> */}
       {!hasPanMap && scrollEnabled && <DragLine />}
       {!hasPanMap &&
         <g>
           <DragGuides />
           <TimeScale />
         </g>}
-      <Operators scaled={!hasPanMap} />
+        {/* <Operators scaled={!hasPanMap} /> */}
     </svg>
     {!!hasPanMap && <PanMap />}
     {!hasPanMap &&
