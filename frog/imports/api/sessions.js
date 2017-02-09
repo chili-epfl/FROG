@@ -2,11 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 
-import {
-  Activities,
-  Operators,
-  Connections
-} from './activities';
+import { Activities, Operators, Connections } from './activities';
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -16,16 +12,16 @@ const addSessionItem = (type, sessionId, params) => {
     activities: Activities,
     operators: Operators,
     connections: Connections
-  }
+  };
   types[type].insert({
     ...params,
     sessionId,
     createdAt: new Date(),
     graphId: null,
     _id: id
-  })
-  return id
-}
+  });
+  return id;
+};
 
 export const addSession = graphId => Meteor.call('add.session', graphId);
 
@@ -74,40 +70,31 @@ Meteor.methods({
     const activities = Activities.find({ graphId }).fetch();
     activities.forEach(activity => {
       matching[activity._id] = addSessionItem(
-        'activities', 
-        sessionId, 
+        'activities',
+        sessionId,
         activity
       );
     });
 
     const operators = Operators.find({ graphId }).fetch();
     operators.forEach(operator => {
-      matching[operator._id] = addSessionItem(
-        'operators',
-        sessionId,
-        operator
-      );
+      matching[operator._id] = addSessionItem('operators', sessionId, operator);
     });
 
     const connections = Connections.find({ graphId }).fetch();
     connections.forEach(connection => {
-      addSessionItem(
-        'connections',
-        sessionId,
-        {
-          source: { 
-            id: matching[connection.source.id], 
-            type: connection.source.type
-          },
-          target: { 
-            id: matching[connection.target.id], 
-            type: connection.target.type
-          }
+      addSessionItem('connections', sessionId, {
+        source: {
+          id: matching[connection.source.id],
+          type: connection.source.type
+        },
+        target: {
+          id: matching[connection.target.id],
+          type: connection.target.type
         }
-      );
+      });
     });
   },
-
   'flush.session': sessionId => {
     Sessions.remove({ _id: sessionId });
     Activities.remove({ sessionId });

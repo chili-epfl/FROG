@@ -14,6 +14,8 @@ import { Graphs } from '../api/graphs';
 import { Logs } from '../api/logs';
 import { Products } from '../api/products';
 
+import { runSession } from '../api/engine';
+
 import { activityTypesObj } from '../activityTypes';
 import { operatorTypesObj } from '../operatorTypes';
 
@@ -75,11 +77,12 @@ const SessionController = createContainer(
     if (session) {
       return (
         <div>
-          <h3>Session control</h3>
+          <h1>Session control</h1>
           Current state <b>{session.state}</b>.
           Control the session through selecting an activity below,
           or Starting/Pausing/Stopping the session.
-          <h4>Available activities</h4>
+          <pre>{JSON.stringify(session, null, 2)}</pre>
+          <h3>Available activities</h3>
           <ul>
             {activities.map(activity => {
               const running = activity._id === session.activity;
@@ -99,7 +102,7 @@ const SessionController = createContainer(
           </ul>
           <button
             className="btn btn-primary btn-sm"
-            onClick={() => updateSessionState(session._id, 'STARTED')}
+            onClick={() => runSession(session._id)}
           >
             Start
           </button>
@@ -118,7 +121,12 @@ const SessionController = createContainer(
         </div>
       );
     }
-    return <p>Chose a session</p>;
+    return (
+      <div>
+        <h1>Session control</h1>
+        <p>Chose a session</p>
+      </div>
+    );
   }
 );
 
@@ -143,7 +151,7 @@ class SessionList extends Component {
   render() {
     return (
       <div>
-        <h3>Session list</h3>
+        <h1>Session list</h1>
         <select onChange={this.changeGraph}>
           {this.props.graphs.map(graph => (
             <option key={graph._id} value={graph._id}>{graph.name}</option>
@@ -173,30 +181,49 @@ class SessionList extends Component {
   }
 }
 
-const DashView = ({ user, logs }) => {
-  const session = user.profile
-    ? Sessions.findOne({ _id: user.profile.controlSession })
-    : null;
-  if (!session) {
-    return null;
-  }
-  const activity = Activities.findOne({ _id: session.activity });
-  if (!activity) {
-    return null;
-  }
-  const activityType = activityTypesObj[activity.activityType];
-  const specificLogs = logs.filter(log => log.activity === activity._id);
-  if (!activityType.Dashboard) {
-    return null;
+const DashView = ({ logs, session }) => {
+  let Dash = <p>NO DASHBOARD</p>;
+  if (session) {
+    const activity = Activities.findOne({ _id: session.activity });
+    if (activity) {
+      const activityType = activityTypesObj[activity.activityType];
+      const specificLogs = logs.filter(log => log.activity === activity._id);
+      if (activityType && activityType.Dashboard) {
+        Dash = (
+          <div>
+            <p>The current time is {activityType.Dashboard.timeNow}</p>
+            <activityType.Dashboard logs={specificLogs} />
+          </div>
+        );
+      }
+    }
   }
   return (
     <div>
-      <h3>Dashboard</h3>
-      <p>The current time is {activityType.Dashboard.timeNow}</p>
-      <activityType.Dashboard logs={specificLogs} />
+      <h1>Dashboard</h1>
+      {Dash}
     </div>
   );
 };
+
+const LogView = createContainer(
+  ({ session }) => {
+    const logs = session ? Logs.find({ sessionId: session._id }).fetch() : [];
+    return { logs };
+  },
+  ({ logs }) => (
+    <div>
+      <h1>Logs</h1>
+      <ul>
+        {logs ? logs.map(log => (
+              <li key={log._id}>
+                <pre>{JSON.stringify(log, null, 2)}</pre>
+              </li>
+            )) : <li>NO LOGS</li>}
+      </ul>
+    </div>
+  )
+);
 
 export default createContainer(
   () => {
@@ -212,11 +239,12 @@ export default createContainer(
       user
     };
   },
-  ({ graphs, session, sessions, logs, user }) => (
+  ({ graphs, session, sessions, logs }) => (
     <div>
       <SessionController session={session} />
-      <DashView user={user} logs={logs} />
+      <DashView session={session} logs={logs} />
       <SessionList sessions={sessions} graphs={graphs} />
+      <LogView session={session} />
     </div>
   )
 );
