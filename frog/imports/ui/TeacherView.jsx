@@ -85,7 +85,7 @@ const SessionController = createContainer(
           <h3>Available activities</h3>
           <ul>
             {activities.map(activity => {
-              const running = activity._id === session.activity;
+              const running = activity._id === session.activityId;
               return (
                 <li key={activity._id}>
                   <a

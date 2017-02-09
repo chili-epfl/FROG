@@ -24,7 +24,9 @@ const fakeDatabase = {
       graphId: 'G1',
       startTime: 0,
       length: 5,
-      plane: 2
+      plane: 2,
+      activityType: 'ac-text',
+      data: { title: 'A1', text: 'You are on activity A1' }
     },
     {
       _id: 'A2',
@@ -32,7 +34,9 @@ const fakeDatabase = {
       graphId: 'G1',
       startTime: 5,
       length: 5,
-      plane: 2
+      plane: 2,
+      activityType: 'ac-text',
+      data: { title: 'A2', text: 'You are on activity A2' }
     },
     {
       _id: 'A3',
@@ -40,7 +44,9 @@ const fakeDatabase = {
       graphId: 'G1',
       startTime: 10,
       length: 5,
-      plane: 1
+      plane: 1,
+      activityType: 'ac-text',
+      data: { title: 'A3', text: 'You are on activity A3' }
     },
     {
       _id: 'A4',
@@ -48,7 +54,9 @@ const fakeDatabase = {
       graphId: 'G1',
       startTime: 15,
       length: 5,
-      plane: 2
+      plane: 2,
+      activityType: 'ac-text',
+      data: { title: 'A4', text: 'You are on activity A4' }
     }
   ],
   operators: [

@@ -28,13 +28,7 @@ export const addSession = graphId => Meteor.call('add.session', graphId);
 export const updateSessionState = (id, state) => {
   Sessions.update({ _id: id }, { $set: { state } });
   if (state === 'STARTED') {
-    if (Sessions.findOne({ _id: id }).pausedAt != null) {
-      const session = Sessions.findOne({ _id: id });
-      const newStartedAt = session.startedAt +
-        (new Date().getTime() - session.pausedAt);
-      Sessions.update({ _id: id }, { $set: { startedAt: newStartedAt } });
-    }
-    Sessions.update({ _id: id }, { $set: { pausedAt: null } });
+    Sessions.update({ _id: id }, { $set: { startedAt: new Date().getTime() } });
   }
   if (state === 'PAUSED') {
     if (Sessions.findOne({ _id: id }).pausedAt == null) {
@@ -45,9 +39,9 @@ export const updateSessionState = (id, state) => {
   }
 };
 
-export const updateSessionActivity = (id, activity) => {
+export const updateSessionActivity = (id, activityId) => {
   Sessions.update({ _id: id }, {
-    $set: { activity, startedAt: new Date().getTime() }
+    $set: { activityId, startedAt: new Date().getTime() }
   });
 };
 
@@ -61,7 +55,6 @@ Meteor.methods({
       _id: sessionId,
       graphId,
       state: 'CREATED',
-      activity: null,
       startedAt: null,
       pausedAt: null
     });

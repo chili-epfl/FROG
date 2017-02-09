@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 import Stringify from 'json-stable-stringify';
-
+import { uuid } from 'frog-utils'
 export const Logs = new Mongo.Collection('logs');
 
 // generates a logging function which is pre-loaded with a JSON object
@@ -18,7 +18,8 @@ export const Logs = new Mongo.Collection('logs');
 export const engineLogger = (sessionId, params) => Logs.insert({
   ...params,
   sessionId,
-  createdAt: new Date()
+  createdAt: new Date(),
+  _id: uuid()
 });
 
 export const createLogger = merge => {

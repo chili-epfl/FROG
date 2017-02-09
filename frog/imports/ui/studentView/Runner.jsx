@@ -60,10 +60,12 @@ const Runner = ({ activity }) => {
 };
 
 const TimedRunner = ({ activity, timeNow }) => {
-  const duration = activity.data.duration;
-  const createdAt = Sessions.findOne({ activity: activity._id }).startedAt;
+  //const duration = activity.data.duration;
+  const duration = 0;
+  //const createdAt = Sessions.findOne({ activityId: activity._id }).startedAt;
   // This will give a number with one digit after the decimal dot (xx.x):
-  const seconds = (duration - (timeNow - createdAt) / 1000).toFixed(1);
+  //const seconds = (duration - (timeNow - createdAt) / 1000).toFixed(1);
+  const seconds = 0
 
   if (duration === 0) {
     return <Runner activity={activity} />;
