@@ -15,7 +15,7 @@ import {
 import { Graphs, importGraph } from '../api/graphs';
 
 const fakeDatabase = {
-  sessions: [{ _id: 'S1', graphId: 'G1' }],
+  sessions: [],
   graphs: [{ _id: 'G1', name: 'Mixed Jigsaw' }],
   activities: [
     {
@@ -85,7 +85,7 @@ const fakeDatabase = {
     {
       _id: 'C3',
       source: { type: 'operator', id: 'O1' },
-      target: { type: 'operator', id: 'O1' },
+      target: { type: 'operator', id: 'O2' },
       graphId: 'G1'
     },
     {

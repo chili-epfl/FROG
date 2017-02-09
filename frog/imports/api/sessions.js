@@ -5,15 +5,29 @@ import { uuid } from 'frog-utils';
 import {
   Activities,
   Operators,
-  addSessionActivity,
-  addSessionOperator
+  Connections
 } from './activities';
 
 export const Sessions = new Mongo.Collection('sessions');
 
-export const addSession = graphId => Meteor.call('add.session', graphId);
+const addSessionItem = (type, sessionId, params) => {
+  const id = uuid();
+  const types = {
+    activities: Activities,
+    operators: Operators,
+    connections: Connections
+  }
+  types[type].insert({
+    ...params,
+    sessionId,
+    createdAt: new Date(),
+    graphId: null,
+    _id: id
+  })
+  return id
+}
 
-export const importSession = params => Meteor.call('import.session', params);
+export const addSession = graphId => Meteor.call('add.session', graphId);
 
 export const updateSessionState = (id, state) => {
   Sessions.update({ _id: id }, { $set: { state } });
@@ -59,54 +73,45 @@ Meteor.methods({
     const matching = {};
     const activities = Activities.find({ graphId }).fetch();
     activities.forEach(activity => {
-      matching[activity._id] = addSessionActivity({
-        data: activity.data,
-        activityType: activity.activityType,
-        sessionId
-      });
+      matching[activity._id] = addSessionItem(
+        'activities', 
+        sessionId, 
+        activity
+      );
     });
 
     const operators = Operators.find({ graphId }).fetch();
     operators.forEach(operator => {
-      addSessionOperator({
-        data: operator.data,
-        from: matching[operator.from],
-        to: matching[operator.to],
-        type: operator.type,
-        operatorType: operator.operatorType,
-        sessionId
-      });
-    });
-  },
-  'import.session': params => {
-    const graphId = params.graphId;
-    const sessionId = params._id;
-    Sessions.insert({ ...params, _id: sessionId });
-
-    const matching = {};
-    const activities = Activities.find({ graphId }).fetch();
-    activities.forEach(activity => {
-      matching[activity._id] = addSessionActivity({
-        data: activity.data,
-        activityType: activity.activityType,
-        sessionId
-      });
+      matching[operator._id] = addSessionItem(
+        'operators',
+        sessionId,
+        operator
+      );
     });
 
-    const operators = Operators.find({ graphId }).fetch();
-    operators.forEach(operator => {
-      addSessionOperator({
-        data: operator.data,
-        from: matching[operator.from],
-        to: matching[operator.to],
-        operatorType: operator.operatorType,
-        sessionId
-      });
+    const connections = Connections.find({ graphId }).fetch();
+    connections.forEach(connection => {
+      addSessionItem(
+        'connections',
+        sessionId,
+        {
+          source: { 
+            id: matching[connection.source.id], 
+            type: connection.source.type
+          },
+          target: { 
+            id: matching[connection.target.id], 
+            type: connection.target.type
+          }
+        }
+      );
     });
   },
+
   'flush.session': sessionId => {
     Sessions.remove({ _id: sessionId });
     Activities.remove({ sessionId });
     Operators.remove({ sessionId });
+    Connections.remove({ sessionId });
   }
 });

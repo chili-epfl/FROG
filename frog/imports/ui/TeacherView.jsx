@@ -89,7 +89,7 @@ const SessionController = createContainer(
                     href="#"
                     onClick={() => switchActivity(session._id, activity._id)}
                   >
-                    {!!activity.data && activity.data.name} -
+                    {activity.title} -
                     <i>{activity.activityType}</i>
                     {!!running && <i> (running)</i>}
                   </a>

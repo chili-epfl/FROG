@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
+import uuid from 'frog-utils';
 import { Sessions } from './sessions';
 
 import { operatorTypesObj } from '../operatorTypes';
@@ -47,17 +47,6 @@ export const importGraphActivity = (params, thisGraphId) => Activities.insert({
   _id: params._id
 });
 
-export const addSessionActivity = params => {
-  const id = uuid();
-  Activities.insert({
-    ...params,
-    sessionId: params.sessionId,
-    createdAt: new Date(),
-    _id: id
-  });
-  return id;
-};
-
 export const removeGraphActivity = activityId =>
   Meteor.call('graph.flush.activity', activityId);
 
@@ -79,13 +68,6 @@ export const importGraphOperator = (params, thisGraphId) => Operators.insert({
   graphId: thisGraphId,
   createdAt: new Date(),
   _id: params._id
-});
-
-export const addSessionOperator = params => Operators.insert({
-  ...params,
-  sessionId: params.sessionId,
-  createdAt: new Date(),
-  _id: uuid()
 });
 
 export const copyActivityIntoGraphActivity = (
