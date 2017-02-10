@@ -15,5 +15,6 @@ type ClassComponent<D, P, S> = Class<React$Component<D, P, S>>;
 export type StoreProp = { store: Store };
 
 export function connect(component: any): any {
-  return inject('store')(observer(component));
+  return inject('store')(observer(component))
+  ;
 }
