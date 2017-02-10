@@ -6,6 +6,12 @@ import { Activities, Operators, Connections } from './activities';
 
 export const Sessions = new Mongo.Collection('sessions');
 
+export const setStudentSession = sessionId => {
+  Meteor.users.update({ _id: Meteor.userId() }, {
+    $set: { 'profile.currentSession': sessionId }
+  });
+};
+
 const addSessionItem = (type, sessionId, params) => {
   const id = uuid();
   const types = {
@@ -39,10 +45,11 @@ export const updateSessionState = (id, state) => {
   }
 };
 
-export const updateSessionActivity = (id, activityId) => {
-  Sessions.update({ _id: id }, {
+export const updateSessionActivity = (sessionId, activityId) => {
+  Sessions.update({ _id: sessionId }, {
     $set: { activityId, startedAt: new Date().getTime() }
   });
+  Meteor.call('run.dataflow', sessionId);
 };
 
 export const removeSession = sessionId =>

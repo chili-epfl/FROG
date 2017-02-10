@@ -14,7 +14,7 @@ import { Graphs } from '../api/graphs';
 import { Logs } from '../api/logs';
 import { Products } from '../api/products';
 
-import { runSession } from '../api/engine';
+import { runSession, nextActivity } from '../api/engine';
 
 import { activityTypesObj } from '../activityTypes';
 import { operatorTypesObj } from '../operatorTypes';
@@ -66,6 +66,30 @@ const switchActivity = (sessionId, activityId) => {
   updateSessionActivity(sessionId, activityId);
 };
 
+const StudentList = ({ students }) => (
+  <ul>
+    {students.map(student => (
+      <li key={student._id}>
+        <p>{student.username}</p>
+      </li>
+    ))}
+  </ul>
+);
+
+const ActivityList = ({ activities, session }) => (
+  <ul>
+    {activities.map(activity => (
+      <li key={activity._id}>
+        <a href="#" onClick={() => switchActivity(session._id, activity._id)}>
+          {activity.title} -
+          <i>{activity.activityType}</i>
+          {activity._id === session.activityId ? <i> (running)</i> : null}
+        </a>
+      </li>
+    ))}
+  </ul>
+);
+
 const SessionController = createContainer(
   ({ session }) => {
     const activities = session
@@ -85,25 +109,17 @@ const SessionController = createContainer(
           Control the session through selecting an activity below,
           or Starting/Pausing/Stopping the session.
           <pre>{JSON.stringify(session, null, 2)}</pre>
-          <h3>Available activities</h3>
-          <ul>
-            {activities.map(activity => (
-              <li key={activity._id}>
-                <a
-                  href="#"
-                  onClick={() => switchActivity(session._id, activity._id)}
-                >
-                  {activity.title} -
-                  <i>{activity.activityType}</i>
-                </a>
-              </li>
-            ))}
-          </ul>
           <button
             className="btn btn-primary btn-sm"
             onClick={() => runSession(session._id)}
           >
             Start
+          </button>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => nextActivity(session._id)}
+          >
+            Next
           </button>
           <button
             className="btn btn-warning btn-sm"
@@ -118,13 +134,13 @@ const SessionController = createContainer(
             Stop
           </button>
           <h3>Registered students</h3>
-          <ul>
-            {students ? students.map(student => (
-                  <li key={student._id}>
-                    <p>{student.username}</p>
-                  </li>
-                )) : <li>NO STUDENTS</li>}
-          </ul>
+          {students && students.length
+            ? <StudentList students={students} />
+            : <p>NO STUDENTS</p>}
+          <h3>Available Activities</h3>
+          {activities && activities.length
+            ? <ActivityList activities={activities} session={session} />
+            : <p>NO ACTIVITY</p>}
         </div>
       );
     }
