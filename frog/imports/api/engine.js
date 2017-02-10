@@ -9,7 +9,6 @@ import {
 import { engineLogger } from './logs';
 import { Products, addNodeProduct } from './products';
 
-import { activityTypesObj } from '../activityTypes';
 import { operatorTypesObj } from '../operatorTypes';
 
 export const runSession = sessionId => Meteor.call('run.session', sessionId);
@@ -58,53 +57,44 @@ Meteor.methods({
         // The list of students
         const students = Meteor.users.find({
           'profile.currentSession': sessionId
-        }).fetch()
-        // The list of social structure for every connected node 
-        const socialStructures = connections.map(connection => 
-          students.map(student => { return ({
+        }).fetch();
+        // The list of social structure for every connected node
+        const socialStructures = connections.map(
+          connection => students.map(student => ({
             studentId: student._id,
             attributes: student.profile.attributes[connection.source.id]
-          })})
+          }))
         );
-        console.log(socialStructures);
 
         // The list of products of every connected node
         const products = connections.map(connection =>
           Products.find({ nodeId: connection.source.id }).fetch());
-        console.log(products);
 
         // More data needed by the operators. Will need to be completed, documented and typed if possible
         const globalStructure = {
           studentIds: students.map(student => student._id)
-        }
+        };
 
         // We get the operator function from the operator package
         const operatorFunction = operatorTypesObj[node.operatorType].operator;
-        console.log(operatorFunction);
 
         // We run the operator function
         const { product, socialStructure } = operatorFunction(
-          products, 
-          socialStructures, 
+          products,
+          socialStructures,
           globalStructure
-        )
-        console.log(product)
-        console.log(socialStructure)
+        );
 
         // The result of the operator function are written in Mongo
-        product.forEach(data => addNodeProduct(nodeId, data))
+        product.forEach(data => addNodeProduct(nodeId, data));
         socialStructure.forEach(({ studentId, attributes }) => {
-          const att = {}
-          att['profile.attributes.' + nodeId] = attributes
-          Meteor.users.update(
-          { _id: studentId },
-          { $set: att }
-          )
-        })
+          const att = {};
+          att['profile.attributes.' + nodeId] = attributes;
+          Meteor.users.update({ _id: studentId }, { $set: att });
+        });
       }
       if (type === 'activity') {
         // Here we build the object of an activity from the products of its connected nodes
-
       }
       types[type].update({ _id: nodeId }, { $set: { computed: true } });
     }

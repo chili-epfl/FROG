@@ -159,7 +159,7 @@ class SessionList extends Component {
 
   submitAddSession = event => {
     event.preventDefault();
-    addSession(this.state.graphId)
+    addSession(this.state.graphId);
   };
 
   render() {

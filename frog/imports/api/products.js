@@ -32,4 +32,4 @@ export const addNodeProduct = (operatorId, data) => {
     createdAt: new Date(),
     _id: uuid()
   });
-}
+};

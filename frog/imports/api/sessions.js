@@ -37,7 +37,7 @@ const addSessionItem = (type, sessionId, params) => {
 
 export const addSession = graphId => {
   Meteor.call('add.session', graphId);
-}
+};
 
 export const updateSessionState = (id, state) => {
   Sessions.update({ _id: id }, { $set: { state } });
@@ -102,7 +102,7 @@ Meteor.methods({
         }
       });
     });
-    setTeacherSession(sessionId)
+    setTeacherSession(sessionId);
   },
   'flush.session': sessionId => {
     Sessions.remove({ _id: sessionId });
