@@ -46,10 +46,11 @@ export const updateSessionState = (id, state) => {
 };
 
 export const updateSessionActivity = (sessionId, activityId) => {
+  console.log('updateSessionActivity')
   Sessions.update({ _id: sessionId }, {
     $set: { activityId, startedAt: new Date().getTime() }
   });
-  Meteor.call('run.dataflow', sessionId);
+  Meteor.call('run.dataflow', 'activity', activityId, sessionId);
 };
 
 export const removeSession = sessionId =>

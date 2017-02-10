@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-import { Activities } from './activities';
+import { Activities, Connections, Operators } from './activities';
 import {
   Sessions,
   updateSessionState,
@@ -35,8 +35,23 @@ Meteor.methods({
     });
     engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
   },
-  'run.dataflow': sessionId => {
+  'run.dataflow': (type, itemId, sessionId) => {
     // Find the operators that need to be ran for the current activity
-    console.log('run.dataflow' + sessionId);
+    const types = { operator: Operators, activity: Activities };
+    const item = types[type].findOne({ _id: itemId });
+    if (!item.computed) {
+      engineLogger(sessionId, { message: 'COMPUTING DATA FOR ITEM ' + itemId });
+      const connections = Connections.find({ 'target.id': itemId }).fetch();
+      connections.forEach(connection =>
+        Meteor.call(
+          'run.dataflow',
+          connection.source.type,
+          connection.source.id,
+          sessionId
+        ));
+      // Now everything must have been computed, let's compute the new data
+      // ...
+      types[type].update({ _id: itemId }, { $set: { computed: true } });
+    }
   }
 });
