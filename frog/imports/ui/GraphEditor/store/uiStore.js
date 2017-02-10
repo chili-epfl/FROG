@@ -1,7 +1,7 @@
 // @flow
 import { action, observable, computed } from 'mobx';
-import { between, timeToPx, pxToTime } from '../utils'
-import { store } from './index'
+import { between, timeToPx, pxToTime } from '../utils';
+import { store } from './index';
 import * as constants from '../constants';
 
 export default class uiStore {
@@ -12,6 +12,10 @@ export default class uiStore {
     return this.panx * 4 * this.scale;
   }
 
+  @action setScaleDelta = (x: number): void => {
+    this.setScale(this.scale + x);
+  };
+
   @action setScale = (x: number): void => {
     const oldscale = this.scale;
     this.scale = between(0.4, 3, x);
@@ -21,7 +25,25 @@ export default class uiStore {
     const needPanDelta = oldPanBoxSize / 2 - newPanBoxSize / 2;
 
     this.panDelta(needPanDelta);
-  }
+  };
+
+  @action canvasClick = (e: any) => {
+    if (store.state.mode === 'placingOperator') {
+      const coords = this.rawMouseToTime(
+        e.nativeEvent.offsetX,
+        e.nativeEvent.offsetY
+      );
+      // this.operators.push(new Operator(
+      //   coords[0],
+      //   coords[1],
+      //   this.operatorType
+      // ));
+      // this.mode = { mode: 'normal' };
+      // this.addHistory();
+      // }
+      // this.renameOpen = null;
+    }
+  };
 
   @observable scrollIntervalID: ?string;
   @action storeInterval = (interval: string) => {
@@ -41,7 +63,6 @@ export default class uiStore {
 
     const newPan = this.panx + deltaX;
     this.panx = between(0, rightBoundary, newPan);
-
     // if (oldpan !== this.panx) {
     //   if (this.mode === 'dragging') {
     //     this.dragCoords[0] += deltaX * 4 * this.scale;

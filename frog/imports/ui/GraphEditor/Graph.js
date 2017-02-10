@@ -1,37 +1,41 @@
+// @flow
 import React from 'react';
 // import Lines, { DragLine } from './Lines';
 // import Activities from './Activities';
 import { LevelLines, PanMap, TimeScale } from './fixed_components';
 import ScrollFields from './ScrollFields';
-// import DragGuides from './DragGuides';
+import DragGuides from './DragGuides';
 import { connect, store } from './store';
+import type { StoreProp } from './store';
 // import Operators from './Operators';
 
 const scrollMouse = e => {
   e.preventDefault();
   if (e.shiftKey) {
-    store.setScale(store.scale - e.deltaY * 0.01);
+    store.ui.setScaleDelta(e.deltaY * 0.01);
   } else {
-    store.panDelta(e.deltaY);
+    store.ui.panDelta(e.deltaY);
   }
 };
 
 const mousemove = e => {
-  store.socialMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+  store.ui.socialMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
 };
 
 export default connect((
   {
     store: {
-      scale,
-      scrollEnabled,
-      canvasClick
+      ui: {
+        scale,
+        scrollEnabled,
+        canvasClick
+      }
     },
     width,
     height,
     hasPanMap,
     viewBox
-  }
+  }: StoreProp
 ) => (
   <svg
     width={width}
@@ -53,7 +57,7 @@ export default connect((
       <LevelLines />
       {/* <Lines scaled={!hasPanMap} /> */}
       {/* <Activities scaled={!hasPanMap} /> */}
-      {!hasPanMap && scrollEnabled && <DragLine />}
+      {/* {!hasPanMap && scrollEnabled && <DragLine />} */}
       {!hasPanMap &&
         <g>
           <DragGuides />

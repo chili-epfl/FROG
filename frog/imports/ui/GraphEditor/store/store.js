@@ -17,7 +17,7 @@ type ElementTypes = 'operator' | 'activity' | 'connection';
 type Elem = Activity | Connection | Operator;
 type Coll = Array<Elem>;
 
-type ModeT =
+type StateT =
   | { mode: 'resizing', currentActivity: Activity, rightBound: Activity }
   | {
     mode: 'moving',
@@ -48,6 +48,8 @@ const getOneId = (coll, id) => getOne(coll, x => x.id === id);
 
 export default class Store {
   @observable ui = new UI();
+  @observable connectionStore = new ConnectionStore();
+  @observable state: StateT;
 }
 // findId = ({ type, id }: { type: ElementTypes, id: string }) => {
 //   if (type === 'activity') {

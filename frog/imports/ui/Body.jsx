@@ -6,7 +6,7 @@ import Home from './Home.jsx';
 import ActivityEditor from './ActivityEditor.jsx';
 import StudentView from './StudentView.jsx';
 import TeacherView from './TeacherView.jsx';
-import SVGEditor from './svg';
+import GraphEditor from './GraphEditor';
 import Admin from './Admin.jsx';
 
 const Body = ({ userId, app }) => {
