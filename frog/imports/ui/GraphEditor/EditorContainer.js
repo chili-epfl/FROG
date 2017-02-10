@@ -24,17 +24,13 @@ const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
           width={1000}
           height={600}
           viewBox={`${panOffset} 0 1000 600`}
-          preserveAspectRatio="xMinYMin slice"
-          scaleFactor={1}
         />
         <Rename />
         <Graph
           width={1000}
           height={150}
           viewBox={'0 0 4000 600'}
-          preserveAspectRatio="xMinYMin slice"
           hasPanMap
-          scaleFactor={4}
         />
       </GraphContainer>
       <SidebarContainer>
