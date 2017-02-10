@@ -1,0 +1,15 @@
+{
+  "name": "op-jigsaw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist && flow-copy-source src dist",
+    "watch": "watch 'npm run build' ./src",
+    "prepublish": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

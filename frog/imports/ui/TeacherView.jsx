@@ -7,7 +7,8 @@ import {
   addSession,
   removeSession,
   updateSessionState,
-  updateSessionActivity
+  updateSessionActivity,
+  setTeacherSession
 } from '../api/sessions';
 import { Activities, Operators, addResult } from '../api/activities';
 import { Graphs } from '../api/graphs';
@@ -18,12 +19,6 @@ import { runSession, nextActivity } from '../api/engine';
 
 import { activityTypesObj } from '../activityTypes';
 import { operatorTypesObj } from '../operatorTypes';
-
-const setTeacherSession = sessionId => {
-  Meteor.users.update({ _id: Meteor.userId() }, {
-    $set: { 'profile.controlSession': sessionId }
-  });
-};
 
 // check if there are any operators, and run these first
 const runProduct = (sessionId, activityId) => {
@@ -100,57 +95,53 @@ const SessionController = createContainer(
       : null;
     return { session, activities, students };
   },
-  ({ session, activities, students }) => {
-    if (session) {
-      return (
-        <div>
-          <h1>Session control</h1>
-          Current state <b>{session.state}</b>.
-          Control the session through selecting an activity below,
-          or Starting/Pausing/Stopping the session.
-          <pre>{JSON.stringify(session, null, 2)}</pre>
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => runSession(session._id)}
-          >
-            Start
-          </button>
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => nextActivity(session._id)}
-          >
-            Next
-          </button>
-          <button
-            className="btn btn-warning btn-sm"
-            onClick={() => updateSessionState(session._id, 'PAUSED')}
-          >
-            Pause
-          </button>
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={() => updateSessionState(session._id, 'STOPPED')}
-          >
-            Stop
-          </button>
-          <h3>Registered students</h3>
-          {students && students.length
-            ? <StudentList students={students} />
-            : <p>NO STUDENTS</p>}
-          <h3>Available Activities</h3>
-          {activities && activities.length
-            ? <ActivityList activities={activities} session={session} />
-            : <p>NO ACTIVITY</p>}
-        </div>
-      );
-    }
-    return (
-      <div>
-        <h1>Session control</h1>
-        <p>Chose a session</p>
-      </div>
-    );
-  }
+  ({ session, activities, students }) => (
+    <div>
+      <h1>Session control</h1>
+      {session
+        ? <div>
+            <p>
+              Current state <b>{session.state}</b>.
+              Control the session through selecting an activity below,
+              or Starting/Pausing/Stopping the session.
+            </p>
+            <pre>{JSON.stringify(session, null, 2)}</pre>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => runSession(session._id)}
+            >
+              Start
+            </button>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => nextActivity(session._id)}
+            >
+              Next
+            </button>
+            <button
+              className="btn btn-warning btn-sm"
+              onClick={() => updateSessionState(session._id, 'PAUSED')}
+            >
+              Pause
+            </button>
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={() => updateSessionState(session._id, 'STOPPED')}
+            >
+              Stop
+            </button>
+            <h3>Registered students</h3>
+            {students && students.length
+              ? <StudentList students={students} />
+              : <p>NO STUDENTS</p>}
+            <h3>Available Activities</h3>
+            {activities && activities.length
+              ? <ActivityList activities={activities} session={session} />
+              : <p>NO ACTIVITY</p>}
+          </div>
+        : <p>Chose a session</p>}
+    </div>
+  )
 );
 
 class SessionList extends Component {
@@ -168,7 +159,7 @@ class SessionList extends Component {
 
   submitAddSession = event => {
     event.preventDefault();
-    addSession(this.state.graphId);
+    addSession(this.state.graphId)
   };
 
   render() {

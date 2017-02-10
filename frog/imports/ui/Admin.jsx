@@ -65,6 +65,7 @@ const fakeDatabase = {
       name: 'JigsawOp',
       graphId: 'G1',
       type: 'social',
+      operatorType: 'op-jigsaw',
       time: 2,
       y: 50
     },
@@ -73,6 +74,7 @@ const fakeDatabase = {
       name: 'MixJigOp',
       graphId: 'G1',
       type: 'social',
+      operatorType: 'op-jigsaw',
       time: 14,
       y: 50
     }

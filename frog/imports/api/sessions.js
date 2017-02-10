@@ -6,6 +6,12 @@ import { Activities, Operators, Connections } from './activities';
 
 export const Sessions = new Mongo.Collection('sessions');
 
+export const setTeacherSession = sessionId => {
+  Meteor.users.update({ _id: Meteor.userId() }, {
+    $set: { 'profile.controlSession': sessionId }
+  });
+};
+
 export const setStudentSession = sessionId => {
   Meteor.users.update({ _id: Meteor.userId() }, {
     $set: { 'profile.currentSession': sessionId }
@@ -29,7 +35,9 @@ const addSessionItem = (type, sessionId, params) => {
   return id;
 };
 
-export const addSession = graphId => Meteor.call('add.session', graphId);
+export const addSession = graphId => {
+  Meteor.call('add.session', graphId);
+}
 
 export const updateSessionState = (id, state) => {
   Sessions.update({ _id: id }, { $set: { state } });
@@ -46,7 +54,6 @@ export const updateSessionState = (id, state) => {
 };
 
 export const updateSessionActivity = (sessionId, activityId) => {
-  console.log('updateSessionActivity')
   Sessions.update({ _id: sessionId }, {
     $set: { activityId, startedAt: new Date().getTime() }
   });
@@ -95,6 +102,7 @@ Meteor.methods({
         }
       });
     });
+    setTeacherSession(sessionId)
   },
   'flush.session': sessionId => {
     Sessions.remove({ _id: sessionId });
