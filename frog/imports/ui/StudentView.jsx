@@ -5,6 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Sessions, setStudentSession } from '../api/sessions';
 import { Activities } from '../api/activities';
 import { Products } from '../api/products';
+import { Objects } from '../api/objects';
 
 import Runner from './studentView/Runner.jsx';
 
@@ -29,22 +30,26 @@ const SessionList = ({ sessions, curSessionId }) => (
   </div>
 );
 
-const ActivityBody = ({ activity, state, products }) => {
-  // check if product has been submitted - means completed
-  // (might change this to also allow completion of product-less activities)
-  if (state !== 'STARTED') {
-    return <h1>{state}</h1>;
+const ActivityBody = createContainer(
+  props => {
+    const o = Objects.findOne({ activityId: props.activity._id });
+    return {
+      ...props,
+      object: o ? o.data : null
+    };
+  },
+  ({ activity, state, object }) => {
+    // check if product has been submitted - means completed
+    // (might change this to also allow completion of product-less activities)
+    if (state !== 'STARTED') {
+      return <h1>{state}</h1>;
+    }
+    if (!activity) {
+      return <h1>No activity selected</h1>;
+    }
+    return <Runner activity={activity} object={object} />;
   }
-  if (!activity) {
-    return <h1>No activity selected</h1>;
-  }
-  if (
-    products.filter(product => product.activityId === activity._id).length > 0
-  ) {
-    return <h1>Waiting for next activity</h1>;
-  }
-  return <Runner activity={activity} />;
-};
+);
 
 const SessionBody = ({ session, products }) => {
   if (session) {

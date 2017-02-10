@@ -10,10 +10,13 @@ export const config = {
   }
 }
 
-export const operator = (products, socialStructure, globalStructure) => {
-  
-  const socStruc = globalStructure['studentIds'].map(studentId => { return (
-  	{ studentId, attributes: { role: 'President', group: 0 } }
+export const operator = (config, object) => {
+  console.log('operator')
+  console.log(object)
+  const { products, socialStructures, globalStructure } = object
+
+  const socStruc = globalStructure.studentIds.map(studentId => { return (
+  	{ studentId, attributes: { role: (Math.random() <0.5 ? 'French' : 'English'), group: 0 } }
   )})
   return {
   	product: [],

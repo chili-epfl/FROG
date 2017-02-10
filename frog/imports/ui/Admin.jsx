@@ -25,8 +25,8 @@ const fakeDatabase = {
       startTime: 0,
       length: 5,
       plane: 2,
-      activityType: 'ac-text',
-      data: { title: 'A1', text: 'You are on activity A1' }
+      activityType: 'ac-jigsaw',
+      data: { title: 'A1', roles: 'French,English', text: 'Bonjour,Hello' }
     },
     {
       _id: 'A2',
@@ -35,8 +35,8 @@ const fakeDatabase = {
       startTime: 5,
       length: 5,
       plane: 2,
-      activityType: 'ac-text',
-      data: { title: 'A2', text: 'You are on activity A2' }
+      activityType: 'ac-jigsaw',
+      data: { title: 'A2', roles: 'French,English', text: 'Bonjour2,Hello2' }
     },
     {
       _id: 'A3',
@@ -55,8 +55,8 @@ const fakeDatabase = {
       startTime: 15,
       length: 5,
       plane: 2,
-      activityType: 'ac-text',
-      data: { title: 'A4', text: 'You are on activity A4' }
+      activityType: 'ac-jigsaw',
+      data: { title: 'A4', roles: 'French,English', text: 'Bonjour3,Hello3' }
     }
   ],
   operators: [

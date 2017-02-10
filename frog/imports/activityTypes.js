@@ -6,6 +6,7 @@ import acText from 'ac-text';
 import acForm from 'ac-form';
 import acCollabForm from 'ac-collab-form';
 import acQuiz from 'ac-quiz';
+import acJigsaw from 'ac-jigsaw';
 import acCKBoard from 'ac-ck-board';
 
 import type { ActivityPackageT } from 'frog-utils';
@@ -19,7 +20,8 @@ export const activityTypes: Array<ActivityPackageT> = [
   acForm,
   acCollabForm,
   acCKBoard,
-  acQuiz
+  acQuiz,
+  acJigsaw
 ];
 
 export const activityTypesObj = keyBy(activityTypes, 'id');

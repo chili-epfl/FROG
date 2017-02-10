@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
+import { uuid } from 'frog-utils';
+
 import { Activities, Connections, Operators } from './activities';
 import {
   Sessions,
@@ -8,6 +10,7 @@ import {
 } from './sessions';
 import { engineLogger } from './logs';
 import { Products, addNodeProduct } from './products';
+import { Objects } from './objects';
 
 import { operatorTypesObj } from '../operatorTypes';
 
@@ -53,38 +56,42 @@ Meteor.methods({
           sessionId
         ));
       // Now everything must have been computed, let's compute the new data
+
+      // The list of students
+      const students = Meteor.users.find({
+        'profile.currentSession': sessionId
+      }).fetch();
+      // The list of social structure for every connected node
+      const socialStructures = connections.map(
+        connection => students.map(student => ({
+          studentId: student._id,
+          attributes: student.profile.attributes[connection.source.id]
+        }))
+      );
+
+      // The list of products of every connected node
+      const products = connections.map(connection =>
+        Products.find({ nodeId: connection.source.id }).fetch());
+
+      // More data needed by the operators. Will need to be completed, documented and typed if possible
+      const globalStructure = {
+        studentIds: students.map(student => student._id)
+      };
+
+      const object = {
+        products,
+        socialStructures,
+        globalStructure
+      };
+
       if (type === 'operator') {
-        // The list of students
-        const students = Meteor.users.find({
-          'profile.currentSession': sessionId
-        }).fetch();
-        // The list of social structure for every connected node
-        const socialStructures = connections.map(
-          connection => students.map(student => ({
-            studentId: student._id,
-            attributes: student.profile.attributes[connection.source.id]
-          }))
-        );
-
-        // The list of products of every connected node
-        const products = connections.map(connection =>
-          Products.find({ nodeId: connection.source.id }).fetch());
-
-        // More data needed by the operators. Will need to be completed, documented and typed if possible
-        const globalStructure = {
-          studentIds: students.map(student => student._id)
-        };
-
         // We get the operator function from the operator package
         const operatorFunction = operatorTypesObj[node.operatorType].operator;
-
         // We run the operator function
         const { product, socialStructure } = operatorFunction(
-          products,
-          socialStructures,
-          globalStructure
+          node.data,
+          object
         );
-
         // The result of the operator function are written in Mongo
         product.forEach(data => addNodeProduct(nodeId, data));
         socialStructure.forEach(({ studentId, attributes }) => {
@@ -95,6 +102,7 @@ Meteor.methods({
       }
       if (type === 'activity') {
         // Here we build the object of an activity from the products of its connected nodes
+        Objects.insert({ _id: uuid(), activityId: nodeId, data: object });
       }
       types[type].update({ _id: nodeId }, { $set: { computed: true } });
     }

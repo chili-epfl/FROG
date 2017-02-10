@@ -10,7 +10,7 @@ import { addProduct } from '../../api/products';
 
 import CollabRunner from './CollabRunner.jsx';
 
-const Runner = ({ activity }) => {
+const Runner = ({ activity, object }) => {
   const activityType = activityTypesObj[activity.activityType];
   const onCompletion = completionData => {
     addProduct(
@@ -49,6 +49,8 @@ const Runner = ({ activity }) => {
   return (
     <activityType.ActivityRunner
       config={activity.data}
+      object={object}
+      userId={Meteor.userId()}
       logger={logger}
       onCompletion={onCompletion}
       data={data}
@@ -56,4 +58,6 @@ const Runner = ({ activity }) => {
   );
 };
 
-export default ({ activity }) => <Runner activity={activity} />;
+export default ({ activity, object }) => (
+  <Runner activity={activity} object={object} />
+);
