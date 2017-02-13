@@ -1,3 +1,6 @@
+// @flow
+import type { ObjectT, SocialStructureT } from 'frog-utils'
+
 export const meta = {
   name: 'Jigsaw',
   type: 'social'
@@ -10,14 +13,16 @@ export const config = {
   }
 }
 
-export const operator = (config, object) => {
-  console.log('operator')
-  console.log(object)
+export const operator = (config: Object, object: ObjectT) => {
   const { products, socialStructures, globalStructure } = object
 
-  const socStruc = globalStructure.studentIds.map(studentId => { return (
-  	{ studentId, attributes: { role: (Math.random() <0.5 ? 'French' : 'English'), group: 0 } }
-  )})
+  const socStruc: SocialStructureT = {}
+  globalStructure.studentIds.forEach(studentId => { 
+  	socStruc[studentId] = { 
+      role: (Math.random() <0.5 ? 'French' : 'English'),
+      group: '0'
+    }
+  })
   return {
   	product: [],
   	socialStructure: socStruc

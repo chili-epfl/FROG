@@ -1,4 +1,8 @@
+// @flow
+
 import React from 'react'
+
+import type { ActivityRunnerT } from 'frog-utils'
 
 export const meta = {
   name: 'HTML text component',
@@ -32,8 +36,9 @@ export const config = {
   }
 }
 
-export const ActivityRunner = ({ config, object, userId }) => {
-
+export const ActivityRunner = (art: ActivityRunnerT) => {
+  const { config, object, userId } = art
+  
   if(object) { 
     const { products, socialStructures, globalStructure } = object
     const roles = config.roles.split(',')
@@ -42,9 +47,9 @@ export const ActivityRunner = ({ config, object, userId }) => {
     roles.forEach((role, index) => matching[role] = texts[index])
 
     const socialRoles = {}
-    socialStructures[0].forEach(att => {
-      socialRoles[att.studentId] = att.attributes.role
-    })
+    for (var studentId in socialStructures[0]) {
+      socialRoles[studentId] = socialStructures[0][studentId].role
+    }
 
     return (
       <div> 

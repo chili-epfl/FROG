@@ -1,6 +1,8 @@
+// @flow
+
 import { Meteor } from 'meteor/meteor';
 
-import { uuid } from 'frog-utils';
+import type { SocialStructureT, ProductT, ObjectT } from 'frog-utils';
 
 import { Activities, Connections, Operators } from './activities';
 import {
@@ -10,20 +12,22 @@ import {
 } from './sessions';
 import { engineLogger } from './logs';
 import { Products, addNodeProduct } from './products';
-import { Objects } from './objects';
+import { addObject } from './objects';
 
 import { operatorTypesObj } from '../operatorTypes';
 
-export const runSession = sessionId => Meteor.call('run.session', sessionId);
-export const nextActivity = sessionId =>
+export const runSession = (sessionId: string) =>
+  Meteor.call('run.session', sessionId);
+
+export const nextActivity = (sessionId: string) =>
   Meteor.call('next.activity', sessionId);
 
 Meteor.methods({
-  'run.session': sessionId => {
+  'run.session': (sessionId: string) => {
     updateSessionState(sessionId, 'STARTED');
     engineLogger(sessionId, { message: 'STARTING SESSION' });
   },
-  'next.activity': sessionId => {
+  'next.activity': (sessionId: string) => {
     const activities = Activities.find({ sessionId }).fetch().sort(
       // Sort the list according to startTime of activities
       (a1, a2) => a1.startTime - a2.startTime
@@ -62,23 +66,29 @@ Meteor.methods({
         'profile.currentSession': sessionId
       }).fetch();
       // The list of social structure for every connected node
-      const socialStructures = connections.map(
-        connection => students.map(student => ({
-          studentId: student._id,
-          attributes: student.profile.attributes[connection.source.id]
-        }))
+      const socialStructures: SocialStructureT[] = connections.map(
+        connection => {
+          const socialStructure: SocialStructureT = {};
+          students.forEach(student => {
+            socialStructure[student._id] = student.profile.attributes
+              ? student.profile.attributes[connection.source.id]
+              : {};
+          });
+          return socialStructure;
+        }
       );
 
       // The list of products of every connected node
-      const products = connections.map(connection =>
-        Products.find({ nodeId: connection.source.id }).fetch());
+      const products: Array<Array<ProductT>> = connections.map(
+        connection => Products.find({ nodeId: connection.source.id }).fetch()
+      );
 
       // More data needed by the operators. Will need to be completed, documented and typed if possible
       const globalStructure = {
         studentIds: students.map(student => student._id)
       };
 
-      const object = {
+      const object: ObjectT = {
         products,
         socialStructures,
         globalStructure
@@ -94,15 +104,15 @@ Meteor.methods({
         );
         // The result of the operator function are written in Mongo
         product.forEach(data => addNodeProduct(nodeId, data));
-        socialStructure.forEach(({ studentId, attributes }) => {
+        Object.keys(socialStructure).forEach(studentId => {
           const att = {};
-          att['profile.attributes.' + nodeId] = attributes;
+          att['profile.attributes.' + nodeId] = socialStructure[studentId];
           Meteor.users.update({ _id: studentId }, { $set: att });
         });
       }
       if (type === 'activity') {
         // Here we build the object of an activity from the products of its connected nodes
-        Objects.insert({ _id: uuid(), activityId: nodeId, data: object });
+        addObject(nodeId, object);
       }
       types[type].update({ _id: nodeId }, { $set: { computed: true } });
     }

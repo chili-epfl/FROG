@@ -4,7 +4,14 @@ export { default as colorRange } from './color_range'
 export { default as Chat } from './chat'
 export { default as unrollProducts } from './unroll_products'
 export { default as TimedComponent } from './TimedComponent'
-export type { ActivityPackageT, ActivityRunnerT } from './types'
+export type { 
+  ActivityPackageT,
+  ActivityRunnerT,
+  SocialStructureT,
+  ProductT,
+  ObjectT,
+  OperatorPackageT
+} from './types'
 
 export { default as uuid } from 'cuid'
 
