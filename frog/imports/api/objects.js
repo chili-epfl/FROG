@@ -1,5 +1,6 @@
 // @flow
 
+// $FlowFixMe
 import { Mongo } from 'meteor/mongo';
 import type { ObjectT } from 'frog-utils'; // eslint-disable-line
 import { uuid } from 'frog-utils'; // eslint-disable-line
