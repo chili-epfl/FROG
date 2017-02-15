@@ -43,7 +43,7 @@ export type OperatorPackageT = {
 }
 
 export type ChatT = {
-  messages: Array<{value: { user: string, msg: string }, id: string }>,
+  messages: Array<{value: { user: string, msg: string }, _id: string }>,
   userInfo: { id: string, name: string },
   addMessage: (({ msg: string, user: string }) => any),
   logger: Function
