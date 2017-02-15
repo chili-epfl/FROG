@@ -63,9 +63,11 @@ Meteor.methods({
       // Now everything must have been computed, let's compute the new data
 
       // The list of students
-      const students = Meteor.users.find({
-        'profile.currentSession': sessionId
-      }).fetch();
+      const students = Meteor.users
+        .find({
+          'profile.currentSession': sessionId
+        })
+        .fetch();
       // The list of social structure for every connected node
       const socialStructures: SocialStructureT[] = connections.map(
         connection => {

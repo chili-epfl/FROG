@@ -22,7 +22,8 @@ const GL = createContainer(
         New
       </button>
       <ul>
-        {graphs.length ? graphs.map(graph => (
+        {graphs.length
+          ? graphs.map(graph => (
               <li style={{ listStyle: 'none' }} key={graph._id}>
                 <a href="#" onClick={() => submitRemoveGraph(graph._id)}>
                   <i className="fa fa-times" />
@@ -32,7 +33,8 @@ const GL = createContainer(
                 </a>
                 {graph.name} {graph._id === graphId ? ' (current)' : null}
               </li>
-            )) : <li>No graph</li>}
+            ))
+          : <li>No graph</li>}
       </ul>
     </div>
   )

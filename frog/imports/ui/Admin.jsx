@@ -250,9 +250,9 @@ export default createContainer(
         const obj = JSON.parse(e.target.result);
         if (
           Object.prototype.hasOwnProperty.call(obj, 'sessions') &&
-            Object.prototype.hasOwnProperty.call(obj, 'graphs') &&
-            Object.prototype.hasOwnProperty.call(obj, 'activities') &&
-            Object.prototype.hasOwnProperty.call(obj, 'operators')
+          Object.prototype.hasOwnProperty.call(obj, 'graphs') &&
+          Object.prototype.hasOwnProperty.call(obj, 'activities') &&
+          Object.prototype.hasOwnProperty.call(obj, 'operators')
         ) {
           deleteDatabase();
           for (let i = 0; i < obj.graphs.length; i += 1) {

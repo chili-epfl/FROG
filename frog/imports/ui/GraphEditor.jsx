@@ -314,8 +314,8 @@ class GraphEditorClass extends Component {
       const obj = JSON.parse(e.target.result);
       if (
         Object.prototype.hasOwnProperty.call(obj, 'graph') &&
-          Object.prototype.hasOwnProperty.call(obj, 'activities') &&
-          Object.prototype.hasOwnProperty.call(obj, 'operators')
+        Object.prototype.hasOwnProperty.call(obj, 'activities') &&
+        Object.prototype.hasOwnProperty.call(obj, 'operators')
       ) {
         const activities = Activities.find({ graphId: thisGraphId }).fetch();
         for (let i = 0; i < activities.length; i += 1) {

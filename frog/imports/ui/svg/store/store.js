@@ -199,7 +199,8 @@ export default class Store {
     let coords;
     if (activity instanceof Activity) {
       coords = [activity.xScaled + activity.widthScaled - 10, activity.y + 15];
-    } else { // operator
+    } else {
+      // operator
       coords = [activity.xScaled + 30, activity.y + 30];
     }
     this.draggingFrom = [...coords];
@@ -231,16 +232,16 @@ export default class Store {
     this.operators = this.operators.filter(x => !x.selected);
     if (
       conn !== this.connections.length ||
-        act !== this.activities.length ||
-        opt !== this.operators.length
+      act !== this.activities.length ||
+      opt !== this.operators.length
     ) {
       this.addHistory();
     }
   };
 
   @computed get hasSelection() {
-    const sel = this
-      .connections.concat(this.activities.concat(this.operators))
+    const sel = this.connections
+      .concat(this.activities.concat(this.operators))
       .filter(x => x.selected);
     if (sel.length === 0) {
       return false;
@@ -299,8 +300,8 @@ export default class Store {
   };
   @action stopDragging = () => {
     this.mode = '';
-    const targetAry = this
-      .activities.filter(x => x.over)
+    const targetAry = this.activities
+      .filter(x => x.over)
       .concat(this.operators.filter(x => x.over));
     if (
       targetAry.length > 0 && this.draggingFromActivity.id !== targetAry[0].id

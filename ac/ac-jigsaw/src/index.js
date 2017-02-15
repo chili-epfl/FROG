@@ -6,12 +6,12 @@ import type { ActivityRunnerT } from 'frog-utils'
 import { Chat } from 'frog-utils'
 
 export const meta = {
-  name: 'HTML text component',
+  name: 'Jigsaw activity',
   type: 'react-component'
 }
 
 export const config = {
-  title: 'Configuration for text component',
+  title: 'Configuration for the jigsaw activity',
   type: 'object',
   properties: {
     name: {
