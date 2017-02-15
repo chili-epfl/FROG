@@ -18,14 +18,18 @@ const Box = ({ x, y, width, selected, highlighted }) => (
 
 const Activity = connect((
   {
-    store: {
-      startDragging,
-      stopDragging,
-      dragging,
-      startMoving,
-      stopMoving,
-      startResizing,
-      stopResizing
+    store: { 
+      activityStore: {
+        startMoving,
+        stopMoving,
+        startResizing,
+        stopResizing
+      },
+      connectionStore: {
+        startDragging,
+        stopDragging,
+        dragging,
+      }
     },
     activity,
     scaled

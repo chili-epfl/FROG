@@ -71,42 +71,42 @@ export default class Activity {
   };
 
   @action move = (deltax: number) => {
-    if (store.mode !== 'moving') {
-      return;
-    }
-    const deltaTime = pxToTime(deltax, store.ui.scale);
-    if (store.overlapAllowed) {
-      this.startTime = between(
-        0,
-        120 - this.length,
-        this.startTime + deltaTime
-      );
-    } else {
-      const oldTime = this.startTime;
-      this.startTime = between(
-        store.state.leftbound && store.state.leftbound.startTime + store.state.leftbound.length,
-        store.state.rightbound
-          ? store.state.rightbound.startTime - this.length
+    const state = store.state
+    if (state === 'moving')  {
+      const deltaTime = pxToTime(deltax, store.ui.scale);
+      if (store.ui.overlapAllowed) {
+        this.startTime = between(
+          0,
+          120 - this.length,
+          this.startTime + deltaTime
+        );
+      } else {
+        const oldTime = this.startTime;
+        this.startTime = between(
+          state.leftBound && state.leftBound.startTime + state.leftBound.length,
+          state.rightBound
+          ? state.rightBound.startTime - this.length
           : 120 - this.length,
-        this.startTime + deltaTime
-      );
-      if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
-        this.overdrag += deltaTime;
-        if (this.overdrag < -3) {
-          store.activityStore.swapActivities(store.leftbound, this);
-          store.ui.stopMoving();
-        }
-        if (this.overdrag > 3) {
-          store.swapActivities(this, store.rightbound);
-          this.overdrag = 0;
-          store.ui.stopMoving();
+          this.startTime + deltaTime
+        );
+        if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
+          this.overdrag += deltaTime;
+          if (this.overdrag < -3) {
+            store.activityStore.swapActivities(state.leftBound, this);
+            store.activityStore.stopMoving();
+          }
+          if (this.overdrag > 3) {
+            store.activityStore.swapActivities(this, state.rightBound);
+            this.overdrag = 0;
+            store.activityStore.stopMoving();
+          }
         }
       }
     }
   };
 
   @action resize = (deltax: number) => {
-    const deltaTime = pxToTime(deltax, store.scale);
+    const deltaTime = pxToTime(deltax, store.ui.scale);
     const rightbound = store.state.rightbound && store.state.rightbound.startTime || 120;
     this.length = between(
       1,

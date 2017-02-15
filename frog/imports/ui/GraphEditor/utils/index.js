@@ -1,34 +1,36 @@
 // @flow
 import React, { Component } from 'react';
-import * as constants from '../constants'
 
-export const timeToPx = (time, scale) => time * 3900 * scale / 120;
-export const pxToTime = (px, scale) => px / 3900 / scale * 120;
+export const timeToPx = (time: number, scale: number): number => time * 3900 * scale / 120;
+export const pxToTime = (px: number, scale: number): number => px / 3900 / scale * 120;
 
-export const between = (rawminval, rawmaxval, x) => {
+export const between = (rawminval: number, rawmaxval: number, x: number): number => {
   const minval = rawminval || 0;
   const maxval = rawmaxval || 99999;
   return Math.min(Math.max(x, minval), maxval);
 };
 
 export class TextInput extends Component {
-  constructor(props) {
+  constructor(props: { value: string }) {
     super(props);
     this.state = { val: this.props.value || '' };
   }
+
+  state: { val: string } 
 
   componentDidMount() {
     this.textInput.focus();
   }
 
-  onChange = e => this.setState({ val: e.target.value });
+  onChange = (e: any) => this.setState({ val: e.target.value });
 
-  onSubmit = e => {
+  onSubmit = (e: any) => {
     e.preventDefault();
     this.props.onSubmit(this.state.val);
   };
+  textInput: { focus: Function }
 
-  handleKey = e => {
+  handleKey = (e: any) => {
     if (e.keyCode === 27) {
       this.props.onCancel();
     }

@@ -21,9 +21,9 @@ type StateT =
   | { mode: 'resizing', currentActivity: Activity, rightBound: Activity }
   | {
       mode: 'moving',
-      currentactivity: Activity,
-      leftbound: Activity,
-      rightbound: Activity
+      currentActivity: Activity,
+      leftBound: Activity,
+      rightBound: Activity
     }
   | { mode: 'dragging', draggingfrom: Activity | Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }

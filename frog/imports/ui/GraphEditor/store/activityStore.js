@@ -1,3 +1,4 @@
+// @flow
 import { computed, action, observable } from 'mobx';
 
 import Activity from './activity';
@@ -35,17 +36,8 @@ export default class ActivityStore {
     );
   }
 
-  @action rename(newTitle: string) {
-    if (this.renameOpen) {
-      this.renameOpen.title = newTitle;
-      this.renameOpen = null;
-      this.addHistory();
-    }
-  }
-
   @action addActivity = (plane: number, rawX: number): void => {
     const [x, _] = store.ui.rawMouseToTime(rawX, 0);
-    console.log('x', x, rawX)
     const newActivity = new Activity(plane, x, 'Unnamed', 5);
     this.all.push(newActivity);
     store.state = { mode: 'rename', currentActivity: newActivity }
@@ -55,17 +47,17 @@ export default class ActivityStore {
   @action swapActivities = (left: Activity, right: Activity) => {
     right.startTime = left.startTime;
     left.startTime = right.startTime + right.length;
-    this.addHistory();
+    store.addHistory();
   };
 
   @action startResizing = (activity: Activity) => {
     const rightBound = calculateBounds(activity, this.all)[1];
-    store.mode = { mode: 'resizing', currentActivity: activity, rightBound };
+    store.state = { mode: 'resizing', currentActivity: activity, rightBound };
   };
 
   @action startMoving = (activity: Activity) => {
     const [leftBound, rightBound] = calculateBounds(activity, this.all);
-    this.mode = {
+    store.state = {
       mode: 'moving',
       currentActivity: activity,
       leftBound,
@@ -75,15 +67,15 @@ export default class ActivityStore {
   };
 
   @action stopMoving = () => {
-    store.mode = { mode: 'normal' };
+    store.state = { mode: 'normal' };
     store.addHistory();
-    store.cancelScroll();
+    store.ui.cancelScroll();
   };
 
   @action stopResizing = () => {
-    store.mode = { mode: 'normal' };
+    store.state = { mode: 'normal' };
     store.addHistory();
-    store.cancelScroll();
+    store.ui.cancelScroll();
   };
 
   @action mongoAdd = (x: any) => {
@@ -99,11 +91,11 @@ export default class ActivityStore {
   };
 
   @action mongoChange = (newact: any, oldact: any) => {
-    store.findId({ type: 'activity', id: oldact._id }).update(newact);
+    this.findId({ type: 'activity', id: oldact._id }).update(newact);
   };
 
   @action mongoRemove = (remact: any) => {
-    store.activities = this.activities.filter(x => x.id !== remact._id);
+    this.all = this.all.filter(x => x.id !== remact._id);
   };
 
   @computed get mongoObservers(): Object {
