@@ -4,23 +4,29 @@ import { computed, action, observable } from 'mobx';
 import Activity from './activity';
 import { store } from './index';
 import getOffsets from '../utils/getOffsets';
+import type { BoundsT } from './store'
 
 // find activities immediately to the left and to the right of the current activity
 // to draw boundary markers and control movement by dragging and resizing
 const calculateBounds = (
   activity: Activity,
   activities: Array<Activity>
-): [Activity, Activity] => {
+): BoundsT => {
+  
   const sorted = activities
     .filter(x => x.id !== activity.id)
     .sort((a, b) => a.startTime - b.startTime);
-  const leftbound = sorted
+  const leftBoundActivity = sorted
     .filter(act => act.startTime <= activity.startTime)
     .pop();
-  const rightbound = sorted
+  const rightBoundActivity = sorted
     .filter(act => act.startTime >= activity.startTime + activity.length)
     .shift();
-  return [leftbound, rightbound];
+  
+  const leftBoundTime = leftBoundActivity ? leftBoundActivity.endTime : 0
+  const rightBoundTime = rightBoundActivity ? rightBoundActivity.startTime : 120 
+
+  return { leftBoundActivity, leftBoundTime, rightBoundActivity, rightBoundTime }
 };
 
 export default class ActivityStore {
@@ -56,13 +62,12 @@ export default class ActivityStore {
   };
 
   @action startMoving = (activity: Activity) => {
-    const [leftBound, rightBound] = calculateBounds(activity, this.all);
+    const bounds = calculateBounds(activity, this.all);
     store.state = {
       mode: 'moving',
       currentActivity: activity,
-      leftBound,
-      rightBound
-    };
+      bounds
+    }
     activity.overdrag = 0;
   };
 

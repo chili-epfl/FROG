@@ -91,12 +91,12 @@ export default class Activity {
         );
         if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
           this.overdrag += deltaTime;
-          if (this.overdrag < -3) {
-            store.activityStore.swapActivities(state.leftBound, this);
+          if (this.overdrag < -3 && state.leftBoundActivity) {
+            store.activityStore.swapActivities(state.leftBoundActivity, this);
             store.activityStore.stopMoving();
           }
-          if (this.overdrag > 3) {
-            store.activityStore.swapActivities(this, state.rightBound);
+          if (this.overdrag > 3 && state.rightBoundActivity) {
+            store.activityStore.swapActivities(this, state.rightBoundActivity);
             this.overdrag = 0;
             store.activityStore.stopMoving();
           }
@@ -105,15 +105,16 @@ export default class Activity {
     }
   };
 
-  @action resize = (deltax: number) => {
-    const deltaTime = pxToTime(deltax, store.ui.scale);
-    const rightbound = store.state.rightbound && store.state.rightbound.startTime || 120;
-    this.length = between(
-      1,
-      rightbound - this.startTime,
-      this.length + deltaTime
-    );
-    store.state = { mode: 'resizing', currentActivity: this, rightBound: store.state.rightbound }
+  @action resize(deltax: number) {
+    const state = store.state
+    if(state.mode === 'resize') {
+      const deltaTime = pxToTime(deltax, store.ui.scale);
+      this.length = between(
+        1,
+        state.bounds.rightBoundTime - this.startTime,
+        this.length + deltaTime
+      );
+    }
   };
 
   @action onOver = () => this.over = true;
@@ -128,6 +129,10 @@ export default class Activity {
   @computed get y(): number {
     const offset = store.activityStore.activityOffsets[this.id];
     return this.plane * 100 + 50 - offset * 30;
+  }
+
+  @computed get endTime(): number {
+    return this.startTime + this.length
   }
 
   @computed get object(): {
