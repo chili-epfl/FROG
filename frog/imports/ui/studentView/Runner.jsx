@@ -5,20 +5,15 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { activityTypesObj } from '../../activityTypes';
-import { objectIndex } from '../../../lib/utils';
 
 import { ActivityData, reactiveFn } from '../../api/activityData';
 
 import { createLogger } from '../../api/logs';
-import { Results } from '../../api/activities';
 import { addProduct } from '../../api/products';
 
-import CollabRunner from './CollabRunner.jsx';
-
 const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
-
   const activityType = activityTypesObj[activity.activityType];
-  
+
   const onCompletion = completionData => {
     addProduct(
       activity._id,
@@ -27,7 +22,7 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
       completionData
     );
   };
-  
+
   const logger = createLogger({
     activity: activity._id,
     activityType: activity.activityType,
@@ -48,7 +43,7 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
 };
 
 export default createContainer(
-  (props) => {
+  props => {
     const reactiveKey = ActivityData.find({
       activityId: props.activity._id,
       type: 'kv'
@@ -58,7 +53,7 @@ export default createContainer(
       activityId: props.activity._id,
       type: 'list'
     }).fetch();
-    return ({ ...props,  reactiveKey, reactiveList })
+    return { ...props, reactiveKey, reactiveList };
   },
-  (props) => <Runner {...props} />
+  props => <Runner {...props} />
 );

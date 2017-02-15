@@ -26,7 +26,11 @@ const fakeDatabase = {
       length: 5,
       plane: 2,
       activityType: 'ac-jigsaw',
-      data: { title: 'A1', roles: 'French,English,German', text: 'Salut,Hi,Hallo' }
+      data: {
+        title: 'A1',
+        roles: 'French,English,German',
+        text: 'Salut,Hi,Hallo'
+      }
     },
     {
       _id: 'A2',
@@ -36,7 +40,11 @@ const fakeDatabase = {
       length: 5,
       plane: 2,
       activityType: 'ac-jigsaw',
-      data: { title: 'A2', roles: 'French,English,German', text: 'Les maths c\'est bien,Maths are good,Die Mathematik ist gut' }
+      data: {
+        title: 'A2',
+        roles: 'French,English,German',
+        text: "Les maths c'est bien,Maths are good,Die Mathematik ist gut"
+      }
     },
     {
       _id: 'A3',
@@ -56,7 +64,11 @@ const fakeDatabase = {
       length: 5,
       plane: 2,
       activityType: 'ac-jigsaw',
-      data: { title: 'A4', roles: 'French,English,German', text: 'Salut,Bye,Tschüss' }
+      data: {
+        title: 'A4',
+        roles: 'French,English,German',
+        text: 'Salut,Bye,Tschüss'
+      }
     }
   ],
   operators: [
