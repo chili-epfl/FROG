@@ -5,8 +5,7 @@ import React from "react";
 import { LevelLines, PanMap, TimeScale } from "./fixed_components";
 import ScrollFields from "./ScrollFields";
 import DragGuides from "./DragGuides";
-import { connect, store } from "./store";
-import type { StoreProp } from "./store";
+import { connect, store, type StoreProp } from "./store";
 // import Operators from './Operators';
 
 const scrollMouse = e => {
