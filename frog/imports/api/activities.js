@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import uuid from 'frog-utils';
+import { uuid } from 'frog-utils';
 import { Sessions } from './sessions';
 
 import { operatorTypesObj } from '../operatorTypes';

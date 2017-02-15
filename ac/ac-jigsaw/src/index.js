@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import type { ActivityRunnerT } from 'frog-utils'
+import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils'
 import { Chat } from 'frog-utils'
 
 export const meta = {
@@ -89,4 +89,4 @@ export const ActivityRunner = (art: ActivityRunnerT) => {
   return <p>NULL OBJECT</p>
 }
 
-export default { id: 'ac-jigsaw', ActivityRunner: ActivityRunner, config: config, meta: meta }
+export default { id: 'ac-jigsaw', ActivityRunner: ActivityRunner, config: config, meta: meta }: ActivityPackageT

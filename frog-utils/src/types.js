@@ -41,3 +41,10 @@ export type OperatorPackageT = {
   config: Object,
   operator: ((config: Object, object: ObjectT) => { product: ProductT[], socialStructure: SocialStructureT })
 }
+
+export type ChatT = {
+  messages: Array<{value: { user: string, msg: string }, id: string }>,
+  userInfo: { id: string, name: string },
+  addMessage: (({ msg: string, user: string }) => ()),
+  logger: Function
+}
