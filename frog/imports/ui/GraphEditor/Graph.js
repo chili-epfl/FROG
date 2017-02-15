@@ -34,7 +34,8 @@ export default connect((
     height,
     hasPanMap,
     viewBox
-  }: StoreProp
+  }:
+    & StoreProp
     & { width: number, height: number, hasPanMap: boolean, viewBox: string }
 ) => (
   <svg

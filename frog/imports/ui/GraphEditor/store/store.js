@@ -20,11 +20,11 @@ type Coll = Array<Elem>;
 type StateT =
   | { mode: 'resizing', currentActivity: Activity, rightBound: Activity }
   | {
-    mode: 'moving',
-    currentactivity: Activity,
-    leftbound: Activity,
-    rightbound: Activity
-  }
+      mode: 'moving',
+      currentactivity: Activity,
+      leftbound: Activity,
+      rightbound: Activity
+    }
   | { mode: 'dragging', draggingfrom: Activity | Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }
   | { mode: 'rename', currentActivity: Activity }
@@ -49,8 +49,9 @@ const getOneId = (coll, id) => getOne(coll, x => x.id === id);
 export default class Store {
   @observable ui = new UI();
   @observable connectionStore = new ConnectionStore();
-  @observable state: StateT;
+  @observable state: StateT = { mode: 'normal' };
 }
+
 // findId = ({ type, id }: { type: ElementTypes, id: string }) => {
 //   if (type === 'activity') {
 //     return getOneId(this.activities, id);

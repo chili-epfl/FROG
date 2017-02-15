@@ -1,14 +1,14 @@
-import React from 'react';
-import { DraggableCore } from 'react-draggable';
-import { connect } from './store';
+import React from "react";
+import { DraggableCore } from "react-draggable";
+import { connect } from "./store";
 
 const Box = ({ x, y, width, selected, highlighted }) => (
   <rect
     x={x}
     y={y}
     width={width}
-    stroke={selected ? '#ff9900' : 'grey'}
-    fill={highlighted ? 'yellow' : 'white'}
+    stroke={selected ? "#ff9900" : "grey"}
+    fill={highlighted ? "yellow" : "white"}
     rx={10}
     height={30}
   />
@@ -46,7 +46,7 @@ const Activity = connect((
         highlighted={activity.highlighted}
         selected={activity.selected}
       />
-      <svg style={{ overflow: 'hidden' }} width={width + x - 20}>
+      <svg style={{ overflow: "hidden" }} width={width + x - 20}>
         <text x={x + 3} y={activity.y + 20}>
           {activity.title}
         </text>
@@ -69,7 +69,7 @@ const Activity = connect((
           r={10}
           fill="transparent"
           stroke="transparent"
-          style={{ cursor: 'crosshair' }}
+          style={{ cursor: "crosshair" }}
         />
       </DraggableCore>
       <DraggableCore
@@ -84,7 +84,7 @@ const Activity = connect((
           y={activity.y}
           width={5}
           height={30}
-          style={{ cursor: 'ew-resize' }}
+          style={{ cursor: "ew-resize" }}
         />
       </DraggableCore>
       <DraggableCore
@@ -99,7 +99,7 @@ const Activity = connect((
           stroke="transparent"
           width={width - 20}
           height={30}
-          style={{ cursor: 'move' }}
+          style={{ cursor: "move" }}
         />
       </DraggableCore>
     </g>
