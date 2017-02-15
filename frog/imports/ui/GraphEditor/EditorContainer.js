@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
-import styled from 'styled-components';
 
+// $FlowFixMe
+import styled from 'styled-components'; 
 import { connect } from './store';
 import type { StoreProp } from './store';
 import Graph from './Graph';

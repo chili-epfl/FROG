@@ -53,7 +53,8 @@ export const TimeScale = connect(({ store: { ui: { scale } } }) => (
   <g>
     {[...Array(120).keys()].map(index => {
       const i = index + 1;
-      const length = (i % 15 === 0 ? 15 : 0) + (i % 5 === 0 ? 10 : 0) + 5;
+      const boolToBit = b => (b ? 1 : 0)
+      const length = boolToBit(i % 15 === 0) * 15 + boolToBit(i % 5 === 0) * 10 + 5;
       const x = timeToPx(i, scale);
       return (
         <g key={i}>

@@ -31,7 +31,7 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*/.meteor/packages/.*
 .*node_modules/fbjs.*
 .*node_modules/webpack.*
-.*/styled-components/src/.*
+.*/styled-components.*
 
 [libs]
 *./flow_typed
