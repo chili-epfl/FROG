@@ -3,6 +3,7 @@
 import React from 'react'
 
 import type { ActivityRunnerT } from 'frog-utils'
+import { Chat } from 'frog-utils'
 
 export const meta = {
   name: 'HTML text component',
@@ -37,7 +38,7 @@ export const config = {
 }
 
 export const ActivityRunner = (art: ActivityRunnerT) => {
-  const { config, object, userId } = art
+  const { config, object, userInfo, reactiveData, reactiveFn, logger } = art
   
   if(object) { 
     const { products, socialStructures, globalStructure } = object
@@ -46,16 +47,32 @@ export const ActivityRunner = (art: ActivityRunnerT) => {
     const matching = {}
     roles.forEach((role, index) => matching[role] = texts[index])
 
-    const socialRoles = {}
-    for (var studentId in socialStructures[0]) {
-      socialRoles[studentId] = socialStructures[0][studentId].role
-    }
+    const userRole = socialStructures[0][userInfo.id].role
+    const userGroup = socialStructures[0][userInfo.id].group
+
+    const reactiveKey = reactiveData.keys.filter(x => x.groupId===userGroup)[0]
 
     return (
       <div> 
         <h1>{config.title}</h1>
-        <p>Your role is {socialRoles[userId]}</p>
-        <p>{matching[socialRoles[userId]]}</p>
+        <p>Your role is {userRole}</p>
+        <p>Your group is {userGroup}</p>
+        <p>Your filtered content is {matching[userRole]}</p>
+        <div>
+          <p>Collab field:</p>
+          <input
+            onChange={e => reactiveFn(userGroup).keySet('collabField',e.target.value)}
+            value={reactiveKey ? reactiveKey['collabField']: 'fill me'}
+          />
+        </div>
+        <div className='col-md-4'>
+          <Chat 
+            messages={reactiveData.list.filter(x => x.groupId===userGroup)}
+            userInfo={userInfo}
+            addMessage={reactiveFn(userGroup).listAdd}
+            logger={logger}
+          />
+        </div>
       </div>
     )
   }

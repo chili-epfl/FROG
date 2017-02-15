@@ -1,8 +1,13 @@
+// @flow
+
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 
 import { activityTypesObj } from '../../activityTypes';
 import { objectIndex } from '../../../lib/utils';
+
+import { ActivityData, reactiveFn } from '../../api/activityData';
 
 import { createLogger } from '../../api/logs';
 import { Results } from '../../api/activities';
@@ -10,8 +15,10 @@ import { addProduct } from '../../api/products';
 
 import CollabRunner from './CollabRunner.jsx';
 
-const Runner = ({ activity, object }) => {
+const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
+
   const activityType = activityTypesObj[activity.activityType];
+  
   const onCompletion = completionData => {
     addProduct(
       activity._id,
@@ -20,44 +27,38 @@ const Runner = ({ activity, object }) => {
       completionData
     );
   };
-  const inputRaw = Results.findOne({
-    activityId: activity._id,
-    type: 'product'
-  });
-  const data = inputRaw && inputRaw.result;
-
-  const social = Results.findOne({ activityId: activity._id, type: 'social' });
-
-  // if no social operator, assign entire class to group 0
-  const groupId = social ? objectIndex(social.result)[Meteor.userId()] : 0;
-
-  if (activityType.meta.mode === 'collab') {
-    return (
-      <CollabRunner
-        activity={activity}
-        groupId={groupId}
-        onCompletion={onCompletion}
-        data={data}
-      />
-    );
-  }
+  
   const logger = createLogger({
     activity: activity._id,
     activityType: activity.activityType,
     user: Meteor.userId()
   });
+
   return (
     <activityType.ActivityRunner
       config={activity.data}
       object={object}
-      userId={Meteor.userId()}
+      userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
       logger={logger}
       onCompletion={onCompletion}
-      data={data}
+      reactiveFn={reactiveFn(activity._id)}
+      reactiveData={{ keys: reactiveKey, list: reactiveList }}
     />
   );
 };
 
-export default ({ activity, object }) => (
-  <Runner activity={activity} object={object} />
+export default createContainer(
+  (props) => {
+    const reactiveKey = ActivityData.find({
+      activityId: props.activity._id,
+      type: 'kv'
+    }).fetch();
+
+    const reactiveList = ActivityData.find({
+      activityId: props.activity._id,
+      type: 'list'
+    }).fetch();
+    return ({ ...props,  reactiveKey, reactiveList })
+  },
+  (props) => <Runner {...props} />
 );

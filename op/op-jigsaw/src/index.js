@@ -13,14 +13,19 @@ export const config = {
   }
 }
 
+const randomChoice = array =>{
+  const index = Math.floor(Math.random() * array.length)
+  return array[index]
+}
+
 export const operator = (config: Object, object: ObjectT) => {
   const { products, socialStructures, globalStructure } = object
 
   const socStruc: SocialStructureT = {}
   globalStructure.studentIds.forEach(studentId => { 
   	socStruc[studentId] = { 
-      role: (Math.random() <0.5 ? 'French' : 'English'),
-      group: '0'
+      role: randomChoice(['French', 'English', 'German']),
+      group: randomChoice(['A', 'B'])
     }
   })
   return {

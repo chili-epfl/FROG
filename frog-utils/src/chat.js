@@ -1,20 +1,24 @@
+// @flow
+
 import React, { Component } from 'react'
 import TextInput from './text_input'
+import type { ActivityRunnerT } from './types'
 
 const Chatmsg = ({ msg }) => 
   <li>{msg.user}: {msg.msg}</li>
 
-export default (props) => 
+export default ({ messages, userInfo, addMessage, logger }: Object) => 
   <div>
     <h4>Chat</h4>
     <ul>
-      {props.reactiveData.list.map(chatmsg => <Chatmsg msg={chatmsg.value} key={chatmsg._id} />)}
+      {messages.map(chatmsg => 
+        <Chatmsg msg={chatmsg.value} key={chatmsg._id} />
+      )}
     </ul>
     <TextInput 
       callbackFn = {(e) => {
-        props.reactiveFn.listAdd({msg: e, user: props.user.name})
-        props.logger({chat: e})
+        addMessage({msg: e, user: userInfo.name})
+        logger({chat: e})
       }} 
     />
   </div>
-

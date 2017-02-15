@@ -20,8 +20,10 @@ export type ActivityRunnerT = {
   object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
   onCompletion: Function, // call on completion, with student data as argument
+  reactiveData: { keys: Object[], list: Object[] },
+  reactiveFn: Function,
   data: Object, // data from operator
-  userId: string
+  userInfo: { id: string, name: string }
 }
 
 export type ActivityPackageT = {
