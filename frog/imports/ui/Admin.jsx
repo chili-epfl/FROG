@@ -29,7 +29,8 @@ const fakeDatabase = {
       data: {
         title: 'A1',
         roles: 'French,English,German',
-        text: 'Salut,Hi,Hallo'
+        text: 'Salut,Hi,Hallo',
+        groupBy: 'group'
       }
     },
     {
@@ -43,7 +44,8 @@ const fakeDatabase = {
       data: {
         title: 'A2',
         roles: 'French,English,German',
-        text: "Les maths c'est bien,Maths are good,Die Mathematik ist gut"
+        text: "Les maths c'est bien,Maths are good,Die Mathematik ist gut",
+        groupBy: 'role'
       }
     },
     {
@@ -67,7 +69,8 @@ const fakeDatabase = {
       data: {
         title: 'A4',
         roles: 'French,English,German',
-        text: 'Salut,Bye,Tschüss'
+        text: 'Salut,Bye,Tschüss',
+        groupBy: 'group'
       }
     }
   ],

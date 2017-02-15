@@ -33,6 +33,10 @@ export const config = {
     text: {
       type: 'string',
       title: 'Text (separated by comma)'
+    },
+    grouBy: {
+      type: 'string',
+      title: 'Chose \'role\' or \'group\'.'
     }
   }
 }
@@ -50,7 +54,13 @@ export const ActivityRunner = (art: ActivityRunnerT) => {
     const userRole = socialStructures[0][userInfo.id].role
     const userGroup = socialStructures[0][userInfo.id].group
 
-    const reactiveKey = reactiveData.keys.filter(x => x.groupId===userGroup)[0]
+    // collabGroup is either the name of the group or ofhte role, depending on what has been configured
+    const collabGroup = socialStructures[0][userInfo.id][config.groupBy]
+    console.log(socialStructures[0][userInfo.id])
+    console.log(collabGroup)
+    console.log(config.groupBy)
+
+    const reactiveKey = reactiveData.keys.filter(x => x.groupId===collabGroup)[0]
 
     return (
       <div> 
@@ -61,15 +71,15 @@ export const ActivityRunner = (art: ActivityRunnerT) => {
         <div>
           <p>Collab field:</p>
           <input
-            onChange={e => reactiveFn(userGroup).keySet('collabField',e.target.value)}
+            onChange={e => reactiveFn(collabGroup).keySet('collabField', e.target.value)}
             value={reactiveKey ? reactiveKey['collabField']: 'fill me'}
           />
         </div>
         <div className='col-md-4'>
           <Chat 
-            messages={reactiveData.list.filter(x => x.groupId===userGroup)}
+            messages={reactiveData.list.filter(x => x.groupId === collabGroup)}
             userInfo={userInfo}
-            addMessage={reactiveFn(userGroup).listAdd}
+            addMessage={reactiveFn(collabGroup).listAdd}
             logger={logger}
           />
         </div>
