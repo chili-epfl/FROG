@@ -7,8 +7,8 @@ export type ActivityRunnerT = {
 }
 
 export type ActivityPackageT = {
-	id: string,
-	meta: {type: string, name: string},
-	config: Object,
-	ActivityRunner: ((x: ActivityRunnerT) => React$Component<*>)
+  id: string,
+  meta: {type: string, name: string},
+  config: Object,
+  ActivityRunner: ((x: ActivityRunnerT) => React$Element<any>)
 }
