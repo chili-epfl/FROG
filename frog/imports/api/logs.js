@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 import Stringify from 'json-stable-stringify';
+import { uuid } from 'frog-utils';
 
 export const Logs = new Mongo.Collection('logs');
 
@@ -14,6 +15,13 @@ export const Logs = new Mongo.Collection('logs');
 // logger({'app started'}) => {app: 'ac-form', user: 'stian', message: 'app started',
 //                             date: 'Thursday 22...'}
 // TODO: Should perhaps accept an object to log, instead of a message, for more flexibility
+
+export const engineLogger = (sessionId, params) => Logs.insert({
+  ...params,
+  sessionId,
+  createdAt: new Date(),
+  _id: uuid()
+});
 
 export const createLogger = merge => {
   const username = Meteor.users.findOne({ _id: Meteor.userId() }).username;

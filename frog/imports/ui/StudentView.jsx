@@ -2,17 +2,12 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Sessions } from '../api/sessions';
+import { Sessions, setStudentSession } from '../api/sessions';
 import { Activities } from '../api/activities';
 import { Products } from '../api/products';
+import { Objects } from '../api/objects';
 
 import Runner from './studentView/Runner.jsx';
-
-const setStudentSession = sessionId => {
-  Meteor.users.update({ _id: Meteor.userId() }, {
-    $set: { 'profile.currentSession': sessionId }
-  });
-};
 
 const SessionList = ({ sessions, curSessionId }) => (
   <div>
@@ -35,36 +30,39 @@ const SessionList = ({ sessions, curSessionId }) => (
   </div>
 );
 
-const ActivityBody = ({ activity, state, products }) => {
-  // check if product has been submitted - means completed
-  // (might change this to also allow completion of product-less activities)
-  if (state !== 'STARTED') {
-    return <h1>Paused</h1>;
+const ActivityBody = createContainer(
+  props => {
+    const o = Objects.findOne({ activityId: props.activity._id });
+    return {
+      ...props,
+      object: o ? o.data : null
+    };
+  },
+  ({ activity, state, object }) => {
+    // check if product has been submitted - means completed
+    // (might change this to also allow completion of product-less activities)
+    if (state !== 'STARTED') {
+      return <h1>{state}</h1>;
+    }
+    if (!activity) {
+      return <h1>No activity selected</h1>;
+    }
+    return <Runner activity={activity} object={object} />;
   }
-  if (!activity) {
-    return <h1>No activity selected</h1>;
-  }
-  if (
-    products.filter(product => product.activityId === activity._id).length > 0
-  ) {
-    return <h1>Waiting for next activity</h1>;
-  }
-  return <Runner activity={activity} />;
-};
+);
 
 const SessionBody = ({ session, products }) => {
   if (session) {
-    return (
-      <div>
-        <ActivityBody
-          activity={Activities.findOne({ _id: session.activity })}
+    const activity = Activities.findOne({ _id: session.activityId });
+    return activity
+      ? <ActivityBody
+          activity={activity}
           state={session.state}
           products={products}
         />
-      </div>
-    );
+      : <p>Waiting for an activity</p>;
   }
-  return <p>Please chose a sesssion</p>;
+  return <p>Please chose a session</p>;
 };
 
 const StudentView = ({ user, sessions, products }) => {

@@ -9,15 +9,15 @@ unsafe.enable_getters_and_setters=true
 
 # Meteor none core package support
 # e.g. "meteor/kadira:flow-router"
-module.name_mapper='^meteor\/\(.*\):\(.*\)$' -> '../../.meteor/local/build/programs/server/packages/\1_\2'
+module.name_mapper='^meteor\/\(.*\):\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/build/programs/server/packages/\1_\2'
 
 # Meteor core package support
 # e.g. "meteor/meteor"
-module.name_mapper='^meteor\/\(.*\)$' -> '../../.meteor/local/build/programs/server/packages/\1'
+module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/build/programs/server/packages/\1'
 
 # Fallback for Meteor core client package
 # e.g. "meteor/meteor"
-module.name_mapper='^meteor\/\(.*\)$' -> '../../.meteor/local/build/programs/web.browser/packages/\1'
+module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/build/programs/web.browser/packages/\1'
 
 [ignore]
 # Ignore the `.meteor/local` packages that aren't important

@@ -7,33 +7,34 @@ import {
   addSession,
   removeSession,
   updateSessionState,
-  updateSessionActivity
+  updateSessionActivity,
+  setTeacherSession
 } from '../api/sessions';
 import { Activities, Operators, addResult } from '../api/activities';
 import { Graphs } from '../api/graphs';
 import { Logs } from '../api/logs';
 import { Products } from '../api/products';
 
+import { runSession, nextActivity } from '../api/engine';
+
 import { activityTypesObj } from '../activityTypes';
 import { operatorTypesObj } from '../operatorTypes';
 
-const setTeacherSession = sessionId => {
-  Meteor.users.update({ _id: Meteor.userId() }, {
-    $set: { 'profile.controlSession': sessionId }
-  });
-};
-
 // check if there are any operators, and run these first
 const runProduct = (sessionId, activityId) => {
-  const ops = Operators.find({ to: activityId, type: 'product' }, {
-    reactive: false
-  }).fetch();
+  const ops = Operators
+    .find({ to: activityId, type: 'product' }, {
+      reactive: false
+    })
+    .fetch();
   if (ops.length > 0) {
     const op = ops[0];
     const operatorType = operatorTypesObj[op.operatorType];
-    const prod = Products.find({ activityId: op.from }, {
-      reactive: false
-    }).fetch();
+    const prod = Products
+      .find({ activityId: op.from }, {
+        reactive: false
+      })
+      .fetch();
     if (prod.length > 0) {
       const result = operatorType.operator(op.data, prod);
       addResult('product', activityId, result);
@@ -42,15 +43,19 @@ const runProduct = (sessionId, activityId) => {
 };
 
 const runSocial = (sessionId, activityId) => {
-  const ops = Operators.find({ to: activityId, type: 'social' }, {
-    reactive: false
-  }).fetch();
+  const ops = Operators
+    .find({ to: activityId, type: 'social' }, {
+      reactive: false
+    })
+    .fetch();
   if (ops.length > 0) {
     const op = ops[0];
     const operatorType = operatorTypesObj[op.operatorType];
-    const prod = Products.find({ activityId: op.from }, {
-      reactive: false
-    }).fetch();
+    const prod = Products
+      .find({ activityId: op.from }, {
+        reactive: false
+      })
+      .fetch();
     if (prod.length > 0) {
       const result = operatorType.operator(op.data, prod);
       addResult('social', activityId, result);
@@ -64,62 +69,87 @@ const switchActivity = (sessionId, activityId) => {
   updateSessionActivity(sessionId, activityId);
 };
 
+const StudentList = ({ students }) => (
+  <ul>
+    {students.map(student => (
+      <li key={student._id}>
+        <p>{student.username}</p>
+      </li>
+    ))}
+  </ul>
+);
+
+const ActivityList = ({ activities, session }) => (
+  <ul>
+    {activities.map(activity => (
+      <li key={activity._id}>
+        <a href="#" onClick={() => switchActivity(session._id, activity._id)}>
+          {activity.title} -
+          <i>{activity.activityType}</i>
+          {activity._id === session.activityId ? <i> (running)</i> : null}
+        </a>
+      </li>
+    ))}
+  </ul>
+);
+
 const SessionController = createContainer(
   ({ session }) => {
     const activities = session
       ? Activities.find({ sessionId: session._id }).fetch()
       : null;
-    return { session, activities };
+    const students = session
+      ? Meteor.users.find({ 'profile.currentSession': session._id }).fetch()
+      : null;
+    return { session, activities, students };
   },
-  ({ session, activities }) => {
-    if (session) {
-      return (
-        <div>
-          <h3>Session control</h3>
-          Current state <b>{session.state}</b>.
-          Control the session through selecting an activity below,
-          or Starting/Pausing/Stopping the session.
-          <h4>Available activities</h4>
-          <ul>
-            {activities.map(activity => {
-              const running = activity._id === session.activity;
-              return (
-                <li key={activity._id}>
-                  <a
-                    href="#"
-                    onClick={() => switchActivity(session._id, activity._id)}
-                  >
-                    {!!activity.data && activity.data.name} -
-                    <i>{activity.activityType}</i>
-                    {!!running && <i> (running)</i>}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => updateSessionState(session._id, 'STARTED')}
-          >
-            Start
-          </button>
-          <button
-            className="btn btn-warning btn-sm"
-            onClick={() => updateSessionState(session._id, 'PAUSED')}
-          >
-            Pause
-          </button>
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={() => updateSessionState(session._id, 'STOPPED')}
-          >
-            Stop
-          </button>
-        </div>
-      );
-    }
-    return <p>Chose a session</p>;
-  }
+  ({ session, activities, students }) => (
+    <div>
+      <h1>Session control</h1>
+      {session
+        ? <div>
+            <p>
+              Current state <b>{session.state}</b>.
+              Control the session through selecting an activity below,
+              or Starting/Pausing/Stopping the session.
+            </p>
+            <pre>{JSON.stringify(session, null, 2)}</pre>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => runSession(session._id)}
+            >
+              Start
+            </button>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => nextActivity(session._id)}
+            >
+              Next
+            </button>
+            <button
+              className="btn btn-warning btn-sm"
+              onClick={() => updateSessionState(session._id, 'PAUSED')}
+            >
+              Pause
+            </button>
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={() => updateSessionState(session._id, 'STOPPED')}
+            >
+              Stop
+            </button>
+            <h3>Registered students</h3>
+            {students && students.length
+              ? <StudentList students={students} />
+              : <p>NO STUDENTS</p>}
+            <h3>Available Activities</h3>
+            {activities && activities.length
+              ? <ActivityList activities={activities} session={session} />
+              : <p>NO ACTIVITY</p>}
+          </div>
+        : <p>Chose a session</p>}
+    </div>
+  )
 );
 
 class SessionList extends Component {
@@ -143,7 +173,7 @@ class SessionList extends Component {
   render() {
     return (
       <div>
-        <h3>Session list</h3>
+        <h1>Session list</h1>
         <select onChange={this.changeGraph}>
           {this.props.graphs.map(graph => (
             <option key={graph._id} value={graph._id}>{graph.name}</option>
@@ -173,30 +203,51 @@ class SessionList extends Component {
   }
 }
 
-const DashView = ({ user, logs }) => {
-  const session = user.profile
-    ? Sessions.findOne({ _id: user.profile.controlSession })
-    : null;
-  if (!session) {
-    return null;
-  }
-  const activity = Activities.findOne({ _id: session.activity });
-  if (!activity) {
-    return null;
-  }
-  const activityType = activityTypesObj[activity.activityType];
-  const specificLogs = logs.filter(log => log.activity === activity._id);
-  if (!activityType.Dashboard) {
-    return null;
+const DashView = ({ logs, session }) => {
+  let Dash = <p>NO DASHBOARD</p>;
+  if (session) {
+    const activity = Activities.findOne({ _id: session.activity });
+    if (activity) {
+      const activityType = activityTypesObj[activity.activityType];
+      const specificLogs = logs.filter(log => log.activity === activity._id);
+      if (activityType && activityType.Dashboard) {
+        Dash = (
+          <div>
+            <p>The current time is {activityType.Dashboard.timeNow}</p>
+            <activityType.Dashboard logs={specificLogs} />
+          </div>
+        );
+      }
+    }
   }
   return (
     <div>
-      <h3>Dashboard</h3>
-      <p>The current time is {activityType.Dashboard.timeNow}</p>
-      <activityType.Dashboard logs={specificLogs} />
+      <h1>Dashboard</h1>
+      {Dash}
     </div>
   );
 };
+
+const LogView = createContainer(
+  ({ session }) => {
+    const logs = session ? Logs.find({ sessionId: session._id }).fetch() : [];
+    return { logs };
+  },
+  ({ logs }) => (
+    <div>
+      <h1>Logs</h1>
+      <ul>
+        {logs
+          ? logs.map(log => (
+              <li key={log._id}>
+                <pre>{JSON.stringify(log, null, 2)}</pre>
+              </li>
+            ))
+          : <li>NO LOGS</li>}
+      </ul>
+    </div>
+  )
+);
 
 export default createContainer(
   () => {
@@ -212,11 +263,12 @@ export default createContainer(
       user
     };
   },
-  ({ graphs, session, sessions, logs, user }) => (
+  ({ graphs, session, sessions, logs }) => (
     <div>
       <SessionController session={session} />
-      <DashView user={user} logs={logs} />
+      <DashView session={session} logs={logs} />
       <SessionList sessions={sessions} graphs={graphs} />
+      <LogView session={session} />
     </div>
   )
 );

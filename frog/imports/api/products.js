@@ -24,3 +24,12 @@ export const addProduct = (activityId, activityType, userId, data, groupId) => {
     createdAt: new Date()
   });
 };
+
+export const addNodeProduct = (operatorId, data) => {
+  Products.insert({
+    nodeId: operatorId,
+    ...data,
+    createdAt: new Date(),
+    _id: uuid()
+  });
+};

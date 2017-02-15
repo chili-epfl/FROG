@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { DraggableCore } from 'react-draggable';
 import { connect, store } from './store';
@@ -52,7 +54,7 @@ export const TimeScale = connect(({ store: { scale } }) => (
   <g>
     {[...Array(120).keys()].map(index => {
       const i = index + 1;
-      const length = (i % 15 === 0) * 15 + (i % 5 === 0) * 10 + 5;
+      const length = (i % 15 === 0 ? 15 : 0) + (i % 5 === 0 ? 10 : 0) + 5;
       const x = timeToPx(i, scale);
       return (
         <g key={i}>

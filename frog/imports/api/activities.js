@@ -47,17 +47,6 @@ export const importGraphActivity = (params, thisGraphId) => Activities.insert({
   _id: params._id
 });
 
-export const addSessionActivity = params => {
-  const id = uuid();
-  Activities.insert({
-    ...params,
-    sessionId: params.sessionId,
-    createdAt: new Date(),
-    _id: id
-  });
-  return id;
-};
-
 export const removeGraphActivity = activityId =>
   Meteor.call('graph.flush.activity', activityId);
 
@@ -71,18 +60,14 @@ export const addGraphOperator = params => Operators.insert({
 export const importOperator = params =>
   Operators.insert({ ...params, createdAt: new Date(), _id: params._id });
 
+export const importConnection = params =>
+  Connections.insert({ ...params, createdAt: new Date(), _id: params._id });
+
 export const importGraphOperator = (params, thisGraphId) => Operators.insert({
   ...params,
   graphId: thisGraphId,
   createdAt: new Date(),
   _id: params._id
-});
-
-export const addSessionOperator = params => Operators.insert({
-  ...params,
-  sessionId: params.sessionId,
-  createdAt: new Date(),
-  _id: uuid()
 });
 
 export const copyActivityIntoGraphActivity = (
@@ -153,12 +138,14 @@ Meteor.methods({
     Graphs.remove({ _id: graphId });
     Activities.remove({ graphId });
     Operators.remove({ graphId });
+    Connections.remove({ graphId });
   },
   'graph.flush.db': () => {
     Graphs.remove({});
     Activities.remove({});
     Operators.remove({});
     Sessions.remove({});
+    Connections.remove({});
   },
   'graph.flush.activity': activityId => {
     Operators.remove({ from: activityId });

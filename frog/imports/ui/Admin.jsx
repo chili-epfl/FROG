@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Logs } from '../api/logs';
@@ -6,11 +6,22 @@ import { Sessions, importSession } from '../api/sessions';
 import {
   Activities,
   Operators,
+  Connections,
   importActivity,
   importOperator,
+  importConnection,
   deleteDatabase
 } from '../api/activities';
 import { Graphs, importGraph } from '../api/graphs';
+
+import { mixedJigsaw } from '../datasets/mixedJigsaw';
+
+const loadDatabase = data => {
+  data.graphs.forEach(item => importGraph(item));
+  data.activities.forEach(item => importActivity(item));
+  data.operators.forEach(item => importOperator(item));
+  data.connections.forEach(item => importConnection(item));
+};
 
 function download(strData, strFileName, strMimeType) {
   const D = this.document;
@@ -78,15 +89,43 @@ function download(strData, strFileName, strMimeType) {
   return true;
 }
 
+class DisplayData extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isClicked: false };
+  }
+
+  toggleDisplay = event => {
+    event.preventDefault();
+    this.setState({ isClicked: !this.state.isClicked });
+  };
+
+  render() {
+    return (
+      <ul>
+        {this.props.data.map(d => (
+          <li key={d._id}>
+            <a href={'#'} onClick={this.toggleDisplay}>{d._id}</a>
+            {this.state.isClicked
+              ? <pre>{JSON.stringify(d, null, 2)}</pre>
+              : null}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
+
 export default createContainer(
   () => {
     const sessions = Sessions.find().fetch();
     const graphs = Graphs.find().fetch();
     const activities = Activities.find().fetch();
     const operators = Operators.find().fetch();
-    return { sessions, graphs, activities, operators };
+    const connections = Connections.find().fetch();
+    return { sessions, graphs, activities, operators, connections };
   },
-  ({ sessions, graphs, activities, operators }) => {
+  ({ sessions, graphs, activities, operators, connections }) => {
     const exportToJSON = () => {
       const obj = {
         sessions,
@@ -107,9 +146,9 @@ export default createContainer(
         const obj = JSON.parse(e.target.result);
         if (
           Object.prototype.hasOwnProperty.call(obj, 'sessions') &&
-            Object.prototype.hasOwnProperty.call(obj, 'graphs') &&
-            Object.prototype.hasOwnProperty.call(obj, 'activities') &&
-            Object.prototype.hasOwnProperty.call(obj, 'operators')
+          Object.prototype.hasOwnProperty.call(obj, 'graphs') &&
+          Object.prototype.hasOwnProperty.call(obj, 'activities') &&
+          Object.prototype.hasOwnProperty.call(obj, 'operators')
         ) {
           deleteDatabase();
           for (let i = 0; i < obj.graphs.length; i += 1) {
@@ -155,6 +194,23 @@ export default createContainer(
         <button className="export logs" onClick={() => exportLogs()}>
           Download the Logs
         </button>
+        <br />
+        <button
+          className="export logs"
+          onClick={() => loadDatabase(mixedJigsaw)}
+        >
+          Load fake database
+        </button>
+        <h1>Graphs</h1>
+        <DisplayData data={graphs} />
+        <h1>Activities</h1>
+        <DisplayData data={activities} />
+        <h1>Operators</h1>
+        <DisplayData data={operators} />
+        <h1>Connections</h1>
+        <DisplayData data={connections} />
+        <h1>Sessions</h1>
+        <DisplayData data={sessions} />
       </div>
     );
   }

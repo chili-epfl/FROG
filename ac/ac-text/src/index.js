@@ -1,4 +1,8 @@
+// @flow
+
 import React from 'react'
+
+import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils'
 
 export const meta = {
   name: 'HTML text component',
@@ -28,7 +32,7 @@ export const config = {
   }
 }
 
-export const ActivityRunner = ( { config, data }) => 
+export const ActivityRunner = ( { config, data }: ActivityRunnerT ) => 
   <div><h1>{config.title}</h1>{config.text}<hr/><div dangerouslySetInnerHTML={{__html: data}} /></div>
 
-export default { id: 'ac-text', ActivityRunner: ActivityRunner, config: config, meta: meta }
+export default ({ id: 'ac-text', ActivityRunner: ActivityRunner, config: config, meta: meta }: ActivityPackageT)
