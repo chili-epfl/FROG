@@ -45,6 +45,6 @@ export type OperatorPackageT = {
 export type ChatT = {
   messages: Array<{value: { user: string, msg: string }, id: string }>,
   userInfo: { id: string, name: string },
-  addMessage: (({ msg: string, user: string }) => ()),
+  addMessage: (({ msg: string, user: string }) => any),
   logger: Function
 }

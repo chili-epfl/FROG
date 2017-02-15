@@ -35,4 +35,4 @@ export const config = {
 export const ActivityRunner = ( { config, data }: ActivityRunnerT ) => 
   <div><h1>{config.title}</h1>{config.text}<hr/><div dangerouslySetInnerHTML={{__html: data}} /></div>
 
-export default { id: 'ac-text', ActivityRunner: ActivityRunner, config: config, meta: meta }: ActivityPackageT
+export default ({ id: 'ac-text', ActivityRunner: ActivityRunner, config: config, meta: meta }: ActivityPackageT)

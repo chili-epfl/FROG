@@ -89,4 +89,4 @@ export const ActivityRunner = (art: ActivityRunnerT) => {
   return <p>NULL OBJECT</p>
 }
 
-export default { id: 'ac-jigsaw', ActivityRunner: ActivityRunner, config: config, meta: meta }: ActivityPackageT
+export default ({ id: 'ac-jigsaw', ActivityRunner: ActivityRunner, config: config, meta: meta }: ActivityPackageT)
