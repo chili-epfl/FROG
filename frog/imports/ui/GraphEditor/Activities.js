@@ -1,6 +1,8 @@
+// @flow
 import React from "react";
 import { DraggableCore } from "react-draggable";
-import { connect } from "./store";
+import { connect, type StoreProp } from "./store";
+import { default as ActivityT }  from './store/activity'
 
 const Box = ({ x, y, width, selected, highlighted }) => (
   <rect
@@ -27,7 +29,7 @@ const Activity = connect((
     },
     activity,
     scaled
-  }
+  }: StoreProp & { activity: ActivityT, scaled: Boolean }
 ) => {
   const x = scaled ? activity.xScaled : activity.x;
   const width = scaled ? activity.widthScaled : activity.width;
@@ -106,8 +108,8 @@ const Activity = connect((
   );
 });
 
-export default connect(({ store: { activities }, scaled }) => (
+export default connect(({ store: { activityStore: { all }}, scaled }: StoreProp & { scaled: boolean }) => (
   <g>
-    {activities.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
+    {all.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
   </g>
 ));

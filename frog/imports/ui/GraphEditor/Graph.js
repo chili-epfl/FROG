@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 // import Lines, { DragLine } from './Lines';
-// import Activities from './Activities';
+import Activities from './Activities';
 import { LevelLines, PanMap, TimeScale } from "./fixed_components";
 import ScrollFields from "./ScrollFields";
 import DragGuides from "./DragGuides";
@@ -57,7 +57,7 @@ export default connect((
       />
       <LevelLines />
       {/* <Lines scaled={!hasPanMap} /> */}
-      {/* <Activities scaled={!hasPanMap} /> */}
+      <Activities scaled={!hasPanMap} />
       {/* {!hasPanMap && scrollEnabled && <DragLine />} */}
       {!hasPanMap &&
         <g>

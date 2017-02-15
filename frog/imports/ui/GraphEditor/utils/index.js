@@ -1,4 +1,6 @@
+// @flow
 import React, { Component } from 'react';
+import * as constants from '../constants'
 
 export const timeToPx = (time, scale) => time * 3900 * scale / 120;
 export const pxToTime = (px, scale) => px / 3900 / scale * 120;

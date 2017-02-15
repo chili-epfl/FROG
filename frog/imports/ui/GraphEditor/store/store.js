@@ -14,8 +14,8 @@ import { Activities, Connections, Operators } from '../../../api/activities';
 
 type ElementTypes = 'operator' | 'activity' | 'connection';
 
-type Elem = Activity | Connection | Operator;
-type Coll = Array<Elem>;
+export type Elem = Activity | Connection | Operator;
+export type Coll = Array<Elem>;
 
 type StateT =
   | { mode: 'resizing', currentActivity: Activity, rightBound: Activity }
@@ -50,6 +50,8 @@ export default class Store {
   @observable ui = new UI();
   @observable connectionStore = new ConnectionStore();
   @observable state: StateT = { mode: 'normal' };
+  @observable activityStore = new ActivityStore();
+  @action addHistory() {}
 }
 
 // findId = ({ type, id }: { type: ElementTypes, id: string }) => {
@@ -65,7 +67,6 @@ export default class Store {
 // @observable activityStore = new ActivityStore();
 // @observable operatorStore = new OperatorStore();
 // @observable history = [];
-// @observable selected: Elem;
 // @action addHistory = () => {
 //   this.history.push([
 //     this.connectionStore.history,
@@ -173,10 +174,6 @@ export default class Store {
 //   }
 //   return ['connection', selection];
 // }
-// @action cancelAll = () => {
-//   this.selected = undefined;
-//   this.mode = { mode: 'normal' };
-// };
 // @action canvasClick = (e: { clientX: number, clientY: number }) => {
 //   if (this.mode === 'placingOperator') {
 //     const coords = this.rawMouseToTime(

@@ -1,7 +1,7 @@
 import { computed, action, observable } from 'mobx';
 
 import Activity from './activity';
-import { store } from './store';
+import { store } from './index';
 import getOffsets from '../utils/getOffsets';
 
 // find activities immediately to the left and to the right of the current activity
@@ -23,6 +23,9 @@ const calculateBounds = (
 };
 
 export default class ActivityStore {
+  constructor() {
+    this.all = [];
+  }
   @observable all: Array<Activity> = [];
 
   @computed get activityOffsets(): any {
@@ -41,11 +44,12 @@ export default class ActivityStore {
   }
 
   @action addActivity = (plane: number, rawX: number): void => {
-    const [x, _] = this.rawMouseToTime(rawX, 0);
+    const [x, _] = store.ui.rawMouseToTime(rawX, 0);
+    console.log('x', x, rawX)
     const newActivity = new Activity(plane, x, 'Unnamed', 5);
-    this.activities.push(newActivity);
-    this.renameOpen = newActivity;
-    this.addHistory();
+    this.all.push(newActivity);
+    store.state = { mode: 'rename', currentActivity: newActivity }
+    store.addHistory();
   };
 
   @action swapActivities = (left: Activity, right: Activity) => {

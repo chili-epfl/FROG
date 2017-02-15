@@ -3,10 +3,27 @@ import { action, observable, computed } from 'mobx';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 import * as constants from '../constants';
+import type { Elem } from './store'
 
 export default class uiStore {
   @observable panx: number;
   @observable scale: number;
+  @observable selected: ?Elem;
+
+  @action unselect() {
+    this.selected = null
+  }
+  
+  rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
+    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
+    const y = rawY - constants.GRAPH_TOP;
+    return [x, y];
+  };
+@action cancelAll = () => {
+  this.selected = undefined;
+  store.state = { mode: 'normal' };
+};
+
 
   @computed get panOffset(): number {
     return this.panx * 4 * this.scale;
@@ -89,12 +106,6 @@ export default class uiStore {
   @computed get scrollEnabled(): boolean {
     return !!['dragging', 'moving', 'resizing'].includes(store.state.mode);
   }
-
-  rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
-    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
-    const y = rawY - constants.GRAPH_TOP;
-    return [x, y];
-  };
 
   @action socialMove = (rawX: number, rawY: number): void => {
     this.socialCoordsTime = this.rawMouseToTime(rawX, rawY);

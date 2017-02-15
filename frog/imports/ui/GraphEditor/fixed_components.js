@@ -20,7 +20,7 @@ export const PanMap = connect(({ store: { ui: {panx, panDelta, scale }}}: StoreP
 ));
 
 const onDoubleClick = (x, e) => {
-  store.addActivity(x, e.nativeEvent.offsetX);
+  store.activityStore.addActivity(x, e.nativeEvent.offsetX);
 };
 
 export const LevelLines = connect(({ store: { ui: {scale }} }: StoreProp) => (

@@ -1,3 +1,4 @@
+// @flow
 import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
@@ -40,13 +41,13 @@ export default class Activity {
   @observable startTime: number;
 
   @computed get xScaled(): number {
-    return timeToPx(Math.round(this.startTime), store.scale);
+    return timeToPx(Math.round(this.startTime), store.ui.scale);
   }
   @computed get x(): number {
     return timeToPx(Math.round(this.startTime), 1);
   }
   @computed get widthScaled(): number {
-    return timeToPx(Math.round(this.length), store.scale);
+    return timeToPx(Math.round(this.length), store.ui.scale);
   }
   @computed get width(): number {
     return timeToPx(Math.round(this.length), 1);
@@ -59,21 +60,21 @@ export default class Activity {
   };
 
   @action select = () => {
-    store.unselect();
+    store.ui.unselect();
     this.selected = true;
   };
 
   @action rename = (newname: string) => {
     this.title = newname;
     store.addHistory();
-    store.cancelAll();
+    store.ui.cancelAll();
   };
 
   @action move = (deltax: number) => {
     if (store.mode !== 'moving') {
       return;
     }
-    const deltaTime = pxToTime(deltax, store.scale);
+    const deltaTime = pxToTime(deltax, store.ui.scale);
     if (store.overlapAllowed) {
       this.startTime = between(
         0,
@@ -83,22 +84,22 @@ export default class Activity {
     } else {
       const oldTime = this.startTime;
       this.startTime = between(
-        store.leftbound && store.leftbound.startTime + store.leftbound.length,
-        store.rightbound
-          ? store.rightbound.startTime - this.length
+        store.state.leftbound && store.state.leftbound.startTime + store.state.leftbound.length,
+        store.state.rightbound
+          ? store.state.rightbound.startTime - this.length
           : 120 - this.length,
         this.startTime + deltaTime
       );
       if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
         this.overdrag += deltaTime;
         if (this.overdrag < -3) {
-          store.swapActivities(store.leftbound, this);
-          store.stopMoving();
+          store.activityStore.swapActivities(store.leftbound, this);
+          store.ui.stopMoving();
         }
         if (this.overdrag > 3) {
           store.swapActivities(this, store.rightbound);
           this.overdrag = 0;
-          store.stopMoving();
+          store.ui.stopMoving();
         }
       }
     }
@@ -106,26 +107,26 @@ export default class Activity {
 
   @action resize = (deltax: number) => {
     const deltaTime = pxToTime(deltax, store.scale);
-    const rightbound = store.rightbound && store.rightbound.startTime || 120;
+    const rightbound = store.state.rightbound && store.state.rightbound.startTime || 120;
     this.length = between(
       1,
       rightbound - this.startTime,
       this.length + deltaTime
     );
-    store.mode = 'resizing';
+    store.state = { mode: 'resizing', currentActivity: this, rightBound: store.state.rightbound }
   };
 
   @action onOver = () => this.over = true;
   @action onLeave = () => this.over = false;
-  @action setRename = () => store.renameOpen = this;
+  @action setRename = () => store.state = { mode: 'rename', currentActivity: this };
   @computed get highlighted(): boolean {
     return this.over &&
       store.draggingFromActivity !== this &&
-      store.mode === 'dragging';
+      store.state.mode === 'dragging';
   }
 
   @computed get y(): number {
-    const offset = store.activityOffsets[this.id];
+    const offset = store.activityStore.activityOffsets[this.id];
     return this.plane * 100 + 50 - offset * 30;
   }
 
