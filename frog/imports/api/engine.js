@@ -1,6 +1,5 @@
 // @flow
 
-// $FlowFixMe
 import { Meteor } from 'meteor/meteor';
 
 import type { SocialStructureT, ProductT, ObjectT } from 'frog-utils';
