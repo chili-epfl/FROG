@@ -7,6 +7,7 @@ dependencies:
     - npm -g install npm@latest
     - curl https://install.meteor.com | /bin/sh
     - ./initial_setup.sh
+    - cd frog && METEOR_SHUTDOWN=true meteor --once
 
 test: 
   post:

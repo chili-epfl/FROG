@@ -1,9 +1,7 @@
 // @flow
 
 import React from 'react';
-// $FlowFixMe
 import { Meteor } from 'meteor/meteor';
-// $FlowFixMe
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { activityTypesObj } from '../../activityTypes';

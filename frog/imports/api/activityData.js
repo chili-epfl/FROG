@@ -1,8 +1,6 @@
 // @flow
 
-// $FlowFixMe
 import { Meteor } from 'meteor/meteor';
-// $FlowFixMe
 import { Mongo } from 'meteor/mongo';
 
 export const ActivityData = new Mongo.Collection('activity_data');
