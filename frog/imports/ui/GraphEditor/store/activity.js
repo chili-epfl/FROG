@@ -111,7 +111,7 @@ export default class Activity {
 
   @action resize(deltax: number) {
     const state = store.state;
-    if (state.mode === 'resize') {
+    if (state.mode === 'resizing') {
       const deltaTime = pxToTime(deltax, store.ui.scale);
       this.length = between(
         1,
