@@ -1,16 +1,16 @@
 // @flow
-import React from "react";
-import { DraggableCore } from "react-draggable";
-import { connect, type StoreProp } from "./store";
-import { default as ActivityT }  from './store/activity'
+import React from 'react';
+import { DraggableCore } from 'react-draggable';
+import { connect, type StoreProp } from './store';
+import { default as ActivityT } from './store/activity';
 
 const Box = ({ x, y, width, selected, highlighted }) => (
   <rect
     x={x}
     y={y}
     width={width}
-    stroke={selected ? "#ff9900" : "grey"}
-    fill={highlighted ? "yellow" : "white"}
+    stroke={selected ? '#ff9900' : 'grey'}
+    fill={highlighted ? 'yellow' : 'white'}
     rx={10}
     height={30}
   />
@@ -18,7 +18,7 @@ const Box = ({ x, y, width, selected, highlighted }) => (
 
 const Activity = connect((
   {
-    store: { 
+    store: {
       activityStore: {
         startMoving,
         stopMoving,
@@ -28,7 +28,7 @@ const Activity = connect((
       connectionStore: {
         startDragging,
         stopDragging,
-        dragging,
+        dragging
       }
     },
     activity,
@@ -52,7 +52,7 @@ const Activity = connect((
         highlighted={activity.highlighted}
         selected={activity.selected}
       />
-      <svg style={{ overflow: "hidden" }} width={width + x - 20}>
+      <svg style={{ overflow: 'hidden' }} width={width + x - 20}>
         <text x={x + 3} y={activity.y + 20}>
           {activity.title}
         </text>
@@ -75,7 +75,7 @@ const Activity = connect((
           r={10}
           fill="transparent"
           stroke="transparent"
-          style={{ cursor: "crosshair" }}
+          style={{ cursor: 'crosshair' }}
         />
       </DraggableCore>
       <DraggableCore
@@ -90,7 +90,7 @@ const Activity = connect((
           y={activity.y}
           width={5}
           height={30}
-          style={{ cursor: "ew-resize" }}
+          style={{ cursor: 'ew-resize' }}
         />
       </DraggableCore>
       <DraggableCore
@@ -105,14 +105,16 @@ const Activity = connect((
           stroke="transparent"
           width={width - 20}
           height={30}
-          style={{ cursor: "move" }}
+          style={{ cursor: 'move' }}
         />
       </DraggableCore>
     </g>
   );
 });
 
-export default connect(({ store: { activityStore: { all }}, scaled }: StoreProp & { scaled: boolean }) => (
+export default connect((
+  { store: { activityStore: { all } }, scaled }: StoreProp & { scaled: boolean }
+) => (
   <g>
     {all.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
   </g>

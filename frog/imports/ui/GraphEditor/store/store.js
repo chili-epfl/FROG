@@ -16,19 +16,19 @@ type ElementTypes = 'operator' | 'activity' | 'connection';
 
 export type Elem = Activity | Connection | Operator;
 export type Coll = Array<Elem>;
-export type BoundsT = { 
+export type BoundsT = {
   leftBoundActivity: ?Activity,
   rightBoundActivity: ?Activity,
   leftBoundTime: number,
   rightBoundTime: number
-}
+};
 
 type StateT =
   | { mode: 'resizing', currentActivity: Activity, bounds: BoundsT }
   | {
       mode: 'moving',
       currentActivity: Activity,
-    bounds: BoundsT
+      bounds: BoundsT
     }
   | { mode: 'dragging', draggingfrom: Activity | Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }

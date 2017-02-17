@@ -40,10 +40,9 @@ export default class ConnectionStore {
     if (
       targetAry.length > 0 && this.draggingFromActivity.id !== targetAry[0].id
     ) {
-      this.connections.push(new Connection(
-        this.draggingFromActivity,
-        targetAry[0]
-      ));
+      this.connections.push(
+        new Connection(this.draggingFromActivity, targetAry[0])
+      );
       this.addHistory();
     }
     this.cancelScroll();
@@ -51,11 +50,9 @@ export default class ConnectionStore {
 
   @action mongoAdd = x => {
     if (!this.findId({ type: 'connection', id: x._id })) {
-      this.connections.push(new Connection(
-        this.findId(x.source),
-        this.findId(x.target),
-        x._id
-      ));
+      this.connections.push(
+        new Connection(this.findId(x.source), this.findId(x.target), x._id)
+      );
     }
   };
   @action mongoRemove = remact => {

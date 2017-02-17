@@ -4,7 +4,9 @@ import { DraggableCore } from 'react-draggable';
 import { connect, store, type StoreProp } from './store';
 import { timeToPx } from './utils';
 
-export const PanMap = connect(({ store: { ui: {panx, panDelta, scale }}}: StoreProp) => (
+export const PanMap = connect((
+  { store: { ui: { panx, panDelta, scale } } }: StoreProp
+) => (
   <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
     <rect
       x={panx}
@@ -23,7 +25,7 @@ const onDoubleClick = (x, e) => {
   store.activityStore.addActivity(x, e.nativeEvent.offsetX);
 };
 
-export const LevelLines = connect(({ store: { ui: {scale }} }: StoreProp) => (
+export const LevelLines = connect(({ store: { ui: { scale } } }: StoreProp) => (
   <g>
     {[1, 2, 3].map(x => (
       <g key={x}>
@@ -53,8 +55,10 @@ export const TimeScale = connect(({ store: { ui: { scale } } }) => (
   <g>
     {[...Array(120).keys()].map(index => {
       const i = index + 1;
-      const boolToBit = b => (b ? 1 : 0)
-      const length = boolToBit(i % 15 === 0) * 15 + boolToBit(i % 5 === 0) * 10 + 5;
+      const boolToBit = b => b ? 1 : 0;
+      const length = boolToBit(i % 15 === 0) * 15 +
+        boolToBit(i % 5 === 0) * 10 +
+        5;
       const x = timeToPx(i, scale);
       return (
         <g key={i}>

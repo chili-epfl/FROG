@@ -4,7 +4,7 @@ import { computed, action, observable } from 'mobx';
 import Activity from './activity';
 import { store } from './index';
 import getOffsets from '../utils/getOffsets';
-import type { BoundsT } from './store'
+import type { BoundsT } from './store';
 
 // find activities immediately to the left and to the right of the current activity
 // to draw boundary markers and control movement by dragging and resizing
@@ -12,7 +12,6 @@ const calculateBounds = (
   activity: Activity,
   activities: Array<Activity>
 ): BoundsT => {
-  
   const sorted = activities
     .filter(x => x.id !== activity.id)
     .sort((a, b) => a.startTime - b.startTime);
@@ -22,11 +21,18 @@ const calculateBounds = (
   const rightBoundActivity = sorted
     .filter(act => act.startTime >= activity.startTime + activity.length)
     .shift();
-  
-  const leftBoundTime = leftBoundActivity ? leftBoundActivity.endTime : 0
-  const rightBoundTime = rightBoundActivity ? rightBoundActivity.startTime : 120 
 
-  return { leftBoundActivity, leftBoundTime, rightBoundActivity, rightBoundTime }
+  const leftBoundTime = leftBoundActivity ? leftBoundActivity.endTime : 0;
+  const rightBoundTime = rightBoundActivity
+    ? rightBoundActivity.startTime
+    : 120;
+
+  return {
+    leftBoundActivity,
+    leftBoundTime,
+    rightBoundActivity,
+    rightBoundTime
+  };
 };
 
 export default class ActivityStore {
@@ -46,7 +52,7 @@ export default class ActivityStore {
     const [x, _] = store.ui.rawMouseToTime(rawX, 0);
     const newActivity = new Activity(plane, x, 'Unnamed', 5);
     this.all.push(newActivity);
-    store.state = { mode: 'rename', currentActivity: newActivity }
+    store.state = { mode: 'rename', currentActivity: newActivity };
     store.addHistory();
   };
 
@@ -67,7 +73,7 @@ export default class ActivityStore {
       mode: 'moving',
       currentActivity: activity,
       bounds
-    }
+    };
     activity.overdrag = 0;
   };
 
@@ -85,13 +91,9 @@ export default class ActivityStore {
 
   @action mongoAdd = (x: any) => {
     if (!store.findId({ type: 'activity', id: x._id })) {
-      this.all.push(new Activity(
-        x.plane,
-        x.startTime,
-        x.title,
-        x.length,
-        x._id
-      ));
+      this.all.push(
+        new Activity(x.plane, x.startTime, x.title, x.length, x._id)
+      );
     }
   };
 

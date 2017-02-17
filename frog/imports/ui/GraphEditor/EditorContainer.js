@@ -2,7 +2,7 @@
 import React from 'react';
 
 // $FlowFixMe
-import styled from 'styled-components'; 
+import styled from 'styled-components';
 import { connect } from './store';
 import type { StoreProp } from './store';
 import Graph from './Graph';
@@ -21,18 +21,9 @@ const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
         <GraphList />
       </GraphListContainer>
       <GraphContainer>
-        <Graph
-          width={1000}
-          height={600}
-          viewBox={`${panOffset} 0 1000 600`}
-        />
+        <Graph width={1000} height={600} viewBox={`${panOffset} 0 1000 600`} />
         <Rename />
-        <Graph
-          width={1000}
-          height={150}
-          viewBox={'0 0 4000 600'}
-          hasPanMap
-        />
+        <Graph width={1000} height={150} viewBox={'0 0 4000 600'} hasPanMap />
       </GraphContainer>
       <SidebarContainer>
         <SidePanel />

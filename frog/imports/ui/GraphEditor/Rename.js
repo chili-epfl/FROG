@@ -4,12 +4,12 @@ import { connect, type StoreProp } from './store';
 import { TextInput } from './utils';
 
 const RenameField = connect((
-  { store: { ui: {panx, scale, cancelAll }, state }}: StoreProp
+  { store: { ui: { panx, scale, cancelAll }, state } }: StoreProp
 ) => {
   if (state.mode !== 'rename') {
     return null;
   }
-  const renameOpen = state.currentActivity
+  const renameOpen = state.currentActivity;
   const left = renameOpen.x * scale - panx * 4 * scale;
   return (
     <div

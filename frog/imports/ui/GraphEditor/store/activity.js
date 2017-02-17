@@ -71,8 +71,8 @@ export default class Activity {
   };
 
   @action move = (deltax: number) => {
-    const state = store.state
-    if (state === 'moving')  {
+    const state = store.state;
+    if (state === 'moving') {
       const deltaTime = pxToTime(deltax, store.ui.scale);
       if (store.ui.overlapAllowed) {
         this.startTime = between(
@@ -85,8 +85,8 @@ export default class Activity {
         this.startTime = between(
           state.leftBound && state.leftBound.startTime + state.leftBound.length,
           state.rightBound
-          ? state.rightBound.startTime - this.length
-          : 120 - this.length,
+            ? state.rightBound.startTime - this.length
+            : 120 - this.length,
           this.startTime + deltaTime
         );
         if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
@@ -106,8 +106,8 @@ export default class Activity {
   };
 
   @action resize(deltax: number) {
-    const state = store.state
-    if(state.mode === 'resize') {
+    const state = store.state;
+    if (state.mode === 'resize') {
       const deltaTime = pxToTime(deltax, store.ui.scale);
       this.length = between(
         1,
@@ -115,11 +115,12 @@ export default class Activity {
         this.length + deltaTime
       );
     }
-  };
+  }
 
   @action onOver = () => this.over = true;
   @action onLeave = () => this.over = false;
-  @action setRename = () => store.state = { mode: 'rename', currentActivity: this };
+  @action setRename = () =>
+    store.state = { mode: 'rename', currentActivity: this };
   @computed get highlighted(): boolean {
     return this.over &&
       store.draggingFromActivity !== this &&
@@ -132,7 +133,7 @@ export default class Activity {
   }
 
   @computed get endTime(): number {
-    return this.startTime + this.length
+    return this.startTime + this.length;
   }
 
   @computed get object(): {

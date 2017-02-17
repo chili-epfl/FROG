@@ -1,11 +1,11 @@
 // @flow
-import React from "react";
+import React from 'react';
 // import Lines, { DragLine } from './Lines';
 import Activities from './Activities';
-import { LevelLines, PanMap, TimeScale } from "./fixed_components";
-import ScrollFields from "./ScrollFields";
-import DragGuides from "./DragGuides";
-import { connect, store, type StoreProp } from "./store";
+import { LevelLines, PanMap, TimeScale } from './fixed_components';
+import ScrollFields from './ScrollFields';
+import DragGuides from './DragGuides';
+import { connect, store, type StoreProp } from './store';
 // import Operators from './Operators';
 
 const scrollMouse = e => {
@@ -34,8 +34,7 @@ export default connect((
     height,
     hasPanMap,
     viewBox
-  }:
-    & StoreProp
+  }: & StoreProp
     & { width: number, height: number, hasPanMap: boolean, viewBox: string }
 ) => (
   <svg
