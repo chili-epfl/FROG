@@ -84,7 +84,7 @@ export default class Activity {
         const oldTime = this.startTime;
         this.startTime = between(
           state.bounds.leftBoundTime,
-          state.bounds.rightBoundTime,
+          state.bounds.rightBoundTime - this.length,
           this.startTime + deltaTime
         );
         if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
@@ -124,12 +124,12 @@ export default class Activity {
   @action onOver = () => this.over = true;
   @action onLeave = () => this.over = false;
 
-  @action setRename() {
+  @action setRename = () => {
     store.state = {
       mode: 'rename',
       currentActivity: this
     };
-  }
+  };
 
   @computed get highlighted(): boolean {
     return this.over &&

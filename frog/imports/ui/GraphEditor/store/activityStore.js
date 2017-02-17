@@ -24,7 +24,7 @@ const calculateBounds = (
 
   const leftBoundTime = leftBoundActivity ? leftBoundActivity.endTime : 0;
   const rightBoundTime = rightBoundActivity
-    ? rightBoundActivity.startTime - activity.length
+    ? rightBoundActivity.startTime
     : 120;
 
   return {

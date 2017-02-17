@@ -1,16 +1,16 @@
 // @flow
 import React from 'react';
 import { connect, type StoreProp } from './store';
-import { TextInput } from './utils';
+import { TextInput, timeToPx } from './utils';
 
 const RenameField = connect((
-  { store: { ui: { panx, scale, cancelAll }, state } }: StoreProp
+  { store: { ui: { cancelAll, scale }, state } }: StoreProp
 ) => {
   if (state.mode !== 'rename') {
     return null;
   }
   const renameOpen = state.currentActivity;
-  const left = renameOpen.x * scale - panx * 4 * scale;
+  const left = timeToPx(renameOpen.startTime, scale);
   return (
     <div
       style={{
