@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
@@ -19,7 +20,7 @@ const Body = ({ userId, app }) => {
       case 'Activity Editor':
         return <ActivityEditor />;
       case 'Graph Editor':
-        return <SVGEditor />;
+        return <GraphEditor />;
       case 'Student View':
         return <StudentView />;
       case 'Teacher View':

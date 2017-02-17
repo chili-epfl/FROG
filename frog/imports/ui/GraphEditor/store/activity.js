@@ -72,7 +72,7 @@ export default class Activity {
 
   @action move = (deltax: number) => {
     const state = store.state;
-    if (state === 'moving') {
+    if (state.mode === 'moving') {
       const deltaTime = pxToTime(deltax, store.ui.scale);
       if (store.ui.overlapAllowed) {
         this.startTime = between(
@@ -83,20 +83,24 @@ export default class Activity {
       } else {
         const oldTime = this.startTime;
         this.startTime = between(
-          state.leftBound && state.leftBound.startTime + state.leftBound.length,
-          state.rightBound
-            ? state.rightBound.startTime - this.length
-            : 120 - this.length,
+          state.bounds.leftBoundTime,
+          state.bounds.rightBoundTime,
           this.startTime + deltaTime
         );
         if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
           this.overdrag += deltaTime;
-          if (this.overdrag < -3 && state.leftBoundActivity) {
-            store.activityStore.swapActivities(state.leftBoundActivity, this);
+          if (this.overdrag < -3 && state.bounds.leftBoundActivity) {
+            store.activityStore.swapActivities(
+              state.bounds.leftBoundActivity,
+              this
+            );
             store.activityStore.stopMoving();
           }
-          if (this.overdrag > 3 && state.rightBoundActivity) {
-            store.activityStore.swapActivities(this, state.rightBoundActivity);
+          if (this.overdrag > 3 && state.bounds.rightBoundActivity) {
+            store.activityStore.swapActivities(
+              this,
+              state.bounds.rightBoundActivity
+            );
             this.overdrag = 0;
             store.activityStore.stopMoving();
           }
