@@ -1,5 +1,8 @@
+// @flow
+
 import JSONPath from 'jsonpath-plus'
 import { unrollProducts } from 'frog-utils'
+import type { ObjectT, SocialStructureT, OperatorPackageT } from 'frog-utils'
 
 export const meta = {
   name: 'Aggregate Text',
@@ -21,7 +24,15 @@ export const config = {
   }
 }
 
-export const operator = (config, products) => {
+export const operator = (config: Object, object: ObjectT) => {
+  const { products, socialStructures, globalStructure } = object
+  const product = ['un', 'deux', 'trois']
+
+  return {
+    product: product,
+    socialStructure: {}
+  }
+  /*
   const ret = unrollProducts(products).map(x => {
     const snippet = JSONPath({path: config.path, json: x.data})
     return(
@@ -32,6 +43,12 @@ export const operator = (config, products) => {
     )
   }).join('')
   return ret
+  */
 }
 
-export default { id: 'op-aggregate-text', operator: operator, config: config, meta: meta }
+export default ({ 
+  id: 'op-aggregate-text', 
+  operator: operator, 
+  config: config, 
+  meta: meta 
+}: OperatorPackageT)

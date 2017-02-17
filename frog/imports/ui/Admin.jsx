@@ -15,6 +15,7 @@ import {
 import { Graphs, importGraph } from '../api/graphs';
 
 import { mixedJigsaw } from '../datasets/mixedJigsaw';
+import { argueGraph } from '../datasets/argueGraph';
 
 const loadDatabase = data => {
   data.graphs.forEach(item => importGraph(item));
@@ -177,30 +178,17 @@ export default createContainer(
     };
     return (
       <div>
-        <button className="export database" onClick={() => exportToJSON()}>
-          Download the database
-        </button>
-        <form encType="multipart/form-data" action="upload" method="post">
-          <input id="json-database" type="file" />
-        </form>
-        <button className="import database" onClick={() => importFromJSON()}>
-          Upload a database
-        </button>
-        <br />
-        <button className="delete database" onClick={() => deleteDatabase()}>
+        <h1>Commands</h1>
+        <button onClick={() => deleteDatabase()}>
           Delete the database
-        </button>
-        <br />
-        <button className="export logs" onClick={() => exportLogs()}>
-          Download the Logs
-        </button>
-        <br />
-        <button
-          className="export logs"
-          onClick={() => loadDatabase(mixedJigsaw)}
-        >
-          Load fake database
-        </button>
+        </button><br />
+        <button onClick={() => loadDatabase(argueGraph)} >
+          Load argueGraph
+        </button><br />
+        <button onClick={() => loadDatabase(mixedJigsaw)} >
+          Load mixedJigsaw
+        </button><br />
+
         <h1>Graphs</h1>
         <DisplayData data={graphs} />
         <h1>Activities</h1>

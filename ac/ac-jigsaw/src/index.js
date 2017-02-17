@@ -36,7 +36,7 @@ export const config = {
     },
     grouBy: {
       type: 'string',
-      title: 'Chose \'role\' or \'group\'.'
+      title: 'Grouping by \'role\' or \'group\'.'
     }
   }
 }
