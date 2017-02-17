@@ -24,15 +24,15 @@ export type BoundsT = {
 };
 
 type StateT =
-  | { mode: 'resizing', currentActivity: Activity, bounds: BoundsT }
+  | { mode: 'resizing', currentActivity: typeof Activity, bounds: BoundsT }
   | {
       mode: 'moving',
-      currentActivity: Activity,
+      currentActivity: typeof Activity,
       bounds: BoundsT
     }
-  | { mode: 'dragging', draggingfrom: Activity | Operator }
+  | { mode: 'dragging', draggingfrom: typeof Activity | typeof Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }
-  | { mode: 'rename', currentActivity: Activity }
+  | { mode: 'rename', currentActivity: typeof Activity }
   | { mode: 'normal' };
 
 const getid = (arys: Array<Coll>, id: string): ?Elem => {
@@ -49,24 +49,27 @@ const getOne = (coll: Coll, crit: Function): ?Elem => {
   return found[0];
 };
 
-const getOneId = (coll, id) => getOne(coll, x => x.id === id);
+const getOneId = (coll: Coll, id: string): Elem =>
+  getOne(coll, x => x.id === id);
 
 export default class Store {
   @observable ui = new UI();
   @observable connectionStore = new ConnectionStore();
   @observable state: StateT = { mode: 'normal' };
   @observable activityStore = new ActivityStore();
+  @observable operatorStore = new OperatorStore();
   @action addHistory() {}
+
+  findId = ({ type, id }: { type: ElementTypes, id: string }) => {
+    if (type === 'activity') {
+      return getOneId(this.activityStore.all, id);
+    } else if (type === 'operator') {
+      return getOneId(this.operatorStore.all, id);
+    }
+    return getOneId(this.connectionStore.all, id);
+  };
 }
 
-// findId = ({ type, id }: { type: ElementTypes, id: string }) => {
-//   if (type === 'activity') {
-//     return getOneId(this.activities, id);
-//   } else if (type === 'operator') {
-//     return getOneId(this.operators, id);
-//   }
-//   return getOneId(this.connections, id);
-// };
 // @observable GraphID: string;
 // @observable connectionStore = new ConnectionStore();
 // @observable activityStore = new ActivityStore();

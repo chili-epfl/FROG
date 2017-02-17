@@ -119,8 +119,14 @@ export default class Activity {
 
   @action onOver = () => this.over = true;
   @action onLeave = () => this.over = false;
-  @action setRename = () =>
-    store.state = { mode: 'rename', currentActivity: this };
+
+  @action setRename() {
+    store.state = {
+      mode: 'rename',
+      currentActivity: this
+    };
+  }
+
   @computed get highlighted(): boolean {
     return this.over &&
       store.draggingFromActivity !== this &&

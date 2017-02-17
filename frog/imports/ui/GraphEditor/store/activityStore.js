@@ -63,8 +63,8 @@ export default class ActivityStore {
   };
 
   @action startResizing = (activity: Activity) => {
-    const rightBound = calculateBounds(activity, this.all)[1];
-    store.state = { mode: 'resizing', currentActivity: activity, rightBound };
+    const bounds = calculateBounds(activity, this.all);
+    store.state = { mode: 'resizing', currentActivity: activity, bounds };
   };
 
   @action startMoving = (activity: Activity) => {
@@ -98,7 +98,7 @@ export default class ActivityStore {
   };
 
   @action mongoChange = (newact: any, oldact: any) => {
-    this.findId({ type: 'activity', id: oldact._id }).update(newact);
+    store.findId({ type: 'activity', id: oldact._id }).update(newact);
   };
 
   @action mongoRemove = (remact: any) => {
