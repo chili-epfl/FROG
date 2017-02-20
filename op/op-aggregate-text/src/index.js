@@ -2,7 +2,7 @@
 
 import JSONPath from 'jsonpath-plus'
 import { unrollProducts } from 'frog-utils'
-import type { ObjectT, SocialStructureT, OperatorPackageT } from 'frog-utils'
+import type { ObjectT, OperatorPackageT } from 'frog-utils'
 
 export const meta = {
   name: 'Aggregate Text',
@@ -26,7 +26,7 @@ export const config = {
 
 export const operator = (config: Object, object: ObjectT) => {
   const { products, socialStructures, globalStructure } = object
-  const product = ['un', 'deux', 'trois']
+  const product = products[0]
 
   return {
     product: product,

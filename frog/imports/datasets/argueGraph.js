@@ -1,53 +1,49 @@
-const quizData = { MCQ: [
-  {
-    title: 'I will learn more if I...',
-    answers: [
-      {
-        title: 'By solving exercise alone',
-      },
-      {
-        title: 'By solving exercise with other students',
-      }
-    ],
-    details: 'details'
-  },
-  {
-    title: 'I will learn more if I...',
-    answers: [
-      {
-        title: 'Ask questions to the professor',
-      },
-      {
-        title: 'Answer the questions of my fellow student',
-      }
-    ],
-    details: 'details'
-  },
-  {
-    title: 'I will learn more if I...',
-    answers: [
-      {
-        title: 'Solve exercises with an other student who has the same level as me',
-      },
-      {
-        title: 'Solve exercise with a weaker student',
-      }
-    ],
-    details: 'details'
-  },
-  {
-    title: 'I will learn more if I...',
-    answers: [
-      {
-        title: 'Solve exercises with an other student who has the same level as me',
-      },
-      {
-        title: 'Solve exercise with a stronger student',
-      }
-    ],
-    details: 'details'
-  }
-]}
+const quizData = [
+    {
+      question: 'I will learn more if I...',
+      answers: [
+        {
+          answer: 'By solving exercise alone'
+        },
+        {
+          answer: 'By solving exercise with other students'
+        }
+      ]
+    },
+    {
+      question: 'I will learn more if I...',
+      answers: [
+        {
+          answer: 'Ask questions to the professor'
+        },
+        {
+          answer: 'Answer the questions of my fellow student'
+        }
+      ]
+    },
+    {
+      question: 'I will learn more if I...',
+      answers: [
+        {
+          answer: 'Solve exercises with an other student who has the same level as me'
+        },
+        {
+          answer: 'Solve exercise with a weaker student'
+        }
+      ]
+    },
+    {
+      question: 'I will learn more if I...',
+      answers: [
+        {
+          answer: 'Solve exercises with an other student who has the same level as me'
+        },
+        {
+          answer: 'Solve exercise with a stronger student'
+        }
+      ]
+    }
+  ];
 
 export const argueGraph = {
   graphs: [{ _id: 'argueGraphG', name: 'Argue Graph' }],
@@ -60,9 +56,10 @@ export const argueGraph = {
       length: 5,
       plane: 1,
       activityType: 'ac-text',
-      data: { 
-        title: 'Introduction', 
-        text: 'Today, you will learn about collaborative Learning.'
+      data: {
+        title: 'Introduction',
+        text: 'Today, you will learn about collaborative Learning.',
+        showProducts: false
       }
     },
     {
@@ -73,7 +70,11 @@ export const argueGraph = {
       length: 10,
       plane: 3,
       activityType: 'ac-quiz',
-      data: quizData
+      data: {
+        collab: false,
+        justifications: true,
+        MCQ: quizData
+      }
     },
     {
       _id: 'argueGraphA3',
@@ -83,7 +84,11 @@ export const argueGraph = {
       length: 15,
       plane: 2,
       activityType: 'ac-quiz',
-      data: quizData
+      data: {
+        collab: true,
+        justifications: true,
+        MCQ: quizData
+      }
     },
     {
       _id: 'argueGraphA4',
@@ -93,7 +98,11 @@ export const argueGraph = {
       length: 5,
       plane: 3,
       activityType: 'ac-quiz',
-      data: quizData
+      data: {
+        collab: false,
+        justifications: false,
+        MCQ: quizData
+      }
     },
     {
       _id: 'argueGraphA5',
@@ -103,7 +112,11 @@ export const argueGraph = {
       length: 10,
       plane: 1,
       activityType: 'ac-text',
-      data: { title: 'Conclusion', text: 'Arguing made you change your opinion and learn from each other.' }
+      data: {
+        title: 'Conclusion',
+        text: 'Arguing made you change your opinion and learn from each other.',
+        showProducts: true
+      }
     }
   ],
   operators: [
@@ -115,24 +128,6 @@ export const argueGraph = {
       operatorType: 'op-argue',
       time: 10,
       y: 190
-    },
-    {
-      _id: 'argueGraphO2',
-      name: 'aggregateAnswers',
-      graphId: 'argueGraphG',
-      type: 'product',
-      operatorType: 'op-aggregate-text',
-      time: 18,
-      y: 400
-    },
-    {
-      _id: 'argueGraphO3',
-      name: 'aggregateAnswers',
-      graphId: 'argueGraphG',
-      type: 'product',
-      operatorType: 'op-aggregate-text',
-      time: 33,
-      y: 275
     }
   ],
   connections: [
@@ -151,25 +146,25 @@ export const argueGraph = {
     {
       _id: 'argueGraphC3',
       source: { type: 'activity', id: 'argueGraphA2' },
-      target: { type: 'operator', id: 'argueGraphO2' },
-      graphId: 'argueGraphG'
-    },
-    {
-      _id: 'argueGraphC4',
-      source: { type: 'operator', id: 'argueGraphO2' },
       target: { type: 'activity', id: 'argueGraphA3' },
       graphId: 'argueGraphG'
     },
     {
-      _id: 'argueGraphC5',
+      _id: 'argueGraphC4',
       source: { type: 'activity', id: 'argueGraphA3' },
-      target: { type: 'operator', id: 'argueGraphO3' },
+      target: { type: 'activity', id: 'argueGraphA4' },
+      graphId: 'argueGraphG'
+    },
+    {
+      _id: 'argueGraphC5',
+      source: { type: 'activity', id: 'argueGraphA2' },
+      target: { type: 'activity', id: 'argueGraphA5' },
       graphId: 'argueGraphG'
     },
     {
       _id: 'argueGraphC6',
-      source: { type: 'operator', id: 'argueGraphO3' },
-      target: { type: 'activity', id: 'argueGraphA4' },
+      source: { type: 'activity', id: 'argueGraphA4' },
+      target: { type: 'activity', id: 'argueGraphA5' },
       graphId: 'argueGraphG'
     }
   ]

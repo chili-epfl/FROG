@@ -1,4 +1,5 @@
 // @flow
+
 import type { ObjectT, SocialStructureT } from 'frog-utils'
 
 export const meta = {

@@ -51,7 +51,11 @@ Meteor.methods({
     const node = types[type].findOne({ _id: nodeId });
     if (!node.computed) {
       engineLogger(sessionId, { message: 'COMPUTING DATA FOR ITEM ' + nodeId });
-      const connections = Connections.find({ 'target.id': nodeId }).fetch();
+      const connections = Connections
+        .find({
+          'target.id': nodeId
+        })
+        .fetch();
       connections.forEach(connection =>
         Meteor.call(
           'run.dataflow',
@@ -82,7 +86,11 @@ Meteor.methods({
 
       // The list of products of every connected node
       const products: Array<Array<ProductT>> = connections.map(
-        connection => Products.find({ nodeId: connection.source.id }).fetch()
+        connection => Products
+          .find({
+            nodeId: connection.source.id
+          })
+          .fetch()
       );
 
       // More data needed by the operators. Will need to be completed, documented and typed if possible
@@ -105,7 +113,7 @@ Meteor.methods({
           object
         );
         // The result of the operator function are written in Mongo
-        product.forEach(data => addNodeProduct(nodeId, data));
+        product.forEach(data => addNodeProduct(nodeId, data, ''));
         Object.keys(socialStructure).forEach(studentId => {
           const att = {};
           att['profile.attributes.' + nodeId] = socialStructure[studentId];

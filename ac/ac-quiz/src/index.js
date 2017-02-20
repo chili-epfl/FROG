@@ -1,23 +1,24 @@
 // @flow
+
 import React from 'react';
 import Form from "react-jsonschema-form";
-import type { ActivityRunnerT, ActivityPackageT }  from 'frog-utils'
+import type { ActivityRunnerT, ActivityPackageT, ProductT }  from 'frog-utils'
 
 export const meta = {
-  name: 'Quiz with Multiple-Choice Questions',
+  name: 'Multiple-Choice Questions',
   type: 'react-component'
 }
 export const config = {
   title: 'Configuration for MCQ',
   type: 'object',
   properties: {
-    'name': {
-      type: 'string',
-      title: 'Activity name'
+    'collab': {
+      type: 'boolean',
+      title: 'Collaborative?'
     },
-    'duration': {
-      type: 'number',
-      title: 'Duration in seconds (0 for infinity)'
+    'justifications': {
+      type: 'boolean',
+      title: 'Do you want students to justify their answers?'
     },
     'MCQ': {
       title: "MCQ",
@@ -26,10 +27,10 @@ export const config = {
         type: "object",
         title: "New Question",
         required: [
-          "title"
+          "question"
         ],
         properties: {
-          title: {
+          question: {
             type: "string",
             title: "Question"
           },
@@ -39,24 +40,15 @@ export const config = {
             items: {
               type: "object",
               required: [
-                "title"
+                "answer"
               ],
               properties: {
-                title: {
+                answer: {
                   type: "string",
                   title: "Answer"
-                },
-                answer: {
-                  type: "boolean",
-                  title: "This is an answer",
-                  default: false
                 }
               }
             }
-          },
-          details: {
-            type: "string",
-            title: "Enter an explanation",
           }
         }
       }
@@ -64,27 +56,86 @@ export const config = {
   }
 }
 
-
 export const ActivityRunner = (props: ActivityRunnerT) => {
-  const { config, logger, onCompletion } = props
+  const { config, saveProduct, object, userInfo } = props
+  const { products } = object
 
-  const propdef = config.MCQ.reduce(
-    (questionAcc, question, questionIndex) => ({...questionAcc, [questionIndex + '']: { 
-      type: 'string', 
-      title: question.title,
-      description: question.details,
-      enum: question.answers.reduce((answerAcc, answer, answerIndex) => ([...answerAcc, answer.title]), {})
-    }}),
-    {} )
-  const formdef = { 
+  console.log('hello')
+  console.log(object)
+
+  const onSubmit = (e) => {
+    saveProduct(userInfo.id, e.formData)
+  }
+
+  const schema = {
     title: config.name,
     type: 'object',
-    properties: propdef
+    properties: {}
   }
-  const uiSchema = { 'MCQ': { 'ui:options': { 'backgroundColor': 'pink' } } }
+  
+  const uiSchema = {
+    'MCQ': { 'ui:options': { 'backgroundColor': 'pink' } }
+  }
+  
+  config.MCQ.forEach(
+    (question, questionIndex) => {
+      schema.properties[''+questionIndex] = { 
+        type: 'object',
+        title: 'Question ' + (1 + questionIndex),
+        required: [
+          'justification'
+        ],
+        properties: {
+          'radio': {
+            type: 'string', 
+            title: question.question,
+            enum: question.answers.map((answer, answerIndex) => (answer.answer))
+          },
+          'justification': {
+            type: 'string',
+            title: 'Explain your answer'
+          }
+        }
+      }
+      uiSchema[''+questionIndex] = { 
+        radio: { "ui:widget": "radio" } 
+      }
+    }
+  )
+
+  const studentProducts = products.filter(x => x.length > 0)[0] 
+    ? products.filter(x => x.length > 0)[0].filter((p: ProductT) => p.userId === userInfo.id) 
+    : []
+
+  console.log(products.filter(x => x.length > 0))
+  console.log(userInfo)
+  console.log(studentProducts)
+
+  const formData = studentProducts[0] 
+    ? studentProducts[0].data 
+    : null
+
+  console.log(formData)
+
   return (
-    <Form schema={formdef} uiSchema={uiSchema} onSubmit={(x) => onCompletion(x.formData)} onChange={(x) => logger({form: x.formData})} />
+    <div>
+      <p>You are {userInfo.name}</p>
+      {config.collab
+        ? <p>You are collaborating</p>
+        : null}
+      <Form 
+        schema={schema}
+        uiSchema={uiSchema}
+        formData={formData}
+        onSubmit={onSubmit}
+      />
+    </div>
   )
 }
 
-export default ({ id: 'ac-quiz', meta: meta, config: config, ActivityRunner: ActivityRunner }: ActivityPackageT)
+export default ({ 
+  id: 'ac-quiz',
+  meta: meta,
+  config: config,
+  ActivityRunner: ActivityRunner
+}: ActivityPackageT)
