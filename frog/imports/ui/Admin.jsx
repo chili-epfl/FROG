@@ -26,14 +26,14 @@ const loadDatabase = data => {
 };
 
 class DisplayData extends Component {
-  state = {
-    isClicked: Boolean
-  };
-
   constructor(props) {
     super(props);
     this.state = { isClicked: false };
   }
+
+  state = {
+    isClicked: Boolean
+  };
 
   toggleDisplay = event => {
     event.preventDefault();
