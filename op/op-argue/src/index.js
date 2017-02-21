@@ -23,9 +23,9 @@ export const operator = (config: Object, object: ObjectT) => {
   const { products, socialStructures, globalStructure } = object
 
   const socStruc: SocialStructureT = {}
-  globalStructure.studentIds.forEach(studentId => { 
+  globalStructure.studentIds.forEach((studentId, index) => { 
   	socStruc[studentId] = { 
-      group: randomChoice(['A', 'B'])
+      group: Math.floor(index / 2).toString()
     }
   })
   return {

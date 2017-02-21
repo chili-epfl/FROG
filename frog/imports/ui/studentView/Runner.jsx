@@ -33,6 +33,7 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
 
 export default createContainer(
   props => {
+    // there is one reactiveKey Object per groupId
     const reactiveKey = ActivityData
       .find({
         activityId: props.activity._id,

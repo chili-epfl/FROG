@@ -57,15 +57,8 @@ export const config = {
 }
 
 export const ActivityRunner = (props: ActivityRunnerT) => {
-  const { config, saveProduct, object, userInfo } = props
-  const { products } = object
-
-  console.log('hello')
-  console.log(object)
-
-  const onSubmit = (e) => {
-    saveProduct(userInfo.id, e.formData)
-  }
+  const { config, saveProduct, object, userInfo, reactiveData, reactiveFn } = props
+  const { products, socialStructures } = object
 
   const schema = {
     title: config.name,
@@ -103,32 +96,61 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
     }
   )
 
-  const studentProducts = products.filter(x => x.length > 0)[0] 
-    ? products.filter(x => x.length > 0)[0].filter((p: ProductT) => p.userId === userInfo.id) 
-    : []
+  const socialStructure = socialStructures.find(x => x[userInfo.id]) 
 
-  console.log(products.filter(x => x.length > 0))
-  console.log(userInfo)
-  console.log(studentProducts)
+  const groupId = socialStructure 
+    ? socialStructure[userInfo.id].group
+    : 'NO_GROUP'
 
-  const formData = studentProducts[0] 
-    ? studentProducts[0].data 
+  const reactiveKey = reactiveData.keys.find(x => x.groupId === groupId)
+  const formData = reactiveKey
+    ? reactiveKey['DATA' + userInfo.id]
     : null
 
-  console.log(formData)
+  const partnerId =  socialStructure
+    ? Object.keys(socialStructure).find(
+      id => !(id === userInfo.id) && socialStructure[id].group === groupId
+    )
+    : userInfo.id
+
+  const partnerFormData = reactiveKey
+    ? reactiveKey['DATA' + partnerId]
+    : null
+
+  if(!formData){
+    const studentProducts = products.filter(x => x.length > 0)[0] 
+      ? products.filter(x => x.length > 0)[0].filter((p: ProductT) => p.userId === userInfo.id) 
+      : []
+
+    const product = studentProducts[0] 
+      ? studentProducts[0].data 
+      : null
+
+    reactiveFn(groupId).keySet('DATA' + userInfo.id, product)
+  }
+
+  const onSubmit = (e) => {
+    saveProduct(userInfo.id, e.formData)
+  }
+
+  const onChange = (e) => {
+    reactiveFn(groupId).keySet('DATA' + userInfo.id, e.formData)
+  }
 
   return (
     <div>
       <p>You are {userInfo.name}</p>
       {config.collab
-        ? <p>You are collaborating</p>
+        ? <p>You are collaborating with the group {groupId}</p>
         : null}
-      <Form 
-        schema={schema}
-        uiSchema={uiSchema}
-        formData={formData}
-        onSubmit={onSubmit}
-      />
+      <div style={{display: 'inline-block', width: '50%'} }>
+        <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />
+      </div>
+      {config.collab
+        ? <div style={{display: 'inline-block', width: '50%'}}>
+            <Form {...{ schema, uiSchema, formData: partnerFormData }} />
+        </div>
+        : null}
     </div>
   )
 }

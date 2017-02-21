@@ -1,49 +1,49 @@
 const quizData = [
-    {
-      question: 'I will learn more if I...',
-      answers: [
-        {
-          answer: 'By solving exercise alone'
-        },
-        {
-          answer: 'By solving exercise with other students'
-        }
-      ]
-    },
-    {
-      question: 'I will learn more if I...',
-      answers: [
-        {
-          answer: 'Ask questions to the professor'
-        },
-        {
-          answer: 'Answer the questions of my fellow student'
-        }
-      ]
-    },
-    {
-      question: 'I will learn more if I...',
-      answers: [
-        {
-          answer: 'Solve exercises with an other student who has the same level as me'
-        },
-        {
-          answer: 'Solve exercise with a weaker student'
-        }
-      ]
-    },
-    {
-      question: 'I will learn more if I...',
-      answers: [
-        {
-          answer: 'Solve exercises with an other student who has the same level as me'
-        },
-        {
-          answer: 'Solve exercise with a stronger student'
-        }
-      ]
-    }
-  ];
+  {
+    question: 'I will learn more if I...',
+    answers: [
+      {
+        answer: 'By solving exercise alone'
+      },
+      {
+        answer: 'By solving exercise with other students'
+      }
+    ]
+  },
+  {
+    question: 'I will learn more if I...',
+    answers: [
+      {
+        answer: 'Ask questions to the professor'
+      },
+      {
+        answer: 'Answer the questions of my fellow student'
+      }
+    ]
+  },
+  {
+    question: 'I will learn more if I...',
+    answers: [
+      {
+        answer: 'Solve exercises with an other student who has the same level as me'
+      },
+      {
+        answer: 'Solve exercise with a weaker student'
+      }
+    ]
+  },
+  {
+    question: 'I will learn more if I...',
+    answers: [
+      {
+        answer: 'Solve exercises with an other student who has the same level as me'
+      },
+      {
+        answer: 'Solve exercise with a stronger student'
+      }
+    ]
+  }
+];
 
 export const argueGraph = {
   graphs: [{ _id: 'argueGraphG', name: 'Argue Graph' }],

@@ -9,11 +9,8 @@ import { Logs } from './logs';
 
 export const Products = new Mongo.Collection('products');
 
-export const saveProduct = (activityId: string) => (
-  (userId: string, data: Object) => 
-    addNodeProduct(activityId, data, userId)
-)
-
+export const saveProduct = (activityId: string) =>
+  (userId: string, data: Object) => addNodeProduct(activityId, data, userId);
 
 export const addProduct = (
   activityId: string,
@@ -39,7 +36,11 @@ export const addProduct = (
   });
 };
 
-export const addNodeProduct = (nodeId: string, data: Object, userId: string) => {
+export const addNodeProduct = (
+  nodeId: string,
+  data: Object,
+  userId: string
+) => {
   Products.insert({
     nodeId,
     userId,

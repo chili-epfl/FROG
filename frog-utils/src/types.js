@@ -6,6 +6,7 @@ export type SocialStructureT = {
 
 export type ProductT = {
   nodeId: string,
+  userId: string,
   data: Object
 }
 
