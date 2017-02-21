@@ -1,5 +1,3 @@
-// @flow
-
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';

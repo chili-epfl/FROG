@@ -107,11 +107,13 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
     ? reactiveKey['DATA' + userInfo.id]
     : null
 
-  const partnerId =  socialStructure
+  const findPartner = socialStructure
     ? Object.keys(socialStructure).find(
       id => !(id === userInfo.id) && socialStructure[id].group === groupId
     )
-    : userInfo.id
+    : null
+
+  const partnerId = findPartner ? findPartner : 'NO_ID'
 
   const partnerFormData = reactiveKey
     ? reactiveKey['DATA' + partnerId]
