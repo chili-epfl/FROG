@@ -27,7 +27,7 @@ const loadDatabase = data => {
 
 class DisplayData extends Component {
   state = {
-    isClicked: Boolean;
+    isClicked: Boolean
   };
 
   constructor(props) {
