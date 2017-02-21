@@ -31,7 +31,10 @@
     "jest": "^18.1.0",
     "prettier": "^0.17.1",
     "watch": "^1.0.1",
-    "yarn": "^0.20.3"
+    "yarn": "^0.20.3",
+    "prettier": "^0.18"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+  }
 }
