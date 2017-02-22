@@ -131,8 +131,13 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
     reactiveFn(groupId).keySet('DATA' + userInfo.id, product)
   }
 
+  const completed = reactiveKey
+    ? reactiveKey['COMPLETED' + userInfo.id]
+    : false
+
   const onSubmit = (e) => {
     saveProduct(userInfo.id, e.formData)
+    reactiveFn(groupId).keySet('COMPLETED' + userInfo.id, true)
   }
 
   const onChange = (e) => {
@@ -145,14 +150,20 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
       {config.collab
         ? <p>You are collaborating with the group {groupId}</p>
         : null}
-      <div style={{display: 'inline-block', width: '50%'} }>
-        <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />
-      </div>
-      {config.collab
-        ? <div style={{display: 'inline-block', width: '50%'}}>
-            <Form {...{ schema, uiSchema, formData: partnerFormData }} />
-        </div>
-        : null}
+      {completed 
+        ? <h1>Form completed!</h1> 
+        : <div>
+            <div style={{display: 'inline-block', width: '50%'} }>
+              <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />
+            </div>
+            {config.collab
+              ? <div style={{display: 'inline-block', width: '50%'}}>
+                  <Form {...{ schema, uiSchema, formData: partnerFormData }} />
+              </div>
+              : null
+            }
+          </div>
+      }
     </div>
   )
 }
