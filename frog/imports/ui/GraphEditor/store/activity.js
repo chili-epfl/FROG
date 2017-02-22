@@ -166,7 +166,11 @@ export default class Activity {
     };
   }
 
-  @computed get dragPoint(): [number, number] {
+  @computed get dragPointFrom(): [number, number] {
     return [this.xScaled + this.widthScaled - 15, this.y + 15];
+  }
+
+  @computed get dragPointTo(): [number, number] {
+    return [this.xScaled + 15, this.y + 15];
   }
 }

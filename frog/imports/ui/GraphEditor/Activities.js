@@ -27,8 +27,7 @@ const Activity = connect((
       },
       connectionStore: {
         startDragging,
-        stopDragging,
-        dragging
+        stopDragging
       }
     },
     activity,
@@ -66,7 +65,6 @@ const Activity = connect((
       />
       <DraggableCore
         onStart={() => startDragging(activity)}
-        onDrag={(_, { deltaX, deltaY }) => dragging(deltaX, deltaY)}
         onStop={stopDragging}
       >
         <circle

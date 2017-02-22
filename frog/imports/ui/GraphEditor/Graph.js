@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-// import Lines, { DragLine } from './Lines';
+import Lines, { DragLine } from './Lines';
 import Activities from './Activities';
 import { LevelLines, PanMap, TimeScale } from './fixed_components';
 import ScrollFields from './ScrollFields';
@@ -34,7 +34,8 @@ export default connect((
     height,
     hasPanMap,
     viewBox
-  }: & StoreProp
+  }:
+    & StoreProp
     & { width: number, height: number, hasPanMap: boolean, viewBox: string }
 ) => (
   <svg
@@ -55,9 +56,9 @@ export default connect((
         height={height * 4}
       />
       <LevelLines />
-      {/* <Lines scaled={!hasPanMap} /> */}
+      <Lines scaled={!hasPanMap} />
       <Activities scaled={!hasPanMap} />
-      {/* {!hasPanMap && scrollEnabled && <DragLine />} */}
+      {!hasPanMap && scrollEnabled && <DragLine />}
       {!hasPanMap &&
         <g>
           <DragGuides />

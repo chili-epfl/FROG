@@ -1,38 +1,29 @@
+// @flow
 import { computed, action, observable } from 'mobx';
 
-import { store } from './store';
+import { store } from './index';
 import Activity from './activity';
 import Connection from './connection';
-import drawPath from '../utils/path';
+import { drawPath } from '../utils/path';
 
 export default class ConnectionStore {
   @observable all: Array<Connection> = [];
 
-  @action dragging = (deltax: number, deltay: number): void => {
-    this.dragCoords = [
-      this.dragCoords[0] + deltax,
-      this.dragCoords[1] + deltay
-    ];
-  };
-
   // user begins dragging a line to make a connection
-  @action startDragging = (activity: Activity | Operator): void => {
-    this.mode = { mode: 'dragging', draggingFrom: activity };
-    let coords;
-    if (activity instanceof Activity) {
-      coords = [activity.xScaled + activity.widthScaled - 10, activity.y + 15];
-    } else {
-      // operator
-      coords = [activity.xScaled + 30, activity.y + 30];
-    }
-    this.draggingFrom = [...coords];
-    this.dragCoords = [...coords];
+  @action startDragging = (elem: Activity | Operator): void => {
+    store.state = { mode: 'dragging', draggingFrom: elem };
   };
 
   @computed get dragPath(): ?string {
-    return this.mode === 'dragging' &&
-      drawPath(...this.draggingFrom, ...this.dragCoords);
+    if (store.state.mode !== 'dragging') {
+      return null;
+    }
+    return drawPath(
+      ...store.state.draggingFrom.dragPointFrom,
+      ...store.ui.socialCoordsScaled
+    );
   }
+
   @action stopDragging = () => {
     this.mode = { mode: 'normal' };
     const targetAry = this.activities
@@ -70,11 +61,6 @@ export default class ConnectionStore {
   @computed get history(): Array<any> {
     return this.all.map(x => ({ ...x }));
   }
-
-  // mouse pointer during line connection dragging
-  @action connectDragDelta = (xdelta: number, ydelta: number): void => {
-    this.dragCoords = [xdelta, ydelta];
-  };
 
   // user has dropped line somewhere, clear out
   @action connectStop = () => {
