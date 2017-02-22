@@ -17,38 +17,41 @@ const getType = item => {
   throw 'Wrong object type in Connection';
 };
 
+type ConnectableT = Activity | Operator;
+
 export default class Connection {
-  @observable source;
   id: string;
-  @observable target;
-  @observable selected;
-  @action select = () => {
-    store.unselect();
+  @observable source: ConnectableT;
+  @observable target: ConnectableT;
+  @observable selected: boolean;
+
+  @action select = (): void => {
+    store.ui.unselect();
     this.selected = true;
   };
 
-  @action init = (source, target, id) => {
+  @action init = (source: ConnectableT, target: ConnectableT, id: ?string) => {
     this.source = source;
     this.target = target;
     this.id = id || cuid();
   };
 
-  constructor(...args) {
-    this.init(...args);
+  constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
+    this.init(source, target, id);
   }
 
-  @computed get path() {
+  @computed get path(): string {
     return drawPath(...this.source.dragPointFrom, ...this.target.dragPointTo);
   }
 
-  @computed get pathScaled() {
+  @computed get pathScaled(): string {
     return drawPath(
       ...this.source.dragPointFromScaled,
       ...this.target.dragPointToScaled
     );
   }
 
-  @computed get object() {
+  @computed get object(): Object {
     return {
       source: { type: getType(this.source), id: this.source.id },
       target: { type: getType(this.target), id: this.target.id },
