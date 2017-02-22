@@ -1,7 +1,5 @@
 // @flow
 
-import JSONPath from 'jsonpath-plus';
-import { unrollProducts } from 'frog-utils';
 import type { ObjectT, OperatorPackageT } from 'frog-utils';
 
 export const meta = {
@@ -25,7 +23,7 @@ export const config = {
 };
 
 export const operator = (config: Object, object: ObjectT) => {
-  const { products, socialStructures, globalStructure } = object;
+  const { products } = object;
   const product = products[0];
 
   return {

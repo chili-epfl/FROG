@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import JsonschemaForm from 'react-jsonschema-form';
 import { booleanize } from 'frog-utils';
-import { default as config } from './config';
+import config from './config';
 
 export const meta = {
   name: 'Simple form',

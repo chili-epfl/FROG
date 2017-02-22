@@ -1,8 +1,8 @@
 // @flow
 
-export { default as colorRange } from './color_range';
+export { default as colorRange } from './colorRange';
 export { default as Chat } from './chat';
-export { default as unrollProducts } from './unroll_products';
+export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
 export type {
   ActivityPackageT,

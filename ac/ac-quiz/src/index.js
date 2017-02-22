@@ -82,7 +82,7 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
         radio: {
           type: 'string',
           title: question.question,
-          enum: question.answers.map((answer, answerIndex) => answer.answer)
+          enum: question.answers.map(answer => answer.answer)
         },
         justification: {
           type: 'string',
@@ -116,13 +116,12 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
   const partnerFormData = reactiveKey ? reactiveKey['DATA' + partnerId] : null;
 
   if (!formData) {
-    const studentProducts = products.filter(x => x.length > 0)[0]
-      ? products
-          .filter(x => x.length > 0)
-          [0].filter((p: ProductT) => p.userId === userInfo.id)
-      : [];
+    const findProducts = products.find(x => x.length > 0);
+    const studentProduct = findProducts
+      ? findProducts.find((p: ProductT) => p.userId === userInfo.id)
+      : {};
 
-    const product = studentProducts[0] ? studentProducts[0].data : null;
+    const product = studentProduct ? studentProduct.data : null;
 
     reactiveFn(groupId).keySet('DATA' + userInfo.id, product);
   }

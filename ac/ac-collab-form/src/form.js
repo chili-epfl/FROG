@@ -9,13 +9,6 @@ class CollabForm extends Component {
     };
   }
 
-  propdef = this.props.config.questions
-    .split(',')
-    .reduce(
-      (acc, x, i) => ({ ...acc, [i + '']: { type: 'string', title: x } }),
-      {}
-    );
-
   formdef = {
     title: this.props.config.title,
     type: 'object',
@@ -28,13 +21,20 @@ class CollabForm extends Component {
     this.props.reactiveFn.keySet('formData', x.formData);
   };
 
+  propdef = this.props.config.questions
+    .split(',')
+    .reduce(
+      (acc, x, i) => ({ ...acc, [i + '']: { type: 'string', title: x } }),
+      {}
+    );
+
   render() {
     return (
       <Form
         schema={this.formdef}
         formData={
-          this.props.reactiveData.key && this.props.reactiveData.key.formData ||
-            {}
+          this.props.reactiveData.key &&
+            this.props.reactiveData.key.formData || {}
         }
         onSubmit={x => this.props.onCompletion(x.formData)}
         onChange={this.onChange}

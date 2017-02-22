@@ -1,5 +1,6 @@
-import JSONPath from 'jsonpath-plus';
-import { booleanize, unrollProducts } from 'frog-utils';
+// @flow
+
+import { type ObjectT } from 'frog-utils';
 
 export const meta = {
   name: 'Aggregate CK Board',
@@ -24,27 +25,36 @@ export const config = {
     }
   }
 };
-const rnd = () => Math.floor(Math.random() * 300);
 
 // Obviously assumes even array
-export const operator = (config, products) => {
+export const operator = (config: Object, object: ObjectT) => {
+  const { products } = object;
+  return {
+    socialStructure: {},
+    product: products[0]
+  };
+};
+
+/*
+  const rnd = () => Math.floor(Math.random() * 300);
+
   const ret = unrollProducts(products).map(x => {
     const title = JSONPath({ path: config.title_path, json: x.data })[0];
     const content = JSONPath({ path: config.content_path, json: x.data })[0];
-    const full_content = booleanize(config.anonymize)
+    const fullContent = booleanize(config.anonymize)
       ? content
       : content + ' (' + x.username + ')';
     return {
       userId: x.userId,
       title,
-      content: full_content,
+      content: fullContent,
       x: rnd(),
       y: rnd()
     };
   });
 
   return ret;
-};
+  */
 
 export default {
   id: 'op-aggregate-ck-board',

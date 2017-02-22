@@ -18,7 +18,7 @@ const randomChoice = array => {
 };
 
 export const operator = (config: Object, object: ObjectT) => {
-  const { products, socialStructures, globalStructure } = object;
+  const { globalStructure } = object;
 
   const socStruc: SocialStructureT = {};
   globalStructure.studentIds.forEach(studentId => {

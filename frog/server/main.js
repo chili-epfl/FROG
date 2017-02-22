@@ -1,7 +1,8 @@
-import Shutdown from '../imports/startup/shutdown-if-env.js';
+// @flow
 
 import { Meteor } from 'meteor/meteor';
-Meteor.publish('userData', () => Meteor.users.find({}));
+
+import '../imports/startup/shutdown-if-env.js';
 
 import '../imports/api/messages.js';
 
@@ -17,3 +18,5 @@ import '../imports/api/products.js';
 import '../imports/api/objects.js';
 
 import '../imports/api/engine.js';
+
+Meteor.publish('userData', () => Meteor.users.find({}));

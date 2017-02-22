@@ -1,3 +1,5 @@
+// @flow
+
 // wrap a React component and it will receive a prop called timeNow
 // updated every x milliseconds (default 3000)
 // for example export default TimedComponent(Clock)
@@ -5,21 +7,36 @@
 import React, { Component } from 'react';
 
 class TimedComponentClass extends Component {
-  constructor(props) {
+  state: {
+    timeNow: any
+  };
+
+  constructor(props: { component: any, interval: number, props: Object }) {
     super(props);
-    this.state = { timeNow: Date.now() };
+    this.state = {
+      timeNow: Date.now()
+    };
   }
 
+  _mounted: boolean;
+  interval: number;
+
   componentDidMount() {
-    const interval = setInterval(
-      () => this.setState({ timeNow: Date.now() }),
+    this._mounted = true;
+
+    this.interval = setInterval(
+      () => {
+        if (this._mounted) {
+          this.setState({ timeNow: Date.now() });
+        }
+      },
       this.props.interval || 3000
     );
-    this.setState({ interval });
   }
 
   componentWillUnmount() {
-    window.clearInterval(this.state.interval);
+    this._mounted = false;
+    window.clearInterval(this.interval);
   }
 
   render() {
@@ -32,8 +49,8 @@ class TimedComponentClass extends Component {
   }
 }
 
-export default (component, interval) =>
-  props => (
+export default (component: any, interval: number) =>
+  (props: Object) => (
     <TimedComponentClass
       component={component}
       interval={interval}

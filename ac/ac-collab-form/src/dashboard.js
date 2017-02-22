@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { groupBy, map, some } from 'lodash';
 import { colorRange as color, TimedComponent } from 'frog-utils';
 

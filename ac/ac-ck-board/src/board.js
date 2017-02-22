@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ObservationContainer from './obs_container';
-import ObservationDetail from './obs_detail';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Stringify from 'json-stable-stringify';
-import { map } from 'lodash';
+
+import ObservationContainer from './obs_container';
+import ObservationDetail from './obs_detail';
 
 class Cluster extends Component {
   constructor(props) {

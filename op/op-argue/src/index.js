@@ -13,13 +13,8 @@ export const config = {
   properties: {}
 };
 
-const randomChoice = array => {
-  const index = Math.floor(Math.random() * array.length);
-  return array[index];
-};
-
 export const operator = (config: Object, object: ObjectT) => {
-  const { products, socialStructures, globalStructure } = object;
+  const { globalStructure } = object;
 
   const socStruc: SocialStructureT = {};
   globalStructure.studentIds.forEach((studentId, index) => {

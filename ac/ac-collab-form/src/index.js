@@ -1,6 +1,7 @@
 import React from 'react';
-import ActivityRunner from './form';
 import { Chat } from 'frog-utils';
+
+import ActivityRunner from './form';
 import Dashboard from './dashboard';
 
 export const meta = {

@@ -44,7 +44,7 @@ export const config = {
 export const ActivityRunner = (art: ActivityRunnerT) => {
   const { config, object, userInfo, reactiveData, reactiveFn, logger } = art;
 
-  const { products, socialStructures, globalStructure } = object;
+  const { socialStructures } = object;
   const roles = config.roles.split(',');
   const texts = config.text.split(',');
   const matching = {};
