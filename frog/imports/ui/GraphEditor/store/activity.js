@@ -2,7 +2,7 @@
 import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
-import { timeToPx, pxToTime, between } from '../utils';
+import { timeToPx, pxToTime, timeToPxScreen, between } from '../utils';
 
 export default class Activity {
   @action init = (
@@ -46,6 +46,10 @@ export default class Activity {
   @computed get x(): number {
     return timeToPx(Math.round(this.startTime), 1);
   }
+  @computed get screenX(): number {
+    return timeToPxScreen(Math.round(this.startTime), 1);
+  }
+
   @computed get widthScaled(): number {
     return timeToPx(Math.round(this.length), store.ui.scale);
   }

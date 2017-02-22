@@ -10,12 +10,11 @@ const RenameField = connect((
     return null;
   }
   const renameOpen = state.currentActivity;
-  const left = timeToPx(renameOpen.startTime, scale);
   return (
     <div
       style={{
         position: 'absolute',
-        left: `${left}px`,
+        left: `${renameOpen.screenX}px`,
         top: `${renameOpen.y}px`
       }}
     >

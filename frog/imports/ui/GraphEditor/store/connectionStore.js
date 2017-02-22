@@ -1,7 +1,9 @@
 import { computed, action, observable } from 'mobx';
 
 import { store } from './store';
+import Activity from './activity';
 import Connection from './connection';
+import drawPath from '../utils/path';
 
 export default class ConnectionStore {
   @observable all: Array<Connection> = [];
@@ -28,9 +30,8 @@ export default class ConnectionStore {
   };
 
   @computed get dragPath(): ?string {
-    return this.mode === 'dragging'
-      ? drawPath(...this.draggingFrom, ...this.dragCoords)
-      : null;
+    return this.mode === 'dragging' &&
+      drawPath(...this.draggingFrom, ...this.dragCoords);
   }
   @action stopDragging = () => {
     this.mode = { mode: 'normal' };
