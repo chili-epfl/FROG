@@ -43,7 +43,7 @@ export default connect((
 ) => (
   <g>
     {connections.map(connection => (
-      <Line scaled={scaled} key={connection._id} connection={connection} />
+      <Line scaled={scaled} key={connection.id} connection={connection} />
     ))}
   </g>
 ));

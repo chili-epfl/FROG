@@ -166,11 +166,19 @@ export default class Activity {
     };
   }
 
-  @computed get dragPointFrom(): [number, number] {
+  @computed get dragPointFromScaled(): [number, number] {
     return [this.xScaled + this.widthScaled - 15, this.y + 15];
   }
 
-  @computed get dragPointTo(): [number, number] {
+  @computed get dragPointToScaled(): [number, number] {
     return [this.xScaled + 15, this.y + 15];
+  }
+
+  @computed get dragPointFrom(): [number, number] {
+    return [this.x + this.width - 15, this.y + 15];
+  }
+
+  @computed get dragPointTo(): [number, number] {
+    return [this.x + 15, this.y + 15];
   }
 }

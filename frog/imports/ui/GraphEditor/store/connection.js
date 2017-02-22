@@ -1,3 +1,4 @@
+// @flow
 import cuid from 'cuid';
 import { observable, action, computed } from 'mobx';
 import { drawPath } from '../utils/path';
@@ -37,15 +38,14 @@ export default class Connection {
   }
 
   @computed get path() {
-    return drawPath(
-      this.source.x + (this.source.width || 0),
-      this.source.y,
-      this.target.x,
-      this.target.y
-    );
+    return drawPath(...this.source.dragPointFrom, ...this.target.dragPointTo);
   }
+
   @computed get pathScaled() {
-    return drawPath(...this.source.dragPoint, ...this.target.dragPoint);
+    return drawPath(
+      ...this.source.dragPointFromScaled,
+      ...this.target.dragPointToScaled
+    );
   }
 
   @computed get object() {

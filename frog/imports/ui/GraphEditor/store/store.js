@@ -30,7 +30,7 @@ type StateT =
       currentActivity: typeof Activity,
       bounds: BoundsT
     }
-  | { mode: 'dragging', draggingfrom: typeof Activity | typeof Operator }
+  | { mode: 'dragging', draggingFrom: typeof Activity | typeof Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }
   | { mode: 'rename', currentActivity: typeof Activity }
   | { mode: 'normal' };

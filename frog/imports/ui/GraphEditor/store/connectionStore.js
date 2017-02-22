@@ -25,19 +25,19 @@ export default class ConnectionStore {
   }
 
   @action stopDragging = () => {
-    this.mode = { mode: 'normal' };
-    const targetAry = this.activities
-      .filter(x => x.over)
-      .concat(this.operators.filter(x => x.over));
-    if (
-      targetAry.length > 0 && this.draggingFromActivity.id !== targetAry[0].id
-    ) {
-      this.connections.push(
-        new Connection(this.draggingFromActivity, targetAry[0])
-      );
-      this.addHistory();
+    const state = store.state;
+    if (state.mode !== 'dragging') {
+      return;
     }
-    this.cancelScroll();
+    const target = store.activityStore.all
+      .concat(store.operatorStore.all)
+      .find(x => x.over);
+    if (target && state.draggingFrom.id !== target.id) {
+      this.all.push(new Connection(state.draggingFrom, target));
+      store.addHistory();
+    }
+    store.state = { mode: 'normal' };
+    store.ui.cancelScroll();
   };
 
   @action mongoAdd = x => {
