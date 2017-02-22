@@ -15,7 +15,6 @@ import './App.css';
 
 const GraphConfigPanelContainer = styled.div`
   position: relative;
-  background-color: #ccccff;
   padding: 10px;
   margin-bottom: 10px;
 `;
@@ -38,20 +37,17 @@ const GraphContainer = styled.div`
 const SidebarContainer = styled.div`
   padding: 0px;
   width: 300px;
-  background-color: #ccffff;
   margin-left: 10px;
 `;
 
 const GraphListContainer = styled.div`
   padding: 0px;
   width: 300px;
-  background-color: #ccffcc;
   margin-right: 10px;
 `;
 
 const SettingsContainer = styled.div`
   position: relative;
-  background-color: #ffcccc;
   padding: 10px;
   margin-top: 10px;
 `;

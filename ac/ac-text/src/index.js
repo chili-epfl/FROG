@@ -13,14 +13,6 @@ export const config = {
   title: 'Configuration for text component',
   type: 'object',
   properties: {
-    'name': {
-      type: 'string',
-      title: 'Activity name'
-    },
-    'duration': {
-      type: 'number',
-      title: 'Duration in seconds (0 for infinity)'
-    },
     'title': {
       type: 'string',
       title: 'Title'
@@ -28,11 +20,20 @@ export const config = {
     'text': {
       type: 'string',
       title: 'Text (HTML)'
+    },
+    showProducts: {
+      type: 'boolean',
+      title: 'Show products?'
     }
   }
 }
 
-export const ActivityRunner = ( { config, data }: ActivityRunnerT ) => 
-  <div><h1>{config.title}</h1>{config.text}<hr/><div dangerouslySetInnerHTML={{__html: data}} /></div>
-
+export const ActivityRunner = ( { config, object }: ActivityRunnerT ) =>  
+  <div>
+    <h1>{config.title}</h1>
+    <p>{config.text}</p>
+    { config.showProducts
+      ? <pre>{JSON.stringify(object.products, null, 2)}</pre>
+      : null}
+  </div>
 export default ({ id: 'ac-text', ActivityRunner: ActivityRunner, config: config, meta: meta }: ActivityPackageT)

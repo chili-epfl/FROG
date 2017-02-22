@@ -1,10 +1,10 @@
 export const mixedJigsaw = {
-  graphs: [{ _id: 'G1', name: 'Mixed Jigsaw' }],
+  graphs: [{ _id: 'mixedJigsawG', name: 'Mixed Jigsaw' }],
   activities: [
     {
-      _id: 'A1',
+      _id: 'mixedJigsawA1',
       title: 'Group Talk',
-      graphId: 'G1',
+      graphId: 'mixedJigsawG',
       startTime: 0,
       length: 5,
       plane: 2,
@@ -17,9 +17,9 @@ export const mixedJigsaw = {
       }
     },
     {
-      _id: 'A2',
+      _id: 'mixedJigsawA2',
       title: 'Role Talk',
-      graphId: 'G1',
+      graphId: 'mixedJigsawG',
       startTime: 5,
       length: 5,
       plane: 2,
@@ -32,9 +32,9 @@ export const mixedJigsaw = {
       }
     },
     {
-      _id: 'A3',
+      _id: 'mixedJigsawA3',
       title: 'Lecture',
-      graphId: 'G1',
+      graphId: 'mixedJigsawG',
       startTime: 10,
       length: 5,
       plane: 1,
@@ -42,9 +42,9 @@ export const mixedJigsaw = {
       data: { title: 'A3', text: 'You are on activity A3' }
     },
     {
-      _id: 'A4',
+      _id: 'mixedJigsawA4',
       title: 'Mixed Group Talk',
-      graphId: 'G1',
+      graphId: 'mixedJigsawG',
       startTime: 15,
       length: 5,
       plane: 2,
@@ -59,18 +59,18 @@ export const mixedJigsaw = {
   ],
   operators: [
     {
-      _id: 'O1',
+      _id: 'mixedJigsawO1',
       name: 'JigsawOp',
-      graphId: 'G1',
+      graphId: 'mixedJigsawG',
       type: 'social',
       operatorType: 'op-jigsaw',
       time: 2,
       y: 50
     },
     {
-      _id: 'O2',
+      _id: 'mixedJigsawO2',
       name: 'MixJigOp',
-      graphId: 'G1',
+      graphId: 'mixedJigsawG',
       type: 'social',
       operatorType: 'op-jigsaw',
       time: 14,
@@ -79,28 +79,28 @@ export const mixedJigsaw = {
   ],
   connections: [
     {
-      _id: 'C1',
-      source: { type: 'operator', id: 'O1' },
-      target: { type: 'activity', id: 'A1' },
-      graphId: 'G1'
+      _id: 'mixedJigsawC1',
+      source: { type: 'operator', id: 'mixedJigsawO1' },
+      target: { type: 'activity', id: 'mixedJigsawA1' },
+      graphId: 'mixedJigsawG'
     },
     {
-      _id: 'C2',
-      source: { type: 'operator', id: 'O1' },
-      target: { type: 'activity', id: 'A2' },
-      graphId: 'G1'
+      _id: 'mixedJigsawC2',
+      source: { type: 'operator', id: 'mixedJigsawO1' },
+      target: { type: 'activity', id: 'mixedJigsawA2' },
+      graphId: 'mixedJigsawG'
     },
     {
-      _id: 'C3',
-      source: { type: 'operator', id: 'O1' },
-      target: { type: 'operator', id: 'O2' },
-      graphId: 'G1'
+      _id: 'mixedJigsawC3',
+      source: { type: 'operator', id: 'mixedJigsawO1' },
+      target: { type: 'operator', id: 'mixedJigsawO2' },
+      graphId: 'mixedJigsawG'
     },
     {
-      _id: 'C4',
-      source: { type: 'operator', id: 'O2' },
-      target: { type: 'activity', id: 'A4' },
-      graphId: 'G1'
+      _id: 'mixedJigsawC4',
+      source: { type: 'operator', id: 'mixedJigsawO2' },
+      target: { type: 'activity', id: 'mixedJigsawA4' },
+      graphId: 'mixedJigsawG'
     }
   ]
 };

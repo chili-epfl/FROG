@@ -4,6 +4,7 @@ import opLikeWithLike from 'op-like-with-like';
 import opAggregateText from 'op-aggregate-text';
 import opAggregateCKBoard from 'op-aggregate-ck-board';
 import opJigsaw from 'op-jigsaw';
+import opArgue from 'op-argue';
 
 import type { OperatorPackageT } from 'frog-utils';
 
@@ -13,6 +14,7 @@ export const operatorTypes: Array<OperatorPackageT> = [
   opLikeWithLike,
   opAggregateText,
   opAggregateCKBoard,
-  opJigsaw
+  opJigsaw,
+  opArgue
 ];
 export const operatorTypesObj = keyBy(operatorTypes, 'id');

@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
-import { Sessions } from './sessions';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
+import { Products } from './products';
+import { Sessions } from './sessions';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
@@ -146,6 +147,7 @@ Meteor.methods({
     Operators.remove({});
     Sessions.remove({});
     Connections.remove({});
+    Products.remove({});
   },
   'graph.flush.activity': activityId => {
     Operators.remove({ from: activityId });

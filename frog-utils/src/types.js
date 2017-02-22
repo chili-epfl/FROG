@@ -6,6 +6,7 @@ export type SocialStructureT = {
 
 export type ProductT = {
   nodeId: string,
+  userId: string,
   data: Object
 }
 
@@ -19,7 +20,7 @@ export type ActivityRunnerT = {
   config: Object,  // result of running config function from activity package
   object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
-  onCompletion: Function, // call on completion, with student data as argument
+  saveProduct: ((userId: string, data: Object) => void), // call on completion, with student data as argument
   reactiveData: { keys: Object[], list: Object[] },
   reactiveFn: Function,
   data: Object, // data from operator
