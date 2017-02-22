@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "flow && npm run eslint-test",
-    "fix": "eslint --fix -c eslintrc-run-prettier --ext .js,.jsx frog/imports/*",
-    "eslint-test": "eslint -c eslintrc-run-prettier --ext .js,.jsx frog/imports/*",
+    "fix": "eslint --fix -c eslintrc-run-prettier --ext .js,.jsx .",
+    "eslint-test": "eslint -c eslintrc-run-prettier --ext .js,.jsx .",
     "flow-test": "flow"
   },
   "devDependencies": {
