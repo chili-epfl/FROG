@@ -29,10 +29,25 @@ const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
         <SidePanel />
       </SidebarContainer>
     </Row>
+    <SettingsContainer>
+      <Settings />
+    </SettingsContainer>
   </div>
 );
 
+const Settings = connect(({ store: { undo, canUndo, history } }) => (
+  <button type="button" disabled={!canUndo} onClick={undo}>
+    Undo ({history.length})
+  </button>
+));
+
 export default connect(Editor);
+
+const SettingsContainer = styled.div`
+  position: relative;
+  padding: 10px;
+  margin-top: 10px;
+`;
 
 const GraphConfigPanelContainer = styled.div`
   position: relative;

@@ -8,6 +8,7 @@ import { pxToTime, timeToPx } from '../utils';
 export default class Operator extends Elem {
   id: string;
   type: string;
+  klass: string;
   @observable y: number;
   @observable over: boolean;
   @observable time: number;
@@ -16,7 +17,7 @@ export default class Operator extends Elem {
     this.y = y;
     this.id = id || cuid();
     this.type = type;
-    this.store = store.operatorStore;
+    this.klass = 'operator';
   }
 
   constructor(time: number, y: number, type: string, id: ?string) {

@@ -12,7 +12,15 @@ export default class Elem {
   }
 
   @action remove = () => {
-    this.store.all = this.store.all.filter(x => x !== this);
+    let thisstore;
+    if (this.klass === 'activity') {
+      thisstore = store.activityStore;
+    } else if (this.klass === 'operator') {
+      thisstore = store.operatorStore;
+    } else {
+      thisstore = store.connectionStore;
+    }
+    thisstore.all = thisstore.all.filter(x => x !== this);
     store.connectionStore.cleanDangling();
     store.addHistory();
   };

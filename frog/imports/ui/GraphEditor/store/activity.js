@@ -20,7 +20,7 @@ export default class Activity extends Elem {
     this.title = title || '';
     this.length = length;
     this.startTime = startTime;
-    this.store = store.activityStore;
+    this.klass = 'activity';
   };
 
   constructor(
@@ -35,6 +35,7 @@ export default class Activity extends Elem {
   }
 
   plane: number;
+  klass: string;
   id: string;
   @observable over: boolean;
   @observable overdrag: number;

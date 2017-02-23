@@ -1,5 +1,6 @@
 // @flow
 import { computed, action, observable } from 'mobx';
+import { omit } from 'lodash';
 import { store } from './index';
 import Operator from './operator';
 
@@ -35,6 +36,6 @@ export default class OperatorStore {
   };
 
   @computed get history(): Array<any> {
-    return this.all.map(x => ({ ...x }));
+    return this.all.map(x => ({ ...omit(x, 'over') }));
   }
 }

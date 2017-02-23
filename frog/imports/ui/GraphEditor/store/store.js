@@ -1,5 +1,7 @@
 // @flow
 import { computed, action, observable } from 'mobx';
+import { isEqual } from 'lodash';
+import Stringify from 'json-stable-stringify';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { OperatorTypes } from './operatorStore';
@@ -9,7 +11,6 @@ import { mergeGraph, setCurrentGraph } from '../../../api/graphs';
 import Activity from './activity';
 import Connection from './connection';
 import UI from './uiStore';
-
 import { Activities, Connections, Operators } from '../../../api/activities';
 
 type ElementTypes = 'operator' | 'activity' | 'connection';
@@ -95,6 +96,8 @@ export default class Store {
         const target = this.findId(x.target);
         return new Connection(source, target, x._id);
       });
+
+    this.addHistory();
     const cursors = {
       activities: Activities.find({ graphId: this.id }),
       operators: Operators.find({ graphId: this.id }),
@@ -108,12 +111,16 @@ export default class Store {
   @observable history = [];
 
   @action addHistory = () => {
-    this.history.push([
+    const newEntry = [
       this.connectionStore.history,
       this.activityStore.history,
       this.operatorStore.history
-    ]);
-    mergeGraph(this.objects);
+    ];
+    const lastEntry = this.history.slice(-1).pop() || [];
+    if (!isEqual(Stringify(lastEntry), Stringify(newEntry))) {
+      this.history.push(newEntry);
+      mergeGraph(this.objects);
+    }
   };
 
   @computed get canUndo(): boolean {
@@ -156,47 +163,3 @@ export default class Store {
     };
   }
 }
-
-// @observable GraphID: string;
-// @observable overlapAllowed = false;
-// @action updateSettings = (settings: { overlapAllowed: boolean }) =>
-//   this.overlapAllowed = settings.overlapAllowed;
-// @observable currentlyOver: boolean;
-// //* ***************************************
-// //* ***************************************
-// @observable mode: ModeT = { mode: 'normal' };
-// @computed get hasSelection() {
-//   const sel = this
-//     .connections.concat(this.activities.concat(this.operators))
-//     .filter(x => x.selected);
-//   if (sel.length === 0) {
-//     return false;
-//   }
-//   const selection = sel[0];
-//   if (selection instanceof Activity) {
-//     return ['activity', selection];
-//   } else if (selection instanceof Operator) {
-//     return ['operator', selection];
-//   }
-//   return ['connection', selection];
-// }
-// @action canvasClick = (e: { clientX: number, clientY: number }) => {
-//   if (this.mode === 'placingOperator') {
-//     const coords = this.rawMouseToTime(
-//       e.nativeEvent.offsetX,
-//       e.nativeEvent.offsetY
-//     );
-//     this.operators.push(new Operator(
-//       coords[0],
-//       coords[1],
-//       this.operatorType
-//     ));
-//     this.mode = { mode: 'normal' };
-//     this.addHistory();
-//   }
-//   this.renameOpen = null;
-// };
-// @action unselect = () => {
-//   this.selected = undefined;
-// };
-// }

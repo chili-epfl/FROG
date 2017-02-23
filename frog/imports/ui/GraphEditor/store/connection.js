@@ -21,6 +21,7 @@ const getType = item => {
 type ConnectableT = Activity | Operator;
 
 export default class Connection extends Elem {
+  klass: string;
   id: string;
   @observable source: ConnectableT;
   @observable target: ConnectableT;
@@ -29,7 +30,7 @@ export default class Connection extends Elem {
     this.source = source;
     this.target = target;
     this.id = id || cuid();
-    this.store = store.connectionStore;
+    this.klass = 'connection';
   };
 
   constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
