@@ -60,8 +60,9 @@ export default class uiStore {
   @action storeInterval = (interval: string) => {
     this.scrollIntervalID = interval;
   };
+
   @action cancelScroll = () => {
-    if (this.scrollIntervalId) {
+    if (this.scrollIntervalID) {
       window.clearInterval(this.scrollIntervalID);
     }
     this.scrollIntervalID = undefined;
@@ -74,25 +75,25 @@ export default class uiStore {
 
     const newPan = this.panx + deltaX;
     this.panx = between(0, rightBoundary, newPan);
-    // if (oldpan !== this.panx) {
-    //   if (this.mode === 'dragging') {
-    //     this.dragCoords[0] += deltaX * 4 * this.scale;
-    //   }
-    //   if (this.mode === 'resizing') {
-    //     const oldlength = this.mode.currentActivity.length;
-    //     this.mode.currentActivity.resize(deltaX * 4 * this.scale);
-    //     if (oldlength === store.mode.currentActivity.length) {
-    //       this.panx = oldpan;
-    //     }
-    //   }
-    //   if (this.mode === 'moving') {
-    //     const oldx = this.mode.currentActivity.x;
-    //     this.mode.currentActivity.move(deltaX * 4 * this.scale);
-    //     if (oldx === this.mode.currentActivity.x) {
-    //       this.panx = oldpan;
-    //     }
-    //   }
-    // }
+    const state = store.state;
+    if (oldpan !== this.panx) {
+      if (state.mode === 'dragging') {
+      }
+      if (this.mode === 'resizing') {
+        const oldlength = this.mode.currentActivity.length;
+        this.mode.currentActivity.resize(deltaX * 4 * this.scale);
+        if (oldlength === store.mode.currentActivity.length) {
+          this.panx = oldpan;
+        }
+      }
+      if (this.mode === 'moving') {
+        const oldx = this.mode.currentActivity.x;
+        this.mode.currentActivity.move(deltaX * 4 * this.scale);
+        if (oldx === this.mode.currentActivity.x) {
+          this.panx = oldpan;
+        }
+      }
+    }
   };
 
   @observable socialCoordsTime: [number, number] = [0, 0];

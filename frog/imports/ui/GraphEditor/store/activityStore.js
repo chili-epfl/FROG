@@ -79,14 +79,14 @@ export default class ActivityStore {
 
   @action stopMoving = () => {
     store.state = { mode: 'normal' };
-    store.addHistory();
     store.ui.cancelScroll();
+    store.addHistory();
   };
 
   @action stopResizing = () => {
     store.state = { mode: 'normal' };
-    store.addHistory();
     store.ui.cancelScroll();
+    store.addHistory();
   };
 
   @action mongoAdd = (x: any) => {
