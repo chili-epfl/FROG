@@ -132,12 +132,6 @@ export default class Activity extends Elem {
     };
   };
 
-  @computed get highlighted(): boolean {
-    return this.over &&
-      store.draggingFromActivity !== this &&
-      store.state.mode === 'dragging';
-  }
-
   @computed get y(): number {
     const offset = store.activityStore.activityOffsets[this.id];
     return this.plane * 100 + 50 - offset * 30;

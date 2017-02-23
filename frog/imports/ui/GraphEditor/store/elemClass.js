@@ -16,4 +16,10 @@ export default class Elem {
     store.connectionStore.cleanDangling();
     store.addHistory();
   };
+
+  @computed get highlighted(): boolean {
+    return this.over &&
+      store.draggingFromActivity !== this &&
+      store.state.mode === 'dragging';
+  }
 }

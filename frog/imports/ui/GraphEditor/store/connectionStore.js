@@ -16,7 +16,7 @@ export default class ConnectionStore {
       return null;
     }
     return drawPath(
-      ...store.state.draggingFrom.dragPointFrom,
+      ...store.state.draggingFrom.dragPointFromScaled,
       ...store.ui.socialCoordsScaled
     );
   }
