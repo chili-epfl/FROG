@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
 import { connect, type StoreProp } from './store';
-import { TextInput, timeToPx } from './utils';
+import TextInput from './utils/TextInput';
 
 const RenameField = connect((
-  { store: { ui: { cancelAll, scale }, state } }: StoreProp
+  { store: { ui: { cancelAll }, state } }: StoreProp
 ) => {
   if (state.mode !== 'rename') {
     return null;
