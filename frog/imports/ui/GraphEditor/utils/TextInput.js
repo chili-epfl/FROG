@@ -29,7 +29,7 @@ export default class TextInput extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} onBlur={this.onSubmit}>
         <input
           type="text"
           onChange={this.onChange}
