@@ -94,13 +94,18 @@ export default class uiStore {
           this.panx = oldpan;
         }
       }
+      if (state.mode === 'movingOperator') {
+        state.currentOperator.moveX(moveDelta);
+      }
     }
   };
 
   @observable socialCoordsTime: [number, number] = [0, 0];
 
   @computed get scrollEnabled(): boolean {
-    return !!['dragging', 'moving', 'resizing'].includes(store.state.mode);
+    return !!['movingOperator', 'dragging', 'moving', 'resizing'].includes(
+      store.state.mode
+    );
   }
 
   @action socialMove = (rawX: number, rawY: number): void => {

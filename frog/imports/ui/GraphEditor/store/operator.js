@@ -46,6 +46,31 @@ export default class Operator extends Elem {
   @action startDragging = (e: { shiftKey: boolean }): void => {
     if (!e.shiftKey) {
       store.connectionStore.startDragging(this);
+    } else {
+      store.state = { mode: 'movingOperator', currentOperator: this };
+    }
+  };
+
+  @action onDrag = (
+    e: { shiftKey: boolean },
+    { deltaX, deltaY }: { deltaX: number, deltaY: number }
+  ) => {
+    if (store.state.mode === 'movingOperator') {
+      this.time += pxToTime(deltaX, store.ui.scale);
+      this.y += deltaY;
+    }
+  };
+
+  @action moveX = (deltaX: number): void => {
+    this.time += pxToTime(deltaX, store.ui.scale);
+  };
+
+  @action stopDragging = (): void => {
+    if (store.state.mode === 'movingOperator') {
+      store.state = { mode: 'normal' };
+      store.addHistory();
+    } else {
+      store.connectionStore.stopDragging();
     }
   };
 

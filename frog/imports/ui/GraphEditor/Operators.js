@@ -1,17 +1,12 @@
 // @flow
 import React from 'react';
 import Operator from './Operator';
-import { connect, type StoreProp } from './store';
+import { connect, store, type StoreProp } from './store';
 
 export default connect((
   {
     store: {
       operatorStore: { all: operators },
-
-      connectionStore: {
-        startDragging,
-        stopDragging
-      },
       ui: { socialCoords, socialCoordsScaled },
       state: { mode, operatorType }
     },
@@ -30,8 +25,9 @@ export default connect((
         onClick={op.select}
         selected={op.selected}
         highlighted={op.highlighted}
-        startDragging={() => startDragging(op)}
-        onStop={() => stopDragging(op)}
+        startDragging={op.startDragging}
+        onDrag={op.onDrag}
+        onStop={op.stopDragging}
         type={op.type}
       />
     );
