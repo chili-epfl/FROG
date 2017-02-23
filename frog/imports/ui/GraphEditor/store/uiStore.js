@@ -75,21 +75,22 @@ export default class uiStore {
 
     const newPan = this.panx + deltaX;
     this.panx = between(0, rightBoundary, newPan);
+    const moveDelta = (this.panx - oldpan) * 4 * this.scale;
     const state = store.state;
     if (oldpan !== this.panx) {
       if (state.mode === 'dragging') {
       }
-      if (this.mode === 'resizing') {
-        const oldlength = this.mode.currentActivity.length;
-        this.mode.currentActivity.resize(deltaX * 4 * this.scale);
-        if (oldlength === store.mode.currentActivity.length) {
+      if (state.mode === 'resizing') {
+        const oldlength = state.currentActivity.length;
+        state.currentActivity.resize(moveDelta);
+        if (oldlength === state.currentActivity.length) {
           this.panx = oldpan;
         }
       }
-      if (this.mode === 'moving') {
-        const oldx = this.mode.currentActivity.x;
-        this.mode.currentActivity.move(deltaX * 4 * this.scale);
-        if (oldx === this.mode.currentActivity.x) {
+      if (state.mode === 'moving') {
+        const oldStartTime = state.currentActivity.startTime;
+        state.currentActivity.move(moveDelta);
+        if (oldStartTime === state.currentActivity.startTime) {
           this.panx = oldpan;
         }
       }
