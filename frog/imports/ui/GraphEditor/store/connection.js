@@ -3,6 +3,7 @@ import cuid from 'cuid';
 import { observable, action, computed } from 'mobx';
 import { drawPath } from '../utils/path';
 import { store } from './index';
+import Elem from './elemClass';
 import Activity from './activity';
 import Operator from './operator';
 
@@ -19,24 +20,20 @@ const getType = item => {
 
 type ConnectableT = Activity | Operator;
 
-export default class Connection {
+export default class Connection extends Elem {
   id: string;
   @observable source: ConnectableT;
   @observable target: ConnectableT;
-  @observable selected: boolean;
-
-  @action select = (): void => {
-    store.ui.unselect();
-    this.selected = true;
-  };
 
   @action init = (source: ConnectableT, target: ConnectableT, id: ?string) => {
     this.source = source;
     this.target = target;
     this.id = id || cuid();
+    this.store = store.connectionStore;
   };
 
   constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
+    super();
     this.init(source, target, id);
   }
 

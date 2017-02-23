@@ -2,9 +2,10 @@
 import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
+import Elem from './elemClass';
 import { timeToPx, pxToTime, timeToPxScreen, between } from '../utils';
 
-export default class Activity {
+export default class Activity extends Elem {
   @action init = (
     plane: number,
     startTime: number,
@@ -19,6 +20,7 @@ export default class Activity {
     this.title = title || '';
     this.length = length;
     this.startTime = startTime;
+    this.store = store.activityStore;
   };
 
   constructor(
@@ -28,6 +30,7 @@ export default class Activity {
     length: number,
     id: ?string
   ) {
+    super();
     this.init(plane, startTime, title, length, id);
   }
 
@@ -35,7 +38,6 @@ export default class Activity {
   id: string;
   @observable over: boolean;
   @observable overdrag: number;
-  @observable selected: boolean;
   @observable title: string;
   @observable length: number;
   @observable startTime: number;
@@ -61,11 +63,6 @@ export default class Activity {
     this.length = newact.length;
     this.startTime = newact.startTime;
     this.title = newact.title;
-  };
-
-  @action select = () => {
-    store.ui.unselect();
-    this.selected = true;
   };
 
   @action rename = (newname: string) => {

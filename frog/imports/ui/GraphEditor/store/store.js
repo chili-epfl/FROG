@@ -68,6 +68,11 @@ export default class Store {
     }
     return getOneId(this.connectionStore.all, id);
   };
+
+  @action deleteSelected = () => {
+    this.ui.selected && this.ui.selected.remove();
+    this.ui.selected = null;
+  };
 }
 
 // @observable GraphID: string;
@@ -137,36 +142,6 @@ export default class Store {
 // };
 // //* ***************************************
 // @observable mode: ModeT = { mode: 'normal' };
-// @action deleteSelected = () => {
-//   const conn = this.connections.length;
-//   const act = this.activities.length;
-//   const opt = this.operators.length;
-//   const delActivity = this.activities.filter(x => x.selected);
-//   if (delActivity.length > 0) {
-//     const delAct = this.activities.filter(x => x.selected)[0];
-//     this.connections = this.connections.filter(
-//       x => x.target.id !== delAct.id && x.source.id !== delAct.id
-//     );
-//   } else {
-//     const delOperator = this.operators.filter(x => x.selected);
-//     if (delOperator.length > 0) {
-//       const delOpt = this.operators.filter(x => x.selected)[0];
-//       this.connections = this.connections.filter(
-//         x => x.target.id !== delOpt.id && x.source.id !== delOpt.id
-//       );
-//     }
-//   }
-//   this.connections = this.connections.filter(x => !x.selected);
-//   this.activities = this.activities.filter(x => !x.selected);
-//   this.operators = this.operators.filter(x => !x.selected);
-//   if (
-//     conn !== this.connections.length ||
-//       act !== this.activities.length ||
-//       opt !== this.operators.length
-//   ) {
-//     this.addHistory();
-//   }
-// };
 // @computed get hasSelection() {
 //   const sel = this
 //     .connections.concat(this.activities.concat(this.operators))

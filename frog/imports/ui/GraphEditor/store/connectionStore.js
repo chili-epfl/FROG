@@ -3,6 +3,7 @@ import { computed, action, observable } from 'mobx';
 
 import { store } from './index';
 import Activity from './activity';
+import Operator from './operator';
 import Connection from './connection';
 import { drawPath } from '../utils/path';
 
@@ -40,7 +41,14 @@ export default class ConnectionStore {
     store.ui.cancelScroll();
   };
 
-  @action mongoAdd = x => {
+  @action cleanDangling = (): void => {
+    const elems = store.activityStore.all.concat(store.operatorStore.all);
+    this.all = this.all.filter(
+      x => elems.includes(x.source) && elems.includes(x.target)
+    );
+  };
+
+  @action mongoAdd = (x: Connection) => {
     if (!this.findId({ type: 'connection', id: x._id })) {
       this.connections.push(
         new Connection(this.findId(x.source), this.findId(x.target), x._id)
@@ -61,11 +69,4 @@ export default class ConnectionStore {
   @computed get history(): Array<any> {
     return this.all.map(x => ({ ...x }));
   }
-
-  // user has dropped line somewhere, clear out
-  @action connectStop = () => {
-    this.mode = { mode: 'normal' };
-    this.cancelScroll();
-    this.dragCoords = [];
-  };
 }

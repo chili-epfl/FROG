@@ -29,21 +29,21 @@ export default class AppClass extends Component {
 const keyDown = e => {
   if (store.mode === 'rename') {
   }
-  // if (e.keyCode === 27) {
-  //   // esc
-  //   store.ui.cancelAll();
-  //   store.ui.unselect();
-  // }
-  // if (e.keyCode === 8) {
-  //   // backspace
-  //   store.deleteSelected();
-  // }
-  // if (e.keyCode === 83) {
-  //   // s - social operator
-  //   store.placeOperator('social');
-  // }
-  // if (e.keyCode === 80) {
-  //   // p - product operator
-  //   store.placeOperator('product');
-  // }
+  if (e.keyCode === 27) {
+    // esc
+    store.ui.cancelAll();
+    store.ui.unselect();
+  }
+  if (e.keyCode === 8) {
+    // backspace
+    store.deleteSelected();
+  }
+  if (e.keyCode === 83) {
+    // s - social operator
+    store.operatorStore.place('social');
+  }
+  if (e.keyCode === 80) {
+    // p - product operator
+    store.operatorStore.place('product');
+  }
 };

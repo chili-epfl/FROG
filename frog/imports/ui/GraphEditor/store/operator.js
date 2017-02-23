@@ -1,12 +1,12 @@
 import cuid from 'cuid';
 import { observable, action, computed } from 'mobx';
 import { store } from './index';
+import Elem from './elemClass';
 import { pxToTime, timeToPx } from '../utils';
 
-export default class Operator {
+export default class Operator extends Elem {
   id: string;
   type: string;
-  @observable selected: boolean;
   @observable y: number;
   @observable over: boolean;
   @observable time: number;
@@ -15,9 +15,11 @@ export default class Operator {
     this.y = y;
     this.id = id || cuid();
     this.type = type;
+    this.store = store.operatorStore;
   }
 
   constructor(time: number, y: number, type: string, id: ?string) {
+    super();
     this.init(time, y, type, id);
   }
 
@@ -36,11 +38,6 @@ export default class Operator {
   @computed get coords(): [number, number] {
     return [this.x, this.y];
   }
-
-  @action onClick = (): void => {
-    store.unselect();
-    this.selected = true;
-  };
 
   @action onOver = (): true => this.over = true;
   @action onLeave = (): false => this.over = false;
