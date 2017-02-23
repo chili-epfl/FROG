@@ -1,5 +1,5 @@
-const config = require('./.eslintrc.js')
+const config = require('./.eslintrc.js');
 
-config.rules['prettier/prettier'] = ['warn', {'singleQuote': true}]
+config.rules['prettier/prettier'] = ['warn', { singleQuote: true }];
 
-module.exports = config
+module.exports = config;

@@ -11,7 +11,7 @@ class TimedComponentClass extends Component {
     timeNow: any
   };
 
-  constructor(props: { component: any, interval: number, props: Object }) { // eslint-disable-line
+  constructor(props: Object) {
     super(props);
     this.state = {
       timeNow: Date.now()
