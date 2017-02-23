@@ -1,3 +1,4 @@
+// @flow
 import cuid from 'cuid';
 import { observable, action, computed } from 'mobx';
 import { store } from './index';
@@ -28,7 +29,7 @@ export default class Operator extends Elem {
   }
 
   @computed get xScaled(): number {
-    return timeToPx(this.time, store.scale);
+    return timeToPx(this.time, store.ui.scale);
   }
 
   @computed get coordsScaled(): [number, number] {
@@ -41,35 +42,11 @@ export default class Operator extends Elem {
 
   @action onOver = (): true => this.over = true;
   @action onLeave = (): false => this.over = false;
-  @computed get highlighted(): boolean {
-    return this.over &&
-      store.draggingFromActivity !== this &&
-      store.mode === 'dragging';
-  }
 
   @action startDragging = (e: { shiftKey: boolean }): void => {
     if (!e.shiftKey) {
-      store.startDragging(this);
+      store.connectionStore.startDragging(this);
     }
-  };
-
-  @action onDrag = (
-    e: { shiftKey: boolean },
-    { deltaX, deltaY }: { deltaX: number, deltaY: number }
-  ) => {
-    if (!e.shiftKey) {
-      store.dragging(deltaX, deltaY);
-    } else {
-      this.time += pxToTime(deltaX, store.scale);
-      this.y += deltaY;
-    }
-  };
-
-  @action stopDragging = (e: { shiftKey: boolean }): void => {
-    if (!e.shiftKey) {
-      store.stopDragging();
-    }
-    store.addHistory();
   };
 
   @computed get object(): {
@@ -86,8 +63,20 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPoint(): [number, number] {
+  @computed get dragPointTo(): [number, number] {
+    return [this.x + 30, this.y + 30];
+  }
+
+  @computed get dragPointFrom(): [number, number] {
+    return this.dragPointTo;
+  }
+
+  @computed get dragPointToScaled(): [number, number] {
     return [this.xScaled + 30, this.y + 30];
+  }
+
+  @computed get dragPointFromScaled(): [number, number] {
+    return this.dragPointToScaled;
   }
 
   @action update = (newopt: $Shape<Operator>) => {

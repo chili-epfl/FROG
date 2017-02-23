@@ -11,10 +11,6 @@ export default class ConnectionStore {
   @observable all: Array<Connection> = [];
 
   // user begins dragging a line to make a connection
-  @action startDragging = (elem: Activity | Operator): void => {
-    store.state = { mode: 'dragging', draggingFrom: elem };
-  };
-
   @computed get dragPath(): ?string {
     if (store.state.mode !== 'dragging') {
       return null;
@@ -24,6 +20,10 @@ export default class ConnectionStore {
       ...store.ui.socialCoordsScaled
     );
   }
+
+  @action startDragging = (elem: Activity | Operator): void => {
+    store.state = { mode: 'dragging', draggingFrom: elem };
+  };
 
   @action stopDragging = () => {
     const state = store.state;

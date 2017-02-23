@@ -1,6 +1,6 @@
 // @flow
 import { computed, action, observable } from 'mobx';
-import { store } from './store';
+import { store } from './index';
 import Operator from './operator';
 
 export type OperatorTypes = 'product' | 'social';
@@ -29,8 +29,8 @@ export default class OperatorStore {
   }
 
   @action place = (type: OperatorTypes): void => {
-    if (!this.renameOpen) {
-      this.mode = { mode: 'placingOperator', operatorType: type };
+    if (store.state.mode === 'normal') {
+      store.state = { mode: 'placingOperator', operatorType: type };
     }
   };
 

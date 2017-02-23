@@ -4,6 +4,7 @@ import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 import * as constants from '../constants';
 import type { Elem } from './store';
+import Operator from './operator';
 
 export default class uiStore {
   @observable panx: number;
@@ -44,21 +45,15 @@ export default class uiStore {
   };
 
   @action canvasClick = (e: any) => {
-    if (store.state.mode === 'placingOperator') {
-      const coords = this.rawMouseToTime(
-        e.nativeEvent.offsetX,
-        e.nativeEvent.offsetY
+    const state = store.state;
+    if (state.mode === 'placingOperator') {
+      store.operatorStore.all.push(
+        new Operator(...this.socialCoordsTime, state.operatorType)
       );
-      // this.operators.push(new Operator(
-      //   coords[0],
-      //   coords[1],
-      //   this.operatorType
-      // ));
-      // this.mode = { mode: 'normal' };
-      // this.addHistory();
-      // }
-      // this.renameOpen = null;
+      store.state = { mode: 'normal' };
+      store.addHistory();
     }
+    store.state = { mode: 'normal' };
   };
 
   @observable scrollIntervalID: ?string;

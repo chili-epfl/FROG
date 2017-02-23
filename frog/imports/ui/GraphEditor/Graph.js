@@ -6,7 +6,7 @@ import { LevelLines, PanMap, TimeScale } from './fixed_components';
 import ScrollFields from './ScrollFields';
 import DragGuides from './DragGuides';
 import { connect, store, type StoreProp } from './store';
-// import Operators from './Operators';
+import Operators from './Operators';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -64,7 +64,7 @@ export default connect((
           <DragGuides />
           <TimeScale />
         </g>}
-      {/* <Operators scaled={!hasPanMap} /> */}
+      <Operators scaled={!hasPanMap} />
     </svg>
     {!!hasPanMap && <PanMap />}
     {!hasPanMap &&

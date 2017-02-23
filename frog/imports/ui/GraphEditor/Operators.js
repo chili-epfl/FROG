@@ -1,29 +1,37 @@
+// @flow
 import React from 'react';
-import Social from './graphic/people';
-import { connect } from './store';
+import Operator from './Operator';
+import { connect, type StoreProp } from './store';
 
-// export default ({ x, y, onOver, onLeave, onClick, selected, highlighted }) => {
 export default connect((
   {
-    store: { mode, operators, socialCoords, socialCoordsScaled, operatorType },
+    store: {
+      operatorStore: { all: operators },
+
+      connectionStore: {
+        startDragging,
+        stopDragging
+      },
+      ui: { socialCoords, socialCoordsScaled },
+      state: { mode, operatorType }
+    },
     scaled
-  }
+  }: StoreProp & { scaled: Boolean }
 ) => {
   const ops = operators.map(op => {
     const coords = scaled ? op.coordsScaled : op.coords;
     return (
-      <Social
+      <Operator
         key={op.id}
         x={coords[0]}
         y={coords[1]}
         onLeave={op.onLeave}
         onOver={op.onOver}
-        onClick={op.onClick}
+        onClick={op.select}
         selected={op.selected}
         highlighted={op.highlighted}
-        startDragging={op.startDragging}
-        onDrag={op.onDrag}
-        onStop={op.stopDragging}
+        startDragging={() => startDragging(op)}
+        onStop={() => stopDragging(op)}
         type={op.type}
       />
     );
@@ -31,7 +39,7 @@ export default connect((
   let dragOp;
   if (mode === 'placingOperator') {
     const coords = scaled ? socialCoordsScaled : socialCoords;
-    dragOp = <Social type={operatorType} x={coords[0]} y={coords[1]} />;
+    dragOp = <Operator type={operatorType} x={coords[0]} y={coords[1]} />;
   } else {
     dragOp = null;
   }
@@ -43,5 +51,3 @@ export default connect((
     </g>
   );
 });
-// stroke={selected ? "#ff9900" : "grey"}
-// fill={highlighted ? "yellow" : "white"}
