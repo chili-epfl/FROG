@@ -17,7 +17,7 @@ export type ObjectT = {
 };
 
 export type ActivityRunnerT = {
-  config: Object, // result of running config function from activity package
+  configData: Object, // result of running config function from activity package
   object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
   saveProduct: (userId: string, data: Object) => void, // call on completion, with student data as argument
@@ -38,7 +38,7 @@ export type OperatorPackageT = {
   id: string,
   meta: { type: string, name: string },
   config: Object,
-  operator: (config: Object, object: ObjectT) => {
+  operator: (configData: Object, object: ObjectT) => {
     product: ProductT[],
     socialStructure: SocialStructureT
   }

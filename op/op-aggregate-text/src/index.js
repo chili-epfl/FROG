@@ -22,7 +22,7 @@ export const config = {
   }
 };
 
-export const operator = (config: Object, object: ObjectT) => {
+export const operator = (configData: Object, object: ObjectT) => {
   const { products } = object;
   const product = products[0];
 

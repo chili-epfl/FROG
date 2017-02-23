@@ -54,7 +54,7 @@ export const config = {
 
 export const ActivityRunner = (props: ActivityRunnerT) => {
   const {
-    config,
+    configData,
     saveProduct,
     object,
     userInfo,
@@ -64,7 +64,7 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
   const { products, socialStructures } = object;
 
   const schema = {
-    title: config.name,
+    title: configData.name,
     type: 'object',
     properties: {}
   };
@@ -73,7 +73,7 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
     MCQ: { 'ui:options': { backgroundColor: 'pink' } }
   };
 
-  config.MCQ.forEach((question, questionIndex) => {
+  configData.MCQ.forEach((question, questionIndex) => {
     schema.properties['' + questionIndex] = {
       type: 'object',
       title: 'Question ' + (1 + questionIndex),
@@ -142,7 +142,7 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
   return (
     <div>
       <p>You are {userInfo.name}</p>
-      {config.collab
+      {configData.collab
         ? <p>You are collaborating with the group {groupId}</p>
         : null}
       {completed
@@ -151,7 +151,7 @@ export const ActivityRunner = (props: ActivityRunnerT) => {
             <div style={{ display: 'inline-block', width: '50%' }}>
               <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />
             </div>
-            {config.collab
+            {configData.collab
               ? <div style={{ display: 'inline-block', width: '50%' }}>
                   <Form {...{ schema, uiSchema, formData: partnerFormData }} />
                 </div>

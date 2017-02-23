@@ -17,7 +17,7 @@ const randomChoice = array => {
   return array[index];
 };
 
-export const operator = (config: Object, object: ObjectT) => {
+export const operator = (configData: Object, object: ObjectT) => {
   const { globalStructure } = object;
 
   const socStruc: SocialStructureT = {};

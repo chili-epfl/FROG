@@ -42,11 +42,18 @@ export const config = {
 };
 
 export const ActivityRunner = (art: ActivityRunnerT) => {
-  const { config, object, userInfo, reactiveData, reactiveFn, logger } = art;
+  const {
+    configData,
+    object,
+    userInfo,
+    reactiveData,
+    reactiveFn,
+    logger
+  } = art;
 
   const { socialStructures } = object;
-  const roles = config.roles.split(',');
-  const texts = config.text.split(',');
+  const roles = configData.roles.split(',');
+  const texts = configData.text.split(',');
   const matching = {};
   roles.forEach((role, index) => matching[role] = texts[index]);
 
@@ -54,7 +61,7 @@ export const ActivityRunner = (art: ActivityRunnerT) => {
   const userGroup = socialStructures[0][userInfo.id].group;
 
   // collabGroup is either the name of the group or ofhte role, depending on what has been configured
-  const collabGroup = socialStructures[0][userInfo.id][config.groupBy];
+  const collabGroup = socialStructures[0][userInfo.id][configData.groupBy];
 
   const reactiveKey = reactiveData.keys.filter(x => x.groupId === collabGroup)[
     0
@@ -62,7 +69,7 @@ export const ActivityRunner = (art: ActivityRunnerT) => {
 
   return (
     <div>
-      <h1>{config.title}</h1>
+      <h1>{configData.title}</h1>
       <p>Your role is {userRole}</p>
       <p>Your group is {userGroup}</p>
       <p>Your filtered content is {matching[userRole]}</p>

@@ -28,11 +28,11 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ config, object }: ActivityRunnerT) => (
+export const ActivityRunner = ({ configData, object }: ActivityRunnerT) => (
   <div>
-    <h1>{config.title}</h1>
-    <p>{config.text}</p>
-    {config.showProducts
+    <h1>{configData.title}</h1>
+    <p>{configData.text}</p>
+    {configData.showProducts
       ? <pre>{JSON.stringify(object.products, null, 2)}</pre>
       : null}
   </div>

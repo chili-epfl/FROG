@@ -24,9 +24,9 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ config }) => (
+export const ActivityRunner = ({ configData }) => (
   <div>
-    <iframe src={config.url} width={750} height={600} />
+    <iframe src={configData.url} width={750} height={600} />
   </div>
 );
 

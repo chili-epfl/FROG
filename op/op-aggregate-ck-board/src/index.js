@@ -27,7 +27,7 @@ export const config = {
 };
 
 // Obviously assumes even array
-export const operator = (config: Object, object: ObjectT) => {
+export const operator = (configData: Object, object: ObjectT) => {
   const { products } = object;
   return {
     socialStructure: {},

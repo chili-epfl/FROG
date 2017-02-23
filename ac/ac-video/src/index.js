@@ -38,12 +38,12 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ config, logger }) => (
+export const ActivityRunner = ({ configData, logger }) => (
   <ReactPlayer
-    url={config.url}
-    playing={booleanize(config.playing)}
-    controls
-    loop={booleanize(config.loop)}
+    url={configData.url}
+    playing={booleanize(configData.playing)}
+    controlsData
+    loop={booleanize(configData.loop)}
     onStart={() => logger({ paused: false, played: 0 })}
     onPause={() => logger({ paused: true })}
     onPlay={() => logger({ paused: false })}

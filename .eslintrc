@@ -1,10 +1,10 @@
 {
 	'plugins': ['flowtype', 'prettier'],
 	"globals": {
-		"window": true
+		"window": true,
+		"document": true
 	},
 	'rules': {
-
 		'import/extensions': 'off',
 		'import/no-extraneous-dependencies': 'off',
 		'import/no-unresolved': 'off',
@@ -13,6 +13,7 @@
 		'import/prefer-default-export': 'off',
 		'prefer-template': 'off',
 		'react/prop-types': 'off',
+		'react/sort-comp': 'off',
 		'react/no-multi-comp': 'off',
 		'jsx-a11y/href-no-hash': 'off',
 		"react/jsx-filename-extension": 'off',
@@ -25,7 +26,8 @@
 		'no-use-before-define': 'off',
 		'no-param-reassign': ['error', { 'props': false }],
 		'no-nested-ternary': 'off',
-		'no-constant-condition': 'off'
+		'no-constant-condition': 'off',
+		"prettier/prettier": ['warn', {'singleQuote': true}]
 	},
 	"parserOptions": {
 		"ecmaVersion": 2016,
