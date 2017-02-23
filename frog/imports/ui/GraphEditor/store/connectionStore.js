@@ -49,14 +49,14 @@ export default class ConnectionStore {
   };
 
   @action mongoAdd = (x: Connection) => {
-    if (!this.findId({ type: 'connection', id: x._id })) {
-      this.connections.push(
-        new Connection(this.findId(x.source), this.findId(x.target), x._id)
+    if (!store.findId({ type: 'connection', id: x._id })) {
+      this.all.push(
+        new Connection(store.findId(x.source), store.findId(x.target), x._id)
       );
     }
   };
   @action mongoRemove = remact => {
-    this.connections = this.connections.filter(x => x.id !== remact._id);
+    this.all = this.all.filter(x => x.id !== remact._id);
   };
 
   @computed get mongoObservers() {

@@ -54,6 +54,7 @@ const getOneId = (coll: Coll, id: string): Elem =>
   getOne(coll, x => x.id === id);
 
 export default class Store {
+  @observable id: string = '';
   @observable ui = new UI();
   @observable connectionStore = new ConnectionStore();
   @observable state: StateT = { mode: 'normal' };
@@ -74,73 +75,94 @@ export default class Store {
     this.ui.selected && this.ui.selected.remove();
     this.ui.selected = null;
   };
+
+  @action setId = (id: string) => {
+    setCurrentGraph(id);
+    this.id = id;
+    this.activityStore.all = Activities
+      .find({ graphId: id }, { reactive: false })
+      .fetch()
+      .map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id));
+    this.operatorStore.all = Operators
+      .find({ graphId: id }, { reactive: false })
+      .fetch()
+      .map(x => new Operator(x.time, x.y, x.type, x._id));
+    this.connectionStore.all = Connections
+      .find({ graphId: id }, { reactive: false })
+      .fetch()
+      .map(x => {
+        const source = this.findId(x.source);
+        const target = this.findId(x.target);
+        return new Connection(source, target, x._id);
+      });
+    const cursors = {
+      activities: Activities.find({ graphId: this.id }),
+      operators: Operators.find({ graphId: this.id }),
+      connections: Connections.find({ graphId: this.id })
+    };
+    cursors.activities.observe(this.activityStore.mongoObservers);
+    cursors.connections.observe(this.connectionStore.mongoObservers);
+    cursors.operators.observe(this.operatorStore.mongoObservers);
+  };
+
+  @observable history = [];
+
+  @action addHistory = () => {
+    this.history.push([
+      this.connectionStore.history,
+      this.activityStore.history,
+      this.operatorStore.history
+    ]);
+    mergeGraph(this.objects);
+  };
+
+  @computed get canUndo(): boolean {
+    return Boolean(this.history.length > 0);
+  }
+
+  @action undo = () => {
+    const [connections, activities, operators] = this.history.length > 1
+      ? this.history.pop()
+      : this.history[0];
+    this.activityStore.all = activities.map(
+      x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
+    );
+    this.operatorStore.all = operators.map(
+      x => new Operator(x.time, x.y, x.type, x.id)
+    );
+    this.connectionStore.all = connections.map(x => {
+      const source = this.findId(x.source);
+      const target = this.findId(x.target);
+      return new Connection(source, target, x._id);
+    });
+
+    mergeGraph(this.objects);
+  };
+  @computed get objects(): any {
+    return {
+      activities: this.activityStore.all.map(x => ({
+        ...x.object,
+        graphId: this.id
+      })),
+      operators: this.operatorStore.all.map(x => ({
+        ...x.object,
+        graphId: this.id
+      })),
+      connections: this.connectionStore.all.map(x => ({
+        ...x.object,
+        graphId: this.id
+      })),
+      graphId: this.id
+    };
+  }
 }
 
 // @observable GraphID: string;
-// @observable connectionStore = new ConnectionStore();
-// @observable activityStore = new ActivityStore();
-// @observable operatorStore = new OperatorStore();
-// @observable history = [];
-// @action addHistory = () => {
-//   this.history.push([
-//     this.connectionStore.history,
-//     this.activityStore.history,
-//     this.operatorStore.history
-//   ]);
-//   mergeGraph(this.objects);
-// };
-// @computed get canUndo(): boolean {
-//   return Boolean(this.history.length > 0);
-// }
-// @action undo = () => {
-//   const [connections, activities, operators] = this.history.length > 1
-//     ? this.history.pop()
-//     : this.history[0];
-//   this.activities = activities.map(
-//     x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
-//   );
-//   this.operators = operators.map(
-//     x => new Operator(x.time, x.y, x.type, x.id)
-//   );
-//   this.connections = connections.map(
-//     x =>
-//       new Connection(
-//         getid([this.operators, this.activities], x.source.id),
-//         getid([this.operators, this.activities], x.target.id)
-//       )
-//   );
-//   mergeGraph(this.objects);
-// };
 // @observable overlapAllowed = false;
 // @action updateSettings = (settings: { overlapAllowed: boolean }) =>
 //   this.overlapAllowed = settings.overlapAllowed;
 // @observable currentlyOver: boolean;
 // //* ***************************************
-// @action setId = (id: string) => {
-//   setCurrentGraph(id);
-//   this.id = id;
-//   this.activities = Activities.find({ graphId: id }, { reactive: false })
-//     .fetch()
-//     .map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id));
-//   this.operators = Operators.find({ graphId: id }, { reactive: false })
-//     .fetch()
-//     .map(x => new Operator(x.time, x.y, x.type, x._id));
-//   this.connections = Connections.find({ graphId: id }, { reactive: false })
-//     .fetch()
-//     .map(x => {
-//       const source = this.findId(x.source);
-//       const target = this.findId(x.target);
-//       return new Connection(source, target, x._id);
-//     });
-//   const cursors = {
-//     activities: Activities.find({ graphId: this.id }),
-//     operators: Operators.find({ graphId: this.id }),
-//     connections: Connections.find({ graphId: this.id })
-//   };
-//   cursors.activities.observe(this.activityStore.mongoObservers);
-//   cursors.connections.observe(this.connectionStore.mongoObservers);
-//   cursors.operators.observe(this.operatorStore.mongoObservers);
-// };
 // //* ***************************************
 // @observable mode: ModeT = { mode: 'normal' };
 // @computed get hasSelection() {
@@ -177,15 +199,4 @@ export default class Store {
 // @action unselect = () => {
 //   this.selected = undefined;
 // };
-// @computed get objects(): any {
-//   return {
-//     activities: this.activities.map(x => ({ ...x.object, graphId: this.id })),
-//     operators: this.operators.map(x => ({ ...x.object, graphId: this.id })),
-//     connections: this.connections.map(x => ({
-//       ...x.object,
-//       graphId: this.id
-//     })),
-//     graphId: this.id
-//   };
-// }
 // }
