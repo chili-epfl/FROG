@@ -103,13 +103,9 @@ export default class Store {
   //* ***************************************
   @action mongoAddActivity = x => {
     if (!this.findId({ type: 'activity', id: x._id })) {
-      this.activities.push(new Activity(
-        x.plane,
-        x.startTime,
-        x.title,
-        x.length,
-        x._id
-      ));
+      this.activities.push(
+        new Activity(x.plane, x.startTime, x.title, x.length, x._id)
+      );
     }
   };
 
@@ -135,11 +131,9 @@ export default class Store {
 
   @action mongoAddConnection = x => {
     if (!this.findId({ type: 'connection', id: x._id })) {
-      this.connections.push(new Connection(
-        this.findId(x.source),
-        this.findId(x.target),
-        x._id
-      ));
+      this.connections.push(
+        new Connection(this.findId(x.source), this.findId(x.target), x._id)
+      );
     }
   };
   @action mongoRemoveConnection = remact => {
@@ -266,11 +260,9 @@ export default class Store {
         e.nativeEvent.offsetX,
         e.nativeEvent.offsetY
       );
-      this.operators.push(new Operator(
-        coords[0],
-        coords[1],
-        this.operatorType
-      ));
+      this.operators.push(
+        new Operator(coords[0], coords[1], this.operatorType)
+      );
       this.mode = '';
       this.addHistory();
     }
@@ -306,10 +298,9 @@ export default class Store {
     if (
       targetAry.length > 0 && this.draggingFromActivity.id !== targetAry[0].id
     ) {
-      this.connections.push(new Connection(
-        this.draggingFromActivity,
-        targetAry[0]
-      ));
+      this.connections.push(
+        new Connection(this.draggingFromActivity, targetAry[0])
+      );
       this.addHistory();
     }
     this.cancelScroll();

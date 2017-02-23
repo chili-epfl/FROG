@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "flow && npm run eslint-test",
-    "fix": "eslint --fix -c eslintrc-run-prettier --ext .js,.jsx frog/imports/*",
-    "eslint-test": "eslint -c eslintrc-run-prettier --ext .js,.jsx frog/imports/*",
+    "fix": "eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .",
+    "eslint-test": "eslint -c .eslintrc-prettier.js --ext .js,.jsx .",
     "flow-test": "flow"
   },
   "devDependencies": {
@@ -29,7 +29,6 @@
     "flow-copy-source": "^1.1.0",
     "flow-typed": "^2.0.0",
     "jest": "^18.1.0",
-    "prettier": "^0.17.1",
     "watch": "^1.0.1",
     "yarn": "^0.20.3",
     "prettier": "^0.18"

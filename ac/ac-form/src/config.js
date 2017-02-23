@@ -2,30 +2,26 @@ export default {
   title: 'Configuration for Form',
   type: 'object',
   properties: {
-    'name': {
+    name: {
       type: 'string',
       title: 'Activity name'
     },
-    'duration': {
+    duration: {
       type: 'number',
       title: 'Duration in seconds (0 for infinity)'
     },
-    'title': {
+    title: {
       type: 'string',
       title: 'Form title'
     },
-    'questions': {
+    questions: {
       type: 'string',
       title: 'Type in questions, separated by comma'
     },
-    'multiple': {
+    multiple: {
       type: 'string',
       title: 'Allow multiple submissions?',
-      enum: [
-        'false',
-        'true'
-      ]
+      enum: ['false', 'true']
     }
   }
-}
-
+};

@@ -1,37 +1,35 @@
 // @flow
 
-import JSONPath from 'jsonpath-plus'
-import { unrollProducts } from 'frog-utils'
-import type { ObjectT, OperatorPackageT } from 'frog-utils'
+import type { ObjectT, OperatorPackageT } from 'frog-utils';
 
 export const meta = {
   name: 'Aggregate Text',
   type: 'product'
-}
+};
 
 export const config = {
   title: 'Configuration for Aggregate Text',
   type: 'object',
   properties: {
-    'anonymize': {
+    anonymize: {
       type: 'boolean',
       title: 'Anonymize contributions?'
     },
-    'path': {
+    path: {
       type: 'string',
       title: 'JSONPath to text to aggregate'
     }
   }
-}
+};
 
-export const operator = (config: Object, object: ObjectT) => {
-  const { products, socialStructures, globalStructure } = object
-  const product = products[0]
+export const operator = (configData: Object, object: ObjectT) => {
+  const { products } = object;
+  const product = products[0];
 
   return {
-    product: product,
+    product,
     socialStructure: {}
-  }
+  };
   /*
   const ret = unrollProducts(products).map(x => {
     const snippet = JSONPath({path: config.path, json: x.data})
@@ -44,11 +42,11 @@ export const operator = (config: Object, object: ObjectT) => {
   }).join('')
   return ret
   */
-}
+};
 
-export default ({ 
-  id: 'op-aggregate-text', 
-  operator: operator, 
-  config: config, 
-  meta: meta 
-}: OperatorPackageT)
+export default ({
+  id: 'op-aggregate-text',
+  operator,
+  config,
+  meta
+}: OperatorPackageT);

@@ -1,63 +1,61 @@
-import React from 'react'
-import ReactPlayer from 'react-player'
-import { booleanize } from 'frog-utils'
+import React from 'react';
+import ReactPlayer from 'react-player';
+import { booleanize } from 'frog-utils';
 
-import Dashboard from './dashboard'
+import Dashboard from './dashboard';
 
 export const meta = {
   name: 'Video player',
   type: 'react-component'
-}
+};
 
 export const config = {
   title: 'Configuration for Video player',
   type: 'object',
   properties: {
-    'name': {
+    name: {
       type: 'string',
       title: 'Activity name'
     },
-    'duration': {
+    duration: {
       type: 'number',
       title: 'Duration in seconds (0 for infinity)'
     },
-    'url': {
+    url: {
       type: 'string',
       title: 'URL of video'
     },
-    'playing': {
+    playing: {
       type: 'string',
       title: 'Should video begin auto-playing?',
-      enum: [
-        'true',
-        'false'
-      ]
+      enum: ['true', 'false']
     },
-    'loop': {
+    loop: {
       type: 'string',
       title: 'Should video loop?',
-      enum: [
-        'true',
-        'false'
-      ]
+      enum: ['true', 'false']
     }
   }
-}
+};
 
-
-export const ActivityRunner = ( { config, logger }) => 
-  <ReactPlayer 
-    url={config.url}
-    playing={booleanize(config.playing)}
-    controls={true}
-    loop={booleanize(config.loop)}
-    onStart={() => logger( {paused: false, played: 0} )}
-    onPause={() => logger( {paused: true} )}
-    onPlay={() => logger( {paused: false} )}
-    onEnded={() => logger( {ended: true} )}
-    onProgress={(x) => logger({...x, ended: false} )}
+export const ActivityRunner = ({ configData, logger }) => (
+  <ReactPlayer
+    url={configData.url}
+    playing={booleanize(configData.playing)}
+    controlsData
+    loop={booleanize(configData.loop)}
+    onStart={() => logger({ paused: false, played: 0 })}
+    onPause={() => logger({ paused: true })}
+    onPlay={() => logger({ paused: false })}
+    onEnded={() => logger({ ended: true })}
+    onProgress={x => logger({ ...x, ended: false })}
   />
+);
 
-
-export default { id: 'ac-video', ActivityRunner: ActivityRunner, config: config, meta: meta, Dashboard: Dashboard }
-
+export default {
+  id: 'ac-video',
+  ActivityRunner,
+  config,
+  meta,
+  Dashboard
+};

@@ -1,33 +1,38 @@
-import React from 'react'
-import ReactIframe from 'react-iframe'
+import React from 'react';
 
 export const meta = {
   name: 'Embedded website',
   type: 'react-component'
-}
+};
 
 export const config = {
   title: 'Configuration for Embedded website',
   type: 'object',
   properties: {
-    'name': {
+    name: {
       type: 'string',
       title: 'Activity name'
     },
-    'duration': {
+    duration: {
       type: 'number',
       title: 'Duration in seconds (0 for infinity)'
     },
-    'url': {
+    url: {
       type: 'string',
       title: 'URL of website'
     }
   }
-}
+};
 
-export const ActivityRunner = ({ config }) => 
+export const ActivityRunner = ({ configData }) => (
   <div>
-    <iframe src = {config.url} width={750} height={600} />
+    <iframe src={configData.url} width={750} height={600} />
   </div>
+);
 
-export default { id: 'ac-iframe', ActivityRunner: ActivityRunner, config: config, meta: meta }
+export default {
+  id: 'ac-iframe',
+  ActivityRunner,
+  config,
+  meta
+};

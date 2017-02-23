@@ -14,43 +14,36 @@ export default ({ setXY, openInfoFn, observation }) => {
   };
 
   return (
-    <Draggable
-      onStart = {() => true}
-      onStop = {setXY}
-      cancel = '.nodrag' >
-      <div 
-        style = {
-          {
-            position: 'absolute',
-            fontSize: '20px',
-            textOverflow: 'ellipsis',
-            overflow: 'hidden',
-            top: observation.y,
-            left: observation.x
-          }
-        } >
-        <Paper zDepth = {3} style = {style} >
+    <Draggable onStart={() => true} onStop={setXY} cancel=".nodrag">
+      <div
+        style={{
+          position: 'absolute',
+          fontSize: '20px',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+          top: observation.y,
+          left: observation.x
+        }}
+      >
+        <Paper zDepth={3} style={style}>
           <div>
             {shorten(observation.title, 20)}
-            <span style = {{float:'right'}} >
-              <AspectRatio onClick = {openInfoFn} />
+            <span style={{ float: 'right' }}>
+              <AspectRatio onClick={openInfoFn} />
             </span>
           </div>
-          <div style =
-            {
-              {
-                fontSize: '15px',
-                float: 'left',
-                marginTop: '15px',
-                marginLeft: '5px'
-              }
-            }
+          <div
+            style={{
+              fontSize: '15px',
+              float: 'left',
+              marginTop: '15px',
+              marginLeft: '5px'
+            }}
           >
             {shorten(observation.content, 100)}
           </div>
         </Paper>
       </div>
     </Draggable>
-  )
-}
-
+  );
+};

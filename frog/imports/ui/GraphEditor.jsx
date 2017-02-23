@@ -360,10 +360,7 @@ class GraphEditorClass extends Component {
         {this.props.operators.map(
           operator =>
             !operator.data &&
-              <OperatorChoiceComponent
-                key={operator._id}
-                ownId={operator._id}
-              />
+            <OperatorChoiceComponent key={operator._id} ownId={operator._id} />
         )}
         <button className="export button" onClick={this.exportToJSON}>
           Download the Graph
@@ -383,12 +380,12 @@ const GraphEditor = createContainer(
   props => ({
     ...props,
     graph: Graphs.findOne({ _id: props.graphId }),
-    activities: (
-      props.graphId ? Activities.find({ graphId: props.graphId }).fetch() : []
-    ),
-    operators: (
-      props.graphId ? Operators.find({ graphId: props.graphId }).fetch() : []
-    )
+    activities: props.graphId
+      ? Activities.find({ graphId: props.graphId }).fetch()
+      : [],
+    operators: props.graphId
+      ? Operators.find({ graphId: props.graphId }).fetch()
+      : []
   }),
   GraphEditorClass
 );

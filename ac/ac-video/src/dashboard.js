@@ -1,62 +1,66 @@
-import React, { Component } from 'react'
-import ReactPlayer from 'react-player'
-import { ProgressBar } from 'react-bootstrap'
-import {colorRange as color} from 'frog-utils'
+// @flow
+
+import React, { Component } from 'react';
+import { ProgressBar } from 'react-bootstrap';
+import { colorRange as color } from 'frog-utils';
 
 const VideoProgress = ({ data }) => {
-  let backgroundColor
-  let bsStyle
-  if(data.paused) { 
-    bsStyle='warning'
-    backgroundColor=color(data.updated_at)
-  } else {
-    backgroundColor=null
+  let backgroundColor;
+  let bsStyle;
+
+  if (data.paused) {
+    bsStyle = 'warning';
+    backgroundColor = color(data.updated_at);
   }
-  
-  if(data.ended) { 
-    bsStyle: 'danger' 
+
+  if (data.ended) {
+    bsStyle = 'danger';
   }
+
   return (
-    <div className='container-fluid'>
-      <h4 
+    <div className="container-fluid">
+      <h4
         style={{
-          float: 'left', 
+          float: 'left',
           marginRight: '1em'
-        }} > 
+        }}
+      >
         {data.username}
-      </h4> 
-    <ProgressBar 
-      now={data.played * 100} 
-      label={Math.round(data.played * 1000)/10}
-      bsStyle={bsStyle} 
-      style={{align: 'right', backgroundColor: backgroundColor}}/>
-  </div>
-  )
-}
+      </h4>
+      <ProgressBar
+        now={data.played * 100}
+        label={Math.round(data.played * 1000) / 10}
+        bsStyle={bsStyle}
+        style={{ align: 'right', backgroundColor }}
+      />
+    </div>
+  );
+};
 
 class Dash extends Component {
-  constructor(props) {
+  state: Object;
+  interval: any;
+
+  constructor(props: any) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   componentDidMount() {
-    const interval = setInterval(() =>
-      this.forceUpdate(), 2000)
-    this.setState({interval: interval})
+    this.interval = setInterval(() => this.forceUpdate(), 2000);
   }
 
   componentWillUnmount() {
-    window.clearInterval(this.state.interval)
+    window.clearInterval(this.interval);
   }
 
   render() {
-    return(
+    return (
       <div>
-        {this.props.logs.map(x => <VideoProgress data={x} key={x._id}/>)}
+        {this.props.logs.map(x => <VideoProgress data={x} key={x._id} />)}
       </div>
-    )
+    );
   }
 }
 
-export default Dash
+export default Dash;
