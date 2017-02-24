@@ -61,7 +61,7 @@ export default class Store {
   @observable state: StateT = { mode: 'normal' };
   @observable activityStore = new ActivityStore();
   @observable operatorStore = new OperatorStore();
-  @action addHistory() {}
+  @observable history = [];
 
   findId = ({ type, id }: { type: ElementTypes, id: string }) => {
     if (type === 'activity') {
@@ -101,6 +101,7 @@ export default class Store {
         return new Connection(source, target, x._id);
       });
 
+    this.history = [];
     this.addHistory();
     const cursors = {
       activities: Activities.find({ graphId: this.id }),
@@ -111,8 +112,6 @@ export default class Store {
     cursors.connections.observe(this.connectionStore.mongoObservers);
     cursors.operators.observe(this.operatorStore.mongoObservers);
   };
-
-  @observable history = [];
 
   @action addHistory = () => {
     const newEntry = [

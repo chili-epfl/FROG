@@ -67,6 +67,10 @@ export default class ConnectionStore {
   }
 
   @computed get history(): Array<any> {
-    return this.all.map(x => ({ ...x }));
+    return this.all.map(x => ({
+      id: x.id,
+      source: { type: x.source.klass, id: x.source.id },
+      target: { type: x.target.klass, id: x.target.id }
+    }));
   }
 }
