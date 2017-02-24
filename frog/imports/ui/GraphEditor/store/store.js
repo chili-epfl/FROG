@@ -73,8 +73,12 @@ export default class Store {
   };
 
   @action deleteSelected = () => {
-    this.ui.selected && this.ui.selected.remove();
-    this.ui.selected = null;
+    if (this.state.mode === 'normal') {
+      if (this.ui.selected) {
+        this.ui.selected.remove();
+      }
+      this.ui.selected = null;
+    }
   };
 
   @action setId = (id: string) => {

@@ -28,6 +28,7 @@ export default class AppClass extends Component {
 
 const keyDown = e => {
   if (store.mode === 'rename') {
+    return;
   }
   if (e.keyCode === 27) {
     // esc
