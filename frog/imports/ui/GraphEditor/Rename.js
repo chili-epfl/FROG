@@ -4,7 +4,7 @@ import { connect, type StoreProp } from './store';
 import TextInput from './utils/TextInput';
 
 const RenameField = connect((
-  { store: { ui: { cancelAll }, state } }: StoreProp
+  { store: { ui: { cancelAll }, state, renameChange } }: StoreProp
 ) => {
   if (state.mode !== 'rename') {
     return null;
@@ -20,7 +20,8 @@ const RenameField = connect((
     >
       <TextInput
         value={renameOpen.title}
-        onSubmit={x => renameOpen.rename(x)}
+        onSubmit={renameOpen.rename}
+        onChange={renameChange}
         onCancel={cancelAll}
       />
     </div>

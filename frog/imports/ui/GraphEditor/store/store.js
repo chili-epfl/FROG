@@ -34,7 +34,7 @@ type StateT =
   | { mode: 'movingOperator', currentOperator: typeof Operator }
   | { mode: 'dragging', draggingFrom: typeof Activity | typeof Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }
-  | { mode: 'rename', currentActivity: typeof Activity }
+  | { mode: 'rename', currentActivity: typeof Activity, val: string }
   | { mode: 'normal' };
 
 const getid = (arys: Array<Coll>, id: string): ?Elem => {
@@ -55,12 +55,12 @@ const getOneId = (coll: Coll, id: string): Elem =>
   getOne(coll, x => x.id === id);
 
 export default class Store {
-  @observable id: string = '';
-  @observable ui = new UI();
-  @observable connectionStore = new ConnectionStore();
   @observable state: StateT = { mode: 'normal' };
+  @observable connectionStore = new ConnectionStore();
   @observable activityStore = new ActivityStore();
   @observable operatorStore = new OperatorStore();
+  @observable ui = new UI();
+  @observable graphID: string = '';
   @observable history = [];
 
   findId = ({ type, id }: { type: ElementTypes, id: string }) => {
@@ -71,6 +71,8 @@ export default class Store {
     }
     return getOneId(this.connectionStore.all, id);
   };
+
+  @action renameChange = (val: string) => this.state = { ...this.state, val };
 
   @action deleteSelected = () => {
     if (this.state.mode === 'normal') {
@@ -83,7 +85,7 @@ export default class Store {
 
   @action setId = (id: string) => {
     setCurrentGraph(id);
-    this.id = id;
+    this.graphID = id;
     this.activityStore.all = Activities
       .find({ graphId: id }, { reactive: false })
       .fetch()
@@ -104,9 +106,9 @@ export default class Store {
     this.history = [];
     this.addHistory();
     const cursors = {
-      activities: Activities.find({ graphId: this.id }),
-      operators: Operators.find({ graphId: this.id }),
-      connections: Connections.find({ graphId: this.id })
+      activities: Activities.find({ graphId: this.graphID }),
+      operators: Operators.find({ graphId: this.graphID }),
+      connections: Connections.find({ graphId: this.graphID })
     };
     cursors.activities.observe(this.activityStore.mongoObservers);
     cursors.connections.observe(this.connectionStore.mongoObservers);
@@ -152,17 +154,17 @@ export default class Store {
     return {
       activities: this.activityStore.all.map(x => ({
         ...x.object,
-        graphId: this.id
+        graphId: this.graphID
       })),
       operators: this.operatorStore.all.map(x => ({
         ...x.object,
-        graphId: this.id
+        graphId: this.graphID
       })),
       connections: this.connectionStore.all.map(x => ({
         ...x.object,
-        graphId: this.id
+        graphId: this.graphID
       })),
-      graphId: this.id
+      graphId: this.graphID
     };
   }
 }

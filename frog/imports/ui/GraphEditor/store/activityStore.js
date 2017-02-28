@@ -53,7 +53,7 @@ export default class ActivityStore {
     const [x, _] = store.ui.rawMouseToTime(rawX, 0);
     const newActivity = new Activity(plane, x, 'Unnamed', 5);
     this.all.push(newActivity);
-    store.state = { mode: 'rename', currentActivity: newActivity };
+    store.state = { mode: 'rename', currentActivity: newActivity, val: '' };
     store.addHistory();
   };
 
@@ -64,6 +64,9 @@ export default class ActivityStore {
   };
 
   @action startResizing = (activity: Activity) => {
+    if (store.state.mode === 'rename') {
+      store.state.currentActivity.rename(store.state.val);
+    }
     const bounds = calculateBounds(activity, this.all);
     store.state = { mode: 'resizing', currentActivity: activity, bounds };
   };
