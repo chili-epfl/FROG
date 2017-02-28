@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { connect } from './store';
 import { timeToPx } from './utils';
@@ -37,7 +38,7 @@ const ShadedBox = ({ x, current }) => (
 );
 
 const DragGuide = connect((
-  { store: { scale, panTime, rightEdgeTime }, ...rest }
+  { store: { ui: { scale, panTime, rightEdgeTime } }, ...rest }
 ) => {
   const s = x => timeToPx(x, scale);
   const current = Math.round(rest.current);
@@ -56,7 +57,7 @@ const DragGuide = connect((
   }
 
   const middle = (x + current) / 2.0;
-  const timeText = Math.abs(x - current) + ' min.';
+  const timeText = Math.round(Math.abs(rest.x - current)) + ' min.';
   const lengthText = length + ' min.';
   const activityMiddle = Math.round(rest.currentX) + length / 2;
 
@@ -80,21 +81,23 @@ const DragGuide = connect((
   );
 });
 
-export default connect((
-  { store: { leftbound, rightbound, mode, currentActivity } }
-) => {
-  if (currentActivity && (mode === 'resizing' || mode === 'moving')) {
+export default connect(({ store: { state } }) => {
+  if (state.mode === 'resizing' || state.mode === 'moving') {
+    const {
+      bounds: { leftBoundTime, rightBoundTime },
+      currentActivity
+    } = state;
     return (
       <g>
         <DragGuide
-          x={leftbound ? leftbound.startTime + leftbound.length : 0}
+          x={leftBoundTime}
           current={currentActivity.startTime}
           currentX={currentActivity.startTime}
           length={currentActivity.length}
           y={currentActivity.y}
         />
         <DragGuide
-          x={rightbound ? rightbound.startTime : 4000}
+          x={rightBoundTime}
           length={currentActivity.length}
           y={currentActivity.y}
           currentX={currentActivity.startTime}
