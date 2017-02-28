@@ -105,6 +105,8 @@ export default class Store {
 
     this.history = [];
     this.addHistory();
+    this.state = { mode: 'normal' };
+
     const cursors = {
       activities: Activities.find({ graphId: this.graphID }),
       operators: Operators.find({ graphId: this.graphID }),

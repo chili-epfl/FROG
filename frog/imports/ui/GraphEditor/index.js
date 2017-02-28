@@ -30,6 +30,9 @@ const keyDown = e => {
   if (store.mode === 'rename') {
     return;
   }
+  if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) {
+    return;
+  }
   if (e.keyCode === 27) {
     // esc
     store.ui.cancelAll();
