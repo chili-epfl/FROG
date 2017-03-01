@@ -40,5 +40,8 @@ export const flushLogs = () => Meteor.call('logs.flush');
 Meteor.methods({
   'logs.flush': () => {
     Logs.remove({});
+  },
+  'test.respond': length => {
+    return 'response ' + new Array(length).join('*');
   }
 });
