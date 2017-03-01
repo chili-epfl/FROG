@@ -51,10 +51,23 @@ export default class ActivityStore {
 
   @action addActivity = (plane: number, rawX: number): void => {
     const [x, _] = store.ui.rawMouseToTime(rawX, 0);
-    const newActivity = new Activity(plane, x, 'Unnamed', 5);
-    this.all.push(newActivity);
-    store.state = { mode: 'rename', currentActivity: newActivity, val: '' };
-    store.addHistory();
+    let length;
+    if (!store.overlapAllowed) {
+      const { rightBoundTime } = calculateBounds(
+        { startTime: x, length: 0, id: 0 },
+        this.all
+      );
+      const maxLength = rightBoundTime - x;
+      length = Math.min(maxLength, 5);
+    } else {
+      length = 5;
+    }
+    if (length >= 1) {
+      const newActivity = new Activity(plane, x, 'Unnamed', length);
+      this.all.push(newActivity);
+      store.state = { mode: 'rename', currentActivity: newActivity, val: '' };
+      store.addHistory();
+    }
   };
 
   @action swapActivities = (left: Activity, right: Activity) => {

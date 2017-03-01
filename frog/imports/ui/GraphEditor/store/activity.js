@@ -45,20 +45,20 @@ export default class Activity extends Elem {
   @observable startTime: number;
 
   @computed get xScaled(): number {
-    return timeToPx(Math.round(this.startTime), store.ui.scale);
+    return timeToPx(Math.floor(this.startTime), store.ui.scale);
   }
   @computed get x(): number {
-    return timeToPx(Math.round(this.startTime), 1);
+    return timeToPx(Math.floor(this.startTime), 1);
   }
   @computed get screenX(): number {
-    return timeToPxScreen(Math.round(this.startTime), 1);
+    return timeToPxScreen(Math.floor(this.startTime), 1);
   }
 
   @computed get widthScaled(): number {
-    return timeToPx(Math.round(this.length), store.ui.scale);
+    return timeToPx(Math.floor(this.length), store.ui.scale);
   }
   @computed get width(): number {
-    return timeToPx(Math.round(this.length), 1);
+    return timeToPx(Math.floor(this.length), 1);
   }
 
   @action update = (newact: $Shape<Activity>) => {

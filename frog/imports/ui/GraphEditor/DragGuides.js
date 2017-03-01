@@ -41,8 +41,8 @@ const DragGuide = connect((
   { store: { ui: { scale, panTime, rightEdgeTime } }, ...rest }
 ) => {
   const s = x => timeToPx(x, scale);
-  const current = Math.round(rest.current);
-  const length = Math.round(rest.length);
+  const current = Math.floor(rest.current);
+  const length = Math.floor(rest.length);
   let x;
   let edge;
   if (rest.x > rightEdgeTime) {
@@ -53,13 +53,13 @@ const DragGuide = connect((
     edge = true;
   } else {
     edge = false;
-    x = Math.round(rest.x);
+    x = Math.floor(rest.x);
   }
 
   const middle = (x + current) / 2.0;
-  const timeText = Math.round(Math.abs(rest.x - current)) + ' min.';
+  const timeText = Math.floor(Math.abs(rest.x - current)) + ' min.';
   const lengthText = length + ' min.';
-  const activityMiddle = Math.round(rest.currentX) + length / 2;
+  const activityMiddle = Math.floor(rest.currentX) + length / 2;
 
   return (
     <g>
