@@ -50,7 +50,7 @@ const ActivityTypeList = ({ setFn }) => (
   </div>
 );
 
-const ActivityForm = ({ form, submit, existing }) => {
+export const ActivityForm = ({ form, submit, existing }) => {
   const existingId = existing ? existing._id : null;
   return (
     <div>

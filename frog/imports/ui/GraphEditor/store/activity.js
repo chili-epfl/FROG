@@ -4,6 +4,7 @@ import cuid from 'cuid';
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, pxToTime, timeToPxScreen, between } from '../utils';
+import { calculateBounds } from './activityStore';
 
 export default class Activity extends Elem {
   @action init = (
@@ -76,7 +77,7 @@ export default class Activity extends Elem {
     const state = store.state;
     if (state.mode === 'moving') {
       const deltaTime = pxToTime(deltax, store.ui.scale);
-      if (store.ui.overlapAllowed) {
+      if (store.overlapAllowed) {
         this.startTime = between(
           0,
           120 - this.length,
@@ -172,5 +173,9 @@ export default class Activity extends Elem {
 
   @computed get dragPointTo(): [number, number] {
     return [this.x + 15, this.y + 15];
+  }
+
+  @computed get bounds() {
+    return calculateBounds(this, store.activityStore.all);
   }
 }

@@ -84,9 +84,9 @@ const DragGuide = connect((
 export default connect(({ store: { state } }) => {
   if (state.mode === 'resizing' || state.mode === 'moving') {
     const {
-      bounds: { leftBoundTime, rightBoundTime },
       currentActivity
     } = state;
+    const { leftBoundTime, rightBoundTime } = currentActivity.bounds;
     return (
       <g>
         <DragGuide

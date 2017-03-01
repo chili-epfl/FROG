@@ -73,6 +73,9 @@ export default class Store {
   };
 
   @action renameChange = (val: string) => this.state = { ...this.state, val };
+  @observable overlapAllowed = false;
+  @action updateSettings = settings =>
+    this.overlapAllowed = settings.overlapAllowed;
 
   @action deleteSelected = () => {
     if (this.state.mode === 'normal') {

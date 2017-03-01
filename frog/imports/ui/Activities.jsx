@@ -5,7 +5,6 @@ import Dropdown from 'react-dropdown';
 
 import { Activities, addActivity } from '../api/activities';
 import { activityTypes } from '../activityTypes';
-import { Logs } from '../api/logs';
 
 const TypeList = ({ data, onSelect }) => {
   const options = data.map(x => ({ value: x.id, label: x.meta.name }));
@@ -22,6 +21,11 @@ const TypeList = ({ data, onSelect }) => {
 class ActivityBody extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      form: props.activityID &&
+        props.activities.find(x => x._id === props.activityID) ||
+        null
+    };
     this.state = { form: null };
   }
 
@@ -55,8 +59,7 @@ class ActivityBody extends Component {
 
 export default createContainer(
   () => ({
-    activities: Activities.find({}).fetch(),
-    log: Logs.find({}).fetch()
+    activities: Activities.find({}).fetch()
   }),
   ActivityBody
 );

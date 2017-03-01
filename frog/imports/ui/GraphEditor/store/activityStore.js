@@ -9,7 +9,7 @@ import type { BoundsT } from './store';
 
 // find activities immediately to the left and to the right of the current activity
 // to draw boundary markers and control movement by dragging and resizing
-const calculateBounds = (
+export const calculateBounds = (
   activity: Activity,
   activities: Array<Activity>
 ): BoundsT => {

@@ -10,6 +10,7 @@ import Rename from './Rename';
 import SidePanel from './SidePanel';
 import GraphConfigPanel from './GraphConfigPanel';
 import GraphList from './GraphList';
+import Form from 'react-jsonschema-form';
 
 const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
   <div>
@@ -35,10 +36,22 @@ const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
   </div>
 );
 
-const Settings = connect(({ store: { undo, canUndo, history } }) => (
-  <button type="button" disabled={!canUndo} onClick={undo}>
-    Undo ({history.length})
-  </button>
+const settingsSchema = {
+  type: 'object',
+  properties: { overlapAllowed: { type: 'boolean', title: 'Overlap allowed' } }
+};
+
+const Settings = connect((
+  { store: { updateSettings, undo, canUndo, history } }
+) => (
+  <Form
+    schema={settingsSchema}
+    onChange={({ formData }) => updateSettings(formData)}
+  >
+    <button type="button" disabled={!canUndo} onClick={undo}>
+      Undo ({history.length})
+    </button>
+  </Form>
 ));
 
 export default connect(Editor);
