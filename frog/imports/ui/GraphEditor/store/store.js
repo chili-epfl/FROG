@@ -1,4 +1,3 @@
-// @flow
 import { computed, action, observable } from 'mobx';
 import { isEqual } from 'lodash';
 import Stringify from 'json-stable-stringify';
@@ -37,12 +36,6 @@ type StateT =
   | { mode: 'rename', currentActivity: typeof Activity, val: string }
   | { mode: 'normal' };
 
-const getid = (arys: Array<Coll>, id: string): ?Elem => {
-  const joinedArys = arys.reduce((acc, x) => acc.concat(...x), []);
-  const res = joinedArys.filter(x => x.id === id);
-  return res && res[0];
-};
-
 const getOne = (coll: Coll, crit: Function): ?Elem => {
   const found = coll.filter(crit);
   if (found.size === 0) {
@@ -63,7 +56,7 @@ export default class Store {
   @observable graphID: string = '';
   @observable history = [];
 
-  findId = ({ type, id }: { type: ElementTypes, id: string }) => {
+  findId = ({ type, id }: { type: ElementTypes, id: string }): Elem => {
     if (type === 'activity') {
       return getOneId(this.activityStore.all, id);
     } else if (type === 'operator') {
@@ -74,10 +67,10 @@ export default class Store {
 
   @action renameChange = (val: string) => this.state = { ...this.state, val };
   @observable overlapAllowed = false;
-  @action updateSettings = settings =>
+  @action updateSettings = (settings: { overlapAllowed: boolean }) =>
     this.overlapAllowed = settings.overlapAllowed;
 
-  @action deleteSelected = () => {
+  @action deleteSelected = (): void => {
     if (this.state.mode === 'normal') {
       if (this.ui.selected) {
         this.ui.selected.remove();
@@ -86,7 +79,7 @@ export default class Store {
     }
   };
 
-  @action setId = (id: string) => {
+  @action setId = (id: string): void => {
     setCurrentGraph(id);
     this.graphID = id;
     this.activityStore.all = Activities
@@ -155,6 +148,7 @@ export default class Store {
 
     mergeGraph(this.objects);
   };
+
   @computed get objects(): any {
     return {
       activities: this.activityStore.all.map(x => ({

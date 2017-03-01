@@ -3,6 +3,7 @@ import { computed, action } from 'mobx';
 import { store } from './index';
 
 export default class Elem {
+  over: boolean;
   @action select = (): void => {
     store.ui.selected = this;
   };

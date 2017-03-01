@@ -7,7 +7,7 @@ export default connect(({ store: { ui: { selected } } }) => {
   if (!selected) {
     return null;
   }
-  if (!selected instanceof Activity) {
+  if (!(selected instanceof Activity)) {
     return <h1>Not implemented for this item type yet</h1>;
   }
   return (

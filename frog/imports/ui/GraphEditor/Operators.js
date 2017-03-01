@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Operator from './Operator';
-import { connect, store, type StoreProp } from './store';
+import { connect, type StoreProp } from './store';
 
 export default connect((
   {

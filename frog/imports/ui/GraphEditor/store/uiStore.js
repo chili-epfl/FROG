@@ -44,7 +44,7 @@ export default class uiStore {
     this.panDelta(needPanDelta);
   };
 
-  @action canvasClick = (e: any) => {
+  @action canvasClick = () => {
     const state = store.state;
     if (state.mode === 'placingOperator') {
       store.operatorStore.all.push(
@@ -78,8 +78,6 @@ export default class uiStore {
     const moveDelta = (this.panx - oldpan) * 4 * this.scale;
     const state = store.state;
     if (oldpan !== this.panx) {
-      if (state.mode === 'dragging') {
-      }
       if (state.mode === 'resizing') {
         const oldlength = state.currentActivity.length;
         state.currentActivity.resize(moveDelta);

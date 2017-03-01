@@ -7,6 +7,8 @@ import Operator from './operator';
 import Connection from './connection';
 import { drawPath } from '../utils/path';
 
+type MongoConnection = Connection & { _id: string };
+
 export default class ConnectionStore {
   @observable all: Array<Connection> = [];
 
@@ -48,18 +50,18 @@ export default class ConnectionStore {
     );
   };
 
-  @action mongoAdd = (x: Connection) => {
+  @action mongoAdd = (x: MongoConnection) => {
     if (!store.findId({ type: 'connection', id: x._id })) {
       this.all.push(
         new Connection(store.findId(x.source), store.findId(x.target), x._id)
       );
     }
   };
-  @action mongoRemove = remact => {
+  @action mongoRemove = (remact: MongoConnection): void => {
     this.all = this.all.filter(x => x.id !== remact._id);
   };
 
-  @computed get mongoObservers() {
+  @computed get mongoObservers(): any {
     return {
       added: this.mongoAdd,
       removed: this.mongoRemove

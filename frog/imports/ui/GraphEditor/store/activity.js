@@ -5,6 +5,7 @@ import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, pxToTime, timeToPxScreen, between } from '../utils';
 import { calculateBounds } from './activityStore';
+import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
   @action init = (
@@ -175,7 +176,7 @@ export default class Activity extends Elem {
     return [this.x + 15, this.y + 15];
   }
 
-  @computed get bounds() {
+  @computed get bounds(): BoundsT {
     return calculateBounds(this, store.activityStore.all);
   }
 }

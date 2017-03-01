@@ -5,7 +5,10 @@ module.exports = {
     document: true
   },
   rules: {
+    'flowtype/space-after-type-colon': 'off',
     'class-methods-use-this': 'off',
+    'no-confusing-arrow': 'off',
+    'import/no-named-default': 'off',
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 'off',

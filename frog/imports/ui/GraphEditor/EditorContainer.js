@@ -3,6 +3,8 @@ import React from 'react';
 
 // $FlowFixMe
 import styled from 'styled-components';
+import Form from 'react-jsonschema-form';
+
 import { connect } from './store';
 import type { StoreProp } from './store';
 import Graph from './Graph';
@@ -10,7 +12,6 @@ import Rename from './Rename';
 import SidePanel from './SidePanel';
 import GraphConfigPanel from './GraphConfigPanel';
 import GraphList from './GraphList';
-import Form from 'react-jsonschema-form';
 
 const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
   <div>

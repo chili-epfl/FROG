@@ -1,4 +1,3 @@
-// @flow
 import { computed, action, observable } from 'mobx';
 import { omit } from 'lodash';
 import { store } from './index';
