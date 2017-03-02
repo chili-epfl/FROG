@@ -90,6 +90,7 @@ export default class Operator extends Elem {
   }
 
   @computed get dragPointTo(): [number, number] {
+    // operator has size of 60, finding midpoint
     return [this.x + 30, this.y + 30];
   }
 
@@ -98,6 +99,7 @@ export default class Operator extends Elem {
   }
 
   @computed get dragPointToScaled(): [number, number] {
+    // operator has size of 60, finding midpoint
     return [this.xScaled + 30, this.y + 30];
   }
 

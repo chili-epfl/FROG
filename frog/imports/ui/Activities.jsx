@@ -21,11 +21,6 @@ const TypeList = ({ data, onSelect }) => {
 class ActivityBody extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      form: props.activityID &&
-        props.activities.find(x => x._id === props.activityID) ||
-        null
-    };
     this.state = { form: null };
   }
 
