@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
@@ -6,7 +7,7 @@ import Home from './Home.jsx';
 import ActivityEditor from './ActivityEditor.jsx';
 import StudentView from './StudentView.jsx';
 import TeacherView from './TeacherView.jsx';
-import SVGEditor from './svg';
+import GraphEditor from './GraphEditor';
 import Admin from './Admin.jsx';
 
 const Body = ({ userId, app }) => {
@@ -19,7 +20,7 @@ const Body = ({ userId, app }) => {
       case 'Activity Editor':
         return <ActivityEditor />;
       case 'Graph Editor':
-        return <SVGEditor />;
+        return <GraphEditor />;
       case 'Student View':
         return <StudentView />;
       case 'Teacher View':

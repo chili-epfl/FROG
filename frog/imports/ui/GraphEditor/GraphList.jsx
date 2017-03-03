@@ -3,7 +3,12 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { connect, store } from './store';
 import { removeGraph } from '../../api/activities';
-import { Graphs, addGraph, assignGraph } from '../../api/graphs';
+import {
+  Graphs,
+  addGraph,
+  assignGraph,
+  duplicateGraph
+} from '../../api/graphs';
 
 const submitRemoveGraph = id => {
   removeGraph(id);
@@ -28,10 +33,12 @@ const GL = createContainer(
                 <a href="#" onClick={() => submitRemoveGraph(graph._id)}>
                   <i className="fa fa-times" />
                 </a>
-                <a href="#" onClick={() => store.setId(graph._id)}>
-                  <i className="fa fa-pencil" />
+                <a href="#" onClick={() => duplicateGraph(graph._id)}>
+                  <i className="fa fa-copy" />
                 </a>
-                {graph.name} {graph._id === graphId ? ' (current)' : null}
+                <a href="#" onClick={() => store.setId(graph._id)}>
+                  {graph.name} {graph._id === graphId ? ' (current)' : null}
+                </a>
               </li>
             ))
           : <li>No graph</li>}

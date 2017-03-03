@@ -6,10 +6,11 @@ import Store from './store';
 useStrict(true);
 
 export const store = new Store();
+export default Store;
 window.store = store;
 
-export function connect<Props>(
-  component: (o: Object) => React$Element<any>
-): React$Element<null, Props & { store: typeof Store }, null> {
+export type StoreProp = { store: Store };
+
+export function connect(component: any): any {
   return inject('store')(observer(component));
 }

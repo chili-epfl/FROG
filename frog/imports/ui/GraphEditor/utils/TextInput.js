@@ -1,32 +1,31 @@
+// @flow
 import React, { Component } from 'react';
 
-export const timeToPx = (time, scale) => time * 3900 * scale / 120;
-export const pxToTime = (px, scale) => px / 3900 / scale * 120;
-
-export const between = (rawminval, rawmaxval, x) => {
-  const minval = rawminval || 0;
-  const maxval = rawmaxval || 99999;
-  return Math.min(Math.max(x, minval), maxval);
-};
-
-export class TextInput extends Component {
-  constructor(props) {
+export default class TextInput extends Component {
+  constructor(props: { value: string, onChange: Function }) {
     super(props);
     this.state = { val: this.props.value || '' };
   }
+
+  state: { val: string };
 
   componentDidMount() {
     this.textInput.focus();
   }
 
-  onChange = e => this.setState({ val: e.target.value });
+  onChange = (e: any) => {
+    this.setState({ val: e.target.value });
+    this.props.onChange(e.target.value);
+  };
 
-  onSubmit = e => {
+  onSubmit = (e: any) => {
     e.preventDefault();
     this.props.onSubmit(this.state.val);
   };
 
-  handleKey = e => {
+  textInput: { focus: Function };
+
+  handleKey = (e: any) => {
     if (e.keyCode === 27) {
       this.props.onCancel();
     }
@@ -34,7 +33,7 @@ export class TextInput extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} onBlur={this.onSubmit}>
         <input
           type="text"
           onChange={this.onChange}

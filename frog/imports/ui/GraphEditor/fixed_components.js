@@ -1,11 +1,12 @@
 // @flow
-
 import React from 'react';
 import { DraggableCore } from 'react-draggable';
-import { connect, store } from './store';
+import { connect, store, type StoreProp } from './store';
 import { timeToPx } from './utils';
 
-export const PanMap = connect(({ store: { panx, panDelta, scale } }) => (
+export const PanMap = connect((
+  { store: { ui: { panx, panDelta, scale } } }: StoreProp
+) => (
   <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
     <rect
       x={panx}
@@ -21,10 +22,10 @@ export const PanMap = connect(({ store: { panx, panDelta, scale } }) => (
 ));
 
 const onDoubleClick = (x, e) => {
-  store.addActivity(x, e.nativeEvent.offsetX);
+  store.activityStore.addActivity(x, e.nativeEvent.offsetX);
 };
 
-export const LevelLines = connect(({ store: { scale } }) => (
+export const LevelLines = connect(({ store: { ui: { scale } } }: StoreProp) => (
   <g>
     {[1, 2, 3].map(x => (
       <g key={x}>
@@ -50,11 +51,14 @@ export const LevelLines = connect(({ store: { scale } }) => (
   </g>
 ));
 
-export const TimeScale = connect(({ store: { scale } }) => (
+export const TimeScale = connect(({ store: { ui: { scale } } }) => (
   <g>
     {[...Array(120).keys()].map(index => {
       const i = index + 1;
-      const length = (i % 15 === 0 ? 15 : 0) + (i % 5 === 0 ? 10 : 0) + 5;
+      const boolToBit = b => b ? 1 : 0;
+      const length = boolToBit(i % 15 === 0) * 15 +
+        boolToBit(i % 5 === 0) * 10 +
+        5;
       const x = timeToPx(i, scale);
       return (
         <g key={i}>

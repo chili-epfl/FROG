@@ -1,7 +1,8 @@
+// @flow
 import cuid from 'cuid';
 import { observable, action, computed } from 'mobx';
 import { drawPath } from '../utils/path';
-import { store } from './index';
+import Elem from './elemClass';
 import Activity from './activity';
 import Operator from './operator';
 
@@ -16,39 +17,38 @@ const getType = item => {
   throw 'Wrong object type in Connection';
 };
 
-export default class Connection {
-  @observable source;
-  id: string;
-  @observable target;
-  @observable selected;
-  @action select = () => {
-    store.unselect();
-    this.selected = true;
-  };
+type ConnectableT = Activity | Operator;
 
-  @action init = (source, target, id) => {
+export default class Connection extends Elem {
+  klass: string;
+  id: string;
+  @observable source: ConnectableT;
+  @observable target: ConnectableT;
+
+  @action init = (source: ConnectableT, target: ConnectableT, id: ?string) => {
     this.source = source;
     this.target = target;
     this.id = id || cuid();
+    this.klass = 'connection';
   };
 
-  constructor(...args) {
-    this.init(...args);
+  constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
+    super();
+    this.init(source, target, id);
   }
 
-  @computed get path() {
+  @computed get path(): string {
+    return drawPath(...this.source.dragPointFrom, ...this.target.dragPointTo);
+  }
+
+  @computed get pathScaled(): string {
     return drawPath(
-      this.source.x + (this.source.width || 0),
-      this.source.y,
-      this.target.x,
-      this.target.y
+      ...this.source.dragPointFromScaled,
+      ...this.target.dragPointToScaled
     );
   }
-  @computed get pathScaled() {
-    return drawPath(...this.source.dragPoint, ...this.target.dragPoint);
-  }
 
-  @computed get object() {
+  @computed get object(): Object {
     return {
       source: { type: getType(this.source), id: this.source.id },
       target: { type: getType(this.target), id: this.target.id },

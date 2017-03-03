@@ -1,16 +1,22 @@
+// @flow
 import React from 'react';
-import { connect, store } from './store';
+import { connect, store, type StoreProp } from './store';
 
 const scrollInterval = direction => {
   if (!store.scrollIntervalID) {
-    store.storeInterval(
-      window.setInterval(() => store.panDelta(1 * direction), 20)
+    store.ui.storeInterval(
+      window.setInterval(() => store.ui.panDelta(1 * direction), 20)
     );
   }
 };
 
 const ScrollField = connect((
-  { x, height, direction, store: { cancelScroll } }
+  {
+    x,
+    height,
+    direction,
+    store: { ui: { cancelScroll } }
+  }: StoreProp & { x: number, height: number, direction: number }
 ) => (
   <rect
     onMouseEnter={() => scrollInterval(direction)}
@@ -25,7 +31,7 @@ const ScrollField = connect((
   />
 ));
 
-export default ({ width, height }) => (
+export default ({ width, height }: { width: number, height: number }) => (
   <g>
     <ScrollField x={0} height={height} direction={-1} />
     <ScrollField x={width - 50} height={height} direction={1} />
