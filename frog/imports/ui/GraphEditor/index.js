@@ -8,7 +8,7 @@ import EditorContainer from './EditorContainer';
 
 export default class AppClass extends Component {
   componentWillMount() {
-    store.ui.setId(assignGraph());
+    store.setId(assignGraph());
     window.addEventListener('keydown', keyDown);
   }
 
