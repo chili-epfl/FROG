@@ -106,7 +106,6 @@ const Activity = connect((
           style={{ cursor: 'move' }}
         />
       </DraggableCore>
-
     </g>
   );
 });

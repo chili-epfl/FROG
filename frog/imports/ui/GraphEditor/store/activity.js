@@ -1,5 +1,5 @@
 // @flow
-import { observable, computed, action, reaction } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
 import Elem from './elemClass';
@@ -81,36 +81,30 @@ export default class Activity extends Elem {
       if (store.overlapAllowed) {
         this.startTime = between(0, 120 - this.length, newTime);
       } else {
-        const newStartTime = between(
+        this.startTime = between(
           this.bounds.leftBoundTime,
           this.bounds.rightBoundTime - this.length,
           newTime
         );
 
-        this.startTime = newStartTime;
         const overdrag = store.ui.socialCoordsTime[0] -
           state.mouseOffset -
           this.startTime;
 
-        if (
-          this.startTime === this.bounds.leftBoundTime ||
-          this.startTime + this.length === this.bounds.rightBoundTime
-        ) {
-          if (overdrag < -2 && this.bounds.leftBoundActivity) {
-            store.activityStore.swapActivities(
-              this.bounds.leftBoundActivity,
-              this
-            );
-            store.state = { mode: 'waitingDrag' };
-          }
+        if (overdrag < -2 && this.bounds.leftBoundActivity) {
+          store.activityStore.swapActivities(
+            this.bounds.leftBoundActivity,
+            this
+          );
+          store.state = { mode: 'waitingDrag' };
+        }
 
-          if (overdrag > 2 && this.bounds.rightBoundActivity) {
-            store.activityStore.swapActivities(
-              this,
-              this.bounds.rightBoundActivity
-            );
-            store.state = { mode: 'waitingDrag' };
-          }
+        if (overdrag > 2 && this.bounds.rightBoundActivity) {
+          store.activityStore.swapActivities(
+            this,
+            this.bounds.rightBoundActivity
+          );
+          store.state = { mode: 'waitingDrag' };
         }
       }
     }
