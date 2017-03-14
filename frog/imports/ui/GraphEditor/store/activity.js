@@ -22,7 +22,6 @@ export default class Activity extends Elem {
     this.length = length;
     this.startTime = startTime;
     this.klass = 'activity';
-    this.fade = 0;
   };
 
   constructor(
@@ -39,7 +38,6 @@ export default class Activity extends Elem {
   plane: number;
   klass: string;
   id: string;
-  @observable fade: number;
   @observable over: boolean;
   @observable title: string;
   @observable length: number;
@@ -94,22 +92,11 @@ export default class Activity extends Elem {
           state.mouseOffset -
           this.startTime;
 
-        const fade = Math.min(Math.abs(overdrag) / 2, 1);
         if (
           this.startTime === this.bounds.leftBoundTime ||
           this.startTime + this.length === this.bounds.rightBoundTime
         ) {
-          console.log(overdrag, fade);
-          if (overdrag < 0 && this.bounds.leftBoundActivity) {
-            this.bounds.leftBoundActivity.fade = fade;
-          }
-
-          if (overdrag > 0 && this.bounds.rightBoundActivity) {
-            this.bounds.rightBoundActivity.fade = fade;
-          }
-
           if (overdrag < -2 && this.bounds.leftBoundActivity) {
-            this.bounds.leftBoundActivity.fade = 0;
             store.activityStore.swapActivities(
               this.bounds.leftBoundActivity,
               this
@@ -118,19 +105,11 @@ export default class Activity extends Elem {
           }
 
           if (overdrag > 2 && this.bounds.rightBoundActivity) {
-            this.bounds.rightBoundActivity.fade = 0;
             store.activityStore.swapActivities(
               this,
               this.bounds.rightBoundActivity
             );
             store.state = { mode: 'waitingDrag' };
-          }
-        } else {
-          if (this.bounds.leftBoundActivity) {
-            this.bounds.leftBoundActivity.fade = fade;
-          }
-          if (this.bounds.rightBoundActivity) {
-            this.bounds.rightBoundActivity.fade = fade;
           }
         }
       }

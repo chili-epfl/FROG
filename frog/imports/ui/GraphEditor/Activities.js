@@ -43,7 +43,6 @@ const Activity = connect((
       onMouseLeave={activity.onLeave}
       onDoubleClick={activity.setRename}
       onClick={activity.select}
-      style={{ opacity: 1 - activity.fade }}
     >
       <Box
         x={x}
@@ -51,7 +50,6 @@ const Activity = connect((
         width={width}
         highlighted={activity.highlighted}
         selected={activity.selected}
-        fade={activity.fade}
       />
       <svg style={{ overflow: 'hidden' }} width={width + x - 20}>
         <text x={x + 3} y={activity.y + 20}>
