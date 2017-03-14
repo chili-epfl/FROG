@@ -6,7 +6,7 @@ export const drawPath = (startX, startY, endX, endY) => {
   const o = 5;
   return ['M', startX, startY, 'C '].join(' ') +
     // distinguish the case when the two elements are close to each other
-    (Math.abs(startY - endY) + Math.abs(startX - endX) < 100
+    (Math.abs(startY - endY) < 100
       ? [startX - q, startY - q, endX + q, endY - q, endX - o, endY]
       : [startX + d, startY, endX - o - d, endY, endX - o, endY]).join(' ');
 };
