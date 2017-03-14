@@ -1,5 +1,5 @@
 // @flow
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, reaction } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
 import Elem from './elemClass';
@@ -17,12 +17,12 @@ export default class Activity extends Elem {
   ) => {
     this.id = id || cuid();
     this.over = false; // is mouse over this activity
-    this.overdrag = 0;
     this.plane = plane;
     this.title = title || '';
     this.length = length;
     this.startTime = startTime;
     this.klass = 'activity';
+    this.fade = 0;
   };
 
   constructor(
@@ -39,8 +39,8 @@ export default class Activity extends Elem {
   plane: number;
   klass: string;
   id: string;
+  @observable fade: number;
   @observable over: boolean;
-  @observable overdrag: number;
   @observable title: string;
   @observable length: number;
   @observable startTime: number;
@@ -74,39 +74,63 @@ export default class Activity extends Elem {
     store.ui.cancelAll();
   };
 
-  @action move = (deltax: number) => {
+  @action move = () => {
     const state = store.state;
     if (state.mode === 'moving') {
-      const deltaTime = pxToTime(deltax, store.ui.scale);
+      const newTime = Math.round(
+        store.ui.socialCoordsTime[0] - state.mouseOffset
+      );
       if (store.overlapAllowed) {
-        this.startTime = between(
-          0,
-          120 - this.length,
-          this.startTime + deltaTime
-        );
+        this.startTime = between(0, 120 - this.length, newTime);
       } else {
-        const oldTime = this.startTime;
-        this.startTime = between(
-          state.bounds.leftBoundTime,
-          state.bounds.rightBoundTime - this.length,
-          this.startTime + deltaTime
+        const newStartTime = between(
+          this.bounds.leftBoundTime,
+          this.bounds.rightBoundTime - this.length,
+          newTime
         );
-        if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
-          this.overdrag += deltaTime;
-          if (this.overdrag < -3 && state.bounds.leftBoundActivity) {
+
+        this.startTime = newStartTime;
+        const overdrag = store.ui.socialCoordsTime[0] -
+          state.mouseOffset -
+          this.startTime;
+
+        const fade = Math.min(Math.abs(overdrag) / 2, 1);
+        if (
+          this.startTime === this.bounds.leftBoundTime ||
+          this.startTime + this.length === this.bounds.rightBoundTime
+        ) {
+          console.log(overdrag, fade);
+          if (overdrag < 0 && this.bounds.leftBoundActivity) {
+            this.bounds.leftBoundActivity.fade = fade;
+          }
+
+          if (overdrag > 0 && this.bounds.rightBoundActivity) {
+            this.bounds.rightBoundActivity.fade = fade;
+          }
+
+          if (overdrag < -2 && this.bounds.leftBoundActivity) {
+            this.bounds.leftBoundActivity.fade = 0;
             store.activityStore.swapActivities(
-              state.bounds.leftBoundActivity,
+              this.bounds.leftBoundActivity,
               this
             );
-            store.activityStore.stopMoving();
+            store.state = { mode: 'waitingDrag' };
           }
-          if (this.overdrag > 3 && state.bounds.rightBoundActivity) {
+
+          if (overdrag > 2 && this.bounds.rightBoundActivity) {
+            this.bounds.rightBoundActivity.fade = 0;
             store.activityStore.swapActivities(
               this,
-              state.bounds.rightBoundActivity
+              this.bounds.rightBoundActivity
             );
-            this.overdrag = 0;
-            store.activityStore.stopMoving();
+            store.state = { mode: 'waitingDrag' };
+          }
+        } else {
+          if (this.bounds.leftBoundActivity) {
+            this.bounds.leftBoundActivity.fade = fade;
+          }
+          if (this.bounds.rightBoundActivity) {
+            this.bounds.rightBoundActivity.fade = fade;
           }
         }
       }
@@ -125,7 +149,14 @@ export default class Activity extends Elem {
     }
   }
 
-  @action onOver = () => this.over = true;
+  @action onOver = () => {
+    const state = store.state;
+    if (state.mode === 'waitingDrag') {
+      store.activityStore.startMoving(this);
+    } else {
+      this.over = true;
+    }
+  };
   @action onLeave = () => this.over = false;
 
   @action setRename = () => {
