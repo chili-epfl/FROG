@@ -126,7 +126,10 @@ export default class Activity extends Elem {
   }
 
   @action onOver = () => this.over = true;
-  @action onLeave = () => this.over = false;
+
+  @action onLeave = () => {
+    this.over = false;
+  };
 
   @action setRename = () => {
     store.state = {
