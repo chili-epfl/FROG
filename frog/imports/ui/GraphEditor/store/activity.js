@@ -3,7 +3,7 @@ import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
 import Elem from './elemClass';
-import { timeToPx, pxToTime, timeToPxScreen, between } from '../utils';
+import { timeToPx, timeToPxScreen, between } from '../utils';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
 
@@ -110,14 +110,14 @@ export default class Activity extends Elem {
     }
   };
 
-  @action resize(deltax: number) {
+  @action resize() {
     const state = store.state;
     if (state.mode === 'resizing') {
-      const deltaTime = pxToTime(deltax, store.ui.scale);
+      const newTime = Math.round(store.ui.socialCoordsTime[0]);
       this.length = between(
         1,
         state.bounds.rightBoundTime - this.startTime,
-        this.length + deltaTime
+        newTime - this.startTime
       );
     }
   }

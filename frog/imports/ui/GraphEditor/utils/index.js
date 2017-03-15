@@ -13,7 +13,7 @@ export const between = (
   rawmaxval: number,
   x: number
 ): number => {
-  const minval = rawminval || 0;
-  const maxval = rawmaxval || 99999;
+  const minval = rawminval == null ? 0 : rawminval;
+  const maxval = rawmaxval == null ? 99999 : rawmaxval;
   return Math.min(Math.max(x, minval), maxval);
 };
