@@ -10,16 +10,27 @@ export default class uiStore {
   @observable panx: number;
   @observable scale: number;
   @observable selected: ?Elem;
-
-  @action unselect() {
-    this.selected = null;
-  }
+  @observable animatingPaths: Boolean;
+  @observable overGraph: Boolean;
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
     const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
     const y = rawY - constants.GRAPH_TOP;
     return [x, y];
   };
+
+  @action unselect() {
+    this.selected = null;
+  }
+
+  @action setAnimatingPaths = (set: Boolean) => {
+    this.animatingPaths = set;
+  };
+
+  @action setOverGraph = (set: Boolean) => {
+    this.overGraph = set;
+  };
+
   @action cancelAll = () => {
     this.selected = undefined;
     store.state = { mode: 'normal' };
