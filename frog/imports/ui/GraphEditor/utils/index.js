@@ -9,11 +9,8 @@ export const timeToPxScreen = (time: number): number =>
   time * 3900 * store.ui.scale / 120 - store.ui.panx * 4 * store.ui.scale;
 
 export const between = (
-  rawminval: number,
-  rawmaxval: number,
+  minval: number = 0,
+  maxval: number = 9999999,
   x: number
-): number => {
-  const minval = rawminval == null ? 0 : rawminval;
-  const maxval = rawmaxval == null ? 99999 : rawmaxval;
-  return Math.min(Math.max(x, minval), maxval);
-};
+): number =>
+  Math.min(Math.max(x, minval), maxval);
