@@ -1,6 +1,8 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import { DropdownButton, MenuItem } from 'react-bootstrap';
+
 import { connect, store } from './store';
 import { removeGraph } from '../../api/activities';
 import {
@@ -15,7 +17,7 @@ const submitRemoveGraph = id => {
   store.setId(assignGraph());
 };
 
-const GL = createContainer(
+const GraphList = createContainer(
   props => ({ ...props, graphs: Graphs.find().fetch() }),
   ({ graphs, graphId }) => (
     <div>
@@ -26,27 +28,36 @@ const GL = createContainer(
       >
         New
       </button>
-      <ul>
+      <button
+        className="btn btn-danger btn-sm"
+        onClick={() => submitRemoveGraph(graphId)}
+      >
+        Delete
+      </button>
+      <button
+        className="btn btn-primary btn-sm"
+        onClick={() => duplicateGraph(graphId)}
+      >
+        Copy
+      </button>
+      <DropdownButton title="Select Graph" id="dropdown-basic-0">
         {graphs.length
           ? graphs.map(graph => (
-              <li style={{ listStyle: 'none' }} key={graph._id}>
-                <a href="#" onClick={() => submitRemoveGraph(graph._id)}>
-                  <i className="fa fa-times" />
-                </a>
-                <a href="#" onClick={() => duplicateGraph(graph._id)}>
-                  <i className="fa fa-copy" />
-                </a>
-                <a href="#" onClick={() => store.setId(graph._id)}>
-                  {graph.name} {graph._id === graphId ? ' (current)' : null}
-                </a>
-              </li>
+              <MenuItem
+                key={graph._id}
+                eventKey={graph._id}
+                active={graph._id === graphId}
+                onClick={() => store.setId(graph._id)}
+              >
+                {graph.name}
+              </MenuItem>
             ))
-          : <li>No graph</li>}
-      </ul>
+          : <MenuItem eventKey="0">No graph</MenuItem>}
+      </DropdownButton>
     </div>
   )
 );
 
-const GraphList = connect(({ store: { id } }) => <GL graphId={id} />);
-
-export default GraphList;
+export default connect(({ store: { graphId } }) => (
+  <GraphList graphId={graphId} />
+));

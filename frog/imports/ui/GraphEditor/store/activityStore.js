@@ -88,6 +88,7 @@ export default class ActivityStore {
     store.state = {
       mode: 'moving',
       currentActivity: activity,
+      mouseOffset: store.ui.socialCoordsTime[0] - activity.startTime,
       bounds
     };
     activity.overdrag = 0;
