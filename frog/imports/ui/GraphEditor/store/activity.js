@@ -1,9 +1,11 @@
 // @flow
+
 import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, timeToPxScreen, between } from '../utils';
+import type { AnchorT } from '../utils/path';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
 
@@ -122,6 +124,10 @@ export default class Activity extends Elem {
     }
   }
 
+  @action onLeave = () => {
+    this.over = false;
+  };
+
   @action onOver = () => {
     const state = store.state;
     if (state.mode === 'waitingDrag') {
@@ -164,20 +170,40 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointFromScaled(): [number, number] {
-    return [this.xScaled + this.widthScaled - 15, this.y + 15];
+  @computed get dragPointFromScaled(): AnchorT {
+    return {
+      X: this.xScaled + this.widthScaled - 15,
+      Y: this.y + 15,
+      dX: 50,
+      dY: 0
+    };
   }
 
-  @computed get dragPointToScaled(): [number, number] {
-    return [this.xScaled + 15, this.y + 15];
+  @computed get dragPointToScaled(): AnchorT {
+    return {
+      X: this.xScaled + 15,
+      Y: this.y + 15,
+      dX: -50,
+      dY: 0
+    };
   }
 
-  @computed get dragPointFrom(): [number, number] {
-    return [this.x + this.width - 15, this.y + 15];
+  @computed get dragPointFrom(): AnchorT {
+    return {
+      X: this.x + this.width - 15,
+      Y: this.y + 15,
+      dX: 50,
+      dY: 0
+    };
   }
 
-  @computed get dragPointTo(): [number, number] {
-    return [this.x + 15, this.y + 15];
+  @computed get dragPointTo(): AnchorT {
+    return {
+      X: this.x + 15,
+      Y: this.y + 15,
+      dX: -50,
+      dY: 0
+    };
   }
 
   @computed get bounds(): BoundsT {
