@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from './store';
 import { Graphs, renameGraph } from '../../api/graphs';
 
-const GCP = createContainer(
+const GraphConfigPanel = createContainer(
   props => ({ ...props, graph: Graphs.findOne({ _id: props.graphId }) }),
   ({ graph, graphId }) => (
     <div>
@@ -17,6 +17,6 @@ const GCP = createContainer(
   )
 );
 
-const GraphConfigPanel = connect(({ store: { id } }) => <GCP graphId={id} />);
-
-export default GraphConfigPanel;
+export default connect(({ store: { graphId } }) => (
+  <GraphConfigPanel graphId={graphId} />
+));
