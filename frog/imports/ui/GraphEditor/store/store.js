@@ -53,7 +53,7 @@ export default class Store {
   @observable activityStore = new ActivityStore();
   @observable operatorStore = new OperatorStore();
   @observable ui = new UI();
-  @observable graphID: string = '';
+  @observable graphId: string = '';
   @observable history = [];
 
   findId = ({ type, id }: { type: ElementTypes, id: string }): Elem => {
@@ -81,7 +81,7 @@ export default class Store {
 
   @action setId = (id: string): void => {
     setCurrentGraph(id);
-    this.graphID = id;
+    this.graphId = id;
     this.activityStore.all = Activities
       .find({ graphId: id }, { reactive: false })
       .fetch()
@@ -104,9 +104,9 @@ export default class Store {
     this.state = { mode: 'normal' };
 
     const cursors = {
-      activities: Activities.find({ graphId: this.graphID }),
-      operators: Operators.find({ graphId: this.graphID }),
-      connections: Connections.find({ graphId: this.graphID })
+      activities: Activities.find({ graphId: this.graphId }),
+      operators: Operators.find({ graphId: this.graphId }),
+      connections: Connections.find({ graphId: this.graphId })
     };
     cursors.activities.observe(this.activityStore.mongoObservers);
     cursors.connections.observe(this.connectionStore.mongoObservers);
@@ -153,17 +153,17 @@ export default class Store {
     return {
       activities: this.activityStore.all.map(x => ({
         ...x.object,
-        graphId: this.graphID
+        graphId: this.graphId
       })),
       operators: this.operatorStore.all.map(x => ({
         ...x.object,
-        graphId: this.graphID
+        graphId: this.graphId
       })),
       connections: this.connectionStore.all.map(x => ({
         ...x.object,
-        graphId: this.graphID
+        graphId: this.graphId
       })),
-      graphId: this.graphID
+      graphId: this.graphId
     };
   }
 }
