@@ -30,7 +30,7 @@ export default class AppClass extends Component {
 const keyDown = e => {
   if (
     !store.ui.overGraph ||
-    store.mode === 'rename' ||
+    store.state.mode === 'rename' ||
     e.ctrlKey ||
     e.altKey ||
     e.metaKey ||
