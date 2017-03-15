@@ -91,20 +91,42 @@ export default class Operator extends Elem {
 
   @computed get dragPointTo(): [number, number] {
     // operator has size of 60, finding midpoint
-    return [this.x + 25, this.y + 25];
+    return {
+      X: this.x + 25,
+      Y: this.y + 25,
+      dX: -150,
+      dY: 0
+    };
   }
 
   @computed get dragPointFrom(): [number, number] {
-    return this.dragPointTo;
+    // operator has size of 60, finding midpoint
+    return {
+      X: this.x + 25,
+      Y: this.y + 25,
+      dX: 150,
+      dY: 0
+    };
   }
 
   @computed get dragPointToScaled(): [number, number] {
     // operator has size of 60, finding midpoint
-    return [this.xScaled + 25, this.y + 25];
+    return {
+      X: this.xScaled + 25,
+      Y: this.y + 25,
+      dX: -150,
+      dY: 0
+    };
   }
 
   @computed get dragPointFromScaled(): [number, number] {
-    return this.dragPointToScaled;
+    // operator has size of 60, finding midpoint
+    return {
+      X: this.xScaled + 25,
+      Y: this.y + 25,
+      dX: 150,
+      dY: 0
+    };
   }
 
   @action update = (newopt: $Shape<Operator>) => {

@@ -164,19 +164,39 @@ export default class Activity extends Elem {
   }
 
   @computed get dragPointFromScaled(): [number, number] {
-    return [this.xScaled + this.widthScaled - 15, this.y + 15];
+    return {
+      X: this.xScaled + this.widthScaled - 15,
+      Y: this.y + 15,
+      dX: 50,
+      dY: 0
+    };
   }
 
   @computed get dragPointToScaled(): [number, number] {
-    return [this.xScaled + 15, this.y + 15];
+    return {
+      X: this.xScaled + 15,
+      Y: this.y + 15,
+      dX: -50,
+      dY: 0
+    };
   }
 
   @computed get dragPointFrom(): [number, number] {
-    return [this.x + this.width - 15, this.y + 15];
+    return {
+      X: this.x + this.width - 15,
+      Y: this.y + 15,
+      dX: 50,
+      dY: 0
+    };
   }
 
   @computed get dragPointTo(): [number, number] {
-    return [this.x + 15, this.y + 15];
+    return {
+      X: this.x + 15,
+      Y: this.y + 15,
+      dX: -50,
+      dY: 0
+    };
   }
 
   @computed get bounds(): BoundsT {
