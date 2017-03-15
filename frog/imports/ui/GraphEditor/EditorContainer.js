@@ -12,6 +12,7 @@ import Rename from './Rename';
 import SidePanel from './SidePanel';
 import GraphConfigPanel from './GraphConfigPanel';
 import GraphList from './GraphList';
+import HelpModal from './HelpModal';
 
 const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
   <div>
@@ -27,6 +28,7 @@ const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
         <Rename />
         <Graph width={1000} height={150} viewBox={'0 0 4000 600'} hasPanMap />
       </GraphContainer>
+      <HelpModal />
       <SidebarContainer>
         <SidePanel />
       </SidebarContainer>
