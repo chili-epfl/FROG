@@ -27,7 +27,8 @@ export default connect((
       ui: {
         scale,
         scrollEnabled,
-        canvasClick
+        canvasClick,
+        setOverGraph
       }
     },
     width,
@@ -42,6 +43,8 @@ export default connect((
     width={width}
     height={height}
     onMouseMove={mousemove}
+    onMouseOver={() => !hasPanMap && setOverGraph(true)}
+    onMouseLeave={() => !hasPanMap && setOverGraph(false)}
     onWheel={scrollMouse}
     onClick={canvasClick}
   >
