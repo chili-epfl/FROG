@@ -31,27 +31,40 @@ const keyDown = e => {
   if (store.mode === 'rename') {
     return;
   }
-  if (e.ctrlKey || e.altKey || e.metaKey) {
+  if (
+    !store.ui.overGraph ||
+    store.state.mode === 'rename' ||
+    e.ctrlKey ||
+    e.altKey ||
+    e.metaKey
+  ) {
     return;
   }
+
   if (e.keyCode === 27) {
-    // esc
+    // esc - cancel selection
+    e.preventDefault();
     store.ui.cancelAll();
     store.ui.unselect();
   }
   if (e.keyCode === 8) {
-    // backspace
+    // backspace - delete
+    e.preventDefault();
     store.deleteSelected();
   }
   if (e.keyCode === 191 && e.shiftKey) {
+    // ? - help
+    e.preventDefault();
     store.ui.setModal(true);
   }
   if (e.keyCode === 83) {
     // s - social operator
+    e.preventDefault();
     store.operatorStore.place('social');
   }
   if (e.keyCode === 80) {
     // p - product operator
+    e.preventDefault();
     store.operatorStore.place('product');
   }
 };

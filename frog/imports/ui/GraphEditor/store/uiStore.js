@@ -11,6 +11,13 @@ export default class uiStore {
   @observable scale: number;
   @observable selected: ?Elem;
   @observable showModal: Boolean;
+  @observable overGraph: Boolean;
+
+  rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
+    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
+    const y = rawY - constants.GRAPH_TOP;
+    return [x, y];
+  };
 
   @action unselect() {
     this.selected = null;
@@ -20,11 +27,10 @@ export default class uiStore {
     this.showModal = set;
   };
 
-  rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
-    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
-    const y = rawY - constants.GRAPH_TOP;
-    return [x, y];
+  @action setOverGraph = (set: Boolean) => {
+    this.overGraph = set;
   };
+
   @action cancelAll = () => {
     this.selected = undefined;
     store.state = { mode: 'normal' };
