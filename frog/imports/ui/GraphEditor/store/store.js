@@ -28,8 +28,9 @@ type StateT =
   | {
       mode: 'moving',
       currentActivity: typeof Activity,
-      bounds: BoundsT
+      mouseOffset: number
     }
+  | { mode: 'waitingDrag' }
   | { mode: 'movingOperator', currentOperator: typeof Operator }
   | { mode: 'dragging', draggingFrom: typeof Activity | typeof Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }
