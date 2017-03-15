@@ -3,7 +3,7 @@ import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
 import Elem from './elemClass';
-import { timeToPx, pxToTime, timeToPxScreen, between } from '../utils';
+import { timeToPx, timeToPxScreen, between } from '../utils';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
 
@@ -17,7 +17,6 @@ export default class Activity extends Elem {
   ) => {
     this.id = id || cuid();
     this.over = false; // is mouse over this activity
-    this.overdrag = 0;
     this.plane = plane;
     this.title = title || '';
     this.length = length;
@@ -40,7 +39,6 @@ export default class Activity extends Elem {
   klass: string;
   id: string;
   @observable over: boolean;
-  @observable overdrag: number;
   @observable title: string;
   @observable length: number;
   @observable startTime: number;
@@ -74,58 +72,64 @@ export default class Activity extends Elem {
     store.ui.cancelAll();
   };
 
-  @action move = (deltax: number) => {
+  @action move = () => {
     const state = store.state;
     if (state.mode === 'moving') {
-      const deltaTime = pxToTime(deltax, store.ui.scale);
+      const newTime = Math.round(
+        store.ui.socialCoordsTime[0] - state.mouseOffset
+      );
       if (store.overlapAllowed) {
-        this.startTime = between(
-          0,
-          120 - this.length,
-          this.startTime + deltaTime
-        );
+        this.startTime = between(0, 120 - this.length, newTime);
       } else {
-        const oldTime = this.startTime;
         this.startTime = between(
-          state.bounds.leftBoundTime,
-          state.bounds.rightBoundTime - this.length,
-          this.startTime + deltaTime
+          this.bounds.leftBoundTime,
+          this.bounds.rightBoundTime - this.length,
+          newTime
         );
-        if (oldTime === this.startTime && Math.abs(deltaTime) !== 0) {
-          this.overdrag += deltaTime;
-          if (this.overdrag < -3 && state.bounds.leftBoundActivity) {
-            store.activityStore.swapActivities(
-              state.bounds.leftBoundActivity,
-              this
-            );
-            store.activityStore.stopMoving();
-          }
-          if (this.overdrag > 3 && state.bounds.rightBoundActivity) {
-            store.activityStore.swapActivities(
-              this,
-              state.bounds.rightBoundActivity
-            );
-            this.overdrag = 0;
-            store.activityStore.stopMoving();
-          }
+
+        const overdrag = store.ui.socialCoordsTime[0] -
+          state.mouseOffset -
+          this.startTime;
+
+        if (overdrag < -2 && this.bounds.leftBoundActivity) {
+          store.activityStore.swapActivities(
+            this.bounds.leftBoundActivity,
+            this
+          );
+          store.state = { mode: 'waitingDrag' };
+        }
+
+        if (overdrag > 2 && this.bounds.rightBoundActivity) {
+          store.activityStore.swapActivities(
+            this,
+            this.bounds.rightBoundActivity
+          );
+          store.state = { mode: 'waitingDrag' };
         }
       }
     }
   };
 
-  @action resize(deltax: number) {
+  @action resize() {
     const state = store.state;
     if (state.mode === 'resizing') {
-      const deltaTime = pxToTime(deltax, store.ui.scale);
+      const newTime = Math.round(store.ui.socialCoordsTime[0]);
       this.length = between(
         1,
         state.bounds.rightBoundTime - this.startTime,
-        this.length + deltaTime
+        newTime - this.startTime
       );
     }
   }
 
-  @action onOver = () => this.over = true;
+  @action onOver = () => {
+    const state = store.state;
+    if (state.mode === 'waitingDrag') {
+      store.activityStore.startMoving(this);
+    } else {
+      this.over = true;
+    }
+  };
   @action onLeave = () => this.over = false;
 
   @action setRename = () => {
