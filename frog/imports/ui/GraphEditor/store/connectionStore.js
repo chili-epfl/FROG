@@ -22,7 +22,9 @@ export default class ConnectionStore {
       source: store.state.draggingFrom.dragPointFromScaled,
       target: {
         X: store.ui.socialCoordsScaled[0],
-        Y: store.ui.socialCoordsScaled[1]
+        Y: store.ui.socialCoordsScaled[1],
+        dX: 0,
+        dY: 0
       }
     });
   }

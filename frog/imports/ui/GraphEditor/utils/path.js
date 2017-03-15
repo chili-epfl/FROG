@@ -1,4 +1,19 @@
-export const drawPath = ({ dragging, source, target }) => {
+// @flow
+
+export type AnchorT = {
+  X: number,
+  Y: number,
+  dX: number,
+  dY: number
+};
+
+export const drawPath = (
+  {
+    dragging,
+    source,
+    target
+  }: { dragging: boolean, source: AnchorT, target: AnchorT }
+) => {
   // parameters for the curviness of the connections
   const q = 50;
   // parameter for the over bug (mouse can be over the connection while it is also over the activity, so onleave tiggers wrongly)

@@ -1,9 +1,11 @@
 // @flow
+
 import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, pxToTime, timeToPxScreen, between } from '../utils';
+import type { AnchorT } from '../utils/path';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
 
@@ -163,7 +165,7 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointFromScaled(): [number, number] {
+  @computed get dragPointFromScaled(): AnchorT {
     return {
       X: this.xScaled + this.widthScaled - 15,
       Y: this.y + 15,
@@ -172,7 +174,7 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointToScaled(): [number, number] {
+  @computed get dragPointToScaled(): AnchorT {
     return {
       X: this.xScaled + 15,
       Y: this.y + 15,
@@ -181,7 +183,7 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointFrom(): [number, number] {
+  @computed get dragPointFrom(): AnchorT {
     return {
       X: this.x + this.width - 15,
       Y: this.y + 15,
@@ -190,7 +192,7 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointTo(): [number, number] {
+  @computed get dragPointTo(): AnchorT {
     return {
       X: this.x + 15,
       Y: this.y + 15,

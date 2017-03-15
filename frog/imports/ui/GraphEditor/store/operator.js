@@ -4,6 +4,7 @@ import { observable, action, computed } from 'mobx';
 import { store } from './index';
 import Elem from './elemClass';
 import { pxToTime, timeToPx } from '../utils';
+import type { AnchorT } from '../utils/path';
 
 export default class Operator extends Elem {
   id: string;
@@ -89,7 +90,7 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointTo(): [number, number] {
+  @computed get dragPointTo(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.x + 25,
@@ -99,7 +100,7 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointFrom(): [number, number] {
+  @computed get dragPointFrom(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.x + 25,
@@ -109,7 +110,7 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointToScaled(): [number, number] {
+  @computed get dragPointToScaled(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.xScaled + 25,
@@ -119,7 +120,7 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointFromScaled(): [number, number] {
+  @computed get dragPointFromScaled(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.xScaled + 25,
