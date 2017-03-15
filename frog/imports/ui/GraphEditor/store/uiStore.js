@@ -10,10 +10,15 @@ export default class uiStore {
   @observable panx: number;
   @observable scale: number;
   @observable selected: ?Elem;
+  @observable showModal: Boolean;
 
   @action unselect() {
     this.selected = null;
   }
+
+  @action setModal = (set: Boolean) => {
+    this.showModal = set;
+  };
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
     const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;

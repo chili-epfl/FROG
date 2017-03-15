@@ -31,7 +31,7 @@ const keyDown = e => {
   if (store.mode === 'rename') {
     return;
   }
-  if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) {
+  if (e.ctrlKey || e.altKey || e.metaKey) {
     return;
   }
   if (e.keyCode === 27) {
@@ -42,6 +42,9 @@ const keyDown = e => {
   if (e.keyCode === 8) {
     // backspace
     store.deleteSelected();
+  }
+  if (e.keyCode === 191 && e.shiftKey) {
+    store.ui.setModal(true);
   }
   if (e.keyCode === 83) {
     // s - social operator
