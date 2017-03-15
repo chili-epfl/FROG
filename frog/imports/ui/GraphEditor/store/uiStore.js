@@ -10,7 +10,6 @@ export default class uiStore {
   @observable panx: number;
   @observable scale: number;
   @observable selected: ?Elem;
-  @observable animatingPaths: Boolean;
   @observable overGraph: Boolean;
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
@@ -22,10 +21,6 @@ export default class uiStore {
   @action unselect() {
     this.selected = null;
   }
-
-  @action setAnimatingPaths = (set: Boolean) => {
-    this.animatingPaths = set;
-  };
 
   @action setOverGraph = (set: Boolean) => {
     this.overGraph = set;
