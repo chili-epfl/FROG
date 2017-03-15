@@ -17,10 +17,16 @@ export default class ConnectionStore {
     if (store.state.mode !== 'dragging') {
       return null;
     }
-    return drawPath(
-      ...store.state.draggingFrom.dragPointFromScaled,
-      ...store.ui.socialCoordsScaled
-    );
+    return drawPath({
+      dragging: true,
+      source: store.state.draggingFrom.dragPointFromScaled,
+      target: {
+        X: store.ui.socialCoordsScaled[0],
+        Y: store.ui.socialCoordsScaled[1],
+        dX: 0,
+        dY: 0
+      }
+    });
   }
 
   @action startDragging = (elem: Activity | Operator): void => {

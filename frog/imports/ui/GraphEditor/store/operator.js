@@ -4,6 +4,7 @@ import { observable, action, computed } from 'mobx';
 import { store } from './index';
 import Elem from './elemClass';
 import { pxToTime, timeToPx } from '../utils';
+import type { AnchorT } from '../utils/path';
 
 export default class Operator extends Elem {
   id: string;
@@ -89,22 +90,44 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointTo(): [number, number] {
+  @computed get dragPointTo(): AnchorT {
     // operator has size of 60, finding midpoint
-    return [this.x + 30, this.y + 30];
+    return {
+      X: this.x + 25,
+      Y: this.y + 25,
+      dX: -150,
+      dY: 0
+    };
   }
 
-  @computed get dragPointFrom(): [number, number] {
-    return this.dragPointTo;
-  }
-
-  @computed get dragPointToScaled(): [number, number] {
+  @computed get dragPointFrom(): AnchorT {
     // operator has size of 60, finding midpoint
-    return [this.xScaled + 30, this.y + 30];
+    return {
+      X: this.x + 25,
+      Y: this.y + 25,
+      dX: 150,
+      dY: 0
+    };
   }
 
-  @computed get dragPointFromScaled(): [number, number] {
-    return this.dragPointToScaled;
+  @computed get dragPointToScaled(): AnchorT {
+    // operator has size of 60, finding midpoint
+    return {
+      X: this.xScaled + 25,
+      Y: this.y + 25,
+      dX: -150,
+      dY: 0
+    };
+  }
+
+  @computed get dragPointFromScaled(): AnchorT {
+    // operator has size of 60, finding midpoint
+    return {
+      X: this.xScaled + 25,
+      Y: this.y + 25,
+      dX: 150,
+      dY: 0
+    };
   }
 
   @action update = (newopt: $Shape<Operator>) => {
