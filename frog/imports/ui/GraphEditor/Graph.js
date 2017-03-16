@@ -1,8 +1,10 @@
 // @flow
+
 import React from 'react';
+
 import Lines, { DragLine } from './Lines';
 import Activities from './Activities';
-import { LevelLines, PanMap, TimeScale } from './fixed_components';
+import { LevelLines, PanMap, TimeScale } from './fixedComponents';
 import ScrollFields from './ScrollFields';
 import DragGuides from './DragGuides';
 import { connect, store, type StoreProp } from './store';
