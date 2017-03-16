@@ -54,7 +54,7 @@ export const operator = (configData: Object, object: ObjectT) => {
   });
 
   return ret;
-  */
+*/
 
 export default {
   id: 'op-aggregate-ck-board',

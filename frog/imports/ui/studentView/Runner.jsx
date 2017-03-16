@@ -20,7 +20,7 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
 
   return object
     ? <activityType.ActivityRunner
-        config={activity.data}
+        configData={activity.data}
         object={object}
         userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
         logger={logger}

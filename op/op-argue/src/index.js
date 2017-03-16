@@ -17,11 +17,13 @@ export const operator = (configData: Object, object: ObjectT) => {
   const { globalStructure } = object;
 
   const socStruc: SocialStructureT = {};
+
   globalStructure.studentIds.forEach((studentId, index) => {
     socStruc[studentId] = {
       group: Math.floor(index / 2).toString()
     };
   });
+
   return {
     product: [],
     socialStructure: socStruc
