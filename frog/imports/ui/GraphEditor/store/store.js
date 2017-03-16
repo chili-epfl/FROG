@@ -49,13 +49,27 @@ const getOneId = (coll: Coll, id: string): Elem =>
   getOne(coll, x => x.id === id);
 
 export default class Store {
-  @observable state: StateT = { mode: 'normal' };
+  @observable _state: StateT;
   @observable connectionStore = new ConnectionStore();
   @observable activityStore = new ActivityStore();
   @observable operatorStore = new OperatorStore();
   @observable ui = new UI();
   @observable graphId: string = '';
   @observable history = [];
+
+  constructor(readOnly) {
+    this.readOnly = readOnly;
+  }
+
+  set state(newState: StateT) {
+    if (!this.readOnly) {
+      this._state = newState;
+    }
+  }
+
+  @computed get state(): StateT {
+    return this._state || { mode: 'normal' };
+  }
 
   findId = ({ type, id }: { type: ElementTypes, id: string }): Elem => {
     if (type === 'activity') {
