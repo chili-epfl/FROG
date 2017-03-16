@@ -56,18 +56,16 @@ export default class Store {
   @observable ui = new UI();
   @observable graphId: string = '';
   @observable history = [];
-
-  constructor(readOnly) {
-    this.readOnly = readOnly;
-  }
+  @observable readOnly: Boolean;
 
   set state(newState: StateT) {
-    if (!this.readOnly) {
-      this._state = newState;
-    }
+    this._state = newState;
   }
 
   @computed get state(): StateT {
+    if (this.readOnly) {
+      return { mode: 'readOnly' };
+    }
     return this._state || { mode: 'normal' };
   }
 
@@ -94,8 +92,9 @@ export default class Store {
     }
   };
 
-  @action setId = (id: string): void => {
+  @action setId = (id: string, readOnly?: Boolean = false): void => {
     setCurrentGraph(id);
+    this.readOnly = readOnly;
     this.graphId = id;
     this.activityStore.all = Activities
       .find({ graphId: id }, { reactive: false })
