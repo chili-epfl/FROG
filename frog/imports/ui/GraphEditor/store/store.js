@@ -49,13 +49,25 @@ const getOneId = (coll: Coll, id: string): Elem =>
   getOne(coll, x => x.id === id);
 
 export default class Store {
-  @observable state: StateT = { mode: 'normal' };
+  @observable _state: StateT;
   @observable connectionStore = new ConnectionStore();
   @observable activityStore = new ActivityStore();
   @observable operatorStore = new OperatorStore();
   @observable ui = new UI();
   @observable graphId: string = '';
   @observable history = [];
+  @observable readOnly: Boolean;
+
+  set state(newState: StateT) {
+    this._state = newState;
+  }
+
+  @computed get state(): StateT {
+    if (this.readOnly) {
+      return { mode: 'readOnly' };
+    }
+    return this._state || { mode: 'normal' };
+  }
 
   findId = ({ type, id }: { type: ElementTypes, id: string }): Elem => {
     if (type === 'activity') {
@@ -80,8 +92,9 @@ export default class Store {
     }
   };
 
-  @action setId = (id: string): void => {
+  @action setId = (id: string, readOnly?: Boolean = false): void => {
     setCurrentGraph(id);
+    this.readOnly = readOnly;
     this.graphId = id;
     this.activityStore.all = Activities
       .find({ graphId: id }, { reactive: false })
