@@ -13,6 +13,6 @@
   "dependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-iframe": "^0.0.4",
+    "react-iframe": "^0.0.4"
   }
 }
