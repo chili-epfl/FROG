@@ -83,16 +83,22 @@ export default class Store {
   @action setId = (id: string): void => {
     setCurrentGraph(id);
     this.graphId = id;
-    this.activityStore.all = Activities
-      .find({ graphId: id }, { reactive: false })
+    this.activityStore.all = Activities.find(
+      { graphId: id },
+      { reactive: false }
+    )
       .fetch()
       .map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id));
-    this.operatorStore.all = Operators
-      .find({ graphId: id }, { reactive: false })
+    this.operatorStore.all = Operators.find(
+      { graphId: id },
+      { reactive: false }
+    )
       .fetch()
       .map(x => new Operator(x.time, x.y, x.type, x._id));
-    this.connectionStore.all = Connections
-      .find({ graphId: id }, { reactive: false })
+    this.connectionStore.all = Connections.find(
+      { graphId: id },
+      { reactive: false }
+    )
       .fetch()
       .map(x => {
         const source = this.findId(x.source);

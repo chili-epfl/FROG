@@ -25,38 +25,42 @@ export const addActivity = (activityType, data, id) => {
   }
 };
 
-export const duplicateActivity = activity => Activities.insert({
-  ...activity,
-  _id: uuid(),
-  data: { ...activity.data, name: activity.data.name + ' (copy)' }
-});
+export const duplicateActivity = activity =>
+  Activities.insert({
+    ...activity,
+    _id: uuid(),
+    data: { ...activity.data, name: activity.data.name + ' (copy)' }
+  });
 
-export const addGraphActivity = params => Activities.insert({
-  ...params,
-  graphId: params.graphId,
-  createdAt: new Date(),
-  _id: uuid()
-});
+export const addGraphActivity = params =>
+  Activities.insert({
+    ...params,
+    graphId: params.graphId,
+    createdAt: new Date(),
+    _id: uuid()
+  });
 
 export const importActivity = params =>
   Activities.insert({ ...params, createdAt: new Date(), _id: params._id });
 
-export const importGraphActivity = (params, thisGraphId) => Activities.insert({
-  ...params,
-  graphId: thisGraphId,
-  createdAt: new Date(),
-  _id: params._id
-});
+export const importGraphActivity = (params, thisGraphId) =>
+  Activities.insert({
+    ...params,
+    graphId: thisGraphId,
+    createdAt: new Date(),
+    _id: params._id
+  });
 
 export const removeGraphActivity = activityId =>
   Meteor.call('graph.flush.activity', activityId);
 
-export const addGraphOperator = params => Operators.insert({
-  ...params,
-  graphId: params.graphId,
-  createdAt: new Date(),
-  _id: uuid()
-});
+export const addGraphOperator = params =>
+  Operators.insert({
+    ...params,
+    graphId: params.graphId,
+    createdAt: new Date(),
+    _id: uuid()
+  });
 
 export const importOperator = params =>
   Operators.insert({ ...params, createdAt: new Date(), _id: params._id });
@@ -64,12 +68,13 @@ export const importOperator = params =>
 export const importConnection = params =>
   Connections.insert({ ...params, createdAt: new Date(), _id: params._id });
 
-export const importGraphOperator = (params, thisGraphId) => Operators.insert({
-  ...params,
-  graphId: thisGraphId,
-  createdAt: new Date(),
-  _id: params._id
-});
+export const importGraphOperator = (params, thisGraphId) =>
+  Operators.insert({
+    ...params,
+    graphId: thisGraphId,
+    createdAt: new Date(),
+    _id: params._id
+  });
 
 export const copyActivityIntoGraphActivity = (
   graphActivityId,

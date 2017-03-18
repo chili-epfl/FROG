@@ -24,9 +24,12 @@ import { Graphs, addGraph, renameGraph } from '../api/graphs';
 const planeNames = ['class', 'group', 'individual'];
 
 const setCurrentGraph = graphId => {
-  Meteor.users.update({ _id: Meteor.userId() }, {
-    $set: { 'profile.editingGraph': graphId }
-  });
+  Meteor.users.update(
+    { _id: Meteor.userId() },
+    {
+      $set: { 'profile.editingGraph': graphId }
+    }
+  );
 };
 
 function download(strData, strFileName, strMimeType) {
@@ -275,7 +278,7 @@ class GraphEditorClass extends Component {
           addGraphActivity({
             plane,
             xPosition: event.offsetX,
-            yPosition: ({ class: 0, group: 100, individual: 200 })[plane],
+            yPosition: { class: 0, group: 100, individual: 200 }[plane],
             graphId: this.props.graphId
           });
         } else {

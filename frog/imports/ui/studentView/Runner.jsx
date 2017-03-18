@@ -34,19 +34,15 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
 export default createContainer(
   props => {
     // there is one reactiveKey Object per groupId
-    const reactiveKey = ActivityData
-      .find({
-        activityId: props.activity._id,
-        type: 'kv'
-      })
-      .fetch();
+    const reactiveKey = ActivityData.find({
+      activityId: props.activity._id,
+      type: 'kv'
+    }).fetch();
 
-    const reactiveList = ActivityData
-      .find({
-        activityId: props.activity._id,
-        type: 'list'
-      })
-      .fetch();
+    const reactiveList = ActivityData.find({
+      activityId: props.activity._id,
+      type: 'list'
+    }).fetch();
     return { ...props, reactiveKey, reactiveList };
   },
   props => <Runner {...props} />

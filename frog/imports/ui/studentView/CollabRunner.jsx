@@ -36,20 +36,16 @@ const Runner = (
 
 export default createContainer(
   ({ sessionId, groupId, activity, logger, data }) => {
-    const reactiveKey = ActivityData
-      .find({
-        activityId: activity._id,
-        groupId,
-        type: 'kv'
-      })
-      .fetch();
-    const reactiveList = ActivityData
-      .find({
-        activityId: activity._id,
-        groupId,
-        type: 'list'
-      })
-      .fetch();
+    const reactiveKey = ActivityData.find({
+      activityId: activity._id,
+      groupId,
+      type: 'kv'
+    }).fetch();
+    const reactiveList = ActivityData.find({
+      activityId: activity._id,
+      groupId,
+      type: 'list'
+    }).fetch();
     return {
       reactiveKey,
       reactiveList,

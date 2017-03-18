@@ -22,19 +22,17 @@ import { operatorTypesObj } from '../operatorTypes';
 
 // check if there are any operators, and run these first
 const runProduct = (sessionId, activityId) => {
-  const ops = Operators
-    .find({ to: activityId, type: 'product' }, {
-      reactive: false
-    })
-    .fetch();
+  const ops = Operators.find(
+    { to: activityId, type: 'product' },
+    { reactive: false }
+  ).fetch();
   if (ops.length > 0) {
     const op = ops[0];
     const operatorType = operatorTypesObj[op.operatorType];
-    const prod = Products
-      .find({ activityId: op.from }, {
-        reactive: false
-      })
-      .fetch();
+    const prod = Products.find(
+      { activityId: op.from },
+      { reactive: false }
+    ).fetch();
     if (prod.length > 0) {
       const result = operatorType.operator(op.data, prod);
       addResult('product', activityId, result);
@@ -43,19 +41,17 @@ const runProduct = (sessionId, activityId) => {
 };
 
 const runSocial = (sessionId, activityId) => {
-  const ops = Operators
-    .find({ to: activityId, type: 'social' }, {
-      reactive: false
-    })
-    .fetch();
+  const ops = Operators.find(
+    { to: activityId, type: 'social' },
+    { reactive: false }
+  ).fetch();
   if (ops.length > 0) {
     const op = ops[0];
     const operatorType = operatorTypesObj[op.operatorType];
-    const prod = Products
-      .find({ activityId: op.from }, {
-        reactive: false
-      })
-      .fetch();
+    const prod = Products.find(
+      { activityId: op.from },
+      { reactive: false }
+    ).fetch();
     if (prod.length > 0) {
       const result = operatorType.operator(op.data, prod);
       addResult('social', activityId, result);

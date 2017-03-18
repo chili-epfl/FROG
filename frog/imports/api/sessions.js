@@ -7,15 +7,17 @@ import { Activities, Operators, Connections } from './activities';
 export const Sessions = new Mongo.Collection('sessions');
 
 export const setTeacherSession = sessionId => {
-  Meteor.users.update({ _id: Meteor.userId() }, {
-    $set: { 'profile.controlSession': sessionId }
-  });
+  Meteor.users.update(
+    { _id: Meteor.userId() },
+    { $set: { 'profile.controlSession': sessionId } }
+  );
 };
 
 export const setStudentSession = sessionId => {
-  Meteor.users.update({ _id: Meteor.userId() }, {
-    $set: { 'profile.currentSession': sessionId }
-  });
+  Meteor.users.update(
+    { _id: Meteor.userId() },
+    { $set: { 'profile.currentSession': sessionId } }
+  );
 };
 
 const addSessionItem = (type, sessionId, params) => {
@@ -46,17 +48,19 @@ export const updateSessionState = (id, state) => {
   }
   if (state === 'PAUSED') {
     if (Sessions.findOne({ _id: id }).pausedAt == null) {
-      Sessions.update({ _id: id }, {
-        $set: { pausedAt: new Date().getTime() }
-      });
+      Sessions.update(
+        { _id: id },
+        { $set: { pausedAt: new Date().getTime() } }
+      );
     }
   }
 };
 
 export const updateSessionActivity = (sessionId, activityId) => {
-  Sessions.update({ _id: sessionId }, {
-    $set: { activityId, startedAt: new Date().getTime() }
-  });
+  Sessions.update(
+    { _id: sessionId },
+    { $set: { activityId, startedAt: new Date().getTime() } }
+  );
   Meteor.call('run.dataflow', 'activity', activityId, sessionId);
 };
 

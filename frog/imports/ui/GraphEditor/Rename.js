@@ -3,9 +3,9 @@ import React from 'react';
 import { connect, type StoreProp } from './store';
 import TextInput from './utils/TextInput';
 
-const RenameField = connect((
-  { store: { ui: { cancelAll }, state, renameChange } }: StoreProp
-) => {
+const RenameField = connect(({
+  store: { ui: { cancelAll }, state, renameChange }
+}: StoreProp) => {
   if (state.mode !== 'rename') {
     return null;
   }

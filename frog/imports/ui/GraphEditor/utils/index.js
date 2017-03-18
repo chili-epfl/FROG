@@ -12,5 +12,4 @@ export const between = (
   minval: number = 0,
   maxval: number = 9999999,
   x: number
-): number =>
-  Math.min(Math.max(x, minval), maxval);
+): number => Math.min(Math.max(x, minval), maxval);
