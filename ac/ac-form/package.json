@@ -13,6 +13,6 @@
   "dependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-jsonschema-form": "^0.40.0"
+    "react-jsonschema-form": "^0.43.0"
   }
 }

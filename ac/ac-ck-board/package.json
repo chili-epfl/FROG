@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "json-stable-stringify": "^1.0.1",
-    "jsxstyle": "1.0.1",
+    "jsxstyle": "1.0.2",
     "lodash": "^4.17.2",
-    "material-ui": "^0.16.4",
+    "material-ui": "^0.17.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-draggable": "github:houshuang/react-draggable",
