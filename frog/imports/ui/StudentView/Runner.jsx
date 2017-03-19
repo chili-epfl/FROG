@@ -8,6 +8,8 @@ import { activityTypesObj } from '../../activityTypes';
 import { ActivityData, reactiveFn } from '../../api/activityData';
 import { createLogger } from '../../api/logs';
 import { saveProduct } from '../../api/products';
+import { Objects } from '../../api/objects';
+import { Activities } from '../../api/activities';
 
 const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
   const activityType = activityTypesObj[activity.activityType];
@@ -20,7 +22,7 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
 
   return object
     ? <activityType.ActivityRunner
-        config={activity.data}
+        configData={activity.data}
         object={object}
         userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
         logger={logger}
@@ -32,18 +34,24 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
 };
 
 export default createContainer(
-  props => {
+  ({ activityId }) => {
     // there is one reactiveKey Object per groupId
     const reactiveKey = ActivityData.find({
-      activityId: props.activity._id,
+      activityId,
       type: 'kv'
     }).fetch();
 
     const reactiveList = ActivityData.find({
-      activityId: props.activity._id,
+      activityId,
       type: 'list'
     }).fetch();
-    return { ...props, reactiveKey, reactiveList };
+
+    const o = Objects.findOne({ activityId });
+    const object = o ? o.data : null;
+
+    const activity = Activities.findOne({ _id: activityId });
+
+    return { activity, object, reactiveKey, reactiveList };
   },
-  props => <Runner {...props} />
+  Runner
 );

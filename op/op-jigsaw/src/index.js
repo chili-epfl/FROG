@@ -1,5 +1,5 @@
 // @flow
-import type { ObjectT, SocialStructureT } from 'frog-utils';
+import { shuffleList, type ObjectT, type SocialStructureT } from 'frog-utils';
 
 export const meta = {
   name: 'Jigsaw',
@@ -9,24 +9,46 @@ export const meta = {
 export const config = {
   title: 'Configuration for Jigsaw',
   type: 'object',
-  properties: {}
-};
-
-const randomChoice = array => {
-  const index = Math.floor(Math.random() * array.length);
-  return array[index];
+  properties: {
+    roles: {
+      type: 'string',
+      title: 'Comma-separated list of roles'
+    },
+    mix: {
+      type: 'boolean',
+      title: 'Mix previous groups?'
+    }
+  }
 };
 
 export const operator = (configData: Object, object: ObjectT) => {
-  const { globalStructure } = object;
+  const { globalStructure, socialStructures } = object;
 
   const socStruc: SocialStructureT = {};
-  globalStructure.studentIds.forEach(studentId => {
-    socStruc[studentId] = {
-      role: randomChoice(['French', 'English', 'German']),
-      group: randomChoice(['A', 'B'])
-    };
-  });
+
+  const roles = configData.roles.split(',');
+  const groupSize = roles.length;
+
+  if (configData.mix) {
+    const prevStruc = socialStructures[0];
+    const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
+    shuffleList(globalStructure.studentIds).forEach(studentId => {
+      const prevRole = prevStruc[studentId].role;
+      socStruc[studentId] = {
+        role: prevRole,
+        group: roleCounts[prevRole]
+      };
+      roleCounts[prevRole] += 1;
+    });
+  } else {
+    shuffleList(globalStructure.studentIds).forEach((studentId, index) => {
+      socStruc[studentId] = {
+        role: roles[index % groupSize],
+        group: Math.floor(index / groupSize).toString()
+      };
+    });
+  }
+
   return {
     product: [],
     socialStructure: socStruc
