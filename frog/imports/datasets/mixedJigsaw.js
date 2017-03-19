@@ -11,8 +11,8 @@ export const mixedJigsaw = {
       activityType: 'ac-jigsaw',
       data: {
         title: 'A1',
-        roles: 'French,English,German',
-        text: 'Salut,Hi,Hallo',
+        roles: 'French,English',
+        text: 'Salut,Hi',
         groupBy: 'group'
       }
     },
@@ -26,8 +26,8 @@ export const mixedJigsaw = {
       activityType: 'ac-jigsaw',
       data: {
         title: 'A2',
-        roles: 'French,English,German',
-        text: "Les maths c'est bien,Maths are good,Die Mathematik ist gut",
+        roles: 'French,English',
+        text: "Les maths c'est bien,Maths are good",
         groupBy: 'role'
       }
     },
@@ -51,8 +51,8 @@ export const mixedJigsaw = {
       activityType: 'ac-jigsaw',
       data: {
         title: 'A4',
-        roles: 'French,English,German',
-        text: 'Salut,Bye,Tschüss',
+        roles: 'French,English',
+        text: 'Salut,Bye',
         groupBy: 'group'
       }
     }
@@ -64,6 +64,10 @@ export const mixedJigsaw = {
       graphId: 'mixedJigsawG',
       type: 'social',
       operatorType: 'op-jigsaw',
+      data: {
+        roles: 'French,English',
+        mix: false
+      },
       time: 2,
       y: 50
     },
@@ -73,6 +77,10 @@ export const mixedJigsaw = {
       graphId: 'mixedJigsawG',
       type: 'social',
       operatorType: 'op-jigsaw',
+      data: {
+        roles: 'French,English',
+        mix: true
+      },
       time: 14,
       y: 50
     }

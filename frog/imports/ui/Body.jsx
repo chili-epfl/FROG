@@ -3,12 +3,12 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
-import Home from './Home.jsx';
-import ActivityEditor from './ActivityEditor.jsx';
-import StudentView from './StudentView.jsx';
-import TeacherView from './TeacherView.jsx';
+import Home from './Home';
+import ActivityEditor from './ActivityEditor';
+import StudentView from './StudentView';
+import TeacherView from './TeacherView';
 import GraphEditor from './GraphEditor';
-import Admin from './Admin.jsx';
+import Admin from './Admin';
 
 const Body = ({ userId, app }) => {
   if (userId) {
