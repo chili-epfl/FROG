@@ -35,8 +35,9 @@ export const operator = (configData: Object, object: ObjectT) => {
     const prod1 = product.find(p => p.userId === id1);
     const prod2 = product.find(p => p.userId === id2);
     return prod1 && prod2
-      ? Object.keys(prod1.data)
-          .filter(q => prod1.data[q].radio !== prod2.data[q].radio).length
+      ? Object.keys(prod1.data).filter(
+          q => prod1.data[q].radio !== prod2.data[q].radio
+        ).length
       : 0;
   };
 
