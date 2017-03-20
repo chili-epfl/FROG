@@ -42,12 +42,12 @@ export const addSession = graphId => {
 };
 
 export const updateSessionState = (id, state) => {
-  Sessions.update({ _id: id }, { $set: { state } });
+  Sessions.update(id, { $set: { state } });
   if (state === 'STARTED') {
-    Sessions.update({ _id: id }, { $set: { startedAt: new Date().getTime() } });
+    Sessions.update(id, { $set: { startedAt: new Date().getTime() } });
   }
   if (state === 'PAUSED') {
-    if (Sessions.findOne({ _id: id }).pausedAt == null) {
+    if (Sessions.findOne(id).pausedAt == null) {
       Sessions.update(
         { _id: id },
         { $set: { pausedAt: new Date().getTime() } }
@@ -109,7 +109,7 @@ Meteor.methods({
     setTeacherSession(sessionId);
   },
   'flush.session': sessionId => {
-    Sessions.remove({ _id: sessionId });
+    Sessions.remove(sessionId);
     Activities.remove({ sessionId });
     Operators.remove({ sessionId });
     Connections.remove({ sessionId });

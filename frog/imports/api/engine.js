@@ -32,7 +32,7 @@ Meteor.methods({
       // Sort the list according to startTime of activities
       (a1, a2) => a1.startTime - a2.startTime
     );
-    const session = Sessions.findOne({ _id: sessionId });
+    const session = Sessions.findOne(sessionId);
     // If no activity has been started, we start the first activity (activities[0])
     if (!session.activityId) {
       updateSessionActivity(sessionId, activities[0]._id);
@@ -48,7 +48,7 @@ Meteor.methods({
   'run.dataflow': (type, nodeId, sessionId) => {
     // Find the operators that need to be ran for the current activity
     const types = { operator: Operators, activity: Activities };
-    const node = types[type].findOne({ _id: nodeId });
+    const node = types[type].findOne(nodeId);
     if (!node.computed) {
       engineLogger(sessionId, { message: 'COMPUTING DATA FOR ITEM ' + nodeId });
       const connections = Connections.find({
@@ -112,14 +112,14 @@ Meteor.methods({
         Object.keys(socialStructure).forEach(studentId => {
           const att = {};
           att['profile.attributes.' + nodeId] = socialStructure[studentId];
-          Meteor.users.update({ _id: studentId }, { $set: att });
+          Meteor.users.update(studentId, { $set: att });
         });
       }
       if (type === 'activity') {
         // Here we build the object of an activity from the products of its connected nodes
         addObject(nodeId, object);
       }
-      types[type].update({ _id: nodeId }, { $set: { computed: true } });
+      types[type].update(nodeId, { $set: { computed: true } });
     }
   }
 });
