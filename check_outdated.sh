@@ -2,6 +2,8 @@
 
 FROG=`pwd`
 
+yarn outdated
+
 cd $FROG/frog-utils
 yarn outdated
 
