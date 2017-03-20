@@ -1,7 +1,7 @@
 [options]
 # Absolute path support:
 # e.g. "/collections/todos"
-module.name_mapper='^\/\(.*\)$' -> 'frog/\1'
+module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/frog/\1'
 esproposal.decorators=ignore
 strip_root=true
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
