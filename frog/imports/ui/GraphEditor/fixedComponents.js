@@ -4,9 +4,9 @@ import { DraggableCore } from 'react-draggable';
 import { connect, store, type StoreProp } from './store';
 import { timeToPx } from './utils';
 
-export const PanMap = connect((
-  { store: { ui: { panx, panDelta, scale } } }: StoreProp
-) => (
+export const PanMap = connect(({
+  store: { ui: { panx, panDelta, scale } }
+}: StoreProp) => (
   <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
     <rect
       x={panx}

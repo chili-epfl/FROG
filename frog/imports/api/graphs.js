@@ -26,9 +26,10 @@ export const mergeGraph = mergeObj => {
 };
 
 export const setCurrentGraph = graphId => {
-  Meteor.users.update({ _id: Meteor.userId() }, {
-    $set: { 'profile.editingGraph': graphId }
-  });
+  Meteor.users.update(
+    { _id: Meteor.userId() },
+    { $set: { 'profile.editingGraph': graphId } }
+  );
 };
 
 export const assignGraph = () => {

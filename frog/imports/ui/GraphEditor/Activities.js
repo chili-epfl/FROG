@@ -16,24 +16,22 @@ const Box = ({ x, y, width, selected, highlighted }) => (
   />
 );
 
-const Activity = connect((
-  {
-    store: {
-      activityStore: {
-        startMoving,
-        stopMoving,
-        startResizing,
-        stopResizing
-      },
-      connectionStore: {
-        startDragging,
-        stopDragging
-      }
+const Activity = connect(({
+  store: {
+    activityStore: {
+      startMoving,
+      stopMoving,
+      startResizing,
+      stopResizing
     },
-    activity,
-    scaled
-  }: StoreProp & { activity: ActivityT, scaled: Boolean }
-) => {
+    connectionStore: {
+      startDragging,
+      stopDragging
+    }
+  },
+  activity,
+  scaled
+}: StoreProp & { activity: ActivityT, scaled: Boolean }) => {
   const x = scaled ? activity.xScaled : activity.x;
   const width = scaled ? activity.widthScaled : activity.width;
 
@@ -110,9 +108,10 @@ const Activity = connect((
   );
 });
 
-export default connect((
-  { store: { activityStore: { all } }, scaled }: StoreProp & { scaled: boolean }
-) => (
+export default connect(({
+  store: { activityStore: { all } },
+  scaled
+}: StoreProp & { scaled: boolean }) => (
   <g>
     {all.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
   </g>

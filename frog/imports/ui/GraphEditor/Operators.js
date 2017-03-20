@@ -3,16 +3,14 @@ import React from 'react';
 import Operator from './Operator';
 import { connect, type StoreProp } from './store';
 
-export default connect((
-  {
-    store: {
-      operatorStore: { all: operators },
-      ui: { socialCoords, socialCoordsScaled },
-      state: { mode, operatorType }
-    },
-    scaled
-  }: StoreProp & { scaled: Boolean }
-) => {
+export default connect(({
+  store: {
+    operatorStore: { all: operators },
+    ui: { socialCoords, socialCoordsScaled },
+    state: { mode, operatorType }
+  },
+  scaled
+}: StoreProp & { scaled: Boolean }) => {
   const ops = operators.map(op => {
     const coords = scaled ? op.coordsScaled : op.coords;
     return (

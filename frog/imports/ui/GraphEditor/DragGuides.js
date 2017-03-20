@@ -37,9 +37,10 @@ const ShadedBox = ({ x, current }) => (
   />
 );
 
-const DragGuide = connect((
-  { store: { ui: { scale, panTime, rightEdgeTime } }, ...rest }
-) => {
+const DragGuide = connect(({
+  store: { ui: { scale, panTime, rightEdgeTime } },
+  ...rest
+}) => {
   const s = x => timeToPx(x, scale);
   const current = Math.floor(rest.current);
   const length = Math.floor(rest.length);

@@ -27,13 +27,14 @@ const SessionList = ({ sessions, curSessionId }) => (
   </div>
 );
 
-const ActivityBody = ({ activityId, state }) => ({
-  STARTED: activityId
-    ? <Runner activityId={activityId} />
-    : <h1>Session running & waiting for next activity</h1>,
-  CREATED: <h1>The session will start soon</h1>,
-  PAUSED: <h1>The session is paused</h1>
-})[state];
+const ActivityBody = ({ activityId, state }) =>
+  ({
+    STARTED: activityId
+      ? <Runner activityId={activityId} />
+      : <h1>Session running & waiting for next activity</h1>,
+    CREATED: <h1>The session will start soon</h1>,
+    PAUSED: <h1>The session is paused</h1>
+  }[state]);
 
 const SessionBody = ({ session }) =>
   session

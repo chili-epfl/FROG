@@ -16,16 +16,17 @@ import { Logs } from '../../api/logs';
 
 import { activityTypesObj } from '../../activityTypes';
 
-const DisplaySession = ({ session }) => ({
-  CREATED: (
-    <p>
-      You have created the session and can wait for your students to join it before starting it
-    </p>
-  ),
-  STARTED: <p>The session is started, you can run the activities</p>,
-  PAUSED: <p>The session is paused, you can restart it at any time</p>,
-  STOPPED: <p>The session has been stopped</p>
-})[session.state];
+const DisplaySession = ({ session }) =>
+  ({
+    CREATED: (
+      <p>
+        You have created the session and can wait for your students to join it before starting it
+      </p>
+    ),
+    STARTED: <p>The session is started, you can run the activities</p>,
+    PAUSED: <p>The session is paused, you can restart it at any time</p>,
+    STOPPED: <p>The session has been stopped</p>
+  }[session.state]);
 
 const SessionController = ({ session, activities, students }) => (
   <div>

@@ -35,12 +35,11 @@ export default class App extends Component {
 
   switchAppByUser = () => {
     const username = Meteor.user() ? Meteor.user().username : 'noname';
-    const app = ({
+    const app = {
       teacher: 'Graph Editor',
       admin: 'Admin',
       noname: 'Home'
-    })[username] ||
-      'Student View';
+    }[username] || 'Student View';
     this.setState({ app });
   };
 

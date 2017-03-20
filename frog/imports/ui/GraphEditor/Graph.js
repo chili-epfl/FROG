@@ -23,23 +23,24 @@ const mousemove = e => {
   store.ui.socialMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
 };
 
-export default connect((
-  {
-    store: {
-      ui: {
-        scale,
-        scrollEnabled,
-        canvasClick
-      }
-    },
-    width,
-    height,
-    hasPanMap,
-    viewBox
-  }:
-    & StoreProp
-    & { width: number, height: number, hasPanMap: boolean, viewBox: string }
-) => (
+export default connect(({
+  store: {
+    ui: {
+      scale,
+      scrollEnabled,
+      canvasClick
+    }
+  },
+  width,
+  height,
+  hasPanMap,
+  viewBox
+}: StoreProp & {
+  width: number,
+  height: number,
+  hasPanMap: boolean,
+  viewBox: string
+}) => (
   <svg
     width={width}
     height={height}

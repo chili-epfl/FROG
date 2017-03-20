@@ -44,9 +44,9 @@ const settingsSchema = {
   properties: { overlapAllowed: { type: 'boolean', title: 'Overlap allowed' } }
 };
 
-const Settings = connect((
-  { store: { updateSettings, undo, canUndo, history } }
-) => (
+const Settings = connect(({
+  store: { updateSettings, undo, canUndo, history }
+}) => (
   <Form
     schema={settingsSchema}
     onChange={({ formData }) => updateSettings(formData)}

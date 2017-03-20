@@ -10,14 +10,12 @@ const scrollInterval = direction => {
   }
 };
 
-const ScrollField = connect((
-  {
-    x,
-    height,
-    direction,
-    store: { ui: { cancelScroll } }
-  }: StoreProp & { x: number, height: number, direction: number }
-) => (
+const ScrollField = connect(({
+  x,
+  height,
+  direction,
+  store: { ui: { cancelScroll } }
+}: StoreProp & { x: number, height: number, direction: number }) => (
   <rect
     onMouseEnter={() => scrollInterval(direction)}
     onMouseOut={cancelScroll}
