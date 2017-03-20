@@ -47,18 +47,5 @@ export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
   return [first, second];
 };
 
-export const shuffleList = (xs: Array<any>): Array<any> => {
-  const arr = xs.slice(0);
-  let j;
-  let temp;
-  for (let i = arr.length - 1; i > 0; i -= 1) {
-    j = Math.floor(Math.random() * (i + 1));
-    temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-  }
-  return arr;
-};
-
 export const zipList = (xs: Array<any>): Array<any> =>
   xs[0].map((_, i) => xs.map(x => x[i]));
