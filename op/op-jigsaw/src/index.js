@@ -1,5 +1,7 @@
 // @flow
-import { shuffleList, type ObjectT, type SocialStructureT } from 'frog-utils';
+
+import { shuffle } from 'lodash';
+import type { ObjectT, SocialStructureT } from 'frog-utils';
 
 export const meta = {
   name: 'Jigsaw',
@@ -32,7 +34,7 @@ export const operator = (configData: Object, object: ObjectT) => {
   if (configData.mix) {
     const prevStruc = socialStructures[0];
     const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
-    shuffleList(globalStructure.studentIds).forEach(studentId => {
+    shuffle(globalStructure.studentIds).forEach(studentId => {
       const prevRole = prevStruc[studentId].role;
       socStruc[studentId] = {
         role: prevRole,
@@ -41,7 +43,7 @@ export const operator = (configData: Object, object: ObjectT) => {
       roleCounts[prevRole] += 1;
     });
   } else {
-    shuffleList(globalStructure.studentIds).forEach((studentId, index) => {
+    shuffle(globalStructure.studentIds).forEach((studentId, index) => {
       socStruc[studentId] = {
         role: roles[index % groupSize],
         group: Math.floor(index / groupSize).toString()

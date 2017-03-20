@@ -1,5 +1,6 @@
 // @flow
 
+import { shuffle } from 'lodash';
 import type { ObjectT, SocialStructureT } from 'frog-utils';
 
 export const meta = {
@@ -11,19 +12,6 @@ export const config = {
   title: 'Configuration for Argue',
   type: 'object',
   properties: {}
-};
-
-const shuffleList = (xs: Array<any>): Array<any> => {
-  const arr = xs.slice(0);
-  let j;
-  let temp;
-  for (let i = arr.length - 1; i > 0; i -= 1) {
-    j = Math.floor(Math.random() * (i + 1));
-    temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-  }
-  return arr;
 };
 
 export const operator = (configData: Object, object: ObjectT) => {
@@ -42,7 +30,7 @@ export const operator = (configData: Object, object: ObjectT) => {
   };
 
   // creates a random matching
-  const randomMatching = studentIds => shuffleList(studentIds);
+  const randomMatching = studentIds => shuffle(studentIds);
 
   // evaluates the quality of a matching
   const evaluateMatching = matching => {
