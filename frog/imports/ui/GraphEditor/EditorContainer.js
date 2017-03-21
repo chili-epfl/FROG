@@ -3,14 +3,12 @@ import React from 'react';
 
 // $FlowFixMe
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form';
 
 import { connect } from './store';
 import type { StoreProp } from './store';
 import Graph from './Graph';
 import Rename from './Rename';
 import SidePanel from './SidePanel';
-import GraphConfigPanel from './GraphConfigPanel';
 import GraphList from './GraphList';
 import HelpModal from './HelpModal';
 
@@ -64,11 +62,4 @@ const SidebarContainer = styled.div`
   background-color: #ffffff;
   margin-left: 10px;
   overflow: scroll;
-`;
-
-const GraphListContainer = styled.div`
-  padding: 0px;
-  width: 300px;
-  background-color: #ccffcc;
-  margin-right: 10px;
 `;

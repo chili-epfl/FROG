@@ -14,8 +14,9 @@ export default connect(({
     />
     <label htmlFor="cbox">Overlap allowed</label>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    <a href="#" onClick={undo}>
-      Undo ({history.length})
-    </a>
+    {canUndo &&
+      <a href="#" onClick={undo}>
+        Undo ({history.length})
+      </a>}
   </span>
 ));
