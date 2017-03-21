@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Nav, NavItem } from 'react-bootstrap';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -13,16 +14,10 @@ const apps = [
   'Student View'
 ];
 
-const Buttons = ({ appList, changeFn, currentApp }) => (
-  <ul className="nav nav-pills">
-    {appList.map(app => (
-      <li key={app} className={app === currentApp ? 'active' : ''}>
-        <a href="#" onClick={() => changeFn(app)} key={app}>
-          {app}
-        </a>
-      </li>
-    ))}
-  </ul>
+const Navigation = ({ appList, changeFn, currentApp }) => (
+  <Nav bsStyle="pills" activeKey={currentApp} onSelect={changeFn}>
+    {appList.map(app => <NavItem key={app} eventKey={app}>{app}</NavItem>)}
+  </Nav>
 );
 
 // App component - represents the whole app
@@ -46,12 +41,14 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Buttons
-          appList={apps}
-          currentApp={this.state.app}
-          changeFn={app => this.setState({ app })}
-        />
-        <AccountsUIWrapper />
+        <div id="header">
+          <AccountsUIWrapper />
+          <Navigation
+            appList={apps}
+            currentApp={this.state.app}
+            changeFn={app => this.setState({ app })}
+          />
+        </div>
         {this.state.app === 'Home'
           ? <div className="page-header" style={{ marginTop: '0px' }}>
               <h1>
