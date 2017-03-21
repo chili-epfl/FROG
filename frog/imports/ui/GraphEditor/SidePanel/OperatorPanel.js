@@ -2,7 +2,6 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import Dropdown from 'react-dropdown';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 import { Operators, addOperator } from '/imports/api/activities';
