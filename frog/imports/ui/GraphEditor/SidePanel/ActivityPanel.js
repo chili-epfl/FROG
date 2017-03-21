@@ -30,7 +30,7 @@ const ChooseActivityType = ({ activity }) => {
 const EditActivity = ({ activity }) => (
   <Form
     schema={activityTypesObj[activity.activityType].config}
-    onSubmit={data =>
+    onChange={data =>
       addActivity(activity.activityType, data.formData, activity._id)}
     formData={activity.data}
     liveValidate

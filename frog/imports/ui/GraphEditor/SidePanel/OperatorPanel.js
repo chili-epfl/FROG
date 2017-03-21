@@ -31,7 +31,7 @@ const ChooseOperatorType = ({ operator }) => {
 const EditOperator = ({ operator }) => (
   <Form
     schema={operatorTypesObj[operator.operatorType].config}
-    onSubmit={data =>
+    onChange={data =>
       addOperator(operator.operatorType, data.formData, operator._id)}
     formData={operator.data}
     liveValidate
