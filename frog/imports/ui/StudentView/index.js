@@ -43,7 +43,7 @@ const SessionBody = ({ session }) =>
 
 const StudentView = ({ user, sessions }) => {
   const curSession = user.profile
-    ? Sessions.findOne({ _id: user.profile.currentSession })
+    ? Sessions.findOne(user.profile.currentSession)
     : null;
   return (
     <div>
@@ -59,7 +59,7 @@ const StudentView = ({ user, sessions }) => {
 export default createContainer(
   () => {
     const sessions = Sessions.find().fetch();
-    const user = Meteor.users.findOne({ _id: Meteor.userId() });
+    const user = Meteor.users.findOne(Meteor.userId());
     return { sessions, user };
   },
   StudentView

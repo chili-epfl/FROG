@@ -18,7 +18,7 @@ export const importGraph = params => {
 };
 
 export const renameGraph = (graphId, name) =>
-  Graphs.update({ _id: graphId }, { $set: { name } });
+  Graphs.update(graphId, { $set: { name } });
 
 // updating graph from graph editor
 export const mergeGraph = mergeObj => {
@@ -33,11 +33,11 @@ export const setCurrentGraph = graphId => {
 };
 
 export const assignGraph = () => {
-  const user = Meteor.users.findOne({ _id: Meteor.userId() });
+  const user = Meteor.users.findOne(Meteor.userId());
   let graphId;
   // Get the graph the user is editing and check if the graph exists
   graphId = user.profile ? user.profile.editingGraph : null;
-  graphId = graphId && Graphs.findOne({ _id: graphId }) ? graphId : null;
+  graphId = graphId && Graphs.findOne(graphId) ? graphId : null;
   // Assign the id of the first graph of the graph list if there is one
   const oneGraph = Graphs.findOne();
   if (!graphId) graphId = oneGraph ? oneGraph._id : null;
@@ -50,17 +50,17 @@ export const assignGraph = () => {
 Meteor.methods({
   'graph.merge': ({ connections, activities, operators, graphId }) => {
     activities.map(({ _id, ...rest }) =>
-      Activities.update({ _id }, { $set: rest }, { upsert: true }));
+      Activities.update(_id, { $set: rest }, { upsert: true }));
     const actid = activities.map(x => x._id);
     Activities.remove({ _id: { $nin: actid }, graphId });
 
     operators.map(({ _id, ...rest }) =>
-      Operators.update({ _id }, { $set: rest }, { upsert: true }));
+      Operators.update(_id, { $set: rest }, { upsert: true }));
     const optid = operators.map(x => x._id);
     Operators.remove({ _id: { $nin: optid }, graphId });
 
     connections.map(({ _id, ...rest }) =>
-      Connections.update({ _id }, { $set: rest }, { upsert: true }));
+      Connections.update(_id, { $set: rest }, { upsert: true }));
     const conid = connections.map(x => x._id);
     Connections.remove({ _id: { $nin: conid }, graphId });
   }

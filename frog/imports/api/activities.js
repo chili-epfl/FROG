@@ -80,7 +80,7 @@ export const copyActivityIntoGraphActivity = (
   graphActivityId,
   fromActivityId
 ) => {
-  const fromActivity = Activities.findOne({ _id: fromActivityId });
+  const fromActivity = Activities.findOne(fromActivityId);
   Activities.update(graphActivityId, {
     $set: {
       data: fromActivity.data,
@@ -94,7 +94,7 @@ export const copyOperatorIntoGraphOperator = (
   graphOperatorId,
   fromOperatorId
 ) => {
-  const fromOperator = Operators.findOne({ _id: fromOperatorId });
+  const fromOperator = Operators.findOne(fromOperatorId);
   Operators.update(graphOperatorId, {
     $set: {
       data: fromOperator.data,
@@ -141,7 +141,7 @@ Meteor.methods({
     Activities.remove({});
   },
   'graph.flush.all': graphId => {
-    Graphs.remove({ _id: graphId });
+    Graphs.remove(graphId);
     Activities.remove({ graphId });
     Operators.remove({ graphId });
     Connections.remove({ graphId });
@@ -157,6 +157,6 @@ Meteor.methods({
   'graph.flush.activity': activityId => {
     Operators.remove({ from: activityId });
     Operators.remove({ to: activityId });
-    Activities.remove({ _id: activityId });
+    Activities.remove(activityId);
   }
 });

@@ -45,7 +45,7 @@ const SessionController = ({ session, activities, students }) => (
 const DashView = ({ logs, session }) => {
   let Dash = <p>NO DASHBOARD</p>;
   if (session) {
-    const activity = Activities.findOne({ _id: session.activity });
+    const activity = Activities.findOne(session.activity);
     if (activity) {
       const activityType = activityTypesObj[activity.activityType];
       const specificLogs = logs.filter(log => log.activity === activity._id);
@@ -82,10 +82,10 @@ const LogView = ({ logs }) => (
 
 export default createContainer(
   () => {
-    const user = Meteor.users.findOne({ _id: Meteor.userId() });
+    const user = Meteor.users.findOne(Meteor.userId());
 
     const session = user.profile
-      ? Sessions.findOne({ _id: user.profile.controlSession })
+      ? Sessions.findOne(user.profile.controlSession)
       : null;
 
     const logs = session ? Logs.find({ sessionId: session._id }).fetch() : [];
