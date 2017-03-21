@@ -34,7 +34,9 @@ const EditActivity = ({ activity }) => (
       addActivity(activity.activityType, data.formData, activity._id)}
     formData={activity.data}
     liveValidate
-  />
+  >
+    <div />
+  </Form>
 );
 
 export default createContainer(

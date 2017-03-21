@@ -35,7 +35,9 @@ const EditOperator = ({ operator }) => (
       addOperator(operator.operatorType, data.formData, operator._id)}
     formData={operator.data}
     liveValidate
-  />
+  >
+    <div />
+  </Form>
 );
 
 export default createContainer(
