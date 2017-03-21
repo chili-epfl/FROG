@@ -3,19 +3,29 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import Dropdown from 'react-dropdown';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 
 const ChooseOperatorType = ({ operator }) => {
-  const options = operatorTypes.map(x => ({ value: x.id, label: x.meta.name }));
-  const onChange = e => {
-    if (operatorTypesObj[e.value]) {
-      Operators.update(operator._id, { $set: { operatorType: e.value } });
+  const select = e => {
+    if (operatorTypesObj[e]) {
+      Operators.update(operator._id, { $set: { operatorType: e } });
     }
   };
 
-  return <Dropdown options={options} onChange={onChange} />;
+  return (
+    <DropdownButton
+      title="Select operator type"
+      id="selectOperator"
+      onSelect={select}
+    >
+      {operatorTypes.map(x => (
+        <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+      ))}
+    </DropdownButton>
+  );
 };
 
 const EditOperator = ({ operator }) => (

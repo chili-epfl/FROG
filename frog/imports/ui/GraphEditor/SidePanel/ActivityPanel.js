@@ -2,20 +2,29 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import Dropdown from 'react-dropdown';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 
 const ChooseActivityType = ({ activity }) => {
-  const options = activityTypes.map(x => ({ value: x.id, label: x.meta.name }));
-  const onChange = e => {
-    if (activityTypesObj[e.value]) {
-      Activities.update(activity._id, { $set: { activityType: e.value } });
+  const select = e => {
+    if (activityTypesObj[e]) {
+      Activities.update(activity._id, { $set: { activityType: e } });
     }
   };
 
-  return <Dropdown options={options} onChange={onChange} />;
+  return (
+    <DropdownButton
+      title="Select activity type"
+      id="selectActivity"
+      onSelect={select}
+    >
+      {activityTypes.map(x => (
+        <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+      ))}
+    </DropdownButton>
+  );
 };
 
 const EditActivity = ({ activity }) => (
