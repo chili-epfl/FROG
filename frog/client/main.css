@@ -15,77 +15,20 @@ body {
   font-size: 14px;
 }
 
-.window { 
-  position: fixed;
-  z-index:20; 
-}
-
-.jtk-connector { 
-  position: fixed;
-  z-index:4; 
-}
-
-.jtk-endpoint { 
-  position: fixed;
-  z-index:5; 
-}
-
-.jtk-overlay { 
-  position: fixed;
-  z-index:6; }
-
-.connector {
-  position:absolute;
-}
-
-.selector {
-  position: relative;
-}
-
-.item {
-  position: absolute;
-  margin-top: 1px;
-  top:0px;
-  left:0px;
-  border: 1px solid black;
-  background-color: #bbbbee;
-  width: 100px;
-  height: 98px;
-}
-
-.title {
-  position: absolute;
-  padding: 10px;
-  cursor: move;
-}
-
-#container {
-  position: relative;
-  border: 1px solid gray;
-  background-color: #ffffff;
-  width: 100%;
-  height: 302px;
-}
-
-.plane {
-  position: relative;
-  width: 100%;
-  height: 100px;
-}
-
-.lineInPlane {
-  position: absolute;
-  border: 1px solid gray;
-  top: 50%;
-  width: 100%;
-  height: 0px;
-}
-
 #body {
   padding: 20px 15px 20px 15px;
   margin: 0 auto;
   background: #eee;
 }
+
+#header {
+  display: flex;
+}
+
+#login-buttons {
+  margin: 10px;
+}
+
 .Dropdown-root {
   position: relative;
 }
