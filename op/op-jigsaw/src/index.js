@@ -9,7 +9,6 @@ export const meta = {
 };
 
 export const config = {
-  title: 'Configuration for Jigsaw',
   type: 'object',
   properties: {
     roles: {

@@ -7,7 +7,6 @@ export const meta = {
 };
 
 export const config = {
-  title: 'Configuration for Like with Like',
   type: 'object',
   properties: {}
 };
