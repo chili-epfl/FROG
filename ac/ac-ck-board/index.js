@@ -10,7 +10,6 @@ export const meta = {
 };
 
 export const config = {
-  title: 'Configuration for Common Knowledge Board activity',
   type: 'object',
   properties: {
     name: {

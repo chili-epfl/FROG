@@ -10,7 +10,6 @@ export const meta = {
 };
 
 export const config = {
-  title: 'Configuration for text component',
   type: 'object',
   properties: {
     title: {
