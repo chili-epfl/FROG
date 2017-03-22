@@ -10,6 +10,11 @@ export default class uiStore {
   @observable scale: number;
   @observable selected: ?Elem;
   @observable showModal: Boolean;
+  @observable graphWidth: number = 1000;
+
+  @action changeGraphWidth = (newWidth: number) => {
+    this.graphWidth = newWidth;
+  };
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
     const x = pxToTime(rawX, this.scale) + this.panTime;
