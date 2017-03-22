@@ -2,7 +2,6 @@
 import { action, observable, computed } from 'mobx';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
-import * as constants from '../constants';
 import type { Elem } from './store';
 import Operator from './operator';
 
@@ -13,8 +12,8 @@ export default class uiStore {
   @observable showModal: Boolean;
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
-    const x = pxToTime(rawX - constants.GRAPH_LEFT, this.scale) + this.panTime;
-    const y = rawY - constants.GRAPH_TOP;
+    const x = pxToTime(rawX, this.scale) + this.panTime;
+    const y = rawY;
     return [x, y];
   };
 

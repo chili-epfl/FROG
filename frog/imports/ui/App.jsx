@@ -5,14 +5,7 @@ import { Nav, NavItem } from 'react-bootstrap';
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-const apps = [
-  'Home',
-  'Admin',
-  'Activity Editor',
-  'Graph Editor',
-  'Teacher View',
-  'Student View'
-];
+const apps = ['Home', 'Admin', 'Graph Editor', 'Teacher View', 'Student View'];
 
 const Navigation = ({ appList, changeFn, currentApp }) => (
   <Nav bsStyle="pills" activeKey={currentApp} onSelect={changeFn}>

@@ -4,7 +4,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 import Home from './Home';
-import ActivityEditor from './ActivityEditor';
 import StudentView from './StudentView';
 import TeacherView from './TeacherView';
 import GraphEditor from './GraphEditor';
@@ -17,8 +16,6 @@ const Body = ({ userId, app }) => {
         return <Home />;
       case 'Admin':
         return <Admin />;
-      case 'Activity Editor':
-        return <ActivityEditor />;
       case 'Graph Editor':
         return <GraphEditor />;
       case 'Student View':

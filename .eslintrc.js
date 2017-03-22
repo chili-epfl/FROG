@@ -5,6 +5,8 @@ module.exports = {
     document: true
   },
   rules: {
+    'import/no-absolute-path': 'off',
+    'no-else-return': 'off',
     'flowtype/space-after-type-colon': 'off',
     'class-methods-use-this': 'off',
     'no-confusing-arrow': 'off',
