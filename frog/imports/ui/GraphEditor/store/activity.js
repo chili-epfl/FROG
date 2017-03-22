@@ -71,7 +71,6 @@ export default class Activity extends Elem {
   @action rename = (newname: string) => {
     this.title = newname;
     store.addHistory();
-    store.ui.cancelAll();
   };
 
   @action move = () => {

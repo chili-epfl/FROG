@@ -8,7 +8,7 @@ import SplitPane from 'react-split-pane';
 import { connect } from './store';
 import type { StoreProp } from './store';
 import Graph from './Graph';
-import Rename from './Rename';
+import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import GraphList from './GraphList';
 import HelpModal from './HelpModal';

@@ -1,14 +1,23 @@
 // @flow
-import { action, observable, computed } from 'mobx';
+import { action, observable, computed, autorun } from 'mobx';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 import type { Elem } from './store';
 import Operator from './operator';
 
 export default class uiStore {
+  constructor() {
+    autorun(() => {
+      if (this.selected) {
+        this.setStickySelected(this.selected);
+      }
+    });
+  }
+  
   @observable panx: number = 0;
   @observable scale: number = 4;
   @observable selected: ?Elem;
+  @observable stickySelected: ?Elem;
   @observable showModal: Boolean;
   @observable graphWidth: number = 1000;
 
@@ -26,6 +35,8 @@ export default class uiStore {
     return [x, y];
   };
 
+  @action setStickySelected = (x: ?Elem) => this.stickySelected = x;
+
   @action unselect() {
     this.selected = null;
   }
@@ -37,6 +48,7 @@ export default class uiStore {
   @action cancelAll = () => {
     this.selected = undefined;
     store.state = { mode: 'normal' };
+    store.addHistory();
   };
 
   @computed get panOffset(): number {

@@ -3,8 +3,11 @@ import React from 'react';
 import { connect, type StoreProp } from './store';
 import TextInput from './utils/TextInput';
 
-const RenameField = connect(({
-  store: { ui: { cancelAll }, state, renameChange }
+export const RenameBox = connect(({
+  store: {
+    state,
+    ui: { cancelAll }
+  }
 }: StoreProp) => {
   if (state.mode !== 'rename') {
     return null;
@@ -18,14 +21,26 @@ const RenameField = connect(({
         top: `${renameOpen.y}px`
       }}
     >
-      <TextInput
-        value={renameOpen.title}
-        onSubmit={renameOpen.rename}
-        onChange={renameChange}
-        onCancel={cancelAll}
-      />
+      <RenameField activityId={renameOpen.id} onSubmit={cancelAll} />
     </div>
   );
 });
 
-export default RenameField;
+export const RenameField = connect(({
+  store: { activityStore: { all } },
+  activityId,
+  onSubmit
+}: StoreProp & {
+  activityId: string,
+  onSubmit: string
+}) => {
+  const renameOpen = all.find(act => act.id === activityId);
+  return (
+    <TextInput
+      value={renameOpen.title}
+      onChange={renameOpen.rename}
+      onCancel={onSubmit}
+      onSubmit={onSubmit}
+    />
+  );
+});
