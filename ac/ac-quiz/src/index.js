@@ -9,7 +9,6 @@ export const meta = {
   type: 'react-component'
 };
 export const config = {
-  title: 'Configuration for MCQ',
   type: 'object',
   properties: {
     collab: {

@@ -11,17 +11,8 @@ export const meta = {
 };
 
 export const config = {
-  title: 'Configuration for the jigsaw activity',
   type: 'object',
   properties: {
-    name: {
-      type: 'string',
-      title: 'Activity name'
-    },
-    duration: {
-      type: 'number',
-      title: 'Duration in seconds (0 for infinity)'
-    },
     title: {
       type: 'string',
       title: 'Title'

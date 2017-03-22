@@ -28,6 +28,7 @@ export default class uiStore {
   @action cancelAll = () => {
     this.selected = undefined;
     store.state = { mode: 'normal' };
+    store.addHistory();
   };
 
   @computed get panOffset(): number {

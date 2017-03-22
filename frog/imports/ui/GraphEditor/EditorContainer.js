@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { connect } from './store';
 import type { StoreProp } from './store';
 import Graph from './Graph';
-import Rename from './Rename';
+import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import GraphList from './GraphList';
 import HelpModal from './HelpModal';
@@ -20,7 +20,7 @@ const Editor = ({ store: { ui: { panOffset } } }: StoreProp) => (
     <Row>
       <GraphContainer>
         <Graph width={1000} height={600} viewBox={`${panOffset} 0 1000 600`} />
-        <Rename />
+        <RenameBox />
         <Graph width={1000} height={150} viewBox={'0 0 4000 600'} hasPanMap />
       </GraphContainer>
       <HelpModal />
