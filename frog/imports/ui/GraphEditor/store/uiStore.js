@@ -28,7 +28,7 @@ export default class uiStore {
   @action changeGraphWidth = (newWidth: number) => {
     this.graphWidth = newWidth;
     // avoids the pan box to bcome out of bounds when resizing the graph editor
-    this.panDelta(0)
+    this.panDelta(0);
   };
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
