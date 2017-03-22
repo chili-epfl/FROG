@@ -11,19 +11,33 @@ export default class Operator extends Elem {
   type: string;
   klass: string;
   @observable y: number;
+  @observable title: ?string;
   @observable over: boolean;
   @observable time: number;
-  @action init(time: number, y: number, type: string, id: ?string) {
+  @action init(
+    time: number,
+    y: number,
+    type: string,
+    id: ?string,
+    title: ?string
+  ) {
     this.time = time;
     this.y = y;
     this.id = id || cuid();
     this.type = type;
     this.klass = 'operator';
+    this.title = title;
   }
 
-  constructor(time: number, y: number, type: string, id: ?string) {
+  constructor(
+    time: number,
+    y: number,
+    type: string,
+    id: ?string,
+    title: ?string
+  ) {
     super();
-    this.init(time, y, type, id);
+    this.init(time, y, type, id, title);
   }
 
   @computed get x(): number {
@@ -41,6 +55,11 @@ export default class Operator extends Elem {
   @computed get coords(): [number, number] {
     return [this.x, this.y];
   }
+
+  @action rename = (newname: string) => {
+    this.title = newname;
+    store.addHistory();
+  };
 
   @action onOver = (): true => this.over = true;
   @action onLeave = (): false => this.over = false;
@@ -80,13 +99,15 @@ export default class Operator extends Elem {
     _id: string,
     time: number,
     y: number,
-    type: string
+    type: string,
+    title: ?string
   } {
     return {
       _id: this.id,
       time: this.time,
       y: this.y,
-      type: this.type
+      type: this.type,
+      title: this.title
     };
   }
 

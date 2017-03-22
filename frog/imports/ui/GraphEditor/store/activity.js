@@ -70,6 +70,7 @@ export default class Activity extends Elem {
 
   @action rename = (newname: string) => {
     this.title = newname;
+    store.addHistory();
   };
 
   @action move = () => {

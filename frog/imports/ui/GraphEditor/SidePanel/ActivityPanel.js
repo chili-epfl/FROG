@@ -17,15 +17,14 @@ const ChooseActivityType = ({ activity }) => {
   };
 
   return (
-    <DropdownButton
-      title="Select activity type"
-      id="selectActivity"
-      onSelect={select}
-    >
-      {activityTypes.map(x => (
-        <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
-      ))}
-    </DropdownButton>
+    <div>
+      <h3>Please select activity type</h3>
+      <DropdownButton title="Select" id="selectActivity" onSelect={select}>
+        {activityTypes.map(x => (
+          <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+        ))}
+      </DropdownButton>
+    </div>
   );
 };
 
@@ -45,36 +44,36 @@ class EditClass extends Component {
 
     return (
       <div>
-        {this.state.editTitle
-          ? <h3>
-              <RenameField
-                activityId={activity._id}
-                onSubmit={() => {
-                  this.setState({ editTitle: false });
-                }}
-              />
-            </h3>
-          : <div style={{ backgroundColor: '#eee' }}>
-              <h3>
+        <div style={{ backgroundColor: '#eee' }}>
+          {this.state.editTitle
+            ? <h3>
+                <RenameField
+                  activityId={activity._id}
+                  onSubmit={() => {
+                    this.setState({ editTitle: false });
+                  }}
+                />
+              </h3>
+            : <h3>
                 <a href="#" onClick={() => this.setState({ editTitle: true })}>
                   <i className="fa fa-pencil" />
                 </a>
                 &nbsp;{graphActivity.title}
-              </h3>
-              <font size={-3}>
-                <i>
-                  {
-                    `Type: ${activityTypesObj[activity.activityType].meta.name}
+              </h3>}
+          <font size={-3}>
+            <i>
+              {
+                `Type: ${activityTypesObj[activity.activityType].meta.name}
                      (${activity.activityType})`
-                  }
-                  <br />
-                  {
-                    `Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`
-                  }
-                </i>
-              </font>
-              <hr />
-            </div>}
+              }
+              <br />
+              {
+                `Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`
+              }
+            </i>
+          </font>
+          <hr />
+        </div>
         <Form
           schema={activityTypesObj[activity.activityType].config}
           onChange={data =>

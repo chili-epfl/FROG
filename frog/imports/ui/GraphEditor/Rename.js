@@ -35,7 +35,6 @@ export const RenameField = connect(({
   onSubmit: string
 }) => {
   const renameOpen = all.find(act => act.id === activityId);
-  console.log(activityId, renameOpen);
   return (
     <TextInput
       value={renameOpen.title}
