@@ -32,7 +32,7 @@ const Editor = (
           height={600}
           viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
         />
-        <Rename />
+        <RenameBox />
         <Graph
           width={graphWidth}
           height={150}
