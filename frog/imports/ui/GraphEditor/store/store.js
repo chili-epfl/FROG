@@ -78,7 +78,6 @@ export default class Store {
     return getOneId(this.connectionStore.all, id);
   };
 
-  @action renameChange = (val: string) => this.state = { ...this.state, val };
   @observable overlapAllowed = false;
   @action updateSettings = (settings: { overlapAllowed: boolean }) =>
     this.overlapAllowed = settings.overlapAllowed;
@@ -107,7 +106,7 @@ export default class Store {
       { reactive: false }
     )
       .fetch()
-      .map(x => new Operator(x.time, x.y, x.type, x._id));
+      .map(x => new Operator(x.time, x.y, x.type, x._id, x.title));
     this.connectionStore.all = Connections.find(
       { graphId: id },
       { reactive: false }
@@ -158,7 +157,7 @@ export default class Store {
       x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
     );
     this.operatorStore.all = operators.map(
-      x => new Operator(x.time, x.y, x.type, x.id)
+      x => new Operator(x.time, x.y, x.type, x.id, x.title)
     );
     this.connectionStore.all = connections.map(x => {
       const source = this.findId(x.source);

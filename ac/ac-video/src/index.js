@@ -10,17 +10,8 @@ export const meta = {
 };
 
 export const config = {
-  title: 'Configuration for Video player',
   type: 'object',
   properties: {
-    name: {
-      type: 'string',
-      title: 'Activity name'
-    },
-    duration: {
-      type: 'number',
-      title: 'Duration in seconds (0 for infinity)'
-    },
     url: {
       type: 'string',
       title: 'URL of video'

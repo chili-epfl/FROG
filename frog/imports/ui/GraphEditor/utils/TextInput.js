@@ -13,6 +13,12 @@ export default class TextInput extends Component {
     this.textInput.focus();
   }
 
+  componentWillReceiveProps(nextProps: any) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({ val: nextProps.value || '' });
+    }
+  }
+
   onChange = (e: any) => {
     this.setState({ val: e.target.value });
     this.props.onChange(e.target.value);

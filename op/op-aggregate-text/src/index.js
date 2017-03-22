@@ -8,7 +8,6 @@ export const meta = {
 };
 
 export const config = {
-  title: 'Configuration for Aggregate Text',
   type: 'object',
   properties: {
     anonymize: {

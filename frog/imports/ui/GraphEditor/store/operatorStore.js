@@ -9,7 +9,7 @@ export default class OperatorStore {
   @observable all: Array<Operator> = [];
   @action mongoAdd = (x: any) => {
     if (!store.findId({ type: 'operator', id: x._id })) {
-      this.all.push(new Operator(x.time, x.y, x.type, x._id));
+      this.all.push(new Operator(x.time, x.y, x.type, x._id, x.title));
     }
   };
   @action mongoChange = (newx, oldx) => {
