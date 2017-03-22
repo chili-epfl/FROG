@@ -6,11 +6,15 @@ import type { Elem } from './store';
 import Operator from './operator';
 
 export default class uiStore {
-  @observable panx: number;
-  @observable scale: number;
+  @observable panx: number = 0;
+  @observable scale: number = 4;
   @observable selected: ?Elem;
   @observable showModal: Boolean;
   @observable graphWidth: number = 1000;
+
+  @computed get panBoxSize(): number {
+    return this.graphWidth / this.scale;
+  }
 
   @action changeGraphWidth = (newWidth: number) => {
     this.graphWidth = newWidth;
@@ -36,19 +40,16 @@ export default class uiStore {
   };
 
   @computed get panOffset(): number {
-    return this.panx * 4 * this.scale;
+    return this.panx * this.scale;
   }
 
   @action setScaleDelta = (x: number): void => {
-    this.setScale(this.scale + x);
-  };
-
-  @action setScale = (x: number): void => {
     const oldscale = this.scale;
-    this.scale = between(0.4, 3, x);
+    const newScale = this.scale * (1 - 0.1 * Math.sign(x));
+    this.scale = between(1, 8, newScale);
 
-    const oldPanBoxSize = 250 / oldscale;
-    const newPanBoxSize = 250 / this.scale;
+    const oldPanBoxSize = this.graphWidth / oldscale;
+    const newPanBoxSize = this.panBoxSize;
     const needPanDelta = oldPanBoxSize / 2 - newPanBoxSize / 2;
 
     this.panDelta(needPanDelta);
@@ -80,13 +81,15 @@ export default class uiStore {
 
   @action panDelta = (deltaX: number): void => {
     const oldpan = this.panx;
-    const panBoxSize = 250 / this.scale;
-    const rightBoundary = 1000 - panBoxSize;
+    const rightBoundary = this.graphWidth - this.panBoxSize;
 
     const newPan = this.panx + deltaX;
+
     this.panx = between(0, rightBoundary, newPan);
-    const moveDelta = (this.panx - oldpan) * 4 * this.scale;
+
+    const moveDelta = (this.panx - oldpan) * this.scale;
     const state = store.state;
+
     if (oldpan !== this.panx) {
       if (state.mode === 'resizing') {
         const oldlength = state.currentActivity.length;
@@ -133,13 +136,10 @@ export default class uiStore {
   }
 
   @computed get panTime(): number {
-    return this.panx / 8.12;
+    return pxToTime(this.panOffset, this.scale);
   }
 
   @computed get rightEdgeTime(): number {
-    return this.panTime + 31 / this.scale;
+    return pxToTime(this.panOffset + this.panBoxSize * this.scale, this.scale);
   }
-  @observable scale = 1;
-
-  @observable panx = 0;
 }

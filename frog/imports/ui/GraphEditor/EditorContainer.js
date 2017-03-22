@@ -36,7 +36,7 @@ const Editor = (
         <Graph
           width={graphWidth}
           height={150}
-          viewBox={'0 0 4000 600'}
+          viewBox={[0, 0, 4 * graphWidth, 600].join(' ')}
           hasPanMap
         />
         <HelpModal />
