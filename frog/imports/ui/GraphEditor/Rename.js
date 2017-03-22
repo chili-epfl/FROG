@@ -32,7 +32,6 @@ export const RenameField = connect(({
   onSubmit
 }: StoreProp & {
   activityId: string,
-  onCancel: Function,
   onSubmit: string
 }) => {
   const renameOpen = all.find(act => act.id === activityId);
@@ -41,6 +40,7 @@ export const RenameField = connect(({
     <TextInput
       value={renameOpen.title}
       onChange={renameOpen.rename}
+      onCancel={onSubmit}
       onSubmit={onSubmit}
     />
   );

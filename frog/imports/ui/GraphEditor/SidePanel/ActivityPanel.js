@@ -54,27 +54,26 @@ class EditClass extends Component {
                 }}
               />
             </h3>
-          : <div>
+          : <div style={{ backgroundColor: '#eee' }}>
               <h3>
                 <a href="#" onClick={() => this.setState({ editTitle: true })}>
                   <i className="fa fa-pencil" />
                 </a>
-                &nbsp;{graphActivity.title} <i>({activity.activityType}</i>)
+                &nbsp;{graphActivity.title}
               </h3>
               <font size={-3}>
                 <i>
-                  Starting after
-                  {' '}
-                  {graphActivity.startTime}
-                  {' '}
-                  min., running for
-                  {' '}
-                  {graphActivity.length}
-                  {' '}
-                  min.
-                  {' '}
+                  {
+                    `Type: ${activityTypesObj[activity.activityType].meta.name}
+                     (${activity.activityType})`
+                  }
+                  <br />
+                  {
+                    `Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`
+                  }
                 </i>
               </font>
+              <hr />
             </div>}
         <Form
           schema={activityTypesObj[activity.activityType].config}
