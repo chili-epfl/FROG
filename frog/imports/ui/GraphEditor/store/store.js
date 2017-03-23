@@ -87,6 +87,7 @@ export default class Store {
       if (this.ui.selected) {
         this.ui.selected.remove();
       }
+      this.ui.setStickySelected(null);
       this.ui.selected = null;
     }
   };
@@ -95,6 +96,9 @@ export default class Store {
     setCurrentGraph(id);
     this.readOnly = readOnly;
     this.graphId = id;
+
+    this.ui.setStickySelected(null);
+
     this.activityStore.all = Activities.find(
       { graphId: id },
       { reactive: false }
