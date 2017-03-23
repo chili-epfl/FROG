@@ -4,7 +4,7 @@ import { connect } from './store';
 export default connect(({
   store: { updateSettings, undo, canUndo, history }
 }) => (
-  <span>
+  <div className="topPanelUnit">
     <input
       type="checkbox"
       id="cbox"
@@ -18,5 +18,5 @@ export default connect(({
       <a href="#" onClick={undo}>
         Undo ({history.length})
       </a>}
-  </span>
+  </div>
 ));

@@ -2,13 +2,13 @@
 import { store } from '../store';
 
 export const timeToPx = (time: number, scale: number): number =>
-  time * store.ui.graphWidth * scale / 120;
+  time * store.ui.graphWidth * scale / store.graphDuration;
 
 export const pxToTime = (px: number, scale: number): number =>
-  px / store.ui.graphWidth / scale * 120;
+  px / store.ui.graphWidth / scale * store.graphDuration;
 
 export const timeToPxScreen = (time: number): number =>
-  time * store.ui.graphWidth * store.ui.scale / 120 -
+  time * store.ui.graphWidth * store.ui.scale / store.graphDuration -
   store.ui.panx * store.ui.scale;
 
 export const between = (

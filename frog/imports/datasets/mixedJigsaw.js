@@ -1,5 +1,5 @@
 export const mixedJigsaw = {
-  graphs: [{ _id: 'mixedJigsawG', name: 'Mixed Jigsaw' }],
+  graphs: [{ _id: 'mixedJigsawG', name: 'Mixed Jigsaw', duration: 30 }],
   activities: [
     {
       _id: 'mixedJigsawA1',

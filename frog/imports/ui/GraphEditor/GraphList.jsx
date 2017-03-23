@@ -5,8 +5,6 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 import { connect, store } from './store';
 import { removeGraph } from '../../api/activities';
-import GraphConfigPanel from './GraphConfigPanel';
-import Settings from './Settings';
 import {
   Graphs,
   addGraph,
@@ -23,8 +21,7 @@ const submitRemoveGraph = id => {
 const GraphList = createContainer(
   props => ({ ...props, graphs: Graphs.find().fetch() }),
   ({ graphs, graphId }) => (
-    <div>
-      <GraphConfigPanel />
+    <div className="topPanelUnit">
       <button
         className="btn btn-primary btn-sm"
         onClick={() => store.setId(addGraph())}
@@ -57,8 +54,6 @@ const GraphList = createContainer(
             ))
           : <MenuItem eventKey="0">No graph</MenuItem>}
       </DropdownButton>
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-      <Settings />
     </div>
   )
 );
