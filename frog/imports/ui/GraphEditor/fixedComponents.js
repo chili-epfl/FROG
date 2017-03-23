@@ -1,11 +1,13 @@
 // @flow
+
 import React from 'react';
 import { DraggableCore } from 'react-draggable';
+
 import { connect, store, type StoreProp } from './store';
 import { timeToPx } from './utils';
 
 export const PanMap = connect(({
-  store: { ui: { panx, panDelta, scale } }
+  store: { ui: { panx, panDelta, scale, graphWidth } }
 }: StoreProp) => (
   <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
     <rect
@@ -15,7 +17,7 @@ export const PanMap = connect(({
       stroke="black"
       strokeWidth={4}
       rx={10}
-      width={250 / scale}
+      width={graphWidth / scale}
       height={150}
     />
   </DraggableCore>
@@ -25,14 +27,17 @@ const onDoubleClick = (x, e) => {
   store.activityStore.addActivity(x, e.nativeEvent.offsetX);
 };
 
-export const LevelLines = connect(({ store: { ui: { scale } } }: StoreProp) => (
+export const LevelLines = connect(({
+  store: { ui: { scale, graphWidth } },
+  hasPanMap
+}: StoreProp & { hasPanMap: boolean }) => (
   <g>
     {[1, 2, 3].map(x => (
       <g key={x}>
         <line
           x1={0}
           y1={x * 100 + 65}
-          x2={4000 * scale}
+          x2={graphWidth * (hasPanMap ? 4 : scale)}
           y2={x * 100 + 65}
           stroke="grey"
           strokeWidth={1}
@@ -42,7 +47,7 @@ export const LevelLines = connect(({ store: { ui: { scale } } }: StoreProp) => (
           onDoubleClick={e => onDoubleClick(x, e)}
           x={0}
           y={x * 100 + 45}
-          width={4000 * scale}
+          width={graphWidth * (hasPanMap ? 4 : scale)}
           fill="transparent"
           height={40}
         />

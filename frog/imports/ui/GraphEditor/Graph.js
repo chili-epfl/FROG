@@ -13,7 +13,7 @@ import Operators from './Operators';
 const scrollMouse = e => {
   e.preventDefault();
   if (e.shiftKey) {
-    store.ui.setScaleDelta(e.deltaY * 0.01);
+    store.ui.setScaleDelta(e.deltaY);
   } else {
     store.ui.panDelta(e.deltaY);
   }
@@ -28,7 +28,8 @@ export default connect(({
     ui: {
       scale,
       scrollEnabled,
-      canvasClick
+      canvasClick,
+      graphWidth
     }
   },
   width,
@@ -42,7 +43,7 @@ export default connect(({
   viewBox: string
 }) => (
   <svg
-    width={width}
+    width={graphWidth}
     height={height}
     onMouseMove={mousemove}
     onWheel={scrollMouse}
@@ -55,10 +56,10 @@ export default connect(({
         fill="#fcf9e9"
         stroke="transparent"
         rx={10}
-        width={hasPanMap ? 4000 : width * 4 * scale}
-        height={height * 4}
+        width={hasPanMap ? 4 * graphWidth : graphWidth * scale}
+        height={hasPanMap ? 4 * height : height}
       />
-      <LevelLines />
+      <LevelLines hasPanMap={hasPanMap} />
       <Lines scaled={!hasPanMap} />
       <Activities scaled={!hasPanMap} />
       {!hasPanMap && scrollEnabled && <DragLine />}

@@ -41,7 +41,7 @@ export default class Operator extends Elem {
   }
 
   @computed get x(): number {
-    return timeToPx(this.time, 1);
+    return timeToPx(this.time, 4);
   }
 
   @computed get xScaled(): number {

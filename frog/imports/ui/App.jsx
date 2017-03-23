@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Nav, NavItem } from 'react-bootstrap';
+import SplitPane from 'react-split-pane';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -33,7 +34,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <SplitPane split="horizontal" allowResize={false}>
         <div id="header">
           <AccountsUIWrapper />
           <Navigation
@@ -42,18 +43,17 @@ export default class App extends Component {
             changeFn={app => this.setState({ app })}
           />
         </div>
-        {this.state.app === 'Home'
-          ? <div className="page-header" style={{ marginTop: '0px' }}>
-              <h1>
+        <div id="body">
+          {this.state.app === 'Home'
+            ? <h1>
                 FROG{' '}
                 <small> - Fabricating and Running Orchestration Graphs</small>
               </h1>
-            </div>
-          : null}
-        <div id="body">
+            : null}
           <Body app={this.state.app} />
         </div>
-      </div>
+
+      </SplitPane>
     );
   }
 }

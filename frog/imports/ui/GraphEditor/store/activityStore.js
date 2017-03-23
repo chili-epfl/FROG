@@ -39,6 +39,7 @@ export default class ActivityStore {
   constructor() {
     this.all = [];
   }
+
   @observable all: Array<Activity> = [];
 
   @computed get activityOffsets(): any {
