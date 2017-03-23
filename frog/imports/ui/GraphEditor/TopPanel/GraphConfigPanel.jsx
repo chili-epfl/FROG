@@ -3,8 +3,8 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { connect } from './store';
-import { Graphs, renameGraph } from '../../api/graphs';
+import { connect } from '../store';
+import { Graphs, renameGraph } from '../../../api/graphs';
 
 const Config = ({ graph, graphId, _graphDuration, changeDuration }) => (
   <div className="topPanelUnit">

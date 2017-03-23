@@ -3,14 +3,14 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-import { connect, store } from './store';
-import { removeGraph } from '../../api/activities';
+import { connect, store } from '../store';
+import { removeGraph } from '../../../api/activities';
 import {
   Graphs,
   addGraph,
   assignGraph,
   duplicateGraph
-} from '../../api/graphs';
+} from '../../../api/graphs';
 
 const submitRemoveGraph = id => {
   removeGraph(id);
