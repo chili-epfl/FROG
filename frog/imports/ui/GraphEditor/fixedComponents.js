@@ -56,9 +56,11 @@ export const LevelLines = connect(({
   </g>
 ));
 
-export const TimeScale = connect(({ store: { ui: { scale } } }) => (
+export const TimeScale = connect(({
+  store: { ui: { scale }, graphDuration }
+}) => (
   <g>
-    {[...Array(120).keys()].map(index => {
+    {[...Array(graphDuration).keys()].map(index => {
       const i = index + 1;
       const boolToBit = b => b ? 1 : 0;
       const length = boolToBit(i % 15 === 0) * 15 +

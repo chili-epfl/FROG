@@ -6,7 +6,7 @@ import ActivityStore from './activityStore';
 import OperatorStore, { OperatorTypes } from './operatorStore';
 import ConnectionStore from './connectionStore';
 import Operator from './operator';
-import { mergeGraph, setCurrentGraph } from '../../../api/graphs';
+import { Graphs, mergeGraph, setCurrentGraph } from '../../../api/graphs';
 import Activity from './activity';
 import Connection from './connection';
 import UI from './uiStore';
@@ -58,6 +58,9 @@ export default class Store {
   @observable history = [];
   @observable readOnly: Boolean;
 
+  @observable _graphDuration: number = 120;
+  @observable graphDuration: number = 120;
+
   set state(newState: StateT) {
     this._state = newState;
   }
@@ -78,7 +81,14 @@ export default class Store {
     return getOneId(this.connectionStore.all, id);
   };
 
-  @observable overlapAllowed = false;
+  @action changeDuration = duration => {
+    this._graphDuration = duration;
+    if (duration && duration > 30 && duration < 1200) {
+      this.graphDuration = duration;
+    }
+  };
+
+  @observable overlapAllowed = true;
   @action updateSettings = (settings: { overlapAllowed: boolean }) =>
     this.overlapAllowed = settings.overlapAllowed;
 
@@ -94,9 +104,12 @@ export default class Store {
 
   @action setId = (id: string, readOnly?: Boolean = false): void => {
     setCurrentGraph(id);
+    const graph = Graphs.findOne(id);
+
     this.readOnly = readOnly;
     this.graphId = id;
 
+    this.changeDuration(graph ? graph.duration || 120 : 120);
     this.ui.setStickySelected(null);
 
     this.activityStore.all = Activities.find(
@@ -105,12 +118,14 @@ export default class Store {
     )
       .fetch()
       .map(x => new Activity(x.plane, x.startTime, x.title, x.length, x._id));
+
     this.operatorStore.all = Operators.find(
       { graphId: id },
       { reactive: false }
     )
       .fetch()
       .map(x => new Operator(x.time, x.y, x.type, x._id, x.title));
+
     this.connectionStore.all = Connections.find(
       { graphId: id },
       { reactive: false }
@@ -186,7 +201,8 @@ export default class Store {
         ...x.object,
         graphId: this.graphId
       })),
-      graphId: this.graphId
+      graphId: this.graphId,
+      graphDuration: this.graphDuration
     };
   }
 }

@@ -1,22 +1,22 @@
 import React from 'react';
-import { connect } from './store';
+import { connect } from '../store';
 
 export default connect(({
-  store: { updateSettings, undo, canUndo, history }
+  store: { overlapAllowed, updateSettings, undo, canUndo, history }
 }) => (
-  <span>
+  <div className="topPanelUnit">
     <input
       type="checkbox"
       id="cbox"
+      checked={overlapAllowed}
       onChange={e => {
         updateSettings({ overlapAllowed: e.target.checked });
       }}
     />
     <label htmlFor="cbox">Overlap allowed</label>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     {canUndo &&
-      <a href="#" onClick={undo}>
+      <a href="#" onClick={undo} style={{ marginLeft: '50px' }}>
         Undo ({history.length})
       </a>}
-  </span>
+  </div>
 ));

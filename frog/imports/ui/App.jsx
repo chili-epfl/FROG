@@ -34,7 +34,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <SplitPane split="horizontal" allowResize={false}>
+      <SplitPane
+        split="horizontal"
+        allowResize={false}
+        pane2Style={{ overflow: 'auto' }}
+      >
         <div id="header">
           <AccountsUIWrapper />
           <Navigation

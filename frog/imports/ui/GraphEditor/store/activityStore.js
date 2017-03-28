@@ -25,7 +25,7 @@ export const calculateBounds = (
   const leftBoundTime = leftBoundActivity ? leftBoundActivity.endTime : 0;
   const rightBoundTime = rightBoundActivity
     ? rightBoundActivity.startTime
-    : 120;
+    : store.graphDuration;
 
   return {
     leftBoundActivity,

@@ -46,7 +46,7 @@ const quizData = [
 ];
 
 export const argueGraph = {
-  graphs: [{ _id: 'argueGraphG', name: 'Argue Graph' }],
+  graphs: [{ _id: 'argueGraphG', name: 'Argue Graph', duration: 90 }],
   activities: [
     {
       _id: 'argueGraphA1',

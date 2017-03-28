@@ -48,7 +48,11 @@ export const assignGraph = () => {
 };
 
 Meteor.methods({
-  'graph.merge': ({ connections, activities, operators, graphId }) => {
+  'graph.merge': (
+    { connections, activities, operators, graphId, graphDuration }
+  ) => {
+    Graphs.update(graphId, { $set: { duration: graphDuration } });
+
     activities.map(({ _id, ...rest }) =>
       Activities.update(_id, { $set: rest }, { upsert: true }));
     const actid = activities.map(x => x._id);

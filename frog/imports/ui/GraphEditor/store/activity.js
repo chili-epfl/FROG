@@ -80,7 +80,7 @@ export default class Activity extends Elem {
         store.ui.socialCoordsTime[0] - state.mouseOffset
       );
       if (store.overlapAllowed) {
-        this.startTime = between(0, 120 - this.length, newTime);
+        this.startTime = between(0, store.graphDuration - this.length, newTime);
       } else {
         this.startTime = between(
           this.bounds.leftBoundTime,
