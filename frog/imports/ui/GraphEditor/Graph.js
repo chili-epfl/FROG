@@ -30,7 +30,8 @@ export default connect(({
       scrollEnabled,
       canvasClick,
       graphWidth
-    }
+    },
+    overlapAllowed
   },
   width,
   height,
@@ -65,7 +66,7 @@ export default connect(({
       {!hasPanMap && scrollEnabled && <DragLine />}
       {!hasPanMap &&
         <g>
-          <DragGuides />
+          {!overlapAllowed && <DragGuides />}
           <TimeScale />
         </g>}
       <Operators scaled={!hasPanMap} />
