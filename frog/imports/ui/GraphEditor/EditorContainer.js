@@ -36,7 +36,7 @@ const Editor = (
     <TopPanel />
     <SplitPane
       split="vertical"
-      defaultSize={1000}
+      defaultSize={graphWidth}
       allowResize
       onChange={changeGraphWidth}
     >
