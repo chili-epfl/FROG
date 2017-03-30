@@ -67,17 +67,15 @@ const DragGuide = connect(({
       <text x={s(activityMiddle)} y={rest.y - 20}>
         {lengthText}
       </text>
-      {x - current === 0
-        ? null
-        : <g>
-            <text x={s(middle)} y={300}>
-              {timeText}
-            </text>
-            <TwoSidedArrow x={s(middle)} />
-            {edge ? null : <VerticalLine x={s(x)} />}
-            <VerticalLine x={s(current)} />
-            <ShadedBox x={s(x)} current={s(current)} />
-          </g>}
+      <g>
+        <text x={s(middle)} y={300}>
+          {timeText}
+        </text>
+        <TwoSidedArrow x={s(middle)} />
+        {edge ? null : <VerticalLine x={s(x)} />}
+        <VerticalLine x={s(current)} />
+        <ShadedBox x={s(x)} current={s(current)} />
+      </g>
     </g>
   );
 });

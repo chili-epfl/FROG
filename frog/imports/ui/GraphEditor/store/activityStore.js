@@ -12,15 +12,12 @@ export const calculateBounds = (
   activity: Activity,
   activities: Array<Activity>
 ): BoundsT => {
-  const sorted = activities
-    .filter(x => x.id !== activity.id)
-    .sort((a, b) => a.startTime - b.startTime);
-  const leftBoundActivity = sorted
-    .filter(act => act.startTime <= activity.startTime)
-    .pop();
-  const rightBoundActivity = sorted
-    .filter(act => act.startTime >= activity.startTime + activity.length)
-    .shift();
+  const endBefore = activities.filter(ac => ac.endTime <= activity.startTime);
+  const startAfter = activities.filter(ac => ac.startTime >= activity.endTime);
+  const leftBoundActivity = endBefore.length &&
+    endBefore.reduce((pre, cur) => pre.endTime < cur.endTime ? cur : pre);
+  const rightBoundActivity = startAfter.length &&
+    startAfter.reduce((pre, cur) => pre.startTime > cur.startTime ? cur : pre);
 
   const leftBoundTime = leftBoundActivity ? leftBoundActivity.endTime : 0;
   const rightBoundTime = rightBoundActivity
