@@ -58,15 +58,12 @@ export default class uiStore {
   }
 
   @action setScaleDelta = (x: number): void => {
-    const oldscale = this.scale;
-    const newScale = this.scale * (1 - 0.1 * Math.sign(x));
+    this.setScaleValue(this.scale * (1 - 0.1 * Math.sign(x)));
+  };
+
+  @action setScaleValue = (newScale: value): void => {
     this.scale = between(1, 8, newScale);
-
-    const oldPanBoxSize = this.graphWidth / oldscale;
-    const newPanBoxSize = this.panBoxSize;
-    const needPanDelta = oldPanBoxSize / 2 - newPanBoxSize / 2;
-
-    this.panDelta(needPanDelta);
+    this.panDelta(0);
   };
 
   @action canvasClick = () => {
