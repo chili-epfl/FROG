@@ -1,6 +1,8 @@
 // @flow
 
 import React from 'react';
+import svg2pdf from 'svg2pdf.js';
+import jsPDF from 'jspdf-yworks';
 
 import Lines, { DragLine } from './Lines';
 import Activities from './Activities';
@@ -23,13 +25,31 @@ const mousemove = e => {
   store.ui.socialMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
 };
 
+const download = () => {
+  const pdf = new jsPDF('l', 'pt', [width, height]);
+
+  // render the svg element
+  svg2pdf(store.ui.svgRef, pdf, {
+    xOffset: 0,
+    yOffset: 0,
+    scale: 1
+  });
+
+  // get the data URI
+  const uri = pdf.output('datauristring');
+  const link = document.createElement('a');
+  link.href = 'data:,' + uri;
+  link.click();
+};
+
 export default connect(({
   store: {
     ui: {
       scale,
       scrollEnabled,
       canvasClick,
-      graphWidth
+      graphWidth,
+      setSvgRef
     }
   },
   width,
@@ -48,6 +68,11 @@ export default connect(({
     onMouseMove={mousemove}
     onWheel={scrollMouse}
     onClick={canvasClick}
+    ref={ref => {
+      if (!hasPanMap) {
+        setSvgRef(ref);
+      }
+    }}
   >
     <svg viewBox={viewBox}>
       <rect
