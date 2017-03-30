@@ -115,11 +115,10 @@ export default class Activity extends Elem {
     const state = store.state;
     if (state.mode === 'resizing') {
       const newTime = Math.round(store.ui.socialCoordsTime[0]);
-      this.length = between(
-        1,
-        state.bounds.rightBoundTime - this.startTime,
-        newTime - this.startTime
-      );
+      const max = store.overlapAllowed
+        ? store.graphDuration
+        : state.bounds.rightBoundTime;
+      this.length = between(1, max - this.startTime, newTime - this.startTime);
     }
   }
 
