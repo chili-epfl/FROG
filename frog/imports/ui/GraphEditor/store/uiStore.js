@@ -61,7 +61,7 @@ export default class uiStore {
     this.setScaleValue(this.scale * (1 - 0.1 * Math.sign(x)));
   };
 
-  @action setScaleValue = (newScale: value): void => {
+  @action setScaleValue = (newScale: number): void => {
     this.scale = between(1, 8, newScale);
     this.panDelta(0);
   };
