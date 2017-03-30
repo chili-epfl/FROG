@@ -1,7 +1,6 @@
-// @flow
-
-import React from 'react';
-import SplitPane from 'react-split-pane';
+import React, { Component } from 'react';
+// $FlowFixMe
+import styled from 'styled-components';
 
 import { connect } from './store';
 import type { StoreProp } from './store';
@@ -28,24 +27,64 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
     <HelpModal />
   </div>
 );
+// { store: { ui: { panOffset, graphWidth, changeGraphWidth } } }: StoreProp
 
-const Editor = (
-  { store: { ui: { panOffset, graphWidth, changeGraphWidth } } }: StoreProp
-) => (
-  <SplitPane split="horizontal" allowResize={false}>
-    <TopPanel />
-    <SplitPane
-      split="vertical"
-      defaultSize={graphWidth}
-      allowResize
-      onChange={changeGraphWidth}
-    >
-      <EditorPanel panOffset={panOffset} graphWidth={graphWidth} />
-      <div id="sidePanel">
-        <SidePanel />
+class Editor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { width: 0 };
+  }
+
+  componentDidMount() {
+    const that = this;
+    window.addEventListener('resize', () => that.recalculate(that));
+    this.recalculate(that);
+  }
+
+  recalculate(that) {
+    if (that.graphRef) {
+      const width = that.graphRef.getBoundingClientRect().width;
+      console.log(width);
+      that.props.store.ui.changeGraphWidth(width);
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <TopPanel />
+        <Row>
+          <div
+            style={{ flex: '1 1', height: '760px' }}
+            ref={ref => this.graphRef = ref}
+          >
+            <EditorPanel
+              panOffset={this.props.store.ui.panOffset}
+              graphWidth={this.props.store.ui.graphWidth}
+            />
+          </div>
+          <SidebarContainer>
+            <SidePanel />
+          </SidebarContainer>
+        </Row>
       </div>
-    </SplitPane>
-  </SplitPane>
-);
+    );
+  }
+}
 
 export default connect(Editor);
+
+const Row = styled.div`
+  display: flex;
+  position: relative;
+  padding: 0px;
+  height: 760px;
+  margin: 0px;
+`;
+const SidebarContainer = styled.div`
+  padding: 0px;
+  flex: 0 0 500px;
+  background-color: #ffffff;
+  margin-left: 10px;
+  overflow: scroll;
+`;
