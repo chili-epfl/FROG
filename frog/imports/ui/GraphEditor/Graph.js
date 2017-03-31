@@ -73,8 +73,8 @@ export default connect(({
       {!hasPanMap &&
         <g>
           <DragGuides />
+          <TimeScale scaled />
         </g>}
-      <TimeScale scaled={!hasPanMap} />
       <Lines scaled={!hasPanMap} />
       <Activities scaled={!hasPanMap} />
       {!hasPanMap && scrollEnabled && <DragLine />}
