@@ -5,7 +5,6 @@ import { connect, store } from '../store';
 
 const download = e => {
   e.preventDefault();
-  console.log(store.ui.graphWidth);
   saveSvgAsPng(store.ui.svgRef, 'graph.png', {
     scale: 4,
     width: store.ui.graphWidth * 4
@@ -31,6 +30,6 @@ export default connect(({
         Undo ({history.length})
       </a>}
     &nbsp;
-    <a href onClick={download}>Download as PDF</a>
+    <a href onClick={download}>Download as PNG</a>
   </div>
 ));

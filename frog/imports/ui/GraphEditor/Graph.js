@@ -1,8 +1,6 @@
 // @flow
 
 import React from 'react';
-import svg2pdf from 'svg2pdf.js';
-import jsPDF from 'jspdf-yworks';
 
 import Lines, { DragLine } from './Lines';
 import Activities from './Activities';
