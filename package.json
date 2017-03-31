@@ -33,7 +33,5 @@
     "yarn": "0.21.3"
   },
   "license": "ISC",
-  "dependencies": {
-    "save-svg-as-png": "^1.1.0"
-  }
+  "dependencies": { }
 }
