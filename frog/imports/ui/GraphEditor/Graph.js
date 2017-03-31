@@ -36,12 +36,14 @@ export default connect(({
   width,
   height,
   hasPanMap,
-  viewBox
+  viewBox,
+  isSvg
 }: StoreProp & {
   width: number,
   height: number,
   hasPanMap: boolean,
-  viewBox: string
+  viewBox: string,
+  isSvg: Boolean
 }) => (
   <svg
     width={graphWidth}
@@ -53,7 +55,7 @@ export default connect(({
     <svg
       viewBox={viewBox}
       ref={ref => {
-        if (!hasPanMap) {
+        if (isSvg) {
           setSvgRef(ref);
         }
       }}
@@ -71,8 +73,8 @@ export default connect(({
       {!hasPanMap &&
         <g>
           <DragGuides />
-          <TimeScale />
         </g>}
+      <TimeScale scaled={!hasPanMap} />
       <Lines scaled={!hasPanMap} />
       <Activities scaled={!hasPanMap} />
       {!hasPanMap && scrollEnabled && <DragLine />}

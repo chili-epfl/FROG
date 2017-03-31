@@ -57,7 +57,8 @@ export const LevelLines = connect(({
 ));
 
 export const TimeScale = connect(({
-  store: { ui: { scale }, graphDuration }
+  store: { ui: { scale }, graphDuration },
+  scaled
 }) => (
   <g>
     {[...Array(graphDuration).keys()].map(index => {
@@ -66,7 +67,8 @@ export const TimeScale = connect(({
       const length = boolToBit(i % 15 === 0) * 15 +
         boolToBit(i % 5 === 0) * 10 +
         5;
-      const x = timeToPx(i, scale);
+      const scaleBy = scaled ? scale : 4;
+      const x = timeToPx(i, scaleBy);
       return (
         <g key={i}>
           <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />

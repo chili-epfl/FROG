@@ -1,13 +1,29 @@
 import React from 'react';
+import { render } from 'react-dom';
 import { saveSvgAsPng } from 'save-svg-as-png';
 
+import { Provider } from 'mobx-react';
 import { connect, store } from '../store';
+import Graph from '../Graph';
 
 const download = e => {
   e.preventDefault();
+  const canvas = document.createElement('canvas');
+  render(
+    <Provider store={store}>
+      <Graph
+        width={store.graphDuration}
+        isSvg
+        height={600}
+        viewBox={[0, 0, store.graphDuration, 600].join(' ')}
+      />
+    </Provider>,
+    canvas
+  );
+
   saveSvgAsPng(store.ui.svgRef, 'graph.png', {
-    scale: 4,
-    width: store.ui.graphWidth * 4
+    width: 100 / 3 * store.graphDuration,
+    height: 600
   });
 };
 
