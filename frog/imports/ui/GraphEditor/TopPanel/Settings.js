@@ -1,26 +1,15 @@
 import React from 'react';
-import svg2pdf from 'svg2pdf.js';
-import jsPDF from 'jspdf-yworks';
+import { saveSvgAsPng } from 'save-svg-as-png';
 
 import { connect, store } from '../store';
 
 const download = e => {
   e.preventDefault();
-
-  const pdf = new jsPDF('l', 'pt', [4000, 600]);
-
-  // render the svg element
-  svg2pdf(store.ui.svgRef, pdf, {
-    xOffset: 0,
-    yOffset: 0,
-    scale: 1
+  console.log(store.ui.graphWidth);
+  saveSvgAsPng(store.ui.svgRef, 'graph.png', {
+    scale: 4,
+    width: store.ui.graphWidth * 4
   });
-
-  // get the data URI
-  const uri = pdf.output('datauristring');
-  const link = document.createElement('a');
-  link.href = uri;
-  link.click();
 };
 
 export default connect(({
