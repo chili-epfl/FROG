@@ -35,13 +35,13 @@ export default connect(({
   },
   width,
   height,
-  hasPanMap,
+  scaled,
   viewBox,
   isSvg
 }: StoreProp & {
   width: number,
   height: number,
-  hasPanMap: boolean,
+  scaled: boolean,
   viewBox: string,
   isSvg: Boolean
 }) => (
@@ -66,23 +66,21 @@ export default connect(({
         fill="#fcf9e9"
         stroke="transparent"
         rx={10}
-        width={hasPanMap ? 4 * graphWidth : graphWidth * scale}
-        height={hasPanMap ? 4 * height : height}
+        width={scaled ? graphWidth * scale : graphWidth * 4}
+        height={scaled ? height : height * 4}
       />
-      <LevelLines hasPanMap={hasPanMap} />
-      {!hasPanMap &&
+      <LevelLines scaled={scaled} />
+      {scaled &&
         <g>
           <DragGuides />
-          <TimeScale scaled />
         </g>}
-      <Lines scaled={!hasPanMap} />
-      <Activities scaled={!hasPanMap} />
-      {!hasPanMap && scrollEnabled && <DragLine />}
-      <Operators scaled={!hasPanMap} />
+      {scaled && <TimeScale />}
+      <Lines scaled={scaled} />
+      <Activities scaled={scaled} />
+      {scaled && scrollEnabled && <DragLine />}
+      <Operators scaled={scaled} />
     </svg>
-    {!!hasPanMap && <PanMap />}
-    {!hasPanMap &&
-      scrollEnabled &&
-      <ScrollFields width={width} height={height} />}
+    {!scaled && <PanMap />}
+    {scaled && scrollEnabled && <ScrollFields width={width} height={height} />}
   </svg>
 ));

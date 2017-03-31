@@ -29,7 +29,7 @@ const onDoubleClick = (x, e) => {
 
 export const LevelLines = connect(({
   store: { ui: { scale, graphWidth } },
-  hasPanMap
+  scaled
 }: StoreProp & { hasPanMap: boolean }) => (
   <g>
     {[1, 2, 3].map(x => (
@@ -37,7 +37,7 @@ export const LevelLines = connect(({
         <line
           x1={0}
           y1={x * 100 + 65}
-          x2={graphWidth * (hasPanMap ? 4 : scale)}
+          x2={graphWidth * (scaled ? scale : 4)}
           y2={x * 100 + 65}
           stroke="grey"
           strokeWidth={1}
@@ -47,7 +47,7 @@ export const LevelLines = connect(({
           onDoubleClick={e => onDoubleClick(x, e)}
           x={0}
           y={x * 100 + 45}
-          width={graphWidth * (hasPanMap ? 4 : scale)}
+          width={graphWidth * (scaled ? scale : 4)}
           fill="transparent"
           height={40}
         />
