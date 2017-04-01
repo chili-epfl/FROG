@@ -74,7 +74,7 @@ export default connect(({
         <g>
           <DragGuides />
         </g>}
-      {scaled && <TimeScale />}
+      {(scaled || isSvg) && <TimeScale />}
       <Lines scaled={scaled} />
       <Activities scaled={scaled} />
       {scaled && scrollEnabled && <DragLine />}
