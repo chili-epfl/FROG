@@ -1,5 +1,5 @@
-import { computed, action, observable } from 'mobx';
 import { isEqual } from 'lodash';
+import { computed, action, observable } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
 import ActivityStore from './activityStore';
@@ -85,15 +85,12 @@ export default class Store {
   @action changeDuration = duration => {
     this._graphDuration = duration;
     if (duration && duration >= 30 && duration <= 1200) {
-      const oldPanTime = this.ui.panTime
+      const oldPanTime = this.ui.panTime;
       // changes the scale on duration change
-      this.ui.setScaleValue(
-        this.ui.scale / this.graphDuration * duration
-      )
+      this.ui.setScaleValue(this.ui.scale / this.graphDuration * duration);
       this.graphDuration = duration;
-      const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1)
-      this.ui.panDelta(needPanDelta)
-
+      const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1);
+      this.ui.panDelta(needPanDelta);
     }
   };
 
