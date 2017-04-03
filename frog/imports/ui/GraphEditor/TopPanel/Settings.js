@@ -11,18 +11,13 @@ const download = e => {
   const canvas = document.createElement('canvas');
   render(
     <Provider store={store}>
-      <Graph
-        width={store.graphDuration}
-        isSvg
-        height={600}
-        viewBox={[0, 0, store.graphDuration, 600].join(' ')}
-      />
+      <Graph width={1} height={600} viewBox={[0, 0, 1, 1].join(' ')} isSvg />
     </Provider>,
     canvas
   );
 
   saveSvgAsPng(store.ui.svgRef, 'graph.png', {
-    width: 100 / 3 * store.graphDuration,
+    width: 5000,
     height: 600
   });
 };

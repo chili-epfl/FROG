@@ -18,12 +18,14 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
       height={600}
       viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
       scaled
+      hasTimescale
     />
     <RenameBox />
     <Graph
       width={graphWidth}
       height={150}
       viewBox={[0, 0, 4 * graphWidth, 600].join(' ')}
+      hasPanmap
     />
     <HelpModal />
   </div>
