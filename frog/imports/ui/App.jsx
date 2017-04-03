@@ -36,7 +36,7 @@ export default class App extends Component {
       admin: 'Admin',
       noname: 'Home'
     }[username] || 'Student View';
-    newApp = this.handleNewHash();
+    const newApp = this.handleNewHash();
     if (!newApp || username === 'noname') {
       this.setState({ app });
       this.updateAddressbar(app);
@@ -44,7 +44,7 @@ export default class App extends Component {
   };
 
   updateAddressbar = app => {
-    const url = Object.entries(appSlugs).find(([_, v]) => v === app);
+    const url = Object.entries(appSlugs).find(([, v]) => v === app);
     history.pushState(null, null, '/#/' + (url && url[0]));
   };
 
