@@ -13,14 +13,9 @@ Fabricating and running orchestration graphs
 
 ## Development
 
-- Learn Git and the git banching workflow:
-https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows
-
-- Learn Meteor framework with REACT:
+- Learn Meteor framework with React:
 https://www.meteor.com/tutorials/react/creating-an-app
 
 ## Code style
 
-- Use indentation of length 2 and using spaces
-
-- Avoid lines longer than the text editor window
+- We use prettier for Javascript formatting, all pull-requests must be formatted accordingly.
