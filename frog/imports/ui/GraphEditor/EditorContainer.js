@@ -18,8 +18,8 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
         height={600}
         viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
       />
+      <RenameBox />
     </div>
-    <RenameBox />
     <div style={{ height: 150 }}>
       <Graph
         width={graphWidth}

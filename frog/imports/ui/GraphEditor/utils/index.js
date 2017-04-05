@@ -16,3 +16,30 @@ export const between = (
   maxval: number = 9999999,
   x: number
 ): number => Math.min(Math.max(x, minval), maxval);
+
+// from https://github.com/facebook/react/issues/3185
+export const getClickHandler = (
+  onClick: Function,
+  onDblClick: Function,
+  delay: number = 250
+): any => {
+  let timeoutID = null;
+  return event => {
+    console.log('click', timeoutID);
+    if (!timeoutID) {
+      console.log('setting timeout');
+      timeoutID = setTimeout(
+        () => {
+          console.log('single');
+          onClick(event);
+          timeoutID = null;
+        },
+        delay
+      );
+    } else {
+      timeoutID = clearTimeout(timeoutID);
+      console.log('double');
+      onDblClick(event);
+    }
+  };
+};
