@@ -122,7 +122,6 @@ export default class uiStore {
       }
     }
     if (state.mode === 'moving') {
-      const oldStartTime = state.currentActivity.startTime;
       state.currentActivity.move(moveDelta);
       this.socialPan(moveDelta);
     }
