@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { connect } from '../store';
-import { exportGraph } from '../utils/export';
+import { exportGraph, importGraph } from '../utils/export';
 
 export default connect(({
-  store: { overlapAllowed, updateSettings, undo, canUndo, history }
+  store: { graphId, overlapAllowed, updateSettings, undo, canUndo, history }
 }) => (
   <div className="topPanelUnit">
     <input
@@ -21,10 +22,13 @@ export default connect(({
       </a>}
     <a
       href="#"
-      onClick={() => console.log(exportGraph())}
+      onClick={e => exportGraph(e, graphId)}
       style={{ marginLeft: '50px' }}
     >
       Export graph
+    </a>
+    <a href="#" onClick={importGraph} style={{ marginLeft: '50px' }}>
+      Upload graph
     </a>
   </div>
 ));

@@ -3,7 +3,9 @@ module.exports = {
   globals: {
     document: true,
     history: true,
-    window: true
+    window: true,
+    FileReader: true,
+    Blob: true
   },
   rules: {
     'consistent-return': 'off',
