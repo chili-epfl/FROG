@@ -33,10 +33,6 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
 );
 
 class Editor extends Component {
-  constructor(props: StoreProp) {
-    super(props);
-  }
-
   componentDidMount() {
     window.addEventListener('resize', () => this.props.store.ui.updateWindow());
     this.props.store.ui.updateWindow();
