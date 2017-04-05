@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-// $FlowFixMe
 import styled from 'styled-components';
 
 import { connect } from './store';
-import type { StoreProp } from './store';
 import Graph from './Graph';
 import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
