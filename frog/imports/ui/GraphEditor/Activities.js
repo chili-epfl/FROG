@@ -91,22 +91,22 @@ const Activity = connect(({
               style={{ cursor: 'ew-resize' }}
             />
           </DraggableCore>
-          <DraggableCore
-            onStart={() => startMoving(activity)}
-            onDrag={(_, { deltaX }) => activity.move(deltaX)}
-            onStop={stopMoving}
-          >
-            <rect
-              x={x}
-              y={activity.y}
-              fill="transparent"
-              stroke="transparent"
-              width={width - 20}
-              height={30}
-              style={{ cursor: 'move' }}
-            />
-          </DraggableCore>
         </g>}
+      <DraggableCore
+        onStart={() => startMoving(activity)}
+        onDrag={(_, { deltaX }) => activity.move(deltaX)}
+        onStop={stopMoving}
+      >
+        <rect
+          x={x}
+          y={activity.y}
+          fill="transparent"
+          stroke="transparent"
+          width={width > 20 ? width - 20 : width}
+          height={30}
+          style={{ cursor: 'move' }}
+        />
+      </DraggableCore>
     </g>
   );
 });
