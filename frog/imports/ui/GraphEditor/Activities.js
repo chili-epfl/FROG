@@ -55,46 +55,49 @@ class ActivityComponent extends Component {
           highlighted={activity.highlighted}
           selected={activity.selected}
         />
-        <svg style={{ overflow: 'hidden' }} width={width + x - 20}>
-          <text x={x + 3} y={activity.y + 20}>
-            {activity.title}
-          </text>
-        </svg>
-        <circle
-          cx={x + width - 10}
-          cy={activity.y + 15}
-          r={5}
-          fill="transparent"
-          stroke="black"
-        />
-        <DraggableCore
-          onStart={() => startDragging(activity)}
-          onStop={stopDragging}
-        >
-          <circle
-            cx={x + width - 10}
-            cy={activity.y + 15}
-            r={10}
-            fill="transparent"
-            stroke="transparent"
-            style={{ cursor: 'crosshair' }}
-          />
-        </DraggableCore>
-        <DraggableCore
-          onStart={() => startResizing(activity)}
-          onDrag={(_, { deltaX }) => activity.resize(deltaX)}
-          onStop={stopResizing}
-        >
-          <rect
-            fill="transparent"
-            stroke="transparent"
-            x={x + width - 5}
-            y={activity.y}
-            width={5}
-            height={30}
-            style={{ cursor: 'ew-resize' }}
-          />
-        </DraggableCore>
+        {width > 21 &&
+          <g>
+            <svg style={{ overflow: 'hidden' }} width={width + x - 20}>
+              <text x={x + 3} y={activity.y + 20}>
+                {activity.title}
+              </text>
+            </svg>
+            <circle
+              cx={x + width - 10}
+              cy={activity.y + 15}
+              r={5}
+              fill="transparent"
+              stroke="black"
+            />
+            <DraggableCore
+              onStart={() => startDragging(activity)}
+              onStop={stopDragging}
+            >
+              <circle
+                cx={x + width - 10}
+                cy={activity.y + 15}
+                r={10}
+                fill="transparent"
+                stroke="transparent"
+                style={{ cursor: 'crosshair' }}
+              />
+            </DraggableCore>
+            <DraggableCore
+              onStart={() => startResizing(activity)}
+              onDrag={(_, { deltaX }) => activity.resize(deltaX)}
+              onStop={stopResizing}
+            >
+              <rect
+                fill="transparent"
+                stroke="transparent"
+                x={x + width - 5}
+                y={activity.y}
+                width={5}
+                height={30}
+                style={{ cursor: 'ew-resize' }}
+              />
+            </DraggableCore>
+          </g>}
         <DraggableCore
           onDrag={(_, { deltaX }) => activity.move(deltaX)}
           onStop={stopMoving}
@@ -104,7 +107,7 @@ class ActivityComponent extends Component {
             y={activity.y}
             fill="transparent"
             stroke="transparent"
-            width={width - 20}
+            width={width > 20 ? width - 20 : width}
             height={30}
             style={{ cursor: 'move' }}
           />
