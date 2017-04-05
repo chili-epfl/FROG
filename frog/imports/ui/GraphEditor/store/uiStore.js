@@ -1,24 +1,34 @@
 // @flow
-import { action, observable, computed, autorun } from 'mobx';
+import { action, observable, computed, reaction } from 'mobx';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 import type { Elem } from './store';
 import Operator from './operator';
 
 export default class uiStore {
+  constructor() {
+    reaction(
+      () => [Boolean(this.selected), this.windowWidth],
+      () => this.updateGraphWidth()
+    );
+  }
+
   @observable panx: number = 0;
   @observable scale: number = 4;
   @observable selected: ?Elem;
   @observable showModal: Boolean;
   @observable windowWidth: number = 1000;
+  @observable graphWidth: number = 1000;
 
   @computed get panBoxSize(): number {
     return this.graphWidth / this.scale;
   }
 
-  @computed get graphWidth(): number {
+  @action updateGraphWidth() {
+    const oldPan = this.panTime;
     const boxWidth = this.selected ? 500 : 0;
-    return this.windowWidth - boxWidth;
+    this.graphWidth = this.windowWidth - boxWidth;
+    this.panx = timeToPx(oldPan, this.scale) / this.scale;
   }
 
   @action updateWindow = () => {
