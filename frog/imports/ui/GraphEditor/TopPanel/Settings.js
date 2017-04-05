@@ -9,17 +9,20 @@ import Graph from '../Graph';
 const download = e => {
   e.preventDefault();
   const canvas = document.createElement('canvas');
+
+  oldScale = store.ui.scale;
+  store.ui.setScaleValue(store.graphDuration / 30);
   render(
     <Provider store={store}>
-      <Graph width={1} height={600} viewBox={[0, 0, 1, 1].join(' ')} isSvg />
+      <Graph viewBox={[0, 0, 1, 1].join(' ')} isSvg scaled hasTimescale />
     </Provider>,
     canvas
   );
-
   saveSvgAsPng(store.ui.svgRef, 'graph.png', {
-    width: 5000,
+    width: 54 * (store.graphDuration + 1),
     height: 600
   });
+  store.ui.setScaleValue(oldScale);
 };
 
 export default connect(({

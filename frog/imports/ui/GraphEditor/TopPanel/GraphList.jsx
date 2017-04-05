@@ -14,7 +14,6 @@ import {
 
 const submitRemoveGraph = id => {
   removeGraph(id);
-  store.ui.setStickySelected(null);
   store.setId(assignGraph());
 };
 

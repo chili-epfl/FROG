@@ -52,8 +52,8 @@ export default connect(({
   hasTimescale: Boolean
 }) => (
   <svg
-    width={graphWidth}
-    height={height}
+    width="100%"
+    height="100%"
     onMouseMove={mousemove}
     onWheel={scrollMouse}
     onClick={canvasClick}
@@ -73,7 +73,7 @@ export default connect(({
         stroke="transparent"
         rx={10}
         width={scaled ? graphWidth * scale : graphWidth * 4}
-        height={scaled ? height : height * 4}
+        height={600}
       />
       <LevelLines scaled={scaled} />
       {isEditable && <DragGuides />}
