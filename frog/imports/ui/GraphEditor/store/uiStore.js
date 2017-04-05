@@ -82,6 +82,10 @@ export default class uiStore {
     store.ui.selected = null;
   };
 
+  @action endRename() {
+    store.state = { mode: 'normal' };
+  }
+
   @observable scrollIntervalID: ?string;
   @action storeInterval = (interval: string) => {
     this.scrollIntervalID = interval;

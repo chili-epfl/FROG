@@ -6,7 +6,7 @@ import TextInput from './utils/TextInput';
 export const RenameBox = connect(({
   store: {
     state,
-    ui: { cancelAll }
+    ui: { endRename }
   }
 }: StoreProp) => {
   if (state.mode !== 'rename') {
@@ -21,7 +21,7 @@ export const RenameBox = connect(({
         top: `${renameOpen.y + 75}px`
       }}
     >
-      <RenameField activityId={renameOpen.id} onSubmit={cancelAll} />
+      <RenameField activityId={renameOpen.id} onSubmit={endRename} />
     </div>
   );
 });
