@@ -1,10 +1,12 @@
 module.exports = {
   plugins: ['flowtype', 'prettier'],
   globals: {
-    window: true,
-    document: true
+    document: true,
+    history: true,
+    window: true
   },
   rules: {
+    'consistent-return': 'off',
     'import/no-absolute-path': 'off',
     'no-else-return': 'off',
     'flowtype/space-after-type-colon': 'off',
