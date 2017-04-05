@@ -60,7 +60,7 @@ export const TimeScale = connect(({
   store: { ui: { scale }, graphDuration }
 }) => {
   let divider = Math.round(5 / scale * (graphDuration / 120)) * 5;
-  divider = divider ? divider : 1;
+  divider = divider || 1;
   return (
     <g>
       {rangeExclusive(1, graphDuration).map(i => {
@@ -68,7 +68,7 @@ export const TimeScale = connect(({
         const length = i % divider === 0 ? 15 : 5;
         return (
           <g key={i}>
-            {divider < 20 || i % 5 == 0
+            {divider < 20 || i % 5 === 0
               ? <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />
               : null}
             {i % divider === 0
