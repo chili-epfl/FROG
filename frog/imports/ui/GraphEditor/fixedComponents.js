@@ -4,7 +4,7 @@ import React from 'react';
 import { DraggableCore } from 'react-draggable';
 
 import { connect, store, type StoreProp } from './store';
-import { timeToPx } from './utils';
+import { timeToPx, rangeExclusive } from './utils';
 
 export const PanMap = connect(({
   store: { ui: { panx, panDelta, scale, graphWidth } }
@@ -58,21 +58,25 @@ export const LevelLines = connect(({
 
 export const TimeScale = connect(({
   store: { ui: { scale }, graphDuration }
-}) => (
-  <g>
-    {[...Array(graphDuration).keys()].map(index => {
-      const i = index + 1;
-      const boolToBit = b => b ? 1 : 0;
-      const length = boolToBit(i % 15 === 0) * 15 +
-        boolToBit(i % 5 === 0) * 10 +
-        5;
-      const x = timeToPx(i, scale);
-      return (
-        <g key={i}>
-          <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />
-          {i % 15 === 0 ? <text x={x - 15} y={540}>{i + ' min.'}</text> : null}
-        </g>
-      );
-    })}
-  </g>
-));
+}) => {
+  let divider = Math.round(5 / scale * (graphDuration / 120)) * 5;
+  divider = divider || 1;
+  return (
+    <g>
+      {rangeExclusive(1, graphDuration).map(i => {
+        const x = timeToPx(i, scale);
+        const length = i % divider === 0 ? 15 : 5;
+        return (
+          <g key={i}>
+            {divider < 20 || i % 5 === 0
+              ? <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />
+              : null}
+            {i % divider === 0
+              ? <text x={x - 15} y={540}>{i + ' min.'}</text>
+              : null}
+          </g>
+        );
+      })}
+    </g>
+  );
+});

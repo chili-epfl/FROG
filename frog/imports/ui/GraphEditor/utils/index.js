@@ -16,3 +16,7 @@ export const between = (
   maxval: number = 9999999,
   x: number
 ): number => Math.min(Math.max(x, minval), maxval);
+
+// only allows positive ranges
+export const rangeExclusive = (start: number, end: number) =>
+  [...Array(end - start).keys()].map(x => start + x);
