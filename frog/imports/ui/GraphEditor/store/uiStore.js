@@ -62,7 +62,7 @@ export default class uiStore {
   };
 
   @action setScaleValue = (newScale: number): void => {
-    this.scale = between(1, 8, newScale);
+    this.scale = between(1, store.graphDuration / 15, newScale);
     this.panDelta(0);
   };
 
