@@ -18,6 +18,7 @@ const ScrollField = connect(({
 }: StoreProp & { x: number, height: number, direction: number }) => (
   <rect
     onMouseEnter={() => scrollInterval(direction)}
+    onMouseOut={cancelScroll}
     fill="transparent"
     stroke="transparent"
     x={x}
