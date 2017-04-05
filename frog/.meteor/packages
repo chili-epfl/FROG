@@ -26,6 +26,5 @@ react-meteor-data
 practicalmeteor:mocha
 tmeasday:presence
 check@1.2.5
-dispatch:phantomjs-tests@=0.0.5
-dispatch:mocha-phantomjs
+dispatch:mocha-phantomjs@0.1.9
 jsplumb:jsplumb
