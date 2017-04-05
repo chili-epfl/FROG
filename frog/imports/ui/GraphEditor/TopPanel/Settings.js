@@ -10,7 +10,7 @@ const download = e => {
   e.preventDefault();
   const canvas = document.createElement('canvas');
 
-  oldScale = store.ui.scale;
+  const oldScale = store.ui.scale;
   store.ui.setScaleValue(store.graphDuration / 30);
   render(
     <Provider store={store}>
