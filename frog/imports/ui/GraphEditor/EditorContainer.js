@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { connect } from './store';
-import type { StoreProp } from './store';
 import Graph from './Graph';
 import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
@@ -33,10 +32,6 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
 );
 
 class Editor extends Component {
-  constructor(props: StoreProp) {
-    super(props);
-  }
-
   componentDidMount() {
     window.addEventListener('resize', () => this.props.store.ui.updateWindow());
     this.props.store.ui.updateWindow();

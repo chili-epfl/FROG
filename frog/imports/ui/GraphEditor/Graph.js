@@ -42,13 +42,7 @@ export default connect(({
   hasPanMap: boolean,
   viewBox: string
 }) => (
-  <svg
-    width="100%"
-    height="100%"
-    onMouseMove={mousemove}
-    onWheel={scrollMouse}
-    onClick={canvasClick}
-  >
+  <svg width="100%" height="100%" onMouseMove={mousemove} onWheel={scrollMouse}>
     <svg viewBox={viewBox}>
       <rect
         x={0}
@@ -58,6 +52,7 @@ export default connect(({
         rx={10}
         width={hasPanMap ? 4 * graphWidth : graphWidth * scale}
         height={hasPanMap ? 4 * height : height}
+        onClick={canvasClick}
       />
       <LevelLines hasPanMap={hasPanMap} />
       {!hasPanMap &&

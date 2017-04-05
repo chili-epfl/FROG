@@ -25,20 +25,17 @@ export const getClickHandler = (
 ): any => {
   let timeoutID = null;
   return event => {
-    console.log('click', timeoutID);
+    event.preventDefault();
     if (!timeoutID) {
-      console.log('setting timeout');
-      timeoutID = setTimeout(
+      timeoutID = window.setTimeout(
         () => {
-          console.log('single');
           onClick(event);
           timeoutID = null;
         },
         delay
       );
     } else {
-      timeoutID = clearTimeout(timeoutID);
-      console.log('double');
+      timeoutID = window.clearTimeout(timeoutID);
       onDblClick(event);
     }
   };

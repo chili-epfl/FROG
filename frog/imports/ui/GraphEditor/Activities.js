@@ -20,15 +20,10 @@ const Box = ({ x, y, width, selected, highlighted }) => (
 class ActivityComponent extends Component {
   clickHandler: ?Function;
 
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.clickHandler = getClickHandler(
       this.props.activity.select,
-      this.props.activity.setRename,
-      1000
+      this.props.activity.setRename
     );
   }
 
@@ -39,7 +34,7 @@ class ActivityComponent extends Component {
   render() {
     const {
       store: {
-        activityStore: { startMoving, stopMoving, startResizing, stopResizing },
+        activityStore: { stopMoving, startResizing, stopResizing },
         connectionStore: { startDragging, stopDragging }
       },
       activity,
@@ -51,8 +46,7 @@ class ActivityComponent extends Component {
       <g
         onMouseOver={activity.onOver}
         onMouseLeave={activity.onLeave}
-        onClick={this.clickHandler}
-        onDoubleClick={this.clickHandler}
+        onMouseUp={this.clickHandler}
       >
         <Box
           x={x}
@@ -102,7 +96,6 @@ class ActivityComponent extends Component {
           />
         </DraggableCore>
         <DraggableCore
-          onStart={() => startMoving(activity)}
           onDrag={(_, { deltaX }) => activity.move(deltaX)}
           onStop={stopMoving}
         >

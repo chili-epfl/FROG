@@ -79,6 +79,7 @@ export default class uiStore {
       store.addHistory();
     }
     store.state = { mode: 'normal' };
+    store.ui.selected = null;
   };
 
   @observable scrollIntervalID: ?string;
