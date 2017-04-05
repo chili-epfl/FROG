@@ -6,28 +6,23 @@ import type { Elem } from './store';
 import Operator from './operator';
 
 export default class uiStore {
-  constructor() {
-    autorun(() => {
-      if (this.selected) {
-        this.setStickySelected(this.selected);
-      }
-    });
-  }
-
   @observable panx: number = 0;
   @observable scale: number = 4;
   @observable selected: ?Elem;
-  @observable stickySelected: ?Elem;
   @observable showModal: Boolean;
-  @observable graphWidth: number = 1000;
+  @observable windowWidth: number = 1000;
 
   @computed get panBoxSize(): number {
     return this.graphWidth / this.scale;
   }
 
-  @action changeGraphWidth = (newWidth: number) => {
-    this.graphWidth = newWidth;
-    // avoids the pan box to bcome out of bounds when resizing the graph editor
+  @computed get graphWidth(): number {
+    const boxWidth = this.selected ? 500 : 0;
+    return this.windowWidth - boxWidth;
+  }
+
+  @action updateWindow = () => {
+    this.windowWidth = window.innerWidth - 10;
     this.panDelta(0);
   };
 
@@ -36,8 +31,6 @@ export default class uiStore {
     const y = rawY;
     return [x, y];
   };
-
-  @action setStickySelected = (x: ?Elem) => this.stickySelected = x;
 
   @action unselect() {
     this.selected = null;

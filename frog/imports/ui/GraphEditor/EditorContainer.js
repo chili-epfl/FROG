@@ -12,61 +12,52 @@ import TopPanel from './TopPanel';
 
 const EditorPanel = ({ panOffset, graphWidth }) => (
   <div>
-    <Graph
-      width={graphWidth}
-      height={600}
-      viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
-    />
+    <div style={{ height: 600 }}>
+      <Graph
+        width={graphWidth}
+        height={600}
+        viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
+      />
+    </div>
     <RenameBox />
-    <Graph
-      width={graphWidth}
-      height={150}
-      viewBox={[0, 0, 4 * graphWidth, 600].join(' ')}
-      hasPanMap
-    />
+    <div style={{ height: 150 }}>
+      <Graph
+        width={graphWidth}
+        height={150}
+        viewBox={[0, 0, 4 * graphWidth, 600].join(' ')}
+        hasPanMap
+      />
+    </div>
     <HelpModal />
   </div>
 );
-// { store: { ui: { panOffset, graphWidth, changeGraphWidth } } }: StoreProp
 
 class Editor extends Component {
-  constructor(props) {
+  constructor(props: StoreProp) {
     super(props);
-    this.state = { width: 0 };
   }
 
   componentDidMount() {
-    const that = this;
-    window.addEventListener('resize', () => that.recalculate(that));
-    this.recalculate(that);
-  }
-
-  recalculate(that) {
-    if (that.graphRef) {
-      const width = that.graphRef.getBoundingClientRect().width;
-      console.log(width);
-      that.props.store.ui.changeGraphWidth(width);
-    }
+    window.addEventListener('resize', () => this.props.store.ui.updateWindow());
+    this.props.store.ui.updateWindow();
   }
 
   render() {
     return (
       <div>
         <TopPanel />
-        <Row>
-          <div
-            style={{ flex: '1 1', height: '760px' }}
-            ref={ref => this.graphRef = ref}
-          >
+        <Container>
+          <Main>
             <EditorPanel
               panOffset={this.props.store.ui.panOffset}
               graphWidth={this.props.store.ui.graphWidth}
             />
-          </div>
-          <SidebarContainer>
-            <SidePanel />
-          </SidebarContainer>
-        </Row>
+          </Main>
+          {this.props.store.ui.selected &&
+            <SidebarContainer>
+              <SidePanel />
+            </SidebarContainer>}
+        </Container>
       </div>
     );
   }
@@ -74,17 +65,24 @@ class Editor extends Component {
 
 export default connect(Editor);
 
-const Row = styled.div`
-  display: flex;
-  position: relative;
+const Main = styled.div`
   padding: 0px;
   height: 760px;
-  margin: 0px;
+  margin-right: 10px;
+  flex: 3 0px;
+  overflow: hide;
+  padding-rigth: 5px;
 `;
+
 const SidebarContainer = styled.div`
   padding: 0px;
-  flex: 0 0 500px;
+  flex: 0 auto;
+  width: 500px;
   background-color: #ffffff;
-  margin-left: 10px;
   overflow: scroll;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
 `;

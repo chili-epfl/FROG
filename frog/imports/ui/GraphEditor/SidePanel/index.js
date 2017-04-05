@@ -7,7 +7,7 @@ import Operator from '../store/operator';
 import ActivityPanel from './ActivityPanel';
 import OperatorPanel from './OperatorPanel';
 
-export default connect(({ store: { ui: { stickySelected: selected } } }) => {
+export default connect(({ store: { ui: { selected } } }) => {
   if (!selected) {
     return null;
   }

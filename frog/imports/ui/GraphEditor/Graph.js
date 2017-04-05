@@ -43,8 +43,8 @@ export default connect(({
   viewBox: string
 }) => (
   <svg
-    width={graphWidth}
-    height={height}
+    width="100%"
+    height="100%"
     onMouseMove={mousemove}
     onWheel={scrollMouse}
     onClick={canvasClick}
