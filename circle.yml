@@ -9,10 +9,6 @@ dependencies:
     - ./initial_setup.sh
     - cd frog && METEOR_SHUTDOWN=true meteor --once
 
-test: 
-  post:
-    - cd frog && npm test
-
 checkout:
   post:
     - git submodule update --init
