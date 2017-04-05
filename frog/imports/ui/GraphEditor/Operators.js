@@ -41,7 +41,7 @@ export default connect(({
   return (
     <g>
       {ops}
-      {dragOp}
+      {scaled && dragOp}
     </g>
   );
 });

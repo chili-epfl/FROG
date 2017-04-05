@@ -33,7 +33,7 @@ export default class Elem {
 
   @computed get highlighted(): boolean {
     return this.over &&
-      store.draggingFromActivity !== this &&
+      store.state.draggingFrom !== this &&
       store.state.mode === 'dragging';
   }
 }
