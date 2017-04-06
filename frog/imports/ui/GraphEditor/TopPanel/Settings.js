@@ -4,6 +4,7 @@ import { saveSvgAsPng } from 'save-svg-as-png';
 
 import { Provider } from 'mobx-react';
 import { connect, store } from '../store';
+import { timeToPx } from '../utils';
 import Graph from '../Graph';
 
 const download = e => {
@@ -20,8 +21,9 @@ const download = e => {
     </Provider>,
     canvas
   );
+  const pictureWidth = timeToPx(store.graphDuration, store.graphDuration / 30);
   saveSvgAsPng(store.ui.svgRef, 'graph.png', {
-    width: 54 * (store.graphDuration + 1),
+    width: pictureWidth,
     height: 600
   });
   store.ui.setScaleValue(oldScale);
