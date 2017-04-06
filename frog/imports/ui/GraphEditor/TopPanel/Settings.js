@@ -1,10 +1,8 @@
 import { render } from 'react-dom';
 import React from 'react';
 
-import { connect } from '../store';
 import { exportGraph, importGraph } from '../utils/export';
 import { saveSvgAsPng } from 'save-svg-as-png';
-
 import { Provider } from 'mobx-react';
 import { connect, store } from '../store';
 import { timeToPx } from '../utils';
