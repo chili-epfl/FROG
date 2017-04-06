@@ -29,18 +29,27 @@ export default connect(({
       scale,
       scrollEnabled,
       canvasClick,
-      graphWidth
+      graphWidth,
+      setSvgRef
     }
   },
   width,
   height,
+  scaled,
+  viewBox,
+  isSvg,
+  isEditable,
   hasPanMap,
-  viewBox
+  hasTimescale
 }: StoreProp & {
   width: number,
   height: number,
-  hasPanMap: boolean,
-  viewBox: string
+  scaled: boolean,
+  viewBox: string,
+  isSvg: Boolean,
+  isEditable: Boolean,
+  hasPanMap: Boolean,
+  hasTimescale: Boolean
 }) => (
   <svg
     width="100%"
@@ -49,30 +58,32 @@ export default connect(({
     onWheel={scrollMouse}
     onClick={canvasClick}
   >
-    <svg viewBox={viewBox}>
+    <svg
+      viewBox={viewBox}
+      ref={ref => {
+        if (isSvg) {
+          setSvgRef(ref);
+        }
+      }}
+    >
       <rect
         x={0}
         y={0}
         fill="#fcf9e9"
         stroke="transparent"
         rx={10}
-        width={hasPanMap ? 4 * graphWidth : graphWidth * scale}
-        height={hasPanMap ? 4 * height : height}
+        width={scaled ? graphWidth * scale : graphWidth * 4}
+        height={600}
       />
-      <LevelLines hasPanMap={hasPanMap} />
-      {!hasPanMap &&
-        <g>
-          <DragGuides />
-          <TimeScale />
-        </g>}
-      <Lines scaled={!hasPanMap} />
-      <Activities scaled={!hasPanMap} />
-      {!hasPanMap && scrollEnabled && <DragLine />}
-      <Operators scaled={!hasPanMap} />
+      <LevelLines scaled={scaled} />
+      {isEditable && <DragGuides />}
+      {hasTimescale && <TimeScale scaled={scaled} />}
+      <Lines scaled={scaled} />
+      <Activities scaled={scaled} />
+      {isEditable && scrollEnabled && <DragLine />}
+      <Operators scaled={scaled} />
     </svg>
-    {!!hasPanMap && <PanMap />}
-    {!hasPanMap &&
-      scrollEnabled &&
-      <ScrollFields width={width} height={height} />}
+    {hasPanMap && <PanMap />}
+    {scaled && scrollEnabled && <ScrollFields width={width} height={height} />}
   </svg>
 ));

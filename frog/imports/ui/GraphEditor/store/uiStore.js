@@ -18,6 +18,8 @@ export default class uiStore {
     coords[1]
   ];
 
+  
+  @observable svgRef: any = null;
   @observable panx: number = 0;
   @observable scale: number = 4;
   @observable selected: ?Elem;
@@ -28,6 +30,12 @@ export default class uiStore {
 
   @computed get panBoxSize(): number {
     return this.graphWidth / this.scale;
+  }
+
+  @action setSvgRef = (ref: any) => this.svgRef = ref;
+
+  @action setGraphWidth(x: number) {
+    this.graphWidth = x;
   }
 
   @action updateGraphWidth() {
