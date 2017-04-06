@@ -4,7 +4,6 @@ import acVideo from 'ac-video';
 import acIframe from 'ac-iframe';
 import acText from 'ac-text';
 import acForm from 'ac-form';
-import acCollabForm from 'ac-collab-form';
 import acQuiz from 'ac-quiz';
 import acJigsaw from 'ac-jigsaw';
 import acCKBoard from 'ac-ck-board';
@@ -18,7 +17,6 @@ export const activityTypes: Array<ActivityPackageT> = [
   acIframe,
   acText,
   acForm,
-  acCollabForm,
   acCKBoard,
   acQuiz,
   acJigsaw

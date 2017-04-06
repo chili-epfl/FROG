@@ -14,6 +14,10 @@ export default {
     multiple: {
       type: 'boolean',
       title: 'Allow multiple submissions?'
+    },
+    collab: {
+      type: 'boolean',
+      title: 'Collaborative'
     }
   }
 };

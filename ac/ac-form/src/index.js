@@ -3,11 +3,11 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 
-import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
+import { Chat, type ActivityRunnerT, type ActivityPackageT } from 'frog-utils';
 
 import config from './config';
 
-export const meta = {
+const meta = {
   name: 'Simple form',
   type: 'react-component'
 };
@@ -32,16 +32,31 @@ const modifyForm = (questions, title) => {
 const ActivityRunner = (art: ActivityRunnerT) => {
   const {
     configData,
-    userInfo,
+    logger,
+    object,
     reactiveData,
     reactiveFn,
-    saveProduct
+    saveProduct,
+    userInfo
   } = art;
 
-  const reactiveKey = reactiveData.keys.find(x => x.groupId === userInfo.id);
+  const { socialStructures } = object;
+  const group = (socialStructures
+    && socialStructures[0]
+    && socialStructures[0][userInfo.id]
+    && socialStructures[0][userInfo.id]['group'])
+    || (configData.collab && 'EVERYONE')
+    || ('ALONE' + userInfo.id)
+
+  const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
   const completed = reactiveKey ? reactiveKey.COMPLETED : false;
+  const formData = reactiveKey ? reactiveKey.DATA : null;
 
   const schema = modifyForm(configData.questions, configData.title);
+
+  const onChange = e => {
+    reactiveFn(group).keySet('DATA', e.formData);
+  }
 
   const onSubmit = e => {
     saveProduct(userInfo.id, e.formData);
@@ -51,7 +66,7 @@ const ActivityRunner = (art: ActivityRunnerT) => {
   };
 
   const complete = () => {
-    reactiveFn(userInfo.id).keySet('COMPLETED', true);
+    reactiveFn(group).keySet('COMPLETED', true);
   };
 
   return (
@@ -59,11 +74,22 @@ const ActivityRunner = (art: ActivityRunnerT) => {
       {completed
         ? <h1>Form(s) submitted</h1>
         : <div>
-            <Form {...{ schema, onSubmit }} />
+            <Form {...{ schema, formData, onChange, onSubmit }} />
             {!!configData.multiple &&
               <button onClick={complete} className="btn btn-primary btn-sm">
                 Complete
               </button>}
+            {!!configData.collab &&
+                <div>
+                  <p>Working with the group {group}</p>
+                  <Chat
+                    messages={reactiveData.list.filter(x => x.groupId === group)}
+                    userInfo={userInfo}
+                    addMessage={reactiveFn(group).listAdd}
+                    logger={logger}
+                  />
+                </div>
+            }
           </div>}
 
     </div>
