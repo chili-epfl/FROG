@@ -27,6 +27,10 @@ export default class uiStore {
 
   @action setSvgRef = (ref: any) => this.svgRef = ref;
 
+  @action setGraphWidth(x: number) {
+    this.graphWidth = x;
+  }
+
   @action updateGraphWidth() {
     const oldPan = this.panTime;
     const boxWidth = this.selected ? 500 : 0;

@@ -11,7 +11,9 @@ const download = e => {
   const canvas = document.createElement('canvas');
 
   const oldScale = store.ui.scale;
+  const oldGraphWidth = store.ui.graphWidth;
   store.ui.setScaleValue(store.graphDuration / 30);
+  store.ui.setGraphWidth(1768);
   render(
     <Provider store={store}>
       <Graph viewBox={[0, 0, 1, 1].join(' ')} isSvg scaled hasTimescale />
@@ -23,6 +25,7 @@ const download = e => {
     height: 600
   });
   store.ui.setScaleValue(oldScale);
+  store.ui.updateGraphWidth();
 };
 
 export default connect(({
