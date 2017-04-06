@@ -17,6 +17,7 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
         viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
         scaled
         hasTimescale
+        isEditable
       />
     </div>
     <RenameBox />
