@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import JsonschemaForm from 'react-jsonschema-form';
-import { booleanize } from 'frog-utils';
+// @flow
+
+import React from 'react';
+import Form from 'react-jsonschema-form';
 import config from './config';
 
 export const meta = {
@@ -25,65 +26,46 @@ const modifyForm = (questions, title) => {
   return formdef;
 };
 
-class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formData: {},
-      existing: []
-    };
+const ActivityRunner = (art: ActivityRunnerT) => {
+  const {
+    configData,
+    userInfo,
+    reactiveData,
+    reactiveFn,
+    saveProduct
+  } = art;
 
-    this.formDef = modifyForm(
-      this.props.config.questions,
-      this.props.config.title
-    );
-  }
+  const reactiveKey = reactiveData.keys.find(x => x.groupId === userInfo.id);
+  const completed = reactiveKey ? reactiveKey.COMPLETED : false;
 
-  onChange = x => {
-    this.setState({ formData: x.formData });
-    this.props.logger({ form: x.formData });
-  };
+  const schema = modifyForm(configData.questions, configData.title);
 
-  onSubmitFn = x => {
-    if (booleanize(this.props.config.multiple)) {
-      const existing = [...this.state.existing, this.state.formData];
-      this.props.onCompletion(existing);
-    } else {
-      this.props.onCompletion(x.formData);
+  const onSubmit = e => {
+    saveProduct(userInfo.id, e.formData);
+    if (!configData.multiple) {
+      complete();
     }
   };
 
-  onAddAnother = () => {
-    this.setState({
-      existing: [...this.state.existing, this.state.formData],
-      formData: {}
-    });
+  const complete = () => {
+    reactiveFn(userInfo.id).keySet('COMPLETED', true);
   };
 
-  render() {
-    return (
-      <div>
-        <JsonschemaForm
-          schema={this.formDef}
-          formData={this.state.formData}
-          onSubmit={this.onSubmitFn}
-          onChange={this.onChange}
-        />
+  return (
+    <div>
+      {completed
+        ? <h1>Form(s) submitted</h1>
+        : <div>
+            <Form {...{ schema, onSubmit }} />
+            {!!configData.multiple &&
+              <button onClick={complete} className="btn btn-primary btn-sm">
+                Complete
+              </button>}
+          </div>}
 
-        {booleanize(this.props.config.multiple)
-          ? <button
-              className="btn btn-primary btn-sm"
-              onClick={this.onAddAnother}
-            >
-              Save and add another
-            </button>
-          : null}
-      </div>
-    );
-  }
-}
-
-const ActivityRunner = props => <Form {...props} />;
+    </div>
+  );
+};
 
 export default {
   id: 'ac-form',
