@@ -15,6 +15,8 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
         width={graphWidth}
         height={600}
         viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
+        scaled
+        hasTimescale
       />
     </div>
     <RenameBox />

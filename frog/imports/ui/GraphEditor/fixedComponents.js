@@ -29,15 +29,15 @@ const onDoubleClick = (x, e) => {
 
 export const LevelLines = connect(({
   store: { ui: { scale, graphWidth } },
-  hasPanMap
-}: StoreProp & { hasPanMap: boolean }) => (
+  scaled
+}: StoreProp & { scaled: boolean }) => (
   <g>
     {[1, 2, 3].map(x => (
       <g key={x}>
         <line
           x1={0}
           y1={x * 100 + 65}
-          x2={graphWidth * (hasPanMap ? 4 : scale)}
+          x2={graphWidth * (scaled ? scale : 4)}
           y2={x * 100 + 65}
           stroke="grey"
           strokeWidth={1}
@@ -47,7 +47,7 @@ export const LevelLines = connect(({
           onDoubleClick={e => onDoubleClick(x, e)}
           x={0}
           y={x * 100 + 45}
-          width={graphWidth * (hasPanMap ? 4 : scale)}
+          width={graphWidth * (scaled ? scale : 4)}
           fill="transparent"
           height={40}
         />
@@ -57,14 +57,16 @@ export const LevelLines = connect(({
 ));
 
 export const TimeScale = connect(({
-  store: { ui: { scale }, graphDuration }
+  store: { ui: { scale }, graphDuration },
+  scaled
 }) => {
   let divider = Math.round(5 / scale * (graphDuration / 120)) * 5;
   divider = divider || 1;
   return (
     <g>
       {rangeExclusive(1, graphDuration).map(i => {
-        const x = timeToPx(i, scale);
+        const scaleBy = scaled ? scale : 4;
+        const x = timeToPx(i, scaleBy);
         const length = i % divider === 0 ? 15 : 5;
         return (
           <g key={i}>
