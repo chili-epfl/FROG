@@ -103,7 +103,6 @@ export default class Store {
       if (this.ui.selected) {
         this.ui.selected.remove();
       }
-      this.ui.setStickySelected(null);
       this.ui.selected = null;
     }
   };
@@ -116,7 +115,6 @@ export default class Store {
     this.graphId = id;
 
     this.changeDuration(graph ? graph.duration || 120 : 120);
-    this.ui.setStickySelected(null);
 
     this.activityStore.all = Activities.find(
       { graphId: id },
