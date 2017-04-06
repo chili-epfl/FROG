@@ -2,8 +2,10 @@
 
 import React from 'react';
 import Form from 'react-jsonschema-form';
-import config from './config';
+
 import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
+
+import config from './config';
 
 export const meta = {
   name: 'Simple form',
