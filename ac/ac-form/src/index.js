@@ -41,12 +41,12 @@ const ActivityRunner = (art: ActivityRunnerT) => {
   } = art;
 
   const { socialStructures } = object;
-  const group = (socialStructures
-    && socialStructures[0]
-    && socialStructures[0][userInfo.id]
-    && socialStructures[0][userInfo.id]['group'])
-    || (configData.collab && 'EVERYONE')
-    || ('ALONE' + userInfo.id)
+  const group = (socialStructures &&
+    socialStructures[0] &&
+    socialStructures[0][userInfo.id] &&
+    socialStructures[0][userInfo.id].group) ||
+    (configData.collab && 'EVERYONE') ||
+    'ALONE' + userInfo.id;
 
   const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
   const completed = reactiveKey ? reactiveKey.COMPLETED : false;
@@ -56,7 +56,7 @@ const ActivityRunner = (art: ActivityRunnerT) => {
 
   const onChange = e => {
     reactiveFn(group).keySet('DATA', e.formData);
-  }
+  };
 
   const onSubmit = e => {
     saveProduct(userInfo.id, e.formData);
@@ -80,16 +80,15 @@ const ActivityRunner = (art: ActivityRunnerT) => {
                 Complete
               </button>}
             {!!configData.collab &&
-                <div>
-                  <p>Working with the group {group}</p>
-                  <Chat
-                    messages={reactiveData.list.filter(x => x.groupId === group)}
-                    userInfo={userInfo}
-                    addMessage={reactiveFn(group).listAdd}
-                    logger={logger}
-                  />
-                </div>
-            }
+              <div>
+                <p>Working with the group {group}</p>
+                <Chat
+                  messages={reactiveData.list.filter(x => x.groupId === group)}
+                  userInfo={userInfo}
+                  addMessage={reactiveFn(group).listAdd}
+                  logger={logger}
+                />
+              </div>}
           </div>}
 
     </div>
