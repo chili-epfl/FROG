@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// $FlowFixMe
 import styled from 'styled-components';
 
 import { connect } from './store';
@@ -16,6 +15,8 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
         width={graphWidth}
         height={600}
         viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
+        scaled
+        hasTimescale
       />
       <RenameBox />
     </div>

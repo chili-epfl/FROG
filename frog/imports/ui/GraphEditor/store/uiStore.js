@@ -13,15 +13,29 @@ export default class uiStore {
     );
   }
 
+  timeToRaw = (coords: [number, number]): [number, number] => [
+    timeToPx(coords[0] - this.panTime, this.scale),
+    coords[1]
+  ];
+
+  
+  @observable svgRef: any = null;
   @observable panx: number = 0;
   @observable scale: number = 4;
   @observable selected: ?Elem;
   @observable showModal: Boolean;
   @observable windowWidth: number = 1000;
   @observable graphWidth: number = 1000;
+  @observable socialCoordsTime: [number, number] = [0, 0];
 
   @computed get panBoxSize(): number {
     return this.graphWidth / this.scale;
+  }
+
+  @action setSvgRef = (ref: any) => this.svgRef = ref;
+
+  @action setGraphWidth(x: number) {
+    this.graphWidth = x;
   }
 
   @action updateGraphWidth() {
@@ -98,7 +112,8 @@ export default class uiStore {
     this.scrollIntervalID = undefined;
   };
 
-  @action panDelta = (deltaX: number): void => {
+  @action panDelta = (rawX: number): void => {
+    const deltaX = rawX * 2;
     const oldpan = this.panx;
     const rightBoundary = this.graphWidth - this.panBoxSize;
 
@@ -113,30 +128,36 @@ export default class uiStore {
       if (state.mode === 'resizing') {
         const oldlength = state.currentActivity.length;
         state.currentActivity.resize(moveDelta);
+        this.socialPan(moveDelta);
         if (oldlength === state.currentActivity.length) {
-          this.panx = oldpan;
-        }
-      }
-      if (state.mode === 'moving') {
-        const oldStartTime = state.currentActivity.startTime;
-        state.currentActivity.move(moveDelta);
-        if (oldStartTime === state.currentActivity.startTime) {
           this.panx = oldpan;
         }
       }
       if (state.mode === 'movingOperator') {
         state.currentOperator.moveX(moveDelta);
+        this.socialPan(moveDelta);
       }
     }
+    if (state.mode === 'moving') {
+      state.currentActivity.move(moveDelta);
+      this.socialPan(moveDelta);
+    }
+    if (state.mode === 'dragging') {
+      this.socialPan(moveDelta);
+    }
   };
-
-  @observable socialCoordsTime: [number, number] = [0, 0];
 
   @computed get scrollEnabled(): boolean {
     return !!['movingOperator', 'dragging', 'moving', 'resizing'].includes(
       store.state.mode
     );
   }
+
+  @action socialPan = (deltaX: number): void => {
+    const current = this.timeToRaw(this.socialCoordsTime);
+    const newCoords = [current[0] + deltaX, current[1]];
+    this.socialMove(...newCoords);
+  };
 
   @action socialMove = (rawX: number, rawY: number): void => {
     this.socialCoordsTime = this.rawMouseToTime(rawX, rawY);
