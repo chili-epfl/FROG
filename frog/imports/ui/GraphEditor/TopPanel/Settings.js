@@ -1,5 +1,5 @@
-import React from 'react';
 import { render } from 'react-dom';
+import React from 'react';
 import { saveSvgAsPng } from 'save-svg-as-png';
 
 import { Provider } from 'mobx-react';
@@ -12,7 +12,6 @@ const download = e => {
   const canvas = document.createElement('canvas');
 
   const oldScale = store.ui.scale;
-  const oldGraphWidth = store.ui.graphWidth;
   store.ui.setScaleValue(store.graphDuration / 30);
   store.ui.setGraphWidth(1768);
   render(
