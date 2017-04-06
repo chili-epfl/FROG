@@ -13,6 +13,11 @@ export default class uiStore {
     );
   }
 
+  timeToRaw = (coords: [number, number]): [number, number] => [
+    timeToPx(coords[0] - this.panTime, this.scale),
+    coords[1]
+  ];
+
   @observable panx: number = 0;
   @observable scale: number = 4;
   @observable selected: ?Elem;
