@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Nav, NavItem } from 'react-bootstrap';
-import SplitPane from 'react-split-pane';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -65,11 +64,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <SplitPane
-        split="horizontal"
-        allowResize={false}
-        pane2Style={{ overflow: 'auto' }}
-      >
+      <div>
         <div id="header">
           <AccountsUIWrapper />
           <Navigation
@@ -90,8 +85,7 @@ export default class App extends Component {
             : null}
           <Body app={this.state.app} />
         </div>
-
-      </SplitPane>
+      </div>
     );
   }
 }
