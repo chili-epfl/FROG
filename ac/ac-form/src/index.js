@@ -3,6 +3,7 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import config from './config';
+import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
 
 export const meta = {
   name: 'Simple form',
@@ -67,9 +68,9 @@ const ActivityRunner = (art: ActivityRunnerT) => {
   );
 };
 
-export default {
+export default ({
   id: 'ac-form',
   meta,
   config,
   ActivityRunner
-};
+}: ActivityPackageT);
