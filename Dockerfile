@@ -54,5 +54,6 @@ COPY frog-utils /usr/src/frog/frog-utils/
 RUN sh /usr/src/frog/initial_docker.sh 
 COPY frog frog/
 COPY .* ./
-
-CMD [ "npm", "test" ]
+WORKDIR /usr/src/frog/frog
+EXPOSE 3000
+CMD [ "meteor" ]
