@@ -56,4 +56,4 @@ COPY frog frog/
 COPY .* ./
 WORKDIR /usr/src/frog/frog
 EXPOSE 3000
-CMD [ "meteor" ]
+CMD [ "meteor" , "--allow-superuser" ]
