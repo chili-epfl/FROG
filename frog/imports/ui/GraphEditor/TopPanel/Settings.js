@@ -1,7 +1,8 @@
 import { render } from 'react-dom';
 import React from 'react';
-import { saveSvgAsPng } from 'save-svg-as-png';
 
+import { exportGraph, importGraph } from '../utils/export';
+import { saveSvgAsPng } from 'save-svg-as-png';
 import { Provider } from 'mobx-react';
 import { connect, store } from '../store';
 import { timeToPx } from '../utils';
@@ -30,7 +31,7 @@ const download = e => {
 };
 
 export default connect(({
-  store: { overlapAllowed, updateSettings, undo, canUndo, history }
+  store: { graphId, overlapAllowed, updateSettings, undo, canUndo, history }
 }) => (
   <div className="topPanelUnit">
     <input
@@ -47,7 +48,21 @@ export default connect(({
       <a href="#" onClick={undo} style={{ marginLeft: '50px' }}>
         Undo ({history.length})
       </a>}
-    &nbsp;
-    <a href onClick={download}>Download as PNG</a>
+    <a
+      href="#"
+      onClick={e => exportGraph(e, graphId)}
+      style={{ marginLeft: '50px' }}
+    >
+      Export graph
+    </a>
+    <a href="#" onClick={importGraph} style={{ marginLeft: '50px' }}>
+      Upload graph
+    </a>
+    <a href="#" onClick={download} style={{ marginLeft: '50px' }}>
+      Downloads as PNG
+    </a>
+    <a href onClick={download} style={{ marginLeft: '50px' }}>
+      Download as PNG
+    </a>
   </div>
 ));
