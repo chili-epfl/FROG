@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 export default class TextInput extends Component {
-  constructor(props: { value: string, onChange: Function }) {
+  constructor(props: { value: string, onChange: Function, style?: string }) {
     super(props);
     this.state = { val: this.props.value || '' };
   }
@@ -35,19 +35,23 @@ export default class TextInput extends Component {
     if (e.keyCode === 27) {
       this.props.onCancel();
     }
+    if (e.keyCode === 13) {
+      this.props.onSubmit(this.state.val);
+    }
   };
 
   render() {
     return (
-      <form onSubmit={this.onSubmit} onBlur={this.onSubmit}>
-        <input
-          type="text"
-          onChange={this.onChange}
-          onKeyDown={this.handleKey}
-          value={this.state.val}
-          ref={input => this.textInput = input}
-        />
-      </form>
+      <input
+        type="text"
+        onChange={this.onChange}
+        onKeyDown={this.handleKey}
+        value={this.state.val}
+        ref={input => this.textInput = input}
+        onSubmit={this.onSubmit}
+        onBlur={this.onSubmit}
+        style={this.props.style}
+      />
     );
   }
 }

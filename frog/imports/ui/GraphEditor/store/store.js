@@ -59,7 +59,6 @@ export default class Store {
   @observable history = [];
   @observable readOnly: Boolean;
 
-  @observable _graphDuration: number = 120;
   @observable graphDuration: number = 120;
 
   set state(newState: StateT) {
@@ -83,7 +82,6 @@ export default class Store {
   };
 
   @action changeDuration = duration => {
-    this._graphDuration = duration;
     if (duration && duration >= 30 && duration <= 1200) {
       const oldPanTime = this.ui.panTime;
       // changes the scale on duration change
@@ -91,12 +89,13 @@ export default class Store {
       this.graphDuration = duration;
       const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1);
       this.ui.panDelta(needPanDelta);
+      Graphs.update(this.graphId, { $set: { duration: this.graphDuration } });
     }
   };
 
   @observable overlapAllowed = true;
-  @action updateSettings = (settings: { overlapAllowed: boolean }) =>
-    this.overlapAllowed = settings.overlapAllowed;
+  @action toggleOverlapAllowed = () =>
+    this.overlapAllowed = !this.overlapAllowed;
 
   @action deleteSelected = (): void => {
     if (this.state.mode === 'normal') {
@@ -141,6 +140,7 @@ export default class Store {
         return new Connection(source, target, x._id);
       });
 
+    this.ui.selected = null;
     this.history = [];
     this.addHistory();
     this.state = { mode: 'normal' };

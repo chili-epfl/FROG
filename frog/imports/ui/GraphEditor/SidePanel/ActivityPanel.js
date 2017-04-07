@@ -55,7 +55,13 @@ class EditClass extends Component {
                 />
               </h3>
             : <h3>
-                <a href="#" onClick={() => this.setState({ editTitle: true })}>
+                <a
+                  href=""
+                  onClick={e => {
+                    e.preventDefault();
+                    this.setState({ editTitle: true });
+                  }}
+                >
                   <i className="fa fa-pencil" />
                 </a>
                 &nbsp;{graphActivity.title}
