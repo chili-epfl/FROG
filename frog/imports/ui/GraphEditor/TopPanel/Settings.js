@@ -1,9 +1,9 @@
-import { render } from 'react-dom';
 import React from 'react';
-
-import { exportGraph, importGraph } from '../utils/export';
+import { render } from 'react-dom';
 import { saveSvgAsPng } from 'save-svg-as-png';
 import { Provider } from 'mobx-react';
+
+import { exportGraph, importGraph } from '../utils/export';
 import { connect, store } from '../store';
 import { timeToPx } from '../utils';
 import Graph from '../Graph';
