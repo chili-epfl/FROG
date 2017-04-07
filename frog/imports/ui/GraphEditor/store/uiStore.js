@@ -18,7 +18,6 @@ export default class uiStore {
     coords[1]
   ];
 
-  
   @observable svgRef: any = null;
   @observable panx: number = 0;
   @observable scale: number = 4;
