@@ -41,7 +41,4 @@ for dir in `ls $FROG/op |grep 'op'`
 do
     ln -s $FROG/op/$dir node_modules/ 2>/dev/null
 done
-
-METEOR=meteor
-which meteor | grep -qw meteor || METEOR=/usr/local/bin/meteor
-$METEOR npm install --allow-superuser
+exit 0
