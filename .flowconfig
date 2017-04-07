@@ -1,11 +1,13 @@
 [options]
 # Absolute path support:
 # e.g. "/collections/todos"
+module.ignore_non_literal_requires=true
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/frog/\1'
 esproposal.decorators=ignore
 strip_root=true
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
 unsafe.enable_getters_and_setters=true
+suppress_type=$FlowIssue
 
 # Meteor none core package support
 # e.g. "meteor/kadira:flow-router"
@@ -18,6 +20,10 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 # Fallback for Meteor core client package
 # e.g. "meteor/meteor"
 module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/build/programs/web.browser/packages/\1'
+
+[libs]
+.*node_modules/fbjs/flow/lib
+
 
 [ignore]
 # Ignore the `.meteor/local` packages that aren't important
@@ -33,3 +39,4 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/styled-components.*
 .*node_modules/webpack.*
 .*node_modules/npm/.*
+.*node_modules/react-event-listener/.*
