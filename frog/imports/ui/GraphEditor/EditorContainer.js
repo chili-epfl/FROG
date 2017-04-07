@@ -19,8 +19,8 @@ const EditorPanel = ({ panOffset, graphWidth }) => (
         hasTimescale
         isEditable
       />
-      <RenameBox />
     </div>
+    <RenameBox />
     <div style={{ height: 150 }}>
       <Graph
         width={graphWidth}

@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { DraggableCore } from 'react-draggable';
-import { connect, type StoreProp } from './store';
+import { connect, type StoreProp, store } from './store';
 import { default as ActivityT } from './store/activity';
 import { getClickHandler } from './utils';
 
@@ -22,7 +22,11 @@ class ActivityComponent extends Component {
 
   componentWillMount() {
     this.clickHandler = getClickHandler(
-      this.props.activity.select,
+      () => {
+        if (store.state.mode === 'normal') {
+          this.props.activity.select();
+        }
+      },
       this.props.activity.setRename
     );
   }
@@ -46,6 +50,7 @@ class ActivityComponent extends Component {
       <g
         onMouseOver={activity.onOver}
         onMouseLeave={activity.onLeave}
+        onClick={e => e.stopPropagation()}
         onMouseUp={this.clickHandler}
       >
         <Box
