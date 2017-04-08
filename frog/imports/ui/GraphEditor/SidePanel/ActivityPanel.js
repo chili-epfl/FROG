@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { A } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
@@ -55,9 +56,9 @@ class EditClass extends Component {
                 />
               </h3>
             : <h3>
-                <a href="#" onClick={() => this.setState({ editTitle: true })}>
+                <A onClick={() => this.setState({ editTitle: true })}>
                   <i className="fa fa-pencil" />
-                </a>
+                </A>
                 &nbsp;{graphActivity.title}
               </h3>}
           <font size={-3}>

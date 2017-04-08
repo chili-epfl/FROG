@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { A } from 'frog-utils';
 
 import { Sessions } from '../api/sessions';
 import {
@@ -45,7 +46,7 @@ class DisplayData extends Component {
       <ul>
         {this.props.data.map(d => (
           <li key={d._id}>
-            <a href={'#'} onClick={this.toggleDisplay}>{d._id}</a>
+            <A onClick={this.toggleDisplay}>{d._id}</A>
             {this.state.isClicked
               ? <pre>{JSON.stringify(d, null, 2)}</pre>
               : null}
