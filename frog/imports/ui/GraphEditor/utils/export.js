@@ -20,9 +20,8 @@ const graphToString = graphId =>
     connections: Connections.find({ graphId }).fetch().map(x => clean(x))
   });
 
-export const exportGraph = (e, graphId) => {
-  e.preventDefault();
-  const blob = new Blob([graphToString(graphId)], {
+export const exportGraph = () => {
+  const blob = new Blob([graphToString(store.graphId)], {
     type: 'text/plain;charset=utf-8'
   });
   FileSaver.saveAs(blob, 'graph.json', true);
@@ -47,8 +46,7 @@ const doImportGraph = graphStr => {
   store.setId(graphId);
 };
 
-export const importGraph = e => {
-  e.preventDefault();
+export const importGraph = () => {
   fileDialog().then(file => {
     const fr = new FileReader();
     fr.onloadend = doImportGraph;
