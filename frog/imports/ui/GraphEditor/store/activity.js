@@ -47,20 +47,20 @@ export default class Activity extends Elem {
   @observable wasMoved: boolean = false;
 
   @computed get xScaled(): number {
-    return timeToPx(Math.floor(this.startTime), store.ui.scale);
+    return timeToPx(this.startTime, store.ui.scale);
   }
   @computed get x(): number {
-    return timeToPx(Math.floor(this.startTime), 4);
+    return timeToPx(this.startTime, 4);
   }
   @computed get screenX(): number {
-    return timeToPxScreen(Math.floor(this.startTime), 1);
+    return timeToPxScreen(this.startTime, 1);
   }
 
   @computed get widthScaled(): number {
-    return timeToPx(Math.floor(this.length), store.ui.scale);
+    return timeToPx(this.length, store.ui.scale);
   }
   @computed get width(): number {
-    return timeToPx(Math.floor(this.length), 4);
+    return timeToPx(this.length, 4);
   }
 
   @action update = (newact: $Shape<Activity>) => {
