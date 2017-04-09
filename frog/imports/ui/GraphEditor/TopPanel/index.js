@@ -4,12 +4,15 @@ import React from 'react';
 
 import GraphList from './GraphList';
 import GraphConfigPanel from './GraphConfigPanel';
-import Settings from './Settings';
+import { UndoButton, ConfigMenu } from './Settings';
 
 export default () => (
   <div id="topPanel">
-    <GraphList />
+    <div>
+      <ConfigMenu />
+      <GraphList />
+    </div>
     <GraphConfigPanel />
-    <Settings />
+    <UndoButton />
   </div>
 );
