@@ -8,7 +8,6 @@ WORKDIR /usr/src/frog
 RUN mkdir -p frog \
 frog-utils \
 ac/ac-ck-board \
-ac/ac-collab-form \
 ac/ac-form \
 ac/ac-iframe \
 ac/ac-jigsaw \
@@ -24,7 +23,6 @@ COPY package.json ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/
 COPY ac/ac-ck-board/package.json ac/ac-ck-board/
-COPY ac/ac-collab-form/package.json ac/ac-collab-form/
 COPY ac/ac-form/package.json ac/ac-form/
 COPY ac/ac-iframe/package.json ac/ac-iframe/
 COPY ac/ac-jigsaw/package.json ac/ac-jigsaw/
