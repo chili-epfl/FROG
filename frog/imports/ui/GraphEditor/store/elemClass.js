@@ -4,8 +4,13 @@ import { store } from './index';
 
 export default class Elem {
   over: boolean;
+  wasMoved: boolean = false;
   @action select = (): void => {
-    store.ui.selected = this;
+    if (this.wasMoved) {
+      this.wasMoved = false;
+    } else {
+      store.ui.selected = this;
+    }
   };
 
   @computed get selected(): boolean {
@@ -28,7 +33,7 @@ export default class Elem {
 
   @computed get highlighted(): boolean {
     return this.over &&
-      store.draggingFromActivity !== this &&
+      store.state.draggingFrom !== this &&
       store.state.mode === 'dragging';
   }
 }

@@ -74,6 +74,7 @@ export default connect(({
         rx={10}
         width={scaled ? graphWidth * scale : graphWidth * 4}
         height={600}
+        onClick={canvasClick}
       />
       <LevelLines scaled={scaled} />
       {isEditable && <DragGuides />}
