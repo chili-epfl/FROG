@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { A } from 'frog-utils';
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
@@ -74,9 +75,9 @@ class EditClass extends Component {
                 />
               </h3>
             : <h3>
-                <a href="#" onClick={() => this.setState({ editTitle: true })}>
+                <A onClick={() => this.setState({ editTitle: true })}>
                   <i className="fa fa-pencil" />
-                </a>
+                </A>
                 &nbsp;{graphOperator.title || 'Unnamed Operator'}
               </h3>}
           <font size={-3}>

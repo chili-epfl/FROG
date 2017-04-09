@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { A } from 'frog-utils';
 
 import { addSession, setTeacherSession } from '../../api/sessions';
 
@@ -26,9 +27,9 @@ export default (
     <ul>
       {sessions.map(session => (
         <li key={session._id}>
-          <a href="#" onClick={() => setTeacherSession(session._id)}>
+          <A onClick={() => setTeacherSession(session._id)}>
             {session._id}
-          </a>
+          </A>
         </li>
       ))}
     </ul>
