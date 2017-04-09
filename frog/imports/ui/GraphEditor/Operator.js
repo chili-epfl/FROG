@@ -43,8 +43,7 @@ export default (
       viewBox="0 0 800 800"
       xmlSpace="preserve"
     >
-      <g>
-
+      <g onMouseUp={onClick}>
         <circle
           cx={300}
           cy={300}
@@ -62,7 +61,6 @@ export default (
             transform="translate(30,30)"
             onMouseOver={onOver}
             onMouseLeave={onLeave}
-            onClick={onClick}
           />
         </DraggableCore>
       </g>
