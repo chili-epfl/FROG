@@ -81,21 +81,12 @@ export default class ActivityStore {
     store.state = { mode: 'resizing', currentActivity: activity, bounds };
   };
 
-  @action startMoving = (activity: Activity) => {
-    const bounds = calculateBounds(activity, this.all);
-    store.state = {
-      mode: 'moving',
-      currentActivity: activity,
-      mouseOffset: store.ui.socialCoordsTime[0] - activity.startTime,
-      bounds
-    };
-    activity.overdrag = 0;
-  };
-
   @action stopMoving = () => {
-    store.state = { mode: 'normal' };
-    store.ui.cancelScroll();
-    store.addHistory();
+    if (store.state.mode === 'moving' && store.state.currentActivity.wasMoved) {
+      store.state = { mode: 'normal' };
+      store.ui.cancelScroll();
+      store.addHistory();
+    }
   };
 
   @action stopResizing = () => {

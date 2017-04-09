@@ -33,6 +33,7 @@ export default class TextInput extends Component {
 
   handleKey = (e: any) => {
     if (e.keyCode === 27) {
+      e.preventDefault();
       this.props.onCancel();
     }
     if (e.keyCode === 13) {
