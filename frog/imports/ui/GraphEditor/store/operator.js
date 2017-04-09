@@ -14,6 +14,8 @@ export default class Operator extends Elem {
   @observable title: ?string;
   @observable over: boolean;
   @observable time: number;
+  @observable wasMoved: boolean = false;
+
   @action init(
     time: number,
     y: number,
@@ -79,11 +81,13 @@ export default class Operator extends Elem {
     if (store.state.mode === 'movingOperator') {
       this.time += pxToTime(deltaX, store.ui.scale);
       this.y += deltaY;
+      this.wasMoved = true;
     }
   };
 
   @action moveX = (deltaX: number): void => {
     this.time += pxToTime(deltaX, store.ui.scale);
+    this.wasMoved = true;
   };
 
   @action stopDragging = (): void => {
@@ -93,6 +97,7 @@ export default class Operator extends Elem {
     } else {
       store.connectionStore.stopDragging();
     }
+    store.ui.cancelScroll();
   };
 
   @computed get object(): {

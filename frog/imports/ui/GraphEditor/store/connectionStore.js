@@ -43,6 +43,7 @@ export default class ConnectionStore {
       .find(x => x.over);
     if (target && state.draggingFrom.id !== target.id) {
       this.all.push(new Connection(state.draggingFrom, target));
+      target.wasMoved = true;
       store.addHistory();
     }
     store.state = { mode: 'normal' };
