@@ -8,6 +8,7 @@ module.exports = {
     Blob: true
   },
   rules: {
+    'no-console': 'error',
     'consistent-return': 'off',
     'import/no-absolute-path': 'off',
     'no-else-return': 'off',
