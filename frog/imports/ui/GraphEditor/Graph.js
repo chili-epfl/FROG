@@ -51,13 +51,7 @@ export default connect(({
   hasPanMap: Boolean,
   hasTimescale: Boolean
 }) => (
-  <svg
-    width="100%"
-    height="100%"
-    onMouseMove={mousemove}
-    onWheel={scrollMouse}
-    onClick={canvasClick}
-  >
+  <svg width="100%" height="100%" onMouseMove={mousemove} onWheel={scrollMouse}>
     <svg
       viewBox={viewBox}
       ref={ref => {
