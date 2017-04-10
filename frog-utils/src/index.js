@@ -1,5 +1,7 @@
 // @flow
+import React from 'react';
 
+export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as Chat } from './chat';
 export { default as unrollProducts } from './unrollProducts';
@@ -13,7 +15,18 @@ export type {
   OperatorPackageT
 } from './types';
 
-export { default as uuid } from 'cuid';
+export const A = ({ onClick, children, ...rest }: any): any => (
+  <a
+    href="#"
+    onClick={e => {
+      e.preventDefault();
+      onClick();
+    }}
+    {...rest}
+  >
+    {children}
+  </a>
+);
 
 export const currentDate = (): string => {
   const d = new Date();
