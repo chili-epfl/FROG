@@ -19,7 +19,7 @@ export const Line = observer(({
     />
     <path
       d={scaled ? connection.pathScaled : connection.path}
-      onClick={() => connection.select()}
+      onClick={connection.select}
       fill="transparent"
       stroke="transparent"
       strokeWidth="12"
