@@ -5,7 +5,7 @@ shopt -s dotglob
 
 FROG=`pwd`
 YARN=yarn
-which yarn | grep -qw yarn || npm install yarn@0.21.3
+which yarn | grep -qw yarn || npm install yarn@0.22.0
 which yarn | grep -qw yarn || YARN=$FROG/node_modules/.bin/yarn
 $YARN install
 

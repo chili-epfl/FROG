@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
     "react-jsonschema-form": "^0.43.0"
   }
 }
