@@ -33,9 +33,7 @@ export default (props: ActivityRunnerT) => {
   const group = attributes[configData.groupBy || 'group'];
 
   const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
-  const completed = reactiveKey
-    ? reactiveKey['COMPLETED']
-    : false;
+  const completed = reactiveKey ? reactiveKey.COMPLETED : false;
   const formData = reactiveKey ? reactiveKey.DATA : null;
 
   const schema = {
