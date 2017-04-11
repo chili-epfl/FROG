@@ -53,9 +53,9 @@ COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
 RUN sh /usr/src/frog/initial_docker.sh 
 COPY frog frog/
-COPY .* ./flow-typed package-scripts.js ./
-
-WORKDIR /usr/src/frog
+RUN mkdir -p ./flow-typed
+COPY flow-typed flow-typed/
+COPY *.js .*ignore *config package-scripts.js ./
 
 EXPOSE 3000
 CMD [ "npm", "test" ]
