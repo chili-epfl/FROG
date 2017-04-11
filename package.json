@@ -2,10 +2,8 @@
   "name": "frog-package",
   "version": "1.0.0",
   "scripts": {
-    "test": "flow --quiet && npm run -s eslint-test",
-    "fix": "eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .",
-    "eslint-test": "eslint -c .eslintrc-prettier.js --ext .js,.jsx .",
-    "flow-test": "flow"
+    "start": "nps",
+    "test": "nps test"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -28,6 +26,7 @@
     "flow-classy-type-wrapper": "^1.0.2",
     "flow-copy-source": "^1.1.0",
     "flow-typed": "^2.0.0",
+    "nps": "^5.0.5",
     "prettier": "^0.22",
     "watch": "^1.0.1"
   },
