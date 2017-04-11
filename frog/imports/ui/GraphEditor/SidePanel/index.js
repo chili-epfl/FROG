@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 
@@ -34,9 +35,9 @@ const SidebarContainer = connect(({
   children
 }) => (
   <SidebarContainerDiv>
-    <CloseButtonDiv onClick={() => setSidepanelOpen(false)}>
+    <CloseButtonA onClick={() => setSidepanelOpen(false)}>
       <i className="fa fa-times" />
-    </CloseButtonDiv>
+    </CloseButtonA>
     {children}
   </SidebarContainerDiv>
 ));
@@ -49,7 +50,7 @@ const SidebarContainerDiv = styled.div`
   overflow: scroll;
 `;
 
-const CloseButtonDiv = styled.div`
+const CloseButtonA = styled.a`
   float: right;
   font-size: 2em;
 `;

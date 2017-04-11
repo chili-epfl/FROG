@@ -1,5 +1,6 @@
-import React from 'react';
+// @flow
 import styled from 'styled-components';
+import React from 'react';
 
 import { connect } from '../store';
 
@@ -10,13 +11,13 @@ export default connect(({
     return null;
   }
   return (
-    <CloseDiv>
-      <i className="fa fa-ellipsis-v" onClick={() => setSidepanelOpen(true)} />
-    </CloseDiv>
+    <CloseA onClick={() => setSidepanelOpen(true)}>
+      <i className="fa fa-ellipsis-v" />
+    </CloseA>
   );
 });
 
-const CloseDiv = styled.div`
+const CloseA = styled.a`
   position: fixed;
   right: 30px;
   top: 100px;
