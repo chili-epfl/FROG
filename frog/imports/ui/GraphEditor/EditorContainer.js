@@ -7,9 +7,11 @@ import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
+import ExpandButton from './SidePanel/ExpandButton';
 
 const EditorPanel = ({ panOffset, graphWidth }) => (
   <div>
+    <ExpandButton />
     <div style={{ height: 600 }}>
       <Graph
         width={graphWidth}

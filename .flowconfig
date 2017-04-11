@@ -36,7 +36,7 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*/.meteor/local/plugin-cache/.*
 .*/.meteor/packages/.*
 .*node_modules/fbjs.*
-.*node_modules/styled-components.*
 .*node_modules/webpack.*
 .*node_modules/npm/.*
 .*node_modules/react-event-listener/.*
+.*/node_modules/styled-components/.*
