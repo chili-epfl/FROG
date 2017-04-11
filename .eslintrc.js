@@ -5,7 +5,8 @@ module.exports = {
     history: true,
     window: true,
     FileReader: true,
-    Blob: true
+    Blob: true,
+    Presences: true
   },
   rules: {
     'no-console': 'error',
