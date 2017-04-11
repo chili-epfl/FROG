@@ -67,7 +67,18 @@ export const updateSessionActivity = (sessionId, activityId) => {
 export const removeSession = sessionId =>
   Meteor.call('flush.session', sessionId);
 
+export const joinAllStudents = sessionId =>
+  Meteor.call('session.joinall', sessionId);
+
 Meteor.methods({
+  'session.joinall': sessionId => {
+    Presences.find({ userId: { $exists: true } }).fetch().forEach(x => {
+      Meteor.users.update(
+        { _id: x.userId },
+        { $set: { 'profile.currentSession': sessionId } }
+      );
+    });
+  },
   'add.session': graphId => {
     const sessionId = uuid();
     Sessions.insert({

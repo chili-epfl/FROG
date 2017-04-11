@@ -2,7 +2,11 @@
 
 import React from 'react';
 
-import { removeSession, updateSessionState } from '../../api/sessions';
+import {
+  removeSession,
+  updateSessionState,
+  joinAllStudents
+} from '../../api/sessions';
 
 import { runSession, nextActivity } from '../../api/engine';
 
@@ -43,6 +47,12 @@ export default ({ session }: { session: Object }) => {
       type: 'danger',
       onClick: () => removeSession(session._id),
       text: 'Delete'
+    },
+    {
+      states: ['CREATED'],
+      type: 'primary',
+      onClick: () => joinAllStudents(session._id),
+      text: 'Join all online students'
     }
   ];
   return (
