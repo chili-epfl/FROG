@@ -15,7 +15,10 @@ export default ({ session }: { session: Object }) => {
     {
       states: ['CREATED'],
       type: 'primary',
-      onClick: () => runSession(session._id),
+      onClick: () => {
+        runSession(session._id);
+        nextActivity(session._id);
+      },
       text: 'Start'
     },
     {
@@ -34,7 +37,7 @@ export default ({ session }: { session: Object }) => {
       states: ['PAUSED', 'STOPPED'],
       type: 'primary',
       onClick: () => updateSessionState(session._id, 'STARTED'),
-      text: 'Restart'
+      text: 'Continue'
     },
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
