@@ -5,6 +5,7 @@
     "start": "nps",
     "test": "nps test"
   },
+
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
