@@ -8,7 +8,7 @@ import Operator from './operator';
 export default class uiStore {
   constructor() {
     reaction(
-      () => [Boolean(this.selected), this.windowWidth],
+      () => [this.sidepanelOpen, this.windowWidth],
       () => this.updateGraphWidth()
     );
   }
@@ -18,6 +18,7 @@ export default class uiStore {
     coords[1]
   ];
 
+  @observable sidepanelOpen: boolean = false;
   @observable svgRef: any = null;
   @observable panx: number = 0;
   @observable scale: number = 4;
@@ -26,6 +27,9 @@ export default class uiStore {
   @observable windowWidth: number = 1000;
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
+
+  @action setSidepanelOpen = (x: boolean) => this.sidepanelOpen = x;
+  @action toggleSidepanelOpen = () => this.sidepanelOpen = !this.sidepanelOpen;
 
   @computed get panBoxSize(): number {
     return this.graphWidth / this.scale;
@@ -39,9 +43,7 @@ export default class uiStore {
 
   @action updateGraphWidth() {
     const oldPan = this.panTime;
-    const boxWidth = this.selected && this.selected.klass !== 'connection'
-      ? 500
-      : 0;
+    const boxWidth = this.sidepanelOpen ? 500 : 0;
     this.graphWidth = this.windowWidth - boxWidth;
     this.panx = timeToPx(oldPan, this.scale) / this.scale;
   }
