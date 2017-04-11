@@ -1,12 +1,9 @@
 // @flow
 
-import React from 'react';
+import type { ActivityPackageT } from 'frog-utils';
 
-import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
-import { Chat } from 'frog-utils';
-
-import config from './config'
-import ActivityRunner from './ActivityRunner'
+import config from './config';
+import ActivityRunner from './ActivityRunner';
 
 export const meta = {
   name: 'Jigsaw activity',

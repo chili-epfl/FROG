@@ -1,3 +1,5 @@
+// @flow
+
 export default {
   type: 'object',
   properties: {
@@ -5,10 +7,10 @@ export default {
       type: 'string',
       title: 'Title'
     },
-    grouBy: {
+    groupBy: {
       type: 'string',
       title: 'Grouping by',
-      enum: [ 'role', 'group' ]
+      enum: ['role', 'group']
     },
     content: {
       type: 'string',

@@ -10,7 +10,6 @@ class Cluster extends Component {
     super(props);
     this.state = {};
 
-    console.log(this.props.configData);
     this.props.configData.boxes.forEach(e => {
       const id = Stringify(e);
       this.props
@@ -20,15 +19,9 @@ class Cluster extends Component {
   }
 
   render() {
-    console.log(this.props.reactiveData.list);
-
     const List = this.props.reactiveData.list.map(y => {
-      console.log(y);
-
       const e = { ...y.value, _id: y._id };
-
       const openInfoFn = () => this.setState({ info: e });
-
       const setXY = (_, draggable) => {
         this.props.reactiveFn('EVERYONE').listSet(e._id, {
           ...e,

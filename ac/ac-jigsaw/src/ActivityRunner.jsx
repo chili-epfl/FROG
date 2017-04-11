@@ -1,51 +1,83 @@
-export const ActivityRunner = (art: ActivityRunnerT) => {
+// @flow
+
+import React from 'react';
+import Form from 'react-jsonschema-form';
+
+import { Chat, type ActivityRunnerT } from 'frog-utils';
+
+export default (props: ActivityRunnerT) => {
   const {
     configData,
+    logger,
     object,
-    userInfo,
     reactiveData,
     reactiveFn,
-    logger
-  } = art;
+    saveProduct,
+    userInfo
+  } = props;
 
   const { socialStructures } = object;
-  const roles = configData.roles.split(',');
-  const texts = configData.text.split(',');
-  const matching = {};
-  roles.forEach((role, index) => matching[role] = texts[index]);
+  const contentPerRole = (configData.contentPerRole &&
+    configData.contentPerRole.reduce(
+      (acc, item) => ({ ...acc, [item.role]: item.content }),
+      {}
+    )) || {};
 
-  const userRole = socialStructures[0][userInfo.id].role;
-  const userGroup = socialStructures[0][userInfo.id].group;
+  const socialStructure = socialStructures.find(x => x[userInfo.id]);
+  const attributes = (socialStructure && socialStructure[userInfo.id]) || {
+    group: 'EVERYONE',
+    role: 'DEFAULT'
+  };
 
-  // collabGroup is either the name of the group or ofhte role, depending on what has been configured
-  const collabGroup = socialStructures[0][userInfo.id][configData.groupBy];
+  // group is either the name of the group or of the role, depending on what has been configured
+  const group = attributes[configData.groupBy || 'group'];
 
-  const reactiveKey = reactiveData.keys.filter(x => x.groupId === collabGroup)[
-    0
-  ];
+  const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
+  const completed = reactiveKey
+    ? reactiveKey['COMPLETED']
+    : false;
+  const formData = reactiveKey ? reactiveKey.DATA : null;
+
+  const schema = {
+    title: 'Questions',
+    type: 'object',
+    properties: configData.questions.reduce(
+      (acc, x, i) => ({
+        ...acc,
+        [i + '']: { type: 'string', title: x.question }
+      }),
+      {}
+    )
+  };
+
+  const onChange = e => {
+    reactiveFn(group).keySet('DATA', e.formData);
+  };
+
+  const onSubmit = e => {
+    saveProduct(group, e.formData);
+    complete();
+  };
+
+  const complete = () => {
+    reactiveFn(group).keySet('COMPLETED', true);
+  };
 
   return (
     <div>
       <h1>{configData.title}</h1>
-      <p>Your role is {userRole}</p>
-      <p>Your group is {userGroup}</p>
-      <p>Your filtered content is {matching[userRole]}</p>
-      <div>
-        <p>Collab field:</p>
-        <input
-          onChange={e =>
-            reactiveFn(collabGroup).keySet('collabField', e.target.value)}
-          value={reactiveKey ? reactiveKey.collabField : 'fill me'}
-        />
-      </div>
-      <div className="col-md-4">
-        <Chat
-          messages={reactiveData.list.filter(x => x.groupId === collabGroup)}
-          userInfo={userInfo}
-          addMessage={reactiveFn(collabGroup).listAdd}
-          logger={logger}
-        />
-      </div>
+      <p>{configData.content}</p>
+      <p>Your group: {attributes.group}, Your role: {attributes.role}</p>
+      <p>{contentPerRole[attributes.role]}</p>
+      {completed && <h1>From Submitted</h1>}
+      {configData.questions.length > 0 &&
+        <Form {...{ schema, formData, onChange, onSubmit }} />}
+      <Chat
+        messages={reactiveData.list.filter(x => x.groupId === group)}
+        userInfo={userInfo}
+        addMessage={reactiveFn(group).listAdd}
+        logger={logger}
+      />
     </div>
   );
 };
