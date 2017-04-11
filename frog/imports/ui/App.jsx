@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import { Nav, NavItem } from 'react-bootstrap';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+
+const DEFAULT_PASSWORD = '123456';
+const connectWithDefaultPwd = username =>
+  Meteor.loginWithPassword(username, DEFAULT_PASSWORD);
 
 const apps = ['Home', 'Admin', 'Graph Editor', 'Teacher View', 'Student View'];
 const appSlugs = {
@@ -48,10 +53,18 @@ export default class App extends Component {
   };
 
   handleNewHash = () => {
-    const location = window.location.hash
-      .replace(/^#\/?|\/$/g, '')
-      .split('/')[0]
-      .trim();
+    const location = window.location.hash.split('/')[1];
+    const username = window.location.hash.split('/')[2];
+
+    if (username) {
+      if (!Meteor.users.findOne({ username })) {
+        Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
+          connectWithDefaultPwd(username));
+      } else {
+        connectWithDefaultPwd(username);
+      }
+    }
+
     if (appSlugs[location]) {
       this.setState({ app: appSlugs[location] });
       return appSlugs[location];
