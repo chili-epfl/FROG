@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
-import JsonschemaForm from 'react-jsonschema-form';
-import { booleanize } from 'frog-utils';
+// @flow
+
+import React from 'react';
+import Form from 'react-jsonschema-form';
+
+import { Chat, type ActivityRunnerT, type ActivityPackageT } from 'frog-utils';
+
 import config from './config';
 
-export const meta = {
+const meta = {
   name: 'Simple form',
   type: 'react-component'
 };
@@ -25,69 +29,75 @@ const modifyForm = (questions, title) => {
   return formdef;
 };
 
-class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formData: {},
-      existing: []
-    };
+const ActivityRunner = (art: ActivityRunnerT) => {
+  const {
+    configData,
+    logger,
+    object,
+    reactiveData,
+    reactiveFn,
+    saveProduct,
+    userInfo
+  } = art;
 
-    this.formDef = modifyForm(
-      this.props.config.questions,
-      this.props.config.title
-    );
-  }
+  const { socialStructures } = object;
+  const group = (socialStructures &&
+    socialStructures[0] &&
+    socialStructures[0][userInfo.id] &&
+    socialStructures[0][userInfo.id].group) ||
+    (configData.collab && 'EVERYONE') ||
+    'ALONE' + userInfo.id;
 
-  onChange = x => {
-    this.setState({ formData: x.formData });
-    this.props.logger({ form: x.formData });
+  const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
+  const completed = reactiveKey ? reactiveKey.COMPLETED : false;
+  const formData = reactiveKey ? reactiveKey.DATA : null;
+
+  const schema = modifyForm(configData.questions, configData.title);
+
+  const onChange = e => {
+    reactiveFn(group).keySet('DATA', e.formData);
   };
 
-  onSubmitFn = x => {
-    if (booleanize(this.props.config.multiple)) {
-      const existing = [...this.state.existing, this.state.formData];
-      this.props.onCompletion(existing);
-    } else {
-      this.props.onCompletion(x.formData);
+  const onSubmit = e => {
+    saveProduct(userInfo.id, e.formData);
+    if (!configData.multiple) {
+      complete();
     }
   };
 
-  onAddAnother = () => {
-    this.setState({
-      existing: [...this.state.existing, this.state.formData],
-      formData: {}
-    });
+  const complete = () => {
+    reactiveFn(group).keySet('COMPLETED', true);
   };
 
-  render() {
-    return (
-      <div>
-        <JsonschemaForm
-          schema={this.formDef}
-          formData={this.state.formData}
-          onSubmit={this.onSubmitFn}
-          onChange={this.onChange}
-        />
+  return (
+    <div>
+      {completed
+        ? <h1>Form(s) submitted</h1>
+        : <div>
+            <Form {...{ schema, formData, onChange, onSubmit }} />
+            {!!configData.multiple &&
+              <button onClick={complete} className="btn btn-primary btn-sm">
+                Complete
+              </button>}
+            {!!configData.collab &&
+              <div>
+                <p>Working with the group {group}</p>
+                <Chat
+                  messages={reactiveData.list.filter(x => x.groupId === group)}
+                  userInfo={userInfo}
+                  addMessage={reactiveFn(group).listAdd}
+                  logger={logger}
+                />
+              </div>}
+          </div>}
 
-        {booleanize(this.props.config.multiple)
-          ? <button
-              className="btn btn-primary btn-sm"
-              onClick={this.onAddAnother}
-            >
-              Save and add another
-            </button>
-          : null}
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-const ActivityRunner = props => <Form {...props} />;
-
-export default {
+export default ({
   id: 'ac-form',
   meta,
   config,
   ActivityRunner
-};
+}: ActivityPackageT);

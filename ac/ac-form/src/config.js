@@ -1,3 +1,5 @@
+// @flow
+
 export default {
   type: 'object',
   properties: {
@@ -10,9 +12,12 @@ export default {
       title: 'Type in questions, separated by comma'
     },
     multiple: {
-      type: 'string',
-      title: 'Allow multiple submissions?',
-      enum: ['false', 'true']
+      type: 'boolean',
+      title: 'Allow multiple submissions?'
+    },
+    collab: {
+      type: 'boolean',
+      title: 'Collaborative'
     }
   }
 };

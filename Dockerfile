@@ -6,9 +6,9 @@ RUN npm install -g babel-cli flow-copy-source
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog 
 WORKDIR /usr/src/frog
 RUN mkdir -p frog \
+
 frog-utils/src \
 ac/ac-ck-board/src \
-ac/ac-collab-form/src \
 ac/ac-form/src \
 ac/ac-iframe/src \
 ac/ac-jigsaw/src \
@@ -24,7 +24,6 @@ COPY package.json yarn.lock ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
 COPY ac/ac-ck-board/package.json ac/ac-ck-board/yarn.lock ac/ac-ck-board/
-COPY ac/ac-collab-form/package.json ac/ac-collab-form/yarn.lock ac/ac-collab-form/
 COPY ac/ac-form/package.json ac/ac-form/yarn.lock ac/ac-form/
 COPY ac/ac-iframe/package.json ac/ac-iframe/yarn.lock ac/ac-iframe/
 COPY ac/ac-jigsaw/package.json ac/ac-jigsaw/yarn.lock ac/ac-jigsaw/

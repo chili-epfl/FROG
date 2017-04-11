@@ -1,5 +1,8 @@
-import { groupBy, map } from 'lodash';
+// @flow
+
 import Stringify from 'json-stable-stringify';
+
+import type { ObjectT, SocialStructureT } from 'frog-utils';
 
 export const meta = {
   name: 'Group like with like',
@@ -12,11 +15,27 @@ export const config = {
 };
 
 // Obviously assumes even array
-export const operator = (_, products) => {
-  const groups = groupBy(products, x => Stringify(x.data));
-  const res = map(groups, v => v.map(x => x.userId));
+export const operator = (configData: Object, object: ObjectT) => {
+  const products = object.products[0];
 
-  return res;
+  const socStruc: SocialStructureT = {};
+  let g = 0;
+  const groups = {};
+  products.forEach(p => {
+    const key = Stringify(p.data);
+    if (!groups[key]) {
+      groups[key] = Stringify(g);
+      g += 1;
+    }
+    socStruc[p.userId] = {
+      group: groups[key]
+    };
+  });
+
+  return {
+    product: [],
+    socialStructure: socStruc
+  };
 };
 
 export default {

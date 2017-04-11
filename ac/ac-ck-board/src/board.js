@@ -9,9 +9,12 @@ class Cluster extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.props.data.forEach(e => {
+
+    this.props.configData.boxes.forEach(e => {
       const id = Stringify(e);
-      this.props.reactiveFn.listAddNoClobber(id, e);
+      this.props
+        .reactiveFn('EVERYONE')
+        .listAddNoClobber(id, { ...e, x: 1, y: 1 });
     });
   }
 
@@ -19,15 +22,12 @@ class Cluster extends Component {
     const List = this.props.reactiveData.list.map(y => {
       const e = { ...y.value, _id: y._id };
       const openInfoFn = () => this.setState({ info: e });
-
-      const move = (id, left, top) =>
-        this.props.reactiveFn.listSet(id, { ...e, x: left, y: top });
       const setXY = (_, draggable) => {
-        move(
-          e._id,
-          e.x + draggable.position.left,
-          e.y + draggable.position.top
-        );
+        this.props.reactiveFn('EVERYONE').listSet(e._id, {
+          ...e,
+          x: e.x + draggable.position.left || 1,
+          y: e.y + draggable.position.top || 1
+        });
       };
 
       return (
@@ -52,6 +52,7 @@ class Cluster extends Component {
               />
             : null}
         </div>
+
       </MuiThemeProvider>
     );
   }

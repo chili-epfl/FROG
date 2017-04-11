@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "ac-ck-board": "*",
-    "ac-collab-form": "*",
     "ac-form": "*",
     "ac-iframe": "*",
     "ac-jigsaw": "*",

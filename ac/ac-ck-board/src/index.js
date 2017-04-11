@@ -1,32 +1,41 @@
-import React from 'react';
+// @flows
+
 import Board from './board';
 
-export const meta = {
+const meta = {
   name: 'Common Knowledge board',
   type: 'react-component',
   mode: 'collab'
 };
 
-export const config = {
+const config = {
   type: 'object',
   properties: {
-    duration: {
-      type: 'number',
-      title: 'Duration in seconds (0 for infinity)'
+    boxes: {
+      title: 'Boxes',
+      type: 'array',
+      items: {
+        type: 'object',
+        title: 'Box',
+        properties: {
+          title: {
+            type: 'string',
+            title: 'Title'
+          },
+          content: {
+            type: 'string',
+            title: 'Content'
+          }
+        }
+      }
     }
   }
 };
-
-export const BoardWrapper = props => (
-  <div>
-    <div className="col-md-4"><Board {...props} /> </div>
-  </div>
-);
 
 export default {
   id: 'ac-ck-board',
   meta,
   config,
-  ActivityRunner: BoardWrapper,
+  ActivityRunner: Board,
   Dashboard: null
 };
