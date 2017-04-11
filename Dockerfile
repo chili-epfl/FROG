@@ -55,6 +55,6 @@ RUN sh /usr/src/frog/initial_docker.sh
 COPY frog frog/
 COPY .* ./
 COPY ./flow-typed ./
-WORKDIR /usr/src/frog/frog
+WORKDIR /usr/src/frog
 EXPOSE 3000
-CMD [ "meteor" , "--allow-superuser" ]
+CMD [ "npm" , "test" ]
