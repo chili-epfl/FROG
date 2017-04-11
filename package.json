@@ -29,8 +29,7 @@
     "flow-copy-source": "^1.1.0",
     "flow-typed": "^2.0.0",
     "prettier": "^0.22",
-    "watch": "^1.0.1",
-    "yarn": "0.21.3"
+    "watch": "^1.0.1"
   },
   "license": "ISC",
   "dependencies": {}

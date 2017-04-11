@@ -50,10 +50,7 @@ class Editor extends Component {
               graphWidth={this.props.store.ui.graphWidth}
             />
           </Main>
-          {this.props.store.ui.selected &&
-            <SidebarContainer>
-              <SidePanel />
-            </SidebarContainer>}
+          <SidePanel />
         </Container>
       </div>
     );
@@ -69,14 +66,6 @@ const Main = styled.div`
   flex: 3 0px;
   overflow: hide;
   padding-rigth: 5px;
-`;
-
-const SidebarContainer = styled.div`
-  padding: 0px;
-  flex: 0 auto;
-  width: 500px;
-  background-color: #ffffff;
-  overflow: scroll;
 `;
 
 const Container = styled.div`
