@@ -6,20 +6,20 @@ RUN npm install -g babel-cli flow-copy-source
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog 
 WORKDIR /usr/src/frog
 RUN mkdir -p frog \
-frog-utils \
-ac/ac-ck-board \
-ac/ac-collab-form \
-ac/ac-form \
-ac/ac-iframe \
-ac/ac-jigsaw \
-ac/ac-quiz \
-ac/ac-text \
-ac/ac-video \
-op/aggregate-ck-board \
-op/aggregate-text \
-op/argue \
-op/jigsaw \
-op/like-with-like 
+frog-utils/src \
+ac/ac-ck-board/src \
+ac/ac-collab-form/src \
+ac/ac-form/src \
+ac/ac-iframe/src \
+ac/ac-jigsaw/src \
+ac/ac-quiz/src \
+ac/ac-text/src \
+ac/ac-video/src \
+op/op-aggregate-ck-board/src \
+op/op-aggregate-text/src \
+op/op-argue/src \
+op/op-jigsaw/src \
+op/op-like-with-like/src
 COPY package.json ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/
@@ -55,6 +55,8 @@ RUN sh /usr/src/frog/initial_docker.sh
 COPY frog frog/
 COPY .* ./
 COPY ./flow-typed ./
+
 WORKDIR /usr/src/frog
+
 EXPOSE 3000
-CMD [ "npm" , "test" ]
+CMD [ "npm", "test" ]
