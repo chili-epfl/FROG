@@ -2,7 +2,7 @@
   "name": "frog-package",
   "version": "1.0.0",
   "scripts": {
-    "test": "flow --quiet && npm run eslint-test",
+    "test": "flow --quiet && npm run -s eslint-test || true",
     "fix": "eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .",
     "eslint-test": "eslint -c .eslintrc-prettier.js --ext .js,.jsx .",
     "flow-test": "flow"
