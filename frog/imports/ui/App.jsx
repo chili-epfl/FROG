@@ -53,13 +53,19 @@ export default class App extends Component {
   };
 
   handleNewHash = () => {
-    const location = window.location.hash.split('/')[1];
-    const username = window.location.hash.split('/')[2];
+    let [, location, username] = window.location.hash.split('/');
+    if (!username && !appSlugs[location]) {
+      username = location;
+      location = 'student';
+    }
 
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
           connectWithDefaultPwd(username));
+        if (appSlugs[location]) {
+          this.setState({ app: appSlugs[location] });
+        }
       } else {
         connectWithDefaultPwd(username);
       }
