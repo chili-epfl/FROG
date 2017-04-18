@@ -2,7 +2,12 @@
 
 import { Meteor } from 'meteor/meteor';
 
-import { uuid, type SocialStructureT, type ProductT, type ObjectT } from 'frog-utils';
+import {
+  uuid,
+  type SocialStructureT,
+  type ProductT,
+  type ObjectT
+} from 'frog-utils';
 
 import { Activities, Connections, Operators } from './activities';
 import {

@@ -36,11 +36,7 @@ export const addProduct = (
   });
 };
 
-export const addNodeProduct = (
-  nodeId: string,
-  data: Object,
-  key: string
-) => {
+export const addNodeProduct = (nodeId: string, data: Object, key: string) => {
   Products.update(
     { _id: nodeId + key },
     { $set: { data, key, nodeId } },

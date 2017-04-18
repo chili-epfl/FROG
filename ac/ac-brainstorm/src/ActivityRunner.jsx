@@ -37,21 +37,21 @@ const Idea = ({ idea, fun }) => (
     <p>{idea.value.content}</p>
     <p>SCORE: {idea.value.score}</p>
     <Button
-      bsStyle='success'
+      bsStyle="success"
       onClick={() =>
         fun.vote(idea._id, { ...idea.value, score: idea.value.score + 1 })}
     >
       +1
     </Button>
     <Button
-      bsStyle='danger'
+      bsStyle="danger"
       onClick={() =>
         fun.vote(idea._id, { ...idea.value, score: idea.value.score - 1 })}
     >
       -1
     </Button>
     <Button
-      bsStyle='danger'
+      bsStyle="danger"
       style={{ float: 'right' }}
       onClick={() => fun.delete(idea._id)}
     >
@@ -63,7 +63,9 @@ const Idea = ({ idea, fun }) => (
 const IdeaList = ({ ideas, fun, saveProduct }) =>
   ideas.length
     ? <div>
-        <Button bsStyle='primary' onClick={() => saveProduct(ideas)}>Save List</Button>
+        <Button bsStyle="primary" onClick={() => saveProduct(ideas)}>
+          Save List
+        </Button>
         {ideas
           .sort((a, b) => b.value.score - a.value.score)
           .map(idea => <Idea idea={idea} fun={fun} key={idea._id} />)}
@@ -134,7 +136,7 @@ export default (
             vote: reactiveFn(group).listSet,
             delete: reactiveFn(group).listDel
           }}
-          saveProduct={(ideas) => saveProduct(group, ideas)}
+          saveProduct={ideas => saveProduct(group, ideas)}
         />
         <Form {...{ schema, onChange, formData, onSubmit }} />
       </ListContainer>

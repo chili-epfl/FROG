@@ -19,8 +19,7 @@ class Cluster extends Component {
       });
     }
 
-    console.log(this.props.object.products[0])
-    if(this.props.object.products.length > 0) {
+    if (this.props.object.products.length > 0) {
       this.props.object.products[0].forEach(e => {
         const id = Stringify(e.data);
         this.props

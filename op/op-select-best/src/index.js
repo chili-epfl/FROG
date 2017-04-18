@@ -25,17 +25,16 @@ export const operator = (configData: Object, object: ObjectT) => {
   const { products } = object;
 
   const product = products[0].map(x =>
-    x.data.reduce(
-      (acc, val) => (val.value.score > acc.score ? val.value : acc),
-      { score: -9999, title: 'title', content: 'content' }
-    )
-  );
+    x.data.reduce((acc, val) => val.value.score > acc.score ? val.value : acc, {
+      score: -9999,
+      title: 'title',
+      content: 'content'
+    }));
 
   return {
     product,
     socialStructure: {}
   };
-
 };
 
 export default ({
