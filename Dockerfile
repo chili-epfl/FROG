@@ -8,6 +8,7 @@ WORKDIR /usr/src/frog
 RUN mkdir -p frog \
 
 frog-utils/src \
+ac/ac-brainstorm/src \
 ac/ac-ck-board/src \
 ac/ac-form/src \
 ac/ac-iframe/src \
@@ -23,6 +24,7 @@ op/op-like-with-like/src
 COPY package.json yarn.lock ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
+COPY ac/ac-brainstorm/package.json ac/ac-brainstorm/yarn.lock ac/ac-brainstorm/
 COPY ac/ac-ck-board/package.json ac/ac-ck-board/yarn.lock ac/ac-ck-board/
 COPY ac/ac-form/package.json ac/ac-form/yarn.lock ac/ac-form/
 COPY ac/ac-iframe/package.json ac/ac-iframe/yarn.lock ac/ac-iframe/

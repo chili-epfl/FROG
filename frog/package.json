@@ -6,6 +6,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "ac-brainstorm": "*",
     "ac-ck-board": "*",
     "ac-form": "*",
     "ac-iframe": "*",

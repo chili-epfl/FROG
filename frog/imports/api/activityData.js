@@ -49,6 +49,9 @@ Meteor.methods({
       { $set: { value } }
     );
   },
+  'reactive_data.list_del': (activityId, groupId, id) => {
+    ActivityData.remove({ _id: id, type: 'list', activityId, groupId });
+  },
   'reactive_data.list_add_no_clobber': (activityId, groupId, id, value) => {
     const idobj = { _id: id + activityId, type: 'list', activityId, groupId };
 
