@@ -6,7 +6,7 @@ import config from './config';
 import ActivityRunner from './ActivityRunner';
 
 export const meta = {
-  name: 'Jigsaw activity',
+  name: 'Collaborative form',
   type: 'react-component'
 };
 

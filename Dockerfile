@@ -16,8 +16,7 @@ ac/ac-jigsaw/src \
 ac/ac-quiz/src \
 ac/ac-text/src \
 ac/ac-video/src \
-op/op-aggregate-ck-board/src \
-op/op-aggregate-text/src \
+op/op-select-best/src \
 op/op-argue/src \
 op/op-jigsaw/src \
 op/op-like-with-like/src
@@ -32,8 +31,7 @@ COPY ac/ac-jigsaw/package.json ac/ac-jigsaw/yarn.lock ac/ac-jigsaw/
 COPY ac/ac-quiz/package.json ac/ac-quiz/yarn.lock ac/ac-quiz/
 COPY ac/ac-text/package.json ac/ac-text/yarn.lock ac/ac-text/
 COPY ac/ac-video/package.json ac/ac-video/yarn.lock ac/ac-video/
-COPY op/op-aggregate-ck-board/package.json op/op-aggregate-ck-board/yarn.lock op/op-aggregate-ck-board/
-COPY op/op-aggregate-text/package.json op/op-aggregate-text/yarn.lock op/op-aggregate-text/
+COPY op/op-select-best/package.json op/op-select-best/yarn.lock op/op-select-best/
 COPY op/op-argue/package.json op/op-argue/yarn.lock op/op-argue/
 COPY op/op-jigsaw/package.json op/op-jigsaw/yarn.lock op/op-jigsaw/
 COPY op/op-like-with-like/package.json op/op-like-with-like/yarn.lock op/op-like-with-like/

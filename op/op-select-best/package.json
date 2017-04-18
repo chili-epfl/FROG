@@ -1,5 +1,5 @@
 {
-  "name": "op-aggregate-text",
+  "name": "op-select-best",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",

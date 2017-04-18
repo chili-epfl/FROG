@@ -34,24 +34,24 @@ const IdeaContainer = styled.div`
 const Idea = ({ idea, fun }) => (
   <IdeaContainer>
     <b>{idea.value.title}</b>
-    <p>{idea.value.text}</p>
+    <p>{idea.value.content}</p>
     <p>SCORE: {idea.value.score}</p>
     <Button
-      bsStyle="success"
+      bsStyle='success'
       onClick={() =>
         fun.vote(idea._id, { ...idea.value, score: idea.value.score + 1 })}
     >
       +1
     </Button>
     <Button
-      bsStyle="danger"
+      bsStyle='danger'
       onClick={() =>
         fun.vote(idea._id, { ...idea.value, score: idea.value.score - 1 })}
     >
       -1
     </Button>
     <Button
-      bsStyle="danger"
+      bsStyle='danger'
       style={{ float: 'right' }}
       onClick={() => fun.delete(idea._id)}
     >
@@ -60,12 +60,13 @@ const Idea = ({ idea, fun }) => (
   </IdeaContainer>
 );
 
-const IdeaList = ({ ideas, fun }) =>
+const IdeaList = ({ ideas, fun, saveProduct }) =>
   ideas.length
     ? <div>
+        <Button bsStyle='primary' onClick={() => saveProduct(ideas)}>Save List</Button>
         {ideas
           .sort((a, b) => b.value.score - a.value.score)
-          .map(idea => <Idea idea={idea} fun={fun} key={idea._id} />)}&nbsp;
+          .map(idea => <Idea idea={idea} fun={fun} key={idea._id} />)}
       </div>
     : <p>Please submit an idea</p>;
 
@@ -76,7 +77,8 @@ export default (
     userInfo,
     logger,
     reactiveFn,
-    reactiveData
+    reactiveData,
+    saveProduct
   }: ActivityRunnerT
 ) => {
   const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
@@ -93,7 +95,7 @@ export default (
         type: 'string',
         title: 'Idea'
       },
-      text: {
+      content: {
         type: 'string',
         title: 'Text'
       }
@@ -101,7 +103,7 @@ export default (
   };
 
   const onSubmit = e => {
-    if (e.formData && e.formData.title && e.formData.text) {
+    if (e.formData && e.formData.title && e.formData.content) {
       reactiveFn(group).listAdd({ score: 0, ...e.formData });
       reactiveFn(group).keySet('DATA', {});
     }
@@ -132,6 +134,7 @@ export default (
             vote: reactiveFn(group).listSet,
             delete: reactiveFn(group).listDel
           }}
+          saveProduct={(ideas) => saveProduct(group, ideas)}
         />
         <Form {...{ schema, onChange, formData, onSubmit }} />
       </ListContainer>
