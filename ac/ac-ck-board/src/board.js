@@ -10,12 +10,24 @@ class Cluster extends Component {
     super(props);
     this.state = {};
 
-    this.props.configData.boxes.forEach(e => {
-      const id = Stringify(e);
-      this.props
-        .reactiveFn('EVERYONE')
-        .listAddNoClobber(id, { ...e, x: 1, y: 1 });
-    });
+    if (this.props.configData) {
+      this.props.configData.boxes.forEach(e => {
+        const id = Stringify(e);
+        this.props
+          .reactiveFn('EVERYONE')
+          .listAddNoClobber(id, { ...e, x: 1, y: 1 });
+      });
+    }
+
+    console.log(this.props.object.products[0])
+    if(this.props.object.products.length > 0) {
+      this.props.object.products[0].forEach(e => {
+        const id = Stringify(e.data);
+        this.props
+          .reactiveFn('EVERYONE')
+          .listAddNoClobber(id, { ...e.data, x: 1, y: 1 });
+      });
+    }
   }
 
   render() {
