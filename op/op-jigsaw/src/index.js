@@ -1,12 +1,12 @@
 // @flow
 
-import { shuffle } from 'lodash';
-import type { ObjectT, SocialStructureT } from 'frog-utils';
+import { shuffle } from 'lodash'
+import type { ObjectT, SocialStructureT } from 'frog-utils'
 
 export const meta = {
   name: 'Jigsaw',
   type: 'social'
-};
+}
 
 export const config = {
   type: 'object',
@@ -20,45 +20,46 @@ export const config = {
       title: 'Mix previous groups?'
     }
   }
-};
+}
 
 export const operator = (configData: Object, object: ObjectT) => {
-  const { globalStructure, socialStructures } = object;
+  const { globalStructure, socialStructures } = object
 
-  const socStruc: SocialStructureT = {};
+  const socStruc: SocialStructureT = {}
 
-  const roles = configData.roles.split(',');
-  const groupSize = roles.length;
+  const roles = configData.roles.split(',')
+  const groupSize = roles.length
 
   if (configData.mix) {
-    const prevStruc = socialStructures[0];
-    const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
-    shuffle(globalStructure.studentIds).forEach(studentId => {
-      const prevRole = prevStruc[studentId].role;
+    const prevStruc = socialStructures[0] || globalStructure
+    console.log(prevStruc)
+    const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {})
+    globalStructure.studentIds.forEach(studentId => {
+      const prevRole = prevStruc[studentId].role
       socStruc[studentId] = {
         role: prevRole,
         group: roleCounts[prevRole]
-      };
-      roleCounts[prevRole] += 1;
-    });
+      }
+      roleCounts[prevRole] += 1
+    })
   } else {
-    shuffle(globalStructure.studentIds).forEach((studentId, index) => {
+    globalStructure.studentIds.forEach((studentId, index) => {
       socStruc[studentId] = {
         role: roles[index % groupSize],
         group: Math.floor(index / groupSize).toString()
-      };
-    });
+      }
+    })
   }
 
   return {
     product: [],
     socialStructure: socStruc
-  };
-};
+  }
+}
 
 export default {
   id: 'op-jigsaw',
   operator,
   config,
   meta
-};
+}

@@ -46,6 +46,8 @@ const SessionBody = ({ session }) => (
 );
 
 const StudentView = ({ user, sessions }) => {
+  const userobj = Meteor.users.findOne(user);
+  setStudentSession(sessions[0]._id);
   return (
     <div>
       <SessionBody session={sessions[0]} />

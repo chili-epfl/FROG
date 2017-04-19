@@ -168,11 +168,11 @@ Meteor.methods({
       });
     });
     setTeacherSession(sessionId);
-    Sessions.update(sessionId, {
-      $set: {
-        state: 'STARTED',
-        startedAt: new Date().getTime()
-      }
-    });
+    // Sessions.update(sessionId, {
+    //   $set: {
+    //     state: 'STARTED',
+    //     startedAt: new Date().getTime()
+    //   }
+    // });
   }
 });

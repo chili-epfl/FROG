@@ -8,31 +8,44 @@ const windows = [
 ]
 
 const nightmares = windows.map(ary => [
-  Nightmare({ show: true, x: ary[0], y: ary[1], height: 430, width: 710 }),
+  Nightmare({
+    show: true,
+    x: ary[0],
+    y: ary[1],
+    height: 430,
+    width: 710,
+    waitTimeout: 99999
+  }),
   ary[2]
 ])
 
+const speedUp = 50
+
 const script = [
-  ['teacher', 'wait', '#sessionList'],
+  ['teacher', 'waitSel', '#start'],
+  ['teacher', 'wait', 10],
   ['teacher', 'nextActivity'],
-  ['students', 'wait', '#ac-iframe'],
-  ['students', 'wait', 2000],
+  ['students', 'waitSel', '#ac-iframe'],
+  ['students', 'wait', 20],
 
   ['alfred', 'chat', 'Hello'],
-  ['all', 'wait', 3000],
+  ['all', 'wait', 30],
   ['ole', 'chat', 'Howdy'],
-  ['all', 'wait', 2500],
+  ['all', 'wait', 25],
   ['chen li', 'chat', 'Nihao'],
 
-  ['students', 'wait', '#ac-brainstorm'],
-  ['teacher', 'wait', 3000],
+  ['students', 'waitSel', '#ac-brainstorm'],
+  ['teacher', 'wait', 30],
   ['teacher', 'nextActivity'],
 
-  ['students', 'wait', 1500],
+  ['all', 'wait', 15],
   ['chen li', 'chat', 'What are we supposed to do now?'],
+  ['ole', 'chat', 'Am I all alone?'],
   ['alfred', 'type', ['title', 'Something']],
   ['chen li', 'type', ['content', 'Something else']],
-  ['all', 'wait', '#neverending']
+  ['ole', 'type', ['content', 'Madagascar!!! else']],
+  ['teacher', 'wait', 30],
+  ['students', 'wait', 5]
 ]
 
 nightmares.forEach(([x, user]) => {
@@ -40,27 +53,31 @@ nightmares.forEach(([x, user]) => {
   x.wait('a')
   x.wait(3000)
   x.evaluate(u => window.switchUser(u), user)
-  if (user === 'teacher') {
-    x.evaluate(() => window.restartSession())
-  }
-
-  script.forEach(([who, what, param]) => {
-    if (
-      who === 'all' ||
-      (who === 'students' && user !== 'teacher') ||
-      who === user
-    ) {
-      if (what === 'wait') {
-        x.wait(param)
-      } else if (what === 'chat') {
-        x.insert('input#chatinput', '')
-        x.type('input#chatinput', param + '\u000d')
-      } else if (what === 'nextActivity') {
-        x.click('button')
-      } else if (what === 'type') {
-        x.type('#root_' + param[0], param[1])
-      }
+  ;[1, 2, 3].forEach(() => {
+    if (user === 'teacher') {
+      x.evaluate(() => window.restartSession())
     }
+
+    script.forEach(([who, what, param]) => {
+      if (
+        who === 'all' ||
+        (who === 'students' && user !== 'teacher') ||
+        who === user
+      ) {
+        if (what === 'wait') {
+          x.wait(param * speedUp)
+        } else if (what === 'waitSel') {
+          x.wait(param)
+        } else if (what === 'chat') {
+          x.insert('input#chatinput', '')
+          x.type('input#chatinput', param + '\u000d')
+        } else if (what === 'nextActivity') {
+          x.click('button')
+        } else if (what === 'type') {
+          x.type('#root_' + param[0], param[1])
+        }
+      }
+    })
   })
 
   x
