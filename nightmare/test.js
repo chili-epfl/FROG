@@ -10,8 +10,9 @@ const nightmare = Nightmare({
 // peter
 
 nightmare
-  .goto('http://localhost:3000/#')
-  .wait(3000)
+  .goto('http://localhost:3000/graph/peter')
+  .wait('a')
+  .wait(500)
   .evaluate(() => window.switchUser('peter'))
   .wait('#ac-iframe')
   .insert('input#chatinput', '')
@@ -19,7 +20,6 @@ nightmare
   .wait(500)
   .insert('input#chatinput', '')
   .type('input#chatinput', 'yeah sure\u000d')
-  .click('button')
   .wait('#ac-brainstorm')
   .end()
   .then(function(result) {
