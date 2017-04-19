@@ -1,5 +1,6 @@
 // @flow
 
+import { flatMap } from 'lodash';
 import type { ObjectT, OperatorPackageT } from 'frog-utils';
 
 export const meta = {
@@ -10,27 +11,19 @@ export const meta = {
 export const config = {
   type: 'object',
   properties: {
-    anonymize: {
-      type: 'boolean',
-      title: 'Anonymize contributions?'
-    },
-    path: {
-      type: 'string',
-      title: 'JSONPath to text to aggregate'
+    n: {
+      type: 'number',
+      title: 'Number of idea per group'
     }
   }
 };
 
 export const operator = (configData: Object, object: ObjectT) => {
-  const { products } = object;
-
-  const product = products[0].map(x =>
-    x.data.reduce((acc, val) => val.value.score > acc.score ? val.value : acc, {
-      score: -9999,
-      title: 'title',
-      content: 'content'
-    }));
-
+  const product = flatMap(object.products[0], x =>
+    x.data
+      .sort((a, b) => a.value.score < b.value.score)
+      .slice(0, (configData && configData.n) || 1)
+      .map(y => y.value));
   return {
     product,
     socialStructure: {}
