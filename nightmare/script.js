@@ -13,32 +13,56 @@ const nightmares = windows.map(ary => [
 ])
 
 const script = [
-  [, 'wait', 500],
+  ['teacher', 'wait', '#sessionList'],
+  ['teacher', 'nextActivity'],
+  ['students', 'wait', '#ac-iframe'],
+  ['students', 'wait', 2000],
+
   ['alfred', 'chat', 'Hello'],
-  [, 'wait', 500],
-  ['ole', 'chat', 'Howdy']
+  ['all', 'wait', 3000],
+  ['ole', 'chat', 'Howdy'],
+  ['all', 'wait', 2500],
+  ['chen li', 'chat', 'Nihao'],
+
+  ['students', 'wait', '#ac-brainstorm'],
+  ['teacher', 'wait', 3000],
+  ['teacher', 'nextActivity'],
+
+  ['students', 'wait', 1500],
+  ['chen li', 'chat', 'What are we supposed to do now?'],
+  ['alfred', 'type', ['title', 'Something']],
+  ['chen li', 'type', ['content', 'Something else']],
+  ['all', 'wait', '#neverending']
 ]
 
 nightmares.forEach(([x, user]) => {
-  location = user === 'teacher' ? 'teacher' : 'student'
-  x.goto('http://localhost:3000/' + user)
+  x.goto('http://localhost:3000/')
   x.wait('a')
-  x.wait(500)
-  x.evaluate(user => window.switchUser(user), user)
-  x.wait('#ac-iframe')
+  x.wait(3000)
+  x.evaluate(u => window.switchUser(u), user)
+  if (user === 'teacher') {
+    x.evaluate(() => window.restartSession())
+  }
+
   script.forEach(([who, what, param]) => {
-    if (!who || who === user) {
-      if (what === 'what') {
-        x.what(param)
+    if (
+      who === 'all' ||
+      (who === 'students' && user !== 'teacher') ||
+      who === user
+    ) {
+      if (what === 'wait') {
+        x.wait(param)
       } else if (what === 'chat') {
         x.insert('input#chatinput', '')
         x.type('input#chatinput', param + '\u000d')
+      } else if (what === 'nextActivity') {
+        x.click('button')
+      } else if (what === 'type') {
+        x.type('#root_' + param[0], param[1])
       }
     }
   })
-})
 
-nightmares.forEach(([x, user]) => {
   x
     .end()
     .then(function(result) {
@@ -48,39 +72,3 @@ nightmares.forEach(([x, user]) => {
       console.error('Error:', error)
     })
 })
-
-// windowleft.wait('#ac-iframe')
-// windowright.wait('#ac-iframe')
-// windowleft.wait(500)
-// windowright.wait(500)
-// windowleft.insert('input#chatinput', '')
-// windowright.insert('input#chatinput', '')
-// windowleft.type('input#chatinput', 'are you sure?\u000d')
-// windowright.type('input#chatinput', 'are you sure?\u000d')
-// windowleft.wait(500)
-// windowright.wait(500)
-// windowleft.insert('input#chatinput', '')
-// windowright.insert('input#chatinput', '')
-// windowleft.type('input#chatinput', 'if you say so...\u000d')
-// windowright.type('input#chatinput', 'if you say so...\u000d')
-// windowleft.wait('#ac-brainstorm')
-// windowright.wait('#ac-brainstorm')
-// windowright
-//   .end()
-//   .then(function(result) {
-//     console.log(result)
-//   })
-//   .catch(function(error) {
-//     console.error('Error:', error)
-//   })
-// windowleft
-//   .end()
-//   .then(function(result) {
-//     console.log(result)
-//   })
-//   .catch(function(error) {
-//     console.error('Error:', error)
-//   })
-
-// // .insert('input#root_0', '')
-// // .type('input#root_0', 'I disagree!\u000d')

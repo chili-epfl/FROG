@@ -34,7 +34,6 @@ export default class App extends Component {
     Meteor.subscribe('userData', { onReady: this.switchAppByUser });
     window.switchUser = username => {
       this.createOrLogin(username);
-      this.switchAppByUser(username);
       const app = username === 'teacher' ? 'Teacher View' : 'Student View';
       this.setState({ app });
     };
