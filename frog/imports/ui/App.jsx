@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Nav, NavItem } from 'react-bootstrap';
+import { restartSession } from '../api/sessions';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -31,10 +32,17 @@ export default class App extends Component {
     super(props);
     this.state = { app: 'Home' };
     Meteor.subscribe('userData', { onReady: this.switchAppByUser });
+    window.switchUser = username => {
+      this.createOrLogin(username);
+      const app = username === 'teacher' ? 'Teacher View' : 'Student View';
+      this.setState({ app });
+    };
+    window.restartSession = restartSession;
   }
 
-  switchAppByUser = () => {
-    const username = Meteor.user() ? Meteor.user().username : 'noname';
+  switchAppByUser = uname => {
+    const username = uname ||
+      (Meteor.user() ? Meteor.user().username : 'noname');
     const app = {
       teacher: 'Graph Editor',
       admin: 'Admin',
@@ -52,13 +60,7 @@ export default class App extends Component {
     history.pushState(null, null, '/#/' + (url && url[0]));
   };
 
-  handleNewHash = () => {
-    let [, location, username] = window.location.hash.split('/');
-    if (!username && !appSlugs[location]) {
-      username = location;
-      location = 'student';
-    }
-
+  createOrLogin = username => {
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
@@ -69,6 +71,18 @@ export default class App extends Component {
       } else {
         connectWithDefaultPwd(username);
       }
+    }
+  };
+
+  handleNewHash = () => {
+    let [, location, username] = window.location.hash.split('/');
+    if (!username && !appSlugs[location]) {
+      username = location;
+      location = 'student';
+    }
+
+    if (username) {
+      this.createOrLogin(username);
     }
 
     if (appSlugs[location]) {

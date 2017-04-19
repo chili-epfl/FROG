@@ -14,11 +14,14 @@ export default ({ messages, userInfo, addMessage, logger }: ChatT) => (
         <Chatmsg msg={chatmsg.value} key={chatmsg._id} />
       ))}
     </ul>
-    <TextInput
-      callbackFn={e => {
-        addMessage({ msg: e, user: userInfo.name });
-        logger({ chat: e });
-      }}
-    />
+    <div id="chatinput">
+      <TextInput
+        callbackFn={e => {
+          addMessage({ msg: e, user: userInfo.name });
+          logger({ key: userInfo.name, type: 'chat', msg: e });
+        }}
+        id="chatinput"
+      />
+    </div>
   </div>
 );

@@ -27,6 +27,7 @@ class TextInput extends Component {
   render() {
     return (
       <input
+        id={this.props.id}
         type="text"
         value={this.state.value}
         onChange={this.handleChange}
