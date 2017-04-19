@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Stringify from 'json-stable-stringify';
+import styled from 'styled-components';
 
 import ObservationContainer from './obs_container';
 import ObservationDetail from './obs_detail';
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+`
+
+const colors = {
+  a: '#e7ffac',
+  b: '#fbe4ff',
+  c: '#dcd3ff',
+  d: '#ffccf9'
+}
+
+const Item = styled.div`
+  width: 50%;
+  background: ${props => colors[props.group]}
+`
 
 class Cluster extends Component {
   constructor(props) {
@@ -42,12 +61,20 @@ class Cluster extends Component {
       };
 
       return (
-        <ObservationContainer
-          key={e._id}
-          setXY={setXY}
-          openInfoFn={openInfoFn}
-          observation={e}
-        />
+        <Container>
+          <Item group="a" > A </Item>
+          <Item group="b" > B </Item>
+          <Item group="c" > C </Item>
+          <Item group="d" > D </Item>
+
+          <ObservationContainer
+            key={e._id}
+            setXY={setXY}
+            openInfoFn={openInfoFn}
+            observation={e}
+          />
+        </Container>
+
       );
     });
 

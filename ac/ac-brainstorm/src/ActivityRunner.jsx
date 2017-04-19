@@ -83,6 +83,13 @@ export default (
     saveProduct
   }: ActivityRunnerT
 ) => {
+
+  if(object.products.length) {
+    object.products[0].forEach(
+      item => console.log(item)
+    )
+  }
+
   const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
   const group = (socialStructure &&
     socialStructure[userInfo.id][configData.groupBy]) ||
