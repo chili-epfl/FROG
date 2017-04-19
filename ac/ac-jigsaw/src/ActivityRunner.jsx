@@ -2,8 +2,30 @@
 
 import React from 'react';
 import Form from 'react-jsonschema-form';
+import styled from 'styled-components';
 
 import { Chat, type ActivityRunnerT } from 'frog-utils';
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+`
+
+const TitleContainer = styled.div`
+  padding: 2%;
+  width: 100%;
+`
+
+const FormContainer = styled.div`
+  padding: 2%;
+  width: 60%;
+`
+
+const ChatContainer = styled.div`
+  padding: 2%;
+  width: 40%;
+`
 
 export default (props: ActivityRunnerT) => {
   const {
@@ -37,7 +59,6 @@ export default (props: ActivityRunnerT) => {
   const formData = reactiveKey ? reactiveKey.DATA : null;
 
   const schema = {
-    title: 'Questions',
     type: 'object',
     properties: configData.questions.reduce(
       (acc, x, i) => ({
@@ -62,20 +83,25 @@ export default (props: ActivityRunnerT) => {
   };
 
   return (
-    <div>
-      <h1>{configData.title}</h1>
-      <p>{configData.content}</p>
-      <p>Your group: {attributes.group}, Your role: {attributes.role}</p>
-      <p>{contentPerRole[attributes.role]}</p>
-      {completed && <h1>From Submitted</h1>}
-      {configData.questions.length > 0 &&
+    <Container>
+      <TitleContainer>
+        <h1>{configData.title}</h1>
+        <p>{configData.content}</p>
+      </TitleContainer>
+      <FormContainer>
+        <p>{contentPerRole[attributes.role]}</p>
+        {completed && <h1>From Submitted</h1>}
+        {configData.questions.length > 0 &&
         <Form {...{ schema, formData, onChange, onSubmit }} />}
-      <Chat
-        messages={reactiveData.list.filter(x => x.groupId === group)}
-        userInfo={userInfo}
-        addMessage={reactiveFn(group).listAdd}
-        logger={logger}
-      />
-    </div>
+      </FormContainer>
+      <ChatContainer>
+        <Chat
+          messages={reactiveData.list.filter(x => x.groupId === group)}
+          userInfo={userInfo}
+          addMessage={reactiveFn(group).listAdd}
+          logger={logger}
+        />
+      </ChatContainer>
+    </Container>
   );
 };
