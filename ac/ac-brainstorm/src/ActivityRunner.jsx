@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
+import Stringify from 'json-stable-stringify';
 import { Button } from 'react-bootstrap';
 
 import { Chat, type ActivityRunnerT } from 'frog-utils';
@@ -83,13 +84,6 @@ export default (
     saveProduct
   }: ActivityRunnerT
 ) => {
-
-  if(object.products.length) {
-    object.products[0].forEach(
-      item => console.log(item)
-    )
-  }
-
   const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
   const group = (socialStructure &&
     socialStructure[userInfo.id][configData.groupBy]) ||
@@ -124,6 +118,13 @@ export default (
 
   const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
   const formData = reactiveKey ? reactiveKey.DATA : null;
+
+  if (object.products.length) {
+    object.products[0].forEach(item => {
+      const id = Stringify(item.data);
+      reactiveFn(group).listAddNoClobber(id, item.data);
+    });
+  }
 
   return (
     <Container>

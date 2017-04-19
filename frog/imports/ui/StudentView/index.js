@@ -45,16 +45,17 @@ const SessionBody = ({ session }) => (
   </div>
 );
 
-const StudentView = ({ user, sessions }) => {
-  return (
-    <div>
-      <SessionBody session={sessions[0]} />
-    </div>
-  );
-};
+const StudentView = ({ user, sessions }) => (
+  <div>
+    <SessionBody session={sessions[0]} />
+  </div>
+);
 
-export default createContainer(() => {
-  const sessions = Sessions.find().fetch();
-  const user = Meteor.users.findOne(Meteor.userId());
-  return { sessions, user };
-}, StudentView);
+export default createContainer(
+  () => {
+    const sessions = Sessions.find().fetch();
+    const user = Meteor.users.findOne(Meteor.userId());
+    return { sessions, user };
+  },
+  StudentView
+);

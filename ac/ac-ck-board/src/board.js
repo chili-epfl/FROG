@@ -10,19 +10,19 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 100vh;
-`
+`;
 
 const colors = {
   a: '#e7ffac',
   b: '#fbe4ff',
   c: '#dcd3ff',
   d: '#ffccf9'
-}
+};
 
 const Item = styled.div`
   width: 50%;
   background: ${props => colors[props.group]}
-`
+`;
 
 class Cluster extends Component {
   constructor(props) {
@@ -62,10 +62,10 @@ class Cluster extends Component {
 
       return (
         <Container>
-          <Item group="a" > A </Item>
-          <Item group="b" > B </Item>
-          <Item group="c" > C </Item>
-          <Item group="d" > D </Item>
+          <Item group="a"> A </Item>
+          <Item group="b"> B </Item>
+          <Item group="c"> C </Item>
+          <Item group="d"> D </Item>
 
           <ObservationContainer
             key={e._id}
@@ -74,7 +74,6 @@ class Cluster extends Component {
             observation={e}
           />
         </Container>
-
       );
     });
 
