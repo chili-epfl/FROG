@@ -32,7 +32,7 @@ const ActivityBody = ({ activityId, state }) =>
     STARTED: activityId
       ? <Runner activityId={activityId} />
       : <h1>Session running & waiting for next activity</h1>,
-    CREATED: <h1>The session will start soon</h1>,
+    CREATED: <h1 id="startSoon">The session will start soon</h1>,
     PAUSED: <h1>The session is paused</h1>,
     STOPPED: <h1>The session is stopped</h1>
   }[state]);
