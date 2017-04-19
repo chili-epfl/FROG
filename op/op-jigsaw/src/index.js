@@ -31,9 +31,10 @@ export const operator = (configData: Object, object: ObjectT) => {
   const groupSize = roles.length;
 
   if (configData.mix) {
-    const prevStruc = socialStructures[0];
+    const prevStruc = socialStructures[0] || globalStructure;
+    console.log(prevStruc);
     const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
-    shuffle(globalStructure.studentIds).forEach(studentId => {
+    globalStructure.studentIds.forEach(studentId => {
       const prevRole = prevStruc[studentId].role;
       socStruc[studentId] = {
         role: prevRole,
@@ -42,7 +43,7 @@ export const operator = (configData: Object, object: ObjectT) => {
       roleCounts[prevRole] += 1;
     });
   } else {
-    shuffle(globalStructure.studentIds).forEach((studentId, index) => {
+    globalStructure.studentIds.forEach((studentId, index) => {
       socStruc[studentId] = {
         role: roles[index % groupSize],
         group: Math.floor(index / groupSize).toString()

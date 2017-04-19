@@ -73,19 +73,22 @@ const ActivityRunner = (
     'default';
 
   return (
-    <Container>
-      <IframeContainer>
-        <iframe src={urlPerRole[role]} width="100%" height="600px" />
-      </IframeContainer>
-      <ChatContainer>
-        <Chat
-          messages={reactiveData.list.filter(x => x.groupId === role)}
-          userInfo={userInfo}
-          addMessage={reactiveFn(role).listAdd}
-          logger={logger}
-        />
-      </ChatContainer>
-    </Container>
+    <div>
+      <b>Role: {role}</b>
+      <Container>
+        <IframeContainer>
+          <iframe src={urlPerRole[role]} width="100%" height="600px" />
+        </IframeContainer>
+        <ChatContainer>
+          <Chat
+            messages={reactiveData.list.filter(x => x.groupId === role)}
+            userInfo={userInfo}
+            addMessage={reactiveFn(role).listAdd}
+            logger={logger}
+          />
+        </ChatContainer>
+      </Container>
+    </div>
   );
 };
 

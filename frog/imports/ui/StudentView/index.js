@@ -45,11 +45,15 @@ const SessionBody = ({ session }) => (
   </div>
 );
 
-const StudentView = ({ user, sessions }) => (
-  <div>
-    <SessionBody session={sessions[0]} />
-  </div>
-);
+const StudentView = ({ user, sessions }) => {
+  const userobj = Meteor.users.findOne(user);
+  setStudentSession(sessions[0]._id);
+  return (
+    <div>
+      <SessionBody session={sessions[0]} />
+    </div>
+  );
+};
 
 export default createContainer(
   () => {
