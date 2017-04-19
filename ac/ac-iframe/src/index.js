@@ -52,16 +52,14 @@ const ChatContainer = styled.div`
   width: 30%;
 `;
 
-const ActivityRunner = (
-  {
-    configData,
-    object,
-    userInfo,
-    logger,
-    reactiveFn,
-    reactiveData
-  }: ActivityRunnerT
-) => {
+const ActivityRunner = ({
+  configData,
+  object,
+  userInfo,
+  logger,
+  reactiveFn,
+  reactiveData
+}: ActivityRunnerT) => {
   const urlPerRole = (configData.perRole &&
     configData.perRole.reduce(
       (acc, item) => ({ ...acc, [item.role]: item.content }),
@@ -69,16 +67,13 @@ const ActivityRunner = (
     )) || { default: configData.url };
 
   const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
-  const role = (socialStructure && socialStructure[userInfo.id].role) ||
-    'default';
+  const role =
+    (socialStructure && socialStructure[userInfo.id].role) || 'default';
 
   return (
     <div>
       <b>Role: {role}</b>
       <Container>
-        <IframeContainer>
-          <iframe src={urlPerRole[role]} width="100%" height="600px" />
-        </IframeContainer>
         <ChatContainer>
           <Chat
             messages={reactiveData.list.filter(x => x.groupId === role)}
@@ -87,6 +82,9 @@ const ActivityRunner = (
             logger={logger}
           />
         </ChatContainer>
+        <IframeContainer>
+          <iframe src={urlPerRole[role]} width="100%" height="600px" />
+        </IframeContainer>
       </Container>
     </div>
   );

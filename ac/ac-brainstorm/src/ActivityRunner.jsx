@@ -4,25 +4,32 @@ import React from 'react';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
 import Stringify from 'json-stable-stringify';
-import { Button } from 'react-bootstrap';
+import FlipMove from 'react-flip-move';
+import {
+  Badge,
+  Glyphicon,
+  Button,
+  ListGroup,
+  ListGroupItem
+} from 'react-bootstrap';
 
-import { Chat, type ActivityRunnerT } from 'frog-utils'
+import { Chat, type ActivityRunnerT } from 'frog-utils';
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-`
+`;
 
 const ListContainer = styled.div`
   padding: 2%;
   width: 70%;
-`
+`;
 
 const ChatContainer = styled.div`
   padding: 2%;
   width: 30%;
-`
+`;
 
 const IdeaContainer = styled.div`
   margin: 2px;
@@ -30,49 +37,66 @@ const IdeaContainer = styled.div`
   background: #fff;
   border-style: solid;
   border-width: 5px;
-`
+`;
 
 const Idea = ({ idea, fun, remove }) => (
-  <IdeaContainer>
+  <ListGroupItem>
+    <font size={4}>
+      <div style={{ float: 'right' }}>
+        <span style={{ marginRight: '10px' }}>
+          <a
+            href="#"
+            onClick={() =>
+              fun.vote(idea._id, {
+                ...idea.value,
+                score: idea.value.score - 1
+              })}
+          >
+            <Glyphicon glyph="thumbs-down" />
+          </a>
+        </span>
+        <span style={{ marginRight: '10px' }}>
+          <a
+            href="#"
+            onClick={() =>
+              fun.vote(idea._id, {
+                ...idea.value,
+                score: idea.value.score + 1
+              })}
+          >
+            <Glyphicon glyph="thumbs-up" />
+          </a>
+        </span>
+        <Badge>{idea.value.score}</Badge>
+      </div>
+    </font>
     <b>{idea.value.title}</b>
-    <p>{idea.value.content}</p>
-    <p>SCORE: {idea.value.score}</p>
-    <Button
-      bsStyle="success"
-      onClick={() =>
-        fun.vote(idea._id, { ...idea.value, score: idea.value.score + 1 })}
-    >
-      +1
-    </Button>
-    <Button
-      bsStyle="danger"
-      onClick={() =>
-        fun.vote(idea._id, { ...idea.value, score: idea.value.score - 1 })}
-    >
-      -1
-    </Button>
-    { remove && <Button
-      bsStyle="danger"
-      style={{ float: 'right' }}
-      onClick={() => fun.delete(idea._id)}
-    >
-      Remove
-    </Button> }
-  </IdeaContainer>
-)
+    <div>
+      {idea.value.content}
+      {remove &&
+        <font size={4}>
+          <a href="#" onClick={() => fun.delete(idea._id)}>
+            <Glyphicon glyph="scissors" style={{ float: 'right' }} />
+          </a>
+        </font>}
+    </div>
+  </ListGroupItem>
+);
 
 const IdeaList = ({ ideas, fun, saveProduct, remove }) =>
   (ideas.length
     ? <div>
-        {remove && <Button bsStyle="primary" onClick={() => saveProduct(ideas)}>
-          Save List
-        </Button>}
-        {ideas
-          .sort((a, b) => b.value.score - a.value.score)
-          .map(idea => <Idea {...{ idea, fun, remove, key: idea._id }} />)}
+        <ListGroup className="item">
+          <FlipMove duration={750} easing="ease-out">
+            {ideas.sort((a, b) => b.value.score - a.value.score).map(idea => (
+              <div key={idea._id}>
+                <Idea {...{ idea, fun, remove, key: idea._id }} />
+              </div>
+            ))}
+          </FlipMove>
+        </ListGroup>
       </div>
-
-    : <p>Please submit an idea</p>)
+    : <p>Please submit an idea</p>);
 
 export default ({
   configData,
@@ -84,15 +108,15 @@ export default ({
   saveProduct
 }: ActivityRunnerT) => {
   if (object.products.length) {
-    object.products[0].forEach(item => console.log(item))
+    object.products[0].forEach(item => console.log(item));
   }
 
-  const socialStructure = object.socialStructures.find(x => x[userInfo.id])
+  const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
   const group =
     (socialStructure && socialStructure[userInfo.id][configData.groupBy]) ||
-    'default'
+    'default';
 
-  const chatGroup = 'CHAT_' + group
+  const chatGroup = 'CHAT_' + group;
 
   const schema = {
     type: 'object',
@@ -106,21 +130,21 @@ export default ({
         title: 'Text'
       }
     }
-  }
+  };
 
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
-      reactiveFn(group).listAdd({ score: 0, ...e.formData })
-      reactiveFn(group).keySet('DATA', {})
+      reactiveFn(group).listAdd({ score: 0, ...e.formData });
+      reactiveFn(group).keySet('DATA', {});
     }
-  }
+  };
 
   const onChange = e => {
-    reactiveFn(group).keySet('DATA', e.formData)
-  }
+    reactiveFn(group).keySet('DATA', e.formData);
+  };
 
-  const reactiveKey = reactiveData.keys.find(x => x.groupId === group)
-  const formData = reactiveKey ? reactiveKey.DATA : null
+  const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
+  const formData = reactiveKey ? reactiveKey.DATA : null;
 
   if (object.products.length) {
     object.products[0].forEach(item => {
@@ -131,7 +155,7 @@ export default ({
 
   return (
     <div>
-      <b>Group: {chatGroup}</b>
+      <b>Group: {group}</b>
       <Container>
         <ChatContainer>
           <Chat
@@ -150,11 +174,44 @@ export default ({
               delete: reactiveFn(group).listDel
             }}
             saveProduct={ideas => saveProduct(group, ideas)}
-            remove={configData.form}
+            remove={configData.formBoolean}
           />
-          <Form {...{ schema, onChange, formData, onSubmit }} />
+          {configData.formBoolean &&
+            <div>
+              <hr
+                style={{
+                  boxShadow: 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)',
+                  height: '12px'
+                }}
+              />
+              <div style={{ width: '500px' }}>
+                <Form {...{ schema, onChange, formData, onSubmit }}>
+                  <div
+                    style={{
+                      layout: 'flex',
+                      flexDirection: 'row'
+                    }}
+                  >
+                    <Button
+                      style={{ marginRight: '20px' }}
+                      type="submit"
+                      id="addButton"
+                    >
+                      Add idea
+                    </Button>
+                    <Button
+                      id="saveButton"
+                      bsStyle="primary"
+                      onClick={ideas => saveProduct(group, ideas)}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                </Form>
+              </div>
+            </div>}
         </ListContainer>
       </Container>
     </div>
-  )
-}
+  );
+};

@@ -12,7 +12,7 @@ export default {
       type: 'string',
       title: 'Guidelines'
     },
-    form: {
+    formBoolean: {
       type: 'boolean',
       title: 'Should students submit new ideas?'
     }
