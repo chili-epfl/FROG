@@ -1,10 +1,10 @@
 // @flow
 
-import React from 'react';
-import TextInput from './textInput';
-import type { ChatT } from './types';
+import React from 'react'
+import TextInput from './textInput'
+import type { ChatT } from './types'
 
-const Chatmsg = ({ msg }) => <li>{msg.user}: {msg.msg}</li>;
+const Chatmsg = ({ msg }) => <li>{msg.user}: {msg.msg}</li>
 
 export default ({ messages, userInfo, addMessage, logger }: ChatT) => (
   <div>
@@ -14,11 +14,14 @@ export default ({ messages, userInfo, addMessage, logger }: ChatT) => (
         <Chatmsg msg={chatmsg.value} key={chatmsg._id} />
       ))}
     </ul>
-    <TextInput
-      callbackFn={e => {
-        addMessage({ msg: e, user: userInfo.name });
-        logger({ chat: e });
-      }}
-    />
+    <div id="chatinput">
+      <TextInput
+        callbackFn={e => {
+          addMessage({ msg: e, user: userInfo.name })
+          logger({ chat: e })
+        }}
+        id="chatinput"
+      />
+    </div>
   </div>
-);
+)

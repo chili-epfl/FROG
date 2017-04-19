@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Nav, NavItem } from 'react-bootstrap';
+import { restartSession } from '../api/sessions';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -31,15 +32,23 @@ export default class App extends Component {
     super(props);
     this.state = { app: 'Home' };
     Meteor.subscribe('userData', { onReady: this.switchAppByUser });
+    window.switchUser = username => {
+      this.createOrLogin(username);
+      const app = username === 'teacher' ? 'Teacher View' : 'Student View';
+      this.setState({ app });
+    };
+    window.restartSession = restartSession;
   }
 
-  switchAppByUser = () => {
-    const username = Meteor.user() ? Meteor.user().username : 'noname';
-    const app = {
-      teacher: 'Graph Editor',
-      admin: 'Admin',
-      noname: 'Home'
-    }[username] || 'Student View';
+  switchAppByUser = uname => {
+    const username =
+      uname || (Meteor.user() ? Meteor.user().username : 'noname');
+    const app =
+      {
+        teacher: 'Graph Editor',
+        admin: 'Admin',
+        noname: 'Home'
+      }[username] || 'Student View';
     const newApp = this.handleNewHash();
     if (!newApp || username === 'noname') {
       this.setState({ app });
@@ -52,6 +61,21 @@ export default class App extends Component {
     history.pushState(null, null, '/#/' + (url && url[0]));
   };
 
+  createOrLogin = username => {
+    if (username) {
+      if (!Meteor.users.findOne({ username })) {
+        Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
+          connectWithDefaultPwd(username)
+        );
+        if (appSlugs[location]) {
+          this.setState({ app: appSlugs[location] });
+        }
+      } else {
+        connectWithDefaultPwd(username);
+      }
+    }
+  };
+
   handleNewHash = () => {
     let [, location, username] = window.location.hash.split('/');
     if (!username && !appSlugs[location]) {
@@ -60,15 +84,7 @@ export default class App extends Component {
     }
 
     if (username) {
-      if (!Meteor.users.findOne({ username })) {
-        Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-          connectWithDefaultPwd(username));
-        if (appSlugs[location]) {
-          this.setState({ app: appSlugs[location] });
-        }
-      } else {
-        connectWithDefaultPwd(username);
-      }
+      this.createOrLogin(username);
     }
 
     if (appSlugs[location]) {
