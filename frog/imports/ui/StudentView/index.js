@@ -37,31 +37,24 @@ const ActivityBody = ({ activityId, state }) =>
     STOPPED: <h1>The session is stopped</h1>
   }[state]);
 
-const SessionBody = ({ session }) =>
-  session
-    ? <ActivityBody activityId={session.activityId} state={session.state} />
-    : <h1>Please chose a session to start learning</h1>;
+const SessionBody = ({ session }) => (
+  <div id="session">
+    {session
+      ? <ActivityBody activityId={session.activityId} state={session.state} />
+      : <h1>Please chose a session to start learning</h1>}
+  </div>
+);
 
 const StudentView = ({ user, sessions }) => {
-  const curSession = user.profile
-    ? Sessions.findOne(user.profile.currentSession)
-    : null;
   return (
     <div>
-      <SessionBody session={curSession} />
-      <SessionList
-        sessions={sessions}
-        curSessionId={!!curSession && curSession._id}
-      />
+      <SessionBody session={sessions[0]} />
     </div>
   );
 };
 
-export default createContainer(
-  () => {
-    const sessions = Sessions.find().fetch();
-    const user = Meteor.users.findOne(Meteor.userId());
-    return { sessions, user };
-  },
-  StudentView
-);
+export default createContainer(() => {
+  const sessions = Sessions.find().fetch();
+  const user = Meteor.users.findOne(Meteor.userId());
+  return { sessions, user };
+}, StudentView);
