@@ -10,24 +10,41 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 100vh;
-`
+`;
 
 const colors = {
   a: '#e7ffac',
   b: '#fbe4ff',
   c: '#dcd3ff',
   d: '#ffccf9'
-}
+};
 
 const Item = styled.div`
   width: 50%;
   background: ${props => colors[props.group]}
-`
+`;
 
 class Cluster extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    window.simulateDragObs = (sel, toX, toY) => {
+      const obs = this.props.reactiveData.list.find(x => x.value.title === sel);
+      const e = { ...obs.value, _id: obs._id };
+      const distX = (toX - e.x) / 200;
+      const distY = (toY - e.y) / 200;
+
+      const that = this;
+      Array(199).fill().map((_, x) =>
+        window.setTimeout(() => {
+          that.props.reactiveFn('EVERYONE').listSet(e._id, {
+            ...e,
+            x: e.x + distX * (x + 1),
+            y: e.y + distY * (x + 1)
+          });
+        }, x * 10)
+      );
+    };
 
     if (this.props.configData) {
       this.props.configData.boxes.forEach(e => {
@@ -62,10 +79,10 @@ class Cluster extends Component {
 
       return (
         <Container>
-          <Item group="a" > A </Item>
-          <Item group="b" > B </Item>
-          <Item group="c" > C </Item>
-          <Item group="d" > D </Item>
+          <Item group="a"> A </Item>
+          <Item group="b"> B </Item>
+          <Item group="c"> C </Item>
+          <Item group="d"> D </Item>
 
           <ObservationContainer
             key={e._id}
@@ -74,7 +91,6 @@ class Cluster extends Component {
             observation={e}
           />
         </Container>
-
       );
     });
 
