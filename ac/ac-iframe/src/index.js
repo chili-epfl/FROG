@@ -4,6 +4,8 @@ import React from 'react';
 import { Chat, type ActivityPackageT, type ActivityRunnerT } from 'frog-utils';
 import styled from 'styled-components';
 
+import Dashboard from './Dashboard';
+
 const meta = {
   name: 'Embedded website',
   type: 'react-component'
@@ -95,6 +97,7 @@ const ActivityRunner = (
 export default ({
   id: 'ac-iframe',
   ActivityRunner,
+  Dashboard,
   config,
   meta
 }: ActivityPackageT);
