@@ -96,7 +96,7 @@ const IdeaList = ({ ideas, fun, saveProduct, remove }) =>
           </FlipMove>
         </ListGroup>
       </div>
-    : <p>Please submit an idea</p>);
+    : <p><i>No ideas added yet</i></p>);
 
 export default ({
   configData,

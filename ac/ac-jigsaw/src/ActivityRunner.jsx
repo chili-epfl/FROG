@@ -91,8 +91,7 @@ export default (props: ActivityRunnerT) => {
       <FormContainer>
         <p>{contentPerRole[attributes.role]}</p>
         {completed && <h1>From Submitted</h1>}
-        {configData.questions.length > 0 &&
-          <Form {...{ schema, formData, onChange, onSubmit }} />}
+        {configData.questions.length > 0 && <Form {...{ schema, onSubmit }} />}
       </FormContainer>
       <ChatContainer>
         <Chat

@@ -79,10 +79,10 @@ class Cluster extends Component {
 
       return (
         <Container>
-          <Item group="a"> A </Item>
-          <Item group="b"> B </Item>
-          <Item group="c"> C </Item>
-          <Item group="d"> D </Item>
+          <Item group="a">Consumer Protection</Item>
+          <Item group="b">Fairness to taxi drivers</Item>
+          <Item group="c">Existing laws</Item>
+          <Item group="d">Supporting innovation</Item>
 
           <ObservationContainer
             key={e._id}
