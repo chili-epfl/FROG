@@ -11,6 +11,10 @@ export default {
     text: {
       type: 'string',
       title: 'Guidelines'
+    },
+    form: {
+      type: 'boolean',
+      title: 'Should students submit new ideas?'
     }
   }
 };
