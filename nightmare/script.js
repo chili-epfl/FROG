@@ -14,19 +14,20 @@ const nightmares = windows.map(ary => [
     y: ary[1],
     height: 430,
     width: 710,
-    waitTimeout: 99999
+    waitTimeout: 99999999
   }),
   ary[2]
 ]);
 
-const speedUp = 50;
+const speedUp = 100;
 
 const script = [
   ['teacher', 'waitSel', '#start'],
   ['teacher', 'wait', 10],
+  ['students', 'waitSel', '#startSoon'],
   ['teacher', 'nextActivity'],
   ['students', 'waitSel', '#ac-iframe'],
-  ['students', 'wait', 20],
+  ['students', 'wait', 50],
 
   ['alfred', 'chat', 'Hello'],
   ['all', 'wait', 30],
