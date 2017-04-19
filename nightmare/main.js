@@ -6,8 +6,6 @@ const connect = name => {
     waitTimeout: 30000 // increase the default timeout to test things
   })
     .goto('http://localhost:3000/#/' + name)
-    .wait(5000)
-    .goto('http://localhost:3000/#/student')
     .then(result => console.log(result))
     .catch(error => console.error(error));
 };

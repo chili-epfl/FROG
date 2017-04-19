@@ -6,7 +6,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { activityTypesObj } from '../../activityTypes';
 import { ActivityData, reactiveFn } from '../../api/activityData';
-import { createLogger } from '../../api/logs';
+import { Logs } from '../../api/logs';
 import { saveProduct } from '../../api/products';
 import { Objects } from '../../api/objects';
 import { Activities } from '../../api/activities';
@@ -14,11 +14,12 @@ import { Activities } from '../../api/activities';
 const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
   const activityType = activityTypesObj[activity.activityType];
 
-  const logger = createLogger({
-    activity: activity._id,
-    activityType: activity.activityType,
-    user: Meteor.userId()
-  });
+  const logger = data => {
+    Logs.insert({
+      activityId: activity._id,
+      data
+    });
+  };
 
   return object
     ? <div id={activity.activityType}>
