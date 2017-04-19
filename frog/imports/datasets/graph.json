@@ -1,31 +1,34 @@
 {
   "graph": {
-    "_id": "cj1na1uon00002h71lx1731yj",
+    "_id": "cj1orqf8h00003i72si5swmta",
     "name": "G",
-    "createdAt": "2017-04-18T08:18:24.846Z",
+    "createdAt": "2017-04-19T09:21:10.819Z",
     "duration": 120
   },
   "activities": [
     {
-      "_id": "cj1na7tkd00003k6ww2w7lwjv",
+      "_id": "0-cj1na7tkd00003k6ww2w7lwjv",
       "title": "Expert prepare",
       "startTime": 0,
       "length": 5,
       "plane": 2,
       "activityType": "ac-iframe",
       "data": {
-        "url": "https://www.wikipedia.org/",
+        "url": "http://localhost:8000/blog",
         "perRole": [
           {
             "role": "aaa",
-            "content": "https://en.wikipedia.org/wiki/Sino-Roman_relations"
+            "content": "http://localhost:8000/blog/2017/01/05/from-seminar-to-lecture-to-mooc/"
           },
-          {"role": "qqq", "content": "https://en.wikipedia.org/wiki/Main_Page"}
+          {
+            "role": "qqq",
+            "content": "http://localhost:8000/blog/2015/09/03/sending-and-receiving-email-with-elixir/"
+          }
         ]
       }
     },
     {
-      "_id": "cj1nbmhk600003k6wkotd1pgm",
+      "_id": "0-cj1nbmhk600003k6wkotd1pgm",
       "title": "Mixed group Brainstorm",
       "startTime": 5,
       "length": 5,
@@ -34,16 +37,21 @@
       "data": {"groupBy": "group", "text": "ppp"}
     },
     {
-      "_id": "cj1nlxkra00023k6we7gsctrq",
+      "_id": "0-cj1nlxkra00023k6we7gsctrq",
       "title": "Categorize ideas",
       "startTime": 10,
       "length": 5,
       "plane": 1,
       "activityType": "ac-ck-board",
-      "data": {"boxes": []}
+      "data": {
+        "boxes": [
+          {"title": "alpha", "content": "beta"},
+          {"title": "niels", "content": "ole"}
+        ]
+      }
     },
     {
-      "_id": "cj1opmh9900003k6wmsgncolw",
+      "_id": "0-cj1opmh9900003k6wmsgncolw",
       "title": "Groups find solutions",
       "startTime": 15,
       "length": 5,
@@ -55,7 +63,7 @@
       }
     },
     {
-      "_id": "cj1opnw7v00023k6wychjlr1r",
+      "_id": "0-cj1opnw7v00023k6wychjlr1r",
       "title": "Rank solutions",
       "startTime": 20,
       "length": 5,
@@ -66,7 +74,7 @@
   ],
   "operators": [
     {
-      "_id": "cj1narozl0000346w69w1a9xd",
+      "_id": "0-cj1narozl0000346w69w1a9xd",
       "time": 2.7001843293350785,
       "y": 379,
       "type": "social",
@@ -74,7 +82,7 @@
       "data": {"roles": "qqq,aaa"}
     },
     {
-      "_id": "cj1nlx3p100003k6wrp1d8hyh",
+      "_id": "0-cj1nlx3p100003k6wrp1d8hyh",
       "time": 9.351994415815298,
       "y": 192,
       "type": "product",
@@ -82,7 +90,7 @@
       "title": "Aggregate problems"
     },
     {
-      "_id": "cj1oppf7t00033k6wj7zuywdz",
+      "_id": "0-cj1oppf7t00033k6wj7zuywdz",
       "time": 17.796610169491526,
       "y": 192,
       "type": "product",
@@ -92,39 +100,39 @@
   ],
   "connections": [
     {
-      "_id": "cj1njorq1000m2h71feixmtt2",
-      "source": {"type": "operator", "id": "cj1narozl0000346w69w1a9xd"},
-      "target": {"type": "activity", "id": "cj1na7tkd00003k6ww2w7lwjv"}
+      "_id": "0-cj1njorq1000m2h71feixmtt2",
+      "source": {"type": "operator", "id": "0-cj1narozl0000346w69w1a9xd"},
+      "target": {"type": "activity", "id": "0-cj1na7tkd00003k6ww2w7lwjv"}
     },
     {
-      "_id": "cj1njorq2000n2h71p04wce8r",
-      "source": {"type": "operator", "id": "cj1narozl0000346w69w1a9xd"},
-      "target": {"type": "activity", "id": "cj1nbmhk600003k6wkotd1pgm"}
+      "_id": "0-cj1njorq2000n2h71p04wce8r",
+      "source": {"type": "operator", "id": "0-cj1narozl0000346w69w1a9xd"},
+      "target": {"type": "activity", "id": "0-cj1nbmhk600003k6wkotd1pgm"}
     },
     {
-      "_id": "cj1nlx56700013k6wfsclxbik",
-      "source": {"type": "activity", "id": "cj1nbmhk600003k6wkotd1pgm"},
-      "target": {"type": "operator", "id": "cj1nlx3p100003k6wrp1d8hyh"}
+      "_id": "0-cj1nlx56700013k6wfsclxbik",
+      "source": {"type": "activity", "id": "0-cj1nbmhk600003k6wkotd1pgm"},
+      "target": {"type": "operator", "id": "0-cj1nlx3p100003k6wrp1d8hyh"}
     },
     {
-      "_id": "cj1nly3bj00033k6wvky108aq",
-      "source": {"type": "operator", "id": "cj1nlx3p100003k6wrp1d8hyh"},
-      "target": {"type": "activity", "id": "cj1nlxkra00023k6we7gsctrq"}
+      "_id": "0-cj1nly3bj00033k6wvky108aq",
+      "source": {"type": "operator", "id": "0-cj1nlx3p100003k6wrp1d8hyh"},
+      "target": {"type": "activity", "id": "0-cj1nlxkra00023k6we7gsctrq"}
     },
     {
-      "_id": "cj1opmsgf00013k6wi5m3h2um",
-      "source": {"type": "operator", "id": "cj1narozl0000346w69w1a9xd"},
-      "target": {"type": "activity", "id": "cj1opmh9900003k6wmsgncolw"}
+      "_id": "0-cj1opmsgf00013k6wi5m3h2um",
+      "source": {"type": "operator", "id": "0-cj1narozl0000346w69w1a9xd"},
+      "target": {"type": "activity", "id": "0-cj1opmh9900003k6wmsgncolw"}
     },
     {
-      "_id": "cj1oppg6i00043k6wmtamp6oi",
-      "source": {"type": "activity", "id": "cj1opmh9900003k6wmsgncolw"},
-      "target": {"type": "operator", "id": "cj1oppf7t00033k6wj7zuywdz"}
+      "_id": "0-cj1oppg6i00043k6wmtamp6oi",
+      "source": {"type": "activity", "id": "0-cj1opmh9900003k6wmsgncolw"},
+      "target": {"type": "operator", "id": "0-cj1oppf7t00033k6wj7zuywdz"}
     },
     {
-      "_id": "cj1opph7800053k6wygajwuxj",
-      "source": {"type": "operator", "id": "cj1oppf7t00033k6wj7zuywdz"},
-      "target": {"type": "activity", "id": "cj1opnw7v00023k6wychjlr1r"}
+      "_id": "0-cj1opph7800053k6wygajwuxj",
+      "source": {"type": "operator", "id": "0-cj1oppf7t00033k6wj7zuywdz"},
+      "target": {"type": "activity", "id": "0-cj1opnw7v00023k6wychjlr1r"}
     }
   ]
 }
