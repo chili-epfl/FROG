@@ -19,8 +19,8 @@ export const operator = (configData: Object, object: ObjectT) => {
 
   // computes the distance between two students as the number of different answers
   const distance = (id1, id2) => {
-    const prod1 = product && product.find(p => p.userId === id1);
-    const prod2 = product && product.find(p => p.userId === id2);
+    const prod1 = product && product.find(p => p.key === id1);
+    const prod2 = product && product.find(p => p.key === id2);
     return prod1 && prod2
       ? Object.keys(prod1.data).filter(
           q => prod1.data[q].radio !== prod2.data[q].radio

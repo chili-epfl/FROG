@@ -20,7 +20,7 @@ export type ActivityRunnerT = {
   configData: Object, // result of running config function from activity package
   object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
-  saveProduct: (userId: string, data: Object) => void, // call on completion, with student data as argument
+  saveProduct: (key: string, data: any) => void, // call on completion, with student data as argument
   reactiveData: { keys: Object[], list: Object[] },
   reactiveFn: Function,
   data: Object, // data from operator
