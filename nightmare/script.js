@@ -36,7 +36,7 @@ const script = [
   ['chen li', 'chat', 'Nihao'],
 
   ['students', 'waitSel', '#ac-brainstorm'],
-  ['teacher', 'wait', 30],
+  ['teacher', 'wait', 90],
   ['teacher', 'nextActivity'],
 
   ['all', 'wait', 15],
@@ -45,7 +45,7 @@ const script = [
   ['alfred', 'type', ['title', 'Something']],
   ['chen li', 'type', ['content', 'Something else']],
   ['ole', 'type', ['content', 'Madagascar!!! else']],
-  ['teacher', 'wait', 30],
+  ['teacher', 'wait', 90],
   ['students', 'wait', 5]
 ];
 
