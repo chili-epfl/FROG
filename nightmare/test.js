@@ -1,11 +1,11 @@
-const Nightmare = require('nightmare')
+const Nightmare = require('nightmare');
 const nightmare = Nightmare({
   show: true,
   x: 800,
   width: 710,
   y: 0,
   height: 430
-})
+});
 
 // peter
 
@@ -22,9 +22,9 @@ nightmare
   .type('input#chatinput', 'yeah sure\u000d')
   .wait('#ac-brainstorm')
   .end()
-  .then(function(result) {
-    console.log(result)
+  .then(result => {
+    console.log(result);
   })
-  .catch(function(error) {
-    console.error('Error:', error)
-  })
+  .catch(error => {
+    console.error('Error:', error);
+  });

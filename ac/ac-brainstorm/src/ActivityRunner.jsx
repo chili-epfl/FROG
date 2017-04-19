@@ -1,9 +1,10 @@
 // @flow
 
-import React from 'react'
-import styled from 'styled-components'
-import Form from 'react-jsonschema-form'
-import { Button } from 'react-bootstrap'
+import React from 'react';
+import styled from 'styled-components';
+import Form from 'react-jsonschema-form';
+import Stringify from 'json-stable-stringify';
+import { Button } from 'react-bootstrap';
 
 import { Chat, type ActivityRunnerT } from 'frog-utils'
 
@@ -31,7 +32,7 @@ const IdeaContainer = styled.div`
   border-width: 5px;
 `
 
-const Idea = ({ idea, fun }) => (
+const Idea = ({ idea, fun, remove }) => (
   <IdeaContainer>
     <b>{idea.value.title}</b>
     <p>{idea.value.content}</p>
@@ -50,26 +51,27 @@ const Idea = ({ idea, fun }) => (
     >
       -1
     </Button>
-    <Button
+    { remove && <Button
       bsStyle="danger"
       style={{ float: 'right' }}
       onClick={() => fun.delete(idea._id)}
     >
       Remove
-    </Button>
+    </Button> }
   </IdeaContainer>
 )
 
-const IdeaList = ({ ideas, fun, saveProduct }) =>
+const IdeaList = ({ ideas, fun, saveProduct, remove }) =>
   (ideas.length
     ? <div>
-        <Button bsStyle="primary" onClick={() => saveProduct(ideas)}>
+        {remove && <Button bsStyle="primary" onClick={() => saveProduct(ideas)}>
           Save List
-        </Button>
+        </Button>}
         {ideas
           .sort((a, b) => b.value.score - a.value.score)
-          .map(idea => <Idea idea={idea} fun={fun} key={idea._id} />)}
+          .map(idea => <Idea {...{ idea, fun, remove, key: idea._id }} />)}
       </div>
+
     : <p>Please submit an idea</p>)
 
 export default ({
@@ -120,6 +122,13 @@ export default ({
   const reactiveKey = reactiveData.keys.find(x => x.groupId === group)
   const formData = reactiveKey ? reactiveKey.DATA : null
 
+  if (object.products.length) {
+    object.products[0].forEach(item => {
+      const id = Stringify(item.data);
+      reactiveFn(group).listAddNoClobber(id, item.data);
+    });
+  }
+
   return (
     <div>
       <b>Group: {chatGroup}</b>
@@ -141,6 +150,7 @@ export default ({
               delete: reactiveFn(group).listDel
             }}
             saveProduct={ideas => saveProduct(group, ideas)}
+            remove={configData.form}
           />
           <Form {...{ schema, onChange, formData, onSubmit }} />
         </ListContainer>

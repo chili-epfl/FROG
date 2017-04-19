@@ -15,6 +15,7 @@
     "react-dom": "15.4.2",
     "react-bootstrap": "^0.30.6",
     "react-jsonschema-form": "^0.43.0",
-    "styled-components": "^1.4.0"
+    "styled-components": "^1.4.0",
+    "json-stable-stringify": "^1.0.1"
   }
 }

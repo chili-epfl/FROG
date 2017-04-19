@@ -53,9 +53,7 @@ Meteor.methods({
     ActivityData.remove({ _id: id, type: 'list', activityId, groupId });
   },
   'reactive_data.list_add_no_clobber': (activityId, groupId, id, value) => {
-    const idobj = { _id: id + activityId, type: 'list', activityId, groupId };
-
-    if (!ActivityData.findOne(idobj)) {
+    if (!ActivityData.findOne(id + activityId)) {
       ActivityData.insert({
         type: 'list',
         activityId,

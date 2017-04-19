@@ -1,13 +1,13 @@
 {
   "graph": {
-    "_id": "cj1orqf8h00003i72si5swmta",
+    "_id": "cj1p5fpjs00033k6y9403ilu3",
     "name": "G",
-    "createdAt": "2017-04-19T09:21:10.819Z",
+    "createdAt": "2017-04-19T15:44:45.592Z",
     "duration": 120
   },
   "activities": [
     {
-      "_id": "0-cj1na7tkd00003k6ww2w7lwjv",
+      "_id": "2-0-cj1na7tkd00003k6ww2w7lwjv",
       "title": "Expert prepare",
       "startTime": 0,
       "length": 5,
@@ -28,30 +28,25 @@
       }
     },
     {
-      "_id": "0-cj1nbmhk600003k6wkotd1pgm",
+      "_id": "2-0-cj1nbmhk600003k6wkotd1pgm",
       "title": "Mixed group Brainstorm",
       "startTime": 5,
       "length": 5,
       "plane": 2,
       "activityType": "ac-brainstorm",
-      "data": {"groupBy": "group", "text": "ppp"}
+      "data": {"groupBy": "group", "text": "ppp", "form": true}
     },
     {
-      "_id": "0-cj1nlxkra00023k6we7gsctrq",
+      "_id": "2-0-cj1nlxkra00023k6we7gsctrq",
       "title": "Categorize ideas",
       "startTime": 10,
       "length": 5,
       "plane": 1,
       "activityType": "ac-ck-board",
-      "data": {
-        "boxes": [
-          {"title": "alpha", "content": "beta"},
-          {"title": "niels", "content": "ole"}
-        ]
-      }
+      "data": {"boxes": []}
     },
     {
-      "_id": "0-cj1opmh9900003k6wmsgncolw",
+      "_id": "2-0-cj1opmh9900003k6wmsgncolw",
       "title": "Groups find solutions",
       "startTime": 15,
       "length": 5,
@@ -59,11 +54,12 @@
       "activityType": "ac-brainstorm",
       "data": {
         "groupBy": "group",
-        "text": "Discuss and rank possible solutions to the problems stated before"
+        "text": "Discuss and rank possible solutions to the problems stated before",
+        "form": true
       }
     },
     {
-      "_id": "0-cj1opnw7v00023k6wychjlr1r",
+      "_id": "2-0-cj1opnw7v00023k6wychjlr1r",
       "title": "Rank solutions",
       "startTime": 20,
       "length": 5,
@@ -74,7 +70,7 @@
   ],
   "operators": [
     {
-      "_id": "0-cj1narozl0000346w69w1a9xd",
+      "_id": "2-0-cj1narozl0000346w69w1a9xd",
       "time": 2.7001843293350785,
       "y": 379,
       "type": "social",
@@ -82,57 +78,59 @@
       "data": {"roles": "qqq,aaa"}
     },
     {
-      "_id": "0-cj1nlx3p100003k6wrp1d8hyh",
+      "_id": "2-0-cj1nlx3p100003k6wrp1d8hyh",
       "time": 9.351994415815298,
       "y": 192,
       "type": "product",
       "operatorType": "op-select-best",
-      "title": "Aggregate problems"
+      "title": "Aggregate problems",
+      "data": {"n": 2}
     },
     {
-      "_id": "0-cj1oppf7t00033k6wj7zuywdz",
+      "_id": "2-0-cj1oppf7t00033k6wj7zuywdz",
       "time": 17.796610169491526,
       "y": 192,
       "type": "product",
       "operatorType": "op-select-best",
-      "title": "Aggregate solutions"
+      "title": "Aggregate solutions",
+      "data": {"n": 2}
     }
   ],
   "connections": [
     {
-      "_id": "0-cj1njorq1000m2h71feixmtt2",
-      "source": {"type": "operator", "id": "0-cj1narozl0000346w69w1a9xd"},
-      "target": {"type": "activity", "id": "0-cj1na7tkd00003k6ww2w7lwjv"}
+      "_id": "2-0-cj1njorq1000m2h71feixmtt2",
+      "source": {"type": "operator", "id": "2-0-cj1narozl0000346w69w1a9xd"},
+      "target": {"type": "activity", "id": "2-0-cj1na7tkd00003k6ww2w7lwjv"}
     },
     {
-      "_id": "0-cj1njorq2000n2h71p04wce8r",
-      "source": {"type": "operator", "id": "0-cj1narozl0000346w69w1a9xd"},
-      "target": {"type": "activity", "id": "0-cj1nbmhk600003k6wkotd1pgm"}
+      "_id": "2-0-cj1njorq2000n2h71p04wce8r",
+      "source": {"type": "operator", "id": "2-0-cj1narozl0000346w69w1a9xd"},
+      "target": {"type": "activity", "id": "2-0-cj1nbmhk600003k6wkotd1pgm"}
     },
     {
-      "_id": "0-cj1nlx56700013k6wfsclxbik",
-      "source": {"type": "activity", "id": "0-cj1nbmhk600003k6wkotd1pgm"},
-      "target": {"type": "operator", "id": "0-cj1nlx3p100003k6wrp1d8hyh"}
+      "_id": "2-0-cj1nlx56700013k6wfsclxbik",
+      "source": {"type": "activity", "id": "2-0-cj1nbmhk600003k6wkotd1pgm"},
+      "target": {"type": "operator", "id": "2-0-cj1nlx3p100003k6wrp1d8hyh"}
     },
     {
-      "_id": "0-cj1nly3bj00033k6wvky108aq",
-      "source": {"type": "operator", "id": "0-cj1nlx3p100003k6wrp1d8hyh"},
-      "target": {"type": "activity", "id": "0-cj1nlxkra00023k6we7gsctrq"}
+      "_id": "2-0-cj1nly3bj00033k6wvky108aq",
+      "source": {"type": "operator", "id": "2-0-cj1nlx3p100003k6wrp1d8hyh"},
+      "target": {"type": "activity", "id": "2-0-cj1nlxkra00023k6we7gsctrq"}
     },
     {
-      "_id": "0-cj1opmsgf00013k6wi5m3h2um",
-      "source": {"type": "operator", "id": "0-cj1narozl0000346w69w1a9xd"},
-      "target": {"type": "activity", "id": "0-cj1opmh9900003k6wmsgncolw"}
+      "_id": "2-0-cj1opmsgf00013k6wi5m3h2um",
+      "source": {"type": "operator", "id": "2-0-cj1narozl0000346w69w1a9xd"},
+      "target": {"type": "activity", "id": "2-0-cj1opmh9900003k6wmsgncolw"}
     },
     {
-      "_id": "0-cj1oppg6i00043k6wmtamp6oi",
-      "source": {"type": "activity", "id": "0-cj1opmh9900003k6wmsgncolw"},
-      "target": {"type": "operator", "id": "0-cj1oppf7t00033k6wj7zuywdz"}
+      "_id": "2-0-cj1oppg6i00043k6wmtamp6oi",
+      "source": {"type": "activity", "id": "2-0-cj1opmh9900003k6wmsgncolw"},
+      "target": {"type": "operator", "id": "2-0-cj1oppf7t00033k6wj7zuywdz"}
     },
     {
-      "_id": "0-cj1opph7800053k6wygajwuxj",
-      "source": {"type": "operator", "id": "0-cj1oppf7t00033k6wj7zuywdz"},
-      "target": {"type": "activity", "id": "0-cj1opnw7v00023k6wychjlr1r"}
+      "_id": "2-0-cj1opph7800053k6wygajwuxj",
+      "source": {"type": "operator", "id": "2-0-cj1oppf7t00033k6wj7zuywdz"},
+      "target": {"type": "activity", "id": "2-0-cj1opnw7v00023k6wychjlr1r"}
     }
   ]
 }

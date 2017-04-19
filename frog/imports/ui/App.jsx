@@ -41,14 +41,13 @@ export default class App extends Component {
   }
 
   switchAppByUser = uname => {
-    const username =
-      uname || (Meteor.user() ? Meteor.user().username : 'noname');
-    const app =
-      {
-        teacher: 'Graph Editor',
-        admin: 'Admin',
-        noname: 'Home'
-      }[username] || 'Student View';
+    const username = uname ||
+      (Meteor.user() ? Meteor.user().username : 'noname');
+    const app = {
+      teacher: 'Graph Editor',
+      admin: 'Admin',
+      noname: 'Home'
+    }[username] || 'Student View';
     const newApp = this.handleNewHash();
     if (!newApp || username === 'noname') {
       this.setState({ app });
@@ -61,12 +60,11 @@ export default class App extends Component {
     history.pushState(null, null, '/#/' + (url && url[0]));
   };
 
-  createOrLogin = username => {
+  createOrLogin = (username) => {
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-          connectWithDefaultPwd(username)
-        );
+          connectWithDefaultPwd(username));
         if (appSlugs[location]) {
           this.setState({ app: appSlugs[location] });
         }
