@@ -54,39 +54,41 @@ nightmares.forEach(([x, user]) => {
     x.evaluate(() => window.restartSession());
   }
 
-  script.forEach(([who, what, param]) => {
-    if (
-      who === 'all' ||
-      (who === 'students' && user !== 'teacher') ||
-      who === user
-    ) {
-      if (what === 'wait') {
-        x.wait(param * speedUp);
-      } else if (what === 'waitSel') {
-        x.wait(param);
-      } else if (what === 'chat') {
-        x.insert('input#chatinput', '');
-        x.type('input#chatinput', param + '\u000d');
-      } else if (what === 'nextActivity') {
-        x.click('button');
-      } else if (what === 'type') {
-        x.type('#root_' + param[0], param[1]);
-      } else if (what === 'brainstorm') {
-        x.insert('#root_title', param[0]);
-        x.wait(20 * speedUp);
-        x.insert('#root_content', param[1]);
-        x.wait(10 * speedUp);
-        x.click('#addButton');
-      } else if (what === 'brainstormSubmit') {
-        x.click('#saveButton');
-      } else if (what === 'moveBox') {
-        x.evaluate(p => 'window.simulateDragObs(' + p.join(',') + ')', param);
+  if (process.argv[4] !== 'openonly') {
+    script.forEach(([who, what, param]) => {
+      if (
+        who === 'all' ||
+        (who === 'students' && user !== 'teacher') ||
+        who === user
+      ) {
+        if (what === 'wait') {
+          x.wait(param * speedUp);
+        } else if (what === 'waitSel') {
+          x.wait(param);
+        } else if (what === 'chat') {
+          x.insert('input#chatinput', '');
+          x.type('input#chatinput', param + '\u000d');
+        } else if (what === 'nextActivity') {
+          x.click('button');
+        } else if (what === 'type') {
+          x.type('#root_' + param[0], param[1]);
+        } else if (what === 'brainstorm') {
+          x.insert('#root_title', param[0]);
+          x.insert('#root_content', param[1]);
+          x.wait(10 * speedUp);
+          x.click('#addButton');
+          x.wait(10 * speedUp);
+        } else if (what === 'brainstormSubmit') {
+          x.click('#saveButton');
+        } else if (what === 'moveBox') {
+          x.evaluate(p => 'window.simulateDragObs(' + p.join(',') + ')', param);
+        }
       }
-    }
-  });
+    });
+  }
 
   x
-    .end()
+    .wait(999999999999)
     .then(result => {
       console.log(result);
     })

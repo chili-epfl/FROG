@@ -2,22 +2,22 @@
 // const consumer = ['Ahmed', 'Peter', 'Ragnar'];
 // const policy = ['Khanittra', 'Jean', 'Alphons'];
 module.exports = [
-  ['teacher', 'waitSel', '#start'],
-  ['teacher', 'wait', 10],
-  ['students', 'waitSel', '#startSoon'],
-  ['teacher', 'nextActivity'],
-  ['students', 'waitSel', '#ac-iframe'],
-  ['students', 'wait', 15],
+  // ['teacher', 'waitSel', '#start'],
+  // ['teacher', 'wait', 10],
+  // ['students', 'waitSel', '#startSoon'],
+  // ['teacher', 'nextActivity'],
+  // ['students', 'waitSel', '#ac-iframe'],
+  // ['students', 'wait', 15],
 
-  ['Peter', 'chat', 'So what are we supposed to do?'],
-  ['all', 'wait', 30],
-  [
-    'Stian',
-    'chat',
-    'I think we need to discuss these issues, to prepare ourselves before the big group'
-  ],
-  ['all', 'wait', 25],
-  ['Ahmed', 'chat', 'Is anyone else here?'],
+  // ['Peter', 'chat', 'So what are we supposed to do?'],
+  // ['all', 'wait', 30],
+  // [
+  //   'Stian',
+  //   'chat',
+  //   'I think we need to discuss these issues, to prepare ourselves before the big group'
+  // ],
+  // ['all', 'wait', 25],
+  // ['Ahmed', 'chat', 'Is anyone else here?'],
 
   ['students', 'waitSel', '#ac-brainstorm'],
   ['teacher', 'wait', 120],
@@ -44,7 +44,7 @@ module.exports = [
       'Normal taxis are reliable and have to pick up everyone. Uber breaks those norms'
     ]
   ],
-  ['Peter', 'wait', 100],
+  ['Peter', 'wait', 25],
   [
     'Peter',
     'brainstorm',
@@ -53,6 +53,7 @@ module.exports = [
       'Allowing people to disregard laws in one case, can lead to lawlessness in general'
     ]
   ],
+  ['Ahmed', 'wait', 25],
   [
     'Ahmed',
     'brainstorm',
@@ -61,6 +62,7 @@ module.exports = [
       'Taxi drivers have spent a lot of money paying for medallions which are now not so much worth'
     ]
   ],
+  ['Stian', 'wait', 25],
   [
     'Stian',
     'brainstorm',
@@ -75,7 +77,8 @@ module.exports = [
   ['students', 'waitSel', '#ac-ck-board'],
   ['teacher', 'nextActivity'],
   ['teacher', 'wait', 650],
-  ['stian', 'wait', 5],
-  ['stian', 'moveBox', ['Disregarding laws', 1, 1]],
+  ['Stian', 'wait', 5],
+  ['Stian', 'moveBox', ['Disregarding laws', 1, 1]],
+  ['Ahmed', 'moveBox', ['Medallions loose...', 500, 500]],
   ['students', 'wait', 550]
 ];

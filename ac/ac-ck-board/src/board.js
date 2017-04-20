@@ -51,8 +51,8 @@ class Cluster extends Component {
         const id = Stringify(e);
         this.props.reactiveFn('EVERYONE').listAddNoClobber(id, {
           ...e,
-          x: Math.random() * 800,
-          y: Math.random() * 800
+          x: Math.random() * 400,
+          y: Math.random() * 700
         });
       });
     }
@@ -62,8 +62,8 @@ class Cluster extends Component {
         const id = Stringify(e.data);
         this.props.reactiveFn('EVERYONE').listAddNoClobber(id, {
           ...e.data,
-          x: Math.random() * 800,
-          y: Math.random() * 800
+          x: Math.random() * 400,
+          y: Math.random() * 700
         });
       });
     }
