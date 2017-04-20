@@ -21,9 +21,9 @@ const taxi = ['Stian', 'Peter', 'Nils'];
 const consumer = ['Ahmed', 'Chen Li', 'Ragnar'];
 const policy = ['Khanittra', 'Jean', 'Alphons'];
 const roles = [
-  ...taxi.map((x, i) => [x, i, 'taxi']),
-  ...consumer.map((x, i) => [x, i, 'consumer']),
-  ...policy.map((x, i) => [x, i, 'consumer'])
+  ...taxi.map((x, i) => [x, i, 'taxi drivers']),
+  ...consumer.map((x, i) => [x, i, 'consumers']),
+  ...policy.map((x, i) => [x, i, 'policy makers'])
 ];
 
 export const operator = (configData: Object, object: ObjectT) => {
@@ -34,8 +34,6 @@ export const operator = (configData: Object, object: ObjectT) => {
     return { [studentId]: { role: info[2], group: info[1] + 1 } };
   });
   const socStruct = temp.reduce((acc, x) => ({ ...acc, ...x }), {});
-
-  console.log(socStruct);
   return {
     product: [],
     socialStructure: socStruct

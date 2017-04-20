@@ -174,7 +174,6 @@ export default ({
               },
               delete: reactiveFn(group).listDel
             }}
-            saveProduct={ideas => saveProduct(group, ideas)}
             remove={configData.formBoolean}
           />
           {configData.formBoolean &&
@@ -203,7 +202,10 @@ export default ({
                     <Button
                       id="saveButton"
                       bsStyle="primary"
-                      onClick={ideas => saveProduct(group, ideas)}
+                      onClick={saveProduct(
+                        group,
+                        reactiveData.list.filter(x => x.groupId === group)
+                      )}
                     >
                       Save
                     </Button>
