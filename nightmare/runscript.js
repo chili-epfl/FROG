@@ -72,13 +72,15 @@ nightmares.forEach(([x, user]) => {
       } else if (what === 'type') {
         x.type('#root_' + param[0], param[1]);
       } else if (what === 'brainstorm') {
-        x.type('#root_title', param[0]);
-        x.wait(10 * speedUp);
-        x.type('#root_content', param[1]);
+        x.insert('#root_title', param[0]);
+        x.wait(20 * speedUp);
+        x.insert('#root_content', param[1]);
         x.wait(10 * speedUp);
         x.click('#addButton');
       } else if (what === 'brainstormSubmit') {
         x.click('#saveButton');
+      } else if (what === 'moveBox') {
+        x.evaluate(p => 'window.simulateDragObs(' + p.join(',') + ')', param);
       }
     }
   });

@@ -64,7 +64,6 @@ export default class App extends Component {
             currentApp={this.state.app}
             changeFn={app => {
               this.setState({ app });
-              this.updateAddressbar(app);
             }}
           />
         </div>

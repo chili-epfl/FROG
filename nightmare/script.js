@@ -36,7 +36,6 @@ module.exports = [
     ]
   ],
   ['all', 'wait', 25],
-  ['Peter', 'wait', 100],
   [
     'Peter',
     'brainstorm',
@@ -45,6 +44,7 @@ module.exports = [
       'Normal taxis are reliable and have to pick up everyone. Uber breaks those norms'
     ]
   ],
+  ['Peter', 'wait', 100],
   [
     'Peter',
     'brainstorm',
@@ -71,8 +71,11 @@ module.exports = [
   ],
   ['Peter', 'brainstormSubmit'],
   ['Stian', 'brainstormSubmit'],
+  ['Ahmed', 'brainstormSubmit'],
   ['students', 'waitSel', '#ac-ck-board'],
   ['teacher', 'nextActivity'],
-  ['teacher', 'wait', 550],
-  ['students', 'wait', 50]
+  ['teacher', 'wait', 650],
+  ['stian', 'wait', 5],
+  ['stian', 'moveBox', ['Disregarding laws', 1, 1]],
+  ['students', 'wait', 550]
 ];
