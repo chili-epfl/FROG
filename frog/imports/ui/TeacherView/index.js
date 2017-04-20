@@ -42,21 +42,16 @@ const SessionController = ({ session, activities, students }) => (
   </div>
 );
 
-const DashView = ({ logs, session }) => {
+const Dashboard = ({ logs, activity }) => {
   let Dash = <p>NO DASHBOARD</p>;
-  if (session) {
-    const activity = Activities.findOne(session.activity);
-    if (activity) {
-      const activityType = activityTypesObj[activity.activityType];
-      const specificLogs = logs.filter(log => log.activity === activity._id);
-      if (activityType && activityType.Dashboard) {
-        Dash = (
-          <div>
-            <p>The current time is {activityType.Dashboard.timeNow}</p>
-            <activityType.Dashboard logs={specificLogs} />
-          </div>
-        );
-      }
+  if (activity) {
+    const activityType = activityTypesObj[activity.activityType];
+    if (activityType && activityType.Dashboard) {
+      Dash = (
+        <div>
+          <activityType.Dashboard logs={logs} />
+        </div>
+      );
     }
   }
   return (
@@ -66,6 +61,14 @@ const DashView = ({ logs, session }) => {
     </div>
   );
 };
+
+const DashView = createContainer(
+  ({ session }) => ({
+    activity: session && Activities.findOne(session.activityId),
+    logs: session && Logs.find({ activityId: session.activityId }).fetch()
+  }),
+  Dashboard
+);
 
 const LogView = ({ logs }) => (
   <div>

@@ -60,7 +60,7 @@ export default class App extends Component {
     history.pushState(null, null, '/#/' + (url && url[0]));
   };
 
-  createOrLogin = (username) => {
+  createOrLogin = username => {
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>

@@ -84,7 +84,7 @@ const Idea = ({ idea, fun, remove }) => (
 );
 
 const IdeaList = ({ ideas, fun, saveProduct, remove }) =>
-  (ideas.length
+  ideas.length
     ? <div>
         <ListGroup className="item">
           <FlipMove duration={750} easing="ease-out">
@@ -98,22 +98,20 @@ const IdeaList = ({ ideas, fun, saveProduct, remove }) =>
       </div>
     : <p><i>No ideas added yet</i></p>);
 
-export default ({
-  configData,
-  object,
-  userInfo,
-  logger,
-  reactiveFn,
-  reactiveData,
-  saveProduct
-}: ActivityRunnerT) => {
-  if (object.products.length) {
-    object.products[0].forEach(item => console.log(item));
-  }
-
+export default (
+  {
+    configData,
+    object,
+    userInfo,
+    logger,
+    reactiveFn,
+    reactiveData,
+    saveProduct
+  }: ActivityRunnerT
+) => {
   const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
-  const group =
-    (socialStructure && socialStructure[userInfo.id][configData.groupBy]) ||
+  const group = (socialStructure &&
+    socialStructure[userInfo.id][configData.groupBy]) ||
     'default';
 
   const chatGroup = 'CHAT_' + group;
@@ -134,6 +132,7 @@ export default ({
 
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
+      logger({ key: 'group ' + group, type: 'idea' });
       reactiveFn(group).listAdd({ score: 0, ...e.formData });
       reactiveFn(group).keySet('DATA', {});
     }
@@ -141,6 +140,7 @@ export default ({
 
   const onChange = e => {
     reactiveFn(group).keySet('DATA', e.formData);
+    logger({ key: userInfo.name, type: 'write' });
   };
 
   const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
@@ -170,7 +170,10 @@ export default ({
           <IdeaList
             ideas={reactiveData.list.filter(x => x.groupId === group)}
             fun={{
-              vote: reactiveFn(group).listSet,
+              vote: (id, item) => {
+                logger({ key: userInfo.name, type: 'vote' });
+                reactiveFn(group).listSet(id, item);
+              },
               delete: reactiveFn(group).listDel
             }}
             saveProduct={ideas => saveProduct(group, ideas)}

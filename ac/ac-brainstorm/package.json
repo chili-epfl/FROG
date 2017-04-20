@@ -16,6 +16,7 @@
     "react-bootstrap": "^0.30.6",
     "react-dom": "15.4.2",
     "react-flip-move": "^2.9.2",
+    "react-google-charts": "^1.5.4-alpha.1",
     "react-jsonschema-form": "^0.43.0",
     "styled-components": "^1.4.0"
   }

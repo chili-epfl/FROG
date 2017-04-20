@@ -18,7 +18,7 @@ export default ({ messages, userInfo, addMessage, logger }: ChatT) => (
       <TextInput
         callbackFn={e => {
           addMessage({ msg: e, user: userInfo.name });
-          logger({ chat: e });
+          logger({ key: userInfo.name, type: 'chat', msg: e });
         }}
         id="chatinput"
       />
