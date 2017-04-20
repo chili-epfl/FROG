@@ -62,6 +62,12 @@ css-to-react-native@^1.0.6:
     fbjs "^0.8.5"
     nearley "^2.7.7"
 
+debug@^2.2.0:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
+  dependencies:
+    ms "0.7.2"
+
 discontinuous-range@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
@@ -164,6 +170,10 @@ keycode@^2.1.2:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.1.8.tgz#94d2b7098215eff0e8f9a8931d5a59076c4532fb"
 
+loadjs@^3.3.1:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/loadjs/-/loadjs-3.5.0.tgz#1dd8934c064c5dad9c62c513875918e87db8e6e1"
+
 lodash.topath@^4.5.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
@@ -173,6 +183,10 @@ loose-envify@^1.0.0, loose-envify@^1.1.0:
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
     js-tokens "^3.0.0"
+
+ms@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
 nearley@^2.7.7:
   version "2.8.0"
@@ -237,7 +251,7 @@ react-bootstrap@^0.30.6:
     uncontrollable "^4.0.1"
     warning "^3.0.0"
 
-react-dom@15.4.2:
+react-dom@15.4.2, react-dom@^15.3.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
@@ -248,6 +262,15 @@ react-dom@15.4.2:
 react-flip-move@^2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/react-flip-move/-/react-flip-move-2.9.2.tgz#cac7b40c3a764b43495175bd5ad2588fd10b199c"
+
+react-google-charts@^1.5.4-alpha.1:
+  version "1.5.4-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-google-charts/-/react-google-charts-1.5.4-alpha.1.tgz#073518461f08aaa731199de382c3c2d78795d4c3"
+  dependencies:
+    debug "^2.2.0"
+    loadjs "^3.3.1"
+    react "^15.3.2"
+    react-dom "^15.3.2"
 
 react-jsonschema-form@^0.43.0:
   version "0.43.0"
@@ -272,7 +295,7 @@ react-prop-types@^0.4.0:
   dependencies:
     warning "^3.0.0"
 
-react@15.4.2:
+react@15.4.2, react@^15.3.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
