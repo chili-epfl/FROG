@@ -83,8 +83,8 @@ const Idea = ({ idea, fun, remove }) => (
   </ListGroupItem>
 );
 
-const IdeaList = ({ ideas, fun, saveProduct, remove }) =>
-  ideas.length
+const IdeaList = ({ ideas, fun, remove }) =>
+  (ideas.length
     ? <div>
         <ListGroup className="item">
           <FlipMove duration={750} easing="ease-out">
@@ -98,20 +98,18 @@ const IdeaList = ({ ideas, fun, saveProduct, remove }) =>
       </div>
     : <p><i>No ideas added yet</i></p>);
 
-export default (
-  {
-    configData,
-    object,
-    userInfo,
-    logger,
-    reactiveFn,
-    reactiveData,
-    saveProduct
-  }: ActivityRunnerT
-) => {
+export default ({
+  configData,
+  object,
+  userInfo,
+  logger,
+  reactiveFn,
+  reactiveData,
+  saveProduct
+}: ActivityRunnerT) => {
   const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
-  const group = (socialStructure &&
-    socialStructure[userInfo.id][configData.groupBy]) ||
+  const group =
+    (socialStructure && socialStructure[userInfo.id][configData.groupBy]) ||
     'default';
 
   const chatGroup = 'CHAT_' + group;
