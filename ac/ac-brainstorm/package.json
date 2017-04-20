@@ -1,5 +1,5 @@
 {
-  "name": "op-aggregate-ck-board",
+  "name": "ac-brainstorm",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -11,6 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsonpath-plus": "^0.16.0"
+    "json-stable-stringify": "^1.0.1",
+    "react": "15.4.2",
+    "react-bootstrap": "^0.30.6",
+    "react-dom": "15.4.2",
+    "react-flip-move": "^2.9.2",
+    "react-google-charts": "^1.5.4-alpha.1",
+    "react-jsonschema-form": "^0.43.0",
+    "styled-components": "^1.4.0"
   }
 }

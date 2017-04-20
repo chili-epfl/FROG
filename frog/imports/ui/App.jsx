@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Nav, NavItem } from 'react-bootstrap';
+import { restartSession } from '../api/sessions';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -30,39 +31,20 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = { app: 'Home' };
-    Meteor.subscribe('userData', { onReady: this.switchAppByUser });
+    window.switchUser = username => {
+      this.createOrLogin(username);
+      const app = username === 'teacher' ? 'Teacher View' : 'Student View';
+      this.setState({ app });
+    };
+    window.restartSession = restartSession;
   }
 
-  switchAppByUser = () => {
-    const username = Meteor.user() ? Meteor.user().username : 'noname';
-    const app = {
-      teacher: 'Graph Editor',
-      admin: 'Admin',
-      noname: 'Home'
-    }[username] || 'Student View';
-    const newApp = this.handleNewHash();
-    if (!newApp || username === 'noname') {
-      this.setState({ app });
-      this.updateAddressbar(app);
-    }
-  };
-
-  updateAddressbar = app => {
-    const url = Object.entries(appSlugs).find(([, v]) => v === app);
-    history.pushState(null, null, '/#/' + (url && url[0]));
-  };
-
-  handleNewHash = () => {
-    let [, location, username] = window.location.hash.split('/');
-    if (!username && !appSlugs[location]) {
-      username = location;
-      location = 'student';
-    }
-
+  createOrLogin = username => {
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-          connectWithDefaultPwd(username));
+          connectWithDefaultPwd(username)
+        );
         if (appSlugs[location]) {
           this.setState({ app: appSlugs[location] });
         }
@@ -70,15 +52,6 @@ export default class App extends Component {
         connectWithDefaultPwd(username);
       }
     }
-
-    if (appSlugs[location]) {
-      this.setState({ app: appSlugs[location] });
-      return appSlugs[location];
-    }
-  };
-
-  componentDidMount = () => {
-    window.addEventListener('hashchange', this.handleNewHash, false);
   };
 
   render() {
@@ -91,7 +64,6 @@ export default class App extends Component {
             currentApp={this.state.app}
             changeFn={app => {
               this.setState({ app });
-              this.updateAddressbar(app);
             }}
           />
         </div>

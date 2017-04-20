@@ -1,8 +1,7 @@
 // @flow
 
 import opLikeWithLike from 'op-like-with-like';
-import opAggregateText from 'op-aggregate-text';
-import opAggregateCKBoard from 'op-aggregate-ck-board';
+import opSelectBest from 'op-select-best';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
 
@@ -12,8 +11,7 @@ import { keyBy } from 'lodash';
 
 export const operatorTypes: Array<OperatorPackageT> = [
   opLikeWithLike,
-  opAggregateText,
-  opAggregateCKBoard,
+  opSelectBest,
   opJigsaw,
   opArgue
 ];

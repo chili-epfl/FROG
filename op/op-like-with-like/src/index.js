@@ -27,7 +27,7 @@ export const operator = (configData: Object, object: ObjectT) => {
       groups[key] = Stringify(g);
       g += 1;
     }
-    socStruc[p.userId] = {
+    socStruc[p.key] = {
       group: groups[key]
     };
   });

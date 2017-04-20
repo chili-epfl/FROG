@@ -32,27 +32,25 @@ const ActivityBody = ({ activityId, state }) =>
     STARTED: activityId
       ? <Runner activityId={activityId} />
       : <h1>Session running & waiting for next activity</h1>,
-    CREATED: <h1>The session will start soon</h1>,
+    CREATED: <h1 id="startSoon">The session will start soon</h1>,
     PAUSED: <h1>The session is paused</h1>,
     STOPPED: <h1>The session is stopped</h1>
   }[state]);
 
-const SessionBody = ({ session }) =>
-  session
-    ? <ActivityBody activityId={session.activityId} state={session.state} />
-    : <h1>Please chose a session to start learning</h1>;
+const SessionBody = ({ session }) => (
+  <div id="session">
+    {session
+      ? <ActivityBody activityId={session.activityId} state={session.state} />
+      : <h1>Please chose a session to start learning</h1>}
+  </div>
+);
 
 const StudentView = ({ user, sessions }) => {
-  const curSession = user.profile
-    ? Sessions.findOne(user.profile.currentSession)
-    : null;
+  const userobj = Meteor.users.findOne(user);
+  setStudentSession(sessions[0]._id);
   return (
     <div>
-      <SessionBody session={curSession} />
-      <SessionList
-        sessions={sessions}
-        curSessionId={!!curSession && curSession._id}
-      />
+      <SessionBody session={sessions[0]} />
     </div>
   );
 };

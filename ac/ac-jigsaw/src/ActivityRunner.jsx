@@ -10,22 +10,22 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-`
+`;
 
 const TitleContainer = styled.div`
   padding: 2%;
   width: 100%;
-`
+`;
 
 const FormContainer = styled.div`
   padding: 2%;
   width: 60%;
-`
+`;
 
 const ChatContainer = styled.div`
   padding: 2%;
   width: 40%;
-`
+`;
 
 export default (props: ActivityRunnerT) => {
   const {
@@ -91,8 +91,7 @@ export default (props: ActivityRunnerT) => {
       <FormContainer>
         <p>{contentPerRole[attributes.role]}</p>
         {completed && <h1>From Submitted</h1>}
-        {configData.questions.length > 0 &&
-        <Form {...{ schema, formData, onChange, onSubmit }} />}
+        {configData.questions.length > 0 && <Form {...{ schema, onSubmit }} />}
       </FormContainer>
       <ChatContainer>
         <Chat

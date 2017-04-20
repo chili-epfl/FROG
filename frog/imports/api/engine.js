@@ -2,7 +2,12 @@
 
 import { Meteor } from 'meteor/meteor';
 
-import type { SocialStructureT, ProductT, ObjectT } from 'frog-utils';
+import {
+  uuid,
+  type SocialStructureT,
+  type ProductT,
+  type ObjectT
+} from 'frog-utils';
 
 import { Activities, Connections, Operators } from './activities';
 import {
@@ -108,7 +113,7 @@ Meteor.methods({
           object
         );
         // The result of the operator function are written in Mongo
-        product.forEach(data => addNodeProduct(nodeId, data, ''));
+        product.forEach(data => addNodeProduct(nodeId, data, uuid()));
         Object.keys(socialStructure).forEach(studentId => {
           const att = {};
           att['profile.attributes.' + nodeId] = socialStructure[studentId];

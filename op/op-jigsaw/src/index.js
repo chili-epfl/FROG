@@ -1,8 +1,3 @@
-// @flow
-
-import { shuffle } from 'lodash';
-import type { ObjectT, SocialStructureT } from 'frog-utils';
-
 export const meta = {
   name: 'Jigsaw',
   type: 'social'
@@ -22,37 +17,26 @@ export const config = {
   }
 };
 
+const taxi = ['Stian', 'Peter', 'Nils'];
+const consumer = ['Ahmed', 'Chen Li', 'Ragnar'];
+const policy = ['Khanittra', 'Jean', 'Alphons'];
+const roles = [
+  ...taxi.map((x, i) => [x, i, 'taxi drivers']),
+  ...consumer.map((x, i) => [x, i, 'consumers']),
+  ...policy.map((x, i) => [x, i, 'policy makers'])
+];
+
 export const operator = (configData: Object, object: ObjectT) => {
-  const { globalStructure, socialStructures } = object;
+  const temp = object.globalStructure.studentIds.map(studentId => {
+    const username = Meteor.users.findOne(studentId).username;
+    const info = roles.find(x => x[0] === username) || [, 'norole', 'nogroup'];
 
-  const socStruc: SocialStructureT = {};
-
-  const roles = configData.roles.split(',');
-  const groupSize = roles.length;
-
-  if (configData.mix) {
-    const prevStruc = socialStructures[0];
-    const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
-    shuffle(globalStructure.studentIds).forEach(studentId => {
-      const prevRole = prevStruc[studentId].role;
-      socStruc[studentId] = {
-        role: prevRole,
-        group: roleCounts[prevRole]
-      };
-      roleCounts[prevRole] += 1;
-    });
-  } else {
-    shuffle(globalStructure.studentIds).forEach((studentId, index) => {
-      socStruc[studentId] = {
-        role: roles[index % groupSize],
-        group: Math.floor(index / groupSize).toString()
-      };
-    });
-  }
-
+    return { [studentId]: { role: info[2], group: info[1] + 1 } };
+  });
+  const socStruct = temp.reduce((acc, x) => ({ ...acc, ...x }), {});
   return {
     product: [],
-    socialStructure: socStruc
+    socialStructure: socStruct
   };
 };
 
