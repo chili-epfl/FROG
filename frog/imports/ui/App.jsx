@@ -31,7 +31,6 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = { app: 'Home' };
-    Meteor.subscribe('userData', { onReady: this.switchAppByUser });
     window.switchUser = username => {
       this.createOrLogin(username);
       const app = username === 'teacher' ? 'Teacher View' : 'Student View';
@@ -40,31 +39,12 @@ export default class App extends Component {
     window.restartSession = restartSession;
   }
 
-  switchAppByUser = uname => {
-    const username = uname ||
-      (Meteor.user() ? Meteor.user().username : 'noname');
-    const app = {
-      teacher: 'Graph Editor',
-      admin: 'Admin',
-      noname: 'Home'
-    }[username] || 'Student View';
-    const newApp = this.handleNewHash();
-    if (!newApp || username === 'noname') {
-      this.setState({ app });
-      this.updateAddressbar(app);
-    }
-  };
-
-  updateAddressbar = app => {
-    const url = Object.entries(appSlugs).find(([, v]) => v === app);
-    history.pushState(null, null, '/#/' + (url && url[0]));
-  };
-
   createOrLogin = username => {
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-          connectWithDefaultPwd(username));
+          connectWithDefaultPwd(username)
+        );
         if (appSlugs[location]) {
           this.setState({ app: appSlugs[location] });
         }
@@ -72,27 +52,6 @@ export default class App extends Component {
         connectWithDefaultPwd(username);
       }
     }
-  };
-
-  handleNewHash = () => {
-    let [, location, username] = window.location.hash.split('/');
-    if (!username && !appSlugs[location]) {
-      username = location;
-      location = 'student';
-    }
-
-    if (username) {
-      this.createOrLogin(username);
-    }
-
-    if (appSlugs[location]) {
-      this.setState({ app: appSlugs[location] });
-      return appSlugs[location];
-    }
-  };
-
-  componentDidMount = () => {
-    window.addEventListener('hashchange', this.handleNewHash, false);
   };
 
   render() {

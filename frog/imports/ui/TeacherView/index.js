@@ -53,7 +53,7 @@ const Dashboard = ({ logs, activity }) => {
     }
   }
   return (
-    <div>
+    <div id="dashboard">
       <h1>Dashboard</h1>
       {Dash}
     </div>

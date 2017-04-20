@@ -48,9 +48,9 @@ const nightmares = users.map(ary => [
 nightmares.forEach(([x, user]) => {
   x.goto('http://localhost:3000/');
   x.wait('a');
-  x.wait(3000);
   x.evaluate(u => window.switchUser(u), user);
   if (user === 'teacher') {
+    x.wait('#dashboard');
     x.evaluate(() => window.restartSession());
   }
 
