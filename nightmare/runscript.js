@@ -30,6 +30,8 @@ if (onlyUser) {
   users = windows;
 }
 
+const speedUp = process.argv[3] || 100;
+
 const nightmares = users.map(ary => [
   Nightmare({
     show: true,
@@ -37,12 +39,11 @@ const nightmares = users.map(ary => [
     y: ary[1],
     height: 430,
     width: 710,
+    typeInterval: 1.5 * speedUp,
     waitTimeout: 99999999
   }),
   ary[2]
 ]);
-
-const speedUp = process.argv[3] || 100;
 
 nightmares.forEach(([x, user]) => {
   x.goto('http://localhost:3000/');
@@ -71,9 +72,10 @@ nightmares.forEach(([x, user]) => {
       } else if (what === 'type') {
         x.type('#root_' + param[0], param[1]);
       } else if (what === 'brainstorm') {
-        x.insert('#root_title', param[0]);
-        x.wait(10 * speedUp);
-        x.insert('#root_content', param[1]);
+        x.insert('#root_content', '');
+        x.insert('#root_title', '');
+        x.type('#root_title', param[0]);
+        x.type('#root_content', param[1]);
         x.wait(10 * speedUp);
         x.click('#addButton');
       } else if (what === 'brainstormSubmit') {
