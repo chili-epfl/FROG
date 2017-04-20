@@ -185,7 +185,7 @@ export default ({
                 }}
               />
               <div style={{ width: '500px' }}>
-                <Form {...{ schema, onChange, formData, onSubmit }}>
+                <Form {...{ schema, onSubmit }}>
                   <div
                     style={{
                       layout: 'flex',

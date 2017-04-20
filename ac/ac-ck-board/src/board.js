@@ -49,18 +49,22 @@ class Cluster extends Component {
     if (this.props.configData) {
       this.props.configData.boxes.forEach(e => {
         const id = Stringify(e);
-        this.props
-          .reactiveFn('EVERYONE')
-          .listAddNoClobber(id, { ...e, x: 1, y: 1 });
+        this.props.reactiveFn('EVERYONE').listAddNoClobber(id, {
+          ...e,
+          x: Math.random() * 800,
+          y: Math.random() * 800
+        });
       });
     }
 
     if (this.props.object.products.length > 0) {
       this.props.object.products[0].forEach(e => {
         const id = Stringify(e.data);
-        this.props
-          .reactiveFn('EVERYONE')
-          .listAddNoClobber(id, { ...e.data, x: 1, y: 1 });
+        this.props.reactiveFn('EVERYONE').listAddNoClobber(id, {
+          ...e.data,
+          x: Math.random() * 800,
+          y: Math.random() * 800
+        });
       });
     }
   }

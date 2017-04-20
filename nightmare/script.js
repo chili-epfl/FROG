@@ -45,6 +45,30 @@ module.exports = [
       'Normal taxis are reliable and have to pick up everyone. Uber breaks those norms'
     ]
   ],
+  [
+    'Peter',
+    'brainstorm',
+    [
+      'Disregarding laws',
+      'Allowing people to disregard laws in one case, can lead to lawlessness in general'
+    ]
+  ],
+  [
+    'Ahmed',
+    'brainstorm',
+    [
+      'Medallions loose...',
+      'Taxi drivers have spent a lot of money paying for medallions which are now not so much worth'
+    ]
+  ],
+  [
+    'Stian',
+    'brainstorm',
+    [
+      'Uber is a big company',
+      'Uber aggressively lobbies and could undermine the political process'
+    ]
+  ],
   ['Peter', 'brainstormSubmit'],
   ['Stian', 'brainstormSubmit'],
   ['students', 'waitSel', '#ac-ck-board'],

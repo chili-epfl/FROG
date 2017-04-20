@@ -72,9 +72,8 @@ nightmares.forEach(([x, user]) => {
       } else if (what === 'type') {
         x.type('#root_' + param[0], param[1]);
       } else if (what === 'brainstorm') {
-        x.insert('#root_content', '');
-        x.insert('#root_title', '');
         x.type('#root_title', param[0]);
+        x.wait(10 * speedUp);
         x.type('#root_content', param[1]);
         x.wait(10 * speedUp);
         x.click('#addButton');
