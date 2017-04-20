@@ -16,26 +16,24 @@ import { Logs } from '../../api/logs';
 
 import { activityTypesObj } from '../../activityTypes';
 
-const DisplaySession = ({ session }) =>
+const displaySession = session =>
   ({
-    CREATED: (
-      <p>
-        You have created the session and can wait for your students to join it before starting it
-      </p>
-    ),
-    STARTED: <p>The session is started, you can run the activities</p>,
-    PAUSED: <p>The session is paused, you can restart it at any time</p>,
-    STOPPED: <p>The session has been stopped</p>
+    CREATED: 'Not started',
+    STARTED: 'Control activities',
+    PAUSED: 'Paused',
+    STOPPED: 'Stopped'
   }[session.state]);
 
 const SessionController = ({ session, activities, students }) => (
   <div>
-    <h1>Session control</h1>
     {session
       ? <div>
-          <DisplaySession session={session} />
-          <ButtonList session={session} />
-          <StudentList students={students} />
+          <div style={{ float: 'right' }}>
+            <div style={{ marginLeft: '10px', float: 'right' }}>
+              <ButtonList session={session} />
+            </div>
+            {displaySession(session)}
+          </div>
           <ActivityList activities={activities} session={session} />
         </div>
       : <p>Create or select a session from the list bellow</p>}
@@ -115,8 +113,9 @@ export default createContainer(
     <div>
       <SessionController {...props} />
       <DashView {...props} />
-      <SessionList {...props} />
+      <StudentList students={props.students} />
       <LogView {...props} />
+      <SessionList {...props} />
     </div>
   )
 );
