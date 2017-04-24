@@ -2,12 +2,10 @@
 
 import React from 'react';
 
-export default (
-  {
-    activities,
-    session
-  }: { activities: Array<Object>, session: Object }
-) => (
+export default ({
+  activities,
+  session
+}: { activities: Array<Object>, session: Object }) => (
   <div>
     <h3>Available Activities</h3>
     {activities && activities.length

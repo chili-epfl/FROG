@@ -6,12 +6,10 @@ import { A } from 'frog-utils';
 
 import { addSession, setTeacherSession } from '../../api/sessions';
 
-export default (
-  {
-    graphs,
-    sessions
-  }: { graphs: Array<Object>, sessions: Array<Object> }
-) => (
+export default ({
+  graphs,
+  sessions
+}: { graphs: Array<Object>, sessions: Array<Object> }) => (
   <div id="sessionList">
     <h1>Session list</h1>
     <DropdownButton title="Create Session" id="dropdown-basic-0">
