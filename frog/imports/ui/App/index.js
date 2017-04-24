@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 import Body from './Body.jsx';
-import AccountsUIWrapper from './../AccountsUIWrapper.jsx';
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Navigation from './Navigation';
 
 const DEFAULT_PASSWORD = '123456';
