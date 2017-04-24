@@ -1,26 +1,27 @@
 // @flow
+
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
-import Home from './Home';
-import StudentView from './StudentView';
-import TeacherView from './TeacherView';
-import GraphEditor from './GraphEditor';
-import Admin from './Admin';
+import Home from './../Home';
+import StudentView from './../StudentView';
+import TeacherView from './../TeacherView';
+import GraphEditor from './../GraphEditor';
+import Admin from './../Admin';
 
 const Body = ({ userId, app }) => {
   if (userId) {
     switch (app) {
-      case 'Home':
+      case 'home':
         return <Home />;
-      case 'Admin':
+      case 'admin':
         return <Admin />;
-      case 'Graph Editor':
+      case 'graph':
         return <GraphEditor />;
-      case 'Student View':
+      case 'student':
         return <StudentView />;
-      case 'Teacher View':
+      case 'teacher':
         return <TeacherView />;
       default:
         return <p>MISSING OR WRONG STATE IN APP COMPONENT: {app}</p>;
