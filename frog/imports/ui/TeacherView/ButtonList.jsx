@@ -15,7 +15,6 @@ export default ({ session }: { session: Object }) => {
     {
       states: ['CREATED'],
       type: 'primary',
-      id: 'start',
       onClick: () => {
         runSession(session._id);
         nextActivity(session._id);
@@ -68,7 +67,7 @@ export default ({ session }: { session: Object }) => {
             key={button.text}
             className={'btn btn-' + button.type + ' btn-sm'}
             onClick={button.onClick}
-            id={button.id}
+            id={button.text}
           >
             {button.text}
           </button>
