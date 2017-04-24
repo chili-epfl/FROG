@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -24,7 +23,7 @@ const displaySession = session =>
     STOPPED: 'Stopped'
   }[session.state]);
 
-const SessionController = ({ session, activities, students }) => (
+const SessionController = ({ session, activities }) => (
   <div>
     {session
       ? <div>
