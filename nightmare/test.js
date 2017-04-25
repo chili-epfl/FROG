@@ -2,8 +2,10 @@ const Nightmare = require('nightmare');
 
 const apps = ['home', 'admin', 'graph', 'teacher', 'student']
 
+const show = process.argv[2] === 'show'
+
 const N = Nightmare({
-  show: true,
+  show,
   waitTimeout: 5000 // increase the default timeout to test things
 })
   
