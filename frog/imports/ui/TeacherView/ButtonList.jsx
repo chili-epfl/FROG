@@ -67,6 +67,7 @@ export default ({ session }: { session: Object }) => {
             key={button.text}
             className={'btn btn-' + button.type + ' btn-sm'}
             onClick={button.onClick}
+            id={button.text}
           >
             {button.text}
           </button>

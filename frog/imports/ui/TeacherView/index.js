@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -16,56 +15,57 @@ import { Logs } from '../../api/logs';
 
 import { activityTypesObj } from '../../activityTypes';
 
-const DisplaySession = ({ session }) =>
+const displaySession = session =>
   ({
-    CREATED: (
-      <p>
-        You have created the session and can wait for your students to join it before starting it
-      </p>
-    ),
-    STARTED: <p>The session is started, you can run the activities</p>,
-    PAUSED: <p>The session is paused, you can restart it at any time</p>,
-    STOPPED: <p>The session has been stopped</p>
+    CREATED: 'Not started',
+    STARTED: 'Control activities',
+    PAUSED: 'Paused',
+    STOPPED: 'Stopped'
   }[session.state]);
 
-const SessionController = ({ session, activities, students }) => (
+const SessionController = ({ session, activities }) => (
   <div>
-    <h1>Session control</h1>
     {session
       ? <div>
-          <DisplaySession session={session} />
-          <ButtonList session={session} />
-          <StudentList students={students} />
+          <div style={{ float: 'right' }}>
+            <div style={{ marginLeft: '10px', float: 'right' }}>
+              <ButtonList session={session} />
+            </div>
+            {displaySession(session)}
+          </div>
           <ActivityList activities={activities} session={session} />
         </div>
       : <p>Create or select a session from the list bellow</p>}
   </div>
 );
 
-const DashView = ({ logs, session }) => {
+const Dashboard = ({ logs, activity }) => {
   let Dash = <p>NO DASHBOARD</p>;
-  if (session) {
-    const activity = Activities.findOne(session.activity);
-    if (activity) {
-      const activityType = activityTypesObj[activity.activityType];
-      const specificLogs = logs.filter(log => log.activity === activity._id);
-      if (activityType && activityType.Dashboard) {
-        Dash = (
-          <div>
-            <p>The current time is {activityType.Dashboard.timeNow}</p>
-            <activityType.Dashboard logs={specificLogs} />
-          </div>
-        );
-      }
+  if (activity) {
+    const activityType = activityTypesObj[activity.activityType];
+    if (activityType && activityType.Dashboard) {
+      Dash = (
+        <div>
+          <activityType.Dashboard logs={logs} />
+        </div>
+      );
     }
   }
   return (
-    <div>
+    <div id="dashboard">
       <h1>Dashboard</h1>
       {Dash}
     </div>
   );
 };
+
+const DashView = createContainer(
+  ({ session }) => ({
+    activity: session && Activities.findOne(session.activityId),
+    logs: session && Logs.find({ activityId: session.activityId }).fetch()
+  }),
+  Dashboard
+);
 
 const LogView = ({ logs }) => (
   <div>
@@ -112,8 +112,9 @@ export default createContainer(
     <div id="teacher">
       <SessionController {...props} />
       <DashView {...props} />
-      <SessionList {...props} />
+      <StudentList students={props.students} />
       <LogView {...props} />
+      <SessionList {...props} />
     </div>
   )
 );
