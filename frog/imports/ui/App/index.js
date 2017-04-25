@@ -27,7 +27,6 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = { app: 'home' };
-    Meteor.subscribe('userData', { onReady: this.handleNewHash });
   }
 
   handleNewHash = () => {
@@ -47,6 +46,7 @@ export default class App extends Component {
 
   componentDidMount = () => {
     window.addEventListener('hashchange', this.handleNewHash, false);
+    this.handleNewHash()
   };
 
   render() {
