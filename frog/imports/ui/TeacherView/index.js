@@ -109,7 +109,7 @@ export default createContainer(
     };
   },
   props => (
-    <div>
+    <div id="teacher">
       <SessionController {...props} />
       <DashView {...props} />
       <StudentList students={props.students} />

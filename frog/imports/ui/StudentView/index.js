@@ -47,7 +47,7 @@ const StudentView = ({ user, sessions }) => {
     ? Sessions.findOne(user.profile.currentSession)
     : null;
   return (
-    <div>
+    <div id="student">
       <SessionBody session={curSession} />
       <SessionList
         sessions={sessions}

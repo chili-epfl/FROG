@@ -20,7 +20,7 @@ export default class AppClass extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
+        <div id="graph">
           <EditorContainer />
         </div>
       </Provider>

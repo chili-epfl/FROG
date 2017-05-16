@@ -67,7 +67,7 @@ export default createContainer(
     return { sessions, graphs, activities, operators, connections };
   },
   ({ sessions, graphs, activities, operators, connections }) => (
-    <div>
+    <div id="admin">
       <h1>Commands</h1>
       <button onClick={() => deleteDatabase()}>
         Delete the database
