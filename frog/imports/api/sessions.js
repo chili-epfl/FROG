@@ -1,19 +1,23 @@
+// @flow
+
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { Presences } from 'meteor/tmeasday:presence';
+
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
 
 export const Sessions = new Mongo.Collection('sessions');
 
-export const setTeacherSession = sessionId => {
+export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(
     { _id: Meteor.userId() },
     { $set: { 'profile.controlSession': sessionId } }
   );
 };
 
-export const setStudentSession = sessionId => {
+export const setStudentSession = (sessionId: string) => {
   Meteor.users.update(
     { _id: Meteor.userId() },
     { $set: { 'profile.currentSession': sessionId } }
@@ -37,37 +41,38 @@ const addSessionItem = (type, sessionId, params) => {
   return id;
 };
 
-export const addSession = graphId => {
+export const addSession = (graphId: string) => {
   Meteor.call('add.session', graphId);
 };
 
-export const updateSessionState = (id, state) => {
+export const updateSessionState = (id: string, state: string) => {
   Sessions.update(id, { $set: { state } });
   if (state === 'STARTED') {
     Sessions.update(id, { $set: { startedAt: new Date().getTime() } });
   }
   if (state === 'PAUSED') {
-    if (Sessions.findOne(id).pausedAt == null) {
-      Sessions.update(
-        { _id: id },
-        { $set: { pausedAt: new Date().getTime() } }
-      );
-    }
+    Sessions.update(id, { $set: { pausedAt: new Date().getTime() } });
   }
 };
 
-export const updateSessionActivity = (sessionId, activityId) => {
+export const updateOpenActivities = (
+  sessionId: string,
+  openActivities: Array<string>,
+  timeInGraph: number
+) => {
   Sessions.update(
     { _id: sessionId },
-    { $set: { activityId, startedAt: new Date().getTime() } }
+    { $set: { openActivities, timeInGraph, startedAt: new Date().getTime() } }
   );
-  Meteor.call('run.dataflow', 'activity', activityId, sessionId);
+  openActivities.forEach(activityId => {
+    Meteor.call('run.dataflow', 'activity', activityId, sessionId);
+  });
 };
 
-export const removeSession = sessionId =>
+export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
-export const joinAllStudents = sessionId =>
+export const joinAllStudents = (sessionId: string) =>
   Meteor.call('session.joinall', sessionId);
 
 Meteor.methods({
@@ -85,6 +90,7 @@ Meteor.methods({
       _id: sessionId,
       graphId,
       state: 'CREATED',
+      timeInGraph: -1,
       startedAt: null,
       pausedAt: null
     });

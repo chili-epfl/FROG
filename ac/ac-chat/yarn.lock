@@ -47,14 +47,6 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-jsonschema@^1.0.2:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/jsonschema/-/jsonschema-1.1.1.tgz#3cede8e3e411d377872eefbc9fdf26383cbc3ed9"
-
-lodash.topath@^4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
-
 loose-envify@^1.0.0, loose-envify@^1.1.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
@@ -86,13 +78,9 @@ react-dom@15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
-react-jsonschema-form@^0.43.0:
-  version "0.43.0"
-  resolved "https://registry.yarnpkg.com/react-jsonschema-form/-/react-jsonschema-form-0.43.0.tgz#586b69de7bda6d3a9cd9f74c1bee9b7fa353d1e5"
-  dependencies:
-    jsonschema "^1.0.2"
-    lodash.topath "^4.5.2"
-    setimmediate "^1.0.5"
+react-iframe@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-iframe/-/react-iframe-0.0.4.tgz#24f2f63439f1d141788b0971acc10cdd06fd7b75"
 
 react@15.4.2:
   version "15.4.2"

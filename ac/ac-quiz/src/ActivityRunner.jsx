@@ -2,12 +2,11 @@
 
 import React from 'react';
 import Form from 'react-jsonschema-form';
-import { Chat, type ActivityRunnerT, type ProductT } from 'frog-utils';
+import type { ActivityRunnerT, ProductT } from 'frog-utils';
 
 export default (props: ActivityRunnerT) => {
   const {
     configData,
-    logger,
     saveProduct,
     object,
     userInfo,
@@ -78,18 +77,6 @@ export default (props: ActivityRunnerT) => {
 
   return (
     <div>
-      <p>You are {userInfo.name}</p>
-      {configData.collab
-        ? <div>
-            <p>You are collaborating with the group {group}</p>
-            <Chat
-              messages={reactiveData.list.filter(x => x.groupId === group)}
-              userInfo={userInfo}
-              addMessage={reactiveFn(group).listAdd}
-              logger={logger}
-            />
-          </div>
-        : null}
       {completed
         ? <h1>Form completed!</h1>
         : <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />}

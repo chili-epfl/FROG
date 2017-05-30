@@ -2,7 +2,7 @@ html {
   height: 100%;
 }
 
-body {
+body, #render-target, #app {
   font-family: sans-serif;
   background-color: #fff;
   background-attachment: fixed;
@@ -21,13 +21,24 @@ body {
   font-size: 14px;
 }
 
-#body {
-  background: #f8f8f8;
-  min-height: 100%;
+#app {
+  display: flex;
+  flex-direction: column;
 }
 
 #header {
   display: flex;
+  flex: 0 0 auto;
+}
+
+#body {
+  display: flex;
+  flex: 1 1 auto;
+  background: #f8f8f8;
+}
+
+#home, #graph, #teacher, #student {
+  flex: 1 1 auto;
 }
 
 #login-buttons {
@@ -51,7 +62,7 @@ body {
 .edithover {
     display: none;
 }
-    
+
 span:hover + .edithover {
     display: inline;
 }

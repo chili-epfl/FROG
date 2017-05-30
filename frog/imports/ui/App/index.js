@@ -51,7 +51,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <div id="app">
         <div id="header">
           <AccountsUIWrapper />
           <Navigation apps={apps} currentApp={this.state.app} />
