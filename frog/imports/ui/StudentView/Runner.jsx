@@ -12,6 +12,9 @@ import { Objects } from '../../api/objects';
 import { Activities } from '../../api/activities';
 
 const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
+  if (!activity) {
+    return <p>NULL ACTIVITY</p>;
+  }
   const activityType = activityTypesObj[activity.activityType];
 
   const logger = createLogger({

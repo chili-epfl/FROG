@@ -5,11 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import type { SocialStructureT, ProductT, ObjectT } from 'frog-utils';
 
 import { Activities, Connections, Operators } from './activities';
-import {
-  Sessions,
-  updateSessionState,
-  updateSessionActivity
-} from './sessions';
+import { Sessions, updateSessionState, updateOpenActivities } from './sessions';
 import { engineLogger } from './logs';
 import { Products, addNodeProduct } from './products';
 import { addObject } from './objects';
@@ -28,21 +24,30 @@ Meteor.methods({
     engineLogger(sessionId, { message: 'STARTING SESSION' });
   },
   'next.activity': (sessionId: string) => {
-    const activities = Activities.find({ sessionId }).fetch().sort(
-      // Sort the list according to startTime of activities
-      (a1, a2) => a1.startTime - a2.startTime
-    );
     const session = Sessions.findOne(sessionId);
-    // If no activity has been started, we start the first activity (activities[0])
-    if (!session.activityId) {
-      updateSessionActivity(sessionId, activities[0]._id);
-    }
-    activities.forEach((ac, index) => {
-      // If it is the current activity and not the last activity, we start the next activity (index + 1)
-      if (ac._id === session.activityId && index + 1 < activities.length) {
-        updateSessionActivity(sessionId, activities[index + 1]._id);
-      }
-    });
+    const activities = Activities.find({ sessionId }).fetch();
+    const newTimeInGraph = activities.reduce(
+      (t, a) => {
+        if (a.startTime > session.timeInGraph) {
+          return Math.min(t, a.startTime);
+        }
+        if (a.startTime + a.length > session.timeInGraph) {
+          return Math.min(t, a.startTime + a.length);
+        }
+        return t;
+      },
+      999999
+    );
+
+    const openActivities = activities
+      .filter(
+        a =>
+          a.startTime <= newTimeInGraph &&
+          a.startTime + a.length > newTimeInGraph
+      )
+      .map(a => a._id);
+
+    updateOpenActivities(sessionId, openActivities, newTimeInGraph);
     engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
   },
   'run.dataflow': (type, nodeId, sessionId) => {
