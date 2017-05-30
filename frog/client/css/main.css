@@ -1,0 +1,72 @@
+html {
+  height: 100%;
+}
+
+body, #render-target, #app {
+  font-family: sans-serif;
+  background-color: #fff;
+  background-attachment: fixed;
+
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 0;
+  margin: 0;
+
+  height: 100%;
+
+  font-size: 14px;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+#body {
+  display: flex;
+  flex: 1 1 auto;
+  background: #f8f8f8;
+}
+
+#home, #graph, #teacher, #student {
+  flex: 1 1 auto;
+}
+
+#login-buttons {
+  margin: 10px;
+}
+
+#topPanel {
+  background-color: #ccccff;
+  width: 100%;
+  overflow: visible;
+  display: flex;
+  justify-content: space-between;
+}
+
+#sidePanel {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+}
+
+.edithover {
+    display: none;
+}
+
+span:hover + .edithover {
+    display: inline;
+}
+
+.edithover:hover {
+    display: inline;
+}
