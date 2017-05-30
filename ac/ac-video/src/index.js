@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import ReactPlayer from 'react-player';
 import { booleanize } from 'frog-utils';
@@ -33,13 +35,15 @@ export const ActivityRunner = ({ configData, logger }) => (
   <ReactPlayer
     url={configData.url}
     playing={booleanize(configData.playing)}
-    controlsData
+    controls
     loop={booleanize(configData.loop)}
     onStart={() => logger({ paused: false, played: 0 })}
     onPause={() => logger({ paused: true })}
     onPlay={() => logger({ paused: false })}
     onEnded={() => logger({ ended: true })}
     onProgress={x => logger({ ...x, ended: false })}
+    width='100%'
+    height='100%'
   />
 );
 

@@ -16,9 +16,7 @@ export const config = {
 };
 
 export const ActivityRunner = ({ configData }) => (
-  <div>
-    <iframe src={configData.url} width={750} height={600} />
-  </div>
+  <iframe src={configData.url} style={{width:'100%', height:'100%', overflow:'auto'}} />
 );
 
 export default {

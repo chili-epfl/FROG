@@ -1,17 +1,18 @@
 FROM node:7.8.0
-RUN apt-get update && apt-get install -y ocaml libelf-dev 
+RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 RUN npm install -g babel-cli flow-copy-source
 
-RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog 
+RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 RUN mkdir -p frog \
 
 frog-utils/src \
+ac/ac-brainstorm/src \
+ac/ac-chat/src \
 ac/ac-ck-board/src \
 ac/ac-form/src \
 ac/ac-iframe/src \
-ac/ac-jigsaw/src \
 ac/ac-quiz/src \
 ac/ac-text/src \
 ac/ac-video/src \
@@ -44,13 +45,13 @@ RUN mkdir -p frog/.meteor frog/server && \
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
-ENV LANG='C.UTF-8' LC_ALL='C.UTF-8' 
-RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser 
+ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
+RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser
 
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
-RUN sh /usr/src/frog/initial_docker.sh 
+RUN sh /usr/src/frog/initial_docker.sh
 COPY frog frog/
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/

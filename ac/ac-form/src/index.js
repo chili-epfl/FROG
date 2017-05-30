@@ -3,7 +3,7 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 
-import { Chat, type ActivityRunnerT, type ActivityPackageT } from 'frog-utils';
+import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
 
 import config from './config';
 
@@ -79,18 +79,7 @@ const ActivityRunner = (art: ActivityRunnerT) => {
               <button onClick={complete} className="btn btn-primary btn-sm">
                 Complete
               </button>}
-            {!!configData.collab &&
-              <div>
-                <p>Working with the group {group}</p>
-                <Chat
-                  messages={reactiveData.list.filter(x => x.groupId === group)}
-                  userInfo={userInfo}
-                  addMessage={reactiveFn(group).listAdd}
-                  logger={logger}
-                />
-              </div>}
           </div>}
-
     </div>
   );
 };

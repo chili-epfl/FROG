@@ -3,7 +3,8 @@
 import React from 'react';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
 
-import Runner from './Runner.jsx';
+import { Activities } from '../../api/activities';
+import Runner from './Runner';
 
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);
@@ -19,11 +20,12 @@ const getInitialState = (activities, d = 1) => {
 const SessionBody = ({ session }: { session: Object }) =>
   session.openActivities && session.openActivities.length > 0
     ? <Mosaic
-        renderTile={activityId => (
-          <MosaicWindow title={'We can add titles here'}>
+        renderTile={activityId => {
+          return (
+          <MosaicWindow title={Activities.findOne(activityId).title}>
             <Runner activityId={activityId} />
           </MosaicWindow>
-        )}
+        )}}
         initialValue={getInitialState(session.openActivities)}
       />
     : <h1>NO ACTIVITY</h1>;
