@@ -24,10 +24,11 @@ op/op-like-with-like/src
 COPY package.json yarn.lock ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
+COPY ac/ac-brainstorm/package.json ac/ac-brainstorm/yarn.lock ac/ac-brainstorm/
+COPY ac/ac-chat/package.json ac/ac-chat/yarn.lock ac/ac-chat/
 COPY ac/ac-ck-board/package.json ac/ac-ck-board/yarn.lock ac/ac-ck-board/
 COPY ac/ac-form/package.json ac/ac-form/yarn.lock ac/ac-form/
 COPY ac/ac-iframe/package.json ac/ac-iframe/yarn.lock ac/ac-iframe/
-COPY ac/ac-jigsaw/package.json ac/ac-jigsaw/yarn.lock ac/ac-jigsaw/
 COPY ac/ac-quiz/package.json ac/ac-quiz/yarn.lock ac/ac-quiz/
 COPY ac/ac-text/package.json ac/ac-text/yarn.lock ac/ac-text/
 COPY ac/ac-video/package.json ac/ac-video/yarn.lock ac/ac-video/
