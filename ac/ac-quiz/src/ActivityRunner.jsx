@@ -2,12 +2,11 @@
 
 import React from 'react';
 import Form from 'react-jsonschema-form';
-import { Chat, type ActivityRunnerT, type ProductT } from 'frog-utils';
+import type { ActivityRunnerT, ProductT } from 'frog-utils';
 
 export default (props: ActivityRunnerT) => {
   const {
     configData,
-    logger,
     saveProduct,
     object,
     userInfo,

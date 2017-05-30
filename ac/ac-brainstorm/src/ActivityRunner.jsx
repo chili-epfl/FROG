@@ -13,7 +13,7 @@ import {
   ListGroupItem
 } from 'react-bootstrap';
 
-import { Chat, type ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerT } from 'frog-utils';
 
 const Container = styled.div`
   display: flex;
@@ -24,14 +24,6 @@ const Container = styled.div`
 const ListContainer = styled.div`
   padding: 2%;
   width: 100%;
-`;
-
-const IdeaContainer = styled.div`
-  margin: 2px;
-  width: 100%;
-  background: #fff;
-  border-style: solid;
-  border-width: 5px;
 `;
 
 const Idea = ({ idea, fun, remove }) => (
@@ -79,7 +71,7 @@ const Idea = ({ idea, fun, remove }) => (
 );
 
 const IdeaList = ({ ideas, fun, remove }) =>
-  (ideas.length
+  ideas.length
     ? <div>
         <ListGroup className="item">
           <FlipMove duration={750} easing="ease-out">
@@ -91,23 +83,23 @@ const IdeaList = ({ ideas, fun, remove }) =>
           </FlipMove>
         </ListGroup>
       </div>
-    : <p><i>No ideas added yet</i></p>);
+    : <p><i>No ideas added yet</i></p>;
 
-export default ({
-  configData,
-  object,
-  userInfo,
-  logger,
-  reactiveFn,
-  reactiveData,
-  saveProduct
-}: ActivityRunnerT) => {
+export default (
+  {
+    configData,
+    object,
+    userInfo,
+    logger,
+    reactiveFn,
+    reactiveData,
+    saveProduct
+  }: ActivityRunnerT
+) => {
   const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
-  const group =
-    (socialStructure && socialStructure[userInfo.id][configData.groupBy]) ||
+  const group = (socialStructure &&
+    socialStructure[userInfo.id][configData.groupBy]) ||
     'default';
-
-  const chatGroup = 'CHAT_' + group;
 
   const schema = {
     type: 'object',
@@ -130,14 +122,6 @@ export default ({
       reactiveFn(group).keySet('DATA', {});
     }
   };
-
-  const onChange = e => {
-    reactiveFn(group).keySet('DATA', e.formData);
-    logger({ key: userInfo.name, type: 'write' });
-  };
-
-  const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
-  const formData = reactiveKey ? reactiveKey.DATA : null;
 
   if (object.products.length) {
     object.products[0].forEach(item => {
@@ -189,10 +173,11 @@ export default ({
                     <Button
                       id="saveButton"
                       bsStyle="primary"
-                      onClick={saveProduct(
-                        group,
-                        reactiveData.list.filter(x => x.groupId === group)
-                      )}
+                      onClick={saveProduct(group, {
+                        ideas: reactiveData.list.filter(
+                          x => x.groupId === group
+                        )
+                      })}
                     >
                       Save
                     </Button>

@@ -32,7 +32,6 @@ const modifyForm = (questions, title) => {
 const ActivityRunner = (art: ActivityRunnerT) => {
   const {
     configData,
-    logger,
     object,
     reactiveData,
     reactiveFn,

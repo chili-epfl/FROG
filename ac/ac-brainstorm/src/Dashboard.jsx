@@ -3,7 +3,7 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
 
-export default ({ logs }) => {
+export default ({ logs }: Object) => {
   const data = {};
   logs.forEach(log => {
     data[log.data.type] = data[log.data.type] || {};
