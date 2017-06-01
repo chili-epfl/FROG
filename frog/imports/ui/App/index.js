@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import sharedbClient from 'sharedb/lib/client';
+import reconnectingWebSocket from 'reconnectingwebsocket';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -20,6 +22,10 @@ const apps = {
   student: 'Student View'
 };
 
+const socket = new reconnectingWebSocket('ws://localhost:3002');
+export const connection = new sharedbClient.Connection(socket);
+window.connection = connection;
+
 // App component - represents the whole app
 export default class App extends Component {
   state: { app: string };
@@ -35,7 +41,8 @@ export default class App extends Component {
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-          connectWithDefaultPwd(username));
+          connectWithDefaultPwd(username)
+        );
       } else {
         connectWithDefaultPwd(username);
       }

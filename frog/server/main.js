@@ -1,10 +1,11 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import startShareDB from './start-sharedb';
 import ShareDB from 'sharedb';
 import WebSocket from 'ws';
 import WebsocketJSONStream from 'websocket-json-stream';
+
+import { startShareDB } from './share-db-manager';
 
 import '../imports/startup/shutdown-if-env.js';
 

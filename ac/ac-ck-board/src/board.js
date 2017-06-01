@@ -9,33 +9,26 @@ class Cluster extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
-    this.props.configData.boxes.forEach(e => {
-      const id = Stringify(e);
-      this.props
-        .reactiveFn('EVERYONE')
-        .listAddNoClobber(id, { ...e, x: 1, y: 1 });
-    });
   }
 
   render() {
-    const List = this.props.reactiveData.list.map(y => {
-      const e = { ...y.value, _id: y._id };
-      const openInfoFn = () => this.setState({ info: e });
+    const List = this.props.data.map((y, i) => {
+      const openInfoFn = () => this.setState({ info: y });
       const setXY = (_, draggable) => {
-        this.props.reactiveFn('EVERYONE').listSet(e._id, {
-          ...e,
-          x: e.x + draggable.position.left || 1,
-          y: e.y + draggable.position.top || 1
-        });
+        const newObj = {
+          ...y,
+          x: y.x + draggable.position.left || 1,
+          y: y.y + draggable.position.top || 1
+        };
+        this.props.dataFn.listReplace(y, newObj, i);
       };
 
       return (
         <ObservationContainer
-          key={e._id}
+          key={i}
           setXY={setXY}
           openInfoFn={openInfoFn}
-          observation={e}
+          observation={y}
         />
       );
     });
