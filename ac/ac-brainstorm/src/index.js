@@ -11,10 +11,27 @@ const meta = {
   type: 'react-component'
 };
 
+const dataStructure = {
+  ideas: {},
+  config: {}
+};
+
+const mergeFunction = (object, dataFn) => {
+  // object.boxes.map(box =>
+  //   dataFn.listAppend({
+  //     ...box,
+  //     x: Math.random() * 800,
+  //     y: Math.random() * 800
+  //   })
+  // );
+};
+
 export default ({
   id: 'ac-brainstorm',
   ActivityRunner,
   Dashboard,
   config,
-  meta
+  meta,
+  dataStructure,
+  mergeFunction
 }: ActivityPackageT);
