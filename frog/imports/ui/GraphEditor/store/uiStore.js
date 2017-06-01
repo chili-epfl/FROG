@@ -49,7 +49,7 @@ export default class uiStore {
   }
 
   @action updateWindow = () => {
-    this.windowWidth = window.innerWidth - 10;
+    this.windowWidth = window.innerWidth;
     this.panDelta(0);
   };
 

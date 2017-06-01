@@ -54,6 +54,7 @@ export default connect(({
   <svg width="100%" height="100%" onMouseMove={mousemove} onWheel={scrollMouse}>
     <svg
       viewBox={viewBox}
+      preserveAspectRatio="none"
       ref={ref => {
         if (isSvg) {
           setSvgRef(ref);

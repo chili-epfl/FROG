@@ -7,6 +7,7 @@ import { Presences } from 'meteor/tmeasday:presence';
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
+import { addGraph } from './graphs';
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -24,18 +25,18 @@ export const setStudentSession = (sessionId: string) => {
   );
 };
 
-const addSessionItem = (type, sessionId, params) => {
+const addSessionItem = (type, sessionId, copyGraphId, params) => {
   const id = uuid();
-  const types = {
+  const collections = {
     activities: Activities,
     operators: Operators,
     connections: Connections
   };
-  types[type].insert({
+  collections[type].insert({
     ...params,
     sessionId,
     createdAt: new Date(),
-    graphId: null,
+    graphId: copyGraphId,
     _id: id
   });
   return id;
@@ -86,9 +87,12 @@ Meteor.methods({
   },
   'add.session': graphId => {
     const sessionId = uuid();
+    const copyGraphId = addGraph('SESSION_GRAPH<' + sessionId + '>');
+
     Sessions.insert({
       _id: sessionId,
       graphId,
+      copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
       startedAt: null,
@@ -101,6 +105,7 @@ Meteor.methods({
       matching[activity._id] = addSessionItem(
         'activities',
         sessionId,
+        copyGraphId,
         activity
       );
     });

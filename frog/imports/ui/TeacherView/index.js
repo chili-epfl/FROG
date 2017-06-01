@@ -7,6 +7,7 @@ import StudentList from './StudentList';
 import ActivityList from './ActivityList';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
+import GraphView from './GraphView';
 
 import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
@@ -27,13 +28,10 @@ const SessionController = ({ session, activities }) => (
   <div>
     {session
       ? <div>
-          <div style={{ float: 'right' }}>
-            <div style={{ marginLeft: '10px', float: 'right' }}>
-              <ButtonList session={session} />
-            </div>
-            {displaySession(session)}
-          </div>
-          <ActivityList activities={activities} session={session} />
+          <p>{displaySession(session)}</p>
+          <ButtonList session={session} />
+          <GraphView session={session} />
+          <ActivityList activities={activities} />
         </div>
       : <p>Create or select a session from the list bellow</p>}
   </div>

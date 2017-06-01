@@ -75,6 +75,9 @@ export default class Activity extends Elem {
   };
 
   @action move = () => {
+    if (store.state.mode === 'readOnly') {
+      return;
+    }
     if (store.state.mode !== 'moving') {
       store.state = {
         mode: 'moving',
