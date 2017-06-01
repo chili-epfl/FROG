@@ -11,7 +11,6 @@ import { connect, store, type StoreProp } from './store';
 import Operators from './Operators';
 
 const scrollMouse = e => {
-  console.log('scrollMouse')
   e.preventDefault();
   if (e.shiftKey) {
     store.ui.setScaleDelta(e.deltaY);
@@ -55,7 +54,7 @@ export default connect(({
   <svg width="100%" height="100%" onMouseMove={mousemove} onWheel={scrollMouse}>
     <svg
       viewBox={viewBox}
-      preserveAspectRatio='none'
+      preserveAspectRatio="none"
       ref={ref => {
         if (isSvg) {
           setSvgRef(ref);

@@ -4,19 +4,20 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Provider } from 'mobx-react';
 
-import Graph from '../GraphEditor/Graph'
+import Graph from '../GraphEditor/Graph';
 import { connect, store } from '../GraphEditor/store';
 
-const ReadOnlyGraph = connect(
-  ({ store: { ui: { graphWidth, panOffset } } }) =>
-    <Graph
-      width={graphWidth}
-      height={400}
-      viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
-      scaled
-      hasTimescale
-    />
-)
+const ReadOnlyGraph = connect(({
+  store: { ui: { graphWidth, panOffset } }
+}) => (
+  <Graph
+    width={graphWidth}
+    height={400}
+    viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
+    scaled
+    hasTimescale
+  />
+));
 
 class GraphView extends Component {
   componentWillMount() {
@@ -39,4 +40,4 @@ const GraphViewContainer = styled.div`
   width: 700px;
 `;
 
-export default GraphView
+export default GraphView;

@@ -75,16 +75,18 @@ export default class Activity extends Elem {
   };
 
   @action move = () => {
-    if (store.state.mode === 'readOnly') { return }
-    if (store.state.mode !== 'moving'){
-        store.state = {
+    if (store.state.mode === 'readOnly') {
+      return;
+    }
+    if (store.state.mode !== 'moving') {
+      store.state = {
         mode: 'moving',
         currentActivity: this,
         mouseOffset: store.ui.socialCoordsTime[0] - this.startTime
       };
       this.wasMoved = true;
     }
-    
+
     const state = store.state;
     const newTime = Math.round(
       store.ui.socialCoordsTime[0] - state.mouseOffset

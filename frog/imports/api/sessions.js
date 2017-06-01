@@ -7,7 +7,7 @@ import { Presences } from 'meteor/tmeasday:presence';
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
-import { addGraph } from './graphs'
+import { addGraph } from './graphs';
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -87,7 +87,7 @@ Meteor.methods({
   },
   'add.session': graphId => {
     const sessionId = uuid();
-    const copyGraphId = addGraph('SESSION_GRAPH<' + sessionId + '>')
+    const copyGraphId = addGraph('SESSION_GRAPH<' + sessionId + '>');
 
     Sessions.insert({
       _id: sessionId,
