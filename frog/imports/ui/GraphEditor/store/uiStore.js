@@ -49,7 +49,7 @@ export default class uiStore {
   }
 
   @action updateWindow = () => {
-    this.windowWidth = window.innerWidth - 10;
+    this.windowWidth = window.innerWidth;
     this.panDelta(0);
   };
 
@@ -116,6 +116,7 @@ export default class uiStore {
   };
 
   @action panDelta = (rawX: number): void => {
+    console.log('panDelta')
     const deltaX = rawX * 2;
     const oldpan = this.panx;
     const rightBoundary = this.graphWidth - this.panBoxSize;

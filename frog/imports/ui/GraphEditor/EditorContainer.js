@@ -62,12 +62,9 @@ class Editor extends Component {
 export default connect(Editor);
 
 const Main = styled.div`
-  padding: 0px;
   height: 760px;
-  margin-right: 10px;
   flex: 3 0px;
   overflow: hide;
-  padding-rigth: 5px;
 `;
 
 const Container = styled.div`

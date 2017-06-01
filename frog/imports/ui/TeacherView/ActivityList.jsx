@@ -13,15 +13,8 @@ export default (
     {activities && activities.length
       ? <ul>
           {activities.map(activity => (
-            <li
-              key={activity._id}
-              id={
-                activity._id === session.activityId &&
-                  'run_' + activity.activityType
-              }
-            >
+            <li key={activity._id} >
               {activity.title} - <i>{activity.activityType}</i>
-              {activity._id === session.activityId ? ' (running)' : ''}
             </li>
           ))}
         </ul>

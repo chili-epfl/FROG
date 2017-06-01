@@ -47,6 +47,7 @@ export default class ActivityStore {
   }
 
   @action addActivity = (plane: number, rawX: number): void => {
+    if (store.state.mode === 'readOnly') { return }
     const [rawTime, _] = store.ui.rawMouseToTime(rawX, 0);
     const time = Math.round(rawTime);
     let length;
