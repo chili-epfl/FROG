@@ -5,30 +5,21 @@ import styled from 'styled-components';
 import { Provider } from 'mobx-react';
 
 import Graph from '../GraphEditor/Graph';
-import { connect, store } from '../GraphEditor/store';
-
-const ReadOnlyGraph = connect(({
-  store: { ui: { graphWidth, panOffset } }
-}) => (
-  <Graph
-    width={graphWidth}
-    height={400}
-    viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
-    scaled
-    hasTimescale
-  />
-));
+import { store } from '../GraphEditor/store';
 
 class GraphView extends Component {
-  componentWillMount() {
+  componentDidMount() {
     store.setId(this.props.session.copyGraphId, true);
+  }
+  componentWillReceiveProps(nextProps) {
+    store.setId(nextProps.session.copyGraphId, true);
   }
 
   render() {
     return (
       <Provider store={store}>
         <GraphViewContainer>
-          <ReadOnlyGraph />
+          <Graph scaled hasTimescale />
         </GraphViewContainer>
       </Provider>
     );
