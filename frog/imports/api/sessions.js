@@ -25,7 +25,7 @@ export const setStudentSession = (sessionId: string) => {
   );
 };
 
-const addSessionItem = (type, sessionId, copyGraphId, params) => {
+const addSessionItem = (type, graphId, params) => {
   const id = uuid();
   const collections = {
     activities: Activities,
@@ -34,9 +34,8 @@ const addSessionItem = (type, sessionId, copyGraphId, params) => {
   };
   collections[type].insert({
     ...params,
-    sessionId,
     createdAt: new Date(),
-    graphId: copyGraphId,
+    graphId,
     _id: id
   });
   return id;
@@ -91,8 +90,8 @@ Meteor.methods({
 
     Sessions.insert({
       _id: sessionId,
-      graphId,
-      copyGraphId,
+      fromGraphId: graphId,
+      graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
       startedAt: null,
@@ -104,7 +103,6 @@ Meteor.methods({
     activities.forEach(activity => {
       matching[activity._id] = addSessionItem(
         'activities',
-        sessionId,
         copyGraphId,
         activity
       );
@@ -112,12 +110,16 @@ Meteor.methods({
 
     const operators = Operators.find({ graphId }).fetch();
     operators.forEach(operator => {
-      matching[operator._id] = addSessionItem('operators', sessionId, operator);
+      matching[operator._id] = addSessionItem(
+        'operators',
+        copyGraphId,
+        operator
+      );
     });
 
     const connections = Connections.find({ graphId }).fetch();
     connections.forEach(connection => {
-      addSessionItem('connections', sessionId, {
+      addSessionItem('connections', copyGraphId, {
         source: {
           id: matching[connection.source.id],
           type: connection.source.type

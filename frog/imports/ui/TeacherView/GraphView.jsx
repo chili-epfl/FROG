@@ -21,7 +21,7 @@ const ReadOnlyGraph = connect(({
 
 class GraphView extends Component {
   componentWillMount() {
-    store.setId(this.props.session.copyGraphId, true);
+    store.setId(this.props.session.graphId, true);
   }
 
   render() {

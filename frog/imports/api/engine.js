@@ -25,7 +25,7 @@ Meteor.methods({
   },
   'next.activity': (sessionId: string) => {
     const session = Sessions.findOne(sessionId);
-    const activities = Activities.find({ sessionId }).fetch();
+    const activities = Activities.find({ graphId: session.graphId }).fetch();
     const newTimeInGraph = activities.reduce(
       (t, a) => {
         if (a.startTime > session.timeInGraph) {
