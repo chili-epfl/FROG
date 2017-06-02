@@ -9,27 +9,15 @@ import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
 import ExpandButton from './SidePanel/ExpandButton';
 
-const EditorPanel = ({ panOffset, graphWidth }) => (
+const EditorPanel = () => (
   <div>
     <ExpandButton />
     <div style={{ height: 600 }}>
-      <Graph
-        width={graphWidth}
-        height={600}
-        viewBox={[panOffset, 0, graphWidth, 600].join(' ')}
-        scaled
-        hasTimescale
-        isEditable
-      />
+      <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
     <div style={{ height: 150 }}>
-      <Graph
-        width={graphWidth}
-        height={150}
-        viewBox={[0, 0, 4 * graphWidth, 600].join(' ')}
-        hasPanMap
-      />
+      <Graph hasPanMap />
     </div>
     <HelpModal />
   </div>
@@ -47,10 +35,7 @@ class Editor extends Component {
         <TopPanel />
         <Container>
           <Main>
-            <EditorPanel
-              panOffset={this.props.store.ui.panOffset}
-              graphWidth={this.props.store.ui.graphWidth}
-            />
+            <EditorPanel />
           </Main>
           <SidePanel />
         </Container>
