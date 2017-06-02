@@ -44,14 +44,14 @@ class DisplayData extends Component {
   render() {
     return (
       <ul>
-        {this.props.data.map(d => (
+        {this.props.data.map(d =>
           <li key={d._id}>
             <A onClick={this.toggleDisplay}>{d._id}</A>
             {this.state.isClicked
               ? <pre>{JSON.stringify(d, null, 2)}</pre>
               : null}
           </li>
-        ))}
+        )}
       </ul>
     );
   }
@@ -66,18 +66,21 @@ export default createContainer(
     const connections = Connections.find().fetch();
     return { sessions, graphs, activities, operators, connections };
   },
-  ({ sessions, graphs, activities, operators, connections }) => (
+  ({ sessions, graphs, activities, operators, connections }) =>
     <div id="admin">
       <h1>Commands</h1>
       <button onClick={() => deleteDatabase()}>
         Delete the database
-      </button><br />
+      </button>
+      <br />
       <button onClick={() => loadDatabase(argueGraph)}>
         Load argueGraph
-      </button><br />
+      </button>
+      <br />
       <button onClick={() => loadDatabase(mixedJigsaw)}>
         Load mixedJigsaw
-      </button><br />
+      </button>
+      <br />
 
       <h1>Graphs</h1>
       <DisplayData data={graphs} />
@@ -90,5 +93,4 @@ export default createContainer(
       <h1>Sessions</h1>
       <DisplayData data={sessions} />
     </div>
-  )
 );

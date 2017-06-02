@@ -5,7 +5,7 @@ import { connect, type StoreProp, store } from './store';
 import { default as ActivityT } from './store/activity';
 import { getClickHandler } from './utils';
 
-const Box = ({ x, y, width, selected, highlighted }) => (
+const Box = ({ x, y, width, selected, highlighted }) =>
   <rect
     x={x}
     y={y}
@@ -14,8 +14,7 @@ const Box = ({ x, y, width, selected, highlighted }) => (
     fill={highlighted ? 'yellow' : 'white'}
     rx={10}
     height={30}
-  />
-);
+  />;
 
 class ActivityComponent extends Component {
   clickHandler: ?Function;
@@ -125,9 +124,8 @@ export default connect(
   ({
     store: { activityStore: { all } },
     scaled
-  }: StoreProp & { scaled: boolean }) => (
+  }: StoreProp & { scaled: boolean }) =>
     <g>
       {all.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
     </g>
-  )
 );

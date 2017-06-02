@@ -15,7 +15,7 @@ export default ({
   dataFn,
   userInfo,
   object
-}: ActivityRunnerT) => (
+}: ActivityRunnerT) =>
   <div>
     <h4>{configData.title}</h4>
     <ul>
@@ -27,5 +27,4 @@ export default ({
         logger({ chat: e });
       }}
     />
-  </div>
-);
+  </div>;

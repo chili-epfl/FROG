@@ -46,7 +46,7 @@ export default connect(
     isEditable: Boolean,
     hasPanMap: Boolean,
     hasTimescale: Boolean
-  }) => (
+  }) =>
     <svg
       width="100%"
       height="100%"
@@ -89,5 +89,4 @@ export default connect(
         scrollEnabled &&
         <ScrollFields width={graphWidth} height={600} />}
     </svg>
-  )
 );

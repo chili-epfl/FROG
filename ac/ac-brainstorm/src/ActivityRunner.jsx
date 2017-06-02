@@ -27,7 +27,7 @@ const ListContainer = styled.div`
   width: 100%;
 `;
 
-const Idea = ({ idea, fun, remove }) => (
+const Idea = ({ idea, fun, remove }) =>
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
@@ -54,22 +54,20 @@ const Idea = ({ idea, fun, remove }) => (
           </a>
         </font>}
     </div>
-  </ListGroupItem>
-);
+  </ListGroupItem>;
 
-const IdeaList = ({ ideas, fun, remove }) => (
+const IdeaList = ({ ideas, fun, remove }) =>
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {values(ideas).sort((a, b) => b.score - a.score).map(idea => (
+        {values(ideas).sort((a, b) => b.score - a.score).map(idea =>
           <div key={idea.id}>
             <Idea {...{ idea, fun, remove, key: idea.id }} />
           </div>
-        ))}
+        )}
       </FlipMove>
     </ListGroup>
-  </div>
-);
+  </div>;
 
 export default ({
   configData,

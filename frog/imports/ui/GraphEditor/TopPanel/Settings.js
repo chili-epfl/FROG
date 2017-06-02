@@ -12,14 +12,14 @@ const submitRemoveGraph = id => {
   store.setId(assignGraph());
 };
 
-export const UndoButton = connect(({ store: { undo } }) => (
+export const UndoButton = connect(({ store: { undo } }) =>
   <Button onClick={undo}>
     <i className="fa fa-undo" aria-hidden="true" /> Undo
   </Button>
-));
+);
 
 export const ConfigMenu = connect(
-  ({ store: { overlapAllowed, graphId, toggleOverlapAllowed } }) => (
+  ({ store: { overlapAllowed, graphId, toggleOverlapAllowed } }) =>
     <DropdownButton
       id="settings"
       title={<span><i className="fa fa-bars" aria-hidden="true" /> Menu</span>}
@@ -47,5 +47,4 @@ export const ConfigMenu = connect(
         Export as image
       </MenuItem>
     </DropdownButton>
-  )
 );

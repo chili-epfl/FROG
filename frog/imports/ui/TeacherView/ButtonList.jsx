@@ -62,7 +62,7 @@ export default ({ session }: { session: Object }) => {
     <div>
       {buttons
         .filter(button => button.states.indexOf(session.state) > -1)
-        .map(button => (
+        .map(button =>
           <button
             key={button.text}
             className={'btn btn-' + button.type + ' btn-sm'}
@@ -71,7 +71,7 @@ export default ({ session }: { session: Object }) => {
           >
             {button.text}
           </button>
-        ))}
+        )}
     </div>
   );
 };

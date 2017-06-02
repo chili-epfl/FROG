@@ -16,7 +16,7 @@ const ScrollField = connect(
     height,
     direction,
     store: { ui: { cancelScroll } }
-  }: StoreProp & { x: number, height: number, direction: number }) => (
+  }: StoreProp & { x: number, height: number, direction: number }) =>
     <rect
       onMouseEnter={() => scrollInterval(direction)}
       onMouseOut={cancelScroll}
@@ -28,12 +28,10 @@ const ScrollField = connect(
       height={height}
       style={{ cursor: 'ew-resize' }}
     />
-  )
 );
 
-export default ({ width, height }: { width: number, height: number }) => (
+export default ({ width, height }: { width: number, height: number }) =>
   <g>
     <ScrollField x={0} height={height} direction={-1} />
     <ScrollField x={width - 50} height={height} direction={1} />
-  </g>
-);
+  </g>;

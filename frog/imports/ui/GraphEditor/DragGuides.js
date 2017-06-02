@@ -3,17 +3,16 @@ import React from 'react';
 import { connect } from './store';
 import { timeToPx } from './utils';
 
-const TwoSidedArrow = ({ x }) => (
+const TwoSidedArrow = ({ x }) =>
   <polygon
     x={x}
     y={300}
     points="492.426,246.213 406.213,160 406.213,231.213 86.213,231.213 86.213,
       160 0,246.213 86.213,332.427 86.213,261.213 406.213,261.213 406.213,332.427"
     transform={`translate(${x - 17} 300) scale(0.1) `}
-  />
-);
+  />;
 
-const VerticalLine = ({ x }) => (
+const VerticalLine = ({ x }) =>
   <line
     x1={x}
     y1={0}
@@ -22,10 +21,9 @@ const VerticalLine = ({ x }) => (
     stroke="grey"
     strokeWidth={1}
     strokeDasharray="5,5"
-  />
-);
+  />;
 
-const ShadedBox = ({ x, current }) => (
+const ShadedBox = ({ x, current }) =>
   <rect
     stroke="transparent"
     fill="#f9f3d2"
@@ -34,8 +32,7 @@ const ShadedBox = ({ x, current }) => (
     y={0}
     width={Math.abs(x - current)}
     height={600}
-  />
-);
+  />;
 
 const DragGuide = connect(
   ({ store: { ui: { scale, panTime, rightEdgeTime } }, ...rest }) => {
