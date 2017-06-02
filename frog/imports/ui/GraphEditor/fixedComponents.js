@@ -7,7 +7,7 @@ import { connect, store, type StoreProp } from './store';
 import { timeToPx, rangeExclusive } from './utils';
 
 export const PanMap = connect(
-  ({ store: { ui: { panx, panDelta, scale, graphWidth } } }: StoreProp) => (
+  ({ store: { ui: { panx, panDelta, scale, graphWidth } } }: StoreProp) =>
     <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
       <rect
         x={panx}
@@ -20,7 +20,6 @@ export const PanMap = connect(
         height={150}
       />
     </DraggableCore>
-  )
 );
 
 const onDoubleClick = (x, e) => {
@@ -31,9 +30,9 @@ export const LevelLines = connect(
   ({
     store: { ui: { scale, graphWidth } },
     scaled
-  }: StoreProp & { scaled: boolean }) => (
+  }: StoreProp & { scaled: boolean }) =>
     <g>
-      {[1, 2, 3].map(x => (
+      {[1, 2, 3].map(x =>
         <g key={x}>
           <line
             x1={0}
@@ -53,9 +52,8 @@ export const LevelLines = connect(
             height={40}
           />
         </g>
-      ))}
+      )}
     </g>
-  )
 );
 
 export const TimeScale = connect(

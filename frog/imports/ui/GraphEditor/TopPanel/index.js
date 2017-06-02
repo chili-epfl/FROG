@@ -6,7 +6,7 @@ import GraphList from './GraphList';
 import GraphConfigPanel from './GraphConfigPanel';
 import { UndoButton, ConfigMenu } from './Settings';
 
-export default () => (
+export default () =>
   <div id="topPanel">
     <div>
       <ConfigMenu />
@@ -14,5 +14,4 @@ export default () => (
     </div>
     <GraphConfigPanel />
     <UndoButton />
-  </div>
-);
+  </div>;

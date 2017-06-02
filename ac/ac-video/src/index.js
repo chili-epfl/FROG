@@ -31,7 +31,7 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ configData, logger }: ActivityRunnerT) => (
+export const ActivityRunner = ({ configData, logger }: ActivityRunnerT) =>
   <ReactPlayer
     url={configData.url}
     playing={booleanize(configData.playing)}
@@ -44,8 +44,7 @@ export const ActivityRunner = ({ configData, logger }: ActivityRunnerT) => (
     onProgress={x => logger({ ...x, ended: false })}
     width="100%"
     height="100%"
-  />
-);
+  />;
 
 export default {
   id: 'ac-video',

@@ -5,7 +5,7 @@ import { ChangeableText } from 'frog-utils';
 import { connect, store } from '../store';
 import { Graphs, renameGraph } from '../../../api/graphs';
 
-const Config = ({ graph, ...rest }) => (
+const Config = ({ graph, ...rest }) =>
   <div style={{ textAlign: 'center' }}>
     <span
       style={{
@@ -38,14 +38,13 @@ const Config = ({ graph, ...rest }) => (
       {' '}
       mins.
     </span>
-  </div>
-);
+  </div>;
 
 const GraphConfigPanel = createContainer(
   props => ({ ...props, graph: Graphs.findOne({ _id: props.graphId }) }),
   Config
 );
 
-export default connect(({ store: { graphId } }) => (
+export default connect(({ store: { graphId } }) =>
   <GraphConfigPanel graphId={graphId} />
-));
+);
