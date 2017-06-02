@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
+import { activityTypesObj } from '../activityTypes';
 import { Graphs } from './graphs';
 import { Products } from './products';
 import { Sessions } from './sessions';
@@ -22,6 +23,14 @@ export const addActivity = (activityType, data, id) => {
       data,
       createdAt: new Date()
     });
+  }
+};
+
+export const mergeDataOnce = (activityId, data) => {
+  const activity = Activities.findOne(activityId);
+  if (!activity.hasMergedData) {
+    Meteor.call('activity.mergeDataOnce', activityId, data);
+  } else {
   }
 };
 

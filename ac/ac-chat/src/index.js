@@ -7,6 +7,8 @@ const meta = {
   type: 'react-component'
 };
 
+const dataStructure = [];
+
 const config = {
   type: 'object',
   properties: {
@@ -26,5 +28,6 @@ export default {
   id: 'ac-chat',
   ActivityRunner,
   config,
-  meta
+  meta,
+  dataStructure
 };

@@ -6,6 +6,7 @@ module.exports = {
     window: true,
     FileReader: true,
     Blob: true,
+    WebSocket: true,
     Presences: true
   },
   rules: {
