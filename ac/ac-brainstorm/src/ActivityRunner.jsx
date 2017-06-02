@@ -1,10 +1,11 @@
 // @flow
 
 import React from 'react';
+import { uuid } from 'frog-utils';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
-import Stringify from 'json-stable-stringify';
 import FlipMove from 'react-flip-move';
+import { values } from 'lodash';
 import {
   Badge,
   Glyphicon,
@@ -31,38 +32,24 @@ const Idea = ({ idea, fun, remove }) => (
     <font size={4}>
       <div style={{ float: 'right' }}>
         <span style={{ marginRight: '10px' }}>
-          <a
-            href="#"
-            onClick={() =>
-              fun.vote(idea._id, {
-                ...idea.value,
-                score: idea.value.score - 1
-              })}
-          >
+          <a href="#" onClick={() => fun.vote(idea.id, -1)}>
             <Glyphicon glyph="thumbs-down" />
           </a>
         </span>
         <span style={{ marginRight: '10px' }}>
-          <a
-            href="#"
-            onClick={() =>
-              fun.vote(idea._id, {
-                ...idea.value,
-                score: idea.value.score + 1
-              })}
-          >
+          <a href="#" onClick={() => fun.vote(idea.id, 1)}>
             <Glyphicon glyph="thumbs-up" />
           </a>
         </span>
-        <Badge>{idea.value.score}</Badge>
+        <Badge>{idea.score}</Badge>
       </div>
     </font>
-    <b>{idea.value.title}</b>
+    <b>{idea.title}</b>
     <div>
-      {idea.value.content}
+      {idea.content}
       {remove &&
         <font size={4}>
-          <a href="#" onClick={() => fun.delete(idea._id)}>
+          <a href="#" onClick={() => fun.delete(idea)}>
             <Glyphicon glyph="scissors" style={{ float: 'right' }} />
           </a>
         </font>}
@@ -70,20 +57,19 @@ const Idea = ({ idea, fun, remove }) => (
   </ListGroupItem>
 );
 
-const IdeaList = ({ ideas, fun, remove }) =>
-  ideas.length
-    ? <div>
-        <ListGroup className="item">
-          <FlipMove duration={750} easing="ease-out">
-            {ideas.sort((a, b) => b.value.score - a.value.score).map(idea => (
-              <div key={idea._id}>
-                <Idea {...{ idea, fun, remove, key: idea._id }} />
-              </div>
-            ))}
-          </FlipMove>
-        </ListGroup>
-      </div>
-    : <p><i>No ideas added yet</i></p>;
+const IdeaList = ({ ideas, fun, remove }) => (
+  <div>
+    <ListGroup className="item">
+      <FlipMove duration={750} easing="ease-out">
+        {values(ideas).sort((a, b) => b.score - a.score).map(idea => (
+          <div key={idea.id}>
+            <Idea {...{ idea, fun, remove, key: idea.id }} />
+          </div>
+        ))}
+      </FlipMove>
+    </ListGroup>
+  </div>
+);
 
 export default (
   {
@@ -91,16 +77,11 @@ export default (
     object,
     userInfo,
     logger,
-    reactiveFn,
-    reactiveData,
+    data,
+    dataFn,
     saveProduct
   }: ActivityRunnerT
 ) => {
-  const socialStructure = object.socialStructures.find(x => x[userInfo.id]);
-  const group = (socialStructure &&
-    socialStructure[userInfo.id][configData.groupBy]) ||
-    'default';
-
   const schema = {
     type: 'object',
     properties: {
@@ -117,33 +98,25 @@ export default (
 
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
-      logger({ key: 'group ' + group, type: 'idea' });
-      reactiveFn(group).listAdd({ score: 0, ...e.formData });
-      reactiveFn(group).keySet('DATA', {});
+      const id = uuid();
+      logger({ type: 'idea', id });
+      dataFn.objInsert({ score: 0, id, ...e.formData }, ['ideas', id]);
     }
   };
-
-  if (object.products.length) {
-    object.products[0].forEach(item => {
-      const id = Stringify(item.data);
-      reactiveFn(group).listAddNoClobber(id, item.data);
-    });
-  }
-
+  console.log(data, dataFn);
   return (
     <div>
-      <b>Group: {group}</b>
       <Container>
         <ListContainer>
-          <p>{configData.text}</p>
+          <p>{data.config.text}</p>
           <IdeaList
-            ideas={reactiveData.list.filter(x => x.groupId === group)}
+            ideas={data.ideas}
             fun={{
-              vote: (id, item) => {
+              vote: (id, incr) => {
                 logger({ key: userInfo.name, type: 'vote' });
-                reactiveFn(group).listSet(id, item);
+                dataFn.numIncr(incr, ['ideas', id, 'score']);
               },
-              delete: reactiveFn(group).listDel
+              delete: item => dataFn.objDel(item, ['ideas', item.id])
             }}
             remove={configData.formBoolean}
           />
@@ -173,11 +146,7 @@ export default (
                     <Button
                       id="saveButton"
                       bsStyle="primary"
-                      onClick={saveProduct(group, {
-                        ideas: reactiveData.list.filter(
-                          x => x.groupId === group
-                        )
-                      })}
+                      onClick={saveProduct('ALL', { ideas: data.ideas })}
                     >
                       Save
                     </Button>

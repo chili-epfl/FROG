@@ -30,22 +30,17 @@ export default connect(({
       scrollEnabled,
       canvasClick,
       graphWidth,
+      panOffset,
       setSvgRef
     }
   },
-  width,
-  height,
   scaled,
-  viewBox,
   isSvg,
   isEditable,
   hasPanMap,
   hasTimescale
 }: StoreProp & {
-  width: number,
-  height: number,
   scaled: boolean,
-  viewBox: string,
   isSvg: Boolean,
   isEditable: Boolean,
   hasPanMap: Boolean,
@@ -53,7 +48,11 @@ export default connect(({
 }) => (
   <svg width="100%" height="100%" onMouseMove={mousemove} onWheel={scrollMouse}>
     <svg
-      viewBox={viewBox}
+      viewBox={
+        scaled
+          ? [panOffset, 0, graphWidth, 600].join(' ')
+          : [0, 0, 4 * graphWidth, 600].join(' ')
+      }
       preserveAspectRatio="none"
       ref={ref => {
         if (isSvg) {
@@ -80,6 +79,8 @@ export default connect(({
       <Operators scaled={scaled} />
     </svg>
     {hasPanMap && <PanMap />}
-    {scaled && scrollEnabled && <ScrollFields width={width} height={height} />}
+    {scaled &&
+      scrollEnabled &&
+      <ScrollFields width={graphWidth} height={600} />}
   </svg>
 ));

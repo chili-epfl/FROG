@@ -1,8 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
+import { omitBy, isNil } from 'lodash';
 
 import { operatorTypesObj } from '../operatorTypes';
+import { activityTypesObj } from '../activityTypes';
 import { Graphs } from './graphs';
 import { Products } from './products';
 import { Sessions } from './sessions';
@@ -12,16 +14,26 @@ export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
 
-export const addActivity = (activityType, data, id) => {
+export const addActivity = (activityType, data, id, grouping) => {
   if (id) {
-    Activities.update(id, { $set: { data } });
+    const toSet = omitBy({ data, grouping }, isNil);
+    Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
       _id: uuid(),
       activityType,
       data,
+      grouping,
       createdAt: new Date()
     });
+  }
+};
+
+export const mergeDataOnce = (activityId, data) => {
+  const activity = Activities.findOne(activityId);
+  if (!activity.hasMergedData) {
+    Meteor.call('activity.mergeDataOnce', activityId, data);
+  } else {
   }
 };
 
@@ -145,6 +157,7 @@ Meteor.methods({
     Activities.remove({ graphId });
     Operators.remove({ graphId });
     Connections.remove({ graphId });
+    Sessions.remove({ copyGraphId: graphId });
   },
   'graph.flush.db': () => {
     Graphs.remove({});

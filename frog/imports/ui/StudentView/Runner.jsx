@@ -9,9 +9,10 @@ import { ActivityData, reactiveFn } from '../../api/activityData';
 import { createLogger } from '../../api/logs';
 import { saveProduct } from '../../api/products';
 import { Objects } from '../../api/objects';
-import { Activities } from '../../api/activities';
+import { Activities, mergeDataOnce } from '../../api/activities';
+import ReactiveHOC from './ReactiveHOC';
 
-const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
+const Runner = ({ activity, object }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -23,38 +24,32 @@ const Runner = ({ activity, object, reactiveKey, reactiveList }) => {
     user: Meteor.userId()
   });
 
-  return object
-    ? <activityType.ActivityRunner
+  if (object) {
+    mergeDataOnce(activity._id, activity.data);
+    const ActivityToRun = ReactiveHOC(activityType.dataStructure, activity._id)(
+      activityType.ActivityRunner
+    );
+    return (
+      <ActivityToRun
         configData={activity.data}
         object={object}
         userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
         logger={logger}
         saveProduct={saveProduct(activity._id)}
-        reactiveFn={reactiveFn(activity._id)}
-        reactiveData={{ keys: reactiveKey, list: reactiveList }}
       />
-    : <p>NULL OBJECT</p>;
+    );
+  }
+  return <p>NULL OBJECT</p>;
 };
 
 export default createContainer(
   ({ activityId }) => {
-    // there is one reactiveKey Object per groupId
-    const reactiveKey = ActivityData.find({
-      activityId,
-      type: 'kv'
-    }).fetch();
-
-    const reactiveList = ActivityData.find({
-      activityId,
-      type: 'list'
-    }).fetch();
-
     const o = Objects.findOne({ activityId });
     const object = o ? o.data : null;
 
-    const activity = Activities.findOne({ _id: activityId });
+    const activity = Activities.findOne(activityId);
 
-    return { activity, object, reactiveKey, reactiveList };
+    return { activity, object };
   },
   Runner
 );

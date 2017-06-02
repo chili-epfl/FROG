@@ -32,10 +32,23 @@ const config = {
   }
 };
 
+const dataStructure = [];
+
+const mergeFunction = (object, dataFn) => {
+  object.boxes.map(box =>
+    dataFn.listAppend({
+      ...box,
+      x: Math.random() * 800,
+      y: Math.random() * 800
+    }));
+};
+
 export default {
   id: 'ac-ck-board',
   meta,
   config,
   ActivityRunner: Board,
-  Dashboard: null
+  Dashboard: null,
+  dataStructure,
+  mergeFunction
 };

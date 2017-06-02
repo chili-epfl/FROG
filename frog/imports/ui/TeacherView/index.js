@@ -28,7 +28,7 @@ const SessionController = ({ session, activities }) => (
   <div>
     {session
       ? <div>
-          <p>{displaySession(session)}</p>
+          <p>{displaySession(session) + ': ' + session._id}</p>
           <ButtonList session={session} />
           <GraphView session={session} />
           <ActivityList activities={activities} />

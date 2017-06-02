@@ -28,7 +28,7 @@ export default ({ setXY, openInfoFn, observation }) => {
         <Paper zDepth={3} style={style}>
           <div>
             {shorten(observation.title, 20)}
-            <span style={{ float: 'right' }}>
+            <span style={{ float: 'right' }} className="noDrag">
               <AspectRatio onClick={openInfoFn} />
             </span>
           </div>

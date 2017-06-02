@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
+import { TextInput } from 'frog-utils';
+
 import { connect, type StoreProp } from './store';
-import TextInput from './utils/TextInput';
 
 export const RenameBox = connect(({
-  store: {
-    state,
-    ui: { endRename }
-  }
+  store: { state, ui: { endRename } }
 }: StoreProp) => {
   if (state.mode !== 'rename') {
     return null;
