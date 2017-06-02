@@ -40,7 +40,8 @@ const mergeFunction = (object, dataFn) => {
       ...box,
       x: Math.random() * 800,
       y: Math.random() * 800
-    }));
+    })
+  );
 };
 
 export default {

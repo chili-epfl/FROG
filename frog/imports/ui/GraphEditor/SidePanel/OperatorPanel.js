@@ -28,24 +28,26 @@ const ChooseOperatorType = ({ operator }) => {
   );
 };
 
-export const RenameField = connect(({
-  store: { operatorStore: { all } },
-  operatorId,
-  onSubmit
-}: StoreProp & {
-  operatorId: string,
-  onSubmit: string
-}) => {
-  const renameOpen = all.find(opt => opt.id === operatorId);
-  return (
-    <TextInput
-      value={renameOpen.title}
-      onChange={renameOpen.rename}
-      onCancel={onSubmit}
-      onSubmit={onSubmit}
-    />
-  );
-});
+export const RenameField = connect(
+  ({
+    store: { operatorStore: { all } },
+    operatorId,
+    onSubmit
+  }: StoreProp & {
+    operatorId: string,
+    onSubmit: string
+  }) => {
+    const renameOpen = all.find(opt => opt.id === operatorId);
+    return (
+      <TextInput
+        value={renameOpen.title}
+        onChange={renameOpen.rename}
+        onCancel={onSubmit}
+        onSubmit={onSubmit}
+      />
+    );
+  }
+);
 
 class EditClass extends Component {
   state: { editTitle: boolean };
@@ -81,10 +83,8 @@ class EditClass extends Component {
               </h3>}
           <font size={-3}>
             <i>
-              {
-                `Type: ${operatorTypesObj[operator.operatorType].meta.name}
-                     (${operator.operatorType})`
-              }
+              {`Type: ${operatorTypesObj[operator.operatorType].meta.name}
+                     (${operator.operatorType})`}
             </i>
           </font>
           <hr />

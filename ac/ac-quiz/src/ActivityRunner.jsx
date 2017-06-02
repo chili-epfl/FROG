@@ -46,7 +46,8 @@ export default (props: ActivityRunnerT) => {
   });
 
   const socialStructure = socialStructures.find(x => x[userInfo.id]);
-  const group = (socialStructure && socialStructure[userInfo.id].group) ||
+  const group =
+    (socialStructure && socialStructure[userInfo.id].group) ||
     (configData.collab && 'EVERYONE') ||
     'ALONE' + userInfo.id;
 

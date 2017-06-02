@@ -58,14 +58,10 @@ class EditClass extends Component {
           </h3>
           <font size={-3}>
             <i>
-              {
-                `Type: ${activityTypesObj[activity.activityType].meta.name}
-                     (${activity.activityType})`
-              }
+              {`Type: ${activityTypesObj[activity.activityType].meta.name}
+                     (${activity.activityType})`}
               <br />
-              {
-                `Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`
-              }
+              {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
             </i>
           </font>
           {activity.plane === 2 &&

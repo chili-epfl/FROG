@@ -26,18 +26,15 @@ Meteor.methods({
   'next.activity': (sessionId: string) => {
     const session = Sessions.findOne(sessionId);
     const activities = Activities.find({ graphId: session.graphId }).fetch();
-    const newTimeInGraph = activities.reduce(
-      (t, a) => {
-        if (a.startTime > session.timeInGraph) {
-          return Math.min(t, a.startTime);
-        }
-        if (a.startTime + a.length > session.timeInGraph) {
-          return Math.min(t, a.startTime + a.length);
-        }
-        return t;
-      },
-      999999
-    );
+    const newTimeInGraph = activities.reduce((t, a) => {
+      if (a.startTime > session.timeInGraph) {
+        return Math.min(t, a.startTime);
+      }
+      if (a.startTime + a.length > session.timeInGraph) {
+        return Math.min(t, a.startTime + a.length);
+      }
+      return t;
+    }, 999999);
 
     const openActivities = activities
       .filter(
@@ -65,7 +62,8 @@ Meteor.methods({
           connection.source.type,
           connection.source.id,
           sessionId
-        ));
+        )
+      );
       // Now everything must have been computed, let's compute the new data
 
       // The list of students
@@ -91,7 +89,8 @@ Meteor.methods({
       const products: Array<Array<ProductT>> = connections.map(connection =>
         Products.find({
           nodeId: connection.source.id
-        }).fetch());
+        }).fetch()
+      );
 
       // More data needed by the operators. Will need to be completed, documented and typed if possible
       const globalStructure = {

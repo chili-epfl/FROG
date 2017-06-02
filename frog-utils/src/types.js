@@ -38,7 +38,10 @@ export type OperatorPackageT = {
   id: string,
   meta: { type: string, name: string },
   config: Object,
-  operator: (configData: Object, object: ObjectT) => {
+  operator: (
+    configData: Object,
+    object: ObjectT
+  ) => {
     product: ProductT[],
     socialStructure: SocialStructureT
   }

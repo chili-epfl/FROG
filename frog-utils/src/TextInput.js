@@ -49,7 +49,7 @@ export class TextInput extends Component {
         onChange={this.onChange}
         onKeyDown={this.handleKey}
         value={this.state.val}
-        ref={input => this.textInput = input}
+        ref={input => (this.textInput = input)}
         onSubmit={this.onSubmit}
         onBlur={this.onSubmit}
         style={this.props.style}

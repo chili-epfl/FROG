@@ -63,8 +63,8 @@ export default class Operator extends Elem {
     store.addHistory();
   };
 
-  @action onOver = (): true => this.over = true;
-  @action onLeave = (): false => this.over = false;
+  @action onOver = (): true => (this.over = true);
+  @action onLeave = (): false => (this.over = false);
 
   @action startDragging = (e: { shiftKey: boolean }): void => {
     if (!e.shiftKey) {

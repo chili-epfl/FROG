@@ -41,7 +41,8 @@ export default class App extends Component {
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-          connectWithDefaultPwd(username));
+          connectWithDefaultPwd(username)
+        );
       } else {
         connectWithDefaultPwd(username);
       }

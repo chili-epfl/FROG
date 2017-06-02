@@ -51,8 +51,6 @@ export const notEmpty = (obj: Object): boolean => {
   return Object.keys(obj).reduce((acc, val) => acc || Boolean(obj[val]), false);
 };
 
-export const identity = <T>(e: T): T => e;
-
 // list utils
 export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
   const first = xs.slice(0, i);

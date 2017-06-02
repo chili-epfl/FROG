@@ -3,7 +3,7 @@
 // From an array of [{_id, value},...] returns the object {[_id]: value}
 export const KVize = (arr: Array<{ _id: string, value: any }>) => {
   const values = {};
-  arr.forEach(o => values[o._id] = o.value);
+  arr.forEach(o => (values[o._id] = o.value));
   return values;
 };
 

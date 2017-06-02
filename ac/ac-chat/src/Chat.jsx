@@ -8,16 +8,14 @@ import TextInput from './TextInput';
 
 const Chatmsg = ({ msg }) => <li>{msg.user}: {msg.msg}</li>;
 
-export default (
-  {
-    configData,
-    logger,
-    data,
-    dataFn,
-    userInfo,
-    object
-  }: ActivityRunnerT
-) => (
+export default ({
+  configData,
+  logger,
+  data,
+  dataFn,
+  userInfo,
+  object
+}: ActivityRunnerT) => (
   <div>
     <h4>{configData.title}</h4>
     <ul>

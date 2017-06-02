@@ -71,17 +71,15 @@ const IdeaList = ({ ideas, fun, remove }) => (
   </div>
 );
 
-export default (
-  {
-    configData,
-    object,
-    userInfo,
-    logger,
-    data,
-    dataFn,
-    saveProduct
-  }: ActivityRunnerT
-) => {
+export default ({
+  configData,
+  object,
+  userInfo,
+  logger,
+  data,
+  dataFn,
+  saveProduct
+}: ActivityRunnerT) => {
   const schema = {
     type: 'object',
     properties: {

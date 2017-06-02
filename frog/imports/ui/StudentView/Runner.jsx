@@ -42,14 +42,11 @@ const Runner = ({ activity, object }) => {
   return <p>NULL OBJECT</p>;
 };
 
-export default createContainer(
-  ({ activityId }) => {
-    const o = Objects.findOne({ activityId });
-    const object = o ? o.data : null;
+export default createContainer(({ activityId }) => {
+  const o = Objects.findOne({ activityId });
+  const object = o ? o.data : null;
 
-    const activity = Activities.findOne(activityId);
+  const activity = Activities.findOne(activityId);
 
-    return { activity, object };
-  },
-  Runner
-);
+  return { activity, object };
+}, Runner);

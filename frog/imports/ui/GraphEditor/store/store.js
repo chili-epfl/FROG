@@ -95,7 +95,7 @@ export default class Store {
 
   @observable overlapAllowed = true;
   @action toggleOverlapAllowed = () =>
-    this.overlapAllowed = !this.overlapAllowed;
+    (this.overlapAllowed = !this.overlapAllowed);
 
   @action deleteSelected = (): void => {
     if (this.state.mode === 'normal') {
