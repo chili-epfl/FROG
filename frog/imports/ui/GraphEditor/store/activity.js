@@ -100,9 +100,8 @@ export default class Activity extends Elem {
         newTime
       );
 
-      const overdrag = store.ui.socialCoordsTime[0] -
-        state.mouseOffset -
-        this.startTime;
+      const overdrag =
+        store.ui.socialCoordsTime[0] - state.mouseOffset - this.startTime;
 
       if (overdrag < -2 && this.bounds.leftBoundActivity) {
         store.activityStore.swapActivities(this.bounds.leftBoundActivity, this);
@@ -142,7 +141,7 @@ export default class Activity extends Elem {
       this.over = true;
     }
   };
-  @action onLeave = () => this.over = false;
+  @action onLeave = () => (this.over = false);
 
   @action setRename = () => {
     store.state = {

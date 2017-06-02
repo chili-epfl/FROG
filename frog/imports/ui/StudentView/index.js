@@ -19,11 +19,8 @@ const StudentView = ({ user, sessions }) => {
   );
 };
 
-export default createContainer(
-  () => {
-    const sessions = Sessions.find().fetch();
-    const user = Meteor.users.findOne(Meteor.userId());
-    return { sessions, user };
-  },
-  StudentView
-);
+export default createContainer(() => {
+  const sessions = Sessions.find().fetch();
+  const user = Meteor.users.findOne(Meteor.userId());
+  return { sessions, user };
+}, StudentView);

@@ -1,21 +1,19 @@
 import React from 'react';
 import { DraggableCore } from 'react-draggable';
 
-export default (
-  {
-    x,
-    y,
-    onOver,
-    onLeave,
-    onClick,
-    selected,
-    type,
-    highlighted,
-    startDragging,
-    onDrag,
-    onStop
-  }
-) => {
+export default ({
+  x,
+  y,
+  onOver,
+  onLeave,
+  onClick,
+  selected,
+  type,
+  highlighted,
+  startDragging,
+  onDrag,
+  onStop
+}) => {
   const stroke = selected ? '#ff9900' : 'grey';
   const fill = highlighted ? 'yellow' : 'white';
   let icon;

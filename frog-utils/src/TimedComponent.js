@@ -24,14 +24,11 @@ class TimedComponentClass extends Component {
   componentDidMount() {
     this._mounted = true;
 
-    this.interval = setInterval(
-      () => {
-        if (this._mounted) {
-          this.setState({ timeNow: Date.now() });
-        }
-      },
-      this.props.interval || 3000
-    );
+    this.interval = setInterval(() => {
+      if (this._mounted) {
+        this.setState({ timeNow: Date.now() });
+      }
+    }, this.props.interval || 3000);
   }
 
   componentWillUnmount() {
@@ -49,11 +46,10 @@ class TimedComponentClass extends Component {
   }
 }
 
-export default (component: any, interval: number) =>
-  (props: Object) => (
-    <TimedComponentClass
-      component={component}
-      interval={interval}
-      props={props}
-    />
-  );
+export default (component: any, interval: number) => (props: Object) => (
+  <TimedComponentClass
+    component={component}
+    interval={interval}
+    props={props}
+  />
+);

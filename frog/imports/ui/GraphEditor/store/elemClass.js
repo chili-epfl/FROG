@@ -32,8 +32,10 @@ export default class Elem {
   };
 
   @computed get highlighted(): boolean {
-    return this.over &&
+    return (
+      this.over &&
       store.state.draggingFrom !== this &&
-      store.state.mode === 'dragging';
+      store.state.mode === 'dragging'
+    );
   }
 }

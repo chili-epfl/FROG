@@ -28,14 +28,15 @@ export default class uiStore {
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
 
-  @action setSidepanelOpen = (x: boolean) => this.sidepanelOpen = x;
-  @action toggleSidepanelOpen = () => this.sidepanelOpen = !this.sidepanelOpen;
+  @action setSidepanelOpen = (x: boolean) => (this.sidepanelOpen = x);
+  @action toggleSidepanelOpen = () =>
+    (this.sidepanelOpen = !this.sidepanelOpen);
 
   @computed get panBoxSize(): number {
     return this.graphWidth / this.scale;
   }
 
-  @action setSvgRef = (ref: any) => this.svgRef = ref;
+  @action setSvgRef = (ref: any) => (this.svgRef = ref);
 
   @action setGraphWidth(x: number) {
     this.graphWidth = x;

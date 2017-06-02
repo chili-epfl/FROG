@@ -37,54 +37,51 @@ const ShadedBox = ({ x, current }) => (
   />
 );
 
-const DragGuide = connect(({
-  store: { ui: { scale, panTime, rightEdgeTime } },
-  ...rest
-}) => {
-  const s = x => timeToPx(x, scale);
-  const current = Math.floor(rest.current);
-  const length = Math.floor(rest.length);
-  let x;
-  let edge;
-  if (rest.x > rightEdgeTime) {
-    x = rightEdgeTime;
-    edge = true;
-  } else if (rest.x < panTime) {
-    x = panTime;
-    edge = true;
-  } else {
-    edge = false;
-    x = Math.floor(rest.x);
-  }
+const DragGuide = connect(
+  ({ store: { ui: { scale, panTime, rightEdgeTime } }, ...rest }) => {
+    const s = x => timeToPx(x, scale);
+    const current = Math.floor(rest.current);
+    const length = Math.floor(rest.length);
+    let x;
+    let edge;
+    if (rest.x > rightEdgeTime) {
+      x = rightEdgeTime;
+      edge = true;
+    } else if (rest.x < panTime) {
+      x = panTime;
+      edge = true;
+    } else {
+      edge = false;
+      x = Math.floor(rest.x);
+    }
 
-  const middle = (x + current) / 2.0;
-  const timeText = Math.floor(Math.abs(rest.x - current)) + ' min.';
-  const lengthText = length + ' min.';
-  const activityMiddle = Math.floor(rest.currentX) + length / 2;
+    const middle = (x + current) / 2.0;
+    const timeText = Math.floor(Math.abs(rest.x - current)) + ' min.';
+    const lengthText = length + ' min.';
+    const activityMiddle = Math.floor(rest.currentX) + length / 2;
 
-  return (
-    <g>
-      <text x={s(activityMiddle)} y={rest.y - 20}>
-        {lengthText}
-      </text>
+    return (
       <g>
-        <text x={s(middle)} y={300}>
-          {timeText}
+        <text x={s(activityMiddle)} y={rest.y - 20}>
+          {lengthText}
         </text>
-        <TwoSidedArrow x={s(middle)} />
-        {edge ? null : <VerticalLine x={s(x)} />}
-        <VerticalLine x={s(current)} />
-        <ShadedBox x={s(x)} current={s(current)} />
+        <g>
+          <text x={s(middle)} y={300}>
+            {timeText}
+          </text>
+          <TwoSidedArrow x={s(middle)} />
+          {edge ? null : <VerticalLine x={s(x)} />}
+          <VerticalLine x={s(current)} />
+          <ShadedBox x={s(x)} current={s(current)} />
+        </g>
       </g>
-    </g>
-  );
-});
+    );
+  }
+);
 
 export default connect(({ store: { state } }) => {
   if (state.mode === 'resizing' || state.mode === 'moving') {
-    const {
-      currentActivity
-    } = state;
+    const { currentActivity } = state;
     const { leftBoundTime, rightBoundTime } = currentActivity.bounds;
     return (
       <g>

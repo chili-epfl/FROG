@@ -40,10 +40,11 @@ const ActivityRunner = (art: ActivityRunnerT) => {
   } = art;
 
   const { socialStructures } = object;
-  const group = (socialStructures &&
-    socialStructures[0] &&
-    socialStructures[0][userInfo.id] &&
-    socialStructures[0][userInfo.id].group) ||
+  const group =
+    (socialStructures &&
+      socialStructures[0] &&
+      socialStructures[0][userInfo.id] &&
+      socialStructures[0][userInfo.id].group) ||
     (configData.collab && 'EVERYONE') ||
     'ALONE' + userInfo.id;
 

@@ -95,7 +95,7 @@ export default class Store {
 
   @observable overlapAllowed = true;
   @action toggleOverlapAllowed = () =>
-    this.overlapAllowed = !this.overlapAllowed;
+    (this.overlapAllowed = !this.overlapAllowed);
 
   @action deleteSelected = (): void => {
     if (this.state.mode === 'normal') {
@@ -144,6 +144,7 @@ export default class Store {
     this.history = [];
     this.addHistory();
     this.state = { mode: 'normal' };
+    this.ui.setSidepanelOpen(false);
 
     const cursors = {
       activities: Activities.find({ graphId: this.graphId }),
