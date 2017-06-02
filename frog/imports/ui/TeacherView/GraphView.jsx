@@ -12,7 +12,7 @@ class GraphView extends Component {
     store.setId(this.props.session.graphId, true);
   }
 
-  componentWillReceiveProps(nextProps: { session: { copyGraphId: String } }) {
+  componentWillReceiveProps(nextProps: { session: { graphId: String } }) {
     store.setId(nextProps.session.graphId, true);
   }
 

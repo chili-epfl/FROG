@@ -144,6 +144,7 @@ export default class Store {
     this.history = [];
     this.addHistory();
     this.state = { mode: 'normal' };
+    this.ui.setSidepanelOpen(false);
 
     const cursors = {
       activities: Activities.find({ graphId: this.graphId }),

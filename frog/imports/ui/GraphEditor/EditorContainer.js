@@ -25,8 +25,12 @@ const EditorPanel = () => (
 
 class Editor extends Component {
   componentDidMount() {
-    window.addEventListener('resize', () => this.props.store.ui.updateWindow());
+    window.addEventListener('resize', this.props.store.ui.updateWindow);
     this.props.store.ui.updateWindow();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.store.ui.updateWindow);
   }
 
   render() {
