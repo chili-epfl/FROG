@@ -5,6 +5,7 @@ export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
+export { TextInput, ChangeableText } from './TextInput';
 export type {
   ActivityPackageT,
   ActivityRunnerT,
