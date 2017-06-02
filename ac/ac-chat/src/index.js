@@ -15,11 +15,6 @@ const config = {
     title: {
       type: 'string',
       title: 'Title'
-    },
-    groupBy: {
-      type: 'string',
-      title: 'Grouping by',
-      enum: ['role', 'group']
     }
   }
 };

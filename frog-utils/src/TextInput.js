@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { A } from 'frog-utils';
+import { A } from './index';
 
-export default class TextInput extends Component {
+export class TextInput extends Component {
   constructor(props: { value: string, onChange: Function, style?: string }) {
     super(props);
     this.state = { val: this.props.value || '' };
@@ -61,12 +61,12 @@ export default class TextInput extends Component {
 export class ChangeableText extends Component {
   constructor(props) {
     super(props);
-    this.state = { edit: false, value: this.props.text };
+    this.state = { edit: false, value: this.props.value };
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.id !== nextProps.id) {
-      this.setState({ edit: false, value: nextProps.text });
+      this.setState({ edit: false, value: nextProps.value });
     }
   }
 
@@ -81,17 +81,21 @@ export class ChangeableText extends Component {
           {...rest}
           onSubmit={e => {
             this.setState({ edit: false, value: e });
-            this.props.onChange(e);
+            this.props.onSubmit && this.props.onSubmit(e);
           }}
         />
       );
     } else {
       return (
         <span>
-          <A onClick={() => this.setState({ edit: true })}>
-            <i className="fa fa-pencil" />
-          </A>
-          &nbsp;{this.state.value}
+          <span onClick={() => this.setState({ edit: true })}>
+            &nbsp;{this.state.value}
+          </span>
+          <i
+            style={{ color: 'blue' }}
+            onClick={() => this.setState({ edit: true })}
+            className={`fa fa-pencil ${this.props.onlyHover && 'edithover'}`}
+          />
         </span>
       );
     }

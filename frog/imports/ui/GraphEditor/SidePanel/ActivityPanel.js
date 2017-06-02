@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import { A } from 'frog-utils';
+import { A, TextInput, ChangeableText } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
@@ -46,33 +46,34 @@ class EditClass extends Component {
     return (
       <div>
         <div style={{ backgroundColor: '#eee' }}>
-          {this.state.editTitle
-            ? <h3>
-                <RenameField
-                  activityId={activity._id}
-                  onSubmit={() => {
-                    this.setState({ editTitle: false });
-                  }}
-                />
-              </h3>
-            : <h3>
-                <A onClick={() => this.setState({ editTitle: true })}>
-                  <i className="fa fa-pencil" />
-                </A>
-                &nbsp;{graphActivity.title}
-              </h3>}
+          <h3>
+            <ChangeableText
+              EditComponent={RenameField}
+              value={graphActivity.title}
+              id={activity._id}
+              activityId={activity._id}
+              onChange={grp =>
+                addActivity(activity.activityType, null, activity._id, grp)}
+            />
+          </h3>
           <font size={-3}>
             <i>
-              {
-                `Type: ${activityTypesObj[activity.activityType].meta.name}
-                     (${activity.activityType})`
-              }
+              {`Type: ${activityTypesObj[activity.activityType].meta.name}
+                     (${activity.activityType})`}
               <br />
-              {
-                `Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`
-              }
+              {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
             </i>
           </font>
+          {activity.plane === 2 &&
+            <div>
+              Group by attribute:{' '}
+              <ChangeableText
+                value={activity.grouping}
+                id={activity._id}
+                onChange={grp =>
+                  addActivity(activity.activityType, null, activity._id, grp)}
+              />
+            </div>}
           <hr />
         </div>
         <Form
