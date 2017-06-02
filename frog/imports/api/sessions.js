@@ -7,7 +7,7 @@ import { Presences } from 'meteor/tmeasday:presence';
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
-import { addGraph } from './graphs';
+import { Graphs, addGraph } from './graphs';
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -99,6 +99,8 @@ Meteor.methods({
       pausedAt: null
     });
 
+    Graphs.update(copyGraphId, { $set: { sessionId } });
+
     const matching = {};
     const activities = Activities.find({ graphId }).fetch();
     activities.forEach(activity => {
@@ -132,6 +134,7 @@ Meteor.methods({
   },
   'flush.session': sessionId => {
     Sessions.remove(sessionId);
+    Graphs.remove({ sessionId });
     Activities.remove({ sessionId });
     Operators.remove({ sessionId });
     Connections.remove({ sessionId });
