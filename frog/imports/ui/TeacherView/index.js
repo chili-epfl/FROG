@@ -89,7 +89,7 @@ export default createContainer(
     const logs = session ? Logs.find({ sessionId: session._id }).fetch() : [];
 
     const activities = session
-      ? Activities.find({ sessionId: session._id }).fetch()
+      ? Activities.find({ graphId: session.graphId }).fetch()
       : null;
 
     const students = session

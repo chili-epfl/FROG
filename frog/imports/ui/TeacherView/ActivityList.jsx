@@ -2,11 +2,7 @@
 
 import React from 'react';
 
-export default (
-  {
-    activities
-  }: { activities: Array<Object> }
-) => (
+export default ({ activities }: { activities: Array<Object> }) => (
   <div>
     <h3>Available Activities</h3>
     {activities && activities.length

@@ -27,13 +27,10 @@ export const getClickHandler = (
   return event => {
     event.preventDefault();
     if (!timeoutID) {
-      timeoutID = window.setTimeout(
-        () => {
-          onClick(event);
-          timeoutID = null;
-        },
-        delay
-      );
+      timeoutID = window.setTimeout(() => {
+        onClick(event);
+        timeoutID = null;
+      }, delay);
     } else {
       timeoutID = window.clearTimeout(timeoutID);
       onDblClick(event);

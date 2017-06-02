@@ -7,8 +7,8 @@ export default ({ logs }: Object) => {
   const data = {};
   logs.forEach(log => {
     data[log.data.type] = data[log.data.type] || {};
-    data[log.data.type][log.data.key] = (data[log.data.type][log.data.key] ||
-      0) + 1;
+    data[log.data.type][log.data.key] =
+      (data[log.data.type][log.data.key] || 0) + 1;
   });
 
   return (

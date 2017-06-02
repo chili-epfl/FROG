@@ -157,7 +157,7 @@ Meteor.methods({
     Activities.remove({ graphId });
     Operators.remove({ graphId });
     Connections.remove({ graphId });
-    Sessions.remove({ copyGraphId: graphId });
+    Sessions.remove({ graphId });
   },
   'graph.flush.db': () => {
     Graphs.remove({});

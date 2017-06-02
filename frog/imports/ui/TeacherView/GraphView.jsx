@@ -8,12 +8,12 @@ import Graph from '../GraphEditor/Graph';
 import { store } from '../GraphEditor/store';
 
 class GraphView extends Component {
-  componentDidMount() {
-    store.setId(this.props.session.copyGraphId, true);
+  componentWillMount() {
+    store.setId(this.props.session.graphId, true);
   }
 
-  componentWillReceiveProps(nextProps: { session: { copyGraphId: String } }) {
-    store.setId(nextProps.session.copyGraphId, true);
+  componentWillReceiveProps(nextProps: { session: { graphId: String } }) {
+    store.setId(nextProps.session.graphId, true);
   }
 
   render() {

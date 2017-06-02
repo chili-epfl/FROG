@@ -50,23 +50,30 @@ export const assignGraph = () => {
 };
 
 Meteor.methods({
-  'graph.merge': (
-    { connections, activities, operators, graphId, graphDuration }
-  ) => {
+  'graph.merge': ({
+    connections,
+    activities,
+    operators,
+    graphId,
+    graphDuration
+  }) => {
     Graphs.update(graphId, { $set: { duration: graphDuration } });
 
     activities.map(({ _id, ...rest }) =>
-      Activities.update(_id, { $set: rest }, { upsert: true }));
+      Activities.update(_id, { $set: rest }, { upsert: true })
+    );
     const actid = activities.map(x => x._id);
     Activities.remove({ _id: { $nin: actid }, graphId });
 
     operators.map(({ _id, ...rest }) =>
-      Operators.update(_id, { $set: rest }, { upsert: true }));
+      Operators.update(_id, { $set: rest }, { upsert: true })
+    );
     const optid = operators.map(x => x._id);
     Operators.remove({ _id: { $nin: optid }, graphId });
 
     connections.map(({ _id, ...rest }) =>
-      Connections.update(_id, { $set: rest }, { upsert: true }));
+      Connections.update(_id, { $set: rest }, { upsert: true })
+    );
     const conid = connections.map(x => x._id);
     Connections.remove({ _id: { $nin: conid }, graphId });
   },

@@ -15,11 +15,11 @@ export const serverConnection = backend.connect();
 const globalState = {};
 
 export const startShareDB = () => {
-  new WebSocket.Server({ server: server }).on('connection', function(ws) {
+  new WebSocket.Server({ server }).on('connection', ws => {
     backend.listen(new WebsocketJSONStream(ws));
   });
 
-  server.listen(3002, function(err) {
+  server.listen(3002, err => {
     if (err) throw err;
     console.log('ShareDB: Server Listening on port 3002');
   });

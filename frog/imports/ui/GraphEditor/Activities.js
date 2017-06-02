@@ -21,14 +21,11 @@ class ActivityComponent extends Component {
   clickHandler: ?Function;
 
   componentWillMount() {
-    this.clickHandler = getClickHandler(
-      () => {
-        if (store.state.mode === 'normal') {
-          this.props.activity.select();
-        }
-      },
-      this.props.activity.setRename
-    );
+    this.clickHandler = getClickHandler(() => {
+      if (store.state.mode === 'normal') {
+        this.props.activity.select();
+      }
+    }, this.props.activity.setRename);
   }
 
   componentWillUnmount() {
@@ -124,11 +121,13 @@ class ActivityComponent extends Component {
 
 const Activity = connect(ActivityComponent);
 
-export default connect(({
-  store: { activityStore: { all } },
-  scaled
-}: StoreProp & { scaled: boolean }) => (
-  <g>
-    {all.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
-  </g>
-));
+export default connect(
+  ({
+    store: { activityStore: { all } },
+    scaled
+  }: StoreProp & { scaled: boolean }) => (
+    <g>
+      {all.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
+    </g>
+  )
+);
