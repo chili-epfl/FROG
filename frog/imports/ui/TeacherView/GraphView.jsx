@@ -11,7 +11,8 @@ class GraphView extends Component {
   componentDidMount() {
     store.setId(this.props.session.copyGraphId, true);
   }
-  componentWillReceiveProps(nextProps) {
+
+  componentWillReceiveProps(nextProps: { session: { copyGraphId: String } }) {
     store.setId(nextProps.session.copyGraphId, true);
   }
 
