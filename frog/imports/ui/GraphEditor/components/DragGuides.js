@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { connect } from './store';
-import { timeToPx } from './utils';
+import { connect } from './../store';
+import { timeToPx } from './../utils';
 
 const TwoSidedArrow = ({ x }) =>
   <polygon

@@ -8,19 +8,28 @@ import Graph from '../GraphEditor/Graph';
 import { store } from '../GraphEditor/store';
 
 class GraphView extends Component {
+  initStore = session => {
+    store.setId(session.graphId, true);
+    store.setSession(session);
+  };
+
   componentWillMount() {
-    store.setId(this.props.session.graphId, true);
+    this.initStore(this.props.session);
   }
 
-  componentWillReceiveProps(nextProps: { session: { graphId: String } }) {
-    store.setId(nextProps.session.graphId, true);
+  componentWillReceiveProps(nextProps: { session: Object }) {
+    console.log('update');
+    this.initStore(nextProps.session);
+    if (store.session) {
+      store.session.setTimes(nextProps.session);
+    }
   }
 
   render() {
     return (
       <Provider store={store}>
         <GraphViewContainer>
-          <Graph scaled hasTimescale />
+          <Graph scaled hasTimescale isSession />
         </GraphViewContainer>
       </Provider>
     );

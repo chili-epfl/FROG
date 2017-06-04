@@ -9,6 +9,7 @@ import Operator from './operator';
 import { Graphs, mergeGraph, setCurrentGraph } from '../../../api/graphs';
 import Activity from './activity';
 import Connection from './connection';
+import Session from './session';
 import UI from './uiStore';
 import { Activities, Connections, Operators } from '../../../api/activities';
 import { timeToPx } from '../utils';
@@ -54,6 +55,7 @@ export default class Store {
   @observable connectionStore = new ConnectionStore();
   @observable activityStore = new ActivityStore();
   @observable operatorStore = new OperatorStore();
+  @observable session = new Session();
   @observable ui = new UI();
   @observable graphId: string = '';
   @observable history = [];
@@ -190,6 +192,13 @@ export default class Store {
     });
 
     mergeGraph(this.objects);
+  };
+
+  @action setSession = session => {
+    if (this.session.id !== session._id) {
+      this.session.close();
+      this.session = new Session(session);
+    }
   };
 
   @computed get objects(): any {
