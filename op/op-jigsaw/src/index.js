@@ -2,6 +2,7 @@
 
 import { shuffle } from 'lodash';
 import type { ObjectT, SocialStructureT } from 'frog-utils';
+import { focusRole } from 'frog-utils';
 
 export const meta = {
   name: 'Jigsaw',
@@ -22,14 +23,12 @@ export const config = {
   }
 };
 
-export const operator = (configData: Object, object: ObjectT) => {
-  const { globalStructure, socialStructures } = object;
-
-  const socStruc: SocialStructureT = {};
+export const operator = (configData, object) => {
+  const { globalStructure, socialStructure } = object;
 
   const roles = configData.roles.split(',');
   const groupSize = roles.length;
-
+  let socStruc = {};
   if (configData.mix) {
     const prevStruc = socialStructures[0];
     const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
@@ -50,10 +49,7 @@ export const operator = (configData: Object, object: ObjectT) => {
     });
   }
 
-  return {
-    product: [],
-    socialStructure: socStruc
-  };
+  return focusRole(socStruc);
 };
 
 export default {

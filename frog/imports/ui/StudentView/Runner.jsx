@@ -29,6 +29,7 @@ const Runner = ({ activity, object }) => {
     const ActivityToRun = ReactiveHOC(activityType.dataStructure, activity._id)(
       activityType.ActivityRunner
     );
+    console.log('object', object);
     return (
       <ActivityToRun
         configData={activity.data}
@@ -43,7 +44,8 @@ const Runner = ({ activity, object }) => {
 };
 
 export default createContainer(({ activityId }) => {
-  const o = Objects.findOne({ activityId });
+  const o = Objects.findOne(activityId);
+  console.log('object found', o);
   const object = o ? o.data : null;
 
   const activity = Activities.findOne(activityId);

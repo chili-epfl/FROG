@@ -8,6 +8,7 @@ import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
 import { Graphs, addGraph } from './graphs';
+import runDataflow from './runDataflow';
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -65,7 +66,7 @@ export const updateOpenActivities = (
     { $set: { openActivities, timeInGraph, startedAt: new Date().getTime() } }
   );
   openActivities.forEach(activityId => {
-    Meteor.call('run.dataflow', 'activity', activityId, sessionId);
+    runDataflow('activity', activityId, sessionId);
   });
 };
 
