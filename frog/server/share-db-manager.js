@@ -21,7 +21,6 @@ export const startShareDB = () => {
 
   server.listen(3002, err => {
     if (err) throw err;
-    console.log('ShareDB: Server Listening on port 3002');
   });
 };
 
@@ -32,20 +31,25 @@ export const doOps = (collection, ops) => {
 };
 
 Meteor.methods({
-  'activity.mergeDataOnce': (activityId, object) => {
+  'activity.mergeDataOnce': (activityId, object, grouping) => {
     const activity = Activities.findOne(activityId);
-    if (activity.hasMergedData || globalState[activityId]) {
+    if (
+      (activity.hasMergedData && activity.hasMergedData[grouping]) ||
+      (globalState[activityId] && globalState[activityId][grouping])
+    ) {
       return;
     }
-    globalState[activityId] = true;
+    globalState[activityId] = { ...globalState[activityId], [grouping]: true };
     // the reason for using globalState is that without transactions, just checking the database
     // would sometimes lead to the same thing being done twice. this is still not fool-proof,
     // probably the safest would be for all actions to be triggered by the engine, not by
     // browsers.
-    Activities.update(activityId, { $set: { hasMergedData: true } });
+    Activities.update(activityId, {
+      $set: { hasMergedData: { ...activity.hasMergedData, [grouping]: true } }
+    });
     const activityType = activityTypesObj[activity.activityType];
     const mergeFunction = activityType.mergeFunction;
-    const doc = serverConnection.get('rz', activityId);
+    const doc = serverConnection.get('rz', activityId + '/' + grouping);
     doc.fetch();
     doc.on(
       'load',

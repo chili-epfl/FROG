@@ -29,11 +29,10 @@ export const addActivity = (activityType, data = {}, id, grouping) => {
   }
 };
 
-export const mergeDataOnce = (activityId, data) => {
+export const mergeDataOnce = (activityId, data, grouping) => {
   const activity = Activities.findOne(activityId);
-  if (!activity.hasMergedData) {
-    Meteor.call('activity.mergeDataOnce', activityId, data);
-  } else {
+  if (!(activity.hasMergedData && activity.hasMergedData[grouping])) {
+    Meteor.call('activity.mergeDataOnce', activityId, data, grouping);
   }
 };
 

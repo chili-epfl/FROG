@@ -75,8 +75,8 @@ class Doc {
   }
 }
 
-export default (generateDataFn = doc => {
+export default doc => {
   if (doc) {
     return new Doc(doc, []);
   }
-});
+};

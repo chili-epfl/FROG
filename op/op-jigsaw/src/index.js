@@ -26,7 +26,7 @@ export const config = {
 export const operator = (configData, object) => {
   const { globalStructure, socialStructure } = object;
 
-  const roles = configData.roles.split(',');
+  const roles = configData.roles.split(',').map(x => x.trim());
   const groupSize = roles.length;
   let socStruc = {};
   if (configData.mix) {

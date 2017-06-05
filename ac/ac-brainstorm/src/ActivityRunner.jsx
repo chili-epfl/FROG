@@ -99,7 +99,6 @@ export default ({
       dataFn.objInsert({ score: 0, id, ...e.formData }, ['ideas', id]);
     }
   };
-  console.log(data, dataFn);
   return (
     <div>
       <Container>

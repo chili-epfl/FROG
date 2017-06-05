@@ -12,7 +12,6 @@ import { engineLogger } from './logs';
 import { addObject } from './objects';
 
 const runAllConnecting = (nodeId, sessionId) => {
-  console.log('run all connecting', nodeId);
   const connections = Connections.find({
     'target.id': nodeId
   }).fetch();
@@ -38,7 +37,6 @@ const runDataflow = (type, nodeId, sessionId) => {
     return;
   } // don't run simulation in browser
   const nodeTypes = { operator: Operators, activity: Activities };
-  console.log("runDataflow'", type, nodeId, sessionId);
   const node = nodeTypes[type].findOne(nodeId);
   if (node.computed) {
     // we're done here
@@ -52,7 +50,6 @@ const runDataflow = (type, nodeId, sessionId) => {
 
   // Retrieve all products
   const allProducts = connections.map(conn => Products.findOne(conn.source.id));
-  console.log('allProducts', allProducts);
 
   // Merge all social products
   const socialStructures = allProducts.filter(c => c.type === 'social');
@@ -77,7 +74,6 @@ const runDataflow = (type, nodeId, sessionId) => {
     // We run the operator function
     const product = operatorFunction(node.data, object);
     // The result of the operator function are written in Mongo
-    console.log('updating product', product, nodeId);
     Products.update(nodeId, { type: node.type, product }, { upsert: true });
   } else if (type === 'activity') {
     // Here we build the object of an activity from the products of its connected nodes
