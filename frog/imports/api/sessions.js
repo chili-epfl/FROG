@@ -65,9 +65,11 @@ export const updateOpenActivities = (
     { _id: sessionId },
     { $set: { openActivities, timeInGraph, startedAt: new Date().getTime() } }
   );
-  openActivities.forEach(activityId => {
-    runDataflow('activity', activityId, sessionId);
-  });
+  if (Meteor.isServer) {
+    openActivities.forEach(activityId => {
+      runDataflow('activity', activityId, sessionId);
+    });
+  }
 };
 
 export const removeSession = (sessionId: string) =>

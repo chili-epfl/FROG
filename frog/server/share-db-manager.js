@@ -4,8 +4,11 @@ import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
 import { Meteor } from 'meteor/meteor';
+import { merge } from 'lodash';
+
 import generateReactiveFn from '../imports/api/generateReactiveFn';
 import { Activities } from '../imports/api/activities';
+import { Objects } from '../imports/api/objects';
 import { activityTypesObj } from '../imports/activityTypes';
 
 const db = ShareDBMongo('mongodb://localhost:3001/sharedb');
@@ -30,9 +33,17 @@ export const doOps = (collection, ops) => {
   doc.on('ready', () => ops.map(op => doc.submitOp(op)));
 };
 
-Meteor.methods({
-  'activity.mergeDataOnce': (activityId, object, grouping) => {
-    const activity = Activities.findOne(activityId);
+export const mergeData = (activityId, object) => {
+  const { socialStructure, globalStructure } = object;
+  const activity = Activities.findOne(activityId);
+
+  let groups;
+  if (activity.grouping && socialStructure[activity.grouping]) {
+    groups = Object.keys(socialStructure[activity.grouping]);
+  } else {
+    groups = ['all'];
+  }
+  groups.forEach(grouping => {
     if (
       (activity.hasMergedData && activity.hasMergedData[grouping]) ||
       (globalState[activityId] && globalState[activityId][grouping])
@@ -49,6 +60,7 @@ Meteor.methods({
     });
     const activityType = activityTypesObj[activity.activityType];
     const mergeFunction = activityType.mergeFunction;
+    const object = Objects.findOne(activity._id);
     const doc = serverConnection.get('rz', activityId + '/' + grouping);
     doc.fetch();
     doc.on(
@@ -59,9 +71,15 @@ Meteor.methods({
         }
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);
-          mergeFunction(object, dataFn);
+          // merging in config with incoming product
+          const newObject = {
+            globalStructure,
+            socialStructure,
+            product: merge(object.product, activity.data)
+          };
+          mergeFunction(newObject, dataFn);
         }
       })
     );
-  }
-});
+  });
+};

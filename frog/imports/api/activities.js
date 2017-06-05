@@ -29,13 +29,6 @@ export const addActivity = (activityType, data = {}, id, grouping) => {
   }
 };
 
-export const mergeDataOnce = (activityId, data, grouping) => {
-  const activity = Activities.findOne(activityId);
-  if (!(activity.hasMergedData && activity.hasMergedData[grouping])) {
-    Meteor.call('activity.mergeDataOnce', activityId, data, grouping);
-  }
-};
-
 export const duplicateActivity = activity =>
   Activities.insert({
     ...activity,

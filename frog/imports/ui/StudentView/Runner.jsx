@@ -9,7 +9,7 @@ import { ActivityData, reactiveFn } from '../../api/activityData';
 import { createLogger } from '../../api/logs';
 import { saveProduct } from '../../api/products';
 import { Objects } from '../../api/objects';
-import { Activities, mergeDataOnce } from '../../api/activities';
+import { Activities } from '../../api/activities';
 import { focusStudent } from 'frog-utils';
 import ReactiveHOC from './ReactiveHOC';
 
@@ -34,7 +34,6 @@ const Runner = ({ activity, object }) => {
     } else {
       grouping = 'all';
     }
-    mergeDataOnce(activity._id, activity.data, grouping);
     const reactiveId = activity._id + '/' + grouping;
 
     const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(

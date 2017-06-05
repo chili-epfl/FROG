@@ -1,7 +1,9 @@
+if(Meteor.isServer) {
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 
+import { mergeData } from '../../server/share-db-manager';
 import { operatorTypesObj } from '../operatorTypes';
 import { activityTypesObj } from '../activityTypes';
 import { Graphs } from './graphs';
@@ -78,6 +80,7 @@ const runDataflow = (type, nodeId, sessionId) => {
   } else if (type === 'activity') {
     // Here we build the object of an activity from the products of its connected nodes
     addObject(nodeId, object);
+    mergeData(nodeId, object);
   }
   nodeTypes[type].update(nodeId, { $set: { computed: true } });
 
@@ -85,3 +88,4 @@ const runDataflow = (type, nodeId, sessionId) => {
 };
 
 export default runDataflow;
+}
