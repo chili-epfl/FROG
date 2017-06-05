@@ -14,7 +14,7 @@
     "material-ui": "^0.18.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-draggable": "^2.2.6",
+    "react-draggable": "github:houshuang/react-draggable",
     "react-dropzone": "^3.13.2",
     "react-icons": "^2.2.5",
     "react-tap-event-plugin": "2.0.1"
