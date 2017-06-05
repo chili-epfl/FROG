@@ -19,12 +19,11 @@ export const config = {
   }
 };
 
-export const ActivityRunnerWrapper = props => (
+export const ActivityRunnerWrapper = props =>
   <div>
     <div className="col-md-4"><ActivityRunner {...props} /> </div>
     <div className="col-md-4"><Chat {...props} /></div>
-  </div>
-);
+  </div>;
 
 export default {
   id: 'ac-ck-board',

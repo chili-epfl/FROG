@@ -27,15 +27,14 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ configData, object }: ActivityRunnerT) => (
+export const ActivityRunner = ({ configData, object }: ActivityRunnerT) =>
   <div>
     <h1>{configData.title}</h1>
     <p>{configData.text}</p>
     {configData.showProducts
       ? <pre>{JSON.stringify(object.products, null, 2)}</pre>
       : null}
-  </div>
-);
+  </div>;
 export default ({
   id: 'ac-text',
   ActivityRunner,

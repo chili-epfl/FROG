@@ -25,7 +25,8 @@ const quizData = [
     question: 'I will learn more if I...',
     answers: [
       {
-        answer: 'Solve exercises with an other student who has the same level as me'
+        answer:
+          'Solve exercises with an other student who has the same level as me'
       },
       {
         answer: 'Solve exercise with a weaker student'
@@ -36,7 +37,8 @@ const quizData = [
     question: 'I will learn more if I...',
     answers: [
       {
-        answer: 'Solve exercises with an other student who has the same level as me'
+        answer:
+          'Solve exercises with an other student who has the same level as me'
       },
       {
         answer: 'Solve exercise with a stronger student'

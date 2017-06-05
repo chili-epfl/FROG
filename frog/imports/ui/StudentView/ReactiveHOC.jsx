@@ -39,13 +39,12 @@ const ReactiveHOC = (dataStructure, docId) => WrappedComponent =>
       this.unmounted = true;
     };
 
-    render = () => (
+    render = () =>
       <WrappedComponent
         dataFn={generateReactiveFn(this.doc)}
         data={this.state.data}
         {...this.props}
-      />
-    );
+      />;
   };
 
 export default ReactiveHOC;

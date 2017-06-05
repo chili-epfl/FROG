@@ -24,7 +24,7 @@ const displaySession = session =>
     STOPPED: 'Stopped'
   }[session.state]);
 
-const SessionController = ({ session, activities }) => (
+const SessionController = ({ session, activities }) =>
   <div>
     {session
       ? <div>
@@ -34,8 +34,7 @@ const SessionController = ({ session, activities }) => (
           <ActivityList activities={activities} />
         </div>
       : <p>Create or select a session from the list bellow</p>}
-  </div>
-);
+  </div>;
 
 const Dashboard = ({ logs, activity }) => {
   let Dash = <p>NO DASHBOARD</p>;
@@ -65,18 +64,17 @@ const DashView = createContainer(
   Dashboard
 );
 
-const LogView = ({ logs }) => (
+const LogView = ({ logs }) =>
   <div>
     <h1>Logs</h1>
     {logs.length
       ? <ul>
-          {logs.map(log => (
+          {logs.map(log =>
             <pre key={log._id}>{JSON.stringify(log, null, 2)}</pre>
-          ))}
+          )}
         </ul>
       : <p>NO LOGS</p>}
-  </div>
-);
+  </div>;
 
 export default createContainer(
   () => {
@@ -106,7 +104,7 @@ export default createContainer(
       user
     };
   },
-  props => (
+  props =>
     <div id="teacher">
       <SessionController {...props} />
       <DashView {...props} />
@@ -114,5 +112,4 @@ export default createContainer(
       <LogView {...props} />
       <SessionList {...props} />
     </div>
-  )
 );

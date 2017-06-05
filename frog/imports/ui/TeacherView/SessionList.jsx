@@ -12,12 +12,12 @@ export default ({
 }: {
   graphs: Array<Object>,
   sessions: Array<Object>
-}) => (
+}) =>
   <div id="sessionList">
     <h1>Session list</h1>
     <DropdownButton title="Create Session" id="dropdown-basic-0">
       {graphs && graphs.length
-        ? graphs.map(graph => (
+        ? graphs.map(graph =>
             <MenuItem
               key={graph._id}
               eventKey={graph._id}
@@ -25,17 +25,16 @@ export default ({
             >
               {graph.name}
             </MenuItem>
-          ))
+          )
         : <MenuItem eventKey="0">No graph</MenuItem>}
     </DropdownButton>
     <ul>
-      {sessions.map(session => (
+      {sessions.map(session =>
         <li key={session._id}>
           <A onClick={() => setTeacherSession(session._id)}>
             {session._id}
           </A>
         </li>
-      ))}
+      )}
     </ul>
-  </div>
-);
+  </div>;

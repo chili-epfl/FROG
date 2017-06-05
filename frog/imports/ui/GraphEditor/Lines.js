@@ -7,7 +7,7 @@ import Connection from './store/connection.js';
 import type { StoreProp } from './store';
 
 export const Line = observer(
-  ({ connection, scaled }: { connection: Connection, scaled: boolean }) => (
+  ({ connection, scaled }: { connection: Connection, scaled: boolean }) =>
     <g>
       <path
         d={scaled ? connection.pathScaled : connection.path}
@@ -23,7 +23,6 @@ export const Line = observer(
         strokeWidth="12"
       />
     </g>
-  )
 );
 
 export const DragLine = connect(
@@ -43,11 +42,10 @@ export default connect(
   ({
     store: { connectionStore: { all: connections } },
     scaled
-  }: StoreProp & { scaled: boolean }) => (
+  }: StoreProp & { scaled: boolean }) =>
     <g>
-      {connections.map(connection => (
+      {connections.map(connection =>
         <Line scaled={scaled} key={connection.id} connection={connection} />
-      ))}
+      )}
     </g>
-  )
 );

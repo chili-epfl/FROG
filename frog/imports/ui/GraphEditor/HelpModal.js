@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { connect } from './store';
 
-const HelpModal = ({ show, hide }) => (
+const HelpModal = ({ show, hide }) =>
   <Modal show={show} onHide={hide}>
     <Modal.Header closeButton>
       <Modal.Title>Graph Editor Help</Modal.Title>
@@ -46,9 +46,8 @@ const HelpModal = ({ show, hide }) => (
       All your actions are immediately stored in the database. To undo, click
       the undo button at the bottom of the graph.
     </Modal.Body>
-  </Modal>
-);
+  </Modal>;
 
-export default connect(({ store: { ui: { showModal, setModal } } }) => (
+export default connect(({ store: { ui: { showModal, setModal } } }) =>
   <HelpModal show={showModal} hide={() => setModal(false)} />
-));
+);
