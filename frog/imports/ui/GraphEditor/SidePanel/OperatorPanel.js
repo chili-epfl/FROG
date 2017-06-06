@@ -1,9 +1,9 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import { A, TextInput } from 'frog-utils';
+import { ChangeableText } from 'frog-utils';
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
@@ -28,80 +28,39 @@ const ChooseOperatorType = ({ operator }) => {
   );
 };
 
-export const RenameField = connect(
-  ({
-    store: { operatorStore: { all } },
-    operatorId,
-    onSubmit
-  }: StoreProp & {
-    operatorId: string,
-    onSubmit: string
-  }) => {
-    const renameOpen = all.find(opt => opt.id === operatorId);
-    return (
-      <TextInput
-        value={renameOpen.title}
-        onChange={renameOpen.rename}
-        onCancel={onSubmit}
-        onSubmit={onSubmit}
-      />
-    );
-  }
-);
+const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
+  const graphOperator = all.find(act => act.id === operator._id);
 
-class EditClass extends Component {
-  state: { editTitle: boolean };
-
-  constructor(props) {
-    super(props);
-    this.state = { editTitle: false };
-  }
-
-  render() {
-    const operator = this.props.operator;
-    const graphOperator = this.props.store.operatorStore.all.find(
-      act => act.id === operator._id
-    );
-
-    return (
-      <div>
-        <div style={{ backgroundColor: '#eee' }}>
-          {this.state.editTitle
-            ? <h3>
-                <RenameField
-                  operatorId={operator._id}
-                  onSubmit={() => {
-                    this.setState({ editTitle: false });
-                  }}
-                />
-              </h3>
-            : <h3>
-                <A onClick={() => this.setState({ editTitle: true })}>
-                  <i className="fa fa-pencil" />
-                </A>
-                &nbsp;{graphOperator.title || 'Unnamed Operator'}
-              </h3>}
-          <font size={-3}>
-            <i>
-              {`Type: ${operatorTypesObj[operator.operatorType].meta.name}
+  return (
+    <div>
+      <div style={{ backgroundColor: '#eee' }}>
+        <h3>
+          <ChangeableText
+            value={graphOperator.title || ''}
+            operatorId={operator._id}
+            onChange={graphOperator.rename}
+          />
+        </h3>
+        <font size={-3}>
+          <i>
+            {`Type: ${operatorTypesObj[operator.operatorType].meta.name}
                      (${operator.operatorType})`}
-            </i>
-          </font>
-          <hr />
-        </div>
-        <Form
-          schema={operatorTypesObj[operator.operatorType].config}
-          onChange={data =>
-            addOperator(operator.operatorType, data.formData, operator._id)}
-          formData={operator.data}
-          liveValidate
-        >
-          <div />
-        </Form>
+          </i>
+        </font>
+        <hr />
       </div>
-    );
-  }
-}
+      <Form
+        schema={operatorTypesObj[operator.operatorType].config}
+        onChange={data =>
+          addOperator(operator.operatorType, data.formData, operator._id)}
+        formData={operator.data}
+        liveValidate
+      >
+        <div />
+      </Form>
+    </div>
+  );
+};
 
 const EditOperator = connect(EditClass);
 

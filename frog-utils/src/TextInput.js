@@ -65,8 +65,8 @@ export class ChangeableText extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.id !== nextProps.id) {
-      this.setState({ edit: false, value: nextProps.value });
+    if (this.props.value !== nextProps.value) {
+      this.setState({ value: nextProps.value || '' });
     }
   }
 
