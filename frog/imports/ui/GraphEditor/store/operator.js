@@ -58,6 +58,7 @@ export default class Operator extends Elem {
   }
 
   @action rename = (newname: string) => {
+    console.log('rename!');
     this.title = newname;
     store.addHistory();
   };
@@ -163,5 +164,6 @@ export default class Operator extends Elem {
   @action update = (newopt: $Shape<Operator>) => {
     this.time = newopt.time;
     this.y = newopt.y;
+    this.title = newopt.title;
   };
 }
