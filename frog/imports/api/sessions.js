@@ -88,7 +88,6 @@ Meteor.methods({
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
-      startedAt: Date.now(),
       pausedAt: null
     });
 

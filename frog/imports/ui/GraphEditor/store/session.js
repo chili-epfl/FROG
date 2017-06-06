@@ -18,7 +18,6 @@ export default class Session {
 
   @action setTimes = (session: Object): void => {
     this.updateTimeIs(session.timeInGraph);
-    console.log((Date.now() - session.startedAt) / 6e4);
     this.updateTimeShouldBe((Date.now() - session.startedAt) / 6e4);
   };
 
@@ -27,7 +26,7 @@ export default class Session {
   };
 
   @action updateTimeShouldBe = (newTime: Number): void => {
-    this.timeShouldBe = newTime;
+    this.timeShouldBe = newTime ? newTime: 0;
   };
 
   @action incrTimeShouldBe = (incr: Number = 0.1): void => {

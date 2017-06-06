@@ -21,6 +21,7 @@ export const nextActivity = (sessionId: string) =>
 Meteor.methods({
   'run.session': (sessionId: string) => {
     updateSessionState(sessionId, 'STARTED');
+    Sessions.update(sessionId, { $set: { startedAt: Date.now() } })
     engineLogger(sessionId, { message: 'STARTING SESSION' });
   },
   'next.activity': (sessionId: string) => {
