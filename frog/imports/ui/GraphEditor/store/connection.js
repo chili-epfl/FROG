@@ -38,7 +38,8 @@ export default class Connection extends Elem {
     this.init(source, target, id);
   }
 
-  @computed get path(): string {
+  @computed
+  get path(): string {
     return drawPath({
       dragging: false,
       source: this.source.dragPointFrom,
@@ -46,7 +47,8 @@ export default class Connection extends Elem {
     });
   }
 
-  @computed get pathScaled(): string {
+  @computed
+  get pathScaled(): string {
     return drawPath({
       dragging: false,
       source: this.source.dragPointFromScaled,
@@ -54,7 +56,8 @@ export default class Connection extends Elem {
     });
   }
 
-  @computed get object(): Object {
+  @computed
+  get object(): Object {
     return {
       source: { type: getType(this.source), id: this.source.id },
       target: { type: getType(this.target), id: this.target.id },

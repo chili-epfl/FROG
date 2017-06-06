@@ -13,7 +13,8 @@ export default class ConnectionStore {
   @observable all: Array<Connection> = [];
 
   // user begins dragging a line to make a connection
-  @computed get dragPath(): ?string {
+  @computed
+  get dragPath(): ?string {
     if (store.state.mode !== 'dragging') {
       return null;
     }
@@ -68,14 +69,16 @@ export default class ConnectionStore {
     this.all = this.all.filter(x => x.id !== remact._id);
   };
 
-  @computed get mongoObservers(): any {
+  @computed
+  get mongoObservers(): any {
     return {
       added: this.mongoAdd,
       removed: this.mongoRemove
     };
   }
 
-  @computed get history(): Array<any> {
+  @computed
+  get history(): Array<any> {
     return this.all.map(x => ({
       id: x.id,
       source: { type: x.source.klass, id: x.source.id },

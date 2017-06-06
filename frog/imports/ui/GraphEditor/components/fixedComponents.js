@@ -3,8 +3,8 @@
 import React from 'react';
 import { DraggableCore } from 'react-draggable';
 
-import { connect, store, type StoreProp } from './store';
-import { timeToPx, rangeExclusive } from './utils';
+import { connect, store, type StoreProp } from './../store';
+import { timeToPx, rangeExclusive } from './../utils';
 
 export const PanMap = connect(
   ({ store: { ui: { panx, panDelta, scale, graphWidth } } }: StoreProp) =>

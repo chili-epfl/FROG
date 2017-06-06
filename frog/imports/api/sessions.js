@@ -47,12 +47,6 @@ export const addSession = (graphId: string) => {
 
 export const updateSessionState = (id: string, state: string) => {
   Sessions.update(id, { $set: { state } });
-  if (state === 'STARTED') {
-    Sessions.update(id, { $set: { startedAt: new Date().getTime() } });
-  }
-  if (state === 'PAUSED') {
-    Sessions.update(id, { $set: { pausedAt: new Date().getTime() } });
-  }
 };
 
 export const updateOpenActivities = (
@@ -62,7 +56,7 @@ export const updateOpenActivities = (
 ) => {
   Sessions.update(
     { _id: sessionId },
-    { $set: { openActivities, timeInGraph, startedAt: new Date().getTime() } }
+    { $set: { openActivities, timeInGraph } }
   );
   openActivities.forEach(activityId => {
     Meteor.call('run.dataflow', 'activity', activityId, sessionId);
@@ -94,7 +88,6 @@ Meteor.methods({
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
-      startedAt: null,
       pausedAt: null
     });
 

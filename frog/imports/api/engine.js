@@ -21,20 +21,23 @@ export const nextActivity = (sessionId: string) =>
 Meteor.methods({
   'run.session': (sessionId: string) => {
     updateSessionState(sessionId, 'STARTED');
+    Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
     engineLogger(sessionId, { message: 'STARTING SESSION' });
   },
   'next.activity': (sessionId: string) => {
     const session = Sessions.findOne(sessionId);
     const activities = Activities.find({ graphId: session.graphId }).fetch();
-    const newTimeInGraph = activities.reduce((t, a) => {
-      if (a.startTime > session.timeInGraph) {
-        return Math.min(t, a.startTime);
-      }
-      if (a.startTime + a.length > session.timeInGraph) {
-        return Math.min(t, a.startTime + a.length);
-      }
-      return t;
-    }, 999999);
+    const [t0, t1] = [
+      ...new Set(
+        [
+          ...activities.map(a => a.startTime),
+          ...activities.map(a => a.startTime + a.length)
+        ].filter(t => t > session.timeInGraph)
+      )
+    ]
+      .sort((a, b) => a - b)
+      .slice(0, 2);
+    const newTimeInGraph = t1 ? (t0 + t1) / 2 : -1;
 
     const openActivities = activities
       .filter(

@@ -20,7 +20,8 @@ export default class OperatorStore {
     this.all = this.all.filter(x => x.id !== remx._id);
   };
 
-  @computed get mongoObservers() {
+  @computed
+  get mongoObservers() {
     return {
       added: this.mongoAdd,
       changed: this.mongoChange,
@@ -34,7 +35,8 @@ export default class OperatorStore {
     }
   };
 
-  @computed get history(): Array<any> {
+  @computed
+  get history(): Array<any> {
     return this.all.map(x => ({ ...omit(x, 'over') }));
   }
 }
