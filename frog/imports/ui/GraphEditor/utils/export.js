@@ -27,11 +27,17 @@ export const exportGraph = () => {
   FileSaver.saveAs(blob, 'graph.json', true);
 };
 
+export const duplicateGraph = graphId =>
+  doImportGraph({ target: { result: graphToString(graphId) } });
+
 const doImportGraph = graphStr => {
   const graphObj = JSON.parse(graphStr.target.result);
   const importNo = getGlobalSetting('importNo') || 0;
   setGlobalSetting('importNo', importNo + 1);
-  const graphId = addGraph(graphObj.graph.name);
+  const graphId = addGraph(
+    graphObj.graph.name + ' ' + importNo,
+    graphObj.graph
+  );
   const fixId = id => importNo + '-' + id;
   const specify = obj => ({ ...obj, _id: fixId(obj._id), graphId });
   uploadGraph({
