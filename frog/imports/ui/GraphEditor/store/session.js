@@ -13,27 +13,27 @@ export default class Session {
   }
 
   @observable id: string = '';
-  @observable timeShouldBe: number = 0;
-  @observable timeIs: number = 0;
+  @observable timeInClass: number = 0;
+  @observable timeInGraph: number = 0;
   @observable startedAt: number = null;
 
   @action setTimes = (session: Object): void => {
-    this.updateTimeIs(session.timeInGraph);
+    this.updateTimeInGraph(session.timeInGraph);
     this.startedAt = session.startedAt
-    this.updateTimeShouldBe((Date.now() - this.startedAt) / 6e4);
+    this.updateTimeInClass((Date.now() - this.startedAt) / 6e4);
   };
 
-  @action updateTimeIs = (newTime: number): void => {
+  @action updateTimeInGraph = (newTime: number): void => {
     this.timeIs = newTime;
   };
 
-  @action updateTimeShouldBe = (newTime: number): void => {
+  @action updateTimeInClass = (newTime: number): void => {
     if(newTime > -1) {
-      this.timeShouldBe = newTime
+      this.timeInClass = newTime
     }else if(this.startedAt > -1){
-      this.timeShouldBe = (Date.now() - this.startedAt) / 6e4
+      this.timeInClass = (Date.now() - this.startedAt) / 6e4
     } else {
-      this.timeShouldBe = 0
+      this.timeInClass = 0
     }
   };
 

@@ -10,13 +10,13 @@ const ProgressLine = ({ color, x }) =>
 export default connect(
   ({
     scaled,
-    store: { ui: { scale }, session: { timeIs, timeShouldBe } }
+    store: { ui: { scale }, session: { timeInGraph, timeInClass } }
   }: StoreProp & { scaled: Boolean }) => {
     const s = scaled ? scale : 4;
     return (
       <g>
-        <ProgressLine color="red" x={timeToPx(timeShouldBe, s)} />
-        <ProgressLine color="green" x={timeToPx(timeIs, s)} />
+        <ProgressLine color="red" x={timeToPx(timeInClass, s)} />
+        <ProgressLine color="green" x={timeToPx(timeInGraph, s)} />
       </g>
     );
   }
