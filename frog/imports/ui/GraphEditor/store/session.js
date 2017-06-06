@@ -15,6 +15,7 @@ export default class Session {
   @observable timeInClass: number = 0;
   @observable timeInGraph: number = 0;
   @observable startedAt: number;
+  interval: number;
 
   @action setTimes = (session: Object): void => {
     this.updateTimeInGraph(session.timeInGraph);
@@ -37,6 +38,6 @@ export default class Session {
   };
 
   close = () => {
-    clearInterval(this.inverval);
+    clearInterval(this.interval);
   };
 }
