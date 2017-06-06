@@ -24,7 +24,7 @@ export default class Session {
   };
 
   @action updateTimeInGraph = (newTime: number): void => {
-    this.timeIs = newTime;
+    this.timeInGraph = newTime;
   };
 
   @action updateTimeInClass = (newTime: number): void => {
