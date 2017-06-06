@@ -32,17 +32,20 @@ export default class uiStore {
   @action toggleSidepanelOpen = () =>
     (this.sidepanelOpen = !this.sidepanelOpen);
 
-  @computed get panBoxSize(): number {
+  @computed
+  get panBoxSize(): number {
     return this.graphWidth / this.scale;
   }
 
   @action setSvgRef = (ref: any) => (this.svgRef = ref);
 
-  @action setGraphWidth(x: number) {
+  @action
+  setGraphWidth(x: number) {
     this.graphWidth = x;
   }
 
-  @action updateGraphWidth() {
+  @action
+  updateGraphWidth() {
     const oldPan = this.panTime;
     const boxWidth = this.sidepanelOpen ? 500 : 0;
     this.graphWidth = this.windowWidth - boxWidth;
@@ -60,7 +63,8 @@ export default class uiStore {
     return [x, y];
   };
 
-  @action unselect() {
+  @action
+  unselect() {
     this.selected = null;
   }
 
@@ -74,7 +78,8 @@ export default class uiStore {
     store.addHistory();
   };
 
-  @computed get panOffset(): number {
+  @computed
+  get panOffset(): number {
     return this.panx * this.scale;
   }
 
@@ -100,7 +105,8 @@ export default class uiStore {
     store.ui.selected = null;
   };
 
-  @action endRename() {
+  @action
+  endRename() {
     store.state = { mode: 'normal' };
   }
 
@@ -151,7 +157,8 @@ export default class uiStore {
     }
   };
 
-  @computed get scrollEnabled(): boolean {
+  @computed
+  get scrollEnabled(): boolean {
     return !!['movingOperator', 'dragging', 'moving', 'resizing'].includes(
       store.state.mode
     );
@@ -167,23 +174,27 @@ export default class uiStore {
     this.socialCoordsTime = this.rawMouseToTime(rawX, rawY);
   };
 
-  @computed get socialCoords(): [number, number] {
+  @computed
+  get socialCoords(): [number, number] {
     const [rawX, y] = this.socialCoordsTime;
     const x = timeToPx(rawX, 1);
     return [x, y];
   }
 
-  @computed get socialCoordsScaled(): [number, number] {
+  @computed
+  get socialCoordsScaled(): [number, number] {
     const [rawX, y] = this.socialCoordsTime;
     const x = timeToPx(rawX, this.scale);
     return [x, y];
   }
 
-  @computed get panTime(): number {
+  @computed
+  get panTime(): number {
     return pxToTime(this.panOffset, this.scale);
   }
 
-  @computed get rightEdgeTime(): number {
+  @computed
+  get rightEdgeTime(): number {
     return pxToTime(this.panOffset + this.panBoxSize * this.scale, this.scale);
   }
 }

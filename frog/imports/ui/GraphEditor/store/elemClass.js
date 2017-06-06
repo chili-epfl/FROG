@@ -13,7 +13,8 @@ export default class Elem {
     }
   };
 
-  @computed get selected(): boolean {
+  @computed
+  get selected(): boolean {
     return store.ui.selected === this;
   }
 
@@ -31,7 +32,8 @@ export default class Elem {
     store.addHistory();
   };
 
-  @computed get highlighted(): boolean {
+  @computed
+  get highlighted(): boolean {
     return (
       this.over &&
       store.state.draggingFrom !== this &&
