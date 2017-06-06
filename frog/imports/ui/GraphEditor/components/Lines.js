@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
 import { observer } from 'mobx-react';
-import { connect } from './store';
+import { connect } from './../store';
 
-import Connection from './store/connection.js';
-import type { StoreProp } from './store';
+import Connection from './../store/connection.js';
+import type { StoreProp } from './../store';
 
 export const Line = observer(
   ({ connection, scaled }: { connection: Connection, scaled: boolean }) =>

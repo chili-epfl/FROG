@@ -43,7 +43,8 @@ export default class ActivityStore {
 
   @observable all: Array<Activity> = [];
 
-  @computed get activityOffsets(): any {
+  @computed
+  get activityOffsets(): any {
     return [1, 2, 3].reduce(
       (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
       {}
@@ -120,7 +121,8 @@ export default class ActivityStore {
     this.all = this.all.filter(x => x.id !== remact._id);
   };
 
-  @computed get mongoObservers(): Object {
+  @computed
+  get mongoObservers(): Object {
     return {
       added: this.mongoAdd,
       changed: this.mongoChange,
@@ -128,7 +130,8 @@ export default class ActivityStore {
     };
   }
 
-  @computed get history(): Array<any> {
+  @computed
+  get history(): Array<any> {
     return this.all.map(x => ({ ...omit(x, 'over') }));
   }
 }

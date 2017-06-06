@@ -2,13 +2,15 @@
 
 import React from 'react';
 
-import Lines, { DragLine } from './Lines';
-import Activities from './Activities';
-import { LevelLines, PanMap, TimeScale } from './fixedComponents';
-import ScrollFields from './ScrollFields';
-import DragGuides from './DragGuides';
 import { connect, store, type StoreProp } from './store';
+import Activities from './Activities';
 import Operators from './Operators';
+
+import Lines, { DragLine } from './components/Lines';
+import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
+import ScrollFields from './components/ScrollFields';
+import DragGuides from './components/DragGuides';
+import ProgressLines from './components/ProgressLines';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -38,12 +40,14 @@ export default connect(
     scaled,
     isSvg,
     isEditable,
+    isSession,
     hasPanMap,
     hasTimescale
   }: StoreProp & {
-    scaled: boolean,
+    scaled: Boolean,
     isSvg: Boolean,
     isEditable: Boolean,
+    isSession: Boolean,
     hasPanMap: Boolean,
     hasTimescale: Boolean
   }) =>
@@ -77,12 +81,13 @@ export default connect(
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />
-        {isEditable && <DragGuides />}
-        {hasTimescale && <TimeScale scaled={scaled} />}
         <Lines scaled={scaled} />
         <Activities scaled={scaled} />
-        {isEditable && scrollEnabled && <DragLine />}
         <Operators scaled={scaled} />
+        {isSession && <ProgressLines scaled={scaled} />}
+        {isEditable && <DragGuides />}
+        {hasTimescale && <TimeScale scaled={scaled} />}
+        {isEditable && scrollEnabled && <DragLine />}
       </svg>
       {hasPanMap && <PanMap />}
       {scaled &&
