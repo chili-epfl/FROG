@@ -7,14 +7,14 @@ export default class Session {
     if (session) {
       this.id = session._id;
       this.setTimes(session);
-      this.interval = setInterval(this.updateTimeShouldBe, 6000);
+      this.interval = setInterval(this.updateTimeInClass, 6000);
     }
   }
 
   @observable id: string = '';
   @observable timeInClass: number = 0;
   @observable timeInGraph: number = 0;
-  @observable startedAt: number = null;
+  @observable startedAt: number;
 
   @action setTimes = (session: Object): void => {
     this.updateTimeInGraph(session.timeInGraph);
