@@ -8,29 +8,33 @@ export default class Session {
     if (session) {
       this.id = session._id;
       this.setTimes(session);
-      this.interval = setInterval(this.incrTimeShouldBe, 6000);
+      this.interval = setInterval(this.updateTimeShouldBe, 6000);
     }
   }
 
-  @observable id: String = '';
-  @observable timeShouldBe: Number = 0;
-  @observable timeIs: Number = 0;
+  @observable id: string = '';
+  @observable timeShouldBe: number = 0;
+  @observable timeIs: number = 0;
+  @observable startedAt: number = null;
 
   @action setTimes = (session: Object): void => {
     this.updateTimeIs(session.timeInGraph);
-    this.updateTimeShouldBe((Date.now() - session.startedAt) / 6e4);
+    this.startedAt = session.startedAt
+    this.updateTimeShouldBe((Date.now() - this.startedAt) / 6e4);
   };
 
-  @action updateTimeIs = (newTime: Number): void => {
+  @action updateTimeIs = (newTime: number): void => {
     this.timeIs = newTime;
   };
 
-  @action updateTimeShouldBe = (newTime: Number): void => {
-    this.timeShouldBe = newTime ? newTime: 0;
-  };
-
-  @action incrTimeShouldBe = (incr: Number = 0.1): void => {
-    this.timeShouldBe += incr;
+  @action updateTimeShouldBe = (newTime: number): void => {
+    if(newTime > -1) {
+      this.timeShouldBe = newTime
+    }else if(this.startedAt > -1){
+      this.timeShouldBe = (Date.now() - this.startedAt) / 6e4
+    } else {
+      this.timeShouldBe = 0
+    }
   };
 
   close = () => {
