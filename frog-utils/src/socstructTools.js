@@ -4,7 +4,7 @@ import { isNil, forIn, get, setWith } from 'lodash';
 // translates from {group: {'1': ['stian']}, role: {'chief': ['stian', 'ola', 'jens'], carpenter: ['anna']}}
 // to: {anna: { role: 'carpenter' }, jens: { role: 'chief' }, ola: { role: 'chief' }, stian: { group: '1', role: 'chief' }}
 export const focusStudent = structure => {
-  let newStruct = {};
+  const newStruct = {};
   forIn(structure, (attrPairs, grouping) => {
     forIn(attrPairs, (k, v) => {
       k.forEach(
@@ -28,7 +28,7 @@ const addArrayPath = (x, y, z) => {
 };
 
 export const focusRole = structure => {
-  let newStruct = {};
+  const newStruct = {};
   forIn(structure, (attrPairs, student) => {
     forIn(attrPairs, (k, v) => {
       addArrayPath(newStruct, [v, k], student);

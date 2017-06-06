@@ -56,9 +56,12 @@ export const mergeData = (activityId, object) => {
     // probably the safest would be for all actions to be triggered by the engine, not by
     // browsers.
     Activities.update(activityId, {
-      $set: { hasMergedData: { ...activity.hasMergedData, [grouping]: true } }
+      $set: {
+        hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
+      }
     });
     const activityType = activityTypesObj[activity.activityType];
+    console.log(activityType);
     const mergeFunction = activityType.mergeFunction;
     const object = Objects.findOne(activity._id);
     const doc = serverConnection.get('rz', activityId + '/' + grouping);

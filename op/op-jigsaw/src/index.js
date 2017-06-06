@@ -28,7 +28,7 @@ export const operator = (configData, object) => {
 
   const roles = configData.roles.split(',').map(x => x.trim());
   const groupSize = roles.length;
-  let socStruc = {};
+  const socStruc = {};
   if (configData.mix) {
     const prevStruc = socialStructures[0];
     const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
