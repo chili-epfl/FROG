@@ -8,6 +8,7 @@ import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
 import { Graphs, addGraph } from './graphs';
+import runDataflow from './runDataflow';
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -58,9 +59,11 @@ export const updateOpenActivities = (
     { _id: sessionId },
     { $set: { openActivities, timeInGraph } }
   );
-  openActivities.forEach(activityId => {
-    Meteor.call('run.dataflow', 'activity', activityId, sessionId);
-  });
+  if (Meteor.isServer) {
+    openActivities.forEach(activityId => {
+      runDataflow('activity', activityId, sessionId);
+    });
+  }
 };
 
 export const removeSession = (sessionId: string) =>

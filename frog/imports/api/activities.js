@@ -14,7 +14,7 @@ export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
 
-export const addActivity = (activityType, data, id, grouping) => {
+export const addActivity = (activityType, data = {}, id, grouping) => {
   if (id) {
     const toSet = omitBy({ data, grouping }, isNil);
     Activities.update(id, { $set: toSet });
@@ -26,14 +26,6 @@ export const addActivity = (activityType, data, id, grouping) => {
       grouping,
       createdAt: new Date()
     });
-  }
-};
-
-export const mergeDataOnce = (activityId, data) => {
-  const activity = Activities.findOne(activityId);
-  if (!activity.hasMergedData) {
-    Meteor.call('activity.mergeDataOnce', activityId, data);
-  } else {
   }
 };
 
@@ -124,7 +116,7 @@ export const dragGraphActivity = (id, xPosition) => {
   Activities.update(id, { $inc: { xPosition } });
 };
 
-export const addOperator = (operatorType, data, id) => {
+export const addOperator = (operatorType, data = {}, id) => {
   if (id) {
     Operators.update(id, { $set: { data } });
   } else {

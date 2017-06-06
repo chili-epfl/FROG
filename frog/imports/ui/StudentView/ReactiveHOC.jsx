@@ -28,6 +28,9 @@ const ReactiveHOC = (dataStructure, docId) => WrappedComponent =>
 
     update = () => {
       if (!this.timeout && !this.unmounted) {
+        if (!this.state.dataFn) {
+          this.setState({ dataFn: generateReactiveFn(this.doc) });
+        }
         this.setState({ data: this.doc.data });
       }
     };
@@ -41,7 +44,7 @@ const ReactiveHOC = (dataStructure, docId) => WrappedComponent =>
 
     render = () =>
       <WrappedComponent
-        dataFn={generateReactiveFn(this.doc)}
+        dataFn={this.state.dataFn}
         data={this.state.data}
         {...this.props}
       />;

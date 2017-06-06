@@ -79,20 +79,14 @@ const LogView = ({ logs }) =>
 export default createContainer(
   () => {
     const user = Meteor.users.findOne(Meteor.userId());
-
-    const session = user.profile
-      ? Sessions.findOne(user.profile.controlSession)
-      : null;
-
+    const session =
+      user.profile && Sessions.findOne(user.profile.controlSession);
     const logs = session ? Logs.find({ sessionId: session._id }).fetch() : [];
-
-    const activities = session
-      ? Activities.find({ graphId: session.graphId }).fetch()
-      : null;
-
-    const students = session
-      ? Meteor.users.find({ 'profile.currentSession': session._id }).fetch()
-      : null;
+    const activities =
+      session && Activities.find({ graphId: session.graphId }).fetch();
+    const students =
+      session &&
+      Meteor.users.find({ 'profile.currentSession': session._id }).fetch();
 
     return {
       sessions: Sessions.find().fetch(),
