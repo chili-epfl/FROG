@@ -67,7 +67,8 @@ export default class Store {
     this._state = newState;
   }
 
-  @computed get state(): StateT {
+  @computed
+  get state(): StateT {
     if (this.readOnly) {
       return { mode: 'readOnly' };
     }
@@ -171,7 +172,8 @@ export default class Store {
     }
   };
 
-  @computed get canUndo(): boolean {
+  @computed
+  get canUndo(): boolean {
     return Boolean(this.history.length > 0);
   }
 
@@ -201,7 +203,8 @@ export default class Store {
     }
   };
 
-  @computed get objects(): any {
+  @computed
+  get objects(): any {
     return {
       activities: this.activityStore.all.map(x => ({
         ...x.object,

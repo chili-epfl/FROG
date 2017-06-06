@@ -46,20 +46,25 @@ export default class Activity extends Elem {
   @observable startTime: number;
   @observable wasMoved: boolean = false;
 
-  @computed get xScaled(): number {
+  @computed
+  get xScaled(): number {
     return timeToPx(this.startTime, store.ui.scale);
   }
-  @computed get x(): number {
+  @computed
+  get x(): number {
     return timeToPx(this.startTime, 4);
   }
-  @computed get screenX(): number {
+  @computed
+  get screenX(): number {
     return timeToPxScreen(this.startTime, 1);
   }
 
-  @computed get widthScaled(): number {
+  @computed
+  get widthScaled(): number {
     return timeToPx(this.length, store.ui.scale);
   }
-  @computed get width(): number {
+  @computed
+  get width(): number {
     return timeToPx(this.length, 4);
   }
 
@@ -118,7 +123,8 @@ export default class Activity extends Elem {
     }
   };
 
-  @action resize() {
+  @action
+  resize() {
     const state = store.state;
     if (state.mode === 'resizing') {
       const newTime = Math.round(store.ui.socialCoordsTime[0]);
@@ -150,16 +156,19 @@ export default class Activity extends Elem {
     };
   };
 
-  @computed get y(): number {
+  @computed
+  get y(): number {
     const offset = store.activityStore.activityOffsets[this.id];
     return this.plane * 100 + 50 - offset * 30;
   }
 
-  @computed get endTime(): number {
+  @computed
+  get endTime(): number {
     return this.startTime + this.length;
   }
 
-  @computed get object(): {
+  @computed
+  get object(): {
     _id: string,
     title: string,
     startTime: number,
@@ -175,7 +184,8 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointFromScaled(): AnchorT {
+  @computed
+  get dragPointFromScaled(): AnchorT {
     return {
       X: this.xScaled + this.widthScaled - 15,
       Y: this.y + 15,
@@ -184,7 +194,8 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointToScaled(): AnchorT {
+  @computed
+  get dragPointToScaled(): AnchorT {
     return {
       X: this.xScaled + 15,
       Y: this.y + 15,
@@ -193,7 +204,8 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointFrom(): AnchorT {
+  @computed
+  get dragPointFrom(): AnchorT {
     return {
       X: this.x + this.width - 15,
       Y: this.y + 15,
@@ -202,7 +214,8 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get dragPointTo(): AnchorT {
+  @computed
+  get dragPointTo(): AnchorT {
     return {
       X: this.x + 15,
       Y: this.y + 15,
@@ -211,7 +224,8 @@ export default class Activity extends Elem {
     };
   }
 
-  @computed get bounds(): BoundsT {
+  @computed
+  get bounds(): BoundsT {
     return calculateBounds(this, store.activityStore.all);
   }
 }

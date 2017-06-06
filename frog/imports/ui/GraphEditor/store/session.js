@@ -1,7 +1,6 @@
 // @flow
 
-import { observable, computed, action } from 'mobx';
-import { store } from './index';
+import { observable, action } from 'mobx';
 
 export default class Session {
   constructor(session) {
@@ -19,7 +18,7 @@ export default class Session {
 
   @action setTimes = (session: Object): void => {
     this.updateTimeInGraph(session.timeInGraph);
-    this.startedAt = session.startedAt
+    this.startedAt = session.startedAt;
     this.updateTimeInClass((Date.now() - this.startedAt) / 6e4);
   };
 
@@ -28,12 +27,12 @@ export default class Session {
   };
 
   @action updateTimeInClass = (newTime: number): void => {
-    if(newTime > -1) {
-      this.timeInClass = newTime
-    }else if(this.startedAt > -1){
-      this.timeInClass = (Date.now() - this.startedAt) / 6e4
+    if (newTime > -1) {
+      this.timeInClass = newTime;
+    } else if (this.startedAt > -1) {
+      this.timeInClass = (Date.now() - this.startedAt) / 6e4;
     } else {
-      this.timeInClass = 0
+      this.timeInClass = 0;
     }
   };
 

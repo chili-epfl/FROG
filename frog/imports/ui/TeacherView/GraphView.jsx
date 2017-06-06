@@ -18,7 +18,6 @@ class GraphView extends Component {
   }
 
   componentWillReceiveProps(nextProps: { session: Object }) {
-    console.log('update');
     this.initStore(nextProps.session);
     if (store.session) {
       store.session.setTimes(nextProps.session);
