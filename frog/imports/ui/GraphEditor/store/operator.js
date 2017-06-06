@@ -16,13 +16,8 @@ export default class Operator extends Elem {
   @observable time: number;
   @observable wasMoved: boolean = false;
 
-  @action init(
-    time: number,
-    y: number,
-    type: string,
-    id: ?string,
-    title: ?string
-  ) {
+  @action
+  init(time: number, y: number, type: string, id: ?string, title: ?string) {
     this.time = time;
     this.y = y;
     this.id = id || cuid();
@@ -42,23 +37,28 @@ export default class Operator extends Elem {
     this.init(time, y, type, id, title);
   }
 
-  @computed get x(): number {
+  @computed
+  get x(): number {
     return timeToPx(this.time, 4);
   }
 
-  @computed get xScaled(): number {
+  @computed
+  get xScaled(): number {
     return timeToPx(this.time, store.ui.scale);
   }
 
-  @computed get coordsScaled(): [number, number] {
+  @computed
+  get coordsScaled(): [number, number] {
     return [this.xScaled, this.y];
   }
 
-  @computed get coords(): [number, number] {
+  @computed
+  get coords(): [number, number] {
     return [this.x, this.y];
   }
 
   @action rename = (newname: string) => {
+    console.log('rename!');
     this.title = newname;
     store.addHistory();
   };
@@ -100,7 +100,8 @@ export default class Operator extends Elem {
     store.ui.cancelScroll();
   };
 
-  @computed get object(): {
+  @computed
+  get object(): {
     _id: string,
     time: number,
     y: number,
@@ -116,7 +117,8 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointTo(): AnchorT {
+  @computed
+  get dragPointTo(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.x + 25,
@@ -126,7 +128,8 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointFrom(): AnchorT {
+  @computed
+  get dragPointFrom(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.x + 25,
@@ -136,7 +139,8 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointToScaled(): AnchorT {
+  @computed
+  get dragPointToScaled(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.xScaled + 25,
@@ -146,7 +150,8 @@ export default class Operator extends Elem {
     };
   }
 
-  @computed get dragPointFromScaled(): AnchorT {
+  @computed
+  get dragPointFromScaled(): AnchorT {
     // operator has size of 60, finding midpoint
     return {
       X: this.xScaled + 25,
@@ -159,5 +164,6 @@ export default class Operator extends Elem {
   @action update = (newopt: $Shape<Operator>) => {
     this.time = newopt.time;
     this.y = newopt.y;
+    this.title = newopt.title;
   };
 }
