@@ -6,6 +6,8 @@ import opAggregateCKBoard from 'op-aggregate-ck-board';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
 import opHypothesis from 'op-hypothesis';
+import opDistribute from 'op-distribute';
+import opCreateGroups from 'op-create-groups';
 
 import type { OperatorPackageT } from 'frog-utils';
 
@@ -17,6 +19,8 @@ export const operatorTypes: Array<OperatorPackageT> = [
   opAggregateCKBoard,
   opJigsaw,
   opArgue,
-  opHypothesis
+  opHypothesis,
+  opDistribute,
+  opCreateGroups
 ];
 export const operatorTypesObj = keyBy(operatorTypes, 'id');

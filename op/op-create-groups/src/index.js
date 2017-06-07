@@ -1,6 +1,6 @@
 // @flow
 
-import { shuffle } from 'lodash';
+import { shuffle, chunk, compact } from 'lodash';
 import type { ObjectT, SocialStructureT } from 'frog-utils';
 import { focusRole } from 'frog-utils';
 
@@ -12,7 +12,7 @@ export const meta = {
 export const config = {
   type: 'object',
   properties: {
-    roles: {
+    groupsize: {
       type: 'number',
       title: 'Desired group size'
     },
@@ -27,31 +27,22 @@ export const config = {
 
 export const operator = (configData, object) => {
   const { globalStructure, socialStructure } = object;
+  console.log(configData, object);
 
-  const roles = configData.roles.split(',').map(x => x.trim());
-  const groupSize = roles.length;
-  const socStruc = {};
-  if (configData.mix) {
-    const prevStruc = socialStructures[0];
-    const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
-    shuffle(globalStructure.studentIds).forEach(studentId => {
-      const prevRole = prevStruc[studentId].role;
-      socStruc[studentId] = {
-        role: prevRole,
-        group: roleCounts[prevRole]
-      };
-      roleCounts[prevRole] += 1;
-    });
-  } else {
-    shuffle(globalStructure.studentIds).forEach((studentId, index) => {
-      socStruc[studentId] = {
-        role: roles[index % groupSize],
-        group: Math.floor(index / groupSize).toString()
-      };
-    });
+  const ids = shuffle(globalStructure.studentIds);
+  const struct = chunk(ids, configData.groupsize);
+  const last = struct.slice(-1);
+  if (last.length < configData.groupSize && configData.strategy === 'minimum') {
+    let leftover = struct.pop();
+    while (leftover.length > 0) {
+      struct.forEach(x => x.push(leftover.pop()));
+    }
   }
 
-  return focusRole(socStruc);
+  const result = {
+    group: struct.reduce((acc, k, i) => ({ ...acc, [i]: compact(k) }), {})
+  };
+  return result;
 };
 
 export default {

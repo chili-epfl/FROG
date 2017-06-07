@@ -83,7 +83,7 @@ const runDataflow = (type, nodeId, sessionId) => {
           const operatorFunction = operatorTypesObj[node.operatorType].operator;
           // We run the operator function
           console.log('running operator function', node._id);
-          operatorFunction(node.data, object).then(product => {
+          Promise.resolve(operatorFunction(node.data, object)).then(product => {
             Products.update(
               nodeId,
               { type: node.type, product },
