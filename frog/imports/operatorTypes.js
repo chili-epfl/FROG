@@ -5,6 +5,7 @@ import opAggregateText from 'op-aggregate-text';
 import opAggregateCKBoard from 'op-aggregate-ck-board';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
+import opHypothesis from 'op-hypothesis';
 
 import type { OperatorPackageT } from 'frog-utils';
 
@@ -15,6 +16,7 @@ export const operatorTypes: Array<OperatorPackageT> = [
   opAggregateText,
   opAggregateCKBoard,
   opJigsaw,
-  opArgue
+  opArgue,
+  opHypothesis
 ];
 export const operatorTypesObj = keyBy(operatorTypes, 'id');
