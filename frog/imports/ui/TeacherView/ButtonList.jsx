@@ -5,7 +5,8 @@ import React from 'react';
 import {
   removeSession,
   updateSessionState,
-  joinAllStudents
+  joinAllStudents,
+  restartSession
 } from '../../api/sessions';
 
 import { runSession, nextActivity } from '../../api/engine';
@@ -44,6 +45,12 @@ export default ({ session }: { session: Object }) => {
       type: 'danger',
       onClick: () => updateSessionState(session._id, 'STOPPED'),
       text: 'Stop'
+    },
+    {
+      states: ['CREATED', 'STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: () => restartSession(session),
+      text: 'Restart session'
     },
     {
       states: ['STOPPED'],

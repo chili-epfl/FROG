@@ -17,13 +17,14 @@ const dataStructure = {
 };
 
 const mergeFunction = (object, dataFn) => {
-  // object.boxes.map(box =>
-  //   dataFn.listAppend({
-  //     ...box,
-  //     x: Math.random() * 800,
-  //     y: Math.random() * 800
-  //   })
-  // );
+  console.log('mergefunction', object);
+  console.log(object.product);
+  object.product.forEach(list => {
+    console.log(list);
+    list.product.forEach(x =>
+      dataFn.keyedObjInsert({ ...x, score: 0 }, 'ideas')
+    );
+  });
 };
 
 export default ({

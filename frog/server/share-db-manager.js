@@ -34,7 +34,8 @@ export const doOps = (collection, ops) => {
 };
 
 export const mergeData = (activityId, object) => {
-  const { socialStructure, globalStructure } = object;
+  console.log('mergedata', activityId, object);
+  const { socialStructure, globalStructure, product } = object;
   const activity = Activities.findOne(activityId);
 
   let groups;
@@ -48,6 +49,7 @@ export const mergeData = (activityId, object) => {
       (activity.hasMergedData && activity.hasMergedData[grouping]) ||
       (globalState[activityId] && globalState[activityId][grouping])
     ) {
+      console.log('already has merged data', activityId);
       return;
     }
     globalState[activityId] = { ...globalState[activityId], [grouping]: true };
@@ -61,9 +63,7 @@ export const mergeData = (activityId, object) => {
       }
     });
     const activityType = activityTypesObj[activity.activityType];
-    console.log(activityType);
     const mergeFunction = activityType.mergeFunction;
-    const object = Objects.findOne(activity._id);
     const doc = serverConnection.get('rz', activityId + '/' + grouping);
     doc.fetch();
     doc.on(
@@ -78,8 +78,9 @@ export const mergeData = (activityId, object) => {
           const newObject = {
             globalStructure,
             socialStructure,
-            product: merge(object.product, activity.data)
+            product: merge(object.products, { config: activity.data })
           };
+          console.log(newObject);
           mergeFunction(newObject, dataFn);
         }
       })

@@ -36,8 +36,10 @@ const Runner = ({ activity, object }) => {
     }
     const reactiveId = activity._id + '/' + grouping;
 
+    const Runner = activityType.ActivityRunner;
+    Runner.displayName = activity.activityType;
     const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(
-      activityType.ActivityRunner
+      Runner
     );
     return (
       <div>
@@ -52,7 +54,7 @@ const Runner = ({ activity, object }) => {
       </div>
     );
   }
-  return <p>NULL OBJECT</p>;
+  return <p>NULL OBJECT for {activity._id}</p>;
 };
 
 export default createContainer(({ activityId }) => {

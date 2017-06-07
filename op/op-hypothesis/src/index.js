@@ -10,11 +10,11 @@ export const meta = {
 export const config = {
   type: 'object',
   properties: {
-    anonymize: {
+    tag: {
       type: 'string',
       title: 'Hashtag'
     },
-    title_path: {
+    url: {
       type: 'string',
       title: 'URL'
     }
