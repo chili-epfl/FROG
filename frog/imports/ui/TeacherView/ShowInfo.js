@@ -2,10 +2,7 @@
 import React from 'react';
 import { Inspector } from 'react-inspector';
 import { createContainer } from 'meteor/react-meteor-data';
-import Dialog from 'material-ui/Dialog';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import FlatButton from 'material-ui/FlatButton';
-
+import Modal from 'react-modal';
 import { connect } from '../GraphEditor/store';
 import { Objects } from '../../api/objects';
 import { Activities, Operators } from '../../api/activities';
@@ -15,34 +12,33 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
   if (!showInfo) {
     return null;
   }
-  const actions = [<FlatButton label="X" secondary onClick={cancelInfo} />];
   return (
-    <MuiThemeProvider>
-      <Dialog
-        title={item.title}
-        modal={false}
-        open
-        actions={actions}
-        onRequestClose={cancelInfo}
-        contentStyle={{ overflow: 'auto', overflowY: 'auto' }}
-      >
-        <ul>
-          <li>type: {item.activityType || item.operatorType}</li>
-          <li>id: {item._id}</li>
-          <li>State: {item.state}</li>
-        </ul>
-        <div style={{ display: 'flex' }}>
-          <div>
-            <h3>Object</h3>
-            {object ? <Inspector data={object} expandLevel={5} /> : null}
-          </div>
-          <div style={{ marginLeft: '50px' }}>
-            <h3>Product</h3>
-            {product ? <Inspector data={product} expandLevel={5} /> : null}
-          </div>
+    <Modal
+      contentLabel="showInfo"
+      title={item.title}
+      isOpen
+      onRequestClose={cancelInfo}
+    >
+      <ul>
+        <li>type: {item.activityType || item.operatorType}</li>
+        <li>id: {item._id}</li>
+        <li>State: {item.state}</li>
+      </ul>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div style={{ flexBasis: 0, flexGrow: 1 }}>
+          <h3>Config</h3>
+          {item.data ? <Inspector data={item.data} expandLevel={5} /> : null}
         </div>
-      </Dialog>
-    </MuiThemeProvider>
+        <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
+          <h3>Object</h3>
+          {object ? <Inspector data={object} name="" expandLevel={5} /> : null}
+        </div>
+        <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
+          <h3>Product</h3>
+          {product ? <Inspector data={product} expandLevel={5} /> : null}
+        </div>
+      </div>
+    </Modal>
   );
 };
 
