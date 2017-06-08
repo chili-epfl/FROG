@@ -2,6 +2,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import JSONTree from 'react-json-tree';
 
 import StudentList from './StudentList';
 import ActivityList from './ActivityList';
@@ -69,9 +70,9 @@ const LogView = ({ logs }) =>
     <h1>Logs</h1>
     {logs.length
       ? <ul>
-          {logs.map(log =>
-            <pre key={log._id}>{JSON.stringify(log, null, 2)}</pre>
-          )}
+          {logs
+            .sort((x, y) => y.createdAt - x.createdAt)
+            .map(log => <JSONTree data={log} theme="solarized" />)}
         </ul>
       : <p>NO LOGS</p>}
   </div>;
@@ -81,7 +82,7 @@ export default createContainer(
     const user = Meteor.users.findOne(Meteor.userId());
     const session =
       user.profile && Sessions.findOne(user.profile.controlSession);
-    const logs = session ? Logs.find({ sessionId: session._id }).fetch() : [];
+    const logs = session ? Logs.find({}).fetch() : [];
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();
     const students =
@@ -99,11 +100,14 @@ export default createContainer(
     };
   },
   props =>
-    <div id="teacher">
-      <SessionController {...props} />
-      <DashView {...props} />
-      <StudentList students={props.students} />
-      <LogView {...props} />
-      <SessionList {...props} />
+    <div id="teacher" style={{ display: 'flex' }}>
+      <div>
+        <SessionController {...props} />
+        <SessionList {...props} />
+        <StudentList students={props.students} />
+      </div>
+      <div>
+        <LogView {...props} />
+      </div>
     </div>
 );

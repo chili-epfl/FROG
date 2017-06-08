@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
+import { uuid, promiseTimeout } from 'frog-utils';
 
 import { mergeData } from './share-db-manager';
 import { operatorTypesObj } from '../imports/operatorTypes';
@@ -11,6 +11,8 @@ import { Sessions } from '../imports/api/sessions';
 import { Operators, Activities, Connections } from '../imports/api/activities';
 import { engineLogger } from '../imports/api/logs';
 import { addObject } from '../imports/api/objects';
+
+const log = (...e) => engineLogger(null, e);
 
 Meteor.methods({
   'dataflow.run': (type, nodeId, sessionId) =>
@@ -35,14 +37,14 @@ const getStudents = sessionId =>
 // computed. It recursively runs all the connecting nodes, and
 // then the current node.
 const runDataflow = (type, nodeId, sessionId) => {
-  console.log('starting to run dataflow', nodeId);
+  log('starting to run dataflow', nodeId);
   return new Promise((resolve, reject) => {
-    console.log('inside promise');
+    log('inside promise');
     const nodeTypes = { operator: Operators, activity: Activities };
     const node = nodeTypes[type].findOne(nodeId);
     if (node.computed) {
       // we're done here
-      console.log('node computed');
+      log('node computed');
       return;
     }
 
@@ -50,7 +52,7 @@ const runDataflow = (type, nodeId, sessionId) => {
     const connections = Connections.find({
       'target.id': nodeId
     }).fetch();
-    console.log('running connecting', nodeId);
+    log('running connecting', nodeId);
     Promise.all(runAllConnecting(connections, sessionId))
       .then(() => {
         const students = getStudents(sessionId);
@@ -66,7 +68,7 @@ const runDataflow = (type, nodeId, sessionId) => {
 
         let products = allProducts.filter(c => c.type === 'product');
         if (products.length > 0) {
-          products = products[0];
+          products = products[0].product;
         }
 
         // More data needed by the operators. Will need to be completed, documented and typed if possible
@@ -80,32 +82,37 @@ const runDataflow = (type, nodeId, sessionId) => {
           globalStructure
         };
 
-        console.log('going to split operator, activity', type);
+        log('going to split operator, activity', type);
         if (type === 'operator') {
           // We get the operator function from the operator package
           const operatorFunction = operatorTypesObj[node.operatorType].operator;
           // We run the operator function
-          console.log('running operator function', node._id);
-          Promise.resolve(operatorFunction(node.data, object)).then(product => {
-            Products.update(
-              nodeId,
-              { type: node.type, product },
-              { upsert: true }
-            );
-            nodeTypes[type].update(nodeId, { $set: { computed: true } });
-            console.log('going to resolve', node._id);
-            resolve(object);
-          });
+          log('running operator function', node._id);
+          const run = Promise.resolve(operatorFunction(node.data, object));
+          promiseTimeout(5000, run)
+            .then(product => {
+              log('product', nodeId, product);
+              Products.update(
+                nodeId,
+                { type: node.type, product },
+                { upsert: true }
+              );
+              nodeTypes[type].update(nodeId, { $set: { computed: true } });
+              log('going to resolve', node._id);
+              resolve(object);
+            })
+            .catch(e => log('Promise error', e.stack));
         } else if (type === 'activity') {
           // Here we build the object of an activity from the products of its connected nodes
-          console.log('going to merge data');
+          log('going to merge data');
+          log('object', nodeId, object);
           addObject(nodeId, object);
           mergeData(nodeId, object);
           nodeTypes[type].update(nodeId, { $set: { computed: true } });
           resolve();
         }
       })
-      .catch(e => console.log(e));
+      .catch(e => log('error', e));
   });
 };
 

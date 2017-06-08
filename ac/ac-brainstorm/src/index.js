@@ -19,12 +19,9 @@ const dataStructure = {
 const mergeFunction = (object, dataFn) => {
   console.log('mergefunction', object);
   console.log(object.product);
-  object.product.forEach(list => {
-    console.log(list);
-    list.product.forEach(x =>
-      dataFn.keyedObjInsert({ ...x, score: 0 }, 'ideas')
-    );
-  });
+  object.product.forEach(x =>
+    dataFn.keyedObjInsert({ ...x, score: 0 }, 'ideas')
+  );
 };
 
 export default ({

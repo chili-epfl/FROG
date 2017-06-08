@@ -7,9 +7,11 @@ import { Meteor } from 'meteor/meteor';
 import { merge } from 'lodash';
 
 import generateReactiveFn from '../imports/api/generateReactiveFn';
+import { engineLogger } from '../imports/api/logs';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
 import { activityTypesObj } from '../imports/activityTypes';
+const log = (...e) => engineLogger(null, e);
 
 const db = ShareDBMongo('mongodb://localhost:3001/sharedb');
 const server = http.createServer();
@@ -78,7 +80,7 @@ export const mergeData = (activityId, object) => {
             socialStructure,
             product: merge(object.products, { config: activity.data })
           };
-          console.log(newObject);
+          log('newObject', newObject);
           mergeFunction(newObject, dataFn);
         }
       })

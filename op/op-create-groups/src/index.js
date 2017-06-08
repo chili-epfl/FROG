@@ -31,7 +31,6 @@ export const config = {
 
 export const operator = (configData, object) => {
   const { globalStructure, socialStructure } = object;
-  console.log(configData, object);
 
   const ids = shuffle(globalStructure.studentIds);
   const struct = chunk(ids, configData.groupsize);
