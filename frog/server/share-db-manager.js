@@ -34,7 +34,6 @@ export const doOps = (collection, ops) => {
 };
 
 export const mergeData = (activityId, object) => {
-  console.log('mergedata', activityId, object);
   const { socialStructure, globalStructure, product } = object;
   const activity = Activities.findOne(activityId);
 
@@ -49,7 +48,6 @@ export const mergeData = (activityId, object) => {
       (activity.hasMergedData && activity.hasMergedData[grouping]) ||
       (globalState[activityId] && globalState[activityId][grouping])
     ) {
-      console.log('already has merged data', activityId);
       return;
     }
     globalState[activityId] = { ...globalState[activityId], [grouping]: true };

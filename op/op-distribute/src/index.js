@@ -1,59 +1,71 @@
 // @flow
 
-import { shuffle } from 'lodash';
+import { shuffle, compact } from 'lodash';
 import type { ObjectT, SocialStructureT } from 'frog-utils';
 import { focusRole } from 'frog-utils';
 
 export const meta = {
-  name: 'Jigsaw',
-  type: 'social'
+  name: 'Distribute content',
+  type: 'product',
+  desc: ''
 };
 
 export const config = {
   type: 'object',
   properties: {
-    roles: {
+    grouping: {
       type: 'string',
-      title: 'Comma-separated list of roles'
+      title: 'Grouping attribute'
     },
-    mix: {
+    maxitems: {
+      type: 'number',
+      title: 'Max number of items per group'
+    },
+    overlap: {
       type: 'boolean',
-      title: 'Mix previous groups?'
+      title: 'Allow multiple groups receiving the same item?'
     }
   }
 };
 
 export const operator = (configData, object) => {
-  const { globalStructure, socialStructure } = object;
-
-  const roles = configData.roles.split(',').map(x => x.trim());
-  const groupSize = roles.length;
-  const socStruc = {};
-  if (configData.mix) {
-    const prevStruc = socialStructures[0];
-    const roleCounts = roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
-    shuffle(globalStructure.studentIds).forEach(studentId => {
-      const prevRole = prevStruc[studentId].role;
-      socStruc[studentId] = {
-        role: prevRole,
-        group: roleCounts[prevRole]
-      };
-      roleCounts[prevRole] += 1;
-    });
-  } else {
-    shuffle(globalStructure.studentIds).forEach((studentId, index) => {
-      socStruc[studentId] = {
-        role: roles[index % groupSize],
-        group: Math.floor(index / groupSize).toString()
-      };
-    });
+  const { globalStructure, socialStructure, product } = object;
+  const groups =
+    socialStructure[configData.grouping] &&
+    Object.keys(socialStructure[configData.grouping]);
+  if (!groups) {
+    console.error(
+      `Could not find ${configData.grouping} in the social structure`
+    );
+    return;
   }
+  let res = groups.reduce((acc, k) => ({ ...acc, [k]: [] }), {});
 
-  return focusRole(socStruc);
+  if (configData.overlap) {
+    res = Object.keys(res).reduce(
+      (acc, k) => ({ ...acc, [k]: shuffle(product) }),
+      {}
+    );
+  } else {
+    const shufprod = shuffle(product);
+    while (shufprod.length > 0) {
+      res = Object.keys(res).reduce(
+        (acc, k) => ({ ...acc, [k]: [...acc[k], shufprod.pop()] }),
+        res
+      );
+    }
+  }
+  return Object.keys(res).reduce(
+    (acc, x) => ({
+      ...acc,
+      [x]: compact(res[x].slice(0, configData.maxitems))
+    }),
+    {}
+  );
 };
 
 export default {
-  id: 'op-jigsaw',
+  id: 'op-distribute',
   operator,
   config,
   meta

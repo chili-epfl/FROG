@@ -21,6 +21,10 @@ export const config = {
       title:
         'Group formation strategy, optimize for at least this number of students in each group (minimum) or no more than this number of students per group (maximum)?',
       enum: ['minimum', 'maximum']
+    },
+    grouping: {
+      type: 'string',
+      title: "Name of social attribute (default 'group')"
     }
   }
 };
@@ -38,9 +42,15 @@ export const operator = (configData, object) => {
       struct.forEach(x => x.push(leftover.pop()));
     }
   }
+  const newGrouping = configData.grouping && configData.grouping.length > 0
+    ? configData.grouping
+    : 'group';
 
   const result = {
-    group: struct.reduce((acc, k, i) => ({ ...acc, [i]: compact(k) }), {})
+    [newGrouping]: struct.reduce(
+      (acc, k, i) => ({ ...acc, [i]: compact(k) }),
+      {}
+    )
   };
   return result;
 };

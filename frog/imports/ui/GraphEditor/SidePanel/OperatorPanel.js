@@ -20,9 +20,11 @@ const ChooseOperatorType = ({ operator }) => {
     <div>
       <h3>Please select operator type</h3>
       <DropdownButton id="selectOperator" onSelect={select} title="Select">
-        {operatorTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
-        )}
+        {operatorTypes
+          .filter(x => x.meta.type === operator.type)
+          .map(x =>
+            <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+          )}
       </DropdownButton>
     </div>
   );

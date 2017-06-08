@@ -64,7 +64,10 @@ const runDataflow = (type, nodeId, sessionId) => {
         const socialStructures = allProducts.filter(c => c.type === 'social');
         const socialStructure = mergeSocialStructures(socialStructures);
 
-        const products = allProducts.filter(c => c.type === 'product');
+        let products = allProducts.filter(c => c.type === 'product');
+        if (products.length > 0) {
+          products = products[0];
+        }
 
         // More data needed by the operators. Will need to be completed, documented and typed if possible
         const globalStructure = {
