@@ -26,18 +26,18 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
         onRequestClose={cancelInfo}
       >
         <ul>
-          <li>State: {item.state}</li>
-          <li>id: {item._id}</li>
           <li>type: {item.activityType || item.operatorType}</li>
+          <li>id: {item._id}</li>
+          <li>State: {item.state}</li>
         </ul>
         <div style={{ display: 'flex' }}>
           <div>
-            <h3>Product</h3>
-            <JSONTree data={product || {}} theme="solarized" />
-          </div>
-          <div style={{ leftMargin: '20px' }}>
             <h3>Object</h3>
-            <JSONTree data={object || {}} theme="solarized" />
+            {object ? <JSONTree data={object} theme="solarized" /> : null}
+          </div>
+          <div style={{ marginLeft: '50px' }}>
+            <h3>Product</h3>
+            {product ? <JSONTree data={product} theme="solarized" /> : null}
           </div>
         </div>
       </Dialog>

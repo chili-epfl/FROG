@@ -3,6 +3,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import JSONTree from 'react-json-tree';
+import { withVisibility } from 'frog-utils';
 
 import StudentList from './StudentList';
 import ActivityList from './ActivityList';
@@ -65,19 +66,18 @@ const DashView = createContainer(
   Dashboard
 );
 
-const LogView = ({ logs }) =>
+const LogView = withVisibility(({ logs, toggleVisibility, visible }) =>
   <div>
-    <h1>Logs</h1>
-    {logs.length
-      ? <ul>
-          {logs
-            .sort((x, y) => y.createdAt - x.createdAt)
-            .map(log =>
-              <JSONTree key={log._id} data={log} theme="solarized" />
-            )}
-        </ul>
-      : <p>NO LOGS</p>}
-  </div>;
+    <h1 onClick={toggleVisibility}>Logs</h1>
+    {logs.length &&
+      visible &&
+      <ul>
+        {logs
+          .sort((x, y) => y.createdAt - x.createdAt)
+          .map(log => <JSONTree key={log._id} data={log} theme="solarized" />)}
+      </ul>}
+  </div>
+);
 
 export default createContainer(
   () => {
