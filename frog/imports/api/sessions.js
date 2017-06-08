@@ -135,6 +135,9 @@ Meteor.methods({
   },
   'flush.session': sessionId => {
     const graphId = Sessions.findOne(sessionId).graphId;
+    if (!graphId) {
+      return;
+    }
     Sessions.remove(sessionId);
     Graphs.remove(graphId);
     Activities.remove({ graphId });
@@ -143,6 +146,9 @@ Meteor.methods({
   },
   'sessions.restart': session => {
     const graphId = session.fromGraphId;
+    if (!graphId || !session) {
+      return;
+    }
     Meteor.call('flush.session', session._id);
     const newSessionId = Meteor.call('add.session', graphId);
     Meteor.call('session.joinall', newSessionId);

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import JSONTree from 'react-json-tree';
+import { Inspector } from 'react-inspector';
 import { createContainer } from 'meteor/react-meteor-data';
 import Dialog from 'material-ui/Dialog';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -24,6 +24,7 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
         open
         actions={actions}
         onRequestClose={cancelInfo}
+        contentStyle={{ overflow: 'auto', overflowY: 'auto' }}
       >
         <ul>
           <li>type: {item.activityType || item.operatorType}</li>
@@ -33,11 +34,11 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
         <div style={{ display: 'flex' }}>
           <div>
             <h3>Object</h3>
-            {object ? <JSONTree data={object} theme="solarized" /> : null}
+            {object ? <Inspector data={object} expandLevel={5} /> : null}
           </div>
           <div style={{ marginLeft: '50px' }}>
             <h3>Product</h3>
-            {product ? <JSONTree data={product} theme="solarized" /> : null}
+            {product ? <Inspector data={product} expandLevel={5} /> : null}
           </div>
         </div>
       </Dialog>

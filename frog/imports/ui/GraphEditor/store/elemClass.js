@@ -12,6 +12,7 @@ export default class Elem {
   @action select = (): void => {
     if (store.state.mode === 'readOnly') {
       store.ui.setShowInfo(this.klass, this.id);
+      return;
     }
     if (this.wasMoved) {
       this.wasMoved = false;

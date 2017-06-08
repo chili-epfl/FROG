@@ -2,8 +2,8 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import JSONTree from 'react-json-tree';
-import { withVisibility } from 'frog-utils';
+import { Inspector } from 'react-inspector';
+import { withVisibility, A } from 'frog-utils';
 
 import StudentList from './StudentList';
 import ActivityList from './ActivityList';
@@ -14,7 +14,7 @@ import GraphView from './GraphView';
 import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
-import { Logs } from '../../api/logs';
+import { Logs, flushLogs } from '../../api/logs';
 
 import { activityTypesObj } from '../../activityTypes';
 
@@ -66,18 +66,35 @@ const DashView = createContainer(
   Dashboard
 );
 
-const LogView = withVisibility(({ logs, toggleVisibility, visible }) =>
-  <div>
-    <h1 onClick={toggleVisibility}>Logs</h1>
-    {logs.length &&
-      visible &&
-      <ul>
-        {logs
-          .sort((x, y) => y.createdAt - x.createdAt)
-          .map(log => <JSONTree key={log._id} data={log} theme="solarized" />)}
-      </ul>}
-  </div>
-);
+const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
+  if (!logs || logs.length < 1) {
+    return null;
+  }
+
+  return (
+    <div>
+      <h1 onClick={toggleVisibility}>Logs {!visible && '...'}</h1>
+      {visible &&
+        <div>
+          <A onClick={flushLogs}>Flush logs</A>
+          <ul>
+            {logs.sort((x, y) => y.createdAt - x.createdAt).map(log =>
+              <div
+                key={log._id}
+                style={{
+                  marginBottom: '40px',
+                  borderBottomStyle: 'dashed',
+                  borderBottomWidth: '2px'
+                }}
+              >
+                <Inspector data={log} expandLevel={2} />
+              </div>
+            )}
+          </ul>
+        </div>}
+    </div>
+  );
+});
 
 export default createContainer(
   () => {
@@ -107,8 +124,10 @@ export default createContainer(
     <div id="teacher" style={{ display: 'flex' }}>
       <div>
         <SessionController {...props} />
-        <SessionList {...props} />
+        <hr />
         <StudentList students={props.students} />
+        <hr />
+        <SessionList {...props} />
       </div>
       <div>
         <LogView {...props} />

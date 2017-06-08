@@ -84,6 +84,7 @@ const runDataflow = (type, nodeId, sessionId) => {
         };
 
         log('going to split operator, activity', type);
+        addObject(nodeId, object);
         if (type === 'operator') {
           // We get the operator function from the operator package
           const operatorFunction = operatorTypesObj[node.operatorType].operator;
@@ -110,7 +111,6 @@ const runDataflow = (type, nodeId, sessionId) => {
           // Here we build the object of an activity from the products of its connected nodes
           log('going to merge data');
           log('object', nodeId, object);
-          addObject(nodeId, object);
           mergeData(nodeId, object);
           nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
           resolve();
