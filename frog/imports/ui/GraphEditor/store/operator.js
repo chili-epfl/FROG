@@ -15,15 +15,24 @@ export default class Operator extends Elem {
   @observable over: boolean;
   @observable time: number;
   @observable wasMoved: boolean = false;
+  @observable state: ?string;
 
   @action
-  init(time: number, y: number, type: string, id: ?string, title: ?string) {
+  init(
+    time: number,
+    y: number,
+    type: string,
+    id: ?string,
+    title: ?string,
+    state: ?string
+  ) {
     this.time = time;
     this.y = y;
     this.id = id || cuid();
     this.type = type;
     this.klass = 'operator';
     this.title = title;
+    this.state = state;
   }
 
   constructor(
@@ -31,10 +40,11 @@ export default class Operator extends Elem {
     y: number,
     type: string,
     id: ?string,
-    title: ?string
+    title: ?string,
+    state: ?string
   ) {
     super();
-    this.init(time, y, type, id, title);
+    this.init(time, y, type, id, title, state);
   }
 
   @computed

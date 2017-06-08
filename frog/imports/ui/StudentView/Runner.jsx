@@ -3,6 +3,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import JSONTree from 'react-json-tree';
 
 import { activityTypesObj } from '../../activityTypes';
 import { ActivityData, reactiveFn } from '../../api/activityData';

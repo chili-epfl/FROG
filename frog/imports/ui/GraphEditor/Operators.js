@@ -25,6 +25,7 @@ export default connect(
           selected={op.selected}
           highlighted={op.highlighted}
           startDragging={op.startDragging}
+          color={op.color}
           onDrag={op.onDrag}
           onStop={op.stopDragging}
           type={op.type}

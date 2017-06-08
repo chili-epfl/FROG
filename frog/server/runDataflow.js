@@ -38,11 +38,12 @@ const getStudents = sessionId =>
 // then the current node.
 const runDataflow = (type, nodeId, sessionId) => {
   log('starting to run dataflow', nodeId);
+  const nodeTypes = { operator: Operators, activity: Activities };
+  nodeTypes[type].update(nodeId, { $set: { state: 'computing' } });
   return new Promise((resolve, reject) => {
     log('inside promise');
-    const nodeTypes = { operator: Operators, activity: Activities };
     const node = nodeTypes[type].findOne(nodeId);
-    if (node.computed) {
+    if (node.state === 'computed') {
       // we're done here
       log('node computed');
       return;
@@ -97,18 +98,21 @@ const runDataflow = (type, nodeId, sessionId) => {
                 { type: node.type, product },
                 { upsert: true }
               );
-              nodeTypes[type].update(nodeId, { $set: { computed: true } });
+              nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
               log('going to resolve', node._id);
               resolve(object);
             })
-            .catch(e => log('Promise error', e.stack));
+            .catch(e => {
+              log('Promise error', e.stack);
+              nodeTypes[type].update(nodeId, { $set: { state: 'error' } });
+            });
         } else if (type === 'activity') {
           // Here we build the object of an activity from the products of its connected nodes
           log('going to merge data');
           log('object', nodeId, object);
           addObject(nodeId, object);
           mergeData(nodeId, object);
-          nodeTypes[type].update(nodeId, { $set: { computed: true } });
+          nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
           resolve();
         }
       })

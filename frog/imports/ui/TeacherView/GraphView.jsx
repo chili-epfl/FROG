@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Provider } from 'mobx-react';
 
+import ShowInfo from './ShowInfo';
 import Graph from '../GraphEditor/Graph';
 import { store } from '../GraphEditor/store';
 
@@ -28,6 +29,7 @@ class GraphView extends Component {
     return (
       <Provider store={store}>
         <GraphViewContainer>
+          <ShowInfo />
           <Graph scaled hasTimescale isSession />
         </GraphViewContainer>
       </Provider>

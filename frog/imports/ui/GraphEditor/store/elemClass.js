@@ -5,7 +5,14 @@ import { store } from './index';
 export default class Elem {
   over: boolean;
   wasMoved: boolean = false;
+  state: ?string;
+  klass: 'operator' | 'activity';
+  id: string;
+
   @action select = (): void => {
+    if (store.state.mode === 'readOnly') {
+      store.ui.setShowInfo(this.klass, this.id);
+    }
     if (this.wasMoved) {
       this.wasMoved = false;
     } else {
@@ -39,5 +46,25 @@ export default class Elem {
       store.state.draggingFrom !== this &&
       store.state.mode === 'dragging'
     );
+  }
+
+  @computed
+  get color(): string {
+    if (this.highlighted) {
+      return 'yellow';
+    }
+    switch (this.state) {
+      case 'computing':
+        return '#ffff00';
+        break;
+      case 'computed':
+        return '#66ff33';
+        break;
+      case 'error':
+        return '#ff0000';
+        break;
+      default:
+        return 'white';
+    }
   }
 }

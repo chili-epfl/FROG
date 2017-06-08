@@ -5,13 +5,13 @@ import { connect, type StoreProp, store } from './store';
 import { default as ActivityT } from './store/activity';
 import { getClickHandler } from './utils';
 
-const Box = ({ x, y, width, selected, highlighted }) =>
+const Box = ({ x, y, width, selected, color }) =>
   <rect
     x={x}
     y={y}
     width={width}
     stroke={selected ? '#ff9900' : 'grey'}
-    fill={highlighted ? 'yellow' : 'white'}
+    fill={color}
     rx={10}
     height={30}
   />;
@@ -21,7 +21,7 @@ class ActivityComponent extends Component {
 
   componentWillMount() {
     this.clickHandler = getClickHandler(() => {
-      if (store.state.mode === 'normal') {
+      if (store.state.mode === 'normal' || store.state.mode === 'readOnly') {
         this.props.activity.select();
       }
     }, this.props.activity.setRename);
@@ -53,7 +53,7 @@ class ActivityComponent extends Component {
           x={x}
           y={activity.y}
           width={width}
-          highlighted={activity.highlighted}
+          color={activity.color}
           selected={activity.selected}
         />
         {width > 21 &&

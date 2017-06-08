@@ -72,7 +72,9 @@ const LogView = ({ logs }) =>
       ? <ul>
           {logs
             .sort((x, y) => y.createdAt - x.createdAt)
-            .map(log => <JSONTree data={log} theme="solarized" />)}
+            .map(log =>
+              <JSONTree key={log._id} data={log} theme="solarized" />
+            )}
         </ul>
       : <p>NO LOGS</p>}
   </div>;
@@ -82,7 +84,9 @@ export default createContainer(
     const user = Meteor.users.findOne(Meteor.userId());
     const session =
       user.profile && Sessions.findOne(user.profile.controlSession);
-    const logs = session ? Logs.find({}).fetch() : [];
+    const logs = session
+      ? Logs.find({}, { sort: { createdAt: -1 }, limit: 10 }).fetch()
+      : [];
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();
     const students =
