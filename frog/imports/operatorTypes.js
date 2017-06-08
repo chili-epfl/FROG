@@ -8,6 +8,7 @@ import opArgue from 'op-argue';
 import opHypothesis from 'op-hypothesis';
 import opDistribute from 'op-distribute';
 import opCreateGroups from 'op-create-groups';
+import opSelectBest from 'op-select-best';
 
 import type { OperatorPackageT } from 'frog-utils';
 
@@ -21,6 +22,7 @@ export const operatorTypes: Array<OperatorPackageT> = [
   opArgue,
   opHypothesis,
   opDistribute,
-  opCreateGroups
+  opCreateGroups,
+  opSelectBest
 ];
 export const operatorTypesObj = keyBy(operatorTypes, 'id');

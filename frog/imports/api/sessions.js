@@ -134,10 +134,11 @@ Meteor.methods({
     return sessionId;
   },
   'flush.session': sessionId => {
-    const graphId = Sessions.findOne(sessionId).graphId;
-    if (!graphId) {
+    const session = Sessions.findOne(sessionId);
+    if (!session) {
       return;
     }
+    const graphId = session.graphId;
     Sessions.remove(sessionId);
     Graphs.remove(graphId);
     Activities.remove({ graphId });

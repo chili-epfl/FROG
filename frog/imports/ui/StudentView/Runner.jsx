@@ -3,7 +3,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import JSONTree from 'react-json-tree';
 
 import { activityTypesObj } from '../../activityTypes';
 import { ActivityData, reactiveFn } from '../../api/activityData';
@@ -14,7 +13,7 @@ import { Activities } from '../../api/activities';
 import { focusStudent } from 'frog-utils';
 import ReactiveHOC from './ReactiveHOC';
 
-const Runner = ({ activity, object }) => {
+const Runner = ({ activity, object, setTitle }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -42,9 +41,9 @@ const Runner = ({ activity, object }) => {
     const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(
       Runner
     );
+    setTitle(' (' + activity.grouping + '/' + grouping + ')');
     return (
       <div>
-        <h4>{activity._id}: {activity.grouping}/{grouping}</h4>
         <ActivityToRun
           configData={activity.data || {}}
           object={object}

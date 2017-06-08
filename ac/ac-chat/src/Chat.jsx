@@ -21,10 +21,15 @@ export default ({
     <ul>
       {data.map((chatmsg, i) => <Chatmsg msg={chatmsg} key={i} />)}
     </ul>
-    <TextInput
-      callbackFn={e => {
-        dataFn.listAppend({ msg: e, user: userInfo.name });
-        logger({ chat: e });
-      }}
-    />
+    <div style={{ display: 'flex' }}>
+      <p style={{ marginRight: '20px' }}>
+        Say something:
+      </p>
+      <TextInput
+        callbackFn={e => {
+          dataFn.listAppend({ msg: e, user: userInfo.name });
+          logger({ chat: e });
+        }}
+      />
+    </div>
   </div>;

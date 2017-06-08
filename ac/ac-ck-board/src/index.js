@@ -35,14 +35,14 @@ const config = {
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  object.product.boxes &&
-    object.product.boxes.forEach(box =>
-      dataFn.listAppend({
-        ...box,
-        x: Math.random() * 800,
-        y: Math.random() * 800
-      })
-    );
+  console.log('merge boxes', object);
+  object.products.forEach(box =>
+    dataFn.listAppend({
+      ...box,
+      x: Math.random() * 800,
+      y: Math.random() * 800
+    })
+  );
 };
 
 export default {

@@ -73,7 +73,6 @@ export default class Activity extends Elem {
   }
 
   @action update = (newact: $Shape<Activity>) => {
-    console.log(('updating', newact));
     this.length = newact.length;
     this.startTime = newact.startTime;
     this.title = newact.title;

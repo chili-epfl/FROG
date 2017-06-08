@@ -29,7 +29,7 @@ export const config = {
 };
 
 export const operator = (configData, object) => {
-  const { globalStructure, socialStructure, product } = object;
+  const { globalStructure, socialStructure, products } = object;
   const groups =
     socialStructure[configData.grouping] &&
     Object.keys(socialStructure[configData.grouping]);
@@ -43,11 +43,11 @@ export const operator = (configData, object) => {
 
   if (configData.overlap) {
     res = Object.keys(res).reduce(
-      (acc, k) => ({ ...acc, [k]: shuffle(product) }),
+      (acc, k) => ({ ...acc, [k]: shuffle(products) }),
       {}
     );
   } else {
-    const shufprod = shuffle(product);
+    const shufprod = shuffle(products);
     while (shufprod.length > 0) {
       res = Object.keys(res).reduce(
         (acc, k) => ({ ...acc, [k]: [...acc[k], shufprod.pop()] }),
@@ -55,13 +55,15 @@ export const operator = (configData, object) => {
       );
     }
   }
-  return Object.keys(res).reduce(
+
+  res = Object.keys(res).reduce(
     (acc, x) => ({
       ...acc,
       [x]: compact(res[x].slice(0, configData.maxitems))
     }),
     {}
   );
+  return res;
 };
 
 export default {

@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid, promiseTimeout } from 'frog-utils';
 
-import { mergeData } from './share-db-manager';
+import { mergeData, getProducts } from './share-db-manager';
 import { operatorTypesObj } from '../imports/operatorTypes';
 import { activityTypesObj } from '../imports/activityTypes';
 import { Graphs } from '../imports/api/graphs';
@@ -20,8 +20,11 @@ Meteor.methods({
 });
 
 const runAllConnecting = (connections, sessionId) => {
-  return connections.map(connection =>
-    runDataflow(connection.source.type, connection.source.id, sessionId)
+  return connections.map(
+    connection =>
+      connection.source.type === 'operator'
+        ? runDataflow(connection.source.type, connection.source.id, sessionId)
+        : getProducts(connection.source.id)
   );
 };
 
@@ -41,8 +44,11 @@ const runDataflow = (type, nodeId, sessionId) => {
   const nodeTypes = { operator: Operators, activity: Activities };
   nodeTypes[type].update(nodeId, { $set: { state: 'computing' } });
   return new Promise((resolve, reject) => {
-    log('inside promise');
     const node = nodeTypes[type].findOne(nodeId);
+    if (!node) {
+      console.error("Can't find node!", type, nodeId);
+      return;
+    }
     if (node.state === 'computed') {
       // we're done here
       log('node computed');
@@ -63,14 +69,19 @@ const runDataflow = (type, nodeId, sessionId) => {
           Products.findOne(conn.source.id)
         );
 
+        console.log('allProducts', connections, nodeId, allProducts);
         // Merge all social products
-        const socialStructures = allProducts.filter(c => c.type === 'social');
+        const socialStructures = allProducts.filter(
+          c => c && c.type === 'social'
+        );
         const socialStructure = mergeSocialStructures(socialStructures);
 
+        console.log('allProducts', allProducts);
         let products = allProducts.filter(c => c.type === 'product');
         if (products.length > 0) {
-          products = products[0].product;
+          products = products[0].data;
         }
+        console.log(products);
 
         // More data needed by the operators. Will need to be completed, documented and typed if possible
         const globalStructure = {
@@ -104,8 +115,8 @@ const runDataflow = (type, nodeId, sessionId) => {
               resolve(object);
             })
             .catch(e => {
-              log('Promise error', e.stack);
               nodeTypes[type].update(nodeId, { $set: { state: 'error' } });
+              reject(e);
             });
         } else if (type === 'activity') {
           // Here we build the object of an activity from the products of its connected nodes
@@ -115,8 +126,9 @@ const runDataflow = (type, nodeId, sessionId) => {
           nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
           resolve();
         }
+        resolve();
       })
-      .catch(e => log('error', e));
+      .catch(e => Promise.reject(e));
   });
 };
 

@@ -47,7 +47,6 @@ class Doc {
     this.doc.submitOp({ p: cleanPath(this.path, path), oi: newVal });
   }
   keyedObjInsert(newVal, path) {
-    console.log('keyedObj', newVal, path);
     const id = uuid();
     this.doc.submitOp({
       p: cleanPath(this.path, [path, id]),

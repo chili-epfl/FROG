@@ -11,6 +11,4 @@ do
     npm run watch &
 done
 
-cd $FROG/frog
-meteor
 
