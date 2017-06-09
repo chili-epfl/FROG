@@ -6,9 +6,9 @@ import { shorten } from 'frog-utils';
 
 export default ({ setXY, openInfoFn, observation }) => {
   const style = {
-    height: 100,
-    width: 300,
-    margin: 20,
+    height: 50,
+    width: 150,
+    margin: 5,
     textAlign: 'center',
     display: 'inline-block'
   };
@@ -18,7 +18,7 @@ export default ({ setXY, openInfoFn, observation }) => {
       <div
         style={{
           position: 'absolute',
-          fontSize: '20px',
+          fontSize: '10',
           textOverflow: 'ellipsis',
           overflow: 'hidden',
           top: observation.y,
@@ -34,10 +34,10 @@ export default ({ setXY, openInfoFn, observation }) => {
           </div>
           <div
             style={{
-              fontSize: '15px',
+              fontSize: '8',
               float: 'left',
-              marginTop: '15px',
-              marginLeft: '5px'
+              marginTop: '5px',
+              marginLeft: '2px'
             }}
           >
             {shorten(observation.content, 100)}

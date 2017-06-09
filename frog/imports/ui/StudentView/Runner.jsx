@@ -41,7 +41,10 @@ const Runner = ({ activity, object, setTitle }) => {
     const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(
       Runner
     );
-    setTitle(' (' + activity.grouping + '/' + grouping + ')');
+
+    const groupingStr = activity.grouping ? activity.grouping + '/' : '';
+    setTitle(' (' + groupingStr + grouping + ')');
+
     return (
       <div>
         <ActivityToRun

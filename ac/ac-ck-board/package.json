@@ -17,6 +17,7 @@
     "react-draggable": "github:houshuang/react-draggable",
     "react-dropzone": "^3.13.2",
     "react-icons": "^2.2.5",
-    "react-tap-event-plugin": "2.0.1"
+    "react-tap-event-plugin": "2.0.1",
+    "styled-components": "^2.0.1"
   }
 }
