@@ -5,9 +5,9 @@ import { Activities, Connections, Operators } from './activities';
 
 export const Graphs = new Mongo.Collection('graphs');
 
-export const addGraph = (name = 'untitled') => {
+export const addGraph = (name = 'untitled', graph) => {
   const id = uuid();
-  Graphs.insert({ _id: id, name, createdAt: new Date() });
+  Graphs.insert({ ...graph, _id: id, name, createdAt: new Date() });
   return id;
 };
 

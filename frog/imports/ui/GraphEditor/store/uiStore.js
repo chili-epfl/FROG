@@ -128,8 +128,7 @@ export default class uiStore {
     this.scrollIntervalID = undefined;
   };
 
-  @action panDelta = (rawX: number): void => {
-    const deltaX = rawX * 2;
+  @action panDelta = (deltaX: number): void => {
     const oldpan = this.panx;
     const rightBoundary = this.graphWidth - this.panBoxSize;
 
