@@ -266,7 +266,7 @@
   height: 0;
   background: white;
   z-index: 1;
-  overflow: hidden;
+  overflow: auto;
 }
 .mosaic-window .mosaic-window-additional-actions-bar,
 .mosaic-preview .mosaic-window-additional-actions-bar {
