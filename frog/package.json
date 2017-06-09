@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "ac-brainstorm": "*",
+    "op-hypothesis": "*",
     "op-select-best": "*",
     "ac-chat": "*",
     "ac-ck-board": "*",
@@ -39,6 +40,7 @@
     "op-distribute": "*",
     "op-jigsaw": "*",
     "op-like-with-like": "*",
+    "promiseallend": "^2.0.0",
     "react": "15.5.4",
     "react-addons-pure-render-mixin": "15.5.2",
     "react-addons-test-utils": "15.5.1",

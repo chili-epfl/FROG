@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid, promiseTimeout } from 'frog-utils';
+import promiseAllEnd from 'promiseallend';
 
 import { mergeData, getProducts } from './share-db-manager';
 import { operatorTypesObj } from '../imports/operatorTypes';
@@ -60,7 +61,14 @@ const runDataflow = (type, nodeId, sessionId) => {
       'target.id': nodeId
     }).fetch();
     log('running connecting', nodeId);
-    Promise.all(runAllConnecting(connections, sessionId))
+
+    const rejFn = {
+      unhandledRejection(error, prop) {
+        console.log(error, prop);
+      }
+    };
+
+    promiseAllEnd(runAllConnecting(connections, sessionId), rejFn)
       .then(() => {
         const students = getStudents(sessionId);
 
