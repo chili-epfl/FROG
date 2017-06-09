@@ -6,6 +6,7 @@ import http from 'http';
 import { Meteor } from 'meteor/meteor';
 import { merge } from 'lodash';
 import { promisedProperties } from 'frog-utils';
+import util from 'util';
 
 import generateReactiveFn from '../imports/api/generateReactiveFn';
 import { engineLogger } from '../imports/api/logs';
@@ -100,13 +101,11 @@ export const mergeData = (activityId, object) => {
   });
 };
 
-const getDoc = docId =>
-  new Promise((resolve, reject) => {
-    const doc = serverConnection.get('rz', docId);
-    doc.fetch();
-    doc.on('load', () => resolve(doc));
-    doc.on('error', error => reject(error));
-  });
+export const getDoc = docId => {
+  const doc = serverConnection.get('rz', docId);
+  Promise.await(new Promise((resolve, reject) => doc.fetch(() => resolve())));
+  return doc.data;
+};
 
 const readDoc = doc => doc.data;
 
@@ -120,18 +119,16 @@ export const getProducts = activityId => {
   } else {
     groups = ['all'];
   }
-  groupPromises = groups.reduce(
-    (acc, k) => ({ ...acc, [k]: getDoc(activity._id + '/' + k).then(readDoc) }),
+  const prod = groups.reduce(
+    (acc, k) => ({
+      ...acc,
+      [k]: getDoc(activity._id + '/' + k)
+    }),
     {}
   );
-  return promisedProperties(groupPromises)
-    .then(prod => {
-      Products.update(
-        activityId,
-        { $set: { data: prod, type: 'product' } },
-        { upsert: true }
-      );
-      Promise.resolve(prod);
-    })
-    .catch(e => Promise.reject(e));
+  Products.update(
+    activityId,
+    { $set: { product: prod, type: 'product' } },
+    { upsert: true }
+  );
 };

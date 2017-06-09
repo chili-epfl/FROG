@@ -34,9 +34,7 @@ export const operator = (configData, object) => {
     socialStructure[configData.grouping] &&
     Object.keys(socialStructure[configData.grouping]);
   if (!groups) {
-    console.error(
-      `Could not find ${configData.grouping} in the social structure`
-    );
+    `Could not find ${configData.grouping} in the social structure`;
     return;
   }
   let res = groups.reduce((acc, k) => ({ ...acc, [k]: [] }), {});

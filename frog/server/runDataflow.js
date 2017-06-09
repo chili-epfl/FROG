@@ -25,7 +25,7 @@ const runAllConnecting = (connections, sessionId) => {
     connection =>
       connection.source.type === 'operator'
         ? runDataflow(connection.source.type, connection.source.id, sessionId)
-        : getProducts(connection.source.id)
+        : Promise.await(getProducts(connection.source.id))
   );
 };
 
@@ -41,103 +41,62 @@ const getStudents = sessionId =>
 // computed. It recursively runs all the connecting nodes, and
 // then the current node.
 const runDataflow = (type, nodeId, sessionId) => {
-  log('starting to run dataflow', nodeId);
   const nodeTypes = { operator: Operators, activity: Activities };
   nodeTypes[type].update(nodeId, { $set: { state: 'computing' } });
-  return new Promise((resolve, reject) => {
-    const node = nodeTypes[type].findOne(nodeId);
-    if (!node) {
-      console.error("Can't find node!", type, nodeId);
-      return;
-    }
-    if (node.state === 'computed') {
-      // we're done here
-      log('node computed');
-      return;
-    }
+  const node = nodeTypes[type].findOne(nodeId);
 
-    // first make sure all incoming nodes have been computed
-    const connections = Connections.find({
-      'target.id': nodeId
-    }).fetch();
-    log('running connecting', nodeId);
+  if (!node) {
+    console.error("Can't find node!", type, nodeId);
+    return;
+  }
+  if (node.state === 'computed') {
+    // we're done here
+    return;
+  }
 
-    const rejFn = {
-      unhandledRejection(error, prop) {
-        console.log(error, prop);
-      }
-    };
+  // first make sure all incoming nodes have been computed
+  const connections = Connections.find({
+    'target.id': nodeId
+  }).fetch();
 
-    promiseAllEnd(runAllConnecting(connections, sessionId), rejFn)
-      .then(() => {
-        const students = getStudents(sessionId);
+  runAllConnecting(connections, sessionId);
 
-        // Retrieve all products and merge
-        const allProducts = connections.map(conn =>
-          Products.findOne(conn.source.id)
-        );
+  const students = getStudents(sessionId);
 
-        console.log('allProducts', connections, nodeId, allProducts);
-        // Merge all social products
-        const socialStructures = allProducts.filter(
-          c => c && c.type === 'social'
-        );
-        const socialStructure = mergeSocialStructures(socialStructures);
+  // Retrieve all products and merge
+  const allProducts = connections.map(conn => Products.findOne(conn.source.id));
 
-        console.log('allProducts', allProducts);
-        let products = allProducts.filter(c => c.type === 'product');
-        if (products.length > 0) {
-          products = products[0].data;
-        }
-        console.log(products);
+  // Merge all social products
+  const socialStructures = allProducts.filter(c => c && c.type === 'social');
+  const socialStructure = mergeSocialStructures(socialStructures);
 
-        // More data needed by the operators. Will need to be completed, documented and typed if possible
-        const globalStructure = {
-          studentIds: students.map(student => student._id)
-        };
+  let products = allProducts.filter(c => c.type === 'product');
+  if (products.length > 0) {
+    products = products[0].product;
+  }
 
-        const object = {
-          products,
-          socialStructure,
-          globalStructure
-        };
+  // More data needed by the operators. Will need to be completed, documented and typed if possible
+  const globalStructure = {
+    studentIds: students.map(student => student._id)
+  };
 
-        log('going to split operator, activity', type);
-        addObject(nodeId, object);
-        if (type === 'operator') {
-          // We get the operator function from the operator package
-          const operatorFunction = operatorTypesObj[node.operatorType].operator;
-          // We run the operator function
-          log('running operator function', node._id);
-          const run = Promise.resolve(operatorFunction(node.data, object));
-          promiseTimeout(5000, run)
-            .then(product => {
-              log('product', nodeId, product);
-              Products.update(
-                nodeId,
-                { type: node.type, product },
-                { upsert: true }
-              );
-              nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
-              log('going to resolve', node._id);
-              resolve(object);
-            })
-            .catch(e => {
-              nodeTypes[type].update(nodeId, { $set: { state: 'error' } });
-              reject(e);
-            });
-        } else if (type === 'activity') {
-          // Here we build the object of an activity from the products of its connected nodes
-          log('going to merge data');
-          log('object', nodeId, object);
-          mergeData(nodeId, object);
-          nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
-          resolve();
-        }
-        resolve();
-      })
-      .catch(e => Promise.reject(e));
-  });
+  const object = {
+    products,
+    socialStructure,
+    globalStructure
+  };
+
+  addObject(nodeId, object);
+
+  if (type === 'operator') {
+    const operatorFunction = operatorTypesObj[node.operatorType].operator;
+    const product = Promise.await(operatorFunction(node.data, object));
+    Products.update(nodeId, { type: node.type, product }, { upsert: true });
+    nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
+  } else if (type === 'activity') {
+    mergeData(nodeId, object);
+    nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
+  }
 };
 
 export default runDataflow;
