@@ -28,10 +28,11 @@
     "flow-typed": "^2.1.2",
     "nps": "^5.3.1",
     "prettier": "^1.4.2",
-    "watch": "^1.0.1"
-  },
-  "license": "ISC",
-  "dependencies": {
+    "watch": "^1.0.1",
+    "babel-jest": "^20.0.3",
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4",
     "nightmare": "^2.10.0"
-  }
+  },
+  "license": "ISC"
 }
