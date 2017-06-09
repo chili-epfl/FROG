@@ -37,7 +37,6 @@ class DisplayData extends Component {
   };
 
   toggleDisplay = event => {
-    event.preventDefault();
     this.setState({ isClicked: !this.state.isClicked });
   };
 
