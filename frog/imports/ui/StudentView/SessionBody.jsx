@@ -29,10 +29,7 @@ const SessionBody = ({ session, setTitle, title }: { session: Object }) =>
   session.openActivities && session.openActivities.length > 0
     ? <Mosaic
         renderTile={activityId =>
-          <MosaicWindow
-            title={Activities.findOne(activityId).title + title}
-            style={{ overflow: 'auto' }}
-          >
+          <MosaicWindow title={Activities.findOne(activityId).title + title}>
             <Runner activityId={activityId} setTitle={setTitle} />
           </MosaicWindow>}
         initialValue={getInitialState(session.openActivities)}

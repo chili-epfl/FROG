@@ -8,6 +8,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { ActivityData, reactiveFn } from '../../api/activityData';
 import { createLogger } from '../../api/logs';
 import { saveProduct } from '../../api/products';
+import { Logs } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import { Activities } from '../../api/activities';
 import { focusStudent } from 'frog-utils';
@@ -19,11 +20,12 @@ const Runner = ({ activity, object, setTitle }) => {
   }
   const activityType = activityTypesObj[activity.activityType];
 
-  const logger = createLogger({
-    activity: activity._id,
-    activityType: activity.activityType,
-    user: Meteor.userId()
-  });
+  const logger = data => {
+    Logs.insert({
+      activityId: activity._id,
+      ...data
+    });
+  };
 
   if (object) {
     const socStructure = focusStudent(object.socialStructure);
@@ -57,7 +59,7 @@ const Runner = ({ activity, object, setTitle }) => {
       </div>
     );
   }
-  return <p>NULL OBJECT for {activity._id}</p>;
+  return null;
 };
 
 export default createContainer(({ activityId }) => {

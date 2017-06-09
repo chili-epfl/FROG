@@ -33,7 +33,6 @@ const config = {
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  console.log('merge boxes', object);
   object.products.forEach(box =>
     dataFn.listAppend({
       ...box,

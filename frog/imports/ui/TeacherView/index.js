@@ -26,29 +26,38 @@ const displaySession = session =>
     STOPPED: 'Stopped'
   }[session.state]);
 
-const SessionController = ({ session, activities }) =>
+const rawSessionController = ({
+  session,
+  activities,
+  visible,
+  toggleVisibility
+}) =>
   <div>
     {session
       ? <div>
-          <p>{displaySession(session) + ': ' + session._id}</p>
-          <ButtonList session={session} />
-          <GraphView session={session} />
+          <ButtonList session={session} toggle={toggleVisibility} />
+          {visible
+            ? <DashView session={session} />
+            : <GraphView session={session} />}
           <ActivityList activities={activities} />
         </div>
-      : <p>Create or select a session from the list bellow</p>}
+      : <p>Create or select a session from the list below</p>}
   </div>;
 
-const Dashboard = ({ logs, activity }) => {
+const SessionController = withVisibility(rawSessionController);
+
+const Dashboard = ({ logs, activities }) => {
   let Dash = <p>NO DASHBOARD</p>;
-  if (activity) {
-    const activityType = activityTypesObj[activity.activityType];
-    if (activityType && activityType.Dashboard) {
-      Dash = (
-        <div>
-          <activityType.Dashboard logs={logs} />
-        </div>
-      );
-    }
+  if (activities) {
+    Dash = activities.map((a, i) => {
+      const activityType = activityTypesObj[a.activityType];
+      console.log('rendering', activityType, logs[i]);
+      if (activityType && activityType.Dashboard) {
+        return <activityType.Dashboard logs={logs[i]} key={a._id} />;
+      } else {
+        return null;
+      }
+    });
   }
   return (
     <div id="dashboard">
@@ -60,8 +69,9 @@ const Dashboard = ({ logs, activity }) => {
 
 const DashView = createContainer(
   ({ session }) => ({
-    activity: session && Activities.findOne(session.activityId),
-    logs: session && Logs.find({ activityId: session.activityId }).fetch()
+    activities: (session.openActivities || []).map(x => Activities.findOne(x)),
+    logs: (session.openActivities || [])
+      .map(x => Logs.find({ activityId: x }).fetch() || [])
   }),
   Dashboard
 );
