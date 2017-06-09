@@ -5,7 +5,7 @@ import { connect, store, type StoreProp } from './../store';
 const scrollInterval = direction => {
   if (!store.scrollIntervalID) {
     store.ui.storeInterval(
-      window.setInterval(() => store.ui.panDelta(1 * direction), 20)
+      window.setInterval(() => store.ui.panDelta(3 * direction), 20)
     );
   }
 };
