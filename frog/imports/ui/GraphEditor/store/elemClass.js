@@ -5,8 +5,15 @@ import { store } from './index';
 export default class Elem {
   over: boolean;
   wasMoved: boolean = false;
+  klass: 'operator' | 'activity';
+  id: string;
+
   @action select = (): void => {
-    if (this.wasMoved) {
+    if (store.state.mode === 'readOnly') {
+      if (this.klass !== 'connection') {
+        store.ui.setShowInfo(this.klass, this.id);
+      }
+    } else if (this.wasMoved) {
       this.wasMoved = false;
     } else {
       store.ui.selected = this;

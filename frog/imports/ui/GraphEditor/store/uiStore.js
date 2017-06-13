@@ -27,6 +27,13 @@ export default class uiStore {
   @observable windowWidth: number = 1000;
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
+  @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
+
+  @action setShowInfo = (klass: 'activity' | 'operator', id: string) => {
+    this.showInfo = { klass, id };
+  };
+
+  @action cancelInfo = () => (this.showInfo = null);
 
   @action setSidepanelOpen = (x: boolean) => (this.sidepanelOpen = x);
   @action toggleSidepanelOpen = () =>
