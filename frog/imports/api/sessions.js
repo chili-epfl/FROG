@@ -8,8 +8,10 @@ import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
 import { Graphs, addGraph } from './graphs';
-import runDataflow from './runDataflow';
+import { runSession, nextActivity } from './engine';
 
+export const restartSession = session =>
+  Meteor.call('sessions.restart', session);
 export const Sessions = new Mongo.Collection('sessions');
 
 export const setTeacherSession = (sessionId: string) => {
@@ -61,7 +63,7 @@ export const updateOpenActivities = (
   );
   if (Meteor.isServer) {
     openActivities.forEach(activityId => {
-      runDataflow('activity', activityId, sessionId);
+      Meteor.call('dataflow.run', 'activity', activityId, sessionId);
     });
   }
 };
@@ -129,12 +131,29 @@ Meteor.methods({
       });
     });
     setTeacherSession(sessionId);
+    return sessionId;
   },
   'flush.session': sessionId => {
+    const session = Sessions.findOne(sessionId);
+    if (!session) {
+      return;
+    }
+    const graphId = session.graphId;
     Sessions.remove(sessionId);
-    Graphs.remove({ sessionId });
-    Activities.remove({ sessionId });
-    Operators.remove({ sessionId });
-    Connections.remove({ sessionId });
+    Graphs.remove(graphId);
+    Activities.remove({ graphId });
+    Operators.remove({ graphId });
+    Connections.remove({ graphId });
+  },
+  'sessions.restart': session => {
+    const graphId = session.fromGraphId;
+    if (!graphId || !session) {
+      return;
+    }
+    Meteor.call('flush.session', session._id);
+    const newSessionId = Meteor.call('add.session', graphId);
+    Meteor.call('session.joinall', newSessionId);
+    runSession(newSessionId);
+    nextActivity(newSessionId);
   }
 });

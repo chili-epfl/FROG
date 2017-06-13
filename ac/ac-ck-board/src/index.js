@@ -11,23 +11,21 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
-    boxes: {
-      title: 'Boxes',
-      type: 'array',
-      items: {
-        type: 'object',
-        title: 'Box',
-        properties: {
-          title: {
-            type: 'string',
-            title: 'Title'
-          },
-          content: {
-            type: 'string',
-            title: 'Content'
-          }
-        }
-      }
+    quadrant1: {
+      title: 'Quadrant 1 title',
+      type: 'string'
+    },
+    quadrant2: {
+      title: 'Quadrant 2 title',
+      type: 'string'
+    },
+    quadrant3: {
+      title: 'Quadrant 3 title',
+      type: 'string'
+    },
+    quadrant4: {
+      title: 'Quadrant 4 title',
+      type: 'string'
     }
   }
 };
@@ -35,14 +33,13 @@ const config = {
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  object.product.boxes &&
-    object.product.boxes.forEach(box =>
-      dataFn.listAppend({
-        ...box,
-        x: Math.random() * 800,
-        y: Math.random() * 800
-      })
-    );
+  object.products.forEach(box =>
+    dataFn.listAppend({
+      ...box,
+      x: Math.random() * 400,
+      y: Math.random() * 400
+    })
+  );
 };
 
 export default {

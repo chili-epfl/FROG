@@ -5,12 +5,13 @@ import React from 'react';
 import {
   removeSession,
   updateSessionState,
-  joinAllStudents
+  joinAllStudents,
+  restartSession
 } from '../../api/sessions';
 
 import { runSession, nextActivity } from '../../api/engine';
 
-export default ({ session }: { session: Object }) => {
+export default ({ session, toggle }: { session: Object }) => {
   const buttons = [
     {
       states: ['CREATED'],
@@ -44,6 +45,18 @@ export default ({ session }: { session: Object }) => {
       type: 'danger',
       onClick: () => updateSessionState(session._id, 'STOPPED'),
       text: 'Stop'
+    },
+    {
+      states: ['CREATED', 'STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: () => restartSession(session),
+      text: 'Restart session'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: toggle,
+      text: 'Toggle dashboard/graph view'
     },
     {
       states: ['STOPPED'],

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
+import { compose, withState, withHandlers } from 'recompose';
 
 import { Activities } from '../../api/activities';
 import Runner from './Runner';
@@ -17,15 +18,22 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-const SessionBody = ({ session }: { session: Object }) =>
+export const withTitle = compose(
+  withState('title', 'setTitle', ''),
+  withHandlers({
+    setTitle: ({ setTitle }) => e => setTitle(n => e)
+  })
+);
+
+const SessionBody = ({ session, setTitle, title }: { session: Object }) =>
   session.openActivities && session.openActivities.length > 0
     ? <Mosaic
         renderTile={activityId =>
-          <MosaicWindow title={Activities.findOne(activityId).title}>
-            <Runner activityId={activityId} />
+          <MosaicWindow title={Activities.findOne(activityId).title + title}>
+            <Runner activityId={activityId} setTitle={setTitle} />
           </MosaicWindow>}
         initialValue={getInitialState(session.openActivities)}
       />
     : <h1>NO ACTIVITY</h1>;
 
-export default SessionBody;
+export default withTitle(SessionBody);

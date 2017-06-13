@@ -6,19 +6,18 @@ import { Chart } from 'react-google-charts';
 export default ({ logs }: Object) => {
   const data = {};
   logs.forEach(log => {
-    data[log.data.type] = data[log.data.type] || {};
-    data[log.data.type][log.data.key] =
-      (data[log.data.type][log.data.key] || 0) + 1;
+    data[log.type] = data[log.type] || {};
+    data[log.type][log.key] = (data[log.type][log.key] || 0) + 1;
   });
 
   return (
     <div>
-      {data.idea &&
+      {idea &&
         <Chart
           chartType="BarChart"
           data={[
             ['Name', 'Count'],
-            ...Object.keys(data.idea).map(key => [key, data.idea[key]])
+            ...Object.keys(idea).map(key => [key, idea[key]])
           ]}
           width="100%"
           height="300px"
@@ -28,12 +27,12 @@ export default ({ logs }: Object) => {
             legend: { position: 'none' }
           }}
         />}
-      {data.vote &&
+      {vote &&
         <Chart
           chartType="BarChart"
           data={[
             ['Name', 'Count'],
-            ...Object.keys(data.vote).map(key => [key, data.vote[key]])
+            ...Object.keys(vote).map(key => [key, vote[key]])
           ]}
           width="100%"
           height="300px"

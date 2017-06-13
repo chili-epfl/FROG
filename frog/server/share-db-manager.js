@@ -5,11 +5,16 @@ import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
 import { Meteor } from 'meteor/meteor';
 import { merge } from 'lodash';
+import { promisedProperties } from 'frog-utils';
+import util from 'util';
 
 import generateReactiveFn from '../imports/api/generateReactiveFn';
+import { engineLogger } from '../imports/api/logs';
 import { Activities } from '../imports/api/activities';
+import { Products } from '../imports/api/products';
 import { Objects } from '../imports/api/objects';
 import { activityTypesObj } from '../imports/activityTypes';
+const log = (...e) => engineLogger(null, e);
 
 const db = ShareDBMongo('mongodb://localhost:3001/sharedb');
 const server = http.createServer();
@@ -34,7 +39,7 @@ export const doOps = (collection, ops) => {
 };
 
 export const mergeData = (activityId, object) => {
-  const { socialStructure, globalStructure } = object;
+  const { socialStructure, globalStructure, product } = object;
   const activity = Activities.findOne(activityId);
 
   let groups;
@@ -61,9 +66,7 @@ export const mergeData = (activityId, object) => {
       }
     });
     const activityType = activityTypesObj[activity.activityType];
-    console.log(activityType);
     const mergeFunction = activityType.mergeFunction;
-    const object = Objects.findOne(activity._id);
     const doc = serverConnection.get('rz', activityId + '/' + grouping);
     doc.fetch();
     doc.on(
@@ -75,14 +78,57 @@ export const mergeData = (activityId, object) => {
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);
           // merging in config with incoming product
+          let prod;
+          if (!object.products) {
+            prod = null;
+          } else if (object.products.all) {
+            prod = object.products.all;
+          } else if (object.products[grouping]) {
+            prod = object.products[grouping];
+          } else {
+            console.error('No product matching grouping');
+          }
           const newObject = {
             globalStructure,
             socialStructure,
-            product: merge(object.product, activity.data)
+            products: merge(prod)
           };
+          log('newObject', newObject);
           mergeFunction(newObject, dataFn);
         }
       })
     );
   });
+};
+
+export const getDoc = docId => {
+  const doc = serverConnection.get('rz', docId);
+  Promise.await(new Promise((resolve, reject) => doc.fetch(() => resolve())));
+  return doc.data;
+};
+
+const readDoc = doc => doc.data;
+
+export const getProducts = activityId => {
+  const activity = Activities.findOne(activityId);
+  const object = Objects.findOne(activityId);
+  const { data: { socialStructure } } = object;
+  let groups;
+  if (activity.grouping && socialStructure[activity.grouping]) {
+    groups = Object.keys(socialStructure[activity.grouping]);
+  } else {
+    groups = ['all'];
+  }
+  const prod = groups.reduce(
+    (acc, k) => ({
+      ...acc,
+      [k]: getDoc(activity._id + '/' + k)
+    }),
+    {}
+  );
+  Products.update(
+    activityId,
+    { $set: { product: prod, type: 'product' } },
+    { upsert: true }
+  );
 };

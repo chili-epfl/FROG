@@ -1,6 +1,7 @@
 // @flow
 
 import ActivityRunner from './Chat';
+import Dashboard from './Dashboard';
 
 const meta = {
   name: 'Chat',
@@ -22,6 +23,7 @@ const config = {
 export default {
   id: 'ac-chat',
   ActivityRunner,
+  Dashboard,
   config,
   meta,
   dataStructure

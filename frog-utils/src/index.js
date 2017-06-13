@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 
+import { compose, withHandlers, withState } from 'recompose';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
@@ -60,3 +61,35 @@ export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
 
 export const zipList = (xs: Array<any>): Array<any> =>
   xs[0].map((_, i) => xs.map(x => x[i]));
+
+export const promiseTimeout = (ms, promise) => {
+  // Create a promise that rejects in <ms> milliseconds
+  let timeout = new Promise((resolve, reject) => {
+    let id = setTimeout(() => {
+      clearTimeout(id);
+      reject('Timed out in ' + ms + 'ms.');
+    }, ms);
+  });
+
+  // Returns a race between our timeout and the passed in promise
+  return Promise.race([promise, timeout]);
+};
+
+export const withVisibility = compose(
+  withState('visible', 'setVisibility', false),
+  withHandlers({
+    toggleVisibility: ({ setVisibility }) => () => setVisibility(n => !n)
+  })
+);
+
+export function promisedProperties(object) {
+  let promisedProperties = [];
+  const objectKeys = Object.keys(object);
+  objectKeys.forEach(key => promisedProperties.push(object[key]));
+  return Promise.all(promisedProperties).then(resolvedValues => {
+    return resolvedValues.reduce((resolvedObject, property, index) => {
+      resolvedObject[objectKeys[index]] = property;
+      return resolvedObject;
+    }, object);
+  });
+}

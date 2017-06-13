@@ -9,13 +9,12 @@ export default ({
   onClick,
   selected,
   type,
-  highlighted,
+  color,
   startDragging,
   onDrag,
   onStop
 }) => {
   const stroke = selected ? '#ff9900' : 'grey';
-  const fill = highlighted ? 'yellow' : 'white';
   let icon;
   switch (type) {
     case 'social':
@@ -46,7 +45,7 @@ export default ({
           cx={300}
           cy={300}
           r={300}
-          style={{ fill, stroke, strokeWidth: 60 }}
+          style={{ fill: color, stroke, strokeWidth: 60 }}
           transform="translate(30,30)"
         />
         {icon}

@@ -16,9 +16,6 @@ export const focusStudent = structure => {
   return newStruct;
 };
 
-// the opposite of focusStudent
-// translates from {anna: { role: 'carpenter' }, jens: { role: 'chief' }, ola: { role: 'chief' }, stian: { group: '1', role: 'chief' }}
-// to: {group: {'1': ['stian']}, role: {'chief': ['stian', 'ola', 'jens'], carpenter: ['anna']}}
 const addArrayPath = (x, y, z) => {
   if (get(x, y)) {
     setWith(x, y, [...get(x, y), z], Object);
@@ -27,6 +24,9 @@ const addArrayPath = (x, y, z) => {
   }
 };
 
+// the opposite of focusStudent
+// translates from {anna: { role: 'carpenter' }, jens: { role: 'chief' }, ola: { role: 'chief' }, stian: { group: '1', role: 'chief' }}
+// to: {group: {'1': ['stian']}, role: {'chief': ['stian', 'ola', 'jens'], carpenter: ['anna']}}
 export const focusRole = structure => {
   const newStruct = {};
   forIn(structure, (attrPairs, student) => {

@@ -17,19 +17,14 @@ const dataStructure = {
 };
 
 const mergeFunction = (object, dataFn) => {
-  // object.boxes.map(box =>
-  //   dataFn.listAppend({
-  //     ...box,
-  //     x: Math.random() * 800,
-  //     y: Math.random() * 800
-  //   })
-  // );
+  object.products.forEach(x =>
+    dataFn.keyedObjInsert({ ...x, score: 0 }, 'ideas')
+  );
 };
 
 export default ({
   id: 'ac-brainstorm',
   ActivityRunner,
-  Dashboard,
   config,
   meta,
   dataStructure,

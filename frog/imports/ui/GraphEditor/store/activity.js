@@ -15,7 +15,8 @@ export default class Activity extends Elem {
     startTime: number,
     title: string,
     length: number,
-    id: ?string
+    id: ?string,
+    state: ?string
   ) => {
     this.id = id || cuid();
     this.over = false; // is mouse over this activity
@@ -24,6 +25,7 @@ export default class Activity extends Elem {
     this.length = length;
     this.startTime = startTime;
     this.klass = 'activity';
+    this.state = state;
   };
 
   constructor(
@@ -31,10 +33,11 @@ export default class Activity extends Elem {
     startTime: number,
     title: string,
     length: number,
-    id: ?string
+    id: ?string,
+    state: ?string
   ) {
     super();
-    this.init(plane, startTime, title, length, id);
+    this.init(plane, startTime, title, length, id, state);
   }
 
   plane: number;
@@ -45,6 +48,7 @@ export default class Activity extends Elem {
   @observable length: number;
   @observable startTime: number;
   @observable wasMoved: boolean = false;
+  @observable state: string;
 
   @computed
   get xScaled(): number {
@@ -72,6 +76,7 @@ export default class Activity extends Elem {
     this.length = newact.length;
     this.startTime = newact.startTime;
     this.title = newact.title;
+    this.state = newact.state;
   };
 
   @action rename = (newname: string) => {
