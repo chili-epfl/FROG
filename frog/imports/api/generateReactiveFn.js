@@ -1,3 +1,5 @@
+import { uuid } from 'frog-utils';
+
 const cleanPath = (defPath, newPath = []) => {
   if (newPath.constructor !== Array) {
     newPath = [newPath];
@@ -43,6 +45,13 @@ class Doc {
   }
   objInsert(newVal, path) {
     this.doc.submitOp({ p: cleanPath(this.path, path), oi: newVal });
+  }
+  keyedObjInsert(newVal, path) {
+    const id = uuid();
+    this.doc.submitOp({
+      p: cleanPath(this.path, [path, id]),
+      oi: { id, ...newVal }
+    });
   }
   objDel(oldVal, path) {
     this.doc.submitOp({ p: cleanPath(this.path, path), od: oldVal });
