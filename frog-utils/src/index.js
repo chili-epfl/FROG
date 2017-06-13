@@ -61,6 +61,7 @@ export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
 
 export const zipList = (xs: Array<any>): Array<any> =>
   xs[0].map((_, i) => xs.map(x => x[i]));
+
 export const withVisibility = compose(
   withState('visible', 'setVisibility', false),
   withHandlers({
