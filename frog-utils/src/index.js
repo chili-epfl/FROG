@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 
+import { compose, withHandlers, withState } from 'recompose';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
@@ -60,3 +61,9 @@ export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
 
 export const zipList = (xs: Array<any>): Array<any> =>
   xs[0].map((_, i) => xs.map(x => x[i]));
+export const withVisibility = compose(
+  withState('visible', 'setVisibility', false),
+  withHandlers({
+    toggleVisibility: ({ setVisibility }) => () => setVisibility(n => !n)
+  })
+);
