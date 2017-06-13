@@ -12,6 +12,8 @@ import runDataflow from './runDataflow';
 
 export const Sessions = new Mongo.Collection('sessions');
 
+export const restartSession = () => Meteor.call('sessions.restart');
+
 export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(
     { _id: Meteor.userId() },
@@ -136,5 +138,45 @@ Meteor.methods({
     Activities.remove({ sessionId });
     Operators.remove({ sessionId });
     Connections.remove({ sessionId });
+  },
+  'sessions.restart': () => {
+    Sessions.remove({});
+    const sessionId = uuid();
+    const graphId = Graphs.findOne({})._id;
+    Sessions.insert({
+      _id: sessionId,
+      graphId,
+      state: 'CREATED',
+      startedAt: null,
+      pausedAt: null
+    });
+    const matching = {};
+    const activities = Activities.find({ graphId }).fetch();
+    activities.forEach(activity => {
+      matching[activity._id] = addSessionItem(
+        'activities',
+        sessionId,
+        activity
+      );
+    });
+    const operators = Operators.find({ graphId }).fetch();
+    operators.forEach(operator => {
+      matching[operator._id] = addSessionItem('operators', sessionId, operator);
+    });
+
+    const connections = Connections.find({ graphId }).fetch();
+    connections.forEach(connection => {
+      addSessionItem('connections', sessionId, {
+        source: {
+          id: matching[connection.source.id],
+          type: connection.source.type
+        },
+        target: {
+          id: matching[connection.target.id],
+          type: connection.target.type
+        }
+      });
+    });
+    setTeacherSession(sessionId);
   }
 });
