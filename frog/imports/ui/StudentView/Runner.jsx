@@ -13,7 +13,7 @@ import { Activities } from '../../api/activities';
 import { focusStudent } from 'frog-utils';
 import ReactiveHOC from './ReactiveHOC';
 
-const Runner = ({ activity, object }) => {
+const Runner = ({ activity, object, setTitle }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -39,9 +39,12 @@ const Runner = ({ activity, object }) => {
     const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(
       activityType.ActivityRunner
     );
+
+    const groupingStr = activity.grouping ? activity.grouping + '/' : '';
+    setTitle(' (' + groupingStr + grouping + ')');
+
     return (
       <div>
-        <h4>{activity._id}: {activity.grouping}/{grouping}</h4>
         <ActivityToRun
           configData={activity.data || {}}
           object={object}
@@ -52,7 +55,7 @@ const Runner = ({ activity, object }) => {
       </div>
     );
   }
-  return <p>NULL OBJECT</p>;
+  return null;
 };
 
 export default createContainer(({ activityId }) => {
