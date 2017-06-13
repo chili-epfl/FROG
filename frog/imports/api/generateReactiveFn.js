@@ -50,7 +50,7 @@ class Doc {
     const id = uuid();
     this.doc.submitOp({
       p: cleanPath(this.path, [path, id]),
-      oi: { ...{ id }, ...newVal }
+      oi: { id, ...newVal }
     });
   }
   objDel(oldVal, path) {
