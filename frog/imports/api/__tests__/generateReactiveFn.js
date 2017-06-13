@@ -18,14 +18,32 @@ const createDoc = (initial = {}) =>
 test('Can get empty doc', () => {
   return createDoc().then(doc => expect(doc.data).toEqual({}));
 });
-test('Can get empty doc', () => {
-  return createDoc([]).then(doc => {
+
+const wrapOps = (ops, initial = {}) =>
+  createDoc([]).then(doc => {
     const dataFn = generateReactiveFn(doc);
-    dataFn.listAppend('hello');
-    expect(doc.data).toEqual(['hello']);
-    dataFn.listAppend('hello');
-    expect(doc.data).toEqual(['hello', 'hello']);
-    dataFn.listPrepend('hi');
-    expect(doc.data).toEqual(['hi', 'hello', 'hello']);
+    ops.forEach(([fn, x]) => dataFn[fn](...x));
+    return doc.data;
   });
-});
+
+// array of [initial, [ops], result]
+const tests = [
+  [[], [['listAppend', ['hi']]], ['hi']],
+  [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
+  [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
+  [
+    [],
+    [
+      ['listAppend', ['hi']],
+      ['listPrepend', ['hello']],
+      ['listDel', ['hello', 0]]
+    ],
+    ['hi']
+  ]
+];
+
+tests.forEach(([init, ops, res]) =>
+  test(JSON.stringify(res), () =>
+    wrapOps(ops, init).then(x => expect(x).toEqual(res))
+  )
+);
