@@ -131,10 +131,14 @@ Meteor.methods({
     setTeacherSession(sessionId);
   },
   'flush.session': sessionId => {
+    const session = Sessions.findOne(sessionId)
+    const graphId = session.graphId
+
+    Graphs.remove(graphId);
+    Activities.remove({ graphId });
+    Operators.remove({ graphId });
+    Connections.remove({ graphId });
+
     Sessions.remove(sessionId);
-    Graphs.remove({ sessionId });
-    Activities.remove({ sessionId });
-    Operators.remove({ sessionId });
-    Connections.remove({ sessionId });
   }
 });
