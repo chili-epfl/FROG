@@ -5,7 +5,8 @@ import React from 'react';
 import {
   removeSession,
   updateSessionState,
-  joinAllStudents
+  joinAllStudents,
+  restartSession
 } from '../../api/sessions';
 
 import { runSession, nextActivity } from '../../api/engine';
@@ -56,6 +57,11 @@ export default ({ session }: { session: Object }) => {
       type: 'primary',
       onClick: () => joinAllStudents(session._id),
       text: 'Join all online students'
+    },
+     states: ['CREATED', 'STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: () => restartSession(session),
+      text: 'Restart session'
     }
   ];
   return (
