@@ -1,0 +1,4 @@
+{
+   "plugins": ["transform-class-properties", "syntax-flow"],
+   "presets": ["react", "stage-0", "es2015"]
+ }
