@@ -21,7 +21,7 @@ class ActivityComponent extends Component {
 
   componentWillMount() {
     this.clickHandler = getClickHandler(() => {
-      if (store.state.mode === 'normal') {
+      if (store.state.mode === 'normal' || store.state.mode === 'readOnly') {
         this.props.activity.select();
       }
     }, this.props.activity.setRename);
@@ -34,6 +34,7 @@ class ActivityComponent extends Component {
   render() {
     const {
       store: {
+        state: { mode },
         activityStore: { stopMoving, startResizing, stopResizing },
         connectionStore: { startDragging, stopDragging }
       },
@@ -42,6 +43,7 @@ class ActivityComponent extends Component {
     }: StoreProp & { activity: ActivityT, scaled: Boolean } = this.props;
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
+    const readOnly = mode === 'readOnly';
     return (
       <g
         onMouseOver={activity.onOver}
@@ -80,7 +82,7 @@ class ActivityComponent extends Component {
                 r={10}
                 fill="transparent"
                 stroke="transparent"
-                style={{ cursor: 'crosshair' }}
+                style={!readOnly && { cursor: 'crosshair' }}
               />
             </DraggableCore>
             <DraggableCore
@@ -95,7 +97,7 @@ class ActivityComponent extends Component {
                 y={activity.y}
                 width={5}
                 height={30}
-                style={{ cursor: 'ew-resize' }}
+                style={!readOnly && { cursor: 'ew-resize' }}
               />
             </DraggableCore>
           </g>}
@@ -110,7 +112,7 @@ class ActivityComponent extends Component {
             stroke="transparent"
             width={width > 20 ? width - 20 : width}
             height={30}
-            style={{ cursor: 'move' }}
+            style={!readOnly && { cursor: 'move' }}
           />
         </DraggableCore>
       </g>
