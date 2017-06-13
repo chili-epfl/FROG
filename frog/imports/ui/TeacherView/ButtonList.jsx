@@ -58,7 +58,8 @@ export default ({ session }: { session: Object }) => {
       onClick: () => joinAllStudents(session._id),
       text: 'Join all online students'
     },
-     states: ['CREATED', 'STARTED', 'PAUSED'],
+    {
+      states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
       onClick: () => restartSession(session),
       text: 'Restart session'
