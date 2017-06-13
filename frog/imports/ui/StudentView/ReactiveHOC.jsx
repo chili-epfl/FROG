@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connection } from '../App/index';
 import generateReactiveFn from '../../api/generateReactiveFn';
 
-const ReactiveHOC = (dataStructure, docId) => WrappedComponent =>
-  class extends Component {
+const getDisplayName = WrappedComponent =>
+  WrappedComponent.displayName || WrappedComponent.name || 'Component';
+
+const ReactiveHOC = (dataStructure, docId) => WrappedComponent => {
+  class ReactiveComp extends Component {
     constructor(props) {
       super(props);
       this.state = { data: dataStructure };
@@ -48,6 +51,9 @@ const ReactiveHOC = (dataStructure, docId) => WrappedComponent =>
         data={this.state.data}
         {...this.props}
       />;
-  };
+  }
+  ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
+  return ReactiveComp;
+};
 
 export default ReactiveHOC;
