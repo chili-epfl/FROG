@@ -36,8 +36,10 @@ const Runner = ({ activity, object }) => {
     }
     const reactiveId = activity._id + '/' + grouping;
 
+    const RunComp = activityType.ActivityRunner;
+    RunComp.displayName = activity.activityType;
     const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(
-      activityType.ActivityRunner
+      RunComp
     );
     return (
       <div>
