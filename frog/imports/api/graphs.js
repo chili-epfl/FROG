@@ -57,25 +57,27 @@ Meteor.methods({
     graphId,
     graphDuration
   }) => {
-    Graphs.update(graphId, { $set: { duration: graphDuration } });
+    if (Graphs.findOne(graphId)) {
+      Graphs.update(graphId, { $set: { duration: graphDuration } });
 
-    activities.map(({ _id, ...rest }) =>
-      Activities.update(_id, { $set: rest }, { upsert: true })
-    );
-    const actid = activities.map(x => x._id);
-    Activities.remove({ _id: { $nin: actid }, graphId });
+      activities.map(({ _id, ...rest }) =>
+        Activities.update(_id, { $set: rest }, { upsert: true })
+      );
+      const actid = activities.map(x => x._id);
+      Activities.remove({ _id: { $nin: actid }, graphId });
 
-    operators.map(({ _id, ...rest }) =>
-      Operators.update(_id, { $set: rest }, { upsert: true })
-    );
-    const optid = operators.map(x => x._id);
-    Operators.remove({ _id: { $nin: optid }, graphId });
+      operators.map(({ _id, ...rest }) =>
+        Operators.update(_id, { $set: rest }, { upsert: true })
+      );
+      const optid = operators.map(x => x._id);
+      Operators.remove({ _id: { $nin: optid }, graphId });
 
-    connections.map(({ _id, ...rest }) =>
-      Connections.update(_id, { $set: rest }, { upsert: true })
-    );
-    const conid = connections.map(x => x._id);
-    Connections.remove({ _id: { $nin: conid }, graphId });
+      connections.map(({ _id, ...rest }) =>
+        Connections.update(_id, { $set: rest }, { upsert: true })
+      );
+      const conid = connections.map(x => x._id);
+      Connections.remove({ _id: { $nin: conid }, graphId });
+    }
   },
   'graph.upload': obj => {
     obj.activities.forEach(a => Activities.insert(a));
