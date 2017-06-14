@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
+
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
@@ -9,12 +10,18 @@ export { default as TimedComponent } from './TimedComponent';
 export { TextInput, ChangeableText } from './TextInput';
 export { focusStudent, focusRole } from './socstructTools';
 export type {
-  ActivityPackageT,
-  ActivityRunnerT,
-  SocialStructureT,
-  ProductT,
+  studentStructureT,
+  socialStructureT,
+  dataUnitT,
+  dataUnitStructT,
+  structureDefT,
+  payloadT,
+  activityDataT,
   ObjectT,
-  OperatorPackageT
+  ActivityRunnerT,
+  ActivityPackageT,
+  productOperatorT,
+  socialOperatorT
 } from './types';
 
 export const A = ({ onClick, children, ...rest }: any): any =>
