@@ -1,11 +1,14 @@
+// @flow
+
+import type { socialStructureT, studentStructureT } from '../types';
 import { focusStudent, focusRole } from '../socstructTools';
 
-const exampleRole = {
+const exampleRole: socialStructureT = {
   group: { '1': ['stian'] },
   role: { chief: ['stian', 'jens', 'ola'], carpenter: ['anna'] }
 };
 
-const exampleStudent = {
+const exampleStudent: studentStructureT = {
   stian: { group: '1', role: 'chief' },
   jens: { role: 'chief' },
   ola: { role: 'chief' },

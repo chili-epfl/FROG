@@ -34,5 +34,8 @@
     "jest-cli": "^20.0.4",
     "nightmare": "^2.10.0"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "jest": {
+    "testPathIgnorePatterns": ["/node_modules/", "/dist/"]
+  }
 }
