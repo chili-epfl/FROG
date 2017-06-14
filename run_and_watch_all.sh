@@ -12,5 +12,4 @@ do
 done
 
 cd $FROG/frog
-meteor
 
