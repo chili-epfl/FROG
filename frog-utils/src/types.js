@@ -12,7 +12,7 @@ export type studentStructureT = {
 //   color: { red: 'aa' } }
 export type socialStructureT = {
   [attributeKey: string]: {
-    [attributeName: string]: string[]
+    [attributeValue: string]: string[]
   }
 };
 
@@ -35,9 +35,8 @@ export type ObjectT = {
 export type ActivityRunnerT = {
   object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
-  saveProduct: (userId: string, data: Object) => void, // call on completion, with student data as argument
-  data: any,
-  dataFn: Function,
+  data: dataUnitT,
+  dataFn: Object,
   userInfo: { id: string, name: string }
 };
 
