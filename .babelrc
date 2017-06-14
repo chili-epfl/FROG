@@ -1,5 +1,4 @@
 {
    "plugins": ["transform-flow-strip-types", "transform-decorators-legacy", "transform-class-properties"],
-   "presets": ["react", "stage-0", "es2015"],
-   "ignore": ["**/__tests__"]
+   "presets": ["react", "stage-0", "es2015"]
  }

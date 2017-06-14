@@ -1,5 +1,4 @@
 // @flow
-import { test, expect } from 'jest';
 
 import type { socialStructureT, studentStructureT } from '../types';
 import { focusStudent, focusRole } from '../socstructTools';

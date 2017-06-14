@@ -2,6 +2,8 @@ module.exports = {
   plugins: ['flowtype', 'prettier'],
   globals: {
     document: true,
+    test: true,
+    expect: true,
     history: true,
     window: true,
     FileReader: true,

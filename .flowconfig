@@ -4,7 +4,6 @@
 module.ignore_non_literal_requires=true
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/frog/\1'
 esproposal.decorators=ignore
-strip_root=true
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
 unsafe.enable_getters_and_setters=true
 suppress_type=$FlowIssue
