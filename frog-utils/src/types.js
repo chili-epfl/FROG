@@ -1,7 +1,25 @@
 // @flow
 
-export type SocialStructureT = {
-  [studentId: string]: { [attributeName: string]: string }
+// { aa: { group: 1, role: 'chef', color: 'red' },
+//   bb: { group: 2, role: 'waiter' },
+//   cc: { role: 'waiter' } }
+export type studentFocusedStructT = {
+  [studentId: string]: { [attributeKey: string | number]: string | number }
+};
+
+// { group: { '1': [ 'aa ' ], '2': [ 'bb' ] },
+//   role: { chef: [ 'aa' ], waiter: [ 'bb', 'cc' ] },
+//   color: { red: 'aa' } }
+export type attributeKeyFocused = {
+  [attributeKey: string | number]: {
+    [attributeName: string | number]: string[]
+  }
+};
+
+const a: attributeKeyFocused = {
+  group: { '1': ['aa '], '2': ['bb'] },
+  role: { chef: ['aa'], waiter: ['bb', 'cc'] },
+  color: { red: ['aa'] }
 };
 
 export type ProductT = {
