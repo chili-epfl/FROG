@@ -1,7 +1,4 @@
 {
-	"plugins": [
-		"transform-decorators-legacy",
-		"transform-class-properties",
-		"babel-plugin-transform-flow-strip-types"
-	]
-}
+   "plugins": ["transform-class-properties", "syntax-flow"],
+   "presets": ["react", "stage-0", "es2015"]
+ }
