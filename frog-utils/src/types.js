@@ -3,23 +3,17 @@
 // { aa: { group: 1, role: 'chef', color: 'red' },
 //   bb: { group: 2, role: 'waiter' },
 //   cc: { role: 'waiter' } }
-export type studentFocusedStructT = {
+export type studentStructureT = {
   [studentId: string]: { [attributeKey: string | number]: string | number }
 };
 
 // { group: { '1': [ 'aa ' ], '2': [ 'bb' ] },
 //   role: { chef: [ 'aa' ], waiter: [ 'bb', 'cc' ] },
 //   color: { red: 'aa' } }
-export type attributeKeyFocused = {
+export type socialStructureT = {
   [attributeKey: string | number]: {
     [attributeName: string | number]: string[]
   }
-};
-
-const a: attributeKeyFocused = {
-  group: { '1': ['aa '], '2': ['bb'] },
-  role: { chef: ['aa'], waiter: ['bb', 'cc'] },
-  color: { red: ['aa'] }
 };
 
 export type ProductT = {
