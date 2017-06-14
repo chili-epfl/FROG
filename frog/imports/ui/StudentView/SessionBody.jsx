@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Mosaic, MosaicWindow } from 'react-mosaic-component';
-import { compose, withState, withHandlers } from 'recompose';
+import { Mosaic } from 'react-mosaic-component';
 
 import { Activities } from '../../api/activities';
 import Runner from './Runner';
@@ -18,22 +17,14 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-export const withTitle = compose(
-  withState('title', 'setTitle', ''),
-  withHandlers({
-    setTitle: ({ setTitle }) => e => setTitle(n => e)
-  })
-);
-
-const SessionBody = ({ session, setTitle, title }: { session: Object }) =>
+const SessionBody = ({ session }: { session: Object }) =>
   session.openActivities && session.openActivities.length > 0
     ? <Mosaic
         renderTile={activityId =>
-          <MosaicWindow title={Activities.findOne(activityId).title + title}>
-            <Runner activityId={activityId} setTitle={setTitle} />
-          </MosaicWindow>}
+          <Runner activityId={activityId} />
+        }
         initialValue={getInitialState(session.openActivities)}
       />
     : <h1>NO ACTIVITY</h1>;
 
-export default withTitle(SessionBody);
+export default SessionBody;

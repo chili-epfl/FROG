@@ -3,6 +3,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { MosaicWindow } from 'react-mosaic-component';
 
 import { activityTypesObj } from '../../activityTypes';
 import { ActivityData, reactiveFn } from '../../api/activityData';
@@ -13,7 +14,7 @@ import { Activities } from '../../api/activities';
 import { focusStudent } from 'frog-utils';
 import ReactiveHOC from './ReactiveHOC';
 
-const Runner = ({ activity, object, setTitle }) => {
+const Runner = ({ activity, object }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -42,11 +43,11 @@ const Runner = ({ activity, object, setTitle }) => {
       RunComp
     );
 
-    const groupingStr = activity.grouping ? activity.grouping + '/' : '';
-    setTitle(' (' + groupingStr + grouping + ')');
+    const groupingStr = activity.grouping ? activity.grouping : '';
+    const title = '(' + groupingStr + '/' + grouping + ')';
 
     return (
-      <div>
+      <MosaicWindow title={activity.title + ' ' + title}>
         <ActivityToRun
           configData={activity.data || {}}
           object={object}
@@ -54,7 +55,7 @@ const Runner = ({ activity, object, setTitle }) => {
           logger={logger}
           saveProduct={saveProduct(activity._id)}
         />
-      </div>
+      </MosaicWindow>
     );
   }
   return null;
@@ -63,8 +64,6 @@ const Runner = ({ activity, object, setTitle }) => {
 export default createContainer(({ activityId }) => {
   const o = Objects.findOne(activityId);
   const object = o ? o.data : null;
-
   const activity = Activities.findOne(activityId);
-
   return { activity, object };
 }, Runner);
