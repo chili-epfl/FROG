@@ -65,7 +65,7 @@ const runDataflow = (
   const socialStructure = mergeSocialStructures(socialStructures);
 
   const products = allProducts.filter(c => c.type === 'product');
-  const activityData = products.length > 0 ? products[0].product : null;
+  const prod = products.length > 0 ? products[0] : null;
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure = {
@@ -73,7 +73,7 @@ const runDataflow = (
   };
 
   const object: ObjectT = {
-    activityData,
+    activityData: prod && prod.activityData,
     socialStructure,
     globalStructure
   };
@@ -83,7 +83,11 @@ const runDataflow = (
   if (type === 'operator') {
     const operatorFunction = operatorTypesObj[node.operatorType].operator;
     const product = Promise.await(operatorFunction(node.data, object));
-    Products.update(nodeId, { type: node.type, product }, { upsert: true });
+    Products.update(
+      nodeId,
+      { type: node.type, activityData: product },
+      { upsert: true }
+    );
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
   } else if (type === 'activity') {
     mergeData(nodeId, object);

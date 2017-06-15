@@ -159,7 +159,7 @@ export default class Activity extends Elem {
   @computed
   get y(): number {
     const offset = store.activityStore.activityOffsets[this.id];
-    return this.plane * 100 + 50 - offset * 30;
+    return (4 - this.plane) * 100 + 50 - offset * 30;
   }
 
   @computed

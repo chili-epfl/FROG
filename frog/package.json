@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "ac-brainstorm": "*",
+    "op-hypothesis": "*",
     "ac-chat": "*",
     "ac-ck-board": "*",
     "ac-form": "*",
