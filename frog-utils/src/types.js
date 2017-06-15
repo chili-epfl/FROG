@@ -51,12 +51,7 @@ export type productOperatorT = {
   id: string,
   meta: { type: string, name: string },
   config: Object,
-  operator: (
-    configData: Object,
-    object: ObjectT
-  ) => {
-    activityData: activityDataT
-  }
+  operator: (configData: Object, object: ObjectT) => activityDataT
 };
 
 export type socialOperatorT = {

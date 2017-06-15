@@ -9,6 +9,7 @@ export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
 export { TextInput, ChangeableText } from './TextInput';
 export { focusStudent, focusRole } from './socstructTools';
+export { wrapUnitAll } from './dataStructureTools';
 export type {
   studentStructureT,
   socialStructureT,
