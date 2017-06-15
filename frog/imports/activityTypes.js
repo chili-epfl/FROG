@@ -24,4 +24,8 @@ export const activityTypes: Array<ActivityPackageT> = [
   acQuiz
 ];
 
-export const activityTypesObj = keyBy(activityTypes, 'id');
+// see explanation of `any` in operatorTypes.js
+export const activityTypesObj: { [actId: string]: ActivityPackageT } = (keyBy(
+  activityTypes,
+  'id'
+): any);

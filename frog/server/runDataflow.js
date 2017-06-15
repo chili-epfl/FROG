@@ -1,16 +1,11 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
-import type { socialStructureT, activityDataT } from 'frog-utils';
+import { mergeSocialStructures, type ObjectT } from 'frog-utils';
 
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
 import { operatorTypesObj } from '../imports/operatorTypes';
-import { activityTypesObj } from '../imports/activityTypes';
-import { Graphs } from '../imports/api/graphs';
 import { Products } from '../imports/api/products';
-import { Sessions } from '../imports/api/sessions';
 import { Operators, Activities, Connections } from '../imports/api/activities';
 import { addObject } from '../imports/api/objects';
 
@@ -26,7 +21,7 @@ const runAllConnecting = (connections: Object[], sessionId: string) =>
     connection =>
       connection.source.type === 'operator'
         ? runDataflow(connection.source.type, connection.source.id, sessionId)
-        : Promise.await(getReactiveData(connection.source.id))
+        : Promise.await(reactiveToProduct(connection.source.id))
   );
 
 // The list of students
@@ -36,14 +31,17 @@ const getStudents = sessionId =>
 // runDataflow ensures that all data required for a given node is
 // computed. It recursively runs all the connecting nodes, and
 // then the current node.
-const runDataflow = (type, nodeId, sessionId) => {
+const runDataflow = (
+  type: 'operator' | 'activity',
+  nodeId: string,
+  sessionId: string
+) => {
   const nodeTypes = { operator: Operators, activity: Activities };
   nodeTypes[type].update(nodeId, { $set: { state: 'computing' } });
   const node = nodeTypes[type].findOne(nodeId);
 
   if (!node) {
-    console.error("Can't find node!", type, nodeId);
-    return;
+    throw `Can't find node! ${type} ${nodeId}`;
   }
   if (node.state === 'computed') {
     // we're done here
@@ -66,18 +64,16 @@ const runDataflow = (type, nodeId, sessionId) => {
   const socialStructures = allProducts.filter(c => c && c.type === 'social');
   const socialStructure = mergeSocialStructures(socialStructures);
 
-  let products = allProducts.filter(c => c.type === 'product');
-  if (products.length > 0) {
-    products = products[0].product;
-  }
+  const products = allProducts.filter(c => c.type === 'product');
+  const activityData = products.length > 0 ? products[0].product : null;
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure = {
     studentIds: students.map(student => student._id)
   };
 
-  const object = {
-    products,
+  const object: ObjectT = {
+    activityData,
     socialStructure,
     globalStructure
   };

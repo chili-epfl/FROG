@@ -52,5 +52,8 @@
     "styled-components": "^2.0.0",
     "websocket-json-stream": "0.0.3",
     "ws": "^3.0.0"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.48.0"
   }
 }

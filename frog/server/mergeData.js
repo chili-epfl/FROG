@@ -1,34 +1,22 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { merge } from 'lodash';
-import type { activityDataT, ObjectT } from 'frog-utils';
+import { extractUnit, type ObjectT } from 'frog-utils';
+import { Activities, getInstances } from '../imports/api/activities';
 
+import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 import generateReactiveFn from '../imports/api/generateReactiveFn';
 
 export default (activityId: string, object: ObjectT) => {
-  const { socialStructure, globalStructure, activityData } = object;
+  const { activityData } = object;
   const activity = Activities.findOne(activityId);
 
-  let groups;
-  if (activity.grouping && socialStructure[activity.grouping]) {
-    groups = Object.keys(socialStructure[activity.grouping]);
-  } else {
-    groups = ['all'];
-  }
+  const [groups, _structure] = getInstances(activityId);
   groups.forEach(grouping => {
-    if (
-      (activity.hasMergedData && activity.hasMergedData[grouping]) ||
-      (globalState[activityId] && globalState[activityId][grouping])
-    ) {
+    if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
     }
-    globalState[activityId] = { ...globalState[activityId], [grouping]: true };
-    // the reason for using globalState is that without transactions, just checking the database
-    // would sometimes lead to the same thing being done twice. this is still not fool-proof,
-    // probably the safest would be for all actions to be triggered by the engine, not by
-    // browsers.
     Activities.update(activityId, {
       $set: {
         hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
@@ -47,23 +35,10 @@ export default (activityId: string, object: ObjectT) => {
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);
           // merging in config with incoming product
-          let prod;
-          if (!object.products) {
-            prod = null;
-          } else if (object.products.all) {
-            prod = object.products.all;
-          } else if (object.products[grouping]) {
-            prod = object.products[grouping];
-          } else {
-            console.error('No product matching grouping');
+          const product = extractUnit(activityData, grouping);
+          if (product) {
+            mergeFunction(product, dataFn);
           }
-          const newObject = {
-            globalStructure,
-            socialStructure,
-            products: merge(prod)
-          };
-          log('newObject', newObject);
-          mergeFunction(newObject, dataFn);
         }
       })
     );

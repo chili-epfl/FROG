@@ -6,7 +6,7 @@ import {
   type ObjectT
 } from 'frog-utils';
 
-import { Activities } from '../imports/api/activities';
+import { Activities, getInstances } from '../imports/api/activities';
 import { Products } from '../imports/api/products';
 import { Objects } from '../imports/api/objects';
 import { getDoc } from './share-db-manager';
@@ -17,29 +17,13 @@ import { getDoc } from './share-db-manager';
 export const getActivityDataFromReactive = (
   activityId: string
 ): activityDataT => {
-  const activity = Activities.findOne(activityId);
-  const object: ObjectT = Objects.findOne(activityId);
-  const { socialStructure, globalStructure: { studentIds } } = object;
-
-  let groups;
-  let structure;
-  if (activity.plane === 1) {
-    groups = studentIds;
-    structure = 'individual';
-  } else if (activity.plane === 2) {
-    const key = activity.groupingKey;
-    groups = getAttributeValues(socialStructure, key);
-    structure = { groupingKey: key };
-  } else {
-    groups = ['all'];
-    structure = 'all';
-  }
+  const [groups, structure] = getInstances(activityId);
 
   const data = groups.reduce(
     (acc, k) => ({
       ...acc,
       [k]: {
-        data: getDoc(activity._id + '/' + k)
+        data: getDoc(activityId + '/' + k)
       }
     }),
     {}

@@ -24,7 +24,10 @@ export type structureDefT = { groupingKey: string } | 'individual' | 'all';
 
 export type payloadT = { [attributeKey: string]: dataUnitStructT };
 
-export type activityDataT = { structure: structureDefT, payload: payloadT };
+export type activityDataT = {
+  structure: structureDefT,
+  payload: payloadT
+} | null;
 
 export type ObjectT = {
   socialStructure: socialStructureT,
@@ -44,6 +47,7 @@ export type ActivityPackageT = {
   id: string,
   meta: { type: string, name: string },
   config: Object,
+  mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: (x: ActivityRunnerT) => React$Component<*> | React$Element<*>
 };
 
@@ -64,4 +68,11 @@ export type socialOperatorT = {
   ) => {
     socialStructure: socialStructureT
   }
+};
+
+export type operatorPackageT = {
+  id: string,
+  meta: { type: string, name: string },
+  config: Object,
+  operator: (configData: Object, object: ObjectT) => any
 };

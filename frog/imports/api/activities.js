@@ -1,11 +1,17 @@
+// @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
 import { omitBy, isNil } from 'lodash';
+import {
+  getAttributeValues,
+  uuid,
+  type ObjectT,
+  type structureDefT
+} from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
-import { activityTypesObj } from '../activityTypes';
 import { Graphs } from './graphs';
+import { Objects } from './objects';
 import { Products } from './products';
 import { Sessions } from './sessions';
 
@@ -13,6 +19,27 @@ export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
+
+export const getInstances = (activityId: string): [string[], structureDefT] => {
+  const activity = Activities.findOne(activityId);
+  const object: ObjectT = Objects.findOne(activityId);
+  const { socialStructure, globalStructure: { studentIds } } = object;
+
+  let groups;
+  let structure;
+  if (activity.plane === 1) {
+    groups = studentIds;
+    structure = 'individual';
+  } else if (activity.plane === 2) {
+    const key = activity.groupingKey;
+    groups = getAttributeValues(socialStructure, key);
+    structure = { groupingKey: key };
+  } else {
+    groups = ['all'];
+    structure = 'all';
+  }
+  return [groups, structure];
+};
 
 export const addActivity = (activityType, data = {}, id, grouping) => {
   if (id) {
