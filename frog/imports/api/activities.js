@@ -20,7 +20,9 @@ export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
 
-export const getInstances = (activityId: string): [string[], structureDefT] => {
+export const getInstances = (
+  activityId: string
+): [?(string[]), structureDefT] => {
   const activity = Activities.findOne(activityId);
   const object: ObjectT = Objects.findOne(activityId);
   const { socialStructure, globalStructure: { studentIds } } = object;

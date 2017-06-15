@@ -103,9 +103,9 @@ export default ({
     <div>
       <Container>
         <ListContainer>
-          <p>{data.config.text}</p>
+          <p>{configData.text}</p>
           <IdeaList
-            ideas={data.ideas}
+            ideas={data}
             fun={{
               vote: (id, incr) => {
                 logger({ key: userInfo.name, type: 'vote' });

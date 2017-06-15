@@ -62,8 +62,8 @@ const Runner = ({ activity, object }) => {
 };
 
 export default createContainer(({ activityId }) => {
-  const o = Objects.findOne(activityId);
-  const object = o ? o.data : null;
+  const o = Objects.find(activityId).fetch();
+  const object = o && o[0];
   const activity = Activities.findOne(activityId);
   return { activity, object };
 }, Runner);

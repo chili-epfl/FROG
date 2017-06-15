@@ -53,10 +53,10 @@ export const mergeSocialStructures = (...structures: socialStructureT[]) => {
   return structures.reduce((acc, k) => ({ ...acc, ...k }), {});
 };
 
-export const getAttributeKeys = (struct: socialStructureT): string[] =>
-  Object.keys(struct);
+export const getAttributeKeys = (struct: socialStructureT): ?(string[]) =>
+  struct && Object.keys(struct);
 
 export const getAttributeValues = (
   struct: socialStructureT,
   key: string
-): string[] => Object.keys(struct[key]);
+): ?(string[]) => struct && struct[key] && Object.keys(struct[key]);
