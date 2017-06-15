@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import { compact } from 'lodash';
 import fetch from 'isomorphic-fetch';
 import {
+  uuid,
   wrapUnitAll,
   type productOperatorT,
   type activityDataT
@@ -34,6 +35,7 @@ const getText = ary =>
 const mapQuery = query => {
   const res = query.rows
     .map(x => ({
+      id: uuid(),
       content: x.text,
       title: getText(x.target && x.target.length > 0 && x.target[0].selector)
     }))
