@@ -20,53 +20,53 @@ Object {
       "data": Array [
         Object {
           "content": "This is a great example of Kohonen's Self-organizing Maps  and the use of the U-Matrix. The authors were very thorough in explaining how it can be used.",
-          "id": "cj3y4bksy0000zbiza6604xqn",
+          "id": 0,
           "title": "Appendix. Technical demonstration of the SOMprocedure",
         },
         Object {
           "content": "Data Structure",
-          "id": "cj3y4bksy0001zbizwtzvbh2e",
+          "id": 1,
           "title": "The SOM consisted of 360 neurons on a 24by  15  map  grid,  with  hexagonal  lattice  andGaussian neighborhood  function.",
         },
         Object {
           "content": "This is the novel innovation approach to network analysis that I will be discussing in my article review presentation
 ",
-          "id": "cj3y4bksy0002zbizokp2bnu1",
+          "id": 2,
           "title": "(Kohonen’s Self-Organizing Maps",
         },
         Object {
           "content": "I really like this concept and application of SNA with integration of critical discourse analysis (CDA), which is a course I am taking in the fall!! In another class, we read about critical quantitative approach, and I now think what makes it truly critical might be the integration of a mixed method approach, where something like ethnographic case studies or in this case discourse analysis is used in combination with SNA/statistical analyses to give it more robust findings.",
-          "id": "cj3y4bksy0003zbizci3svdxj",
+          "id": 3,
           "title": "Ryu, S., & Lombardi, D. (2015). Coding Classroom Interactions for Collective and Individual Engagement. Educational Psychologist, 50(1), 70–83. http://doi.org/10.1080/00461520.2014.1001891 (Note: An attempt to combine SNA with critical discourse analysis.)",
         },
         Object {
           "content": "These are important questions that need answered to truly understand complex social interactions.",
-          "id": "cj3y4bksz0005zbizonods9g7",
+          "id": 5,
           "title": " address the questions in the 					previous paragraph",
         },
         Object {
           "content": "I am familiar with SPSS, but I had not considered using it for my final project until now. I am a little confused about how I would have to code the data (adjacency matrix) so that it works well in SPSS, but I think I'm going to try it just to see if I can get the same results that I obtain from using R.",
-          "id": "cj3y4bksz000fzbizas4b5569",
+          "id": 15,
           "title": "analyses using 							these ego-level measures can be done using statistical packages like 								SPSS",
         },
         Object {
           "content": "I am interested in learning more about the NetDraw software in UCINET. While I like statistics, nothing really says SNA like having clear visuals that display network ties",
-          "id": "cj3y4bksz000gzbizmx3y2r2f",
+          "id": 16,
           "title": "UCINET is NetDraw, a visualization tool that has advanced 							graphic properties.",
         },
         Object {
           "content": "I need to more practice with creating cleaner graphs that show my network. So far, I've been sticking with the orange and blue colors but I plan to get a little more creative for the final project",
-          "id": "cj3y4bksz000hzbizjz6w0o1o",
+          "id": 17,
           "title": "visualizing your 						network in the form of a graph provides some hints as to whether your 							motivating research questions or hypotheses are worth pursuing or in 							need of revision.Figure",
         },
         Object {
           "content": "My project deviated from the author's process because I actually obtained the dataset before identifying research questions. I am using a public dataset so I had to develop me project around what I had available",
-          "id": "cj3y4bksz000izbiz3j3g13ty",
+          "id": 18,
           "title": "Now that your network's boundary has been specified, you are ready to 						collect your data.",
         },
         Object {
           "content": "Throughout the semester, I have struggled with turning my research topic into a researchable question. I think I've come up with some decent questions, but I'm constantly rewording them.",
-          "id": "cj3y4bksz000jzbizbwnzo82r",
+          "id": 19,
           "title": " First, start with an initial topic of interest and 						then turn this topic into a question. ",
         },
       ],
