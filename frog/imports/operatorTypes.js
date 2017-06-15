@@ -5,6 +5,7 @@ import opAggregateText from 'op-aggregate-text';
 import opAggregateCKBoard from 'op-aggregate-ck-board';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
+import opHypothesis from 'op-hypothesis';
 
 import type { operatorPackageT } from 'frog-utils';
 
@@ -15,7 +16,8 @@ export const operatorTypes: Array<operatorPackageT> = [
   opAggregateText,
   opAggregateCKBoard,
   opJigsaw,
-  opArgue
+  opArgue,
+  opHypothesis
 ];
 
 // somehow lodash.keyBy has the type {[id]: ??}, which means that the object can be null
