@@ -1,6 +1,12 @@
+// @flow
 import queryString from 'query-string';
 import { compact } from 'lodash';
 import fetch from 'isomorphic-fetch';
+import {
+  wrapUnitAll,
+  type productOperatorT,
+  type activityDataT
+} from 'frog-utils';
 
 export const meta = {
   name: 'Get ideas from Hypothesis',
@@ -20,20 +26,26 @@ export const config = {
     }
   }
 };
-const safeFirst = ary => ary.length > 0 && ary[0];
-const getText = ary =>
-  ary && safeFirst(compact(ary.map(y => y.exact))).replace('\t', '');
+const safeFirst = ary => (ary.length > 0 ? ary[0] : '');
 
-const mapQuery = query =>
-  query.rows
+const getText = ary =>
+  ary ? safeFirst(compact(ary.map(y => y.exact))).replace('\t', '') : '';
+
+const mapQuery = query => {
+  const res = query.rows
     .map(x => ({
       content: x.text,
       title: getText(x.target && x.target.length > 0 && x.target[0].selector)
     }))
     .filter(x => x.title);
+  return wrapUnitAll(res);
+};
 
 // Obviously assumes even array
-export const operator = (configData, object) => {
+export const operator = (configData: {
+  tag?: string,
+  url?: string
+}): activityDataT => {
   const query = queryString.stringify({
     tag: configData.tag,
     source: configData.url
@@ -42,9 +54,9 @@ export const operator = (configData, object) => {
   return fetch(url).then(e => e.json()).then(mapQuery);
 };
 
-export default {
+export default ({
   id: 'op-hypothesis',
   operator,
   config,
   meta
-};
+}: productOperatorT);
