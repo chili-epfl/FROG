@@ -62,8 +62,9 @@ const runDataflow = (
 
   // Merge all social products
   const socialStructures = allProducts.filter(c => c && c.type === 'social');
-  const socialStructure = mergeSocialStructures(socialStructures);
-
+  const socialStructure = mergeSocialStructures(
+    socialStructures.map(x => x.socialStructure)
+  );
   const products = allProducts.filter(c => c.type === 'product');
   const prod = products.length > 0 ? products[0] : null;
 
@@ -83,11 +84,12 @@ const runDataflow = (
   if (type === 'operator') {
     const operatorFunction = operatorTypesObj[node.operatorType].operator;
     const product = Promise.await(operatorFunction(node.data, object));
-    Products.update(
-      nodeId,
-      { type: node.type, activityData: product },
-      { upsert: true }
-    );
+
+    const update = node.type === 'product'
+      ? { activityData: product }
+      : { socialStructure: product };
+    Products.update(nodeId, { type: node.type, ...update }, { upsert: true });
+
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
   } else if (type === 'activity') {
     mergeData(nodeId, object);

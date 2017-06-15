@@ -12,7 +12,7 @@ export default (activityId: string, object: ObjectT) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
 
-  const [groups, _structure] = getInstances(activityId);
+  const [groups, structure] = getInstances(activityId);
   groups.forEach(grouping => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
@@ -35,7 +35,7 @@ export default (activityId: string, object: ObjectT) => {
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);
           // merging in config with incoming product
-          const product = extractUnit(activityData, grouping);
+          const product = extractUnit(activityData, structure, grouping);
           if (product) {
             mergeFunction(product, dataFn);
           }

@@ -45,7 +45,12 @@ export const focusRole = (structure: studentStructureT): socialStructureT => {
 };
 
 // merges social structures, assumes no top level keys (groupings) overlap
-export const mergeSocialStructures = (...structures: socialStructureT[]) => {
+export const mergeSocialStructures = (
+  structures: socialStructureT[]
+): socialStructureT => {
+  if (structures.length === 1) {
+    return structures[0];
+  }
   const keys = structures.reduce((acc, k) => [...acc, ...Object.keys(k)], []);
   if (new Set(keys).size < keys.length) {
     throw 'Cannot merge two social structures with overlapping attributeKeys';

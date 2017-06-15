@@ -34,7 +34,10 @@ export const getInstances = (
     structure = 'individual';
   } else if (activity.plane === 2) {
     const key = activity.groupingKey;
+    console.log('key', key);
+    console.log('socstruct getinstances', socialStructure);
     groups = getAttributeValues(socialStructure, key);
+    console.log('groups', groups);
     structure = { groupingKey: key };
   } else {
     groups = ['all'];
@@ -43,16 +46,16 @@ export const getInstances = (
   return [groups, structure];
 };
 
-export const addActivity = (activityType, data = {}, id, grouping) => {
+export const addActivity = (activityType, data = {}, id, groupingKey) => {
   if (id) {
-    const toSet = omitBy({ data, grouping }, isNil);
+    const toSet = omitBy({ data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
       _id: uuid(),
       activityType,
       data,
-      grouping,
+      groupingKey,
       createdAt: new Date()
     });
   }

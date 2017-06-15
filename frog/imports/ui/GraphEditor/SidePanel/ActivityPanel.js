@@ -59,7 +59,7 @@ const EditClass = props => {
           <div>
             Group by attribute:{' '}
             <ChangeableText
-              value={activity.grouping}
+              value={activity.groupingKey}
               onChange={grp =>
                 addActivity(activity.activityType, null, activity._id, grp)}
             />
