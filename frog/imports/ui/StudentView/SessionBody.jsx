@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Mosaic, MosaicWindow } from 'react-mosaic-component';
+import { Mosaic } from 'react-mosaic-component';
 
 import { Activities } from '../../api/activities';
 import Runner from './Runner';
@@ -21,9 +21,8 @@ const SessionBody = ({ session }: { session: Object }) =>
   session.openActivities && session.openActivities.length > 0
     ? <Mosaic
         renderTile={activityId =>
-          <MosaicWindow title={Activities.findOne(activityId).title}>
-            <Runner activityId={activityId} />
-          </MosaicWindow>}
+          <Runner activityId={activityId} />
+        }
         initialValue={getInitialState(session.openActivities)}
       />
     : <h1>NO ACTIVITY</h1>;
