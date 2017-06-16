@@ -2,18 +2,14 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import {
-  getAttributeValues,
-  uuid,
-  type ObjectT,
-  type structureDefT
-} from 'frog-utils';
+import { uuid, type ObjectT, type structureDefT } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
 import { Objects } from './objects';
 import { Products } from './products';
 import { Sessions } from './sessions';
+import { doGetInstances } from './doGetInstances';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
@@ -25,25 +21,7 @@ export const getInstances = (
 ): [?(string[]), structureDefT] => {
   const activity = Activities.findOne(activityId);
   const object: ObjectT = Objects.findOne(activityId);
-  const { socialStructure, globalStructure: { studentIds } } = object;
-
-  let groups;
-  let structure;
-  if (activity.plane === 1) {
-    groups = studentIds;
-    structure = 'individual';
-  } else if (activity.plane === 2) {
-    const key = activity.groupingKey;
-    console.log('key', key);
-    console.log('socstruct getinstances', socialStructure);
-    groups = getAttributeValues(socialStructure, key);
-    console.log('groups', groups);
-    structure = { groupingKey: key };
-  } else {
-    groups = ['all'];
-    structure = 'all';
-  }
-  return [groups, structure];
+  return doGetInstances(activity, object);
 };
 
 export const addActivity = (activityType, data = {}, id, groupingKey) => {
