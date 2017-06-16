@@ -83,10 +83,10 @@ const desiredSoc: socialStructureT = {
 };
 
 test('Merge two social structures', () =>
-  expect(mergeSocialStructures(socStruct1, socStruct2)).toEqual(desiredSoc));
+  expect(mergeSocialStructures([socStruct1, socStruct2])).toEqual(desiredSoc));
 
 test('Merging two structures with overlapping keys gives error', () =>
-  expect(() => mergeSocialStructures(socStruct1, socStruct1)).toThrow());
+  expect(() => mergeSocialStructures([socStruct1, socStruct1])).toThrow());
 
 // ----------------------------------------
 
