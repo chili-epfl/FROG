@@ -109,7 +109,7 @@ export default ({
             fun={{
               vote: (id, incr) => {
                 logger({ key: userInfo.name, type: 'vote' });
-                dataFn.numIncr(incr, ['ideas', id, 'score']);
+                dataFn.numIncr(incr, [id, 'score']);
               },
               delete: item => dataFn.objDel(item, ['ideas', item.id])
             }}

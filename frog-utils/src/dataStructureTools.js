@@ -7,7 +7,7 @@ import type {
   socialStructureT,
   activityDataT
 } from './types';
-import { getAttributeKeys, focusStudent } from './socStructTools';
+import { getAttributeKeys, focusStudent } from './socstructTools';
 
 // takes a single dataUnit, config object, or both, for all students, and wraps them in a proper
 // activityDataT structure
