@@ -29,9 +29,13 @@ const Runner = ({ activity, object }) => {
   if (object) {
     const socStructure = focusStudent(object.socialStructure);
     const studentSoc = socStructure[Meteor.userId()];
+    console.log(object);
+    console.log(socStructure, object.socialStructure);
+    console.log('studsoc', studentSoc, activity.groupingKey);
     let groupingValue;
-    if (studentSoc && activity.grouping) {
-      groupingValue = studentSoc[activity.grouping];
+    if (studentSoc && activity.groupingKey) {
+      groupingValue = studentSoc[activity.groupingKey];
+      console.log('groupingvalue', groupingValue);
     } else if (activity.plane === 3) {
       groupingValue = 'all';
     } else {

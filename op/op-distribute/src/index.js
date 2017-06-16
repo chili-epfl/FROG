@@ -41,7 +41,6 @@ export const operator = (configData, object) => {
   if (!Array.isArray(products)) {
     throw 'Can only reshuffle an array';
   }
-
   const groups = configData.individual
     ? globalStructure.studentIds
     : socialStructure[configData.grouping] &&
