@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "ac-brainstorm": "*",
+    "op-distribute": "*",
+    "op-create-groups": "*",
     "op-hypothesis": "*",
     "ac-chat": "*",
     "ac-ck-board": "*",

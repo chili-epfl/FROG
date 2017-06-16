@@ -1,7 +1,7 @@
 import { operator } from '../index';
 import lodash from 'lodash';
 
-lodash.shuffle = jest.fn(x => x.sort());
+lodash.shuffle = jest.fn(x => [...x].sort());
 
 const obj = { globalStructure: { studentIds: ['1', '2', '3', '4', '5'] } };
 
