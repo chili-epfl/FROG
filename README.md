@@ -21,12 +21,12 @@ https://www.meteor.com/tutorials/react/creating-an-app
 - You can use the URL shorthand `<host>/#/{view}/{user}` to automatically open a given component with a given user (which will be automatically created if it does not yet exist). For example, `http://localhost:3000/#/student/peter`, will open the student view logged in as peter.
 - However, if you open a number of windows in the same browser, they will all be logged in as the latest user, because of cookies. A way around this is to add entries like this in /etc/hosts:
 
-```bash
-127.0.0.1	localhost
-127.0.0.1	dev1
-127.0.0.1	dev2
-127.0.0.1	dev3
-```
+   ```bash
+   127.0.0.1	localhost
+   127.0.0.1	dev1
+   127.0.0.1	dev2
+   127.0.0.1	dev3
+   ```
 
 Reload /etc/hosts (on [OSX](https://superuser.com/questions/346518/how-do-i-refresh-the-hosts-file-on-os-x)), and then log in to different users on different "domains". 
 
