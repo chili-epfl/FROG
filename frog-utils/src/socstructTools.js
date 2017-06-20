@@ -1,5 +1,5 @@
 // @flow
-import { isNil, forIn, get, setWith } from 'lodash';
+import { forIn, get, setWith } from 'lodash';
 import type { socialStructureT, studentStructureT } from './types';
 
 // the opposite of focusRole

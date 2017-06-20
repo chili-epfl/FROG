@@ -1,12 +1,14 @@
+/* eslint-disable */
+
 module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   moduleNameMapper: {
     '^meteor/(.*):(.*)$':
-      '<rootDir>/frog/.meteor/local/build/programs/server/packages/\1_\2',
+      '<rootDir>/frog/.meteor/local/build/programs/server/packages/$1_$2',
     '^meteor/(.*)$':
-      '<rootDir>/frog/.meteor/local/build/programs/server/packages/\1',
+      '<rootDir>/frog/.meteor/local/build/programs/server/packages/$1',
     '^meteor/(.*)$':
-      '<rootDir>/frog/.meteor/local/build/programs/web.browser/packages/\1'
+      '<rootDir>/frog/.meteor/local/build/programs/web.browser/packages/$1'
   },
   moduleDirectories: [
     'node_modules',

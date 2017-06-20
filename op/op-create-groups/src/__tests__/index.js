@@ -1,5 +1,6 @@
-import { operator } from '../index';
 import lodash from 'lodash';
+
+import { operator } from '../index';
 
 lodash.shuffle = jest.fn(x => [...x].sort());
 

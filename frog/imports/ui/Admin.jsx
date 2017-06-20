@@ -36,7 +36,7 @@ class DisplayData extends Component {
     isClicked: Boolean
   };
 
-  toggleDisplay = event => {
+  toggleDisplay = () => {
     this.setState({ isClicked: !this.state.isClicked });
   };
 

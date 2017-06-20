@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { ChangeableText } from 'frog-utils';
 
 import { connect, store } from '../store';
 import { Graphs, renameGraph } from '../../../api/graphs';
 
-const Config = ({ graph, ...rest }) =>
+const Config = ({ graph }) =>
   <div style={{ textAlign: 'center' }}>
     <span
       style={{

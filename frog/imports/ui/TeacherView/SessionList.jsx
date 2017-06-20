@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import { A } from 'frog-utils';
 
 import { addSession, setTeacherSession } from '../../api/sessions';
 

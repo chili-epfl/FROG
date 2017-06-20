@@ -9,7 +9,8 @@ module.exports = {
     FileReader: true,
     Blob: true,
     WebSocket: true,
-    Presences: true
+    Presences: true,
+    jest: true
   },
   rules: {
     'no-console': 'error',

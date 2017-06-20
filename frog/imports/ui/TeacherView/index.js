@@ -18,14 +18,6 @@ import { Logs, flushLogs } from '../../api/logs';
 
 import { activityTypesObj } from '../../activityTypes';
 
-const displaySession = session =>
-  ({
-    CREATED: 'Not started',
-    STARTED: 'Control activities',
-    PAUSED: 'Paused',
-    STOPPED: 'Stopped'
-  }[session.state]);
-
 const rawSessionController = ({
   session,
   activities,
@@ -51,7 +43,6 @@ const Dashboard = ({ logs, activities }) => {
   if (activities) {
     Dash = activities.map((a, i) => {
       const activityType = activityTypesObj[a.activityType];
-      console.log('rendering', activityType, logs[i]);
       if (activityType && activityType.Dashboard) {
         return <activityType.Dashboard logs={logs[i]} key={a._id} />;
       } else {
@@ -83,7 +74,11 @@ const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
 
   return (
     <div>
-      <h1 onClick={toggleVisibility}>Logs {!visible && '...'}</h1>
+      <span role="button" tabIndex={0} onClick={toggleVisibility}>
+        <h1>
+          Logs {!visible && '...'}
+        </h1>
+      </span>
       {visible &&
         <div>
           <A onClick={flushLogs}>Flush logs</A>

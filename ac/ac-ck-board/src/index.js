@@ -35,7 +35,7 @@ const config = {
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  object.product.boxes &&
+  if (object.product.boxes) {
     object.product.boxes.forEach(box =>
       dataFn.listAppend({
         ...box,
@@ -43,6 +43,7 @@ const mergeFunction = (object, dataFn) => {
         y: Math.random() * 800
       })
     );
+  }
 };
 
 export default {

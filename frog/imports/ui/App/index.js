@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import sharedbClient from 'sharedb/lib/client';
-import reconnectingWebSocket from 'reconnectingwebsocket';
+import ReconnectingWebSocket from 'reconnectingwebsocket';
 
 import Body from './Body.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -22,7 +22,7 @@ const apps = {
   student: 'Student View'
 };
 
-const socket = new reconnectingWebSocket('ws://localhost:3002');
+const socket = new ReconnectingWebSocket('ws://localhost:3002');
 export const connection = new sharedbClient.Connection(socket);
 window.connection = connection;
 
