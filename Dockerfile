@@ -41,7 +41,7 @@ COPY op/op-jigsaw/package.json op/op-jigsaw/yarn.lock op/op-jigsaw/
 COPY op/op-like-with-like/package.json op/op-like-with-like/yarn.lock op/op-like-with-like/
 COPY op/op-distribute/package.json op/op-distribute/yarn.lock op/op-distribute/
 COPY op/op-argue/package.json op/op-argue/yarn.lock op/op-argue/
-COPY op/op-create-groups/package.json op/op-create-groups/yarn.lock op/op-create-groups
+COPY op/op-create-groups/package.json op/op-create-groups/yarn.lock op/op-create-groups/
 
 RUN sh /usr/src/frog/initial_docker.sh
 
