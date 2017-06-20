@@ -34,7 +34,7 @@ export const operator = (configData, object) => {
   const struct = chunk(ids, configData.groupsize);
   const last = struct.slice(-1);
   if (last.length < configData.groupsize && configData.strategy === 'minimum') {
-    let leftover = struct.pop();
+    const leftover = struct.pop();
     while (leftover.length > 0) {
       struct.forEach(x => x.push(leftover.pop()));
     }

@@ -3,7 +3,6 @@
 import { Mongo } from 'meteor/mongo';
 import type { ObjectT } from 'frog-utils'; // eslint-disable-line
 import { uuid } from 'frog-utils'; // eslint-disable-line
-import { engineLogger } from './logs';
 
 export const Objects = new Mongo.Collection('objects');
 
