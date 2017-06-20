@@ -31,7 +31,7 @@ export const addProduct = (
     _id: uuid(),
     activityId,
     userId,
-    data,
+    ...data,
     groupId,
     username: Meteor.user().username,
     createdAt: new Date()
@@ -46,7 +46,7 @@ export const addNodeProduct = (
   Products.insert({
     nodeId,
     userId,
-    data,
+    ...data,
     createdAt: new Date(),
     _id: uuid()
   });

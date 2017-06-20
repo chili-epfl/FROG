@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
@@ -59,7 +59,7 @@ const EditClass = props => {
           <div>
             Group by attribute:{' '}
             <ChangeableText
-              value={activity.grouping}
+              value={activity.groupingKey}
               onChange={grp =>
                 addActivity(activity.activityType, null, activity._id, grp)}
             />

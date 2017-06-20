@@ -1,3 +1,4 @@
+// @flow
 import { isEqual } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import Stringify from 'json-stable-stringify';

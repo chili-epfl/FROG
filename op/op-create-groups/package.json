@@ -1,5 +1,5 @@
 {
-  "name": "op-aggregate-ck-board",
+  "name": "op-create-groups",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsonpath-plus": "^0.16.0"
+    "lodash": "^4.17.4"
   }
 }

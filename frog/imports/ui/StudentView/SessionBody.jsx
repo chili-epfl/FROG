@@ -3,7 +3,6 @@
 import React from 'react';
 import { Mosaic } from 'react-mosaic-component';
 
-import { Activities } from '../../api/activities';
 import Runner from './Runner';
 
 const getInitialState = (activities, d = 1) => {
@@ -20,9 +19,7 @@ const getInitialState = (activities, d = 1) => {
 const SessionBody = ({ session }: { session: Object }) =>
   session.openActivities && session.openActivities.length > 0
     ? <Mosaic
-        renderTile={activityId =>
-          <Runner activityId={activityId} />
-        }
+        renderTile={activityId => <Runner activityId={activityId} />}
         initialValue={getInitialState(session.openActivities)}
       />
     : <h1>NO ACTIVITY</h1>;

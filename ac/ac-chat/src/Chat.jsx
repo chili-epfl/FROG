@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import type { ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT, uuid } from 'frog-utils';
 
 import TextInput from './TextInput';
 
@@ -13,17 +13,16 @@ export default ({
   logger,
   data,
   dataFn,
-  userInfo,
-  object
+  userInfo
 }: ActivityRunnerT) =>
   <div>
     <h4>{configData.title}</h4>
     <ul>
-      {data.map((chatmsg, i) => <Chatmsg msg={chatmsg} key={i} />)}
+      {data.map(chatmsg => <Chatmsg msg={chatmsg} key={chatmsg.id} />)}
     </ul>
     <TextInput
       callbackFn={e => {
-        dataFn.listAppend({ msg: e, user: userInfo.name });
+        dataFn.listAppend({ msg: e, user: userInfo.name, id: uuid() });
         logger({ chat: e });
       }}
     />

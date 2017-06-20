@@ -8,8 +8,14 @@ export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
 export { TextInput, ChangeableText } from './TextInput';
-export { focusStudent, focusRole } from './socstructTools';
-export { wrapUnitAll } from './dataStructureTools';
+export {
+  mergeSocialStructures,
+  focusStudent,
+  focusRole,
+  getAttributeKeys,
+  getAttributeValues
+} from './socstructTools';
+export { wrapUnitAll, extractUnit } from './dataStructureTools';
 export type {
   studentStructureT,
   socialStructureT,
@@ -22,7 +28,8 @@ export type {
   ActivityRunnerT,
   ActivityPackageT,
   productOperatorT,
-  socialOperatorT
+  socialOperatorT,
+  operatorPackageT
 } from './types';
 
 export const A = ({ onClick, children, ...rest }: any): any =>

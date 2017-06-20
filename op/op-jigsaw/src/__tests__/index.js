@@ -1,5 +1,6 @@
-import op from '..';
 import lodash from 'lodash';
+
+import { operator } from '..';
 
 const object = {
   globalStructure: { studentIds: [1, 2, 3, 4, 5] },
@@ -16,5 +17,5 @@ const configData = { roles: 'chef, baker' };
 lodash.shuffle = jest.fn(x => x.sort());
 
 test('Works', () => {
-  expect(op.operator(configData, object)).toEqual(expectedOutput);
+  expect(operator(configData, object)).toEqual(expectedOutput);
 });

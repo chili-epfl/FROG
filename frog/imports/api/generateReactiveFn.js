@@ -1,9 +1,7 @@
 import { uuid } from 'frog-utils';
 
-const cleanPath = (defPath, newPath = []) => {
-  if (newPath.constructor !== Array) {
-    newPath = [newPath];
-  }
+const cleanPath = (defPath, rawPath = []) => {
+  const newPath = rawPath.constructor !== Array ? [rawPath] : rawPath;
   return [...defPath, ...newPath];
 };
 
@@ -69,11 +67,9 @@ class Doc {
       oi: newVal
     });
   }
-  specialize(path) {
-    if (path.constructor !== Array) {
-      path = [path];
-    }
-    return new Doc(this.doc, [...this.path, ...path]);
+  specialize(rawPath) {
+    const newPath = rawPath.constructor !== Array ? [rawPath] : rawPath;
+    return new Doc(this.doc, [...this.path, ...newPath]);
   }
 
   specializeData(path, data) {

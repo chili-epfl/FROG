@@ -1,29 +1,39 @@
+// @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
 import { omitBy, isNil } from 'lodash';
+import { uuid, type ObjectT, type structureDefT } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
-import { activityTypesObj } from '../activityTypes';
 import { Graphs } from './graphs';
+import { Objects } from './objects';
 import { Products } from './products';
 import { Sessions } from './sessions';
+import doGetInstances from './doGetInstances';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
 
-export const addActivity = (activityType, data = {}, id, grouping) => {
+export const getInstances = (
+  activityId: string
+): [?(string[]), structureDefT] => {
+  const activity = Activities.findOne(activityId);
+  const object: ObjectT = Objects.findOne(activityId);
+  return doGetInstances(activity, object);
+};
+
+export const addActivity = (activityType, data = {}, id, groupingKey) => {
   if (id) {
-    const toSet = omitBy({ data, grouping }, isNil);
+    const toSet = omitBy({ data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
       _id: uuid(),
       activityType,
       data,
-      grouping,
+      groupingKey,
       createdAt: new Date()
     });
   }

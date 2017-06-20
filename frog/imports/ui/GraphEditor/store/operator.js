@@ -58,7 +58,6 @@ export default class Operator extends Elem {
   }
 
   @action rename = (newname: string) => {
-    console.log('rename!');
     this.title = newname;
     store.addHistory();
   };

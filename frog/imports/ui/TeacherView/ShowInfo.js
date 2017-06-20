@@ -33,15 +33,11 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
         </div>
         <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
           <h3>Object</h3>
-          {object
-            ? <Inspector data={{ object: object }} expandLevel={5} />
-            : null}
+          {object ? <Inspector data={{ object }} expandLevel={5} /> : null}
         </div>
         <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
           <h3>Product</h3>
-          {product
-            ? <Inspector data={{ product: product }} expandLevel={5} />
-            : null}
+          {product ? <Inspector data={{ product }} expandLevel={5} /> : null}
         </div>
       </div>
     </Modal>
