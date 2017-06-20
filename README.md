@@ -28,7 +28,7 @@ https://www.meteor.com/tutorials/react/creating-an-app
    127.0.0.1	dev3
    ```
 
-Reload /etc/hosts (on [OSX](https://superuser.com/questions/346518/how-do-i-refresh-the-hosts-file-on-os-x)), and then log in to different users on different "domains". 
+Reload `/etc/hosts` (on [OSX](https://superuser.com/questions/346518/how-do-i-refresh-the-hosts-file-on-os-x)), and then log in to different users on different "domains". 
 
 
 ## Code style/testing
