@@ -36,7 +36,9 @@ export const extractUnit = (
   attributeValue: string,
   socialStructure?: socialStructureT
 ): dataUnitStructT => {
-  if (data.structure === 'all') {
+  if (!data){
+    return { data: {}, config: {} }
+  } else if (data.structure === 'all') {
     return data.payload.all;
   } else if (data.structure === 'individual') {
     if (activityStructure === 'individual') {
