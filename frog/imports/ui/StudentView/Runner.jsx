@@ -4,7 +4,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent, extractUnit } from 'frog-utils';
+import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
@@ -54,7 +54,7 @@ const Runner = ({ activity, object }) => {
     const config = activity.data;
     const activityStructure = getInstances(activity._id)[1];
 
-    const activityData = extractUnit(
+    const activityData = getMergedExtractedUnit(
       object.activityData,
       config,
       activityStructure,

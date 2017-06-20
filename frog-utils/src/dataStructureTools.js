@@ -11,12 +11,12 @@ import { getAttributeKeys, focusStudent } from './socstructTools';
 
 const mergeConfig = (
   configData: Object,
-  payload: dataUnitStructT
+  payload?: dataUnitStructT
 ): dataUnitStructT => ({
-  data: payload.data,
+  data: payload && payload.data,
   config: {
     ...configData,
-    ...payload.config
+    ...(payload && payload.config)
   }
 });
 
@@ -32,22 +32,21 @@ export const wrapUnitAll = (
 
 export const extractUnit = (
   data: activityDataT,
-  configData: Object,
   activityStructure: structureDefT,
   attributeValue: string,
   socialStructure?: socialStructureT
 ): ?dataUnitStructT => {
   if (!data) {
-    return { data: {}, config: configData };
+    return;
   }
 
   if (data.structure === 'all') {
-    return mergeConfig(configData, data.payload.all);
+    return data.payload.all;
   }
 
   if (data.structure === 'individual') {
     if (activityStructure === 'individual') {
-      return mergeConfig(configData, data.payload[attributeValue]);
+      return data.payload[attributeValue];
     } else {
       throw 'Cannot provide individually mapped product to an activity above plane 1';
     }
@@ -59,7 +58,7 @@ export const extractUnit = (
   ) {
     if (typeof activityStructure === 'object') {
       if (getAttributeKeys(data).indexOf(data.structure.groupingKey)) {
-        return mergeConfig(configData, data.payload[attributeValue]);
+        return data.payload[attributeValue];
       } else {
         throw 'Grouping key not found in activityData';
       }
@@ -72,7 +71,19 @@ export const extractUnit = (
         Error('Student not in group matching groupingKey');
       }
       const grp = studentFocused[attributeValue][data.structure.groupingKey];
-      return mergeConfig(configData, data.payload[grp]);
+      return data.payload[grp];
     }
   }
 };
+
+export const getMergedExtractedUnit = (
+  configData: Object,
+  data: activityDataT,
+  activityStructure: structureDefT,
+  attributeValue: string,
+  socialStructure?: socialStructureT
+): ?dataUnitStructT =>
+  mergeConfig(
+    configData,
+    extractUnit(data, activityStructure, attributeValue, socialStructure)
+  );

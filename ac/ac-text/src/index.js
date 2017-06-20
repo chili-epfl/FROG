@@ -18,7 +18,7 @@ export const config = {
     },
     text: {
       type: 'string',
-      title: 'Text (HTML)'
+      title: 'Text'
     }
   }
 };

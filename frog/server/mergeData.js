@@ -37,7 +37,6 @@ export default (activityId: string, object: ObjectT) => {
           // merging in config with incoming product
           const instanceActivityData = extractUnit(
             activityData,
-            activity.data,
             activityStructure,
             grouping
           );
