@@ -15,6 +15,8 @@ import { focusStudent } from 'frog-utils';
 import ReactiveHOC from './ReactiveHOC';
 
 const Runner = ({ activity, object }) => {
+  console.log('RUNNER');
+  console.log({ activity, object });
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }

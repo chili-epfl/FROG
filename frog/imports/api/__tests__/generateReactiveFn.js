@@ -15,9 +15,8 @@ const createDoc = (initial = {}) =>
     });
   });
 
-test('Can get empty doc', () => {
-  return createDoc().then(doc => expect(doc.data).toEqual({}));
-});
+test('Can get empty doc', () =>
+  createDoc().then(doc => expect(doc.data).toEqual({})));
 
 const wrapOps = (ops, initial = {}) =>
   createDoc([]).then(doc => {

@@ -37,7 +37,8 @@ export type ObjectT = {
 
 export type ActivityRunnerT = {
   logger: Function, // logging callback
-  data: dataUnitStructT,
+  activityData: dataUnitStructT,
+  data: any,
   dataFn: Object,
   userInfo: { id: string, name: string }
 };

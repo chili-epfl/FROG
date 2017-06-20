@@ -81,7 +81,7 @@ export const operator = (configData, object) => {
   const structure = configData.individual
     ? 'individual'
     : { groupingKey: configData.grouping };
-  return { structure: structure, payload: res };
+  return { structure, payload: res };
 };
 
 export default {
