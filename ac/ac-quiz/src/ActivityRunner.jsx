@@ -4,14 +4,7 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 import type { ActivityRunnerT } from 'frog-utils';
 
-export default (props: ActivityRunnerT) => {
-  const {
-    activityData,
-    userInfo,
-    data,
-    dataFn
-  } = props;
-
+export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   const schema = {
     title: activityData.config.name,
     type: 'object',
@@ -35,7 +28,9 @@ export default (props: ActivityRunnerT) => {
     schema.properties['' + i] = {
       type: 'object',
       title: 'Question ' + (1 + i),
-      properties: activityData.config.justify ? { radio, justification } : { radio }
+      properties: activityData.config.justify
+        ? { radio, justification }
+        : { radio }
     };
     uiSchema['' + i] = {
       radio: { 'ui:widget': 'radio' }
@@ -45,11 +40,11 @@ export default (props: ActivityRunnerT) => {
   const formData = data.form;
 
   const onSubmit = () => {
-    dataFn.objInsert(true, 'completed')
-  }
+    dataFn.objInsert(true, 'completed');
+  };
 
   const onChange = e => {
-    dataFn.objInsert(e.formData, 'form')
+    dataFn.objInsert(e.formData, 'form');
   };
 
   return (
