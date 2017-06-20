@@ -16,7 +16,6 @@ const createDoc = (initial = {}) =>
     });
   });
 
-
 /* eslint-enable */
 
 test('Can get empty doc', () =>

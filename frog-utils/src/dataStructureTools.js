@@ -9,6 +9,17 @@ import type {
 } from './types';
 import { getAttributeKeys, focusStudent } from './socstructTools';
 
+const mergeConfig = (
+  configData: Object,
+  payload: dataUnitStructT
+): dataUnitStructT => ({
+  data: payload.data,
+  config: {
+    ...configData,
+    ...payload.config
+  }
+});
+
 // takes a single dataUnit, config object, or both, for all students, and wraps them in a proper
 // activityDataT structure
 export const wrapUnitAll = (
@@ -21,21 +32,22 @@ export const wrapUnitAll = (
 
 export const extractUnit = (
   data: activityDataT,
+  configData: Object,
   activityStructure: structureDefT,
   attributeValue: string,
   socialStructure?: socialStructureT
 ): ?dataUnitStructT => {
   if (!data) {
-    return;
+    return { data: {}, config: configData };
   }
 
   if (data.structure === 'all') {
-    return data.payload.all;
+    return mergeConfig(configData, data.payload.all);
   }
 
   if (data.structure === 'individual') {
     if (activityStructure === 'individual') {
-      return data.payload[attributeValue];
+      return mergeConfig(configData, data.payload[attributeValue]);
     } else {
       throw 'Cannot provide individually mapped product to an activity above plane 1';
     }
@@ -47,7 +59,7 @@ export const extractUnit = (
   ) {
     if (typeof activityStructure === 'object') {
       if (getAttributeKeys(data).indexOf(data.structure.groupingKey)) {
-        return data.payload[attributeValue];
+        return mergeConfig(configData, data.payload[attributeValue]);
       } else {
         throw 'Grouping key not found in activityData';
       }
@@ -60,7 +72,7 @@ export const extractUnit = (
         Error('Student not in group matching groupingKey');
       }
       const grp = studentFocused[attributeValue][data.structure.groupingKey];
-      return data.payload[grp];
+      return mergeConfig(configData, data.payload[grp]);
     }
   }
 };

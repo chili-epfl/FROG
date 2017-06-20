@@ -14,8 +14,6 @@ import { Activities } from '../../api/activities';
 import ReactiveHOC from './ReactiveHOC';
 
 const Runner = ({ activity, object }) => {
-  console.log('RUNNER');
-  console.log({ activity, object });
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }

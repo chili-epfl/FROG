@@ -3,8 +3,7 @@
 import {
   type ObjectT,
   type activityDataT,
-  type socialStructureT,
-  extractUnit
+  type socialStructureT
 } from 'frog-utils';
 import doGetInstances from '../doGetInstances';
 
