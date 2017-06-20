@@ -23,10 +23,10 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ data }: ActivityRunnerT) =>
+export const ActivityRunner = ({ activityData }: ActivityRunnerT) =>
   <div>
-    <h1>{data.config ? data.config.title : 'NO TITLE'}</h1>
-    <p>{data.config ? data.config.text : 'NO TEXT'}</p>
+    <h1>{activityData.config ? activityData.config.title : 'NO TITLE'}</h1>
+    <p>{activityData.config ? activityData.config.text : 'NO TEXT'}</p>
   </div>;
 export default ({
   id: 'ac-text',

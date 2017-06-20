@@ -4,13 +4,12 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent } from 'frog-utils';
+import { focusStudent, extractUnit } from 'frog-utils';
 
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
-import { saveProduct } from '../../api/products';
 import { Objects } from '../../api/objects';
-import { Activities } from '../../api/activities';
+import { Activities, getInstances } from '../../api/activities';
 import ReactiveHOC from './ReactiveHOC';
 
 const Runner = ({ activity, object }) => {
@@ -28,6 +27,7 @@ const Runner = ({ activity, object }) => {
   if (object) {
     const socStructure = focusStudent(object.socialStructure);
     const studentSoc = socStructure[Meteor.userId()];
+
     let groupingValue;
     if (studentSoc && activity.groupingKey) {
       groupingValue = studentSoc[activity.groupingKey];
@@ -51,14 +51,23 @@ const Runner = ({ activity, object }) => {
       title = `(individual/${Meteor.user().username})`;
     }
 
+    const config = activity.data;
+    const activityStructure = getInstances(activity._id)[1];
+
+    const activityData = extractUnit(
+      object.activityData,
+      config,
+      activityStructure,
+      studentSoc,
+      object.socialStructure
+    );
+
     return (
       <MosaicWindow title={activity.title + ' ' + title}>
         <ActivityToRun
-          configData={activity.data || {}}
-          object={object}
+          activityData={activityData}
           userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
           logger={logger}
-          saveProduct={saveProduct(activity._id)}
         />
       </MosaicWindow>
     );
@@ -67,8 +76,7 @@ const Runner = ({ activity, object }) => {
 };
 
 export default createContainer(({ activityId }) => {
-  const o = Objects.find(activityId).fetch();
-  const object = o && o[0];
+  const object = Objects.findOne(activityId) || {};
   const activity = Activities.findOne(activityId);
   return { activity, object };
 }, Runner);
