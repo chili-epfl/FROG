@@ -36,9 +36,8 @@ export type ObjectT = {
 };
 
 export type ActivityRunnerT = {
-  object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
-  data: dataUnitT,
+  data: dataUnitStructT,
   dataFn: Object,
   userInfo: { id: string, name: string }
 };

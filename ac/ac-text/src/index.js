@@ -5,7 +5,7 @@ import React from 'react';
 import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
 
 export const meta = {
-  name: 'HTML text component',
+  name: 'Text Component',
   type: 'react-component'
 };
 
@@ -19,22 +19,19 @@ export const config = {
     text: {
       type: 'string',
       title: 'Text (HTML)'
-    },
-    showProducts: {
-      type: 'boolean',
-      title: 'Show products?'
     }
   }
 };
 
-export const ActivityRunner = ({ configData, object }: ActivityRunnerT) =>
-  <div>
-    <h1>{configData.title}</h1>
-    <p>{configData.text}</p>
-    {configData.showProducts
-      ? <pre>{JSON.stringify(object.products, null, 2)}</pre>
-      : null}
-  </div>;
+export const ActivityRunner = ({ configData, data }: ActivityRunnerT) => {
+  console.log(configData)
+  return(
+    <div>
+      <h1>{data.config ? data.config.title : 'NO TITLE'}</h1>
+      <p>{data.config ? data.config.text : 'NO TEXT'}</p>
+    </div>
+  )
+}
 export default ({
   id: 'ac-text',
   ActivityRunner,
