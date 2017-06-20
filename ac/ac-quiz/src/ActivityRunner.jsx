@@ -2,21 +2,18 @@
 
 import React from 'react';
 import Form from 'react-jsonschema-form';
-import type { ActivityRunnerT, ProductT } from 'frog-utils';
+import type { ActivityRunnerT } from 'frog-utils';
 
 export default (props: ActivityRunnerT) => {
   const {
-    configData,
-    saveProduct,
-    object,
+    activityData,
     userInfo,
-    reactiveData,
-    reactiveFn
+    data,
+    dataFn
   } = props;
-  const { products, socialStructures } = object;
 
   const schema = {
-    title: configData.name,
+    title: activityData.config.name,
     type: 'object',
     properties: {}
   };
@@ -25,60 +22,39 @@ export default (props: ActivityRunnerT) => {
     MCQ: { 'ui:options': { backgroundColor: 'pink' } }
   };
 
-  configData.MCQ.forEach((question, questionIndex) => {
+  activityData.config.MCQ.forEach((q, i) => {
     const radio = {
       type: 'string',
-      title: question.question,
-      enum: question.answers.map(answer => answer.answer)
+      title: q.question,
+      enum: q.answers.map(answer => answer.answer)
     };
     const justification = {
       type: 'string',
       title: 'Explain your answer'
     };
-    schema.properties['' + questionIndex] = {
+    schema.properties['' + i] = {
       type: 'object',
-      title: 'Question ' + (1 + questionIndex),
-      properties: configData.justify ? { radio, justification } : { radio }
+      title: 'Question ' + (1 + i),
+      properties: activityData.config.justify ? { radio, justification } : { radio }
     };
-    uiSchema['' + questionIndex] = {
+    uiSchema['' + i] = {
       radio: { 'ui:widget': 'radio' }
     };
   });
 
-  const socialStructure = socialStructures.find(x => x[userInfo.id]);
-  const group =
-    (socialStructure && socialStructure[userInfo.id].group) ||
-    (configData.collab && 'EVERYONE') ||
-    'ALONE' + userInfo.id;
+  const formData = data.form;
 
-  const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
-  const formData = reactiveKey ? reactiveKey.DATA : null;
-  const completed = reactiveKey && reactiveKey['COMPLETED' + userInfo.id];
-
-  if (!formData) {
-    const findProducts = products.find(x => x.length > 0);
-    const studentProduct = findProducts
-      ? findProducts.find((p: ProductT) => p.userId === userInfo.id)
-      : {};
-
-    const product = studentProduct ? studentProduct.data : null;
-    if (product) {
-      reactiveFn(group).keySet('DATA', product);
-    }
+  const onSubmit = () => {
+    dataFn.objInsert(true, 'completed')
   }
 
-  const onSubmit = e => {
-    saveProduct(userInfo.id, e.formData);
-    reactiveFn(group).keySet('COMPLETED' + userInfo.id, true);
-  };
-
   const onChange = e => {
-    reactiveFn(group).keySet('DATA', e.formData);
+    dataFn.objInsert(e.formData, 'form')
   };
 
   return (
     <div>
-      {completed
+      {data.completed
         ? <h1>Form completed!</h1>
         : <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />}
     </div>
