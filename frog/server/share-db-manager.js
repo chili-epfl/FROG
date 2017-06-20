@@ -17,6 +17,7 @@ export const startShareDB = () => {
     backend.listen(new WebsocketJSONStream(ws));
   });
 
+  // $FlowFixMe
   server.listen(3002, err => {
     if (err) throw err;
   });

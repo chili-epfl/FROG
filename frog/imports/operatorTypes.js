@@ -22,7 +22,7 @@ export const operatorTypes: Array<operatorPackageT> = [
   opHypothesis,
   opCreateGroups,
   opDistribute
-];
+].map(x => Object.freeze(x));
 
 // somehow lodash.keyBy has the type {[id]: ??}, which means that the object can be null
 // this means it will not fit in the type we want, and give us flow errors whenever
