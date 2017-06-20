@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import lodash from 'lodash';
 
 import { operator } from '../index';
+=======
+import { operator } from '../index';
+import lodash from 'lodash';
+>>>>>>> develop
 
 lodash.shuffle = jest.fn(x => [...x].sort());
 

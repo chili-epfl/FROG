@@ -4,7 +4,6 @@ import { type activityDataT } from 'frog-utils';
 
 import { getInstances } from '../imports/api/activities';
 import { Products } from '../imports/api/products';
-import { getDoc } from './share-db-manager';
 
 // given an activity ID, checks the dataStructure for a list of instances, fetches
 // the reactive data for each instance, and compiles it into an activityDataT object
