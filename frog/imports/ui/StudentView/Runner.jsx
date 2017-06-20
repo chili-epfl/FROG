@@ -29,22 +29,28 @@ const Runner = ({ activity, object }) => {
   if (object) {
     const socStructure = focusStudent(object.socialStructure);
     const studentSoc = socStructure[Meteor.userId()];
-    let grouping;
-    if (studentSoc && activity.grouping) {
-      grouping = studentSoc[activity.grouping];
+    let groupingValue;
+    if (studentSoc && activity.groupingKey) {
+      groupingValue = studentSoc[activity.groupingKey];
+    } else if (activity.plane === 3) {
+      groupingValue = 'all';
     } else {
-      grouping = 'all';
+      groupingValue = Meteor.userId();
     }
-    const reactiveId = activity._id + '/' + grouping;
+    const reactiveId = activity._id + '/' + groupingValue;
 
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activity.activityType;
-    const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(
-      RunComp
-    );
+    const ActivityToRun = ReactiveHOC(
+      { ...activityType.dataStructure },
+      reactiveId
+    )(RunComp);
 
-    const groupingStr = activity.grouping ? activity.grouping : '';
-    const title = '(' + groupingStr + '/' + grouping + ')';
+    const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
+    let title = '(' + groupingStr + groupingValue + ')';
+    if (activity.plane === 1) {
+      title = `(individual/${Meteor.user().username})`;
+    }
 
     return (
       <MosaicWindow title={activity.title + ' ' + title}>
@@ -62,8 +68,8 @@ const Runner = ({ activity, object }) => {
 };
 
 export default createContainer(({ activityId }) => {
-  const o = Objects.findOne(activityId);
-  const object = o ? o.data : null;
+  const o = Objects.find(activityId).fetch();
+  const object = o && o[0];
   const activity = Activities.findOne(activityId);
   return { activity, object };
 }, Runner);

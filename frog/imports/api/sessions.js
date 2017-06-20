@@ -9,7 +9,6 @@ import { uuid } from 'frog-utils';
 import { Activities, Operators, Connections } from './activities';
 import { runSession, nextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
-import runDataflow from './runDataflow';
 
 export const restartSession = (session: string) =>
   Meteor.call('sessions.restart', session);
@@ -64,7 +63,7 @@ export const updateOpenActivities = (
   );
   if (Meteor.isServer) {
     openActivities.forEach(activityId => {
-      runDataflow('activity', activityId, sessionId);
+      Meteor.call('dataflow.run', 'activity', activityId, sessionId);
     });
   }
 };

@@ -1,6 +1,6 @@
 // @flow
 
-import type { ActivityPackageT } from 'frog-utils';
+import { type dataUnitStructT, type ActivityPackageT } from 'frog-utils';
 
 import config from './config';
 import ActivityRunner from './ActivityRunner';
@@ -11,19 +11,12 @@ const meta = {
   type: 'react-component'
 };
 
-const dataStructure = {
-  ideas: {},
-  config: {}
-};
+const dataStructure = {};
 
-const mergeFunction = (object, dataFn) => {
-  // object.boxes.map(box =>
-  //   dataFn.listAppend({
-  //     ...box,
-  //     x: Math.random() * 800,
-  //     y: Math.random() * 800
-  //   })
-  // );
+const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
+  if (obj.data) {
+    obj.data.forEach(box => dataFn.objInsert({ score: 0, ...box }, box.id));
+  }
 };
 
 export default ({

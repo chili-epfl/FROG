@@ -39,6 +39,7 @@ const ReactiveHOC = (dataStructure, docId) => WrappedComponent => {
     };
 
     componentWillUnmount = () => {
+      this.doc.destroy();
       if (this.timeout) {
         window.clearTimeout(this.timeout);
       }
