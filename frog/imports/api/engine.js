@@ -2,15 +2,9 @@
 
 import { Meteor } from 'meteor/meteor';
 
-import type { SocialStructureT, ProductT, ObjectT } from 'frog-utils';
-
-import { Activities, Connections, Operators } from './activities';
+import { Activities } from './activities';
 import { Sessions, updateSessionState, updateOpenActivities } from './sessions';
 import { engineLogger } from './logs';
-import { Products, addNodeProduct } from './products';
-import { addObject } from './objects';
-
-import { operatorTypesObj } from '../operatorTypes';
 
 export const runSession = (sessionId: string) =>
   Meteor.call('run.session', sessionId);

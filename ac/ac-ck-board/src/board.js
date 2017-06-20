@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Stringify from 'json-stable-stringify';
 
 import ObservationContainer from './obs_container';
 import ObservationDetail from './obs_detail';
@@ -25,7 +24,7 @@ class Cluster extends Component {
 
       return (
         <ObservationContainer
-          key={i}
+          key={y.id}
           setXY={setXY}
           openInfoFn={openInfoFn}
           observation={y}

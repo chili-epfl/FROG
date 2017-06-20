@@ -1,8 +1,6 @@
 // @flow
 
 import { shuffle, compact } from 'lodash';
-import type { ObjectT, SocialStructureT } from 'frog-utils';
-import { focusRole } from 'frog-utils';
 
 export const meta = {
   name: 'Distribute content',
@@ -46,8 +44,7 @@ export const operator = (configData, object) => {
     : socialStructure[configData.grouping] &&
         Object.keys(socialStructure[configData.grouping]);
   if (!groups) {
-    `Could not find ${configData.grouping} in the social structure`;
-    return;
+    throw `Could not find ${configData.grouping} in the social structure`;
   }
   let res = groups.reduce((acc, k) => ({ ...acc, [k]: [] }), {});
 
@@ -81,7 +78,7 @@ export const operator = (configData, object) => {
   const structure = configData.individual
     ? 'individual'
     : { groupingKey: configData.grouping };
-  return { structure: structure, payload: res };
+  return { structure, payload: res };
 };
 
 export default {

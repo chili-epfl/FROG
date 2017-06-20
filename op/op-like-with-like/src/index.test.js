@@ -1,10 +1,8 @@
-import pkg from '.';
+import { operator } from '.';
 
 const configData = {};
 test('does not work without studentId in product', () => {
-  expect(
-    pkg.operator(configData, { products: [['a', 'a', 'b', 'c']] })
-  ).toEqual({
+  expect(operator(configData, { products: [['a', 'a', 'b', 'c']] })).toEqual({
     product: [],
     socialStructure: {
       undefined: {
@@ -16,7 +14,7 @@ test('does not work without studentId in product', () => {
 
 test('product with user id', () => {
   expect(
-    pkg.operator(configData, {
+    operator(configData, {
       products: [
         [
           { userId: 'a', data: 'b' },
