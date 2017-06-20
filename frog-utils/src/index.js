@@ -17,6 +17,7 @@ export {
 } from './socstructTools';
 export { wrapUnitAll, extractUnit } from './dataStructureTools';
 export type {
+  ActivityDbT,
   studentStructureT,
   socialStructureT,
   dataUnitT,

@@ -1,8 +1,14 @@
 // @flow
+
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import { uuid, type ObjectT, type structureDefT } from 'frog-utils';
+import {
+  uuid,
+  type ObjectT,
+  type structureDefT,
+  type ActivityDbT
+} from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
@@ -18,13 +24,18 @@ export const Results = new Mongo.Collection('results');
 
 export const getInstances = (
   activityId: string
-): [?(string[]), structureDefT] => {
+): { groups: string[], structure: structureDefT } => {
   const activity = Activities.findOne(activityId);
   const object: ObjectT = Objects.findOne(activityId);
   return doGetInstances(activity, object);
 };
 
-export const addActivity = (activityType, data = {}, id, groupingKey) => {
+export const addActivity = (
+  activityType: string,
+  data: ?Object = {},
+  id: string,
+  groupingKey: ?string
+) => {
   if (id) {
     const toSet = omitBy({ data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
@@ -39,14 +50,14 @@ export const addActivity = (activityType, data = {}, id, groupingKey) => {
   }
 };
 
-export const duplicateActivity = activity =>
+export const duplicateActivity = (activity: ActivityDbT) =>
   Activities.insert({
     ...activity,
     _id: uuid(),
     data: { ...activity.data, name: activity.data.name + ' (copy)' }
   });
 
-export const addGraphActivity = params =>
+export const addGraphActivity = (params: Object) =>
   Activities.insert({
     ...params,
     graphId: params.graphId,
@@ -54,10 +65,10 @@ export const addGraphActivity = params =>
     _id: uuid()
   });
 
-export const importActivity = params =>
+export const importActivity = (params: Object) =>
   Activities.insert({ ...params, createdAt: new Date(), _id: params._id });
 
-export const importGraphActivity = (params, thisGraphId) =>
+export const importGraphActivity = (params: Object, thisGraphId: string) =>
   Activities.insert({
     ...params,
     graphId: thisGraphId,
@@ -65,10 +76,10 @@ export const importGraphActivity = (params, thisGraphId) =>
     _id: params._id
   });
 
-export const removeGraphActivity = activityId =>
+export const removeGraphActivity = (activityId: string) =>
   Meteor.call('graph.flush.activity', activityId);
 
-export const addGraphOperator = params =>
+export const addGraphOperator = (params: Object) =>
   Operators.insert({
     ...params,
     graphId: params.graphId,
@@ -76,13 +87,13 @@ export const addGraphOperator = params =>
     _id: uuid()
   });
 
-export const importOperator = params =>
+export const importOperator = (params: Object) =>
   Operators.insert({ ...params, createdAt: new Date(), _id: params._id });
 
-export const importConnection = params =>
+export const importConnection = (params: Object) =>
   Connections.insert({ ...params, createdAt: new Date(), _id: params._id });
 
-export const importGraphOperator = (params, thisGraphId) =>
+export const importGraphOperator = (params: Object, thisGraphId: string) =>
   Operators.insert({
     ...params,
     graphId: thisGraphId,
@@ -91,8 +102,8 @@ export const importGraphOperator = (params, thisGraphId) =>
   });
 
 export const copyActivityIntoGraphActivity = (
-  graphActivityId,
-  fromActivityId
+  graphActivityId: string,
+  fromActivityId: string
 ) => {
   const fromActivity = Activities.findOne(fromActivityId);
   Activities.update(graphActivityId, {
@@ -105,8 +116,8 @@ export const copyActivityIntoGraphActivity = (
 };
 
 export const copyOperatorIntoGraphOperator = (
-  graphOperatorId,
-  fromOperatorId
+  graphOperatorId: string,
+  fromOperatorId: string
 ) => {
   const fromOperator = Operators.findOne(fromOperatorId);
   Operators.update(graphOperatorId, {
@@ -118,15 +129,20 @@ export const copyOperatorIntoGraphOperator = (
   });
 };
 
-export const removeGraph = graphId => Meteor.call('graph.flush.all', graphId);
+export const removeGraph = (graphId: string) =>
+  Meteor.call('graph.flush.all', graphId);
 
 export const deleteDatabase = () => Meteor.call('graph.flush.db');
 
-export const dragGraphActivity = (id, xPosition) => {
+export const dragGraphActivity = (id: string, xPosition: number) => {
   Activities.update(id, { $inc: { xPosition } });
 };
 
-export const addOperator = (operatorType, data = {}, id) => {
+export const addOperator = (
+  operatorType: string,
+  data: Object = {},
+  id: string
+) => {
   if (id) {
     Operators.update(id, { $set: { data } });
   } else {
@@ -138,14 +154,6 @@ export const addOperator = (operatorType, data = {}, id) => {
       createdAt: new Date()
     });
   }
-};
-
-export const addResult = (type, activityId, result) => {
-  Results.update(
-    { _id: activityId + type },
-    { $set: { type, activityId, result, createdAt: new Date() } },
-    { upsert: true }
-  );
 };
 
 export const flushActivities = () => Meteor.call('activities.flush');
