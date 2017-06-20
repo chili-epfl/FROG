@@ -55,8 +55,8 @@ const Runner = ({ activity, object }) => {
     const activityStructure = getInstances(activity._id)[1];
 
     const activityData = getMergedExtractedUnit(
-      object.activityData,
       config,
+      object.activityData,
       activityStructure,
       studentSoc,
       object.socialStructure
