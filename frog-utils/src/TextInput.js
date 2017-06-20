@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { A } from './index';
 
 export class TextInput extends Component {
   constructor(props: { value: string, onChange: Function, style?: string }) {
@@ -22,12 +21,16 @@ export class TextInput extends Component {
 
   onChange = (e: any) => {
     this.setState({ val: e.target.value });
-    this.props.onChange && this.props.onChange(e.target.value);
+    if (this.props.onChange) {
+      this.props.onChange(e.target.value);
+    }
   };
 
   onSubmit = (e: any) => {
     e.preventDefault();
-    this.props.onSubmit && this.props.onSubmit(this.state.val);
+    if (this.props.onSubmit) {
+      this.props.onSubmit(this.state.val);
+    }
   };
 
   textInput: { focus: Function };
@@ -35,10 +38,14 @@ export class TextInput extends Component {
   handleKey = (e: any) => {
     if (e.keyCode === 27) {
       e.preventDefault();
-      this.props.onCancel && this.props.onCancel();
+      if (this.props.onCancel) {
+        this.props.onCancel();
+      }
     }
     if (e.keyCode === 13) {
-      this.props.onSubmit && this.props.onSubmit(this.state.val);
+      if (this.props.onSubmit) {
+        this.props.onSubmit(this.state.val);
+      }
     }
   };
 
@@ -81,17 +88,25 @@ export class ChangeableText extends Component {
           {...rest}
           onSubmit={e => {
             this.setState({ edit: false, value: e });
-            this.props.onSubmit && this.props.onSubmit(e);
+            if (this.props.onSubmit) {
+              this.props.onSubmit(e);
+            }
           }}
         />
       );
     } else {
       return (
         <span>
-          <span onClick={() => this.setState({ edit: true })}>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={() => this.setState({ edit: true })}
+          >
             &nbsp;{this.state.value}
           </span>
           <i
+            role="button"
+            tabIndex={0}
             style={{ color: 'blue' }}
             onClick={() => this.setState({ edit: true })}
             className={`fa fa-pencil ${this.props.onlyHover && 'edithover'}`}

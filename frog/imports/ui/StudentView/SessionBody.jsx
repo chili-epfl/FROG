@@ -3,7 +3,6 @@
 import React from 'react';
 import { Mosaic } from 'react-mosaic-component';
 
-import { Activities } from '../../api/activities';
 import Runner from './Runner';
 
 const getInitialState = (activities, d = 1) => {

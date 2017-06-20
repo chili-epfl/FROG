@@ -1,14 +1,9 @@
 // @flow
 
-import {
-  getAttributeValues,
-  type activityDataT,
-  type ObjectT
-} from 'frog-utils';
+import { type activityDataT } from 'frog-utils';
 
-import { Activities, getInstances } from '../imports/api/activities';
+import { getInstances } from '../imports/api/activities';
 import { Products } from '../imports/api/products';
-import { Objects } from '../imports/api/objects';
 import { getDoc } from './share-db-manager';
 
 // given an activity ID, checks the dataStructure for a list of instances, fetches

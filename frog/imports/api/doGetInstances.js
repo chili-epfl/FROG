@@ -1,6 +1,5 @@
 // @flow
 import { getAttributeValues, type ObjectT } from 'frog-utils';
-import assert from 'assert';
 
 // given an activityEntry and an objectEntry, calculates which instances
 // to create

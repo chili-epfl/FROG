@@ -1,8 +1,6 @@
 // @flow
 
 import { shuffle, chunk, compact } from 'lodash';
-import type { ObjectT, SocialStructureT } from 'frog-utils';
-import { focusRole } from 'frog-utils';
 
 export const meta = {
   name: 'Create groups',

@@ -2,8 +2,11 @@ import { operator } from '../index';
 
 jest.mock('frog-utils', () => {
   const createUUID = () => {
-    let cntr = 0;
-    return () => cntr++;
+    let cntr = -1;
+    return () => {
+      cntr += 1;
+      return cntr;
+    };
   };
   const uuid = createUUID();
   const frogutils = require.requireActual('frog-utils');

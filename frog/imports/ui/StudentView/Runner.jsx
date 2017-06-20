@@ -4,14 +4,13 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
+import { focusStudent } from 'frog-utils';
 
 import { activityTypesObj } from '../../activityTypes';
-import { ActivityData, reactiveFn } from '../../api/activityData';
 import { createLogger } from '../../api/logs';
 import { saveProduct } from '../../api/products';
 import { Objects } from '../../api/objects';
 import { Activities } from '../../api/activities';
-import { focusStudent } from 'frog-utils';
 import ReactiveHOC from './ReactiveHOC';
 
 const Runner = ({ activity, object }) => {

@@ -71,7 +71,6 @@ const IdeaList = ({ ideas, fun, remove }) =>
 
 export default ({
   configData,
-  object,
   userInfo,
   logger,
   data,

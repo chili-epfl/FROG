@@ -5,6 +5,7 @@ import generateReactiveFn from '../generateReactiveFn';
 const share = new ShareDB();
 const connection = share.connect();
 
+// eslint-disable-next-line
 const createDoc = (initial = {}) =>
   new Promise(resolve => {
     const doc = connection.get('coll', uuid());
@@ -15,9 +16,13 @@ const createDoc = (initial = {}) =>
     });
   });
 
+
+/* eslint-enable */
+
 test('Can get empty doc', () =>
   createDoc().then(doc => expect(doc.data).toEqual({})));
 
+// eslint-disable-next-line
 const wrapOps = (ops, initial = {}) =>
   createDoc([]).then(doc => {
     const dataFn = generateReactiveFn(doc);
