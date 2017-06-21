@@ -1,13 +1,14 @@
 // @flow
 
 import { shuffle, chunk, compact } from 'lodash';
+import { type socialOperatorT } from 'frog-utils';
 
-export const meta = {
+const meta = {
   name: 'Create groups',
   type: 'social'
 };
 
-export const config = {
+const config = {
   type: 'object',
   properties: {
     groupsize: {
@@ -27,7 +28,7 @@ export const config = {
   }
 };
 
-export const operator = (configData, object) => {
+const operator = (configData, object) => {
   const { globalStructure } = object;
 
   const ids = shuffle(globalStructure.studentIds);
@@ -52,9 +53,9 @@ export const operator = (configData, object) => {
   return result;
 };
 
-export default {
+export default ({
   id: 'op-create-groups',
   operator,
   config,
   meta
-};
+}: socialOperatorT);
