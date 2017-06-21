@@ -4,7 +4,7 @@ import React from 'react';
 import { uuid } from 'frog-utils';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
-import FlipMove from 'react-flip-move';
+import FlipMove from '@houshuang/react-flip-move';
 import { values } from 'lodash';
 import {
   Badge,
