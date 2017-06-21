@@ -3,7 +3,6 @@ RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 RUN npm install -g babel-cli flow-copy-source
 
-
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 RUN mkdir -p frog \
@@ -40,6 +39,7 @@ COPY op/op-group-identical/package.json op/op-group-identical/yarn.lock op/op-gr
 COPY op/op-distribute/package.json op/op-distribute/yarn.lock op/op-distribute/
 COPY op/op-argue/package.json op/op-argue/yarn.lock op/op-argue/
 COPY op/op-create-groups/package.json op/op-create-groups/yarn.lock op/op-create-groups/
+COPY initial_docker.sh /usr/src/
 
 RUN sh /usr/src/frog/initial_docker.sh
 
