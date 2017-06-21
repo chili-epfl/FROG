@@ -29,53 +29,35 @@ const modifyForm = (questions, title) => {
   return formdef;
 };
 
-const ActivityRunner = (art: ActivityRunnerT) => {
-  const {
-    configData,
-    object,
-    reactiveData,
-    reactiveFn,
-    saveProduct,
-    userInfo
-  } = art;
+const ActivityRunner = ({ activityData, data, dataFn }: ActivityRunnerT) => {
+  const formData = data.form;
 
-  const { socialStructures } = object;
-  const group =
-    (socialStructures &&
-      socialStructures[0] &&
-      socialStructures[0][userInfo.id] &&
-      socialStructures[0][userInfo.id].group) ||
-    (configData.collab && 'EVERYONE') ||
-    'ALONE' + userInfo.id;
-
-  const reactiveKey = reactiveData.keys.find(x => x.groupId === group);
-  const completed = reactiveKey ? reactiveKey.COMPLETED : false;
-  const formData = reactiveKey ? reactiveKey.DATA : null;
-
-  const schema = modifyForm(configData.questions, configData.title);
+  const schema = modifyForm(
+    activityData.config.questions,
+    activityData.config.title
+  );
 
   const onChange = e => {
-    reactiveFn(group).keySet('DATA', e.formData);
+    dataFn.objInsert(e.formData, 'form');
   };
 
-  const onSubmit = e => {
-    saveProduct(userInfo.id, e.formData);
-    if (!configData.multiple) {
-      complete();
+  const onSubmit = () => {
+    if (!activityData.config.multiple) {
+      dataFn.objInsert(true, 'completed');
     }
   };
 
   const complete = () => {
-    reactiveFn(group).keySet('COMPLETED', true);
+    dataFn.objInsert(true, 'completed');
   };
 
   return (
     <div>
-      {completed
+      {data.completed
         ? <h1>Form(s) submitted</h1>
         : <div>
             <Form {...{ schema, formData, onChange, onSubmit }} />
-            {!!configData.multiple &&
+            {activityData.config.multiple &&
               <button onClick={complete} className="btn btn-primary btn-sm">
                 Complete
               </button>}

@@ -18,7 +18,7 @@ export type socialStructureT = {
 
 export type dataUnitT = Object | any[];
 
-export type dataUnitStructT = { config?: Object, data?: dataUnitT };
+export type dataUnitStructT = { config: Object, data?: dataUnitT };
 
 export type structureDefT = { groupingKey: string } | 'individual' | 'all';
 
