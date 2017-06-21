@@ -21,6 +21,7 @@ export {
   getMergedExtractedUnit
 } from './dataStructureTools';
 export type {
+  ActivityDbT,
   studentStructureT,
   socialStructureT,
   dataUnitT,
