@@ -4,7 +4,7 @@ import { Mongo } from 'meteor/mongo';
 
 export const GlobalSettings = new Mongo.Collection('global_settings');
 
-export const getGlobalSetting = (key: string) => {
+export const getGlobalSetting = (key: string): any => {
   const ret = GlobalSettings.findOne(1);
   return ret ? ret[key] : null;
 };
