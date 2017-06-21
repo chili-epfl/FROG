@@ -3,7 +3,6 @@ RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 RUN npm install -g babel-cli flow-copy-source
 
-
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 RUN mkdir -p frog \
@@ -17,12 +16,12 @@ ac/ac-iframe/src \
 ac/ac-quiz/src \
 ac/ac-text/src \
 ac/ac-video/src \
+op/op-argue/src \
 op/op-create-groups/src \
 op/op-distribute/src \
-op/op-jigsaw/src \
+op/op-group-identical/src \
 op/op-hypothesis/src \
-op/op-argue/src \
-op/op-group-identical/src
+op/op-jigsaw/src
 COPY package.json yarn.lock ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
@@ -35,13 +34,14 @@ COPY ac/ac-quiz/package.json ac/ac-quiz/yarn.lock ac/ac-quiz/
 COPY ac/ac-text/package.json ac/ac-text/yarn.lock ac/ac-text/
 COPY ac/ac-video/package.json ac/ac-video/yarn.lock ac/ac-video/
 COPY op/op-argue/package.json op/op-argue/yarn.lock op/op-argue/
-COPY op/op-jigsaw/package.json op/op-jigsaw/yarn.lock op/op-jigsaw/
-COPY op/op-group-identical/package.json op/op-group-identical/yarn.lock op/op-group-identical/
-COPY op/op-distribute/package.json op/op-distribute/yarn.lock op/op-distribute/
-COPY op/op-argue/package.json op/op-argue/yarn.lock op/op-argue/
 COPY op/op-create-groups/package.json op/op-create-groups/yarn.lock op/op-create-groups/
+COPY op/op-distribute/package.json op/op-distribute/yarn.lock op/op-distribute/
+COPY op/op-group-identical/package.json op/op-group-identical/yarn.lock op/op-group-identical/
+COPY op/op-hypothesis/package.json op/op-hypothesis/yarn.lock op/op-hypothesis/
+COPY op/op-jigsaw/package.json op/op-jigsaw/yarn.lock op/op-jigsaw/
+COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
-RUN sh /usr/src/frog/initial_docker.sh
+RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 
 COPY frog/package.json frog/
 RUN cd /usr/src/frog/frog && /usr/local/bin/meteor npm install --allow-superuser
@@ -55,7 +55,7 @@ RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once -
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
-RUN sh /usr/src/frog/initial_docker.sh
+RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 COPY frog frog/
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
