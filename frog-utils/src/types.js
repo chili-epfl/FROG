@@ -3,7 +3,8 @@
 export type ActivityDbT = {
   _id: string,
   data: Object,
-  groupingKey: string
+  groupingKey: string,
+  plane: number
 };
 
 // { aa: { group: 1, role: 'chef', color: 'red' },

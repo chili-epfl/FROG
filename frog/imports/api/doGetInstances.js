@@ -2,13 +2,14 @@
 import {
   getAttributeValues,
   type ObjectT,
-  type structureDefT
+  type structureDefT,
+  type ActivityDbT
 } from 'frog-utils';
 
 // given an activityEntry and an objectEntry, calculates which instances
 // to create
 export default (
-  activity: { groupingKey?: string },
+  activity: ActivityDbT,
   object: ObjectT
 ): { groups: string[], structure: structureDefT } => {
   let groups;

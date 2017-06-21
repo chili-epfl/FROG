@@ -25,8 +25,11 @@ export const Results = new Mongo.Collection('results');
 export const getInstances = (
   activityId: string
 ): { groups: string[], structure: structureDefT } => {
-  const activity = Activities.findOne(activityId);
+  const activity: ActivityDbT = Activities.findOne(activityId);
   const object: ObjectT = Objects.findOne(activityId);
+  if (activity === undefined) {
+    throw 'Cannot find activity';
+  }
   return doGetInstances(activity, object);
 };
 
@@ -53,14 +56,13 @@ export const addActivity = (
 export const duplicateActivity = (activity: ActivityDbT) =>
   Activities.insert({
     ...activity,
-    _id: uuid(),
-    data: { ...activity.data, name: activity.data.name + ' (copy)' }
+    createdAt: new Date(),
+    _id: uuid()
   });
 
 export const addGraphActivity = (params: Object) =>
   Activities.insert({
     ...params,
-    graphId: params.graphId,
     createdAt: new Date(),
     _id: uuid()
   });
@@ -82,7 +84,6 @@ export const removeGraphActivity = (activityId: string) =>
 export const addGraphOperator = (params: Object) =>
   Operators.insert({
     ...params,
-    graphId: params.graphId,
     createdAt: new Date(),
     _id: uuid()
   });
@@ -134,14 +135,10 @@ export const removeGraph = (graphId: string) =>
 
 export const deleteDatabase = () => Meteor.call('graph.flush.db');
 
-export const dragGraphActivity = (id: string, xPosition: number) => {
-  Activities.update(id, { $inc: { xPosition } });
-};
-
 export const addOperator = (
   operatorType: string,
   data: Object = {},
-  id: string
+  id: ?string
 ) => {
   if (id) {
     Operators.update(id, { $set: { data } });
