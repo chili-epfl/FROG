@@ -1,5 +1,12 @@
 // @flow
 
+export type ActivityDbT = {
+  _id: string,
+  data: Object,
+  groupingKey: string,
+  plane: number
+};
+
 // { aa: { group: 1, role: 'chef', color: 'red' },
 //   bb: { group: 2, role: 'waiter' },
 //   cc: { role: 'waiter' } }

@@ -12,7 +12,7 @@ import { getDoc } from './share-db-manager';
 export const getActivityDataFromReactive = (
   activityId: string
 ): activityDataT => {
-  const [groups, structure] = getInstances(activityId);
+  const { groups, structure } = getInstances(activityId);
 
   const data = groups.reduce(
     (acc, k) => ({

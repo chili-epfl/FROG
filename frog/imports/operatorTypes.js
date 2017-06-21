@@ -1,7 +1,6 @@
 // @flow
 
-import opLikeWithLike from 'op-like-with-like';
-import opAggregateText from 'op-aggregate-text';
+import opGroupIdentical from 'op-group-identical';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
 import opHypothesis from 'op-hypothesis';
@@ -13,8 +12,7 @@ import type { operatorPackageT } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: Array<operatorPackageT> = [
-  opLikeWithLike,
-  opAggregateText,
+  opGroupIdentical,
   opJigsaw,
   opArgue,
   opHypothesis,
