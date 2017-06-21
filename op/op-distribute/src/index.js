@@ -1,14 +1,15 @@
 // @flow
 
 import { shuffle, compact } from 'lodash';
+import { type productOperatorT } from 'frog-utils';
 
-export const meta = {
+const meta = {
   name: 'Distribute content',
   type: 'product',
   desc: ''
 };
 
-export const config = {
+const config = {
   type: 'object',
   properties: {
     individual: {
@@ -30,7 +31,7 @@ export const config = {
   }
 };
 
-export const operator = (configData, object) => {
+const operator = (configData, object) => {
   const { globalStructure, socialStructure, activityData } = object;
   if (activityData.structure !== 'all') {
     throw 'Cannot redistribute already distributed content';
@@ -81,9 +82,9 @@ export const operator = (configData, object) => {
   return { structure, payload: res };
 };
 
-export default {
+export default ({
   id: 'op-distribute',
   operator,
   config,
   meta
-};
+}: productOperatorT);
