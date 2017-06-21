@@ -8,16 +8,19 @@ export type OperatorTypes = 'product' | 'social';
 
 export default class OperatorStore {
   @observable all: Array<Operator> = [];
-  @action mongoAdd = (x: any) => {
+  @action
+  mongoAdd = (x: any) => {
     if (!store.findId({ type: 'operator', id: x._id })) {
       this.all.push(new Operator(x.time, x.y, x.type, x._id, x.title));
     }
   };
-  @action mongoChange = (newx, oldx) => {
+  @action
+  mongoChange = (newx, oldx) => {
     store.findId({ type: 'operator', id: oldx._id }).update(newx);
   };
 
-  @action mongoRemove = remx => {
+  @action
+  mongoRemove = remx => {
     this.all = this.all.filter(x => x.id !== remx._id);
   };
 
@@ -30,7 +33,8 @@ export default class OperatorStore {
     };
   }
 
-  @action place = (type: OperatorTypes): void => {
+  @action
+  place = (type: OperatorTypes): void => {
     if (store.state.mode === 'normal') {
       store.state = { mode: 'placingOperator', operatorType: type };
     }
