@@ -1,4 +1,4 @@
-// @flows
+// @flow
 
 import Board from './board';
 

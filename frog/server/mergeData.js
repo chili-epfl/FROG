@@ -35,13 +35,13 @@ export default (activityId: string, object: ObjectT) => {
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);
           // merging in config with incoming product
-          const product = extractUnit(
+          const instanceActivityData = extractUnit(
             activityData,
             structure,
             grouping
           );
-          if (product) {
-            mergeFunction(product, dataFn);
+          if (instanceActivityData) {
+            mergeFunction(instanceActivityData, dataFn);
           }
         }
       })

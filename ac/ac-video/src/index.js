@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { booleanize, type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT } from 'frog-utils';
 
 import Dashboard from './dashboard';
 
@@ -31,12 +31,12 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ configData, logger }: ActivityRunnerT) =>
+export const ActivityRunner = ({ activityData, logger }: ActivityRunnerT) =>
   <ReactPlayer
-    url={configData.url}
-    playing={booleanize(configData.playing)}
+    url={activityData.config.url}
+    playing={activityData.config.playing}
     controls
-    loop={booleanize(configData.loop)}
+    loop={activityData.config.loop}
     onStart={() => logger({ paused: false, played: 0 })}
     onPause={() => logger({ paused: true })}
     onPlay={() => logger({ paused: false })}

@@ -24,7 +24,7 @@ export type socialStructureT = {
 
 export type dataUnitT = Object | any[];
 
-export type dataUnitStructT = { config?: Object, data?: dataUnitT };
+export type dataUnitStructT = { config: Object, data?: dataUnitT };
 
 export type structureDefT = { groupingKey: string } | 'individual' | 'all';
 
@@ -42,9 +42,9 @@ export type ObjectT = {
 };
 
 export type ActivityRunnerT = {
-  object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
-  data: dataUnitT,
+  activityData: dataUnitStructT,
+  data: any,
   dataFn: Object,
   userInfo: { id: string, name: string }
 };

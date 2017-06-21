@@ -15,7 +15,11 @@ export {
   getAttributeKeys,
   getAttributeValues
 } from './socstructTools';
-export { wrapUnitAll, extractUnit } from './dataStructureTools';
+export {
+  wrapUnitAll,
+  extractUnit,
+  getMergedExtractedUnit
+} from './dataStructureTools';
 export type {
   ActivityDbT,
   studentStructureT,
