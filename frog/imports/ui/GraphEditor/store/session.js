@@ -23,17 +23,20 @@ export default class Session {
   @observable startedAt: number;
   interval: number;
 
-  @action setTimes = (session: Object): void => {
+  @action
+  setTimes = (session: Object): void => {
     this.updateTimeInGraph(session.timeInGraph);
     this.startedAt = session.startedAt;
     this.updateTimeInClass((Date.now() - this.startedAt) / 6e4);
   };
 
-  @action updateTimeInGraph = (newTime: number): void => {
+  @action
+  updateTimeInGraph = (newTime: number): void => {
     this.timeInGraph = newTime;
   };
 
-  @action updateTimeInClass = (newTime: number): void => {
+  @action
+  updateTimeInClass = (newTime: number): void => {
     if (newTime > -1) {
       this.timeInClass = newTime;
     } else if (this.startedAt > -1) {
