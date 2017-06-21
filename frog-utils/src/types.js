@@ -69,17 +69,5 @@ export type socialOperatorT = {
   id: string,
   meta: { type: string, name: string },
   config: Object,
-  operator: (
-    configData: Object,
-    object: ObjectT
-  ) => {
-    socialStructure: socialStructureT
-  }
-};
-
-export type operatorPackageT = {
-  id: string,
-  meta: { type: string, name: string },
-  config: Object,
-  operator: (configData: Object, object: ObjectT) => any
+  operator: (configData: Object, object: ObjectT) => socialStructureT
 };

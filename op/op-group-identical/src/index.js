@@ -2,45 +2,44 @@
 
 import Stringify from 'json-stable-stringify';
 
-import type { ObjectT, SocialStructureT } from 'frog-utils';
+import type { socialOperatorT } from 'frog-utils';
 
-export const meta = {
+const meta = {
   name: 'Group based on identical student data',
   type: 'social'
 };
 
-export const config = {
+const config = {
   type: 'object',
   properties: {}
 };
 
 // Obviously assumes even array
-export const operator = (configData: Object, object: ObjectT) => {
-  const products = object.products[0];
+const operator = (configData, object) => {
+  const { activityData } = object;
+  if (activityData.structure !== 'individual') {
+    throw 'This operator can only work on an activityStructure with individual student data';
+  }
 
-  const socStruc: SocialStructureT = {};
-  let g = 0;
-  const groups = {};
-  products.forEach(p => {
-    const key = Stringify(p.data);
-    if (!groups[key]) {
-      groups[key] = Stringify(g);
-      g += 1;
-    }
-    socStruc[p.userId] = {
-      group: groups[key]
-    };
+  const objects = {};
+  const data = activityData.payload;
+  Object.keys(data).forEach(studentId => {
+    const newO = Stringify(data[studentId]);
+    objects[newO] = objects[newO] ? [...objects[newO], studentId] : [studentId];
   });
+  const res = Object.keys(objects).reduce(
+    (acc, k, i) => ({ ...acc, [i]: objects[k] }),
+    {}
+  );
 
   return {
-    product: [],
-    socialStructure: socStruc
+    group: res
   };
 };
 
-export default {
+export default ({
   id: 'op-group-identical',
   operator,
   config,
   meta
-};
+}: socialOperatorT);
