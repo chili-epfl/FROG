@@ -4,7 +4,7 @@ IFS=$(echo -en "\n\b")
 # include hidden files (like node_modules/.bin)
 shopt -s dotglob
 
-sh ./initial_setup_wo_meteor.sh
+./initial_setup_wo_meteor.sh
 
 METEOR=meteor
 which meteor | grep -qw meteor || METEOR=/usr/local/bin/meteor
