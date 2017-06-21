@@ -19,7 +19,7 @@ ac/ac-video/src \
 op/op-argue/src \
 op/op-create-groups/src \
 op/op-distribute/src \
-op/op-group-identical/src\
+op/op-group-identical/src \
 op/op-hypothesis/src \
 op/op-jigsaw/src
 COPY package.json yarn.lock ./

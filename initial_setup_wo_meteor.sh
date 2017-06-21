@@ -1,11 +1,5 @@
 #!/bin/bash
 
-SAVEIFS=$IFS
-￼IFS=$(echo -en "\n\b")
-
-# include hidden files (like node_modules/.bin)
-shopt -s dotglob
-
 FROG=`pwd`
 YARN=yarn
 which yarn | grep -qw yarn || npm install yarn@0.24.6
