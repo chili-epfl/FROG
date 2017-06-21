@@ -87,7 +87,7 @@ class ActivityComponent extends Component {
             </DraggableCore>
             <DraggableCore
               onStart={() => startResizing(activity)}
-              onDrag={(_, { deltaX }) => activity.resize()}
+              onDrag={() => activity.resize()}
               onStop={stopResizing}
             >
               <rect

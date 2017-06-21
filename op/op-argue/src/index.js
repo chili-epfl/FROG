@@ -1,6 +1,6 @@
 // @flow
 
-import { shuffle } from 'lodash';
+// import { shuffle } from 'lodash';
 import type { ObjectT, socialOperatorT } from 'frog-utils';
 
 const meta = {
@@ -14,7 +14,7 @@ const config = {
 };
 
 const operator = (configData: Object, object: ObjectT) => {
-  const { globalStructure, activityData } = object;
+  // const { globalStructure, activityData } = object;
 
   // computes the distance between two students as the number of different answers
   // const distance = (id1, id2) => {
