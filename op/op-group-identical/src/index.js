@@ -5,7 +5,7 @@ import Stringify from 'json-stable-stringify';
 import type { ObjectT, SocialStructureT } from 'frog-utils';
 
 export const meta = {
-  name: 'Group like with like',
+  name: 'Group based on identical student data',
   type: 'social'
 };
 
@@ -39,7 +39,7 @@ export const operator = (configData: Object, object: ObjectT) => {
 };
 
 export default {
-  id: 'op-like-with-like',
+  id: 'op-group-identical',
   operator,
   config,
   meta
