@@ -20,6 +20,17 @@ const mergeConfig = (
   }
 });
 
+const mergeConfig = (
+  configData: Object,
+  payload?: dataUnitStructT
+): dataUnitStructT => ({
+  data: payload && payload.data,
+  config: {
+    ...configData,
+    ...(payload && payload.config)
+  }
+});
+
 // takes a single dataUnit, config object, or both, for all students, and wraps them in a proper
 // activityDataT structure
 export const wrapUnitAll = (
