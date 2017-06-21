@@ -1,6 +1,4 @@
 #!/bin/bash
-# include hidden files (like node_modules/.bin)
-shopt -s dotglob
 
 ./initial_setup_wo_meteor.sh
 

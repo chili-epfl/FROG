@@ -1,4 +1,8 @@
 #!/bin/bash
+
+SAVEIFS=$IFS
+￼IFS=$(echo -en "\n\b")
+
 # include hidden files (like node_modules/.bin)
 shopt -s dotglob
 
@@ -34,7 +38,7 @@ ln -s $FROG/node_modules/* node_modules/ 2>/dev/null
 ln -s $FROG/frog-utils node_modules/ 2>/dev/null
 ln -s $FROG/.babelrc . 2>/dev/null
 
-for dir in `ls $FROG/ac |grep 'ac'` 
+for dir in `ls $FROG/ac |grep 'ac'`
 do
     ln -s $FROG/ac/$dir node_modules/ 2>/dev/null
 done
