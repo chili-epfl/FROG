@@ -43,3 +43,4 @@ for dir in `ls $FROG/op |grep 'op'`
 do
     ln -s $FROG/op/$dir node_modules/ 2>/dev/null
 done
+exit 0
