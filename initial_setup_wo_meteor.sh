@@ -1,6 +1,4 @@
 #!/bin/bash
-SAVEIFS=$IFS
-IFS=$(echo -en "\n\b")
 # include hidden files (like node_modules/.bin)
 shopt -s dotglob
 
@@ -45,5 +43,3 @@ for dir in `ls $FROG/op |grep 'op'`
 do
     ln -s $FROG/op/$dir node_modules/ 2>/dev/null
 done
-
-IFS=$SAVEIFS
