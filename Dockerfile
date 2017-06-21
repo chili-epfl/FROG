@@ -39,9 +39,9 @@ COPY op/op-group-identical/package.json op/op-group-identical/yarn.lock op/op-gr
 COPY op/op-distribute/package.json op/op-distribute/yarn.lock op/op-distribute/
 COPY op/op-argue/package.json op/op-argue/yarn.lock op/op-argue/
 COPY op/op-create-groups/package.json op/op-create-groups/yarn.lock op/op-create-groups/
-COPY initial_docker.sh /usr/src/
+COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
-RUN sh /usr/src/frog/initial_docker.sh
+RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 
 COPY frog/package.json frog/
 RUN cd /usr/src/frog/frog && /usr/local/bin/meteor npm install --allow-superuser
