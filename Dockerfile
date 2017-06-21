@@ -55,7 +55,7 @@ RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once -
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
-RUN sh /usr/src/frog/initial_docker.sh
+RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 COPY frog frog/
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
