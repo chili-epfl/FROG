@@ -10,7 +10,7 @@ import { Activities, Operators, Connections } from './activities';
 import { runSession, nextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 
-export const restartSession = (session: string) =>
+export const restartSession = (session: { fromGraphId: string, _id: string }) =>
   Meteor.call('sessions.restart', session);
 export const Sessions = new Mongo.Collection('sessions');
 

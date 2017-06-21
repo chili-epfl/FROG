@@ -1,3 +1,5 @@
+// @flow
+
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
@@ -5,29 +7,32 @@ import { Activities, Connections, Operators } from './activities';
 
 export const Graphs = new Mongo.Collection('graphs');
 
-export const addGraph = (name = 'untitled', graph) => {
+export const addGraph = (
+  name: string = 'undefined',
+  graph: ?Object
+): string => {
   const id = uuid();
   Graphs.insert({ ...graph, _id: id, name, createdAt: new Date() });
   return id;
 };
 
-export const uploadGraph = obj => Meteor.call('graph.upload', obj);
+export const uploadGraph = (obj: Object) => Meteor.call('graph.upload', obj);
 
-export const importGraph = params => {
+export const importGraph = (params: Object): string => {
   const id = params._id;
   Graphs.insert({ ...params, _id: id, createdAt: new Date() });
   return id;
 };
 
-export const renameGraph = (graphId, name) =>
+export const renameGraph = (graphId: string, name: string) =>
   Graphs.update(graphId, { $set: { name } });
 
 // updating graph from graph editor
-export const mergeGraph = mergeObj => {
+export const mergeGraph = (mergeObj: Object) => {
   Meteor.call('graph.merge', mergeObj);
 };
 
-export const setCurrentGraph = graphId => {
+export const setCurrentGraph = (graphId: string) => {
   Meteor.users.update(
     { _id: Meteor.userId() },
     { $set: { 'profile.editingGraph': graphId } }

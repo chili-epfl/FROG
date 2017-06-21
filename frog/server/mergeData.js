@@ -30,7 +30,11 @@ export default (activityId: string, object: ObjectT) => {
       'load',
       Meteor.bindEnvironment(() => {
         if (!doc.type) {
-          doc.create({ ...activityType.dataStructure } || {});
+          doc.create(
+            activityType.dataStructure !== undefined
+              ? activityType.dataStructure
+              : {}
+          );
         }
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);

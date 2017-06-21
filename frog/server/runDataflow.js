@@ -1,6 +1,12 @@
 // @flow
+
 import { Meteor } from 'meteor/meteor';
-import { mergeSocialStructures, type ObjectT } from 'frog-utils';
+import {
+  mergeSocialStructures,
+  type ObjectT,
+  type socialStructureT,
+  type activityDataT
+} from 'frog-utils';
 
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
@@ -60,21 +66,28 @@ const runDataflow = (
   // Retrieve all products and merge
   const allProducts = connections.map(conn => Products.findOne(conn.source.id));
 
-  // Merge all social products
+  // Merge all social structures
   const socialStructures = allProducts.filter(c => c && c.type === 'social');
-  const socialStructure = mergeSocialStructures(
+  const socialStructure: socialStructureT = mergeSocialStructures(
     socialStructures.map(x => x.socialStructure)
   );
-  const products = allProducts.filter(c => c.type === 'product');
-  const prod = products.length > 0 ? products[0] : null;
+
+  // Extract the product
+  const prod = allProducts.find(c => c.type === 'product');
+  const activityData: activityDataT = prod && prod.activityData
+    ? prod.activityData
+    : {
+        structure: 'all',
+        payload: { all: { data: {}, config: {} } }
+      };
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
-  const globalStructure = {
+  const globalStructure: { studentIds: string[] } = {
     studentIds: students.map(student => student._id)
   };
 
   const object: ObjectT = {
-    activityData: prod && prod.activityData,
+    activityData,
     socialStructure,
     globalStructure
   };
