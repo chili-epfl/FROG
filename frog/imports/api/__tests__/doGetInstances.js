@@ -42,19 +42,25 @@ test('P2 instances', () => {
   expect(
     doGetInstances({ _id: '', data: {}, plane: 2, groupingKey: 'group' }, objp2)
   ).toEqual({
-    groups: ['chief', 'fireman'], structure: { groupingKey: 'group' }});
+    groups: ['chief', 'fireman'],
+    structure: { groupingKey: 'group' }
+  });
 });
 
 test('P1 instances with social structure', () => {
   expect(
     doGetInstances({ _id: '', data: {}, plane: 1, groupingKey: 'group' }, objp2)
   ).toEqual({
-    groups: ['1', '2', '3', '4', '5', '6', '7', '8', '9'], structure: 'individual'});
+    groups: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    structure: 'individual'
+  });
 });
 
 test('P3 jnstances with social structure', () => {
   expect(
     doGetInstances({ _id: '', data: {}, plane: 3, groupingKey: 'group' }, objp2)
   ).toEqual({
-    groups: ['all'], structure: 'all'});
+    groups: ['all'],
+    structure: 'all'
+  });
 });

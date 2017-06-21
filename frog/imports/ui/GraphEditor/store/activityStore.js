@@ -52,7 +52,8 @@ export default class ActivityStore {
     );
   }
 
-  @action addActivity = (plane: number, rawX: number): void => {
+  @action
+  addActivity = (plane: number, rawX: number): void => {
     if (store.state.mode === 'readOnly') {
       return;
     }
@@ -78,13 +79,15 @@ export default class ActivityStore {
     }
   };
 
-  @action swapActivities = (left: Activity, right: Activity) => {
+  @action
+  swapActivities = (left: Activity, right: Activity) => {
     right.startTime = left.startTime;
     left.startTime = right.startTime + right.length;
     store.addHistory();
   };
 
-  @action startResizing = (activity: Activity) => {
+  @action
+  startResizing = (activity: Activity) => {
     if (store.state.mode === 'rename') {
       store.state.currentActivity.rename(store.state.val);
     }
@@ -92,7 +95,8 @@ export default class ActivityStore {
     store.state = { mode: 'resizing', currentActivity: activity, bounds };
   };
 
-  @action stopMoving = () => {
+  @action
+  stopMoving = () => {
     if (store.state.mode === 'moving' && store.state.currentActivity.wasMoved) {
       store.state = { mode: 'normal' };
       store.ui.cancelScroll();
@@ -100,13 +104,15 @@ export default class ActivityStore {
     }
   };
 
-  @action stopResizing = () => {
+  @action
+  stopResizing = () => {
     store.state = { mode: 'normal' };
     store.ui.cancelScroll();
     store.addHistory();
   };
 
-  @action mongoAdd = (x: any) => {
+  @action
+  mongoAdd = (x: any) => {
     if (!store.findId({ type: 'activity', id: x._id })) {
       this.all.push(
         new Activity(x.plane, x.startTime, x.title, x.length, x._id)
@@ -114,11 +120,13 @@ export default class ActivityStore {
     }
   };
 
-  @action mongoChange = (newact: any, oldact: any) => {
+  @action
+  mongoChange = (newact: any, oldact: any) => {
     store.findId({ type: 'activity', id: oldact._id }).update(newact);
   };
 
-  @action mongoRemove = (remact: any) => {
+  @action
+  mongoRemove = (remact: any) => {
     this.all = this.all.filter(x => x.id !== remact._id);
   };
 
