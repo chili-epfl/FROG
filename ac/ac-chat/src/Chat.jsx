@@ -9,14 +9,14 @@ import TextInput from './TextInput';
 const Chatmsg = ({ msg }) => <li>{msg.user}: {msg.msg}</li>;
 
 export default ({
-  configData,
   logger,
+  activityData,
   data,
   dataFn,
   userInfo
 }: ActivityRunnerT) =>
   <div>
-    <h4>{configData.title}</h4>
+    <h4>{activityData.config.title}</h4>
     <ul>
       {data.map(chatmsg => <Chatmsg msg={chatmsg} key={chatmsg.id} />)}
     </ul>

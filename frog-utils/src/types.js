@@ -71,3 +71,5 @@ export type socialOperatorT = {
   config: Object,
   operator: (configData: Object, object: ObjectT) => socialStructureT
 };
+
+export type operatorPackageT = socialOperatorT | productOperatorT;
