@@ -21,13 +21,12 @@ const getType = item => {
 type ConnectableT = Activity | Operator;
 
 export default class Connection extends Elem {
-  klass: string;
+  klass: 'operator' | 'activity' | 'connection';
   id: string;
   @observable source: ConnectableT;
   @observable target: ConnectableT;
 
-  @action
-  init = (source: ConnectableT, target: ConnectableT, id: ?string) => {
+  @action init = (source: ConnectableT, target: ConnectableT, id: ?string) => {
     this.source = source;
     this.target = target;
     this.id = id || cuid();

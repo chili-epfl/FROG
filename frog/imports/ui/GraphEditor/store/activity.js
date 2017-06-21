@@ -10,8 +10,7 @@ import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
-  @action
-  init = (
+  @action init = (
     plane: number,
     startTime: number,
     title: string,
@@ -39,7 +38,7 @@ export default class Activity extends Elem {
   }
 
   plane: number;
-  klass: string;
+  klass: 'activity' | 'operator' | 'connection';
   id: string;
   @observable over: boolean;
   @observable title: string;
@@ -57,7 +56,7 @@ export default class Activity extends Elem {
   }
   @computed
   get screenX(): number {
-    return timeToPxScreen(this.startTime, 1);
+    return timeToPxScreen(this.startTime);
   }
 
   @computed
@@ -69,21 +68,18 @@ export default class Activity extends Elem {
     return timeToPx(this.length, 4);
   }
 
-  @action
-  update = (newact: $Shape<Activity>) => {
+  @action update = (newact: $Shape<Activity>) => {
     this.length = newact.length;
     this.startTime = newact.startTime;
     this.title = newact.title;
   };
 
-  @action
-  rename = (newname: string) => {
+  @action rename = (newname: string) => {
     this.title = newname;
     store.addHistory();
   };
 
-  @action
-  move = () => {
+  @action move = () => {
     if (store.state.mode === 'readOnly') {
       return;
     }
@@ -139,27 +135,24 @@ export default class Activity extends Elem {
     }
   }
 
-  @action
-  onLeave = () => {
+  @action onLeave = () => {
     this.over = false;
   };
 
-  @action
-  onOver = () => {
+  @action onOver = () => {
     const state = store.state;
-    if (state.mode === 'waitingDrag') {
-      store.activityStore.startMoving(this);
-    } else {
+    if (state.mode !== 'waitingDrag') {
       this.over = true;
     }
   };
+
   @action onLeave = () => (this.over = false);
 
-  @action
-  setRename = () => {
+  @action setRename = () => {
     store.state = {
       mode: 'rename',
-      currentActivity: this
+      currentActivity: this,
+      val: this.title
     };
   };
 

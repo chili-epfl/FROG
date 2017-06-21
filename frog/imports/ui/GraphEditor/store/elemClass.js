@@ -5,11 +5,10 @@ import { store } from './index';
 export default class Elem {
   over: boolean;
   wasMoved: boolean = false;
-  klass: 'operator' | 'activity';
+  klass: 'operator' | 'activity' | 'connection';
   id: string;
 
-  @action
-  select = (): void => {
+  @action select = (): void => {
     if (store.state.mode === 'readOnly') {
       if (this.klass !== 'connection') {
         store.ui.setShowInfo(this.klass, this.id);
@@ -26,8 +25,7 @@ export default class Elem {
     return store.ui.selected === this;
   }
 
-  @action
-  remove = () => {
+  @action remove = () => {
     let thisstore;
     if (this.klass === 'activity') {
       thisstore = store.activityStore;

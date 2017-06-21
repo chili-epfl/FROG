@@ -9,7 +9,7 @@ import type { AnchorT } from '../utils/path';
 export default class Operator extends Elem {
   id: string;
   type: string;
-  klass: string;
+  klass: 'operator' | 'activity' | 'connection';
   @observable y: number;
   @observable title: ?string;
   @observable over: boolean;
@@ -57,8 +57,7 @@ export default class Operator extends Elem {
     return [this.x, this.y];
   }
 
-  @action
-  rename = (newname: string) => {
+  @action rename = (newname: string) => {
     this.title = newname;
     store.addHistory();
   };
@@ -66,8 +65,7 @@ export default class Operator extends Elem {
   @action onOver = (): true => (this.over = true);
   @action onLeave = (): false => (this.over = false);
 
-  @action
-  startDragging = (e: { shiftKey: boolean }): void => {
+  @action startDragging = (e: { shiftKey: boolean }): void => {
     if (!e.shiftKey) {
       store.connectionStore.startDragging(this);
     } else {
@@ -75,8 +73,7 @@ export default class Operator extends Elem {
     }
   };
 
-  @action
-  onDrag = (
+  @action onDrag = (
     e: { shiftKey: boolean },
     { deltaX, deltaY }: { deltaX: number, deltaY: number }
   ) => {
@@ -87,14 +84,12 @@ export default class Operator extends Elem {
     }
   };
 
-  @action
-  moveX = (deltaX: number): void => {
+  @action moveX = (deltaX: number): void => {
     this.time += pxToTime(deltaX, store.ui.scale);
     this.wasMoved = true;
   };
 
-  @action
-  stopDragging = (): void => {
+  @action stopDragging = (): void => {
     if (store.state.mode === 'movingOperator') {
       store.state = { mode: 'normal' };
       store.addHistory();
@@ -165,8 +160,7 @@ export default class Operator extends Elem {
     };
   }
 
-  @action
-  update = (newopt: $Shape<Operator>) => {
+  @action update = (newopt: $Shape<Operator>) => {
     this.time = newopt.time;
     this.y = newopt.y;
     this.title = newopt.title;
