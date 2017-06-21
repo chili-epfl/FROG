@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@houshuang/react-flip-move@^2.9.15":
-  version "2.9.15"
-  resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.15.tgz#b5ac4b14b810380698b9846ff4e7e8bc6a5e7d6a"
+"@houshuang/react-flip-move@^2.9.16":
+  version "2.9.16"
+  resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
 
 asap@~2.0.3:
   version "2.0.5"

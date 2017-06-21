@@ -79,9 +79,14 @@ export class ChangeableText extends Component {
     value: string
   };
 
-  constructor(props: TextInputPropsT) {
+  constructor(
+    props: TextInputPropsT & {
+      EditComponent: ReactClass<*>,
+      onlyHover?: Boolean
+    }
+  ) {
     super(props);
-    this.state = { edit: false, value: this.props.value };
+    this.state = { edit: false, value: (this.props.value = '') };
   }
 
   componentWillReceiveProps(nextProps: TextInputPropsT) {
@@ -91,7 +96,11 @@ export class ChangeableText extends Component {
   }
 
   render() {
-    const { EditComponent = TextInput, ...rest } = this.props;
+    const {
+      EditComponent = TextInput,
+      onlyHover = false,
+      ...rest
+    } = this.props;
     if (this.state.edit) {
       return (
         <EditComponent
@@ -120,7 +129,7 @@ export class ChangeableText extends Component {
             tabIndex={0}
             style={{ color: 'blue' }}
             onClick={() => this.setState({ edit: true })}
-            className={`fa fa-pencil ${this.props.onlyHover && 'edithover'}`}
+            className={`fa fa-pencil ${onlyHover ? 'edithover' : ''}`}
           />
         </span>
       );

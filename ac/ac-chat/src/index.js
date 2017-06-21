@@ -1,5 +1,7 @@
 // @flow
 
+import { type ActivityPackageT } from 'frog-utils';
+
 import ActivityRunner from './Chat';
 
 const meta = {
@@ -19,10 +21,10 @@ const config = {
   }
 };
 
-export default {
+export default ({
   id: 'ac-chat',
   ActivityRunner,
   config,
   meta,
   dataStructure
-};
+}: ActivityPackageT);

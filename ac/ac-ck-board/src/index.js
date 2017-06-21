@@ -1,5 +1,7 @@
 // @flow
 
+import { type ActivityPackageT } from 'frog-utils';
+
 import Board from './board';
 
 const meta = {
@@ -35,18 +37,16 @@ const config = {
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  if (object.product.boxes) {
-    object.product.boxes.forEach(box =>
-      dataFn.listAppend({
-        ...box,
-        x: Math.random() * 800,
-        y: Math.random() * 800
-      })
-    );
-  }
+  object.data.forEach(box =>
+    dataFn.listAppend({
+      ...box,
+      x: Math.random() * 800,
+      y: Math.random() * 800
+    })
+  );
 };
 
-export default {
+export default ({
   id: 'ac-ck-board',
   meta,
   config,
@@ -54,4 +54,4 @@ export default {
   Dashboard: null,
   dataStructure,
   mergeFunction
-};
+}: ActivityPackageT);
