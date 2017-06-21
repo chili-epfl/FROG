@@ -18,7 +18,7 @@ export type socialStructureT = {
 
 export type dataUnitT = Object | any[];
 
-export type dataUnitStructT = { config: Object, data?: dataUnitT };
+export type dataUnitStructT = { config: Object, data: dataUnitT };
 
 export type structureDefT = { groupingKey: string } | 'individual' | 'all';
 
@@ -27,7 +27,7 @@ export type payloadT = { [attributeKey: string]: dataUnitStructT };
 export type activityDataT = {
   structure: structureDefT,
   payload: payloadT
-} | null;
+};
 
 export type ObjectT = {
   socialStructure: socialStructureT,

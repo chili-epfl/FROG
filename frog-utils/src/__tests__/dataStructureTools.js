@@ -4,7 +4,7 @@ import { extractUnit, getMergedExtractedUnit } from '../dataStructureTools';
 
 const dataEmpty = {
   structure: 'all',
-  payload: { all: {} }
+  payload: { all: { data: {}, config: {} } }
 };
 
 const dataAll = {
@@ -15,28 +15,31 @@ const dataAll = {
 const dataInd = {
   structure: 'individual',
   payload: {
-    aa: { data: { text: 'This is a message to aa' } },
-    bb: { data: { text: 'This is a message to bb' } }
+    aa: { data: { text: 'This is a message to aa' }, config: {} },
+    bb: { data: { text: 'This is a message to bb' }, config: {} }
   }
 };
 
 const dataRole = {
-  structure: { groupingKey: 'group' },
+  structure: { groupingKey: 'role' },
   payload: {
-    fireman: { data: { text: 'This is a message to aa' } },
-    chief: { data: { text: 'This is a message to bb' } }
+    fireman: { data: { text: 'This is a message to aa' }, config: {} },
+    chief: { data: { text: 'This is a message to bb' }, config: {} }
   }
 };
 
 const socStruct = {
-  role: { a: ['1', '2'], b: ['3', '4'], c: ['5', '6'], d: ['7', '8'] },
-  group: { chief: ['1', '2', '3', '4', '5'], fireman: ['6', '7', '8', '9'] }
+  group: { a: ['1', '2'], b: ['3', '4'], c: ['5', '6'], d: ['7', '8'] },
+  role: { chief: ['1', '2', '3', '4', '5'], fireman: ['6', '7', '8', '9'] }
 };
 
 const configData = { title: 'hello world', text: 'this is text' };
 
 test('Works on empty data', () => {
-  expect(extractUnit(dataEmpty, 'all', 'all')).toEqual({});
+  expect(extractUnit(dataEmpty, 'all', 'all')).toEqual({
+    data: {},
+    config: {}
+  });
 });
 
 test('Units for object all', () => {
@@ -55,7 +58,8 @@ test('Units for object all', () => {
 
 test('Units for individual', () => {
   expect(extractUnit(dataInd, 'individual', 'bb')).toEqual({
-    data: { text: 'This is a message to bb' }
+    data: { text: 'This is a message to bb' },
+    config: {}
   });
 });
 
@@ -65,13 +69,21 @@ test('Individual products to groups', () => {
 
 test('Units for groups', () => {
   expect(extractUnit(dataRole, { groupingKey: 'role' }, 'fireman')).toEqual({
-    data: { text: 'This is a message to aa' }
+    data: { text: 'This is a message to aa' },
+    config: {}
   });
+});
+
+test('Units for groups with wrong activityStructure', () => {
+  expect(() =>
+    extractUnit(dataRole, { groupingKey: 'wrongKey' }, 'fireman')
+  ).toThrow();
 });
 
 test('Units for individuals in groups', () => {
   expect(extractUnit(dataRole, 'individual', '1', socStruct)).toEqual({
-    data: { text: 'This is a message to bb' }
+    data: { text: 'This is a message to bb' },
+    config: {}
   });
 });
 
@@ -81,7 +93,7 @@ test("Units for individuals in groups, individual doesn't exist", () => {
 
 test('Empty data with configData', () => {
   expect(getMergedExtractedUnit(configData, dataEmpty, 'all', 'all')).toEqual({
-    data: undefined,
+    data: {},
     config: { title: 'hello world', text: 'this is text' }
   });
 });
