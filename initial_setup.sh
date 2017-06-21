@@ -1,5 +1,5 @@
-SAVEIFS=$IFS
 #!/bin/bash
+SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 # include hidden files (like node_modules/.bin)
 shopt -s dotglob
