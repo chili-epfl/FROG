@@ -4,7 +4,7 @@ import { computed, action, observable } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
 import ActivityStore from './activityStore';
-import OperatorStore, { OperatorTypes } from './operatorStore';
+import OperatorStore, { type OperatorTypes } from './operatorStore';
 import ConnectionStore from './connectionStore';
 import Operator from './operator';
 import { Graphs, mergeGraph, setCurrentGraph } from '../../../api/graphs';
@@ -17,8 +17,8 @@ import { timeToPx } from '../utils';
 
 type ElementTypes = 'operator' | 'activity' | 'connection';
 
-export type Elem = Activity | Connection | Operator;
-export type Coll = Array<Elem>;
+type Elem = Activity | Connection | Operator;
+type Coll = Array<any>;
 export type BoundsT = {
   leftBoundActivity: ?Activity,
   rightBoundActivity: ?Activity,
@@ -27,18 +27,19 @@ export type BoundsT = {
 };
 
 type StateT =
-  | { mode: 'resizing', currentActivity: typeof Activity, bounds: BoundsT }
+  | { mode: 'resizing', currentActivity: Activity, bounds: BoundsT }
   | {
       mode: 'moving',
-      currentActivity: typeof Activity,
+      currentActivity: Activity,
       mouseOffset: number
     }
   | { mode: 'waitingDrag' }
-  | { mode: 'movingOperator', currentOperator: typeof Operator }
-  | { mode: 'dragging', draggingFrom: typeof Activity | typeof Operator }
+  | { mode: 'movingOperator', currentOperator: Operator }
+  | { mode: 'dragging', draggingFrom: Activity | Operator }
   | { mode: 'placingOperator', operatorType: OperatorTypes }
-  | { mode: 'rename', currentActivity: typeof Activity, val: string }
-  | { mode: 'normal' };
+  | { mode: 'rename', currentActivity: Activity, val: string }
+  | { mode: 'normal' }
+  | { mode: 'readOnly' };
 
 const getOne = (coll: Coll, crit: Function): ?Elem => {
   const found = coll.filter(crit);
@@ -48,7 +49,7 @@ const getOne = (coll: Coll, crit: Function): ?Elem => {
   return found[0];
 };
 
-const getOneId = (coll: Coll, id: string): Elem =>
+const getOneId = (coll: Coll, id: string): ?Elem =>
   getOne(coll, x => x.id === id);
 
 export default class Store {
@@ -60,7 +61,7 @@ export default class Store {
   @observable ui = new UI();
   @observable graphId: string = '';
   @observable history = [];
-  @observable readOnly: Boolean;
+  @observable readOnly: boolean;
 
   @observable graphDuration: number = 120;
 
@@ -76,7 +77,7 @@ export default class Store {
     return this._state || { mode: 'normal' };
   }
 
-  findId = ({ type, id }: { type: ElementTypes, id: string }): Elem => {
+  findId = ({ type, id }: { type: ElementTypes, id: string }): any => {
     if (type === 'activity') {
       return getOneId(this.activityStore.all, id);
     } else if (type === 'operator') {
@@ -86,7 +87,7 @@ export default class Store {
   };
 
   @action
-  changeDuration = duration => {
+  changeDuration = (duration: number) => {
     if (duration && duration >= 30 && duration <= 1200) {
       const oldPanTime = this.ui.panTime;
       // changes the scale on duration change
@@ -113,7 +114,7 @@ export default class Store {
   };
 
   @action
-  setId = (id: string, readOnly?: Boolean = false): void => {
+  setId = (id: string, readOnly: boolean = false): void => {
     setCurrentGraph(id);
     const graph = Graphs.findOne(id);
 
@@ -144,6 +145,14 @@ export default class Store {
       .map(x => {
         const source = this.findId(x.source);
         const target = this.findId(x.target);
+        if (
+          source instanceof Connection ||
+          target instanceof Connection ||
+          !source ||
+          !target
+        ) {
+          throw 'Cannot find connection source/target, or source/target is a connection';
+        }
         return new Connection(source, target, x._id);
       });
 
@@ -196,6 +205,14 @@ export default class Store {
     this.connectionStore.all = connections.map(x => {
       const source = this.findId(x.source);
       const target = this.findId(x.target);
+      if (
+        source instanceof Connection ||
+        target instanceof Connection ||
+        !source ||
+        !target
+      ) {
+        throw 'Cannot find connection source/target, or source/target is a connection';
+      }
       return new Connection(source, target, x._id);
     });
 
@@ -203,7 +220,7 @@ export default class Store {
   };
 
   @action
-  setSession = session => {
+  setSession = (session: any) => {
     if (this.session.id !== session._id) {
       this.session.close();
       this.session = new Session(session);

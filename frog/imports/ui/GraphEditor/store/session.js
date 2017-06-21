@@ -3,7 +3,13 @@
 import { observable, action } from 'mobx';
 
 export default class Session {
-  constructor(session) {
+  constructor(
+    session: ?{
+      _id: string,
+      timeInGraph: number,
+      startedAt: number
+    }
+  ) {
     if (session) {
       this.id = session._id;
       this.setTimes(session);

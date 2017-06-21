@@ -5,7 +5,7 @@ import { store } from './index';
 export default class Elem {
   over: boolean;
   wasMoved: boolean = false;
-  klass: 'operator' | 'activity';
+  klass: 'operator' | 'activity' | 'connection';
   id: string;
 
   @action

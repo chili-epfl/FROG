@@ -2,7 +2,6 @@
 import { action, observable, computed, reaction } from 'mobx';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
-import type { Elem } from './store';
 import Operator from './operator';
 
 export default class uiStore {
@@ -22,8 +21,8 @@ export default class uiStore {
   @observable svgRef: any = null;
   @observable panx: number = 0;
   @observable scale: number = 4;
-  @observable selected: ?Elem;
-  @observable showModal: Boolean;
+  @observable selected: any;
+  @observable showModal: boolean;
   @observable windowWidth: number = 1000;
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
@@ -78,7 +77,7 @@ export default class uiStore {
   }
 
   @action
-  setModal = (set: Boolean) => {
+  setModal = (set: boolean) => {
     this.showModal = set;
   };
 
@@ -153,7 +152,7 @@ export default class uiStore {
     if (oldpan !== this.panx) {
       if (state.mode === 'resizing') {
         const oldlength = state.currentActivity.length;
-        state.currentActivity.resize(moveDelta);
+        state.currentActivity.resize();
         this.socialPan(moveDelta);
         if (oldlength === state.currentActivity.length) {
           this.panx = oldpan;

@@ -10,19 +10,20 @@ import type { BoundsT } from './store';
 // find activities immediately to the left and to the right of the current activity
 // to draw boundary markers and control movement by dragging and resizing
 export const calculateBounds = (
-  activity: Activity,
+  act: { startTime: number, length: number },
   activities: Array<Activity>
 ): BoundsT => {
+  const activity = { ...act, endTime: act.startTime + act.length };
   const endBefore = activities.filter(ac => ac.endTime <= activity.startTime);
   const startAfter = activities.filter(ac => ac.startTime >= activity.endTime);
-  const leftBoundActivity =
-    endBefore.length &&
-    endBefore.reduce((pre, cur) => (pre.endTime < cur.endTime ? cur : pre));
-  const rightBoundActivity =
-    startAfter.length &&
-    startAfter.reduce(
-      (pre, cur) => (pre.startTime > cur.startTime ? cur : pre)
-    );
+  const leftBoundActivity = endBefore.length
+    ? endBefore.reduce((pre, cur) => (pre.endTime < cur.endTime ? cur : pre))
+    : undefined;
+  const rightBoundActivity = startAfter.length
+    ? startAfter.reduce(
+        (pre, cur) => (pre.startTime > cur.startTime ? cur : pre)
+      )
+    : undefined;
 
   const leftBoundTime = leftBoundActivity ? leftBoundActivity.endTime : 0;
   const rightBoundTime = rightBoundActivity
@@ -42,7 +43,7 @@ export default class ActivityStore {
     this.all = [];
   }
 
-  @observable all: Array<Activity> = [];
+  @observable all: any = [];
 
   @computed
   get activityOffsets(): any {
@@ -62,7 +63,7 @@ export default class ActivityStore {
     let length;
     if (!store.overlapAllowed) {
       const { rightBoundTime } = calculateBounds(
-        { startTime: time, length: 0, id: 0 },
+        { startTime: time, length: 0, id: '0' },
         this.all
       );
       const maxLength = rightBoundTime - time;
@@ -122,7 +123,11 @@ export default class ActivityStore {
 
   @action
   mongoChange = (newact: any, oldact: any) => {
-    store.findId({ type: 'activity', id: oldact._id }).update(newact);
+    const toUpdate = store.findId({ type: 'activity', id: oldact._id });
+    if (!toUpdate) {
+      throw 'Could not find activity to update in Mongo';
+    }
+    toUpdate.update(newact);
   };
 
   @action

@@ -9,7 +9,7 @@ import type { AnchorT } from '../utils/path';
 export default class Operator extends Elem {
   id: string;
   type: string;
-  klass: string;
+  klass: 'operator' | 'activity' | 'connection';
   @observable y: number;
   @observable title: ?string;
   @observable over: boolean;

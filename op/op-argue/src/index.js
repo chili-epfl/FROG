@@ -1,7 +1,7 @@
 // @flow
 
-import { shuffle } from 'lodash';
-import type { ObjectT, socialOperatorT } from 'frog-utils';
+// import { shuffle } from 'lodash';
+import type { socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Argue',
@@ -13,8 +13,8 @@ const config = {
   properties: {}
 };
 
-const operator = (configData: Object, object: ObjectT) => {
-  const { globalStructure, activityData } = object;
+const operator = () =>
+  // const { globalStructure, activityData } = object;
 
   // computes the distance between two students as the number of different answers
   // const distance = (id1, id2) => {
@@ -62,8 +62,7 @@ const operator = (configData: Object, object: ObjectT) => {
   //   };
   // });
 
-  return {};
-};
+  ({});
 
 export default ({
   id: 'op-argue',

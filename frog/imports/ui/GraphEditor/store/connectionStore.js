@@ -10,7 +10,7 @@ import { drawPath } from '../utils/path';
 type MongoConnection = Connection & { _id: string };
 
 export default class ConnectionStore {
-  @observable all: Array<Connection> = [];
+  @observable all: any = [];
 
   // user begins dragging a line to make a connection
   @computed

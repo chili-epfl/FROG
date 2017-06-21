@@ -39,7 +39,7 @@ export default class Activity extends Elem {
   }
 
   plane: number;
-  klass: string;
+  klass: 'activity' | 'operator' | 'connection';
   id: string;
   @observable over: boolean;
   @observable title: string;
@@ -57,7 +57,7 @@ export default class Activity extends Elem {
   }
   @computed
   get screenX(): number {
-    return timeToPxScreen(this.startTime, 1);
+    return timeToPxScreen(this.startTime);
   }
 
   @computed
@@ -147,19 +147,19 @@ export default class Activity extends Elem {
   @action
   onOver = () => {
     const state = store.state;
-    if (state.mode === 'waitingDrag') {
-      store.activityStore.startMoving(this);
-    } else {
+    if (state.mode !== 'waitingDrag') {
       this.over = true;
     }
   };
+
   @action onLeave = () => (this.over = false);
 
   @action
   setRename = () => {
     store.state = {
       mode: 'rename',
-      currentActivity: this
+      currentActivity: this,
+      val: this.title
     };
   };
 

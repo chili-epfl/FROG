@@ -15,17 +15,21 @@ export default class OperatorStore {
     }
   };
   @action
-  mongoChange = (newx, oldx) => {
+  mongoChange = (newx: Operator, oldx: { _id: string }) => {
     store.findId({ type: 'operator', id: oldx._id }).update(newx);
   };
 
   @action
-  mongoRemove = remx => {
+  mongoRemove = (remx: { _id: string }) => {
     this.all = this.all.filter(x => x.id !== remx._id);
   };
 
   @computed
-  get mongoObservers() {
+  get mongoObservers(): {
+    added: Function,
+    changed: Function,
+    removed: Function
+  } {
     return {
       added: this.mongoAdd,
       changed: this.mongoChange,

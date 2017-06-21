@@ -3,11 +3,11 @@
 import React, { Component } from 'react';
 
 type TextInputPropsT = {
-  value: ?string,
-  onChange: ?Function,
-  onSubmit: ?Function,
-  onCancel: ?Function,
-  style: ?string
+  value?: string,
+  onChange?: Function,
+  onSubmit?: Function,
+  onCancel?: Function,
+  style?: string
 };
 
 export class TextInput extends Component {
@@ -81,7 +81,7 @@ export class ChangeableText extends Component {
 
   constructor(
     props: TextInputPropsT & {
-      EditComponent: ReactClass<*>,
+      EditComponent?: ReactClass<*>,
       onlyHover?: Boolean
     }
   ) {

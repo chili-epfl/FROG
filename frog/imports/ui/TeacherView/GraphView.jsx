@@ -9,7 +9,7 @@ import Graph from '../GraphEditor/Graph';
 import { store } from '../GraphEditor/store';
 
 class GraphView extends Component {
-  initStore = session => {
+  initStore = (session: any) => {
     store.setId(session.graphId, true);
     store.setSession(session);
   };

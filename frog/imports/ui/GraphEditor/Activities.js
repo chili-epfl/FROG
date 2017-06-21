@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { DraggableCore } from 'react-draggable';
 import { connect, type StoreProp, store } from './store';
-import { default as ActivityT } from './store/activity';
+import Activity from './store/activity';
 import { getClickHandler } from './utils';
 
 const Box = ({ x, y, width, selected, highlighted }) =>
@@ -40,7 +40,7 @@ class ActivityComponent extends Component {
       },
       activity,
       scaled
-    }: StoreProp & { activity: ActivityT, scaled: Boolean } = this.props;
+    }: StoreProp & { activity: Activity, scaled: Boolean } = this.props;
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
@@ -87,7 +87,7 @@ class ActivityComponent extends Component {
             </DraggableCore>
             <DraggableCore
               onStart={() => startResizing(activity)}
-              onDrag={(_, { deltaX }) => activity.resize(deltaX)}
+              onDrag={() => activity.resize()}
               onStop={stopResizing}
             >
               <rect
@@ -120,7 +120,7 @@ class ActivityComponent extends Component {
   }
 }
 
-const Activity = connect(ActivityComponent);
+const ActivityBox = connect(ActivityComponent);
 
 export default connect(
   ({
@@ -128,6 +128,6 @@ export default connect(
     scaled
   }: StoreProp & { scaled: boolean }) =>
     <g>
-      {all.map(x => <Activity activity={x} scaled={scaled} key={x.id} />)}
+      {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
     </g>
 );

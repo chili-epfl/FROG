@@ -2,10 +2,10 @@
 
 import { uuid } from 'frog-utils';
 
-type rawPathT = string | string []
+type rawPathT = string | string[];
 
-const cleanPath = (defPath: [], rawPath: rawPathT = []): string[] => {
-  const newPath = rawPath.constructor !== Array ? [rawPath] : rawPath;
+const cleanPath = (defPath: string[], rawPath: rawPathT = []): string[] => {
+  const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
   return [...defPath, ...newPath];
 };
 
@@ -53,8 +53,9 @@ class Doc {
   }
   keyedObjInsert(newVal: Object, path: rawPathT) {
     const id = uuid();
+    const aryPath = Array.isArray(path) ? path : [path];
     this.doc.submitOp({
-      p: cleanPath(this.path, [path, id]),
+      p: cleanPath(this.path, [...aryPath, id]),
       oi: { id, ...newVal }
     });
   }

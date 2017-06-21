@@ -58,7 +58,7 @@ const Runner = ({ activity, object }) => {
       config,
       object.activityData,
       activityStructure,
-      studentSoc,
+      groupingValue,
       object.socialStructure
     );
 
