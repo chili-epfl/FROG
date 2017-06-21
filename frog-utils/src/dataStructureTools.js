@@ -65,7 +65,10 @@ export const extractUnit = (
       if (!studentAttributes) {
         throw 'Student not in social structure';
       }
-      if (studentAttributes[data.structure.groupingKey] !== undefined) {
+      if (
+        typeof data.structure === 'object' &&
+        studentAttributes[data.structure.groupingKey] !== undefined
+      ) {
         const grp = studentAttributes[data.structure.groupingKey];
         if (data.payload[grp] !== undefined) {
           return data.payload[grp];
