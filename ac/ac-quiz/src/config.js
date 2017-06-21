@@ -3,10 +3,6 @@
 export default {
   type: 'object',
   properties: {
-    collab: {
-      type: 'boolean',
-      title: 'Collaborative?'
-    },
     justify: {
       type: 'boolean',
       title: 'Students must justify their answers'

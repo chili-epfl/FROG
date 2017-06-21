@@ -3,8 +3,7 @@
 import {
   type ObjectT,
   type activityDataT,
-  type socialStructureT,
-  extractUnit
+  type socialStructureT
 } from 'frog-utils';
 import doGetInstances from '../doGetInstances';
 
@@ -56,57 +55,4 @@ test('P3 jnstances with social structure', () => {
     ['all'],
     'all'
   ]);
-});
-
-test('Units for object all', () => {
-  expect(extractUnit(dataAll, 'all', 'all')).toEqual({
-    data: { text: 'This is a message to everyone' }
-  });
-});
-
-test('Units for object all', () => {
-  expect(extractUnit(dataAll, 'individual', 'dd')).toEqual({
-    data: { text: 'This is a message to everyone' }
-  });
-});
-
-const dataInd = {
-  structure: 'individual',
-  payload: {
-    aa: { data: { text: 'This is a message to aa' } },
-    bb: { data: { text: 'This is a message to bb' } }
-  }
-};
-
-const dataRole = {
-  structure: { groupingKey: 'group' },
-  payload: {
-    fireman: { data: { text: 'This is a message to aa' } },
-    chief: { data: { text: 'This is a message to bb' } }
-  }
-};
-test('Units for individual', () => {
-  expect(extractUnit(dataInd, 'individual', 'aa')).toEqual({
-    data: { text: 'This is a message to aa' }
-  });
-});
-
-test('Individual products to groups', () => {
-  expect(() => extractUnit(dataInd, { groupingKey: 'role' }, 'aa')).toThrow();
-});
-
-test('Units for groups', () => {
-  expect(extractUnit(dataRole, { groupingKey: 'role' }, 'fireman')).toEqual({
-    data: { text: 'This is a message to aa' }
-  });
-});
-
-test('Units for individuals in groups', () => {
-  expect(extractUnit(dataRole, 'individual', '1', socStruct)).toEqual({
-    data: { text: 'This is a message to bb' }
-  });
-});
-
-test("Units for individuals in groups, individual doesn't exist", () => {
-  expect(() => extractUnit(dataRole, 'individual', '12', socStruct)).toThrow();
 });
