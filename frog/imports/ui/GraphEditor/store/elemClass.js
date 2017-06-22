@@ -7,6 +7,8 @@ export default class Elem {
   wasMoved: boolean = false;
   klass: 'operator' | 'activity' | 'connection';
   id: string;
+  state: ?string;
+  color: string;
 
   @action
   select = (): void => {
@@ -24,6 +26,23 @@ export default class Elem {
   @computed
   get selected(): boolean {
     return store.ui.selected === this;
+  }
+
+  @computed
+  get color(): string {
+    if (this.highlighted) {
+      return 'yellow';
+    }
+    switch (this.state) {
+      case 'computing':
+        return '#ffff00';
+      case 'computed':
+        return '#66ff33';
+      case 'error':
+        return '#ff0000';
+      default:
+        return 'white';
+    }
   }
 
   @action

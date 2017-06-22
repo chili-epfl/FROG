@@ -19,6 +19,7 @@ export default connect(
           key={op.id}
           x={coords[0]}
           y={coords[1]}
+          color={op.color}
           onLeave={op.onLeave}
           onOver={op.onOver}
           onClick={op.select}
