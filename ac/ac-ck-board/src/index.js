@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, uuid } from 'frog-utils';
 
 import Board from './board';
 
@@ -13,8 +13,28 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
+    quadrants: {
+      title: 'Draw four quadrants, named as below',
+      type: 'boolean'
+    },
+    quadrant1: {
+      title: 'Quadrant 1 title',
+      type: 'string'
+    },
+    quadrant2: {
+      title: 'Quadrant 2 title',
+      type: 'string'
+    },
+    quadrant3: {
+      title: 'Quadrant 3 title',
+      type: 'string'
+    },
+    quadrant4: {
+      title: 'Quadrant 4 title',
+      type: 'string'
+    },
     boxes: {
-      title: 'Boxes',
+      title: 'Initial boxes',
       type: 'array',
       items: {
         type: 'object',
@@ -37,13 +57,16 @@ const config = {
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  object.data.forEach(box =>
-    dataFn.listAppend({
+  [...(object.config.boxes || []), ...object.data].forEach(box => {
+    if (!box.id) {
+      box.id = uuid();
+    }
+    return dataFn.listAppend({
       ...box,
-      x: Math.random() * 800,
-      y: Math.random() * 800
-    })
-  );
+      x: Math.random() * 400,
+      y: Math.random() * 400
+    });
+  });
 };
 
 export default ({

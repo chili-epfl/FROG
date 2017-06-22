@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import styled from 'styled-components';
 
 import ObservationContainer from './obs_container';
 import ObservationDetail from './obs_detail';
@@ -11,7 +12,9 @@ class Cluster extends Component {
   }
 
   render() {
-    const List = this.props.data.map((y, i) => {
+    const { config } = this.props.activityData;
+    const { data, dataFn } = this.props;
+    const List = data.map((y, i) => {
       const openInfoFn = () => this.setState({ info: y });
       const setXY = (_, draggable) => {
         const newObj = {
@@ -19,16 +22,34 @@ class Cluster extends Component {
           x: y.x + draggable.position.left || 1,
           y: y.y + draggable.position.top || 1
         };
-        this.props.dataFn.listReplace(y, newObj, i);
+        dataFn.listReplace(y, newObj, i);
       };
 
       return (
-        <ObservationContainer
-          key={y.id}
-          setXY={setXY}
-          openInfoFn={openInfoFn}
-          observation={y}
-        />
+        <Container>
+          {config.quadrants
+            ? [
+                <Item group="a">
+                  {config.quadrant1}
+                </Item>,
+                <Item group="b">
+                  {config.quadrant2}
+                </Item>,
+                <Item group="c">
+                  {config.quadrant3}
+                </Item>,
+                <Item group="d">
+                  {config.quadrant4}
+                </Item>
+              ]
+            : null}
+          <ObservationContainer
+            key={y.id}
+            setXY={setXY}
+            openInfoFn={openInfoFn}
+            observation={y}
+          />
+        </Container>
       );
     });
 
@@ -51,3 +72,21 @@ class Cluster extends Component {
 }
 
 export default Cluster;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+`;
+
+const colors = {
+  a: '#e7ffac',
+  b: '#fbe4ff',
+  c: '#dcd3ff',
+  d: '#ffccf9'
+};
+
+const Item = styled.div`
+  width: 50%;
+  background: ${props => colors[props.group]}
+`;

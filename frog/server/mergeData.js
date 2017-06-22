@@ -1,12 +1,15 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { extractUnit, type ObjectT } from 'frog-utils';
+import {
+  generateReactiveFn,
+  getMergedExtractedUnit,
+  type ObjectT
+} from 'frog-utils';
 import { Activities, getInstances } from '../imports/api/activities';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
-import generateReactiveFn from '../imports/api/generateReactiveFn';
 
 export default (activityId: string, object: ObjectT) => {
   const { activityData } = object;
@@ -39,10 +42,12 @@ export default (activityId: string, object: ObjectT) => {
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);
           // merging in config with incoming product
-          const instanceActivityData = extractUnit(
+          const instanceActivityData = getMergedExtractedUnit(
+            activity.data,
             activityData,
             structure,
-            grouping
+            grouping,
+            object.socialStructure
           );
           if (instanceActivityData) {
             mergeFunction(instanceActivityData, dataFn);

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
 
+export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';

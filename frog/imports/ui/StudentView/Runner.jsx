@@ -40,10 +40,9 @@ const Runner = ({ activity, object }) => {
 
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activity.activityType;
-    const ActivityToRun = ReactiveHOC(
-      { ...activityType.dataStructure },
-      reactiveId
-    )(RunComp);
+    const ActivityToRun = ReactiveHOC(activityType.dataStructure, reactiveId)(
+      RunComp
+    );
 
     const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
     let title = '(' + groupingStr + groupingValue + ')';
