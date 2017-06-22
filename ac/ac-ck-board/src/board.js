@@ -45,7 +45,7 @@ class Cluster extends Component {
               ]
             : null}
           <ObservationContainer
-            key={i}
+            key={y.id}
             setXY={setXY}
             openInfoFn={openInfoFn}
             observation={y}
