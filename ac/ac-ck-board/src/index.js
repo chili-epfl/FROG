@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, uuid } from 'frog-utils';
 
 import Board from './board';
 
@@ -57,13 +57,16 @@ const config = {
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  [...(object.config.boxes || []), ...object.data].forEach(box =>
-    dataFn.listAppend({
+  [...(object.config.boxes || []), ...object.data].forEach(box => {
+    if (!box.id) {
+      box.id = uuid();
+    }
+    return dataFn.listAppend({
       ...box,
       x: Math.random() * 400,
       y: Math.random() * 400
-    })
-  );
+    });
+  });
 };
 
 export default ({

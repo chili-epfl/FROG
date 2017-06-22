@@ -13,8 +13,8 @@ class Cluster extends Component {
   }
 
   render() {
-    const { config, dataFn } = this.props.activityData;
-    const { data } = this.props;
+    const { config } = this.props.activityData;
+    const { data, dataFn } = this.props;
     const List = data.map((y, i) => {
       const openInfoFn = () => this.setState({ info: y });
       const setXY = (_, draggable) => {
@@ -29,20 +29,20 @@ class Cluster extends Component {
       return (
         <Container>
           {config.quadrants
-            ? <div>
+            ? [
                 <Item group="a">
                   {config.quadrant1}
-                </Item>
+                </Item>,
                 <Item group="b">
                   {config.quadrant2}
-                </Item>
+                </Item>,
                 <Item group="c">
                   {config.quadrant3}
-                </Item>
+                </Item>,
                 <Item group="d">
                   {config.quadrant4}
                 </Item>
-              </div>
+              ]
             : null}
           <ObservationContainer
             key={i}

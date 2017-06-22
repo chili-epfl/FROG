@@ -99,7 +99,7 @@ export const generateReactiveFn = (doc: any): Object => {
 
 export const inMemoryReactive = (
   initial: any
-): Promise<{ data: any, datafn: Doc }> => {
+): Promise<{ data: any, dataFn: Doc }> => {
   const share = new ShareDB();
   const connection = share.connect();
 

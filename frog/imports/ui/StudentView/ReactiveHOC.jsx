@@ -19,7 +19,7 @@ const ReactiveHOC = (dataStructure: any, docId: string) => (
   WrappedComponent: Class<Component<*, *, *>>
 ) => {
   class ReactiveComp extends Component {
-    state: { data: any, dataFn: Object };
+    state: { data: any, dataFn: ?Object };
     doc: any;
     timeout: ?number;
     unmounted: boolean;
@@ -28,7 +28,7 @@ const ReactiveHOC = (dataStructure: any, docId: string) => (
       super(props);
       this.state = {
         data: dataStructure,
-        dataFn: {}
+        dataFn: null
       };
     }
 
