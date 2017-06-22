@@ -1,6 +1,7 @@
 // @flow
 
-import { uuid } from 'frog-utils';
+import { uuid } from './index';
+import ShareDB from 'sharedb';
 
 type rawPathT = string | string[];
 
@@ -88,10 +89,26 @@ class Doc {
   }
 }
 
-export default (doc: any): Object => {
+export const generateReactiveFn = (doc: any): Object => {
   if (doc) {
     return new Doc(doc, []);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
+};
+
+export const inMemoryReactive = (
+  initial: any
+): Promise<{ data: any, datafn: Doc }> => {
+  const share = new ShareDB();
+  const connection = share.connect();
+
+  return new Promise(resolve => {
+    const doc = connection.get('coll', uuid());
+    doc.subscribe();
+    doc.on('load', () => {
+      doc.create(initial);
+      resolve(doc);
+    });
+  }).then(doc => ({ data: doc, dataFn: new Doc(doc, []) }));
 };

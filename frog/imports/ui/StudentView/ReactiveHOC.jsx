@@ -1,8 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
+import { generateReactiveFn } from 'frog-utils';
+
 import { connection } from '../App/index';
-import generateReactiveFn from '../../api/generateReactiveFn';
 
 const getDisplayName = (WrappedComponent: any): string => {
   if (typeof WrappedComponent.displayName === 'string') {

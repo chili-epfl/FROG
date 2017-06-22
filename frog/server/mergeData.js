@@ -1,12 +1,11 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { extractUnit, type ObjectT } from 'frog-utils';
+import { generateReactiveFn, extractUnit, type ObjectT } from 'frog-utils';
 import { Activities, getInstances } from '../imports/api/activities';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
-import generateReactiveFn from '../imports/api/generateReactiveFn';
 
 export default (activityId: string, object: ObjectT) => {
   const { activityData } = object;
