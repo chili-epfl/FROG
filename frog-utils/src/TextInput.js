@@ -86,7 +86,7 @@ export class ChangeableText extends Component {
     }
   ) {
     super(props);
-    this.state = { edit: false, value: (this.props.value = '') };
+    this.state = { edit: false, value: this.props.value || '' };
   }
 
   componentWillReceiveProps(nextProps: TextInputPropsT) {
