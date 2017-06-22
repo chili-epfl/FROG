@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Stringify from 'json-stable-stringify';
 import styled from 'styled-components';
 
 import ObservationContainer from './obs_container';

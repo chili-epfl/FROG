@@ -8,9 +8,6 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "json-stable-stringify": "^1.0.1",
-    "jsxstyle": "1.0.2",
-    "lodash": "^4.17.2",
     "material-ui": "^0.18.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

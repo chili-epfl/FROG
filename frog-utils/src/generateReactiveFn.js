@@ -1,7 +1,6 @@
 // @flow
-
-import { uuid } from './index';
 import ShareDB from 'sharedb';
+import { uuid } from './index';
 
 type rawPathT = string | string[];
 
