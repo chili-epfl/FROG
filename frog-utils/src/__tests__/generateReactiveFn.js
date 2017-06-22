@@ -1,5 +1,5 @@
 import ShareDB from 'sharedb';
-import { uuid } from 'frog-utils';
+import { uuid } from '..';
 import { generateReactiveFn } from '../generateReactiveFn';
 
 const share = new ShareDB();
