@@ -1,5 +1,7 @@
 #!/bin/bash
 
+shopt -s dotglob
+
 FROG=`pwd`
 YARN=yarn
 which yarn | grep -qw yarn || npm install yarn@0.24.6
