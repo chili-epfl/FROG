@@ -38,4 +38,5 @@ const bindKeys = () => {
   Mousetrap.bind('s', () => store.operatorStore.place('social'));
   Mousetrap.bind('p', () => store.operatorStore.place('product'));
   Mousetrap.bind('w', () => store.ui.toggleSidepanelOpen());
+  Mousetrap.bind('a', () => store.activityStore.newActivityAbove());
 };
