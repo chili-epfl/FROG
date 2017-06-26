@@ -5,7 +5,7 @@ import WordCloud from 'react-d3-cloud';
 
 const fontSizeMapper = word => Math.max(10, Math.min(word.value * 10, 250));
 
-export default ({ logs }) => {
+export default ({ logs }: any) => {
   const data = {};
   logs.forEach(log => {
     log.chat.split(' ').forEach(word => {
