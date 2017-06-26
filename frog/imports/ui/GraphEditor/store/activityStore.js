@@ -81,11 +81,16 @@ export default class ActivityStore {
   };
 
   @action
-  newActivityAbove = () => {
+  newActivityAbove = plane => {
     if (store.ui.selected instanceof Activity) {
       const toCopy = store.ui.selected;
       store.activityStore.all.push(
-        new Activity(toCopy.plane, toCopy.startTime, 'Unnamed', toCopy.length)
+        new Activity(
+          plane || toCopy.plane,
+          toCopy.startTime,
+          'Unnamed',
+          toCopy.length
+        )
       );
       store.addHistory();
     }
