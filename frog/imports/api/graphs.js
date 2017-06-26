@@ -68,11 +68,13 @@ Meteor.methods({
       activities.map(({ _id, ...rest }) =>
         Activities.update(_id, { $set: rest }, { upsert: true })
       );
-      Activities.update(
-        { graphId, plane: 2, groupingKey: { $exists: false } },
-        { $set: { groupingKey: 'group' } },
-        { upsert: true }
-      );
+      if (Meteor.isServer) {
+        Activities.update(
+          { graphId, plane: 2, groupingKey: { $exists: false } },
+          { $set: { groupingKey: 'group' } },
+          { upsert: true }
+        );
+      }
 
       const actid = activities.map(x => x._id);
       Activities.remove({ _id: { $nin: actid }, graphId });
