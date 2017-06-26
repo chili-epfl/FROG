@@ -81,6 +81,22 @@ export default class ActivityStore {
   };
 
   @action
+  newActivityAbove = (plane?: number) => {
+    if (store.ui.selected instanceof Activity) {
+      const toCopy = store.ui.selected;
+      store.activityStore.all.push(
+        new Activity(
+          plane || toCopy.plane,
+          toCopy.startTime,
+          'Unnamed',
+          toCopy.length
+        )
+      );
+      store.addHistory();
+    }
+  };
+
+  @action
   swapActivities = (left: Activity, right: Activity) => {
     right.startTime = left.startTime;
     left.startTime = right.startTime + right.length;
