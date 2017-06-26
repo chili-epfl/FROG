@@ -12,7 +12,7 @@ Fabricating and running orchestration graphs. To learn more about the design and
 - Go to http://localhost:3000/ on your browser
 
 ## Licensing
-The main FROG program (in the frog/ directory) is licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html). All other packages, which could be seen as libraries and which might be used by other learning platforms, are licensed under the [ISC license](https://www.isc.org/downloads/software-support-policy/isc-license/) (LICENSE files are found in each sub-directory). [Contact us](mailto:stian.haklev@epfl.ch) if you have any questions about licensing.
+The main FROG program (in the frog/ directory) is licensed under the [GNU Affero General Public License 3.0](https://www.gnu.org/licenses/agpl-3.0.en.html) (or, at your option, a later version). The licenses of all other packages may be found in their respective directories (LICENSE files in each sub-directory). While the main application is AGPL, we generally license more broadly applicable libraries, as well as specific learning activities, under permissive licenses such as the [ISC license](https://www.isc.org/downloads/software-support-policy/isc-license/) to facilitate their reuse in other systems. Please [Contact us](mailto:shaklev@gmail.com) if you have any questions about licensing.
 
 ## Development
 
