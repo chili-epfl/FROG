@@ -81,7 +81,7 @@ export default class ActivityStore {
   };
 
   @action
-  newActivityAbove = plane => {
+  newActivityAbove = (plane?: number) => {
     if (store.ui.selected instanceof Activity) {
       const toCopy = store.ui.selected;
       store.activityStore.all.push(
