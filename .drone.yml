@@ -1,6 +1,0 @@
-pipeline:
-  build:
-    image: docker
-    commands:
-      - docker build -t test
-      - docker run test
