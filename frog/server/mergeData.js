@@ -14,15 +14,12 @@ import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 
 export default (activityId: string, object: ObjectT) => {
-  console.log('merging', activityId);
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
 
   const { groups, structure } = doGetInstances(activity, object);
-  console.log('g/s', groups, structure);
   groups.forEach(grouping => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
-      console.log('has merged', activityId);
       return;
     }
     Activities.update(activityId, {

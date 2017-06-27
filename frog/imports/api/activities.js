@@ -3,19 +3,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import {
-  uuid,
-  type ObjectT,
-  type structureDefT,
-  type ActivityDbT
-} from 'frog-utils';
+import { uuid, type ActivityDbT } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
-import { Objects } from './objects';
 import { Products } from './products';
 import { Sessions } from './sessions';
-import doGetInstances from './doGetInstances';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
