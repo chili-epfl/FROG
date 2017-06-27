@@ -5,13 +5,13 @@ import { connect, type StoreProp, store } from './store';
 import Activity from './store/activity';
 import { getClickHandler } from './utils';
 
-const Box = ({ x, y, width, selected, highlighted }) =>
+const Box = ({ x, y, width, selected, color }) =>
   <rect
     x={x}
     y={y}
     width={width}
     stroke={selected ? '#ff9900' : 'grey'}
-    fill={highlighted ? 'yellow' : 'white'}
+    fill={color}
     rx={10}
     height={30}
   />;
@@ -55,8 +55,9 @@ class ActivityComponent extends Component {
           x={x}
           y={activity.y}
           width={width}
-          highlighted={activity.highlighted}
+          highlighted={activity.color}
           selected={activity.selected}
+          color={activity.color}
         />
         {width > 21 &&
           <g>
