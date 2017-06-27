@@ -85,11 +85,18 @@ Meteor.methods({
   },
   'add.session': graphId => {
     const sessionId = uuid();
-    const copyGraphId = addGraph('SESSION_GRAPH<' + sessionId + '>');
+    const graph = Graphs.findOne(graphId);
+    const graphs = Graphs.find({}).fetch();
+    const existing = graphs.filter(x => x.name.startsWith('#' + graph.name))
+      .length;
+    const sessionName =
+      '#' + graph.name + (existing > 0 ? ' ' + (existing + 1) : '');
+    const copyGraphId = addGraph(sessionName);
 
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,
+      name: sessionName,
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
