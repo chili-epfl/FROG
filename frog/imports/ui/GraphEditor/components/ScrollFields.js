@@ -1,5 +1,7 @@
 // @flow
+
 import React from 'react';
+
 import { connect, store, type StoreProp } from './../store';
 
 const scrollInterval = direction => {
@@ -25,11 +27,12 @@ const ScrollField = connect(
         <rect
           onMouseEnter={() => scrollInterval(direction)}
           onMouseOut={cancelScroll}
-          fill="transparent"
+          fill="#999955"
+          fillOpacity="0.2"
           stroke="transparent"
           x={x}
           y={0}
-          width={15}
+          width={50}
           height={height}
           style={{ cursor: 'ew-resize' }}
         />
@@ -43,5 +46,5 @@ const ScrollField = connect(
 export default ({ width, height }: { width: number, height: number }) =>
   <g>
     <ScrollField x={0} height={height} direction={-1} />
-    <ScrollField x={width - 15} height={height} direction={1} />
+    <ScrollField x={width - 50} height={height} direction={1} />
   </g>;
