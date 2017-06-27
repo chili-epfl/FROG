@@ -37,7 +37,7 @@ export default ({
           eventKey={session._id}
           onClick={() => setTeacherSession(session._id)}
         >
-          {session._id}
+          {session.name}
         </MenuItem>
       )}
     </DropdownButton>
