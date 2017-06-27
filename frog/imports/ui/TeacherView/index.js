@@ -17,13 +17,7 @@ import { Logs, flushLogs } from '../../api/logs';
 
 import { activityTypesObj } from '../../activityTypes';
 
-const rawSessionController = ({
-  session,
-  activities,
-  visible,
-  toggleVisibility,
-  logs
-}) =>
+const rawSessionController = ({ session, visible, toggleVisibility, logs }) =>
   <div>
     {session
       ? <div>
@@ -40,7 +34,7 @@ const SessionController = withVisibility(rawSessionController);
 const Dashboard = ({ logs, activities }) => {
   let Dash = <p>NO DASHBOARD</p>;
   if (activities) {
-    Dash = activities.map((a, i) => {
+    Dash = activities.map(a => {
       const activityType = activityTypesObj[a.activityType];
       if (activityType && activityType.Dashboard) {
         return (
