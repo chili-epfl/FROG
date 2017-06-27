@@ -22,17 +22,6 @@ export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
 
-export const getInstances = (
-  activityId: string
-): { groups: string[], structure: structureDefT } => {
-  const activity: ActivityDbT = Activities.findOne(activityId);
-  const object: ObjectT = Objects.findOne(activityId);
-  if (activity === undefined) {
-    throw 'Cannot find activity';
-  }
-  return doGetInstances(activity, object);
-};
-
 export const addActivity = (
   activityType: string,
   data: ?Object = {},
