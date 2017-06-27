@@ -1,12 +1,14 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import { cloneDeep } from 'lodash';
 import {
   generateReactiveFn,
   getMergedExtractedUnit,
   type ObjectT
 } from 'frog-utils';
-import { Activities, getInstances } from '../imports/api/activities';
+import { Activities } from '../imports/api/activities';
+import doGetInstances from '../imports/api/doGetInstances';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
@@ -15,7 +17,7 @@ export default (activityId: string, object: ObjectT) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
 
-  const { groups, structure } = getInstances(activityId);
+  const { groups, structure } = doGetInstances(activity, object);
   groups.forEach(grouping => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
@@ -35,7 +37,7 @@ export default (activityId: string, object: ObjectT) => {
         if (!doc.type) {
           doc.create(
             activityType.dataStructure !== undefined
-              ? activityType.dataStructure
+              ? cloneDeep(activityType.dataStructure)
               : {}
           );
         }
