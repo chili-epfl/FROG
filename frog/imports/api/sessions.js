@@ -86,11 +86,10 @@ Meteor.methods({
   'add.session': graphId => {
     const sessionId = uuid();
     const graph = Graphs.findOne(graphId);
-    const graphs = Graphs.find({}).fetch();
-    const existing = graphs.filter(x => x.name.startsWith('#' + graph.name))
-      .length;
-    const sessionName =
-      '#' + graph.name + (existing > 0 ? ' ' + (existing + 1) : '');
+    const count = Graphs.find({
+      name: { $regex: '#' + graph.name + '*' }
+    }).count();
+    const sessionName = '#' + graph.name + ' ' + (count + 1);
     const copyGraphId = addGraph(sessionName);
 
     Sessions.insert({
