@@ -73,7 +73,7 @@ const ReactiveHOC = (dataStructure: any, docId: string) => (
             data={this.state.data}
             {...this.props}
           />
-        : <p>'Loading...'</p>;
+        : <p>Loading...</p>;
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;
