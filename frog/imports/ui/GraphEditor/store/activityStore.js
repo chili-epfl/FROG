@@ -115,9 +115,17 @@ export default class ActivityStore {
   @action
   stopMoving = () => {
     if (store.state.mode === 'moving' && store.state.currentActivity.wasMoved) {
-      store.state = { mode: 'normal' };
-      store.ui.cancelScroll();
-      store.addHistory();
+      if (
+        store.state.currentActivity.startTime !== store.state.initialStartTime
+      ) {
+        store.state = { mode: 'normal' };
+        store.ui.cancelScroll();
+        store.addHistory();
+      } else {
+        store.state.currentActivity.select();
+        store.ui.cancelScroll();
+        store.state = { mode: 'normal' };
+      }
     }
   };
 
