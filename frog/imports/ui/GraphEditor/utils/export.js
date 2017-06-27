@@ -1,6 +1,7 @@
 import Stringify from 'json-stringify-pretty-compact';
 import fileDialog from 'file-dialog';
 import FileSaver from 'file-saver';
+import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from '../../../api/activities';
 import { Graphs, addGraph, uploadGraph } from '../../../api/graphs';
@@ -35,10 +36,11 @@ const doImportGraph = graphStr => {
     const graphObj = JSON.parse(graphStr.target.result);
     const importNo = getGlobalSetting('importNo') || 0;
     setGlobalSetting('importNo', importNo + 1);
-    const graphId = addGraph(
-      graphObj.graph.name + ' ' + importNo,
-      graphObj.graph
-    );
+    const graphId = addGraph(graphObj.graph.name + ' ' + importNo, {
+      ...graphObj.graph,
+      _id: uuid(),
+      sessionId: null
+    });
     const fixId = id => importNo + '-' + id;
     const specify = obj => ({ ...obj, _id: fixId(obj._id), graphId });
     uploadGraph({
