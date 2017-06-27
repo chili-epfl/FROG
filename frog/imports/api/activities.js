@@ -3,35 +3,17 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import {
-  uuid,
-  type ObjectT,
-  type structureDefT,
-  type ActivityDbT
-} from 'frog-utils';
+import { uuid, type ActivityDbT } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
-import { Objects } from './objects';
 import { Products } from './products';
 import { Sessions } from './sessions';
-import doGetInstances from './doGetInstances';
 
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
-
-export const getInstances = (
-  activityId: string
-): { groups: string[], structure: structureDefT } => {
-  const activity: ActivityDbT = Activities.findOne(activityId);
-  const object: ObjectT = Objects.findOne(activityId);
-  if (activity === undefined) {
-    throw 'Cannot find activity';
-  }
-  return doGetInstances(activity, object);
-};
 
 export const addActivity = (
   activityType: string,

@@ -11,7 +11,7 @@ import {
 
 import { runSession, nextActivity } from '../../api/engine';
 
-export default ({ session }: { session: Object }) => {
+export default ({ session, toggle }: { session: Object, toggle: Function }) => {
   const buttons = [
     {
       states: ['CREATED'],
@@ -27,6 +27,12 @@ export default ({ session }: { session: Object }) => {
       type: 'primary',
       onClick: () => nextActivity(session._id),
       text: 'Next Activity'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: toggle,
+      text: 'Toggle dashboard/graph view'
     },
     {
       states: ['STARTED'],

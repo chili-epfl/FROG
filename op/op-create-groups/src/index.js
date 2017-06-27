@@ -33,7 +33,7 @@ const operator = (configData, object) => {
 
   const ids = shuffle(globalStructure.studentIds);
   const struct = chunk(ids, configData.groupsize);
-  const last = struct.slice(-1);
+  const last = struct.slice(-1)[0];
   if (last.length < configData.groupsize && configData.strategy === 'minimum') {
     const leftover = struct.pop();
     while (leftover.length > 0) {

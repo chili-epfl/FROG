@@ -31,7 +31,8 @@ type StateT =
   | {
       mode: 'moving',
       currentActivity: Activity,
-      mouseOffset: number
+      mouseOffset: number,
+      initialStartTime: number
     }
   | { mode: 'waitingDrag' }
   | { mode: 'movingOperator', currentOperator: Operator }
