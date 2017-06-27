@@ -43,7 +43,6 @@ const runDataflow = (
   sessionId: string
 ) => {
   const nodeTypes = { operator: Operators, activity: Activities };
-  nodeTypes[type].update(nodeId, { $set: { state: 'computing' } });
   const node = nodeTypes[type].findOne(nodeId);
 
   if (!node) {
@@ -53,6 +52,8 @@ const runDataflow = (
     // we're done here
     return;
   }
+
+  nodeTypes[type].update(nodeId, { $set: { state: 'computing' } });
 
   // first make sure all incoming nodes have been computed
   const connections = Connections.find({
