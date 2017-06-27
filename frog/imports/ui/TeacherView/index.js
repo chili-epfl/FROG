@@ -6,7 +6,6 @@ import { Inspector } from 'react-inspector';
 import { withVisibility, A } from 'frog-utils';
 
 import StudentList from './StudentList';
-import ActivityList from './ActivityList';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
@@ -18,20 +17,14 @@ import { Logs, flushLogs } from '../../api/logs';
 
 import { activityTypesObj } from '../../activityTypes';
 
-const rawSessionController = ({
-  session,
-  activities,
-  visible,
-  toggleVisibility
-}) =>
+const rawSessionController = ({ session, visible, toggleVisibility, logs }) =>
   <div>
     {session
       ? <div>
           <ButtonList session={session} toggle={toggleVisibility} />
           {visible
-            ? <DashView session={session} />
+            ? <DashView logs={logs} session={session} />
             : <GraphView session={session} />}
-          <ActivityList activities={activities} />
         </div>
       : <p>Create or select a session from the list below</p>}
   </div>;
@@ -41,10 +34,15 @@ const SessionController = withVisibility(rawSessionController);
 const Dashboard = ({ logs, activities }) => {
   let Dash = <p>NO DASHBOARD</p>;
   if (activities) {
-    Dash = activities.map((a, i) => {
+    Dash = activities.map(a => {
       const activityType = activityTypesObj[a.activityType];
       if (activityType && activityType.Dashboard) {
-        return <activityType.Dashboard logs={logs[i]} key={a._id} />;
+        return (
+          <activityType.Dashboard
+            logs={logs.filter(x => x.activity === a._id)}
+            key={a._id}
+          />
+        );
       } else {
         return null;
       }
@@ -62,7 +60,10 @@ const DashView = createContainer(
   ({ session }) => ({
     activities: (session.openActivities || []).map(x => Activities.findOne(x)),
     logs: (session.openActivities || [])
-      .map(x => Logs.find({ activityId: x }).fetch() || [])
+      .reduce(
+        (acc, x) => [...acc, ...(Logs.find({ activity: x }).fetch() || [])],
+        []
+      )
   }),
   Dashboard
 );
@@ -107,7 +108,7 @@ export default createContainer(
     const session =
       user.profile && Sessions.findOne(user.profile.controlSession);
     const logs = session
-      ? Logs.find({}, { sort: { createdAt: -1 }, limit: 10 }).fetch()
+      ? Logs.find({}, { sort: { createdAt: -1 } }, { limit: 10 }).fetch()
       : [];
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();
