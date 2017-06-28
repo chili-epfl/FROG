@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-const acopSrc = fs.readdir('./ac', (e, ac) => {
-  fs.readdir('./op', (e, op) => {
-    acop = [...ac.map(x => 'ac/' + x), ...op.map(x => 'op/' + x)];
+fs.readdir('./ac', (_, ac) => {
+  fs.readdir('./op', (__, op) => {
+    const acop = [...ac.map(x => 'ac/' + x), ...op.map(x => 'op/' + x)];
     const acopSrc = acop.map(dir => dir + '/src').join(' \\\n');
     const acopCP = acop
       .map(dir => `COPY ${dir}/package.json ${dir}/yarn.lock ${dir}/`)
@@ -48,6 +48,7 @@ EXPOSE 3000
 CMD [ "npm", "test" ]
 `;
 
+    // eslint-disable-next-line
     console.log(template);
   });
 });
