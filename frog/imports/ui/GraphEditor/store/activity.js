@@ -91,6 +91,7 @@ export default class Activity extends Elem {
       store.state = {
         mode: 'moving',
         currentActivity: this,
+        initialStartTime: this.startTime,
         mouseOffset: store.ui.socialCoordsTime[0] - this.startTime
       };
       this.wasMoved = true;

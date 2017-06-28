@@ -7,10 +7,16 @@ const operator = pkg.operator;
 lodash.shuffle = jest.fn(x => [...x].sort());
 
 const obj = { globalStructure: { studentIds: ['1', '2', '3', '4', '5'] } };
+const obj4 = { globalStructure: { studentIds: ['1', '2', '3', '4'] } };
 
 test('Create groups minimum', () =>
   expect(operator({ strategy: 'minimum', groupsize: 2 }, obj)).toEqual({
     group: { '1': ['1', '2', '5'], '2': ['3', '4'] }
+  }));
+
+test('Create groups minimum, 4', () =>
+  expect(operator({ strategy: 'minimum', groupsize: 2 }, obj4)).toEqual({
+    group: { '1': ['1', '2'], '2': ['3', '4'] }
   }));
 
 test('Create groups maximum', () =>

@@ -41,6 +41,7 @@ const EditClass = props => {
         <h3>
           <ChangeableText
             EditComponent={RenameField}
+            activityId={activity._id}
             value={graphActivity.title}
             onChange={grp =>
               addActivity(activity.activityType, null, activity._id, grp)}

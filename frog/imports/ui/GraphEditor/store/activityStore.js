@@ -81,6 +81,22 @@ export default class ActivityStore {
   };
 
   @action
+  newActivityAbove = (plane?: number) => {
+    if (store.ui.selected instanceof Activity) {
+      const toCopy = store.ui.selected;
+      store.activityStore.all.push(
+        new Activity(
+          plane || toCopy.plane,
+          toCopy.startTime,
+          'Unnamed',
+          toCopy.length
+        )
+      );
+      store.addHistory();
+    }
+  };
+
+  @action
   swapActivities = (left: Activity, right: Activity) => {
     right.startTime = left.startTime;
     left.startTime = right.startTime + right.length;
@@ -99,9 +115,17 @@ export default class ActivityStore {
   @action
   stopMoving = () => {
     if (store.state.mode === 'moving' && store.state.currentActivity.wasMoved) {
-      store.state = { mode: 'normal' };
-      store.ui.cancelScroll();
-      store.addHistory();
+      if (
+        store.state.currentActivity.startTime !== store.state.initialStartTime
+      ) {
+        store.state = { mode: 'normal' };
+        store.ui.cancelScroll();
+        store.addHistory();
+      } else {
+        store.state.currentActivity.select();
+        store.ui.cancelScroll();
+        store.state = { mode: 'normal' };
+      }
     }
   };
 
