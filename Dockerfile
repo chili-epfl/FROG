@@ -22,7 +22,7 @@ op/op-distribute/src \
 op/op-group-identical/src \
 op/op-hypothesis/src \
 op/op-jigsaw/src
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .babelrc ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
 COPY ac/ac-brainstorm/package.json ac/ac-brainstorm/yarn.lock ac/ac-brainstorm/
