@@ -11,7 +11,7 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
-    somestext: {
+    title: {
       title: 'What is the title?',
       type: 'string'
     }
@@ -22,13 +22,7 @@ const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {};
 
-const ActivityRunner = ({
-  logger,
-  activityData,
-  data,
-  dataFn,
-  userInfo
-}: ActivityRunnerT) =>
+const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) =>
   <div>
     {JSON.stringify(activityData)}
   </div>;
