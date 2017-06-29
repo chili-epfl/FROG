@@ -23,7 +23,6 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 [libs]
 .*node_modules/fbjs/flow/lib
 
-
 [ignore]
 # Ignore the `.meteor/local` packages that aren't important
 .*/.meteor/local/build/main.js
@@ -39,3 +38,6 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/npm/.*
 .*node_modules/react-event-listener/.*
 .*/node_modules/styled-components/.*
+
+# Ignore template files
+.*/templates/.*

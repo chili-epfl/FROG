@@ -3,3 +3,4 @@
 !.eslintrc.js
 !.eslintrc-prettier.js
 **/flow-typed/**
+templates/*
