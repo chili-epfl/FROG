@@ -2,6 +2,9 @@ const fs = require('fs-extra');
 const stringify = require('json-stringify-pretty-compact');
 const readline = require('readline');
 const childProcess = require('child_process');
+const path = require('path');
+
+const rootpath = path.dirname(require.main.filename);
 
 if (!process.argv[2]) {
   // eslint-ignore-next-line
@@ -70,15 +73,11 @@ fs.ensureDirSync(`./ac/${newActivityId}/node_modules`);
 fs.ensureDirSync(`./frog/node_modules`);
 
 childProcess.execSync(
-  `ln -s ../../../node_modules/* ../../../node_modules/.bin .`,
+  `ln -s ${rootpath}/node_modules/* ${rootpath}/node_modules/.bin ${rootpath}/frog-utils .`,
   { cwd: `./ac/${newActivityId}/node_modules/` }
 );
 
-childProcess.execSync(`ln -s ../../../frog-utils`, {
-  cwd: `./ac/${newActivityId}/node_modules/`
-});
-
-childProcess.execSync(`ln -s ../../ac/${newActivityId} .`, {
+childProcess.execSync(`ln -s ${rootpath}/ac/${newActivityId} .`, {
   cwd: './frog/node_modules'
 });
 
