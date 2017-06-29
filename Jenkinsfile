@@ -4,6 +4,7 @@ pipeline {
 			stage('build') {
 				steps {
 					ansiColor('xterm') {
+						sh 'node create-Dockerfile.js > Dockerfile'
 						sh 'docker build -t test .'
 					}
 				}
