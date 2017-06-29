@@ -1,34 +1,38 @@
 const fs = require('fs-extra');
 const stringify = require('json-stringify-pretty-compact');
-const readline = require('readline');
 const childProcess = require('child_process');
 const path = require('path');
 
 const rootpath = path.dirname(require.main.filename);
 
 if (!process.argv[2]) {
-  // eslint-ignore-next-line
+  /*eslint-disable */
   console.log(`node createActivity.js <ac-short-name> <ac-title>
 
-Sets up a simple activity package template in ./ac/<ac-short-name>, and adds it to the relevant files 
-    (frog/package.json and frog/imports/activityPackages.js). Also does the correct symlinking and yarn 
+Sets up a simple activity package template in ./ac/<ac-short-name>, and adds it to the relevant files
+    (frog/package.json and frog/imports/activityPackages.js). Also does the correct symlinking and yarn
     commands to be ready to develop.`);
+  /*eslint-enable */
+  process.exit();
+}
+
+if (process.argv[2].slice(0, 3) !== 'ac-') {
+  /*eslint-disable */
+  console.log(`Package names should start by 'ac-...'`);
+  /*eslint-enable */
   process.exit();
 }
 
 const newActivityId = process.argv[2];
 
-const camelCased = s =>
-  s.replace(/-([a-z])/g, function(g) {
-    return g[1].toUpperCase();
-  });
+const camelCased = s => s.replace(/-([a-z])/g, g => g[1].toUpperCase());
 
 const newActivityName = camelCased(newActivityId);
 
 // adding to frog/package.json
 const pkgjs = fs.readFileSync('./frog/package.json');
 const pkg = JSON.parse(pkgjs);
-pkg.dependencies = Object.assign(pkg.dependencies, { [newActivityId]: '*' });
+pkg.dependencies[newActivityId] = '*';
 fs.writeFileSync('./frog/package.json', stringify(pkg));
 
 // adding to activityTypes
@@ -46,16 +50,13 @@ fs.copySync('./templates/activity', `./ac/${newActivityId}`, {
   errorOnExist: true
 });
 
-// adding to frog/package.json
+// adding to ac/ac-new/package.json
 const newpkgjs = fs.readFileSync(`./ac/${newActivityId}/package.json`);
 const newpkg = JSON.parse(newpkgjs);
-newpkg1 = Object.assign(newpkg, {
-  name: `${newActivityId}`
-});
-fs.writeFileSync(`./ac/${newActivityId}/package.json`, stringify(newpkg1));
+newpkg.name = newActivityId;
+fs.writeFileSync(`./ac/${newActivityId}/package.json`, stringify(newpkg));
 
 // modifying template src/index.js
-
 const actnew = fs
   .readFileSync(`./ac/${newActivityId}/src/index.js`)
   .toString()
@@ -83,9 +84,10 @@ childProcess.execSync(`ln -s ${rootpath}/ac/${newActivityId} .`, {
 
 childProcess.execSync(`yarn`, { cwd: `./ac/${newActivityId}` });
 
-// eslint-ignore-next-line
+/*eslint-disable */
 console.log(
-  `Activity created in './ac/${newActivityId}', and added to ./frog, all symlinks set up, yarn has installed and built all files. 
-Restart (or start) Meteor, run 'npm start watch' in ./ac/${newActivityId}/ and begin editing code. All changes will be 
+  `Activity created in './ac/${newActivityId}', and added to ./frog, all symlinks set up, yarn has installed and built all files.
+Restart (or start) Meteor, run 'npm start watch' in ./ac/${newActivityId}/ and begin editing code. All changes will be
 instantly picked up by FROG. Use 'git diff' to see all the changes that the script has made.`
 );
+/*eslint-enable */
