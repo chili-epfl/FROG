@@ -78,7 +78,7 @@ childProcess.execSync(`ln -s ../../../frog-utils`, {
   cwd: `./ac/${newActivityId}/node_modules/`
 });
 
-childProcess.execSync(`ln -s ../ac/${newActivityId} .`, {
+childProcess.execSync(`ln -s ../../ac/${newActivityId} .`, {
   cwd: './frog/node_modules'
 });
 
