@@ -39,6 +39,7 @@
   "dependencies": {
     "assert": "^1.4.1",
     "enzyme": "^2.8.2",
+    "json-stringify-pretty-compact": "^1.0.4",
     "react-test-renderer": "^15.6.1"
   }
 }
