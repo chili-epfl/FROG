@@ -2,6 +2,7 @@ import Stringify from 'json-stringify-pretty-compact';
 import fileDialog from 'file-dialog';
 import FileSaver from 'file-saver';
 import { uuid } from 'frog-utils';
+import { omit } from 'lodash';
 
 import { Activities, Operators, Connections } from '../../../api/activities';
 import { Graphs, addGraph, uploadGraph } from '../../../api/graphs';
@@ -9,23 +10,28 @@ import { getGlobalSetting, setGlobalSetting } from '../../../api/global';
 import { store } from '../store';
 
 const clean = obj => {
-  const { graphId, ...ret } = obj; // eslint-disable-line no-unused-vars
+  const { graphId, state, hasMergedData, ...ret } = obj; // eslint-disable-line no-unused-vars
   return ret;
 };
 
 const graphToString = graphId =>
   Stringify({
-    graph: Graphs.find({ _id: graphId }).fetch()[0],
+    graph: omit(Graphs.find({ _id: graphId }).fetch()[0], 'sessionId'),
     activities: Activities.find({ graphId }).fetch().map(x => clean(x)),
     operators: Operators.find({ graphId }).fetch().map(x => clean(x)),
     connections: Connections.find({ graphId }).fetch().map(x => clean(x))
   });
 
+const cleanFilename = s =>
+  s.replace(/[^a-z0-9_-]/gi, '_').replace(/_{2,}/g, '_');
+
 export const exportGraph = () => {
+  const name = Graphs.findOne(store.graphId).name;
   const blob = new Blob([graphToString(store.graphId)], {
     type: 'text/plain;charset=utf-8'
   });
-  FileSaver.saveAs(blob, 'graph.json', true);
+  const fname = cleanFilename(name);
+  FileSaver.saveAs(blob, fname + '.graph', true);
 };
 
 export const duplicateGraph = graphId =>
