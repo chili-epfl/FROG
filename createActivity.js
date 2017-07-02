@@ -87,7 +87,7 @@ childProcess.execSync(`yarn`, { cwd: `./ac/${newActivityId}` });
 /*eslint-disable */
 console.log(
   `Activity created in './ac/${newActivityId}', and added to ./frog, all symlinks set up, yarn has installed and built all files.
-Restart (or start) Meteor, run 'npm start watch' in ./ac/${newActivityId}/ and begin editing code. All changes will be
+Restart (or start) Meteor, run 'npm run watch' in ./ac/${newActivityId}/ and begin editing code. All changes will be
 instantly picked up by FROG. Use 'git diff' to see all the changes that the script has made.`
 );
 /*eslint-enable */
