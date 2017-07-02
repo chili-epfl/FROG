@@ -31,7 +31,7 @@ export const exportGraph = () => {
     type: 'text/plain;charset=utf-8'
   });
   const fname = cleanFilename(name);
-  FileSaver.saveAs(blob, fname + '.graph', true);
+  FileSaver.saveAs(blob, fname + '.frog', true);
 };
 
 export const duplicateGraph = graphId =>
@@ -65,7 +65,7 @@ const doImportGraph = graphStr => {
 };
 
 export const importGraph = () => {
-  fileDialog().then(file => {
+  fileDialog({ accept: '.frog' }).then(file => {
     const fr = new FileReader();
     fr.onloadend = doImportGraph;
     fr.readAsText(file[0]);
