@@ -1,18 +1,23 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { extractUnit, type ObjectT } from 'frog-utils';
-import { Activities, getInstances } from '../imports/api/activities';
+import { cloneDeep } from 'lodash';
+import {
+  generateReactiveFn,
+  getMergedExtractedUnit,
+  type ObjectT
+} from 'frog-utils';
+import { Activities } from '../imports/api/activities';
+import doGetInstances from '../imports/api/doGetInstances';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
-import generateReactiveFn from '../imports/api/generateReactiveFn';
 
 export default (activityId: string, object: ObjectT) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
 
-  const [groups, activityStructure] = getInstances(activityId);
+  const { groups, structure } = doGetInstances(activity, object);
   groups.forEach(grouping => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
@@ -30,18 +35,24 @@ export default (activityId: string, object: ObjectT) => {
       'load',
       Meteor.bindEnvironment(() => {
         if (!doc.type) {
-          doc.create({ ...activityType.dataStructure } || {});
+          doc.create(
+            activityType.dataStructure !== undefined
+              ? cloneDeep(activityType.dataStructure)
+              : {}
+          );
         }
         if (mergeFunction) {
           const dataFn = generateReactiveFn(doc);
           // merging in config with incoming product
-          const product = extractUnit(
+          const instanceActivityData = getMergedExtractedUnit(
+            activity.data,
             activityData,
-            activityStructure,
-            grouping
+            structure,
+            grouping,
+            object.socialStructure
           );
-          if (product) {
-            mergeFunction(product, dataFn);
+          if (instanceActivityData) {
+            mergeFunction(instanceActivityData, dataFn);
           }
         }
       })

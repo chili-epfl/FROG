@@ -1,6 +1,9 @@
 // @flow
 
+import { type ActivityPackageT } from 'frog-utils';
+
 import ActivityRunner from './Chat';
+import Dashboard from './Dashboard';
 
 const meta = {
   name: 'Chat',
@@ -19,10 +22,11 @@ const config = {
   }
 };
 
-export default {
+export default ({
   id: 'ac-chat',
   ActivityRunner,
   config,
   meta,
-  dataStructure
-};
+  dataStructure,
+  Dashboard
+}: ActivityPackageT);

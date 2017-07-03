@@ -1,14 +1,14 @@
 // @flow
 
 import { shuffle } from 'lodash';
-import { focusRole } from 'frog-utils';
+import { focusRole, type socialOperatorT } from 'frog-utils';
 
-export const meta = {
+const meta = {
   name: 'Jigsaw',
   type: 'social'
 };
 
-export const config = {
+const config = {
   type: 'object',
   properties: {
     roles: {
@@ -22,7 +22,7 @@ export const config = {
   }
 };
 
-export const operator = (configData, object) => {
+const operator = (configData, object) => {
   const { globalStructure, socialStructure } = object;
 
   const roles = configData.roles.split(',').map(x => x.trim());
@@ -51,9 +51,9 @@ export const operator = (configData, object) => {
   return focusRole(socStruc);
 };
 
-export default {
+export default ({
   id: 'op-jigsaw',
-  operator,
+  meta,
   config,
-  meta
-};
+  operator
+}: socialOperatorT);

@@ -2,7 +2,6 @@
 import { action, observable, computed, reaction } from 'mobx';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
-import type { Elem } from './store';
 import Operator from './operator';
 
 export default class uiStore {
@@ -22,22 +21,23 @@ export default class uiStore {
   @observable svgRef: any = null;
   @observable panx: number = 0;
   @observable scale: number = 4;
-  @observable selected: ?Elem;
-  @observable showModal: Boolean;
+  @observable selected: any;
+  @observable showModal: boolean;
   @observable windowWidth: number = 1000;
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
   @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
 
-  @action setShowInfo = (klass: 'activity' | 'operator', id: string) => {
+  @action
+  setShowInfo = (klass: 'activity' | 'operator', id: string) => {
     this.showInfo = { klass, id };
   };
 
   @action cancelInfo = () => (this.showInfo = null);
 
   @action setSidepanelOpen = (x: boolean) => (this.sidepanelOpen = x);
-  @action toggleSidepanelOpen = () =>
-    (this.sidepanelOpen = !this.sidepanelOpen);
+  @action
+  toggleSidepanelOpen = () => (this.sidepanelOpen = !this.sidepanelOpen);
 
   @computed
   get panBoxSize(): number {
@@ -59,7 +59,8 @@ export default class uiStore {
     this.panx = timeToPx(oldPan, this.scale) / this.scale;
   }
 
-  @action updateWindow = () => {
+  @action
+  updateWindow = () => {
     this.windowWidth = window.innerWidth;
     this.panDelta(0);
   };
@@ -75,11 +76,13 @@ export default class uiStore {
     this.selected = null;
   }
 
-  @action setModal = (set: Boolean) => {
+  @action
+  setModal = (set: boolean) => {
     this.showModal = set;
   };
 
-  @action cancelAll = () => {
+  @action
+  cancelAll = () => {
     this.selected = undefined;
     store.state = { mode: 'normal' };
     store.addHistory();
@@ -90,16 +93,19 @@ export default class uiStore {
     return this.panx * this.scale;
   }
 
-  @action setScaleDelta = (x: number): void => {
+  @action
+  setScaleDelta = (x: number): void => {
     this.setScaleValue(this.scale * (1 - 0.1 * Math.sign(x)));
   };
 
-  @action setScaleValue = (newScale: number): void => {
+  @action
+  setScaleValue = (newScale: number): void => {
     this.scale = between(1, store.graphDuration / 15, newScale);
     this.panDelta(0);
   };
 
-  @action canvasClick = () => {
+  @action
+  canvasClick = () => {
     const state = store.state;
     if (state.mode === 'placingOperator') {
       store.operatorStore.all.push(
@@ -118,18 +124,21 @@ export default class uiStore {
   }
 
   @observable scrollIntervalID: ?string;
-  @action storeInterval = (interval: string) => {
+  @action
+  storeInterval = (interval: string) => {
     this.scrollIntervalID = interval;
   };
 
-  @action cancelScroll = () => {
+  @action
+  cancelScroll = () => {
     if (this.scrollIntervalID) {
       window.clearInterval(this.scrollIntervalID);
     }
     this.scrollIntervalID = undefined;
   };
 
-  @action panDelta = (deltaX: number): void => {
+  @action
+  panDelta = (deltaX: number): void => {
     const oldpan = this.panx;
     const rightBoundary = this.graphWidth - this.panBoxSize;
 
@@ -143,7 +152,7 @@ export default class uiStore {
     if (oldpan !== this.panx) {
       if (state.mode === 'resizing') {
         const oldlength = state.currentActivity.length;
-        state.currentActivity.resize(moveDelta);
+        state.currentActivity.resize();
         this.socialPan(moveDelta);
         if (oldlength === state.currentActivity.length) {
           this.panx = oldpan;
@@ -170,13 +179,15 @@ export default class uiStore {
     );
   }
 
-  @action socialPan = (deltaX: number): void => {
+  @action
+  socialPan = (deltaX: number): void => {
     const current = this.timeToRaw(this.socialCoordsTime);
     const newCoords = [current[0] + deltaX, current[1]];
     this.socialMove(...newCoords);
   };
 
-  @action socialMove = (rawX: number, rawY: number): void => {
+  @action
+  socialMove = (rawX: number, rawY: number): void => {
     this.socialCoordsTime = this.rawMouseToTime(rawX, rawY);
   };
 

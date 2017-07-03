@@ -2,7 +2,9 @@
 
 import { type activityDataT } from 'frog-utils';
 
-import { getInstances } from '../imports/api/activities';
+import { Activities } from '../imports/api/activities';
+import { Objects } from '../imports/api/objects';
+import doGetInstances from '../imports/api/doGetInstances';
 import { Products } from '../imports/api/products';
 import { getDoc } from './share-db-manager';
 
@@ -12,7 +14,9 @@ import { getDoc } from './share-db-manager';
 export const getActivityDataFromReactive = (
   activityId: string
 ): activityDataT => {
-  const [groups, structure] = getInstances(activityId);
+  const activity = Activities.findOne(activityId);
+  const object = Objects.findOne(activityId);
+  const { groups, structure } = doGetInstances(activity, object);
 
   const data = groups.reduce(
     (acc, k) => ({
@@ -33,7 +37,7 @@ export default (activityId: string) =>
     activityId,
     {
       $set: {
-        product: getActivityDataFromReactive(activityId),
+        activityData: getActivityDataFromReactive(activityId),
         type: 'product'
       }
     },

@@ -4,7 +4,7 @@ import React from 'react';
 import { uuid } from 'frog-utils';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
-import FlipMove from 'react-flip-move';
+import FlipMove from '@houshuang/react-flip-move';
 import { values } from 'lodash';
 import {
   Badge,
@@ -70,12 +70,11 @@ const IdeaList = ({ ideas, fun, remove }) =>
   </div>;
 
 export default ({
-  configData,
   userInfo,
   logger,
+  activityData,
   data,
-  dataFn,
-  saveProduct
+  dataFn
 }: ActivityRunnerT) => {
   const schema = {
     type: 'object',
@@ -102,7 +101,7 @@ export default ({
     <div>
       <Container>
         <ListContainer>
-          <p>{configData.text}</p>
+          <p>{activityData.config.text}</p>
           <IdeaList
             ideas={data}
             fun={{
@@ -112,9 +111,9 @@ export default ({
               },
               delete: item => dataFn.objDel(item, ['ideas', item.id])
             }}
-            remove={configData.formBoolean}
+            remove={activityData.config.formBoolean}
           />
-          {configData.formBoolean &&
+          {activityData.config.formBoolean &&
             <div>
               <hr
                 style={{
@@ -136,13 +135,6 @@ export default ({
                       id="addButton"
                     >
                       Add idea
-                    </Button>
-                    <Button
-                      id="saveButton"
-                      bsStyle="primary"
-                      onClick={saveProduct('ALL', { ideas: data.ideas })}
-                    >
-                      Save
                     </Button>
                   </div>
                 </Form>

@@ -9,21 +9,30 @@ import type { AnchorT } from '../utils/path';
 export default class Operator extends Elem {
   id: string;
   type: string;
-  klass: string;
+  klass: 'operator' | 'activity' | 'connection';
   @observable y: number;
   @observable title: ?string;
   @observable over: boolean;
   @observable time: number;
   @observable wasMoved: boolean = false;
+  @observable state: ?string;
 
   @action
-  init(time: number, y: number, type: string, id: ?string, title: ?string) {
+  init(
+    time: number,
+    y: number,
+    type: string,
+    id: ?string,
+    title: ?string,
+    state: ?string
+  ) {
     this.time = time;
     this.y = y;
     this.id = id || cuid();
     this.type = type;
     this.klass = 'operator';
     this.title = title;
+    this.state = state;
   }
 
   constructor(
@@ -31,10 +40,11 @@ export default class Operator extends Elem {
     y: number,
     type: string,
     id: ?string,
-    title: ?string
+    title: ?string,
+    state: ?string
   ) {
     super();
-    this.init(time, y, type, id, title);
+    this.init(time, y, type, id, title, state);
   }
 
   @computed
@@ -57,15 +67,24 @@ export default class Operator extends Elem {
     return [this.x, this.y];
   }
 
-  @action rename = (newname: string) => {
+  @action
+  rename = (newname: string) => {
     this.title = newname;
     store.addHistory();
   };
 
-  @action onOver = (): true => (this.over = true);
-  @action onLeave = (): false => (this.over = false);
+  @action
+  onOver = () => {
+    this.over = true;
+  };
 
-  @action startDragging = (e: { shiftKey: boolean }): void => {
+  @action
+  onLeave = () => {
+    this.over = false;
+  };
+
+  @action
+  startDragging = (e: { shiftKey: boolean }): void => {
     if (!e.shiftKey) {
       store.connectionStore.startDragging(this);
     } else {
@@ -73,7 +92,8 @@ export default class Operator extends Elem {
     }
   };
 
-  @action onDrag = (
+  @action
+  onDrag = (
     e: { shiftKey: boolean },
     { deltaX, deltaY }: { deltaX: number, deltaY: number }
   ) => {
@@ -84,12 +104,14 @@ export default class Operator extends Elem {
     }
   };
 
-  @action moveX = (deltaX: number): void => {
+  @action
+  moveX = (deltaX: number): void => {
     this.time += pxToTime(deltaX, store.ui.scale);
     this.wasMoved = true;
   };
 
-  @action stopDragging = (): void => {
+  @action
+  stopDragging = (): void => {
     if (store.state.mode === 'movingOperator') {
       store.state = { mode: 'normal' };
       store.addHistory();
@@ -160,7 +182,8 @@ export default class Operator extends Elem {
     };
   }
 
-  @action update = (newopt: $Shape<Operator>) => {
+  @action
+  update = (newopt: $Shape<Operator>) => {
     this.time = newopt.time;
     this.y = newopt.y;
     this.title = newopt.title;

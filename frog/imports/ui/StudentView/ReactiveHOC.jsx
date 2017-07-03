@@ -1,15 +1,35 @@
+// @flow
+
 import React, { Component } from 'react';
+import { generateReactiveFn } from 'frog-utils';
+
 import { connection } from '../App/index';
-import generateReactiveFn from '../../api/generateReactiveFn';
 
-const getDisplayName = WrappedComponent =>
-  WrappedComponent.displayName || WrappedComponent.name || 'Component';
+const getDisplayName = (WrappedComponent: any): string => {
+  if (typeof WrappedComponent.displayName === 'string') {
+    return WrappedComponent.displayName;
+  } else if (typeof WrappedComponent.name === 'string') {
+    return WrappedComponent.name;
+  } else {
+    return 'Component';
+  }
+};
 
-const ReactiveHOC = (dataStructure, docId) => WrappedComponent => {
+const ReactiveHOC = (dataStructure: any, docId: string) => (
+  WrappedComponent: Class<Component<*, *, *>>
+) => {
   class ReactiveComp extends Component {
-    constructor(props) {
+    state: { data: any, dataFn: ?Object };
+    doc: any;
+    timeout: ?number;
+    unmounted: boolean;
+
+    constructor(props: Object) {
       super(props);
-      this.state = { data: dataStructure };
+      this.state = {
+        data: null,
+        dataFn: null
+      };
     }
 
     componentDidMount = () => {
@@ -47,11 +67,13 @@ const ReactiveHOC = (dataStructure, docId) => WrappedComponent => {
     };
 
     render = () =>
-      <WrappedComponent
-        dataFn={this.state.dataFn}
-        data={this.state.data}
-        {...this.props}
-      />;
+      this.state.data
+        ? <WrappedComponent
+            dataFn={this.state.dataFn}
+            data={this.state.data}
+            {...this.props}
+          />
+        : <p>Loading...</p>;
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;

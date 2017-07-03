@@ -18,7 +18,7 @@ export default ({ setXY, openInfoFn, observation }) => {
       <div
         style={{
           position: 'absolute',
-          fontSize: '20px',
+          fontSize: '10px',
           textOverflow: 'ellipsis',
           overflow: 'hidden',
           top: observation.y,
@@ -34,10 +34,10 @@ export default ({ setXY, openInfoFn, observation }) => {
           </div>
           <div
             style={{
-              fontSize: '15px',
+              fontSize: '8px',
               float: 'left',
-              marginTop: '15px',
-              marginLeft: '5px'
+              marginTop: '5px',
+              marginLeft: '2px'
             }}
           >
             {shorten(observation.content, 100)}

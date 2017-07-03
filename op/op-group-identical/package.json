@@ -1,5 +1,5 @@
 {
-  "name": "op-like-with-like",
+  "name": "op-group-identical",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",

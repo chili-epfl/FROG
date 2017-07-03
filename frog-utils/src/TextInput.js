@@ -1,26 +1,36 @@
 // @flow
+
 import React, { Component } from 'react';
 
-export class TextInput extends Component {
-  constructor(props: { value: string, onChange: Function, style?: string }) {
-    super(props);
-    this.state = { val: this.props.value || '' };
-  }
+type TextInputPropsT = {
+  value?: string,
+  onChange?: Function,
+  onSubmit?: Function,
+  onCancel?: Function,
+  style?: string
+};
 
-  state: { val: string };
+export class TextInput extends Component {
+  state: { value: string };
+  textInput: { focus: Function };
+
+  constructor(props: TextInputPropsT) {
+    super(props);
+    this.state = { value: this.props.value || '' };
+  }
 
   componentDidMount() {
     this.textInput.focus();
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  componentWillReceiveProps(nextProps: TextInputPropsT) {
     if (this.props.value !== nextProps.value) {
-      this.setState({ val: nextProps.value || '' });
+      this.setState({ value: nextProps.value || '' });
     }
   }
 
   onChange = (e: any) => {
-    this.setState({ val: e.target.value });
+    this.setState({ value: e.target.value });
     if (this.props.onChange) {
       this.props.onChange(e.target.value);
     }
@@ -29,11 +39,9 @@ export class TextInput extends Component {
   onSubmit = (e: any) => {
     e.preventDefault();
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.state.val);
+      this.props.onSubmit(this.state.value);
     }
   };
-
-  textInput: { focus: Function };
 
   handleKey = (e: any) => {
     if (e.keyCode === 27) {
@@ -44,7 +52,7 @@ export class TextInput extends Component {
     }
     if (e.keyCode === 13) {
       if (this.props.onSubmit) {
-        this.props.onSubmit(this.state.val);
+        this.props.onSubmit(this.state.value);
       }
     }
   };
@@ -55,7 +63,7 @@ export class TextInput extends Component {
         type="text"
         onChange={this.onChange}
         onKeyDown={this.handleKey}
-        value={this.state.val}
+        value={this.state.value}
         ref={input => (this.textInput = input)}
         onSubmit={this.onSubmit}
         onBlur={this.onSubmit}
@@ -66,21 +74,33 @@ export class TextInput extends Component {
 }
 
 export class ChangeableText extends Component {
-  constructor(props) {
+  state: {
+    edit: boolean,
+    value: string
+  };
+
+  constructor(
+    props: TextInputPropsT & {
+      EditComponent?: ReactClass<*>,
+      onlyHover?: Boolean
+    }
+  ) {
     super(props);
-    this.state = { edit: false, value: this.props.value };
+    this.state = { edit: false, value: this.props.value || '' };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: TextInputPropsT) {
     if (this.props.value !== nextProps.value) {
       this.setState({ value: nextProps.value || '' });
     }
   }
 
-  state: { edit: boolean, value: string };
-
   render() {
-    const { EditComponent = TextInput, ...rest } = this.props;
+    const {
+      EditComponent = TextInput,
+      onlyHover = false,
+      ...rest
+    } = this.props;
     if (this.state.edit) {
       return (
         <EditComponent
@@ -109,7 +129,7 @@ export class ChangeableText extends Component {
             tabIndex={0}
             style={{ color: 'blue' }}
             onClick={() => this.setState({ edit: true })}
-            className={`fa fa-pencil ${this.props.onlyHover && 'edithover'}`}
+            className={`fa fa-pencil ${onlyHover ? 'edithover' : ''}`}
           />
         </span>
       );

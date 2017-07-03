@@ -10,7 +10,7 @@ import { Activities, Operators, Connections } from './activities';
 import { runSession, nextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 
-export const restartSession = (session: string) =>
+export const restartSession = (session: { fromGraphId: string, _id: string }) =>
   Meteor.call('sessions.restart', session);
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -85,11 +85,17 @@ Meteor.methods({
   },
   'add.session': graphId => {
     const sessionId = uuid();
-    const copyGraphId = addGraph('SESSION_GRAPH<' + sessionId + '>');
+    const graph = Graphs.findOne(graphId);
+    const count = Graphs.find({
+      name: { $regex: '#' + graph.name + '*' }
+    }).count();
+    const sessionName = '#' + graph.name + ' ' + (count + 1);
+    const copyGraphId = addGraph(sessionName);
 
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,
+      name: sessionName,
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,

@@ -1,5 +1,12 @@
 // @flow
 
+export type ActivityDbT = {
+  _id: string,
+  data: Object,
+  groupingKey: string,
+  plane: number
+};
+
 // { aa: { group: 1, role: 'chef', color: 'red' },
 //   bb: { group: 2, role: 'waiter' },
 //   cc: { role: 'waiter' } }
@@ -18,7 +25,7 @@ export type socialStructureT = {
 
 export type dataUnitT = Object | any[];
 
-export type dataUnitStructT = { config?: Object, data?: dataUnitT };
+export type dataUnitStructT = { config: Object, data: dataUnitT };
 
 export type structureDefT = { groupingKey: string } | 'individual' | 'all';
 
@@ -27,7 +34,7 @@ export type payloadT = { [attributeKey: string]: dataUnitStructT };
 export type activityDataT = {
   structure: structureDefT,
   payload: payloadT
-} | null;
+};
 
 export type ObjectT = {
   socialStructure: socialStructureT,
@@ -36,9 +43,9 @@ export type ObjectT = {
 };
 
 export type ActivityRunnerT = {
-  object: ObjectT, // Data computed from the connected operators and activities
   logger: Function, // logging callback
-  data: dataUnitT,
+  activityData: dataUnitStructT,
+  data: any,
   dataFn: Object,
   userInfo: { id: string, name: string }
 };
@@ -62,17 +69,7 @@ export type socialOperatorT = {
   id: string,
   meta: { type: string, name: string },
   config: Object,
-  operator: (
-    configData: Object,
-    object: ObjectT
-  ) => {
-    socialStructure: socialStructureT
-  }
+  operator: (configData: Object, object: ObjectT) => socialStructureT
 };
 
-export type operatorPackageT = {
-  id: string,
-  meta: { type: string, name: string },
-  config: Object,
-  operator: (configData: Object, object: ObjectT) => any
-};
+export type operatorPackageT = socialOperatorT | productOperatorT;

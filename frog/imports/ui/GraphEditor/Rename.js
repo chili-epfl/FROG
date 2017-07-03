@@ -31,16 +31,20 @@ export const RenameField = connect(
     onSubmit
   }: StoreProp & {
     activityId: string,
-    onSubmit: string
+    onSubmit: Function
   }) => {
     const renameOpen = all.find(act => act.id === activityId);
-    return (
-      <TextInput
-        value={renameOpen.title}
-        onChange={renameOpen.rename}
-        onCancel={onSubmit}
-        onSubmit={onSubmit}
-      />
-    );
+    if (renameOpen) {
+      return (
+        <TextInput
+          value={renameOpen.title}
+          onChange={renameOpen.rename}
+          onCancel={onSubmit}
+          onSubmit={onSubmit}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 );

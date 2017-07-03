@@ -3,6 +3,7 @@ import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
 
+export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
@@ -15,8 +16,13 @@ export {
   getAttributeKeys,
   getAttributeValues
 } from './socstructTools';
-export { wrapUnitAll, extractUnit } from './dataStructureTools';
+export {
+  wrapUnitAll,
+  extractUnit,
+  getMergedExtractedUnit
+} from './dataStructureTools';
 export type {
+  ActivityDbT,
   studentStructureT,
   socialStructureT,
   dataUnitT,

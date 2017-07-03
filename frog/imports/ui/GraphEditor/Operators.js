@@ -8,10 +8,10 @@ export default connect(
     store: {
       operatorStore: { all: operators },
       ui: { socialCoords, socialCoordsScaled },
-      state: { mode, operatorType }
+      state
     },
     scaled
-  }: StoreProp & { scaled: Boolean }) => {
+  }: StoreProp & { scaled: boolean }) => {
     const ops = operators.map(op => {
       const coords = scaled ? op.coordsScaled : op.coords;
       return (
@@ -19,6 +19,7 @@ export default connect(
           key={op.id}
           x={coords[0]}
           y={coords[1]}
+          color={op.color}
           onLeave={op.onLeave}
           onOver={op.onOver}
           onClick={op.select}
@@ -32,9 +33,11 @@ export default connect(
       );
     });
     let dragOp;
-    if (mode === 'placingOperator') {
+    if (state.mode === 'placingOperator') {
       const coords = scaled ? socialCoordsScaled : socialCoords;
-      dragOp = <Operator type={operatorType} x={coords[0]} y={coords[1]} />;
+      dragOp = (
+        <Operator type={state.operatorType} x={coords[0]} y={coords[1]} />
+      );
     } else {
       dragOp = null;
     }

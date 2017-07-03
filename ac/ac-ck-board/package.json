@@ -8,15 +8,13 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "json-stable-stringify": "^1.0.1",
-    "jsxstyle": "1.0.2",
-    "lodash": "^4.17.2",
     "material-ui": "^0.18.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-draggable": "github:houshuang/react-draggable",
     "react-dropzone": "^3.13.2",
     "react-icons": "^2.2.5",
-    "react-tap-event-plugin": "2.0.1"
+    "react-tap-event-plugin": "2.0.1",
+    "styled-components": "^2.0.1"
   }
 }

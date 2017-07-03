@@ -5,10 +5,13 @@ import { store } from './index';
 export default class Elem {
   over: boolean;
   wasMoved: boolean = false;
-  klass: 'operator' | 'activity';
+  klass: 'operator' | 'activity' | 'connection';
   id: string;
+  state: ?string;
+  color: string;
 
-  @action select = (): void => {
+  @action
+  select = (): void => {
     if (store.state.mode === 'readOnly') {
       if (this.klass !== 'connection') {
         store.ui.setShowInfo(this.klass, this.id);
@@ -25,7 +28,25 @@ export default class Elem {
     return store.ui.selected === this;
   }
 
-  @action remove = () => {
+  @computed
+  get color(): string {
+    if (this.highlighted) {
+      return 'yellow';
+    }
+    switch (this.state) {
+      case 'computing':
+        return '#ffff00';
+      case 'computed':
+        return '#66ff33';
+      case 'error':
+        return '#ff0000';
+      default:
+        return 'white';
+    }
+  }
+
+  @action
+  remove = () => {
     let thisstore;
     if (this.klass === 'activity') {
       thisstore = store.activityStore;

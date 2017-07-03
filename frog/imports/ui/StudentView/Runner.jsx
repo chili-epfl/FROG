@@ -4,13 +4,14 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent } from 'frog-utils';
+import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
+import { cloneDeep } from 'lodash';
 
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
-import { saveProduct } from '../../api/products';
 import { Objects } from '../../api/objects';
 import { Activities } from '../../api/activities';
+import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
 
 const Runner = ({ activity, object }) => {
@@ -28,6 +29,7 @@ const Runner = ({ activity, object }) => {
   if (object) {
     const socStructure = focusStudent(object.socialStructure);
     const studentSoc = socStructure[Meteor.userId()];
+
     let groupingValue;
     if (studentSoc && activity.groupingKey) {
       groupingValue = studentSoc[activity.groupingKey];
@@ -41,7 +43,7 @@ const Runner = ({ activity, object }) => {
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activity.activityType;
     const ActivityToRun = ReactiveHOC(
-      { ...activityType.dataStructure },
+      cloneDeep(activityType.dataStructure),
       reactiveId
     )(RunComp);
 
@@ -51,14 +53,23 @@ const Runner = ({ activity, object }) => {
       title = `(individual/${Meteor.user().username})`;
     }
 
+    const config = activity.data;
+    const activityStructure = doGetInstances(activity, object).structure;
+
+    const activityData = getMergedExtractedUnit(
+      config,
+      object.activityData,
+      activityStructure,
+      groupingValue,
+      object.socialStructure
+    );
+
     return (
       <MosaicWindow title={activity.title + ' ' + title}>
         <ActivityToRun
-          configData={activity.data || {}}
-          object={object}
+          activityData={activityData}
           userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
           logger={logger}
-          saveProduct={saveProduct(activity._id)}
         />
       </MosaicWindow>
     );
@@ -67,8 +78,7 @@ const Runner = ({ activity, object }) => {
 };
 
 export default createContainer(({ activityId }) => {
-  const o = Objects.find(activityId).fetch();
-  const object = o && o[0];
+  const object = Objects.findOne(activityId) || {};
   const activity = Activities.findOne(activityId);
   return { activity, object };
 }, Runner);
