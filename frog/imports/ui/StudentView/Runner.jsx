@@ -14,7 +14,7 @@ import { Activities } from '../../api/activities';
 import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
 
-const Runner = ({ activity, object }) => {
+const Runner = ({ activity, object, single }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -64,21 +64,29 @@ const Runner = ({ activity, object }) => {
       object.socialStructure
     );
 
-    return (
-      <MosaicWindow title={activity.title + ' ' + title}>
-        <ActivityToRun
-          activityData={activityData}
-          userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
-          logger={logger}
-        />
-      </MosaicWindow>
+    const activity = (
+      <ActivityToRun
+        activityData={activityData}
+        userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
+        logger={logger}
+      />
     );
+
+    if (single) {
+      return activity;
+    } else {
+      return (
+        <MosaicWindow title={activity.title + ' ' + title}>
+          {activity}
+        </MosaicWindow>
+      );
+    }
   }
   return null;
 };
 
-export default createContainer(({ activityId }) => {
+export default createContainer(({ activityId, single }) => {
   const object = Objects.findOne(activityId) || {};
   const activity = Activities.findOne(activityId);
-  return { activity, object };
+  return { activity, object, single };
 }, Runner);
