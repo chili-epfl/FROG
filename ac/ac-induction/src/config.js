@@ -10,8 +10,8 @@ export default {
     falseDef: {
       title: 'False definitions :',
       type: 'array',
-        items: {
-        type: 'string',
+      items: {
+        type: 'string'
       }
     },
     imgTrue: {

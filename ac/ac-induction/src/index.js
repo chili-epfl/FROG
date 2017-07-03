@@ -1,9 +1,8 @@
 // @flow
 
-import React from 'react';
+import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './Induction';
-import { type ActivityPackageT, uuid } from 'frog-utils';
-import config from './config'
+import config from './config';
 
 const meta = {
   name: 'Induction',

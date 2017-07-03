@@ -1,39 +1,11 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from "react";
 
-class Rules extends Component {
-  constructor(props: { callbackFn: Function, def: String, defs: Array}) {
-    super(props);
-  }
-
-  render() {
-    const handleSubmit = e => {
-      console.log("test")
-    };
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          <input
-            type="radio"
-            value="option1"
-            checked={true}
-          />{def}
-        </label>
-        {defs.map(d =>
-          <label>
-            <input
-              type="radio"
-              value={d}
-            />{d}
-          </label>
-        )
-        }
-
-      </form>
-    )
-  }
-}
+const Rules = ({ goodDef, falseDef }) =>
+  <form onSubmit={() => {}}>
+    <input type="radio" value="option1" checked text={goodDef} />
+    {falseDef.map(d => <input type="radio" value={d} text={d} />)}
+  </form>;
 
 export default Rules;
