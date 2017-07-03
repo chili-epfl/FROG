@@ -1,16 +1,17 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './Induction';
-import config from './config';
+import { type ActivityPackageT } from "frog-utils";
+
+import ActivityRunner from "./Induction";
+import config from "./config";
 
 const meta = {
-  name: 'Induction',
-  type: 'react-component'
+  name: "Induction",
+  type: "react-component"
 };
 
 export default ({
-  id: 'ac-induction',
+  id: "ac-induction",
   meta,
   config,
   ActivityRunner,
