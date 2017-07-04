@@ -60,6 +60,7 @@ const doImportGraph = graphStr => {
     });
     store.setId(graphId);
   } catch (e) {
+    // eslint-ignore-next-line no-alert
     window.alert('File has error, unable to import graph');
   }
 };

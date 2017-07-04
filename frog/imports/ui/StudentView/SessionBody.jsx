@@ -21,7 +21,6 @@ const SessionBody = ({ session }: { session: Object }) => {
     return <h1>NO ACTIVITY</h1>;
   }
   if (session.openActivities.length === 1) {
-    console.log(session.openActivities);
     return <Runner activityId={session.openActivities[0]} single />;
   } else {
     return (

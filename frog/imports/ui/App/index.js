@@ -7,7 +7,6 @@ import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 
 import Body from './Body.jsx';
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Navigation from './Navigation';
 
 const DEFAULT_PASSWORD = '123456';

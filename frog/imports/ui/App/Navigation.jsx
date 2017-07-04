@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import Meteor from 'meteor/meteor';
 import { Nav, NavItem } from 'react-bootstrap';
 
 export default ({
