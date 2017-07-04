@@ -16,12 +16,20 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-const SessionBody = ({ session }: { session: Object }) =>
-  session.openActivities && session.openActivities.length > 0
-    ? <Mosaic
+const SessionBody = ({ session }: { session: Object }) => {
+  if (!session.openActivities) {
+    return <h1>NO ACTIVITY</h1>;
+  }
+  if (session.openActivities.length === 1) {
+    return <Runner activityId={session.openActivities[0]} single />;
+  } else {
+    return (
+      <Mosaic
         renderTile={activityId => <Runner activityId={activityId} />}
         initialValue={getInitialState(session.openActivities)}
       />
-    : <h1>NO ACTIVITY</h1>;
+    );
+  }
+};
 
 export default SessionBody;
