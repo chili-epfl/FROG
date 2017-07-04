@@ -3,47 +3,50 @@
 import React, { Component } from "react";
 
 class Rules extends Component {
-  state: { value: Number };
+  state: { valueState: Array };
 
   constructor(props: { generateNewPics: Function }) {
     super(props);
+
+    var newState = [false];
+    var def = this.props.falseDef;
+    for (var i: 1; i < def.length; ++i) {
+      newState = [...newState, false];
+    }
     this.state = {
-      value: 0
+      valueState: newState
     };
   }
 
   handleOptionChange = e => {
-    this.setState({
-      value: Number(e.target.value)
-    });
+    var newState = [...this.state.valueState];
+    newState[e.target.value] = newState[e.target.value] ? false : true;
+
+    this.setState({ valueState: newState });
   };
 
   render() {
-    //const Rules = ({ goodDef, falseDef }) =>
-    //var count = 0;
     return (
       <form onSubmit={this.props.generateNewPics}>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value={0}
-              onChange={this.handleOptionChange}
-              checked={this.state.value === 0}
-            />
-            {this.props.goodDef}
-          </label>
-        </div>
+        <label>
+          <input
+            type="checkbox"
+            value={0}
+            onChange={this.handleOptionChange}
+            checked={this.state.valueState[0]}
+          />
+          {" " + this.props.goodDef}
+        </label>
         {this.props.falseDef.map((d, index) =>
-          <div className="radio" key={index}>
+          <div className="chkbx" key={index}>
             <label>
               <input
-                type="radio"
+                type="checkbox"
                 value={index + 1}
                 onChange={this.handleOptionChange}
-                checked={this.state.value === index + 1}
+                checked={this.state.valueState[index + 1]}
               />
-              {d}
+              {" " + d}
             </label>
           </div>
         )}

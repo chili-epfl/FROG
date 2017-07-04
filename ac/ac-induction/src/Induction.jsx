@@ -16,18 +16,16 @@ export default ({
 ActivityRunnerT) =>
   <div>
     <h4>{activityData.config.title}</h4>
-    <Images
-      style={{ width: 150, height: 200 }}
-      srcURITrue="{activityData.config ? activityData.config.imgTrue : 'empty'}"
-      srcURIFalse="{activityData.config ? activityData.config.imgFalse : 'empty'}"
-    />
-    <Rules
-      style={{ width: 100, height: 200 }}
-      generateNewPics={e => {
-        formSubmitEvent.preventDefault();
+    <div style={{ margin: "10px", display: "flex", flexDirection: "row" }}>
+      <Images {...activityData.config} />
+      <Rules
+        style={{ padding: "20px" }}
+        generateNewPics={e => {
+          formSubmitEvent.preventDefault();
 
-        console.log("You have selected:", this.state.value);
-      }}
-      {...activityData.config}
-    />
+          console.log("You have selected:", this.state.value);
+        }}
+        {...activityData.config}
+      />
+    </div>
   </div>;
