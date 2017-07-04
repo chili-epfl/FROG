@@ -20,7 +20,8 @@ The main FROG program (in the frog/ directory) is licensed under the [GNU Affero
 https://www.meteor.com/tutorials/react/creating-an-app
 
 - Run ./run_and_watch_all.sh to automatically have packages rebuilt after editing them (otherwise your changes will not be picked up by Meteor)
-- Note that we use `yarn` extensively. You should only use `yarn` to install packages in all other directories than in the main `./frog` application. In `./frog`, you should use `meteor npm install`. If you see lot's of error messages about missing dependencies etc, commit your changes to Git, and run `git reset --hard; git clean -fdx; ./initial_setup.sh` from the root directory again. (This will remove any changes not committed to Git!)
+- Note that we use `yarn` extensively. In all other directories than in the main `./frog` application, you should only use `yarn add` to install packages (not `npm install --save`). In `./frog`, you should use `meteor npm install --save`. If you see lot's of error messages about missing dependencies etc, commit your changes to Git, and run `git reset --hard; git clean -fdx; ./initial_setup.sh` from the root directory again. (This will remove any changes not committed to Git!)
+- We try to keep all dev dependencies in the root `./package.json`. They are automatically installed and symlinked into each package's `node_modules` upon running `./initial_setup.sh`.
 
 - You can use the URL shorthand `<host>/#/{view}/{user}` to automatically open a given component with a given user (which will be automatically created if it does not yet exist). For example, `http://localhost:3000/#/student/peter`, will open the student view logged in as peter.
 - However, if you open a number of windows in the same browser, they will all be logged in as the latest user, because of cookies. A way around this is to add entries like this in /etc/hosts:
