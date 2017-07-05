@@ -48,8 +48,7 @@ ActivityRunnerT) =>
         }}
         generateNewPics={(arr, e) => {
           e.preventDefault();
-
-          console.log("You have selected:" + arr);
+          //console.log("You have selected:" + arr);
         }}
         {...activityData.config}
       />

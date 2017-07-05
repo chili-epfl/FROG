@@ -15,7 +15,7 @@ class Rules extends Component {
 
     this.allDef = this.concatAndShuffle(props.trueDef, props.falseDef);
 
-    var newState = [];
+    let newState = [];
     this.allDef.map((d, i) => (newState[i] = false));
 
     this.state = {
@@ -27,13 +27,15 @@ class Rules extends Component {
     // Small issue: when no trueDef is entered, the props is not defined at all
     // This doesn't happen with falseDef
     // The following lines still makes it work
-    var def = [];
+    let def = [];
     if (typeof a === "undefined") def = [...a];
     else def = a.concat(b);
 
-    for (let i = def.length; i; i--) {
-      let j = Math.floor(Math.random() * i);
-      let [c, d] = [def[i - 1], def[j]];
+    let j = 0;
+
+    for (let i = def.length; i; i - 1) {
+      j = Math.floor(Math.random() * i);
+      const [c, d] = [def[i - 1], def[j]];
       def[j] = c;
       def[i - 1] = d;
     }
@@ -41,14 +43,12 @@ class Rules extends Component {
   };
 
   handleOptionChange = (e: { target: { value: number } }) => {
-    var newState = [...this.state.valueState];
-    newState[e.target.value] = newState[e.target.value] ? false : true;
-
+    let newState = [...this.state.valueState];
     this.setState({ valueState: newState });
   };
 
   render() {
-    let arr = this.state.valueState;
+    const arr = this.state.valueState;
     return (
       <form
         onSubmit={e => this.props.generateNewPics(arr, e)}
@@ -60,10 +60,11 @@ class Rules extends Component {
           Please select all apropriated definitions
         </h4>
         {this.allDef.map((d, index) =>
-          <div key={index}>
-            <label>
+          <div key={index.toString()}>
+            <label htmlFor={index.toString()}>
               <input
                 type="checkbox"
+                id={index.toString()}
                 value={index}
                 onChange={this.handleOptionChange}
                 checked={this.state.valueState[index] || false}
