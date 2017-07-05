@@ -1,21 +1,75 @@
 // @flow
 
 import React from "react";
-//import { View, Image } from "react-native";
 
-const Images = props => {
+const Images = (props: { imgTrue: String, imgFalse: String }) => {
   if (!props.imgTrue || !props.imgFalse) {
     return <div>{"Images's URI not found"}</div>;
   } else {
     return (
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <img style={{}} src={props.imgTrue} alt={""} />
-        <br /><br />
-        <img style={{}} src={props.imgFalse} alt={""} />
+      <div
+        style={{
+          height: "100%",
+          width: "50%",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            height: "45%"
+          }}
+        >
+          <div
+            style={{
+              width: "5%",
+              height: "100%",
+              background: "green"
+            }}
+          />
+          <img
+            style={{
+              width: "90%",
+              height: "95%",
+              margin: "auto"
+            }}
+            src={props.imgTrue}
+            alt={""}
+          />
+        </div>
+        <br />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            height: "45%"
+          }}
+        >
+          <div
+            style={{
+              width: "5%",
+              height: "100%",
+              background: "red"
+            }}
+          />
+          <img
+            style={{
+              width: "90%",
+              height: "95%",
+              margin: "auto"
+            }}
+            src={props.imgFalse}
+            alt={""}
+          />
+        </div>
       </div>
     );
   }
 };
 
 export default Images;
-//style={{ width: 50, height: 50 }}

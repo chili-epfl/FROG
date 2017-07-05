@@ -3,22 +3,42 @@
 import React, { Component } from "react";
 
 class Rules extends Component {
-  state: { valueState: Array };
+  state: { valueState: Array<boolean> };
+  allDef: Array<boolean>;
 
-  constructor(props: { generateNewPics: Function }) {
+  constructor(props: {
+    generateNewPics: Function,
+    trueDef: Object,
+    falseDef: Object
+  }) {
     super(props);
 
-    var newState = [false];
-    var def = this.props.falseDef;
-    for (var i: 1; i < def.length; ++i) {
-      newState = [...newState, false];
-    }
+    this.allDef = this.concatAndShuffle(props.trueDef, props.falseDef);
+
+    var newState = [];
+    this.allDef.map((d, i) => (newState[i] = false));
+
     this.state = {
       valueState: newState
     };
   }
 
-  handleOptionChange = e => {
+  concatAndShuffle = (a: Object, b: Object) => {
+    // Small issue: when no trueDef is entered, the props is not defined at all
+    // This doesn't happen with falseDef
+    // The following lines still makes it work
+    var def = [];
+    if (typeof a === "undefined") def = [...a];
+    else def = a.concat(b);
+
+    for (let i = def.length; i; i--) {
+      let j = Math.floor(Math.random() * i);
+      [def[i - 1], def[j]] = [def[j], def[i - 1]];
+    }
+    return def;
+  };
+  //: { target: { value: Number } }
+  handleOptionChange = (e: { target: { value: number } }) => {
     var newState = [...this.state.valueState];
     newState[e.target.value] = newState[e.target.value] ? false : true;
 
@@ -26,30 +46,31 @@ class Rules extends Component {
   };
 
   render() {
+    let arr = this.state.valueState;
     return (
-      <form onSubmit={this.props.generateNewPics}>
-        <label>
-          <input
-            type="checkbox"
-            value={0}
-            onChange={this.handleOptionChange}
-            checked={this.state.valueState[0]}
-          />
-          {" " + this.props.goodDef}
-        </label>
-        {this.props.falseDef.map((d, index) =>
-          <div className="chkbx" key={index}>
+      <form
+        onSubmit={e => this.props.generateNewPics(arr, e)}
+        style={{
+          marginLeft: "20px"
+        }}
+      >
+        <h4>
+          Please select all apropriated definitions
+        </h4>
+        {this.allDef.map((d, index) =>
+          <div key={index}>
             <label>
               <input
                 type="checkbox"
-                value={index + 1}
+                value={index}
                 onChange={this.handleOptionChange}
-                checked={this.state.valueState[index + 1]}
+                checked={this.state.valueState[index] || false}
               />
-              {" " + d}
+              {" " + d.toString()}
             </label>
           </div>
         )}
+
         <button type="submit">Next</button>
       </form>
     );

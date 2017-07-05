@@ -1,26 +1,33 @@
 // @flow
 
 export default {
-  type: 'object',
+  type: "object",
   properties: {
-    goodDef: {
-      title: 'What is the correct definition ?',
-      type: 'string'
+    title: {
+      type: "string",
+      title: "Title"
+    },
+    trueDef: {
+      title: "True definitions :",
+      type: "array",
+      items: {
+        type: "string"
+      }
     },
     falseDef: {
-      title: 'False definitions :',
-      type: 'array',
+      title: "False definitions :",
+      type: "array",
       items: {
-        type: 'string'
+        type: "string"
       }
     },
     imgTrue: {
-      title: 'correct image uri',
-      type: 'string'
+      title: "correct image uri",
+      type: "string"
     },
     imgFalse: {
-      title: 'incorrect image uri',
-      type: 'string'
+      title: "incorrect image uri",
+      type: "string"
     }
   }
 };
