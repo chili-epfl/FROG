@@ -33,11 +33,13 @@ class Rules extends Component {
 
     for (let i = def.length; i; i--) {
       let j = Math.floor(Math.random() * i);
-      [def[i - 1], def[j]] = [def[j], def[i - 1]];
+      let [c, d] = [def[i - 1], def[j]];
+      def[j] = c;
+      def[i - 1] = d;
     }
     return def;
   };
-  //: { target: { value: Number } }
+
   handleOptionChange = (e: { target: { value: number } }) => {
     var newState = [...this.state.valueState];
     newState[e.target.value] = newState[e.target.value] ? false : true;
