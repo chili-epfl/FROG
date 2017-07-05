@@ -1,6 +1,6 @@
 // @flow
 
-import React from "react";
+import React from 'react';
 
 const Images = (props: { imgTrue: String, imgFalse: String }) => {
   if (!props.imgTrue || !props.imgFalse) {
@@ -9,62 +9,62 @@ const Images = (props: { imgTrue: String, imgFalse: String }) => {
     return (
       <div
         style={{
-          height: "100%",
-          width: "50%",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden"
+          height: '100%',
+          width: '50%',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden'
         }}
       >
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-            height: "45%"
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            height: '45%'
           }}
         >
           <div
             style={{
-              width: "5%",
-              height: "100%",
-              background: "green"
+              width: '5%',
+              height: '100%',
+              background: 'green'
             }}
           />
           <img
             style={{
-              width: "90%",
-              height: "95%",
-              margin: "auto"
+              width: '90%',
+              height: '95%',
+              margin: 'auto'
             }}
             src={props.imgTrue}
-            alt={""}
+            alt={''}
           />
         </div>
         <br />
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-            height: "45%"
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            height: '45%'
           }}
         >
           <div
             style={{
-              width: "5%",
-              height: "100%",
-              background: "red"
+              width: '5%',
+              height: '100%',
+              background: 'red'
             }}
           />
           <img
             style={{
-              width: "90%",
-              height: "95%",
-              margin: "auto"
+              width: '90%',
+              height: '95%',
+              margin: 'auto'
             }}
             src={props.imgFalse}
-            alt={""}
+            alt={''}
           />
         </div>
       </div>

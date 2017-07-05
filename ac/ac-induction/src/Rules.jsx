@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Rules extends Component {
   state: { valueState: Array<boolean> };
@@ -15,7 +15,7 @@ class Rules extends Component {
 
     this.allDef = this.concatAndShuffle(props.trueDef, props.falseDef);
 
-    let newState = [];
+    const newState = [];
     this.allDef.map((d, i) => (newState[i] = false));
 
     this.state = {
@@ -28,12 +28,12 @@ class Rules extends Component {
     // This doesn't happen with falseDef
     // The following lines still makes it work
     let def = [];
-    if (typeof a === "undefined") def = [...a];
+    if (typeof a === 'undefined') def = [...a];
     else def = a.concat(b);
 
     let j = 0;
 
-    for (let i = def.length; i; i - 1) {
+    for (let i = def.length; i; i -= 1) {
       j = Math.floor(Math.random() * i);
       const [c, d] = [def[i - 1], def[j]];
       def[j] = c;
@@ -43,17 +43,17 @@ class Rules extends Component {
   };
 
   handleOptionChange = (e: { target: { value: number } }) => {
-    let newState = [...this.state.valueState];
+    const newState = [...this.state.valueState];
+    newState[e.target.value] = !newState[e.target.value];
     this.setState({ valueState: newState });
   };
 
   render() {
-    const arr = this.state.valueState;
     return (
       <form
-        onSubmit={e => this.props.generateNewPics(arr, e)}
+        onSubmit={e => this.props.generateNewPics(e)}
         style={{
-          marginLeft: "20px"
+          marginLeft: '20px'
         }}
       >
         <h4>
@@ -69,7 +69,7 @@ class Rules extends Component {
                 onChange={this.handleOptionChange}
                 checked={this.state.valueState[index] || false}
               />
-              {" " + d.toString()}
+              {' ' + d.toString()}
             </label>
           </div>
         )}
