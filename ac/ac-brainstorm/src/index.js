@@ -14,7 +14,7 @@ const meta = {
 const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
-  if (obj.data) {
+  if (obj.data && !!obj.data.forEach) {
     obj.data.forEach(box => dataFn.objInsert({ score: 0, ...box }, box.id));
   }
 };
