@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { shuffle } from 'lodash';
 
 class Rules extends Component {
   state: { valueState: Array<boolean> };
@@ -13,7 +14,9 @@ class Rules extends Component {
   }) {
     super(props);
 
-    this.allDef = this.concatAndShuffle(props.trueDef, props.falseDef);
+    let def = (typeof props.trueDef != 'undefined') ? props.trueDef.concat(props.falseDef) : [];
+
+    this.allDef = shuffle(def);
 
     const newState = [];
     this.allDef.map((d, i) => (newState[i] = false));
@@ -22,25 +25,6 @@ class Rules extends Component {
       valueState: newState
     };
   }
-
-  concatAndShuffle = (a: Object, b: Object) => {
-    // Small issue: when no trueDef is entered, the props is not defined at all
-    // This doesn't happen with falseDef
-    // The following lines still makes it work
-    let def = [];
-    if (typeof a === 'undefined') def = [...a];
-    else def = a.concat(b);
-
-    let j = 0;
-
-    for (let i = def.length; i; i -= 1) {
-      j = Math.floor(Math.random() * i);
-      const [c, d] = [def[i - 1], def[j]];
-      def[j] = c;
-      def[i - 1] = d;
-    }
-    return def;
-  };
 
   handleOptionChange = (e: { target: { value: number } }) => {
     const newState = [...this.state.valueState];
