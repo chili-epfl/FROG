@@ -4,14 +4,14 @@ import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 
 class UploadFile extends Component {
-  state: { url: String };
+  state: { url: string };
 
-  constructor(props) {
+  constructor(props: {}) {
     super(props);
     this.state = { url: '' };
   }
 
-  processFile(files) {
+  processFile(files : Array<any>) {
     const f = files[0];
     return new Promise(resolve => {
       const reader = new FileReader();
@@ -20,7 +20,7 @@ class UploadFile extends Component {
     });
   }
 
-  onChange = e => this.setState({ url: e.formData.file });
+  onChange = (e: {formData: {file: string}}) => this.setState({ url: e.formData.file });
 
   render() {
     return (
