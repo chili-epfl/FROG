@@ -42,7 +42,9 @@ class UploadFile extends Component {
           }}
           onChange={this.onChange}
           liveValidate
-        />
+        >
+          <div />
+        </Form>
         <h4>Submitted file as data URL</h4>
         <pre>{this.state.url.toString()}</pre>
       </div>
