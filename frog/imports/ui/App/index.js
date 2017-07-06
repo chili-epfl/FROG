@@ -7,7 +7,6 @@ import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 
 import Body from './Body.jsx';
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Navigation from './Navigation';
 
 const DEFAULT_PASSWORD = '123456';
@@ -28,16 +27,16 @@ window.connection = connection;
 
 // App component - represents the whole app
 export default class App extends Component {
-  state: { app: string };
+  state: { app: string, username: string };
 
   constructor() {
     super();
-    this.state = { app: 'home' };
+    this.state = { app: 'home', username: '' };
     Meteor.subscribe('userData', { onReady: this.handleNewHash });
   }
 
   handleNewHash = () => {
-    const [, location, username] = window.location.hash.split('/');
+    const [, username, location] = window.location.hash.split('/');
     if (username) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
@@ -47,7 +46,10 @@ export default class App extends Component {
         connectWithDefaultPwd(username);
       }
     }
-    if (location && apps[location]) {
+    this.setState({ username });
+    if (username !== 'teacher') {
+      this.setState({ app: 'student' });
+    } else if (location && apps[location]) {
       this.setState({ app: location });
     }
   };
@@ -59,10 +61,14 @@ export default class App extends Component {
   render() {
     return (
       <div id="app">
-        <div id="header">
-          <AccountsUIWrapper />
-          <Navigation apps={apps} currentApp={this.state.app} />
-        </div>
+        {this.state.username === 'teacher' &&
+          <div id="header">
+            <Navigation
+              username={this.state.username}
+              apps={apps}
+              currentApp={this.state.app}
+            />
+          </div>}
         <div id="body">
           <Body app={this.state.app} />
         </div>
