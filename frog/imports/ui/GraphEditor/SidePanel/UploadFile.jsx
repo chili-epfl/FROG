@@ -11,7 +11,7 @@ class UploadFile extends Component {
     this.state = { url: '' };
   }
 
-  processFile(files : Array<any>) {
+  processFile(files: Array<any>) {
     const f = files[0];
     return new Promise(resolve => {
       const reader = new FileReader();
@@ -20,7 +20,8 @@ class UploadFile extends Component {
     });
   }
 
-  onChange = (e: {formData: {file: string}}) => this.setState({ url: e.formData.file });
+  onChange = (e: { formData: { file: string } }) =>
+    this.setState({ url: e.formData.file });
 
   render() {
     return (
