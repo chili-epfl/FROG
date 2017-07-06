@@ -14,7 +14,9 @@ class Rules extends Component {
   }) {
     super(props);
 
-    let def = (typeof props.trueDef != 'undefined') ? props.trueDef.concat(props.falseDef) : [];
+    const def = typeof props.trueDef !== 'undefined'
+      ? props.trueDef.concat(props.falseDef)
+      : [];
 
     this.allDef = shuffle(def);
 
