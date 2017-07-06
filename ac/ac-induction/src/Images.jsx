@@ -3,35 +3,51 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
-  height: 45%;
+const Main = styled.div`
+  height: 100%;
   width: 100%;
-  display: inline-block;
-`
+  display: flex;
+  flex-direction: column;
+`;
 
-const Img = ({ url }) => <img
-  style={{
-    width: '50px',
-    height: '95%'
-  }}
-  src={url}
-  alt={''}
-/>
+const Container = styled.div`
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
 
-const Rectangle = ({ color }) => <div
-  style={{
-    width: '50%',
-    height: '100%',
-    background: color
-  }}
-/>
+const Img = ({ url }) =>
+  <img
+    style={{
+      margin: '1%',
+      width: '90%',
+      height: '98%'
+    }}
+    src={url}
+    alt={''}
+  />;
 
-const Images = (props: { imgTrue: String, imgFalse: String }) => {
+const Rectangle = ({ color }) =>
+  <div
+    style={{
+      width: '6%',
+      height: '98%',
+      margin: '1%',
+      background: color
+    }}
+  />;
+
+const Images = (props: {
+  imgTrue: String,
+  imgFalse: String,
+  style: Object
+}) => {
   if (!props.imgTrue || !props.imgFalse) {
     return <div>{"Images's URI not found"}</div>;
   } else {
     return (
-      <div>
+      <Main style={props.style}>
         <Container>
           <Rectangle color={'#00ff00'} />
           <Img url={props.imgTrue} />
@@ -40,7 +56,7 @@ const Images = (props: { imgTrue: String, imgFalse: String }) => {
           <Rectangle color={'#ff0000'} />
           <Img url={props.imgFalse} />
         </Container>
-      </div>
+      </Main>
     );
   }
 };

@@ -10,23 +10,25 @@ import Rules from './Rules';
 const Main = styled.div`
   width: 100%;
   height: 100%;
-  display: inline-block;
-`
+`;
 
 const Container = styled.div`
-  width: 50%;
+  width: 100%;
   height: 80%;
-`
+  display: flex;
+  flex-direction: row
+`;
 
 export default ({ activityData }: ActivityRunnerT) =>
   <Main>
     <h1>{activityData.config.title}</h1>
     <Container>
-      <Images {...activityData.config} />
-    </Container>
-    <Container>
+      <Images style={{ width: '50%' }} {...activityData.config} />
       <Rules
-        generateNewPics={e => { e.preventDefault(); }}
+        style={{ width: '50%' }}
+        generateNewPics={e => {
+          e.preventDefault();
+        }}
         {...activityData.config}
       />
     </Container>
