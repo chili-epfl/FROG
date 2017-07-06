@@ -17,7 +17,7 @@ const getInitialState = (activities, d = 1) => {
 };
 
 const SessionBody = ({ session }: { session: Object }) => {
-  if (!session.openActivities) {
+  if (!session.openActivities || session.openActivities.length === 0) {
     return <h1>NO ACTIVITY</h1>;
   }
   if (session.openActivities.length === 1) {
