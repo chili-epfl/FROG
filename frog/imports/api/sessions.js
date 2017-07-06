@@ -3,6 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Presences } from 'meteor/tmeasday:presence';
+import { compact } from 'lodash';
 
 import { uuid } from 'frog-utils';
 
@@ -76,12 +77,12 @@ export const joinAllStudents = (sessionId: string) =>
 
 Meteor.methods({
   'session.joinall': sessionId => {
-    Presences.find({ userId: { $exists: true } }).fetch().forEach(x => {
-      Meteor.users.update(
-        { _id: x.userId },
-        { $set: { 'profile.currentSession': sessionId } }
-      );
-    });
+    const currentUsers = compact(Presences.find().fetch().map(x => x.userId));
+    Meteor.users.update(
+      { _id: { $in: currentUsers }, username: { $not: { $eq: 'teacher' } } },
+      { $set: { 'profile.currentSession': sessionId } },
+      { multi: true }
+    );
   },
   'add.session': graphId => {
     const sessionId = uuid();
