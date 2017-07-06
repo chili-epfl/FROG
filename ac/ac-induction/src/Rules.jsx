@@ -43,7 +43,7 @@ class Rules extends Component {
         }}
       >
         <h4>
-          Please select all apropriated definitions
+          Please select all apropriated definitions :
         </h4>
         {this.allDef.map((d, index) =>
           <div key={index.toString()}>
