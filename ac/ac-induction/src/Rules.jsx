@@ -10,7 +10,8 @@ class Rules extends Component {
   constructor(props: {
     generateNewPics: Function,
     trueDef: Object,
-    falseDef: Object
+    falseDef: Object,
+    style: Object
   }) {
     super(props);
 
@@ -38,9 +39,7 @@ class Rules extends Component {
     return (
       <form
         onSubmit={e => this.props.generateNewPics(e)}
-        style={{
-          marginLeft: '20px'
-        }}
+        style={this.props.style}
       >
         <h4>
           Please select all apropriated definitions
