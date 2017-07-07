@@ -1,55 +1,36 @@
 // @flow
 
 import React from 'react';
-
 import { type ActivityRunnerT } from 'frog-utils';
+import styled from 'styled-components';
 
 import Images from './Images';
 import Rules from './Rules';
 
-export default ({
-  // logger,
-  activityData
-}: // data,
-// dataFn,
-// userInfo
-ActivityRunnerT) =>
-  <div
-    style={{
-      overflow: 'hidden',
-      position: 'relative',
-      width: '100%',
-      height: '100%'
-    }}
-  >
-    <h4 style={{ marginLeft: '20px' }}>{activityData.config.title}</h4>
-    <div
-      style={{
-        margin: '10px',
-        display: 'flex',
-        width: '100%',
-        height: '100%',
-        flexDirection: 'row'
-      }}
-    >
-      <Images
-        style={{
-          height: '100%',
-          width: '50%'
-        }}
-        {...activityData.config}
-      />
+
+const Main = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: row
+`;
+
+export default ({ activityData }: ActivityRunnerT) =>
+  <Main>
+    <h1>{activityData.config.title}</h1>
+    <Container>
+      <Images style={{ width: '50%' }} {...activityData.config} />
       <Rules
-        style={{
-          position: 'relative',
-          margin: '20px',
-          height: '100%',
-          width: '50%'
-        }}
+        style={{ width: '50%' }}
         generateNewPics={e => {
           e.preventDefault();
         }}
         {...activityData.config}
       />
-    </div>
-  </div>;
+    </Container>
+  </Main>;
