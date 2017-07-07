@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import Images from './Images';
 import Rules from './Rules';
 
-
 const Main = styled.div`
   width: 100%;
   height: 100%;
