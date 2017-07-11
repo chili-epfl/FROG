@@ -9,7 +9,7 @@ import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 import { RenameField } from '../Rename';
 import { connect } from '../store';
-import FileForm from './fileConvert';
+import FileForm from './fileUploader';
 
 const ChooseActivityType = ({ activity }) => {
   const select = e => {

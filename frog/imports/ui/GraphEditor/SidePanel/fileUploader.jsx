@@ -4,27 +4,48 @@ import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import { Uploads } from '/imports/api/uploads';
+import { Uploads,addUpload } from '../../../api/uploads';
 
-class fileConvert extends Component {
-  state: { url: string, copied: boolean, display: boolean };
+const FileForm = ({ onChange }) => {
+  return (<Form
+    schema={{
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          title: 'Upload an image to get its URI'
+        }
+      }
+    }}
+    uiSchema={{
+      file: {
+        'ui:widget': 'file'
+      }
+    }}
+    onChange={onChange}
+    liveValidate
+  >
+    <div />
+  </Form>);
+}
+
+class fileUploader extends Component {
+  state: { url: string, display: boolean };
 
   constructor(props: {}) {
     super(props);
-    this.state = { url: '', copied: false, display: false };
+    this.state = { url: '', display: false };
   }
 
   onChange = (e: { formData: { file: string } }) => {
+    this.setState({url: 'Uploading …'});
     const that = this;
-    Uploads.insert(e.formData.file, (err, fileObj) => {
-      that.setState({
-        url: window.location.origin + '/cfs/files/uploads/' + fileObj._id,
-        copied: false
-      });
-    });
+    let urlTmp = '';//addUpload(window.location.origin, e.formData.file);
+    //this.setState({url: urlTmp});
+    Promise.resolve(urlTmp = Uploads.insert(e.formData.file, (err, fileObj) => that.setState({url: window.location.origin + '/cfs/files/uploads/' + fileObj._id}))).then(this.setState({url: urlTmp}));
   };
 
-  onCopy = () => this.setState({ copied: true });
+
 
   render() {
     return (
@@ -43,31 +64,11 @@ class fileConvert extends Component {
         </div>
         {this.state.display &&
           <div>
-            <Form
-              schema={{
-                type: 'object',
-                properties: {
-                  file: {
-                    type: 'string',
-                    title: 'Upload an image to get its URI'
-                  }
-                }
-              }}
-              uiSchema={{
-                file: {
-                  'ui:widget': 'file'
-                }
-              }}
-              onChange={this.onChange}
-              liveValidate
-            >
-              <div />
-            </Form>
+            <FileForm onChange={this.onChange} />
             <h4>{'Submitted file as data URL'}</h4>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <CopyToClipboard
                 text={this.state.url}
-                onCopy={() => this.setState({ copied: true })}
                 style={{ height: '39px' }}
               >
                 <button>Copy</button>
@@ -82,4 +83,4 @@ class fileConvert extends Component {
   }
 }
 
-export default fileConvert;
+export default fileUploader;
