@@ -1,6 +1,6 @@
 // @flow
 
-import { shuffle } from 'lodash';
+import { shuffle, chunk } from 'lodash';
 import type { socialOperatorT } from 'frog-utils';
 
 const meta = {
@@ -13,8 +13,69 @@ const config = {
   properties: {}
 };
 
-const operator = (configData, object) =>
-   const { globalStructure, activityData } = object;
+const operator = (configData, object) =>{
+  const { students } = object;
+  console.log(students);
+  const distances = computeDist(students);
+  //console.log(distances);
+
+  const av = computeAv(distances);
+  //console.log(av); => 2
+  //const k = Object.keys(students);
+  let tmp = chunk(shuffle([...Object.keys(students)]), 2);
+
+  let end = false;
+  while(end){
+    const dP1 = distances[tmp[0][0]][tmp[0][1]];
+    for(i=0; i < distances.length; ++i){
+      //for(j=0; j < distances.length; ++j){
+        if(distances[tmp[0][0]][i] + distances[i][tmp[0][0]] < dP1)
+          console.log("Found an upgrade : passage by " + i);
+      //}
+    }
+    end = true;
+  }
+  return tmp;
+}
+
+const randomMatching = studentIds => shuffle(studentIds);
+
+const computeAv = (tab) => {
+  let sum = 0;
+  let count = 0;
+  for(let i = 0; i < tab.length; ++i){
+    for(let j = i+1; j < tab.length; ++j){
+      sum += tab[i][j];
+      ++count;
+    }
+  }
+  return sum/count;
+}
+
+const computeDist = (tab) => {
+  let result = [];
+
+  for(let i = 0; i < tab.length; ++i){
+    result[i] = [];
+    for(let j = 0; j <= i; ++j){
+      const tmp = dist(tab[i], tab[j])
+      result[i][j] = tmp;
+      result[j][i] = tmp;
+    }
+  }
+  return result;
+}
+
+const dist = (A, B) => {
+  if (A.length != B.length) {
+    return -1;
+  }
+  let count = 0;
+  for(let i= 0; i < A.length; ++i){
+    count = A[i] != B[i] ? count+1 : count;
+  }
+  return count;
+}
 
   // computes the distance between two students as the number of different answers
   // const distance = (id1, id2) => {
@@ -62,7 +123,7 @@ const operator = (configData, object) =>
   //   };
   // });
 
-  ({});
+//  ({});
 
 export default ({
   id: 'op-argue',
