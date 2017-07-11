@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import { Files, addFile } from '/imports/api/activities';
+import { Uploads } from '/imports/api/uploads';
 
 class fileConvert extends Component {
   state: { url: string, copied: boolean, display: boolean };
@@ -14,12 +14,16 @@ class fileConvert extends Component {
     this.state = { url: '', copied: false, display: false };
   }
 
-  onChange = (e: { formData: { file: string } }) =>{
-    const [dataType, nameDirty,] = e.formData.file.split(';');
-    const name = nameDirty.split('=')[1];
-    Promise.resolve().then(addFile(name, e.formData.file));
-    this.setState({ url: window.location.host+'/file/'+name, copied: false });
-}
+  onChange = (e: { formData: { file: string } }) => {
+    const that = this;
+    Uploads.insert(e.formData.file, (err, fileObj) => {
+      that.setState({
+        url: window.location.origin + '/cfs/files/uploads/' + fileObj._id,
+        copied: false
+      });
+    });
+  };
+
   onCopy = () => this.setState({ copied: true });
 
   render() {

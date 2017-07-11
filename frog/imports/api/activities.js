@@ -14,16 +14,6 @@ export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
 export const Results = new Mongo.Collection('results');
-export const Files = new Mongo.Collection('files');
-
-export const addFile = (nameArg: String, dataURL: String) => {
-  Files.insert({
-    _id: uuid(),
-    name: nameArg,
-    url: dataURL
-  });
-  console.log("file "+nameArg+" added");
-};
 
 export const addActivity = (
   activityType: string,
