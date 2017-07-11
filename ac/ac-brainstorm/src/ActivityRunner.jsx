@@ -94,7 +94,7 @@ export default ({
     if (e.formData && e.formData.title && e.formData.content) {
       const id = uuid();
       logger({ type: 'idea', id });
-      dataFn.objInsert({ score: 0, id, ...e.formData }, ['ideas', id]);
+      dataFn.objInsert({ score: 0, id, ...e.formData }, id);
     }
   };
   return (
@@ -109,7 +109,7 @@ export default ({
                 logger({ key: userInfo.name, type: 'vote' });
                 dataFn.numIncr(incr, [id, 'score']);
               },
-              delete: item => dataFn.objDel(item, ['ideas', item.id])
+              delete: item => dataFn.objDel(item, item.id)
             }}
             remove={activityData.config.formBoolean}
           />
