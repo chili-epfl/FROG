@@ -1,61 +1,97 @@
 // @flow
 
 import React, { Component } from 'react';
-import Form from 'react-jsonschema-form';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { Collapse } from 'react-bootstrap';
+import Dropzone from 'react-dropzone';
 
 import { Uploads } from '../../../api/uploads';
 
-const FileForm = ({ onChange }) =>
-  <Form
-    schema={{
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          title: 'Upload an image to get its URI'
-        }
-      }
-    }}
-    uiSchema={{
-      file: {
-        'ui:widget': 'file'
-      }
-    }}
-    onChange={onChange}
-    liveValidate
-  >
-    <div />
-  </Form>;
+const Header = ({ display, setState }) =>
+  <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <span
+      className={'glyphicon glyphicon-' + (display ? 'menu-up' : 'menu-down')}
+      aria-hidden="true"
+      style={{ fontSize: '200%', marginLeft: '10px', marginTop: '5px' }}
+      onClick={() => setState({ display: !display })}
+    />
+    <h4 style={{ textDecoration: 'underline', margin: '10px' }}>
+      Upload File:
+    </h4>
+  </div>;
+
+const FileBox = ({ urls, setState }) => {
+  const onDrop = files => {
+    if (files.length > 1) {
+      window.alert('Only 1 file at a time please'); //eslint-disable-line
+    } else {
+      Uploads.insert(files[0], (err, fileObj) => {
+        const newUrl =
+          window.location.origin + '/cfs/files/uploads/' + fileObj._id;
+        setState({
+          urls: [...urls, newUrl]
+        });
+      });
+    }
+  };
+
+  return (
+    <Dropzone
+      onDrop={onDrop}
+      style={{
+        width: '100%',
+        height: '100px',
+        borderWidth: '2px',
+        borderColor: 'rgb(102, 102, 102)',
+        borderStyle: 'dashed',
+        borderRadius: '5px',
+        textAlign: 'center'
+      }}
+    >
+      <h3
+        style={{
+          position: 'relative',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          margin: '0 auto'
+        }}
+      >
+        Drop files here
+      </h3>
+    </Dropzone>
+  );
+};
+
+const FileList = ({ urls }) =>
+  urls && urls.length > 0
+    ? <div>
+        <h4>URL of submitted files</h4>
+        {urls.map(url =>
+          <div key={url} style={{ display: 'flex', flexDirection: 'row' }}>
+            <CopyToClipboard text={url} style={{ height: '39px' }}>
+              <button>Copy</button>
+            </CopyToClipboard>
+            <pre style={{ width: '100%' }}>
+              {url}
+            </pre>
+          </div>
+        )}
+      </div>
+    : <h4>No uploaded file</h4>;
 
 class fileUploader extends Component {
-  state: { url: string, display: boolean };
+  state: { urls: string[], display: boolean };
   mounted: boolean;
 
   constructor(props: {}) {
     super(props);
-    this.state = { url: '', display: false };
+    this.state = { urls: [], display: false };
   }
-
-  onChange = (e: { formData: { file: string } }) => {
-    if (this.mounted) {
-      this.setState({ url: 'Uploading …' });
-      const that = this;
-      window.setTimeout(
-        () =>
-          Uploads.insert(e.formData.file, (err, fileObj) => {
-            that.setState({
-              url: window.location.origin + '/cfs/files/uploads/' + fileObj._id
-            });
-          }),
-        1
-      );
-    }
-  };
 
   componentDidMount() {
     this.mounted = true;
   }
+
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -64,30 +100,19 @@ class fileUploader extends Component {
     return (
       <div>
         <div style={{ width: '100%', height: '2px', background: 'black' }} />
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <h4 style={{ textDecoration: 'underline' }}>
-            {' '}File to URL converting tool :{' '}
-          </h4>
-          <button
-            style={{ marginLeft: '20px' }}
-            onClick={() => this.setState({ display: !this.state.display })}
-          >
-            {this.state.display ? 'Close' : 'Open'}
-          </button>
-        </div>
-        {this.state.display &&
+        <Header
+          display={this.state.display}
+          setState={state => this.mounted && this.setState(state)}
+        />
+        <Collapse in={this.state.display}>
           <div>
-            <FileForm onChange={this.onChange} />
-            <h4>{'Submitted file as data URL'}</h4>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <CopyToClipboard text={this.state.url} style={{ height: '39px' }}>
-                <button>Copy</button>
-              </CopyToClipboard>
-              <pre style={{ width: '100%' }}>
-                {' ' + this.state.url.toString()}
-              </pre>
-            </div>
-          </div>}
+            <FileBox
+              urls={this.state.urls}
+              setState={state => this.mounted && this.setState(state)}
+            />
+            <FileList urls={this.state.urls} />
+          </div>
+        </Collapse>
       </div>
     );
   }
