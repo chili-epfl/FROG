@@ -1,6 +1,6 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
+import { chunk } from 'lodash';
 import type { socialOperatorT } from 'frog-utils';
 
 const meta = {
@@ -13,117 +13,112 @@ const config = {
   properties: {}
 };
 
-const operator = (configData, object) =>{
-  const { students } = object;
-  console.log(students);
+// if(typeof cur === 'string' || typeof cur === 'number'){
+
+Object.flatten = function(data) {
+  const result = {};
+  function recurse(cur, prop) {
+    if (Object(cur) !== cur) {
+      result[prop] = cur;
+    } else if (Array.isArray(cur)) {
+      const l = cur.length;
+      for (let i = 0; i < l; i += 1) recurse(cur[i], prop + '[' + i + ']');
+      if (l === 0) result[prop] = [];
+    } else {
+      let isEmpty = true;
+      for (const p in cur) {
+        isEmpty = false;
+        recurse(cur[p], prop ? prop + '.' + p : p);
+      }
+      if (isEmpty && prop) result[prop] = {};
+    }
+  }
+  recurse(data, '');
+  return result;
+};
+
+const operator = (configData, object) => {
+  const { globalStructure, activityData: { payload } } = object;
+  const ids = globalStructure.studentIds;
+  const students = dataToArray(ids, payload);
   const distances = computeDist(students);
-  //console.log(distances);
+  const tmp = chunk([...students.keys()] /* .map(x => x.toString())*/, 2);
+  let modified = false;
 
-  const av = computeAv(distances);
-  //console.log(av); => 2
-  //const k = Object.keys(students);
-  let tmp = chunk(shuffle([...Object.keys(students)]), 2);
+  do {
+    modified = false;
 
-  let end = false;
-  while(end){
-    const dP1 = distances[tmp[0][0]][tmp[0][1]];
-    for(i=0; i < distances.length; ++i){
-      //for(j=0; j < distances.length; ++j){
-        if(distances[tmp[0][0]][i] + distances[i][tmp[0][0]] < dP1)
-          console.log("Found an upgrade : passage by " + i);
-      //}
+    for (let i = 0; i < tmp.length - 1 && !modified; i = 1 + i) {
+      const dP1 = distances[tmp[i][0]][tmp[i][1]];
+
+      for (let j = i + 1; j < tmp.length && !modified; j = 1 + j) {
+        if (
+          Math.min(
+            distances[tmp[i][0]][tmp[j][0]],
+            distances[tmp[i][1]][tmp[j][1]]
+          ) > dP1
+        ) {
+          const k = tmp[i][1];
+          tmp[i][1] = tmp[j][0];
+          tmp[j][0] = k;
+          modified = true;
+        } else if (
+          Math.min(
+            distances[tmp[i][0]][tmp[j][1]],
+            distances[tmp[i][1]][tmp[j][0]]
+          ) > dP1
+        ) {
+          const k = tmp[i][1];
+          tmp[i][1] = tmp[j][1];
+          tmp[j][1] = k;
+          modified = true;
+        }
+      }
     }
-    end = true;
+  } while (modified);
+
+  const result = { group: {} };
+
+  for (let i = 0; i < tmp.length; i = 1 + i) {
+    tmp[i].sort((a, b) => a - b);
+    result.group[(i + 1).toString()] = tmp[i].map(x => ids[x]);
   }
-  return tmp;
-}
+  return result;
+};
 
-const randomMatching = studentIds => shuffle(studentIds);
+const dataToArray = (ids, payload) => {
+  const result = [];
 
-const computeAv = (tab) => {
-  let sum = 0;
-  let count = 0;
-  for(let i = 0; i < tab.length; ++i){
-    for(let j = i+1; j < tab.length; ++j){
-      sum += tab[i][j];
-      ++count;
-    }
+  for (let i = 0; i < ids.length; i += 1) {
+    result.push(Object.flatten(payload[ids[i]].data));
+    // result.push(flatten(payload[ids[i]].data));
   }
-  return sum/count;
-}
+  return result;
+};
 
-const computeDist = (tab) => {
-  let result = [];
+const computeDist = tab => {
+  const result = [];
 
-  for(let i = 0; i < tab.length; ++i){
+  for (let i = 0; i < tab.length; i = 1 + i) {
     result[i] = [];
-    for(let j = 0; j <= i; ++j){
-      const tmp = dist(tab[i], tab[j])
+    for (let j = 0; j <= i; j = 1 + j) {
+      const tmp = dist(tab[i], tab[j]);
       result[i][j] = tmp;
       result[j][i] = tmp;
     }
   }
   return result;
-}
+};
 
 const dist = (A, B) => {
-  if (A.length != B.length) {
-    return -1;
-  }
+  const k = Object.keys(Object.assign({}, A, B));
   let count = 0;
-  for(let i= 0; i < A.length; ++i){
-    count = A[i] != B[i] ? count+1 : count;
+  for (let i = 0; i < k.length; i = 1 + i) {
+    if (typeof A[k[i]] !== 'undefined' && typeof B[k[i]] !== 'undefined')
+      count += A[k[i]] === B[k[i]] ? 0 : 1;
   }
   return count;
-}
-
-  // computes the distance between two students as the number of different answers
-  // const distance = (id1, id2) => {
-  //   const prod1 = product && product.find(p => p.userId === id1);
-  //   const prod2 = product && product.find(p => p.userId === id2);
-  //   return prod1 && prod2
-  //     ? Object.keys(prod1.data).filter(
-  //         q => prod1.data[q].radio !== prod2.data[q].radio
-  //       ).length
-  //     : 0;
-  // };
-
-  // // creates a random matching
-  // const randomMatching = studentIds => shuffle(studentIds);
-
-  // // evaluates the quality of a matching
-  // const evaluateMatching = matching => {
-  //   let totalDistance = 0;
-  //   for (let s = 0; s + 1 < matching.length; s += 2) {
-  //     totalDistance += distance(matching[s], matching[s + 1]);
-  //   }
-  //   return 2 * totalDistance / matching.length;
-  // };
-
-  // let matching;
-  // let score;
-  // let bestMatching = globalStructure.studentIds;
-  // let bestScore = 0;
-
-  // // Iterates many time while keeping the best matching encountered
-  // for (let iteration = 0; iteration < 100; iteration += 1) {
-  //   matching = randomMatching(globalStructure.studentIds);
-  //   score = evaluateMatching(matching);
-  //   if (score > bestScore) {
-  //     bestScore = score;
-  //     bestMatching = matching;
-  //   }
-  // }
-
-  // // uses the computed best matching to build the social structure
-  // const socStruc: SocialStructureT = {};
-  // bestMatching.forEach((studentId, index) => {
-  //   socStruc[studentId] = {
-  //     group: Math.floor(index / 2).toString()
-  //   };
-  // });
-
-//  ({});
+};
 
 export default ({
   id: 'op-argue',
