@@ -23,7 +23,6 @@ cfs:collection-filters@0.2.4
 cfs:data-man@0.0.6
 cfs:file@0.1.17
 cfs:filesystem@0.1.2
-cfs:gridfs@0.0.33
 cfs:http-methods@0.0.32
 cfs:http-publish@0.0.13
 cfs:power-queue@0.9.11
@@ -79,7 +78,7 @@ modules-runtime@0.8.0
 mongo@1.1.18
 mongo-id@1.0.6
 mongo-livedata@1.0.12
-npm-bcrypt@0.9.2
+npm-bcrypt@0.9.3
 npm-mongo@2.2.24
 observe-sequence@1.0.16
 ordered-dict@1.0.9
