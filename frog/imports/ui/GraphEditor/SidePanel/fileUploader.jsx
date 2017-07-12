@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import { Uploads,addUpload } from '../../../api/uploads';
+import { Uploads } from '../../../api/uploads';
 
-const FileForm = ({ onChange }) => {
-  return (<Form
+const FileForm = ({ onChange }) =>
+  <Form
     schema={{
       type: 'object',
       properties: {
@@ -26,11 +26,11 @@ const FileForm = ({ onChange }) => {
     liveValidate
   >
     <div />
-  </Form>);
-}
+  </Form>;
 
 class fileUploader extends Component {
   state: { url: string, display: boolean };
+  mounted: boolean;
 
   constructor(props: {}) {
     super(props);
@@ -38,14 +38,27 @@ class fileUploader extends Component {
   }
 
   onChange = (e: { formData: { file: string } }) => {
-    this.setState({url: 'Uploading …'});
-    const that = this;
-    let urlTmp = '';//addUpload(window.location.origin, e.formData.file);
-    //this.setState({url: urlTmp});
-    Promise.resolve(urlTmp = Uploads.insert(e.formData.file, (err, fileObj) => that.setState({url: window.location.origin + '/cfs/files/uploads/' + fileObj._id}))).then(this.setState({url: urlTmp}));
+    if (this.mounted) {
+      this.setState({ url: 'Uploading …' });
+      const that = this;
+      window.setTimeout(
+        () =>
+          Uploads.insert(e.formData.file, (err, fileObj) => {
+            that.setState({
+              url: window.location.origin + '/cfs/files/uploads/' + fileObj._id
+            });
+          }),
+        1
+      );
+    }
   };
 
-
+  componentDidMount() {
+    this.mounted = true;
+  }
+  componentWillUnmount() {
+    this.mounted = false;
+  }
 
   render() {
     return (
@@ -67,10 +80,7 @@ class fileUploader extends Component {
             <FileForm onChange={this.onChange} />
             <h4>{'Submitted file as data URL'}</h4>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <CopyToClipboard
-                text={this.state.url}
-                style={{ height: '39px' }}
-              >
+              <CopyToClipboard text={this.state.url} style={{ height: '39px' }}>
                 <button>Copy</button>
               </CopyToClipboard>
               <pre style={{ width: '100%' }}>
