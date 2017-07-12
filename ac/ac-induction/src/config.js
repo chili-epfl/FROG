@@ -22,11 +22,11 @@ export default {
       }
     },
     imgTrue: {
-      title: 'correct image uri',
+      title: 'Correct image URL',
       type: 'string'
     },
     imgFalse: {
-      title: 'incorrect image uri',
+      title: 'Incorrect image URL',
       type: 'string'
     }
   }
