@@ -2,7 +2,7 @@ import pkg from '../index';
 
 const operator = pkg.operator;
 
-const objTotal1 = {
+const obj1 = {
   globalStructure: {
     studentIds: ['1', '2', '3', '4']
   },
@@ -55,12 +55,82 @@ const objTotal1 = {
     }
   }
 };
-const expectedTotal1 = {
+
+const obj2 = {
+  globalStructure: {
+    studentIds: ['1', '2', '3', '4', '5']
+  },
+  activityData: {
+    payload: {
+      1: {
+        data: {
+          quizz1: ['A', 'B', 'C'],
+          quizz2: {
+            q1: '2',
+            alpha: {
+              a: 'A',
+              b: 'B'
+            }
+          }
+        }
+      },
+      2: {
+        data: {
+          quizz1: ['A', 'B'],
+          quizz2: {
+            q1: '3',
+            alpha: {
+              a: 'C',
+              b: 'B'
+            }
+          }
+        }
+      },
+      3: {
+        data: {
+          quizz1: ['A', 'B', 'C'],
+          quizz2: {
+            q1: '2',
+            alpha: {
+              a: 'A',
+              b: 'D'
+            }
+          }
+        }
+      },
+      4: {
+        data: {
+          quizz1: ['C', 'E'],
+          quizz2: {
+            q1: '8'
+          }
+        }
+      },
+      5: {
+        data: {
+          quizz1: ['C', 'E'],
+          quizz2: {
+            q1: '8'
+          }
+        }
+      }
+    }
+  }
+};
+
+const expected1 = {
   group: { '1': ['1', '4'], '2': ['2', '3'] }
 };
 
+const expected2 = {
+  group: { '1': ['1', '4'], '2': ['2', '3', '5'] }
+};
+
 test('Test with real obj, random case: 4 students', () =>
-  expect(operator({}, objTotal1)).toEqual(expectedTotal1));
+  expect(operator({}, obj1)).toEqual(expected1));
+
+test('Test with real obj, random case: 5 students', () =>
+  expect(operator({}, obj2)).toEqual(expected2));
 
 // const genGroupFromTabADCB = (tab, x) => {
 //   const { students } = tab;

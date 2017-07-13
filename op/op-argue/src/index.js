@@ -13,12 +13,10 @@ const config = {
   properties: {}
 };
 
-// if(typeof cur === 'string' || typeof cur === 'number'){
-
-Object.flatten = function(data) {
+const flatten = data => {
   const result = {};
   function recurse(cur, prop) {
-    if (Object(cur) !== cur) {
+    if (typeof cur === 'string' || typeof cur === 'number') {
       result[prop] = cur;
     } else if (Array.isArray(cur)) {
       const l = cur.length;
@@ -26,10 +24,15 @@ Object.flatten = function(data) {
       if (l === 0) result[prop] = [];
     } else {
       let isEmpty = true;
-      for (const p in cur) {
-        isEmpty = false;
-        recurse(cur[p], prop ? prop + '.' + p : p);
+      if (cur) {
+        const ks = Object.keys(cur);
+        for (let k = 0; k < ks.length; k += 1) {
+          const p = ks[k];
+          isEmpty = false;
+          recurse(cur[p], prop ? prop + '_' + p : p);
+        }
       }
+
       if (isEmpty && prop) result[prop] = {};
     }
   }
@@ -41,8 +44,14 @@ const operator = (configData, object) => {
   const { globalStructure, activityData: { payload } } = object;
   const ids = globalStructure.studentIds;
   const students = dataToArray(ids, payload);
+  let last = null;
+
+  if (students.length % 2) {
+    last = students.pop();
+  }
+
   const distances = computeDist(students);
-  const tmp = chunk([...students.keys()] /* .map(x => x.toString())*/, 2);
+  const tmp = chunk([...students.keys()], 2);
   let modified = false;
 
   do {
@@ -77,6 +86,20 @@ const operator = (configData, object) => {
     }
   } while (modified);
 
+  if (last) {
+    const max = 0;
+    let maxInd = 0;
+    for (let i = 0; i < tmp.length; i += 1) {
+      if (
+        dist(students[tmp[i][0]], last) + dist(students[tmp[i][1]], last) >
+        max
+      ) {
+        maxInd = i;
+      }
+    }
+    tmp[maxInd].push(students.length);
+  }
+
   const result = { group: {} };
 
   for (let i = 0; i < tmp.length; i = 1 + i) {
@@ -90,8 +113,7 @@ const dataToArray = (ids, payload) => {
   const result = [];
 
   for (let i = 0; i < ids.length; i += 1) {
-    result.push(Object.flatten(payload[ids[i]].data));
-    // result.push(flatten(payload[ids[i]].data));
+    result.push(flatten(payload[ids[i]].data));
   }
   return result;
 };
