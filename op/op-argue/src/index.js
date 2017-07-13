@@ -43,11 +43,7 @@ const operator = (configData, object) => {
   const { globalStructure, activityData: { payload } } = object;
   const ids = shuffle(globalStructure.studentIds);
   const students = dataToArray(ids, payload);
-  let last = null;
-
-  if (students.length % 2) {
-    last = students.pop();
-  }
+  const last = students.length % 2 ? students.pop() : null;
 
   const distances = computeDist(students);
   const tmp = chunk([...students.keys()], 2);
@@ -85,19 +81,27 @@ const operator = (configData, object) => {
     }
   } while (modified);
 
-  // //////////////////////////////////////////////////////////
   if (last) {
-    const max = 0;
+    let maxDif = 0;
+    let maxDist = 0;
     let maxInd = 0;
+
     for (let i = 0; i < tmp.length; i += 1) {
       const tmp1 = dist(students[tmp[i][0]], last);
       const tmp2 = dist(students[tmp[i][1]], last);
-      tmp1.forEach(x => tmp2.add(x));
-      if (tmp2.size > max) maxInd = i;
+      const tmp3 = new Set(tmp2);
+      tmp1.forEach(x => tmp3.add(x));
+      if (
+        tmp3.size >= maxDif &&
+        (tmp3.size > maxDif || tmp1.size + tmp2.size > maxDist)
+      ) {
+        maxDif = tmp3.size;
+        maxDist = tmp1.size + tmp2.size;
+        maxInd = i;
+      }
     }
     tmp[maxInd].push(students.length);
   }
-  // //////////////////////////////////////////////////////////
 
   const result = { group: {} };
 
@@ -108,14 +112,7 @@ const operator = (configData, object) => {
   return result;
 };
 
-const dataToArray = (ids, payload) => {
-  const result = [];
-
-  for (let i = 0; i < ids.length; i += 1) {
-    result.push(flatten(payload[ids[i]].data));
-  }
-  return result;
-};
+const dataToArray = (ids, payload) => ids.map(id => flatten(payload[id].data));
 
 const computeDist = tab => {
   const result = [];
@@ -131,16 +128,10 @@ const computeDist = tab => {
   return result;
 };
 
-const dist = (A, B) => {
-  const s = new Set();
-  const k = Object.keys(Object.assign({}, A, B));
-  for (let i = 0; i < k.length; i = 1 + i) {
-    if (A[k[i]] !== B[k[i]]) {
-      s.add(k[i]);
-    }
-  }
-  return s;
-};
+const dist = (A, B) =>
+  Object.keys(Object.assign({}, A, B))
+    .filter(k => A[k] !== B[k])
+    .reduce((acc, k) => acc.add(k), new Set());
 
 export default ({
   id: 'op-argue',
