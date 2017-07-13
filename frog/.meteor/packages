@@ -28,3 +28,5 @@ tmeasday:presence
 check@1.2.5
 dispatch:mocha-phantomjs@0.1.9
 dynamic-import
+cfs:filesystem
+cfs:standard-packages

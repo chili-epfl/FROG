@@ -16,6 +16,7 @@ import '../imports/api/products.js';
 import '../imports/api/objects.js';
 import '../imports/api/global.js';
 import '../imports/api/engine.js';
+import '../imports/api/uploads.js';
 
 Meteor.publish('userData', () => Meteor.users.find({}));
 
