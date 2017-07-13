@@ -1,6 +1,6 @@
 // @flow
 
-import { chunk } from 'lodash';
+import { shuffle, chunk } from 'lodash';
 import type { socialOperatorT } from 'frog-utils';
 
 const meta = {
@@ -32,7 +32,6 @@ const flatten = data => {
           recurse(cur[p], prop ? prop + '_' + p : p);
         }
       }
-
       if (isEmpty && prop) result[prop] = {};
     }
   }
@@ -42,7 +41,7 @@ const flatten = data => {
 
 const operator = (configData, object) => {
   const { globalStructure, activityData: { payload } } = object;
-  const ids = globalStructure.studentIds;
+  const ids = shuffle(globalStructure.studentIds);
   const students = dataToArray(ids, payload);
   let last = null;
 
@@ -86,19 +85,19 @@ const operator = (configData, object) => {
     }
   } while (modified);
 
+  // //////////////////////////////////////////////////////////
   if (last) {
     const max = 0;
     let maxInd = 0;
     for (let i = 0; i < tmp.length; i += 1) {
-      if (
-        dist(students[tmp[i][0]], last) + dist(students[tmp[i][1]], last) >
-        max
-      ) {
-        maxInd = i;
-      }
+      const tmp1 = dist(students[tmp[i][0]], last);
+      const tmp2 = dist(students[tmp[i][1]], last);
+      tmp1.forEach(x => tmp2.add(x));
+      if (tmp2.size > max) maxInd = i;
     }
     tmp[maxInd].push(students.length);
   }
+  // //////////////////////////////////////////////////////////
 
   const result = { group: {} };
 
@@ -124,7 +123,7 @@ const computeDist = tab => {
   for (let i = 0; i < tab.length; i = 1 + i) {
     result[i] = [];
     for (let j = 0; j <= i; j = 1 + j) {
-      const tmp = dist(tab[i], tab[j]);
+      const tmp = dist(tab[i], tab[j]).size;
       result[i][j] = tmp;
       result[j][i] = tmp;
     }
@@ -133,13 +132,14 @@ const computeDist = tab => {
 };
 
 const dist = (A, B) => {
+  const s = new Set();
   const k = Object.keys(Object.assign({}, A, B));
-  let count = 0;
   for (let i = 0; i < k.length; i = 1 + i) {
-    if (typeof A[k[i]] !== 'undefined' && typeof B[k[i]] !== 'undefined')
-      count += A[k[i]] === B[k[i]] ? 0 : 1;
+    if (A[k[i]] !== B[k[i]]) {
+      s.add(k[i]);
+    }
   }
-  return count;
+  return s;
 };
 
 export default ({
