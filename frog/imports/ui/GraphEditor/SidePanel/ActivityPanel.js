@@ -69,8 +69,14 @@ const EditClass = props => {
       </div>
       <Form
         schema={activityTypesObj[activity.activityType].config}
-        onChange={data =>
-          addActivity(activity.activityType, data.formData, activity._id)}
+        onChange={data =>{
+          if(Object.keys(data.errors).length === 0){}
+          ////////////////////////////////////////////////////////////ERREUR, comment transmettre
+          //////////////////////////////////////////////////////////// à Validator ?
+          ///modifier la DB dans le addActivity
+          console.log(data);
+          addActivity(activity.activityType, data.formData, activity._id)
+        }}
         formData={activity.data}
         liveValidate
       >
