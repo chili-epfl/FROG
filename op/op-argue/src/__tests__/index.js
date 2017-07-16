@@ -47,56 +47,23 @@ const data6 = {
   quizz2: { q1: '1' }
 };
 
-const obj1 = {
-  socialStructure: {},
-  globalStructure: {
-    studentIds: ['1', '2', '3', '4']
-  },
-  activityData: {
-    structure: 'individual',
-    payload: {
-      '1': { data: data1, config: {} },
-      '2': { data: data2, config: {} },
-      '3': { data: data3, config: {} },
-      '4': { data: data4, config: {} }
-    }
-  }
+const wrap = items => {
+  const studentIds = items.map((_, i) => '' + (i + 1));
+  const payload = items.reduce(
+    (acc, data, i) =>
+      Object.assign(acc, { ['' + (i + 1)]: { data, config: {} } }),
+    {}
+  );
+  return {
+    socialStructure: {},
+    globalStructure: { studentIds },
+    activityData: { structure: 'individual', payload }
+  };
 };
 
-const obj2 = {
-  socialStructure: {},
-  globalStructure: {
-    studentIds: ['1', '2', '3', '4', '5']
-  },
-  activityData: {
-    structure: 'individual',
-    payload: {
-      '1': { data: data1, config: {} },
-      '2': { data: data2, config: {} },
-      '3': { data: data3, config: {} },
-      '4': { data: data4, config: {} },
-      '5': { data: data5, config: {} }
-    }
-  }
-};
-
-const obj3 = {
-  socialStructure: {},
-  globalStructure: {
-    studentIds: ['1', '2', '3', '4', '5', '6']
-  },
-  activityData: {
-    structure: 'individual',
-    payload: {
-      '1': { data: data1, config: {} },
-      '2': { data: data2, config: {} },
-      '3': { data: data3, config: {} },
-      '4': { data: data4, config: {} },
-      '5': { data: data5, config: {} },
-      '6': { data: data6, config: {} }
-    }
-  }
-};
+const obj1 = wrap([data1, data2, data3, data4]);
+const obj2 = wrap([data1, data2, data3, data4, data5]);
+const obj3 = wrap([data1, data2, data3, data4, data5, data6]);
 
 const expected1 = {
   group: { '1': ['1', '4'], '2': ['2', '3'] }
