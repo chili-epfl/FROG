@@ -40,12 +40,15 @@ export const flatten = (data: Object): Object => {
 };
 
 const operator = (configData, object) => {
-  const { globalStructure, activityData: { payload } } = object;
+  const { globalStructure, activityData: {structure, payload } } = object;
+  if(structure !== 'individual') throw 'The structure needs to be individual';
   const ids = shuffle(globalStructure.studentIds);
+  if(ids.length === 1) return { group: {1:[ids[0]]} };
   const students = dataToArray(ids, payload);
   const last = students.length % 2 ? students.pop() : null;
 
   const distances = computeDist(students);
+  console.log(distances);
   const tmp = chunk([...students.keys()], 2);
   let modified = false;
 
@@ -130,7 +133,7 @@ export const computeDist = (tab: Array<Object>): Array<Array<number>> => {
 
 export const dist = (A: Object, B: Object): Set<string> =>
   Object.keys(Object.assign({}, A, B))
-    .filter(k => A[k] !== B[k])
+    .filter(k => A[k] !== undefined && B[k] !== undefined && A[k] !== B[k])
     .reduce((acc, k) => acc.add(k), new Set());
 
 export default ({
