@@ -13,14 +13,14 @@ const config = {
   properties: {}
 };
 
-const flatten = data => {
+export const flatten = (data: Object): Object => {
   const result = {};
   function recurse(cur, prop) {
     if (typeof cur === 'string' || typeof cur === 'number') {
       result[prop] = cur;
     } else if (Array.isArray(cur)) {
       const l = cur.length;
-      for (let i = 0; i < l; i += 1) recurse(cur[i], prop + '[' + i + ']');
+      for (let i = 0; i < l; i += 1) recurse(cur[i], prop + '.' + i);
       if (l === 0) result[prop] = [];
     } else {
       let isEmpty = true;
@@ -29,7 +29,7 @@ const flatten = data => {
         for (let k = 0; k < ks.length; k += 1) {
           const p = ks[k];
           isEmpty = false;
-          recurse(cur[p], prop ? prop + '_' + p : p);
+          recurse(cur[p], prop ? prop + '.' + p : p);
         }
       }
       if (isEmpty && prop) result[prop] = {};
@@ -114,7 +114,7 @@ const operator = (configData, object) => {
 
 const dataToArray = (ids, payload) => ids.map(id => flatten(payload[id].data));
 
-const computeDist = tab => {
+export const computeDist = (tab: Array<Object>): Array<Array<number>> => {
   const result = [];
 
   for (let i = 0; i < tab.length; i = 1 + i) {
@@ -128,7 +128,7 @@ const computeDist = tab => {
   return result;
 };
 
-const dist = (A, B) =>
+export const dist = (A: Object, B: Object): Set<string> =>
   Object.keys(Object.assign({}, A, B))
     .filter(k => A[k] !== B[k])
     .reduce((acc, k) => acc.add(k), new Set());
