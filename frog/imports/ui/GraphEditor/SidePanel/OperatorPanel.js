@@ -52,7 +52,13 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
       <Form
         schema={operatorTypesObj[operator.operatorType].config}
         onChange={data =>
-          addOperator(operator.operatorType, data.formData, operator._id)}
+          addOperator(
+            operator.operatorType,
+            data.formData,
+            operator._id,
+            null,
+            data.errors.length > 0
+          )}
         formData={operator.data}
         liveValidate
       >

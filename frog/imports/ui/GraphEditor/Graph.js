@@ -83,13 +83,6 @@ export default connect(
           height={600}
           onClick={canvasClick}
         />
-        {
-          // /////////////////////////////////////////////////////////////////////////////
-        }
-        {scaled && <Validator gId={graphId} />}
-        {
-          // /////////////////////////////////////////////////////////////////////////////
-        }
         <LevelLines scaled={scaled} />
         <Lines scaled={scaled} />
         <Activities scaled={scaled} />
@@ -98,6 +91,13 @@ export default connect(
         {isEditable && <DragGuides />}
         {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
+        {
+          // /////////////////////////////////////////////////////////////////////////////
+        }
+        {scaled && <Validator gId={graphId} />}
+        {
+          // /////////////////////////////////////////////////////////////////////////////
+        }
       </svg>
       {hasPanMap && <PanMap />}
       {scaled &&

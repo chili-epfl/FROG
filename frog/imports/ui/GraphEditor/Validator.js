@@ -1,59 +1,54 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { connect } from './store';
 import { Activities, Operators, Connections } from '../../api/activities';
+import valid from '../../api/validGraphFn';
 import { activityTypes } from '../../activityTypes';
 import { operatorTypes } from '../../operatorTypes';
 
-const checkVal = (obj: Array<any>, isAc) => {
-  let valid = true;
-  if (obj.length === 0) return true;
-  const typeObj = isAc ? activityTypes : operatorTypes;
+const listError = props => props.v.map(x => <li>{x}</li>);
 
-  for (let i = 0; i < obj.length && valid; i += 1) {
-    const t = isAc ? obj[i].activityType : obj[i].operatorType;
-    if (t === undefined) return false;
-    const conf = typeObj.filter(x => x.id === t)[0].config.properties;
-    if (Object.keys(conf).length !== 0) {
-      if (obj[i].data === undefined) return false;
-      valid =
-        valid &&
-        Object.keys(conf)
-          .map(x => conf[x].type === 'boolean' || obj[i].data[x] !== undefined)
-          .reduce((acc, n) => acc && n);
-    }
+class Validator extends Component {
+  state: { over: boolean };
+
+  constructor(props) {
+    super(props);
+    this.state = { over: false };
   }
-  return valid;
-};
 
-const checkConValidity = (cons: Array<any>) => true || cons;
-
-const Validator = (props: {
-  activities: Array<any>,
-  operators: Array<any>,
-  connections: Array<any>
-}) => {
-  // displayLog() {}
-  const a = checkVal(props.activities, true);
-  const o = checkVal(props.operators, false);
-  const c = checkConValidity(props.connections);
-  // console.log(a+' '+o+ ' '+c);
-  return (
-    <svg>
-      <circle
-        cx="35"
-        cy="35"
-        r="30"
-        stroke="transparent"
-        fill={a && o && c ? 'green' : 'red'}
-      />
-    </svg>
-  );
-};
-//          onMouseOver={displayLog}
+  render() {
+    const v = valid(
+      this.props.activities,
+      this.props.operators,
+      this.props.connections
+    );
+    // console.log(a+' '+o+ ' '+c);
+    return (
+      <svg>
+        <circle
+          cx="35"
+          cy="35"
+          r="30"
+          stroke="transparent"
+          fill={v.length ? 'red' : 'green'}
+          onMouseOver={e => {
+            if (!this.state.over) this.setState({ over: true });
+          }}
+          onMouseOut={e => {
+            if (this.state.over) this.setState({ over: false });
+          }}
+        />
+        {this.state.over &&
+          <rect x="90" y="20" width="400" height="200" fill={'white'} />}
+        }
+      </svg>
+    );
+  }
+}
+//        <ul x="100" y="30" fill="black"> {listError}</ul>
 
 const ValidCC = createContainer(
   props => ({
