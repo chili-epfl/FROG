@@ -31,16 +31,6 @@ done
 cd $FROG/frog
 mkdir -p node_modules
 ln -s $FROG/node_modules/* node_modules/ 2>/dev/null
-ln -s $FROG/frog-utils node_modules/ 2>/dev/null
 ln -s $FROG/.babelrc . 2>/dev/null
 
-for dir in `ls $FROG/ac |grep 'ac'`
-do
-    ln -s $FROG/ac/$dir node_modules/ 2>/dev/null
-done
-
-for dir in `ls $FROG/op |grep 'op'`
-do
-    ln -s $FROG/op/$dir node_modules/ 2>/dev/null
-done
 exit 0
