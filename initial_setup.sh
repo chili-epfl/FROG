@@ -6,4 +6,4 @@ cd frog
 METEOR=meteor
 which meteor | grep -qw meteor || METEOR=/usr/local/bin/meteor
 $METEOR npm install -g yarn 
-$METEOR yarn install
+$METEOR yarn install --ignore-engines
