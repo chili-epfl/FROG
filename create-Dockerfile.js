@@ -27,7 +27,7 @@ COPY initial_setup_wo_meteor.sh /usr/src/frog/
 RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 
 COPY frog/package.json frog/
-RUN cd /usr/src/frog/frog && /usr/local/bin/meteor npm install --allow-superuser
+RUN cd /usr/src/frog/frog && /usr/local/bin/meteor npm install -g yarn --allow-superuser && /usr/local/bin/meteor yarn install
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
