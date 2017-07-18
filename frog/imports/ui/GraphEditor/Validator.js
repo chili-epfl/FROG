@@ -53,10 +53,7 @@ class Validator extends Component {
               rx="20"
               ry={5 + 5 * v.length}
               width={
-                8 *
-                v
-                  .map(x => x.length)
-                  .reduce((acc, x) => (acc = x > acc ? x : acc))
+                8 * v.map(x => x.length).reduce((acc, x) => (x > acc ? x : acc))
               }
               height={5 + 22 * v.length}
               fill="#FFFFFF"
