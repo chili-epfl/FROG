@@ -11,6 +11,7 @@ export const meta = {
 
 export const config = {
   type: 'object',
+  required: ['title', 'text'],
   properties: {
     title: {
       type: 'string',

@@ -2,6 +2,7 @@
 
 export default {
   type: 'object',
+  required: ['title', 'imgTrue', 'imgFalse'],
   properties: {
     title: {
       type: 'string',

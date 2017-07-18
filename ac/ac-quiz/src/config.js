@@ -2,6 +2,7 @@
 
 export default {
   type: 'object',
+  required: ['MCQ'],
   properties: {
     justify: {
       type: 'boolean',

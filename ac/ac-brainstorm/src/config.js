@@ -2,6 +2,7 @@
 
 export default {
   type: 'object',
+  required: ['text'],
   properties: {
     text: {
       type: 'string',
