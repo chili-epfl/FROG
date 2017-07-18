@@ -22,7 +22,11 @@ export const ConfigMenu = connect(
   ({ store: { overlapAllowed, graphId, toggleOverlapAllowed } }) =>
     <DropdownButton
       id="settings"
-      title={<span><i className="fa fa-bars" aria-hidden="true" /> Menu</span>}
+      title={
+        <span>
+          <i className="fa fa-bars" aria-hidden="true" /> Menu
+        </span>
+      }
     >
       <MenuItem eventKey="1" onSelect={toggleOverlapAllowed}>
         {overlapAllowed && <i className="fa fa-check" aria-hidden="true" />}
@@ -42,7 +46,9 @@ export const ConfigMenu = connect(
       <MenuItem eventKey="2" onSelect={exportGraph}>
         Export graph
       </MenuItem>
-      <MenuItem eventKey="3" onSelect={importGraph}>Import graph</MenuItem>
+      <MenuItem eventKey="3" onSelect={importGraph}>
+        Import graph
+      </MenuItem>
       <MenuItem eventKey="4" onSelect={exportPicture}>
         Export as image
       </MenuItem>
