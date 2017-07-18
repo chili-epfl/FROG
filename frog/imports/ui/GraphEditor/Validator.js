@@ -5,7 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { connect } from './store';
 import { Activities, Operators, Connections } from '../../api/activities';
-import valid from '../../api/validGraphFn';
+import searchErrors from '../../api/validGraphFn';
 
 const ListError = props =>
   <g>
@@ -23,7 +23,7 @@ class Validator extends Component {
   }
 
   render() {
-    const v = valid(
+    const v = searchErrors(
       this.props.activities,
       this.props.operators,
       this.props.connections
