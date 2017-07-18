@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-iframe": "^1.0.7"
   }
 }
