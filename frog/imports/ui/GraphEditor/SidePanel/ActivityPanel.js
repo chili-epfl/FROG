@@ -79,12 +79,6 @@ const EditClass = props => {
           );
         }}
         formData={activity.data}
-        OnError={data => {
-          console.log(data);
-        }}
-        onClick={data => {
-          console.log(data);
-        }}
         liveValidate
       >
         <div />

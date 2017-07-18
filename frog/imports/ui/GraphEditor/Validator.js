@@ -6,10 +6,13 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from './store';
 import { Activities, Operators, Connections } from '../../api/activities';
 import valid from '../../api/validGraphFn';
-import { activityTypes } from '../../activityTypes';
-import { operatorTypes } from '../../operatorTypes';
 
-const listError = props => props.v.map(x => <li>{x}</li>);
+const ListError = props =>
+  <g>
+    {props.vect.map((x, i) =>
+      <text x="90" y={40 + 20 * i} key={x + i.toString()}> {'• ' + x} </text>
+    )}
+  </g>;
 
 class Validator extends Component {
   state: { over: boolean };
@@ -25,7 +28,7 @@ class Validator extends Component {
       this.props.operators,
       this.props.connections
     );
-    // console.log(a+' '+o+ ' '+c);
+
     return (
       <svg>
         <circle
@@ -34,21 +37,38 @@ class Validator extends Component {
           r="30"
           stroke="transparent"
           fill={v.length ? 'red' : 'green'}
-          onMouseOver={e => {
+          onMouseOver={() => {
             if (!this.state.over) this.setState({ over: true });
           }}
-          onMouseOut={e => {
+          onMouseOut={() => {
             if (this.state.over) this.setState({ over: false });
           }}
         />
         {this.state.over &&
-          <rect x="90" y="20" width="400" height="200" fill={'white'} />}
-        }
+          v.length > 0 &&
+          <g>
+            <rect
+              x="80"
+              y="20"
+              rx="20"
+              ry={5 + 5 * v.length}
+              width={
+                8 *
+                v
+                  .map(x => x.length)
+                  .reduce((acc, x) => (acc = x > acc ? x : acc))
+              }
+              height={5 + 22 * v.length}
+              fill="#FFFFFF"
+              stroke="#CA1A1A"
+            />
+            <ListError vect={v} />
+          </g>}
       </svg>
     );
   }
 }
-//        <ul x="100" y="30" fill="black"> {listError}</ul>
+// / 8 px par lettre
 
 const ValidCC = createContainer(
   props => ({

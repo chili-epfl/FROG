@@ -56,7 +56,6 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
             operator.operatorType,
             data.formData,
             operator._id,
-            null,
             data.errors.length > 0
           )}
         formData={operator.data}

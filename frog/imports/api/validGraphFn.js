@@ -15,25 +15,26 @@ const checkVal = (obj: Array<any>, nodeType: string) => {
       errors.push(
         'Type of the ' + nodeType + ' ' + obj[i].title + ' is not defined'
       );
-      continue;
+    } else {
+      let valid = true;
+      if (obj[i].err) valid = false;
+      const conf = typeObj.filter(x => x.id === t)[0].config.properties;
+      if (Object.keys(conf).length !== 0) {
+        if (obj[i].data === undefined) valid = false;
+        else
+          valid =
+            valid &&
+            Object.keys(conf)
+              .map(
+                x => conf[x].type === 'boolean' || obj[i].data[x] !== undefined
+              )
+              .reduce((acc, n) => acc && n);
+      }
+      if (!valid)
+        errors.push(
+          'Configuration problem in ' + nodeType + ' ' + obj[i].title
+        );
     }
-
-    let valid = true;
-    if (obj[i].err) valid = false;
-    const conf = typeObj.filter(x => x.id === t)[0].config.properties;
-    if (Object.keys(conf).length !== 0) {
-      if (obj[i].data === undefined) valid = false;
-      else
-        valid =
-          valid &&
-          Object.keys(conf)
-            .map(
-              x => conf[x].type === 'boolean' || obj[i].data[x] !== undefined
-            )
-            .reduce((acc, n) => acc && n);
-    }
-    if (!valid)
-      errors.push('Configuration problem in ' + nodeType + ' ' + obj[i].title);
   }
   return errors;
 };
