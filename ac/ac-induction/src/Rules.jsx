@@ -15,9 +15,10 @@ class Rules extends Component {
   }) {
     super(props);
 
-    const def = typeof props.trueDef !== 'undefined'
-      ? props.trueDef.concat(props.falseDef)
-      : [];
+    const def =
+      typeof props.trueDef !== 'undefined'
+        ? props.trueDef.concat(props.falseDef)
+        : [];
 
     this.allDef = shuffle(def);
 
@@ -41,9 +42,7 @@ class Rules extends Component {
         onSubmit={e => this.props.generateNewPics(e)}
         style={this.props.style}
       >
-        <h4>
-          Please select all apropriated definitions
-        </h4>
+        <h4>Please select all apropriated definitions</h4>
         {this.allDef.map((d, index) =>
           <div key={index.toString()}>
             <label htmlFor={index.toString()}>

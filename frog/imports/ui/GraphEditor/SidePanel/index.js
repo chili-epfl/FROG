@@ -12,19 +12,20 @@ export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
   }
   if (selected && selected.klass === 'activity') {
     return (
-      <SidebarContainer><ActivityPanel id={selected.id} /></SidebarContainer>
+      <SidebarContainer>
+        <ActivityPanel id={selected.id} />
+      </SidebarContainer>
     );
   } else if (selected && selected.klass === 'operator') {
     return (
-      <SidebarContainer><OperatorPanel id={selected.id} /></SidebarContainer>
+      <SidebarContainer>
+        <OperatorPanel id={selected.id} />
+      </SidebarContainer>
     );
   } else {
     return (
       <SidebarContainer>
-        Select an activity or an operator to configure it. Press the
-        {' '}
-        <b>w</b>
-        {' '}
+        Select an activity or an operator to configure it. Press the <b>w</b>{' '}
         key, or the hide button to hide the sidebar.
       </SidebarContainer>
     );

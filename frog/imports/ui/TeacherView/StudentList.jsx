@@ -11,7 +11,9 @@ export default ({ students }: { students: Array<Object> }) =>
       {students && students.length
         ? <ul>
             {students.map(student =>
-              <li key={student._id}>{student.username}</li>
+              <li key={student._id}>
+                {student.username}
+              </li>
             )}
           </ul>
         : <p>NO STUDENTS</p>}

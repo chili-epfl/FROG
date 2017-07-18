@@ -23,7 +23,9 @@ const ChooseActivityType = ({ activity }) => {
       <h3>Please select activity type</h3>
       <DropdownButton title="Select" id="selectActivity" onSelect={select}>
         {activityTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+          <MenuItem key={x.id} eventKey={x.id}>
+            {x.meta.name}
+          </MenuItem>
         )}
       </DropdownButton>
     </div>

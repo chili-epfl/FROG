@@ -55,7 +55,6 @@ class Cluster extends Component {
 
     return (
       <MuiThemeProvider>
-
         <div>
           {List}
           {this.state.info
@@ -65,7 +64,6 @@ class Cluster extends Component {
               />
             : null}
         </div>
-
       </MuiThemeProvider>
     );
   }
@@ -88,5 +86,5 @@ const colors = {
 
 const Item = styled.div`
   width: 50%;
-  background: ${props => colors[props.group]}
+  background: ${props => colors[props.group]};
 `;
