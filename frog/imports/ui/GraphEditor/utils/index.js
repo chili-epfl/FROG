@@ -2,14 +2,14 @@
 import { store } from '../store';
 
 export const timeToPx = (time: number, scale: number): number =>
-  time * store.ui.graphWidth * scale / store.graphDuration;
+  time * store.ui.graphWidth * scale / store.graphDuration || 0;
 
 export const pxToTime = (px: number, scale: number): number =>
-  px / store.ui.graphWidth / scale * store.graphDuration;
+  px / store.ui.graphWidth / scale * store.graphDuration || 0;
 
 export const timeToPxScreen = (time: number): number =>
   time * store.ui.graphWidth * store.ui.scale / store.graphDuration -
-  store.ui.panx * store.ui.scale;
+    store.ui.panx * store.ui.scale || 0;
 
 export const between = (
   minval: number = 0,
