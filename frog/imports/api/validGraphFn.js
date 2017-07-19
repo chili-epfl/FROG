@@ -5,9 +5,8 @@ const checkComponent = (obj: Array<any>, nodeType: string) => {
   if (obj.length === 0) return errors;
 
   for (let i = 0; i < obj.length; i += 1) {
-    const t = nodeType === 'activity'
-      ? obj[i].activityType
-      : obj[i].operatorType;
+    const t =
+      nodeType === 'activity' ? obj[i].activityType : obj[i].operatorType;
     if (t === undefined) {
       errors.push({
         id: obj[i]._id,
@@ -18,9 +17,9 @@ const checkComponent = (obj: Array<any>, nodeType: string) => {
         id: obj[i]._id,
         err:
           'Error(s) in the configuration of the ' +
-            nodeType +
-            ' ' +
-            obj[i].title
+          nodeType +
+          ' ' +
+          obj[i].title
       });
   }
   return errors;
@@ -52,8 +51,8 @@ const checkCon = (
           id: activities[i]._id,
           err:
             'The group activity ' +
-              activities[i].title +
-              ' needs to be connected to a social operator'
+            activities[i].title +
+            ' needs to be connected to a social operator'
         });
     }
   }

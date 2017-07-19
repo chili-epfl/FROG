@@ -92,7 +92,6 @@ export default connect(
         {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
         {scaled && <Validator gId={graphId} />}
-
       </svg>
       {hasPanMap && <PanMap />}
       {scaled &&
