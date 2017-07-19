@@ -1,63 +1,65 @@
 // @flow
 
-export const checkComponent = (obj: Array<any>, nodeType: string) => {
-  const errors = [];
-  if (obj.length === 0) return errors;
+export const checkComponent = (
+  obj: Array<any>,
+  nodeType: 'activity' | 'operator'
+) =>
+  obj.reduce((acc, x) => {
+    const type = nodeType === 'activity' ? x.activityType : x.operatorType;
+    if (type === undefined) {
+      return [
+        ...acc,
+        {
+          id: x._id,
+          err: 'Type of the ' + nodeType + ' ' + x.title + ' is not defined'
+        }
+      ];
+    }
 
-  for (let i = 0; i < obj.length; i += 1) {
-    const t =
-      nodeType === 'activity' ? obj[i].activityType : obj[i].operatorType;
-    if (t === undefined) {
-      errors.push({
-        id: obj[i]._id,
-        err: 'Type of the ' + nodeType + ' ' + obj[i].title + ' is not defined'
-      });
-    } else if (obj[i].err)
-      errors.push({
-        id: obj[i]._id,
-        err:
-          'Error(s) in the configuration of the ' +
-          nodeType +
-          ' ' +
-          obj[i].title
-      });
-  }
-  return errors;
-};
+    if (x.err) {
+      return [
+        ...acc,
+        {
+          id: x._id,
+          err:
+            'Error(s) in the configuration of the ' + nodeType + ' ' + x.title
+        }
+      ];
+    }
+    return acc;
+  }, []);
 
-const checkCon = (
+const checkConnection = (
   activities: Array<any>,
   operators: Array<any>,
   connections: Array<any>
-) => {
-  const errors = [];
-  if (activities.length === 0) return errors;
-  for (let i = 0; i < activities.length; i += 1) {
-    if (activities[i].plane === 2) {
-      let valid = false;
-      const tmp = connections
-        .filter(x => x.target.id === activities[i]._id)
-        .map(y => y.source.id);
-      if (tmp.length) {
-        for (let j = 0; j < tmp.length; j += 1)
-          if (
-            operators.filter(x => x._id === tmp[j] && x.type === 'social')
-              .length > 0
-          )
-            valid = true;
+) =>
+  activities.reduce((acc, act) => {
+    if (act.plane === 2) {
+      const connectedOperatorIds = connections
+        .filter(x => x.target.id === act._id)
+        .map(x => x.source.id);
+
+      const hasSocial = operators
+        .filter(x => connectedOperatorIds.includes(x._id))
+        .find(x => x.type === 'social');
+
+      if (!hasSocial) {
+        return [
+          ...acc,
+          {
+            id: act._id,
+            err:
+              'The group activity ' +
+              act.title +
+              ' needs to be connected to a social operator'
+          }
+        ];
       }
-      if (!valid)
-        errors.push({
-          id: activities[i]._id,
-          err:
-            'The group activity ' +
-            activities[i].title +
-            ' needs to be connected to a social operator'
-        });
     }
-  }
-  return errors;
-};
+
+    return acc;
+  }, []);
 
 const checkAll = (
   activities: Array<any>,
@@ -66,6 +68,6 @@ const checkAll = (
 ) =>
   checkComponent(activities, 'activity')
     .concat(checkComponent(operators, 'operator'))
-    .concat(checkCon(activities, operators, connections));
+    .concat(checkConnection(activities, operators, connections));
 
 export default checkAll;
