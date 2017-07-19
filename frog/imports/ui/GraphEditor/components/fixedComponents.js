@@ -78,7 +78,9 @@ export const TimeScale = connect(
                   />
                 : null}
               {i % divider === 0
-                ? <text x={x - 15} y={540}>{i + ' min.'}</text>
+                ? <text x={x - 15} y={540}>
+                    {i + ' min.'}
+                  </text>
                 : null}
             </g>
           );

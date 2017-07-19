@@ -40,9 +40,10 @@ const operator = (configData, object) => {
       struct.forEach(x => x.push(leftover.pop()));
     }
   }
-  const newGrouping = configData.grouping && configData.grouping.length > 0
-    ? configData.grouping
-    : 'group';
+  const newGrouping =
+    configData.grouping && configData.grouping.length > 0
+      ? configData.grouping
+      : 'group';
 
   const result = {
     [newGrouping]: struct.reduce(

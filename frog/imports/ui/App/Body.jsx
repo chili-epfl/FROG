@@ -3,12 +3,28 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import { sample } from 'lodash';
 
 import Home from './../Home';
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
 import Admin from './../Admin';
+
+const randomName = () =>
+  sample([
+    'Per',
+    'Ole',
+    'Jan',
+    'Trine',
+    'Ali',
+    'Leon',
+    'Chen Xi',
+    'Ahmed',
+    'Rina',
+    'Jean',
+    'Rudolf'
+  ]);
 
 const Body = ({ userId, app }) => {
   if (userId) {
@@ -24,10 +40,32 @@ const Body = ({ userId, app }) => {
       case 'teacher':
         return <TeacherView />;
       default:
-        return <p>MISSING OR WRONG STATE IN APP COMPONENT: {app}</p>;
+        return (
+          <p>
+            MISSING OR WRONG STATE IN APP COMPONENT: {app}
+          </p>
+        );
     }
   }
-  return <p>NOT LOGGED IN. PLEASE SIGN IN OR SIGN UP.</p>;
+  const name = randomName();
+  return (
+    <div>
+      <h1>FROG: Not logged in</h1>
+      <p>
+        {`FROG is currently in development mode, to access teacher mode, use <FROG_URL>/#/teacher/[view]. [view] could be 'admin', 'graph' or 'teacher' (to run a graph). Or, to create/log in as a student, use <FROG_URL>/#/<student_name>. <FROG_URL> is typically localhost:3000, so a typical student login could be localhost:3000/#/peter.`}
+      </p>
+      <ul>
+        <li>
+          <a href="#/teacher">Log in as teacher</a>
+        </li>
+        <li>
+          <a href={'#/' + name}>
+            Log in as {name} (student)
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
 export default createContainer(() => ({ userId: Meteor.userId() }), Body);
