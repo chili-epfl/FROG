@@ -21,7 +21,9 @@ const ChooseOperatorType = ({ operator }) => {
       <h3>Please select operator type</h3>
       <DropdownButton id="selectOperator" onSelect={select} title="Select">
         {operatorTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+          <MenuItem key={x.id} eventKey={x.id}>
+            {x.meta.name}
+          </MenuItem>
         )}
       </DropdownButton>
     </div>

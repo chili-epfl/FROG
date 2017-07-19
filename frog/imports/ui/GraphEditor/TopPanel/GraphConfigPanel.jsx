@@ -34,8 +34,7 @@ const Config = ({ graph }) =>
         style={{ width: '60px' }}
         value={graph ? graph.duration : 30}
         onSubmit={e => store.changeDuration(parseInt(e, 10))}
-      />
-      {' '}
+      />{' '}
       mins.
     </span>
   </div>;

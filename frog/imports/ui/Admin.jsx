@@ -45,9 +45,13 @@ class DisplayData extends Component {
       <ul>
         {this.props.data.map(d =>
           <li key={d._id}>
-            <A onClick={this.toggleDisplay}>{d._id}</A>
+            <A onClick={this.toggleDisplay}>
+              {d._id}
+            </A>
             {this.state.isClicked
-              ? <pre>{JSON.stringify(d, null, 2)}</pre>
+              ? <pre>
+                  {JSON.stringify(d, null, 2)}
+                </pre>
               : null}
           </li>
         )}
@@ -68,13 +72,9 @@ export default createContainer(
   ({ sessions, graphs, activities, operators, connections }) =>
     <div id="admin">
       <h1>Commands</h1>
-      <button onClick={() => deleteDatabase()}>
-        Delete the database
-      </button>
+      <button onClick={() => deleteDatabase()}>Delete the database</button>
       <br />
-      <button onClick={() => loadDatabase(argueGraph)}>
-        Load argueGraph
-      </button>
+      <button onClick={() => loadDatabase(argueGraph)}>Load argueGraph</button>
       <br />
       <button onClick={() => loadDatabase(mixedJigsaw)}>
         Load mixedJigsaw
