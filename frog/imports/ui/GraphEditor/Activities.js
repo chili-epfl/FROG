@@ -4,8 +4,8 @@ import { DraggableCore } from 'react-draggable';
 import { connect, type StoreProp, store } from './store';
 import Activity from './store/activity';
 import { getClickHandler } from './utils';
-// import { Activities } from '../../api/activities';
-// import { checkComponent } from '../../api/validGraphFn';
+import { Activities } from '../../api/activities';
+import { checkComponent } from '../../api/validGraphFn';
 
 const Box = ({ x, y, width, selected, color }) =>
   <rect
@@ -42,12 +42,12 @@ class ActivityComponent extends Component {
       },
       activity,
       scaled
-    }: StoreProp & { activity: Activity, scaled: Boolean} = this.props;
+    }: StoreProp & { activity: Activity, scaled: Boolean } = this.props;
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
-    // const isValid =
-    //   this.props.errs.filter(e => e.id === activity.id).length === 0;
+    const isValid =
+      this.props.errs.filter(e => e.id === activity.id).length === 0;
     return (
       <g
         onMouseOver={activity.onOver}
@@ -61,7 +61,7 @@ class ActivityComponent extends Component {
           width={width}
           highlighted={activity.color}
           selected={activity.selected}
-          color={/*isValid ?*/ activity.color /*: '#FFA0A0'*/}
+          color={isValid ? activity.color : '#FFA0A0'}
         />
         {width > 21 &&
           <g>
@@ -132,13 +132,19 @@ export default connect(
     store: { graphId, activityStore: { all } },
     scaled
   }: StoreProp & { scaled: boolean }) => {
-    // const acts = Activities.find({ graphId }).fetch();
-    // const invalidAct = checkComponent(acts, 'activity');
+    const invalidAct = checkComponent(
+      Activities.find({ graphId }).fetch(),
+      'activity'
+    );
     return (
       <g>
         {all.map(x =>
-          //<ActivityBox activity={x} scaled={scaled} key={x.id} errs={invalidAct} />
-          <ActivityBox activity={x} scaled={scaled} key={x.id}/>
+          <ActivityBox
+            activity={x}
+            scaled={scaled}
+            key={x.id}
+            errs={invalidAct}
+          />
         )}
       </g>
     );

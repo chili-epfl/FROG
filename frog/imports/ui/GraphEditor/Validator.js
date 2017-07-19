@@ -10,7 +10,7 @@ import valid from '../../api/validGraphFn';
 const ListError = props =>
   <g>
     {props.vect.map((x, i) =>
-      <text x="90" y={40 + 20 * i} key={x.id + i}>
+      <text x="90" y={40 + 20 * i} key={x.id}>
         {' '}{'• ' + x.err}{' '}
       </text>
     )}
@@ -68,7 +68,6 @@ class Validator extends Component {
     );
   }
 }
-// / 8 px par lettre
 
 const ValidCC = createContainer(
   props => ({

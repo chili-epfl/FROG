@@ -2,8 +2,8 @@
 import React from 'react';
 import Operator from './Operator';
 import { connect, type StoreProp } from './store';
-//import { Operators } from '../../api/activities';
-//import { checkComponent } from '../../api/validGraphFn';
+import { Operators } from '../../api/activities';
+import { checkComponent } from '../../api/validGraphFn';
 
 export default connect(
   ({
@@ -15,8 +15,7 @@ export default connect(
     },
     scaled
   }: StoreProp & { scaled: boolean }) => {
-    //const opers = Operators.find({ graphId }).fetch();
-    //const v = checkComponent(opers, 'operator');
+    const v = checkComponent(Operators.find({ graphId }).fetch(), 'operator');
 
     const ops = operators.map(op => {
       const coords = scaled ? op.coordsScaled : op.coords;
@@ -26,7 +25,7 @@ export default connect(
           x={coords[0]}
           y={coords[1]}
           color={
-            /*v.filter(e => e.id === op.id).length === 0 ?*/ op.color /*: '#FFA0A0'*/
+            v.filter(e => e.id === op.id).length === 0 ? op.color : '#FFA0A0'
           }
           onLeave={op.onLeave}
           onOver={op.onOver}
