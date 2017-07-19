@@ -4,6 +4,8 @@ import { DraggableCore } from 'react-draggable';
 import { connect, type StoreProp, store } from './store';
 import Activity from './store/activity';
 import { getClickHandler } from './utils';
+import { Activities, Operators, Connections } from '../../api/activities';
+import valid from '../../api/validGraphFn';
 
 const Box = ({ x, y, width, selected, color }) =>
   <rect
@@ -44,6 +46,7 @@ class ActivityComponent extends Component {
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
+    const valid = this.props.errs.filter( e => e.id === activity.id).length === 0;
     return (
       <g
         onMouseOver={activity.onOver}
@@ -57,7 +60,7 @@ class ActivityComponent extends Component {
           width={width}
           highlighted={activity.color}
           selected={activity.selected}
-          color={activity.color}
+          color={valid ? activity.color : '#FFA0A0'}
         />
         {width > 21 &&
           <g>
@@ -125,10 +128,14 @@ const ActivityBox = connect(ActivityComponent);
 
 export default connect(
   ({
-    store: { activityStore: { all } },
+    store: {graphId, activityStore: { all } },
     scaled
-  }: StoreProp & { scaled: boolean }) =>
-    <g>
-      {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
-    </g>
+  }: StoreProp & { scaled: boolean }) =>{
+    const acts = Activities.find({ graphId: graphId }).fetch();
+    const ops = Operators.find({ graphId: graphId }).fetch();
+    const cons = Connections.find({ graphId: graphId }).fetch();
+    const v = valid(acts, ops, cons);
+    return (<g>
+      {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} errs={v}/>)}
+    </g>);}
 );
