@@ -1,6 +1,6 @@
 // @flow
 
-const checkComponent = (obj: Array<any>, nodeType: string) => {
+export const checkComponent = (obj: Array<any>, nodeType: string) => {
   const errors = [];
   if (obj.length === 0) return errors;
 

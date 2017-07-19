@@ -10,7 +10,7 @@ import valid from '../../api/validGraphFn';
 const ListError = props =>
   <g>
     {props.vect.map((x, i) =>
-      <text x="90" y={40 + 20 * i} key={(x.id + i).toString}>
+      <text x="90" y={40 + 20 * i} key={x.id + i}>
         {' '}{'• ' + x.err}{' '}
       </text>
     )}
