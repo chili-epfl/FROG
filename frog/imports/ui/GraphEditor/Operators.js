@@ -2,21 +2,16 @@
 import React from 'react';
 import Operator from './Operator';
 import { connect, type StoreProp } from './store';
-import { Operators } from '../../api/activities';
-import { checkComponent } from '../../api/validGraphFn';
 
 export default connect(
   ({
     store: {
-      graphId,
       operatorStore: { all: operators },
       ui: { socialCoords, socialCoordsScaled },
       state
     },
     scaled
   }: StoreProp & { scaled: boolean }) => {
-    const v = checkComponent(Operators.find({ graphId }).fetch(), 'operator');
-
     const ops = operators.map(op => {
       const coords = scaled ? op.coordsScaled : op.coords;
       return (
@@ -24,9 +19,7 @@ export default connect(
           key={op.id}
           x={coords[0]}
           y={coords[1]}
-          color={
-            v.filter(e => e.id === op.id).length === 0 ? op.color : '#FFA0A0'
-          }
+          color={op.color}
           onLeave={op.onLeave}
           onOver={op.onOver}
           onClick={op.select}
