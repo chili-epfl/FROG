@@ -15,9 +15,9 @@ export default connect(
     },
     scaled
   }: StoreProp & { scaled: boolean }) => {
-    const acts = Activities.find({ graphId: graphId }).fetch();
-    const opers = Operators.find({ graphId: graphId }).fetch();
-    const cons = Connections.find({ graphId: graphId }).fetch();
+    const acts = Activities.find({ graphId }).fetch();
+    const opers = Operators.find({ graphId }).fetch();
+    const cons = Connections.find({ graphId }).fetch();
     const v = valid(acts, opers, cons);
 
     const ops = operators.map(op => {
@@ -27,7 +27,9 @@ export default connect(
           key={op.id}
           x={coords[0]}
           y={coords[1]}
-          color={v.filter( e => e.id === op.id).length === 0 ? op.color : '#FFA0A0'}
+          color={
+            v.filter(e => e.id === op.id).length === 0 ? op.color : '#FFA0A0'
+          }
           onLeave={op.onLeave}
           onOver={op.onOver}
           onClick={op.select}

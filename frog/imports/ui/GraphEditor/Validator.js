@@ -10,7 +10,9 @@ import valid from '../../api/validGraphFn';
 const ListError = props =>
   <g>
     {props.vect.map((x, i) =>
-      <text x="90" y={40 + 20 * i} key={x + i.toString()}> {'• ' + x.err} </text>
+      <text x="90" y={40 + 20 * i} key={(x.id + i).toString}>
+        {' '}{'• ' + x.err}{' '}
+      </text>
     )}
   </g>;
 
@@ -51,9 +53,10 @@ class Validator extends Component {
               x="80"
               y="20"
               rx="20"
-              ry={5 + 5 * Object.keys(v.length)}
+              ry={5 + 5 * v.length}
               width={
-                8 * v.map(x => x.err.length).reduce((acc, x) => (x > acc ? x : acc))
+                8 *
+                v.map(x => x.err.length).reduce((acc, x) => (x > acc ? x : acc))
               }
               height={5 + 22 * v.length}
               fill="#FFFFFF"

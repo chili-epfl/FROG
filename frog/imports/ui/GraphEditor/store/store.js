@@ -197,8 +197,9 @@ export default class Store {
 
   @action
   undo = () => {
-    const [connections, activities, operators] =
-      this.history.length > 1 ? this.history.pop() : this.history[0];
+    const [connections, activities, operators] = this.history.length > 1
+      ? this.history.pop()
+      : this.history[0];
     this.activityStore.all = activities.map(
       x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
     );

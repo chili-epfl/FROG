@@ -46,7 +46,8 @@ class ActivityComponent extends Component {
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
-    const valid = this.props.errs.filter( e => e.id === activity.id).length === 0;
+    const isValid =
+      this.props.errs.filter(e => e.id === activity.id).length === 0;
     return (
       <g
         onMouseOver={activity.onOver}
@@ -60,7 +61,7 @@ class ActivityComponent extends Component {
           width={width}
           highlighted={activity.color}
           selected={activity.selected}
-          color={valid ? activity.color : '#FFA0A0'}
+          color={isValid ? activity.color : '#FFA0A0'}
         />
         {width > 21 &&
           <g>
@@ -128,14 +129,19 @@ const ActivityBox = connect(ActivityComponent);
 
 export default connect(
   ({
-    store: {graphId, activityStore: { all } },
+    store: { graphId, activityStore: { all } },
     scaled
-  }: StoreProp & { scaled: boolean }) =>{
-    const acts = Activities.find({ graphId: graphId }).fetch();
-    const ops = Operators.find({ graphId: graphId }).fetch();
-    const cons = Connections.find({ graphId: graphId }).fetch();
+  }: StoreProp & { scaled: boolean }) => {
+    const acts = Activities.find({ graphId }).fetch();
+    const ops = Operators.find({ graphId }).fetch();
+    const cons = Connections.find({ graphId }).fetch();
     const v = valid(acts, ops, cons);
-    return (<g>
-      {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} errs={v}/>)}
-    </g>);}
+    return (
+      <g>
+        {all.map(x =>
+          <ActivityBox activity={x} scaled={scaled} key={x.id} errs={v} />
+        )}
+      </g>
+    );
+  }
 );

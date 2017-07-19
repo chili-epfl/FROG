@@ -75,13 +75,12 @@ const runDataflow = (
 
   // Extract the product
   const prod = allProducts.find(c => c.type === 'product');
-  const activityData: activityDataT =
-    prod && prod.activityData
-      ? prod.activityData
-      : {
-          structure: 'all',
-          payload: { all: { data: {}, config: {} } }
-        };
+  const activityData: activityDataT = prod && prod.activityData
+    ? prod.activityData
+    : {
+        structure: 'all',
+        payload: { all: { data: {}, config: {} } }
+      };
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure: { studentIds: string[] } = {
@@ -100,10 +99,9 @@ const runDataflow = (
     const operatorFunction = operatorTypesObj[node.operatorType].operator;
     const product = Promise.await(operatorFunction(node.data, object));
 
-    const update =
-      node.type === 'product'
-        ? { activityData: product }
-        : { socialStructure: product };
+    const update = node.type === 'product'
+      ? { activityData: product }
+      : { socialStructure: product };
     Products.update(nodeId, { type: node.type, ...update }, { upsert: true });
 
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });

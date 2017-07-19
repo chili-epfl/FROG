@@ -54,10 +54,9 @@ const ShowInfoConnect = createContainer(({ showInfo, cancelInfo }) => {
   if (!showInfo) {
     return { showInfo: null };
   }
-  const item =
-    showInfo.klass === 'activity'
-      ? Activities.findOne(showInfo.id)
-      : Operators.findOne(showInfo.id);
+  const item = showInfo.klass === 'activity'
+    ? Activities.findOne(showInfo.id)
+    : Operators.findOne(showInfo.id);
   return {
     item,
     object: Objects.findOne(showInfo.id),

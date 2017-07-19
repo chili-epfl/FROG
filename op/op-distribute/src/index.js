@@ -43,7 +43,7 @@ const operator = (configData, object) => {
   const groups = configData.individual
     ? globalStructure.studentIds
     : socialStructure[configData.grouping] &&
-      Object.keys(socialStructure[configData.grouping]);
+        Object.keys(socialStructure[configData.grouping]);
   if (!groups) {
     throw `Could not find ${configData.grouping} in the social structure`;
   }
