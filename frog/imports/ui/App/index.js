@@ -47,9 +47,22 @@ export default class App extends Component {
       }
     }
     this.setState({ username });
+    Meteor.subscribe('activity_data');
+    Meteor.subscribe('logs');
+    Meteor.subscribe('activities');
+    Meteor.subscribe('objects');
+    Meteor.subscribe('sessions');
+
     if (username !== 'teacher') {
       this.setState({ app: 'student' });
     } else if (location && apps[location]) {
+      Meteor.subscribe('operators');
+      Meteor.subscribe('connections');
+      Meteor.subscribe('global_settings');
+      Meteor.subscribe('graphs');
+      Meteor.subscribe('products');
+      Meteor.subscribe('uploads');
+
       this.setState({ app: location });
     }
   };
