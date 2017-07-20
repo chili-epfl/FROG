@@ -2,7 +2,6 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { ChangeableText } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
@@ -10,15 +9,28 @@ import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
+import ListComponent from './ListComponent';
 
 const ChooseActivityType = ({ activity }) => {
-  const select = e => {
+  const select = ev => {
+    const e = ev.target.getAttribute('value');
+
     if (activityTypesObj[e]) {
       Activities.update(activity._id, { $set: { activityType: e } });
     }
   };
 
   return (
+    <div>
+      <h4>Please select activity type</h4>
+      <div className="list-group" onClick={select}>
+        <ListComponent
+          activity={activityTypes[2]}
+          eventKey={activityTypes[2].id}
+        />
+      </div>
+    </div>
+    /*
     <div>
       <h3>Please select activity type</h3>
       <DropdownButton title="Select" id="selectActivity" onSelect={select}>
@@ -28,7 +40,7 @@ const ChooseActivityType = ({ activity }) => {
           </MenuItem>
         )}
       </DropdownButton>
-    </div>
+    </div>*/
   );
 };
 

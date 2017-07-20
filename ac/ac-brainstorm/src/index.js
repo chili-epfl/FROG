@@ -8,7 +8,10 @@ import Dashboard from './Dashboard';
 
 const meta = {
   name: 'Brainstorm',
-  type: 'react-component'
+  type: 'react-component',
+  description: '',
+  inputs: '',
+  outputs: ''
 };
 
 const dataStructure = {};
