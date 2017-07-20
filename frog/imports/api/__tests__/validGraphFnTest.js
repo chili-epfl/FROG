@@ -2,6 +2,37 @@
 
 import valid from '../validGraphFn';
 
+const resultToIds = graph =>
+  valid(graph.activities, graph.operators, graph.connections).map(x => x.id);
+
+test('Test activity with no type defined => unvalid', () => {
+  expect(resultToIds(g1)).toEqual(['cj5aziwnz00003k6ow2oj34gx']);
+});
+
+test('Test activity with type defined => valid', () => {
+  expect(resultToIds(g2).length).toEqual(0);
+});
+
+test('Test operator with no type defined => unvalid', () => {
+  expect(resultToIds(g3)).toEqual(['cj5azl3d600033k6og3gtozas']);
+});
+
+test('Test operator with type defined => valid', () => {
+  expect(resultToIds(g4).length).toEqual(0);
+});
+
+test('Test group activity without social operator => unvalid', () => {
+  expect(resultToIds(g5)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
+});
+
+test('Test group activity with social operator', () => {
+  expect(resultToIds(g6).length).toEqual(0);
+});
+
+test('Test group activity with product operator', () => {
+  expect(resultToIds(g7)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
+});
+
 const g1 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
@@ -176,34 +207,3 @@ const g7 = {
     }
   ]
 };
-
-const resultToIds = graph =>
-  valid(graph.activities, graph.operators, graph.connections).map(x => x.id);
-
-test('Test activity with no type defined => unvalid', () => {
-  expect(resultToIds(g1)).toEqual(['cj5aziwnz00003k6ow2oj34gx']);
-});
-
-test('Test activity with type defined => valid', () => {
-  expect(resultToIds(g2).length).toEqual(0);
-});
-
-test('Test operator with no type defined => unvalid', () => {
-  expect(resultToIds(g3)).toEqual(['cj5azl3d600033k6og3gtozas']);
-});
-
-test('Test operator with type defined => valid', () => {
-  expect(resultToIds(g4).length).toEqual(0);
-});
-
-test('Test group activity without social operator => unvalid', () => {
-  expect(resultToIds(g5)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
-});
-
-test('Test group activity with social operator', () => {
-  expect(resultToIds(g6).length).toEqual(0);
-});
-
-test('Test group activity with product operator', () => {
-  expect(resultToIds(g7)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
-});
