@@ -1,4 +1,6 @@
 // @flow
+import {activityTypes} from '../activityTypes';
+import {operatorTypes} from '../operatorTypes';
 
 export const checkComponent = (
   obj: Array<any>,
@@ -12,6 +14,16 @@ export const checkComponent = (
         {
           id: x._id,
           err: 'Type of the ' + nodeType + ' ' + x.title + ' is not defined'
+        }
+      ];
+    }
+
+    if(!activityTypes.map(x => x.id).includes(type) && !operatorTypes.map(x => x.id).includes(type)){
+      return [
+        ...acc,
+        {
+          id: x._id,
+          err: 'Type of the ' + nodeType + ' ' + x.title + ' doesn\'t existe'
         }
       ];
     }

@@ -25,18 +25,22 @@ test('Test group activity without social operator => unvalid', () => {
   expect(resultToIds(g5)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
 });
 
-test('Test group activity with social operator', () => {
+test('Test group activity with social operator => valid', () => {
   expect(resultToIds(g6).length).toEqual(0);
 });
 
-test('Test group activity with product operator', () => {
+test('Test group activity with product operator => unvalid', () => {
   expect(resultToIds(g7)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
+});
+
+test('Test activityType desn\'t exist => unvalid', () => {
+  expect(resultToIds(g8)).toEqual(['cj5azthci000d3k6o919vps5d']);
 });
 
 const g1 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
-    name: 'Test1NTA',
+    name: 'TestNTA',
     createdAt: '2017-07-19T12:29:17.381Z',
     duration: 120
   },
@@ -56,7 +60,7 @@ const g1 = {
 const g2 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
-    name: 'Test3TA',
+    name: 'TestTA',
     createdAt: '2017-07-19T12:29:17.381Z',
     duration: 120
   },
@@ -77,7 +81,7 @@ const g2 = {
 const g3 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
-    name: 'Test2NTO',
+    name: 'TestNTO',
     createdAt: '2017-07-19T12:29:17.381Z',
     duration: 120
   },
@@ -96,7 +100,7 @@ const g3 = {
 const g4 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
-    name: 'Test3TO',
+    name: 'TestTO',
     createdAt: '2017-07-19T12:29:17.381Z',
     duration: 120
   },
@@ -116,7 +120,7 @@ const g4 = {
 const g5 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
-    name: 'Test3GAWSO',
+    name: 'TestGAWSO',
     createdAt: '2017-07-19T12:29:17.381Z',
     duration: 120
   },
@@ -138,7 +142,7 @@ const g5 = {
 const g6 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
-    name: 'Test3GASO',
+    name: 'TestGASO',
     createdAt: '2017-07-19T12:29:17.381Z',
     duration: 120
   },
@@ -174,7 +178,7 @@ const g6 = {
 const g7 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
-    name: 'Test3GAPO',
+    name: 'TestGAPO',
     createdAt: '2017-07-19T12:29:17.381Z',
     duration: 120
   },
@@ -206,4 +210,25 @@ const g7 = {
       target: { type: 'activity', id: 'cj5azm5kf00063k6o7vwz37pt' }
     }
   ]
+};
+
+const g8 = {
+  graph: {
+    _id: 'cj5aziuo400003k6om24tozbf',
+    name: 'TestATUV',
+    createdAt: '2017-07-19T12:29:17.381Z',
+    duration: 120
+  },
+  activities: [
+    {
+      _id: 'cj5azthci000d3k6o919vps5d',
+      title: 'video',
+      startTime: 0,
+      length: 5,
+      plane: 1,
+      activityType: 'false-activity'
+    }
+  ],
+  operators: [],
+  connections: []
 };
