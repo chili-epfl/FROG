@@ -119,7 +119,7 @@ export default createContainer(
     return {
       sessions: Sessions.find().fetch(),
       session,
-      graphs: Graphs.find().fetch(),
+      graphs: Graphs.find({ broken: false }).fetch(),
       activities,
       students,
       logs,

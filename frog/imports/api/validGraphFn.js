@@ -4,17 +4,27 @@ import { operatorTypes } from '../operatorTypes';
 
 export const checkComponent = (
   obj: Array<any>,
-  nodeType: 'activity' | 'operator'
+  nodeType: 'activity' | 'operator',
+  connections: any[]
 ) =>
   obj.reduce((acc, x) => {
     const type = nodeType === 'activity' ? x.activityType : x.operatorType;
     if (type === undefined) {
+      // only warning if operator that has not been connected
+      const severity =
+        nodeType === 'operator' &&
+        !connections.find(
+          conn => conn.target.id === x._id || conn.source.id === x._id
+        )
+          ? 'warning'
+          : 'error';
       return [
         ...acc,
         {
           id: x._id,
           err: 'Type of the ' + nodeType + ' ' + x.title + ' is not defined',
-          type: 'missingType'
+          type: 'missingType',
+          severity
         }
       ];
     }
@@ -28,7 +38,8 @@ export const checkComponent = (
         {
           id: x._id,
           err: `The ${nodeType}Package ${type} required by ${nodeType} ${x.title} is not installed`,
-          type: 'missingPackage'
+          type: 'missingPackage',
+          severity: 'error'
         }
       ];
     }
@@ -40,7 +51,8 @@ export const checkComponent = (
           id: x._id,
           err:
             'Error(s) in the configuration of the ' + nodeType + ' ' + x.title,
-          type: 'configError'
+          type: 'configError',
+          severity: 'error'
         }
       ];
     }
@@ -72,7 +84,8 @@ const checkConnection = (
               'The group activity ' +
               act.title +
               ' needs to be connected to a social operator',
-            type: 'needsSocialOp'
+            type: 'needsSocialOp',
+            severity: 'error'
           }
         ];
       }
@@ -87,7 +100,8 @@ const checkConnection = (
         {
           id: op._id,
           err: `The operator ${op.title} does not have any outgoing connections`,
-          type: 'noOutgoing'
+          type: 'noOutgoing',
+          severity: 'warning'
         }
       ];
     }
@@ -100,8 +114,8 @@ const checkAll = (
   operators: Array<any>,
   connections: Array<any>
 ) =>
-  checkComponent(activities, 'activity')
-    .concat(checkComponent(operators, 'operator'))
+  checkComponent(activities, 'activity', connections)
+    .concat(checkComponent(operators, 'operator', connections))
     .concat(checkConnection(activities, operators, connections));
 
 export default checkAll;

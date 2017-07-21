@@ -196,6 +196,12 @@ export default class Store {
       Operators.find({ graphId: this.graphId }).fetch(),
       Connections.find({ graphId: this.graphId }).fetch()
     );
+
+    Graphs.update(this.graphId, {
+      $set: {
+        broken: this.graphErrors.filter(x => x.severity === 'error').length > 0
+      }
+    });
   };
 
   @computed
