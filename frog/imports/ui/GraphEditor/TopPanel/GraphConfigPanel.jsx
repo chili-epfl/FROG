@@ -4,7 +4,7 @@ import { ChangeableText } from 'frog-utils';
 
 import { connect, store } from '../store';
 import { Graphs, renameGraph } from '../../../api/graphs';
-import Validator from '../Validator';
+import { ValidButton } from '../Validator';
 
 const Config = ({ graph }) =>
   <div style={{ textAlign: 'center' }}>
@@ -45,14 +45,14 @@ const GraphConfigPanel = createContainer(
   Config
 );
 
-export default connect(({ store: { graphId } }) =>
+export default connect(({ store: { graphId, graphErrors } }) =>
   <div
     style={{
       display: 'flex',
       flexDirection: 'row'
     }}
   >
-    <Validator />
+    <ValidButton />
     <GraphConfigPanel graphId={graphId} />
   </div>
 );
