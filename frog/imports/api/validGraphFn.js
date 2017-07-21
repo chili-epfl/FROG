@@ -23,7 +23,7 @@ export const checkComponent = (
         ...acc,
         {
           id: x._id,
-          err: 'Type of the ' + nodeType + ' ' + x.title + ' doesn\'t existe'
+          err: `The ${nodeType}Package ${type} required by ${nodeType} ${x.title} is not installed`
         }
       ];
     }
