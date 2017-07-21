@@ -69,9 +69,8 @@ export type productOperatorT = {
   meta: {
     type: string,
     name: string,
-    description: string,
-    inputs: string,
-    outputs: string
+    shortDesc: string,
+    description: string
   },
   config: Object,
   operator: (configData: Object, object: ObjectT) => activityDataT
@@ -82,9 +81,8 @@ export type socialOperatorT = {
   meta: {
     type: string,
     name: string,
-    description: string,
-    inputs: string,
-    outputs: string
+    shortDesc: string,
+    description: string
   },
   config: Object,
   operator: (configData: Object, object: ObjectT) => socialStructureT
