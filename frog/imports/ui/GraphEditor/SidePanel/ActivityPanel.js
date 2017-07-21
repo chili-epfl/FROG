@@ -11,10 +11,11 @@ import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
 
-const ChooseActivityType = ({ activity }) => {
+const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
   const select = e => {
     if (activityTypesObj[e]) {
       Activities.update(activity._id, { $set: { activityType: e } });
+      addHistory();
     }
   };
 
@@ -71,8 +72,15 @@ const EditClass = props => {
       </div>
       <Form
         schema={activityTypesObj[activity.activityType].config}
-        onChange={data =>
-          addActivity(activity.activityType, data.formData, activity._id)}
+        onChange={data => {
+          addActivity(
+            activity.activityType,
+            data.formData,
+            activity._id,
+            null,
+            data.errors.length > 0
+          );
+        }}
         formData={activity.data}
         liveValidate
       >
@@ -84,6 +92,7 @@ const EditClass = props => {
 };
 
 const EditActivity = connect(EditClass);
+const ChooseActivityType = connect(ChooseActivityTypeComp);
 
 export default createContainer(
   ({ id }) => ({ activity: Activities.findOne(id) }),

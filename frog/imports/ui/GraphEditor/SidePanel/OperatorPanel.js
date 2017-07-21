@@ -9,10 +9,11 @@ import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { connect } from '../store';
 
-const ChooseOperatorType = ({ operator }) => {
+const ChooseOperatorTypeComp = ({ operator, store: { addHistory } }) => {
   const select = e => {
     if (operatorTypesObj[e]) {
       Operators.update(operator._id, { $set: { operatorType: e } });
+      addHistory();
     }
   };
 
@@ -54,7 +55,12 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
       <Form
         schema={operatorTypesObj[operator.operatorType].config}
         onChange={data =>
-          addOperator(operator.operatorType, data.formData, operator._id)}
+          addOperator(
+            operator.operatorType,
+            data.formData,
+            operator._id,
+            data.errors.length > 0
+          )}
         formData={operator.data}
         liveValidate
       >
@@ -65,6 +71,7 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
 };
 
 const EditOperator = connect(EditClass);
+const ChooseOperatorType = connect(ChooseOperatorTypeComp);
 
 export default createContainer(
   ({ id }) => ({ operator: Operators.findOne(id) }),

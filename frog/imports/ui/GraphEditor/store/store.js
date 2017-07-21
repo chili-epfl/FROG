@@ -14,6 +14,7 @@ import Session from './session';
 import UI from './uiStore';
 import { Activities, Connections, Operators } from '../../../api/activities';
 import { timeToPx } from '../utils';
+import valid from '../../../api/validGraphFn';
 
 type ElementTypes = 'operator' | 'activity' | 'connection';
 
@@ -63,6 +64,7 @@ export default class Store {
   @observable graphId: string = '';
   @observable history = [];
   @observable readOnly: boolean;
+  @observable graphErrors: any[] = [];
 
   @observable graphDuration: number = 120;
 
@@ -188,6 +190,12 @@ export default class Store {
       this.history.push(newEntry);
       mergeGraph(this.objects);
     }
+
+    this.graphErrors = valid(
+      Activities.find({ graphId: this.graphId }).fetch(),
+      Operators.find({ graphId: this.graphId }).fetch(),
+      Connections.find({ graphId: this.graphId }).fetch()
+    );
   };
 
   @computed

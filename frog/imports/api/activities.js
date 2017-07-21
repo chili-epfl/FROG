@@ -13,16 +13,16 @@ import { Sessions } from './sessions';
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
-export const Results = new Mongo.Collection('results');
 
 export const addActivity = (
   activityType: string,
   data: ?Object = {},
   id: string,
-  groupingKey: ?string
+  groupingKey: ?string,
+  err: boolean = false
 ) => {
   if (id) {
-    const toSet = omitBy({ data, groupingKey }, isNil);
+    const toSet = omitBy({ data, groupingKey, err }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
@@ -30,6 +30,7 @@ export const addActivity = (
       activityType,
       data,
       groupingKey,
+      err,
       createdAt: new Date()
     });
   }
@@ -120,7 +121,8 @@ export const deleteDatabase = () => Meteor.call('graph.flush.db');
 export const addOperator = (
   operatorType: string,
   data: Object = {},
-  id: ?string
+  id: ?string,
+  err: boolean = false
 ) => {
   if (id) {
     Operators.update(id, { $set: { data } });
@@ -130,6 +132,7 @@ export const addOperator = (
       operatorType,
       type: operatorTypesObj[operatorType].meta.type,
       data,
+      err,
       createdAt: new Date()
     });
   }
