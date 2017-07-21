@@ -7,9 +7,8 @@ import type { socialOperatorT } from 'frog-utils';
 const meta = {
   name: 'Group based on identical student data',
   type: 'social',
-  description: 'Group students with as many similar answers as possible',
-  inputs: '',
-  outputs: ''
+  shortDesc: 'group identical students together',
+  description: 'Group students with as many similar answers as possible'
 };
 
 const config = {

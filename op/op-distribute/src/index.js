@@ -6,9 +6,8 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Distribute content',
   type: 'product',
-  description: '???',
-  inputs: '',
-  outputs: ''
+  shortDesc: 'distribute data',
+  description: 'Distribute data to all members of a group'
 };
 
 const config = {

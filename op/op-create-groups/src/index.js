@@ -6,9 +6,8 @@ import { type socialOperatorT } from 'frog-utils';
 const meta = {
   name: 'Create groups',
   type: 'social',
-  description: 'Create radom groups of a given amount of students',
-  inputs: '',
-  outputs: ''
+  shortDesc: 'group students randomly',
+  description: 'Create radom groups of a given amount of students'
 };
 
 const config = {

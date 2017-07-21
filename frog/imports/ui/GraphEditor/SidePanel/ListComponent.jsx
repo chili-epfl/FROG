@@ -13,9 +13,6 @@ class ListComponent extends Component {
 
   render() {
     const obj = this.props.object;
-    const inp = obj.meta.inputs === '' ? '' : 'Inputs : ' + obj.meta.inputs;
-    const InOut = () => (inp !== '' && outp !== '' ? <br /> : <div />);
-    const outp = obj.meta.outputs === '' ? '' : 'Outputs : ' + obj.meta.outputs;
 
     const onOver = () => this.setState({ over: true });
     const onOut = () => this.setState({ over: false });
@@ -23,19 +20,10 @@ class ListComponent extends Component {
     return (
       <div value="titi" className="list-group-item">
         <h5 style={{ fontWeight: 'bold' }}>
-          {' '}{obj.meta.name}{' '}
+          {obj.meta.name}
         </h5>
-        {this.state.over &&
-          <div>
-            <p>
-              {' '}{obj.meta.description}{' '}
-            </p>
-            <i>
-              {inp}
-              <InOut />
-              {outp}
-            </i>
-          </div>}
+        {!this.state.over &&obj.meta.shortDesc}
+        {this.state.over &&obj.meta.description}
         <div
           onMouseOver={onOver}
           onMouseOut={onOut}

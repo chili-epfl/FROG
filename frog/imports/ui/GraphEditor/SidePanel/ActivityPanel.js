@@ -12,7 +12,7 @@ import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
 const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
-   const select = ev => {
+  const select = ev => {
     const e = ev.target.getAttribute('value');
     if (activityTypesObj[e]) {
       Activities.update(activity._id, { $set: { activityType: e } });
