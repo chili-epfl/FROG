@@ -1,6 +1,6 @@
 // @flow
-import {activityTypes} from '../activityTypes';
-import {operatorTypes} from '../operatorTypes';
+import { activityTypes } from '../activityTypes';
+import { operatorTypes } from '../operatorTypes';
 
 export const checkComponent = (
   obj: Array<any>,
@@ -18,7 +18,10 @@ export const checkComponent = (
       ];
     }
 
-    if(!activityTypes.map(x => x.id).includes(type) && !operatorTypes.map(x => x.id).includes(type)){
+    if (
+      !activityTypes.map(y => y.id).includes(type) &&
+      !operatorTypes.map(y => y.id).includes(type)
+    ) {
       return [
         ...acc,
         {

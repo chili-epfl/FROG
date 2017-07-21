@@ -45,7 +45,7 @@ const GraphConfigPanel = createContainer(
   Config
 );
 
-export default connect(({ store: { graphId, graphErrors } }) =>
+export default connect(({ store: { graphId } }) =>
   <div
     style={{
       display: 'flex',

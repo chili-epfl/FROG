@@ -1,11 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import React from 'react';
 
 import { connect } from './store';
-import { Activities, Operators, Connections } from '../../api/activities';
-import valid from '../../api/validGraphFn';
 
 const ListError = ({ errors }) =>
   <g>
@@ -44,7 +41,7 @@ export const ErrorList = connect(
 );
 
 export const ValidButton = connect(
-  ({ store: { graphErrors, ui: { showErrors, setShowErrors } } }) =>
+  ({ store: { graphErrors, ui: { setShowErrors } } }) =>
     <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
       <circle
         cx="17"

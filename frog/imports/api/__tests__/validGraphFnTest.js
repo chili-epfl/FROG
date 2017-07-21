@@ -33,7 +33,7 @@ test('Test group activity with product operator => unvalid', () => {
   expect(resultToIds(g7)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
 });
 
-test('Test activityType desn\'t exist => unvalid', () => {
+test("Test activityType desn't exist => unvalid", () => {
   expect(resultToIds(g8)).toEqual(['cj5azthci000d3k6o919vps5d']);
 });
 
