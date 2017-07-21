@@ -5,16 +5,28 @@ import { connect, type StoreProp, store } from './store';
 import Activity from './store/activity';
 import { getClickHandler } from './utils';
 
-const Box = ({ x, y, width, selected, color }) =>
-  <rect
-    x={x}
-    y={y}
-    width={width}
-    stroke={selected ? '#ff9900' : 'grey'}
-    fill={color}
-    rx={10}
-    height={30}
-  />;
+const Box = ({ x, y, width, selected, strokeColor, color }) =>
+  <g>
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      fill={color}
+      stroke={strokeColor}
+      rx={10}
+      height={30}
+    />;
+    {selected &&
+      <rect
+        x={x - 2}
+        y={y - 2}
+        width={width + 2}
+        stroke="#ff9900"
+        fill="transparent"
+        rx={10}
+        height={34}
+      />}
+  </g>;
 
 class ActivityComponent extends Component {
   clickHandler: ?Function;
@@ -58,6 +70,7 @@ class ActivityComponent extends Component {
           highlighted={activity.color}
           selected={activity.selected}
           color={activity.color}
+          strokeColor={activity.strokeColor}
         />
         {width > 21 &&
           <g>

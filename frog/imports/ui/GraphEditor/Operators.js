@@ -29,6 +29,7 @@ export default connect(
           onDrag={op.onDrag}
           onStop={op.stopDragging}
           type={op.type}
+          strokeColor={op.strokeColor}
         />
       );
     });
