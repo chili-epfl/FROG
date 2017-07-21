@@ -11,10 +11,11 @@ import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
 
-const ChooseActivityType = ({ activity }) => {
+const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
   const select = e => {
     if (activityTypesObj[e]) {
       Activities.update(activity._id, { $set: { activityType: e } });
+      addHistory();
     }
   };
 
@@ -91,6 +92,7 @@ const EditClass = props => {
 };
 
 const EditActivity = connect(EditClass);
+const ChooseActivityType = connect(ChooseActivityTypeComp);
 
 export default createContainer(
   ({ id }) => ({ activity: Activities.findOne(id) }),
