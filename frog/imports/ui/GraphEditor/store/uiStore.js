@@ -27,6 +27,12 @@ export default class uiStore {
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
   @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
+  @observable showErrors: boolean = false;
+
+  @action
+  setShowErrors = (toSet: boolean) => {
+    this.showErrors = toSet;
+  };
 
   @action
   setShowInfo = (klass: 'activity' | 'operator', id: string) => {

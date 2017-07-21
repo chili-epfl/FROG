@@ -9,11 +9,12 @@ import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { connect } from '../store';
 import ListComponent from './ListComponent';
 
-const ChooseOperatorType = ({ operator }) => {
+const ChooseOperatorTypeComp = ({ operator, store: { addHistory } }) => {
   const select = ev => {
     const e = ev.target.getAttribute('value');
     if (operatorTypesObj[e]) {
       Operators.update(operator._id, { $set: { operatorType: e } });
+      addHistory();
     }
   };
 
@@ -53,7 +54,12 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
       <Form
         schema={operatorTypesObj[operator.operatorType].config}
         onChange={data =>
-          addOperator(operator.operatorType, data.formData, operator._id)}
+          addOperator(
+            operator.operatorType,
+            data.formData,
+            operator._id,
+            data.errors.length > 0
+          )}
         formData={operator.data}
         liveValidate
       >
@@ -64,6 +70,7 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
 };
 
 const EditOperator = connect(EditClass);
+const ChooseOperatorType = connect(ChooseOperatorTypeComp);
 
 export default createContainer(
   ({ id }) => ({ operator: Operators.findOne(id) }),
