@@ -11,6 +11,7 @@ import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
 import DragGuides from './components/DragGuides';
 import ProgressLines from './components/ProgressLines';
+import { ErrorList } from './Validator';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -44,12 +45,12 @@ export default connect(
     hasPanMap,
     hasTimescale
   }: StoreProp & {
-    scaled: Boolean,
-    isSvg: Boolean,
-    isEditable: Boolean,
-    isSession: Boolean,
-    hasPanMap: Boolean,
-    hasTimescale: Boolean
+    scaled: boolean,
+    isSvg: boolean,
+    isEditable: boolean,
+    isSession: boolean,
+    hasPanMap: boolean,
+    hasTimescale: boolean
   }) =>
     <svg
       width="100%"
@@ -93,5 +94,6 @@ export default connect(
       {scaled &&
         scrollEnabled &&
         <ScrollFields width={graphWidth} height={600} />}
+      {!hasPanMap && <ErrorList />}
     </svg>
 );
