@@ -5,7 +5,10 @@ import type { ActivityRunnerT } from 'frog-utils';
 
 export const meta = {
   name: 'Embedded website',
-  type: 'react-component'
+  type: 'react-component',
+  description: 'Display a frame containing a website',
+  inputs: '',
+  outputs: ''
 };
 
 export const config = {

@@ -8,8 +8,7 @@ import Dashboard from './Dashboard';
 const meta = {
   name: 'Chat',
   type: 'react-component',
-  description:
-    'This activity is a chat between the students of the considered group',
+  description: 'Opens a chat between the students of the considered group',
   inputs: '',
   outputs: ''
 };

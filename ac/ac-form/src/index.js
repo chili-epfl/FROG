@@ -9,7 +9,10 @@ import config from './config';
 
 const meta = {
   name: 'Simple form',
-  type: 'react-component'
+  type: 'react-component',
+  description: 'Creates a form with divers specified fields',
+  inputs: '',
+  outputs: ''
 };
 
 const modifyForm = (questions, title) => {

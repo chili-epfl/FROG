@@ -7,7 +7,10 @@ import ActivityRunner from './ActivityRunner';
 
 export const meta = {
   name: 'Multiple-Choice Questions',
-  type: 'react-component'
+  type: 'react-component',
+  description: 'Display a multiple-choice questions form',
+  inputs: '',
+  outputs: ''
 };
 
 export default ({

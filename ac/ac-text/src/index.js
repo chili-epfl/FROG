@@ -6,7 +6,10 @@ import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
 
 export const meta = {
   name: 'Text Component',
-  type: 'react-component'
+  type: 'react-component',
+  description: 'Display a given text',
+  inputs: '',
+  outputs: ''
 };
 
 export const config = {

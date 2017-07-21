@@ -9,7 +9,7 @@ import Dashboard from './Dashboard';
 const meta = {
   name: 'Brainstorm',
   type: 'react-component',
-  description: '',
+  description: 'Students can submit ideas associated with the given guideline',
   inputs: '',
   outputs: ''
 };

@@ -23,24 +23,12 @@ const ChooseActivityType = ({ activity }) => {
   return (
     <div>
       <h4>Please select activity type</h4>
-      <div className="list-group" onClick={select}>
-        <ListComponent
-          activity={activityTypes[2]}
-          eventKey={activityTypes[2].id}
-        />
+      <div className="list-group" role="button" tabIndex={0} onClick={select}>
+        {activityTypes.map(x =>
+          <ListComponent key={x.id} object={x} eventKey={x.id} />
+        )}
       </div>
     </div>
-    /*
-    <div>
-      <h3>Please select activity type</h3>
-      <DropdownButton title="Select" id="selectActivity" onSelect={select}>
-        {activityTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>
-            {x.meta.name}
-          </MenuItem>
-        )}
-      </DropdownButton>
-    </div>*/
   );
 };
 

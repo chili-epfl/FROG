@@ -2,15 +2,16 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { ChangeableText } from 'frog-utils';
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { connect } from '../store';
+import ListComponent from './ListComponent';
 
 const ChooseOperatorType = ({ operator }) => {
-  const select = e => {
+  const select = ev => {
+    const e = ev.target.getAttribute('value');
     if (operatorTypesObj[e]) {
       Operators.update(operator._id, { $set: { operatorType: e } });
     }
@@ -18,14 +19,12 @@ const ChooseOperatorType = ({ operator }) => {
 
   return (
     <div>
-      <h3>Please select operator type</h3>
-      <DropdownButton id="selectOperator" onSelect={select} title="Select">
+      <h4>Please select operator type</h4>
+      <div className="list-group" role="button" tabIndex={0} onClick={select}>
         {operatorTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>
-            {x.meta.name}
-          </MenuItem>
+          <ListComponent key={x.id} object={x} eventKey={x.id} />
         )}
-      </DropdownButton>
+      </div>
     </div>
   );
 };

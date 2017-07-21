@@ -5,7 +5,10 @@ import type { socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Argue',
-  type: 'social'
+  type: 'social',
+  description: 'Group students with as many different answers as possible',
+  inputs: '',
+  outputs: ''
 };
 
 const config = {
