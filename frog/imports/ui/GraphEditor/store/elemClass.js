@@ -9,6 +9,7 @@ export default class Elem {
   id: string;
   state: ?string;
   color: string;
+  strokeColor: string;
 
   @action
   select = (): void => {
@@ -67,5 +68,17 @@ export default class Elem {
       store.state.draggingFrom !== this &&
       store.state.mode === 'dragging'
     );
+  }
+
+  @computed
+  get strokeColor(): boolean {
+    const errors = store.graphErrors.filter(x => x.id === this.id);
+    if (errors.length === 0) {
+      return 'grey';
+    }
+    if (errors.find(x => x.type === 'missingType')) {
+      return '#e6e8fc';
+    }
+    return '#C72616';
   }
 }
