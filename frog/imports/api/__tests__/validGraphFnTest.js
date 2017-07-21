@@ -37,6 +37,10 @@ test("Test activityType desn't exist => unvalid", () => {
   expect(resultToIds(g8)).toEqual(['cj5azthci000d3k6o919vps5d']);
 });
 
+test('Test operator does not have outgoing connections', () => {
+  expect(resultToIds(g9)).toEqual(['cj5szsc93000b3k6o3suw338f']);
+});
+
 const g1 = {
   graph: {
     _id: 'cj5aziuo400003k6om24tozbn',
@@ -94,7 +98,13 @@ const g3 = {
       type: 'social'
     }
   ],
-  connections: []
+  connections: [
+    {
+      _id: 'cj5azrxuo000a3k6oo1j2ek0k',
+      source: { type: 'operator', id: 'cj5azl3d600033k6og3gtozas' },
+      target: { type: 'activity', id: 'cj5azm5kf00063k6o7vwz37pt' }
+    }
+  ]
 };
 
 const g4 = {
@@ -114,7 +124,13 @@ const g4 = {
       operatorType: 'op-group-identical'
     }
   ],
-  connections: []
+  connections: [
+    {
+      _id: 'cj5azrxuo000a3k6oo1j2ek0k',
+      source: { type: 'operator', id: 'cj5azuchn000e3k6oidbdvsfq' },
+      target: { type: 'activity', id: 'cj5azm5kf00063k6o7vwz37pt' }
+    }
+  ]
 };
 
 const g5 = {
@@ -230,5 +246,26 @@ const g8 = {
     }
   ],
   operators: [],
+  connections: []
+};
+
+const g9 = {
+  graph: {
+    _id: 'cj5aziuo400003k6om24tozbn',
+    name: 'TestNTA',
+    createdAt: '2017-07-19T12:29:17.381Z',
+    duration: 120
+  },
+  activities: [],
+  operators: [
+    {
+      _id: 'cj5szsc93000b3k6o3suw338f',
+      time: 1.9014084507042253,
+      y: 340,
+      type: 'product',
+      operatorType: 'op-jigsaw',
+      data: { roles: 'chief' }
+    }
+  ],
   connections: []
 };

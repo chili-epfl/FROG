@@ -10,11 +10,12 @@ export default ({
   selected,
   type,
   color,
+  strokeColor,
   startDragging,
   onDrag,
   onStop
 }) => {
-  const stroke = selected ? '#ff9900' : 'grey';
+  const stroke = selected ? '#ff9900' : 'transparent';
   let icon;
   switch (type) {
     case 'social':
@@ -37,15 +38,20 @@ export default ({
       y={`${y}px`}
       width="60px"
       height="60px"
-      viewBox="0 0 800 800"
+      viewBox="0 0 900 900"
       xmlSpace="preserve"
+      overflow="visibile"
     >
       <g onMouseUp={onClick}>
         <circle
           cx={300}
           cy={300}
-          r={300}
-          style={{ fill: color || 'white', stroke, strokeWidth: 60 }}
+          r={290}
+          style={{
+            fill: color || 'white',
+            stroke: strokeColor,
+            strokeWidth: 30
+          }}
           transform="translate(30,30)"
         />
         {icon}
@@ -53,8 +59,8 @@ export default ({
           <circle
             cx={300}
             cy={300}
-            r={350}
-            style={{ fill: 'transparent', stroke: 'transparent' }}
+            r={320}
+            style={{ fill: 'transparent', stroke, strokeWidth: 25 }}
             transform="translate(30,30)"
             onMouseOver={onOver}
             onMouseLeave={onLeave}
