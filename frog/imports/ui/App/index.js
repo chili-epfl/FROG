@@ -62,21 +62,21 @@ export default class App extends Component {
   render() {
     return (
       <PageContainer
-        username={this.state.username}
+        username={this.state.username === undefined ? '' : this.state.username}
         apps={apps}
-        currentApp={this.state.app}
+        currentApp={this.state.app === undefined ? '' : this.state.app}
       />
     );
   }
 }
 
 const Page = (props: {
-  username: string | undefined,
-  currentApp: string | undefined,
+  username: string,
+  currentApp: string,
   apps: {},
-  loading: boolean
+  ready: boolean
 }) => {
-  if (props.loading) return <div id="app" />;
+  if (!props.ready) return <div id="app" />;
   return (
     <div id="app">
       {props.username === 'teacher' &&
@@ -100,8 +100,8 @@ const PageContainer = createContainer((props: { username: string }) => {
   const h3 = Meteor.subscribe('activities');
   const h4 = Meteor.subscribe('objects');
   const h5 = Meteor.subscribe('sessions');
-  let loading =
-    !h1.ready() || !h2.ready() || !h3.ready() || !h4.ready() || !h5.ready();
+  let ready =
+    h1.ready() && h2.ready() && h3.ready() && h4.ready() && h5.ready();
   if (props.username === 'teacher') {
     const h6 = Meteor.subscribe('operators');
     const h7 = Meteor.subscribe('connections');
@@ -109,14 +109,14 @@ const PageContainer = createContainer((props: { username: string }) => {
     const h9 = Meteor.subscribe('graphs');
     const h10 = Meteor.subscribe('products');
     const h11 = Meteor.subscribe('uploads');
-    loading =
-      loading ||
-      !h6.ready() ||
-      !h7.ready() ||
-      !h8.ready() ||
-      !h9.ready() ||
-      !h10.ready() ||
-      !h11.ready();
+    ready =
+      ready &&
+      h6.ready() &&
+      h7.ready() &&
+      h8.ready() &&
+      h9.ready() &&
+      h10.ready() &&
+      h11.ready();
   }
-  return { ...props, loading };
+  return { ...props, ready };
 }, Page);
