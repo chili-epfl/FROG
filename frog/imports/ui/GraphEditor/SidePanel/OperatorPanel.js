@@ -74,41 +74,6 @@ class ChooseOperatorTypeComp extends Component {
   }
 }
 
-//
-// const ChooseOperatorTypeComp = withState(
-//   'expanded',
-//   'setExpand',
-//   null
-// )(({ operator, store: { addHistory }, expanded, setExpand }) => {
-//   const select = operatorType => {
-//     Operators.update(operator._id, {
-//       $set: { operatorType: operatorType.id }
-//     });
-//     addHistory();
-//   };
-//   return (
-//     <div style={{ height: '100%' }}>
-//       <h4>Please select operator type</h4>
-//       <div
-//         className="list-group"
-//         style={{ height: '730px', width: '100%', overflow: 'scroll' }}
-//       >
-//         {operatorTypes.map(x =>
-//           <ListComponent
-//             onSelect={() => select(x)}
-//             showExpanded={expanded === x.id}
-//             expand={() => setExpand(x.id)}
-//             onPreview={() => {}}
-//             key={x.id}
-//             object={x}
-//             eventKey={x.id}
-//           />
-//         )}
-//       </div>
-//     </div>
-//   );
-// });
-
 const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
   const graphOperator = all.find(act => act.id === operator._id);
 
