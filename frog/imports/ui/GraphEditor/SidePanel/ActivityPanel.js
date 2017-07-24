@@ -31,19 +31,17 @@ const ChooseActivityTypeComp = withState(
         className="list-group"
         style={{ height: '730px', width: '100%', overflow: 'scroll' }}
       >
-        {activityTypes
-          .concat(activityTypes.map(x => ({ ...x, id: x.id + '1' })))
-          .map(x =>
-            <ListComponent
-              onSelect={() => select(x)}
-              showExpanded={expanded === x.id}
-              expand={() => setExpand(x.id)}
-              key={x.id}
-              onPreview={() => {}}
-              object={x}
-              eventKey={x.id}
-            />
-          )}
+        {activityTypes.map(x =>
+          <ListComponent
+            onSelect={() => select(x)}
+            showExpanded={expanded === x.id}
+            expand={() => setExpand(x.id)}
+            key={x.id}
+            onPreview={() => {}}
+            object={x}
+            eventKey={x.id}
+          />
+        )}
       </div>
     </div>
   );
