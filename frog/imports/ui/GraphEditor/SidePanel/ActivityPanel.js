@@ -11,26 +11,21 @@ import { connect } from '../store';
 import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
-const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
-  const select = ev => {
-    const e = ev.target.getAttribute('value');
-    if (activityTypesObj[e]) {
-      Activities.update(activity._id, { $set: { activityType: e } });
-      addHistory();
-    }
-  };
-
-  return (
-    <div>
-      <h4>Please select activity type</h4>
-      <div className="list-group" role="button" tabIndex={0} onClick={select}>
-        {activityTypes.map(x =>
-          <ListComponent key={x.id} object={x} eventKey={x.id} />
-        )}
-      </div>
+const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) =>
+  <div>
+    <h4>Please select activity type</h4>
+    <div className="list-group">
+      {activityTypes.map(x =>
+        <ListComponent
+          key={x.id}
+          object={x}
+          nodeType="activity"
+          current={activity}
+          addH={addHistory}
+        />
+      )}
     </div>
-  );
-};
+  </div>;
 
 const EditClass = props => {
   const activity = props.activity;

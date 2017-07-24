@@ -9,26 +9,21 @@ import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { connect } from '../store';
 import ListComponent from './ListComponent';
 
-const ChooseOperatorTypeComp = ({ operator, store: { addHistory } }) => {
-  const select = ev => {
-    const e = ev.target.getAttribute('value');
-    if (operatorTypesObj[e]) {
-      Operators.update(operator._id, { $set: { operatorType: e } });
-      addHistory();
-    }
-  };
-
-  return (
-    <div>
-      <h4>Please select operator type</h4>
-      <div className="list-group" role="button" tabIndex={0} onClick={select}>
-        {operatorTypes.map(x =>
-          <ListComponent key={x.id} object={x} eventKey={x.id} />
-        )}
-      </div>
+const ChooseOperatorTypeComp = ({ operator, store: { addHistory } }) =>
+  <div>
+    <h4>Please select operator type</h4>
+    <div className="list-group">
+      {operatorTypes.map(x =>
+        <ListComponent
+          key={x.id}
+          object={x}
+          nodeType="operator"
+          current={operator}
+          addH={addHistory}
+        />
+      )}
     </div>
-  );
-};
+  </div>;
 
 const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
   const graphOperator = all.find(act => act.id === operator._id);
