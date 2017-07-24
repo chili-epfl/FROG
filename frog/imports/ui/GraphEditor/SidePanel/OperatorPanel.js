@@ -29,7 +29,9 @@ class ChooseOperatorTypeComp extends Component {
       this.setState({
         expanded: null,
         listObj: operatorTypes.filter(x =>
-          x.meta.name.toLowerCase().includes(e.target.value.toLowerCase())
+          x.meta.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          x.meta.shortDesc.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          x.meta.description.toLowerCase().includes(e.target.value.toLowerCase())
         )
       });
 

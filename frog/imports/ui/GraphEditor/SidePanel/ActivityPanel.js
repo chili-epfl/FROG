@@ -31,7 +31,9 @@ class ChooseActivityTypeComp extends Component {
       this.setState({
         expanded: null,
         listObj: activityTypes.filter(x =>
-          x.meta.name.toLowerCase().includes(e.target.value.toLowerCase())
+          x.meta.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          x.meta.shortDesc.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          x.meta.description.toLowerCase().includes(e.target.value.toLowerCase())
         )
       });
 
