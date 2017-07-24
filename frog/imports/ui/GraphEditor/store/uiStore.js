@@ -29,6 +29,19 @@ export default class uiStore {
   @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
   @observable showErrors: boolean = false;
 
+  @computed
+  get graphErrorColor(): string {
+    const error = store.graphErrors.filter(x => x.severity === 'error');
+    const warning = store.graphErrors.filter(x => x.severity === 'warning');
+    if (error.length > 0) {
+      return 'red';
+    }
+    if (warning.length > 0) {
+      return 'yellow';
+    }
+    return 'green';
+  }
+
   @action
   setShowErrors = (toSet: boolean) => {
     this.showErrors = toSet;
