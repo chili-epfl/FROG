@@ -9,8 +9,9 @@ import Dashboard from './dashboard';
 export const meta = {
   name: 'Video player',
   type: 'react-component',
-  shortDesc: 'watching a video',
-  description: 'Plays a video'
+  shortDesc: 'Video player',
+  description:
+    'Video player configurable with URL, and some settings (autoplay etc).'
 };
 
 export const config = {

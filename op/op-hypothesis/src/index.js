@@ -12,9 +12,8 @@ import {
 export const meta = {
   name: 'Get ideas from Hypothesis',
   type: 'product',
-  shortDesc: 'collect ideas',
-  description:
-    'Collect ideas from an hypothesis and feed them as data to an activity'
+  shortDesc: 'Get ideas from Hypothesis API',
+  description: 'Collect ideas from an Hypothesis API by hashtag or document id.'
 };
 
 export const config = {
