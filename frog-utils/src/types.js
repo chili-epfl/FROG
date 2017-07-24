@@ -55,9 +55,8 @@ export type ActivityPackageT = {
   meta: {
     type: string,
     name: string,
-    description: string,
-    inputs: string,
-    outputs: string
+    shortDesc: string,
+    description: string
   },
   config: Object,
   mergeFunction?: (dataUnitStructT, Object) => void,
