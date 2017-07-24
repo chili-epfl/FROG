@@ -3,6 +3,7 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { ChangeableText } from 'frog-utils';
+import { withState } from 'recompose';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
@@ -11,26 +12,36 @@ import { connect } from '../store';
 import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
-const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
-  const select = ev => {
-    const e = ev.target.getAttribute('value');
-    if (activityTypesObj[e]) {
-      Activities.update(activity._id, { $set: { activityType: e } });
-      addHistory();
-    }
+const ChooseActivityTypeComp = withState(
+  'expanded',
+  'setExpand',
+  null
+)(({ activity, store: { addHistory }, expanded, setExpand }) => {
+  const select = (activityType, e) => {
+    Activities.update(activity._id, {
+      $set: { activityType: activityType.id }
+    });
+    addHistory();
   };
 
   return (
     <div>
       <h4>Please select activity type</h4>
-      <div className="list-group" role="button" tabIndex={0} onClick={select}>
+      <div className="list-group">
         {activityTypes.map(x =>
-          <ListComponent key={x.id} object={x} eventKey={x.id} />
+          <ListComponent
+            onSelect={e => select(x)}
+            showExpanded={expanded === x.id}
+            expand={() => setExpand(x.id)}
+            key={x.id}
+            object={x}
+            eventKey={x.id}
+          />
         )}
       </div>
     </div>
   );
-};
+});
 
 const EditClass = props => {
   const activity = props.activity;
