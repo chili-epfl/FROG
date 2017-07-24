@@ -30,6 +30,7 @@ const ChooseOperatorTypeComp = withState(
             onSelect={() => select(x)}
             showExpanded={expanded === x.id}
             expand={() => setExpand(x.id)}
+            onPreview={() => {}}
             key={x.id}
             object={x}
             eventKey={x.id}

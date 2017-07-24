@@ -3,20 +3,22 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-export default ({ object, showExpanded, onSelect, expand }) =>
+export default ({ object, showExpanded, onSelect, expand, onPreview }) =>
   <div className="list-group-item">
-    <h5 style={{ fontWeight: 'bold' }}>
-      {object.meta.name}
-    </h5>
-    <div style={{ width: '87%' }}>
-      {object.meta.shortDesc}
-    </div>
-    {showExpanded &&
+    <div style={{ marginLeft: '35px' }}>
+      <h5 style={{ fontWeight: 'bold' }}>
+        {object.meta.name}
+      </h5>
       <div style={{ width: '87%' }}>
-        <i>
-          {object.meta.description}
-        </i>
-      </div>}
+        {object.meta.shortDesc}
+      </div>
+      {showExpanded &&
+        <div style={{ width: '87%' }}>
+          <i>
+            {object.meta.description}
+          </i>
+        </div>}
+    </div>
     <Button
       value={object.id}
       className="glyphicon glyphicon-ok"
