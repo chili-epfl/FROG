@@ -19,7 +19,7 @@ const ShowInfo = ({ activityData, data }) =>
     </div>
     <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
       <h3>activityData</h3>
-      <Inspector data={activityData.activityData} expandLevel={8} />
+      <Inspector data={activityData.data} expandLevel={8} />
     </div>
     <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
       <h3>Current reactive data</h3>
@@ -39,13 +39,11 @@ export default compose(
   const ActivityToRun = ReactiveHOC(
     cloneDeep(activityType.dataStructure),
     'demo' + '/' + activityType.id + '/' + example,
-    activityType.meta.exampleData[example].activityData
+    activityType,
+    activityType.meta.exampleData[example]
   )(showData ? ShowInfo : RunComp);
 
-  const data = {
-    config: activityType.meta.exampleData[example].config,
-    activityData: activityType.meta.exampleData[example].activityData
-  };
+  const data = activityType.meta.exampleData[example];
 
   return (
     <Modal

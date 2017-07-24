@@ -18,7 +18,8 @@ const getDisplayName = (WrappedComponent: any): string => {
 const ReactiveHOC = (
   dataStructure: any,
   docId: string,
-  initialData: any = false
+  previewActivity: any = false,
+  previewActivityData: any = null
 ) => (WrappedComponent: Class<Component<*, *, *>>) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
@@ -37,10 +38,14 @@ const ReactiveHOC = (
     componentDidMount = () => {
       this.doc = connection.get('rz', docId);
       this.doc.subscribe();
-      if (initialData !== false) {
+      if (previewActivity !== false) {
         this.doc.on('load', () => {
           if (!this.doc.type) {
-            this.doc.create(initialData);
+            this.doc.create(previewActivity.dataStructure || {});
+            if (previewActivity.mergeFunction) {
+              const dataFn = generateReactiveFn(this.doc);
+              previewActivity.mergeFunction(previewActivityData, dataFn);
+            }
             this.waitForDoc();
           }
         });

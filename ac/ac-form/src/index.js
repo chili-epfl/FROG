@@ -12,7 +12,34 @@ const meta = {
   type: 'react-component',
   shortDesc: 'Form with text fields',
   description:
-    'Creates a form with specified text fields, optionally allow students to submit multiple forms.'
+    'Creates a form with specified text fields, optionally allow students to submit multiple forms.',
+  exampleData: [
+    {
+      title: 'Sample form',
+      config: {
+        questions:
+          'What is the capital or Iraq?,How many people live in the Niger delta?',
+        multiple: false
+      },
+      activityData: {}
+    },
+    {
+      title: 'Allow multiple submissions',
+      config: {
+        questions: 'How can we improve the environment?',
+        multiple: true
+      },
+      activityData: {}
+    },
+    {
+      title: 'Simple form being filled out',
+      config: {
+        questions:
+          'What is the capital or Iraq?,How many people live in the Niger delta?'
+      },
+      activityData: { form: { '0': 'Mosul', '1': 'Thousands' } }
+    }
+  ]
 };
 
 const modifyForm = (questions, title) => {

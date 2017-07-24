@@ -14,12 +14,12 @@ const meta = {
     {
       title: 'Empty chat',
       config: { title: 'Example chat' },
-      activityData: []
+      data: []
     },
     {
       title: 'Chat with some messages',
       config: { title: 'Example chat' },
-      activityData: [
+      data: [
         { id: '1', msg: 'This is the first message', user: 'Ole' },
         {
           id: '2',
@@ -48,11 +48,16 @@ const config = {
   }
 };
 
+const mergeFunction = (obj, dataFn) => {
+  obj.data.forEach(x => dataFn.listAppend(x));
+};
+
 export default ({
   id: 'ac-chat',
   ActivityRunner,
   config,
   meta,
   dataStructure,
-  Dashboard
+  Dashboard,
+  mergeFunction
 }: ActivityPackageT);
