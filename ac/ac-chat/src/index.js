@@ -7,7 +7,9 @@ import Dashboard from './Dashboard';
 
 const meta = {
   name: 'Chat',
-  type: 'react-component'
+  type: 'react-component',
+  shortDesc: 'Chat component',
+  description: 'Persistent text chat'
 };
 
 const dataStructure = [];

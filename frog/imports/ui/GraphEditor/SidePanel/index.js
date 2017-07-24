@@ -45,8 +45,9 @@ const SidebarContainerDiv = styled.div`
   padding: 0px;
   flex: 0 auto;
   width: 500px;
+  height: 750px;
   background-color: #ffffff;
-  overflow: scroll;
+  overflowY: scroll;
 `;
 
 const CloseButtonA = styled.a`

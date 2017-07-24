@@ -5,7 +5,9 @@ import { type ActivityPackageT, TextInput, uuid } from 'frog-utils';
 
 const meta = {
   name: 'Common Knowledge board',
-  type: 'react-component'
+  type: 'react-component',
+  shortDesc: 'new activity, no description available'
+  description: 'new activity, no description available'
 };
 
 const config = {

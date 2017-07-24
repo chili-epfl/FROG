@@ -6,7 +6,9 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Distribute content',
   type: 'product',
-  desc: ''
+  shortDesc: 'Distribute list items',
+  description:
+    'Distribute list items to groups or individual students, with configurable numbers of items per group, overlap allowed or not, etc.'
 };
 
 const config = {

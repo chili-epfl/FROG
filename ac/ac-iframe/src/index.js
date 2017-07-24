@@ -5,7 +5,10 @@ import type { ActivityRunnerT } from 'frog-utils';
 
 export const meta = {
   name: 'Embedded website',
-  type: 'react-component'
+  type: 'react-component',
+  shortDesc: 'Embedding an external website in an iFrame',
+  description:
+    'Takes a URL and displays the corresponding website embedded in an iFrame. Not all websites allow embedding.'
 };
 
 export const config = {

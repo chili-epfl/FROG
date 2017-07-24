@@ -2,36 +2,50 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { ChangeableText } from 'frog-utils';
+import { withState } from 'recompose';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
+import ListComponent from './ListComponent';
 
-const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
-  const select = e => {
-    if (activityTypesObj[e]) {
-      Activities.update(activity._id, { $set: { activityType: e } });
-      addHistory();
-    }
+const ChooseActivityTypeComp = withState(
+  'expanded',
+  'setExpand',
+  null
+)(({ activity, store: { addHistory }, expanded, setExpand }) => {
+  const select = activityType => {
+    Activities.update(activity._id, {
+      $set: { activityType: activityType.id }
+    });
+    addHistory();
   };
 
   return (
-    <div>
-      <h3>Please select activity type</h3>
-      <DropdownButton title="Select" id="selectActivity" onSelect={select}>
+    <div style={{ height: '100%' }}>
+      <h4>Please select activity type</h4>
+      <div
+        className="list-group"
+        style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+      >
         {activityTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>
-            {x.meta.name}
-          </MenuItem>
+          <ListComponent
+            onSelect={() => select(x)}
+            showExpanded={expanded === x.id}
+            expand={() => setExpand(x.id)}
+            key={x.id}
+            onPreview={() => {}}
+            object={x}
+            eventKey={x.id}
+          />
         )}
-      </DropdownButton>
+      </div>
     </div>
   );
-};
+});
 
 const EditClass = props => {
   const activity = props.activity;

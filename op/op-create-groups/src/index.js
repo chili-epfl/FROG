@@ -5,7 +5,10 @@ import { type socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Create groups',
-  type: 'social'
+  type: 'social',
+  shortDesc: 'Group students randomly',
+  description:
+    'Create random groups of students, configurable group size and strategy (at least n students, or maximum n students per group).'
 };
 
 const config = {

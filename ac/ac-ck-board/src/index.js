@@ -7,7 +7,10 @@ import Board from './board';
 const meta = {
   name: 'Common Knowledge board',
   type: 'react-component',
-  mode: 'collab'
+  mode: 'collab',
+  shortDesc: '2D board for placing items',
+  description:
+    'All imported items are placed on a 2D space. Optionally, teacher can designate four named quadrants. Students can drag boxes to organize or group ideas. Incoming items have title and content.'
 };
 
 const config = {

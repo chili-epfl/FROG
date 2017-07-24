@@ -5,7 +5,9 @@ import type { socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Argue',
-  type: 'social'
+  type: 'social',
+  shortDesc: 'Group students to argue',
+  description: 'Group students with as many similar answers as possible.'
 };
 
 const config = {
