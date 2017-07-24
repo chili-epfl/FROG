@@ -20,8 +20,7 @@ const apps = {
   admin: 'Admin',
   graph: 'Graph Editor',
   teacher: 'Teacher View',
-  student: 'Student View',
-  preview: 'Preview'
+  student: 'Student View'
 };
 
 const socket = new ReconnectingWebSocket('ws://localhost:3002');

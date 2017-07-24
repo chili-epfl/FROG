@@ -9,7 +9,6 @@ import Home from './../Home';
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
-import Preview from './../GraphEditor/Preview';
 import Admin from './../Admin';
 
 const randomName = () =>
@@ -40,8 +39,6 @@ const Body = ({ userId, app }) => {
         return <StudentView />;
       case 'teacher':
         return <TeacherView />;
-      case 'preview':
-        return <Preview />;
       default:
         return (
           <p>
