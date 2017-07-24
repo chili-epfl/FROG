@@ -2,9 +2,11 @@
 
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/accounts-base';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
+import { every } from 'lodash';
 
 import Body from './Body.jsx';
 import Navigation from './Navigation';
@@ -47,22 +49,9 @@ export default class App extends Component {
       }
     }
     this.setState({ username });
-    Meteor.subscribe('activity_data');
-    Meteor.subscribe('logs');
-    Meteor.subscribe('activities');
-    Meteor.subscribe('objects');
-    Meteor.subscribe('sessions');
-
     if (username !== 'teacher') {
       this.setState({ app: 'student' });
     } else if (location && apps[location]) {
-      Meteor.subscribe('operators');
-      Meteor.subscribe('connections');
-      Meteor.subscribe('global_settings');
-      Meteor.subscribe('graphs');
-      Meteor.subscribe('products');
-      Meteor.subscribe('uploads');
-
       this.setState({ app: location });
     }
   };
@@ -73,19 +62,63 @@ export default class App extends Component {
 
   render() {
     return (
-      <div id="app">
-        {this.state.username === 'teacher' &&
-          <div id="header">
-            <Navigation
-              username={this.state.username}
-              apps={apps}
-              currentApp={this.state.app}
-            />
-          </div>}
-        <div id="body">
-          <Body app={this.state.app} />
-        </div>
-      </div>
+      <PageContainer
+        username={this.state.username === undefined ? '' : this.state.username}
+        apps={apps}
+        currentApp={this.state.app === undefined ? '' : this.state.app}
+      />
     );
   }
 }
+
+const Page = (props: {
+  username: string,
+  currentApp: string,
+  apps: {},
+  ready: boolean
+}) => {
+  if (!props.ready) return <div id="app" />;
+  return (
+    <div id="app">
+      {props.username === 'teacher' &&
+        <div id="header">
+          <Navigation
+            username={props.username}
+            apps={props.apps}
+            currentApp={props.currentApp}
+          />
+        </div>}
+      <div id="body">
+        <Body app={props.currentApp} />
+      </div>
+    </div>
+  );
+};
+
+const setupSubscriptions = (collections: string[]) => {
+  const subscriptions = collections.map(x => Meteor.subscribe(x));
+  return every(subscriptions.map(x => x.ready()), Boolean);
+};
+
+const PageContainer = createContainer((props: { username: string }) => {
+  let ready = setupSubscriptions([
+    'activity_data',
+    'logs',
+    'activities',
+    'objects',
+    'sessions'
+  ]);
+  if (props.username === 'teacher') {
+    ready =
+      ready &&
+      setupSubscriptions([
+        'operators',
+        'connections',
+        'global_settings',
+        'graphs',
+        'products',
+        'uploads'
+      ]);
+  }
+  return { ...props, ready };
+}, Page);
