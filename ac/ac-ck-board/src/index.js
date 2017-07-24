@@ -8,9 +8,9 @@ const meta = {
   name: 'Common Knowledge board',
   type: 'react-component',
   mode: 'collab',
-  shortDesc: 'associating ideas with concepts',
+  shortDesc: '2D board for placing items',
   description:
-    'Students have to place boxes containing ideas in the part of the frame that corresponds to its concept'
+    'All imported items are placed on a 2D space. Optionally, teacher can designate four named quadrants. Students can drag boxes to organize or group ideas. Incoming items have title and content.'
 };
 
 const config = {

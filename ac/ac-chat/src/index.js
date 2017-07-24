@@ -8,8 +8,8 @@ import Dashboard from './Dashboard';
 const meta = {
   name: 'Chat',
   type: 'react-component',
-  shortDesc: 'chat between students',
-  description: 'Opens a chat between the students of the considered group'
+  shortDesc: 'Chat component',
+  description: 'Persistent text chat'
 };
 
 const dataStructure = [];
