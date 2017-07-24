@@ -27,7 +27,7 @@ const ChooseOperatorTypeComp = withState(
       <div className="list-group">
         {operatorTypes.map(x =>
           <ListComponent
-            onSelect={e => select(x)}
+            onSelect={() => select(x)}
             showExpanded={expanded === x.id}
             expand={() => setExpand(x.id)}
             key={x.id}

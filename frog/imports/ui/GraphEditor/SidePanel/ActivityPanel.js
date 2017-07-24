@@ -17,7 +17,7 @@ const ChooseActivityTypeComp = withState(
   'setExpand',
   null
 )(({ activity, store: { addHistory }, expanded, setExpand }) => {
-  const select = (activityType, e) => {
+  const select = activityType => {
     Activities.update(activity._id, {
       $set: { activityType: activityType.id }
     });
@@ -30,7 +30,7 @@ const ChooseActivityTypeComp = withState(
       <div className="list-group">
         {activityTypes.map(x =>
           <ListComponent
-            onSelect={e => select(x)}
+            onSelect={() => select(x)}
             showExpanded={expanded === x.id}
             expand={() => setExpand(x.id)}
             key={x.id}
