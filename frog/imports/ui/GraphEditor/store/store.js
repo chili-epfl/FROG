@@ -1,5 +1,5 @@
 // @flow
-import { isEqual } from 'lodash';
+import { isEqual, sortBy } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
@@ -191,11 +191,20 @@ export default class Store {
       mergeGraph(this.objects);
     }
 
-    this.graphErrors = valid(
-      Activities.find({ graphId: this.graphId }).fetch(),
-      Operators.find({ graphId: this.graphId }).fetch(),
-      Connections.find({ graphId: this.graphId }).fetch()
+    this.graphErrors = sortBy(
+      valid(
+        Activities.find({ graphId: this.graphId }).fetch(),
+        Operators.find({ graphId: this.graphId }).fetch(),
+        Connections.find({ graphId: this.graphId }).fetch()
+      ),
+      'severity'
     );
+
+    Graphs.update(this.graphId, {
+      $set: {
+        broken: this.graphErrors.filter(x => x.severity === 'error').length > 0
+      }
+    });
   };
 
   @computed

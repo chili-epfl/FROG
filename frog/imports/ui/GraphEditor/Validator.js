@@ -9,8 +9,13 @@ const ListError = ({ errors }) =>
     {errors.map((x, i) => {
       const k = i * 2;
       return (
-        <text x="90" y={40 + 20 * i} key={x.id + k}>
-          {' '}{'• ' + x.err}{' '}
+        <text
+          x="90"
+          y={40 + 20 * i}
+          key={x.id + k}
+          fill={x.severity === 'error' ? 'red' : 'orange'}
+        >
+          {'• ' + x.err}
         </text>
       );
     })}
@@ -41,14 +46,14 @@ export const ErrorList = connect(
 );
 
 export const ValidButton = connect(
-  ({ store: { graphErrors, ui: { setShowErrors } } }) =>
+  ({ store: { ui: { graphErrorColor, setShowErrors } } }) =>
     <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
       <circle
         cx="17"
         cy="17"
         r="12"
         stroke="transparent"
-        fill={graphErrors.length > 0 ? 'red' : 'green'}
+        fill={graphErrorColor}
         onMouseOver={() => setShowErrors(true)}
         onMouseOut={() => setShowErrors(false)}
       />
