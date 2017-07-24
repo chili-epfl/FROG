@@ -47,7 +47,7 @@ const addSessionItem = (type, graphId, params) => {
 };
 
 export const addSession = (graphId: string) => {
-  const result = Meteor.call('add.session', graphId, (err, result) => {
+  Meteor.call('add.session', graphId, (err, result) => {
     if (result === 'invalidGraph') {
       window.alert(
         'Cannot create session from invalid graph. Please open graph in graph editor and correct errors.'

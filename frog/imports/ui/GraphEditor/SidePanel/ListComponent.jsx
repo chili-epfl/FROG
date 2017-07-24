@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 
 export default ({ object, showExpanded, onSelect, expand }) =>
