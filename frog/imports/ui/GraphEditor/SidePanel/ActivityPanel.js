@@ -25,20 +25,25 @@ const ChooseActivityTypeComp = withState(
   };
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <h4>Please select activity type</h4>
-      <div className="list-group">
-        {activityTypes.map(x =>
-          <ListComponent
-            onSelect={() => select(x)}
-            showExpanded={expanded === x.id}
-            expand={() => setExpand(x.id)}
-            key={x.id}
-            onPreview={() => {}}
-            object={x}
-            eventKey={x.id}
-          />
-        )}
+      <div
+        className="list-group"
+        style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+      >
+        {activityTypes
+          .concat(activityTypes.map(x => ({ ...x, id: x.id + '1' })))
+          .map(x =>
+            <ListComponent
+              onSelect={() => select(x)}
+              showExpanded={expanded === x.id}
+              expand={() => setExpand(x.id)}
+              key={x.id}
+              onPreview={() => {}}
+              object={x}
+              eventKey={x.id}
+            />
+          )}
       </div>
     </div>
   );
