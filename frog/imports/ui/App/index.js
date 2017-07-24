@@ -6,6 +6,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/accounts-base';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
+import { every } from 'lodash';
 
 import Body from './Body.jsx';
 import Navigation from './Navigation';
@@ -94,29 +95,30 @@ const Page = (props: {
   );
 };
 
+const setupSubscriptions = (collections: string[]) => {
+  const subscriptions = collections.map(x => Meteor.subscribe(x));
+  return every(subscriptions.map(x => x.ready()), Boolean);
+};
+
 const PageContainer = createContainer((props: { username: string }) => {
-  const h1 = Meteor.subscribe('activity_data');
-  const h2 = Meteor.subscribe('logs');
-  const h3 = Meteor.subscribe('activities');
-  const h4 = Meteor.subscribe('objects');
-  const h5 = Meteor.subscribe('sessions');
-  let ready =
-    h1.ready() && h2.ready() && h3.ready() && h4.ready() && h5.ready();
+  let ready = setupSubscriptions([
+    'activity_data',
+    'logs',
+    'activities',
+    'objects',
+    'sessions'
+  ]);
   if (props.username === 'teacher') {
-    const h6 = Meteor.subscribe('operators');
-    const h7 = Meteor.subscribe('connections');
-    const h8 = Meteor.subscribe('global_settings');
-    const h9 = Meteor.subscribe('graphs');
-    const h10 = Meteor.subscribe('products');
-    const h11 = Meteor.subscribe('uploads');
     ready =
       ready &&
-      h6.ready() &&
-      h7.ready() &&
-      h8.ready() &&
-      h9.ready() &&
-      h10.ready() &&
-      h11.ready();
+      setupSubscriptions([
+        'operators',
+        'connections',
+        'global_settings',
+        'graphs',
+        'products',
+        'uploads'
+      ]);
   }
   return { ...props, ready };
 }, Page);
