@@ -3,46 +3,60 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { ChangeableText } from 'frog-utils';
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
 
 import { Activities, addActivity } from '/imports/api/activities';
+import Preview from '../Preview';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
-const ChooseActivityTypeComp = withState(
-  'expanded',
-  'setExpand',
-  null
-)(({ activity, store: { addHistory }, expanded, setExpand }) => {
-  const select = activityType => {
-    Activities.update(activity._id, {
-      $set: { activityType: activityType.id }
-    });
-    addHistory();
-  };
+const ChooseActivityTypeComp = compose(
+  withState('expanded', 'setExpand', null),
+  withState('showInfo', 'setShowInfo', null)
+)(
+  ({
+    activity,
+    store: { addHistory },
+    expanded,
+    setExpand,
+    showInfo,
+    setShowInfo
+  }) => {
+    const select = activityType => {
+      Activities.update(activity._id, {
+        $set: { activityType: activityType.id }
+      });
+      addHistory();
+    };
 
-  return (
-    <div>
-      <h4>Please select activity type</h4>
-      <div className="list-group">
-        {activityTypes.map(x =>
-          <ListComponent
-            onSelect={() => select(x)}
-            showExpanded={expanded === x.id}
-            expand={() => setExpand(x.id)}
-            key={x.id}
-            onPreview={() => {}}
-            object={x}
-            eventKey={x.id}
-          />
-        )}
+    return (
+      <div>
+        <h4>Please select activity type</h4>
+        <div className="list-group">
+          {activityTypes.map(x =>
+            <ListComponent
+              onSelect={() => select(x)}
+              showExpanded={expanded === x.id}
+              expand={() => setExpand(x.id)}
+              key={x.id}
+              onPreview={() => setShowInfo(x.id)}
+              object={x}
+              eventKey={x.id}
+            />
+          )}
+        </div>
+        {showInfo !== null &&
+          <Preview
+            activityTypeId={showInfo}
+            dismiss={() => setShowInfo(null)}
+          />}
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 const EditClass = props => {
   const activity = props.activity;
