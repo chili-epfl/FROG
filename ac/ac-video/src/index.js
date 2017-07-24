@@ -11,7 +11,12 @@ export const meta = {
   type: 'react-component',
   shortDesc: 'Video player',
   description:
-    'Video player configurable with URL, and some settings (autoplay etc).'
+    'Video player configurable with URL, and some settings (autoplay etc).',
+  exampleData: {
+    url: 'https://www.youtube.com/watch?v=RHq6bEgeZD4',
+    playing: true,
+    loop: false
+  }
 };
 
 export const config = {
