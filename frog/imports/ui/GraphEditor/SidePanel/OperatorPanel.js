@@ -9,10 +9,11 @@ import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { connect } from '../store';
 
-const ChooseOperatorType = ({ operator }) => {
+const ChooseOperatorTypeComp = ({ operator, store: { addHistory } }) => {
   const select = e => {
     if (operatorTypesObj[e]) {
       Operators.update(operator._id, { $set: { operatorType: e } });
+      addHistory();
     }
   };
 
@@ -21,7 +22,9 @@ const ChooseOperatorType = ({ operator }) => {
       <h3>Please select operator type</h3>
       <DropdownButton id="selectOperator" onSelect={select} title="Select">
         {operatorTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+          <MenuItem key={x.id} eventKey={x.id}>
+            {x.meta.name}
+          </MenuItem>
         )}
       </DropdownButton>
     </div>
@@ -68,6 +71,7 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
 };
 
 const EditOperator = connect(EditClass);
+const ChooseOperatorType = connect(ChooseOperatorTypeComp);
 
 export default createContainer(
   ({ id }) => ({ operator: Operators.findOne(id) }),

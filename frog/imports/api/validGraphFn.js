@@ -1,75 +1,121 @@
-// @flow
+// @flow   
+import { activityTypes } from '../activityTypes';
+import { operatorTypes } from '../operatorTypes';
 
-const checkComponent = (obj: Array<any>, nodeType: string) => {
-  const errors = [];
-  if (obj.length === 0) return errors;
-
-  for (let i = 0; i < obj.length; i += 1) {
-    const t = nodeType === 'activity'
-      ? obj[i].activityType
-      : obj[i].operatorType;
-    if (t === undefined) {
-      errors.push(
-        'Type of the ' + nodeType + ' ' + obj[i].title + ' is not defined'
-      );
-    } else if (obj[i].err)
-      errors.push(
-        'Error(s) in the configuration of the ' + nodeType + ' ' + obj[i].title
-      );
-  }
-
-  // to here
-  return errors;
-};
-
-// } else {
-//        let valid = true;
-//        if (obj[i].err) valid = false;
-//        const conf = typeObj.filter(x => x.id === t)[0].config.properties;
-//        if (Object.keys(conf).length !== 0) {
-//          if (obj[i].data === undefined) valid = false;
-//          else
-//            valid =
-//              valid &&
-//              Object.keys(conf)
-//                .map(
-//                  x => conf[x].type === 'boolean' || obj[i].data[x] !== undefined
-//                )
-//                .reduce((acc, n) => acc && n);
-//       }
-//        if (!valid)
-//          errors.push(
-//            'Configuration problem in ' + nodeType + ' ' + obj[i].title
-//          );
-//       }
-// }
-
-const checkCon = (a: Array<any>, o: Array<any>, c: Array<any>) => {
-  const errors = [];
-  if (a.length === 0) return errors;
-  for (let i = 0; i < a.length; i += 1) {
-    if (a[i].plane === 2) {
-      let valid = false;
-      const tmp = c.filter(x => x.target.id === a[i]._id).map(y => y.source.id);
-      if (tmp.length) {
-        for (let j = 0; j < tmp.length; j += 1)
-          if (o.filter(x => x._id === tmp[j] && x.type === 'social').length > 0)
-            valid = true;
-      }
-      if (!valid)
-        errors.push(
-          'The group activity ' +
-            a[i].title +
-            ' needs to be connected to a social operator'
-        );
+export const checkComponent = (
+  obj: Array<any>,
+  nodeType: 'activity' | 'operator',
+  connections: any[]
+) =>
+  obj.reduce((acc, x) => {
+    const type = nodeType === 'activity' ? x.activityType : x.operatorType;
+    if (type === undefined) {
+      // only warning if operator that has not been connected
+      const severity =
+        nodeType === 'operator' &&
+        !connections.find(
+          conn => conn.target.id === x._id || conn.source.id === x._id
+        )
+          ? 'warning'
+          : 'error';
+      return [
+        ...acc,
+        {
+          id: x._id,
+          err: 'Type of the ' + nodeType + ' ' + x.title + ' is not defined',
+          type: 'missingType',
+          severity
+        }
+      ];
     }
-  }
-  return errors;
-};
 
-const checkAll = (acts: Array<any>, ops: Array<any>, cons: Array<any>) =>
-  checkComponent(acts, 'activity')
-    .concat(checkComponent(ops, 'operator'))
-    .concat(checkCon(acts, ops, cons));
+    if (
+      !activityTypes.map(y => y.id).includes(type) &&
+      !operatorTypes.map(y => y.id).includes(type)
+    ) {
+      return [
+        ...acc,
+        {
+          id: x._id,
+          err: `The ${nodeType}Package ${type} required by ${nodeType} ${x.title} is not installed`,
+          type: 'missingPackage',
+          severity: 'error'
+        }
+      ];
+    }
+
+    if (x.err) {
+      return [
+        ...acc,
+        {
+          id: x._id,
+          err:
+            'Error(s) in the configuration of the ' + nodeType + ' ' + x.title,
+          type: 'configError',
+          severity: 'error'
+        }
+      ];
+    }
+
+    return acc;
+  }, []);
+
+const checkConnection = (
+  activities: Array<any>,
+  operators: Array<any>,
+  connections: Array<any>
+) => [
+  ...activities.reduce((acc, act) => {
+    if (act.plane === 2) {
+      const connectedOperatorIds = connections
+        .filter(x => x.target.id === act._id)
+        .map(x => x.source.id);
+
+      const hasSocial = operators
+        .filter(x => connectedOperatorIds.includes(x._id))
+        .find(x => x.type === 'social');
+
+      if (!hasSocial) {
+        return [
+          ...acc,
+          {
+            id: act._id,
+            err:
+              'The group activity ' +
+              act.title +
+              ' needs to be connected to a social operator',
+            type: 'needsSocialOp',
+            severity: 'error'
+          }
+        ];
+      }
+    }
+
+    return acc;
+  }, []),
+  ...operators.reduce((acc, op) => {
+    if (!connections.find(x => x.source.id === op._id)) {
+      return [
+        ...acc,
+        {
+          id: op._id,
+          err: `The operator ${op.title} does not have any outgoing connections`,
+          type: 'noOutgoing',
+          severity: 'warning'
+        }
+      ];
+    }
+    return acc;
+  }, [])
+];
+
+const checkAll = (
+  activities: Array<any>,
+  operators: Array<any>,
+  connections: Array<any>
+) =>
+  checkComponent(activities, 'activity', connections)
+    .concat(checkComponent(operators, 'operator', connections))
+    .concat(checkConnection(activities, operators, connections));
 
 export default checkAll;

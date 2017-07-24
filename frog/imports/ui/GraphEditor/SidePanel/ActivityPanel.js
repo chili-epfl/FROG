@@ -11,10 +11,11 @@ import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
 
-const ChooseActivityType = ({ activity }) => {
+const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
   const select = e => {
     if (activityTypesObj[e]) {
       Activities.update(activity._id, { $set: { activityType: e } });
+      addHistory();
     }
   };
 
@@ -23,7 +24,9 @@ const ChooseActivityType = ({ activity }) => {
       <h3>Please select activity type</h3>
       <DropdownButton title="Select" id="selectActivity" onSelect={select}>
         {activityTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>{x.meta.name}</MenuItem>
+          <MenuItem key={x.id} eventKey={x.id}>
+            {x.meta.name}
+          </MenuItem>
         )}
       </DropdownButton>
     </div>
@@ -89,6 +92,7 @@ const EditClass = props => {
 };
 
 const EditActivity = connect(EditClass);
+const ChooseActivityType = connect(ChooseActivityTypeComp);
 
 export default createContainer(
   ({ id }) => ({ activity: Activities.findOne(id) }),

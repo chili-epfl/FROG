@@ -1,5 +1,5 @@
 // @flow
-import { isEqual } from 'lodash';
+import { isEqual, sortBy } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
@@ -14,6 +14,7 @@ import Session from './session';
 import UI from './uiStore';
 import { Activities, Connections, Operators } from '../../../api/activities';
 import { timeToPx } from '../utils';
+import valid from '../../../api/validGraphFn';
 
 type ElementTypes = 'operator' | 'activity' | 'connection';
 
@@ -63,6 +64,7 @@ export default class Store {
   @observable graphId: string = '';
   @observable history = [];
   @observable readOnly: boolean;
+  @observable graphErrors: any[] = [];
 
   @observable graphDuration: number = 120;
 
@@ -188,6 +190,21 @@ export default class Store {
       this.history.push(newEntry);
       mergeGraph(this.objects);
     }
+
+    this.graphErrors = sortBy(
+      valid(
+        Activities.find({ graphId: this.graphId }).fetch(),
+        Operators.find({ graphId: this.graphId }).fetch(),
+        Connections.find({ graphId: this.graphId }).fetch()
+      ),
+      'severity'
+    );
+
+    Graphs.update(this.graphId, {
+      $set: {
+        broken: this.graphErrors.filter(x => x.severity === 'error').length > 0
+      }
+    });
   };
 
   @computed
@@ -197,9 +214,8 @@ export default class Store {
 
   @action
   undo = () => {
-    const [connections, activities, operators] = this.history.length > 1
-      ? this.history.pop()
-      : this.history[0];
+    const [connections, activities, operators] =
+      this.history.length > 1 ? this.history.pop() : this.history[0];
     this.activityStore.all = activities.map(
       x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
     );

@@ -44,7 +44,11 @@ const Images = (props: {
   style: Object
 }) => {
   if (!props.imgTrue || !props.imgFalse) {
-    return <div>{"Images's URI not found"}</div>;
+    return (
+      <div>
+        {"Images's URI not found"}
+      </div>
+    );
   } else {
     return (
       <Main style={props.style}>

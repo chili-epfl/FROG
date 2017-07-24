@@ -41,10 +41,14 @@ const Idea = ({ idea, fun, remove }) =>
             <Glyphicon glyph="thumbs-up" />
           </a>
         </span>
-        <Badge>{idea.score}</Badge>
+        <Badge>
+          {idea.score}
+        </Badge>
       </div>
     </font>
-    <b>{idea.title}</b>
+    <b>
+      {idea.title}
+    </b>
     <div>
       {idea.content}
       {remove &&
@@ -101,7 +105,9 @@ export default ({
     <div>
       <Container>
         <ListContainer>
-          <p>{activityData.config.text}</p>
+          <p>
+            {activityData.config.text}
+          </p>
           <IdeaList
             ideas={data}
             fun={{

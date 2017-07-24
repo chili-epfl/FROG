@@ -12,6 +12,7 @@ import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
 import DragGuides from './components/DragGuides';
 import ProgressLines from './components/ProgressLines';
+import { ErrorList } from './Validator';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -91,17 +92,12 @@ export default connect(
         {isEditable && <DragGuides />}
         {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
-        {
-          // /////////////////////////////////////////////////////////////////////////////
-        }
         {scaled && <Validator gId={graphId} />}
-        {
-          // /////////////////////////////////////////////////////////////////////////////
-        }
       </svg>
       {hasPanMap && <PanMap />}
       {scaled &&
         scrollEnabled &&
         <ScrollFields width={graphWidth} height={600} />}
+      {!hasPanMap && <ErrorList />}
     </svg>
 );

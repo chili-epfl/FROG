@@ -16,12 +16,14 @@ const Container = styled.div`
   width: 100%;
   height: 80%;
   display: flex;
-  flex-direction: row
+  flex-direction: row;
 `;
 
 export default ({ activityData }: ActivityRunnerT) =>
   <Main>
-    <h1>{activityData.config.title}</h1>
+    <h1>
+      {activityData.config.title}
+    </h1>
     <Container>
       <Images style={{ width: '50%' }} {...activityData.config} />
       <Rules

@@ -10,6 +10,7 @@ import { uuid } from 'frog-utils';
 import { Activities, Operators, Connections } from './activities';
 import { runSession, nextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
+import valid from './validGraphFn';
 
 export const restartSession = (session: { fromGraphId: string, _id: string }) =>
   Meteor.call('sessions.restart', session);
@@ -46,7 +47,13 @@ const addSessionItem = (type, graphId, params) => {
 };
 
 export const addSession = (graphId: string) => {
-  Meteor.call('add.session', graphId);
+  const result = Meteor.call('add.session', graphId, (err, result) => {
+    if (result === 'invalidGraph') {
+      window.alert(
+        'Cannot create session from invalid graph. Please open graph in graph editor and correct errors.'
+      );
+    }
+  });
 };
 
 export const updateSessionState = (id: string, state: string) => {
@@ -85,6 +92,16 @@ Meteor.methods({
     );
   },
   'add.session': graphId => {
+    const errors = valid(
+      Activities.find({ graphId }).fetch(),
+      Operators.find({ graphId }).fetch(),
+      Connections.find({ graphId }).fetch()
+    );
+    if (errors.filter(x => x.severity === 'error').length > 0) {
+      Graphs.update(graphId, { $set: { broken: true } });
+      return 'invalidGraph';
+    }
+
     const sessionId = uuid();
     const graph = Graphs.findOne(graphId);
     const count = Graphs.find({

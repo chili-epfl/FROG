@@ -15,7 +15,9 @@ export default ({ logs }: any) => {
 
   return (
     <div>
-      <p>{logs.length} logs</p>
+      <p>
+        {logs.length} logs
+      </p>
       <WordCloud
         data={[
           ...Object.keys(data).map(word => ({ text: word, value: data[word] }))

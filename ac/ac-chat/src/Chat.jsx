@@ -6,7 +6,10 @@ import { type ActivityRunnerT, uuid } from 'frog-utils';
 
 import TextInput from './TextInput';
 
-const Chatmsg = ({ msg }) => <li>{msg.user}: {msg.msg}</li>;
+const Chatmsg = ({ msg }) =>
+  <li>
+    {msg.user}: {msg.msg}
+  </li>;
 
 export default ({
   logger,
@@ -16,7 +19,9 @@ export default ({
   userInfo
 }: ActivityRunnerT) =>
   <div>
-    <h4>{activityData.config.title}</h4>
+    <h4>
+      {activityData.config.title}
+    </h4>
     <ul>
       {data.map(chatmsg => <Chatmsg msg={chatmsg} key={chatmsg.id} />)}
     </ul>
