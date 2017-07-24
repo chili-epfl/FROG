@@ -5,7 +5,9 @@ import { focusRole, type socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Jigsaw',
-  type: 'social'
+  type: 'social',
+  shortDesc: 'gives roles to students',
+  description: 'Attribute roles to every students of a group'
 };
 
 const config = {

@@ -11,7 +11,10 @@ import {
 
 export const meta = {
   name: 'Get ideas from Hypothesis',
-  type: 'product'
+  type: 'product',
+  shortDesc: 'collect ideas',
+  description:
+    'Collect ideas from an hypothesis and feed them as data to an activity'
 };
 
 export const config = {

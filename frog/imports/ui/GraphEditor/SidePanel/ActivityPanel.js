@@ -2,7 +2,6 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { ChangeableText } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
@@ -10,9 +9,11 @@ import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
+import ListComponent from './ListComponent';
 
 const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
-  const select = e => {
+  const select = ev => {
+    const e = ev.target.getAttribute('value');
     if (activityTypesObj[e]) {
       Activities.update(activity._id, { $set: { activityType: e } });
       addHistory();
@@ -21,14 +22,12 @@ const ChooseActivityTypeComp = ({ activity, store: { addHistory } }) => {
 
   return (
     <div>
-      <h3>Please select activity type</h3>
-      <DropdownButton title="Select" id="selectActivity" onSelect={select}>
+      <h4>Please select activity type</h4>
+      <div className="list-group" role="button" tabIndex={0} onClick={select}>
         {activityTypes.map(x =>
-          <MenuItem key={x.id} eventKey={x.id}>
-            {x.meta.name}
-          </MenuItem>
+          <ListComponent key={x.id} object={x} eventKey={x.id} />
         )}
-      </DropdownButton>
+      </div>
     </div>
   );
 };

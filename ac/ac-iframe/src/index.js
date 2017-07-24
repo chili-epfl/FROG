@@ -5,7 +5,9 @@ import type { ActivityRunnerT } from 'frog-utils';
 
 export const meta = {
   name: 'Embedded website',
-  type: 'react-component'
+  type: 'react-component',
+  shortDesc: 'reading a website',
+  description: 'Display a frame containing a website'
 };
 
 export const config = {

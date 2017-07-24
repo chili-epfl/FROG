@@ -7,7 +7,10 @@ import Board from './board';
 const meta = {
   name: 'Common Knowledge board',
   type: 'react-component',
-  mode: 'collab'
+  mode: 'collab',
+  shortDesc: 'associating ideas with concepts',
+  description:
+    'Students have to place boxes containing ideas in the part of the frame that corresponds to its concept'
 };
 
 const config = {
