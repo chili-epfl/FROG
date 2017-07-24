@@ -34,6 +34,7 @@ const ChooseActivityTypeComp = withState(
             showExpanded={expanded === x.id}
             expand={() => setExpand(x.id)}
             key={x.id}
+            onPreview={() => {}}
             object={x}
             eventKey={x.id}
           />
