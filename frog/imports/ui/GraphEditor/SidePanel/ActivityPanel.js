@@ -33,9 +33,12 @@ const ChooseActivityTypeComp = compose(
     };
 
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         <h4>Please select activity type</h4>
-        <div className="list-group">
+        <div
+          className="list-group"
+          style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+        >
           {activityTypes.map(x =>
             <ListComponent
               onSelect={() => select(x)}

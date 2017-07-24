@@ -22,9 +22,12 @@ const ChooseOperatorTypeComp = withState(
     addHistory();
   };
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <h4>Please select operator type</h4>
-      <div className="list-group">
+      <div
+        className="list-group"
+        style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+      >
         {operatorTypes.map(x =>
           <ListComponent
             onSelect={() => select(x)}
