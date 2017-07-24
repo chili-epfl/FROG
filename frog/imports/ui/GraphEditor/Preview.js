@@ -1,20 +1,32 @@
 import React from 'react';
 import { cloneDeep } from 'lodash';
-import { uuid } from 'frog-utils';
+import { uuid, A } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
+import { Inspector } from 'react-inspector';
 
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from '../App/index';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import doGetInstances from '../../api/doGetInstances';
 
-export default withState(
-  'example',
-  'setExample',
-  0
-)(({ activityTypeId, example, setExample, dismiss }) => {
+const ShowInfo = ({ data }) =>
+  <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div style={{ flexBasis: 0, flexGrow: 1 }}>
+      <h3>Config</h3>
+      <Inspector data={data.config} expandLevel={8} />
+    </div>
+    <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
+      <h3>activityData</h3>
+      <Inspector data={data.activityData} expandLevel={8} />
+    </div>
+  </div>;
+
+export default compose(
+  withState('example', 'setExample', 0),
+  withState('showData', 'setShowData', false)
+)(({ activityTypeId, example, setExample, showData, setShowData, dismiss }) => {
   const activityType = activityTypesObj[activityTypeId || 'ac-chat'];
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activityType;
@@ -41,7 +53,10 @@ export default withState(
         </button>
 
         <h4 className="modal-title">
-          Preview of {activityType.meta.name} ({activityType.id})
+          Preview of {activityType.meta.name} ({activityType.id}){' '}
+          <A onClick={() => setShowData(!showData)}>
+            (show {showData ? 'activity' : 'underlying data'})
+          </A>
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
           {activityType.meta.exampleData.map((x, i) =>
@@ -52,11 +67,13 @@ export default withState(
         </Nav>
       </div>
       <div style={{ width: '100%', height: '100%' }}>
-        <ActivityToRun
-          activityData={data}
-          userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
-          logger={() => {}}
-        />
+        {showData
+          ? <ShowInfo data={data} />
+          : <ActivityToRun
+              activityData={data}
+              userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
+              logger={() => {}}
+            />}
       </div>
     </Modal>
   );
