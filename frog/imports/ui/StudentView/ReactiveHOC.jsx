@@ -39,8 +39,10 @@ const ReactiveHOC = (
       this.doc.subscribe();
       if (initialData !== false) {
         this.doc.on('load', () => {
-          this.doc.create(initialData);
-          this.waitForDoc();
+          if (!this.doc.type) {
+            this.doc.create(initialData);
+            this.waitForDoc();
+          }
         });
       }
       this.doc.on('ready', this.update);

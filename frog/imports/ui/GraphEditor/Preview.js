@@ -11,15 +11,19 @@ import { connection } from '../App/index';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import doGetInstances from '../../api/doGetInstances';
 
-const ShowInfo = ({ data }) =>
+const ShowInfo = ({ activityData, data }) =>
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
     <div style={{ flexBasis: 0, flexGrow: 1 }}>
       <h3>Config</h3>
-      <Inspector data={data.config} expandLevel={8} />
+      <Inspector data={activityData.config} expandLevel={8} />
     </div>
     <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
       <h3>activityData</h3>
-      <Inspector data={data.activityData} expandLevel={8} />
+      <Inspector data={activityData.activityData} expandLevel={8} />
+    </div>
+    <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
+      <h3>Current reactive data</h3>
+      <Inspector data={data} expandLevel={8} />
     </div>
   </div>;
 
@@ -28,13 +32,15 @@ export default compose(
   withState('showData', 'setShowData', false)
 )(({ activityTypeId, example, setExample, showData, setShowData, dismiss }) => {
   const activityType = activityTypesObj[activityTypeId || 'ac-chat'];
+
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activityType;
+
   const ActivityToRun = ReactiveHOC(
     cloneDeep(activityType.dataStructure),
-    uuid(),
+    'demo' + '/' + activityType.id + '/' + example,
     activityType.meta.exampleData[example].activityData
-  )(RunComp);
+  )(showData ? ShowInfo : RunComp);
 
   const data = {
     config: activityType.meta.exampleData[example].config,
@@ -67,13 +73,11 @@ export default compose(
         </Nav>
       </div>
       <div style={{ width: '100%', height: '100%' }}>
-        {showData
-          ? <ShowInfo data={data} />
-          : <ActivityToRun
-              activityData={data}
-              userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
-              logger={() => {}}
-            />}
+        <ActivityToRun
+          activityData={data}
+          userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
+          logger={() => {}}
+        />
       </div>
     </Modal>
   );
