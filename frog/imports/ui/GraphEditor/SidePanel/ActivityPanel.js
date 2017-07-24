@@ -1,9 +1,8 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { ChangeableText } from 'frog-utils';
-import { withState } from 'recompose';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
@@ -12,40 +11,118 @@ import { connect } from '../store';
 import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
-const ChooseActivityTypeComp = withState(
-  'expanded',
-  'setExpand',
-  null
-)(({ activity, store: { addHistory }, expanded, setExpand }) => {
-  const select = activityType => {
-    Activities.update(activity._id, {
-      $set: { activityType: activityType.id }
-    });
-    addHistory();
-  };
+class ChooseActivityTypeComp extends Component {
+  state: { expanded: number, listObj: Array<any> };
 
-  return (
-    <div style={{ height: '100%' }}>
-      <h4>Please select activity type</h4>
-      <div
-        className="list-group"
-        style={{ height: '730px', width: '100%', overflow: 'scroll' }}
-      >
-        {activityTypes.map(x =>
-          <ListComponent
-            onSelect={() => select(x)}
-            showExpanded={expanded === x.id}
-            expand={() => setExpand(x.id)}
-            key={x.id}
-            onPreview={() => {}}
-            object={x}
-            eventKey={x.id}
-          />
-        )}
+  constructor(props) {
+    super(props);
+    this.state = { expanded: null, listObj: activityTypes };
+  }
+
+  render() {
+    const select = activityType => {
+      Activities.update(this.props.activity._id, {
+        $set: { activityType: activityType.id }
+      });
+      this.props.store.addHistory();
+    };
+
+    const changeSearch = e =>
+      this.setState({
+        expanded: null,
+        listObj: activityTypes.filter(x =>
+          x.meta.name.toLowerCase().includes(e.target.value.toLowerCase())
+        )
+      });
+
+    return (
+      <div style={{ height: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <h4>Please select activity type</h4>
+          <div
+            className="input-group"
+            style={{ top: '5px', left: '10px', width: '250px' }}
+          >
+            <span className="input-group-addon" id="basic-addon1">
+              <span className="glyphicon glyphicon-search" aria-hidden="true" />
+            </span>
+            <input
+              type="text"
+              onChange={changeSearch}
+              className="form-control"
+              placeholder="Search for..."
+              aria-describedby="basic-addon1"
+            />
+          </div>
+        </div>
+        <div
+          className="list-group"
+          style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+        >
+          {this.state.listObj.map(x =>
+            <ListComponent
+              onSelect={() => select(x)}
+              showExpanded={this.state.expanded === x.id}
+              expand={() => this.setState({ expanded: x.id })}
+              key={x.id}
+              onPreview={() => {}}
+              object={x}
+              eventKey={x.id}
+            />
+          )}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+}
+
+// const ChooseActivityTypeComp = withState(
+//   'expanded',
+//   'setExpand',
+//   null
+// )(({ activity, store: { addHistory }, expanded, setExpand }) => {
+//   const select = activityType => {
+//     Activities.update(activity._id, {
+//       $set: { activityType: activityType.id }
+//     });
+//     addHistory();
+//   };
+//
+//   const SearchInput = () => {
+//     return (
+//     <div className="input-group" style={{top: '5px', left: '10px', width: '250px'}}>
+//       <span className="input-group-addon" id="basic-addon1">
+//         <span className='glyphicon glyphicon-search' aria-hidden="true"/>
+//       </span>
+//       <input type="text" className="form-control" placeholder="Search for..." aria-describedby="basic-addon1"/>
+//     </div>);
+//   }
+//
+//   return (
+//     <div style={{ height: '100%' }}>
+//       <div style={{display: 'flex',flexDirection: 'row'}}>
+//         <h4>Please select activity type</h4>
+//         <SearchInput/>
+//       </div>
+//       <div
+//         className="list-group"
+//         style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+//       >
+//         {this.state.listObj.map(x =>
+//           <ListComponent
+//             onSelect={() => select(x)}
+//             showExpanded={expanded === x.id}
+//             expand={() => setExpanded(x.id)})}
+//             key={x.id}
+//             onPreview={() => {}}
+//             object={x}
+//             eventKey={x.id}
+//           />
+//         )}
+//       </div>
+//     </div>
+//   );
+// });
 
 const EditClass = props => {
   const activity = props.activity;
