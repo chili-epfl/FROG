@@ -13,12 +13,12 @@ import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
 class ChooseActivityTypeComp extends Component {
-  state: { expanded: number, searchStr: string, showInfo: ?string  };
+  state: { expanded: number, searchStr: string, showInfo: ?string };
 
   constructor(props) {
     super(props);
     this.state = { expanded: null, searchStr: '', showInfo: null };
-   }
+  }
 
   componentDidMount() {
     this.inputRef.focus();
