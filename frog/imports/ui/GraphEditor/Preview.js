@@ -1,15 +1,14 @@
 import React from 'react';
 import { cloneDeep } from 'lodash';
-import { uuid, A } from 'frog-utils';
+import { A } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
 import { Inspector } from 'react-inspector';
+import { Meteor } from 'meteor/meteor';
 
 import { activityTypesObj } from '../../activityTypes';
-import { connection } from '../App/index';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
-import doGetInstances from '../../api/doGetInstances';
 
 const ShowInfo = ({ activityData, data }) =>
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -38,7 +37,7 @@ export default compose(
 
   const ActivityToRun = ReactiveHOC(
     cloneDeep(activityType.dataStructure),
-    'demo' + '/' + activityType.id + '/' + example,
+    'demo/' + activityType.id + '/' + example,
     activityType,
     activityType.meta.exampleData[example]
   )(showData ? ShowInfo : RunComp);
@@ -64,7 +63,8 @@ export default compose(
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
           {activityType.meta.exampleData.map((x, i) =>
-            <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
+            // eslint-disable-next-line react/no-array-index-key
+            <NavItem key={x} eventKey={i} onClick={() => setExample(i)}>
               {x.title}
             </NavItem>
           )}

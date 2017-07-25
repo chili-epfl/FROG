@@ -2,12 +2,12 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import { ChangeableText } from 'frog-utils';
 import { withState, compose } from 'recompose';
+import { ChangeableText } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
-import Preview from '../Preview';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
+import Preview from '../Preview';
 import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
