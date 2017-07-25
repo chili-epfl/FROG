@@ -87,7 +87,7 @@ class ChooseActivityTypeComp extends Component {
                   showExpanded={this.state.expanded === x.id}
                   expand={() => this.setState({ expanded: x.id })}
                   key={x.id}
-                  onPreview={() => {}}
+                  onPreview={() => this.setState({ showInfo: x.id })}
                   object={x}
                   searchS={this.state.searchStr}
                   eventKey={x.id}
