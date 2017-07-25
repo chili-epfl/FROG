@@ -8,7 +8,16 @@ export const meta = {
   type: 'react-component',
   shortDesc: 'Embedding an external website in an iFrame',
   description:
-    'Takes a URL and displays the corresponding website embedded in an iFrame. Not all websites allow embedding.'
+    'Takes a URL and displays the corresponding website embedded in an iFrame. Not all websites allow embedding.',
+  exampleData: [
+    {
+      title: "Stian's blog",
+      config: {
+        url: 'http://reganmian.net'
+      },
+      activityData: {}
+    }
+  ]
 };
 
 export const config = {

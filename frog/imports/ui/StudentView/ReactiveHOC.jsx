@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { generateReactiveFn } from 'frog-utils';
+import { deepClone } from 'lodash';
 
 import { connection } from '../App/index';
 
@@ -15,9 +16,12 @@ const getDisplayName = (WrappedComponent: any): string => {
   }
 };
 
-const ReactiveHOC = (dataStructure: any, docId: string) => (
-  WrappedComponent: Class<Component<*, *, *>>
-) => {
+const ReactiveHOC = (
+  dataStructure: any,
+  docId: string,
+  previewActivity: any = false,
+  previewActivityData: any = null
+) => (WrappedComponent: Class<Component<*, *, *>>) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
     doc: any;
@@ -35,6 +39,21 @@ const ReactiveHOC = (dataStructure: any, docId: string) => (
     componentDidMount = () => {
       this.doc = connection.get('rz', docId);
       this.doc.subscribe();
+      if (previewActivity !== false) {
+        this.doc.on('load', () => {
+          if (!this.doc.type) {
+            this.doc.create(previewActivity.dataStructure || {});
+            if (previewActivity.mergeFunction) {
+              const dataFn = generateReactiveFn(this.doc);
+              previewActivity.mergeFunction(
+                deepClone(previewActivityData),
+                dataFn
+              );
+            }
+            this.waitForDoc();
+          }
+        });
+      }
       this.doc.on('ready', this.update);
       this.doc.on('op', this.update);
       this.waitForDoc();
@@ -67,7 +86,7 @@ const ReactiveHOC = (dataStructure: any, docId: string) => (
     };
 
     render = () =>
-      this.state.data
+      this.state.data !== null
         ? <WrappedComponent
             dataFn={this.state.dataFn}
             data={this.state.data}
