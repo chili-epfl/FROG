@@ -13,11 +13,11 @@ import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
 class ChooseActivityTypeComp extends Component {
-  state: { expanded: number, listObj: Array<any>, showInfo: ?string };
+  state: { expanded: number, searchStr: string, showInfo: ?string };
 
   constructor(props) {
     super(props);
-    this.state = { expanded: null, listObj: activityTypes, showInfo: null };
+    this.state = { expanded: null, searchStr: '', showInfo: null };
   }
 
   componentDidMount() {
@@ -35,17 +35,15 @@ class ChooseActivityTypeComp extends Component {
     const changeSearch = e =>
       this.setState({
         expanded: null,
-        listObj: activityTypes.filter(
-          x =>
-            x.meta.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-            x.meta.shortDesc
-              .toLowerCase()
-              .includes(e.target.value.toLowerCase()) ||
-            x.meta.description
-              .toLowerCase()
-              .includes(e.target.value.toLowerCase())
-        )
+        searchStr: e.target.value.toLowerCase()
       });
+
+    const filteredList = activityTypes.filter(
+      x =>
+        x.meta.name.toLowerCase().includes(this.state.searchStr) ||
+        x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
+        x.meta.description.toLowerCase().includes(this.state.searchStr)
+    );
 
     return (
       <div style={{ height: '100%' }}>
@@ -73,17 +71,28 @@ class ChooseActivityTypeComp extends Component {
           className="list-group"
           style={{ height: '730px', width: '100%', overflow: 'scroll' }}
         >
-          {this.state.listObj.map(x =>
-            <ListComponent
-              onSelect={() => select(x)}
-              showExpanded={this.state.expanded === x.id}
-              expand={() => this.setState({ expanded: x.id })}
-              key={x.id}
-              onPreview={() => this.setState({ showInfo: x.id })}
-              object={x}
-              eventKey={x.id}
-            />
-          )}
+          {filteredList.length === 0
+            ? <div
+                style={{
+                  marginTop: '20px',
+                  marginLeft: '10px',
+                  fontSize: '40px'
+                }}
+              >
+                No result
+              </div>
+            : filteredList.map(x =>
+                <ListComponent
+                  onSelect={() => select(x)}
+                  showExpanded={this.state.expanded === x.id}
+                  expand={() => this.setState({ expanded: x.id })}
+                  key={x.id}
+                  onPreview={() => this.setState({ showInfo: x.id })}
+                  object={x}
+                  searchS={this.state.searchStr}
+                  eventKey={x.id}
+                />
+              )}
         </div>
         {this.state.showInfo !== null &&
           <Preview
