@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
-import { withState, compose } from 'recompose';
 import { ChangeableText } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';

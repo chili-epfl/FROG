@@ -28,10 +28,15 @@ class ChooseOperatorTypeComp extends Component {
     const changeSearch = e =>
       this.setState({
         expanded: null,
-        listObj: operatorTypes.filter(x =>
-          x.meta.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          x.meta.shortDesc.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          x.meta.description.toLowerCase().includes(e.target.value.toLowerCase())
+        listObj: operatorTypes.filter(
+          x =>
+            x.meta.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+            x.meta.shortDesc
+              .toLowerCase()
+              .includes(e.target.value.toLowerCase()) ||
+            x.meta.description
+              .toLowerCase()
+              .includes(e.target.value.toLowerCase())
         )
       });
 
