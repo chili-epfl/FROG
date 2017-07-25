@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { uuid } from 'frog-utils';
+import { uuid, A } from 'frog-utils';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
 import FlipMove from '@houshuang/react-flip-move';
@@ -32,14 +32,14 @@ const Idea = ({ idea, fun, remove }) =>
     <font size={4}>
       <div style={{ float: 'right' }}>
         <span style={{ marginRight: '10px' }}>
-          <a href="#" onClick={() => fun.vote(idea.id, -1)}>
+          <A onClick={() => fun.vote(idea.id, -1)}>
             <Glyphicon glyph="thumbs-down" />
-          </a>
+          </A>
         </span>
         <span style={{ marginRight: '10px' }}>
-          <a href="#" onClick={() => fun.vote(idea.id, 1)}>
+          <A onClick={() => fun.vote(idea.id, 1)}>
             <Glyphicon glyph="thumbs-up" />
-          </a>
+          </A>
         </span>
         <Badge>
           {idea.score}
@@ -53,9 +53,9 @@ const Idea = ({ idea, fun, remove }) =>
       {idea.content}
       {remove &&
         <font size={4}>
-          <a href="#" onClick={() => fun.delete(idea)}>
+          <A onClick={() => fun.delete(idea)}>
             <Glyphicon glyph="scissors" style={{ float: 'right' }} />
-          </a>
+          </A>
         </font>}
     </div>
   </ListGroupItem>;

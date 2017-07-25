@@ -4,8 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Main = styled.div`
-  height: 100%;
-  width: 100%;
+  height: 800px;
   display: flex;
   flex-direction: column;
 `;
@@ -20,9 +19,9 @@ const Container = styled.div`
 const Img = ({ url }) =>
   <img
     style={{
-      margin: '1%',
-      width: '90%',
-      height: '98%'
+      margin: 'auto',
+      maxWidth: '100%',
+      maxHeight: '90%'
     }}
     src={url}
     alt={''}
@@ -31,9 +30,10 @@ const Img = ({ url }) =>
 const Rectangle = ({ color }) =>
   <div
     style={{
-      width: '6%',
-      height: '98%',
-      margin: '1%',
+      width: '40px',
+      height: '90%',
+      marginTop: '2%',
+      marginLeft: '1%',
       background: color
     }}
   />;
@@ -56,6 +56,13 @@ const Images = (props: {
           <Rectangle color={'#00ff00'} />
           <Img url={props.imgTrue} />
         </Container>
+        <div
+          style={{
+            width: '100%',
+            height: '2px',
+            background: '#000000'
+          }}
+        />
         <Container>
           <Rectangle color={'#ff0000'} />
           <Img url={props.imgFalse} />
