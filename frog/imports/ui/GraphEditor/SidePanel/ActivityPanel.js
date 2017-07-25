@@ -6,17 +6,22 @@ import { ChangeableText } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
+import Preview from '../Preview';
 import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
 class ChooseActivityTypeComp extends Component {
-  state: { expanded: number, listObj: Array<any> };
+  state: { expanded: number, listObj: Array<any>, showInfo: ?string };
 
   constructor(props) {
     super(props);
-    this.state = { expanded: null, listObj: activityTypes };
+    this.state = { expanded: null, listObj: activityTypes, showInfo: null };
+  }
+
+  componentDidMount() {
+    this.inputRef.focus();
   }
 
   render() {
@@ -30,10 +35,15 @@ class ChooseActivityTypeComp extends Component {
     const changeSearch = e =>
       this.setState({
         expanded: null,
-        listObj: activityTypes.filter(x =>
-          x.meta.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          x.meta.shortDesc.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          x.meta.description.toLowerCase().includes(e.target.value.toLowerCase())
+        listObj: activityTypes.filter(
+          x =>
+            x.meta.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+            x.meta.shortDesc
+              .toLowerCase()
+              .includes(e.target.value.toLowerCase()) ||
+            x.meta.description
+              .toLowerCase()
+              .includes(e.target.value.toLowerCase())
         )
       });
 
@@ -49,7 +59,9 @@ class ChooseActivityTypeComp extends Component {
               <span className="glyphicon glyphicon-search" aria-hidden="true" />
             </span>
             <input
+              ref={ref => (this.inputRef = ref)}
               type="text"
+              style={{ zIndex: 0 }}
               onChange={changeSearch}
               className="form-control"
               placeholder="Search for..."
@@ -67,12 +79,17 @@ class ChooseActivityTypeComp extends Component {
               showExpanded={this.state.expanded === x.id}
               expand={() => this.setState({ expanded: x.id })}
               key={x.id}
-              onPreview={() => {}}
+              onPreview={() => this.setState({ showInfo: x.id })}
               object={x}
               eventKey={x.id}
             />
           )}
         </div>
+        {this.state.showInfo !== null &&
+          <Preview
+            activityTypeId={this.state.showInfo}
+            dismiss={() => this.setState({ showInfo: null })}
+          />}
       </div>
     );
   }

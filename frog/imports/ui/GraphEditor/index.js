@@ -30,8 +30,10 @@ export default class AppClass extends Component {
 
 const bindKeys = () => {
   Mousetrap.bind('esc', () => {
-    store.ui.cancelAll();
-    store.ui.unselect();
+    if (!store.ui.sidepanelOpen) {
+      store.ui.cancelAll();
+      store.ui.unselect();
+    }
   });
   Mousetrap.bind('backspace', store.deleteSelected);
   Mousetrap.bind('?', () => store.ui.setModal(true));
