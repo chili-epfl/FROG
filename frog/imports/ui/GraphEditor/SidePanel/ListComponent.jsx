@@ -3,14 +3,23 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-export default ({ object, showExpanded, onSelect, expand, onPreview }) =>
+import { Highlight } from 'frog-utils';
+
+export default ({
+  object,
+  showExpanded,
+  onSelect,
+  expand,
+  onPreview,
+  searchS
+}) =>
   <div className="list-group-item">
     <div style={{ marginLeft: '35px' }}>
       <h5 style={{ fontWeight: 'bold' }}>
-        {object.meta.name}
+        <Highlight text={object.meta.name} searchStr={searchS} />
       </h5>
       <div style={{ width: '87%' }}>
-        {object.meta.shortDesc}
+        <Highlight text={object.meta.shortDesc} searchStr={searchS} />
       </div>
       {showExpanded &&
         <div style={{ width: '87%' }}>
