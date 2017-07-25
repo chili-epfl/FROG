@@ -25,14 +25,16 @@ export default ({ activityData }: ActivityRunnerT) =>
       {activityData.config.title}
     </h1>
     <Container>
-      <Images style={{width: '50%'}} {...activityData.config} />
-      <div style={{
-        width: '2px',
-        height: '100%',
-        background: '#000000'
-      }} />
+      <Images style={{ width: '50%' }} {...activityData.config} />
+      <div
+        style={{
+          width: '2px',
+          height: '100%',
+          background: '#000000'
+        }}
+      />
       <Rules
-        style={{width: '50%', marginLeft: '10px'}}
+        style={{ width: '50%', marginLeft: '10px' }}
         generateNewPics={e => {
           e.preventDefault();
         }}

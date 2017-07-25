@@ -46,7 +46,7 @@ const Images = (props: {
   if (!props.imgTrue || !props.imgFalse) {
     return (
       <div>
-        Images's URI not found
+        {"Images's URI not found"}
       </div>
     );
   } else {
