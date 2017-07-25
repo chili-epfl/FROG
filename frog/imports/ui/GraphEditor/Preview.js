@@ -64,7 +64,7 @@ export default compose(
         <Nav bsStyle="pills" activeKey={example}>
           {activityType.meta.exampleData.map((x, i) =>
             // eslint-disable-next-line react/no-array-index-key
-            <NavItem key={x} eventKey={i} onClick={() => setExample(i)}>
+            <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
               {x.title}
             </NavItem>
           )}
