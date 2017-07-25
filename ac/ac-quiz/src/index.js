@@ -56,21 +56,6 @@ export const meta = {
       config: exampleConfig,
       title: 'Sample MCQ',
       activityData: {}
-    },
-    {
-      config: exampleConfig,
-      title: 'Sample MCQ with some items filled out',
-      activityData: {
-        form: {
-          '0': { radio: 'By solving exercise with other students' },
-          '1': { radio: 'Ask questions to the professor' },
-          '2': {
-            radio:
-              'Solve exercises with an other student who has the same level as me'
-          },
-          '3': { radio: 'Solve exercise with a stronger student' }
-        }
-      }
     }
   ]
 };

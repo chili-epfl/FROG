@@ -30,14 +30,6 @@ const meta = {
         multiple: true
       },
       activityData: {}
-    },
-    {
-      title: 'Simple form being filled out',
-      config: {
-        questions:
-          'What is the capital or Iraq?,How many people live in the Niger delta?'
-      },
-      activityData: { form: { '0': 'Mosul', '1': 'Thousands' } }
     }
   ]
 };
