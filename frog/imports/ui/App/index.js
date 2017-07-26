@@ -44,7 +44,8 @@ export default class App extends Component {
 
   handleNewHash = () => {
     const [, username, location] = window.location.hash.split('/');
-    const loggedInUsername = Meteor.users.findOne(Meteor.userId()).username;
+    const loggedInUsername =
+      Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
     console.log(username, loggedInUsername);
     if (username && username !== loggedInUsername) {
       if (!Meteor.users.findOne({ username })) {
