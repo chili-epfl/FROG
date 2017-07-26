@@ -83,6 +83,7 @@ class ChooseActivityTypeComp extends Component {
               </div>
             : filteredList.map(x =>
                 <ListComponent
+                  hasPreview={x.meta.exampleData !== undefined}
                   onSelect={() => select(x)}
                   showExpanded={this.state.expanded === x.id}
                   expand={() => this.setState({ expanded: x.id })}
