@@ -10,6 +10,7 @@ export default ({
   showExpanded,
   onSelect,
   expand,
+  hasPreview,
   onPreview,
   searchS
 }) =>
@@ -53,16 +54,17 @@ export default ({
         onClick={expand}
       />}
 
-    <Button
-      value={object.id}
-      className="glyphicon glyphicon-eye-open"
-      style={{
-        position: 'absolute',
-        right: '2px',
-        top: '39px',
-        width: '9%',
-        height: '34px'
-      }}
-      onClick={onPreview}
-    />
+    {hasPreview &&
+      <Button
+        value={object.id}
+        className="glyphicon glyphicon-eye-open"
+        style={{
+          position: 'absolute',
+          right: '2px',
+          top: '39px',
+          width: '9%',
+          height: '34px'
+        }}
+        onClick={onPreview}
+      />}
   </div>;
