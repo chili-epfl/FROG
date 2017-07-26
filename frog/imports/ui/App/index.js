@@ -34,12 +34,20 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = { app: 'home', username: '' };
-    Meteor.subscribe('userData', { onReady: this.handleNewHash });
+    Meteor.subscribe('userData', {
+      onReady: () => {
+        this.handleNewHash();
+        window.addEventListener('hashchange', this.handleNewHash, false);
+      }
+    });
   }
 
   handleNewHash = () => {
     const [, username, location] = window.location.hash.split('/');
-    if (username) {
+    const loggedInUsername =
+      Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
+    console.log(username, loggedInUsername);
+    if (username && username !== loggedInUsername) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
           connectWithDefaultPwd(username)
@@ -54,10 +62,6 @@ export default class App extends Component {
     } else if (location && apps[location]) {
       this.setState({ app: location });
     }
-  };
-
-  componentDidMount = () => {
-    window.addEventListener('hashchange', this.handleNewHash, false);
   };
 
   render() {
