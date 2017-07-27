@@ -56,7 +56,8 @@ export type ActivityPackageT = {
     type: string,
     name: string,
     shortDesc: string,
-    description: string
+    description: string,
+    exampleData: Array<any>
   },
   config: Object,
   mergeFunction?: (dataUnitStructT, Object) => void,

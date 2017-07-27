@@ -71,7 +71,7 @@ export default class Elem {
   }
 
   @computed
-  get strokeColor(): boolean {
+  get strokeColor(): string {
     const errors = store.graphErrors.filter(x => x.id === this.id);
     if (errors.length === 0) {
       return 'grey';

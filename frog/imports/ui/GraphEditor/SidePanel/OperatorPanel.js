@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { ChangeableText } from 'frog-utils';
+import type { operatorPackageT } from 'frog-utils';
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
@@ -10,7 +11,7 @@ import { connect } from '../store';
 import ListComponent from './ListComponent';
 
 class ChooseOperatorTypeComp extends Component {
-  state: { expanded: number, searchStr: string };
+  state: { expanded: ?string, searchStr: string };
 
   constructor(props) {
     super(props);
@@ -72,7 +73,7 @@ class ChooseOperatorTypeComp extends Component {
               >
                 No result
               </div>
-            : filteredList.map(x =>
+            : filteredList.map((x: operatorPackageT) =>
                 <ListComponent
                   onSelect={() => select(x)}
                   showExpanded={this.state.expanded === x.id}

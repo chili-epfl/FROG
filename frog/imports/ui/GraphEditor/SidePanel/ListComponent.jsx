@@ -13,7 +13,7 @@ export default ({
   hasPreview,
   onPreview,
   searchS
-}) =>
+}: any) =>
   <div className="list-group-item">
     <div style={{ marginLeft: '35px' }}>
       <h5 style={{ fontWeight: 'bold' }}>
