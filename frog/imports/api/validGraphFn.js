@@ -7,7 +7,7 @@ export const checkComponent = (
   nodeType: 'activity' | 'operator',
   connections: any[]
 ) =>
-  obj.reduce((acc, x) => {
+  obj.reduce((acc: Object[], x: Object): Object[] => {
     const type = nodeType === 'activity' ? x.activityType : x.operatorType;
     if (type === undefined) {
       // only warning if operator that has not been connected
@@ -65,7 +65,7 @@ const checkConnection = (
   operators: Array<any>,
   connections: Array<any>
 ) => [
-  ...activities.reduce((acc, act) => {
+  ...activities.reduce((acc: Object[], act: Object): Object[] => {
     if (act.plane === 2) {
       const connectedOperatorIds = connections
         .filter(x => x.target.id === act._id)
