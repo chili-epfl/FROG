@@ -110,3 +110,36 @@ test('array object error', () => {
     expect.objectContaining({ error: 'undefined' })
   );
 });
+
+const optional = [
+  { name: 'string', age: 'number', _meta: { description: 'string' } }
+];
+const notoptional = [
+  { name: 'string', age: 'number', meta: { description: 'string' } }
+];
+
+const optionalmatch = [{ name: 'string', age: 'number' }];
+
+const optionalwrongmeta = [
+  { name: 'string', age: 'number', meta: { desc: 'string' } }
+];
+
+test('optional is OK', () => {
+  expect(check(optionalmatch, optional)).toBe(true);
+});
+
+test('not optional is not OK', () => {
+  expect(check(optionalmatch, notoptional)).toEqual(
+    expect.objectContaining({ error: 'undefined' })
+  );
+});
+
+test('if exists, should be correct, error', () => {
+  expect(check(optionalwrongmeta, optional)).toEqual(
+    expect.objectContaining({ error: 'undefined' })
+  );
+});
+
+test('if exists, should be correct, correct', () => {
+  expect(check(optional, optional)).toBe(true);
+});

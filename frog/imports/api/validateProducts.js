@@ -1,6 +1,9 @@
 // @flow
-export default (source: Object, target: Object): true | string =>
-  tryTraverse(source, target);
+export default (source: Object, target: Object): true | string => {
+  const ret = tryTraverse(source, target);
+  console.log(ret.text);
+  return ret;
+};
 
 const tryTraverse = (source, target) => {
   try {
@@ -26,7 +29,9 @@ const traverse = (source, target, path: string[] = []) => {
     } else if (!Array.isArray(source) || source.length !== 1) {
       throw {
         error: 'mismatch',
-        text: `Target requires an array with exactly one element at ${pathStr}, but source provides ${source}`
+        text: `Target requires an array with exactly one element at ${path.join(
+          '.'
+        )}, but source provides ${JSON.stringify(source)}`
       };
     }
     traverse(source[0], target[0], [...path, '[]']);
@@ -42,7 +47,15 @@ const traverse = (source, target, path: string[] = []) => {
         };
       }
       if (typeof target[i] === 'object') {
-        traverse(source[i], target[i], newPath);
+        const idx = i[0] === '_' ? i.substr(1) : i;
+        if (typeof source[idx] === 'object') {
+          traverse(source[idx], target[i], newPath);
+        } else if (i[0] !== '_') {
+          throw {
+            error: 'undefined',
+            text: `Missing definition in source for ${pathStr}`
+          };
+        }
       } else {
         if (source[i] !== target[i] && i[0] !== '_') {
           throw {
@@ -60,8 +73,8 @@ const traverse = (source, target, path: string[] = []) => {
       text: `Source definition not matching target definition for ${path.join(
         '.'
       )}
-          source: ${source}
-          target: ${target}`
+          source: ${JSON.stringify(source)}
+          target: ${JSON.stringify(target)}`
     };
   }
 };
