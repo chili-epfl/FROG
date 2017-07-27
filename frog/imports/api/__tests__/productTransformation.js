@@ -1,11 +1,9 @@
-import check from '../validateProducts';
-
 const objid = {
   Id: { id: 'Id', title: 'string', content: 'string', url: 'URL' }
 };
 const ary = [{ id: 'Id', title: 'string', content: 'string', url: 'URL' }];
 
-const toObj = ary => ary.reduce((acc, x) => ({ ...acc, [x.id]: x }), {});
+const toObj = y => y.reduce((acc, x) => ({ ...acc, [x.id]: x }), {});
 const toAry = obj => Object.keys(obj).map(x => obj[x]);
 
 const objexample = {

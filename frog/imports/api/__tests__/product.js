@@ -143,3 +143,34 @@ test('if exists, should be correct, error', () => {
 test('if exists, should be correct, correct', () => {
   expect(check(optional, optional)).toBe(true);
 });
+
+const a = { _: { name: 'string', age: 'number' } };
+const c = { name: 'number', age: 'number', meta: { description: 'string' } };
+
+test('entire conditional, ok', () => {
+  expect(check(undefined, a)).toBe(true);
+});
+
+test('entire conditional, error', () => {
+  expect(check(c, a)).toEqual(expect.objectContaining({ error: 'mismatch' }));
+});
+
+test('target undefined', () => {
+  expect(check({ id: 'number' }, undefined)).toBe(true);
+});
+test('entirely optional source', () => {
+  expect(check({ _: { age: 'number' } }, { age: 'number' })).toEqual(
+    expect.objectContaining({ error: 'undefined' })
+  );
+});
+
+test('any', () => {
+  expect(check([{ age: 'number' }], ['any'])).toBe(true);
+  expect(check([{ age: 'number' }], { ideas: ['any'] })).toEqual(
+    expect.objectContaining({ error: 'undefined' })
+  );
+  expect(check(['any'], [{ age: 'number' }])).toEqual(
+    expect.objectContaining({ error: 'undefined' })
+  );
+  expect(check({ ideas: [{ age: 'number' }] }, { ideas: ['any'] })).toBe(true);
+});

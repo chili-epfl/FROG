@@ -1,9 +1,6 @@
 // @flow
-export default (source: Object, target: Object): true | string => {
-  const ret = tryTraverse(source, target);
-  console.log(ret.text);
-  return ret;
-};
+export default (source: Object, target: Object): true | string =>
+  tryTraverse(source, target);
 
 const tryTraverse = (source, target) => {
   try {
@@ -18,6 +15,9 @@ const tryTraverse = (source, target) => {
 };
 
 const traverse = (source, target, path: string[] = []) => {
+  if (target === undefined || target === 'any') {
+    return true;
+  }
   if (Array.isArray(target)) {
     if (target.length !== 1) {
       throw {
@@ -36,28 +36,34 @@ const traverse = (source, target, path: string[] = []) => {
     }
     traverse(source[0], target[0], [...path, '[]']);
   } else if (target instanceof Object) {
-    Object.keys(target).forEach(i => {
-      const newPath = [...path, i];
-      const pathStr = newPath.join('.');
-
-      if (source[i] === undefined && i[0] !== '_') {
-        throw {
-          error: 'undefined',
-          text: `Missing definition in source for ${pathStr}`
-        };
+    if (Object.keys(target).length === 1 && Object.keys(target)[0] === '_') {
+      if (source === undefined) {
+        return true;
+      } else {
+        traverse(source, target._, path);
       }
-      if (typeof target[i] === 'object') {
-        const idx = i[0] === '_' ? i.substr(1) : i;
-        if (typeof source[idx] === 'object') {
-          traverse(source[idx], target[i], newPath);
-        } else if (i[0] !== '_') {
+    } else {
+      Object.keys(target).forEach(i => {
+        const newPath = [...path, i];
+        const pathStr = newPath.join('.');
+
+        if (source[i] === undefined && i[0] !== '_') {
           throw {
             error: 'undefined',
             text: `Missing definition in source for ${pathStr}`
           };
         }
-      } else {
-        if (source[i] !== target[i] && i[0] !== '_') {
+        if (typeof target[i] === 'object') {
+          const idx = i[0] === '_' ? i.substr(1) : i;
+          if (typeof source[idx] === 'object') {
+            traverse(source[idx], target[i], newPath);
+          } else if (i[0] !== '_') {
+            throw {
+              error: 'undefined',
+              text: `Missing definition in source for ${pathStr}`
+            };
+          }
+        } else if (source[i] !== target[i] && i[0] !== '_') {
           throw {
             error: 'mismatch',
             text: `Source definition not matching target definition for ${pathStr}
@@ -65,8 +71,8 @@ const traverse = (source, target, path: string[] = []) => {
           target: ${target[i]}`
           };
         }
-      }
-    });
+      });
+    }
   } else if (source !== target) {
     throw {
       error: 'mismatch',
