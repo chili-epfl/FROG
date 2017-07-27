@@ -14,12 +14,12 @@ import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
 class ChooseActivityTypeComp extends Component {
-  state: { expanded: number, searchStr: string, showInfo: ?string };
+  state: { expanded: ?string, searchStr: string, showInfo: ?string };
   inputRef: any;
 
   constructor(props) {
     super(props);
-    this.state = { expanded: -1, searchStr: '', showInfo: null };
+    this.state = { expanded: null, searchStr: '', showInfo: null };
     this.inputRef = null;
   }
 
@@ -37,7 +37,7 @@ class ChooseActivityTypeComp extends Component {
 
     const changeSearch = e =>
       this.setState({
-        expanded: -1,
+        expanded: null,
         searchStr: e.target.value.toLowerCase()
       });
 
@@ -89,7 +89,7 @@ class ChooseActivityTypeComp extends Component {
                   hasPreview={x.meta.exampleData !== undefined}
                   onSelect={() => select(x)}
                   showExpanded={this.state.expanded === x.id}
-                  expand={() => this.setState({ expanded: Number(x.id) })}
+                  expand={() => this.setState({ expanded: x.id })}
                   key={x.id}
                   onPreview={() => this.setState({ showInfo: x.id })}
                   object={x}

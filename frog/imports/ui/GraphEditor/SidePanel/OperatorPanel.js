@@ -11,11 +11,11 @@ import { connect } from '../store';
 import ListComponent from './ListComponent';
 
 class ChooseOperatorTypeComp extends Component {
-  state: { expanded: number, searchStr: string };
+  state: { expanded: ?string, searchStr: string };
 
   constructor(props) {
     super(props);
-    this.state = { expanded: -1, searchStr: '' };
+    this.state = { expanded: null, searchStr: '' };
   }
 
   render() {
@@ -28,7 +28,7 @@ class ChooseOperatorTypeComp extends Component {
 
     const changeSearch = e =>
       this.setState({
-        expanded: -1,
+        expanded: null,
         searchStr: e.target.value.toLowerCase()
       });
 
@@ -77,7 +77,7 @@ class ChooseOperatorTypeComp extends Component {
                 <ListComponent
                   onSelect={() => select(x)}
                   showExpanded={this.state.expanded === x.id}
-                  expand={() => this.setState({ expanded: Number(x.id) })}
+                  expand={() => this.setState({ expanded: x.id })}
                   key={x.id}
                   onPreview={() => {}}
                   object={x}
