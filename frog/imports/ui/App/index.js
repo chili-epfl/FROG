@@ -46,7 +46,6 @@ export default class App extends Component {
     const [, username, location] = window.location.hash.split('/');
     const loggedInUsername =
       Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
-    console.log(username, loggedInUsername);
     if (username && username !== loggedInUsername) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>

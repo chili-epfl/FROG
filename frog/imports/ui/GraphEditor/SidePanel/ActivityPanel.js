@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Form from 'react-jsonschema-form';
 import { ChangeableText } from 'frog-utils';
+import type { ActivityPackageT } from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
@@ -13,11 +14,13 @@ import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
 
 class ChooseActivityTypeComp extends Component {
-  state: { expanded: number, searchStr: string, showInfo: ?string };
+  state: { expanded: ?string, searchStr: string, showInfo: ?string };
+  inputRef: any;
 
   constructor(props) {
     super(props);
     this.state = { expanded: null, searchStr: '', showInfo: null };
+    this.inputRef = null;
   }
 
   componentDidMount() {
@@ -81,7 +84,7 @@ class ChooseActivityTypeComp extends Component {
               >
                 No result
               </div>
-            : filteredList.map(x =>
+            : filteredList.map((x: ActivityPackageT) =>
                 <ListComponent
                   hasPreview={x.meta.exampleData !== undefined}
                   onSelect={() => select(x)}
