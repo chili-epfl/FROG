@@ -167,7 +167,7 @@ test('entirely optional source', () => {
 test('any', () => {
   expect(check([{ age: 'number' }], ['any'])).toBe(true);
   expect(check([{ age: 'number' }], { ideas: ['any'] })).toEqual(
-    expect.objectContaining({ error: 'undefined' })
+    expect.objectContaining({ error: 'mismatch' })
   );
   expect(check(['any'], [{ age: 'number' }])).toEqual(
     expect.objectContaining({ error: 'undefined' })

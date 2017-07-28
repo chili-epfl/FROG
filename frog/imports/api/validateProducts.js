@@ -51,6 +51,14 @@ const traverse = (source, target, path: string[], _any: Object): Object => {
     }
     any = traverse(source[0], target[0], [...path, '[]'], any);
   } else if (target instanceof Object) {
+    if (!source instanceof Object || Array.isArray(source)) {
+      throw {
+        error: 'mismatch',
+        text: `Target wants an object at ${path.join(
+          '.'
+        )}, source has ${JSON.stringify(source)}`
+      };
+    }
     if (Object.keys(target).length === 1 && Object.keys(target)[0] === '_') {
       if (source === undefined) {
         return any;
@@ -105,9 +113,10 @@ const traverse = (source, target, path: string[], _any: Object): Object => {
   return any;
 };
 
-const replaceAny = (type, any) => {
+const replaceAny = (type, any: Object) => {
+  let newType;
   if (Array.isArray(type)) {
-    type = type.map(x => {
+    newType = type.map(x => {
       if (x instanceof Object) {
         return replaceAny(type[x], any);
       }
@@ -125,8 +134,9 @@ const replaceAny = (type, any) => {
         type[x] = any[type[x].match(/^(any$|any-)/).input];
       }
     });
+    newType = type;
   }
-  return type;
+  return newType;
 };
 
 export const testObj = (obj: Activity | Object, prev: any) => {
@@ -137,22 +147,18 @@ export const testObj = (obj: Activity | Object, prev: any) => {
       if (result.error) {
         throw result;
       }
-      if (result !== true) {
-        throw `Error at ${obj.name}, prev: ${JSON.stringify(
-          prev
-        )} not matching ${JSON.stringify(obj.type)}, with error ${result.text}`;
-      }
     }
     resultval = obj.type;
-  } else {
-    if (prev) {
-      const any = check(prev, obj.type.input, true);
+  } else if (prev) {
+    const any = check(prev, obj.type.input, true);
+    if (any instanceof Object) {
       if (any.error) {
-        throw any.error.text;
+        throw any;
       }
       resultval = replaceAny(obj.type.output, any);
     }
   }
+
   return resultval;
 };
 
