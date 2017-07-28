@@ -34,7 +34,10 @@ test('simple chain', () => {
 });
 test('simple chain, broken', () => {
   expect(tryRunChain(chain4)).toEqual(
-    expect.objectContaining({ error: 'undefined' })
+    expect.objectContaining({
+      brokenNode: expect.objectContaining({ name: '2' }),
+      error: expect.objectContaining({ error: 'undefined' })
+    })
   );
 });
 test('chain with operator, should work', () => {
@@ -42,7 +45,10 @@ test('chain with operator, should work', () => {
 });
 test('chain with operator, should not work', () => {
   expect(tryRunChain(chain4)).toEqual(
-    expect.objectContaining({ error: 'undefined' })
+    expect.objectContaining({
+      brokenNode: expect.objectContaining({ name: '2' }),
+      error: expect.objectContaining({ error: 'undefined' })
+    })
   );
 });
 test('chain with operator and transform, should work', () => {
@@ -50,6 +56,9 @@ test('chain with operator and transform, should work', () => {
 });
 test('chain with operator and transform, should not work', () => {
   expect(tryRunChain(chain6)).toEqual(
-    expect.objectContaining({ error: 'undefined' })
+    expect.objectContaining({
+      brokenNode: expect.objectContaining({ name: '3' }),
+      error: expect.objectContaining({ error: 'undefined' })
+    })
   );
 });

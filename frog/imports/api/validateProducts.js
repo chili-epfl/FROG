@@ -129,12 +129,8 @@ const replaceAny = (type, any) => {
   return type;
 };
 
-export const runChain = (chain: (Activity | Object)[], prev: any) => {
-  if (chain.length === 0) {
-    return true;
-  }
+export const testObj = (obj: Activity | Object, prev: any) => {
   let resultval;
-  const obj = chain[0];
   if (obj instanceof Activity) {
     if (prev) {
       const result = check(prev, obj.type);
@@ -157,33 +153,32 @@ export const runChain = (chain: (Activity | Object)[], prev: any) => {
       resultval = replaceAny(obj.type.output, any);
     }
   }
-  return runChain(chain.slice(1), resultval);
+  return resultval;
 };
 
 export const tryRunChain = (chain: any[]): boolean | Object => {
+  let currentNode;
+  let prev;
   try {
-    const ret = runChain(chain);
+    chain.forEach(x => {
+      currentNode = x;
+      prev = testObj(x, prev);
+    });
     return true;
   } catch (e) {
     if (e instanceof Error) {
       throw e;
     }
-    return e;
+    return { brokenNode: currentNode, error: e };
   }
 };
 
 class Elem {
-  _name: 'string';
-  _type: Object;
+  name: 'string';
+  type: Object;
   constructor(name, type) {
-    this._name = name;
-    this._type = type;
-  }
-  get type() {
-    return this._type;
-  }
-  get name() {
-    return this._name;
+    this.name = name;
+    this.type = type;
   }
 }
 export class Activity extends Elem {}
