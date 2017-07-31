@@ -58,5 +58,6 @@ export default ({
   id: 'op-jigsaw',
   meta,
   config,
-  operator
+  operator,
+  outputDefinition: ['group', 'role']
 }: socialOperatorT);

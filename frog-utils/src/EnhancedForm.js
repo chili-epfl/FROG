@@ -3,17 +3,14 @@ import Form from 'react-jsonschema-form';
 import { cloneDeep } from 'lodash';
 
 const calculateSchema = (formData, schema, UISchema) => {
-  console.log(formData, schema, UISchema);
   const hide = [];
   if (UISchema) {
     Object.keys(UISchema).forEach(x => {
       const cond = UISchema[x].conditional;
       if (cond) {
         if (typeof cond === 'string') {
-          console.log(cond, formData[cond]);
           if (!formData[cond]) {
             hide.push(x);
-            console.log(hide);
           }
         } else {
           try {
@@ -30,7 +27,6 @@ const calculateSchema = (formData, schema, UISchema) => {
 
   const newSchema = cloneDeep(schema);
   hide.forEach(x => delete newSchema.properties[x]);
-  console.log(hide);
   return newSchema;
 };
 

@@ -43,5 +43,6 @@ export default ({
   id: 'op-group-identical',
   operator,
   config,
-  meta
+  meta,
+  outputDefinition: ['group']
 }: socialOperatorT);

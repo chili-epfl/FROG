@@ -93,7 +93,10 @@ class ChooseOperatorTypeComp extends Component {
   }
 }
 
-const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
+const EditClass = ({
+  store: { refreshValidate, operatorStore: { all } },
+  operator
+}) => {
   const graphOperator = all.find(act => act.id === operator._id);
 
   return (
@@ -117,13 +120,15 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
       <EnhancedForm
         schema={operatorTypesObj[operator.operatorType].config}
         UISchema={operatorTypesObj[operator.operatorType].configUI}
-        onChange={data =>
+        onChange={data => {
           addOperator(
             operator.operatorType,
             data.formData,
             operator._id,
             data.errors.length > 0
-          )}
+          );
+          refreshValidate();
+        }}
         formData={operator.data}
         liveValidate
       >
