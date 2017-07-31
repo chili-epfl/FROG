@@ -16,7 +16,7 @@ const config = {
   properties: {
     individual: {
       type: 'boolean',
-      title: 'Distribute to each student (or fill out grouping attribute below)'
+      title: 'Distribute to each student'
     },
     grouping: {
       type: 'string',
@@ -31,6 +31,10 @@ const config = {
       title: 'Allow multiple groups receiving the same item?'
     }
   }
+};
+
+const configUI = {
+  grouping: { conditional: formData => !formData.individual }
 };
 
 const operator = (configData, object) => {
@@ -88,5 +92,6 @@ export default ({
   id: 'op-distribute',
   operator,
   config,
-  meta
+  meta,
+  configUI
 }: productOperatorT);

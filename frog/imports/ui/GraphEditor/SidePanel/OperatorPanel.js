@@ -1,9 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import Form from 'react-jsonschema-form';
-import { ChangeableText } from 'frog-utils';
-import type { operatorPackageT } from 'frog-utils';
+import {
+  type operatorPackageT,
+  ChangeableText,
+  EnhancedForm
+} from 'frog-utils';
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
@@ -112,8 +114,9 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
         </font>
         <hr />
       </div>
-      <Form
+      <EnhancedForm
         schema={operatorTypesObj[operator.operatorType].config}
+        UISchema={operatorTypesObj[operator.operatorType].configUI}
         onChange={data =>
           addOperator(
             operator.operatorType,
@@ -125,7 +128,7 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
         liveValidate
       >
         <div />
-      </Form>
+      </EnhancedForm>
     </div>
   );
 };

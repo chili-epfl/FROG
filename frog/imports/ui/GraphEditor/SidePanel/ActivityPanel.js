@@ -1,9 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import Form from 'react-jsonschema-form';
-import { ChangeableText } from 'frog-utils';
-import type { ActivityPackageT } from 'frog-utils';
+import {
+  EnhancedForm,
+  ChangeableText,
+  type ActivityPackageT
+} from 'frog-utils';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
@@ -145,8 +147,9 @@ const EditClass = props => {
           </div>}
         <hr />
       </div>
-      <Form
+      <EnhancedForm
         schema={activityTypesObj[activity.activityType].config}
+        UISchema={activityTypesObj[activity.activityType].configUI}
         onChange={data => {
           addActivity(
             activity.activityType,
@@ -160,7 +163,7 @@ const EditClass = props => {
         liveValidate
       >
         <div />
-      </Form>
+      </EnhancedForm>
       <FileForm />
     </div>
   );
