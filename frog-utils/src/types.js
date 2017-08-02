@@ -52,8 +52,8 @@ export type ActivityRunnerT = {
 
 export type ActivityPackageT = {
   id: string,
+  type: 'react-component',
   meta: {
-    type: 'react-component',
     name: string,
     shortDesc: string,
     description: string,
@@ -66,8 +66,8 @@ export type ActivityPackageT = {
 
 export type productOperatorT = {
   id: string,
+  type: 'product',
   meta: {
-    type: 'product',
     name: string,
     shortDesc: string,
     description: string
@@ -78,8 +78,8 @@ export type productOperatorT = {
 
 export type socialOperatorT = {
   id: string,
+  type: 'social',
   meta: {
-    type: 'social',
     name: string,
     shortDesc: string,
     description: string

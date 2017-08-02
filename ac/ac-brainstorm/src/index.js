@@ -14,7 +14,6 @@ const listItems = [
 
 const meta = {
   name: 'Brainstorm',
-  type: 'react-component',
   shortDesc:
     'Display text items, and vote up/down. Optionally students can add new items',
   description:
@@ -58,6 +57,7 @@ const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
 
 export default ({
   id: 'ac-brainstorm',
+  type: 'react-component',
   ActivityRunner,
   Dashboard,
   config,
