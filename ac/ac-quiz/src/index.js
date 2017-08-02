@@ -48,7 +48,6 @@ const exampleConfig = {
 
 export const meta = {
   name: 'Multiple-Choice Questions',
-  type: 'react-component',
   shortDesc: 'Filling a MCQ form',
   description: 'Display a multiple-choice questions form.',
   exampleData: [
@@ -62,6 +61,7 @@ export const meta = {
 
 export default ({
   id: 'ac-quiz',
+  type: 'react-component',
   meta,
   config,
   ActivityRunner

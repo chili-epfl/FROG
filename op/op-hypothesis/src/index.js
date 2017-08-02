@@ -11,7 +11,6 @@ import {
 
 export const meta = {
   name: 'Get ideas from Hypothesis',
-  type: 'product',
   shortDesc: 'Get ideas from Hypothesis API',
   description: 'Collect ideas from an Hypothesis API by hashtag or document id.'
 };
@@ -60,6 +59,7 @@ export const operator = (configData: {
 
 export default ({
   id: 'op-hypothesis',
+  type: 'product',
   operator,
   config,
   meta

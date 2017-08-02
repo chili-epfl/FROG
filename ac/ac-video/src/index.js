@@ -8,7 +8,6 @@ import Dashboard from './dashboard';
 
 export const meta = {
   name: 'Video player',
-  type: 'react-component',
   shortDesc: 'Video player',
   description:
     'Video player configurable with URL, and some settings (autoplay etc).',
@@ -62,6 +61,7 @@ export const ActivityRunner = ({ activityData, logger }: ActivityRunnerT) =>
 
 export default {
   id: 'ac-video',
+  type: 'react-component',
   ActivityRunner,
   config,
   meta,

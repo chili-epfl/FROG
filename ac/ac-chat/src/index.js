@@ -7,7 +7,6 @@ import Dashboard from './Dashboard';
 
 const meta = {
   name: 'Chat',
-  type: 'react-component',
   shortDesc: 'Chat component',
   description: 'Persistent text chat',
   exampleData: [
@@ -54,6 +53,7 @@ const mergeFunction = (obj, dataFn) => {
 
 export default ({
   id: 'ac-chat',
+  type: 'react-component',
   ActivityRunner,
   config,
   meta,
