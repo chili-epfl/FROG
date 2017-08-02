@@ -12,7 +12,12 @@ const meta = {
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: {
+    old: {
+      type: 'socialAttribute',
+      title: 'Rotate old groups'
+    }
+  }
 };
 
 // Obviously assumes even array

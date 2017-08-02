@@ -10,6 +10,8 @@ import {
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { connect } from '../store';
+import { SelectFormWidget } from './ActivityPanel/SelectWidget';
+import addSocialFormSchema from './ActivityPanel/addSocialSchema';
 import ListComponent from './ListComponent';
 
 class ChooseOperatorTypeComp extends Component {
@@ -94,7 +96,7 @@ class ChooseOperatorTypeComp extends Component {
 }
 
 const EditClass = ({
-  store: { refreshValidate, operatorStore: { all } },
+  store: { refreshValidate, valid, operatorStore: { all } },
   operator
 }) => {
   const graphOperator = all.find(act => act.id === operator._id);
@@ -118,8 +120,12 @@ const EditClass = ({
         <hr />
       </div>
       <EnhancedForm
-        schema={operatorTypesObj[operator.operatorType].config}
-        UISchema={operatorTypesObj[operator.operatorType].configUI}
+        {...addSocialFormSchema(
+          operatorTypesObj[operator.operatorType].config,
+          operatorTypesObj[operator.operatorType].configUI
+        )}
+        widgets={{ socialAttributeWidget: SelectFormWidget }}
+        formContext={{ options: valid.social[operator._id] || [] }}
         onChange={data => {
           addOperator(
             operator.operatorType,

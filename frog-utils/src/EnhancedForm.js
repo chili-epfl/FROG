@@ -30,8 +30,10 @@ const calculateSchema = (formData, schema, UISchema) => {
   return newSchema;
 };
 
-export default props => {
-  const schema = calculateSchema(props.formData, props.schema, props.UISchema);
+const EnhancedForm = props => {
+  const schema = calculateSchema(props.formData, props.schema, props.uiSchema);
 
   return <Form {...props} schema={schema} />;
 };
+
+export default EnhancedForm;
