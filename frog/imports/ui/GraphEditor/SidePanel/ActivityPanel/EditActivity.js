@@ -7,7 +7,8 @@ import { activityTypesObj } from '/imports/activityTypes';
 import { connect } from '../../store';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
-import { SelectAttribute } from './SelectWidget';
+import { SelectAttribute, SelectFormWidget } from './SelectWidget';
+import addSocialFormSchema from './addSocialSchema';
 
 const EditActivity = props => {
   const activity = props.activity;
@@ -17,14 +18,15 @@ const EditActivity = props => {
 
   // if no grouping key, and incoming social role, automatically assign first one
   if (
-    !activity.groupingKey ||
-    (activity.groupingKey === '' && props.store.valid[activity._id])
+    (!activity.groupingKey || activity.groupingKey === '') &&
+    props.store.valid.social[activity._id] &&
+    props.store.valid.social[activity._id].length > 0
   ) {
     addActivity(
       activity.activityType,
       null,
       activity._id,
-      props.store.valid[activity._id][0]
+      props.store.valid.social[activity._id][0]
     );
   }
 
@@ -56,8 +58,15 @@ const EditActivity = props => {
           />}
       </div>
       <EnhancedForm
-        schema={activityTypesObj[activity.activityType].config}
-        UISchema={activityTypesObj[activity.activityType].configUI}
+        {...addSocialFormSchema(
+          activityTypesObj[activity.activityType].config,
+          activityTypesObj[activity.activityType].configUI
+        )}
+        widgets={{ socialAttributeWidget: SelectFormWidget }}
+        formContext={{
+          options: props.store.valid.social[activity._id] || [],
+          groupingKey: activity.groupingKey
+        }}
         onChange={data => {
           addActivity(
             activity.activityType,

@@ -10,6 +10,11 @@ export default {
     formBoolean: {
       type: 'boolean',
       title: 'Should students submit new ideas?'
+    },
+    roles: {
+      type: 'socialAttribute',
+      title:
+        'Social attribute to determine editing rights (only role "editor" can edit)'
     }
   }
 };

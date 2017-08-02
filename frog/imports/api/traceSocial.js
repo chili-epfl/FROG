@@ -1,6 +1,6 @@
 // @flow
 
-import { flatMap } from 'lodash';
+import { flatMap, uniq } from 'lodash';
 import { operatorTypesObj } from '../operatorTypes';
 
 export const getOperator = (operator: any) => {
@@ -32,7 +32,7 @@ export default (
     socOperatorIds.includes(con.source.id)
   );
 
-  return activities.reduce((acc, x) => {
+  return [...operators, ...activities].reduce((acc, x) => {
     const sources = socConnections
       .filter(con => con.target.id === x._id)
       .map(y => y.source.id);
@@ -42,7 +42,7 @@ export default (
     if (socAttribs.length > 0) {
       return {
         ...acc,
-        [x._id]: socAttribs
+        [x._id]: uniq(socAttribs)
       };
     } else {
       return acc;
