@@ -13,7 +13,10 @@ export default (schema: Object, uiSchema: Object): Object => {
   });
 
   const newUiSchema = mappings.reduce(
-    (acc, x) => ({ ...acc, [x]: { 'ui:widget': 'socialAttributeWidget' } }),
+    (acc, x) => ({
+      ...acc,
+      [x]: { ...acc[x], 'ui:widget': 'socialAttributeWidget' }
+    }),
     uiSchema || {}
   );
 
