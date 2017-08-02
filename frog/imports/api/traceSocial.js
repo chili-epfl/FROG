@@ -4,9 +4,8 @@ import { operatorTypesObj } from '../operatorTypes';
 import { flatMap } from 'lodash';
 
 export const getOperator = (operator: any) => {
-  const spec =
-    operatorTypesObj[operator.operatorType] &&
-    operatorTypesObj[operator.operatorType].outputDefinition;
+  const optype = operatorTypesObj[operator.operatorType];
+  const spec = optype && optype.type === 'social' && optype.outputDefinition;
   if (spec) {
     if (Array.isArray(spec)) {
       return spec;

@@ -1,6 +1,6 @@
 // @flow
 
-import { resolveNode, default as traceSocial } from '../traceSocial';
+import traceSocial from '../traceSocial';
 
 const activities = [{ _id: 'a1' }];
 const connections = [{ _id: 'c1', target: { id: 'a1' }, source: { id: 'o1' } }];

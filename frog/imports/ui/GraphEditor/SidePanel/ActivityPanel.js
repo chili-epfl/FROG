@@ -36,7 +36,9 @@ const SelectAttribute = connect(({ activity, onChange, store: { valid } }) =>
                 </option>
               )}
             </FormControl>
-          : 'No attributes provided, add social operator'}
+          : <span style={{ color: 'red' }}>
+              No attributes provided, add social operator
+            </span>}
       </FlexView>
     </FlexView>
   </FormGroup>
