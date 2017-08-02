@@ -84,6 +84,7 @@ export type socialOperatorT = {
     shortDesc: string,
     description: string
   },
+  outputDefinition: string[] | ((config: Object) => string[]),
   config: Object,
   operator: (configData: Object, object: ObjectT) => socialStructureT
 };

@@ -1,11 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import {
   EnhancedForm,
   ChangeableText,
   type ActivityPackageT
 } from 'frog-utils';
+import FlexView from 'react-flexview';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { activityTypes, activityTypesObj } from '/imports/activityTypes';
@@ -14,6 +16,41 @@ import { RenameField } from '../Rename';
 import { connect } from '../store';
 import FileForm from './fileUploader';
 import ListComponent from './ListComponent';
+
+const SelectAttribute = connect(({ activity, onChange, store: { valid } }) =>
+  <FormGroup controlId="selectGrouping">
+    <FlexView>
+      <FlexView vAlignContent="center" marginRight="10px">
+        <ControlLabel>Group by attribute</ControlLabel>
+      </FlexView>
+      <FlexView vAlignContent="center">
+        {valid && valid.social[activity._id]
+          ? <FormControl
+              onChange={e => onChange(e.target.value)}
+              componentClass="select"
+              defaultValue={activity.groupingKey}
+            >
+              {[undefined, ...valid.social[activity._id]].map(x =>
+                <option value={x} key={x}>
+                  {x}
+                </option>
+              )}
+            </FormControl>
+          : <span style={{ color: 'red' }}>
+              No attributes provided, add social operator
+            </span>}
+        {valid.social[activity._id].includes(activity.groupingKey)
+          ? null
+          : <p style={{ color: 'red' }}>
+              You previously selected the {activity.groupingKey} attribute, but
+              no social operator is currently providing that attribute, please
+              reconfigure the incoming social operators, or select another
+              attribute
+            </p>}
+      </FlexView>
+    </FlexView>
+  </FormGroup>
+);
 
 class ChooseActivityTypeComp extends Component {
   state: { expanded: ?string, searchStr: string, showInfo: ?string };
@@ -137,15 +174,11 @@ const EditClass = props => {
           </i>
         </font>
         {activity.plane === 2 &&
-          <div>
-            Group by attribute:{' '}
-            <ChangeableText
-              value={activity.groupingKey}
-              onChange={grp =>
-                addActivity(activity.activityType, null, activity._id, grp)}
-            />
-          </div>}
-        <hr />
+          <SelectAttribute
+            activity={activity}
+            onChange={grp =>
+              addActivity(activity.activityType, null, activity._id, grp)}
+          />}
       </div>
       <EnhancedForm
         schema={activityTypesObj[activity.activityType].config}
@@ -158,6 +191,7 @@ const EditClass = props => {
             null,
             data.errors.length > 0
           );
+          props.store.refreshValidate();
         }}
         formData={activity.data}
         liveValidate

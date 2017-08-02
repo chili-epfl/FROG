@@ -1,6 +1,8 @@
 // @flow
 
-import valid from '../validGraphFn';
+import v from '../validGraphFn';
+
+const valid = (act, op, con) => v(act, op, con).errors;
 
 const resultToIds = graph =>
   valid(graph.activities, graph.operators, graph.connections).map(x => x.id);

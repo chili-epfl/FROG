@@ -140,5 +140,6 @@ export default ({
   type: 'social',
   operator,
   config,
-  meta
+  meta,
+  outputDefinition: ['group']
 }: socialOperatorT);

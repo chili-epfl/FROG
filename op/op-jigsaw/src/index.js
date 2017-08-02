@@ -58,5 +58,6 @@ export default ({
   type: 'social',
   meta,
   config,
-  operator
+  operator,
+  outputDefinition: ['group', 'role']
 }: socialOperatorT);

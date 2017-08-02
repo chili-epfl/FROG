@@ -1,6 +1,7 @@
 // @flow
 import { activityTypes } from '../activityTypes';
 import { operatorTypes } from '../operatorTypes';
+import traceSocial from './traceSocial';
 
 export const checkComponent = (
   obj: Array<any>,
@@ -109,13 +110,18 @@ const checkConnection = (
   }, [])
 ];
 
-const checkAll = (
+export default (
   activities: Array<any>,
   operators: Array<any>,
   connections: Array<any>
-) =>
-  checkComponent(activities, 'activity', connections)
+) => {
+  const errors = checkComponent(activities, 'activity', connections)
     .concat(checkComponent(operators, 'operator', connections))
     .concat(checkConnection(activities, operators, connections));
+  const social = traceSocial(activities, operators, connections);
 
-export default checkAll;
+  return {
+    errors,
+    social
+  };
+};

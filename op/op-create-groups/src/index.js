@@ -30,6 +30,8 @@ const config = {
   }
 };
 
+const outputDefinition = conf => [(conf && conf.grouping) || 'group'];
+
 const operator = (configData, object) => {
   const { globalStructure } = object;
 
@@ -61,5 +63,6 @@ export default ({
   type: 'social',
   operator,
   config,
-  meta
+  meta,
+  outputDefinition
 }: socialOperatorT);
