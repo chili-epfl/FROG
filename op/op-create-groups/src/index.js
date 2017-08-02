@@ -30,7 +30,7 @@ const config = {
   }
 };
 
-const outputDefinition = config => (config && config.grouping) || 'group';
+const outputDefinition = config => [(config && config.grouping) || 'group'];
 
 const operator = (configData, object) => {
   const { globalStructure } = object;
