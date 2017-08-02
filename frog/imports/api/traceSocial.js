@@ -1,7 +1,7 @@
 // @flow
 
-import { operatorTypesObj } from '../operatorTypes';
 import { flatMap } from 'lodash';
+import { operatorTypesObj } from '../operatorTypes';
 
 export const getOperator = (operator: any) => {
   const optype = operatorTypesObj[operator.operatorType];
@@ -35,9 +35,9 @@ export default (
   return activities.reduce((acc, x) => {
     const sources = socConnections
       .filter(con => con.target.id === x._id)
-      .map(x => x.source.id);
-    const socAttribs = flatMap(sources, x =>
-      getOperator(socOperators.find(op => op._id === x))
+      .map(y => y.source.id);
+    const socAttribs = flatMap(sources, y =>
+      getOperator(socOperators.find(op => op._id === y))
     );
     if (socAttribs.length > 0) {
       return {

@@ -1,6 +1,7 @@
 // @flow
 
 import v from '../validGraphFn';
+
 const valid = (act, op, con) => v(act, op, con).errors;
 
 const resultToIds = graph =>
