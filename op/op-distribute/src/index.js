@@ -5,7 +5,6 @@ import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Distribute content',
-  type: 'product',
   shortDesc: 'Distribute list items',
   description:
     'Distribute list items to groups or individual students, with configurable numbers of items per group, overlap allowed or not, etc.'
@@ -90,6 +89,7 @@ const operator = (configData, object) => {
 
 export default ({
   id: 'op-distribute',
+  type: 'product',
   operator,
   config,
   meta,

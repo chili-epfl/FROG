@@ -6,7 +6,6 @@ import Board from './board';
 
 const meta = {
   name: 'Common Knowledge board',
-  type: 'react-component',
   mode: 'collab',
   shortDesc: '2D board for placing items',
   description:
@@ -100,6 +99,7 @@ const mergeFunction = (object, dataFn) => {
 
 export default ({
   id: 'ac-ck-board',
+  type: 'react-component',
   meta,
   config,
   ActivityRunner: Board,

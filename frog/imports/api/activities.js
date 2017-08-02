@@ -130,7 +130,7 @@ export const addOperator = (
     Operators.insert({
       _id: uuid(),
       operatorType,
-      type: operatorTypesObj[operatorType].meta.type,
+      type: operatorTypesObj[operatorType].type,
       data,
       err,
       createdAt: new Date()

@@ -6,7 +6,6 @@ import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
 
 export const meta = {
   name: 'Text Component',
-  type: 'react-component',
   shortDesc: 'Reading a text',
   description:
     'Display a given text, can be taken from config, or operators, or both.',
@@ -46,8 +45,10 @@ export const ActivityRunner = ({ activityData }: ActivityRunnerT) =>
       {activityData.config ? activityData.config.text : 'NO TEXT'}
     </p>
   </div>;
+
 export default ({
   id: 'ac-text',
+  type: 'react-component',
   ActivityRunner,
   config,
   meta
