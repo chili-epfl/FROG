@@ -30,7 +30,7 @@ const SelectAttribute = connect(({ activity, onChange, store: { valid } }) =>
               componentClass="select"
               defaultValue={activity.groupingKey}
             >
-              {valid.social[activity._id].map(x =>
+              {[undefined, ...valid.social[activity._id]].map(x =>
                 <option value={x} key={x}>
                   {x}
                 </option>
@@ -39,6 +39,14 @@ const SelectAttribute = connect(({ activity, onChange, store: { valid } }) =>
           : <span style={{ color: 'red' }}>
               No attributes provided, add social operator
             </span>}
+        {valid.social[activity._id].includes(activity.groupingKey)
+          ? null
+          : <p style={{ color: 'red' }}>
+              You previously selected the {activity.groupingKey} attribute, but
+              no social operator is currently providing that attribute, please
+              reconfigure the incoming social operators, or select another
+              attribute
+            </p>}
       </FlexView>
     </FlexView>
   </FormGroup>
