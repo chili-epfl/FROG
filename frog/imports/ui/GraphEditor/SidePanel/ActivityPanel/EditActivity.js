@@ -29,7 +29,6 @@ const EditActivity = props => {
       props.store.valid.social[activity._id][0]
     );
   }
-
   return (
     <div>
       <div style={{ backgroundColor: '#eee' }}>
@@ -53,8 +52,10 @@ const EditActivity = props => {
         {activity.plane === 2 &&
           <SelectAttribute
             activity={activity}
-            onChange={grp =>
-              addActivity(activity.activityType, null, activity._id, grp)}
+            onChange={grp => {
+              addActivity(activity.activityType, null, activity._id, grp);
+              props.store.refreshValidate();
+            }}
           />}
       </div>
       <EnhancedForm
@@ -68,13 +69,7 @@ const EditActivity = props => {
           groupingKey: activity.groupingKey
         }}
         onChange={data => {
-          addActivity(
-            activity.activityType,
-            data.formData,
-            activity._id,
-            null,
-            data.errors.length > 0
-          );
+          addActivity(activity.activityType, data.formData, activity._id, null);
           props.store.refreshValidate();
         }}
         formData={activity.data}

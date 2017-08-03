@@ -1,6 +1,11 @@
 // @flow
 
-import traceSocial from '../traceSocial';
+import trace from '../traceSocial';
+
+const traceSocial = (a, o, c) => {
+  const { social } = trace(a, o, c);
+  return social;
+};
 
 const activities = [{ _id: 'a1' }];
 const connections = [{ _id: 'c1', target: { id: 'a1' }, source: { id: 'o1' } }];

@@ -1,6 +1,5 @@
 // @flow
-
-import { flatMap, uniq } from 'lodash';
+import { flatMap, filter, includes, uniq } from 'lodash';
 import { operatorTypesObj } from '../operatorTypes';
 
 export const getOperator = (operator: any) => {
@@ -21,6 +20,13 @@ export const getOperator = (operator: any) => {
   }
 };
 
+export const duplicates = (array: any[]): any[] =>
+  uniq(
+    filter(array, (value, index, iteratee) =>
+      includes(iteratee, value, index + 1)
+    )
+  );
+
 export default (
   activities: Array<any>,
   operators: Array<any>,
@@ -32,7 +38,8 @@ export default (
     socOperatorIds.includes(con.source.id)
   );
 
-  return [...operators, ...activities].reduce((acc, x) => {
+  const errors = [];
+  const social = [...operators, ...activities].reduce((acc, x) => {
     const sources = socConnections
       .filter(con => con.target.id === x._id)
       .map(y => y.source.id);
@@ -40,6 +47,19 @@ export default (
       getOperator(socOperators.find(op => op._id === y))
     );
     if (socAttribs.length > 0) {
+      const dup = duplicates(socAttribs);
+      if (dup.length > 0) {
+        const type = x.plane ? 'activity' : 'operator';
+        errors.push({
+          id: x._id,
+          err: `The ${type} ${x.title} receives the social attribute(s) ${dup
+            .map(y => `'${y}'`)
+            .join(', ')} from more than one social operator.`,
+          type: 'overlappingSocialAttributes',
+          severity: 'error'
+        });
+      }
+
       return {
         ...acc,
         [x._id]: uniq(socAttribs)
@@ -48,4 +68,5 @@ export default (
       return acc;
     }
   }, {});
+  return { socialErrors: errors, social };
 };

@@ -2,6 +2,7 @@
 import { activityTypes } from '../activityTypes';
 import { operatorTypes } from '../operatorTypes';
 import traceSocial from './traceSocial';
+import checkSocial from './checkSocial';
 
 export const checkComponent = (
   obj: Array<any>,
@@ -115,10 +116,16 @@ export default (
   operators: Array<any>,
   connections: Array<any>
 ) => {
+  const { social, socialErrors } = traceSocial(
+    activities,
+    operators,
+    connections
+  );
   const errors = checkComponent(activities, 'activity', connections)
     .concat(checkComponent(operators, 'operator', connections))
-    .concat(checkConnection(activities, operators, connections));
-  const social = traceSocial(activities, operators, connections);
+    .concat(checkConnection(activities, operators, connections))
+    .concat(socialErrors)
+    .concat(checkSocial(operators, activities, social));
 
   return {
     errors,

@@ -1,11 +1,11 @@
 // @flow
 
-import v from '../validGraphFn';
+import valid from '../validGraphFn';
 
-const valid = (act, op, con) => v(act, op, con).errors;
-
-const resultToIds = graph =>
-  valid(graph.activities, graph.operators, graph.connections).map(x => x.id);
+const resultToIds = graph => {
+  const res = valid(graph.activities, graph.operators, graph.connections);
+  return res.errors.map(x => x.id);
+};
 
 test('Test activity with no type defined => unvalid', () => {
   expect(resultToIds(g1)).toEqual(['cj5aziwnz00003k6ow2oj34gx']);
@@ -24,7 +24,10 @@ test('Test operator with type defined => valid', () => {
 });
 
 test('Test group activity without social operator => unvalid', () => {
-  expect(resultToIds(g5)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
+  expect(resultToIds(g5)).toEqual([
+    'cj5azm5kf00063k6o7vwz37pt',
+    'cj5azm5kf00063k6o7vwz37pt'
+  ]);
 });
 
 test('Test group activity with social operator => valid', () => {
@@ -32,7 +35,10 @@ test('Test group activity with social operator => valid', () => {
 });
 
 test('Test group activity with product operator => unvalid', () => {
-  expect(resultToIds(g7)).toEqual(['cj5azm5kf00063k6o7vwz37pt']);
+  expect(resultToIds(g7)).toEqual([
+    'cj5azm5kf00063k6o7vwz37pt',
+    'cj5azm5kf00063k6o7vwz37pt'
+  ]);
 });
 
 test("Test activityType desn't exist => unvalid", () => {

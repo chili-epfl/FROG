@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 import { cloneDeep } from 'lodash';
 
-const calculateSchema = (formData, schema, UISchema) => {
+const calculateSchema = (formData = {}, schema, UISchema) => {
   const hide = [];
   if (UISchema) {
     Object.keys(UISchema).forEach(x => {
