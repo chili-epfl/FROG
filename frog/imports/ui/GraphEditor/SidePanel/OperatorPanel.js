@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import FlexView from 'react-flexview';
 import {
   type operatorPackageT,
   ChangeableText,
@@ -9,6 +10,7 @@ import {
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
+import { ErrorList, ValidButton } from '../Validator';
 import { connect } from '../store';
 import { SelectFormWidget } from './ActivityPanel/SelectWidget';
 import addSocialFormSchema from './ActivityPanel/addSocialSchema';
@@ -96,21 +98,43 @@ class ChooseOperatorTypeComp extends Component {
 }
 
 const EditClass = ({
-  store: { refreshValidate, valid, operatorStore: { all } },
+  store: { graphErrors, refreshValidate, valid, operatorStore: { all } },
   operator
 }) => {
   const graphOperator = all.find(act => act.id === operator._id);
 
+  let errorColor;
+  const errors = graphErrors.filter(x => x.id === operator._id);
+  const error = errors.filter(x => x.severity === 'error');
+  const warning = errors.filter(x => x.severity === 'warning');
+  if (error.length > 0) {
+    errorColor = 'red';
+  } else if (warning.length > 0) {
+    errorColor = 'yellow';
+  } else {
+    errorColor = 'green';
+  }
+
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
-        <h3>
-          <ChangeableText
-            value={graphOperator.title || ''}
-            operatorId={operator._id}
-            onChange={graphOperator.rename}
-          />
-        </h3>
+        <div style={{ position: 'absolute', left: -40 }}>
+          <ErrorList activityId={operator._id} />
+        </div>
+        <FlexView>
+          <div>
+            <h3>
+              <ChangeableText
+                value={graphOperator.title || ''}
+                operatorId={operator._id}
+                onChange={graphOperator.rename}
+              />
+            </h3>
+          </div>
+          <FlexView marginLeft="auto">
+            <ValidButton activityId={operator._id} errorColor={errorColor} />
+          </FlexView>
+        </FlexView>
         <font size={-3}>
           <i>
             {`Type: ${operatorTypesObj[operator.operatorType].meta.name}

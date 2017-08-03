@@ -12,12 +12,12 @@ const ListError = ({ errors, maxLength }) => {
       {errors.map((x, i) => {
         const textlines = wordWrap(x.err, maxLength);
         const k = lines;
-        lines = lines + textlines.length;
+        lines += textlines.length;
         return [
           <text
             x="90"
             y={40 + 20 * k}
-            key={x.id + k + ' ' + i + 'dot'}
+            key={k + 'dot'}
             fill={x.severity === 'error' ? 'red' : 'orange'}
           >
             •
@@ -27,7 +27,7 @@ const ListError = ({ errors, maxLength }) => {
               <text
                 x="100"
                 y={40 + 20 * (k + y)}
-                key={x.id + k + ' ' + i + y}
+                key={k + line}
                 fill={x.severity === 'error' ? 'red' : 'orange'}
               >
                 {line}

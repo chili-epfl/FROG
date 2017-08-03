@@ -99,10 +99,10 @@ export const flattenOne = (ary: any[]): any[] =>
   );
 
 export const wordWrap = (text: string, maxLength: number): string[] => {
-  let result = [];
+  const result = [];
   let line = [];
   let length = 0;
-  text.split(' ').forEach(function(word) {
+  text.split(' ').forEach(word => {
     if (length + word.length >= maxLength) {
       result.push(line.join(' '));
       line = [];
