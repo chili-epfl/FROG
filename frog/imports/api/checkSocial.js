@@ -1,5 +1,4 @@
 // @flow
-import { map } from 'lodash';
 import { activityTypesObj } from '../activityTypes';
 import { operatorTypesObj } from '../operatorTypes';
 
@@ -39,7 +38,6 @@ export default (
         }
         return acc;
       }, []);
-
       if (node.groupingKey && node.groupingKey.length > 0) {
         // should not be able to happen, but just in case
         if (socialFieldValues.includes(node.groupingKey)) {
@@ -50,14 +48,16 @@ export default (
             severity: 'error'
           });
         }
-        if (!soc.includes(node.groupingKey)) {
-          errors.push({
-            id: node._id,
-            err: `The ${nodeType} ${node.title} requiresj the grouping attribute '${node.groupingKey}', which is not provided by any connected social operator`,
-            type: 'groupingKeyNotProvided',
-            severity: 'error'
-          });
-        }
+      }
+    }
+    if (node.groupingKey && node.groupingKey.length > 0) {
+      if (!soc.includes(node.groupingKey)) {
+        errors.push({
+          id: node._id,
+          err: `The ${nodeType} ${node.title} requires the grouping attribute '${node.groupingKey}', which is not provided by any connected social operator`,
+          type: 'groupingKeyNotProvided',
+          severity: 'error'
+        });
       }
     }
   });

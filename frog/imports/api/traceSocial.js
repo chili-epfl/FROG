@@ -1,5 +1,4 @@
 // @flow
-
 import { flatMap, filter, includes, uniq } from 'lodash';
 import { operatorTypesObj } from '../operatorTypes';
 
@@ -52,7 +51,7 @@ export default (
         errors.push({
           id: x._id,
           err: `The ${type} ${x.title} receives the social attribute(s) ${dup
-            .map(x => `'${x}'`)
+            .map(y => `'${y}'`)
             .join(', ')} from more than one social operator.`,
           type: 'overlappingSocialAttributes',
           severity: 'error'
