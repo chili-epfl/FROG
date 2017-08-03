@@ -1,8 +1,11 @@
 // @flow
-import { activityTypes } from '../activityTypes';
-import { operatorTypes } from '../operatorTypes';
+import { compact, flatMap } from 'lodash';
+
+import { activityTypes, activityTypesObj } from '../activityTypes';
+import { operatorTypes, operatorTypesObj } from '../operatorTypes';
 import traceSocial from './traceSocial';
 import checkSocial from './checkSocial';
+import validateConfig from './validateConfig';
 
 export const checkComponent = (
   obj: Array<any>,
@@ -111,6 +114,38 @@ const checkConnection = (
   }, [])
 ];
 
+const checkConfigs = (operators, activities) => {
+  const operatorErrors = compact(
+    flatMap(
+      operators,
+      x =>
+        x.operatorType &&
+        operatorTypesObj[x.operatorType] &&
+        validateConfig(
+          x._id,
+          x.data,
+          operatorTypesObj[x.operatorType].config,
+          operatorTypesObj[x.operatorType].validateConfig
+        )
+    )
+  );
+  const activityErrors = compact(
+    flatMap(
+      activities,
+      x =>
+        x.activityType &&
+        activityTypesObj[x.activityType] &&
+        validateConfig(
+          x._id,
+          x.data,
+          activityTypesObj[x.activityType].config,
+          activityTypesObj[x.activityType].validateConfig
+        )
+    )
+  );
+  return compact([...operatorErrors, ...activityErrors]);
+};
+
 export default (
   activities: Array<any>,
   operators: Array<any>,
@@ -125,7 +160,8 @@ export default (
     .concat(checkComponent(operators, 'operator', connections))
     .concat(checkConnection(activities, operators, connections))
     .concat(socialErrors)
-    .concat(checkSocial(operators, activities, social));
+    .concat(checkSocial(operators, activities, social))
+    .concat(checkConfigs(operators, activities));
 
   return {
     errors,

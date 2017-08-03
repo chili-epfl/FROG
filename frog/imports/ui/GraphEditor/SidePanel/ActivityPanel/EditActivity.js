@@ -100,7 +100,6 @@ const EditActivity = props => {
           props.store.refreshValidate();
         }}
         formData={activity.data}
-        liveValidate
       >
         <div />
       </EnhancedForm>

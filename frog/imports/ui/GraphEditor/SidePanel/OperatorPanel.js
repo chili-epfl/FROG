@@ -160,7 +160,6 @@ const EditClass = ({
           refreshValidate();
         }}
         formData={operator.data}
-        liveValidate
       >
         <div />
       </EnhancedForm>

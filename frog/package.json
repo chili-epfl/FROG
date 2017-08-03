@@ -25,6 +25,7 @@
     "http": "0.0.0",
     "json-stable-stringify": "^1.0.1",
     "json-stringify-pretty-compact": "^1.0.3",
+    "jsonschema": "^1.1.1",
     "lodash": "^4.17.4",
     "meteor-node-stubs": "^0.2.3",
     "mobx": "^3.0.2",
