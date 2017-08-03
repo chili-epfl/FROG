@@ -169,3 +169,27 @@ const calculatedActWorks = [
 test('make sure calculated social attribute works', () => {
   expect(getErrs(calculatedActWorks, opcalculated, conn1)).toEqual([]);
 });
+
+const opsocial = [
+  { _id: 'o1', operatorType: 'op-group-identical', data: { old: 'group' } }
+];
+
+test('make sure social attributes required by operators is also tested', () => {
+  expect(getErrs([], opsocial, [])).toEqual([
+    ['o1', 'noOutgoing'],
+    ['o1', 'missingSocialAttribute']
+  ]);
+});
+
+const connop2 = [
+  { _id: 'c1', target: { id: 'o1' }, source: { id: 'o2' } },
+  { _id: 'c2', target: { id: 'a1' }, source: { id: 'o1' } }
+];
+
+const opsocial2 = [
+  { _id: 'o1', operatorType: 'op-group-identical', data: { old: 'group' } },
+  { _id: 'o2', operatorType: 'op-jigsaw', type: 'social' }
+];
+test('make sure social attributes required by operators is also tested', () => {
+  expect(getErrs([], opsocial2, connop2)).toEqual([]);
+});

@@ -21,8 +21,10 @@ export const getOperator = (operator: any) => {
 };
 
 export const duplicates = (array: any[]): any[] =>
-  filter(array, (value, index, iteratee) =>
-    includes(iteratee, value, index + 1)
+  uniq(
+    filter(array, (value, index, iteratee) =>
+      includes(iteratee, value, index + 1)
+    )
   );
 
 export default (
