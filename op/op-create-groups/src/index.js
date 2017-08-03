@@ -12,6 +12,7 @@ const meta = {
 
 const config = {
   type: 'object',
+  required: ['groupsize', 'strategy'],
   properties: {
     groupsize: {
       type: 'number',

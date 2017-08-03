@@ -12,6 +12,7 @@ const meta = {
 
 const config = {
   type: 'object',
+  required: ['roles'],
   properties: {
     roles: {
       type: 'string',

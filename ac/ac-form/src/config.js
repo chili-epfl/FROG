@@ -2,6 +2,7 @@
 
 export default {
   type: 'object',
+  required: ['title', 'questions'],
   properties: {
     title: {
       type: 'string',

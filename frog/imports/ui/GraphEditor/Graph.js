@@ -5,6 +5,7 @@ import React from 'react';
 import { connect, store, type StoreProp } from './store';
 import Activities from './Activities';
 import Operators from './Operators';
+import Validator from './Validator';
 
 import Lines, { DragLine } from './components/Lines';
 import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
@@ -38,6 +39,7 @@ export default connect(
         setSvgRef
       }
     },
+    graphId,
     scaled,
     isSvg,
     isEditable,
@@ -45,12 +47,13 @@ export default connect(
     hasPanMap,
     hasTimescale
   }: StoreProp & {
-    scaled: boolean,
-    isSvg: boolean,
-    isEditable: boolean,
-    isSession: boolean,
-    hasPanMap: boolean,
-    hasTimescale: boolean
+    graphId: String,
+    scaled: Boolean,
+    isSvg: Boolean,
+    isEditable: Boolean,
+    isSession: Boolean,
+    hasPanMap: Boolean,
+    hasTimescale: Boolean
   }) =>
     <svg
       width="100%"
@@ -89,6 +92,7 @@ export default connect(
         {isEditable && <DragGuides />}
         {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
+        {scaled && <Validator gId={graphId} />}
       </svg>
       {hasPanMap && <PanMap />}
       {scaled &&

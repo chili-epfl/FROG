@@ -1,4 +1,4 @@
-// @flow
+// @flow   
 import { activityTypes } from '../activityTypes';
 import { operatorTypes } from '../operatorTypes';
 import traceSocial from './traceSocial';

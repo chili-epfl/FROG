@@ -21,6 +21,7 @@ export const meta = {
 
 export const config = {
   type: 'object',
+  required: ['url'],
   properties: {
     url: {
       type: 'string',
