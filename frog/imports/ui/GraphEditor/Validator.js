@@ -9,7 +9,7 @@ const ListError = ({ errors, maxLength }) => {
   let lines = 0;
   return (
     <g>
-      {errors.map((x, i) => {
+      {errors.map(x => {
         const textlines = wordWrap(x.err, maxLength);
         const k = lines;
         lines += textlines.length;
