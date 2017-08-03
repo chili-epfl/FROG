@@ -2,6 +2,7 @@
 
 export const config = {
   type: 'object',
+  required: ['text'],
   properties: {
     text: {
       type: 'string',
