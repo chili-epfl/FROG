@@ -28,7 +28,7 @@ export default (
           if (!social[node._id] || !social[node._id].includes(node.data[x])) {
             errors.push({
               id: node._id,
-              err: `The config of ${nodeType} ${node.title} requires the social attribute ${x}, which is not provided by any connected social operator`,
+              err: `The config of ${nodeType} ${node.title} requires the social attribute '${x}', which is not provided by any connected social operator`,
               type: 'missingSocialAttribute',
               severity: 'error'
             });
