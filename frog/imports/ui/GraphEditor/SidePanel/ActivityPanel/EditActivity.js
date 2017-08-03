@@ -29,7 +29,6 @@ const EditActivity = props => {
       props.store.valid.social[activity._id][0]
     );
   }
-
   return (
     <div>
       <div style={{ backgroundColor: '#eee' }}>
@@ -69,14 +68,8 @@ const EditActivity = props => {
           options: props.store.valid.social[activity._id] || [],
           groupingKey: activity.groupingKey
         }}
-        enChange={data => {
-          addActivity(
-            activity.activityType,
-            data.formData,
-            activity._id,
-            null,
-            data.errors.length > 0
-          );
+        onChange={data => {
+          addActivity(activity.activityType, data.formData, activity._id, null);
           props.store.refreshValidate();
         }}
         formData={activity.data}
