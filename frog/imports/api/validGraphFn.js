@@ -1,5 +1,6 @@
 // @flow
 import { compact, flatMap } from 'lodash';
+import { hideConditional } from 'frog-utils';
 
 import { activityTypes, activityTypesObj } from '../activityTypes';
 import { operatorTypes, operatorTypesObj } from '../operatorTypes';
@@ -44,19 +45,6 @@ export const checkComponent = (
           id: x._id,
           err: `The ${nodeType}Package ${type} required by ${nodeType} ${x.title} is not installed`,
           type: 'missingPackage',
-          severity: 'error'
-        }
-      ];
-    }
-
-    if (x.err) {
-      return [
-        ...acc,
-        {
-          id: x._id,
-          err:
-            'Error(s) in the configuration of the ' + nodeType + ' ' + x.title,
-          type: 'configError',
           severity: 'error'
         }
       ];
@@ -123,7 +111,11 @@ const checkConfigs = (operators, activities) => {
         operatorTypesObj[x.operatorType] &&
         validateConfig(
           x._id,
-          x.data,
+          hideConditional(
+            x.data,
+            operatorTypesObj[x.operatorType].config,
+            operatorTypesObj[x.operatorType].configUI
+          ),
           operatorTypesObj[x.operatorType].config,
           operatorTypesObj[x.operatorType].validateConfig
         )
@@ -137,7 +129,11 @@ const checkConfigs = (operators, activities) => {
         activityTypesObj[x.activityType] &&
         validateConfig(
           x._id,
-          x.data,
+          hideConditional(
+            x.data,
+            activityTypesObj[x.activityType].config,
+            activityTypesObj[x.activityType].configUI
+          ),
           activityTypesObj[x.activityType].config,
           activityTypesObj[x.activityType].validateConfig
         )

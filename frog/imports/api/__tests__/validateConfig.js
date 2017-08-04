@@ -103,3 +103,7 @@ test('test datafns', () => {
     }
   ]);
 });
+
+test('test empty requirement', () => {
+  expect(valid('1', {}, { type: 'object', properties: {} })).toEqual([]);
+});
