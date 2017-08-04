@@ -59,7 +59,8 @@ export type ActivityPackageT = {
     name: string,
     shortDesc: string,
     description: string,
-    exampleData: Array<any>
+    exampleData: Array<any>,
+    types: { incoming: any, outgoing: any }
   },
   config: Object,
   validateConfig?: validateConfigFnT[],
@@ -73,7 +74,8 @@ export type productOperatorT = {
   meta: {
     name: string,
     shortDesc: string,
-    description: string
+    description: string,
+    types: { incoming: any, outgoing: any }
   },
   config: Object,
   validateConfig?: validateConfigFnT[],
@@ -86,7 +88,8 @@ export type socialOperatorT = {
   meta: {
     name: string,
     shortDesc: string,
-    description: string
+    description: string,
+    types: { incoming: any, outgoing: any }
   },
   outputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
