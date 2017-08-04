@@ -82,6 +82,13 @@ const config = {
   }
 };
 
+const configUI = {
+  quadrant1: { conditional: 'quadrants' },
+  quadrant2: { conditional: 'quadrants' },
+  quadrant3: { conditional: 'quadrants' },
+  quadrant4: { conditional: 'quadrants' }
+};
+
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
@@ -102,6 +109,7 @@ export default ({
   type: 'react-component',
   meta,
   config,
+  configUI,
   ActivityRunner: Board,
   Dashboard: null,
   dataStructure,

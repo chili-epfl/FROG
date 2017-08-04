@@ -1,5 +1,6 @@
 import React from 'react';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, uniqBy } from 'lodash';
+import Stringify from 'json-stable-stringify';
 import { A } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
@@ -29,54 +30,71 @@ const ShowInfo = ({ activityData, data }) =>
 export default compose(
   withState('example', 'setExample', 0),
   withState('showData', 'setShowData', false)
-)(({ activityTypeId, example, setExample, showData, setShowData, dismiss }) => {
-  const activityType = activityTypesObj[activityTypeId || 'ac-chat'];
+)(
+  ({
+    activityTypeId,
+    example,
+    setExample,
+    showData,
+    setShowData,
+    dismiss,
+    config
+  }) => {
+    const activityType = activityTypesObj[activityTypeId];
 
-  const RunComp = activityType.ActivityRunner;
-  RunComp.displayName = activityType;
+    const RunComp = activityType.ActivityRunner;
+    RunComp.displayName = activityType;
 
-  const ActivityToRun = ReactiveHOC(
-    cloneDeep(activityType.dataStructure),
-    'demo/' + activityType.id + '/' + example,
-    activityType,
-    activityType.meta.exampleData[example]
-  )(showData ? ShowInfo : RunComp);
+    const examples = config
+      ? uniqBy(activityType.meta.exampleData, x => Stringify(x.data))
+      : activityType.meta.exampleData;
+    console.log(examples, activityType.meta.exampleData);
 
-  const data = activityType.meta.exampleData[example];
+    const activityData = cloneDeep(examples[example]);
+    if (config) {
+      activityData.config = config;
+    }
+    const ActivityToRun = ReactiveHOC(
+      cloneDeep(activityType.dataStructure),
+      'demo/' + activityType.id + '/' + example,
+      activityType,
+      activityData
+    )(showData ? ShowInfo : RunComp);
 
-  return (
-    <Modal
-      contentLabel={'Preview of ' + activityType.id}
-      isOpen
-      onRequestClose={dismiss}
-    >
-      <div className="modal-header">
-        <button type="button" className="close" onClick={dismiss}>
-          X
-        </button>
+    return (
+      <Modal
+        contentLabel={'Preview of ' + activityType.id}
+        isOpen
+        onRequestClose={dismiss}
+      >
+        <div className="modal-header">
+          <button type="button" className="close" onClick={dismiss}>
+            X
+          </button>
 
-        <h4 className="modal-title">
-          Preview of {activityType.meta.name} ({activityType.id}){' '}
-          <A onClick={() => setShowData(!showData)}>
-            (show {showData ? 'activity' : 'underlying data'})
-          </A>
-        </h4>
-        <Nav bsStyle="pills" activeKey={example}>
-          {activityType.meta.exampleData.map((x, i) =>
-            // eslint-disable-next-line react/no-array-index-key
-            <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
-              {x.title}
-            </NavItem>
-          )}
-        </Nav>
-      </div>
-      <div style={{ width: '100%', height: '100%' }}>
-        <ActivityToRun
-          activityData={data}
-          userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
-          logger={() => {}}
-        />
-      </div>
-    </Modal>
-  );
-});
+          <h4 className="modal-title">
+            Preview of {activityType.meta.name} ({activityType.id}){' '}
+            <A onClick={() => setShowData(!showData)}>
+              (show {showData ? 'activity' : 'underlying data'})
+            </A>
+          </h4>
+          <Nav bsStyle="pills" activeKey={example}>
+            {examples.map((x, i) =>
+              // eslint-disable-next-line react/no-array-index-key
+              <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
+                {x.title}
+              </NavItem>
+            )}
+          </Nav>
+        </div>
+        <div style={{ width: '100%', height: '100%' }}>
+          <ActivityToRun
+            activityData={activityData}
+            userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
+            logger={() => {}}
+          />
+        </div>
+      </Modal>
+    );
+  }
+);

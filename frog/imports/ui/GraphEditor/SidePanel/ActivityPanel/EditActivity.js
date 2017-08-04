@@ -4,8 +4,11 @@ import { EnhancedForm, ChangeableText } from 'frog-utils';
 import { addActivity } from '/imports/api/activities';
 import { activityTypesObj } from '/imports/activityTypes';
 import FlexView from 'react-flexview';
+import { withState } from 'recompose';
+import { Button } from 'react-bootstrap';
 
 import { connect } from '../../store';
+import Preview from '../../Preview';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
@@ -63,6 +66,19 @@ const EditActivity = props => {
             </h3>
           </div>
           <FlexView marginLeft="auto">
+            {errorColor === 'green' &&
+              <Button
+                className="glyphicon glyphicon-eye-open"
+                style={{
+                  position: 'absolute',
+                  right: '2px',
+                  top: '39px',
+                  width: '9%',
+                  height: '34px'
+                }}
+                onClick={() => props.setShowInfo(true)}
+              />}
+
             <ValidButton activityId={activity._id} errorColor={errorColor} />
           </FlexView>
         </FlexView>
@@ -104,8 +120,16 @@ const EditActivity = props => {
         <div />
       </EnhancedForm>
       <FileForm />
+      {props.showInfo &&
+        <Preview
+          activityTypeId={activity.activityType}
+          config={activity.data}
+          dismiss={() => props.setShowInfo(false)}
+        />}
     </div>
   );
 };
 
-export default connect(EditActivity);
+export default withState('showInfo', 'setShowInfo', false)(
+  connect(EditActivity)
+);
