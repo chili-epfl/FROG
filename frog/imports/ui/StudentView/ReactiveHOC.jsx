@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { generateReactiveFn } from 'frog-utils';
-import { deepClone } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 import { connection } from '../App/index';
 
@@ -46,7 +46,7 @@ const ReactiveHOC = (
             if (previewActivity.mergeFunction) {
               const dataFn = generateReactiveFn(this.doc);
               previewActivity.mergeFunction(
-                deepClone(previewActivityData),
+                cloneDeep(previewActivityData),
                 dataFn
               );
             }

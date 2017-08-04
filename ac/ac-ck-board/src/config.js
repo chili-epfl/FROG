@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+export const config = {
   type: 'object',
   properties: {
     quadrants: {
@@ -42,4 +42,11 @@ export default {
       }
     }
   }
+};
+
+export const configUI = {
+  quadrant1: { conditional: 'quadrants' },
+  quadrant2: { conditional: 'quadrants' },
+  quadrant3: { conditional: 'quadrants' },
+  quadrant4: { conditional: 'quadrants' }
 };

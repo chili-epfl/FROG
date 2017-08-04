@@ -24,6 +24,7 @@ const mergeFunction = (obj, dataFn) => {
 
 export default ({
   id: 'ac-chat',
+  type: 'react-component',
   ActivityRunner,
   config,
   meta,

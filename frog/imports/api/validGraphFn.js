@@ -1,6 +1,12 @@
 // @flow
-import { activityTypes } from '../activityTypes';
-import { operatorTypes } from '../operatorTypes';
+import { compact, flatMap } from 'lodash';
+import { hideConditional } from 'frog-utils';
+
+import { activityTypes, activityTypesObj } from '../activityTypes';
+import { operatorTypes, operatorTypesObj } from '../operatorTypes';
+import traceSocial from './traceSocial';
+import checkSocial from './checkSocial';
+import validateConfig from './validateConfig';
 
 export const checkComponent = (
   obj: Array<any>,
@@ -22,7 +28,8 @@ export const checkComponent = (
         ...acc,
         {
           id: x._id,
-          err: 'Type of the ' + nodeType + ' ' + x.title + ' is not defined',
+          nodeType,
+          err: 'Type is not defined',
           type: 'missingType',
           severity
         }
@@ -37,21 +44,9 @@ export const checkComponent = (
         ...acc,
         {
           id: x._id,
-          err: `The ${nodeType}Package ${type} required by ${nodeType} ${x.title} is not installed`,
+          nodeType,
+          err: `The ${nodeType}Package ${type} is not installed`,
           type: 'missingPackage',
-          severity: 'error'
-        }
-      ];
-    }
-
-    if (x.err) {
-      return [
-        ...acc,
-        {
-          id: x._id,
-          err:
-            'Error(s) in the configuration of the ' + nodeType + ' ' + x.title,
-          type: 'configError',
           severity: 'error'
         }
       ];
@@ -80,10 +75,8 @@ const checkConnection = (
           ...acc,
           {
             id: act._id,
-            err:
-              'The group activity ' +
-              act.title +
-              ' needs to be connected to a social operator',
+            nodeType: 'activity',
+            err: 'A group activity needs to be connected to a social operator',
             type: 'needsSocialOp',
             severity: 'error'
           }
@@ -99,7 +92,8 @@ const checkConnection = (
         ...acc,
         {
           id: op._id,
-          err: `The operator ${op.title} does not have any outgoing connections`,
+          nodeType: 'operator',
+          err: `Does not have any outgoing connections`,
           type: 'noOutgoing',
           severity: 'warning'
         }
@@ -109,13 +103,67 @@ const checkConnection = (
   }, [])
 ];
 
-const checkAll = (
+const checkConfigs = (operators, activities) => {
+  const operatorErrors = compact(
+    flatMap(
+      operators,
+      x =>
+        x.operatorType &&
+        operatorTypesObj[x.operatorType] &&
+        validateConfig(
+          'operator',
+          x._id,
+          hideConditional(
+            x.data,
+            operatorTypesObj[x.operatorType].config,
+            operatorTypesObj[x.operatorType].configUI
+          ),
+          operatorTypesObj[x.operatorType].config,
+          operatorTypesObj[x.operatorType].validateConfig
+        )
+    )
+  );
+  const activityErrors = compact(
+    flatMap(
+      activities,
+      x =>
+        x.activityType &&
+        activityTypesObj[x.activityType] &&
+        validateConfig(
+          'activity',
+          x._id,
+          hideConditional(
+            x.data,
+            activityTypesObj[x.activityType].config,
+            activityTypesObj[x.activityType].configUI
+          ),
+          activityTypesObj[x.activityType].config,
+          activityTypesObj[x.activityType].validateConfig
+        )
+    )
+  );
+  return compact([...operatorErrors, ...activityErrors]);
+};
+
+export default (
   activities: Array<any>,
   operators: Array<any>,
   connections: Array<any>
-) =>
-  checkComponent(activities, 'activity', connections)
+) => {
+  const { social, socialErrors } = traceSocial(
+    activities,
+    operators,
+    connections
+  );
+  const errors = checkComponent(activities, 'activity', connections)
     .concat(checkComponent(operators, 'operator', connections))
-    .concat(checkConnection(activities, operators, connections));
+    .concat(checkConnection(activities, operators, connections))
+    .concat(socialErrors)
+    .concat(checkSocial(operators, activities, social))
+    .concat(checkConfigs(operators, activities));
 
-export default checkAll;
+  return {
+    errors,
+    social
+  };
+};

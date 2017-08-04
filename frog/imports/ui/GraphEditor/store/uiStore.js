@@ -27,7 +27,7 @@ export default class uiStore {
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
   @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
-  @observable showErrors: boolean = false;
+  @observable showErrors: boolean | string = false;
 
   @computed
   get graphErrorColor(): string {
@@ -43,7 +43,7 @@ export default class uiStore {
   }
 
   @action
-  setShowErrors = (toSet: boolean) => {
+  setShowErrors = (toSet: boolean | string) => {
     this.showErrors = toSet;
   };
 

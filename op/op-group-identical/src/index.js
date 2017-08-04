@@ -6,14 +6,18 @@ import type { socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Group based on identical student data',
-  type: 'social',
   shortDesc: 'Group identical students together',
   description: 'Group students with as many similar answers as possible'
 };
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: {
+    old: {
+      type: 'socialAttribute',
+      title: 'Rotate old groups'
+    }
+  }
 };
 
 // Obviously assumes even array
@@ -41,7 +45,9 @@ const operator = (configData, object) => {
 
 export default ({
   id: 'op-group-identical',
+  type: 'social',
   operator,
   config,
-  meta
+  meta,
+  outputDefinition: ['group']
 }: socialOperatorT);

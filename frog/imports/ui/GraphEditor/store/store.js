@@ -65,6 +65,7 @@ export default class Store {
   @observable history = [];
   @observable readOnly: boolean;
   @observable graphErrors: any[] = [];
+  @observable valid: any;
 
   @observable graphDuration: number = 120;
 
@@ -190,15 +191,18 @@ export default class Store {
       this.history.push(newEntry);
       mergeGraph(this.objects);
     }
+    this.refreshValidate();
+  };
 
-    this.graphErrors = sortBy(
-      valid(
-        Activities.find({ graphId: this.graphId }).fetch(),
-        Operators.find({ graphId: this.graphId }).fetch(),
-        Connections.find({ graphId: this.graphId }).fetch()
-      ),
-      'severity'
+  @action
+  refreshValidate = () => {
+    const validData = valid(
+      Activities.find({ graphId: this.graphId }).fetch(),
+      Operators.find({ graphId: this.graphId }).fetch(),
+      Connections.find({ graphId: this.graphId }).fetch()
     );
+    this.graphErrors = sortBy(validData.errors, 'severity');
+    this.valid = validData;
 
     Graphs.update(this.graphId, {
       $set: {

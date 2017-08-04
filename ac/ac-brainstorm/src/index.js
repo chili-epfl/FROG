@@ -2,7 +2,7 @@
 
 import { type dataUnitStructT, type ActivityPackageT } from 'frog-utils';
 
-import config from './config';
+import { config, configUI } from './config';
 import meta from './meta';
 import ActivityRunner from './ActivityRunner';
 import Dashboard from './Dashboard';
@@ -19,9 +19,11 @@ const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
 
 export default ({
   id: 'ac-brainstorm',
+  type: 'react-component',
   ActivityRunner,
   Dashboard,
   config,
+  configUI,
   meta,
   dataStructure,
   mergeFunction

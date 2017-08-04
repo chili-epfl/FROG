@@ -3,6 +3,7 @@ import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
 
+export { default as EnhancedForm, hideConditional } from './EnhancedForm';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
 export { default as uuid } from 'cuid';
@@ -96,3 +97,22 @@ export const flattenOne = (ary: any[]): any[] =>
     (acc: any[], x: any) => (Array.isArray(x) ? [...acc, ...x] : [...acc, x]),
     []
   );
+
+export const wordWrap = (text: string, maxLength: number): string[] => {
+  const result = [];
+  let line = [];
+  let length = 0;
+  text.split(' ').forEach(word => {
+    if (length + word.length >= maxLength) {
+      result.push(line.join(' '));
+      line = [];
+      length = 0;
+    }
+    length += word.length + 1;
+    line.push(word);
+  });
+  if (line.length > 0) {
+    result.push(line.join(' '));
+  }
+  return result;
+};

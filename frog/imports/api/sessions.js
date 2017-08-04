@@ -92,12 +92,12 @@ Meteor.methods({
     );
   },
   'add.session': graphId => {
-    const errors = valid(
+    const validOutput = valid(
       Activities.find({ graphId }).fetch(),
       Operators.find({ graphId }).fetch(),
       Connections.find({ graphId }).fetch()
     );
-    if (errors.filter(x => x.severity === 'error').length > 0) {
+    if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
       Graphs.update(graphId, { $set: { broken: true } });
       return 'invalidGraph';
     }

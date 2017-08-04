@@ -1,13 +1,19 @@
 // @flow
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import Form from 'react-jsonschema-form';
-import { ChangeableText } from 'frog-utils';
-import type { operatorPackageT } from 'frog-utils';
+import FlexView from 'react-flexview';
+import {
+  type operatorPackageT,
+  ChangeableText,
+  EnhancedForm
+} from 'frog-utils';
 
 import { Operators, addOperator } from '/imports/api/activities';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
+import { ErrorList, ValidButton } from '../Validator';
 import { connect } from '../store';
+import { SelectFormWidget } from './ActivityPanel/SelectWidget';
+import addSocialFormSchema from './ActivityPanel/addSocialSchema';
 import ListComponent from './ListComponent';
 
 class ChooseOperatorTypeComp extends Component {
@@ -91,19 +97,44 @@ class ChooseOperatorTypeComp extends Component {
   }
 }
 
-const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
+const EditClass = ({
+  store: { graphErrors, refreshValidate, valid, operatorStore: { all } },
+  operator
+}) => {
   const graphOperator = all.find(act => act.id === operator._id);
 
+  let errorColor;
+  const errors = graphErrors.filter(x => x.id === operator._id);
+  const error = errors.filter(x => x.severity === 'error');
+  const warning = errors.filter(x => x.severity === 'warning');
+  if (error.length > 0) {
+    errorColor = 'red';
+  } else if (warning.length > 0) {
+    errorColor = 'yellow';
+  } else {
+    errorColor = 'green';
+  }
+
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
-        <h3>
-          <ChangeableText
-            value={graphOperator.title || ''}
-            operatorId={operator._id}
-            onChange={graphOperator.rename}
-          />
-        </h3>
+        <div style={{ position: 'absolute', left: -40 }}>
+          <ErrorList activityId={operator._id} />
+        </div>
+        <FlexView>
+          <div>
+            <h3>
+              <ChangeableText
+                value={graphOperator.title || ''}
+                operatorId={operator._id}
+                onChange={graphOperator.rename}
+              />
+            </h3>
+          </div>
+          <FlexView marginLeft="auto">
+            <ValidButton activityId={operator._id} errorColor={errorColor} />
+          </FlexView>
+        </FlexView>
         <font size={-3}>
           <i>
             {`Type: ${operatorTypesObj[operator.operatorType].meta.name}
@@ -112,20 +143,26 @@ const EditClass = ({ store: { operatorStore: { all } }, operator }) => {
         </font>
         <hr />
       </div>
-      <Form
-        schema={operatorTypesObj[operator.operatorType].config}
-        onChange={data =>
+      <EnhancedForm
+        {...addSocialFormSchema(
+          operatorTypesObj[operator.operatorType].config,
+          operatorTypesObj[operator.operatorType].configUI
+        )}
+        widgets={{ socialAttributeWidget: SelectFormWidget }}
+        formContext={{ options: valid.social[operator._id] || [] }}
+        onChange={data => {
           addOperator(
             operator.operatorType,
             data.formData,
             operator._id,
             data.errors.length > 0
-          )}
+          );
+          refreshValidate();
+        }}
         formData={operator.data}
-        liveValidate
       >
         <div />
-      </Form>
+      </EnhancedForm>
     </div>
   );
 };

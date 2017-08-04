@@ -4,7 +4,7 @@ import { type ActivityPackageT, uuid } from 'frog-utils';
 
 import Board from './board';
 import meta from './meta';
-import config from './config';
+import { config, configUI } from './config';
 
 const dataStructure = [];
 
@@ -23,8 +23,10 @@ const mergeFunction = (object, dataFn) => {
 
 export default ({
   id: 'ac-ck-board',
+  type: 'react-component',
   meta,
   config,
+  configUI,
   ActivityRunner: Board,
   Dashboard: null,
   dataStructure,
