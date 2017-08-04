@@ -5,20 +5,24 @@ const path = require('path');
 
 const rootpath = path.dirname(require.main.filename);
 
-if (!process.argv[2]) {
+if (!process.argv[4]) {
   /*eslint-disable */
-  console.log(`node createActivity.js <ac-short-name> <ac-title>
+  console.log(`node createActivity.js <activity|operator> <short-name> <title>
 
-Sets up a simple activity package template in ./ac/<ac-short-name>, and adds it to the relevant files
-    (frog/package.json and frog/imports/activityPackages.js). Also does the correct symlinking and yarn
+Sets up a simple activity or operator package template in ./[ac|op]/<short-name>, and adds it to the relevant files
+    (frog/package.json and frog/imports/[activity|operator]Packages.js). Also does the correct symlinking and yarn
     commands to be ready to develop.`);
   /*eslint-enable */
   process.exit();
 }
 
-if (process.argv[2].slice(0, 3) !== 'ac-') {
+const type = process.argv[2];
+const prefix = type === 'activity' ? 'ac' : 'op'
+if ( process.argv[3].slice(0, 3) !== prefix) ) {
   /*eslint-disable */
-  console.log(`Package names should start by 'ac-...'`);
+  console.log(
+    `activityPackage names should start by 'ac-...' and operatorPackage names with 'op-...'.`
+  );
   /*eslint-enable */
   process.exit();
 }
@@ -35,30 +39,30 @@ const pkg = JSON.parse(pkgjs);
 pkg.dependencies[newActivityId] = '*';
 fs.writeFileSync('./frog/package.json', stringify(pkg));
 
-// adding to activityTypes
+// adding to activityTypes | operatorTypes
+const fname = type === 'activity' ? './frog/imports/activityTypes.js' : './frog/imports/operatorTypes.js'
 const act = fs
-  .readFileSync('./frog/imports/activityTypes.js')
+  .readFileSync(fname)
   .toString()
   .split('\n');
 act.splice(2, 0, `import ${newActivityName} from '${newActivityId}';`);
 const whereToInsert = act.findIndex(x => x.startsWith('export const'));
 act.splice(whereToInsert + 1, 0, `  ${newActivityName},`);
-fs.writeFileSync('./frog/imports/activityTypes.js', act.join('\n'));
+fs.writeFileSync(fname, act.join('\n'));
 
-// copying template
-fs.copySync('./templates/activity', `./ac/${newActivityId}`, {
+fs.copySync(`./templates/${type}`, `./${prefix}/${newActivityId}`, {
   errorOnExist: true
 });
 
 // adding to ac/ac-new/package.json
-const newpkgjs = fs.readFileSync(`./ac/${newActivityId}/package.json`);
+const newpkgjs = fs.readFileSync(`./${prefix}/${newActivityId}/package.json`);
 const newpkg = JSON.parse(newpkgjs);
 newpkg.name = newActivityId;
-fs.writeFileSync(`./ac/${newActivityId}/package.json`, stringify(newpkg));
+fs.writeFileSync(`./${prefix}/${newActivityId}/package.json`, stringify(newpkg));
 
 // modifying template src/index.js
 const actnew = fs
-  .readFileSync(`./ac/${newActivityId}/src/index.js`)
+  .readFileSync(`./${prefix}/${newActivityId}/src/index.js`)
   .toString()
   .split('\n');
 const pos = actnew.findIndex(x => x.startsWith('  id:'));
@@ -66,28 +70,28 @@ actnew.splice(pos, 1, `  id: '${newActivityId}',`);
 
 const pos1 = actnew.findIndex(x => x.startsWith('  name:'));
 actnew.splice(pos1, 1, `  name: '${process.argv[3]}',`);
-fs.writeFileSync(`./ac/${newActivityId}/src/index.js`, actnew.join('\n'));
+fs.writeFileSync(`./${prefix}/${newActivityId}/src/index.js`, actnew.join('\n'));
 
-childProcess.execSync(`git add -N ./ac/${newActivityId}`);
+childProcess.execSync(`git add -N ./${prefix}/${newActivityId}`);
 
-fs.ensureDirSync(`./ac/${newActivityId}/node_modules`);
+fs.ensureDirSync(`./${prefix}/${newActivityId}/node_modules`);
 fs.ensureDirSync(`./frog/node_modules`);
 
 childProcess.execSync(
   `ln -s ${rootpath}/node_modules/* ${rootpath}/node_modules/.bin ${rootpath}/frog-utils .`,
-  { cwd: `./ac/${newActivityId}/node_modules/` }
+  { cwd: `./${prefix}/${newActivityId}/node_modules/` }
 );
 
-childProcess.execSync(`ln -s ${rootpath}/ac/${newActivityId} .`, {
+childProcess.execSync(`ln -s ${rootpath}/${prefix}/${newActivityId} .`, {
   cwd: './frog/node_modules'
 });
 
-childProcess.execSync(`yarn`, { cwd: `./ac/${newActivityId}` });
+childProcess.execSync(`yarn`, { cwd: `./${prefix}/${newActivityId}` });
 
 /*eslint-disable */
 console.log(
-  `Activity created in './ac/${newActivityId}', and added to ./frog, all symlinks set up, yarn has installed and built all files.
-Restart (or start) Meteor, run 'npm run watch' in ./ac/${newActivityId}/ and begin editing code. All changes will be
+  `Package created in './${prefix}/${newActivityId}', and added to ./frog, all symlinks set up, yarn has installed and built all files.
+Restart (or start) Meteor, run 'npm run watch' in ./${prefix}/${newActivityId}/ and begin editing code. All changes will be
 instantly picked up by FROG. Use 'git diff' to see all the changes that the script has made.`
 );
 /*eslint-enable */
