@@ -28,7 +28,8 @@ export default (
           if (!social[node._id] || !social[node._id].includes(node.data[x])) {
             errors.push({
               id: node._id,
-              err: `The config of ${nodeType} ${node.title} requires the social attribute '${x}', which is not provided by any connected social operator`,
+              nodeType,
+              err: `Config requires the social attribute '${x}', which is not provided by any connected social operator`,
               type: 'missingSocialAttribute',
               severity: 'error'
             });
@@ -43,7 +44,8 @@ export default (
         if (socialFieldValues.includes(node.groupingKey)) {
           errors.push({
             id: node._id,
-            err: `The ${nodeType} ${node.title} uses the same social attribute in the grouping field, and in the configuration`,
+            nodeType,
+            err: `Cannot use the same social attribute in the grouping field, and in the configuration`,
             type: 'groupingKeyInConfig',
             severity: 'error'
           });
@@ -54,7 +56,8 @@ export default (
       if (!soc.includes(node.groupingKey)) {
         errors.push({
           id: node._id,
-          err: `The ${nodeType} ${node.title} requires the grouping attribute '${node.groupingKey}', which is not provided by any connected social operator`,
+          nodeType,
+          err: `Requires the grouping attribute '${node.groupingKey}', which is not provided by any connected social operator`,
           type: 'groupingKeyNotProvided',
           severity: 'error'
         });

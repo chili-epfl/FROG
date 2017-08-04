@@ -4,7 +4,7 @@ import valid from '../validGraphFn';
 
 const resultToIds = graph => {
   const res = valid(graph.activities, graph.operators, graph.connections);
-  return res.errors.map(x => x.id);
+  return res.errors.filter(x => x.type !== 'missingConfig').map(x => x.id);
 };
 
 test('Test activity with no type defined => unvalid', () => {

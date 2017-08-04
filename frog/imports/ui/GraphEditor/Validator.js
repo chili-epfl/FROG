@@ -41,18 +41,40 @@ const ListError = ({ errors, maxLength }) => {
 };
 
 export const ErrorList = connect(
-  ({ store: { graphErrors, ui: { showErrors } }, activityId }) => {
+  ({
+    store: {
+      graphErrors,
+      ui: { showErrors },
+      activityStore: { all: activities },
+      operatorStore: { all: operators }
+    },
+    activityId
+  }) => {
+    // component not open
     if (showErrors !== true && showErrors !== activityId) {
       return null;
     }
 
+    // being called from the wrong place
     if (activityId && showErrors === true) {
       return null;
     }
-    const errors =
-      showErrors === true
-        ? graphErrors
-        : graphErrors.filter(x => x.id === activityId);
+
+    let errors;
+    if (showErrors === true) {
+      errors = graphErrors.map(x => {
+        const nodeName =
+          x.nodeType === 'activity'
+            ? activities.find(y => y.id === x.id).title
+            : operators.find(y => y.id === x.id).title;
+        return {
+          ...x,
+          err: `${x.nodeType} ${nodeName || 'unnamed'}: ${x.err}`
+        };
+      });
+    } else {
+      errors = graphErrors.filter(x => x.id === activityId);
+    }
     if (errors.length === 0) {
       return null;
     }

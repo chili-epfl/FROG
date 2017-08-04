@@ -5,7 +5,7 @@ import Form from 'react-jsonschema-form';
 
 import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
 
-import config from './config';
+import { config, validateConfig } from './config';
 
 const meta = {
   name: 'Simple form',
@@ -92,5 +92,6 @@ export default ({
   type: 'react-component',
   meta,
   config,
+  validateConfig,
   ActivityRunner
 }: ActivityPackageT);

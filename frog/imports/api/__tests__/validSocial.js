@@ -4,7 +4,9 @@ import valid from '../validGraphFn';
 
 const getErrs = (a, o, c) => {
   const f = valid(a, o, c);
-  return f.errors.map(x => [x.id, x.type]);
+  return f.errors
+    .filter(x => x.type !== 'missingRequiredConfigField')
+    .map(x => [x.id, x.type]);
 };
 
 const activities = [

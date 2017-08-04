@@ -3,7 +3,7 @@ import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
 
-export { default as EnhancedForm } from './EnhancedForm';
+export { default as EnhancedForm, hideConditional } from './EnhancedForm';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
 export { default as uuid } from 'cuid';
