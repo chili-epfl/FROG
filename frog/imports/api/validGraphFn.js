@@ -28,7 +28,8 @@ export const checkComponent = (
         ...acc,
         {
           id: x._id,
-          err: 'Type of the ' + nodeType + ' ' + x.title + ' is not defined',
+          nodeType,
+          err: 'Type is not defined',
           type: 'missingType',
           severity
         }
@@ -43,7 +44,8 @@ export const checkComponent = (
         ...acc,
         {
           id: x._id,
-          err: `The ${nodeType}Package ${type} required by ${nodeType} ${x.title} is not installed`,
+          nodeType,
+          err: `The ${nodeType}Package ${type} is not installed`,
           type: 'missingPackage',
           severity: 'error'
         }
@@ -73,10 +75,8 @@ const checkConnection = (
           ...acc,
           {
             id: act._id,
-            err:
-              'The group activity ' +
-              act.title +
-              ' needs to be connected to a social operator',
+            nodeType: 'activity',
+            err: 'A group activity needs to be connected to a social operator',
             type: 'needsSocialOp',
             severity: 'error'
           }
@@ -92,7 +92,8 @@ const checkConnection = (
         ...acc,
         {
           id: op._id,
-          err: `The operator ${op.title} does not have any outgoing connections`,
+          nodeType: 'operator',
+          err: `Does not have any outgoing connections`,
           type: 'noOutgoing',
           severity: 'warning'
         }
@@ -110,6 +111,7 @@ const checkConfigs = (operators, activities) => {
         x.operatorType &&
         operatorTypesObj[x.operatorType] &&
         validateConfig(
+          'operator',
           x._id,
           hideConditional(
             x.data,
@@ -128,6 +130,7 @@ const checkConfigs = (operators, activities) => {
         x.activityType &&
         activityTypesObj[x.activityType] &&
         validateConfig(
+          'activity',
           x._id,
           hideConditional(
             x.data,

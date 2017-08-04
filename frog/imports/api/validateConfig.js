@@ -16,10 +16,11 @@ const runFn = (id, fn, obj) => {
   }
 };
 
-export default (id, obj, schema, datafns) => {
+export default (nodeType, id, obj, schema, datafns) => {
   if (schema && schema.properties !== {} && (obj === {} || !obj)) {
     return {
       id,
+      nodeType,
       type: 'missingConfig',
       severity: 'error',
       err: 'No config available'
@@ -33,6 +34,7 @@ export default (id, obj, schema, datafns) => {
       if (x.name === 'type') {
         return {
           field,
+          nodeType,
           err: `Field '${x.schema.title}' ${x.message}`,
           id,
           severity: 'error',
@@ -41,6 +43,7 @@ export default (id, obj, schema, datafns) => {
       } else if (x.name === 'required') {
         return {
           field: x.argument,
+          nodeType,
           err: `Field '${result.schema.properties[x.argument].title}' required`,
           type: 'missingRequiredConfigField',
           severity: 'error',
@@ -63,6 +66,7 @@ export default (id, obj, schema, datafns) => {
   return dataerrors.map(x => ({
     ...x,
     id,
+    nodeType,
     type: 'configValidateFn',
     severity: 'error'
   }));

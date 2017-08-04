@@ -1,4 +1,6 @@
-import valid from '../validateConfig';
+import v from '../validateConfig';
+const valid = (id, obj, config, validfn) =>
+  v('activity', id, obj, config, validfn);
 
 const config = {
   type: 'object',
@@ -31,6 +33,7 @@ test('test correct validator, number/string', () => {
     {
       err: "Field 'Desired group size' is not of a type(s) number",
       field: 'groupsize',
+      nodeType: 'activity',
       id: '1',
       severity: 'error',
       type: 'invalidConfigField'
@@ -43,6 +46,7 @@ test('test obligatory field', () => {
     {
       err: "Field 'Desired group size' is not of a type(s) number",
       field: 'groupsize',
+      nodeType: 'activity',
       id: '1',
       severity: 'error',
       type: 'invalidConfigField'
@@ -75,6 +79,7 @@ test('test obligatory field', () => {
     {
       err: "Field 'Group formation strategy' required",
       field: 'strategy',
+      nodeType: 'activity',
       id: '1',
       severity: 'error',
       type: 'missingRequiredConfigField'
@@ -98,6 +103,7 @@ test('test datafns', () => {
       field: 'strategy',
       id: '1',
       msg: 'Strategy field cannot be longer than 2 characters',
+      nodeType: 'activity',
       severity: 'error',
       type: 'configValidateFn'
     }
