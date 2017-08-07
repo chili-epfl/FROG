@@ -1,4 +1,5 @@
 import v from '../validateConfig';
+
 const valid = (id, obj, config, validfn) =>
   v('activity', id, obj, config, validfn);
 
