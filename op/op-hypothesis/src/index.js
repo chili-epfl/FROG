@@ -61,6 +61,7 @@ export const operator = (configData: {
 export default ({
   id: 'op-hypothesis',
   type: 'product',
+  subtype: 'transformation',
   operator,
   config,
   meta

@@ -90,6 +90,7 @@ const operator = (configData, object) => {
 export default ({
   id: 'op-distribute',
   type: 'product',
+  subtype: 'distribution',
   operator,
   config,
   meta,

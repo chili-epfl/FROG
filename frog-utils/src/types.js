@@ -71,6 +71,7 @@ export type ActivityPackageT = {
 export type productOperatorT = {
   id: string,
   type: 'product',
+  subtype?: 'aggregation' | 'distribution' | 'transformation',
   meta: {
     name: string,
     shortDesc: string,

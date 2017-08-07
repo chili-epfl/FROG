@@ -11,7 +11,17 @@ export default class OperatorStore {
   @action
   mongoAdd = (x: any) => {
     if (!store.findId({ type: 'operator', id: x._id })) {
-      this.all.push(new Operator(x.time, x.y, x.type, x._id, x.title, x.state));
+      this.all.push(
+        new Operator(
+          x.time,
+          x.y,
+          x.type,
+          x._id,
+          x.title,
+          x.state,
+          x.operatorType
+        )
+      );
     }
   };
   @action

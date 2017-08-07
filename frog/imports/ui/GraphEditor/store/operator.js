@@ -5,6 +5,7 @@ import { store } from './index';
 import Elem from './elemClass';
 import { pxToTime, timeToPx } from '../utils';
 import type { AnchorT } from '../utils/path';
+import { operatorTypesObj } from '../../../operatorTypes';
 
 export default class Operator extends Elem {
   id: string;
@@ -16,6 +17,7 @@ export default class Operator extends Elem {
   @observable time: number;
   @observable wasMoved: boolean = false;
   @observable state: ?string;
+  @observable operatorType: ?string;
 
   @action
   init(
@@ -24,7 +26,8 @@ export default class Operator extends Elem {
     type: string,
     id: ?string,
     title: ?string,
-    state: ?string
+    state: ?string,
+    operatorType: ?string
   ) {
     this.time = time;
     this.y = y;
@@ -33,6 +36,7 @@ export default class Operator extends Elem {
     this.klass = 'operator';
     this.title = title;
     this.state = state;
+    this.operatorType = operatorType;
   }
 
   constructor(
@@ -41,10 +45,24 @@ export default class Operator extends Elem {
     type: string,
     id: ?string,
     title: ?string,
-    state: ?string
+    state: ?string,
+    operatorType: ?string
   ) {
     super();
-    this.init(time, y, type, id, title, state);
+    this.init(time, y, type, id, title, state, operatorType);
+  }
+
+  @computed
+  get subtype(): string {
+    if (this.type === 'product') {
+      if (this.operatorType && operatorTypesObj[this.operatorType]) {
+        return operatorTypesObj[this.operatorType].subtype;
+      } else {
+        return 'transformation';
+      }
+    } else {
+      return 'social';
+    }
   }
 
   @computed
@@ -187,5 +205,6 @@ export default class Operator extends Elem {
     this.time = newopt.time;
     this.y = newopt.y;
     this.title = newopt.title;
+    this.operatorType = newopt.operatorType;
   };
 }

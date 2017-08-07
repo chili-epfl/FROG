@@ -142,7 +142,18 @@ export default class Store {
       { reactive: false }
     )
       .fetch()
-      .map(x => new Operator(x.time, x.y, x.type, x._id, x.title, x.state));
+      .map(
+        x =>
+          new Operator(
+            x.time,
+            x.y,
+            x.type,
+            x._id,
+            x.title,
+            x.state,
+            x.operatorType
+          )
+      );
 
     this.connectionStore.all = Connections.find(
       { graphId: id },
@@ -224,7 +235,7 @@ export default class Store {
       x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
     );
     this.operatorStore.all = operators.map(
-      x => new Operator(x.time, x.y, x.type, x.id, x.title)
+      x => new Operator(x.time, x.y, x.type, x.id, x.title, x.operatorType)
     );
     this.connectionStore.all = connections.map(x => {
       const source = this.findId(x.source);

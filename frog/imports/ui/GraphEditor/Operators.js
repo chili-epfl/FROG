@@ -28,7 +28,7 @@ export default connect(
           startDragging={op.startDragging}
           onDrag={op.onDrag}
           onStop={op.stopDragging}
-          type={op.type}
+          type={op.subtype}
           strokeColor={op.strokeColor}
         />
       );
