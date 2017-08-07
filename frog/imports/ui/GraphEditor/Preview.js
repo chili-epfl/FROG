@@ -48,7 +48,7 @@ export default compose(
     const examples = config
       ? uniqBy(activityType.meta.exampleData, x => Stringify(x.data))
       : activityType.meta.exampleData;
-    console.log(examples, activityType.meta.exampleData);
+    // console.log(examples, activityType.meta.exampleData);
 
     const activityData = cloneDeep(examples[example]);
     if (config) {

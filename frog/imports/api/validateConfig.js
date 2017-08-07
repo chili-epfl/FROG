@@ -50,7 +50,7 @@ export default (nodeType, id, obj, schema, datafns) => {
           id
         };
       } else {
-        console.error('missing validator error', result.err);
+        // console.error('missing validator error', result.err);
       }
       return null;
     })
