@@ -7,6 +7,10 @@ export default {
       type: 'string',
       title: 'Title'
     },
+    nMaxExamples: {
+      type: 'number',
+      title: 'Maximum number of examples shown to the student'
+    },
     trueDef: {
       title: 'True definitions :',
       type: 'array',
@@ -21,12 +25,25 @@ export default {
         type: 'string'
       }
     },
-    imgTrue: {
-      title: 'Correct image URL',
-      type: 'string'
+    examples: {
+      title: 'New example',
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          image: {
+            title: 'image URL',
+            type: 'string'
+          },
+          isCorrect: {
+            title: 'Is the example true',
+            type: 'boolean'
+          }
+        }
+      }
     },
-    imgFalse: {
-      title: 'Incorrect image URL',
+    definition: {
+      title: 'Real definition of the concept',
       type: 'string'
     }
   }
