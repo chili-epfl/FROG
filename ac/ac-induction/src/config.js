@@ -12,14 +12,14 @@ export default {
       title: 'Maximum number of examples shown to the student'
     },
     trueDef: {
-      title: 'True definitions :',
+      title: 'Definition(s) always true :',
       type: 'array',
       items: {
         type: 'string'
       }
     },
     falseDef: {
-      title: 'False definitions :',
+      title: 'Definition(s) not always true :',
       type: 'array',
       items: {
         type: 'string'
@@ -35,9 +35,13 @@ export default {
             title: 'image URL',
             type: 'string'
           },
-          isCorrect: {
+          isIncorrect: {
             title: 'Is the example true',
             type: 'boolean'
+          },
+          whyIncorrect: {
+            title: "Why isn't it correct",
+            type: 'string'
           }
         }
       }

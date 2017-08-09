@@ -22,7 +22,8 @@ const meta = {
           {
             image:
               'https://blog.stylingandroid.com/wp-content/themes/lontano-pro/images/no-image-slide.png',
-            isCorrect: true
+            isIncorrect: false,
+            whyIncorrect: 'Empty'
           }
         ]
       },
@@ -38,21 +39,23 @@ const meta = {
           'It has 4 right angles',
           'All of its sides have the same length'
         ],
-        falseDef: ["It's blue", 'It has no edges', 'It has 3 edges'],
+        falseDef: ["It's blue", "It's on a computer", 'Every side is 5cm long'],
         examples: [
           {
             image: 'http://www.fremontsailingclub.org/sailing/SFlag.gif',
-            isCorrect: true
+            isIncorrect: false
           },
           {
             image:
               'https://www.pharmasystems.com/image/cache/LabelsFall2013/2555-500x500.jpg',
-            isCorrect: false
+            isIncorrect: true,
+            whyIncorrect: "It doesn't have 4 sides"
           },
           {
             image:
               'http://www.iconsdb.com/icons/preview/green/triangle-xxl.png',
-            isCorrect: false
+            isIncorrect: true,
+            whyIncorrect: "The angles aren't right"
           }
         ]
       },

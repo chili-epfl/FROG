@@ -4,33 +4,52 @@ import React, { Component } from 'react';
 import { shuffle } from 'lodash';
 
 class DecisionPanel extends Component {
-  state: { valueState: Array<boolean>, selected: boolean };
-  allDef: Array<Object>;
+  state: { valueState: Array<boolean>, allDef: Array<Object>, selected: boolean };
 
   constructor(props: {
     trueDef: Object,
     falseDef: Object,
     nextFun: Function,
+    whyIncorrect: string,
     style: Object
   }) {
     super(props);
 
-    const defs =
+    let defs =
       typeof props.trueDef !== 'undefined'
         ? props.trueDef
-            .map(x => ({ def: x, correct: true }))
-            .concat(props.falseDef.map(x => ({ def: x, correct: false })))
-        : props.falseDef.map(x => ({ def: x, correct: false }));
-
-    this.allDef = shuffle(defs);
+            .map(x => ({ def: x, correct: true, wI: false }))
+            .concat(props.falseDef.map(x => ({ def: x, correct: false, wI: false})))
+        : props.falseDef.map(x => ({ def: x}));
+    if(props.whyIncorrect !== undefined)
+      defs.push({def: props.whyIncorrect, correct: false, wI: true});
 
     const newState = [];
-    this.allDef.map((d, i) => (newState[i] = false));
+    defs.map((d, i) => (newState[i] = false));
 
     this.state = {
       valueState: newState,
+      allDef: shuffle(defs),
       selected: true
     };
+  }
+
+  componentWillUpdate(nextProps: Object){
+    if(this.props !== nextProps){
+      let defs = this.state.allDef.filter(x => !x.wI);
+      if(nextProps.whyIncorrect !== undefined)
+        defs.push({def: nextProps.whyIncorrect, wI: true});
+      defs = shuffle(defs);
+
+      const newState = [];
+      defs.map((d, i) => (newState[i] = false));
+
+      this.setState({
+        valueState: newState,
+        allDef: defs,
+        selected: true
+      });
+    }
   }
 
   handleOptionChange = (e: { target: { value: number } }) => {
@@ -41,24 +60,10 @@ class DecisionPanel extends Component {
 
   handleSubmit = (e: Event) => {
     e.preventDefault();
-    const choosen = this.state.selected;
-    let goodJustif = false;
-    if (choosen) {
-      goodJustif = this.allDef.reduce(
-        (acc, x, i) => acc && x.correct === this.state.valueState[i],
-        true
-      );
-    } else {
-      const noTCheckedNoFChecked = this.allDef.reduce(
-        (acc, x, i) =>
-          x.correct
-            ? [acc[0] && !this.state.valueState[i], acc[1]]
-            : [acc[0], acc[1] && !this.state.valueState[i]],
-        [true, true]
-      );
-      goodJustif = noTCheckedNoFChecked[0] && !noTCheckedNoFChecked[1];
-    }
-    this.props.nextFun(choosen, goodJustif);
+    const goodJustif = this.state.selected
+      ? this.state.allDef.reduce((acc, x, i) => acc && (x.correct === this.state.valueState[i]), true)
+      : this.state.allDef.reduce((acc, x, i) => acc && (x.wI === this.state.valueState[i]), true);
+    this.props.nextFun(this.state.selected, goodJustif);
   };
 
   render() {
@@ -95,7 +100,7 @@ class DecisionPanel extends Component {
         </div>
         <form onSubmit={this.handleSubmit}>
           <h4>Why so ?</h4>
-          {this.allDef.map(({ def, correct }, index) =>
+          {this.state.allDef.map((x, index) =>
             <div key={index.toString()}>
               <label htmlFor={index.toString()}>
                 <input
@@ -105,7 +110,7 @@ class DecisionPanel extends Component {
                   onChange={this.handleOptionChange}
                   checked={this.state.valueState[index] || false}
                 />
-                {' ' + def.toString()}
+                {' ' + x.def.toString()}
               </label>
             </div>
           )}

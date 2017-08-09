@@ -26,6 +26,15 @@ const ExamplesCont = styled.div`
   flex-direction: row;
 `;
 
+const Img = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 const ImgBis = (props: { url: string, correct: boolean, w: number }) =>
   props.correct
     ? <div
@@ -36,18 +45,7 @@ const ImgBis = (props: { url: string, correct: boolean, w: number }) =>
           position: 'relative'
         }}
       >
-        <img
-          src={props.url}
-          alt=""
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
+        <Img src={props.url} alt="" />
       </div>
     : <div
         style={{
@@ -57,18 +55,7 @@ const ImgBis = (props: { url: string, correct: boolean, w: number }) =>
           position: 'relative'
         }}
       >
-        <img
-          src={props.url}
-          alt=""
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
+        <Img src={props.url} alt="" />
       </div>;
 
 class InducWindow extends Component {
@@ -103,7 +90,8 @@ class InducWindow extends Component {
       this.allExemples = this.allExemples.concat(
         shuffle(props.activityData.config.examples).map(x => ({
           image: x.image,
-          isCorrect: x.isCorrect
+          isIncorrect: x.isIncorrect,
+          whyIncorrect: x.whyIncorrect
         }))
       );
     }
@@ -119,11 +107,11 @@ class InducWindow extends Component {
   }
 
   next = (choosen: boolean, goodJustif: boolean) => {
-    const tmp =
-      this.allExemples[this.state.index].isCorrect === undefined
+    const incorrect =
+      this.allExemples[this.state.index].isIncorrect === undefined
         ? false
-        : this.allExemples[this.state.index].isCorrect;
-    if (choosen !== tmp) {
+        : this.allExemples[this.state.index].isIncorrect;
+    if (incorrect === choosen) {
       this.allExemples[this.state.index].ansCorr = false;
     } else if (!goodJustif) {
       this.allExemples[this.state.index].ansCorr = false;
@@ -159,6 +147,7 @@ class InducWindow extends Component {
               nextFun={this.next}
               trueDef={this.props.activityData.config.trueDef}
               falseDef={this.props.activityData.config.falseDef}
+              whyIncorrect={this.allExemples[this.state.index].whyIncorrect}
             />
           </Container>}
         {this.state.done &&
@@ -178,7 +167,7 @@ class InducWindow extends Component {
                   style={{ height: 850 / this.allExemples.length + 'px' }}
                 >
                   {this.allExemples
-                    .filter(x => x.isCorrect)
+                    .filter(x => !x.isIncorrect)
                     .map(x =>
                       <ImgBis
                         url={x.image}
@@ -197,7 +186,7 @@ class InducWindow extends Component {
                   style={{ height: 850 / this.allExemples.length + 'px' }}
                 >
                   {this.allExemples
-                    .filter(x => !x.isCorrect)
+                    .filter(x => x.isIncorrect)
                     .map(x =>
                       <ImgBis
                         url={x.image}
