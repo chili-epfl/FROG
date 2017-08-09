@@ -1,10 +1,16 @@
 {
   "name": "frog-package",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start": "nps",
     "test": "nps test"
   },
+ "workspaces": [
+    "ac/*",
+    "op/*",
+    "frog-utils"
+],
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.2.3",
@@ -32,7 +38,7 @@
     "nightmare": "^2.10.0",
     "nps": "^5.6.0",
     "prettier": "^1.5.3",
-    "watch": "^1.0.1"
+    "watch": "^1.0.2"
   },
   "license": "ISC",
   "dependencies": {
