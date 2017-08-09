@@ -1,14 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
 import { shuffle } from 'lodash';
 import styled from 'styled-components';
 
-// import Images from './Images';
-// remove, deal with image directly
 import DecisionPanel from './DecisionPanel';
-// => change name to decision panel
 
 const Main = styled.div`
   width: 100%;
@@ -22,26 +18,125 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
+const ExamplesCont = styled.div`
+  border: 2px solid #ecf0f1;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+`;
+
+const ImgBis = (props: { url: string, correct: boolean, w: number }) =>
+  props.correct
+    ? <div
+        style={{
+          border: '5px solid #00FF00',
+          width: props.w + 'px',
+          height: '100%',
+          position: 'relative'
+        }}
+      >
+        <img
+          src={props.url}
+          alt=""
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
+      </div>
+    : <div
+        style={{
+          border: '5px solid #FF0000',
+          width: props.w + 'px',
+          height: '100%',
+          position: 'relative'
+        }}
+      >
+        <img
+          src={props.url}
+          alt=""
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
+      </div>;
+
 class InducWindow extends Component {
-  state: { index: number};
+  state: { index: number, done: boolean };
   allExemples: Array<Object>;
 
-  constructor(props) {
+  constructor(props: {
+    activityData: {
+      config: {
+        title: string,
+        trueDef: Object,
+        falseDef: Object,
+        examples: Array<any>,
+        nMaxExamples: number,
+        definition: string
+      }
+    }
+  }) {
     super(props);
+
+    this.allExemples = shuffle(props.activityData.config.examples);
+    // deal with the case nMax > number of examples
+    for (
+      let i = 0;
+      i <
+      Math.floor(
+        props.activityData.config.nMaxExamples /
+          props.activityData.config.examples.length
+      );
+      i += 1
+    ) {
+      this.allExemples = this.allExemples.concat(
+        shuffle(props.activityData.config.examples).map(x => ({
+          image: x.image,
+          isCorrect: x.isCorrect
+        }))
+      );
+    }
+    this.allExemples = this.allExemples.slice(
+      0,
+      props.activityData.config.nMaxExamples
+    );
+
     this.state = {
       index: 0,
+      done: false
     };
-    this.allExemples = shuffle(props.activityData.config.examples);
   }
 
-  next = (choosen, goodJustif) => {
-    const tmp = this.allExemples[this.state.index].isCorrect;
-    if(goodJustif && ((tmp === undefined && !choosen) || choosen === tmp)){
-      console.log('Right answer !!!');
-    }else console.log('Sorry, error');
-    if(this.state.index < this.allExemples.length - 1 && this.state.index < this.props.activityData.config.nMaxExamples - 1)
-      this.setState({index: this.state.index + 1})
+  next = (choosen: boolean, goodJustif: boolean) => {
+    const tmp =
+      this.allExemples[this.state.index].isCorrect === undefined
+        ? false
+        : this.allExemples[this.state.index].isCorrect;
+    if (choosen !== tmp) {
+      this.allExemples[this.state.index].ansCorr = false;
+    } else if (!goodJustif) {
+      this.allExemples[this.state.index].ansCorr = false;
+    } else {
+      this.allExemples[this.state.index].ansCorr = true;
     }
+
+    if (this.state.index < this.props.activityData.config.nMaxExamples - 1) {
+      this.setState({ index: this.state.index + 1 });
+    } else {
+      this.setState({ done: true });
+    }
+  };
 
   render() {
     return (
@@ -49,19 +144,76 @@ class InducWindow extends Component {
         <h1>
           {this.props.activityData.config.title}
         </h1>
-        <Container>
-          <img
-            style={{ maxWidth: '50%', maxHeight: '100%', margin: 'auto' }}
-            src={this.allExemples[this.state.index].image}
-            alt={''}
-          />
-          <div style={{ width: '2px', height: '100%', background: 'black' }} />
-          <DecisionPanel
-            style={{ width: '50%', marginLeft: '10px' }}
-            nextFun={this.next}
-            {...this.props.activityData.config}
-          />
-        </Container>
+        {!this.state.done &&
+          <Container>
+            <img
+              style={{ maxWidth: '50%', maxHeight: '100%', margin: 'auto' }}
+              src={this.allExemples[this.state.index].image}
+              alt={''}
+            />
+            <div
+              style={{ width: '2px', height: '100%', background: 'black' }}
+            />
+            <DecisionPanel
+              style={{ width: '50%', marginLeft: '10px' }}
+              nextFun={this.next}
+              trueDef={this.props.activityData.config.trueDef}
+              falseDef={this.props.activityData.config.falseDef}
+            />
+          </Container>}
+        {this.state.done &&
+          <div style={{ height: '100%', width: '100%' }}>
+            <div
+              style={{
+                height: 850 / this.allExemples.length + 100 + 'px',
+                display: 'flex',
+                flexDirection: 'row'
+              }}
+            >
+              <div style={{ width: '50%' }}>
+                <h4 style={{ paddingLeft: '5%' }}>
+                  {' '}Example(s) that respected the definition:{' '}
+                </h4>
+                <ExamplesCont
+                  style={{ height: 850 / this.allExemples.length + 'px' }}
+                >
+                  {this.allExemples
+                    .filter(x => x.isCorrect)
+                    .map(x =>
+                      <ImgBis
+                        url={x.image}
+                        correct={x.ansCorr}
+                        w={850 / this.allExemples.length}
+                        key={Math.random()}
+                      />
+                    )}
+                </ExamplesCont>
+              </div>
+              <div style={{ width: '50%' }}>
+                <h4 style={{ paddingLeft: '5%' }}>
+                  {"Example(s) that didn't respect the definition:"}
+                </h4>
+                <ExamplesCont
+                  style={{ height: 850 / this.allExemples.length + 'px' }}
+                >
+                  {this.allExemples
+                    .filter(x => !x.isCorrect)
+                    .map(x =>
+                      <ImgBis
+                        url={x.image}
+                        correct={x.ansCorr}
+                        w={850 / this.allExemples.length}
+                        key={Math.random()}
+                      />
+                    )}
+                </ExamplesCont>
+              </div>
+            </div>
+            <h4> Definition of the concept: </h4>
+            <div className="well" style={{ width: '90%', marginLeft: '1%' }}>
+              {this.props.activityData.config.definition}
+            </div>
+          </div>}
       </Main>
     );
   }
