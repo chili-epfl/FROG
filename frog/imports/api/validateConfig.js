@@ -1,5 +1,5 @@
-import { compact } from 'lodash';
 import { Validator } from 'jsonschema';
+import { compact } from 'lodash';
 
 const v = new Validator();
 
