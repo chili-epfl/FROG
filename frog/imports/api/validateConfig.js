@@ -50,6 +50,7 @@ export default (nodeType, id, obj, schema, datafns) => {
           id
         };
       } else {
+        // eslint-disable-next-line no-console
         console.error('missing validator error', result.err);
       }
       return null;

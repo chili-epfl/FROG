@@ -12,8 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "react": "^15.6.1",
-    "react-bootstrap": "^0.31.1",
+    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
-    "react-player": "^0.19.1"
+    "react-player": "^0.20.0"
   }
 }

@@ -1,8 +1,13 @@
+// @flow
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import { cloneDeep } from 'lodash';
 
-const calculateHides = (formData = {}, schema, UISchema) => {
+const calculateHides = (
+  formData: Object = {},
+  schema: Object,
+  UISchema: Object
+): string[] => {
   const hide = [];
   if (UISchema) {
     Object.keys(UISchema).forEach(x => {
@@ -27,14 +32,18 @@ const calculateHides = (formData = {}, schema, UISchema) => {
   return hide;
 };
 
-const calculateSchema = (formData = {}, schema, UISchema) => {
+const calculateSchema = (
+  formData: Object = {},
+  schema: Object,
+  UISchema: Object
+): Object => {
   const hide = calculateHides(formData, schema, UISchema);
   const newSchema = cloneDeep(schema);
   hide.forEach(x => delete newSchema.properties[x]);
   return newSchema;
 };
 
-const EnhancedForm = props => {
+const EnhancedForm = (props: any) => {
   const schema = calculateSchema(props.formData, props.schema, props.uiSchema);
 
   return <Form {...props} schema={schema} />;
@@ -43,9 +52,9 @@ const EnhancedForm = props => {
 export default EnhancedForm;
 
 export const hideConditional = (
-  formData = {},
+  formData: Object = {},
   schema: Object,
-  UISchema: object
+  UISchema: Object
 ): Object => {
   if (UISchema) {
     const hides = calculateHides(formData, schema, UISchema);
