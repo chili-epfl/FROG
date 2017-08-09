@@ -14,10 +14,10 @@
     "@houshuang/react-flip-move": "^2.9.16",
     "json-stable-stringify": "^1.0.1",
     "react": "^15.6.1",
-    "react-bootstrap": "^0.31.1",
+    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
     "react-google-charts": "^1.5.5",
     "react-jsonschema-form": "^0.49.0",
-    "styled-components": "^2.1.1"
+    "styled-components": "^2.1.2"
   }
 }
