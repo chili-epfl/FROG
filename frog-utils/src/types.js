@@ -64,7 +64,9 @@ export type ActivityPackageT = {
   config: Object,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: (x: ActivityRunnerT) => React$Component<*> | React$Element<*>
+  ActivityRunner: (
+    x: ActivityRunnerT
+  ) => React$Component<*, *, *> | React$Element<*>
 };
 
 export type productOperatorT = {
