@@ -35,7 +35,7 @@ const calculateSchema = (formData = {}, schema, UISchema) => {
   return newSchema;
 };
 
-const EnhancedForm = props => {
+const EnhancedForm = (props: Object) => {
   const schema = calculateSchema(props.formData, props.schema, props.uiSchema);
 
   return <Form {...props} schema={schema} />;
@@ -44,9 +44,9 @@ const EnhancedForm = props => {
 export default EnhancedForm;
 
 export const hideConditional = (
-  formData = {},
+  formData: Object = {},
   schema: Object,
-  UISchema: object
+  UISchema: Object
 ): Object => {
   if (UISchema) {
     const hides = calculateHides(formData, schema, UISchema);
