@@ -7,9 +7,9 @@ export default {
       type: 'string',
       title: 'Title'
     },
-    nMaxExamples: {
+    nExamples: {
       type: 'number',
-      title: 'Maximum number of examples shown to the student'
+      title: 'Number of examples shown to the student'
     },
     trueDef: {
       title: 'Definition(s) always true :',
@@ -36,11 +36,11 @@ export default {
             type: 'string'
           },
           isIncorrect: {
-            title: 'Is the example true',
+            title: 'This example isn\'t correct',
             type: 'boolean'
           },
           whyIncorrect: {
-            title: "Why isn't it correct",
+            title: "(If incorrect) Why ?",
             type: 'string'
           }
         }
