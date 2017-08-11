@@ -132,9 +132,9 @@ prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
-react-bootstrap@^0.31.1:
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.31.1.tgz#679c9f73ae77ff207867d536496207291f3a3ed7"
+react-bootstrap@^0.31.2:
+  version "0.31.2"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.31.2.tgz#f59184676ecedfc4c572d29ffdd6f9126ea8fe6a"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.5"
@@ -167,9 +167,9 @@ react-overlays@^0.7.0:
     react-prop-types "^0.4.0"
     warning "^3.0.0"
 
-react-player@^0.19.1:
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.19.1.tgz#8a5d7b5fec0bb84122e2a86110b825709c2a2911"
+react-player@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.20.0.tgz#61ba61b0a0c03a9a0e5e45ee70b40fb82eab56bd"
   dependencies:
     fetch-jsonp "^1.0.2"
     load-script "^1.0.0"
