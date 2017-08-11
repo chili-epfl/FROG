@@ -12,15 +12,14 @@ const Img = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-export default (props: { url: string, w: number }) => {
-    return (<div
-        style={{
-          border: '2px solid black',
-          width: props.w + 'px',
-          height: '100%',
-          position: 'relative'
-        }}
-      >
-        <Img src={props.url} alt="" />
-      </div>);
-}
+export default (props: { url: string, w: number }) =>
+  <div
+    style={{
+      border: '2px solid black',
+      width: props.w + 'px',
+      height: '100%',
+      position: 'relative'
+    }}
+  >
+    <Img src={props.url} alt="" />
+  </div>;

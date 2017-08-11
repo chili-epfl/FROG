@@ -36,11 +36,11 @@ export default {
             type: 'string'
           },
           isIncorrect: {
-            title: 'This example isn\'t correct',
+            title: "This example isn't correct",
             type: 'boolean'
           },
           whyIncorrect: {
-            title: "(If incorrect) Why ?",
+            title: '(If incorrect) Why ?',
             type: 'string'
           }
         }
