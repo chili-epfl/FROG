@@ -13,30 +13,31 @@ RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
-RUN mkdir -p frog \\
-frog-utils/src \\
-${acopSrc}
-
-COPY package.json yarn.lock .yarnrc .babelrc ./
-COPY *.sh ./
-COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
-${acopCP}
-COPY frog/package.json frog/
-COPY initial_setup_wo_meteor.sh /usr/src/frog/
-
-RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
-RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser
+RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
+
+RUN mkdir -p frog \\
+frog-utils/src \\
+${acopSrc}
+COPY initial_setup_wo_meteor.sh /usr/src/frog/
+RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
+
+COPY package.json yarn.lock .yarnrc .babelrc ./
+COPY *.sh ./
+COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
+${acopCP}
+COPY frog/package.json frog/
+
 
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
-COPY frog frog/
+COPY frog /usr/src/frog/frog/
 RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
