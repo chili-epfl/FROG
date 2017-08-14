@@ -10,7 +10,6 @@ fs.readdir('./ac', (_, ac) => {
     const template = `FROM node:7.8.0
 RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
-RUN npm install -g babel-cli flow-copy-source
 
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
@@ -22,12 +21,11 @@ COPY package.json yarn.lock .yarnrc .babelrc ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
 ${acopCP}
+COPY frog/package.json frog/
 COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
 RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 
-COPY frog/package.json frog/
-RUN cd /usr/src/frog/frog && /usr/local/bin/meteor npm install -g yarn --allow-superuser && /usr/local/bin/meteor yarn install --ignore-engines
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
@@ -38,8 +36,8 @@ RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once -
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
-RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 COPY frog frog/
+RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
 COPY *.js .*ignore *config package-scripts.js ./
