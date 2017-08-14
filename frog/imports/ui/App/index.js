@@ -10,7 +10,6 @@ import { every } from 'lodash';
 import { BrowserRouter as Router, Route, Link, NavLink, Redirect } from 'react-router-dom';
 
 import Body from './Body.jsx';
-import Navigation from './Navigation';
 
 const DEFAULT_PASSWORD = '123456';
 const connectWithDefaultPwd = username => Meteor.loginWithPassword(username, DEFAULT_PASSWORD);
