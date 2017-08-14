@@ -15,10 +15,10 @@ RUN npm install -g babel-cli flow-copy-source
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 RUN mkdir -p frog \\
-
 frog-utils/src \\
 ${acopSrc}
-COPY package.json yarn.lock .babelrc ./
+
+COPY package.json yarn.lock .yarnrc .babelrc ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
 ${acopCP}
