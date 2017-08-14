@@ -1,7 +1,7 @@
 {
   "name": "frog",
-  "private": true,
   "license": "AGPL-3.0",
+  "version": "1.0.0",
   "scripts": {
     "test": "meteor test --once --full-app --driver-package dispatch:mocha-phantomjs",
     "start": "meteor run"
