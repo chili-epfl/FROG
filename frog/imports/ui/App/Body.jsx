@@ -23,12 +23,12 @@ const randomName = () =>
     'Ahmed',
     'Rina',
     'Jean',
-    'Rudolf'
+    'Rudolf',
   ]);
 
-const Body = ({ userId, app }) => {
+const Body = ({ userId, match }) => {
   if (userId) {
-    switch (app) {
+    switch (match.params.app) {
       case 'home':
         return <Home />;
       case 'admin':
@@ -42,7 +42,7 @@ const Body = ({ userId, app }) => {
       default:
         return (
           <p>
-            MISSING OR WRONG STATE IN APP COMPONENT: {app}
+            MISSING OR WRONG STATE IN APP COMPONENT: {match.params.app}
           </p>
         );
     }

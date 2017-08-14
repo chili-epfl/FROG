@@ -7,7 +7,7 @@ import { Accounts } from 'meteor/accounts-base';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import { every } from 'lodash';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, NavLink, Redirect } from 'react-router-dom';
 
 import Body from './Body.jsx';
 import Navigation from './Navigation';
@@ -27,92 +27,62 @@ const socket = new ReconnectingWebSocket('ws://localhost:3002');
 export const connection = new sharedbClient.Connection(socket);
 window.connection = connection;
 
-// App component - represents the whole app
-// export default class App extends Component {
-//   state: { app: string, username: string };
-//
-//   constructor() {
-//     super();
-//     this.state = { app: 'home', username: '' };
-//     Meteor.subscribe('userData', {
-//       onReady: () => {
-//         this.handleNewHash();
-//         window.addEventListener('hashchange', this.handleNewHash, false);
-//       }
-//     });
-//   }
-//
-//   handleNewHash = () => {
-//     const [, username, location] = window.location.hash.split('/');
-//     const loggedInUsername =
-//       Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
-//     if (username && username !== loggedInUsername) {
-//       if (!Meteor.users.findOne({ username })) {
-//         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-//           connectWithDefaultPwd(username)
-//         );
-//       } else {
-//         connectWithDefaultPwd(username);
-//       }
-//     }
-//     this.setState({ username });
-//     if (username !== 'teacher') {
-//       this.setState({ app: 'student' });
-//     } else if (location && apps[location]) {
-//       this.setState({ app: location });
-//     }
-//   };
-/* <PageContainer
-    username={this.state.username === undefined ? '' : this.state.username}
-    apps={apps}
-    currentApp={this.state.app === undefined ? '' : this.state.app}
-  /> */
-
-export default () =>{
-  console.log('Dans l\'App');
-  return (<Router>
-    <div>
-      <Route path="/:username" component={PageContainer} />
+export default () => (
+    <Router>
       <Route path="/:username/:app" component={PageContainer} />
-    </div>
-  </Router>);
-};
-
-// const User = ({match}) => {
-//   <Router>
-//     <Route path='/:app' component={}/>
-//   </Router>
-// }
-
-export const Page = ({ match }) => {
-  console.log('Dans la page');
-  if (!match.params.ready) return <div id="app" />;
-  return (
-    <div id="app">
-      {match.params.username === 'teacher' &&
-        <div id="header">
-          <Navigation
-            username={match.params.username}
-            apps={apps}
-            currentApp={match.params.currentApp ? match.params.currentApp : 'Home'}
-          />
-        </div>}
-      <div id="body">
-        <Body app={match.params.currentApp} />
-      </div>
-    </div>
+    </Router>
   );
-};
 
-const setupSubscriptions = (collections: string[]) => {
-  const subscriptions = collections.map(x => Meteor.subscribe(x));
-  return every(subscriptions.map(x => x.ready()), Boolean);
-};
+class Page extends Component {
+  state = {
+    currentApp: 'home',
+  };
 
-const PageContainer = createContainer(({ match }) => {
-  const username = match.params.username;
-  const app = match.params.app ? match.params.app : 'Home';
-  console.log('Dans le PageContainer');
+  render() {
+    console.log(this.props);
+
+    if (!this.props.ready) return <div id="app" style={{ backgroundColor: 'black' }} />;
+    return (
+      <div id="app">
+        <Router>
+          <div>
+            {this.props.username === 'teacher' &&
+              <ul className="nav nav-pills">
+                {Object.keys(apps).map(app =>
+                  <li
+                    key={app}
+                    role="presentation"
+                    className={
+                      app.toString().split(' ')[0].toLowerCase() === this.state.currentApp
+                        ? 'active'
+                        : ''
+                    }
+                  >
+                    <NavLink
+                      to={
+                        '/' + this.props.username + '/' + app.toString().split(' ')[0].toLowerCase()
+                      }
+                      onClick={() => {
+                        this.setState({ currentApp: app.toString().split(' ')[0].toLowerCase() });
+                      }}
+                    >
+                      {apps[app]}
+                    </NavLink>
+                  </li>,
+                )}
+              </ul>}
+            <div id="body">
+              <Route path={'/' + this.props.username + '/:app'} component={Body} />
+            </div>
+          </div>
+        </Router>
+      </div>
+    );
+  }
+}
+
+const PageContainer = createContainer((props: { match: Object }) => {
+  const username = props.match.params.username;
   let ready = setupSubscriptions([
     'userData',
     'activity_data',
@@ -121,8 +91,7 @@ const PageContainer = createContainer(({ match }) => {
     'objects',
     'sessions',
   ]);
-
-  if (match.params.username === 'teacher') {
+  if (username === 'teacher') {
     ready =
       ready &&
       setupSubscriptions([
@@ -134,16 +103,24 @@ const PageContainer = createContainer(({ match }) => {
         'uploads',
       ]);
   }
-  const loggedInUsername = Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
-  if (username && username !== loggedInUsername) {
-    if (!Meteor.users.findOne({ username })) {
-      Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-        connectWithDefaultPwd(username),
-      );
-    } else {
-      connectWithDefaultPwd(username);
-    }
-  }
-
-  return { match: { params: { username, currentApp: match.params.app, ready } } };
+  Meteor.subscribe('userData', {
+    onReady: () => {
+      const loggedInUsername = Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
+      if (username && username !== loggedInUsername) {
+        if (!Meteor.users.findOne({ username })) {
+          Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
+            connectWithDefaultPwd(username),
+          );
+        } else {
+          connectWithDefaultPwd(username);
+        }
+      }
+    },
+  });
+  return { ...props, username, ready };
 }, Page);
+
+const setupSubscriptions = (collections: string[]) => {
+  const subscriptions = collections.map(x => Meteor.subscribe(x));
+  return every(subscriptions.map(x => x.ready()), Boolean);
+};
