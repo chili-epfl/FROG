@@ -23,7 +23,7 @@ const randomName = () =>
     'Ahmed',
     'Rina',
     'Jean',
-    'Rudolf',
+    'Rudolf'
   ]);
 
 const Body = ({ userId, match }) => {

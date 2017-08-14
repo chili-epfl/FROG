@@ -7,40 +7,39 @@ import { Accounts } from 'meteor/accounts-base';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import { every } from 'lodash';
-import { BrowserRouter as Router, Route, Link, NavLink, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
 import Body from './Body.jsx';
 
 const DEFAULT_PASSWORD = '123456';
-const connectWithDefaultPwd = username => Meteor.loginWithPassword(username, DEFAULT_PASSWORD);
+const connectWithDefaultPwd = username =>
+  Meteor.loginWithPassword(username, DEFAULT_PASSWORD);
 
 const apps = {
   home: 'Home',
   admin: 'Admin',
   graph: 'Graph Editor',
   teacher: 'Teacher View',
-  student: 'Student View',
+  student: 'Student View'
 };
 
 const socket = new ReconnectingWebSocket('ws://localhost:3002');
 export const connection = new sharedbClient.Connection(socket);
 window.connection = connection;
 
-export default () => (
-    <Router>
-      <Route path="/:username/:app" component={PageContainer} />
-    </Router>
-  );
+export default () =>
+  <Router>
+    <Route path="/:username/:app" component={PageContainer} />
+  </Router>;
 
 class Page extends Component {
   state = {
-    currentApp: 'home',
+    currentApp: 'home'
   };
 
   render() {
-    console.log(this.props);
-
-    if (!this.props.ready) return <div id="app" style={{ backgroundColor: 'black' }} />;
+    if (!this.props.ready)
+      return <div id="app" style={{ backgroundColor: 'black' }} />;
     return (
       <div id="app">
         <Router>
@@ -52,26 +51,35 @@ class Page extends Component {
                     key={app}
                     role="presentation"
                     className={
-                      app.toString().split(' ')[0].toLowerCase() === this.state.currentApp
+                      app.toString().split(' ')[0].toLowerCase() ===
+                      this.state.currentApp
                         ? 'active'
                         : ''
                     }
                   >
                     <NavLink
                       to={
-                        '/' + this.props.username + '/' + app.toString().split(' ')[0].toLowerCase()
+                        '/' +
+                        this.props.username +
+                        '/' +
+                        app.toString().split(' ')[0].toLowerCase()
                       }
                       onClick={() => {
-                        this.setState({ currentApp: app.toString().split(' ')[0].toLowerCase() });
+                        this.setState({
+                          currentApp: app.toString().split(' ')[0].toLowerCase()
+                        });
                       }}
                     >
                       {apps[app]}
                     </NavLink>
-                  </li>,
+                  </li>
                 )}
               </ul>}
             <div id="body">
-              <Route path={'/' + this.props.username + '/:app'} component={Body} />
+              <Route
+                path={'/' + this.props.username + '/:app'}
+                component={Body}
+              />
             </div>
           </div>
         </Router>
@@ -88,7 +96,7 @@ const PageContainer = createContainer((props: { match: Object }) => {
     'logs',
     'activities',
     'objects',
-    'sessions',
+    'sessions'
   ]);
   if (username === 'teacher') {
     ready =
@@ -99,22 +107,23 @@ const PageContainer = createContainer((props: { match: Object }) => {
         'global_settings',
         'graphs',
         'products',
-        'uploads',
+        'uploads'
       ]);
   }
   Meteor.subscribe('userData', {
     onReady: () => {
-      const loggedInUsername = Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
+      const loggedInUsername =
+        Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
       if (username && username !== loggedInUsername) {
         if (!Meteor.users.findOne({ username })) {
           Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-            connectWithDefaultPwd(username),
+            connectWithDefaultPwd(username)
           );
         } else {
           connectWithDefaultPwd(username);
         }
       }
-    },
+    }
   });
   return { ...props, username, ready };
 }, Page);
