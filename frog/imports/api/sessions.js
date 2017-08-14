@@ -1,5 +1,4 @@
 // @flow
-
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Presences } from 'meteor/tmeasday:presence';
@@ -49,6 +48,7 @@ const addSessionItem = (type, graphId, params) => {
 export const addSession = (graphId: string) => {
   Meteor.call('add.session', graphId, (err, result) => {
     if (result === 'invalidGraph') {
+      // eslint-disable-next-line no-alert
       window.alert(
         'Cannot create session from invalid graph. Please open graph in graph editor and correct errors.'
       );

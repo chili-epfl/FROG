@@ -1,5 +1,5 @@
-import Stringify from 'json-stringify-pretty-compact';
 import fileDialog from 'file-dialog';
+import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { uuid } from 'frog-utils';
 import { omit } from 'lodash';
@@ -60,7 +60,7 @@ const doImportGraph = graphStr => {
     });
     store.setId(graphId);
   } catch (e) {
-    // eslint-ignore-next-line no-alert
+    // eslint-disable-next-line no-alert
     window.alert('File has error, unable to import graph');
   }
 };

@@ -13,7 +13,7 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "jsonpath-plus": "^0.16.0",
-    "query-string": "^4.3.4",
+    "query-string": "^5.0.0",
     "strict-uri-encode": "^2.0.0",
     "frog-utils": "^1.0.0"
   },
