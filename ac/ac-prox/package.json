@@ -1,0 +1,16 @@
+{
+  "name": "ac-prox",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist && flow-copy-source src dist",
+    "watch": "watch 'npm run build' ./src",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "recompose": "^0.24.0",
+    "styled-components": "^2.0.1"
+  }
+}
