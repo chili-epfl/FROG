@@ -23,7 +23,7 @@ test('Can get empty doc', () =>
 
 // eslint-disable-next-line
 const wrapOps = (ops, initial = {}) =>
-  createDoc([]).then(doc => {
+  createDoc(initial).then(doc => {
     const dataFn = generateReactiveFn(doc);
     ops.forEach(([fn, x]) => dataFn[fn](...x));
     return doc.data;
@@ -33,7 +33,7 @@ const wrapOps = (ops, initial = {}) =>
 const tests = [
   [[], [['listAppend', ['hi']]], ['hi']],
   [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
-  [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
+  [[], [['listAppend', ['hi']], ['listAppend', ['hello']]], ['hi', 'hello']],
   [
     [],
     [
@@ -42,7 +42,10 @@ const tests = [
       ['listDel', ['hello', 0]]
     ],
     ['hi']
-  ]
+  ],
+  [['1', '2', '3'], [['listInsert', ['2', 1]]], ['1', '2', '2', '3']],
+  [['1', '2', '3'], [['listDel', ['2', 1]]], ['1', '3']],
+  [['1', '2', '3'], [['listDel', ['3', 1]]], ['1', '3']]
 ];
 
 tests.forEach(([init, ops, res]) =>
