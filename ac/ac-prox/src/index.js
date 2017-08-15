@@ -10,7 +10,7 @@ const meta = {
   shortDesc: 'Manualy create group',
   description:
     'Gives the possibility for students to make their own group if followed by the prox operator',
-  exampleData: [{ title: 'Case with no data', config: { title: 'Group creator' }, data: {} }],
+  exampleData: [{ title: 'Case with no data', config: {}, data: {} }]
 };
 
 const config = {
@@ -18,9 +18,9 @@ const config = {
   properties: {
     maxByGrp: {
       title: 'Maximum number of students in a group (Optional)',
-      type: 'number',
-    },
-  },
+      type: 'number'
+    }
+  }
 };
 
 // default empty reactive datastructure, typically either an empty object or array
@@ -33,7 +33,7 @@ const mergeFunction = (object, dataFn) => {
 };
 
 const genCodeOfNChar = (n: number) => {
-  let res = [];
+  const res = [];
   for (let i = 0; i < n; i += 1) res.push(genLetterCode());
   return res;
 };
@@ -44,7 +44,7 @@ const genLetterCode = () =>
 // the actual component that the student sees
 const ActivityRunner = compose(
   withState('textGrp', 'setText', ''),
-  withState('errLog', 'setErr', ''),
+  withState('errLog', 'setErr', '')
 )(({ textGrp, setText, errLog, setErr, activityData, data, dataFn, userInfo }) => (
     <div style={{ margin: '5%' }}>
       <div style={{ display: 'flex', flexDirection: 'row', height: '50px', width: '500px' }}>
@@ -84,16 +84,16 @@ const ActivityRunner = compose(
               if (tmp.studentsId.length === 1)
                 dataFn.objInsert(
                   data.groups.filter(x => !x.studentsId.includes(userInfo.id)),
-                  'groups',
+                  'groups'
                 );
               else {
                 const tmp2 = {
                   grpId: tmp.grpId,
-                  studentsId: tmp.studentsId.filter(x => x !== userInfo.id),
+                  studentsId: tmp.studentsId.filter(x => x !== userInfo.id)
                 };
                 const tmp3 = [
                   ...data.groups.filter(x => !x.studentsId.includes(userInfo.id)),
-                  tmp2,
+                  tmp2
                 ];
                 dataFn.objInsert(tmp3, 'groups');
               }
@@ -126,7 +126,7 @@ const ActivityRunner = compose(
                     const tmp3 = [...data.groups.filter(x => x.grpId !== textGrp), tmp2];
                     dataFn.objInsert(
                       [...data.students, { id: userInfo.id, group: tmp.grpId }],
-                      'students',
+                      'students'
                     );
                     dataFn.objInsert(tmp3, 'groups');
                     setErr('');
@@ -154,5 +154,5 @@ export default ({
   ActivityRunner,
   Dashboard: null,
   dataStructure,
-  mergeFunction,
+  mergeFunction
 }: ActivityPackageT);
