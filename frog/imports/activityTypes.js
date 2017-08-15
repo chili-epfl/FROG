@@ -1,5 +1,6 @@
 // @flow
 
+import acImgClass from 'ac-imgClass';
 import acInduction from 'ac-induction';
 import acBrainstorm from 'ac-brainstorm';
 import acChat from 'ac-chat';
@@ -15,6 +16,7 @@ import { type ActivityPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acImgClass,
   acInduction,
   acBrainstorm,
   acChat,
