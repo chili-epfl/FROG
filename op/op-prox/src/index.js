@@ -5,7 +5,8 @@ import type { socialOperatorT } from 'frog-utils';
 const meta = {
   name: 'Proximity',
   shortDesc: 'After a proximity activity',
-  description: 'Group students depending on what they entered in the proximity activity before.'
+  description:
+    'Group students depending on what they entered in the proximity activity before.'
 };
 
 const config = {
@@ -21,10 +22,13 @@ const operator = (configData, object) => {
   console.log(payload.all.data.groups);
   //payload = { all: { data: { students: [Array], groups: [Array] } } }
 
-  const result = { group: {} };
-  const grps = payload.all.data.groups;
-  grps.map((x,i) => result.group[(i + 1).toString()] = x.studentIds);
-  return result;
+  // { group: { '1': [ 'aa ' ], '2': [ 'bb' ] }
+
+  const result = payload.all.data.groups.reduce(
+    (acc, x) => ({ ...acc, [x.grpId]: x.studentsId }),
+    {}
+  );
+  return { group: result };
 };
 
 export default ({
