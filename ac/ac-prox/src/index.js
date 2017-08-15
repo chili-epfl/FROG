@@ -66,6 +66,8 @@ const ActivityRunner = compose(withState(
               const tmp = genCodeOfNChar(4).reduce((acc, x) => (acc += String.fromCharCode(x)), '');
               dataFn.listAppend({ id: userInfo.id, group: tmp }, 'students');
               dataFn.listAppend({ grpId: tmp, studentsId: [userInfo.id] }, 'groups');
+              // dataFn.objInsert({group: tmp}, 'students.'+userInfo.id);
+              // dataFn.objInsert({studentsId: [userInfo.id] }, 'groups.'+tmp);
               setSelected(true);
             }}
             style={{ marginRight: '10px' }}
@@ -75,6 +77,7 @@ const ActivityRunner = compose(withState(
           </button>}
         <div className="well" style={{ height: '100%', width: '100%' }}>
           {grpSelected ? data.students.filter(x => x.id === userInfo.id)[0].group : ''}
+          {/*grpSelected ? data.students[userInfo.id] : ''*/}
         </div>
         {grpSelected &&
           <button
@@ -83,6 +86,7 @@ const ActivityRunner = compose(withState(
               // listDel doesn't work ?
               // dataFn.listDel(data.students.find(x => x.id === userInfo.id), 'students');
               dataFn.objInsert(data.students.filter(x => x.id !== userInfo.id), 'students');
+              //dataFn.objDel(, 'students.'+userInfo.id);
               const tmp = data.groups.find(x => x.studentsId.includes(userInfo.id));
               if (tmp.studentsId.length === 1)
                 dataFn.objInsert(
@@ -112,7 +116,12 @@ const ActivityRunner = compose(withState(
           }}/>
           <span className="input-group-btn">
             <button className="btn btn-default" type="button" onClick={(e) => {
-              if()
+              if(data.groups.find(x => x.grpId === textGrp)){
+                const tmp = data.groups.find(x => x.grpId === textGrp);
+                //dataFn.listAppend({ id: userInfo.id, group: tmp }, 'students');
+                //dataFn.listAppend({ grpId: tmp, studentsId: [userInfo.id] }, 'groups');
+                setSelected(true);
+              }
             }}>
               {'Join Group'}
             </button>
