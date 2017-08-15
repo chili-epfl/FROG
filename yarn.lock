@@ -4985,13 +4985,7 @@ react-dom@^15.3.2, react-dom@^15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react-draggable@^2.2.3:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-2.2.6.tgz#3a806e10f2da6babfea4136be6510e89b0d76901"
-  dependencies:
-    classnames "^2.2.5"
-
-"react-draggable@github:houshuang/react-draggable":
+react-draggable@^2.2.3, "react-draggable@github:houshuang/react-draggable":
   version "2.2.6"
   resolved "https://codeload.github.com/houshuang/react-draggable/tar.gz/a010201d785d216913a64c679755f50101d47729"
   dependencies:
@@ -6396,6 +6390,10 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yarn@^0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-0.28.1.tgz#383eb29bd6c6df5500df6cb17ace234144e3e408"
 
 yauzl@2.4.1:
   version "2.4.1"
