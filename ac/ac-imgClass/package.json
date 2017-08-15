@@ -8,10 +8,11 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
+    "frog-utils": "^1.0.0",
+    "mousetrap": "^1.6.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "styled-components": "^2.0.1",
-    "frog-utils": "^1.0.0"
+    "styled-components": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",

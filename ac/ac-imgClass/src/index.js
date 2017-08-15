@@ -1,9 +1,8 @@
 // @flow
 
-import React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
-import {withState} from 'recompose';
-//import Mousetrap from 'mousetrap';
+
+import ActivityRunner from './imgClassifier';
 
 const meta = {
   name: 'Image Classifier',
@@ -45,28 +44,13 @@ const config = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
-
-// the actual component that the student sees
-const ActivityRunner = withState('index', 'setIndex', 0)(({index, setIndex, activityData, data, dataFn, userInfo }) =>
-  <div>
-    <h4> {activityData.config.title} </h4>
-    <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: '90%'}}>
-      <img alt='' src={activityData.config.images[index]} style={{maxWidth: '80%', maxHeight: '100%'}}/>
-      <ul className="list-group" style={{width: '20%'}}>
-        {
-          activityData.config.categories.map((x,i) => {
-            console.log(i);
-            Mousetrap.bind(i.toString, () => console.log('toto'));
-            <li key={i} className="list-group-item"> {i} <span className='glyphicon glyphicon-arrow-right'/> {x} </li>
-          })
-        }
-      </ul>
-    </div>
-  </div>);
+const mergeFunction = (object, dataFn) => {
+  dataFn.objInsert(0, 'index');
+};
 
 export default ({
   id: 'ac-imgClass',
+  type: 'react-component',
   meta,
   config,
   ActivityRunner,
