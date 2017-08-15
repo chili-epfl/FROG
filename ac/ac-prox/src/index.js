@@ -147,10 +147,8 @@ const ActivityRunner = compose(
               onClick={() => {
                 if (data.groups.find(x => x.grpId === textGrp)) {
                   const tmp = data.groups.find(x => x.grpId === textGrp);
-                  if (
-                    activityData.config.maxByGrp &&
-                    tmp.studentsId.length < activityData.config.maxByGrp
-                  ) {
+                  const maxByGrp = activityData.config.maxByGrp || 999;
+                  if (tmp.studentsId.length < maxByGrp) {
                     const tmp2 = {
                       grpId: tmp.grpId,
                       studentsId: [...tmp.studentsId, userInfo.id]
