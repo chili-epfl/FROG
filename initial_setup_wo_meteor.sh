@@ -19,18 +19,18 @@ $YARN install
 
 cd frog-utils
 ln -s $FROG/.babelrc . 2>/dev/null
-$YARN run build 
+$YARN run build &
 
 # install activities and operators packages
 for dir in $FROG/ac/ac-*/ $FROG/op/op-*/
 do
     cd $dir
     ln -s $FROG/.babelrc . 2>/dev/null
-    $YARN run build 
+    $YARN run build &
 done
 
 cd $FROG/frog
 ln -s $FROG/node_modules/* node_modules/ 2>/dev/null
 ln -s $FROG/.babelrc . 2>/dev/null
-
+wait
 exit 0
