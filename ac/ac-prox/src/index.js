@@ -3,6 +3,9 @@
 import React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 import { withState, compose } from 'recompose';
+import { shuffle } from 'lodash';
+
+const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
 
 const meta = {
   name: 'Proximity',
@@ -32,14 +35,7 @@ const mergeFunction = (object, dataFn) => {
   dataFn.objInsert([], 'groups');
 };
 
-const genCodeOfNChar = (n: number) => {
-  const res = [];
-  for (let i = 0; i < n; i += 1) res.push(genLetterCode());
-  return res;
-};
-
-const genLetterCode = () =>
-  65 + Math.round(Math.random() * 10) % 2 * 32 + Math.round(Math.random() * 25);
+const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
 
 // the actual component that the student sees
 const ActivityRunner = compose(
@@ -69,10 +65,7 @@ const ActivityRunner = compose(
           <button
             className="btn btn-primary"
             onClick={() => {
-              const tmp = genCodeOfNChar(4).reduce(
-                (acc, x) => acc + String.fromCharCode(x),
-                ''
-              );
+              const tmp = genCodeOfNChar(4);
               dataFn.listAppend({ id: userInfo.id, group: tmp }, 'students');
               dataFn.listAppend(
                 { grpId: tmp, studentsId: [userInfo.id] },
