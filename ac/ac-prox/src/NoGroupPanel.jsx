@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { shuffle } from 'lodash';
+import { withState, compose } from 'recompose';
 
 const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
 
@@ -31,52 +32,59 @@ const onClickJoin = (textGrp, data, dataFn, maxByGrp, id, setErr) => {
   } else setErr('No group found with this name');
 };
 
-export default props =>
-  <div style={{ width: '500px' }}>
-    <button
-      className="btn btn-primary"
-      onClick={onClickCreate(props.dataFn, props.userInfo.id, props.setErr)}
-      style={{ height: '50px', marginRight: '10px' }}
-    >
-      <span className={'glyphicon glyphicon-plus'} style={{ width: '30px' }} /> {'New group'}
-    </button>
-    <br />
-    <div className="input-group" style={{ width: '500px' }}>
-      <input
-        type="text"
-        className="form-control"
-        aria-describedby="basic-addon3"
-        onChange={e => {
-          setText(e.target.value);
-        }}
-      />
-      <span className="input-group-btn">
-        <button
-          className="btn btn-default"
-          type="button"
-          onClick={onClickJoin(
-            props.textGrp,
-            props.data,
-            props.dataFn,
-            props.activityData.config.maxByGrp,
-            props.userInfo.id,
-            props.setErr,
-          )}
-        >
-          {'Join Group'}
-        </button>
-      </span>
-    </div>
-    <br />
-    {errLog !== '' &&
-      <div
-        style={{
-          border: 'red solid 2px',
-          width: '500px',
-          borderRadius: '7px',
-          textAlign: 'center',
-        }}
+export default compose(
+  withState('textGrp', 'setText', ''),
+  withState('errLog', 'setErr', '')
+)((props, textGrp, setText, errLog, setErr) => {
+  const {activityData, data, dataFn, userInfo } = props.props;
+  return (
+    <div style={{ width: '500px' }}>
+      <button
+        className="btn btn-primary"
+        onClick={onClickCreate(dataFn, userInfo.id, setErr)}
+        style={{ height: '50px', marginRight: '10px' }}
       >
-        {errLog}
-      </div>}
-  </div>;
+        <span className={'glyphicon glyphicon-plus'} style={{ width: '30px' }} /> {'New group'}
+      </button>
+      <br />
+      <div className="input-group" style={{ width: '500px' }}>
+        <input
+          type="text"
+          className="form-control"
+          aria-describedby="basic-addon3"
+          onChange={e => {
+            setText(e.target.value);
+          }}
+        />
+        <span className="input-group-btn">
+          <button
+            className="btn btn-default"
+            type="button"
+            onClick={onClickJoin(
+              textGrp,
+              data,
+              dataFn,
+              activityData.config.maxByGrp,
+              userInfo.id,
+              setErr,
+            )}
+          >
+            {'Join Group'}
+          </button>
+        </span>
+      </div>
+      <br />
+      {errLog !== '' &&
+        <div
+          style={{
+            border: 'red solid 2px',
+            width: '500px',
+            borderRadius: '7px',
+            textAlign: 'center',
+          }}
+        >
+          {errLog}
+        </div>}
+    </div>
+  );
+});

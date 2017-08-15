@@ -20,7 +20,7 @@ const onClickCancel = (data, dataFn, id) => {
   }
 };
 
-export default props =>
+export default (props) =>
   <div>
     <div
       style={{

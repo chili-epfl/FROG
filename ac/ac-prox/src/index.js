@@ -1,6 +1,7 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
+import ActivityRunner from './Proximity';
 
 const meta = {
   name: 'Proximity',
