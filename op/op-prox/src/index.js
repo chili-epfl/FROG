@@ -15,17 +15,15 @@ const config = {
 };
 
 const operator = (configData, object) => {
-  const { globalStructure, activityData: { structure, payload } } = object;
+  const { activityData: { structure, payload } } = object;
   if (structure !== 'all') throw 'The structure needs to be all';
-  //globalStructure = { studentIds: [ 'ucCssMWSQ4AeTMZFN', 'kCHstxSezurzLoY77' ] }
-  //structure = all
-  console.log(payload.all.data.groups);
-  //payload = { all: { data: { students: [Array], groups: [Array] } } }
 
-  // { group: { '1': [ 'aa ' ], '2': [ 'bb' ] }
-
-  const result = payload.all.data.groups.reduce(
-    (acc, x) => ({ ...acc, [x.grpId]: x.studentsId }),
+  const data: { grpId: string, studentsId: string }[] = payload.all.data.groups;
+  const result = data.reduce(
+    (acc, x) => ({
+      ...acc,
+      [x.grpId]: x.studentsId
+    }),
     {}
   );
   return { group: result };

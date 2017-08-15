@@ -45,21 +45,47 @@ const genLetterCode = () =>
 const ActivityRunner = compose(
   withState('textGrp', 'setText', ''),
   withState('errLog', 'setErr', '')
-)(({ textGrp, setText, errLog, setErr, activityData, data, dataFn, userInfo }) => (
+)(
+  ({
+    textGrp,
+    setText,
+    errLog,
+    setErr,
+    activityData,
+    data,
+    dataFn,
+    userInfo
+  }) =>
     <div style={{ margin: '5%' }}>
-      <div style={{ display: 'flex', flexDirection: 'row', height: '50px', width: '500px' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          height: '50px',
+          width: '500px'
+        }}
+      >
         {data.students.find(x => x.id === userInfo.id) === undefined &&
           <button
             className="btn btn-primary"
             onClick={() => {
-              const tmp = genCodeOfNChar(4).reduce((acc, x) => acc + String.fromCharCode(x), '');
+              const tmp = genCodeOfNChar(4).reduce(
+                (acc, x) => acc + String.fromCharCode(x),
+                ''
+              );
               dataFn.listAppend({ id: userInfo.id, group: tmp }, 'students');
-              dataFn.listAppend({ grpId: tmp, studentsId: [userInfo.id] }, 'groups');
+              dataFn.listAppend(
+                { grpId: tmp, studentsId: [userInfo.id] },
+                'groups'
+              );
               setErr('');
             }}
             style={{ marginRight: '10px' }}
           >
-            <span className={'glyphicon glyphicon-plus'} style={{ width: '30px' }} />{' '}
+            <span
+              className={'glyphicon glyphicon-plus'}
+              style={{ width: '30px' }}
+            />{' '}
             {'Create Group'}
           </button>}
         {data.students.find(x => x.id === userInfo.id) !== undefined &&
@@ -79,8 +105,13 @@ const ActivityRunner = compose(
           <button
             className="btn btn-danger"
             onClick={() => {
-              dataFn.objInsert(data.students.filter(x => x.id !== userInfo.id), 'students');
-              const tmp = data.groups.find(x => x.studentsId.includes(userInfo.id));
+              dataFn.objInsert(
+                data.students.filter(x => x.id !== userInfo.id),
+                'students'
+              );
+              const tmp = data.groups.find(x =>
+                x.studentsId.includes(userInfo.id)
+              );
               if (tmp.studentsId.length === 1)
                 dataFn.objInsert(
                   data.groups.filter(x => !x.studentsId.includes(userInfo.id)),
@@ -92,7 +123,9 @@ const ActivityRunner = compose(
                   studentsId: tmp.studentsId.filter(x => x !== userInfo.id)
                 };
                 const tmp3 = [
-                  ...data.groups.filter(x => !x.studentsId.includes(userInfo.id)),
+                  ...data.groups.filter(
+                    x => !x.studentsId.includes(userInfo.id)
+                  ),
                   tmp2
                 ];
                 dataFn.objInsert(tmp3, 'groups');
@@ -121,9 +154,18 @@ const ActivityRunner = compose(
               onClick={() => {
                 if (data.groups.find(x => x.grpId === textGrp)) {
                   const tmp = data.groups.find(x => x.grpId === textGrp);
-                  if (activityData.config.maxByGrp && tmp.studentsId.length < activityData.config.maxByGrp) {
-                    const tmp2 = { grpId: tmp.grpId, studentsId: [...tmp.studentsId, userInfo.id] };
-                    const tmp3 = [...data.groups.filter(x => x.grpId !== textGrp), tmp2];
+                  if (
+                    activityData.config.maxByGrp &&
+                    tmp.studentsId.length < activityData.config.maxByGrp
+                  ) {
+                    const tmp2 = {
+                      grpId: tmp.grpId,
+                      studentsId: [...tmp.studentsId, userInfo.id]
+                    };
+                    const tmp3 = [
+                      ...data.groups.filter(x => x.grpId !== textGrp),
+                      tmp2
+                    ];
                     dataFn.objInsert(
                       [...data.students, { id: userInfo.id, group: tmp.grpId }],
                       'students'
@@ -140,11 +182,18 @@ const ActivityRunner = compose(
         </div>}
       <br />
       {errLog !== '' &&
-        <div style={{ border: 'red solid 2px', width: '500px', borderRadius: '7px', textAlign: 'center' }}>
+        <div
+          style={{
+            border: 'red solid 2px',
+            width: '500px',
+            borderRadius: '7px',
+            textAlign: 'center'
+          }}
+        >
           {errLog}
         </div>}
     </div>
-  ));
+);
 
 export default ({
   id: 'ac-prox',
