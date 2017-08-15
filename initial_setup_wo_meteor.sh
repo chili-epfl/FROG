@@ -3,9 +3,11 @@
 shopt -s dotglob
 
 FROG=`pwd`
-YARN=yarn
-which yarn | grep -qw yarn || npm install yarn@0.28.4
-which yarn | grep -qw yarn || YARN=$FROG/node_modules/.bin/yarn
+if (( $(yarn --version) ~= "0.28.4" )); then 
+    YARN=yarn
+else
+    npm install yarn@0.28.4 & YARN=$FROG/node_modules/.bin/yarn
+fi
 
 mkdir frog/node_modules
 

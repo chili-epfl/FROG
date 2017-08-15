@@ -21,18 +21,17 @@ COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.mete
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 
-RUN mkdir -p frog \\
-frog-utils/src \\
+RUN mkdir -p frog-utils/src \\
 ${acopSrc}
 COPY initial_setup_wo_meteor.sh /usr/src/frog/
-RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 
 COPY package.json yarn.lock .yarnrc .babelrc ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
 ${acopCP}
 COPY frog/package.json frog/
-
+WORKDIR /usr/src/frog
+RUN sh /usr/src/frog/initial_setup_wo_meteor.sh
 
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
