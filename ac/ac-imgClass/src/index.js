@@ -3,6 +3,7 @@
 import React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 import {withState} from 'recompose';
+//import Mousetrap from 'mousetrap';
 
 const meta = {
   name: 'Image Classifier',
@@ -55,7 +56,8 @@ const ActivityRunner = withState('index', 'setIndex', 0)(({index, setIndex, acti
       <ul className="list-group" style={{width: '20%'}}>
         {
           activityData.config.categories.map((x,i) => {
-            Mousetrap.bind(i, () => console.log('toto'));
+            console.log(i);
+            Mousetrap.bind(i.toString, () => console.log('toto'));
             <li key={i} className="list-group-item"> {i} <span className='glyphicon glyphicon-arrow-right'/> {x} </li>
           })
         }
