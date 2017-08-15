@@ -118,8 +118,8 @@ const ActivityRunner = compose(withState(
             <button className="btn btn-default" type="button" onClick={(e) => {
               if(data.groups.find(x => x.grpId === textGrp)){
                 const tmp = data.groups.find(x => x.grpId === textGrp);
-                //dataFn.listAppend({ id: userInfo.id, group: tmp }, 'students');
-                //dataFn.listAppend({ grpId: tmp, studentsId: [userInfo.id] }, 'groups');
+                dataFn.listAppend({ id: userInfo.id, group: tmp }, 'students');
+                dataFn.listReplace(tmp, { grpId: tmp, studentsId: [...tmp.studentsId, userInfo.id] }, 'groups');
                 setSelected(true);
               }
             }}>
