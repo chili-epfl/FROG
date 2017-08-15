@@ -3,14 +3,14 @@
 shopt -s dotglob
 
 FROG=`pwd`
-YARN_VERSION='0.28.1'
+YARN_VERSION='1.0.0'
 if which yarn && [[ `yarn --version` == $YARN_VERSION ]]; then 
     echo 'Using pre-installed global Yarn'; YARN=yarn 
 else
     if [ -f $FROG/node_modules/.bin/yarn ] && [[ `$FROG/node_modules/.bin/yarn --version` == $YARN_VERSION ]]; then 
         echo 'Using pre-installed local Yarn'; YARN=$FROG/node_modules/.bin/yarn 
     else
-        echo 'Installing Yarn'; npm install yarn@$YARN_VERSION && YARN=$FROG/node_modules/.bin/yarn
+        echo 'Installing Yarn'; npm install @houshuang/yarn && YARN=$FROG/node_modules/.bin/yarn
     fi
 fi
 echo "Yarn: $YARN"
