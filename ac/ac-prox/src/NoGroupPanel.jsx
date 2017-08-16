@@ -15,7 +15,11 @@ const NewGrpButton = p =>
     onClick={p.onClickCreate}
     style={{ height: '50px', width: '100%' }}
   >
-    <span className={'glyphicon glyphicon-plus'} style={{ width: '30px' }} /> {'New group'}
+    <span
+      className={'glyphicon glyphicon-plus'}
+      style={{ width: '30px' }}
+    />{' '}
+    {'New group'}
   </button>;
 
 const JoinGrpCmpnt = p =>
@@ -44,7 +48,7 @@ const ErrorLog = styled.div`
 
 export default compose(
   withState('textGrp', 'setText', ''),
-  withState('errLog', 'setErr', ''),
+  withState('errLog', 'setErr', '')
 )(props => {
   const { activityData, data, dataFn, userInfo } = props.props;
   const id = userInfo.id;
@@ -57,16 +61,22 @@ export default compose(
   };
 
   const onClickJoin = () => {
-    if (data.groups.find(x => x.grpId === textGrp)) {
-      const tmp = data.groups.find(x => x.grpId === textGrp);
-      const maxByGrp = maxByGrp || 999;
+    if (data.groups.find(x => x.grpId === props.textGrp)) {
+      const tmp = data.groups.find(x => x.grpId === props.textGrp);
+      const maxByGrp = activityData.config.maxByGrp || 999;
       if (tmp.studentsId.length < maxByGrp) {
         const tmp2 = {
           grpId: tmp.grpId,
-          studentsId: [...tmp.studentsId, id],
+          studentsId: [...tmp.studentsId, id]
         };
-        const tmp3 = [...data.groups.filter(x => x.grpId !== textGrp), tmp2];
-        dataFn.objInsert([...data.students, { id, group: tmp.grpId }], 'students');
+        const tmp3 = [
+          ...data.groups.filter(x => x.grpId !== props.textGrp),
+          tmp2
+        ];
+        dataFn.objInsert(
+          [...data.students, { id, group: tmp.grpId }],
+          'students'
+        );
         dataFn.objInsert(tmp3, 'groups');
         props.setErr('');
       } else props.setErr('Maximum number of members reached');

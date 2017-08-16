@@ -10,20 +10,29 @@ const Main = styled.div`
   flexDirection: row;
 `;
 
-export default props => {
-  const { activityData, data, dataFn, userInfo } = props.props;
+export default (props: Object) => {
+  const { data, dataFn, userInfo } = props.props;
 
   const onClickCancel = () => {
-    dataFn.objInsert(data.students.filter(x => x.id !== userInfo.id), 'students');
+    dataFn.objInsert(
+      data.students.filter(x => x.id !== userInfo.id),
+      'students'
+    );
     const tmp = data.groups.find(x => x.studentsId.includes(userInfo.id));
     if (tmp.studentsId.length === 1)
-      dataFn.objInsert(data.groups.filter(x => !x.studentsId.includes(userInfo.id)), 'groups');
+      dataFn.objInsert(
+        data.groups.filter(x => !x.studentsId.includes(userInfo.id)),
+        'groups'
+      );
     else {
       const tmp2 = {
         grpId: tmp.grpId,
-        studentsId: tmp.studentsId.filter(x => x !== userInfo.id),
+        studentsId: tmp.studentsId.filter(x => x !== userInfo.id)
       };
-      const tmp3 = [...data.groups.filter(x => !x.studentsId.includes(userInfo.id)), tmp2];
+      const tmp3 = [
+        ...data.groups.filter(x => !x.studentsId.includes(userInfo.id)),
+        tmp2
+      ];
       dataFn.objInsert(tmp3, 'groups');
     }
   };
@@ -40,7 +49,11 @@ export default props => {
       <div className="well" style={{ height: '100%', width: '100%' }}>
         {data.students.filter(x => x.id === userInfo.id)[0].group}
       </div>
-      <button className="btn btn-danger" onClick={onClickCancel} style={{ marginLeft: '10px' }}>
+      <button
+        className="btn btn-danger"
+        onClick={onClickCancel}
+        style={{ marginLeft: '10px' }}
+      >
         {'Leave this group'}
       </button>
     </Main>
