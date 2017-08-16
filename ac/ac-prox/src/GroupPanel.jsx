@@ -11,7 +11,7 @@ const Main = styled.div`
   flexDirection: row;
 `;
 
-export default ({ data, dataFn, userInfo: { id } }: ActivityRunnerT) => {
+const GroupPanel = ({ data, dataFn, userInfo: { id } }: ActivityRunnerT) => {
   const onClickCancel = () => {
     dataFn.objInsert(null, ['students', id]);
   };
@@ -39,3 +39,6 @@ export default ({ data, dataFn, userInfo: { id } }: ActivityRunnerT) => {
     </Main>
   );
 };
+
+GroupPanel.displayName = 'GroupPanel';
+export default GroupPanel;

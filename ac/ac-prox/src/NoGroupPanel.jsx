@@ -4,11 +4,29 @@ import React from 'react';
 import { shuffle } from 'lodash';
 import { withState, compose } from 'recompose';
 import styled from 'styled-components';
+import { type ActivityRunnerT } from 'frog-utils';
 
-const NoGroupPanel = compose(
+const NoGroupPanelState = compose(
   withState('textGrp', 'setText', ''),
   withState('errLog', 'setErr', '')
-)(({ data, dataFn, userInfo: { id }, setErr, setText, textGrp, errLog }) => {
+);
+
+type NoGroupPanelT = ActivityRunnerT & {
+  setErr: string => void,
+  setText: string => void,
+  textGrp: string,
+  errLog: string
+};
+
+const NoGroupPanelPure = ({
+  data,
+  dataFn,
+  userInfo: { id },
+  setErr,
+  setText,
+  textGrp,
+  errLog
+}: NoGroupPanelT) => {
   const onClickCreate = () => {
     const groupCode = genCodeOfNChar(4);
     dataFn.objInsert(id, ['groups', groupCode]);
@@ -38,7 +56,9 @@ const NoGroupPanel = compose(
         </ErrorLog>}
     </div>
   );
-});
+};
+
+const NoGroupPanel = NoGroupPanelState(NoGroupPanelPure);
 
 const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
 
