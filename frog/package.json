@@ -21,8 +21,8 @@
     "cuid": "^1.3.8",
     "file-dialog": "^0.0.5",
     "file-saver": "^1.3.3",
-    "http": "0.0.0",
     "frog-utils": "1.0.0",
+    "http": "0.0.0",
     "json-stable-stringify": "^1.0.1",
     "json-stringify-pretty-compact": "^1.0.3",
     "jsonschema": "^1.1.1",
@@ -38,6 +38,7 @@
     "op-group-identical": "1.0.0",
     "op-hypothesis": "1.0.0",
     "op-jigsaw": "1.0.0",
+    "query-string": "^5.0.0",
     "react": "^15.6.1",
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-addons-test-utils": "^15.6.0",
@@ -63,4 +64,3 @@
     "ws": "^3.1.0"
   }
 }
-
