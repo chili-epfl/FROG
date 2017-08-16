@@ -1,35 +1,35 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 
-const onClickCancel = (data, dataFn, id) => {
-  dataFn.objInsert(data.students.filter(x => x.id !== id), 'students');
-  const tmp = data.groups.find(x => x.studentsId.includes(id));
-  if (tmp.studentsId.length === 1)
-    dataFn.objInsert(
-      data.groups.filter(x => !x.studentsId.includes(id)),
-      'groups',
-    );
-  else {
-    const tmp2 = {
-      grpId: tmp.grpId,
-      studentsId: tmp.studentsId.filter(x => x !== id),
-    };
-    const tmp3 = [...data.groups.filter(x => !x.studentsId.includes(id)), tmp2];
-    dataFn.objInsert(tmp3, 'groups');
-  }
-};
+const Main = styled.div`
+  height: 50px;
+  width: 500px;
+  display: flex;
+  flexDirection: row;
+`;
 
-export default (props) =>
-  <div>
-    <div
-      style={{
-        height: '50px',
-        width: '500px',
-        display: 'flex',
-        flexDirection: 'row',
-      }}
-    >
+export default props => {
+  const { activityData, data, dataFn, userInfo } = props.props;
+
+  const onClickCancel = () => {
+    dataFn.objInsert(data.students.filter(x => x.id !== userInfo.id), 'students');
+    const tmp = data.groups.find(x => x.studentsId.includes(userInfo.id));
+    if (tmp.studentsId.length === 1)
+      dataFn.objInsert(data.groups.filter(x => !x.studentsId.includes(userInfo.id)), 'groups');
+    else {
+      const tmp2 = {
+        grpId: tmp.grpId,
+        studentsId: tmp.studentsId.filter(x => x !== userInfo.id),
+      };
+      const tmp3 = [...data.groups.filter(x => !x.studentsId.includes(userInfo.id)), tmp2];
+      dataFn.objInsert(tmp3, 'groups');
+    }
+  };
+
+  return (
+    <Main>
       <a
         className="btn btn-secondary btn-lg disabled"
         aria-disabled="true"
@@ -38,14 +38,11 @@ export default (props) =>
         {'Group :'}
       </a>
       <div className="well" style={{ height: '100%', width: '100%' }}>
-        { props.data.students.filter(x => x.id === props.userInfo.id)[0].group }
+        {data.students.filter(x => x.id === userInfo.id)[0].group}
       </div>
-      <button
-        className="btn btn-danger"
-        onClick={onClickCancel(props.data, props.dataFn, props.userInfo.id)}
-        style={{ marginLeft: '10px' }}
-      >
-        {'Cancel'}
+      <button className="btn btn-danger" onClick={onClickCancel} style={{ marginLeft: '10px' }}>
+        {'Leave this group'}
       </button>
-    </div>
-  </div>;
+    </Main>
+  );
+};
