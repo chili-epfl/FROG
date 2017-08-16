@@ -1,13 +1,54 @@
-import React, { Component } from 'react';
+// @flow
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/accounts-base';
 import { toObject as queryToObject } from 'query-parse';
+import { every } from 'lodash';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import StudentView from './../StudentView';
+import TeacherView from './../TeacherView';
+import GraphEditor from './../GraphEditor';
+import Admin from './../Admin';
+import TopBar from './TopBar';
+import NotLoggedIn from './NotLoggedIn';
 
-const Page = (props) => <p>{JSON.stringify(props)</p>
+const DEFAULT_PASSWORD = '123456';
+const connectWithDefaultPwd = username =>
+  Meteor.loginWithPassword(username, DEFAULT_PASSWORD);
 
-const PageContainer = createContainer((props: { match: Object }) => {
-  const username = queryToObject(props.location.search);
+const FourOhFour = () => <p>Page not found</p>;
+
+const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
+  if (isNotLoggedIn) {
+    return <NotLoggedIn />;
+  }
+  if (!ready) {
+    return <p>Loading...</p>;
+  }
+  if (isRedirect) {
+    return <Redirect to={path} />;
+  }
+  if (isStudent) {
+    return <StudentView />;
+  }
+  return (
+    <div id="app">
+      <TopBar />
+      <Switch>
+        <Route path="/graph/:graphId" component={GraphEditor} />
+        <Route path="/graph" component={GraphEditor} />
+        <Route path="/teacher" component={TeacherView} />
+        <Route path="/student" component={StudentView} />
+        <Route path="/admin" component={Admin} />
+        <Route component={FourOhFour} />
+      </Switch>
+    </div>
+  );
+};
+
+const PageContainer = createContainer((props: any) => {
+  const username = queryToObject(props.location.search.slice(1)).login;
   let ready = setupSubscriptions([
     'userData',
     'activity_data',
@@ -16,7 +57,11 @@ const PageContainer = createContainer((props: { match: Object }) => {
     'objects',
     'sessions'
   ]);
-  if (username === 'teacher') {
+  const loggedInUsername =
+    Meteor.userId() &&
+    Meteor.users.findOne(Meteor.userId()) &&
+    Meteor.users.findOne(Meteor.userId()).username;
+  if (username === 'teacher' || loggedInUsername === 'teacher') {
     ready =
       ready &&
       setupSubscriptions([
@@ -30,9 +75,9 @@ const PageContainer = createContainer((props: { match: Object }) => {
   }
   Meteor.subscribe('userData', {
     onReady: () => {
-      const loggedInUsername =
+      const meteorUsername =
         Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
-      if (username && username !== loggedInUsername) {
+      if (username && username !== meteorUsername) {
         if (!Meteor.users.findOne({ username })) {
           Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
             connectWithDefaultPwd(username)
@@ -43,7 +88,18 @@ const PageContainer = createContainer((props: { match: Object }) => {
       }
     }
   });
-  return { ...props, username, ready };
+
+  const isRedirect = ready && username && username === loggedInUsername;
+  const isStudent = loggedInUsername !== 'teacher';
+  const isNotLoggedIn = !loggedInUsername && !username;
+  return {
+    ...props,
+    isNotLoggedIn,
+    isRedirect,
+    isStudent,
+    ready: ready && loggedInUsername,
+    path: props.location.path
+  };
 }, Page);
 
 const setupSubscriptions = (collections: string[]) => {
@@ -51,5 +107,5 @@ const setupSubscriptions = (collections: string[]) => {
   return every(subscriptions.map(x => x.ready()), Boolean);
 };
 
-PageContainer.displayName = 'PageContainer'
-export default PageContainer
+PageContainer.displayName = 'PageContainer';
+export default PageContainer;

@@ -2,14 +2,17 @@
 import React, { Component } from 'react';
 import { Provider } from 'mobx-react';
 import Mousetrap from 'mousetrap';
+import { withRouter } from 'react-router';
 
 import { store } from './store';
 import { assignGraph } from '../../api/graphs';
 import EditorContainer from './EditorContainer';
 
-export default class AppClass extends Component {
+class AppClass extends Component {
   componentWillMount() {
-    store.setId(assignGraph());
+    const graphId = assignGraph(this.props.graphId);
+    store.setBrowserHistory(this.props.history);
+    store.setId(graphId);
     bindKeys();
   }
 
@@ -27,6 +30,8 @@ export default class AppClass extends Component {
     );
   }
 }
+
+export default withRouter(AppClass);
 
 const bindKeys = () => {
   Mousetrap.bind('esc', () => {
