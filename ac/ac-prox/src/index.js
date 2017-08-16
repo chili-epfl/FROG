@@ -1,35 +1,21 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './Proximity';
+import ActivityRunner from './ActivityRunner';
 
 const meta = {
   name: 'Proximity',
   type: 'react-component',
-  shortDesc: 'Manualy create group',
+  shortDesc: 'Manually create group',
   description:
     'Gives the possibility for students to make their own group if followed by the prox operator',
   exampleData: [{ title: 'Case with no data', config: {}, data: {} }]
 };
 
-const config = {
-  type: 'object',
-  properties: {
-    maxByGrp: {
-      title: 'Maximum number of students in a group (Optional)',
-      type: 'number'
-    }
-  }
-};
+const config = {};
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
-
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {
-  dataFn.objInsert([], 'students');
-  dataFn.objInsert([], 'groups');
-};
+const dataStructure = { students: {}, groups: {} };
 
 export default ({
   id: 'ac-prox',
@@ -37,7 +23,5 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  Dashboard: null,
-  dataStructure,
-  mergeFunction
+  dataStructure
 }: ActivityPackageT);

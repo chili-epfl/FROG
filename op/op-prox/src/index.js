@@ -18,11 +18,11 @@ const operator = (configData, object) => {
   const { activityData: { structure, payload } } = object;
   if (structure !== 'all') throw 'The structure needs to be all';
 
-  const data: { grpId: string, studentsId: string }[] = payload.all.data.groups;
-  const result = data.reduce(
-    (acc, x) => ({
+  const data: { [string]: string } = payload.all.data.students;
+  const result = Object.keys(data).reduce(
+    (acc, studentId) => ({
       ...acc,
-      [x.grpId]: x.studentsId
+      [data[studentId]]: [...(acc[data[studentId]] || []), studentId]
     }),
     {}
   );
