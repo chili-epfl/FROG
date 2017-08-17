@@ -8,7 +8,8 @@ const meta = {
   name: 'Image Classifier',
   type: 'react-component',
   shortDesc: 'Quickly display images to classify',
-  description: 'Show to the student images one after the other and the student has to choose what category is the most appropriated one',
+  description:
+    'Show to the student images one after the other and the student has to choose what category is the most appropriated one',
   exampleData: [
     { title: 'Case with no data', config: { title: 'No data' }, data: {} },
     {
@@ -60,6 +61,18 @@ const dataStructure = {};
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {
   dataFn.objInsert(0, 'index');
+  const dataObj: Object = Array.isArray(object.data) ? {} : object.data;
+  const dataImgs = Object.keys(dataObj).filter(
+    x => dataObj[x].url !== undefined
+  );
+  if (dataObj !== {})
+    dataImgs.forEach((x, i) =>
+      dataFn.objInsert({ url: dataObj[x].url, category: '' }, i + 1)
+    );
+  if (object.config.images)
+    object.config.images.forEach((x, i) =>
+      dataFn.objInsert({ url: x, category: '' }, dataImgs.length + i + 1)
+    );
 };
 
 export default ({
