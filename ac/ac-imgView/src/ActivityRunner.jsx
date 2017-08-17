@@ -1,58 +1,81 @@
 // @flow
 
 import React from 'react';
-import { withState, compose } from 'recompose';
+import { withState } from 'recompose';
 
 import ThumbList from './ThumbList';
 import TopBar from './TopBar';
-// import type { ActivityRunnerT } from 'frog-utils';
 
-const ActivityRunner = compose(
-  withState('categorySelected', 'setCategorySelected', 'all'),
-  withState('categoryView', 'setCategoryView', true),
-)(({ activityData, categorySelected, setCategorySelected, categoryView, setCategoryView }) => {
-  const categories = ['all'];
-  activityData.config.images.forEach(
+const ActivityPanel = ({
+  activityData,
+  categorySelected,
+  setCategorySelected
+}) => {
+  const categories = getAllCategories(activityData.config.images);
+  const imgCategory = getCategoryImages(
+    categories.filter(x => x !== 'categories'),
+    activityData.config.images
+  );
+  const imagesFiltered = getImagesFiltered(
+    activityData.config.images,
+    categorySelected
+  );
+
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <TopBar
+        categories={categories}
+        categorySelected={categorySelected}
+        setCategorySelected={setCategorySelected}
+      />
+      <ThumbList
+        images={
+          categorySelected === 'categories' ? imgCategory : imagesFiltered
+        }
+        categorySelected={categorySelected}
+        setCategorySelected={setCategorySelected}
+      />
+    </div>
+  );
+};
+
+const getAllCategories = images => {
+  const categories = ['all', 'categories'];
+  images.forEach(
     x =>
       x.categories &&
       x.categories.forEach(y => {
         if (!categories.includes(y)) categories.push(y);
-      }),
+      })
   );
+  return categories;
+};
 
-  const imgCategory = categories.map(x => {
-    const image = x === 'all' ? activityData.config.images[0] : activityData.config.images.filter(y => (y.categories && y.categories.includes(x)))[0];
-    console.log(image);
+const getCategoryImages = (categories, images) => {
+  const result = categories.map(x => {
+    const image =
+      x === 'all'
+        ? images[0]
+        : images.filter(y => y.categories && y.categories.includes(x))[0];
     return {
       categories: x,
       url: image.url
     };
   });
+  return result;
+};
 
-  const imagesFiltered = activityData.config.images.filter(
-    x => categorySelected === 'all' || (x.categories && x.categories.includes(categorySelected)),
+const getImagesFiltered = (images, categorySelected) =>
+  images.filter(
+    x =>
+      categorySelected === 'all' ||
+      (x.categories && x.categories.includes(categorySelected))
   );
 
-  const images = categoryView ? imgCategory : imagesFiltered;
-
-  console.log(imgCategory);
-
-  return (
-    <div style={{ width: '100%', height: '100%' }}>
-      {!categoryView &&
-        <TopBar
-          categories={categories}
-          categorySelected={categorySelected}
-          setCategorySelected={setCategorySelected}
-        />}
-      <ThumbList
-        images={images}
-        categoryView={categoryView}
-        setCategoryView={setCategoryView}
-        setCategorySelected={setCategorySelected}
-      />
-    </div>
-  );
-});
+const ActivityRunner = withState(
+  'categorySelected',
+  'setCategorySelected',
+  'categories'
+)(ActivityPanel);
 
 export default ActivityRunner;
