@@ -12,14 +12,14 @@ const ActivityPanel = ({
   setCategorySelected
 }) => {
   const categories = getAllCategories(activityData.config.images);
-  const imgCategory = getCategoryImages(
+  const imgCategory = activityData.config.images ? getCategoryImages(
     categories.filter(x => x !== 'categories'),
     activityData.config.images
-  );
-  const imagesFiltered = getImagesFiltered(
+  ) : [];
+  const imagesFiltered = activityData.config.images ? getImagesFiltered(
     activityData.config.images,
     categorySelected
-  );
+  ) : [];
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
@@ -41,7 +41,7 @@ const ActivityPanel = ({
 
 const getAllCategories = images => {
   const categories = ['all', 'categories'];
-  images.forEach(
+  if(images) images.forEach(
     x =>
       x.categories &&
       x.categories.forEach(y => {
