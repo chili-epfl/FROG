@@ -13,7 +13,7 @@ const meta = {
     {
       title: 'Case data',
       config: {
-        minVote: 1,
+        minVote: 1
         images: [
           {
             url:
