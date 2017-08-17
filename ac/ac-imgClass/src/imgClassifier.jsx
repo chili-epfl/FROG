@@ -46,7 +46,7 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
       </div>
       {categories.map((x, i) =>
         <button
-          key={Math.random()}
+          key={x}
           onClick={() => {
             dataFn.objInsert(
               { url: images[data.index], category: x },
@@ -56,8 +56,7 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
           }}
           className="list-group-item"
         >
-          {shortCuts[i]} <span className="glyphicon glyphicon-arrow-right" />{' '}
-          {x}
+          {shortCuts[i]} <span className="glyphicon glyphicon-arrow-right" />{' ' + x}
         </button>
       )}
     </div>
@@ -66,7 +65,7 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   const categ = activityData.config.categories || [];
   const imgs = Object.keys(data)
-    .filter(k => k !== 'index')
+    .filter(x => data[x].url !== undefined)
     .map(x => data[x].url);
   categ.forEach((x, i) =>
     Mousetrap.bind(shortCuts[i], () => {
