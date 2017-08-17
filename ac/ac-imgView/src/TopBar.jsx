@@ -8,7 +8,7 @@ const Main = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 1%;
-  padding-left: 50%;
+  padding-left: 40%;
 `;
 
 const TopBar = ({
@@ -42,6 +42,10 @@ const TopBar = ({
         </MenuItem>
       )}
     </DropdownButton>
+    {categorySelected !== 'categories' &&
+      <i style={{ marginLeft: '20px' }}>
+        Hold shift while clicking to select a picture :
+      </i>}
   </Main>;
 
 export default TopBar;

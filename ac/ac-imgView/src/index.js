@@ -13,6 +13,7 @@ const meta = {
     {
       title: 'Case data',
       config: {
+        minVote: 1,
         images: [
           {
             url:
@@ -24,7 +25,7 @@ const meta = {
             categories: ['landscape', 'sky']
           },
           {
-            url: 'https://www.w3schools.com/css/img_lights.jpg',
+            url: 'https://www.w3schools.com/css/img_fjords.jpg',
             categories: []
           },
           {
@@ -34,7 +35,7 @@ const meta = {
           },
           {
             url:
-              'https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg',
+              'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg',
             categories: ['animal']
           }
         ]
@@ -47,6 +48,10 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
+    minVote: {
+      title: 'Number of vote minimum to validate the image',
+      type: 'number'
+    },
     images: {
       title: 'Images',
       type: 'array',
@@ -70,10 +75,36 @@ const config = {
   }
 };
 
+const dataStructure = {};
+
+const mergeFunction = (object, dataFn) => {
+  // dataFn.objInsert(obj,path);
+  const dataObj: Object = Array.isArray(object.data) ? {} : object.data;
+  const dataImgs = Object.keys(dataObj).filter(
+    x => dataObj[x].url !== undefined
+  );
+  if (dataObj !== {})
+    dataImgs.forEach((x, i) =>
+      dataFn.objInsert(
+        { url: dataObj[x].url, categories: dataObj[x].categories, ids: [] },
+        i
+      )
+    );
+  if (object.config.images)
+    object.config.images.forEach((x, i) =>
+      dataFn.objInsert(
+        { url: x.url, categories: x.categories, ids: [] },
+        dataImgs.length + i
+      )
+    );
+};
+
 export default ({
   id: 'ac-imgView',
   type: 'react-component',
   meta,
   config,
+  dataStructure,
+  mergeFunction,
   ActivityRunner
 }: ActivityPackageT);

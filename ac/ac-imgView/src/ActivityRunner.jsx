@@ -8,18 +8,19 @@ import TopBar from './TopBar';
 
 const ActivityPanel = ({
   activityData,
+  data,
+  dataFn,
+  userInfo,
   categorySelected,
   setCategorySelected
 }) => {
-  const categories = getAllCategories(activityData.config.images);
-  const imgCategory = activityData.config.images ? getCategoryImages(
-    categories.filter(x => x !== 'categories'),
-    activityData.config.images
-  ) : [];
-  const imagesFiltered = activityData.config.images ? getImagesFiltered(
-    activityData.config.images,
-    categorySelected
-  ) : [];
+  const categories = getAllCategories(data);
+  const imgCategory =
+    data !== {}
+      ? getCategoryImages(categories.filter(x => x !== 'categories'), data)
+      : [];
+  const imagesFiltered =
+    data !== {} ? getImagesFiltered(data, categorySelected) : [];
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
@@ -29,9 +30,13 @@ const ActivityPanel = ({
         setCategorySelected={setCategorySelected}
       />
       <ThumbList
+        minVote={activityData.config.minVote ? activityData.config.minVote : 1}
         images={
           categorySelected === 'categories' ? imgCategory : imagesFiltered
         }
+        data={data}
+        dataFn={dataFn}
+        id={userInfo.id}
         categorySelected={categorySelected}
         setCategorySelected={setCategorySelected}
       />
@@ -41,22 +46,26 @@ const ActivityPanel = ({
 
 const getAllCategories = images => {
   const categories = ['all', 'categories'];
-  if(images) images.forEach(
-    x =>
-      x.categories &&
-      x.categories.forEach(y => {
-        if (!categories.includes(y)) categories.push(y);
-      })
-  );
+  if (images !== {})
+    Object.keys(images).forEach(
+      x =>
+        images[x].categories &&
+        images[x].categories.forEach(y => {
+          if (!categories.includes(y)) categories.push(y);
+        })
+    );
   return categories;
 };
 
 const getCategoryImages = (categories, images) => {
+  if (images === {}) return [];
   const result = categories.map(x => {
     const image =
       x === 'all'
         ? images[0]
-        : images.filter(y => y.categories && y.categories.includes(x))[0];
+        : Object.keys(images)
+            .map(index => images[index])
+            .filter(y => y.categories && y.categories.includes(x))[0];
     return {
       categories: x,
       url: image.url
@@ -66,11 +75,13 @@ const getCategoryImages = (categories, images) => {
 };
 
 const getImagesFiltered = (images, categorySelected) =>
-  images.filter(
-    x =>
-      categorySelected === 'all' ||
-      (x.categories && x.categories.includes(categorySelected))
-  );
+  Object.keys(images)
+    .map(x => images[x])
+    .filter(
+      x =>
+        categorySelected === 'all' ||
+        (x.categories && x.categories.includes(categorySelected))
+    );
 
 const ActivityRunner = withState(
   'categorySelected',
