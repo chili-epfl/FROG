@@ -7,8 +7,8 @@ import ActivityRunner from './imgClassifier';
 const meta = {
   name: 'Image Classifier',
   type: 'react-component',
-  shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available',
+  shortDesc: 'Quickly display images to classify',
+  description: 'Show to the student images one after the other and the student has to choose what category is the most appropriated one',
   exampleData: [
     { title: 'Case with no data', config: { title: 'No data' }, data: {} },
     {
