@@ -6,6 +6,15 @@ import { withState, compose } from 'recompose';
 import styled from 'styled-components';
 import { type ActivityRunnerT } from 'frog-utils';
 
+const Main = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  flex-flow: column wrap;
+  align-items: stretch;
+`;
+
 const NoGroupPanelState = compose(
   withState('textGrp', 'setText', ''),
   withState('errLog', 'setErr', '')
@@ -45,16 +54,14 @@ const NoGroupPanelPure = ({
   };
 
   return (
-    <div style={{ width: '500px' }}>
+    <Main>
       <NewGroupButton onClickCreate={onClickCreate} />
-      <div style={{ height: '10px' }} />
       <JoinGroupComponent onClickJoin={onClickJoin} setText={setText} />
-      <div style={{ height: '10px' }} />
       {errLog &&
         <ErrorLog>
           {errLog}
         </ErrorLog>}
-    </div>
+    </Main>
   );
 };
 
@@ -68,21 +75,19 @@ const NewGroupButton = ({ onClickCreate }) =>
   <button
     className="btn btn-primary"
     onClick={onClickCreate}
-    style={{ height: '50px', width: '100%' }}
+    style={{ height: '50px', margin: '5px' }}
   >
     <span className={'glyphicon glyphicon-plus'} style={{ width: '30px' }} />
     New group
   </button>;
 
 const JoinGroupComponent = ({ setText, onClickJoin }) =>
-  <div className="input-group" style={{ width: '500px' }}>
+  <div className="input-group" style={{ margin: '5px' }}>
     <input
       type="text"
       className="form-control"
       aria-describedby="basic-addon3"
-      onChange={e => {
-        setText(e.target.value);
-      }}
+      onChange={e => setText(e.target.value)}
     />
     <span className="input-group-btn">
       <button className="btn btn-default" type="button" onClick={onClickJoin}>
@@ -94,6 +99,7 @@ const JoinGroupComponent = ({ setText, onClickJoin }) =>
 const ErrorLog = styled.div`
   border: red solid 2px;
   width: 500px;
+  margin: 5px;
   borderRadius: 7px;
   textAlign: center;
 `;
