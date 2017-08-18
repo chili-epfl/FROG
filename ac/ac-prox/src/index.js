@@ -12,7 +12,10 @@ const meta = {
   exampleData: [{ title: 'Case with no data', config: {}, data: {} }]
 };
 
-const config = {};
+const config = {
+  type: 'object',
+  properties: {}
+};
 
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = { students: {}, groups: {} };
