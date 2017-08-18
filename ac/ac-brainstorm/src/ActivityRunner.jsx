@@ -27,53 +27,74 @@ const ListContainer = styled.div`
   width: 100%;
 `;
 
-const Idea = ({ idea, fun, remove }) =>
-  <ListGroupItem>
-    <font size={4}>
-      <div style={{ float: 'right' }}>
-        <span style={{ marginRight: '10px' }}>
-          <A onClick={() => fun.vote(idea.id, -1)}>
-            <Glyphicon glyph="thumbs-down" />
-          </A>
-        </span>
-        <span style={{ marginRight: '10px' }}>
-          <A onClick={() => fun.vote(idea.id, 1)}>
-            <Glyphicon glyph="thumbs-up" />
-          </A>
-        </span>
-        <Badge>
-          {idea.score}
-        </Badge>
-      </div>
-    </font>
-    <b>
-      {idea.title}
-    </b>
-    <div>
-      {idea.content}
-      {remove &&
-        <font size={4}>
-          <A onClick={() => fun.delete(idea)}>
-            <Glyphicon glyph="scissors" style={{ float: 'right' }} />
-          </A>
-        </font>}
-    </div>
-  </ListGroupItem>;
+const chooseColor = (vote, isUp) => {
+  switch (vote) {
+    case -1:
+      return isUp ? { color: '#A0A0A0' } : { color: '#FF0000' };
+    case 1:
+      return isUp ? { color: '#0000FF' } : { color: '#A0A0A0' };
+    default:
+      return { color: '#A0A0A0' };
+  }
+};
 
-const IdeaList = ({ ideas, fun, remove }) =>
+const Idea = ({ data, userInfo, idea, fun, remove }) => {
+  const individualVote = data[idea.id].students[userInfo.id];
+  return (
+    <ListGroupItem>
+      <font size={4}>
+        <div style={{ float: 'right' }}>
+          <span style={{ marginRight: '10px' }}>
+            <A onClick={() => fun.vote(idea.id, -1)}>
+              <Glyphicon
+                style={chooseColor(individualVote, false)}
+                glyph="thumbs-down"
+              />
+            </A>
+          </span>
+          <span style={{ marginRight: '10px' }}>
+            <A onClick={() => fun.vote(idea.id, 1)}>
+              <Glyphicon
+                style={chooseColor(individualVote, true)}
+                glyph="thumbs-up"
+              />
+            </A>
+          </span>
+          <Badge>
+            {idea.score}
+          </Badge>
+        </div>
+      </font>
+      <b>
+        {idea.title}
+      </b>
+      <div>
+        {idea.content}
+        {remove &&
+          <font size={4}>
+            <A onClick={() => fun.delete(idea)}>
+              <Glyphicon glyph="scissors" style={{ float: 'right' }} />
+            </A>
+          </font>}
+      </div>
+    </ListGroupItem>
+  );
+};
+
+const IdeaList = ({ userInfo, data, ideas, fun, remove }) =>
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
         {values(ideas).sort((a, b) => b.score - a.score).map(idea =>
           <div key={idea.id}>
-            <Idea {...{ idea, fun, remove, key: idea.id }} />
+            <Idea {...{ userInfo, data, idea, fun, remove, key: idea.id }} />
           </div>
         )}
       </FlipMove>
     </ListGroup>
   </div>;
 
-export default ({
+const ActivityRunner = ({
   userInfo,
   logger,
   activityData,
@@ -98,9 +119,10 @@ export default ({
     if (e.formData && e.formData.title && e.formData.content) {
       const id = uuid();
       logger({ type: 'idea', id });
-      dataFn.objInsert({ score: 0, id, ...e.formData }, id);
+      dataFn.objInsert({ score: 0, id, students: {}, ...e.formData }, id);
     }
   };
+
   return (
     <div>
       <Container>
@@ -110,10 +132,34 @@ export default ({
           </p>
           <IdeaList
             ideas={data}
+            data={data}
+            userInfo={userInfo}
             fun={{
               vote: (id, incr) => {
                 logger({ key: userInfo.name, type: 'vote' });
-                dataFn.numIncr(incr, [id, 'score']);
+                switch (data[id].students[userInfo.id]) {
+                  case -1:
+                    if (incr < 0) {
+                      dataFn.objInsert(0, [id, 'students', userInfo.id]);
+                      dataFn.numIncr(1, [id, 'score']);
+                    } else {
+                      dataFn.objInsert(1, [id, 'students', userInfo.id]);
+                      dataFn.numIncr(2, [id, 'score']);
+                    }
+                    break;
+                  case 1:
+                    if (incr < 0) {
+                      dataFn.objInsert(-1, [id, 'students', userInfo.id]);
+                      dataFn.numIncr(-2, [id, 'score']);
+                    } else {
+                      dataFn.objInsert(0, [id, 'students', userInfo.id]);
+                      dataFn.numIncr(-1, [id, 'score']);
+                    }
+                    break;
+                  default:
+                    dataFn.objInsert(incr, [id, 'students', userInfo.id]);
+                    dataFn.numIncr(incr, [id, 'score']);
+                }
               },
               delete: item => dataFn.objDel(item, item.id)
             }}
@@ -151,3 +197,5 @@ export default ({
     </div>
   );
 };
+
+export default ActivityRunner;
