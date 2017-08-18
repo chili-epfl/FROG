@@ -18,10 +18,6 @@ class ChooseActivityType extends Component {
     this.inputRef = null;
   }
 
-  componentDidMount() {
-    this.inputRef.focus();
-  }
-
   render() {
     const select = activityType => {
       Activities.update(this.props.activity._id, {
