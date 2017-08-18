@@ -1,5 +1,6 @@
 // @flow
 
+import acProx from 'ac-prox';
 import acImgClass from 'ac-imgClass';
 import acImgView from 'ac-imgView';
 import acInduction from 'ac-induction';
@@ -18,6 +19,7 @@ import { keyBy } from 'lodash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
   acImgView,
+  acProx,
   acImgClass,
   acInduction,
   acBrainstorm,
