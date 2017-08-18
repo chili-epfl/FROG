@@ -46,7 +46,7 @@ class ChooseOperatorTypeComp extends Component {
     );
 
     return (
-      <div style={{ height: '100%' }}>
+      <div style={{ height: '100%', overflowY: 'scroll' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <h4>Please select operator type</h4>
           <div
@@ -116,7 +116,7 @@ const EditClass = ({
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={operator._id} />

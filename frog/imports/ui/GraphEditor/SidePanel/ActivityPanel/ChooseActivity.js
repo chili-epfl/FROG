@@ -44,7 +44,7 @@ class ChooseActivityType extends Component {
     );
 
     return (
-      <div style={{ height: '100%' }}>
+      <div style={{ height: '100%', overflowY: 'scroll' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <h4>Please select activity type</h4>
           <div
