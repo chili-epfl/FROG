@@ -145,8 +145,10 @@ export default connect(
   }: StoreProp & { scaled: boolean }) => {
     Mousetrap.bind('shift+up', () => movePlane(true));
     Mousetrap.bind('shift+down', () => movePlane(false));
-    return (<g>
-      {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
-    </g>);
+    return (
+      <g>
+        {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
+      </g>
+    );
   }
 );
