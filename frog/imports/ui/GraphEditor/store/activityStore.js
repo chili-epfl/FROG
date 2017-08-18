@@ -112,6 +112,19 @@ export default class ActivityStore {
     store.state = { mode: 'resizing', currentActivity: activity, bounds };
   };
 
+    @action
+    movePlane = (up: boolean) => {
+      if (store.ui.selected instanceof Activity) {
+        if(up && store.ui.selected.plane < 3){
+          store.ui.selected.plane += 1;
+          store.addHistory();
+        } else if(!up && store.ui.selected.plane > 1){
+          store.ui.selected.plane -= 1;
+          store.addHistory();
+        }
+      }
+    };
+
   @action
   stopMoving = () => {
     if (store.state.mode === 'moving' && store.state.currentActivity.wasMoved) {

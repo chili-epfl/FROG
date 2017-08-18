@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { DraggableCore } from 'react-draggable';
+import Mousetrap from 'mousetrap';
 import { connect, type StoreProp, store } from './store';
 import Activity from './store/activity';
 import { getClickHandler } from './utils';
@@ -53,6 +54,7 @@ class ActivityComponent extends Component {
       activity,
       scaled
     }: StoreProp & { activity: Activity, scaled: Boolean } = this.props;
+
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
@@ -138,10 +140,13 @@ const ActivityBox = connect(ActivityComponent);
 
 export default connect(
   ({
-    store: { activityStore: { all } },
+    store: { activityStore: { all, movePlane } },
     scaled
-  }: StoreProp & { scaled: boolean }) =>
-    <g>
+  }: StoreProp & { scaled: boolean }) => {
+    Mousetrap.bind('shift+up', () => movePlane(true));
+    Mousetrap.bind('shift+down', () => movePlane(false));
+    return (<g>
       {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
-    </g>
+    </g>);
+  }
 );
