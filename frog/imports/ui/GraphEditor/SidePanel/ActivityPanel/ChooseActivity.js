@@ -42,12 +42,25 @@ class ChooseActivityType extends Component {
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
     return (
-      <div style={{ height: '100%', overflowY: 'scroll' }}>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          transform: 'translateY(-40px)'
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '95%',
+            height: '35px'
+          }}
+        >
           <h4>Please select activity type</h4>
           <div
             className="input-group"
-            style={{ top: '5px', left: '10px', width: '250px' }}
+            style={{ top: '5px', left: '10px', width: '150px' }}
           >
             <span className="input-group-addon" id="basic-addon1">
               <span className="glyphicon glyphicon-search" aria-hidden="true" />
@@ -65,7 +78,12 @@ class ChooseActivityType extends Component {
         </div>
         <div
           className="list-group"
-          style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+          style={{
+            height: '95%',
+            width: '100%',
+            overflowY: 'scroll',
+            transform: 'translateY(10px)'
+          }}
         >
           {filteredList.length === 0
             ? <div

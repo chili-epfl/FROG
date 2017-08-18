@@ -43,13 +43,14 @@ const SidebarContainer = connect(
 
 const SidebarContainerDiv = styled.div`
   padding: 0px;
-  flex: 0 auto;
-  width: 26%;
-  height: 95%;
+  width: 400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
 `;
 
 const CloseButtonA = styled.a`
-  float: right;
   font-size: 2em;
+  transform: translateX(93%);
 `;

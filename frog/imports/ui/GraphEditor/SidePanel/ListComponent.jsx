@@ -47,7 +47,7 @@ export default ({
           position: 'absolute',
           right: '2px',
           top: '4px',
-          width: '9%',
+          width: '10%',
           height: '35px'
         }}
         className="glyphicon glyphicon-menu-down"
@@ -62,7 +62,7 @@ export default ({
           position: 'absolute',
           right: '2px',
           top: '39px',
-          width: '9%',
+          width: '10%',
           height: '34px'
         }}
         onClick={onPreview}
