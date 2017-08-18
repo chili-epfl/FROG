@@ -23,7 +23,7 @@ export type socialStructureT = {
   }
 };
 
-export type dataUnitT = Object | any[];
+export type dataUnitT = any;
 
 export type dataUnitStructT = { config: Object, data: dataUnitT };
 
