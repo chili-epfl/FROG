@@ -25,7 +25,7 @@ export default ({
       {showExpanded &&
         <div style={{ width: '87%' }}>
           <i>
-            {object.meta.description}
+            <Highlight text={object.meta.description} searchStr={searchS} />
           </i>
         </div>}
     </div>

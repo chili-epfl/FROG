@@ -32,12 +32,14 @@ class ChooseActivityType extends Component {
         searchStr: e.target.value.toLowerCase()
       });
 
-    const filteredList = activityTypes.filter(
-      x =>
-        x.meta.name.toLowerCase().includes(this.state.searchStr) ||
-        x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
-        x.meta.description.toLowerCase().includes(this.state.searchStr)
-    );
+    const filteredList = activityTypes
+      .filter(
+        x =>
+          x.meta.name.toLowerCase().includes(this.state.searchStr) ||
+          x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
+          x.meta.description.toLowerCase().includes(this.state.searchStr)
+      )
+      .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
     return (
       <div style={{ height: '100%', overflowY: 'scroll' }}>
