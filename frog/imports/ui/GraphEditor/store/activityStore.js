@@ -5,6 +5,7 @@ import { omit } from 'lodash';
 import Activity from './activity';
 import { store } from './index';
 import getOffsets from '../utils/getOffsets';
+import { between } from '../utils';
 import type { BoundsT } from './store';
 
 // find activities immediately to the left and to the right of the current activity
@@ -113,13 +114,15 @@ export default class ActivityStore {
   };
 
   @action
-  movePlane = (up: boolean) => {
+  movePlane = (increment: number) => {
     if (store.ui.selected instanceof Activity) {
-      if (up && store.ui.selected.plane < 3) {
-        store.ui.selected.plane += 1;
-        store.addHistory();
-      } else if (!up && store.ui.selected.plane > 1) {
-        store.ui.selected.plane -= 1;
+      const oldplane = store.ui.selected.plane;
+      store.ui.selected.plane = between(
+        1,
+        3,
+        (store.ui.selected.plane += increment)
+      );
+      if (oldplane !== store.ui.selected.plane) {
         store.addHistory();
       }
     }
