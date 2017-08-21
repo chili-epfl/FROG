@@ -62,6 +62,7 @@
     "ws": "^3.1.0",
     "ac-prox": "1.0.0",
     "op-prox": "1.0.0",
-    "ac-imgClass": "1.0.0"
+    "ac-imgClass": "1.0.0",
+    "ac-imgView": "1.0.0"
   }
 }
