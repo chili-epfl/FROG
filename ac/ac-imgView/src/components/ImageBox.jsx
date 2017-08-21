@@ -7,9 +7,18 @@ import CenteredImg from './CenteredImg';
 
 const getStyle = styleCode =>
   ({
-    'chosen_by_team_and_student': { border: 'solid 4px #009900', borderRadius: '5px' },
-    'chosen_by_student_only': { border: 'solid 4px #FFFF00', borderRadius: '5px' },
-    'chosen_by_team_but_not_student': { border: 'solid 4px #009900', borderRadius: '5px' },
+    chosen_by_team_and_student: {
+      border: 'solid 4px #009900',
+      borderRadius: '5px'
+    },
+    chosen_by_student_only: {
+      border: 'solid 4px #FFFF00',
+      borderRadius: '5px'
+    },
+    chosen_by_team_but_not_student: {
+      border: 'solid 4px #009900',
+      borderRadius: '5px'
+    }
   }[styleCode] || { border: 'solid 2px #a0a0a0' });
 
 const ImgButton = styled.button`

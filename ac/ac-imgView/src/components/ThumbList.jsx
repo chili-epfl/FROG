@@ -37,15 +37,17 @@ const ImageListPure = ({
           }
         };
 
-        console.log(image)
-        const voteCount = Object.values(image.votes).reduce((n, v) => v ? n + 1 : n, 0)
+        const voteCount = Object.values(image.votes).reduce(
+          (n, v) => (v ? n + 1 : n),
+          0
+        );
         const styleCode = image.votes[userInfo.id]
-          ? (voteCount >= (minVote || 0)
+          ? voteCount >= (minVote || 0)
             ? 'chosen_by_team_and_student'
-            : 'chosen_by_student_only')
-          : (voteCount >= (minVote || 0)
+            : 'chosen_by_student_only'
+          : voteCount >= (minVote || 0)
             ? 'chosen_by_team_but_not_student'
-            : 'not_chosen')
+            : 'not_chosen';
 
         return (
           <ImageBox
