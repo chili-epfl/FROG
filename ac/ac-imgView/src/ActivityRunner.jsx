@@ -15,12 +15,8 @@ const ActivityPanel = ({
   setCategorySelected
 }) => {
   const categories = getAllCategories(data);
-  const imgCategory =
-    data !== {}
-      ? getCategoryImages(categories.filter(x => x !== 'categories'), data)
-      : [];
-  const imagesFiltered =
-    data !== {} ? getImagesFiltered(data, categorySelected) : [];
+  const imgCategory = getCategoryImages(categories.filter(x => x !== 'categories'), data)
+  const imagesFiltered = getImagesFiltered(data, categorySelected);
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
@@ -46,7 +42,7 @@ const ActivityPanel = ({
 
 const getAllCategories = images => {
   const categories = ['all', 'categories'];
-  if (images !== {})
+  if (Object.keys(images).length !== 0)
     Object.keys(images).forEach(
       x =>
         images[x].categories &&
@@ -58,7 +54,7 @@ const getAllCategories = images => {
 };
 
 const getCategoryImages = (categories, images) => {
-  if (images === {}) return [];
+  if (Object.keys(images).length === 0) return [];
   const result = categories.map(x => {
     const image =
       x === 'all'
