@@ -1,7 +1,7 @@
 // @flow
 
 import { FS } from 'meteor/cfs:base-package';
-import { OpenUploads } from '../../api/openUploads';
+//import { OpenUploads } from '../../api/openUploads';
 
 export const OpenUploads = new FS.Collection('openUploads', {
   stores: [new FS.Store.FileSystem('openUploads')]

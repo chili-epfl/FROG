@@ -50,7 +50,6 @@ const ReactiveHOC = (
                 cloneDeep(previewActivityData),
                 dataFn
               );
-              console.log(dataFn);
             }
             this.waitForDoc();
           }
@@ -87,14 +86,17 @@ const ReactiveHOC = (
       this.unmounted = true;
     };
 
-    render = () =>
-      this.state.data !== null
+    render = () =>{
+      console.log(this.state.data);
+      console.log(this.state.dataFn);
+      return (this.state.data !== null
         ? <WrappedComponent
-            dataFn={this.state.dataFn}
+            dataFn={{...this.state.dataFn, importFile, getFile}}
             data={this.state.data}
             {...this.props}
           />
-        : <p>Loading...</p>;
+        : <p>Loading...</p>);
+      }
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;

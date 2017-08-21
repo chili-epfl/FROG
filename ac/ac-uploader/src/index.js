@@ -3,11 +3,13 @@
 import React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
+import ActivityRunner from './ActivityRunner';
+
 const meta = {
-  name: 'Uploader',
+  name: 'File Uploader',
   type: 'react-component',
-  shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available',
+  shortDesc: 'File Uploader',
+  description: 'Allow any student to upload files in the database',
   exampleData: [
     { title: 'Case with no data', config: { title: 'No data' }, data: {} }
   ]
@@ -28,12 +30,6 @@ const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {};
-
-// the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) =>
-  <div>
-    {JSON.stringify(activityData)}
-  </div>;
 
 export default ({
   id: 'ac-uploader',
