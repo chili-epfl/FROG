@@ -53,7 +53,6 @@ class ActivityComponent extends Component {
       activity,
       scaled
     }: StoreProp & { activity: Activity, scaled: Boolean } = this.props;
-
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
@@ -141,11 +140,8 @@ export default connect(
   ({
     store: { activityStore: { all } },
     scaled
-  }: StoreProp & { scaled: boolean }) => {
-    return (
-      <g>
-        {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
-      </g>
-    );
-  }
+  }: StoreProp & { scaled: boolean }) =>
+    <g>
+      {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
+    </g>
 );
