@@ -109,7 +109,8 @@ const PageContainer = createContainer((props: { username: string }) => {
     'logs',
     'activities',
     'objects',
-    'sessions'
+    'sessions',
+    'openUploads'
   ]);
   if (props.username === 'teacher') {
     ready =

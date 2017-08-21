@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { generateReactiveFn } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
+import { importFile, getFile } from '../../api/openUploads';
 import { connection } from '../App/index';
 
 const getDisplayName = (WrappedComponent: any): string => {
@@ -49,6 +50,7 @@ const ReactiveHOC = (
                 cloneDeep(previewActivityData),
                 dataFn
               );
+              console.log(dataFn);
             }
             this.waitForDoc();
           }
