@@ -52,7 +52,7 @@ export default (
         }
       }
     }
-    if (node.groupingKey && node.groupingKey.length > 0) {
+    if (node.groupingKey && node.groupingKey.length > 0 && node.plane === 2) {
       if (!soc.includes(node.groupingKey)) {
         errors.push({
           id: node._id,
