@@ -52,4 +52,6 @@ const bindKeys = () => {
   Mousetrap.bind('1', () => store.activityStore.newActivityAbove(1));
   Mousetrap.bind('2', () => store.activityStore.newActivityAbove(2));
   Mousetrap.bind('3', () => store.activityStore.newActivityAbove(3));
+  Mousetrap.bind('shift+up', () => store.activityStore.movePlane(1));
+  Mousetrap.bind('shift+down', () => store.activityStore.movePlane(-1));
 };
