@@ -47,6 +47,7 @@ export type ActivityRunnerT = {
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
+  uploadFn: Object,
   userInfo: { id: string, name: string }
 };
 

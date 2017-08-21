@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { generateReactiveFn } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
-import { importFile, getFile } from '../../api/openUploads';
+import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
 
 const getDisplayName = (WrappedComponent: any): string => {
@@ -86,17 +86,15 @@ const ReactiveHOC = (
       this.unmounted = true;
     };
 
-    render = () =>{
-      console.log(this.state.data);
-      console.log(this.state.dataFn);
-      return (this.state.data !== null
+    render = () =>
+      this.state.data !== null
         ? <WrappedComponent
-            dataFn={{...this.state.dataFn, importFile, getFile}}
+            dataFn={this.state.dataFn}
+            uploadFn={{ uploadFile }}
             data={this.state.data}
             {...this.props}
           />
-        : <p>Loading...</p>);
-      }
+        : <p>Loading...</p>;
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;

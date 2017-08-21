@@ -1,7 +1,6 @@
 // @flow
 
 import { FS } from 'meteor/cfs:base-package';
-//import { OpenUploads } from '../../api/openUploads';
 
 export const OpenUploads = new FS.Collection('openUploads', {
   stores: [new FS.Store.FileSystem('openUploads')]
@@ -9,23 +8,13 @@ export const OpenUploads = new FS.Collection('openUploads', {
 
 OpenUploads.allow({ insert: () => true });
 
-export const importFile = files => {
-  if (files.length > 1) {
-    window.alert('Only 1 file at a time please'); //eslint-disable-line
-  } else {
-    OpenUploads.insert(files[0], (err, fileObj) => {
-      const newUrl =
+export const uploadFile = (files: Array<any>, callback: string => any) => {
+  files.forEach(x => {
+    OpenUploads.insert(x, (err, fileObj) => {
+      const url =
         window.location.origin + '/cfs/files/openUploads/' + fileObj._id;
-      // setState({
-      //   urls: [...urls, newUrl]
-      // });
-
+      if (!err) callback(url);
+        else window.alert('Cannot upload'); //eslint-disable-line
     });
-  }
+  });
 };
-
-export const getFile = url => {
-  const all = OpenUploads.find();
-  console.log(all);
-  return (null);
-}

@@ -15,7 +15,10 @@ const ActivityPanel = ({
   setCategorySelected
 }) => {
   const categories = getAllCategories(data);
-  const imgCategory = getCategoryImages(categories.filter(x => x !== 'categories'), data)
+  const imgCategory = getCategoryImages(
+    categories.filter(x => x !== 'categories'),
+    data
+  );
   const imagesFiltered = getImagesFiltered(data, categorySelected);
 
   return (
