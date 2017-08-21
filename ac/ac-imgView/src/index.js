@@ -86,14 +86,14 @@ const mergeFunction = (object, dataFn) => {
   if (dataObj !== {})
     dataImgs.forEach((x, i) =>
       dataFn.objInsert(
-        { url: dataObj[x].url, categories: dataObj[x].categories, ids: [] },
+        { url: dataObj[x].url, categories: dataObj[x].categories, votes: {} },
         i
       )
     );
   if (object.config.images)
     object.config.images.forEach((x, i) =>
       dataFn.objInsert(
-        { url: x.url, categories: x.categories, ids: [] },
+        { url: x.url, categories: x.categories, votes: {} },
         dataImgs.length + i
       )
     );
