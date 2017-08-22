@@ -23,7 +23,6 @@ class GraphView extends Component {
 
   componentWillReceiveProps(nextProps: { session: Object }) {
     if (!isEqual(nextProps.session, this.props.session)) {
-      console.log(nextProps, this.props);
       this.initStore(nextProps.session);
       if (store.session) {
         store.session.setTimes(nextProps.session);

@@ -9,7 +9,7 @@ import StudentList from './StudentList';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
-import { Sessions, setTeacherSession } from '../../api/sessions';
+import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Logs, flushLogs } from '../../api/logs';

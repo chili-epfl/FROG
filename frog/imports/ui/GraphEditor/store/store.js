@@ -127,7 +127,6 @@ export default class Store {
 
   @action
   setId = (id: string, readOnly: boolean = false): void => {
-    console.log('setId', id, this.url);
     this.browserHistory.push(`${this.url}/${id}`);
     setCurrentGraph(id);
     const graph = Graphs.findOne(id);
