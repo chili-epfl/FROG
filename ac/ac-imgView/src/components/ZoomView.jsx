@@ -7,7 +7,7 @@ import Mousetrap from 'mousetrap';
 import CenteredImg from './CenteredImg';
 
 const ZoomContainer = styled.div`
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   background: rgba(50, 50, 50, 0.8);

@@ -11,7 +11,7 @@ const Main = styled.div`
   align-items: center;
 `;
 
-const TopBar = ({ categories, category, setCategory }: Object) =>
+const TopBar = ({ categories, category, setCategory, setZoom }: Object) =>
   <Main>
     {category !== 'categories' &&
       <button
@@ -24,7 +24,14 @@ const TopBar = ({ categories, category, setCategory }: Object) =>
     <span style={{ margin: '5px', fontSize: 'large' }}>Library :</span>
     <DropdownButton title={category} id="dropdown-basic-0">
       {categories.filter(x => x !== category).map(y =>
-        <MenuItem key={y} eventKey={'toto'} onClick={() => setCategory(y)}>
+        <MenuItem
+          key={y}
+          eventKey={'toto'}
+          onClick={() => {
+            setZoom(false);
+            setCategory(y);
+          }}
+        >
           {y}
         </MenuItem>
       )}

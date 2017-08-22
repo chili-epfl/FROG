@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { compose, withState } from 'recompose';
 import Mousetrap from 'mousetrap';
 
-import ZoomView from './ZoomView';
 import ImageBox from './ImageBox';
 import CategoryBox from './CategoryBox';
 
@@ -13,6 +12,8 @@ const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
+  height: 100%;
+  overflow: auto;
 `;
 
 const ImageListPure = ({
@@ -20,11 +21,9 @@ const ImageListPure = ({
   vote,
   minVote,
   userInfo,
-  zoomOpen,
   setZoom,
   voteMode,
   setVoteMode,
-  index,
   setIndex
 }) => {
   Mousetrap.bind('esc', () => setZoom(false));
@@ -47,6 +46,7 @@ const ImageListPure = ({
           (n, v) => (v ? n + 1 : n),
           0
         );
+
         const styleCode = image.votes[userInfo.id]
           ? voteCount >= (minVote || 0)
             ? 'chosen_by_team_and_student'
@@ -62,19 +62,13 @@ const ImageListPure = ({
           />
         );
       })}
-      {zoomOpen &&
-        <ZoomView
-          {...{ close: () => setZoom(false), images, index, setIndex }}
-        />}
     </Main>
   );
 };
 
-const ImageList = compose(
-  withState('zoomOpen', 'setZoom', false),
-  withState('voteMode', 'setVoteMode', false),
-  withState('index', 'setIndex', 0)
-)(ImageListPure);
+const ImageList = compose(withState('voteMode', 'setVoteMode', false))(
+  ImageListPure
+);
 
 const CategoryList = ({ categories, setCategory }) =>
   <Main>
@@ -89,17 +83,26 @@ const CategoryList = ({ categories, setCategory }) =>
   </Main>;
 
 export default ({
-  images,categories,setCategory,minVote,
-  vote,userInfo,showingCategories
+  images,
+  categories,
+  setCategory,
+  minVote,
+  vote,
+  userInfo,
+  showingCategories,
+  setZoom,
+  setIndex
 }: {
-  images: Array<{url: string, key: string, votes: Object}>,
+  images: Array<{ url: string, key: string, votes: Object }>,
   categories: Object,
   setCategory: Function,
   minVote: number,
   vote: Function,
-  userInfo: { id: string },
-  showingCategories: boolean
+  userInfo: Object,
+  showingCategories: boolean,
+  setZoom: Function,
+  setIndex: Function
 }) =>
   showingCategories
     ? <CategoryList {...{ categories, setCategory }} />
-    : <ImageList {...{ images, minVote, vote, userInfo }} />;
+    : <ImageList {...{ images, minVote, vote, userInfo, setZoom, setIndex }} />;

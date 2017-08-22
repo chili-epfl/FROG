@@ -1,11 +1,12 @@
 // @flow
 
 import React from 'react';
-import { withState } from 'recompose';
+import { compose, withState } from 'recompose';
 import styled from 'styled-components';
 
 import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
+import ZoomView from './components/ZoomView';
 
 const Main = styled.div`
   display: flex;
@@ -21,7 +22,11 @@ const ActivityPanel = ({
   dataFn,
   userInfo,
   category,
-  setCategory
+  setCategory,
+  zoomOpen,
+  setZoom,
+  index,
+  setIndex
 }) => {
   const categories = Object.keys(data).reduce(
     (acc, key) => ({
@@ -59,19 +64,34 @@ const ActivityPanel = ({
     <Main>
       <TopBar
         categories={[...Object.keys(categories), 'categories']}
-        category={category}
-        setCategory={setCategory}
+        {...{ category, setCategory, setZoom }}
       />
       <ThumbList
-        {...{ images, categories, minVote, vote, userInfo, setCategory }}
+        {...{
+          images,
+          categories,
+          minVote,
+          vote,
+          userInfo,
+          setCategory,
+          setZoom,
+          setIndex
+        }}
         showingCategories={category === 'categories'}
       />
+      {category !== 'categories' &&
+        zoomOpen &&
+        <ZoomView
+          {...{ close: () => setZoom(false), images, index, setIndex }}
+        />}
     </Main>
   );
 };
 
-const ActivityRunner = withState('category', 'setCategory', 'categories')(
-  ActivityPanel
-);
+const ActivityRunner = compose(
+  withState('zoomOpen', 'setZoom', false),
+  withState('index', 'setIndex', 0),
+  withState('category', 'setCategory', 'categories')
+)(ActivityPanel);
 
 export default ActivityRunner;
