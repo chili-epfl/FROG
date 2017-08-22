@@ -41,49 +41,46 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const Idea = ({ individualVote, fun, idea, remove }) => {
-  return (
-    <ListGroupItem>
-      <font size={4}>
-        <div style={{ float: 'right' }}>
-          <A onClick={() => fun.vote(idea.id, -1)}>
-            <Glyphicon
-              style={{
-                color: chooseColor(individualVote, false),
-                marginRight: '10px'
-              }}
-              glyph="thumbs-down"
-            />
-          </A>
-          <A onClick={() => fun.vote(idea.id, 1)}>
-            <Glyphicon
-              style={{
-                color: chooseColor(individualVote, true),
-                marginRight: '10px'
-              }}
-              glyph="thumbs-up"
-            />
-          </A>
-          <Badge>
-            {idea.score}
-          </Badge>
-        </div>
-      </font>
-      <b>
-        {idea.title}
-      </b>
-      <div>
-        {idea.content}
-        {remove &&
-          <font size={4}>
-            <A onClick={() => fun.del(idea)}>
-              <Glyphicon glyph="scissors" style={{ float: 'right' }} />
-            </A>
-          </font>}
+const Idea = ({ individualVote, fun, idea, remove }) =>
+  <ListGroupItem>
+    <font size={4}>
+      <div style={{ float: 'right' }}>
+        <A onClick={() => fun.vote(idea.id, -1)}>
+          <Glyphicon
+            style={{
+              color: chooseColor(individualVote, false),
+              marginRight: '10px'
+            }}
+            glyph="thumbs-down"
+          />
+        </A>
+        <A onClick={() => fun.vote(idea.id, 1)}>
+          <Glyphicon
+            style={{
+              color: chooseColor(individualVote, true),
+              marginRight: '10px'
+            }}
+            glyph="thumbs-up"
+          />
+        </A>
+        <Badge>
+          {idea.score}
+        </Badge>
       </div>
-    </ListGroupItem>
-  );
-};
+    </font>
+    <b>
+      {idea.title}
+    </b>
+    <div>
+      {idea.content}
+      {remove &&
+        <font size={4}>
+          <A onClick={() => fun.del(idea)}>
+            <Glyphicon glyph="scissors" style={{ float: 'right' }} />
+          </A>
+        </font>}
+    </div>
+  </ListGroupItem>;
 
 const IdeaList = ({ userInfo, data, ideas, fun }) =>
   <div>
