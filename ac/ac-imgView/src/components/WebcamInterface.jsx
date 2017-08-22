@@ -6,61 +6,57 @@ import Webcam from 'react-webcam';
 import Mousetrap from 'mousetrap';
 
 import { dataURItoFile, uuid } from 'frog-utils';
+
 // if (!/https/.test(window.location.protocol))
 //   window.location.protocol = 'https://';
 
-class WebcamCapture extends Component {
-  constructor(props) {
-    super(props);
-    Mousetrap.bind('esc', () => props.setWebcam(false));
-  }
-
-  render() {
-    return (
-      <WebcamContainer>
-        <Webcam
-          audio={false}
-          ref={node => (this.webcam = node)}
-          style={{ width: '60%', height: '90%', margin: 'auto' }}
-        />
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            const url = this.webcam.getScreenshot();
-            const file = dataURItoFile(url, uuid(), window);
-            this.props.uploadFn.uploadFile(file, url => {
-              // setTimeout, otherwise HTTP request sends back code 503
-              setTimeout(
-                () =>
-                  this.props.dataFn.objInsert(
-                    { url, categories: ['uploaded'], votes: {} },
-                    Object.keys(this.props.data).length,
-                  ),
-                1000,
-              );
-            });
-            this.props.setWebcam(false);
-          }}
-          style={{
-            height: '100px',
-            marginTop: 'auto',
-            marginBottom: 'auto',
-            marginRight: 'auto',
-          }}
-        >
-          Take a picture
-        </button>
-        <button
-          onClick={() => this.props.setWebcam(false)}
-          className="btn btn-secondary"
-          style={{ position: 'absolute', right: '0px' }}
-        >
-          <span className="glyphicon glyphicon-remove" />
-        </button>
-      </WebcamContainer>
-    );
-  }
-}
+const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
+  let webcam = { getScreenshot: () => null };
+  Mousetrap.bind('esc', () => setWebcam(false));
+  return (
+    <WebcamContainer>
+      <Webcam
+        audio={false}
+        ref={node => (webcam = node)}
+        style={{ width: '60%', height: '90%', margin: 'auto' }}
+      />
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          const url = webcam.getScreenshot();
+          const file = dataURItoFile(url, uuid(), window);
+          uploadFn.uploadFile(file, url => {
+            // setTimeout, otherwise HTTP request sends back code 503
+            setTimeout(
+              () =>
+                dataFn.objInsert(
+                  { url, categories: ['uploaded'], votes: {} },
+                  Object.keys(data).length
+                ),
+              1000
+            );
+          });
+          setWebcam(false);
+        }}
+        style={{
+          height: '100px',
+          marginTop: 'auto',
+          marginBottom: 'auto',
+          marginRight: 'auto'
+        }}
+      >
+        Take a picture
+      </button>
+      <button
+        onClick={() => setWebcam(false)}
+        className="btn btn-secondary"
+        style={{ position: 'absolute', right: '0px' }}
+      >
+        <span className="glyphicon glyphicon-remove" />
+      </button>
+    </WebcamContainer>
+  );
+};
 
 export default WebcamCapture;
 

@@ -10,7 +10,7 @@ import { Messages } from '../imports/api/messages.js';
 import {
   Activities,
   Operators,
-  Connections,
+  Connections
 } from '../imports/api/activities.js';
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';

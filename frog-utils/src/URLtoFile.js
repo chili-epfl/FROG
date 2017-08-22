@@ -1,6 +1,6 @@
 // @flow
 
-export default (url, name, window) => {
+export default (url: any, name: string, window: any) => {
   const CanvasPrototype =
     window.HTMLCanvasElement && window.HTMLCanvasElement.prototype;
 
@@ -38,7 +38,7 @@ export default (url, name, window) => {
     window.atob &&
     window.ArrayBuffer &&
     window.Uint8Array &&
-    (dataURI => {
+    ((dataURI: string) => {
       let matches,
         mediaType,
         isBase64,
@@ -75,7 +75,7 @@ export default (url, name, window) => {
       // Write the ArrayBuffer (or ArrayBufferView) to a blob:
       if (hasBlobConstructor) {
         return new Blob([hasArrayBufferViewSupport ? intArray : arrayBuffer], {
-          type: mediaType,
+          type: mediaType
         });
       }
       bb = new BlobBuilder();
@@ -83,11 +83,9 @@ export default (url, name, window) => {
       return bb.getBlob(mediaType);
     });
 
-  const blobToFile = (blob, name) => {
+  const blobToFile = (blob: any, name: string) => {
     const form = new FormData();
-    console.log(blob);
     form.append('image', blob, name + '.png');
-    console.log(form);
     return form;
   };
 

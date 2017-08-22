@@ -17,12 +17,12 @@ export {
   focusStudent,
   focusRole,
   getAttributeKeys,
-  getAttributeValues,
+  getAttributeValues
 } from './socstructTools';
 export {
   wrapUnitAll,
   extractUnit,
-  getMergedExtractedUnit,
+  getMergedExtractedUnit
 } from './dataStructureTools';
 export type {
   ActivityDbT,
@@ -38,7 +38,7 @@ export type {
   ActivityPackageT,
   productOperatorT,
   socialOperatorT,
-  operatorPackageT,
+  operatorPackageT
 } from './types';
 
 export const A = ({ onClick, children, ...rest }: any): any =>
@@ -89,14 +89,14 @@ export const zipList = (xs: Array<any>): Array<any> =>
 export const withVisibility = compose(
   withState('visible', 'setVisibility', false),
   withHandlers({
-    toggleVisibility: ({ setVisibility }) => () => setVisibility(n => !n),
-  }),
+    toggleVisibility: ({ setVisibility }) => () => setVisibility(n => !n)
+  })
 );
 
 export const flattenOne = (ary: any[]): any[] =>
   ary.reduce(
     (acc: any[], x: any) => (Array.isArray(x) ? [...acc, ...x] : [...acc, x]),
-    [],
+    []
   );
 
 export const wordWrap = (text: string, maxLength: number): string[] => {

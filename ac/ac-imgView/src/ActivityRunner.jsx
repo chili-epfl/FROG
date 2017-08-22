@@ -31,7 +31,7 @@ const ActivityPanel = ({
   index,
   setIndex,
   webcam,
-  setWebcam,
+  setWebcam
 }) => {
   const categories = Object.keys(data).reduce(
     (acc, key) => ({
@@ -41,12 +41,12 @@ const ActivityPanel = ({
         data[key].categories.reduce(
           (_acc, cat) => ({
             ..._acc,
-            [cat]: [...(acc[cat] || []), data[key].url],
+            [cat]: [...(acc[cat] || []), data[key].url]
           }),
-          {},
-        )),
+          {}
+        ))
     }),
-    {},
+    {}
   );
 
   const images = Object.keys(data)
@@ -56,7 +56,7 @@ const ActivityPanel = ({
         data[key].url !== undefined &&
         (category === 'all' ||
           (data[key].categories !== undefined &&
-            data[key].categories.includes(category))),
+            data[key].categories.includes(category)))
     )
     .map(key => ({ ...data[key], key }));
 
@@ -80,7 +80,7 @@ const ActivityPanel = ({
           userInfo,
           setCategory,
           setZoom,
-          setIndex,
+          setIndex
         }}
         showingCategories={category === 'categories'}
       />
@@ -112,7 +112,7 @@ const ActivityRunner = compose(
   withState('zoomOpen', 'setZoom', false),
   withState('index', 'setIndex', 0),
   withState('category', 'setCategory', 'categories'),
-  withState('webcam', 'setWebcam', false),
+  withState('webcam', 'setWebcam', false)
 )(ActivityPanel);
 
 export default ActivityRunner;

@@ -21,7 +21,7 @@ const ReactiveHOC = (
   dataStructure: any,
   docId: string,
   previewActivity: any = false,
-  previewActivityData: any = null,
+  previewActivityData: any = null
 ) => (WrappedComponent: Class<Component<*, *, *>>) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
@@ -33,7 +33,7 @@ const ReactiveHOC = (
       super(props);
       this.state = {
         data: null,
-        dataFn: null,
+        dataFn: null
       };
     }
 
@@ -48,7 +48,7 @@ const ReactiveHOC = (
               const dataFn = generateReactiveFn(this.doc);
               previewActivity.mergeFunction(
                 cloneDeep(previewActivityData),
-                dataFn,
+                dataFn
               );
             }
             this.waitForDoc();

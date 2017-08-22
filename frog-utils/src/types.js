@@ -4,14 +4,14 @@ export type ActivityDbT = {
   _id: string,
   data: Object,
   groupingKey: string,
-  plane: number,
+  plane: number
 };
 
 // { aa: { group: 1, role: 'chef', color: 'red' },
 //   bb: { group: 2, role: 'waiter' },
 //   cc: { role: 'waiter' } }
 export type studentStructureT = {
-  [studentId: string]: { [attributeKey: string]: string },
+  [studentId: string]: { [attributeKey: string]: string }
 };
 
 // { group: { '1': [ 'aa ' ], '2': [ 'bb' ] },
@@ -19,8 +19,8 @@ export type studentStructureT = {
 //   color: { red: 'aa' } }
 export type socialStructureT = {
   [attributeKey: string]: {
-    [attributeValue: string]: string[],
-  },
+    [attributeValue: string]: string[]
+  }
 };
 
 export type dataUnitT = any;
@@ -33,13 +33,13 @@ export type payloadT = { [attributeKey: string]: dataUnitStructT };
 
 export type activityDataT = {
   structure: structureDefT,
-  payload: payloadT,
+  payload: payloadT
 };
 
 export type ObjectT = {
   socialStructure: socialStructureT,
   activityData: activityDataT,
-  globalStructure: { studentIds: string[] },
+  globalStructure: { studentIds: string[] }
 };
 
 export type ActivityRunnerT = {
@@ -48,7 +48,7 @@ export type ActivityRunnerT = {
   data: any,
   dataFn: Object,
   uploadFn: Object,
-  userInfo: { id: string, name: string },
+  userInfo: { id: string, name: string }
 };
 
 export type validateConfigFnT = Object => null | { field: string, err: string };
@@ -60,12 +60,12 @@ export type ActivityPackageT = {
     name: string,
     shortDesc: string,
     description: string,
-    exampleData: Array<any>,
+    exampleData: Array<any>
   },
   config: Object,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: (x: ActivityRunnerT) => React$Component<*> | React$Element<*>,
+  ActivityRunner: (x: ActivityRunnerT) => React$Component<*> | React$Element<*>
 };
 
 export type productOperatorT = {
@@ -74,11 +74,11 @@ export type productOperatorT = {
   meta: {
     name: string,
     shortDesc: string,
-    description: string,
+    description: string
   },
   config: Object,
   validateConfig?: validateConfigFnT[],
-  operator: (configData: Object, object: ObjectT) => activityDataT,
+  operator: (configData: Object, object: ObjectT) => activityDataT
 };
 
 export type socialOperatorT = {
@@ -87,12 +87,12 @@ export type socialOperatorT = {
   meta: {
     name: string,
     shortDesc: string,
-    description: string,
+    description: string
   },
   outputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
-  operator: (configData: Object, object: ObjectT) => socialStructureT,
+  operator: (configData: Object, object: ObjectT) => socialStructureT
 };
 
 export type operatorPackageT = socialOperatorT | productOperatorT;

@@ -3,7 +3,7 @@
 import { FS } from 'meteor/cfs:base-package';
 
 export const OpenUploads = new FS.Collection('openUploads', {
-  stores: [new FS.Store.FileSystem('openUploads')],
+  stores: [new FS.Store.FileSystem('openUploads')]
 });
 
 OpenUploads.allow({ insert: () => true });

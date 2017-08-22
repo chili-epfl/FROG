@@ -12,36 +12,29 @@ export default ({ data, dataFn, uploadFn, userInfo }: Object) => {
         () =>
           dataFn.objInsert(
             { url, categories: ['uploaded'], votes: {} },
-            Object.keys(data).length,
+            Object.keys(data).length
           ),
-        500,
+        500
       );
     });
   };
 
   return (
-    <Main>
+    <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
       <Dropzone
         onDrop={onDrop}
         style={{
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',
           borderRadius: '5px',
-          textAlign: 'center',
+          textAlign: 'center'
         }}
       >
         <TextStyled>Drop files here</TextStyled>
       </Dropzone>
-    </Main>
+    </div>
   );
 };
-
-const Main = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
 
 const TextStyled = styled.h3`
   position: relative;
