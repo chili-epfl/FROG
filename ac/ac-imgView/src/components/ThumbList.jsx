@@ -12,7 +12,7 @@ const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  height: 100%;
+  height: 85%;
   overflow: auto;
 `;
 
@@ -24,7 +24,7 @@ const ImageListPure = ({
   setZoom,
   voteMode,
   setVoteMode,
-  setIndex
+  setIndex,
 }) => {
   Mousetrap.bind('esc', () => setZoom(false));
   Mousetrap.bind('shift', () => setVoteMode(true), 'keydown');
@@ -44,7 +44,7 @@ const ImageListPure = ({
 
         const voteCount = Object.values(image.votes).reduce(
           (n, v) => (v ? n + 1 : n),
-          0
+          0,
         );
 
         const styleCode = image.votes[userInfo.id]
@@ -67,7 +67,7 @@ const ImageListPure = ({
 };
 
 const ImageList = compose(withState('voteMode', 'setVoteMode', false))(
-  ImageListPure
+  ImageListPure,
 );
 
 const CategoryList = ({ categories, setCategory }) =>
@@ -78,7 +78,7 @@ const CategoryList = ({ categories, setCategory }) =>
         images={categories[category]}
         category={category}
         setCategory={setCategory}
-      />
+      />,
     )}
   </Main>;
 
@@ -91,7 +91,7 @@ export default ({
   userInfo,
   showingCategories,
   setZoom,
-  setIndex
+  setIndex,
 }: {
   images: Array<{ url: string, key: string, votes: Object }>,
   categories: Object,
@@ -101,7 +101,7 @@ export default ({
   userInfo: Object,
   showingCategories: boolean,
   setZoom: Function,
-  setIndex: Function
+  setIndex: Function,
 }) =>
   showingCategories
     ? <CategoryList {...{ categories, setCategory }} />

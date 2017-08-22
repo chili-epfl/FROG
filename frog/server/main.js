@@ -10,7 +10,7 @@ import { Messages } from '../imports/api/messages.js';
 import {
   Activities,
   Operators,
-  Connections
+  Connections,
 } from '../imports/api/activities.js';
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
@@ -20,6 +20,7 @@ import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 import { GlobalSettings } from '../imports/api/global.js';
 import { Uploads } from '../imports/api/uploads.js';
+import { OpenUploads } from '../imports/api/openUploads.js';
 // import '../imports/api/engine.js';
 
 Meteor.publish('userData', () => Meteor.users.find({}));
@@ -35,5 +36,6 @@ Meteor.publish('objects', () => Objects.find({}));
 Meteor.publish('products', () => Products.find({}));
 Meteor.publish('sessions', () => Sessions.find({}));
 Meteor.publish('uploads', () => Uploads.find({}));
+Meteor.publish('openUploads', () => Uploads.find({}));
 
 startShareDB();

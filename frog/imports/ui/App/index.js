@@ -20,7 +20,7 @@ const apps = {
   admin: 'Admin',
   graph: 'Graph Editor',
   teacher: 'Teacher View',
-  student: 'Student View'
+  student: 'Student View',
 };
 
 const socket = new ReconnectingWebSocket('ws://localhost:3002');
@@ -38,7 +38,7 @@ export default class App extends Component {
       onReady: () => {
         this.handleNewHash();
         window.addEventListener('hashchange', this.handleNewHash, false);
-      }
+      },
     });
   }
 
@@ -49,7 +49,7 @@ export default class App extends Component {
     if (username && username !== loggedInUsername) {
       if (!Meteor.users.findOne({ username })) {
         Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-          connectWithDefaultPwd(username)
+          connectWithDefaultPwd(username),
         );
       } else {
         connectWithDefaultPwd(username);
@@ -78,7 +78,7 @@ const Page = (props: {
   username: string,
   currentApp: string,
   apps: {},
-  ready: boolean
+  ready: boolean,
 }) => {
   if (!props.ready) return <div id="app" />;
   return (
@@ -109,7 +109,8 @@ const PageContainer = createContainer((props: { username: string }) => {
     'logs',
     'activities',
     'objects',
-    'sessions'
+    'sessions',
+    'openUploads',
   ]);
   if (props.username === 'teacher') {
     ready =
@@ -120,7 +121,7 @@ const PageContainer = createContainer((props: { username: string }) => {
         'global_settings',
         'graphs',
         'products',
-        'uploads'
+        'uploads',
       ]);
   }
   return { ...props, ready };

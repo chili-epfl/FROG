@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { generateReactiveFn } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
+import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
 
 const getDisplayName = (WrappedComponent: any): string => {
@@ -20,7 +21,7 @@ const ReactiveHOC = (
   dataStructure: any,
   docId: string,
   previewActivity: any = false,
-  previewActivityData: any = null
+  previewActivityData: any = null,
 ) => (WrappedComponent: Class<Component<*, *, *>>) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
@@ -32,7 +33,7 @@ const ReactiveHOC = (
       super(props);
       this.state = {
         data: null,
-        dataFn: null
+        dataFn: null,
       };
     }
 
@@ -47,7 +48,7 @@ const ReactiveHOC = (
               const dataFn = generateReactiveFn(this.doc);
               previewActivity.mergeFunction(
                 cloneDeep(previewActivityData),
-                dataFn
+                dataFn,
               );
             }
             this.waitForDoc();
@@ -89,6 +90,7 @@ const ReactiveHOC = (
       this.state.data !== null
         ? <WrappedComponent
             dataFn={this.state.dataFn}
+            uploadFn={{ uploadFile }}
             data={this.state.data}
             {...this.props}
           />

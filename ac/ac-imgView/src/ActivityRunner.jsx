@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
+import UploadBar from './components/UploadBar';
 import ZoomView from './components/ZoomView';
 
 const Main = styled.div`
@@ -20,13 +21,14 @@ const ActivityPanel = ({
   activityData: { config: { minVote } },
   data,
   dataFn,
+  uploadFn,
   userInfo,
   category,
   setCategory,
   zoomOpen,
   setZoom,
   index,
-  setIndex
+  setIndex,
 }) => {
   const categories = Object.keys(data).reduce(
     (acc, key) => ({
@@ -36,12 +38,12 @@ const ActivityPanel = ({
         data[key].categories.reduce(
           (_acc, cat) => ({
             ..._acc,
-            [cat]: [...(acc[cat] || []), data[key].url]
+            [cat]: [...(acc[cat] || []), data[key].url],
           }),
-          {}
-        ))
+          {},
+        )),
     }),
-    {}
+    {},
   );
 
   const images = Object.keys(data)
@@ -51,7 +53,7 @@ const ActivityPanel = ({
         data[key].url !== undefined &&
         (category === 'all' ||
           (data[key].categories !== undefined &&
-            data[key].categories.includes(category)))
+            data[key].categories.includes(category))),
     )
     .map(key => ({ ...data[key], key }));
 
@@ -75,7 +77,7 @@ const ActivityPanel = ({
           userInfo,
           setCategory,
           setZoom,
-          setIndex
+          setIndex,
         }}
         showingCategories={category === 'categories'}
       />
@@ -84,6 +86,12 @@ const ActivityPanel = ({
         <ZoomView
           {...{ close: () => setZoom(false), images, index, setIndex }}
         />}
+      <UploadBar
+        data={data}
+        dataFn={dataFn}
+        userInfo={userInfo}
+        uploadFn={uploadFn}
+      />
     </Main>
   );
 };
@@ -91,7 +99,7 @@ const ActivityPanel = ({
 const ActivityRunner = compose(
   withState('zoomOpen', 'setZoom', false),
   withState('index', 'setIndex', 0),
-  withState('category', 'setCategory', 'categories')
+  withState('category', 'setCategory', 'categories'),
 )(ActivityPanel);
 
 export default ActivityRunner;
