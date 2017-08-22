@@ -1,17 +1,33 @@
-// @flow
 import React, { Component } from 'react';
+// @flow
 import { Provider } from 'mobx-react';
 import Mousetrap from 'mousetrap';
+import { withRouter } from 'react-router';
 
 import { store } from './store';
 import { assignGraph } from '../../api/graphs';
 import EditorContainer from './EditorContainer';
 
-export default class AppClass extends Component {
+class AppClass extends Component {
   componentWillMount() {
-    store.setId(assignGraph());
+    store.setBrowserHistory(this.props.history);
     bindKeys();
+    this.updateGraphId(this.props.match && this.props.match.params.graphId);
   }
+
+  componentWillReceiveProps = (nextProps: Object) => {
+    if (
+      nextProps.match &&
+      nextProps.match.params.graphId !== this.props.match.params.graphId
+    ) {
+      this.updateGraphId(nextProps.match.params.graphId);
+    }
+  };
+
+  updateGraphId = (graphIdWanted: string) => {
+    const graphId = assignGraph(graphIdWanted);
+    store.setId(graphId);
+  };
 
   componentWillUnmount() {
     Mousetrap.reset();
@@ -27,6 +43,11 @@ export default class AppClass extends Component {
     );
   }
 }
+
+const GraphEditor = withRouter(AppClass);
+GraphEditor.displayName = 'GraphEditor';
+
+export default GraphEditor;
 
 const bindKeys = () => {
   Mousetrap.bind('esc', () => {

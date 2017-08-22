@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default ({ students }: { students: Array<Object> }) =>
+const StudentList = ({ students }: { students: Array<Object> }) =>
   <div style={{ display: 'flex' }}>
     <div>
       <h3>Registered students</h3>
@@ -19,3 +19,5 @@ export default ({ students }: { students: Array<Object> }) =>
         : <p>NO STUDENTS</p>}
     </div>
   </div>;
+
+export default StudentList;
