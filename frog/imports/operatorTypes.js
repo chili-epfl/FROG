@@ -1,5 +1,6 @@
 // @flow
 
+import opProx from 'op-prox';
 import opGroupIdentical from 'op-group-identical';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
@@ -12,6 +13,7 @@ import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: operatorPackageT[] = flattenOne([
+  opProx,
   opGroupIdentical,
   opJigsaw,
   opArgue,

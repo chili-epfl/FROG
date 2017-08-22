@@ -56,7 +56,8 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
           }}
           className="list-group-item"
         >
-          {shortCuts[i]} <span className="glyphicon glyphicon-arrow-right" />{' ' + x}
+          {shortCuts[i]} <span className="glyphicon glyphicon-arrow-right" />
+          {' ' + x}
         </button>
       )}
     </div>
