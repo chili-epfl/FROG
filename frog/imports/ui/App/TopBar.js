@@ -5,7 +5,7 @@ const Link = ({ to, children }) =>
   <li>
     <NavLink
       to={to}
-      activeStyle={{ pointerEvents: 'none' }}
+      activeStyle={{ pointerEvents: 'none', color: '#000000' }}
       activeClassName="active"
       style={{ pointerEvents: 'auto' }}
     >

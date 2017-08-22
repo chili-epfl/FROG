@@ -67,6 +67,7 @@ export default class Store {
   @observable graphErrors: any[] = [];
   @observable valid: any;
   browserHistory: any;
+  url: string;
 
   @observable graphDuration: number = 120;
 
@@ -75,8 +76,9 @@ export default class Store {
   }
 
   @action
-  setBrowserHistory = (history: any) => {
+  setBrowserHistory = (history: any, url: string = '/graph') => {
     this.browserHistory = history;
+    this.url = url;
   };
 
   @computed
@@ -125,7 +127,8 @@ export default class Store {
 
   @action
   setId = (id: string, readOnly: boolean = false): void => {
-    this.browserHistory.push(`/graph/${id}`);
+    console.log('setId', id, this.url);
+    this.browserHistory.push(`${this.url}/${id}`);
     setCurrentGraph(id);
     const graph = Graphs.findOne(id);
 

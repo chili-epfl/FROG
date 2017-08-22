@@ -38,6 +38,7 @@ const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
       <Switch>
         <Route path="/graph/:graphId" component={GraphEditor} />
         <Route path="/graph" component={GraphEditor} />
+        <Route path="/teacher/:graphId" component={TeacherView} />
         <Route path="/teacher" component={TeacherView} />
         <Route path="/student" component={StudentView} />
         <Route path="/admin" component={Admin} />

@@ -10,7 +10,7 @@ import EditorContainer from './EditorContainer';
 
 class AppClass extends Component {
   componentWillMount() {
-    const graphId = assignGraph(this.props.graphId);
+    const graphId = assignGraph(this.props.match.params.graphId);
     store.setBrowserHistory(this.props.history);
     store.setId(graphId);
     bindKeys();
@@ -31,7 +31,10 @@ class AppClass extends Component {
   }
 }
 
-export default withRouter(AppClass);
+const GraphEditor = withRouter(AppClass);
+GraphEditor.displayName = 'GraphEditor';
+
+export default GraphEditor;
 
 const bindKeys = () => {
   Mousetrap.bind('esc', () => {
