@@ -1,10 +1,7 @@
 html {
   height: 100%;
 }
-.disabled-link {
-  pointer-events: none;
-  color: #000000;
-}
+
 body, #render-target, #app {
   font-family: sans-serif;
   background-color: #fff;
