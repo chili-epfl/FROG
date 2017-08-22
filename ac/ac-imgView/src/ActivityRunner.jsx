@@ -8,6 +8,7 @@ import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
 import UploadBar from './components/UploadBar';
 import ZoomView from './components/ZoomView';
+import WebcamInterface from './components/WebcamInterface';
 
 const Main = styled.div`
   display: flex;
@@ -29,6 +30,8 @@ const ActivityPanel = ({
   setZoom,
   index,
   setIndex,
+  webcam,
+  setWebcam,
 }) => {
   const categories = Object.keys(data).reduce(
     (acc, key) => ({
@@ -91,7 +94,16 @@ const ActivityPanel = ({
         dataFn={dataFn}
         userInfo={userInfo}
         uploadFn={uploadFn}
+        setWebcam={setWebcam}
       />
+      {webcam &&
+        <WebcamInterface
+          data={data}
+          dataFn={dataFn}
+          uploadFn={uploadFn}
+          userInfo={userInfo}
+          setWebcam={setWebcam}
+        />}
     </Main>
   );
 };
@@ -100,6 +112,7 @@ const ActivityRunner = compose(
   withState('zoomOpen', 'setZoom', false),
   withState('index', 'setIndex', 0),
   withState('category', 'setCategory', 'categories'),
+  withState('webcam', 'setWebcam', false),
 )(ActivityPanel);
 
 export default ActivityRunner;
