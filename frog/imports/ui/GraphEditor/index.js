@@ -10,11 +10,25 @@ import EditorContainer from './EditorContainer';
 
 class AppClass extends Component {
   componentWillMount() {
-    const graphId = assignGraph(this.props.match.params.graphId);
     store.setBrowserHistory(this.props.history);
-    store.setId(graphId);
     bindKeys();
+    this.updateGraphId(this.props.match && this.props.match.params.graphId);
   }
+
+  componentWillReceiveProps = (nextProps: Object) => {
+    console.log(nextProps.match.params.graphId);
+    if (
+      nextProps.match &&
+      nextProps.match.params.graphId !== this.props.match.params.graphId
+    ) {
+      this.updateGraphId(nextProps.match.params.graphId);
+    }
+  };
+
+  updateGraphId = (graphIdWanted: string) => {
+    const graphId = assignGraph(graphIdWanted);
+    store.setId(graphId);
+  };
 
   componentWillUnmount() {
     Mousetrap.reset();

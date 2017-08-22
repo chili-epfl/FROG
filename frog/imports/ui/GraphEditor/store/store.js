@@ -127,7 +127,10 @@ export default class Store {
 
   @action
   setId = (id: string, readOnly: boolean = false): void => {
-    this.browserHistory.push(`${this.url}/${id}`);
+    const desiredUrl = `${this.url}/${id}`;
+    if (this.browserHistory.location.pathname !== desiredUrl) {
+      this.browserHistory.push(desiredUrl);
+    }
     setCurrentGraph(id);
     const graph = Graphs.findOne(id);
 
