@@ -9,6 +9,12 @@ import ZoomView from './ZoomView';
 import ImageBox from './ImageBox';
 import CategoryBox from './CategoryBox';
 
+const Main = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+`;
+
 const ImageListPure = ({
   images,
   vote,
@@ -82,26 +88,18 @@ const CategoryList = ({ categories, setCategory }) =>
     )}
   </Main>;
 
-const ThumbList = ({
-  images,
-  categories,
-  setCategory,
-  minVote,
-  vote,
-  userInfo,
-  showingCategories
+export default ({
+  images,categories,setCategory,minVote,
+  vote,userInfo,showingCategories
+}: {
+  images: Array<{url: string, key: string, votes: Object}>,
+  categories: Object,
+  setCategory: Function,
+  minVote: number,
+  vote: Function,
+  userInfo: { id: string },
+  showingCategories: boolean
 }) =>
   showingCategories
     ? <CategoryList {...{ categories, setCategory }} />
     : <ImageList {...{ images, minVote, vote, userInfo }} />;
-
-const Main = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-`;
-
-export default compose(
-  withState('zoomOpen', 'setZoom', false),
-  withState('voteMode', 'setVoteMode', false)
-)(ThumbList);

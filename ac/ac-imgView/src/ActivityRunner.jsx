@@ -63,8 +63,8 @@ const ActivityPanel = ({
         setCategory={setCategory}
       />
       <ThumbList
-        {...{ images, categories, minVote, vote, userInfo, category }}
-        {...{ setCategory, showingCategories: category === 'categories' }}
+        {...{ images, categories, minVote, vote, userInfo, setCategory }}
+        showingCategories={category === 'categories'}
       />
     </Main>
   );
