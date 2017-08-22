@@ -1,5 +1,5 @@
-// @flow
 import React, { Component } from 'react';
+// @flow
 import { Provider } from 'mobx-react';
 import Mousetrap from 'mousetrap';
 import { withRouter } from 'react-router';
@@ -16,7 +16,6 @@ class AppClass extends Component {
   }
 
   componentWillReceiveProps = (nextProps: Object) => {
-    console.log(nextProps.match.params.graphId);
     if (
       nextProps.match &&
       nextProps.match.params.graphId !== this.props.match.params.graphId
