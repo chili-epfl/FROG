@@ -10,6 +10,7 @@ const ZoomContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  z-index: 1;
   background: rgba(50, 50, 50, 0.8);
 `;
 

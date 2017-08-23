@@ -9,11 +9,7 @@ export default ({ data, dataFn, uploadFn }: Object) => {
     uploadFn.uploadFile(f, url => {
       // setTimeout, otherwise HTTP request sends back code 503
       setTimeout(
-        () =>
-          dataFn.objInsert(
-            { url, categories: ['uploaded'], votes: {} },
-            Object.keys(data).length
-          ),
+        () => dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
         500
       );
     });

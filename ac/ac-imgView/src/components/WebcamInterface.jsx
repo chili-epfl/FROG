@@ -29,10 +29,7 @@ const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
             // setTimeout, otherwise HTTP request sends back code 503
             setTimeout(
               () =>
-                dataFn.objInsert(
-                  { url, categories: ['uploaded'], votes: {} },
-                  Object.keys(data).length
-                ),
+                dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
               1000
             );
           });

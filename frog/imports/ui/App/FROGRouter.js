@@ -57,7 +57,7 @@ const PageContainer = createContainer((props: any) => {
     'activities',
     'objects',
     'sessions',
-    'openUploads',
+    'openUploads'
   ]);
   const loggedInUsername =
     Meteor.userId() &&

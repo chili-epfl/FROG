@@ -16,4 +16,4 @@ export default () =>
     <div>
       <Route component={FROGRouter} />
     </div>
-</Router>;
+  </Router>;
