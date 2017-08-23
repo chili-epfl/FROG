@@ -30,7 +30,7 @@ export default ({ data, dataFn, uploadFn }: Object) => {
           textAlign: 'center'
         }}
       >
-        <TextStyled>Drop files here</TextStyled>
+        <TextStyled>Drop files here / Click to upload</TextStyled>
       </Dropzone>
     </div>
   );
@@ -38,7 +38,7 @@ export default ({ data, dataFn, uploadFn }: Object) => {
 
 const TextStyled = styled.h3`
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 55%;
   margin: 0 auto;
+  transform: translateY(-50%);
 `;

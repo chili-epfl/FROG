@@ -12,7 +12,9 @@ const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  height: 85%;
+  position: absolute;
+  top: 45px;
+  bottom: 85px;
   overflow: auto;
 `;
 

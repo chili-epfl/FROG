@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import UploadDragDrop from './UploadDragDrop';
 
 export default ({ data, dataFn, uploadFn, setWebcam }: Object) =>
-  <div style={{ width: '100%', height: '81px' }}>
+  <Main>
     <div style={{ width: '100%', height: '1px', backgroundColor: 'black' }} />
     <Container>
       <UploadDragDrop data={data} dataFn={dataFn} uploadFn={uploadFn} />
@@ -16,11 +16,19 @@ export default ({ data, dataFn, uploadFn, setWebcam }: Object) =>
           onClick={() => setWebcam(true)}
           style={{ width: '50%' }}
         >
-          Open the webcam
+          <TextStyled> Open the webcam </TextStyled>
         </button>
       </div>
     </Container>
-  </div>;
+  </Main>;
+
+const Main = styled.div`
+  width: 100%;
+  height: 81px;
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+`;
 
 const Container = styled.div`
   height: 90%;
@@ -28,4 +36,11 @@ const Container = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   padding-top: 10px;
+`;
+
+const TextStyled = styled.h3`
+  position: relative;
+  top: 35%;
+  margin: 0 auto;
+  transform: translateY(-50%);
 `;

@@ -5,6 +5,7 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Main = styled.div`
+  height: 45px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;

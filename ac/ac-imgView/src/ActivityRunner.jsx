@@ -16,6 +16,7 @@ const Main = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `;
 
 const ActivityPanel = ({
