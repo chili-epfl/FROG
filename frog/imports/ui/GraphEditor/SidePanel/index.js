@@ -43,7 +43,7 @@ const SidebarContainer = connect(
 
 const SidebarContainerDiv = styled.div`
   padding: 0px;
-  width: 400px;
+  width: 483px;
   height: 100%;
   display: flex;
   flex-direction: column;
