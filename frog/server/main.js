@@ -36,6 +36,6 @@ Meteor.publish('objects', () => Objects.find({}));
 Meteor.publish('products', () => Products.find({}));
 Meteor.publish('sessions', () => Sessions.find({}));
 Meteor.publish('uploads', () => Uploads.find({}));
-Meteor.publish('openUploads', () => Uploads.find({}));
+Meteor.publish('openUploads', () => OpenUploads.find({}));
 
 startShareDB();

@@ -92,7 +92,6 @@ const ActivityPanel = ({
       <UploadBar
         data={data}
         dataFn={dataFn}
-        userInfo={userInfo}
         uploadFn={uploadFn}
         setWebcam={setWebcam}
       />
@@ -101,7 +100,6 @@ const ActivityPanel = ({
           data={data}
           dataFn={dataFn}
           uploadFn={uploadFn}
-          userInfo={userInfo}
           setWebcam={setWebcam}
         />}
     </Main>

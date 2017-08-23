@@ -1,9 +1,6 @@
 // @flow
 
 export default (url: any, name: string, window: any) => {
-  const CanvasPrototype =
-    window.HTMLCanvasElement && window.HTMLCanvasElement.prototype;
-
   const hasBlobConstructor =
     window.Blob &&
     (() => {
@@ -39,36 +36,29 @@ export default (url: any, name: string, window: any) => {
     window.ArrayBuffer &&
     window.Uint8Array &&
     ((dataURI: string) => {
-      let matches,
-        mediaType,
-        isBase64,
-        dataString,
-        byteString,
-        arrayBuffer,
-        intArray,
-        i,
-        bb;
+      let byteString;
+      let i;
       // Parse the dataURI components as per RFC 2397
-      matches = dataURI.match(dataURIPattern);
+      const matches = dataURI.match(dataURIPattern);
       if (!matches) {
         throw new Error('invalid data URI');
       }
       // Default to text/plain;charset=US-ASCII
-      mediaType = matches[2]
+      const mediaType = matches[2]
         ? matches[1]
         : 'text/plain' + (matches[3] || ';charset=US-ASCII');
-      isBase64 = !!matches[4];
-      dataString = dataURI.slice(matches[0].length);
+      const isBase64 = !!matches[4];
+      const dataString = dataURI.slice(matches[0].length);
       if (isBase64) {
         // Convert base64 to raw binary data held in a string:
-        byteString = atob(dataString);
+        byteString = window.atob(dataString);
       } else {
         // Convert base64/URLEncoded data component to raw binary:
         byteString = decodeURIComponent(dataString);
       }
       // Write the bytes of the string to an ArrayBuffer:
-      arrayBuffer = new ArrayBuffer(byteString.length);
-      intArray = new Uint8Array(arrayBuffer);
+      const arrayBuffer = new ArrayBuffer(byteString.length);
+      const intArray = new Uint8Array(arrayBuffer);
       for (i = 0; i < byteString.length; i += 1) {
         intArray[i] = byteString.charCodeAt(i);
       }
@@ -78,14 +68,14 @@ export default (url: any, name: string, window: any) => {
           type: mediaType
         });
       }
-      bb = new BlobBuilder();
+      const bb = new BlobBuilder();
       bb.append(arrayBuffer);
       return bb.getBlob(mediaType);
     });
 
-  const blobToFile = (blob: any, name: string) => {
+  const blobToFile = (blob: any, str: string) => {
     const form = new FormData();
-    form.append('image', blob, name + '.png');
+    form.append('image', blob, str + '.png');
     return form;
   };
 

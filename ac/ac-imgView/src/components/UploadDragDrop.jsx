@@ -4,7 +4,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
-export default ({ data, dataFn, uploadFn, userInfo }: Object) => {
+export default ({ data, dataFn, uploadFn }: Object) => {
   const onDrop = f => {
     uploadFn.uploadFile(f, url => {
       // setTimeout, otherwise HTTP request sends back code 503

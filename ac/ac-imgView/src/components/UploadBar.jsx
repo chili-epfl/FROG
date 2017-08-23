@@ -2,21 +2,14 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { withState } from 'recompose';
 
 import UploadDragDrop from './UploadDragDrop';
-import WebcamCapture from './WebcamInterface';
 
-export default ({ data, dataFn, uploadFn, userInfo, setWebcam }: Object) =>
+export default ({ data, dataFn, uploadFn, setWebcam }: Object) =>
   <div style={{ width: '100%', height: '81px' }}>
     <div style={{ width: '100%', height: '1px', backgroundColor: 'black' }} />
     <Container>
-      <UploadDragDrop
-        data={data}
-        dataFn={dataFn}
-        userInfo={userInfo}
-        uploadFn={uploadFn}
-      />
+      <UploadDragDrop data={data} dataFn={dataFn} uploadFn={uploadFn} />
       <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
         <button
           className="btn btn-secondary"
