@@ -117,6 +117,8 @@ Meteor.methods({
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
+      countdownOn: false,
+      countdownTime: 5,
       pausedAt: null
     });
 

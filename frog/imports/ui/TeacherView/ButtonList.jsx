@@ -9,7 +9,7 @@ import {
   restartSession
 } from '../../api/sessions';
 
-import { runSession, nextActivity } from '../../api/engine';
+import { runSession, nextActivity, setCountdown } from '../../api/engine';
 
 const ButtonList = ({
   session,
@@ -33,6 +33,15 @@ const ButtonList = ({
       type: 'primary',
       onClick: () => nextActivity(session._id),
       text: 'Next Activity'
+    },
+    {
+      states: ['STARTED'],
+      type: 'primary',
+      onClick: () => {
+        setCountdown(session._id, true);
+        setTimeout(() => nextActivity(session._id), 5000);
+      },
+      text: 'Set Countdown'
     },
     {
       states: ['STARTED', 'PAUSED'],
@@ -91,6 +100,7 @@ const ButtonList = ({
             {button.text}
           </button>
         )}
+        //add input to set countdownTime
     </div>
   );
 };
