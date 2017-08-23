@@ -13,15 +13,9 @@ const Main = styled.div`
   align-items: center;
 `;
 
-const TopBar = ({
-  categories,
-  showCategories,
-  category,
-  setCategory,
-  setZoom
-}: Object) =>
+const TopBar = ({ categories, category, setCategory, setZoom }: Object) =>
   <Main>
-    {showCategories &&
+    {Object.keys(categories) > 2 &&
       <div>
         {category !== 'categories' &&
           <button
