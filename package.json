@@ -43,7 +43,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@houshuang/yarn": "^1.0.0",
+    "@houshuang/yarn": "^1.0.1",
     "assert": "^1.4.1",
     "enzyme": "^2.9.1",
     "json-stringify-pretty-compact": "^1.0.4",
