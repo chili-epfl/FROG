@@ -6,7 +6,7 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { connect, store } from '../store';
 import { Graphs } from '../../../api/graphs';
 
-export const GraphMenuSimple = connect(({ store: { graphId }, graphs }) =>
+const GraphMenuSimple = connect(({ store: { graphId }, graphs }) =>
   <DropdownButton title="Select Graph" id="dropdown-basic-0">
     {graphs.length
       ? graphs.map(graph =>
@@ -25,7 +25,10 @@ export const GraphMenuSimple = connect(({ store: { graphId }, graphs }) =>
   </DropdownButton>
 );
 
-export default createContainer(
+const toExport = createContainer(
   props => ({ ...props, graphs: Graphs.find().fetch() }),
   GraphMenuSimple
 );
+toExport.displayName = 'GraphMenuSimple';
+
+export default toExport;

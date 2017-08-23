@@ -66,12 +66,20 @@ export default class Store {
   @observable readOnly: boolean;
   @observable graphErrors: any[] = [];
   @observable valid: any;
+  browserHistory: any;
+  url: string;
 
   @observable graphDuration: number = 120;
 
   set state(newState: StateT) {
     this._state = newState;
   }
+
+  @action
+  setBrowserHistory = (history: any, url: string = '/graph') => {
+    this.browserHistory = history;
+    this.url = url;
+  };
 
   @computed
   get state(): StateT {
@@ -119,6 +127,10 @@ export default class Store {
 
   @action
   setId = (id: string, readOnly: boolean = false): void => {
+    const desiredUrl = `${this.url}/${id}`;
+    if (this.browserHistory.location.pathname !== desiredUrl) {
+      this.browserHistory.push(desiredUrl);
+    }
     setCurrentGraph(id);
     const graph = Graphs.findOne(id);
 
