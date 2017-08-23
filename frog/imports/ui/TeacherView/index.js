@@ -9,12 +9,10 @@ import StudentList from './StudentList';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
-
 import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Logs, flushLogs } from '../../api/logs';
-
 import { activityTypesObj } from '../../activityTypes';
 
 const rawSessionController = ({ session, visible, toggleVisibility, logs }) =>
@@ -30,6 +28,7 @@ const rawSessionController = ({ session, visible, toggleVisibility, logs }) =>
   </div>;
 
 const SessionController = withVisibility(rawSessionController);
+SessionController.displayName = 'SessionController';
 
 const Dashboard = ({ logs, activities }) => {
   let Dash = <p>NO DASHBOARD</p>;
@@ -102,7 +101,9 @@ const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
   );
 });
 
-export default createContainer(
+LogView.displayName = 'LogView';
+
+const TeacherView = createContainer(
   () => {
     const user = Meteor.users.findOne(Meteor.userId());
     const session =
@@ -140,3 +141,6 @@ export default createContainer(
       </div>
     </div>
 );
+
+TeacherView.displayName = 'TeacherView';
+export default TeacherView;

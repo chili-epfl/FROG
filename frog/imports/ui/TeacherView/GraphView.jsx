@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Provider } from 'mobx-react';
+import { withRouter } from 'react-router';
+import { isEqual } from 'lodash';
 
 import ShowInfo from './ShowInfo';
 import Graph from '../GraphEditor/Graph';
@@ -10,6 +12,7 @@ import { store } from '../GraphEditor/store';
 
 class GraphView extends Component {
   initStore = (session: any) => {
+    store.setBrowserHistory(this.props.history, '/teacher');
     store.setId(session.graphId, true);
     store.setSession(session);
   };
@@ -19,9 +22,11 @@ class GraphView extends Component {
   }
 
   componentWillReceiveProps(nextProps: { session: Object }) {
-    this.initStore(nextProps.session);
-    if (store.session) {
-      store.session.setTimes(nextProps.session);
+    if (!isEqual(nextProps.session, this.props.session)) {
+      this.initStore(nextProps.session);
+      if (store.session) {
+        store.session.setTimes(nextProps.session);
+      }
     }
   }
 
@@ -42,4 +47,5 @@ const GraphViewContainer = styled.div`
   width: 700px;
 `;
 
-export default GraphView;
+GraphView.displayName = 'GraphView';
+export default withRouter(GraphView);
