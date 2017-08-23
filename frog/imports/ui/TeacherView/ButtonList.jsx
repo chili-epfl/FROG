@@ -11,7 +11,13 @@ import {
 
 import { runSession, nextActivity } from '../../api/engine';
 
-export default ({ session, toggle }: { session: Object, toggle: Function }) => {
+const ButtonList = ({
+  session,
+  toggle
+}: {
+  session: Object,
+  toggle: Function
+}) => {
   const buttons = [
     {
       states: ['CREATED'],
@@ -88,3 +94,5 @@ export default ({ session, toggle }: { session: Object, toggle: Function }) => {
     </div>
   );
 };
+
+export default ButtonList;
