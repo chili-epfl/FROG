@@ -67,6 +67,6 @@
     "op-prox": "1.0.0",
     "ac-imgClass": "1.0.0",
     "ac-imgView": "1.0.0",
-    "ac-uploader": "*"
+    "ac-uploader": "1.0.0"
   }
 }
