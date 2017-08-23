@@ -60,7 +60,7 @@ class ChooseActivityType extends Component {
           <h4>Please select activity type</h4>
           <div
             className="input-group"
-            style={{ top: '5px', left: '10px', width: '150px' }}
+            style={{ top: '5px', left: '10px', width: '100%' }}
           >
             <span className="input-group-addon" id="basic-addon1">
               <span className="glyphicon glyphicon-search" aria-hidden="true" />
