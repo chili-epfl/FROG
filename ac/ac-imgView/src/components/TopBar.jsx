@@ -15,7 +15,7 @@ const Main = styled.div`
 
 const TopBar = ({ categories, category, setCategory, setZoom }: Object) =>
   <Main>
-    {Object.keys(categories) > 2 &&
+    {Object.keys(categories).length > 2 &&
       <div>
         {category !== 'categories' &&
           <button
