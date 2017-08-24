@@ -14,14 +14,14 @@ export default ({ data, dataFn, uploadFn, setWebcam }: Object) =>
         <button
           className="btn btn-secondary"
           onClick={() => setWebcam(true)}
-          style={{ width: '50%' }}
+          style={{ width: '50%', minWidth: 'fit-content' }}
         >
-          <TextStyled> Open the webcam </TextStyled>
+          <h3 style={{ margin: 'auto' }}> Open the webcam </h3>
         </button>
       </div>
     </Container>
   </Main>;
-
+// <TextStyled> Open the webcam </TextStyled>
 const Main = styled.div`
   width: 100%;
   height: 81px;
@@ -36,11 +36,4 @@ const Container = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   padding-top: 10px;
-`;
-
-const TextStyled = styled.h3`
-  position: relative;
-  top: 35%;
-  margin: 0 auto;
-  transform: translateY(-50%);
 `;

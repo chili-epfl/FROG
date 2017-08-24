@@ -10,7 +10,7 @@ export default ({ data, dataFn, uploadFn }: Object) => {
       // setTimeout, otherwise HTTP request sends back code 503
       setTimeout(
         () => dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
-        500
+        500,
       );
     });
   };
@@ -23,7 +23,8 @@ export default ({ data, dataFn, uploadFn }: Object) => {
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',
           borderRadius: '5px',
-          textAlign: 'center'
+          padding: '10px',
+          minWidth: 'fit-content',
         }}
       >
         <TextStyled>Drop files here / Click to upload</TextStyled>
