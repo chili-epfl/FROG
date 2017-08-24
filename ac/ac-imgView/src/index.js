@@ -78,7 +78,6 @@ const config = {
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
-  // dataFn.objInsert(obj,path);
   const dataObj: Object = Array.isArray(object.data) ? {} : object.data;
   const dataImgs = Object.keys(dataObj).filter(
     x => dataObj[x].url !== undefined
@@ -86,14 +85,18 @@ const mergeFunction = (object, dataFn) => {
   if (dataObj !== {})
     dataImgs.forEach((x, i) =>
       dataFn.objInsert(
-        { url: dataObj[x].url, categories: dataObj[x].categories, ids: [] },
+        {
+          url: dataObj[x].url,
+          categories: dataObj[x].categories || [dataObj[x].category],
+          votes: {}
+        },
         i
       )
     );
   if (object.config.images)
     object.config.images.forEach((x, i) =>
       dataFn.objInsert(
-        { url: x.url, categories: x.categories, ids: [] },
+        { url: x.url, categories: x.categories, votes: {} },
         dataImgs.length + i
       )
     );
