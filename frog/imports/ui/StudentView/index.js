@@ -8,14 +8,14 @@ import SessionBody from './SessionBody';
 import SessionList from './SessionList';
 import { Sessions } from '../../api/sessions';
 
-const StudentView = ({ user, sessions }) => {
+const StudentView = ({ user, sessions, currentTime }) => {
   const curSession = user.profile
     ? Sessions.findOne(user.profile.currentSession)
     : null;
   return (
     <div id="student">
       {curSession
-        ? <SessionBody session={curSession} />
+        ? <SessionBody session={curSession} currentTime={currentTime} />
         : <SessionList sessions={sessions} />}
     </div>
   );
@@ -23,9 +23,7 @@ const StudentView = ({ user, sessions }) => {
 
 export default createContainer(() => {
   const currentTime = TimeSync.serverTime();
-  // const
-  // console.log(time);
   const sessions = Sessions.find().fetch();
   const user = Meteor.users.findOne(Meteor.userId());
-  return { sessions, user };
+  return { sessions, user, currentTime };
 }, StudentView);

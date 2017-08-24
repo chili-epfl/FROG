@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 
 import {
   removeSession,
@@ -13,33 +14,26 @@ import {
 
 import { runSession, nextActivity, setCountdown } from '../../api/engine';
 
-const DEFAULT_TIME_LEFT = 30;
+const DEFAULT_TIME_LEFT = 30000;
 
 const ButtonList = ({
   session,
   toggle,
-  timeLeft,
-  setTimeLeft,
+  currentTime,
 }: {
   session: Object,
   toggle: Function,
   timeLeft: number,
   setTimeLeft: Function,
 }) => {
-  if (
-    session.countdownStartTime > 0 &&
-    (TimeSync.serverTime() - session.countdownStartTime) / 1000 <
-      session.countdownTimeLeft
-  ) {
+  const remainingTime =
+    session.countdownStartTime + session.countdownTimeLeft - currentTime;
+
+  if (session.countdownStartTime > 0 && remainingTime < 0) {
     updateSessionCountdownStartTime(session._id, -1);
     updateSessionCountdownTimeLeft(session._id, DEFAULT_TIME_LEFT);
     nextActivity(session._id);
   }
-  console.log(session);
-  console.log(session.countdownStartTime);
-  console.log(session.countdownTimeLeft);
-  console.log(updateSessionCountdownStartTime);
-  console.log(updateSessionCountdownTimeLeft);
 
   const buttons = [
     {
@@ -47,8 +41,6 @@ const ButtonList = ({
       type: 'primary',
       onClick: () => {
         runSession(session._id);
-        updateSessionCountdownStartTime(session._id, -1);
-        updateSessionCountdownTimeLeft(session._id, DEFAULT_TIME_LEFT);
         nextActivity(session._id);
       },
       text: 'Start',
@@ -73,10 +65,14 @@ const ButtonList = ({
       states: ['STARTED'],
       type: 'warning',
       onClick: () => {
-        if (session.countdownStartTime != -1) {
+        if (session.countdownStartTime !== -1) {
           updateSessionCountdownTimeLeft(
-            TimeSync.serverTime() - session.countdownStartTime,
+            session._id,
+            session.countdownStartTime +
+              session.countdownTimeLeft -
+              currentTime,
           );
+          updateSessionCountdownStartTime(session._id, -2);
         }
         updateSessionState(session._id, 'PAUSED');
       },
@@ -86,8 +82,8 @@ const ButtonList = ({
       states: ['PAUSED', 'STOPPED'],
       type: 'primary',
       onClick: () => {
-        if (session.countdownStartTime != -1) {
-          updateSessionCountdownStartTime(session._id, TimeSync.serverTime());
+        if (session.countdownStartTime !== -1) {
+          updateSessionCountdownStartTime(session._id, currentTime);
         }
         updateSessionState(session._id, 'STARTED');
       },
@@ -97,11 +93,8 @@ const ButtonList = ({
       states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'danger',
       onClick: () => {
-        if (session.countdownStartTime != -1) {
-          updateSessionCountdownTimeLeft(
-            TimeSync.serverTime() - session.countdownStartTime,
-          );
-        }
+        updateSessionCountdownStartTime(session._id, -1);
+        updateSessionCountdownTimeLeft(session._id, DEFAULT_TIME_LEFT);
         updateSessionState(session._id, 'STOPPED');
       },
       text: 'Stop',
@@ -132,12 +125,11 @@ const ButtonList = ({
       states: ['STARTED'],
       countdownStarted: false,
       type: 'primary',
-      onClick: () =>
-        updateSessionCountdownStartTime(session._id, TimeSync.serverTime()),
+      onClick: () => updateSessionCountdownStartTime(session._id, currentTime),
       text: 'Start Countdown',
     },
     {
-      states: ['STARTED', 'PAUSED'], // //////////// Not implemented
+      states: ['STARTED', 'PAUSED'],
       countdownStarted: true,
       type: 'danger',
       onClick: () => {
@@ -147,23 +139,23 @@ const ButtonList = ({
       text: 'Cancel Countdown',
     },
     {
-      states: ['CREATED', 'STARTED', 'PAUSED'],
+      states: ['STARTED', 'PAUSED'],
       type: 'success',
       onClick: () =>
         updateSessionCountdownTimeLeft(
           session._id,
-          session.countdownTimeLeft + 30,
+          session.countdownTimeLeft + 30000,
         ),
       text: 'Add 30s',
     },
   ];
   return (
-    <div>
+    <div style={{ display: 'flex' }}>
       {buttons
         .filter(
           button =>
             button.states.indexOf(session.state) > -1 &&
-            (button.countdownState === undefined ||
+            (button.countdownStarted === undefined ||
               session.countdownStartTime > 0 === button.countdownStarted),
         )
         .map(button =>
@@ -176,15 +168,32 @@ const ButtonList = ({
             {button.text}
           </button>,
         )}
-      <div style={{ border: 'solid 2px', width: 'fit-content' }}>
-        {session.countdownStartTime > 0
-          ? session.countdownTimeLeft -
-            session.countdownStartTime -
-            TimeSync.serverTime()
-          : session.countdownTimeLeft}
-      </div>
+      {session.state !== 'CREATED' &&
+        session.state !== 'STOPPED' &&
+        <Countdown>
+          {msToString(
+            session.countdownStartTime > 0
+              ? remainingTime
+              : session.countdownTimeLeft,
+          )}
+        </Countdown>}
     </div>
   );
 };
 
 export default ButtonList;
+
+const msToString = (ms: number) => {
+  const minutes = Math.floor(ms / 60000);
+  const res =
+    minutes > 0
+      ? minutes + 'min ' + (Math.round(ms / 1000) - minutes * 60) + 's'
+      : Math.round(ms / 1000) + 's';
+  return res;
+};
+
+const Countdown = styled.div`
+  border: solid 2px;
+  width: 65px;
+  text-align: center;
+`;

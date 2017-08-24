@@ -15,11 +15,21 @@ import { Graphs } from '../../api/graphs';
 import { Logs, flushLogs } from '../../api/logs';
 import { activityTypesObj } from '../../activityTypes';
 
-const rawSessionController = ({ session, visible, toggleVisibility, logs }) =>
+const rawSessionController = ({
+  session,
+  visible,
+  toggleVisibility,
+  logs,
+  currentTime,
+}) =>
   <div>
     {session
       ? <div>
-          <ButtonList session={session} toggle={toggleVisibility} />
+          <ButtonList
+            session={session}
+            toggle={toggleVisibility}
+            currentTime={currentTime}
+          />
           {visible
             ? <DashView logs={logs} session={session} />
             : <GraphView session={session} />}
@@ -61,10 +71,10 @@ const DashView = createContainer(
     logs: (session.openActivities || [])
       .reduce(
         (acc, x) => [...acc, ...(Logs.find({ activity: x }).fetch() || [])],
-        []
-      )
+        [],
+      ),
   }),
-  Dashboard
+  Dashboard,
 );
 
 const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
@@ -89,11 +99,11 @@ const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
                 style={{
                   marginBottom: '40px',
                   borderBottomStyle: 'dashed',
-                  borderBottomWidth: '2px'
+                  borderBottomWidth: '2px',
                 }}
               >
                 <Inspector data={log} expandLevel={2} />
-              </div>
+              </div>,
             )}
           </ul>
         </div>}
@@ -116,6 +126,7 @@ const TeacherView = createContainer(
     const students =
       session &&
       Meteor.users.find({ 'profile.currentSession': session._id }).fetch();
+    const currentTime = TimeSync.serverTime();
 
     return {
       sessions: Sessions.find().fetch(),
@@ -124,12 +135,13 @@ const TeacherView = createContainer(
       activities,
       students,
       logs,
-      user
+      user,
+      currentTime,
     };
   },
   props =>
     <div id="teacher" style={{ display: 'flex' }}>
-      <div>
+      <div style={{ width: '80%' }}>
         <SessionController {...props} />
         <hr />
         <StudentList students={props.students} />
@@ -139,7 +151,7 @@ const TeacherView = createContainer(
       <div>
         <LogView {...props} />
       </div>
-    </div>
+    </div>,
 );
 
 TeacherView.displayName = 'TeacherView';

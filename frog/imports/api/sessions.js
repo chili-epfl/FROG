@@ -128,7 +128,7 @@ Meteor.methods({
       state: 'CREATED',
       timeInGraph: -1,
       countdownStartTime: -1,
-      countdownTimeLeft: 30,
+      countdownTimeLeft: 30000,
       pausedAt: null,
     });
 
