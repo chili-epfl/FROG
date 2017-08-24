@@ -17,7 +17,7 @@ export default ({
     : 10;
 
   const onDrop = f => {
-    uploadFn.uploadFile(f, url => {
+    uploadFn(f, url => {
       // setTimeout, otherwise HTTP request sends back code 503
       setTimeout(
         () =>
