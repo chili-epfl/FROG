@@ -51,7 +51,9 @@ const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
   if (obj.data && Array.isArray(obj.data)) {
-    obj.data.forEach(box => dataFn.objInsert({ score: 0, ...box }, box.id));
+    obj.data.forEach(box =>
+      dataFn.objInsert({ score: 0, ...box, students: {} }, box.id)
+    );
   }
 };
 
