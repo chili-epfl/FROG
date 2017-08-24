@@ -1,4 +1,5 @@
 // @flow
+import { Meteor } from 'meteor/meteor';
 import ShareDB from 'sharedb';
 import WebSocket from 'ws';
 import WebsocketJSONStream from 'websocket-json-stream';
@@ -6,8 +7,10 @@ import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
 
 declare var Promise: any;
-
-const db = ShareDBMongo('mongodb://icchilisrv3.epfl.ch/sharedb');
+const dbUrl =
+  (Meteor.settings && Meteor.settings.public.dburl) ||
+  'mongodb://localhost:3001';
+const db = ShareDBMongo(`${dbUrl}/sharedb`);
 
 const server = http.createServer();
 const backend = new ShareDB({ db });
@@ -18,8 +21,10 @@ export const startShareDB = () => {
     backend.listen(new WebsocketJSONStream(ws));
   });
 
+  const shareDbPort =
+    (Meteor.settings && Meteor.settings.public.sharedbport) || 3002;
   // $FlowFixMe
-  server.listen(3002, err => {
+  server.listen(shareDbPort, err => {
     if (err) throw err;
   });
 };
