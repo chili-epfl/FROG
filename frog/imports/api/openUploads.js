@@ -9,6 +9,7 @@ export const OpenUploads = new FS.Collection('openUploads', {
 OpenUploads.allow({ insert: () => true });
 
 export const uploadFile = (files: Array<any>, callback: string => any) => {
+
   if (files.length > 5) {
     window.alert('Too many files, 5 maximum at the time');//eslint-disable-line
   } else {

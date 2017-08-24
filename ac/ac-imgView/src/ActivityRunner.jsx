@@ -34,6 +34,7 @@ const ActivityPanel = ({
   webcam,
   setWebcam
 }) => {
+
   const categories = Object.keys(data).reduce(
     (acc, key) => ({
       ...acc,
@@ -106,6 +107,7 @@ const ActivityPanel = ({
     </Main>
   );
 };
+
 
 const ActivityRunner = compose(
   withState('zoomOpen', 'setZoom', false),
