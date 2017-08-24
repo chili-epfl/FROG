@@ -22,6 +22,9 @@ const StudentView = ({ user, sessions }) => {
 };
 
 export default createContainer(() => {
+  const currentTime = TimeSync.serverTime();
+  // const
+  // console.log(time);
   const sessions = Sessions.find().fetch();
   const user = Meteor.users.findOne(Meteor.userId());
   return { sessions, user };
