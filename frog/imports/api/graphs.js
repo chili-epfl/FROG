@@ -39,8 +39,11 @@ export const setCurrentGraph = (graphId: string) => {
   );
 };
 
-export const assignGraph = () => {
+export const assignGraph = (wantedId: string) => {
   const user = Meteor.users.findOne(Meteor.userId());
+  if (wantedId && Graphs.findOne(wantedId)) {
+    return wantedId;
+  }
   let graphId;
   // Get the graph the user is editing and check if the graph exists
   graphId = user.profile ? user.profile.editingGraph : null;

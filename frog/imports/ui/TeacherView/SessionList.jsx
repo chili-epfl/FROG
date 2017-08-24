@@ -5,7 +5,7 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 import { addSession, setTeacherSession } from '../../api/sessions';
 
-export default ({
+const SessionList = ({
   graphs,
   sessions
 }: {
@@ -42,3 +42,5 @@ export default ({
       )}
     </DropdownButton>
   </div>;
+
+export default SessionList;

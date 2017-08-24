@@ -68,6 +68,8 @@ const ShowInfoConnect = createContainer(({ showInfo, cancelInfo }) => {
 }, InfoComponent);
 ShowInfoConnect.displayName = 'ShowInfoConnect';
 
-export default connect(({ store: { ui: { showInfo, cancelInfo } } }) =>
+const ShowInfo = connect(({ store: { ui: { showInfo, cancelInfo } } }) =>
   <ShowInfoConnect showInfo={showInfo} cancelInfo={cancelInfo} />
 );
+
+export default ShowInfo;

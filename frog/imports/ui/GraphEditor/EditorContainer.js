@@ -34,7 +34,7 @@ class Editor extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         <TopPanel />
         <Container>
           <Main>
@@ -56,6 +56,7 @@ const Main = styled.div`
 `;
 
 const Container = styled.div`
+  height: 95%;
   display: flex;
   flex-direction: row;
 `;
