@@ -12,7 +12,9 @@ const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 60px;
+  bottom: 85px;
   overflow: auto;
 `;
 
@@ -82,7 +84,7 @@ const CategoryList = ({ categories, setCategory }) =>
     )}
   </Main>;
 
-export default ({
+const ThumbList = ({
   images,
   categories,
   setCategory,
@@ -106,3 +108,6 @@ export default ({
   showingCategories
     ? <CategoryList {...{ categories, setCategory }} />
     : <ImageList {...{ images, minVote, vote, userInfo, setZoom, setIndex }} />;
+
+ThumbList.displayName = 'ThumbList';
+export default ThumbList;

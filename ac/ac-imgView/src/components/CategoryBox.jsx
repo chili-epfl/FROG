@@ -35,7 +35,7 @@ const CategoryName = styled.span`
   bottom: 0px;
 `;
 
-export default ({
+const CategoryBox = ({
   images,
   category,
   setCategory
@@ -54,3 +54,6 @@ export default ({
       {category}
     </CategoryName>
   </CategoryContainer>;
+
+CategoryBox.displayName = 'CategoryBox';
+export default CategoryBox;

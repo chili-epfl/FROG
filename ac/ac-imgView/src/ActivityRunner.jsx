@@ -6,7 +6,9 @@ import styled from 'styled-components';
 
 import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
+import UploadBar from './components/UploadBar';
 import ZoomView from './components/ZoomView';
+import WebcamInterface from './components/WebcamInterface';
 
 const Main = styled.div`
   display: flex;
@@ -14,19 +16,23 @@ const Main = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `;
 
 const ActivityPanel = ({
   activityData: { config: { minVote } },
   data,
   dataFn,
+  uploadFn,
   userInfo,
   category,
   setCategory,
   zoomOpen,
   setZoom,
   index,
-  setIndex
+  setIndex,
+  webcam,
+  setWebcam
 }) => {
   const categories = Object.keys(data).reduce(
     (acc, key) => ({
@@ -84,6 +90,19 @@ const ActivityPanel = ({
         <ZoomView
           {...{ close: () => setZoom(false), images, index, setIndex }}
         />}
+      <UploadBar
+        data={data}
+        dataFn={dataFn}
+        uploadFn={uploadFn}
+        setWebcam={setWebcam}
+      />
+      {webcam &&
+        <WebcamInterface
+          data={data}
+          dataFn={dataFn}
+          uploadFn={uploadFn}
+          setWebcam={setWebcam}
+        />}
     </Main>
   );
 };
@@ -91,7 +110,9 @@ const ActivityPanel = ({
 const ActivityRunner = compose(
   withState('zoomOpen', 'setZoom', false),
   withState('index', 'setIndex', 0),
-  withState('category', 'setCategory', 'categories')
+  withState('category', 'setCategory', 'all'),
+  withState('webcam', 'setWebcam', false)
 )(ActivityPanel);
 
+ActivityRunner.displayName = 'ActivityRunner';
 export default ActivityRunner;

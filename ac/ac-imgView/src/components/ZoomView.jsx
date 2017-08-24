@@ -10,10 +10,11 @@ const ZoomContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  z-index: 1;
   background: rgba(50, 50, 50, 0.8);
 `;
 
-export default ({ close, images, setIndex, index }: Object) => {
+const ZoomView = ({ close, images, setIndex, index }: Object) => {
   Mousetrap.bind('left', () => setIndex(Math.max(index - 1, 0)));
   Mousetrap.bind('right', () =>
     setIndex(Math.min(index + 1, images.length - 1))
@@ -32,3 +33,6 @@ export default ({ close, images, setIndex, index }: Object) => {
     </ZoomContainer>
   );
 };
+
+ZoomView.displayName = 'ZoomView';
+export default ZoomView;
