@@ -66,13 +66,10 @@ const ActivityPanel = ({
     dataFn.objInsert(!prev, [key, 'votes', userId]);
   };
 
-  const showCategories = Object.keys(categories).length > 1;
-
   return (
     <Main>
       <TopBar
         categories={[...Object.keys(categories), 'categories']}
-        showCategories={showCategories}
         {...{ category, setCategory, setZoom }}
       />
       <ThumbList
