@@ -7,9 +7,6 @@ import Mousetrap from 'mousetrap';
 
 import { dataURItoFile, uuid } from 'frog-utils';
 
-// if (!/https/.test(window.location.protocol))
-//   window.location.protocol = 'https://';
-
 const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
   let webcam = { getScreenshot: () => null };
   Mousetrap.bind('esc', () => setWebcam(false));
@@ -25,7 +22,7 @@ const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
         onClick={() => {
           const dataURL = webcam.getScreenshot();
           const file = dataURItoFile(dataURL, uuid(), window);
-          uploadFn.uploadFile(file, url => {
+          uploadFn(file, url => {
             // setTimeout, otherwise HTTP request sends back code 503
             setTimeout(
               () =>

@@ -90,7 +90,7 @@ const ReactiveHOC = (
       this.state.data !== null
         ? <WrappedComponent
             dataFn={this.state.dataFn}
-            uploadFn={{ uploadFile }}
+            uploadFn={uploadFile}
             data={this.state.data}
             {...this.props}
           />

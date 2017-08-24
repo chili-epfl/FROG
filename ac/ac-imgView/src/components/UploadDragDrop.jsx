@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 export default ({ data, dataFn, uploadFn }: Object) => {
   const onDrop = f => {
-    uploadFn.uploadFile(f, url => {
+    uploadFn(f, url => {
       // setTimeout, otherwise HTTP request sends back code 503
       setTimeout(
         () => dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
