@@ -114,4 +114,5 @@ const ActivityRunner = compose(
   withState('webcam', 'setWebcam', false)
 )(ActivityPanel);
 
+ActivityRunner.displayName = 'ActivityRunner';
 export default ActivityRunner;

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import UploadDragDrop from './UploadDragDrop';
 
-export default ({ data, dataFn, uploadFn, setWebcam }: Object) =>
+const UploadBar = ({ data, dataFn, uploadFn, setWebcam }: Object) =>
   <Main>
     <div style={{ width: '100%', height: '1px', backgroundColor: 'black' }} />
     <Container>
@@ -21,7 +21,7 @@ export default ({ data, dataFn, uploadFn, setWebcam }: Object) =>
       </div>
     </Container>
   </Main>;
-// <TextStyled> Open the webcam </TextStyled>
+
 const Main = styled.div`
   width: 100%;
   height: 81px;
@@ -37,3 +37,6 @@ const Container = styled.div`
   flex-wrap: wrap;
   padding-top: 10px;
 `;
+
+UploadBar.displayName = 'UploadBar';
+export default UploadBar;

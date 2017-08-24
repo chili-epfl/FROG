@@ -13,4 +13,8 @@ const CenteredImg = styled.img`
   padding: 5%;
 `;
 
-export default ({ url }: { url: string }) => <CenteredImg alt={''} src={url} />;
+const CenteredImgComp = ({ url }: { url: string }) =>
+  <CenteredImg alt={''} src={url} />;
+
+CenteredImgComp.displayName = 'CenteredImg';
+export default CenteredImgComp;

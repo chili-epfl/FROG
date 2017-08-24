@@ -4,7 +4,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
-export default ({ data, dataFn, uploadFn }: Object) => {
+const UploadDragDrop = ({ data, dataFn, uploadFn }: Object) => {
   const onDrop = f => {
     uploadFn(f, url => {
       // setTimeout, otherwise HTTP request sends back code 503
@@ -18,7 +18,8 @@ export default ({ data, dataFn, uploadFn }: Object) => {
   return (
     <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
       <Dropzone
-        onDrop={onDrop}
+        onDropAccepted={onDrop}
+        accept="image/jpeg, image/png"
         style={{
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',
@@ -39,3 +40,6 @@ const TextStyled = styled.h3`
   margin: 0 auto;
   transform: translateY(-50%);
 `;
+
+UploadDragDrop.displayName = 'UploadDragDrop';
+export default UploadDragDrop;

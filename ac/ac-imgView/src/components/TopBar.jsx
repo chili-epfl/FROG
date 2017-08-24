@@ -47,4 +47,5 @@ const TopBar = ({ categories, category, setCategory, setZoom }: Object) =>
       </i>}
   </Main>;
 
+TopBar.displayName = 'TopBar';
 export default TopBar;

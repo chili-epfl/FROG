@@ -52,6 +52,7 @@ const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
   );
 };
 
+WebcamCapture.displayName = 'WebcamCapture';
 export default WebcamCapture;
 
 const WebcamContainer = styled.div`

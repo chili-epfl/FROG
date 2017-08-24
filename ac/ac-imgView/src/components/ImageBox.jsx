@@ -33,7 +33,7 @@ const ImgButton = styled.button`
   flex: 0 1 auto;
 `;
 
-export default ({
+const ImageBox = ({
   image,
   onClick,
   styleCode
@@ -45,3 +45,6 @@ export default ({
   <ImgButton onClick={onClick} style={getStyle(styleCode)}>
     <CenteredImg url={image.url} />
   </ImgButton>;
+
+ImageBox.displayName = 'ImageBox';
+export default ImageBox;

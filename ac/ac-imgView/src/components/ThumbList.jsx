@@ -84,7 +84,7 @@ const CategoryList = ({ categories, setCategory }) =>
     )}
   </Main>;
 
-export default ({
+const ThumbList = ({
   images,
   categories,
   setCategory,
@@ -108,3 +108,6 @@ export default ({
   showingCategories
     ? <CategoryList {...{ categories, setCategory }} />
     : <ImageList {...{ images, minVote, vote, userInfo, setZoom, setIndex }} />;
+
+ThumbList.displayName = 'ThumbList';
+export default ThumbList;
