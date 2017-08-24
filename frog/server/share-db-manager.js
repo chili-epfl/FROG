@@ -7,7 +7,8 @@ import http from 'http';
 
 declare var Promise: any;
 
-const db = ShareDBMongo('mongodb://localhost:3001/sharedb');
+const db = ShareDBMongo('mongodb://icchilisrv3.epfl.ch/sharedb');
+
 const server = http.createServer();
 const backend = new ShareDB({ db });
 export const serverConnection = backend.connect();
