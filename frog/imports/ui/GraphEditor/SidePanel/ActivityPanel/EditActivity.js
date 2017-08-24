@@ -48,7 +48,7 @@ const EditActivity = props => {
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />

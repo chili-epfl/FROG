@@ -38,20 +38,35 @@ class ChooseOperatorTypeComp extends Component {
         searchStr: e.target.value.toLowerCase()
       });
 
-    const filteredList = operatorTypes.filter(
-      x =>
-        x.meta.name.toLowerCase().includes(this.state.searchStr) ||
-        x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
-        x.meta.description.toLowerCase().includes(this.state.searchStr)
-    );
+    const filteredList = operatorTypes
+      .filter(
+        x =>
+          x.meta.name.toLowerCase().includes(this.state.searchStr) ||
+          x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
+          x.meta.description.toLowerCase().includes(this.state.searchStr)
+      )
+      .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
     return (
-      <div style={{ height: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          transform: 'translateY(-40px)'
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '95%',
+            height: '35px'
+          }}
+        >
           <h4>Please select operator type</h4>
           <div
             className="input-group"
-            style={{ top: '5px', left: '10px', width: '250px' }}
+            style={{ top: '5px', left: '10px', width: '140px' }}
           >
             <span className="input-group-addon" id="basic-addon1">
               <span className="glyphicon glyphicon-search" aria-hidden="true" />
@@ -67,7 +82,12 @@ class ChooseOperatorTypeComp extends Component {
         </div>
         <div
           className="list-group"
-          style={{ height: '730px', width: '100%', overflow: 'scroll' }}
+          style={{
+            height: '95%',
+            width: '100%',
+            overflow: 'scroll',
+            transform: 'translateY(10px)'
+          }}
         >
           {filteredList.length === 0
             ? <div
@@ -116,7 +136,7 @@ const EditClass = ({
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={operator._id} />
