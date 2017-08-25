@@ -13,11 +13,9 @@ import {
   restartSession
 } from '../../api/sessions';
 import { runSession, nextActivity } from '../../api/engine';
+import ModifyCountDownTimeButtons from './ModifyCountDownTimeButtons';
 
-// const DEFAULT_COUNTDOWN_LENGTH_1 = 10000;
-const DEFAULT_COUNTDOWN_LENGTH_2 = 30000;
-// const DEFAULT_COUNTDOWN_LENGTH_3 = 600000;
-// const DEFAULT_COUNTDOWN_LENGTH_4 = 3000000;
+const DEFAULT_COUNTDOWN_LENGTH = [10000, 30000, 60000, 300000];
 
 const ButtonList = ({
   session,
@@ -33,7 +31,7 @@ const ButtonList = ({
 
   if (session.countdownStartTime > 0 && remainingTime < 0) {
     updateSessionCountdownStartTime(session._id, -1);
-    updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH_2);
+    updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH[1]);
     nextActivity(session._id);
   }
 
@@ -52,7 +50,10 @@ const ButtonList = ({
       type: 'primary',
       onClick: () => {
         updateSessionCountdownStartTime(session._id, -1);
-        updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH_2);
+        updateSessionCountdownTimeLeft(
+          session._id,
+          DEFAULT_COUNTDOWN_LENGTH[1]
+        );
         nextActivity(session._id);
       },
       text: 'Next Activity'
@@ -94,7 +95,10 @@ const ButtonList = ({
       type: 'danger',
       onClick: () => {
         updateSessionCountdownStartTime(session._id, -1);
-        updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH_2);
+        updateSessionCountdownTimeLeft(
+          session._id,
+          DEFAULT_COUNTDOWN_LENGTH[1]
+        );
         updateSessionState(session._id, 'STOPPED');
       },
       text: 'Stop'
@@ -116,7 +120,10 @@ const ButtonList = ({
       type: 'primary',
       onClick: () => {
         updateSessionCountdownStartTime(session._id, -1);
-        updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH_2);
+        updateSessionCountdownTimeLeft(
+          session._id,
+          DEFAULT_COUNTDOWN_LENGTH[1]
+        );
         restartSession(session);
       },
       text: 'Restart session'
@@ -134,19 +141,12 @@ const ButtonList = ({
       type: 'danger',
       onClick: () => {
         updateSessionCountdownStartTime(session._id, -1);
-        updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH_2);
-      },
-      text: 'Cancel Countdown'
-    },
-    {
-      states: ['STARTED', 'PAUSED'],
-      type: 'success',
-      onClick: () =>
         updateSessionCountdownTimeLeft(
           session._id,
-          session.countdownLength + 30000
-        ),
-      text: 'Add 30s'
+          DEFAULT_COUNTDOWN_LENGTH[1]
+        );
+      },
+      text: 'Cancel Countdown'
     }
   ];
   return (
@@ -170,13 +170,29 @@ const ButtonList = ({
         )}
       {session.state !== 'CREATED' &&
         session.state !== 'STOPPED' &&
-        <Countdown>
-          {msToString(
-            session.countdownStartTime > 0
-              ? remainingTime
-              : session.countdownLength
-          )}
-        </Countdown>}
+        <div style={{ display: 'flex' }}>
+          <ModifyCountDownTimeButtons
+            timesTable={DEFAULT_COUNTDOWN_LENGTH}
+            timeLeft={
+              session.countdownStartTime > 0
+                ? Math.round(
+                    session.countdownStartTime +
+                      session.countdownLength -
+                      currentTime
+                  )
+                : session.countdownLength
+            }
+            session={session}
+            updateSessionCountdownTimeLeft={updateSessionCountdownTimeLeft}
+          />
+          <Countdown>
+            {msToString(
+              session.countdownStartTime > 0
+                ? remainingTime
+                : session.countdownLength
+            )}
+          </Countdown>
+        </div>}
     </div>
   );
 };
