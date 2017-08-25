@@ -28,9 +28,9 @@ const SessionBody = ({
   const tmp =
     session.countdownStartTime > 0
       ? Math.round(
-          session.countdownStartTime + session.countdownTimeLeft - currentTime
+          session.countdownStartTime + session.countdownLength - currentTime
         )
-      : session.countdownTimeLeft;
+      : session.countdownLength;
 
   if (!session.openActivities || session.openActivities.length === 0) {
     return (

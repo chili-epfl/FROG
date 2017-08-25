@@ -62,8 +62,8 @@ export const updateSessionState = (id: string, state: string) => {
 
 export const updateSessionCountdownTimeLeft = (
   id: string,
-  countdownTimeLeft: number
-) => Sessions.update(id, { $set: { countdownTimeLeft } });
+  countdownLength: number
+) => Sessions.update(id, { $set: { countdownLength } });
 
 export const updateSessionCountdownStartTime = (
   id: string,
@@ -128,7 +128,7 @@ Meteor.methods({
       state: 'CREATED',
       timeInGraph: -1,
       countdownStartTime: -1,
-      countdownTimeLeft: 30000,
+      countdownLength: 30000,
       pausedAt: null
     });
 
