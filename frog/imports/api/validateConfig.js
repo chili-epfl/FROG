@@ -17,7 +17,12 @@ const runFn = (id, fn, obj) => {
 };
 
 export default (nodeType, id, obj, schema, datafns) => {
-  if (schema && schema.properties !== {} && (obj === {} || !obj)) {
+  if (
+    schema &&
+    schema.properties &&
+    schema.properties !== {} &&
+    (obj === {} || !obj)
+  ) {
     return {
       id,
       nodeType,
