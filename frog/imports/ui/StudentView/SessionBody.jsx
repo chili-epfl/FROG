@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import { setCountdown } from '../../api/engine';
 import Runner from './Runner';
+import { msToString } from 'frog-utils';
 
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);
@@ -24,19 +25,17 @@ const SessionBody = ({ session, currentTime }: { session: Object }) => {
       1000,
   );
 
-  const minutes = Math.floor(remainingTime / 60);
-  const remainingString =
-    minutes > 0
-      ? minutes + 'min ' + (remainingTime - minutes * 60) + 's'
-      : remainingTime + 's';
-
   if (!session.openActivities || session.openActivities.length === 0) {
     return (
       <div>
-        {session.countdownStartTime > 0 &&
+        {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
-              {remainingString}
+              {msToString(
+                session.countdownStartTime > 0
+                  ? remainingTime
+                  : session.countdownTimeLeft,
+              )}
             </h4>
           </Countdown>}
         <h1>NO ACTIVITY</h1>
@@ -46,23 +45,30 @@ const SessionBody = ({ session, currentTime }: { session: Object }) => {
   if (session.openActivities.length === 1) {
     return (
       <div>
-        {session.countdownStartTime > 0 &&
+        {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
-              {remainingString}
+              {msToString(
+                session.countdownStartTime > 0
+                  ? remainingTime
+                  : session.countdownTimeLeft,
+              )}
             </h4>
           </Countdown>}
         <Runner activityId={session.openActivities[0]} single />
       </div>
     );
   } else {
-    console.log(session.countdownStartTime > 0);
     return (
       <div>
-        {session.countdownStartTime > 0 &&
+        {session.countdownStartTime != -1 &&
           <Countdown>
             <h4>
-              {remainingString}
+              {msToString(
+                session.countdownStartTime > 0
+                  ? remainingTime
+                  : session.countdownTimeLeft,
+              )}
             </h4>
           </Countdown>}
         <Mosaic
