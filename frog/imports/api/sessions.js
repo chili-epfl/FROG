@@ -60,6 +60,16 @@ export const updateSessionState = (id: string, state: string) => {
   Sessions.update(id, { $set: { state } });
 };
 
+export const updateSessionCountdownTimeLeft = (
+  id: string,
+  countdownLength: number
+) => Sessions.update(id, { $set: { countdownLength } });
+
+export const updateSessionCountdownStartTime = (
+  id: string,
+  countdownStartTime: number
+) => Sessions.update(id, { $set: { countdownStartTime } });
+
 export const updateOpenActivities = (
   sessionId: string,
   openActivities: Array<string>,
@@ -117,6 +127,8 @@ Meteor.methods({
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
+      countdownStartTime: -1,
+      countdownLength: 30000,
       pausedAt: null
     });
 

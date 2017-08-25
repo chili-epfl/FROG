@@ -2,6 +2,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { TimeSync } from 'meteor/mizzao:timesync';
 import { Inspector } from 'react-inspector';
 import { withVisibility, A } from 'frog-utils';
 
@@ -15,11 +16,21 @@ import { Graphs } from '../../api/graphs';
 import { Logs, flushLogs } from '../../api/logs';
 import { activityTypesObj } from '../../activityTypes';
 
-const rawSessionController = ({ session, visible, toggleVisibility, logs }) =>
+const rawSessionController = ({
+  session,
+  visible,
+  toggleVisibility,
+  logs,
+  currentTime
+}) =>
   <div>
     {session
       ? <div>
-          <ButtonList session={session} toggle={toggleVisibility} />
+          <ButtonList
+            session={session}
+            toggle={toggleVisibility}
+            currentTime={currentTime}
+          />
           {visible
             ? <DashView logs={logs} session={session} />
             : <GraphView session={session} />}
@@ -116,6 +127,8 @@ const TeacherView = createContainer(
     const students =
       session &&
       Meteor.users.find({ 'profile.currentSession': session._id }).fetch();
+    if (TimeSync.serverOffset() > 500) TimeSync.resync();
+    const currentTime = TimeSync.serverTime();
 
     return {
       sessions: Sessions.find().fetch(),
@@ -124,12 +137,13 @@ const TeacherView = createContainer(
       activities,
       students,
       logs,
-      user
+      user,
+      currentTime
     };
   },
   props =>
     <div id="teacher" style={{ display: 'flex' }}>
-      <div>
+      <div style={{ width: '80%' }}>
         <SessionController {...props} />
         <hr />
         <StudentList students={props.students} />
