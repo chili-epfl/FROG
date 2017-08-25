@@ -27,20 +27,42 @@ const ListContainer = styled.div`
   width: 100%;
 `;
 
-const Idea = ({ idea, fun, remove }) =>
+const red = '#AA0000';
+const blue = '#0000FF';
+const grey = '#A0A0A0';
+const chooseColor = (vote, isUp) => {
+  switch (vote) {
+    case -1:
+      return isUp ? grey : red;
+    case 1:
+      return isUp ? blue : grey;
+    default:
+      return grey;
+  }
+};
+
+const Idea = ({ individualVote, fun, idea, remove }) =>
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
-        <span style={{ marginRight: '10px' }}>
-          <A onClick={() => fun.vote(idea.id, -1)}>
-            <Glyphicon glyph="thumbs-down" />
-          </A>
-        </span>
-        <span style={{ marginRight: '10px' }}>
-          <A onClick={() => fun.vote(idea.id, 1)}>
-            <Glyphicon glyph="thumbs-up" />
-          </A>
-        </span>
+        <A onClick={() => fun.vote(idea.id, -1)}>
+          <Glyphicon
+            style={{
+              color: chooseColor(individualVote, false),
+              marginRight: '10px'
+            }}
+            glyph="thumbs-down"
+          />
+        </A>
+        <A onClick={() => fun.vote(idea.id, 1)}>
+          <Glyphicon
+            style={{
+              color: chooseColor(individualVote, true),
+              marginRight: '10px'
+            }}
+            glyph="thumbs-up"
+          />
+        </A>
         <Badge>
           {idea.score}
         </Badge>
@@ -53,54 +75,88 @@ const Idea = ({ idea, fun, remove }) =>
       {idea.content}
       {remove &&
         <font size={4}>
-          <A onClick={() => fun.delete(idea)}>
+          <A onClick={() => fun.del(idea)}>
             <Glyphicon glyph="scissors" style={{ float: 'right' }} />
           </A>
         </font>}
     </div>
   </ListGroupItem>;
 
-const IdeaList = ({ ideas, fun, remove }) =>
+const IdeaList = ({ userInfo, data, ideas, fun }) =>
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {values(ideas).sort((a, b) => b.score - a.score).map(idea =>
-          <div key={idea.id}>
-            <Idea {...{ idea, fun, remove, key: idea.id }} />
-          </div>
-        )}
+        {values(ideas).sort((a, b) => b.score - a.score).map(idea => {
+          const individualVote = data[idea.id].students[userInfo.id];
+          return (
+            <div key={idea.id}>
+              <Idea {...{ individualVote, idea, fun, key: idea.id }} />
+            </div>
+          );
+        })}
       </FlipMove>
     </ListGroup>
   </div>;
 
-export default ({
+const schema = {
+  type: 'object',
+  properties: {
+    title: {
+      type: 'string',
+      title: 'Idea'
+    },
+    content: {
+      type: 'string',
+      title: 'Text'
+    }
+  }
+};
+
+const ActivityRunner = ({
   userInfo,
   logger,
   activityData,
   data,
   dataFn
 }: ActivityRunnerT) => {
-  const schema = {
-    type: 'object',
-    properties: {
-      title: {
-        type: 'string',
-        title: 'Idea'
-      },
-      content: {
-        type: 'string',
-        title: 'Text'
-      }
-    }
-  };
-
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
       const id = uuid();
       logger({ type: 'idea', id });
-      dataFn.objInsert({ score: 0, id, ...e.formData }, id);
+      dataFn.objInsert({ score: 0, id, students: {}, ...e.formData }, id);
     }
   };
+
+  const vote = (id, incr) => {
+    logger({ key: userInfo.name, type: 'vote' });
+    switch (data[id].students[userInfo.id]) {
+      case -1:
+        if (incr < 0) {
+          dataFn.objInsert(0, [id, 'students', userInfo.id]);
+          dataFn.numIncr(1, [id, 'score']);
+        } else {
+          dataFn.objInsert(1, [id, 'students', userInfo.id]);
+          dataFn.numIncr(2, [id, 'score']);
+        }
+        break;
+      case 1:
+        if (incr < 0) {
+          dataFn.objInsert(-1, [id, 'students', userInfo.id]);
+          dataFn.numIncr(-2, [id, 'score']);
+        } else {
+          dataFn.objInsert(0, [id, 'students', userInfo.id]);
+          dataFn.numIncr(-1, [id, 'score']);
+        }
+        break;
+      default:
+        dataFn.objInsert(incr, [id, 'students', userInfo.id]);
+        dataFn.numIncr(incr, [id, 'score']);
+    }
+  };
+
+  const del = item => dataFn.objDel(item, item.id);
+  const formBoolean = activityData.config.formBoolean;
+  const fun = { vote, del, formBoolean };
   return (
     <div>
       <Container>
@@ -108,46 +164,36 @@ export default ({
           <p>
             {activityData.config.text}
           </p>
-          <IdeaList
-            ideas={data}
-            fun={{
-              vote: (id, incr) => {
-                logger({ key: userInfo.name, type: 'vote' });
-                dataFn.numIncr(incr, [id, 'score']);
-              },
-              delete: item => dataFn.objDel(item, item.id)
-            }}
-            remove={activityData.config.formBoolean}
-          />
-          {activityData.config.formBoolean &&
-            <div>
-              <hr
-                style={{
-                  boxShadow: 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)',
-                  height: '12px'
-                }}
-              />
-              <div style={{ width: '500px' }}>
-                <Form {...{ schema, onSubmit }}>
-                  <div
-                    style={{
-                      layout: 'flex',
-                      flexDirection: 'row'
-                    }}
-                  >
-                    <Button
-                      style={{ marginRight: '20px' }}
-                      type="submit"
-                      id="addButton"
-                    >
-                      Add idea
-                    </Button>
-                  </div>
-                </Form>
-              </div>
-            </div>}
+          <IdeaList ideas={data} data={data} userInfo={userInfo} fun={fun} />
+          {formBoolean && <AddIdea onSubmit={onSubmit} />}
         </ListContainer>
       </Container>
     </div>
   );
 };
+
+const AddIdea = ({ onSubmit }) =>
+  <div>
+    <hr
+      style={{
+        boxShadow: 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)',
+        height: '12px'
+      }}
+    />
+    <div style={{ width: '500px' }}>
+      <Form {...{ schema, onSubmit }}>
+        <div
+          style={{
+            layout: 'flex',
+            flexDirection: 'row'
+          }}
+        >
+          <Button style={{ marginRight: '20px' }} type="submit" id="addButton">
+            Add idea
+          </Button>
+        </div>
+      </Form>
+    </div>
+  </div>;
+
+export default ActivityRunner;

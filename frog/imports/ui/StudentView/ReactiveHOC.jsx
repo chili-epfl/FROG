@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { generateReactiveFn } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
+import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
 
 const getDisplayName = (WrappedComponent: any): string => {
@@ -89,6 +90,7 @@ const ReactiveHOC = (
       this.state.data !== null
         ? <WrappedComponent
             dataFn={this.state.dataFn}
+            uploadFn={uploadFile}
             data={this.state.data}
             {...this.props}
           />

@@ -1,92 +1,120 @@
 // @flow
 
 import React from 'react';
-import { withState } from 'recompose';
+import { compose, withState } from 'recompose';
+import styled from 'styled-components';
 
-import ThumbList from './ThumbList';
-import TopBar from './TopBar';
+import ThumbList from './components/ThumbList';
+import TopBar from './components/TopBar';
+import UploadBar from './components/UploadBar';
+import ZoomView from './components/ZoomView';
+import WebcamInterface from './components/WebcamInterface';
+
+const Main = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+`;
 
 const ActivityPanel = ({
-  activityData,
+  activityData: { config: { minVote } },
   data,
   dataFn,
+  uploadFn,
   userInfo,
-  categorySelected,
-  setCategorySelected
+  category,
+  setCategory,
+  zoomOpen,
+  setZoom,
+  index,
+  setIndex,
+  webcam,
+  setWebcam
 }) => {
-  const categories = getAllCategories(data);
-  const imgCategory =
-    data !== {}
-      ? getCategoryImages(categories.filter(x => x !== 'categories'), data)
-      : [];
-  const imagesFiltered =
-    data !== {} ? getImagesFiltered(data, categorySelected) : [];
+
+  const categories = Object.keys(data).reduce(
+    (acc, key) => ({
+      ...acc,
+      all: [...(acc.all || []), data[key].url],
+      ...(data[key].categories &&
+        data[key].categories.reduce(
+          (_acc, cat) => ({
+            ..._acc,
+            [cat]: [...(acc[cat] || []), data[key].url]
+          }),
+          {}
+        ))
+    }),
+    {}
+  );
+
+  const images = Object.keys(data)
+    .filter(
+      key =>
+        data[key] !== undefined &&
+        data[key].url !== undefined &&
+        (category === 'all' ||
+          (data[key].categories !== undefined &&
+            data[key].categories.includes(category)))
+    )
+    .map(key => ({ ...data[key], key }));
+
+  const vote = (key, userId) => {
+    const prev = data[key].votes ? data[key].votes[userId] : false;
+    dataFn.objInsert(!prev, [key, 'votes', userId]);
+  };
 
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <Main>
       <TopBar
-        categories={categories}
-        categorySelected={categorySelected}
-        setCategorySelected={setCategorySelected}
+        categories={[...Object.keys(categories), 'categories']}
+        {...{ category, setCategory, setZoom }}
       />
       <ThumbList
-        minVote={activityData.config.minVote ? activityData.config.minVote : 1}
-        images={
-          categorySelected === 'categories' ? imgCategory : imagesFiltered
-        }
+        {...{
+          images,
+          categories,
+          minVote,
+          vote,
+          userInfo,
+          setCategory,
+          setZoom,
+          setIndex
+        }}
+        showingCategories={category === 'categories'}
+      />
+      {category !== 'categories' &&
+        zoomOpen &&
+        <ZoomView
+          {...{ close: () => setZoom(false), images, index, setIndex }}
+        />}
+      <UploadBar
         data={data}
         dataFn={dataFn}
-        id={userInfo.id}
-        categorySelected={categorySelected}
-        setCategorySelected={setCategorySelected}
+        uploadFn={uploadFn}
+        setWebcam={setWebcam}
       />
-    </div>
+      {webcam &&
+        <WebcamInterface
+          data={data}
+          dataFn={dataFn}
+          uploadFn={uploadFn}
+          setWebcam={setWebcam}
+        />}
+    </Main>
   );
 };
 
-const getAllCategories = images => {
-  const categories = ['all', 'categories'];
-  if (images !== {})
-    Object.keys(images).forEach(
-      x =>
-        images[x].categories &&
-        images[x].categories.forEach(y => {
-          if (!categories.includes(y)) categories.push(y);
-        })
-    );
-  return categories;
-};
 
-const getCategoryImages = (categories, images) => {
-  if (images === {}) return [];
-  const result = categories.map(x => {
-    const image =
-      x === 'all'
-        ? images[0]
-        : Object.keys(images)
-            .map(index => images[index])
-            .filter(y => y.categories && y.categories.includes(x))[0];
-    return {
-      categories: x,
-      url: image.url
-    };
-  });
-  return result;
-};
-
-const getImagesFiltered = (images, categorySelected) =>
-  Object.keys(images)
-    .map(x => images[x])
-    .filter(
-      x =>
-        categorySelected === 'all' ||
-        (x.categories && x.categories.includes(categorySelected))
-    );
-
-const ActivityRunner = withState(
-  'categorySelected',
-  'setCategorySelected',
-  'categories'
+const ActivityRunner = compose(
+  withState('zoomOpen', 'setZoom', false),
+  withState('index', 'setIndex', 0),
+  withState('category', 'setCategory', 'all'),
+  withState('webcam', 'setWebcam', false)
 )(ActivityPanel);
 
+ActivityRunner.displayName = 'ActivityRunner';
 export default ActivityRunner;

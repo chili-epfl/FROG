@@ -12,6 +12,8 @@ export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
 export { TextInput, ChangeableText } from './TextInput';
+export { default as dataURItoFile } from './URLtoFile';
+export { default as resizeDataURL } from './resizeDataURL';
 export {
   mergeSocialStructures,
   focusStudent,
