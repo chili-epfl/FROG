@@ -14,21 +14,21 @@ const getInitialState = (activities, d = 1) => {
     : {
         direction: d > 0 ? 'row' : 'column',
         first: getInitialState(activities.slice(0, n), -d),
-        second: getInitialState(activities.slice(n, activities.length), -d)
+        second: getInitialState(activities.slice(n, activities.length), -d),
       };
 };
 
 const SessionBody = ({
   session,
-  currentTime
+  currentTime,
 }: {
   session: Object,
-  currentTime: number
+  currentTime: number,
 }) => {
-  const tmp =
+  const secondsLeft =
     session.countdownStartTime > 0
       ? Math.round(
-          session.countdownStartTime + session.countdownLength - currentTime
+          session.countdownStartTime + session.countdownLength - currentTime,
         )
       : session.countdownLength;
 
@@ -38,7 +38,7 @@ const SessionBody = ({
         {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
-              {msToString(tmp)}
+              {msToString(secondsLeft)}
             </h4>
           </Countdown>}
         <h1>NO ACTIVITY</h1>
@@ -51,7 +51,7 @@ const SessionBody = ({
         {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
-              {msToString(tmp)}
+              {msToString(secondsLeft)}
             </h4>
           </Countdown>}
         <Runner activityId={session.openActivities[0]} single />
@@ -63,7 +63,7 @@ const SessionBody = ({
         {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
-              {msToString(tmp)}
+              {msToString(secondsLeft)}
             </h4>
           </Countdown>}
         <Mosaic
