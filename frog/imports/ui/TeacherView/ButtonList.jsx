@@ -26,7 +26,9 @@ const ButtonList = ({
   timeLeft: number,
   setTimeLeft: Function,
 }) => {
-  console.log(msToString);
+  if (TimeSync.serverOffset() > 500) TimeSync.resync();
+  console.log(TimeSync.serverOffset());
+
   const remainingTime =
     session.countdownStartTime + session.countdownTimeLeft - currentTime;
 

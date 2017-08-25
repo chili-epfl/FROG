@@ -12,9 +12,6 @@ export const runSession = (sessionId: string) =>
 export const nextActivity = (sessionId: string) =>
   Meteor.call('next.activity', sessionId);
 
-export const setCountdown = (sessionId: string, on: boolean) =>
-  Meteor.call('set.countdown', sessionId, on);
-
 Meteor.methods({
   'run.session': (sessionId: string) => {
     updateSessionState(sessionId, 'STARTED');
@@ -28,9 +25,9 @@ Meteor.methods({
       ...new Set(
         [
           ...activities.map(a => a.startTime),
-          ...activities.map(a => a.startTime + a.length)
-        ].filter(t => t > session.timeInGraph)
-      )
+          ...activities.map(a => a.startTime + a.length),
+        ].filter(t => t > session.timeInGraph),
+      ),
     ]
       .sort((a, b) => a - b)
       .slice(0, 2);
@@ -40,29 +37,11 @@ Meteor.methods({
       .filter(
         a =>
           a.startTime <= newTimeInGraph &&
-          a.startTime + a.length > newTimeInGraph
+          a.startTime + a.length > newTimeInGraph,
       )
       .map(a => a._id);
 
     updateOpenActivities(sessionId, openActivities, newTimeInGraph);
     engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
   },
-  'set.countdown' : (sessionId: string, on: boolean) => {
-    const session = Sessions.findOne(sessionId);
-    Sessions.update(sessionId, { $set: { countdownOn: on} });
-    // setTimeout(() => {
-    //   const newTimeInGraph = t1 ? (t0 + t1) / 2 : -1;
-    //
-    //   const openActivities = activities
-    //     .filter(
-    //       a =>
-    //         a.startTime <= newTimeInGraph &&
-    //         a.startTime + a.length > newTimeInGraph
-    //     )
-    //     .map(a => a._id);
-    //
-    //   updateOpenActivities(sessionId, openActivities, newTimeInGraph);
-    //   engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
-    // }, 1000*time);
-  }
 });

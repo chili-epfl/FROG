@@ -20,10 +20,12 @@ const getInitialState = (activities, d = 1) => {
 };
 
 const SessionBody = ({ session, currentTime }: { session: Object }) => {
-  const remainingTime = Math.round(
-    (session.countdownStartTime + session.countdownTimeLeft - currentTime) /
-      1000,
-  );
+  const tmp =
+    session.countdownStartTime > 0
+      ? Math.round(
+          session.countdownStartTime + session.countdownTimeLeft - currentTime,
+        )
+      : session.countdownTimeLeft;
 
   if (!session.openActivities || session.openActivities.length === 0) {
     return (
@@ -31,11 +33,7 @@ const SessionBody = ({ session, currentTime }: { session: Object }) => {
         {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
-              {msToString(
-                session.countdownStartTime > 0
-                  ? remainingTime
-                  : session.countdownTimeLeft,
-              )}
+              {msToString(tmp)}
             </h4>
           </Countdown>}
         <h1>NO ACTIVITY</h1>
@@ -48,11 +46,7 @@ const SessionBody = ({ session, currentTime }: { session: Object }) => {
         {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
-              {msToString(
-                session.countdownStartTime > 0
-                  ? remainingTime
-                  : session.countdownTimeLeft,
-              )}
+              {msToString(tmp)}
             </h4>
           </Countdown>}
         <Runner activityId={session.openActivities[0]} single />
@@ -64,11 +58,7 @@ const SessionBody = ({ session, currentTime }: { session: Object }) => {
         {session.countdownStartTime != -1 &&
           <Countdown>
             <h4>
-              {msToString(
-                session.countdownStartTime > 0
-                  ? remainingTime
-                  : session.countdownTimeLeft,
-              )}
+              {msToString(tmp)}
             </h4>
           </Countdown>}
         <Mosaic

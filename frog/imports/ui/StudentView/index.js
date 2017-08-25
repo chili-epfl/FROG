@@ -9,6 +9,8 @@ import SessionList from './SessionList';
 import { Sessions } from '../../api/sessions';
 
 const StudentView = ({ user, sessions, currentTime }) => {
+  if (TimeSync.serverOffset() > 500) TimeSync.resync();
+  console.log(TimeSync.serverOffset());
   const curSession = user.profile
     ? Sessions.findOne(user.profile.currentSession)
     : null;
