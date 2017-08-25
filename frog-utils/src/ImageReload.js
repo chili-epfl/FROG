@@ -39,6 +39,12 @@ class ImageReload extends React.Component {
     this.setState({ src: this.state.src + 'a' });
   };
 
+  componentWillUnmount = () => {
+    if (this.state.timeout) {
+      window.clearTimeout(this.state.timeout);
+    }
+  };
+
   render() {
     return (
       <img
