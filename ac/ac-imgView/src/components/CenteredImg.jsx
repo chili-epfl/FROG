@@ -2,8 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { ImageReload } from 'frog-utils';
 
-const CenteredImg = styled.img`
+const CenteredImgDiv = styled.div`
   position: absolute;
   max-width: 100%;
   max-height: 100%;
@@ -12,6 +13,11 @@ const CenteredImg = styled.img`
   transform: translate(-50%, -50%);
   padding: 5%;
 `;
+
+const CenteredImg = props =>
+  <CenteredImgDiv>
+    <ImageReload {...props} />
+  </CenteredImgDiv>;
 
 const CenteredImgComp = ({ url }: { url: string }) =>
   <CenteredImg alt={''} src={url} />;
