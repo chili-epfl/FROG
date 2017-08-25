@@ -2,63 +2,73 @@
 
 import React from 'react';
 import { msToString } from 'frog-utils';
-import { Dropdown, MenuItem } from 'react-bootstrap';
+import { Dropdown, SplitButton, MenuItem } from 'react-bootstrap';
+import { withState, compose } from 'recompose';
 
 const ModifyCountDownTimeButtons = ({
   timesTable,
   timeLeft,
   session,
-  updateSessionCountdownTimeLeft
+  updateSessionCountdownTimeLeft,
+  plusTime,
+  setPlus,
+  minusTime,
+  setMinus,
 }: Object) =>
   <div style={{ display: 'flex' }}>
-    <Dropdown>
-      <Dropdown.Toggle className="btn btn-success">
-        <span
-          className="glyphicon glyphicon-plus"
-          style={{ fontSize: '10px', top: '-1px' }}
-        />{' '}
-        <span className="glyphicon glyphicon-time" />{' '}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {timesTable.map(x =>
-          <MenuItem
-            className="dropdown-item"
-            key={x}
-            onClick={() =>
-              updateSessionCountdownTimeLeft(
-                session._id,
-                session.countdownLength + x
-              )}
-          >
-            {' '}{msToString(x)}{' '}
-          </MenuItem>
+    <SplitButton
+      title={'+' + msToString(plusTime)}
+      className="btn-success"
+      onClick={() =>
+        updateSessionCountdownTimeLeft(
+          session._id,
+          session.countdownLength + plusTime,
         )}
-      </Dropdown.Menu>
-    </Dropdown>
-    <Dropdown>
-      <Dropdown.Toggle className="btn btn-danger">
-        <span
-          className="glyphicon glyphicon-minus"
-          style={{ fontSize: '10px', top: '-1px' }}
-        />{' '}
-        <span className="glyphicon glyphicon-time" />{' '}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {timesTable.filter(t => t < timeLeft).map(x =>
-          <MenuItem
-            className="dropdown-item"
-            key={x}
-            onClick={() =>
-              updateSessionCountdownTimeLeft(
-                session._id,
-                session.countdownLength - x
-              )}
-          >
-            {' '}{msToString(x)}{' '}
-          </MenuItem>
+    >
+      {timesTable.map(x =>
+        <MenuItem
+          className="dropdown-item"
+          key={x}
+          onClick={() => {
+            setPlus(x);
+            updateSessionCountdownTimeLeft(
+              session._id,
+              session.countdownLength + x,
+            );
+          }}
+        >
+          {' '}{msToString(x)}{' '}
+        </MenuItem>,
+      )}
+    </SplitButton>
+    <SplitButton
+      title={'+' + msToString(minusTime)}
+      className="btn-danger"
+      onClick={() =>
+        updateSessionCountdownTimeLeft(
+          session._id,
+          session.countdownLength - minusTime,
         )}
-      </Dropdown.Menu>
-    </Dropdown>
+    >
+      {timesTable.filter(t => t < timeLeft).map(x =>
+        <MenuItem
+          className="dropdown-item"
+          key={x}
+          onClick={() => {
+            setMinus(x);
+            updateSessionCountdownTimeLeft(
+              session._id,
+              session.countdownLength - x,
+            );
+          }}
+        >
+          {' '}{msToString(x)}{' '}
+        </MenuItem>,
+      )}
+    </SplitButton>
   </div>;
 
-export default ModifyCountDownTimeButtons;
+export default compose(
+  withState('plusTime', 'setPlus', 30000),
+  withState('minusTime', 'setMinus', 30000),
+)(ModifyCountDownTimeButtons);
