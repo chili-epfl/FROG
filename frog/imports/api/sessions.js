@@ -18,14 +18,14 @@ export const Sessions = new Mongo.Collection('sessions');
 export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(
     { _id: Meteor.userId() },
-    { $set: { 'profile.controlSession': sessionId } }
+    { $set: { 'profile.controlSession': sessionId } },
   );
 };
 
 export const setStudentSession = (sessionId: string) => {
   Meteor.users.update(
     { _id: Meteor.userId() },
-    { $set: { 'profile.currentSession': sessionId } }
+    { $set: { 'profile.currentSession': sessionId } },
   );
 };
 
@@ -34,13 +34,13 @@ const addSessionItem = (type, graphId, params) => {
   const collections = {
     activities: Activities,
     operators: Operators,
-    connections: Connections
+    connections: Connections,
   };
   collections[type].insert({
     ...params,
     createdAt: new Date(),
     graphId,
-    _id: id
+    _id: id,
   });
   return id;
 };
@@ -50,7 +50,7 @@ export const addSession = (graphId: string) => {
     if (result === 'invalidGraph') {
       // eslint-disable-next-line no-alert
       window.alert(
-        'Cannot create session from invalid graph. Please open graph in graph editor and correct errors.'
+        'Cannot create session from invalid graph. Please open graph in graph editor and correct errors.',
       );
     }
   });
@@ -62,22 +62,25 @@ export const updateSessionState = (id: string, state: string) => {
 
 export const updateSessionCountdownTimeLeft = (
   id: string,
-  countdownLength: number
+  countdownLength: number,
 ) => Sessions.update(id, { $set: { countdownLength } });
 
 export const updateSessionCountdownStartTime = (
   id: string,
-  countdownStartTime: number
+  countdownStartTime: number,
 ) => Sessions.update(id, { $set: { countdownStartTime } });
+
+export const updateSessionCountdownTimeout = (id: string, timeoutId: number) =>
+  Sessions.update(id, { $set: { timeoutId } });
 
 export const updateOpenActivities = (
   sessionId: string,
   openActivities: Array<string>,
-  timeInGraph: number
+  timeInGraph: number,
 ) => {
   Sessions.update(
     { _id: sessionId },
-    { $set: { openActivities, timeInGraph } }
+    { $set: { openActivities, timeInGraph } },
   );
   if (Meteor.isServer) {
     openActivities.forEach(activityId => {
@@ -98,14 +101,14 @@ Meteor.methods({
     Meteor.users.update(
       { _id: { $in: currentUsers }, username: { $not: { $eq: 'teacher' } } },
       { $set: { 'profile.currentSession': sessionId } },
-      { multi: true }
+      { multi: true },
     );
   },
   'add.session': graphId => {
     const validOutput = valid(
       Activities.find({ graphId }).fetch(),
       Operators.find({ graphId }).fetch(),
-      Connections.find({ graphId }).fetch()
+      Connections.find({ graphId }).fetch(),
     );
     if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
       Graphs.update(graphId, { $set: { broken: true } });
@@ -115,7 +118,7 @@ Meteor.methods({
     const sessionId = uuid();
     const graph = Graphs.findOne(graphId);
     const count = Graphs.find({
-      name: { $regex: '#' + graph.name + '*' }
+      name: { $regex: '#' + graph.name + '*' },
     }).count();
     const sessionName = '#' + graph.name + ' ' + (count + 1);
     const copyGraphId = addGraph(sessionName);
@@ -129,7 +132,8 @@ Meteor.methods({
       timeInGraph: -1,
       countdownStartTime: -1,
       countdownLength: 30000,
-      pausedAt: null
+      timeoutId: 0,
+      pausedAt: null,
     });
 
     Graphs.update(copyGraphId, { $set: { sessionId } });
@@ -140,7 +144,7 @@ Meteor.methods({
       matching[activity._id] = addSessionItem(
         'activities',
         copyGraphId,
-        activity
+        activity,
       );
     });
 
@@ -149,7 +153,7 @@ Meteor.methods({
       matching[operator._id] = addSessionItem(
         'operators',
         copyGraphId,
-        operator
+        operator,
       );
     });
 
@@ -158,12 +162,12 @@ Meteor.methods({
       addSessionItem('connections', copyGraphId, {
         source: {
           id: matching[connection.source.id],
-          type: connection.source.type
+          type: connection.source.type,
         },
         target: {
           id: matching[connection.target.id],
-          type: connection.target.type
-        }
+          type: connection.target.type,
+        },
       });
     });
     setTeacherSession(sessionId);
@@ -191,5 +195,5 @@ Meteor.methods({
     Meteor.call('session.joinall', newSessionId);
     runSession(newSessionId);
     nextActivity(newSessionId);
-  }
+  },
 });

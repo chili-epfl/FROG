@@ -2,15 +2,18 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Meteor } from 'meteor/meteor';
 import { msToString } from 'frog-utils';
 
 import {
   removeSession,
   updateSessionState,
+  updateSessionCountdownState,
   updateSessionCountdownTimeLeft,
   updateSessionCountdownStartTime,
+  updateSessionCountdownTimeout,
   joinAllStudents,
-  restartSession
+  restartSession,
 } from '../../api/sessions';
 import { runSession, nextActivity } from '../../api/engine';
 import ModifyCountDownTimeButtons from './ModifyCountDownTimeButtons';
@@ -20,20 +23,20 @@ const DEFAULT_COUNTDOWN_LENGTH = [10000, 30000, 60000, 300000];
 const ButtonList = ({
   session,
   toggle,
-  currentTime
+  currentTime,
 }: {
   session: Object,
   toggle: Function,
-  currentTime: number
+  currentTime: number,
 }) => {
   const remainingTime =
     session.countdownStartTime + session.countdownLength - currentTime;
 
-  if (session.countdownStartTime > 0 && remainingTime < 0) {
-    updateSessionCountdownStartTime(session._id, -1);
-    updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH[1]);
-    nextActivity(session._id);
-  }
+  // if (session.countdownStartTime > 0 && remainingTime < 0) {
+  //   updateSessionCountdownStartTime(session._id, -1);
+  //   updateSessionCountdownTimeLeft(session._id, DEFAULT_COUNTDOWN_LENGTH[1]);
+  //   nextActivity(session._id);
+  // }
 
   const buttons = [
     {
@@ -43,7 +46,7 @@ const ButtonList = ({
         runSession(session._id);
         nextActivity(session._id);
       },
-      text: 'Start'
+      text: 'Start',
     },
     {
       states: ['STARTED'],
@@ -52,17 +55,18 @@ const ButtonList = ({
         updateSessionCountdownStartTime(session._id, -1);
         updateSessionCountdownTimeLeft(
           session._id,
-          DEFAULT_COUNTDOWN_LENGTH[1]
+          DEFAULT_COUNTDOWN_LENGTH[1],
         );
+        Meteor.clearTimeout(session.timeoutId);
         nextActivity(session._id);
       },
-      text: 'Next Activity'
+      text: 'Next Activity',
     },
     {
       states: ['STARTED', 'PAUSED'],
       type: 'primary',
       onClick: toggle,
-      text: 'Toggle dashboard/graph view'
+      text: 'Toggle dashboard/graph view',
     },
     {
       states: ['STARTED'],
@@ -71,13 +75,14 @@ const ButtonList = ({
         if (session.countdownStartTime !== -1) {
           updateSessionCountdownTimeLeft(
             session._id,
-            session.countdownStartTime + session.countdownLength - currentTime
+            session.countdownStartTime + session.countdownLength - currentTime,
           );
           updateSessionCountdownStartTime(session._id, -2);
         }
         updateSessionState(session._id, 'PAUSED');
+        Meteor.clearTimeout(session.timeoutId);
       },
-      text: 'Pause'
+      text: 'Pause',
     },
     {
       states: ['PAUSED', 'STOPPED'],
@@ -85,10 +90,21 @@ const ButtonList = ({
       onClick: () => {
         if (session.countdownStartTime !== -1) {
           updateSessionCountdownStartTime(session._id, currentTime);
+          updateSessionCountdownTimeout(
+            session._id,
+            Meteor.setTimeout(() => {
+              updateSessionCountdownStartTime(session._id, -1);
+              updateSessionCountdownTimeLeft(
+                session._id,
+                DEFAULT_COUNTDOWN_LENGTH[1],
+              );
+              nextActivity(session._id);
+            }, session.countdownLength),
+          );
         }
         updateSessionState(session._id, 'STARTED');
       },
-      text: 'Continue'
+      text: 'Continue',
     },
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
@@ -97,23 +113,24 @@ const ButtonList = ({
         updateSessionCountdownStartTime(session._id, -1);
         updateSessionCountdownTimeLeft(
           session._id,
-          DEFAULT_COUNTDOWN_LENGTH[1]
+          DEFAULT_COUNTDOWN_LENGTH[1],
         );
+        Meteor.clearTimeout(session.timeoutId);
         updateSessionState(session._id, 'STOPPED');
       },
-      text: 'Stop'
+      text: 'Stop',
     },
     {
       states: ['STOPPED'],
       type: 'danger',
       onClick: () => removeSession(session._id),
-      text: 'Delete'
+      text: 'Delete',
     },
     {
       states: ['CREATED'],
       type: 'primary',
       onClick: () => joinAllStudents(session._id),
-      text: 'Join all online students'
+      text: 'Join all online students',
     },
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
@@ -122,18 +139,32 @@ const ButtonList = ({
         updateSessionCountdownStartTime(session._id, -1);
         updateSessionCountdownTimeLeft(
           session._id,
-          DEFAULT_COUNTDOWN_LENGTH[1]
+          DEFAULT_COUNTDOWN_LENGTH[1],
         );
+        Meteor.clearTimeout(session.timeoutId);
         restartSession(session);
       },
-      text: 'Restart session'
+      text: 'Restart session',
     },
     {
       states: ['STARTED'],
       countdownStarted: false,
       type: 'primary',
-      onClick: () => updateSessionCountdownStartTime(session._id, currentTime),
-      text: 'Start Countdown'
+      onClick: () => {
+        updateSessionCountdownStartTime(session._id, currentTime);
+        updateSessionCountdownTimeout(
+          session._id,
+          Meteor.setTimeout(() => {
+            updateSessionCountdownStartTime(session._id, -1);
+            updateSessionCountdownTimeLeft(
+              session._id,
+              DEFAULT_COUNTDOWN_LENGTH[1],
+            );
+            nextActivity(session._id);
+          }, session.countdownLength),
+        );
+      },
+      text: 'Start Countdown',
     },
     {
       states: ['STARTED', 'PAUSED'],
@@ -143,11 +174,12 @@ const ButtonList = ({
         updateSessionCountdownStartTime(session._id, -1);
         updateSessionCountdownTimeLeft(
           session._id,
-          DEFAULT_COUNTDOWN_LENGTH[1]
+          DEFAULT_COUNTDOWN_LENGTH[1],
         );
+        Meteor.clearTimeout(session.timeoutId);
       },
-      text: 'Cancel Countdown'
-    }
+      text: 'Cancel Countdown',
+    },
   ];
   return (
     <div style={{ display: 'flex' }}>
@@ -156,7 +188,7 @@ const ButtonList = ({
           button =>
             button.states.indexOf(session.state) > -1 &&
             (button.countdownStarted === undefined ||
-              session.countdownStartTime > 0 === button.countdownStarted)
+              session.countdownStartTime > 0 === button.countdownStarted),
         )
         .map(button =>
           <button
@@ -166,7 +198,7 @@ const ButtonList = ({
             id={button.text}
           >
             {button.text}
-          </button>
+          </button>,
         )}
       {session.state !== 'CREATED' &&
         session.state !== 'STOPPED' &&
@@ -178,18 +210,19 @@ const ButtonList = ({
                 ? Math.round(
                     session.countdownStartTime +
                       session.countdownLength -
-                      currentTime
+                      currentTime,
                   )
                 : session.countdownLength
             }
             session={session}
             updateSessionCountdownTimeLeft={updateSessionCountdownTimeLeft}
+            updateSessionCountdownTimeout={updateSessionCountdownTimeout}
           />
           <Countdown>
             {msToString(
               session.countdownStartTime > 0
                 ? remainingTime
-                : session.countdownLength
+                : session.countdownLength,
             )}
           </Countdown>
         </div>}

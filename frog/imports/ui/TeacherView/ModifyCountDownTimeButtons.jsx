@@ -10,26 +10,40 @@ const ModifyCountDownTimeButtons = ({
   timeLeft,
   session,
   updateSessionCountdownTimeLeft,
+  updateSessionCountdownTimeout,
   plusTime,
   setPlus,
   minusTime,
-  setMinus
+  setMinus,
 }: Object) =>
   <div style={{ display: 'flex' }}>
     <SplitButton
       title={'+' + msToString(plusTime)}
       className="btn-success"
       id="dropdown-0"
-      onClick={() =>
+      onClick={() => {
+        Meteor.clearTimeout(session.timeoutId);
         updateSessionCountdownTimeLeft(
           session._id,
-          session.countdownLength + plusTime
-        )}
+          session.countdownLength + plusTime,
+        );
+        updateSessionCountdownTimeout(
+          session._id,
+          Meteor.setTimeout(() => {
+            updateSessionCountdownStartTime(session._id, -1);
+            updateSessionCountdownTimeLeft(
+              session._id,
+              DEFAULT_COUNTDOWN_LENGTH[1],
+            );
+            nextActivity(session._id);
+          }, session.countdownLength),
+        );
+      }}
     >
       {timesTable.map(x =>
         <MenuItem className="dropdown-item" key={x} onClick={() => setPlus(x)}>
           {' '}{msToString(x)}{' '}
-        </MenuItem>
+        </MenuItem>,
       )}
     </SplitButton>
     <SplitButton
@@ -37,9 +51,21 @@ const ModifyCountDownTimeButtons = ({
       className="btn-danger"
       id="dropdown-1"
       onClick={() => {
+        Meteor.clearTimeout(session.timeoutId);
         updateSessionCountdownTimeLeft(
           session._id,
-          session.countdownLength - minusTime
+          session.countdownLength - minusTime,
+        );
+        updateSessionCountdownTimeout(
+          session._id,
+          Meteor.setTimeout(() => {
+            updateSessionCountdownStartTime(session._id, -1);
+            updateSessionCountdownTimeLeft(
+              session._id,
+              DEFAULT_COUNTDOWN_LENGTH[1],
+            );
+            nextActivity(session._id);
+          }, session.countdownLength),
         );
         if (minusTime > session.countdownLength - minusTime) setMinus(0);
       }}
@@ -47,12 +73,12 @@ const ModifyCountDownTimeButtons = ({
       {timesTable.filter(t => t < timeLeft).map(x =>
         <MenuItem className="dropdown-item" key={x} onClick={() => setMinus(x)}>
           {' '}{msToString(x)}{' '}
-        </MenuItem>
+        </MenuItem>,
       )}
     </SplitButton>
   </div>;
 
 export default compose(
   withState('plusTime', 'setPlus', 30000),
-  withState('minusTime', 'setMinus', 0)
+  withState('minusTime', 'setMinus', 0),
 )(ModifyCountDownTimeButtons);
