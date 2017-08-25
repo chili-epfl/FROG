@@ -3,10 +3,9 @@
 import React from 'react';
 import { Mosaic } from 'react-mosaic-component';
 import styled from 'styled-components';
-
-import { setCountdown } from '../../api/engine';
-import Runner from './Runner';
 import { msToString } from 'frog-utils';
+
+import Runner from './Runner';
 
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);
@@ -15,15 +14,21 @@ const getInitialState = (activities, d = 1) => {
     : {
         direction: d > 0 ? 'row' : 'column',
         first: getInitialState(activities.slice(0, n), -d),
-        second: getInitialState(activities.slice(n, activities.length), -d),
+        second: getInitialState(activities.slice(n, activities.length), -d)
       };
 };
 
-const SessionBody = ({ session, currentTime }: { session: Object }) => {
+const SessionBody = ({
+  session,
+  currentTime
+}: {
+  session: Object,
+  currentTime: number
+}) => {
   const tmp =
     session.countdownStartTime > 0
       ? Math.round(
-          session.countdownStartTime + session.countdownTimeLeft - currentTime,
+          session.countdownStartTime + session.countdownTimeLeft - currentTime
         )
       : session.countdownTimeLeft;
 
@@ -55,7 +60,7 @@ const SessionBody = ({ session, currentTime }: { session: Object }) => {
   } else {
     return (
       <div>
-        {session.countdownStartTime != -1 &&
+        {session.countdownStartTime !== -1 &&
           <Countdown>
             <h4>
               {msToString(tmp)}
@@ -75,13 +80,12 @@ export default SessionBody;
 const Countdown = styled.div`
   border: solid 5px #aa0000;
   background-color: #ff0000;
-  border-radius: 100%;
-  width: 90px;
-  height: 60px;
+  border-radius: 30%;
+  width: fit-content;
+  min-width: 50px;
+  height: 50px;
   position: absolute;
-  top: 5px;
   right: 5px;
   text-align: center;
-  padding-top: 5px;
   z-index: 1;
 `;

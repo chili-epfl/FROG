@@ -2,6 +2,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { TimeSync } from 'meteor/mizzao:timesync';
 import { Inspector } from 'react-inspector';
 import { withVisibility, A } from 'frog-utils';
 
@@ -20,7 +21,7 @@ const rawSessionController = ({
   visible,
   toggleVisibility,
   logs,
-  currentTime,
+  currentTime
 }) =>
   <div>
     {session
@@ -71,10 +72,10 @@ const DashView = createContainer(
     logs: (session.openActivities || [])
       .reduce(
         (acc, x) => [...acc, ...(Logs.find({ activity: x }).fetch() || [])],
-        [],
-      ),
+        []
+      )
   }),
-  Dashboard,
+  Dashboard
 );
 
 const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
@@ -99,11 +100,11 @@ const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
                 style={{
                   marginBottom: '40px',
                   borderBottomStyle: 'dashed',
-                  borderBottomWidth: '2px',
+                  borderBottomWidth: '2px'
                 }}
               >
                 <Inspector data={log} expandLevel={2} />
-              </div>,
+              </div>
             )}
           </ul>
         </div>}
@@ -126,6 +127,7 @@ const TeacherView = createContainer(
     const students =
       session &&
       Meteor.users.find({ 'profile.currentSession': session._id }).fetch();
+    if (TimeSync.serverOffset() > 500) TimeSync.resync();
     const currentTime = TimeSync.serverTime();
 
     return {
@@ -136,7 +138,7 @@ const TeacherView = createContainer(
       students,
       logs,
       user,
-      currentTime,
+      currentTime
     };
   },
   props =>
@@ -151,7 +153,7 @@ const TeacherView = createContainer(
       <div>
         <LogView {...props} />
       </div>
-    </div>,
+    </div>
 );
 
 TeacherView.displayName = 'TeacherView';

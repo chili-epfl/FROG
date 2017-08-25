@@ -25,9 +25,9 @@ Meteor.methods({
       ...new Set(
         [
           ...activities.map(a => a.startTime),
-          ...activities.map(a => a.startTime + a.length),
-        ].filter(t => t > session.timeInGraph),
-      ),
+          ...activities.map(a => a.startTime + a.length)
+        ].filter(t => t > session.timeInGraph)
+      )
     ]
       .sort((a, b) => a - b)
       .slice(0, 2);
@@ -37,11 +37,11 @@ Meteor.methods({
       .filter(
         a =>
           a.startTime <= newTimeInGraph &&
-          a.startTime + a.length > newTimeInGraph,
+          a.startTime + a.length > newTimeInGraph
       )
       .map(a => a._id);
 
     updateOpenActivities(sessionId, openActivities, newTimeInGraph);
     engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
-  },
+  }
 });
