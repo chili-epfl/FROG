@@ -60,7 +60,7 @@ export const updateSessionState = (id: string, state: string) => {
   Sessions.update(id, { $set: { state } });
 };
 
-export const updateSessionCountdownTimeLeft = (
+export const updateSessionCountdownLength = (
   id: string,
   countdownLength: number,
 ) => Sessions.update(id, { $set: { countdownLength } });
@@ -70,8 +70,21 @@ export const updateSessionCountdownStartTime = (
   countdownStartTime: number,
 ) => Sessions.update(id, { $set: { countdownStartTime } });
 
-export const updateSessionCountdownTimeout = (id: string, timeoutId: number) =>
-  Sessions.update(id, { $set: { timeoutId } });
+export const updateSessionCountdownTimeout = (
+  id: string,
+  timeoutHandler: any,
+) => Sessions.update(id, { $set: { timeoutHandler } });
+
+export const meteorSetTimeout = (
+  id: string,
+  callback: Function,
+  delay: number,
+) => {
+  const timeoutId = Meteor.call('set.timeout', callback, delay, id);
+};
+
+export const meteorClearTimeout = (timeoutHandler: any) =>
+  Meteor.call('clear.timeout', timeoutHandler);
 
 export const updateOpenActivities = (
   sessionId: string,
@@ -132,7 +145,7 @@ Meteor.methods({
       timeInGraph: -1,
       countdownStartTime: -1,
       countdownLength: 30000,
-      timeoutId: 0,
+      timeoutHandler: null,
       pausedAt: null,
     });
 
@@ -195,5 +208,20 @@ Meteor.methods({
     Meteor.call('session.joinall', newSessionId);
     runSession(newSessionId);
     nextActivity(newSessionId);
+  },
+  'set.timeout': (callback, delay, id) => {
+    // console.log(Meteor);
+    if (Meteor.isServer) {
+      const timeoutHandler = Meteor.setTimeout(callback, delay);
+      // console.log(timeoutId);
+      Sessions.update(id, { $set: { timeoutHandler } });
+    }
+    return null;
+  },
+  'clear.timeout': handler => {
+    if (Meteor.isServer) {
+      Meteor.clearTimeout(handler);
+    }
+    return null;
   },
 });
