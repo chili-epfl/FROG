@@ -14,21 +14,32 @@ const getInitialState = (activities, d = 1) => {
     : {
         direction: d > 0 ? 'row' : 'column',
         first: getInitialState(activities.slice(0, n), -d),
-        second: getInitialState(activities.slice(n, activities.length), -d)
+        second: getInitialState(activities.slice(n, activities.length), -d),
       };
+};
+
+const Countdown = props => {
+  <div>
+    {session.countdownStartTime !== -1 &&
+      <CountdownDiv>
+        <h4>
+          {msToString(secondsLeft)}
+        </h4>
+      </CountdownDiv>}
+  </div>;
 };
 
 const SessionBody = ({
   session,
-  currentTime
+  currentTime,
 }: {
   session: Object,
-  currentTime: number
+  currentTime: number,
 }) => {
   const secondsLeft =
     session.countdownStartTime > 0
       ? Math.round(
-          session.countdownStartTime + session.countdownLength - currentTime
+          session.countdownStartTime + session.countdownLength - currentTime,
         )
       : session.countdownLength;
 
@@ -77,7 +88,7 @@ const SessionBody = ({
 
 export default SessionBody;
 
-const Countdown = styled.div`
+const CountdownDiv = styled.div`
   border: solid 5px #aa0000;
   background-color: #ff0000;
   border-radius: 30%;
