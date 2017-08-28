@@ -29,3 +29,4 @@ dynamic-import
 cfs:filesystem
 cfs:standard-packages
 abernix:standard-minifier-js
+meteorhacks:picker

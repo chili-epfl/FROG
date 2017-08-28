@@ -24,7 +24,9 @@ const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
     return <NotLoggedIn />;
   }
   if (!ready) {
-    return <p>Loading...</p>;
+    return process.env.NODE_ENV === 'production'
+      ? <img src="/images/Loading.gif" alt="" />
+      : <NotLoggedIn />;
   }
   if (isRedirect) {
     return <Redirect to={path} />;
