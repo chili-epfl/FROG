@@ -24,6 +24,7 @@ Meteor.methods({
     engineLogger(sessionId, { message: 'STARTING SESSION' });
   },
   'next.activity': (sessionId: string) => {
+    sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
     const activities = Activities.find({ graphId: session.graphId }).fetch();
     const [t0, t1] = [
@@ -48,7 +49,5 @@ Meteor.methods({
 
     updateOpenActivities(sessionId, openActivities, newTimeInGraph);
     engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
-
-    sessionCancelCountDown(session._id);
   }
 });
