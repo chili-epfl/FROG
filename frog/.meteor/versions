@@ -72,6 +72,7 @@ meteor-base@1.2.0-beta.16
 meteorhacks:picker@1.0.3
 minifier-css@1.2.16
 minimongo@1.4.0-beta.16
+mizzao:timesync@0.5.0
 mobile-experience@1.0.4
 mobile-status-bar@1.0.14
 modules@0.11.0-beta.16
