@@ -23,7 +23,7 @@ const mergeConfig = (
 // takes a single dataUnit, config object, or both, for all students, and wraps them in a proper
 // activityDataT structure
 export const wrapUnitAll = (
-  data: dataUnitT = {},
+  data: dataUnitT = null,
   config: Object = {}
 ): activityDataT => ({
   structure: 'all',
@@ -37,7 +37,7 @@ export const extractUnit = (
   socialStructure?: socialStructureT
 ): dataUnitStructT => {
   if (!data) {
-    return { data: {}, config: {} };
+    return { data: null, config: {} };
   } else if (data.structure === 'all') {
     return data.payload.all;
   } else if (data.structure === 'individual') {
