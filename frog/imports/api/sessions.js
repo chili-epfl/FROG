@@ -254,6 +254,7 @@ Meteor.methods({
       return;
     }
     Meteor.call('flush.session', session._id);
+    sessionCancelCountDown(session._id);
     const newSessionId = Meteor.call('add.session', graphId);
     Meteor.call('session.joinall', newSessionId);
     runSession(newSessionId);
