@@ -6,9 +6,9 @@
   version "2.9.16"
   resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
 
-"@houshuang/yarn@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@houshuang/yarn/-/yarn-1.0.1.tgz#591250400212f47cbeb498b6c37e539ae3cb97e9"
+"@houshuang/yarn@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@houshuang/yarn/-/yarn-1.0.2.tgz#2903a03e1cf324786a0f16b65adebfdc88374ab5"
   dependencies:
     babel-eslint "^7.2.3"
     babel-runtime "^6.0.0"
@@ -30,6 +30,7 @@
     invariant "^2.2.0"
     is-builtin-module "^1.0.0"
     is-ci "^1.0.10"
+    is-webpack-bundle "^1.0.0"
     leven "^2.0.0"
     loud-rejection "^1.2.0"
     micromatch "^2.3.11"
@@ -49,6 +50,7 @@
     uuid "^3.0.1"
     v8-compile-cache "^1.1.0"
     validate-npm-package-license "^3.0.1"
+    yn "^2.0.0"
 
 "@types/node@^7.0.18":
   version "7.0.22"
@@ -3488,6 +3490,10 @@ is-utf8@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
 
+is-webpack-bundle@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-webpack-bundle/-/is-webpack-bundle-1.0.0.tgz#576a50bb7c53d1d6a5c1647939c93ae2cbb90eea"
+
 isarray@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
@@ -6701,3 +6707,7 @@ yauzl@2.4.1:
   resolved "https://registry.yarnpkg.com/yauzl/-/yauzl-2.4.1.tgz#9528f442dab1b2284e58b4379bb194e22e0c4005"
   dependencies:
     fd-slicer "~1.0.1"
+
+yn@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
