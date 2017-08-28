@@ -23,7 +23,6 @@ const StudentView = ({ user, sessions, currentTime }) => {
 };
 
 export default createContainer(() => {
-  if (TimeSync.serverOffset() > 500) TimeSync.resync();
   const currentTime = TimeSync.serverTime();
   const sessions = Sessions.find().fetch();
   const user = Meteor.users.findOne(Meteor.userId());

@@ -127,7 +127,6 @@ const TeacherView = createContainer(
     const students =
       session &&
       Meteor.users.find({ 'profile.currentSession': session._id }).fetch();
-    if (TimeSync.serverOffset() > 500) TimeSync.resync();
     const currentTime = TimeSync.serverTime();
 
     return {
