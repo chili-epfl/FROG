@@ -36,7 +36,7 @@ const newActivityName = camelCased(newActivityId);
 // adding to frog/package.json
 const pkgjs = fs.readFileSync('./frog/package.json');
 const pkg = JSON.parse(pkgjs);
-pkg.dependencies[newActivityId] = '*';
+pkg.dependencies[newActivityId] = '1.0.0';
 fs.writeFileSync('./frog/package.json', stringify(pkg));
 
 // adding to activityTypes | operatorTypes
@@ -80,20 +80,22 @@ fs.writeFileSync(
 
 childProcess.execSync(`git add -N ./${prefix}/${newActivityId}`);
 
-fs.ensureDirSync(`./${prefix}/${newActivityId}/node_modules`);
-fs.ensureDirSync(`./frog/node_modules`);
+childProcess.execSync(`ln -s ${rootpath}/.babelrc .`, {
+  cwd: `${rootpath}/${prefix}/${newActivityId}`
+});
 
-childProcess.execSync(
-  `ln -s ${rootpath}/node_modules/* ${rootpath}/node_modules/.bin ${rootpath}/frog-utils .`,
-  { cwd: `${rootpath}/${prefix}/${newActivityId}/node_modules/` }
-);
-
-childProcess.execSync(`ln -s ${rootpath}/${prefix}/${newActivityId} .`, {
-  cwd: `${rootpath}/frog/node_modules`
+childProcess.execSync(`yarn build`, {
+  cwd: `${rootpath}/${prefix}/${newActivityId}`
 });
 
 childProcess.execSync(`yarn`, {
-  cwd: `${rootpath}/${prefix}/${newActivityId}`
+  cwd: rootpath
+});
+
+fs.ensureDirSync(`./frog/node_modules`);
+
+childProcess.execSync(`ln -s ${rootpath}/node_modules/* ./`, {
+  cwd: `${rootpath}/frog/node_modules`
 });
 
 /*eslint-disable */
