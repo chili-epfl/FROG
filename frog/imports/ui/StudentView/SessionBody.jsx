@@ -14,44 +14,40 @@ const getInitialState = (activities, d = 1) => {
     : {
         direction: d > 0 ? 'row' : 'column',
         first: getInitialState(activities.slice(0, n), -d),
-        second: getInitialState(activities.slice(n, activities.length), -d),
+        second: getInitialState(activities.slice(n, activities.length), -d)
       };
 };
 
-const Countdown = props => {
-  <div>
-    {session.countdownStartTime !== -1 &&
-      <CountdownDiv>
-        <h4>
-          {msToString(secondsLeft)}
-        </h4>
-      </CountdownDiv>}
-  </div>;
+const Countdown = ({ session, currentTime }) => {
+  const secondsLeft =
+    session.countdownStartTime > 0
+      ? Math.round(
+          session.countdownStartTime + session.countdownLength - currentTime
+        )
+      : session.countdownLength;
+  return (
+    <div>
+      {session.countdownStartTime !== -1 &&
+        <CountdownDiv>
+          <h4>
+            {msToString(secondsLeft)}
+          </h4>
+        </CountdownDiv>}
+    </div>
+  );
 };
 
 const SessionBody = ({
   session,
-  currentTime,
+  currentTime
 }: {
   session: Object,
-  currentTime: number,
+  currentTime: number
 }) => {
-  const secondsLeft =
-    session.countdownStartTime > 0
-      ? Math.round(
-          session.countdownStartTime + session.countdownLength - currentTime,
-        )
-      : session.countdownLength;
-
   if (!session.openActivities || session.openActivities.length === 0) {
     return (
       <div>
-        {session.countdownStartTime !== -1 &&
-          <Countdown>
-            <h4>
-              {msToString(secondsLeft)}
-            </h4>
-          </Countdown>}
+        <Countdown session={session} currentTime={currentTime} />
         <h1>NO ACTIVITY</h1>
       </div>
     );
@@ -59,24 +55,14 @@ const SessionBody = ({
   if (session.openActivities.length === 1) {
     return (
       <div>
-        {session.countdownStartTime !== -1 &&
-          <Countdown>
-            <h4>
-              {msToString(secondsLeft)}
-            </h4>
-          </Countdown>}
+        <Countdown session={session} currentTime={currentTime} />
         <Runner activityId={session.openActivities[0]} single />
       </div>
     );
   } else {
     return (
       <div>
-        {session.countdownStartTime !== -1 &&
-          <Countdown>
-            <h4>
-              {msToString(secondsLeft)}
-            </h4>
-          </Countdown>}
+        <Countdown session={session} currentTime={currentTime} />
         <Mosaic
           renderTile={activityId => <Runner activityId={activityId} />}
           initialValue={getInitialState(session.openActivities)}

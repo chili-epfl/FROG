@@ -3,7 +3,12 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Activities } from './activities';
-import { Sessions, updateSessionState, updateOpenActivities } from './sessions';
+import {
+  Sessions,
+  updateSessionState,
+  updateOpenActivities,
+  sessionCancelCountDown
+} from './sessions';
 import { engineLogger } from './logs';
 
 export const runSession = (sessionId: string) =>
@@ -43,5 +48,7 @@ Meteor.methods({
 
     updateOpenActivities(sessionId, openActivities, newTimeInGraph);
     engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
+
+    sessionCancelCountDown(session._id);
   }
 });

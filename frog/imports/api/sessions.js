@@ -12,6 +12,7 @@ import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
 
 const SessionTimeouts = {};
+const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
 export const restartSession = (session: { fromGraphId: string, _id: string }) =>
   Meteor.call('sessions.restart', session);
@@ -58,35 +59,83 @@ export const addSession = (graphId: string) => {
   });
 };
 
-export const updateSessionState = (id: string, state: string) => {
-  Sessions.update(id, { $set: { state } });
+export const sessionStartCountDown = (
+  sessionId: string,
+  currentTime: number
+) => {
+  const session = Sessions.findOne(sessionId);
+  updateSessionCountdownStartTime(sessionId, currentTime);
+  Meteor.call('set.timeout', session.countdownLength, sessionId);
 };
 
-export const updateSessionCountdownLength = (
-  id: string,
-  countdownLength: number
-) => Sessions.update(id, { $set: { countdownLength } });
+export const sessionCancelCountDown = (sessionId: string) => {
+  updateSessionCountdownStartTime(sessionId, -1);
+  updateSessionCountdownLength(sessionId, DEFAULT_COUNTDOWN_LENGTH);
+  Meteor.call('clear.timeout', sessionId);
+};
 
-export const updateSessionCountdownStartTime = (
+export const sessionChangeCountDown = (
+  sessionId: string,
+  modification: number,
+  currentTime: number
+) => {
+  const session = Sessions.findOne(sessionId);
+  Promise.resolve(
+    updateSessionCountdownLength(
+      sessionId,
+      session.countdownLength + modification
+    )
+  ).then(() => {
+    const session2 = Sessions.findOne(sessionId);
+    if (session2.countdownStartTime > 0) {
+      Meteor.call('clear.timeout', sessionId);
+      Meteor.call(
+        'set.timeout',
+        session2.countdownStartTime + session2.countdownLength - currentTime,
+        sessionId
+      );
+    }
+  });
+};
+
+export const updateSessionState = (
+  sessionId: string,
+  state: string,
+  currentTime: number = 0
+) => {
+  const session = Sessions.findOne(sessionId);
+  switch (state) {
+    case 'STARTED':
+      if (session.countdownStartTime !== -1) {
+        updateSessionCountdownStartTime(sessionId, currentTime);
+        Meteor.call('set.timeout', session.countdownLength, sessionId);
+      }
+      break;
+    case 'PAUSED':
+      if (session.countdownStartTime !== -1) {
+        updateSessionCountdownLength(
+          sessionId,
+          session.countdownStartTime + session.countdownLength - currentTime
+        );
+        updateSessionCountdownStartTime(sessionId, -2);
+      }
+      Meteor.call('clear.timeout', sessionId);
+      break;
+    case 'STOPPED':
+      sessionCancelCountDown(sessionId);
+      break;
+    default:
+  }
+  Sessions.update(sessionId, { $set: { state } });
+};
+
+const updateSessionCountdownLength = (id: string, countdownLength: number) =>
+  Sessions.update(id, { $set: { countdownLength } });
+
+const updateSessionCountdownStartTime = (
   id: string,
   countdownStartTime: number
 ) => Sessions.update(id, { $set: { countdownStartTime } });
-
-export const updateSessionCountdownTimeout = (
-  id: string,
-  timeoutHandler: any
-) => Sessions.update(id, { $set: { timeoutHandler } });
-
-export const meteorSetTimeout = (
-  id: string,
-  callback: Function,
-  delay: number
-) => {
-  const timeoutId = Meteor.call('set.timeout', callback, delay, id);
-};
-
-export const meteorClearTimeout = (id: string) =>
-  Meteor.call('clear.timeout', id);
 
 export const updateOpenActivities = (
   sessionId: string,
@@ -146,8 +195,7 @@ Meteor.methods({
       state: 'CREATED',
       timeInGraph: -1,
       countdownStartTime: -1,
-      countdownLength: 30000,
-      timeoutHandler: null,
+      countdownLength: DEFAULT_COUNTDOWN_LENGTH,
       pausedAt: null
     });
 
@@ -211,8 +259,13 @@ Meteor.methods({
     runSession(newSessionId);
     nextActivity(newSessionId);
   },
-  'set.timeout': (callback, delay, id) => {
+  'set.timeout': (delay, id) => {
     if (Meteor.isServer) {
+      const callback = () => {
+        updateSessionCountdownStartTime(id, -1);
+        updateSessionCountdownLength(id, DEFAULT_COUNTDOWN_LENGTH);
+        nextActivity(id);
+      };
       SessionTimeouts[id] = Meteor.setTimeout(callback, delay);
     }
     return null;
