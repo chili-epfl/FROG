@@ -84,12 +84,12 @@ childProcess.execSync(`ln -s ${rootpath}/.babelrc .`, {
   cwd: `${rootpath}/${prefix}/${newActivityId}`
 });
 
-childProcess.execSync(`yarn build`, {
-  cwd: `${rootpath}/${prefix}/${newActivityId}`
-});
-
 childProcess.execSync(`yarn`, {
   cwd: rootpath
+});
+
+childProcess.execSync(`yarn build`, {
+  cwd: `${rootpath}/${prefix}/${newActivityId}`
 });
 
 fs.ensureDirSync(`./frog/node_modules`);
