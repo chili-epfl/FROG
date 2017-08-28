@@ -1,23 +1,34 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
+import { msToString } from 'frog-utils';
 
 import {
   removeSession,
   updateSessionState,
+  sessionStartCountDown,
+  sessionCancelCountDown,
+  sessionChangeCountDown,
   joinAllStudents,
   restartSession
 } from '../../api/sessions';
-
 import { runSession, nextActivity } from '../../api/engine';
+
+const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
 const ButtonList = ({
   session,
-  toggle
+  toggle,
+  currentTime
 }: {
   session: Object,
-  toggle: Function
+  toggle: Function,
+  currentTime: number
 }) => {
+  const remainingTime =
+    session.countdownStartTime + session.countdownLength - currentTime;
+
   const buttons = [
     {
       states: ['CREATED'],
@@ -43,13 +54,13 @@ const ButtonList = ({
     {
       states: ['STARTED'],
       type: 'warning',
-      onClick: () => updateSessionState(session._id, 'PAUSED'),
+      onClick: () => updateSessionState(session._id, 'PAUSED', currentTime),
       text: 'Pause'
     },
     {
       states: ['PAUSED', 'STOPPED'],
       type: 'primary',
-      onClick: () => updateSessionState(session._id, 'STARTED'),
+      onClick: () => updateSessionState(session._id, 'STARTED', currentTime),
       text: 'Continue'
     },
     {
@@ -75,12 +86,56 @@ const ButtonList = ({
       type: 'primary',
       onClick: () => restartSession(session),
       text: 'Restart session'
+    },
+    {
+      states: ['STARTED'],
+      countdownStarted: false,
+      type: 'primary',
+      onClick: () => sessionStartCountDown(session._id, currentTime),
+      text: 'Start Countdown'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      countdownStarted: true,
+      type: 'danger',
+      onClick: () => sessionCancelCountDown(session._id),
+      text: 'Cancel Countdown'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'success',
+      onClick: () =>
+        sessionChangeCountDown(
+          session._id,
+          DEFAULT_COUNTDOWN_LENGTH,
+          currentTime
+        ),
+      text: '+' + msToString(DEFAULT_COUNTDOWN_LENGTH)
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => {
+        if (session.countdownLength > DEFAULT_COUNTDOWN_LENGTH) {
+          sessionChangeCountDown(
+            session._id,
+            0 - DEFAULT_COUNTDOWN_LENGTH,
+            currentTime
+          );
+        }
+      },
+      text: '-' + msToString(DEFAULT_COUNTDOWN_LENGTH)
     }
   ];
   return (
-    <div>
+    <div style={{ display: 'flex' }}>
       {buttons
-        .filter(button => button.states.indexOf(session.state) > -1)
+        .filter(
+          button =>
+            button.states.indexOf(session.state) > -1 &&
+            (button.countdownStarted === undefined ||
+              session.countdownStartTime > 0 === button.countdownStarted)
+        )
         .map(button =>
           <button
             key={button.text}
@@ -91,8 +146,23 @@ const ButtonList = ({
             {button.text}
           </button>
         )}
+      {session.state !== 'CREATED' &&
+        session.state !== 'STOPPED' &&
+        <Countdown>
+          {msToString(
+            session.countdownStartTime > 0
+              ? remainingTime
+              : session.countdownLength
+          )}
+        </Countdown>}
     </div>
   );
 };
 
 export default ButtonList;
+
+const Countdown = styled.div`
+  border: solid 2px;
+  width: 65px;
+  text-align: center;
+`;
