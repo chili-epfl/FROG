@@ -3,7 +3,7 @@ import React from 'react';
 
 class ImageReload extends React.Component {
   state: { src: string, origSrc: string, timeout: any };
-  props: { src: string };
+  props: { src: string, style?: Object, className?: string };
 
   constructor(props: { src: string }) {
     super(props);
@@ -50,6 +50,8 @@ class ImageReload extends React.Component {
       <img
         alt=""
         src={this.state.src}
+        style={this.props.style}
+        className={this.props.className}
         onLoad={this.handleImageLoaded}
         onError={this.handleImageErrored}
       />
