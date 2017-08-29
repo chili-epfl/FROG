@@ -48,7 +48,9 @@ const config = {
 };
 
 const mergeFunction = (obj, dataFn) => {
-  obj.data.forEach(x => dataFn.listAppend(x));
+  if (obj.data) {
+    obj.data.forEach(x => dataFn.listAppend(x));
+  }
 };
 
 export default ({

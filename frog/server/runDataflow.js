@@ -80,7 +80,7 @@ const runDataflow = (
       ? prod.activityData
       : {
           structure: 'all',
-          payload: { all: { data: {}, config: {} } }
+          payload: { all: { data: null, config: {} } }
         };
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
