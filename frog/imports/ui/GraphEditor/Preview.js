@@ -1,12 +1,13 @@
 import React from 'react';
 import { cloneDeep, uniqBy } from 'lodash';
 import Stringify from 'json-stable-stringify';
-import { A } from 'frog-utils';
+import { A, generateReactiveFn, uuid } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
 import { Inspector } from 'react-inspector';
 import { Meteor } from 'meteor/meteor';
+import ShareDB from 'sharedb';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -27,8 +28,14 @@ const ShowInfo = ({ activityData, data }) =>
     </div>
   </div>;
 
+const backend = new ShareDB();
+const connection = backend.connect();
+
+const Collections = {};
+
 export default compose(
   withState('example', 'setExample', 0),
+  withState('reload', 'setReload', 0),
   withState('showData', 'setShowData', false)
 )(
   ({
@@ -38,7 +45,8 @@ export default compose(
     showData,
     setShowData,
     dismiss,
-    config
+    config,
+    setReload
   }) => {
     const activityType = activityTypesObj[activityTypeId];
 
@@ -53,11 +61,30 @@ export default compose(
     if (config) {
       activityData.config = config;
     }
+
+    if (!Collections[`demo-${activityType.id}-${example}`]) {
+      Collections[`demo-${activityType.id}-${example}`] = uuid();
+    }
+
+    const doc = connection.get(
+      'rz',
+      Collections[`demo-${activityType.id}-${example}`]
+    );
+    doc.subscribe();
+    doc.on('load', () => {
+      doc.create(cloneDeep(activityType.dataStructure) || {});
+      if (activityType.mergeFunction) {
+        const dataFn = generateReactiveFn(doc);
+        activityType.mergeFunction(
+          cloneDeep(activityType.meta.exampleData[example]),
+          dataFn
+        );
+      }
+    });
+
     const ActivityToRun = ReactiveHOC(
-      cloneDeep(activityType.dataStructure),
       'demo/' + activityType.id + '/' + example,
-      activityType,
-      activityData
+      doc
     )(showData ? ShowInfo : RunComp);
 
     return (
@@ -70,7 +97,6 @@ export default compose(
           <button type="button" className="close" onClick={dismiss}>
             X
           </button>
-
           <h4 className="modal-title">
             Preview of {activityType.meta.name} ({activityType.id}){' '}
             <A onClick={() => setShowData(!showData)}>
@@ -84,7 +110,15 @@ export default compose(
                 {x.title}
               </NavItem>
             )}
-          </Nav>
+          </Nav>{' '}
+          <A
+            onClick={() => {
+              Collections[`demo-${activityType.id}-${example}`] = uuid();
+              setReload(uuid());
+            }}
+          >
+            (Reset data)
+          </A>
         </div>
         <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
           <ActivityToRun

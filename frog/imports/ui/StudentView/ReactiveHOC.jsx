@@ -16,12 +16,9 @@ const getDisplayName = (WrappedComponent: any): string => {
   }
 };
 
-const ReactiveHOC = (
-  dataStructure: any,
-  docId: string,
-  previewActivity: any = false,
-  previewActivityData: any = null
-) => (WrappedComponent: Class<Component<*, *, *>>) => {
+const ReactiveHOC = (docId: string, doc?: any) => (
+  WrappedComponent: Class<Component<*, *, *>>
+) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
     doc: any;
@@ -37,22 +34,11 @@ const ReactiveHOC = (
     }
 
     componentDidMount = () => {
-      this.doc = connection.get('rz', docId);
-      this.doc.subscribe();
-      if (previewActivity !== false) {
-        this.doc.on('load', () => {
-          if (!this.doc.type) {
-            this.doc.create(previewActivity.dataStructure || {});
-            if (previewActivity.mergeFunction) {
-              const dataFn = generateReactiveFn(this.doc);
-              previewActivity.mergeFunction(
-                cloneDeep(previewActivityData),
-                dataFn
-              );
-            }
-            this.waitForDoc();
-          }
-        });
+      if (!doc) {
+        this.doc = connection.get('rz', docId);
+        this.doc.subscribe();
+      } else {
+        this.doc = doc;
       }
       this.doc.on('ready', this.update);
       this.doc.on('op', this.update);
