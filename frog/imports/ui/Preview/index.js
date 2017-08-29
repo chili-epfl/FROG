@@ -12,7 +12,7 @@ const ActivityList = ({ history }) =>
     <h2>Choose activity to preview</h2>
     <ul>
       {activityTypes.map(act =>
-        <li>
+        <li key={act.id}>
           <A onClick={() => history.push(`/preview/${act.id}`)}>
             {act.id}
           </A>
