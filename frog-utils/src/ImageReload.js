@@ -1,11 +1,12 @@
 // @flow
 import React from 'react';
+type propsT = { src: string, style?: Object, className?: string };
 
 class ImageReload extends React.Component {
   state: { src: string, origSrc: string, timeout: any };
-  props: { src: string, style?: Object, className?: string };
+  props: propsT;
 
-  constructor(props: { src: string }) {
+  constructor(props: propsT) {
     super(props);
     this.state = {
       src: this.props.src + '?',
@@ -14,7 +15,7 @@ class ImageReload extends React.Component {
     };
   }
 
-  componentWillReceiveProps = (nextProps: { src: string }) => {
+  componentWillReceiveProps = (nextProps: propsT) => {
     if (nextProps.src !== this.state.origSrc) {
       this.setState({
         src: nextProps.src + '?',
