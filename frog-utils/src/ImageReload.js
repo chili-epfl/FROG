@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+
 type propsT = { src: string, style?: Object, className?: string };
 
 class ImageReload extends React.Component {
