@@ -48,9 +48,17 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
+    canVote: {
+      title: 'Can students vote ?',
+      type: 'boolean'
+    },
     minVote: {
-      title: 'Number of vote minimum to validate the image',
+      title: 'Number of vote minimum to select an image (default: 1)',
       type: 'number'
+    },
+    canUpload: {
+      title: 'Can students upload new images ?',
+      type: 'boolean'
     },
     images: {
       title: 'Images',
@@ -75,6 +83,10 @@ const config = {
   }
 };
 
+const configUI = {
+  minVote: { conditional: 'canVote' }
+};
+
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
@@ -95,7 +107,7 @@ const mergeFunction = (object, dataFn) => {
           categories: object.data[x].categories || [object.data[x].category],
           votes: {}
         },
-        object.config.images.length + i
+        object.config.images ? object.config.images.length + i : i
       )
     );
 };
@@ -105,6 +117,7 @@ export default ({
   type: 'react-component',
   meta,
   config,
+  configUI,
   dataStructure,
   mergeFunction,
   ActivityRunner

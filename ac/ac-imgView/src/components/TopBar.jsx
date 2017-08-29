@@ -13,7 +13,13 @@ const Main = styled.div`
   align-items: center;
 `;
 
-const TopBar = ({ categories, category, setCategory, setZoom }: Object) =>
+const TopBar = ({
+  categories,
+  category,
+  canVote,
+  setCategory,
+  setZoom
+}: Object) =>
   <Main>
     {Object.keys(categories).length > 2 &&
       <div>
@@ -42,6 +48,7 @@ const TopBar = ({ categories, category, setCategory, setZoom }: Object) =>
         </DropdownButton>
       </div>}
     {category !== 'categories' &&
+      canVote &&
       <i style={{ marginLeft: '20px' }}>
         Hold shift while clicking to select a picture :
       </i>}
