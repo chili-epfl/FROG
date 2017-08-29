@@ -1,5 +1,4 @@
 // @flow
-
 import React, { Component } from 'react';
 import { generateReactiveFn } from 'frog-utils';
 import { cloneDeep } from 'lodash';
@@ -94,7 +93,7 @@ const ReactiveHOC = (
             data={this.state.data}
             {...this.props}
           />
-        : <img src="/images/Loading.gif" alt="" />;
+        : <img src="/images/Spinner.gif" alt="" />;
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;
