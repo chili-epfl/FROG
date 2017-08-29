@@ -9,10 +9,7 @@ const meta = {
     'Group students depending on what they entered in the proximity activity before.'
 };
 
-const config = {
-  type: 'object',
-  properties: {}
-};
+const config = {};
 
 const operator = (configData, object) => {
   const { activityData: { structure, payload } } = object;
