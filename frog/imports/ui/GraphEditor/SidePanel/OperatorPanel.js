@@ -135,6 +135,8 @@ const EditClass = ({
     errorColor = 'green';
   }
 
+  const operatorType = operatorTypesObj[operator.operatorType];
+
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
@@ -157,32 +159,32 @@ const EditClass = ({
         </FlexView>
         <font size={-3}>
           <i>
-            {`Type: ${operatorTypesObj[operator.operatorType].meta.name}
+            {`Type: ${operatorType.meta.name}
                      (${operator.operatorType})`}
           </i>
         </font>
         <hr />
       </div>
-      <EnhancedForm
-        {...addSocialFormSchema(
-          operatorTypesObj[operator.operatorType].config,
-          operatorTypesObj[operator.operatorType].configUI
-        )}
-        widgets={{ socialAttributeWidget: SelectFormWidget }}
-        formContext={{ options: valid.social[operator._id] || [] }}
-        onChange={data => {
-          addOperator(
-            operator.operatorType,
-            data.formData,
-            operator._id,
-            data.errors.length > 0
-          );
-          refreshValidate();
-        }}
-        formData={operator.data}
-      >
-        <div />
-      </EnhancedForm>
+      {operatorType.config &&
+        operatorType.config.properties &&
+        operatorType.config.properties !== {} &&
+        <EnhancedForm
+          {...addSocialFormSchema(operatorType.config, operatorType.configUI)}
+          widgets={{ socialAttributeWidget: SelectFormWidget }}
+          formContext={{ options: valid.social[operator._id] || [] }}
+          onChange={data => {
+            addOperator(
+              operator.operatorType,
+              data.formData,
+              operator._id,
+              data.errors.length > 0
+            );
+            refreshValidate();
+          }}
+          formData={operator.data}
+        >
+          <div />
+        </EnhancedForm>}
     </div>
   );
 };
