@@ -2,6 +2,10 @@
 import { cloneDeep } from 'lodash';
 
 export default (schema: Object, uiSchema: Object): Object => {
+  if (schema === {} || (schema.properties && schema.properties === {})) {
+    return { schema: {}, uiSchema: {} };
+  }
+
   const mappings = [];
   const newSchema = cloneDeep(schema);
   Object.keys(newSchema.properties).forEach(x => {
