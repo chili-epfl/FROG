@@ -5,7 +5,6 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
-import { cloneDeep } from 'lodash';
 
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
