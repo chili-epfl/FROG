@@ -47,6 +47,8 @@ const EditActivity = props => {
     errorColor = 'green';
   }
 
+  const activityType = activityTypesObj[activity.activityType];
+
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
@@ -84,7 +86,7 @@ const EditActivity = props => {
         </FlexView>
         <font size={-3}>
           <i>
-            {`Type: ${activityTypesObj[activity.activityType].meta.name}
+            {`Type: ${activityType.meta.name}
                      (${activity.activityType})`}
             <br />
             {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
@@ -99,26 +101,31 @@ const EditActivity = props => {
             }}
           />}
       </div>
-      <EnhancedForm
-        {...addSocialFormSchema(
-          activityTypesObj[activity.activityType].config,
-          activityTypesObj[activity.activityType].configUI
-        )}
-        showErrorList={false}
-        noHtml5Validate
-        widgets={{ socialAttributeWidget: SelectFormWidget }}
-        formContext={{
-          options: props.store.valid.social[activity._id] || [],
-          groupingKey: activity.groupingKey
-        }}
-        onChange={data => {
-          addActivity(activity.activityType, data.formData, activity._id, null);
-          props.store.refreshValidate();
-        }}
-        formData={activity.data}
-      >
-        <div />
-      </EnhancedForm>
+      {activityType.config &&
+        activityType.config.properties &&
+        activityType.config.properties !== {} &&
+        <EnhancedForm
+          {...addSocialFormSchema(activityType.config, activityType.configUI)}
+          showErrorList={false}
+          noHtml5Validate
+          widgets={{ socialAttributeWidget: SelectFormWidget }}
+          formContext={{
+            options: props.store.valid.social[activity._id] || [],
+            groupingKey: activity.groupingKey
+          }}
+          onChange={data => {
+            addActivity(
+              activity.activityType,
+              data.formData,
+              activity._id,
+              null
+            );
+            props.store.refreshValidate();
+          }}
+          formData={activity.data}
+        >
+          <div />
+        </EnhancedForm>}
       <FileForm />
       {props.showInfo &&
         <Preview
