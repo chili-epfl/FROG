@@ -9,6 +9,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
+import Preview from './../Preview';
 import Admin from './../Admin';
 import TopBar from './TopBar';
 import NotLoggedIn from './NotLoggedIn';
@@ -44,6 +45,9 @@ const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
         <Route path="/teacher" component={TeacherView} />
         <Route path="/student" component={StudentView} />
         <Route path="/admin" component={Admin} />
+        <Route path="/preview/:activityTypeId/:example" component={Preview} />
+        <Route path="/preview/:activityTypeId" component={Preview} />
+        <Route path="/preview" component={Preview} />
         <Route component={FourOhFour} />
       </Switch>
     </div>
