@@ -21,7 +21,6 @@ const Main = styled.div`
 `;
 
 class ActivityRunner extends Component {
-
   state: {
     zoomOn: boolean,
     index: number,
@@ -31,7 +30,7 @@ class ActivityRunner extends Component {
 
   categories: {
     [categoryName: string]: string[]
-  }
+  };
 
   constructor(props: ActivityRunnerT) {
     super(props);
@@ -54,11 +53,15 @@ class ActivityRunner extends Component {
       {}
     );
 
-    const startingCategory = Object.keys(this.categories).length > 1
-      ? 'categories'
-      : 'all'
+    const startingCategory =
+      Object.keys(this.categories).length > 1 ? 'categories' : 'all';
 
-    this.state = { zoomOn: false, index: 0, category: 'categories', webcamOn: false };
+    this.state = {
+      zoomOn: false,
+      index: 0,
+      category: startingCategory,
+      webcamOn: false
+    };
   }
 
   componentWillUnmount() {
