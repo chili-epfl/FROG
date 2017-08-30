@@ -49,9 +49,11 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
 
   return (
     <div>
-      {data.completed
-        ? <h1>Form completed!</h1>
-        : <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />}
+      {data.completed ? (
+        <h1>Form completed!</h1>
+      ) : (
+        <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />
+      )}
     </div>
   );
 };

@@ -27,22 +27,14 @@ class Cluster extends Component {
 
       return (
         <Container>
-          {config.quadrants
-            ? [
-                <Item group="a">
-                  {config.quadrant1}
-                </Item>,
-                <Item group="b">
-                  {config.quadrant2}
-                </Item>,
-                <Item group="c">
-                  {config.quadrant3}
-                </Item>,
-                <Item group="d">
-                  {config.quadrant4}
-                </Item>
-              ]
-            : null}
+          {config.quadrants ? (
+            [
+              <Item group="a">{config.quadrant1}</Item>,
+              <Item group="b">{config.quadrant2}</Item>,
+              <Item group="c">{config.quadrant3}</Item>,
+              <Item group="d">{config.quadrant4}</Item>
+            ]
+          ) : null}
           <ObservationContainer
             key={y.id}
             setXY={setXY}
@@ -57,12 +49,12 @@ class Cluster extends Component {
       <MuiThemeProvider>
         <div>
           {List}
-          {this.state.info
-            ? <ObservationDetail
-                observation={this.state.info}
-                closeInfoFn={() => this.setState({ info: null })}
-              />
-            : null}
+          {this.state.info ? (
+            <ObservationDetail
+              observation={this.state.info}
+              closeInfoFn={() => this.setState({ info: null })}
+            />
+          ) : null}
         </div>
       </MuiThemeProvider>
     );

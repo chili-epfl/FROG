@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 
-const ShowInfo = ({ activityData, data }) =>
+const ShowInfo = ({ activityData, data }) => (
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
     <div style={{ flexBasis: 0, flexGrow: 1 }}>
       <h3>Config</h3>
@@ -28,7 +28,8 @@ const ShowInfo = ({ activityData, data }) =>
       <h3>Current reactive data</h3>
       <Inspector data={data} expandLevel={8} />
     </div>
-  </div>;
+  </div>
+);
 
 export const StatelessPreview = ({
   activityTypeId,
@@ -85,18 +86,19 @@ export const StatelessPreview = ({
           <A onClick={() => setShowData(!showData)}>
             (show {showData ? 'activity' : 'underlying data'})
           </A>{' '}
-          {!isSeparatePage &&
+          {!isSeparatePage && (
             <Link to={`/preview/${activityTypeId}/${example}`}>
               (Open in separate window)
-            </Link>}
+            </Link>
+          )}
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
-          {examples.map((x, i) =>
+          {examples.map((x, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
               {x.title}
             </NavItem>
-          )}
+          ))}
         </Nav>
       </div>
       <div style={{ position: 'absolute', width: '100%', height: '100%' }}>

@@ -136,7 +136,7 @@ const ButtonList = ({
             (button.countdownStarted === undefined ||
               session.countdownStartTime > 0 === button.countdownStarted)
         )
-        .map(button =>
+        .map(button => (
           <button
             key={button.text}
             className={'btn btn-' + button.type + ' btn-sm'}
@@ -145,16 +145,17 @@ const ButtonList = ({
           >
             {button.text}
           </button>
-        )}
+        ))}
       {session.state !== 'CREATED' &&
-        session.state !== 'STOPPED' &&
+      session.state !== 'STOPPED' && (
         <Countdown>
           {msToString(
             session.countdownStartTime > 0
               ? remainingTime
               : session.countdownLength
           )}
-        </Countdown>}
+        </Countdown>
+      )}
     </div>
   );
 };

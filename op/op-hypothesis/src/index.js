@@ -55,7 +55,9 @@ export const operator = (configData: {
     source: configData.url
   });
   const url = 'https://hypothes.is/api/search?' + query;
-  return fetch(url).then(e => e.json()).then(mapQuery);
+  return fetch(url)
+    .then(e => e.json())
+    .then(mapQuery);
 };
 
 export default ({

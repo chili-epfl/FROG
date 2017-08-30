@@ -161,7 +161,11 @@ export const joinAllStudents = (sessionId: string) =>
 
 Meteor.methods({
   'session.joinall': sessionId => {
-    const currentUsers = compact(Presences.find().fetch().map(x => x.userId));
+    const currentUsers = compact(
+      Presences.find()
+        .fetch()
+        .map(x => x.userId)
+    );
     Meteor.users.update(
       { _id: { $in: currentUsers }, username: { $not: { $eq: 'teacher' } } },
       { $set: { 'profile.currentSession': sessionId } },

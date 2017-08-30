@@ -45,7 +45,7 @@ export type {
   ReactComponent
 } from './types';
 
-export const A = ({ onClick, children, ...rest }: any): any =>
+export const A = ({ onClick, children, ...rest }: any): any => (
   <a
     href="#"
     onClick={e => {
@@ -55,7 +55,8 @@ export const A = ({ onClick, children, ...rest }: any): any =>
     {...rest}
   >
     {children}
-  </a>;
+  </a>
+);
 
 export const currentDate = (): string => {
   const d = new Date();

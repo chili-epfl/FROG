@@ -13,9 +13,7 @@ export default ({ observation, closeInfoFn }) => {
       open
       onRequestClose={closeInfoFn}
     >
-      <div>
-        {observation.content}
-      </div>
+      <div>{observation.content}</div>
     </Dialog>
   );
 };

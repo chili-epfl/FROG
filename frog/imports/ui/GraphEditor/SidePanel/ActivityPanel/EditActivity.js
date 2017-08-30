@@ -68,7 +68,7 @@ const EditActivity = props => {
             </h3>
           </div>
           <FlexView marginLeft="auto">
-            {errorColor === 'green' &&
+            {errorColor === 'green' && (
               <Button
                 className="glyphicon glyphicon-eye-open"
                 style={{
@@ -79,7 +79,8 @@ const EditActivity = props => {
                   height: '34px'
                 }}
                 onClick={() => props.setShowInfo(true)}
-              />}
+              />
+            )}
 
             <ValidButton activityId={activity._id} errorColor={errorColor} />
           </FlexView>
@@ -92,18 +93,19 @@ const EditActivity = props => {
             {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
           </i>
         </font>
-        {activity.plane === 2 &&
+        {activity.plane === 2 && (
           <SelectAttribute
             activity={activity}
             onChange={grp => {
               addActivity(activity.activityType, null, activity._id, grp);
               props.store.refreshValidate();
             }}
-          />}
+          />
+        )}
       </div>
       {activityType.config &&
-        activityType.config.properties &&
-        activityType.config.properties !== {} &&
+      activityType.config.properties &&
+      activityType.config.properties !== {} && (
         <EnhancedForm
           {...addSocialFormSchema(activityType.config, activityType.configUI)}
           showErrorList={false}
@@ -125,14 +127,16 @@ const EditActivity = props => {
           formData={activity.data}
         >
           <div />
-        </EnhancedForm>}
+        </EnhancedForm>
+      )}
       <FileForm />
-      {props.showInfo &&
+      {props.showInfo && (
         <Preview
           activityTypeId={activity.activityType}
           config={activity.data}
           dismiss={() => props.setShowInfo(false)}
-        />}
+        />
+      )}
     </div>
   );
 };

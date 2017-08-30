@@ -5,7 +5,7 @@ import { connect, type StoreProp, store } from './store';
 import Activity from './store/activity';
 import { getClickHandler } from './utils';
 
-const Box = ({ x, y, width, selected, strokeColor, color }) =>
+const Box = ({ x, y, width, selected, strokeColor, color }) => (
   <g>
     <rect
       x={x}
@@ -16,7 +16,7 @@ const Box = ({ x, y, width, selected, strokeColor, color }) =>
       rx={10}
       height={30}
     />;
-    {selected &&
+    {selected && (
       <rect
         x={x - 2}
         y={y - 2}
@@ -25,8 +25,10 @@ const Box = ({ x, y, width, selected, strokeColor, color }) =>
         fill="transparent"
         rx={10}
         height={34}
-      />}
-  </g>;
+      />
+    )}
+  </g>
+);
 
 class ActivityComponent extends Component {
   clickHandler: ?Function;
@@ -72,7 +74,7 @@ class ActivityComponent extends Component {
           color={activity.color}
           strokeColor={activity.strokeColor}
         />
-        {width > 21 &&
+        {width > 21 && (
           <g>
             <svg style={{ overflow: 'hidden' }} width={width + x - 20}>
               <text x={x + 3} y={activity.y + 20}>
@@ -114,7 +116,8 @@ class ActivityComponent extends Component {
                 style={!readOnly && { cursor: 'ew-resize' }}
               />
             </DraggableCore>
-          </g>}
+          </g>
+        )}
         <DraggableCore
           onDrag={(_, { deltaX }) => activity.move(deltaX)}
           onStop={stopMoving}
@@ -140,8 +143,9 @@ export default connect(
   ({
     store: { activityStore: { all } },
     scaled
-  }: StoreProp & { scaled: boolean }) =>
+  }: StoreProp & { scaled: boolean }) => (
     <g>
       {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
     </g>
+  )
 );

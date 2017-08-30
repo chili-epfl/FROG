@@ -15,9 +15,10 @@ const socket = new ReconnectingWebSocket(shareDbUrl);
 export const connection = new sharedbClient.Connection(socket);
 window.connection = connection;
 
-export default () =>
+export default () => (
   <Router>
     <div style={{ width: '100%', height: '100%' }}>
       <Route component={FROGRouter} />
     </div>
-  </Router>;
+  </Router>
+);
