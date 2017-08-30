@@ -48,9 +48,17 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
+    canVote: {
+      title: 'Can students vote ?',
+      type: 'boolean'
+    },
     minVote: {
-      title: 'Number of vote minimum to validate the image',
+      title: 'Number of vote minimum to select an image (default: 1)',
       type: 'number'
+    },
+    canUpload: {
+      title: 'Can students upload new images ?',
+      type: 'boolean'
     },
     images: {
       title: 'Images',
@@ -75,29 +83,31 @@ const config = {
   }
 };
 
+const configUI = {
+  minVote: { conditional: 'canVote' }
+};
+
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
-  const dataObj: Object = Array.isArray(object.data) ? {} : object.data;
-  const dataImgs = Object.keys(dataObj).filter(
-    x => dataObj[x].url !== undefined
+  if (object.config.images)
+    object.config.images.forEach((x, i) =>
+      dataFn.objInsert({ url: x.url, categories: x.categories, votes: {} }, i)
+    );
+
+  if (object.data === null || Array.isArray(object.data)) return;
+  const dataImgs = Object.keys(object.data).filter(
+    x => object.data[x].url !== undefined
   );
-  if (dataObj !== {})
+  if (object.data !== {})
     dataImgs.forEach((x, i) =>
       dataFn.objInsert(
         {
-          url: dataObj[x].url,
-          categories: dataObj[x].categories || [dataObj[x].category],
+          url: object.data[x].url,
+          categories: object.data[x].categories || [object.data[x].category],
           votes: {}
         },
-        i
-      )
-    );
-  if (object.config.images)
-    object.config.images.forEach((x, i) =>
-      dataFn.objInsert(
-        { url: x.url, categories: x.categories, votes: {} },
-        dataImgs.length + i
+        object.config.images ? object.config.images.length + i : i
       )
     );
 };
@@ -107,6 +117,7 @@ export default ({
   type: 'react-component',
   meta,
   config,
+  configUI,
   dataStructure,
   mergeFunction,
   ActivityRunner
