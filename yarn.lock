@@ -6,9 +6,9 @@
   version "2.9.16"
   resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
 
-"@houshuang/yarn@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@houshuang/yarn/-/yarn-1.0.2.tgz#2903a03e1cf324786a0f16b65adebfdc88374ab5"
+"@houshuang/yarn@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@houshuang/yarn/-/yarn-1.0.3.tgz#d5a893275fe0ce978ffac4f1102bb737f9ea687d"
   dependencies:
     babel-eslint "^7.2.3"
     babel-runtime "^6.0.0"
