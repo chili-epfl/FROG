@@ -28,22 +28,16 @@ class ActivityRunner extends Component {
     webcamOn: boolean
   };
 
+  categories: {
+    [categoryName: string]: string[]
+  };
+
   constructor(props: ActivityRunnerT) {
     super(props);
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
-    this.state = { zoomOn: false, index: 0, category: 'all', webcamOn: false };
-  }
 
-  componentWillUnmount() {
-    Mousetrap.unbind('esc');
-  }
-
-  render() {
-    const { activityData, data, dataFn, uploadFn, userInfo } = this.props;
-
-    const minVoteT = activityData.config.minVote || 1;
-
-    const categories = Object.keys(data).reduce(
+    const { data } = props;
+    this.categories = Object.keys(data).reduce(
       (acc, key) => ({
         ...acc,
         all: [...(acc.all || []), data[key].url],
@@ -58,6 +52,26 @@ class ActivityRunner extends Component {
       }),
       {}
     );
+
+    const startingCategory =
+      Object.keys(this.categories).length > 1 ? 'categories' : 'all';
+
+    this.state = {
+      zoomOn: false,
+      index: 0,
+      category: startingCategory,
+      webcamOn: false
+    };
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind('esc');
+  }
+
+  render() {
+    const { activityData, data, dataFn, uploadFn, userInfo } = this.props;
+
+    const minVoteT = activityData.config.minVote || 1;
 
     const images = Object.keys(data)
       .filter(
@@ -97,7 +111,7 @@ class ActivityRunner extends Component {
     return (
       <Main>
         <TopBar
-          categories={[...Object.keys(categories), 'categories']}
+          categories={[...Object.keys(this.categories), 'categories']}
           category={this.state.category}
           canVote={activityData.config.canVote}
           {...{ setCategory, setZoom }}
@@ -105,7 +119,7 @@ class ActivityRunner extends Component {
         <ThumbList
           {...{
             images,
-            categories,
+            categories: this.categories,
             minVoteT,
             vote,
             userInfo,
