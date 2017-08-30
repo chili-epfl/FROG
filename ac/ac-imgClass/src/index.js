@@ -70,6 +70,7 @@ const mergeFunction = (object, dataFn) => {
   const dataImgs = Object.keys(object.data).filter(
     x => object.data[x].url !== undefined
   );
+
   if (object.data !== {})
     dataImgs.forEach((x, i) =>
       dataFn.objInsert(

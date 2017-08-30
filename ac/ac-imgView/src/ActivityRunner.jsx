@@ -143,4 +143,4 @@ class ActivityRunner extends Component {
 }
 
 ActivityRunner.displayName = 'ActivityRunner';
-export default ActivityRunner;
+export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
