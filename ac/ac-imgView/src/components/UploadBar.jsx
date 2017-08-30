@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import UploadDragDrop from './UploadDragDrop';
 
-const UploadBar = ({ data, dataFn, uploadFn, setWebcam }: Object) =>
+const UploadBar = ({ data, dataFn, uploadFn, setWebcam }: Object) => (
   <Main>
     <div style={{ width: '100%', height: '1px', backgroundColor: 'black' }} />
     <Container>
@@ -20,7 +20,8 @@ const UploadBar = ({ data, dataFn, uploadFn, setWebcam }: Object) =>
         </button>
       </div>
     </Container>
-  </Main>;
+  </Main>
+);
 
 const Main = styled.div`
   width: 100%;

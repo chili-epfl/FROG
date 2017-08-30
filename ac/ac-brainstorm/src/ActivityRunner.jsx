@@ -41,7 +41,7 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const Idea = ({ individualVote, fun, idea, remove }) =>
+const Idea = ({ individualVote, fun, idea, remove }) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
@@ -63,40 +63,41 @@ const Idea = ({ individualVote, fun, idea, remove }) =>
             glyph="thumbs-up"
           />
         </A>
-        <Badge>
-          {idea.score}
-        </Badge>
+        <Badge>{idea.score}</Badge>
       </div>
     </font>
-    <b>
-      {idea.title}
-    </b>
+    <b>{idea.title}</b>
     <div>
       {idea.content}
-      {remove &&
+      {remove && (
         <font size={4}>
           <A onClick={() => fun.del(idea)}>
             <Glyphicon glyph="scissors" style={{ float: 'right' }} />
           </A>
-        </font>}
+        </font>
+      )}
     </div>
-  </ListGroupItem>;
+  </ListGroupItem>
+);
 
-const IdeaList = ({ userInfo, data, ideas, fun }) =>
+const IdeaList = ({ userInfo, data, ideas, fun }) => (
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {values(ideas).sort((a, b) => b.score - a.score).map(idea => {
-          const individualVote = data[idea.id].students[userInfo.id];
-          return (
-            <div key={idea.id}>
-              <Idea {...{ individualVote, idea, fun, key: idea.id }} />
-            </div>
-          );
-        })}
+        {values(ideas)
+          .sort((a, b) => b.score - a.score)
+          .map(idea => {
+            const individualVote = data[idea.id].students[userInfo.id];
+            return (
+              <div key={idea.id}>
+                <Idea {...{ individualVote, idea, fun, key: idea.id }} />
+              </div>
+            );
+          })}
       </FlipMove>
     </ListGroup>
-  </div>;
+  </div>
+);
 
 const schema = {
   type: 'object',
@@ -161,9 +162,7 @@ const ActivityRunner = ({
     <div>
       <Container>
         <ListContainer>
-          <p>
-            {activityData.config.text}
-          </p>
+          <p>{activityData.config.text}</p>
           <IdeaList ideas={data} data={data} userInfo={userInfo} fun={fun} />
           {formBoolean && <AddIdea onSubmit={onSubmit} />}
         </ListContainer>
@@ -172,7 +171,7 @@ const ActivityRunner = ({
   );
 };
 
-const AddIdea = ({ onSubmit }) =>
+const AddIdea = ({ onSubmit }) => (
   <div>
     <hr
       style={{
@@ -194,6 +193,7 @@ const AddIdea = ({ onSubmit }) =>
         </div>
       </Form>
     </div>
-  </div>;
+  </div>
+);
 
 export default ActivityRunner;

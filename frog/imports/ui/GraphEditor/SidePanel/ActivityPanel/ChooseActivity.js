@@ -85,35 +85,38 @@ class ChooseActivityType extends Component {
             transform: 'translateY(10px)'
           }}
         >
-          {filteredList.length === 0
-            ? <div
-                style={{
-                  marginTop: '20px',
-                  marginLeft: '10px',
-                  fontSize: '40px'
-                }}
-              >
-                No result
-              </div>
-            : filteredList.map((x: ActivityPackageT) =>
-                <ListComponent
-                  hasPreview={x.meta.exampleData !== undefined}
-                  onSelect={() => select(x)}
-                  showExpanded={this.state.expanded === x.id}
-                  expand={() => this.setState({ expanded: x.id })}
-                  key={x.id}
-                  onPreview={() => this.setState({ showInfo: x.id })}
-                  object={x}
-                  searchS={this.state.searchStr}
-                  eventKey={x.id}
-                />
-              )}
+          {filteredList.length === 0 ? (
+            <div
+              style={{
+                marginTop: '20px',
+                marginLeft: '10px',
+                fontSize: '40px'
+              }}
+            >
+              No result
+            </div>
+          ) : (
+            filteredList.map((x: ActivityPackageT) => (
+              <ListComponent
+                hasPreview={x.meta.exampleData !== undefined}
+                onSelect={() => select(x)}
+                showExpanded={this.state.expanded === x.id}
+                expand={() => this.setState({ expanded: x.id })}
+                key={x.id}
+                onPreview={() => this.setState({ showInfo: x.id })}
+                object={x}
+                searchS={this.state.searchStr}
+                eventKey={x.id}
+              />
+            ))
+          )}
         </div>
-        {this.state.showInfo !== null &&
+        {this.state.showInfo !== null && (
           <Preview
             activityTypeId={this.state.showInfo}
             dismiss={() => this.setState({ showInfo: null })}
-          />}
+          />
+        )}
       </div>
     );
   }

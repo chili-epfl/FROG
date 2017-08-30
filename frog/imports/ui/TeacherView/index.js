@@ -22,21 +22,26 @@ const rawSessionController = ({
   toggleVisibility,
   logs,
   currentTime
-}) =>
+}) => (
   <div>
-    {session
-      ? <div>
-          <ButtonList
-            session={session}
-            toggle={toggleVisibility}
-            currentTime={currentTime}
-          />
-          {visible
-            ? <DashView logs={logs} session={session} />
-            : <GraphView session={session} />}
-        </div>
-      : <p>Create or select a session from the list below</p>}
-  </div>;
+    {session ? (
+      <div>
+        <ButtonList
+          session={session}
+          toggle={toggleVisibility}
+          currentTime={currentTime}
+        />
+        {visible ? (
+          <DashView logs={logs} session={session} />
+        ) : (
+          <GraphView session={session} />
+        )}
+      </div>
+    ) : (
+      <p>Create or select a session from the list below</p>
+    )}
+  </div>
+);
 
 const SessionController = withVisibility(rawSessionController);
 SessionController.displayName = 'SessionController';
@@ -86,15 +91,13 @@ const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
   return (
     <div>
       <span role="button" tabIndex={0} onClick={toggleVisibility}>
-        <h1>
-          Logs {!visible && '...'}
-        </h1>
+        <h1>Logs {!visible && '...'}</h1>
       </span>
-      {visible &&
+      {visible && (
         <div>
           <A onClick={flushLogs}>Flush logs</A>
           <ul>
-            {logs.sort((x, y) => y.createdAt - x.createdAt).map(log =>
+            {logs.sort((x, y) => y.createdAt - x.createdAt).map(log => (
               <div
                 key={log._id}
                 style={{
@@ -105,9 +108,10 @@ const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
               >
                 <Inspector data={log} expandLevel={2} />
               </div>
-            )}
+            ))}
           </ul>
-        </div>}
+        </div>
+      )}
     </div>
   );
 });
@@ -140,7 +144,7 @@ const TeacherView = createContainer(
       currentTime
     };
   },
-  props =>
+  props => (
     <div id="teacher" style={{ display: 'flex' }}>
       <div style={{ width: '80%' }}>
         <SessionController {...props} />
@@ -153,6 +157,7 @@ const TeacherView = createContainer(
         <LogView {...props} />
       </div>
     </div>
+  )
 );
 
 TeacherView.displayName = 'TeacherView';

@@ -9,7 +9,7 @@ import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
 import ExpandButton from './SidePanel/ExpandButton';
 
-const EditorPanel = () =>
+const EditorPanel = () => (
   <div>
     <ExpandButton />
     <div style={{ height: 600 }}>
@@ -20,7 +20,8 @@ const EditorPanel = () =>
       <Graph hasPanMap />
     </div>
     <HelpModal />
-  </div>;
+  </div>
+);
 
 class Editor extends Component {
   componentDidMount() {

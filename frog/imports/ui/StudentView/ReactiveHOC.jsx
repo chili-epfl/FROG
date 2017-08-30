@@ -86,14 +86,16 @@ const ReactiveHOC = (
     };
 
     render = () =>
-      this.state.data !== null
-        ? <WrappedComponent
-            dataFn={this.state.dataFn}
-            uploadFn={uploadFile}
-            data={this.state.data}
-            {...this.props}
-          />
-        : <img src="/images/Spinner.gif" alt="" />;
+      this.state.data !== null ? (
+        <WrappedComponent
+          dataFn={this.state.dataFn}
+          uploadFn={uploadFile}
+          data={this.state.data}
+          {...this.props}
+        />
+      ) : (
+        <img src="/images/Spinner.gif" alt="" />
+      );
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;
