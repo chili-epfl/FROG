@@ -3,7 +3,11 @@ import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
 
-export { default as EnhancedForm, hideConditional } from './EnhancedForm';
+export {
+  default as EnhancedForm,
+  hideConditional,
+  calculateHides
+} from './EnhancedForm';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
 export { msToString } from './msToString';

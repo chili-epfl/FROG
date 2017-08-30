@@ -3,7 +3,7 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 import { cloneDeep } from 'lodash';
 
-const calculateHides = (
+export const calculateHides = (
   formData: Object = {},
   schema: Object,
   UISchema: Object

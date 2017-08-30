@@ -10,7 +10,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {"frog-utils": "1.0.0"},
+  "dependencies": {"frog-utils": "1.0.0", "lodash": "^4.6.0"},
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.2.3",

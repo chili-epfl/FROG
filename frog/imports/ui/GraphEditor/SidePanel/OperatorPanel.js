@@ -15,6 +15,7 @@ import { connect } from '../store';
 import { SelectFormWidget } from './ActivityPanel/SelectWidget';
 import addSocialFormSchema from './ActivityPanel/addSocialSchema';
 import ListComponent from './ListComponent';
+import { SelectActivityWidget } from './SelectActivityWidget';
 
 class ChooseOperatorTypeComp extends Component {
   state: { expanded: ?string, searchStr: string };
@@ -118,7 +119,14 @@ class ChooseOperatorTypeComp extends Component {
 }
 
 const EditClass = ({
-  store: { graphErrors, refreshValidate, valid, operatorStore: { all } },
+  store: {
+    graphErrors,
+    refreshValidate,
+    valid,
+    operatorStore: { all },
+    connectionStore: { all: connections },
+    activityStore: { all: activities }
+  },
   operator
 }) => {
   const graphOperator = all.find(act => act.id === operator._id);
@@ -137,6 +145,12 @@ const EditClass = ({
 
   const operatorType = operatorTypesObj[operator.operatorType];
 
+  const connectedNodesIds = connections
+    .filter(con => con.source.id === operator._id)
+    .map(con => con.target.id);
+  const connectedActivities = activities.filter(act =>
+    connectedNodesIds.includes(act.id)
+  );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
@@ -170,8 +184,14 @@ const EditClass = ({
         operatorType.config.properties !== {} &&
         <EnhancedForm
           {...addSocialFormSchema(operatorType.config, operatorType.configUI)}
-          widgets={{ socialAttributeWidget: SelectFormWidget }}
-          formContext={{ options: valid.social[operator._id] || [] }}
+          widgets={{
+            socialAttributeWidget: SelectFormWidget,
+            activityWidget: SelectActivityWidget
+          }}
+          formContext={{
+            options: valid.social[operator._id] || [],
+            connectedActivities
+          }}
           onChange={data => {
             addOperator(
               operator.operatorType,
