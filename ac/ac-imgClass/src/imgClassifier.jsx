@@ -50,7 +50,7 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
           onClick={() => {
             dataFn.objInsert(
               { url: images[data.index], category: x },
-              data.index + 1
+              data.index
             );
             dataFn.objInsert(data.index + 1, 'index');
           }}
@@ -70,14 +70,13 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     .map(x => data[x].url);
   categ.forEach((x, i) =>
     Mousetrap.bind(shortCuts[i], () => {
-      dataFn.objInsert({ url: imgs[data.index], category: x }, data.index + 1);
+      dataFn.objInsert({ url: imgs[data.index], category: x }, data.index);
       dataFn.objInsert(data.index + 1, 'index');
     })
   );
 
   if (data.index === imgs.length)
     categ.forEach((x, i) => Mousetrap.unbind(shortCuts[i]));
-
   return (
     <div style={{ margin: '1%', height: '100%' }}>
       <h4>
