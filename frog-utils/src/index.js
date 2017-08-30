@@ -41,7 +41,8 @@ export type {
   ActivityPackageT,
   productOperatorT,
   socialOperatorT,
-  operatorPackageT
+  operatorPackageT,
+  ReactComponent
 } from './types';
 
 export const A = ({ onClick, children, ...rest }: any): any =>

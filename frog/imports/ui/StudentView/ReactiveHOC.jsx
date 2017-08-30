@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { generateReactiveFn } from 'frog-utils';
+import { generateReactiveFn, type ReactComponent } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
 import { uploadFile } from '../../api/openUploads';
@@ -21,7 +21,7 @@ const ReactiveHOC = (
   docId: string,
   previewActivity: any = false,
   previewActivityData: any = null
-) => (WrappedComponent: Class<Component<*, *, *>>) => {
+) => (WrappedComponent: ReactComponent<any>) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
     doc: any;
