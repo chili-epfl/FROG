@@ -42,6 +42,17 @@ export type ObjectT = {
   globalStructure: { studentIds: string[] }
 };
 
+export type ControlT = {
+  structure: structureDefT,
+  payload: {
+    [attributeKey: string]: true
+  }
+};
+
+export type ControlStructureT =
+  | { 'all': ControlT }
+  | { [activityId: string]: ControlT };
+
 export type ActivityRunnerT = {
   logger: Function, // logging callback
   activityData: dataUnitStructT,
@@ -81,6 +92,19 @@ export type productOperatorT = {
   operator: (configData: Object, object: ObjectT) => activityDataT
 };
 
+export type controlOperatorT = {
+  id: string,
+  type: 'control',
+  meta: {
+    name: string,
+    shortDesc: string,
+    description: string
+  },
+  config: Object,
+  validateConfig?: validateConfigFnT[],
+  operator: (configData: Object, object: ObjectT) => ControlStructureT
+};
+
 export type socialOperatorT = {
   id: string,
   type: 'social',
@@ -95,4 +119,7 @@ export type socialOperatorT = {
   operator: (configData: Object, object: ObjectT) => socialStructureT
 };
 
-export type operatorPackageT = socialOperatorT | productOperatorT;
+export type operatorPackageT =
+  | socialOperatorT
+  | productOperatorT
+  | controlOperatorT;
