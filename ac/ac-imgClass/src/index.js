@@ -61,17 +61,22 @@ const dataStructure = {};
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {
   dataFn.objInsert(0, 'index');
-  const dataObj: Object = Array.isArray(object.data) ? {} : object.data;
-  const dataImgs = Object.keys(dataObj).filter(
-    x => dataObj[x].url !== undefined
-  );
-  if (dataObj !== {})
-    dataImgs.forEach((x, i) =>
-      dataFn.objInsert({ url: dataObj[x].url, category: '' }, i + 1)
-    );
   if (object.config.images)
     object.config.images.forEach((x, i) =>
-      dataFn.objInsert({ url: x, category: '' }, dataImgs.length + i + 1)
+      dataFn.objInsert({ url: x, category: '' }, i)
+    );
+
+  if (object.data === null || Array.isArray(object.data)) return;
+  const dataImgs = Object.keys(object.data).filter(
+    x => object.data[x].url !== undefined
+  );
+
+  if (object.data !== {})
+    dataImgs.forEach((x, i) =>
+      dataFn.objInsert(
+        { url: object.data[x].url, category: '' },
+        object.config.images ? object.config.images.length + i : i
+      )
     );
 };
 
