@@ -2,6 +2,7 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import { cloneDeep } from 'lodash';
+import jsonSchemaDefaults from 'json-schema-defaults';
 
 export const calculateHides = (
   formData: Object = {},
@@ -37,7 +38,6 @@ const calculateSchema = (
   schema: Object,
   UISchema: Object
 ): Object => {
-  console.log('calculateSchema', formData);
   const hide = calculateHides(formData, schema, UISchema);
   const newSchema = cloneDeep(schema);
   hide.forEach(x => delete newSchema.properties[x]);
@@ -45,7 +45,11 @@ const calculateSchema = (
 };
 
 const EnhancedForm = (props: any) => {
-  const schema = calculateSchema(props.formData, props.schema, props.uiSchema);
+  const schema = calculateSchema(
+    props.formData || jsonSchemaDefaults(props.schema),
+    props.schema,
+    props.uiSchema
+  );
 
   return <Form {...props} schema={schema} />;
 };
