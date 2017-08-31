@@ -1,28 +1,38 @@
 // @flow
-import { cloneDeep } from 'lodash';
+import { cloneDeep, set, get, merge } from 'lodash';
+import traverse from 'traverse';
 
 export default (schema: Object, uiSchema: Object): Object => {
   if (schema === {} || (schema.properties && schema.properties === {})) {
     return { schema: {}, uiSchema: {} };
   }
 
-  const mappings = [];
   const newSchema = cloneDeep(schema);
-  Object.keys(newSchema.properties).forEach(x => {
-    const val = newSchema.properties[x];
-    if (val.type === 'socialAttribute') {
-      mappings.push(x);
-      newSchema.properties[x].type = 'string';
-    }
-  });
-
-  const newUiSchema = mappings.reduce(
-    (acc, x) => ({
-      ...acc,
-      [x]: { ...acc[x], 'ui:widget': 'socialAttributeWidget' }
-    }),
-    uiSchema || {}
+  const paths = traverse.paths(newSchema).filter(x => x.pop() === 'type');
+  const activityPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'activity'
   );
 
-  return { schema: newSchema, uiSchema: newUiSchema };
+  const socialPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'socialAttribute'
+  );
+
+  [...activityPaths, ...socialPaths].forEach(x =>
+    set(newSchema, [...x, 'type'], 'string')
+  );
+
+  const socialMerges = socialPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'socialAttributeWidget'
+    })
+  );
+  const activityMerges = activityPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'activityWidget'
+    })
+  );
+
+  const newUiSchema = merge(uiSchema, ...socialMerges, ...activityMerges);
+  console.log(newUiSchema);
+  return { uiSchema: newUiSchema, schema: newSchema };
 };

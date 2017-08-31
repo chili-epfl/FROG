@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 import { cloneDeep } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
@@ -44,14 +44,27 @@ const calculateSchema = (
   return newSchema;
 };
 
-const EnhancedForm = (props: any) => {
-  if (!props.formData && jsonSchemaDefaults(props.schema) !== {}) {
-    props.onChange(jsonSchemaDefaults(props.schema));
+class EnhancedForm extends Component {
+  componentWillMount() {
+    if (!this.props.formData && jsonSchemaDefaults(this.props.schema) !== {}) {
+      window.setTimeout(
+        this.props.onChange({
+          formData: jsonSchemaDefaults(this.props.schema)
+        }),
+        0
+      );
+    }
   }
-  const schema = calculateSchema(props.formData, props.schema, props.uiSchema);
+  render() {
+    const schema = calculateSchema(
+      this.props.formData,
+      this.props.schema,
+      this.props.uiSchema
+    );
 
-  return <Form {...props} schema={schema} />;
-};
+    return <Form {...this.props} schema={schema} />;
+  }
+}
 
 export default EnhancedForm;
 

@@ -194,12 +194,7 @@ const EditClass = ({
             connectedActivities
           }}
           onChange={data => {
-            addOperator(
-              operator.operatorType,
-              data.formData,
-              operator._id,
-              data.errors.length > 0
-            );
+            addOperator(operator.operatorType, data.formData, operator._id);
             refreshValidate();
           }}
           formData={operator.data}

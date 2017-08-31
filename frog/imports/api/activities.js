@@ -18,11 +18,10 @@ export const addActivity = (
   activityType: string,
   data: ?Object = {},
   id: string,
-  groupingKey: ?string,
-  err: boolean = false
+  groupingKey: ?string
 ) => {
   if (id) {
-    const toSet = omitBy({ data, groupingKey, err }, isNil);
+    const toSet = omitBy({ data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
@@ -30,7 +29,6 @@ export const addActivity = (
       activityType,
       data,
       groupingKey,
-      err,
       createdAt: new Date()
     });
   }
@@ -121,8 +119,7 @@ export const deleteDatabase = () => Meteor.call('graph.flush.db');
 export const addOperator = (
   operatorType: string,
   data: Object = {},
-  id: ?string,
-  err: boolean = false
+  id: ?string
 ) => {
   if (id) {
     Operators.update(id, { $set: { data } });
@@ -132,7 +129,6 @@ export const addOperator = (
       operatorType,
       type: operatorTypesObj[operatorType].type,
       data,
-      err,
       createdAt: new Date()
     });
   }
