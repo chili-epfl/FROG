@@ -5,7 +5,6 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
-import { cloneDeep } from 'lodash';
 
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
@@ -40,10 +39,7 @@ const Runner = ({ activity, object, single }) => {
 
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activity.activityType;
-  const ActivityToRun = ReactiveHOC(
-    cloneDeep(activityType.dataStructure),
-    reactiveId
-  )(RunComp);
+  const ActivityToRun = ReactiveHOC(reactiveId)(RunComp);
 
   const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
   let title = '(' + groupingStr + groupingValue + ')';
