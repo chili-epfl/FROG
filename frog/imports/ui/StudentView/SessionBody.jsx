@@ -65,26 +65,20 @@ const checkActivity = (activityId, operators, connections) => {
     return true;
   }
 
-  console.log(struct, activityId);
   if (!struct.all || (struct.list && !struct.list[activityId])) {
-    console.log('not found');
     return true;
   }
 
   const cond = struct.all ? struct.all : struct.list[activityId];
   if (cond.structure === 'individual') {
     const payload = cond.payload[Meteor.userId()];
-    console.log(payload);
     if (!payload && cond.mode === 'include') {
-      console.log('not, include');
       return false;
     }
 
     if (payload && cond.mode === 'exclude') {
-      console.log('yes, exclude');
       return false;
     }
-    console.log('default');
     return true;
   }
 };

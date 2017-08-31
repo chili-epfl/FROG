@@ -16,8 +16,6 @@ export const addGraph = (
   return id;
 };
 
-export const uploadGraph = (obj: Object) => Meteor.call('graph.upload', obj);
-
 export const importGraph = (params: Object): string => {
   const id = params._id;
   Graphs.insert({ ...params, _id: id, createdAt: new Date() });
@@ -87,10 +85,5 @@ Meteor.methods({
       const conid = connections.map(x => x._id);
       Connections.remove({ _id: { $nin: conid }, graphId });
     }
-  },
-  'graph.upload': obj => {
-    obj.activities.forEach(a => Activities.insert(a));
-    obj.operators.forEach(a => Operators.insert(a));
-    obj.connections.forEach(a => Connections.insert(a));
   }
 });
