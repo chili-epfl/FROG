@@ -37,6 +37,7 @@ const calculateSchema = (
   schema: Object,
   UISchema: Object
 ): Object => {
+  console.log('calculateSchema', formData);
   const hide = calculateHides(formData, schema, UISchema);
   const newSchema = cloneDeep(schema);
   hide.forEach(x => delete newSchema.properties[x]);

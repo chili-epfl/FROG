@@ -40,6 +40,7 @@ class ChooseOperatorTypeComp extends Component {
       });
 
     const filteredList = operatorTypes
+      .filter(x => x.type === this.props.operator.type)
       .filter(
         x =>
           x.meta.name.toLowerCase().includes(this.state.searchStr) ||
