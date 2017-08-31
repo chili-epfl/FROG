@@ -63,7 +63,10 @@ const PageContainer = createContainer((props: any) => {
     'activities',
     'objects',
     'sessions',
-    'openUploads'
+    'openUploads',
+    'operators',
+    'connections',
+    'products'
   ]);
   const loggedInUsername =
     Meteor.userId() &&
@@ -71,15 +74,7 @@ const PageContainer = createContainer((props: any) => {
     Meteor.users.findOne(Meteor.userId()).username;
   if (username === 'teacher' || loggedInUsername === 'teacher') {
     ready =
-      ready &&
-      setupSubscriptions([
-        'operators',
-        'connections',
-        'global_settings',
-        'graphs',
-        'products',
-        'uploads'
-      ]);
+      ready && setupSubscriptions(['global_settings', 'graphs', 'uploads']);
   }
   Meteor.subscribe('userData', {
     onReady: () => {

@@ -47,7 +47,7 @@ export type ObjectT = {
 
 export type ControlT = {
   structure: structureDefT,
-  mode: 'adding' | 'subtracting',
+  mode: 'include' | 'exclude',
   payload: {
     [attributeKey: string]: true
   }

@@ -1,9 +1,14 @@
 // @flow
 
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { TimeSync } from 'meteor/mizzao:timesync';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Mosaic } from 'react-mosaic-component';
 import styled from 'styled-components';
 import { msToString } from 'frog-utils';
+import { Operators, Connections } from '../../api/activities';
+import { Products } from '../../api/products';
 
 import Runner from './Runner';
 
@@ -18,7 +23,7 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-const Countdown = ({ session, currentTime }) => {
+const CountdownComp = ({ session, currentTime }) => {
   const secondsLeft =
     session.countdownStartTime > 0
       ? Math.round(
@@ -37,42 +42,108 @@ const Countdown = ({ session, currentTime }) => {
   );
 };
 
+const Countdown = createContainer(
+  ({ session }) => ({
+    currentTime: TimeSync.serverTime(),
+    session
+  }),
+  CountdownComp
+);
+
+const checkActivity = (activityId, operators, connections) => {
+  const connectedNodes = connections
+    .filter(x => x.target.id === activityId)
+    .map(x => x.source.id);
+  const controlOp = operators.find(x => connectedNodes.includes(x._id));
+  if (!controlOp) {
+    return true;
+  }
+
+  const structraw = Products.findOne(controlOp._id);
+  const struct = structraw && structraw.controlStructure;
+  if (!struct) {
+    return true;
+  }
+
+  console.log(struct, activityId);
+  if (!struct.all || (struct.list && !struct.list[activityId])) {
+    console.log('not found');
+    return true;
+  }
+
+  const cond = struct.all ? struct.all : struct.list[activityId];
+  if (cond.structure === 'individual') {
+    const payload = cond.payload[Meteor.userId()];
+    console.log(payload);
+    if (!payload && cond.mode === 'include') {
+      console.log('not, include');
+      return false;
+    }
+
+    if (payload && cond.mode === 'exclude') {
+      console.log('yes, exclude');
+      return false;
+    }
+    console.log('default');
+    return true;
+  }
+};
+
 const SessionBody = ({
   session,
-  currentTime
+  operators,
+  connections
 }: {
   session: Object,
-  currentTime: number
+  operators: Object[],
+  connections: Object[]
 }) => {
-  if (!session.openActivities || session.openActivities.length === 0) {
+  const activities = session.openActivities;
+  const openActivities = activities.filter(x =>
+    checkActivity(x, operators, connections)
+  );
+
+  if (!openActivities || openActivities.length === 0) {
     return (
       <div style={{ height: '100%' }}>
-        <Countdown session={session} currentTime={currentTime} />
+        <Countdown session={session} />
         <h1>NO ACTIVITY</h1>
       </div>
     );
   }
-  if (session.openActivities.length === 1) {
+  if (openActivities.length === 1) {
     return (
       <div style={{ height: '100%' }}>
-        <Countdown session={session} currentTime={currentTime} />
-        <Runner activityId={session.openActivities[0]} single />
+        <Countdown session={session} />
+        <Runner activityId={openActivities[0]} single />
       </div>
     );
   } else {
     return (
       <div style={{ height: '100%' }}>
-        <Countdown session={session} currentTime={currentTime} />
+        <Countdown session={session} />
         <Mosaic
           renderTile={activityId => <Runner activityId={activityId} />}
-          initialValue={getInitialState(session.openActivities)}
+          initialValue={getInitialState(openActivities)}
         />
       </div>
     );
   }
 };
 
-export default SessionBody;
+SessionBody.displayName = 'SessionBoday';
+
+export default createContainer(
+  ({ session }) => ({
+    connections: Connections.find({ graphId: session.graphId }).fetch(),
+    operators: Operators.find({
+      graphId: session.graphId,
+      type: 'control'
+    }).fetch(),
+    session
+  }),
+  SessionBody
+);
 
 const CountdownDiv = styled.div`
   border: solid 5px #aa0000;

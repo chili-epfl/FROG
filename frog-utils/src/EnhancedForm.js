@@ -45,11 +45,10 @@ const calculateSchema = (
 };
 
 const EnhancedForm = (props: any) => {
-  const schema = calculateSchema(
-    props.formData || jsonSchemaDefaults(props.schema),
-    props.schema,
-    props.uiSchema
-  );
+  if (!props.formData && jsonSchemaDefaults(props.schema) !== {}) {
+    props.onChange(jsonSchemaDefaults(props.schema));
+  }
+  const schema = calculateSchema(props.formData, props.schema, props.uiSchema);
 
   return <Form {...props} schema={schema} />;
 };

@@ -18,7 +18,7 @@ export const SelectActivityWidget = ({
             value={value}
           >
             {['', ...options].map(x =>
-              <option value={x.id} key={x.id || 'choose'}>
+              <option value={x.id || ''} key={x.id || 'choose'}>
                 {x === '' ? 'Choose an activity' : x.title}
               </option>
             )}

@@ -1,7 +1,7 @@
 // @flow
 
 import type { controlOperatorT } from 'frog-utils';
-import { invert } from 'lodash';
+import { invert, compact } from 'lodash';
 
 import { config, configUI } from './config';
 
@@ -11,8 +11,9 @@ const meta = {
   description: ''
 };
 
-const calcSingle = (mode, usernames, nameToId) => {
-  const userids = usernames.map(x => nameToId(x));
+const calcSingle = (mode, usernameString, nameToId) => {
+  const usernames = usernameString.split(',').map(x => x.trim());
+  const userids = compact(usernames.map(x => nameToId[x]));
   const payload = userids.reduce((acc, x) => ({ ...acc, [x]: true }), {});
   return { structure: 'individual', mode, payload };
 };

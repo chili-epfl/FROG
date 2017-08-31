@@ -55,8 +55,9 @@ export default (nodeType, id, obj, schema, datafns, uiSchema) => {
           return {
             field: x.argument,
             nodeType,
-            err: `Field '${result.schema.properties[x.argument]
-              .title}' required`,
+            err: `Field ${(result.schema.properties[x.argument] &&
+              `'${result.schema.properties[x.argument].title}'`) ||
+              ''} required`,
             type: 'missingRequiredConfigField',
             severity: 'error',
             id

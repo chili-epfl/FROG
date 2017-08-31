@@ -23,7 +23,7 @@ export const config = {
       items: {
         type: 'object',
         title: 'New Rule',
-        required: ['individuals'],
+        required: ['activity', 'individuals'],
         properties: {
           activity: {
             type: 'string',
