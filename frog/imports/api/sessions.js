@@ -2,11 +2,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Presences } from 'meteor/tmeasday:presence';
-import { compact } from 'lodash';
+import { compact, get, set } from 'lodash';
+import traverse from 'traverse';
 
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
+import { activityTypesObj } from '../activityTypes';
 import { runSession, nextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
@@ -209,6 +211,24 @@ Meteor.methods({
         copyGraphId,
         activity
       );
+    });
+
+    Object.keys(matching).forEach(actid => {
+      const act = Activities.findOne(actid);
+      if (act.data) {
+        const schema = activityTypesObj[act.activityType].config;
+        const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
+        const activityPaths = paths.filter(
+          x => get(schema, [...x, 'type']) === 'activity'
+        );
+        activityPaths.forEach(p => {
+          const path = p.filter(y => y !== 'properties');
+          const curRef = get(act.data, path);
+          if (curRef) {
+            set(act.data, path, matching[curRef]);
+          }
+        });
+      }
     });
 
     const operators = Operators.find({ graphId }).fetch();
