@@ -57,5 +57,20 @@ export default (activityId: string, object: ObjectT) => {
         }
       })
     );
+    const mergedLogsDoc = serverConnection.get(
+      'rz',
+      activityId + '//DASHBOARD'
+    );
+    mergedLogsDoc.fetch();
+    mergedLogsDoc.on(
+      'load',
+      Meteor.bindEnvironment(() => {
+        if (!mergedLogsDoc.type) {
+          mergedLogsDoc.create(
+            (activityType.dashboard && activityType.dashboard.initData) || {}
+          );
+        }
+      })
+    );
   });
 };

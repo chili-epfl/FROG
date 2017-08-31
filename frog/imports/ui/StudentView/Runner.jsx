@@ -20,11 +20,7 @@ const Runner = ({ activity, object, single }) => {
   }
   const activityType = activityTypesObj[activity.activityType];
 
-  const logger = createLogger({
-    activity: activity._id,
-    activityType: activity.activityType,
-    user: Meteor.userId()
-  });
+  const logger = createLogger(activity);
 
   if (!object) {
     return null;
