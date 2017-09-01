@@ -33,6 +33,5 @@ export default (schema: Object, uiSchema: Object): Object => {
   );
 
   const newUiSchema = merge(uiSchema, ...socialMerges, ...activityMerges);
-  console.log(newUiSchema);
   return { uiSchema: newUiSchema, schema: newSchema };
 };

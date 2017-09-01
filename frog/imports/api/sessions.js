@@ -231,21 +231,24 @@ Meteor.methods({
           x => get(schema, [...x, 'type']) === 'activity'
         );
 
-        console.log('ap', activityPaths);
         const oldOp = cloneDeep(op);
         activityPaths.forEach(p => {
           const path = p.filter(y => y !== 'properties');
-          console.log('path', path);
-          console.log('opdata', op.data);
-          console.log('get', get(op.data, path));
-          const curRef = get(op.data, path);
-          if (curRef) {
-            console.log('set cur', op.data, path, matching[curRef]);
-            set(op.data, path, matching[curRef]);
+          if (path[1] === 'items') {
+            op.data[path[0]].forEach((_, i) => {
+              const relpath = [path[0], i, path[2]];
+              const curRef = get(op.data, relpath);
+              set(op.data, relpath, matching[curRef]);
+            });
+          } else {
+            const curRef = get(op.data, path);
+            if (curRef) {
+              set(op.data, path, matching[curRef]);
+            }
           }
         });
+
         if (!isEqual(oldOp, op)) {
-          console.log('updating', matching[op._id]);
           Operators.update(op._id, omit(op, '_id'));
         }
       }
