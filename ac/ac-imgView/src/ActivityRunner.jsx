@@ -69,7 +69,7 @@ class ActivityRunner extends Component {
   }
 
   render() {
-    const { activityData, data, dataFn, uploadFn, userInfo } = this.props;
+    const { activityData, data, dataFn, userInfo, logger } = this.props;
 
     const minVoteT = activityData.config.minVote || 1;
 
@@ -85,22 +85,9 @@ class ActivityRunner extends Component {
       .map(key => ({ ...data[key], key }));
 
     const vote = (key, userId) => {
+      logger('vote');
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
-      const countVote = Object.values(data[key].votes).reduce(
-        (n, v) => (v ? n + 1 : n),
-        0
-      );
-      if (prev && countVote < minVoteT)
-        dataFn.objInsert(data[key].categories.filter(x => x !== 'selected'), [
-          key,
-          'categories'
-        ]);
-      else if (!prev && countVote >= minVoteT)
-        dataFn.objInsert(
-          [...data[key].categories, 'selected'],
-          [key, 'categories']
-        );
     };
 
     const setCategory = (c: string) => this.setState({ category: c });
@@ -138,19 +125,9 @@ class ActivityRunner extends Component {
           />}
 
         {activityData.config.canUpload &&
-          <UploadBar
-            data={data}
-            dataFn={dataFn}
-            uploadFn={uploadFn}
-            setWebcam={setWebcam}
-          />}
+          <UploadBar {...{ ...this.props, setWebcam }} />}
         {this.state.webcamOn &&
-          <WebcamInterface
-            data={data}
-            dataFn={dataFn}
-            uploadFn={uploadFn}
-            setWebcam={setWebcam}
-          />}
+          <WebcamInterface {...{ ...this.props, setWebcam }} />}
       </Main>
     );
   }

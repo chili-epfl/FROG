@@ -16,6 +16,7 @@ import { activityTypesObj } from '../imports/activityTypes';
 export default (activityId: string, object: ObjectT) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
+  const activityType = activityTypesObj[activity.activityType];
 
   const { groups, structure } = doGetInstances(activity, object);
   groups.forEach(grouping => {
@@ -27,7 +28,6 @@ export default (activityId: string, object: ObjectT) => {
         hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
       }
     });
-    const activityType = activityTypesObj[activity.activityType];
     const mergeFunction = activityType.mergeFunction;
     const doc = serverConnection.get('rz', activityId + '/' + grouping);
     doc.fetch();
@@ -57,5 +57,15 @@ export default (activityId: string, object: ObjectT) => {
         }
       })
     );
+  });
+  const mergedLogsDoc = serverConnection.get('rz', activityId + '//DASHBOARD');
+  mergedLogsDoc.fetch();
+  mergedLogsDoc.on('load', () => {
+    if (!mergedLogsDoc.type) {
+      mergedLogsDoc.create(
+        (activityType.dashboard && activityType.dashboard.initData) || {}
+      );
+    }
+    mergedLogsDoc.destroy();
   });
 };
