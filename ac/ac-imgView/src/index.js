@@ -1,7 +1,9 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
+
 import ActivityRunner from './ActivityRunner';
+import dashboard from './Dashboard';
 
 const meta = {
   name: 'Images viewer',
@@ -120,5 +122,6 @@ export default ({
   configUI,
   dataStructure,
   mergeFunction,
-  ActivityRunner
+  ActivityRunner,
+  dashboard
 }: ActivityPackageT);

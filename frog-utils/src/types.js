@@ -73,7 +73,12 @@ export type ActivityPackageT = {
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: ReactComponent<ActivityRunnerT>
+  ActivityRunner: ReactComponent<ActivityRunnerT>,
+  dashboard?: {
+    Viewer: ReactComponent<any>,
+    mergeLog: (data: any, dataFn: Object, log: any) => void,
+    initData: any
+  }
 };
 
 export type productOperatorT = {
