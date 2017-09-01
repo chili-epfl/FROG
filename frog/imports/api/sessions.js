@@ -185,7 +185,13 @@ Meteor.methods({
       name: { $regex: '#' + graph.name + '*' }
     }).count();
     const sessionName = '#' + graph.name + ' ' + (count + 1);
-    const copyGraphId = addGraph(sessionName);
+
+    const copyGraphId = addGraph({
+      graph: graph,
+      activities: Activities.find({ graphId }).fetch(),
+      operators: Operators.find({ graphId }).fetch(),
+      connections: Connections.find({ graphId }).fetch()
+    });
 
     Sessions.insert({
       _id: sessionId,
@@ -201,38 +207,6 @@ Meteor.methods({
 
     Graphs.update(copyGraphId, { $set: { sessionId } });
 
-    const matching = {};
-    const activities = Activities.find({ graphId }).fetch();
-    activities.forEach(activity => {
-      matching[activity._id] = addSessionItem(
-        'activities',
-        copyGraphId,
-        activity
-      );
-    });
-
-    const operators = Operators.find({ graphId }).fetch();
-    operators.forEach(operator => {
-      matching[operator._id] = addSessionItem(
-        'operators',
-        copyGraphId,
-        operator
-      );
-    });
-
-    const connections = Connections.find({ graphId }).fetch();
-    connections.forEach(connection => {
-      addSessionItem('connections', copyGraphId, {
-        source: {
-          id: matching[connection.source.id],
-          type: connection.source.type
-        },
-        target: {
-          id: matching[connection.target.id],
-          type: connection.target.type
-        }
-      });
-    });
     setTeacherSession(sessionId);
     return sessionId;
   },
