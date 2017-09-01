@@ -3,7 +3,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { TimeSync } from 'meteor/mizzao:timesync';
 import { Inspector } from 'react-inspector';
 import { withVisibility, A } from 'frog-utils';
 
@@ -17,20 +16,11 @@ import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Logs, flushLogs } from '../../api/logs';
 
-const rawSessionController = ({
-  session,
-  visible,
-  toggleVisibility,
-  currentTime
-}) =>
+const rawSessionController = ({ session, visible, toggleVisibility }) =>
   <div>
     {session
       ? <div>
-          <ButtonList
-            session={session}
-            toggle={toggleVisibility}
-            currentTime={currentTime}
-          />
+          <ButtonList session={session} toggle={toggleVisibility} />
           {visible
             ? <Dashboards openActivities={session.openActivities} />
             : <GraphView session={session} />}
@@ -90,7 +80,6 @@ const TeacherView = createContainer(
     const students =
       session &&
       Meteor.users.find({ 'profile.currentSession': session._id }).fetch();
-    const currentTime = TimeSync.serverTime();
 
     return {
       sessions: Sessions.find().fetch(),
@@ -99,8 +88,7 @@ const TeacherView = createContainer(
       activities,
       students,
       logs,
-      user,
-      currentTime
+      user
     };
   },
   props =>
