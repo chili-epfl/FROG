@@ -7,10 +7,6 @@ export const config = {
       title: 'Apply to all activities?',
       default: true
     },
-    activi: {
-      type: 'activity',
-      title: 'Activity'
-    },
     includeexclude: {
       type: 'string',
       title: 'Include or exclude individuals',
@@ -58,7 +54,7 @@ export const configUI = {
 };
 
 export const validateConfig = [
-  (data: Object): null | { field: string, err: string } => {
+  data => {
     if (data.rules.map(rule => rule.activity === '')) {
       return {
         field: 'activity',
@@ -66,7 +62,7 @@ export const validateConfig = [
       };
     }
   },
-  (data: Object): null | { field: string, err: string } => {
+  data => {
     if (data.rules.map(rule => rule.activity === '')) {
       return {
         field: 'activity',

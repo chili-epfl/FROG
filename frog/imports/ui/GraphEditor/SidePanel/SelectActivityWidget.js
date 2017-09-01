@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
-import FlexView from 'react-flexview';
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
 
 export const SelectActivityWidget = ({
   formContext,

@@ -76,7 +76,7 @@ const SessionBody = ({
     Body = (
       <Mosaic
         renderTile={activityId => <Runner activityId={activityId} />}
-        initialValue={getInitialState(session.openActivities)}
+        initialValue={getInitialState(openActivities)}
       />
     );
   }

@@ -15,7 +15,7 @@ const data = {
 const object: ObjectT = {
   activityData: data,
   socialStructure: {},
-  globalStructure: { studentIds: ['aa', 'bb', 'cc'] }
+  globalStructure: { studentIds: ['aa', 'bb', 'cc'], students: {} }
 };
 
 test('Should work with normal structure', () => {
@@ -35,7 +35,7 @@ const objectAll: ObjectT = {
     payload: { all: { config: {}, data: { string: 'hello' } } }
   },
   socialStructure: {},
-  globalStructure: { studentIds: ['aa', 'bb', 'cc'] }
+  globalStructure: { studentIds: ['aa', 'bb', 'cc'], students: {} }
 };
 
 test('Does not work without individual structure', () => {

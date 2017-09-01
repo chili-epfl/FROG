@@ -12,7 +12,6 @@ const meta = {
 };
 
 const calcSingle = (mode, usernameString, nameToId) => {
-  console.log(mode);
   const usernames = usernameString.split(',').map(x => x.trim());
   const userids = compact(usernames.map(x => nameToId[x]));
   const payload = userids.reduce((acc, x) => ({ ...acc, [x]: true }), {});
