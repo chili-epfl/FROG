@@ -214,17 +214,24 @@ Meteor.methods({
     });
 
     Object.keys(matching).forEach(actid => {
+      console.log('processing', actid);
       const act = Activities.findOne(actid);
       if (act.data) {
         const schema = activityTypesObj[act.activityType].config;
+        console.log('schema', schema);
         const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
+        console.log('paths', paths);
         const activityPaths = paths.filter(
           x => get(schema, [...x, 'type']) === 'activity'
         );
+
+        console.log('ap', activityPaths);
         activityPaths.forEach(p => {
           const path = p.filter(y => y !== 'properties');
+          console.log('path', path);
           const curRef = get(act.data, path);
           if (curRef) {
+            console.log('set cur', curRef);
             set(act.data, path, matching[curRef]);
           }
         });
