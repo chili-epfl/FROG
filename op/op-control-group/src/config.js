@@ -7,6 +7,10 @@ export const config = {
       title: 'Apply to all activities?',
       default: true
     },
+    activi: {
+      type: 'activity',
+      title: 'Activity'
+    },
     includeexclude: {
       type: 'string',
       title: 'Include or exclude individuals',
@@ -26,7 +30,7 @@ export const config = {
         required: ['activity', 'individuals'],
         properties: {
           activity: {
-            type: 'string',
+            type: 'activity',
             title: 'Applies to which activity'
           },
           includeexclude: {
@@ -47,10 +51,7 @@ export const config = {
 
 export const configUI = {
   rules: {
-    conditional: formdata => !formdata.applytoall,
-    items: {
-      activity: { 'ui:widget': 'activityWidget' }
-    }
+    conditional: formdata => !formdata.applytoall
   },
   includeexclude: { conditional: 'applytoall' },
   individuals: { conditional: 'applytoall' }

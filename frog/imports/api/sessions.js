@@ -2,13 +2,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Presences } from 'meteor/tmeasday:presence';
-import { compact, get, set } from 'lodash';
+import { omit, compact, get, set, cloneDeep, isEqual } from 'lodash';
 import traverse from 'traverse';
 
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
-import { activityTypesObj } from '../activityTypes';
+import { operatorTypesObj } from '../operatorTypes';
 import { runSession, nextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
@@ -213,31 +213,6 @@ Meteor.methods({
       );
     });
 
-    Object.keys(matching).forEach(actid => {
-      console.log('processing', actid);
-      const act = Activities.findOne(actid);
-      if (act.data) {
-        const schema = activityTypesObj[act.activityType].config;
-        console.log('schema', schema);
-        const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
-        console.log('paths', paths);
-        const activityPaths = paths.filter(
-          x => get(schema, [...x, 'type']) === 'activity'
-        );
-
-        console.log('ap', activityPaths);
-        activityPaths.forEach(p => {
-          const path = p.filter(y => y !== 'properties');
-          console.log('path', path);
-          const curRef = get(act.data, path);
-          if (curRef) {
-            console.log('set cur', curRef);
-            set(act.data, path, matching[curRef]);
-          }
-        });
-      }
-    });
-
     const operators = Operators.find({ graphId }).fetch();
     operators.forEach(operator => {
       matching[operator._id] = addSessionItem(
@@ -245,6 +220,35 @@ Meteor.methods({
         copyGraphId,
         operator
       );
+    });
+
+    operators.forEach(opid => {
+      const op = Operators.findOne(matching[opid._id]);
+      if (op.data) {
+        const schema = operatorTypesObj[op.operatorType].config;
+        const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
+        const activityPaths = paths.filter(
+          x => get(schema, [...x, 'type']) === 'activity'
+        );
+
+        console.log('ap', activityPaths);
+        const oldOp = cloneDeep(op);
+        activityPaths.forEach(p => {
+          const path = p.filter(y => y !== 'properties');
+          console.log('path', path);
+          console.log('opdata', op.data);
+          console.log('get', get(op.data, path));
+          const curRef = get(op.data, path);
+          if (curRef) {
+            console.log('set cur', op.data, path, matching[curRef]);
+            set(op.data, path, matching[curRef]);
+          }
+        });
+        if (!isEqual(oldOp, op)) {
+          console.log('updating', matching[op._id]);
+          Operators.update(op._id, omit(op, '_id'));
+        }
+      }
     });
 
     const connections = Connections.find({ graphId }).fetch();
