@@ -7,13 +7,55 @@ import { Activities, Connections, Operators } from './activities';
 
 export const Graphs = new Mongo.Collection('graphs');
 
-export const addGraph = (
-  name: string = 'undefined',
-  graph: ?Object
-): string => {
-  const id = uuid();
-  Graphs.insert({ ...graph, _id: id, name, createdAt: new Date() });
-  return id;
+export const addGraph = (graphObj?: Object): string => {
+  const graphId = uuid();
+  const name = (graphObj && graphObj.graph && graphObj.graph.name) || 'Unnamed';
+  Graphs.insert({
+    ...((graphObj && graphObj.graph) || {}),
+    _id: graphId,
+    name,
+    createdAt: new Date()
+  });
+  if (!graphObj) {
+    return graphId;
+  }
+
+  const matching = {};
+
+  const newAct = graphObj.activities.map(activity => {
+    const id = uuid();
+    matching[activity._id] = id;
+    return { ...activity, _id: id, graphId };
+  });
+
+  const newOp = graphObj.operators.map(operator => {
+    const id = uuid();
+    matching[operator._id] = id;
+    return { ...operator, _id: id, graphId };
+  });
+
+  const newConn = graphObj.connections.map(connection => {
+    const id = uuid();
+    matching[connection._id] = id;
+    return {
+      ...connection,
+      _id: id,
+      graphId,
+      source: {
+        id: matching[connection.source.id],
+        type: connection.source.type
+      },
+      target: {
+        id: matching[connection.target.id],
+        type: connection.target.type
+      }
+    };
+  });
+
+  newAct.forEach(x => Activities.insert(x));
+  newOp.forEach(x => Operators.insert(x));
+  newConn.forEach(x => Connections.insert(x));
+  return graphId;
 };
 
 export const uploadGraph = (obj: Object) => Meteor.call('graph.upload', obj);
