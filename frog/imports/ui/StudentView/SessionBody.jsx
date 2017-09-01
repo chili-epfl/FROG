@@ -36,7 +36,7 @@ const checkActivity = (activityId, operators, connections) => {
     return true;
   }
 
-  if (!struct.all || (struct.list && !struct.list[activityId])) {
+  if (struct.list && !struct.list[activityId]) {
     return true;
   }
 
@@ -64,9 +64,9 @@ const SessionBody = ({
   connections: Object[]
 }) => {
   const activities = session.openActivities;
-  const openActivities = activities.filter(x =>
-    checkActivity(x, operators, connections)
-  );
+  const openActivities =
+    activities &&
+    activities.filter(x => checkActivity(x, operators, connections));
   let Body = null;
   if (!openActivities || openActivities.length === 0) {
     Body = <h1>No Activity</h1>;
