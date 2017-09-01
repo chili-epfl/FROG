@@ -1,12 +1,10 @@
 import fileDialog from 'file-dialog';
 import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
-import { uuid } from 'frog-utils';
 import { omit } from 'lodash';
 
 import { Activities, Operators, Connections } from '../../../api/activities';
 import { Graphs, addGraph } from '../../../api/graphs';
-import { getGlobalSetting, setGlobalSetting } from '../../../api/global';
 import { store } from '../store';
 
 const clean = obj => {

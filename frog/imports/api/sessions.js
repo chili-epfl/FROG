@@ -32,22 +32,6 @@ export const setStudentSession = (sessionId: string) => {
   );
 };
 
-const addSessionItem = (type, graphId, params) => {
-  const id = uuid();
-  const collections = {
-    activities: Activities,
-    operators: Operators,
-    connections: Connections
-  };
-  collections[type].insert({
-    ...params,
-    createdAt: new Date(),
-    graphId,
-    _id: id
-  });
-  return id;
-};
-
 export const addSession = (graphId: string) => {
   Meteor.call('add.session', graphId, (err, result) => {
     if (result === 'invalidGraph') {
@@ -187,7 +171,7 @@ Meteor.methods({
     const sessionName = '#' + graph.name + ' ' + (count + 1);
 
     const copyGraphId = addGraph({
-      graph: graph,
+      graph,
       activities: Activities.find({ graphId }).fetch(),
       operators: Operators.find({ graphId }).fetch(),
       connections: Connections.find({ graphId }).fetch()
