@@ -45,8 +45,8 @@ const CategoryBox = ({
   setCategory: Function
 }) =>
   <CategoryContainer onClick={() => setCategory(category)}>
-    {images.slice(0, 4).map(image =>
-      <ImgContainer key={image}>
+    {images.slice(0, 4).map((image, i) =>
+      <ImgContainer key={image + i.toString()}>
         <CenteredImg url={image} />
       </ImgContainer>
     )}

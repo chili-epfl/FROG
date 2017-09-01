@@ -53,6 +53,10 @@ export type ActivityRunnerT = {
 
 export type validateConfigFnT = Object => null | { field: string, err: string };
 
+export type ReactComponent<Props> =
+  | Class<React$Component<*, Props, *>>
+  | (Props => React$Element<any>);
+
 export type ActivityPackageT = {
   id: string,
   type: 'react-component',
@@ -63,9 +67,10 @@ export type ActivityPackageT = {
     exampleData: Array<any>
   },
   config: Object,
+  dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: (x: ActivityRunnerT) => React$Component<*> | React$Element<*>
+  ActivityRunner: ReactComponent<ActivityRunnerT>
 };
 
 export type productOperatorT = {

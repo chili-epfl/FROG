@@ -46,7 +46,7 @@ const SessionBody = ({
 }) => {
   if (!session.openActivities || session.openActivities.length === 0) {
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         <Countdown session={session} currentTime={currentTime} />
         <h1>NO ACTIVITY</h1>
       </div>
@@ -54,14 +54,14 @@ const SessionBody = ({
   }
   if (session.openActivities.length === 1) {
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         <Countdown session={session} currentTime={currentTime} />
         <Runner activityId={session.openActivities[0]} single />
       </div>
     );
   } else {
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         <Countdown session={session} currentTime={currentTime} />
         <Mosaic
           renderTile={activityId => <Runner activityId={activityId} />}
