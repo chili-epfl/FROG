@@ -2,15 +2,13 @@
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { TimeSync } from 'meteor/mizzao:timesync';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Mosaic } from 'react-mosaic-component';
-import styled from 'styled-components';
-import { msToString } from 'frog-utils';
 import { Operators, Connections } from '../../api/activities';
 import { Products } from '../../api/products';
 
 import Runner from './Runner';
+import Countdown from './Countdown';
 
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);
@@ -22,33 +20,6 @@ const getInitialState = (activities, d = 1) => {
         second: getInitialState(activities.slice(n, activities.length), -d)
       };
 };
-
-const CountdownComp = ({ session, currentTime }) => {
-  const secondsLeft =
-    session.countdownStartTime > 0
-      ? Math.round(
-          session.countdownStartTime + session.countdownLength - currentTime
-        )
-      : session.countdownLength;
-  return (
-    <div>
-      {session.countdownStartTime !== -1 &&
-        <CountdownDiv>
-          <h4>
-            {msToString(secondsLeft)}
-          </h4>
-        </CountdownDiv>}
-    </div>
-  );
-};
-
-const Countdown = createContainer(
-  ({ session }) => ({
-    currentTime: TimeSync.serverTime(),
-    session
-  }),
-  CountdownComp
-);
 
 const checkActivity = (activityId, operators, connections) => {
   const connectedNodes = connections
@@ -96,33 +67,25 @@ const SessionBody = ({
   const openActivities = activities.filter(x =>
     checkActivity(x, operators, connections)
   );
-
+  let Body = null;
   if (!openActivities || openActivities.length === 0) {
-    return (
-      <div style={{ height: '100%' }}>
-        <Countdown session={session} />
-        <h1>NO ACTIVITY</h1>
-      </div>
-    );
-  }
-  if (openActivities.length === 1) {
-    return (
-      <div style={{ height: '100%' }}>
-        <Countdown session={session} />
-        <Runner activityId={openActivities[0]} single />
-      </div>
-    );
+    Body = <h1>No Activity</h1>;
+  } else if (openActivities.length === 1) {
+    Body = <Runner activityId={openActivities[0]} single />;
   } else {
-    return (
-      <div style={{ height: '100%' }}>
-        <Countdown session={session} />
-        <Mosaic
-          renderTile={activityId => <Runner activityId={activityId} />}
-          initialValue={getInitialState(openActivities)}
-        />
-      </div>
+    Body = (
+      <Mosaic
+        renderTile={activityId => <Runner activityId={activityId} />}
+        initialValue={getInitialState(session.openActivities)}
+      />
     );
   }
+  return (
+    <div style={{ height: '100%' }}>
+      <Countdown session={session} />
+      {Body}
+    </div>
+  );
 };
 
 SessionBody.displayName = 'SessionBoday';
@@ -138,16 +101,3 @@ export default createContainer(
   }),
   SessionBody
 );
-
-const CountdownDiv = styled.div`
-  border: solid 5px #aa0000;
-  background-color: #ff0000;
-  border-radius: 30%;
-  width: fit-content;
-  min-width: 50px;
-  height: 50px;
-  position: absolute;
-  right: 5px;
-  text-align: center;
-  z-index: 1;
-`;

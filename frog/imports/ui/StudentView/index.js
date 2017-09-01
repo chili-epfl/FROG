@@ -21,10 +21,8 @@ const StudentView = ({ user, sessions, currentTime }) => {
   );
 };
 
-export default createContainer(
-  () => ({
-    sessions: Sessions.find().fetch(),
-    user: Meteor.users.findOne(Meteor.userId())
-  }),
-  StudentView
-);
+export default createContainer(() => {
+  const sessions = Sessions.find().fetch();
+  const user = Meteor.users.findOne(Meteor.userId());
+  return { sessions, user };
+}, StudentView);

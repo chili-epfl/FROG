@@ -68,7 +68,7 @@ class ChooseOperatorTypeComp extends Component {
           <h4>Please select operator type</h4>
           <div
             className="input-group"
-            style={{ top: '5px', left: '10px', width: '140px' }}
+            style={{ top: '5px', left: '10px', width: '240px' }}
           >
             <span className="input-group-addon" id="basic-addon1">
               <span className="glyphicon glyphicon-search" aria-hidden="true" />
@@ -85,7 +85,7 @@ class ChooseOperatorTypeComp extends Component {
         <div
           className="list-group"
           style={{
-            height: '95%',
+            height: '93%',
             width: '100%',
             overflow: 'scroll',
             transform: 'translateY(10px)'

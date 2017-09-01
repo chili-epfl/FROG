@@ -1,4 +1,5 @@
 // @flow
+
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -10,17 +11,16 @@ import StudentList from './StudentList';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
+import Dashboards from './Dashboard';
 import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Logs, flushLogs } from '../../api/logs';
-import { activityTypesObj } from '../../activityTypes';
 
 const rawSessionController = ({
   session,
   visible,
   toggleVisibility,
-  logs,
   currentTime
 }) =>
   <div>
@@ -32,7 +32,7 @@ const rawSessionController = ({
             currentTime={currentTime}
           />
           {visible
-            ? <DashView logs={logs} session={session} />
+            ? <Dashboards openActivities={session.openActivities} />
             : <GraphView session={session} />}
         </div>
       : <p>Create or select a session from the list below</p>}
@@ -40,43 +40,6 @@ const rawSessionController = ({
 
 const SessionController = withVisibility(rawSessionController);
 SessionController.displayName = 'SessionController';
-
-const Dashboard = ({ logs, activities }) => {
-  let Dash = <p>NO DASHBOARD</p>;
-  if (activities) {
-    Dash = activities.map(a => {
-      const activityType = activityTypesObj[a.activityType];
-      if (activityType && activityType.Dashboard) {
-        return (
-          <activityType.Dashboard
-            logs={logs.filter(x => x.activity === a._id)}
-            key={a._id}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  }
-  return (
-    <div id="dashboard">
-      <h1>Dashboard</h1>
-      {Dash}
-    </div>
-  );
-};
-
-const DashView = createContainer(
-  ({ session }) => ({
-    activities: (session.openActivities || []).map(x => Activities.findOne(x)),
-    logs: (session.openActivities || [])
-      .reduce(
-        (acc, x) => [...acc, ...(Logs.find({ activity: x }).fetch() || [])],
-        []
-      )
-  }),
-  Dashboard
-);
 
 const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
   if (!logs || logs.length < 1) {
