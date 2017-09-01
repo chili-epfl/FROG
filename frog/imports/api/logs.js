@@ -18,26 +18,26 @@ export const Logs = new Mongo.Collection('logs');
 //                             date: 'Thursday 22...'}
 // TODO: Should perhaps accept an object to log, instead of a message, for more flexibility
 
-export const engineLogger = (sessionId: string, params: Object) =>
+export const engineLogger = (sessionId: string, log: Object) =>
   Logs.insert({
-    ...params,
+    payload: log,
+    userId: 'teacher',
     sessionId,
     createdAt: new Date(),
     _id: uuid()
   });
 
-export const createLogger = (activity: Object) => {
-  const merge = {
-    activityId: activity._id,
-    username: Meteor.user().username
-  };
-  const logger = (x: Object) => {
-    Logs.update(
-      Stringify(merge),
-      { $set: { ...merge, ...x, updatedAt: Date() } },
-      { upsert: true }
-    );
-    Meteor.call('merge.log', x, activity);
+export const createLogger = (sessionId: string, activity: Object) => {
+  const logger = (log: Object) => {
+    Logs.insert({
+      userId: Meteor.userId(),
+      sessionId,
+      activityId: activity._id,
+      activityType: activity.activityType,
+      payload: log,
+      updatedAt: Date()
+    });
+    Meteor.call('merge.log', log, activity);
   };
   return logger;
 };

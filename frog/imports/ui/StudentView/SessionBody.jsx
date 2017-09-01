@@ -56,7 +56,7 @@ const SessionBody = ({
     return (
       <div style={{ height: '100%' }}>
         <Countdown session={session} currentTime={currentTime} />
-        <Runner activityId={session.openActivities[0]} single />
+        <Runner activityId={session.openActivities[0]} sessionId={session._id} single />
       </div>
     );
   } else {
@@ -64,7 +64,7 @@ const SessionBody = ({
       <div style={{ height: '100%' }}>
         <Countdown session={session} currentTime={currentTime} />
         <Mosaic
-          renderTile={activityId => <Runner activityId={activityId} />}
+          renderTile={activityId => <Runner activityId={activityId} sessionId={session._id} />}
           initialValue={getInitialState(session.openActivities)}
         />
       </div>

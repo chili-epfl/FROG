@@ -13,13 +13,13 @@ import { Activities } from '../../api/activities';
 import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
 
-const Runner = ({ activity, object, single }) => {
+const Runner = ({ activity, sessionId, object, single }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
   const activityType = activityTypesObj[activity.activityType];
 
-  const logger = createLogger(activity);
+  const logger = createLogger(sessionId, activity);
 
   if (!object) {
     return null;
