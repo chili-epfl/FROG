@@ -18,7 +18,7 @@ const config = {
       title: 'Distribute to each student'
     },
     grouping: {
-      type: 'string',
+      type: 'socialAttribute',
       title: 'Grouping attribute'
     },
     maxitems: {
