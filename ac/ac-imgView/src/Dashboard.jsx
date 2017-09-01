@@ -1,11 +1,9 @@
 // @flow
 
 import React from 'react';
+import { CountChart } from 'frog-utils';
 
-const Viewer = (props: Object) =>
-  <pre>
-    {JSON.stringify(props, null, 2)}
-  </pre>;
+const Viewer = (props: Object) => <CountChart {...props} />
 
 const mergeLog = (data: any, dataFn: any, log: any) => {
   dataFn.numIncr(1, log);

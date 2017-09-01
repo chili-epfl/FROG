@@ -44,6 +44,7 @@ export type {
   operatorPackageT,
   ReactComponent
 } from './types';
+export { default as CountChart } from './DashboardComponents/CountChart'
 
 export const A = ({ onClick, children, ...rest }: any): any =>
   <a
