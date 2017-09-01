@@ -66,7 +66,10 @@ export type ActivityRunnerT = {
   userInfo: { id: string, name: string }
 };
 
-export type validateConfigFnT = Object => null | { field: string, err: string };
+export type validateConfigFnT = Object => null | {
+  field?: string,
+  err: string
+};
 
 export type ReactComponent<Props> =
   | Class<React$Component<*, Props, *>>

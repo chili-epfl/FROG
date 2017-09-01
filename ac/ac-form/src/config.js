@@ -20,7 +20,7 @@ export const config = {
 };
 
 export const validateConfig = [
-  (data: Object): null | { field: string, err: string } =>
+  (data: Object): null | { field?: string, err: string } =>
     data.questions.split(',').length > 5
       ? { field: 'questions', err: 'You cannot have more than 5 questions' }
       : null

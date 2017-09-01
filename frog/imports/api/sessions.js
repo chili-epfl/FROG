@@ -2,13 +2,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Presences } from 'meteor/tmeasday:presence';
-import { omit, compact, get, set, cloneDeep, isEqual } from 'lodash';
-import traverse from 'traverse';
-
+import { compact } from 'lodash';
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
-import { operatorTypesObj } from '../operatorTypes';
 import { runSession, nextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
@@ -32,22 +29,6 @@ export const setStudentSession = (sessionId: string) => {
     { _id: Meteor.userId() },
     { $set: { 'profile.currentSession': sessionId } }
   );
-};
-
-const addSessionItem = (type, graphId, params) => {
-  const id = uuid();
-  const collections = {
-    activities: Activities,
-    operators: Operators,
-    connections: Connections
-  };
-  collections[type].insert({
-    ...params,
-    createdAt: new Date(),
-    graphId,
-    _id: id
-  });
-  return id;
 };
 
 export const addSession = (graphId: string) => {
@@ -187,7 +168,13 @@ Meteor.methods({
       name: { $regex: '#' + graph.name + '*' }
     }).count();
     const sessionName = '#' + graph.name + ' ' + (count + 1);
-    const copyGraphId = addGraph(sessionName);
+
+    const copyGraphId = addGraph({
+      graph,
+      activities: Activities.find({ graphId }).fetch(),
+      operators: Operators.find({ graphId }).fetch(),
+      connections: Connections.find({ graphId }).fetch()
+    });
 
     Sessions.insert({
       _id: sessionId,
@@ -203,70 +190,6 @@ Meteor.methods({
 
     Graphs.update(copyGraphId, { $set: { sessionId } });
 
-    const matching = {};
-    const activities = Activities.find({ graphId }).fetch();
-    activities.forEach(activity => {
-      matching[activity._id] = addSessionItem(
-        'activities',
-        copyGraphId,
-        activity
-      );
-    });
-
-    const operators = Operators.find({ graphId }).fetch();
-    operators.forEach(operator => {
-      matching[operator._id] = addSessionItem(
-        'operators',
-        copyGraphId,
-        operator
-      );
-    });
-
-    operators.forEach(opid => {
-      const op = Operators.findOne(matching[opid._id]);
-      if (op.data) {
-        const schema = operatorTypesObj[op.operatorType].config;
-        const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
-        const activityPaths = paths.filter(
-          x => get(schema, [...x, 'type']) === 'activity'
-        );
-
-        const oldOp = cloneDeep(op);
-        activityPaths.forEach(p => {
-          const path = p.filter(y => y !== 'properties');
-          if (path[1] === 'items') {
-            op.data[path[0]].forEach((_, i) => {
-              const relpath = [path[0], i, path[2]];
-              const curRef = get(op.data, relpath);
-              set(op.data, relpath, matching[curRef]);
-            });
-          } else {
-            const curRef = get(op.data, path);
-            if (curRef) {
-              set(op.data, path, matching[curRef]);
-            }
-          }
-        });
-
-        if (!isEqual(oldOp, op)) {
-          Operators.update(op._id, omit(op, '_id'));
-        }
-      }
-    });
-
-    const connections = Connections.find({ graphId }).fetch();
-    connections.forEach(connection => {
-      addSessionItem('connections', copyGraphId, {
-        source: {
-          id: matching[connection.source.id],
-          type: connection.source.type
-        },
-        target: {
-          id: matching[connection.target.id],
-          type: connection.target.type
-        }
-      });
-    });
     setTeacherSession(sessionId);
     return sessionId;
   },
