@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -14,7 +13,7 @@ import {
 } from '../../api/sessions';
 import { FourOhFour } from '../App/FROGRouter';
 
-const StudentView = ({ user, session, doRedirect, cannotFind, tooLate }) => {
+const StudentView = ({ session, doRedirect, cannotFind, tooLate }) => {
   if (doRedirect) {
     return <Redirect to="/" />;
   }
