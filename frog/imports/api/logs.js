@@ -26,17 +26,22 @@ export const engineLogger = (sessionId: string, log: Object) =>
     _id: uuid()
   });
 
-export const createLogger = (sessionId: string, activity: Object) => {
-  const logger = (log: Object) => {
+export const createLogger = (
+  sessionId: string,
+  instanceId: string,
+  activity: Object
+) => {
+  const logger = (payload: any) => {
     Logs.insert({
       userId: Meteor.userId(),
       sessionId,
       activityId: activity._id,
       activityType: activity.activityType,
-      payload: log,
+      instanceId,
+      payload,
       updatedAt: Date()
     });
-    Meteor.call('merge.log', log, activity);
+    Meteor.call('merge.log', payload, activity, instanceId);
   };
   return logger;
 };

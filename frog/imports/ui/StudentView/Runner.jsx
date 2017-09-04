@@ -19,8 +19,6 @@ const Runner = ({ activity, sessionId, object, single }) => {
   }
   const activityType = activityTypesObj[activity.activityType];
 
-  const logger = createLogger(sessionId, activity);
-
   if (!object) {
     return null;
   }
@@ -36,6 +34,8 @@ const Runner = ({ activity, sessionId, object, single }) => {
     groupingValue = Meteor.userId();
   }
   const reactiveId = activity._id + '/' + groupingValue;
+
+  const logger = createLogger(sessionId, groupingValue, activity);
 
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activity.activityType;
