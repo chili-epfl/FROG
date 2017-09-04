@@ -21,10 +21,9 @@ export const restartSession = (session: { fromGraphId: string, _id: string }) =>
 export const Sessions = new Mongo.Collection('sessions');
 
 export const setTeacherSession = (sessionId: string) => {
-  Meteor.users.update(
-    { _id: Meteor.userId() },
-    { $set: { 'profile.controlSession': sessionId } }
-  );
+  Meteor.users.update(Meteor.userId(), {
+    $set: { 'profile.controlSession': sessionId }
+  });
 };
 
 export const setStudentSession = (sessionId: string) => {
@@ -33,10 +32,9 @@ export const setStudentSession = (sessionId: string) => {
 
 Meteor.methods({
   'set.studentsession': (sessionId, studentId) =>
-    Meteor.users.update(
-      { _id: studentId },
-      { $set: { 'profile.currentSession': sessionId } }
-    )
+    Meteor.users.update(studentId, {
+      $set: { 'profile.currentSession': sessionId }
+    })
 });
 
 export const ensureReactive = (sessionId: string) =>
@@ -136,10 +134,7 @@ export const updateOpenActivities = (
   openActivities: Array<string>,
   timeInGraph: number
 ) => {
-  Sessions.update(
-    { _id: sessionId },
-    { $set: { openActivities, timeInGraph } }
-  );
+  Sessions.update(sessionId, { $set: { openActivities, timeInGraph } });
   if (Meteor.isServer) {
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);

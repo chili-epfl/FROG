@@ -64,14 +64,7 @@ export default createContainer(props => {
     return { session: curSession, user, doRedirect: true };
   }
 
-  const activities = Activities.find({
-    graphId: desiredSession.graphId
-  }).fetch();
-  if (
-    activities.find(
-      act => act.startTime < desiredSession.timeInGraph && act.plane === 2
-    )
-  ) {
+  if (desiredSession.tooLate === true) {
     return { tooLate: true };
   }
 
