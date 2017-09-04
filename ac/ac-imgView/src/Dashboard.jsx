@@ -33,7 +33,11 @@ const mergeLog = (
   dataFn.numIncr(1, [instanceId, payload]);
 };
 
-const initData = (dataFn: Object, structure: structureDefT, groups: string[]) => {
+const initData = (
+  dataFn: Object,
+  structure: structureDefT,
+  groups: string[]
+) => {
   groups.forEach(g => {
     dataFn.objInsert({ upload: 0, vote: 0 }, [g]);
   });

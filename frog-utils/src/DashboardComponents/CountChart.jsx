@@ -11,8 +11,8 @@ export default ({
   title: string,
   categories: string[],
   data: number[]
-}) => {
-  return data
+}) =>
+  data
     ? <Chart
         chartType="BarChart"
         data={[
@@ -28,4 +28,3 @@ export default ({
         }}
       />
     : <h2>Missing data</h2>;
-};

@@ -63,8 +63,10 @@ export default (activityId: string, object: ObjectT) => {
   mergedLogsDoc.on('load', () => {
     if (!mergedLogsDoc.type) {
       mergedLogsDoc.create({});
-      const dataFn = generateReactiveFn(mergedLogsDoc)
-      activityType.dashboard && activityType.dashboard.initData(dataFn, structure, groups)
+      const dataFn = generateReactiveFn(mergedLogsDoc);
+      if (activityType.dashboard) {
+        activityType.dashboard.initData(dataFn, structure, groups);
+      }
     }
     mergedLogsDoc.destroy();
   });
