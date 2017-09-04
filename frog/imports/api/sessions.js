@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Presences } from 'meteor/tmeasday:presence';
 import { compact } from 'lodash';
-
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';

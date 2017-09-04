@@ -78,7 +78,7 @@ const wrap = items => {
   );
   return {
     socialStructure: {},
-    globalStructure: { studentIds },
+    globalStructure: { studentIds, students: {} },
     activityData: { structure: 'individual', payload }
   };
 };
@@ -203,7 +203,7 @@ test('Operator throws if incoming data is not individual', () =>
       {},
       {
         socialStructure: {},
-        globalStructure: { studentIds: [] },
+        globalStructure: { studentIds: [], students: {} },
         activityData: { structure: 'all', payload: {} }
       }
     )
@@ -215,7 +215,7 @@ test('Operator works with 0 students', () =>
       {},
       {
         socialStructure: {},
-        globalStructure: { studentIds: [] },
+        globalStructure: { studentIds: [], students: {} },
         activityData: { structure: 'individual', payload: {} }
       }
     )
@@ -227,7 +227,7 @@ test('Operator works with 1 student', () =>
       {},
       {
         socialStructure: {},
-        globalStructure: { studentIds: ['Louis'] },
+        globalStructure: { studentIds: ['Louis'], students: {} },
         activityData: {
           structure: 'individual',
           payload: { Louis: { data: {}, config: {} } }

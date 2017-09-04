@@ -39,8 +39,23 @@ export type activityDataT = {
 export type ObjectT = {
   socialStructure: socialStructureT,
   activityData: activityDataT,
-  globalStructure: { studentIds: string[] }
+  globalStructure: {
+    studentIds: string[],
+    students: { [studentId: string]: string }
+  }
 };
+
+export type ControlT = {
+  structure: structureDefT,
+  mode: 'include' | 'exclude',
+  payload: {
+    [attributeKey: string]: true
+  }
+};
+
+export type ControlStructureT =
+  | { 'all': ControlT }
+  | { 'list': { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
   logger: Function, // logging callback
@@ -70,6 +85,7 @@ export type ActivityPackageT = {
     exampleData: Array<any>
   },
   config: Object,
+  configUI?: Object,
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
@@ -90,8 +106,23 @@ export type productOperatorT = {
     description: string
   },
   config: Object,
+  configUI?: Object,
   validateConfig?: validateConfigFnT[],
   operator: (configData: Object, object: ObjectT) => activityDataT
+};
+
+export type controlOperatorT = {
+  id: string,
+  type: 'control',
+  meta: {
+    name: string,
+    shortDesc: string,
+    description: string
+  },
+  config: Object,
+  configUI?: Object,
+  validateConfig?: validateConfigFnT[],
+  operator: (configData: Object, object: ObjectT) => ControlStructureT
 };
 
 export type socialOperatorT = {
@@ -105,7 +136,11 @@ export type socialOperatorT = {
   outputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
+  configUI?: Object,
   operator: (configData: Object, object: ObjectT) => socialStructureT
 };
 
-export type operatorPackageT = socialOperatorT | productOperatorT;
+export type operatorPackageT =
+  | socialOperatorT
+  | productOperatorT
+  | controlOperatorT;

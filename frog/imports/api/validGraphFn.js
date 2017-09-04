@@ -119,7 +119,8 @@ const checkConfigs = (operators, activities) => {
             operatorTypesObj[x.operatorType].configUI
           ),
           operatorTypesObj[x.operatorType].config,
-          operatorTypesObj[x.operatorType].validateConfig
+          operatorTypesObj[x.operatorType].validateConfig,
+          operatorTypesObj[x.operatorType].configUI
         )
     )
   );

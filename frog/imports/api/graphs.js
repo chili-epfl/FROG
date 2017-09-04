@@ -1,9 +1,13 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import traverse from 'traverse';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
+import { get, set } from 'lodash';
+
 import { Activities, Connections, Operators } from './activities';
+import { operatorTypesObj } from '../operatorTypes';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -28,10 +32,34 @@ export const addGraph = (graphObj?: Object): string => {
     return { ...activity, _id: id, graphId };
   });
 
-  const newOp = graphObj.operators.map(operator => {
+  const newOp = graphObj.operators.map(op => {
     const id = uuid();
-    matching[operator._id] = id;
-    return { ...operator, _id: id, graphId };
+    matching[op._id] = id;
+
+    if (op.data) {
+      const schema = operatorTypesObj[op.operatorType].config;
+      const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
+      const activityPaths = paths.filter(
+        x => get(schema, [...x, 'type']) === 'activity'
+      );
+
+      activityPaths.forEach(p => {
+        const path = p.filter(y => y !== 'properties');
+        if (path[1] === 'items') {
+          op.data[path[0]].forEach((_, i) => {
+            const relpath = [path[0], i, path[2]];
+            const curRef = get(op.data, relpath);
+            set(op.data, relpath, matching[curRef]);
+          });
+        } else {
+          const curRef = get(op.data, path);
+          if (curRef) {
+            set(op.data, path, matching[curRef]);
+          }
+        }
+      });
+    }
+    return { ...op, _id: id, graphId };
   });
 
   const newConn = graphObj.connections.map(connection => {
@@ -57,8 +85,6 @@ export const addGraph = (graphObj?: Object): string => {
   newConn.forEach(x => Connections.insert(x));
   return graphId;
 };
-
-export const uploadGraph = (obj: Object) => Meteor.call('graph.upload', obj);
 
 export const importGraph = (params: Object): string => {
   const id = params._id;
@@ -129,10 +155,5 @@ Meteor.methods({
       const conid = connections.map(x => x._id);
       Connections.remove({ _id: { $nin: conid }, graphId });
     }
-  },
-  'graph.upload': obj => {
-    obj.activities.forEach(a => Activities.insert(a));
-    obj.operators.forEach(a => Operators.insert(a));
-    obj.connections.forEach(a => Connections.insert(a));
   }
 });
