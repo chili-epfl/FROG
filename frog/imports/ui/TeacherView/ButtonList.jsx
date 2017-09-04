@@ -3,6 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { msToString } from 'frog-utils';
+import { TimeSync } from 'meteor/mizzao:timesync';
+import { createContainer } from 'meteor/react-meteor-data';
 
 import {
   removeSession,
@@ -17,18 +19,33 @@ import { runSession, nextActivity } from '../../api/engine';
 
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
+const CountdownDiv = styled.div`
+  border: solid 2px;
+  width: 65px;
+  text-align: center;
+`;
+
+const CountdownPure = ({ startTime, length, currentTime }) => {
+  const remainingTime = startTime + length - currentTime;
+  return (
+    <CountdownDiv>
+      {msToString(startTime > 0 ? remainingTime : length)}
+    </CountdownDiv>
+  );
+};
+
+const Countdown = createContainer(
+  props => ({ ...props, currentTime: TimeSync.serverTime() }),
+  CountdownPure
+);
+
 const ButtonList = ({
   session,
-  toggle,
-  currentTime
+  toggle
 }: {
   session: Object,
-  toggle: Function,
-  currentTime: number
+  toggle: Function
 }) => {
-  const remainingTime =
-    session.countdownStartTime + session.countdownLength - currentTime;
-
   const buttons = [
     {
       states: ['CREATED'],
@@ -54,13 +71,15 @@ const ButtonList = ({
     {
       states: ['STARTED'],
       type: 'warning',
-      onClick: () => updateSessionState(session._id, 'PAUSED', currentTime),
+      onClick: () =>
+        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime()),
       text: 'Pause'
     },
     {
       states: ['PAUSED', 'STOPPED'],
       type: 'primary',
-      onClick: () => updateSessionState(session._id, 'STARTED', currentTime),
+      onClick: () =>
+        updateSessionState(session._id, 'STARTED', TimeSync.serverTime()),
       text: 'Continue'
     },
     {
@@ -91,7 +110,7 @@ const ButtonList = ({
       states: ['STARTED'],
       countdownStarted: false,
       type: 'primary',
-      onClick: () => sessionStartCountDown(session._id, currentTime),
+      onClick: () => sessionStartCountDown(session._id, TimeSync.serverTime()),
       text: 'Start Countdown'
     },
     {
@@ -108,7 +127,7 @@ const ButtonList = ({
         sessionChangeCountDown(
           session._id,
           DEFAULT_COUNTDOWN_LENGTH,
-          currentTime
+          TimeSync.serverTime()
         ),
       text: '+' + msToString(DEFAULT_COUNTDOWN_LENGTH)
     },
@@ -120,7 +139,7 @@ const ButtonList = ({
           sessionChangeCountDown(
             session._id,
             0 - DEFAULT_COUNTDOWN_LENGTH,
-            currentTime
+            TimeSync.serverTime()
           );
         }
       },
@@ -148,21 +167,12 @@ const ButtonList = ({
         )}
       {session.state !== 'CREATED' &&
         session.state !== 'STOPPED' &&
-        <Countdown>
-          {msToString(
-            session.countdownStartTime > 0
-              ? remainingTime
-              : session.countdownLength
-          )}
-        </Countdown>}
+        <Countdown
+          startTime={session.countdownStartTime}
+          length={session.countdownLength}
+        />}
     </div>
   );
 };
 
 export default ButtonList;
-
-const Countdown = styled.div`
-  border: solid 2px;
-  width: 65px;
-  text-align: center;
-`;

@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import { TimeSync } from 'meteor/mizzao:timesync';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -23,8 +22,7 @@ const StudentView = ({ user, sessions, currentTime }) => {
 };
 
 export default createContainer(() => {
-  const currentTime = TimeSync.serverTime();
   const sessions = Sessions.find().fetch();
   const user = Meteor.users.findOne(Meteor.userId());
-  return { sessions, user, currentTime };
+  return { sessions, user };
 }, StudentView);

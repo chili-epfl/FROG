@@ -15,7 +15,8 @@ const config = {
   properties: {
     groupsize: {
       type: 'number',
-      title: 'Desired group size'
+      title: 'Desired group size',
+      default: 3
     },
     strategy: {
       type: 'string',

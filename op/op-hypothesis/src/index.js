@@ -17,7 +17,6 @@ export const meta = {
 
 export const config = {
   type: 'object',
-  required: ['tag', 'url'],
   properties: {
     tag: {
       type: 'string',
@@ -30,6 +29,10 @@ export const config = {
   }
 };
 const safeFirst = ary => (ary.length > 0 ? ary[0] : '');
+const validateConfig = [
+  formData =>
+    formData.tag || formData.url ? null : { err: 'You need either tag or URL' }
+];
 
 const getText = ary =>
   ary ? safeFirst(compact(ary.map(y => y.exact))).replace('\t', '') : '';
@@ -63,5 +66,6 @@ export default ({
   type: 'product',
   operator,
   config,
+  validateConfig,
   meta
 }: productOperatorT);
