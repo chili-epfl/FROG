@@ -3,26 +3,81 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Redirect } from 'react-router-dom';
 
 import SessionBody from './SessionBody';
-import SessionList from './SessionList';
-import { Sessions } from '../../api/sessions';
+import { Activities } from '../../api/activities';
+import {
+  Sessions,
+  setStudentSession,
+  ensureReactive
+} from '../../api/sessions';
+import { FourOhFour } from '../App/FROGRouter';
 
-const StudentView = ({ user, sessions, currentTime }) => {
-  const curSession = user.profile
-    ? Sessions.findOne(user.profile.currentSession)
-    : null;
+const StudentView = ({ user, session, doRedirect, cannotFind, tooLate }) => {
+  if (doRedirect) {
+    return <Redirect to="/" />;
+  }
+
+  if (tooLate) {
+    return <h1>Too late to join this session</h1>;
+  }
+
+  if (cannotFind) {
+    return <FourOhFour />;
+  }
+
   return (
     <div id="student" style={{ width: '100%', height: '100%' }}>
-      {curSession
-        ? <SessionBody session={curSession} currentTime={currentTime} />
-        : <SessionList sessions={sessions} />}
+      {session && <SessionBody session={session} />}
     </div>
   );
 };
 
-export default createContainer(() => {
-  const sessions = Sessions.find().fetch();
-  const user = Meteor.users.findOne(Meteor.userId());
-  return { sessions, user };
+export default createContainer(props => {
+  const users = Meteor.users.find(Meteor.userId()).fetch();
+  const user = users && users[0];
+  const curSession =
+    user && user.profile ? Sessions.findOne(user.profile.currentSession) : null;
+
+  if (!user) {
+    return { cannotFind: true };
+  }
+
+  const desiredSlug = props.match && props.match.params.slug;
+
+  if (!desiredSlug) {
+    if (curSession) {
+      return { session: curSession, user };
+    } else {
+      return { cannotFind: true };
+    }
+  }
+
+  const desiredSession = Sessions.findOne({ slug: desiredSlug.toUpperCase() });
+  const desiredId = desiredSession && desiredSession._id;
+
+  if (!desiredSession) {
+    return { cannotFind: true };
+  }
+
+  if (curSession && desiredId === curSession) {
+    return { session: curSession, user, doRedirect: true };
+  }
+
+  const activities = Activities.find({
+    graphId: desiredSession.graphId
+  }).fetch();
+  if (
+    activities.find(
+      act => act.startTime < desiredSession.timeInGraph && act.plane === 2
+    )
+  ) {
+    return { tooLate: true };
+  }
+
+  setStudentSession(desiredId);
+  ensureReactive(desiredId);
+
+  return { session: curSession, user, doRedirect: true };
 }, StudentView);
