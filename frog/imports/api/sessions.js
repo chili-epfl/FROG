@@ -13,7 +13,7 @@ import valid from './validGraphFn';
 const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
-const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
+const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
 const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
 
 export const restartSession = (session: { fromGraphId: string, _id: string }) =>
