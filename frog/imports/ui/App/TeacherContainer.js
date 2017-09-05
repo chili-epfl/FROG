@@ -10,10 +10,11 @@ import GraphEditor from './../GraphEditor';
 import Preview from './../Preview';
 import Admin from './../Admin';
 import TopBar from './TopBar';
+import Spinner from 'react-spinner';
 
 const TeacherContainer = ({ ready }: { ready: boolean }) => {
   if (!ready) {
-    return <img src="/images/Spinner.gif" alt="" />;
+    return <Spinner />;
   }
   return (
     <div id="app">

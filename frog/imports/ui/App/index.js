@@ -2,12 +2,12 @@
 
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-import { Accounts } from 'meteor/accounts-base';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { toObject as queryToObject } from 'query-parse';
 import TeacherContainer from './TeacherContainer';
+import Spinner from 'react-spinner';
 
 const shareDbUrl =
   (Meteor.settings && Meteor.settings.public.sharedburl) ||
@@ -62,7 +62,7 @@ class FROGRouter extends Component {
       if (process.env.NODE_ENV !== 'production') {
         const username = query.login;
         if (username) {
-          this.state.mode = 'loggingIn';
+          this.setState({ mode: 'loggingIn' });
           const userid = Meteor.call('frog.debuglogin', username, (err, id) =>
             subscriptionCallback(err, id, x => this.setState({ mode: x }))
           );
@@ -81,7 +81,9 @@ class FROGRouter extends Component {
         if (Accounts._storedLoginToken()) {
           this.setState({ mode: 'loggingIn' });
           Accounts.loginWithToken(Accounts._storedLoginToken(), () =>
-            this.setState({ mode: 'ready' })
+            Meteor.subscribe('userData', {
+              onReady: () => this.setState({ mode: 'ready' })
+            })
           );
         }
       }
@@ -95,7 +97,7 @@ class FROGRouter extends Component {
       return <Redirect to={this.props.location.pathname} />;
     }
     if (this.state.mode === 'loggingIn') {
-      return <img src="/images/Spinner.gif" alt="" />;
+      return <Spinner />;
     }
     if (this.state.mode === 'ready') {
       if (Meteor.user().username === 'teacher') {

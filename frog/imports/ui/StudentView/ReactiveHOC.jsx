@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { generateReactiveFn, type ReactComponent } from 'frog-utils';
+import Spinner from 'react-spinner';
 
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
@@ -78,7 +79,7 @@ const ReactiveHOC = (docId: string, doc?: any) => (
             data={this.state.data}
             {...this.props}
           />
-        : <img src="/images/Spinner.gif" alt="" />;
+        : <Spinner />;
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;
