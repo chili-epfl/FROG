@@ -1,11 +1,11 @@
 // @flow
+
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Redirect } from 'react-router-dom';
 
 import SessionBody from './SessionBody';
-import { Activities } from '../../api/activities';
 import {
   Sessions,
   setStudentSession,
