@@ -5,9 +5,11 @@ import React, { Component } from 'react';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
-import { toObject as queryToObject } from 'query-parse';
-import TeacherContainer from './TeacherContainer';
 import Spinner from 'react-spinner';
+import { toObject as queryToObject } from 'query-parse';
+
+import TeacherContainer from './TeacherContainer';
+import StudentView from '../StudentView';
 
 const shareDbUrl =
   (Meteor.settings && Meteor.settings.public.sharedburl) ||
@@ -103,7 +105,7 @@ class FROGRouter extends Component {
       if (Meteor.user().username === 'teacher') {
         return <Route component={TeacherContainer} />;
       } else {
-        return <h2>Student</h2>;
+        return <StudentView />;
       }
     }
     return <h1>Must log in to use system</h1>;
