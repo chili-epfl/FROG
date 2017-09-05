@@ -100,7 +100,6 @@ const runDataflow = (
   if (type === 'operator') {
     const operatorFunction = operatorTypesObj[node.operatorType].operator;
     const product = Promise.await(operatorFunction(node.data, object));
-
     const dataType = {
       product: 'activityData',
       social: 'socialStructure',

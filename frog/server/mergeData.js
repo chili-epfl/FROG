@@ -8,18 +8,22 @@ import {
   type ObjectT
 } from 'frog-utils';
 import { Activities } from '../imports/api/activities';
+import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
+import { Sessions } from '../imports/api/sessions';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 
-export default (activityId: string, object: ObjectT) => {
+const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
   const activityType = activityTypesObj[activity.activityType];
 
   const { groups, structure } = doGetInstances(activity, object);
-  groups.forEach(grouping => {
+  const createGroups = group ? [group] : groups;
+
+  createGroups.forEach(grouping => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
     }
@@ -69,3 +73,20 @@ export default (activityId: string, object: ObjectT) => {
     mergedLogsDoc.destroy();
   });
 };
+
+export default mergeData;
+
+Meteor.methods({
+  'ensure.reactive': (sessionId, studentId) => {
+    const session = Sessions.findOne(sessionId);
+    const activities = session.openActivities
+      ? Activities.find({
+          _id: { $in: session.openActivities },
+          plane: 1
+        })
+      : [];
+    activities.map(act =>
+      mergeData(act._id, Objects.findOne(act._id), studentId)
+    );
+  }
+});
