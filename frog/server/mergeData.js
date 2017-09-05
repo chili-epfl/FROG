@@ -85,13 +85,19 @@ Meteor.methods({
           plane: 1
         })
       : [];
-    activities.forEach(ac =>{
-      const object = Objects.findOne(ac._id)
-      if(!object.globalStructure.studentIds.includes(studentId)){
-        Objects.update(ac._id, {'$push' :{ 'globalStructure.studentIds': studentId }})
-        Objects.update(ac._id, {'$set' :{ ['globalStructure.students.' + studentId]: Meteor.user().username }})
+    activities.forEach(ac => {
+      const object = Objects.findOne(ac._id);
+      if (!object.globalStructure.studentIds.includes(studentId)) {
+        Objects.update(ac._id, {
+          $push: { 'globalStructure.studentIds': studentId }
+        });
+        Objects.update(ac._id, {
+          $set: {
+            ['globalStructure.students.' + studentId]: Meteor.user().username
+          }
+        });
       }
-      mergeData(ac._id, object, studentId)
-    })
+      mergeData(ac._id, object, studentId);
+    });
   }
 });
