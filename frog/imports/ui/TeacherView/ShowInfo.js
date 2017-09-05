@@ -20,9 +20,15 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
       onRequestClose={cancelInfo}
     >
       <ul>
-        <li>type: {item.activityType || item.operatorType}</li>
-        <li>id: {item._id}</li>
-        <li>State: {item.state}</li>
+        <li>
+          type: {item.activityType || item.operatorType}
+        </li>
+        <li>
+          id: {item._id}
+        </li>
+        <li>
+          State: {item.state}
+        </li>
       </ul>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div style={{ flexBasis: 0, flexGrow: 1 }}>
@@ -48,9 +54,10 @@ const ShowInfoConnect = createContainer(({ showInfo, cancelInfo }) => {
   if (!showInfo) {
     return { showInfo: null };
   }
-  const item = showInfo.klass === 'activity'
-    ? Activities.findOne(showInfo.id)
-    : Operators.findOne(showInfo.id);
+  const item =
+    showInfo.klass === 'activity'
+      ? Activities.findOne(showInfo.id)
+      : Operators.findOne(showInfo.id);
   return {
     item,
     object: Objects.findOne(showInfo.id),
@@ -61,6 +68,8 @@ const ShowInfoConnect = createContainer(({ showInfo, cancelInfo }) => {
 }, InfoComponent);
 ShowInfoConnect.displayName = 'ShowInfoConnect';
 
-export default connect(({ store: { ui: { showInfo, cancelInfo } } }) =>
+const ShowInfo = connect(({ store: { ui: { showInfo, cancelInfo } } }) =>
   <ShowInfoConnect showInfo={showInfo} cancelInfo={cancelInfo} />
 );
+
+export default ShowInfo;

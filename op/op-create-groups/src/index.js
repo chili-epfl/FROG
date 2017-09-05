@@ -5,7 +5,9 @@ import { type socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Create groups',
-  type: 'social'
+  shortDesc: 'Group students randomly',
+  description:
+    'Create random groups of students, configurable group size and strategy (at least n students, or maximum n students per group).'
 };
 
 const config = {
@@ -13,7 +15,8 @@ const config = {
   properties: {
     groupsize: {
       type: 'number',
-      title: 'Desired group size'
+      title: 'Desired group size',
+      default: 3
     },
     strategy: {
       type: 'string',
@@ -28,6 +31,8 @@ const config = {
   }
 };
 
+const outputDefinition = conf => [(conf && conf.grouping) || 'group'];
+
 const operator = (configData, object) => {
   const { globalStructure } = object;
 
@@ -40,9 +45,10 @@ const operator = (configData, object) => {
       struct.forEach(x => x.push(leftover.pop()));
     }
   }
-  const newGrouping = configData.grouping && configData.grouping.length > 0
-    ? configData.grouping
-    : 'group';
+  const newGrouping =
+    configData.grouping && configData.grouping.length > 0
+      ? configData.grouping
+      : 'group';
 
   const result = {
     [newGrouping]: struct.reduce(
@@ -55,7 +61,9 @@ const operator = (configData, object) => {
 
 export default ({
   id: 'op-create-groups',
+  type: 'social',
   operator,
   config,
-  meta
+  meta,
+  outputDefinition
 }: socialOperatorT);

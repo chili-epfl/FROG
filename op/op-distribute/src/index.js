@@ -5,8 +5,9 @@ import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Distribute content',
-  type: 'product',
-  desc: ''
+  shortDesc: 'Distribute list items',
+  description:
+    'Distribute list items to groups or individual students, with configurable numbers of items per group, overlap allowed or not, etc.'
 };
 
 const config = {
@@ -14,10 +15,10 @@ const config = {
   properties: {
     individual: {
       type: 'boolean',
-      title: 'Distribute to each student (or fill out grouping attribute below)'
+      title: 'Distribute to each student'
     },
     grouping: {
-      type: 'string',
+      type: 'socialAttribute',
       title: 'Grouping attribute'
     },
     maxitems: {
@@ -29,6 +30,10 @@ const config = {
       title: 'Allow multiple groups receiving the same item?'
     }
   }
+};
+
+const configUI = {
+  grouping: { conditional: formData => !formData.individual }
 };
 
 const operator = (configData, object) => {
@@ -43,7 +48,7 @@ const operator = (configData, object) => {
   const groups = configData.individual
     ? globalStructure.studentIds
     : socialStructure[configData.grouping] &&
-        Object.keys(socialStructure[configData.grouping]);
+      Object.keys(socialStructure[configData.grouping]);
   if (!groups) {
     throw `Could not find ${configData.grouping} in the social structure`;
   }
@@ -84,7 +89,9 @@ const operator = (configData, object) => {
 
 export default ({
   id: 'op-distribute',
+  type: 'product',
   operator,
   config,
-  meta
+  meta,
+  configUI
 }: productOperatorT);

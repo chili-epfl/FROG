@@ -13,6 +13,7 @@ module.exports = {
     jest: true
   },
   rules: {
+    'react/require-default-props': 'off',
     'no-console': 'error',
     'consistent-return': 'off',
     'import/no-absolute-path': 'off',
@@ -53,7 +54,8 @@ module.exports = {
   },
   env: {
     es6: true,
-    node: true
+    node: true,
+    browser: true
   },
   extends: [
     'airbnb',

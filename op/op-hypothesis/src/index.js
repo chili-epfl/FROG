@@ -11,7 +11,8 @@ import {
 
 export const meta = {
   name: 'Get ideas from Hypothesis',
-  type: 'product'
+  shortDesc: 'Get ideas from Hypothesis API',
+  description: 'Collect ideas from an Hypothesis API by hashtag or document id.'
 };
 
 export const config = {
@@ -28,6 +29,10 @@ export const config = {
   }
 };
 const safeFirst = ary => (ary.length > 0 ? ary[0] : '');
+const validateConfig = [
+  formData =>
+    formData.tag || formData.url ? null : { err: 'You need either tag or URL' }
+];
 
 const getText = ary =>
   ary ? safeFirst(compact(ary.map(y => y.exact))).replace('\t', '') : '';
@@ -58,7 +63,9 @@ export const operator = (configData: {
 
 export default ({
   id: 'op-hypothesis',
+  type: 'product',
   operator,
   config,
+  validateConfig,
   meta
 }: productOperatorT);

@@ -4,6 +4,7 @@ import { ChangeableText } from 'frog-utils';
 
 import { connect, store } from '../store';
 import { Graphs, renameGraph } from '../../../api/graphs';
+import { ValidButton } from '../Validator';
 
 const Config = ({ graph }) =>
   <div style={{ textAlign: 'center' }}>
@@ -34,8 +35,7 @@ const Config = ({ graph }) =>
         style={{ width: '60px' }}
         value={graph ? graph.duration : 30}
         onSubmit={e => store.changeDuration(parseInt(e, 10))}
-      />
-      {' '}
+      />{' '}
       mins.
     </span>
   </div>;
@@ -46,5 +46,13 @@ const GraphConfigPanel = createContainer(
 );
 
 export default connect(({ store: { graphId } }) =>
-  <GraphConfigPanel graphId={graphId} />
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'row'
+    }}
+  >
+    <ValidButton />
+    <GraphConfigPanel graphId={graphId} />
+  </div>
 );

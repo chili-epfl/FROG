@@ -1,4 +1,5 @@
 // @flow
+
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -9,64 +10,26 @@ import StudentList from './StudentList';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
-
+import Dashboards from './Dashboard';
 import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Logs, flushLogs } from '../../api/logs';
 
-import { activityTypesObj } from '../../activityTypes';
-
-const rawSessionController = ({ session, visible, toggleVisibility, logs }) =>
+const rawSessionController = ({ session, visible, toggleVisibility }) =>
   <div>
     {session
       ? <div>
           <ButtonList session={session} toggle={toggleVisibility} />
           {visible
-            ? <DashView logs={logs} session={session} />
+            ? <Dashboards openActivities={session.openActivities} />
             : <GraphView session={session} />}
         </div>
       : <p>Create or select a session from the list below</p>}
   </div>;
 
 const SessionController = withVisibility(rawSessionController);
-
-const Dashboard = ({ logs, activities }) => {
-  let Dash = <p>NO DASHBOARD</p>;
-  if (activities) {
-    Dash = activities.map(a => {
-      const activityType = activityTypesObj[a.activityType];
-      if (activityType && activityType.Dashboard) {
-        return (
-          <activityType.Dashboard
-            logs={logs.filter(x => x.activity === a._id)}
-            key={a._id}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  }
-  return (
-    <div id="dashboard">
-      <h1>Dashboard</h1>
-      {Dash}
-    </div>
-  );
-};
-
-const DashView = createContainer(
-  ({ session }) => ({
-    activities: (session.openActivities || []).map(x => Activities.findOne(x)),
-    logs: (session.openActivities || [])
-      .reduce(
-        (acc, x) => [...acc, ...(Logs.find({ activity: x }).fetch() || [])],
-        []
-      )
-  }),
-  Dashboard
-);
+SessionController.displayName = 'SessionController';
 
 const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
   if (!logs || logs.length < 1) {
@@ -102,7 +65,9 @@ const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
   );
 });
 
-export default createContainer(
+LogView.displayName = 'LogView';
+
+const TeacherView = createContainer(
   () => {
     const user = Meteor.users.findOne(Meteor.userId());
     const session =
@@ -119,7 +84,7 @@ export default createContainer(
     return {
       sessions: Sessions.find().fetch(),
       session,
-      graphs: Graphs.find().fetch(),
+      graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
       activities,
       students,
       logs,
@@ -128,7 +93,7 @@ export default createContainer(
   },
   props =>
     <div id="teacher" style={{ display: 'flex' }}>
-      <div>
+      <div style={{ width: '80%' }}>
         <SessionController {...props} />
         <hr />
         <StudentList students={props.students} />
@@ -140,3 +105,6 @@ export default createContainer(
       </div>
     </div>
 );
+
+TeacherView.displayName = 'TeacherView';
+export default TeacherView;

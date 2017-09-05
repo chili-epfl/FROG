@@ -3,12 +3,22 @@ import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
 
+export {
+  default as EnhancedForm,
+  hideConditional,
+  calculateHides
+} from './EnhancedForm';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
+export { Highlight } from './highlightSubstring';
+export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
 export { TextInput, ChangeableText } from './TextInput';
+export { default as dataURItoFile } from './URLtoFile';
+export { default as resizeDataURL } from './resizeDataURL';
+export { default as ImageReload } from './ImageReload';
 export {
   mergeSocialStructures,
   focusStudent,
@@ -35,7 +45,11 @@ export type {
   ActivityPackageT,
   productOperatorT,
   socialOperatorT,
-  operatorPackageT
+  operatorPackageT,
+  controlOperatorT,
+  ControlStructureT,
+  ControlT,
+  ReactComponent
 } from './types';
 
 export const A = ({ onClick, children, ...rest }: any): any =>
@@ -89,3 +103,28 @@ export const withVisibility = compose(
     toggleVisibility: ({ setVisibility }) => () => setVisibility(n => !n)
   })
 );
+
+export const flattenOne = (ary: any[]): any[] =>
+  ary.reduce(
+    (acc: any[], x: any) => (Array.isArray(x) ? [...acc, ...x] : [...acc, x]),
+    []
+  );
+
+export const wordWrap = (text: string, maxLength: number): string[] => {
+  const result = [];
+  let line = [];
+  let length = 0;
+  text.split(' ').forEach(word => {
+    if (length + word.length >= maxLength) {
+      result.push(line.join(' '));
+      line = [];
+      length = 0;
+    }
+    length += word.length + 1;
+    line.push(word);
+  });
+  if (line.length > 0) {
+    result.push(line.join(' '));
+  }
+  return result;
+};

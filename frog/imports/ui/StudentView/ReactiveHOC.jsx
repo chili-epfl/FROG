@@ -1,8 +1,8 @@
 // @flow
-
 import React, { Component } from 'react';
-import { generateReactiveFn } from 'frog-utils';
+import { generateReactiveFn, type ReactComponent } from 'frog-utils';
 
+import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
 
 const getDisplayName = (WrappedComponent: any): string => {
@@ -15,8 +15,8 @@ const getDisplayName = (WrappedComponent: any): string => {
   }
 };
 
-const ReactiveHOC = (dataStructure: any, docId: string) => (
-  WrappedComponent: Class<Component<*, *, *>>
+const ReactiveHOC = (docId: string, doc?: any) => (
+  WrappedComponent: ReactComponent<any>
 ) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
@@ -33,8 +33,12 @@ const ReactiveHOC = (dataStructure: any, docId: string) => (
     }
 
     componentDidMount = () => {
-      this.doc = connection.get('rz', docId);
-      this.doc.subscribe();
+      if (!doc) {
+        this.doc = connection.get('rz', docId);
+        this.doc.subscribe();
+      } else {
+        this.doc = doc;
+      }
       this.doc.on('ready', this.update);
       this.doc.on('op', this.update);
       this.waitForDoc();
@@ -67,13 +71,14 @@ const ReactiveHOC = (dataStructure: any, docId: string) => (
     };
 
     render = () =>
-      this.state.data
+      this.state.data !== null
         ? <WrappedComponent
             dataFn={this.state.dataFn}
+            uploadFn={uploadFile}
             data={this.state.data}
             {...this.props}
           />
-        : <p>Loading...</p>;
+        : <img src="/images/Spinner.gif" alt="" />;
   }
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;

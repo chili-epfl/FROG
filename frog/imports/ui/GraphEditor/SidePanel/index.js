@@ -12,19 +12,20 @@ export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
   }
   if (selected && selected.klass === 'activity') {
     return (
-      <SidebarContainer><ActivityPanel id={selected.id} /></SidebarContainer>
+      <SidebarContainer>
+        <ActivityPanel id={selected.id} />
+      </SidebarContainer>
     );
   } else if (selected && selected.klass === 'operator') {
     return (
-      <SidebarContainer><OperatorPanel id={selected.id} /></SidebarContainer>
+      <SidebarContainer>
+        <OperatorPanel id={selected.id} />
+      </SidebarContainer>
     );
   } else {
     return (
       <SidebarContainer>
-        Select an activity or an operator to configure it. Press the
-        {' '}
-        <b>w</b>
-        {' '}
+        Select an activity or an operator to configure it. Press the <b>w</b>{' '}
         key, or the hide button to hide the sidebar.
       </SidebarContainer>
     );
@@ -42,13 +43,15 @@ const SidebarContainer = connect(
 
 const SidebarContainerDiv = styled.div`
   padding: 0px;
-  flex: 0 auto;
-  width: 500px;
+  width: 497px;
+  height: 760px;
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
-  overflow: scroll;
 `;
 
 const CloseButtonA = styled.a`
-  float: right;
   font-size: 2em;
+  width: fit-content;
+  transform: translateX(470px);
 `;

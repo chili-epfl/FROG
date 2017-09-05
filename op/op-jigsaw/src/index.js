@@ -5,7 +5,9 @@ import { focusRole, type socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Jigsaw',
-  type: 'social'
+  shortDesc: 'Assign students to groups and roles',
+  description:
+    'Given a list of roles, students are assigned to groups and roles, where each role only appears once in each group.'
 };
 
 const config = {
@@ -53,7 +55,9 @@ const operator = (configData, object) => {
 
 export default ({
   id: 'op-jigsaw',
+  type: 'social',
   meta,
   config,
-  operator
+  operator,
+  outputDefinition: ['group', 'role']
 }: socialOperatorT);

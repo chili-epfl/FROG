@@ -41,9 +41,9 @@ export default class Activity extends Elem {
     this.init(plane, startTime, title, length, id, state);
   }
 
-  plane: number;
   klass: 'activity' | 'operator' | 'connection';
   id: string;
+  @observable plane: number;
   @observable over: boolean;
   @observable title: string;
   @observable length: number;

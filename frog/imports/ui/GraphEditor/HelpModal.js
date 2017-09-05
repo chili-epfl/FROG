@@ -9,8 +9,8 @@ const HelpModal = ({ show, hide }) =>
     </Modal.Header>
     <Modal.Body>
       <h4>Adding activities</h4>
-      Double-click on one of the three plane lines to add activities. Choose
-      the kind of activity, and configure it, in the right sidebar.
+      Double-click on one of the three plane lines to add activities. Choose the
+      kind of activity, and configure it, in the right sidebar.
       <h4>Renaming activities</h4>
       Double-click on an activity to rename it.
       <h4>Moving or resizing activities</h4>
@@ -22,17 +22,21 @@ const HelpModal = ({ show, hide }) =>
       beginning/end of the class. If you drag one activity against another one,
       and keep dragging, the two activities will change places.
       <p />
-      To resize, move the cursor to the end of the activity, until it turns
-      into a two-ways arrow, and click and hold while dragging to resize the
+      To resize, move the cursor to the end of the activity, until it turns into
+      a two-ways arrow, and click and hold while dragging to resize the
       activity. You cannot resize the activity past the beginning of the next
       activity, even if it is on another plane.
+      <p />
+      To change the plane, first select the activity, then press Shift+up if you
+      want the activity to go to a higher plane or Shift-down to make it go to a
+      lower plane.
       <h4>Inserting operators</h4>
-      To insert a social operator, click S, or click P to insert a product
-      operator (the mouse must be over the main graph view). An operator will
-      appear attached to the mouse. Move the mouse to where you want to locate
-      the operator, and click to place it. When you select an operator, you can
-      configure it in the right sidebar. Shift+click and drag on the operator
-      to reposition it.
+      To insert an operator, click S for a social operator, P for a product
+      operator, or C for a control operator (the mouse must be over the main
+      graph view). An operator will appear attached to the mouse. Move the mouse
+      to where you want to locate the operator, and click to place it. When you
+      select an operator, you can configure it in the right sidebar. Shift+click
+      and drag on the operator to reposition it.
       <h4>Connections</h4>
       To create a connection from an activity, move the mouse cursor to the
       small circle at the right side of the box, until the mouse cursor becomes

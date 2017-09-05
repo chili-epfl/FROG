@@ -1,17 +1,51 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
+import { msToString } from 'frog-utils';
+import { TimeSync } from 'meteor/mizzao:timesync';
+import { createContainer } from 'meteor/react-meteor-data';
 
 import {
   removeSession,
   updateSessionState,
+  sessionStartCountDown,
+  sessionCancelCountDown,
+  sessionChangeCountDown,
   joinAllStudents,
   restartSession
 } from '../../api/sessions';
-
 import { runSession, nextActivity } from '../../api/engine';
 
-export default ({ session, toggle }: { session: Object, toggle: Function }) => {
+const DEFAULT_COUNTDOWN_LENGTH = 10000;
+
+const CountdownDiv = styled.div`
+  border: solid 2px;
+  width: 65px;
+  text-align: center;
+`;
+
+const CountdownPure = ({ startTime, length, currentTime }) => {
+  const remainingTime = startTime + length - currentTime;
+  return (
+    <CountdownDiv>
+      {msToString(startTime > 0 ? remainingTime : length)}
+    </CountdownDiv>
+  );
+};
+
+const Countdown = createContainer(
+  props => ({ ...props, currentTime: TimeSync.serverTime() }),
+  CountdownPure
+);
+
+const ButtonList = ({
+  session,
+  toggle
+}: {
+  session: Object,
+  toggle: Function
+}) => {
   const buttons = [
     {
       states: ['CREATED'],
@@ -37,13 +71,15 @@ export default ({ session, toggle }: { session: Object, toggle: Function }) => {
     {
       states: ['STARTED'],
       type: 'warning',
-      onClick: () => updateSessionState(session._id, 'PAUSED'),
+      onClick: () =>
+        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime()),
       text: 'Pause'
     },
     {
       states: ['PAUSED', 'STOPPED'],
       type: 'primary',
-      onClick: () => updateSessionState(session._id, 'STARTED'),
+      onClick: () =>
+        updateSessionState(session._id, 'STARTED', TimeSync.serverTime()),
       text: 'Continue'
     },
     {
@@ -69,12 +105,56 @@ export default ({ session, toggle }: { session: Object, toggle: Function }) => {
       type: 'primary',
       onClick: () => restartSession(session),
       text: 'Restart session'
+    },
+    {
+      states: ['STARTED'],
+      countdownStarted: false,
+      type: 'primary',
+      onClick: () => sessionStartCountDown(session._id, TimeSync.serverTime()),
+      text: 'Start Countdown'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      countdownStarted: true,
+      type: 'danger',
+      onClick: () => sessionCancelCountDown(session._id),
+      text: 'Cancel Countdown'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'success',
+      onClick: () =>
+        sessionChangeCountDown(
+          session._id,
+          DEFAULT_COUNTDOWN_LENGTH,
+          TimeSync.serverTime()
+        ),
+      text: '+' + msToString(DEFAULT_COUNTDOWN_LENGTH)
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => {
+        if (session.countdownLength > DEFAULT_COUNTDOWN_LENGTH) {
+          sessionChangeCountDown(
+            session._id,
+            0 - DEFAULT_COUNTDOWN_LENGTH,
+            TimeSync.serverTime()
+          );
+        }
+      },
+      text: '-' + msToString(DEFAULT_COUNTDOWN_LENGTH)
     }
   ];
   return (
-    <div>
+    <div style={{ display: 'flex' }}>
       {buttons
-        .filter(button => button.states.indexOf(session.state) > -1)
+        .filter(
+          button =>
+            button.states.indexOf(session.state) > -1 &&
+            (button.countdownStarted === undefined ||
+              session.countdownStartTime > 0 === button.countdownStarted)
+        )
         .map(button =>
           <button
             key={button.text}
@@ -85,6 +165,14 @@ export default ({ session, toggle }: { session: Object, toggle: Function }) => {
             {button.text}
           </button>
         )}
+      {session.state !== 'CREATED' &&
+        session.state !== 'STOPPED' &&
+        <Countdown
+          startTime={session.countdownStartTime}
+          length={session.countdownLength}
+        />}
     </div>
   );
 };
+
+export default ButtonList;

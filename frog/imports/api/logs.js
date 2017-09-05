@@ -1,7 +1,8 @@
+// @flow
+
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
-import Stringify from 'json-stable-stringify';
 import { uuid } from 'frog-utils';
 
 export const Logs = new Mongo.Collection('logs');
@@ -16,22 +17,26 @@ export const Logs = new Mongo.Collection('logs');
 //                             date: 'Thursday 22...'}
 // TODO: Should perhaps accept an object to log, instead of a message, for more flexibility
 
-export const engineLogger = (sessionId, params) =>
+export const engineLogger = (sessionId: string, log: Object) =>
   Logs.insert({
-    ...params,
+    payload: log,
+    userId: 'teacher',
     sessionId,
     createdAt: new Date(),
     _id: uuid()
   });
 
-export const createLogger = merge => {
-  const username = Meteor.users.findOne(Meteor.userId()).username;
-  const logger = x => {
-    Logs.update(
-      Stringify(merge),
-      { $set: { ...merge, ...x, username, updatedAt: Date() } },
-      { upsert: true }
-    );
+export const createLogger = (sessionId: string, activity: Object) => {
+  const logger = (log: Object) => {
+    Logs.insert({
+      userId: Meteor.userId(),
+      sessionId,
+      activityId: activity._id,
+      activityType: activity.activityType,
+      payload: log,
+      updatedAt: Date()
+    });
+    Meteor.call('merge.log', log, activity);
   };
   return logger;
 };

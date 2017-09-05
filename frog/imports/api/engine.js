@@ -3,7 +3,12 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Activities } from './activities';
-import { Sessions, updateSessionState, updateOpenActivities } from './sessions';
+import {
+  Sessions,
+  updateSessionState,
+  updateOpenActivities,
+  sessionCancelCountDown
+} from './sessions';
 import { engineLogger } from './logs';
 
 export const runSession = (sessionId: string) =>
@@ -19,6 +24,7 @@ Meteor.methods({
     engineLogger(sessionId, { message: 'STARTING SESSION' });
   },
   'next.activity': (sessionId: string) => {
+    sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
     const activities = Activities.find({ graphId: session.graphId }).fetch();
     const [t0, t1] = [
