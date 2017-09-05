@@ -3,8 +3,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Inspector } from 'react-inspector';
-import { withVisibility, A } from 'frog-utils';
+import { withVisibility } from 'frog-utils';
 
 import StudentList from './StudentList';
 import ButtonList from './ButtonList';
@@ -14,7 +13,6 @@ import Dashboards from './Dashboard';
 import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
-import { Logs, flushLogs } from '../../api/logs';
 
 const rawSessionController = ({ session, visible, toggleVisibility }) =>
   <div>
@@ -31,50 +29,11 @@ const rawSessionController = ({ session, visible, toggleVisibility }) =>
 const SessionController = withVisibility(rawSessionController);
 SessionController.displayName = 'SessionController';
 
-const LogView = withVisibility(({ logs, toggleVisibility, visible }) => {
-  if (!logs || logs.length < 1) {
-    return null;
-  }
-
-  return (
-    <div>
-      <span role="button" tabIndex={0} onClick={toggleVisibility}>
-        <h1>
-          Logs {!visible && '...'}
-        </h1>
-      </span>
-      {visible &&
-        <div>
-          <A onClick={flushLogs}>Flush logs</A>
-          <ul>
-            {logs.sort((x, y) => y.createdAt - x.createdAt).map(log =>
-              <div
-                key={log._id}
-                style={{
-                  marginBottom: '40px',
-                  borderBottomStyle: 'dashed',
-                  borderBottomWidth: '2px'
-                }}
-              >
-                <Inspector data={log} expandLevel={2} />
-              </div>
-            )}
-          </ul>
-        </div>}
-    </div>
-  );
-});
-
-LogView.displayName = 'LogView';
-
 const TeacherView = createContainer(
   () => {
     const user = Meteor.users.findOne(Meteor.userId());
     const session =
       user.profile && Sessions.findOne(user.profile.controlSession);
-    const logs = session
-      ? Logs.find({}, { sort: { createdAt: -1 } }, { limit: 10 }).fetch()
-      : [];
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();
     const students =
@@ -87,7 +46,6 @@ const TeacherView = createContainer(
       graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
       activities,
       students,
-      logs,
       user
     };
   },
@@ -99,9 +57,6 @@ const TeacherView = createContainer(
         <StudentList students={props.students} />
         <hr />
         <SessionList {...props} />
-      </div>
-      <div>
-        <LogView {...props} />
       </div>
     </div>
 );

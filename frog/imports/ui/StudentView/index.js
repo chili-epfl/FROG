@@ -11,7 +11,6 @@ import {
   setStudentSession,
   ensureReactive
 } from '../../api/sessions';
-import { FourOhFour } from '../App/FROGRouter';
 
 const StudentView = ({ session, doRedirect, cannotFind, tooLate }) => {
   if (doRedirect) {
@@ -23,7 +22,7 @@ const StudentView = ({ session, doRedirect, cannotFind, tooLate }) => {
   }
 
   if (cannotFind) {
-    return <FourOhFour />;
+    return <h1>CannotFind</h1>;
   }
 
   return (
@@ -38,10 +37,6 @@ export default createContainer(props => {
   const user = users && users[0];
   const curSession =
     user && user.profile ? Sessions.findOne(user.profile.currentSession) : null;
-
-  if (!user) {
-    return { cannotFind: true };
-  }
 
   const desiredSlug = props.match && props.match.params.slug;
 
