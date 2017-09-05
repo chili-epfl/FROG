@@ -18,7 +18,7 @@ const DEFAULT_PASSWORD = '123456';
 const connectWithDefaultPwd = username =>
   Meteor.loginWithPassword(username, DEFAULT_PASSWORD);
 
-const FourOhFour = () => <p>Page not found</p>;
+export const FourOhFour = () => <p>Page not found</p>;
 
 const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
   if (isNotLoggedIn) {
@@ -33,7 +33,12 @@ const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
     return <Redirect to={path} />;
   }
   if (isStudent) {
-    return <StudentView />;
+    return (
+      <Switch>
+        <Route path="/:slug" component={StudentView} />
+        <Route component={StudentView} />;
+      </Switch>
+    );
   }
   return (
     <div id="app">
@@ -72,9 +77,12 @@ const PageContainer = createContainer((props: any) => {
     Meteor.userId() &&
     Meteor.users.findOne(Meteor.userId()) &&
     Meteor.users.findOne(Meteor.userId()).username;
+  if (username && loggedInUsername !== username) {
+    ready = false;
+  }
+
   if (username === 'teacher' || loggedInUsername === 'teacher') {
-    ready =
-      ready && setupSubscriptions(['global_settings', 'graphs', 'uploads']);
+    ready = setupSubscriptions(['global_settings', 'graphs', 'uploads']);
   }
   Meteor.subscribe('userData', {
     onReady: () => {
@@ -82,11 +90,13 @@ const PageContainer = createContainer((props: any) => {
         Meteor.userId() && Meteor.users.findOne(Meteor.userId()).username;
       if (username && username !== meteorUsername) {
         if (!Meteor.users.findOne({ username })) {
-          Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () =>
-            connectWithDefaultPwd(username)
-          );
+          Accounts.createUser({ username, password: DEFAULT_PASSWORD }, () => {
+            connectWithDefaultPwd(username);
+            ready = true;
+          });
         } else {
           connectWithDefaultPwd(username);
+          ready = true;
         }
       }
     }
