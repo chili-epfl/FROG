@@ -25,6 +25,7 @@ class Dashboard extends Component {
   constructor(props: Object) {
     super(props);
     this.state = { data: null };
+    this.init(props);
   }
 
   componentWillReceiveProps(nextProps: Object) {
@@ -32,12 +33,16 @@ class Dashboard extends Component {
       if (this.doc) {
         this.doc.destroy();
       }
-      this.doc = connection.get('rz', nextProps.activity._id + '//DASHBOARD');
-      this.doc.subscribe();
-      this.doc.on('ready', this.update);
-      this.doc.on('op', this.update);
-      this.waitForDoc();
+      this.init(nextProps);
     }
+  }
+
+  init(props: Object) {
+    this.doc = connection.get('rz', props.activity._id + '//DASHBOARD');
+    this.doc.subscribe();
+    this.doc.on('ready', this.update);
+    this.doc.on('op', this.update);
+    this.waitForDoc();
   }
 
   waitForDoc = () => {
@@ -56,7 +61,9 @@ class Dashboard extends Component {
   };
 
   componentWillUnmount = () => {
-    this.doc.destroy();
+    if (this.doc) {
+      this.doc.destroy();
+    }
     if (this.timeout) {
       window.clearTimeout(this.timeout);
     }
