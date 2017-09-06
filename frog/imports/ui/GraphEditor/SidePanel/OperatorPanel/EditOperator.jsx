@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 
 import FlexView from 'react-flexview';
 import { ChangeableText, EnhancedForm } from 'frog-utils';
@@ -41,31 +41,58 @@ const TopPanel = ({ operator, graphOperator, errorColor, operatorType }) =>
     <hr />
   </div>;
 
-const OperatorForm = ({
-  operator,
-  operatorType,
-  valid,
-  connectedActivities,
-  refreshValidate
-}) =>
-  <EnhancedForm
-    {...addSocialFormSchema(operatorType.config, operatorType.configUI)}
-    widgets={{
-      socialAttributeWidget: SelectFormWidget,
-      activityWidget: SelectActivityWidget
-    }}
-    formContext={{
-      options: valid.social[operator._id] || [],
-      connectedActivities
-    }}
-    onChange={data => {
-      addOperator(operator.operatorType, data.formData, operator._id);
-      refreshValidate();
-    }}
-    formData={operator.data}
-  >
-    <div />
-  </EnhancedForm>;
+class OperatorForm extends Component {
+  state: Object;
+
+  constructor(props) {
+    super(props);
+    this.state = this.getState(props);
+  }
+
+  getState(props) {
+    const {
+      operator,
+      operatorType,
+      valid,
+      connectedActivities,
+      refreshValidate
+    } = props;
+    return {
+      formData: operator.data,
+      ...addSocialFormSchema(operatorType.config, operatorType.configUI),
+      widgets: {
+        socialAttributeWidget: SelectFormWidget,
+        activityWidget: SelectActivityWidget
+      },
+      formContext: {
+        options: valid.social[operator._id] || [],
+        connectedActivities
+      },
+      onChange: data => {
+        addOperator(operator.operatorType, data.formData, operator._id);
+        refreshValidate();
+      }
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.getState(nextProps));
+  }
+
+  // credit to Stian Håklev
+  shouldComponentUpdate(nextProps) {
+    return this.props.operator._id !== nextProps.operator._id;
+  }
+
+  render() {
+    const opConfig = this.props.operatorType.config;
+    return opConfig && ![{}, undefined].includes(opConfig.properties)
+      ? <EnhancedForm {...this.state}>
+          <div />
+        </EnhancedForm>
+      : null;
+  }
+}
 
 export default ({
   store: {
@@ -105,18 +132,15 @@ export default ({
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
-      {operatorType.config &&
-        operatorType.config.properties &&
-        operatorType.config.properties !== {} &&
-        <OperatorForm
-          {...{
-            operator,
-            operatorType,
-            valid,
-            connectedActivities,
-            refreshValidate
-          }}
-        />}
+      <OperatorForm
+        {...{
+          operator,
+          operatorType,
+          valid,
+          connectedActivities,
+          refreshValidate
+        }}
+      />
     </div>
   );
 };
