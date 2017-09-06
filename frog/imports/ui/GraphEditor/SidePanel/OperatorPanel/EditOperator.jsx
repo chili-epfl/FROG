@@ -13,6 +13,60 @@ import addSocialFormSchema from '../ActivityPanel/addSocialSchema';
 import { SelectActivityWidget } from '../SelectActivityWidget';
 import { type StoreProp } from '../../store';
 
+const TopPanel = ({ operator, graphOperator, errorColor, operatorType }) =>
+  <div style={{ backgroundColor: '#eee' }}>
+    <div style={{ position: 'absolute', left: -40 }}>
+      <ErrorList activityId={operator._id} />
+    </div>
+    <FlexView>
+      <div>
+        <h3>
+          <ChangeableText
+            value={graphOperator.title || ''}
+            operatorId={operator._id}
+            onChange={graphOperator.rename}
+          />
+        </h3>
+      </div>
+      <FlexView marginLeft="auto">
+        <ValidButton activityId={operator._id} errorColor={errorColor} />
+      </FlexView>
+    </FlexView>
+    <font size={-3}>
+      <i>
+        {`Type: ${operatorType.meta.name}
+                 (${operator.operatorType})`}
+      </i>
+    </font>
+    <hr />
+  </div>;
+
+const OperatorForm = ({
+  operator,
+  operatorType,
+  valid,
+  connectedActivities,
+  refreshValidate
+}) =>
+  <EnhancedForm
+    {...addSocialFormSchema(operatorType.config, operatorType.configUI)}
+    widgets={{
+      socialAttributeWidget: SelectFormWidget,
+      activityWidget: SelectActivityWidget
+    }}
+    formContext={{
+      options: valid.social[operator._id] || [],
+      connectedActivities
+    }}
+    onChange={data => {
+      addOperator(operator.operatorType, data.formData, operator._id);
+      refreshValidate();
+    }}
+    formData={operator.data}
+  >
+    <div />
+  </EnhancedForm>;
+
 export default ({
   store: {
     graphErrors,
@@ -50,53 +104,19 @@ export default ({
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <div style={{ backgroundColor: '#eee' }}>
-        <div style={{ position: 'absolute', left: -40 }}>
-          <ErrorList activityId={operator._id} />
-        </div>
-        <FlexView>
-          <div>
-            <h3>
-              <ChangeableText
-                value={graphOperator.title || ''}
-                operatorId={operator._id}
-                onChange={graphOperator.rename}
-              />
-            </h3>
-          </div>
-          <FlexView marginLeft="auto">
-            <ValidButton activityId={operator._id} errorColor={errorColor} />
-          </FlexView>
-        </FlexView>
-        <font size={-3}>
-          <i>
-            {`Type: ${operatorType.meta.name}
-                     (${operator.operatorType})`}
-          </i>
-        </font>
-        <hr />
-      </div>
+      <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
       {operatorType.config &&
         operatorType.config.properties &&
         operatorType.config.properties !== {} &&
-        <EnhancedForm
-          {...addSocialFormSchema(operatorType.config, operatorType.configUI)}
-          widgets={{
-            socialAttributeWidget: SelectFormWidget,
-            activityWidget: SelectActivityWidget
+        <OperatorForm
+          {...{
+            operator,
+            operatorType,
+            valid,
+            connectedActivities,
+            refreshValidate
           }}
-          formContext={{
-            options: valid.social[operator._id] || [],
-            connectedActivities
-          }}
-          onChange={data => {
-            addOperator(operator.operatorType, data.formData, operator._id);
-            refreshValidate();
-          }}
-          formData={operator.data}
-        >
-          <div />
-        </EnhancedForm>}
+        />}
     </div>
   );
 };
