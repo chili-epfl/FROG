@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
-import { EnhancedForm, ChangeableText } from 'frog-utils';
-import { addActivity } from '/imports/api/activities';
+import { ChangeableText } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
+import { addActivity } from '/imports/api/activities';
 import FlexView from 'react-flexview';
 import { withState } from 'recompose';
 import { Button } from 'react-bootstrap';
@@ -12,8 +12,8 @@ import Preview from '../../Preview';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
-import { SelectAttributeWidget, SelectFormWidget } from '../FormWidgets';
-import addSocialFormSchema from './addSocialSchema';
+import { SelectAttributeWidget } from '../FormUtils';
+import ConfigForm from '../ConfigForm';
 
 const EditActivity = props => {
   const activity = props.activity;
@@ -101,31 +101,14 @@ const EditActivity = props => {
             }}
           />}
       </div>
-      {activityType.config &&
-        activityType.config.properties &&
-        activityType.config.properties !== {} &&
-        <EnhancedForm
-          {...addSocialFormSchema(activityType.config, activityType.configUI)}
-          showErrorList={false}
-          noHtml5Validate
-          widgets={{ socialAttributeWidget: SelectFormWidget }}
-          formContext={{
-            options: props.store.valid.social[activity._id] || [],
-            groupingKey: activity.groupingKey
-          }}
-          onChange={data => {
-            addActivity(
-              activity.activityType,
-              data.formData,
-              activity._id,
-              null
-            );
-            props.store.refreshValidate();
-          }}
-          formData={activity.data}
-        >
-          <div />
-        </EnhancedForm>}
+      <ConfigForm
+        {...{
+          node: activity,
+          nodeType: activityType,
+          valid: props.store.valid,
+          refreshValidate: props.store.refreshValidate
+        }}
+      />
       <FileForm />
       {props.showInfo &&
         <Preview

@@ -78,8 +78,8 @@ export default ({
       <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
       <ConfigForm
         {...{
-          operator,
-          operatorType,
+          node: operator,
+          nodeType: operatorType,
           valid,
           connectedActivities,
           refreshValidate

@@ -3,10 +3,13 @@
 import React, { Component } from 'react';
 
 import { EnhancedForm } from 'frog-utils';
-import { addOperator } from '/imports/api/activities';
+import { addOperator, addActivity } from '/imports/api/activities';
 
-import addSocialFormSchema from './ActivityPanel/addSocialSchema';
-import { SelectFormWidget, SelectActivityWidget } from './FormWidgets';
+import {
+  SelectFormWidget,
+  SelectActivityWidget,
+  addSocialFormSchema
+} from './FormUtils';
 
 type PropT = Object;
 
@@ -20,25 +23,30 @@ export default class ConfigForm extends Component {
 
   getState(props: PropT) {
     const {
-      operator,
-      operatorType,
+      node,
+      nodeType,
       valid,
       connectedActivities,
       refreshValidate
     } = props;
     return {
-      formData: operator.data,
-      ...addSocialFormSchema(operatorType.config, operatorType.configUI),
+      formData: node.data,
+      ...addSocialFormSchema(nodeType.config, nodeType.configUI),
       widgets: {
         socialAttributeWidget: SelectFormWidget,
         activityWidget: SelectActivityWidget
       },
       formContext: {
-        options: valid.social[operator._id] || [],
-        connectedActivities
+        options: valid.social[node._id] || [],
+        connectedActivities,
+        groupingKey: node.groupingKey
       },
       onChange: data => {
-        addOperator(operator.operatorType, data.formData, operator._id);
+        if (node.operatorType) {
+          addOperator(node.operatorType, data.formData, node._id);
+        } else {
+          addActivity(node.activityType, data.formData, node._id, null);
+        }
         refreshValidate();
       }
     };
@@ -50,13 +58,13 @@ export default class ConfigForm extends Component {
 
   // credit to Stian Håklev
   shouldComponentUpdate(nextProps: PropT) {
-    return this.props.operator._id !== nextProps.operator._id;
+    return this.props.node._id !== nextProps.node._id;
   }
 
   render() {
-    const opConfig = this.props.operatorType.config;
-    return opConfig && ![{}, undefined].includes(opConfig.properties)
-      ? <EnhancedForm {...this.state}>
+    const nodeConfig = this.props.nodeType.config;
+    return nodeConfig && ![{}, undefined].includes(nodeConfig.properties)
+      ? <EnhancedForm showErrorList={false} noHtml5Validate {...this.state}>
           <div />
         </EnhancedForm>
       : null;
