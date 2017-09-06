@@ -12,7 +12,7 @@ import Preview from '../../Preview';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
-import { SelectAttribute, SelectFormWidget } from './SelectWidget';
+import { SelectAttributeWidget, SelectFormWidget } from '../FormWidgets';
 import addSocialFormSchema from './addSocialSchema';
 
 const EditActivity = props => {
@@ -93,7 +93,7 @@ const EditActivity = props => {
           </i>
         </font>
         {activity.plane === 2 &&
-          <SelectAttribute
+          <SelectAttributeWidget
             activity={activity}
             onChange={grp => {
               addActivity(activity.activityType, null, activity._id, grp);
