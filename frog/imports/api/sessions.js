@@ -26,20 +26,6 @@ export const setTeacherSession = (sessionId: string) => {
   });
 };
 
-export const setStudentSession = (sessionId: string) => {
-  Meteor.call('set.studentsession', sessionId, Meteor.userId());
-};
-
-Meteor.methods({
-  'set.studentsession': (sessionId, studentId) =>
-    Meteor.users.update(studentId, {
-      $set: { 'profile.currentSession': sessionId }
-    })
-});
-
-export const ensureReactive = (sessionId: string) =>
-  Meteor.call('ensure.reactive', sessionId, Meteor.userId());
-
 export const addSession = (graphId: string) => {
   Meteor.call('add.session', graphId, (err, result) => {
     if (result === 'invalidGraph') {
@@ -145,18 +131,7 @@ export const updateOpenActivities = (
 export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
-export const joinAllStudents = (sessionId: string) =>
-  Meteor.call('session.joinall', sessionId);
-
 Meteor.methods({
-  'session.joinall': sessionId => {
-    const currentUsers = compact(Presences.find().fetch().map(x => x.userId));
-    Meteor.users.update(
-      { _id: { $in: currentUsers }, username: { $not: { $eq: 'teacher' } } },
-      { $set: { 'profile.currentSession': sessionId } },
-      { multi: true }
-    );
-  },
   'add.session': graphId => {
     const validOutput = valid(
       Activities.find({ graphId }).fetch(),
@@ -203,6 +178,7 @@ Meteor.methods({
       countdownStartTime: -1,
       countdownLength: DEFAULT_COUNTDOWN_LENGTH,
       pausedAt: null,
+      openActivities: [],
       slug
     });
 
@@ -231,7 +207,6 @@ Meteor.methods({
     Meteor.call('flush.session', session._id);
     sessionCancelCountDown(session._id);
     const newSessionId = Meteor.call('add.session', graphId);
-    Meteor.call('session.joinall', newSessionId);
     runSession(newSessionId);
     nextActivity(newSessionId);
   },

@@ -14,6 +14,7 @@ import { operatorTypesObj } from '../imports/operatorTypes';
 import { Products } from '../imports/api/products';
 import { Operators, Activities, Connections } from '../imports/api/activities';
 import { addObject } from '../imports/api/objects';
+import { Sessions } from '/imports/api/sessions';
 
 declare var Promise: any;
 
@@ -31,8 +32,10 @@ const runAllConnecting = (connections: Object[], sessionId: string) =>
   );
 
 // The list of students
-const getStudents = sessionId =>
-  Meteor.users.find({ 'profile.currentSession': sessionId }).fetch();
+const getStudents = sessionId => {
+  const session = Sessions.findOne(sessionId);
+  return Meteor.users.find({ joinedSessions: session.slug }).fetch();
+};
 
 // runDataflow ensures that all data required for a given node is
 // computed. It recursively runs all the connecting nodes, and

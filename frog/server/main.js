@@ -22,49 +22,67 @@ import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 import { Uploads } from '../imports/api/uploads.js';
 import { OpenUploads } from '../imports/api/openUploads.js';
-import UserAccounts from './user_accounts';
+
+startShareDB();
+Meteor.users._ensureIndex('joinedSessions');
 
 Meteor.publish('userData', function() {
-  const user = Meteor.users.findOne(this.userId);
+  const user = Meteor.user();
   const username = user && user.username;
   if (username === 'teacher') {
-    return Meteor.users.find({}, { fields: { username: 1 } });
+    return Meteor.users.find(
+      {},
+      { fields: { username: 1, joinedSessions: 1 } }
+    );
   }
   if (!username) {
     return this.ready();
   }
-  return Meteor.users.find(this.userId, { fields: { username: 1 } });
+  return Meteor.users.find(this.userId, {
+    fields: { username: 1, joinedSessions: 1 }
+  });
 });
 
-publishComposite('session_activities', function(session) {
+publishComposite('student_session', function(slug) {
   return {
     find() {
-      const user = Meteor.users.findOne(this.userId);
-      return user && user.currentSession;
+      return Meteor.users.find(this.userId);
     },
     children: [
       {
-        find() {
-          return Sessions.find(session, {
-            fields: {
-              openActivities: 1,
-              state: 1,
-              countDownStartTime: 1,
-              countdownLength: 1,
-              pausedAt: 1,
-              startedAt: 1
-            }
-          });
+        find(user) {
+          if (user.joinedSessions && user.joinedSessions.includes(slug)) {
+            return Sessions.find({ slug });
+          } else {
+            return this.ready();
+          }
+        }
+      }
+    ]
+  };
+});
+
+publishComposite('session_activities', function(slug) {
+  return {
+    find() {
+      return Meteor.users.find(this.userId);
+    },
+    children: [
+      {
+        find(user) {
+          if (user.joinedSessions && user.joinedSessions.includes(slug)) {
+            return Sessions.find({ slug });
+          }
         },
         children: [
           {
-            find(openact) {
-              return Activities.find({ _id: { $in: openact } });
+            find(session) {
+              return Activities.find({ _id: { $in: session.openActivities } });
             }
           },
           {
-            find(openact) {
-              return Objects.find({ _id: { $in: openact } });
+            find(session) {
+              return Objects.find({ _id: { $in: session.openActivities } });
             }
           }
         ]
@@ -84,7 +102,6 @@ Meteor.publish('sessions', () => Sessions.find({}));
 Meteor.publish('uploads', () => Uploads.find({}));
 Meteor.publish('openUploads', () => OpenUploads.find({}));
 
-startShareDB();
 const checkActivity = (activityId, operators, connections) => {
   const connectedNodes = connections
     .filter(x => x.target.id === activityId)

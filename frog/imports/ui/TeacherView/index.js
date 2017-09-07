@@ -37,8 +37,7 @@ const TeacherView = createContainer(
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();
     const students =
-      session &&
-      Meteor.users.find({ 'profile.currentSession': session._id }).fetch();
+      session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
     return {
       sessions: Sessions.find().fetch(),

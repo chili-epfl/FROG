@@ -25,8 +25,8 @@ const doLogin = (user, self) => {
     id: user
   });
   Meteor.users.update(userId, { $set: { username: user } });
-  Accounts._loginUser(self, userId);
-  return userId;
+  const result = Accounts._loginUser(self, userId);
+  return result;
 };
 
 if (process.env.NODE_ENV !== 'production') {

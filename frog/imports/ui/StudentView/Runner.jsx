@@ -77,8 +77,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
   }
 };
 
-export default createContainer(({ activityId, single }) => {
-  const object = Objects.findOne(activityId);
-  const activity = Activities.findOne(activityId);
-  return { activity, object, single };
+export default createContainer(({ activity, single }) => {
+  const object = Objects.findOne(activity._id);
+  return { object };
 }, Runner);
