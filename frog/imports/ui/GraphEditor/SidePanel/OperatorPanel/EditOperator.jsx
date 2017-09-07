@@ -1,17 +1,14 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import FlexView from 'react-flexview';
-import { ChangeableText, EnhancedForm } from 'frog-utils';
+import { ChangeableText } from 'frog-utils';
 
-import { addOperator } from '/imports/api/activities';
 import { operatorTypesObj } from '/imports/operatorTypes';
 import { ErrorList, ValidButton } from '../../Validator';
-import { SelectFormWidget } from '../ActivityPanel/SelectWidget';
-import addSocialFormSchema from '../ActivityPanel/addSocialSchema';
-import { SelectActivityWidget } from '../SelectActivityWidget';
 import { type StoreProp } from '../../store';
+import ConfigForm from '../ConfigForm';
 
 const TopPanel = ({ operator, graphOperator, errorColor, operatorType }) =>
   <div style={{ backgroundColor: '#eee' }}>
@@ -40,59 +37,6 @@ const TopPanel = ({ operator, graphOperator, errorColor, operatorType }) =>
     </font>
     <hr />
   </div>;
-
-class OperatorForm extends Component {
-  state: Object;
-
-  constructor(props) {
-    super(props);
-    this.state = this.getState(props);
-  }
-
-  getState(props) {
-    const {
-      operator,
-      operatorType,
-      valid,
-      connectedActivities,
-      refreshValidate
-    } = props;
-    return {
-      formData: operator.data,
-      ...addSocialFormSchema(operatorType.config, operatorType.configUI),
-      widgets: {
-        socialAttributeWidget: SelectFormWidget,
-        activityWidget: SelectActivityWidget
-      },
-      formContext: {
-        options: valid.social[operator._id] || [],
-        connectedActivities
-      },
-      onChange: data => {
-        addOperator(operator.operatorType, data.formData, operator._id);
-        refreshValidate();
-      }
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.getState(nextProps));
-  }
-
-  // credit to Stian Håklev
-  shouldComponentUpdate(nextProps) {
-    return this.props.operator._id !== nextProps.operator._id;
-  }
-
-  render() {
-    const opConfig = this.props.operatorType.config;
-    return opConfig && ![{}, undefined].includes(opConfig.properties)
-      ? <EnhancedForm {...this.state}>
-          <div />
-        </EnhancedForm>
-      : null;
-  }
-}
 
 export default ({
   store: {
@@ -132,10 +76,10 @@ export default ({
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
-      <OperatorForm
+      <ConfigForm
         {...{
-          operator,
-          operatorType,
+          node: operator,
+          nodeType: operatorType,
           valid,
           connectedActivities,
           refreshValidate
