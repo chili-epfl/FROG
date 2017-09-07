@@ -11,6 +11,7 @@ import LatexWidget from './LatexWidget';
 const Main = styled.div`
   width: 100%;
   height: 100%;
+  position: relative;
   overflow: auto;
   display: flex;
   flex-direction: column;
