@@ -9,7 +9,6 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
-import { Activities } from '../../api/activities';
 import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
 

@@ -1,6 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
@@ -79,7 +80,6 @@ class FROGRouter extends Component {
           this.setState({ mode: 'loggingIn' });
           Meteor.call('frog.teacherlogin', token.trim(), (err, id) =>
             subscriptionCallback(err, id, x => {
-              console.log('teacher', err, id, x);
               this.setState({ mode: x });
             })
           );
@@ -89,19 +89,16 @@ class FROGRouter extends Component {
       if (!hasQuery && this.state.mode !== 'ready') {
         if (Accounts._storedLoginToken()) {
           this.setState({ mode: 'loggingIn' });
-          Accounts.loginWithToken(
-            Accounts._storedLoginToken(),
-            (err, result) => {
-              if (err) {
-                Accounts._unstoreLoginToken();
-                this.setState({ mode: 'error' });
-              } else {
-                Meteor.subscribe('userData', {
-                  onReady: () => this.setState({ mode: 'ready' })
-                });
-              }
+          Accounts.loginWithToken(Accounts._storedLoginToken(), err => {
+            if (err) {
+              Accounts._unstoreLoginToken();
+              this.setState({ mode: 'error' });
+            } else {
+              Meteor.subscribe('userData', {
+                onReady: () => this.setState({ mode: 'ready' })
+              });
             }
-          );
+          });
         }
       }
     }

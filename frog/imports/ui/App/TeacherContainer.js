@@ -4,13 +4,14 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
+import Spinner from 'react-spinner';
+
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
 import Preview from './../Preview';
 import Admin from './../Admin';
 import TopBar from './TopBar';
-import Spinner from 'react-spinner';
 
 const TeacherContainer = ({ ready }: { ready: boolean }) => {
   if (!ready) {

@@ -8,13 +8,13 @@ import {
   type activityDataT
 } from 'frog-utils';
 
+import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
 import { operatorTypesObj } from '../imports/operatorTypes';
 import { Products } from '../imports/api/products';
 import { Operators, Activities, Connections } from '../imports/api/activities';
 import { addObject } from '../imports/api/objects';
-import { Sessions } from '/imports/api/sessions';
 
 declare var Promise: any;
 

@@ -1,8 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { Presences } from 'meteor/tmeasday:presence';
-import { compact, shuffle } from 'lodash';
+import { shuffle } from 'lodash';
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';

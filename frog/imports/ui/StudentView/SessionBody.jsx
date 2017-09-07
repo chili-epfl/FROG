@@ -1,11 +1,9 @@
 // @flow
 
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Mosaic } from 'react-mosaic-component';
 import { Activities } from '../../api/activities';
-import { Objects } from '../../api/objects';
 import { Sessions } from '../../api/sessions';
 
 import Runner from './Runner';
