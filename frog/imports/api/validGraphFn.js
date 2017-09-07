@@ -62,6 +62,19 @@ const checkConnection = (
 ) => [
   ...activities.reduce((acc: Object[], act: Object): Object[] => {
     if (act.plane === 2) {
+      if (!act.groupingKey) {
+        return [
+          ...acc,
+          {
+            id: act._id,
+            nodeType: 'activity',
+            err: 'A group activity must have a grouping key',
+            type: 'needsGroupingKey',
+            severity: 'error'
+          }
+        ];
+      }
+
       const connectedOperatorIds = connections
         .filter(x => x.target.id === act._id)
         .map(x => x.source.id);

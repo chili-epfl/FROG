@@ -117,11 +117,7 @@ export default class ActivityStore {
   movePlane = (increment: number) => {
     if (store.ui.selected instanceof Activity) {
       const oldplane = store.ui.selected.plane;
-      store.ui.selected.plane = between(
-        1,
-        3,
-        (store.ui.selected.plane += increment)
-      );
+      store.ui.selected.plane = between(1, 3, oldplane + increment);
       if (oldplane !== store.ui.selected.plane) {
         store.addHistory();
       }
