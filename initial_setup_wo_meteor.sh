@@ -10,7 +10,7 @@ else
     if [ -f $FROG/node_modules/.bin/yarn ] && [[ `$FROG/node_modules/.bin/yarn --version` == $YARN_VERSION ]]; then 
         echo 'Using pre-installed local Yarn'; YARN=$FROG/node_modules/.bin/yarn 
     else
-        echo 'Installing Yarn'; npm install @houshuang/yarn && YARN=$FROG/node_modules/.bin/yarn
+        echo 'Installing Yarn'; npm install yarn && YARN=$FROG/node_modules/.bin/yarn
     fi
 fi
 echo "Yarn: $YARN"
