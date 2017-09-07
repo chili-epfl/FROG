@@ -32,6 +32,7 @@ class ActivityComponent extends Component {
   clickHandler: ?Function;
 
   componentWillMount() {
+    a;
     this.clickHandler = getClickHandler(() => {
       if (store.state.mode === 'normal' || store.state.mode === 'readOnly') {
         this.props.activity.select();
