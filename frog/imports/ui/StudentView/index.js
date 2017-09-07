@@ -45,8 +45,11 @@ class StudentViewComp extends Component {
         </h1>
       );
     }
-    if (!(this.props.ready && this.props.session)) {
+    if (!this.props.ready) {
       return <Spinner />;
+    }
+    if (!this.props.session) {
+      return <h1>That session is no longer available</h1>;
     }
     return <SessionBody />;
   }

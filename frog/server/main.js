@@ -40,25 +40,6 @@ Meteor.publish('userData', function() {
   });
 });
 
-publishComposite('student_session', function(slug) {
-  return {
-    find() {
-      return Meteor.users.find(this.userId);
-    },
-    children: [
-      {
-        find(user) {
-          if (user.joinedSessions && user.joinedSessions.includes(slug)) {
-            return Sessions.find({ slug });
-          } else {
-            return this.ready();
-          }
-        }
-      }
-    ]
-  };
-});
-
 publishComposite('session_activities', function(slug) {
   return {
     find() {
@@ -74,13 +55,27 @@ publishComposite('session_activities', function(slug) {
         children: [
           {
             find(session) {
-              return Activities.find({ _id: { $in: session.openActivities } });
-            }
-          },
-          {
-            find(session) {
-              return Objects.find({ _id: { $in: session.openActivities } });
-            }
+              const operators = Operators.find({
+                graphId: session.graphId
+              }).fetch();
+              const connections = Connections.find({
+                graphId: session.graphId
+              }).fetch();
+              return Activities.find({
+                _id: {
+                  $in: session.openActivities.filter(x =>
+                    checkActivity(x, operators, connections, this.userId)
+                  )
+                }
+              });
+            },
+            children: [
+              {
+                find(activity) {
+                  return Objects.find(activity._id);
+                }
+              }
+            ]
           }
         ]
       }
@@ -88,7 +83,7 @@ publishComposite('session_activities', function(slug) {
   };
 });
 
-const checkActivity = (activityId, operators, connections) => {
+const checkActivity = (activityId, operators, connections, userid) => {
   const connectedNodes = connections
     .filter(x => x.target.id === activityId)
     .map(x => x.source.id);
@@ -109,7 +104,7 @@ const checkActivity = (activityId, operators, connections) => {
 
   const cond = struct.all ? struct.all : struct.list[activityId];
   if (cond.structure === 'individual') {
-    const payload = cond.payload[Meteor.userId()];
+    const payload = cond.payload[userid];
     if (!payload && cond.mode === 'include') {
       return false;
     }
