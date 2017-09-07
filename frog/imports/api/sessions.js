@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Presences } from 'meteor/tmeasday:presence';
-import { compact } from 'lodash';
+import { compact, shuffle } from 'lodash';
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
@@ -13,23 +13,32 @@ import valid from './validGraphFn';
 const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
+const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
+const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
+
 export const restartSession = (session: { fromGraphId: string, _id: string }) =>
   Meteor.call('sessions.restart', session);
 export const Sessions = new Mongo.Collection('sessions');
 
 export const setTeacherSession = (sessionId: string) => {
-  Meteor.users.update(
-    { _id: Meteor.userId() },
-    { $set: { 'profile.controlSession': sessionId } }
-  );
+  Meteor.users.update(Meteor.userId(), {
+    $set: { 'profile.controlSession': sessionId }
+  });
 };
 
 export const setStudentSession = (sessionId: string) => {
-  Meteor.users.update(
-    { _id: Meteor.userId() },
-    { $set: { 'profile.currentSession': sessionId } }
-  );
+  Meteor.call('set.studentsession', sessionId, Meteor.userId());
 };
+
+Meteor.methods({
+  'set.studentsession': (sessionId, studentId) =>
+    Meteor.users.update(studentId, {
+      $set: { 'profile.currentSession': sessionId }
+    })
+});
+
+export const ensureReactive = (sessionId: string) =>
+  Meteor.call('ensure.reactive', sessionId, Meteor.userId());
 
 export const addSession = (graphId: string) => {
   Meteor.call('add.session', graphId, (err, result) => {
@@ -125,10 +134,7 @@ export const updateOpenActivities = (
   openActivities: Array<string>,
   timeInGraph: number
 ) => {
-  Sessions.update(
-    { _id: sessionId },
-    { $set: { openActivities, timeInGraph } }
-  );
+  Sessions.update(sessionId, { $set: { openActivities, timeInGraph } });
   if (Meteor.isServer) {
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
@@ -176,6 +182,17 @@ Meteor.methods({
       connections: Connections.find({ graphId }).fetch()
     });
 
+    const slugs = Sessions.find({}, { fields: { slug: 1 } })
+      .fetch()
+      .map(x => x.slug);
+    let slug;
+    while (true) {
+      slug = genCodeOfNChar(4);
+      if (!slugs.includes(slug)) {
+        break;
+      }
+    }
+
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,
@@ -185,7 +202,8 @@ Meteor.methods({
       timeInGraph: -1,
       countdownStartTime: -1,
       countdownLength: DEFAULT_COUNTDOWN_LENGTH,
-      pausedAt: null
+      pausedAt: null,
+      slug
     });
 
     Graphs.update(copyGraphId, { $set: { sessionId } });
