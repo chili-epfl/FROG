@@ -10,8 +10,7 @@ module.exports = {
     Blob: true,
     WebSocket: true,
     Presences: true,
-    jest: true,
-    Accounts: true
+    jest: true
   },
   rules: {
     'react/require-default-props': 'off',
