@@ -35,6 +35,6 @@ export default {
     justify: {
       type: 'boolean',
       title: 'Students must justify their answers'
-    },
+    }
   }
 };
