@@ -12,7 +12,8 @@ import {
   sessionStartCountDown,
   sessionCancelCountDown,
   sessionChangeCountDown,
-  restartSession
+  restartSession,
+  makeDebug
 } from '../../api/sessions';
 import { runSession, nextActivity } from '../../api/engine';
 
@@ -92,6 +93,12 @@ const ButtonList = ({
       type: 'danger',
       onClick: () => removeSession(session._id),
       text: 'Delete'
+    },
+    {
+      states: ['CREATED', 'STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: () => makeDebug(session._id),
+      text: 'Make session debug'
     },
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],

@@ -28,13 +28,16 @@ Meteor.methods({
         return;
       }
       sessionCancelCountDown(session._id);
-      const newSessionId = Meteor.call('add.session', graphId);
+      Meteor.call('flush.session', session._id);
+      const newSessionId = Meteor.call('add.session', graphId, { debug: true });
       runSession(newSessionId);
       nextActivity(newSessionId);
-      Meteor.call('flush.session', session._id);
     }
   }
 });
+
+export const makeDebug = (sessionId: string) =>
+  Sessions.update(sessionId, { $set: { slug: 'DEBUG' } });
 
 export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(Meteor.userId(), {
@@ -148,7 +151,7 @@ export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
 Meteor.methods({
-  'add.session': graphId => {
+  'add.session': (graphId, options = {}) => {
     if (Meteor.isServer) {
       const validOutput = valid(
         Activities.find({ graphId }).fetch(),
@@ -174,14 +177,18 @@ Meteor.methods({
         connections: Connections.find({ graphId }).fetch()
       });
 
-      const slugs = Sessions.find({}, { fields: { slug: 1 } })
-        .fetch()
-        .map(x => x.slug);
       let slug;
-      while (true) {
-        slug = genCodeOfNChar(4);
-        if (!slugs.includes(slug)) {
-          break;
+      if (options.debug) {
+        slug = 'DEBUG';
+      } else {
+        const slugs = Sessions.find({}, { fields: { slug: 1 } })
+          .fetch()
+          .map(x => x.slug);
+        while (true) {
+          slug = genCodeOfNChar(4);
+          if (!slugs.includes(slug)) {
+            break;
+          }
         }
       }
 
