@@ -2,24 +2,43 @@
 
 import React from 'react';
 import Form from 'react-jsonschema-form';
+import styled from 'styled-components'
 import type { ActivityRunnerT } from 'frog-utils';
 
+const Main = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FDFDFD;
+`
+
+const Container = styled.div`
+  max-width: 500px;
+  max-height: 100%;
+  margin: 10px;
+  flex: 0 1 auto;
+`
+
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
+
+  console.log(activityData.config)
+
   const schema = {
     title: activityData.config.name,
     type: 'object',
     properties: {}
   };
 
-  const uiSchema = {
-    MCQ: { 'ui:options': { backgroundColor: 'pink' } }
-  };
+  const uiSchema = {};
 
-  activityData.config.MCQ.forEach((q, i) => {
+  activityData.config.questions.filter(q => q.question && q.answers).forEach((q, i) => {
     const radio = {
       type: 'string',
       title: q.question,
-      enum: q.answers.map(answer => answer.answer)
+      enum: q.answers
     };
     const justification = {
       type: 'string',
@@ -48,10 +67,16 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   };
 
   return (
-    <div>
-      {data.completed
-        ? <h1>Form completed!</h1>
-        : <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />}
-    </div>
+    <Main>
+      <h1>{activityData.config.title || 'Quiz'}</h1>
+      <Container>
+        {activityData.config.guidelines || 'Answer the following questions'}
+      </Container>
+      <Container>
+        {data.completed
+          ? <h1>Form completed!</h1>
+          : <Form {...{ schema, uiSchema, formData, onSubmit, onChange }} />}
+      </Container>
+    </Main>
   );
 };

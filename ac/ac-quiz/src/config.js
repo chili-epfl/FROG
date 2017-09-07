@@ -3,16 +3,19 @@
 export default {
   type: 'object',
   properties: {
-    justify: {
-      type: 'boolean',
-      title: 'Students must justify their answers'
+    title: {
+      type: 'string',
+      title: 'Title'
     },
-    MCQ: {
-      title: 'MCQ',
+    guidelines: {
+      type: 'string',
+      title: 'Guidelines'
+    },
+    questions: {
       type: 'array',
+      title: 'Questions',
       items: {
         type: 'object',
-        title: 'New Question',
         properties: {
           question: {
             type: 'string',
@@ -20,19 +23,18 @@ export default {
           },
           answers: {
             type: 'array',
-            title: 'Possible answers',
+            title: 'Answers',
             items: {
-              type: 'object',
-              properties: {
-                answer: {
-                  type: 'string',
-                  title: 'Answer'
-                }
-              }
+              type: 'string',
+              title: 'answer'
             }
           }
         }
       }
-    }
+    },
+    justify: {
+      type: 'boolean',
+      title: 'Students must justify their answers'
+    },
   }
 };
