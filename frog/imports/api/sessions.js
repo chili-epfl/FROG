@@ -16,9 +16,26 @@ const DEFAULT_COUNTDOWN_LENGTH = 10000;
 const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
 const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
 
+export const Sessions = new Mongo.Collection('sessions');
+
 export const restartSession = (session: { fromGraphId: string, _id: string }) =>
   Meteor.call('sessions.restart', session);
-export const Sessions = new Mongo.Collection('sessions');
+
+Meteor.methods({
+  'sessions.restart': session => {
+    if (Meteor.isServer) {
+      const graphId = session.fromGraphId;
+      if (!graphId || !session) {
+        return;
+      }
+      sessionCancelCountDown(session._id);
+      const newSessionId = Meteor.call('add.session', graphId);
+      runSession(newSessionId);
+      nextActivity(newSessionId);
+      Meteor.call('flush.session', session._id);
+    }
+  }
+});
 
 export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(Meteor.userId(), {
@@ -133,59 +150,60 @@ export const removeSession = (sessionId: string) =>
 
 Meteor.methods({
   'add.session': graphId => {
-    const validOutput = valid(
-      Activities.find({ graphId }).fetch(),
-      Operators.find({ graphId }).fetch(),
-      Connections.find({ graphId }).fetch()
-    );
-    if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
-      Graphs.update(graphId, { $set: { broken: true } });
-      return 'invalidGraph';
-    }
-
-    const sessionId = uuid();
-    const graph = Graphs.findOne(graphId);
-    const count = Graphs.find({
-      name: { $regex: '#' + graph.name + '*' }
-    }).count();
-    const sessionName = '#' + graph.name + ' ' + (count + 1);
-
-    const copyGraphId = addGraph({
-      graph,
-      activities: Activities.find({ graphId }).fetch(),
-      operators: Operators.find({ graphId }).fetch(),
-      connections: Connections.find({ graphId }).fetch()
-    });
-
-    const slugs = Sessions.find({}, { fields: { slug: 1 } })
-      .fetch()
-      .map(x => x.slug);
-    let slug;
-    while (true) {
-      slug = genCodeOfNChar(4);
-      if (!slugs.includes(slug)) {
-        break;
+    if (Meteor.isServer) {
+      const validOutput = valid(
+        Activities.find({ graphId }).fetch(),
+        Operators.find({ graphId }).fetch(),
+        Connections.find({ graphId }).fetch()
+      );
+      if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
+        Graphs.update(graphId, { $set: { broken: true } });
+        return 'invalidGraph';
       }
+
+      const sessionId = uuid();
+      const graph = Graphs.findOne(graphId);
+      const count = Graphs.find({
+        name: { $regex: '#' + graph.name + '*' }
+      }).count();
+      const sessionName = '#' + graph.name + ' ' + (count + 1);
+
+      const copyGraphId = addGraph({
+        graph,
+        activities: Activities.find({ graphId }).fetch(),
+        operators: Operators.find({ graphId }).fetch(),
+        connections: Connections.find({ graphId }).fetch()
+      });
+
+      const slugs = Sessions.find({}, { fields: { slug: 1 } })
+        .fetch()
+        .map(x => x.slug);
+      let slug;
+      while (true) {
+        slug = genCodeOfNChar(4);
+        if (!slugs.includes(slug)) {
+          break;
+        }
+      }
+
+      Sessions.insert({
+        _id: sessionId,
+        fromGraphId: graphId,
+        name: sessionName,
+        graphId: copyGraphId,
+        state: 'CREATED',
+        timeInGraph: -1,
+        countdownStartTime: -1,
+        countdownLength: DEFAULT_COUNTDOWN_LENGTH,
+        pausedAt: null,
+        openActivities: [],
+        slug
+      });
+      Graphs.update(copyGraphId, { $set: { sessionId } });
+
+      setTeacherSession(sessionId);
+      return sessionId;
     }
-
-    Sessions.insert({
-      _id: sessionId,
-      fromGraphId: graphId,
-      name: sessionName,
-      graphId: copyGraphId,
-      state: 'CREATED',
-      timeInGraph: -1,
-      countdownStartTime: -1,
-      countdownLength: DEFAULT_COUNTDOWN_LENGTH,
-      pausedAt: null,
-      openActivities: [],
-      slug
-    });
-
-    Graphs.update(copyGraphId, { $set: { sessionId } });
-
-    setTeacherSession(sessionId);
-    return sessionId;
   },
   'flush.session': sessionId => {
     const session = Sessions.findOne(sessionId);
@@ -198,17 +216,6 @@ Meteor.methods({
     Activities.remove({ graphId });
     Operators.remove({ graphId });
     Connections.remove({ graphId });
-  },
-  'sessions.restart': session => {
-    const graphId = session.fromGraphId;
-    if (!graphId || !session) {
-      return;
-    }
-    Meteor.call('flush.session', session._id);
-    sessionCancelCountDown(session._id);
-    const newSessionId = Meteor.call('add.session', graphId);
-    runSession(newSessionId);
-    nextActivity(newSessionId);
   },
   'set.timeout': (delay, id) => {
     if (Meteor.isServer) {
