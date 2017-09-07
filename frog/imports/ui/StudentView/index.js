@@ -57,7 +57,7 @@ StudentViewComp.displayName = 'StudentView';
 export default createContainer(props => {
   const slug = props.match.params.slug.trim().toUpperCase();
 
-  const collections = ['student_session', 'session_activities'];
+  const collections = ['session_activities'];
   const subscriptions = collections.map(x => Meteor.subscribe(x, slug));
   return {
     session: Sessions.findOne({ slug }),

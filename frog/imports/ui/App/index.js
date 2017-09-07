@@ -30,9 +30,7 @@ Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();
 
 const subscriptionCallback = (error, response, setState) => {
-  console.log('callback', error, response);
   if (response === 'NOTVALID') {
-    console.error('Token not valid');
     setState('error');
   } else {
     Accounts.makeClientLoggedIn(
@@ -71,9 +69,7 @@ class FROGRouter extends Component {
         const username = query.login;
         if (username) {
           this.setState({ mode: 'loggingIn' });
-          console.log('debugl1');
           Meteor.call('frog.debuglogin', username, (err, id) => {
-            console.log('debugl', err, id);
             subscriptionCallback(err, id, x => this.setState({ mode: x }));
           });
         }
