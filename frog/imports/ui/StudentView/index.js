@@ -38,6 +38,10 @@ export default createContainer(props => {
   const curSession =
     user && user.profile ? Sessions.findOne(user.profile.currentSession) : null;
 
+  if (!user) {
+    return { cannotFind: true };
+  }
+
   const desiredSlug = props.match && props.match.params.slug;
 
   if (!desiredSlug) {

@@ -1,8 +1,9 @@
 // @flow
+
 import { cloneDeep, set, get, merge } from 'lodash';
 import traverse from 'traverse';
 
-export default (schema: Object, uiSchema: Object): Object => {
+export default (schema: Object, uiSchema: ?Object): Object => {
   if (schema === {} || (schema.properties && schema.properties === {})) {
     return { schema: {}, uiSchema: {} };
   }
