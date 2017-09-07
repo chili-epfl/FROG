@@ -1,12 +1,9 @@
 // @flow
+
 import React from 'react';
 import { FormControl } from 'react-bootstrap';
 
-export const SelectActivityWidget = ({
-  formContext,
-  onChange,
-  value = ''
-}: any) => {
+export default ({ formContext, onChange, value = '' }: any) => {
   const options = formContext.connectedActivities;
   return (
     <span>
