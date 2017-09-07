@@ -14,22 +14,30 @@ import {
 type PropT = Object;
 
 export default class ConfigForm extends Component {
-  state: Object;
+  // credit to Stian Håklev
+  shouldComponentUpdate(nextProps: PropT) {
+    let should = false;
+    // form must be refreshed when control operators change the applytoall value
+    if (this.props.nodeType.type === 'control') {
+      const thisData = this.props.node.data || {};
+      const nextData = nextProps.node.data || {};
+      should = should || thisData.applytoall !== nextData.applytoall;
+    }
+    // form must update if another ac/op is selected
+    should = should || this.props.node._id !== nextProps.node._id;
 
-  constructor(props: PropT) {
-    super(props);
-    this.state = this.getState(props);
+    return should;
   }
 
-  getState(props: PropT) {
+  render() {
     const {
       node,
       nodeType,
       valid,
       connectedActivities,
       refreshValidate
-    } = props;
-    return {
+    } = this.props;
+    const props = {
       formData: node.data,
       ...addSocialFormSchema(nodeType.config, nodeType.configUI),
       widgets: {
@@ -50,21 +58,10 @@ export default class ConfigForm extends Component {
         refreshValidate();
       }
     };
-  }
 
-  componentWillReceiveProps(nextProps: PropT) {
-    this.setState(this.getState(nextProps));
-  }
-
-  // credit to Stian Håklev
-  shouldComponentUpdate(nextProps: PropT) {
-    return this.props.node._id !== nextProps.node._id;
-  }
-
-  render() {
     const nodeConfig = this.props.nodeType.config;
     return nodeConfig && ![{}, undefined].includes(nodeConfig.properties)
-      ? <EnhancedForm showErrorList={false} noHtml5Validate {...this.state}>
+      ? <EnhancedForm showErrorList={false} noHtml5Validate {...props}>
           <div />
         </EnhancedForm>
       : null;
