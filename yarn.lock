@@ -4006,6 +4006,12 @@ jsx-ast-utils@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-1.4.1.tgz#3867213e8dd79bf1e8f2300c0cfc1efb182c0df1"
 
+katex@^0.7.0:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.7.1.tgz#06bb5298efad05e1e7228035ba8e1591f3061b8f"
+  dependencies:
+    match-at "^0.1.0"
+
 kefir@^3.2.0:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/kefir/-/kefir-3.7.1.tgz#e77f56feeec46f4a2ee2997e5c3226e904877b5b"
@@ -4220,6 +4226,10 @@ map-obj@^1.0.0, map-obj@^1.0.1:
 map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
+
+match-at@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/match-at/-/match-at-0.1.1.tgz#25d040d291777704d5e6556bbb79230ec2de0540"
 
 "match-stream@>= 0.0.2 < 1":
   version "0.0.2"
@@ -5369,6 +5379,12 @@ react-jsonschema-form@^0.49.0:
     lodash.topath "^4.5.2"
     prop-types "^15.5.8"
     setimmediate "^1.0.5"
+
+react-latex@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-latex/-/react-latex-1.0.1.tgz#208052ff0db20e413a1e070341ceb182607b52f5"
+  dependencies:
+    katex "^0.7.0"
 
 react-modal@^2.2.2:
   version "2.2.4"
