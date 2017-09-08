@@ -39,6 +39,7 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/react-event-listener/.*
 .*/node_modules/styled-components/.*
 .*node_modules/graphql/*
+.*node_modules/match-at/*
 
 # Ignore template files
 .*/templates/.*
