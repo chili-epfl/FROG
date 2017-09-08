@@ -7,6 +7,12 @@ export type ActivityDbT = {
   plane: number
 };
 
+export type OperatorDbT = {
+  _id: string,
+  type: string,
+  data: Object
+};
+
 // { aa: { group: 1, role: 'chef', color: 'red' },
 //   bb: { group: 2, role: 'waiter' },
 //   cc: { role: 'waiter' } }

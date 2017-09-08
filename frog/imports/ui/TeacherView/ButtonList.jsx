@@ -171,6 +171,9 @@ const ButtonList = ({
           startTime={session.countdownStartTime}
           length={session.countdownLength}
         />}
+      <b style={{ marginLeft: '20px' }}>
+        session: <a href={`/${session.slug}`}>{session.slug}</a>
+      </b>
     </div>
   );
 };

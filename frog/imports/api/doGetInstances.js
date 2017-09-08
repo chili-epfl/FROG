@@ -1,5 +1,6 @@
 // @flow
 
+import { Meteor } from 'meteor/meteor';
 import {
   getAttributeValues,
   type ObjectT,
@@ -22,7 +23,7 @@ export default (
   } else if (activity.plane === 2) {
     const key = activity.groupingKey;
     if (typeof key !== 'string') {
-      throw 'Need groupingKey in p2 activities';
+      throw new Meteor.Error('Need groupingKey in p2 activities, got:', key);
     } else {
       groups = getAttributeValues(object.socialStructure, key);
       structure = { groupingKey: key };

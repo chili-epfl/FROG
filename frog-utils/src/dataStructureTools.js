@@ -11,12 +11,12 @@ import { focusStudent } from './socstructTools';
 
 const mergeConfig = (
   configData: Object,
-  payload: dataUnitStructT
+  payload: ?dataUnitStructT
 ): dataUnitStructT => ({
-  data: payload.data,
+  data: payload ? payload.data : null,
   config: {
     ...configData,
-    ...payload.config
+    ...(payload ? payload.config : {})
   }
 });
 

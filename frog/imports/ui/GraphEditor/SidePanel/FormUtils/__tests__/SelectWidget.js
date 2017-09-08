@@ -1,3 +1,5 @@
+// @flow
+
 import addSocialFormSchema from '../addSocialSchema';
 
 const schema = {

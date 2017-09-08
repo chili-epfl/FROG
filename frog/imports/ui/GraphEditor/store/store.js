@@ -3,18 +3,19 @@ import { isEqual, sortBy } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
+import valid from '/imports/api/validGraphFn';
+import { Graphs, mergeGraph, setCurrentGraph } from '/imports/api/graphs';
+import { Activities, Connections, Operators } from '/imports/api/activities';
+
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';
 import ConnectionStore from './connectionStore';
 import Operator from './operator';
-import { Graphs, mergeGraph, setCurrentGraph } from '../../../api/graphs';
 import Activity from './activity';
 import Connection from './connection';
 import Session from './session';
 import UI from './uiStore';
-import { Activities, Connections, Operators } from '../../../api/activities';
 import { timeToPx } from '../utils';
-import valid from '../../../api/validGraphFn';
 
 type ElementTypes = 'operator' | 'activity' | 'connection';
 

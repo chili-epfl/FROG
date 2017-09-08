@@ -33,6 +33,7 @@ export {
 } from './dataStructureTools';
 export type {
   ActivityDbT,
+  OperatorDbT,
   studentStructureT,
   socialStructureT,
   dataUnitT,
