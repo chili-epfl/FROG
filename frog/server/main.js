@@ -19,9 +19,9 @@ import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 
-teacherImports();
-startShareDB();
 Meteor.users._ensureIndex('joinedSessions');
+startShareDB();
+teacherImports();
 
 Meteor.publish('userData', function() {
   const user = Meteor.user();
