@@ -27,17 +27,22 @@ const PreviewPage = ({
   history
 }) => {
   const showData = queryToObject(search.slice(1)).showData === 'true';
+  const windows = parseInt(queryToObject(search.slice(1)).windows) || 1;
   const setExample = ex =>
     history.push(`/preview/${activityTypeId || ''}/${ex}`);
   const setShowData = ex =>
     history.push(`/preview/${activityTypeId || ''}/${example}?showData=${ex}`);
   const dismiss = () => history.push(`/preview`);
+  const setWindows = ex =>
+    history.push(`/preview/${activityTypeId || ''}/${example}?windows=${ex}`);
   return activityTypeId
     ? <StatelessPreview
         {...{
           activityTypeId,
           example,
           setExample,
+          setWindows,
+          windows,
           showData,
           setShowData,
           dismiss,
