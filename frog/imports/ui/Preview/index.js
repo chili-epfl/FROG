@@ -27,7 +27,7 @@ const PreviewPage = ({
   history
 }) => {
   const showData = queryToObject(search.slice(1)).showData === 'true';
-  const windows = parseInt(queryToObject(search.slice(1)).windows) || 1;
+  const windows = parseInt(queryToObject(search.slice(1)).windows, 10) || 1;
   const setExample = ex =>
     history.push(`/preview/${activityTypeId || ''}/${ex}`);
   const setShowData = ex =>
