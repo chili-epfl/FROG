@@ -79,7 +79,11 @@ class Dashboard extends Component {
 }
 
 const DashboardNav = ({ activityId, setActivity, openActivities }) => {
-  const aId = activityId || openActivities[0]._id;
+  const aId =
+    activityId || (openActivities.length > 0 && openActivities[0]._id);
+  if (!aId) {
+    return null;
+  }
   return (
     <div>
       <h1>Dashboards</h1>

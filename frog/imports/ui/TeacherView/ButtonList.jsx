@@ -12,8 +12,8 @@ import {
   sessionStartCountDown,
   sessionCancelCountDown,
   sessionChangeCountDown,
-  joinAllStudents,
-  restartSession
+  restartSession,
+  makeDebug
 } from '../../api/sessions';
 import { runSession, nextActivity } from '../../api/engine';
 
@@ -95,10 +95,10 @@ const ButtonList = ({
       text: 'Delete'
     },
     {
-      states: ['CREATED'],
+      states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
-      onClick: () => joinAllStudents(session._id),
-      text: 'Join all online students'
+      onClick: () => makeDebug(session._id),
+      text: 'Make session debug'
     },
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
