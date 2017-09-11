@@ -20,27 +20,29 @@ const BoardPure = ({
   info,
   setInfo
 }) => {
-  const List = data.map((y, i) => {
-    const scaleX = 1000 / width;
-    const scaleY = 1000 / height;
-    console.log(scaleX, scaleY);
-    const openInfoFn = y => setInfo(y);
-    const setXY = (_, ui) => {
-      console.log(ui);
-      dataFn.numIncr(ui.deltaX, [i, 'x']);
-      dataFn.numIncr(ui.deltaY, [i, 'y']);
-    };
+  const scaleX = 1000 / width;
+  const scaleY = 1000 / height;
+  const offsetHeight = 100 / scaleY / 2;
+  const offsetWidth = 300 / scaleX / 2;
+  const setXY = (i, ui) => {
+    dataFn.objInsert((ui.x + offsetWidth) * scaleX, [i, 'x']);
+    dataFn.objInsert((ui.y + offsetHeight) * scaleY, [i, 'y']);
+  };
 
+  const List = data.map((y, i) => {
     return (
-      <ObservationContainer
-        key={y.id}
-        setXY={setXY}
-        openInfoFn={openInfoFn}
-        title={y.title}
-        content={y.content}
-        x={y.x / scaleX}
-        y={y.y / scaleY}
-      />
+      <div key={y.id}>
+        <ObservationContainer
+          setXY={(_, ui) => setXY(i, ui)}
+          openInfoFn={y => setInfo(y)}
+          title={y.title}
+          scaleY={scaleY}
+          scaleX={scaleX}
+          content={y.content}
+          x={y.x / scaleX - offsetWidth}
+          y={y.y / scaleY - offsetHeight}
+        />
+      </div>
     );
   });
 

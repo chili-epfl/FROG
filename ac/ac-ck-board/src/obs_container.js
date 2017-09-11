@@ -9,30 +9,36 @@ const ObservationContainer = ({
   openInfoFn,
   observation,
   x,
+  scaleY,
+  scaleX,
   y,
   title,
   content,
   width,
   height
 }) => {
+  const scaleText = (scaleX + scaleY) / 2;
   const style = {
-    height: 100,
-    width: 300,
-    margin: 20,
+    height: 100 / scaleY,
+    width: 300 / scaleX,
+    margin: 20 / scaleText,
     textAlign: 'center',
     display: 'inline-block'
   };
 
   return (
-    <Draggable onStart={() => true} onDrag={setXY} cancel=".nodrag">
+    <Draggable
+      onStart={() => true}
+      position={{ ...{ x, y } }}
+      onStop={setXY}
+      cancel=".nodrag"
+    >
       <div
         style={{
           position: 'absolute',
-          fontSize: '10px',
+          fontSize: 20 / scaleText + 'px',
           textOverflow: 'ellipsis',
-          overflow: 'hidden',
-          top: y,
-          left: x
+          overflow: 'hidden'
         }}
       >
         <Paper zDepth={3} style={style}>
@@ -44,10 +50,10 @@ const ObservationContainer = ({
           </div>
           <div
             style={{
-              fontSize: '8px',
+              fontSize: 16 / scaleText + 'px',
               float: 'left',
-              marginTop: '5px',
-              marginLeft: '2px'
+              marginTop: 5 / scaleText + 'px',
+              marginLeft: 2 / scaleText + 'px'
             }}
           >
             {shorten(content, 100)}
