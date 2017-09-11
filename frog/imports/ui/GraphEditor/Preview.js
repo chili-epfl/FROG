@@ -11,9 +11,21 @@ import { Inspector } from 'react-inspector';
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
 import ShareDB from 'sharedb';
+import { Mosaic, MosaicWindow } from 'react-mosaic-component';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
+
+const getInitialState = (activities, d = 1) => {
+  const n = Math.floor(activities.length / 2);
+  return n === 0
+    ? activities[0]
+    : {
+        direction: d > 0 ? 'row' : 'column',
+        first: getInitialState(activities.slice(0, n), -d),
+        second: getInitialState(activities.slice(n, activities.length), -d)
+      };
+};
 
 const ShowInfo = ({ activityData, data }) =>
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -49,7 +61,9 @@ export const StatelessPreview = withState(
     dismiss,
     config,
     isSeparatePage = false,
-    setReload
+    setReload,
+    windows = 1,
+    setWindows
   }: {
     activityTypeId: string,
     example: number,
@@ -59,7 +73,9 @@ export const StatelessPreview = withState(
     dismiss?: Function,
     config?: Object,
     isSeparatePage: boolean,
-    setReload: string => void
+    setReload: string => void,
+    windows: number,
+    setWindows: number => void
   }) => {
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
@@ -100,6 +116,17 @@ export const StatelessPreview = withState(
       doc
     )(showData ? ShowInfo : RunComp);
 
+    const Run = (
+      <ActivityToRun
+        activityData={activityData}
+        userInfo={{
+          name: Meteor.user().username,
+          id: Meteor.userId()
+        }}
+        logger={() => {}}
+      />
+    );
+
     return (
       <Modal
         contentLabel={'Preview of ' + activityType.id}
@@ -127,22 +154,48 @@ export const StatelessPreview = withState(
                 {x.title}
               </NavItem>
             )}
-          </Nav>{' '}
-          <A
-            onClick={() => {
-              Collections[`demo-${activityType.id}-${example}`] = uuid();
-              setReload(uuid());
-            }}
-          >
-            (Reset data)
-          </A>
+            <NavItem
+              key="reload"
+              onClick={() => {
+                Collections[`demo-${activityType.id}-${example}`] = uuid();
+                setReload(uuid());
+              }}
+            >
+              (Reset data)
+            </NavItem>
+            {windows > 1 &&
+              <NavItem key={'win-'} onClick={() => setWindows(windows - 1)}>
+                (win-)
+              </NavItem>}
+            <NavItem key={'win+'} onClick={() => setWindows(windows + 1)}>
+              (win+)
+            </NavItem>
+          </Nav>
         </div>
-        <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
-          <ActivityToRun
-            activityData={activityData}
-            userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
-            logger={() => {}}
-          />
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: 'calc(100% - 60px)'
+          }}
+          className="modal-body"
+        >
+          {windows === 1
+            ? Run
+            : <Mosaic
+                renderTile={x =>
+                  x !== 'NO'
+                    ? <MosaicWindow title={activityType.meta.name}>
+                        {Run}
+                      </MosaicWindow>
+                    : <MosaicWindow title="Empty">
+                        <div />
+                      </MosaicWindow>}
+                initialValue={getInitialState([
+                  activityType,
+                  ...Array(windows - 1).fill('NO')
+                ])}
+              />}
         </div>
       </Modal>
     );
@@ -151,7 +204,8 @@ export const StatelessPreview = withState(
 
 const StatefulPreview = compose(
   withState('example', 'setExample', 0),
-  withState('showData', 'setShowData', false)
+  withState('showData', 'setShowData', false),
+  withState('windows', 'setWindows', 1)
 )(StatelessPreview);
 
 StatefulPreview.displayName = 'StatefulPreview';
