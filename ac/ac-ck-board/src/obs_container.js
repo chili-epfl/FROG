@@ -7,15 +7,12 @@ import { shorten } from 'frog-utils';
 const ObservationContainer = ({
   setXY,
   openInfoFn,
-  observation,
   x,
   scaleY,
   scaleX,
   y,
   title,
-  content,
-  width,
-  height
+  content
 }) => {
   const scaleText = (scaleX + scaleY) / 2;
   const style = {
