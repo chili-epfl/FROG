@@ -48,6 +48,7 @@
     "op-prox": "1.0.0",
     "query-parse": "^1.0.0",
     "query-string": "^5.0.0",
+    "raven-js": "^3.17.0",
     "react": "^15.6.1",
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-addons-test-utils": "^15.6.0",

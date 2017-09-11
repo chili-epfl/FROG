@@ -24,6 +24,10 @@ const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
   if (isNotLoggedIn) {
     return <NotLoggedIn />;
   }
+
+  Raven.setUserContext({
+    user: Meteor.userId()
+  });
   if (!ready) {
     return process.env.NODE_ENV === 'production'
       ? <img src="/images/Spinner.gif" alt="" />
