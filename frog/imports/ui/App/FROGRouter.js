@@ -42,22 +42,29 @@ const Page = ({ isNotLoggedIn, isRedirect, isStudent, path, ready }) => {
   }
   return (
     <div id="app">
-      <TopBar />
       <Switch>
-        <Route path="/graph/:graphId" component={GraphEditor} />
-        <Route path="/graph" component={GraphEditor} />
-        <Route path="/teacher/:graphId" component={TeacherView} />
-        <Route path="/teacher" component={TeacherView} />
-        <Route path="/student" component={StudentView} />
-        <Route path="/admin" component={Admin} />
         <Route path="/preview/:activityTypeId/:example" component={Preview} />
         <Route path="/preview/:activityTypeId" component={Preview} />
-        <Route path="/preview" component={Preview} />
-        <Route component={FourOhFour} />
+        <Route component={WithTopBar} />
       </Switch>
     </div>
   );
 };
+
+const WithTopBar = () =>
+  <div>
+    <TopBar />
+    <Switch>
+      <Route path="/graph/:graphId" component={GraphEditor} />
+      <Route path="/graph" component={GraphEditor} />
+      <Route path="/teacher/:graphId" component={TeacherView} />
+      <Route path="/teacher" component={TeacherView} />
+      <Route path="/student" component={StudentView} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/preview" component={Preview} />
+      <Route component={FourOhFour} />
+    </Switch>
+  </div>;
 
 const PageContainer = createContainer((props: any) => {
   const username = queryToObject(props.location.search.slice(1)).login;

@@ -27,6 +27,7 @@ const PreviewPage = ({
   history
 }) => {
   const showData = queryToObject(search.slice(1)).showData === 'true';
+  const fullWindow = queryToObject(search.slice(1)).fullWindow === 'true';
   const windows = parseInt(queryToObject(search.slice(1)).windows, 10) || 1;
   const setExample = ex =>
     history.push(`/preview/${activityTypeId || ''}/${ex}`);
@@ -35,10 +36,14 @@ const PreviewPage = ({
   const dismiss = () => history.push(`/preview`);
   const setWindows = ex =>
     history.push(`/preview/${activityTypeId || ''}/${example}?windows=${ex}`);
+  const setFullWindow = () =>
+    history.push(`/preview/${activityTypeId || ''}/${example}?fullWindow=true`);
   return activityTypeId
     ? <StatelessPreview
         {...{
           activityTypeId,
+          setFullWindow,
+          fullWindow,
           example,
           setExample,
           setWindows,

@@ -12,6 +12,7 @@ import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
 import ShareDB from 'sharedb';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
+import Draggable from 'react-draggable';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -63,7 +64,9 @@ export const StatelessPreview = withState(
     isSeparatePage = false,
     setReload,
     windows = 1,
-    setWindows
+    setWindows,
+    fullWindow,
+    setFullWindow
   }: {
     activityTypeId: string,
     example: number,
@@ -75,7 +78,9 @@ export const StatelessPreview = withState(
     isSeparatePage: boolean,
     setReload: string => void,
     windows: number,
-    setWindows: number => void
+    setWindows: number => void,
+    fullWindow: boolean,
+    setFullWindow: boolean => void
   }) => {
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
@@ -127,83 +132,114 @@ export const StatelessPreview = withState(
       />
     );
 
-    return (
-      <Modal
-        contentLabel={'Preview of ' + activityType.id}
-        isOpen
-        onRequestClose={dismiss}
+    const Controls = (
+      <div className="modal-header">
+        <button type="button" className="close" onClick={dismiss}>
+          X
+        </button>
+        <h4 className="modal-title">
+          Preview of {activityType.meta.name} ({activityType.id}){' '}
+          <A onClick={() => setShowData(!showData)}>
+            (show {showData ? 'activity' : 'underlying data'})
+          </A>
+          {!isSeparatePage &&
+            <Link to={`/preview/${activityTypeId}/${example}`}>
+              (Open in separate window) +{' '}
+            </Link>}
+        </h4>
+        <Nav bsStyle="pills" activeKey={example}>
+          {examples.map((x, i) =>
+            // eslint-disable-next-line react/no-array-index-key
+            <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
+              {x.title}
+            </NavItem>
+          )}
+          <NavItem
+            key="reload"
+            onClick={() => {
+              Collections[`demo-${activityType.id}-${example}`] = uuid();
+              setReload(uuid());
+            }}
+          >
+            (Reset data)
+          </NavItem>
+          {windows > 1 &&
+            <NavItem key={'win-'} onClick={() => setWindows(windows - 1)}>
+              (win-)
+            </NavItem>}
+          <NavItem key={'win+'} onClick={() => setWindows(windows + 1)}>
+            (win+)
+          </NavItem>
+          <NavItem key={'full'} onClick={() => setFullWindow(true)}>
+            (maximize)
+          </NavItem>
+        </Nav>
+      </div>
+    );
+
+    const Content = (
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: 'calc(100% - 60px)'
+        }}
+        className="modal-body"
       >
-        <div className="modal-header">
-          <button type="button" className="close" onClick={dismiss}>
-            X
-          </button>
-          <h4 className="modal-title">
-            Preview of {activityType.meta.name} ({activityType.id}){' '}
-            <A onClick={() => setShowData(!showData)}>
-              (show {showData ? 'activity' : 'underlying data'})
-            </A>
-            {!isSeparatePage &&
-              <Link to={`/preview/${activityTypeId}/${example}`}>
-                (Open in separate window) +{' '}
-              </Link>}
-          </h4>
-          <Nav bsStyle="pills" activeKey={example}>
-            {examples.map((x, i) =>
-              // eslint-disable-next-line react/no-array-index-key
-              <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
-                {x.title}
-              </NavItem>
-            )}
-            <NavItem
-              key="reload"
-              onClick={() => {
-                Collections[`demo-${activityType.id}-${example}`] = uuid();
-                setReload(uuid());
+        {windows === 1
+          ? Run
+          : <Mosaic
+              renderTile={x =>
+                x !== 'NO'
+                  ? <MosaicWindow title={activityType.meta.name}>
+                      {Run}
+                    </MosaicWindow>
+                  : <MosaicWindow title="Empty">
+                      <div />
+                    </MosaicWindow>}
+              initialValue={getInitialState([
+                activityType,
+                ...Array(windows - 1).fill('NO')
+              ])}
+            />}
+      </div>
+    );
+
+    return fullWindow
+      ? <div>
+          <Draggable
+            onStart={() => true}
+            cancel=".nodrag"
+            defaultPosition={{ x: 400, y: 300 }}
+          >
+            <div
+              style={{
+                border: '1px solid',
+                width: '500px',
+                background: 'lightgreen'
               }}
             >
-              (Reset data)
-            </NavItem>
-            {windows > 1 &&
-              <NavItem key={'win-'} onClick={() => setWindows(windows - 1)}>
-                (win-)
-              </NavItem>}
-            <NavItem key={'win+'} onClick={() => setWindows(windows + 1)}>
-              (win+)
-            </NavItem>
-          </Nav>
+              {Controls}
+            </div>
+          </Draggable>
+          <div style={{ position: 'absolute', top: '0px', left: '0px' }}>
+            {Content}
+          </div>
         </div>
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: 'calc(100% - 60px)'
-          }}
-          className="modal-body"
+      : <Modal
+          contentLabel={'Preview of ' + activityType.id}
+          isOpen
+          onRequestClose={dismiss}
         >
-          {windows === 1
-            ? Run
-            : <Mosaic
-                renderTile={x =>
-                  x !== 'NO'
-                    ? <MosaicWindow title={activityType.meta.name}>
-                        {Run}
-                      </MosaicWindow>
-                    : <MosaicWindow title="Empty">
-                        <div />
-                      </MosaicWindow>}
-                initialValue={getInitialState([
-                  activityType,
-                  ...Array(windows - 1).fill('NO')
-                ])}
-              />}
-        </div>
-      </Modal>
-    );
+          {Controls}
+          {Content}
+        </Modal>;
   }
 );
 
 const StatefulPreview = compose(
   withState('example', 'setExample', 0),
+  withState('fullWindow', 'setFullWindow', false),
   withState('showData', 'setShowData', false),
   withState('windows', 'setWindows', 1)
 )(StatelessPreview);
