@@ -1,41 +1,117 @@
 // @flow
+/* eslint-disable prefer-arrow-func */
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
 
 import { Meteor } from 'meteor/meteor';
-
+import { publishComposite } from 'meteor/reywood:publish-composite';
 import { startShareDB } from './share-db-manager';
 
 import '../imports/startup/shutdown-if-env.js';
 
-import { Messages } from '../imports/api/messages.js';
+import teacherImports from './teacherImports';
 import {
   Activities,
   Operators,
   Connections
 } from '../imports/api/activities.js';
-import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
-import { Logs } from '../imports/api/logs.js';
-import { ActivityData } from '../imports/api/activityData.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
-import { GlobalSettings } from '../imports/api/global.js';
-import { Uploads } from '../imports/api/uploads.js';
-import { OpenUploads } from '../imports/api/openUploads.js';
-// import '../imports/api/engine.js';
 
-Meteor.publish('userData', () => Meteor.users.find({}));
-Meteor.publish('activities', () => Activities.find({}));
-Meteor.publish('operators', () => Operators.find({}));
-Meteor.publish('connections', () => Connections.find({}));
-Meteor.publish('activity_data', () => ActivityData.find({}));
-Meteor.publish('global_settings', () => GlobalSettings.find({}));
-Meteor.publish('graphs', () => Graphs.find({}));
-Meteor.publish('logs', () => Logs.find({}));
-Meteor.publish('messages', () => Messages.find({})); // unused ???
-Meteor.publish('objects', () => Objects.find({}));
-Meteor.publish('products', () => Products.find({}));
-Meteor.publish('sessions', () => Sessions.find({}));
-Meteor.publish('uploads', () => Uploads.find({}));
-Meteor.publish('openUploads', () => OpenUploads.find({}));
-
+Meteor.users._ensureIndex('joinedSessions');
 startShareDB();
+teacherImports();
+
+Meteor.publish('userData', function() {
+  const user = Meteor.user();
+  const username = user && user.username;
+  if (username === 'teacher') {
+    return Meteor.users.find(
+      {},
+      { fields: { username: 1, joinedSessions: 1 } }
+    );
+  }
+  if (!username) {
+    return this.ready();
+  }
+  return Meteor.users.find(this.userId, {
+    fields: { username: 1, joinedSessions: 1 }
+  });
+});
+
+publishComposite('session_activities', function(slug) {
+  return {
+    find() {
+      return Meteor.users.find(this.userId);
+    },
+    children: [
+      {
+        find(user) {
+          if (user.joinedSessions && user.joinedSessions.includes(slug)) {
+            return Sessions.find({ slug });
+          }
+        },
+        children: [
+          {
+            find(session) {
+              const operators = Operators.find({
+                graphId: session.graphId
+              }).fetch();
+              const connections = Connections.find({
+                graphId: session.graphId
+              }).fetch();
+              return Activities.find({
+                _id: {
+                  $in: session.openActivities.filter(x =>
+                    checkActivity(x, operators, connections, this.userId)
+                  )
+                }
+              });
+            },
+            children: [
+              {
+                find(activity) {
+                  return Objects.find(activity._id);
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+});
+
+const checkActivity = (activityId, operators, connections, userid) => {
+  const connectedNodes = connections
+    .filter(x => x.target.id === activityId)
+    .map(x => x.source.id);
+  const controlOp = operators.find(x => connectedNodes.includes(x._id));
+  if (!controlOp) {
+    return true;
+  }
+
+  const structraw = Products.findOne(controlOp._id);
+  const struct = structraw && structraw.controlStructure;
+  if (!struct) {
+    return true;
+  }
+
+  if (struct.list && !struct.list[activityId]) {
+    return true;
+  }
+
+  const cond = struct.all ? struct.all : struct.list[activityId];
+  if (cond.structure === 'individual') {
+    const payload = cond.payload[userid];
+    if (!payload && cond.mode === 'include') {
+      return false;
+    }
+
+    if (payload && cond.mode === 'exclude') {
+      return false;
+    }
+    return true;
+  }
+};

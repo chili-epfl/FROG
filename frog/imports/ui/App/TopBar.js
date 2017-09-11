@@ -19,7 +19,6 @@ const TopBar = () =>
     <Link to="/graph">Graph Editor</Link>
     <Link to="/preview">Preview</Link>
     <Link to="/teacher">Teacher View</Link>
-    <Link to="/student">Student View</Link>
   </ul>;
 
 TopBar.displayName = 'TopBar';

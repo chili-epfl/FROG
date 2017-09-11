@@ -101,14 +101,13 @@ export const mergeGraph = (mergeObj: Object) => {
 };
 
 export const setCurrentGraph = (graphId: string) => {
-  Meteor.users.update(
-    { _id: Meteor.userId() },
-    { $set: { 'profile.editingGraph': graphId } }
-  );
+  Meteor.users.update(Meteor.userId(), {
+    $set: { 'profile.editingGraph': graphId }
+  });
 };
 
 export const assignGraph = (wantedId: string) => {
-  const user = Meteor.users.findOne(Meteor.userId());
+  const user = Meteor.user();
   if (wantedId && Graphs.findOne(wantedId)) {
     return wantedId;
   }

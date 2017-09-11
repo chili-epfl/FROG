@@ -9,7 +9,6 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
-import { Activities } from '../../api/activities';
 import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
 
@@ -77,8 +76,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
   }
 };
 
-export default createContainer(({ activityId, single }) => {
-  const object = Objects.findOne(activityId);
-  const activity = Activities.findOne(activityId);
-  return { activity, object, single };
+export default createContainer(({ activity }) => {
+  const object = Objects.findOne(activity._id);
+  return { object };
 }, Runner);
