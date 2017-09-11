@@ -30,6 +30,18 @@ export const meta = {
         { title: 'Gramsci', content: 'Italian thinker' },
         { title: 'Friedman', content: 'Economist' }
       ]
+    },
+    {
+      title: 'Background image',
+      config: {
+        quadrants: false,
+        image: true,
+        imageurl: 'http://localhost:3000/cfs/files/uploads/Ezc4uSTKPoqe8skcw'
+      },
+      data: [
+        { title: 'Box 1', content: 'Contents of box 1' },
+        { title: 'Box 2', content: 'Contents of box 2' }
+      ]
     }
   ]
 };

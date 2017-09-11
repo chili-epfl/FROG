@@ -5,10 +5,15 @@ import Draggable from 'react-draggable';
 import { shorten } from 'frog-utils';
 
 const ObservationContainer = ({
-  parentRef,
   setXY,
   openInfoFn,
-  observation
+  observation,
+  x,
+  y,
+  title,
+  content,
+  width,
+  height
 }) => {
   const style = {
     height: 100,
@@ -19,26 +24,20 @@ const ObservationContainer = ({
   };
 
   return (
-    <Draggable
-      onStart={() => true}
-      onStop={setXY}
-      cancel=".nodrag"
-      bounds="parent"
-      offsetParent={parentRef}
-    >
+    <Draggable onStart={() => true} onDrag={setXY} cancel=".nodrag">
       <div
         style={{
           position: 'absolute',
           fontSize: '10px',
           textOverflow: 'ellipsis',
           overflow: 'hidden',
-          top: observation.y,
-          left: observation.x
+          top: y,
+          left: x
         }}
       >
         <Paper zDepth={3} style={style}>
           <div>
-            {shorten(observation.title, 20)}
+            {shorten(title, 20)}
             <span style={{ float: 'right' }} className="noDrag">
               <AspectRatio onClick={openInfoFn} />
             </span>
@@ -51,7 +50,7 @@ const ObservationContainer = ({
               marginLeft: '2px'
             }}
           >
-            {shorten(observation.content, 100)}
+            {shorten(content, 100)}
           </div>
         </Paper>
       </div>
