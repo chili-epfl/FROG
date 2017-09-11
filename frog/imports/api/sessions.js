@@ -1,8 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { Presences } from 'meteor/tmeasday:presence';
-import { compact, shuffle } from 'lodash';
+import { shuffle } from 'lodash';
 import { uuid } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
@@ -16,29 +15,35 @@ const DEFAULT_COUNTDOWN_LENGTH = 10000;
 const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
 const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
 
+export const Sessions = new Mongo.Collection('sessions');
+
 export const restartSession = (session: { fromGraphId: string, _id: string }) =>
   Meteor.call('sessions.restart', session);
-export const Sessions = new Mongo.Collection('sessions');
+
+Meteor.methods({
+  'sessions.restart': session => {
+    if (Meteor.isServer) {
+      const graphId = session.fromGraphId;
+      if (!graphId || !session) {
+        return;
+      }
+      sessionCancelCountDown(session._id);
+      Meteor.call('flush.session', session._id);
+      const newSessionId = Meteor.call('add.session', graphId, { debug: true });
+      runSession(newSessionId);
+      nextActivity(newSessionId);
+    }
+  }
+});
+
+export const makeDebug = (sessionId: string) =>
+  Sessions.update(sessionId, { $set: { slug: 'DEBUG' } });
 
 export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(Meteor.userId(), {
     $set: { 'profile.controlSession': sessionId }
   });
 };
-
-export const setStudentSession = (sessionId: string) => {
-  Meteor.call('set.studentsession', sessionId, Meteor.userId());
-};
-
-Meteor.methods({
-  'set.studentsession': (sessionId, studentId) =>
-    Meteor.users.update(studentId, {
-      $set: { 'profile.currentSession': sessionId }
-    })
-});
-
-export const ensureReactive = (sessionId: string) =>
-  Meteor.call('ensure.reactive', sessionId, Meteor.userId());
 
 export const addSession = (graphId: string) => {
   Meteor.call('add.session', graphId, (err, result) => {
@@ -145,71 +150,66 @@ export const updateOpenActivities = (
 export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
-export const joinAllStudents = (sessionId: string) =>
-  Meteor.call('session.joinall', sessionId);
-
 Meteor.methods({
-  'session.joinall': sessionId => {
-    const currentUsers = compact(Presences.find().fetch().map(x => x.userId));
-    Meteor.users.update(
-      { _id: { $in: currentUsers }, username: { $not: { $eq: 'teacher' } } },
-      { $set: { 'profile.currentSession': sessionId } },
-      { multi: true }
-    );
-  },
-  'add.session': graphId => {
-    const validOutput = valid(
-      Activities.find({ graphId }).fetch(),
-      Operators.find({ graphId }).fetch(),
-      Connections.find({ graphId }).fetch()
-    );
-    if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
-      Graphs.update(graphId, { $set: { broken: true } });
-      return 'invalidGraph';
-    }
-
-    const sessionId = uuid();
-    const graph = Graphs.findOne(graphId);
-    const count = Graphs.find({
-      name: { $regex: '#' + graph.name + '*' }
-    }).count();
-    const sessionName = '#' + graph.name + ' ' + (count + 1);
-
-    const copyGraphId = addGraph({
-      graph,
-      activities: Activities.find({ graphId }).fetch(),
-      operators: Operators.find({ graphId }).fetch(),
-      connections: Connections.find({ graphId }).fetch()
-    });
-
-    const slugs = Sessions.find({}, { fields: { slug: 1 } })
-      .fetch()
-      .map(x => x.slug);
-    let slug;
-    while (true) {
-      slug = genCodeOfNChar(4);
-      if (!slugs.includes(slug)) {
-        break;
+  'add.session': (graphId, options = {}) => {
+    if (Meteor.isServer) {
+      const validOutput = valid(
+        Activities.find({ graphId }).fetch(),
+        Operators.find({ graphId }).fetch(),
+        Connections.find({ graphId }).fetch()
+      );
+      if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
+        Graphs.update(graphId, { $set: { broken: true } });
+        return 'invalidGraph';
       }
+
+      const sessionId = uuid();
+      const graph = Graphs.findOne(graphId);
+      const count = Graphs.find({
+        name: { $regex: '#' + graph.name + '*' }
+      }).count();
+      const sessionName = '#' + graph.name + ' ' + (count + 1);
+
+      const copyGraphId = addGraph({
+        graph,
+        activities: Activities.find({ graphId }).fetch(),
+        operators: Operators.find({ graphId }).fetch(),
+        connections: Connections.find({ graphId }).fetch()
+      });
+
+      let slug;
+      if (options.debug) {
+        slug = 'DEBUG';
+      } else {
+        const slugs = Sessions.find({}, { fields: { slug: 1 } })
+          .fetch()
+          .map(x => x.slug);
+        while (true) {
+          slug = genCodeOfNChar(4);
+          if (!slugs.includes(slug)) {
+            break;
+          }
+        }
+      }
+
+      Sessions.insert({
+        _id: sessionId,
+        fromGraphId: graphId,
+        name: sessionName,
+        graphId: copyGraphId,
+        state: 'CREATED',
+        timeInGraph: -1,
+        countdownStartTime: -1,
+        countdownLength: DEFAULT_COUNTDOWN_LENGTH,
+        pausedAt: null,
+        openActivities: [],
+        slug
+      });
+      Graphs.update(copyGraphId, { $set: { sessionId } });
+
+      setTeacherSession(sessionId);
+      return sessionId;
     }
-
-    Sessions.insert({
-      _id: sessionId,
-      fromGraphId: graphId,
-      name: sessionName,
-      graphId: copyGraphId,
-      state: 'CREATED',
-      timeInGraph: -1,
-      countdownStartTime: -1,
-      countdownLength: DEFAULT_COUNTDOWN_LENGTH,
-      pausedAt: null,
-      slug
-    });
-
-    Graphs.update(copyGraphId, { $set: { sessionId } });
-
-    setTeacherSession(sessionId);
-    return sessionId;
   },
   'flush.session': sessionId => {
     const session = Sessions.findOne(sessionId);
@@ -222,18 +222,6 @@ Meteor.methods({
     Activities.remove({ graphId });
     Operators.remove({ graphId });
     Connections.remove({ graphId });
-  },
-  'sessions.restart': session => {
-    const graphId = session.fromGraphId;
-    if (!graphId || !session) {
-      return;
-    }
-    Meteor.call('flush.session', session._id);
-    sessionCancelCountDown(session._id);
-    const newSessionId = Meteor.call('add.session', graphId);
-    Meteor.call('session.joinall', newSessionId);
-    runSession(newSessionId);
-    nextActivity(newSessionId);
   },
   'set.timeout': (delay, id) => {
     if (Meteor.isServer) {
