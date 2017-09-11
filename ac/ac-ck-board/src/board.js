@@ -31,7 +31,7 @@ const BoardPure = ({
     <div key={y.id}>
       <ObservationContainer
         setXY={(_, ui) => setXY(i, ui)}
-        openInfoFn={e => setInfo(e)}
+        openInfoFn={() => setInfo(y)}
         title={y.title}
         scaleY={scaleY}
         scaleX={scaleX}
@@ -41,27 +41,28 @@ const BoardPure = ({
       />
     </div>
   );
-
+  if (!width || !height) {
+    return null;
+  }
   return (
     <MuiThemeProvider>
-      {width &&
-        height &&
-        <div style={{ height: '100%', width: '100%' }}>
-          {config.quadrants &&
-            <Quadrants config={config} width={width} height={height} />}
-          {config.image &&
-            <img
-              src={config.imageurl}
-              alt="Background"
-              style={{ width: width + 'px', height: height + 'px' }}
-            />}
-          {width && height && List}
-          {info &&
-            <ObservationDetail
-              observation={info}
-              closeInfoFn={() => setInfo(null)}
-            />}
-        </div>}
+      <div style={{ height: '100%', width: '100%' }}>
+        {config.quadrants &&
+          <Quadrants config={config} width={width} height={height} />}
+        {config.image &&
+          <img
+            src={config.imageurl}
+            alt="Background"
+            style={{ width: width + 'px', height: height + 'px' }}
+          />}
+        {width && height && List}
+        {info &&
+          <ObservationDetail
+            title={info.title}
+            content={info.content}
+            closeInfoFn={() => setInfo(null)}
+          />}
+      </div>
     </MuiThemeProvider>
   );
 };
