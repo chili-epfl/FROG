@@ -8,16 +8,17 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
+    "frog-utils": "^1.0.0",
     "material-ui": "^0.18.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-draggable": "^3.0.3",
     "react-dropzone": "^4.0.0",
     "react-icons": "^2.2.5",
+    "react-resize-aware": "^2.7.0",
     "react-tap-event-plugin": "2.0.1",
     "recompose": "^0.24.0",
-    "styled-components": "^2.1.2",
-    "frog-utils": "^1.0.0"
+    "styled-components": "^2.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",

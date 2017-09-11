@@ -5291,11 +5291,18 @@ react-dom@^15.3.2, react-dom@^15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react-draggable@^2.2.3, "react-draggable@github:houshuang/react-draggable":
+react-draggable@^2.2.3:
   version "2.2.6"
   resolved "https://codeload.github.com/houshuang/react-draggable/tar.gz/a010201d785d216913a64c679755f50101d47729"
   dependencies:
     classnames "^2.2.5"
+
+react-draggable@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-3.0.3.tgz#a6f9b3a7171981b76dadecf238316925cb9eacf4"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.10"
 
 react-dropzone@^4.0.0:
   version "4.0.0"
@@ -5430,6 +5437,10 @@ react-prop-types@^0.4.0:
   resolved "https://registry.yarnpkg.com/react-prop-types/-/react-prop-types-0.4.0.tgz#f99b0bfb4006929c9af2051e7c1414a5c75b93d0"
   dependencies:
     warning "^3.0.0"
+
+react-resize-aware@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-resize-aware/-/react-resize-aware-2.7.0.tgz#1bb6d0b45a234d94d412b5c3f5e9d2ffbf973429"
 
 react-router-dom@^4.1.2:
   version "4.1.2"
