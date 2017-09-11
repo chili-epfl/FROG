@@ -4,7 +4,12 @@ import AspectRatio from 'react-icons/lib/md/aspect-ratio';
 import Draggable from 'react-draggable';
 import { shorten } from 'frog-utils';
 
-export default ({ setXY, openInfoFn, observation }) => {
+const ObservationContainer = ({
+  parentRef,
+  setXY,
+  openInfoFn,
+  observation
+}) => {
   const style = {
     height: 100,
     width: 300,
@@ -14,7 +19,13 @@ export default ({ setXY, openInfoFn, observation }) => {
   };
 
   return (
-    <Draggable onStart={() => true} onStop={setXY} cancel=".nodrag">
+    <Draggable
+      onStart={() => true}
+      onStop={setXY}
+      cancel=".nodrag"
+      bounds="parent"
+      offsetParent={parentRef}
+    >
       <div
         style={{
           position: 'absolute',
@@ -47,3 +58,5 @@ export default ({ setXY, openInfoFn, observation }) => {
     </Draggable>
   );
 };
+
+export default ObservationContainer;
