@@ -230,6 +230,9 @@ export const StatelessPreview = withState(
                 zIndex: 99,
                 border: '1px solid',
                 width: '500px',
+                position: 'fixed',
+                top: '200px',
+                left: '200px',
                 background: 'lightgreen'
               }}
             >
