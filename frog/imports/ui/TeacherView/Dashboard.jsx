@@ -16,8 +16,8 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-class Dashboard extends Component {
-  state: { data: any };
+export class Dashboard extends Component {
+  state: { data: any, doc?: any };
   doc: any;
   timeout: ?number;
   unmounted: boolean;
@@ -38,11 +38,15 @@ class Dashboard extends Component {
   }
 
   init(props: Object) {
-    this.doc = connection.get('rz', props.activity._id + '//DASHBOARD');
-    this.doc.subscribe();
-    this.doc.on('ready', this.update);
-    this.doc.on('op', this.update);
-    this.waitForDoc();
+    if (this.props.doc) {
+      this.doc = this.props.doc;
+    } else {
+      this.doc = connection.get('rz', props.activity._id + '//DASHBOARD');
+      this.doc.subscribe();
+      this.doc.on('ready', this.update);
+      this.doc.on('op', this.update);
+      this.waitForDoc();
+    }
   }
 
   waitForDoc = () => {
