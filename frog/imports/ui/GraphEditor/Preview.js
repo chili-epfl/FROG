@@ -15,7 +15,7 @@ import Draggable from 'react-draggable';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
-import { Dashboard } from '../TeacherView/Dashboard';
+import { DashboardComp } from '../TeacherView/Dashboard';
 
 const Icon = ({ onClick, icon }) =>
   <span style={{ marginLeft: '10px' }}>
@@ -190,11 +190,10 @@ export const StatelessPreview = withState(
             }}
             icon="fa fa-refresh"
           />
-          {windows > 1 &&
-            <Icon
-              onClick={() => setWindows(windows - 1)}
-              icon="fa fa-minus-square"
-            />}
+          <Icon
+            onClick={() => windows > 1 && setWindows(windows - 1)}
+            icon="fa fa-minus-square"
+          />
           <Icon onClick={() => setWindows(windows + 1)} icon="fa fa-plus" />
           <Icon onClick={() => setFullWindow(true)} icon="fa fa-arrows-alt" />
           {!isSeparatePage &&
@@ -233,9 +232,16 @@ export const StatelessPreview = withState(
                   ? <MosaicWindow
                       title={'dashboard - ' + activityType.meta.name}
                     >
-                      <Dashboard
+                      <DashboardComp
                         activity={{ activityType: activityType.id }}
                         doc={dashboard}
+                        users={[
+                          'Chen Li',
+                          'Maurice',
+                          'dashboard',
+                          'Edgar',
+                          'Noel'
+                        ].map((e, i) => ({ _id: i + 1, username: e }))}
                       />
                     </MosaicWindow>
                   : <MosaicWindow

@@ -17,7 +17,7 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-class DashboardComp extends Component {
+export class DashboardComp extends Component {
   state: { data: any };
   doc: any;
   timeout: ?number;
@@ -41,6 +41,8 @@ class DashboardComp extends Component {
   init(props: Object) {
     if (this.props.doc) {
       this.doc = this.props.doc;
+      this.update();
+      this.doc.on('op', this.update);
     } else {
       this.doc = connection.get('rz', props.activity._id + '//DASHBOARD');
       this.doc.subscribe();
