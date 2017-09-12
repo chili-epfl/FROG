@@ -17,6 +17,13 @@ import Draggable from 'react-draggable';
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 
+const Icon = ({ onClick, icon }) =>
+  <span style={{ marginLeft: '10px' }}>
+    <A onClick={onClick}>
+      <i className={icon} />
+    </A>
+  </span>;
+
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);
   return n === 0
@@ -138,13 +145,31 @@ export const StatelessPreview = withState(
           X
         </button>
         <h4 className="modal-title">
-          Preview of {activityType.meta.name} ({activityType.id}){' '}
-          <A onClick={() => setShowData(!showData)}>
-            (show {showData ? 'activity' : 'underlying data'})
-          </A>
+          Preview of {activityType.meta.name} ({activityType.id})
+          <Icon
+            onClick={() => setShowData(!showData)}
+            icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
+          />
+          <Icon
+            onClick={() => {
+              Collections[`demo-${activityType.id}-${example}`] = uuid();
+              setReload(uuid());
+            }}
+            icon="fa fa-refresh"
+          />
+          {windows > 1 &&
+            <Icon
+              onClick={() => setWindows(windows - 1)}
+              icon="fa fa-minus-square"
+            />}
+          <Icon onClick={() => setWindows(windows + 1)} icon="fa fa-plus" />
+          <Icon onClick={() => setFullWindow(true)} icon="fa fa-arrows-alt" />
           {!isSeparatePage &&
-            <Link to={`/preview/${activityTypeId}/${example}`}>
-              (Open in separate window) +{' '}
+            <Link
+              style={{ marginLeft: '10px' }}
+              to={`/preview/${activityTypeId}/${example}`}
+            >
+              <i className="fa fa-share" />
             </Link>}
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
@@ -154,37 +179,18 @@ export const StatelessPreview = withState(
               {x.title}
             </NavItem>
           )}
-          <NavItem
-            key="reload"
-            onClick={() => {
-              Collections[`demo-${activityType.id}-${example}`] = uuid();
-              setReload(uuid());
-            }}
-          >
-            (Reset data)
-          </NavItem>
-          {windows > 1 &&
-            <NavItem key={'win-'} onClick={() => setWindows(windows - 1)}>
-              (win-)
-            </NavItem>}
-          <NavItem key={'win+'} onClick={() => setWindows(windows + 1)}>
-            (win+)
-          </NavItem>
-          <NavItem key={'full'} onClick={() => setFullWindow(true)}>
-            (maximize)
-          </NavItem>
         </Nav>
       </div>
     );
 
     const Content = (
       <div
+        className="modal-body"
         style={{
           position: 'relative',
           width: '100%',
           height: 'calc(100% - 60px)'
         }}
-        className="modal-body"
       >
         {windows === 1
           ? Run
@@ -207,13 +213,21 @@ export const StatelessPreview = withState(
 
     return fullWindow
       ? <div>
-          <Draggable
-            onStart={() => true}
-            cancel=".nodrag"
-            defaultPosition={{ x: 400, y: 300 }}
+          <div
+            style={{
+              position: 'relative',
+              top: '0px',
+              left: '0px',
+              height: '100vh',
+              width: '100vw'
+            }}
           >
+            {Content}
+          </div>
+          <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
             <div
               style={{
+                zIndex: 99,
                 border: '1px solid',
                 width: '500px',
                 background: 'lightgreen'
@@ -222,9 +236,6 @@ export const StatelessPreview = withState(
               {Controls}
             </div>
           </Draggable>
-          <div style={{ position: 'absolute', top: '0px', left: '0px' }}>
-            {Content}
-          </div>
         </div>
       : <Modal
           contentLabel={'Preview of ' + activityType.id}
