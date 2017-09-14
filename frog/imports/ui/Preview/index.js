@@ -27,18 +27,38 @@ const PreviewPage = ({
   history
 }) => {
   const showData = queryToObject(search.slice(1)).showData === 'true';
+  const fullWindow = queryToObject(search.slice(1)).fullWindow === 'true';
   const windows = parseInt(queryToObject(search.slice(1)).windows, 10) || 1;
   const setExample = ex =>
-    history.push(`/preview/${activityTypeId || ''}/${ex}`);
+    history.push(
+      `/preview/${activityTypeId || ''}/${ex}${fullWindow
+        ? '?fullWindow=true'
+        : ''}`
+    );
   const setShowData = ex =>
-    history.push(`/preview/${activityTypeId || ''}/${example}?showData=${ex}`);
+    history.push(
+      `/preview/${activityTypeId || ''}/${example}?showData=${ex}${fullWindow
+        ? '&fullWindow=true'
+        : ''}`
+    );
   const dismiss = () => history.push(`/preview`);
   const setWindows = ex =>
-    history.push(`/preview/${activityTypeId || ''}/${example}?windows=${ex}`);
+    history.push(
+      `/preview/${activityTypeId || ''}/${example}?windows=${ex}${fullWindow
+        ? '&fullWindow=true'
+        : ''}`
+    );
+  const setFullWindow = () =>
+    history.push(
+      `/preview/${activityTypeId ||
+        ''}/${example}?windows=${windows}&fullWindow=true`
+    );
   return activityTypeId
     ? <StatelessPreview
         {...{
           activityTypeId,
+          setFullWindow,
+          fullWindow,
           example,
           setExample,
           setWindows,
