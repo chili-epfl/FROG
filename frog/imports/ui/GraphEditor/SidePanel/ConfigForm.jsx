@@ -14,19 +14,17 @@ import {
 type PropT = Object;
 
 export default class ConfigForm extends Component {
-  // credit to Stian Håklev
-  shouldComponentUpdate(nextProps: PropT) {
-    let should = false;
-    // form must be refreshed when control operators change the applytoall value
-    if (this.props.nodeType.type === 'control') {
-      const thisData = this.props.node.data || {};
-      const nextData = nextProps.node.data || {};
-      should = should || thisData.applytoall !== nextData.applytoall;
-    }
-    // form must update if another ac/op is selected
-    should = should || this.props.node._id !== nextProps.node._id;
+  state: { formData: Object };
 
-    return should;
+  constructor(props: PropT) {
+    super(props);
+    this.state = { formData: this.props.node.data };
+  }
+
+  componentWillReceiveProps(nextProps: PropT) {
+    if (this.props.node._id !== nextProps.node._id) {
+      this.setState({ formData: nextProps.node.data });
+    }
   }
 
   render() {
@@ -38,7 +36,7 @@ export default class ConfigForm extends Component {
       refreshValidate
     } = this.props;
     const props = {
-      formData: node.data,
+      formData: this.state.formData,
       ...addSocialFormSchema(nodeType.config, nodeType.configUI),
       widgets: {
         socialAttributeWidget: SelectFormWidget,
@@ -50,6 +48,7 @@ export default class ConfigForm extends Component {
         groupingKey: node.groupingKey
       },
       onChange: data => {
+        this.setState({ formData: data.formData });
         if (node.operatorType) {
           addOperator(node.operatorType, data.formData, node._id);
         } else {
