@@ -36,7 +36,7 @@ export const meta = {
       config: {
         quadrants: false,
         image: true,
-        imageurl: 'http://localhost:3000/cfs/files/uploads/Ezc4uSTKPoqe8skcw'
+        imageurl: 'https://i.imgur.com/FzCbRU9.png'
       },
       data: [
         { title: 'Box 1', content: 'Contents of box 1' },
