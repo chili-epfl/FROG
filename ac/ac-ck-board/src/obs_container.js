@@ -4,46 +4,61 @@ import AspectRatio from 'react-icons/lib/md/aspect-ratio';
 import Draggable from 'react-draggable';
 import { shorten } from 'frog-utils';
 
-export default ({ setXY, openInfoFn, observation }) => {
+const ObservationContainer = ({
+  setXY,
+  openInfoFn,
+  x,
+  scaleY,
+  scaleX,
+  y,
+  title,
+  content
+}) => {
+  const scaleText = (scaleX + scaleY) / 2;
   const style = {
-    height: 100,
-    width: 300,
-    margin: 20,
+    height: 100 / scaleY,
+    width: 300 / scaleX,
+    margin: 20 / scaleText,
     textAlign: 'center',
     display: 'inline-block'
   };
 
   return (
-    <Draggable onStart={() => true} onStop={setXY} cancel=".nodrag">
+    <Draggable
+      onStart={() => true}
+      position={{ ...{ x, y } }}
+      onStop={setXY}
+      cancel=".nodrag"
+    >
       <div
         style={{
           position: 'absolute',
-          fontSize: '10px',
+          fontSize: 20 / scaleText + 'px',
           textOverflow: 'ellipsis',
-          overflow: 'hidden',
-          top: observation.y,
-          left: observation.x
+          overflow: 'hidden'
         }}
       >
         <Paper zDepth={3} style={style}>
           <div>
-            {shorten(observation.title, 20)}
+            {shorten(title, 20)}
             <span style={{ float: 'right' }} className="noDrag">
               <AspectRatio onClick={openInfoFn} />
             </span>
           </div>
           <div
             style={{
-              fontSize: '8px',
+              fontSize: 16 / scaleText + 'px',
               float: 'left',
-              marginTop: '5px',
-              marginLeft: '2px'
+              marginTop: 5 / scaleText + 'px',
+              marginLeft: 2 / scaleText + 'px'
             }}
           >
-            {shorten(observation.content, 100)}
+            {shorten(content, 100)}
           </div>
         </Paper>
       </div>
     </Draggable>
   );
 };
+
+export default ObservationContainer;
