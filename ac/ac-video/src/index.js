@@ -4,7 +4,7 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { type ActivityRunnerT } from 'frog-utils';
 
-import Dashboard from './dashboard';
+import dashboard from './dashboard';
 
 export const meta = {
   name: 'Video player',
@@ -65,5 +65,5 @@ export default {
   ActivityRunner,
   config,
   meta,
-  Dashboard
+  dashboard
 };
