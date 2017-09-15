@@ -106,8 +106,7 @@ class FROGRouter extends Component {
 
   render() {
     const query = queryToObject(this.props.location.search.slice(1));
-    const hasQuery = Object.keys(query).length > 0;
-    if (hasQuery) {
+    if (query.login) {
       return <Redirect to={this.props.location.pathname} />;
     }
     if (this.state.mode === 'loggingIn') {

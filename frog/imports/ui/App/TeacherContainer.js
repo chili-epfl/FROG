@@ -19,22 +19,29 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
   }
   return (
     <div id="app">
-      <TopBar />
       <Switch>
-        <Route path="/graph/:graphId" component={GraphEditor} />
-        <Route path="/graph" component={GraphEditor} />
-        <Route path="/teacher/:graphId" component={TeacherView} />
-        <Route path="/teacher" component={TeacherView} />
-        <Route path="/student" component={StudentView} />
-        <Route path="/admin" component={Admin} />
         <Route path="/preview/:activityTypeId/:example" component={Preview} />
         <Route path="/preview/:activityTypeId" component={Preview} />
-        <Route path="/preview" component={Preview} />
-        <Route component={GraphEditor} />
+        <Route component={WithTopBar} />
       </Switch>
     </div>
   );
 };
+
+const WithTopBar = () =>
+  <div>
+    <TopBar />
+    <Switch>
+      <Route path="/graph/:graphId" component={GraphEditor} />
+      <Route path="/graph" component={GraphEditor} />
+      <Route path="/teacher/:graphId" component={TeacherView} />
+      <Route path="/teacher" component={TeacherView} />
+      <Route path="/student" component={StudentView} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/preview" component={Preview} />
+      <Route component={GraphEditor} />
+    </Switch>
+  </div>;
 
 export default createContainer(() => {
   const collections = [
