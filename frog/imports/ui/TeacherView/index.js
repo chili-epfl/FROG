@@ -20,7 +20,10 @@ const rawSessionController = ({ session, visible, toggleVisibility }) =>
       ? <div>
           <ButtonList session={session} toggle={toggleVisibility} />
           {visible
-            ? <Dashboards openActivities={session.openActivities} />
+            ? <Dashboards
+                session={session}
+                openActivities={session.openActivities}
+              />
             : <GraphView session={session} />}
         </div>
       : <p>Create or select a session from the list below</p>}
