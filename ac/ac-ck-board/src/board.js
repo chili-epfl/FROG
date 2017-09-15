@@ -1,90 +1,75 @@
-import React, { Component } from 'react';
+// @flow
+import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import styled from 'styled-components';
+import ResizeAware from 'react-resize-aware';
+import { withState } from 'recompose';
+import { type ActivityRunnerT } from 'frog-utils';
 
 import ObservationContainer from './obs_container';
 import ObservationDetail from './obs_detail';
+import Quadrants from './Quadrants';
 
-class Cluster extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+const BoardPure = ({
+  activityData: { config },
+  data,
+  dataFn,
+  width,
+  height,
+  info,
+  setInfo
+}) => {
+  const scaleX = 1000 / width;
+  const scaleY = 1000 / height;
+  const offsetHeight = 100 / scaleY / 2;
+  const offsetWidth = 300 / scaleX / 2;
+  const setXY = (i, ui) => {
+    dataFn.objInsert((ui.x + offsetWidth) * scaleX, [i, 'x']);
+    dataFn.objInsert((ui.y + offsetHeight) * scaleY, [i, 'y']);
+  };
+
+  const List = data.map((y, i) =>
+    <div key={y.id}>
+      <ObservationContainer
+        setXY={(_, ui) => setXY(i, ui)}
+        openInfoFn={() => setInfo(y)}
+        title={y.title}
+        scaleY={scaleY}
+        scaleX={scaleX}
+        content={y.content}
+        x={y.x / scaleX - offsetWidth}
+        y={y.y / scaleY - offsetHeight}
+      />
+    </div>
+  );
+  if (!width || !height) {
+    return null;
   }
-
-  render() {
-    const { config } = this.props.activityData;
-    const { data, dataFn } = this.props;
-    const List = data.map((y, i) => {
-      const openInfoFn = () => this.setState({ info: y });
-      const setXY = (_, draggable) => {
-        const newObj = {
-          ...y,
-          x: y.x + draggable.position.left || 1,
-          y: y.y + draggable.position.top || 1
-        };
-        dataFn.listReplace(y, newObj, i);
-      };
-
-      return (
-        <Container>
-          {config.quadrants
-            ? [
-                <Item group="a">
-                  {config.quadrant1}
-                </Item>,
-                <Item group="b">
-                  {config.quadrant2}
-                </Item>,
-                <Item group="c">
-                  {config.quadrant3}
-                </Item>,
-                <Item group="d">
-                  {config.quadrant4}
-                </Item>
-              ]
-            : null}
-          <ObservationContainer
-            key={y.id}
-            setXY={setXY}
-            openInfoFn={openInfoFn}
-            observation={y}
-          />
-        </Container>
-      );
-    });
-
-    return (
-      <MuiThemeProvider>
-        <div>
-          {List}
-          {this.state.info
-            ? <ObservationDetail
-                observation={this.state.info}
-                closeInfoFn={() => this.setState({ info: null })}
-              />
-            : null}
-        </div>
-      </MuiThemeProvider>
-    );
-  }
-}
-
-export default Cluster;
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  height: 100vh;
-`;
-
-const colors = {
-  a: '#e7ffac',
-  b: '#fbe4ff',
-  c: '#dcd3ff',
-  d: '#ffccf9'
+  return (
+    <MuiThemeProvider>
+      <div style={{ height: '100%', width: '100%' }}>
+        {config.quadrants &&
+          <Quadrants config={config} width={width} height={height} />}
+        {config.image &&
+          <img
+            src={config.imageurl}
+            alt="Background"
+            style={{ width: width + 'px', height: height + 'px' }}
+          />}
+        {width && height && List}
+        {info &&
+          <ObservationDetail
+            title={info.title}
+            content={info.content}
+            closeInfoFn={() => setInfo(null)}
+          />}
+      </div>
+    </MuiThemeProvider>
+  );
 };
 
-const Item = styled.div`
-  width: 50%;
-  background: ${props => colors[props.group]};
-`;
+const Board = withState('info', 'setInfo', null)(BoardPure);
+
+export default (props: ActivityRunnerT) =>
+  <ResizeAware style={{ position: 'relative', height: '100%', width: '100%' }}>
+    <Board {...props} />
+  </ResizeAware>;
