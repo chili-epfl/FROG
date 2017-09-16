@@ -1,10 +1,10 @@
 // @flow
+
 import React from 'react';
 import { ChangeableText } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import FlexView from 'react-flexview';
-import { withState } from 'recompose';
 import { Button } from 'react-bootstrap';
 
 import { connect } from '../../store';
