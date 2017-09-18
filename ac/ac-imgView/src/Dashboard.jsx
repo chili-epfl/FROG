@@ -18,7 +18,9 @@ const Viewer = ({ data }: Object) => {
     );
   return (
     <CountChart
-      title={'Number of group per number of submission'}
+      title="Number of submissions per group"
+      vAxis="Number of submissions"
+      hAxis="Number of groups"
       categories={['0', '1', '2', '3', '4', '>4']}
       data={d}
     />
