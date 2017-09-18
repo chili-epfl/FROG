@@ -66,11 +66,10 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   mergedLogsDoc.fetch();
   mergedLogsDoc.on('load', () => {
     if (!mergedLogsDoc.type) {
-      mergedLogsDoc.create({});
-      const dataFn = generateReactiveFn(mergedLogsDoc);
-      if (activityType.dashboard) {
-        activityType.dashboard.initData(dataFn, structure, groups);
-      }
+      const iData = activityType.dashboard
+        ? activityType.dashboard.initData
+        : {};
+      mergedLogsDoc.create(iData);
     }
     mergedLogsDoc.destroy();
   });

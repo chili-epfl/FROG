@@ -11,9 +11,29 @@ import { Inspector } from 'react-inspector';
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
 import ShareDB from 'sharedb';
+import { Mosaic, MosaicWindow } from 'react-mosaic-component';
+import Draggable from 'react-draggable';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
+
+const Icon = ({ onClick, icon }) =>
+  <span style={{ marginLeft: '10px' }}>
+    <A onClick={onClick}>
+      <i className={icon} />
+    </A>
+  </span>;
+
+const getInitialState = (activities, d = 1) => {
+  const n = Math.floor(activities.length / 2);
+  return n === 0
+    ? activities[0]
+    : {
+        direction: d > 0 ? 'row' : 'column',
+        first: getInitialState(activities.slice(0, n), -d),
+        second: getInitialState(activities.slice(n, activities.length), -d)
+      };
+};
 
 const ShowInfo = ({ activityData, data }) =>
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -49,7 +69,11 @@ export const StatelessPreview = withState(
     dismiss,
     config,
     isSeparatePage = false,
-    setReload
+    setReload,
+    windows = 1,
+    setWindows,
+    fullWindow,
+    setFullWindow
   }: {
     activityTypeId: string,
     example: number,
@@ -59,7 +83,11 @@ export const StatelessPreview = withState(
     dismiss?: Function,
     config?: Object,
     isSeparatePage: boolean,
-    setReload: string => void
+    setReload: string => void,
+    windows: number,
+    setWindows: number => void,
+    fullWindow: boolean,
+    setFullWindow: boolean => void
   }) => {
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
@@ -100,58 +128,134 @@ export const StatelessPreview = withState(
       doc
     )(showData ? ShowInfo : RunComp);
 
-    return (
-      <Modal
-        contentLabel={'Preview of ' + activityType.id}
-        isOpen
-        onRequestClose={dismiss}
-      >
-        <div className="modal-header">
-          <button type="button" className="close" onClick={dismiss}>
-            X
-          </button>
-          <h4 className="modal-title">
-            Preview of {activityType.meta.name} ({activityType.id}){' '}
-            <A onClick={() => setShowData(!showData)}>
-              (show {showData ? 'activity' : 'underlying data'})
-            </A>
-            {!isSeparatePage &&
-              <Link to={`/preview/${activityTypeId}/${example}`}>
-                (Open in separate window) +{' '}
-              </Link>}
-          </h4>
-          <Nav bsStyle="pills" activeKey={example}>
-            {examples.map((x, i) =>
-              // eslint-disable-next-line react/no-array-index-key
-              <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
-                {x.title}
-              </NavItem>
-            )}
-          </Nav>{' '}
-          <A
+    const Run = (
+      <ActivityToRun
+        activityData={activityData}
+        userInfo={{
+          name: Meteor.user().username,
+          id: Meteor.userId()
+        }}
+        logger={() => {}}
+      />
+    );
+
+    const Controls = (
+      <div className="modal-header">
+        <button type="button" className="close" onClick={dismiss}>
+          X
+        </button>
+        <h4 className="modal-title">
+          Preview of {activityType.meta.name} ({activityType.id})
+          <Icon
+            onClick={() => setShowData(!showData)}
+            icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
+          />
+          <Icon
             onClick={() => {
               Collections[`demo-${activityType.id}-${example}`] = uuid();
               setReload(uuid());
             }}
-          >
-            (Reset data)
-          </A>
-        </div>
-        <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
-          <ActivityToRun
-            activityData={activityData}
-            userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
-            logger={() => {}}
+            icon="fa fa-refresh"
           />
-        </div>
-      </Modal>
+          {windows > 1 &&
+            <Icon
+              onClick={() => setWindows(windows - 1)}
+              icon="fa fa-minus-square"
+            />}
+          <Icon onClick={() => setWindows(windows + 1)} icon="fa fa-plus" />
+          <Icon onClick={() => setFullWindow(true)} icon="fa fa-arrows-alt" />
+          {!isSeparatePage &&
+            <Link
+              style={{ marginLeft: '10px' }}
+              to={`/preview/${activityTypeId}/${example}`}
+            >
+              <i className="fa fa-share" />
+            </Link>}
+        </h4>
+        <Nav bsStyle="pills" activeKey={example}>
+          {examples.map((x, i) =>
+            // eslint-disable-next-line react/no-array-index-key
+            <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
+              {x.title}
+            </NavItem>
+          )}
+        </Nav>
+      </div>
     );
+
+    const Content = (
+      <div
+        className="modal-body"
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: 'calc(100% - 60px)'
+        }}
+      >
+        {windows === 1
+          ? Run
+          : <Mosaic
+              renderTile={x =>
+                x !== 'NO'
+                  ? <MosaicWindow title={activityType.meta.name}>
+                      {Run}
+                    </MosaicWindow>
+                  : <MosaicWindow title="Empty">
+                      <div />
+                    </MosaicWindow>}
+              initialValue={getInitialState([
+                activityType,
+                ...Array(windows - 1).fill('NO')
+              ])}
+            />}
+      </div>
+    );
+
+    return fullWindow
+      ? <div>
+          <div
+            style={{
+              position: 'relative',
+              top: '0px',
+              left: '0px',
+              height: '100vh',
+              width: '100vw'
+            }}
+          >
+            {Content}
+          </div>
+          <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
+            <div
+              style={{
+                zIndex: 99,
+                border: '1px solid',
+                width: '500px',
+                position: 'fixed',
+                top: '200px',
+                left: '200px',
+                background: 'lightgreen'
+              }}
+            >
+              {Controls}
+            </div>
+          </Draggable>
+        </div>
+      : <Modal
+          contentLabel={'Preview of ' + activityType.id}
+          isOpen
+          onRequestClose={dismiss}
+        >
+          {Controls}
+          {Content}
+        </Modal>;
   }
 );
 
 const StatefulPreview = compose(
   withState('example', 'setExample', 0),
-  withState('showData', 'setShowData', false)
+  withState('fullWindow', 'setFullWindow', false),
+  withState('showData', 'setShowData', false),
+  withState('windows', 'setWindows', 1)
 )(StatelessPreview);
 
 StatefulPreview.displayName = 'StatefulPreview';

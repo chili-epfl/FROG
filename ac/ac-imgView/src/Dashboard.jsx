@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { CountChart, type structureDefT } from 'frog-utils';
+import { CountChart } from 'frog-utils';
 
 const Viewer = ({ data }: Object) => {
   const d =
@@ -30,18 +30,13 @@ const mergeLog = (
   dataFn: Object,
   { instanceId, payload }: { instanceId: string, payload: any }
 ) => {
+  if (!(data && data[instanceId])) {
+    dataFn.objInsert({ upload: 0, vote: 0 }, [instanceId]);
+  }
   dataFn.numIncr(1, [instanceId, payload]);
 };
 
-const initData = (
-  dataFn: Object,
-  structure: structureDefT,
-  groups: string[]
-) => {
-  groups.forEach(g => {
-    dataFn.objInsert({ upload: 0, vote: 0 }, [g]);
-  });
-};
+const initData = {};
 
 export default {
   Viewer,

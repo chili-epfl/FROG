@@ -7,19 +7,9 @@ import { uuid } from 'frog-utils';
 
 export const Logs = new Mongo.Collection('logs');
 
-// generates a logging function which is pre-loaded with a JSON object
-// the logging function is called with a message, and inserts into the
-// logging store the message, merged with the preloaded object, and date
-
-// for example
-// const logger = createLogger({app: 'ac-form', user: 'stian'})
-// logger({'app started'}) => {app: 'ac-form', user: 'stian', message: 'app started',
-//                             date: 'Thursday 22...'}
-// TODO: Should perhaps accept an object to log, instead of a message, for more flexibility
-
-export const engineLogger = (sessionId: string, log: Object) =>
-  Logs.insert({
-    payload: log,
+export const engineLogger = (sessionId: string, payload: Object) =>
+  Meteor.call('merge.log', {
+    payload,
     userId: 'teacher',
     sessionId,
     createdAt: new Date(),
@@ -32,7 +22,7 @@ export const createLogger = (
   activity: Object
 ) => {
   const logger = (payload: any) => {
-    Logs.insert({
+    const log = {
       userId: Meteor.userId(),
       sessionId,
       activityId: activity._id,
@@ -40,17 +30,8 @@ export const createLogger = (
       instanceId,
       payload,
       updatedAt: Date()
-    });
-    Meteor.call('merge.log', payload, activity, instanceId);
+    };
+    Meteor.call('merge.log', log);
   };
   return logger;
 };
-
-export const flushLogs = () => Meteor.call('logs.flush');
-
-Meteor.methods({
-  'logs.flush': () => {
-    Logs.remove({});
-  },
-  'test.respond': length => 'response ' + new Array(length).join('*')
-});

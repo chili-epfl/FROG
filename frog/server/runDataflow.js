@@ -8,6 +8,7 @@ import {
   type activityDataT
 } from 'frog-utils';
 
+import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
 import { operatorTypesObj } from '../imports/operatorTypes';
@@ -31,8 +32,10 @@ const runAllConnecting = (connections: Object[], sessionId: string) =>
   );
 
 // The list of students
-const getStudents = sessionId =>
-  Meteor.users.find({ 'profile.currentSession': sessionId }).fetch();
+const getStudents = sessionId => {
+  const session = Sessions.findOne(sessionId);
+  return Meteor.users.find({ joinedSessions: session.slug }).fetch();
+};
 
 // runDataflow ensures that all data required for a given node is
 // computed. It recursively runs all the connecting nodes, and

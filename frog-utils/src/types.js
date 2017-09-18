@@ -99,11 +99,7 @@ export type ActivityPackageT = {
   dashboard?: {
     Viewer: ReactComponent<any>,
     mergeLog: (data: any, dataFn: Object, log: any) => void,
-    initData: (
-      dataFn: Object,
-      structure: structureDefT,
-      groups: string[]
-    ) => void
+    initData: any
   }
 };
 

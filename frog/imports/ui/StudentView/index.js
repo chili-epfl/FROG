@@ -1,75 +1,69 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Redirect } from 'react-router-dom';
-
+import Spinner from 'react-spinner';
+import { every } from 'lodash';
+import { Sessions } from '/imports/api/sessions';
 import SessionBody from './SessionBody';
-import {
-  Sessions,
-  setStudentSession,
-  ensureReactive
-} from '../../api/sessions';
-import { FourOhFour } from '../App/FROGRouter';
 
-const StudentView = ({ session, doRedirect, cannotFind, tooLate }) => {
-  if (doRedirect) {
-    return <Redirect to="/" />;
+class StudentViewComp extends Component {
+  state: { result: string, message?: string };
+  constructor(props) {
+    super(props);
+    this.state = { result: 'notyet' };
   }
 
-  if (tooLate) {
-    return <h1>Too late to join this session</h1>;
+  componentWillMount() {
+    this.checkSessionJoin(this.props.match.params.slug);
   }
 
-  if (cannotFind) {
-    return <FourOhFour />;
-  }
-
-  return (
-    <div id="student" style={{ width: '100%', height: '100%' }}>
-      {session && <SessionBody session={session} />}
-    </div>
-  );
-};
-
-export default createContainer(props => {
-  const users = Meteor.users.find(Meteor.userId()).fetch();
-  const user = users && users[0];
-  const curSession =
-    user && user.profile ? Sessions.findOne(user.profile.currentSession) : null;
-
-  if (!user) {
-    return { cannotFind: true };
-  }
-
-  const desiredSlug = props.match && props.match.params.slug;
-
-  if (!desiredSlug) {
-    if (curSession) {
-      return { session: curSession, user };
-    } else {
-      return { cannotFind: true };
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.slug !== this.props.match.params.slug) {
+      this.checkSessionJoin(nextProps.match.params.slug);
     }
   }
 
-  const desiredSession = Sessions.findOne({ slug: desiredSlug.toUpperCase() });
-  const desiredId = desiredSession && desiredSession._id;
-
-  if (!desiredSession) {
-    return { cannotFind: true };
+  checkSessionJoin(rawSlug: string) {
+    const slug = rawSlug.trim().toUpperCase();
+    if (
+      !(
+        Meteor.user().joinedSessions &&
+        Meteor.user().joinedSessions.includes(slug)
+      )
+    ) {
+      Meteor.call('session.join', slug, (err, result) => this.setState(result));
+    }
   }
 
-  if (curSession && desiredId === curSession) {
-    return { session: curSession, user, doRedirect: true };
+  render() {
+    if (this.state.result === 'error') {
+      return (
+        <h1>
+          Error: {this.state.message}
+        </h1>
+      );
+    }
+    if (!this.props.ready) {
+      return <Spinner />;
+    }
+    if (!this.props.session) {
+      return <h1>That session is no longer available</h1>;
+    }
+    return <SessionBody />;
   }
+}
 
-  if (desiredSession.tooLate === true) {
-    return { tooLate: true };
-  }
+StudentViewComp.displayName = 'StudentView';
 
-  setStudentSession(desiredId);
-  ensureReactive(desiredId);
+export default createContainer(props => {
+  const slug = props.match.params.slug.trim().toUpperCase();
 
-  return { session: curSession, user, doRedirect: true };
-}, StudentView);
+  const collections = ['session_activities'];
+  const subscriptions = collections.map(x => Meteor.subscribe(x, slug));
+  return {
+    session: Sessions.findOne({ slug }),
+    ready: every(subscriptions.map(x => x.ready()), Boolean)
+  };
+}, StudentViewComp);

@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { withState } from 'recompose';
@@ -16,7 +17,7 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-class Dashboard extends Component {
+class DashboardComp extends Component {
   state: { data: any };
   doc: any;
   timeout: ?number;
@@ -72,14 +73,34 @@ class Dashboard extends Component {
 
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
+    const users = this.props.users
+      ? this.props.users.reduce(
+          (acc, x) => ({ ...acc, [x._id]: x.username }),
+          {}
+        )
+      : {};
+
     return aT.dashboard && aT.dashboard.Viewer
-      ? <aT.dashboard.Viewer data={this.state.data} />
+      ? <div style={{ width: '100%' }}>
+          <aT.dashboard.Viewer users={users} data={this.state.data} />
+        </div>
       : <p>The selected activity does not provide a dashboard</p>;
   }
 }
 
-const DashboardNav = ({ activityId, setActivity, openActivities }) => {
-  const aId = activityId || openActivities[0]._id;
+const Dashboard = createContainer(
+  ({ session }) => ({
+    users: Meteor.users.find({ joinedSessions: session.slug }).fetch()
+  }),
+  DashboardComp
+);
+
+const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
+  const aId =
+    activityId || (openActivities.length > 0 && openActivities[0]._id);
+  if (!aId) {
+    return null;
+  }
   return (
     <div>
       <h1>Dashboards</h1>
@@ -97,7 +118,10 @@ const DashboardNav = ({ activityId, setActivity, openActivities }) => {
             </NavItem>
           )}
         </Nav>
-        <Dashboard activity={openActivities.find(a => a._id === aId)} />
+        <Dashboard
+          session={session}
+          activity={openActivities.find(a => a._id === aId)}
+        />
       </Container>
     </div>
   );

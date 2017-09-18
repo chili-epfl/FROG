@@ -18,6 +18,7 @@ class AppClass extends Component {
   componentWillReceiveProps = (nextProps: Object) => {
     if (
       nextProps.match &&
+      nextProps.match.params.graphId &&
       nextProps.match.params.graphId !== this.props.match.params.graphId
     ) {
       this.updateGraphId(nextProps.match.params.graphId);
