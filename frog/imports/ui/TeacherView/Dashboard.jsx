@@ -21,12 +21,16 @@ export class DashboardComp extends Component {
   state: { data: any };
   doc: any;
   timeout: ?number;
-  unmounted: boolean;
+  mounted: boolean;
 
   constructor(props: Object) {
     super(props);
     this.state = { data: null };
     this.init(props);
+  }
+
+  componentDidMount() {
+    this.mounted = true;
   }
 
   componentWillReceiveProps(nextProps: Object) {
@@ -62,7 +66,7 @@ export class DashboardComp extends Component {
   };
 
   update = () => {
-    if (!this.timeout && !this.unmounted) {
+    if (!this.timeout && this.mounted) {
       this.setState({ data: this.doc.data });
     }
   };
@@ -74,7 +78,7 @@ export class DashboardComp extends Component {
     if (this.timeout) {
       window.clearTimeout(this.timeout);
     }
-    this.unmounted = true;
+    this.mounted = false;
   };
 
   render() {
