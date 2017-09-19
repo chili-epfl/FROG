@@ -43,8 +43,8 @@ export class DashboardComp extends Component {
   }
 
   init(props: Object) {
-    if (this.props.doc) {
-      this.doc = this.props.doc;
+    if (props.doc) {
+      this.doc = props.doc;
       this.update();
       this.doc.on('op', this.update);
     } else {
