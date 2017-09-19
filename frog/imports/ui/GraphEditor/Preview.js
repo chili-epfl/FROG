@@ -1,14 +1,13 @@
 // @flow
 
 import React from 'react';
-import { cloneDeep, uniqBy } from 'lodash';
+import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
 import { A, generateReactiveFn, uuid } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
 import { Inspector } from 'react-inspector';
-import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
 import ShareDB from 'sharedb';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
@@ -16,6 +15,7 @@ import Draggable from 'react-draggable';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
+import { DashboardComp } from '../TeacherView/Dashboard';
 
 const Icon = ({ onClick, icon }) =>
   <span style={{ marginLeft: '10px' }}>
@@ -102,42 +102,75 @@ export const StatelessPreview = withState(
       activityData.config = config;
     }
 
-    if (!Collections[`demo-${activityType.id}-${example}`]) {
-      Collections[`demo-${activityType.id}-${example}`] = uuid();
-    }
-
-    const doc = connection.get(
+    const dashboard = connection.get(
       'rz',
-      Collections[`demo-${activityType.id}-${example}`]
+      `demo-${activityType.id}-${example}-DASHBOARD`
     );
-    doc.subscribe();
-    doc.on('load', () => {
-      doc.create(cloneDeep(activityType.dataStructure) || {});
-      const mergeFunction = activityType.mergeFunction;
-      if (mergeFunction && activityType.meta.exampleData[example]) {
-        const dataFn = generateReactiveFn(doc);
-        mergeFunction(
-          cloneDeep(activityType.meta.exampleData[example]),
-          dataFn
+    dashboard.fetch();
+    dashboard.on('load', () => {
+      if (!dashboard.type) {
+        dashboard.create(
+          (activityType.dashboard && activityType.dashboard.initData) || {}
         );
       }
     });
 
-    const ActivityToRun = ReactiveHOC(
-      'demo/' + activityType.id + '/' + example,
-      doc
-    )(showData ? ShowInfo : RunComp);
+    const reactiveDash = generateReactiveFn(dashboard);
 
-    const Run = (
-      <ActivityToRun
-        activityData={activityData}
-        userInfo={{
-          name: Meteor.user().username,
-          id: Meteor.userId()
-        }}
-        logger={() => {}}
-      />
-    );
+    const logger = id => payload => {
+      if (activityType.dashboard && activityType.dashboard.mergeLog) {
+        activityType.dashboard.mergeLog(
+          cloneDeep(dashboard.data),
+          reactiveDash,
+          { userId: id, payload, updatedAt: Date() }
+        );
+      }
+    };
+
+    range(0, Math.ceil(windows + 1 / 2)).forEach(i => {
+      const coll = `demo-${activityType.id}-${example}-${i}`;
+      if (!Collections[coll]) {
+        Collections[coll] = uuid();
+      }
+
+      const doc = connection.get('rz', Collections[coll]);
+      doc.subscribe();
+      doc.on('load', () => {
+        if (!doc.type) {
+          doc.create(cloneDeep(activityType.dataStructure) || {});
+          const mergeFunction = activityType.mergeFunction;
+          if (mergeFunction && activityType.meta.exampleData[example]) {
+            const dataFn = generateReactiveFn(doc);
+            mergeFunction(
+              cloneDeep(activityType.meta.exampleData[example]),
+              dataFn
+            );
+          }
+        }
+      });
+    });
+
+    const Run = ({ name, id }) => {
+      const doc = connection.get(
+        'rz',
+        Collections[`demo-${activityType.id}-${example}-${Math.ceil(id / 2)}`]
+      );
+      doc.subscribe();
+      const ActivityToRun = ReactiveHOC(
+        'demo/' + activityType.id + '/' + example,
+        doc
+      )(showData ? ShowInfo : RunComp);
+      return (
+        <ActivityToRun
+          activityData={activityData}
+          userInfo={{
+            name,
+            id
+          }}
+          logger={logger(id)}
+        />
+      );
+    };
 
     const Controls = (
       <div className="modal-header">
@@ -157,11 +190,10 @@ export const StatelessPreview = withState(
             }}
             icon="fa fa-refresh"
           />
-          {windows > 1 &&
-            <Icon
-              onClick={() => setWindows(windows - 1)}
-              icon="fa fa-minus-square"
-            />}
+          <Icon
+            onClick={() => windows > 1 && setWindows(windows - 1)}
+            icon="fa fa-minus-square"
+          />
           <Icon onClick={() => setWindows(windows + 1)} icon="fa fa-plus" />
           <Icon onClick={() => setFullWindow(true)} icon="fa fa-arrows-alt" />
           {!isSeparatePage &&
@@ -193,20 +225,41 @@ export const StatelessPreview = withState(
         }}
       >
         {windows === 1
-          ? Run
+          ? <Run name="Chen Li" id={1} />
           : <Mosaic
-              renderTile={x =>
-                x !== 'NO'
-                  ? <MosaicWindow title={activityType.meta.name}>
-                      {Run}
+              renderTile={([x, id]) =>
+                x === 'dashboard' && activityType.dashboard
+                  ? <MosaicWindow
+                      title={'dashboard - ' + activityType.meta.name}
+                    >
+                      <DashboardComp
+                        activity={{ activityType: activityType.id }}
+                        doc={dashboard}
+                        users={[
+                          'Chen Li',
+                          'Maurice',
+                          'dashboard',
+                          'Edgar',
+                          'Noel'
+                        ].map((e, i) => ({ _id: i + 1, username: e }))}
+                      />
                     </MosaicWindow>
-                  : <MosaicWindow title="Empty">
-                      <div />
+                  : <MosaicWindow
+                      title={
+                        x +
+                        '/' +
+                        Math.ceil(id / 2) +
+                        ' - ' +
+                        activityType.meta.name
+                      }
+                    >
+                      <Run name={x} id={id} />
                     </MosaicWindow>}
-              initialValue={getInitialState([
-                activityType,
-                ...Array(windows - 1).fill('NO')
-              ])}
+              initialValue={getInitialState(
+                ['Chen Li', 'Maurice', 'dashboard', 'Edgar', 'Noel']
+                  .map((x, i) => [x, i + 1])
+                  .slice(0, windows)
+              )}
             />}
       </div>
     );
