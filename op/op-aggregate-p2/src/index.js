@@ -1,7 +1,6 @@
 // @flow
 
-import { shuffle, chunk, sortBy } from 'lodash';
-import { type productOperatorT, wrapUnitAll, focusStudent } from 'frog-utils';
+import { type productOperatorT, focusStudent } from 'frog-utils';
 
 const meta = {
   name: 'Aggregate items to p2',

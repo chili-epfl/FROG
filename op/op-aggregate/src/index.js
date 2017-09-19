@@ -1,6 +1,6 @@
 // @flow
 
-import { shuffle, chunk, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 import { type productOperatorT, wrapUnitAll } from 'frog-utils';
 
 const meta = {
