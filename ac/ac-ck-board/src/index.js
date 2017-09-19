@@ -15,8 +15,8 @@ const mergeFunction = (object, dataFn) => {
     if (box.title && box.content) {
       dataFn.listAppend({
         ...box,
-        x: Math.random() * 800,
-        y: -(Math.random() * 800)
+        x: Math.random() * 1000,
+        y: Math.random() * 1000
       });
     }
   });

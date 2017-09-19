@@ -43,9 +43,6 @@ const SessionBody = ({
   if (!activities || activities.length === 0) {
     return <h1>No Activity</h1>;
   }
-  if (session.state === 'PAUSED') {
-    return <h1>Paused</h1>;
-  }
   return (
     <div style={{ height: '100%' }}>
       {session.countdownStartTime && <Countdown session={session} />}
