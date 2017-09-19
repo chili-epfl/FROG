@@ -8,20 +8,35 @@ import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 import { Logs } from '../imports/api/logs';
 
+const Cache = {};
+
 Meteor.methods({
-  'merge.log': (log, activity) => {
+  'merge.log': log => {
     Logs.insert(log);
-    if (activity) {
-      const doc = serverConnection.get('rz', activity._id + '//DASHBOARD');
-      doc.fetch();
-      doc.on('load', () => {
-        const dataFn = generateReactiveFn(doc);
-        const aT = activityTypesObj[activity.activityType];
-        if (aT.dashboard && aT.dashboard.mergeLog) {
+
+    if (log.activityId) {
+      const aT = activityTypesObj[log.activityType];
+
+      if (aT.dashboard && aT.dashboard.mergeLog) {
+        const docId = log.activityId + '//DASHBOARD';
+        if (Cache[docId]) {
+          console.log('cache');
+          const [doc, dataFn] = Cache[docId];
           aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);
+        } else {
+          const doc = serverConnection.get('rz', docId);
+          console.log('generate');
+          doc.fetch();
+          doc.on('load', () => {
+            console.log('generate load');
+            const dataFn = generateReactiveFn(doc);
+            Cache[docId] = [doc, dataFn];
+            if (aT.dashboard && aT.dashboard.mergeLog) {
+              aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);
+            }
+          });
         }
-        doc.destroy();
-      });
+      }
     }
   }
 });
