@@ -57,7 +57,6 @@ class ActivityComponent extends Component {
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
     if (this.props.transparent) {
-      console.log('transparent');
       return (
         <g onClick={e => e.stopPropagation()} onMouseUp={this.clickHandler}>
           <DraggableCore
