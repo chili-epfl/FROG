@@ -20,15 +20,12 @@ Meteor.methods({
       if (aT.dashboard && aT.dashboard.mergeLog) {
         const docId = log.activityId + '//DASHBOARD';
         if (Cache[docId]) {
-          console.log('cache');
           const [doc, dataFn] = Cache[docId];
           aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);
         } else {
           const doc = serverConnection.get('rz', docId);
-          console.log('generate');
           doc.fetch();
           doc.on('load', () => {
-            console.log('generate load');
             const dataFn = generateReactiveFn(doc);
             Cache[docId] = [doc, dataFn];
             if (aT.dashboard && aT.dashboard.mergeLog) {
