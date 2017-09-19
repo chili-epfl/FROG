@@ -10,7 +10,8 @@ module.exports = {
     Blob: true,
     WebSocket: true,
     Presences: true,
-    jest: true
+    jest: true,
+    Raven: true
   },
   rules: {
     'jsx-a11y/label-has-for': 'off',
