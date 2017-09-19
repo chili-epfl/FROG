@@ -22,6 +22,8 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
       <Switch>
         <Route path="/preview/:activityTypeId/:example" component={Preview} />
         <Route path="/preview/:activityTypeId" component={Preview} />
+        <Route path="/graph/:graphId" component={GraphEditor} />
+        <Route path="/graph" component={GraphEditor} />
         <Route component={WithTopBar} />
       </Switch>
     </div>
@@ -32,8 +34,6 @@ const WithTopBar = () =>
   <div>
     <TopBar />
     <Switch>
-      <Route path="/graph/:graphId" component={GraphEditor} />
-      <Route path="/graph" component={GraphEditor} />
       <Route path="/teacher/:graphId" component={TeacherView} />
       <Route path="/teacher" component={TeacherView} />
       <Route path="/student" component={StudentView} />
