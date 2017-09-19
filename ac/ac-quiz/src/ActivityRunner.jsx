@@ -28,18 +28,17 @@ const Container = styled.div`
 
 const QuestionTitle = styled.div`
   border-top: solid;
-  padding-top: 15px;
-  font-size: large;
+  padding-top: 10px;
 `;
 
-const TitleField = props =>
+const DescriptionField = props =>
   <QuestionTitle>
     <Latex>
-      {props.title}
+      {props.description}
     </Latex>
   </QuestionTitle>;
 
-const Quiz = ({ activityData, data, dataFn }: ActivityRunnerT) => {
+const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const schema = {
     title: activityData.config.name,
     type: 'object',
@@ -51,35 +50,43 @@ const Quiz = ({ activityData, data, dataFn }: ActivityRunnerT) => {
   activityData.config.questions
     .filter(q => q.question && q.answers)
     .forEach((q, i) => {
-      const radio = {
+      schema.properties[i + '_question'] = {
         type: 'string',
-        enum: q.answers,
-        title: ' '
+        title: 'Question ' + (i + 1),
+        enum: q.answers.map((_,k) => k),
+        enumNames: q.answers
+      }
+      uiSchema[i + '_question'] = {
+        'ui:widget': 'latexWidget',
+        'ui:description': q.question
       };
-      const justification = {
-        type: 'string',
-        title: 'Explain your answer'
-      };
-      schema.properties['' + i] = {
-        type: 'object',
-        title: q.question,
-        properties: activityData.config.justify
-          ? { radio, justification }
-          : { radio }
-      };
-      uiSchema['' + i] = {
-        radio: { 'ui:widget': 'latexWidget' }
-      };
+      if(activityData.config.justify){
+        schema.properties[i + '_justify'] = {
+          type: 'string',
+          title: ' ',
+          description: 'Justify your answer'
+        };
+      }
+
+      // {
+      //   type: 'object',
+      //   title: q.question,
+      //   properties: activityData.config.justify
+      //     ? { radio, justification }
+      //     : { radio }
+      // };
     });
 
   const widgets = { latexWidget: LatexWidget };
-  const fields = { TitleField };
+  const fields = { DescriptionField };
   const formData = data.form;
   const onSubmit = () => {
     dataFn.objInsert(true, 'completed');
   };
   const onChange = e => {
+    console.log(e.formData)
     dataFn.objInsert(e.formData, 'form');
+    logger(e.formData)
   };
 
   return (
