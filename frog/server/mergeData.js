@@ -66,10 +66,9 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   mergedLogsDoc.fetch();
   mergedLogsDoc.on('load', () => {
     if (!mergedLogsDoc.type) {
-      const iData = activityType.dashboard
-        ? activityType.dashboard.initData
-        : {};
-      mergedLogsDoc.create(iData);
+      mergedLogsDoc.create(
+        (activityType.dashboard && activityType.dashboard.initData) || {}
+      );
     }
     mergedLogsDoc.destroy();
   });
