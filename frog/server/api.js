@@ -6,8 +6,8 @@ Picker.middleware(bodyParser.json());
 
 Picker.filter(
   req => req.method === 'POST'
-).route('/api/webhooks/:provider', (_, request, response) => {
+).route('/lti/:slug', (params, request, response) => {
   const user = request.body.user_id;
-  response.writeHead(301, { Location: `/?login=${user}` });
+  response.writeHead(301, { Location: `/${params.slug}?login=${user}` });
   response.end();
 });
