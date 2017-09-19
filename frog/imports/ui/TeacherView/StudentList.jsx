@@ -8,7 +8,7 @@ const StudentList = ({ students }: { students: Array<Object> }) =>
       <h3>Registered students</h3>
     </div>
     <div style={{ marginLeft: '50px', alignSelf: 'center' }}>
-      {students && students.length
+      {students && students.length < 25
         ? <ul>
             {students.map(student =>
               <li key={student._id}>
@@ -16,7 +16,7 @@ const StudentList = ({ students }: { students: Array<Object> }) =>
               </li>
             )}
           </ul>
-        : <p>NO STUDENTS</p>}
+        : students ? students.length : <p>NO STUDENTS</p>}
     </div>
   </div>;
 

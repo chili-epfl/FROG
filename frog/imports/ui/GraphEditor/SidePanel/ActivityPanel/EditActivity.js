@@ -1,14 +1,13 @@
 // @flow
+
 import React from 'react';
 import { ChangeableText } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import FlexView from 'react-flexview';
-import { withState } from 'recompose';
 import { Button } from 'react-bootstrap';
 
 import { connect } from '../../store';
-import Preview from '../../Preview';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
@@ -78,7 +77,11 @@ const EditActivity = props => {
                   width: '9%',
                   height: '34px'
                 }}
-                onClick={() => props.setShowInfo(true)}
+                onClick={() =>
+                  props.store.ui.setShowPreview({
+                    activityTypeId: activity.activityType,
+                    config: activity.data
+                  })}
               />}
 
             <ValidButton activityId={activity._id} errorColor={errorColor} />
@@ -110,16 +113,8 @@ const EditActivity = props => {
         }}
       />
       <FileForm />
-      {props.showInfo &&
-        <Preview
-          activityTypeId={activity.activityType}
-          config={activity.data}
-          dismiss={() => props.setShowInfo(false)}
-        />}
     </div>
   );
 };
 
-export default withState('showInfo', 'setShowInfo', false)(
-  connect(EditActivity)
-);
+export default connect(EditActivity);
