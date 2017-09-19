@@ -10,7 +10,8 @@ export const config = {
     },
     formBoolean: {
       type: 'boolean',
-      title: 'Should students submit new ideas?'
+      title: 'Should students submit new ideas?',
+      default: true
     },
     socialEdit: {
       type: 'boolean',

@@ -185,7 +185,8 @@ const AddIdea = ({ onSubmit }) =>
         <div
           style={{
             layout: 'flex',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            width: '100%'
           }}
         >
           <Button style={{ marginRight: '20px' }} type="submit" id="addButton">
