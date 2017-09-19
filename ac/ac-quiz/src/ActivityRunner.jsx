@@ -50,31 +50,23 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   activityData.config.questions
     .filter(q => q.question && q.answers)
     .forEach((q, i) => {
-      schema.properties[i + '_question'] = {
+      schema.properties['question ' + i] = {
         type: 'string',
         title: 'Question ' + (i + 1),
-        enum: q.answers.map((_,k) => k),
+        enum: q.answers.map((_, k) => k),
         enumNames: q.answers
-      }
-      uiSchema[i + '_question'] = {
+      };
+      uiSchema['question ' + i] = {
         'ui:widget': 'latexWidget',
         'ui:description': q.question
       };
-      if(activityData.config.justify){
-        schema.properties[i + '_justify'] = {
+      if (activityData.config.justify) {
+        schema.properties['question ' + i + ' justify'] = {
           type: 'string',
           title: ' ',
           description: 'Justify your answer'
         };
       }
-
-      // {
-      //   type: 'object',
-      //   title: q.question,
-      //   properties: activityData.config.justify
-      //     ? { radio, justification }
-      //     : { radio }
-      // };
     });
 
   const widgets = { latexWidget: LatexWidget };
@@ -84,9 +76,8 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     dataFn.objInsert(true, 'completed');
   };
   const onChange = e => {
-    console.log(e.formData)
     dataFn.objInsert(e.formData, 'form');
-    logger(e.formData)
+    logger(e.formData);
   };
 
   return (

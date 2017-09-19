@@ -26,11 +26,11 @@ export class DashboardComp extends Component {
   constructor(props: Object) {
     super(props);
     this.state = { data: null };
-    this.init(props);
   }
 
   componentDidMount() {
     this.mounted = true;
+    this.init(this.props);
   }
 
   componentWillReceiveProps(nextProps: Object) {
@@ -92,7 +92,11 @@ export class DashboardComp extends Component {
 
     return aT.dashboard && aT.dashboard.Viewer
       ? <div style={{ width: '100%' }}>
-          <aT.dashboard.Viewer users={users} data={this.state.data} />
+          <aT.dashboard.Viewer
+            users={users}
+            data={this.state.data}
+            config={this.props.activity.data}
+          />
         </div>
       : <p>The selected activity does not provide a dashboard</p>;
   }
