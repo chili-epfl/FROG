@@ -7,16 +7,12 @@ import CenteredImg from './CenteredImg';
 
 const getStyle = styleCode =>
   ({
-    chosen_by_team_and_student: {
+    chosen_by_team: {
       border: 'solid 4px #009900',
       borderRadius: '5px'
     },
-    chosen_by_student_only: {
+    chosen_partially: {
       border: 'solid 4px #FFFF00',
-      borderRadius: '5px'
-    },
-    chosen_by_team_but_not_student: {
-      border: 'solid 4px #009900',
       borderRadius: '5px'
     }
   }[styleCode] || { border: 'solid 2px #a0a0a0' });
@@ -33,7 +29,7 @@ const ImgButton = styled.button`
   flex: 0 1 auto;
 `;
 
-export default ({
+const ImageBox = ({
   image,
   onClick,
   styleCode
@@ -45,3 +41,6 @@ export default ({
   <ImgButton onClick={onClick} style={getStyle(styleCode)}>
     <CenteredImg url={image.url} />
   </ImgButton>;
+
+ImageBox.displayName = 'ImageBox';
+export default ImageBox;

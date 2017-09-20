@@ -3,14 +3,22 @@ import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
 
-export { default as EnhancedForm, hideConditional } from './EnhancedForm';
+export {
+  default as EnhancedForm,
+  hideConditional,
+  calculateHides
+} from './EnhancedForm';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
+export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
 export { TextInput, ChangeableText } from './TextInput';
+export { default as dataURItoFile } from './URLtoFile';
+export { default as resizeDataURL } from './resizeDataURL';
+export { default as ImageReload } from './ImageReload';
 export {
   mergeSocialStructures,
   focusStudent,
@@ -25,6 +33,7 @@ export {
 } from './dataStructureTools';
 export type {
   ActivityDbT,
+  OperatorDbT,
   studentStructureT,
   socialStructureT,
   dataUnitT,
@@ -37,8 +46,13 @@ export type {
   ActivityPackageT,
   productOperatorT,
   socialOperatorT,
-  operatorPackageT
+  operatorPackageT,
+  controlOperatorT,
+  ControlStructureT,
+  ControlT,
+  ReactComponent
 } from './types';
+export { default as CountChart } from './DashboardComponents/CountChart';
 
 export const A = ({ onClick, children, ...rest }: any): any =>
   <a

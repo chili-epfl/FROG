@@ -7,6 +7,12 @@ export type ActivityDbT = {
   plane: number
 };
 
+export type OperatorDbT = {
+  _id: string,
+  type: string,
+  data: Object
+};
+
 // { aa: { group: 1, role: 'chef', color: 'red' },
 //   bb: { group: 2, role: 'waiter' },
 //   cc: { role: 'waiter' } }
@@ -39,18 +45,41 @@ export type activityDataT = {
 export type ObjectT = {
   socialStructure: socialStructureT,
   activityData: activityDataT,
-  globalStructure: { studentIds: string[] }
+  globalStructure: {
+    studentIds: string[],
+    students: { [studentId: string]: string }
+  }
 };
+
+export type ControlT = {
+  structure: structureDefT,
+  mode: 'include' | 'exclude',
+  payload: {
+    [attributeKey: string]: true
+  }
+};
+
+export type ControlStructureT =
+  | { 'all': ControlT }
+  | { 'list': { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
   logger: Function, // logging callback
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
+  uploadFn: (files: Array<any>, callback: (string) => any) => void,
   userInfo: { id: string, name: string }
 };
 
-export type validateConfigFnT = Object => null | { field: string, err: string };
+export type validateConfigFnT = Object => null | {
+  field?: string,
+  err: string
+};
+
+export type ReactComponent<Props> =
+  | Class<React$Component<*, Props, *>>
+  | (Props => React$Element<any>);
 
 export type ActivityPackageT = {
   id: string,
@@ -62,9 +91,16 @@ export type ActivityPackageT = {
     exampleData: Array<any>
   },
   config: Object,
+  configUI?: Object,
+  dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: (x: ActivityRunnerT) => React$Component<*> | React$Element<*>
+  ActivityRunner: ReactComponent<ActivityRunnerT>,
+  dashboard?: {
+    Viewer: ReactComponent<any>,
+    mergeLog: (data: any, dataFn: Object, log: any) => void,
+    initData: any
+  }
 };
 
 export type productOperatorT = {
@@ -76,8 +112,23 @@ export type productOperatorT = {
     description: string
   },
   config: Object,
+  configUI?: Object,
   validateConfig?: validateConfigFnT[],
   operator: (configData: Object, object: ObjectT) => activityDataT
+};
+
+export type controlOperatorT = {
+  id: string,
+  type: 'control',
+  meta: {
+    name: string,
+    shortDesc: string,
+    description: string
+  },
+  config: Object,
+  configUI?: Object,
+  validateConfig?: validateConfigFnT[],
+  operator: (configData: Object, object: ObjectT) => ControlStructureT
 };
 
 export type socialOperatorT = {
@@ -91,7 +142,11 @@ export type socialOperatorT = {
   outputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
+  configUI?: Object,
   operator: (configData: Object, object: ObjectT) => socialStructureT
 };
 
-export type operatorPackageT = socialOperatorT | productOperatorT;
+export type operatorPackageT =
+  | socialOperatorT
+  | productOperatorT
+  | controlOperatorT;

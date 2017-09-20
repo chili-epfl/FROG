@@ -15,7 +15,8 @@ const config = {
   properties: {
     groupsize: {
       type: 'number',
-      title: 'Desired group size'
+      title: 'Desired group size',
+      default: 3
     },
     strategy: {
       type: 'string',
@@ -36,6 +37,10 @@ const operator = (configData, object) => {
   const { globalStructure } = object;
 
   const ids = shuffle(globalStructure.studentIds);
+  if (ids && configData.groupsize >= ids.length) {
+    return { group: { '1': ids } };
+  }
+
   const struct = chunk(ids, configData.groupsize);
   const last = struct.slice(-1)[0];
   if (last.length < configData.groupsize && configData.strategy === 'minimum') {

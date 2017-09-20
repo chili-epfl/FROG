@@ -31,12 +31,12 @@ const HelpModal = ({ show, hide }) =>
       want the activity to go to a higher plane or Shift-down to make it go to a
       lower plane.
       <h4>Inserting operators</h4>
-      To insert a social operator, click S, or click P to insert a product
-      operator (the mouse must be over the main graph view). An operator will
-      appear attached to the mouse. Move the mouse to where you want to locate
-      the operator, and click to place it. When you select an operator, you can
-      configure it in the right sidebar. Shift+click and drag on the operator to
-      reposition it.
+      To insert an operator, click S for a social operator, P for a product
+      operator, or C for a control operator (the mouse must be over the main
+      graph view). An operator will appear attached to the mouse. Move the mouse
+      to where you want to locate the operator, and click to place it. When you
+      select an operator, you can configure it in the right sidebar. Shift+click
+      and drag on the operator to reposition it.
       <h4>Connections</h4>
       To create a connection from an activity, move the mouse cursor to the
       small circle at the right side of the box, until the mouse cursor becomes

@@ -69,8 +69,10 @@ localstorage@1.2.0-beta.16
 logging@1.1.17
 meteor@1.8.0-beta.16
 meteor-base@1.2.0-beta.16
+meteorhacks:picker@1.0.3
 minifier-css@1.2.16
 minimongo@1.4.0-beta.16
+mizzao:timesync@0.5.0
 mobile-experience@1.0.4
 mobile-status-bar@1.0.14
 modules@0.11.0-beta.16
@@ -96,6 +98,7 @@ reactive-dict@1.2.0-beta.16
 reactive-var@1.0.11
 reload@1.1.11
 retry@1.0.9
+reywood:publish-composite@1.5.2
 routepolicy@1.0.12
 service-configuration@1.0.11
 session@1.1.7

@@ -2,6 +2,7 @@
 # Absolute path support:
 # e.g. "/collections/todos"
 module.ignore_non_literal_requires=true
+module.name_mapper='(react-draggable)' -> 'empty/object'
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/frog/\1'
 esproposal.decorators=ignore
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
@@ -39,6 +40,8 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/react-event-listener/.*
 .*/node_modules/styled-components/.*
 .*node_modules/graphql/*
+.*node_modules/match-at/*
+.*node_modules/react-draggable/lib/*
 
 # Ignore template files
 .*/templates/.*

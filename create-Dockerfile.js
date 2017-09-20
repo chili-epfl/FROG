@@ -5,7 +5,7 @@ fs.readdir('./ac', (_, ac) => {
     const acop = [...ac.map(x => 'ac/' + x), ...op.map(x => 'op/' + x)];
     const acopSrc = acop.map(dir => dir + '/src').join(' \\\n');
     const acopCP = acop
-      .map(dir => `COPY ${dir}/package.json ${dir}/yarn.lock ${dir}/`)
+      .map(dir => `COPY ${dir}/package.json ${dir}/`)
       .join('\n');
     const template = `FROM node:7.8.0
 RUN apt-get update && apt-get install -y ocaml libelf-dev
@@ -27,7 +27,7 @@ COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
 COPY package.json yarn.lock .yarnrc .babelrc ./
 COPY *.sh ./
-COPY frog-utils/package.json frog-utils/yarn.lock frog-utils/
+COPY frog-utils/package.json frog-utils/
 ${acopCP}
 COPY frog/package.json frog/
 WORKDIR /usr/src/frog

@@ -4,7 +4,7 @@ import { omit } from 'lodash';
 import { store } from './index';
 import Operator from './operator';
 
-export type OperatorTypes = 'product' | 'social';
+export type OperatorTypes = 'product' | 'social' | 'control';
 
 export default class OperatorStore {
   @observable all: Array<Operator> = [];

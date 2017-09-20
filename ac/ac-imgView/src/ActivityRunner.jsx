@@ -1,12 +1,15 @@
 // @flow
 
-import React from 'react';
-import { compose, withState } from 'recompose';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import Mousetrap from 'mousetrap';
+import type { ActivityRunnerT } from 'frog-utils';
 
 import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
+import UploadBar from './components/UploadBar';
 import ZoomView from './components/ZoomView';
+import WebcamInterface from './components/WebcamInterface';
 
 const Main = styled.div`
   display: flex;
@@ -14,84 +17,121 @@ const Main = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `;
 
-const ActivityPanel = ({
-  activityData: { config: { minVote } },
-  data,
-  dataFn,
-  userInfo,
-  category,
-  setCategory,
-  zoomOpen,
-  setZoom,
-  index,
-  setIndex
-}) => {
-  const categories = Object.keys(data).reduce(
-    (acc, key) => ({
-      ...acc,
-      all: [...(acc.all || []), data[key].url],
-      ...(data[key].categories &&
-        data[key].categories.reduce(
-          (_acc, cat) => ({
-            ..._acc,
-            [cat]: [...(acc[cat] || []), data[key].url]
-          }),
-          {}
-        ))
-    }),
-    {}
-  );
-
-  const images = Object.keys(data)
-    .filter(
-      key =>
-        data[key] !== undefined &&
-        data[key].url !== undefined &&
-        (category === 'all' ||
-          (data[key].categories !== undefined &&
-            data[key].categories.includes(category)))
-    )
-    .map(key => ({ ...data[key], key }));
-
-  const vote = (key, userId) => {
-    const prev = data[key].votes ? data[key].votes[userId] : false;
-    dataFn.objInsert(!prev, [key, 'votes', userId]);
+class ActivityRunner extends Component {
+  state: {
+    zoomOn: boolean,
+    index: number,
+    category: string,
+    webcamOn: boolean
   };
 
-  return (
-    <Main>
-      <TopBar
-        categories={[...Object.keys(categories), 'categories']}
-        {...{ category, setCategory, setZoom }}
-      />
-      <ThumbList
-        {...{
-          images,
-          categories,
-          minVote,
-          vote,
-          userInfo,
-          setCategory,
-          setZoom,
-          setIndex
-        }}
-        showingCategories={category === 'categories'}
-      />
-      {category !== 'categories' &&
-        zoomOpen &&
-        <ZoomView
-          {...{ close: () => setZoom(false), images, index, setIndex }}
-        />}
-    </Main>
-  );
-};
+  categories: {
+    [categoryName: string]: string[]
+  };
 
-const ActivityRunner = compose(
-  withState('zoomOpen', 'setZoom', false),
-  withState('index', 'setIndex', 0),
-  withState('category', 'setCategory', 'categories')
-)(ActivityPanel);
+  constructor(props: ActivityRunnerT) {
+    super(props);
+    Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
-export default ActivityRunner;
+    const { data } = props;
+    this.categories = Object.keys(data).reduce(
+      (acc, key) => ({
+        ...acc,
+        all: [...(acc.all || []), data[key].url],
+        ...(data[key].categories &&
+          data[key].categories.reduce(
+            (_acc, cat) => ({
+              ..._acc,
+              [cat]: [...(acc[cat] || []), data[key].url]
+            }),
+            {}
+          ))
+      }),
+      {}
+    );
+
+    const startingCategory =
+      Object.keys(this.categories).length > 1 ? 'categories' : 'all';
+
+    this.state = {
+      zoomOn: false,
+      index: 0,
+      category: startingCategory,
+      webcamOn: false
+    };
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind('esc');
+  }
+
+  render() {
+    const { activityData, data, dataFn, userInfo, logger } = this.props;
+
+    const minVoteT = activityData.config.minVote || 1;
+
+    const images = Object.keys(data)
+      .filter(
+        key =>
+          data[key] !== undefined &&
+          data[key].url !== undefined &&
+          (this.state.category === 'all' ||
+            (data[key].categories !== undefined &&
+              data[key].categories.includes(this.state.category)))
+      )
+      .map(key => ({ ...data[key], key }));
+
+    const vote = (key, userId) => {
+      logger('vote');
+      const prev = data[key].votes ? data[key].votes[userId] : false;
+      dataFn.objInsert(!prev, [key, 'votes', userId]);
+    };
+
+    const setCategory = (c: string) => this.setState({ category: c });
+    const setZoom = (z: boolean) => this.setState({ zoomOn: z });
+    const setIndex = (i: number) => this.setState({ index: i });
+    const setWebcam = (w: boolean) => this.setState({ webcamOn: w });
+
+    return (
+      <Main>
+        <TopBar
+          categories={[...Object.keys(this.categories), 'categories']}
+          category={this.state.category}
+          canVote={activityData.config.canVote}
+          {...{ setCategory, setZoom }}
+        />
+        <ThumbList
+          {...{
+            images,
+            categories: this.categories,
+            minVoteT,
+            vote,
+            userInfo,
+            setCategory,
+            setZoom,
+            setIndex
+          }}
+          canVote={activityData.config.canVote}
+          showingCategories={this.state.category === 'categories'}
+        />
+        {this.state.category !== 'categories' &&
+          this.state.zoomOn &&
+          <ZoomView
+            index={this.state.index}
+            {...{ close: () => setZoom(false), images, setIndex }}
+          />}
+
+        {activityData.config.canUpload &&
+          <UploadBar {...{ ...this.props, setWebcam }} />}
+        {this.state.webcamOn &&
+          <WebcamInterface {...{ ...this.props, setWebcam }} />}
+      </Main>
+    );
+  }
+}
+
+ActivityRunner.displayName = 'ActivityRunner';
+export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;

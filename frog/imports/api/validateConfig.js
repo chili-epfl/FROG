@@ -1,5 +1,6 @@
 import { Validator } from 'jsonschema';
 import { compact } from 'lodash';
+import { calculateHides } from 'frog-utils';
 
 const v = new Validator();
 
@@ -16,8 +17,13 @@ const runFn = (id, fn, obj) => {
   }
 };
 
-export default (nodeType, id, obj, schema, datafns) => {
-  if (schema && schema.properties !== {} && (obj === {} || !obj)) {
+export default (nodeType, id, obj, schema, datafns, uiSchema) => {
+  if (
+    schema &&
+    schema.properties &&
+    schema.properties !== {} &&
+    (obj === {} || !obj)
+  ) {
     return {
       id,
       nodeType,
@@ -26,6 +32,7 @@ export default (nodeType, id, obj, schema, datafns) => {
       err: 'No config available'
     };
   }
+  const hides = calculateHides(obj, schema, uiSchema);
 
   const result = v.validate(obj, schema);
   const validResult = compact(
@@ -41,14 +48,21 @@ export default (nodeType, id, obj, schema, datafns) => {
           type: 'invalidConfigField'
         };
       } else if (x.name === 'required') {
-        return {
-          field: x.argument,
-          nodeType,
-          err: `Field '${result.schema.properties[x.argument].title}' required`,
-          type: 'missingRequiredConfigField',
-          severity: 'error',
-          id
-        };
+        // if the field is hidden, it does not count as obligatory anymore
+        if (hides.includes(x.argument) && x.property === 'instance') {
+          return null;
+        } else {
+          return {
+            field: x.argument,
+            nodeType,
+            err: `Field ${(result.schema.properties[x.argument] &&
+              `'${result.schema.properties[x.argument].title}'`) ||
+              ''} required`,
+            type: 'missingRequiredConfigField',
+            severity: 'error',
+            id
+          };
+        }
       } else {
         // eslint-disable-next-line no-console
         console.error('missing validator error', result.err);

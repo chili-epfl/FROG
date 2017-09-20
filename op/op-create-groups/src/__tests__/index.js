@@ -36,3 +36,8 @@ test('Create groups individual', () =>
   expect(operator({ strategy: 'minimum', groupsize: 3 }, obj2)).toEqual({
     group: { '1': ['1', '2', '3', '8'], '2': ['4', '5', '6', '7'] }
   }));
+
+test('Create one large group with everyone', () =>
+  expect(operator({ strategy: 'minimum', groupsize: 999 }, obj)).toEqual({
+    group: { '1': ['1', '2', '3', '4', '5'] }
+  }));

@@ -60,7 +60,7 @@ class ChooseActivityType extends Component {
           <h4>Please select activity type</h4>
           <div
             className="input-group"
-            style={{ top: '5px', left: '10px', width: '100%' }}
+            style={{ top: '5px', left: '10px', width: '250px' }}
           >
             <span className="input-group-addon" id="basic-addon1">
               <span className="glyphicon glyphicon-search" aria-hidden="true" />
@@ -79,7 +79,7 @@ class ChooseActivityType extends Component {
         <div
           className="list-group"
           style={{
-            height: '95%',
+            height: '93%',
             width: '100%',
             overflowY: 'scroll',
             transform: 'translateY(10px)'
@@ -102,7 +102,10 @@ class ChooseActivityType extends Component {
                   showExpanded={this.state.expanded === x.id}
                   expand={() => this.setState({ expanded: x.id })}
                   key={x.id}
-                  onPreview={() => this.setState({ showInfo: x.id })}
+                  onPreview={() =>
+                    this.props.store.ui.setShowPreview({
+                      activityTypeId: x.id
+                    })}
                   object={x}
                   searchS={this.state.searchStr}
                   eventKey={x.id}

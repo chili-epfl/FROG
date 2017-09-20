@@ -8,17 +8,22 @@ import {
   type ObjectT
 } from 'frog-utils';
 import { Activities } from '../imports/api/activities';
+import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
+import { Sessions } from '../imports/api/sessions';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 
-export default (activityId: string, object: ObjectT) => {
+const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
+  const activityType = activityTypesObj[activity.activityType];
 
   const { groups, structure } = doGetInstances(activity, object);
-  groups.forEach(grouping => {
+  const createGroups = group ? [group] : groups;
+
+  createGroups.forEach(grouping => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
     }
@@ -27,7 +32,6 @@ export default (activityId: string, object: ObjectT) => {
         hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
       }
     });
-    const activityType = activityTypesObj[activity.activityType];
     const mergeFunction = activityType.mergeFunction;
     const doc = serverConnection.get('rz', activityId + '/' + grouping);
     doc.fetch();
@@ -58,4 +62,42 @@ export default (activityId: string, object: ObjectT) => {
       })
     );
   });
+  const mergedLogsDoc = serverConnection.get('rz', activityId + '//DASHBOARD');
+  mergedLogsDoc.fetch();
+  mergedLogsDoc.on('load', () => {
+    if (!mergedLogsDoc.type) {
+      mergedLogsDoc.create(
+        (activityType.dashboard && activityType.dashboard.initData) || {}
+      );
+    }
+    mergedLogsDoc.destroy();
+  });
 };
+
+export default mergeData;
+
+Meteor.methods({
+  'ensure.reactive': (sessionId, studentId) => {
+    const session = Sessions.findOne(sessionId);
+    const activities = session.openActivities
+      ? Activities.find({
+          _id: { $in: session.openActivities },
+          plane: 1
+        })
+      : [];
+    activities.forEach(ac => {
+      const object = Objects.findOne(ac._id);
+      if (!object.globalStructure.studentIds.includes(studentId)) {
+        Objects.update(ac._id, {
+          $push: { 'globalStructure.studentIds': studentId }
+        });
+        Objects.update(ac._id, {
+          $set: {
+            ['globalStructure.students.' + studentId]: Meteor.user().username
+          }
+        });
+      }
+      mergeData(ac._id, object, studentId);
+    });
+  }
+});

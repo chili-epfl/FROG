@@ -18,6 +18,7 @@ class AppClass extends Component {
   componentWillReceiveProps = (nextProps: Object) => {
     if (
       nextProps.match &&
+      nextProps.match.params.graphId &&
       nextProps.match.params.graphId !== this.props.match.params.graphId
     ) {
       this.updateGraphId(nextProps.match.params.graphId);
@@ -59,6 +60,7 @@ const bindKeys = () => {
   Mousetrap.bind('backspace', store.deleteSelected);
   Mousetrap.bind('?', () => store.ui.setModal(true));
   Mousetrap.bind('s', () => store.operatorStore.place('social'));
+  Mousetrap.bind('c', () => store.operatorStore.place('control'));
   Mousetrap.bind('p', () => store.operatorStore.place('product'));
   Mousetrap.bind('w', e => {
     store.ui.toggleSidepanelOpen();

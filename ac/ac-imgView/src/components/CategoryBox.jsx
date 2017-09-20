@@ -35,7 +35,7 @@ const CategoryName = styled.span`
   bottom: 0px;
 `;
 
-export default ({
+const CategoryBox = ({
   images,
   category,
   setCategory
@@ -45,8 +45,8 @@ export default ({
   setCategory: Function
 }) =>
   <CategoryContainer onClick={() => setCategory(category)}>
-    {images.slice(0, 4).map(image =>
-      <ImgContainer key={image}>
+    {images.slice(0, 4).map((image, i) =>
+      <ImgContainer key={image + i.toString()}>
         <CenteredImg url={image} />
       </ImgContainer>
     )}
@@ -54,3 +54,6 @@ export default ({
       {category}
     </CategoryName>
   </CategoryContainer>;
+
+CategoryBox.displayName = 'CategoryBox';
+export default CategoryBox;

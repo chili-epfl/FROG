@@ -13,7 +13,7 @@ const act = { _id: '', data: {}, groupingKey: 'all', plane: 1 };
 const createObj = (a: activityDataT, b: socialStructureT = {}): ObjectT => ({
   socialStructure: b,
   activityData: a,
-  globalStructure: { studentIds: students }
+  globalStructure: { studentIds: students, students: {} }
 });
 
 const dataAll = {

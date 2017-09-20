@@ -8,6 +8,7 @@ import {
   type activityDataT
 } from 'frog-utils';
 
+import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
 import { operatorTypesObj } from '../imports/operatorTypes';
@@ -31,8 +32,10 @@ const runAllConnecting = (connections: Object[], sessionId: string) =>
   );
 
 // The list of students
-const getStudents = sessionId =>
-  Meteor.users.find({ 'profile.currentSession': sessionId }).fetch();
+const getStudents = sessionId => {
+  const session = Sessions.findOne(sessionId);
+  return Meteor.users.find({ joinedSessions: session.slug }).fetch();
+};
 
 // runDataflow ensures that all data required for a given node is
 // computed. It recursively runs all the connecting nodes, and
@@ -80,12 +83,13 @@ const runDataflow = (
       ? prod.activityData
       : {
           structure: 'all',
-          payload: { all: { data: {}, config: {} } }
+          payload: { all: { data: null, config: {} } }
         };
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
-  const globalStructure: { studentIds: string[] } = {
-    studentIds: students.map(student => student._id)
+  const globalStructure: { studentIds: string[], students: Object } = {
+    studentIds: students.map(student => student._id),
+    students: students.reduce((acc, x) => ({ ...acc, [x._id]: x.username }), {})
   };
 
   const object: ObjectT = {
@@ -99,11 +103,12 @@ const runDataflow = (
   if (type === 'operator') {
     const operatorFunction = operatorTypesObj[node.operatorType].operator;
     const product = Promise.await(operatorFunction(node.data, object));
-
-    const update =
-      node.type === 'product'
-        ? { activityData: product }
-        : { socialStructure: product };
+    const dataType = {
+      product: 'activityData',
+      social: 'socialStructure',
+      control: 'controlStructure'
+    }[node.type];
+    const update = { [dataType]: product };
     Products.update(nodeId, { type: node.type, ...update }, { upsert: true });
 
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
