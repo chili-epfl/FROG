@@ -2,7 +2,9 @@
 // import { shuffle } from 'lodash';
 
 export default (obj: Object, dataFn: Object) => {
-  dataFn.objInsert(0, 'index');
+  dataFn.objInsert(0, 'indexPart');
+  dataFn.objInsert(0, 'indexCurrent');
+  console.log(obj.config.examples);
 
   /*  const listIni = [];
   for (let i = 0; i < obj.config.examples.length; i += 1) listIni.push(i);

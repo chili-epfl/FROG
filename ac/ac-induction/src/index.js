@@ -65,10 +65,17 @@ const meta = {
   ]
 };
 
+const configUI = {
+  nbExamples: { conditional: 'hasExamples' },
+  nbTestFeedback: { conditional: 'hasTestWithFeedback' },
+  nbTest: { conditional: 'hasTest' }
+};
+
 export default ({
   id: 'ac-induction',
   type: 'react-component',
   config,
+  configUI,
   meta,
   ActivityRunner,
   mergeFunction,

@@ -15,7 +15,8 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     hasExamples,
     hasTestWithFeedback,
     hasDefinition,
-    hasTest
+    hasTest,
+    examples
   } = activityData.config;
   const parts = ['Presentation'];
   if (hasExamples) parts.push('Examples');
@@ -24,30 +25,55 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   if (hasTest) parts.push('Test');
 
   let page = null;
-  switch (parts[data.index]) {
+  switch (parts[data.indexPart]) {
     case 'Presentation':
       page = (
         <Presentation title={title} parts={parts} dataFn={dataFn} data={data} />
       );
       break;
     case 'Examples':
-      page = <Examples />;
+      page = (
+        <Examples
+          examples={examples}
+          nbExamples={activityData.config.nbExamples}
+          dataFn={dataFn}
+          data={data}
+        />
+      );
       break;
     case 'Test with feedback':
-      page = <Test feedback />;
+      page = (
+        <Test
+          examples={examples}
+          nbTest={0}
+          nbTestFeedback={activityData.config.nbTestFeedback}
+          feedback
+          dataFn={dataFn}
+          data={data}
+        />
+      );
       break;
     case 'Definition':
-      page = <Definition />;
+      page = <Definition dataFn={dataFn} data={data} />;
       break;
     case 'Test':
-      page = <Test feedback={false} />;
+      page = (
+        <Test
+          examples={examples}
+          nbTest={activityData.config.nbTest}
+          nbTestFeedback={0}
+          feedback={false}
+          dataFn={dataFn}
+          data={data}
+        />
+      );
       break;
     default:
   }
 
   return (
     <div>
-      <NavigationBar active={data.index} parts={parts} />
+      <NavigationBar active={data.indexPart} parts={parts} />
       {page}
     </div>
   );

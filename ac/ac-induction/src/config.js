@@ -11,9 +11,17 @@ export default {
       type: 'boolean',
       title: 'Give examples to the student ?'
     },
+    nbExamples: {
+      type: 'number',
+      title: 'How many examples should be displayed ?'
+    },
     hasTestWithFeedback: {
       type: 'boolean',
       title: 'Give test with feedback to the student ?'
+    },
+    nbTestFeedback: {
+      type: 'number',
+      title: 'How many test with feedback should be displayed ?'
     },
     hasDefinition: {
       type: 'boolean',
@@ -22,6 +30,10 @@ export default {
     hasTest: {
       type: 'boolean',
       title: 'Give test to the student ?'
+    },
+    nbTest: {
+      type: 'number',
+      title: 'How many test should be displayed ?'
     },
     examples: {
       title: 'New example',

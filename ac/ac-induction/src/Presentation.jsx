@@ -23,7 +23,7 @@ export default ({ title, parts, dataFn, data }: Object) => {
       </div>
       <button
         className="btn btn-default"
-        onClick={() => dataFn.objInsert(data.index + 1, 'index')}
+        onClick={() => dataFn.objInsert(data.indexPart + 1, 'indexPart')}
         style={{
           position: 'absolute',
           left: '50%',
