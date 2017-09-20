@@ -1,8 +1,10 @@
 // @flow
-import { shuffle } from 'lodash';
+// import { shuffle } from 'lodash';
 
 export default (obj: Object, dataFn: Object) => {
-  const listIni = [];
+  dataFn.objInsert(0, 'index');
+
+  /*  const listIni = [];
   for (let i = 0; i < obj.config.examples.length; i += 1) listIni.push(i);
   let listFin = [];
 
@@ -21,5 +23,5 @@ export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(genDefs.map(() => false), 'currentValueState');
   dataFn.objInsert(true, 'currentSelected');
   dataFn.objInsert(false, 'transitState');
-  dataFn.objInsert('#00FF00', 'transitStateColor');
+  dataFn.objInsert('#00FF00', 'transitStateColor'); */
 };

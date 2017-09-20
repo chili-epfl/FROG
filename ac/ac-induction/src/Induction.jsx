@@ -30,7 +30,7 @@ const ExamplesCont = styled.div`
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   const currentEx = activityData.config.examples[data.listIndex[data.index]];
   const nExShortCut = 850 / activityData.config.examples.length;
-  return ( 
+  return (
     <Main>
       <h1>
         {activityData.config.title}

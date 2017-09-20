@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './Induction';
+import ActivityRunner from './ActivityRunner';
 import config from './config';
 import mergeFunction from './mergeFun';
 
