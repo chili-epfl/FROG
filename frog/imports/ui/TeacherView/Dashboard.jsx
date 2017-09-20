@@ -26,7 +26,10 @@ export class DashboardComp extends Component {
   constructor(props: Object) {
     super(props);
     this.state = { data: null };
-    this.init(props);
+  }
+
+  componentDidMount() {
+    this.init(this.props);
   }
 
   componentWillReceiveProps(nextProps: Object) {
@@ -39,8 +42,8 @@ export class DashboardComp extends Component {
   }
 
   init(props: Object) {
-    if (this.props.doc) {
-      this.doc = this.props.doc;
+    if (props.doc) {
+      this.doc = props.doc;
       this.update();
       this.doc.on('op', this.update);
     } else {
