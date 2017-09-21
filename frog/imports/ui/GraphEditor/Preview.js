@@ -117,12 +117,12 @@ export const StatelessPreview = withState(
 
     const reactiveDash = generateReactiveFn(dashboard);
 
-    const logger = id => payload => {
+    const logger = (id, instanceId) => payload => {
       if (activityType.dashboard && activityType.dashboard.mergeLog) {
         activityType.dashboard.mergeLog(
           cloneDeep(dashboard.data),
           reactiveDash,
-          { userId: id, payload, updatedAt: Date() }
+          { userId: id, payload, updatedAt: Date(), instanceId }
         );
       }
     };
@@ -167,7 +167,7 @@ export const StatelessPreview = withState(
             name,
             id
           }}
-          logger={logger(id)}
+          logger={logger(id, Math.ceil(id / 2))}
         />
       );
     };

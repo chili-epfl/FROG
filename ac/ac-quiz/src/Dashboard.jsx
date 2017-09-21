@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable react/no-array-index-key */
 
 import React from 'react';
 import { CountChart } from 'frog-utils';
@@ -18,7 +19,7 @@ const Viewer = ({ data, config }: Object) => {
     <div>
       {questions.map((q, i) =>
         <CountChart
-          key={q.question}
+          key={i}
           title={q.question}
           vAxis="Possible answers"
           hAxis="Number of answers"
