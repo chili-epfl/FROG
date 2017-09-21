@@ -4,26 +4,20 @@
 export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(0, 'indexPart');
   dataFn.objInsert(0, 'indexCurrent');
-  console.log(obj.config.examples);
+  dataFn.objInsert(false, 'feedbackOpen');
 
-  /*  const listIni = [];
-  for (let i = 0; i < obj.config.examples.length; i += 1) listIni.push(i);
-  let listFin = [];
+  const {
+    hasExamples,
+    hasTestWithFeedback,
+    hasDefinition,
+    hasTest
+  } = obj.config;
 
-  for (let j = 0; j < obj.config.nExamples / obj.config.examples.length; j += 1)
-    listFin = listFin.concat(shuffle(listIni));
-  listFin = listFin.slice(0, obj.config.nExamples);
-
-  dataFn.objInsert(listFin, 'listIndex');
-  dataFn.objInsert(0, 'index');
-
-  const genDefs = obj.config.trueDef.concat(obj.config.falseDef);
-  if (obj.config.examples[listFin[0]].whyIncorrect !== undefined)
-    genDefs.push(obj.config.examples[listFin[0]].whyIncorrect);
-
-  dataFn.objInsert(shuffle(genDefs), 'currentDefs');
-  dataFn.objInsert(genDefs.map(() => false), 'currentValueState');
-  dataFn.objInsert(true, 'currentSelected');
-  dataFn.objInsert(false, 'transitState');
-  dataFn.objInsert('#00FF00', 'transitStateColor'); */
+  const parts = ['Presentation'];
+  if (hasExamples) parts.push('Examples');
+  if (hasTestWithFeedback) parts.push('Test with feedback');
+  if (hasDefinition) parts.push('Definition');
+  if (hasTest) parts.push('Test');
+  parts.push('End');
+  dataFn.objInsert(parts, 'parts');
 };

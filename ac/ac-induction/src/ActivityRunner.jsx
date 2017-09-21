@@ -3,33 +3,21 @@
 import React from 'react';
 import type { ActivityRunnerT } from 'frog-utils';
 
+import { Main } from './StyledComponents';
 import NavigationBar from './NavigationBar';
 import Presentation from './Presentation';
 import Examples from './Examples';
-import Definition from './Definition';
 import Test from './Test';
+import Definition from './Definition';
+import End from './End';
 
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
-  const {
-    title,
-    hasExamples,
-    hasTestWithFeedback,
-    hasDefinition,
-    hasTest,
-    examples
-  } = activityData.config;
-  const parts = ['Presentation'];
-  if (hasExamples) parts.push('Examples');
-  if (hasTestWithFeedback) parts.push('Test with feedback');
-  if (hasDefinition) parts.push('Definition');
-  if (hasTest) parts.push('Test');
+  const { title, examples } = activityData.config;
 
   let page = null;
-  switch (parts[data.indexPart]) {
+  switch (data.parts[data.indexPart]) {
     case 'Presentation':
-      page = (
-        <Presentation title={title} parts={parts} dataFn={dataFn} data={data} />
-      );
+      page = <Presentation title={title} dataFn={dataFn} data={data} />;
       break;
     case 'Examples':
       page = (
@@ -68,13 +56,16 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
         />
       );
       break;
+    case 'End':
+      page = <End />;
+      break;
     default:
   }
 
   return (
-    <div>
-      <NavigationBar active={data.indexPart} parts={parts} />
+    <Main>
+      <NavigationBar config={activityData.config} data={data} />
       {page}
-    </div>
+    </Main>
   );
 };

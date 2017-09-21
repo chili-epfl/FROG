@@ -41,7 +41,7 @@ export default {
       items: {
         type: 'object',
         properties: {
-          image: {
+          url: {
             title: 'image URL',
             type: 'string'
           },
