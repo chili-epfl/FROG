@@ -234,6 +234,7 @@ export const StatelessPreview = withState(
                     >
                       <DashboardComp
                         activity={{ activityType: activityType.id }}
+                        config={activityData.config}
                         doc={dashboard}
                         users={[
                           'Chen Li',

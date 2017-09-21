@@ -4,6 +4,9 @@ import React from 'react';
 import { CountChart } from 'frog-utils';
 
 const Viewer = ({ data, config }: Object) => {
+  if (!config) {
+    return null;
+  }
   const questions = config.questions.filter(q => q.question && q.answers);
   const answerCounts = questions.map((q, i) =>
     ((data && Object.values(data)) || []).reduce((acc, val) => {

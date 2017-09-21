@@ -95,7 +95,7 @@ export class DashboardComp extends Component {
           <aT.dashboard.Viewer
             users={users}
             data={this.state.data}
-            config={this.props.activity.data}
+            config={this.props.config}
           />
         </div>
       : <p>The selected activity does not provide a dashboard</p>;
