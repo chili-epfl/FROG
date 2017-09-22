@@ -51,7 +51,7 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     .filter(q => q.question && q.answers)
     .forEach((q, i) => {
       schema.properties['question ' + i] = {
-        type: 'string',
+        type: 'number',
         title: 'Question ' + (i + 1),
         enum: q.answers.map((_, k) => k),
         enumNames: q.answers
