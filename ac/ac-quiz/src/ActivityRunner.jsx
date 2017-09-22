@@ -52,7 +52,7 @@ const Quiz = ({ activityData, data, dataFn }: ActivityRunnerT) => {
     .filter(q => q.question && q.answers)
     .forEach((q, i) => {
       const radio = {
-        type: 'string',
+        type: 'number',
         enum: q.answers,
         title: ' '
       };
