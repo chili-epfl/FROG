@@ -89,13 +89,12 @@ export class DashboardComp extends Component {
           {}
         )
       : {};
-
     return aT.dashboard && aT.dashboard.Viewer
       ? <div style={{ width: '100%' }}>
           <aT.dashboard.Viewer
             users={users}
             data={this.state.data}
-            config={this.props.config}
+            config={this.props.activity.data || this.props.config}
           />
         </div>
       : <p>The selected activity does not provide a dashboard</p>;
