@@ -180,6 +180,7 @@ Meteor.methods({
       let slug;
       if (options.debug) {
         slug = 'DEBUG';
+        Sessions.remove({ slug: 'DEBUG' });
       } else {
         const slugs = Sessions.find({}, { fields: { slug: 1 } })
           .fetch()
