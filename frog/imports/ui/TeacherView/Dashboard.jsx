@@ -21,7 +21,7 @@ export class DashboardComp extends Component {
   state: { data: any };
   doc: any;
   timeout: ?number;
-  unmounted: boolean;
+  mounted: boolean;
 
   constructor(props: Object) {
     super(props);
@@ -29,6 +29,7 @@ export class DashboardComp extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     this.init(this.props);
   }
 
@@ -65,7 +66,7 @@ export class DashboardComp extends Component {
   };
 
   update = () => {
-    if (!this.timeout && !this.unmounted) {
+    if (!this.timeout && this.mounted) {
       this.setState({ data: this.doc.data });
     }
   };
@@ -77,7 +78,7 @@ export class DashboardComp extends Component {
     if (this.timeout) {
       window.clearTimeout(this.timeout);
     }
-    this.unmounted = true;
+    this.mounted = false;
   };
 
   render() {
@@ -88,10 +89,13 @@ export class DashboardComp extends Component {
           {}
         )
       : {};
-
     return aT.dashboard && aT.dashboard.Viewer
       ? <div style={{ width: '100%' }}>
-          <aT.dashboard.Viewer users={users} data={this.state.data} />
+          <aT.dashboard.Viewer
+            users={users}
+            data={this.state.data}
+            config={this.props.activity.data || this.props.config}
+          />
         </div>
       : <p>The selected activity does not provide a dashboard</p>;
   }

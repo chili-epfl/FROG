@@ -79,7 +79,7 @@ export type validateConfigFnT = Object => null | {
 
 export type ReactComponent<Props> =
   | Class<React$Component<*, Props, *>>
-  | (Props => React$Element<any>);
+  | (Props => React$Element<any> | null);
 
 export type ActivityPackageT = {
   id: string,
