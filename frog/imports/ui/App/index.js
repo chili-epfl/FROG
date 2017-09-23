@@ -63,10 +63,12 @@ class FROGRouter extends Component {
 
   componentWillMount() {
     const query = queryToObject(this.props.location.search.slice(1));
+    console.log(query, this.props.location);
     const hasQuery = Object.keys(query).length > 0;
 
     if (this.state.mode !== 'loggingIn') {
-      if (process.env.NODE_ENV !== 'production') {
+      if (true) {
+        //(process.env.NODE_ENV !== 'production') {
         const username = query.login;
         if (username) {
           this.setState({ mode: 'loggingIn' });
