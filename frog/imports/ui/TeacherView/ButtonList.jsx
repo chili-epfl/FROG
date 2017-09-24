@@ -41,10 +41,12 @@ const Countdown = createContainer(
 
 const ButtonList = ({
   session,
-  toggle
+  toggle,
+  setShowStudentList
 }: {
   session: Object,
-  toggle: Function
+  toggle: Function,
+  setShowStudentList: Function
 }) => {
   const buttons = [
     {
@@ -99,6 +101,12 @@ const ButtonList = ({
       type: 'primary',
       onClick: () => makeDebug(session._id),
       text: 'Make session debug'
+    },
+    {
+      states: ['CREATED', 'STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: () => setShowStudentList(true),
+      text: 'Edit student list'
     },
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
