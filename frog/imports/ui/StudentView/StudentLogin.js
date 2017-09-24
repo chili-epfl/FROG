@@ -11,7 +11,7 @@ const splitList = (list: string[]) => {
 };
 
 class StudentLogin extends Component {
-  state: { studentlist: [] };
+  state: { studentlist?: string[] };
 
   componentWillMount() {
     Meteor.call('frog.studentlist', this.props.slug, (err, result) =>
@@ -28,7 +28,7 @@ class StudentLogin extends Component {
         <h1>Please find your name below, and click it to log in</h1>
         {this.state.studentlist &&
           splitList(this.state.studentlist).map(lst =>
-            <div className="col-md-5">
+            <div className="col-md-5" key={lst[0]}>
               <ul className="list-group">
                 {lst.map(x =>
                   <li key={x} className="list-group-item">
