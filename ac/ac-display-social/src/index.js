@@ -38,17 +38,18 @@ const config = {
 
 // the actual component that the student sees
 const ActivityRunner = ({
-  activityData: { config },
+  activityData: { config: configData },
   groupingValue,
   userInfo: { name }
 }) =>
   <div>
-    {config.title &&
+    {configData.title &&
       <h1>
-        {config.title}
+        {configData.title}
       </h1>}
     <h2>
-      {config.displayName && `Hi, ${name}. `} You are in group {groupingValue}.
+      {configData.displayName && `Hi, ${name}. `} You are in group{' '}
+      {groupingValue}.
     </h2>
   </div>;
 
