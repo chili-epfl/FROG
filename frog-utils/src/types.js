@@ -69,7 +69,8 @@ export type ActivityRunnerT = {
   data: any,
   dataFn: Object,
   uploadFn: (files: Array<any>, callback: (string) => any) => void,
-  userInfo: { id: string, name: string }
+  userInfo: { id: string, name: string },
+  groupingValue: string
 };
 
 export type validateConfigFnT = Object => null | {

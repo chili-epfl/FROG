@@ -1,5 +1,6 @@
 // @flow
 
+import { wrapUnitAll } from 'frog-utils';
 import pkg from '../index';
 
 const operator = pkg.operator;
@@ -11,12 +12,18 @@ const config = {
 };
 
 const globalStructure = {
-  studentIds: [1, 2, 3, 4],
+  studentIds: ['1', '2', '3', '4'],
   students: { '1': 'stian', '2': 'peter', '3': 'john', '4': 'alfons' }
 };
 
 test('works', () =>
-  expect(operator(config, { globalStructure })).toEqual({
+  expect(
+    operator(config, {
+      socialStructure: {},
+      activityData: wrapUnitAll({}),
+      globalStructure
+    })
+  ).toEqual({
     first: { '1': ['1', '4'], '2': ['2'], '3': ['3'] },
     last: { '1': ['2', '3'], '2': ['1', '4'] }
   }));

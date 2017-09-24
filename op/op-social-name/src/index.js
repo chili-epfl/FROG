@@ -61,6 +61,7 @@ const validateConfig = [
         err: `Line ${empty} has empty attributes`
       };
     }
+    return null;
   }
 ];
 
@@ -74,7 +75,7 @@ const operator = (
     .filter(x => x.trim() !== '')
     .reduce((acc, x) => {
       const f = x.split(',');
-      return { ...acc, [f[0]]: f.slice(1).map(x => x.trim()) };
+      return { ...acc, [f[0]]: f.slice(1).map(z => z.trim()) };
     }, {});
   const groupnames = configData.groupnames.split(',');
   const studentStruct = studentIds.reduce((acc, stud) => {
@@ -89,6 +90,9 @@ const operator = (
   return focusRole(studentStruct);
 };
 
+const outputDefinition = configData =>
+  configData.defaultgroup.split(',').map(f => f.trim());
+
 export default ({
   id: 'op-social-name',
   type: 'social',
@@ -96,5 +100,6 @@ export default ({
   config,
   configUI,
   validateConfig,
+  outputDefinition,
   meta
 }: socialOperatorT);
