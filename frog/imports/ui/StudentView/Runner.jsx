@@ -62,6 +62,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
       activityData={activityData}
       userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
       logger={logger}
+      groupingValue={groupingValue}
     />
   );
 

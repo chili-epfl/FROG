@@ -168,6 +168,7 @@ export const StatelessPreview = withState(
             id
           }}
           logger={logger(id, Math.ceil(id / 2))}
+          groupingValue={'' + Math.ceil(id / 2)}
         />
       );
     };

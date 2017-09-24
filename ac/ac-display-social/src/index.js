@@ -5,11 +5,20 @@ import { type ActivityPackageT } from 'frog-utils';
 
 const meta = {
   name: 'Display social attribute',
-  type: 'react-component',
-  shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available',
+  shortDesc: 'Display the social attribute chosen',
+  description: '',
   exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
+    {
+      title: 'Basic case',
+      config: { title: 'Please find your groups' },
+      data: {}
+    },
+
+    {
+      title: 'Basic case with name',
+      config: { title: 'Please find your groups', displayName: true },
+      data: {}
+    }
   ]
 };
 
@@ -19,28 +28,34 @@ const config = {
     title: {
       title: 'What is the title?',
       type: 'string'
+    },
+    displayName: {
+      title: 'Display user name in message?',
+      type: 'boolean'
     }
   }
 };
 
-// default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
-
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
-
 // the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) =>
+const ActivityRunner = ({
+  activityData: { config },
+  groupingValue,
+  userInfo: { name }
+}) =>
   <div>
-    {JSON.stringify(activityData)}
+    {config.title &&
+      <h1>
+        {config.title}
+      </h1>}
+    <h2>
+      {config.displayName && `Hi, ${name}. `} You are in group {groupingValue}.
+    </h2>
   </div>;
 
 export default ({
   id: 'ac-display-social',
+  type: 'react-component',
   meta,
   config,
-  ActivityRunner,
-  Dashboard: null,
-  dataStructure,
-  mergeFunction
+  ActivityRunner
 }: ActivityPackageT);
