@@ -40,7 +40,7 @@ const ObservationContainer = ({
       >
         <Paper zDepth={3} style={style}>
           <div>
-            {shorten(title, 20)}
+            {shorten(title, 35)}
             <span style={{ float: 'right' }} className="noDrag">
               <AspectRatio onClick={openInfoFn} />
             </span>

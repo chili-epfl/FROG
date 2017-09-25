@@ -1,5 +1,5 @@
 {
-  "name": "ac-video",
+  "name": "op-aggregate",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -10,13 +10,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "react": "^15.6.1",
-    "react-bootstrap": "^0.31.2",
-    "react-dom": "^15.6.1",
-    "react-player": "^0.24.5",
-    "frog-utils": "^1.0.0"
-  },
+  "dependencies": {"frog-utils": "1.0.0"},
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.2.3",
