@@ -79,6 +79,9 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     categ.forEach((x, i) => Mousetrap.unbind(shortCuts[i]));
   return (
     <div style={{ margin: '1%', height: '100%' }}>
+      <pre>
+        {JSON.stringify(data, null, 2)}
+      </pre>
       <h4>
         {activityData.config.title}
       </h4>

@@ -1,18 +1,23 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
+import {
+  generateReactiveFn,
+  focusStudent,
+  getMergedExtractedUnit
+} from 'frog-utils';
 
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
+import { connection } from '../App/index';
 
-const Runner = ({ activity, sessionId, object, single }) => {
+const Runner = ({ activity, sessionId, object, single, stream }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -62,6 +67,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
       activityData={activityData}
       userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
       logger={logger}
+      stream={stream}
       groupingValue={groupingValue}
     />
   );
@@ -77,7 +83,36 @@ const Runner = ({ activity, sessionId, object, single }) => {
   }
 };
 
+class RunnerWithStream extends Component {
+  state: { stream: any };
+  mounted: boolean;
+  doc: any;
+
+  constructor(props: Object) {
+    super(props);
+    this.state = { stream: null };
+  }
+
+  componentDidMount() {
+    if (this.doc) {
+      this.doc.destroy();
+    }
+    if (this.props.activity.streamTarget) {
+      this.doc = connection.get(
+        'rz',
+        this.props.activity.streamTarget + '/all'
+      );
+      this.doc.subscribe();
+      this.setState({ stream: generateReactiveFn(this.doc) }) // eslint-disable-line
+    }
+  }
+
+  render() {
+    return <Runner {...this.props} stream={this.state.stream} />;
+  }
+}
+
 export default createContainer(({ activity }) => {
   const object = Objects.findOne(activity._id);
-  return { object };
-}, Runner);
+  return { object, activity };
+}, RunnerWithStream);

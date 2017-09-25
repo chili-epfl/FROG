@@ -4,15 +4,19 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
-const UploadDragDrop = ({ data, dataFn, uploadFn, logger }: Object) => {
+import { uuid } from 'frog-utils';
+
+const UploadDragDrop = ({ data, dataFn, stream, uploadFn, logger }: Object) => {
   const onDrop = f => {
     uploadFn(f, url => {
       logger('upload');
       // setTimeout, otherwise HTTP request sends back code 503
-      setTimeout(
-        () => dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
-        500
-      );
+      setTimeout(() => {
+        dataFn.objInsert({ url, votes: {} }, Object.keys(data).length);
+        if (stream) {
+          stream.objInsert({ url }, uuid());
+        }
+      }, 500);
     });
   };
 
