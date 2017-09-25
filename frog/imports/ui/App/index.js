@@ -63,8 +63,7 @@ class FROGRouter extends Component {
 
   componentWillMount() {
     const query = queryToObject(this.props.location.search.slice(1));
-    console.log(query, this.props.location);
-    const hasQuery = Object.keys(query).length > 0;
+    const hasLogin = query.login;
 
     if (this.state.mode !== 'loggingIn') {
       if (true) {
@@ -88,7 +87,7 @@ class FROGRouter extends Component {
         }
       }
 
-      if (!hasQuery && this.state.mode !== 'ready') {
+      if (!hasLogin && this.state.mode !== 'ready') {
         if (Accounts._storedLoginToken()) {
           this.setState({ mode: 'loggingIn' });
           Accounts.loginWithToken(Accounts._storedLoginToken(), err => {
