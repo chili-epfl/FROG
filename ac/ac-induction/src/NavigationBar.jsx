@@ -5,7 +5,6 @@ import React from 'react';
 import { NavLi } from './StyledComponents';
 
 export default ({ config, data }: Object) => {
-  console.log('navBar');
   const genTitle = (
     part: string,
     index: number,

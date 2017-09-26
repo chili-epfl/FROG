@@ -68,6 +68,7 @@ const meta = {
 const configUI = {
   nbExamples: { conditional: 'hasExamples' },
   nbTestFeedback: { conditional: 'hasTestWithFeedback' },
+  definition: { conditional: 'hasDefinition' },
   nbTest: { conditional: 'hasTest' }
 };
 

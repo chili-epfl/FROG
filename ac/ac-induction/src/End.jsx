@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default ({ dataFn, data }: Object) => {
-  console.log('End');
-  return <div>End of the activity</div>;
-};
+export default ({ dataFn, data }: Object) =>
+  <div style={{ margin: '50px' }}>
+    <h2>End of the activity</h2>
+  </div>;

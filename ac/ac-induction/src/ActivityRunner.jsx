@@ -12,7 +12,7 @@ import Definition from './Definition';
 import End from './End';
 
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
-  const { title, examples } = activityData.config;
+  const { title, examples, definition } = activityData.config;
 
   let page = null;
   switch (data.parts[data.indexPart]) {
@@ -42,7 +42,15 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
       );
       break;
     case 'Definition':
-      page = <Definition dataFn={dataFn} data={data} />;
+      page = (
+        <Definition
+          title={title}
+          definition={definition}
+          hasTest={activityData.config.hasTest}
+          dataFn={dataFn}
+          data={data}
+        />
+      );
       break;
     case 'Test':
       page = (

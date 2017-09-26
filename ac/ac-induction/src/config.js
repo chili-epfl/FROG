@@ -27,6 +27,10 @@ export default {
       type: 'boolean',
       title: 'Give a definition to the student ?'
     },
+    definition: {
+      type: 'string',
+      title: 'Final definition of the concept: '
+    },
     hasTest: {
       type: 'boolean',
       title: 'Give test to the student ?'

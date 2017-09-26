@@ -11,8 +11,6 @@ export default ({ examples, nbExamples, dataFn, data }: Object) => {
     } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
   };
 
-  console.log('Examples');
-
   return (
     <ExMain>
       <ExContainer>Image</ExContainer>
