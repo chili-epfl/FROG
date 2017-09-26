@@ -15,46 +15,41 @@ const meta = {
     {
       title: 'Empty induction',
       config: {
-        title: 'Example induction',
-        trueDef: [],
-        falseDef: [],
-        nMaxExamples: 1,
-        examples: [
-          {
-            image:
-              'https://blog.stylingandroid.com/wp-content/themes/lontano-pro/images/no-image-slide.png',
-            isIncorrect: false,
-            whyIncorrect: 'Empty'
-          }
-        ]
+        title: 'Empty induction',
+        hasExamples: false,
+        hasTestWithFeedback: false,
+        hasDefinition: false,
+        hasTest: false,
+        examples: []
       },
       data: []
     },
     {
       title: 'Induction with examples',
       config: {
-        title: 'The square :',
-        nMaxExamples: 2,
-        trueDef: [
-          'It has 4 sides',
-          'It has 4 right angles',
-          'All of its sides have the same length'
-        ],
-        falseDef: ["It's blue", "It's on a computer", 'Every side is 5cm long'],
+        title: 'The square',
+        hasExamples: true,
+        nbExamples: 3,
+        hasTestWithFeedback: true,
+        nbTestFeedback: 2,
+        hasDefinition: true,
+        definition:
+          'A square is a regular quadrilateral, which means that it has four equal sides and four equal angles (90-degree angles, or right angles). It can also be defined as a rectangle in which two adjacent sides have equal length.',
+        hasTest: true,
+        nbTest: 4,
         examples: [
           {
-            image: 'http://www.fremontsailingclub.org/sailing/SFlag.gif',
+            url: 'http://www.fremontsailingclub.org/sailing/SFlag.gif',
             isIncorrect: false
           },
           {
-            image:
+            url:
               'https://www.pharmasystems.com/image/cache/LabelsFall2013/2555-500x500.jpg',
             isIncorrect: true,
             whyIncorrect: "It doesn't have 4 sides"
           },
           {
-            image:
-              'http://www.iconsdb.com/icons/preview/green/triangle-xxl.png',
+            url: 'http://www.iconsdb.com/icons/preview/green/triangle-xxl.png',
             isIncorrect: true,
             whyIncorrect: "The angles aren't right"
           }
