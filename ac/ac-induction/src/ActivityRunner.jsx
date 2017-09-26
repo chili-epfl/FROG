@@ -13,7 +13,6 @@ import End from './End';
 
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   const { title, examples, definition } = activityData.config;
-
   let page = null;
   switch (data.parts[data.indexPart]) {
     case 'Presentation':
