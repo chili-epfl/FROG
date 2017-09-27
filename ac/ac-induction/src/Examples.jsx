@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ExMain, ExContainer, ExLine, ExButton } from './StyledComponents';
+import ImgBis from './ImgBis';
 
 export default ({ examples, nbExamples, dataFn, data }: Object) => {
   const clickHandler = () => {
@@ -13,10 +14,10 @@ export default ({ examples, nbExamples, dataFn, data }: Object) => {
 
   return (
     <ExMain>
-      <ExContainer>Image</ExContainer>
+      <ExContainer><ImgBis url={examples[data.listIndexEx[data.indexCurrent]].url}/></ExContainer>
       <ExLine />
       <ExContainer>
-        Properties
+        
         <ExButton className="btn btn-default" onClick={clickHandler}>
           {data.indexCurrent < nbExamples - 1 ? 'Next example' : 'Next part'}
         </ExButton>

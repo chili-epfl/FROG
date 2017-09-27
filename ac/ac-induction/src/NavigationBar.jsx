@@ -15,11 +15,11 @@ export default ({ config, data }: Object) => {
     switch (part) {
       case 'Examples':
         return res.concat(' (' + (current + 1) + '/' + conf.nbExamples + ')');
-      case 'Test with feedback':
+      case 'Tests with feedback':
         return res.concat(
           ' (' + (current + 1) + '/' + conf.nbTestFeedback + ')'
         );
-      case 'Test':
+      case 'Tests':
         return res.concat(' (' + (current + 1) + '/' + conf.nbTest + ')');
       default:
         return res;

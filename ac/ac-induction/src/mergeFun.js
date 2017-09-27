@@ -28,9 +28,9 @@ export default (obj: Object, dataFn: Object) => {
 
   const parts = ['Presentation'];
   if (hasExamples) parts.push('Examples');
-  if (hasTestWithFeedback) parts.push('Test with feedback');
+  if (hasTestWithFeedback) parts.push('Tests with feedback');
   if (hasDefinition) parts.push('Definition');
-  if (hasTest) parts.push('Test');
+  if (hasTest) parts.push('Tests'); 
   parts.push('End');
   dataFn.objInsert(parts, 'parts');
 };

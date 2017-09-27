@@ -28,7 +28,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
         />
       );
       break;
-    case 'Test with feedback':
+    case 'Tests with feedback':
       page = (
         <Test
           examples={examples}
@@ -51,7 +51,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
         />
       );
       break;
-    case 'Test':
+    case 'Tests':
       page = (
         <Test
           examples={examples}
@@ -68,7 +68,6 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
       break;
     default:
   }
-
   return (
     <Main>
       <NavigationBar config={activityData.config} data={data} />
