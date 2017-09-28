@@ -35,12 +35,14 @@ export const exportGraph = () => {
 export const duplicateGraph = graphId =>
   doImportGraph({ target: { result: graphToString(graphId) } });
 
-const doImportGraph = graphStr => {
+export const doImportGraph = graphStr => {
   try {
-    const graphObj = JSON.parse(graphStr.target.result);
+    const graphObj = JSON.parse(graphStr);
     const graphId = addGraph(graphObj);
-    store.setId(graphId);
+    store.setId(graphId, false);
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(e);
     // eslint-disable-next-line no-alert
     window.alert('File has error, unable to import graph');
   }
@@ -49,7 +51,7 @@ const doImportGraph = graphStr => {
 export const importGraph = () => {
   fileDialog({ accept: '.frog' }).then(file => {
     const fr = new FileReader();
-    fr.onloadend = doImportGraph;
+    fr.onloadend = e => doImportGraph(e.target.result);
     fr.readAsText(file[0]);
   });
 };

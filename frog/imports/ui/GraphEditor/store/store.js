@@ -56,6 +56,10 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
   getOne(coll, x => x.id === id);
 
 export default class Store {
+  constructor() {
+    this.refreshGithub();
+  }
+
   @observable _state: StateT;
   @observable connectionStore = new ConnectionStore();
   @observable activityStore = new ActivityStore();
@@ -69,11 +73,23 @@ export default class Store {
   @observable valid: any;
   browserHistory: any;
   url: string;
+  @observable githubGraphs: string[] = [];
 
   @observable graphDuration: number = 120;
 
   set state(newState: StateT) {
     this._state = newState;
+  }
+
+  @action
+  refreshGithub() {
+    fetch(
+      'https://api.github.com/repos/chili-epfl/frog-graphs/contents/?client_id=Iv1.78b6e6a6ad7b5744&client_secret=f232b83d958985d812e57fab49850caba1085fdc'
+    )
+      .then(e => e.json())
+      .then(e => {
+        this.githubGraphs = e.map(x => x.name).filter(x => x.endsWith('.frog'));
+      });
   }
 
   @action
