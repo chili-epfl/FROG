@@ -62,6 +62,9 @@ const config = {
       title: 'Can students upload new images ?',
       type: 'boolean'
     },
+    individual: { title: 'Students work individually', type: 'boolean' },
+    grouping: { title: 'Group students by groupingKey', type: 'boolean' },
+    groupingKey: { title: 'Grouping key', type: 'socialAttribute' },
     images: {
       title: 'Images',
       type: 'array',
@@ -86,7 +89,10 @@ const config = {
 };
 
 const configUI = {
-  minVote: { conditional: 'canVote' }
+  minVote: { conditional: 'canVote' },
+  individual: { conditional: formdata => !formdata.grouping },
+  grouping: { conditional: formdata => !formdata.individual },
+  groupingKey: { conditional: 'grouping' }
 };
 
 const dataStructure = {};
