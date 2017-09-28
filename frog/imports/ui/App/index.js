@@ -1,11 +1,11 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import path from 'path';
+import Loadable from 'react-loadable';
 import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
 import sharedbClient from 'sharedb/lib/client';
-import TeacherContainer from './TeacherContainer';
-//        const TeacherContainer = await import('./TeacherContainer');
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import {
   BrowserRouter as Router,
@@ -17,6 +17,12 @@ import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 
 import StudentView from '../StudentView';
+
+const TeacherLoadable = Loadable({
+  loader: () => import('./TeacherContainer'),
+  loading: () => null,
+  serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
+});
 
 const shareDbUrl =
   (Meteor.settings && Meteor.settings.public.sharedburl) ||
@@ -106,7 +112,7 @@ class FROGRouter extends Component {
     }
   }
 
-  async render() {
+  render() {
     const query = queryToObject(this.props.location.search.slice(1));
     if (query.login) {
       return <Redirect to={this.props.location.pathname} />;
@@ -116,7 +122,7 @@ class FROGRouter extends Component {
     }
     if (this.state.mode === 'ready' && Meteor.user()) {
       if (Meteor.user().username === 'teacher') {
-        return <Route component={TeacherContainer} />;
+        return <Route component={TeacherLoadable} />;
       } else {
         return (
           <Switch>
