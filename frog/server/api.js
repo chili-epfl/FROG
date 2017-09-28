@@ -1,5 +1,7 @@
 import bodyParser from 'body-parser';
 import { Picker } from 'meteor/meteorhacks:picker';
+import { uuid } from 'frog-utils';
+import { Accounts } from 'meteor/accounts-base';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
@@ -7,8 +9,24 @@ Picker.middleware(bodyParser.json());
 Picker.filter(
   req => req.method === 'POST'
 ).route('/lti/:slug', (params, request, response) => {
-  const user = request.body.lis_person_name_full;
+  let user;
+  try {
+    user = request.body.lis_person_name_full;
+  } catch (e) {
+    user = uuid();
+  }
+  let id;
+  try {
+    id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
+  } catch (e) {
+    id = uuid();
+  }
+
   // eslint-disable-next-line no-console
+  const { userId } = Accounts.updateOrCreateUserFromExternalService('frog', {
+    id: user
+  });
+  Meteor.users.update(userId, { $set: { username: user, userid: id } });
   console.log('LTI access', user, params, request.body);
   response.writeHead(301, { Location: `/${params.slug}?login=${user}` });
   response.end();
