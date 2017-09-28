@@ -67,35 +67,37 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   const categ = activityData.config.categories || [];
   const imgs = Object.keys(data)
     .filter(x => data[x].url !== undefined)
-    .map(x => data[x].url);
+    .filter(x => !data.seen.includes(x));
+
+  let img;
+  if (imgs.length > 0) {
+    img = data[imgs[0]];
+  } else {
+    categ.forEach((x, i) => Mousetrap.unbind(shortCuts[i]));
+    return <h1>Waiting for images to classify</h1>;
+  }
+
   categ.forEach((x, i) =>
     Mousetrap.bind(shortCuts[i], () => {
-      dataFn.objInsert({ url: imgs[data.index], category: x }, data.index);
-      dataFn.objInsert(data.index + 1, 'index');
+      dataFn.objInsert({ category: x }, img.url);
+      dataFn.listAppend(imgs[0], 'seen');
     })
   );
 
-  if (data.index === imgs.length)
-    categ.forEach((x, i) => Mousetrap.unbind(shortCuts[i]));
   return (
     <div style={{ margin: '1%', height: '100%' }}>
-      <pre>
-        {JSON.stringify(data, null, 2)}
-      </pre>
       <h4>
         {activityData.config.title}
       </h4>
-      {data.index < imgs.length &&
-        <FlexDiv>
-          <ImgPanel url={imgs[data.index]} />
-          <ShortCutPanel
-            categories={categ}
-            dataFn={dataFn}
-            images={imgs}
-            data={data}
-          />
-        </FlexDiv>}
-      {data.index >= imgs.length && <h1>End of the activity</h1>}
+      <FlexDiv>
+        <ImgPanel url={img.url} />
+        <ShortCutPanel
+          categories={categ}
+          dataFn={dataFn}
+          images={imgs}
+          data={data}
+        />
+      </FlexDiv>
     </div>
   );
 };
