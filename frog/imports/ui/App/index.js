@@ -4,6 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
 import sharedbClient from 'sharedb/lib/client';
+import TeacherContainer from './TeacherContainer';
+//        const TeacherContainer = await import('./TeacherContainer');
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import {
   BrowserRouter as Router,
@@ -14,7 +16,6 @@ import {
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 
-import TeacherContainer from './TeacherContainer';
 import StudentView from '../StudentView';
 
 const shareDbUrl =
@@ -105,7 +106,7 @@ class FROGRouter extends Component {
     }
   }
 
-  render() {
+  async render() {
     const query = queryToObject(this.props.location.search.slice(1));
     if (query.login) {
       return <Redirect to={this.props.location.pathname} />;

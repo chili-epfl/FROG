@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Webcam from 'react-webcam';
+import Webcam from '@houshuang/react-webcam';
 import Mousetrap from 'mousetrap';
 
 import { dataURItoFile, uuid } from 'frog-utils';
