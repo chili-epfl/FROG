@@ -56,13 +56,30 @@ class ActivityComponent extends Component {
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';
+    if (this.props.transparent) {
+      return (
+        <g onClick={e => e.stopPropagation()} onMouseUp={this.clickHandler}>
+          <DraggableCore
+            onDrag={(_, { deltaX }) => activity.move(deltaX)}
+            onStop={stopMoving}
+          >
+            <rect
+              x={x}
+              y={activity.y}
+              fill="transparent"
+              stroke="transparent"
+              width={width > 20 ? width - 20 : width}
+              height={30}
+              style={!readOnly && { cursor: 'move' }}
+              onMouseOver={activity.onOver}
+              onMouseLeave={activity.onLeave}
+            />
+          </DraggableCore>
+        </g>
+      );
+    }
     return (
-      <g
-        onMouseOver={activity.onOver}
-        onMouseLeave={activity.onLeave}
-        onClick={e => e.stopPropagation()}
-        onMouseUp={this.clickHandler}
-      >
+      <g>
         <Box
           x={x}
           y={activity.y}
@@ -115,20 +132,6 @@ class ActivityComponent extends Component {
               />
             </DraggableCore>
           </g>}
-        <DraggableCore
-          onDrag={(_, { deltaX }) => activity.move(deltaX)}
-          onStop={stopMoving}
-        >
-          <rect
-            x={x}
-            y={activity.y}
-            fill="transparent"
-            stroke="transparent"
-            width={width > 20 ? width - 20 : width}
-            height={30}
-            style={!readOnly && { cursor: 'move' }}
-          />
-        </DraggableCore>
       </g>
     );
   }
@@ -139,9 +142,17 @@ const ActivityBox = connect(ActivityComponent);
 export default connect(
   ({
     store: { activityStore: { all } },
-    scaled
-  }: StoreProp & { scaled: boolean }) =>
+    scaled,
+    transparent
+  }: StoreProp & { scaled: boolean, transparent: boolean }) =>
     <g>
-      {all.map(x => <ActivityBox activity={x} scaled={scaled} key={x.id} />)}
+      {all.map(x =>
+        <ActivityBox
+          activity={x}
+          transparent={transparent}
+          scaled={scaled}
+          key={x.id}
+        />
+      )}
     </g>
 );

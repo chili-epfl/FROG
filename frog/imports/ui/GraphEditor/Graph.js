@@ -89,6 +89,8 @@ export default connect(
         {isEditable && <DragGuides />}
         {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
+        <Activities scaled={scaled} transparent />
+        <Operators scaled={scaled} transparent />
       </svg>
       {hasPanMap && <PanMap />}
       {scaled &&

@@ -64,7 +64,7 @@ export type ControlStructureT =
   | { 'list': { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
-  logger: Function, // logging callback
+  logger: Function,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
