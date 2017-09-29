@@ -1,7 +1,6 @@
 {
   "public": {
-    "sharedburl": "ws://icchilisrv3.epfl.ch:3002",
-    "dburl": "mongodb://icchilisrv3.epfl.ch",
-    "sharedbport": 3002
+    "sharedburl": "wss://icchilisrv4.epfl.ch:3002",
+    "dburl": "mongodb://localhost:27500"
   }
 }

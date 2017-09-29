@@ -68,6 +68,7 @@
     "react-router-dom": "^4.1.2",
     "react-spinner": "^0.2.7",
     "reconnectingwebsocket": "^1.0.0",
+    "rws": "^0.0.1",
     "save-svg-as-png": "1.2.0",
     "sharedb": "^1.0.0-beta.7",
     "sharedb-mongo": "^1.0.0-beta.4",
