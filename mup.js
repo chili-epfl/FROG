@@ -4,6 +4,11 @@ module.exports = {
       host: 'icchilisrv3.epfl.ch',
       username: 'root',
       pem: '~/.ssh/id_rsa'
+    },
+    two: {
+      host: 'icchilisrv4.epfl.ch',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
     }
   },
 
@@ -12,7 +17,16 @@ module.exports = {
     path: 'frog',
 
     servers: {
-      one: {}
+      one: {
+        env: {
+          ROOT_URL: 'https://icchilisrv3.epfl.ch'
+        }
+      },
+      two: {
+        env: {
+          ROOT_URL: 'https://icchilisrv4.epfl.ch'
+        }
+      }
     },
 
     buildOptions: {
@@ -27,7 +41,7 @@ module.exports = {
     ssl: {
       autogenerate: {
         email: 'stian.haklev@epfl.ch',
-        domains: 'icchilisrv3.epfl.ch'
+        domains: 'icchilisrv3.epfl.ch, icchilisrv4.epfl.ch'
       }
     },
 

@@ -103,20 +103,25 @@ class ActivityRunner extends Component {
           canVote={activityData.config.canVote}
           {...{ setCategory, setZoom }}
         />
-        <ThumbList
-          {...{
-            images,
-            categories: this.categories,
-            minVoteT,
-            vote,
-            userInfo,
-            setCategory,
-            setZoom,
-            setIndex
-          }}
-          canVote={activityData.config.canVote}
-          showingCategories={this.state.category === 'categories'}
-        />
+        {images.length === 0
+          ? <h1>
+              Please upload images by dropping files on the button below, or
+              click the button to turn on the webcam
+            </h1>
+          : <ThumbList
+              {...{
+                images,
+                categories: this.categories,
+                minVoteT,
+                vote,
+                userInfo,
+                setCategory,
+                setZoom,
+                setIndex
+              }}
+              canVote={activityData.config.canVote}
+              showingCategories={this.state.category === 'categories'}
+            />}
         {this.state.category !== 'categories' &&
           this.state.zoomOn &&
           <ZoomView
