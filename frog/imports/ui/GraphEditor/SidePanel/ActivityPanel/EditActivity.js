@@ -24,7 +24,8 @@ const EditActivity = props => {
   if (
     (!activity.groupingKey || activity.groupingKey === '') &&
     props.store.valid.social[activity._id] &&
-    props.store.valid.social[activity._id].length > 0
+    props.store.valid.social[activity._id].length > 0 &&
+    activity.plane === 2
   ) {
     addActivity(
       activity.activityType,
