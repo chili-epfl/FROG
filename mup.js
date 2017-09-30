@@ -9,6 +9,22 @@ module.exports = {
       host: 'icchilisrv4.epfl.ch',
       username: 'root',
       pem: '~/.ssh/id_rsa'
+    },
+
+    three: {
+      host: '165.227.166.123',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
+    },
+    four: {
+      host: '207.154.242.148',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
+    },
+    five: {
+      host: '207.154.211.32',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
     }
   },
 
@@ -23,6 +39,21 @@ module.exports = {
         }
       },
       two: {
+        env: {
+          ROOT_URL: 'https://icchilisrv4.epfl.ch'
+        }
+      },
+      three: {
+        env: {
+          ROOT_URL: 'https://icchilisrv4.epfl.ch'
+        }
+      },
+      four: {
+        env: {
+          ROOT_URL: 'https://icchilisrv4.epfl.ch'
+        }
+      },
+      five: {
         env: {
           ROOT_URL: 'https://icchilisrv4.epfl.ch'
         }

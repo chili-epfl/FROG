@@ -31,6 +31,7 @@ if (Meteor.settings.public.sharedburl) {
     new WebSocket.Server({ server }).on('connection', ws => {
       backend.listen(new WebsocketJSONStream(ws));
     });
+    console.log('Running shareDB server');
 
     const shareDbPort =
       (Meteor.settings && Meteor.settings.public.sharedbport) || 3002;
