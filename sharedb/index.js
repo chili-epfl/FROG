@@ -8,17 +8,16 @@ var WebSocket = require('ws');
 var WebsocketJSONStream = require('websocket-json-stream');
 var shareDBMongo = require('sharedb-mongo');
 var http = require('http');
+var RedisPubsub = require('sharedb-redis-pubsub');
 
 var dbUrl =
   (process.env && process.env.FROG_MONGOURL) || 'mongodb://localhost:3001';
 var db = shareDBMongo(dbUrl + '/sharedb');
-console.log(db);
 
 var server = http.createServer();
-var backend = new sharedb({ db: db });
-console.log(backend);
+var redis = new RedisPubsub({ url: 'redis://207.154.211.32' });
+var backend = new sharedb({ db: db, pubsub: redis });
 var serverConnection = (exports.serverConnection = backend.connect());
-console.log(serverConnection);
 
 var startShareDB = (exports.startShareDB = function startShareDB() {
   new WebSocket.Server({ server: server }).on('connection', function(ws) {
