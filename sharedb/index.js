@@ -11,7 +11,7 @@ var http = require('http');
 var RedisPubsub = require('sharedb-redis-pubsub');
 
 var dbUrl =
-  (process.env && process.env.FROG_MONGOURL) || 'mongodb://localhost:3001';
+  (process.env && process.env.FROG_MONGOURL) || 'mongodb://localhost:27300';
 var db = shareDBMongo(dbUrl + '/sharedb');
 
 var server = http.createServer();
