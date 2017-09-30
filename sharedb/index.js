@@ -1,6 +1,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
 const sharedb = require('sharedb');
 const WebSocket = require('ws');
 const WebsocketJSONStream = require('websocket-json-stream');
