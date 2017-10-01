@@ -4,6 +4,7 @@ import acProx from 'ac-prox';
 import acImgClass from 'ac-imgClass';
 import acImgView from 'ac-imgView';
 import acQuiz from 'ac-quiz';
+import acText from 'ac-text';
 
 import { type ActivityPackageT, flattenOne } from 'frog-utils';
 
@@ -13,7 +14,8 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acImgView,
   acProx,
   acImgClass,
-  acQuiz
+  acQuiz,
+  acText
 ]).map(x => Object.freeze(x));
 
 // see explanation of `any` in operatorTypes.js
