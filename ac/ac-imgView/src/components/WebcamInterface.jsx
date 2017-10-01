@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import Webcam from '@houshuang/react-webcam';
 import Mousetrap from 'mousetrap';
 
-import { dataURItoFile, uuid } from 'frog-utils';
-import uploadWithTumbnail from '../utils';
+import uploadImage from '../utils';
 
 const WebcamCapture = ({
   setWebcam,
@@ -22,14 +21,31 @@ const WebcamCapture = ({
       <Webcam
         audio={false}
         ref={node => (webcam = node)}
+        screenshotFormat="image/jpeg"
         style={{ width: '60%', height: '90%', margin: 'auto' }}
       />
       <button
         className="btn btn-primary"
         onClick={() => {
-          const dataURL = webcam.getScreenshot();
-          const file = dataURItoFile(dataURL, uuid(), window);
-          uploadWithTumbnail(file, logger, dataFn, stream, uploadFn);
+          const dataURI = webcam.getScreenshot();
+          if (!dataURI) {return;}
+          // convert base64 to raw binary data held in a string
+          // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+          var byteString = atob(dataURI.split(',')[1]);
+          // separate out the mime component
+          var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+          // write the bytes of the string to an ArrayBuffer
+          var ab = new ArrayBuffer(byteString.length);
+          // create a view into the buffer
+          var ia = new Uint8Array(ab);
+          // set the bytes of the buffer to the correct values
+          for (var i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+          }
+          // write the ArrayBuffer to a blob, and you're done
+          var blob = new Blob([ab], {type: mimeString});
+
+          uploadImage(blob, logger, dataFn, stream, uploadFn);
           setWebcam(false);
         }}
         style={{
