@@ -32,7 +32,7 @@ export default (
     });
 
     // upload a bigger picture
-    resizeImg(imageBuffer, { width: 1024, quality: 0.5 }).then(buffer => {
+    resizeImg(imageBuffer, { width: 800, quality: 10 }).then(buffer => {
       const blob = new Blob([buffer], { type: 'image/jpeg' });
       uploadFn([blob], url => {
         logger('upload');

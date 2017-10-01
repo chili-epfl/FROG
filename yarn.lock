@@ -12,6 +12,17 @@
   dependencies:
     prop-types "^15.5.8"
 
+"@houshuang/resize-img@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.1.2.tgz#18ab69bab250898a26a820025237863725cd1afb"
+  dependencies:
+    bmp-js "0.0.1"
+    file-type "^3.8.0"
+    get-stream "^2.0.0"
+    jimp "^0.2.21"
+    jpeg-js "^0.1.1"
+    parse-png "^1.1.1"
+
 "@houshuang/yarn@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@houshuang/yarn/-/yarn-1.0.2.tgz#2903a03e1cf324786a0f16b65adebfdc88374ab5"
@@ -6051,17 +6062,6 @@ require_optional@~1.0.0:
   dependencies:
     resolve-from "^2.0.0"
     semver "^5.1.0"
-
-resize-img@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/resize-img/-/resize-img-1.1.2.tgz#fad650faf3ef2c53ea63112bc272d95e9d92550e"
-  dependencies:
-    bmp-js "0.0.1"
-    file-type "^3.8.0"
-    get-stream "^2.0.0"
-    jimp "^0.2.21"
-    jpeg-js "^0.1.1"
-    parse-png "^1.1.1"
 
 resolve-from@^1.0.0:
   version "1.0.1"
