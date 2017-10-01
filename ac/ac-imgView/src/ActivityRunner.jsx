@@ -88,6 +88,9 @@ class ActivityRunner extends Component {
       logger('vote');
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
+      if(this.props.stream) {
+        this.props.stream.objInsert(!prev, [key, 'votes', userId]);
+      }
     };
 
     const setCategory = (c: string) => this.setState({ category: c });

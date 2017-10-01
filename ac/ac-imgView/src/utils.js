@@ -10,12 +10,13 @@ export default (
   stream: Function,
   uploadFn: Function
 ) => {
+
   const fr = new FileReader();
 
   const imageId = uuid();
-  dataFn.objInsert({ votes: {} }, imageId);
+  dataFn.objInsert({ votes: {}, key: imageId }, imageId);
   if (stream) {
-    stream.objInsert({}, imageId);
+    stream.objInsert({ votes: {}, key: imageId }, imageId);
   }
 
   fr.onloadend = loaded => {
