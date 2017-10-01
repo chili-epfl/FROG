@@ -30,7 +30,7 @@ const operator = (configData, object) => {
   let count = 0;
   object.globalStructure.studentIds.forEach(studentId => {
     if (!studentList.includes(studentId)) {
-      if (count > 3) {
+      if (count > 1) {
         groupingValue = getSlug(4);
         result[groupingValue] = [];
         count = 0;
