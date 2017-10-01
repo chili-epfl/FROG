@@ -7,6 +7,11 @@ import styled from 'styled-components';
 
 const shortCuts = '1234567890abcdefghijklmnopqrstuvwxyz';
 
+const assignCategory = (dataFn, imageKey, categoryName) => {
+  dataFn.objInsert(categoryName, [imageKey, 'category']);
+  dataFn.listAppend(imageKey, 'seen');
+}
+
 const ImgBis = styled.img`
   max-width: 80%;
   max-height: 100%;
@@ -28,7 +33,7 @@ const ImgPanel = ({ url }) =>
     <ImgBis alt="" src={url} />
   </div>;
 
-const ShortCutPanel = ({ categories, dataFn, images, data }) =>
+const ShortCutPanel = ({ categories, dataFn, imageKey, data }) =>
   <div style={{ width: '15%', height: '100%' }}>
     <div
       className="list-group"
@@ -44,20 +49,16 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
       >
         Shortcuts :
       </div>
-      {categories.map((x, i) =>
+      {categories.map((categoryName, i)=>
         <button
-          key={x}
+          key={categoryName}
           onClick={() => {
-            dataFn.objInsert(
-              { url: images[data.index], category: x },
-              data.index
-            );
-            dataFn.objInsert(data.index + 1, 'index');
+            assignCategory(dataFn, imageKey, categoryName)
           }}
           className="list-group-item"
         >
           {shortCuts[i]} <span className="glyphicon glyphicon-arrow-right" />
-          {' ' + x}
+          {' ' + categoryName}
         </button>
       )}
     </div>
@@ -79,8 +80,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
 
   categ.forEach((x, i) =>
     Mousetrap.bind(shortCuts[i], () => {
-      dataFn.objInsert({ category: x }, img.url);
-      dataFn.listAppend(imgs[0], 'seen');
+      assignCategory(dataFn, imgs[0], x);
     })
   );
 
@@ -94,7 +94,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
         <ShortCutPanel
           categories={categ}
           dataFn={dataFn}
-          images={imgs}
+          imageKey={imgs[0]}
           data={data}
         />
       </FlexDiv>

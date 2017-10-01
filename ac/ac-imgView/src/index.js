@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, uuid } from 'frog-utils';
 
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
@@ -103,21 +103,22 @@ const mergeFunction = (object, dataFn) => {
       dataFn.objInsert({ url: x.url, categories: x.categories, votes: {} }, i)
     );
 
-  if (object.data === null || Array.isArray(object.data)) return;
-  const dataImgs = Object.keys(object.data).filter(
-    x => object.data[x].url !== undefined
+  if (object.data === null || object.data === {}) return;
+  const dataImgs = (Array.isArray(object.data)
+    ? object.data
+    : Object.keys(object.data).map(x => object.data[x])).filter(
+    x => x.url !== undefined
   );
-  if (object.data !== {})
-    dataImgs.forEach((x, i) =>
-      dataFn.objInsert(
-        {
-          url: object.data[x].url,
-          categories: object.data[x].categories || [object.data[x].category],
-          votes: {}
-        },
-        object.config.images ? object.config.images.length + i : i
-      )
-    );
+  dataImgs.forEach(x =>
+    dataFn.objInsert(
+      {
+        votes: {},
+        ...x,
+        categories: x.categories || (x.category && [x.category])
+      },
+      x.key || uuid()
+    )
+  );
 };
 
 export default ({
