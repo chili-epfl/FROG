@@ -75,7 +75,7 @@ class FROGRouter extends Component {
 
     if (this.state.mode !== 'loggingIn') {
       if (true) {
-        //(process.env.NODE_ENV !== 'production') {
+        // (process.env.NODE_ENV !== 'production') {
         const username = query.login;
         if (username) {
           this.setState({ mode: 'loggingIn' });

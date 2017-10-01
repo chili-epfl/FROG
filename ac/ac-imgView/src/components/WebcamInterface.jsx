@@ -6,8 +6,15 @@ import Webcam from '@houshuang/react-webcam';
 import Mousetrap from 'mousetrap';
 
 import { dataURItoFile, uuid } from 'frog-utils';
+import uploadWithTumbnail from '../utils';
 
-const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
+const WebcamCapture = ({
+  setWebcam,
+  uploadFn,
+  dataFn,
+  logger,
+  stream
+}: Object) => {
   let webcam = { getScreenshot: () => null };
   Mousetrap.bind('esc', () => setWebcam(false));
   return (
@@ -22,14 +29,7 @@ const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
         onClick={() => {
           const dataURL = webcam.getScreenshot();
           const file = dataURItoFile(dataURL, uuid(), window);
-          uploadFn(file, url => {
-            // setTimeout, otherwise HTTP request sends back code 503
-            setTimeout(
-              () =>
-                dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
-              1000
-            );
-          });
+          uploadWithTumbnail(file, logger, dataFn, stream, uploadFn);
           setWebcam(false);
         }}
         style={{

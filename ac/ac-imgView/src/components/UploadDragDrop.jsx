@@ -4,20 +4,16 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
-import { uuid } from 'frog-utils';
+import uploadWithTumbnail from '../utils';
 
-const UploadDragDrop = ({ data, dataFn, stream, uploadFn, logger }: Object) => {
+const UploadDragDrop = ({ dataFn, stream, uploadFn, logger }: Object) => {
   const onDrop = f => {
-    uploadFn(f, url => {
-      logger('upload');
-      // setTimeout, otherwise HTTP request sends back code 503
-      setTimeout(() => {
-        dataFn.objInsert({ url, votes: {} }, Object.keys(data).length);
-        if (stream) {
-          stream.objInsert({ url }, uuid());
-        }
-      }, 500);
-    });
+    if (f.length > 1) {
+      window.alert('Only 1 file at a time please'); //eslint-disable-line
+      return;
+    }
+    const imageFile = f[0];
+    uploadWithTumbnail(imageFile, logger, dataFn, stream, uploadFn);
   };
 
   return (
