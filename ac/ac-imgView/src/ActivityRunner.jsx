@@ -103,7 +103,7 @@ class ActivityRunner extends Component {
           canVote={activityData.config.canVote}
           {...{ setCategory, setZoom }}
         />
-        {images.length === 0
+        {images.length === 0 && this.state.category !== 'categories'
           ? <h1>
               Please upload images by dropping files on the button below, or
               click the button to turn on the webcam
@@ -128,7 +128,6 @@ class ActivityRunner extends Component {
             index={this.state.index}
             {...{ close: () => setZoom(false), images, setIndex }}
           />}
-
         {activityData.config.canUpload &&
           <UploadBar {...{ ...this.props, setWebcam }} />}
         {this.state.webcamOn &&
