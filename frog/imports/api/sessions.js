@@ -139,12 +139,12 @@ export const updateOpenActivities = (
   openActivities: Array<string>,
   timeInGraph: number
 ) => {
-  Sessions.update(sessionId, { $set: { openActivities, timeInGraph } });
   if (Meteor.isServer) {
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
     });
   }
+  Sessions.update(sessionId, { $set: { openActivities, timeInGraph } });
 };
 
 export const removeSession = (sessionId: string) =>
