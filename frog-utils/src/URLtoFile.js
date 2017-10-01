@@ -79,5 +79,5 @@ export default (url: any, name: string, window: any) => {
     return form;
   };
 
-  return blobToFile(dataURLtoBlob(url), name);
+  return dataURLtoBlob(url);
 };
