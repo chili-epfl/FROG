@@ -1,7 +1,7 @@
 // @flow
 
+import resizeImg from 'resize-img';
 import { uuid } from 'frog-utils';
-import resizeImg from '@houshuang/resize-img';
 
 export default (
   file: any,
