@@ -1,7 +1,7 @@
 // @flow
 
-import resizeImg from 'resize-img';
 import { uuid } from 'frog-utils';
+import resizeImg from '@houshuang/resize-img';
 
 export default (
   file: any,
@@ -32,7 +32,7 @@ export default (
     });
 
     // upload a bigger picture
-    resizeImg(imageBuffer, { width: 1024 }).then(buffer => {
+    resizeImg(imageBuffer, { width: 1024, quality: 0.5 }).then(buffer => {
       const blob = new Blob([buffer], { type: 'image/jpeg' });
       uploadFn([blob], url => {
         logger('upload');
