@@ -171,7 +171,7 @@ Meteor.methods({
       const sessionName = '#' + graph.name + ' ' + (count + 1);
 
       const copyGraphId = addGraph({
-        graph,
+        graph: { ...graph, name: sessionName },
         activities: Activities.find({ graphId }).fetch(),
         operators: Operators.find({ graphId }).fetch(),
         connections: Connections.find({ graphId }).fetch()
