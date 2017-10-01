@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
+import { shuffle } from 'lodash';
 
 export {
   default as EnhancedForm,
@@ -130,3 +131,6 @@ export const wordWrap = (text: string, maxLength: number): string[] => {
   }
   return result;
 };
+
+const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
+export const getSlug = (n: number) => shuffle(groupchars).slice(0, n).join('');
