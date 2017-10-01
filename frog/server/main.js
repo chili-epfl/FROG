@@ -6,8 +6,10 @@
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { startShareDB } from './share-db-manager';
+import process from 'process';
 
 import '../imports/startup/shutdown-if-env.js';
+process.setMaxListeners(100);
 
 import teacherImports from './teacherImports';
 import {
