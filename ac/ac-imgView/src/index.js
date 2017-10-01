@@ -112,11 +112,11 @@ const mergeFunction = (object, dataFn) => {
   dataImgs.forEach(x =>
     dataFn.objInsert(
       {
+        votes: {},
         ...x,
-        categories: x.categories || (x.category && [x.category]),
-        votes: {}
+        categories: x.categories || (x.category && [x.category])
       },
-      uuid()
+      x.key || uuid()
     )
   );
 };
