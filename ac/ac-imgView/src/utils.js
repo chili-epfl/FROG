@@ -1,9 +1,16 @@
 // @flow
 
-import resizeImg from 'resize-img';
+import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
 
-const uploadBufferWithThumbnail = (imageBuffer, imageId, logger, dataFn, stream, uploadFn) => {
+const uploadBufferWithThumbnail = (
+  imageBuffer,
+  imageId,
+  logger,
+  dataFn,
+  stream,
+  uploadFn
+) => {
   logger('upload');
 
   // upload a thumbnail
@@ -31,7 +38,7 @@ const uploadBufferWithThumbnail = (imageBuffer, imageId, logger, dataFn, stream,
       }, 500);
     });
   });
-}
+};
 
 export default (
   file: any,
@@ -40,7 +47,6 @@ export default (
   stream: Function,
   uploadFn: Function
 ) => {
-
   const fr = new FileReader();
 
   const imageId = uuid();
@@ -51,7 +57,14 @@ export default (
 
   fr.onloadend = loaded => {
     const imageBuffer = Buffer.from(loaded.currentTarget.result);
-    uploadBufferWithThumbnail(imageBuffer, imageId, logger, dataFn, stream, uploadFn)
+    uploadBufferWithThumbnail(
+      imageBuffer,
+      imageId,
+      logger,
+      dataFn,
+      stream,
+      uploadFn
+    );
   };
   fr.readAsArrayBuffer(file);
 };
