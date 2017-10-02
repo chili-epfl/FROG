@@ -21,6 +21,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     case 'Examples':
       page = (
         <Examples
+          title={title}
           examples={examples}
           nbExamples={activityData.config.nbExamples}
           dataFn={dataFn}

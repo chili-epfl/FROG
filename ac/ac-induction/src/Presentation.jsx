@@ -21,7 +21,11 @@ export default ({ title, dataFn, data }: Object) =>
         {data.parts.filter(p => p !== 'Presentation').map(x =>
           <li key={x}>
             {x}
-            {x === 'Examples' ? ' ('+data.listIndexEx.length+')': x === 'Tests with feedback' ? ' ('+data.listIndexTestWithFeedback.length+')': x === 'Tests' ? ' ('+data.listIndexTest.length+')': null}
+            {x === 'Examples'
+              ? ' (' + data.listIndexEx.length + ')'
+              : x === 'Tests with feedback'
+                ? ' (' + data.listIndexTestWithFeedback.length + ')'
+                : x === 'Tests' ? ' (' + data.listIndexTest.length + ')' : null}
           </li>
         )}
       </ol>

@@ -12,7 +12,7 @@ const Img = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-export default (props: { url: string}) =>
+export default (props: { url: string }) =>
   <div
     style={{
       border: '2px solid black',

@@ -30,7 +30,7 @@ export default (obj: Object, dataFn: Object) => {
   if (hasExamples) parts.push('Examples');
   if (hasTestWithFeedback) parts.push('Tests with feedback');
   if (hasDefinition) parts.push('Definition');
-  if (hasTest) parts.push('Tests'); 
+  if (hasTest) parts.push('Tests');
   parts.push('End');
   dataFn.objInsert(parts, 'parts');
 };

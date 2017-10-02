@@ -49,10 +49,14 @@ export default ({
       dataFn.objInsert(data.indexPart + 1, 'indexPart');
     } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
   };
-  const indexTest = feedback ? data.listIndexTestWithFeedback[data.indexCurrent] : data.listIndexTest[data.indexCurrent];
+  const indexTest = feedback
+    ? data.listIndexTestWithFeedback[data.indexCurrent]
+    : data.listIndexTest[data.indexCurrent];
   return (
     <ExMain>
-      <ExContainer><ImgBis url={examples[indexTest].url}/></ExContainer>
+      <ExContainer>
+        <ImgBis url={examples[indexTest].url} />
+      </ExContainer>
       <ExLine />
       <ExContainer>
         Response panel
