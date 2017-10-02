@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@houshuang/parse-png@^1.1.2":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@houshuang/parse-png/-/parse-png-1.1.3.tgz#eb0433bb579550c3af43ea156403342226e2c26d"
+  dependencies:
+    pngjs "^3.2.0"
+
 "@houshuang/react-flip-move@^2.9.16":
   version "2.9.16"
   resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
@@ -11,6 +17,17 @@
   resolved "https://registry.yarnpkg.com/@houshuang/react-webcam/-/react-webcam-0.3.5.tgz#04d176675c8a1dfbe6be9fa61a8664b38c1f12bf"
   dependencies:
     prop-types "^15.5.8"
+
+"@houshuang/resize-img@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.1.4.tgz#37a6111db459a47a0a5b2ddee0801f7a8e0bd867"
+  dependencies:
+    "@houshuang/parse-png" "^1.1.2"
+    bmp-js "0.0.1"
+    file-type "^3.8.0"
+    get-stream "^2.0.0"
+    jimp "^0.2.21"
+    jpeg-js "^0.1.1"
 
 "@houshuang/yarn@^1.0.2":
   version "1.0.2"
@@ -5101,12 +5118,6 @@ parse-json@^2.2.0:
   dependencies:
     error-ex "^1.2.0"
 
-parse-png@^1.1.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/parse-png/-/parse-png-1.1.2.tgz#f5c2ad7c7993490986020a284c19aee459711ff2"
-  dependencies:
-    pngjs "^3.2.0"
-
 parse5@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-1.5.1.tgz#9b7f3b0de32be78dc2401b17573ccaf0f6f59d94"
@@ -6051,17 +6062,6 @@ require_optional@~1.0.0:
   dependencies:
     resolve-from "^2.0.0"
     semver "^5.1.0"
-
-resize-img@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/resize-img/-/resize-img-1.1.2.tgz#fad650faf3ef2c53ea63112bc272d95e9d92550e"
-  dependencies:
-    bmp-js "0.0.1"
-    file-type "^3.8.0"
-    get-stream "^2.0.0"
-    jimp "^0.2.21"
-    jpeg-js "^0.1.1"
-    parse-png "^1.1.1"
 
 resolve-from@^1.0.0:
   version "1.0.1"
