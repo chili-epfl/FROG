@@ -1,27 +1,26 @@
 module.exports = {
   servers: {
-    one: {
-      host: 'icchilisrv3.epfl.ch',
+    digi5: {
+      host: '207.154.210.149',
       username: 'root',
       pem: '~/.ssh/id_rsa'
     },
-    two: {
-      host: 'icchilisrv4.epfl.ch',
+    digi4: {
+      host: '139.59.154.71',
       username: 'root',
       pem: '~/.ssh/id_rsa'
     },
-
-    three: {
+    digi3: {
       host: '165.227.166.123',
       username: 'root',
       pem: '~/.ssh/id_rsa'
     },
-    four: {
+    digi2: {
       host: '207.154.242.148',
       username: 'root',
       pem: '~/.ssh/id_rsa'
     },
-    five: {
+    digi1: {
       host: '207.154.211.32',
       username: 'root',
       pem: '~/.ssh/id_rsa'
@@ -33,27 +32,27 @@ module.exports = {
     path: 'frog',
 
     servers: {
-      one: {
-        env: {
-          ROOT_URL: 'https://icchilisrv3.epfl.ch'
-        }
-      },
-      two: {
+      digi1: {
         env: {
           ROOT_URL: 'https://icchilisrv4.epfl.ch'
         }
       },
-      three: {
+      digi2: {
         env: {
           ROOT_URL: 'https://icchilisrv4.epfl.ch'
         }
       },
-      four: {
+      digi3: {
         env: {
           ROOT_URL: 'https://icchilisrv4.epfl.ch'
         }
       },
-      five: {
+      digi4: {
+        env: {
+          ROOT_URL: 'https://icchilisrv4.epfl.ch'
+        }
+      },
+      digi5: {
         env: {
           ROOT_URL: 'https://icchilisrv4.epfl.ch'
         }
@@ -65,7 +64,7 @@ module.exports = {
     },
 
     env: {
-      ROOT_URL: 'https://icchilisrv3.epfl.ch',
+      ROOT_URL: 'https://icchilisrv4.epfl.ch',
       MONGO_URL: 'mongodb://localhost:27500/meteor'
     },
 

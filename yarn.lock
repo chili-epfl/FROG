@@ -18,16 +18,16 @@
   dependencies:
     prop-types "^15.5.8"
 
-"@houshuang/resize-img@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.1.5.tgz#794a2b673793473e7f565a5fdfd312d18881ea08"
+"@houshuang/resize-img@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.1.6.tgz#dff73bc672d305e7bfb73425759b08c48fcbb65c"
   dependencies:
     "@houshuang/parse-png" "^1.1.4"
     bmp-js "0.0.1"
     file-type "^3.8.0"
     get-stream "^2.0.0"
     jimp "^0.2.21"
-    jpeg-js "^0.1.1"
+    jpeg-js "^0.3.2"
 
 "@houshuang/yarn@^1.0.2":
   version "1.0.2"
@@ -4044,13 +4044,13 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-jpeg-js@^0.1.1:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.1.2.tgz#135b992c0575c985cfa0f494a3227ed238583ece"
-
 jpeg-js@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.2.0.tgz#53e448ec9d263e683266467e9442d2c5a2ef5482"
+
+jpeg-js@^0.3.2:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.3.3.tgz#4d60ea7188d1a7598e92f0a8cdcaf5d78286bea6"
 
 js-tokens@^3.0.0:
   version "3.0.1"
