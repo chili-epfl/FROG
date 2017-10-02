@@ -1,26 +1,11 @@
 // @flow
 
-import { FS } from 'meteor/cfs:base-package';
-
-export const OpenUploads = new FS.Collection('openUploads', {
-  stores: [new FS.Store.FileSystem('openUploads')]
+var minioClient = new Minio.Client({
+  endPoint: '165.227.168.213',
+  port: 9000,
+  secure: false,
+  accessKey: 'AKIAIOSFODNN7EXAMPLE',
+  secretKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 });
 
-OpenUploads.allow({ insert: () => true });
-
-export const uploadFile = (files: Array<any>, callback: string => any) => {
-  if (files.length > 5) {
-    window.alert('Too many files, 5 maximum at the time'); //eslint-disable-line
-  } else {
-    //eslint-disable-line
-    files.forEach(x => {
-      OpenUploads.insert(x, (err, fileObj) => {
-        const url = '/cfs/files/openUploads/' + fileObj._id;
-        if (!err) callback(url);
-        else {
-          window.alert('Cannot upload'); //eslint-disable-line
-        }
-      });
-    });
-  }
-};
+export const uploadFile = (files: Array<any>, callback: string => any) => {};
