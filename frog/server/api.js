@@ -27,7 +27,8 @@ Picker.filter(
     id: user
   });
   Meteor.users.update(userId, { $set: { username: user, userid: id } });
-  console.log('LTI access', user, params, request.body);
-  response.writeHead(301, { Location: `/${params.slug}?login=${user}` });
+  response.writeHead(301, {
+    Location: `/${params.slug}?login=${encodeURI(user)}`
+  });
   response.end();
 });
