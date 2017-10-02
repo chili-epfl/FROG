@@ -13,7 +13,8 @@ export default ({
   strokeColor,
   startDragging,
   onDrag,
-  onStop
+  onStop,
+  transparent
 }) => {
   const stroke = selected ? '#ff9900' : 'transparent';
   let icon;
@@ -31,6 +32,38 @@ export default ({
       throw 'Icon type not supported';
   }
 
+  if (transparent) {
+    return (
+      <svg
+        x={`${x}px`}
+        y={`${y}px`}
+        width="60px"
+        height="60px"
+        viewBox="0 0 900 900"
+        xmlSpace="preserve"
+        overflow="visibile"
+      >
+        <g onMouseUp={onClick}>
+          <DraggableCore
+            onStart={startDragging}
+            onDrag={onDrag}
+            onStop={onStop}
+          >
+            <circle
+              cx={300}
+              cy={300}
+              r={320}
+              style={{ fill: 'transparent', stroke, strokeWidth: 25 }}
+              transform="translate(30,30)"
+              onMouseOver={onOver}
+              onMouseLeave={onLeave}
+            />
+          </DraggableCore>
+        </g>
+      </svg>
+    );
+  }
+
   return (
     <svg
       x={`${x}px`}
@@ -41,31 +74,18 @@ export default ({
       xmlSpace="preserve"
       overflow="visibile"
     >
-      <g onMouseUp={onClick}>
-        <circle
-          cx={300}
-          cy={300}
-          r={290}
-          style={{
-            fill: color || 'white',
-            stroke: strokeColor,
-            strokeWidth: 30
-          }}
-          transform="translate(30,30)"
-        />
-        {icon}
-        <DraggableCore onStart={startDragging} onDrag={onDrag} onStop={onStop}>
-          <circle
-            cx={300}
-            cy={300}
-            r={320}
-            style={{ fill: 'transparent', stroke, strokeWidth: 25 }}
-            transform="translate(30,30)"
-            onMouseOver={onOver}
-            onMouseLeave={onLeave}
-          />
-        </DraggableCore>
-      </g>
+      <circle
+        cx={300}
+        cy={300}
+        r={290}
+        style={{
+          fill: color || 'white',
+          stroke: strokeColor,
+          strokeWidth: 30
+        }}
+        transform="translate(30,30)"
+      />
+      {icon}
     </svg>
   );
 };
