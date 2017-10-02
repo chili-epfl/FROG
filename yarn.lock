@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@houshuang/parse-png@^1.1.2":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@houshuang/parse-png/-/parse-png-1.1.3.tgz#eb0433bb579550c3af43ea156403342226e2c26d"
+"@houshuang/parse-png@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@houshuang/parse-png/-/parse-png-1.1.4.tgz#63bb8ea8ffb3b521b6ecdc2283ed31d345669111"
   dependencies:
     pngjs "^3.2.0"
 
@@ -18,11 +18,11 @@
   dependencies:
     prop-types "^15.5.8"
 
-"@houshuang/resize-img@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.1.4.tgz#37a6111db459a47a0a5b2ddee0801f7a8e0bd867"
+"@houshuang/resize-img@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.1.5.tgz#794a2b673793473e7f565a5fdfd312d18881ea08"
   dependencies:
-    "@houshuang/parse-png" "^1.1.2"
+    "@houshuang/parse-png" "^1.1.4"
     bmp-js "0.0.1"
     file-type "^3.8.0"
     get-stream "^2.0.0"
