@@ -35,6 +35,7 @@
     "jsonschema": "^1.1.1",
     "lodash": "^4.17.4",
     "meteor-node-stubs": "^0.2.3",
+    "minio": "^3.2.1",
     "mobx": "^3.2.2",
     "mobx-react": "^4.1.0",
     "mobx-react-devtools": "^4.2.11",
