@@ -5,6 +5,8 @@ export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(0, 'indexPart');
   dataFn.objInsert(0, 'indexCurrent');
   dataFn.objInsert(false, 'feedbackOpen');
+  dataFn.objInsert(true, 'testChoice');
+  dataFn.objInsert([], 'selectedProperties');
 
   const {
     hasExamples,

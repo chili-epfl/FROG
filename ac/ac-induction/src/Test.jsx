@@ -4,6 +4,7 @@ import React from 'react';
 import Modal from 'react-modal';
 
 import ImgBis from './ImgBis';
+import Switch from './Switch';
 import { ExMain, ExContainer, ExLine, ExButton } from './StyledComponents';
 
 const ModalSubmit = ({ dataFn, data, nbTestFeedback }: Object) => {
@@ -49,9 +50,11 @@ export default ({
       dataFn.objInsert(data.indexPart + 1, 'indexPart');
     } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
   };
+
   const indexTest = feedback
     ? data.listIndexTestWithFeedback[data.indexCurrent]
     : data.listIndexTest[data.indexCurrent];
+
   return (
     <ExMain>
       <ExContainer>
@@ -60,6 +63,7 @@ export default ({
       <ExLine />
       <ExContainer>
         Response panel
+        <Switch data={data} dataFn={dataFn} />
         <ExButton className="btn btn-default" onClick={clickHandler}>
           Submit
         </ExButton>
