@@ -16,26 +16,22 @@ const uploadBufferWithThumbnail = (
   // upload a thumbnail
   resizeImg(imageBuffer, { width: 128 }).then(buffer => {
     const blob = new Blob([buffer], { type: 'image/jpeg' });
-    uploadFn([blob], url => {
-      setTimeout(() => {
-        dataFn.objInsert(url, [imageId, 'thumbnail']);
-        if (stream) {
-          stream.objInsert(url, [imageId, 'thumbnail']);
-        }
-      }, 500);
+    uploadFn(blob, imageId + 'thumb').then(url => {
+      dataFn.objInsert(url, [imageId, 'thumbnail']);
+      if (stream) {
+        stream.objInsert(url, [imageId, 'thumbnail']);
+      }
     });
   });
 
   // upload a bigger picture
   resizeImg(imageBuffer, { width: 800, quality: 10 }).then(buffer => {
     const blob = new Blob([buffer], { type: 'image/jpeg' });
-    uploadFn([blob], url => {
-      setTimeout(() => {
-        dataFn.objInsert(url, [imageId, 'url']);
-        if (stream) {
-          stream.objInsert(url, [imageId, 'url']);
-        }
-      }, 500);
+    uploadFn(blob, imageId).then(url => {
+      dataFn.objInsert(url, [imageId, 'url']);
+      if (stream) {
+        stream.objInsert(url, [imageId, 'url']);
+      }
     });
   });
 };

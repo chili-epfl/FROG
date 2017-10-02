@@ -29,12 +29,6 @@ teacherImports();
 Meteor.publish('userData', function() {
   const user = Meteor.user();
   const username = user && user.username;
-  if (username === 'teacher') {
-    return Meteor.users.find(
-      {},
-      { fields: { username: 1, joinedSessions: 1 } }
-    );
-  }
   if (!username) {
     return this.ready();
   }

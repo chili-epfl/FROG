@@ -1,11 +1,21 @@
 // @flow
+import { Meteor } from 'meteor/meteor';
 
-var minioClient = new Minio.Client({
-  endPoint: '165.227.168.213',
-  port: 9000,
-  secure: false,
-  accessKey: 'AKIAIOSFODNN7EXAMPLE',
-  secretKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-});
-
-export const uploadFile = (files: Array<any>, callback: string => any) => {};
+export const uploadFile = (file: any, name: string) =>
+  new Promise((resolve, reject) => {
+    Meteor.call('minio.signedurl', name, (err, succ) => {
+      if (err) {
+        reject(err);
+      }
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', succ.minio, true);
+      xhr.send(file);
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          resolve(succ.url);
+        } else {
+          reject();
+        }
+      };
+    });
+  });

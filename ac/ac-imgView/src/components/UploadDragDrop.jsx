@@ -8,12 +8,9 @@ import uploadWithTumbnail from '../utils';
 
 const UploadDragDrop = ({ dataFn, stream, uploadFn, logger }: Object) => {
   const onDrop = f => {
-    if (f.length > 1) {
-      window.alert('Only 1 file at a time please'); //eslint-disable-line
-      return;
-    }
-    const imageFile = f[0];
-    uploadWithTumbnail(imageFile, logger, dataFn, stream, uploadFn);
+    f.forEach(imageFile =>
+      uploadWithTumbnail(imageFile, logger, dataFn, stream, uploadFn)
+    );
   };
 
   return (
