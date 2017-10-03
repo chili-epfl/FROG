@@ -62,6 +62,10 @@ const config = {
       title: 'Can students upload new images ?',
       type: 'boolean'
     },
+    filterTrash: {
+      title: 'Should trash images be removed?',
+      type: 'boolean'
+    },
     individual: { title: 'Students work individually', type: 'boolean' },
     grouping: { title: 'Group students by groupingKey', type: 'boolean' },
     groupingKey: { title: 'Grouping key', type: 'socialAttribute' },
@@ -109,7 +113,9 @@ const mergeFunction = (object, dataFn) => {
     : Object.keys(object.data).map(x => object.data[x])).filter(
     x => x.url !== undefined
   );
-  dataImgs.forEach(x =>
+  dataImgs.filter(x =>
+    !object.config.filterTrash || (x.category && x.category !=='trash')
+  ).forEach(x =>
     dataFn.objInsert(
       {
         votes: {},
