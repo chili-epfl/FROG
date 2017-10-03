@@ -5,10 +5,12 @@ import React from 'react';
 import ImgBis from '../ImgBis';
 import ModalSubmit from './ModalSubmit';
 import Switch from './Switch';
+import ResponsePanel from './ResponsePanel';
 import { ExMain, ExContainer, ExLine, ExButton } from '../StyledComponents';
 
 // with a param hasFeedback
 export default ({
+  title,
   examples,
   nbTest,
   nbTestFeedback,
@@ -35,9 +37,18 @@ export default ({
         <ImgBis url={examples[indexTest].url} />
       </ExContainer>
       <ExLine />
-      <ExContainer>
-        Response panel
-        <Switch data={data} dataFn={dataFn} />
+      <ExContainer style={{ padding: '20px' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly'
+          }}
+        >
+          <h4>This image corresponds to an example of the concept </h4>
+          <Switch data={data} dataFn={dataFn} />
+        </div>
+        <ResponsePanel title={title} data={data} dataFn={dataFn} />
         <ExButton className="btn btn-default" onClick={clickHandler}>
           Submit
         </ExButton>

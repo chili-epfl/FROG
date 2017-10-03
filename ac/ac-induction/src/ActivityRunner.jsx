@@ -32,6 +32,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     case 'Tests with feedback':
       page = (
         <Test
+          title={title}
           examples={examples}
           nbTest={0}
           nbTestFeedback={activityData.config.nbTestFeedback}

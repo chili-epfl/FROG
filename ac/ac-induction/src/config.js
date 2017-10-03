@@ -40,22 +40,24 @@ export default {
       title: 'How many test should be displayed ?'
     },
     properties: {
-      title: 'Put all properties that you will need (watch for the index, start at 0)',
+      title:
+        'Put all properties that you will need (watch for the index, start at 0)',
       type: 'array',
       items: {
         type: 'string'
       }
     },
     suffisantSets: {
-      title: 'Put all minimum suffisant sets of properties as \'{a,b},{a,c},…\' (where a,b,c are the index of the above properties)',
-      type: 'string',
-    },//minimum => a set should not contain another outline
+      title:
+        "Put all minimum suffisant sets of properties as '{a,b},{a,c},…' (where a,b,c are the index of the above properties)",
+      type: 'string'
+    }, // minimum => a set should not contain another outline
     contradictoryProperties: {
-      title: 'Put all properties that contradict the concept as \'a,b,c\'',
+      title: "Put all properties that contradict the concept as 'a,b,c'",
       type: 'string'
     },
     unnecessaryProperties: {
-      title: 'Put all properties that aren\'t related to the concept as \'a,b,c\'',
+      title: "Put all properties that aren't related to the concept as 'a,b,c'",
       type: 'string'
     },
     examples: {
@@ -72,8 +74,9 @@ export default {
             title: "This example isn't correct",
             type: 'boolean'
           },
-          respectedProperties:{
-            title: 'Put all properties that are true for this example as \'a,b,c\'',
+          respectedProperties: {
+            title:
+              "Put all properties that are true for this example as 'a,b,c'",
             type: 'string'
           }
         }
