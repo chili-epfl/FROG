@@ -48,6 +48,14 @@ class StudentViewComp extends Component {
     if (!this.props.ready) {
       return <Spinner />;
     }
+    if (this.props.session.state === 'WAITINGFORNEXT') {
+      return (
+        <div>
+          <h1>Waiting for next activity</h1>
+          <Spinner />
+        </div>
+      );
+    }
     if (!this.props.session) {
       return <h1>That session is no longer available</h1>;
     }

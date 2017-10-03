@@ -122,7 +122,7 @@ class FROGRouter extends Component {
       return <Spinner />;
     }
     if (this.state.mode === 'ready' && Meteor.user()) {
-      if (Meteor.user().username === 'teacher') {
+      if (Meteor.user().username === 'cj8an22kj0000assessupfei2') {
         return <Route component={TeacherLoadable} />;
       } else {
         return (
