@@ -85,7 +85,7 @@ class ActivityRunner extends Component {
       .map(key => ({ ...data[key], key }));
 
     const vote = (key, userId) => {
-      logger('vote');
+      logger('vote/' + key);
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
       if(this.props.stream) {
@@ -120,7 +120,8 @@ class ActivityRunner extends Component {
                 userInfo,
                 setCategory,
                 setZoom,
-                setIndex
+                setIndex,
+                logger
               }}
               canVote={activityData.config.canVote}
               showingCategories={this.state.category === 'categories'}

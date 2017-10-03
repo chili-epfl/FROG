@@ -11,7 +11,7 @@ const uploadBufferWithThumbnail = (
   stream,
   uploadFn
 ) => {
-  logger('upload');
+  logger('upload/'+imageId);
 
   // upload a thumbnail
   resizeImg(imageBuffer, { width: 128 }).then(buffer => {
