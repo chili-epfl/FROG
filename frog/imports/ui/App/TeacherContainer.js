@@ -52,7 +52,8 @@ export default createContainer(() => {
     'objects',
     'operators',
     'products',
-    'sessions'
+    'sessions',
+    'userPresence'
   ];
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   return { ready: every(subscriptions.map(x => x.ready()), Boolean) };

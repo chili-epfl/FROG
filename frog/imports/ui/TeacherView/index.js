@@ -41,6 +41,7 @@ const TeacherView = createContainer(
       session && Activities.find({ graphId: session.graphId }).fetch();
     const students =
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
+    const presences = Meteor.presences.find({}).fetch();
 
     return {
       sessions: Sessions.find().fetch(),
@@ -48,7 +49,8 @@ const TeacherView = createContainer(
       graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
       activities,
       students,
-      user
+      user,
+      presences: presences && presences.length
     };
   },
   props =>
@@ -56,7 +58,7 @@ const TeacherView = createContainer(
       <div style={{ width: '80%' }}>
         <SessionController {...props} />
         <hr />
-        <StudentList students={props.students} />
+        <StudentList presences={props.presences} />
         <hr />
         <SessionList {...props} />
       </div>
