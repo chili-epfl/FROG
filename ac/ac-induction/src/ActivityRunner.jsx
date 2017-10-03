@@ -7,7 +7,7 @@ import { Main } from './StyledComponents';
 import NavigationBar from './NavigationBar';
 import Presentation from './Presentation';
 import Examples from './Examples';
-import Test from './Test';
+import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
