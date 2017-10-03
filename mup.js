@@ -21,7 +21,7 @@ module.exports = {
       pem: '~/.ssh/id_rsa'
     },
     digi1: {
-      host: '207.154.211.32',
+      host: '138.197.189.192',
       username: 'root',
       pem: '~/.ssh/id_rsa'
     }

@@ -25,7 +25,7 @@ const uploadBufferWithThumbnail = (
   });
 
   // upload a bigger picture
-  resizeImg(imageBuffer, { width: 800, quality: 10 }).then(buffer => {
+  resizeImg(imageBuffer, { width: 800 }).then(buffer => {
     const blob = new Blob([buffer], { type: 'image/jpeg' });
     uploadFn(blob, imageId).then(url => {
       dataFn.objInsert(url, [imageId, 'url']);

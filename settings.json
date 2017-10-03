@@ -1,12 +1,13 @@
 {
-  "Minio": {
+ "Minio": {
     "urls": [
-      "165.227.174.163",
-      "165.227.168.213"
+      "icchilisrv1.epfl.ch:9000",
+      "icchilisrv1.epfl.ch:9001"
     ],
     "accessKey": "AKIAIOSFODNN7EXAMPLE",
     "secretKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-  },
+  }
+},
   "public": {
     "sharedburl": "wss://icchilisrv3.epfl.ch",
     "dburl": "mongodb://localhost:27500"
