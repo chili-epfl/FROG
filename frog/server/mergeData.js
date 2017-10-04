@@ -24,6 +24,7 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   const { groups, structure } = doGetInstances(activity, object);
   const createGroups = group ? [group] : groups;
 
+  console.log('number of groups', createGroups.length);
   createGroups.forEach(grouping => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
