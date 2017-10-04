@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 import { ExButton } from '../StyledComponents';
 
-export default ({ dataFn, data, nbTestFeedback }: Object) => {
+export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
   const clickHandler = () => {
     dataFn.objInsert(false, 'feedbackOpen');
     if (data.indexCurrent === nbTestFeedback - 1) {
@@ -20,10 +20,16 @@ export default ({ dataFn, data, nbTestFeedback }: Object) => {
       <h1>
         {'Solution : Example n°' + (data.indexCurrent + 1)}
       </h1>
-      <p>
-        The right answer was correct/incorret and you answered :
-        correct/incorrect …
-      </p>
+      <div>
+        You have selected the following properties :
+        <ul>
+          {data.selectedProperties.map(x =>
+            <li key={x}>
+              {properties[x]}
+            </li>
+          )}
+        </ul>
+      </div>
       <ExButton className="btn btn-default" onClick={clickHandler}>
         {data.indexCurrent === nbTestFeedback - 1 ? 'Next part' : 'Next test'}
       </ExButton>

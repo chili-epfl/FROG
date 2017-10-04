@@ -1,5 +1,6 @@
 // @flow
 import { shuffle } from 'lodash';
+import { arrayInclude, stringToArray } from './ArrayFun';
 
 export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(0, 'indexPart');
@@ -16,6 +17,9 @@ export default (obj: Object, dataFn: Object) => {
     hasDefinition,
     hasTest,
     nbTest,
+    suffisantSets,
+    contradictoryProperties,
+    unnecessaryProperties,
     examples
   } = obj.config;
 
@@ -35,6 +39,28 @@ export default (obj: Object, dataFn: Object) => {
   if (hasTest) parts.push('Tests');
   parts.push('End');
   dataFn.objInsert(parts, 'parts');
+
+  const suffisants = [];
+  const tmp = new Set();
+  let tmpNb = 0;
+  suffisantSets.split('').forEach(x => {
+    if (x === '{') {
+      tmp.clear();
+    } else if (x === '}') {
+      tmp.add(tmpNb);
+      suffisants.push([...tmp]);
+      tmpNb = 0;
+    } else if (x === ',' && !arrayInclude(suffisants, [...tmp])) {
+      tmp.add(tmpNb);
+      tmpNb = 0;
+    } else if ('1234567890'.split('').includes('' + x)) {
+      tmpNb = Number('' + tmpNb + x);
+    }
+  });
+  dataFn.objInsert(suffisants, 'suffisants');
+
+  dataFn.objInsert(stringToArray(contradictoryProperties), 'contradictories');
+  dataFn.objInsert(stringToArray(unnecessaryProperties), 'unnecessaries');
 };
 
 const genList = (tab: Array<any>, n: number) => {

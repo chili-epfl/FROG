@@ -11,6 +11,7 @@ import { ExMain, ExContainer, ExLine, ExButton } from '../StyledComponents';
 // with a param hasFeedback
 export default ({
   title,
+  properties,
   examples,
   nbTest,
   nbTestFeedback,
@@ -45,15 +46,23 @@ export default ({
             justifyContent: 'space-evenly'
           }}
         >
-          <h4>This image corresponds to an example of the concept </h4>
+          <h3>This image corresponds to an example of the concept </h3>
           <Switch data={data} dataFn={dataFn} />
         </div>
-        <ResponsePanel title={title} data={data} dataFn={dataFn} />
+        <ResponsePanel
+          title={title}
+          examples={examples}
+          properties={properties}
+          indexTest={indexTest}
+          data={data}
+          dataFn={dataFn}
+        />
         <ExButton className="btn btn-default" onClick={clickHandler}>
           Submit
         </ExButton>
       </ExContainer>
       <ModalSubmit
+        properties={properties}
         dataFn={dataFn}
         data={data}
         nbTestFeedback={nbTestFeedback}
