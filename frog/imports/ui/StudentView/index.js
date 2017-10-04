@@ -48,6 +48,9 @@ class StudentViewComp extends Component {
     if (!this.props.ready) {
       return <Spinner />;
     }
+    if (!this.props.session) {
+      return <h1>That session is no longer available</h1>;
+    }
     if (this.props.session.state === 'WAITINGFORNEXT') {
       return (
         <div>
@@ -55,9 +58,6 @@ class StudentViewComp extends Component {
           <Spinner />
         </div>
       );
-    }
-    if (!this.props.session) {
-      return <h1>That session is no longer available</h1>;
     }
     return <SessionBody />;
   }
