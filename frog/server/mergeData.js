@@ -1,5 +1,6 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
+import ShareDB from 'sharedb';
 import { cloneDeep } from 'lodash';
 import {
   generateReactiveFn,
@@ -23,7 +24,8 @@ const mergeOneInstance = (
   mergeFunction,
   activityData,
   structure,
-  object
+  object,
+  connection
 ) =>
   new Promise(resolve => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
@@ -34,7 +36,7 @@ const mergeOneInstance = (
         hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
       }
     });
-    const doc = serverConnection.get('rz', activity._id + '/' + grouping);
+    const doc = connection.get('rz', activity._id + '/' + grouping);
     doc.fetch();
     doc.on(
       'load',
@@ -58,6 +60,20 @@ const mergeOneInstance = (
             mergeFunction(instanceActivityData, dataFn);
           }
         }
+        const serverDoc = serverConnection.get(
+          'rz',
+          activity._id + '/' + grouping
+        );
+        serverDoc.create(doc.data, undefined, undefined, err => {
+          if (err) {
+            // eslint-disable-next-line no-console
+            console.error(
+              'Creating ShareDB document',
+              activity._id + '/' + grouping,
+              err
+            );
+          }
+        });
         resolve();
       })
     );
@@ -71,6 +87,8 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
 
   const { groups, structure } = doGetInstances(activity, object);
   const createGroups = group ? [group] : groups;
+  const backend = new ShareDB();
+  const connection = backend.connect();
 
   const mergeFunction = activityType.mergeFunction;
   const asyncCreates = createGroups.map((grouping, i) =>
@@ -81,7 +99,8 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
       mergeFunction,
       activityData,
       structure,
-      object
+      object,
+      connection
     )
   );
   Promise.await(Promise.all(asyncCreates));

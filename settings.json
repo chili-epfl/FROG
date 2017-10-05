@@ -13,5 +13,5 @@
   },
   "sharedb_redis": "localhost",
   "sharedb_dburl": "mongodb://localhost:27017",
-  "start_sharedb_server": false 
+  "dont_start_sharedb_server": true
 }
