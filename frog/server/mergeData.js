@@ -26,58 +26,54 @@ const mergeOneInstance = (
   structure,
   object,
   connection
-) =>
-  new Promise(resolve => {
-    if (activity.hasMergedData && activity.hasMergedData[grouping]) {
-      return;
-    }
-    Activities.update(activity._id, {
-      $set: {
-        hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
-      }
-    });
-    const doc = connection.get('rz', activity._id + '/' + grouping);
-    doc.fetch();
-    doc.on(
-      'load',
-      Meteor.bindEnvironment(() => {
-        if (!doc.type) {
-          doc.create(
-            dataStructure !== undefined ? cloneDeep(dataStructure) : {}
-          );
-        }
-        if (mergeFunction) {
-          const dataFn = generateReactiveFn(doc);
-          // merging in config with incoming product
-          const instanceActivityData = getMergedExtractedUnit(
-            activity.data,
-            activityData,
-            structure,
-            grouping,
-            object.socialStructure
-          );
-          if (instanceActivityData) {
-            mergeFunction(instanceActivityData, dataFn);
-          }
-        }
-        const serverDoc = serverConnection.get(
-          'rz',
-          activity._id + '/' + grouping
-        );
-        serverDoc.create(doc.data, undefined, undefined, err => {
-          if (err) {
-            // eslint-disable-next-line no-console
-            console.error(
-              'Creating ShareDB document',
-              activity._id + '/' + grouping,
-              err
-            );
-          }
-        });
-        resolve();
-      })
+) => {
+  let data;
+  if (mergeFunction) {
+    const instanceActivityData = getMergedExtractedUnit(
+      activity.data,
+      activityData,
+      structure,
+      grouping,
+      object.socialStructure
     );
+    if (instanceActivityData) {
+      data = Promise.await(
+        new Promise(resolve => {
+          const doc = connection.get('rz', activity._id + '/' + grouping);
+          doc.fetch();
+          doc.on(
+            'load',
+            Meteor.bindEnvironment(() => {
+              if (!doc.type) {
+                doc.create(
+                  dataStructure !== undefined ? cloneDeep(dataStructure) : {}
+                );
+              }
+              const dataFn = generateReactiveFn(doc);
+              // merging in config with incoming product
+              mergeFunction(instanceActivityData, dataFn);
+              resolve(doc.data);
+            })
+          );
+        })
+      );
+    }
+  } else {
+    data = dataStructure;
+  }
+
+  const serverDoc = serverConnection.get('rz', activity._id + '/' + grouping);
+  serverDoc.create(data, undefined, undefined, err => {
+    if (err) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Creating ShareDB document',
+        activity._id + '/' + grouping,
+        err
+      );
+    }
   });
+};
 
 const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   const startTime = Date.now();
