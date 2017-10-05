@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { msToString } from 'frog-utils';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { createContainer } from 'meteor/react-meteor-data';
+import Spinner from 'react-spinner';
 
 import {
   removeSession,
@@ -165,8 +166,10 @@ const ButtonList = ({
             {button.text}
           </button>
         )}
+      {session.state === 'WAITINGFORNEXT' && <Spinner />}
       {session.state !== 'CREATED' &&
         session.state !== 'STOPPED' &&
+        session.state !== 'WAITINGFORNEXT' &&
         <Countdown
           startTime={session.countdownStartTime}
           length={session.countdownLength}
