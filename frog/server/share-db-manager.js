@@ -7,6 +7,7 @@ import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
 import sharedbClient from 'sharedb/lib/client';
 import { ReconnectingWebSocket } from 'rws';
+import RedisPubsub from 'sharedb-redis-pubsub';
 
 declare var Promise: any;
 
@@ -24,7 +25,14 @@ if (Meteor.settings.public.sharedburl) {
   const db = ShareDBMongo(`${dbUrl}/sharedb`);
 
   const server = http.createServer();
-  const backend = new ShareDB({ db });
+  let options = { db };
+  if (Meteor.settings.sharedb_redis) {
+    const redis = new RedisPubsub({
+      url: 'redis://' + Meteor.settings.sharedb_redis
+    });
+    options = { ...options, pubsub: redis };
+  }
+  const backend = new ShareDB(options);
   _serverConnection = backend.connect();
 
   _startShareDB = () => {
