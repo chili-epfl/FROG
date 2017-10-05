@@ -1,6 +1,6 @@
 // @flow
 import { shuffle } from 'lodash';
-import { arrayInclude, stringToArray } from './ArrayFun';
+import { arrayIncludes, stringToArray } from './ArrayFun';
 
 export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(0, 'indexPart');
@@ -50,7 +50,7 @@ export default (obj: Object, dataFn: Object) => {
       tmp.add(tmpNb);
       suffisants.push([...tmp]);
       tmpNb = 0;
-    } else if (x === ',' && !arrayInclude(suffisants, [...tmp])) {
+    } else if (x === ',' && !arrayIncludes(suffisants, [...tmp])) {
       tmp.add(tmpNb);
       tmpNb = 0;
     } else if ('1234567890'.split('').includes('' + x)) {
