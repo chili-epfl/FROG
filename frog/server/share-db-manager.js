@@ -11,34 +11,28 @@ import RedisPubsub from 'sharedb-redis-pubsub';
 
 declare var Promise: any;
 
-let _serverConnection = {};
-let _startShareDB = () => {};
+const dbUrl =
+  (Meteor.settings && Meteor.settings.sharedb_dburl) ||
+  'mongodb://localhost:3001';
+const db = ShareDBMongo(`${dbUrl}/sharedb`);
 
-if (Meteor.settings.public.sharedburl) {
-  const shareDbUrl = Meteor.settings.public.sharedburl;
-  const socket = new ReconnectingWebSocket(shareDbUrl);
-  _serverConnection = new sharedbClient.Connection(socket);
-} else {
-  const dbUrl =
-    (Meteor.settings && Meteor.settings.public.dburl) ||
-    'mongodb://localhost:3001';
-  const db = ShareDBMongo(`${dbUrl}/sharedb`);
+const server = http.createServer();
+let options = { db };
+if (Meteor.settings.sharedb_redis) {
+  const redis = new RedisPubsub({
+    url: 'redis://' + Meteor.settings.sharedb_redis
+  });
+  options = { ...options, pubsub: redis };
+}
+const backend = new ShareDB(options);
+export const serverConnection = backend.connect();
 
-  const server = http.createServer();
-  let options = { db };
-  if (Meteor.settings.sharedb_redis) {
-    const redis = new RedisPubsub({
-      url: 'redis://' + Meteor.settings.sharedb_redis
-    });
-    options = { ...options, pubsub: redis };
-  }
-  const backend = new ShareDB(options);
-  _serverConnection = backend.connect();
-
-  _startShareDB = () => {
+export const startShareDB = () => {
+  if (Meteor.settings.start_sharedb_server) {
     new WebSocket.Server({ server }).on('connection', ws => {
       backend.listen(new WebsocketJSONStream(ws));
     });
+    // eslint-disable-next-line no-console
     console.log('Running shareDB server');
 
     const shareDbPort =
@@ -47,14 +41,5 @@ if (Meteor.settings.public.sharedburl) {
     server.listen(shareDbPort, err => {
       if (err) throw err;
     });
-  };
-}
-
-export const serverConnection = _serverConnection;
-export const startShareDB = _startShareDB;
-
-export const getDoc = (docId: string): any => {
-  const doc = serverConnection.get('rz', docId);
-  Promise.await(new Promise(resolve => doc.fetch(() => resolve())));
-  return doc.data;
+  }
 };
