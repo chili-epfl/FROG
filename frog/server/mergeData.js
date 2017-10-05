@@ -76,7 +76,6 @@ const mergeOneInstance = (
 };
 
 const mergeData = (activityId: string, object: ObjectT, group?: string) => {
-  const startTime = Date.now();
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
   const activityType = activityTypesObj[activity.activityType];
@@ -111,8 +110,6 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
     }
     mergedLogsDoc.destroy();
   });
-
-  console.log('Merging data elapsed', activityId, Date.now() - startTime);
 };
 
 export default mergeData;

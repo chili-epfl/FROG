@@ -34,7 +34,6 @@ export const getActivityDataFromReactive = (
   const { structure } = doGetInstances(activity, object);
 
   const promise = new Promise((resolve, reject) => {
-    const t0 = Date.now();
     serverConnection.createFetchQuery(
       'rz',
       { _id: { $regex: '^' + activityId } },
@@ -43,7 +42,6 @@ export const getActivityDataFromReactive = (
         if (err) {
           reject(err);
         } else {
-          console.log('fetched elapsed', Date.now() - t0);
           resolve(formatResults(results));
         }
       }
@@ -57,7 +55,6 @@ export const getActivityDataFromReactive = (
 };
 
 export default (activityId: string) => {
-  const t0 = Date.now();
   Products.update(
     activityId,
     {
@@ -68,5 +65,4 @@ export default (activityId: string) => {
     },
     { upsert: true }
   );
-  console.log('reactive to prod elapsed', Date.now() - t0);
 };

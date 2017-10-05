@@ -101,7 +101,6 @@ const runDataflow = (
   addObject(nodeId, object);
 
   if (type === 'operator') {
-    const startTime = Date.now();
     const operatorFunction = operatorTypesObj[node.operatorType].operator;
     const product = Promise.await(operatorFunction(node.data, object));
     const dataType = {
@@ -113,11 +112,6 @@ const runDataflow = (
     Products.update(nodeId, { type: node.type, ...update }, { upsert: true });
 
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
-    console.log(
-      'calculating operator elapsed',
-      node._id,
-      Date.now() - startTime
-    );
   } else if (type === 'activity') {
     mergeData(nodeId, object);
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });

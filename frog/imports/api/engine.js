@@ -19,7 +19,6 @@ export const nextActivity = (sessionId: string) =>
 
 const runNextActivity = (sessionId: string) => {
   if (Meteor.isServer) {
-    console.log('1', new Date());
     sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
     const activities = Activities.find({ graphId: session.graphId }).fetch();
@@ -41,9 +40,7 @@ const runNextActivity = (sessionId: string) => {
     );
 
     const openActivityIds = openActivities.map(x => x._id);
-    console.log('2', new Date());
     updateOpenActivities(sessionId, openActivityIds, newTimeInGraph);
-    console.log('3', new Date());
     if (openActivities.some(x => x.plane === 2)) {
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
