@@ -1,5 +1,4 @@
 // @flow
-
 import { Meteor } from 'meteor/meteor';
 import { cloneDeep } from 'lodash';
 import {
@@ -15,36 +14,34 @@ import { Sessions } from '../imports/api/sessions';
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 
-const mergeData = (activityId: string, object: ObjectT, group?: string) => {
-  const startTime = Date.now();
-  const { activityData } = object;
-  const activity = Activities.findOne(activityId);
-  const activityType = activityTypesObj[activity.activityType];
+declare var Promise: any;
 
-  const { groups, structure } = doGetInstances(activity, object);
-  const createGroups = group ? [group] : groups;
-
-  console.log('number of groups', createGroups.length);
-  createGroups.forEach(grouping => {
+const mergeOneInstance = (
+  grouping,
+  activity,
+  dataStructure,
+  mergeFunction,
+  activityData,
+  structure,
+  object
+) =>
+  new Promise(resolve => {
     if (activity.hasMergedData && activity.hasMergedData[grouping]) {
       return;
     }
-    Activities.update(activityId, {
+    Activities.update(activity._id, {
       $set: {
         hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
       }
     });
-    const mergeFunction = activityType.mergeFunction;
-    const doc = serverConnection.get('rz', activityId + '/' + grouping);
+    const doc = serverConnection.get('rz', activity._id + '/' + grouping);
     doc.fetch();
     doc.on(
       'load',
       Meteor.bindEnvironment(() => {
         if (!doc.type) {
           doc.create(
-            activityType.dataStructure !== undefined
-              ? cloneDeep(activityType.dataStructure)
-              : {}
+            dataStructure !== undefined ? cloneDeep(dataStructure) : {}
           );
         }
         if (mergeFunction) {
@@ -61,11 +58,35 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
             mergeFunction(instanceActivityData, dataFn);
           }
         }
+        resolve();
       })
     );
   });
 
-  const mergedLogsDoc = serverConnection.get('rz', activityId + '//DASHBOARD');
+const mergeData = (activityId: string, object: ObjectT, group?: string) => {
+  const startTime = Date.now();
+  const { activityData } = object;
+  const activity = Activities.findOne(activityId);
+  const activityType = activityTypesObj[activity.activityType];
+
+  const { groups, structure } = doGetInstances(activity, object);
+  const createGroups = group ? [group] : groups;
+
+  const mergeFunction = activityType.mergeFunction;
+  const asyncCreates = createGroups.map((grouping, i) =>
+    mergeOneInstance(
+      grouping,
+      activity,
+      activityType.dataStructure,
+      mergeFunction,
+      activityData,
+      structure,
+      object
+    )
+  );
+  Promise.await(Promise.all(asyncCreates));
+
+  const mergedLogsDoc = serverConnection.get('rz', 'DASHBOARD//' + activityId);
   mergedLogsDoc.fetch();
   mergedLogsDoc.on('load', () => {
     if (!mergedLogsDoc.type) {
