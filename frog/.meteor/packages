@@ -22,7 +22,6 @@ accounts-ui@1.1.9
 accounts-password@1.3.6
 react-meteor-data
 practicalmeteor:mocha
-tmeasday:presence
 check@1.2.5
 dispatch:mocha-phantomjs@0.1.9
 dynamic-import
@@ -30,3 +29,4 @@ abernix:standard-minifier-js
 meteorhacks:picker
 mizzao:timesync
 reywood:publish-composite
+mizzao:user-status

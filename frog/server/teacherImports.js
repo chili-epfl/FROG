@@ -24,15 +24,9 @@ const teacherPublish = (publish, collection) =>
     }
   });
 
-const presence = () => {
-  Meteor.publish('userPresence', function() {
-    return Presences.find({}, { fields: { state: true, userId: true } });
-  });
-};
-
 export default () => {
-  presence();
   teacherPublish('activities', Activities);
+  teacherPublish('users', Meteor.users);
   teacherPublish('operators', Operators);
   teacherPublish('connections', Connections);
   teacherPublish('activity_data', ActivityData);
