@@ -42,8 +42,10 @@ const RunnerPure = ({ activityData, data, dataFn, imageKey, setImageKey }: Activ
   const imageKeyPlus = imageKey || (images.find(image => !image.category) || {}).key
 
   const assignCategory = (categoryName) => {
-    dataFn.objInsert(categoryName, [imageKeyPlus, 'category']);
-    dataFn.listAppend(imageKeyPlus, 'seen');
+    if(imageKeyPlus){
+      dataFn.objInsert(categoryName, [imageKeyPlus, 'category']);
+      dataFn.listAppend(imageKeyPlus, 'seen');
+    }
     setImageKey(null)
   }
 
