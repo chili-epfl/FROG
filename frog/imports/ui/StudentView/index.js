@@ -71,7 +71,6 @@ StudentViewComp.displayName = 'StudentView';
 
 export default createContainer(props => {
   if (!once.already) {
-    console.log('once');
     try {
       UserStatus.startMonitor({
         threshold: 30000,
