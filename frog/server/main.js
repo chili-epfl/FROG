@@ -5,12 +5,10 @@
 
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
-import { startShareDB } from './share-db-manager';
 import process from 'process';
-import minio from './minio';
 
+import { startShareDB } from './share-db-manager';
 import '../imports/startup/shutdown-if-env.js';
-process.setMaxListeners(100);
 
 import teacherImports from './teacherImports';
 import {
@@ -22,6 +20,7 @@ import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 
+process.setMaxListeners(100);
 Meteor.users._ensureIndex('joinedSessions');
 startShareDB();
 teacherImports();

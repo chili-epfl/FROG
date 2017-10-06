@@ -94,11 +94,11 @@ class RunnerWithStream extends Component {
   }
 
   componentDidMount() {
-    this.initStream(this.props)
+    this.initStream(this.props);
   }
 
   componentWillReceiveProps(nextProps: Object) {
-    this.initStream(nextProps)
+    this.initStream(nextProps);
   }
 
   initStream(props: Object) {
@@ -106,10 +106,7 @@ class RunnerWithStream extends Component {
       this.doc.destroy();
     }
     if (props.activity.streamTarget) {
-      this.doc = connection.get(
-        'rz',
-        props.activity.streamTarget + '/all'
-      );
+      this.doc = connection.get('rz', props.activity.streamTarget + '/all');
       this.doc.subscribe();
       this.setState({ stream: generateReactiveFn(this.doc) }) // eslint-disable-line
     }

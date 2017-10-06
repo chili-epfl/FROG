@@ -17,7 +17,7 @@ const Main = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-`
+`;
 
 const FlexDiv = styled.div`
   display: flex;
@@ -30,28 +30,34 @@ const FlexDiv = styled.div`
   flex: 0 1 auto;
 `;
 
-const RunnerPure = ({ activityData, data, dataFn, imageKey, setImageKey }: ActivityRunnerT & {imageKey: string, setImageKey: Function}) => {
-
-
-
+const RunnerPure = ({
+  activityData,
+  data,
+  dataFn,
+  imageKey,
+  setImageKey
+}: ActivityRunnerT & { imageKey: string, setImageKey: Function }) => {
   const images = Object.keys(data)
     .filter(x => data[x].url !== undefined)
-    .map(key => data[key])
+    .map(key => data[key]);
 
   // when imageKey is null, imageKeyPlus takes the value of an image to categorize
-  const imageKeyPlus = imageKey || (images.find(image => !image.category) || {}).key
+  const imageKeyPlus =
+    imageKey || (images.find(image => !image.category) || {}).key;
 
-  const assignCategory = (categoryName) => {
-    if(imageKeyPlus){
+  const assignCategory = categoryName => {
+    if (imageKeyPlus) {
       dataFn.objInsert(categoryName, [imageKeyPlus, 'category']);
       dataFn.listAppend(imageKeyPlus, 'seen');
     }
-    setImageKey(null)
-  }
+    setImageKey(null);
+  };
 
   const categories = activityData.config.categories || [];
   categories.forEach((x, i) =>
-    Mousetrap.bind(shortcuts[i], () => { assignCategory(x); })
+    Mousetrap.bind(shortcuts[i], () => {
+      assignCategory(x);
+    })
   );
 
   return (
@@ -62,13 +68,20 @@ const RunnerPure = ({ activityData, data, dataFn, imageKey, setImageKey }: Activ
       {imageKeyPlus
         ? <FlexDiv>
             <ImagePanel url={data[imageKeyPlus].url} />
-            <ShortcutPanel {...{categories, dataFn, data, assignCategory, imageKey: imageKeyPlus}} />
+            <ShortcutPanel
+              {...{
+                categories,
+                dataFn,
+                data,
+                assignCategory,
+                imageKey: imageKeyPlus
+              }}
+            />
           </FlexDiv>
-        : <h1>Waiting for images to classify</h1>
-      }
-      <ImageList {...{images, imageKey: imageKeyPlus, setImageKey}}/>
+        : <h1>Waiting for images to classify</h1>}
+      <ImageList {...{ images, imageKey: imageKeyPlus, setImageKey }} />
     </Main>
   );
 };
 
-export default withState('imageKey', 'setImageKey', null)(RunnerPure)
+export default withState('imageKey', 'setImageKey', null)(RunnerPure);

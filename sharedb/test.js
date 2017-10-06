@@ -7,10 +7,11 @@ if (process.argv.length < 3) {
 }
 
 const failed = () => console.log('WS failed');
-var WebSocket = require('ws');
-var ShareDB = require('sharedb/lib/client');
-var socket = new WebSocket(process.argv[2]);
-var connection = new ShareDB.Connection(socket);
+const WebSocket = require('ws');
+const ShareDB = require('sharedb/lib/client');
+
+const socket = new WebSocket(process.argv[2]);
+const connection = new ShareDB.Connection(socket);
 const con = connection.get('rz', '1');
 con.subscribe();
 const timeout = setTimeout(failed, 5000);

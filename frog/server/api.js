@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import { Picker } from 'meteor/meteorhacks:picker';
 import { uuid } from 'frog-utils';
 import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());

@@ -8,7 +8,7 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
   flex: 0 1 auto;
-`
+`;
 
 const ImgPanel = styled.img`
   max-width: 80%;
@@ -19,7 +19,7 @@ const ImgPanel = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-export default ({ url }: { url: string}) =>
+export default ({ url }: { url: string }) =>
   <Container>
     <ImgPanel src={url} />
-  </Container>
+  </Container>;

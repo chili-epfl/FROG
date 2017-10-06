@@ -16,6 +16,8 @@ import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 
 declare var Promise: any;
+const backend = new ShareDB();
+const connection = backend.connect();
 
 const mergeOneInstance = (
   grouping,
@@ -24,8 +26,7 @@ const mergeOneInstance = (
   mergeFunction,
   activityData,
   structure,
-  object,
-  connection
+  object
 ) => {
   let data;
   if (mergeFunction) {
@@ -59,7 +60,7 @@ const mergeOneInstance = (
       );
     }
   } else {
-    data = dataStructure;
+    data = dataStructure || {};
   }
 
   const serverDoc = serverConnection.get('rz', activity._id + '/' + grouping);
@@ -76,17 +77,16 @@ const mergeOneInstance = (
 };
 
 const mergeData = (activityId: string, object: ObjectT, group?: string) => {
+  console.log('mergedata', activityId);
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
   const activityType = activityTypesObj[activity.activityType];
 
   const { groups, structure } = doGetInstances(activity, object);
   const createGroups = group ? [group] : groups;
-  const backend = new ShareDB();
-  const connection = backend.connect();
 
   const mergeFunction = activityType.mergeFunction;
-  const asyncCreates = createGroups.map((grouping, i) =>
+  const asyncCreates = createGroups.map(grouping =>
     mergeOneInstance(
       grouping,
       activity,
@@ -94,22 +94,20 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
       mergeFunction,
       activityData,
       structure,
-      object,
-      connection
+      object
     )
   );
   Promise.await(Promise.all(asyncCreates));
 
   const mergedLogsDoc = serverConnection.get('rz', 'DASHBOARD//' + activityId);
-  mergedLogsDoc.fetch();
-  mergedLogsDoc.on('load', () => {
-    if (!mergedLogsDoc.type) {
-      mergedLogsDoc.create(
-        (activityType.dashboard && activityType.dashboard.initData) || {}
-      );
-    }
-    mergedLogsDoc.destroy();
-  });
+  try {
+    mergedLogsDoc.create(
+      (activityType.dashboard && activityType.dashboard.initData) || {}
+    );
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('Creating dashboard for ', activityId, e);
+  }
 };
 
 export default mergeData;

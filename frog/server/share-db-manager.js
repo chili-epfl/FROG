@@ -5,8 +5,6 @@ import WebSocket from 'ws';
 import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
-import sharedbClient from 'sharedb/lib/client';
-import { ReconnectingWebSocket } from 'rws';
 import RedisPubsub from 'sharedb-redis-pubsub';
 
 declare var Promise: any;

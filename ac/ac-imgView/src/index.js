@@ -113,18 +113,20 @@ const mergeFunction = (object, dataFn) => {
     : Object.keys(object.data).map(x => object.data[x])).filter(
     x => x.url !== undefined
   );
-  dataImgs.filter(x =>
-    !object.config.filterTrash || (x.category && x.category !=='trash')
-  ).forEach(x =>
-    dataFn.objInsert(
-      {
-        votes: {},
-        ...x,
-        categories: x.categories || (x.category && [x.category])
-      },
-      x.key || uuid()
+  dataImgs
+    .filter(
+      x => !object.config.filterTrash || (x.category && x.category !== 'trash')
     )
-  );
+    .forEach(x =>
+      dataFn.objInsert(
+        {
+          votes: {},
+          ...x,
+          categories: x.categories || (x.category && [x.category])
+        },
+        x.key || uuid()
+      )
+    );
 };
 
 export default ({
