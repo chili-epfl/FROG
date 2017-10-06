@@ -1,6 +1,7 @@
 // @flow
 
 import { type activityDataT } from 'frog-utils';
+import { Meteor } from 'meteor/meteor';
 
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
@@ -54,7 +55,7 @@ export const getActivityDataFromReactive = (
   return ret;
 };
 
-export default (activityId: string) => {
+const ensure = (activityId: string) => {
   Products.update(
     activityId,
     {
@@ -65,4 +66,9 @@ export default (activityId: string) => {
     },
     { upsert: true }
   );
+  Activities.update(activityId, { $set: { state: 'computed' } });
 };
+
+Meteor.methods({ 'reactive.to.product': id => ensure(id) });
+
+export default ensure;
