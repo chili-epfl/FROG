@@ -77,7 +77,6 @@ const mergeOneInstance = (
 };
 
 const mergeData = (activityId: string, object: ObjectT, group?: string) => {
-  console.log('mergedata', activityId);
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
   const activityType = activityTypesObj[activity.activityType];
