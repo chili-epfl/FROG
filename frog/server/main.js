@@ -20,6 +20,11 @@ import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line global-require
+  require('longjohn');
+}
+
 process.setMaxListeners(100);
 Meteor.users._ensureIndex('joinedSessions');
 startShareDB();

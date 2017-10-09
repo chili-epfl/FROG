@@ -45,11 +45,21 @@ const mergeOneInstance = (
           doc.on(
             'load',
             Meteor.bindEnvironment(() => {
-              if (!doc.type) {
+              try {
                 doc.create(
                   dataStructure !== undefined ? cloneDeep(dataStructure) : {}
                 );
+              } catch (e) {
+                // eslint-disable-next-line no-console
+                console.error(
+                  Date.now,
+                  'Creating collection for ',
+                  activity._id,
+                  grouping,
+                  e
+                );
               }
+
               const dataFn = generateReactiveFn(doc);
               // merging in config with incoming product
               mergeFunction(instanceActivityData, dataFn);
@@ -64,16 +74,28 @@ const mergeOneInstance = (
   }
 
   const serverDoc = serverConnection.get('rz', activity._id + '/' + grouping);
-  serverDoc.create(data, undefined, undefined, err => {
-    if (err) {
-      // eslint-disable-next-line no-console
-      console.error(
-        'Creating ShareDB document',
-        activity._id + '/' + grouping,
-        err
-      );
-    }
-  });
+  try {
+    serverDoc.create(data, undefined, undefined, err => {
+      if (err) {
+        // eslint-disable-next-line no-console
+        console.error(
+          Date.now,
+          'Creating ShareDB document',
+          activity._id + '/' + grouping,
+          err
+        );
+      }
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(
+      Date.now,
+      'Catch: Creating ShareDB document for ',
+      activity._id,
+      grouping,
+      e
+    );
+  }
 };
 
 const mergeData = (activityId: string, object: ObjectT, group?: string) => {
@@ -98,14 +120,20 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   );
   Promise.await(Promise.all(asyncCreates));
 
-  const mergedLogsDoc = serverConnection.get('rz', 'DASHBOARD//' + activityId);
-  try {
-    mergedLogsDoc.create(
-      (activityType.dashboard && activityType.dashboard.initData) || {}
+  // only create dashboard on initial merge, not when called by individuals joining late
+  if (!group) {
+    const mergedLogsDoc = serverConnection.get(
+      'rz',
+      'DASHBOARD//' + activityId
     );
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error('Creating dashboard for ', activityId, e);
+    try {
+      mergedLogsDoc.create(
+        (activityType.dashboard && activityType.dashboard.initData) || {}
+      );
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(Date.now, 'Creating dashboard for ', activityId, e);
+    }
   }
 };
 

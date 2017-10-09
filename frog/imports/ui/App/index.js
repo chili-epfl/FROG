@@ -18,6 +18,11 @@ import { toObject as queryToObject } from 'query-parse';
 
 import StudentView from '../StudentView';
 
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line global-require
+  require('longjohn');
+}
+
 const TeacherLoadable = Loadable({
   loader: () => import('./TeacherContainer'),
   loading: () => null,
