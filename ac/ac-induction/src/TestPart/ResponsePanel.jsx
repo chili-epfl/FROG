@@ -7,7 +7,7 @@ import { stringToArray } from '../ArrayFun';
 export default (props: Object) => {
   const { data, ...other } = props;
   const choice = data.testChoice;
-  // console.log(data);
+   console.log(data);
   return (
     <div style={{ width: '100%', height: '80%' }}>
       {choice ? <TruePanel {...other} /> : <FalsePanel {...other} />}
@@ -24,9 +24,10 @@ const TruePanel = ({
   data
 }: Object) => {
   const propertiesTest = stringToArray(examples[indexTest].respectedProperties);
-  // examples[indexTest].isIncorrect
-  //   ? stringToArray(examples[indexTest].respectedProperties)
-  //   : data.suffisant;
+  // const propertiesTest =
+  //  examples[indexTest].isIncorrect
+  //    ? stringToArray(examples[indexTest].respectedProperties)
+  //    : data.suffisant;
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <h4>
