@@ -18,7 +18,8 @@
     "react-google-charts": "^1.5.5",
     "react-jsonschema-form": "^0.49.0",
     "recompose": "^0.24.0",
-    "sharedb": "^1.0.0-beta.7"
+    "sharedb": "^1.0.0-beta.7",
+    "sharedb-string-binding": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
