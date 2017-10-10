@@ -6,6 +6,7 @@ export default ({ data, dataFn }: Object) => {
   const onClickSwitch = () => {
     // if (!data.testChoice)
     dataFn.objInsert(!data.testChoice, 'testChoice');
+    dataFn.objInsert([], 'tmpSelected');
   };
 
   return (

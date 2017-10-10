@@ -1,16 +1,16 @@
 // @flow
 
 import React from 'react';
-import { shuffle } from 'lodash';
+// import { shuffle } from 'lodash';
 import { stringToArray } from '../ArrayFun';
 
 export default (props: Object) => {
-  const { data, ...other } = props;
+  const { data } = props;
   const choice = data.testChoice;
-   console.log(data);
+  //console.log(data);
   return (
     <div style={{ width: '100%', height: '80%' }}>
-      {choice ? <TruePanel {...other} /> : <FalsePanel {...other} />}
+      {choice ? <TruePanel {...props} /> : <FalsePanel {...props} />}
     </div>
   );
 };
@@ -24,10 +24,7 @@ const TruePanel = ({
   data
 }: Object) => {
   const propertiesTest = stringToArray(examples[indexTest].respectedProperties);
-  // const propertiesTest =
-  //  examples[indexTest].isIncorrect
-  //    ? stringToArray(examples[indexTest].respectedProperties)
-  //    : data.suffisant;
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <h4>
@@ -49,11 +46,13 @@ const TruePanel = ({
               type="checkbox"
               value=""
               onClick={() => {
-                data.selectedProperties.includes(x)
-                  ? (data.selectedProperties = data.selectedProperties.filter(
-                      y => y !== x
-                    ))
-                  : data.selectedProperties.push(x);
+                const tmpSelected = data.tmpSelected.includes(x)
+                  ? data.tmpSelected.filter(y => y !== x)
+                  : [...data.tmpSelected, x];
+                dataFn.objInsert(tmpSelected, 'tmpSelected');
+                // data.tmpSelected.includes(x)
+                //   ? (data.tmpSelected =
+                //   : data.tmpSelected.push(x);
               }}
             />
             {properties[x]}
@@ -72,65 +71,66 @@ const FalsePanel = ({
   dataFn,
   data
 }: Object) =>
-  <div style={{ width: '100%', height: '100%' }}>
-    <h4>
-      {"Select properties that exclude him of being an example of the concept '" +
-        title +
-        "'"}
-    </h4>
-    <div
-      style={{
-        width: '100%',
-        height: 'fit-content',
-        textAlign: 'left',
-        paddingLeft: '100px'
-      }}
-    >
-      {stringToArray(examples[indexTest].respectedProperties).map(x =>
-        <div className="checkbox" key={x}>
-          <input
-            type="checkbox"
-            value=""
-            onClick={() => {
-              data.selectedProperties.includes(x)
-                ? (data.selectedProperties = data.selectedProperties.filter(
-                    y => y !== x
-                  ))
-                : data.selectedProperties.push(x);
-            }}
-          />
-          {properties[x]}
+  indexTest % 2 === 0
+    ? <div style={{ width: '100%', height: '100%' }}>
+        <h4>
+          {"Select properties that exclude him of being an example of the concept '" +
+            title +
+            "'"}
+        </h4>
+        <div
+          style={{
+            width: '100%',
+            height: 'fit-content',
+            textAlign: 'left',
+            paddingLeft: '100px'
+          }}
+        >
+          {stringToArray(examples[indexTest].respectedProperties).map(x =>
+            <div className="checkbox" key={x}>
+              <input
+                type="checkbox"
+                value=""
+                onClick={() => {
+                  const tmpSelected = data.tmpSelected.includes(x)
+                    ? data.tmpSelected.filter(y => y !== x)
+                    : [...data.tmpSelected, x];
+                  dataFn.objInsert(tmpSelected, 'tmpSelected');
+                }}
+              />
+              {properties[x]}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-    <h4>
-      {"Select what would be missing to be an example of the concept '" +
-        title +
-        "'"}
-    </h4>
-    <div
-      style={{
-        width: '100%',
-        height: 'fit-content',
-        textAlign: 'left',
-        paddingLeft: '100px'
-      }}
-    >
-      {stringToArray(examples[indexTest].respectedProperties).map(x =>
-        <div className="checkbox" key={x}>
-          <input
-            type="checkbox"
-            value=""
-            onClick={() => {
-              data.selectedProperties.includes(x)
-                ? (data.selectedProperties = data.selectedProperties.filter(
-                    y => y !== x
-                  ))
-                : data.selectedProperties.push(x);
-            }}
-          />
-          {properties[x]}
+      </div>
+    : <div>
+        <h4>
+          {"Select what would be missing to be an example of the concept '" +
+            title +
+            "'"}
+        </h4>
+        <div
+          style={{
+            width: '100%',
+            height: 'fit-content',
+            textAlign: 'left',
+            paddingLeft: '100px'
+          }}
+        >
+          {stringToArray(examples[indexTest].respectedProperties).map(x =>
+            <div className="checkbox" key={x}>
+              <input
+                type="checkbox"
+                value=""
+                onClick={() => {
+                  const tmpSelected = data.tmpSelected.includes(x)
+                    ? data.tmpSelected.filter(y => y !== x)
+                    : [...data.tmpSelected, x];
+                  dataFn.objInsert(tmpSelected, 'tmpSelected');
+                }}
+              />
+              {properties[x]}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  </div>;
+      </div>;

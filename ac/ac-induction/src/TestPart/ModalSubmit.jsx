@@ -23,7 +23,9 @@ export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
       <div>
         You have selected the following properties :
         <ul>
-          {data.selectedProperties.map(x =>
+          {data.listIndexTestWithFeedback[
+            data.indexCurrent
+          ].selectedProperties.map(x =>
             <li key={x}>
               {properties[x]}
             </li>

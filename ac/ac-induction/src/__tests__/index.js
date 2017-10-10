@@ -4,14 +4,14 @@ import {
   arrayEquals,
   arrayIncludes,
   arrayDifference,
-  arrayIntersection,
-  stringToArray
+  arrayIntersection
+  //  stringToArray
 } from '../ArrayFun';
 
 const arr1 = [1, 2, 3];
 const arr2 = [1, 2];
 const arr3 = [[1, 2], [4]];
-const arr4 = [[2,3], [1,2]];
+const arr4 = [[2, 3], [1, 2]];
 
 test('test 1: arrayIncludes true', () => {
   expect(arrayIncludes(arr3, arr2)).toBeTruthy();
@@ -46,9 +46,9 @@ test('test 8: arrayIntersection none', () => {
 });
 
 test('test 9: arrayDifference arrays', () => {
-  expect(arrayDifference(arr3, arr4)).toEqual([[4],[2,3]]);
+  expect(arrayDifference(arr3, arr4)).toEqual([[4], [2, 3]]);
 });
 
 test('test 10: arrayIntersection arrays', () => {
-  expect(arrayIntersection(arr3, arr4)).toEqual([[1,2]]);
+  expect(arrayIntersection(arr3, arr4)).toEqual([[1, 2]]);
 });

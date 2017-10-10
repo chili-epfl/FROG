@@ -7,7 +7,7 @@ export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(0, 'indexCurrent');
   dataFn.objInsert(false, 'feedbackOpen');
   dataFn.objInsert(true, 'testChoice');
-  dataFn.objInsert([], 'selectedProperties');
+  dataFn.objInsert([], 'tmpSelected');
 
   const {
     hasExamples,
@@ -67,6 +67,6 @@ const genList = (tab: Array<any>, n: number) => {
   let tmp = [];
   for (let i = 0; i < n / tab.length + 1; i += 1)
     tmp = tmp.concat(shuffle(tab));
-  tmp = tmp.map(x => tab.indexOf(x));
+  tmp = tmp.map(x => ({ realIndex: tab.indexOf(x), selectedProperties: [] }));
   return tmp.slice(tmp.length - n);
 };

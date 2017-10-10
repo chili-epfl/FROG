@@ -21,16 +21,25 @@ export default ({
 }: Object) => {
   const clickHandler = () => {
     if (feedback) {
+      const tmpList = [...data.listIndexTestWithFeedback];
+      tmpList[data.indexCurrent].selectedProperties = data.tmpSelected;
+      dataFn.objInsert(tmpList, 'listIndexTestWithFeedback');
       dataFn.objInsert(true, 'feedbackOpen');
-    } else if (data.indexCurrent === nbTest - 1) {
-      dataFn.objInsert(0, 'indexCurrent');
-      dataFn.objInsert(data.indexPart + 1, 'indexPart');
-    } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
+    } else {
+      const tmpList = [...data.listIndexTest];
+      tmpList[data.indexCurrent].selectedProperties = data.tmpSelected;
+      dataFn.objInsert(tmpList, 'listIndexTest');
+      if (data.indexCurrent === nbTest - 1) {
+        dataFn.objInsert(0, 'indexCurrent');
+        dataFn.objInsert(data.indexPart + 1, 'indexPart');
+      } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
+    }
+    dataFn.objInsert([], 'tmpSelected');
   };
 
   const indexTest = feedback
-    ? data.listIndexTestWithFeedback[data.indexCurrent]
-    : data.listIndexTest[data.indexCurrent];
+    ? data.listIndexTestWithFeedback[data.indexCurrent].realIndex
+    : data.listIndexTest[data.indexCurrent].realIndex;
 
   return (
     <ExMain>
@@ -61,12 +70,13 @@ export default ({
           Submit
         </ExButton>
       </ExContainer>
-      <ModalSubmit
-        properties={properties}
-        dataFn={dataFn}
-        data={data}
-        nbTestFeedback={nbTestFeedback}
-      />
+      {feedback &&
+        <ModalSubmit
+          properties={properties}
+          dataFn={dataFn}
+          data={data}
+          nbTestFeedback={nbTestFeedback}
+        />}
     </ExMain>
   );
 };
