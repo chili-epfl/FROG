@@ -133,7 +133,11 @@ export const wordWrap = (text: string, maxLength: number): string[] => {
 const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
 export const getSlug = (n: number) => shuffle(groupchars).slice(0, n).join('');
 
-type ReactivePropsT = { path: string | string[], dataFn: Object };
+type ReactivePropsT = {
+  path: string | string[],
+  dataFn: Object,
+  type: 'textarea' | 'textinput'
+};
 
 export class ReactiveText extends Component {
   textRef: any;
@@ -156,7 +160,8 @@ export class ReactiveText extends Component {
     if (
       (nextProps.dataFn && nextProps.dataFn.doc.id) !==
         (this.props.dataFn && this.props.dataFn.doc.id) ||
-      this.props.path !== nextProps.path
+      this.props.path !== nextProps.path ||
+      this.props.type !== nextProps.type
     ) {
       this.update(nextProps);
     }
@@ -170,8 +175,13 @@ export class ReactiveText extends Component {
 
   render() {
     const rest = omit(this.props, ['path', 'dataFn']);
-    return (
-      <textarea {...rest} ref={ref => (this.textRef = ref)} defaultValue="" />
-    );
+    return this.props.type === 'textarea'
+      ? <textarea ref={ref => (this.textRef = ref)} {...rest} defaultValue="" />
+      : <input
+          type="text"
+          ref={ref => (this.textRef = ref)}
+          {...rest}
+          defaultValue=""
+        />;
   }
 }
