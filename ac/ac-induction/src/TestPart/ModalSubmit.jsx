@@ -15,11 +15,18 @@ export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
       dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
     }
   };
+  console.log(data);
   return (
     <Modal isOpen={data.feedbackOpen} contentLabel="Modal">
       <h1>
         {'Solution : Example n°' + (data.indexCurrent + 1)}
       </h1>
+      <div>
+        {'You have selected that this image was: ' +
+          (data.listIndexTestWithFeedback[data.indexCurrent].selectedChoice
+            ? 'True'
+            : 'False')}
+      </div>
       <div>
         You have selected the following properties :
         <ul>

@@ -47,7 +47,12 @@ export default ({
           }}
         >
           <h3>This image corresponds to an example of the concept </h3>
-          <Switch data={data} dataFn={dataFn} />
+          <Switch
+            tmpList={tmpList}
+            feedback={feedback}
+            data={data}
+            dataFn={dataFn}
+          />
         </div>
         <ResponsePanel
           title={title}

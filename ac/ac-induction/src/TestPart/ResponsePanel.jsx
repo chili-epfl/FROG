@@ -43,17 +43,18 @@ const TruePanel = ({
               !!tmpList[data.indexCurrent].selectedProperties.includes(x)
             }
             onClick={() => {
-              if (tmpList[data.indexCurrent].selectedProperties.includes(x))
-                tmpList[data.indexCurrent].selectedProperties = tmpList[
+              const newList = [...tmpList];
+              if (newList[data.indexCurrent].selectedProperties.includes(x))
+                newList[data.indexCurrent].selectedProperties = newList[
                   data.indexCurrent
                 ].selectedProperties.filter(y => y !== x);
               else
-                tmpList[data.indexCurrent].selectedProperties = [
-                  ...tmpList[data.indexCurrent].selectedProperties,
+                newList[data.indexCurrent].selectedProperties = [
+                  ...newList[data.indexCurrent].selectedProperties,
                   x
                 ];
               dataFn.objInsert(
-                tmpList,
+                newList,
                 feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
               );
             }}
@@ -99,17 +100,18 @@ const FalsePanel = ({
               !!tmpList[data.indexCurrent].selectedProperties.includes(x)
             }
             onClick={() => {
-              if (tmpList[data.indexCurrent].selectedProperties.includes(x))
-                tmpList[data.indexCurrent].selectedProperties = tmpList[
+              const newList = [...tmpList];
+              if (newList[data.indexCurrent].selectedProperties.includes(x))
+                newList[data.indexCurrent].selectedProperties = newList[
                   data.indexCurrent
                 ].selectedProperties.filter(y => y !== x);
               else
-                tmpList[data.indexCurrent].selectedProperties = [
-                  ...tmpList[data.indexCurrent].selectedProperties,
+                newList[data.indexCurrent].selectedProperties = [
+                  ...newList[data.indexCurrent].selectedProperties,
                   x
                 ];
               dataFn.objInsert(
-                tmpList,
+                newList,
                 feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
               );
             }}
