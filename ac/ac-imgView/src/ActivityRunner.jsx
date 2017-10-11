@@ -69,7 +69,7 @@ class ActivityRunner extends Component {
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger } = this.props;
+    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
 
     const minVoteT = activityData.config.minVote || 1;
 
@@ -88,9 +88,7 @@ class ActivityRunner extends Component {
       logger('vote/' + key);
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
-      if (this.props.stream) {
-        this.props.stream.objInsert(!prev, [key, 'votes', userId]);
-      }
+      stream(!prev, [key, 'votes', userId]);
     };
 
     const setCategory = (c: string) => this.setState({ category: c });
