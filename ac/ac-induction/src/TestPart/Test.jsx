@@ -21,30 +21,21 @@ export default ({
 }: Object) => {
   const clickHandler = () => {
     if (feedback) {
-      const tmpList = [...data.listIndexTestWithFeedback];
-      tmpList[data.indexCurrent].selectedProperties = data.tmpSelected;
-      dataFn.objInsert(tmpList, 'listIndexTestWithFeedback');
       dataFn.objInsert(true, 'feedbackOpen');
-    } else {
-      const tmpList = [...data.listIndexTest];
-      tmpList[data.indexCurrent].selectedProperties = data.tmpSelected;
-      dataFn.objInsert(tmpList, 'listIndexTest');
-      if (data.indexCurrent === nbTest - 1) {
-        dataFn.objInsert(0, 'indexCurrent');
-        dataFn.objInsert(data.indexPart + 1, 'indexPart');
-      } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
-    }
-    dataFn.objInsert([], 'tmpSelected');
+    } else if (data.indexCurrent === nbTest - 1) {
+      dataFn.objInsert(0, 'indexCurrent');
+      dataFn.objInsert(data.indexPart + 1, 'indexPart');
+    } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
   };
 
-  const indexTest = feedback
-    ? data.listIndexTestWithFeedback[data.indexCurrent].realIndex
-    : data.listIndexTest[data.indexCurrent].realIndex;
+  const tmpList = feedback
+    ? data.listIndexTestWithFeedback
+    : data.listIndexTest;
 
   return (
     <ExMain>
       <ExContainer>
-        <ImgBis url={examples[indexTest].url} />
+        <ImgBis url={examples[tmpList[data.indexCurrent].realIndex].url} />
       </ExContainer>
       <ExLine />
       <ExContainer style={{ padding: '20px' }}>
@@ -62,7 +53,8 @@ export default ({
           title={title}
           examples={examples}
           properties={properties}
-          indexTest={indexTest}
+          tmpList={tmpList}
+          feedback={feedback}
           data={data}
           dataFn={dataFn}
         />
