@@ -21,6 +21,21 @@ export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
       <h1>
         {'Solution : Example n°' + (data.indexCurrent + 1)}
       </h1>
+      <div
+        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+      >
+        <div
+          style={{
+            width: '50px',
+            height: '50px',
+            backgroundColor: 'black',
+            borderRadius: '50px'
+          }}
+        />
+        <h3 style={{ marginLeft: '10px' }}>
+          {'Your answer was incorrect.'}
+        </h3>
+      </div>
       <div>
         {'You have selected that this image was: ' +
           (data.listIndexTestWithFeedback[data.indexCurrent].selectedChoice

@@ -27,7 +27,7 @@ export default ({
       dataFn.objInsert(data.indexPart + 1, 'indexPart');
     } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
   };
-
+  console.log(examples);
   const tmpList = feedback
     ? data.listIndexTestWithFeedback
     : data.listIndexTest;
