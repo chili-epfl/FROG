@@ -34,6 +34,9 @@ export const addActivity = (
   }
 };
 
+export const setStreamTarget = (activityId: string, streamTarget: string) =>
+  Activities.update(activityId, { $set: { streamTarget } });
+
 export const duplicateActivity = (activity: ActivityDbT) =>
   Activities.insert({
     ...activity,
