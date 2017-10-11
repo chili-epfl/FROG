@@ -111,8 +111,15 @@ export const copyOperatorIntoGraphOperator = (
   });
 };
 
-export const removeGraph = (graphId: string) =>
-  Meteor.call('graph.flush.all', graphId);
+export const removeGraph = (graphId: string) => {
+  // eslint-disable-next-line no-alert
+  const conf = confirm(
+    'Are you sure you want to delete the entire database, including all session data, log files, student data, etc?'
+  );
+  if (conf) {
+    Meteor.call('graph.flush.all', graphId);
+  }
+};
 
 export const deleteDatabase = () => Meteor.call('graph.flush.db');
 

@@ -14,10 +14,19 @@ export const Graphs = new Mongo.Collection('graphs');
 export const addGraph = (graphObj?: Object): string => {
   const graphId = uuid();
   const name = (graphObj && graphObj.graph && graphObj.graph.name) || 'Unnamed';
+  const existing = Graphs.find({}, { name: 1 }).map(x => x.name);
+
+  let newname = name + ' 1';
+  let i = 1;
+  while (existing.includes(newname)) {
+    newname = name + ' ' + i;
+    i += 1;
+  }
+
   Graphs.insert({
     ...((graphObj && graphObj.graph) || {}),
     _id: graphId,
-    name,
+    name: newname,
     createdAt: new Date()
   });
   if (!graphObj) {
@@ -106,7 +115,7 @@ export const setCurrentGraph = (graphId: string) => {
   });
 };
 
-export const assignGraph = (wantedId: string) => {
+export const assignGraph = (wantedId?: string): string => {
   const user = Meteor.user();
   if (wantedId && Graphs.findOne(wantedId)) {
     return wantedId;
