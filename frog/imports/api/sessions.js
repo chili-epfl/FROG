@@ -28,8 +28,11 @@ Meteor.methods({
         return;
       }
       sessionCancelCountDown(session._id);
-      Meteor.call('flush.session', session._id);
       const newSessionId = Meteor.call('add.session', graphId, { debug: true });
+      Sessions.update(newSessionId, {
+        $set: { studentlist: session.studentlist }
+      });
+      Meteor.call('flush.session', session._id);
       runSession(newSessionId);
       nextActivity(newSessionId);
     }

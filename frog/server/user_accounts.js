@@ -6,6 +6,8 @@ import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import fs from 'fs';
 
+import { Sessions } from '../imports/api/sessions';
+
 let teacherToken;
 const tokenPath = `${process.cwd()}/../../../../../TEACHER_TOKEN`;
 try {
@@ -46,5 +48,8 @@ Meteor.methods({
     } else {
       return 'NOTVALID';
     }
+  },
+  'frog.studentlist': function(slug) {
+    return Sessions.findOne({ slug: slug.trim().toUpperCase() }).studentlist;
   }
 });

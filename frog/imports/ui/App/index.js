@@ -16,6 +16,7 @@ import { toObject as queryToObject } from 'query-parse';
 
 import TeacherContainer from './TeacherContainer';
 import StudentView from '../StudentView';
+import StudentLogin from '../StudentView/StudentLogin';
 
 const shareDbUrl =
   (Meteor.settings && Meteor.settings.public.sharedburl) ||
@@ -62,6 +63,14 @@ class FROGRouter extends Component {
   }
 
   componentWillMount() {
+    this.update();
+  }
+
+  componentWillReceiveProps() {
+    this.update();
+  }
+
+  update() {
     const query = queryToObject(this.props.location.search.slice(1));
     const hasLogin = query.login;
 
@@ -124,13 +133,16 @@ class FROGRouter extends Component {
         );
       }
     }
-    return <h1>Must log in to use system</h1>;
+    return <StudentLogin slug={this.props.match.params.slug} />;
   }
 }
 
 export default () =>
   <Router>
     <div style={{ width: '100%', height: '100%' }}>
-      <Route component={FROGRouter} />
+      <Switch>
+        <Route path="/:slug" component={FROGRouter} />
+        <Route component={FROGRouter} />
+      </Switch>
     </div>
   </Router>;
