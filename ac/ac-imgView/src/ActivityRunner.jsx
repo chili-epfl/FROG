@@ -69,7 +69,7 @@ class ActivityRunner extends Component {
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger } = this.props;
+    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
 
     const minVoteT = activityData.config.minVote || 1;
 
@@ -85,9 +85,10 @@ class ActivityRunner extends Component {
       .map(key => ({ ...data[key], key }));
 
     const vote = (key, userId) => {
-      logger('vote');
+      logger('vote/' + key);
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
+      stream(!prev, [key, 'votes', userId]);
     };
 
     const setCategory = (c: string) => this.setState({ category: c });
@@ -103,27 +104,32 @@ class ActivityRunner extends Component {
           canVote={activityData.config.canVote}
           {...{ setCategory, setZoom }}
         />
-        <ThumbList
-          {...{
-            images,
-            categories: this.categories,
-            minVoteT,
-            vote,
-            userInfo,
-            setCategory,
-            setZoom,
-            setIndex
-          }}
-          canVote={activityData.config.canVote}
-          showingCategories={this.state.category === 'categories'}
-        />
+        {images.length === 0 && this.state.category !== 'categories'
+          ? <h1>
+              Please upload images by dropping files on the button below, or
+              click the button to turn on the webcam
+            </h1>
+          : <ThumbList
+              {...{
+                images,
+                categories: this.categories,
+                minVoteT,
+                vote,
+                userInfo,
+                setCategory,
+                setZoom,
+                setIndex,
+                logger
+              }}
+              canVote={activityData.config.canVote}
+              showingCategories={this.state.category === 'categories'}
+            />}
         {this.state.category !== 'categories' &&
           this.state.zoomOn &&
           <ZoomView
             index={this.state.index}
             {...{ close: () => setZoom(false), images, setIndex }}
           />}
-
         {activityData.config.canUpload &&
           <UploadBar {...{ ...this.props, setWebcam }} />}
         {this.state.webcamOn &&

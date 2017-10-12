@@ -1,7 +1,17 @@
 {
+  "Minio": {
+    "urls": [
+      "https://icchilisrv1.epfl.ch:9000",
+      "https://icchilisrv1.epfl.ch:9001"
+    ],
+    "accessKey": "AKIAIOSFODNN7EXAMPLE",
+    "secretKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+  },
   "public": {
-    "sharedburl": "ws://icchilisrv3.epfl.ch:3002",
-    "dburl": "mongodb://icchilisrv3.epfl.ch",
-    "sharedbport": 3002
-  }
+    "dburl": "mongodb://localhost:27500",
+    "sharedburl": "wss://icchilisrv3.epfl.ch"
+  },
+  "sharedb_redis": "localhost",
+  "sharedb_dburl": "mongodb://localhost:27017",
+  "dont_start_sharedb_server": true
 }

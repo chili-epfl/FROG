@@ -8,10 +8,11 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
+    "@houshuang/react-webcam": "^0.3.5",
     "frog-utils": "^1.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-webcam": "^0.2.0",
+    "@houshuang/resize-img": "^1.1.6",
     "styled-components": "^2.0.1"
   },
   "devDependencies": {
