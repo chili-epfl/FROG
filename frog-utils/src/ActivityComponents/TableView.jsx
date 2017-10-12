@@ -42,8 +42,6 @@ export default (props: Object) => {
     hasLetterNumberHeads: false
   };
 
-  console.log(props)
-
   const initialData = props.initialData || {
     rows: [['a', 'b', 'c', 'd', 'e']]
   };

@@ -15,7 +15,7 @@ const NewTab = ({ addTab }) =>
 const TabHeader = ({ tab, stream }) => {
     return (
       <div style={{margin: '10px auto 10px', width: '300px'}}>
-        <Button bsStyle="success" bsSize="large" block onClick={() => stream(tab, tab.key)}>Valider cette solution</Button>
+        <Button bsStyle="success" bsSize="large" block onClick={() => stream(tab, [tab.key])}>Valider cette solution</Button>
       </div>
   )
 }
@@ -28,16 +28,16 @@ const TabView = (props) => {
       <TabHeader {...props} />
       { tab.type === 'table'
         ? <TableView
-          onCellValueChange={(event) => {
-            const [cell, newValue] = event
-            if(data[tab.key]['data'][cell[0].toString()]) {
-              dataFn.objInsert(newValue, [tab.key, 'data', cell[0].toString(), cell[1].toString()])
-            } else {
-              dataFn.objInsert({ [cell[1].toString()]: newValue }, [tab.key, 'data', cell[0].toString() ])
-            }
-          }}
-          initialData={toTableData(tab.data, 10, 5)}
-        />
+            onCellValueChange={(event) => {
+              const [cell, newValue] = event
+              if(data[tab.key]['data'][cell[0].toString()]) {
+                dataFn.objInsert(newValue, [tab.key, 'data', cell[0].toString(), cell[1].toString()])
+              } else {
+                dataFn.objInsert({ [cell[1].toString()]: newValue }, [tab.key, 'data', cell[0].toString() ])
+              }
+            }}
+            initialData={toTableData(tab.data, 10, 5)}
+          />
         : <TreeView />
       }
     </div>
