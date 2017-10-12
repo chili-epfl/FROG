@@ -6094,6 +6094,12 @@ sharedb-redis-pubsub@^1.0.0-beta.1:
     redis "^2.6.0"
     sharedb "^1.0.0-beta"
 
+sharedb-string-binding@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sharedb-string-binding/-/sharedb-string-binding-1.0.0.tgz#0770e36cdcf2c608844dddf8f0a38be42564b102"
+  dependencies:
+    text-diff-binding "^1.0.0"
+
 sharedb@^1.0.0-beta, sharedb@^1.0.0-beta.7:
   version "1.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/sharedb/-/sharedb-1.0.0-beta.7.tgz#82118293db29dd3d781692ae3a39cfdef297b698"
@@ -6525,6 +6531,10 @@ test-exclude@^4.1.1:
     object-assign "^4.1.0"
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
+
+text-diff-binding@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/text-diff-binding/-/text-diff-binding-1.1.0.tgz#3e0adfcb7aee19c16e3afd3e7b7d897998e42a27"
 
 text-table@~0.2.0:
   version "0.2.0"
