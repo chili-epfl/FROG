@@ -36,6 +36,7 @@
     "flow-typed": "^2.1.5",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
+    "nightmare": "^2.10.0",
     "nps": "^5.7.0",
     "prettier": "^1.5.3",
     "watch": "^1.0.2"

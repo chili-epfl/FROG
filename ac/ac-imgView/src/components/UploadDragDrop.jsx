@@ -4,13 +4,16 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
-import uploadWithTumbnail from '../utils';
-
-const UploadDragDrop = ({ dataFn, stream, uploadFn, logger }: Object) => {
+const UploadDragDrop = ({ data, dataFn, uploadFn, logger }: Object) => {
   const onDrop = f => {
-    f.forEach(imageFile =>
-      uploadWithTumbnail(imageFile, logger, dataFn, stream, uploadFn)
-    );
+    uploadFn(f, url => {
+      logger('upload');
+      // setTimeout, otherwise HTTP request sends back code 503
+      setTimeout(
+        () => dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
+        500
+      );
+    });
   };
 
   return (

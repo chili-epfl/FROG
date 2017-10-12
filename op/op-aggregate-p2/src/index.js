@@ -27,10 +27,8 @@ const operator = (configData, object) => {
   let res = groups.reduce((acc, k) => ({ ...acc, [k]: [] }), {});
   Object.keys(object.activityData.payload).forEach(x => {
     const items = Object.values(object.activityData.payload[x].data);
-    const group = studentMapping[x]
-      ? studentMapping[x][configData.grouping]
-      : x;
-    res[group] = [...(res[group] || []), ...items];
+    const group = studentMapping[x][configData.grouping];
+    res[group] = [...res[group], ...items];
   });
   res = Object.keys(res).reduce(
     (acc, x) => ({ ...acc, [x]: { data: res[x] } }),

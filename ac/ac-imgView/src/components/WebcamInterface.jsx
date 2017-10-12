@@ -2,18 +2,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Webcam from '@houshuang/react-webcam';
+import Webcam from 'react-webcam';
 import Mousetrap from 'mousetrap';
 
-import uploadImage from '../utils';
+import { dataURItoFile, uuid } from 'frog-utils';
 
-const WebcamCapture = ({
-  setWebcam,
-  uploadFn,
-  dataFn,
-  logger,
-  stream
-}: Object) => {
+const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
   let webcam = { getScreenshot: () => null };
   Mousetrap.bind('esc', () => setWebcam(false));
   return (
@@ -21,33 +15,21 @@ const WebcamCapture = ({
       <Webcam
         audio={false}
         ref={node => (webcam = node)}
-        screenshotFormat="image/jpeg"
         style={{ width: '60%', height: '90%', margin: 'auto' }}
       />
       <button
         className="btn btn-primary"
         onClick={() => {
-          const dataURI = webcam.getScreenshot();
-          if (!dataURI) {
-            return;
-          }
-          // convert base64 to raw binary data held in a string
-          // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-          const byteString = atob(dataURI.split(',')[1]);
-          // separate out the mime component
-          const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-          // write the bytes of the string to an ArrayBuffer
-          const ab = new ArrayBuffer(byteString.length);
-          // create a view into the buffer
-          const ia = new Uint8Array(ab);
-          // set the bytes of the buffer to the correct values
-          for (let i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-          }
-          // write the ArrayBuffer to a blob, and you're done
-          const blob = new Blob([ab], { type: mimeString });
-
-          uploadImage(blob, logger, dataFn, stream, uploadFn);
+          const dataURL = webcam.getScreenshot();
+          const file = dataURItoFile(dataURL, uuid(), window);
+          uploadFn(file, url => {
+            // setTimeout, otherwise HTTP request sends back code 503
+            setTimeout(
+              () =>
+                dataFn.objInsert({ url, votes: {} }, Object.keys(data).length),
+              1000
+            );
+          });
           setWebcam(false);
         }}
         style={{

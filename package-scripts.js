@@ -8,7 +8,8 @@ module.exports = {
     eslintTest: 'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
     jest: 'jest',
     jestWatch: 'jest --watch',
-    flowTest: 'flow'
+    flowTest: 'flow',
+    nightmareTest: 'node nightmare/test.js'
   },
   options: {
     silent: true

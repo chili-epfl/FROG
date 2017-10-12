@@ -3,37 +3,27 @@
 import React from 'react';
 import { CountChart } from 'frog-utils';
 
-const actionTypes = ['upload', 'vote', 'zoom'];
-
 const Viewer = ({ data }: Object) => {
-  const chartData =
+  const d =
     data &&
-    actionTypes.map(actionType =>
-      Object.keys(data).reduce(
-        (acc, val) => {
-          const count = data[val] ? data[val][actionType] : -1;
-          if (Number.isInteger(count) && count > -1) {
-            acc[Math.min(Math.max(0, count), 5)] += 1;
-          }
-          return acc;
-        },
-        [0, 0, 0, 0, 0, 0]
-      )
+    Object.keys(data).reduce(
+      (acc, val) => {
+        const count = data[val] ? data[val].upload : -1;
+        if (Number.isInteger(count) && count > -1) {
+          acc[Math.min(Math.max(0, count), 5)] += 1;
+        }
+        return acc;
+      },
+      [0, 0, 0, 0, 0, 0]
     );
   return (
-    <div>
-      {chartData &&
-        chartData.map((d, i) =>
-          <CountChart
-            key={actionTypes[i]}
-            title={'Number of ' + actionTypes[i] + ' per group'}
-            vAxis={'Number of ' + actionTypes[i]}
-            hAxis="Number of groups"
-            categories={['0', '1', '2', '3', '4', '>4']}
-            data={d}
-          />
-        )}
-    </div>
+    <CountChart
+      title="Number of submissions per group"
+      vAxis="Number of submissions"
+      hAxis="Number of groups"
+      categories={['0', '1', '2', '3', '4', '>4']}
+      data={d}
+    />
   );
 };
 
@@ -42,13 +32,10 @@ const mergeLog = (
   dataFn: Object,
   { instanceId, payload }: { instanceId: string, payload: any }
 ) => {
-  const action = payload.split('/')[0];
-  if (actionTypes.includes(action)) {
-    if (!(data && data[instanceId])) {
-      dataFn.objInsert({ upload: 0, vote: 0, zoom: 0 }, [instanceId]);
-    }
-    dataFn.numIncr(1, [instanceId, action]);
+  if (!(data && data[instanceId])) {
+    dataFn.objInsert({ upload: 0, vote: 0 }, [instanceId]);
   }
+  dataFn.numIncr(1, [instanceId, payload]);
 };
 
 const initData = {};
