@@ -38,7 +38,7 @@ export default class Elem {
       case 'computing':
         return '#ffff00';
       case 'computed':
-        return '#66ff33';
+        return '#72FF70';
       case 'error':
         return '#ff0000';
       default:

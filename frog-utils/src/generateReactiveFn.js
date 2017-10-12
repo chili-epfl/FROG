@@ -1,5 +1,8 @@
 // @flow
 import ShareDB from 'sharedb';
+import StringBinding from 'sharedb-string-binding';
+import { get } from 'lodash';
+
 import { uuid } from './index';
 
 type rawPathT = string | string[];
@@ -17,6 +20,28 @@ class Doc {
     this.doc = doc;
     this.path = path || [];
   }
+
+  bindTextField(ref, rawpath) {
+    const path = cleanPath(this.path, rawpath);
+    if (typeof get(this.doc.data, path) !== 'string') {
+      // eslint-disable-next-line no-console
+      console.error(
+        `Cannot use bindTextField on path that is not initialized as a string, path: ${JSON.stringify(
+          path
+        )}, value ${get(this.doc.data, path)}, doc.data: ${JSON.stringify(
+          this.doc.data
+        )}.`
+      );
+    }
+    const binding = new StringBinding(
+      ref,
+      this.doc,
+      cleanPath(this.path, path)
+    );
+    binding.setup();
+    return binding;
+  }
+
   listPrepend(newVal: any, path: rawPathT) {
     this.doc.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
   }

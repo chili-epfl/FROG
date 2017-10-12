@@ -5,8 +5,12 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
+import { UserStatus } from 'meteor/mizzao:user-status';
+
 import { Sessions } from '/imports/api/sessions';
 import SessionBody from './SessionBody';
+
+const once = { already: false };
 
 class StudentViewComp extends Component {
   state: { result: string, message?: string };
@@ -51,6 +55,14 @@ class StudentViewComp extends Component {
     if (!this.props.session) {
       return <h1>That session is no longer available</h1>;
     }
+    if (this.props.session.state === 'WAITINGFORNEXT') {
+      return (
+        <div>
+          <h1>Waiting for next activity</h1>
+          <Spinner />
+        </div>
+      );
+    }
     return <SessionBody />;
   }
 }
@@ -58,6 +70,19 @@ class StudentViewComp extends Component {
 StudentViewComp.displayName = 'StudentView';
 
 export default createContainer(props => {
+  if (!once.already) {
+    try {
+      UserStatus.startMonitor({
+        threshold: 30000,
+        idleOnBlur: true
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      once.already = true;
+    }
+  }
+
   const slug = props.match.params.slug.trim().toUpperCase();
 
   const collections = ['session_activities'];
