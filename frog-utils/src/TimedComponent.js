@@ -46,9 +46,10 @@ class TimedComponentClass extends Component {
   }
 }
 
-export default (component: any, interval: number) => (props: Object) =>
+export default (component: any, interval: number) => (props: Object) => (
   <TimedComponentClass
     component={component}
     interval={interval}
     props={props}
-  />;
+  />
+);

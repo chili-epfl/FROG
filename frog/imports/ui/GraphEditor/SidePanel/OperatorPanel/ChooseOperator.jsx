@@ -86,28 +86,30 @@ export default class ChooseOperatorTypeComp extends Component {
             transform: 'translateY(10px)'
           }}
         >
-          {filteredList.length === 0
-            ? <div
-                style={{
-                  marginTop: '20px',
-                  marginLeft: '10px',
-                  fontSize: '40px'
-                }}
-              >
-                No result
-              </div>
-            : filteredList.map((x: operatorPackageT) =>
-                <ListComponent
-                  onSelect={() => select(x)}
-                  showExpanded={this.state.expanded === x.id}
-                  expand={() => this.setState({ expanded: x.id })}
-                  key={x.id}
-                  onPreview={() => {}}
-                  object={x}
-                  searchS={this.state.searchStr}
-                  eventKey={x.id}
-                />
-              )}
+          {filteredList.length === 0 ? (
+            <div
+              style={{
+                marginTop: '20px',
+                marginLeft: '10px',
+                fontSize: '40px'
+              }}
+            >
+              No result
+            </div>
+          ) : (
+            filteredList.map((x: operatorPackageT) => (
+              <ListComponent
+                onSelect={() => select(x)}
+                showExpanded={this.state.expanded === x.id}
+                expand={() => this.setState({ expanded: x.id })}
+                key={x.id}
+                onPreview={() => {}}
+                object={x}
+                searchS={this.state.searchStr}
+                eventKey={x.id}
+              />
+            ))
+          )}
         </div>
       </div>
     );

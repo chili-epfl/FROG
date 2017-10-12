@@ -11,12 +11,12 @@ import { Logs } from '../imports/api/logs';
 const Cache = {};
 
 const safelyInsertObject = (doc, dataFn, path, value) => {
-  const {insertObject, insertPath} = splitPathObject(doc.data, path, value)
+  const { insertObject, insertPath } = splitPathObject(doc.data, path, value);
   dataFn.objInsert(insertObject, insertPath);
-}
+};
 
 Meteor.methods({
-  'stream': (activity, path, value) => {
+  stream: (activity, path, value) => {
     if (activity.streamTarget) {
       const docId = activity.streamTarget + '/all';
       if (Cache[docId]) {

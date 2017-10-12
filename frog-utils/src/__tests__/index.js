@@ -7,36 +7,28 @@ test('flattenOne', () => {
 });
 
 test('splitPathObject', () => {
-  expect(splitPathObject(
-    {},
-    ['a'],
-    {}
-  )).toEqual({
+  expect(splitPathObject({}, ['a'], {})).toEqual({
     insertPath: ['a'],
     insertObject: {}
   });
-  expect(splitPathObject(
-    {},
-    ['a', 'b', 'c'],
-    { hello: 'hello' }
-  )).toEqual({
+  expect(splitPathObject({}, ['a', 'b', 'c'], { hello: 'hello' })).toEqual({
     insertPath: ['a'],
     insertObject: { b: { c: { hello: 'hello' } } }
   });
-  expect(splitPathObject(
-    { a: { d: 5 }},
-    ['a', 'b', 'c', 'd', 'e'],
-    0
-  )).toEqual({
+  expect(
+    splitPathObject({ a: { d: 5 } }, ['a', 'b', 'c', 'd', 'e'], 0)
+  ).toEqual({
     insertPath: ['a', 'b'],
     insertObject: { c: { d: { e: 0 } } }
   });
-  expect(splitPathObject(
-    { a: { b: { c: { d: {}}} }},
-    ['a', 'b', 'c', 'd', 'e'],
-    0
-  )).toEqual({
-    insertPath: [ 'a', 'b', 'c', 'd', 'e' ],
+  expect(
+    splitPathObject(
+      { a: { b: { c: { d: {} } } } },
+      ['a', 'b', 'c', 'd', 'e'],
+      0
+    )
+  ).toEqual({
+    insertPath: ['a', 'b', 'c', 'd', 'e'],
     insertObject: 0
   });
 });

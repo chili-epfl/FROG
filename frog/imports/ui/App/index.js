@@ -137,9 +137,10 @@ class FROGRouter extends Component {
   }
 }
 
-export default () =>
+export default () => (
   <Router>
     <div style={{ width: '100%', height: '100%' }}>
       <Route component={FROGRouter} />
     </div>
-  </Router>;
+  </Router>
+);

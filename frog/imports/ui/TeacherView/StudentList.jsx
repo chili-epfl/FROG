@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const StudentList = ({ students }: { students: Array<Object> }) =>
+const StudentList = ({ students }: { students: Array<Object> }) => (
   <div style={{ display: 'flex' }}>
     <div>
       <h3>Active students</h3>
@@ -32,13 +32,12 @@ const StudentList = ({ students }: { students: Array<Object> }) =>
           </tr>
           <tr>
             <td style={{ paddingRight: '10px' }}>All students in session</td>
-            <td>
-              {students.length}
-            </td>
+            <td>{students.length}</td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>;
+  </div>
+);
 
 export default StudentList;

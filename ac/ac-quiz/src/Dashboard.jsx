@@ -17,7 +17,7 @@ const Viewer = ({ data, config }: Object) => {
   );
   return (
     <div>
-      {questions.map((q, i) =>
+      {questions.map((q, i) => (
         <CountChart
           key={i}
           title={q.question}
@@ -26,7 +26,7 @@ const Viewer = ({ data, config }: Object) => {
           categories={q.answers}
           data={answerCounts[i]}
         />
-      )}
+      ))}
     </div>
   );
 };

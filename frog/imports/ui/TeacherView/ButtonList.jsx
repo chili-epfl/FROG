@@ -156,7 +156,7 @@ const ButtonList = ({
             (button.countdownStarted === undefined ||
               session.countdownStartTime > 0 === button.countdownStarted)
         )
-        .map(button =>
+        .map(button => (
           <button
             key={button.text}
             className={'btn btn-' + button.type + ' btn-sm'}
@@ -165,15 +165,16 @@ const ButtonList = ({
           >
             {button.text}
           </button>
-        )}
+        ))}
       {session.state === 'WAITINGFORNEXT' && <Spinner />}
       {session.state !== 'CREATED' &&
         session.state !== 'STOPPED' &&
-        session.state !== 'WAITINGFORNEXT' &&
-        <Countdown
-          startTime={session.countdownStartTime}
-          length={session.countdownLength}
-        />}
+        session.state !== 'WAITINGFORNEXT' && (
+          <Countdown
+            startTime={session.countdownStartTime}
+            length={session.countdownLength}
+          />
+        )}
       <b style={{ marginLeft: '20px' }}>
         session: <a href={`/${session.slug}`}>{session.slug}</a>
       </b>

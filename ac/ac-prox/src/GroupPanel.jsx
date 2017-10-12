@@ -50,7 +50,8 @@ const GroupPanel = ({ data, dataFn, userInfo: { id } }: ActivityRunnerT) => {
         </button>
       </Panel>
       <span style={{ fontSize: 'large' }}>
-        {' '}Your group has {inGroupCount} members{' '}
+        {' '}
+        Your group has {inGroupCount} members{' '}
       </span>
     </Main>
   );

@@ -23,12 +23,13 @@ const FlexDiv = styled.div`
   height: 90%;
 `;
 
-const ImgPanel = ({ url }) =>
+const ImgPanel = ({ url }) => (
   <div style={{ width: '90%', height: '100%' }}>
     <ImgBis alt="" src={url} />
-  </div>;
+  </div>
+);
 
-const ShortCutPanel = ({ categories, dataFn, images, data }) =>
+const ShortCutPanel = ({ categories, dataFn, images, data }) => (
   <div style={{ width: '15%', height: '100%' }}>
     <div
       className="list-group"
@@ -44,7 +45,7 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
       >
         Shortcuts :
       </div>
-      {categories.map((x, i) =>
+      {categories.map((x, i) => (
         <button
           key={x}
           onClick={() => {
@@ -59,9 +60,10 @@ const ShortCutPanel = ({ categories, dataFn, images, data }) =>
           {shortCuts[i]} <span className="glyphicon glyphicon-arrow-right" />
           {' ' + x}
         </button>
-      )}
+      ))}
     </div>
-  </div>;
+  </div>
+);
 
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   const categ = activityData.config.categories || [];
@@ -79,10 +81,8 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     categ.forEach((x, i) => Mousetrap.unbind(shortCuts[i]));
   return (
     <div style={{ margin: '1%', height: '100%' }}>
-      <h4>
-        {activityData.config.title}
-      </h4>
-      {data.index < imgs.length &&
+      <h4>{activityData.config.title}</h4>
+      {data.index < imgs.length && (
         <FlexDiv>
           <ImgPanel url={imgs[data.index]} />
           <ShortCutPanel
@@ -91,7 +91,8 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
             images={imgs}
             data={data}
           />
-        </FlexDiv>}
+        </FlexDiv>
+      )}
       {data.index >= imgs.length && <h1>End of the activity</h1>}
     </div>
   );

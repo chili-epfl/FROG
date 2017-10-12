@@ -60,8 +60,8 @@ export type ControlT = {
 };
 
 export type ControlStructureT =
-  | { 'all': ControlT }
-  | { 'list': { [activityId: string]: ControlT } };
+  | { all: ControlT }
+  | { list: { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
   logger: Function,

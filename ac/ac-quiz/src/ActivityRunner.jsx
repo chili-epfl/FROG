@@ -31,12 +31,11 @@ const QuestionTitle = styled.div`
   padding-top: 10px;
 `;
 
-const DescriptionField = props =>
+const DescriptionField = props => (
   <QuestionTitle>
-    <Latex>
-      {props.description}
-    </Latex>
-  </QuestionTitle>;
+    <Latex>{props.description}</Latex>
+  </QuestionTitle>
+);
 
 const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const schema = {
@@ -91,9 +90,7 @@ export default (props: ActivityRunnerT) => {
   const { activityData, data } = props;
   return (
     <Main>
-      <h1>
-        {activityData.config.title || 'Quiz'}
-      </h1>
+      <h1>{activityData.config.title || 'Quiz'}</h1>
       <Container>
         <Latex>
           {activityData.config.guidelines || 'Answer the following questions'}
