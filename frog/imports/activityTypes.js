@@ -1,5 +1,6 @@
 // @flow
 
+import acMonty from 'ac-monty';
 import acProx from 'ac-prox';
 import acImgClass from 'ac-imgClass';
 import acImgView from 'ac-imgView';
@@ -11,6 +12,7 @@ import { type ActivityPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acMonty,
   acImgView,
   acProx,
   acImgClass,
