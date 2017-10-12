@@ -29,6 +29,6 @@ export default ({ obj, small }: { obj: Object, small: boolean }) =>
     { getType(obj) == 'image' && small && <ImgPanel src={obj.thumbnail} /> }
     { getType(obj) == 'table' && !small && <TableView initialData={toTableData(obj.data, 10, 5)} /> }
     { getType(obj) == 'table' && small && <span>TABLE</span> }
-    { getType(obj) == 'tree' && !small && <TreeView /> }
+    { getType(obj) == 'tree' && !small && <TreeView data={obj.data} /> }
     { getType(obj) == 'tree' && small && <span>TREE</span> }
   </Container>;

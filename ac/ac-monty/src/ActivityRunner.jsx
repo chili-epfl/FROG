@@ -38,7 +38,10 @@ const TabView = (props) => {
             }}
             initialData={toTableData(tab.data, 10, 5)}
           />
-        : <TreeView />
+        : <TreeView
+            onChange={(treeNodeId, value) => dataFn.objInsert(value, [tab.key, 'data', treeNodeId])}
+            data={tab.data}
+          />
       }
     </div>
   )
@@ -66,18 +69,18 @@ const ActivityRunner = (props) => {
     const key = uuid()
     const data = (type === 'table')
       ? { '0': {
-        '0': 'La montre est derrière',
-        '1': 'Choix initial',
-        '2': 'HEC ouvre la porte',
-        '3': 'Change de choix',
-        '4': 'Ne change pas'
-      }, '1': {
-        '0': 'A',
-        '1': 'A',
-        '2': 'B ou C',
-        '3': 'A',
-        '4': 'C ou B'
-      }}
+          '0': 'La montre est derrière',
+          '1': 'Choix initial',
+          '2': 'HEC ouvre la porte',
+          '3': 'Change de choix',
+          '4': 'Ne change pas'
+        }, '1': {
+          '0': 'A',
+          '1': 'A',
+          '2': 'B ou C',
+          '3': 'A',
+          '4': 'C ou B'
+        }}
       : {}
     dataFn.objInsert({type, key, data}, key)
     setActiveTab(key)
@@ -93,7 +96,7 @@ const ActivityRunner = (props) => {
       </Nav>
       { activeTab == 'new'
         ? <NewTab addTab={addTab}/>
-      : <TabView tab={data[activeTab]} {...props} />
+        : <TabView tab={data[activeTab]} {...props} />
       }
     </div>
   )
