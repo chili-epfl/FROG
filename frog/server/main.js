@@ -5,8 +5,9 @@
 
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
-import { startShareDB } from './share-db-manager';
+import process from 'process';
 
+import { startShareDB } from './share-db-manager';
 import '../imports/startup/shutdown-if-env.js';
 
 import teacherImports from './teacherImports';
@@ -19,6 +20,12 @@ import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line global-require
+  require('longjohn');
+}
+
+process.setMaxListeners(100);
 Meteor.users._ensureIndex('joinedSessions');
 startShareDB();
 teacherImports();
@@ -26,12 +33,6 @@ teacherImports();
 Meteor.publish('userData', function() {
   const user = Meteor.user();
   const username = user && user.username;
-  if (username === 'teacher') {
-    return Meteor.users.find(
-      {},
-      { fields: { username: 1, joinedSessions: 1 } }
-    );
-  }
   if (!username) {
     return this.ready();
   }

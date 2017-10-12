@@ -56,7 +56,7 @@ const TeacherView = createContainer(
       <div style={{ width: '80%' }}>
         <SessionController {...props} />
         <hr />
-        <StudentList students={props.students} />
+        {props.students && <StudentList students={props.students} />}
         <hr />
         <SessionList {...props} />
       </div>
