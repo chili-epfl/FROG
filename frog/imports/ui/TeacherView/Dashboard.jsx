@@ -89,15 +89,17 @@ export class DashboardComp extends Component {
           {}
         )
       : {};
-    return aT.dashboard && aT.dashboard.Viewer
-      ? <div style={{ width: '100%' }}>
-          <aT.dashboard.Viewer
-            users={users}
-            data={this.state.data}
-            config={this.props.activity.data || this.props.config}
-          />
-        </div>
-      : <p>The selected activity does not provide a dashboard</p>;
+    return aT.dashboard && aT.dashboard.Viewer ? (
+      <div style={{ width: '100%' }}>
+        <aT.dashboard.Viewer
+          users={users}
+          data={this.state.data}
+          config={this.props.activity.data || this.props.config}
+        />
+      </div>
+    ) : (
+      <p>The selected activity does not provide a dashboard</p>
+    );
   }
 }
 
@@ -125,11 +127,11 @@ const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
           onSelect={a => setActivity(a)}
           style={{ width: '150px' }}
         >
-          {openActivities.map(a =>
+          {openActivities.map(a => (
             <NavItem eventKey={a._id} key={a._id} href="#">
               {a.title}
             </NavItem>
-          )}
+          ))}
         </Nav>
         <Dashboard
           session={session}

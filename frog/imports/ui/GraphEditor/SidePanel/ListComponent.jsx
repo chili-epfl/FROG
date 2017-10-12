@@ -13,7 +13,7 @@ export default ({
   hasPreview,
   onPreview,
   searchS
-}: any) =>
+}: any) => (
   <div className="list-group-item">
     <div style={{ marginLeft: '35px' }}>
       <h5 style={{ fontWeight: 'bold' }}>
@@ -22,12 +22,13 @@ export default ({
       <div style={{ width: '87%' }}>
         <Highlight text={object.meta.shortDesc} searchStr={searchS} />
       </div>
-      {showExpanded &&
+      {showExpanded && (
         <div style={{ width: '87%' }}>
           <i>
             <Highlight text={object.meta.description} searchStr={searchS} />
           </i>
-        </div>}
+        </div>
+      )}
     </div>
     <Button
       value={object.id}
@@ -41,7 +42,7 @@ export default ({
       }}
       onClick={onSelect}
     />
-    {!showExpanded &&
+    {!showExpanded && (
       <Button
         style={{
           position: 'absolute',
@@ -52,9 +53,10 @@ export default ({
         }}
         className="glyphicon glyphicon-menu-down"
         onClick={expand}
-      />}
+      />
+    )}
 
-    {hasPreview &&
+    {hasPreview && (
       <Button
         value={object.id}
         className="glyphicon glyphicon-eye-open"
@@ -66,5 +68,7 @@ export default ({
           height: '34px'
         }}
         onClick={onPreview}
-      />}
-  </div>;
+      />
+    )}
+  </div>
+);

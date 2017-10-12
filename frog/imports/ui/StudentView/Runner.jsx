@@ -70,9 +70,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
     return Torun;
   } else {
     return (
-      <MosaicWindow title={activity.title + ' ' + title}>
-        {Torun}
-      </MosaicWindow>
+      <MosaicWindow title={activity.title + ' ' + title}>{Torun}</MosaicWindow>
     );
   }
 };

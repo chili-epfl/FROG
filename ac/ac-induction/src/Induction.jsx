@@ -19,11 +19,9 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-export default ({ activityData }: ActivityRunnerT) =>
+export default ({ activityData }: ActivityRunnerT) => (
   <Main>
-    <h1>
-      {activityData.config.title}
-    </h1>
+    <h1>{activityData.config.title}</h1>
     <Container>
       <Images style={{ width: '50%' }} {...activityData.config} />
       <div
@@ -41,4 +39,5 @@ export default ({ activityData }: ActivityRunnerT) =>
         {...activityData.config}
       />
     </Container>
-  </Main>;
+  </Main>
+);

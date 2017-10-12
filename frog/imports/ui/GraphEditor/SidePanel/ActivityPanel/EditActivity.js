@@ -68,7 +68,7 @@ const EditActivity = props => {
             </h3>
           </div>
           <FlexView marginLeft="auto">
-            {errorColor === 'green' &&
+            {errorColor === 'green' && (
               <Button
                 className="glyphicon glyphicon-eye-open"
                 style={{
@@ -83,7 +83,8 @@ const EditActivity = props => {
                     activityTypeId: activity.activityType,
                     config: activity.data
                   })}
-              />}
+              />
+            )}
 
             <ValidButton activityId={activity._id} errorColor={errorColor} />
           </FlexView>
@@ -96,14 +97,15 @@ const EditActivity = props => {
             {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
           </i>
         </font>
-        {activity.plane === 2 &&
+        {activity.plane === 2 && (
           <SelectAttributeWidget
             activity={activity}
             onChange={grp => {
               addActivity(activity.activityType, null, activity._id, grp);
               props.store.refreshValidate();
             }}
-          />}
+          />
+        )}
       </div>
       <ConfigForm
         {...{

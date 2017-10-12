@@ -6,7 +6,7 @@ import { connect, store } from '../store';
 import { Graphs, renameGraph } from '../../../api/graphs';
 import { ValidButton } from '../Validator';
 
-const Config = ({ graph }) =>
+const Config = ({ graph }) => (
   <div style={{ textAlign: 'center' }}>
     <span
       style={{
@@ -38,14 +38,15 @@ const Config = ({ graph }) =>
       />{' '}
       mins.
     </span>
-  </div>;
+  </div>
+);
 
 const GraphConfigPanel = createContainer(
   props => ({ ...props, graph: Graphs.findOne({ _id: props.graphId }) }),
   Config
 );
 
-export default connect(({ store: { graphId } }) =>
+export default connect(({ store: { graphId } }) => (
   <div
     style={{
       display: 'flex',
@@ -55,4 +56,4 @@ export default connect(({ store: { graphId } }) =>
     <ValidButton />
     <GraphConfigPanel graphId={graphId} />
   </div>
-);
+));
