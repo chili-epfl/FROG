@@ -48,7 +48,7 @@ export class DashboardComp extends Component {
       this.update();
       this.doc.on('op', this.update);
     } else {
-      this.doc = connection.get('rz', props.activity._id + '//DASHBOARD');
+      this.doc = connection.get('rz', 'DASHBOARD//' + props.activity._id);
       this.doc.subscribe();
       this.doc.on('ready', this.update);
       this.doc.on('op', this.update);

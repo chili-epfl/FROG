@@ -139,12 +139,15 @@ export const updateOpenActivities = (
   openActivities: Array<string>,
   timeInGraph: number
 ) => {
-  Sessions.update(sessionId, { $set: { openActivities, timeInGraph } });
   if (Meteor.isServer) {
+    Sessions.update(sessionId, { $set: { state: 'WAITINGFORNEXT' } });
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
     });
   }
+  Sessions.update(sessionId, {
+    $set: { openActivities, timeInGraph, state: 'STARTED' }
+  });
 };
 
 export const removeSession = (sessionId: string) =>
@@ -171,7 +174,7 @@ Meteor.methods({
       const sessionName = '#' + graph.name + ' ' + (count + 1);
 
       const copyGraphId = addGraph({
-        graph,
+        graph: { ...graph, name: sessionName },
         activities: Activities.find({ graphId }).fetch(),
         operators: Operators.find({ graphId }).fetch(),
         connections: Connections.find({ graphId }).fetch()

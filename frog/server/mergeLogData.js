@@ -18,7 +18,7 @@ Meteor.methods({
       const aT = activityTypesObj[log.activityType];
 
       if (aT.dashboard && aT.dashboard.mergeLog) {
-        const docId = log.activityId + '//DASHBOARD';
+        const docId = 'DASHBOARD//' + log.activityId;
         if (Cache[docId]) {
           const [doc, dataFn] = Cache[docId];
           aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);

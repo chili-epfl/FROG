@@ -1,16 +1,21 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
+import {
+  generateReactiveFn,
+  focusStudent,
+  getMergedExtractedUnit
+} from 'frog-utils';
 
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
+import { connection } from '../App/index';
 
 const Runner = ({ activity, sessionId, object, single }) => {
   if (!activity) {
@@ -57,11 +62,16 @@ const Runner = ({ activity, sessionId, object, single }) => {
     object.socialStructure
   );
 
+  const stream = (value, path) => {
+    Meteor.call('stream', activity, path, value);
+  }
+
   const Torun = (
     <ActivityToRun
       activityData={activityData}
       userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
       logger={logger}
+      stream={stream}
       groupingValue={groupingValue}
     />
   );
@@ -79,5 +89,5 @@ const Runner = ({ activity, sessionId, object, single }) => {
 
 export default createContainer(({ activity }) => {
   const object = Objects.findOne(activity._id);
-  return { object };
+  return { object, activity };
 }, Runner);

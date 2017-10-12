@@ -10,14 +10,12 @@ export default connect(
       ui: { socialCoords, socialCoordsScaled },
       state
     },
-    scaled,
-    transparent
-  }: StoreProp & { scaled: boolean, transparent: boolean }) => {
+    scaled
+  }: StoreProp & { scaled: boolean }) => {
     const ops = operators.map(op => {
       const coords = scaled ? op.coordsScaled : op.coords;
       return (
         <Operator
-          transparent={transparent}
           key={op.id}
           x={coords[0]}
           y={coords[1]}
