@@ -104,36 +104,41 @@ class ActivityRunner extends Component {
           canVote={activityData.config.canVote}
           {...{ setCategory, setZoom }}
         />
-        {images.length === 0 && this.state.category !== 'categories'
-          ? <h1>
-              Please upload images by dropping files on the button below, or
-              click the button to turn on the webcam
-            </h1>
-          : <ThumbList
-              {...{
-                images,
-                categories: this.categories,
-                minVoteT,
-                vote,
-                userInfo,
-                setCategory,
-                setZoom,
-                setIndex,
-                logger
-              }}
-              canVote={activityData.config.canVote}
-              showingCategories={this.state.category === 'categories'}
-            />}
+        {images.length === 0 && this.state.category !== 'categories' ? (
+          <h1>
+            Please upload images by dropping files on the button below, or click
+            the button to turn on the webcam
+          </h1>
+        ) : (
+          <ThumbList
+            {...{
+              images,
+              categories: this.categories,
+              minVoteT,
+              vote,
+              userInfo,
+              setCategory,
+              setZoom,
+              setIndex,
+              logger
+            }}
+            canVote={activityData.config.canVote}
+            showingCategories={this.state.category === 'categories'}
+          />
+        )}
         {this.state.category !== 'categories' &&
-          this.state.zoomOn &&
-          <ZoomView
-            index={this.state.index}
-            {...{ close: () => setZoom(false), images, setIndex }}
-          />}
-        {activityData.config.canUpload &&
-          <UploadBar {...{ ...this.props, setWebcam }} />}
-        {this.state.webcamOn &&
-          <WebcamInterface {...{ ...this.props, setWebcam }} />}
+          this.state.zoomOn && (
+            <ZoomView
+              index={this.state.index}
+              {...{ close: () => setZoom(false), images, setIndex }}
+            />
+          )}
+        {activityData.config.canUpload && (
+          <UploadBar {...{ ...this.props, setWebcam }} />
+        )}
+        {this.state.webcamOn && (
+          <WebcamInterface {...{ ...this.props, setWebcam }} />
+        )}
       </Main>
     );
   }

@@ -12,7 +12,7 @@ if (!process.argv[4]) {
 Sets up a simple activity or operator package template in ./[ac|op]/<short-name>, and adds it to the relevant files
     (frog/package.json and frog/imports/[activity|operator]Packages.js). Also does the correct symlinking and yarn
     commands to be ready to develop.`);
-  /*eslint-enable */
+  /* eslint-enable */
   process.exit();
 }
 
@@ -23,7 +23,7 @@ if (process.argv[3].slice(0, 3) !== prefix + '-') {
   console.log(
     `activityPackage names should start by 'ac-...' and operatorPackage names with 'op-...'.`
   );
-  /*eslint-enable */
+  /* eslint-enable */
   process.exit();
 }
 
@@ -44,7 +44,10 @@ const fname =
   type === 'activity'
     ? './frog/imports/activityTypes.js'
     : './frog/imports/operatorTypes.js';
-const act = fs.readFileSync(fname).toString().split('\n');
+const act = fs
+  .readFileSync(fname)
+  .toString()
+  .split('\n');
 act.splice(2, 0, `import ${newActivityName} from '${newActivityId}';`);
 const whereToInsert = act.findIndex(x => x.startsWith('export const'));
 act.splice(whereToInsert + 1, 0, `  ${newActivityName},`);
@@ -104,4 +107,4 @@ console.log(
 Restart (or start) Meteor, run 'npm run watch' in ./${prefix}/${newActivityId}/ and begin editing code. All changes will be
 instantly picked up by FROG. Use 'git diff' to see all the changes that the script has made.`
 );
-/*eslint-enable */
+/* eslint-enable */

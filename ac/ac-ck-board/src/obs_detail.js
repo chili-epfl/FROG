@@ -13,9 +13,7 @@ export default ({ title, content, closeInfoFn }) => {
       open
       onRequestClose={closeInfoFn}
     >
-      <div>
-        {content}
-      </div>
+      <div>{content}</div>
     </Dialog>
   );
 };

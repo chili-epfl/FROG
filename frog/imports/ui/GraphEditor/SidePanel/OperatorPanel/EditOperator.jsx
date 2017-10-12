@@ -10,7 +10,7 @@ import { ErrorList, ValidButton } from '../../Validator';
 import { type StoreProp } from '../../store';
 import ConfigForm from '../ConfigForm';
 
-const TopPanel = ({ operator, graphOperator, errorColor, operatorType }) =>
+const TopPanel = ({ operator, graphOperator, errorColor, operatorType }) => (
   <div style={{ backgroundColor: '#eee' }}>
     <div style={{ position: 'absolute', left: -40 }}>
       <ErrorList activityId={operator._id} />
@@ -36,7 +36,8 @@ const TopPanel = ({ operator, graphOperator, errorColor, operatorType }) =>
       </i>
     </font>
     <hr />
-  </div>;
+  </div>
+);
 
 export default ({
   store: {

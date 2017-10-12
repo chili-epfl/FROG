@@ -43,17 +43,16 @@ const CategoryBox = ({
   images: any[],
   category: string,
   setCategory: Function
-}) =>
+}) => (
   <CategoryContainer onClick={() => setCategory(category)}>
-    {images.slice(0, 4).map((image, i) =>
+    {images.slice(0, 4).map((image, i) => (
       <ImgContainer key={image + i.toString()}>
         <CenteredImg url={image} />
       </ImgContainer>
-    )}
-    <CategoryName>
-      {category}
-    </CategoryName>
-  </CategoryContainer>;
+    ))}
+    <CategoryName>{category}</CategoryName>
+  </CategoryContainer>
+);
 
 CategoryBox.displayName = 'CategoryBox';
 export default CategoryBox;

@@ -38,20 +38,19 @@ const Category = styled.span`
   font-weight: bold;
 `;
 
-export default ({ images, setImageKey, imageKey }: Object) =>
+export default ({ images, setImageKey, imageKey }: Object) => (
   <Scroll>
     <Main style={{ width: 100 * images.length + 'px' }}>
-      {images.map(image =>
+      {images.map(image => (
         <Box
           key={image.key}
           onClick={() => setImageKey(image.key)}
           style={{ background: imageKey === image.key ? 'lightblue' : 'none' }}
         >
           <ImagePanel url={image.thumbnail} />
-          <Category>
-            {image.category}
-          </Category>
+          <Category>{image.category}</Category>
         </Box>
-      )}
+      ))}
     </Main>
-  </Scroll>;
+  </Scroll>
+);

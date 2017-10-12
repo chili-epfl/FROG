@@ -19,7 +19,8 @@ const ImgPanel = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-export default ({ url }: { url: string }) =>
+export default ({ url }: { url: string }) => (
   <Container>
     <ImgPanel src={url} />
-  </Container>;
+  </Container>
+);

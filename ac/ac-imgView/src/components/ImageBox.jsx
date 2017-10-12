@@ -37,10 +37,11 @@ const ImageBox = ({
   image: Object,
   onClick: Function,
   styleCode: string
-}) =>
+}) => (
   <ImgButton onClick={onClick} style={getStyle(styleCode)}>
     <CenteredImg url={image.thumbnail} />
-  </ImgButton>;
+  </ImgButton>
+);
 
 ImageBox.displayName = 'ImageBox';
 export default ImageBox;

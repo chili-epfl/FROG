@@ -64,7 +64,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
 
   const stream = (value, path) => {
     Meteor.call('stream', activity, path, value);
-  }
+  };
 
   const Torun = (
     <ActivityToRun
@@ -80,9 +80,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
     return Torun;
   } else {
     return (
-      <MosaicWindow title={activity.title + ' ' + title}>
-        {Torun}
-      </MosaicWindow>
+      <MosaicWindow title={activity.title + ' ' + title}>{Torun}</MosaicWindow>
     );
   }
 };

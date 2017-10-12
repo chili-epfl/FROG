@@ -4,7 +4,7 @@ import React from 'react';
 
 export const shortcuts = '1234567890abcdefghijklmnopqrstuvwxyz';
 
-export default ({ categories, assignCategory }: Object) =>
+export default ({ categories, assignCategory }: Object) => (
   <div className="list-group" style={{ margin: 0 }}>
     <div
       className="list-group-item"
@@ -12,7 +12,7 @@ export default ({ categories, assignCategory }: Object) =>
     >
       Shortcuts :
     </div>
-    {categories.map((categoryName, i) =>
+    {categories.map((categoryName, i) => (
       <button
         key={categoryName}
         onClick={() => {
@@ -23,5 +23,6 @@ export default ({ categories, assignCategory }: Object) =>
         {shortcuts[i]} <span className="glyphicon glyphicon-arrow-right" />
         {' ' + categoryName}
       </button>
-    )}
-  </div>;
+    ))}
+  </div>
+);

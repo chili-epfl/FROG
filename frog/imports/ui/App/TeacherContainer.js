@@ -30,7 +30,7 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
   );
 };
 
-const WithTopBar = () =>
+const WithTopBar = () => (
   <div>
     <TopBar />
     <Switch>
@@ -41,7 +41,8 @@ const WithTopBar = () =>
       <Route path="/preview" component={Preview} />
       <Route component={GraphEditor} />
     </Switch>
-  </div>;
+  </div>
+);
 
 export default createContainer(() => {
   const collections = [

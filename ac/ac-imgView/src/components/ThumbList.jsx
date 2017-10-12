@@ -25,7 +25,7 @@ const ImageList = ({
   setZoom,
   setIndex,
   logger
-}) =>
+}) => (
   <Main>
     {images.map((image, i) => {
       const onClick = e => {
@@ -55,19 +55,21 @@ const ImageList = ({
         />
       );
     })}
-  </Main>;
+  </Main>
+);
 
-const CategoryList = ({ categories, setCategory }) =>
+const CategoryList = ({ categories, setCategory }) => (
   <Main>
-    {Object.keys(categories).map(category =>
+    {Object.keys(categories).map(category => (
       <CategoryBox
         key={JSON.stringify(category)}
         images={categories[category]}
         category={category}
         setCategory={setCategory}
       />
-    )}
-  </Main>;
+    ))}
+  </Main>
+);
 
 const ThumbList = (props: {
   images: Array<{ url: string, key: string, votes: Object }>,
@@ -82,9 +84,11 @@ const ThumbList = (props: {
   setIndex: Function,
   logger: Function
 }) =>
-  props.showingCategories
-    ? <CategoryList {...props} />
-    : <ImageList {...props} />;
+  props.showingCategories ? (
+    <CategoryList {...props} />
+  ) : (
+    <ImageList {...props} />
+  );
 
 ThumbList.displayName = 'ThumbList';
 export default ThumbList;

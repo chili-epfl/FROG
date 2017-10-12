@@ -32,7 +32,7 @@ export default ({
 
   return (
     <Main>
-      {Object.keys(data).length < maxFile &&
+      {Object.keys(data).length < maxFile && (
         <Dropzone
           onDrop={onDrop}
           style={{
@@ -44,7 +44,8 @@ export default ({
           }}
         >
           <TextStyled>Drop files here</TextStyled>
-        </Dropzone>}
+        </Dropzone>
+      )}
       <ButtonStyled className="btn btn-primary" onClick={() => setDone(true)}>
         Submit
       </ButtonStyled>

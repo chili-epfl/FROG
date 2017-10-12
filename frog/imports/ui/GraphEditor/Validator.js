@@ -23,7 +23,7 @@ const ListError = ({ errors, maxLength }) => {
             •
           </text>,
           <g>
-            {textlines.map((line, y) =>
+            {textlines.map((line, y) => (
               <text
                 x="100"
                 y={40 + 20 * (k + y)}
@@ -32,7 +32,7 @@ const ListError = ({ errors, maxLength }) => {
               >
                 {line}
               </text>
-            )}
+            ))}
           </g>
         ];
       })}
@@ -107,7 +107,7 @@ export const ValidButton = connect(
     store: { ui: { graphErrorColor, setShowErrors } },
     errorColor,
     activityId
-  }) =>
+  }) => (
     <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
       <circle
         cx="17"
@@ -119,4 +119,5 @@ export const ValidButton = connect(
         onMouseOut={() => setShowErrors(false)}
       />
     </svg>
+  )
 );

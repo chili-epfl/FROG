@@ -62,23 +62,23 @@ const RunnerPure = ({
 
   return (
     <Main>
-      <h2>
-        {activityData.config.title}
-      </h2>
-      {imageKeyPlus
-        ? <FlexDiv>
-            <ImagePanel url={data[imageKeyPlus].url} />
-            <ShortcutPanel
-              {...{
-                categories,
-                dataFn,
-                data,
-                assignCategory,
-                imageKey: imageKeyPlus
-              }}
-            />
-          </FlexDiv>
-        : <h1>Waiting for images to classify</h1>}
+      <h2>{activityData.config.title}</h2>
+      {imageKeyPlus ? (
+        <FlexDiv>
+          <ImagePanel url={data[imageKeyPlus].url} />
+          <ShortcutPanel
+            {...{
+              categories,
+              dataFn,
+              data,
+              assignCategory,
+              imageKey: imageKeyPlus
+            }}
+          />
+        </FlexDiv>
+      ) : (
+        <h1>Waiting for images to classify</h1>
+      )}
       <ImageList {...{ images, imageKey: imageKeyPlus, setImageKey }} />
     </Main>
   );

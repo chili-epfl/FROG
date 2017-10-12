@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default ({ data, dataFn }: Object) =>
+export default ({ data, dataFn }: Object) => (
   <Main>
-    {Object.keys(data).map(x =>
+    {Object.keys(data).map(x => (
       <div key={data[x].url} style={{ width: '240px', height: '300px' }}>
         <iframe
           title="IFrame"
@@ -19,8 +19,9 @@ export default ({ data, dataFn }: Object) =>
           <span className="glyphicon glyphicon-remove" />
         </ButtonStyled>
       </div>
-    )}
-  </Main>;
+    ))}
+  </Main>
+);
 
 const Main = styled.div`
   position: absolute;

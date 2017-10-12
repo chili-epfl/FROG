@@ -43,7 +43,7 @@ export default (
 
   const imageId = uuid();
   dataFn.objInsert({ votes: {}, key: imageId }, imageId);
-  stream(imageId, [ imageId, 'key' ]);
+  stream(imageId, [imageId, 'key']);
 
   fr.onloadend = loaded => {
     const imageBuffer = Buffer.from(loaded.currentTarget.result);

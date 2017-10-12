@@ -23,7 +23,7 @@ const Viewer = ({ data }: Object) => {
   return (
     <div>
       {chartData &&
-        chartData.map((d, i) =>
+        chartData.map((d, i) => (
           <CountChart
             key={actionTypes[i]}
             title={'Number of ' + actionTypes[i] + ' per group'}
@@ -32,7 +32,7 @@ const Viewer = ({ data }: Object) => {
             categories={['0', '1', '2', '3', '4', '>4']}
             data={d}
           />
-        )}
+        ))}
     </div>
   );
 };

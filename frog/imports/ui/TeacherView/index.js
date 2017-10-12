@@ -14,20 +14,25 @@ import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 
-const rawSessionController = ({ session, visible, toggleVisibility }) =>
+const rawSessionController = ({ session, visible, toggleVisibility }) => (
   <div>
-    {session
-      ? <div>
-          <ButtonList session={session} toggle={toggleVisibility} />
-          {visible
-            ? <Dashboards
-                session={session}
-                openActivities={session.openActivities}
-              />
-            : <GraphView session={session} />}
-        </div>
-      : <p>Create or select a session from the list below</p>}
-  </div>;
+    {session ? (
+      <div>
+        <ButtonList session={session} toggle={toggleVisibility} />
+        {visible ? (
+          <Dashboards
+            session={session}
+            openActivities={session.openActivities}
+          />
+        ) : (
+          <GraphView session={session} />
+        )}
+      </div>
+    ) : (
+      <p>Create or select a session from the list below</p>
+    )}
+  </div>
+);
 
 const SessionController = withVisibility(rawSessionController);
 SessionController.displayName = 'SessionController';
@@ -51,7 +56,7 @@ const TeacherView = createContainer(
       user
     };
   },
-  props =>
+  props => (
     <div id="teacher" style={{ display: 'flex' }}>
       <div style={{ width: '80%' }}>
         <SessionController {...props} />
@@ -61,6 +66,7 @@ const TeacherView = createContainer(
         <SessionList {...props} />
       </div>
     </div>
+  )
 );
 
 TeacherView.displayName = 'TeacherView';

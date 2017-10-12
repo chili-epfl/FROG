@@ -53,7 +53,7 @@ export type {
 } from './types';
 export { default as CountChart } from './DashboardComponents/CountChart';
 
-export const A = ({ onClick, children, ...rest }: any): any =>
+export const A = ({ onClick, children, ...rest }: any): any => (
   <a
     href="#"
     onClick={e => {
@@ -63,7 +63,8 @@ export const A = ({ onClick, children, ...rest }: any): any =>
     {...rest}
   >
     {children}
-  </a>;
+  </a>
+);
 
 export const currentDate = (): string => {
   const d = new Date();
@@ -131,7 +132,10 @@ export const wordWrap = (text: string, maxLength: number): string[] => {
 };
 
 const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
-export const getSlug = (n: number) => shuffle(groupchars).slice(0, n).join('');
+export const getSlug = (n: number) =>
+  shuffle(groupchars)
+    .slice(0, n)
+    .join('');
 
 type ReactivePropsT = {
   path: string | string[],
@@ -175,14 +179,16 @@ export class ReactiveText extends Component {
 
   render() {
     const rest = omit(this.props, ['path', 'dataFn']);
-    return this.props.type === 'textarea'
-      ? <textarea ref={ref => (this.textRef = ref)} {...rest} defaultValue="" />
-      : <input
-          type="text"
-          ref={ref => (this.textRef = ref)}
-          {...rest}
-          defaultValue=""
-        />;
+    return this.props.type === 'textarea' ? (
+      <textarea ref={ref => (this.textRef = ref)} {...rest} defaultValue="" />
+    ) : (
+      <input
+        type="text"
+        ref={ref => (this.textRef = ref)}
+        {...rest}
+        defaultValue=""
+      />
+    );
   }
 }
 
