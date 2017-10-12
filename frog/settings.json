@@ -1,0 +1,10 @@
+{
+  "Minio": {
+    "urls": [
+      "https://icchilisrv1.epfl.ch:9000",
+      "https://icchilisrv1.epfl.ch:9001"
+    ],
+    "accessKey": "AKIAIOSFODNN7EXAMPLE",
+    "secretKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+  }
+}

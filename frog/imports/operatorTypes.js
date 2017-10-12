@@ -4,12 +4,6 @@ import opAggregateP2 from 'op-aggregate-p2';
 import opAggregate from 'op-aggregate';
 import opControlGroup from 'op-control-group';
 import opProx from 'op-prox';
-import opGroupIdentical from 'op-group-identical';
-import opJigsaw from 'op-jigsaw';
-import opArgue from 'op-argue';
-import opHypothesis from 'op-hypothesis';
-import opCreateGroups from 'op-create-groups';
-import opDistribute from 'op-distribute';
 
 import { type operatorPackageT, flattenOne } from 'frog-utils';
 
@@ -19,13 +13,7 @@ export const operatorTypes: operatorPackageT[] = flattenOne([
   opAggregateP2,
   opAggregate,
   opControlGroup,
-  opProx,
-  opGroupIdentical,
-  opJigsaw,
-  opArgue,
-  opHypothesis,
-  opCreateGroups,
-  opDistribute
+  opProx
 ]).map(x => Object.freeze(x));
 
 // somehow lodash.keyBy has the type {[id]: ??}, which means that the object can be null
