@@ -17,7 +17,7 @@ import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
 import { connection } from '../App/index';
 
-const Runner = ({ activity, sessionId, object, single, stream }) => {
+const Runner = ({ activity, sessionId, object, single }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -62,6 +62,10 @@ const Runner = ({ activity, sessionId, object, single, stream }) => {
     object.socialStructure
   );
 
+  const stream = (value, path) => {
+    Meteor.call('stream', activity, path, value);
+  }
+
   const Torun = (
     <ActivityToRun
       activityData={activityData}
@@ -83,41 +87,7 @@ const Runner = ({ activity, sessionId, object, single, stream }) => {
   }
 };
 
-class RunnerWithStream extends Component {
-  state: { stream: any };
-  mounted: boolean;
-  doc: any;
-
-  constructor(props: Object) {
-    super(props);
-    this.state = { stream: null };
-  }
-
-  componentDidMount() {
-    this.initStream(this.props);
-  }
-
-  componentWillReceiveProps(nextProps: Object) {
-    this.initStream(nextProps);
-  }
-
-  initStream(props: Object) {
-    if (this.doc) {
-      this.doc.destroy();
-    }
-    if (props.activity.streamTarget) {
-      this.doc = connection.get('rz', props.activity.streamTarget + '/all');
-      this.doc.subscribe();
-      this.setState({ stream: generateReactiveFn(this.doc) }) // eslint-disable-line
-    }
-  }
-
-  render() {
-    return <Runner {...this.props} stream={this.state.stream} />;
-  }
-}
-
 export default createContainer(({ activity }) => {
   const object = Objects.findOne(activity._id);
   return { object, activity };
-}, RunnerWithStream);
+}, Runner);

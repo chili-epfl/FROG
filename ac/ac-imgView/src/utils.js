@@ -18,9 +18,7 @@ const uploadBufferWithThumbnail = (
     const blob = new Blob([buffer], { type: 'image/jpeg' });
     uploadFn(blob, imageId + 'thumb').then(url => {
       dataFn.objInsert(url, [imageId, 'thumbnail']);
-      if (stream) {
-        stream.objInsert(url, [imageId, 'thumbnail']);
-      }
+      stream(url, [imageId, 'thumbnail']);
     });
   });
 
@@ -29,9 +27,7 @@ const uploadBufferWithThumbnail = (
     const blob = new Blob([buffer], { type: 'image/jpeg' });
     uploadFn(blob, imageId).then(url => {
       dataFn.objInsert(url, [imageId, 'url']);
-      if (stream) {
-        stream.objInsert(url, [imageId, 'url']);
-      }
+      stream(url, [imageId, 'url']);
     });
   });
 };
@@ -47,9 +43,7 @@ export default (
 
   const imageId = uuid();
   dataFn.objInsert({ votes: {}, key: imageId }, imageId);
-  if (stream) {
-    stream.objInsert({ votes: {}, key: imageId }, imageId);
-  }
+  stream(imageId, [ imageId, 'key' ]);
 
   fr.onloadend = loaded => {
     const imageBuffer = Buffer.from(loaded.currentTarget.result);
