@@ -47,6 +47,8 @@ const doImportGraph = graphStr => {
     const graphId = addGraph(graphObj);
     store.setId(graphId);
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(e);
     // eslint-disable-next-line no-alert
     window.alert('File has error, unable to import graph');
   }

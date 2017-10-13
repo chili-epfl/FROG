@@ -194,6 +194,9 @@ export default class Store {
 
   @action
   addHistory = () => {
+    if (this.readOnly || this.state.mode === 'readOnly') {
+      return;
+    }
     const newEntry = [
       this.connectionStore.history,
       this.activityStore.history,

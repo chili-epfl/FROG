@@ -57,11 +57,16 @@ const Runner = ({ activity, sessionId, object, single }) => {
     object.socialStructure
   );
 
+  const stream = (value, path) => {
+    Meteor.call('stream', activity, path, value);
+  };
+
   const Torun = (
     <ActivityToRun
       activityData={activityData}
       userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
       logger={logger}
+      stream={stream}
       groupingValue={groupingValue}
     />
   );
@@ -77,5 +82,5 @@ const Runner = ({ activity, sessionId, object, single }) => {
 
 export default createContainer(({ activity }) => {
   const object = Objects.findOne(activity._id);
-  return { object };
+  return { object, activity };
 }, Runner);
