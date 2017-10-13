@@ -50,6 +50,9 @@ class SpreadsheetComponent extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+      this.setState({ data: (nextProps.initialData || this.state.data) })
+    }
     /**
      * React Render method
      * @return {[JSX]} [JSX to render]

@@ -57,7 +57,6 @@ export default (props: Object) => {
     <SpreadsheetComponent
       initialData={initialData}
       config={config}
-      spreadsheetId="1"
       onCellValueChange={props.onCellValueChange}
       onDataChange={props.onDataChange}
     />
