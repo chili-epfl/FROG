@@ -39,33 +39,20 @@ const Category = styled.span`
   font-weight: bold;
 `;
 
-<<<<<<< HEAD:ac/ac-imgClass/src/components/ImageList.jsx
-export default ({ images, setImageKey, imageKey }: Object) => (
-  <Scroll>
-    <Main style={{ width: 100 * images.length + 'px' }}>
-      {images.map(image => (
-=======
 export default ({ objects, setObjectKey, objectKey }: Object) =>
   <Scroll>
     <Main style={{ width: 100 * objects.length + 'px' }}>
       {objects.map(obj =>
->>>>>>> unilMontyComponent:ac/ac-imgClass/src/components/ObjectList.jsx
         <Box
           key={obj.key}
           onClick={() => setObjectKey(obj.key)}
           style={{ background: objectKey === obj.key ? 'lightblue' : 'none' }}
         >
-<<<<<<< HEAD:ac/ac-imgClass/src/components/ImageList.jsx
-          <ImagePanel url={image.thumbnail} />
-          <Category>{image.category}</Category>
-=======
-          <ObjectPanel obj={obj} small={true}/>
+          <ObjectPanel obj={obj} small />
           <Category>
             {obj.category}
           </Category>
->>>>>>> unilMontyComponent:ac/ac-imgClass/src/components/ObjectList.jsx
         </Box>
-      ))}
+      )}
     </Main>
-  </Scroll>
-);
+  </Scroll>;
