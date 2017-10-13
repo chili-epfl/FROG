@@ -46,7 +46,7 @@ export const setTeacherSession = (sessionId: string) => {
 };
 
 export const addSession = (graphId: string) => {
-  Meteor.call('add.session', graphId, (err, result) => {
+  Meteor.call('add.session', graphId, null, (err, result) => {
     if (result === 'invalidGraph') {
       // eslint-disable-next-line no-alert
       window.alert(
@@ -206,7 +206,7 @@ Meteor.methods({
         countdownLength: DEFAULT_COUNTDOWN_LENGTH,
         pausedAt: null,
         openActivities: [],
-        newSlug
+        slug: newSlug
       });
       Graphs.update(copyGraphId, { $set: { sessionId } });
 
