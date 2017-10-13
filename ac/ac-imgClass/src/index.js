@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './imgClassifier';
+import ActivityRunner from './Classifier';
 
 const meta = {
   name: 'Image Classifier',

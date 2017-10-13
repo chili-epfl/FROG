@@ -1,14 +1,10 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { cloneDeep } from 'lodash';
 import { generateReactiveFn, splitPathObject } from 'frog-utils';
 
 import { serverConnection } from './share-db-manager';
-import { activityTypesObj } from '../imports/activityTypes';
-import { Logs } from '../imports/api/logs';
-
-const Cache = {};
+import { Cache } from './sharedbCache';
 
 const safelyInsertObject = (doc, dataFn, path, value) => {
   const { insertObject, insertPath } = splitPathObject(doc.data, path, value);
@@ -24,12 +20,18 @@ Meteor.methods({
         safelyInsertObject(doc, dataFn, path, value);
       } else {
         const doc = serverConnection.get('rz', docId);
-        doc.fetch();
-        doc.on('load', () => {
+        doc.subscribe();
+        if (doc.type) {
           const dataFn = generateReactiveFn(doc);
           Cache[docId] = [doc, dataFn];
           safelyInsertObject(doc, dataFn, path, value);
-        });
+        } else {
+          doc.once('load', () => {
+            const dataFn = generateReactiveFn(doc);
+            Cache[docId] = [doc, dataFn];
+            safelyInsertObject(doc, dataFn, path, value);
+          });
+        }
       }
     }
   }

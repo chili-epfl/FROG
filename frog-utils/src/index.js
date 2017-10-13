@@ -52,6 +52,8 @@ export type {
   ReactComponent
 } from './types';
 export { default as CountChart } from './DashboardComponents/CountChart';
+export { default as TableView, toTableData } from './ActivityComponents/TableView';
+export { default as TreeView } from './ActivityComponents/TreeView';
 
 export const A = ({ onClick, children, ...rest }: any): any => (
   <a

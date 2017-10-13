@@ -42,7 +42,7 @@ const mergeOneInstance = (
         new Promise(resolve => {
           const doc = connection.get('rz', activity._id + '/' + grouping);
           doc.fetch();
-          doc.on(
+          doc.once(
             'load',
             Meteor.bindEnvironment(() => {
               try {
@@ -63,7 +63,9 @@ const mergeOneInstance = (
               const dataFn = generateReactiveFn(doc);
               // merging in config with incoming product
               mergeFunction(instanceActivityData, dataFn);
-              resolve(doc.data);
+              const data = doc.data;
+              doc.destroy();
+              resolve(data);
             })
           );
         })
