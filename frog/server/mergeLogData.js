@@ -7,8 +7,7 @@ import { generateReactiveFn } from 'frog-utils';
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 import { Logs } from '../imports/api/logs';
-
-const Cache = {};
+import { Cache } from './sharedbCache';
 
 Meteor.methods({
   'merge.log': log => {
