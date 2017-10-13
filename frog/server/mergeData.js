@@ -62,7 +62,9 @@ const mergeOneInstance = (
 
               const dataFn = generateReactiveFn(doc);
               // merging in config with incoming product
-              mergeFunction(instanceActivityData, dataFn);
+              if (mergeFunction) {
+                mergeFunction(instanceActivityData, dataFn);
+              }
               const docdata = doc.data;
               doc.destroy();
               resolve(docdata);
