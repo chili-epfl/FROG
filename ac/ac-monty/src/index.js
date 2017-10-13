@@ -29,7 +29,14 @@ const config = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
+const mergeFunction = (object, dataFn) => {
+  if(object.data){
+    Object.keys(object.data)
+      .map(k => object.data[k])
+      .filter(x => (x && x.key && x.selected))
+      .forEach(x => dataFn.objInsert(x, x.key))
+  }
+};
 
 export default ({
   id: 'ac-monty',

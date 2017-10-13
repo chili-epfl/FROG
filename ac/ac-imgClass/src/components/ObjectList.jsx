@@ -49,7 +49,7 @@ export default ({ objects, setObjectKey, objectKey }: Object) =>
           style={{ background: objectKey === obj.key ? 'lightblue' : 'none' }}
         >
           <ObjectPanel obj={obj} small />
-          <Category>
+          <Category style={{ color: obj.selected ? 'gold' : 'black' }}>
             {obj.category}
           </Category>
         </Box>

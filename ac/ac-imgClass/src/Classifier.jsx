@@ -72,6 +72,11 @@ const RunnerPure = ({
       assignCategory(x);
     })
   );
+  Mousetrap.bind('s', () => {
+    if (objectKeyPlus) {
+      dataFn.objInsert(!data[objectKeyPlus].selected, [objectKeyPlus, 'selected']);
+    }
+  })
 
   return (
     <Main>
