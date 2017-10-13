@@ -15,11 +15,20 @@ const Main = styled.div`
 `
 
 const Column = styled.div`
-  width: 200px;
+  width: 20%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  z-index: 99;
+`
+
+const Img = styled.img`
+  position: absolute;
+  width: 60%;
+  height: 82%;
+  top: 9%;
+  left: 21%;
 `
 
 const Node = ({ id, onChange, data }) =>
@@ -30,6 +39,7 @@ const Node = ({ id, onChange, data }) =>
 
 export default ({ onChange, data }: Object) =>
   <Main>
+    <Img src="/graph.png" />
     <Column>
       {['a1'].map(id => <Node {...{onChange, data, id}} key={id}/>)}
     </Column>
