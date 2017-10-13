@@ -1,16 +1,17 @@
 // @flow
 
+import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import {type ActivityPackageT} from 'frog-utils';
-import {config, configUI} from './config';
 import dashboard from './Dashboard';
+import { config, configUI } from './config';
 
 const meta = {
   // the description when choosing the type of an activity
   name: 'Auto-graded coding',
   type: 'react-component',
   shortDesc: 'Autograded code snippets',
-  description: 'Students upload code wich is tested against teacher-designed tests',
+  description:
+    'Students upload code wich is tested against teacher-designed tests',
   // examples of config
   exampleData: [
     {
@@ -30,9 +31,9 @@ const meta = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
+const mergeFunction = () => {};
 
-export default({
+export default ({
   id: 'ac-autocode',
   type: 'react-component',
   meta,
@@ -42,4 +43,4 @@ export default({
   dashboard,
   dataStructure,
   mergeFunction
-} : ActivityPackageT);
+}: ActivityPackageT);

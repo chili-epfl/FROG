@@ -1,6 +1,6 @@
 // @flow
 
-//Description of the config for the activity
+// Description of the config for the activity
 export const config = {
   type: 'object',
   properties: {

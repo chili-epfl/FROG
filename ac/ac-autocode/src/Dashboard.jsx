@@ -2,14 +2,13 @@
 
 import React from 'react';
 
-const Viewer = (props : Object) => (
+const Viewer = (props: Object) =>
   <div>
     <h1>A nice Dashboard</h1>
     {JSON.stringify(props)}
-  </div>
-);
+  </div>;
 
-const mergeLog = (data : any, dataFn : any, log : any) => {};
+const mergeLog = () => {};
 
 const initData = {};
 
