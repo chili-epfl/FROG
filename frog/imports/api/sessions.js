@@ -13,15 +13,15 @@ const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
 const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
-const genCodeOfNChar = (n: number) =>
-  shuffle(groupchars)
-    .slice(0, n)
-    .join('');
+const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
 
 export const Sessions = new Mongo.Collection('sessions');
 
-export const restartSession = (session: { fromGraphId: string, _id: string }) =>
-  Meteor.call('sessions.restart', session);
+export const restartSession = (session: {
+  slug: string,
+  fromGraphId: string,
+  _id: string
+}) => Meteor.call('sessions.restart', session);
 
 Meteor.methods({
   'sessions.restart': session => {
@@ -32,15 +32,12 @@ Meteor.methods({
       }
       sessionCancelCountDown(session._id);
       Meteor.call('flush.session', session._id);
-      const newSessionId = Meteor.call('add.session', graphId, { debug: true });
+      const newSessionId = Meteor.call('add.session', graphId, session.slug);
       runSession(newSessionId);
       nextActivity(newSessionId);
     }
   }
 });
-
-export const makeDebug = (sessionId: string) =>
-  Sessions.update(sessionId, { $set: { slug: 'DEBUG' } });
 
 export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(Meteor.userId(), {
@@ -157,7 +154,7 @@ export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
 Meteor.methods({
-  'add.session': (graphId, options = {}) => {
+  'add.session': (graphId, slug) => {
     if (Meteor.isServer) {
       const validOutput = valid(
         Activities.find({ graphId }).fetch(),
@@ -183,17 +180,16 @@ Meteor.methods({
         connections: Connections.find({ graphId }).fetch()
       });
 
-      let slug;
-      if (options.debug) {
-        slug = 'DEBUG';
-        Sessions.remove({ slug: 'DEBUG' });
+      let newSlug;
+      if (slug) {
+        newSlug = slug;
       } else {
         const slugs = Sessions.find({}, { fields: { slug: 1 } })
           .fetch()
           .map(x => x.slug);
         while (true) {
-          slug = genCodeOfNChar(4);
-          if (!slugs.includes(slug)) {
+          newSlug = genCodeOfNChar(4);
+          if (!slugs.includes(newSlug)) {
             break;
           }
         }
@@ -210,7 +206,7 @@ Meteor.methods({
         countdownLength: DEFAULT_COUNTDOWN_LENGTH,
         pausedAt: null,
         openActivities: [],
-        slug
+        newSlug
       });
       Graphs.update(copyGraphId, { $set: { sessionId } });
 
