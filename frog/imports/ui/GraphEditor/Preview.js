@@ -107,7 +107,7 @@ export const StatelessPreview = withState(
       `demo-${activityType.id}-${example}-DASHBOARD`
     );
     dashboard.fetch();
-    dashboard.on('load', () => {
+    dashboard.once('load', () => {
       if (!dashboard.type) {
         dashboard.create(
           (activityType.dashboard && activityType.dashboard.initData) || {}
@@ -135,7 +135,7 @@ export const StatelessPreview = withState(
 
       const doc = connection.get('rz', Collections[coll]);
       doc.subscribe();
-      doc.on('load', () => {
+      doc.once('load', () => {
         if (!doc.type) {
           doc.create(cloneDeep(activityType.dataStructure) || {});
           const mergeFunction = activityType.mergeFunction;

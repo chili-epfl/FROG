@@ -42,7 +42,7 @@ const mergeOneInstance = (
         new Promise(resolve => {
           const doc = connection.get('rz', activity._id + '/' + grouping);
           doc.fetch();
-          doc.on(
+          doc.once(
             'load',
             Meteor.bindEnvironment(() => {
               try {

@@ -24,7 +24,7 @@ Meteor.methods({
         } else {
           const doc = serverConnection.get('rz', docId);
           doc.fetch();
-          doc.on('load', () => {
+          doc.once('load', () => {
             const dataFn = generateReactiveFn(doc);
             Cache[docId] = [doc, dataFn];
             if (aT.dashboard && aT.dashboard.mergeLog) {

@@ -26,7 +26,7 @@ Meteor.methods({
           Cache[docId] = [doc, dataFn];
           safelyInsertObject(doc, dataFn, path, value);
         } else {
-          doc.on('load', () => {
+          doc.once('load', () => {
             const dataFn = generateReactiveFn(doc);
             Cache[docId] = [doc, dataFn];
             safelyInsertObject(doc, dataFn, path, value);
