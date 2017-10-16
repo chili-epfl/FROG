@@ -7,7 +7,7 @@ import Dropzone from 'react-dropzone';
 
 import { Uploads } from '../../../api/uploads';
 
-const Header = ({ display, setState }) =>
+const Header = ({ display, setState }) => (
   <div style={{ display: 'flex', flexDirection: 'row' }}>
     <span
       className={'glyphicon glyphicon-' + (display ? 'menu-up' : 'menu-down')}
@@ -18,7 +18,8 @@ const Header = ({ display, setState }) =>
     <h4 style={{ textDecoration: 'underline', margin: '10px' }}>
       Upload File:
     </h4>
-  </div>;
+  </div>
+);
 
 const FileBox = ({ urls, setState }) => {
   const onDrop = files => {
@@ -63,21 +64,21 @@ const FileBox = ({ urls, setState }) => {
 };
 
 const FileList = ({ urls }) =>
-  urls && urls.length > 0
-    ? <div>
-        <h4>URL of submitted files</h4>
-        {urls.map(url =>
-          <div key={url} style={{ display: 'flex', flexDirection: 'row' }}>
-            <CopyToClipboard text={url} style={{ height: '39px' }}>
-              <button>Copy</button>
-            </CopyToClipboard>
-            <pre style={{ width: '100%' }}>
-              {url}
-            </pre>
-          </div>
-        )}
-      </div>
-    : <h4>No uploaded file</h4>;
+  urls && urls.length > 0 ? (
+    <div>
+      <h4>URL of submitted files</h4>
+      {urls.map(url => (
+        <div key={url} style={{ display: 'flex', flexDirection: 'row' }}>
+          <CopyToClipboard text={url} style={{ height: '39px' }}>
+            <button>Copy</button>
+          </CopyToClipboard>
+          <pre style={{ width: '100%' }}>{url}</pre>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <h4>No uploaded file</h4>
+  );
 
 class fileUploader extends Component {
   state: { urls: string[], display: boolean };

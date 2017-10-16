@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { withState } from 'recompose';
@@ -16,16 +17,20 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-class Dashboard extends Component {
+export class DashboardComp extends Component {
   state: { data: any };
   doc: any;
   timeout: ?number;
-  unmounted: boolean;
+  mounted: boolean;
 
   constructor(props: Object) {
     super(props);
     this.state = { data: null };
-    this.init(props);
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    this.init(this.props);
   }
 
   componentWillReceiveProps(nextProps: Object) {
@@ -38,11 +43,17 @@ class Dashboard extends Component {
   }
 
   init(props: Object) {
-    this.doc = connection.get('rz', props.activity._id + '//DASHBOARD');
-    this.doc.subscribe();
-    this.doc.on('ready', this.update);
-    this.doc.on('op', this.update);
-    this.waitForDoc();
+    if (props.doc) {
+      this.doc = props.doc;
+      this.update();
+      this.doc.on('op', this.update);
+    } else {
+      this.doc = connection.get('rz', props.activity._id + '//DASHBOARD');
+      this.doc.subscribe();
+      this.doc.on('ready', this.update);
+      this.doc.on('op', this.update);
+      this.waitForDoc();
+    }
   }
 
   waitForDoc = () => {
@@ -55,7 +66,7 @@ class Dashboard extends Component {
   };
 
   update = () => {
-    if (!this.timeout && !this.unmounted) {
+    if (!this.timeout && this.mounted) {
       this.setState({ data: this.doc.data });
     }
   };
@@ -67,18 +78,39 @@ class Dashboard extends Component {
     if (this.timeout) {
       window.clearTimeout(this.timeout);
     }
-    this.unmounted = true;
+    this.mounted = false;
   };
 
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
-    return aT.dashboard && aT.dashboard.Viewer
-      ? <aT.dashboard.Viewer data={this.state.data} />
-      : <p>The selected activity does not provide a dashboard</p>;
+    const users = this.props.users
+      ? this.props.users.reduce(
+          (acc, x) => ({ ...acc, [x._id]: x.username }),
+          {}
+        )
+      : {};
+    return aT.dashboard && aT.dashboard.Viewer ? (
+      <div style={{ width: '100%' }}>
+        <aT.dashboard.Viewer
+          users={users}
+          data={this.state.data}
+          config={this.props.activity.data || this.props.config}
+        />
+      </div>
+    ) : (
+      <p>The selected activity does not provide a dashboard</p>
+    );
   }
 }
 
-const DashboardNav = ({ activityId, setActivity, openActivities }) => {
+const Dashboard = createContainer(
+  ({ session }) => ({
+    users: Meteor.users.find({ joinedSessions: session.slug }).fetch()
+  }),
+  DashboardComp
+);
+
+const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
   const aId =
     activityId || (openActivities.length > 0 && openActivities[0]._id);
   if (!aId) {
@@ -95,13 +127,16 @@ const DashboardNav = ({ activityId, setActivity, openActivities }) => {
           onSelect={a => setActivity(a)}
           style={{ width: '150px' }}
         >
-          {openActivities.map(a =>
+          {openActivities.map(a => (
             <NavItem eventKey={a._id} key={a._id} href="#">
               {a.title}
             </NavItem>
-          )}
+          ))}
         </Nav>
-        <Dashboard activity={openActivities.find(a => a._id === aId)} />
+        <Dashboard
+          session={session}
+          activity={openActivities.find(a => a._id === aId)}
+        />
       </Container>
     </div>
   );

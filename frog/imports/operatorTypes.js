@@ -1,5 +1,7 @@
 // @flow
 
+import opAggregateP2 from 'op-aggregate-p2';
+import opAggregate from 'op-aggregate';
 import opControlGroup from 'op-control-group';
 import opProx from 'op-prox';
 import opGroupIdentical from 'op-group-identical';
@@ -14,6 +16,8 @@ import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: operatorPackageT[] = flattenOne([
+  opAggregateP2,
+  opAggregate,
   opControlGroup,
   opProx,
   opGroupIdentical,

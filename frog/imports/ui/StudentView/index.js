@@ -39,11 +39,7 @@ class StudentViewComp extends Component {
 
   render() {
     if (this.state.result === 'error') {
-      return (
-        <h1>
-          Error: {this.state.message}
-        </h1>
-      );
+      return <h1>Error: {this.state.message}</h1>;
     }
     if (!this.props.ready) {
       return <Spinner />;

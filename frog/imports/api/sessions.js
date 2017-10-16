@@ -13,7 +13,10 @@ const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
 const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
-const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
+const genCodeOfNChar = (n: number) =>
+  shuffle(groupchars)
+    .slice(0, n)
+    .join('');
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -180,6 +183,7 @@ Meteor.methods({
       let slug;
       if (options.debug) {
         slug = 'DEBUG';
+        Sessions.remove({ slug: 'DEBUG' });
       } else {
         const slugs = Sessions.find({}, { fields: { slug: 1 } })
           .fetch()

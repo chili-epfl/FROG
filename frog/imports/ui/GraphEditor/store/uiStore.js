@@ -27,6 +27,7 @@ export default class uiStore {
   @observable graphWidth: number = 1000;
   @observable socialCoordsTime: [number, number] = [0, 0];
   @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
+  @observable showPreview: ?Object;
   @observable showErrors: boolean | string = false;
 
   @computed
@@ -50,6 +51,10 @@ export default class uiStore {
   @action
   setShowInfo = (klass: 'activity' | 'operator', id: string) => {
     this.showInfo = { klass, id };
+  };
+  @action
+  setShowPreview = (x: ?Object) => {
+    this.showPreview = x;
   };
 
   @action cancelInfo = () => (this.showInfo = null);

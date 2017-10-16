@@ -20,22 +20,16 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
       onRequestClose={cancelInfo}
     >
       <ul>
-        <li>
-          type: {item.activityType || item.operatorType}
-        </li>
-        <li>
-          id: {item._id}
-        </li>
-        <li>
-          State: {item.state}
-        </li>
+        <li>type: {item.activityType || item.operatorType}</li>
+        <li>id: {item._id}</li>
+        <li>State: {item.state}</li>
       </ul>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div style={{ flexBasis: 0, flexGrow: 1 }}>
           <h3>Config</h3>
-          {item.data
-            ? <Inspector data={{ data: item.data }} expandLevel={5} />
-            : null}
+          {item.data ? (
+            <Inspector data={{ data: item.data }} expandLevel={5} />
+          ) : null}
         </div>
         <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
           <h3>Object</h3>
@@ -68,8 +62,8 @@ const ShowInfoConnect = createContainer(({ showInfo, cancelInfo }) => {
 }, InfoComponent);
 ShowInfoConnect.displayName = 'ShowInfoConnect';
 
-const ShowInfo = connect(({ store: { ui: { showInfo, cancelInfo } } }) =>
+const ShowInfo = connect(({ store: { ui: { showInfo, cancelInfo } } }) => (
   <ShowInfoConnect showInfo={showInfo} cancelInfo={cancelInfo} />
-);
+));
 
 export default ShowInfo;

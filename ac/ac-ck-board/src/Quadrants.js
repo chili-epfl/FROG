@@ -79,6 +79,8 @@ const colors = {
   d: '#ffccf9'
 };
 
-const Item = styled.div`background: ${props => colors[props.group]};`;
+const Item = styled.div`
+  background: ${props => colors[props.group]};
+`;
 
 export default Quadrants;
