@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
 import { A, generateReactiveFn, uuid } from 'frog-utils';
@@ -17,10 +18,10 @@ import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import { DashboardComp } from '../TeacherView/Dashboard';
 
-const Icon = ({ onClick, icon, color = undefined }) => (
+const Icon = ({ onClick, icon, color = undefined, tooltip = undefined }) => (
   <span style={{ marginLeft: '10px' }}>
     <A onClick={onClick}>
-      <i className={icon} style={{ color }} />
+      <i className={icon} style={{ color }} data-tip={tooltip} />
     </A>
   </span>
 );
@@ -178,7 +179,12 @@ export const StatelessPreview = withState(
 
     const Controls = (
       <div className="modal-header">
-        <button type="button" className="close" onClick={dismiss}>
+        <button
+          type="button"
+          className="close"
+          onClick={dismiss}
+          data-tip="Close, and show list of activity types to preview"
+        >
           X
         </button>
         <h4 className="modal-title">
@@ -186,12 +192,14 @@ export const StatelessPreview = withState(
           <Icon
             onClick={() => setShowData(!showData)}
             icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
+            tooltip={showData ? 'Show component' : 'Show underlying data'}
           />
           {activityType.dashboard && (
             <Icon
               onClick={() => setShowDash(!showDash)}
               icon="fa fa-tachometer"
               color={showDash ? '#3d76b8' : '#b3cae6'}
+              tooltip="Toggle dashboard"
             />
           )}
           <Icon
@@ -204,22 +212,29 @@ export const StatelessPreview = withState(
               setReload(uuid());
             }}
             icon="fa fa-refresh"
+            tooltip="Reset reactive data"
           />
           <Icon
             onClick={() => windows > 1 && setWindows(windows - 1)}
             icon="fa fa-minus-square"
+            tooltip="Remove one user"
           />
-          <Icon onClick={() => setWindows(windows + 1)} icon="fa fa-plus" />
+          <Icon
+            onClick={() => setWindows(windows + 1)}
+            icon="fa fa-plus"
+            tooltip="Add a user"
+          />
           <Icon
             onClick={() => setFullWindow(!fullWindow)}
             icon="fa fa-arrows-alt"
+            tooltip="Toggle full window"
           />
           {!isSeparatePage && (
             <Link
               style={{ marginLeft: '10px' }}
               to={`/preview/${activityTypeId}/${example}`}
             >
-              <i className="fa fa-share" />
+              <i className="fa fa-share" data-tip="Open in permanent URL" />
             </Link>
           )}
         </h4>
@@ -314,6 +329,7 @@ export const StatelessPreview = withState(
             {Controls}
           </div>
         </Draggable>
+        <ReactTooltip delayShow={1000} />
       </div>
     ) : (
       <Modal
@@ -323,6 +339,7 @@ export const StatelessPreview = withState(
       >
         {Controls}
         {Content}
+        <ReactTooltip delayShow={1000} />
       </Modal>
     );
   }
