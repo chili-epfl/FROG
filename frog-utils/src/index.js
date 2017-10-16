@@ -59,7 +59,7 @@ export {
 } from './ActivityComponents/TableView';
 export { default as TreeView } from './ActivityComponents/TreeView';
 
-export const A = ({ onClick, children, ...rest }: any): any =>
+export const A = ({ onClick, children, ...rest }: any): any => (
   <a
     href="#"
     onClick={e => {
@@ -69,7 +69,8 @@ export const A = ({ onClick, children, ...rest }: any): any =>
     {...rest}
   >
     {children}
-  </a>;
+  </a>
+);
 
 export const currentDate = (): string => {
   const d = new Date();
@@ -137,7 +138,10 @@ export const wordWrap = (text: string, maxLength: number): string[] => {
 };
 
 const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
-export const getSlug = (n: number) => shuffle(groupchars).slice(0, n).join('');
+export const getSlug = (n: number) =>
+  shuffle(groupchars)
+    .slice(0, n)
+    .join('');
 
 // If you try to insert value=0 path=['a', 'b', 'c']
 // into sharedb with doc={ 'a': { d:5 } }

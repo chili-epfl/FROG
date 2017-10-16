@@ -44,13 +44,15 @@ export class ReactiveText extends Component {
 
   render() {
     const rest = omit(this.props, ['path', 'dataFn']);
-    return this.props.type === 'textarea'
-      ? <textarea ref={ref => (this.textRef = ref)} {...rest} defaultValue="" />
-      : <input
-          type="text"
-          ref={ref => (this.textRef = ref)}
-          {...rest}
-          defaultValue=""
-        />;
+    return this.props.type === 'textarea' ? (
+      <textarea ref={ref => (this.textRef = ref)} {...rest} defaultValue="" />
+    ) : (
+      <input
+        type="text"
+        ref={ref => (this.textRef = ref)}
+        {...rest}
+        defaultValue=""
+      />
+    );
   }
 }
