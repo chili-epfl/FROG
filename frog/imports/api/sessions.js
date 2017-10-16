@@ -1,8 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { shuffle } from 'lodash';
-import { uuid } from 'frog-utils';
+import { uuid, getSlug } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
 import { runSession, nextActivity } from './engine';
@@ -11,12 +10,6 @@ import valid from './validGraphFn';
 
 const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
-
-const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
-const genCodeOfNChar = (n: number) =>
-  shuffle(groupchars)
-    .slice(0, n)
-    .join('');
 
 export const Sessions = new Mongo.Collection('sessions');
 
@@ -183,18 +176,15 @@ Meteor.methods({
         connections: Connections.find({ graphId }).fetch()
       });
 
-      let newSlug;
-      if (slug) {
-        newSlug = slug;
-      } else {
-        const slugs = Sessions.find({}, { fields: { slug: 1 } })
-          .fetch()
-          .map(x => x.slug);
-        while (true) {
-          newSlug = genCodeOfNChar(4);
-          if (!slugs.includes(newSlug)) {
-            break;
-          }
+      let newSlug = slug;
+      let slugSize = 4;
+      const slugs = Sessions.find({}, { fields: { slug: 1 } })
+        .fetch()
+        .map(x => x.slug);
+      if (!slug) {
+        while (slugs.includes(newSlug)) {
+          newSlug = getSlug(slugSize);
+          slugSize += 1;
         }
       }
 
