@@ -182,6 +182,7 @@ Meteor.methods({
         .fetch()
         .map(x => x.slug);
       if (!slug) {
+        newSlug = getSlug(slugSize);
         while (slugs.includes(newSlug)) {
           newSlug = getSlug(slugSize);
           slugSize += 1;
