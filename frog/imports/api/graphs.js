@@ -26,11 +26,13 @@ export const addGraph = (graphObj?: Object): string => {
 
   const matching = {};
 
-  const newAct = graphObj.activities.map(activity => {
-    const id = uuid();
-    matching[activity._id] = id;
-    return { ...activity, _id: id, graphId };
-  });
+  const newAct = graphObj.activities
+    .map(activity => {
+      const id = uuid();
+      matching[activity._id] = id;
+      return { ...activity, _id: id, graphId };
+    })
+    .map(ac => ({ ...ac, streamTarget: matching[ac.streamTarget] }));
 
   const newOp = graphObj.operators.map(op => {
     const id = uuid();

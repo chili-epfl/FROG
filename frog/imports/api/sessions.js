@@ -1,8 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { shuffle } from 'lodash';
-import { uuid } from 'frog-utils';
+import { uuid, getSlug } from 'frog-utils';
 
 import { Activities, Operators, Connections } from './activities';
 import { runSession, nextActivity } from './engine';
@@ -12,16 +11,13 @@ import valid from './validGraphFn';
 const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
-const groupchars = 'ABCDEFGHJKLMNPQRSTUWXYZ23456789'.split('');
-const genCodeOfNChar = (n: number) =>
-  shuffle(groupchars)
-    .slice(0, n)
-    .join('');
-
 export const Sessions = new Mongo.Collection('sessions');
 
-export const restartSession = (session: { fromGraphId: string, _id: string }) =>
-  Meteor.call('sessions.restart', session);
+export const restartSession = (session: {
+  slug: string,
+  fromGraphId: string,
+  _id: string
+}) => Meteor.call('sessions.restart', session);
 
 Meteor.methods({
   'sessions.restart': session => {
@@ -32,15 +28,12 @@ Meteor.methods({
       }
       sessionCancelCountDown(session._id);
       Meteor.call('flush.session', session._id);
-      const newSessionId = Meteor.call('add.session', graphId, { debug: true });
+      const newSessionId = Meteor.call('add.session', graphId, session.slug);
       runSession(newSessionId);
       nextActivity(newSessionId);
     }
   }
 });
-
-export const makeDebug = (sessionId: string) =>
-  Sessions.update(sessionId, { $set: { slug: 'DEBUG' } });
 
 export const setTeacherSession = (sessionId: string) => {
   Meteor.users.update(Meteor.userId(), {
@@ -49,7 +42,7 @@ export const setTeacherSession = (sessionId: string) => {
 };
 
 export const addSession = (graphId: string) => {
-  Meteor.call('add.session', graphId, (err, result) => {
+  Meteor.call('add.session', graphId, null, (err, result) => {
     if (result === 'invalidGraph') {
       // eslint-disable-next-line no-alert
       window.alert(
@@ -142,19 +135,22 @@ export const updateOpenActivities = (
   openActivities: Array<string>,
   timeInGraph: number
 ) => {
-  Sessions.update(sessionId, { $set: { openActivities, timeInGraph } });
   if (Meteor.isServer) {
+    Sessions.update(sessionId, { $set: { state: 'WAITINGFORNEXT' } });
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
     });
   }
+  Sessions.update(sessionId, {
+    $set: { openActivities, timeInGraph, state: 'STARTED' }
+  });
 };
 
 export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
 Meteor.methods({
-  'add.session': (graphId, options = {}) => {
+  'add.session': (graphId, slug) => {
     if (Meteor.isServer) {
       const validOutput = valid(
         Activities.find({ graphId }).fetch(),
@@ -174,25 +170,22 @@ Meteor.methods({
       const sessionName = '#' + graph.name + ' ' + (count + 1);
 
       const copyGraphId = addGraph({
-        graph,
+        graph: { ...graph, name: sessionName },
         activities: Activities.find({ graphId }).fetch(),
         operators: Operators.find({ graphId }).fetch(),
         connections: Connections.find({ graphId }).fetch()
       });
 
-      let slug;
-      if (options.debug) {
-        slug = 'DEBUG';
-        Sessions.remove({ slug: 'DEBUG' });
-      } else {
+      let newSlug = slug;
+      if (!slug) {
+        let slugSize = 4;
         const slugs = Sessions.find({}, { fields: { slug: 1 } })
           .fetch()
           .map(x => x.slug);
-        while (true) {
-          slug = genCodeOfNChar(4);
-          if (!slugs.includes(slug)) {
-            break;
-          }
+        newSlug = getSlug(slugSize);
+        while (slugs.includes(newSlug)) {
+          newSlug = getSlug(slugSize);
+          slugSize += 1;
         }
       }
 
@@ -207,7 +200,7 @@ Meteor.methods({
         countdownLength: DEFAULT_COUNTDOWN_LENGTH,
         pausedAt: null,
         openActivities: [],
-        slug
+        slug: newSlug
       });
       Graphs.update(copyGraphId, { $set: { sessionId } });
 
