@@ -16,6 +16,10 @@ class StudentViewComp extends Component {
   }
 
   componentWillMount() {
+    // $FlowFixMe
+    Raven.setUserContext({
+      user: Meteor.userId()
+    });
     this.checkSessionJoin(this.props.match.params.slug);
   }
 

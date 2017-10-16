@@ -1,4 +1,9 @@
 <head>
+  <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js"
+    crossorigin="anonymous"></script>
+  <script>
+    if(process.env.NODE_ENV === 'production') {Raven.config(Meteor.settings.public.sentry_token).install()}
+</script>
   <title>FROG</title>
 </head>
 
