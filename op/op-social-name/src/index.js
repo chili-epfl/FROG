@@ -10,20 +10,20 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['groupnames', 'defaultgroup', 'studentmapping'],
+  required: ['groupingKeys', 'defaultGroupingValues', 'studentmapping'],
   properties: {
-    groupnames: {
+    groupingKeys: {
       type: 'string',
-      title: 'Group name or names, separated by comma'
+      title: 'Grouping key or keys, separated by comma'
     },
-    defaultgroup: {
+    defaultGroupingValues: {
       type: 'string',
-      title: 'Default group(s) for students not listed below'
+      title: 'Default grouping values for students not listed below'
     },
     studentmapping: {
       type: 'string',
       title:
-        'On each line student name, comma, group attribute, in the same order as the group names above'
+        'On each line student name, comma, grouping value, in the same order as the group names above'
     }
   }
 };
@@ -40,13 +40,14 @@ const configUI = {
 
 const validateConfig = [
   formData => {
-    if (!formData.studentmapping || !formData.groupnames) {
+    // taken care of by the obligatory fields
+    if (!formData.studentmapping || !formData.groupingKeys) {
       return null;
     }
     const list = formData.studentmapping
       .split('\n')
       .filter(x => x.trim() !== '');
-    const n = formData.groupnames.split(',').length;
+    const n = formData.groupingKeys.split(',').length;
     const failing = list.find(x => x.split(',').length !== n + 1);
     if (failing) {
       return {
@@ -69,7 +70,9 @@ const operator = (
   configData,
   { globalStructure: { studentIds, students } }
 ) => {
-  const defaultMapping = configData.defaultgroup.split(',').map(f => f.trim());
+  const defaultMapping = configData.defaultGroupingValues
+    .split(',')
+    .map(f => f.trim());
   const studentmapping = configData.studentmapping
     .split('\n')
     .filter(x => x.trim() !== '')
@@ -77,10 +80,10 @@ const operator = (
       const f = x.split(',');
       return { ...acc, [f[0]]: f.slice(1).map(z => z.trim()) };
     }, {});
-  const groupnames = configData.groupnames.split(',');
+  const groupingKeys = configData.groupingKeys.split(',');
   const studentStruct = studentIds.reduce((acc, stud) => {
     const mapping = studentmapping[students[stud]] || defaultMapping;
-    const attribs = groupnames.reduce(
+    const attribs = groupingKeys.reduce(
       (subacc, grp, i) => ({ ...subacc, [grp]: mapping[i] }),
       {}
     );
@@ -91,7 +94,7 @@ const operator = (
 };
 
 const outputDefinition = configData =>
-  configData.defaultgroup.split(',').map(f => f.trim());
+  configData.defaultGroupingValue.split(',').map(f => f.trim());
 
 export default ({
   id: 'op-social-name',
