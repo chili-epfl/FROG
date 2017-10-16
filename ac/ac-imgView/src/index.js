@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, uuid } from 'frog-utils';
+import { type ActivityPackageT } from 'frog-utils';
 
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
@@ -62,13 +62,6 @@ const config = {
       title: 'Can students upload new images ?',
       type: 'boolean'
     },
-    filterTrash: {
-      title: 'Should trash images be removed?',
-      type: 'boolean'
-    },
-    individual: { title: 'Students work individually', type: 'boolean' },
-    grouping: { title: 'Group students by groupingKey', type: 'boolean' },
-    groupingKey: { title: 'Grouping key', type: 'socialAttribute' },
     images: {
       title: 'Images',
       type: 'array',
@@ -93,10 +86,7 @@ const config = {
 };
 
 const configUI = {
-  minVote: { conditional: 'canVote' },
-  individual: { conditional: formdata => !formdata.grouping },
-  grouping: { conditional: formdata => !formdata.individual },
-  groupingKey: { conditional: 'grouping' }
+  minVote: { conditional: 'canVote' }
 };
 
 const dataStructure = {};
@@ -107,23 +97,19 @@ const mergeFunction = (object, dataFn) => {
       dataFn.objInsert({ url: x.url, categories: x.categories, votes: {} }, i)
     );
 
-  if (object.data === null || object.data === {}) return;
-  const dataImgs = (Array.isArray(object.data)
-    ? object.data
-    : Object.keys(object.data).map(x => object.data[x])
-  ).filter(x => x.url !== undefined);
-  dataImgs
-    .filter(
-      x => !object.config.filterTrash || (x.category && x.category !== 'trash')
-    )
-    .forEach(x =>
+  if (object.data === null || Array.isArray(object.data)) return;
+  const dataImgs = Object.keys(object.data).filter(
+    x => object.data[x].url !== undefined
+  );
+  if (object.data !== {})
+    dataImgs.forEach((x, i) =>
       dataFn.objInsert(
         {
-          votes: {},
-          ...x,
-          categories: x.categories || (x.category && [x.category])
+          url: object.data[x].url,
+          categories: object.data[x].categories || [object.data[x].category],
+          votes: {}
         },
-        x.key || uuid()
+        object.config.images ? object.config.images.length + i : i
       )
     );
 };
