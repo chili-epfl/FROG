@@ -1,11 +1,11 @@
 // @flow
 
 import React from 'react';
-import { stringToArray } from '../ArrayFun';
+import { stringToArray, arrayMinus } from '../ArrayFun';
 
 export default (props: Object) =>
   <div style={{ width: '100%', height: '80%' }}>
-    {props.data.testChoice
+    {props.tmpList[props.data.indexCurrent].selectedChoice
       ? <TruePanel {...props} />
       : <FalsePanel {...props} />}
   </div>;
@@ -91,7 +91,14 @@ const FalsePanel = ({
       }}
     >
       {stringToArray(
-        examples[tmpList[data.indexCurrent].realIndex].respectedProperties
+        examples[
+          tmpList[data.indexCurrent].realIndex
+        ].respectedProperties.concat(
+          arrayMinus(
+            [].concat(...data.suffisants),
+            examples[tmpList[data.indexCurrent].realIndex].respectedProperties
+          )
+        )
       ).map(x =>
         <div className="checkbox" key={x}>
           <input

@@ -29,49 +29,51 @@ export default (
   );
   const finalResult = {
     result: 0,
-    caseAns: caseAnswer,
     reason: '',
-    properties: []
+    propertiesIndex: []
   };
   switch (caseAnswer) {
     case 0: // choose answer true
       if (respectedRes.result) {
         finalResult.reason = 'NotRespected';
-        finalResult.properties = respectedRes.properties;
+        finalResult.propertiesIndex = respectedRes.properties;
       } else if (contradictoryRes.result) {
         finalResult.reason = 'Contradictory';
-        finalResult.properties = contradictoryRes.properties;
-      } else if (suffisantRes.result) {
+        finalResult.propertiesIndex = contradictoryRes.properties;
+      } else if (!suffisantRes.result) {
         if (suffisantRes.properties === undefined)
           finalResult.reason = 'NoSuffisant';
         else finalResult.reason = 'NoCompleteSuffisant';
-        finalResult.properties = suffisantRes.properties;
+        finalResult.propertiesIndex = suffisantRes.properties;
       } else if (!unnecessaryRes.result) {
         finalResult.reason = 'Unnecessary';
-        finalResult.properties = unnecessaryRes.properties;
+        finalResult.propertiesIndex = unnecessaryRes.properties;
       }
       finalResult.result = isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
     case 1: // choose answer false why incorrect
       if (respectedRes.result) {
         finalResult.reason = 'NotRespected';
-        finalResult.properties = respectedRes.properties;
+        finalResult.propertiesIndex = respectedRes.properties;
       } else if (!arrayEquals(contradictoryRes.properties, answers)) {
         finalResult.reason = 'NoContradictory';
-        finalResult.properties = arrayMinus(answers, contradictories);
+        finalResult.propertiesIndex = arrayMinus(answers, contradictories);
       }
       finalResult.result = !isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
     case 2: // choose answer false what's missing
       if (!respectedRes.result) {
         finalResult.reason = 'Respected';
-        finalResult.properties = arrayMinus(answers, respectedRes.properties);
+        finalResult.propertiesIndex = arrayMinus(
+          answers,
+          respectedRes.properties
+        );
       } else if (contradictoryRes.result) {
         finalResult.reason = 'Contradictory';
-        finalResult.properties = contradictoryRes.properties;
+        finalResult.propertiesIndex = contradictoryRes.properties;
       } else if (!unnecessaryRes.result) {
         finalResult.reason = 'Unnecessary';
-        finalResult.properties = unnecessaryRes.properties;
+        finalResult.propertiesIndex = unnecessaryRes.properties;
       }
       finalResult.result = !isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
@@ -79,9 +81,6 @@ export default (
   }
   return finalResult;
 };
-
-// containsNotRespected(answers, respected) &&
-// containsContradictory(answers, contradictories);
 
 export const containsNotRespected = (
   answers: Array<number>,
@@ -119,6 +118,9 @@ export const containsOneSuffisantSet = (
         arrayEquals(arrayIntersection(answers, curr), curr)),
     false
   );
+  console.log(answers);
+  console.log(suffisants);
+  console.log(tmp);
   if (tmp) return { result: true, properties: [] };
   const tmp2 = suffisants.filter(
     x =>

@@ -6,6 +6,8 @@ import ImgBis from '../ImgBis';
 import ModalSubmit from './ModalSubmit';
 import Switch from './Switch';
 import ResponsePanel from './ResponsePanel';
+import Correction from './Correction';
+import { stringToArray } from '../ArrayFun';
 import { ExMain, ExContainer, ExLine, ExButton } from '../StyledComponents';
 
 // with a param hasFeedback
@@ -19,7 +21,35 @@ export default ({
   dataFn,
   data
 }: Object) => {
+  const tmpList = feedback
+    ? data.listIndexTestWithFeedback
+    : data.listIndexTest;
+
   const clickHandler = () => {
+    const index = tmpList[data.indexCurrent];
+    // find caseAnswer (0,1,2) instead of true/false
+    const caseAnswer = index.selectedChoice
+      ? 0
+      : index.realIndex % 2 === 0 ? 1 : 2;
+    const correction = Correction(
+      examples[index.realIndex].isIncorrect,
+      caseAnswer,
+      index.selectedProperties,
+      stringToArray(examples[index.realIndex].respectedProperties),
+      data.contradictories,
+      data.unnecessaries,
+      data.suffisants
+    );
+    console.log(caseAnswer);
+    console.log(correction.result);
+    console.log(correction.reason);
+    console.log(correction.propertiesIndex);
+    const newList = [...tmpList];
+    newList[data.indexCurrent].correction = correction;
+    dataFn.objInsert(
+      newList,
+      feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
+    );
     if (feedback) {
       dataFn.objInsert(true, 'feedbackOpen');
     } else if (data.indexCurrent === nbTest - 1) {
@@ -28,9 +58,6 @@ export default ({
     } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
   };
   console.log(examples);
-  const tmpList = feedback
-    ? data.listIndexTestWithFeedback
-    : data.listIndexTest;
 
   return (
     <ExMain>
@@ -69,6 +96,7 @@ export default ({
       </ExContainer>
       {feedback &&
         <ModalSubmit
+          examples={examples}
           properties={properties}
           dataFn={dataFn}
           data={data}

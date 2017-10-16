@@ -5,7 +5,13 @@ import Modal from 'react-modal';
 
 import { ExButton } from '../StyledComponents';
 
-export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
+export default ({
+  examples,
+  properties,
+  dataFn,
+  data,
+  nbTestFeedback
+}: Object) => {
   const clickHandler = () => {
     dataFn.objInsert(false, 'feedbackOpen');
     if (data.indexCurrent === nbTestFeedback - 1) {
@@ -16,6 +22,9 @@ export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
     }
   };
   console.log(data);
+  const { result, reason, propertiesIndex } = data.listIndexTestWithFeedback[
+    data.indexCurrent
+  ].correction || { result: 0, reason: 'NotAnswered', propertiesIndex: [] };
   return (
     <Modal isOpen={data.feedbackOpen} contentLabel="Modal">
       <h1>
@@ -28,12 +37,15 @@ export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
           style={{
             width: '50px',
             height: '50px',
-            backgroundColor: 'black',
+            backgroundColor:
+              result === 0 ? '#00CC00' : result === 1 ? '#FF9933' : '#CC0000',
             borderRadius: '50px'
           }}
         />
         <h3 style={{ marginLeft: '10px' }}>
-          {'Your answer was incorrect.'}
+          {'Your answer was ' + result === 0
+            ? 'correct'
+            : result === 1 ? 'almost correct' : 'incorrect'}
         </h3>
       </div>
       <div>
