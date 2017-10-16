@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
+import { shuffle } from 'lodash';
 
 export {
   default as EnhancedForm,
@@ -10,14 +11,13 @@ export {
 } from './EnhancedForm';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
+export { ReactiveText } from './ReactiveText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';
 export { TextInput, ChangeableText } from './TextInput';
-export { default as dataURItoFile } from './URLtoFile';
-export { default as resizeDataURL } from './resizeDataURL';
 export { default as ImageReload } from './ImageReload';
 export {
   mergeSocialStructures,
@@ -53,6 +53,11 @@ export type {
   ReactComponent
 } from './types';
 export { default as CountChart } from './DashboardComponents/CountChart';
+export {
+  default as TableView,
+  toTableData
+} from './ActivityComponents/TableView';
+export { default as TreeView } from './ActivityComponents/TreeView';
 
 export const A = ({ onClick, children, ...rest }: any): any => (
   <a
@@ -130,4 +135,33 @@ export const wordWrap = (text: string, maxLength: number): string[] => {
     result.push(line.join(' '));
   }
   return result;
+};
+
+const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
+export const getSlug = (n: number) =>
+  shuffle(groupchars)
+    .slice(0, n)
+    .join('');
+
+// If you try to insert value=0 path=['a', 'b', 'c']
+// into sharedb with doc={ 'a': { d:5 } }
+// an error occur because doc['a']['b'] is undefined.
+// This function cleans the query by changing it to
+// path=['a'] value={ b: { c: 0 } }
+// (see ./__tests__/index.js for more details)
+export const splitPathObject = (obj: Object, path: string[], value: any) => {
+  const { insertPath, leftoverPath } = path.reduce(
+    (acc, val) =>
+      acc.obj
+        ? { ...acc, obj: acc.obj[val], insertPath: [...acc.insertPath, val] }
+        : { ...acc, leftoverPath: [val, ...acc.leftoverPath] },
+    { obj, insertPath: [], leftoverPath: [] }
+  );
+
+  let insertObject = value;
+  leftoverPath.forEach(val => {
+    insertObject = { [val]: insertObject };
+  });
+
+  return { insertPath, insertObject };
 };
