@@ -13,7 +13,7 @@ const dbUrl =
 const db = shareDBMongo(dbUrl + '/sharedb');
 
 const server = http.createServer();
-const redis = new RedisPubsub({ url: 'redis://207.154.211.32' });
+const redis = new RedisPubsub();
 const backend = new sharedb({ db, pubsub: redis });
 const serverConnection = (exports.serverConnection = backend.connect());
 
