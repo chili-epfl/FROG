@@ -1,8 +1,8 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
-import { shuffle, omit } from 'lodash';
+import { shuffle } from 'lodash';
 
 export {
   default as EnhancedForm,
