@@ -41,17 +41,15 @@ const ActivityRunner = ({
   activityData: { config: configData },
   groupingValue,
   userInfo: { name }
-}) =>
+}) => (
   <div>
-    {configData.title &&
-      <h1>
-        {configData.title}
-      </h1>}
+    {configData.title && <h1>{configData.title}</h1>}
     <h2>
       {configData.displayName && `Hi, ${name}. `} You are in group{' '}
       {groupingValue}.
     </h2>
-  </div>;
+  </div>
+);
 
 export default ({
   id: 'ac-display-social',

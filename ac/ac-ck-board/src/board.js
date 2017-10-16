@@ -27,7 +27,7 @@ const BoardPure = ({
     dataFn.objInsert((ui.y + offsetHeight) * scaleY, [i, 'y']);
   };
 
-  const List = data.map((y, i) =>
+  const List = data.map((y, i) => (
     <div key={y.id}>
       <ObservationContainer
         setXY={(_, ui) => setXY(i, ui)}
@@ -40,28 +40,31 @@ const BoardPure = ({
         y={y.y / scaleY - offsetHeight}
       />
     </div>
-  );
+  ));
   if (!width || !height) {
     return null;
   }
   return (
     <MuiThemeProvider>
       <div style={{ height: '100%', width: '100%' }}>
-        {config.quadrants &&
-          <Quadrants config={config} width={width} height={height} />}
-        {config.image &&
+        {config.quadrants && (
+          <Quadrants config={config} width={width} height={height} />
+        )}
+        {config.image && (
           <img
             src={config.imageurl}
             alt="Background"
             style={{ width: width + 'px', height: height + 'px' }}
-          />}
+          />
+        )}
         {width && height && List}
-        {info &&
+        {info && (
           <ObservationDetail
             title={info.title}
             content={info.content}
             closeInfoFn={() => setInfo(null)}
-          />}
+          />
+        )}
       </div>
     </MuiThemeProvider>
   );
@@ -69,7 +72,8 @@ const BoardPure = ({
 
 const Board = withState('info', 'setInfo', null)(BoardPure);
 
-export default (props: ActivityRunnerT) =>
+export default (props: ActivityRunnerT) => (
   <ResizeAware style={{ position: 'relative', height: '100%', width: '100%' }}>
     <Board {...props} />
-  </ResizeAware>;
+  </ResizeAware>
+);

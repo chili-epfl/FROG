@@ -44,7 +44,10 @@ const fname =
   type === 'activity'
     ? './frog/imports/activityTypes.js'
     : './frog/imports/operatorTypes.js';
-const act = fs.readFileSync(fname).toString().split('\n');
+const act = fs
+  .readFileSync(fname)
+  .toString()
+  .split('\n');
 act.splice(2, 0, `import ${newActivityName} from '${newActivityId}';`);
 const whereToInsert = act.findIndex(x => x.startsWith('export const'));
 act.splice(whereToInsert + 1, 0, `  ${newActivityName},`);

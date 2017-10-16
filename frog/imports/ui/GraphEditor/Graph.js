@@ -51,7 +51,7 @@ export default connect(
     isSession: boolean,
     hasPanMap: boolean,
     hasTimescale: boolean
-  }) =>
+  }) => (
     <svg
       width="100%"
       height="100%"
@@ -94,8 +94,8 @@ export default connect(
       </svg>
       {hasPanMap && <PanMap />}
       {scaled &&
-        scrollEnabled &&
-        <ScrollFields width={graphWidth} height={600} />}
+        scrollEnabled && <ScrollFields width={graphWidth} height={600} />}
       {!hasPanMap && <ErrorList />}
     </svg>
+  )
 );

@@ -43,8 +43,9 @@ const ScrollField = connect(
   }
 );
 
-export default ({ width, height }: { width: number, height: number }) =>
+export default ({ width, height }: { width: number, height: number }) => (
   <g>
     <ScrollField x={0} height={height} direction={-1} />
     <ScrollField x={width - 50} height={height} direction={1} />
-  </g>;
+  </g>
+);

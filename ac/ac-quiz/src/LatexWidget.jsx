@@ -23,21 +23,19 @@ export default (props: Object) => {
               disabled={disabled || readonly}
               onChange={() => onChange(option.value)}
             />
-            <Latex>
-              {option.label}
-            </Latex>
+            <Latex>{option.label}</Latex>
           </span>
         );
 
-        return inline
-          ? <label key={option.label} className={`radio-inline ${disabledCls}`}>
-              {radio}
-            </label>
-          : <div key={option.label} className={`radio ${disabledCls}`}>
-              <label>
-                {radio}
-              </label>
-            </div>;
+        return inline ? (
+          <label key={option.label} className={`radio-inline ${disabledCls}`}>
+            {radio}
+          </label>
+        ) : (
+          <div key={option.label} className={`radio ${disabledCls}`}>
+            <label>{radio}</label>
+          </div>
+        );
       })}
     </div>
   );

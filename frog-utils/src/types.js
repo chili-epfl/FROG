@@ -60,14 +60,15 @@ export type ControlT = {
 };
 
 export type ControlStructureT =
-  | { 'all': ControlT }
-  | { 'list': { [activityId: string]: ControlT } };
+  | { all: ControlT }
+  | { list: { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
   logger: Function,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
+  stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, callback: (string) => any) => void,
   userInfo: { id: string, name: string },
   groupingValue: string
