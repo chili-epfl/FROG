@@ -18,7 +18,17 @@ import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import { DashboardComp } from '../TeacherView/Dashboard';
 
-const Icon = ({ onClick, icon, color = undefined, tooltip = undefined }) => (
+const Icon = ({
+  onClick,
+  icon,
+  color,
+  tooltip
+}: {
+  onClick: Function,
+  icon: string,
+  color?: string,
+  tooltip?: string
+}) => (
   <span style={{ marginLeft: '10px' }}>
     <A onClick={onClick}>
       <i className={icon} style={{ color }} data-tip={tooltip} />
