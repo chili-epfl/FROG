@@ -177,11 +177,11 @@ Meteor.methods({
       });
 
       let newSlug = slug;
-      let slugSize = 4;
-      const slugs = Sessions.find({}, { fields: { slug: 1 } })
-        .fetch()
-        .map(x => x.slug);
       if (!slug) {
+        let slugSize = 4;
+        const slugs = Sessions.find({}, { fields: { slug: 1 } })
+          .fetch()
+          .map(x => x.slug);
         newSlug = getSlug(slugSize);
         while (slugs.includes(newSlug)) {
           newSlug = getSlug(slugSize);
