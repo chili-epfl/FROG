@@ -20,6 +20,9 @@ class StudentLogin extends Component {
   }
 
   render() {
+    if (this.state && this.state.studentlist === -1) {
+      return <h1>Must log in to access this session</h1>;
+    }
     if (!this.state || !this.state.studentlist) {
       return <Spinner />;
     }
@@ -27,19 +30,17 @@ class StudentLogin extends Component {
       <div>
         <h1>Please find your name below, and click it to log in</h1>
         {this.state.studentlist &&
-          splitList(this.state.studentlist).map(lst =>
+          splitList(this.state.studentlist).map(lst => (
             <div className="col-md-5" key={lst[0]}>
               <ul className="list-group">
-                {lst.map(x =>
+                {lst.map(x => (
                   <li key={x} className="list-group-item">
-                    <Link to={`/${this.props.slug}?login=${x}`}>
-                      {x}
-                    </Link>
+                    <Link to={`/${this.props.slug}?login=${x}`}>{x}</Link>
                   </li>
-                )}
+                ))}
               </ul>
             </div>
-          )}
+          ))}
       </div>
     );
   }

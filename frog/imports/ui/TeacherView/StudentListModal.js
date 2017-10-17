@@ -12,7 +12,7 @@ const StudentListModal = ({
 }: {
   dismiss: Function,
   session: Object
-}) =>
+}) => (
   <Modal isOpen onRequestClose={dismiss} contentLabel="Student list">
     <div className="modal-header">
       <button type="button" className="close" onClick={dismiss}>
@@ -59,6 +59,7 @@ const StudentListModal = ({
         </button>
       </Form>
     </div>
-  </Modal>;
+  </Modal>
+);
 
 export default StudentListModal;
