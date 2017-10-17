@@ -36,5 +36,4 @@ done
 cd $FROG/frog
 ln -s $FROG/node_modules/* node_modules/ 2>/dev/null
 ln -s $FROG/.babelrc . 2>/dev/null
-curl https://install.meteor.com/ | shit
 exit 0
