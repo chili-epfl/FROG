@@ -16,7 +16,7 @@ const getDisplayName = (WrappedComponent: any): string => {
   }
 };
 
-const ReactiveHOC = (docId: string, doc?: any) => (
+const ReactiveHOC = (docId: string, conn?: any) => (
   WrappedComponent: ReactComponent<any>
 ) => {
   class ReactiveComp extends Component {
@@ -34,12 +34,8 @@ const ReactiveHOC = (docId: string, doc?: any) => (
     }
 
     componentDidMount = () => {
-      if (!doc) {
-        this.doc = connection.get('rz', docId);
-        this.doc.subscribe();
-      } else {
-        this.doc = doc;
-      }
+      this.doc = (conn || connection).get('rz', docId);
+      this.doc.subscribe();
       this.doc.on('ready', this.update);
       this.doc.on('op', this.update);
       this.waitForDoc();

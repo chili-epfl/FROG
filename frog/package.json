@@ -68,6 +68,7 @@
     "react-mosaic-component": "^0.4.2",
     "react-router-dom": "^4.1.2",
     "react-spinner": "^0.2.7",
+    "react-tooltip": "^3.4.0",
     "reconnectingwebsocket": "^1.0.0",
     "rws": "^0.0.1",
     "save-svg-as-png": "1.2.0",
