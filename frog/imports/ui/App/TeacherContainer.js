@@ -30,7 +30,7 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
   );
 };
 
-const WithTopBar = () =>
+const WithTopBar = () => (
   <div>
     <TopBar />
     <Switch>
@@ -41,7 +41,8 @@ const WithTopBar = () =>
       <Route path="/preview" component={Preview} />
       <Route component={GraphEditor} />
     </Switch>
-  </div>;
+  </div>
+);
 
 export default createContainer(() => {
   const collections = [
@@ -50,11 +51,10 @@ export default createContainer(() => {
     'connections',
     'graphs',
     'objects',
-    'openUploads',
     'operators',
     'products',
     'sessions',
-    'uploads'
+    'users'
   ];
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   return { ready: every(subscriptions.map(x => x.ready()), Boolean) };

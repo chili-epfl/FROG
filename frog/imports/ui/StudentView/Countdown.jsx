@@ -16,12 +16,11 @@ const Countdown = ({ session, currentTime }) => {
       : session.countdownLength;
   return (
     <div>
-      {session.countdownStartTime !== -1 &&
+      {session.countdownStartTime !== -1 && (
         <CountdownDiv>
-          <h4>
-            {msToString(secondsLeft)}
-          </h4>
-        </CountdownDiv>}
+          <h4>{msToString(secondsLeft)}</h4>
+        </CountdownDiv>
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { msToString } from 'frog-utils';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { createContainer } from 'meteor/react-meteor-data';
+import Spinner from 'react-spinner';
 
 import {
   removeSession,
@@ -12,8 +13,7 @@ import {
   sessionStartCountDown,
   sessionCancelCountDown,
   sessionChangeCountDown,
-  restartSession,
-  makeDebug
+  restartSession
 } from '../../api/sessions';
 import { runSession, nextActivity } from '../../api/engine';
 
@@ -97,12 +97,6 @@ const ButtonList = ({
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
-      onClick: () => makeDebug(session._id),
-      text: 'Make session debug'
-    },
-    {
-      states: ['CREATED', 'STARTED', 'PAUSED'],
-      type: 'primary',
       onClick: () => restartSession(session),
       text: 'Restart session'
     },
@@ -155,7 +149,7 @@ const ButtonList = ({
             (button.countdownStarted === undefined ||
               session.countdownStartTime > 0 === button.countdownStarted)
         )
-        .map(button =>
+        .map(button => (
           <button
             key={button.text}
             className={'btn btn-' + button.type + ' btn-sm'}
@@ -164,13 +158,16 @@ const ButtonList = ({
           >
             {button.text}
           </button>
-        )}
+        ))}
+      {session.state === 'WAITINGFORNEXT' && <Spinner />}
       {session.state !== 'CREATED' &&
         session.state !== 'STOPPED' &&
-        <Countdown
-          startTime={session.countdownStartTime}
-          length={session.countdownLength}
-        />}
+        session.state !== 'WAITINGFORNEXT' && (
+          <Countdown
+            startTime={session.countdownStartTime}
+            length={session.countdownLength}
+          />
+        )}
       <b style={{ marginLeft: '20px' }}>
         session: <a href={`/${session.slug}`}>{session.slug}</a>
       </b>

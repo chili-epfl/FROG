@@ -5,32 +5,39 @@ import WebSocket from 'ws';
 import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
+import RedisPubsub from 'sharedb-redis-pubsub';
 
 declare var Promise: any;
+
 const dbUrl =
-  (Meteor.settings && Meteor.settings.public.dburl) ||
+  (Meteor.settings && Meteor.settings.sharedb_dburl) ||
   'mongodb://localhost:3001';
 const db = ShareDBMongo(`${dbUrl}/sharedb`);
 
 const server = http.createServer();
-const backend = new ShareDB({ db });
+let options = { db };
+if (Meteor.settings.sharedb_redis) {
+  const redis = new RedisPubsub({
+    url: 'redis://' + Meteor.settings.sharedb_redis
+  });
+  options = { ...options, pubsub: redis };
+}
+const backend = new ShareDB(options);
 export const serverConnection = backend.connect();
 
 export const startShareDB = () => {
-  new WebSocket.Server({ server }).on('connection', ws => {
-    backend.listen(new WebsocketJSONStream(ws));
-  });
+  if (!Meteor.settings.dont_start_sharedb) {
+    new WebSocket.Server({ server }).on('connection', ws => {
+      backend.listen(new WebsocketJSONStream(ws));
+    });
+    // eslint-disable-next-line no-console
+    console.log('Running shareDB server');
 
-  const shareDbPort =
-    (Meteor.settings && Meteor.settings.public.sharedbport) || 3002;
-  // $FlowFixMe
-  server.listen(shareDbPort, err => {
-    if (err) throw err;
-  });
-};
-
-export const getDoc = (docId: string): any => {
-  const doc = serverConnection.get('rz', docId);
-  Promise.await(new Promise(resolve => doc.fetch(() => resolve())));
-  return doc.data;
+    const shareDbPort =
+      (Meteor.settings && Meteor.settings.public.sharedbport) || 3002;
+    // $FlowFixMe
+    server.listen(shareDbPort, err => {
+      if (err) throw err;
+    });
+  }
 };

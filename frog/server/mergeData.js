@@ -1,6 +1,6 @@
 // @flow
-
 import { Meteor } from 'meteor/meteor';
+import ShareDB from 'sharedb';
 import { cloneDeep } from 'lodash';
 import {
   generateReactiveFn,
@@ -15,6 +15,93 @@ import { Sessions } from '../imports/api/sessions';
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 
+declare var Promise: any;
+const backend = new ShareDB();
+const connection = backend.connect();
+
+const mergeOneInstance = (
+  grouping,
+  activity,
+  dataStructure,
+  mergeFunction,
+  activityData,
+  structure,
+  object
+) => {
+  let data;
+  if (mergeFunction) {
+    const instanceActivityData = getMergedExtractedUnit(
+      activity.data,
+      activityData,
+      structure,
+      grouping,
+      object.socialStructure
+    );
+    if (instanceActivityData) {
+      data = Promise.await(
+        new Promise(resolve => {
+          const doc = connection.get('rz', activity._id + '/' + grouping);
+          doc.fetch();
+          doc.once(
+            'load',
+            Meteor.bindEnvironment(() => {
+              try {
+                doc.create(
+                  dataStructure !== undefined ? cloneDeep(dataStructure) : {}
+                );
+              } catch (e) {
+                // eslint-disable-next-line no-console
+                console.error(
+                  Date.now,
+                  'Creating collection for ',
+                  activity._id,
+                  grouping,
+                  e
+                );
+              }
+
+              const dataFn = generateReactiveFn(doc);
+              // merging in config with incoming product
+              if (mergeFunction) {
+                mergeFunction(instanceActivityData, dataFn);
+              }
+              const docdata = doc.data;
+              doc.destroy();
+              resolve(docdata);
+            })
+          );
+        })
+      );
+    }
+  } else {
+    data = dataStructure || {};
+  }
+
+  const serverDoc = serverConnection.get('rz', activity._id + '/' + grouping);
+  try {
+    serverDoc.create(data, undefined, undefined, err => {
+      if (err) {
+        // eslint-disable-next-line no-console
+        console.error(
+          Date.now,
+          'Creating ShareDB document',
+          activity._id + '/' + grouping,
+          err
+        );
+      }
+    });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(
+      Date.now,
+      'Catch: Creating ShareDB document for ',
+      activity._id,
+      grouping,
+      e
+    );
+  }
+};
+
 const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
@@ -23,55 +110,35 @@ const mergeData = (activityId: string, object: ObjectT, group?: string) => {
   const { groups, structure } = doGetInstances(activity, object);
   const createGroups = group ? [group] : groups;
 
-  createGroups.forEach(grouping => {
-    if (activity.hasMergedData && activity.hasMergedData[grouping]) {
-      return;
-    }
-    Activities.update(activityId, {
-      $set: {
-        hasMergedData: { ...(activity.hasMergedData || {}), [grouping]: true }
-      }
-    });
-    const mergeFunction = activityType.mergeFunction;
-    const doc = serverConnection.get('rz', activityId + '/' + grouping);
-    doc.fetch();
-    doc.on(
-      'load',
-      Meteor.bindEnvironment(() => {
-        if (!doc.type) {
-          doc.create(
-            activityType.dataStructure !== undefined
-              ? cloneDeep(activityType.dataStructure)
-              : {}
-          );
-        }
-        if (mergeFunction) {
-          const dataFn = generateReactiveFn(doc);
-          // merging in config with incoming product
-          const instanceActivityData = getMergedExtractedUnit(
-            activity.data,
-            activityData,
-            structure,
-            grouping,
-            object.socialStructure
-          );
-          if (instanceActivityData) {
-            mergeFunction(instanceActivityData, dataFn);
-          }
-        }
-      })
+  const mergeFunction = activityType.mergeFunction;
+  const asyncCreates = createGroups.map(grouping =>
+    mergeOneInstance(
+      grouping,
+      activity,
+      activityType.dataStructure,
+      mergeFunction,
+      activityData,
+      structure,
+      object
+    )
+  );
+  Promise.await(Promise.all(asyncCreates));
+
+  // only create dashboard on initial merge, not when called by individuals joining late
+  if (!group) {
+    const mergedLogsDoc = serverConnection.get(
+      'rz',
+      'DASHBOARD//' + activityId
     );
-  });
-  const mergedLogsDoc = serverConnection.get('rz', activityId + '//DASHBOARD');
-  mergedLogsDoc.fetch();
-  mergedLogsDoc.on('load', () => {
-    if (!mergedLogsDoc.type) {
+    try {
       mergedLogsDoc.create(
         (activityType.dashboard && activityType.dashboard.initData) || {}
       );
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(Date.now, 'Creating dashboard for ', activityId, e);
     }
-    mergedLogsDoc.destroy();
-  });
+  }
 };
 
 export default mergeData;

@@ -32,9 +32,7 @@ const NotLoggedIn = () => {
           <Link to="/graph?login=teacher">Log in as teacher</Link>
         </li>
         <li>
-          <Link to={`/student?login=${name}`}>
-            Log in as {name} (student)
-          </Link>
+          <Link to={`/student?login=${name}`}>Log in as {name} (student)</Link>
         </li>
       </ul>
     </div>

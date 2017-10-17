@@ -5,8 +5,8 @@
 
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
-import { startShareDB } from './share-db-manager';
 
+import { startShareDB } from './share-db-manager';
 import '../imports/startup/shutdown-if-env.js';
 
 import teacherImports from './teacherImports';
@@ -26,12 +26,6 @@ teacherImports();
 Meteor.publish('userData', function() {
   const user = Meteor.user();
   const username = user && user.username;
-  if (username === 'teacher') {
-    return Meteor.users.find(
-      {},
-      { fields: { username: 1, joinedSessions: 1 } }
-    );
-  }
   if (!username) {
     return this.ready();
   }
