@@ -2,7 +2,7 @@
 
 shopt -s dotglob
 
-if ! which meteor; then echo 'Installing Meteor' && curl https://install.meteor.com/ | sh
+if ! which meteor; then echo 'Installing Meteor' && curl https://install.meteor.com/ | sh fi
 
 FROG=`pwd`
 YARN_VERSION='1.2.0'
