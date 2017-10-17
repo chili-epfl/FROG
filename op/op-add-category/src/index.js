@@ -1,4 +1,5 @@
 // @flow
+import { type productOperatorT } from 'frog-utils';
 export const meta = {
   name: 'Add category to items',
   shortDesc: 'Aggregate items from groups',
@@ -16,16 +17,18 @@ const config = {
 
 const operator = (configData, object) => {
   const result = Object.keys(object.activityData.payload).reduce((acc, x) => {
-    let items = object.activityData.payload[x].data;
+    const items = object.activityData.payload[x].data;
+    let aryitems = [];
     if (!Array.isArray(items)) {
-      items = Object.values(items);
+      aryitems = Object.values(items);
+    } else {
+      aryitems = items;
     }
-    console.log(x, items);
-    items = items.map(it => ({
+    const newItems = aryitems.map(it => ({
       ...it,
       category: { ...it.category, [configData.category]: configData.value }
     }));
-    return { ...acc, [x]: { data: items } };
+    return { ...acc, [x]: { data: newItems } };
   }, {});
   return { ...object.activityData, payload: result };
 };
