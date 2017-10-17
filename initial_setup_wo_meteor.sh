@@ -2,15 +2,19 @@
 
 shopt -s dotglob
 
+if ! which meteor; then 
+    echo 'Installing Meteor' && curl https://install.meteor.com/ | sh 
+fi
+
 FROG=`pwd`
 YARN_VERSION='1.2.0'
 if which yarn && [[ `yarn --version` == $YARN_VERSION ]]; then 
     echo 'Using pre-installed global Yarn'; YARN=yarn 
 else
     if [ -f $FROG/node_modules/.bin/yarn ] && [[ `$FROG/node_modules/.bin/yarn --version` == $YARN_VERSION ]]; then 
-        echo 'Using pre-installed local Yarn'; YARN=$FROG/node_modules/.bin/yarn 
+        echo 'Using pre-installed local Yarn'; YARN="meteor node $FROG/node_modules/.bin/yarn"
     else
-        echo 'Installing Yarn'; npm install yarn@1.2.0 && YARN=$FROG/node_modules/.bin/yarn
+        echo 'Installing Yarn'; meteor npm install yarn@1.2.0 && YARN="meteor node $FROG/node_modules/.bin/yarn"
     fi
 fi
 echo "Yarn: $YARN"
@@ -32,5 +36,4 @@ done
 cd $FROG/frog
 ln -s $FROG/node_modules/* node_modules/ 2>/dev/null
 ln -s $FROG/.babelrc . 2>/dev/null
-wait
 exit 0
