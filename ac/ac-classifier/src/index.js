@@ -17,10 +17,10 @@ const meta = {
       config: {
         title: "Decide if it's a landscape or an animal",
         images: [
-          'https://cdn.pixabay.com/photo/2016/12/04/21/58/rabbit-1882699_960_720.jpg',
-          'https://cdn.pixabay.com/photo/2016/11/02/16/02/natural-1792047_960_720.jpg',
-          'https://cdn.pixabay.com/photo/2013/05/17/07/12/elephant-111695_960_720.jpg',
-          'https://cdn.pixabay.com/photo/2016/02/19/11/35/hong-kong-1209806_960_720.jpg'
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Wei%C3%9Fr%C3%BCckengeier_Gyps_africanus_HP_L2043.JPG/500px-Wei%C3%9Fr%C3%BCckengeier_Gyps_africanus_HP_L2043.JPG',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/%D0%92_%D0%9C%D0%B8%D1%82%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%BC_%D0%BB%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82%D0%BD%D0%BE%D0%BC_%D0%BF%D0%B0%D1%80%D0%BA%D0%B5_-_panoramio.jpg/1280px-%D0%92_%D0%9C%D0%B8%D1%82%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%BC_%D0%BB%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82%D0%BD%D0%BE%D0%BC_%D0%BF%D0%B0%D1%80%D0%BA%D0%B5_-_panoramio.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/02-29-11%2C_covered_picnic_table_-_panoramio.jpg/1280px-02-29-11%2C_covered_picnic_table_-_panoramio.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/H._C._Andersens_Lind.JPG/1280px-H._C._Andersens_Lind.JPG'
         ],
         categories: ['landscape', 'animal']
       },
