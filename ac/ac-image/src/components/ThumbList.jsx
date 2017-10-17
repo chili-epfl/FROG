@@ -71,19 +71,7 @@ const CategoryList = ({ categories, setCategory }) => (
   </Main>
 );
 
-const ThumbList = (props: {
-  images: Array<{ url: string, key: string, votes: Object }>,
-  categories: Object,
-  setCategory: Function,
-  minVoteT: number,
-  vote: Function,
-  canVote: boolean,
-  userInfo: Object,
-  showingCategories: boolean,
-  setZoom: Function,
-  setIndex: Function,
-  logger: Function
-}) =>
+const ThumbList = (props: Object) =>
   props.showingCategories ? (
     <CategoryList {...props} />
   ) : (

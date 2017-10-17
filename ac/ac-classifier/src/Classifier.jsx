@@ -96,7 +96,7 @@ const RunnerPure = ({
           />
         </FlexDiv>
       ) : (
-        <pre>{JSON.stringify(data, null, 2)}</pre>
+        <h1>Waiting for objects to classify</h1>
       )}
       <ObjectList {...{ objects, objectKey: objectKeyPlus, setObjectKey }} />
     </Main>

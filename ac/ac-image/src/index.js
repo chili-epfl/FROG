@@ -6,39 +6,90 @@ import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
 
 const meta = {
-  name: 'Images viewer',
+  name: 'Image viewer',
   type: 'react-component',
   shortDesc: 'Display images',
   description: 'Display a list of images possibly categorised',
   exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} },
     {
-      title: 'Case data',
+      title: 'Simple view',
       config: {
         minVote: 1,
         images: [
           {
-            url:
-              'https://tuswallpapersgratis.com/wp-content/plugins/download-wallpaper-resized/wallpaper.php?x=1600&y=900&file=https://tuswallpapersgratis.com/wp-content/uploads/2013/02/Playa_Paradisiaca_1280x800-46768.jpeg',
-            categories: ['landscape', 'sea']
+            url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg'
           },
           {
-            url: 'https://www.w3schools.com/css/img_lights.jpg',
-            categories: ['landscape', 'sky']
+            url: 'https://wpclipart.com/space/meteor/bolide.png'
           },
           {
-            url: 'https://www.w3schools.com/css/img_fjords.jpg',
-            categories: []
+            url: 'https://wpclipart.com/space/solar_system/Earth/earth_4.png'
           },
           {
             url:
-              'https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg',
-            categories: ['landscape', 'animal']
+              'https://wpclipart.com/space/solar_system/sun/solar_eclipse/solar_eclipse_corona.jpg'
           },
           {
             url:
-              'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg',
-            categories: ['animal']
+              'https://wpclipart.com/space/solar_system/sun/sun_prominence.jpg'
+          }
+        ]
+      },
+      data: {}
+    },
+    { title: 'With uploads', config: { canUpload: true }, data: {} },
+    {
+      title: 'With categories',
+      config: {
+        images: [
+          {
+            url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg',
+            categories: ['moon', 'solar system']
+          },
+          {
+            url: 'https://wpclipart.com/space/meteor/bolide.png',
+            categories: ['meteor']
+          },
+          {
+            url: 'https://wpclipart.com/space/solar_system/Earth/earth_4.png',
+            categories: ['earth', 'solar system']
+          },
+          {
+            url:
+              'https://wpclipart.com/space/solar_system/sun/solar_eclipse/solar_eclipse_corona.jpg',
+            categories: ['sun', 'moon', 'solar system']
+          },
+          {
+            url:
+              'https://wpclipart.com/space/solar_system/sun/sun_prominence.jpg',
+            categories: ['sun', 'solar system']
+          }
+        ]
+      },
+      data: {}
+    },
+    {
+      title: 'With votes',
+      config: {
+        canVote: true,
+        minVote: 2,
+        images: [
+          {
+            url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg'
+          },
+          {
+            url: 'https://wpclipart.com/space/meteor/bolide.png'
+          },
+          {
+            url: 'https://wpclipart.com/space/solar_system/Earth/earth_4.png'
+          },
+          {
+            url:
+              'https://wpclipart.com/space/solar_system/sun/solar_eclipse/solar_eclipse_corona.jpg'
+          },
+          {
+            url:
+              'https://wpclipart.com/space/solar_system/sun/sun_prominence.jpg'
           }
         ]
       },
@@ -129,7 +180,7 @@ const mergeFunction = (object, dataFn) => {
 };
 
 export default ({
-  id: 'ac-imgView',
+  id: 'ac-image',
   type: 'react-component',
   meta,
   config,

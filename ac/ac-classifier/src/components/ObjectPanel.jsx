@@ -27,12 +27,7 @@ export default ({ obj, small }: { obj: Object, small: boolean }) => (
   <Container>
     {getType(obj) === 'image' && !small && <ImgPanel src={obj.url} />}
     {getType(obj) === 'image' &&
-      small &&
-      (obj.thumbnail ? (
-        <ImgPanel src={obj.thumbnail} />
-      ) : (
-        <ImgPanel src={obj.url} />
-      ))}
+      small && <ImgPanel src={obj.thumbnail || obj.url} />}
     {getType(obj) === 'table' &&
       !small && <TableView initialData={toTableData(obj.data, 10, 5)} />}
     {getType(obj) === 'table' && small && <span>TABLE</span>}

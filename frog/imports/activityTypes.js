@@ -4,7 +4,7 @@ import acDisplaySocial from 'ac-display-social';
 import acUploader from 'ac-uploader';
 import acProx from 'ac-prox';
 import acClassifier from 'ac-classifier';
-import acImgView from 'ac-imgView';
+import acImage from 'ac-image';
 import acInduction from 'ac-induction';
 import acBrainstorm from 'ac-brainstorm';
 import acChat from 'ac-chat';
@@ -22,7 +22,7 @@ import { keyBy } from 'lodash';
 export const activityTypes: ActivityPackageT[] = flattenOne([
   acDisplaySocial,
   acUploader,
-  acImgView,
+  acImage,
   acProx,
   acClassifier,
   acInduction,
