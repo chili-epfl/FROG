@@ -83,28 +83,10 @@ fs.writeFileSync(
 
 childProcess.execSync(`git add -N ./${prefix}/${newActivityId}`);
 
-childProcess.execSync(`ln -s ${rootpath}/.babelrc .`, {
-  cwd: `${rootpath}/${prefix}/${newActivityId}`
-});
-
-childProcess.execSync(`yarn`, {
-  cwd: rootpath
-});
-
-childProcess.execSync(`yarn build`, {
-  cwd: `${rootpath}/${prefix}/${newActivityId}`
-});
-
-fs.ensureDirSync(`./frog/node_modules`);
-
-childProcess.execSync(`ln -s ${rootpath}/node_modules/* ./`, {
-  cwd: `${rootpath}/frog/node_modules`
-});
-
 /*eslint-disable */
 console.log(
-  `Package created in './${prefix}/${newActivityId}', and added to ./frog, all symlinks set up, yarn has installed and built all files.
-Restart (or start) Meteor, run 'npm run watch' in ./${prefix}/${newActivityId}/ and begin editing code. All changes will be
-instantly picked up by FROG. Use 'git diff' to see all the changes that the script has made.`
+  `Package created in './${prefix}/${newActivityId}', and added to ./frog. Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh'
+  from the repository root directory. Then you can restart './run_and_watch_all.sh', as well as 'meteor' in the './frog' directory,
+  which should pick up the new ${type}. UUse 'git diff' to see all the changes that the script has made.`
 );
 /*eslint-enable */
