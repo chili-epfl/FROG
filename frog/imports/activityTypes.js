@@ -13,6 +13,7 @@ import acIframe from 'ac-iframe';
 import acText from 'ac-text';
 import acForm from 'ac-form';
 import acQuiz from 'ac-quiz';
+import acMonty from 'ac-monty';
 import acCKBoard from 'ac-ck-board';
 
 import { type ActivityPackageT, flattenOne } from 'frog-utils';
@@ -33,7 +34,8 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acText,
   acForm,
   acCKBoard,
-  acQuiz
+  acQuiz,
+  acMonty
 ]).map(x => Object.freeze(x));
 
 // see explanation of `any` in operatorTypes.js

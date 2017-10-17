@@ -10,7 +10,7 @@ export default ({ categories, assignCategory }: Object) => (
       className="list-group-item"
       style={{ fontWeight: 'bold', backgroundColor: '#D0D0D0' }}
     >
-      Shortcuts :
+      Shortcuts:
     </div>
     {categories.map((categoryName, i) => (
       <button
