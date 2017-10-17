@@ -1,14 +1,7 @@
 // @flow
 
 import React from 'react';
-import {
-  uuid,
-  TableView,
-  TreeView,
-  toTableData,
-  type ActivityRunnerT
-} from 'frog-utils';
-import styled from 'styled-components';
+import { uuid, TableView, TreeView, toTableData } from 'frog-utils';
 import { Nav, NavItem, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 
@@ -47,7 +40,7 @@ const TabHeader = ({ tab, stream }) => (
 );
 
 const TabView = props => {
-  const { tab, data, dataFn, stream } = props;
+  const { tab, data, dataFn } = props;
 
   return (
     <div style={{ margin: 'auto', width: '100%' }}>
@@ -86,16 +79,7 @@ const TabView = props => {
 
 // the actual component that the student sees
 const ActivityRunner = props => {
-  const {
-    logger,
-    activityData,
-    data,
-    dataFn,
-    userInfo,
-    activeTab,
-    setActiveTab,
-    stream
-  } = props;
+  const { data, dataFn, activeTab, setActiveTab } = props;
 
   const tabs = Object.keys(data)
     .filter(k => data[k].type && data[k].key)
@@ -103,7 +87,7 @@ const ActivityRunner = props => {
 
   const addTab = type => {
     const key = uuid();
-    const data =
+    const _data =
       type === 'table'
         ? {
             '0': {
@@ -122,7 +106,7 @@ const ActivityRunner = props => {
             }
           }
         : {};
-    dataFn.objInsert({ type, key, data }, key);
+    dataFn.objInsert({ type, key, data: _data }, key);
     setActiveTab(key);
   };
 
@@ -141,7 +125,7 @@ const ActivityRunner = props => {
           ))}
         <NavItem eventKey="new">+</NavItem>
       </Nav>
-      {activeTab == 'new' ? (
+      {activeTab === 'new' ? (
         <NewTab addTab={addTab} />
       ) : (
         <TabView tab={data[activeTab]} {...props} />

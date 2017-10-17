@@ -1,6 +1,5 @@
 // @flow
 
-import React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
 import ActivityRunner from './ActivityRunner';
