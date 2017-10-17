@@ -5,7 +5,6 @@ import { type ActivityPackageT } from 'frog-utils';
 
 const meta = {
   name: 'Common Knowledge board',
-  type: 'react-component',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   exampleData: [
@@ -30,13 +29,13 @@ const dataStructure = {};
 const mergeFunction = (object, dataFn) => {};
 
 // the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) =>
-  <div>
-    {JSON.stringify(activityData)}
-  </div>;
+const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => (
+  <div>{JSON.stringify(activityData)}</div>
+);
 
 export default ({
   id: 'ac-ck-board',
+  type: 'react-component',
   meta,
   config,
   ActivityRunner,
