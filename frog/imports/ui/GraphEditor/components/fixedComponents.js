@@ -7,7 +7,7 @@ import { connect, store, type StoreProp } from './../store';
 import { timeToPx, rangeExclusive } from './../utils';
 
 export const PanMap = connect(
-  ({ store: { ui: { panx, panDelta, scale, graphWidth } } }: StoreProp) =>
+  ({ store: { ui: { panx, panDelta, scale, graphWidth } } }: StoreProp) => (
     <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
       <rect
         x={panx}
@@ -20,6 +20,7 @@ export const PanMap = connect(
         height={150}
       />
     </DraggableCore>
+  )
 );
 
 const onDoubleClick = (x, e) => {
@@ -30,9 +31,9 @@ export const LevelLines = connect(
   ({
     store: { ui: { scale, graphWidth } },
     scaled
-  }: StoreProp & { scaled: boolean }) =>
+  }: StoreProp & { scaled: boolean }) => (
     <g>
-      {[1, 2, 3].map(x =>
+      {[1, 2, 3].map(x => (
         <g key={x}>
           <line
             x1={0}
@@ -52,8 +53,9 @@ export const LevelLines = connect(
             height={40}
           />
         </g>
-      )}
+      ))}
     </g>
+  )
 );
 
 export const TimeScale = connect(
@@ -68,20 +70,14 @@ export const TimeScale = connect(
           const length = i % divider === 0 ? 15 : 5;
           return (
             <g key={i}>
-              {divider < 20 || i % 5 === 0
-                ? <line
-                    x1={x}
-                    y1={600 - length}
-                    x2={x}
-                    y2={600}
-                    stroke="grey"
-                  />
-                : null}
-              {i % divider === 0
-                ? <text x={x - 15} y={540}>
-                    {i + ' min.'}
-                  </text>
-                : null}
+              {divider < 20 || i % 5 === 0 ? (
+                <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />
+              ) : null}
+              {i % divider === 0 ? (
+                <text x={x - 15} y={540}>
+                  {i + ' min.'}
+                </text>
+              ) : null}
             </g>
           );
         })}

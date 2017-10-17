@@ -81,13 +81,13 @@ class Viewer extends Component {
     }
     return (
       <div>
-        {Object.keys(this.props.data).map(x =>
+        {Object.keys(this.props.data).map(x => (
           <VideoProgress
             data={this.props.data[x]}
             user={this.props.users[x]}
             key={x}
           />
-        )}
+        ))}
       </div>
     );
   }

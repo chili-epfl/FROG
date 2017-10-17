@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import UploadDragDrop from './UploadDragDrop';
 
-const UploadBar = (props: Object) =>
+const UploadBar = (props: Object) => (
   <Main>
     <div style={{ width: '100%', height: '1px', backgroundColor: 'black' }} />
     <Container>
@@ -20,7 +20,8 @@ const UploadBar = (props: Object) =>
         </button>
       </div>
     </Container>
-  </Main>;
+  </Main>
+);
 
 const Main = styled.div`
   width: 100%;

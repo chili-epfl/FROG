@@ -22,29 +22,35 @@ const rawSessionController = ({
   toggleVisibility,
   setShowStudentList,
   showStudentList
-}) =>
+}) => (
   <div>
-    {showStudentList &&
+    {showStudentList && (
       <StudentListModal
         dismiss={() => setShowStudentList(false)}
         session={session}
-      />}
-    {session
-      ? <div>
-          <ButtonList
+      />
+    )}
+    {session ? (
+      <div>
+        <ButtonList
+          session={session}
+          toggle={toggleVisibility}
+          setShowStudentList={setShowStudentList}
+        />
+        {visible ? (
+          <Dashboards
             session={session}
-            toggle={toggleVisibility}
-            setShowStudentList={setShowStudentList}
+            openActivities={session.openActivities}
           />
-          {visible
-            ? <Dashboards
-                session={session}
-                openActivities={session.openActivities}
-              />
-            : <GraphView session={session} />}
-        </div>
-      : <p>Create or select a session from the list below</p>}
-  </div>;
+        ) : (
+          <GraphView session={session} />
+        )}
+      </div>
+    ) : (
+      <p>Create or select a session from the list below</p>
+    )}
+  </div>
+);
 
 const SessionController = compose(
   withVisibility,
@@ -72,16 +78,17 @@ const TeacherView = createContainer(
       user
     };
   },
-  props =>
+  props => (
     <div id="teacher" style={{ display: 'flex' }}>
       <div style={{ width: '80%' }}>
         <SessionController {...props} />
         <hr />
-        <StudentList students={props.students} />
+        {props.students && <StudentList students={props.students} />}
         <hr />
         <SessionList {...props} />
       </div>
     </div>
+  )
 );
 
 TeacherView.displayName = 'TeacherView';

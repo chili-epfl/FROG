@@ -19,21 +19,22 @@ const TopBar = ({
   canVote,
   setCategory,
   setZoom
-}: Object) =>
+}: Object) => (
   <Main>
-    {Object.keys(categories).length > 2 &&
+    {Object.keys(categories).length > 2 && (
       <div>
-        {category !== 'categories' &&
+        {category !== 'categories' && (
           <button
             className="btn btn-secondary"
             onClick={() => setCategory('categories')}
             style={{ margin: '5px' }}
           >
             <span className="glyphicon glyphicon-arrow-left" />{' '}
-          </button>}
+          </button>
+        )}
         <span style={{ margin: '5px', fontSize: 'large' }}>Library :</span>
         <DropdownButton title={category} id="dropdown-basic-0">
-          {categories.filter(x => x !== category).map(y =>
+          {categories.filter(x => x !== category).map(y => (
             <MenuItem
               key={y}
               eventKey={'toto'}
@@ -44,15 +45,18 @@ const TopBar = ({
             >
               {y}
             </MenuItem>
-          )}
+          ))}
         </DropdownButton>
-      </div>}
+      </div>
+    )}
     {category !== 'categories' &&
-      canVote &&
-      <i style={{ marginLeft: '20px' }}>
-        Hold shift while clicking to select a picture :
-      </i>}
-  </Main>;
+      canVote && (
+        <i style={{ marginLeft: '20px' }}>
+          Hold shift while clicking to select a picture :
+        </i>
+      )}
+  </Main>
+);
 
 TopBar.displayName = 'TopBar';
 export default TopBar;

@@ -22,6 +22,7 @@ const runNextActivity = (sessionId: string) => {
   if (Meteor.isServer) {
     sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
+    const oldOpen = [...session.openActivities];
     const activities = Activities.find({ graphId: session.graphId }).fetch();
     const [t0, t1] = [
       ...new Set(
@@ -47,6 +48,12 @@ const runNextActivity = (sessionId: string) => {
     }
 
     engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
+    const justClosedActivities = oldOpen.filter(
+      act => !openActivities.includes(act)
+    );
+    justClosedActivities.forEach(act =>
+      Meteor.call('reactive.to.product', act)
+    );
   }
 };
 

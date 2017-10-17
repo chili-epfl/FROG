@@ -3,9 +3,9 @@
 import React from 'react';
 import { ChangeableText } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
-import { addActivity } from '/imports/api/activities';
+import { addActivity, setStreamTarget } from '/imports/api/activities';
 import FlexView from 'react-flexview';
-import { Button } from 'react-bootstrap';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';
@@ -13,6 +13,23 @@ import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
 import { SelectAttributeWidget } from '../FormUtils';
 import ConfigForm from '../ConfigForm';
+
+const StreamSelect = ({ activity, targets, onChange }) => (
+  <FormGroup controlId="selectGrouping">
+    <FormControl
+      onChange={e => onChange(e.target.value)}
+      componentClass="select"
+      value={activity.streamTarget}
+    >
+      {[{ id: 'undefined', title: 'Choose a target' }, ...targets].map(x => (
+        <option value={x.id} key={x.id}>
+          {' '}
+          {x.title}{' '}
+        </option>
+      ))}
+    </FormControl>
+  </FormGroup>
+);
 
 const EditActivity = props => {
   const activity = props.activity;
@@ -24,7 +41,8 @@ const EditActivity = props => {
   if (
     (!activity.groupingKey || activity.groupingKey === '') &&
     props.store.valid.social[activity._id] &&
-    props.store.valid.social[activity._id].length > 0
+    props.store.valid.social[activity._id].length > 0 &&
+    activity.plane === 2
   ) {
     addActivity(
       activity.activityType,
@@ -67,7 +85,7 @@ const EditActivity = props => {
             </h3>
           </div>
           <FlexView marginLeft="auto">
-            {errorColor === 'green' &&
+            {errorColor === 'green' && (
               <Button
                 className="glyphicon glyphicon-eye-open"
                 style={{
@@ -82,7 +100,8 @@ const EditActivity = props => {
                     activityTypeId: activity.activityType,
                     config: activity.data
                   })}
-              />}
+              />
+            )}
 
             <ValidButton activityId={activity._id} errorColor={errorColor} />
           </FlexView>
@@ -95,14 +114,20 @@ const EditActivity = props => {
             {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
           </i>
         </font>
-        {activity.plane === 2 &&
+        {activity.plane === 2 && (
           <SelectAttributeWidget
             activity={activity}
             onChange={grp => {
               addActivity(activity.activityType, null, activity._id, grp);
               props.store.refreshValidate();
             }}
-          />}
+          />
+        )}
+        <StreamSelect
+          activity={activity}
+          targets={props.store.activityStore.all.filter(a => a.plane === 3)}
+          onChange={streamTarget => setStreamTarget(activity._id, streamTarget)}
+        />
       </div>
       <ConfigForm
         {...{

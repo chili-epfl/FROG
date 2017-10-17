@@ -3,7 +3,7 @@
 import React from 'react';
 import { ImageReload } from 'frog-utils';
 
-const CenteredImgComp = ({ url }: { url: string }) =>
+const CenteredImgComp = ({ url }: { url: string }) => (
   <ImageReload
     alt=""
     src={url}
@@ -16,7 +16,8 @@ const CenteredImgComp = ({ url }: { url: string }) =>
       transform: 'translate(-50%, -50%)',
       padding: '5%'
     }}
-  />;
+  />
+);
 
 CenteredImgComp.displayName = 'CenteredImg';
 export default CenteredImgComp;

@@ -1,5 +1,6 @@
 // @flow
 
+import acDisplaySocial from 'ac-display-social';
 import acUploader from 'ac-uploader';
 import acProx from 'ac-prox';
 import acImgClass from 'ac-imgClass';
@@ -19,6 +20,7 @@ import { type ActivityPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acDisplaySocial,
   acUploader,
   acImgView,
   acProx,

@@ -1,6 +1,8 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import path from 'path';
+import Loadable from 'react-loadable';
 import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
 import sharedbClient from 'sharedb/lib/client';
@@ -14,13 +16,19 @@ import {
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 
-import TeacherContainer from './TeacherContainer';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
+
+const TeacherLoadable = Loadable({
+  loader: () => import('./TeacherContainer'),
+  loading: () => null,
+  serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
+});
 
 const shareDbUrl =
   (Meteor.settings && Meteor.settings.public.sharedburl) ||
   'ws://localhost:3002';
+
 const socket = new ReconnectingWebSocket(shareDbUrl);
 export const connection = new sharedbClient.Connection(socket);
 
@@ -72,10 +80,11 @@ class FROGRouter extends Component {
 
   update() {
     const query = queryToObject(this.props.location.search.slice(1));
-    const hasQuery = Object.keys(query).length > 0;
+    const hasLogin = query.login;
 
     if (this.state.mode !== 'loggingIn') {
-      if (process.env.NODE_ENV !== 'production') {
+      if (true) {
+        // (process.env.NODE_ENV !== 'production') {
         const username = query.login;
         if (username) {
           this.setState({ mode: 'loggingIn' });
@@ -95,7 +104,7 @@ class FROGRouter extends Component {
         }
       }
 
-      if (!hasQuery && this.state.mode !== 'ready') {
+      if (!hasLogin && this.state.mode !== 'ready') {
         if (Accounts._storedLoginToken()) {
           this.setState({ mode: 'loggingIn' });
           Accounts.loginWithToken(Accounts._storedLoginToken(), err => {
@@ -123,7 +132,7 @@ class FROGRouter extends Component {
     }
     if (this.state.mode === 'ready' && Meteor.user()) {
       if (Meteor.user().username === 'teacher') {
-        return <Route component={TeacherContainer} />;
+        return <Route component={TeacherLoadable} />;
       } else {
         return (
           <Switch>
@@ -137,7 +146,7 @@ class FROGRouter extends Component {
   }
 }
 
-export default () =>
+export default () => (
   <Router>
     <div style={{ width: '100%', height: '100%' }}>
       <Switch>
@@ -145,4 +154,5 @@ export default () =>
         <Route component={FROGRouter} />
       </Switch>
     </div>
-  </Router>;
+  </Router>
+);

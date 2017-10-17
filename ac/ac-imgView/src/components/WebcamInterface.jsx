@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import Mousetrap from 'mousetrap';
 
-import { dataURItoFile, uuid } from 'frog-utils';
-
 const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
   let webcam = { getScreenshot: () => null };
   Mousetrap.bind('esc', () => setWebcam(false));
@@ -21,7 +19,7 @@ const WebcamCapture = ({ setWebcam, uploadFn, data, dataFn }: Object) => {
         className="btn btn-primary"
         onClick={() => {
           const dataURL = webcam.getScreenshot();
-          const file = dataURItoFile(dataURL, uuid(), window);
+          const file = dataURL;
           uploadFn(file, url => {
             // setTimeout, otherwise HTTP request sends back code 503
             setTimeout(

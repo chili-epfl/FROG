@@ -29,12 +29,13 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ activityData }: ActivityRunnerT) =>
+export const ActivityRunner = ({ activityData }: ActivityRunnerT) => (
   <iframe
     title="IFrame"
     src={activityData.config.url}
     style={{ width: '100%', height: '100%', overflow: 'auto' }}
-  />;
+  />
+);
 
 export default {
   id: 'ac-iframe',

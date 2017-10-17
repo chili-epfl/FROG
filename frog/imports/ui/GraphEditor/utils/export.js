@@ -15,9 +15,15 @@ const clean = obj => {
 const graphToString = graphId =>
   Stringify({
     graph: omit(Graphs.find({ _id: graphId }).fetch()[0], 'sessionId'),
-    activities: Activities.find({ graphId }).fetch().map(x => clean(x)),
-    operators: Operators.find({ graphId }).fetch().map(x => clean(x)),
-    connections: Connections.find({ graphId }).fetch().map(x => clean(x))
+    activities: Activities.find({ graphId })
+      .fetch()
+      .map(x => clean(x)),
+    operators: Operators.find({ graphId })
+      .fetch()
+      .map(x => clean(x)),
+    connections: Connections.find({ graphId })
+      .fetch()
+      .map(x => clean(x))
   });
 
 const cleanFilename = s =>
@@ -41,6 +47,8 @@ const doImportGraph = graphStr => {
     const graphId = addGraph(graphObj);
     store.setId(graphId);
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(e);
     // eslint-disable-next-line no-alert
     window.alert('File has error, unable to import graph');
   }
