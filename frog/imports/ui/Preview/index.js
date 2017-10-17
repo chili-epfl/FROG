@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { toObject as queryToObject } from 'query-parse';
+import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
 import { A } from 'frog-utils';
 
@@ -25,33 +25,40 @@ const PreviewPage = ({
   location: { search },
   history
 }) => {
-  const showData = queryToObject(search.slice(1)).showData === 'true';
-  const fullWindow = queryToObject(search.slice(1)).fullWindow === 'true';
-  const windows = parseInt(queryToObject(search.slice(1)).windows, 10) || 1;
-  const setExample = ex =>
-    history.push(
-      `/preview/${activityTypeId || ''}/${ex}${fullWindow
-        ? '?fullWindow=true'
-        : ''}`
-    );
-  const setShowData = ex =>
-    history.push(
-      `/preview/${activityTypeId || ''}/${example}?showData=${ex}${fullWindow
-        ? '&fullWindow=true'
-        : ''}`
-    );
+  const {
+    showData: showDataRaw,
+    showDash: showDashRaw,
+    fullWindow: fullWindowRaw,
+    windows: rawWindows
+  } = toObject(search.slice(1));
+  const windows = parseInt(rawWindows, 10) || 1;
+  const showData = showDataRaw === 'true';
+  const showDash = showDashRaw === 'true';
+  const fullWindow = fullWindowRaw === 'true';
+
   const dismiss = () => history.push(`/preview`);
-  const setWindows = ex =>
+
+  const changeURL = merge => {
+    const e = {
+      ...{ showData, showDash, fullWindow, windows, example, activityTypeId },
+      ...merge
+    };
     history.push(
-      `/preview/${activityTypeId || ''}/${example}?windows=${ex}${fullWindow
-        ? '&fullWindow=true'
-        : ''}`
+      `/preview/${e.activityTypeId || ''}/${e.example}?${toString({
+        showData: e.showData,
+        showDash: e.showDash,
+        fullWindow: e.fullWindow,
+        windows: e.windows
+      })}`
     );
-  const setFullWindow = () =>
-    history.push(
-      `/preview/${activityTypeId ||
-        ''}/${example}?windows=${windows}&fullWindow=true`
-    );
+  };
+
+  const setShowDash = x => changeURL({ showDash: x });
+  const setShowData = x => changeURL({ showData: x });
+  const setWindows = x => changeURL({ windows: x });
+  const setExample = x => changeURL({ example: x });
+  const setFullWindow = x => changeURL({ fullWindow: x });
+
   return activityTypeId ? (
     <StatelessPreview
       {...{
@@ -64,6 +71,8 @@ const PreviewPage = ({
         windows,
         showData,
         setShowData,
+        showDash,
+        setShowDash,
         dismiss,
         isSeparatePage: true
       }}
