@@ -23,7 +23,8 @@ const ImageList = ({
   canVote,
   userInfo,
   setZoom,
-  setIndex
+  setIndex,
+  logger
 }) => (
   <Main>
     {images.map((image, i) => {
@@ -33,6 +34,7 @@ const ImageList = ({
         } else {
           setIndex(i);
           setZoom(true);
+          logger('zoom/' + image.key);
         }
       };
 
@@ -69,35 +71,11 @@ const CategoryList = ({ categories, setCategory }) => (
   </Main>
 );
 
-const ThumbList = ({
-  images,
-  categories,
-  setCategory,
-  minVoteT,
-  vote,
-  canVote,
-  userInfo,
-  showingCategories,
-  setZoom,
-  setIndex
-}: {
-  images: Array<{ url: string, key: string, votes: Object }>,
-  categories: Object,
-  setCategory: Function,
-  minVoteT: number,
-  vote: Function,
-  canVote: boolean,
-  userInfo: Object,
-  showingCategories: boolean,
-  setZoom: Function,
-  setIndex: Function
-}) =>
-  showingCategories ? (
-    <CategoryList {...{ categories, setCategory }} />
+const ThumbList = (props: Object) =>
+  props.showingCategories ? (
+    <CategoryList {...props} />
   ) : (
-    <ImageList
-      {...{ images, minVoteT, vote, canVote, userInfo, setZoom, setIndex }}
-    />
+    <ImageList {...props} />
   );
 
 ThumbList.displayName = 'ThumbList';
