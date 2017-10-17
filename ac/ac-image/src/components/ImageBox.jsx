@@ -39,7 +39,7 @@ const ImageBox = ({
   styleCode: string
 }) => (
   <ImgButton onClick={onClick} style={getStyle(styleCode)}>
-    <CenteredImg url={image.url} />
+    <CenteredImg url={image.thumbnail || image.url} />
   </ImgButton>
 );
 

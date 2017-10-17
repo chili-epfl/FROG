@@ -1,5 +1,5 @@
 {
-  "name": "ac-imgView",
+  "name": "ac-monty",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -8,11 +8,12 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "frog-utils": "^1.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-webcam": "^0.2.0",
-    "styled-components": "^2.0.1"
+    "styled-components": "^2.0.1",
+    "frog-utils": "1.0.0",
+    "react-bootstrap": "^0.31.2",
+    "recompose": "^0.24.0"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
