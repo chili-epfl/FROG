@@ -22,8 +22,9 @@ ln -s "$FROG/.babelrc" . 2>/dev/null
 "$YARN" run build &
 
 # install activities and operators packages
-for dir in $FROG/ac/ac-*/ $FROG/op/op-*/
+for dir in "$FROG"/ac/ac-*/ "$FROG"/op/op-*/
 do
+    cat $dir
     cd "$dir"
     ln -s "$FROG/.babelrc" . 2>/dev/null
     "$YARN" run build &
