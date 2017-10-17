@@ -43,9 +43,10 @@ export default ({
           }}
         />
         <h3 style={{ marginLeft: '10px' }}>
-          {'Your answer was ' + result === 0
-            ? 'correct'
-            : result === 1 ? 'almost correct' : 'incorrect'}
+          {'Your answer was ' +
+            (result === 0
+              ? 'correct'
+              : result === 1 ? 'almost correct' : 'incorrect')}
         </h3>
       </div>
       <div>

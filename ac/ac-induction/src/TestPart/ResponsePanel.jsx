@@ -90,41 +90,46 @@ const FalsePanel = ({
         paddingLeft: '100px'
       }}
     >
-      {stringToArray(
-        examples[
-          tmpList[data.indexCurrent].realIndex
-        ].respectedProperties.concat(
-          arrayMinus(
-            [].concat(...data.suffisants),
+      {/* !!! put all properties that aren't respected */}
+      {[]
+        .concat(...data.suffisants)
+        .filter(
+          s =>
+            !examples[
+              tmpList[data.indexCurrent].realIndex
+            ].respectedProperties.includes(s)
+        )
+        .concat(
+          stringToArray(
             examples[tmpList[data.indexCurrent].realIndex].respectedProperties
           )
         )
-      ).map(x =>
-        <div className="checkbox" key={x}>
-          <input
-            type="checkbox"
-            checked={
-              !!tmpList[data.indexCurrent].selectedProperties.includes(x)
-            }
-            onClick={() => {
-              const newList = [...tmpList];
-              if (newList[data.indexCurrent].selectedProperties.includes(x))
-                newList[data.indexCurrent].selectedProperties = newList[
-                  data.indexCurrent
-                ].selectedProperties.filter(y => y !== x);
-              else
-                newList[data.indexCurrent].selectedProperties = [
-                  ...newList[data.indexCurrent].selectedProperties,
-                  x
-                ];
-              dataFn.objInsert(
-                newList,
-                feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
-              );
-            }}
-          />
-          {properties[x]}
-        </div>
-      )}
+        .map((x, i) =>
+          <div className="checkbox" key={x + ('' + i)}>
+            <input
+              type="checkbox"
+              checked={
+                !!tmpList[data.indexCurrent].selectedProperties.includes(x)
+              }
+              onClick={() => {
+                const newList = [...tmpList];
+                if (newList[data.indexCurrent].selectedProperties.includes(x))
+                  newList[data.indexCurrent].selectedProperties = newList[
+                    data.indexCurrent
+                  ].selectedProperties.filter(y => y !== x);
+                else
+                  newList[data.indexCurrent].selectedProperties = [
+                    ...newList[data.indexCurrent].selectedProperties,
+                    x
+                  ];
+                dataFn.objInsert(
+                  newList,
+                  feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
+                );
+              }}
+            />
+            {properties[x]}
+          </div>
+        )}
     </div>
   </div>;
