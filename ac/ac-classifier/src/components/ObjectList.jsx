@@ -4,7 +4,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ObjectPanel from './ObjectPanel';
-import { getType } from '../Classifier';
 
 const Scroll = styled.div`
   overflow-x: auto;
@@ -39,10 +38,10 @@ const Category = styled.span`
   font-weight: bold;
 `;
 
-export default ({ objects, setObjectKey, objectKey }: Object) =>
+export default ({ objects, setObjectKey, objectKey }: Object) => (
   <Scroll>
     <Main style={{ width: 100 * objects.length + 'px' }}>
-      {objects.map(obj =>
+      {objects.map(obj => (
         <Box
           key={obj.key}
           onClick={() => setObjectKey(obj.key)}
@@ -53,6 +52,7 @@ export default ({ objects, setObjectKey, objectKey }: Object) =>
             {obj.category}
           </Category>
         </Box>
-      )}
+      ))}
     </Main>
-  </Scroll>;
+  </Scroll>
+);

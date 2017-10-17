@@ -3,7 +3,7 @@
 import acDisplaySocial from 'ac-display-social';
 import acUploader from 'ac-uploader';
 import acProx from 'ac-prox';
-import acImgClass from 'ac-imgClass';
+import acClassifier from 'ac-classifier';
 import acImgView from 'ac-imgView';
 import acInduction from 'ac-induction';
 import acBrainstorm from 'ac-brainstorm';
@@ -24,7 +24,7 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acUploader,
   acImgView,
   acProx,
-  acImgClass,
+  acClassifier,
   acInduction,
   acBrainstorm,
   acChat,

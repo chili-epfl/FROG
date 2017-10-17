@@ -1,11 +1,11 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, uuid } from 'frog-utils';
 
 import ActivityRunner from './Classifier';
 
 const meta = {
-  name: 'Image Classifier',
+  name: 'Learning Component Classifier',
   type: 'react-component',
   shortDesc: 'Quickly display images to classify',
   description:
@@ -17,10 +17,10 @@ const meta = {
       config: {
         title: "Decide if it's a landscape or an animal",
         images: [
-          'https://tuswallpapersgratis.com/wp-content/plugins/download-wallpaper-resized/wallpaper.php?x=1600&y=900&file=https://tuswallpapersgratis.com/wp-content/uploads/2013/02/Playa_Paradisiaca_1280x800-46768.jpeg',
-          'https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg',
-          'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
-          'https://www.w3schools.com/w3images/fjords.jpg'
+          'https://cdn.pixabay.com/photo/2016/12/04/21/58/rabbit-1882699_960_720.jpg',
+          'https://cdn.pixabay.com/photo/2016/11/02/16/02/natural-1792047_960_720.jpg',
+          'https://cdn.pixabay.com/photo/2013/05/17/07/12/elephant-111695_960_720.jpg',
+          'https://cdn.pixabay.com/photo/2016/02/19/11/35/hong-kong-1209806_960_720.jpg'
         ],
         categories: ['landscape', 'animal']
       },
@@ -56,31 +56,28 @@ const config = {
 };
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = { seen: [] };
+const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {
-  if (object.config.images)
-    object.config.images.forEach((x, i) =>
-      dataFn.objInsert({ url: x, category: '' }, i)
-    );
+  if (object.config.images) {
+    object.config.images.forEach(url => {
+      const key = uuid();
+      dataFn.objInsert({ url, key }, key);
+    });
+  }
 
-  if (object.data === null || Array.isArray(object.data)) return;
-  const dataImgs = Object.keys(object.data).filter(
-    x => object.data[x].url !== undefined
-  );
+  if (object.data === null) return;
+  const objects = (Array.isArray(object.data)
+    ? object.data
+    : Object.keys(object.data).map(k => object.data[k])
+  ).filter(x => x && x.key);
 
-  if (object.data !== {})
-    dataImgs.forEach((x, i) =>
-      dataFn.objInsert(
-        { url: object.data[x].url, category: '' },
-        object.config.images ? object.config.images.length + i : i
-      )
-    );
+  objects.forEach(obj => dataFn.objInsert(obj, obj.key));
 };
 
 export default ({
-  id: 'ac-imgClass',
+  id: 'ac-classifier',
   type: 'react-component',
   meta,
   config,

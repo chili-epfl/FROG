@@ -38,9 +38,7 @@ export const getType = (obj: Object) => {
   }
 };
 
-const isSupportedType = type => {
-  return ['table', 'tree', 'image'].includes(type);
-};
+const isSupportedType = type => ['table', 'tree', 'image'].includes(type);
 
 const RunnerPure = ({
   activityData,
@@ -61,7 +59,6 @@ const RunnerPure = ({
   const assignCategory = categoryName => {
     if (objectKeyPlus) {
       dataFn.objInsert(categoryName, [objectKeyPlus, 'category']);
-      dataFn.listAppend(objectKeyPlus, 'seen');
     }
     setObjectKey(null);
   };
@@ -72,31 +69,35 @@ const RunnerPure = ({
       assignCategory(x);
     })
   );
+
   Mousetrap.bind('s', () => {
     if (objectKeyPlus) {
-      dataFn.objInsert(!data[objectKeyPlus].selected, [objectKeyPlus, 'selected']);
+      dataFn.objInsert(!data[objectKeyPlus].selected, [
+        objectKeyPlus,
+        'selected'
+      ]);
     }
-  })
+  });
 
   return (
     <Main>
-      <h2>
-        {activityData.config.title}
-      </h2>
-      {objectKeyPlus
-        ? <FlexDiv>
-            {<ObjectPanel obj={data[objectKeyPlus]} small={false} />}
-            <ShortcutPanel
-              {...{
-                categories,
-                dataFn,
-                data,
-                assignCategory,
-                objectKey: objectKeyPlus
-              }}
-            />
-          </FlexDiv>
-        : <h1>Waiting for objects to classify</h1>}
+      <h2>{activityData.config.title}</h2>
+      {objectKeyPlus ? (
+        <FlexDiv>
+          {<ObjectPanel obj={data[objectKeyPlus]} small={false} />}
+          <ShortcutPanel
+            {...{
+              categories,
+              dataFn,
+              data,
+              assignCategory,
+              objectKey: objectKeyPlus
+            }}
+          />
+        </FlexDiv>
+      ) : (
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      )}
       <ObjectList {...{ objects, objectKey: objectKeyPlus, setObjectKey }} />
     </Main>
   );
