@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './imgClassifier';
+import ActivityRunner from './Classifier';
 
 const meta = {
   name: 'Image Classifier',
@@ -56,11 +56,10 @@ const config = {
 };
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
+const dataStructure = { seen: [] };
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {
-  dataFn.objInsert(0, 'index');
   if (object.config.images)
     object.config.images.forEach((x, i) =>
       dataFn.objInsert({ url: x, category: '' }, i)
