@@ -1,0 +1,40 @@
+{
+  "name": "frog-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist && flow-copy-source src dist",
+    "watch": "watch 'npm run build' ./src",
+    "prepublish": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cuid": "^1.3.8",
+    "jquery": "3.2.1",
+    "lodash": "^4.17.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-google-charts": "^1.5.5",
+    "react-jsonschema-form": "^0.49.0",
+    "recompose": "^0.24.0",
+    "sharedb": "^1.0.0-beta.7",
+    "sharedb-string-binding": "^1.0.0",
+    "jquery": "^2.1",
+    "mousetrap": "^1.5.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2017": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "flow-copy-source": "^1.2.0",
+    "watch": "^1.0.1"
+  }
+}

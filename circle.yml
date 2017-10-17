@@ -1,0 +1,14 @@
+machine:
+  node:
+    version: 7.2.0
+
+dependencies:
+  override:
+    - npm -g install npm@latest
+    - curl https://install.meteor.com | /bin/sh
+    - ./initial_setup.sh
+    - cd frog && METEOR_SHUTDOWN=true meteor --once
+
+checkout:
+  post:
+    - git submodule update --init

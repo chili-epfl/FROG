@@ -1,0 +1,8 @@
+*.DS_Store
+node_modules/
+*.log
+.tern-port
+/tmp/
+**/.babelrc
+**/npm-debug.log*
+TEACHER_TOKEN
