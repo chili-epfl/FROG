@@ -74,15 +74,18 @@ const ActivityRunner = ({ activityData, data, dataFn }: ActivityRunnerT) => {
 
   return (
     <div>
-      {data.completed
-        ? <h1>Form(s) submitted</h1>
-        : <div>
-            <Form {...{ schema, formData, onChange, onSubmit }} />
-            {activityData.config.multiple &&
-              <button onClick={complete} className="btn btn-primary btn-sm">
-                Complete
-              </button>}
-          </div>}
+      {data.completed ? (
+        <h1>Form(s) submitted</h1>
+      ) : (
+        <div>
+          <Form {...{ schema, formData, onChange, onSubmit }} />
+          {activityData.config.multiple && (
+            <button onClick={complete} className="btn btn-primary btn-sm">
+              Complete
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

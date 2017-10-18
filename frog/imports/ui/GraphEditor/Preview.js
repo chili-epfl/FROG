@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
 import { A, generateReactiveFn, uuid } from 'frog-utils';
@@ -17,12 +18,23 @@ import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import { DashboardComp } from '../TeacherView/Dashboard';
 
-const Icon = ({ onClick, icon }) =>
+const Icon = ({
+  onClick,
+  icon,
+  color,
+  tooltip
+}: {
+  onClick: Function,
+  icon: string,
+  color?: string,
+  tooltip?: string
+}) => (
   <span style={{ marginLeft: '10px' }}>
     <A onClick={onClick}>
-      <i className={icon} />
+      <i className={icon} style={{ color }} data-tip={tooltip} />
     </A>
-  </span>;
+  </span>
+);
 
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);
@@ -35,7 +47,7 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-const ShowInfo = ({ activityData, data }) =>
+const ShowInfo = ({ activityData, data }) => (
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
     <div style={{ flexBasis: 0, flexGrow: 1 }}>
       <h3>Config</h3>
@@ -49,7 +61,8 @@ const ShowInfo = ({ activityData, data }) =>
       <h3>Current reactive data</h3>
       <Inspector data={data} expandLevel={8} />
     </div>
-  </div>;
+  </div>
+);
 
 const backend = new ShareDB();
 const connection = backend.connect();
@@ -66,6 +79,8 @@ export const StatelessPreview = withState(
     setExample,
     showData,
     setShowData,
+    showDash,
+    setShowDash,
     dismiss,
     config,
     isSeparatePage = false,
@@ -79,6 +94,8 @@ export const StatelessPreview = withState(
     example: number,
     setExample: Function,
     showData: boolean,
+    setShowDash: Function,
+    showDash: boolean,
     setShowData: Function,
     dismiss?: Function,
     config?: Object,
@@ -107,12 +124,13 @@ export const StatelessPreview = withState(
       `demo-${activityType.id}-${example}-DASHBOARD`
     );
     dashboard.fetch();
-    dashboard.on('load', () => {
+    dashboard.once('load', () => {
       if (!dashboard.type) {
         dashboard.create(
           (activityType.dashboard && activityType.dashboard.initData) || {}
         );
       }
+      dashboard.destroy();
     });
 
     const reactiveDash = generateReactiveFn(dashboard);
@@ -134,8 +152,8 @@ export const StatelessPreview = withState(
       }
 
       const doc = connection.get('rz', Collections[coll]);
-      doc.subscribe();
-      doc.on('load', () => {
+      doc.fetch();
+      doc.once('load', () => {
         if (!doc.type) {
           doc.create(cloneDeep(activityType.dataStructure) || {});
           const mergeFunction = activityType.mergeFunction;
@@ -147,18 +165,14 @@ export const StatelessPreview = withState(
             );
           }
         }
+        doc.destroy();
       });
     });
 
     const Run = ({ name, id }) => {
-      const doc = connection.get(
-        'rz',
-        Collections[`demo-${activityType.id}-${example}-${Math.ceil(id / 2)}`]
-      );
-      doc.subscribe();
       const ActivityToRun = ReactiveHOC(
-        'demo/' + activityType.id + '/' + example,
-        doc
+        Collections[`demo-${activityType.id}-${example}-${Math.ceil(id / 2)}`],
+        connection
       )(showData ? ShowInfo : RunComp);
       return (
         <ActivityToRun
@@ -175,7 +189,12 @@ export const StatelessPreview = withState(
 
     const Controls = (
       <div className="modal-header">
-        <button type="button" className="close" onClick={dismiss}>
+        <button
+          type="button"
+          className="close"
+          onClick={dismiss}
+          data-tip="Close, and show list of activity types to preview"
+        >
           X
         </button>
         <h4 className="modal-title">
@@ -183,38 +202,74 @@ export const StatelessPreview = withState(
           <Icon
             onClick={() => setShowData(!showData)}
             icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
+            tooltip={showData ? 'Show component' : 'Show underlying data'}
           />
+          {activityType.dashboard && (
+            <Icon
+              onClick={() => setShowDash(!showDash)}
+              icon="fa fa-tachometer"
+              color={showDash ? '#3d76b8' : '#b3cae6'}
+              tooltip="Toggle dashboard"
+            />
+          )}
           <Icon
             onClick={() => {
-              Collections[`demo-${activityType.id}-${example}`] = uuid();
+              range(0, Math.ceil(windows + 1 / 2)).forEach(i => {
+                const coll = `demo-${activityType.id}-${example}-${i}`;
+                Collections[coll] = uuid();
+              });
+
               setReload(uuid());
             }}
             icon="fa fa-refresh"
+            tooltip="Reset reactive data"
           />
           <Icon
             onClick={() => windows > 1 && setWindows(windows - 1)}
             icon="fa fa-minus-square"
+            tooltip="Remove one user"
           />
-          <Icon onClick={() => setWindows(windows + 1)} icon="fa fa-plus" />
-          <Icon onClick={() => setFullWindow(true)} icon="fa fa-arrows-alt" />
-          {!isSeparatePage &&
+          <Icon
+            onClick={() => setWindows(windows + 1)}
+            icon="fa fa-plus"
+            tooltip="Add a user"
+          />
+          <Icon
+            onClick={() => setFullWindow(!fullWindow)}
+            icon="fa fa-arrows-alt"
+            tooltip="Toggle full window"
+          />
+          {!isSeparatePage && (
             <Link
               style={{ marginLeft: '10px' }}
               to={`/preview/${activityTypeId}/${example}`}
             >
-              <i className="fa fa-share" />
-            </Link>}
+              <i className="fa fa-share" data-tip="Open in permanent URL" />
+            </Link>
+          )}
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
-          {examples.map((x, i) =>
+          {examples.map((x, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
               {x.title}
             </NavItem>
-          )}
+          ))}
         </Nav>
       </div>
     );
+    const users = [
+      ...[
+        'Chen Li',
+        'Maurice',
+        'Edgar',
+        'Noel',
+        'Patrick',
+        'Ole',
+        'Niels'
+      ].slice(0, windows),
+      ...((showDash && ['dashboard']) || [])
+    ];
 
     const Content = (
       <div
@@ -225,84 +280,78 @@ export const StatelessPreview = withState(
           height: 'calc(100% - 60px)'
         }}
       >
-        {windows === 1
-          ? <Run name="Chen Li" id={1} />
-          : <Mosaic
-              renderTile={([x, id]) =>
-                x === 'dashboard' && activityType.dashboard
-                  ? <MosaicWindow
-                      title={'dashboard - ' + activityType.meta.name}
-                    >
-                      <DashboardComp
-                        activity={{ activityType: activityType.id }}
-                        config={activityData.config}
-                        doc={dashboard}
-                        users={[
-                          'Chen Li',
-                          'Maurice',
-                          'dashboard',
-                          'Edgar',
-                          'Noel'
-                        ].map((e, i) => ({ _id: i + 1, username: e }))}
-                      />
-                    </MosaicWindow>
-                  : <MosaicWindow
-                      title={
-                        x +
-                        '/' +
-                        Math.ceil(id / 2) +
-                        ' - ' +
-                        activityType.meta.name
-                      }
-                    >
-                      <Run name={x} id={id} />
-                    </MosaicWindow>}
-              initialValue={getInitialState(
-                ['Chen Li', 'Maurice', 'dashboard', 'Edgar', 'Noel']
-                  .map((x, i) => [x, i + 1])
-                  .slice(0, windows)
+        {users.length === 1 || showData ? (
+          <Run name={users[0]} id={1} />
+        ) : (
+          <Mosaic
+            renderTile={([x, id]) =>
+              x === 'dashboard' && activityType.dashboard ? (
+                <MosaicWindow title={'dashboard - ' + activityType.meta.name}>
+                  <DashboardComp
+                    activity={{ activityType: activityType.id }}
+                    config={activityData.config}
+                    doc={dashboard}
+                    users={users
+                      .filter(e => e !== 'dashboard')
+                      .map((e, i) => ({ _id: i + 1, username: e }))}
+                  />
+                </MosaicWindow>
+              ) : (
+                <MosaicWindow
+                  title={
+                    x + '/' + Math.ceil(id / 2) + ' - ' + activityType.meta.name
+                  }
+                >
+                  <Run name={x} id={id} />
+                </MosaicWindow>
               )}
-            />}
+            initialValue={getInitialState(users.map((x, i) => [x, i]))}
+          />
+        )}
       </div>
     );
 
-    return fullWindow
-      ? <div>
+    return fullWindow ? (
+      <div>
+        <div
+          style={{
+            position: 'relative',
+            top: '0px',
+            left: '0px',
+            height: '100vh',
+            width: '100vw'
+          }}
+        >
+          {Content}
+        </div>
+        <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
           <div
             style={{
-              position: 'relative',
-              top: '0px',
-              left: '0px',
-              height: '100vh',
-              width: '100vw'
+              zIndex: 99,
+              border: '1px solid',
+              width: '500px',
+              position: 'fixed',
+              top: '200px',
+              left: '200px',
+              background: 'lightgreen'
             }}
           >
-            {Content}
+            {Controls}
           </div>
-          <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
-            <div
-              style={{
-                zIndex: 99,
-                border: '1px solid',
-                width: '500px',
-                position: 'fixed',
-                top: '200px',
-                left: '200px',
-                background: 'lightgreen'
-              }}
-            >
-              {Controls}
-            </div>
-          </Draggable>
-        </div>
-      : <Modal
-          contentLabel={'Preview of ' + activityType.id}
-          isOpen
-          onRequestClose={dismiss}
-        >
-          {Controls}
-          {Content}
-        </Modal>;
+        </Draggable>
+        <ReactTooltip delayShow={1000} />
+      </div>
+    ) : (
+      <Modal
+        contentLabel={'Preview of ' + activityType.id}
+        isOpen
+        onRequestClose={dismiss}
+      >
+        {Controls}
+        {Content}
+        <ReactTooltip delayShow={1000} />
+      </Modal>
+    );
   }
 );
 
@@ -310,6 +359,7 @@ const StatefulPreview = compose(
   withState('example', 'setExample', 0),
   withState('fullWindow', 'setFullWindow', false),
   withState('showData', 'setShowData', false),
+  withState('showDash', 'setShowDash', false),
   withState('windows', 'setWindows', 1)
 )(StatelessPreview);
 

@@ -9,7 +9,10 @@ import fs from 'fs';
 let teacherToken;
 const tokenPath = `${process.cwd()}/../../../../../TEACHER_TOKEN`;
 try {
-  teacherToken = fs.readFileSync(tokenPath).toString().trim();
+  teacherToken = fs
+    .readFileSync(tokenPath)
+    .toString()
+    .trim();
 } catch (e) {
   teacherToken = uuid().toString();
   fs.writeFileSync(tokenPath, teacherToken);
@@ -29,7 +32,8 @@ const doLogin = (user, self) => {
   return result;
 };
 
-if (process.env.NODE_ENV !== 'production') {
+if (true) {
+  // (process.env.NODE_ENV !== 'production') {
   Meteor.methods({
     'frog.debuglogin': function(user) {
       const self = this;
@@ -45,6 +49,23 @@ Meteor.methods({
       return doLogin('teacher', self);
     } else {
       return 'NOTVALID';
+    }
+  }
+});
+
+Meteor.methods({
+  'create.many': function() {
+    let i = 200;
+    while (i > 0) {
+      i -= 1;
+      const newUser = uuid();
+      const { userId } = Accounts.updateOrCreateUserFromExternalService(
+        'frog',
+        {
+          id: newUser
+        }
+      );
+      Meteor.users.update(userId, { $push: { joinedSessions: 'DEBUG' } });
     }
   }
 });
