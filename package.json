@@ -46,6 +46,6 @@
     "enzyme": "^2.9.1",
     "json-stringify-pretty-compact": "^1.0.4",
     "react-test-renderer": "^15.6.1",
-    "yarn": "1.2.0"
+    "yarn": "^1.2.0"
   }
 }
