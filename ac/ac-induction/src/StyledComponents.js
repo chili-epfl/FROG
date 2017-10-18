@@ -44,10 +44,9 @@ export const ExButton = styled.div`
   width: 150px;
 `;
 
-export const TestResponseHeader = styled.div`
+export const TestCorrectionDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
 `;
 

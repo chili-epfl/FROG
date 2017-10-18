@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 import {
   ExButton,
-  TestResponseHeader,
+  TestCorrectionDiv,
   TestCorrectionCircle
 } from '../StyledComponents';
 
@@ -25,8 +25,9 @@ export default ({
       dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
     }
   };
-  const { result /* , reason, propertiesIndex */ } = data
-    .listIndexTestWithFeedback[data.indexCurrent].correction || {
+  const { result, reason, propertiesIndex } = data.listIndexTestWithFeedback[
+    data.indexCurrent
+  ].correction || {
     result: 2,
     reason: 'NotAnswered',
     propertiesIndex: []
@@ -36,7 +37,7 @@ export default ({
       <h1>
         {'Solution : Example n°' + (data.indexCurrent + 1)}
       </h1>
-      <TestResponseHeader>
+      <TestCorrectionDiv>
         <TestCorrectionCircle
           style={{
             backgroundColor:
@@ -49,7 +50,7 @@ export default ({
               ? 'correct'
               : result === 1 ? 'almost correct' : 'incorrect')}
         </h3>
-      </TestResponseHeader>
+      </TestCorrectionDiv>
       <div>
         {'You have selected that this image was: ' +
           (data.listIndexTestWithFeedback[data.indexCurrent].selectedChoice
@@ -68,6 +69,17 @@ export default ({
           )}
         </ul>
       </div>
+      {result !== 0 &&
+        <div>
+          {"The reason why it's incorrect is " + reason}
+          <br />
+          {propertiesIndex !== undefined &&
+            propertiesIndex.map(x =>
+              <li key={x}>
+                {properties[x]}
+              </li>
+            )}
+        </div>}
       <ExButton className="btn btn-default" onClick={clickHandler}>
         {data.indexCurrent === nbTestFeedback - 1 ? 'Next part' : 'Next test'}
       </ExButton>

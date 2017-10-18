@@ -13,7 +13,7 @@ import {
   ExContainer,
   ExLine,
   ExButton,
-  TestResponseHeader
+  TestCorrectionDiv
 } from '../StyledComponents';
 
 export default ({
@@ -65,7 +65,7 @@ export default ({
       </ExContainer>
       <ExLine />
       <ExContainer style={{ padding: '20px' }}>
-        <TestResponseHeader>
+        <TestCorrectionDiv style={{ justifyContent: 'space-evenly' }}>
           <h3>This image corresponds to an example of the concept </h3>
           <Switch
             tmpList={tmpList}
@@ -73,7 +73,7 @@ export default ({
             data={data}
             dataFn={dataFn}
           />
-        </TestResponseHeader>
+        </TestCorrectionDiv>
         <ResponsePanel
           title={title}
           examples={examples}
