@@ -27,10 +27,7 @@ export default ({ config, data }: Object) => {
   };
 
   return (
-    <ul
-      className="nav nav-tabs"
-      style={{ position: 'absolute', top: '0px', width: '100%' }}
-    >
+    <ul className="nav nav-tabs">
       {data.parts.map((x, i) =>
         <NavLi
           key={x + i.toString()}

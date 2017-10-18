@@ -15,7 +15,12 @@ export default ({ tmpList, feedback, data, dataFn }: Object) => {
   };
 
   return (
-    <div className="btn-group" role="group" aria-label="...">
+    <div
+      className="btn-group"
+      role="group"
+      aria-label="..."
+      style={{ minWidth: 'fit-content' }}
+    >
       <button
         className="btn btn-default"
         style={{

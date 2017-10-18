@@ -3,7 +3,11 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import { ExButton } from '../StyledComponents';
+import {
+  ExButton,
+  TestResponseHeader,
+  TestCorrectionCircle
+} from '../StyledComponents';
 
 export default ({
   //  examples,
@@ -23,7 +27,7 @@ export default ({
   };
   const { result /* , reason, propertiesIndex */ } = data
     .listIndexTestWithFeedback[data.indexCurrent].correction || {
-    result: 0,
+    result: 2,
     reason: 'NotAnswered',
     propertiesIndex: []
   };
@@ -32,16 +36,11 @@ export default ({
       <h1>
         {'Solution : Example n°' + (data.indexCurrent + 1)}
       </h1>
-      <div
-        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-      >
-        <div
+      <TestResponseHeader>
+        <TestCorrectionCircle
           style={{
-            width: '50px',
-            height: '50px',
             backgroundColor:
-              result === 0 ? '#00CC00' : result === 1 ? '#FF9933' : '#CC0000',
-            borderRadius: '50px'
+              result === 0 ? '#00CC00' : result === 1 ? '#FF9933' : '#CC0000'
           }}
         />
         <h3 style={{ marginLeft: '10px' }}>
@@ -50,7 +49,7 @@ export default ({
               ? 'correct'
               : result === 1 ? 'almost correct' : 'incorrect')}
         </h3>
-      </div>
+      </TestResponseHeader>
       <div>
         {'You have selected that this image was: ' +
           (data.listIndexTestWithFeedback[data.indexCurrent].selectedChoice

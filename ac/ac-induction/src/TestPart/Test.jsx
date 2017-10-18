@@ -8,9 +8,14 @@ import Switch from './Switch';
 import ResponsePanel from './ResponsePanel';
 import Correction from './Correction';
 import { stringToArray } from '../ArrayFun';
-import { ExMain, ExContainer, ExLine, ExButton } from '../StyledComponents';
+import {
+  ExMain,
+  ExContainer,
+  ExLine,
+  ExButton,
+  TestResponseHeader
+} from '../StyledComponents';
 
-// with a param hasFeedback
 export default ({
   title,
   properties,
@@ -27,7 +32,6 @@ export default ({
 
   const clickHandler = () => {
     const index = tmpList[data.indexCurrent];
-    // find caseAnswer (0,1,2) instead of true/false
     const caseAnswer = index.selectedChoice
       ? 0
       : index.realIndex % 2 === 0 ? 1 : 2;
@@ -61,13 +65,7 @@ export default ({
       </ExContainer>
       <ExLine />
       <ExContainer style={{ padding: '20px' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly'
-          }}
-        >
+        <TestResponseHeader>
           <h3>This image corresponds to an example of the concept </h3>
           <Switch
             tmpList={tmpList}
@@ -75,7 +73,7 @@ export default ({
             data={data}
             dataFn={dataFn}
           />
-        </div>
+        </TestResponseHeader>
         <ResponsePanel
           title={title}
           examples={examples}
