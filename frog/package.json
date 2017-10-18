@@ -41,7 +41,6 @@
     "mobx-react": "^4.1.0",
     "mobx-react-devtools": "^4.2.11",
     "mousetrap": "^1.6.0",
-    "multer": "^1.3.0",
     "op-argue": "1.0.0",
     "op-control-group": "1.0.0",
     "op-create-groups": "1.0.0",
