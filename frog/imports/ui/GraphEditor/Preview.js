@@ -181,7 +181,6 @@ export const StatelessPreview = withState(
             name,
             id
           }}
-          stream={() => undefined}
           logger={logger(id, Math.ceil(id / 2))}
           groupingValue={'' + Math.ceil(id / 2)}
         />
