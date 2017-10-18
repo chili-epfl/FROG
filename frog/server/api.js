@@ -37,28 +37,30 @@ Picker.filter(req => req.method === 'POST').route(
   }
 );
 
-WebApp.connectHandlers.use('/file', (req, res) => {
-  res.setHeader('Access-Control-Allow-Methods', 'PUT');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') {
-    res.writeHead(200);
-    res.end();
-  } else if (req.method === 'PUT') {
-    req.pipe(fs.createWriteStream('/tmp/' + req.query.name));
-    res.writeHead(200);
-    res.end();
-  } else if (req.method === 'GET') {
-    const fname = req.query.name && '/tmp/' + req.query.name.split('?')[0];
-    fs.access(fname, err => {
-      if (err) {
-        res.writeHead(404);
-        res.end();
-      } else {
-        res.writeHead(200);
-        const readStream = fs.createReadStream(fname);
-        readStream.once('open', () => readStream.pipe(res));
-      }
-    });
-  }
-});
+if (process.env.NODE_ENV !== 'production') {
+  WebApp.connectHandlers.use('/file', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'PUT');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    if (req.method === 'OPTIONS') {
+      res.writeHead(200);
+      res.end();
+    } else if (req.method === 'PUT') {
+      req.pipe(fs.createWriteStream('/tmp/' + req.query.name));
+      res.writeHead(200);
+      res.end();
+    } else if (req.method === 'GET') {
+      const fname = req.query.name && '/tmp/' + req.query.name.split('?')[0];
+      fs.access(fname, err => {
+        if (err) {
+          res.writeHead(404);
+          res.end();
+        } else {
+          res.writeHead(200);
+          const readStream = fs.createReadStream(fname);
+          readStream.once('open', () => readStream.pipe(res));
+        }
+      });
+    }
+  });
+}
