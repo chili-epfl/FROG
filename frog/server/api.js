@@ -3,9 +3,18 @@ import { Picker } from 'meteor/meteorhacks:picker';
 import { uuid } from 'frog-utils';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import multer from 'multer';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
+
+const multerInstance = multer({ dest: '/tmp' });
+Picker.middleware(multerInstance.any());
+
+Picker.route('/api/upload', (params, req, res) => {
+  console.log(params, req, res);
+  res.end();
+});
 
 Picker.filter(req => req.method === 'POST').route(
   '/lti/:slug',
