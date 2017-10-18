@@ -40,10 +40,6 @@ export default ({
       data.unnecessaries,
       data.suffisants
     );
-    console.log(caseAnswer);
-    console.log(correction.result);
-    console.log(correction.reason);
-    console.log(correction.propertiesIndex);
     const newList = [...tmpList];
     newList[data.indexCurrent].correction = correction;
     dataFn.objInsert(
@@ -57,7 +53,6 @@ export default ({
       dataFn.objInsert(data.indexPart + 1, 'indexPart');
     } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
   };
-  console.log(examples);
 
   return (
     <ExMain>

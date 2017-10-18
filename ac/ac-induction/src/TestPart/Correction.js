@@ -118,9 +118,6 @@ export const containsOneSuffisantSet = (
         arrayEquals(arrayIntersection(answers, curr), curr)),
     false
   );
-  console.log(answers);
-  console.log(suffisants);
-  console.log(tmp);
   if (tmp) return { result: true, properties: [] };
   const tmp2 = suffisants.filter(
     x =>

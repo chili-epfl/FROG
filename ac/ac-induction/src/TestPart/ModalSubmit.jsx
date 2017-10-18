@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import { ExButton } from '../StyledComponents';
 
 export default ({
-  examples,
+  //  examples,
   properties,
   dataFn,
   data,
@@ -21,10 +21,12 @@ export default ({
       dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
     }
   };
-  console.log(data);
-  const { result, reason, propertiesIndex } = data.listIndexTestWithFeedback[
-    data.indexCurrent
-  ].correction || { result: 0, reason: 'NotAnswered', propertiesIndex: [] };
+  const { result /* , reason, propertiesIndex */ } = data
+    .listIndexTestWithFeedback[data.indexCurrent].correction || {
+    result: 0,
+    reason: 'NotAnswered',
+    propertiesIndex: []
+  };
   return (
     <Modal isOpen={data.feedbackOpen} contentLabel="Modal">
       <h1>
