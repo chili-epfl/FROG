@@ -1,9 +1,6 @@
 const fs = require('fs-extra');
 const stringify = require('json-stringify-pretty-compact');
 const childProcess = require('child_process');
-const path = require('path');
-
-const rootpath = path.dirname(require.main.filename);
 
 if (!process.argv[4]) {
   /*eslint-disable */
@@ -28,10 +25,14 @@ if (process.argv[3].slice(0, 3) !== prefix + '-') {
 }
 
 const newActivityId = process.argv[3];
-
 const camelCased = s => s.replace(/-([a-z])/g, g => g[1].toUpperCase());
-
 const newActivityName = camelCased(newActivityId);
+
+if (fs.existsSync(`./${prefix}/${newActivityId}/package.json`)) {
+  // eslint-disable-next-line no-console
+  console.log(`Package already exists.`);
+  process.exit();
+}
 
 // adding to frog/package.json
 const pkgjs = fs.readFileSync('./frog/package.json');
@@ -81,30 +82,12 @@ fs.writeFileSync(
   actnew.join('\n')
 );
 
-childProcess.execSync(`git add -N ./${prefix}/${newActivityId}`);
-
-childProcess.execSync(`ln -s ${rootpath}/.babelrc .`, {
-  cwd: `${rootpath}/${prefix}/${newActivityId}`
-});
-
-childProcess.execSync(`yarn`, {
-  cwd: rootpath
-});
-
-childProcess.execSync(`yarn build`, {
-  cwd: `${rootpath}/${prefix}/${newActivityId}`
-});
-
-fs.ensureDirSync(`./frog/node_modules`);
-
-childProcess.execSync(`ln -s ${rootpath}/node_modules/* ./`, {
-  cwd: `${rootpath}/frog/node_modules`
-});
+childProcess.execSync(`git add ./${prefix}/${newActivityId}`);
 
 /*eslint-disable */
 console.log(
-  `Package created in './${prefix}/${newActivityId}', and added to ./frog, all symlinks set up, yarn has installed and built all files.
-Restart (or start) Meteor, run 'npm run watch' in ./${prefix}/${newActivityId}/ and begin editing code. All changes will be
-instantly picked up by FROG. Use 'git diff' to see all the changes that the script has made.`
+  `Package created in './${prefix}/${newActivityId}', and added to ./frog. Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh'
+  from the repository root directory (this will delete all untracked files). Then you can restart './run_and_watch_all.sh', as well as 'meteor' in the './frog' directory,
+  which should pick up the new ${type}. Use 'git diff --cached' to see all the changes that the script has made.`
 );
 /*eslint-enable */
