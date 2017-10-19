@@ -28,7 +28,7 @@ export default ({ config, data }: Object) => {
 
   return (
     <ul className="nav nav-tabs">
-      {data.parts.map((x, i) =>
+      {data.parts.map((x, i) => (
         <NavLi
           key={x + i.toString()}
           className={data.indexPart === i ? 'active' : ''}
@@ -45,7 +45,7 @@ export default ({ config, data }: Object) => {
               : 'Part ' + i + ': ' + x}
           </a>
         </NavLi>
-      )}
+      ))}
     </ul>
   );
 };

@@ -4,7 +4,7 @@ import pkg from '..';
 
 let data = {};
 
-const mF = pkg.mergeFunction || ((x,y) => x && y);
+const mF = pkg.mergeFunction || ((x, y) => x && y);
 
 const dataFn = {
   objInsert: (obj, path) => (data[path] = obj)

@@ -4,12 +4,15 @@ import React from 'react';
 import { stringToArray } from '../ArrayFun';
 import { Main, TestListDiv } from '../StyledComponents';
 
-export default (props: Object) =>
+export default (props: Object) => (
   <div style={{ width: '100%', height: '80%' }}>
-    {props.tmpList[props.data.indexCurrent].selectedChoice
-      ? <TruePanel {...props} />
-      : <FalsePanel {...props} />}
-  </div>;
+    {props.tmpList[props.data.indexCurrent].selectedChoice ? (
+      <TruePanel {...props} />
+    ) : (
+      <FalsePanel {...props} />
+    )}
+  </div>
+);
 
 const TruePanel = ({
   title,
@@ -19,7 +22,7 @@ const TruePanel = ({
   examples,
   dataFn,
   data
-}: Object) =>
+}: Object) => (
   <Main>
     <h4>
       {"Select properties that makes him an example of the concept '" +
@@ -29,7 +32,7 @@ const TruePanel = ({
     <TestListDiv>
       {stringToArray(
         examples[tmpList[data.indexCurrent].realIndex].respectedProperties
-      ).map(x =>
+      ).map(x => (
         <div className="checkbox" key={x}>
           <input
             type="checkbox"
@@ -55,9 +58,10 @@ const TruePanel = ({
           />
           {properties[x]}
         </div>
-      )}
+      ))}
     </TestListDiv>
-  </Main>;
+  </Main>
+);
 
 const FalsePanel = ({
   title,
@@ -85,7 +89,7 @@ const FalsePanel = ({
           "'"}
       </h4>
       <TestListDiv>
-        {list.map((x, i) =>
+        {list.map((x, i) => (
           <div className="checkbox" key={x + i.toString()}>
             <input
               type="checkbox"
@@ -111,7 +115,7 @@ const FalsePanel = ({
             />
             {properties[x]}
           </div>
-        )}
+        ))}
       </TestListDiv>
     </Main>
   );

@@ -87,14 +87,15 @@ export default ({
           Submit
         </ExButton>
       </ExContainer>
-      {feedback &&
+      {feedback && (
         <ModalSubmit
           examples={examples}
           properties={properties}
           dataFn={dataFn}
           data={data}
           nbTestFeedback={nbTestFeedback}
-        />}
+        />
+      )}
     </ExMain>
   );
 };

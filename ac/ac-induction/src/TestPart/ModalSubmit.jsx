@@ -34,9 +34,7 @@ export default ({
   };
   return (
     <Modal isOpen={data.feedbackOpen} contentLabel="Modal">
-      <h1>
-        {'Solution : Example n°' + (data.indexCurrent + 1)}
-      </h1>
+      <h1>{'Solution : Example n°' + (data.indexCurrent + 1)}</h1>
       <TestCorrectionDiv>
         <TestCorrectionCircle
           style={{
@@ -62,24 +60,17 @@ export default ({
         <ul>
           {data.listIndexTestWithFeedback[
             data.indexCurrent
-          ].selectedProperties.map(x =>
-            <li key={x}>
-              {properties[x]}
-            </li>
-          )}
+          ].selectedProperties.map(x => <li key={x}>{properties[x]}</li>)}
         </ul>
       </div>
-      {result !== 0 &&
+      {result !== 0 && (
         <div>
           {"The reason why it's incorrect is " + reason}
           <br />
           {propertiesIndex !== undefined &&
-            propertiesIndex.map(x =>
-              <li key={x}>
-                {properties[x]}
-              </li>
-            )}
-        </div>}
+            propertiesIndex.map(x => <li key={x}>{properties[x]}</li>)}
+        </div>
+      )}
       <ExButton className="btn btn-default" onClick={clickHandler}>
         {data.indexCurrent === nbTestFeedback - 1 ? 'Next part' : 'Next test'}
       </ExButton>

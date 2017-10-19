@@ -23,7 +23,10 @@ export const arrayIncludes = (a: Array<any>, b: any) =>
     : a.reduce((acc, curr) => acc || curr === b, false);
 
 export const stringToArray = (a: string) =>
-  a.split(',').filter(x => x !== '').map(y => Number(y));
+  a
+    .split(',')
+    .filter(x => x !== '')
+    .map(y => Number(y));
 
 export const arrayDifference = (a: Array<any>, b: Array<any>) =>
   a
