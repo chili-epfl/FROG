@@ -32,10 +32,8 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
   const nExShortCut = 850 / activityData.config.examples.length;
   return (
     <Main>
-      <h1>
-        {activityData.config.title}
-      </h1>
-      {data.listIndex[data.index] !== undefined &&
+      <h1>{activityData.config.title}</h1>
+      {data.listIndex[data.index] !== undefined && (
         <Container>
           <img
             style={{ maxWidth: '50%', maxHeight: '100%', margin: 'auto' }}
@@ -49,9 +47,10 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
             data={data}
             dataFn={dataFn}
           />
-        </Container>}
+        </Container>
+      )}
 
-      {data.listIndex[data.index] === undefined &&
+      {data.listIndex[data.index] === undefined && (
         <div style={{ height: '100%', width: '100%' }}>
           <div
             style={{
@@ -67,9 +66,9 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
               <ExamplesCont style={{ height: nExShortCut + 'px' }}>
                 {activityData.config.examples
                   .filter(x => !x.isIncorrect)
-                  .map(x =>
+                  .map(x => (
                     <ImgBis url={x.image} w={nExShortCut} key={Math.random()} />
-                  )}
+                  ))}
               </ExamplesCont>
             </div>
             <div style={{ width: '50%' }}>
@@ -79,9 +78,9 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
               <ExamplesCont style={{ height: nExShortCut + 'px' }}>
                 {activityData.config.examples
                   .filter(x => x.isIncorrect)
-                  .map(x =>
+                  .map(x => (
                     <ImgBis url={x.image} w={nExShortCut} key={Math.random()} />
-                  )}
+                  ))}
               </ExamplesCont>
             </div>
           </div>
@@ -89,7 +88,8 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
           <div className="well" style={{ width: '90%', marginLeft: '1%' }}>
             {activityData.config.definition}
           </div>
-        </div>}
+        </div>
+      )}
     </Main>
   );
 };

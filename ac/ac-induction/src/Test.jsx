@@ -18,9 +18,7 @@ const ModalSubmit = ({ dataFn, data, nbTestFeedback }: Object) => {
   };
   return (
     <Modal isOpen={data.feedbackOpen} contentLabel="Modal">
-      <h1>
-        {'Solution : Example n°' + (data.indexCurrent + 1)}
-      </h1>
+      <h1>{'Solution : Example n°' + (data.indexCurrent + 1)}</h1>
       <p>
         The right answer was correct/incorret and you answered :
         correct/incorrect …
