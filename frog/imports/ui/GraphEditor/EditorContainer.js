@@ -8,7 +8,7 @@ import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
 import ExpandButton from './SidePanel/ExpandButton';
-import Preview from './Preview';
+import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
 
 const EditorPanel = () => (

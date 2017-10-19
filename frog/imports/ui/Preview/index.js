@@ -4,7 +4,7 @@ import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
 import { A } from 'frog-utils';
 
-import { StatelessPreview } from '../GraphEditor/Preview';
+import { StatelessPreview } from './Preview';
 import { activityTypes } from '../../activityTypes';
 
 const ActivityList = ({ history }) => (

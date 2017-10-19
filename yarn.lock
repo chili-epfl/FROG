@@ -1464,7 +1464,7 @@ circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
-classnames@^2.2.5:
+classnames@^2.1.2, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -5142,6 +5142,15 @@ react-addons-transition-group@^15.6.0:
   dependencies:
     react-transition-group "^1.2.0"
 
+react-bootstrap-table@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-table/-/react-bootstrap-table-4.1.0.tgz#d5df935083d06574404139769a85a56308c01e63"
+  dependencies:
+    classnames "^2.1.2"
+    prop-types "^15.5.10"
+    react-modal "^3.0.3"
+    react-s-alert "^1.3.0"
+
 react-bootstrap@^0.31.2:
   version "0.31.2"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.31.2.tgz#f59184676ecedfc4c572d29ffdd6f9126ea8fe6a"
@@ -5315,6 +5324,13 @@ react-modal@^2.2.2:
     prop-types "^15.5.10"
     react-dom-factories "^1.0.0"
 
+react-modal@^3.0.3:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.0.4.tgz#61f3c9a701b27d2015fe5ac0c419e3c977e4092a"
+  dependencies:
+    exenv "^1.2.0"
+    prop-types "^15.5.10"
+
 react-mosaic-component@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/react-mosaic-component/-/react-mosaic-component-0.4.2.tgz#64bbbdc6c56c2af99a559fbb50ddb5fe6e8204a1"
@@ -5375,6 +5391,12 @@ react-router@^4.1.1:
     path-to-regexp "^1.5.3"
     prop-types "^15.5.4"
     warning "^3.0.0"
+
+react-s-alert@^1.3.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-s-alert/-/react-s-alert-1.3.1.tgz#4de6e8258cd233bcffef84f73fbf46ea9507dcc9"
+  dependencies:
+    babel-runtime "^6.23.0"
 
 react-spinner@^0.2.7:
   version "0.2.7"

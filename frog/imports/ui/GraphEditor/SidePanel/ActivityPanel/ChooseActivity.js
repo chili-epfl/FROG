@@ -5,7 +5,7 @@ import { activityTypes } from '/imports/activityTypes';
 import { Activities } from '/imports/api/activities';
 
 import ListComponent from '../ListComponent';
-import Preview from '../../Preview';
+import Preview from '../../../Preview/Preview';
 import { connect } from '../../store';
 
 class ChooseActivityType extends Component {
