@@ -1,3 +1,4 @@
+/* eslint-disable */
 if (process.argv.length < 3) {
   console.log(
     'Tests that a sharedb server is functioning. Call with a URL, like wss:// or ws://localhost:3002'
