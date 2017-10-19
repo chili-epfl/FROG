@@ -1,10 +1,12 @@
 // @flow
 
-import React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
+import ActivityRunner from './ActivityRunner';
+
 const meta = {
-  name: 'Common Knowledge board',
+  name: 'Monty',
+  type: 'react-component',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   exampleData: [
@@ -26,15 +28,17 @@ const config = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
-
-// the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => (
-  <div>{JSON.stringify(activityData)}</div>
-);
+const mergeFunction = (object, dataFn) => {
+  if (object.data) {
+    Object.keys(object.data)
+      .map(k => object.data[k])
+      .filter(x => x && x.key && x.selected)
+      .forEach(x => dataFn.objInsert(x, x.key));
+  }
+};
 
 export default ({
-  id: 'ac-ck-board',
+  id: 'ac-monty',
   type: 'react-component',
   meta,
   config,
