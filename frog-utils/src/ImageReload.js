@@ -4,7 +4,7 @@ import React from 'react';
 type propsT = { src: string, style?: Object, className?: string };
 
 class ImageReload extends React.Component {
-  state: { src: string, origSrc: string, timeout: any };
+  state: { src: string, origSrc: string, timeout: any, counter: number };
   props: propsT;
 
   constructor(props: propsT) {
@@ -12,6 +12,7 @@ class ImageReload extends React.Component {
     this.state = {
       src: this.props.src + '?',
       origSrc: this.props.src,
+      counter: 1,
       timeout: null
     };
   }
@@ -34,11 +35,20 @@ class ImageReload extends React.Component {
   };
 
   handleImageErrored = () => {
-    this.setState({ timeout: window.setTimeout(this.tryAgain, 1000) });
+    if (this.state.counter < 5) {
+      this.setState({
+        timeout: window.setTimeout(this.tryAgain, this.state.counter * 1000)
+      });
+    } else if (this.state.timeout) {
+      window.clearTimeout(this.state.timeout);
+    }
   };
 
   tryAgain = () => {
-    this.setState({ src: this.state.src + 'a' });
+    this.setState({
+      src: this.state.src + 'a',
+      counter: this.state.counter + 1
+    });
   };
 
   componentWillUnmount = () => {
