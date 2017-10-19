@@ -3,12 +3,15 @@
 import React from 'react';
 import { stringToArray } from '../ArrayFun';
 
-export default (props: Object) =>
+export default (props: Object) => (
   <div style={{ width: '100%', height: '80%' }}>
-    {props.data.testChoice
-      ? <TruePanel {...props} />
-      : <FalsePanel {...props} />}
-  </div>;
+    {props.data.testChoice ? (
+      <TruePanel {...props} />
+    ) : (
+      <FalsePanel {...props} />
+    )}
+  </div>
+);
 
 const TruePanel = ({
   title,
@@ -18,7 +21,7 @@ const TruePanel = ({
   examples,
   dataFn,
   data
-}: Object) =>
+}: Object) => (
   <div style={{ width: '100%', height: '100%' }}>
     <h4>
       {"Select properties that makes him an example of the concept '" +
@@ -35,7 +38,7 @@ const TruePanel = ({
     >
       {stringToArray(
         examples[tmpList[data.indexCurrent].realIndex].respectedProperties
-      ).map(x =>
+      ).map(x => (
         <div className="checkbox" key={x}>
           <input
             type="checkbox"
@@ -60,9 +63,10 @@ const TruePanel = ({
           />
           {properties[x]}
         </div>
-      )}
+      ))}
     </div>
-  </div>;
+  </div>
+);
 
 const FalsePanel = ({
   title,
@@ -72,7 +76,7 @@ const FalsePanel = ({
   examples,
   dataFn,
   data
-}: Object) =>
+}: Object) => (
   <div style={{ width: '100%', height: '100%' }}>
     <h4>
       {(tmpList[data.indexCurrent].realIndex % 2 === 0
@@ -91,7 +95,7 @@ const FalsePanel = ({
     >
       {stringToArray(
         examples[tmpList[data.indexCurrent].realIndex].respectedProperties
-      ).map(x =>
+      ).map(x => (
         <div className="checkbox" key={x}>
           <input
             type="checkbox"
@@ -116,6 +120,7 @@ const FalsePanel = ({
           />
           {properties[x]}
         </div>
-      )}
+      ))}
     </div>
-  </div>;
+  </div>
+);

@@ -62,13 +62,14 @@ export default ({
           Submit
         </ExButton>
       </ExContainer>
-      {feedback &&
+      {feedback && (
         <ModalSubmit
           properties={properties}
           dataFn={dataFn}
           data={data}
           nbTestFeedback={nbTestFeedback}
-        />}
+        />
+      )}
     </ExMain>
   );
 };

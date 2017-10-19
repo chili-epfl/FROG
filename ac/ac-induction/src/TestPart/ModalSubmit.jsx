@@ -17,19 +17,13 @@ export default ({ properties, dataFn, data, nbTestFeedback }: Object) => {
   };
   return (
     <Modal isOpen={data.feedbackOpen} contentLabel="Modal">
-      <h1>
-        {'Solution : Example n°' + (data.indexCurrent + 1)}
-      </h1>
+      <h1>{'Solution : Example n°' + (data.indexCurrent + 1)}</h1>
       <div>
         You have selected the following properties :
         <ul>
           {data.listIndexTestWithFeedback[
             data.indexCurrent
-          ].selectedProperties.map(x =>
-            <li key={x}>
-              {properties[x]}
-            </li>
-          )}
+          ].selectedProperties.map(x => <li key={x}>{properties[x]}</li>)}
         </ul>
       </div>
       <ExButton className="btn btn-default" onClick={clickHandler}>
