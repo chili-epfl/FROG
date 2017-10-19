@@ -57,10 +57,7 @@ const NoGroupPanelPure = ({
     <Main>
       <NewGroupButton onClickCreate={onClickCreate} />
       <JoinGroupComponent onClickJoin={onClickJoin} setText={setText} />
-      {errLog &&
-        <ErrorLog>
-          {errLog}
-        </ErrorLog>}
+      {errLog && <ErrorLog>{errLog}</ErrorLog>}
     </Main>
   );
 };
@@ -69,9 +66,12 @@ const NoGroupPanel = NoGroupPanelState(NoGroupPanelPure);
 
 const groupchars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ123456789'.split('');
 
-const genCodeOfNChar = (n: number) => shuffle(groupchars).slice(0, n).join('');
+const genCodeOfNChar = (n: number) =>
+  shuffle(groupchars)
+    .slice(0, n)
+    .join('');
 
-const NewGroupButton = ({ onClickCreate }) =>
+const NewGroupButton = ({ onClickCreate }) => (
   <button
     className="btn btn-primary"
     onClick={onClickCreate}
@@ -79,9 +79,10 @@ const NewGroupButton = ({ onClickCreate }) =>
   >
     <span className={'glyphicon glyphicon-plus'} style={{ width: '30px' }} />
     New group
-  </button>;
+  </button>
+);
 
-const JoinGroupComponent = ({ setText, onClickJoin }) =>
+const JoinGroupComponent = ({ setText, onClickJoin }) => (
   <div className="input-group" style={{ margin: '5px' }}>
     <input
       type="text"
@@ -94,14 +95,15 @@ const JoinGroupComponent = ({ setText, onClickJoin }) =>
         Join existing group
       </button>
     </span>
-  </div>;
+  </div>
+);
 
 const ErrorLog = styled.div`
   border: red solid 2px;
   width: 500px;
   margin: 5px;
-  borderRadius: 7px;
-  textAlign: center;
+  borderradius: 7px;
+  textalign: center;
 `;
 
 NoGroupPanel.displayName = 'NoGroupPanel';

@@ -32,13 +32,14 @@ export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
   }
 });
 const SidebarContainer = connect(
-  ({ store: { ui: { setSidepanelOpen } }, children }) =>
+  ({ store: { ui: { setSidepanelOpen } }, children }) => (
     <SidebarContainerDiv>
       <CloseButtonA onClick={() => setSidepanelOpen(false)}>
         <i className="fa fa-times" />
       </CloseButtonA>
       {children}
     </SidebarContainerDiv>
+  )
 );
 
 const SidebarContainerDiv = styled.div`

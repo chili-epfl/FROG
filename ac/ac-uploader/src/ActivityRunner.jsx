@@ -16,7 +16,7 @@ const ActivityRunner = (
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Presentation activityData={activityData} />
-      {!done &&
+      {!done && (
         <div
           style={{
             transform: 'translateY(100px)'
@@ -24,7 +24,8 @@ const ActivityRunner = (
         >
           <UploadPanel {...props} />
           <List data={data} dataFn={dataFn} />
-        </div>}
+        </div>
+      )}
     </div>
   );
 };
