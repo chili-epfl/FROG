@@ -34,7 +34,7 @@ export default (props: {
       : props.data.currentDefs.reduce(
           (acc, x, i) =>
             acc &&
-            x === currentEx.whyIncorrect === props.data.currentValueState[i],
+            (x === currentEx.whyIncorrect) === props.data.currentValueState[i],
           true
         );
 
@@ -108,19 +108,20 @@ export default (props: {
     return (
       <div>
         {tmpStr}
-        {tmpStr !== 'Correct' &&
+        {tmpStr !== 'Correct' && (
           <ul>
-            {currentEx.isIncorrect
-              ? <li>
-                  {' '}{currentEx.whyIncorrect}{' '}
+            {currentEx.isIncorrect ? (
+              <li> {currentEx.whyIncorrect} </li>
+            ) : (
+              props.activityData.config.trueDef.map(x => (
+                <li key={x}>
+                  {x}
+                  <br />
                 </li>
-              : props.activityData.config.trueDef.map(x =>
-                  <li key={x}>
-                    {x}
-                    <br />
-                  </li>
-                )}
-          </ul>}
+              ))
+            )}
+          </ul>
+        )}
       </div>
     );
   };
@@ -158,10 +159,10 @@ export default (props: {
           {!props.data.currentSelected ? 'False' : ''}
         </button>
       </div>
-      {props.data.listIndex[props.data.index] !== undefined &&
+      {props.data.listIndex[props.data.index] !== undefined && (
         <form onSubmit={handleSubmit}>
           <h4>Why so ?</h4>
-          {props.data.currentDefs.map((x, index) =>
+          {props.data.currentDefs.map((x, index) => (
             <div key={index.toString()}>
               <label htmlFor={index.toString()}>
                 <input
@@ -174,14 +175,16 @@ export default (props: {
                 {' ' + x.toString()}
               </label>
             </div>
-          )}
-          {!props.data.transitState &&
+          ))}
+          {!props.data.transitState && (
             <button className="btn btn-default" type="submit">
               Submit
-            </button>}
-        </form>}
+            </button>
+          )}
+        </form>
+      )}
 
-      {props.data.transitState &&
+      {props.data.transitState && (
         <div>
           <br />
           <div
@@ -197,9 +200,11 @@ export default (props: {
           </div>
           <br />
           <button className="btn btn-default" onClick={nextHandler}>
-            {' '}Next <span className="glyphicon glyphicon-chevron-right" />{' '}
+            {' '}
+            Next <span className="glyphicon glyphicon-chevron-right" />{' '}
           </button>
-        </div>}
+        </div>
+      )}
     </div>
   );
 };

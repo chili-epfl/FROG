@@ -8,7 +8,9 @@ export const Main = styled.div`
   padding-top: 42px;
 `;
 
-export const NavLi = styled.li`text-align: center;`;
+export const NavLi = styled.li`
+  text-align: center;
+`;
 
 export const PresButton = styled.button`
   position: absolute;
