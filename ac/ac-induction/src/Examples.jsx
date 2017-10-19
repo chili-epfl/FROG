@@ -15,20 +15,23 @@ export default ({ examples, nbExamples, dataFn, data, title }: Object) => {
   return (
     <ExMain>
       <ExContainer>
-        <ImgBis url={examples[data.listIndexEx[data.indexCurrent]].url} />
+        <ImgBis
+          url={examples[data.listIndexEx[data.indexCurrent].realIndex].url}
+        />
       </ExContainer>
       <ExLine />
       <ExContainer
         style={{
-          backgroundColor: examples[data.listIndexEx[data.indexCurrent]]
-            .isIncorrect
+          backgroundColor: examples[
+            data.listIndexEx[data.indexCurrent].realIndex
+          ].isIncorrect
             ? 'rgba(204, 0, 0, 0.5)'
             : 'rgba(0,153,0,0.15)'
         }}
       >
         <h3 style={{ transform: 'translateY(200px)' }}>
           {'This ' +
-            (examples[data.listIndexEx[data.indexCurrent]].isIncorrect
+            (examples[data.listIndexEx[data.indexCurrent].realIndex].isIncorrect
               ? "doesn't correspond"
               : 'corresponds') +
             " to the concept of '" +

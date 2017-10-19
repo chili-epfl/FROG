@@ -39,6 +39,27 @@ export default {
       type: 'number',
       title: 'How many test should be displayed ?'
     },
+    properties: {
+      title:
+        'Put all properties that you will need (watch for the index, start at 0)',
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    },
+    suffisantSets: {
+      title:
+        "Put all minimum suffisant sets of properties as '{a,b},{a,c},…' (where a,b,c are the index of the above properties)",
+      type: 'string'
+    }, // minimum => a set should not contain another outline
+    contradictoryProperties: {
+      title: "Put all properties that contradict the concept as 'a,b,c'",
+      type: 'string'
+    },
+    unnecessaryProperties: {
+      title: "Put all properties that aren't related to the concept as 'a,b,c'",
+      type: 'string'
+    },
     examples: {
       title: 'New example',
       type: 'array',
@@ -53,8 +74,9 @@ export default {
             title: "This example isn't correct",
             type: 'boolean'
           },
-          whyIncorrect: {
-            title: '(If incorrect) Why ?',
+          respectedProperties: {
+            title:
+              "Put all properties that are true for this example as 'a,b,c'",
             type: 'string'
           }
         }
@@ -62,57 +84,3 @@ export default {
     }
   }
 };
-/*
-export default {
-  type: 'object',
-  properties: {
-    title: {
-      type: 'string',
-      title: 'Title'
-    },
-    nExamples: {
-      type: 'number',
-      title: 'Number of examples shown to the student'
-    },
-    trueDef: {
-      title: 'Definition(s) always true :',
-      type: 'array',
-      items: {
-        type: 'string'
-      }
-    },
-    falseDef: {
-      title: 'Definition(s) not always true :',
-      type: 'array',
-      items: {
-        type: 'string'
-      }
-    },
-    examples: {
-      title: 'New example',
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          image: {
-            title: 'image URL',
-            type: 'string'
-          },
-          isIncorrect: {
-            title: "This example isn't correct",
-            type: 'boolean'
-          },
-          whyIncorrect: {
-            title: '(If incorrect) Why ?',
-            type: 'string'
-          }
-        }
-      }
-    },
-    definition: {
-      title: 'Real definition of the concept',
-      type: 'string'
-    }
-  }
-};
-*/

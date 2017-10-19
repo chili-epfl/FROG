@@ -7,12 +7,12 @@ import { Main } from './StyledComponents';
 import NavigationBar from './NavigationBar';
 import Presentation from './Presentation';
 import Examples from './Examples';
-import Test from './Test';
+import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
 export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
-  const { title, examples, definition } = activityData.config;
+  const { title, examples, definition, properties } = activityData.config;
   let page = null;
   switch (data.parts[data.indexPart]) {
     case 'Presentation':
@@ -32,10 +32,12 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     case 'Tests with feedback':
       page = (
         <Test
+          title={title}
           examples={examples}
           nbTest={0}
           nbTestFeedback={activityData.config.nbTestFeedback}
           feedback
+          properties={properties}
           dataFn={dataFn}
           data={data}
         />
@@ -55,10 +57,12 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
     case 'Tests':
       page = (
         <Test
+          title={title}
           examples={examples}
           nbTest={activityData.config.nbTest}
           nbTestFeedback={0}
           feedback={false}
+          properties={properties}
           dataFn={dataFn}
           data={data}
         />

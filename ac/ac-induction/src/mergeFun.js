@@ -1,10 +1,12 @@
 // @flow
 import { shuffle } from 'lodash';
+import { arrayIncludes, stringToArray } from './ArrayFun';
 
 export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(0, 'indexPart');
   dataFn.objInsert(0, 'indexCurrent');
   dataFn.objInsert(false, 'feedbackOpen');
+  dataFn.objInsert(true, 'testChoice');
 
   const {
     hasExamples,
@@ -14,6 +16,9 @@ export default (obj: Object, dataFn: Object) => {
     hasDefinition,
     hasTest,
     nbTest,
+    suffisantSets,
+    contradictoryProperties,
+    unnecessaryProperties,
     examples
   } = obj.config;
 
@@ -33,12 +38,34 @@ export default (obj: Object, dataFn: Object) => {
   if (hasTest) parts.push('Tests');
   parts.push('End');
   dataFn.objInsert(parts, 'parts');
+
+  const suffisants = [];
+  const tmp = new Set();
+  let tmpNb = 0;
+  suffisantSets.split('').forEach(x => {
+    if (x === '{') {
+      tmp.clear();
+    } else if (x === '}') {
+      tmp.add(tmpNb);
+      suffisants.push([...tmp]);
+      tmpNb = 0;
+    } else if (x === ',' && !arrayIncludes(suffisants, [...tmp])) {
+      tmp.add(tmpNb);
+      tmpNb = 0;
+    } else if ('1234567890'.split('').includes('' + x)) {
+      tmpNb = Number('' + tmpNb + x);
+    }
+  });
+  dataFn.objInsert(suffisants, 'suffisants');
+
+  dataFn.objInsert(stringToArray(contradictoryProperties), 'contradictories');
+  dataFn.objInsert(stringToArray(unnecessaryProperties), 'unnecessaries');
 };
 
 const genList = (tab: Array<any>, n: number) => {
   let tmp = [];
   for (let i = 0; i < n / tab.length + 1; i += 1)
     tmp = tmp.concat(shuffle(tab));
-  tmp = tmp.map(x => tab.indexOf(x));
+  tmp = tmp.map(x => ({ realIndex: tab.indexOf(x), selectedProperties: [] }));
   return tmp.slice(tmp.length - n);
 };
