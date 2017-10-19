@@ -1,8 +1,7 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import Mousetrap from 'mousetrap';
-import type { ActivityRunnerT } from 'frog-utils';
 import styled from 'styled-components';
 import { withState } from 'recompose';
 
@@ -40,67 +39,96 @@ export const getType = (obj: Object) => {
 
 const isSupportedType = type => ['table', 'tree', 'image'].includes(type);
 
-const RunnerPure = ({
-  activityData,
-  data,
-  dataFn,
-  objectKey,
-  setObjectKey
-}: ActivityRunnerT & { objectKey: string, setObjectKey: Function }) => {
-  const objects = Object.keys(data)
-    .filter(x => data[x].key !== undefined)
-    .map(key => data[key])
-    .filter(x => isSupportedType(getType(x)));
+class Runner extends Component {
+  state: { objectKeyPlus: string, objects: Object[], categories: string[] };
 
-  // when imageKey is null, imageKeyPlus takes the value of an image to categorize
-  const objectKeyPlus =
-    objectKey || (objects.find(obj => !obj.category) || {}).key;
-
-  const assignCategory = categoryName => {
-    if (objectKeyPlus) {
-      dataFn.objInsert(categoryName, [objectKeyPlus, 'category']);
-    }
+  assignCategory = categoryName => {
+    const { dataFn, setObjectKey } = this.props;
+    const { objectKeyPlus } = this.state;
+    if (!objectKeyPlus) return;
+    dataFn.objInsert(categoryName, [objectKeyPlus, 'category']);
     setObjectKey(null);
   };
 
-  const categories = activityData.config.categories || [];
-  categories.forEach((x, i) =>
-    Mousetrap.bind(shortcuts[i], () => {
-      assignCategory(x);
-    })
-  );
+  assignSelect = () => {
+    const { data, dataFn } = this.props;
+    const { objectKeyPlus } = this.state;
+    if (!objectKeyPlus) return;
+    dataFn.objInsert(!data[objectKeyPlus].selected, [
+      objectKeyPlus,
+      'selected'
+    ]);
+  };
 
-  Mousetrap.bind('s', () => {
-    if (objectKeyPlus) {
-      dataFn.objInsert(!data[objectKeyPlus].selected, [
-        objectKeyPlus,
-        'selected'
-      ]);
-    }
-  });
+  initProps(props) {
+    const { data, objectKey, activityData } = props;
+    const objects = Object.keys(data)
+      .filter(x => data[x].key !== undefined)
+      .map(key => data[key])
+      .filter(x => isSupportedType(getType(x)));
+    const objectKeyPlus =
+      objectKey || (objects.find(obj => !obj.category) || {}).key;
+    const categories = activityData.config.categories || [];
+    this.setState({ objectKeyPlus, objects, categories });
+  }
 
-  return (
-    <Main>
-      <h2>{activityData.config.title}</h2>
-      {objectKeyPlus ? (
-        <FlexDiv>
-          {<ObjectPanel obj={data[objectKeyPlus]} small={false} />}
-          <ShortcutPanel
-            {...{
-              categories,
-              dataFn,
-              data,
-              assignCategory,
-              objectKey: objectKeyPlus
-            }}
-          />
-        </FlexDiv>
-      ) : (
-        <h1>Waiting for objects to classify</h1>
-      )}
-      <ObjectList {...{ objects, objectKey: objectKeyPlus, setObjectKey }} />
-    </Main>
-  );
-};
+  bindAllMoustrap = categories => {
+    categories.forEach((x, i) =>
+      Mousetrap.bind(shortcuts[i], () => {
+        this.assignCategory(x);
+      })
+    );
+    Mousetrap.bind('s', this.assignSelect);
+  };
 
-export default withState('objectKey', 'setObjectKey', null)(RunnerPure);
+  unbindAllMoustrap = () => {
+    // unbinds all the shortcuts
+    shortcuts.split('').forEach(x => Mousetrap.unbind(x));
+    // unbinds the selector key
+    Mousetrap.unbind('s');
+  };
+
+  componentWillMount() {
+    const { activityData } = this.props;
+    this.initProps(this.props);
+    const categories = activityData.config.categories || [];
+    this.bindAllMoustrap(categories);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.initProps(nextProps);
+  }
+
+  componentWillUnmount() {
+    this.unbindAllMoustrap();
+  }
+
+  render() {
+    const { activityData, data, dataFn, setObjectKey } = this.props;
+    const { objectKeyPlus, objects, categories } = this.state;
+    return (
+      <Main>
+        <h2>{activityData.config.title}</h2>
+        {objectKeyPlus ? (
+          <FlexDiv>
+            {<ObjectPanel obj={data[objectKeyPlus]} small={false} />}
+            <ShortcutPanel
+              {...{
+                categories,
+                dataFn,
+                data,
+                assignCategory: this.assignCategory,
+                objectKey: objectKeyPlus
+              }}
+            />
+          </FlexDiv>
+        ) : (
+          <h1>Waiting for objects to classify</h1>
+        )}
+        <ObjectList {...{ objects, objectKey: objectKeyPlus, setObjectKey }} />
+      </Main>
+    );
+  }
+}
+
+export default withState('objectKey', 'setObjectKey', null)(Runner);

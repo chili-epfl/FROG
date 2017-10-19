@@ -31,7 +31,7 @@ export default ({ config, data }: Object) => {
       className="nav nav-tabs"
       style={{ position: 'absolute', top: '0px', width: '100%' }}
     >
-      {data.parts.map((x, i) =>
+      {data.parts.map((x, i) => (
         <NavLi
           key={x + i.toString()}
           className={data.indexPart === i ? 'active' : ''}
@@ -48,7 +48,7 @@ export default ({ config, data }: Object) => {
               : 'Part ' + i + ': ' + x}
           </a>
         </NavLi>
-      )}
+      ))}
     </ul>
   );
 };
