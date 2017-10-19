@@ -42,6 +42,7 @@ export const createLogger = (
       timestamp: new Date(),
       ...logItem
     }: LogDBT);
+
     Meteor.call('merge.log', (log: LogDBT));
   };
   return logger;

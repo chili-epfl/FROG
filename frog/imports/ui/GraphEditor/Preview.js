@@ -4,7 +4,13 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
-import { A, generateReactiveFn, uuid } from 'frog-utils';
+import {
+  type LogT,
+  type LogDBT,
+  A,
+  generateReactiveFn,
+  uuid
+} from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
@@ -61,12 +67,42 @@ const ShowInfo = ({ activityData, data }) => (
       <h3>Current reactive data</h3>
       <Inspector data={data} expandLevel={8} />
     </div>
+    <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
+      <h3>Logs</h3>
+      {JSON.stringify(Logs)}
+    </div>
   </div>
 );
 
 const backend = new ShareDB();
 const connection = backend.connect();
 const Collections = {};
+const Logs: LogDBT[] = [];
+
+const createLogger = (
+  sessionId: string,
+  instanceId: string,
+  activityType: string,
+  userId: string,
+  callback: LogDBT => void
+) => {
+  const logger = (logItem: LogT) => {
+    const log = ({
+      _id: uuid(),
+      userId,
+      sessionId,
+      activityType,
+      activityId: 'preview',
+      instanceId,
+      timestamp: new Date(),
+      ...logItem
+    }: LogDBT);
+    Logs.push(log);
+    callback(log);
+    return log;
+  };
+  return logger;
+};
 
 export const StatelessPreview = withState(
   'reload',
@@ -135,12 +171,12 @@ export const StatelessPreview = withState(
 
     const reactiveDash = generateReactiveFn(dashboard);
 
-    const logger = (id, instanceId) => payload => {
+    const mergeData = (log: LogDBT) => {
       if (activityType.dashboard && activityType.dashboard.mergeLog) {
         activityType.dashboard.mergeLog(
           cloneDeep(dashboard.data),
           reactiveDash,
-          { userId: id, payload, updatedAt: Date(), instanceId }
+          log
         );
       }
     };
@@ -182,7 +218,13 @@ export const StatelessPreview = withState(
             id
           }}
           stream={() => undefined}
-          logger={logger(id, Math.ceil(id / 2))}
+          logger={createLogger(
+            'preview',
+            '' + Math.ceil(id / 2),
+            activityType.id,
+            '' + id,
+            mergeData
+          )}
           groupingValue={'' + Math.ceil(id / 2)}
         />
       );
@@ -220,6 +262,7 @@ export const StatelessPreview = withState(
                 Collections[coll] = uuid();
               });
 
+              Logs.length = 0;
               setReload(uuid());
             }}
             icon="fa fa-refresh"

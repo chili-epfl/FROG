@@ -83,29 +83,29 @@ export type ReactComponent<Props> =
   | Class<React$Component<*, Props, *>>
   | (Props => React$Element<any> | null);
 
-export type LogT = {
+export type LogT = {|
   type: string,
   itemId?: string,
-  activityType?: string,
   value?: string | number,
   payload?: Object
-};
+|};
 
-type ActivityDefT = {
+type ActivityDefT = {|
   activityId: string,
   activityType: string
-};
+|};
 
-type LogExtraDBT = {
+type LogExtraDBT = {|
   _id: string,
   sessionId: string,
   userId: string,
-  activityId?: string,
   instanceId?: string,
   timestamp: Date
-} & LogT;
+|} & LogT;
 
-export type LogDBT = (LogExtraDBT & ActivityDefT & LogT) | (LogExtraDBT & LogT);
+export type LogDBT =
+  | {| ...LogExtraDBT, ...ActivityDefT, ...LogT |}
+  | {| ...LogExtraDBT, ...LogT |};
 
 export type ActivityPackageT = {
   id: string,
