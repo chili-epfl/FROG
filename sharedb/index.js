@@ -1,3 +1,4 @@
+/* eslint-disable */
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
@@ -13,7 +14,14 @@ const dbUrl =
 const db = shareDBMongo(dbUrl + '/sharedb');
 
 const server = http.createServer();
-const redis = new RedisPubsub();
+
+console.log(
+  'This requires a Redis server and a MongoDB instance. Default URLs can be changed - Redis: redis://localhost:6379, Mongo: mongodb://localhost:27300. Use environment variables FROG_MONGOURL and FROG_REDISURL to modify default urls.'
+);
+
+const redisUrl =
+  (process.env && process.env.FROG_REDISURL) || 'redis://localhost:6379';
+const redis = new RedisPubsub(redisUrl);
 const backend = new sharedb({ db, pubsub: redis });
 const serverConnection = (exports.serverConnection = backend.connect());
 
