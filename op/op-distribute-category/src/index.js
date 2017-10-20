@@ -1,5 +1,6 @@
 // @flow
 
+import { sample } from 'lodash';
 import { type productOperatorT, focusStudent } from 'frog-utils';
 
 const meta = {
@@ -12,8 +13,6 @@ const config = {
   type: 'object',
   properties: {}
 };
-
-const pickRandom = arr => arr[Math.floor(Math.random()) * arr.length];
 
 const checkObject = obj =>
   obj &&
@@ -34,7 +33,7 @@ export const distributeObjects = (
       const choices = objects.filter(
         x => x.key && x.instanceId !== instance && x.category === category
       );
-      const obj = pickRandom(choices);
+      const obj = sample(choices);
       if (obj) {
         payload[instance].data[obj.key] = obj;
       }
