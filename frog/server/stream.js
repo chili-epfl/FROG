@@ -12,24 +12,25 @@ const safelyInsertObject = (doc, dataFn, path, value) => {
 };
 
 Meteor.methods({
-  stream: (activity, path, value) => {
+  stream: (activity, instanceId, path, value) => {
     if (activity.streamTarget) {
+      const toInsert = { ...value, instanceId }
       const docId = activity.streamTarget + '/all';
       if (Cache[docId]) {
         const [doc, dataFn] = Cache[docId];
-        safelyInsertObject(doc, dataFn, path, value);
+        safelyInsertObject(doc, dataFn, path, toInsert);
       } else {
         const doc = serverConnection.get('rz', docId);
         doc.subscribe();
         if (doc.type) {
           const dataFn = generateReactiveFn(doc);
           Cache[docId] = [doc, dataFn];
-          safelyInsertObject(doc, dataFn, path, value);
+          safelyInsertObject(doc, dataFn, path, toInsert);
         } else {
           doc.once('load', () => {
             const dataFn = generateReactiveFn(doc);
             Cache[docId] = [doc, dataFn];
-            safelyInsertObject(doc, dataFn, path, value);
+            safelyInsertObject(doc, dataFn, path, toInsert);
           });
         }
       }

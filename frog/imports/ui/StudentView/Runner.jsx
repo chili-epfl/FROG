@@ -58,7 +58,7 @@ const Runner = ({ activity, sessionId, object, single }) => {
   );
 
   const stream = (value, path) => {
-    Meteor.call('stream', activity, path, value);
+    Meteor.call('stream', activity, groupingValue, path, value);
   };
 
   const Torun = (
