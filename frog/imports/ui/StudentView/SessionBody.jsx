@@ -20,9 +20,9 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-const ActivityContainer = ({ activities }) => {
+const ActivityContainer = ({ activities, sessionId }) => {
   if (activities.length === 1) {
-    return <Runner activity={activities[0]} single />;
+    return <Runner activity={activities[0]} sessionId={sessionId} single />;
   } else {
     return (
       <Mosaic
@@ -30,6 +30,7 @@ const ActivityContainer = ({ activities }) => {
           <Runner
             activity={activities.find(x => x._id === activityid)}
             path={path}
+            sessionId={sessionId}
           />
         )}
         initialValue={getInitialState(activities)}
@@ -54,7 +55,7 @@ const SessionBody = ({
   return (
     <div style={{ height: '100%' }}>
       {session.countdownStartTime && <Countdown session={session} />}
-      <ActivityContainer activities={activities} />
+      <ActivityContainer activities={activities} sessionId={session._id} />
     </div>
   );
 };

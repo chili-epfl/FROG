@@ -76,7 +76,7 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   };
   const onChange = e => {
     dataFn.objInsert(e.formData, 'form');
-    logger(e.formData);
+    logger({ type: 'formData', payload: e.formData });
   };
 
   return (

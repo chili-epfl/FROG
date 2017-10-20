@@ -36,3 +36,14 @@ Meteor.methods({
     }
   }
 });
+
+Meteor.methods({
+  'session.logs': function(sessionId, limit = 50) {
+    if (
+      this.userId &&
+      Meteor.users.findOne(this.userId).username === 'teacher'
+    ) {
+      return Logs.find({ sessionId }, { limit }).fetch();
+    }
+  }
+});
