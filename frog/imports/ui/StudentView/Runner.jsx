@@ -57,8 +57,8 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     object.socialStructure
   );
 
-  const stream = (value, path) => {
-    Meteor.call('stream', activity, path, value);
+  const stream = (value, targetpath) => {
+    Meteor.call('stream', activity, targetpath, value);
   };
 
   const Torun = (
