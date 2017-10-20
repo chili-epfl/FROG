@@ -4,13 +4,7 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
-import {
-  type LogT,
-  type LogDBT,
-  A,
-  generateReactiveFn,
-  uuid
-} from 'frog-utils';
+import { type LogDBT, A, generateReactiveFn, uuid } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
@@ -24,6 +18,7 @@ import ReactiveHOC from '../StudentView/ReactiveHOC';
 import { DashboardComp } from '../TeacherView/Dashboard';
 import ShowInfo from './ShowInfo';
 import createLogger, { Logs } from './createLogger';
+import ShowLogs from './ShowLogs';
 
 const Icon = ({
   onClick,
@@ -77,6 +72,8 @@ export const StatelessPreview = withState(
     isSeparatePage = false,
     setReload,
     windows = 1,
+    showLogs,
+    setShowLogs,
     setWindows,
     fullWindow,
     setFullWindow
@@ -88,6 +85,8 @@ export const StatelessPreview = withState(
     setShowDash: Function,
     showDash: boolean,
     setShowData: Function,
+    setShowLogs: Function,
+    showLogs: boolean,
     dismiss?: Function,
     config?: Object,
     isSeparatePage: boolean,
@@ -121,7 +120,6 @@ export const StatelessPreview = withState(
           (activityType.dashboard && activityType.dashboard.initData) || {}
         );
       }
-      dashboard.destroy();
     });
 
     const reactiveDash = generateReactiveFn(dashboard);
@@ -210,6 +208,12 @@ export const StatelessPreview = withState(
               tooltip="Toggle dashboard"
             />
           )}
+          <Icon
+            onClick={() => setShowLogs(!showLogs)}
+            icon="fa fa-list"
+            color={showLogs ? '#3d76b8' : '#b3cae6'}
+            tooltip="Toggle log table"
+          />
           <Icon
             onClick={() => {
               range(0, Math.ceil(windows / 2)).forEach(i => {
@@ -322,7 +326,7 @@ export const StatelessPreview = withState(
             width: '100vw'
           }}
         >
-          {Content}
+          {showLogs ? <ShowLogs logs={Logs} /> : Content}
         </div>
         <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
           <div
@@ -348,7 +352,7 @@ export const StatelessPreview = withState(
         onRequestClose={dismiss}
       >
         {Controls}
-        {Content}
+        {showLogs ? <ShowLogs logs={Logs} /> : Content}
         <ReactTooltip delayShow={1000} />
       </Modal>
     );

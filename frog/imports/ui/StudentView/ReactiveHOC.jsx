@@ -38,7 +38,6 @@ const ReactiveHOC = (docId: string, conn?: any) => (
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
       if (this.doc.type) {
-        console.warn('doctype initial');
         this.update();
       } else {
         this.doc.on('load', this.update);
@@ -47,7 +46,6 @@ const ReactiveHOC = (docId: string, conn?: any) => (
     };
 
     update = () => {
-      console.warn('update', this.doc.type, this.doc.data);
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({ dataFn: generateReactiveFn(this.doc) });

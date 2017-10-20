@@ -15,9 +15,5 @@ export default ({ activityData, data }) => (
       <h3>Current reactive data</h3>
       <Inspector data={data} expandLevel={8} />
     </div>
-    <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
-      <h3>Logs</h3>
-      {JSON.stringify(Logs)}
-    </div>
   </div>
 );

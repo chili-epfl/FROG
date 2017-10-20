@@ -123,13 +123,17 @@ const ActivityRunner = ({
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
       const id = uuid();
-      logger({ type: 'idea', id });
+      logger({
+        type: 'idea',
+        itemId: id,
+        value: e.formData.title + '\n' + e.formData.content
+      });
       dataFn.objInsert({ score: 0, id, students: {}, ...e.formData }, id);
     }
   };
 
   const vote = (id, incr) => {
-    logger({ key: userInfo.name, type: 'vote' });
+    logger({ key: userInfo.name, type: 'vote', itemId: id, value: incr });
     switch (data[id].students[userInfo.id]) {
       case -1:
         if (incr < 0) {
