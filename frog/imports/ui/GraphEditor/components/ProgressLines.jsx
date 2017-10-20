@@ -4,8 +4,9 @@ import React from 'react';
 import { connect, type StoreProp } from '../store';
 import { timeToPx } from '../utils';
 
-const ProgressLine = ({ color, x }) =>
-  <line x1={x} y1={0} x2={x} y2={600} stroke={color} strokeWidth={3} />;
+const ProgressLine = ({ color, x }) => (
+  <line x1={x} y1={0} x2={x} y2={600} stroke={color} strokeWidth={3} />
+);
 
 export default connect(
   ({

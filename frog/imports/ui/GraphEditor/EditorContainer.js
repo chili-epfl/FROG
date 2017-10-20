@@ -8,8 +8,10 @@ import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
 import ExpandButton from './SidePanel/ExpandButton';
+import Preview from './Preview';
+import TopBar from '../App/TopBar';
 
-const EditorPanel = () =>
+const EditorPanel = () => (
   <div>
     <ExpandButton />
     <div style={{ height: 600 }}>
@@ -20,7 +22,8 @@ const EditorPanel = () =>
       <Graph hasPanMap />
     </div>
     <HelpModal />
-  </div>;
+  </div>
+);
 
 class Editor extends Component {
   componentDidMount() {
@@ -33,8 +36,18 @@ class Editor extends Component {
   }
 
   render() {
+    if (this.props.store.ui.showPreview) {
+      return (
+        <Preview
+          activityTypeId={this.props.store.ui.showPreview.activityTypeId}
+          config={this.props.store.ui.showPreview.config}
+          dismiss={() => this.props.store.ui.setShowPreview(false)}
+        />
+      );
+    }
     return (
       <div style={{ height: '100%' }}>
+        <TopBar />
         <TopPanel />
         <Container>
           <Main>

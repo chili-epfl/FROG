@@ -16,7 +16,7 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-const Img = ({ url }) =>
+const Img = ({ url }) => (
   <img
     style={{
       margin: 'auto',
@@ -25,9 +25,10 @@ const Img = ({ url }) =>
     }}
     src={url}
     alt={''}
-  />;
+  />
+);
 
-const Rectangle = ({ color }) =>
+const Rectangle = ({ color }) => (
   <div
     style={{
       width: '40px',
@@ -36,7 +37,8 @@ const Rectangle = ({ color }) =>
       marginLeft: '1%',
       background: color
     }}
-  />;
+  />
+);
 
 const Images = (props: {
   imgTrue: String,
@@ -44,11 +46,7 @@ const Images = (props: {
   style: Object
 }) => {
   if (!props.imgTrue || !props.imgFalse) {
-    return (
-      <div>
-        {"Images's URI not found"}
-      </div>
-    );
+    return <div>{"Images's URI not found"}</div>;
   } else {
     return (
       <Main style={props.style}>

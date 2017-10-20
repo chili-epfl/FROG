@@ -1,6 +1,7 @@
 // @flow
 
 import acAutocode from 'ac-autocode';
+import acDisplaySocial from 'ac-display-social';
 import acUploader from 'ac-uploader';
 import acProx from 'ac-prox';
 import acImgClass from 'ac-imgClass';
@@ -21,6 +22,7 @@ import { keyBy } from 'lodash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
   acAutocode,
+  acDisplaySocial,
   acUploader,
   acImgView,
   acProx,

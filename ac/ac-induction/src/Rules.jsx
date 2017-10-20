@@ -43,7 +43,7 @@ class Rules extends Component {
         style={this.props.style}
       >
         <h4>Please select all apropriated definitions</h4>
-        {this.allDef.map((d, index) =>
+        {this.allDef.map((d, index) => (
           <div key={index.toString()}>
             <label htmlFor={index.toString()}>
               <input
@@ -56,7 +56,7 @@ class Rules extends Component {
               {' ' + d.toString()}
             </label>
           </div>
-        )}
+        ))}
 
         <button type="submit">Next</button>
       </form>

@@ -13,7 +13,7 @@ export default ({ logs }: Object) => {
 
   return (
     <div>
-      {data.idea &&
+      {data.idea && (
         <Chart
           chartType="BarChart"
           data={[
@@ -27,8 +27,9 @@ export default ({ logs }: Object) => {
             bar: { groupWidth: '95%' },
             legend: { position: 'none' }
           }}
-        />}
-      {data.vote &&
+        />
+      )}
+      {data.vote && (
         <Chart
           chartType="BarChart"
           data={[
@@ -42,7 +43,8 @@ export default ({ logs }: Object) => {
             bar: { groupWidth: '95%' },
             legend: { position: 'none' }
           }}
-        />}
+        />
+      )}
     </div>
   );
 };

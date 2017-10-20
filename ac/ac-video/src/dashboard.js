@@ -4,13 +4,28 @@ import React, { Component } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { colorRange as color } from 'frog-utils';
 
-const VideoProgress = ({ data }) => {
+export const mergeLog = (data: any, dataFn: any, log: any) => {
+  if (log.payload) {
+    const payload = { ...log.payload, updatedAt: log.updatedAt };
+    Object.keys(payload).forEach(key => {
+      if (data[log.userId]) {
+        dataFn.objInsert(payload[key], [log.userId, key]);
+      } else {
+        dataFn.objInsert({ [key]: payload[key] }, log.userId);
+      }
+    });
+  }
+};
+
+export const initData = {};
+
+const VideoProgress = ({ data, user }) => {
   let backgroundColor;
   let bsStyle;
 
   if (data.paused) {
     bsStyle = 'warning';
-    backgroundColor = color(data.updated_at);
+    backgroundColor = color(data.updatedAt);
   }
 
   if (data.ended) {
@@ -22,10 +37,10 @@ const VideoProgress = ({ data }) => {
       <h4
         style={{
           float: 'left',
-          marginRight: '1em'
+          width: '5em'
         }}
       >
-        {data.username}
+        {user}
       </h4>
       <ProgressBar
         now={data.played * 100}
@@ -37,30 +52,49 @@ const VideoProgress = ({ data }) => {
   );
 };
 
-class Dash extends Component {
+class Viewer extends Component {
   state: Object;
   interval: any;
+  unmounted: boolean;
 
   constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = { unmounted: false };
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.forceUpdate(), 2000);
+    this.interval = setInterval(() => {
+      if (!this.unmounted) {
+        this.forceUpdate();
+      }
+    }, 2000);
   }
 
   componentWillUnmount() {
+    this.unmounted = true;
     window.clearInterval(this.interval);
   }
 
   render() {
+    if (!this.props.data) {
+      return null;
+    }
     return (
       <div>
-        {this.props.logs.map(x => <VideoProgress data={x} key={x._id} />)}
+        {Object.keys(this.props.data).map(x => (
+          <VideoProgress
+            data={this.props.data[x]}
+            user={this.props.users[x]}
+            key={x}
+          />
+        ))}
       </div>
     );
   }
 }
 
-export default Dash;
+export default {
+  Viewer,
+  mergeLog,
+  initData
+};

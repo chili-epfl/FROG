@@ -118,16 +118,19 @@ class ActivityRunner extends Component {
           showingCategories={this.state.category === 'categories'}
         />
         {this.state.category !== 'categories' &&
-          this.state.zoomOn &&
-          <ZoomView
-            index={this.state.index}
-            {...{ close: () => setZoom(false), images, setIndex }}
-          />}
+          this.state.zoomOn && (
+            <ZoomView
+              index={this.state.index}
+              {...{ close: () => setZoom(false), images, setIndex }}
+            />
+          )}
 
-        {activityData.config.canUpload &&
-          <UploadBar {...{ ...this.props, setWebcam }} />}
-        {this.state.webcamOn &&
-          <WebcamInterface {...{ ...this.props, setWebcam }} />}
+        {activityData.config.canUpload && (
+          <UploadBar {...{ ...this.props, setWebcam }} />
+        )}
+        {this.state.webcamOn && (
+          <WebcamInterface {...{ ...this.props, setWebcam }} />
+        )}
       </Main>
     );
   }

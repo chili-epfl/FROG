@@ -9,7 +9,10 @@ import fs from 'fs';
 let teacherToken;
 const tokenPath = `${process.cwd()}/../../../../../TEACHER_TOKEN`;
 try {
-  teacherToken = fs.readFileSync(tokenPath).toString().trim();
+  teacherToken = fs
+    .readFileSync(tokenPath)
+    .toString()
+    .trim();
 } catch (e) {
   teacherToken = uuid().toString();
   fs.writeFileSync(tokenPath, teacherToken);

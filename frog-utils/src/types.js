@@ -60,16 +60,18 @@ export type ControlT = {
 };
 
 export type ControlStructureT =
-  | { 'all': ControlT }
-  | { 'list': { [activityId: string]: ControlT } };
+  | { all: ControlT }
+  | { list: { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
-  logger: Function, // logging callback
+  logger: Function,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
+  stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, callback: (string) => any) => void,
-  userInfo: { id: string, name: string }
+  userInfo: { id: string, name: string },
+  groupingValue: string
 };
 
 export type validateConfigFnT = Object => null | {
@@ -79,7 +81,7 @@ export type validateConfigFnT = Object => null | {
 
 export type ReactComponent<Props> =
   | Class<React$Component<*, Props, *>>
-  | (Props => React$Element<any>);
+  | (Props => React$Element<any> | null);
 
 export type ActivityPackageT = {
   id: string,
