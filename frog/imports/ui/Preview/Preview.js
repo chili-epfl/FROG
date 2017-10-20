@@ -56,6 +56,7 @@ const getInitialState = (activities, d = 1) => {
 
 const backend = new ShareDB();
 const connection = backend.connect();
+window.conn = connection;
 const Collections = {};
 
 export const StatelessPreview = withState(
@@ -135,10 +136,8 @@ export const StatelessPreview = withState(
       }
     };
 
-    range(0, Math.ceil((windows + 1) / 2)).forEach(i => {
-      console.log('i', i);
+    range(1, Math.ceil((windows + 1) / 2)).forEach(i => {
       const coll = `demo-${activityType.id}-${example}-${i}`;
-      console.log(coll);
       if (!Collections[coll]) {
         Collections[coll] = uuid();
       }
@@ -147,12 +146,6 @@ export const StatelessPreview = withState(
       doc.fetch();
       doc.once('load', () => {
         if (!doc.type) {
-          console.log(
-            'doc create',
-            coll,
-            Collections[coll],
-            activityType.dataStructure
-          );
           doc.create(cloneDeep(activityType.dataStructure) || {});
           const mergeFunction = activityType.mergeFunction;
           if (mergeFunction && activityType.meta.exampleData[example]) {
@@ -163,7 +156,6 @@ export const StatelessPreview = withState(
             );
           }
         }
-        console.log(Collections[coll], coll, doc.data);
         doc.destroy();
       });
     });
@@ -175,12 +167,6 @@ export const StatelessPreview = withState(
         ],
         connection
       )(showData ? ShowInfo : RunComp);
-      console.log(
-        id,
-        Collections[
-          `demo-${activityType.id}-${example}-${Math.ceil((id + 1) / 2)}`
-        ]
-      );
       return (
         <ActivityToRun
           activityData={activityData}
@@ -308,7 +294,7 @@ export const StatelessPreview = withState(
                     doc={dashboard}
                     users={users
                       .filter(e => e !== 'dashboard')
-                      .map((e, i) => ({ _id: i + 1, username: e }))}
+                      .map((e, i) => ({ _id: i, username: e }))}
                   />
                 </MosaicWindow>
               ) : (

@@ -33,15 +33,17 @@ const ReactiveHOC = (docId: string, conn?: any) => (
     }
 
     componentDidMount = () => {
-      console.log('trying to connect', docId);
       this.doc = (conn || connection).get('rz', docId);
       this.doc.subscribe();
-      this.doc.once('ready', this.update);
+      if (this.doc.type) {
+        this.update();
+      } else {
+        this.doc.once('load', this.update);
+      }
       this.doc.on('op', this.update);
     };
 
     update = () => {
-      console.log('update', this.doc.id, this.doc.data);
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({ dataFn: generateReactiveFn(this.doc) });
