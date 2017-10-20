@@ -12,7 +12,7 @@ import Countdown from './Countdown';
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);
   return n === 0
-    ? activities[0]
+    ? activities[0]._id
     : {
         direction: d > 0 ? 'row' : 'column',
         first: getInitialState(activities.slice(0, n), -d),
@@ -26,7 +26,12 @@ const ActivityContainer = ({ activities }) => {
   } else {
     return (
       <Mosaic
-        renderTile={activity => <Runner activity={activity} />}
+        renderTile={(activityid, path) => (
+          <Runner
+            activity={activities.find(x => x._id === activityid)}
+            path={path}
+          />
+        )}
         initialValue={getInitialState(activities)}
       />
     );

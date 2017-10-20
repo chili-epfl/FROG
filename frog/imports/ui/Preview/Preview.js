@@ -136,8 +136,8 @@ export const StatelessPreview = withState(
       }
     };
 
-    range(1, Math.ceil((windows + 1) / 2)).forEach(i => {
-      const coll = `demo-${activityType.id}-${example}-${i}`;
+    range(0, Math.ceil(windows / 2)).forEach(i => {
+      const coll = `demo-${activityType.id}-${example}-${i + 1}`;
       if (!Collections[coll]) {
         Collections[coll] = uuid();
       }
@@ -162,9 +162,7 @@ export const StatelessPreview = withState(
 
     const Run = ({ name, id }) => {
       const ActivityToRun = ReactiveHOC(
-        Collections[
-          `demo-${activityType.id}-${example}-${Math.ceil((id + 1) / 2)}`
-        ],
+        Collections[`demo-${activityType.id}-${example}-${Math.ceil(id / 2)}`],
         connection
       )(showData ? ShowInfo : RunComp);
       return (
@@ -177,12 +175,12 @@ export const StatelessPreview = withState(
           stream={() => undefined}
           logger={createLogger(
             'preview',
-            '' + Math.ceil((id + 1) / 2),
+            '' + Math.ceil(id / 2),
             activityType.id,
             '' + id,
             mergeData
           )}
-          groupingValue={'' + Math.ceil((id + 1) / 2)}
+          groupingValue={'' + Math.ceil(id / 2)}
         />
       );
     };
@@ -214,7 +212,7 @@ export const StatelessPreview = withState(
           )}
           <Icon
             onClick={() => {
-              range(0, Math.ceil((windows + 1) / 2)).forEach(i => {
+              range(0, Math.ceil(windows / 2)).forEach(i => {
                 const coll = `demo-${activityType.id}-${example}-${i}`;
                 Collections[coll] = uuid();
               });
@@ -285,7 +283,7 @@ export const StatelessPreview = withState(
           <Run name={users[0]} id={1} />
         ) : (
           <Mosaic
-            renderTile={([x, id]) =>
+            renderTile={([x, id], path) =>
               x === 'dashboard' && activityType.dashboard ? (
                 <MosaicWindow title={'dashboard - ' + activityType.meta.name}>
                   <DashboardComp
@@ -299,18 +297,15 @@ export const StatelessPreview = withState(
                 </MosaicWindow>
               ) : (
                 <MosaicWindow
+                  path={path}
                   title={
-                    x +
-                    '/' +
-                    Math.ceil((id + 1) / 2) +
-                    ' - ' +
-                    activityType.meta.name
+                    x + '/' + Math.ceil(id / 2) + ' - ' + activityType.meta.name
                   }
                 >
                   <Run name={x} id={id} />
                 </MosaicWindow>
               )}
-            initialValue={getInitialState(users.map((x, i) => [x, i]))}
+            initialValue={getInitialState(users.map((x, i) => [x, i + 1]))}
           />
         )}
       </div>

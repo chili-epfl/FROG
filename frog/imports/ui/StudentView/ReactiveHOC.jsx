@@ -33,17 +33,21 @@ const ReactiveHOC = (docId: string, conn?: any) => (
     }
 
     componentDidMount = () => {
+      this.unmounted = false;
       this.doc = (conn || connection).get('rz', docId);
+      this.doc.setMaxListeners(30);
       this.doc.subscribe();
       if (this.doc.type) {
+        console.warn('doctype initial');
         this.update();
       } else {
-        this.doc.once('load', this.update);
+        this.doc.on('load', this.update);
       }
       this.doc.on('op', this.update);
     };
 
     update = () => {
+      console.warn('update', this.doc.type, this.doc.data);
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({ dataFn: generateReactiveFn(this.doc) });
@@ -53,12 +57,13 @@ const ReactiveHOC = (docId: string, conn?: any) => (
     };
 
     componentWillUnmount = () => {
-      this.doc.destroy();
+      this.doc.removeListener('op', this.update);
+      this.doc.removeListener('load', this.update);
       this.unmounted = true;
     };
 
     render = () =>
-      this.state.dataFn !== null ? (
+      this.state.data !== null ? (
         <WrappedComponent
           dataFn={this.state.dataFn}
           uploadFn={uploadFile}

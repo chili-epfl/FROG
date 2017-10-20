@@ -12,7 +12,7 @@ import { Objects } from '../../api/objects';
 import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
 
-const Runner = ({ activity, sessionId, object, single }) => {
+const Runner = ({ path, activity, sessionId, object, single }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -75,7 +75,13 @@ const Runner = ({ activity, sessionId, object, single }) => {
     return Torun;
   } else {
     return (
-      <MosaicWindow title={activity.title + ' ' + title}>{Torun}</MosaicWindow>
+      <MosaicWindow
+        key={activity._id}
+        path={path}
+        title={activity.title + ' ' + title}
+      >
+        {Torun}
+      </MosaicWindow>
     );
   }
 };
