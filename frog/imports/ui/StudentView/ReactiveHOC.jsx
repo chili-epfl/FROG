@@ -22,7 +22,6 @@ const ReactiveHOC = (docId: string, conn?: any) => (
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
     doc: any;
-    timeout: ?number;
     unmounted: boolean;
 
     constructor(props: Object) {
@@ -34,24 +33,16 @@ const ReactiveHOC = (docId: string, conn?: any) => (
     }
 
     componentDidMount = () => {
+      console.log('trying to connect', docId);
       this.doc = (conn || connection).get('rz', docId);
       this.doc.subscribe();
-      this.doc.on('ready', this.update);
+      this.doc.once('ready', this.update);
       this.doc.on('op', this.update);
-      this.waitForDoc();
-    };
-
-    waitForDoc = () => {
-      if (this.doc.type) {
-        this.timeout = undefined;
-        this.update();
-      } else {
-        this.timeout = window.setTimeout(this.waitForDoc, 100);
-      }
     };
 
     update = () => {
-      if (!this.timeout && !this.unmounted) {
+      console.log('update', this.doc.id, this.doc.data);
+      if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({ dataFn: generateReactiveFn(this.doc) });
         }
@@ -61,14 +52,11 @@ const ReactiveHOC = (docId: string, conn?: any) => (
 
     componentWillUnmount = () => {
       this.doc.destroy();
-      if (this.timeout) {
-        window.clearTimeout(this.timeout);
-      }
       this.unmounted = true;
     };
 
     render = () =>
-      this.state.data !== null ? (
+      this.state.dataFn !== null ? (
         <WrappedComponent
           dataFn={this.state.dataFn}
           uploadFn={uploadFile}
