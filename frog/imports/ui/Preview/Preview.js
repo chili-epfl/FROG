@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
@@ -51,7 +50,6 @@ const getInitialState = (activities, d = 1) => {
 
 const backend = new ShareDB();
 const connection = backend.connect();
-window.conn = connection;
 const Collections = {};
 
 export const StatelessPreview = withState(
