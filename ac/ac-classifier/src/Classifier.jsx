@@ -29,13 +29,7 @@ const FlexDiv = styled.div`
   flex: 0 1 auto;
 `;
 
-export const getType = (obj: Object) => {
-  if (obj.url) {
-    return 'image';
-  } else {
-    return obj.type;
-  }
-};
+export const getType = (obj: Object) => obj && (obj.url ? 'image' : obj.type);
 
 const isSupportedType = type => ['table', 'tree', 'image'].includes(type);
 
