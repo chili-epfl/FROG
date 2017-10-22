@@ -6,6 +6,7 @@ export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(0, 'indexPart');
   dataFn.objInsert(0, 'indexCurrent');
   dataFn.objInsert(false, 'feedbackOpen');
+  dataFn.objInsert(true, 'testChoice');
 
   const {
     hasExamples,
@@ -70,5 +71,6 @@ const genList = (tab: Array<any>, n: number) => {
     selectedChoice: true,
     selectedProperties: []
   }));
+
   return tmp.slice(tmp.length - n);
 };
