@@ -18,37 +18,39 @@ const TopBar = ({
   category,
   canVote,
   setCategory,
-  setZoom
+  setZoom,
+  showCategories
 }: Object) => (
   <Main>
-    {Object.keys(categories).length > 2 && (
-      <div>
-        {category !== 'categories' && (
-          <button
-            className="btn btn-secondary"
-            onClick={() => setCategory('categories')}
-            style={{ margin: '5px' }}
-          >
-            <span className="glyphicon glyphicon-arrow-left" />{' '}
-          </button>
-        )}
-        <span style={{ margin: '5px', fontSize: 'large' }}>Library :</span>
-        <DropdownButton title={category} id="dropdown-basic-0">
-          {categories.filter(x => x !== category).map(y => (
-            <MenuItem
-              key={y}
-              eventKey={'toto'}
-              onClick={() => {
-                setZoom(false);
-                setCategory(y);
-              }}
+    {showCategories &&
+      Object.keys(categories).length > 2 && (
+        <div>
+          {category !== 'categories' && (
+            <button
+              className="btn btn-secondary"
+              onClick={() => setCategory('categories')}
+              style={{ margin: '5px' }}
             >
-              {y}
-            </MenuItem>
-          ))}
-        </DropdownButton>
-      </div>
-    )}
+              <span className="glyphicon glyphicon-arrow-left" />{' '}
+            </button>
+          )}
+          <span style={{ margin: '5px', fontSize: 'large' }}>Library :</span>
+          <DropdownButton title={category} id="dropdown-basic-0">
+            {categories.filter(x => x !== category).map(y => (
+              <MenuItem
+                key={y}
+                eventKey={'toto'}
+                onClick={() => {
+                  setZoom(false);
+                  setCategory(y);
+                }}
+              >
+                {y}
+              </MenuItem>
+            ))}
+          </DropdownButton>
+        </div>
+      )}
     {category !== 'categories' &&
       canVote && (
         <i style={{ marginLeft: '20px' }}>

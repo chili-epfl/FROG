@@ -72,11 +72,7 @@ const CategoryList = ({ categories, setCategory }) => (
 );
 
 const ThumbList = (props: Object) =>
-  props.showingCategories ? (
-    <CategoryList {...props} />
-  ) : (
-    <ImageList {...props} />
-  );
+  props.showCategories ? <CategoryList {...props} /> : <ImageList {...props} />;
 
 ThumbList.displayName = 'ThumbList';
 export default ThumbList;

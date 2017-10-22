@@ -5,6 +5,8 @@ import { type ActivityPackageT, uuid } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
 
+const DEFAULT_COMMENT_VALUE = 'Please comment on this representation';
+
 const meta = {
   name: 'Image viewer',
   type: 'react-component',
@@ -110,7 +112,15 @@ const config = {
       type: 'number'
     },
     canUpload: {
-      title: 'Can students upload new images ?',
+      title: 'Can students upload new images?',
+      type: 'boolean'
+    },
+    canComment: {
+      title: 'Should students comment on images?',
+      type: 'boolean'
+    },
+    hideCategory: {
+      title: 'Hide the categories',
       type: 'boolean'
     },
     filterTrash: {
@@ -155,7 +165,7 @@ const dataStructure = {};
 const mergeFunction = (object, dataFn) => {
   if (object.config.images)
     object.config.images.forEach((x, i) =>
-      dataFn.objInsert({ url: x.url, categories: x.categories, votes: {} }, i)
+      dataFn.objInsert({ votes: {}, comment: DEFAULT_COMMENT_VALUE, ...x }, i)
     );
 
   if (object.data === null || object.data === {}) return;
@@ -171,8 +181,9 @@ const mergeFunction = (object, dataFn) => {
       dataFn.objInsert(
         {
           votes: {},
-          ...x,
-          categories: x.categories || (x.category && [x.category])
+          categories: x.categories || (x.category && [x.category]),
+          comment: DEFAULT_COMMENT_VALUE,
+          ...x
         },
         x.key || uuid()
       )
