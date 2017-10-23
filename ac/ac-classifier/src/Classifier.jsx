@@ -41,6 +41,11 @@ class Runner extends Component {
     const { objectKeyPlus } = this.state;
     if (!objectKeyPlus) return;
     dataFn.objInsert(categoryName, [objectKeyPlus, 'category']);
+    this.props.logger({
+      type: 'assign.category',
+      itemId: objectKeyPlus,
+      value: categoryName
+    });
     setObjectKey(null);
   };
 
@@ -52,6 +57,7 @@ class Runner extends Component {
       objectKeyPlus,
       'selected'
     ]);
+    this.props.logger({ type: 'select', itemId: objectKeyPlus });
   };
 
   initProps(props) {

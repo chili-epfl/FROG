@@ -10,10 +10,12 @@ export default sessionId => {
       const lines = succ
         .map(x =>
           [
-            x.timestamp,
+            x.timestamp.toUTCString(),
             x.userId,
             x.instanceId,
+            x.activityId,
             x.activityType,
+            x.activityPlane,
             x.type,
             x.itemId,
             x.value,
@@ -25,7 +27,9 @@ export default sessionId => {
         'timestamp',
         'userId',
         'instanceId',
+        'activityId',
         'activityType',
+        'plane',
         'type',
         'itemId',
         'value',

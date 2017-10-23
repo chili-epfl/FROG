@@ -58,7 +58,7 @@ const ImageList = ({
   </Main>
 );
 
-const CategoryList = ({ categories, setCategory }) => (
+const CategoryList = ({ categories, setCategory, logger }) => (
   <Main>
     {Object.keys(categories).map(category => (
       <CategoryBox
@@ -66,6 +66,7 @@ const CategoryList = ({ categories, setCategory }) => (
         images={categories[category]}
         category={category}
         setCategory={setCategory}
+        logger={logger}
       />
     ))}
   </Main>

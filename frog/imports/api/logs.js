@@ -30,8 +30,9 @@ export const createLogger = (
       userId: Meteor.userId(),
       sessionId,
       activityType: activity.activityType,
+      activityPlane: activity.plane,
       activityId: activity._id,
-      instanceId,
+      instanceId: activity.plane === 2 ? instanceId : undefined,
       timestamp: new Date(),
       ...logItem
     }: LogDBT);
