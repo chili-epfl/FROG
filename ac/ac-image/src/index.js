@@ -123,13 +123,6 @@ const config = {
       title: 'Hide the categories',
       type: 'boolean'
     },
-    filterTrash: {
-      title: 'Should trash images be removed?',
-      type: 'boolean'
-    },
-    individual: { title: 'Students work individually', type: 'boolean' },
-    grouping: { title: 'Group students by groupingKey', type: 'boolean' },
-    groupingKey: { title: 'Grouping key', type: 'socialAttribute' },
     images: {
       title: 'Images',
       type: 'array',
@@ -154,10 +147,7 @@ const config = {
 };
 
 const configUI = {
-  minVote: { conditional: 'canVote' },
-  individual: { conditional: formdata => !formdata.grouping },
-  grouping: { conditional: formdata => !formdata.individual },
-  groupingKey: { conditional: 'grouping' }
+  minVote: { conditional: 'canVote' }
 };
 
 const dataStructure = {};
@@ -173,11 +163,7 @@ const mergeFunction = (object, dataFn) => {
     ? object.data
     : Object.keys(object.data).map(x => object.data[x])
   ).filter(x => x.url !== undefined);
-  dataImgs
-    .filter(
-      x => !object.config.filterTrash || (x.category && x.category !== 'trash')
-    )
-    .forEach(x =>
+  dataImgs.forEach(x =>
       dataFn.objInsert(
         {
           votes: {},
