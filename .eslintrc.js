@@ -13,6 +13,7 @@ module.exports = {
     jest: true
   },
   rules: {
+    'func-names': 'off',
     'jsx-a11y/label-has-for': 'off',
     'react/require-default-props': 'off',
     'no-console': 'error',
