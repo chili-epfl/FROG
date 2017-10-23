@@ -108,7 +108,8 @@ class ActivityRunner extends Component {
           categories={[...Object.keys(this.categories), 'categories']}
           category={this.state.category}
           canVote={activityData.config.canVote}
-          {...{ setCategory, setZoom, showCategories }}
+          hideCategory={activityData.config.hideCategory}
+          {...{ setCategory, setZoom }}
         />
         {images.length === 0 && this.state.category !== 'categories' ? (
           <h1>
