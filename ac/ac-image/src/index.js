@@ -5,7 +5,7 @@ import { type ActivityPackageT, uuid } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
 
-export const DEFAULT_COMMENT_VALUE = 'Please comment on this representation';
+export const DEFAULT_COMMENT_VALUE = '';
 
 const meta = {
   name: 'Image viewer',
@@ -133,7 +133,7 @@ const config = {
       title: 'Should students comment on images?',
       type: 'boolean'
     },
-    commentGuideline: {
+    commentGuidelines: {
       title: 'Comment guidelines',
       type: 'string'
     },
