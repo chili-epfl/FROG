@@ -133,6 +133,10 @@ const config = {
       title: 'Should students comment on images?',
       type: 'boolean'
     },
+    commentGuideline: {
+      title: 'Comment guidelines',
+      type: 'string'
+    },
     hideCategory: {
       title: 'Hide the categories',
       type: 'boolean'
