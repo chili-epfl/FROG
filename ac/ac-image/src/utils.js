@@ -9,9 +9,10 @@ const uploadBufferWithThumbnail = (
   logger,
   dataFn,
   stream,
-  uploadFn
+  uploadFn,
+  type
 ) => {
-  logger({ type: 'upload', itemId: imageId });
+  logger({ type, itemId: imageId });
 
   // upload a thumbnail
   resizeImg(imageBuffer, { width: 128 }).then(buffer => {
@@ -37,7 +38,8 @@ export default (
   logger: Function,
   dataFn: Object,
   stream: Function,
-  uploadFn: Function
+  uploadFn: Function,
+  type: string
 ) => {
   const fr = new FileReader();
 
@@ -53,7 +55,8 @@ export default (
       logger,
       dataFn,
       stream,
-      uploadFn
+      uploadFn,
+      type
     );
   };
   fr.readAsArrayBuffer(file);

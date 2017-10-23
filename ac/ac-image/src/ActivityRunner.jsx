@@ -88,7 +88,7 @@ class ActivityRunner extends Component {
       .map(key => ({ ...data[key], key }));
 
     const vote = (key, userId) => {
-      logger({ type: 'vote' });
+      logger({ type: 'vote', itemId: key });
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
       stream(!prev, [key, 'votes', userId]);
@@ -138,7 +138,8 @@ class ActivityRunner extends Component {
             <ZoomView
               index={this.state.index}
               commentBox={activityData.config.canComment}
-              {...{ close: () => setZoom(false), images, setIndex, dataFn }}
+              close={() => setZoom(false)}
+              {...{ images, setIndex, dataFn, logger }}
             />
           )}
         {activityData.config.canUpload && (
