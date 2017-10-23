@@ -19,10 +19,10 @@ const TopBar = ({
   canVote,
   setCategory,
   setZoom,
-  showCategories
+  hideCategory
 }: Object) => (
   <Main>
-    {showCategories &&
+    {!hideCategory &&
       Object.keys(categories).length > 2 && (
         <div>
           {category !== 'categories' && (
