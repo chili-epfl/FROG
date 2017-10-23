@@ -36,7 +36,7 @@ class ActivityRunner extends Component {
     super(props);
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
-    const { data } = props;
+    const { data, activityData } = props;
     this.categories = Object.keys(data).reduce(
       (acc, key) => ({
         ...acc,
@@ -54,7 +54,10 @@ class ActivityRunner extends Component {
     );
 
     const startingCategory =
-      Object.keys(this.categories).length > 1 ? 'categories' : 'all';
+      Object.keys(this.categories).length > 1 &&
+      !activityData.config.hideCategory
+        ? 'categories'
+        : 'all';
 
     this.state = {
       zoomOn: false,
@@ -96,13 +99,16 @@ class ActivityRunner extends Component {
     const setIndex = (i: number) => this.setState({ index: i });
     const setWebcam = (w: boolean) => this.setState({ webcamOn: w });
 
+    const showCategories =
+      this.state.category === 'categories' && !activityData.config.hideCategory;
+
     return (
       <Main>
         <TopBar
           categories={[...Object.keys(this.categories), 'categories']}
           category={this.state.category}
           canVote={activityData.config.canVote}
-          {...{ setCategory, setZoom }}
+          {...{ setCategory, setZoom, showCategories }}
         />
         {images.length === 0 && this.state.category !== 'categories' ? (
           <h1>
@@ -120,17 +126,18 @@ class ActivityRunner extends Component {
               setCategory,
               setZoom,
               setIndex,
-              logger
+              logger,
+              showCategories
             }}
             canVote={activityData.config.canVote}
-            showingCategories={this.state.category === 'categories'}
           />
         )}
         {this.state.category !== 'categories' &&
           this.state.zoomOn && (
             <ZoomView
               index={this.state.index}
-              {...{ close: () => setZoom(false), images, setIndex }}
+              commentBox={activityData.config.canComment}
+              {...{ close: () => setZoom(false), images, setIndex, dataFn }}
             />
           )}
         {activityData.config.canUpload && (
