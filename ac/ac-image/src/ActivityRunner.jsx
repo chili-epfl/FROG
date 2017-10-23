@@ -88,7 +88,7 @@ class ActivityRunner extends Component {
       .map(key => ({ ...data[key], key }));
 
     const vote = (key, userId) => {
-      logger('vote/' + key);
+      logger({ type: 'vote' });
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
       stream(!prev, [key, 'votes', userId]);

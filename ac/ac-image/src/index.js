@@ -164,16 +164,16 @@ const mergeFunction = (object, dataFn) => {
     : Object.keys(object.data).map(x => object.data[x])
   ).filter(x => x.url !== undefined);
   dataImgs.forEach(x =>
-      dataFn.objInsert(
-        {
-          votes: {},
-          categories: x.categories || (x.category && [x.category]),
-          comment: DEFAULT_COMMENT_VALUE,
-          ...x
-        },
-        x.key || uuid()
-      )
-    );
+    dataFn.objInsert(
+      {
+        votes: {},
+        categories: x.categories || (x.category && [x.category]),
+        comment: DEFAULT_COMMENT_VALUE,
+        ...x
+      },
+      x.key || uuid()
+    )
+  );
 };
 
 export default ({

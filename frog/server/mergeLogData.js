@@ -23,14 +23,22 @@ Meteor.methods({
           aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);
         } else {
           const doc = serverConnection.get('rz', docId);
-          doc.fetch();
-          doc.once('load', () => {
+          doc.subscribe();
+          if (doc.type) {
             const dataFn = generateReactiveFn(doc);
             Cache[docId] = [doc, dataFn];
             if (aT.dashboard && aT.dashboard.mergeLog) {
               aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);
             }
-          });
+          } else {
+            doc.once('load', () => {
+              const dataFn = generateReactiveFn(doc);
+              Cache[docId] = [doc, dataFn];
+              if (aT.dashboard && aT.dashboard.mergeLog) {
+                aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);
+              }
+            });
+          }
         }
       }
     }

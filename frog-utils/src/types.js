@@ -64,7 +64,7 @@ export type ControlStructureT =
   | { list: { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
-  logger: Function,
+  logger: (log: LogT) => void,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
