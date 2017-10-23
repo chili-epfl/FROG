@@ -173,7 +173,9 @@ export const StatelessPreview = withState(
             'preview',
             '' + Math.ceil(id / 2),
             activityType.id,
+            'preview',
             '' + id,
+            2,
             mergeData
           )}
           groupingValue={'' + Math.ceil(id / 2)}

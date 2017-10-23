@@ -93,7 +93,7 @@ export type LogT = {|
 type ActivityDefT = {|
   activityId: string,
   activityType: string,
-  activityPlane: string
+  activityPlane: number
 |};
 
 type LogExtraDBT = {|

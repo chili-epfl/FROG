@@ -45,7 +45,7 @@ export class ReactiveText extends Component {
   }
 
   log(msg: string, props?: ReactivePropsT) {
-    const logger = (props || this.props).logger;
+    const logger = props ? props.logger : this.props.logger;
     if (logger) {
       logger({
         type: 'reactivetext.' + msg,
