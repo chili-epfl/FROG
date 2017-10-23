@@ -26,7 +26,6 @@ const arr5 = [45, 21, 8];
 const arr6 = [[1, 4], [6, 7], [3, 1, 5]];
 const arr7 = [[3, 1], [6]];
 
-
 test('test 1: arrayIncludes true', () => {
   expect(arrayIncludes(arr3, arr2)).toBeTruthy();
 });
