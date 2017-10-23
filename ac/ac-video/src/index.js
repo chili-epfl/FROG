@@ -50,19 +50,24 @@ class Activity extends Component {
   }
   render() {
     const { activityData, logger, dataFn } = this.props;
+    const url = activityData.config.url;
     return (
       <ReactPlayer
         ref={ref => (this.ref = ref)}
-        url={activityData.config.url}
+        url={url}
         playing={activityData.config.playing}
         controls
         loop={activityData.config.loop}
-        onStart={() => logger({ paused: false, played: 0 })}
-        onPause={() => logger({ paused: true })}
-        onPlay={() => logger({ paused: false })}
-        onEnded={() => logger({ ended: true })}
+        onStart={() => logger({ type: 'start', itemId: url })}
+        onPause={() => logger({ type: 'pause', itemId: url })}
+        onPlay={() => logger({ type: 'play', itemId: url })}
+        onEnded={() => logger({ type: 'finishPlaying', itemId: url })}
         onProgress={x => {
-          logger({ ...x, ended: false });
+          logger({
+            type: 'videoProgress',
+            value: x.playedSeconds,
+            itemId: url
+          });
           dataFn.objInsert({ play: x.playedSeconds });
         }}
         width="100%"

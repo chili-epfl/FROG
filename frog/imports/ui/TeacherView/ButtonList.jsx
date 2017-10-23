@@ -6,6 +6,7 @@ import { msToString } from 'frog-utils';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
+import downloadLog from './downloadLog';
 
 import {
   removeSession,
@@ -138,6 +139,12 @@ const ButtonList = ({
         }
       },
       text: '-' + msToString(DEFAULT_COUNTDOWN_LENGTH)
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => downloadLog(session._id),
+      text: 'Download log csv'
     }
   ];
   return (

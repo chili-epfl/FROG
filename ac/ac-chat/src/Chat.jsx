@@ -24,8 +24,9 @@ export default ({
     <ul>{data.map(chatmsg => <Chatmsg msg={chatmsg} key={chatmsg.id} />)}</ul>
     <TextInput
       callbackFn={e => {
-        dataFn.listAppend({ msg: e, user: userInfo.name, id: uuid() });
-        logger({ chat: e });
+        const id = uuid();
+        dataFn.listAppend({ msg: e, user: userInfo.name, id });
+        logger({ type: 'chat', value: e, itemId: id });
       }}
     />
   </div>

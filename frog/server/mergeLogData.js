@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { cloneDeep } from 'lodash';
-import { generateReactiveFn } from 'frog-utils';
+import { generateReactiveFn, type LogDBT } from 'frog-utils';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
@@ -10,10 +10,10 @@ import { Logs } from '../imports/api/logs';
 import { Cache } from './sharedbCache';
 
 Meteor.methods({
-  'merge.log': log => {
+  'merge.log': (log: LogDBT) => {
     Logs.insert(log);
 
-    if (log.activityId) {
+    if (log.activityType && log.activityId) {
       const aT = activityTypesObj[log.activityType];
 
       if (aT.dashboard && aT.dashboard.mergeLog) {
@@ -33,6 +33,17 @@ Meteor.methods({
           });
         }
       }
+    }
+  }
+});
+
+Meteor.methods({
+  'session.logs': function(sessionId, limit = 50) {
+    if (
+      this.userId &&
+      Meteor.users.findOne(this.userId).username === 'teacher'
+    ) {
+      return Logs.find({ sessionId }, { limit }).fetch();
     }
   }
 });

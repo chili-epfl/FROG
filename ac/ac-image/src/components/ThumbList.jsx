@@ -34,7 +34,7 @@ const ImageList = ({
         } else {
           setIndex(i);
           setZoom(true);
-          logger('zoom/' + image.key);
+          logger({ type: 'zoom', itemId: image.key });
         }
       };
 
