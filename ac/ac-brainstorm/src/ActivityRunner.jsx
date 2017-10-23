@@ -133,7 +133,7 @@ const ActivityRunner = ({
   };
 
   const vote = (id, incr) => {
-    logger({ key: userInfo.name, type: 'vote', itemId: id, value: incr });
+    logger({ type: 'vote', itemId: id, value: incr });
     switch (data[id].students[userInfo.id]) {
       case -1:
         if (incr < 0) {
