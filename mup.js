@@ -45,19 +45,12 @@ module.exports = {
 
     env: {
       ROOT_URL: 'https://icchilisrv3.epfl.ch',
-      MONGO_URL: 'mongodb://icchilisrv3.epfl.ch/meteor'
-    },
-
-    ssl: {
-      autogenerate: {
-        email: 'stian.haklev@epfl.ch',
-        domains: 'icchilisrv3.epfl.ch'
-      }
+      MONGO_URL: 'mongodb://127.0.0.1:27017/meteor'
     },
 
     docker: {
-      image: 'abernix/meteord:node-8.3.0-base',
-      args: ['-p 3002:3002']
+      image: 'abernix/meteord:node-8.4.0-base',
+      args: ['--network="host"']
     },
 
     enableUploadProgressBar: true
