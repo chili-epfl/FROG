@@ -22,21 +22,21 @@ Meteor.methods({
           const [doc, dataFn] = Cache[docId];
           aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log);
         } else {
-          const prepareDoc = (doctmp) => {
+          const prepareDoc = doctmp => {
             const dataFn = generateReactiveFn(doctmp);
             Cache[docId] = [doctmp, dataFn];
             if (aT.dashboard && aT.dashboard.mergeLog) {
               aT.dashboard.mergeLog(cloneDeep(doctmp.data), dataFn, log);
             }
-          }
+          };
 
           const doc = serverConnection.get('rz', docId);
           doc.fetch();
           if (doc.type) {
-            prepareDoc(doc)
+            prepareDoc(doc);
           } else {
             doc.once('load', () => {
-              prepareDoc(doc)
+              prepareDoc(doc);
             });
           }
         }
