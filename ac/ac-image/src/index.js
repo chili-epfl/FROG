@@ -5,7 +5,7 @@ import { type ActivityPackageT, uuid } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
 
-const DEFAULT_COMMENT_VALUE = 'Please comment on this representation';
+export const DEFAULT_COMMENT_VALUE = 'Please comment on this representation';
 
 const meta = {
   name: 'Image viewer',
@@ -39,10 +39,19 @@ const meta = {
       },
       data: {}
     },
-    { title: 'With uploads', config: { canUpload: true }, data: {} },
+    {
+      title: 'With uploads',
+      config: {
+        canUpload: true,
+        guidelines:
+          'Ajoutez des images ou bien prenez une photo avec votre webcam'
+      },
+      data: {}
+    },
     {
       title: 'With categories',
       config: {
+        guidelines: 'Look at categories of image',
         images: [
           {
             url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg',
@@ -73,6 +82,7 @@ const meta = {
     {
       title: 'With votes',
       config: {
+        guidelines: 'Votez pour les images les plus interessantes',
         canVote: true,
         minVote: 2,
         images: [
@@ -103,6 +113,10 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
+    guidelines: {
+      title: 'Guidelines',
+      type: 'string'
+    },
     canVote: {
       title: 'Can students vote ?',
       type: 'boolean'

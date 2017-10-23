@@ -43,8 +43,31 @@ const ZoomView = ({
           type="textarea"
           path={[images[index].key, 'comment']}
           dataFn={dataFn}
-          style={{ position: 'absolute', width: '500px', height: '150px' }}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100px',
+            bottom: '0px'
+          }}
         />
+      )}
+      {commentBox && (
+        <button
+          onClick={close}
+          className="btn btn-success"
+          style={{
+            position: 'absolute',
+            right: '0px',
+            bottom: '0px',
+            height: '100px',
+            width: '100px'
+          }}
+        >
+          <span
+            className="glyphicon glyphicon-floppy-save"
+            style={{ fontSize: 'xx-large' }}
+          />
+        </button>
       )}
     </ZoomContainer>
   );

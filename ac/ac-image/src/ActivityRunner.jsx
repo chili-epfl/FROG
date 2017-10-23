@@ -111,11 +111,9 @@ class ActivityRunner extends Component {
           hideCategory={activityData.config.hideCategory}
           {...{ setCategory, setZoom }}
         />
+        <p>{activityData.config.guidelines}</p>
         {images.length === 0 && this.state.category !== 'categories' ? (
-          <h1>
-            Please upload images by dropping files on the button below, or click
-            the button to turn on the webcam
-          </h1>
+          <h1>No image</h1>
         ) : (
           <ThumbList
             {...{

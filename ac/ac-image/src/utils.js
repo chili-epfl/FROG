@@ -3,6 +3,8 @@
 import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
 
+import { DEFAULT_COMMENT_VALUE } from '.';
+
 const uploadBufferWithThumbnail = (
   imageBuffer,
   imageId,
@@ -42,7 +44,10 @@ export default (
   const fr = new FileReader();
 
   const imageId = uuid();
-  dataFn.objInsert({ votes: {}, key: imageId }, imageId);
+  dataFn.objInsert(
+    { votes: {}, comment: DEFAULT_COMMENT_VALUE, key: imageId },
+    imageId
+  );
   stream(imageId, [imageId, 'key']);
 
   fr.onloadend = loaded => {
