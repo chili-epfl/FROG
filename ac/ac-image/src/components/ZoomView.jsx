@@ -22,7 +22,8 @@ const ZoomView = ({
   index,
   commentBox,
   dataFn,
-  logger
+  logger,
+  commentGuidelines
 }: Object) => {
   Mousetrap.bind('left', () => setIndex(Math.max(index - 1, 0)));
   Mousetrap.bind('right', () =>
@@ -45,7 +46,9 @@ const ZoomView = ({
           path={[images[index].key, 'comment']}
           logger={logger}
           dataFn={dataFn}
+          placeholder={commentGuidelines}
           style={{
+            fontSize: '22px',
             position: 'absolute',
             width: '100%',
             height: '100px',
@@ -65,10 +68,7 @@ const ZoomView = ({
             width: '100px'
           }}
         >
-          <span
-            className="glyphicon glyphicon-floppy-save"
-            style={{ fontSize: 'xx-large' }}
-          />
+          <i className="fa fa-check" style={{ fontSize: 'xx-large' }} />
         </button>
       )}
     </ZoomContainer>

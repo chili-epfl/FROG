@@ -9,6 +9,7 @@ import { publishComposite } from 'meteor/reywood:publish-composite';
 import { startShareDB } from './share-db-manager';
 import '../imports/startup/shutdown-if-env.js';
 
+import { Logs } from '../imports/api/logs';
 import teacherImports from './teacherImports';
 import {
   Activities,
@@ -20,6 +21,16 @@ import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 
 Meteor.users._ensureIndex('joinedSessions');
+Meteor.users._ensureIndex('services.frog.id');
+Logs._ensureIndex('sessionId');
+Sessions._ensureIndex('slug');
+Operators._ensureIndex('graphId');
+Operators._ensureIndex('type');
+Activities._ensureIndex('graphId');
+Activities._ensureIndex('type');
+Connections._ensureIndex('graphId');
+Connections._ensureIndex('target.id');
+Connections._ensureIndex('source.id');
 startShareDB();
 teacherImports();
 
@@ -43,7 +54,10 @@ publishComposite('session_activities', function(slug) {
       {
         find(user) {
           if (user.joinedSessions && user.joinedSessions.includes(slug)) {
-            return Sessions.find({ slug });
+            return Sessions.find(
+              { slug },
+              { sort: { startedAt: -1 }, limit: 1 }
+            );
           }
         },
         children: [

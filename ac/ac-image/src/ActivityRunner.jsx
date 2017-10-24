@@ -111,7 +111,7 @@ class ActivityRunner extends Component {
           hideCategory={activityData.config.hideCategory}
           {...{ setCategory, setZoom }}
         />
-        <p>{activityData.config.guidelines}</p>
+        <p style={{ fontSize: '22px' }}>{activityData.config.guidelines}</p>
         {images.length === 0 && this.state.category !== 'categories' ? (
           <h1>No image</h1>
         ) : (
@@ -136,6 +136,7 @@ class ActivityRunner extends Component {
             <ZoomView
               index={this.state.index}
               commentBox={activityData.config.canComment}
+              commentGuidelines={activityData.config.commentGuidelines}
               close={() => setZoom(false)}
               {...{ images, setIndex, dataFn, logger }}
             />

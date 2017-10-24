@@ -10,7 +10,6 @@ const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  position: absolute;
   top: 60px;
   bottom: 85px;
   overflow: auto;
