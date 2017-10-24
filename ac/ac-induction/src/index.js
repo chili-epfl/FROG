@@ -21,9 +21,9 @@ const meta = {
         hasDefinition: false,
         hasTest: false,
         properties: [],
-        suffisantSets: "",
-        contradictoryProperties: "",
-        unnecessaryProperties: "",
+        suffisantSets: '',
+        contradictoryProperties: '',
+        unnecessaryProperties: '',
         examples: []
       },
       data: []
@@ -42,69 +42,78 @@ const meta = {
         hasTest: true,
         nbTest: 4,
         properties: [
-          "at least one is not filled",
-          "at most one is filled",
-          "they all have the same shape",
-          "they all have the same color",
-          "they all have the different shapes",
-          "they all have the different colors",
-          "exactly 2 have the same shape",
-          "exactly 2 have the same color"
+          'at least one is not filled',
+          'at most one is filled',
+          'they all have the same shape',
+          'they all have the same color',
+          'they all have the different shapes',
+          'they all have the different colors',
+          'exactly 2 have the same shape',
+          'exactly 2 have the same color'
         ],
-        suffisantSets: "{2,3},{2,5},{3,4},{5,4}",
-        contradictoryProperties: "6,7",
-        unnecessaryProperties: "0,1,2,3,4,5",
+        suffisantSets: '{2,3},{2,5},{3,4},{5,4}',
+        contradictoryProperties: '6,7',
+        unnecessaryProperties: '0,1,2,3,4,5',
         examples: [
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img000.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img000.png',
             isIncorrect: false,
-            respectedProperties: "0,1,2,3"
+            respectedProperties: '0,1,2,3'
           },
           {
             url:
               'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img006.png',
             isIncorrect: true,
-            respectedProperties: "0,1,2,7"
+            respectedProperties: '0,1,2,7'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img012.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img012.png',
             isIncorrect: false,
-            respectedProperties: "0,1,3,4"
+            respectedProperties: '0,1,3,4'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img032.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img032.png',
             isIncorrect: true,
-            respectedProperties: "0,1,6,7"
+            respectedProperties: '0,1,6,7'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img038.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img038.png',
             isIncorrect: true,
-            respectedProperties: "0,1,5,6"
+            respectedProperties: '0,1,5,6'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img048.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img048.png',
             isIncorrect: false,
-            respectedProperties: "0,1,4,5"
+            respectedProperties: '0,1,4,5'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img063.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img063.png',
             isIncorrect: false,
-            respectedProperties: "0,1,2,6"
+            respectedProperties: '0,1,2,6'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img133.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img133.png',
             isIncorrect: true,
-            respectedProperties: "0,6,7"
+            respectedProperties: '0,6,7'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img384.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img384.png',
             isIncorrect: true,
-            respectedProperties: "0,4,7"
+            respectedProperties: '0,4,7'
           },
           {
-            url: 'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img433.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img433.png',
             isIncorrect: true,
-            respectedProperties: "3,6"
+            respectedProperties: '3,6'
           }
         ]
       },
