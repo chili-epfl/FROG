@@ -1,7 +1,27 @@
 module.exports = {
   servers: {
-    one: {
-      host: 'icchilisrv3.epfl.ch',
+    frog1: {
+      host: 'frog1',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
+    },
+    frog2: {
+      host: 'frog2',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
+    },
+    frog3: {
+      host: 'frog3',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
+    },
+    frog4: {
+      host: 'frog4',
+      username: 'root',
+      pem: '~/.ssh/id_rsa'
+    },
+    frog5: {
+      host: 'frog5',
       username: 'root',
       pem: '~/.ssh/id_rsa'
     }
@@ -12,7 +32,11 @@ module.exports = {
     path: 'frog',
 
     servers: {
-      one: {}
+      frog1: {},
+      frog2: {},
+      frog3: {},
+      frog4: {},
+      frog5: {}
     },
 
     buildOptions: {
@@ -21,19 +45,12 @@ module.exports = {
 
     env: {
       ROOT_URL: 'https://icchilisrv3.epfl.ch',
-      MONGO_URL: 'mongodb://icchilisrv3.epfl.ch/meteor'
-    },
-
-    ssl: {
-      autogenerate: {
-        email: 'stian.haklev@epfl.ch',
-        domains: 'icchilisrv3.epfl.ch'
-      }
+      MONGO_URL: 'mongodb://127.0.0.1:27017/meteor'
     },
 
     docker: {
-      image: 'abernix/meteord:node-8.3.0-base',
-      args: ['-p 3002:3002']
+      image: 'abernix/meteord:node-8.4.0-base',
+      args: ['--network="host"']
     },
 
     enableUploadProgressBar: true

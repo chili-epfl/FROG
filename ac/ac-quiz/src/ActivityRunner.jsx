@@ -71,12 +71,13 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const widgets = { latexWidget: LatexWidget };
   const fields = { DescriptionField };
   const formData = data.form;
-  const onSubmit = () => {
+  const onSubmit = e => {
+    logger({ type: 'submit', payload: e.formData });
     dataFn.objInsert(true, 'completed');
   };
   const onChange = e => {
     dataFn.objInsert(e.formData, 'form');
-    logger(e.formData);
+    logger({ type: 'formData', payload: e.formData });
   };
 
   return (

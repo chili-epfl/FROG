@@ -64,7 +64,7 @@ export type ControlStructureT =
   | { list: { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
-  logger: Function,
+  logger: (log: LogT) => void,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
@@ -83,6 +83,31 @@ export type ReactComponent<Props> =
   | Class<React$Component<*, Props, *>>
   | (Props => React$Element<any> | null);
 
+export type LogT = {|
+  type: string,
+  itemId?: string,
+  value?: string | number,
+  payload?: Object
+|};
+
+type ActivityDefT = {|
+  activityId: string,
+  activityType: string,
+  activityPlane: number
+|};
+
+type LogExtraDBT = {|
+  _id: string,
+  sessionId: string,
+  userId: string,
+  instanceId?: string,
+  timestamp: Date
+|} & LogT;
+
+export type LogDBT =
+  | {| ...LogExtraDBT, ...ActivityDefT, ...LogT |}
+  | {| ...LogExtraDBT, ...LogT |};
+
 export type ActivityPackageT = {
   id: string,
   type: 'react-component',
@@ -100,7 +125,7 @@ export type ActivityPackageT = {
   ActivityRunner: ReactComponent<ActivityRunnerT>,
   dashboard?: {
     Viewer: ReactComponent<any>,
-    mergeLog: (data: any, dataFn: Object, log: any) => void,
+    mergeLog: (data: any, dataFn: Object, log: LogDBT) => void,
     initData: any
   }
 };

@@ -38,7 +38,7 @@ const takePicture = ({
   // write the ArrayBuffer to a blob, and you're done
   const blob = new Blob([ab], { type: mimeString });
 
-  uploadImage(blob, logger, dataFn, stream, uploadFn);
+  uploadImage(blob, logger, dataFn, stream, uploadFn, 'webcam.upload');
   setWebcam(false);
 };
 

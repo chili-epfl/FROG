@@ -10,7 +10,6 @@ const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  position: absolute;
   top: 60px;
   bottom: 85px;
   overflow: auto;
@@ -34,7 +33,7 @@ const ImageList = ({
         } else {
           setIndex(i);
           setZoom(true);
-          logger('zoom/' + image.key);
+          logger({ type: 'zoom', itemId: image.key });
         }
       };
 
@@ -58,7 +57,7 @@ const ImageList = ({
   </Main>
 );
 
-const CategoryList = ({ categories, setCategory }) => (
+const CategoryList = ({ categories, setCategory, logger }) => (
   <Main>
     {Object.keys(categories).map(category => (
       <CategoryBox
@@ -66,17 +65,14 @@ const CategoryList = ({ categories, setCategory }) => (
         images={categories[category]}
         category={category}
         setCategory={setCategory}
+        logger={logger}
       />
     ))}
   </Main>
 );
 
 const ThumbList = (props: Object) =>
-  props.showingCategories ? (
-    <CategoryList {...props} />
-  ) : (
-    <ImageList {...props} />
-  );
+  props.showCategories ? <CategoryList {...props} /> : <ImageList {...props} />;
 
 ThumbList.displayName = 'ThumbList';
 export default ThumbList;

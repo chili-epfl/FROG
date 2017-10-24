@@ -2,8 +2,9 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './Induction';
+import ActivityRunner from './ActivityRunner';
 import config from './config';
+import mergeFunction from './mergeFun';
 
 const meta = {
   name: 'Induction',
@@ -14,40 +15,65 @@ const meta = {
     {
       title: 'Empty induction',
       config: {
-        title: 'Example induction',
-        trueDef: [],
-        falseDef: [],
-        imgTrue:
-          'https://blog.stylingandroid.com/wp-content/themes/lontano-pro/images/no-image-slide.png',
-        imgFalse:
-          'https://blog.stylingandroid.com/wp-content/themes/lontano-pro/images/no-image-slide.png'
+        title: 'Empty induction',
+        hasExamples: false,
+        hasTestWithFeedback: false,
+        hasDefinition: false,
+        hasTest: false,
+        examples: []
       },
       data: []
     },
     {
-      title: 'Induction with imgs and defs',
+      title: 'Induction with examples',
       config: {
-        title: 'The square :',
-        trueDef: [
-          'It has 4 sides',
-          'It has 4 right angles',
-          'All of its sides have the same length'
-        ],
-        falseDef: ["It's blue", 'It has no edges'],
-        imgTrue: 'http://www.fremontsailingclub.org/sailing/SFlag.gif',
-        imgFalse:
-          'https://www.pharmasystems.com/image/cache/LabelsFall2013/2555-500x500.jpg'
+        title: 'The square',
+        hasExamples: true,
+        nbExamples: 3,
+        hasTestWithFeedback: true,
+        nbTestFeedback: 2,
+        hasDefinition: true,
+        definition:
+          'A square is a regular quadrilateral, which means that it has four equal sides and four equal angles (90-degree angles, or right angles). It can also be defined as a rectangle in which two adjacent sides have equal length.',
+        hasTest: true,
+        nbTest: 4,
+        examples: [
+          {
+            url: 'http://www.fremontsailingclub.org/sailing/SFlag.gif',
+            isIncorrect: false
+          },
+          {
+            url:
+              'https://www.pharmasystems.com/image/cache/LabelsFall2013/2555-500x500.jpg',
+            isIncorrect: true,
+            whyIncorrect: "It doesn't have 4 sides"
+          },
+          {
+            url: 'http://www.iconsdb.com/icons/preview/green/triangle-xxl.png',
+            isIncorrect: true,
+            whyIncorrect: "The angles aren't right"
+          }
+        ]
       },
       data: []
     }
   ]
 };
 
+const configUI = {
+  nbExamples: { conditional: 'hasExamples' },
+  nbTestFeedback: { conditional: 'hasTestWithFeedback' },
+  definition: { conditional: 'hasDefinition' },
+  nbTest: { conditional: 'hasTest' }
+};
+
 export default ({
   id: 'ac-induction',
   type: 'react-component',
-  meta,
   config,
+  configUI,
+  meta,
   ActivityRunner,
+  mergeFunction,
   Dashboard: null
 }: ActivityPackageT);

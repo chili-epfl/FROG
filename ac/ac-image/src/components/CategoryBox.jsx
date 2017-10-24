@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { type LogT } from 'frog-utils';
 
 import CenteredImg from './CenteredImg';
 
@@ -38,13 +39,20 @@ const CategoryName = styled.span`
 const CategoryBox = ({
   images,
   category,
-  setCategory
+  setCategory,
+  logger
 }: {
   images: any[],
   category: string,
-  setCategory: Function
+  setCategory: Function,
+  logger: LogT => void
 }) => (
-  <CategoryContainer onClick={() => setCategory(category)}>
+  <CategoryContainer
+    onClick={() => {
+      logger({ type: 'category.enter', value: category });
+      setCategory(category);
+    }}
+  >
     {images.slice(0, 4).map((image, i) => (
       <ImgContainer key={image + i.toString()}>
         <CenteredImg url={image} />

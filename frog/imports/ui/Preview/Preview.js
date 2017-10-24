@@ -1,14 +1,12 @@
 // @flow
-
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
-import { A, generateReactiveFn, uuid } from 'frog-utils';
+import { type LogDBT, A, generateReactiveFn, uuid } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
-import { Inspector } from 'react-inspector';
 import { Link } from 'react-router-dom';
 import ShareDB from 'sharedb';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
@@ -17,6 +15,9 @@ import Draggable from 'react-draggable';
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import { DashboardComp } from '../TeacherView/Dashboard';
+import ShowInfo from './ShowInfo';
+import createLogger, { Logs } from './createLogger';
+import ShowLogs from './ShowLogs';
 
 const Icon = ({
   onClick,
@@ -47,23 +48,6 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-const ShowInfo = ({ activityData, data }) => (
-  <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-    <div style={{ flexBasis: 0, flexGrow: 1 }}>
-      <h3>Config</h3>
-      <Inspector data={activityData.config} expandLevel={8} />
-    </div>
-    <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
-      <h3>activityData</h3>
-      <Inspector data={activityData.data} expandLevel={8} />
-    </div>
-    <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
-      <h3>Current reactive data</h3>
-      <Inspector data={data} expandLevel={8} />
-    </div>
-  </div>
-);
-
 const backend = new ShareDB();
 const connection = backend.connect();
 const Collections = {};
@@ -86,6 +70,8 @@ export const StatelessPreview = withState(
     isSeparatePage = false,
     setReload,
     windows = 1,
+    showLogs,
+    setShowLogs,
     setWindows,
     fullWindow,
     setFullWindow
@@ -97,6 +83,8 @@ export const StatelessPreview = withState(
     setShowDash: Function,
     showDash: boolean,
     setShowData: Function,
+    setShowLogs: Function,
+    showLogs: boolean,
     dismiss?: Function,
     config?: Object,
     isSeparatePage: boolean,
@@ -130,23 +118,22 @@ export const StatelessPreview = withState(
           (activityType.dashboard && activityType.dashboard.initData) || {}
         );
       }
-      dashboard.destroy();
     });
 
     const reactiveDash = generateReactiveFn(dashboard);
 
-    const logger = (id, instanceId) => payload => {
+    const mergeData = (log: LogDBT) => {
       if (activityType.dashboard && activityType.dashboard.mergeLog) {
         activityType.dashboard.mergeLog(
           cloneDeep(dashboard.data),
           reactiveDash,
-          { userId: id, payload, updatedAt: Date(), instanceId }
+          log
         );
       }
     };
 
-    range(0, Math.ceil(windows + 1 / 2)).forEach(i => {
-      const coll = `demo-${activityType.id}-${example}-${i}`;
+    range(0, Math.ceil(windows / 2)).forEach(i => {
+      const coll = `demo-${activityType.id}-${example}-${i + 1}`;
       if (!Collections[coll]) {
         Collections[coll] = uuid();
       }
@@ -181,7 +168,16 @@ export const StatelessPreview = withState(
             name,
             id
           }}
-          logger={logger(id, Math.ceil(id / 2))}
+          stream={() => undefined}
+          logger={createLogger(
+            'preview',
+            '' + Math.ceil(id / 2),
+            activityType.id,
+            'preview',
+            '' + id,
+            2,
+            mergeData
+          )}
           groupingValue={'' + Math.ceil(id / 2)}
         />
       );
@@ -213,12 +209,19 @@ export const StatelessPreview = withState(
             />
           )}
           <Icon
+            onClick={() => setShowLogs(!showLogs)}
+            icon="fa fa-list"
+            color={showLogs ? '#3d76b8' : '#b3cae6'}
+            tooltip="Toggle log table"
+          />
+          <Icon
             onClick={() => {
-              range(0, Math.ceil(windows + 1 / 2)).forEach(i => {
+              range(0, Math.ceil(windows / 2)).forEach(i => {
                 const coll = `demo-${activityType.id}-${example}-${i}`;
                 Collections[coll] = uuid();
               });
 
+              Logs.length = 0;
               setReload(uuid());
             }}
             icon="fa fa-refresh"
@@ -284,7 +287,7 @@ export const StatelessPreview = withState(
           <Run name={users[0]} id={1} />
         ) : (
           <Mosaic
-            renderTile={([x, id]) =>
+            renderTile={([x, id], path) =>
               x === 'dashboard' && activityType.dashboard ? (
                 <MosaicWindow title={'dashboard - ' + activityType.meta.name}>
                   <DashboardComp
@@ -293,11 +296,12 @@ export const StatelessPreview = withState(
                     doc={dashboard}
                     users={users
                       .filter(e => e !== 'dashboard')
-                      .map((e, i) => ({ _id: i + 1, username: e }))}
+                      .map((e, i) => ({ _id: i, username: e }))}
                   />
                 </MosaicWindow>
               ) : (
                 <MosaicWindow
+                  path={path}
                   title={
                     x + '/' + Math.ceil(id / 2) + ' - ' + activityType.meta.name
                   }
@@ -305,7 +309,7 @@ export const StatelessPreview = withState(
                   <Run name={x} id={id} />
                 </MosaicWindow>
               )}
-            initialValue={getInitialState(users.map((x, i) => [x, i]))}
+            initialValue={getInitialState(users.map((x, i) => [x, i + 1]))}
           />
         )}
       </div>
@@ -322,7 +326,7 @@ export const StatelessPreview = withState(
             width: '100vw'
           }}
         >
-          {Content}
+          {showLogs ? <ShowLogs logs={Logs} /> : Content}
         </div>
         <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
           <div
@@ -348,7 +352,7 @@ export const StatelessPreview = withState(
         onRequestClose={dismiss}
       >
         {Controls}
-        {Content}
+        {showLogs ? <ShowLogs logs={Logs} /> : Content}
         <ReactTooltip delayShow={1000} />
       </Modal>
     );

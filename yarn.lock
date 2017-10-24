@@ -228,7 +228,7 @@ arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
-asap@^2.0.3:
+asap@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
 
@@ -520,6 +520,10 @@ babel-messages@^6.23.0:
   resolved "https://registry.yarnpkg.com/babel-messages/-/babel-messages-6.23.0.tgz#f3cdf4703858035b2a2951c6ec5edf6c62f2630e"
   dependencies:
     babel-runtime "^6.22.0"
+
+babel-plugin-captains-log@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-captains-log/-/babel-plugin-captains-log-1.0.1.tgz#84e1a7218d108997e0e47da4c20687794530cd04"
 
 babel-plugin-check-es2015-constants@^6.22.0:
   version "6.22.0"
@@ -2086,14 +2090,14 @@ disposables@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/disposables/-/disposables-1.0.1.tgz#064727a25b54f502bd82b89aa2dfb8df9f1b39e3"
 
-dnd-core@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-2.4.0.tgz#c4a5bc2aea75164f8a295d769d5f551810e7d411"
+dnd-core@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-2.5.4.tgz#0c70a8dcbb609c0b222e275fcae9fa83e5897397"
   dependencies:
-    asap "^2.0.3"
+    asap "^2.0.6"
     invariant "^2.0.0"
     lodash "^4.2.0"
-    redux "^3.2.0"
+    redux "^3.7.1"
 
 doctrine@0.7.2:
   version "0.7.2"
@@ -3133,6 +3137,10 @@ hoist-non-react-statics@^1.0.0, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
+hoist-non-react-statics@^2.1.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -3233,9 +3241,9 @@ ignore@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.3.tgz#432352e57accd87ab3110e82d3fea0e47812156d"
 
-immutability-helper@^2.0.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.3.1.tgz#8ccfce92157208c120b2afad7ed05c11114c086e"
+immutability-helper@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.4.0.tgz#00d421e2957c17f0f0781475f05ffd837e73458d"
   dependencies:
     invariant "^2.2.0"
 
@@ -5173,22 +5181,22 @@ react-d3-cloud@^0.4.1:
     d3-cloud "^1.2.4"
     react-faux-dom "^3.0.0"
 
-react-dnd-html5-backend@^2.1.2:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-2.4.1.tgz#439d2bcaf8bd8b87a51386beb51c128826182ddd"
+react-dnd-html5-backend@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-2.5.4.tgz#974ad083f67b12d56977a5b171f5ffeb29d78352"
   dependencies:
     lodash "^4.2.0"
 
-react-dnd@^2.1.4:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.4.0.tgz#96f0042cd4cd375b4f0c3413f6ec84d267b7d792"
+react-dnd@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.5.4.tgz#0b6dc5e9d0dfc2909f4f4fe736e5534f3afd1bd9"
   dependencies:
     disposables "^1.0.1"
-    dnd-core "^2.4.0"
-    hoist-non-react-statics "^1.2.0"
+    dnd-core "^2.5.4"
+    hoist-non-react-statics "^2.1.0"
     invariant "^2.1.0"
     lodash "^4.2.0"
-    prop-types "^15.5.8"
+    prop-types "^15.5.10"
 
 react-dom-factories@^1.0.0:
   version "1.0.1"
@@ -5315,16 +5323,16 @@ react-modal@^2.2.2:
     prop-types "^15.5.10"
     react-dom-factories "^1.0.0"
 
-react-mosaic-component@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/react-mosaic-component/-/react-mosaic-component-0.4.2.tgz#64bbbdc6c56c2af99a559fbb50ddb5fe6e8204a1"
+react-mosaic-component@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-mosaic-component/-/react-mosaic-component-1.0.1.tgz#46de9a081eca9b98951d30fb806828c3aa9d0026"
   dependencies:
     classnames "^2.2.5"
-    immutability-helper "^2.0.0"
+    immutability-helper "^2.4.0"
     lodash "^4.17.2"
-    prop-types "^15.5.10"
-    react-dnd "^2.1.4"
-    react-dnd-html5-backend "^2.1.2"
+    prop-types "^15.6.0"
+    react-dnd "^2.5.4"
+    react-dnd-html5-backend "^2.5.4"
     uuid "^3.0.1"
 
 react-overlays@^0.7.0:
@@ -5564,7 +5572,7 @@ redis@^2.6.0:
     redis-commands "^1.2.0"
     redis-parser "^2.6.0"
 
-redux@^3.2.0:
+redux@^3.7.1:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
@@ -6800,5 +6808,5 @@ yargs@~3.10.0:
     window-size "0.1.0"
 
 yarn@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.2.0.tgz#c5004499eb6dc7ecdd0f93743f463bbc5998324c"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.2.1.tgz#0d628dc01438881a1663a6f83cbf7ac5db7a75fc"
