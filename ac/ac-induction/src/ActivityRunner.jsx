@@ -11,12 +11,12 @@ import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
-export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
+export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
   switch (data.parts[data.indexPart]) {
     case 'Presentation':
-      page = <Presentation title={title} dataFn={dataFn} data={data} />;
+      page = <Presentation title={title} dataFn={dataFn} data={data} logger={logger}/>;
       break;
     case 'Examples':
       page = (
@@ -26,6 +26,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
           nbExamples={activityData.config.nbExamples}
           dataFn={dataFn}
           data={data}
+          logger={logger}
         />
       );
       break;
@@ -40,6 +41,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
           properties={properties}
           dataFn={dataFn}
           data={data}
+          logger={logger}
         />
       );
       break;
@@ -51,6 +53,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
           hasTest={activityData.config.hasTest}
           dataFn={dataFn}
           data={data}
+          logger={logger}
         />
       );
       break;
@@ -65,6 +68,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
           properties={properties}
           dataFn={dataFn}
           data={data}
+          logger={logger}
         />
       );
       break;

@@ -5,6 +5,7 @@ import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import config from './config';
 import mergeFunction from './mergeFun';
+import dashboard from './Dashboard';
 
 const meta = {
   name: 'Induction',
@@ -75,5 +76,5 @@ export default ({
   meta,
   ActivityRunner,
   mergeFunction,
-  Dashboard: null
+  dashboard
 }: ActivityPackageT);
