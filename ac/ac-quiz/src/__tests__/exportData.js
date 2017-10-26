@@ -51,53 +51,55 @@ const config = {
 };
 
 const data = {
-  structure: 'individual',
-  payload: {
-    '2D7YgM4iXzXtHb8i9': { data: {} },
-    '2SzYgAQ4rFwNzc6ca': { data: { form: { 'question 1': 0 } } },
-    '378CrSvKKXqXmoqgB': {
-      data: { form: { 'question 0': 3, 'question 1': 4 } }
-    },
-    '3k8Dpn3ZRv5aMBMXC': {
-      data: { form: { 'question 0': 3, 'question 1': 0 }, completed: true }
-    },
-    '4C9h7ZrBx3WE8Csmi': { data: {} },
-    '62sFTRZf4DsyJZQxW': { data: { form: { 'question 1': 0 } } },
-    '6YNRJHCGM5xKdSwog': {
-      data: { form: { 'question 0': 6 }, completed: true }
-    },
-    '6axnbTEnud9SSyxWY': {
-      data: { form: { 'question 0': 2, 'question 1': 0 }, completed: true }
-    },
-    '6cQLtWSHeSKeEswCs': {
-      data: { form: { 'question 0': 2, 'question 1': 0 }, completed: true }
-    },
-    '6sEbJJXFZa4kX7LgX': { data: {} },
-    '74vM8DrJN4qvg88R6': {
-      data: { form: { 'question 0': 3, 'question 1': 2 }, completed: true }
-    },
-    '7Lx9GjMib4pFHMQGh': {
-      data: { form: { 'question 0': 6, 'question 1': 4 }, completed: true }
-    },
-    '7rbpdZEHHvukaehyh': { data: {} },
-    '7z7wXxAJuwLMwstuX': { data: {} },
-    '83Zr8FgGMTWoFZDFn': { data: {} },
-    '86ZE85kFywrkSyR4E': { data: {} },
-    '8Zc9Hpd2JWw9a763A': {
-      data: { form: { 'question 0': 3, 'question 1': 3 }, completed: true }
-    },
-    '8dTWY27d5CaQLks3A': {
-      data: { form: { 'question 0': 3, 'question 1': 1 }, completed: true }
-    },
-    '9CbC69PyyfD2DJHR4': { data: {} },
-    '9fBcxPPc4vf8JwcP8': {
-      data: { form: { 'question 1': 2 }, completed: true }
-    },
-    '9fsXJNhAqjznvLPSi': {
-      data: { form: { 'question 0': 3, 'question 1': 4 }, completed: true }
-    },
-    '9hMBxdAnR5aWBmCQG': {
-      data: { form: { 'question 0': 6, 'question 1': 4 }, completed: true }
+  activityData: {
+    structure: 'individual',
+    payload: {
+      '2D7YgM4iXzXtHb8i9': { data: {} },
+      '2SzYgAQ4rFwNzc6ca': { data: { form: { 'question 1': 0 } } },
+      '378CrSvKKXqXmoqgB': {
+        data: { form: { 'question 0': 3, 'question 1': 4 } }
+      },
+      '3k8Dpn3ZRv5aMBMXC': {
+        data: { form: { 'question 0': 3, 'question 1': 0 }, completed: true }
+      },
+      '4C9h7ZrBx3WE8Csmi': { data: {} },
+      '62sFTRZf4DsyJZQxW': { data: { form: { 'question 1': 0 } } },
+      '6YNRJHCGM5xKdSwog': {
+        data: { form: { 'question 0': 6 }, completed: true }
+      },
+      '6axnbTEnud9SSyxWY': {
+        data: { form: { 'question 0': 2, 'question 1': 0 }, completed: true }
+      },
+      '6cQLtWSHeSKeEswCs': {
+        data: { form: { 'question 0': 2, 'question 1': 0 }, completed: true }
+      },
+      '6sEbJJXFZa4kX7LgX': { data: {} },
+      '74vM8DrJN4qvg88R6': {
+        data: { form: { 'question 0': 3, 'question 1': 2 }, completed: true }
+      },
+      '7Lx9GjMib4pFHMQGh': {
+        data: { form: { 'question 0': 6, 'question 1': 4 }, completed: true }
+      },
+      '7rbpdZEHHvukaehyh': { data: {} },
+      '7z7wXxAJuwLMwstuX': { data: {} },
+      '83Zr8FgGMTWoFZDFn': { data: {} },
+      '86ZE85kFywrkSyR4E': { data: {} },
+      '8Zc9Hpd2JWw9a763A': {
+        data: { form: { 'question 0': 3, 'question 1': 3 }, completed: true }
+      },
+      '8dTWY27d5CaQLks3A': {
+        data: { form: { 'question 0': 3, 'question 1': 1 }, completed: true }
+      },
+      '9CbC69PyyfD2DJHR4': { data: {} },
+      '9fBcxPPc4vf8JwcP8': {
+        data: { form: { 'question 1': 2 }, completed: true }
+      },
+      '9fsXJNhAqjznvLPSi': {
+        data: { form: { 'question 0': 3, 'question 1': 4 }, completed: true }
+      },
+      '9hMBxdAnR5aWBmCQG': {
+        data: { form: { 'question 0': 6, 'question 1': 4 }, completed: true }
+      }
     }
   }
 };

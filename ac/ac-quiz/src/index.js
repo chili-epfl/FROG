@@ -10,9 +10,9 @@ import dashboard from './Dashboard';
 
 const getNum = x => parseInt(x.split(' ').pop(), 10);
 
-const exportData = (config, product) => {
-  const csv = Object.keys(product.payload).map(line => {
-    const data = product.payload[line].data['form'];
+const exportData = (config, { activityData: { payload } }) => {
+  const csv = Object.keys(payload).map(line => {
+    const data = payload[line].data['form'];
     const res = [];
     if (data) {
       Object.keys(data).map(q => {
@@ -23,11 +23,12 @@ const exportData = (config, product) => {
     }
   });
 
+  console.log(config, config.questions);
   const headers = [
     'instanceId',
     ...range(config.questions.length).map(x => 'q' + (x + 1))
   ].join('\t');
-  return compact([headers, ...csv]).join('\n');
+  return compact([headers, ...csv.sort()]).join('\n');
 };
 
 export default ({
