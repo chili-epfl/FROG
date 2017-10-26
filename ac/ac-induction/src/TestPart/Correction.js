@@ -35,67 +35,70 @@ export default (
   );
   const finalResult = {
     result: 0,
-    reason: '',
+    show: 0,
     propertiesIndex: []
   };
   switch (caseAnswer) {
     case 0: // choose answer true
+      finalResult.result = isIncorrect ? 2 : 1;
+      finalResult.show = 3;
       if (respectedRes.result) {
-        finalResult.reason = 'NotRespected';
         finalResult.propertiesIndex = respectedRes.properties; // incorrects & contains
       } else if (answers.length === 0) {
-        finalResult.reason = 'NoJustification';
+        finalResult.show = 0;
       } else if (contradictoryRes.result) {
-        finalResult.reason = 'Contradictory';
         finalResult.propertiesIndex = answers; // incorrects & contains
-      } else if (
-        !suffisantRes.result
-      ) {
-        finalResult.reason = 'NoCompleteSuffisant';
+      } else if (!suffisantRes.result) {
         finalResult.propertiesIndex = suffisantRes.properties; // incorrects & contains
       } else if (!unnecessaryRes.result) {
-        finalResult.reason = 'Unnecessary';
-        finalResult.propertiesIndex = arrayMinus(answers,unnecessaryRes.properties); // correct & doesn't contains
+        finalResult.show = 2;
+        finalResult.propertiesIndex = arrayMinus(
+          answers,
+          unnecessaryRes.properties
+        ); // correct & doesn't contains
+      } else {
+        finalResult.result = 0;
+        finalResult.show = 0;
       }
-      finalResult.result = isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
     case 1: // choose answer false why incorrect
+      finalResult.result = !isIncorrect ? 2 : 1;
+      finalResult.show = 1;
       if (respectedRes.result) {
-        finalResult.reason = 'NotRespected';
         finalResult.propertiesIndex = respectedRes.properties; // ? & contains
       } else if (answers.length === 0) {
-        finalResult.reason = 'NoJustification';
-      } else if (
-        arrayMinus(answers, contradictoryRes.properties).length > 0
-      ) {
-        finalResult.reason = 'NoContradictory';
+        finalResult.show = 0;
+      } else if (arrayMinus(answers, contradictoryRes.properties).length > 0) {
         finalResult.propertiesIndex = arrayMinus(answers, contradictories); // corrects & contains
+      } else {
+        finalResult.result = 0;
+        finalResult.show = 0;
       }
-      finalResult.result = !isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
     case 2: // choose answer false what's missing
+      finalResult.result = !isIncorrect ? 2 : 1;
+      finalResult.show = 2;
       if (!respectedRes.result && answers.length > 0) {
-        finalResult.reason = 'Respected';
+        finalResult.show = 3;
         finalResult.propertiesIndex = arrayMinus(
           answers,
           respectedRes.properties
         ); // ? & contains
-      } else if (answers.length === 0) {
-        finalResult.reason = 'NoJustification';
       } else if (contradictoryRes.result || answers.length === 0) {
-        finalResult.reason = 'Contradictory';
         finalResult.propertiesIndex = contradictoryRes.properties; // corrects & doesn't contains
       } else if (!unnecessaryRes.result) {
-        finalResult.reason = 'Unnecessary';
         finalResult.propertiesIndex = unnecessaryRes.properties; // corrects & doesn't contains
       } else if (
         isIncorrect &&
         !containsOneSuffisantSet(respected.concat(answers), suffisants).result
       ) {
-        finalResult.reason = 'NoCompleteSuffisant';
+        finalResult.show = 3;
         finalResult.propertiesIndex = answers; // What to put here ???     (incorrects & contains)
-      } else if (!isIncorrect) finalResult.reason = 'WasCorrect';
-      finalResult.result = !isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
+      } else if (!isIncorrect || answers.length === 0) finalResult.show = 0;
+      else {
+        finalResult.result = 0;
+        finalResult.show = 0;
+      }
       break;
     default:
   }
