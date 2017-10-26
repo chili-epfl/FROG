@@ -1,7 +1,21 @@
 import pkg from '../index';
 
 test('exportWorks', () => {
-  expect(pkg.exportData(config, data)).toEqual({});
+  expect(pkg.exportData(config, data)).toEqual(`instanceId	q1	q2
+2SzYgAQ4rFwNzc6ca		0
+378CrSvKKXqXmoqgB	3	4
+3k8Dpn3ZRv5aMBMXC	3	0
+62sFTRZf4DsyJZQxW		0
+6YNRJHCGM5xKdSwog	6
+6axnbTEnud9SSyxWY	2	0
+6cQLtWSHeSKeEswCs	2	0
+74vM8DrJN4qvg88R6	3	2
+7Lx9GjMib4pFHMQGh	6	4
+8Zc9Hpd2JWw9a763A	3	3
+8dTWY27d5CaQLks3A	3	1
+9fBcxPPc4vf8JwcP8		2
+9fsXJNhAqjznvLPSi	3	4
+9hMBxdAnR5aWBmCQG	6	4`);
 });
 
 const config = {

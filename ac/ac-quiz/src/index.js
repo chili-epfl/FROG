@@ -1,7 +1,6 @@
 // @flow
 
 import { compact, range } from 'lodash';
-import Stringify from 'json-stringify-pretty-compact';
 import type { ActivityPackageT } from 'frog-utils';
 
 import config from './config';
@@ -20,16 +19,14 @@ const exportData = (config, product) => {
         const num = getNum(q);
         res[num] = data[q];
       });
-      return [line, ...res];
+      return [line, ...res].join('\t');
     }
   });
 
-  const headers =
-    'instanceId,' +
-    range(config.questions.length)
-      .map(x => 'q' + (x + 1))
-      .join(',');
-  console.log(Stringify(config));
+  const headers = [
+    'instanceId',
+    ...range(config.questions.length).map(x => 'q' + (x + 1))
+  ].join('\t');
   return compact([headers, ...csv]).join('\n');
 };
 
