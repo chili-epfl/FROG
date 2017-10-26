@@ -142,12 +142,6 @@ export const containsOneSuffisantSet = (
     false
   );
   if (tmp) return { result: true, properties: [] };
-  // const tmp2 = suffisants.filter(
-  //   x =>
-  //     Array.isArray(x) &&
-  //     arrayIntersection(answers, x).length > 0 &&
-  //     !arrayEquals(arrayIntersection(answers, x), x)
-  // )[0];
   return { result: false, properties: answers };
 };
 
