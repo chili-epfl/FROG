@@ -2,16 +2,27 @@
 import React from 'react';
 import { Inspector } from 'react-inspector';
 import { createContainer } from 'meteor/react-meteor-data';
+import { A } from 'frog-utils';
 import Modal from 'react-modal';
 import { connect } from '../GraphEditor/store';
 import { Objects } from '../../api/objects';
 import { Activities, Operators } from '../../api/activities';
+import { activityTypesObj } from '../../activityTypes';
 import { Products } from '../../api/products';
+
+const downloadExport = (item, product) => {
+  const aT = activityTypesObj[item.activityType];
+  if (aT.exportData) {
+    console.log(aT.exportData(item.data, product));
+  }
+};
 
 const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
   if (!showInfo) {
     return null;
   }
+  const aT = activityTypesObj[item.activityType];
+  const hasExport = aT.exportData;
   return (
     <Modal
       contentLabel="showInfo"
@@ -23,6 +34,11 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
         <li>type: {item.activityType || item.operatorType}</li>
         <li>id: {item._id}</li>
         <li>State: {item.state}</li>
+        {hasExport && (
+          <li>
+            <A onClick={() => downloadExport(item, product)}>Export data</A>
+          </li>
+        )}
       </ul>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div style={{ flexBasis: 0, flexGrow: 1 }}>
