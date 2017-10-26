@@ -22,7 +22,7 @@ const downloadExport = (item, object, product) => {
   img.file('object.json', Stringify(object));
   img.file('config.json', Stringify(item.data));
   if (aT.exportData) {
-    const data = aT.exportData(item.data, product);
+    const data = aT.exportData(item.data, product.activityData);
     img.file('data.tsv', data);
   }
   zip

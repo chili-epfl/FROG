@@ -10,23 +10,23 @@ import dashboard from './Dashboard';
 
 const getNum = x => parseInt(x.split(' ').pop(), 10);
 
-const exportData = (config, { activityData: { payload } }) => {
+const exportData = (configData, { payload }) => {
   const csv = Object.keys(payload).map(line => {
     const data = payload[line].data['form'];
     const res = [];
     if (data) {
-      Object.keys(data).map(q => {
+      Object.keys(data).forEach(q => {
         const num = getNum(q);
         res[num] = data[q];
       });
       return [line, ...res].join('\t');
     }
+    return undefined;
   });
 
-  console.log(config, config.questions);
   const headers = [
     'instanceId',
-    ...range(config.questions.length).map(x => 'q' + (x + 1))
+    ...range(configData.questions.length).map(x => 'q' + (x + 1))
   ].join('\t');
   return compact([headers, ...csv.sort()]).join('\n');
 };
