@@ -21,8 +21,7 @@ const Container = styled.div`
 export class DashboardComp extends Component {
   state: { data: any };
   doc: any;
-  unmounted: boolean;
-  conn: any;
+  mounted: boolean;
 
   constructor(props: Object) {
     super(props);
@@ -30,7 +29,7 @@ export class DashboardComp extends Component {
   }
 
   componentDidMount = () => {
-    this.unmounted = false;
+    this.mounted = true;
     this.init(this.props);
   };
 
@@ -49,7 +48,7 @@ export class DashboardComp extends Component {
   }
 
   update = () => {
-    if (!this.unmounted) {
+    if (this.mounted) {
       this.setState({ data: this.doc.data });
     }
   };
@@ -57,7 +56,7 @@ export class DashboardComp extends Component {
   componentWillUnmount = () => {
     this.doc.removeListener('op', this.update);
     this.doc.removeListener('load', this.update);
-    this.unmounted = true;
+    this.mounted = false;
   };
 
   componentWillReceiveProps(nextProps: Object) {
