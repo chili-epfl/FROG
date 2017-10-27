@@ -51,11 +51,13 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
         <li>type: {item.activityType || item.operatorType}</li>
         <li>id: {item._id}</li>
         <li>State: {item.state}</li>
-        <li>
-          <A onClick={() => downloadExport(item, object, product)}>
-            Export data
-          </A>
-        </li>
+        {product && (
+          <li>
+            <A onClick={() => downloadExport(item, object, product)}>
+              Export data
+            </A>
+          </li>
+        )}
       </ul>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div style={{ flexBasis: 0, flexGrow: 1 }}>
