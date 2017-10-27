@@ -8,9 +8,7 @@ const ActivityRunner = ({ activityData }: ActivityRunnerT) => {
 
   return (
     <div>
-      <h1>
-        {activityData.config.title || 'Coding exercise'}
-      </h1>
+      <h1>{activityData.config.title || 'Coding exercise'}</h1>
       <div>
         <p>
           {activityData.config.guidelines || 'Instructions for the exercise'}
