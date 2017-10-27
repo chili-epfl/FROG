@@ -66,7 +66,7 @@ const NotLoggedIn = () => {
               <b>
                 <i>http://localhost:3000</i>
               </b>{' '}
-              as teacher, and{' '}
+              as teacher, and <h3>Shortcuts</h3>
               <b>
                 <i>http://dev1:3000</i>{' '}
               </b>{' '}

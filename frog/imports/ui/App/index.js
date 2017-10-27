@@ -79,7 +79,6 @@ class FROGRouter extends Component {
       this.state.mode === 'waiting' &&
       prevProps.location.search !== this.props.location.search
     ) {
-      console.log('update');
       this.update();
     }
   }
