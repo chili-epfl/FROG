@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import {
   mergeSocialStructures,
   type ObjectT,
+  type GlobalStructureT,
   type socialStructureT,
   type activityDataT
 } from 'frog-utils';
@@ -92,7 +93,7 @@ const runDataflow = (
     students: students.reduce((acc, x) => ({ ...acc, [x._id]: x.username }), {})
   };
 
-  const object: ObjectT = {
+  const object: ObjectT & GlobalStructureT = {
     activityData,
     socialStructure,
     globalStructure

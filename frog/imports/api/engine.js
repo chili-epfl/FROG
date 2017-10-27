@@ -21,6 +21,7 @@ const runNextActivity = (sessionId: string) => {
   if (Meteor.isServer) {
     sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
+    const oldOpen = [...session.openActivities];
     const activities = Activities.find({ graphId: session.graphId }).fetch();
     const [t0, t1] = [
       ...new Set(
@@ -45,7 +46,13 @@ const runNextActivity = (sessionId: string) => {
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
 
-    engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
+    engineLogger(sessionId, 'nextActivity');
+    const justClosedActivities = oldOpen.filter(
+      act => !openActivities.includes(act)
+    );
+    justClosedActivities.forEach(act =>
+      Meteor.call('reactive.to.product', act)
+    );
   }
 };
 
@@ -53,7 +60,7 @@ Meteor.methods({
   'run.session': (sessionId: string) => {
     updateSessionState(sessionId, 'STARTED');
     Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
-    engineLogger(sessionId, { message: 'STARTING SESSION' });
+    engineLogger(sessionId, 'startSession');
   },
   'next.activity': runNextActivity
 });

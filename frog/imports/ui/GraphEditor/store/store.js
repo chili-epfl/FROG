@@ -194,6 +194,9 @@ export default class Store {
 
   @action
   addHistory = () => {
+    if (this.readOnly || this.state.mode === 'readOnly') {
+      return;
+    }
     const newEntry = [
       this.connectionStore.history,
       this.activityStore.history,
@@ -207,13 +210,33 @@ export default class Store {
     this.refreshValidate();
   };
 
-  @action
-  refreshValidate = () => {
-    const validData = valid(
+  validate = () =>
+    valid(
       Activities.find({ graphId: this.graphId }).fetch(),
       Operators.find({ graphId: this.graphId }).fetch(),
       Connections.find({ graphId: this.graphId }).fetch()
     );
+
+  @action
+  refreshValidate = () => {
+    let validData = this.validate();
+    if (validData.errors) {
+      let change = 0;
+      validData.errors.filter(x => x.type === 'needsGroupingKey').forEach(x => {
+        if (validData.social && validData.social[x.id]) {
+          Activities.update(x.id, {
+            $set: {
+              groupingKey: validData.social[x.id][0]
+            }
+          });
+          change += 1;
+        }
+      });
+      if (change > 0) {
+        validData = this.validate();
+      }
+    }
+
     this.graphErrors = sortBy(validData.errors, 'severity');
     this.valid = validData;
 

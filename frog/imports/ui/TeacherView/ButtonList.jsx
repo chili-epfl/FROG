@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { msToString } from 'frog-utils';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { createContainer } from 'meteor/react-meteor-data';
+import Spinner from 'react-spinner';
+import downloadLog from './downloadLog';
 
 import {
   removeSession,
@@ -12,8 +14,7 @@ import {
   sessionStartCountDown,
   sessionCancelCountDown,
   sessionChangeCountDown,
-  restartSession,
-  makeDebug
+  restartSession
 } from '../../api/sessions';
 import { runSession, nextActivity } from '../../api/engine';
 
@@ -97,12 +98,6 @@ const ButtonList = ({
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
-      onClick: () => makeDebug(session._id),
-      text: 'Make session debug'
-    },
-    {
-      states: ['CREATED', 'STARTED', 'PAUSED'],
-      type: 'primary',
       onClick: () => restartSession(session),
       text: 'Restart session'
     },
@@ -144,6 +139,12 @@ const ButtonList = ({
         }
       },
       text: '-' + msToString(DEFAULT_COUNTDOWN_LENGTH)
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => downloadLog(session._id),
+      text: 'Download log csv'
     }
   ];
   return (
@@ -165,8 +166,10 @@ const ButtonList = ({
             {button.text}
           </button>
         ))}
+      {session.state === 'WAITINGFORNEXT' && <Spinner />}
       {session.state !== 'CREATED' &&
-        session.state !== 'STOPPED' && (
+        session.state !== 'STOPPED' &&
+        session.state !== 'WAITINGFORNEXT' && (
           <Countdown
             startTime={session.countdownStartTime}
             length={session.countdownLength}

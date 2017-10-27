@@ -16,13 +16,12 @@ const getDisplayName = (WrappedComponent: any): string => {
   }
 };
 
-const ReactiveHOC = (docId: string, doc?: any) => (
+const ReactiveHOC = (docId: string, conn?: any) => (
   WrappedComponent: ReactComponent<any>
 ) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
     doc: any;
-    timeout: ?number;
     unmounted: boolean;
 
     constructor(props: Object) {
@@ -34,28 +33,20 @@ const ReactiveHOC = (docId: string, doc?: any) => (
     }
 
     componentDidMount = () => {
-      if (!doc) {
-        this.doc = connection.get('rz', docId);
-        this.doc.subscribe();
-      } else {
-        this.doc = doc;
-      }
-      this.doc.on('ready', this.update);
-      this.doc.on('op', this.update);
-      this.waitForDoc();
-    };
-
-    waitForDoc = () => {
+      this.unmounted = false;
+      this.doc = (conn || connection).get('rz', docId);
+      this.doc.setMaxListeners(30);
+      this.doc.subscribe();
       if (this.doc.type) {
-        this.timeout = undefined;
         this.update();
       } else {
-        this.timeout = window.setTimeout(this.waitForDoc, 100);
+        this.doc.on('load', this.update);
       }
+      this.doc.on('op', this.update);
     };
 
     update = () => {
-      if (!this.timeout && !this.unmounted) {
+      if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({ dataFn: generateReactiveFn(this.doc) });
         }
@@ -64,10 +55,8 @@ const ReactiveHOC = (docId: string, doc?: any) => (
     };
 
     componentWillUnmount = () => {
-      this.doc.destroy();
-      if (this.timeout) {
-        window.clearTimeout(this.timeout);
-      }
+      this.doc.removeListener('op', this.update);
+      this.doc.removeListener('load', this.update);
       this.unmounted = true;
     };
 

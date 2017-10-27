@@ -20,11 +20,17 @@ const Panel = styled.div`
   flex: 0 0 auto;
 `;
 
-const GroupPanel = ({ data, dataFn, userInfo: { id } }: ActivityRunnerT) => {
+const GroupPanel = ({
+  logger,
+  data,
+  dataFn,
+  userInfo: { id }
+}: ActivityRunnerT) => {
+  const currentGroup = data.students[id];
   const onClickCancel = () => {
+    logger({ type: 'group.leave', itemId: currentGroup });
     dataFn.objInsert(null, ['students', id]);
   };
-  const currentGroup = data.students[id];
   const inGroupCount = Object.values(data.students).reduce(
     (acc, x) => (x === currentGroup ? acc + 1 : acc),
     0

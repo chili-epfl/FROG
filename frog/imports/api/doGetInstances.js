@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import {
   getAttributeValues,
   type ObjectT,
+  type GlobalStructureT,
   type structureDefT,
   type ActivityDbT
 } from 'frog-utils';
@@ -12,7 +13,7 @@ import {
 // to create
 export default (
   activity: ActivityDbT,
-  object: ObjectT
+  object: ObjectT & GlobalStructureT
 ): { groups: string[], structure: structureDefT } => {
   let groups;
   let structure;

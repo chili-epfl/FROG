@@ -1,11 +1,13 @@
 // @flow
 import React, { Component } from 'react';
-import { omit } from 'lodash';
+import { omit, isEqual } from 'lodash';
+import { type LogT } from 'frog-utils';
 
 type ReactivePropsT = {
   path: string | string[],
   dataFn: Object,
-  type: 'textarea' | 'textinput'
+  type: 'textarea' | 'textinput',
+  logger?: LogT => void
 };
 
 export class ReactiveText extends Component {
@@ -29,7 +31,7 @@ export class ReactiveText extends Component {
     if (
       (nextProps.dataFn && nextProps.dataFn.doc.id) !==
         (this.props.dataFn && this.props.dataFn.doc.id) ||
-      this.props.path !== nextProps.path ||
+      !isEqual(this.props.path, nextProps.path) ||
       this.props.type !== nextProps.type
     ) {
       this.update(nextProps);
@@ -42,16 +44,35 @@ export class ReactiveText extends Component {
     }
   }
 
+  log(msg: string, props?: ReactivePropsT) {
+    const logger = props ? props.logger : this.props.logger;
+    if (logger) {
+      logger({
+        type: 'reactivetext.' + msg,
+        itemId: JSON.stringify((props || this.props).path),
+        value: this.textRef.value
+      });
+    }
+  }
+
   render() {
-    const rest = omit(this.props, ['path', 'dataFn']);
+    const rest = omit(this.props, ['logger', 'path', 'dataFn']);
     return this.props.type === 'textarea' ? (
-      <textarea ref={ref => (this.textRef = ref)} {...rest} defaultValue="" />
+      <textarea
+        ref={ref => (this.textRef = ref)}
+        {...rest}
+        defaultValue=""
+        onBlur={() => this.log('blur')}
+        onFocus={() => this.log('focus')}
+      />
     ) : (
       <input
         type="text"
         ref={ref => (this.textRef = ref)}
         {...rest}
         defaultValue=""
+        onBlur={() => this.log('blur')}
+        onFocus={() => this.log('focus')}
       />
     );
   }

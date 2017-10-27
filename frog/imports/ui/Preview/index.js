@@ -1,10 +1,11 @@
 // @flow
 import React from 'react';
-import { toObject as queryToObject } from 'query-parse';
+import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
 import { A } from 'frog-utils';
+import { omitBy } from 'lodash';
 
-import { StatelessPreview } from '../GraphEditor/Preview';
+import { StatelessPreview } from './Preview';
 import { activityTypes } from '../../activityTypes';
 
 const ActivityList = ({ history }) => (
@@ -25,33 +26,47 @@ const PreviewPage = ({
   location: { search },
   history
 }) => {
-  const showData = queryToObject(search.slice(1)).showData === 'true';
-  const fullWindow = queryToObject(search.slice(1)).fullWindow === 'true';
-  const windows = parseInt(queryToObject(search.slice(1)).windows, 10) || 1;
-  const setExample = ex =>
-    history.push(
-      `/preview/${activityTypeId || ''}/${ex}${fullWindow
-        ? '?fullWindow=true'
-        : ''}`
-    );
-  const setShowData = ex =>
-    history.push(
-      `/preview/${activityTypeId || ''}/${example}?showData=${ex}${fullWindow
-        ? '&fullWindow=true'
-        : ''}`
-    );
+  const {
+    showData: showDataRaw,
+    showDash: showDashRaw,
+    fullWindow: fullWindowRaw,
+    windows: windowsRaw,
+    showLogs: showLogsRaw
+  } = toObject(search.slice(1));
+  const windows = parseInt(windowsRaw, 10) || 1;
+  const showData = showDataRaw === 'true';
+  const showDash = showDashRaw === 'true';
+  const fullWindow = fullWindowRaw === 'true';
+  const showLogs = showLogsRaw === 'true';
   const dismiss = () => history.push(`/preview`);
-  const setWindows = ex =>
-    history.push(
-      `/preview/${activityTypeId || ''}/${example}?windows=${ex}${fullWindow
-        ? '&fullWindow=true'
-        : ''}`
+
+  const changeURL = merge => {
+    const e = {
+      ...{ showData, showDash, fullWindow, windows, example, activityTypeId },
+      ...merge
+    };
+    const opts = toString(
+      omitBy(
+        {
+          showData: e.showData,
+          showDash: e.showDash,
+          fullWindow: e.fullWindow,
+          windows: e.windows,
+          showLogs: e.showLogs
+        },
+        x => !x
+      )
     );
-  const setFullWindow = () =>
-    history.push(
-      `/preview/${activityTypeId ||
-        ''}/${example}?windows=${windows}&fullWindow=true`
-    );
+    history.push(`/preview/${e.activityTypeId || ''}/${e.example}?${opts}`);
+  };
+
+  const setShowDash = x => changeURL({ showDash: x, showLogs: false });
+  const setShowLogs = x => changeURL({ showLogs: x, showDash: false });
+  const setShowData = x => changeURL({ showData: x });
+  const setWindows = x => changeURL({ windows: x });
+  const setExample = x => changeURL({ example: x });
+  const setFullWindow = x => changeURL({ fullWindow: x });
+
   return activityTypeId ? (
     <StatelessPreview
       {...{
@@ -64,7 +79,11 @@ const PreviewPage = ({
         windows,
         showData,
         setShowData,
+        showDash,
+        setShowDash,
         dismiss,
+        setShowLogs,
+        showLogs,
         isSeparatePage: true
       }}
     />

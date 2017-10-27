@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import React from 'react';
-import { CountChart } from 'frog-utils';
+import { CountChart, type LogDBT } from 'frog-utils';
 
 const Viewer = ({ data, config }: Object) => {
   if (!config) {
@@ -31,12 +31,8 @@ const Viewer = ({ data, config }: Object) => {
   );
 };
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  { instanceId, payload }: { instanceId: string, payload: any }
-) => {
-  dataFn.objInsert(payload, instanceId);
+const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+  dataFn.objInsert(log.payload, log.instanceId);
 };
 
 const initData = {};

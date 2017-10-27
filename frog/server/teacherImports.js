@@ -11,8 +11,6 @@ import { Sessions } from '../imports/api/sessions.js';
 import { ActivityData } from '../imports/api/activityData.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
-import { Uploads } from '../imports/api/uploads.js';
-import { OpenUploads } from '../imports/api/openUploads.js';
 
 const teacherPublish = (publish, collection) =>
   Meteor.publish(publish, function() {
@@ -28,6 +26,7 @@ const teacherPublish = (publish, collection) =>
 
 export default () => {
   teacherPublish('activities', Activities);
+  teacherPublish('users', Meteor.users);
   teacherPublish('operators', Operators);
   teacherPublish('connections', Connections);
   teacherPublish('activity_data', ActivityData);
@@ -35,6 +34,4 @@ export default () => {
   teacherPublish('objects', Objects);
   teacherPublish('products', Products);
   teacherPublish('sessions', Sessions);
-  teacherPublish('uploads', Uploads);
-  teacherPublish('openUploads', OpenUploads);
 };

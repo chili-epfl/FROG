@@ -42,6 +42,7 @@ export type {
   payloadT,
   activityDataT,
   ObjectT,
+  GlobalStructureT,
   ActivityRunnerT,
   ActivityPackageT,
   productOperatorT,
@@ -50,7 +51,9 @@ export type {
   controlOperatorT,
   ControlStructureT,
   ControlT,
-  ReactComponent
+  ReactComponent,
+  LogT,
+  LogDBT
 } from './types';
 export { default as CountChart } from './DashboardComponents/CountChart';
 export {
