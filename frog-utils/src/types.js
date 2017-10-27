@@ -127,7 +127,8 @@ export type ActivityPackageT = {
     Viewer: ReactComponent<any>,
     mergeLog: (data: any, dataFn: Object, log: LogDBT) => void,
     initData: any
-  }
+  },
+  exportData?: (config: Object, product: activityDataT) => string
 };
 
 export type productOperatorT = {
