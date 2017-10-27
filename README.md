@@ -1,7 +1,7 @@
 # FROG
 Fabricating and running orchestration graphs. To learn more about the design and architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 
-**[How to install](#set-up)
+**[How to install](#set-up)**
 
 ## Graph editor
 ![](docs/frog-editor.png)
