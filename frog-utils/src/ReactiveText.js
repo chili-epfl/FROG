@@ -7,8 +7,7 @@ type ReactivePropsT = {
   path: string | string[],
   dataFn: Object,
   type: 'textarea' | 'textinput',
-  logger?: LogT => void,
-  placeholder?: string
+  logger?: LogT => void
 };
 
 export class ReactiveText extends Component {
