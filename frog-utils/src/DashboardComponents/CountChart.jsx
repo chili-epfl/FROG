@@ -15,9 +15,8 @@ export default ({
   hAxis: string,
   categories: string[],
   data: number[]
-}) => {
-  console.log(data);
-  return data ? (
+}) =>
+  data ? (
     <Chart
       chartType="BarChart"
       data={[
@@ -37,4 +36,3 @@ export default ({
   ) : (
     <h2>Missing data</h2>
   );
-};

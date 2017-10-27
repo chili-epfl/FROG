@@ -118,16 +118,13 @@ export const StatelessPreview = withState(
     dashboard.fetch();
     if (!dashboard.type) {
       dashboard.once('load', () => {
-        console.log('dash load');
         if (!dashboard.type) {
-          console.log('dash create');
           dashboard.create(
             (activityType.dashboard && activityType.dashboard.initData) || {}
           );
         }
       });
     }
-    console.log(dashboard.id, dashboard.data);
 
     const reactiveDash = generateReactiveFn(dashboard);
 
@@ -232,8 +229,8 @@ export const StatelessPreview = withState(
                 Collections[coll] = uuid();
               });
 
-              const dashcoll = `demo-${activityType.id}-${example}-DASHBOARD`;
-              Collections[dashcoll] = uuid();
+              const dashrefresh = `demo-${activityType.id}-${example}-DASHBOARD`;
+              Collections[dashrefresh] = uuid();
 
               Logs.length = 0;
               setReload(uuid());
