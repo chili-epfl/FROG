@@ -27,9 +27,6 @@ Note that all active development happens on `develop`, and all pull requests sho
 
 - Go to http://localhost:3000/ on your browser
 
-## Licensing
-The main FROG program (in the frog/ directory) is licensed under the [GNU Affero General Public License 3.0](https://www.gnu.org/licenses/agpl-3.0.en.html) (or, at your option, a later version). The licenses of all other packages may be found in their respective directories (LICENSE files in each sub-directory). While the main application is AGPL, we generally license more broadly applicable libraries, as well as specific learning activities, under permissive licenses such as the [ISC license](https://www.isc.org/downloads/software-support-policy/isc-license/) to facilitate their reuse in other systems. Please [Contact us](mailto:shaklev@gmail.com) if you have any questions about licensing.
-
 ## Development
 
 - Learn Meteor framework with React:
@@ -57,3 +54,7 @@ Reload `/etc/hosts` (on [OSX](https://superuser.com/questions/346518/how-do-i-re
 - We use [prettier](https://github.com/prettier/prettier) for Javascript formatting, all pull-requests must be formatted accordingly.
 - We use ESLint for testing syntax.
 - We use Jest for tests.
+
+## Licensing
+The main FROG program (in the frog/ directory) is licensed under the [GNU Affero General Public License 3.0](https://www.gnu.org/licenses/agpl-3.0.en.html) (or, at your option, a later version). The licenses of all other packages may be found in their respective directories (LICENSE files in each sub-directory). While the main application is AGPL, we generally license more broadly applicable libraries, as well as specific learning activities, under permissive licenses such as the [ISC license](https://www.isc.org/downloads/software-support-policy/isc-license/) to facilitate their reuse in other systems. Please [Contact us](mailto:shaklev@gmail.com) if you have any questions about licensing.
+
