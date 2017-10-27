@@ -1,6 +1,21 @@
 # FROG
 Fabricating and running orchestration graphs. To learn more about the design and architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 
+ - **[How to install](#set-up)**
+ - **[Development](#development)**
+ - **[Licensing](#licensing)**
+
+## Graph editor
+![](docs/frog-editor.png)
+
+## Example of student screens (four different students)
+![](docs/student-collab.png)
+
+## Short video demo
+[![FROG%20video](https://img.youtube.com/vi/dqyjHpnAay0/0.jpg)](https://www.youtube.com/watch?v=dqyjHpnAay0)
+
+(more examples, and videos, on the [wiki](https://github.com/chili-epfl/FROG/wiki))
+
 ## Branches
 Note that all active development happens on `develop`, and all pull requests should be based on this branch. `master` is a stable branch, where we will attempt to make no API changes until December 2017. We will attempt to fix bugs, and might add some features or packages, where this does not introduce backward-incompatibility. 
 
