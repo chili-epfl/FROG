@@ -312,7 +312,7 @@ export const StatelessPreview = withState(
                     doc={dashboard}
                     users={users
                       .filter(e => e !== 'dashboard')
-                      .map((e, i) => ({ _id: i, username: e }))}
+                      .map((e, i) => ({ _id: i + 1, username: e }))}
                   />
                 </MosaicWindow>
               ) : (
