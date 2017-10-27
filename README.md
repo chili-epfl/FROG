@@ -8,7 +8,7 @@ Fabricating and running orchestration graphs. To learn more about the design and
 ## Graph editor
 ![](docs/frog-editor.png)
 
-## Example of student screen
+## Example of student screens (four different students)
 ![](docs/student-collab.png)
 
 ## Short video demo
