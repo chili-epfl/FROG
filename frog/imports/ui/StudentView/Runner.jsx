@@ -9,8 +9,17 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
-import doGetInstances from '../../api/doGetInstances';
 import ReactiveHOC from './ReactiveHOC';
+
+const getStructure = activity => {
+  if (activity.plane === 1) {
+    return 'individual';
+  } else if (activity.plane === 2) {
+    return { groupingKey: activity.groupingKey };
+  } else {
+    return 'all';
+  }
+};
 
 const Runner = ({ path, activity, sessionId, object, single }) => {
   if (!activity) {
@@ -47,7 +56,8 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   }
 
   const config = activity.data;
-  const activityStructure = doGetInstances(activity, object).structure;
+
+  const activityStructure = getStructure(activity);
 
   const activityData = getMergedExtractedUnit(
     config,

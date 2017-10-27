@@ -1,5 +1,5 @@
 // @flow
-import type { ObjectT, socialStructureT } from 'frog-utils';
+import type { ObjectT, GlobalStructureT, socialStructureT } from 'frog-utils';
 
 import pkg from '..';
 
@@ -12,7 +12,7 @@ const data = {
   }
 };
 
-const object: ObjectT = {
+const object: ObjectT & GlobalStructureT = {
   activityData: data,
   socialStructure: {},
   globalStructure: { studentIds: ['aa', 'bb', 'cc'], students: {} }
@@ -29,7 +29,7 @@ test('Should work with normal structure', () => {
   );
 });
 
-const objectAll: ObjectT = {
+const objectAll: ObjectT & GlobalStructureT = {
   activityData: {
     structure: 'all',
     payload: { all: { config: {}, data: { string: 'hello' } } }

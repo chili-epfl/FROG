@@ -42,6 +42,7 @@ export type {
   payloadT,
   activityDataT,
   ObjectT,
+  GlobalStructureT,
   ActivityRunnerT,
   ActivityPackageT,
   productOperatorT,
