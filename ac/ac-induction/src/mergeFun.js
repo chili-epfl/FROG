@@ -1,4 +1,5 @@
 // @flow
+
 import { shuffle } from 'lodash';
 import { arrayIncludes, stringToArray } from './ArrayFun';
 

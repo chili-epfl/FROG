@@ -136,6 +136,5 @@ export default ({
   configUI,
   meta,
   ActivityRunner,
-  mergeFunction,
-  Dashboard: null
+  mergeFunction
 }: ActivityPackageT);
