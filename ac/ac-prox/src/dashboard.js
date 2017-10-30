@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { CountChart, type LogDBT } from 'frog-utils';
+import { sum } from 'lodash';
 
 const Viewer = ({ data }: Object) => {
   const d = Object.values(data).reduce(
@@ -13,10 +14,7 @@ const Viewer = ({ data }: Object) => {
     },
     [0, 0, 0, 0, 0, 0]
   );
-  const students = (Object.values(data): number[]).reduce(
-    ((acc, i: number) => acc + i: number),
-    0
-  );
+  const students = sum(Object.values(data));
   return (
     <div>
       <CountChart
