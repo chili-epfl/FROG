@@ -80,7 +80,9 @@ publishComposite('session_activities', function(slug) {
             children: [
               {
                 find(activity) {
-                  return Objects.find(activity._id);
+                  return Objects.find(activity._id, {
+                    fields: { socialStructure: 1, activityData: 1 }
+                  });
                 }
               }
             ]
