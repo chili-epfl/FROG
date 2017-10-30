@@ -64,6 +64,7 @@ export class DashboardComp extends Component {
       if (this.doc) {
         this.doc.destroy();
       }
+      this.setState({ data: null });
       this.init(nextProps);
     }
   }
