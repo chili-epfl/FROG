@@ -128,10 +128,12 @@ const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
             </NavItem>
           ))}
         </Nav>
-        <Dashboard
-          session={session}
-          activity={openActivities.find(a => a._id === aId)}
-        />
+        {aId && (
+          <Dashboard
+            session={session}
+            activity={openActivities.find(a => a._id === aId)}
+          />
+        )}
       </Container>
     </div>
   );
