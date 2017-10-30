@@ -70,10 +70,6 @@ export class DashboardComp extends Component {
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
     if (!aT.dashboard || !aT.dashboard.Viewer) {
-      console.error(
-        "Shouldn't be able to get this far without dashboard",
-        aT.dashboard
-      );
       return null;
     }
     const users = this.props.users

@@ -13,7 +13,10 @@ const Viewer = ({ data }: Object) => {
     },
     [0, 0, 0, 0, 0, 0]
   );
-  const students = Object.values(data).reduce((acc, i) => acc + i, 0);
+  const students = (Object.values(data): number[]).reduce(
+    ((acc, i: number) => acc + i: number),
+    0
+  );
   return (
     <div>
       <CountChart

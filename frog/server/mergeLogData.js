@@ -44,6 +44,7 @@ Meteor.methods({
         }
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(log, e);
     }
   }
