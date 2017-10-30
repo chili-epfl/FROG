@@ -33,10 +33,18 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
     dataFn.objInsert(1, [log.itemId]);
   }
   if (log.type === 'group.join') {
-    dataFn.numIncr(1, [log.itemId]);
+    if (!data[log.itemId]) {
+      dataFn.objInsert(1, [log.itemId]);
+    } else {
+      dataFn.numIncr(1, [log.itemId]);
+    }
   }
   if (log.type === 'group.leave') {
-    dataFn.numIncr(-1, [log.itemId]);
+    if (!data[log.itemId]) {
+      dataFn.objInsert(0, [log.itemId]);
+    } else {
+      dataFn.numIncr(-1, [log.itemId]);
+    }
   }
 };
 
