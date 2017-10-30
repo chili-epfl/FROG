@@ -19,11 +19,6 @@ module.exports = {
       host: 'frog4',
       username: 'root',
       pem: '~/.ssh/id_rsa'
-    },
-    frog5: {
-      host: 'frog5',
-      username: 'root',
-      pem: '~/.ssh/id_rsa'
     }
   },
 
@@ -35,8 +30,7 @@ module.exports = {
       frog1: {},
       frog2: {},
       frog3: {},
-      frog4: {},
-      frog5: {}
+      frog4: {}
     },
 
     buildOptions: {

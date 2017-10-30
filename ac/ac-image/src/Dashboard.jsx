@@ -3,7 +3,7 @@
 import React from 'react';
 import { CountChart, type LogDBT } from 'frog-utils';
 
-const actionTypes = ['upload', 'vote', 'zoom'];
+const actionTypes = ['dragdrop.upload', 'webcam.upload', 'vote', 'zoom'];
 
 const Viewer = ({ data }: Object) => {
   const chartData =
