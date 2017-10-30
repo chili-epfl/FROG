@@ -18,6 +18,10 @@ abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
 
+"ac-autocode@link:../ac/ac-autocode":
+  version "0.0.0"
+  uid ""
+
 "ac-brainstorm@link:../ac/ac-brainstorm":
   version "0.0.0"
   uid ""

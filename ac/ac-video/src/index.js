@@ -65,7 +65,7 @@ class Activity extends Component {
         onProgress={x => {
           logger({
             type: 'videoProgress',
-            value: x.playedSeconds,
+            value: x.played,
             itemId: url
           });
           dataFn.objInsert({ play: x.playedSeconds });
