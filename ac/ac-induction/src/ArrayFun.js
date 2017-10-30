@@ -34,6 +34,7 @@ export const arrayDifference = (a: Array<any>, b: Array<any>) =>
   a
     .filter((x: Array<any>) => !arrayIncludes(b, x))
     .concat(b.filter((x: Array<any>) => !arrayIncludes(a, x)));
+
 export const arrayIntersection = (a: Array<any>, b: Array<any>) =>
   a.filter(x => arrayIncludes(b, x));
 

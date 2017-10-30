@@ -146,17 +146,13 @@ test('test 20: contains no suffisant on bad suffisants data', () => {
   expect(containsOneSuffisantSet(arr1, arr5).result).toBeFalsy();
 });
 
-test('test 20 bis: contains no suffisant on bad suffisants data', () => {
-  expect(containsOneSuffisantSet(arr1, arr5).properties).toEqual(undefined);
-});
-
 test('test 21: contains no suffisant', () => {
   expect(containsOneSuffisantSet(arr1, arr6).result).toBeFalsy();
 });
 
 test('test 21 bis: contains no suffisant', () => {
   expect(
-    arrayEquals(containsOneSuffisantSet(arr1, arr6).properties, [1, 4])
+    arrayEquals(containsOneSuffisantSet(arr1, arr6).properties, arr1)
   ).toBeTruthy();
 });
 

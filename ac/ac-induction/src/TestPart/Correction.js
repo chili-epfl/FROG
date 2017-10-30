@@ -6,10 +6,16 @@ import {
   arrayDifference,
   arrayMinus
 } from '../ArrayFun';
-
+// results codes:
 // 0 => correct
 // 1 => wrong justification
 // 2 => incorrect
+
+// show codes:
+// 0 => nothing
+// 1 => corrects & contains
+// 2 => corrects & doesn't contains
+// 3 => incorrects & contains
 export default (
   isIncorrect: boolean,
   caseAnswer: number,
@@ -19,7 +25,7 @@ export default (
   unnecessaries: Array<number>,
   suffisants: Array<any>
 ) => {
-  const respectedRes = containsNotRespected(answers, respected); // should always be true
+  const respectedRes = containsNotRespected(answers, respected); // should always be false
   const contradictoryRes = containsContradictory(answers, contradictories);
   const suffisantRes = containsOneSuffisantSet(answers, suffisants);
   const unnecessaryRes = containsNoUnnecessary(
@@ -29,53 +35,70 @@ export default (
   );
   const finalResult = {
     result: 0,
-    reason: '',
+    show: 0,
     propertiesIndex: []
   };
   switch (caseAnswer) {
     case 0: // choose answer true
+      finalResult.result = isIncorrect ? 2 : 1;
+      finalResult.show = 3;
       if (respectedRes.result) {
-        finalResult.reason = 'NotRespected';
-        finalResult.propertiesIndex = respectedRes.properties;
+        finalResult.propertiesIndex = respectedRes.properties; // incorrects & contains
+      } else if (answers.length === 0) {
+        finalResult.show = 0;
       } else if (contradictoryRes.result) {
-        finalResult.reason = 'Contradictory';
-        finalResult.propertiesIndex = contradictoryRes.properties;
+        finalResult.propertiesIndex = answers; // incorrects & contains
       } else if (!suffisantRes.result) {
-        if (suffisantRes.properties === undefined)
-          finalResult.reason = 'NoSuffisant';
-        else finalResult.reason = 'NoCompleteSuffisant';
-        finalResult.propertiesIndex = suffisantRes.properties;
+        finalResult.propertiesIndex = suffisantRes.properties; // incorrects & contains
       } else if (!unnecessaryRes.result) {
-        finalResult.reason = 'Unnecessary';
-        finalResult.propertiesIndex = unnecessaryRes.properties;
+        finalResult.show = 2;
+        finalResult.propertiesIndex = arrayMinus(
+          answers,
+          unnecessaryRes.properties
+        ); // correct & doesn't contains
+      } else {
+        finalResult.result = 0;
+        finalResult.show = 0;
       }
-      finalResult.result = isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
     case 1: // choose answer false why incorrect
+      finalResult.result = !isIncorrect ? 2 : 1;
+      finalResult.show = 1;
       if (respectedRes.result) {
-        finalResult.reason = 'NotRespected';
-        finalResult.propertiesIndex = respectedRes.properties;
-      } else if (!arrayEquals(contradictoryRes.properties, answers)) {
-        finalResult.reason = 'NoContradictory';
-        finalResult.propertiesIndex = arrayMinus(answers, contradictories);
+        finalResult.propertiesIndex = respectedRes.properties; // ? & contains
+      } else if (answers.length === 0) {
+        finalResult.show = 0;
+      } else if (arrayMinus(answers, contradictoryRes.properties).length > 0) {
+        finalResult.propertiesIndex = arrayMinus(answers, contradictories); // corrects & contains
+      } else {
+        finalResult.result = 0;
+        finalResult.show = 0;
       }
-      finalResult.result = !isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
     case 2: // choose answer false what's missing
-      if (!respectedRes.result) {
-        finalResult.reason = 'Respected';
+      finalResult.result = !isIncorrect ? 2 : 1;
+      finalResult.show = 2;
+      if (!respectedRes.result && answers.length > 0) {
+        finalResult.show = 3;
         finalResult.propertiesIndex = arrayMinus(
           answers,
           respectedRes.properties
-        );
-      } else if (contradictoryRes.result) {
-        finalResult.reason = 'Contradictory';
-        finalResult.propertiesIndex = contradictoryRes.properties;
+        ); // ? & contains
+      } else if (contradictoryRes.result || answers.length === 0) {
+        finalResult.propertiesIndex = contradictoryRes.properties; // corrects & doesn't contains
       } else if (!unnecessaryRes.result) {
-        finalResult.reason = 'Unnecessary';
-        finalResult.propertiesIndex = unnecessaryRes.properties;
+        finalResult.propertiesIndex = unnecessaryRes.properties; // corrects & doesn't contains
+      } else if (
+        isIncorrect &&
+        !containsOneSuffisantSet(respected.concat(answers), suffisants).result
+      ) {
+        finalResult.show = 3;
+        finalResult.propertiesIndex = answers; // What to put here ???     (incorrects & contains)
+      } else if (!isIncorrect || answers.length === 0) finalResult.show = 0;
+      else {
+        finalResult.result = 0;
+        finalResult.show = 0;
       }
-      finalResult.result = !isIncorrect ? 2 : finalResult.reason === '' ? 0 : 1;
       break;
     default:
   }
@@ -119,13 +142,7 @@ export const containsOneSuffisantSet = (
     false
   );
   if (tmp) return { result: true, properties: [] };
-  const tmp2 = suffisants.filter(
-    x =>
-      Array.isArray(x) &&
-      arrayIntersection(answers, x).length > 0 &&
-      !arrayEquals(arrayIntersection(answers, x), x)
-  )[0];
-  return { result: false, properties: tmp2 };
+  return { result: false, properties: answers };
 };
 
 // constains no irrelevant (that aren't in a set of suffisants)
