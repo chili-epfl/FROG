@@ -122,7 +122,7 @@ const ChooseImg = ({ show, propertiesIndex, examples }: Object) => {
       break;
     case 3:
       str +=
-        'An image that respect the selected properties can not be part of the concept:';
+        'An image can respect the selected properties and not be part of the concept:';
       url += examples
         .filter(y => y.isIncorrect)
         .filter(
