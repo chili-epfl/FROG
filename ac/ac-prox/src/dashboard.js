@@ -13,14 +13,18 @@ const Viewer = ({ data }: Object) => {
     },
     [0, 0, 0, 0, 0, 0]
   );
+  const students = Object.values(data).reduce((acc, i) => acc + i, 0);
   return (
-    <CountChart
-      title="Number of per group"
-      vAxis="Number of student of the group"
-      hAxis="Number of groups"
-      categories={['0', '1', '2', '3', '4', '>4']}
-      data={d}
-    />
+    <div>
+      <CountChart
+        title="Number of per group"
+        vAxis="Number of student of the group"
+        hAxis="Number of groups"
+        categories={['0', '1', '2', '3', '4', '>4']}
+        data={d}
+      />
+      <p>Students in groups: {students}</p>
+    </div>
   );
 };
 
