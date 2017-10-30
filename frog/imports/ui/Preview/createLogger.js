@@ -7,7 +7,9 @@ const createLogger = (
   sessionId: string,
   instanceId: string,
   activityType: string,
+  activityId: string,
   userId: string,
+  activityPlane: number,
   callback: LogDBT => void
 ) => {
   const logger = (logItem: LogT) => {
@@ -17,6 +19,7 @@ const createLogger = (
       sessionId,
       activityType,
       activityId: 'preview',
+      activityPlane,
       instanceId,
       timestamp: new Date(),
       ...logItem

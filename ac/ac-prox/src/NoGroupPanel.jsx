@@ -4,7 +4,7 @@ import React from 'react';
 import { shuffle } from 'lodash';
 import { withState, compose } from 'recompose';
 import styled from 'styled-components';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT, type LogT } from 'frog-utils';
 
 const Main = styled.div`
   display: flex;
@@ -24,7 +24,8 @@ type NoGroupPanelT = ActivityRunnerT & {
   setErr: string => void,
   setText: string => void,
   textGrp: string,
-  errLog: string
+  errLog: string,
+  logger: LogT => void
 };
 
 const NoGroupPanelPure = ({
@@ -34,13 +35,15 @@ const NoGroupPanelPure = ({
   setErr,
   setText,
   textGrp,
-  errLog
+  errLog,
+  logger
 }: NoGroupPanelT) => {
   const onClickCreate = () => {
     const groupCode = genCodeOfNChar(4);
     dataFn.objInsert(id, ['groups', groupCode]);
     dataFn.objInsert(groupCode, ['students', id]);
     setErr('');
+    logger({ type: 'group.create', itemId: groupCode });
   };
 
   const onClickJoin = () => {
@@ -50,7 +53,11 @@ const NoGroupPanelPure = ({
     if (groupExists) {
       dataFn.objInsert(groupToJoin, ['students', id]);
       setErr('');
-    } else setErr('No group found with this name');
+      logger({ type: 'group.join', itemId: groupToJoin });
+    } else {
+      setErr('No group found with this name');
+      logger({ type: 'group.joinMissing', itemId: groupToJoin });
+    }
   };
 
   return (

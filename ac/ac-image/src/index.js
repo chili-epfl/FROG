@@ -5,7 +5,7 @@ import { type ActivityPackageT, uuid } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
 
-const DEFAULT_COMMENT_VALUE = 'Please comment on this representation';
+export const DEFAULT_COMMENT_VALUE = '';
 
 const meta = {
   name: 'Image viewer',
@@ -39,10 +39,19 @@ const meta = {
       },
       data: {}
     },
-    { title: 'With uploads', config: { canUpload: true }, data: {} },
+    {
+      title: 'With uploads',
+      config: {
+        canUpload: true,
+        guidelines:
+          'Ajoutez des images ou bien prenez une photo avec votre webcam'
+      },
+      data: {}
+    },
     {
       title: 'With categories',
       config: {
+        guidelines: 'Look at categories of image',
         images: [
           {
             url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg',
@@ -73,6 +82,7 @@ const meta = {
     {
       title: 'With votes',
       config: {
+        guidelines: 'Votez pour les images les plus interessantes',
         canVote: true,
         minVote: 2,
         images: [
@@ -103,6 +113,10 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
+    guidelines: {
+      title: 'Guidelines',
+      type: 'string'
+    },
     canVote: {
       title: 'Can students vote ?',
       type: 'boolean'
@@ -119,17 +133,14 @@ const config = {
       title: 'Should students comment on images?',
       type: 'boolean'
     },
+    commentGuidelines: {
+      title: 'Comment guidelines',
+      type: 'string'
+    },
     hideCategory: {
       title: 'Hide the categories',
       type: 'boolean'
     },
-    filterTrash: {
-      title: 'Should trash images be removed?',
-      type: 'boolean'
-    },
-    individual: { title: 'Students work individually', type: 'boolean' },
-    grouping: { title: 'Group students by groupingKey', type: 'boolean' },
-    groupingKey: { title: 'Grouping key', type: 'socialAttribute' },
     images: {
       title: 'Images',
       type: 'array',
@@ -154,10 +165,7 @@ const config = {
 };
 
 const configUI = {
-  minVote: { conditional: 'canVote' },
-  individual: { conditional: formdata => !formdata.grouping },
-  grouping: { conditional: formdata => !formdata.individual },
-  groupingKey: { conditional: 'grouping' }
+  minVote: { conditional: 'canVote' }
 };
 
 const dataStructure = {};
@@ -173,21 +181,17 @@ const mergeFunction = (object, dataFn) => {
     ? object.data
     : Object.keys(object.data).map(x => object.data[x])
   ).filter(x => x.url !== undefined);
-  dataImgs
-    .filter(
-      x => !object.config.filterTrash || (x.category && x.category !== 'trash')
+  dataImgs.forEach(x =>
+    dataFn.objInsert(
+      {
+        votes: {},
+        categories: x.categories || (x.category && [x.category]),
+        comment: DEFAULT_COMMENT_VALUE,
+        ...x
+      },
+      x.key || uuid()
     )
-    .forEach(x =>
-      dataFn.objInsert(
-        {
-          votes: {},
-          categories: x.categories || (x.category && [x.category]),
-          comment: DEFAULT_COMMENT_VALUE,
-          ...x
-        },
-        x.key || uuid()
-      )
-    );
+  );
 };
 
 export default ({

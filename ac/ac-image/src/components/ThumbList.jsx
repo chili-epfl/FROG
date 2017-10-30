@@ -10,7 +10,6 @@ const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  position: absolute;
   top: 60px;
   bottom: 85px;
   overflow: auto;
@@ -58,7 +57,7 @@ const ImageList = ({
   </Main>
 );
 
-const CategoryList = ({ categories, setCategory }) => (
+const CategoryList = ({ categories, setCategory, logger }) => (
   <Main>
     {Object.keys(categories).map(category => (
       <CategoryBox
@@ -66,6 +65,7 @@ const CategoryList = ({ categories, setCategory }) => (
         images={categories[category]}
         category={category}
         setCategory={setCategory}
+        logger={logger}
       />
     ))}
   </Main>

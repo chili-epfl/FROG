@@ -88,7 +88,7 @@ class ActivityRunner extends Component {
       .map(key => ({ ...data[key], key }));
 
     const vote = (key, userId) => {
-      logger('vote/' + key);
+      logger({ type: 'vote', itemId: key });
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
       stream(!prev, [key, 'votes', userId]);
@@ -111,11 +111,9 @@ class ActivityRunner extends Component {
           hideCategory={activityData.config.hideCategory}
           {...{ setCategory, setZoom }}
         />
+        <p style={{ fontSize: '22px' }}>{activityData.config.guidelines}</p>
         {images.length === 0 && this.state.category !== 'categories' ? (
-          <h1>
-            Please upload images by dropping files on the button below, or click
-            the button to turn on the webcam
-          </h1>
+          <h1>No image</h1>
         ) : (
           <ThumbList
             {...{
@@ -138,7 +136,9 @@ class ActivityRunner extends Component {
             <ZoomView
               index={this.state.index}
               commentBox={activityData.config.canComment}
-              {...{ close: () => setZoom(false), images, setIndex, dataFn }}
+              commentGuidelines={activityData.config.commentGuidelines}
+              close={() => setZoom(false)}
+              {...{ images, setIndex, dataFn, logger }}
             />
           )}
         {activityData.config.canUpload && (
