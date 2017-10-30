@@ -7,7 +7,7 @@ function sessionJoin(slug: string) {
   if (user.joinedSessions && user.joinedSessions.includes(slug)) {
     return { result: 'success' };
   }
-  const session = Sessions.findOne({ slug });
+  const session = Sessions.findOne({ slug }, { sort: { startedAt: -1 } });
   if (!session) {
     return { result: 'error', message: 'No such session' };
   }

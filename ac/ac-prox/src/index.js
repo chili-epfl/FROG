@@ -2,6 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
+import dashboard from './dashboard.js';
 
 const meta = {
   name: 'Proximity',
@@ -23,5 +24,6 @@ export default ({
   meta,
   config,
   ActivityRunner,
+  dashboard,
   dataStructure
 }: ActivityPackageT);

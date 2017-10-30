@@ -1,20 +1,14 @@
 // @flow
 import React, { Component } from 'react';
-import { generateReactiveFn, type ReactComponent } from 'frog-utils';
+import {
+  generateReactiveFn,
+  type ReactComponent,
+  getDisplayName
+} from 'frog-utils';
 import Spinner from 'react-spinner';
 
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
-
-const getDisplayName = (WrappedComponent: any): string => {
-  if (typeof WrappedComponent.displayName === 'string') {
-    return WrappedComponent.displayName;
-  } else if (typeof WrappedComponent.name === 'string') {
-    return WrappedComponent.name;
-  } else {
-    return 'Component';
-  }
-};
 
 const ReactiveHOC = (docId: string, conn?: any) => (
   WrappedComponent: ReactComponent<any>

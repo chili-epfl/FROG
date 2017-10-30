@@ -21,7 +21,9 @@ const ZoomView = ({
   setIndex,
   index,
   commentBox,
-  dataFn
+  dataFn,
+  logger,
+  commentGuidelines
 }: Object) => {
   Mousetrap.bind('left', () => setIndex(Math.max(index - 1, 0)));
   Mousetrap.bind('right', () =>
@@ -42,9 +44,32 @@ const ZoomView = ({
         <ReactiveText
           type="textarea"
           path={[images[index].key, 'comment']}
+          logger={logger}
           dataFn={dataFn}
-          style={{ position: 'absolute', width: '500px', height: '150px' }}
+          placeholder={commentGuidelines}
+          style={{
+            fontSize: '22px',
+            position: 'absolute',
+            width: '100%',
+            height: '100px',
+            bottom: '0px'
+          }}
         />
+      )}
+      {commentBox && (
+        <button
+          onClick={close}
+          className="btn btn-success"
+          style={{
+            position: 'absolute',
+            right: '0px',
+            bottom: '0px',
+            height: '100px',
+            width: '100px'
+          }}
+        >
+          <i className="fa fa-check" style={{ fontSize: 'xx-large' }} />
+        </button>
       )}
     </ZoomContainer>
   );

@@ -44,7 +44,10 @@ export type activityDataT = {
 
 export type ObjectT = {
   socialStructure: socialStructureT,
-  activityData: activityDataT,
+  activityData: activityDataT
+};
+
+export type GlobalStructureT = {
   globalStructure: {
     studentIds: string[],
     students: { [studentId: string]: string }
@@ -64,7 +67,7 @@ export type ControlStructureT =
   | { list: { [activityId: string]: ControlT } };
 
 export type ActivityRunnerT = {
-  logger: Function,
+  logger: (log: LogT) => void,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
@@ -92,7 +95,8 @@ export type LogT = {|
 
 type ActivityDefT = {|
   activityId: string,
-  activityType: string
+  activityType: string,
+  activityPlane: number
 |};
 
 type LogExtraDBT = {|
@@ -126,7 +130,8 @@ export type ActivityPackageT = {
     Viewer: ReactComponent<any>,
     mergeLog: (data: any, dataFn: Object, log: LogDBT) => void,
     initData: any
-  }
+  },
+  exportData?: (config: Object, product: activityDataT) => string
 };
 
 export type productOperatorT = {
@@ -140,7 +145,10 @@ export type productOperatorT = {
   config: Object,
   configUI?: Object,
   validateConfig?: validateConfigFnT[],
-  operator: (configData: Object, object: ObjectT) => activityDataT
+  operator: (
+    configData: Object,
+    object: ObjectT & GlobalStructureT
+  ) => activityDataT
 };
 
 export type controlOperatorT = {
@@ -154,7 +162,10 @@ export type controlOperatorT = {
   config: Object,
   configUI?: Object,
   validateConfig?: validateConfigFnT[],
-  operator: (configData: Object, object: ObjectT) => ControlStructureT
+  operator: (
+    configData: Object,
+    object: ObjectT & GlobalStructureT
+  ) => ControlStructureT
 };
 
 export type socialOperatorT = {
@@ -169,7 +180,10 @@ export type socialOperatorT = {
   validateConfig?: validateConfigFnT[],
   config: Object,
   configUI?: Object,
-  operator: (configData: Object, object: ObjectT) => socialStructureT
+  operator: (
+    configData: Object,
+    object: ObjectT & GlobalStructureT
+  ) => socialStructureT
 };
 
 export type operatorPackageT =

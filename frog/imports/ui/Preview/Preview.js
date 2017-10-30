@@ -74,7 +74,8 @@ export const StatelessPreview = withState(
     setShowLogs,
     setWindows,
     fullWindow,
-    setFullWindow
+    setFullWindow,
+    reload
   }: {
     activityTypeId: string,
     example: number,
@@ -92,7 +93,8 @@ export const StatelessPreview = withState(
     windows: number,
     setWindows: number => void,
     fullWindow: boolean,
-    setFullWindow: boolean => void
+    setFullWindow: boolean => void,
+    reload: string
   }) => {
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
@@ -107,18 +109,22 @@ export const StatelessPreview = withState(
       activityData.config = config;
     }
 
-    const dashboard = connection.get(
-      'rz',
-      `demo-${activityType.id}-${example}-DASHBOARD`
-    );
+    const dashcoll = `demo-${activityType.id}-${example}-DASHBOARD`;
+    if (!Collections[dashcoll]) {
+      Collections[dashcoll] = uuid();
+    }
+
+    const dashboard = connection.get('rz', Collections[dashcoll]);
     dashboard.fetch();
-    dashboard.once('load', () => {
-      if (!dashboard.type) {
-        dashboard.create(
-          (activityType.dashboard && activityType.dashboard.initData) || {}
-        );
-      }
-    });
+    if (!dashboard.type) {
+      dashboard.once('load', () => {
+        if (!dashboard.type) {
+          dashboard.create(
+            (activityType.dashboard && activityType.dashboard.initData) || {}
+          );
+        }
+      });
+    }
 
     const reactiveDash = generateReactiveFn(dashboard);
 
@@ -140,20 +146,22 @@ export const StatelessPreview = withState(
 
       const doc = connection.get('rz', Collections[coll]);
       doc.fetch();
-      doc.once('load', () => {
-        if (!doc.type) {
-          doc.create(cloneDeep(activityType.dataStructure) || {});
-          const mergeFunction = activityType.mergeFunction;
-          if (mergeFunction && activityType.meta.exampleData[example]) {
-            const dataFn = generateReactiveFn(doc);
-            mergeFunction(
-              cloneDeep(activityType.meta.exampleData[example]),
-              dataFn
-            );
+      if (!doc.type) {
+        doc.once('load', () => {
+          if (!doc.type) {
+            doc.create(cloneDeep(activityType.dataStructure) || {});
+            const mergeFunction = activityType.mergeFunction;
+            if (mergeFunction && activityType.meta.exampleData[example]) {
+              const dataFn = generateReactiveFn(doc);
+              mergeFunction(
+                cloneDeep(activityType.meta.exampleData[example]),
+                dataFn
+              );
+            }
           }
-        }
-        doc.destroy();
-      });
+          doc.destroy();
+        });
+      }
     });
 
     const Run = ({ name, id }) => {
@@ -173,7 +181,9 @@ export const StatelessPreview = withState(
             'preview',
             '' + Math.ceil(id / 2),
             activityType.id,
+            'preview',
             '' + id,
+            2,
             mergeData
           )}
           groupingValue={'' + Math.ceil(id / 2)}
@@ -215,9 +225,12 @@ export const StatelessPreview = withState(
           <Icon
             onClick={() => {
               range(0, Math.ceil(windows / 2)).forEach(i => {
-                const coll = `demo-${activityType.id}-${example}-${i}`;
+                const coll = `demo-${activityType.id}-${example}-${i + 1}`;
                 Collections[coll] = uuid();
               });
+
+              const dashrefresh = `demo-${activityType.id}-${example}-DASHBOARD`;
+              Collections[dashrefresh] = uuid();
 
               Logs.length = 0;
               setReload(uuid());
@@ -287,19 +300,26 @@ export const StatelessPreview = withState(
           <Mosaic
             renderTile={([x, id], path) =>
               x === 'dashboard' && activityType.dashboard ? (
-                <MosaicWindow title={'dashboard - ' + activityType.meta.name}>
+                <MosaicWindow
+                  title={'dashboard - ' + activityType.meta.name}
+                  path={path}
+                >
                   <DashboardComp
+                    example={example}
                     activity={{ activityType: activityType.id }}
                     config={activityData.config}
+                    reload={reload}
                     doc={dashboard}
                     users={users
                       .filter(e => e !== 'dashboard')
-                      .map((e, i) => ({ _id: i, username: e }))}
+                      .map((e, i) => ({ _id: i + 1, username: e }))}
                   />
                 </MosaicWindow>
               ) : (
                 <MosaicWindow
                   path={path}
+                  reload={reload}
+                  example={example}
                   title={
                     x + '/' + Math.ceil(id / 2) + ' - ' + activityType.meta.name
                   }

@@ -2,6 +2,7 @@
 
 import {
   type ObjectT,
+  type GlobalStructureT,
   type activityDataT,
   type socialStructureT
 } from 'frog-utils';
@@ -10,7 +11,10 @@ import doGetInstances from '../doGetInstances';
 const students = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const act = { _id: '', data: {}, groupingKey: 'all', plane: 1 };
 
-const createObj = (a: activityDataT, b: socialStructureT = {}): ObjectT => ({
+const createObj = (
+  a: activityDataT,
+  b: socialStructureT = {}
+): ObjectT & GlobalStructureT => ({
   socialStructure: b,
   activityData: a,
   globalStructure: { studentIds: students, students: {} }
