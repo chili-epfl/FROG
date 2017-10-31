@@ -3,7 +3,7 @@
 import React from 'react';
 import { type LogDBT } from 'frog-utils';
 
-// const actionTypes = ['upload', 'vote', 'zoom'];
+const actionTypes = ['P1', 'P2', 'P3','P4','P5', 'P6'];
 
 const Viewer = ({ data }: Object) =>
   // console.log(data);
@@ -20,9 +20,13 @@ const Viewer = ({ data }: Object) =>
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   if (!(data && data[log.instanceId])) {
-    console.log('in the if');
     dataFn.objInsert({ examples: 0, testFeedback: 0, testWOFeedback: 0 }, [log.instanceId]);
   }
+
+  if(actionTypes.includes(log.type)){
+
+  }
+  console.log(log.instanceId);
   console.log(data);
 };
 

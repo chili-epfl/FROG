@@ -33,6 +33,7 @@ export default ({ title, dataFn, data, logger }: Object) => {
       onClick={() => {
         dataFn.objInsert(data.indexPart + 1, 'indexPart');
         logger({type: 'config', value: 'toto'});
+        logger({type: ''})
       }}
     >
       {' '}

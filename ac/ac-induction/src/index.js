@@ -47,8 +47,8 @@ const meta = {
           'at most one is filled',
           'they all have the same shape',
           'they all have the same color',
-          'they all have the different shapes',
-          'they all have the different colors',
+          'they all have different shapes',
+          'they all have different colors',
           'exactly 2 have the same shape',
           'exactly 2 have the same color'
         ],
