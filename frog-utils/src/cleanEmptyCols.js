@@ -2,6 +2,8 @@
 
 import { fill, isEmpty } from 'lodash';
 
+// given a tab separated text table, finds any columns that are empty (no values present)
+// and removes these columns, returning a string with the new table
 const cleanEmptyCols = (data: string): string => {
   const lines = data.split('\n').map(l => l.split('\t'));
   const fields = lines.slice(1).reduce((acc: boolean[], i) => {

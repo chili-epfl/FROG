@@ -49,7 +49,7 @@ export const generateExport = (
   img.file('product.json', Stringify(product));
   img.file('object.json', Stringify(object));
   img.file('config.json', Stringify(item.data));
-  if (aT.exportData) {
+  if (aT.exportData && product.activityData) {
     let data = aT.exportData(item.data, product.activityData);
     data = cleanEmptyCols(data);
     if (item.plane === 1) {
