@@ -32,6 +32,16 @@ const config = {
   }
 };
 
+const validateConfig = [
+  formData =>
+    !formData.individual && !formData.grouping
+      ? {
+          err:
+            'If you want to distribute to groups, you need groupingKey, otherwise select distributing to individuals'
+        }
+      : null
+];
+
 const configUI = {
   grouping: { conditional: formData => !formData.individual }
 };
@@ -93,5 +103,6 @@ export default ({
   operator,
   config,
   meta,
-  configUI
+  configUI,
+  validateConfig
 }: productOperatorT);
