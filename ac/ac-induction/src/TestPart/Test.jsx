@@ -4,17 +4,10 @@ import React from 'react';
 
 import ImgBis from '../ImgBis';
 import ModalSubmit from './ModalSubmit';
-import Switch from './Switch';
 import ResponsePanel from './ResponsePanel';
 import Correction from './Correction';
 import { stringToArray } from '../ArrayFun';
-import {
-  ExMain,
-  ExContainer,
-  ExLine,
-  ExButton,
-  TestCorrectionDiv
-} from '../StyledComponents';
+import { ExMain, ExContainer, ExButton } from '../StyledComponents';
 
 export default ({
   title,
@@ -63,20 +56,9 @@ export default ({
       <ExContainer>
         <ImgBis url={examples[tmpList[data.indexCurrent].realIndex].url} />
       </ExContainer>
-      <ExLine />
       <ExContainer style={{ padding: '20px' }}>
-        <TestCorrectionDiv style={{ justifyContent: 'space-evenly' }}>
-          <h3>This example is a {title}</h3>
-          <Switch {...{ tmpList, feedback, data, dataFn }} />
-        </TestCorrectionDiv>
         <ResponsePanel
-          title={title}
-          examples={examples}
-          properties={properties}
-          tmpList={tmpList}
-          feedback={feedback}
-          data={data}
-          dataFn={dataFn}
+          {...{ title, examples, properties, tmpList, feedback, data, dataFn }}
         />
         <ExButton className="btn btn-default" onClick={clickHandler}>
           Submit

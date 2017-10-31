@@ -10,6 +10,7 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.31.2",
     "styled-components": "^2.1.2",
     "frog-utils": "^1.0.0"
   },
