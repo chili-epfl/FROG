@@ -28,7 +28,6 @@ export const calculateNextOpen = (
 export const getActivitySequence = (
   activities: ActivityDbT[]
 ): { [string]: number } => {
-  console.log(activities);
   let timeInGraph;
   const activitySeq = {};
   let c = 0;

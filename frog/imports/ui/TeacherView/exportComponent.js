@@ -137,3 +137,25 @@ export const exportSession = (sessionId: string) => {
     });
   });
 };
+
+export const downloadExport = (
+  item: Object,
+  object: Object,
+  product: Object
+) => {
+  const img = new JSZip();
+  generateExport(item, object, product, img);
+
+  img
+    .generateAsync({ type: 'blob', compression: 'DEFLATE' })
+    .then(content =>
+      FileSaver.saveAs(
+        content,
+        `${slugo(item.title || '').slice(
+          0,
+          20
+        )}__${item.activityType}-${item._id.slice(-4)}`,
+        true
+      )
+    );
+};

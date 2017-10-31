@@ -1,7 +1,6 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { type ActivityDbT } from 'frog-utils';
 
 import { Activities } from './activities';
 import {
