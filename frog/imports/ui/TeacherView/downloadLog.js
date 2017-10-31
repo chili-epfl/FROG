@@ -1,6 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import FileSaver from 'file-saver';
 
+const userIds = {};
+const userLookup = userId => {
+  const cache = userIds[userId];
+  if (cache) {
+    return cache;
+  }
+  const userobj = Meteor.users.findOne(userId);
+  const ret = userobj ? [userobj.userid || '', userobj.username] : [userId, ''];
+  userIds[userId] = ret;
+  return ret;
+};
+
 export default sessionId => {
   Meteor.call('session.logs', sessionId, 9999999, (err, succ) => {
     if (err) {
@@ -11,14 +23,14 @@ export default sessionId => {
         .map(x =>
           [
             x.timestamp.toUTCString(),
-            x.userId,
+            ...userLookup(x.userId),
             x.instanceId,
             x.activityId,
             x.activityType,
             x.activityPlane,
             x.type,
             x.itemId,
-            x.value,
+            JSON.stringify(x.value),
             x.payload ? JSON.stringify(x.payload) : ''
           ].join('\t')
         )
@@ -26,6 +38,7 @@ export default sessionId => {
       const header = [
         'timestamp',
         'userId',
+        'username',
         'instanceId',
         'activityId',
         'activityType',
