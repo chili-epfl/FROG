@@ -66,13 +66,8 @@ export default ({
       <ExLine />
       <ExContainer style={{ padding: '20px' }}>
         <TestCorrectionDiv style={{ justifyContent: 'space-evenly' }}>
-          <h3>This image corresponds to an example of the concept </h3>
-          <Switch
-            tmpList={tmpList}
-            feedback={feedback}
-            data={data}
-            dataFn={dataFn}
-          />
+          <h3>This example is a {title}</h3>
+          <Switch {...{ tmpList, feedback, data, dataFn }} />
         </TestCorrectionDiv>
         <ResponsePanel
           title={title}

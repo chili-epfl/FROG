@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ExButton } from './StyledComponents';
+import { ExButton, DefinitionBox } from './StyledComponents';
 
 export default ({ title, hasTest, definition, dataFn, data }: Object) => {
   const tmp = data.parts.length - data.indexPart - 1;
@@ -19,7 +19,7 @@ export default ({ title, hasTest, definition, dataFn, data }: Object) => {
           ? 'Before you start the last part which is a test without feedback, here is the definition of the concept to make sure you understood it well.'
           : 'The final definition of the concept is the following:'}
       </p>
-      <p>{definition}</p>
+      <DefinitionBox>{definition}</DefinitionBox>
       <ExButton
         className="btn btn-default"
         onClick={() => dataFn.objInsert(data.indexPart + 1, 'indexPart')}
