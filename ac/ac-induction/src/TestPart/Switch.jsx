@@ -2,40 +2,54 @@
 
 import React from 'react';
 
-export default ({ data, dataFn }: Object) => {
+export default ({ tmpList, feedback, data, dataFn }: Object) => {
   const onClickSwitch = () => {
-    // if (!data.testChoice)
-    dataFn.objInsert(!data.testChoice, 'testChoice');
-    dataFn.objInsert([], 'tmpSelected');
+    const newList = [...tmpList];
+    newList[data.indexCurrent].selectedChoice = !newList[data.indexCurrent]
+      .selectedChoice;
+    newList[data.indexCurrent].selectedProperties = [];
+    dataFn.objInsert(
+      newList,
+      feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
+    );
   };
 
   return (
-    <div className="btn-group" role="group" aria-label="...">
+    <div
+      className="btn-group"
+      role="group"
+      aria-label="..."
+      style={{ minWidth: 'fit-content' }}
+    >
       <button
         className="btn btn-default"
         style={{
-          backgroundColor: data.testChoice ? '#66CC00' : '#E0E0E0',
-          width: data.testChoice ? '80px' : '8px',
+          backgroundColor: tmpList[data.indexCurrent].selectedChoice
+            ? '#66CC00'
+            : '#E0E0E0',
+          width: tmpList[data.indexCurrent].selectedChoice ? '80px' : '8px',
           outline: 'none',
           height: '30px'
         }}
         tabIndex="-1"
         onClick={onClickSwitch}
       >
-        {data.testChoice ? 'True' : ''}
+        {tmpList[data.indexCurrent].selectedChoice ? 'True' : ''}
       </button>
       <button
         className="btn btn-default"
         style={{
-          backgroundColor: !data.testChoice ? '#CC0000' : '#E0E0E0',
-          width: !data.testChoice ? '80px' : '8px',
+          backgroundColor: !tmpList[data.indexCurrent].selectedChoice
+            ? '#CC0000'
+            : '#E0E0E0',
+          width: !tmpList[data.indexCurrent].selectedChoice ? '80px' : '8px',
           outline: 'none',
           height: '30px'
         }}
         tabIndex="-1"
         onClick={onClickSwitch}
       >
-        {!data.testChoice ? 'False' : ''}
+        {!tmpList[data.indexCurrent].selectedChoice ? 'False' : ''}
       </button>
     </div>
   );
