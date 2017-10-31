@@ -22,7 +22,9 @@ const StreamSelect = ({ activity, targets, onChange }) => (
       value={activity.streamTarget || 'undefined'}
     >
       {[{ id: 'undefined', title: 'Choose a target' }, ...targets].map(x => (
-        <option value={x.id} key={x.id}>{x.title}</option>
+        <option value={x.id} key={x.id}>
+          {x.title}
+        </option>
       ))}
     </FormControl>
   </FormGroup>
