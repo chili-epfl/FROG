@@ -58,5 +58,13 @@ Meteor.methods({
     ) {
       return Logs.find({ sessionId }, { limit }).fetch();
     }
+  },
+  'session.find_start': function(sessionId) {
+    if (
+      this.userId &&
+      Meteor.users.findOne(this.userId).username === 'teacher'
+    ) {
+      return Logs.findOne({ sessionId }, { sort: { timestamp: -1 } }).timestamp;
+    }
   }
 });

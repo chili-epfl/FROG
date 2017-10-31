@@ -1,6 +1,7 @@
 // @flow
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
+import { compact, isEmpty } from 'lodash';
 
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
@@ -194,6 +195,39 @@ const mergeFunction = (object, dataFn) => {
   );
 };
 
+const exportData = (configData, { payload }) => {
+  const csv = Object.keys(payload).reduce((acc, line) => {
+    const data = payload[line].data;
+    return [
+      ...acc,
+      ...compact(
+        Object.values(data).map(
+          item =>
+            item &&
+            item.key &&
+            [
+              line,
+              item.key,
+              item.instanceId,
+              JSON.stringify(item.comment),
+              isEmpty(item.categories) ? '' : JSON.stringify(item.categories),
+              isEmpty(item.votes) ? '' : JSON.stringify(item.votes)
+            ].join('\t')
+        )
+      )
+    ];
+  }, []);
+  const headers = [
+    'instanceId',
+    'imageId',
+    'fromInstanceId',
+    'comment',
+    'categories',
+    'votes'
+  ].join('\t');
+  return [headers, ...csv].join('\n');
+};
+
 export default ({
   id: 'ac-image',
   type: 'react-component',
@@ -203,5 +237,6 @@ export default ({
   dataStructure,
   mergeFunction,
   ActivityRunner,
-  dashboard
+  dashboard,
+  exportData
 }: ActivityPackageT);

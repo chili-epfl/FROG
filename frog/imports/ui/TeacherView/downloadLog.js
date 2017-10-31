@@ -13,7 +13,7 @@ const userLookup = userId => {
   return ret;
 };
 
-export default sessionId => {
+export default (sessionId, callback) => {
   Meteor.call('session.logs', sessionId, 9999999, (err, succ) => {
     if (err) {
       // eslint-disable-next-line no-alert
@@ -49,10 +49,14 @@ export default sessionId => {
         'payload'
       ].join('\t');
       const output = [header, lines].join('\n');
-      const blob = new Blob([output], {
-        type: 'text/plain;charset=utf-8'
-      });
-      FileSaver.saveAs(blob, sessionId + '.log.tsv', true);
+      if (!callback) {
+        const blob = new Blob([output], {
+          type: 'text/plain;charset=utf-8'
+        });
+        FileSaver.saveAs(blob, sessionId + '.log.tsv', true);
+      } else {
+        callback(output);
+      }
     }
   });
 };

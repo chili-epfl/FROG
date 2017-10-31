@@ -7,6 +7,7 @@ import { TimeSync } from 'meteor/mizzao:timesync';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import downloadLog from './downloadLog';
+import { exportSession } from './exportComponent';
 
 import {
   removeSession,
@@ -145,6 +146,12 @@ const ButtonList = ({
       type: 'danger',
       onClick: () => downloadLog(session._id),
       text: 'Download log csv'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => exportSession(session._id),
+      text: 'Export session'
     }
   ];
   return (

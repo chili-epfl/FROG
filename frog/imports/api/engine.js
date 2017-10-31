@@ -1,6 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import { type ActivityDbT } from 'frog-utils';
 
 import { Activities } from './activities';
 import {
@@ -10,6 +11,7 @@ import {
   sessionCancelCountDown
 } from './sessions';
 import { engineLogger } from './logs';
+import { calculateNextOpen } from './graphSequence';
 
 export const runSession = (sessionId: string) =>
   Meteor.call('run.session', sessionId);
@@ -23,23 +25,11 @@ const runNextActivity = (sessionId: string) => {
     const session = Sessions.findOne(sessionId);
     const oldOpen = [...session.openActivities];
     const activities = Activities.find({ graphId: session.graphId }).fetch();
-    const [t0, t1] = [
-      ...new Set(
-        [
-          ...activities.map(a => a.startTime),
-          ...activities.map(a => a.startTime + a.length)
-        ].filter(t => t > session.timeInGraph)
-      )
-    ]
-      .sort((a, b) => a - b)
-      .slice(0, 2);
-    const newTimeInGraph = t1 ? (t0 + t1) / 2 : -1;
 
-    const openActivities = activities.filter(
-      a =>
-        a.startTime <= newTimeInGraph && a.startTime + a.length > newTimeInGraph
+    const [newTimeInGraph, openActivities] = calculateNextOpen(
+      session.timeInGraph,
+      activities
     );
-
     const openActivityIds = openActivities.map(x => x._id);
     updateOpenActivities(sessionId, openActivityIds, newTimeInGraph);
     if (openActivities.some(x => x.plane === 2)) {
