@@ -14,7 +14,7 @@ import End from './End';
 export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
-  switch (data.parts[data.indexPart]) {
+  switch (data.parts && data.parts[data.indexPart]) {
     case 'Presentation':
       page = <Presentation title={title} dataFn={dataFn} data={data} logger={logger}/>;
       break;
@@ -76,7 +76,10 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
       page = <End />;
       break;
     default:
+      page = <h1>...</h1>;
+      break;
   }
+
   return (
     <Main>
       <NavigationBar config={activityData.config} data={data} />

@@ -64,11 +64,15 @@ export class DashboardComp extends Component {
       if (this.doc) {
         this.doc.destroy();
       }
+      this.setState({ data: null });
       this.init(nextProps);
     }
   }
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
+    if (!aT.dashboard || !aT.dashboard.Viewer) {
+      return null;
+    }
     const users = this.props.users
       ? this.props.users.reduce(
           (acc, x) => ({ ...acc, [x._id]: x.username }),
@@ -97,8 +101,13 @@ const Dashboard = createContainer(
 );
 
 const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
+  const relevantActivities = openActivities.filter(
+    x =>
+      activityTypesObj[x.activityType].dashboard &&
+      activityTypesObj[x.activityType].dashboard.Viewer
+  );
   const aId =
-    activityId || (openActivities.length > 0 && openActivities[0]._id);
+    activityId || (relevantActivities.length > 0 && relevantActivities[0]._id);
   if (!aId) {
     return null;
   }
@@ -113,18 +122,18 @@ const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
           onSelect={a => setActivity(a)}
           style={{ width: '150px' }}
         >
-          {openActivities
-            .filter(x => x.dashboard && x.dashboard.Viewer)
-            .map(a => (
-              <NavItem eventKey={a._id} key={a._id} href="#">
-                {a.title}
-              </NavItem>
-            ))}
+          {relevantActivities.map(a => (
+            <NavItem eventKey={a._id} key={a._id} href="#">
+              {a.title}
+            </NavItem>
+          ))}
         </Nav>
-        <Dashboard
-          session={session}
-          activity={openActivities.find(a => a._id === aId)}
-        />
+        {aId && (
+          <Dashboard
+            session={session}
+            activity={openActivities.find(a => a._id === aId)}
+          />
+        )}
       </Container>
     </div>
   );

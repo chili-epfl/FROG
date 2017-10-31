@@ -23,7 +23,7 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  ActivityRunner,
   dashboard,
+  ActivityRunner,
   dataStructure
 }: ActivityPackageT);

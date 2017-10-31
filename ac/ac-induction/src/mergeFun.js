@@ -1,4 +1,5 @@
 // @flow
+
 import { shuffle } from 'lodash';
 import { arrayIncludes, stringToArray } from './ArrayFun';
 
@@ -66,6 +67,11 @@ const genList = (tab: Array<any>, n: number) => {
   let tmp = [];
   for (let i = 0; i < n / tab.length + 1; i += 1)
     tmp = tmp.concat(shuffle(tab));
-  tmp = tmp.map(x => ({ realIndex: tab.indexOf(x), selectedProperties: [] }));
+  tmp = tmp.map(x => ({
+    realIndex: tab.indexOf(x),
+    selectedChoice: true,
+    selectedProperties: []
+  }));
+
   return tmp.slice(tmp.length - n);
 };

@@ -15,7 +15,7 @@ const UploadDragDrop = ({ dataFn, stream, uploadFn, logger }: Object) => {
         dataFn,
         stream,
         uploadFn,
-        'dragdrop.upload'
+        'dragdrop-upload'
       )
     );
   };
