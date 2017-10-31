@@ -52,9 +52,6 @@ const downloadExport = (item, object, product) => {
         .split('\n')
         .map(line => {
           const [id, rest] = splitOnFirst(line, '\t');
-          console.log([id, rest]);
-          console.log(userLookup(id));
-          console.log(userLookup(id).join('\t') + rest);
           return [...userLookup(id), rest].join('\t');
         })
         .join('\n');
