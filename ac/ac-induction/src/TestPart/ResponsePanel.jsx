@@ -80,7 +80,7 @@ const FalsePanel = ({
       <h4>
         {(even
           ? "Select one property that excludes it from being a '"
-          : "Select one property that is missing to be a correct example of '") +
+          : "Select properties that are missing to be a correct example of '") +
           title +
           "'"}
       </h4>

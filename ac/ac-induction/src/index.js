@@ -46,10 +46,10 @@ const meta = {
           'At most one element is filled',
           'The three elements have the same shape',
           'The three elements have the same filling',
-          'The three elements have the different shapes',
-          'The three elements have the different filling',
+          'The three elements have different shapes',
+          'The three elements have different filling',
           'Exactly two elements have the same shape',
-          'Exactly two elements the same filling'
+          'Exactly two elements have the same filling'
         ],
         suffisantSets: '{2,3},{2,5},{3,4},{5,4}',
         contradictoryProperties: '6,7',
