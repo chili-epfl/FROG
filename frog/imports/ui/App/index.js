@@ -59,7 +59,10 @@ const subscriptionCallback = (error, response, setState) => {
 };
 
 class FROGRouter extends Component {
-  state: { mode: 'ready' | 'loggingIn' | 'error' | 'waiting' };
+  state: {
+    mode: 'ready' | 'loggingIn' | 'error' | 'waiting' | 'studentlist',
+    studentlist?: string[]
+  };
 
   constructor(props) {
     super(props);
@@ -130,6 +133,22 @@ class FROGRouter extends Component {
         }
       }
     }
+    if (this.state.mode === 'waiting') {
+      if (this.props.match.params.slug) {
+        this.setState({ mode: 'loggingIn' });
+        Meteor.call(
+          'frog.studentlist',
+          this.props.match.params.slug,
+          (err, result) => {
+            if (err) {
+              this.setState({ mode: 'error' });
+            } else {
+              this.setState({ studentlist: result, mode: 'studentlist' });
+            }
+          }
+        );
+      }
+    }
   }
 
   render() {
@@ -152,7 +171,11 @@ class FROGRouter extends Component {
         );
       }
     }
-    return <NotLoggedIn update={this.update} slug={this.props.match.params.slug} />;
+    return this.state.mode === 'studentlist' ? (
+      <StudentLogin update={this.update} slug={this.props.match.params.slug} />
+    ) : (
+      <NotLoggedIn update={this.update} />
+    );
   }
 }
 
