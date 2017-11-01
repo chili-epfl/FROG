@@ -9,7 +9,9 @@ import { withState } from 'recompose';
 import { Nav, NavItem } from 'react-bootstrap';
 import styled from 'styled-components';
 
+import doGetInstances from '../../api/doGetInstances';
 import { Activities } from '../../api/activities';
+import { Objects } from '../../api/objects';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from '../App/index';
 
@@ -68,21 +70,25 @@ export class DashboardComp extends Component {
       this.init(nextProps);
     }
   }
+
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
     if (!aT.dashboard || !aT.dashboard.Viewer) {
       return null;
     }
+
     const users = this.props.users
       ? this.props.users.reduce(
           (acc, x) => ({ ...acc, [x._id]: x.username }),
           {}
         )
       : {};
+
     return this.state.data !== null ? (
       <div style={{ width: '100%' }}>
         <aT.dashboard.Viewer
           users={users}
+          instances={this.props.instances}
           data={this.state.data}
           config={this.props.activity.data || this.props.config}
         />
@@ -93,12 +99,14 @@ export class DashboardComp extends Component {
   }
 }
 
-const Dashboard = createContainer(
-  ({ session }) => ({
-    users: Meteor.users.find({ joinedSessions: session.slug }).fetch()
-  }),
-  DashboardComp
-);
+const Dashboard = createContainer(({ session, activity }) => {
+  const object = Objects.findOne(activity._id);
+  const instances = doGetInstances(activity, object).groups;
+  return {
+    users: Meteor.users.find({ joinedSessions: session.slug }).fetch(),
+    instances
+  };
+}, DashboardComp);
 
 const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
   const relevantActivities = openActivities.filter(
