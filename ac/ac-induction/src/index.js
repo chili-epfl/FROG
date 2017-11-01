@@ -29,27 +29,27 @@ const meta = {
       data: []
     },
     {
-      title: 'Induction with examples',
+      title: 'Learning about SETs',
       config: {
-        title: 'The square',
+        title: 'SET',
         hasExamples: true,
         nbExamples: 3,
         hasTestWithFeedback: true,
-        nbTestFeedback: 2,
+        nbTestFeedback: 3,
         hasDefinition: true,
         definition:
-          'A set is correct if when 2 objects share a property, the 3rd one shares it too.',
+          'A set is group of three objects such that if 2 objects share a property (same shape or same filling), the 3rd object must share it too.',
         hasTest: true,
-        nbTest: 4,
+        nbTest: 3,
         properties: [
-          'at least one is not filled',
-          'at most one is filled',
-          'they all have the same shape',
-          'they all have the same color',
-          'they all have the different shapes',
-          'they all have the different colors',
-          'exactly 2 have the same shape',
-          'exactly 2 have the same color'
+          'At least one element is not filled',
+          'At most one element is filled',
+          'The three elements have the same shape',
+          'The three elements have the same filling',
+          'The three elements have different shapes',
+          'The three elements have different filling',
+          'Exactly two elements have the same shape',
+          'Exactly two elements have the same filling'
         ],
         suffisantSets: '{2,3},{2,5},{3,4},{5,4}',
         contradictoryProperties: '6,7',

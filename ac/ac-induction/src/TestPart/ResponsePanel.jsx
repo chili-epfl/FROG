@@ -24,11 +24,7 @@ const TruePanel = ({
   data
 }: Object) => (
   <Main>
-    <h4>
-      {"Select properties that makes him an example of the concept '" +
-        title +
-        "'"}
-    </h4>
+    <h4>Select all the properties that make it an example of {title}</h4>
     <TestListDiv>
       {stringToArray(
         examples[tmpList[data.indexCurrent].realIndex].respectedProperties
@@ -83,8 +79,8 @@ const FalsePanel = ({
     <Main>
       <h4>
         {(even
-          ? "Select properties that exclude him of being an example of the concept '"
-          : "Select what would be missing to be an example of the concept '") +
+          ? "Select one property that excludes it from being a '"
+          : "Select properties that are missing to be a correct example of '") +
           title +
           "'"}
       </h4>
