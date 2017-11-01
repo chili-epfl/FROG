@@ -32,7 +32,7 @@ const meta = {
       title: 'Learning about SETs',
       config: {
         title: 'SET',
-        hasExamples: false,
+        hasExamples: true,
         nbExamples: 3,
         hasTestWithFeedback: true,
         nbTestFeedback: 3,
