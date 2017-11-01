@@ -1,18 +1,32 @@
 // @flow
 
 import React from 'react';
-import { stringToArray } from '../ArrayFun';
-import { Main, TestListDiv } from '../StyledComponents';
+import { Collapse } from 'react-bootstrap';
 
-export default (props: Object) => (
-  <div style={{ width: '100%', height: '80%' }}>
-    {props.tmpList[props.data.indexCurrent].selectedChoice ? (
-      <TruePanel {...props} />
-    ) : (
-      <FalsePanel {...props} />
-    )}
-  </div>
-);
+import { stringToArray } from '../ArrayFun';
+import { TestListDiv } from '../StyledComponents';
+import Switch from './Switch';
+
+export default (props: Object) => {
+  const choice = props.tmpList[props.data.indexCurrent].selectedChoice;
+
+  return (
+    <div style={{ width: '100%', height: '80%' }}>
+      <h3>This example is a {props.title}</h3>
+      <Switch {...props} />
+      <Collapse in={choice === true}>
+        <div>
+          <TruePanel {...props} />
+        </div>
+      </Collapse>
+      <Collapse in={choice === false}>
+        <div>
+          <FalsePanel {...props} />
+        </div>
+      </Collapse>
+    </div>
+  );
+};
 
 const TruePanel = ({
   title,
@@ -23,7 +37,7 @@ const TruePanel = ({
   dataFn,
   data
 }: Object) => (
-  <Main>
+  <div>
     <h4>Select all the properties that make it an example of {title}</h4>
     <TestListDiv>
       {stringToArray(
@@ -56,7 +70,7 @@ const TruePanel = ({
         </div>
       ))}
     </TestListDiv>
-  </Main>
+  </div>
 );
 
 const FalsePanel = ({
@@ -76,7 +90,7 @@ const FalsePanel = ({
     ? arr
     : properties.map((x, i) => i).filter(y => !arr.includes(y));
   return (
-    <Main>
+    <div>
       <h4>
         {(even
           ? "Select one property that excludes it from being a '"
@@ -113,6 +127,6 @@ const FalsePanel = ({
           </div>
         ))}
       </TestListDiv>
-    </Main>
+    </div>
   );
 };
