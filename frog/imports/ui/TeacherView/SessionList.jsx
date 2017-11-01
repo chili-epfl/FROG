@@ -39,7 +39,7 @@ const SessionList = ({
           eventKey={session._id}
           onClick={() => setTeacherSession(session._id)}
         >
-          {session.name}
+          {session.name} ({session.slug})
         </MenuItem>
       ))}
     </DropdownButton>

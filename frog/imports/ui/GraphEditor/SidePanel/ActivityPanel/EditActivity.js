@@ -124,7 +124,9 @@ const EditActivity = props => {
         )}
         <StreamSelect
           activity={activity}
-          targets={props.store.activityStore.all.filter(a => a.plane === 3)}
+          targets={props.store.activityStore.all.filter(
+            a => a.plane === 3 && a.id !== activity._id
+          )}
           onChange={streamTarget => setStreamTarget(activity._id, streamTarget)}
         />
       </div>
