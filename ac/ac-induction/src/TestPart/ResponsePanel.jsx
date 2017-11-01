@@ -30,6 +30,7 @@ export default (props: Object) => {
 
 const TruePanel = ({
   title,
+  setDisable,
   properties,
   feedback,
   tmpList,
@@ -50,20 +51,14 @@ const TruePanel = ({
               !!tmpList[data.indexCurrent].selectedProperties.includes(x)
             }
             onChange={() => {
-              const newList = [...tmpList];
-              if (newList[data.indexCurrent].selectedProperties.includes(x))
-                newList[data.indexCurrent].selectedProperties = newList[
-                  data.indexCurrent
-                ].selectedProperties.filter(y => y !== x);
-              else
-                newList[data.indexCurrent].selectedProperties = [
-                  ...newList[data.indexCurrent].selectedProperties,
-                  x
-                ];
               dataFn.objInsert(
-                newList,
-                feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
+                tmpList[data.indexCurrent].selectedProperties.includes(x)
+                ? tmpList[data.indexCurrent].selectedProperties.filter(y => y !== x)
+                : [...tmpList[data.indexCurrent].selectedProperties,x]
+                ,
+                [feedback ? 'listIndexTestWithFeedback' : 'listIndexTest', data.indexCurrent, 'selectedProperties']
               );
+              setDisable(tmpList[data.indexCurrent].selectedProperties.length < 0)
             }}
           />
           {properties[x]}
@@ -75,6 +70,7 @@ const TruePanel = ({
 
 const FalsePanel = ({
   title,
+  setDisable,
   properties,
   feedback,
   tmpList,
@@ -107,20 +103,14 @@ const FalsePanel = ({
                 !!tmpList[data.indexCurrent].selectedProperties.includes(x)
               }
               onChange={() => {
-                const newList = [...tmpList];
-                if (newList[data.indexCurrent].selectedProperties.includes(x))
-                  newList[data.indexCurrent].selectedProperties = newList[
-                    data.indexCurrent
-                  ].selectedProperties.filter(y => y !== x);
-                else
-                  newList[data.indexCurrent].selectedProperties = [
-                    ...newList[data.indexCurrent].selectedProperties,
-                    x
-                  ];
                 dataFn.objInsert(
-                  newList,
-                  feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
+                  tmpList[data.indexCurrent].selectedProperties.includes(x)
+                  ? tmpList[data.indexCurrent].selectedProperties.filter(y => y !== x)
+                  : [...tmpList[data.indexCurrent].selectedProperties,x]
+                  ,
+                  [feedback ? 'listIndexTestWithFeedback' : 'listIndexTest', data.indexCurrent, 'selectedProperties']
                 );
+                setDisable(tmpList[data.indexCurrent].selectedProperties.length < 0)
               }}
             />
             {properties[x]}
