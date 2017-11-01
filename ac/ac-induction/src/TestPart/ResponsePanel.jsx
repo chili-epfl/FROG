@@ -53,12 +53,19 @@ const TruePanel = ({
             onChange={() => {
               dataFn.objInsert(
                 tmpList[data.indexCurrent].selectedProperties.includes(x)
-                ? tmpList[data.indexCurrent].selectedProperties.filter(y => y !== x)
-                : [...tmpList[data.indexCurrent].selectedProperties,x]
-                ,
-                [feedback ? 'listIndexTestWithFeedback' : 'listIndexTest', data.indexCurrent, 'selectedProperties']
+                  ? tmpList[data.indexCurrent].selectedProperties.filter(
+                      y => y !== x
+                    )
+                  : [...tmpList[data.indexCurrent].selectedProperties, x],
+                [
+                  feedback ? 'listIndexTestWithFeedback' : 'listIndexTest',
+                  data.indexCurrent,
+                  'selectedProperties'
+                ]
               );
-              setDisable(tmpList[data.indexCurrent].selectedProperties.length < 0)
+              setDisable(
+                tmpList[data.indexCurrent].selectedProperties.length < 0
+              );
             }}
           />
           {properties[x]}
@@ -105,12 +112,19 @@ const FalsePanel = ({
               onChange={() => {
                 dataFn.objInsert(
                   tmpList[data.indexCurrent].selectedProperties.includes(x)
-                  ? tmpList[data.indexCurrent].selectedProperties.filter(y => y !== x)
-                  : [...tmpList[data.indexCurrent].selectedProperties,x]
-                  ,
-                  [feedback ? 'listIndexTestWithFeedback' : 'listIndexTest', data.indexCurrent, 'selectedProperties']
+                    ? tmpList[data.indexCurrent].selectedProperties.filter(
+                        y => y !== x
+                      )
+                    : [...tmpList[data.indexCurrent].selectedProperties, x],
+                  [
+                    feedback ? 'listIndexTestWithFeedback' : 'listIndexTest',
+                    data.indexCurrent,
+                    'selectedProperties'
+                  ]
                 );
-                setDisable(tmpList[data.indexCurrent].selectedProperties.length < 0)
+                setDisable(
+                  tmpList[data.indexCurrent].selectedProperties.length < 0
+                );
               }}
             />
             {properties[x]}
