@@ -16,11 +16,14 @@ export default ({
   properties,
   dataFn,
   data,
+  logger,
   nbTestFeedback
 }: Object) => {
   const clickHandler = () => {
+    logger({type: 'subPart', value: 2});
     dataFn.objInsert(false, 'feedbackOpen');
     if (data.indexCurrent === nbTestFeedback - 1) {
+      logger({type: 'part', value: 2});
       dataFn.objInsert(0, 'indexCurrent');
       dataFn.objInsert(data.indexPart + 1, 'indexPart');
     } else {

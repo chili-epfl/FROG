@@ -24,7 +24,8 @@ export default ({
   nbTestFeedback,
   feedback,
   dataFn,
-  data
+  data,
+  logger
 }: Object) => {
   const tmpList = feedback
     ? data.listIndexTestWithFeedback
@@ -52,10 +53,14 @@ export default ({
     );
     if (feedback) {
       dataFn.objInsert(true, 'feedbackOpen');
-    } else if (data.indexCurrent === nbTest - 1) {
-      dataFn.objInsert(0, 'indexCurrent');
-      dataFn.objInsert(data.indexPart + 1, 'indexPart');
-    } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
+    } else {
+      logger({type: 'subPart', value: 4});
+      if (data.indexCurrent === nbTest - 1) {
+        logger({type: 'part', value: 4});
+        dataFn.objInsert(0, 'indexCurrent');
+        dataFn.objInsert(data.indexPart + 1, 'indexPart');
+      } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
+    }
   };
 
   return (
@@ -67,34 +72,15 @@ export default ({
       <ExContainer style={{ padding: '20px' }}>
         <TestCorrectionDiv style={{ justifyContent: 'space-evenly' }}>
           <h3>This image corresponds to an example of the concept </h3>
-          <Switch
-            tmpList={tmpList}
-            feedback={feedback}
-            data={data}
-            dataFn={dataFn}
-          />
+          <Switch {...{tmpList, feedback, data, dataFn}}/>
         </TestCorrectionDiv>
-        <ResponsePanel
-          title={title}
-          examples={examples}
-          properties={properties}
-          tmpList={tmpList}
-          feedback={feedback}
-          data={data}
-          dataFn={dataFn}
-        />
+        <ResponsePanel {...{title, examples, properties, tmpList, feedback, data, dataFn}}/>
         <ExButton className="btn btn-default" onClick={clickHandler}>
           Submit
         </ExButton>
       </ExContainer>
       {feedback && (
-        <ModalSubmit
-          examples={examples}
-          properties={properties}
-          dataFn={dataFn}
-          data={data}
-          nbTestFeedback={nbTestFeedback}
-        />
+        <ModalSubmit {...{examples, properties, dataFn, data, logger,nbTestFeedback}}/>
       )}
     </ExMain>
   );

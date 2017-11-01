@@ -4,7 +4,7 @@ import React from 'react';
 
 import { ExButton } from './StyledComponents';
 
-export default ({ title, hasTest, definition, dataFn, data }: Object) => {
+export default ({ title, hasTest, definition, dataFn, data, logger }: Object) => {
   const tmp = data.parts.length - data.indexPart - 1;
   return (
     <div style={{ margin: '25px' }}>
@@ -22,7 +22,11 @@ export default ({ title, hasTest, definition, dataFn, data }: Object) => {
       <p>{definition}</p>
       <ExButton
         className="btn btn-default"
-        onClick={() => dataFn.objInsert(data.indexPart + 1, 'indexPart')}
+        onClick={() => {
+          logger({type: 'subPart', value: 3});
+          logger({type: 'part', value: 3});
+          dataFn.objInsert(data.indexPart + 1, 'indexPart')
+        }}
       >
         Next
       </ExButton>
