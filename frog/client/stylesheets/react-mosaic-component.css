@@ -30,108 +30,69 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.mosaic-root {
+.mosaic {
   height: 100%;
   width: 100%;
-  padding: 6px;
 }
-.mosaic-root,
-.mosaic-root * {
+.mosaic,
+.mosaic * {
   box-sizing: border-box;
 }
-.mosaic-root .mosaic-zero-state {
-  height: 100%;
-  width: 100%;
+.mosaic .mosaic-zero-state {
+  width: auto;
+  height: auto;
   max-width: none;
+  z-index: 1;
 }
-.mosaic-root .mosaic-zero-state .pt-non-ideal-state-icon .pt-icon {
+.mosaic .mosaic-zero-state .pt-non-ideal-state-icon .pt-icon {
   font-size: 120px;
 }
-.mosaic-root > :not(.drop-target-container) {
-  z-index: 1;
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-.mosaic-tile {
-  position: relative;
-}
-.mosaic-tile .mosaic-branch {
+.mosaic-root {
   position: absolute;
+  top: 3px;
+  right: 3px;
+  bottom: 3px;
+  left: 3px;
 }
-.mosaic-tile .mosaic-branch > * {
-  height: 100%;
-  width: 100%;
-}
-.mosaic-tile .mosaic-split {
+.mosaic-split {
   position: absolute;
   z-index: 1;
 }
-.mosaic-tile .mosaic-split:hover {
+.mosaic-split:hover {
   background: black;
 }
-.mosaic-tile .mosaic-split .mosaic-split-line {
+.mosaic-split .mosaic-split-line {
   position: absolute;
 }
-.mosaic-tile.-row > .mosaic-branch,
-.mosaic-tile.-row > .mosaic-split {
-  top: 0;
-  bottom: 0;
-}
-.mosaic-tile.-row > .mosaic-branch.-first {
-  left: 0;
-}
-.mosaic-tile.-row > .mosaic-branch.-first,
-.mosaic-tile.-row > .mosaic-branch.-first > .mosaic-tile {
-  padding-right: 3px;
-}
-.mosaic-tile.-row > .mosaic-branch.-second {
-  right: 0;
-}
-.mosaic-tile.-row > .mosaic-branch.-second,
-.mosaic-tile.-row > .mosaic-branch.-second > .mosaic-tile {
-  padding-left: 3px;
-}
-.mosaic-tile.-row > .mosaic-split {
+.mosaic-split.-row {
   margin-left: -3px;
   width: 6px;
   cursor: ew-resize;
 }
-.mosaic-tile.-row > .mosaic-split .mosaic-split-line {
+.mosaic-split.-row .mosaic-split-line {
   top: 0;
   bottom: 0;
   left: 3px;
   right: 3px;
 }
-.mosaic-tile.-column > .mosaic-branch,
-.mosaic-tile.-column > .mosaic-split {
-  left: 0;
-  right: 0;
-}
-.mosaic-tile.-column > .mosaic-branch.-first {
-  top: 0;
-}
-.mosaic-tile.-column > .mosaic-branch.-first,
-.mosaic-tile.-column > .mosaic-branch.-first > .mosaic-tile {
-  padding-bottom: 3px;
-}
-.mosaic-tile.-column > .mosaic-branch.-second {
-  bottom: 0;
-}
-.mosaic-tile.-column > .mosaic-branch.-second,
-.mosaic-tile.-column > .mosaic-branch.-second > .mosaic-tile {
-  padding-top: 3px;
-}
-.mosaic-tile.-column > .mosaic-split {
+.mosaic-split.-column {
   margin-top: -3px;
   height: 6px;
   cursor: ns-resize;
 }
-.mosaic-tile.-column > .mosaic-split .mosaic-split-line {
+.mosaic-split.-column .mosaic-split-line {
   top: 3px;
   bottom: 3px;
   left: 0;
   right: 0;
+}
+.mosaic-tile {
+  position: absolute;
+  margin: 3px;
+}
+.mosaic-tile > * {
+  height: 100%;
+  width: 100%;
 }
 .mosaic-drop-target {
   position: relative;
@@ -139,19 +100,19 @@
 .mosaic-drop-target.drop-target-hover .drop-target-container {
   display: block;
 }
-.mosaic-drop-target.mosaic-root > .drop-target-container {
+.mosaic-drop-target.mosaic > .drop-target-container {
   display: block;
 }
-.mosaic-drop-target.mosaic-root > .drop-target-container .drop-target.left {
+.mosaic-drop-target.mosaic > .drop-target-container .drop-target.left {
   right: calc(100% -  10px );
 }
-.mosaic-drop-target.mosaic-root > .drop-target-container .drop-target.right {
+.mosaic-drop-target.mosaic > .drop-target-container .drop-target.right {
   left: calc(100% -  10px );
 }
-.mosaic-drop-target.mosaic-root > .drop-target-container .drop-target.bottom {
+.mosaic-drop-target.mosaic > .drop-target-container .drop-target.bottom {
   top: calc(100% -  10px );
 }
-.mosaic-drop-target.mosaic-root > .drop-target-container .drop-target.top {
+.mosaic-drop-target.mosaic > .drop-target-container .drop-target.top {
   bottom: calc(100% -  10px );
 }
 .mosaic-drop-target .drop-target-container {
@@ -266,7 +227,7 @@
   height: 0;
   background: white;
   z-index: 1;
-  overflow: auto;
+  overflow: hidden;
 }
 .mosaic-window .mosaic-window-additional-actions-bar,
 .mosaic-preview .mosaic-window-additional-actions-bar {
@@ -334,16 +295,16 @@
 .mosaic-preview .mosaic-preview .pt-icon {
   font-size: 72px;
 }
-.mosaic-root:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-cross:before {
+.mosaic:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-cross:before {
   content: 'Close';
 }
-.mosaic-root:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-add-column-right:before {
+.mosaic:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-add-column-right:before {
   content: 'Split';
 }
-.mosaic-root:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-exchange:before {
+.mosaic:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-exchange:before {
   content: 'Replace';
 }
-.mosaic-root:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-maximize:before {
+.mosaic:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-maximize:before {
   content: 'Expand';
 }
 /**
@@ -362,88 +323,157 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.mosaic-root.mosaic-blueprint-theme {
+.mosaic.mosaic-blueprint-theme {
   background: #a7b6c2;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-zero-state {
+.mosaic.mosaic-blueprint-theme .mosaic-zero-state {
   background: #e1e8ed;
   border-radius: 3px;
-  box-shadow: 0 0 1px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.15), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-tile .mosaic-split:hover {
+.mosaic.mosaic-blueprint-theme .mosaic-split:hover {
   background: none;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-tile .mosaic-split:hover .mosaic-split-line {
+.mosaic.mosaic-blueprint-theme .mosaic-split:hover .mosaic-split-line {
   box-shadow: 0 0 0 1px #2b95d6;
 }
-.mosaic-root.mosaic-blueprint-theme.mosaic-drop-target .drop-target-container .drop-target,
-.mosaic-root.mosaic-blueprint-theme .mosaic-drop-target .drop-target-container .drop-target {
+.mosaic.mosaic-blueprint-theme.mosaic-drop-target .drop-target-container .drop-target,
+.mosaic.mosaic-blueprint-theme .mosaic-drop-target .drop-target-container .drop-target {
   background: rgba(72, 175, 240, 0.2);
   border: 2px solid #2b95d6;
   transition: opacity 100ms;
-}
-.mosaic-root.mosaic-blueprint-theme .mosaic-window,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview {
-  box-shadow: 0 0 1px rgba(16, 22, 26, 0.2);
   border-radius: 3px;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-toolbar,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-toolbar {
-  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
+.mosaic.mosaic-blueprint-theme .mosaic-window,
+.mosaic.mosaic-blueprint-theme .mosaic-preview {
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.15), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
+  border-radius: 3px;
+}
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-toolbar,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-toolbar {
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.15);
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-toolbar.draggable:hover,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-toolbar.draggable:hover {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-toolbar.draggable:hover,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-toolbar.draggable:hover {
   background: linear-gradient(to bottom, #ffffff, #f5f8fa);
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-toolbar.draggable:hover .mosaic-window-title,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-toolbar.draggable:hover .mosaic-window-title {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-toolbar.draggable:hover .mosaic-window-title,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-toolbar.draggable:hover .mosaic-window-title {
   color: #10161a;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-title,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-title {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-title,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-title {
   font-weight: 600;
   color: #394b59;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-controls .separator,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-controls .separator {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-controls .separator,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-controls .separator {
   border-left: 1px solid #d8e1e8;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-controls .pt-button,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-controls .pt-button,
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-controls .pt-button:before,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-controls .pt-button:before {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-controls .pt-button,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-controls .pt-button,
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-controls .pt-button:before,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-controls .pt-button:before {
   color: #738694;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-body,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-body {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-body,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-body {
   border-top-width: 0;
   background: #f5f8fa;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-additional-actions-bar,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-additional-actions-bar {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-additional-actions-bar,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-additional-actions-bar {
   transition: height 250ms;
-  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.15);
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-additional-actions-bar .pt-button,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-additional-actions-bar .pt-button,
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-window-additional-actions-bar .pt-button:before,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-window-additional-actions-bar .pt-button:before {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-additional-actions-bar .pt-button,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-additional-actions-bar .pt-button,
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-additional-actions-bar .pt-button:before,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-additional-actions-bar .pt-button:before {
   color: #738694;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window.additional-controls-open .mosaic-window-toolbar,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview.additional-controls-open .mosaic-window-toolbar {
-  box-shadow: 0 1px 0 rgba(16, 22, 26, 0.2);
+.mosaic.mosaic-blueprint-theme .mosaic-window.additional-controls-open .mosaic-window-toolbar,
+.mosaic.mosaic-blueprint-theme .mosaic-preview.additional-controls-open .mosaic-window-toolbar {
+  box-shadow: 0 1px 0 0 0 0 1px rgba(16, 22, 26, 0.15), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-preview,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-preview {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-preview,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-preview {
   border: 1px solid #8a9ba8;
 }
-.mosaic-root.mosaic-blueprint-theme .mosaic-window .mosaic-preview h4,
-.mosaic-root.mosaic-blueprint-theme .mosaic-preview .mosaic-preview h4 {
+.mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-preview h4,
+.mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-preview h4 {
   color: #394b59;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark {
+  background: #202b33;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-zero-state {
+  background: #30404d;
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.4), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-split:hover .mosaic-split-line {
+  box-shadow: 0 0 0 1px #137cbd;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark.mosaic-drop-target .drop-target-container .drop-target,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-drop-target .drop-target-container .drop-target {
+  background: rgba(16, 107, 163, 0.2);
+  border-color: #137cbd;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window-toolbar,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window-additional-actions-bar {
+  background: #30404d;
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.4);
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview {
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.4), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-toolbar.draggable:hover,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-toolbar.draggable:hover {
+  background: linear-gradient(to bottom, #394b59, #30404d);
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-toolbar.draggable:hover .mosaic-window-title,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-toolbar.draggable:hover .mosaic-window-title {
+  color: #ffffff;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-title,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-title {
+  color: #d8e1e8;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-controls .separator,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-controls .separator {
+  border-color: #5c7080;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-controls .pt-button,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-controls .pt-button,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-controls .pt-button:before,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-controls .pt-button:before {
+  color: #a7b6c2;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-body,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-body {
+  background: #293742;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-additional-actions-bar .pt-button,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-additional-actions-bar .pt-button,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-window-additional-actions-bar .pt-button:before,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-window-additional-actions-bar .pt-button:before {
+  color: #bfccd6;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window.additional-controls-open .mosaic-window-toolbar,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview.additional-controls-open .mosaic-window-toolbar {
+  box-shadow: 0 1px 0 0 0 0 1px rgba(16, 22, 26, 0.4), 0 0 0 rgba(16, 22, 26, 0), 0 0 0 rgba(16, 22, 26, 0);
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-preview,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-preview {
+  border-color: #5c7080;
+}
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-window .mosaic-preview h4,
+.mosaic.mosaic-blueprint-theme.pt-dark .mosaic-preview .mosaic-preview h4 {
+  color: #ebf1f5;
 }
 /*# sourceMappingURL=react-mosaic-component.css.map */

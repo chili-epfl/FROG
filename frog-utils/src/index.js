@@ -42,6 +42,7 @@ export type {
   payloadT,
   activityDataT,
   ObjectT,
+  GlobalStructureT,
   ActivityRunnerT,
   ActivityPackageT,
   productOperatorT,
@@ -50,7 +51,9 @@ export type {
   controlOperatorT,
   ControlStructureT,
   ControlT,
-  ReactComponent
+  ReactComponent,
+  LogT,
+  LogDBT
 } from './types';
 export { default as CountChart } from './DashboardComponents/CountChart';
 export {
@@ -164,4 +167,14 @@ export const splitPathObject = (obj: Object, path: string[], value: any) => {
   });
 
   return { insertPath, insertObject };
+};
+
+export const getDisplayName = (WrappedComponent: any): string => {
+  if (typeof WrappedComponent.displayName === 'string') {
+    return WrappedComponent.displayName;
+  } else if (typeof WrappedComponent.name === 'string') {
+    return WrappedComponent.name;
+  } else {
+    return 'Component';
+  }
 };

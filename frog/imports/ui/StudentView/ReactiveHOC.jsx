@@ -1,20 +1,14 @@
 // @flow
 import React, { Component } from 'react';
-import { generateReactiveFn, type ReactComponent } from 'frog-utils';
+import {
+  generateReactiveFn,
+  type ReactComponent,
+  getDisplayName
+} from 'frog-utils';
 import Spinner from 'react-spinner';
 
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
-
-const getDisplayName = (WrappedComponent: any): string => {
-  if (typeof WrappedComponent.displayName === 'string') {
-    return WrappedComponent.displayName;
-  } else if (typeof WrappedComponent.name === 'string') {
-    return WrappedComponent.name;
-  } else {
-    return 'Component';
-  }
-};
 
 const ReactiveHOC = (docId: string, conn?: any) => (
   WrappedComponent: ReactComponent<any>
@@ -22,7 +16,6 @@ const ReactiveHOC = (docId: string, conn?: any) => (
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
     doc: any;
-    timeout: ?number;
     unmounted: boolean;
 
     constructor(props: Object) {
@@ -34,24 +27,20 @@ const ReactiveHOC = (docId: string, conn?: any) => (
     }
 
     componentDidMount = () => {
+      this.unmounted = false;
       this.doc = (conn || connection).get('rz', docId);
+      this.doc.setMaxListeners(30);
       this.doc.subscribe();
-      this.doc.on('ready', this.update);
-      this.doc.on('op', this.update);
-      this.waitForDoc();
-    };
-
-    waitForDoc = () => {
       if (this.doc.type) {
-        this.timeout = undefined;
         this.update();
       } else {
-        this.timeout = window.setTimeout(this.waitForDoc, 100);
+        this.doc.on('load', this.update);
       }
+      this.doc.on('op', this.update);
     };
 
     update = () => {
-      if (!this.timeout && !this.unmounted) {
+      if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({ dataFn: generateReactiveFn(this.doc) });
         }
@@ -60,10 +49,8 @@ const ReactiveHOC = (docId: string, conn?: any) => (
     };
 
     componentWillUnmount = () => {
-      this.doc.destroy();
-      if (this.timeout) {
-        window.clearTimeout(this.timeout);
-      }
+      this.doc.removeListener('op', this.update);
+      this.doc.removeListener('load', this.update);
       this.unmounted = true;
     };
 

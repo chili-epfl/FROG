@@ -47,7 +47,7 @@ const runNextActivity = (sessionId: string) => {
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
 
-    engineLogger(sessionId, { message: 'NEXT ACTIVITY' });
+    engineLogger(sessionId, 'nextActivity');
     const justClosedActivities = oldOpen.filter(
       act => !openActivities.includes(act)
     );
@@ -61,7 +61,7 @@ Meteor.methods({
   'run.session': (sessionId: string) => {
     updateSessionState(sessionId, 'STARTED');
     Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
-    engineLogger(sessionId, { message: 'STARTING SESSION' });
+    engineLogger(sessionId, 'startSession');
     const session = Sessions.findOne(sessionId);
     if (Meteor.isServer) {
       if (session.studentlist) {

@@ -27,28 +27,26 @@ export default ({ config, data }: Object) => {
   };
 
   return (
-    <ul
-      className="nav nav-tabs"
-      style={{ position: 'absolute', top: '0px', width: '100%' }}
-    >
-      {data.parts.map((x, i) =>
-        <NavLi
-          key={x + i.toString()}
-          className={data.indexPart === i ? 'active' : ''}
-          style={{ width: 100 / data.parts.length + '%' }}
-        >
-          <a
-            style={{
-              backgroundColor: data.indexPart === i ? '#A0A0F0' : '',
-              color: 'black'
-            }}
+    <ul className="nav nav-tabs">
+      {data.parts &&
+        data.parts.map((x, i) => (
+          <NavLi
+            key={x + i.toString()}
+            className={data.indexPart === i ? 'active' : ''}
+            style={{ width: 100 / data.parts.length + '%' }}
           >
-            {data.indexPart === i
-              ? genTitle(x, i, data.indexCurrent, config)
-              : 'Part ' + i + ': ' + x}
-          </a>
-        </NavLi>
-      )}
+            <a
+              style={{
+                backgroundColor: data.indexPart === i ? '#A0A0F0' : '',
+                color: 'black'
+              }}
+            >
+              {data.indexPart === i
+                ? genTitle(x, i, data.indexCurrent, config)
+                : 'Part ' + i + ': ' + x}
+            </a>
+          </NavLi>
+        ))}
     </ul>
   );
 };

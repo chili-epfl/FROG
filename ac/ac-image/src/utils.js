@@ -3,15 +3,18 @@
 import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
 
+import { DEFAULT_COMMENT_VALUE } from '.';
+
 const uploadBufferWithThumbnail = (
   imageBuffer,
   imageId,
   logger,
   dataFn,
   stream,
-  uploadFn
+  uploadFn,
+  type
 ) => {
-  logger('upload/' + imageId);
+  logger({ type, itemId: imageId });
 
   // upload a thumbnail
   resizeImg(imageBuffer, { width: 128 }).then(buffer => {
@@ -37,12 +40,16 @@ export default (
   logger: Function,
   dataFn: Object,
   stream: Function,
-  uploadFn: Function
+  uploadFn: Function,
+  type: string
 ) => {
   const fr = new FileReader();
 
   const imageId = uuid();
-  dataFn.objInsert({ votes: {}, key: imageId }, imageId);
+  dataFn.objInsert(
+    { votes: {}, comment: DEFAULT_COMMENT_VALUE, key: imageId },
+    imageId
+  );
   stream(imageId, [imageId, 'key']);
 
   fr.onloadend = loaded => {
@@ -53,7 +60,8 @@ export default (
       logger,
       dataFn,
       stream,
-      uploadFn
+      uploadFn,
+      type
     );
   };
   fr.readAsArrayBuffer(file);

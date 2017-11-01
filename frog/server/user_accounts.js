@@ -67,7 +67,7 @@ Meteor.methods({
 });
 
 Meteor.methods({
-  'create.many': function() {
+  'create.many': function(slug) {
     let i = 200;
     while (i > 0) {
       i -= 1;
@@ -78,7 +78,7 @@ Meteor.methods({
           id: newUser
         }
       );
-      Meteor.users.update(userId, { $push: { joinedSessions: 'DEBUG' } });
+      Meteor.users.update(userId, { $push: { joinedSessions: slug } });
     }
   }
 });

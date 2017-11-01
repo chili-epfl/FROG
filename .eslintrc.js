@@ -13,6 +13,8 @@ module.exports = {
     jest: true
   },
   rules: {
+    'dot-notation': 'off',
+    'func-names': 'off',
     'jsx-a11y/label-has-for': 'off',
     'react/require-default-props': 'off',
     'no-console': 'error',

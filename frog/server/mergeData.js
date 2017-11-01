@@ -5,7 +5,8 @@ import { cloneDeep } from 'lodash';
 import {
   generateReactiveFn,
   getMergedExtractedUnit,
-  type ObjectT
+  type ObjectT,
+  type GlobalStructureT
 } from 'frog-utils';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
@@ -102,7 +103,11 @@ const mergeOneInstance = (
   }
 };
 
-const mergeData = (activityId: string, object: ObjectT, group?: string) => {
+const mergeData = (
+  activityId: string,
+  object: ObjectT & GlobalStructureT,
+  group?: string
+) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
   const activityType = activityTypesObj[activity.activityType];

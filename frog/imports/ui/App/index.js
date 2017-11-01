@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
+import NotLoggedIn from './NotLoggedIn';
 
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
@@ -76,6 +77,15 @@ class FROGRouter extends Component {
 
   componentWillReceiveProps() {
     this.update();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.state.mode === 'waiting' &&
+      prevProps.location.search !== this.props.location.search
+    ) {
+      this.update();
+    }
   }
 
   update() {
@@ -142,7 +152,7 @@ class FROGRouter extends Component {
         );
       }
     }
-    return <StudentLogin slug={this.props.match.params.slug} />;
+    return <NotLoggedIn update={this.update} slug={this.props.match.params.slug} />;
   }
 }
 

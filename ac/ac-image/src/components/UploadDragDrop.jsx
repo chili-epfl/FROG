@@ -9,7 +9,14 @@ import uploadWithTumbnail from '../utils';
 const UploadDragDrop = ({ dataFn, stream, uploadFn, logger }: Object) => {
   const onDrop = f => {
     f.forEach(imageFile =>
-      uploadWithTumbnail(imageFile, logger, dataFn, stream, uploadFn)
+      uploadWithTumbnail(
+        imageFile,
+        logger,
+        dataFn,
+        stream,
+        uploadFn,
+        'dragdrop-upload'
+      )
     );
   };
 

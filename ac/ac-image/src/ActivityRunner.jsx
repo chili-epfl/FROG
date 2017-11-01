@@ -36,7 +36,7 @@ class ActivityRunner extends Component {
     super(props);
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
-    const { data } = props;
+    const { data, activityData } = props;
     this.categories = Object.keys(data).reduce(
       (acc, key) => ({
         ...acc,
@@ -54,7 +54,10 @@ class ActivityRunner extends Component {
     );
 
     const startingCategory =
-      Object.keys(this.categories).length > 1 ? 'categories' : 'all';
+      Object.keys(this.categories).length > 1 &&
+      !activityData.config.hideCategory
+        ? 'categories'
+        : 'all';
 
     this.state = {
       zoomOn: false,
@@ -85,7 +88,7 @@ class ActivityRunner extends Component {
       .map(key => ({ ...data[key], key }));
 
     const vote = (key, userId) => {
-      logger('vote/' + key);
+      logger({ type: 'vote', itemId: key });
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
       stream(!prev, [key, 'votes', userId]);
@@ -96,19 +99,21 @@ class ActivityRunner extends Component {
     const setIndex = (i: number) => this.setState({ index: i });
     const setWebcam = (w: boolean) => this.setState({ webcamOn: w });
 
+    const showCategories =
+      this.state.category === 'categories' && !activityData.config.hideCategory;
+
     return (
       <Main>
         <TopBar
           categories={[...Object.keys(this.categories), 'categories']}
           category={this.state.category}
           canVote={activityData.config.canVote}
+          hideCategory={activityData.config.hideCategory}
           {...{ setCategory, setZoom }}
         />
+        <p style={{ fontSize: '22px' }}>{activityData.config.guidelines}</p>
         {images.length === 0 && this.state.category !== 'categories' ? (
-          <h1>
-            Please upload images by dropping files on the button below, or click
-            the button to turn on the webcam
-          </h1>
+          <h1>No image</h1>
         ) : (
           <ThumbList
             {...{
@@ -120,17 +125,20 @@ class ActivityRunner extends Component {
               setCategory,
               setZoom,
               setIndex,
-              logger
+              logger,
+              showCategories
             }}
             canVote={activityData.config.canVote}
-            showingCategories={this.state.category === 'categories'}
           />
         )}
         {this.state.category !== 'categories' &&
           this.state.zoomOn && (
             <ZoomView
               index={this.state.index}
-              {...{ close: () => setZoom(false), images, setIndex }}
+              commentBox={activityData.config.canComment}
+              commentGuidelines={activityData.config.commentGuidelines}
+              close={() => setZoom(false)}
+              {...{ images, setIndex, dataFn, logger }}
             />
           )}
         {activityData.config.canUpload && (
