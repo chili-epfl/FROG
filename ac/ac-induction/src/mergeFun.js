@@ -69,7 +69,6 @@ const genList = (tab: Array<any>, n: number) => {
     tmp = tmp.concat(shuffle(tab));
   tmp = tmp.map(x => ({
     realIndex: tab.indexOf(x),
-    selectedChoice: true,
     selectedProperties: []
   }));
 

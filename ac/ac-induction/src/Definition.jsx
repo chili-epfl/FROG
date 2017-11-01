@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ExButton } from './StyledComponents';
+import { ExButton, DefinitionBox } from './StyledComponents';
 
 export default ({ title, hasTest, definition, dataFn, data, logger }: Object) => {
   const tmp = data.parts.length - data.indexPart - 1;
@@ -12,14 +12,14 @@ export default ({ title, hasTest, definition, dataFn, data, logger }: Object) =>
       <p>
         {' '}
         {'You have completed the ' +
-          (tmp > 1 ? tmp + ' parts' : 'first part') +
+          (tmp > 1 ? tmp + ' first parts' : 'first part') +
           ' of this activity.'}
         <br />{' '}
         {hasTest
-          ? 'Before you start the last part which is a test without feedback, here is the definition of the concept to make sure you understood it well.'
+          ? 'Before you start the last one (the tests without feedback), here is the definition of the concept to make sure you understood it well.'
           : 'The final definition of the concept is the following:'}
       </p>
-      <p>{definition}</p>
+      <DefinitionBox>{definition}</DefinitionBox>
       <ExButton
         className="btn btn-default"
         onClick={() => {

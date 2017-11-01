@@ -1,56 +1,36 @@
 // @flow
 
 import React from 'react';
+import { Button } from 'react-bootstrap';
+
+const TFButton = ({ type, choice, onClick }) => (
+  <Button
+    bsStyle={choice === type ? (type ? 'success' : 'danger') : 'default'}
+    bsSize="large"
+    active={false}
+    style={{ width: '150px', margin: '20px' }}
+    onClick={() => onClick(type)}
+  >
+    {type ? 'True' : 'False'}
+  </Button>
+);
 
 export default ({ tmpList, feedback, data, dataFn }: Object) => {
-  const onClickSwitch = () => {
-    const newList = [...tmpList];
-    newList[data.indexCurrent].selectedChoice = !newList[data.indexCurrent]
-      .selectedChoice;
-    newList[data.indexCurrent].selectedProperties = [];
-    dataFn.objInsert(
-      newList,
-      feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
-    );
+  const onClick = type => {
+    const path = [
+      feedback ? 'listIndexTestWithFeedback' : 'listIndexTest',
+      data.indexCurrent
+    ];
+    dataFn.objInsert(type, [...path, 'selectedChoice']);
+    dataFn.objInsert([], [...path, 'selectedProperties']);
   };
 
+  const choice = tmpList[data.indexCurrent].selectedChoice;
+
   return (
-    <div
-      className="btn-group"
-      role="group"
-      aria-label="..."
-      style={{ minWidth: 'fit-content' }}
-    >
-      <button
-        className="btn btn-default"
-        style={{
-          backgroundColor: tmpList[data.indexCurrent].selectedChoice
-            ? '#66CC00'
-            : '#E0E0E0',
-          width: tmpList[data.indexCurrent].selectedChoice ? '80px' : '8px',
-          outline: 'none',
-          height: '30px'
-        }}
-        tabIndex="-1"
-        onClick={onClickSwitch}
-      >
-        {tmpList[data.indexCurrent].selectedChoice ? 'True' : ''}
-      </button>
-      <button
-        className="btn btn-default"
-        style={{
-          backgroundColor: !tmpList[data.indexCurrent].selectedChoice
-            ? '#CC0000'
-            : '#E0E0E0',
-          width: !tmpList[data.indexCurrent].selectedChoice ? '80px' : '8px',
-          outline: 'none',
-          height: '30px'
-        }}
-        tabIndex="-1"
-        onClick={onClickSwitch}
-      >
-        {!tmpList[data.indexCurrent].selectedChoice ? 'False' : ''}
-      </button>
+    <div>
+      <TFButton type {...{ choice, onClick }} />
+      <TFButton type={false} {...{ choice, onClick }} />
     </div>
   );
 };
