@@ -20,10 +20,10 @@ export default ({
   nbTestFeedback
 }: Object) => {
   const clickHandler = () => {
-    logger({type: 'subPart', value: 2});
+    logger({ type: 'subPart', value: 'TestFeedback' });
     dataFn.objInsert(false, 'feedbackOpen');
     if (data.indexCurrent === nbTestFeedback - 1) {
-      logger({type: 'part', value: 2});
+      logger({ type: 'part', value: 'TestFeedback' });
       dataFn.objInsert(0, 'indexCurrent');
       dataFn.objInsert(data.indexPart + 1, 'indexPart');
     } else {

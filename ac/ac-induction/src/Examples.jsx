@@ -4,11 +4,18 @@ import React from 'react';
 import { ExMain, ExContainer, ExLine, ExButton } from './StyledComponents';
 import ImgBis from './ImgBis';
 
-export default ({ examples, nbExamples, dataFn, data, title, logger }: Object) => {
+export default ({
+  examples,
+  nbExamples,
+  dataFn,
+  data,
+  title,
+  logger
+}: Object) => {
   const clickHandler = () => {
-    logger({type: 'subPart', value: 1});
+    logger({ type: 'subPart', value: 'Examples' });
     if (data.indexCurrent === nbExamples - 1) {
-      logger({type: 'part', value: 1});
+      logger({ type: 'part', value: 'Examples' });
       dataFn.objInsert(0, 'indexCurrent');
       dataFn.objInsert(data.indexPart + 1, 'indexPart');
     } else {

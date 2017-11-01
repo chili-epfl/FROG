@@ -47,9 +47,9 @@ export default ({
     if (feedback) {
       dataFn.objInsert(true, 'feedbackOpen');
     } else {
-      logger({type: 'subPart', value: 4});
+      logger({ type: 'subPart', value: 'Test' });
       if (data.indexCurrent === nbTest - 1) {
-        logger({type: 'part', value: 4});
+        logger({ type: 'part', value: 'Test' });
         dataFn.objInsert(0, 'indexCurrent');
         dataFn.objInsert(data.indexPart + 1, 'indexPart');
       } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
@@ -70,7 +70,9 @@ export default ({
         </ExButton>
       </ExContainer>
       {feedback && (
-        <ModalSubmit {...{examples, properties, dataFn, data, logger,nbTestFeedback}}/>
+        <ModalSubmit
+          {...{ examples, properties, dataFn, data, logger, nbTestFeedback }}
+        />
       )}
     </ExMain>
   );

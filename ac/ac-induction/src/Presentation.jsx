@@ -4,8 +4,8 @@ import React from 'react';
 
 import { PresButton } from './StyledComponents';
 
-export default ({ title, dataFn, data, logger }: Object) =>
-<div style={{ margin: '25px' }}>
+export default ({ title, dataFn, data, logger }: Object) => (
+  <div style={{ margin: '25px' }}>
     <h3> {title} </h3>
     <div>
       In this activity, you will learn the concept of {title}
@@ -32,10 +32,11 @@ export default ({ title, dataFn, data, logger }: Object) =>
       className="btn btn-default"
       onClick={() => {
         dataFn.objInsert(data.indexPart + 1, 'indexPart');
-        logger({type: 'subPart', value: 0});
-        logger({type: 'part', value: 0});
+        logger({ type: 'subPart', value: 'Presentation' });
+        logger({ type: 'part', value: 'Presentation' });
       }}
     >
       Start the activity
     </PresButton>
-  </div>;
+  </div>
+);

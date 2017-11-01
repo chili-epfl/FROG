@@ -16,12 +16,12 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   let page = null;
   switch (data.parts && data.parts[data.indexPart]) {
     case 'Presentation':
-      page = <Presentation {...{title, dataFn,data,logger}}/>;
+      page = <Presentation {...{ title, dataFn, data, logger }} />;
       break;
     case 'Examples':
       page = (
         <Examples
-        {...{title,examples,dataFn,data,logger}}
+          {...{ title, examples, dataFn, data, logger }}
           nbExamples={activityData.config.nbExamples}
         />
       );
@@ -29,7 +29,7 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Tests with feedback':
       page = (
         <Test
-        {...{title,examples, properties, dataFn, data, logger}}
+          {...{ title, examples, properties, dataFn, data, logger }}
           nbTest={0}
           nbTestFeedback={activityData.config.nbTestFeedback}
           feedback
@@ -39,7 +39,7 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Definition':
       page = (
         <Definition
-          {...{title, definition, dataFn, data,logger}}
+          {...{ title, definition, dataFn, data, logger }}
           hasTest={activityData.config.hasTest}
         />
       );
@@ -47,7 +47,7 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Tests':
       page = (
         <Test
-        {...{title,examples,properties,dataFn, data,logger}}
+          {...{ title, examples, properties, dataFn, data, logger }}
           nbTest={activityData.config.nbTest}
           nbTestFeedback={0}
           feedback={false}
