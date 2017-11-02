@@ -16,6 +16,7 @@ import {
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 import NotLoggedIn from './NotLoggedIn';
+import { ErrorBoundary } from './ErrorBoundary';
 
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
@@ -180,12 +181,14 @@ class FROGRouter extends Component {
 }
 
 export default () => (
-  <Router>
-    <div style={{ width: '100%', height: '100%' }}>
-      <Switch>
-        <Route path="/:slug" component={FROGRouter} />
-        <Route component={FROGRouter} />
-      </Switch>
-    </div>
-  </Router>
+  <ErrorBoundary>
+    <Router>
+      <div style={{ width: '100%', height: '100%' }}>
+        <Switch>
+          <Route path="/:slug" component={FROGRouter} />
+          <Route component={FROGRouter} />
+        </Switch>
+      </div>
+    </Router>
+  </ErrorBoundary>
 );
