@@ -4,6 +4,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
+import { isEmpty } from 'lodash';
 import fs from 'fs';
 
 import { Sessions } from '../imports/api/sessions';
@@ -58,8 +59,8 @@ Meteor.methods({
       return -1;
     }
     const session = Sessions.findOne({ slug: slug.trim().toUpperCase() });
-    if (session) {
-      return session.studentlist || -1;
+    if (session && !isEmpty(session.studentlist)) {
+      return session.studentlist;
     } else {
       return -1;
     }

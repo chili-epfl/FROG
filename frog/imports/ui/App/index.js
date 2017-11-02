@@ -13,6 +13,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 import NotLoggedIn from './NotLoggedIn';
@@ -79,10 +80,6 @@ class FROGRouter extends Component {
     this.update();
   }
 
-  componentWillReceiveProps() {
-    this.update();
-  }
-
   componentDidUpdate(prevProps) {
     if (
       this.state.mode === 'waiting' &&
@@ -91,6 +88,13 @@ class FROGRouter extends Component {
       this.update();
     }
   }
+
+  login = (username: string) => {
+    this.setState({ mode: 'loggingIn' });
+    Meteor.call('frog.debuglogin', username, (err, id) => {
+      subscriptionCallback(err, id, x => this.setState({ mode: x }));
+    });
+  };
 
   update() {
     const query = queryToObject(this.props.location.search.slice(1));
@@ -131,23 +135,22 @@ class FROGRouter extends Component {
               });
             }
           });
-        }
-      }
-    }
-    if (this.state.mode === 'waiting') {
-      if (this.props.match.params.slug) {
-        this.setState({ mode: 'loggingIn' });
-        Meteor.call(
-          'frog.studentlist',
-          this.props.match.params.slug,
-          (err, result) => {
-            if (err) {
-              this.setState({ mode: 'error' });
-            } else {
-              this.setState({ studentlist: result, mode: 'studentlist' });
-            }
+        } else {
+          if (this.props.match.params.slug) {
+            this.setState({ mode: 'loggingIn' });
+            Meteor.call(
+              'frog.studentlist',
+              this.props.match.params.slug,
+              (err, result) => {
+                if (err || result === -1 || isEmpty(result)) {
+                  this.setState({ mode: 'error' });
+                } else {
+                  this.setState({ studentlist: result, mode: 'studentlist' });
+                }
+              }
+            );
           }
-        );
+        }
       }
     }
   }
@@ -173,9 +176,9 @@ class FROGRouter extends Component {
       }
     }
     return this.state.mode === 'studentlist' ? (
-      <StudentLogin update={this.update} slug={this.props.match.params.slug} />
+      <StudentLogin login={this.login} slug={this.props.match.params.slug} />
     ) : (
-      <NotLoggedIn update={this.update} />
+      <NotLoggedIn login={this.login} />
     );
   }
 }

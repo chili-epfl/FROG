@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import Spinner from 'react-spinner';
-import { Link } from 'react-router-dom';
+import { A } from 'frog-utils';
 
 const splitList = (list: string[]) => {
   const extra = list.length % 2 ? 1 : 0;
@@ -35,7 +35,7 @@ class StudentLogin extends Component {
               <ul className="list-group">
                 {lst.map(x => (
                   <li key={x} className="list-group-item">
-                    <Link to={`/${this.props.slug}?login=${x}`}>{x}</Link>
+                    <A onClick={() => this.props.login(x)}>{x}</A>
                   </li>
                 ))}
               </ul>
