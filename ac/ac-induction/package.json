@@ -11,6 +11,7 @@
     "frog-utils": "^1.0.0",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
+    "react-bootstrap": "^0.31.5",
     "styled-components": "^2.2.3"
   },
   "devDependencies": {

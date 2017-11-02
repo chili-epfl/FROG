@@ -62,3 +62,13 @@ export const TestListDiv = styled.div`
   text-align: left;
   padding-left: 100px;
 `;
+
+export const DefinitionBox = styled.div`
+  font-size: x-large;
+  border: 2px solid;
+  border-radius: 5px;
+  background: aliceblue;
+  padding: 15px;
+  max-width: 600px;
+  margin: auto;
+`;
