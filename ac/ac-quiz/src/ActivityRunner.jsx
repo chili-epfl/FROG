@@ -37,40 +37,30 @@ const DescriptionField = props => (
   </QuestionTitle>
 );
 
-const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
-  const schema = {
-    title: activityData.config.name,
-    type: 'object',
-    properties: {}
+const Question = ({ question, index, data, dataFn, logger }) => {
+  const uiSchema = {
+    'ui:widget': 'latexWidget',
+    'ui:description': question.question
   };
 
-  const uiSchema = {};
-
-  activityData.config.questions
-    .filter(q => q.question && q.answers)
-    .forEach((q, i) => {
-      schema.properties['question ' + i] = {
-        type: 'number',
-        title: 'Question ' + (i + 1),
-        enum: q.answers.map((_, k) => k),
-        enumNames: q.answers
-      };
-      uiSchema['question ' + i] = {
-        'ui:widget': 'latexWidget',
-        'ui:description': q.question
-      };
-      if (activityData.config.justify) {
-        schema.properties['question ' + i + ' justify'] = {
-          type: 'string',
-          title: ' ',
-          description: 'Justify your answer'
-        };
-      }
-    });
+  const schema = {
+    type: 'number',
+    title: 'Question ' + (index + 1),
+    enum: question.answers.map((_, k) => k),
+    enumNames: question.answers.map(k => k.answer)
+  }
+    //   if (activityData.config.justify) {
+    //     schema.properties['question ' + i + ' justify'] = {
+    //       type: 'string',
+    //       title: ' ',
+    //       description: 'Justify your answer'
+    //     };
+    //   }
+    // };
 
   const widgets = { latexWidget: LatexWidget };
   const fields = { DescriptionField };
-  const formData = data.form;
+  const formData = null; //data.form;
   const onSubmit = e => {
     logger({ type: 'submit', payload: e.formData });
     dataFn.objInsert(true, 'completed');
@@ -79,13 +69,15 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     dataFn.objInsert(e.formData, 'form');
     logger({ type: 'formData', payload: e.formData });
   };
-
   return (
-    <Form
-      {...{ schema, uiSchema, formData, onSubmit, onChange, widgets, fields }}
-    />
-  );
-};
+    'hello'
+  )
+}
+
+const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) =>
+  activityData.config.questions.filter(q => q.question && q.answers).map((question, index) =>
+    <Question {...{ question, index, data, dataFn, logger }} />
+  )
 
 export default (props: ActivityRunnerT) => {
   const { activityData, data } = props;

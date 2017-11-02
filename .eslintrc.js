@@ -10,7 +10,8 @@ module.exports = {
     Blob: true,
     WebSocket: true,
     Presences: true,
-    jest: true
+    jest: true,
+    Raven: true
   },
   rules: {
     'dot-notation': 'off',

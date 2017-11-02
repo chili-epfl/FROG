@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+export const config = {
   type: 'object',
   properties: {
     title: {
@@ -10,6 +10,14 @@ export default {
     guidelines: {
       type: 'string',
       title: 'Guidelines'
+    },
+    justify: {
+      type: 'boolean',
+      title: 'Students must justify their answers'
+    },
+    argueWeighting: {
+      type: 'boolean',
+      title: 'Use custom weighting?'
     },
     questions: {
       type: 'array',
@@ -25,16 +33,28 @@ export default {
             type: 'array',
             title: 'Answers',
             items: {
-              type: 'string',
-              title: 'answer'
+              type: 'object',
+              properties: {
+                answer: {
+                  type: 'string',
+                  title: 'answer'
+                },
+                x: {
+                  type: 'integer'
+                },
+                y: {
+                  type: 'integer'
+                }
+              }
             }
           }
         }
       }
-    },
-    justify: {
-      type: 'boolean',
-      title: 'Students must justify their answers'
     }
   }
+};
+
+export const configUI = {
+  'questions.answers.x': { conditional: 'argueWeighting' },
+  'questions.answers.y': { conditional: 'argueWeighting' }
 };
