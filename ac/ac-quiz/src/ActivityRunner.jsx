@@ -38,6 +38,8 @@ const DescriptionField = props => (
 );
 
 const Question = ({ question, index, data, dataFn, logger }) => {
+  const itemId = 'q' + (index + 1);
+
   const uiSchema = {
     'ui:widget': 'latexWidget',
     'ui:description': question.question
@@ -46,38 +48,34 @@ const Question = ({ question, index, data, dataFn, logger }) => {
   const schema = {
     type: 'number',
     title: 'Question ' + (index + 1),
-    enum: question.answers.map((_, k) => k),
+    enum: question.answers.map((_, k) => k + 1),
     enumNames: question.answers.map(k => k.answer)
-  }
-    //   if (activityData.config.justify) {
-    //     schema.properties['question ' + i + ' justify'] = {
-    //       type: 'string',
-    //       title: ' ',
-    //       description: 'Justify your answer'
-    //     };
-    //   }
-    // };
+  };
 
   const widgets = { latexWidget: LatexWidget };
   const fields = { DescriptionField };
-  const formData = null; //data.form;
-  const onSubmit = e => {
-    logger({ type: 'submit', payload: e.formData });
-    dataFn.objInsert(true, 'completed');
-  };
-  const onChange = e => {
-    dataFn.objInsert(e.formData, 'form');
-    logger({ type: 'formData', payload: e.formData });
-  };
-  return (
-    'hello'
-  )
-}
+  const formData = data[itemId];
 
-const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) =>
-  activityData.config.questions.filter(q => q.question && q.answers).map((question, index) =>
-    <Question {...{ question, index, data, dataFn, logger }} />
-  )
+  const onChange = e => {
+    dataFn.objInsert(e.formData, [itemId]);
+    logger({ type: 'answer', itemId, payload: e.formData });
+  };
+
+  return (
+    <Form {...{ schema, uiSchema, formData, onChange, widgets, fields }}>
+      <div />
+    </Form>
+  );
+};
+
+const Quiz = (props: ActivityRunnerT) =>
+  props.activityData.config.questions
+    .filter(q => q.question && q.answers)
+    .map((question, index) => (
+      <Question
+        {...{ question, index, ...props, key: question.question + index }}
+      />
+    ));
 
 export default (props: ActivityRunnerT) => {
   const { activityData, data } = props;

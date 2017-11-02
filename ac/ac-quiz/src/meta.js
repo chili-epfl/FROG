@@ -9,7 +9,10 @@ const statQuizConfig = {
         'Pour deux événements $A$ et $B$ indépendants, laquelle de ces expressions est juste?',
       answers: [
         { answer: '$P(A \\cup B) = P(A) + P(B)$' },
-        { answer: 'Si $\\bar{A}$ est le complément de $A$ alors $P(\\bar{A}) = 1 + P(A)$' },
+        {
+          answer:
+            'Si $\\bar{A}$ est le complément de $A$ alors $P(\\bar{A}) = 1 + P(A)$'
+        },
         { answer: '$P(A|B) = P(B|A)$' },
         { answer: '$P(A \\cap B) = P(A) \\times P(B)$' }
       ]
@@ -39,28 +42,52 @@ const statQuizConfig = {
 
 const opinionQuizConfig = {
   title: 'Opinion',
-  guidelines: "In average women earn less than men, we will discuss and try to discover why that is",
+  guidelines:
+    'In average women earn less than men, we will discuss and try to discover why that is',
   argueWeighting: true,
   justify: true,
   questions: [
     {
       question: 'Chose the most relevant explanation',
       answers: [
-        { answer: 'Women earn less because they are less able than men to work', x: 5, y: 0 },
-        { answer: 'Women earn less because most employers are sexist men', x: 5, y: 0 },
-        { answer: 'Women earn less because their career slows down when they are pregnant', x: 5, y: 0 }
+        {
+          answer: 'Women earn less because they are less able than men to work',
+          x: -2,
+          y: 5
+        },
+        {
+          answer: 'Women earn less because most employers are sexist men',
+          x: 5,
+          y: -2
+        },
+        {
+          answer:
+            'Women earn less because their career slows down when they are pregnant',
+          x: 2,
+          y: 2
+        }
       ]
     },
     {
       question: 'Chose the most relevant explanation',
       answers: [
-        { answer: 'Men earn more because they run faster to be on time at meetings', x: 5, y: 0 },
-        { answer: 'Men earn more because they tend to chose fields that pay more such as Finance, Computer Science, ...', x: 5, y: 0 },
-        { answer: 'Men earn more because they steal women\'s pay', x: 5, y: 0 }
+        {
+          answer:
+            'Men earn more because they run faster to be on time at meetings',
+          x: -2,
+          y: 2
+        },
+        {
+          answer:
+            'Men earn more because they tend to chose fields that pay more such as Finance, Computer Science, ...',
+          x: -5,
+          y: 1
+        },
+        { answer: "Men earn more because they steal women's pay", x: 5, y: -5 }
       ]
     }
   ]
-}
+};
 
 export const meta = {
   name: 'Multiple-Choice Questions',
