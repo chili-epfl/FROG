@@ -39,12 +39,16 @@ export const setStreamTarget = (activityId: string, target: string) => {
   Activities.update(activityId, { $set: { streamTarget } });
 };
 
-export const duplicateActivity = (activity: ActivityDbT) =>
-  Activities.insert({
+export const duplicateActivity = (actId: string) => {
+  const activity = Activities.findOne(actId);
+  const newAct = {
     ...activity,
     createdAt: new Date(),
     _id: uuid()
-  });
+  };
+  Activities.insert(newAct);
+  return newAct;
+};
 
 export const addGraphActivity = (params: Object) =>
   Activities.insert({
