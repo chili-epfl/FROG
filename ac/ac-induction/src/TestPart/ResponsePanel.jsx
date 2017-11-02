@@ -30,7 +30,6 @@ export default (props: Object) => {
 
 const TruePanel = ({
   title,
-  setDisable,
   properties,
   feedback,
   tmpList,
@@ -63,9 +62,6 @@ const TruePanel = ({
                   'selectedProperties'
                 ]
               );
-              setDisable(
-                tmpList[data.indexCurrent].selectedProperties.length < 0
-              );
             }}
           />
           {properties[x]}
@@ -77,7 +73,6 @@ const TruePanel = ({
 
 const FalsePanel = ({
   title,
-  setDisable,
   properties,
   feedback,
   tmpList,
@@ -121,9 +116,6 @@ const FalsePanel = ({
                     data.indexCurrent,
                     'selectedProperties'
                   ]
-                );
-                setDisable(
-                  tmpList[data.indexCurrent].selectedProperties.length < 0
                 );
               }}
             />
