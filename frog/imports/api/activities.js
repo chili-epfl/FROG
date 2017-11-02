@@ -1,9 +1,8 @@
 // @flow
-
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import { uuid, type ActivityDbT } from 'frog-utils';
+import { uuid } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
