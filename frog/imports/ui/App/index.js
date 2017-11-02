@@ -135,21 +135,19 @@ class FROGRouter extends Component {
               });
             }
           });
-        } else {
-          if (this.props.match.params.slug) {
-            this.setState({ mode: 'loggingIn' });
-            Meteor.call(
-              'frog.studentlist',
-              this.props.match.params.slug,
-              (err, result) => {
-                if (err || result === -1 || isEmpty(result)) {
-                  this.setState({ mode: 'error' });
-                } else {
-                  this.setState({ studentlist: result, mode: 'studentlist' });
-                }
+        } else if (this.props.match.params.slug) {
+          this.setState({ mode: 'loggingIn' });
+          Meteor.call(
+            'frog.studentlist',
+            this.props.match.params.slug,
+            (err, result) => {
+              if (err || result === -1 || isEmpty(result)) {
+                this.setState({ mode: 'error' });
+              } else {
+                this.setState({ studentlist: result, mode: 'studentlist' });
               }
-            );
-          }
+            }
+          );
         }
       }
     }
@@ -159,11 +157,9 @@ class FROGRouter extends Component {
     const query = queryToObject(this.props.location.search.slice(1));
     if (query.login) {
       return <Redirect to={this.props.location.pathname} />;
-    }
-    if (this.state.mode === 'loggingIn') {
+    } else if (this.state.mode === 'loggingIn') {
       return <Spinner />;
-    }
-    if (this.state.mode === 'ready' && Meteor.user()) {
+    } else if (this.state.mode === 'ready' && Meteor.user()) {
       if (Meteor.user().username === 'teacher') {
         return <Route component={TeacherLoadable} />;
       } else {
