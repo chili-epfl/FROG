@@ -69,7 +69,7 @@ export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
       );
       break;
     case 'End':
-      page = <End />;
+      page = <End {...{data,dataFn}}/>;
       break;
     default:
       page = <h1>...</h1>;
