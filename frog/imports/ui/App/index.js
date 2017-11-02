@@ -16,6 +16,7 @@ import {
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 import NotLoggedIn from './NotLoggedIn';
+import { ErrorBoundary } from './ErrorBoundary';
 
 import StudentView from '../StudentView';
 
@@ -152,9 +153,11 @@ class FROGRouter extends Component {
 }
 
 export default () => (
-  <Router>
-    <div style={{ width: '100%', height: '100%' }}>
-      <Route component={FROGRouter} />
-    </div>
-  </Router>
+  <ErrorBoundary>
+    <Router>
+      <div style={{ width: '100%', height: '100%' }}>
+        <Route component={FROGRouter} />
+      </div>
+    </Router>
+  </ErrorBoundary>
 );
