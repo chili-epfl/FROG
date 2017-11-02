@@ -310,7 +310,9 @@ export const StatelessPreview = withState(
                     config={activityData.config}
                     reload={reload}
                     doc={dashboard}
-                    instances={users.map((u, i) => Math.ceil(i / 2))}
+                    instances={users
+                      .filter((y, i) => i % 2 !== 0)
+                      .map((z, i) => Math.ceil(i / 2))}
                     users={users
                       .filter(e => e !== 'dashboard')
                       .map((e, i) => ({ _id: i + 1, username: e }))}
