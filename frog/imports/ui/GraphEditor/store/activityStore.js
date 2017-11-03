@@ -59,10 +59,7 @@ export default class ActivityStore {
   duplicateActivity = () => {
     if (store.ui.selected instanceof Activity) {
       const x = duplicateActivity(store.ui.selected.id);
-      this.all.push(
-        new Activity(x.plane, x.startTime, x.title, x.length, x._id, x.state)
-      );
-      store.addHistory();
+      this.mongoAdd(x);
     }
   };
 
