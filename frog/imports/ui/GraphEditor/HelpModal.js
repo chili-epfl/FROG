@@ -30,6 +30,10 @@ const HelpModal = ({ show, hide }) => (
       To change the plane, first select the activity, then press Shift+up if you
       want the activity to go to a higher plane or Shift-down to make it go to a
       lower plane.
+      <p />
+      To copy an activity, press + while an activity is selected. A copy will be
+      placed on top (or below) of the selected activity. You can now change
+      planes, or drag it somewhere else in the graph.
       <h4>Inserting operators</h4>
       To insert an operator, click S for a social operator, P for a product
       operator, or C for a control operator (the mouse must be over the main
