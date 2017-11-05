@@ -17,6 +17,7 @@ export default ({ examples, nbExamples, dataFn, data, title }: Object) => {
       <ExContainer>
         <ImgBis
           url={examples[data.listIndexEx[data.indexCurrent].realIndex].url}
+          color="black"
         />
       </ExContainer>
       <ExLine />
