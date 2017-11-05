@@ -4,7 +4,10 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
+import { isEmpty } from 'lodash';
 import fs from 'fs';
+
+import { Sessions } from '../imports/api/sessions';
 
 let teacherToken;
 const tokenPath = `${process.cwd()}/../../../../../TEACHER_TOKEN`;
@@ -49,6 +52,17 @@ Meteor.methods({
       return doLogin('teacher', self);
     } else {
       return 'NOTVALID';
+    }
+  },
+  'frog.studentlist': function(slug) {
+    if (typeof slug !== 'string') {
+      return -1;
+    }
+    const session = Sessions.findOne({ slug: slug.trim().toUpperCase() });
+    if (session && !isEmpty(session.studentlist)) {
+      return session.studentlist;
+    } else {
+      return -1;
     }
   }
 });

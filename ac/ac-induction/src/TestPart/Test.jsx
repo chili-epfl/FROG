@@ -54,13 +54,32 @@ export default ({
   return (
     <ExMain>
       <ExContainer>
-        <ImgBis url={examples[tmpList[data.indexCurrent].realIndex].url} />
+        <ImgBis
+          url={examples[tmpList[data.indexCurrent].realIndex].url}
+          color="black"
+        />
       </ExContainer>
       <ExContainer style={{ padding: '20px' }}>
         <ResponsePanel
-          {...{ title, examples, properties, tmpList, feedback, data, dataFn }}
+          {...{
+            title,
+            examples,
+            properties,
+            tmpList,
+            feedback,
+            data,
+            dataFn
+          }}
         />
-        <ExButton className="btn btn-default" onClick={clickHandler}>
+        <ExButton
+          className="btn btn-default"
+          onClick={
+            tmpList[data.indexCurrent].selectedProperties.length > 0
+              ? clickHandler
+              : null
+          }
+          disabled={tmpList[data.indexCurrent].selectedProperties.length < 1}
+        >
           Submit
         </ExButton>
       </ExContainer>

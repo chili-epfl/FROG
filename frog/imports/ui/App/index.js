@@ -13,12 +13,14 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 
 import StudentView from '../StudentView';
+import StudentLogin from '../StudentView/StudentLogin';
 
 const TeacherLoadable = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -59,7 +61,10 @@ const subscriptionCallback = (error, response, setState) => {
 };
 
 class FROGRouter extends Component {
-  state: { mode: 'ready' | 'loggingIn' | 'error' | 'waiting' };
+  state: {
+    mode: 'ready' | 'loggingIn' | 'error' | 'waiting' | 'studentlist',
+    studentlist?: string[]
+  };
 
   constructor(props) {
     super(props);
@@ -83,6 +88,13 @@ class FROGRouter extends Component {
       this.update();
     }
   }
+
+  login = (username: string) => {
+    this.setState({ mode: 'loggingIn' });
+    Meteor.call('frog.debuglogin', username, (err, id) => {
+      subscriptionCallback(err, id, x => this.setState({ mode: x }));
+    });
+  };
 
   update() {
     const query = queryToObject(this.props.location.search.slice(1));
@@ -123,6 +135,19 @@ class FROGRouter extends Component {
               });
             }
           });
+        } else if (this.props.match.params.slug) {
+          this.setState({ mode: 'loggingIn' });
+          Meteor.call(
+            'frog.studentlist',
+            this.props.match.params.slug,
+            (err, result) => {
+              if (err || result === -1 || isEmpty(result)) {
+                this.setState({ mode: 'error' });
+              } else {
+                this.setState({ studentlist: result, mode: 'studentlist' });
+              }
+            }
+          );
         }
       }
     }
@@ -132,11 +157,9 @@ class FROGRouter extends Component {
     const query = queryToObject(this.props.location.search.slice(1));
     if (query.login) {
       return <Redirect to={this.props.location.pathname} />;
-    }
-    if (this.state.mode === 'loggingIn') {
+    } else if (this.state.mode === 'loggingIn') {
       return <Spinner />;
-    }
-    if (this.state.mode === 'ready' && Meteor.user()) {
+    } else if (this.state.mode === 'ready' && Meteor.user()) {
       if (Meteor.user().username === 'teacher') {
         return <Route component={TeacherLoadable} />;
       } else {
@@ -148,7 +171,11 @@ class FROGRouter extends Component {
         );
       }
     }
-    return <NotLoggedIn update={this.update} />;
+    return this.state.mode === 'studentlist' ? (
+      <StudentLogin login={this.login} slug={this.props.match.params.slug} />
+    ) : (
+      <NotLoggedIn login={this.login} />
+    );
   }
 }
 
@@ -156,7 +183,10 @@ export default () => (
   <ErrorBoundary>
     <Router>
       <div style={{ width: '100%', height: '100%' }}>
-        <Route component={FROGRouter} />
+        <Switch>
+          <Route path="/:slug" component={FROGRouter} />
+          <Route component={FROGRouter} />
+        </Switch>
       </div>
     </Router>
   </ErrorBoundary>

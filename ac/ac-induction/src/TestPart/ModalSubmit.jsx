@@ -36,55 +36,74 @@ export default ({
   };
   return (
     <Modal isOpen={data.feedbackOpen} contentLabel="Modal">
-      <h1>{'Solution : Example n°' + (data.indexCurrent + 1)}</h1>
-      <TestCorrectionDiv>
-        <TestCorrectionCircle
-          style={{
-            backgroundColor:
-              result === 0 ? '#00CC00' : result === 1 ? '#FF9933' : '#CC0000'
-          }}
-        />
-        <h3 style={{ marginLeft: '10px' }}>
-          {'Your answer is ' +
-            (result === 0
-              ? 'correct'
-              : result === 1 ? 'almost correct' : 'incorrect')}
-        </h3>
-      </TestCorrectionDiv>
-      {result !== 0 && (
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div>
-          {result !== 1 && (
+          <div>
+            <h1>{'Solution : Example n°' + (data.indexCurrent + 1)}</h1>
+            <TestCorrectionDiv>
+              <TestCorrectionCircle
+                style={{
+                  backgroundColor:
+                    result === 0
+                      ? '#00CC00'
+                      : result === 1 ? '#FF9933' : '#CC0000'
+                }}
+              />
+              <h3 style={{ marginLeft: '10px' }}>
+                {'Your answer is ' +
+                  (result === 0
+                    ? 'correct'
+                    : result === 1 ? 'almost correct' : 'incorrect')}
+              </h3>
+            </TestCorrectionDiv>
+          </div>
+          {result !== 0 && (
             <div>
-              {'You have selected that this image was ' +
-                data.listIndexTestWithFeedback[data.indexCurrent]
-                  .selectedChoice +
-                " but it wasn't"}
+              {result !== 1 && (
+                <div>
+                  {'You have selected that this image was ' +
+                    data.listIndexTestWithFeedback[data.indexCurrent]
+                      .selectedChoice +
+                    " but it wasn't"}
+                </div>
+              )}
+              <div>
+                You have selected the following properties :
+                <ul>
+                  {data.listIndexTestWithFeedback[
+                    data.indexCurrent
+                  ].selectedProperties.map(x => (
+                    <li key={x}>{properties[x]}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
-          <div>
-            The image respected the following properties :
-            <ul>
-              {stringToArray(
-                examples[
-                  data.listIndexTestWithFeedback[data.indexCurrent].realIndex
-                ].respectedProperties
-              ).map(x => <li key={x}>{properties[x]}</li>)}
-            </ul>
-          </div>
-          <div>
-            You have selected the following properties :
-            <ul>
-              {data.listIndexTestWithFeedback[
-                data.indexCurrent
-              ].selectedProperties.map(x => <li key={x}>{properties[x]}</li>)}
-            </ul>
-          </div>
-          <ChooseImg
-            show={show}
-            propertiesIndex={propertiesIndex}
-            examples={examples}
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            width: '150px',
+            height: '150px',
+            left: '500px'
+          }}
+        >
+          <ImgBis
+            url={
+              examples[
+                data.listIndexTestWithFeedback[data.indexCurrent].realIndex
+              ].url
+            }
+            color="black"
           />
         </div>
+      </div>
+      {result !== 0 && (
+        <ChooseImg
+          show={show}
+          propertiesIndex={propertiesIndex}
+          examples={examples}
+        />
       )}
       <ExButton className="btn btn-default" onClick={clickHandler}>
         {data.indexCurrent === nbTestFeedback - 1 ? 'Next part' : 'Next test'}
@@ -94,49 +113,28 @@ export default ({
 };
 
 const ChooseImg = ({ show, propertiesIndex, examples }: Object) => {
-  let str = '';
-  let url = '';
-  switch (show) {
-    case 1:
-      str +=
-        'An image can be part of the concept and contains the selected properties:';
-      url += examples
-        .filter(y => !y.isIncorrect)
-        .filter(
-          x =>
-            arrayMinus(propertiesIndex, stringToArray(x.respectedProperties))
+  const str =
+    show < 2
+      ? 'An image can be part of the concept and contains the selected properties:'
+      : show > 2
+        ? 'An image can respect the selected properties and not be part of the concept:'
+        : 'An image can be part of the concept but not respect the selected properties:';
+  const url = examples
+    .filter(y => (show < 3 ? !y.isIncorrect : y.isIncorrect))
+    .filter(
+      x =>
+        show !== 2
+          ? arrayMinus(propertiesIndex, stringToArray(x.respectedProperties))
               .length === 0
-        )[0].url;
-      break;
-    case 2:
-      str +=
-        'An image can be part of the concept but not respect the selected properties:';
-      url += examples
-        .filter(y => !y.isIncorrect)
-        .filter(x =>
-          arrayEquals(
-            arrayMinus(propertiesIndex, stringToArray(x.respectedProperties)),
-            propertiesIndex
-          )
-        )[0].url;
-      break;
-    case 3:
-      str +=
-        'An image can respect the selected properties and not be part of the concept:';
-      url += examples
-        .filter(y => y.isIncorrect)
-        .filter(
-          x =>
-            arrayMinus(propertiesIndex, stringToArray(x.respectedProperties))
-              .length === 0
-        )[0].url;
-      break;
-    default:
-  }
+          : arrayEquals(
+              arrayMinus(propertiesIndex, stringToArray(x.respectedProperties)),
+              propertiesIndex
+            )
+    )[0].url;
   return (
     <div style={{ height: '200px', width: '100%' }}>
       {str}
-      <ImgBis url={url} />
+      <ImgBis url={url} color={show !== 3 ? '#00CC00' : '#CC0000'} />
     </div>
   );
 };

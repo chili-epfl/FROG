@@ -1,6 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 
 import { Activities } from './activities';
 import {
@@ -61,6 +62,25 @@ Meteor.methods({
     updateSessionState(sessionId, 'STARTED');
     Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
     engineLogger(sessionId, 'startSession');
+    const session = Sessions.findOne(sessionId);
+    if (Meteor.isServer) {
+      if (session.studentlist) {
+        session.studentlist.forEach(student => {
+          const {
+            userId
+          } = Accounts.updateOrCreateUserFromExternalService('frog', {
+            id: student
+          });
+          Meteor.users.update(userId, { $set: { username: student } });
+          const joined = Meteor.users.findOne(userId).joinedSessions;
+          if (!joined || !joined.includes(session.slug)) {
+            Meteor.users.update(userId, {
+              $push: { joinedSessions: session.slug }
+            });
+          }
+        });
+      }
+    }
   },
   'next.activity': runNextActivity
 });
