@@ -17,6 +17,7 @@ export default ({ examples, nbExamples, dataFn, data, title }: Object) => {
       <ExContainer>
         <ImgBis
           url={examples[data.listIndexEx[data.indexCurrent].realIndex].url}
+          color="black"
         />
       </ExContainer>
       <ExLine />
@@ -32,9 +33,8 @@ export default ({ examples, nbExamples, dataFn, data, title }: Object) => {
         <h3 style={{ transform: 'translateY(200px)' }}>
           {'This ' +
             (examples[data.listIndexEx[data.indexCurrent].realIndex].isIncorrect
-              ? "doesn't correspond"
-              : 'corresponds') +
-            " to the concept of '" +
+              ? "is not a '"
+              : "is a '") +
             title +
             "'"}
         </h3>

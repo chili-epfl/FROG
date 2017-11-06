@@ -1,9 +1,8 @@
 // @flow
-
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import { uuid, type ActivityDbT } from 'frog-utils';
+import { uuid } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
@@ -34,15 +33,21 @@ export const addActivity = (
   }
 };
 
-export const setStreamTarget = (activityId: string, streamTarget: string) =>
+export const setStreamTarget = (activityId: string, target: string) => {
+  const streamTarget = target === 'undefined' ? undefined : target;
   Activities.update(activityId, { $set: { streamTarget } });
+};
 
-export const duplicateActivity = (activity: ActivityDbT) =>
-  Activities.insert({
+export const duplicateActivity = (actId: string) => {
+  const activity = Activities.findOne(actId);
+  const newAct = {
     ...activity,
     createdAt: new Date(),
     _id: uuid()
-  });
+  };
+  Activities.insert(newAct);
+  return newAct;
+};
 
 export const addGraphActivity = (params: Object) =>
   Activities.insert({

@@ -8,32 +8,31 @@ export default ({ title, dataFn, data }: Object) => (
   <div style={{ margin: '25px' }}>
     <h3> {title} </h3>
     <div>
-      {"In this activity, you will learn the concept '" +
-        title +
-        "' by induction :"}
+      In this activity, you will learn the concept of {title}
       <br />
-      {
-        'to do so, you are going to complete the following part(s) of the activity :'
-      }
+      You are going to complete the following activities:
       <ol>
-        {data.parts.filter(p => p !== 'Presentation').map(x => (
-          <li key={x}>
-            {x}
-            {x === 'Examples'
-              ? ' (' + data.listIndexEx.length + ')'
+        {data.parts.filter(p => p !== 'Presentation').map(x => {
+          const count =
+            x === 'Examples'
+              ? data.listIndexEx.length
               : x === 'Tests with feedback'
-                ? ' (' + data.listIndexTestWithFeedback.length + ')'
-                : x === 'Tests' ? ' (' + data.listIndexTest.length + ')' : null}
-          </li>
-        ))}
+                ? data.listIndexTestWithFeedback.length
+                : x === 'Tests' ? data.listIndexTest.length : null;
+          return (
+            <li key={x}>
+              {x}
+              {count && ' (' + count + ')'}
+            </li>
+          );
+        })}
       </ol>
     </div>
     <PresButton
       className="btn btn-default"
       onClick={() => dataFn.objInsert(data.indexPart + 1, 'indexPart')}
     >
-      {' '}
-      Start the activity{' '}
+      Start the activity
     </PresButton>
   </div>
 );

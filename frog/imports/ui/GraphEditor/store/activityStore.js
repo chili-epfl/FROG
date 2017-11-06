@@ -3,6 +3,7 @@ import { computed, action, observable } from 'mobx';
 import { omit } from 'lodash';
 
 import Activity from './activity';
+import { duplicateActivity } from '../../../api/activities';
 import { store } from './index';
 import getOffsets from '../utils/getOffsets';
 import { between } from '../utils';
@@ -53,6 +54,14 @@ export default class ActivityStore {
       {}
     );
   }
+
+  @action
+  duplicateActivity = () => {
+    if (store.ui.selected instanceof Activity) {
+      const x = duplicateActivity(store.ui.selected.id);
+      this.mongoAdd(x);
+    }
+  };
 
   @action
   addActivity = (plane: number, rawX: number): void => {

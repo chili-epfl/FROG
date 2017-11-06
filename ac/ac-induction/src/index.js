@@ -20,38 +20,100 @@ const meta = {
         hasTestWithFeedback: false,
         hasDefinition: false,
         hasTest: false,
+        properties: [],
+        suffisantSets: '',
+        contradictoryProperties: '',
+        unnecessaryProperties: '',
         examples: []
       },
       data: []
     },
     {
-      title: 'Induction with examples',
+      title: 'Learning about SETs',
       config: {
-        title: 'The square',
+        title: 'SET',
         hasExamples: true,
         nbExamples: 3,
         hasTestWithFeedback: true,
-        nbTestFeedback: 2,
+        nbTestFeedback: 3,
         hasDefinition: true,
         definition:
-          'A square is a regular quadrilateral, which means that it has four equal sides and four equal angles (90-degree angles, or right angles). It can also be defined as a rectangle in which two adjacent sides have equal length.',
+          'A set is group of three objects such that if 2 objects share a property (same shape or same filling), the 3rd object must share it too.',
         hasTest: true,
-        nbTest: 4,
+        nbTest: 3,
+        properties: [
+          'At least one element is not filled',
+          'At most one element is filled',
+          'The three elements have the same shape',
+          'The three elements have the same filling',
+          'The three elements have different shapes',
+          'The three elements have different filling',
+          'Exactly two elements have the same shape',
+          'Exactly two elements have the same filling'
+        ],
+        suffisantSets: '{2,3},{2,5},{3,4},{5,4}',
+        contradictoryProperties: '6,7',
+        unnecessaryProperties: '0,1,2,3,4,5',
         examples: [
           {
-            url: 'http://www.fremontsailingclub.org/sailing/SFlag.gif',
-            isIncorrect: false
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img000.png',
+            isIncorrect: false,
+            respectedProperties: '0,1,2,3'
           },
           {
             url:
-              'https://www.pharmasystems.com/image/cache/LabelsFall2013/2555-500x500.jpg',
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img006.png',
             isIncorrect: true,
-            whyIncorrect: "It doesn't have 4 sides"
+            respectedProperties: '0,1,2,7'
           },
           {
-            url: 'http://www.iconsdb.com/icons/preview/green/triangle-xxl.png',
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img012.png',
+            isIncorrect: false,
+            respectedProperties: '0,1,3,4'
+          },
+          {
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img032.png',
             isIncorrect: true,
-            whyIncorrect: "The angles aren't right"
+            respectedProperties: '0,1,6,7'
+          },
+          {
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img038.png',
+            isIncorrect: true,
+            respectedProperties: '0,1,5,6'
+          },
+          {
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img048.png',
+            isIncorrect: false,
+            respectedProperties: '0,1,4,5'
+          },
+          {
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img063.png',
+            isIncorrect: false,
+            respectedProperties: '0,1,2,6'
+          },
+          {
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img133.png',
+            isIncorrect: true,
+            respectedProperties: '0,6,7'
+          },
+          {
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img384.png',
+            isIncorrect: true,
+            respectedProperties: '0,4,7'
+          },
+          {
+            url:
+              'https://raw.githubusercontent.com/romainAA/imagesSetSP/master/ImagesTest/img433.png',
+            isIncorrect: true,
+            respectedProperties: '3,6'
           }
         ]
       },
@@ -74,6 +136,5 @@ export default ({
   configUI,
   meta,
   ActivityRunner,
-  mergeFunction,
-  Dashboard: null
+  mergeFunction
 }: ActivityPackageT);
