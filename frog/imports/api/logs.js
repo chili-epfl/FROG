@@ -7,14 +7,15 @@ import { type LogT, type LogDBT, uuid } from 'frog-utils';
 
 export const Logs = new Mongo.Collection('logs');
 
-export const engineLogger = (sessionId: string, type: string) =>
+export const engineLogger = (sessionId: string, type: string, value?: number) =>
   Meteor.call(
     'merge.log',
     ({
       _id: uuid(),
       userId: 'teacher',
       sessionId,
-      type
+      type,
+      value
     }: $Diff<LogDBT, { timestamp: Date }>)
   );
 

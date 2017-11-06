@@ -5,6 +5,7 @@ import JSZip from 'jszip';
 import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { cleanEmptyCols, type ActivityDbT, strfTime } from 'frog-utils';
+import { omit } from 'lodash';
 
 import { Sessions } from '../../api/sessions';
 import { Objects } from '../../api/objects';
@@ -50,6 +51,7 @@ export const generateExport = (
   img.file('product.json', Stringify(product));
   img.file('object.json', Stringify(object));
   img.file('config.json', Stringify(item.data));
+  img.file('activity.json', Stringify(omit(item, 'data')));
   if (aT && aT.exportData && product && product.activityData) {
     let data = aT.exportData(item.data, product.activityData);
     data = cleanEmptyCols(data);

@@ -36,7 +36,7 @@ const runNextActivity = (sessionId: string) => {
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
 
-    engineLogger(sessionId, 'nextActivity');
+    engineLogger(sessionId, 'nextActivity', newTimeInGraph);
     const justClosedActivities = oldOpen.filter(
       act => !openActivities.includes(act)
     );

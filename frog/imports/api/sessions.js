@@ -140,8 +140,14 @@ export const updateOpenActivities = (
 ) => {
   if (Meteor.isServer) {
     Sessions.update(sessionId, { $set: { state: 'WAITINGFORNEXT' } });
+    Sessions.findOne(sessionId).openActivities.forEach(activityId =>
+      Activities.update(activityId, { $set: { actualClosingTime: new Date() } })
+    );
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
+      Activities.update(activityId, {
+        $set: { actualStartingTime: new Date() }
+      });
     });
   }
   Sessions.update(sessionId, {
