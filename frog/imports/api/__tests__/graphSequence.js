@@ -5,7 +5,7 @@ import { getActivitySequence } from '../graphSequence';
 test('works', () => {
   expect(getActivitySequence(activities)).toEqual({
     cj95f3r3100hq07rsu6qx997j: 2,
-    cj95f3r3100hr07rstxmn21ib: 3,
+    cj95f3r3100hr07rstxmn21ib: 2,
     cj95f3r3100hs07rs1o3bxb7d: 3,
     cj95f3r3100ht07rsvik6wp8h: 6,
     cj95f3r3100hu07rsqbkye5js: 6,

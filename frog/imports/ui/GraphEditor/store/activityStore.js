@@ -1,5 +1,6 @@
 // @flow
 import { computed, action, observable } from 'mobx';
+import { omit } from 'lodash';
 
 import Activity from './activity';
 import { duplicateActivity } from '../../../api/activities';

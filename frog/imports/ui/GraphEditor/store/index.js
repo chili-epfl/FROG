@@ -1,5 +1,5 @@
 // @flow
-import { useStrict, autorun } from 'mobx';
+import { useStrict } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Store from './store';
 
