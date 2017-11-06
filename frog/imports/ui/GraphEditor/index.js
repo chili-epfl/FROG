@@ -60,6 +60,7 @@ const bindKeys = () => {
   Mousetrap.bind('backspace', store.deleteSelected);
   Mousetrap.bind('?', () => store.ui.setModal(true));
   Mousetrap.bind('s', () => store.operatorStore.place('social'));
+  Mousetrap.bind('+', () => store.activityStore.duplicateActivity());
   Mousetrap.bind('c', () => store.operatorStore.place('control'));
   Mousetrap.bind('p', () => store.operatorStore.place('product'));
   Mousetrap.bind('w', e => {

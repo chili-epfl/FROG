@@ -32,7 +32,7 @@ export const createLogger = (
       activityType: activity.activityType,
       activityPlane: activity.plane,
       activityId: activity._id,
-      instanceId: activity.plane === 2 ? instanceId : undefined,
+      instanceId,
       timestamp: new Date(),
       ...logItem
     }: LogDBT);

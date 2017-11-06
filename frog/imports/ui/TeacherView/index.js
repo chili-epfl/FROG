@@ -4,8 +4,10 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { withVisibility } from 'frog-utils';
+import { compose, withState } from 'recompose';
 
 import StudentList from './StudentList';
+import StudentListModal from './StudentListModal';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
@@ -14,11 +16,27 @@ import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 
-const rawSessionController = ({ session, visible, toggleVisibility }) => (
+const rawSessionController = ({
+  session,
+  visible,
+  toggleVisibility,
+  setShowStudentList,
+  showStudentList
+}) => (
   <div>
+    {showStudentList && (
+      <StudentListModal
+        dismiss={() => setShowStudentList(false)}
+        session={session}
+      />
+    )}
     {session ? (
       <div>
-        <ButtonList session={session} toggle={toggleVisibility} />
+        <ButtonList
+          session={session}
+          toggle={toggleVisibility}
+          setShowStudentList={setShowStudentList}
+        />
         {visible ? (
           <Dashboards
             session={session}
@@ -34,7 +52,11 @@ const rawSessionController = ({ session, visible, toggleVisibility }) => (
   </div>
 );
 
-const SessionController = withVisibility(rawSessionController);
+const SessionController = compose(
+  withVisibility,
+  withState('showStudentList', 'setShowStudentList', false)
+)(rawSessionController);
+
 SessionController.displayName = 'SessionController';
 
 const TeacherView = createContainer(

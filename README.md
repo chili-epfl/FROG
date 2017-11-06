@@ -5,6 +5,11 @@ Fabricating and running orchestration graphs. To learn more about the design and
  - **[Development](#development)**
  - **[Licensing](#licensing)**
 
+## Videos
+- [Installation and initial setup (3:21)](https://www.youtube.com/watch?v=QutJR7W5ib8)
+- [Preview functionality (10:49)](https://www.youtube.com/watch?v=HQDD8-T4ilU&t=18s)
+- [How to use the graph editor and teacher orchestration view (17:25)](https://www.youtube.com/watch?v=GOsFwaKBFvs&feature=youtu.be)
+
 ## Graph editor
 ![](docs/frog-editor.png)
 

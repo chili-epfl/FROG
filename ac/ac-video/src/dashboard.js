@@ -2,18 +2,28 @@
 
 import React, { Component } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { colorRange as color } from 'frog-utils';
+import { colorRange as color, splitPathObject, type LogDBT } from 'frog-utils';
 
-export const mergeLog = (data: any, dataFn: any, log: any) => {
-  if (log.payload) {
-    const payload = { ...log.payload, updatedAt: log.updatedAt };
-    Object.keys(payload).forEach(key => {
-      if (data[log.userId]) {
-        dataFn.objInsert(payload[key], [log.userId, key]);
-      } else {
-        dataFn.objInsert({ [key]: payload[key] }, log.userId);
-      }
-    });
+export const mergeLog = (data: any, dataFn: any, log: LogDBT) => {
+  let path;
+  let value;
+  if (log.type === 'videoProgress') {
+    path = 'playing';
+    value = log.value;
+  } else {
+    path = 'state';
+    value = log.type;
+  }
+  if (path) {
+    const { insertObject, insertPath } = splitPathObject(
+      data,
+      [log.userId, path],
+      value
+    );
+    dataFn.objInsert(insertObject, insertPath);
+    if (log.type === 'pause') {
+      dataFn.objInsert(log.timestamp, [log.userId, 'pausedAt']);
+    }
   }
 };
 
@@ -23,12 +33,12 @@ const VideoProgress = ({ data, user }) => {
   let backgroundColor;
   let bsStyle;
 
-  if (data.paused) {
+  if (data.state === 'pause') {
     bsStyle = 'warning';
-    backgroundColor = color(data.updatedAt);
+    backgroundColor = color(data.pausedAt);
   }
 
-  if (data.ended) {
+  if (data.state === 'finishPlaying') {
     bsStyle = 'danger';
   }
 
@@ -43,8 +53,8 @@ const VideoProgress = ({ data, user }) => {
         {user}
       </h4>
       <ProgressBar
-        now={data.played * 100}
-        label={Math.round(data.played * 1000) / 10}
+        now={data.playing * 100}
+        label={Math.round(data.playing * 1000) / 10}
         bsStyle={bsStyle}
         style={{ align: 'right', backgroundColor }}
       />
