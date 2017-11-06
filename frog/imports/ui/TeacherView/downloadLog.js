@@ -22,7 +22,7 @@ export default (sessionId, callback) => {
       const lines = succ
         .map(x =>
           [
-            x.timestamp.toUTCString(),
+            x.timestamp && x.timestamp.toUTCString(),
             ...userLookup(x.userId),
             x.instanceId,
             x.activityId,

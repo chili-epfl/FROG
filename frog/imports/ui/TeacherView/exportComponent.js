@@ -49,7 +49,7 @@ export const generateExport = (
   img.file('product.json', Stringify(product));
   img.file('object.json', Stringify(object));
   img.file('config.json', Stringify(item.data));
-  if (aT.exportData && product.activityData) {
+  if (aT && aT.exportData && product.activityData) {
     let data = aT.exportData(item.data, product.activityData);
     data = cleanEmptyCols(data);
     if (item.plane === 1) {
@@ -57,7 +57,7 @@ export const generateExport = (
         .split('\n')
         .map(line => {
           const [id, rest] = splitOnFirst(line, '\t');
-          return [...userLookup(id), rest].join('\t');
+          return [id, ...userLookup(id), rest].join('\t');
         })
         .join('\n');
     }
