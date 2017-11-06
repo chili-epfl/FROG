@@ -13,10 +13,9 @@ export const engineLogger = (sessionId: string, type: string) =>
     ({
       _id: uuid(),
       userId: 'teacher',
-      timestamp: new Date(),
       sessionId,
       type
-    }: LogDBT)
+    }: $Diff<LogDBT, { timestamp: Date }>)
   );
 
 export const createLogger = (
@@ -33,11 +32,10 @@ export const createLogger = (
       activityPlane: activity.plane,
       activityId: activity._id,
       instanceId,
-      timestamp: new Date(),
       ...logItem
-    }: LogDBT);
+    }: $Diff<LogDBT, { timestamp: Date }>);
 
-    Meteor.call('merge.log', (log: LogDBT));
+    Meteor.call('merge.log', log);
   };
   return logger;
 };

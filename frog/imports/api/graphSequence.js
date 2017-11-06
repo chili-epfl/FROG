@@ -35,7 +35,11 @@ export const getActivitySequence = (
     c += 1;
     const [nt, open] = calculateNextOpen(timeInGraph || -1, activities);
     // eslint-disable-next-line no-loop-func
-    open.forEach(x => (activitySeq[x._id] = c));
+    open.forEach(x => {
+      if (!activitySeq[x._id]) {
+        activitySeq[x._id] = c;
+      }
+    });
     timeInGraph = nt;
   }
   return activitySeq;

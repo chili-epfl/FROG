@@ -14,6 +14,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { getActivitySequence } from '../../api/graphSequence';
 import { graphToString } from '../GraphEditor/utils/export';
 import downloadLog from './downloadLog';
+import exportGraphPNG from '../GraphEditor/utils/exportPicture';
 
 const userIds = {};
 
@@ -51,7 +52,6 @@ export const generateExport = (
   img.file('config.json', Stringify(item.data));
   if (aT && aT.exportData && product && product.activityData) {
     let data = aT.exportData(item.data, product.activityData);
-    console.log(data, item.data, product.activityData);
     data = cleanEmptyCols(data);
     if (item.plane === 1) {
       data = data
@@ -121,23 +121,26 @@ export const exportSession = (sessionId: string) => {
   });
   zip.file(slugo(session.name || '') + '.frog', graphToString(session.graphId));
 
-  downloadLog(sessionId, result => {
-    zip.file('log.tsv', result);
-    Meteor.call('session.find_start', sessionId, (err, succ) => {
-      if (succ) {
-        zip
-          .generateAsync({ type: 'blob', compression: 'DEFLATE' })
-          .then(content =>
-            FileSaver.saveAs(
-              content,
-              `${session.slug}--${strfTime(
-                '%d-%m-%y__%H-%M',
-                succ
-              )}--${sessionId}.zip`,
-              true
-            )
-          );
-      }
+  exportGraphPNG(url => {
+    zip.file('graph.png', url.split('base64,')[1], { base64: true });
+    downloadLog(sessionId, result => {
+      zip.file('log.tsv', result);
+      Meteor.call('session.find_start', sessionId, (err, succ) => {
+        if (succ) {
+          zip
+            .generateAsync({ type: 'blob', compression: 'DEFLATE' })
+            .then(content =>
+              FileSaver.saveAs(
+                content,
+                `${session.slug}--${strfTime(
+                  '%d-%m-%y__%H-%M',
+                  succ
+                )}--${sessionId}.zip`,
+                true
+              )
+            );
+        }
+      });
     });
   });
 };

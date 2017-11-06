@@ -10,7 +10,8 @@ import { Logs } from '../imports/api/logs';
 import { Cache } from './sharedbCache';
 
 Meteor.methods({
-  'merge.log': (log: LogDBT) => {
+  'merge.log': (rawLog: LogDBT) => {
+    const log = { ...rawLog, timestamp: new Date() };
     try {
       Logs.insert(log);
 

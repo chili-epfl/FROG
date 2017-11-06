@@ -9,7 +9,6 @@ export const store = new Store();
 export default Store;
 window.store = store;
 
-window.autorun = autorun;
 export type StoreProp = { store: Store };
 
 export function connect(component: any): any {

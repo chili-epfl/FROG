@@ -1,7 +1,23 @@
+// @flow
 import { Meteor } from 'meteor/meteor';
 import FileSaver from 'file-saver';
+import { Activities } from '/imports/api/activities';
 
 const userIds = {};
+
+const activities = {};
+const activityInfo = (id: string): [string, string, string] => {
+  if (!id) {
+    return ['', '', ''];
+  }
+  if (activities[id]) {
+    return activities[id];
+  }
+  const act = Activities.findOne(id);
+  activities[id] = [act.title, act.activityType, act.plane];
+  return activities[id];
+};
+
 const userLookup = userId => {
   const cache = userIds[userId];
   if (cache) {
@@ -13,7 +29,7 @@ const userLookup = userId => {
   return ret;
 };
 
-export default (sessionId, callback) => {
+export default (sessionId: string, callback?: Function) => {
   Meteor.call('session.logs', sessionId, 9999999, (err, succ) => {
     if (err) {
       // eslint-disable-next-line no-alert
@@ -26,8 +42,7 @@ export default (sessionId, callback) => {
             ...userLookup(x.userId),
             x.instanceId,
             x.activityId,
-            x.activityType,
-            x.activityPlane,
+            ...activityInfo(x.activityId),
             x.type,
             x.itemId,
             JSON.stringify(x.value),
@@ -41,6 +56,7 @@ export default (sessionId, callback) => {
         'username',
         'instanceId',
         'activityId',
+        'activityTitle',
         'activityType',
         'plane',
         'type',
