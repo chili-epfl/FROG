@@ -8,7 +8,7 @@ const cleanEmptyCols = (data: string): string => {
   const lines = data.split('\n').map(l => l.split('\t'));
   const fields = lines.slice(1).reduce((acc: boolean[], i) => {
     i.forEach((x, n) => {
-      if (!isEmpty(x)) {
+      if (!isEmpty(x) && x !== '""') {
         acc[n] = true;
       }
     });

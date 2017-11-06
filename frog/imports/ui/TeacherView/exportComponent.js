@@ -49,8 +49,9 @@ export const generateExport = (
   img.file('product.json', Stringify(product));
   img.file('object.json', Stringify(object));
   img.file('config.json', Stringify(item.data));
-  if (aT && aT.exportData && product.activityData) {
+  if (aT && aT.exportData && product && product.activityData) {
     let data = aT.exportData(item.data, product.activityData);
+    console.log(data, item.data, product.activityData);
     data = cleanEmptyCols(data);
     if (item.plane === 1) {
       data = data
@@ -99,7 +100,7 @@ export const exportSession = (sessionId: string) => {
       `${activitySequence[act._id]}-${slugo(act.title || '').slice(
         0,
         20
-      )}__${act.activityType}-${act._id.slice(-4)}`
+      )}__p${act.plane}__${act.activityType}-${act._id.slice(-4)}`
     );
     generateExport(act, object, product, img);
   });
@@ -129,7 +130,10 @@ export const exportSession = (sessionId: string) => {
           .then(content =>
             FileSaver.saveAs(
               content,
-              `${strfTime('%d-%m-%y__%H-%M', succ)}--${sessionId}.zip`,
+              `${session.slug}--${strfTime(
+                '%d-%m-%y__%H-%M',
+                succ
+              )}--${sessionId}.zip`,
               true
             )
           );
