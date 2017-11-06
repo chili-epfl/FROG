@@ -1,51 +1,74 @@
 // @flow
 
-import React from 'react';
-import type { ActivityRunnerT } from 'frog-utils';
+import React, { Component } from "react";
+import type { ActivityRunnerT } from "frog-utils";
 
+export default class ActivityRunner extends Component {
+  constructor(props: ActivityRunnerT) {
+    super(props);
+  }
 
+  componentDidMount() {
+    const script = document.createElement("script");
 
-const ActivityRunner = ({ activityData }: ActivityRunnerT) => {
+    script.src = "http://www.skulpt.org/static/skulpt.min.js";
+    script.async = false;
+    document.body.appendChild(script);
 
+    const script2 = document.createElement("script");
+    script2.src = "http://www.skulpt.org/static/skulpt-stdlib.js";
+    script2.async = false;
+    document.body.appendChild(script2);
+  }
 
-  const outf = (text) => {
-    let codeOutput = document.getElementById("codeOutput");
-    codeOutput.innerHTML = text;
-  };
-
-  return (
-    <div>
-
-<script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script>
-<script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-
-
-function builtinRead(x) {
-    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
-            throw "File not found: '" + x + "'";
+  builtinRead(x) {
+    if (
+      Sk.builtinFiles === undefined ||
+      Sk.builtinFiles["files"][x] === undefined
+    )
+      throw "File not found: '" + x + "'";
     return Sk.builtinFiles["files"][x];
+  }
+
+  outfunction(text) {
+    this.feedback.innerHTML = this.feedback.innerHTML + text;
+  }
+
+  runit() {
+    let prog = this.yourcode.value;
+    Sk.feedback = this.output;
+    Sk.feedback.innerHTML = "";
+    Sk.configure({ output: this.outfunction, read: this.builtinRead });
+    Sk.importMainWithBody("<stdin>", false, prog);
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Try This</h3>
+        <textarea
+          id="yourcode"
+          ref={ref => {
+            this.yourcode = ref;
+          }}
+          cols="40"
+          rows="10"
+          defaultValue="print [i for i in range(5)]"
+        />
+        <div>
+          <button type="button" onClick={this.runit.bind(this)}>
+            Run
+          </button>
+        </div>
+        <p
+          id="output"
+          ref={ref => {
+            this.output = ref;
+          }}
+        >
+          Output
+        </p>
+      </div>
+    );
+  }
 }
-
-function runit() {
-   var prog = document.getElementById("yourcode").value;
-   out= document.getElementById("output");
-   out.innerHTML=""
-   Sk.configure({output:(text)=>{out.innerHTML=out.innerHTML+text}, read:builtinRead});
-  Sk.importMainWithBody("<stdin>",false,prog);
-}
-</script>
-
-<h3>Try This</h3>
-<textarea id="yourcode" cols="40" rows="10">
-print "Hello World"
-</textarea>
-<button type="button" onclick="runit()">Run</button>
-<p id="output" ></p>
-</body>
-</div>
-  );
-};
-
-export default ActivityRunner;
