@@ -25,7 +25,6 @@ export default (props: Object) => {
 
 const Panel = ({
   title,
-  setDisable,
   properties,
   feedback,
   tmpList,
@@ -79,9 +78,6 @@ const Panel = ({
                     data.indexCurrent,
                     'selectedProperties'
                   ]
-                );
-                setDisable(
-                  tmpList[data.indexCurrent].selectedProperties.length < 0
                 );
               }}
             />

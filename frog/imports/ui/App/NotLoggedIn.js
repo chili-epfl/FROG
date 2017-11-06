@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { A } from 'frog-utils';
 import { sample } from 'lodash';
 import FlexView from 'react-flexview';
 
@@ -20,7 +20,7 @@ const randomName = () =>
     'Rudolf'
   ]);
 
-const NotLoggedIn = () => {
+const NotLoggedIn = ({ login }: { login: Function }) => {
   if (process.env.NODE_ENV !== 'production') {
     const name = randomName();
     return (
@@ -85,10 +85,10 @@ const NotLoggedIn = () => {
               <h3>Shortcuts</h3>
               <ul>
                 <li>
-                  <Link to="?login=teacher">Log in as teacher</Link>
+                  <A onClick={() => login('teacher')}>Log in as teacher</A>
                 </li>
                 <li>
-                  <Link to={`?login=${name}`}>Log in as {name} (student)</Link>
+                  <A onClick={() => login(name)}>Log in as {name} (student)</A>
                 </li>
               </ul>
             </div>
