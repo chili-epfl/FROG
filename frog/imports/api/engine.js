@@ -66,11 +66,12 @@ Meteor.methods({
     if (Meteor.isServer) {
       if (session.studentlist) {
         session.studentlist.forEach(student => {
-          const {
-            userId
-          } = Accounts.updateOrCreateUserFromExternalService('frog', {
-            id: student
-          });
+          const { userId } = Accounts.updateOrCreateUserFromExternalService(
+            'frog',
+            {
+              id: student
+            }
+          );
           Meteor.users.update(userId, { $set: { username: student } });
           const joined = Meteor.users.findOne(userId).joinedSessions;
           if (!joined || !joined.includes(session.slug)) {
