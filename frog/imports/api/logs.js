@@ -7,16 +7,16 @@ import { type LogT, type LogDBT, uuid } from 'frog-utils';
 
 export const Logs = new Mongo.Collection('logs');
 
-export const engineLogger = (sessionId: string, type: string) =>
+export const engineLogger = (sessionId: string, type: string, value?: number) =>
   Meteor.call(
     'merge.log',
     ({
       _id: uuid(),
       userId: 'teacher',
-      timestamp: new Date(),
       sessionId,
-      type
-    }: LogDBT)
+      type,
+      value
+    }: $Diff<LogDBT, { timestamp: Date }>)
   );
 
 export const createLogger = (
@@ -33,11 +33,10 @@ export const createLogger = (
       activityPlane: activity.plane,
       activityId: activity._id,
       instanceId,
-      timestamp: new Date(),
       ...logItem
-    }: LogDBT);
+    }: $Diff<LogDBT, { timestamp: Date }>);
 
-    Meteor.call('merge.log', (log: LogDBT));
+    Meteor.call('merge.log', log);
   };
   return logger;
 };

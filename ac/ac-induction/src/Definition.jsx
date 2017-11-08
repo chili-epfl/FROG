@@ -4,7 +4,14 @@ import React from 'react';
 
 import { ExButton, DefinitionBox } from './StyledComponents';
 
-export default ({ title, hasTest, definition, dataFn, data }: Object) => {
+export default ({
+  title,
+  hasTest,
+  definition,
+  dataFn,
+  data,
+  logger
+}: Object) => {
   const tmp = data.parts.length - data.indexPart - 1;
   return (
     <div style={{ margin: '25px' }}>
@@ -22,7 +29,11 @@ export default ({ title, hasTest, definition, dataFn, data }: Object) => {
       <DefinitionBox>{definition}</DefinitionBox>
       <ExButton
         className="btn btn-default"
-        onClick={() => dataFn.objInsert(data.indexPart + 1, 'indexPart')}
+        onClick={() => {
+          logger({ type: 'subPart', value: 'Definition' });
+          logger({ type: 'part', value: 'Definition' });
+          dataFn.objInsert(data.indexPart + 1, 'indexPart');
+        }}
       >
         Next
       </ExButton>

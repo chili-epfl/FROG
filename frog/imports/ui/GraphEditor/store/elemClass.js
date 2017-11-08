@@ -31,6 +31,9 @@ export default class Elem {
 
   @computed
   get color(): string {
+    if (store.ui.isSvg) {
+      return 'white';
+    }
     if (this.highlighted) {
       return 'yellow';
     }

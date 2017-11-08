@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
 export const calculateHides = (
@@ -73,24 +73,35 @@ const calculateSchema = (
 };
 
 class EnhancedForm extends Component {
+  state: { schema?: Object };
+
   componentWillMount() {
     if (!this.props.formData && jsonSchemaDefaults(this.props.schema) !== {}) {
-      window.setTimeout(
-        this.props.onChange({
-          formData: jsonSchemaDefaults(this.props.schema)
-        }),
-        0
-      );
+      this.updateSchema({
+        ...this.props,
+        formData: jsonSchemaDefaults(this.props.schema)
+      });
+    } else {
+      this.updateSchema(this.props);
     }
   }
-  render() {
-    const schema = calculateSchema(
-      this.props.formData,
-      this.props.schema,
-      this.props.uiSchema
-    );
 
-    return <Form {...this.props} schema={schema} />;
+  componentWillReceiveProps(nextProps: Object) {
+    if (!isEqual(this.props, nextProps)) {
+      this.setState({ schema: undefined });
+      this.updateSchema(nextProps);
+    }
+  }
+
+  updateSchema(props: Object) {
+    this.setState({
+      schema: calculateSchema(props.formData, props.schema, props.uiSchema)
+    });
+  }
+  render() {
+    return (
+      this.state.schema && <Form {...this.props} schema={this.state.schema} />
+    );
   }
 }
 
