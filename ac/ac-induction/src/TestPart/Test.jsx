@@ -78,11 +78,17 @@ export default ({
         <ExButton
           className="btn btn-default"
           onClick={
-            (tmpList[data.indexCurrent].selectedProperties.length > 0) || (!feedback && tmpList[data.indexCurrent].selectedChoice !== undefined) 
+            tmpList[data.indexCurrent].selectedProperties.length > 0 ||
+            (!feedback &&
+              tmpList[data.indexCurrent].selectedChoice !== undefined)
               ? clickHandler
               : null
           }
-          disabled={(tmpList[data.indexCurrent].selectedProperties.length < 1) && (feedback || tmpList[data.indexCurrent].selectedChoice === undefined)}
+          disabled={
+            tmpList[data.indexCurrent].selectedProperties.length < 1 &&
+            (feedback ||
+              tmpList[data.indexCurrent].selectedChoice === undefined)
+          }
         >
           Submit
         </ExButton>
