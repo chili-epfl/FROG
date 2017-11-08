@@ -7,7 +7,7 @@ import ModalSubmit from './ModalSubmit';
 import ResponsePanel from './ResponsePanel';
 import Correction from './Correction';
 import { stringToArray } from '../ArrayFun';
-import { ExMain, ExContainer, ExButton } from '../StyledComponents';
+import { ExMain, ExContainer, ExDiv, ExButton } from '../StyledComponents';
 
 export default ({
   title,
@@ -76,17 +76,21 @@ export default ({
             dataFn
           }}
         />
-        <ExButton
-          className="btn btn-default"
-          onClick={
-            tmpList[data.indexCurrent].selectedProperties.length > 0
-              ? clickHandler
-              : null
-          }
-          disabled={tmpList[data.indexCurrent].selectedProperties.length < 1}
+        <ExDiv
+          style={{ position: 'absolute', bottom: '20px', width: 'inherit' }}
         >
-          Submit
-        </ExButton>
+          <ExButton
+            className="btn btn-default"
+            onClick={
+              tmpList[data.indexCurrent].selectedProperties.length > 0
+                ? clickHandler
+                : null
+            }
+            disabled={tmpList[data.indexCurrent].selectedProperties.length < 1}
+          >
+            Submit
+          </ExButton>
+        </ExDiv>
       </ExContainer>
       {feedback && (
         <ModalSubmit
