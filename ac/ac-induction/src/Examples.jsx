@@ -63,10 +63,7 @@ export default ({
               Previous example
             </ExButton>
           )}
-          <ExButton
-            className="btn btn-default"
-            onClick={clickHandler}
-          >
+          <ExButton className="btn btn-default" onClick={clickHandler}>
             {data.indexCurrent < nbExamples - 1 ? 'Next example' : 'Next part'}
           </ExButton>
         </ExDiv>

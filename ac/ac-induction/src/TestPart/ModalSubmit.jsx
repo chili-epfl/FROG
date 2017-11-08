@@ -110,10 +110,7 @@ export default ({
         />
       )}
       <ExDiv style={{ position: 'absolute', bottom: '20px', width: '98%' }}>
-        <ExButton
-          className="btn btn-default"
-          onClick={clickHandler}
-        >
+        <ExButton className="btn btn-default" onClick={clickHandler}>
           {data.indexCurrent === nbTestFeedback - 1 ? 'Next part' : 'Next test'}
         </ExButton>
       </ExDiv>
