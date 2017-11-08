@@ -4,8 +4,21 @@ import React, { Component } from "react";
 import type { ActivityRunnerT } from "frog-utils";
 
 export default class ActivityRunner extends Component {
+  state: {
+    inputCode: string,
+    outputFeed: string
+  };
+
   constructor(props: ActivityRunnerT) {
     super(props);
+
+    this.state = {
+      inputCode: 'print "Hello World"',
+      outputFeed: "You'll see the output of your code here"
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.runit = this.runit.bind(this);
   }
 
   componentDidMount() {
@@ -13,15 +26,19 @@ export default class ActivityRunner extends Component {
 
     script.src = "http://www.skulpt.org/static/skulpt.min.js";
     script.async = false;
-    document.body.appendChild(script);
+    if (document.body != null) {
+      document.body.appendChild(script);
+    }
 
     const script2 = document.createElement("script");
     script2.src = "http://www.skulpt.org/static/skulpt-stdlib.js";
     script2.async = false;
-    document.body.appendChild(script2);
+    if (document.body != null) {
+      document.body.appendChild(script2);
+    }
   }
 
-  builtinRead(x) {
+  builtinRead(x: string) {
     if (
       Sk.builtinFiles === undefined ||
       Sk.builtinFiles["files"][x] === undefined
@@ -30,16 +47,22 @@ export default class ActivityRunner extends Component {
     return Sk.builtinFiles["files"][x];
   }
 
-  outfunction(text) {
-    this.feedback.innerHTML = this.feedback.innerHTML + text;
+  outfunction(text: string) {
+    this.runner.state.outputFeed = this.runner.state.outputFeed + text;
   }
 
+  runit: Function;
   runit() {
-    let prog = this.yourcode.value;
-    Sk.feedback = this.output;
-    Sk.feedback.innerHTML = "";
+    Sk.runner = this;
+    this.state.outputFeed = "";
     Sk.configure({ output: this.outfunction, read: this.builtinRead });
-    Sk.importMainWithBody("<stdin>", false, prog);
+    Sk.importMainWithBody("<stdin>", false, this.state.inputCode);
+    this.setState({ outputFeed: this.state.outputFeed });
+  }
+
+  handleChange: Function;
+  handleChange(event: Object) {
+    this.setState({ inputCode: event.target.value });
   }
 
   render() {
@@ -48,26 +71,17 @@ export default class ActivityRunner extends Component {
         <h3>Try This</h3>
         <textarea
           id="yourcode"
-          ref={ref => {
-            this.yourcode = ref;
-          }}
           cols="40"
           rows="10"
-          defaultValue="print [i for i in range(5)]"
+          value={this.state.inputCode}
+          onChange={this.handleChange}
         />
         <div>
-          <button type="button" onClick={this.runit.bind(this)}>
+          <button type="button" onClick={this.runit}>
             Run
           </button>
         </div>
-        <p
-          id="output"
-          ref={ref => {
-            this.output = ref;
-          }}
-        >
-          Output
-        </p>
+        <p>{this.state.outputFeed}</p>
       </div>
     );
   }
