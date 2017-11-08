@@ -3,14 +3,9 @@
 import React from 'react';
 import { type LogDBT } from 'frog-utils';
 
+import { ListComponent } from './DashboardComponents';
+
 const actionTypes = ['subPart', 'part'];
-const partsNames = [
-  'Presentation',
-  'Examples',
-  'TestFeedback',
-  'Definition',
-  'Test'
-];
 
 const Viewer = ({ instances, data, config }: Object) => {
   const parts = [
@@ -20,91 +15,20 @@ const Viewer = ({ instances, data, config }: Object) => {
     config.hasDefinition ? 1 : 0,
     config.hasTest ? config.nbTest : 0
   ];
-  const nbInst = Object.keys(instances).length; // need to change to have the instance instead of the users
+
+  const nbInst = Object.keys(instances).length;
   return (
     <div>
-      <div>% of the part done by all instances: </div>
-      <div style={{ display: 'flex', flexDirectioon: 'row', margin: '10px' }}>
-        {parts.map(
-          (x, i) =>
-            x > 0 ? (
-              <div
-                key={x.toString() + i.toString()}
-                style={{ flexDirectioon: 'column' }}
-              >
-                <div>{partsNames[i]}</div>
-                <div
-                  className="progress"
-                  style={{ width: x > 0 ? '150px' : '0px' }}
-                >
-                  <div
-                    className="progress-bar progress-bar-striped"
-                    role="progressbar"
-                    aria-valuenow={Math.round(
-                      100 * data[partsNames[i]][0] / (nbInst * x)
-                    )}
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style={{
-                      width:
-                        Math.round(
-                          100 * data[partsNames[i]][0] / (nbInst * x)
-                        ).toString() + '%'
-                    }}
-                  >
-                    {Math.round(
-                      100 * data[partsNames[i]][0] / (nbInst * x)
-                    ).toString() + '%'}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div key={x.toString() + i.toString()} />
-            )
-        )}
-      </div>
-      <div>% of the instances that are done with the part: </div>
-      <div style={{ display: 'flex', flexDirectioon: 'row', margin: '10px' }}>
-        {parts.map(
-          (x, i) =>
-            x > 0 ? (
-              <div
-                key={x.toString() + i.toString()}
-                style={{ flexDirectioon: 'column' }}
-              >
-                <div>{partsNames[i]}</div>
-                <div
-                  className="progress"
-                  style={{ width: x > 0 ? '150px' : '0px' }}
-                >
-                  {x > 0 && (
-                    <div
-                      className="progress-bar progress-bar-striped"
-                      role="progressbar"
-                      aria-valuenow={Math.round(
-                        100 * data[partsNames[i]][1] / nbInst
-                      )}
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      style={{
-                        width:
-                          Math.round(
-                            100 * data[partsNames[i]][1] / nbInst
-                          ).toString() + '%'
-                      }}
-                    >
-                      {Math.round(
-                        100 * data[partsNames[i]][1] / nbInst
-                      ).toString() + '%'}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div key={x.toString() + i.toString()} />
-            )
-        )}
-      </div>
+      <ListComponent
+        title="% of the part done by all instances: "
+        lineNb={0}
+        {...{ parts, data, nbInst }}
+      />
+      <ListComponent
+        title="% of the instances that are done with the part: "
+        lineNb={1}
+        {...{ parts, data, nbInst }}
+      />
     </div>
   );
 };

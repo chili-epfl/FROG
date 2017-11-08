@@ -1,7 +1,35 @@
+// @flow
 import { Meteor } from 'meteor/meteor';
 import FileSaver from 'file-saver';
+import { Activities } from '/imports/api/activities';
 
-export default sessionId => {
+const userIds = {};
+
+const activities = {};
+const activityInfo = (id: string): [string, string, string] => {
+  if (!id) {
+    return ['', '', ''];
+  }
+  if (activities[id]) {
+    return activities[id];
+  }
+  const act = Activities.findOne(id);
+  activities[id] = [act.title, act.activityType, act.plane];
+  return activities[id];
+};
+
+const userLookup = userId => {
+  const cache = userIds[userId];
+  if (cache) {
+    return cache;
+  }
+  const userobj = Meteor.users.findOne(userId);
+  const ret = userobj ? [userobj.userid || '', userobj.username] : [userId, ''];
+  userIds[userId] = ret;
+  return ret;
+};
+
+export default (sessionId: string, callback?: Function) => {
   Meteor.call('session.logs', sessionId, 9999999, (err, succ) => {
     if (err) {
       // eslint-disable-next-line no-alert
@@ -10,15 +38,14 @@ export default sessionId => {
       const lines = succ
         .map(x =>
           [
-            x.timestamp.toUTCString(),
-            x.userId,
+            x.timestamp && x.timestamp.toUTCString(),
+            ...userLookup(x.userId),
             x.instanceId,
             x.activityId,
-            x.activityType,
-            x.activityPlane,
+            ...activityInfo(x.activityId),
             x.type,
             x.itemId,
-            x.value,
+            JSON.stringify(x.value),
             x.payload ? JSON.stringify(x.payload) : ''
           ].join('\t')
         )
@@ -26,8 +53,10 @@ export default sessionId => {
       const header = [
         'timestamp',
         'userId',
+        'username',
         'instanceId',
         'activityId',
+        'activityTitle',
         'activityType',
         'plane',
         'type',
@@ -36,10 +65,14 @@ export default sessionId => {
         'payload'
       ].join('\t');
       const output = [header, lines].join('\n');
-      const blob = new Blob([output], {
-        type: 'text/plain;charset=utf-8'
-      });
-      FileSaver.saveAs(blob, sessionId + '.log.tsv', true);
+      if (!callback) {
+        const blob = new Blob([output], {
+          type: 'text/plain;charset=utf-8'
+        });
+        FileSaver.saveAs(blob, sessionId + '.log.tsv', true);
+      } else {
+        callback(output);
+      }
     }
   });
 };

@@ -28,6 +28,7 @@ export default ({
       <ExContainer>
         <ImgBis
           url={examples[data.listIndexEx[data.indexCurrent].realIndex].url}
+          color="black"
         />
       </ExContainer>
       <ExLine />

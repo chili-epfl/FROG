@@ -2,6 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid, getSlug } from 'frog-utils';
+import { difference } from 'lodash';
 
 import { Activities, Operators, Connections } from './activities';
 import { runSession, nextActivity } from './engine';
@@ -29,6 +30,9 @@ Meteor.methods({
       sessionCancelCountDown(session._id);
       Sessions.update(session._id, { $set: { slug: session.slug + '-old' } });
       const newSessionId = Meteor.call('add.session', graphId, session.slug);
+      Sessions.update(newSessionId, {
+        $set: { studentlist: session.studentlist }
+      });
       runSession(newSessionId);
       nextActivity(newSessionId);
     }
@@ -137,8 +141,21 @@ export const updateOpenActivities = (
 ) => {
   if (Meteor.isServer) {
     Sessions.update(sessionId, { $set: { state: 'WAITINGFORNEXT' } });
+    const oldOpen = Sessions.findOne(sessionId).openActivities;
+    difference(oldOpen, openActivities).forEach(activityId =>
+      Activities.update(activityId, { $set: { actualClosingTime: new Date() } })
+    );
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
+      Activities.update(
+        {
+          _id: activityId,
+          actualStartingTime: { $exists: false }
+        },
+        {
+          $set: { actualStartingTime: new Date() }
+        }
+      );
     });
   }
   Sessions.update(sessionId, {

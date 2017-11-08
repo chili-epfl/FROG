@@ -4,7 +4,10 @@ export type ActivityDbT = {
   _id: string,
   data: Object,
   groupingKey: string,
-  plane: number
+  plane: number,
+  startTime: number,
+  length: number,
+  activityType: string
 };
 
 export type OperatorDbT = {

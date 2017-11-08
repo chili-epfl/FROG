@@ -7,6 +7,7 @@ import { TimeSync } from 'meteor/mizzao:timesync';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import downloadLog from './downloadLog';
+import { exportSession } from './exportComponent';
 
 import {
   removeSession,
@@ -42,10 +43,12 @@ const Countdown = createContainer(
 
 const ButtonList = ({
   session,
-  toggle
+  toggle,
+  setShowStudentList
 }: {
   session: Object,
-  toggle: Function
+  toggle: Function,
+  setShowStudentList: Function
 }) => {
   const buttons = [
     {
@@ -98,6 +101,12 @@ const ButtonList = ({
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
+      onClick: () => setShowStudentList(true),
+      text: 'Edit student list'
+    },
+    {
+      states: ['CREATED', 'STARTED', 'PAUSED'],
+      type: 'primary',
       onClick: () => restartSession(session),
       text: 'Restart session'
     },
@@ -145,6 +154,12 @@ const ButtonList = ({
       type: 'danger',
       onClick: () => downloadLog(session._id),
       text: 'Download log csv'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => exportSession(session._id),
+      text: 'Export session'
     }
   ];
   return (
