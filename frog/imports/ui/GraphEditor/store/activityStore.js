@@ -47,6 +47,13 @@ export default class ActivityStore {
 
   @observable all: any = [];
 
+  @observable activitySequence: any;
+
+  @action
+  setActivitySequence(act: any) {
+    this.activitySequence = act;
+  }
+
   @computed
   get activityOffsets(): any {
     return [1, 2, 3].reduce(

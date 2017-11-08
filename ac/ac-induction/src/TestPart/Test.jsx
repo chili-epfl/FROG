@@ -17,7 +17,8 @@ export default ({
   nbTestFeedback,
   feedback,
   dataFn,
-  data
+  data,
+  logger
 }: Object) => {
   const tmpList = feedback
     ? data.listIndexTestWithFeedback
@@ -45,10 +46,14 @@ export default ({
     );
     if (feedback) {
       dataFn.objInsert(true, 'feedbackOpen');
-    } else if (data.indexCurrent === nbTest - 1) {
-      dataFn.objInsert(0, 'indexCurrent');
-      dataFn.objInsert(data.indexPart + 1, 'indexPart');
-    } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
+    } else {
+      logger({ type: 'subPart', value: 'Test' });
+      if (data.indexCurrent === nbTest - 1) {
+        logger({ type: 'part', value: 'Test' });
+        dataFn.objInsert(0, 'indexCurrent');
+        dataFn.objInsert(data.indexPart + 1, 'indexPart');
+      } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
+    }
   };
 
   return (
@@ -85,11 +90,7 @@ export default ({
       </ExContainer>
       {feedback && (
         <ModalSubmit
-          examples={examples}
-          properties={properties}
-          dataFn={dataFn}
-          data={data}
-          nbTestFeedback={nbTestFeedback}
+          {...{ examples, properties, dataFn, data, logger, nbTestFeedback }}
         />
       )}
     </ExMain>
