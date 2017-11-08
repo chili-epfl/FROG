@@ -13,19 +13,22 @@ export default class End extends Component {
       <div style={{ margin: '50px' }}>
         <h2>End of the activity</h2>
         {this.props.data.parts.includes('Tests with feedback') && (
-          <Result list={this.props.data.listIndexTestWithFeedback} />
+          <Result
+            title={'Tests with feedback'}
+            list={this.props.data.listIndexTestWithFeedback}
+          />
         )}
         {this.props.data.parts.includes('Tests') && (
-          <Result list={this.props.data.listIndexTest} />
+          <Result title={'Tests'} list={this.props.data.listIndexTest} />
         )}
       </div>
     );
   }
 }
 
-const Result = ({ list }: Object) => (
+const Result = ({ title, list }: Object) => (
   <div style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}>
-    Test with feedback :
+    <div style={{ width: '150px' }}>{title}</div>
     {list.map((x, i) => (
       <div
         key={x + i.toString()}
