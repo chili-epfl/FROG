@@ -10,7 +10,8 @@ import { Logs } from '../imports/api/logs';
 import { Cache } from './sharedbCache';
 
 Meteor.methods({
-  'merge.log': (log: LogDBT) => {
+  'merge.log': (rawLog: LogDBT) => {
+    const log = { ...rawLog, timestamp: new Date() };
     try {
       Logs.insert(log);
 
@@ -57,6 +58,14 @@ Meteor.methods({
       Meteor.users.findOne(this.userId).username === 'teacher'
     ) {
       return Logs.find({ sessionId }, { limit }).fetch();
+    }
+  },
+  'session.find_start': function(sessionId) {
+    if (
+      this.userId &&
+      Meteor.users.findOne(this.userId).username === 'teacher'
+    ) {
+      return Logs.findOne({ sessionId }, { sort: { timestamp: -1 } }).timestamp;
     }
   }
 });

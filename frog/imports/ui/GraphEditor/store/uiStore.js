@@ -1,5 +1,7 @@
 // @flow
 import { action, observable, computed, reaction } from 'mobx';
+
+import { getActivitySequence } from '/imports/api/graphSequence';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 import Operator from './operator';
@@ -29,6 +31,19 @@ export default class uiStore {
   @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
   @observable showPreview: ?Object;
   @observable showErrors: boolean | string = false;
+  @observable isSvg: boolean = false;
+
+  @action
+  setIsSvg(isSvg: boolean) {
+    this.isSvg = isSvg;
+    if (isSvg) {
+      store.activityStore.setActivitySequence(
+        getActivitySequence(
+          store.activityStore.all.map(x => ({ ...x, _id: x.id }))
+        )
+      );
+    }
+  }
 
   @computed
   get graphErrorColor(): string {
