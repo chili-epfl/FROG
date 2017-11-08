@@ -55,7 +55,6 @@ export default ({
       } else dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
     }
   };
-
   return (
     <ExMain>
       <ExContainer>
@@ -79,11 +78,11 @@ export default ({
         <ExButton
           className="btn btn-default"
           onClick={
-            tmpList[data.indexCurrent].selectedProperties.length > 0
+            (tmpList[data.indexCurrent].selectedProperties.length > 0) || (!feedback && tmpList[data.indexCurrent].selectedChoice !== undefined) 
               ? clickHandler
               : null
           }
-          disabled={tmpList[data.indexCurrent].selectedProperties.length < 1}
+          disabled={(tmpList[data.indexCurrent].selectedProperties.length < 1) && (feedback || tmpList[data.indexCurrent].selectedChoice === undefined)}
         >
           Submit
         </ExButton>
