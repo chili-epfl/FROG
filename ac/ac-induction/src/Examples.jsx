@@ -57,8 +57,10 @@ export default ({
           {data.indexCurrent > 0 && (
             <ExButton
               className="btn btn-default"
-              onClick={() =>
-                dataFn.objInsert(data.indexCurrent - 1, 'indexCurrent')}
+              onClick={() => {
+                logger({ type: 'unSubPart', value: 'Examples' });
+                dataFn.objInsert(data.indexCurrent - 1, 'indexCurrent');
+              }}
             >
               Previous example
             </ExButton>
