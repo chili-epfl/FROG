@@ -82,7 +82,6 @@ fs.writeFileSync(
   actnew.join('\n')
 );
 
-childProcess.execSync(`git add ./${prefix}/${newActivityId}`);
 childProcess.execSync(
   `git add ./${prefix}/${
     newActivityId
