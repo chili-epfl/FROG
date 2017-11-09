@@ -99,10 +99,9 @@ export const exportSession = (sessionId: string) => {
     const product = Products.findOne(act._id);
     const object = Objects.findOne(act._id);
     const img = zip.folder(
-      `${activitySequence[act._id]}-${slugo(act.title || '').slice(
-        0,
-        20
-      )}__p${act.plane}__${act.activityType}-${act._id.slice(-4)}`
+      `${activitySequence[act._id]}-${slugo(act.title || '').slice(0, 20)}__p${
+        act.plane
+      }__${act.activityType}-${act._id.slice(-4)}`
     );
     generateExport(act, object, product, img);
   });
@@ -110,9 +109,9 @@ export const exportSession = (sessionId: string) => {
   const opfolder = zip.folder('op');
   operators.forEach(op => {
     const opfo = opfolder.folder(
-      `${slugo(
-        (op.title || '').slice(0, 20)
-      )}__${op.operatorType}-${op._id.slice(-4)}`
+      `${slugo((op.title || '').slice(0, 20))}__${
+        op.operatorType
+      }-${op._id.slice(-4)}`
     );
     const product = Products.findOne(op._id);
     const object = Objects.findOne(op._id);
@@ -134,10 +133,9 @@ export const exportSession = (sessionId: string) => {
             .then(content =>
               FileSaver.saveAs(
                 content,
-                `${session.slug}--${strfTime(
-                  '%d-%m-%y__%H-%M',
-                  succ
-                )}--${sessionId}.zip`,
+                `${session.slug}--${strfTime('%d-%m-%y__%H-%M', succ)}--${
+                  sessionId
+                }.zip`,
                 true
               )
             );
@@ -160,10 +158,9 @@ export const downloadExport = (
     .then(content =>
       FileSaver.saveAs(
         content,
-        `${slugo(item.title || '').slice(
-          0,
-          20
-        )}__${item.activityType}-${item._id.slice(-4)}`,
+        `${slugo(item.title || '').slice(0, 20)}__${
+          item.activityType
+        }-${item._id.slice(-4)}`,
         true
       )
     );
