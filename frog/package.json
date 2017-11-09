@@ -84,6 +84,10 @@
     "styled-components": "^2.2.3",
     "websocket-json-stream": "0.0.3",
     "ws": "^3.2.0",
-    "op-check-concepts": "1.0.0"
+    "op-check-concepts": "1.0.0",
+    "op-check-concepts2": "1.0.0",
+    "op-check-concepts3": "1.0.0",
+    "op-check-concepts4": "1.0.0",
+    "op-check-concepts5": "1.0.0"
   }
 }

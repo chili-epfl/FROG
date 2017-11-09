@@ -92,11 +92,11 @@ childProcess.execSync(
 console.log(
   `Package created in './${prefix}/${newActivityId}', and added to ./frog.
   
-Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh' from the repository root directory (this will delete all untracked files). 
+Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh' from the 
+repository root directory (this will delete all untracked files). 
 
-You can then restart './run_and_watch_all.sh', as well as 'meteor' in the './frog' directory, which should pick up the new ${
-    type
-  }. 
+You can then restart './run_and_watch_all.sh' in the root directory, as well 
+as 'meteor' in the './frog' directory, which should pick up the new ${type}. 
   
 Use 'git diff --cached' to see all the changes that the script has made.`
 );

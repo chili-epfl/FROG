@@ -1,5 +1,9 @@
 // @flow
 
+import opCheckConcepts5 from 'op-check-concepts5';
+import opCheckConcepts4 from 'op-check-concepts4';
+import opCheckConcepts3 from 'op-check-concepts3';
+import opCheckConcepts2 from 'op-check-concepts2';
 import opCheckConcepts from 'op-check-concepts';
 import opFilter from 'op-filter';
 import opDistributeCategory from 'op-distribute-category';
@@ -19,6 +23,10 @@ import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: operatorPackageT[] = flattenOne([
+  opCheckConcepts5,
+  opCheckConcepts4,
+  opCheckConcepts3,
+  opCheckConcepts2,
   opCheckConcepts,
   opFilter,
   opDistributeCategory,
