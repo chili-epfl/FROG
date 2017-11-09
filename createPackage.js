@@ -82,12 +82,18 @@ fs.writeFileSync(
   actnew.join('\n')
 );
 
-childProcess.execSync(`git add ./${prefix}/${newActivityId}`);
+childProcess.execSync(
+  `git add ./${prefix}/${
+    newActivityId
+  } frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
+);
 
 /*eslint-disable */
 console.log(
-  `Package created in './${prefix}/${newActivityId}', and added to ./frog. Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh'
-  from the repository root directory (this will delete all untracked files). Then you can restart './run_and_watch_all.sh', as well as 'meteor' in the './frog' directory,
-  which should pick up the new ${type}. Use 'git diff --cached' to see all the changes that the script has made.`
+  `Package created in './${prefix}/${
+    newActivityId
+  }', and added to ./frog. Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh' from the repository root directory (this will delete all untracked files). Then you can restart './run_and_watch_all.sh', as well as 'meteor' in the './frog' directory, which should pick up the new ${
+    type
+  }. Use 'git diff --cached' to see all the changes that the script has made.`
 );
 /*eslint-enable */
