@@ -4,6 +4,7 @@ import valid from '../validGraphFn';
 
 const resultToIds = graph => {
   const res = valid(graph.activities, graph.operators, graph.connections);
+  console.log(res);
   return res.errors.filter(x => x.type !== 'missingConfig').map(x => x.id);
 };
 
@@ -187,7 +188,7 @@ const g6 = {
       time: 1.890625,
       y: 338,
       type: 'social',
-      operatorType: 'op-create-groups'
+      operatorType: 'op-prox'
     }
   ],
   connections: [
