@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Mousetrap from 'mousetrap';
 import styled from 'styled-components';
 import { withState } from 'recompose';
+import { findIndex } from 'lodash';
 
 import ShortcutPanel, { shortcuts } from './components/ShortcutPanel';
 import ObjectPanel from './components/ObjectPanel';
@@ -80,6 +81,8 @@ class Runner extends Component {
       })
     );
     Mousetrap.bind('s', this.assignSelect);
+    Mousetrap.bind('left', () => this.moveIndex(-1));
+    Mousetrap.bind('right', () => this.moveIndex(1));
   };
 
   unbindAllMoustrap = () => {
@@ -87,6 +90,8 @@ class Runner extends Component {
     shortcuts.split('').forEach(x => Mousetrap.unbind(x));
     // unbinds the selector key
     Mousetrap.unbind('s');
+    Mousetrap.unbind('left');
+    Mousetrap.unbind('right');
   };
 
   componentWillMount() {
@@ -102,6 +107,16 @@ class Runner extends Component {
 
   componentWillUnmount() {
     this.unbindAllMoustrap();
+  }
+
+  moveIndex(direction: number) {
+    const index = findIndex(
+      this.state.objects,
+      x => x.key === this.state.objectKeyPlus
+    );
+    if (this.state.objects[index + direction]) {
+      this.props.setObjectKey(this.state.objects[index + direction].key);
+    }
   }
 
   render() {
