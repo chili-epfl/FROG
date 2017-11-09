@@ -8,7 +8,11 @@ const meta = {
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
+    {
+      title: 'Case with no data',
+      config: { title: 'No data' },
+      activityData: {}
+    }
   ]
 };
 
