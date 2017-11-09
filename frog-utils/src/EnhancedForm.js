@@ -96,6 +96,12 @@ class EnhancedForm extends Component {
   componentWillReceiveProps(nextProps: Object) {
     if (!isEqual(this.props, nextProps)) {
       this.setState({ schema: undefined });
+      if (
+        !isEqual(this.props.schema, nextProps.schema) ||
+        !isEqual(this.props.uiSchema, nextProps.uiSchema)
+      ) {
+        this.hides = [];
+      }
       this.updateSchema(nextProps);
     }
   }
