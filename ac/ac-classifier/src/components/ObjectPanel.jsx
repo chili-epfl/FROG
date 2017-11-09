@@ -23,6 +23,8 @@ const ImgPanel = styled.img`
   transform: translate(-50%, -50%);
 `;
 
+const TextView = ({ data }) => data.text;
+
 export default ({ obj, small }: { obj: Object, small: boolean }) => (
   <Container>
     {getType(obj) === 'image' && !small && <ImgPanel src={obj.url} />}
@@ -33,5 +35,7 @@ export default ({ obj, small }: { obj: Object, small: boolean }) => (
     {getType(obj) === 'table' && small && <span>TABLE</span>}
     {getType(obj) === 'tree' && !small && <TreeView data={obj.data} />}
     {getType(obj) === 'tree' && small && <span>TREE</span>}
+    {getType(obj) === 'text' && !small && <TextView data={obj} />}
+    {getType(obj) === 'text' && small && <span>TEXT</span>}
   </Container>
 );

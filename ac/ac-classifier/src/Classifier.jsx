@@ -31,7 +31,8 @@ const FlexDiv = styled.div`
 
 export const getType = (obj: Object) => obj && (obj.url ? 'image' : obj.type);
 
-const isSupportedType = type => ['table', 'tree', 'image'].includes(type);
+const isSupportedType = type =>
+  ['table', 'tree', 'image', 'text'].includes(type);
 
 class Runner extends Component {
   state: { objectKeyPlus: string, objects: Object[], categories: string[] };
@@ -111,16 +112,18 @@ class Runner extends Component {
         <h2>{activityData.config.title}</h2>
         {objectKeyPlus ? (
           <FlexDiv>
-            {<ObjectPanel obj={data[objectKeyPlus]} small={false} />}
-            <ShortcutPanel
-              {...{
-                categories,
-                dataFn,
-                data,
-                assignCategory: this.assignCategory,
-                objectKey: objectKeyPlus
-              }}
-            />
+            <ObjectPanel obj={data[objectKeyPlus]} small={false} />
+            {categories.length > 0 && (
+              <ShortcutPanel
+                {...{
+                  categories,
+                  dataFn,
+                  data,
+                  assignCategory: this.assignCategory,
+                  objectKey: objectKeyPlus
+                }}
+              />
+            )}
           </FlexDiv>
         ) : (
           <h1>Waiting for objects to classify</h1>
