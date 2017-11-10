@@ -5,6 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Mosaic } from 'react-mosaic-component';
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
+import { sortBy } from 'lodash';
 
 import Runner from './Runner';
 import Countdown from './Countdown';
@@ -33,7 +34,7 @@ const ActivityContainer = ({ activities, sessionId }) => {
             sessionId={sessionId}
           />
         )}
-        initialValue={getInitialState(activities)}
+        initialValue={getInitialState(sortBy(activities, 'activityType'))}
       />
     );
   }
