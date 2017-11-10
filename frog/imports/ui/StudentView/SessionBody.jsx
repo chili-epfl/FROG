@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { sortBy } from 'lodash';
 import { Mosaic } from 'react-mosaic-component';
+
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
-import { sortBy } from 'lodash';
-
 import Runner from './Runner';
 import Countdown from './Countdown';
 
