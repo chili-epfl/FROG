@@ -47,7 +47,8 @@ const config = {
     prompt: {
       title: 'Optional prompt',
       type: 'string'
-    }
+    },
+    placeholder: { title: 'Optional placeholder', type: 'string' }
   }
 };
 
@@ -84,6 +85,7 @@ const ActivityRunner = ({ activityData, dataFn }) => {
       path="text"
       dataFn={dataFn}
       key="textarea"
+      placeholder={activityData.config.placeholder}
       style={{ width: '100%', height: '100%', fontSize: '20px' }}
     />
   ];

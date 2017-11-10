@@ -39,7 +39,9 @@ export const config = {
 export const ActivityRunner = ({ activityData }: ActivityRunnerT) => (
   <div>
     <h1>{activityData.config ? activityData.config.title : 'NO TITLE'}</h1>
-    <p>{activityData.config ? activityData.config.text : 'NO TEXT'}</p>
+    <p style={{ fontSize: '20px' }}>
+      {activityData.config ? activityData.config.text : 'NO TEXT'}
+    </p>
   </div>
 );
 

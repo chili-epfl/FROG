@@ -71,7 +71,7 @@ const mergeOneInstance = (
               resolve(docdata);
             })
           );
-        })
+        }).catch(e => console.error(e))
       );
     }
   } else {

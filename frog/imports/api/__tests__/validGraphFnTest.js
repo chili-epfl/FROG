@@ -4,7 +4,6 @@ import valid from '../validGraphFn';
 
 const resultToIds = graph => {
   const res = valid(graph.activities, graph.operators, graph.connections);
-  console.log(res);
   return res.errors.filter(x => x.type !== 'missingConfig').map(x => x.id);
 };
 

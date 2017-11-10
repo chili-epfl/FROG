@@ -7,7 +7,8 @@ import { shuffle } from 'lodash';
 export {
   default as EnhancedForm,
   hideConditional,
-  calculateHides
+  calculateHides,
+  calculateSchema
 } from './EnhancedForm';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
