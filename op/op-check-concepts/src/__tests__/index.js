@@ -6,8 +6,10 @@ import op from '../index';
 
 const activityData: activityDataT = {
   structure: 'all',
-  payload: { all: { data: { text: 'This is a test heures' } } }
+  payload: { all: { data: { text: 'This is a test heures' }, config: {} } }
 };
+
+const globalStructure = { studentIds: ['a'], students: { a: 'a' } };
 
 const config = {
   concepts: [
@@ -29,7 +31,13 @@ const config = {
 };
 
 test('works with all', () => {
-  expect(op.operator(config, { activityData })).toEqual({
+  expect(
+    op.operator(config, {
+      activityData,
+      socialStructure: {},
+      globalStructure
+    })
+  ).toEqual({
     payload: {
       all: {
         config:
