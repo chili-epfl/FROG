@@ -9,10 +9,10 @@ import type {
 } from './types';
 import { focusStudent } from './socstructTools';
 
-const logFirst = (msg) => {
+const logFirst = msg => {
   console.log(msg); // eslint disable line
   return msg;
-}
+};
 
 const mergeConfig = (
   configData: Object,
