@@ -27,6 +27,14 @@ export default class ConfigForm extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps: PropT): boolean {
+    if (this.props.node._id === nextProps.node._id) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   render() {
     const {
       node,
@@ -48,7 +56,6 @@ export default class ConfigForm extends Component {
         groupingKey: node.groupingKey
       },
       onChange: data => {
-        this.setState({ formData: data.formData });
         if (node.operatorType) {
           addOperator(node.operatorType, data.formData, node._id);
         } else {
