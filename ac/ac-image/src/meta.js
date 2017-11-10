@@ -97,16 +97,6 @@ export const meta = {
         ]
       },
       data: {}
-    },
-    {
-      title: 'With texts, through activityData',
-      config: {
-        guidelines: 'Debrief of student contributions'
-      },
-      data: {
-        1: { type: 'text', key: 1, text: 'I think the world is round' },
-        2: { type: 'text', key: 2, text: 'Jolly good fellow' }
-      }
     }
   ]
 };
