@@ -8,7 +8,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "react": "^16",
+    "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "styled-components": "^2.0.1",
     "frog-utils": "1.0.0"
