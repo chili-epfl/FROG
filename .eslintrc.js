@@ -18,7 +18,7 @@ module.exports = {
     'func-names': 'off',
     'jsx-a11y/label-has-for': 'off',
     'react/require-default-props': 'off',
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'consistent-return': 'off',
     'import/no-absolute-path': 'off',
     'no-else-return': 'off',
