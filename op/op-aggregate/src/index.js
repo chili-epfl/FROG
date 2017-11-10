@@ -19,7 +19,7 @@ const config = {
 
 const configUI = { topN: { conditional: 'chooseTop' } };
 
-const operator = (configData, object) => {
+const operator = (configData = {}, object) => {
   const result = Object.keys(object.activityData.payload).reduce((acc, x) => {
     const items = Object.values(object.activityData.payload[x].data);
     if (configData.topN) {
