@@ -10,7 +10,7 @@ import type {
 import { focusStudent } from './socstructTools';
 
 const logFirst = msg => {
-  console.log(msg); // eslint disable line
+  console.log(msg); // eslint-disable-line
   return msg;
 };
 
