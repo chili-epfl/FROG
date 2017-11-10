@@ -1,6 +1,8 @@
 // @flow
-import op from '../index';
+
 import { type activityDataT } from 'frog-utils';
+
+import op from '../index';
 
 const activityData: activityDataT = {
   structure: 'all',

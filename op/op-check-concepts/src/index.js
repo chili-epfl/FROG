@@ -1,6 +1,5 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
 import type { productOperatorT } from 'frog-utils';
 
 const meta = {
