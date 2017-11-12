@@ -171,10 +171,12 @@ export default class Store {
           !source ||
           !target
         ) {
-          throw 'Cannot find connection source/target, or source/target is a connection';
+          return null;
+          // throw 'Cannot find connection source/target, or source/target is a connection';
         }
         return new Connection(source, target, x._id);
-      });
+      })
+      .filter(x => x);
 
     this.ui.selected = null;
     this.history = [];
