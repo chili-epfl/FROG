@@ -9,6 +9,11 @@ import type {
 } from './types';
 import { focusStudent } from './socstructTools';
 
+const logFirst = msg => {
+  console.error(msg);
+  return msg;
+};
+
 const mergeConfig = (
   configData: Object,
   payload: ?dataUnitStructT
@@ -44,30 +49,30 @@ export const extractUnit = (
     if (activityStructure === 'individual') {
       return data.payload[attributeValue];
     }
-    console.error(
+    throw logFirst(
       'Cannot provide individually mapped product to an activity above plane 1'
     );
   } else {
     if (typeof activityStructure === 'object') {
       if (data.structure.groupingKey !== activityStructure.groupingKey) {
-        console.error('Incompatible grouping keys');
+        throw logFirst('Incompatible grouping keys');
       }
       if (data.payload[attributeValue] !== undefined) {
         return data.payload[attributeValue];
       } else {
-        console.error('Grouping value not found in activityData');
+        throw logFirst('Grouping value not found in activityData');
       }
     }
 
     if (activityStructure === 'individual') {
       if (!socialStructure) {
-        console.error(
+        throw logFirst(
           'Cannot map group product to individual without a social structure'
         );
       }
       const studentAttributes = focusStudent(socialStructure)[attributeValue];
       if (!studentAttributes) {
-        console.error('Student not in social structure');
+        throw logFirst('Student not in social structure');
       }
       if (
         typeof data.structure === 'object' &&
@@ -77,11 +82,11 @@ export const extractUnit = (
         if (data.payload[grp] !== undefined) {
           return data.payload[grp];
         }
-        console.error('Grouping value not found in activityData');
+        throw logFirst('Grouping value not found in activityData');
       }
-      console.error('Student not in group matching groupingKey');
+      throw logFirst('Student not in group matching groupingKey');
     }
-    console.error(
+    throw logFirst(
       'Cannot provide group mapped product to a full-class activity'
     );
   }
