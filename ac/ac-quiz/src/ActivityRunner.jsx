@@ -45,10 +45,10 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   };
 
   const uiSchema = {};
-
-  activityData.config.questions
+  const questions = activityData.config.questions
     .filter(q => q.question && q.answers)
-    .forEach((q, i) => {
+
+  questions.forEach((q, i) => {
       schema.properties['question ' + i] = {
         type: 'number',
         title: 'Question ' + (i + 1),
@@ -73,7 +73,9 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const formData = data.form;
   const onSubmit = e => {
     logger({ type: 'submit', payload: e.formData });
-    dataFn.objInsert(true, 'completed');
+    if(data.form && Object.keys(data.form).length >= questions.length) {
+      dataFn.objInsert(true, 'completed');
+    }
   };
   const onChange = e => {
     dataFn.objInsert(e.formData, 'form');
