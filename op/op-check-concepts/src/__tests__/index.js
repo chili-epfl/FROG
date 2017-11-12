@@ -40,8 +40,10 @@ test('works with all', () => {
   ).toEqual({
     payload: {
       all: {
-        config:
-          'Est-ce que vous avez pensé à compter?\nEst-ce que vous avez pensé à estimer?',
+        config: {
+          prompt:
+            'Est-ce que vous avez pensé à compter?\nEst-ce que vous avez pensé à estimer?'
+        },
         data: { text: 'This is a test heures' }
       }
     },
