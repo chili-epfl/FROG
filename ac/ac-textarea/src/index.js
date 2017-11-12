@@ -48,8 +48,8 @@ const config = {
       title: 'Guidelines',
       type: 'string'
     },
-    prompt: {
-      title: 'Optional prompt',
+    default: {
+      title: 'Default prompt',
       type: 'string'
     },
     placeholder: { title: 'Optional placeholder', type: 'string' }
@@ -64,24 +64,30 @@ const mergeFunction = (object, dataFn) => {
   if (object.data && object.data.text) {
     dataFn.objInsert(object.data.text, 'text');
   }
+
+  // In case the students does not receive a prompt or is randomly selected
+  // The header will receive the default prompt from the config
+  dataFn.objInsert(!object.config.prompt || Math.random() > 0.667, 'defaultPrompt')
 };
 
 // the actual component that the student sees
-const ActivityRunner = ({ activityData, dataFn }) => {
-  const header = activityData.config && [
-    activityData.config.title && (
-      <h1 key="title">{activityData.config.title}</h1>
+const ActivityRunner = ({ activityData, data, dataFn }) => {
+  const conf = activityData.config
+  const header = conf && [
+    conf.title && (
+      <h1 key="title">{conf.title}</h1>
     ),
-    activityData.config.guidelines && (
+    conf.guidelines && (
       <p key="guidelines" style={{ fontSize: '20px' }}>
-        {activityData.config.guidelines}
+        {conf.guidelines}
       </p>
     ),
-    activityData.config.prompt && (
-      <ul key="prompt" style={{ fontSize: '20px' }}>
-        {activityData.config.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
-      </ul>
-    )
+    <ul key="prompt" style={{ fontSize: '20px' }}>
+      {data.defaultPrompt
+        ? (conf.default && <li key="default">{conf.default}</li>)
+        : (conf.prompt && conf.prompt.split('\n').map(x => <li key={x}>{x}</li>))
+      }
+    </ul>
   ];
   return [
     ...header,
@@ -90,7 +96,7 @@ const ActivityRunner = ({ activityData, dataFn }) => {
       path="text"
       dataFn={dataFn}
       key="textarea"
-      placeholder={activityData.config.placeholder}
+      placeholder={conf.placeholder}
       style={{ width: '100%', height: '100%', fontSize: '20px' }}
     />
   ];
