@@ -44,6 +44,10 @@ const config = {
       title: 'Optional title',
       type: 'string'
     },
+    guidelines: {
+      title: 'Guidelines',
+      type: 'string'
+    },
     prompt: {
       title: 'Optional prompt',
       type: 'string'
@@ -68,8 +72,13 @@ const ActivityRunner = ({ activityData, dataFn }) => {
     activityData.config.title && (
       <h1 key="title">{activityData.config.title}</h1>
     ),
+    activityData.config.guidelines && (
+      <p key="guidelines" style={{ fontSize: '20px' }}>
+        {activityData.config.guidelines}
+      </p>
+    ),
     activityData.config.prompt && (
-      <ul key="prompt" style={{ fontSize: '25px' }}>
+      <ul key="prompt" style={{ fontSize: '20px' }}>
         {activityData.config.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
       </ul>
     )
