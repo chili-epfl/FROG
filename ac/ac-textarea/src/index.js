@@ -69,13 +69,9 @@ const ActivityRunner = ({ activityData, dataFn }) => {
       <h1 key="title">{activityData.config.title}</h1>
     ),
     activityData.config.prompt && (
-      <p key="prompt" style={{ fontSize: '25px' }}>
-        <i>
-          {activityData.config.prompt.includes('\n')
-            ? activityData.config.prompt.split('\n').map(x => <li>{x}</li>)
-            : activityData.config.prompt}
-        </i>
-      </p>
+      <ul key="prompt" style={{ fontSize: '25px' }}>
+        {activityData.config.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
+      </ul>
     )
   ];
   return [
