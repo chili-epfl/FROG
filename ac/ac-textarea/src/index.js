@@ -67,18 +67,16 @@ const mergeFunction = (object, dataFn) => {
 
   // In case the students does not receive a prompt or is randomly selected
   // The header will receive the default prompt from the config
-  const randSplit = (Math.random() > 0.667);
+  const randSplit = Math.random() > 0.667;
   dataFn.objInsert(!object.config.prompt || randSplit, 'defaultPrompt');
   dataFn.objInsert(randSplit, 'randSplit');
 };
 
 // the actual component that the student sees
 const ActivityRunner = ({ activityData, data, dataFn }) => {
-  const conf = activityData.config
+  const conf = activityData.config;
   const header = conf && [
-    conf.title && (
-      <h1 key="title">{conf.title}</h1>
-    ),
+    conf.title && <h1 key="title">{conf.title}</h1>,
     conf.guidelines && (
       <p key="guidelines" style={{ fontSize: '20px' }}>
         {conf.guidelines}
@@ -86,9 +84,8 @@ const ActivityRunner = ({ activityData, data, dataFn }) => {
     ),
     <ul key="prompt" style={{ fontSize: '20px' }}>
       {data.defaultPrompt
-        ? (conf.default && <li key="default">{conf.default}</li>)
-        : (conf.prompt && conf.prompt.split('\n').map(x => <li key={x}>{x}</li>))
-      }
+        ? conf.default && <li key="default">{conf.default}</li>
+        : conf.prompt && conf.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
     </ul>
   ];
   return [
