@@ -1,7 +1,7 @@
 // @flow
 
-import React, { Component } from "react";
-import type { ActivityRunnerT } from "frog-utils";
+import React, { Component } from 'react';
+import type { ActivityRunnerT } from 'frog-utils';
 
 export default class ActivityRunner extends Component {
   state: {
@@ -22,16 +22,16 @@ export default class ActivityRunner extends Component {
   }
 
   componentDidMount() {
-    const script = document.createElement("script");
+    const script = document.createElement('script');
 
-    script.src = "http://www.skulpt.org/static/skulpt.min.js";
+    script.src = 'http://www.skulpt.org/static/skulpt.min.js';
     script.async = false;
     if (document.body != null) {
       document.body.appendChild(script);
     }
 
-    const script2 = document.createElement("script");
-    script2.src = "http://www.skulpt.org/static/skulpt-stdlib.js";
+    const script2 = document.createElement('script');
+    script2.src = 'http://www.skulpt.org/static/skulpt-stdlib.js';
     script2.async = false;
     if (document.body != null) {
       document.body.appendChild(script2);
@@ -41,26 +41,26 @@ export default class ActivityRunner extends Component {
   builtinRead(x: string) {
     if (
       window.Sk.builtinFiles === undefined ||
-      window.Sk.builtinFiles["files"][x] === undefined
+      window.Sk.builtinFiles['files'][x] === undefined
     )
       throw "File not found: '" + x + "'";
-    return window.Sk.builtinFiles["files"][x];
+    return window.Sk.builtinFiles['files'][x];
   }
 
   outfunction(text: string) {
-    window.Sk.runner.state.outputFeed = window.Sk.runner.state.outputFeed +'\n'+ text;
+    window.Sk.runner.state.outputFeed =
+      window.Sk.runner.state.outputFeed + '\n' + text;
   }
 
   runit: Function;
   runit() {
-
-    if(!window.Sk){"Sk not loaded"}
-
-    window.Sk.runner = this;
-    this.state.outputFeed = "";
-    window.Sk.configure({ output: this.outfunction, read: this.builtinRead });
-    window.Sk.importMainWithBody("<stdin>", false, this.state.inputCode);
-    this.setState({ outputFeed: this.state.outputFeed });
+    if (!window.Sk) {
+      window.Sk.runner = this;
+      this.state.outputFeed = '';
+      window.Sk.configure({ output: this.outfunction, read: this.builtinRead });
+      window.Sk.importMainWithBody('<stdin>', false, this.state.inputCode);
+      this.setState({ outputFeed: this.state.outputFeed });
+    }
   }
 
   handleChange: Function;
