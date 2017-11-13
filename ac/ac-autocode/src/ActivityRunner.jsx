@@ -40,23 +40,26 @@ export default class ActivityRunner extends Component {
 
   builtinRead(x: string) {
     if (
-      Sk.builtinFiles === undefined ||
-      Sk.builtinFiles["files"][x] === undefined
+      window.Sk.builtinFiles === undefined ||
+      window.Sk.builtinFiles["files"][x] === undefined
     )
       throw "File not found: '" + x + "'";
-    return Sk.builtinFiles["files"][x];
+    return window.Sk.builtinFiles["files"][x];
   }
 
   outfunction(text: string) {
-    this.runner.state.outputFeed = this.runner.state.outputFeed + text;
+    window.Sk.runner.state.outputFeed = window.Sk.runner.state.outputFeed +'\n'+ text;
   }
 
   runit: Function;
   runit() {
-    Sk.runner = this;
+
+    if(!window.Sk){"Sk not loaded"}
+
+    window.Sk.runner = this;
     this.state.outputFeed = "";
-    Sk.configure({ output: this.outfunction, read: this.builtinRead });
-    Sk.importMainWithBody("<stdin>", false, this.state.inputCode);
+    window.Sk.configure({ output: this.outfunction, read: this.builtinRead });
+    window.Sk.importMainWithBody("<stdin>", false, this.state.inputCode);
     this.setState({ outputFeed: this.state.outputFeed });
   }
 
