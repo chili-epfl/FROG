@@ -54,9 +54,9 @@ export default class ActivityRunner extends Component {
 
   runit: Function;
   runit() {
-    if (!window.Sk) {
+    if (window.Sk) {
       window.Sk.runner = this;
-      this.state.outputFeed = '';
+      this.setState({ outputFeed: '' });
       window.Sk.configure({ output: this.outfunction, read: this.builtinRead });
       window.Sk.importMainWithBody('<stdin>', false, this.state.inputCode);
       this.setState({ outputFeed: this.state.outputFeed });
