@@ -45,35 +45,36 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   };
 
   const uiSchema = {};
-  const questions = activityData.config.questions
-    .filter(q => q.question && q.answers)
+  const questions = activityData.config.questions.filter(
+    q => q.question && q.answers
+  );
 
   questions.forEach((q, i) => {
-      schema.properties['question ' + i] = {
-        type: 'number',
-        title: 'Question ' + (i + 1),
-        enum: q.answers.map((_, k) => k),
-        enumNames: q.answers
+    schema.properties['question ' + i] = {
+      type: 'number',
+      title: 'Question ' + (i + 1),
+      enum: q.answers.map((_, k) => k),
+      enumNames: q.answers
+    };
+    uiSchema['question ' + i] = {
+      'ui:widget': 'latexWidget',
+      'ui:description': q.question
+    };
+    if (activityData.config.justify) {
+      schema.properties['question ' + i + ' justify'] = {
+        type: 'string',
+        title: ' ',
+        description: 'Justify your answer'
       };
-      uiSchema['question ' + i] = {
-        'ui:widget': 'latexWidget',
-        'ui:description': q.question
-      };
-      if (activityData.config.justify) {
-        schema.properties['question ' + i + ' justify'] = {
-          type: 'string',
-          title: ' ',
-          description: 'Justify your answer'
-        };
-      }
-    });
+    }
+  });
 
   const widgets = { latexWidget: LatexWidget };
   const fields = { DescriptionField };
   const formData = data.form;
   const onSubmit = e => {
     logger({ type: 'submit', payload: e.formData });
-    if(data.form && Object.keys(data.form).length >= questions.length) {
+    if (data.form && Object.keys(data.form).length >= questions.length) {
       dataFn.objInsert(true, 'completed');
     }
   };
