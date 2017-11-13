@@ -4,7 +4,7 @@ import React from 'react';
 
 import { PresButton } from './StyledComponents';
 
-export default ({ title, dataFn, data }: Object) => (
+export default ({ title, dataFn, data, logger }: Object) => (
   <div style={{ margin: '25px' }}>
     <h3> {title} </h3>
     <div>
@@ -30,7 +30,11 @@ export default ({ title, dataFn, data }: Object) => (
     </div>
     <PresButton
       className="btn btn-default"
-      onClick={() => dataFn.objInsert(data.indexPart + 1, 'indexPart')}
+      onClick={() => {
+        dataFn.objInsert(data.indexPart + 1, 'indexPart');
+        logger({ type: 'subPart', value: 'Presentation' });
+        logger({ type: 'part', value: 'Presentation' });
+      }}
     >
       Start the activity
     </PresButton>

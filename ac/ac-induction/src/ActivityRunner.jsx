@@ -11,60 +11,46 @@ import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
-export default ({ activityData, data, dataFn }: ActivityRunnerT) => {
+export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
   switch (data.parts && data.parts[data.indexPart]) {
     case 'Presentation':
-      page = <Presentation title={title} dataFn={dataFn} data={data} />;
+      page = <Presentation {...{ title, dataFn, data, logger }} />;
       break;
     case 'Examples':
       page = (
         <Examples
-          title={title}
-          examples={examples}
+          {...{ title, examples, dataFn, data, logger }}
           nbExamples={activityData.config.nbExamples}
-          dataFn={dataFn}
-          data={data}
         />
       );
       break;
     case 'Tests with feedback':
       page = (
         <Test
-          title={title}
-          examples={examples}
+          {...{ title, examples, properties, dataFn, data, logger }}
           nbTest={0}
           nbTestFeedback={activityData.config.nbTestFeedback}
           feedback
-          properties={properties}
-          dataFn={dataFn}
-          data={data}
         />
       );
       break;
     case 'Definition':
       page = (
         <Definition
-          title={title}
-          definition={definition}
+          {...{ title, definition, dataFn, data, logger }}
           hasTest={activityData.config.hasTest}
-          dataFn={dataFn}
-          data={data}
         />
       );
       break;
     case 'Tests':
       page = (
         <Test
-          title={title}
-          examples={examples}
+          {...{ title, examples, properties, dataFn, data, logger }}
           nbTest={activityData.config.nbTest}
           nbTestFeedback={0}
           feedback={false}
-          properties={properties}
-          dataFn={dataFn}
-          data={data}
         />
       );
       break;

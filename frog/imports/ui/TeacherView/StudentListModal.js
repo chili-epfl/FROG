@@ -34,7 +34,8 @@ const StudentListModal = ({
                 )
               ]
             }
-          })}
+          })
+        }
         schema={{
           type: 'object',
           properties: {

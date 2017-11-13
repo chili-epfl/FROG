@@ -69,7 +69,8 @@ const TabView = props => {
       ) : (
         <TreeView
           onChange={(treeNodeId, value) =>
-            dataFn.objInsert(value, [tab.key, 'data', treeNodeId])}
+            dataFn.objInsert(value, [tab.key, 'data', treeNodeId])
+          }
           data={tab.data}
         />
       )}
