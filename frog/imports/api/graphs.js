@@ -14,12 +14,13 @@ export const Graphs = new Mongo.Collection('graphs');
 export const addGraph = (graphObj?: Object): string => {
   const graphId = uuid();
   const name = (graphObj && graphObj.graph && graphObj.graph.name) || 'Unnamed';
+  Graphs.insert({
+    ...((graphObj && graphObj.graph) || {}),
+    _id: graphId,
+    name,
+    createdAt: new Date()
+  });
   if (!graphObj) {
-    Graphs.insert({
-      _id: graphId,
-      name,
-      createdAt: new Date()
-    });
     return graphId;
   }
 
@@ -85,14 +86,6 @@ export const addGraph = (graphObj?: Object): string => {
   newAct.forEach(x => Activities.insert(x));
   newOp.forEach(x => Operators.insert(x));
   newConn.forEach(x => Connections.insert(x));
-
-  Graphs.insert({
-    ...((graphObj && graphObj.graph) || {}),
-    _id: graphId,
-    name,
-    createdAt: new Date()
-  });
-
   return graphId;
 };
 
