@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "meteor test --once --full-app --driver-package dispatch:mocha-phantomjs",
-    "start": "meteor run"
+    "start": "nps"
   },
   "dependencies": {
     "ac-autocode": "1.0.0",
@@ -85,6 +85,7 @@
     "websocket-json-stream": "0.0.3",
     "ws": "^3.2.0",
     "op-check-concepts": "1.0.0",
-    "ac-textarea": "1.0.0"
+    "ac-textarea": "1.0.0",
+    "nps": "^5.7.1"
   }
 }

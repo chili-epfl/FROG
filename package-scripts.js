@@ -1,10 +1,10 @@
 const { exec } = require('child_process');
-const { spawn } = require('child_process');
 const { sync } = require('find-up');
+const managePath = require('manage-path');
 
-function getEnv(dir) {
+function getEnv() {
   const env = { ...process.env };
-  const alterPath = managePath(dir);
+  const alterPath = managePath(env);
   const npmBin = sync('node_modules/.bin');
   if (npmBin) {
     alterPath.unshift(npmBin);
@@ -14,11 +14,15 @@ function getEnv(dir) {
 
 const inContext = cmd => {
   const dir = sync('.git');
-  process.chdir(dir);
-  const child = spawn(cmd, {
-    stdio: 'inherit',
-    env: getEnv(dir)
+  process.chdir(dir + '/..');
+  const child = exec(cmd, {
+    env: getEnv()
   });
+
+  child.on('error', error => {
+    console.error(error);
+  });
+  return '';
 };
 
 module.exports = {

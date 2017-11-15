@@ -5,7 +5,8 @@
   "scripts": {
     "build": "babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist && flow-copy-source src dist",
     "watch": "watch 'npm run build' ./src",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "start": "nps"
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
@@ -25,6 +26,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
     "flow-copy-source": "^1.2.1",
-    "watch": "^1.0.1"
+    "watch": "^1.0.1",
+    "nps": "^5.7.1"
   }
 }
