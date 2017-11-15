@@ -1,42 +1,41 @@
-const { exec } = require('child_process');
 const { sync } = require('find-up');
-const managePath = require('manage-path');
 
-function getEnv() {
-  const env = { ...process.env };
-  const alterPath = managePath(env);
-  const npmBin = sync('node_modules/.bin');
-  if (npmBin) {
-    alterPath.unshift(npmBin);
-  }
-  return env;
-}
+const dir = sync('.git');
 
-const inContext = cmd => {
-  const dir = sync('.git');
-  process.chdir(dir + '/..');
-  const child = exec(cmd, {
-    env: getEnv()
-  });
+console.log('hello');
+const watchAll = `
+echo 'hello'
+cd ${dir}/..
+for dir in ./ac/ac-*/ ./op/op-*/
+do
+    cd $dir
+    echo 'Beginning to watch $dir'
+    babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist --watch &  
+    flow-copy-source --watch src dist &
+    cd ../..
+done
 
-  child.on('error', error => {
-    console.error(error);
-  });
-  return '';
-};
+cd ./frog-utils
+babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist --watch &  
+flow-copy-source --watch src dist &
+`;
+
+const modify = cmd =>
+  `cd ${dir}/../ && PATH=${dir}/../node_modules/.bin:$PATH} ${cmd}`;
 
 module.exports = {
   scripts: {
+    watchAll,
     watch:
-      'babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist -- watch && flow-copy-source --watch src dist',
-    test: inContext(
+      'babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist --watch &  flow-copy-source --watch src dist &',
+    test: modify(
       'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
     ),
-    fix: inContext('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    eslintTest: inContext('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    jest: inContext('jest'),
-    jestWatch: inContext('jest --watch'),
-    flowTest: inContext('flow')
+    fix: modify('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
+    eslintTest: modify('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
+    jest: modify('jest'),
+    jestWatch: modify('jest --watch'),
+    flowTest: modify('flow')
   },
   options: {
     silent: true
