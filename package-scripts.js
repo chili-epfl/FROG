@@ -27,15 +27,16 @@ const inContext = cmd => {
 
 module.exports = {
   scripts: {
-    test:
-      'flow --quiet && npm run -s start eslint-test && npm run -s start jest',
-    dockerTest:
-      'rm -rf ./tmp/ && mkdir -p ./tmp/frog && git clone . ./tmp/frog && cd ./tmp/frog && docker build -t frogtest . && docker run frogtest',
+    watch:
+      'babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist -- watch && flow-copy-source --watch src dist',
+    test: inContext(
+      'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
+    ),
     fix: inContext('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    eslintTest: 'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
-    jest: 'jest',
-    jestWatch: 'jest --watch',
-    flowTest: 'flow'
+    eslintTest: inContext('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
+    jest: inContext('jest'),
+    jestWatch: inContext('jest --watch'),
+    flowTest: inContext('flow')
   },
   options: {
     silent: true
