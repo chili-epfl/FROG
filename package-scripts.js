@@ -1,11 +1,11 @@
-const findParentDir = require('find-parent-dir');
 const { exec } = require('child_process');
-import { sync as findUpSync } from 'find-up';
+const { spawn } = require('child_process');
+const { sync } = require('find-up');
 
 function getEnv(dir) {
-  const env = clone(process.env);
+  const env = { ...process.env };
   const alterPath = managePath(dir);
-  const npmBin = findUpSync('node_modules/.bin');
+  const npmBin = sync('node_modules/.bin');
   if (npmBin) {
     alterPath.unshift(npmBin);
   }
@@ -13,10 +13,11 @@ function getEnv(dir) {
 }
 
 const inContext = cmd => {
-  const env = getEnv(dir);
+  const dir = sync('.git');
   process.chdir(dir);
-  findParentDir(__dirname, '.git', (err, dir) => {
-    exec(cmd, { cwd: dir });
+  const child = spawn(cmd, {
+    stdio: 'inherit',
+    env: getEnv(dir)
   });
 };
 
