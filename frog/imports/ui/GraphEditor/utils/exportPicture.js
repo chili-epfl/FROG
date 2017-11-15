@@ -12,9 +12,9 @@ export default (dataCB: string => void) => {
   const canvas = document.createElement('canvas');
 
   const oldScale = store.ui.scale;
+  store.ui.setIsSvg(true);
   store.ui.setScaleValue(store.graphDuration / 30);
   store.ui.setGraphWidth(1768);
-  store.ui.setIsSvg(true);
   render(
     <Provider store={store}>
       <Graph viewBox={[0, 0, 1, 1].join(' ')} isSvg scaled hasTimescale />
@@ -37,7 +37,7 @@ export default (dataCB: string => void) => {
       height: 600
     });
   }
+  store.ui.setIsSvg(false);
   store.ui.setScaleValue(oldScale);
   store.ui.updateGraphWidth();
-  store.ui.setIsSvg(false);
 };
