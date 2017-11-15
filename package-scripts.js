@@ -1,10 +1,24 @@
-var findParentDir = require('find-parent-dir');
- 
-const inContext = (exec) => { 
-findParentDir(__dirname, '.git', (err, dir)=> {
-process.chdir(dir)
-return exec
+const findParentDir = require('find-parent-dir');
+const { exec } = require('child_process');
+import { sync as findUpSync } from 'find-up';
+
+function getEnv(dir) {
+  const env = clone(process.env);
+  const alterPath = managePath(dir);
+  const npmBin = findUpSync('node_modules/.bin');
+  if (npmBin) {
+    alterPath.unshift(npmBin);
+  }
+  return env;
 }
+
+const inContext = cmd => {
+  const env = getEnv(dir);
+  process.chdir(dir);
+  findParentDir(__dirname, '.git', (err, dir) => {
+    exec(cmd, { cwd: dir });
+  });
+};
 
 module.exports = {
   scripts: {
