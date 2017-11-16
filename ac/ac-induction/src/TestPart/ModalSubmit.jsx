@@ -146,11 +146,7 @@ const ChooseImg = ({
     <div style={{ height: '200px', width: '100%' }}>
       {str}
       <ImgBis
-        url={
-          urls === 'undefined'
-            ? 'http://www.bernunlimited.com/c.4436185/sca-dev-vinson/img/no_image_available.jpeg'
-            : urls[0].url
-        }
+        url={urls.length === 0 ? '/no_image_available.jpeg' : urls[0].url}
         color={show !== 3 ? '#00CC00' : '#CC0000'}
       />
     </div>
