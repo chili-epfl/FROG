@@ -97,15 +97,15 @@ export default ({
                 data.listIndexTestWithFeedback[data.indexCurrent].realIndex
               ].url
             }
-            color="black"
           />
         </div>
       </div>
       {result !== 0 && (
         <ChooseImg
-          show={show}
-          propertiesIndex={propertiesIndex}
-          examples={examples}
+          {...{ show, propertiesIndex, examples }}
+          currentIndex={
+            data.listIndexTestWithFeedback[data.indexCurrent].realIndex
+          }
         />
       )}
       <ExButton className="btn btn-default" onClick={clickHandler}>
@@ -115,15 +115,23 @@ export default ({
   );
 };
 
-const ChooseImg = ({ show, propertiesIndex, examples }: Object) => {
+const ChooseImg = ({
+  show,
+  propertiesIndex,
+  examples,
+  currentIndex
+}: Object) => {
   const str =
     show < 2
       ? 'An image can be part of the concept and contains the selected properties:'
       : show > 2
         ? 'An image can respect the selected properties and not be part of the concept:'
         : 'An image can be part of the concept but not respect the selected properties:';
-  const url = examples
-    .filter(y => (show < 3 ? !y.isIncorrect : y.isIncorrect))
+  const urls = examples
+    .filter(
+      (y, i) =>
+        i !== currentIndex && (show < 3 ? !y.isIncorrect : y.isIncorrect)
+    )
     .filter(
       x =>
         show !== 2
@@ -133,11 +141,14 @@ const ChooseImg = ({ show, propertiesIndex, examples }: Object) => {
               arrayMinus(propertiesIndex, stringToArray(x.respectedProperties)),
               propertiesIndex
             )
-    )[0].url;
+    );
   return (
     <div style={{ height: '200px', width: '100%' }}>
       {str}
-      <ImgBis url={url} color={show !== 3 ? '#00CC00' : '#CC0000'} />
+      <ImgBis
+        url={urls.length === 0 ? '/no_image_available.jpeg' : urls[0].url}
+        color={show !== 3 ? '#00CC00' : '#CC0000'}
+      />
     </div>
   );
 };

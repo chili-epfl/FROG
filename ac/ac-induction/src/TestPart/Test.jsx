@@ -59,10 +59,7 @@ export default ({
   return (
     <ExMain>
       <ExContainer>
-        <ImgBis
-          url={examples[tmpList[data.indexCurrent].realIndex].url}
-          color="black"
-        />
+        <ImgBis url={examples[tmpList[data.indexCurrent].realIndex].url} />
       </ExContainer>
       <ExContainer style={{ padding: '20px' }}>
         <ResponsePanel
