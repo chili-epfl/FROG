@@ -6,6 +6,7 @@ import { stringToArray, arrayMinus, arrayEquals } from '../ArrayFun';
 import ImgBis from '../ImgBis';
 
 import {
+  ExDiv,
   ExButton,
   TestCorrectionDiv,
   TestCorrectionCircle
@@ -108,9 +109,11 @@ export default ({
           }
         />
       )}
-      <ExButton className="btn btn-default" onClick={clickHandler}>
-        {data.indexCurrent === nbTestFeedback - 1 ? 'Next part' : 'Next test'}
-      </ExButton>
+      <ExDiv style={{ position: 'absolute', bottom: '20px', width: '98%' }}>
+        <ExButton className="btn btn-default" onClick={clickHandler}>
+          {data.indexCurrent === nbTestFeedback - 1 ? 'Next part' : 'Next test'}
+        </ExButton>
+      </ExDiv>
     </Modal>
   );
 };

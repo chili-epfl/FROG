@@ -39,9 +39,13 @@ export const ExLine = styled.div`
   background-color: black;
 `;
 
-export const ExButton = styled.div`
-  position: absolute;
-  bottom: 50px;
+export const ExDiv = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const ExButton = styled.button`
   width: 150px;
 `;
 
