@@ -2,7 +2,6 @@ const { sync } = require('find-up');
 
 const dir = sync('.git');
 
-console.log('hello');
 const watchAll = `
 echo 'hello'
 cd ${dir}/..
