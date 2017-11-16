@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { type LogDBT } from 'frog-utils';
+
 import { ListComponent } from './DashboardComponents';
 
 const actionTypes = ['subPart', 'part'];
@@ -14,6 +15,7 @@ const Viewer = ({ instances, data, config }: Object) => {
     config.hasDefinition ? 1 : 0,
     config.hasTest ? config.nbTest : 0
   ];
+
   const nbInst = Object.keys(instances).length;
   return (
     <div>

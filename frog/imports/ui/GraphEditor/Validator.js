@@ -22,7 +22,7 @@ const ListError = ({ errors, maxLength }) => {
           >
             •
           </text>,
-          <g>
+          <g key={k + 'g'}>
             {textlines.map((line, y) => (
               <text
                 x="100"

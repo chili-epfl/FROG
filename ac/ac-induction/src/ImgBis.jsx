@@ -13,6 +13,6 @@ export default ({ url, color = 'black' }: Object) => (
       position: 'relative'
     }}
   >
-    <Img src={url} alt="" />
+    <Img src={url} />
   </div>
 );

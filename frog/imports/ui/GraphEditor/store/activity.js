@@ -54,8 +54,9 @@ export default class Activity extends Elem {
   @computed
   get title(): string {
     if (store.ui.isSvg) {
-      return `${store.activityStore.activitySequence[this.id]}: ${this
-        .rawTitle}`;
+      return `${store.activityStore.activitySequence[this.id]}: ${
+        this.rawTitle
+      }`;
     } else {
       return this.rawTitle;
     }

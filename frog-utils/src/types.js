@@ -87,7 +87,7 @@ export type validateConfigFnT = Object => null | {
 
 export type ReactComponent<Props> =
   | Class<React$Component<*, Props, *>>
-  | (Props => React$Element<any> | null);
+  | (Props => React$Element<any> | null | React$Element<any>[]);
 
 export type LogT = {|
   type: string,
@@ -121,7 +121,7 @@ export type ActivityPackageT = {
     name: string,
     shortDesc: string,
     description: string,
-    exampleData: Array<any>
+    exampleData: { title: string, config?: Object, data?: any }[]
   },
   config: Object,
   configUI?: Object,

@@ -61,19 +61,27 @@ const deleteFromSchema = (schema, x) => {
   deleteFromSchemaRecursive(schema, toDeleteList);
 };
 
-const calculateSchema = (
+export const calculateSchema = (
   formData: Object = {},
   schema: Object,
-  UISchema: Object
-): Object => {
+  UISchema: Object,
+  oldHides?: string[] = [],
+  oldSchema?: Object
+): [Object, string[]] => {
   const hide = calculateHides(formData, schema, UISchema);
-  const newSchema = cloneDeep(schema);
-  hide.forEach(x => deleteFromSchema(newSchema, x));
-  return newSchema;
+  if (!isEqual(hide, oldHides)) {
+    const newSchema = cloneDeep(schema);
+    hide.forEach(x => deleteFromSchema(newSchema, x));
+    return [newSchema, hide];
+  } else {
+    return [oldSchema || schema, oldHides];
+  }
 };
 
 class EnhancedForm extends Component {
-  state: { schema?: Object };
+  state: { formData?: ?Object, schema?: Object };
+  hides: string[];
+  formData: ?Object;
 
   componentWillMount() {
     if (!this.props.formData && jsonSchemaDefaults(this.props.schema) !== {}) {
@@ -83,24 +91,61 @@ class EnhancedForm extends Component {
       });
     } else {
       this.updateSchema(this.props);
+      this.formData = this.props.formData;
+      this.setState({ formData: this.props.formData });
     }
   }
 
-  componentWillReceiveProps(nextProps: Object) {
-    if (!isEqual(this.props, nextProps)) {
-      this.setState({ schema: undefined });
-      this.updateSchema(nextProps);
+  componentDidUpdate = (prevProps: Object) => {
+    if (
+      !isEqual(this.props.schema, prevProps.schema) ||
+      !isEqual(this.props.uiSchema, prevProps.uiSchema)
+    ) {
+      this.hides = [];
+      this.formData = this.props.formData;
+      this.setState({ formData: this.props.formData });
+      this.updateSchema(this.props, true);
     }
-  }
+  };
 
-  updateSchema(props: Object) {
-    this.setState({
-      schema: calculateSchema(props.formData, props.schema, props.uiSchema)
-    });
-  }
+  onChange = (e: { formData: Object }) => {
+    this.formData = e.formData;
+    if (this.props.onChange) {
+      this.props.onChange(e);
+    }
+    this.updateSchema(this.props);
+  };
+
+  updateSchema = (props: Object, newSchema: boolean = false) => {
+    const [schema, hides] = calculateSchema(
+      this.formData || this.props.formData,
+      props.schema,
+      props.uiSchema,
+      this.hides || [],
+      (this.state && !newSchema && this.state.schema) || this.props.schema
+    );
+    this.hides = hides;
+    if (
+      JSON.stringify((this.state && this.state.schema) || {}) !==
+      JSON.stringify(schema)
+    ) {
+      this.setState({
+        schema,
+        formData: this.formData
+      });
+    }
+  };
+
   render() {
     return (
-      this.state.schema && <Form {...this.props} schema={this.state.schema} />
+      this.state.schema && (
+        <Form
+          {...this.props}
+          onChange={this.onChange}
+          schema={this.state.schema}
+          formData={this.state.formData}
+        />
+      )
     );
   }
 }
@@ -114,7 +159,6 @@ export const hideConditional = (
 ): Object => {
   if (UISchema) {
     const hides = calculateHides(formData, schema, UISchema);
-
     const newFormData = cloneDeep(formData);
     hides.forEach(hide => delete newFormData[hide]);
     return newFormData;

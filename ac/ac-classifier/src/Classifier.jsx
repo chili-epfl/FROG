@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Mousetrap from 'mousetrap';
 import styled from 'styled-components';
 import { withState } from 'recompose';
+import { findIndex } from 'lodash';
 
 import ShortcutPanel, { shortcuts } from './components/ShortcutPanel';
 import ObjectPanel from './components/ObjectPanel';
@@ -31,7 +32,8 @@ const FlexDiv = styled.div`
 
 export const getType = (obj: Object) => obj && (obj.url ? 'image' : obj.type);
 
-const isSupportedType = type => ['table', 'tree', 'image'].includes(type);
+const isSupportedType = type =>
+  ['table', 'tree', 'image', 'text'].includes(type);
 
 class Runner extends Component {
   state: { objectKeyPlus: string, objects: Object[], categories: string[] };
@@ -79,6 +81,8 @@ class Runner extends Component {
       })
     );
     Mousetrap.bind('s', this.assignSelect);
+    Mousetrap.bind('left', () => this.moveIndex(-1));
+    Mousetrap.bind('right', () => this.moveIndex(1));
   };
 
   unbindAllMoustrap = () => {
@@ -86,6 +90,8 @@ class Runner extends Component {
     shortcuts.split('').forEach(x => Mousetrap.unbind(x));
     // unbinds the selector key
     Mousetrap.unbind('s');
+    Mousetrap.unbind('left');
+    Mousetrap.unbind('right');
   };
 
   componentWillMount() {
@@ -103,6 +109,16 @@ class Runner extends Component {
     this.unbindAllMoustrap();
   }
 
+  moveIndex(direction: number) {
+    const index = findIndex(
+      this.state.objects,
+      x => x.key === this.state.objectKeyPlus
+    );
+    if (this.state.objects[index + direction]) {
+      this.props.setObjectKey(this.state.objects[index + direction].key);
+    }
+  }
+
   render() {
     const { activityData, data, dataFn, setObjectKey } = this.props;
     const { objectKeyPlus, objects, categories } = this.state;
@@ -111,16 +127,18 @@ class Runner extends Component {
         <h2>{activityData.config.title}</h2>
         {objectKeyPlus ? (
           <FlexDiv>
-            {<ObjectPanel obj={data[objectKeyPlus]} small={false} />}
-            <ShortcutPanel
-              {...{
-                categories,
-                dataFn,
-                data,
-                assignCategory: this.assignCategory,
-                objectKey: objectKeyPlus
-              }}
-            />
+            <ObjectPanel obj={data[objectKeyPlus]} small={false} />
+            {categories.length > 0 && (
+              <ShortcutPanel
+                {...{
+                  categories,
+                  dataFn,
+                  data,
+                  assignCategory: this.assignCategory,
+                  objectKey: objectKeyPlus
+                }}
+              />
+            )}
           </FlexDiv>
         ) : (
           <h1>Waiting for objects to classify</h1>
