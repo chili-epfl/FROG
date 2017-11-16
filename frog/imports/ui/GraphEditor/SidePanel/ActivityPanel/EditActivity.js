@@ -79,7 +79,8 @@ const EditActivity = props => {
                 activityId={activity._id}
                 value={graphActivity.title}
                 onChange={grp =>
-                  addActivity(activity.activityType, null, activity._id, grp)}
+                  addActivity(activity.activityType, null, activity._id, grp)
+                }
               />
             </h3>
           </div>
@@ -98,7 +99,8 @@ const EditActivity = props => {
                   props.store.ui.setShowPreview({
                     activityTypeId: activity.activityType,
                     config: activity.data
-                  })}
+                  })
+                }
               />
             )}
 
@@ -110,7 +112,9 @@ const EditActivity = props => {
             {`Type: ${activityType.meta.name}
                      (${activity.activityType})`}
             <br />
-            {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
+            {`Starting after ${graphActivity.startTime} min., running for ${
+              graphActivity.length
+            } min.`}
           </i>
         </font>
         {activity.plane === 2 && (

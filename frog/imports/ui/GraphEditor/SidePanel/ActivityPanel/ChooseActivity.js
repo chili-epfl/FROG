@@ -106,7 +106,8 @@ class ChooseActivityType extends Component {
                 onPreview={() =>
                   this.props.store.ui.setShowPreview({
                     activityTypeId: x.id
-                  })}
+                  })
+                }
                 object={x}
                 searchS={this.state.searchStr}
                 eventKey={x.id}

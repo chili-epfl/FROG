@@ -38,6 +38,18 @@ const Category = styled.span`
   font-weight: bold;
 `;
 
+const Star = (
+  <span
+    className="glyphicon glyphicon-star"
+    style={{
+      right: 0,
+      color: 'gold',
+      fontSize: 'x-large',
+      position: 'absolute'
+    }}
+  />
+);
+
 export default ({ objects, setObjectKey, objectKey }: Object) => (
   <Scroll>
     <Main style={{ width: 100 * objects.length + 'px' }}>
@@ -48,9 +60,8 @@ export default ({ objects, setObjectKey, objectKey }: Object) => (
           style={{ background: objectKey === obj.key ? 'lightblue' : 'none' }}
         >
           <ObjectPanel obj={obj} small />
-          <Category style={{ color: obj.selected ? 'gold' : 'black' }}>
-            {obj.category}
-          </Category>
+          <Category>{obj.category}</Category>
+          {obj.selected && Star}
         </Box>
       ))}
     </Main>

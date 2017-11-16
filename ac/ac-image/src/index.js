@@ -19,10 +19,9 @@ const mergeFunction = (object, dataFn) => {
     );
 
   if (object.data === null || object.data === {}) return;
-  const dataImgs = (Array.isArray(object.data)
+  const dataImgs = Array.isArray(object.data)
     ? object.data
-    : Object.keys(object.data).map(x => object.data[x])
-  ).filter(x => x.url !== undefined);
+    : Object.keys(object.data).map(x => object.data[x]);
   dataImgs.forEach(x =>
     dataFn.objInsert(
       {
