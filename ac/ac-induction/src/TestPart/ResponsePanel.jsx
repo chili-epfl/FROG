@@ -14,8 +14,8 @@ export default (props: Object) => {
     <div style={{ width: '100%', height: '80%' }}>
       <h3>This example is a {props.title}</h3>
       <Switch {...props} />
-      <Panel {...{ ...props, choice, show: true }} />
-      <Panel {...{ ...props, choice, show: false }} />
+      {props.feedback && <Panel {...{ ...props, choice, show: true }} />}
+      {props.feedback && <Panel {...{ ...props, choice, show: false }} />}
     </div>
   );
 };
