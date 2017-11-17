@@ -29,15 +29,22 @@ export default ({
     const caseAnswer = index.selectedChoice
       ? 0
       : index.realIndex % 2 === 0 ? 1 : 2;
-    const correction = Correction(
-      examples[index.realIndex].isIncorrect,
-      caseAnswer,
-      index.selectedProperties,
-      stringToArray(examples[index.realIndex].respectedProperties),
-      data.contradictories,
-      data.unnecessaries,
-      data.suffisants
-    );
+    const correction = feedback
+      ? Correction(
+          examples[index.realIndex].isIncorrect,
+          caseAnswer,
+          index.selectedProperties,
+          stringToArray(examples[index.realIndex].respectedProperties),
+          data.contradictories,
+          data.unnecessaries,
+          data.suffisants
+        )
+      : {
+          result:
+            index.selectedChoice === !examples[index.realIndex].isIncorrect
+              ? 0
+              : 2
+        };
     const newList = [...tmpList];
     newList[data.indexCurrent].correction = correction;
     dataFn.objInsert(
