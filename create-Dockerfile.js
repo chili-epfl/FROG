@@ -19,11 +19,11 @@ RUN mkdir -p frog/.meteor frog/server && \\
 COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
-RUN npm install -g yarn@1.2.1
+RUN npm install -g yarn@1.3.2
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 RUN mkdir -p frog-utils/src \\
 ${acopSrc}
-COPY initial_setup_wo_meteor.sh /usr/src/frog/
+COPY initial_setup_wo_meteor.sh package-scripts.js /usr/src/frog/
 
 COPY package.json yarn.lock .yarnrc .babelrc ./
 COPY *.sh ./
@@ -40,7 +40,7 @@ COPY frog /usr/src/frog/frog/
 RUN /usr/src/frog/initial_setup_wo_meteor.sh
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
-COPY *.js .*ignore *config package-scripts.js ./
+COPY *.js .*ignore *config ./
 
 EXPOSE 3000
 CMD [ "npm", "test" ]
