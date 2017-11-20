@@ -11,7 +11,13 @@ import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
-export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
+export default ({
+  activityData,
+  data,
+  dataFn,
+  logger,
+  groupingValue
+}: ActivityRunnerT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
   switch (data.parts && data.parts[data.indexPart]) {
@@ -29,7 +35,15 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Tests with feedback':
       page = (
         <Test
-          {...{ title, examples, properties, dataFn, data, logger }}
+          {...{
+            title,
+            examples,
+            properties,
+            dataFn,
+            data,
+            logger,
+            groupingValue
+          }}
           nbTest={0}
           nbTestFeedback={activityData.config.nbTestFeedback}
           feedback
@@ -47,7 +61,15 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Tests':
       page = (
         <Test
-          {...{ title, examples, properties, dataFn, data, logger }}
+          {...{
+            title,
+            examples,
+            properties,
+            dataFn,
+            data,
+            logger,
+            groupingValue
+          }}
           nbTest={activityData.config.nbTest}
           nbTestFeedback={0}
           feedback={false}
