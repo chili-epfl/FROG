@@ -33,4 +33,7 @@ cd "$FROG/frog"
 ln -s "$FROG"/node_modules/* node_modules/ 2>/dev/null
 ln -s "$FROG/.babelrc" . 2>/dev/null
 wait
+echo Initial setup complete, cd to './frog' and run 'meteor'. 
+echo Run 'npm watchAll' to begin recompiling code from all the 
+echo other packages.
 exit 0
