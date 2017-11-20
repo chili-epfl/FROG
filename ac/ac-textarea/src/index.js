@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { type ActivityPackageT, ReactiveText } from 'frog-utils';
+import { compact } from 'lodash';
 
 const meta = {
   name: 'Text area',
@@ -72,6 +73,19 @@ const mergeFunction = (object, dataFn) => {
   dataFn.objInsert(randSplit, 'randSplit');
 };
 
+const exportData = (configData, { payload }) => {
+  const csv = Object.keys(payload).map(line => {
+    const data = JSON.stringify(payload[line].data['text']);
+    if (data) {
+      return [line, data].join('\t');
+    }
+    return undefined;
+  });
+
+  const headers = ['instanceId', 'text'].join('\t');
+  return compact([headers, ...csv]).join('\n');
+};
+
 // the actual component that the student sees
 const ActivityRunner = ({ activityData, data, dataFn }) => {
   const conf = activityData.config;
@@ -109,5 +123,6 @@ export default ({
   ActivityRunner,
   Dashboard: null,
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  exportData
 }: ActivityPackageT);
