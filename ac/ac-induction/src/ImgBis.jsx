@@ -3,7 +3,7 @@
 import React from 'react';
 import { Img } from './StyledComponents';
 
-export default ({ url, color }: Object) => (
+export default ({ url, color = 'black' }: Object) => (
   <div
     style={{
       border: '2px solid',
@@ -13,6 +13,6 @@ export default ({ url, color }: Object) => (
       position: 'relative'
     }}
   >
-    <Img src={url} alt="" />
+    <Img src={url} />
   </div>
 );

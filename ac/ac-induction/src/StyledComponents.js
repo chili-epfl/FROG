@@ -1,6 +1,7 @@
 // @flow
-
+import React from 'react';
 import styled from 'styled-components';
+import { ImageReload } from 'frog-utils';
 
 export const Main = styled.div`
   height: 100%;
@@ -38,9 +39,13 @@ export const ExLine = styled.div`
   background-color: black;
 `;
 
-export const ExButton = styled.div`
-  position: absolute;
-  bottom: 50px;
+export const ExDiv = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const ExButton = styled.button`
   width: 150px;
 `;
 
@@ -73,11 +78,16 @@ export const DefinitionBox = styled.div`
   margin: auto;
 `;
 
-export const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+export const Img = (props: Object) => (
+  <ImageReload
+    {...props}
+    style={{
+      maxWidth: '100%',
+      maxHeight: '100%',
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    }}
+  />
+);
