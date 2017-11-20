@@ -30,7 +30,7 @@ do
 done
 
 cd "$FROG/frog"
-ln -s "$FROG"/node_modules/* node_modules/ 2>/dev/null
+ln -s "$FROG"/node_modules/* node_modules 2>/dev/null
 ln -s "$FROG/.babelrc" . 2>/dev/null
 wait
 echo Initial setup complete, cd to './frog' and run 'meteor'. 
