@@ -19,14 +19,14 @@ echo "Yarn: $YARN"
 
 cd frog-utils
 ln -s "$FROG/.babelrc" . 2>/dev/null
-../node_modules/.bin/nps build &
+../node_modules/.bin/nps build . 2>/dev/null &
 
 # install activities and operators packages
 for dir in "$FROG"/ac/ac-*/ "$FROG"/op/op-*/
 do
     cd "$dir"
     ln -s "$FROG/.babelrc" . 2>/dev/null
-    ../../node_modules/.bin/nps build &
+    ../../node_modules/.bin/nps build . 2>/dev/null &
 done
 
 cd "$FROG/frog"
