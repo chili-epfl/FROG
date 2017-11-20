@@ -2,8 +2,9 @@ const { sync } = require('find-up');
 
 const dir = sync('.git');
 const babel = watch =>
-  `babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist ${watch &&
-    '--watch '}&  flow-copy-source ${watch && '--watch '}src dist &`;
+  `babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist ${
+    watch ? '--watch ' : ''
+  }&  flow-copy-source ${watch ? '--watch ' : ''}src dist &`;
 const watch = babel(true);
 const build = babel(false);
 
