@@ -1,8 +1,11 @@
 const { sync } = require('find-up');
 
 const dir = sync('.git');
-const watch =
-  'babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist --watch &  flow-copy-source --watch src dist &';
+const babel = watch =>
+  `babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist ${watch &&
+    '--watch '}&  flow-copy-source ${watch && '--watch '}src dist &`;
+const watch = babel(true);
+const build = babel(false);
 
 const watchAll = `
 cd ${dir}/..
@@ -23,16 +26,17 @@ const fromRoot = cmd =>
 
 module.exports = {
   scripts: {
-    watch,
-    watchAll,
+    build,
+    eslintTest: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
+    fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
+    flowTest: fromRoot('flow'),
+    jest: fromRoot('jest'),
+    jestWatch: fromRoot('jest --watch'),
     test: fromRoot(
       'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
     ),
-    fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    eslintTest: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    jest: fromRoot('jest'),
-    jestWatch: fromRoot('jest --watch'),
-    flowTest: fromRoot('flow')
+    watch,
+    watchAll
   },
   options: {
     silent: true
