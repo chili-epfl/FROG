@@ -12,7 +12,7 @@ Picker.middleware(bodyParser.json());
 
 Picker.filter(req => req.method === 'POST').route(
   '/lti/:slug',
-  (params, request, response) => {
+  (params, request, response, next) => {
     let user;
     try {
       user = request.body.lis_person_name_full;
@@ -33,11 +33,11 @@ Picker.filter(req => req.method === 'POST').route(
     Meteor.users.update(userId, { $set: { username: user, userid: id } });
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     Accounts._insertLoginToken(userId, stampedLoginToken);
-    response.writeHead(301, {
-      Location: `/${params.slug}`
+    InjectData.pushData(response, 'login', {
+      token: stampedLoginToken.token,
+      slug: params.slug
     });
-    InjectData.pushData(response, 'login', { token: stampedLoginToken.token });
-    response.end();
+    next();
   }
 );
 
