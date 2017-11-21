@@ -63,7 +63,7 @@ const subscriptionCallback = (error, response, setState) => {
 };
 
 const FROGRouter = withRouter(
-  class Router extends Component {
+  class RawRouter extends Component {
     state: {
       mode: 'ready' | 'loggingIn' | 'error' | 'waiting' | 'studentlist',
       studentlist?: string[]
