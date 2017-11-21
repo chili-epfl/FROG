@@ -4,6 +4,7 @@ import { uuid } from 'frog-utils';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
+import { InjectData } from 'meteor/staringatlights:inject-data';
 import fs from 'fs';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
@@ -30,9 +31,12 @@ Picker.filter(req => req.method === 'POST').route(
       id: user
     });
     Meteor.users.update(userId, { $set: { username: user, userid: id } });
+    const stampedLoginToken = Accounts._generateStampedLoginToken();
+    Accounts._insertLoginToken(userId, stampedLoginToken);
     response.writeHead(301, {
-      Location: `/${params.slug}?login=${encodeURI(user)}`
+      Location: `/${params.slug}`
     });
+    InjectData.pushData(response, 'login', { token: stampedLoginToken.token });
     response.end();
   }
 );

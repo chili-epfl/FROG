@@ -1,9 +1,10 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import { InjectData } from 'meteor/staringatlights:inject-data';
+import { Accounts } from 'meteor/accounts-base';
 import path from 'path';
 import Loadable from 'react-loadable';
-import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
@@ -16,9 +17,9 @@ import {
 import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
+
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
-
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 
@@ -96,7 +97,26 @@ class FROGRouter extends Component {
     });
   };
 
+  tokenLogin(token) {
+    this.setState({ mode: 'loggingIn' });
+    Accounts.loginWithToken(token, err => {
+      if (err) {
+        Accounts._unstoreLoginToken();
+        this.setState({ mode: 'error' });
+      } else {
+        Meteor.subscribe('userData', {
+          onReady: () => this.setState({ mode: 'ready' })
+        });
+      }
+    });
+  }
+
   update() {
+    InjectData.getData('login', data => {
+      if (data && data.token) {
+        this.tokenLogin(data.token);
+      }
+    });
     const query = queryToObject(this.props.location.search.slice(1));
     const hasLogin = query.login;
 
@@ -124,17 +144,7 @@ class FROGRouter extends Component {
 
       if (!hasLogin && this.state.mode !== 'ready') {
         if (Accounts._storedLoginToken()) {
-          this.setState({ mode: 'loggingIn' });
-          Accounts.loginWithToken(Accounts._storedLoginToken(), err => {
-            if (err) {
-              Accounts._unstoreLoginToken();
-              this.setState({ mode: 'error' });
-            } else {
-              Meteor.subscribe('userData', {
-                onReady: () => this.setState({ mode: 'ready' })
-              });
-            }
-          });
+          this.tokenLogin(Accounts._storedLoginToken());
         } else if (this.props.match.params.slug) {
           this.setState({ mode: 'loggingIn' });
           Meteor.call(
