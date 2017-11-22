@@ -16,28 +16,31 @@ export default (obj: Object, dataFn: Object) => {
     unnecessaryProperties,
     examples
   } = obj.config;
-  const parts = partStr.split(',').map((x,i) => {
+  const parts = partStr.split(',').map((x, i) => {
     const n = Number(x.slice(1));
     switch (x[0]) {
       case 'e':
-        dataFn.objInsert(genList(examples, n), 'listIndexEx'+(i+1));
-        return ['Examples',n];
+        dataFn.objInsert(genList(examples, n), 'listIndexEx' + (i + 1));
+        return ['Examples', n];
       case 'd':
-        return ['Definition',1];
+        return ['Definition', 1];
       case 'f':
         dataFn.objInsert(
           genList(examples, n),
-          'listIndexTestWithFeedback'+(i+1)
+          'listIndexTestWithFeedback' + (i + 1)
         );
-        return ['Tests with feedback',n];
+        return ['Tests with feedback', n];
       case 't':
-        dataFn.objInsert(genList(examples, n), 'listIndexTest'+(i+1));
-        return ['Tests',n];
+        dataFn.objInsert(genList(examples, n), 'listIndexTest' + (i + 1));
+        return ['Tests', n];
       default:
-        return null
+        return null;
     }
   });
-  dataFn.objInsert([['Presentation',1]].concat(parts).concat([['End',1]]), 'parts');
+  dataFn.objInsert(
+    [['Presentation', 1]].concat(parts).concat([['End', 1]]),
+    'parts'
+  );
 
   const suffisants = [];
   const tmp = new Set();
@@ -64,8 +67,8 @@ export default (obj: Object, dataFn: Object) => {
 const genList = (tab: Array<any>, n: number) => {
   const T = shuffle(tab.filter(x => !x.isIncorrect));
   const F = shuffle(tab.filter(x => x.isIncorrect));
-  let tmp = T.slice(-1 * Math.min(T.length, n / 2)).concat(
-    F.slice(-1 * Math.min(F.length, n / 2))
+  let tmp = T.slice(T.length - Math.min(T.length, n / 2)).concat(
+    F.slice(F.length - Math.min(F.length, n / 2))
   );
   for (let i = 0; tmp.length < n / tab.length + 1; i += 1)
     tmp = tmp.concat(shuffle(tab));
@@ -73,6 +76,5 @@ const genList = (tab: Array<any>, n: number) => {
     realIndex: tab.indexOf(x),
     selectedProperties: []
   }));
-  tmp = tmp.slice(-1 * n);
-  return shuffle(tmp);
+  return shuffle(tmp.slice(-1 * n));
 };

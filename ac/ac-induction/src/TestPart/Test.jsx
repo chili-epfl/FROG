@@ -21,8 +21,8 @@ export default ({
   logger
 }: Object) => {
   const tmpList = feedback
-    ? data['listIndexTestWithFeedback'+data.indexPart]
-    : data['listIndexTest'+data.indexPart];
+    ? data['listIndexTestWithFeedback' + data.indexPart]
+    : data['listIndexTest' + data.indexPart];
 
   const clickHandler = () => {
     const index = tmpList[data.indexCurrent];
@@ -49,7 +49,9 @@ export default ({
     newList[data.indexCurrent].correction = correction;
     dataFn.objInsert(
       newList,
-      feedback ? ('listIndexTestWithFeedback'+data.indexPart) : ('listIndexTest'+data.indexPart)
+      feedback
+        ? 'listIndexTestWithFeedback' + data.indexPart
+        : 'listIndexTest' + data.indexPart
     );
     if (feedback) {
       dataFn.objInsert(true, 'feedbackOpen');

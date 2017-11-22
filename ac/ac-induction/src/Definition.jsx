@@ -4,13 +4,7 @@ import React from 'react';
 
 import { ExDiv, ExButton, DefinitionBox } from './StyledComponents';
 
-export default ({
-  title,
-  definition,
-  dataFn,
-  data,
-  logger
-}: Object) => {
+export default ({ title, definition, dataFn, data, logger }: Object) => {
   const tmp = data.parts.length - data.indexPart - 1;
   return (
     <div style={{ margin: '25px' }}>

@@ -37,11 +37,7 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
       );
       break;
     case 'Definition':
-      page = (
-        <Definition
-          {...{ title, definition, dataFn, data, logger }}
-        />
-      );
+      page = <Definition {...{ title, definition, dataFn, data, logger }} />;
       break;
     case 'Tests':
       page = (

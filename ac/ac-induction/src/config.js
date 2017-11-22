@@ -9,7 +9,7 @@ export default {
     },
     partStr: {
       type: 'string',
-      title: 'List parts followed by nb (ex: \'f3,d,e4,t10,f5\')'
+      title: "List parts followed by nb (ex: 'f3,d,e4,t10,f5')"
     },
     definition: {
       type: 'string',
