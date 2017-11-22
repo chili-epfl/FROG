@@ -253,4 +253,15 @@ export default class uiStore {
   get rightEdgeTime(): number {
     return pxToTime(this.panOffset + this.panBoxSize * this.scale, this.scale);
   }
+
+  @computed
+  get furthestObject(): number {
+    return Math.ceil(
+      Math.max(
+        store.operatorStore.furthestOperator || 0,
+        store.activityStore.furthestActivity || 0,
+        30
+      )
+    );
+  }
 }

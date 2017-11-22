@@ -70,7 +70,12 @@ export default class Store {
   browserHistory: any;
   url: string;
 
-  @observable graphDuration: number = 120;
+  @observable _graphDuration: number = 120;
+
+  @computed
+  get graphDuration(): number {
+    return this.ui.isSvg ? this.ui.furthestObject : this._graphDuration;
+  }
 
   set state(newState: StateT) {
     this._state = newState;
@@ -104,11 +109,11 @@ export default class Store {
     if (duration && duration >= 30 && duration <= 1200) {
       const oldPanTime = this.ui.panTime;
       // changes the scale on duration change
-      this.ui.setScaleValue(this.ui.scale / this.graphDuration * duration);
-      this.graphDuration = duration;
+      this._graphDuration = duration;
+      this.ui.setScaleValue(this.ui.scale / this.graphDuration);
       const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1);
       this.ui.panDelta(needPanDelta);
-      Graphs.update(this.graphId, { $set: { duration: this.graphDuration } });
+      Graphs.update(this.graphId, { $set: { duration: this._graphDuration } });
     }
   };
 
@@ -303,7 +308,7 @@ export default class Store {
         graphId: this.graphId
       })),
       graphId: this.graphId,
-      graphDuration: this.graphDuration
+      graphDuration: this._graphDuration
     };
   }
 }

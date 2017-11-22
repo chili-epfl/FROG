@@ -2,6 +2,7 @@
 
 import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
+
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, timeToPxScreen, between } from '../utils';
