@@ -7,6 +7,10 @@ export default {
       type: 'string',
       title: 'Title'
     },
+    shuffle: {
+      type: 'boolean',
+      title: 'Shuffle questions and responses for each student?'
+    },
     guidelines: {
       type: 'string',
       title: 'Guidelines'

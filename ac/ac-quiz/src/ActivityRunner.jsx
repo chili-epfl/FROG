@@ -4,6 +4,7 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 import styled from 'styled-components';
 import Latex from 'react-latex';
+import { shuffle } from 'lodash';
 import type { ActivityRunnerT } from 'frog-utils';
 
 import LatexWidget from './LatexWidget';
@@ -45,28 +46,34 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   };
 
   const uiSchema = {};
+  const condShuffle = list =>
+    activityData.config.shuffle ? shuffle(list) : list;
 
-  activityData.config.questions
-    .filter(q => q.question && q.answers)
-    .forEach((q, i) => {
-      schema.properties['question ' + i] = {
-        type: 'number',
-        title: 'Question ' + (i + 1),
-        enum: q.answers.map((_, k) => k),
-        enumNames: q.answers
+  const items = condShuffle(
+    activityData.config.questions
+      .filter(q => q.question && q.answers)
+      .map((x, i) => [x, i])
+  );
+  items.forEach(([q, i], reali) => {
+    const answers = condShuffle(q.answers);
+    schema.properties['question ' + i] = {
+      type: 'number',
+      title: 'Question ' + (reali + 1),
+      enum: answers.map((_, k) => k),
+      enumNames: answers
+    };
+    uiSchema['question ' + i] = {
+      'ui:widget': 'latexWidget',
+      'ui:description': q.question
+    };
+    if (activityData.config.justify) {
+      schema.properties['question ' + i + ' justify'] = {
+        type: 'string',
+        title: ' ',
+        description: 'Justify your answer'
       };
-      uiSchema['question ' + i] = {
-        'ui:widget': 'latexWidget',
-        'ui:description': q.question
-      };
-      if (activityData.config.justify) {
-        schema.properties['question ' + i + ' justify'] = {
-          type: 'string',
-          title: ' ',
-          description: 'Justify your answer'
-        };
-      }
-    });
+    }
+  });
 
   const widgets = { latexWidget: LatexWidget };
   const fields = { DescriptionField };

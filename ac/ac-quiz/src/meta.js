@@ -94,6 +94,11 @@ export const meta = {
       config: exampleConfig,
       title: 'Sample MCQ',
       activityData: {}
+    },
+    {
+      config: { ...exampleConfig, shuffle: true },
+      title: 'Sample MCQ with shuffling options',
+      activityData: {}
     }
   ]
 };
