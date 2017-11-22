@@ -31,7 +31,7 @@ export default ({
       dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
     }
   };
-  const { result, show, propertiesIndex } = data.listIndexTestWithFeedback[
+  const { result, show, propertiesIndex } = data['listIndexTestWithFeedback'+data.indexPart][
     data.indexCurrent
   ].correction || {
     result: 2,
@@ -66,7 +66,7 @@ export default ({
               {result !== 1 && (
                 <div>
                   {'You have selected that this image was ' +
-                    data.listIndexTestWithFeedback[data.indexCurrent]
+                    data['listIndexTestWithFeedback'+data.indexPart][data.indexCurrent]
                       .selectedChoice +
                     " but it wasn't"}
                 </div>
@@ -74,7 +74,7 @@ export default ({
               <div>
                 You have selected the following properties :
                 <ul>
-                  {data.listIndexTestWithFeedback[
+                  {data['listIndexTestWithFeedback'+data.indexPart][
                     data.indexCurrent
                   ].selectedProperties.map(x => (
                     <li key={x}>{properties[x]}</li>
@@ -95,7 +95,7 @@ export default ({
           <ImgBis
             url={
               examples[
-                data.listIndexTestWithFeedback[data.indexCurrent].realIndex
+                data['listIndexTestWithFeedback'+data.indexPart][data.indexCurrent].realIndex
               ].url
             }
           />
@@ -105,7 +105,7 @@ export default ({
         <ChooseImg
           {...{ show, propertiesIndex, examples }}
           currentIndex={
-            data.listIndexTestWithFeedback[data.indexCurrent].realIndex
+            data['listIndexTestWithFeedback'+data.indexPart][data.indexCurrent].realIndex
           }
         />
       )}

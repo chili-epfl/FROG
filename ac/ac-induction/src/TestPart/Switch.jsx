@@ -18,7 +18,7 @@ const TFButton = ({ type, choice, onClick }) => (
 export default ({ tmpList, feedback, data, dataFn }: Object) => {
   const onClick = type => {
     const path = [
-      feedback ? 'listIndexTestWithFeedback' : 'listIndexTest',
+      feedback ? ('listIndexTestWithFeedback'+data.indexPart) : ('listIndexTest'+data.indexPart),
       data.indexCurrent
     ];
     dataFn.objInsert(type, [...path, 'selectedChoice']);

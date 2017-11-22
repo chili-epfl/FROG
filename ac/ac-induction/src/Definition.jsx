@@ -6,7 +6,6 @@ import { ExDiv, ExButton, DefinitionBox } from './StyledComponents';
 
 export default ({
   title,
-  hasTest,
   definition,
   dataFn,
   data,
@@ -21,9 +20,7 @@ export default ({
           (tmp > 1 ? tmp + ' first parts' : 'first part') +
           ' of this activity.'}
         <br />
-        {hasTest
-          ? 'Before you start the last one (the tests without feedback), here is the definition of the concept to make sure you understood it well.'
-          : 'The final definition of the concept is the following:'}
+        The final definition of the concept is the following:
       </p>
       <DefinitionBox>{definition}</DefinitionBox>
       <ExDiv style={{ position: 'absolute', bottom: '20px', width: '100%' }}>

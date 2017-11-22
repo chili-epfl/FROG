@@ -12,20 +12,12 @@ export default ({ title, dataFn, data, logger }: Object) => (
       <br />
       You are going to complete the following activities:
       <ol>
-        {data.parts.filter(p => p !== 'Presentation').map(x => {
-          const count =
-            x === 'Examples'
-              ? data.listIndexEx.length
-              : x === 'Tests with feedback'
-                ? data.listIndexTestWithFeedback.length
-                : x === 'Tests' ? data.listIndexTest.length : null;
-          return (
-            <li key={x}>
-              {x}
-              {count && ' (' + count + ')'}
+        {data.parts.filter(p => p !== 'Presentation').map((x,i) =>
+            <li key={x+i.toString()}>
+              {x[0]}
+              {x[1] > 1 && ' (' + x[1] + ')'}
             </li>
-          );
-        })}
+        )}
       </ol>
     </div>
     <PresButton

@@ -10,35 +10,34 @@ export default (obj: Object, dataFn: Object) => {
   dataFn.objInsert(true, 'testChoice');
 
   const {
-    hasExamples,
-    nbExamples,
-    hasTestWithFeedback,
-    nbTestFeedback,
-    hasDefinition,
-    hasTest,
-    nbTest,
+    partStr,
     suffisantSets,
     contradictoryProperties,
     unnecessaryProperties,
     examples
   } = obj.config;
-
-  if (hasExamples)
-    dataFn.objInsert(genList(examples, nbExamples), 'listIndexEx');
-  if (hasTestWithFeedback)
-    dataFn.objInsert(
-      genList(examples, nbTestFeedback),
-      'listIndexTestWithFeedback'
-    );
-  if (hasTest) dataFn.objInsert(genList(examples, nbTest), 'listIndexTest');
-
-  const parts = ['Presentation'];
-  if (hasExamples) parts.push('Examples');
-  if (hasTestWithFeedback) parts.push('Tests with feedback');
-  if (hasDefinition) parts.push('Definition');
-  if (hasTest) parts.push('Tests');
-  parts.push('End');
-  dataFn.objInsert(parts, 'parts');
+  const parts = partStr.split(',').map((x,i) => {
+    const n = Number(x.slice(1));
+    switch (x[0]) {
+      case 'e':
+        dataFn.objInsert(genList(examples, n), 'listIndexEx'+i);
+        return ['Examples',n];
+      case 'd':
+        return ['Definition',1];
+      case 'f':
+        dataFn.objInsert(
+          genList(examples, n),
+          'listIndexTestWithFeedback'+(i+1)
+        );
+        return ['Tests with feedback',n];
+      case 't':
+        dataFn.objInsert(genList(examples, n), 'listIndexTest'+(i+1));
+        return ['Tests',n];
+      default:
+        return null
+    }
+  });
+  dataFn.objInsert([['Presentation',1]].concat(parts).concat([['End',1]]), 'parts');
 
   const suffisants = [];
   const tmp = new Set();

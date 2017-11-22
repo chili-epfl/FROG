@@ -14,7 +14,7 @@ import End from './End';
 export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
-  switch (data.parts && data.parts[data.indexPart]) {
+  switch (data.parts && data.parts[data.indexPart][0]) {
     case 'Presentation':
       page = <Presentation {...{ title, dataFn, data, logger }} />;
       break;
@@ -22,7 +22,7 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
       page = (
         <Examples
           {...{ title, examples, dataFn, data, logger }}
-          nbExamples={activityData.config.nbExamples}
+          nbExamples={data.parts[data.indexPart][1]}
         />
       );
       break;
@@ -31,7 +31,7 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
         <Test
           {...{ title, examples, properties, dataFn, data, logger }}
           nbTest={0}
-          nbTestFeedback={activityData.config.nbTestFeedback}
+          nbTestFeedback={data.parts[data.indexPart][1]}
           feedback
         />
       );
@@ -40,7 +40,6 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
       page = (
         <Definition
           {...{ title, definition, dataFn, data, logger }}
-          hasTest={activityData.config.hasTest}
         />
       );
       break;
@@ -48,7 +47,7 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
       page = (
         <Test
           {...{ title, examples, properties, dataFn, data, logger }}
-          nbTest={activityData.config.nbTest}
+          nbTest={data.parts[data.indexPart][1]}
           nbTestFeedback={0}
           feedback={false}
         />

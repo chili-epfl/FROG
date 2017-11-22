@@ -27,13 +27,13 @@ export default ({
     <ExMain>
       <ExContainer>
         <ImgBis
-          url={examples[data.listIndexEx[data.indexCurrent].realIndex].url}
+          url={examples[data['listIndexEx'+data.indexPart][data.indexCurrent].realIndex].url}
         />
       </ExContainer>
       <ExContainer
         style={{
           backgroundColor: examples[
-            data.listIndexEx[data.indexCurrent].realIndex
+            data['listIndexEx'+data.indexPart][data.indexCurrent].realIndex
           ].isIncorrect
             ? 'rgba(204, 0, 0, 0.5)'
             : 'rgba(0,153,0,0.15)'
@@ -42,7 +42,7 @@ export default ({
         <ExDiv style={{ height: '85%' }}>
           <h3>
             {'This ' +
-              (examples[data.listIndexEx[data.indexCurrent].realIndex]
+              (examples[data['listIndexEx'+data.indexPart][data.indexCurrent].realIndex]
                 .isIncorrect
                 ? "is not a '"
                 : "is a '") +
