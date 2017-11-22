@@ -58,19 +58,22 @@ export default (obj: Object, dataFn: Object) => {
     }
   });
   dataFn.objInsert(suffisants, 'suffisants');
-
   dataFn.objInsert(stringToArray(contradictoryProperties), 'contradictories');
   dataFn.objInsert(stringToArray(unnecessaryProperties), 'unnecessaries');
 };
 
 const genList = (tab: Array<any>, n: number) => {
-  let tmp = [];
-  for (let i = 0; i < n / tab.length + 1; i += 1)
+  const T = shuffle(tab.filter(x => !x.isIncorrect));
+  const F = shuffle(tab.filter(x => x.isIncorrect));
+  let tmp = T.slice(-1 * Math.min(T.length, n / 2)).concat(
+    F.slice(-1 * Math.min(F.length, n / 2))
+  );
+  for (let i = 0; tmp.length < n / tab.length + 1; i += 1)
     tmp = tmp.concat(shuffle(tab));
   tmp = tmp.map(x => ({
     realIndex: tab.indexOf(x),
     selectedProperties: []
   }));
-
-  return tmp.slice(tmp.length - n);
+  tmp = tmp.slice(-1 * n);
+  return shuffle(tmp);
 };
