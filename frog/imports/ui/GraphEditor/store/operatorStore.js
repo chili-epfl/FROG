@@ -1,6 +1,7 @@
 // @flow
 import { computed, action, observable } from 'mobx';
-import { omit } from 'lodash';
+import { omit, maxBy } from 'lodash';
+
 import { store } from './index';
 import Operator from './operator';
 
@@ -47,5 +48,11 @@ export default class OperatorStore {
   @computed
   get history(): Array<any> {
     return this.all.map(x => ({ ...omit(x, 'over') }));
+  }
+
+  @computed
+  get furthestOperator(): number {
+    const op = maxBy(this.all, x => x.time);
+    return op && op.time + 1;
   }
 }
