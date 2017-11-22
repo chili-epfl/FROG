@@ -22,7 +22,8 @@ export default ({
       dataFn.objInsert(data.indexCurrent + 1, 'indexCurrent');
     }
   };
-
+  console.log('listIndexEx'+data.indexPart);
+  console.log(data);
   return (
     <ExMain>
       <ExContainer>

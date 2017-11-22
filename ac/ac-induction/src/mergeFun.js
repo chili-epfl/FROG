@@ -20,7 +20,7 @@ export default (obj: Object, dataFn: Object) => {
     const n = Number(x.slice(1));
     switch (x[0]) {
       case 'e':
-        dataFn.objInsert(genList(examples, n), 'listIndexEx'+i);
+        dataFn.objInsert(genList(examples, n), 'listIndexEx'+(i+1));
         return ['Examples',n];
       case 'd':
         return ['Definition',1];
