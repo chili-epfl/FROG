@@ -142,7 +142,7 @@ const RawEditActivity = ({
       />
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
       {advancedOpen && [
-        <div>
+        <div key="stream">
           Select streaming target
           <StreamSelect
             activity={activity}
@@ -154,7 +154,7 @@ const RawEditActivity = ({
             }
           />
         </div>,
-        <FileForm />
+        <FileForm key="fileform" />
       ]}
     </div>
   );
