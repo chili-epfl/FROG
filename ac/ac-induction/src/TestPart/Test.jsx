@@ -18,8 +18,7 @@ export default ({
   feedback,
   dataFn,
   data,
-  logger,
-  groupingValue
+  logger
 }: Object) => {
   const tmpList = feedback
     ? data.listIndexTestWithFeedback
@@ -47,13 +46,13 @@ export default ({
     );
     if (feedback) {
       logger({
-        type: 'TestFB:' + groupingValue,
+        type: 'Answer TestFB',
         value: '' + correction.result
       });
       dataFn.objInsert(true, 'feedbackOpen');
     } else {
       logger({ type: 'subPart', value: 'Test' });
-      logger({ type: 'Test:' + groupingValue, value: '' + correction.result });
+      logger({ type: 'Answer Test:', value: '' + correction.result });
       if (data.indexCurrent === nbTest - 1) {
         logger({ type: 'part', value: 'Test' });
         dataFn.objInsert(0, 'indexCurrent');

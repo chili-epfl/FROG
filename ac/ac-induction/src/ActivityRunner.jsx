@@ -11,13 +11,7 @@ import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
-export default ({
-  activityData,
-  data,
-  dataFn,
-  logger,
-  groupingValue
-}: ActivityRunnerT) => {
+export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
   switch (data.parts && data.parts[data.indexPart]) {
@@ -41,8 +35,7 @@ export default ({
             properties,
             dataFn,
             data,
-            logger,
-            groupingValue
+            logger
           }}
           nbTest={0}
           nbTestFeedback={activityData.config.nbTestFeedback}
@@ -67,8 +60,7 @@ export default ({
             properties,
             dataFn,
             data,
-            logger,
-            groupingValue
+            logger
           }}
           nbTest={activityData.config.nbTest}
           nbTestFeedback={0}
