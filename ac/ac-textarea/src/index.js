@@ -49,7 +49,7 @@ const config = {
       title: 'Guidelines',
       type: 'string'
     },
-    default: {
+    prompt: {
       title: 'Default prompt',
       type: 'string'
     },
@@ -65,12 +65,6 @@ const mergeFunction = (object, dataFn) => {
   if (object.data && object.data.text) {
     dataFn.objInsert(object.data.text, 'text');
   }
-
-  // In case the students does not receive a prompt or is randomly selected
-  // The header will receive the default prompt from the config
-  const randSplit = Math.random() > 0.667;
-  dataFn.objInsert(!object.config.prompt || randSplit, 'defaultPrompt');
-  dataFn.objInsert(randSplit, 'randSplit');
 };
 
 const exportData = (configData, { payload }) => {
@@ -87,7 +81,7 @@ const exportData = (configData, { payload }) => {
 };
 
 // the actual component that the student sees
-const ActivityRunner = ({ activityData, data, dataFn }) => {
+const ActivityRunner = ({ activityData, dataFn }) => {
   const conf = activityData.config;
   const header = conf && [
     conf.title && <h1 key="title">{conf.title}</h1>,
@@ -97,9 +91,7 @@ const ActivityRunner = ({ activityData, data, dataFn }) => {
       </p>
     ),
     <ul key="prompt" style={{ fontSize: '20px' }}>
-      {data.defaultPrompt
-        ? conf.default && <li key="default">{conf.default}</li>
-        : conf.prompt && conf.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
+      {conf.prompt && conf.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
     </ul>
   ];
   return [
