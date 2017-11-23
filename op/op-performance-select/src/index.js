@@ -41,7 +41,7 @@ const configUI = {
 
 const operator = (configData, object) => {
   const isHighPerformer = configData.use_percentage
-    ? (actual, max) => actual / max >= configData.min_percentage
+    ? (actual, max) => actual / max >= configData.min_percentage / 100
     : (actual, _) => actual >= configData.min_correct;
 
   const data = object.activityData;
@@ -49,7 +49,9 @@ const operator = (configData, object) => {
   const low = [];
   if (data.structure === 'individual') {
     Object.keys(data.payload).forEach(student => {
-      if (
+      if (!data.payload[student].data) {
+        low.push(student);
+      } else if (
         isHighPerformer(
           data.payload[student].data.correctCount,
           data.payload[student].data.maxCorrect

@@ -110,18 +110,14 @@ const checkActivity = (activityId, operators, connections, userid) => {
   if (!struct) {
     return true;
   }
-  console.log(struct);
 
   if (struct.list && !struct.list[activityId]) {
     return true;
   }
-  console.log('still here');
 
   const cond = struct.all ? struct.all : struct.list[activityId];
   if (cond.structure === 'individual') {
-    console.log('individual');
     const payload = cond.payload[userid];
-    console.log('payload');
     if (!payload && cond.mode === 'include') {
       return false;
     }
