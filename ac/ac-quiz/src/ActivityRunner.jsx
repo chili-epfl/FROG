@@ -52,18 +52,20 @@ const Quiz = ({
   };
 
   const uiSchema = {};
-  const condShuffle = list =>
-    activityData.config.shuffle
-      ? seededShuffle.shuffle(list, userInfo.id, true)
+  const condShuffle = (list, type, salt) =>
+    [type, 'both'].includes(activityData.config.shuffle)
+      ? seededShuffle.shuffle(list, userInfo.id + salt, true)
       : list;
 
   const items = condShuffle(
     activityData.config.questions
       .filter(q => q.question && q.answers)
-      .map((x, i) => [x, i])
+      .map((x, i) => [x, i]),
+    'questions',
+    ''
   );
   items.forEach(([q, i], reali) => {
-    const answers = condShuffle(q.answers.map((x, y) => [x, y]));
+    const answers = condShuffle(q.answers.map((x, y) => [x, y]), 'answers', i);
     schema.properties['question ' + i] = {
       type: 'number',
       title: 'Question ' + (reali + 1),

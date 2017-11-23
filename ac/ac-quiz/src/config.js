@@ -8,8 +8,9 @@ export default {
       title: 'Title'
     },
     shuffle: {
-      type: 'boolean',
-      title: 'Shuffle questions and responses for each student?'
+      type: 'string',
+      title: 'Shuffle questions, answers or both for each student?',
+      enum: ['none', 'answers', 'questions', 'both']
     },
     guidelines: {
       type: 'string',
