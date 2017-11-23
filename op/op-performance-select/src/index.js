@@ -1,7 +1,6 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
-import type { productOperatorT } from 'frog-utils';
+import type { controlOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Select activity based on past performance',
