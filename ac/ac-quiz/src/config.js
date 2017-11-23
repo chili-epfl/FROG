@@ -7,6 +7,12 @@ export default {
       type: 'string',
       title: 'Title'
     },
+    shuffle: {
+      type: 'string',
+      title: 'Shuffle questions, answers or both for each student?',
+      enum: ['none', 'answers', 'questions', 'both'],
+      default: 'none'
+    },
     guidelines: {
       type: 'string',
       title: 'Guidelines'
