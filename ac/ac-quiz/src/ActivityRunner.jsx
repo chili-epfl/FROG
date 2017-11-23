@@ -52,19 +52,21 @@ const Quiz = ({
   };
 
   const uiSchema = {};
+
   const condShuffle = (list, type, salt) =>
     [type, 'both'].includes(activityData.config.shuffle)
       ? seededShuffle.shuffle(list, userInfo.id + salt, true)
       : list;
 
-  const items = condShuffle(
+  const questions = condShuffle(
     activityData.config.questions
       .filter(q => q.question && q.answers)
       .map((x, i) => [x, i]),
     'questions',
     ''
   );
-  items.forEach(([q, i], reali) => {
+
+  questions.forEach(([q, i], reali) => {
     const answers = condShuffle(q.answers.map((x, y) => [x, y]), 'answers', i);
     schema.properties['question ' + i] = {
       type: 'number',
@@ -90,7 +92,9 @@ const Quiz = ({
   const formData = data.form;
   const onSubmit = e => {
     logger({ type: 'submit', payload: e.formData });
-    dataFn.objInsert(true, 'completed');
+    if (data.form && Object.keys(data.form).length >= questions.length) {
+      dataFn.objInsert(true, 'completed');
+    }
   };
   const onChange = e => {
     dataFn.objInsert(e.formData, 'form');
