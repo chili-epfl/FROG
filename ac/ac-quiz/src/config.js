@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+export const config = {
   type: 'object',
   properties: {
     title: {
@@ -17,6 +17,11 @@ export default {
       type: 'string',
       title: 'Guidelines'
     },
+    justify: {
+      type: 'boolean',
+      title: 'Students must justify their responses'
+    },
+    hasAnswers: { type: 'boolean', title: 'Provide correct answers' },
     questions: {
       type: 'array',
       title: 'Questions',
@@ -29,18 +34,24 @@ export default {
           },
           answers: {
             type: 'array',
-            title: 'Answers',
+            title: 'Choices',
             items: {
-              type: 'string',
-              title: 'answer'
+              type: 'object',
+              properties: {
+                choice: {
+                  type: 'string',
+                  title: 'choice'
+                },
+                isCorrect: { type: 'boolean', title: 'Correct answer' }
+              }
             }
           }
         }
       }
-    },
-    justify: {
-      type: 'boolean',
-      title: 'Students must justify their answers'
     }
   }
+};
+
+export const configUI = {
+  'questions.answers.correct': { conditional: 'hasAnswers' }
 };
