@@ -5,6 +5,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
+import { uuid } from 'frog-utils';
 
 import { startShareDB } from './share-db-manager';
 import '../imports/startup/shutdown-if-env.js';
@@ -33,6 +34,14 @@ Connections._ensureIndex('target.id');
 Connections._ensureIndex('source.id');
 startShareDB();
 teacherImports();
+
+if (process.env.NODE_ENV === 'production') {
+  if (!Meteor.settings.token) {
+    Meteor.settings.token = uuid();
+  }
+  // eslint-disable-next-line no-console
+  console.log('Meteor login token ', Meteor.settings.token);
+}
 
 Meteor.publish('userData', function() {
   const user = Meteor.user();

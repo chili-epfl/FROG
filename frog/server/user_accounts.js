@@ -5,21 +5,8 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import { isEmpty } from 'lodash';
-import fs from 'fs';
 
 import { Sessions } from '../imports/api/sessions';
-
-let teacherToken;
-const tokenPath = `${process.cwd()}/../../../../../TEACHER_TOKEN`;
-try {
-  teacherToken = fs
-    .readFileSync(tokenPath)
-    .toString()
-    .trim();
-} catch (e) {
-  teacherToken = uuid().toString();
-  fs.writeFileSync(tokenPath, teacherToken);
-}
 
 const doLogin = (user, self) => {
   const alreadyUser = Meteor.users.findOne({ 'services.frog.id': user });
@@ -35,23 +22,17 @@ const doLogin = (user, self) => {
   return result;
 };
 
-if (true) {
-  // (process.env.NODE_ENV !== 'production') {
-  Meteor.methods({
-    'frog.debuglogin': function(user) {
-      const self = this;
-      return doLogin(user, self);
-    }
-  });
-}
-
 Meteor.methods({
-  'frog.teacherlogin': function(token) {
-    if (token === teacherToken) {
-      const self = this;
-      return doLogin('teacher', self);
-    } else {
+  'frog.username.login': function(user, token, isStudentList) {
+    const self = this;
+    if (
+      !isStudentList &&
+      process.env.NODE_ENV === 'production' &&
+      token !== Meteor.settings.token
+    ) {
       return 'NOTVALID';
+    } else {
+      return doLogin(user, self);
     }
   },
   'frog.studentlist': function(slug) {
@@ -64,10 +45,7 @@ Meteor.methods({
     } else {
       return -1;
     }
-  }
-});
-
-Meteor.methods({
+  },
   'create.many': function(slug) {
     let i = 200;
     while (i > 0) {

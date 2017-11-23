@@ -89,11 +89,17 @@ class FROGRouter extends Component {
     }
   }
 
-  login = (username: string) => {
+  login = (username: string, token?: string, isStudentList?: boolean) => {
     this.setState({ mode: 'loggingIn' });
-    Meteor.call('frog.debuglogin', username, (err, id) => {
-      subscriptionCallback(err, id, x => this.setState({ mode: x }));
-    });
+    Meteor.call(
+      'frog.username.login',
+      username,
+      token,
+      isStudentList,
+      (err, id) => {
+        subscriptionCallback(err, id, x => this.setState({ mode: x }));
+      }
+    );
   };
 
   update() {
@@ -101,25 +107,9 @@ class FROGRouter extends Component {
     const hasLogin = query.login;
 
     if (this.state.mode !== 'loggingIn') {
-      if (true) {
-        // (process.env.NODE_ENV !== 'production') {
-        const username = query.login;
-        if (username) {
-          this.setState({ mode: 'loggingIn' });
-          Meteor.call('frog.debuglogin', username, (err, id) => {
-            subscriptionCallback(err, id, x => this.setState({ mode: x }));
-          });
-        }
-
-        const token = query.token;
-        if (token) {
-          this.setState({ mode: 'loggingIn' });
-          Meteor.call('frog.teacherlogin', token.trim(), (err, id) =>
-            subscriptionCallback(err, id, x => {
-              this.setState({ mode: x });
-            })
-          );
-        }
+      const username = query.login;
+      if (username) {
+        this.login(username, query.token);
       }
 
       if (!hasLogin && this.state.mode !== 'ready') {
