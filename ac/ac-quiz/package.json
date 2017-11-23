@@ -16,7 +16,8 @@
     "react-dom": "^16.0.0",
     "react-jsonschema-form": "^1.0.0",
     "react-latex": "^1.0.1",
-    "styled-components": "^2.2.3"
+    "styled-components": "^2.2.3",
+    "seededshuffle": "^0.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

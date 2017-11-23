@@ -1,12 +1,13 @@
 // @flow
 
 import React from 'react';
-import { ChangeableText } from 'frog-utils';
-import { activityTypesObj } from '/imports/activityTypes';
-import { addActivity, setStreamTarget } from '/imports/api/activities';
 import FlexView from 'react-flexview';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { withState } from 'recompose';
+import { ChangeableText, A } from 'frog-utils';
 
+import { activityTypesObj } from '/imports/activityTypes';
+import { addActivity, setStreamTarget } from '/imports/api/activities';
 import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
@@ -30,8 +31,12 @@ const StreamSelect = ({ activity, targets, onChange }) => (
   </FormGroup>
 );
 
-const EditActivity = props => {
-  const activity = props.activity;
+const RawEditActivity = ({
+  advancedOpen,
+  setAdvancedOpen,
+  activity,
+  ...props
+}) => {
   const graphActivity = props.store.activityStore.all.find(
     act => act.id === activity._id
   );
@@ -126,13 +131,6 @@ const EditActivity = props => {
             }}
           />
         )}
-        <StreamSelect
-          activity={activity}
-          targets={props.store.activityStore.all.filter(
-            a => a.plane === 3 && a.id !== activity._id
-          )}
-          onChange={streamTarget => setStreamTarget(activity._id, streamTarget)}
-        />
       </div>
       <ConfigForm
         {...{
@@ -142,9 +140,27 @@ const EditActivity = props => {
           refreshValidate: props.store.refreshValidate
         }}
       />
-      <FileForm />
+      <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
+      {advancedOpen && [
+        <div key="stream">
+          Select streaming target
+          <StreamSelect
+            activity={activity}
+            targets={props.store.activityStore.all.filter(
+              a => a.plane === 3 && a.id !== activity._id
+            )}
+            onChange={streamTarget =>
+              setStreamTarget(activity._id, streamTarget)
+            }
+          />
+        </div>,
+        <FileForm key="fileform" />
+      ]}
     </div>
   );
 };
 
+const EditActivity = withState('advancedOpen', 'setAdvancedOpen', false)(
+  RawEditActivity
+);
 export default connect(EditActivity);

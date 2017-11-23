@@ -4,6 +4,7 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 import styled from 'styled-components';
 import Latex from 'react-latex';
+import seededShuffle from 'seededshuffle';
 import type { ActivityRunnerT } from 'frog-utils';
 
 import LatexWidget from './LatexWidget';
@@ -37,7 +38,13 @@ const DescriptionField = props => (
   </QuestionTitle>
 );
 
-const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
+const Quiz = ({
+  activityData,
+  data,
+  dataFn,
+  logger,
+  userInfo
+}: ActivityRunnerT) => {
   const schema = {
     title: activityData.config.name,
     type: 'object',
@@ -45,16 +52,27 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
   };
 
   const uiSchema = {};
-  const questions = activityData.config.questions.filter(
-    q => q.question && q.answers
+
+  const condShuffle = (list, type, salt) =>
+    [type, 'both'].includes(activityData.config.shuffle)
+      ? seededShuffle.shuffle(list, userInfo.id + salt, true)
+      : list;
+
+  const questions = condShuffle(
+    activityData.config.questions
+      .filter(q => q.question && q.answers)
+      .map((x, i) => [x, i]),
+    'questions',
+    ''
   );
 
-  questions.forEach((q, i) => {
+  questions.forEach(([q, i], reali) => {
+    const answers = condShuffle(q.answers.map((x, y) => [x, y]), 'answers', i);
     schema.properties['question ' + i] = {
       type: 'number',
-      title: 'Question ' + (i + 1),
-      enum: q.answers.map((_, k) => k),
-      enumNames: q.answers
+      title: 'Question ' + (reali + 1),
+      enum: answers.map(([, k]) => k),
+      enumNames: answers.map(([x]) => x)
     };
     uiSchema['question ' + i] = {
       'ui:widget': 'latexWidget',
