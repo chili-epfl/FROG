@@ -5,7 +5,7 @@ import { type LogDBT } from 'frog-utils';
 
 import { ListComponent } from './DashboardComponents';
 
-const actionTypes = ['subPart', 'part'];
+const actionTypes = ['subPart', 'part', 'unSubPart'];
 
 const Viewer = ({ instances, data, config }: Object) => {
   const parts = [
@@ -44,6 +44,12 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
     case actionTypes[1]:
       dataFn.objInsert(
         [data[log.value][0], data[log.value][1] + 1],
+        [log.value]
+      );
+      break;
+    case actionTypes[2]:
+      dataFn.objInsert(
+        [data[log.value][0] - 1, data[log.value][1]],
         [log.value]
       );
       break;
