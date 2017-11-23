@@ -43,7 +43,7 @@ const Quiz = ({
   data,
   dataFn,
   logger,
-  userInfo
+  groupingValue
 }: ActivityRunnerT) => {
   const schema = {
     title: activityData.config.name,
@@ -55,7 +55,7 @@ const Quiz = ({
 
   const condShuffle = (list, type, salt) =>
     [type, 'both'].includes(activityData.config.shuffle)
-      ? seededShuffle.shuffle(list, userInfo.id + salt, true)
+      ? seededShuffle.shuffle(list, groupingValue + salt, true)
       : list;
 
   const questions = condShuffle(
