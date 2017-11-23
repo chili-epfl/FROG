@@ -133,6 +133,33 @@ export const meta = {
       config: { ...exampleConfig, shuffle: 'both' },
       title: 'Sample MCQ with shuffling options',
       activityData: {}
+    },
+    {
+      title: 'European capitals with correct answer',
+      activityData: {},
+      config: {
+        title: 'Capitals',
+        shuffle: 'none',
+        hasAnswers: true,
+        questions: [
+          {
+            question: 'Where is Oslo?',
+            answers: [
+              { choice: 'Norway', isCorrect: true },
+              { choice: 'Sweden' },
+              { choice: 'Denmark' }
+            ]
+          },
+          {
+            question: 'What is the capital of Latvia?',
+            answers: [
+              { choice: 'Bratislava' },
+              { choice: 'Vilnius', isCorrect: true },
+              { choice: 'Zagreb' }
+            ]
+          }
+        ]
+      }
     }
   ]
 };
