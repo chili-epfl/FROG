@@ -19,6 +19,7 @@
     "react-dom": "^16.0.0",
     "react-google-charts": "^1.5.5",
     "react-jsonschema-form": "^1.0.0",
+    "react-jsonschema-form-extra": "^0.8.28",
     "recompose": "^0.26.0",
     "sharedb": "^1.0.0-beta.7",
     "sharedb-string-binding": "^1.0.0"
