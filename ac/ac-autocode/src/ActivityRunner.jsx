@@ -4,17 +4,30 @@ import React, { Component } from 'react';
 import type { ActivityRunnerT } from 'frog-utils';
 
 export default class ActivityRunner extends Component {
+  TestList: Function;
+  runit: Function;
   state: {
     inputCode: string,
-    outputFeed: string
+    outputFeed: string,
+    tests: Object
   };
 
   constructor(props: ActivityRunnerT) {
     super(props);
 
+    this.props = props;
+
+    const tests = this.props.activityData.config.tests;
+    tests.map((x, index) => {
+      x.id = index;
+      x.status = 0;
+      return x;
+    });
+
     this.state = {
-      inputCode: 'print "Hello World"',
-      outputFeed: "You'll see the output of your code here"
+      inputCode: this.props.activityData.config.templateCode,
+      outputFeed: "You'll see the output here",
+      tests: tests
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -52,7 +65,6 @@ export default class ActivityRunner extends Component {
       window.Sk.runner.state.outputFeed + '\n' + text;
   }
 
-  runit: Function;
   runit() {
     if (window.Sk) {
       window.Sk.runner = this;
@@ -68,10 +80,39 @@ export default class ActivityRunner extends Component {
     this.setState({ inputCode: event.target.value });
   }
 
+  TestList = () => <div>This is the TestList</div>;
+  /*
+    <div>
+      <ListGroup className="item">
+        <FlipMove duration={750} easing="ease-out">
+          {values(ideas)
+            .sort((a, b) => b.score - a.score)
+            .map(idea => {
+              const individualVote = data[idea.id].students[userInfo.id];
+              return (
+                <div key={idea.id}>
+                  <Idea {...{ individualVote, idea, fun, key: idea.id }} />
+                </div>
+              );
+            })}
+        </FlipMove>
+      </ListGroup>
+    </div>
+  );
+*/
+
   render() {
     return (
       <div>
-        <h3>Try This</h3>
+        <h2>{this.props.activityData.config.title || 'Coding activity'}</h2>
+        <h3>
+          {this.props.activityData.config.guidelines ||
+            'No guidelines were given for this exercice'}
+        </h3>
+        <h3>
+          {this.props.activityData.config.specifications ||
+            'No specifications were given for this exercice'}
+        </h3>
         <textarea
           id="yourcode"
           cols="40"
@@ -85,6 +126,7 @@ export default class ActivityRunner extends Component {
           </button>
         </div>
         <p>{this.state.outputFeed}</p>
+        <div>{this.TestList()}</div>
       </div>
     );
   }
