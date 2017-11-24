@@ -1319,6 +1319,10 @@ binary-extensions@^1.0.0:
     buffers "~0.1.1"
     chainsaw "~0.1.0"
 
+blacklist@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/blacklist/-/blacklist-1.1.4.tgz#b2dd09d6177625b2caa69835a37b28995fa9a2f2"
+
 block-stream2@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/block-stream2/-/block-stream2-1.1.0.tgz#c738e3a91ba977ebb5e1fef431e13ca11d8639e2"
@@ -1663,7 +1667,11 @@ circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
-classnames@^2.2.5:
+class-autobind@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/class-autobind/-/class-autobind-0.1.4.tgz#34516c49167cf8d3f639ddc186bcfa2268afff34"
+
+classnames@^2.1.2, classnames@^2.2.0, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -1837,6 +1845,14 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+create-react-class@^15.5.2, create-react-class@^15.5.x, create-react-class@^15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.2.tgz#cf1ed15f12aad7f14ef5f2dfe05e6c42f91ef02a"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 create-react-class@^15.6.0:
   version "15.6.0"
@@ -2220,6 +2236,50 @@ dotsplit.js@^1.0.3:
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
   resolved "https://registry.yarnpkg.com/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
+
+draft-js-export-html@>=0.6.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/draft-js-export-html/-/draft-js-export-html-1.2.0.tgz#1cbe2b78e1fed74fc29c7cdcbfd7540468eca209"
+  dependencies:
+    draft-js-utils "^1.2.0"
+
+draft-js-export-markdown@>=0.3.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/draft-js-export-markdown/-/draft-js-export-markdown-1.2.0.tgz#c423d67389e1c70ddd13e956afe82fd1b72feea5"
+  dependencies:
+    draft-js-utils "^1.2.0"
+
+draft-js-import-element@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/draft-js-import-element/-/draft-js-import-element-1.2.1.tgz#9a6a56d74690d48d35d8d089564e6d710b4926eb"
+  dependencies:
+    draft-js-utils "^1.2.0"
+    synthetic-dom "^1.2.0"
+
+draft-js-import-html@>=0.4.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/draft-js-import-html/-/draft-js-import-html-1.2.1.tgz#88adb8ce5dbe1a5a777663b1893cee6a35239eaa"
+  dependencies:
+    draft-js-import-element "^1.2.1"
+
+draft-js-import-markdown@>=0.3.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/draft-js-import-markdown/-/draft-js-import-markdown-1.2.1.tgz#ec18eb15008bab13d9878d65db50e181dd64a5ce"
+  dependencies:
+    draft-js-import-element "^1.2.1"
+    synthetic-dom "^1.2.0"
+
+draft-js-utils@>=0.2.0, draft-js-utils@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-1.2.0.tgz#f5cb23eb167325ffed3d79882fdc317721d2fd12"
+
+draft-js@>=0.10.0:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.10.4.tgz#147741642097c8120d8edc232e9503e8b7fb8d35"
+  dependencies:
+    fbjs "^0.8.15"
+    immutable "~3.7.4"
+    object-assign "^4.1.0"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -2663,7 +2723,7 @@ fbjs@^0.8.1, fbjs@^0.8.4, fbjs@^0.8.5:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
-fbjs@^0.8.16:
+fbjs@^0.8.15, fbjs@^0.8.16:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -3300,6 +3360,14 @@ immutability-helper@^2.4.0:
   resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.4.0.tgz#00d421e2957c17f0f0781475f05ffd837e73458d"
   dependencies:
     invariant "^2.2.0"
+
+immutable@^3.8.1:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
+
+immutable@~3.7.4:
+  version "3.7.6"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.7.6.tgz#13b4d3cb12befa15482a26fe1b2ebae640071e4b"
 
 imurmurhash@^0.1.4:
   version "0.1.4"
@@ -5213,6 +5281,31 @@ react-addons-transition-group@^15.6.2:
   dependencies:
     react-transition-group "^1.2.0"
 
+react-bootstrap-table@^4.1.0:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-table/-/react-bootstrap-table-4.1.5.tgz#4372420b743800cc2647b571a2440c98c2714f7d"
+  dependencies:
+    classnames "^2.1.2"
+    prop-types "^15.5.10"
+    react-modal "^3.0.3"
+    react-s-alert "^1.3.0"
+
+react-bootstrap-typeahead@v1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-typeahead/-/react-bootstrap-typeahead-1.4.2.tgz#1913e32cea4d79becd03acabbd9336116884815b"
+  dependencies:
+    classnames "^2.2.0"
+    create-react-class "^15.5.2"
+    invariant "^2.2.1"
+    lodash "^4.17.2"
+    prop-types "^15.5.8"
+    react-highlighter "^0.4.0"
+    react-input-autosize "^1.1.4"
+    react-onclickoutside "^5.7.0"
+    react-overlays "^0.7.0"
+    react-prop-types "^0.4.0"
+    warning "^3.0.0"
+
 react-bootstrap@^0.31.5:
   version "0.31.5"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.31.5.tgz#57040fa8b1274e1e074803c21a1b895fdabea05a"
@@ -5335,6 +5428,15 @@ react-google-charts@^1.5.5:
     react "^15.3.2"
     react-dom "^15.3.2"
 
+react-highlighter@^0.4.0:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-highlighter/-/react-highlighter-0.4.2.tgz#a3a9a8f6eba4c40809d586ac3bf6bec3e04b1735"
+  dependencies:
+    blacklist "^1.1.4"
+    create-react-class "^15.6.2"
+    escape-string-regexp "^1.0.5"
+    prop-types "^15.6.0"
+
 react-icon-base@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-icon-base/-/react-icon-base-2.1.0.tgz#a196e33fdf1e7aaa1fda3aefbb68bdad9e82a79d"
@@ -5350,6 +5452,13 @@ react-iframe@^1.0.7:
   resolved "https://registry.yarnpkg.com/react-iframe/-/react-iframe-1.0.7.tgz#c20fef7ca30e44e1f54922b9f6357c1c49f1d8e9"
   dependencies:
     prop-types "^15.5.x"
+
+react-input-autosize@^1.1.4:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.2.0.tgz#87241071159f742123897691da6796ec33b57d05"
+  dependencies:
+    create-react-class "^15.5.2"
+    prop-types "^15.5.8"
 
 react-inspector@^2.2.1:
   version "2.2.1"
@@ -5385,6 +5494,13 @@ react-loadable@^5.3.1:
   dependencies:
     prop-types "^15.5.0"
 
+react-modal@^3.0.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.1.3.tgz#bead112cd84681a1ccd18ee1e96c73d881793b75"
+  dependencies:
+    exenv "^1.2.0"
+    prop-types "^15.5.10"
+
 react-modal@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.1.0.tgz#ce594f88f9ab7338ee265cfec4be3cc5253f5baa"
@@ -5404,7 +5520,13 @@ react-mosaic-component@^1.0.2:
     react-dnd-html5-backend "^2.5.4"
     uuid "^3.0.1"
 
-react-overlays@^0.7.4:
+react-onclickoutside@^5.7.0:
+  version "5.11.1"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-5.11.1.tgz#00314e52567cf55faba94cabbacd119619070623"
+  dependencies:
+    create-react-class "^15.5.x"
+
+react-overlays@^0.7.0, react-overlays@^0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.4.tgz#ef2ec652c3444ab8aa014262b18f662068e56d5c"
   dependencies:
@@ -5421,6 +5543,12 @@ react-player@^0.25.3:
     deepmerge "^2.0.0"
     load-script "^1.0.0"
     prop-types "^15.5.6"
+
+react-prop-types@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-prop-types/-/react-prop-types-0.4.0.tgz#f99b0bfb4006929c9af2051e7c1414a5c75b93d0"
+  dependencies:
+    warning "^3.0.0"
 
 react-resize-aware@^2.7.0:
   version "2.7.0"
@@ -5448,6 +5576,27 @@ react-router@^4.2.0:
     path-to-regexp "^1.7.0"
     prop-types "^15.5.4"
     warning "^3.0.0"
+
+react-rte@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/react-rte/-/react-rte-0.15.0.tgz#f0753d552d98f408f4b55248b9d1365a2932720a"
+  dependencies:
+    babel-runtime "^6.23.0"
+    class-autobind "^0.1.4"
+    classnames "^2.2.5"
+    draft-js ">=0.10.0"
+    draft-js-export-html ">=0.6.0"
+    draft-js-export-markdown ">=0.3.0"
+    draft-js-import-html ">=0.4.0"
+    draft-js-import-markdown ">=0.3.0"
+    draft-js-utils ">=0.2.0"
+    immutable "^3.8.1"
+
+react-s-alert@^1.3.0:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/react-s-alert/-/react-s-alert-1.3.2.tgz#56d8453428d56f22a240eb014d2020d3f62ea984"
+  dependencies:
+    babel-runtime "^6.23.0"
 
 react-spinner@^0.2.7:
   version "0.2.7"
@@ -6292,6 +6441,10 @@ symbol-observable@1.0.4, symbol-observable@^1.0.3, symbol-observable@^1.0.4:
 symbol-tree@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
+
+synthetic-dom@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/synthetic-dom/-/synthetic-dom-1.2.0.tgz#f3589aafe2b5e299f337bb32973a9be42dd5625e"
 
 table@^4.0.1:
   version "4.0.1"

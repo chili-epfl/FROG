@@ -1,15 +1,21 @@
 // @flow
 import React from 'react';
-
+import path from 'path';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
+import Loadable from 'react-loadable';
+
+export const EnhancedForm = Loadable({
+  loader: () => import('./EnhancedForm'),
+  loading: () => null,
+  serverSideRequirePath: path.resolve(__dirname, './EnhancedForm')
+});
 
 export {
-  default as EnhancedForm,
   hideConditional,
   calculateHides,
   calculateSchema
-} from './EnhancedForm';
+} from './enhancedFormUtils';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
 export { ReactiveText } from './ReactiveText';
