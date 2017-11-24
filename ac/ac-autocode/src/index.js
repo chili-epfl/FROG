@@ -3,7 +3,7 @@
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
-import { config, exampleConfig } from './config';
+import { config, exampleConfig1, exampleConfig2 } from './config';
 
 const meta = {
   // the description when choosing the type of an activity
@@ -13,7 +13,7 @@ const meta = {
   description:
     'Students upload code wich is tested against teacher-designed tests',
   // examples of config
-  exampleData: [exampleConfig]
+  exampleData: [exampleConfig1, exampleConfig2]
 };
 
 // default empty reactive datastructure, typically either an empty object or array

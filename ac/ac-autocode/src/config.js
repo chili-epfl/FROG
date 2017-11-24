@@ -46,7 +46,7 @@ export const config = {
             type: 'string',
             title: 'expected string output to check against'
           },
-          showOutput: {
+          showExpected: {
             type: 'boolean',
             title: 'show expected return to student'
           }
@@ -56,7 +56,7 @@ export const config = {
   }
 };
 
-export const exampleConfig = {
+export const exampleConfig1 = {
   title: 'SortArray',
   config: {
     title: 'Sorting in python',
@@ -71,7 +71,7 @@ export const exampleConfig = {
         postCode: 'print b',
         onlyLastPrint: true,
         expectedPrint: '[1,2,3]',
-        showOutput: true
+        showExpected: true
       },
       {
         description: 'Normal case',
@@ -79,7 +79,7 @@ export const exampleConfig = {
         postCode: 'print b',
         onlyLastPrint: true,
         expectedPrint: '[2,7,8,10,15]',
-        showOutput: true
+        showExpected: true
       },
       {
         description: 'Edge case 1',
@@ -87,7 +87,7 @@ export const exampleConfig = {
         postCode: 'print b',
         onlyLastPrint: true,
         expectedPrint: '[42]',
-        showOutput: true
+        showExpected: true
       },
       {
         description: 'Edge case 2',
@@ -95,7 +95,66 @@ export const exampleConfig = {
         postCode: 'print b',
         onlyLastPrint: true,
         expectedPrint: '[]',
-        showOutput: true
+        showExpected: true
+      }
+    ]
+  },
+  data: {}
+};
+
+export const exampleConfig2 = {
+  title: 'RomanNumbers',
+  config: {
+    title: 'Converting integers to Roman numbers',
+    guidelines:
+      'The variable N is the input number. You must print a string representing it in roman notation',
+    specifications:
+      'Reminder:\n\
+      I:1, V:5, X:10, L:50, C:100, D:500, M:1000\n\
+      Repeating a numeral up to three times represents addition of the number.\n\
+      Writing numerals that decrease from left to right represents addition of the numbers.\n\
+      To write a number that otherwise would take repeating of a numeral four or more times, there is a subtraction rule. Writing a smaller numeral to the left of a larger numeral represents subtraction.',
+    templateCode: 'if N=1:\n\tprint "I"\nelse:\n\tprint "II"',
+    tests: [
+      {
+        description: 'One letter',
+        preCode: 'N=50',
+        postCode: '',
+        onlyLastPrint: true,
+        expectedPrint: 'L',
+        showExpected: true
+      },
+      {
+        description: 'Simple addition',
+        preCode: 'N=12',
+        postCode: '',
+        onlyLastPrint: true,
+        expectedPrint: 'XII',
+        showExpected: true
+      },
+      {
+        description: 'Substraction rule',
+        preCode: 'N=1994',
+        postCode: '',
+        onlyLastPrint: true,
+        expectedPrint: 'MCMXCIV',
+        showExpected: true
+      },
+      {
+        description: 'The largest',
+        preCode: 'N=3999',
+        postCode: '',
+        onlyLastPrint: true,
+        expectedPrint: 'MMMCMXCIX',
+        showExpected: true
+      },
+      {
+        description: 'A bit of everything',
+        preCode: 'N=1474',
+        postCode: '',
+        onlyLastPrint: true,
+        expectedPrint: 'MCDLXXIV',
+        showExpected: true
       }
     ]
   },

@@ -17,17 +17,17 @@ export default class ActivityRunner extends Component {
 
     this.props = props;
 
-    const tests = this.props.activityData.config.tests;
-    tests.map((x, index) => {
-      x.id = index;
-      x.status = 0;
+    const testsList = this.props.activityData.config.tests;
+    testsList.map((x, index) => {
+      x.key = index;
+      x.state = 0;
       return x;
     });
 
     this.state = {
       inputCode: this.props.activityData.config.templateCode,
       outputFeed: "You'll see the output here",
-      tests: tests
+      tests: testsList
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -80,26 +80,15 @@ export default class ActivityRunner extends Component {
     this.setState({ inputCode: event.target.value });
   }
 
-  TestList = () => <div>This is the TestList</div>;
-  /*
-    <div>
-      <ListGroup className="item">
-        <FlipMove duration={750} easing="ease-out">
-          {values(ideas)
-            .sort((a, b) => b.score - a.score)
-            .map(idea => {
-              const individualVote = data[idea.id].students[userInfo.id];
-              return (
-                <div key={idea.id}>
-                  <Idea {...{ individualVote, idea, fun, key: idea.id }} />
-                </div>
-              );
-            })}
-        </FlipMove>
-      </ListGroup>
-    </div>
-  );
-*/
+  TestList(testsList: Object) {
+    return testsList.map(test => (
+      <div key={test.key}>
+        <p>{test.description}</p>
+        <button>Run test</button>
+        <p>{test.state}</p>
+      </div>
+    ));
+  }
 
   render() {
     return (
@@ -126,7 +115,7 @@ export default class ActivityRunner extends Component {
           </button>
         </div>
         <p>{this.state.outputFeed}</p>
-        <div>{this.TestList()}</div>
+        <div>{this.TestList(this.state.tests)}</div>
       </div>
     );
   }
