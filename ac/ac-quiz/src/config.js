@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+export const config = {
   type: 'object',
   properties: {
     title: {
@@ -41,6 +41,20 @@ export default {
     justify: {
       type: 'boolean',
       title: 'Students must justify their answers'
+    }
+  }
+};
+
+export const configUI = {
+  questions: {
+    question: {
+      'ui:field': 'rte',
+      rte: {
+        editorStyle: {
+          minHeight: '183px'
+        },
+        placeholder: '\n\n\n'
+      }
     }
   }
 };

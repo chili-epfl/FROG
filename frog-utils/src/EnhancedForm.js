@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 import { cloneDeep, isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
+import fields from 'react-jsonschema-form-extras';
 
 export const calculateHides = (
   formData: Object = {},
@@ -144,6 +145,7 @@ class EnhancedForm extends Component {
           onChange={this.onChange}
           schema={this.state.schema}
           formData={this.state.formData}
+          fields={fields}
         />
       )
     );

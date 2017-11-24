@@ -22,7 +22,10 @@
     "react-jsonschema-form-extras": "^0.8.28",
     "recompose": "^0.26.0",
     "sharedb": "^1.0.0-beta.7",
-    "sharedb-string-binding": "^1.0.0"
+    "sharedb-string-binding": "^1.0.0",   
+    "react-bootstrap-table": "^4.1.0",
+    "react-bootstrap-typeahead": "v1.4.2",
+    "react-rte": "^0.15.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
