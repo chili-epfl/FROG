@@ -4,7 +4,7 @@
 import { type ActivityPackageT } from 'frog-utils';
 
 import {config} from './config';
-import ActivityRunner from './ActivityRunner';
+import ActivityRunner from './ActivityRunner_V2';
 
 const meta = {
   name: 'WebRTC',

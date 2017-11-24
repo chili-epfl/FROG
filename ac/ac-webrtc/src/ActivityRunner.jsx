@@ -1,5 +1,7 @@
 // @flow
 
+/*********
+
 import React, { Component } from 'react';
 import {uuid} from 'frog-utils';
 import type { ActivityRunnerT } from 'frog-utils';
@@ -184,6 +186,7 @@ export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
 
 
 
+***************/
 
 
 
@@ -194,27 +197,24 @@ export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
 
 
 
+console.log("this is me")
 
 
 
-
-
-/**************************************************************
-                WEBSOCKETS
 import React, {Component} from 'react';
 import {uuid} from 'frog-utils';
 import type {ActivityRunnerT} from 'frog-utils';
 // var WebSocket = require('ws');
-// import WebSocket from 'ws';
+import WebSocket from 'ws';
 
 
-const LocalVideo = ({src}) => {
-  return(
-    <div>
-      <video id="localVideo" autoPlay="true" muted="true" src={src}></video>
-    </div>
-  );
-};
+// const LocalVideo = ({src}) => {
+//   return(
+//     <div>
+//       <video id="localVideo" autoPlay="true" muted="true" src={src}></video>
+//     </div>
+//   );
+// };
 
 // const RemoteVideo = () => (
 //   <video id="remoteVideo" autoPlay="true" muted="false"></video>
@@ -240,26 +240,26 @@ class ActivityRunner extends Component{
   constructor(props: ActivityRunnerT) {
     super(props);
 
-    const wsRTC = new WebSocket('wss://138.197.182.1:8080/socket.io/?EIO=3&transport=websocket');
-    window.ruru = [];
+    const wsRTC = new WebSocket('ws://138.197.182.1:8080/socket.io/?EIO=3&transport=websocket');
+    // window.ruru = [];
 
-    //Connect
-    wsRTC.onopen = (event) => {
-      console.log('CREATION: >>>> Created room ' + event);
-      window.eventu = event;
-      window.wss = wsRTC;
-    };
+    // //Connect
+    // wsRTC.onopen = (event) => {
+    //   console.log('CREATION: >>>> Created room ' + event);
+    //   window.eventu = event;
+    //   window.wss = wsRTC;
+    // };
 
-    // Log errors
-    wsRTC.onerror = (error) => {
-      console.log('WebSocket Error ' + error);
-    };
+    // // Log errors
+    // wsRTC.onerror = (error) => {
+    //   console.log('WebSocket Error ' + error);
+    // };
 
-    // Log messages from the server
-    wsRTC.onmessage = (e) => {
-      console.log('Server: ' + e.data);
-      ruru.push(e);
-    };
+    // // Log messages from the server
+    // wsRTC.onmessage = (e) => {
+    //   console.log('Server: ' + e.data);
+    //   ruru.push(e);
+    // };
 
     // wsRTC.oncreated = (room) => {
     //   console.log('CREATION: >>>> Created room ' + room);
@@ -298,65 +298,66 @@ class ActivityRunner extends Component{
   render() {
     const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
 
-    const onStart = () => {
-      console.log(constraints); 
-      navigator.mediaDevices.getUserMedia(constraints)
-      .then(gotStream)
-      .catch(function(e) {
-        alert('getUserMedia() error: ' + e.name);
-      });
-    };
+    // const onStart = () => {
+    //   console.log(constraints); 
+    //   navigator.mediaDevices.getUserMedia(constraints)
+    //   .then(gotStream)
+    //   .catch(function(e) {
+    //     alert('getUserMedia() error: ' + e.name);
+    //   });
+    // };
 
-    const gotStream = (stream) => {
-      this.setState(
-        {
-          local: {
-            src : window.URL.createObjectURL(stream),
-            stream: stream
-          }
-        }
-      );
-      // LocalVideo(streams.local);
-      // localVideo.src = window.URL.createObjectURL(stream);
-      // localVideo.stream = stream;
-      // startButton.disabled = true;
-    };
+    // const gotStream = (stream) => {
+    //   this.setState(
+    //     {
+    //       local: {
+    //         src : window.URL.createObjectURL(stream),
+    //         stream: stream
+    //       }
+    //     }
+    //   );
+    //   // LocalVideo(streams.local);
+    //   // localVideo.src = window.URL.createObjectURL(stream);
+    //   // localVideo.stream = stream;
+    //   // startButton.disabled = true;
+    // };
 
-    const onCall = () => {
-      console.log("HELLO");
-      this.state.ws.send({'create or join' : 'hello'});
-    };
+    // const onCall = () => {
+    //   console.log("HELLO");
+    //   this.state.ws.send({'create or join' : 'hello'});
+    // };
 
-    const onHangUp = () => {
-      if (this.state.local.stream){
-        try{
-          this.state.local.stream.getTracks().forEach(track => track.stop());
-        }catch(e){
-          console.log("error getting audio or video tracks" + e); 
-        }
-        this.setState(
-          {
-            local: {
-              src : 'null',
-              stream: 'null'
-            }
-          }
-        );
-      };
-    };
+    // const onHangUp = () => {
+    //   if (this.state.local.stream){
+    //     try{
+    //       this.state.local.stream.getTracks().forEach(track => track.stop());
+    //     }catch(e){
+    //       console.log("error getting audio or video tracks" + e); 
+    //     }
+    //     this.setState(
+    //       {
+    //         local: {
+    //           src : 'null',
+    //           stream: 'null'
+    //         }
+    //       }
+    //     );
+    //   };
+    // };
 
 
     return(
         <div id="webrtc">
           <h1>{activityData.config.title}</h1>
             
-          <LocalVideo src={this.state.local.src} />
-          
+          <LocalVideo src={this.state.local.src} />          
+
           <div>
               <button id="startButton" onClick={onStart}>Start</button>
               <button id="callButton" onClick={onCall}>Call</button>
               <button id="hangupButton" onClick={onHangUp}>Hang Up</button>
           </div>
+      
         </div>
     );
   }
@@ -370,8 +371,6 @@ export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
 
 // export default ActivityRunner;
 
-
-****************************************************************/
 
 
 
