@@ -25,8 +25,7 @@
     "sharedb-string-binding": "^1.0.0",   
     "react-bootstrap-table": "^4.1.0",
     "react-bootstrap-typeahead": "v1.4.2",
-    "react-rte": "^0.15.0",
-"draft-js-video-plugin": "
+    "react-rte": "^0.15.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
