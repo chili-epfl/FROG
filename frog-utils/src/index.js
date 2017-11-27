@@ -5,7 +5,7 @@ import { shuffle } from 'lodash';
 
 let _EnhancedForm = {};
 if (Meteor.isClient) {
-  _EnhancedForm = require('./EnhancedForm');
+  _EnhancedForm = require('./EnhancedForm').default;
 }
 export const EnhancedForm = _EnhancedForm;
 

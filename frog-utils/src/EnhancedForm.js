@@ -3,9 +3,16 @@ import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 import { isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
-import fields from 'react-jsonschema-form-extras';
+import Fields from 'react-jsonschema-form-extras';
 
 import { calculateSchema } from './enhancedFormUtils';
+
+const RteField = props => (
+  <div>
+    <label htmlFor={props.id}>{props.schema.title}</label>
+    <Fields.rte {...props} />
+  </div>
+);
 
 class EnhancedForm extends Component {
   state: { formData?: ?Object, schema?: Object };
@@ -73,7 +80,8 @@ class EnhancedForm extends Component {
           onChange={this.onChange}
           schema={this.state.schema}
           formData={this.state.formData}
-        o>
+          fields={{ rteField: RteField }}
+        />
       )
     );
   }

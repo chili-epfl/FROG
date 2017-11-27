@@ -47,6 +47,7 @@ export default class ConfigForm extends Component {
       formData: this.state.formData,
       ...addSocialFormSchema(nodeType.config, nodeType.configUI),
       widgets: {
+        ...this.props.widgets,
         socialAttributeWidget: SelectFormWidget,
         activityWidget: SelectActivityWidget
       },
@@ -65,7 +66,6 @@ export default class ConfigForm extends Component {
       }
     };
 
-    console.log(props);
     const nodeConfig = this.props.nodeType.config;
     return nodeConfig && ![{}, undefined].includes(nodeConfig.properties) ? (
       <EnhancedForm showErrorList={false} noHtml5Validate {...props}>

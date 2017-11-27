@@ -14,7 +14,7 @@ export const config = {
       default: 'none'
     },
     guidelines: {
-      type: 'string',
+      type: 'rte',
       title: 'Guidelines'
     },
     questions: {
@@ -24,7 +24,7 @@ export const config = {
         type: 'object',
         properties: {
           question: {
-            type: 'string',
+            type: 'rte',
             title: 'Question'
           },
           answers: {
@@ -41,20 +41,6 @@ export const config = {
     justify: {
       type: 'boolean',
       title: 'Students must justify their answers'
-    }
-  }
-};
-
-export const configUI = {
-  questions: {
-    question: {
-      'ui:field': 'rte',
-      rte: {
-        editorStyle: {
-          minHeight: '183px'
-        },
-        placeholder: '\n\n\n'
-      }
     }
   }
 };
