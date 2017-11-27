@@ -97,7 +97,10 @@ const checkActivity = (activityId, operators, connections, userid) => {
   const connectedNodes = connections
     .filter(x => x.target.id === activityId)
     .map(x => x.source.id);
-  const controlOp = operators.find(x => connectedNodes.includes(x._id));
+
+  const controlOp = operators.find(
+    x => connectedNodes.includes(x._id) && x.type === 'control'
+  );
   if (!controlOp) {
     return true;
   }

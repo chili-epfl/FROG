@@ -29,7 +29,14 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Tests with feedback':
       page = (
         <Test
-          {...{ title, examples, properties, dataFn, data, logger }}
+          {...{
+            title,
+            examples,
+            properties,
+            dataFn,
+            data,
+            logger
+          }}
           nbTest={0}
           nbTestFeedback={data.parts[data.indexPart][1]}
           feedback
