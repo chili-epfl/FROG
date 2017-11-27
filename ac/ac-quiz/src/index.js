@@ -36,7 +36,6 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  configUI,
   ActivityRunner,
   dashboard,
   exportData

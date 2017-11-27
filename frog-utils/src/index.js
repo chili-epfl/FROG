@@ -16,6 +16,7 @@ export {
 } from './enhancedFormUtils';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
+export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
