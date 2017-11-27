@@ -13,7 +13,7 @@ export default {
     },
     definition: {
       type: 'string',
-      title: 'Final definition of the concept: '
+      title: 'Definition of the concept: '
     },
     properties: {
       title:
