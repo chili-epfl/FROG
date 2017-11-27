@@ -1,15 +1,16 @@
 // @flow
 import React from 'react';
-import path from 'path';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
 import Loadable from 'react-loadable';
 
-export const EnhancedForm = Loadable({
-  loader: () => import('./EnhancedForm'),
-  loading: () => null,
-  serverSideRequirePath: path.resolve(__dirname, './EnhancedForm')
-});
+let _EnhancedForm = {};
+if (Meteor.isClient) {
+  _EnhancedForm = require('./EnhancedForm');
+}
+console.log(_EnhancedForm);
+
+export const EnhancedForm = _EnhancedForm;
 
 export {
   hideConditional,
