@@ -29,7 +29,14 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Tests with feedback':
       page = (
         <Test
-          {...{ title, examples, properties, dataFn, data, logger }}
+          {...{
+            title,
+            examples,
+            properties,
+            dataFn,
+            data,
+            logger
+          }}
           nbTest={0}
           nbTestFeedback={activityData.config.nbTestFeedback}
           feedback
@@ -47,7 +54,14 @@ export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
     case 'Tests':
       page = (
         <Test
-          {...{ title, examples, properties, dataFn, data, logger }}
+          {...{
+            title,
+            examples,
+            properties,
+            dataFn,
+            data,
+            logger
+          }}
           nbTest={activityData.config.nbTest}
           nbTestFeedback={0}
           feedback={false}

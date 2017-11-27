@@ -52,9 +52,14 @@ export default ({
       feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
     );
     if (feedback) {
+      logger({
+        type: 'Answer TestFB',
+        value: '' + correction.result
+      });
       dataFn.objInsert(true, 'feedbackOpen');
     } else {
       logger({ type: 'subPart', value: 'Test' });
+      logger({ type: 'Answer Test:', value: '' + correction.result });
       if (data.indexCurrent === nbTest - 1) {
         logger({ type: 'part', value: 'Test' });
         dataFn.objInsert(0, 'indexCurrent');
