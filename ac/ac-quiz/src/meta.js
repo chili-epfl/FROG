@@ -110,7 +110,7 @@ export const meta = {
         title: 'Rich text form',
         shuffle: 'none',
         guidelines:
-          '<p><strong>A video</strong> [[https://www.youtube.com/watch?v=fb6UnKVkwVA&amp;feature=youtu.be]]</p>',
+          '<p>Just a <strong>video</strong> [[https://www.youtube.com/watch?v=fb6UnKVkwVA&amp;feature=youtu.be]]</p>',
         questions: [
           {
             question: rtQ,
