@@ -73,8 +73,7 @@ class EnhancedForm extends Component {
           onChange={this.onChange}
           schema={this.state.schema}
           formData={this.state.formData}
-          fields={fields}
-        />
+        o>
       )
     );
   }

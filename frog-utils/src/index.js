@@ -2,14 +2,11 @@
 import React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
-import Loadable from 'react-loadable';
 
 let _EnhancedForm = {};
 if (Meteor.isClient) {
   _EnhancedForm = require('./EnhancedForm');
 }
-console.log(_EnhancedForm);
-
 export const EnhancedForm = _EnhancedForm;
 
 export {
