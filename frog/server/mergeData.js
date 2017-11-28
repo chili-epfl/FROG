@@ -28,7 +28,8 @@ export const mergeOneInstance = (
   activityData,
   structure,
   object,
-  providedInstanceActivityData
+  providedInstanceActivityData,
+  docId
 ) => {
   let data;
   if (mergeFunction) {
@@ -45,7 +46,10 @@ export const mergeOneInstance = (
     if (instanceActivityData) {
       data = Promise.await(
         new Promise(resolve => {
-          const doc = connection.get('rz', activity._id + '/' + grouping);
+          const doc = connection.get(
+            'rz',
+            docId || activity._id + '/' + grouping
+          );
           doc.fetch();
           doc.once(
             'load',
@@ -59,8 +63,7 @@ export const mergeOneInstance = (
                 console.error(
                   Date.now(),
                   'Creating collection for ',
-                  activity._id,
-                  grouping,
+                  docId || [activity._id, grouping].join('/'),
                   e
                 );
               }
@@ -82,7 +85,10 @@ export const mergeOneInstance = (
     data = dataStructure || {};
   }
 
-  const serverDoc = serverConnection.get('rz', activity._id + '/' + grouping);
+  const serverDoc = serverConnection.get(
+    'rz',
+    docId || activity._id + '/' + grouping
+  );
   try {
     serverDoc.create(data, undefined, undefined, err => {
       if (err) {
@@ -90,7 +96,7 @@ export const mergeOneInstance = (
         console.error(
           Date.now(),
           'Creating ShareDB document',
-          activity._id + '/' + grouping,
+          docId || [activity._id + '/' + grouping].join('/'),
           err
         );
       }

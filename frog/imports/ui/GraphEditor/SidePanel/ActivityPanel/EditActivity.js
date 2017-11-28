@@ -5,6 +5,7 @@ import FlexView from 'react-flexview';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import { ChangeableText, A } from 'frog-utils';
+import copy from 'copy-to-clipboard';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity, setStreamTarget } from '/imports/api/activities';
@@ -30,6 +31,14 @@ const StreamSelect = ({ activity, targets, onChange }) => (
     </FormControl>
   </FormGroup>
 );
+
+const copyURL = activity => {
+  const config = encodeURIComponent(JSON.stringify(activity.data));
+  const url = `${window.location.protocol}//${window.location.hostname}${
+    window.location.port ? ':' + window.location.port : ''
+  }/api/activityType/${activity.activityType}?config=${config}&instance_id=1`;
+  copy(url);
+};
 
 const RawEditActivity = ({
   advancedOpen,
@@ -90,8 +99,9 @@ const RawEditActivity = ({
             </h3>
           </div>
           <FlexView marginLeft="auto">
-            {errorColor === 'green' && (
+            {errorColor === 'green' && [
               <Button
+                key="eyeopen"
                 className="glyphicon glyphicon-eye-open"
                 style={{
                   position: 'absolute',
@@ -106,8 +116,20 @@ const RawEditActivity = ({
                     config: activity.data
                   })
                 }
+              />,
+              <Button
+                key="link"
+                className="glyphicon glyphicon-link"
+                style={{
+                  position: 'absolute',
+                  right: '41px',
+                  top: '39px',
+                  width: '9%',
+                  height: '34px'
+                }}
+                onClick={() => copyURL(activity)}
               />
-            )}
+            ]}
 
             <ValidButton activityId={activity._id} errorColor={errorColor} />
           </FlexView>

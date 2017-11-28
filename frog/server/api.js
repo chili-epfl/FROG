@@ -86,9 +86,14 @@ Picker.route(
     );
     const config = safeDecode(query.config, 'Config data not valid', response);
 
-    const docId = query.client_id + '/' + (query.activity_id || 'default');
-    if (!InstanceDone[docId + '/' + query.instance_id]) {
-      InstanceDone[query.instance_id] = true;
+    const docId = [
+      query.client_id,
+      activityTypeId,
+      query.activity_id || 'default',
+      query.instance_id
+    ].join('/');
+    if (!InstanceDone[docId]) {
+      InstanceDone[docId] = true;
       if (query.activity_data) {
         try {
           return JSON.parse(query.activity_data);
@@ -99,11 +104,11 @@ Picker.route(
       const aT = activityTypesObj[activityTypeId];
       Promise.await(
         new Promise(resolve => {
-          const doc = serverConnection.get(
-            'rz',
-            docId + '/' + query.instance_id
-          );
+          const doc = serverConnection.get('rz', docId);
           doc.fetch();
+          if (doc.type) {
+            resolve();
+          }
           doc.once(
             'load',
             Meteor.bindEnvironment(() => {
@@ -111,17 +116,15 @@ Picker.route(
                 resolve();
               } else {
                 mergeOneInstance(
-                  query.instance_id,
-                  {
-                    _id:
-                      query.client_id + '/' + (query.activity_id || 'default')
-                  },
+                  null,
+                  null,
                   aT.dataStructure,
                   aT.mergeFunction,
                   null,
                   null,
                   null,
-                  { data: activityData }
+                  { data: activityData, config: config || {} },
+                  docId
                 );
                 resolve();
               }
@@ -132,7 +135,7 @@ Picker.route(
     }
     InjectData.pushData(response, 'api', {
       activityType: activityTypeId,
-      instance_id: docId + '/' + query.instance_id,
+      instance_id: docId,
       activity_data: activityData,
       config: config
     });

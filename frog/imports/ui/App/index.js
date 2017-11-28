@@ -217,9 +217,13 @@ export default class Root extends Component {
       const data = this.state.data;
       return (
         <RunActivity
+          logger={msg =>
+            parent.postMessage({ type: 'frog-log', msg: msg }, '*')
+          }
           activityTypeId={data.activityType}
           username="Anonymous"
           userid="1"
+          stream={() => {}}
           reactiveId={data.instance_id}
           groupingValue={data.instance_id}
           activityData={{
