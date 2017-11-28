@@ -29,15 +29,22 @@ export default ({
     const caseAnswer = index.selectedChoice
       ? 0
       : index.realIndex % 2 === 0 ? 1 : 2;
-    const correction = Correction(
-      examples[index.realIndex].isIncorrect,
-      caseAnswer,
-      index.selectedProperties,
-      stringToArray(examples[index.realIndex].respectedProperties),
-      data.contradictories,
-      data.unnecessaries,
-      data.suffisants
-    );
+    const correction = feedback
+      ? Correction(
+          examples[index.realIndex].isIncorrect,
+          caseAnswer,
+          index.selectedProperties,
+          stringToArray(examples[index.realIndex].respectedProperties),
+          data.contradictories,
+          data.unnecessaries,
+          data.suffisants
+        )
+      : {
+          result:
+            index.selectedChoice === !examples[index.realIndex].isIncorrect
+              ? 0
+              : 2
+        };
     const newList = [...tmpList];
     newList[data.indexCurrent].correction = correction;
     dataFn.objInsert(
@@ -45,9 +52,14 @@ export default ({
       feedback ? 'listIndexTestWithFeedback' : 'listIndexTest'
     );
     if (feedback) {
+      logger({
+        type: 'Answer TestFB',
+        value: '' + correction.result
+      });
       dataFn.objInsert(true, 'feedbackOpen');
     } else {
       logger({ type: 'subPart', value: 'Test' });
+      logger({ type: 'Answer Test:', value: '' + correction.result });
       if (data.indexCurrent === nbTest - 1) {
         logger({ type: 'part', value: 'Test' });
         dataFn.objInsert(0, 'indexCurrent');

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { type ActivityPackageT, ReactiveText } from 'frog-utils';
+import { compact } from 'lodash';
 
 const meta = {
   name: 'Text area',
@@ -44,8 +45,12 @@ const config = {
       title: 'Optional title',
       type: 'string'
     },
+    guidelines: {
+      title: 'Guidelines',
+      type: 'string'
+    },
     prompt: {
-      title: 'Optional prompt',
+      title: 'Default prompt',
       type: 'string'
     },
     placeholder: { title: 'Optional placeholder', type: 'string' }
@@ -62,17 +67,32 @@ const mergeFunction = (object, dataFn) => {
   }
 };
 
+const exportData = (configData, { payload }) => {
+  const csv = Object.keys(payload).map(line => {
+    const data = JSON.stringify(payload[line].data['text']);
+    if (data) {
+      return [line, data].join('\t');
+    }
+    return undefined;
+  });
+
+  const headers = ['instanceId', 'text'].join('\t');
+  return compact([headers, ...csv]).join('\n');
+};
+
 // the actual component that the student sees
 const ActivityRunner = ({ activityData, dataFn }) => {
-  const header = activityData.config && [
-    activityData.config.title && (
-      <h1 key="title">{activityData.config.title}</h1>
+  const conf = activityData.config;
+  const header = conf && [
+    conf.title && <h1 key="title">{conf.title}</h1>,
+    conf.guidelines && (
+      <p key="guidelines" style={{ fontSize: '20px' }}>
+        {conf.guidelines}
+      </p>
     ),
-    activityData.config.prompt && (
-      <ul key="prompt" style={{ fontSize: '25px' }}>
-        {activityData.config.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
-      </ul>
-    )
+    <ul key="prompt" style={{ fontSize: '20px' }}>
+      {conf.prompt && conf.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
+    </ul>
   ];
   return [
     ...header,
@@ -81,7 +101,7 @@ const ActivityRunner = ({ activityData, dataFn }) => {
       path="text"
       dataFn={dataFn}
       key="textarea"
-      placeholder={activityData.config.placeholder}
+      placeholder={conf && conf.placeholder}
       style={{ width: '100%', height: '100%', fontSize: '20px' }}
     />
   ];
@@ -95,5 +115,6 @@ export default ({
   ActivityRunner,
   Dashboard: null,
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  exportData
 }: ActivityPackageT);
