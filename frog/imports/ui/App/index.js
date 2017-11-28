@@ -19,6 +19,7 @@ import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 
+import { RunActivity } from '../StudentView/Runner';
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
@@ -195,15 +196,51 @@ const FROGRouter = withRouter(
   }
 );
 
-export default () => (
-  <ErrorBoundary>
-    <Router>
-      <div style={{ width: '100%', height: '100%' }}>
-        <Switch>
-          <Route path="/:slug" component={FROGRouter} />
-          <Route component={FROGRouter} />
-        </Switch>
-      </div>
-    </Router>
-  </ErrorBoundary>
-);
+export default class Root extends Component {
+  state: { mode: string, api?: boolean, data?: Object };
+
+  constructor() {
+    super();
+    this.state = { mode: 'waiting' };
+  }
+
+  componentDidMount = () => {
+    InjectData.getData('api', data => {
+      this.setState({ mode: 'ready', api: data && data.activityType, data });
+    });
+  };
+
+  render() {
+    if (this.state.mode === 'waiting') {
+      return null;
+    } else if (this.state.api && this.state.data) {
+      const data = this.state.data;
+      return (
+        <RunActivity
+          activityTypeId={data.activityType}
+          username="Anonymous"
+          userid="1"
+          reactiveId={data.instance_id}
+          groupingValue={data.instance_id}
+          activityData={{
+            data: data.activity_data,
+            config: data.config || {}
+          }}
+        />
+      );
+    } else {
+      return (
+        <ErrorBoundary>
+          <Router>
+            <div style={{ width: '100%', height: '100%' }}>
+              <Switch>
+                <Route path="/:slug" component={FROGRouter} />
+                <Route component={FROGRouter} />
+              </Switch>
+            </div>
+          </Router>
+        </ErrorBoundary>
+      );
+    }
+  }
+}

@@ -20,24 +20,28 @@ declare var Promise: any;
 const backend = new ShareDB();
 const connection = backend.connect();
 
-const mergeOneInstance = (
+export const mergeOneInstance = (
   grouping,
   activity,
   dataStructure,
   mergeFunction,
   activityData,
   structure,
-  object
+  object,
+  providedInstanceActivityData
 ) => {
   let data;
   if (mergeFunction) {
-    const instanceActivityData = getMergedExtractedUnit(
-      activity.data,
-      activityData,
-      structure,
-      grouping,
-      object.socialStructure
-    );
+    const instanceActivityData =
+      providedInstanceActivityData !== undefined // allows it to be null and still picked up
+        ? providedInstanceActivityData
+        : getMergedExtractedUnit(
+            activity.data,
+            activityData,
+            structure,
+            grouping,
+            object.socialStructure
+          );
     if (instanceActivityData) {
       data = Promise.await(
         new Promise(resolve => {
@@ -53,7 +57,7 @@ const mergeOneInstance = (
               } catch (e) {
                 // eslint-disable-next-line no-console
                 console.error(
-                  Date.now,
+                  Date.now(),
                   'Creating collection for ',
                   activity._id,
                   grouping,
@@ -84,7 +88,7 @@ const mergeOneInstance = (
       if (err) {
         // eslint-disable-next-line no-console
         console.error(
-          Date.now,
+          Date.now(),
           'Creating ShareDB document',
           activity._id + '/' + grouping,
           err
@@ -94,7 +98,7 @@ const mergeOneInstance = (
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(
-      Date.now,
+      Date.now(),
       'Catch: Creating ShareDB document for ',
       activity._id,
       grouping,
@@ -141,7 +145,7 @@ const mergeData = (
       );
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.error(Date.now, 'Creating dashboard for ', activityId, e);
+      console.error(Date.now(), 'Creating dashboard for ', activityId, e);
     }
   }
 };

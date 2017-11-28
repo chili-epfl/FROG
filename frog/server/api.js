@@ -5,7 +5,12 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { InjectData } from 'meteor/staringatlights:inject-data';
+import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
+
+import { activityTypesObj, activityTypes } from '/imports/activityTypes';
+import { serverConnection } from './share-db-manager';
+import { mergeOneInstance } from './mergeData';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
@@ -36,6 +41,100 @@ Picker.filter(req => req.method === 'POST').route(
     InjectData.pushData(response, 'login', {
       token: stampedLoginToken.token,
       slug: params.slug
+    });
+    next();
+  }
+);
+
+Picker.route('/api/activityTypes', (params, request, response, next) => {
+  response.end(
+    Stringify(
+      activityTypes.map(x => ({
+        id: x.id,
+        type: x.type,
+        name: x.meta.name,
+        description: x.meta.shortDesc,
+        longDescription: x.meta.description
+      }))
+    )
+  );
+});
+
+const safeDecode = (json, msg, response) => {
+  if (!json) {
+    return undefined;
+  }
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    console.error(e);
+    return response.end(msg);
+  }
+};
+
+const InstanceDone = {};
+Picker.route(
+  '/api/activityType/:activityTypeId',
+  ({ activityTypeId, query }, request, response, next) => {
+    if (!activityTypesObj[activityTypeId]) {
+      response.end('No matching activity type found');
+    }
+    const activityData = safeDecode(
+      query.activityData,
+      'Activity data not valid',
+      response
+    );
+    const config = safeDecode(query.config, 'Config data not valid', response);
+
+    const docId = query.client_id + '/' + (query.activity_id || 'default');
+    if (!InstanceDone[docId + '/' + query.instance_id]) {
+      InstanceDone[query.instance_id] = true;
+      if (query.activity_data) {
+        try {
+          return JSON.parse(query.activity_data);
+        } catch (e) {
+          return response.end('Activity data malformed');
+        }
+      }
+      const aT = activityTypesObj[activityTypeId];
+      Promise.await(
+        new Promise(resolve => {
+          const doc = serverConnection.get(
+            'rz',
+            docId + '/' + query.instance_id
+          );
+          doc.fetch();
+          doc.once(
+            'load',
+            Meteor.bindEnvironment(() => {
+              if (doc.type) {
+                resolve();
+              } else {
+                mergeOneInstance(
+                  query.instance_id,
+                  {
+                    _id:
+                      query.client_id + '/' + (query.activity_id || 'default')
+                  },
+                  aT.dataStructure,
+                  aT.mergeFunction,
+                  null,
+                  null,
+                  null,
+                  { data: activityData }
+                );
+                resolve();
+              }
+            })
+          );
+        })
+      );
+    }
+    InjectData.pushData(response, 'api', {
+      activityType: activityTypeId,
+      instance_id: docId + '/' + query.instance_id,
+      activity_data: activityData,
+      config: config
     });
     next();
   }
