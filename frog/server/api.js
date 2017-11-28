@@ -80,7 +80,7 @@ Picker.route(
       response.end('No matching activity type found');
     }
     const activityData = safeDecode(
-      query.activityData,
+      query.activity_data,
       'Activity data not valid',
       response
     );
@@ -94,13 +94,6 @@ Picker.route(
     ].join('/');
     if (!InstanceDone[docId]) {
       InstanceDone[docId] = true;
-      if (query.activity_data) {
-        try {
-          return JSON.parse(query.activity_data);
-        } catch (e) {
-          return response.end('Activity data malformed');
-        }
-      }
       const aT = activityTypesObj[activityTypeId];
       Promise.await(
         new Promise(resolve => {
@@ -137,7 +130,7 @@ Picker.route(
       activityType: activityTypeId,
       instance_id: docId,
       activity_data: activityData,
-      config: config
+      config
     });
     next();
   }
