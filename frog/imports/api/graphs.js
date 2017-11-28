@@ -37,7 +37,6 @@ export const addGraph = (graphObj?: Object): string => {
   const newOp = graphObj.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
-
     if (op.data) {
       const opT = operatorTypesObj[op.operatorType];
       const schema = calculateSchema(op.data, opT.config, opT.configUI);
@@ -51,6 +50,12 @@ export const addGraph = (graphObj?: Object): string => {
         if (path[1] === 'items') {
           op.data[path[0]].forEach((_, i) => {
             const relpath = [path[0], i, path[2]];
+            const curRef = get(op.data, relpath);
+            set(op.data, relpath, matching[curRef]);
+          });
+        } else if (path[2] === 'items') {
+          op.data[path[1]].forEach((_, i) => {
+            const relpath = [path[1], i, path[3]];
             const curRef = get(op.data, relpath);
             set(op.data, relpath, matching[curRef]);
           });

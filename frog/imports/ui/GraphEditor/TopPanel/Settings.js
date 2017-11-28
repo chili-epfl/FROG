@@ -49,7 +49,7 @@ export const ConfigMenu = connect(
       <MenuItem eventKey="3" onSelect={importGraph}>
         Import graph
       </MenuItem>
-      <MenuItem eventKey="4" onSelect={exportPicture}>
+      <MenuItem eventKey="4" onSelect={() => exportPicture()}>
         Export as image
       </MenuItem>
     </DropdownButton>

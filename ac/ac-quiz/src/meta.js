@@ -87,12 +87,18 @@ const exampleConfig = {
 };
 export const meta = {
   name: 'Multiple-Choice Questions',
-  shortDesc: 'Filling a MCQ form',
-  description: 'Display a multiple-choice questions form.',
+  shortDesc: 'Filling a MCQ form (quiz)',
+  description:
+    'Display a multiple-choice questions form. Can also be used for questionnaires.',
   exampleData: [
     {
       config: exampleConfig,
       title: 'Sample MCQ',
+      activityData: {}
+    },
+    {
+      config: { ...exampleConfig, shuffle: 'both' },
+      title: 'Sample MCQ with shuffling options',
       activityData: {}
     }
   ]
