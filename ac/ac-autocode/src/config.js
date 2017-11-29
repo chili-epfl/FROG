@@ -109,11 +109,7 @@ export const exampleConfig2 = {
     guidelines:
       'The variable N is the input number. You must print a string representing it in roman notation',
     specifications:
-      'Reminder:\n\
-      I:1, V:5, X:10, L:50, C:100, D:500, M:1000\n\
-      Repeating a numeral up to three times represents addition of the number.\n\
-      Writing numerals that decrease from left to right represents addition of the numbers.\n\
-      To write a number that otherwise would take repeating of a numeral four or more times, there is a subtraction rule. Writing a smaller numeral to the left of a larger numeral represents subtraction.',
+      'Reminder:\nI:1, V:5, X:10, L:50, C:100, D:500, M:1000\nRepeating a numeral up to three times represents addition of the number.\nWriting numerals that decrease from left to right represents addition of the numbers.\nTo write a number that otherwise would take repeating of a numeral four or more times, there is a subtraction rule. Writing a smaller numeral to the left of a larger numeral represents subtraction.',
     templateCode: 'if N=1:\n\tprint "I"\nelse:\n\tprint "II"',
     tests: [
       {
