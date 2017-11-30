@@ -46,7 +46,7 @@ Picker.filter(req => req.method === 'POST').route(
   }
 );
 
-Picker.route('/api/activityTypes', (params, request, response, next) => {
+Picker.route('/api/activityTypes', (params, request, response) => {
   response.end(
     Stringify(
       activityTypes.map(x => ({

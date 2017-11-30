@@ -104,7 +104,7 @@ export const RunActivity = ({
 }: {
   reactiveId: string,
   logger: Function,
-  activityData?: Object,
+  activityData?: Object | null,
   username: string,
   userid: string,
   stream: Function,

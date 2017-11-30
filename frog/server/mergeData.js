@@ -6,7 +6,9 @@ import {
   generateReactiveFn,
   getMergedExtractedUnit,
   type ObjectT,
-  type GlobalStructureT
+  type GlobalStructureT,
+  type ActivityDbT,
+  type structureDefT
 } from 'frog-utils';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
@@ -21,15 +23,15 @@ const backend = new ShareDB();
 const connection = backend.connect();
 
 export const mergeOneInstance = (
-  grouping,
-  activity,
-  dataStructure,
-  mergeFunction,
-  activityData,
-  structure,
-  object,
-  providedInstanceActivityData,
-  docId
+  grouping: string,
+  activity: ActivityDbT,
+  dataStructure: any,
+  mergeFunction: ?Function,
+  activityData: Object,
+  structure: structureDefT,
+  object: Object,
+  providedInstanceActivityData?: any,
+  docId?: string
 ) => {
   let data;
   if (mergeFunction) {
