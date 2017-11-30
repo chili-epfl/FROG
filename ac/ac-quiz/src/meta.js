@@ -1,6 +1,7 @@
 // @flow
 
 import { rtQ } from './rtQ';
+
 const exampleConfig = {
   title: 'Stat 101',
   guidelines:

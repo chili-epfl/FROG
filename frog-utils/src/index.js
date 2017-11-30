@@ -3,12 +3,14 @@ import React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
 
-let _EnhancedForm = {};
-if (Meteor.isClient) {
-  _EnhancedForm = require('./EnhancedForm').default;
+export const isBrowser = () =>
+  new Function('try {return this===global;}catch(e){return false;}'); // eslint-disable-line no-new-func
+
+let _EnhancedForm = () => <p>Node</p>; // making it into React component to make Flow happy
+if (isBrowser()) {
+  _EnhancedForm = require('./EnhancedForm').default; // eslint-disable-line global-require
 }
 export const EnhancedForm = _EnhancedForm;
-
 export {
   hideConditional,
   calculateHides,

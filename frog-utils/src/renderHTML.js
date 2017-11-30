@@ -44,6 +44,7 @@ const HTML = ({
     toRender = html;
   }
 
+  // eslint-disable-next-line react/no-danger
   return <div dangerouslySetInnerHTML={{ __html: toRender }} />;
 };
 
