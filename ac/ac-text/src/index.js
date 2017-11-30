@@ -1,14 +1,13 @@
 // @flow
 
 import React from 'react';
-
-import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
+import { type ActivityRunnerT, type ActivityPackageT, HTML } from 'frog-utils';
 
 export const meta = {
   name: 'Text Component',
   shortDesc: 'Reading a text',
   description:
-    'Display a given text, can be taken from config, or operators, or both.',
+    'Display a given rich text, can be taken from config, or operators, or both.',
   exampleData: [
     {
       title: 'Sample text',
@@ -30,7 +29,7 @@ export const config = {
       title: 'Title'
     },
     text: {
-      type: 'string',
+      type: 'rte',
       title: 'Text'
     }
   }
@@ -38,9 +37,9 @@ export const config = {
 
 export const ActivityRunner = ({ activityData }: ActivityRunnerT) => (
   <div>
-    <h1>{activityData.config ? activityData.config.title : 'NO TITLE'}</h1>
+    <h1>{activityData.config ? activityData.config.title : ''}</h1>
     <p style={{ fontSize: '20px' }}>
-      {activityData.config ? activityData.config.text : 'NO TEXT'}
+      {activityData.config ? HTML(activityData.config.text) : ''}w;
     </p>
   </div>
 );
