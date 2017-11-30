@@ -12,6 +12,10 @@ export const config = {
       type: 'string',
       title: 'Guidelines'
     },
+    template: {
+      type: 'string',
+      title: 'Code Template'
+    },
     multipleTry: {
       title: 'Can student submit multiple times ?',
       type: 'boolean'
@@ -26,5 +30,8 @@ export const config = {
 export const configUI = {
   numTry: {
     conditional: 'multipleTry'
+  },
+  template: {
+    'ui:widget': 'textarea'
   }
 };

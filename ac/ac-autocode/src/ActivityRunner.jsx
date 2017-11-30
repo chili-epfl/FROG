@@ -5,33 +5,31 @@ import type { ActivityRunnerT } from 'frog-utils';
 
 export default class ActivityRunner extends Component {
   state: {
-    inputCode: string,
-    outputFeed: string
+    outputFeed: string[]
   };
+  outputFeed: string[];
+  Ace: React$Component<*, *, *>;
 
   constructor(props: ActivityRunnerT) {
     super(props);
 
     this.state = {
-      inputCode: 'print "Hello World"',
-      outputFeed: "You'll see the output of your code here"
+      outputFeed: ["You'll see the output of your code here"]
     };
 
     this.editorChange = this.editorChange.bind(this);
     this.runit = this.runit.bind(this);
-  }
 
-  shouldComponentUpdate(nextProps: Object, nextState: Object) {
-    if (this.state.inputCode !== nextState.inputCode) {
-      return false;
-    } else {
-      return true;
+    if (window !== undefined) {
+      this.Ace = require('react-ace').default;
+      require('brace/mode/python');
+      require('brace/theme/textmate');
+      require('brace/ext/language_tools');
     }
   }
 
   componentDidMount() {
     const script = document.createElement('script');
-
     script.src = 'http://www.skulpt.org/static/skulpt.min.js';
     script.async = false;
     if (document.body != null) {
@@ -55,62 +53,43 @@ export default class ActivityRunner extends Component {
     return window.Sk.builtinFiles['files'][x];
   }
 
-  outfunction(text: string) {
-    window.Sk.runner.state.outputFeed =
-      window.Sk.runner.state.outputFeed + '\n' + text;
-  }
+  outfunction = (output: string) => {
+    this.outputFeed = [...this.outputFeed, output];
+  };
 
   runit: Function;
   runit() {
     if (window.Sk) {
-      window.Sk.runner = this;
-      window.Sk.runner.state.outputFeed = '';
+      this.outputFeed = [];
       window.Sk.configure({ output: this.outfunction, read: this.builtinRead });
-      window.Sk.importMainWithBody('<stdin>', false, this.state.inputCode);
-      this.forceUpdate();
+      window.Sk.importMainWithBody('<stdin>', false, this.props.data.code);
+      this.setState({ outputFeed: this.outputFeed });
     }
   }
 
   editorChange: Function;
   editorChange(newValue: string) {
-    this.setState({ inputCode: newValue });
+    this.props.dataFn.objInsert(newValue, 'code');
   }
 
   render() {
-    const Editor = props => {
-      if (window !== undefined) {
-        const Ace = require('react-ace').default;
-        require('brace/mode/python');
-        require('brace/theme/textmate');
-        require('brace/ext/language_tools');
-        return <Ace {...props} />;
-      }
-      return (
-        <textarea
-          id="yourcode"
-          cols="40"
-          rows="10"
-          value={this.state.inputCode}
-          onChange={this.editorChange}
-        />
-      );
-    };
-
+    const { data, activityData } = this.props;
     return (
       <div>
-        <h3>Try This</h3>
-        <Editor
+        <h3>{activityData.config.title}</h3>
+        <span>{activityData.config.guidelines}</span>
+        <this.Ace
           id="yourcode"
           mode="python"
           theme="textmate"
           highlightActiveLine
-          value={this.state.inputCode}
+          value={data.code}
           onChange={this.editorChange}
           setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
+            enableBasicAutocompletion: false,
+            enableLiveAutocompletion: false,
             showLineNumbers: true,
-            tabSize: 2
+            tabSize: 4
           }}
         />
         <div>
@@ -118,7 +97,9 @@ export default class ActivityRunner extends Component {
             Run
           </button>
         </div>
-        <p>{this.state.outputFeed}</p>
+        {this.state.outputFeed.map((line, i) => (
+          <div key={line + i}>{line}</div>
+        ))}
       </div>
     );
   }

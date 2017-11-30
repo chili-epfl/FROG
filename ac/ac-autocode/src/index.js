@@ -31,7 +31,10 @@ const meta = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = () => {};
+const mergeFunction = (obj, dataFn) => {
+  const template = obj.config.template || 'print "Hello world"';
+  dataFn.objInsert(template, 'code');
+};
 
 export default ({
   id: 'ac-autocode',
