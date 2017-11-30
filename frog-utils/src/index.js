@@ -3,14 +3,18 @@ import React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
 
-export const isBrowser = () =>
-  new Function('try {return this===global;}catch(e){return false;}'); // eslint-disable-line no-new-func
+export const isBrowser = (() => {
+  try {
+    return !!window;
+  } catch (e) {
+    return false;
+  }
+})();
 
-let _EnhancedForm = () => <p>Node</p>; // making it into React component to make Flow happy
-if (isBrowser()) {
-  _EnhancedForm = require('./EnhancedForm').default; // eslint-disable-line global-require
-}
-export const EnhancedForm = _EnhancedForm;
+export const EnhancedForm = isBrowser
+  ? require('./EnhancedForm.js').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
 export {
   hideConditional,
   calculateHides,
