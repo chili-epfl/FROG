@@ -143,7 +143,7 @@ const RawEditActivity = ({
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
       {advancedOpen && (
         <React.Fragment>
-          <div key="stream">
+          <div>
             Select streaming target
             <StreamSelect
               activity={activity}
@@ -155,7 +155,7 @@ const RawEditActivity = ({
               }
             />
           </div>
-          <FileForm key="fileform" />
+          <FileForm />
         </React.Fragment>
       )}
     </div>
