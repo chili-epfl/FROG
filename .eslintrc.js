@@ -53,7 +53,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'react/sort-comp': 'off',
-    'sx-a11y/mouse-events-have-key-events': 'off'
+    'jsx-a11y/mouse-events-have-key-events': 'off'
   },
   parserOptions: {
     ecmaVersion: 2016,
