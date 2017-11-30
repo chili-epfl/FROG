@@ -5,7 +5,8 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Collapse } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 
-import { Uploads } from '../../../api/uploads';
+import { uuid } from 'frog-utils';
+import { uploadFile } from '../../../api/openUploads';
 
 const Header = ({ display, setState }) => (
   <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -22,19 +23,18 @@ const Header = ({ display, setState }) => (
 );
 
 const FileBox = ({ urls, setState }) => {
-  const onDrop = files => {
-    if (files.length > 1) {
-      window.alert('Only 1 file at a time please'); //eslint-disable-line
+  const onDropRecursive = (files, i, newUrls) => {
+    if (i >= files.length) {
+      setState({ urls: [...urls, ...newUrls] });
     } else {
-      Uploads.insert(files[0], (err, fileObj) => {
-        const newUrl =
-          window.location.origin + '/cfs/files/uploads/' + fileObj._id;
-        setState({
-          urls: [...urls, newUrl]
-        });
+      const fileId = uuid();
+      uploadFile(files[i], fileId).then(newUrl => {
+        onDropRecursive(files, i + 1, [...newUrls, newUrl]);
       });
     }
   };
+
+  const onDrop = files => onDropRecursive(files, 0, []);
 
   return (
     <Dropzone
