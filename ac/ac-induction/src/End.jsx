@@ -14,12 +14,12 @@ export default class End extends Component {
         <h2>End of the activity</h2>
         {this.props.data.parts.includes('Tests with feedback') && (
           <Result
-            title={'Tests with feedback'}
+            title="Tests with feedback"
             list={this.props.data.listIndexTestWithFeedback}
           />
         )}
         {this.props.data.parts.includes('Tests') && (
-          <Result title={'Tests'} list={this.props.data.listIndexTest} />
+          <Result title="Tests" list={this.props.data.listIndexTest} />
         )}
       </div>
     );

@@ -56,11 +56,13 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
               (unless you use different browsers, privacy-mode etc). A quick
               work-around is to define in /etc/hosts:
             </p>
-            <pre>{`127.0.0.1	localhost
-127.0.0.1	dev1
-127.0.0.1	dev2
-127.0.0.1	dev3
-127.0.0.1	dev4`}</pre>
+            <p>
+              127.0.0.1 localhost<br />
+              127.0.0.1 dev1<br />
+              127.0.0.1 dev2<br />
+              127.0.0.1 dev3<br />
+              127.0.0.1 dev4
+            </p>
             <p>
               That way, you can log in to{' '}
               <b>
