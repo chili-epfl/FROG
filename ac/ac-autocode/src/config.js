@@ -40,7 +40,7 @@ export const config = {
           },
           onlyLastPrint: {
             type: 'boolean',
-            title: 'onlyLastOutput'
+            title: 'Check only last print'
           },
           expectedPrint: {
             type: 'string',
@@ -56,6 +56,35 @@ export const config = {
   }
 };
 
+export const exampleConfig0 = {
+  title: 'DummyConfig',
+  config: {
+    title: 'Print something',
+    guidelines: '',
+    specifications: '',
+    templateCode: "print 'a'",
+    tests: [
+      {
+        description: 'a',
+        preCode: '',
+        postCode: '',
+        onlyLastPrint: true,
+        expectedPrint: 'a',
+        showExpected: true
+      },
+      {
+        description: 'b',
+        preCode: '',
+        postCode: '',
+        onlyLastPrint: true,
+        expectedPrint: 'b',
+        showExpected: true
+      }
+    ]
+  },
+  data: {}
+};
+
 export const exampleConfig1 = {
   title: 'SortArray',
   config: {
@@ -67,18 +96,18 @@ export const exampleConfig1 = {
     tests: [
       {
         description: 'Already sorted',
-        preCode: 'a=[1,2,3]',
+        preCode: 'a=[1, 2, 3]',
         postCode: 'print b',
         onlyLastPrint: true,
-        expectedPrint: '[1,2,3]',
+        expectedPrint: '[1, 2, 3]',
         showExpected: true
       },
       {
         description: 'Normal case',
-        preCode: 'a=[10,2,15,8,7]',
+        preCode: 'a=[10, 2, 15, 8, 7]',
         postCode: 'print b',
         onlyLastPrint: true,
-        expectedPrint: '[2,7,8,10,15]',
+        expectedPrint: '[2, 7, 8, 10, 15]',
         showExpected: true
       },
       {
