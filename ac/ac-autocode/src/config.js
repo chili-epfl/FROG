@@ -46,29 +46,13 @@ export const configUI = {
 };
 
 export const exampleConfig0 = {
-  title: 'DummyConfig',
+  title: 'Double',
   config: {
-    title: 'Print something',
-    guidelines: '',
-    templateCode: "print 'a'",
-    tests: [
-      {
-        description: 'a',
-        preCode: '',
-        postCode: '',
-        onlyLastPrint: true,
-        expectedPrint: 'a',
-        showExpected: true
-      },
-      {
-        description: 'b',
-        preCode: '',
-        postCode: '',
-        onlyLastPrint: true,
-        expectedPrint: 'b',
-        showExpected: true
-      }
-    ]
+    title: 'Double',
+    guidelines: 'Make it double',
+    template: "todo = lambda x: x*x",
+    solution: "solution = lambda x: 2*x",
+    tests: [0,1,2,3,4,5]
   },
   data: {}
 };
