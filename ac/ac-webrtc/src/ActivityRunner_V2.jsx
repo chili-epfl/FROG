@@ -10,8 +10,6 @@ import React, {Component} from 'react';
 import {uuid} from 'frog-utils';
 import type {ActivityRunnerT} from 'frog-utils';
 
-// ReconnectingWebSocket 
-
 const LocalVideo = ({src}) => {
   return(
       <video id="localVideo" height="200px" autoPlay="true" muted="true" src={src}></video>
@@ -69,9 +67,7 @@ class ActivityRunner extends Component{
   };
 
   startConnection = (remoteUser) => {
-    console.log("Start Connection: I am", this.userInfo); 
-    console.log("start Connection: I am talking ", remoteUser);
-    // CHECK!
+    // CHECK if correct!
     if (!_.contains(this.state.connections, {remoteUser : remoteUser}) && typeof this.state.local.stream !== 'undefined'){
       var connection = this.createPeerConnection();
       connection.addStream(this.state.local.stream);
@@ -105,25 +101,16 @@ class ActivityRunner extends Component{
           toUser: event.target.remoteUser,
           fromUser: this.userInfo
         }
-      }; 
-      console.log("ICE CANDIDATE I am", this.userInfo);
-      console.log("ICE CANDIDATE talking", event.target.remoteUser);  
-      console.log(JSON.stringify(message));
+      };   
       this.state.ws.send(JSON.stringify(message));
     } else {
-      console.log("ICE CANDIDATE I am", this.userInfo); 
       console.log("End of candidates."); 
     };
   };
 
   handleRemoteStreamAdded = (event) => {
-    console.log("REMOTE STREAM I am", this.userInfo); 
     let index = _.indexOf(this.state.connections, event.target);
-    // let remote = this.state.remote[index];
-    
     let remotes = this.state.remote;
-    console.log(index, remotes);
-    window.remo = remotes; 
     if(_.isUndefined(remotes[index])){
       remotes[index] = {
         stream : event.stream,
@@ -135,7 +122,6 @@ class ActivityRunner extends Component{
     this.setState({
       'remote' : remotes
     });
-    console.log(this.state.connections);
   };
 
   handleRemoteStreamRemoved = (event) => {
@@ -151,7 +137,6 @@ class ActivityRunner extends Component{
   };
 
   handleCreateOfferError = (event) => {
-    console.log("CREATE OFFER ERROR I am", this.userInfo);
     console.log("createOffer() error:", event); 
   };
 
@@ -166,9 +151,6 @@ class ActivityRunner extends Component{
         fromUser: this.userInfo
       }
     };
-    console.log("SET LOCAL AND OFFER I am", this.userInfo);
-    console.log("SET LOCAL AND OFFER talking with", connection.remoteUser); 
-    console.log(JSON.stringify(message));
     this.state.ws.send(JSON.stringify(message));
   };
 
@@ -180,8 +162,6 @@ class ActivityRunner extends Component{
   };
 
   setLocalInfoAndSendAnswer = (answer, connection) => {
-    console.log("SET LOCAL AND ANSWER I am", this.userInfo);
-    console.log("SET LOCAL AND ANSWER talking", connection.remoteUser);
     answer.sdp = this.preferOpus(answer.sdp);
     connection.setLocalDescription(answer);
     let message = {
@@ -192,12 +172,10 @@ class ActivityRunner extends Component{
         fromUser: this.userInfo
       }
     }; 
-    console.log(JSON.stringify(message));
     this.state.ws.send(JSON.stringify(message));
   };
 
   onCreateSessionDescriptionError = (error) =>{
-    console.log("CREATE SESION ERROR I am", this.userInfo);
     console.log("Failed to create description: ", error.toString()); 
   };
 
@@ -213,7 +191,6 @@ class ActivityRunner extends Component{
       if (connection.getRemoteStreams() !== null){
         newRemotes = _.filter(this.state.remote, ({stream}) => {
            if(stream == connection.getRemoteStreams()[0]){
-            console.log("OH YUES", stream); 
             try{
               stream.getTracks().forEach(track => track.stop());
             }catch(e){
@@ -234,7 +211,6 @@ class ActivityRunner extends Component{
           return false;
         }else{return true}
       });
-      console.log(newRemotes); 
       this.setState({
         remote: newRemotes,
         connections: newConnections
@@ -349,30 +325,23 @@ class ActivityRunner extends Component{
     // Log messages from the server
     wsRTC.onmessage = (message) => {
       var JSONmess = JSON.parse(message.data);
-      // console.log('Message Received: %s');
-      // console.log(JSONmess);
 
       switch (JSONmess.type){
         case 'created':
           console.log("CREATED"); 
-          console.log(JSONmess.data);
           break;
         case 'joined':
           console.log("JOINED");
-          console.log(JSONmess.data);  
           break;
         case 'join':
           console.log("JOIN");
-          console.log(JSONmess.data);
           let connection = this.startConnection(JSONmess.data.user); 
           if (connection) {
-            console.log("DO CALL"); 
             this.startOffer(connection);
           }; 
           break;
         case 'full':
           console.log("FULL");
-          console.log(JSONmess.data);
           alert("The room " + JSONmess.data.room + " is full. Please try another name");
           this.setState(
             {
@@ -383,30 +352,18 @@ class ActivityRunner extends Component{
           break;
         case 'offer':
           console.log("OFFER");
-          console.log(JSONmess.data);
           let connectionOffer = this.startConnection(JSONmess.data.fromUser); 
           if (connectionOffer) {
-            console.log("DO ANSWER");
             this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message)); 
             this.startAnswer(connectionOffer);
           }; 
           break;
         case 'answer' :
           console.log("ANSWER");
-          console.log(JSONmess.data);
-          console.log(this.userInfo); 
-          window.st = this.state.connections;
-          window.from = JSONmess.data.fromUser;
-          console.log(this.state.connections);
-          console.log(this.state.connections[0].remoteUser); 
-          console.log(JSONmess.data.fromUser);  
-
           this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
-
           break;
         case 'candidate' :
           console.log("CANDIDATE");
-          console.log(JSONmess.data);
           let candidate = new RTCIceCandidate({
             sdpMLineIndex: JSONmess.data.label,
             candidate: JSONmess.data.candidate
@@ -415,7 +372,6 @@ class ActivityRunner extends Component{
           break;
         case 'bye' :
           console.log("BYE");
-          console.log(JSONmess.data);
           this.handleRemoteHangUp(JSONmess.data);
           break;
         case 'log' :
@@ -457,11 +413,6 @@ class ActivityRunner extends Component{
       .catch(function(e) {
         alert('getUserMedia() error: ' + e.name);
       });
-      // let message = {
-      //   type: 'message'
-      // }; 
-      // console.log(JSON.stringify(message));
-      // this.state.ws.send(JSON.stringify(message));
     };
 
     const gotStream = (stream) => {
@@ -475,10 +426,6 @@ class ActivityRunner extends Component{
           readyCall: true
         }
       );
-      // LocalVideo(streams.local);
-      // localVideo.src = window.URL.createObjectURL(stream);
-      // localVideo.stream = stream;
-      // startButton.disabled = true;
     };
 
     const onCall = () => {
@@ -503,7 +450,6 @@ class ActivityRunner extends Component{
       let message = {
           type: 'bye'
       }; 
-      console.log(JSON.stringify(message));
       this.state.ws.send(JSON.stringify(message));
 
       if (this.state.local.stream){
