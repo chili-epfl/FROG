@@ -85,10 +85,7 @@ class EnhancedForm extends Component {
 
   componentWillMount() {
     if (!this.props.formData && jsonSchemaDefaults(this.props.schema) !== {}) {
-      this.updateSchema({
-        ...this.props,
-        formData: jsonSchemaDefaults(this.props.schema)
-      });
+      this.updateSchema(this.props);
     } else {
       this.updateSchema(this.props);
       this.formData = this.props.formData;
@@ -119,7 +116,9 @@ class EnhancedForm extends Component {
 
   updateSchema = (props: Object, newSchema: boolean = false) => {
     const [schema, hides] = calculateSchema(
-      this.formData || this.props.formData,
+      this.formData ||
+        this.props.formData ||
+        jsonSchemaDefaults(this.props.schema),
       props.schema,
       props.uiSchema,
       this.hides || [],
