@@ -62,9 +62,16 @@ class ActivityRunner extends Component{
     readyHangup: boolean
   };
 
+  findConnectionByRemoteUser = (userInfo) => {
+    return(_.find(this.state.connections, (conn) => {
+      return(_.isEqual(conn.remoteUser,userInfo))
+    }))
+  };
+
   startConnection = (remoteUser) => {
     console.log("Start Connection: I am", this.userInfo); 
     console.log("start Connection: I am talking ", remoteUser);
+    // CHECK!
     if (!_.contains(this.state.connections, {remoteUser : remoteUser}) && typeof this.state.local.stream !== 'undefined'){
       var connection = this.createPeerConnection();
       connection.addStream(this.state.local.stream);
@@ -131,6 +138,10 @@ class ActivityRunner extends Component{
     console.log(this.state.connections);
   };
 
+  handleRemoteStreamRemoved = (event) => {
+    console.log("Remote stream removed. Event: ", event); 
+  };
+
   startOffer = (connection) => {
     connection.createOffer(sdpConstraints)
     .then( (offer) => {
@@ -190,8 +201,45 @@ class ActivityRunner extends Component{
     console.log("Failed to create description: ", error.toString()); 
   };
 
+  // requestTurn!
+
+
+
   handleRemoteHangUp = (remoteUser) => {
     console.log("Session terminated", remoteUser); 
+    let connection = this.findConnectionByRemoteUser(remoteUser);
+    if(connection !== null) {
+      let newRemotes;
+      if (connection.getRemoteStreams() !== null){
+        newRemotes = _.filter(this.state.remote, ({stream}) => {
+           if(stream == connection.getRemoteStreams()[0]){
+            console.log("OH YUES", stream); 
+            try{
+              stream.getTracks().forEach(track => track.stop());
+            }catch(e){
+              console.log("error getting audio or video tracks" + e); 
+            }return false;
+           } else{
+            return true;
+           }
+        });
+      }
+      let newConnections = _.filter(this.state.connections, (conn) => {
+        if (conn === connection){
+          try{
+            conn.close();
+          }catch(e){
+            console.log("error closing connection" +e); 
+          }
+          return false;
+        }else{return true}
+      });
+      console.log(newRemotes); 
+      this.setState({
+        remote: newRemotes,
+        connections: newConnections
+      })
+    }
   }
 
   ////////////////////////
@@ -339,7 +387,7 @@ class ActivityRunner extends Component{
           let connectionOffer = this.startConnection(JSONmess.data.fromUser); 
           if (connectionOffer) {
             console.log("DO ANSWER");
-            _.findWhere(this.state.connections, {remoteUser: JSONmess.data.fromUser}).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message)); 
+            this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message)); 
             this.startAnswer(connectionOffer);
           }; 
           break;
@@ -352,14 +400,9 @@ class ActivityRunner extends Component{
           console.log(this.state.connections);
           console.log(this.state.connections[0].remoteUser); 
           console.log(JSONmess.data.fromUser);  
-          let where = _.findWhere(this.state.connections, {remoteUser: JSONmess.data.fromUser});
-          console.log(where);
 
-          _.find(this.state.connections, (conn) => {
-            return(_.isEqual(conn.remoteUser,JSONmess.data.fromUser))
-          }).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
+          this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
 
-          // _.findWhere(this.state.connections, {remoteUser: JSONmess.data.fromUser}).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
           break;
         case 'candidate' :
           console.log("CANDIDATE");
@@ -368,14 +411,12 @@ class ActivityRunner extends Component{
             sdpMLineIndex: JSONmess.data.label,
             candidate: JSONmess.data.candidate
           });
-          _.find(this.state.connections, (conn) => {
-            return(_.isEqual(conn.remoteUser,JSONmess.data.fromUser))
-          }).addIceCandidate(candidate);
+          this.findConnectionByRemoteUser(JSONmess.data.fromUser).addIceCandidate(candidate);
           break;
         case 'bye' :
           console.log("BYE");
           console.log(JSONmess.data);
-          this.handleRemoteHangUp(JSONmess.data.fromUser);
+          this.handleRemoteHangUp(JSONmess.data);
           break;
         case 'log' :
           console.log("LOG");
@@ -459,28 +500,50 @@ class ActivityRunner extends Component{
     };
 
     const onHangUp = () => {
+      let message = {
+          type: 'bye'
+      }; 
+      console.log(JSON.stringify(message));
+      this.state.ws.send(JSON.stringify(message));
+
       if (this.state.local.stream){
         try{
           this.state.local.stream.getTracks().forEach(track => track.stop());
         }catch(e){
           console.log("error getting audio or video tracks" + e); 
-        }
-        this.setState(
-          {
-            local: {
-              src : 'null',
-              stream: 'null'
-            },
-            readyStart: true,
-            readyHangup: false
-          }
-        );
-        let message = {
-          type: 'bye'
-        }; 
-        console.log(JSON.stringify(message));
-        this.state.ws.send(JSON.stringify(message));
+        }        
       };
+
+      if (this.state.remote.length >0){
+        _.each(this.state.remote, ({stream}) => { 
+          try{
+           stream.getTracks().forEach(track => track.stop());
+          }catch(e){
+            console.log("error getting audio or video tracks" + e); 
+          }
+        })
+      };
+
+      if(this.state.connections.length > 0){
+        _.each(this.state.connections, (connection) => {
+          try{
+            connection.close();
+          }catch(e){
+            console.log("error closing connection", e); 
+          }
+        })
+      };
+
+      this.setState({
+        local: {
+          src : 'null',
+          stream: 'null'
+        },
+        readyStart: true,
+        readyHangup: false,
+        remote: [],
+        connections: []
+      });
     };
 
 
