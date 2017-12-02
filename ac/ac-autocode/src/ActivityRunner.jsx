@@ -17,8 +17,16 @@ export default class ActivityRunner extends Component {
       outputFeed: "You'll see the output of your code here"
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.editorChange = this.editorChange.bind(this);
     this.runit = this.runit.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps: Object, nextState: Object) {
+    if (this.state.inputCode !== nextState.inputCode) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   componentDidMount() {
@@ -63,21 +71,47 @@ export default class ActivityRunner extends Component {
     }
   }
 
-  handleChange: Function;
-  handleChange(event: Object) {
-    this.setState({ inputCode: event.target.value });
+  editorChange: Function;
+  editorChange(newValue: string) {
+    this.setState({ inputCode: newValue });
   }
 
   render() {
-    return (
-      <div>
-        <h3>Try This</h3>
+    const Editor = props => {
+      if (window !== undefined) {
+        const Ace = require('react-ace').default;
+        require('brace/mode/python');
+        require('brace/theme/textmate');
+        require('brace/ext/language_tools');
+        return <Ace {...props} />;
+      }
+      return (
         <textarea
           id="yourcode"
           cols="40"
           rows="10"
           value={this.state.inputCode}
-          onChange={this.handleChange}
+          onChange={this.editorChange}
+        />
+      );
+    };
+
+    return (
+      <div>
+        <h3>Try This</h3>
+        <Editor
+          id="yourcode"
+          mode="python"
+          theme="textmate"
+          highlightActiveLine
+          value={this.state.inputCode}
+          onChange={this.editorChange}
+          setOptions={{
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
+            showLineNumbers: true,
+            tabSize: 2
+          }}
         />
         <div>
           <button type="button" onClick={this.runit}>
