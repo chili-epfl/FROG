@@ -18,7 +18,7 @@ class Config extends Component {
   constructor(props: { activity: Object, setValid: Function }) {
     super(props);
     this.state = {
-      formData: this.props.config || {}
+      formData: this.props.config
     };
     this.aT = activityTypesObj[this.props.activity.activityType];
   }
@@ -27,17 +27,29 @@ class Config extends Component {
     this.check();
   }
 
-  check = () => {
+  check = _formData => {
+    const formData = _formData || this.state.formData;
     const valid = validateConfig(
       'activity',
       '1',
-      hideConditional(this.state.formData, this.aT.config, this.aT.configUI),
+      hideConditional(formData, this.aT.config, this.aT.configUI),
       this.aT.config,
       this.aT.validateConfig,
       this.aT.configUI
     );
     this.props.setValid(valid);
+    parent.postMessage(
+      {
+        type: 'frog-config',
+        activityType: this.aT.id,
+        config: formData,
+        errors: valid,
+        valid: valid.length === 0
+      },
+      '*'
+    );
   };
+
   render() {
     return (
       <div
@@ -92,7 +104,7 @@ class ApiForm extends Component {
       activity: {
         id: '1',
         activityType: this.props.activityType,
-        data: this.props.config || {}
+        data: this.props.config
       }
     };
   }
@@ -114,7 +126,7 @@ class ApiForm extends Component {
               })
             }
           />
-        )};
+        )}
       </div>
     );
   }
