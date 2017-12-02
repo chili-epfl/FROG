@@ -4,6 +4,7 @@ import Stringify from 'json-stringify-pretty-compact';
 import './App.css';
 
 const srcs = [
+  'http://localhost:8000/demo/',
   'http://localhost:3000/api/activityType/ac-quiz?config=%7B%22title%22%3A%22This%20is%20my%20quiz%22%2C%22shuffle%22%3A%22none%22%2C%22guidelines%22%3A%22Important%20stuff%22%2C%22questions%22%3A%5B%7B%22question%22%3A%22Questoin%201%22%2C%22answers%22%3A%5B%22a%22%2C%22b%22%5D%7D%5D%7D&instance_id=1&userid=330&username=Petrovsky',
   'http://localhost:3000/api/activityType/ac-video?config=%7B%22url%22%3A%22https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D6YAHzyRRY8Q%22%2C%22playing%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky',
   'http://localhost:3000/api/activityType/ac-image?config=%7B%22canUpload%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky',
@@ -23,7 +24,7 @@ class App extends Component {
     var eventer = window[eventMethod];
     var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
     eventer(messageEvent, e => {
-      if (e.data && e.data.type === 'frog-log') {
+      if ((e.data && e.data.type === 'frog-log') || e.data.type === 'h5p-log') {
         this.setState({ logs: [...this.state.logs, e.data] });
       }
       if (e.data && e.data.type === 'frog-config') {
@@ -33,6 +34,9 @@ class App extends Component {
           valid: e.data.valid,
           errors: e.data.errors
         });
+      }
+      if (e.data && e.data.type === 'frog-data') {
+        this.setState({ data: e.data.msg });
       }
     });
   };
@@ -50,10 +54,11 @@ class App extends Component {
                 this.setState({
                   example: i,
                   valid: undefined,
-                  errors: i < 3 ? undefined : [],
+                  errors: i < 4 ? undefined : [],
                   config: undefined,
                   logs: [],
-                  activityType: undefined
+                  activityType: undefined,
+                  data: undefined
                 });
               }}
             >
@@ -67,7 +72,7 @@ class App extends Component {
             <iframe
               src={this.state.url || srcs[this.state.example]}
               width="600px"
-              height="600px"
+              height="700px"
             />
           </div>
           <div style={{ textAlign: 'left', marginLeft: '20px' }}>
@@ -87,6 +92,7 @@ class App extends Component {
                     onClick={e => {
                       e.preventDefault();
                       this.setState({
+                        errors: undefined,
                         url: `http://localhost:3000/api/activityType/${
                           this.state.aT
                         }?config=${encodeURIComponent(
@@ -108,11 +114,13 @@ class App extends Component {
               </div>
             ) : (
               <div>
+                {this.state.data && <h3>Data</h3>}
+                <pre> {Stringify(this.state.data)}</pre>
                 <h3>Logs</h3>
                 <div
                   style={{
                     overflowY: 'scroll',
-                    height: '740px',
+                    height: '440px',
                     display: 'flex',
                     flexDirection: 'column-reverse'
                   }}

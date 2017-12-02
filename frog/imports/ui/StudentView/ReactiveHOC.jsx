@@ -45,6 +45,13 @@ const ReactiveHOC = (docId: string, conn?: any) => (
           this.setState({ dataFn: generateReactiveFn(this.doc) });
         }
         this.setState({ data: this.doc.data });
+        parent.postMessage(
+          {
+            type: 'frog-data',
+            msg: this.doc.data
+          },
+          '*'
+        );
       }
     };
 

@@ -67,6 +67,11 @@ export default class ActivityRunner extends Component {
       window.Sk.runner.state.outputFeed = '';
       window.Sk.configure({ output: this.outfunction, read: this.builtinRead });
       window.Sk.importMainWithBody('<stdin>', false, this.state.inputCode);
+      this.props.logger({
+        type: 'runScript',
+        value: this.state.inputCode.trim(),
+        payload: { output: this.state.outputFeed.trim() }
+      });
       this.forceUpdate();
     }
   }
@@ -81,7 +86,7 @@ export default class ActivityRunner extends Component {
       if (window !== undefined) {
         const Ace = require('react-ace').default;
         require('brace/mode/python');
-        require('brace/theme/textmate');
+        require('brace/theme/monokai');
         require('brace/ext/language_tools');
         return <Ace {...props} />;
       }
@@ -98,11 +103,12 @@ export default class ActivityRunner extends Component {
 
     return (
       <div>
-        <h3>Try This</h3>
+        <h3>{this.props.activityData.config.title}</h3>
+        <p>{this.props.activityData.config.guidelines}</p>
         <Editor
           id="yourcode"
           mode="python"
-          theme="textmate"
+          theme="monokai"
           highlightActiveLine
           value={this.state.inputCode}
           onChange={this.editorChange}
