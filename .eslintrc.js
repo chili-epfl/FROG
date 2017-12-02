@@ -11,7 +11,8 @@ module.exports = {
     WebSocket: true,
     Presences: true,
     jest: true,
-    Raven: true
+    Raven: true,
+    Meteor: true
   },
   rules: {
     'dot-notation': 'off',

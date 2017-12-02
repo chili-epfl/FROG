@@ -1,4 +1,7 @@
 // @flow
+
+import { rtQ } from './rtQ';
+
 const exampleConfig = {
   title: 'Stat 101',
   guidelines:
@@ -100,6 +103,22 @@ export const meta = {
       config: { ...exampleConfig, shuffle: 'both' },
       title: 'Sample MCQ with shuffling options',
       activityData: {}
+    },
+    {
+      title: 'Rich text and media',
+      activityData: {},
+      config: {
+        title: 'Rich text form',
+        shuffle: 'none',
+        guidelines:
+          '<p>Just a <strong>video</strong> [[https://www.youtube.com/watch?v=fb6UnKVkwVA&amp;feature=youtu.be]]</p>',
+        questions: [
+          {
+            question: rtQ,
+            answers: ['Pretty awesomer', 'OK', '$\\sqrt{x/1}$']
+          }
+        ]
+      }
     }
   ]
 };

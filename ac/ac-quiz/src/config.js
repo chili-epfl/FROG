@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+export const config = {
   type: 'object',
   properties: {
     title: {
@@ -14,7 +14,7 @@ export default {
       default: 'none'
     },
     guidelines: {
-      type: 'string',
+      type: 'rte',
       title: 'Guidelines'
     },
     questions: {
@@ -24,7 +24,7 @@ export default {
         type: 'object',
         properties: {
           question: {
-            type: 'string',
+            type: 'rte',
             title: 'Question'
           },
           answers: {
@@ -44,3 +44,10 @@ export default {
     }
   }
 };
+
+export const validateConfig = [
+  (formData: Object) =>
+    !formData.questions || formData.questions.length === 0
+      ? { err: 'You must have at least one question' }
+      : null
+];
