@@ -111,21 +111,31 @@ class ApiForm extends Component {
 
   render() {
     return (
-      <div style={{ transform: 'translateY(50px)', margin: '10px' }}>
+      <div style={{ margin: '10px' }}>
         {this.state.activity.activityType ? (
           <div>
-            <Valid />
-            <Config activity={this.state.activity} setValid={state.setValid} />
+            <div style={{ position: 'absolute', top: '10px' }}>
+              <Config
+                activity={this.state.activity}
+                setValid={state.setValid}
+              />
+            </div>
+            <div style={{ position: 'absolute', right: '20px' }}>
+              <Valid />
+            </div>
           </div>
         ) : (
-          <ChooseActivityType
-            activity={this.state.activity}
-            onSelect={e =>
-              this.setState({
-                activity: { id: '1', activityType: e.id, config: {} }
-              })
-            }
-          />
+          <div style={{ position: 'absolute', top: '30px' }}>
+            <ChooseActivityType
+              activity={this.state.activity}
+              hidePreview
+              onSelect={e =>
+                this.setState({
+                  activity: { id: '1', activityType: e.id, config: {} }
+                })
+              }
+            />
+          </div>
         )}
       </div>
     );
@@ -149,7 +159,7 @@ class Errors extends Component {
   render() {
     if (state.showErrors) {
       return (
-        <div style={{ position: 'absolute', top: 20, left: -40 }}>
+        <div style={{ position: 'absolute', top: '20px', right: '200px' }}>
           <ShowErrorsRaw errors={state.valid} />
         </div>
       );
@@ -161,8 +171,8 @@ class Errors extends Component {
 
 const Container = (props: PropsT) => (
   <div>
-    <Errors />
     <ApiForm {...props} />
+    <Errors />
   </div>
 );
 

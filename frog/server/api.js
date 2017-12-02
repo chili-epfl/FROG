@@ -131,6 +131,9 @@ Picker.route(
     InjectData.pushData(response, 'api', {
       callType: 'runActivity',
       activityType: activityTypeId,
+      userid: query.userid,
+      username: query.username,
+      activityid: query.activityid,
       instance_id: docId,
       activity_data: activityData,
       config

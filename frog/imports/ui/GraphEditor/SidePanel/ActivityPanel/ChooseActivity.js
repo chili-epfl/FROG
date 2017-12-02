@@ -100,7 +100,9 @@ export class ChooseActivityType extends Component {
           ) : (
             filteredList.map((x: ActivityPackageT) => (
               <ListComponent
-                hasPreview={x.meta.exampleData !== undefined}
+                hasPreview={
+                  !this.props.hidePreview && x.meta.exampleData !== undefined
+                }
                 onSelect={() => select(x)}
                 showExpanded={this.state.expanded === x.id}
                 expand={() => this.setState({ expanded: x.id })}
