@@ -75,7 +75,7 @@ export const ErrorList = connect(
     } else {
       errors = graphErrors.filter(x => x.id === activityId);
     }
-    return <ShowErrorsRaw errors={errors} global={!!showErrors} />;
+    return <ShowErrorsRaw errors={errors} global={showErrors === true} />;
   }
 );
 
@@ -84,12 +84,12 @@ export const ShowErrorsRaw = ({
   global
 }: {
   errors: Object[],
-  showErrors: boolean
+  global: boolean
 }) => {
   if (errors.length === 0) {
     return null;
   }
-  const maxLength = global === true ? 130 : 60;
+  const maxLength = global ? 130 : 60;
   const textLength = errors
     .map(x => wordWrap(x.err, maxLength))
     .reduce((acc, x) => acc + x.length, 0);
@@ -122,22 +122,19 @@ export const ValidButtonRaw = ({
   setShowErrors: Function,
   errorColor: string,
   activityId: string
-}) => {
-  console.log('render');
-  return (
-    <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
-      <circle
-        cx="17"
-        cy="17"
-        r="12"
-        stroke="transparent"
-        fill={errorColor || graphErrorColor}
-        onMouseEnter={() => setShowErrors(activityId || true)}
-        onMouseLeave={() => setShowErrors(false)}
-      />
-    </svg>
-  );
-};
+}) => (
+  <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
+    <circle
+      cx="17"
+      cy="17"
+      r="12"
+      stroke="transparent"
+      fill={errorColor || graphErrorColor}
+      onMouseOver={() => setShowErrors(activityId || true)}
+      onMouseOut={() => setShowErrors(false)}
+    />
+  </svg>
+);
 
 export const ValidButton = connect(
   ({
