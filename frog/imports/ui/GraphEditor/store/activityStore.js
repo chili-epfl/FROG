@@ -94,6 +94,7 @@ export default class ActivityStore {
       this.all.push(newActivity);
       store.state = { mode: 'rename', currentActivity: newActivity, val: '' };
       store.addHistory();
+      return newActivity.id;
     }
   };
 

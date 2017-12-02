@@ -75,39 +75,56 @@ export const ErrorList = connect(
     } else {
       errors = graphErrors.filter(x => x.id === activityId);
     }
-    if (errors.length === 0) {
-      return null;
-    }
-    const maxLength = showErrors === true ? 130 : 60;
-    const textLength = errors
-      .map(x => wordWrap(x.err, maxLength))
-      .reduce((acc, x) => acc + x.length, 0);
-    return (
-      <svg style={{ overflow: 'visible' }}>
-        <g>
-          <rect
-            x="80"
-            y="20"
-            rx="20"
-            ry={5 + 5 * textLength}
-            width={6.5 * maxLength}
-            height={5 + 22 * textLength}
-            fill="#FFFFFF"
-            stroke="#CA1A1A"
-          />
-          <ListError errors={errors} maxLength={maxLength} />
-        </g>
-      </svg>
-    );
+    return <ShowErrorsRaw errors={errors} global={!!showErrors} />;
   }
 );
 
-export const ValidButton = connect(
-  ({
-    store: { ui: { graphErrorColor, setShowErrors } },
-    errorColor,
-    activityId
-  }) => (
+export const ShowErrorsRaw = ({
+  errors,
+  global
+}: {
+  errors: Object[],
+  showErrors: boolean
+}) => {
+  if (errors.length === 0) {
+    return null;
+  }
+  const maxLength = global === true ? 130 : 60;
+  const textLength = errors
+    .map(x => wordWrap(x.err, maxLength))
+    .reduce((acc, x) => acc + x.length, 0);
+  return (
+    <svg style={{ overflow: 'visible' }}>
+      <g>
+        <rect
+          x="80"
+          y="20"
+          rx="20"
+          ry={5 + 5 * textLength}
+          width={6.5 * maxLength}
+          height={5 + 22 * textLength}
+          fill="#FFFFFF"
+          stroke="#CA1A1A"
+        />
+        <ListError errors={errors} maxLength={maxLength} />
+      </g>
+    </svg>
+  );
+};
+
+export const ValidButtonRaw = ({
+  graphErrorColor,
+  setShowErrors,
+  errorColor,
+  activityId
+}: {
+  graphErrorColor: string,
+  setShowErrors: Function,
+  errorColor: string,
+  activityId: string
+}) => {
+  console.log('render');
+  return (
     <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
       <circle
         cx="17"
@@ -115,9 +132,24 @@ export const ValidButton = connect(
         r="12"
         stroke="transparent"
         fill={errorColor || graphErrorColor}
-        onMouseOver={() => setShowErrors(activityId || true)}
-        onMouseOut={() => setShowErrors(false)}
+        onMouseEnter={() => setShowErrors(activityId || true)}
+        onMouseLeave={() => setShowErrors(false)}
       />
     </svg>
+  );
+};
+
+export const ValidButton = connect(
+  ({
+    store: { ui: { graphErrorColor, setShowErrors } },
+    errorColor,
+    activityId
+  }) => (
+    <ValidButtonRaw
+      graphErrorColor={graphErrorColor}
+      setShowErrors={setShowErrors}
+      errorColor={errorColor}
+      activityId={activityId}
+    />
   )
 );

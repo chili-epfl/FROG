@@ -8,23 +8,25 @@ import ListComponent from '../ListComponent';
 import Preview from '../../../Preview/Preview';
 import { connect } from '../../store';
 
-class ChooseActivityType extends Component {
+export class ChooseActivityType extends Component {
   state: { expanded: ?string, searchStr: string, showInfo: ?string };
   inputRef: any;
 
-  constructor(props) {
+  constructor(props: { onSelect?: Function }) {
     super(props);
     this.state = { expanded: null, searchStr: '', showInfo: null };
     this.inputRef = null;
   }
 
   render() {
-    const select = activityType => {
-      Activities.update(this.props.activity._id, {
-        $set: { activityType: activityType.id }
+    const select =
+      this.props.onSelect ||
+      (activityType => {
+        Activities.update(this.props.activity._id, {
+          $set: { activityType: activityType.id }
+        });
+        this.props.store.addHistory();
       });
-      this.props.store.addHistory();
-    };
 
     const changeSearch = e =>
       this.setState({

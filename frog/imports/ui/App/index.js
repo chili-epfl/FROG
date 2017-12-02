@@ -24,6 +24,7 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
+import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 
 const TeacherLoadable = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -206,7 +207,7 @@ export default class Root extends Component {
 
   componentDidMount = () => {
     InjectData.getData('api', data => {
-      this.setState({ mode: 'ready', api: data && data.activityType, data });
+      this.setState({ mode: 'ready', api: !!data, data });
     });
   };
 
@@ -214,22 +215,31 @@ export default class Root extends Component {
     if (this.state.mode === 'waiting') {
       return null;
     } else if (this.state.api && this.state.data) {
-      const data = this.state.data;
-      return (
-        <RunActivity
-          logger={msg => parent.postMessage({ type: 'frog-log', msg }, '*')}
-          activityTypeId={data.activityType}
-          username="Anonymous"
-          userid="1"
-          stream={() => {}}
-          reactiveId={data.instance_id}
-          groupingValue={data.instance_id}
-          activityData={{
-            data: data.activity_data,
-            config: data.config || {}
-          }}
-        />
-      );
+      if (this.state.data.callType === 'config') {
+        return (
+          <ApiForm
+            activityType={this.state.data.activityType}
+            config={this.state.data.config}
+          />
+        );
+      } else {
+        const data = this.state.data;
+        return (
+          <RunActivity
+            logger={msg => parent.postMessage({ type: 'frog-log', msg }, '*')}
+            activityTypeId={data.activityType}
+            username="Anonymous"
+            userid="1"
+            stream={() => {}}
+            reactiveId={data.instance_id}
+            groupingValue={data.instance_id}
+            activityData={{
+              data: data.activity_data,
+              config: data.config || {}
+            }}
+          />
+        );
+      }
     } else {
       return (
         <ErrorBoundary>

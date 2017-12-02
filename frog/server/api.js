@@ -54,7 +54,9 @@ Picker.route('/api/activityTypes', (params, request, response) => {
         type: x.type,
         name: x.meta.name,
         description: x.meta.shortDesc,
-        longDescription: x.meta.description
+        longDescription: x.meta.description,
+        runner_url: '/api/activityType/' + x.id,
+        config_url: '/api/config/' + x.id
       }))
     )
   );
@@ -127,6 +129,7 @@ Picker.route(
       );
     }
     InjectData.pushData(response, 'api', {
+      callType: 'runActivity',
       activityType: activityTypeId,
       instance_id: docId,
       activity_data: activityData,
@@ -135,6 +138,30 @@ Picker.route(
     next();
   }
 );
+
+Picker.route(
+  '/api/config/:activityTypeId',
+  ({ activityTypeId, query }, request, response, next) => {
+    if (!activityTypesObj[activityTypeId]) {
+      response.end('No matching activity type found');
+    }
+    const config = safeDecode(query.config, 'Config data not valid', response);
+
+    InjectData.pushData(response, 'api', {
+      callType: 'config',
+      activityType: activityTypeId,
+      config
+    });
+    next();
+  }
+);
+
+Picker.route('/api/chooseActivity', (req, request, response, next) => {
+  InjectData.pushData(response, 'api', {
+    callType: 'config'
+  });
+  next();
+});
 
 if (process.env.NODE_ENV !== 'production') {
   WebApp.connectHandlers.use('/file', (req, res) => {
