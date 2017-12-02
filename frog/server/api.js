@@ -128,6 +128,7 @@ Picker.route(
         })
       );
     }
+    console.log(activityData);
     InjectData.pushData(response, 'api', {
       callType: 'runActivity',
       activityType: activityTypeId,

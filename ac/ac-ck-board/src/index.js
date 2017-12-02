@@ -9,14 +9,12 @@ const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
   [...(object.config.boxes || []), ...(object.data || [])].forEach(box => {
-    if (!box.id) {
-      box.id = uuid();
-    }
-    if (box.title && box.content) {
+    if (box.title) {
       dataFn.listAppend({
-        ...box,
+        id: uuid(),
         x: Math.random() * 800,
-        y: -(Math.random() * 800)
+        y: -(Math.random() * 800),
+        ...box
       });
     }
   });
