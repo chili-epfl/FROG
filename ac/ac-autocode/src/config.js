@@ -20,6 +20,10 @@ export const config = {
       type: 'string',
       title: 'Solution'
     },
+    testing: {
+      type: 'string',
+      title: 'Testing Code'
+    },
     tests: {
       type: 'array',
       title: 'Tests',
@@ -38,6 +42,9 @@ export const configUI = {
   solution: {
     'ui:widget': 'textarea'
   },
+  testing: {
+    'ui:widget': 'textarea'
+  },
   tests: {
     items: {
       'ui:widget': 'textarea'
@@ -49,10 +56,11 @@ export const exampleConfig0 = {
   title: 'Double',
   config: {
     title: 'Double',
-    guidelines: 'Make it double',
-    template: "todo = lambda x: x*x",
+    guidelines: 'Make it double!',
+    template: "double = lambda x: ...",
     solution: "solution = lambda x: 2*x",
-    tests: [0,1,2,3,4,5]
+    testing: "y = double(x)\nz = solution(x)\nprint y\nprint z\nprint ('SUCCESS' if y == z else 'FAILURE')",
+    tests: ["x = 0","x = 1","x = 2","x = 3","x = 4","x = 5"]
   },
   data: {}
 };

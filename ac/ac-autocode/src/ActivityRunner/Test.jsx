@@ -3,21 +3,13 @@
 import React from 'react';
 import { withState } from 'recompose';
 
-const getTestCode = (code, solution, test) =>
-  '\n' +
-  code +
-  '\n' +
-  solution +
-  '\n\nx=todo(' +
-  test +
-  ')\ny=solution(' +
-  test +
-  ')\n\nprint x\nprint y\n';
-
+const getTestCode = (code, solution, testing, test) =>
+  ['', code, solution, test, testing].join('\n')
 
 const Test = ({
-  state,
-  setState,
+  status,
+  setStatus,
+  setFeedback,
   test,
   index,
   runCode,
@@ -28,35 +20,42 @@ const Test = ({
   let testOutput = [];
   const handleOut = out => {
     if (out !== '\n') {
-      testOutput = [testOutput[1], out];
+      testOutput = [testOutput[1], testOutput[2], out];
+      console.log(testOutput)
     }
   };
 
   const runTest = () => {
-    const testCode = getTestCode(data.code, activityData.config.solution, test);
+    const { solution, testing } = activityData.config
+    const testCode = getTestCode(data.code, solution, testing, test);
+    console.log(testCode)
     runCode(testCode, handleOut, console.log).then(() => {
       console.log('Its all done');
       console.log(testOutput);
-      if (testOutput[0] === testOutput[1]){
-        setState({ color: 'success', feedback: 'BRAVO' })
+      if (testOutput[2] === 'SUCCESS'){
+        setStatus('success')
       } else {
-        setState({ color: 'danger', expected: testOutput[1], received: testOutput[0]})
+        setStatus('danger')
       }
+      setFeedback({
+        input: test,
+        status: testOutput[2],
+        expected: testOutput[1],
+        received: testOutput[0]
+      })
     });
   };
 
   return (
     <div>
       <button
-        className={'btn btn-'+state.color}
+        className={'btn btn-'+status}
         onClick={runTest}
       >
         TEST {index+1}
       </button>
-      <div>INPUT: {test}</div>
-      <div>FEEDBACK: {state.feedback}</div>
     </div>
   );
 };
 
-export default withState('state', 'setState', { color: 'default', feedback: '' })(Test)
+export default withState('status', 'setStatus', 'default')(Test)
