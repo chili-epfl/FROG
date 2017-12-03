@@ -6,12 +6,12 @@ import styled from 'styled-components';
 
 import Header from './Header';
 import Editor from './Editor';
-import TestPanel from './TestPanel'
+import TestPanel from './TestPanel';
 
 const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
-`
+`;
 
 export default class ActivityRunner extends Component {
   lastOut: string[];
@@ -49,26 +49,22 @@ export default class ActivityRunner extends Component {
   runCode = (code: string, out: Function, err: Function) => {
     if (window.Sk) {
       window.Sk.configure({ output: out, read: this.builtinRead });
-      try {
-        return window.Sk.misceval.asyncToPromise(() => {
-          window.Sk.importMainWithBody('<stdin>', false, code);
-        });
-      } catch (e) {
-        err(e);
-      }
+      return window.Sk.misceval.asyncToPromise(() => {
+        window.Sk.importMainWithBody('<stdin>', false, code);
+      });
     } else {
       err('Skulpt not loaded, please check internet connection');
     }
   };
 
   render() {
-    const { data, activityData } = this.props;
+    const { config } = this.props.activityData;
     return (
       <Main>
-        <Header config={activityData.config} style={{ width: '100%'}} />
+        <Header config={config} style={{ width: '100%' }} />
         <Editor {...this.props} />
         <TestPanel
-          tests={activityData.config.tests}
+          tests={config.tests}
           runCode={this.runCode}
           {...this.props}
         />

@@ -57,10 +57,11 @@ export const exampleConfig0 = {
   config: {
     title: 'Double',
     guidelines: 'Make it double!',
-    template: "double = lambda x: ...",
-    solution: "solution = lambda x: 2*x",
-    testing: "y = double(x)\nz = solution(x)\nprint y\nprint z\nprint ('SUCCESS' if y == z else 'FAILURE')",
-    tests: ["x = 0","x = 1","x = 2","x = 3","x = 4","x = 5"]
+    template: 'def double(x):\n    return 0.',
+    solution: 'solution = lambda x: 2*x',
+    testing:
+      "y = double(x)\nz = solution(x)\nprint y\nprint z\nprint ('SUCCESS' if y == z else 'FAILURE')",
+    tests: ['x = 0', 'x = 2', 'x = 4', 'x = 100', 'x = 10000', 'x = 123456789']
   },
   data: {}
 };
