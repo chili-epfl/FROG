@@ -2,7 +2,9 @@
 
 import React, { Component } from 'react';
 import type { ActivityRunnerT } from 'frog-utils';
-import ActivityHeaders from './ActivityHeaders';
+import styled from 'styled-components';
+
+import Header from './Header';
 import Test from './Test';
 import Editor from './Editor';
 
@@ -11,6 +13,11 @@ const TestList = ({ tests, ...props }) =>
   tests.map((test, index) => (
     <Test key={test} test={test} index={index} {...props} />
   ));
+
+const Main = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+`
 
 export default class ActivityRunner extends Component {
   lastOut: string[];
@@ -63,19 +70,23 @@ export default class ActivityRunner extends Component {
   render() {
     const { data, activityData } = this.props;
     return (
-      <div>
-        <ActivityHeaders config={activityData.config} />
-        <Editor {...this.props} />
-        <button type="button" onClick={() => console.log('Run')}>
-          Run
-        </button>
-        {data.outputFeed && data.outputFeed.map(x => <div>{x}</div>)}
-        <TestList
-          tests={activityData.config.tests}
-          runCode={this.runCode}
-          {...this.props}
-        />
-      </div>
+      <Main>
+        <Header config={activityData.config} />
+        <div>
+          <Editor {...this.props} />
+          <button type="button" onClick={() => console.log('Run')}>
+            Run
+          </button>
+          {data.outputFeed && data.outputFeed.map(x => <div>{x}</div>)}
+        </div>
+        <div>
+          <TestList
+            tests={activityData.config.tests}
+            runCode={this.runCode}
+            {...this.props}
+          />
+        </div>
+      </Main>
     );
   }
 }

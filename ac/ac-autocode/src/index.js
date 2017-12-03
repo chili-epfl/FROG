@@ -1,7 +1,7 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './ActivityRunner/ActivityRunner';
+import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
 import {
   config,
