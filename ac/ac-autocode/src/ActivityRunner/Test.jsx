@@ -14,7 +14,8 @@ const Test = ({
   index,
   runCode,
   data,
-  activityData
+  activityData,
+  logger
 }: Object) => {
   let testOutput = [];
   const handleOut = out => {
@@ -26,8 +27,10 @@ const Test = ({
   const runTest = () => {
     const { solution, testing } = activityData.config;
     const testCode = getTestCode(data.code, solution, testing, test);
+    logger({ type: 'test', itemId: index, value: data.code });
     runCode(testCode, handleOut, console.log).then(
       () => {
+        logger({ type: testOutput[2], itemId: index });
         setStatus(testOutput[2] === 'SUCCESS' ? 'success' : 'danger');
         setFeedback({
           input: test,
@@ -37,6 +40,7 @@ const Test = ({
         });
       },
       err => {
+        logger({ type: 'ERROR', itemId: index });
         setStatus('danger');
         const t = err.traceback;
         const a = err.args;
