@@ -13,9 +13,9 @@ const Viewer = (props: Object) => (
 );
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
-  if(log.itemId !== undefined && ['SUCCESS', 'FAILURE'].includes(log.type)){
-    const message = log.userId + '_' + log.itemId + '_' + log.type
-    dataFn.listAppend(message, 'logs')
+  if (log.itemId !== undefined && ['SUCCESS', 'FAILURE'].includes(log.type)) {
+    const message = log.userId + '_' + log.itemId + '_' + log.type;
+    dataFn.listAppend(message, 'logs');
   }
 };
 

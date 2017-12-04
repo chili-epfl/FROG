@@ -28,7 +28,7 @@ const Test = ({
     const { solution, testing } = activityData.config;
     const testCode = getTestCode(data.code, solution, testing, test);
     logger({ type: 'test', itemId: index, value: data.code });
-    runCode(testCode, handleOut, console.log).then(
+    runCode(testCode, handleOut, () => {}).then(
       () => {
         logger({ type: testOutput[2], itemId: index });
         setStatus(testOutput[2] === 'SUCCESS' ? 'success' : 'danger');
@@ -48,18 +48,16 @@ const Test = ({
         const message = a && a.v && a.v[0] && a.v[0].v;
         const error = lineno
           ? 'On line ' + lineno + ', Received error: ' + message
-          : 'Received error: ' + message
-        setFeedback({ error, input: test });
+          : 'Received error: ' + message;
+        setFeedback({ error, input: test, status: 'ERROR' });
       }
     );
   };
 
   return (
-    <div>
-      <button className={'btn btn-' + status} onClick={runTest}>
-        TEST {index + 1}
-      </button>
-    </div>
+    <button className={'btn btn-' + status} onClick={runTest}>
+      TEST {index + 1}
+    </button>
   );
 };
 
