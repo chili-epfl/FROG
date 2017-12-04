@@ -73,10 +73,10 @@ export const exampleConfig1 = {
     guidelines: 'Code an algorithm to sort an array in python',
     specifications:
       'The variable a is an array of integers. You must sort it and assign the result to variable b.',
-    template: 'b=a',
+    template: 'def sort(a):\n\treturn a',
     solution: 'solution = lambda x: sorted(x)',
     testing:
-      'print b\nprint solution(a)\nprint ("SUCCESS" if b == solution(a) else "FAILURE")',
+      'print sort(a)\nprint solution(a)\nprint ("SUCCESS" if sort(a) == solution(a) else "FAILURE")',
     tests: ['a=[1, 2, 3]', 'a=[10, 2, 15, 8, 7]', 'a=[42]', 'a=[]']
   },
   data: {}
