@@ -11,6 +11,7 @@ import TestPanel from './TestPanel';
 const Main = styled.div`
   display: flex;
   flex-flow: row wrap;
+  overflow: auto;
 `;
 
 export default class ActivityRunner extends Component {
