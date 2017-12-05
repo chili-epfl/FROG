@@ -12,7 +12,14 @@ declare var Promise: any;
 const dbUrl =
   (Meteor.settings && Meteor.settings.sharedb_dburl) ||
   'mongodb://localhost:3001';
-const db = ShareDBMongo(`${dbUrl}/sharedb`);
+
+let _db;
+try {
+  _db = ShareDBMongo(`${dbUrl}/sharedb`);
+} catch (e) {
+  _db = ShareDBMongo(`mongodb://localhost:27017/sharedb`);
+}
+const db = _db;
 
 const server = http.createServer();
 let options = { db };
