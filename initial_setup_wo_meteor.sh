@@ -19,18 +19,24 @@ echo "Yarn: $YARN"
 
 cd frog-utils
 ln -s "$FROG/.babelrc" . 2>/dev/null
-"$YARN" run build &
+../node_modules/.bin/nps build . 2>/dev/null &
 
 # install activities and operators packages
 for dir in "$FROG"/ac/ac-*/ "$FROG"/op/op-*/
 do
     cd "$dir"
     ln -s "$FROG/.babelrc" . 2>/dev/null
-    "$YARN" run build &
+    ../../node_modules/.bin/nps build . 2>/dev/null &
 done
 
-cd "$FROG/frog"
-ln -s "$FROG"/node_modules/* node_modules/ 2>/dev/null
+cd 
+ln -s "$FROG"/node_modules/* node_modules 2>/dev/null
 ln -s "$FROG/.babelrc" . 2>/dev/null
 wait
+echo ""
+echo "=============================================================================" 
+echo "| Initial setup complete, cd to './frog' and run 'meteor'.                  |"
+echo "| Run 'npm watchAll' to begin recompiling code from all the                 |"
+echo "| other packages.                                                           |"
+echo "=============================================================================" 
 exit 0
