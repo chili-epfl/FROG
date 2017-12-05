@@ -6,3 +6,5 @@ node_modules/
 **/.babelrc
 **/npm-debug.log*
 TEACHER_TOKEN
+
+\.idea/workspace\.xml
