@@ -12,7 +12,8 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "material-ui": "next",
-    "material-ui-icons": "^1.0.0-beta.17"
+    "material-ui-icons": "^1.0.0-beta.17",
+    "material-design-icons":"^3.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

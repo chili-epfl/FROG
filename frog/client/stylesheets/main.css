@@ -3,7 +3,7 @@ html {
 }
 
 body, #render-target, #app {
-  font-family: sans-serif;
+  font-family: Roboto,sans-serif;
   background-color: #fff;
   background-attachment: fixed;
 
