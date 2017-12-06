@@ -37,7 +37,14 @@ module.exports = {
     'no-return-assign': 'off',
     'no-throw-literal': 'off',
     'no-underscore-dangle': 'off',
-    'no-unused-vars': ['error', { varsIgnorePattern: '_' }],
+    'no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '_',
+        varsIgnorePattern: '_',
+        ignoreRestSiblings: true
+      }
+    ],
     'no-use-before-define': 'off',
     'prefer-template': 'off',
     'react/jsx-closing-bracket-location': 'off',

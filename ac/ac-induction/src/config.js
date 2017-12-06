@@ -7,37 +7,13 @@ export default {
       type: 'string',
       title: 'Title'
     },
-    hasExamples: {
-      type: 'boolean',
-      title: 'Give examples to the student ?'
-    },
-    nbExamples: {
-      type: 'number',
-      title: 'How many examples should be displayed ?'
-    },
-    hasTestWithFeedback: {
-      type: 'boolean',
-      title: 'Give test with feedback to the student ?'
-    },
-    nbTestFeedback: {
-      type: 'number',
-      title: 'How many test with feedback should be displayed ?'
-    },
-    hasDefinition: {
-      type: 'boolean',
-      title: 'Give a definition to the student ?'
+    partStr: {
+      type: 'string',
+      title: "List parts followed by nb (ex: 'f3,d,e4,t10,f5')"
     },
     definition: {
       type: 'string',
-      title: 'Final definition of the concept: '
-    },
-    hasTest: {
-      type: 'boolean',
-      title: 'Give test to the student ?'
-    },
-    nbTest: {
-      type: 'number',
-      title: 'How many test should be displayed ?'
+      title: 'Definition of the concept: '
     },
     properties: {
       title:

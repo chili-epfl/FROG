@@ -134,7 +134,8 @@ export type ActivityPackageT = {
     mergeLog: (data: any, dataFn: Object, log: LogDBT) => void,
     initData: any
   },
-  exportData?: (config: Object, product: activityDataT) => string
+  exportData?: (config: Object, product: activityDataT) => string,
+  formatProduct?: (config: Object, item: any) => any
 };
 
 export type productOperatorT = {
