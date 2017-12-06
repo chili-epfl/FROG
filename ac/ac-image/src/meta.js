@@ -1,8 +1,9 @@
 export const meta = {
   name: 'Image viewer',
   type: 'react-component',
-  shortDesc: 'Display images',
-  description: 'Display a list of images possibly categorised',
+  shortDesc: 'Display images/files',
+  description:
+    'Display a list of images/files possibly categorised, option to allow upload and voting',
   exampleData: [
     {
       title: 'Simple view',
