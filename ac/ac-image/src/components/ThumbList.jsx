@@ -55,12 +55,7 @@ const ImageList = ({
           ? 'chosen_by_team'
           : voteCount > 0 ? 'chosen_partially' : 'not_chosen';
 
-      return (
-        <ImageBox
-          key={JSON.stringify(image)}
-          {...{ image, onClick, styleCode }}
-        />
-      );
+      return <ImageBox key={image.key} {...{ image, onClick, styleCode }} />;
     })}
   </Main>
 );

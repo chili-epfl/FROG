@@ -109,9 +109,9 @@ class ActivityRunner extends Component {
           category={this.state.category}
           canVote={activityData.config.canVote}
           hideCategory={activityData.config.hideCategory}
+          guidelines={activityData.config.guidelines}
           {...{ setCategory, setZoom }}
         />
-        <p style={{ fontSize: '22px' }}>{activityData.config.guidelines}</p>
         {images.length === 0 && this.state.category !== 'categories' ? (
           <h1>{activityData.config.acceptAnyFiles ? 'No file' : 'No image'}</h1>
         ) : (

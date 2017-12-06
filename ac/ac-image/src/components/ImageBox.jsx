@@ -44,11 +44,14 @@ const ImageBox = ({
       <CenteredImg url={image.thumbnail || image.url} />
     ) : (
       <span>
-        <i
-          style={{ fontSize: '120px' }}
-          className={'fa ' + getFA(image.ext || '')}
-          aria-hidden="true"
-        />
+        <p>
+          <i
+            style={{ fontSize: '120px' }}
+            className={'fa ' + getFA(image.ext || '')}
+            aria-hidden="true"
+          />
+        </p>
+        {image.filename}
       </span>
     )}
   </ImgButton>
