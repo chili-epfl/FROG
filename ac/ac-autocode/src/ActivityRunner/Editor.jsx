@@ -21,6 +21,7 @@ export default class Editor extends Component {
     return (
       <this.Ace
         id="yourcode"
+        style={{ width: '600px', height: '750px' }}
         mode="python"
         theme="textmate"
         highlightActiveLine
