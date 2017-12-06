@@ -53,5 +53,5 @@ export const config = {
 };
 
 export const configUI = {
-  minVote: { conditional: 'canVote' }
+
 };
