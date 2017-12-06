@@ -17,7 +17,7 @@ const uploadBufferWithThumbnail = (
 ) => {
   logger({ type, itemId: imageId, value: filename });
 
-  const ext = filename.split('.').pop();
+  const ext = filename && filename.split('.').pop();
   if (!filename || ['jpg', 'png'].includes(ext)) {
     // upload a thumbnail
     resizeImg(imageBuffer, { width: 128 }).then(buffer => {
@@ -36,10 +36,14 @@ const uploadBufferWithThumbnail = (
         stream(url, [imageId, 'url']);
       });
     });
+    if (filename) {
+      dataFn.objInsert(filename, [imageId, 'filename']);
+      stream(filename, [imageId, 'filename']);
+    }
   } else {
     uploadFn(imageBuffer, imageId).then(url => {
-      dataFn.objInsert({ url, ext }, imageId);
-      stream({ url, ext }, imageId);
+      dataFn.objInsert({ url, ext, filename }, imageId);
+      stream({ url, ext, filename }, imageId);
     });
   }
 };

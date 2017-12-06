@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import download from 'downloadjs';
 
 import ImageBox from './ImageBox';
 import CategoryBox from './CategoryBox';
@@ -30,10 +31,17 @@ const ImageList = ({
       const onClick = e => {
         if (canVote && e.shiftKey) {
           vote(image.key, userInfo.id);
-        } else {
+        } else if (image.thumbnail || !image.filename) {
           setIndex(i);
           setZoom(true);
           logger({ type: 'zoom', itemId: image.key });
+        } else {
+          logger({
+            type: 'download',
+            itemId: image.key,
+            value: image.filename
+          });
+          download(image.url, image.filename);
         }
       };
 

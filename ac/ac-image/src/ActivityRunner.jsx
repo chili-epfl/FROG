@@ -40,12 +40,12 @@ class ActivityRunner extends Component {
     this.categories = Object.keys(data).reduce(
       (acc, key) => ({
         ...acc,
-        all: [...(acc.all || []), data[key].url],
+        all: [...(acc.all || []), data[key]],
         ...(data[key].categories &&
           data[key].categories.reduce(
             (_acc, cat) => ({
               ..._acc,
-              [cat]: [...(acc[cat] || []), data[key].url]
+              [cat]: [...(acc[cat] || []), data[key]]
             }),
             {}
           ))
@@ -112,7 +112,6 @@ class ActivityRunner extends Component {
           {...{ setCategory, setZoom }}
         />
         <p style={{ fontSize: '22px' }}>{activityData.config.guidelines}</p>
-        {console.log(images)}
         {images.length === 0 && this.state.category !== 'categories' ? (
           <h1>{activityData.config.acceptAnyFiles ? 'No file' : 'No image'}</h1>
         ) : (

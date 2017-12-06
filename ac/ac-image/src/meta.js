@@ -45,6 +45,12 @@ export const meta = {
         guidelines: 'Look at categories of image',
         images: [
           {
+            url: 'https://github.com/chili-epfl/FROG/blob/develop/README.md',
+            filename: 'README.md',
+            ext: 'md',
+            categories: ['earth']
+          },
+          {
             url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg',
             categories: ['moon', 'solar system']
           },

@@ -40,11 +40,15 @@ const ImageBox = ({
   styleCode: string
 }) => (
   <ImgButton onClick={onClick} style={getStyle(styleCode)}>
-    {image.thumbnail ? (
+    {image.thumbnail || !image.filename ? (
       <CenteredImg url={image.thumbnail || image.url} />
     ) : (
-      <span fontSize="120px">
-        <i className={'fa ' + getFA(image.ext || '')} aria-hidden="true" />
+      <span>
+        <i
+          style={{ fontSize: '120px' }}
+          className={'fa ' + getFA(image.ext || '')}
+          aria-hidden="true"
+        />
       </span>
     )}
   </ImgButton>
