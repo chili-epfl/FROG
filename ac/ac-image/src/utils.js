@@ -12,27 +12,36 @@ const uploadBufferWithThumbnail = (
   dataFn,
   stream,
   uploadFn,
-  type
+  type,
+  filename
 ) => {
-  logger({ type, itemId: imageId });
+  logger({ type, itemId: imageId, value: filename });
 
-  // upload a thumbnail
-  resizeImg(imageBuffer, { width: 128 }).then(buffer => {
-    const blob = new Blob([buffer], { type: 'image/jpeg' });
-    uploadFn(blob, imageId + 'thumb').then(url => {
-      dataFn.objInsert(url, [imageId, 'thumbnail']);
-      stream(url, [imageId, 'thumbnail']);
+  const ext = filename.split('.').pop();
+  if (!filename || ['jpg', 'png'].includes(ext)) {
+    // upload a thumbnail
+    resizeImg(imageBuffer, { width: 128 }).then(buffer => {
+      const blob = new Blob([buffer], { type: 'image/jpeg' });
+      uploadFn(blob, imageId + 'thumb').then(url => {
+        dataFn.objInsert(url, [imageId, 'thumbnail']);
+        stream(url, [imageId, 'thumbnail']);
+      });
     });
-  });
 
-  // upload a bigger picture
-  resizeImg(imageBuffer, { width: 800 }).then(buffer => {
-    const blob = new Blob([buffer], { type: 'image/jpeg' });
-    uploadFn(blob, imageId).then(url => {
-      dataFn.objInsert(url, [imageId, 'url']);
-      stream(url, [imageId, 'url']);
+    // upload a bigger picture
+    resizeImg(imageBuffer, { width: 800 }).then(buffer => {
+      const blob = new Blob([buffer], { type: 'image/jpeg' });
+      uploadFn(blob, imageId).then(url => {
+        dataFn.objInsert(url, [imageId, 'url']);
+        stream(url, [imageId, 'url']);
+      });
     });
-  });
+  } else {
+    uploadFn(imageBuffer, imageId).then(url => {
+      dataFn.objInsert({ url, ext }, imageId);
+      stream({ url, ext }, imageId);
+    });
+  }
 };
 
 export default (
@@ -51,6 +60,7 @@ export default (
     imageId
   );
   stream(imageId, [imageId, 'key']);
+  const filename = file.name;
 
   fr.onloadend = loaded => {
     const imageBuffer = Buffer.from(loaded.currentTarget.result);
@@ -61,7 +71,8 @@ export default (
       dataFn,
       stream,
       uploadFn,
-      type
+      type,
+      filename
     );
   };
   fr.readAsArrayBuffer(file);

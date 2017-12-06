@@ -112,8 +112,9 @@ class ActivityRunner extends Component {
           {...{ setCategory, setZoom }}
         />
         <p style={{ fontSize: '22px' }}>{activityData.config.guidelines}</p>
+        {console.log(images)}
         {images.length === 0 && this.state.category !== 'categories' ? (
-          <h1>No image</h1>
+          <h1>{activityData.config.acceptAnyFiles ? 'No file' : 'No image'}</h1>
         ) : (
           <ThumbList
             {...{

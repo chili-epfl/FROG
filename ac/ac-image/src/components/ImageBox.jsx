@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import getFA from 'font-awesome-filetypes';
 
 import CenteredImg from './CenteredImg';
 
@@ -39,7 +40,13 @@ const ImageBox = ({
   styleCode: string
 }) => (
   <ImgButton onClick={onClick} style={getStyle(styleCode)}>
-    <CenteredImg url={image.thumbnail || image.url} />
+    {image.thumbnail ? (
+      <CenteredImg url={image.thumbnail || image.url} />
+    ) : (
+      <span fontSize="120px">
+        <i className={'fa ' + getFA(image.ext || '')} aria-hidden="true" />
+      </span>
+    )}
   </ImgButton>
 );
 

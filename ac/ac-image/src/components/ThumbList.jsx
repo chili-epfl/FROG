@@ -37,7 +37,7 @@ const ImageList = ({
         }
       };
 
-      const voteCount = Object.values(image.votes).reduce(
+      const voteCount = Object.values(image.votes || {}).reduce(
         (n, v) => (v ? n + 1 : n),
         0
       );
