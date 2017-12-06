@@ -20,16 +20,25 @@ export const config = {
       type: 'string',
       title: 'Solution'
     },
-    testing: {
-      type: 'string',
-      title: 'Testing Code'
-    },
     tests: {
       type: 'array',
       title: 'Tests',
       items: {
-        type: 'string',
-        title: 'Input value for the test'
+        type: 'object',
+        properties: {
+          description: {
+            type: 'string',
+            title: 'Description'
+          },
+          preCode: {
+            type: 'string',
+            title: "Code inserted before student's code"
+          },
+          postCode: {
+            type: 'string',
+            title: "Code inserted after student's code"
+          }
+        }
       }
     }
   }
@@ -40,9 +49,6 @@ export const configUI = {
     'ui:widget': 'textarea'
   },
   solution: {
-    'ui:widget': 'textarea'
-  },
-  testing: {
     'ui:widget': 'textarea'
   },
   tests: {
@@ -57,11 +63,25 @@ export const exampleConfig0 = {
   config: {
     title: 'Double',
     guidelines: 'Make it double!',
-    template: 'def double(x):\n    return 0.',
-    solution: 'solution = lambda x: 2*x',
-    testing:
-      "y = double(x)\nz = solution(x)\nprint y\nprint z\nprint ('SUCCESS' if y == z else 'FAILURE')",
-    tests: ['x = 0', 'x = 2', 'x = 4', 'x = 100', 'x = 10000', 'x = 123456789']
+    template: 'def double(x):\n\treturn 0.',
+    solution: 'def double(x):\n\treturn 2*x',
+    tests: [
+      {
+        description: 'x=0',
+        preCode: '',
+        postCode: 'print double(0)'
+      },
+      {
+        description: 'x=42',
+        preCode: '',
+        postCode: 'print double(42)'
+      },
+      {
+        description: 'x=1234567890',
+        preCode: '',
+        postCode: 'print double(1234567890)'
+      }
+    ]
   },
   data: {}
 };

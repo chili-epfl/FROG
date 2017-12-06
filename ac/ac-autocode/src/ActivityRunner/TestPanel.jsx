@@ -30,15 +30,7 @@ const ButtonList = styled.div`
   margin-right: 10px;
 `;
 
-const Feedback = ({
-  input,
-  status,
-  expected,
-  received,
-  error,
-  stdout,
-  debug
-}) => (
+const Feedback = ({ input, expected, received, error, stdout, debug }) => (
   <div>
     {[
       input && <div key="inputT">INPUT</div>,
@@ -50,9 +42,7 @@ const Feedback = ({
       received && <div key="receivedT">RECEIVED OUTPUT</div>,
       received && <CodeBox key="receivedB">{received}</CodeBox>,
       error && <div key="errorT">ERROR</div>,
-      error && <CodeBox key="errorB">{error}</CodeBox>,
-      status && <div key="statusT">STATUS</div>,
-      status && <CodeBox key="statusB">{status}</CodeBox>
+      error && <CodeBox key="errorB">{error}</CodeBox>
     ]}
   </div>
 );

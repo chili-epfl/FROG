@@ -3,8 +3,8 @@
 import React from 'react';
 import { withState } from 'recompose';
 
-const getTestCode = (code, solution, testing, test) =>
-  [code, solution, test, testing].join('\n');
+const getCode = (code, preCode, postCode) =>
+  [preCode, code, postCode].join('\n');
 
 const Test = ({
   status,
@@ -18,26 +18,42 @@ const Test = ({
   logger
 }: Object) => {
   let testOutput = [];
-  const handleOut = out => {
-    if (out !== '\n') {
-      testOutput = [testOutput[1], testOutput[2], out];
-    }
+  let solutionOutput = [];
+
+  const handleOut = w => {
+    let output = w === 'student' ? testOutput : solutionOutput;
+    return out => {
+      if (out !== '\n') {
+        output.push(out);
+      }
+    };
   };
 
   const runTest = () => {
-    const { solution, testing } = activityData.config;
-    const testCode = getTestCode(data.code, solution, testing, test);
+    const { preCode, postCode, solution } = activityData.config;
+    const testCode = getCode(data.code, preCode, postCode);
+    const solutionCode = getCode(solution, preCode, postCode);
     logger({ type: 'test', itemId: index, value: data.code });
-    runCode(testCode, handleOut, () => {}).then(
+    testOutput = [];
+    solutionOutput = [];
+    runCode(testCode, handleOut('student'), () => {}).then(
       () => {
         logger({ type: testOutput[2], itemId: index });
-        setStatus(testOutput[2] === 'SUCCESS' ? 'success' : 'danger');
-        setFeedback({
-          input: test,
-          status: testOutput[2],
-          expected: testOutput[1],
-          received: testOutput[0]
-        });
+        runCode(solutionCode, handleOut('teacher'), () => {}).then(
+          () => {
+            //DO things
+            const studentOutput = testOutput.slice(-solutionOutput.length);
+            setStatus(solutionOutput === studentOutput ? 'success' : 'danger');
+            setFeedback({
+              input: preCode + '\n' + postCode,
+              expected: solutionOutput,
+              received: studentOutput
+            });
+          },
+          err => {
+            //TEACHER ERROR
+          }
+        );
       },
       err => {
         logger({ type: 'ERROR', itemId: index });
@@ -49,7 +65,7 @@ const Test = ({
         const error = lineno
           ? 'On line ' + lineno + ', Received error: ' + message
           : 'Received error: ' + message;
-        setFeedback({ error, input: test, status: 'ERROR' });
+        setFeedback({ error, input: preCode + '\n' + postCode });
       }
     );
   };
