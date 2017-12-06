@@ -72,11 +72,11 @@ const genList = (tab: Array<any>, n: number) => {
   let tmp = T.slice(T.length - Math.min(T.length, n / 2)).concat(
     F.slice(F.length - Math.min(F.length, n / 2))
   );
-  for (let i = 0; tmp.length < n / tab.length + 1; i += 1)
-    tmp = tmp.concat(shuffle(tab));
+  while (tmp.length < n) tmp = tmp.concat(shuffle(tab));
+  tmp = tmp.slice(-1 * n);
   tmp = tmp.map(x => ({
     realIndex: tab.indexOf(x),
     selectedProperties: []
   }));
-  return shuffle(tmp.slice(-1 * n));
+  return shuffle(tmp);
 };
