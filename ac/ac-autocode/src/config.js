@@ -63,7 +63,7 @@ export const exampleConfig0 = {
   config: {
     title: 'Double',
     guidelines: 'Make it double!',
-    template: 'def double(x):\n\treturn 0.',
+    template: 'def double(x):\n\treturn 0',
     solution: 'def double(x):\n\treturn 2*x',
     tests: [
       {

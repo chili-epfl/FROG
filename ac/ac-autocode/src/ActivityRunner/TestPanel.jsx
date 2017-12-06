@@ -11,7 +11,11 @@ const renderLines = (text: string) =>
   text
     .split('\n')
     .filter(x => x)
-    .map((x, i) => <div key={x + i}>{x}</div>);
+    .map((x, index) => (
+      <div key={x} index={index}>
+        {x}
+      </div>
+    ));
 
 const CodeBox = styled.div`
   min-width: 300px;
@@ -49,11 +53,10 @@ const Feedback = ({ input, expected, received, error, stdout, debug }) => (
 
 const TestList = ({ tests, ...props }) => (
   <ButtonList>
-    <Debug {...props} />
-    {tests &&
-      tests.map((test, index) => (
-        <Test key={test} test={test} index={index} {...props} />
-      ))}
+    <Debug key="debug" {...props} />
+    {tests.map((test, index) => (
+      <Test key={test + index} test={test} index={index} {...props} />
+    ))}
   </ButtonList>
 );
 
