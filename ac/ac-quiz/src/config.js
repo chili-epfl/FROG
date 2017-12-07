@@ -14,7 +14,7 @@ export const config = {
       default: 'none'
     },
     guidelines: {
-      type: 'string',
+      type: 'rte',
       title: 'Guidelines'
     },
     justify: {
@@ -29,7 +29,7 @@ export const config = {
         type: 'object',
         properties: {
           question: {
-            type: 'string',
+            type: 'rte',
             title: 'Question'
           },
           answers: {
@@ -51,6 +51,13 @@ export const config = {
     }
   }
 };
+
+export const validateConfig = [
+  (formData: Object) =>
+    !formData.questions || formData.questions.length === 0
+      ? { err: 'You must have at least one question' }
+      : null
+];
 
 export const configUI = {
   'questions.answers.correct': { conditional: 'hasAnswers' }
