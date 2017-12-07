@@ -1,363 +1,612 @@
 // @flow
 
-/*********
+// ----------------------TODOs:-------------------------
+// 1) ReconnectingWebSocket instead of WebSocket
+// 2) Move all functions to class functions but not on render
+// 3) Use component did mount or will mount or will unmount etc
+// 4) Be careful with the change of activity does not call constractor
+// 5) import each function i use from lodash and do not use it on each
+// state mode => look for a file Graph editor/stor/store
+// this.setState({array: ...array, 44})
+// 6) no need to look if there is array elements in remote video
 
-import React, { Component } from 'react';
-import {uuid} from 'frog-utils';
-import type { ActivityRunnerT } from 'frog-utils';
+// reactiveHOC
 
-import Response from 'meteor-node-stubs/node_modules/http-browserify/lib/response';
-if (!Response.prototype.setEncoding) {
-  Response.prototype.setEncoding = (encoding) => {
-    // do nothing
-  }
-}
+// ----------------------QSTs:-------------------------
 
-import io from 'socket.io-client';
-// var io = require('socket.io-client');
+// 1) Component will update is called everytime render?
+// 2) Is there any component will destroy? => Component Will Unmount?
+// 3) Update is for render once created. DIDMount is for first time?
 
+// if you have to change state => will
+// Otherwise DID mount
 
-const LocalVideo = ({src}) => {
-  return(
-    <div>
-      <video id="localVideo" autoPlay="true" muted="true" src={src}></video>
-    </div>
-  );
-};
+// -----------------------------------------------------
+// Components
+//  LocalVideo
+//  RemoteVideo
+// 
+// Class
+//  Activity Runner
+// 
+// Global Variables
+//  Connections
+//  pcConfig
+//  WebSocket
+//  UserInfo => No need
+// 
+// State
+//  Local stream
+//  Remote streams
+//  State or states?
 
-// const RemoteVideo = () => (
-//   <video id="remoteVideo" autoPlay="true" muted="false"></video>
-// );
-
-const constraints = {
-  audio: true,
-  video: true
-};
-
-
-
-class ActivityRunner extends Component{
-  // state: {
-  //   id: string,
-  //   local: {
-  //     src: string,
+//---------
+  //   state: {
+  //   id: string,          => Not needed. We have userInfo as global variable. But if the props change. The  what?
+  //   local: {             => Correct
+  //     src: string, 
   //     stream: string
   //   },
-  //   socket: socket
+  //   remote: [],          => Correct?
+  //   connections: [],     => No! should be global variable
+  //   ws: WebSocket,       => No! hould be global variable
+  //   readyStart: boolean, => Yes
+  //   readyCall: boolean,  => Yes
+  //   readyHangup: boolean => Yes
   // };
 
-  constructor(props: ActivityRunnerT) {
-    super(props);
+//---------
 
-    // const sRTC = io.connect('https:////138.197.182.1:8080');
+// FUNCTIONS
 
-    // sRTC.on('created', (room) => {
-    //   console.log('CREATION: >>>> Created room ' + room);
-    // });
+// => General Use
+//  findConnectionByRemoteUser
 
-    // sRTC.on('full', (room) => {
-    //   alert('FULL: >>>> Room ' + room + ' is full');
-    //   onHangUp();
-    // });
+// => PeerConnection
+//  startConnection
+//  createPeerConnection
+//  handleIceCandidate
+//  handleRemoteStreamAdded
+//  handleRemoteStreamRemoved
 
-    // sRTC.on('join', (room, remoteId) =>{
-    //   console.log('JOIN: >>>>  Another peer made a request to join room ' + room + ' go ahead and add it ' + remoteId);
-    //   // isChannelReady = true;
-    //   // var conn = maybeStart(remoteId);
-    //   // if (conn) {doCall(conn)};
-    // });
+// => Offer
+//  startOffer
+//  handleCreateOfferError
+//  setLocalInfoAndSendOffer
 
-    // sRTC.on('joined', (room, numClients) => {
-    //   console.log('JOINED: >>>> ' + room + ' there is ' + numClients + ' other than you');
-    // });
+// => Answer
+//  startAnswer
+//  setLocalInfoAndSendAnswer
+//  onCreateSessionDescriptionError
 
+// => HangUP
+//  handleRemoteHangUp
 
+// => Codec
+//  preferOpus
+//  extractSdp
+//  setDefaultCodec
+//  removeCN
 
-    // const {data, dataFn, activityData} = props;
-    // this.state = {
-    //   id: uuid(),
-    //   local: {
-    //     src: 'null',
-    //     stream: 'null'
-    //   },
-    //   ws: sRTC
-    // };
+// => Message
+//  ws.on
 
-  };
+// =>Button Handeling
+//  onStart
+//  onCall
+//  onHangUp
+//  gotStream
 
-  render() {
-    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
-
-    // const onStart = () => {
-    //   console.log(constraints); 
-    //   navigator.mediaDevices.getUserMedia(constraints)
-    //   .then(gotStream)
-    //   .catch(function(e) {
-    //     alert('getUserMedia() error: ' + e.name);
-    //   });
-    // };
-
-    // const gotStream = (stream) => {
-    //   this.setState(
-    //     {
-    //       local: {
-    //         src : window.URL.createObjectURL(stream),
-    //         stream: stream
-    //       }
-    //     }
-    //   );
-    //   // LocalVideo(streams.local);
-    //   // localVideo.src = window.URL.createObjectURL(stream);
-    //   // localVideo.stream = stream;
-    //   // startButton.disabled = true;
-    // };
-
-    // const onCall = () => {
-    //   console.log("HELLO");
-    //   this.state.ws.send({'create or join' : 'hello'});
-    // };
-
-    // const onHangUp = () => {
-    //   if (this.state.local.stream){
-    //     try{
-    //       this.state.local.stream.getTracks().forEach(track => track.stop());
-    //     }catch(e){
-    //       console.log("error getting audio or video tracks" + e); 
-    //     }
-    //     this.setState(
-    //       {
-    //         local: {
-    //           src : 'null',
-    //           stream: 'null'
-    //         }
-    //       }
-    //     );
-    //   };
-    // };
-
-
-    // return(
-    //     <div id="webrtc">
-    //       <h1>{activityData.config.title}</h1>
-            
-    //       <LocalVideo src={this.state.local.src} />
-          
-    //       <div>
-    //           <button id="startButton" onClick={onStart}>Start</button>
-    //           <button id="callButton" onClick={onCall}>Call</button>
-    //           <button id="hangupButton" onClick={onHangUp}>Hang Up</button>
-    //       </div>
-    //     </div>
-    // );
-    return(
-      <div id="webrtc">
-        <button>Hello</button>
-      </div>
-    );
-  }
-
-}
-
-
-ActivityRunner.displayName = 'ActivityRunner';
-
-export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
-
-// export default ActivityRunner;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-***************/
-
-
-
-
-
-
-
-
-
-
-console.log("this is me")
 
 
 
 import React, {Component} from 'react';
 import {uuid} from 'frog-utils';
 import type {ActivityRunnerT} from 'frog-utils';
-// var WebSocket = require('ws');
-import WebSocket from 'ws';
 
+const LocalVideo = ({src}) => {
+  return(
+      <video id="localVideo" height="200px" autoPlay="true" muted="true" src={src}></video>
+  );
+};
 
-// const LocalVideo = ({src}) => {
-//   return(
-//     <div>
-//       <video id="localVideo" autoPlay="true" muted="true" src={src}></video>
-//     </div>
-//   );
-// };
+const RemoteVideo = ({src, index}) => (
+  <video id={index} autoPlay="true" height="200px" muted="false" src={src}></video>
+);
 
-// const RemoteVideo = () => (
-//   <video id="remoteVideo" autoPlay="true" muted="false"></video>
-// );
-
-const constraints = {
+const sdpConstraints = {
   audio: true,
   video: true
 };
 
+var pcConfig = {
+  'iceServers': [
+    {
+      'urls': 'stun:stun.l.google.com:19302'
+    },
+    {
+      'urls': 'turn:138.197.182.1:3478', 
+      'username': 'test', 
+      'credential': 'test'
+    },
+    {
+      'urls': 'stun:138.197.182.1:3478', 
+      'username': 'test', 
+      'credential': 'test'
+    }
+  ]
+
+};
 
 
 class ActivityRunner extends Component{
+
   state: {
-    id: string,
+    id: string, 
     local: {
       src: string,
       stream: string
     },
-    ws: WebSocket
+    remote: [],
+    connections: [],
+    ws: WebSocket,
+    readyStart: boolean,
+    readyCall: boolean,
+    readyHangup: boolean
   };
+
+  findConnectionByRemoteUser = (userInfo) => {
+    return(_.find(this.state.connections, (conn) => {
+      return(_.isEqual(conn.remoteUser,userInfo))
+    }))
+  };
+
+  startConnection = (remoteUser) => {
+    // CHECK if correct!
+    if (!_.contains(this.state.connections, {remoteUser : remoteUser}) && typeof this.state.local.stream !== 'undefined'){
+      var connection = this.createPeerConnection();
+      connection.addStream(this.state.local.stream);
+      connection.remoteUser = remoteUser;
+      this.state.connections.push(connection);
+      return connection;
+    }
+  };
+
+  createPeerConnection = () => {
+    try {
+      var conn = new RTCPeerConnection(pcConfig);
+      conn.onicecandidate = this.handleIceCandidate;
+      conn.onaddstream = this.handleRemoteStreamAdded;
+      conn.onremovestream = this.handleRemoteStreamRemoved;
+      return (conn);
+    } catch (e) {
+      alert('Cannot create RTCPeerConnection object.');
+      return;
+    }
+  };
+
+  handleIceCandidate = (event) => {
+    if(event.candidate) {
+      let message = {
+        type: 'candidate',
+        data:{
+          label: event.candidate.sdpMLineIndex,
+          id: event.candidate.sdpMid,
+          candidate: event.candidate.candidate,
+          toUser: event.target.remoteUser,
+          fromUser: this.userInfo
+        }
+      };   
+      this.state.ws.send(JSON.stringify(message));
+    } else {
+      console.log("End of candidates."); 
+    };
+  };
+
+  handleRemoteStreamAdded = (event) => {
+    let index = _.indexOf(this.state.connections, event.target);
+    let remotes = this.state.remote;
+    if(_.isUndefined(remotes[index])){
+      remotes[index] = {
+        stream : event.stream,
+        src : window.URL.createObjectURL(event.stream)
+      };
+    } else {
+      alert ("ERROR on remote stream indexes");
+    }
+    this.setState({
+      'remote' : remotes
+    });
+  };
+
+  handleRemoteStreamRemoved = (event) => {
+    console.log("Remote stream removed. Event: ", event); 
+  };
+
+  startOffer = (connection) => {
+    connection.createOffer(sdpConstraints)
+    .then( (offer) => {
+      this.setLocalInfoAndSendOffer(offer, connection)
+    }).catch(this.handleCreateOfferError)
+
+  };
+
+  handleCreateOfferError = (event) => {
+    console.log("createOffer() error:", event); 
+  };
+
+  setLocalInfoAndSendOffer = (offer, connection) => {
+    offer.sdp = this.preferOpus(offer.sdp);
+    connection.setLocalDescription(offer);
+    let message = {
+      type: 'offer',
+      data:{
+        message: offer,
+        toUser: connection.remoteUser,
+        fromUser: this.userInfo
+      }
+    };
+    this.state.ws.send(JSON.stringify(message));
+  };
+
+  startAnswer = (connection) => {
+    connection.createAnswer()
+    .then( (answer) => {
+      this.setLocalInfoAndSendAnswer(answer, connection)
+    }).catch(this.onCreateSessionDescriptionError);
+  };
+
+  setLocalInfoAndSendAnswer = (answer, connection) => {
+    answer.sdp = this.preferOpus(answer.sdp);
+    connection.setLocalDescription(answer);
+    let message = {
+      type: 'answer',
+      data:{
+        message: answer,
+        toUser: connection.remoteUser,
+        fromUser: this.userInfo
+      }
+    }; 
+    this.state.ws.send(JSON.stringify(message));
+  };
+
+  onCreateSessionDescriptionError = (error) =>{
+    console.log("Failed to create description: ", error.toString()); 
+  };
+
+  // requestTurn!
+
+
+
+  handleRemoteHangUp = (remoteUser) => {
+    console.log("Session terminated", remoteUser); 
+    let connection = this.findConnectionByRemoteUser(remoteUser);
+    if(connection !== null) {
+      let newRemotes;
+      if (connection.getRemoteStreams() !== null){
+        newRemotes = _.filter(this.state.remote, ({stream}) => {
+           if(stream == connection.getRemoteStreams()[0]){
+            try{
+              stream.getTracks().forEach(track => track.stop());
+            }catch(e){
+              console.log("error getting audio or video tracks" + e); 
+            }return false;
+           } else{
+            return true;
+           }
+        });
+      }
+      let newConnections = _.filter(this.state.connections, (conn) => {
+        if (conn === connection){
+          try{
+            conn.close();
+          }catch(e){
+            console.log("error closing connection" +e); 
+          }
+          return false;
+        }else{return true}
+      });
+      this.setState({
+        remote: newRemotes,
+        connections: newConnections
+      })
+    }
+  };
+
+  ////////////////////////
+
+  ///////////////////////////////////////////
+
+  // Set Opus as the default audio codec if it's present.
+  preferOpus = (sdp) => {
+    console.log("Preferring opus"); 
+    var sdpLines = sdp.split('\r\n');
+    var mLineIndex;
+    // Search for m line.
+    for (var i = 0; i < sdpLines.length; i++) {
+      if (sdpLines[i].search('m=audio') !== -1) {
+        mLineIndex = i;
+        break;
+      }
+    }
+    if (mLineIndex === (null || undefined)) {
+      return sdp;
+    }
+
+    // If Opus is available, set it as the default in m line.
+    for (i = 0; i < sdpLines.length; i++) {
+      if (sdpLines[i].search('opus/48000') !== -1) {
+        var opusPayload = this.extractSdp(sdpLines[i], /:(\d+) opus\/48000/i);
+        if (opusPayload) {
+          sdpLines[mLineIndex] = this.setDefaultCodec(sdpLines[mLineIndex],
+            opusPayload);
+        }
+        break;
+      }
+    }
+
+    // Remove CN in m line and sdp.
+    sdpLines = this.removeCN(sdpLines, mLineIndex);
+
+    sdp = sdpLines.join('\r\n');
+    return sdp;
+  };
+
+  extractSdp = (sdpLine, pattern) => {
+    var result = sdpLine.match(pattern);
+    return result && result.length === 2 ? result[1] : null;
+  };
+
+  // Set the selected codec to the first in m line.
+  setDefaultCodec = (mLine, payload) => {
+    var elements = mLine.split(' ');
+    var newLine = [];
+    var index = 0;
+    for (var i = 0; i < elements.length; i++) {
+      if (index === 3) { // Format of media starts from the fourth.
+        newLine[index++] = payload; // Put target payload to the first.
+      }
+      if (elements[i] !== payload) {
+        newLine[index++] = elements[i];
+      }
+    }
+    return newLine.join(' ');
+  };
+
+  // Strip CN from sdp before CN constraints is ready.
+  removeCN =(sdpLines, mLineIndex) => {
+    var mLineElements = sdpLines[mLineIndex].split(' ');
+    // Scan from end for the convenience of removing an item.
+    for (var i = sdpLines.length - 1; i >= 0; i--) {
+      var payload = this.extractSdp(sdpLines[i], /a=rtpmap:(\d+) CN\/\d+/i);
+      if (payload) {
+        var cnPos = mLineElements.indexOf(payload);
+        if (cnPos !== -1) {
+          // Remove CN payload from m line.
+          mLineElements.splice(cnPos, 1);
+        }
+        // Remove CN line in sdp
+        sdpLines.splice(i, 1);
+      }
+    }
+
+    sdpLines[mLineIndex] = mLineElements.join(' ');
+    return sdpLines;
+  };
+
+
+
+  ///////////////////////
+
+
 
   constructor(props: ActivityRunnerT) {
     super(props);
 
-    const wsRTC = new WebSocket('ws://138.197.182.1:8080/socket.io/?EIO=3&transport=websocket');
-    // window.ruru = [];
-
-    // //Connect
-    // wsRTC.onopen = (event) => {
-    //   console.log('CREATION: >>>> Created room ' + event);
-    //   window.eventu = event;
-    //   window.wss = wsRTC;
-    // };
-
-    // // Log errors
-    // wsRTC.onerror = (error) => {
-    //   console.log('WebSocket Error ' + error);
-    // };
-
-    // // Log messages from the server
-    // wsRTC.onmessage = (e) => {
-    //   console.log('Server: ' + e.data);
-    //   ruru.push(e);
-    // };
-
-    // wsRTC.oncreated = (room) => {
-    //   console.log('CREATION: >>>> Created room ' + room);
-    // };
-
-    // wsRTC.onfull = (room) => {
-    //   alert('FULL: >>>> Room ' + room + ' is full');
-    //   onHangUp();
-    // };
-
-    // wsRTC.onjoin =  (room, remoteId) =>{
-    //   console.log('JOIN: >>>>  Another peer made a request to join room ' + room + ' go ahead and add it ' + remoteId);
-    //   // isChannelReady = true;
-    //   // var conn = maybeStart(remoteId);
-    //   // if (conn) {doCall(conn)};
-    // };
-
-    // wsRTC.onjoined = (room, numClients) => {
-    //   console.log('JOINED: >>>> ' + room + ' there is ' + numClients + ' other than you');
-    // };
+    const wsRTC = new WebSocket('ws://localhost:8080/');
+    // let wsRTC = new WebSocket('wss://138.197.182.1:8080/socket.io/?EIO=3&transport=websocket');
 
 
+    //Connect
+    wsRTC.onopen = (event) => {
+      console.log('WEBSOCKET OPEN');
+    };
 
-    // const {data, dataFn, activityData} = props;
+    // Log errors
+    wsRTC.onerror = (error) => {
+      console.log('WebSocket Error ' + error);
+    };
+
+    // Log messages from the server
+    wsRTC.onmessage = (message) => {
+      var JSONmess = JSON.parse(message.data);
+
+      switch (JSONmess.type){
+        case 'created':
+          console.log("CREATED"); 
+          break;
+        case 'joined':
+          console.log("JOINED");
+          break;
+        case 'join':
+          console.log("JOIN");
+          let connection = this.startConnection(JSONmess.data.user); 
+          if (connection) {
+            this.startOffer(connection);
+          }; 
+          break;
+        case 'full':
+          console.log("FULL");
+          alert("The room " + JSONmess.data.room + " is full. Please try another name");
+          this.setState(
+            {
+              readyCall: true,
+              readyHangup: false
+            }
+          );
+          break;
+        case 'offer':
+          console.log("OFFER");
+          let connectionOffer = this.startConnection(JSONmess.data.fromUser); 
+          if (connectionOffer) {
+            console.log(connectionOffer);
+            console.log(this.findConnectionByRemoteUser(JSONmess.data.fromUser));  
+            // this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message)); 
+            connectionOffer.setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
+            this.startAnswer(connectionOffer);
+          }; 
+          break;
+        case 'answer' :
+          console.log("ANSWER");
+          this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
+          break;
+        case 'candidate' :
+          console.log("CANDIDATE");
+          let candidate = new RTCIceCandidate({
+            sdpMLineIndex: JSONmess.data.label,
+            candidate: JSONmess.data.candidate
+          });
+          this.findConnectionByRemoteUser(JSONmess.data.fromUser).addIceCandidate(candidate);
+          break;
+        case 'bye' :
+          console.log("BYE");
+          this.handleRemoteHangUp(JSONmess.data);
+          break;
+        case 'log' :
+          console.log("LOG");
+          console.log(JSONmess);
+          break;  
+        default :
+          console.log("DEFAUL");
+          console.log(JSONmess.type);  
+      }
+    };
+
+    const {data, dataFn, activityData, userInfo} = props;
+
+    this.userInfo = userInfo;
     this.state = {
       id: uuid(),
       local: {
         src: 'null',
         stream: 'null'
       },
-      ws: wsRTC
+      remote: [],
+      connections: [],
+      ws: wsRTC,
+      readyStart: true,
+      readyCall: false,
+      readyHangup: false
     };
 
   };
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
+    const { activityData, data, dataFn, groupingValue, userInfo, logger, stream } = this.props;
 
-    // const onStart = () => {
-    //   console.log(constraints); 
-    //   navigator.mediaDevices.getUserMedia(constraints)
-    //   .then(gotStream)
-    //   .catch(function(e) {
-    //     alert('getUserMedia() error: ' + e.name);
-    //   });
-    // };
+    const onStart = () => {
+      console.log(sdpConstraints); 
+      navigator.mediaDevices.getUserMedia(sdpConstraints)
+      .then(gotStream)
+      .catch(function(e) {
+        alert('getUserMedia() error: ' + e.name);
+      });
+    };
 
-    // const gotStream = (stream) => {
-    //   this.setState(
-    //     {
-    //       local: {
-    //         src : window.URL.createObjectURL(stream),
-    //         stream: stream
-    //       }
-    //     }
-    //   );
-    //   // LocalVideo(streams.local);
-    //   // localVideo.src = window.URL.createObjectURL(stream);
-    //   // localVideo.stream = stream;
-    //   // startButton.disabled = true;
-    // };
+    const gotStream = (stream) => {
+      this.setState(
+        {
+          local: {
+            src : window.URL.createObjectURL(stream),
+            stream: stream
+          },
+          readyStart: false,
+          readyCall: true
+        }
+      );
+    };
 
-    // const onCall = () => {
-    //   console.log("HELLO");
-    //   this.state.ws.send({'create or join' : 'hello'});
-    // };
+    const onCall = () => {
+      this.setState(
+        {
+          readyCall: false,
+          readyHangup: true
+        }
+      );
+      let message = {
+        type: 'create or join',
+        data:{
+          room: groupingValue || 'room',
+          user: userInfo
+        }
+      }; 
+      console.log(JSON.stringify(message));
+      this.state.ws.send(JSON.stringify(message));
+    };
 
-    // const onHangUp = () => {
-    //   if (this.state.local.stream){
-    //     try{
-    //       this.state.local.stream.getTracks().forEach(track => track.stop());
-    //     }catch(e){
-    //       console.log("error getting audio or video tracks" + e); 
-    //     }
-    //     this.setState(
-    //       {
-    //         local: {
-    //           src : 'null',
-    //           stream: 'null'
-    //         }
-    //       }
-    //     );
-    //   };
-    // };
+    const onHangUp = () => {
+      let message = {
+          type: 'bye'
+      }; 
+      this.state.ws.send(JSON.stringify(message));
 
+      if (this.state.local.stream){
+        try{
+          this.state.local.stream.getTracks().forEach(track => track.stop());
+        }catch(e){
+          console.log("error getting audio or video tracks" + e); 
+        }        
+      };
+
+      if (this.state.remote.length >0){
+        _.each(this.state.remote, ({stream}) => { 
+          try{
+           stream.getTracks().forEach(track => track.stop());
+          }catch(e){
+            console.log("error getting audio or video tracks" + e); 
+          }
+        })
+      };
+
+      if(this.state.connections.length > 0){
+        _.each(this.state.connections, (connection) => {
+          try{
+            connection.close();
+          }catch(e){
+            console.log("error closing connection", e); 
+          }
+        })
+      };
+
+      this.setState({
+        local: {
+          src : 'null',
+          stream: 'null'
+        },
+        readyStart: true,
+        readyHangup: false,
+        remote: [],
+        connections: []
+      });
+    };
 
     return(
         <div id="webrtc">
           <h1>{activityData.config.title}</h1>
-            
-          <LocalVideo src={this.state.local.src} />          
-
-          <div>
-              <button id="startButton" onClick={onStart}>Start</button>
-              <button id="callButton" onClick={onCall}>Call</button>
-              <button id="hangupButton" onClick={onHangUp}>Hang Up</button>
+          <div id="videos">
+            <LocalVideo src={this.state.local.src} stream={this.state.local.stream}/>
+            {this.state.remote.length > 0 ? (this.state.remote.map( (connection, index) => (
+                  <RemoteVideo key = {index} index={"remotevideo"+index} src={connection.src} stream={connection.stream}/>)
+                )) : ( <h1>You are alone</h1> )
+            }
           </div>
-      
+        
+          <div>
+              <button id="startButton" onClick={onStart} disabled={!this.state.readyStart}>Start</button>
+              <button id="callButton" onClick={onCall} disabled={!this.state.readyCall}>Call</button>
+              <button id="hangupButton" onClick={onHangUp} disabled={!this.state.readyHangup}>Hang Up</button>
+          </div>
+        
         </div>
     );
   }
@@ -369,227 +618,3 @@ ActivityRunner.displayName = 'ActivityRunner';
 
 export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
 
-// export default ActivityRunner;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//something
-
-/*******************
-
-  the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => {
-  const id = uuid();
-
-  componentWillMount() {
-    window.caca = data;
-    dataFn.objInsert(
-      {
-        local: {
-           src: 'null',
-           stream: 'null'
-        }
-      }, id
-    );
-    logger(data);
-  }
-
-  const onStart = () => {
-    navigator.mediaDevices.getUserMedia(constraints)
-    .then(gotStream)
-    .catch(function(e) {
-      alert('getUserMedia() error: ' + e.name);
-    });
-  };
-
-  const gotStream = stream => {
-    dataFn.streams.local.src = window.URL.createObjectURL(stream);
-    window.streams = streams;
-    window.localv = LocalVideo;
-    // LocalVideo(streams.local);
-    // localVideo.src = window.URL.createObjectURL(stream);
-    // localVideo.stream = stream;
-    // startButton.disabled = true;
-  };
-
-  const hangUp = () => {
-    if (localVideo.stream){
-      try{
-        localVideo.stream.getTracks().forEach(track => track.stop());
-      }catch(e){
-        console.log("error getting audio or video tracks" + e); 
-      }
-      localVideo.stream = null;
-    }
-  };
-
-  return(
-    <div id="webrtc">
-      <h1>{activityData.config.title}</h1>
-        <div id="videos">
-          {logger(data)}
-          <LocalVideo src={data.id.local.src}/>
-        </div>
-      
-      <div>
-          <button id="startButton" onClick={onStart}>Start</button>
-          <button id="callButton">Call</button>
-          <button id="hangupButton" onClick={hangUp}>Hang Up</button>
-      </div>
-
-    </div>
-  )
-}; **************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***********************************************************************
-
-                              VERSION 1
-
-// @flow
-
-import React from 'react';
-import type {ActivityRunnerT} from 'frog-utils';
-
-const LocalVideo = ({src, stream}) => (
-  <video id="localVideo" autoPlay="true" muted="true" src={src}></video>
-);
-
-const RemoteVideo = () => (
-  <video id="remoteVideo" autoPlay="true" muted="false"></video>
-);
-
-const constraints = {
-  audio: true,
-  video: true
-};
-
-const streams = {
-  local: {
-    src: 'null',
-    stream: 'null'
-  }
-}
-
-// the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => {
-  const onStart = () => {
-    navigator.mediaDevices.getUserMedia(constraints)
-    .then(gotStream)
-    .catch(function(e) {
-      alert('getUserMedia() error: ' + e.name);
-    });
-  };
-
-  const gotStream = stream => {
-    localVideo.src = window.URL.createObjectURL(stream);
-    localVideo.stream = stream;
-    startButton.disabled = true;
-  };
-
-  const hangUp = () => {
-    if (localVideo.stream){
-      try{
-        localVideo.stream.getTracks().forEach(track => track.stop());
-      }catch(e){
-        console.log("error getting audio or video tracks" + e); 
-      }
-      localVideo.stream = null;
-    }
-  };
-
-  const streams = {
-    local: {
-      src: 'null',
-      stream: 'null'
-    }
-  }
-
-  return(
-    <div id="webrtc">
-      <h1>{activityData.config.title}</h1>
-        <div id="videos">
-          <LocalVideo src={streams.local.src} stream={streams.local.stream}/>
-        </div>
-      
-      <div>
-          <button id="startButton" onClick={onStart}>Start</button>
-          <button id="callButton">Call</button>
-          <button id="hangupButton" onClick={hangUp}>Hang Up</button>
-      </div>
-
-    </div>
-  )
-};
-
-export default ActivityRunner;
-
-*********************************************************************/
