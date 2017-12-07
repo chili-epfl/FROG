@@ -17,10 +17,7 @@ const meta = {
       title: 'Empty induction',
       config: {
         title: 'Empty induction',
-        hasExamples: false,
-        hasTestWithFeedback: false,
-        hasDefinition: false,
-        hasTest: false,
+        partStr: '',
         properties: [],
         suffisantSets: '',
         contradictoryProperties: '',
@@ -33,15 +30,9 @@ const meta = {
       title: 'Learning about SETs',
       config: {
         title: 'SET',
-        hasExamples: true,
-        nbExamples: 3,
-        hasTestWithFeedback: true,
-        nbTestFeedback: 3,
-        hasDefinition: true,
+        partStr: 'e3,f3,d,t3',
         definition:
           'A set is group of three objects such that if 2 objects share a property (same shape or same filling), the 3rd object must share it too.',
-        hasTest: true,
-        nbTest: 3,
         properties: [
           'At least one element is not filled',
           'At most one element is filled',
@@ -123,18 +114,10 @@ const meta = {
   ]
 };
 
-const configUI = {
-  nbExamples: { conditional: 'hasExamples' },
-  nbTestFeedback: { conditional: 'hasTestWithFeedback' },
-  definition: { conditional: 'hasDefinition' },
-  nbTest: { conditional: 'hasTest' }
-};
-
 export default ({
   id: 'ac-induction',
   type: 'react-component',
   config,
-  configUI,
   meta,
   ActivityRunner,
   mergeFunction,

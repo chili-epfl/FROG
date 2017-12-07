@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+export const config = {
   type: 'object',
   properties: {
     title: {
@@ -14,9 +14,14 @@ export default {
       default: 'none'
     },
     guidelines: {
-      type: 'string',
+      type: 'rte',
       title: 'Guidelines'
     },
+    justify: {
+      type: 'boolean',
+      title: 'Students must justify their responses'
+    },
+    hasAnswers: { type: 'boolean', title: 'Provide correct answers' },
     questions: {
       type: 'array',
       title: 'Questions',
@@ -24,23 +29,36 @@ export default {
         type: 'object',
         properties: {
           question: {
-            type: 'string',
+            type: 'rte',
             title: 'Question'
           },
           answers: {
             type: 'array',
-            title: 'Answers',
+            title: 'Choices',
             items: {
-              type: 'string',
-              title: 'answer'
+              type: 'object',
+              properties: {
+                choice: {
+                  type: 'string',
+                  title: 'choice'
+                },
+                isCorrect: { type: 'boolean', title: 'Correct answer' }
+              }
             }
           }
         }
       }
-    },
-    justify: {
-      type: 'boolean',
-      title: 'Students must justify their answers'
     }
   }
+};
+
+export const validateConfig = [
+  (formData: Object) =>
+    !formData.questions || formData.questions.length === 0
+      ? { err: 'You must have at least one question' }
+      : null
+];
+
+export const configUI = {
+  'questions.answers.correct': { conditional: 'hasAnswers' }
 };

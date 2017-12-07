@@ -47,6 +47,7 @@ export default class ConfigForm extends Component {
       formData: this.state.formData,
       ...addSocialFormSchema(nodeType.config, nodeType.configUI),
       widgets: {
+        ...this.props.widgets,
         socialAttributeWidget: SelectFormWidget,
         activityWidget: SelectActivityWidget
       },
