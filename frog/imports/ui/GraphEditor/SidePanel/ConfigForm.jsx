@@ -51,6 +51,7 @@ export default class ConfigForm extends Component {
         socialAttributeWidget: SelectFormWidget,
         activityWidget: SelectActivityWidget
       },
+      id: node._id,
       formContext: {
         options: valid.social[node._id] || [],
         connectedActivities,

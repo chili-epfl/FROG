@@ -32,7 +32,10 @@ const TeacherLoadable = Loadable({
 
 const shareDbUrl =
   (Meteor.settings && Meteor.settings.public.sharedburl) ||
-  'ws://localhost:3002';
+  (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
+    '//' +
+    window.location.hostname +
+    ':3002';
 
 const socket = new ReconnectingWebSocket(shareDbUrl);
 export const connection = new sharedbClient.Connection(socket);

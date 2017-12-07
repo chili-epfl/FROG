@@ -16,16 +16,10 @@ const ActivityRunner = (
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Presentation activityData={activityData} />
-      {!done && (
-        <div
-          style={{
-            transform: 'translateY(100px)'
-          }}
-        >
-          <UploadPanel {...props} />
-          <List data={data} dataFn={dataFn} />
-        </div>
-      )}
+      {!done && [
+        <UploadPanel key="panel" {...props} />,
+        <List key="list" data={data} dataFn={dataFn} />
+      ]}
     </div>
   );
 };
