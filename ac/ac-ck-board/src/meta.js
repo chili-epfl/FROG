@@ -36,53 +36,11 @@ export const meta = {
       config: {
         quadrants: false,
         image: true,
-        imageurl: 'https://i.imgur.com/PzO30iL.png'
+        imageurl: 'https://i.imgur.com/FzCbRU9.png'
       },
       data: [
         { title: 'Box 1', content: 'Contents of box 1' },
         { title: 'Box 2', content: 'Contents of box 2' }
-      ]
-    },
-    {
-      title: 'Background image, categories',
-      config: {
-        quadrants: false,
-        image: true,
-        imageurl: 'https://i.imgur.com/PzO30iL.png'
-      },
-      data: [
-        { title: 'Eat', category: { group: '1', topic: 'resource' } },
-        { title: 'Drink', category: { group: '1', topic: 'person' } },
-        { title: 'Play', category: { group: '1', topic: 'osi' } },
-        { title: 'Enjoy life', category: { group: '2', topic: 'resource' } },
-        {
-          title: 'Late-colonial capitalism',
-          category: { group: '2', topic: 'osi' }
-        },
-        { title: 'Barbados', category: { group: '2', topic: 'resource' } },
-        {
-          title: 'Johann Schneider-Amman',
-          category: { group: '3', topic: 'person' }
-        },
-        {
-          title: 'Michael Jackson',
-          category: { group: '3', topic: 'resource' }
-        },
-        { title: 'Post-modernism', category: { group: '3', topic: 'resource' } }
-      ]
-    },
-    {
-      title: 'Background image, categories, pre-positioned',
-      config: {
-        quadrants: false,
-        image: true,
-        imageurl: 'https://i.imgur.com/PzO30iL.png'
-      },
-      data: [
-        { title: 'Eat', category: { group: '1' }, x: 400, y: -300 },
-        { title: 'Drink', category: { group: '1' }, x: 100, y: -300 },
-        { title: 'Play', category: { group: '1' }, x: 500, y: -500 },
-        { title: 'Enjoy life', category: { group: '2' }, x: 800, y: -800 }
       ]
     }
   ]

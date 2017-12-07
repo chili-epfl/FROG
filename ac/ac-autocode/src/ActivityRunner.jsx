@@ -17,16 +17,8 @@ export default class ActivityRunner extends Component {
       outputFeed: "You'll see the output of your code here"
     };
 
-    this.editorChange = this.editorChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.runit = this.runit.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps: Object, nextState: Object) {
-    if (this.state.inputCode !== nextState.inputCode) {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   componentDidMount() {
@@ -67,57 +59,25 @@ export default class ActivityRunner extends Component {
       window.Sk.runner.state.outputFeed = '';
       window.Sk.configure({ output: this.outfunction, read: this.builtinRead });
       window.Sk.importMainWithBody('<stdin>', false, this.state.inputCode);
-      this.props.logger({
-        type: 'runScript',
-        value: this.state.inputCode.trim(),
-        payload: { output: this.state.outputFeed.trim() }
-      });
       this.forceUpdate();
     }
   }
 
-  editorChange: Function;
-  editorChange(newValue: string) {
-    this.setState({ inputCode: newValue });
+  handleChange: Function;
+  handleChange(event: Object) {
+    this.setState({ inputCode: event.target.value });
   }
 
   render() {
-    const Editor = props => {
-      if (window !== undefined) {
-        const Ace = require('react-ace').default;
-        require('brace/mode/python');
-        require('brace/theme/monokai');
-        require('brace/ext/language_tools');
-        return <Ace {...props} />;
-      }
-      return (
+    return (
+      <div>
+        <h3>Try This</h3>
         <textarea
           id="yourcode"
           cols="40"
           rows="10"
           value={this.state.inputCode}
-          onChange={this.editorChange}
-        />
-      );
-    };
-
-    return (
-      <div>
-        <h3>{this.props.activityData.config.title}</h3>
-        <p>{this.props.activityData.config.guidelines}</p>
-        <Editor
-          id="yourcode"
-          mode="python"
-          theme="monokai"
-          highlightActiveLine
-          value={this.state.inputCode}
-          onChange={this.editorChange}
-          setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            showLineNumbers: true,
-            tabSize: 2
-          }}
+          onChange={this.handleChange}
         />
         <div>
           <button type="button" onClick={this.runit}>

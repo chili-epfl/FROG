@@ -163,21 +163,23 @@ const RawEditActivity = ({
         }}
       />
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
-      {advancedOpen && [
-        <div key="stream">
-          Select streaming target
-          <StreamSelect
-            activity={activity}
-            targets={props.store.activityStore.all.filter(
-              a => a.plane === 3 && a.id !== activity._id
-            )}
-            onChange={streamTarget =>
-              setStreamTarget(activity._id, streamTarget)
-            }
-          />
-        </div>,
-        <FileForm key="fileform" />
-      ]}
+      {advancedOpen && (
+        <React.Fragment>
+          <div>
+            Select streaming target
+            <StreamSelect
+              activity={activity}
+              targets={props.store.activityStore.all.filter(
+                a => a.plane === 3 && a.id !== activity._id
+              )}
+              onChange={streamTarget =>
+                setStreamTarget(activity._id, streamTarget)
+              }
+            />
+          </div>
+          <FileForm />
+        </React.Fragment>
+      )}
     </div>
   );
 };

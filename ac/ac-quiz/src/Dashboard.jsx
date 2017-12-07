@@ -23,7 +23,7 @@ const Viewer = ({ data, config }: Object) => {
           title={q.question}
           vAxis="Possible answers"
           hAxis="Number of answers"
-          categories={q.answers}
+          categories={q.answers.map(x => x.choice)}
           data={answerCounts[i]}
         />
       ))}

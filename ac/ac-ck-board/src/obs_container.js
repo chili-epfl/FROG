@@ -12,14 +12,13 @@ const ObservationContainer = ({
   scaleX,
   y,
   title,
-  content,
-  delBox
+  content
 }) => {
   const scaleText = (scaleX + scaleY) / 2;
   const style = {
-    height: 30 / scaleY,
-    width: title.length * 12 / scaleX,
-    margin: 10 / scaleText,
+    height: 100 / scaleY,
+    width: 300 / scaleX,
+    margin: 20 / scaleText,
     textAlign: 'center',
     display: 'inline-block'
   };
@@ -39,21 +38,12 @@ const ObservationContainer = ({
           overflow: 'hidden'
         }}
       >
-        <Paper
-          zDepth={3}
-          style={style}
-          onClick={e => {
-            if (e.shiftKey) {
-              delBox();
-            }
-          }}
-        >
+        <Paper zDepth={3} style={style}>
           <div>
-            {shorten(title, 50)}
-            {content &&
-              <span style={{ float: 'right' }} className="noDrag">
-                <AspectRatio onClick={openInfoFn} />
-              </span>}
+            {shorten(title, 35)}
+            <span style={{ float: 'right' }} className="noDrag">
+              <AspectRatio onClick={openInfoFn} />
+            </span>
           </div>
           <div
             style={{

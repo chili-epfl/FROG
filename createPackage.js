@@ -9,7 +9,7 @@ if (!process.argv[4]) {
 Sets up a simple activity or operator package template in ./[ac|op]/<short-name>, and adds it to the relevant files
     (frog/package.json and frog/imports/[activity|operator]Packages.js). Also does the correct symlinking and yarn
     commands to be ready to develop.`);
-  /*eslint-enable */
+  /* eslint-enable */
   process.exit();
 }
 
@@ -20,7 +20,7 @@ if (process.argv[3].slice(0, 3) !== prefix + '-') {
   console.log(
     `activityPackage names should start by 'ac-...' and operatorPackage names with 'op-...'.`
   );
-  /*eslint-enable */
+  /* eslint-enable */
   process.exit();
 }
 
@@ -83,9 +83,7 @@ fs.writeFileSync(
 );
 
 childProcess.execSync(
-  `git add ./${prefix}/${
-    newActivityId
-  } frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
+  `git add ./${prefix}/${newActivityId} frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
 );
 
 /*eslint-disable */

@@ -18,9 +18,7 @@ const mergeFunction = (object, dataFn) => {
       dataFn.objInsert({ votes: {}, comment: DEFAULT_COMMENT_VALUE, ...x }, i)
     );
 
-  if (object.data === null || object.data === {} || object.data === undefined) {
-    return;
-  }
+  if (object.data === null || object.data === {}) return;
   const dataImgs = Array.isArray(object.data)
     ? object.data
     : Object.keys(object.data).map(x => object.data[x]);
