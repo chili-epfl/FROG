@@ -2082,6 +2082,10 @@ double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
   resolved "https://registry.yarnpkg.com/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
 
+downloadjs@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/downloadjs/-/downloadjs-1.4.7.tgz#f69f96f940e0d0553dac291139865a3cd0101e3c"
+
 draft-js-export-html@>=0.6.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/draft-js-export-html/-/draft-js-export-html-1.2.0.tgz#1cbe2b78e1fed74fc29c7cdcbfd7540468eca209"
@@ -2667,6 +2671,10 @@ flow-typed@^2.2.3:
     unzip "^0.1.11"
     which "^1.2.14"
     yargs "^4.2.0"
+
+font-awesome-filetypes@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/font-awesome-filetypes/-/font-awesome-filetypes-1.2.0.tgz#f3a6c0f912e214adf80e86358ba55d2a42fc04fe"
 
 for-each@^0.3.2:
   version "0.3.2"

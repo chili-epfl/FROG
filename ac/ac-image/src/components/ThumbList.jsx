@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import download from 'downloadjs';
 
 import ImageBox from './ImageBox';
 import CategoryBox from './CategoryBox';
@@ -30,14 +31,21 @@ const ImageList = ({
       const onClick = e => {
         if (canVote && e.shiftKey) {
           vote(image.key, userInfo.id);
-        } else {
+        } else if (image.thumbnail || !image.filename) {
           setIndex(i);
           setZoom(true);
           logger({ type: 'zoom', itemId: image.key });
+        } else {
+          logger({
+            type: 'download',
+            itemId: image.key,
+            value: image.filename
+          });
+          download(image.url, image.filename);
         }
       };
 
-      const voteCount = Object.values(image.votes).reduce(
+      const voteCount = Object.values(image.votes || {}).reduce(
         (n, v) => (v ? n + 1 : n),
         0
       );
@@ -47,12 +55,7 @@ const ImageList = ({
           ? 'chosen_by_team'
           : voteCount > 0 ? 'chosen_partially' : 'not_chosen';
 
-      return (
-        <ImageBox
-          key={JSON.stringify(image)}
-          {...{ image, onClick, styleCode }}
-        />
-      );
+      return <ImageBox key={image.key} {...{ image, onClick, styleCode }} />;
     })}
   </Main>
 );
