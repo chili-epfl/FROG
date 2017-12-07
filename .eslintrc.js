@@ -29,6 +29,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/href-no-hash': 'off',
     'jsx-a11y/label-has-for': 'off',
+    'jsx-a11y/heading-has-content': 'off',
     'no-confusing-arrow': 'off',
     'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-constant-condition': 'off',
