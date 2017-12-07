@@ -44,7 +44,7 @@ const TopBar = ({
               {categories.filter(x => x !== category).map(y => (
                 <MenuItem
                   key={y}
-                  eventKey={'toto'}
+                  eventKey="toto"
                   onClick={() => {
                     setZoom(false);
                     setCategory(y);
