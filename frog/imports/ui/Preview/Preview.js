@@ -226,9 +226,9 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                 Collections[coll] = uuid();
               });
 
-              const dashrefresh = `demo-${activityType.id}-${
-                example
-              }-DASHBOARD`;
+              const dashrefresh = `demo-${
+                activityType.id
+              }-${example}-DASHBOARD`;
               Collections[dashrefresh] = uuid();
 
               Logs.length = 0;
