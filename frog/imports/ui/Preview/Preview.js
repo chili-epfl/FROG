@@ -167,6 +167,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       )(showData ? ShowInfo : RunComp);
       return (
         <ActivityToRun
+          activityType={activityType.id}
           activityData={activityData}
           userInfo={{
             name,
