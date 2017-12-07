@@ -3,7 +3,7 @@
 import { compact, range } from 'lodash';
 import type { ActivityPackageT } from 'frog-utils';
 
-import { config, configUI } from './config';
+import { config, validateConfig, configUI } from './config';
 import ActivityRunner from './ActivityRunner';
 import { meta } from './meta';
 import dashboard from './Dashboard';
@@ -61,6 +61,7 @@ export default ({
   meta,
   config,
   configUI,
+  validateConfig,
   ActivityRunner,
   dashboard,
   exportData,

@@ -84,7 +84,7 @@ const NewGroupButton = ({ onClickCreate }) => (
     onClick={onClickCreate}
     style={{ height: '50px', margin: '5px' }}
   >
-    <span className={'glyphicon glyphicon-plus'} style={{ width: '30px' }} />
+    <span className="glyphicon glyphicon-plus" style={{ width: '30px' }} />
     New group
   </button>
 );
