@@ -73,7 +73,9 @@ const Panel = ({
                         )
                       : [...tmpList[data.indexCurrent].selectedProperties, x],
                     [
-                      feedback ? 'listIndexTestWithFeedback' : 'listIndexTest',
+                      feedback
+                        ? 'listIndexTestWithFeedback' + data.indexPart
+                        : 'listIndexTest' + data.indexPart,
                       data.indexCurrent,
                       'selectedProperties'
                     ]

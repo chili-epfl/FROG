@@ -71,7 +71,7 @@ const Quiz = ({
       type: 'number',
       title: 'Question ' + (reali + 1),
       enum: answers.map(([, k]) => k),
-      enumNames: answers.map(([x]) => x)
+      enumNames: answers.map(([x]) => x.choice)
     };
     uiSchema['question ' + i] = {
       'ui:widget': 'latexWidget',
