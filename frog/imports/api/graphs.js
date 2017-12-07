@@ -60,9 +60,9 @@ export const addGraph = (graphObj?: Object): string => {
             set(op.data, relpath, matching[curRef]);
           });
         } else {
-          const curRef = get(op.data, path);
+          const curRef = get(op.data, path.slice(1));
           if (curRef) {
-            set(op.data, path, matching[curRef]);
+            set(op.data, path.slice(1), matching[curRef]);
           }
         }
       });
