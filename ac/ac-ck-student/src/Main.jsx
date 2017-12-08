@@ -95,23 +95,6 @@ export default class Main extends Component {
         console.log(this.props); // eslint-disable-line no-console
         return (
             <div style={styles.uber}>
-                <AppBar position="static" style={styles.appBar}>
-                    <Toolbar>
-                        <IconButton color="contrast" aria-label="Menu">
-                            <Typography type="title" color="inherit" style={styles.flex}>
-                                <MenuIcon/>
-                            </Typography>
-                        </IconButton>
-                        <Typography type="title" color="inherit" style={styles.flex}>
-                            COMMON KNOWLEDGE
-                        </Typography>
-                        <Button color="contrast">
-                            <Typography type="button" color="inherit" style={styles.flex}>
-                                {userInfo.name}
-                            </Typography>
-                        </Button>
-                    </Toolbar>
-                </AppBar>
                 <div style={styles.gridContent}>
                     <NoteGrid noteData={data}/>
                 </div>

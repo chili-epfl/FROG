@@ -45,14 +45,17 @@
   z-index: 1;
 }
 .mosaic .mosaic-zero-state .pt-non-ideal-state-icon .pt-icon {
-  font-size: 120px;
+  font-size: 60px;
 }
+/**
+ * Change for CK
+ */
 .mosaic-root {
   position: absolute;
-  top: 3px;
-  right: 3px;
-  bottom: 3px;
-  left: 3px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
 }
 .mosaic-split {
   position: absolute;
@@ -80,15 +83,21 @@
   height: 6px;
   cursor: ns-resize;
 }
+/**
+ * Change for CK
+ */
 .mosaic-split.-column .mosaic-split-line {
-  top: 3px;
-  bottom: 3px;
-  left: 0;
-  right: 0;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
 }
+/**
+ * Change for CK
+ */
 .mosaic-tile {
   position: absolute;
-  margin: 3px;
+  margin: 2px;
 }
 .mosaic-tile > * {
   height: 100%;
@@ -192,7 +201,7 @@
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-  height: 30px;
+  height: 20px;
   background: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
@@ -293,7 +302,7 @@
 }
 .mosaic-window .mosaic-preview .pt-icon,
 .mosaic-preview .mosaic-preview .pt-icon {
-  font-size: 72px;
+  font-size: 16px;
 }
 .mosaic:not(.mosaic-blueprint-theme) .mosaic-default-control.pt-icon-cross:before {
   content: 'Close';
@@ -324,7 +333,7 @@
  * limitations under the License.
  */
 .mosaic.mosaic-blueprint-theme {
-  background: #a7b6c2;
+  background: #ffffff;
 }
 .mosaic.mosaic-blueprint-theme .mosaic-zero-state {
   background: #e1e8ed;
@@ -366,7 +375,7 @@
 .mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-title,
 .mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-title {
   font-weight: 600;
-  color: #394b59;
+  color: #000000;
 }
 .mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-controls .separator,
 .mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-controls .separator {
@@ -381,7 +390,7 @@
 .mosaic.mosaic-blueprint-theme .mosaic-window .mosaic-window-body,
 .mosaic.mosaic-blueprint-theme .mosaic-preview .mosaic-window-body {
   border-top-width: 0;
-  background: #f5f8fa;
+  background: #ffffff;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
