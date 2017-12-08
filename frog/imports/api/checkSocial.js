@@ -17,7 +17,8 @@ export default (
         : operatorTypesObj[node.operatorType];
     if (nodePackage && node.data) {
       const socialFields =
-        (nodePackage.config.properties &&
+        (nodePackage.config &&
+          nodePackage.config.properties &&
           Object.keys(nodePackage.config.properties).filter(
             x => nodePackage.config.properties[x].type === 'socialAttribute'
           )) ||
@@ -29,7 +30,9 @@ export default (
             errors.push({
               id: node._id,
               nodeType,
-              err: `Config requires the social attribute '${x}', which is not provided by any connected social operator`,
+              err: `Config requires the social attribute '${
+                x
+              }', which is not provided by any connected social operator`,
               type: 'missingSocialAttribute',
               severity: 'error'
             });

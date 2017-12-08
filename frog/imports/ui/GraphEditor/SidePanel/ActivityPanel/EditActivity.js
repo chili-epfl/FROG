@@ -132,14 +132,23 @@ const RawEditActivity = ({
           />
         )}
       </div>
-      <ConfigForm
-        {...{
-          node: activity,
-          nodeType: activityType,
-          valid: props.store.valid,
-          refreshValidate: props.store.refreshValidate
-        }}
-      />
+      {activityType.ConfigComponent ? (
+        <activityType.ConfigComponent
+          configData={activity.data}
+          setConfigData={d =>
+            addActivity(activity.activityType, d, activity._id, null)
+          }
+        />
+      ) : (
+        <ConfigForm
+          {...{
+            node: activity,
+            nodeType: activityType,
+            valid: props.store.valid,
+            refreshValidate: props.store.refreshValidate
+          }}
+        />
+      )}
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
       {advancedOpen && (
         <React.Fragment>

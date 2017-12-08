@@ -1,8 +1,7 @@
 import { Picker } from 'meteor/meteorhacks:picker';
+import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
-import { WebApp } from 'meteor/webapp';
 import unzipper from 'unzipper';
-import { uuid } from 'frog-utils';
 
 export default () => {
   Picker.filter(req => req.method === 'GET').route(
@@ -66,21 +65,18 @@ H5P.externalDispatcher.on('xAPI', function(event) {
   );
 };
 
-WebApp.connectHandlers.use('/uploadH5P', (req, res) => {
-  res.setHeader('Access-Control-Allow-Methods', 'PUT');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') {
-    res.writeHead(200);
-    res.end();
-  } else if (req.method === 'PUT') {
-    const id = uuid();
-    req.pipe(fs.createWriteStream('/tmp/' + id));
-    fs
-      .createReadStream('path/to/archive.zip')
-      .pipe(unzipper.Extract({ path: 'output/path' }));
-
-    res.writeHead(200);
-    res.end();
+Meteor.methods({
+  'h5p.unzip': id => {
+    fs.access('/tmp/' + id, err => {
+      if (err) {
+        console.error(
+          'Attempting to extract H5P file. No such file /tmp/' + id
+        );
+      } else {
+        fs
+          .createReadStream('/tmp/' + id)
+          .pipe(unzipper.Extract({ path: '/tmp/h5p/' + id }));
+      }
+    });
   }
 });

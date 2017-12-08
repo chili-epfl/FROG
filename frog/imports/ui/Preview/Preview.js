@@ -100,7 +100,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       ? uniqBy(activityType.meta.exampleData, x => Stringify(x.data))
       : activityType.meta.exampleData;
 
-    const activityData = cloneDeep(examples[example]);
+    const activityData = examples[example] ? cloneDeep(examples[example]) : {};
     if (config) {
       activityData.config = config;
     }
@@ -226,9 +226,9 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                 Collections[coll] = uuid();
               });
 
-              const dashrefresh = `demo-${
-                activityType.id
-              }-${example}-DASHBOARD`;
+              const dashrefresh = `demo-${activityType.id}-${
+                example
+              }-DASHBOARD`;
               Collections[dashrefresh] = uuid();
 
               Logs.length = 0;
