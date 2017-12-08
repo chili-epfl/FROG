@@ -1,6 +1,5 @@
 // @flow
 
-// import React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
 import {config} from './config';
@@ -13,37 +12,26 @@ const meta = {
   exampleData: [
     { 
       title: 'Yourself',
-      config: { title: 'Talk with yourself', audio: true, video: true }, 
-      data: [
-        {
-          id: 1,
-          user: 'me'
+      config: { 
+        title: 'Talk with yourself', 
+        sdpConstraints: {
+          audio: true, 
+          video: true 
         }
-      ] 
-    },
-    { 
-      title: 'Two people', 
-      config: { title: 'Talk with another', audio: true, video: true }, 
-      data: [
-        {
-          id: 1,
-          user: 'me'
-        },
-        {
-          id: 2,
-          user: 'also me'
-        }
-      ] 
+      },
+      data: []
     }
   ]
 };
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
+const dataStructure = [];
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {
-  console.log(object + dataFn) 
+  if (object.data) {
+    object.data.forEach(x => dataFn.listAppend(x));
+  } 
 };
 
 export default ({

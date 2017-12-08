@@ -6,15 +6,20 @@ export const config = {
       title: 'Title',
       type: 'string'
     },
-    audio: {
-      title: 'Connect with audio input',
-      type: 'boolean',
-      default: true
-    },
-    video:{
-      title: 'Connect using camera',
-      type: 'boolean',
-      default: true
-    }
+    sdpConstraints : {
+      type: 'object',
+      properties: {
+        audio: {
+          title: 'Connect with audio input',
+          type: 'boolean',
+          default: true
+        },
+        video:{
+          title: 'Connect using camera',
+          type: 'boolean',
+          default: true
+        }
+      }
+    }    
   }
 };

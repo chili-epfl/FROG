@@ -1,108 +1,8 @@
 // @flow
 
-// ----------------------TODOs:-------------------------
-// 1) ReconnectingWebSocket instead of WebSocket
-// 2) Move all functions to class functions but not on render
-// 3) Use component did mount or will mount or will unmount etc
-// 4) Be careful with the change of activity does not call constractor
-// 5) import each function i use from lodash and do not use it on each
-// state mode => look for a file Graph editor/stor/store
-// this.setState({array: ...array, 44})
-// 6) no need to look if there is array elements in remote video
-
-// reactiveHOC
-
-// ----------------------QSTs:-------------------------
-
-// 1) Component will update is called everytime render?
-// 2) Is there any component will destroy? => Component Will Unmount?
-// 3) Update is for render once created. DIDMount is for first time?
-
-// if you have to change state => will
-// Otherwise DID mount
-
-// -----------------------------------------------------
-// Components
-//  LocalVideo
-//  RemoteVideo
-// 
-// Class
-//  Activity Runner
-// 
-// Global Variables
-//  Connections
-//  pcConfig
-//  WebSocket
-//  UserInfo => No need
-// 
-// State
-//  Local stream
-//  Remote streams
-//  State or states?
-
-//---------
-  //   state: {
-  //   id: string,          => Not needed. We have userInfo as global variable. But if the props change. The  what?
-  //   local: {             => Correct
-  //     src: string, 
-  //     stream: string
-  //   },
-  //   remote: [],          => Correct?
-  //   connections: [],     => No! should be global variable
-  //   ws: WebSocket,       => No! hould be global variable
-  //   readyStart: boolean, => Yes
-  //   readyCall: boolean,  => Yes
-  //   readyHangup: boolean => Yes
-  // };
-
-//---------
-
-// FUNCTIONS
-
-// => General Use
-//  findConnectionByRemoteUser
-
-// => PeerConnection
-//  startConnection
-//  createPeerConnection
-//  handleIceCandidate
-//  handleRemoteStreamAdded
-//  handleRemoteStreamRemoved
-
-// => Offer
-//  startOffer
-//  handleCreateOfferError
-//  setLocalInfoAndSendOffer
-
-// => Answer
-//  startAnswer
-//  setLocalInfoAndSendAnswer
-//  onCreateSessionDescriptionError
-
-// => HangUP
-//  handleRemoteHangUp
-
-// => Codec
-//  preferOpus
-//  extractSdp
-//  setDefaultCodec
-//  removeCN
-
-// => Message
-//  ws.on
-
-// =>Button Handeling
-//  onStart
-//  onCall
-//  onHangUp
-//  gotStream
-
-
-
-
 import React, {Component} from 'react';
-import {uuid} from 'frog-utils';
 import type {ActivityRunnerT} from 'frog-utils';
+// import ReconnectingWebSocket from 'reconnectingwebsocket';
 
 const LocalVideo = ({src}) => {
   return(
@@ -114,60 +14,47 @@ const RemoteVideo = ({src, index}) => (
   <video id={index} autoPlay="true" height="200px" muted="false" src={src}></video>
 );
 
-const sdpConstraints = {
-  audio: true,
-  video: true
-};
-
-var pcConfig = {
-  'iceServers': [
-    {
-      'urls': 'stun:stun.l.google.com:19302'
-    },
-    {
-      'urls': 'turn:138.197.182.1:3478', 
-      'username': 'test', 
-      'credential': 'test'
-    },
-    {
-      'urls': 'stun:138.197.182.1:3478', 
-      'username': 'test', 
-      'credential': 'test'
-    }
-  ]
-
-};
-
-
 class ActivityRunner extends Component{
 
+  pcConfig = {
+    'iceServers': [
+      {
+        'urls': 'stun:stun.l.google.com:19302'
+      },
+      {
+        'urls': 'turn:138.197.182.1:3478', 
+        'username': 'test', 
+        'credential': 'test'
+      },
+      {
+        'urls': 'stun:138.197.182.1:3478', 
+        'username': 'test', 
+        'credential': 'test'
+      }
+    ]
+  };
+
   state: {
-    id: string, 
     local: {
       src: string,
       stream: string
     },
-    remote: [],
-    connections: [],
-    ws: WebSocket,
-    readyStart: boolean,
-    readyCall: boolean,
-    readyHangup: boolean
+    remote: []
   };
 
   findConnectionByRemoteUser = (userInfo) => {
-    return(_.find(this.state.connections, (conn) => {
+    return(_.find(this.connections, (conn) => {
       return(_.isEqual(conn.remoteUser,userInfo))
     }))
   };
 
   startConnection = (remoteUser) => {
-    // CHECK if correct!
-    if (!_.contains(this.state.connections, {remoteUser : remoteUser}) && typeof this.state.local.stream !== 'undefined'){
+    // CHECK if correct! Might be causing problems
+    if (!_.contains(this.connections, {remoteUser : remoteUser}) && typeof this.state.local.stream !== 'undefined'){
       var connection = this.createPeerConnection();
       connection.addStream(this.state.local.stream);
       connection.remoteUser = remoteUser;
-      this.state.connections.push(connection);
+      this.connections.push(connection);
       return connection;
     }
   };
@@ -194,17 +81,18 @@ class ActivityRunner extends Component{
           id: event.candidate.sdpMid,
           candidate: event.candidate.candidate,
           toUser: event.target.remoteUser,
-          fromUser: this.userInfo
+          fromUser: this.props.userInfo
         }
       };   
-      this.state.ws.send(JSON.stringify(message));
+      // this.ws.send(JSON.stringify(message));
+      this.props.dataFn.listAppend(message);
     } else {
       console.log("End of candidates."); 
     };
   };
 
   handleRemoteStreamAdded = (event) => {
-    let index = _.indexOf(this.state.connections, event.target);
+    let index = _.indexOf(this.connections, event.target);
     let remotes = this.state.remote;
     if(_.isUndefined(remotes[index])){
       remotes[index] = {
@@ -224,7 +112,7 @@ class ActivityRunner extends Component{
   };
 
   startOffer = (connection) => {
-    connection.createOffer(sdpConstraints)
+    connection.createOffer(this.props.activityData.config.sdpConstraints)
     .then( (offer) => {
       this.setLocalInfoAndSendOffer(offer, connection)
     }).catch(this.handleCreateOfferError)
@@ -243,10 +131,12 @@ class ActivityRunner extends Component{
       data:{
         message: offer,
         toUser: connection.remoteUser,
-        fromUser: this.userInfo
+        fromUser: this.props.userInfo
       }
     };
-    this.state.ws.send(JSON.stringify(message));
+    // this.ws.send(JSON.stringify(message));
+    this.props.dataFn.listAppend(message);
+
   };
 
   startAnswer = (connection) => {
@@ -264,10 +154,11 @@ class ActivityRunner extends Component{
       data:{
         message: answer,
         toUser: connection.remoteUser,
-        fromUser: this.userInfo
+        fromUser: this.props.userInfo
       }
     }; 
-    this.state.ws.send(JSON.stringify(message));
+    // this.ws.send(JSON.stringify(message));
+    this.props.dataFn.listAppend(message);
   };
 
   onCreateSessionDescriptionError = (error) =>{
@@ -275,8 +166,6 @@ class ActivityRunner extends Component{
   };
 
   // requestTurn!
-
-
 
   handleRemoteHangUp = (remoteUser) => {
     console.log("Session terminated", remoteUser); 
@@ -296,7 +185,7 @@ class ActivityRunner extends Component{
            }
         });
       }
-      let newConnections = _.filter(this.state.connections, (conn) => {
+      this.connections = _.filter(this.connections, (conn) => {
         if (conn === connection){
           try{
             conn.close();
@@ -307,15 +196,10 @@ class ActivityRunner extends Component{
         }else{return true}
       });
       this.setState({
-        remote: newRemotes,
-        connections: newConnections
+        remote: newRemotes
       })
     }
   };
-
-  ////////////////////////
-
-  ///////////////////////////////////////////
 
   // Set Opus as the default audio codec if it's present.
   preferOpus = (sdp) => {
@@ -395,201 +279,163 @@ class ActivityRunner extends Component{
   };
 
 
-
-  ///////////////////////
-
-
-
   constructor(props: ActivityRunnerT) {
+    console.log("CONSTRUCTING"); 
     super(props);
 
-    const wsRTC = new WebSocket('ws://localhost:8080/');
-    // let wsRTC = new WebSocket('wss://138.197.182.1:8080/socket.io/?EIO=3&transport=websocket');
 
 
-    //Connect
-    wsRTC.onopen = (event) => {
-      console.log('WEBSOCKET OPEN');
-    };
-
-    // Log errors
-    wsRTC.onerror = (error) => {
-      console.log('WebSocket Error ' + error);
-    };
-
-    // Log messages from the server
-    wsRTC.onmessage = (message) => {
-      var JSONmess = JSON.parse(message.data);
-
-      switch (JSONmess.type){
-        case 'created':
-          console.log("CREATED"); 
-          break;
-        case 'joined':
-          console.log("JOINED");
-          break;
-        case 'join':
-          console.log("JOIN");
-          let connection = this.startConnection(JSONmess.data.user); 
-          if (connection) {
-            this.startOffer(connection);
-          }; 
-          break;
-        case 'full':
-          console.log("FULL");
-          alert("The room " + JSONmess.data.room + " is full. Please try another name");
-          this.setState(
-            {
-              readyCall: true,
-              readyHangup: false
-            }
-          );
-          break;
-        case 'offer':
-          console.log("OFFER");
-          let connectionOffer = this.startConnection(JSONmess.data.fromUser); 
-          if (connectionOffer) {
-            console.log(connectionOffer);
-            console.log(this.findConnectionByRemoteUser(JSONmess.data.fromUser));  
-            // this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message)); 
-            connectionOffer.setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
-            this.startAnswer(connectionOffer);
-          }; 
-          break;
-        case 'answer' :
-          console.log("ANSWER");
-          this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
-          break;
-        case 'candidate' :
-          console.log("CANDIDATE");
-          let candidate = new RTCIceCandidate({
-            sdpMLineIndex: JSONmess.data.label,
-            candidate: JSONmess.data.candidate
-          });
-          this.findConnectionByRemoteUser(JSONmess.data.fromUser).addIceCandidate(candidate);
-          break;
-        case 'bye' :
-          console.log("BYE");
-          this.handleRemoteHangUp(JSONmess.data);
-          break;
-        case 'log' :
-          console.log("LOG");
-          console.log(JSONmess);
-          break;  
-        default :
-          console.log("DEFAUL");
-          console.log(JSONmess.type);  
-      }
-    };
-
-    const {data, dataFn, activityData, userInfo} = props;
-
-    this.userInfo = userInfo;
+    this.connections = [];
     this.state = {
-      id: uuid(),
       local: {
         src: 'null',
         stream: 'null'
       },
-      remote: [],
-      connections: [],
-      ws: wsRTC,
-      readyStart: true,
-      readyCall: false,
-      readyHangup: false
+      remote: []
     };
 
   };
 
-  render() {
-    const { activityData, data, dataFn, groupingValue, userInfo, logger, stream } = this.props;
+  componentWillMount() {
+    console.log("WILL MOUNT"); 
+    navigator.mediaDevices.getUserMedia(this.props.activityData.config.sdpConstraints)
+    .then(this.gotStream)
+    .catch(function(e) {
+      alert('getUserMedia() error: ' + e.name);
+    });
+  }
 
-    const onStart = () => {
-      console.log(sdpConstraints); 
-      navigator.mediaDevices.getUserMedia(sdpConstraints)
-      .then(gotStream)
-      .catch(function(e) {
-        alert('getUserMedia() error: ' + e.name);
-      });
+  gotStream = (stream) => {
+    this.setState(
+      {
+        local: {
+          src : window.URL.createObjectURL(stream),
+          stream: stream
+        }
+      }
+    );
+    this.call();
+  };
+
+  call = () => {
+    console.log("CALLING"); 
+    let message = {
+      type: 'create or join',
+      data:{
+        room: this.props.groupingValue || 'room',
+        user: this.props.userInfo
+      }
+    }; 
+    // this.ws.send(JSON.stringify(message));
+    this.props.dataFn.listAppend(message);
+  };
+
+  componentWillUnmount() {
+    console.log("WILL UNMOUNT"); 
+    let message = {
+      type: 'bye'
+    }; 
+    // this.ws.send(JSON.stringify(message));
+    this.props.dataFn.listAppend(message);
+    if (this.state.local.stream){
+      try{
+        this.state.local.stream.getTracks().forEach(track => track.stop());
+      }catch(e){
+        console.log("error getting audio or video tracks" + e); 
+      }        
     };
 
-    const gotStream = (stream) => {
-      this.setState(
-        {
-          local: {
-            src : window.URL.createObjectURL(stream),
-            stream: stream
-          },
-          readyStart: false,
-          readyCall: true
-        }
-      );
-    };
-
-    const onCall = () => {
-      this.setState(
-        {
-          readyCall: false,
-          readyHangup: true
-        }
-      );
-      let message = {
-        type: 'create or join',
-        data:{
-          room: groupingValue || 'room',
-          user: userInfo
-        }
-      }; 
-      console.log(JSON.stringify(message));
-      this.state.ws.send(JSON.stringify(message));
-    };
-
-    const onHangUp = () => {
-      let message = {
-          type: 'bye'
-      }; 
-      this.state.ws.send(JSON.stringify(message));
-
-      if (this.state.local.stream){
+    if (this.state.remote.length >0){
+      _.each(this.state.remote, ({stream}) => { 
         try{
-          this.state.local.stream.getTracks().forEach(track => track.stop());
+         stream.getTracks().forEach(track => track.stop());
         }catch(e){
           console.log("error getting audio or video tracks" + e); 
-        }        
-      };
-
-      if (this.state.remote.length >0){
-        _.each(this.state.remote, ({stream}) => { 
-          try{
-           stream.getTracks().forEach(track => track.stop());
-          }catch(e){
-            console.log("error getting audio or video tracks" + e); 
-          }
-        })
-      };
-
-      if(this.state.connections.length > 0){
-        _.each(this.state.connections, (connection) => {
-          try{
-            connection.close();
-          }catch(e){
-            console.log("error closing connection", e); 
-          }
-        })
-      };
-
-      this.setState({
-        local: {
-          src : 'null',
-          stream: 'null'
-        },
-        readyStart: true,
-        readyHangup: false,
-        remote: [],
-        connections: []
-      });
+        }
+      })
     };
 
+    if(this.connections.length > 0){
+      _.each(this.connections, (connection) => {
+        try{
+          connection.close();
+        }catch(e){
+          console.log("error closing connection", e); 
+        }
+      })
+    };
+
+    this.connections = [];
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("SHOULD UPDATE"); 
+    if(_.difference(this.state, nextState)){
+      console.log("CHANGE STATE"); 
+      return true;
+    }
+    if(_.difference(nextProps.data, this.props.data)){
+      console.log("CHANGE PROPS");
+      return false; 
+    } else{
+      console.log(nextProps.data, this.props.data); 
+    }
+    // Once it works then check the type of new message
+
+    // if(!_.isEqual(nextProps.data, this.props.data)){
+    //   let newMess = _.last(nextProps.data);
+    //   console.log("NEW MESS"); 
+    //   switch (newMess.type){
+    //     case 'created':
+    //       console.log("CREATED"); 
+    //       break;
+    //     case 'joined':
+    //       console.log("JOINED");
+    //       break;
+    //     case 'join':
+    //       console.log("JOIN");
+    //       // let connection = this.startConnection(JSONmess.data.user); 
+    //       // if (connection) {
+    //       //   this.startOffer(connection);
+    //       // }; 
+    //       break;
+    //     case 'offer':
+    //       console.log("OFFER");
+    //       // let connectionOffer = this.startConnection(JSONmess.data.fromUser); 
+    //       // if (connectionOffer) {
+    //       //   connectionOffer.setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
+    //       //   this.startAnswer(connectionOffer);
+    //       // }; 
+    //       break;
+    //     case 'answer' :
+    //       console.log("ANSWER");
+    //       // this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
+    //       break;
+    //     case 'candidate' :
+    //       console.log("CANDIDATE");
+    //       // let candidate = new RTCIceCandidate({
+    //       //   sdpMLineIndex: JSONmess.data.label,
+    //       //   candidate: JSONmess.data.candidate
+    //       // });
+    //       // this.findConnectionByRemoteUser(JSONmess.data.fromUser).addIceCandidate(candidate);
+    //       break;
+    //     case 'bye' :
+    //       console.log("BYE");
+    //       // this.handleRemoteHangUp(JSONmess.data);
+    //       break;
+    //     case 'log' :
+    //       console.log("LOG");
+    //       // console.log(JSONmess);
+    //       break;  
+    //     default :
+    //       console.log("DEFAUL");
+    //       // console.log(JSONmess.type);  
+    //   }
+    // }
+  }
+
+  render() {
+    const { activityData, data, dataFn, groupingValue, userInfo, logger, stream } = this.props;
     return(
         <div id="webrtc">
           <h1>{activityData.config.title}</h1>
@@ -599,14 +445,7 @@ class ActivityRunner extends Component{
                   <RemoteVideo key = {index} index={"remotevideo"+index} src={connection.src} stream={connection.stream}/>)
                 )) : ( <h1>You are alone</h1> )
             }
-          </div>
-        
-          <div>
-              <button id="startButton" onClick={onStart} disabled={!this.state.readyStart}>Start</button>
-              <button id="callButton" onClick={onCall} disabled={!this.state.readyCall}>Call</button>
-              <button id="hangupButton" onClick={onHangUp} disabled={!this.state.readyHangup}>Hang Up</button>
-          </div>
-        
+          </div>        
         </div>
     );
   }
