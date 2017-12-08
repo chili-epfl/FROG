@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { type LogT } from 'frog-utils';
+import getFA from 'font-awesome-filetypes';
 
 import CenteredImg from './CenteredImg';
 
@@ -55,7 +56,17 @@ const CategoryBox = ({
   >
     {images.slice(0, 4).map((image, i) => (
       <ImgContainer key={image + i.toString()}>
-        <CenteredImg url={image} />
+        {image.thumbnail || !image.filename ? (
+          <CenteredImg url={image.thumbnail || image.url} />
+        ) : (
+          <span>
+            <i
+              style={{ fontSize: '70px' }}
+              className={'fa ' + getFA(image.ext || '')}
+              aria-hidden="true"
+            />
+          </span>
+        )}
       </ImgContainer>
     ))}
     <CategoryName>{category}</CategoryName>

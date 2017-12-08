@@ -6,7 +6,13 @@ import styled from 'styled-components';
 
 import uploadWithTumbnail from '../utils';
 
-const UploadDragDrop = ({ dataFn, stream, uploadFn, logger }: Object) => {
+const UploadDragDrop = ({
+  dataFn,
+  stream,
+  uploadFn,
+  logger,
+  activityData
+}: Object) => {
   const onDrop = f => {
     f.forEach(imageFile =>
       uploadWithTumbnail(
@@ -24,7 +30,9 @@ const UploadDragDrop = ({ dataFn, stream, uploadFn, logger }: Object) => {
     <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
       <Dropzone
         onDropAccepted={onDrop}
-        accept="image/jpeg, image/png"
+        accept={
+          activityData.config.acceptAnyFiles ? null : 'image/jpeg, image/png'
+        }
         style={{
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',

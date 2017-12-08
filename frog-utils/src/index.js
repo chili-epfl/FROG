@@ -1,17 +1,28 @@
 // @flow
 import React from 'react';
-
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
 
+export const isBrowser = (() => {
+  try {
+    return !!window;
+  } catch (e) {
+    return false;
+  }
+})();
+
+export const EnhancedForm = isBrowser
+  ? require('./EnhancedForm.js').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
 export {
-  default as EnhancedForm,
   hideConditional,
   calculateHides,
   calculateSchema
-} from './EnhancedForm';
+} from './enhancedFormUtils';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { Highlight } from './highlightSubstring';
+export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
