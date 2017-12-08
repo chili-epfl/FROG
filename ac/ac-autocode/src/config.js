@@ -93,11 +93,30 @@ export const exampleConfig1 = {
     guidelines: 'Code an algorithm to sort an array in python',
     specifications:
       'The variable a is an array of integers. You must sort it and assign the result to variable b.',
-    template: 'def sort(a):\n\treturn a',
-    solution: 'solution = lambda x: sorted(x)',
-    testing:
-      'print sort(a)\nprint solution(a)\nprint ("SUCCESS" if sort(a) == solution(a) else "FAILURE")',
-    tests: ['a=[1, 2, 3]', 'a=[10, 2, 15, 8, 7]', 'a=[42]', 'a=[]']
+    templateCode: 'b=a',
+    solution: 'b=sorted(a)',
+    tests: [
+      {
+        description: 'Already sorted',
+        preCode: 'a=[1, 2, 3]',
+        postCode: 'print b'
+      },
+      {
+        description: 'Normal case',
+        preCode: 'a=[10, 2, 15, 8, 7]',
+        postCode: 'print b'
+      },
+      {
+        description: 'Edge case 1',
+        preCode: 'a=[42]',
+        postCode: 'print b'
+      },
+      {
+        description: 'Edge case 2',
+        preCode: 'a=[]',
+        postCode: 'print b'
+      }
+    ]
   },
   data: {}
 };
@@ -114,9 +133,33 @@ export const exampleConfig2 = {
       'from collections import OrderedDict\ndef write_roman(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])\nprint write_roman(3)',
     solution:
       'from collections import OrderedDict\ndef solution(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])',
-    testing:
-      'y=write_roman(N)\nz=solution(N)\nprint y\nprint z\nprint ("SUCCESS" if y == z else "FAILURE")',
-    tests: ['N=50', 'N=12', 'N=1994', 'N=3999', 'N=1474']
+    tests: [
+      {
+        description: 'One letter',
+        preCode: '',
+        postCode: 'print roman_num(50)'
+      },
+      {
+        description: 'Simple addition',
+        preCode: '',
+        postCode: 'print roman_num(12)'
+      },
+      {
+        description: 'Substraction rule',
+        preCode: '',
+        postCode: 'print roman_num(1994)'
+      },
+      {
+        description: 'The largest',
+        preCode: 'N=3999',
+        postCode: 'print roman_num(3999)'
+      },
+      {
+        description: 'A bit of everything',
+        preCode: '',
+        postCode: 'print roman_num(1474)'
+      }
+    ]
   },
   data: {}
 };

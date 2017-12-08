@@ -47,7 +47,8 @@ module.exports = {
     'react/jsx-wrap-multilines': 'off',
     'react/no-multi-comp': 'off',
     'react/prop-types': 'off',
-    'react/sort-comp': 'off'
+    'react/sort-comp': 'off',
+    'global-require': 'off'
   },
   parserOptions: {
     ecmaVersion: 2016,
