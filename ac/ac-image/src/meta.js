@@ -1,8 +1,9 @@
 export const meta = {
   name: 'Image viewer',
   type: 'react-component',
-  shortDesc: 'Display images',
-  description: 'Display a list of images possibly categorised',
+  shortDesc: 'Display images/files',
+  description:
+    'Display a list of images/files possibly categorised, option to allow upload and voting',
   exampleData: [
     {
       title: 'Simple view',
@@ -44,6 +45,12 @@ export const meta = {
       config: {
         guidelines: 'Look at categories of image',
         images: [
+          {
+            url: 'https://github.com/chili-epfl/FROG/blob/develop/README.md',
+            filename: 'README.md',
+            ext: 'md',
+            categories: ['earth']
+          },
           {
             url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg',
             categories: ['moon', 'solar system']
@@ -95,6 +102,15 @@ export const meta = {
               'https://wpclipart.com/space/solar_system/sun/sun_prominence.jpg'
           }
         ]
+      },
+      data: {}
+    },
+    {
+      title: 'Empty, can upload any file',
+      config: {
+        guidelines: 'Upload any file',
+        canUpload: true,
+        acceptAnyFiles: true
       },
       data: {}
     }

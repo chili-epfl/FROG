@@ -10,12 +10,16 @@ export const config = {
       type: 'boolean'
     },
     minVote: {
-      title: 'Number of vote minimum to select an image (default: 1)',
+      title: 'Number of vote minimum to select an item (default: 1)',
       type: 'number'
     },
     canUpload: {
-      title: 'Can students upload new images?',
+      title: 'Can students upload new images/files?',
       type: 'boolean'
+    },
+    acceptAnyFiles: {
+      type: 'boolean',
+      title: 'Accept any files, not just images'
     },
     canComment: {
       title: 'Should students comment on images?',
@@ -53,5 +57,6 @@ export const config = {
 };
 
 export const configUI = {
-
+  minVote: { conditional: 'canVote' },
+  acceptAnyFiles: { conditional: 'canUpload' }
 };
