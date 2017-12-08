@@ -1,30 +1,95 @@
 // @flow
+
+import { rtQ } from './rtQ';
+
 const statQuizConfig = {
   title: 'Stat 101',
   guidelines:
     "Ce Quizz est anonyme, pas noté et ne compte donc en aucun cas pour la note à l'examen final. Une seule réponse est correcte par question. Si vous ne connaissez pas la réponse, répondez NA.",
   questions: [
     {
+      question: 'Laquelle de ces expressions est fausse?',
+      answers: [
+        {
+          choice:
+            'Pour une variable discrète, le nombre de valeurs possibles est dénombrable.'
+        },
+        { choice: 'Les échelles nominales sont des échelles non ordonnées.' },
+        { choice: "Une échelle de rapport est une échelle d'intervalle." },
+        {
+          choice:
+            'La mesure de la température est forcément sur une échelle de rapport.'
+        },
+        { choice: 'NA' }
+      ]
+    },
+    {
+      question: 'Laquelle de ces expressions est fausse?',
+      answers: [
+        {
+          choice:
+            "Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci."
+        },
+        {
+          choice:
+            "Pour un nombre pair de données, la médiane tombe toujours sur une valeur de l'échantillon."
+        },
+        {
+          choice:
+            'Pour un échantillon de taille $8$, le quartile inférieur. est toujours entre les 2ème et 3ème valeurs ordonnées.'
+        },
+        {
+          choice:
+            'Pour un échantillon de taille $10$, le quartile supérieur est toujours entre les 7ème et 8ème valeurs ordonnées.'
+        },
+        { choice: 'NA' }
+      ]
+    },
+    {
+      question: 'Laquelle de ces expressions est juste?',
+      answers: [
+        {
+          choice:
+            'Une probabilité est un nombre qui prend ses valeurs entre $-1$ et $1$.'
+        },
+        {
+          choice:
+            'Une probabilité est un nombre qui prend ses valeurs dans $]0; 1[$.'
+        },
+        {
+          choice:
+            "Une probabilité est un nombre qui prend ses valeurs dans tout l'ensemble des réels."
+        },
+        {
+          choice:
+            'Une probabilité est un nombre qui prend ses valeurs dans $[0; 1]$.'
+        },
+        { choice: 'NA' }
+      ]
+    },
+    {
       question:
         'Pour deux événements $A$ et $B$ indépendants, laquelle de ces expressions est juste?',
       answers: [
-        { answer: '$P(A \\cup B) = P(A) + P(B)$' },
+        { choice: '$P(A \\cup B) = P(A) + P(B)$' },
         {
-          answer:
+          choice:
             'Si $\\bar{A}$ est le complément de $A$ alors $P(\\bar{A}) = 1 + P(A)$'
         },
-        { answer: '$P(A|B) = P(B|A)$' },
-        { answer: '$P(A \\cap B) = P(A) \\times P(B)$' }
+        { choice: '$P(A|B) = P(B|A)$' },
+        { choice: '$P(A \\cap B) = P(A) \\times P(B)$' },
+        { choice: 'NA' }
       ]
     },
     {
       question:
         'Soient deux variables aléatoires X et Y indépendantes. On note $\\sigma (X)^2$ et $\\sigma (Y)^2$ leur variance respective. Laquelle de ces expressions est juste?',
       answers: [
-        { answer: '$var(X-Y) = \\sigma_X^2 + \\sigma_Y^2$' },
-        { answer: '$\\sigma_{X+Y} = \\sigma_X + \\sigma_Y^2$' },
-        { answer: '$ \\sigma_{X-Y} = \\sigma_X + \\sigma_Y$' },
-        { answer: '$var(X + Y) = \\sqrt{\\sigma_X^2 + \\sigma_Y^2 }$' }
+        { choice: '$0.02 \\%$' },
+        { choice: '$0.01\\bar{6} \\%$' },
+        { choice: '$0.008\\bar{3} \\%$' },
+        { choice: '$0.01\\bar{3} \\%$' },
+        { choice: 'NA' }
       ]
     },
     {
@@ -51,17 +116,17 @@ const opinionQuizConfig = {
       question: 'Chose the most relevant explanation',
       answers: [
         {
-          answer: 'Women earn less because they are less able than men to work',
+          choice: 'Women earn less because they are less able than men to work',
           x: -2,
           y: 5
         },
         {
-          answer: 'Women earn less because most employers are sexist men',
+          choice: 'Women earn less because most employers are sexist men',
           x: 5,
           y: -2
         },
         {
-          answer:
+          choie:
             'Women earn less because their career slows down when they are pregnant',
           x: 2,
           y: 2
@@ -72,18 +137,18 @@ const opinionQuizConfig = {
       question: 'Chose the most relevant explanation',
       answers: [
         {
-          answer:
+          choice:
             'Men earn more because they run faster to be on time at meetings',
           x: -2,
           y: 2
         },
         {
-          answer:
+          choice:
             'Men earn more because they tend to chose fields that pay more such as Finance, Computer Science, ...',
           x: -5,
           y: 1
         },
-        { answer: "Men earn more because they steal women's pay", x: 5, y: -5 }
+        { choice: "Men earn more because they steal women's pay", x: 5, y: -5 }
       ]
     }
   ]
@@ -91,8 +156,9 @@ const opinionQuizConfig = {
 
 export const meta = {
   name: 'Multiple-Choice Questions',
-  shortDesc: 'Filling a MCQ form',
-  description: 'Display a multiple-choice questions form.',
+  shortDesc: 'Filling a MCQ form (quiz)',
+  description:
+    'Display a multiple-choice questions form. Can also be used for questionnaires.',
   exampleData: [
     {
       config: statQuizConfig,
@@ -103,6 +169,54 @@ export const meta = {
       config: opinionQuizConfig,
       title: 'Opinion Quiz',
       activityData: {}
+    },
+    {
+      config: { ...statQuizConfig, shuffle: 'both' },
+      title: 'Sample MCQ with shuffling options',
+      activityData: {}
+    },
+    {
+      title: 'Rich text and media',
+      activityData: {},
+      config: {
+        title: 'Rich text form',
+        shuffle: 'none',
+        guidelines:
+          '<p>Just a <strong>video</strong> [[https://www.youtube.com/watch?v=fb6UnKVkwVA&amp;feature=youtu.be]]</p>',
+        questions: [
+          {
+            question: rtQ,
+            answers: ['Pretty awesomer', 'OK', '$\\sqrt{x/1}$']
+          }
+        ]
+      }
+    },
+    {
+      title: 'European capitals with correct answer',
+      activityData: {},
+      config: {
+        title: 'Capitals',
+        shuffle: 'none',
+        hasAnswers: true,
+        questions: [
+          {
+            question: 'Where is Oslo?',
+            answers: [
+              { choice: 'Norway', isCorrect: true },
+              { choice: 'Sweden' },
+              { choice: 'Denmark' }
+            ]
+          },
+          {
+            question: 'What is the capital of Latvia?',
+            answers: [
+              { choice: 'Bratislava' },
+              { choice: 'Vilnius', isCorrect: true },
+              { choice: 'Zagreb' }
+            ]
+          }
+        ]
+      }
     }
   ]
 };

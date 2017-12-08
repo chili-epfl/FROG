@@ -1,5 +1,7 @@
 // @flow
 import { action, observable, computed, reaction } from 'mobx';
+
+import { getActivitySequence } from '/imports/api/graphSequence';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 import Operator from './operator';
@@ -29,6 +31,19 @@ export default class uiStore {
   @observable showInfo: ?{ klass: 'activity' | 'operator', id: string };
   @observable showPreview: ?Object;
   @observable showErrors: boolean | string = false;
+  @observable isSvg: boolean = false;
+
+  @action
+  setIsSvg(isSvg: boolean) {
+    this.isSvg = isSvg;
+    if (isSvg) {
+      store.activityStore.setActivitySequence(
+        getActivitySequence(
+          store.activityStore.all.map(x => ({ ...x, _id: x.id }))
+        )
+      );
+    }
+  }
 
   @computed
   get graphErrorColor(): string {
@@ -237,5 +252,16 @@ export default class uiStore {
   @computed
   get rightEdgeTime(): number {
     return pxToTime(this.panOffset + this.panBoxSize * this.scale, this.scale);
+  }
+
+  @computed
+  get furthestObject(): number {
+    return Math.ceil(
+      Math.max(
+        store.operatorStore.furthestOperator || 0,
+        store.activityStore.furthestActivity || 0,
+        30
+      )
+    );
   }
 }

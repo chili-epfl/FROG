@@ -2,6 +2,7 @@
 
 import { observable, computed, action } from 'mobx';
 import cuid from 'cuid';
+
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, timeToPxScreen, between } from '../utils';
@@ -22,7 +23,7 @@ export default class Activity extends Elem {
     this.id = id || cuid();
     this.over = false; // is mouse over this activity
     this.plane = plane;
-    this.title = title || '';
+    this.rawTitle = title || '';
     this.length = length;
     this.startTime = startTime;
     this.klass = 'activity';
@@ -45,11 +46,22 @@ export default class Activity extends Elem {
   id: string;
   @observable plane: number;
   @observable over: boolean;
-  @observable title: string;
+  @observable rawTitle: string;
   @observable length: number;
   @observable startTime: number;
   @observable wasMoved: boolean = false;
   @observable state: ?string;
+
+  @computed
+  get title(): string {
+    if (store.ui.isSvg) {
+      return `${store.activityStore.activitySequence[this.id]}: ${
+        this.rawTitle
+      }`;
+    } else {
+      return this.rawTitle;
+    }
+  }
 
   @computed
   get xScaled(): number {
@@ -77,13 +89,13 @@ export default class Activity extends Elem {
   update = (newact: $Shape<Activity>) => {
     this.length = newact.length;
     this.startTime = newact.startTime;
-    this.title = newact.title;
+    this.rawTitle = newact.title;
     this.state = newact.state;
   };
 
   @action
   rename = (newname: string) => {
-    this.title = newname;
+    this.rawTitle = newname;
     store.addHistory();
   };
 

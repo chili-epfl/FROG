@@ -1,5 +1,7 @@
 // @flow
 
+import opPerformanceSelect from 'op-performance-select';
+import opCheckConcepts from 'op-check-concepts';
 import opFilter from 'op-filter';
 import opDistributeCategory from 'op-distribute-category';
 import opAggregateP2 from 'op-aggregate-p2';
@@ -18,6 +20,8 @@ import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: operatorPackageT[] = flattenOne([
+  opPerformanceSelect,
+  opCheckConcepts,
   opFilter,
   opDistributeCategory,
   opAggregateP2,

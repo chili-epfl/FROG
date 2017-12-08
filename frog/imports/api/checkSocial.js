@@ -57,7 +57,9 @@ export default (
         errors.push({
           id: node._id,
           nodeType,
-          err: `Requires the grouping attribute '${node.groupingKey}', which is not provided by any connected social operator`,
+          err: `Requires the grouping attribute '${
+            node.groupingKey
+          }', which is not provided by any connected social operator`,
           type: 'groupingKeyNotProvided',
           severity: 'error'
         });

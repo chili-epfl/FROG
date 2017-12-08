@@ -12,7 +12,7 @@ const clean = obj => {
   return ret;
 };
 
-const graphToString = graphId =>
+export const graphToString = graphId =>
   Stringify({
     graph: omit(Graphs.find({ _id: graphId }).fetch()[0], 'sessionId'),
     activities: Activities.find({ graphId })

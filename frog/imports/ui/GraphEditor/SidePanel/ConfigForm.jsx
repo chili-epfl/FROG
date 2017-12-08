@@ -27,6 +27,14 @@ export default class ConfigForm extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps: PropT): boolean {
+    if (this.props.node._id === nextProps.node._id) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   render() {
     const {
       node,
@@ -39,16 +47,17 @@ export default class ConfigForm extends Component {
       formData: this.state.formData,
       ...addSocialFormSchema(nodeType.config, nodeType.configUI),
       widgets: {
+        ...this.props.widgets,
         socialAttributeWidget: SelectFormWidget,
         activityWidget: SelectActivityWidget
       },
+      id: node._id,
       formContext: {
         options: valid.social[node._id] || [],
         connectedActivities,
         groupingKey: node.groupingKey
       },
       onChange: data => {
-        this.setState({ formData: data.formData });
         if (node.operatorType) {
           addOperator(node.operatorType, data.formData, node._id);
         } else {

@@ -52,11 +52,7 @@ const backend = new ShareDB();
 const connection = backend.connect();
 const Collections = {};
 
-export const StatelessPreview = withState(
-  'reload',
-  'setReload',
-  ''
-)(
+export const StatelessPreview = withState('reload', 'setReload', '')(
   ({
     activityTypeId,
     example,
@@ -171,6 +167,7 @@ export const StatelessPreview = withState(
       )(showData ? ShowInfo : RunComp);
       return (
         <ActivityToRun
+          activityType={activityType.id}
           activityData={activityData}
           userInfo={{
             name,
@@ -229,7 +226,9 @@ export const StatelessPreview = withState(
                 Collections[coll] = uuid();
               });
 
-              const dashrefresh = `demo-${activityType.id}-${example}-DASHBOARD`;
+              const dashrefresh = `demo-${
+                activityType.id
+              }-${example}-DASHBOARD`;
               Collections[dashrefresh] = uuid();
 
               Logs.length = 0;
@@ -310,6 +309,9 @@ export const StatelessPreview = withState(
                     config={activityData.config}
                     reload={reload}
                     doc={dashboard}
+                    instances={users
+                      .filter((y, i) => i % 2 !== 0)
+                      .map((z, i) => Math.ceil(i / 2))}
                     users={users
                       .filter(e => e !== 'dashboard')
                       .map((e, i) => ({ _id: i + 1, username: e }))}
@@ -326,7 +328,8 @@ export const StatelessPreview = withState(
                 >
                   <Run name={x} id={id} />
                 </MosaicWindow>
-              )}
+              )
+            }
             initialValue={getInitialState(users.map((x, i) => [x, i + 1]))}
           />
         )}

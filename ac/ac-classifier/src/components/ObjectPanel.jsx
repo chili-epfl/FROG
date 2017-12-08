@@ -23,15 +23,41 @@ const ImgPanel = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-export default ({ obj, small }: { obj: Object, small: boolean }) => (
-  <Container>
-    {getType(obj) === 'image' && !small && <ImgPanel src={obj.url} />}
-    {getType(obj) === 'image' &&
-      small && <ImgPanel src={obj.thumbnail || obj.url} />}
-    {getType(obj) === 'table' &&
-      !small && <TableView initialData={toTableData(obj.data, 10, 5)} />}
-    {getType(obj) === 'table' && small && <span>TABLE</span>}
-    {getType(obj) === 'tree' && !small && <TreeView data={obj.data} />}
-    {getType(obj) === 'tree' && small && <span>TREE</span>}
-  </Container>
+const TextView = ({ data }) => (
+  <span style={{ fontSize: '36px' }}>{data.text}</span>
 );
+
+const components = {
+  image: {
+    small: ({ obj }) => <ImgPanel src={obj.thumbnail || obj.url} />,
+    full: ({ obj }) => <ImgPanel src={obj.url} />
+  },
+  table: {
+    full: ({ obj }) => <TableView initialData={toTableData(obj.data, 10, 5)} />
+  },
+  tree: {
+    full: ({ obj }) => <TreeView data={obj.data} />
+  },
+  text: {
+    full: ({ obj }) => <TextView data={obj} />
+  }
+};
+
+export default ({ obj, small }: { obj: Object, small: boolean }) => {
+  const type = getType(obj);
+  const compobj = components[type];
+  if (compobj) {
+    const Comp = small
+      ? compobj['small'] || (() => type.toUpperCase())
+      : compobj['full'];
+    return (
+      <Container>
+        <Comp obj={obj} />
+      </Container>
+    );
+  } else {
+    // eslint-disable-next-line no-console
+    console.warn('No renderer for this object type');
+    return null;
+  }
+};

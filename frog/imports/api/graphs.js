@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import traverse from 'traverse';
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
+import { uuid, calculateSchema } from 'frog-utils';
 import { get, set } from 'lodash';
 
 import { Activities, Connections, Operators } from './activities';
@@ -37,9 +37,9 @@ export const addGraph = (graphObj?: Object): string => {
   const newOp = graphObj.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
-
     if (op.data) {
-      const schema = operatorTypesObj[op.operatorType].config;
+      const opT = operatorTypesObj[op.operatorType];
+      const schema = calculateSchema(op.data, opT.config, opT.configUI);
       const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
       const activityPaths = paths.filter(
         x => get(schema, [...x, 'type']) === 'activity'
@@ -53,10 +53,16 @@ export const addGraph = (graphObj?: Object): string => {
             const curRef = get(op.data, relpath);
             set(op.data, relpath, matching[curRef]);
           });
+        } else if (path[2] === 'items') {
+          op.data[path[1]].forEach((_, i) => {
+            const relpath = [path[1], i, path[3]];
+            const curRef = get(op.data, relpath);
+            set(op.data, relpath, matching[curRef]);
+          });
         } else {
-          const curRef = get(op.data, path);
+          const curRef = get(op.data, path.slice(1));
           if (curRef) {
-            set(op.data, path, matching[curRef]);
+            set(op.data, path.slice(1), matching[curRef]);
           }
         }
       });

@@ -4,6 +4,8 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
+import { uuid } from 'frog-utils';
+
 export default ({
   activityData,
   data,
@@ -16,17 +18,12 @@ export default ({
     ? activityData.config.maxNumbFile
     : 10;
 
-  const onDrop = f => {
-    uploadFn(f, url => {
-      // setTimeout, otherwise HTTP request sends back code 503
-      setTimeout(
-        () =>
-          dataFn.objInsert(
-            { url, idStudent: userInfo.id },
-            Object.keys(data).length
-          ),
-        500
-      );
+  const onDrop = files => {
+    files.forEach(file => {
+      const fileId = uuid();
+      uploadFn(file, fileId).then(url => {
+        dataFn.objInsert({ url, key: fileId, studentId: userInfo.id }, fileId);
+      });
     });
   };
 

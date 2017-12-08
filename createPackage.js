@@ -9,7 +9,7 @@ if (!process.argv[4]) {
 Sets up a simple activity or operator package template in ./[ac|op]/<short-name>, and adds it to the relevant files
     (frog/package.json and frog/imports/[activity|operator]Packages.js). Also does the correct symlinking and yarn
     commands to be ready to develop.`);
-  /*eslint-enable */
+  /* eslint-enable */
   process.exit();
 }
 
@@ -20,7 +20,7 @@ if (process.argv[3].slice(0, 3) !== prefix + '-') {
   console.log(
     `activityPackage names should start by 'ac-...' and operatorPackage names with 'op-...'.`
   );
-  /*eslint-enable */
+  /* eslint-enable */
   process.exit();
 }
 
@@ -82,12 +82,19 @@ fs.writeFileSync(
   actnew.join('\n')
 );
 
-childProcess.execSync(`git add ./${prefix}/${newActivityId}`);
+childProcess.execSync(
+  `git add ./${prefix}/${newActivityId} frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
+);
 
 /*eslint-disable */
 console.log(
-  `Package created in './${prefix}/${newActivityId}', and added to ./frog. Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh'
-  from the repository root directory (this will delete all untracked files). Then you can restart './run_and_watch_all.sh', as well as 'meteor' in the './frog' directory,
-  which should pick up the new ${type}. Use 'git diff --cached' to see all the changes that the script has made.`
+  `Package created in './${prefix}/${newActivityId}', and added to ./frog.
+
+Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh' from the
+repository root directory (this will delete all untracked files).
+
+You can then restart './run_and_watch_all.sh' in the root directory, as well
+as 'meteor' in the './frog' directory, which should pick up the new ${type}.
+
+Use 'git diff --cached' to see all the changes that the script has made.`
 );
-/*eslint-enable */
