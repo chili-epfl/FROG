@@ -89,6 +89,6 @@
     "op-check-concepts": "1.0.0",
     "ac-textarea": "1.0.0",
     "op-performance-select": "1.0.0",
-    "yauzl": "^2.9.1"
+    "unzipper": "^0.8.11"
   }
 }

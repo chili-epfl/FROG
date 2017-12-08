@@ -1,6 +1,7 @@
 import { Picker } from 'meteor/meteorhacks:picker';
 import fs from 'fs';
 import { WebApp } from 'meteor/webapp';
+import unzipper from 'unzipper';
 import { uuid } from 'frog-utils';
 
 export default () => {
@@ -75,6 +76,9 @@ WebApp.connectHandlers.use('/uploadH5P', (req, res) => {
   } else if (req.method === 'PUT') {
     const id = uuid();
     req.pipe(fs.createWriteStream('/tmp/' + id));
+    fs
+      .createReadStream('path/to/archive.zip')
+      .pipe(unzipper.Extract({ path: 'output/path' }));
 
     res.writeHead(200);
     res.end();
