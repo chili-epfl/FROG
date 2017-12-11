@@ -1,6 +1,6 @@
 export const config = {
   type: 'object',
-  required: ['individuals', 'who', 'social'],
+  required: ['who', 'social'],
   properties: {
     applytoall: {
       type: 'boolean',
