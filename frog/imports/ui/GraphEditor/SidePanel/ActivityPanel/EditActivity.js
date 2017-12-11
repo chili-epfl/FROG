@@ -185,6 +185,6 @@ const RawEditActivity = ({
 
 const EditActivity = compose(
   withState('advancedOpen', 'setAdvancedOpen', false),
-  withState('reload', 'setReload', '')
+  withState('reload', 'setReload', uuid())
 )(RawEditActivity);
 export default connect(EditActivity);

@@ -1,8 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import { EnhancedForm } from 'frog-utils';
+import { isEqual } from 'lodash';
+
 import { Activities, addOperator, addActivity } from '/imports/api/activities';
 
 import {
@@ -33,7 +34,8 @@ export default class ConfigForm extends Component {
   shouldComponentUpdate(nextProps: PropT): boolean {
     if (
       this.props.node._id === nextProps.node._id &&
-      this.props.reload === nextProps.reload
+      this.props.reload === nextProps.reload &&
+      isEqual(this.props.connectedActivities, nextProps.connectedActivities)
     ) {
       return false;
     } else {
