@@ -3,7 +3,7 @@
 import { compact, range } from 'lodash';
 import type { ActivityPackageT } from 'frog-utils';
 
-import config from './config';
+import { config, validateConfig, configUI } from './config';
 import ActivityRunner from './ActivityRunner';
 import { meta } from './meta';
 import dashboard from './Dashboard';
@@ -31,12 +31,39 @@ const exportData = (configData, { payload }) => {
   return compact([headers, ...csv.sort()]).join('\n');
 };
 
+const formatProduct = (configData, itemWrapper) => {
+  const item = itemWrapper['form'];
+  if (item) {
+    const questions = configData.questions.map(q => q.question);
+    const answers = [];
+    const correctQs = [];
+    Object.keys(item).forEach(q => {
+      const num = getNum(q);
+      const response = configData.questions[num].answers[item[q]];
+      answers[num] = response.choice;
+      if (configData.hasAnswers) {
+        correctQs[num] = !!response.isCorrect;
+      }
+    });
+    const correctCount = compact(correctQs).length;
+    const maxCorrect = configData.questions.length;
+    if (configData.hasAnswers) {
+      return { questions, answers, correctQs, correctCount, maxCorrect };
+    } else {
+      return { questions, answers };
+    }
+  }
+};
+
 export default ({
   id: 'ac-quiz',
   type: 'react-component',
   meta,
   config,
+  configUI,
+  validateConfig,
   ActivityRunner,
   dashboard,
-  exportData
+  exportData,
+  formatProduct
 }: ActivityPackageT);

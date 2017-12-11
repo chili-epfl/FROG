@@ -41,7 +41,7 @@ Picker.filter(req => req.method === 'POST').route(
   }
 );
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || !Meteor.settings.Minio) {
   WebApp.connectHandlers.use('/file', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'PUT');
     res.setHeader('Access-Control-Allow-Origin', '*');

@@ -3,9 +3,8 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import styled from 'styled-components';
-import Latex from 'react-latex';
 import seededShuffle from 'seededshuffle';
-import type { ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT, HTML } from 'frog-utils';
 
 import LatexWidget from './LatexWidget';
 
@@ -34,7 +33,7 @@ const QuestionTitle = styled.div`
 
 const DescriptionField = props => (
   <QuestionTitle>
-    <Latex>{props.description}</Latex>
+    <HTML html={props.description} />
   </QuestionTitle>
 );
 
@@ -72,7 +71,7 @@ const Quiz = ({
       type: 'number',
       title: 'Question ' + (reali + 1),
       enum: answers.map(([, k]) => k),
-      enumNames: answers.map(([x]) => x)
+      enumNames: answers.map(([x]) => x.choice)
     };
     uiSchema['question ' + i] = {
       'ui:widget': 'latexWidget',
@@ -114,9 +113,11 @@ export default (props: ActivityRunnerT) => {
     <Main>
       <h1>{activityData.config.title || 'Quiz'}</h1>
       <Container>
-        <Latex>
-          {activityData.config.guidelines || 'Answer the following questions'}
-        </Latex>
+        <HTML
+          html={
+            activityData.config.guidelines || 'Answer the following questions'
+          }
+        />
       </Container>
       <Container>
         {data.completed ? <h1>Form completed!</h1> : <Quiz {...props} />}
