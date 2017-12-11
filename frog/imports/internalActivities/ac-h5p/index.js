@@ -37,7 +37,7 @@ export class ActivityRunner extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ width: '100%', height: '100%' }}>
         {this.props.activityData.config.prompt && (
           <h1>{this.props.activityData.config.prompt}</h1>
         )}
