@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Header from './Header';
 import Editor from './Editor';
 import TestPanel from './TestPanel';
+import makeRunCode from './MakeRunCode';
 
 const Main = styled.div`
   display: flex;
@@ -15,48 +16,17 @@ const Main = styled.div`
 `;
 
 export default class ActivityRunner extends Component {
-  lastOut: string[];
+  runCode: Function;
 
   constructor(props: ActivityRunnerT) {
     super(props);
-    this.lastOut = [];
   }
 
   componentDidMount() {
-    const script = document.createElement('script');
-    script.src = 'http://www.skulpt.org/static/skulpt.min.js';
-    script.async = false;
-    if (document.body != null) {
-      document.body.appendChild(script);
-    }
-
-    const script2 = document.createElement('script');
-    script2.src = 'http://www.skulpt.org/static/skulpt-stdlib.js';
-    script2.async = false;
-    if (document.body != null) {
-      document.body.appendChild(script2);
-    }
+    console.log('didmount');
+    this.runCode = makeRunCode(this.props.activityData.config.language);
+    console.log(this.runCode);
   }
-
-  builtinRead = (x: string) => {
-    if (
-      window.Sk.builtinFiles === undefined ||
-      window.Sk.builtinFiles['files'][x] === undefined
-    )
-      throw "File not found: '" + x + "'";
-    return window.Sk.builtinFiles['files'][x];
-  };
-
-  runCode = (code: string, out: Function, err: Function) => {
-    if (window.Sk) {
-      window.Sk.configure({ output: out, read: this.builtinRead });
-      return window.Sk.misceval.asyncToPromise(() => {
-        window.Sk.importMainWithBody('<stdin>', false, code);
-      });
-    } else {
-      err('Skulpt not loaded, please check internet connection');
-    }
-  };
 
   render() {
     const { config } = this.props.activityData;

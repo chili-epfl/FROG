@@ -4,6 +4,12 @@
 export const config = {
   type: 'object',
   properties: {
+    language: {
+      type: 'string',
+      title: 'Language',
+      enum: ['python', 'javascript'],
+      default: 'python'
+    },
     title: {
       type: 'string',
       title: 'Title of the activity'
@@ -61,6 +67,7 @@ export const configUI = {
 export const exampleConfig0 = {
   title: 'Double',
   config: {
+    language: 'python',
     title: 'Double',
     guidelines: 'Make it double!',
     template: 'def double(x):\n\treturn 0',
@@ -89,6 +96,7 @@ export const exampleConfig0 = {
 export const exampleConfig1 = {
   title: 'SortArray',
   config: {
+    language: 'python',
     title: 'Sorting in python',
     guidelines: 'Code an algorithm to sort an array in python',
     specifications:
@@ -124,6 +132,7 @@ export const exampleConfig1 = {
 export const exampleConfig2 = {
   title: 'RomanNumbers',
   config: {
+    language: 'python',
     title: 'Converting integers to Roman numbers',
     guidelines:
       'The variable N is the input number. You must print a string representing it in roman notation',
@@ -158,6 +167,35 @@ export const exampleConfig2 = {
         description: 'A bit of everything',
         preCode: '',
         postCode: 'print roman_num(1474)'
+      }
+    ]
+  },
+  data: {}
+};
+
+export const exampleConfig3 = {
+  title: 'Double in javascript',
+  config: {
+    language: 'javascript',
+    title: 'Double',
+    guidelines: 'Make it double!',
+    template: 'double = x => 0',
+    solution: 'double = x => 2*x',
+    tests: [
+      {
+        description: 'x=0',
+        preCode: '',
+        postCode: 'console.log(double(0))'
+      },
+      {
+        description: 'x=42',
+        preCode: '',
+        postCode: 'console.log(double(42))'
+      },
+      {
+        description: 'x=1234567890',
+        preCode: '',
+        postCode: 'console.log(double(1234567890))'
       }
     ]
   },

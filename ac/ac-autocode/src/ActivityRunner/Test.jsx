@@ -50,6 +50,10 @@ const Test = ({
     logger({ type: 'test', itemId: index, value: data.code });
     testOutput = [];
     solutionOutput = [];
+
+    console.log('TESTING');
+    console.log(runCode);
+
     runCode(testCode, handleOut('student'), () => {}).then(
       () => {
         logger({ type: testOutput[2], itemId: index });
