@@ -1,5 +1,8 @@
 // @flow
 
+import { keyBy } from 'lodash';
+import { type ActivityPackageT, flattenOne } from 'frog-utils';
+
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';
@@ -17,11 +20,8 @@ import acForm from 'ac-form';
 import acQuiz from 'ac-quiz';
 import acMonty from 'ac-monty';
 import acCKBoard from 'ac-ck-board';
+
 import acH5P from './internalActivities/ac-h5p';
-
-import { type ActivityPackageT, flattenOne } from 'frog-utils';
-
-import { keyBy } from 'lodash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
   acTextarea,

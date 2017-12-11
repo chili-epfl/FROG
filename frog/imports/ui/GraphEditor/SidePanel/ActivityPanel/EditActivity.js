@@ -3,8 +3,8 @@
 import React from 'react';
 import FlexView from 'react-flexview';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
-import { withState } from 'recompose';
-import { ChangeableText, A } from 'frog-utils';
+import { withState, compose } from 'recompose';
+import { ChangeableText, A, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity, setStreamTarget } from '/imports/api/activities';
@@ -34,6 +34,8 @@ const StreamSelect = ({ activity, targets, onChange }) => (
 const RawEditActivity = ({
   advancedOpen,
   setAdvancedOpen,
+  reload,
+  setReload,
   activity,
   ...props
 }) => {
@@ -137,20 +139,23 @@ const RawEditActivity = ({
           node: activity,
           nodeType: activityType,
           valid: props.store.valid,
-          refreshValidate: props.store.refreshValidate
+          refreshValidate: props.store.refreshValidate,
+          reload
         }}
       />
       {activityType.ConfigComponent && (
         <activityType.ConfigComponent
-          configData={activity.data}
-          setConfigData={d =>
+          configData={{ component: {}, ...activity.data }}
+          setConfigData={d => {
             addActivity(
               activity.activityType,
               { ...activity.data, component: d },
               activity._id,
               null
-            )
-          }
+            );
+            props.store.refreshValidate();
+            setReload(uuid());
+          }}
         />
       )}
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
@@ -175,7 +180,8 @@ const RawEditActivity = ({
   );
 };
 
-const EditActivity = withState('advancedOpen', 'setAdvancedOpen', false)(
-  RawEditActivity
-);
+const EditActivity = compose(
+  withState('advancedOpen', 'setAdvancedOpen', false),
+  withState('reload', 'setReload', '')
+)(RawEditActivity);
 export default connect(EditActivity);

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityPackageT } from 'frog-utils';
 import ConfigComponent from './ConfigComponent';
 
 export const meta = {
@@ -27,7 +27,7 @@ export class ActivityRunner extends Component {
         this.props.logger({
           type:
             (e.data.msg.verb && e.data.msg.verb.display['en-US']) || 'h5p-xapi',
-          payload: JSON.stringify(e.data.msg.result)
+          payload: { msg: JSON.stringify(e.data.msg) }
         });
       }
     });
@@ -37,20 +37,37 @@ export class ActivityRunner extends Component {
 
   render() {
     return (
-      <iframe
-        title="IFrame"
-        src={'/h5p/' + this.props.activityData.config.component.fileId}
-        style={{ width: '100%', height: '100%', overflow: 'auto' }}
-      />
+      <div>
+        {this.props.activityData.config.prompt && (
+          <h1>{this.props.activityData.config.prompt}</h1>
+        )}
+        <iframe
+          title="IFrame"
+          src={'/h5p/' + this.props.activityData.config.component.fileId}
+          style={{ width: '100%', height: '100%', overflow: 'auto' }}
+        />
+      </div>
     );
   }
 }
 
-export default {
+export default ({
   id: 'ac-h5p',
   type: 'react-component',
   ActivityRunner,
   ConfigComponent,
-  config: {},
+  config: {
+    type: 'object',
+    required: ['component'],
+    properties: {
+      prompt: { type: 'string', title: 'Prompt' },
+      component: {
+        type: 'object',
+        title: 'H5P file',
+        required: ['fileId'],
+        properties: { fileId: { type: 'string', title: 'H5P file' } }
+      }
+    }
+  },
   meta
-};
+}: ActivityPackageT);

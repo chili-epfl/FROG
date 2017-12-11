@@ -121,7 +121,7 @@ export type ActivityPackageT = {
     name: string,
     shortDesc: string,
     description: string,
-    exampleData: { title: string, config?: Object, data?: any }[]
+    exampleData?: { title: string, config?: Object, data?: any }[]
   },
   config: Object,
   configUI?: Object,
@@ -135,7 +135,8 @@ export type ActivityPackageT = {
     initData: any
   },
   exportData?: (config: Object, product: activityDataT) => string,
-  formatProduct?: (config: Object, item: any) => any
+  formatProduct?: (config: Object, item: any) => any,
+  ConfigComponent?: ReactComponent<any>
 };
 
 export type productOperatorT = {

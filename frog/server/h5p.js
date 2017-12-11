@@ -48,9 +48,7 @@ export default () => {
       });
     })(H5P.jQuery);
 H5P.externalDispatcher.on('xAPI', function(event) {
-  window.parent.postMessage({ msg: event.data.statement, type: 'h5p-log', id: '${
-    id
-  }' }, '*');
+  window.parent.postMessage({ msg: event.data.statement, type: 'h5p-log', id: '${id}' }, '*');
 });
   </script>
 </head>
