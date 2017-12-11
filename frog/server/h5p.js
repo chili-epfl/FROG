@@ -66,17 +66,31 @@ H5P.externalDispatcher.on('xAPI', function(event) {
 };
 
 Meteor.methods({
-  'h5p.unzip': id => {
-    fs.access('/tmp/' + id, err => {
-      if (err) {
-        console.error(
-          'Attempting to extract H5P file. No such file /tmp/' + id
-        );
-      } else {
-        fs
-          .createReadStream('/tmp/' + id)
-          .pipe(unzipper.Extract({ path: '/tmp/h5p/' + id }));
-      }
-    });
-  }
+  'h5p.unzip': id =>
+    Promise.await(
+      new Promise(resolve => {
+        fs.access('/tmp/' + id, err => {
+          if (err) {
+            resolve(-1);
+          } else {
+            fs
+              .createReadStream('/tmp/' + id)
+              .pipe(unzipper.Extract({ path: '/tmp/h5p/' + id }))
+              .on('error', _ => {
+                resolve(-1);
+              })
+              .promise()
+              .then(() => {
+                fs.access('/tmp/h5p/' + id + '/h5p.json', error => {
+                  if (error) {
+                    resolve(-1);
+                  } else {
+                    resolve(1);
+                  }
+                });
+              });
+          }
+        });
+      }).catch(() => -1)
+    )
 });

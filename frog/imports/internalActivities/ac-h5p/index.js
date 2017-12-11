@@ -22,7 +22,7 @@ export class ActivityRunner extends Component {
       if (
         e.data &&
         e.data.type === 'h5p-log' &&
-        e.data.id === this.props.activityData.config.fileId
+        e.data.id === this.props.activityData.config.component.fileId
       ) {
         this.props.logger({
           type:
@@ -39,7 +39,7 @@ export class ActivityRunner extends Component {
     return (
       <iframe
         title="IFrame"
-        src={'/h5p/' + this.props.activityData.config.fileId}
+        src={'/h5p/' + this.props.activityData.config.component.fileId}
         style={{ width: '100%', height: '100%', overflow: 'auto' }}
       />
     );

@@ -11,8 +11,14 @@ const onDrop = (file, setConfigData) => {
     const imageBuffer = Buffer.from(loaded.currentTarget.result);
     const id = uuid();
     uploadFile(imageBuffer, id).then(() => {
-      setConfigData({ fileId: id });
-      Meteor.call('h5p.unzip', id);
+      Meteor.call('h5p.unzip', id, (err, succ) => {
+        if (err || succ === -1) {
+          // eslint-disable-next-line no-alert
+          window.alert('Package has wrong format, or could not be installed.');
+        } else {
+          setConfigData({ fileId: id });
+        }
+      });
     });
   };
   fr.readAsArrayBuffer(file[0]);
@@ -20,7 +26,7 @@ const onDrop = (file, setConfigData) => {
 
 const ConfigComponent = ({ configData = {}, setConfigData }) => (
   <div style={{ marginTop: '20px' }}>
-    {configData.fileId ? (
+    {configData.component.fileId ? (
       <div>
         <h1>H5P package uploaded successfully</h1>
         <A onClick={() => setConfigData({})}>Remove file</A>
