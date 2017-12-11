@@ -83,7 +83,7 @@ const Debug = ({ data, runCode, setFeedback, logger }) => {
     );
   };
   return (
-    <button className={'btn btn-primary'} onClick={debug}>
+    <button className="btn btn-primary" onClick={debug}>
       DEBUG
     </button>
   );
