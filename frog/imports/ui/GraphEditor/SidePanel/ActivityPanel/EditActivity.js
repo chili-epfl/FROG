@@ -42,6 +42,9 @@ const RawEditActivity = ({
   const graphActivity = props.store.activityStore.all.find(
     act => act.id === activity._id
   );
+  const outgoingConnections = props.store.connectionStore.all.find(
+    conn => conn.source.id === activity._id
+  );
 
   // if no grouping key, and incoming social role, automatically assign first one
   if (
@@ -140,7 +143,7 @@ const RawEditActivity = ({
           nodeType: activityType,
           valid: props.store.valid,
           refreshValidate: props.store.refreshValidate,
-          reload
+          reload: reload + outgoingConnections.map(x => x.id).join('')
         }}
       />
       {activityType.ConfigComponent && (
