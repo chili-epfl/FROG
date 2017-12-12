@@ -11,7 +11,7 @@ import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
 import Preview from './../Preview';
 import Admin from './../Admin';
-import TopBar, {BasicTabs} from './TopBar';
+import TopBar from './TopBar';
 
 const styles = {
     uber: {
@@ -21,7 +21,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         fontFamily: 'Roboto'
-    },  navbar: {
+    }, navbar: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between"
@@ -32,21 +32,28 @@ const TeacherContainer = ({ready}: { ready: boolean }) => {
         return <Spinner/>;
     }
     return (
-            <div id="app" style={styles.uber}>
-                <BasicTabs/>
-                <Switch>
-
-
-                </Switch>
-            </div>
+        <div id="app" style={styles.uber}>
+            <Switch>
+                <Route path="/preview/:activityTypeId/:example" component={Preview} />
+                <Route path="/preview/:activityTypeId" component={Preview} />
+                <Route path="/graph/:graphId" component={GraphEditor} />
+                <Route path="/graph" component={GraphEditor} />
+                <Route component={WithTopBar}/>
+            </Switch>
+        </div>
     );
 };
 
 const WithTopBar = () => (
     <div>
+        <TopBar />
         <Switch>
-
-            <Route component={GraphEditor}/>
+            <Route path="/teacher/:graphId" component={TeacherView} />
+            <Route path="/teacher" component={TeacherView} />
+            <Route path="/student" component={StudentView} />
+            <Route path="/admin" component={Admin} />
+            <Route path="/preview" component={Preview} />
+            <Route component={GraphEditor} />
         </Switch>
     </div>
 );

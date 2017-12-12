@@ -16,52 +16,6 @@ const ALink = ({to, children}) => (
     </Link>
 );
 
-const topBarStyles = {
-    uber: {
-        overflow: 'hidden',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexGrow: 1,
-        flexDirection: 'column',
-        fontFamily: 'Roboto'
-    },
-    tabBar: {
-        width: "100%",
-        flex: 1,
-    },
-    text: {
-        flex: 1,
-        fontSize: '1.5rem'
-    },
-    menuButton: {
-        margin: '1em'
-    },
-};
-const TopBar = () => {
-
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <Typography type="title" color="inherit" style={topBarStyles.text}>
-                    CK:Teacher
-                </Typography>
-
-                <Tabs
-                    styles={topBarStyles.tabBar}
-                    fullWidth
-                >
-                    <Tab label="Teacher View" value="/teacher"/>
-                    <Tab label="Admin View" value="/admin"/>
-
-                </Tabs>
-            </Toolbar>
-        </AppBar>
-    );
-};
-
-TopBar.displayName = 'TopBar';
-export default TopBar;
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -78,7 +32,7 @@ const styles = theme => ({
 });
 
 @withStyles(styles)
-export class BasicTabs extends React.Component {
+class TopBar extends React.Component {
     state = {
         value: 0,
     };
@@ -98,15 +52,17 @@ export class BasicTabs extends React.Component {
                             CK : Teacher
                         </Typography>
                         <Tabs className={classes.tabs} value={value} onChange={this.handleChange} fullWidth>
-                            <Tab label="Graph Editor"/>
-                            <Tab label="Sessions"/>
-                            <Tab label="Preview"/>
-                            <Tab label="Admin"/>
+                            <Tab label="Graph Editor" component={Link} to="/graph" />
+                            <Tab label="Sessions" component={Link} to="/teacher" />
+                            <Tab label="Preview" component={Link} to="/preview" />
+                            <Tab label="Admin" component={Link} to="/admin" />
                         </Tabs>
-                        <Button color="contrast"><AccountCircle /></Button>
+                        <Button color="contrast"><AccountCircle/></Button>
                     </Toolbar>
                 </AppBar>
             </div>
         );
     }
 }
+
+export default TopBar;
