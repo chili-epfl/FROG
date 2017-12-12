@@ -11,7 +11,7 @@ import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
 import Preview from './../Preview';
 import Admin from './../Admin';
-import TopBar from './TopBar';
+import TopBar, {BasicTabs} from './TopBar';
 
 const styles = {
     uber: {
@@ -33,13 +33,10 @@ const TeacherContainer = ({ready}: { ready: boolean }) => {
     }
     return (
             <div id="app" style={styles.uber}>
-                <TopBar/>
+                <BasicTabs/>
                 <Switch>
-                    <Route path="/preview/:activityTypeId/:example" component={Preview}/>
-                    <Route path="/preview/:activityTypeId" component={Preview}/>
-                    <Route path="/graph/:graphId" component={GraphEditor}/>
-                    <Route path="/graph" component={GraphEditor}/>
-                    <Route component={WithTopBar}/>
+
+
                 </Switch>
             </div>
     );
@@ -48,11 +45,7 @@ const TeacherContainer = ({ready}: { ready: boolean }) => {
 const WithTopBar = () => (
     <div>
         <Switch>
-            <Route path="/teacher/:graphId" component={TeacherView}/>
-            <Route path="/teacher" component={TeacherView}/>
-            <Route path="/student" component={StudentView}/>
-            <Route path="/admin" component={Admin}/>
-            <Route path="/preview" component={Preview}/>
+
             <Route component={GraphEditor}/>
         </Switch>
     </div>
