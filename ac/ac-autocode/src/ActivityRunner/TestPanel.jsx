@@ -34,13 +34,13 @@ const ButtonList = styled.div`
   margin-right: 10px;
 `;
 
-const Feedback = ({ input, expected, received, error, stdout, debug }) => (
+const Feedback = ({ input, expected, received, error, stdout }) => (
   <div>
     {[
       input && <div key="inputT">INPUT</div>,
       input && <CodeBox key="inputB">{renderLines(input)}</CodeBox>,
-      debug && <div key="debugT">CONSOLE OUTPUT</div>,
-      debug && <CodeBox key="debugB">{renderLines(stdout.join('\n'))}</CodeBox>,
+      stdout && <div key="stdoutT">CONSOLE OUTPUT</div>,
+      stdout && <CodeBox key="stdoutB">{stdout}</CodeBox>,
       expected && <div key="expectedT">EXPECTED OUTPUT</div>,
       expected && <CodeBox key="expectedB">{expected}</CodeBox>,
       received && <div key="receivedT">RECEIVED OUTPUT</div>,
@@ -78,7 +78,7 @@ const Debug = ({ data, runCode, setFeedback, logger }) => {
         const error = lineno
           ? 'On line ' + lineno + ', Received error: ' + message
           : 'Received error: ' + message;
-        setFeedback({ error, stdout, debug: true, status: 'ERROR' });
+        setFeedback({ error, stdout, status: 'ERROR' });
       }
     );
   };

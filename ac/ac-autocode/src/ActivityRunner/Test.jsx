@@ -3,9 +3,6 @@
 import React from 'react';
 import { withState } from 'recompose';
 
-const getCode = (code, preCode, postCode) =>
-  [preCode, code, postCode].join('\n');
-
 const Test = ({
   status,
   setStatus,
@@ -19,6 +16,12 @@ const Test = ({
 }: Object) => {
   let testOutput = [];
   let solutionOutput = [];
+
+  const lengthLines = (preCode: string) =>
+    preCode ? preCode.split('\n').length : 1;
+
+  const getCode = (code, preCode, postCode) =>
+    [preCode, code, postCode].join('\n');
 
   const handleOut = w => {
     const output = w === 'student' ? testOutput : solutionOutput;
@@ -39,11 +42,15 @@ const Test = ({
           received: studentOutput[i]
         };
       }
-    return { newStatus: 'success', expected: undefined, received: undefined };
+    return {
+      newStatus: 'success',
+      expected: undefined,
+      received: studentOutput
+    };
   };
 
   const runTest = () => {
-    const { preCode, postCode } = test;
+    const { preCode, postCode, hint } = test;
     const solution = activityData.config.solution;
     const testCode = getCode(data.code, preCode, postCode);
     const solutionCode = getCode(solution, preCode, postCode);
@@ -55,29 +62,31 @@ const Test = ({
         logger({ type: testOutput[2], itemId: index });
         runCode(solutionCode, handleOut('teacher'), () => {}).then(
           () => {
+            // Both code ran without error, checkSolution compare the outputs and assign the values for feedback
             const { newStatus, expected, received } = checkSolution();
             setStatus(newStatus);
             setFeedback({
-              input: preCode + '\n' + postCode,
+              input: hint,
               expected,
               received
             });
           },
           err => {
-            // TEACHER ERROR
+            // Teacher code error
             setStatus('warning');
             const t = err.traceback;
             const a = err.args;
-            const lineno = t && t[0] && t[0].lineno;
+            const lineno = t && t[0] && t[0].lineno - lengthLines(preCode);
             const message = a && a.v && a.v[0] && a.v[0].v;
             const error = lineno
               ? 'On line ' + lineno + ', Received error: ' + message
               : 'Received error: ' + message;
             setFeedback({
-              debug:
-                'The code providing by the teacher seems incorrect, please report them the error',
+              stdout: [
+                'The code providing by the teacher seems incorrect, please report them the error'
+              ],
               error,
-              input: preCode + '\n' + postCode
+              input: hint
             });
           }
         );
@@ -87,12 +96,12 @@ const Test = ({
         setStatus('danger');
         const t = err.traceback;
         const a = err.args;
-        const lineno = t && t[0] && t[0].lineno;
+        const lineno = t && t[0] && t[0].lineno - lengthLines(preCode);
         const message = a && a.v && a.v[0] && a.v[0].v;
         const error = lineno
           ? 'On line ' + lineno + ', Received error: ' + message
           : 'Received error: ' + message;
-        setFeedback({ error, input: preCode + '\n' + postCode });
+        setFeedback({ error, input: hint });
       }
     );
   };

@@ -26,9 +26,9 @@ export const config = {
       items: {
         type: 'object',
         properties: {
-          description: {
+          hint: {
             type: 'string',
-            title: 'Description'
+            title: 'show this as "input" for student'
           },
           preCode: {
             type: 'string',
@@ -53,7 +53,17 @@ export const configUI = {
   },
   tests: {
     items: {
-      'ui:widget': 'textarea'
+      hint: {
+        'ui:widget': 'textarea'
+      },
+
+      preCode: {
+        'ui:widget': 'textarea'
+      },
+
+      postCode: {
+        'ui:widget': 'textarea'
+      }
     }
   }
 };
@@ -67,17 +77,17 @@ export const exampleConfig0 = {
     solution: 'def double(x):\n\treturn 2*x',
     tests: [
       {
-        description: 'x=0',
+        hint: 'x=0',
         preCode: '',
         postCode: 'print double(0)'
       },
       {
-        description: 'x=42',
+        hint: 'x=42',
         preCode: '',
         postCode: 'print double(42)'
       },
       {
-        description: 'x=1234567890',
+        hint: 'x=1234567890',
         preCode: '',
         postCode: 'print double(1234567890)'
       }
@@ -97,22 +107,22 @@ export const exampleConfig1 = {
     solution: 'b=sorted(a)',
     tests: [
       {
-        description: 'Already sorted',
+        hint: 'a=[1, 2, 3]',
         preCode: 'a=[1, 2, 3]',
         postCode: 'print b'
       },
       {
-        description: 'Normal case',
+        hint: 'a=[10, 2, 15, 8, 7]',
         preCode: 'a=[10, 2, 15, 8, 7]',
         postCode: 'print b'
       },
       {
-        description: 'Edge case 1',
+        hint: 'a=[42]',
         preCode: 'a=[42]',
         postCode: 'print b'
       },
       {
-        description: 'Edge case 2',
+        hint: 'a=[]',
         preCode: 'a=[]',
         postCode: 'print b'
       }
@@ -132,32 +142,32 @@ export const exampleConfig2 = {
     template:
       'from collections import OrderedDict\ndef write_roman(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])\nprint write_roman(3)',
     solution:
-      'from collections import OrderedDict\ndef solution(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])',
+      'from collections import OrderedDict\ndef solution(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])\nprint solution(N)',
     tests: [
       {
-        description: 'One letter',
-        preCode: '',
-        postCode: 'print roman_num(50)'
+        hint: 'N=50',
+        preCode: 'N=50',
+        postCode: ''
       },
       {
-        description: 'Simple addition',
-        preCode: '',
-        postCode: 'print roman_num(12)'
+        hint: 'N=12',
+        preCode: 'N=12',
+        postCode: ''
       },
       {
-        description: 'Substraction rule',
-        preCode: '',
-        postCode: 'print roman_num(1994)'
+        hint: 'N=1994',
+        preCode: 'N=1994',
+        postCode: ''
       },
       {
-        description: 'The largest',
+        hint: 'N=3999',
         preCode: 'N=3999',
-        postCode: 'print roman_num(3999)'
+        postCode: ''
       },
       {
-        description: 'A bit of everything',
-        preCode: '',
-        postCode: 'print roman_num(1474)'
+        hint: 'N=1474',
+        preCode: 'N=1474',
+        postCode: ''
       }
     ]
   },
