@@ -23,9 +23,8 @@ export default class ActivityRunner extends Component {
   }
 
   componentDidMount() {
-    console.log('didmount');
     this.runCode = makeRunCode(this.props.activityData.config.language);
-    console.log(this.runCode);
+    this.forceUpdate();
   }
 
   render() {

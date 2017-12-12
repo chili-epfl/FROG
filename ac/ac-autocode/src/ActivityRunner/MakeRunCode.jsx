@@ -14,21 +14,17 @@ const makeRunCode = (language: string) => {
 
 const javascript = () => {
   const javascriptRunCode = (code: string, out: Function, err: Function) => {
-    console.log(code);
-    console.log(out);
-
     return new Promise((resolve, reject) => {
-      let printer = {
-        log: function(...args) {
-          args.forEach(output => out(output));
-          out('\n');
-        }
-      };
       try {
-        eval(code);
+        const consoleToOut =
+          'const print = (...args) => args.forEach(output => out(output));\n';
+        console.log(consoleToOut + code);
+        eval(consoleToOut + code);
       } catch (e) {
         out(String(e));
+        reject();
       }
+      resolve();
     });
   };
 
@@ -69,8 +65,6 @@ const python = () => {
       err('Skulpt not loaded, please check internet connection');
     }
   };
-
-  console.log(window.Sk);
 
   return pythonRunCode;
 };

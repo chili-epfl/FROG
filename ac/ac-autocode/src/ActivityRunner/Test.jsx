@@ -43,7 +43,7 @@ const Test = ({
   };
 
   const runTest = () => {
-    const { preCode, postCode } = test;
+    const { preCode, postCode, hint } = test;
     const solution = activityData.config.solution;
     const testCode = getCode(data.code, preCode, postCode);
     const solutionCode = getCode(solution, preCode, postCode);
@@ -51,8 +51,7 @@ const Test = ({
     testOutput = [];
     solutionOutput = [];
 
-    console.log('TESTING');
-    console.log(runCode);
+    console.log(testCode);
 
     runCode(testCode, handleOut('student'), () => {}).then(
       () => {
@@ -60,9 +59,15 @@ const Test = ({
         runCode(solutionCode, handleOut('teacher'), () => {}).then(
           () => {
             const { newStatus, expected, received } = checkSolution();
+
+            console.log(testCode);
+            console.log(solutionCode);
+            console.log(testOutput);
+            console.log(solutionOutput);
+
             setStatus(newStatus);
             setFeedback({
-              input: preCode + '\n' + postCode,
+              input: hint,
               expected,
               received
             });
