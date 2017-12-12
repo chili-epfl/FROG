@@ -16,9 +16,26 @@ const LocalVideo = ({ src }) => {
   );
 };
 
-const RemoteVideo = ({ src, index }) => (
-  <video id={index} autoPlay="true" height="200px" muted="false" src={src} />
-);
+const RemoteVideo = ({ src, index, name }) => {
+  return(
+    <div>
+      <video 
+        id={index} 
+        autoPlay="true" 
+        height="200px" 
+        muted="false" 
+        src={src} 
+      />
+      <h1>{name}</h1>
+    </div>
+  );
+};
+
+  type StateT = 
+    | { mode: 'notReady' }
+    | { mode: 'readyToCall', local: Object }
+    | { mode: 'calling', local: Object, remote: Array }
+    | { mode: 'hangUp' };
 
 class ActivityRunner extends Component {
   pcConfig = {
@@ -55,24 +72,33 @@ class ActivityRunner extends Component {
 
   startConnection = remoteUser => {
     // CHECK if correct! Might be causing problems
+    console.log(this.connections, remoteUser); 
+    console.log(_.contains(this.connections, { remoteUser: remoteUser })); 
+    console.log(!_.isUndefined(this.state.local.stream));
+    console.log((this.state.local.stream !== 'null')); 
+      
     if (
       !_.contains(this.connections, { remoteUser: remoteUser }) &&
-      typeof this.state.local.stream !== 'undefined'
+      !_.isUndefined(this.state.local.stream) &&
+      (this.state.local.stream !== 'null')
     ) {
+      console.log("INSIDE IF"); 
       var connection = this.createPeerConnection();
       connection.addStream(this.state.local.stream);
       connection.remoteUser = remoteUser;
       this.connections.push(connection);
+      console.log(connection); 
       return connection;
     }
   };
 
   createPeerConnection = () => {
     try {
-      var conn = new RTCPeerConnection(pcConfig);
+      var conn = new RTCPeerConnection(this.pcConfig);
       conn.onicecandidate = this.handleIceCandidate;
       conn.onaddstream = this.handleRemoteStreamAdded;
       conn.onremovestream = this.handleRemoteStreamRemoved;
+      console.log("create", conn); 
       return conn;
     } catch (e) {
       alert('Cannot create RTCPeerConnection object.');
@@ -96,6 +122,7 @@ class ActivityRunner extends Component {
       this.props.dataFn.listAppend(message);
     } else {
       console.log('End of candidates.');
+      console.log(this.connections); 
     }
   };
 
@@ -105,12 +132,12 @@ class ActivityRunner extends Component {
     if (_.isUndefined(remotes[index])) {
       remotes[index] = {
         stream: event.stream,
-        src: window.URL.createObjectURL(event.stream)
+        src: window.URL.createObjectURL(event.stream),
+        remoteUser: this.connections[index].remoteUser
       };
     } else {
       alert('ERROR on remote stream indexes');
     }
-    console.log('settings state');
     this.setState({
       remote: remotes
     });
@@ -209,7 +236,6 @@ class ActivityRunner extends Component {
           return true;
         }
       });
-      console.log('settings state');
       this.setState({
         remote: newRemotes
       });
@@ -321,7 +347,7 @@ class ActivityRunner extends Component {
   }
 
   gotStream = stream => {
-    console.log('settings state');
+    console.log(stream); 
     this.setState({
       local: {
         src: window.URL.createObjectURL(stream),
@@ -331,13 +357,13 @@ class ActivityRunner extends Component {
     this.call();
   };
 
+
   call = () => {
-    console.log('CALLING');
     let message = {
-      type: 'create or join',
+      type: 'join',
       data: {
         room: this.props.groupingValue || 'room',
-        user: this.props.userInfo
+        fromUser: this.props.userInfo
       }
     };
     // this.ws.send(JSON.stringify(message));
@@ -346,11 +372,14 @@ class ActivityRunner extends Component {
 
   componentWillUnmount() {
     console.log('WILL UNMOUNT');
-    let message = {
-      type: 'bye'
-    };
-    // this.ws.send(JSON.stringify(message));
-    this.props.dataFn.listAppend(message);
+    // let message = {
+    //   type: 'bye',
+    //   data: {
+    //     fromUser: this.props.userInfo
+    //   }
+    // };
+    // // this.ws.send(JSON.stringify(message));
+    // this.props.dataFn.listAppend(message);
     if (this.state.local.stream) {
       try {
         this.state.local.stream.getTracks().forEach(track => track.stop());
@@ -384,67 +413,66 @@ class ActivityRunner extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log('SHOULD UPDATE');
-    if (_.difference(nextProps.data, this.props.data)) {
-      console.log('CHANGE PROPS');
-    }
-    if (_.difference(this.state, nextState)) {
-      console.log('CHANGE STATE');
-    } else {
-      console.log(nextProps.data, this.props.data);
-    }
-    return true;
-    // Once it works then check the type of new message
+    if (_.difference(nextProps.data, this.props.data).length > 0) {
+      let newMess = _.last(nextProps.data);
+      if (!_.isEqual(newMess.data.fromUser, this.props.userInfo)) {
+        switch (newMess.type){
+          case 'join':
+            console.log("JOIN");
+            console.log(newMess.data.fromUser.id, this.props.userInfo.id); 
+            if(newMess.data.fromUser.id !== this.props.userInfo.id){
+              let connection = this.startConnection(newMess.data.fromUser);
+              console.log("conn", connection); 
+              if (connection) {
+                console.log("start offer"); 
+                this.startOffer(connection);
+              };
+            }
+            break;
+          case 'bye' :
+            console.log("BYE");
+            this.handleRemoteHangUp(newMess.data.fromUser);
+            break;
+          case 'log' :
+            console.log("LOG");
+            break;
+          default :
+            if (_.isEqual(newMess.data.toUser, this.props.userInfo)) {
+              switch(newMess.type){
+              case 'offer':
+                console.log("OFFER");
+                let connectionOffer = this.startConnection(newMess.data.fromUser);
+                if (connectionOffer) {
+                  connectionOffer.setRemoteDescription(new RTCSessionDescription(newMess.data.message));
+                  this.startAnswer(connectionOffer);
+                };
+                break;
+              case 'answer' :
+                console.log("ANSWER");
+                this.findConnectionByRemoteUser(newMess.data.fromUser).setRemoteDescription(new RTCSessionDescription(newMess.data.message));
+                break;
+              case 'candidate' :
+                console.log("CANDIDATE");
+                let candidate = new RTCIceCandidate({
+                  sdpMLineIndex: newMess.data.label,
+                  candidate: newMess.data.candidate
+                });
+                this.findConnectionByRemoteUser(newMess.data.fromUser).addIceCandidate(candidate);
+                break;
+              }
+            }
+            break;
+        }
+      }        
+      return false;
+    } else if(!_.isEqual(nextState.local, this.state.local)){
+      console.log("CHANGE IN LOCAL");
 
-    // if(!_.isEqual(nextProps.data, this.props.data)){
-    //   let newMess = _.last(nextProps.data);
-    //   console.log("NEW MESS");
-    //   switch (newMess.type){
-    //     case 'created':
-    //       console.log("CREATED");
-    //       break;
-    //     case 'joined':
-    //       console.log("JOINED");
-    //       break;
-    //     case 'join':
-    //       console.log("JOIN");
-    //       // let connection = this.startConnection(JSONmess.data.user);
-    //       // if (connection) {
-    //       //   this.startOffer(connection);
-    //       // };
-    //       break;
-    //     case 'offer':
-    //       console.log("OFFER");
-    //       // let connectionOffer = this.startConnection(JSONmess.data.fromUser);
-    //       // if (connectionOffer) {
-    //       //   connectionOffer.setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
-    //       //   this.startAnswer(connectionOffer);
-    //       // };
-    //       break;
-    //     case 'answer' :
-    //       console.log("ANSWER");
-    //       // this.findConnectionByRemoteUser(JSONmess.data.fromUser).setRemoteDescription(new RTCSessionDescription(JSONmess.data.message));
-    //       break;
-    //     case 'candidate' :
-    //       console.log("CANDIDATE");
-    //       // let candidate = new RTCIceCandidate({
-    //       //   sdpMLineIndex: JSONmess.data.label,
-    //       //   candidate: JSONmess.data.candidate
-    //       // });
-    //       // this.findConnectionByRemoteUser(JSONmess.data.fromUser).addIceCandidate(candidate);
-    //       break;
-    //     case 'bye' :
-    //       console.log("BYE");
-    //       // this.handleRemoteHangUp(JSONmess.data);
-    //       break;
-    //     case 'log' :
-    //       console.log("LOG");
-    //       // console.log(JSONmess);
-    //       break;
-    //     default :
-    //       console.log("DEFAUL");
-    //       // console.log(JSONmess.type);
-    //   }
-    // }
+      
+      return true; 
+    } else{
+      return true;
+    }
   }
 
   render() {
@@ -460,6 +488,7 @@ class ActivityRunner extends Component {
     return (
       <div id="webrtc">
         <h1>{activityData.config.title}</h1>
+        <h1>You are: {userInfo.name} in group {groupingValue}</h1>
         <div id="videos">
           <LocalVideo
             src={this.state.local.src}
@@ -472,10 +501,11 @@ class ActivityRunner extends Component {
                 index={'remotevideo' + index}
                 src={connection.src}
                 stream={connection.stream}
+                name = {connection.remoteUser.name}
               />
             ))
           ) : (
-            <h1>You are alone</h1>
+            <h1>You are alone. </h1>
           )}
         </div>
       </div>
