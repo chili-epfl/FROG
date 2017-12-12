@@ -34,11 +34,11 @@ const ButtonList = styled.div`
   margin-right: 10px;
 `;
 
-const Feedback = ({ input, expected, received, error, stdout }) => (
+const Feedback = ({ inputDesc, expected, received, error, stdout }) => (
   <div>
     {[
-      input && <div key="inputT">INPUT</div>,
-      input && <CodeBox key="inputB">{renderLines(input)}</CodeBox>,
+      inputDesc && <div key="inputDescT">INPUT</div>,
+      inputDesc && <CodeBox key="inputDescB">{renderLines(inputDesc)}</CodeBox>,
       stdout && <div key="stdoutT">CONSOLE OUTPUT</div>,
       stdout && <CodeBox key="stdoutB">{stdout}</CodeBox>,
       expected && <div key="expectedT">EXPECTED OUTPUT</div>,
@@ -67,7 +67,7 @@ const Debug = ({ data, runCode, setFeedback, logger }) => {
     logger({ type: 'debug', value: data.code });
     runCode(data.code, out => stdout.push(out), () => {}).then(
       () => {
-        setFeedback({ stdout, debug: true });
+        setFeedback({ stdout });
       },
       err => {
         logger({ type: 'ERROR', itemId: 'debug' });
