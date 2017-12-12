@@ -201,7 +201,7 @@ const FROGRouter = withRouter(
 export default () => (
   <ErrorBoundary>
     <Router>
-      <div style={{ width: '100%', height: '100%' }}>
+      <div style={{ width: '100%', height: '100%'}}>
         <Switch>
           <Route path="/:slug" component={FROGRouter} />
           <Route component={FROGRouter} />

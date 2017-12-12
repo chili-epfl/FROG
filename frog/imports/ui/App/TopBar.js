@@ -1,27 +1,68 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import Tabs, {Tab} from 'material-ui/Tabs';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
 
-const Link = ({ to, children }) => (
-  <li>
-    <NavLink
-      to={to}
-      activeStyle={{ pointerEvents: 'none', color: '#000000' }}
-      activeClassName="active"
-      style={{ pointerEvents: 'auto' }}
+const ALink = ({to, children}) => (
+    <Link
+        to={to}
     >
-      {children}
-    </NavLink>
-  </li>
+        {children}
+    </Link>
 );
 
-const TopBar = () => (
-  <ul className="nav nav-pills">
-    <Link to="/admin">Admin</Link>
-    <Link to="/graph">Graph Editor</Link>
-    <Link to="/preview">Preview</Link>
-    <Link to="/teacher">Teacher View</Link>
-  </ul>
-);
+
+const TopBar = () => {
+    const styles = {
+        uber: {
+            overflow: 'hidden',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexGrow: 1,
+            flexDirection: 'column',
+            fontFamily: 'Roboto'
+        },
+        appBar: {
+            width: '100%',
+        },
+        tabBar: {
+            width: "100%",
+            flex: 1,
+        },
+        menuButton: {
+            margin: '1em'
+        },
+        text: {
+            flex: 1,
+            fontSize: '1.5rem'
+        },
+    };
+    return (
+        <AppBar position="static" style={styles.appBar}>
+            <Toolbar>
+                <Typography type="title" color="inherit" style={styles.text}>
+                    CK
+                </Typography>
+
+                <Tabs
+                    styles={styles.tabBar}
+                    fullWidth
+                >
+                    <Tab label="Teacher View"  value="/teacher"/>
+                    <Tab label="Admin View" value="/admin"/>
+
+                </Tabs>
+            </Toolbar>
+        </AppBar>
+    );
+};
 
 TopBar.displayName = 'TopBar';
 export default TopBar;
