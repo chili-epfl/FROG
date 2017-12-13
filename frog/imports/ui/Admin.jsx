@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { buttons } from 'bootstrap-css';
 import { A } from 'frog-utils';
-
 import { Sessions } from '../api/sessions';
 import {
   Activities,
@@ -18,6 +18,8 @@ import { Graphs, importGraph } from '../api/graphs';
 
 import { mixedJigsaw } from '../datasets/mixedJigsaw';
 import { argueGraph } from '../datasets/argueGraph';
+
+Object.assign(buttons);
 
 const loadDatabase = data => {
   data.graphs.forEach(item => importGraph(item));

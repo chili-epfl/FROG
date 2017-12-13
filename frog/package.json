@@ -68,6 +68,7 @@
     "react-addons-test-utils": "^15.6.2",
     "react-addons-transition-group": "^15.6.2",
     "react-bootstrap": "^0.31.5",
+    "react-css-modules": "^4.7.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
     "react-draggable": "^3.0.4",
