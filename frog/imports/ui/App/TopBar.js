@@ -33,17 +33,22 @@ const styles = theme => ({
 
 @withStyles(styles)
 class TopBar extends React.Component {
-    state = {
-        value: 0,
-    };
+
+    constructor() {
+        super();
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {value: "/graph"};
+    }
+
     handleChange = (event, value) => {
         this.setState({value});
+        console.log('called state', value);
     };
 
     render() {
         const {classes} = this.props;
-        const {value} = this.state;
 
+        console.log('props', this.props, this.state);
         return (
             <div className={classes.root}>
                 <AppBar position="static">
@@ -51,11 +56,11 @@ class TopBar extends React.Component {
                         <Typography type="subheading" color="inherit">
                             CK : Teacher
                         </Typography>
-                        <Tabs className={classes.tabs} value={value} onChange={this.handleChange} fullWidth>
-                            <Tab label="Graph Editor" component={Link} to="/graph" />
-                            <Tab label="Sessions" component={Link} to="/teacher" />
-                            <Tab label="Preview" component={Link} to="/preview" />
-                            <Tab label="Admin" component={Link} to="/admin" />
+                        <Tabs className={classes.tabs}  value={this.state.value} onChange={this.handleChange} fullWidth>
+                            <Tab label="Sessions" component={Link} to="/teacher" value="/teacher"/>
+                            <Tab label="Graph Editor" component={Link} to="/graph" value="/graph"/>
+                            <Tab label="Preview" component={Link} to="/preview" value="/preview"/>
+                            <Tab label="Admin" component={Link} to="/admin" value="/admin"/>
                         </Tabs>
                         <Button color="contrast"><AccountCircle/></Button>
                     </Toolbar>
