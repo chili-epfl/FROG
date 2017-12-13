@@ -31,6 +31,9 @@ const doLogin = (user, self) => {
     id: user
   });
   Meteor.users.update(userId, { $set: { username: user } });
+  const stampedLoginToken = Accounts._generateStampedLoginToken();
+  Accounts._insertLoginToken(userId, stampedLoginToken);
+
   const result = Accounts._loginUser(self, userId);
   return result;
 };

@@ -3,8 +3,8 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import styled from 'styled-components';
-import Latex from 'react-latex';
-import type { ActivityRunnerT } from 'frog-utils';
+import seededShuffle from 'seededshuffle';
+import { type ActivityRunnerT, HTML } from 'frog-utils';
 
 import LatexWidget from './LatexWidget';
 
@@ -33,11 +33,17 @@ const QuestionTitle = styled.div`
 
 const DescriptionField = props => (
   <QuestionTitle>
-    <Latex>{props.description}</Latex>
+    <HTML html={props.description} />
   </QuestionTitle>
 );
 
-const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
+const Quiz = ({
+  activityData,
+  data,
+  dataFn,
+  logger,
+  groupingValue
+}: ActivityRunnerT) => {
   const schema = {
     title: activityData.config.name,
     type: 'object',
@@ -46,34 +52,48 @@ const Quiz = ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
 
   const uiSchema = {};
 
-  activityData.config.questions
-    .filter(q => q.question && q.answers)
-    .forEach((q, i) => {
-      schema.properties['question ' + i] = {
-        type: 'number',
-        title: 'Question ' + (i + 1),
-        enum: q.answers.map((_, k) => k),
-        enumNames: q.answers
+  const condShuffle = (list, type, salt) =>
+    [type, 'both'].includes(activityData.config.shuffle)
+      ? seededShuffle.shuffle(list, groupingValue + salt, true)
+      : list;
+
+  const questions = condShuffle(
+    activityData.config.questions
+      .filter(q => q.question && q.answers)
+      .map((x, i) => [x, i]),
+    'questions',
+    ''
+  );
+
+  questions.forEach(([q, i], reali) => {
+    const answers = condShuffle(q.answers.map((x, y) => [x, y]), 'answers', i);
+    schema.properties['question ' + i] = {
+      type: 'number',
+      title: 'Question ' + (reali + 1),
+      enum: answers.map(([, k]) => k),
+      enumNames: answers.map(([x]) => x.choice)
+    };
+    uiSchema['question ' + i] = {
+      'ui:widget': 'latexWidget',
+      'ui:description': q.question
+    };
+    if (activityData.config.justify) {
+      schema.properties['question ' + i + ' justify'] = {
+        type: 'string',
+        title: ' ',
+        description: 'Justify your answer'
       };
-      uiSchema['question ' + i] = {
-        'ui:widget': 'latexWidget',
-        'ui:description': q.question
-      };
-      if (activityData.config.justify) {
-        schema.properties['question ' + i + ' justify'] = {
-          type: 'string',
-          title: ' ',
-          description: 'Justify your answer'
-        };
-      }
-    });
+    }
+  });
 
   const widgets = { latexWidget: LatexWidget };
   const fields = { DescriptionField };
   const formData = data.form;
   const onSubmit = e => {
     logger({ type: 'submit', payload: e.formData });
-    dataFn.objInsert(true, 'completed');
+    if (data.form && Object.keys(data.form).length >= questions.length) {
+      dataFn.objInsert(true, 'completed');
+    }
   };
   const onChange = e => {
     dataFn.objInsert(e.formData, 'form');
@@ -93,9 +113,11 @@ export default (props: ActivityRunnerT) => {
     <Main>
       <h1>{activityData.config.title || 'Quiz'}</h1>
       <Container>
-        <Latex>
-          {activityData.config.guidelines || 'Answer the following questions'}
-        </Latex>
+        <HTML
+          html={
+            activityData.config.guidelines || 'Answer the following questions'
+          }
+        />
       </Container>
       <Container>
         {data.completed ? <h1>Form completed!</h1> : <Quiz {...props} />}

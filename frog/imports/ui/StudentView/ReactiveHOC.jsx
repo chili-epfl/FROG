@@ -1,12 +1,12 @@
 // @flow
 import React, { Component } from 'react';
+import Spinner from 'react-spinner';
+import { cloneDeep } from 'lodash';
 import {
   generateReactiveFn,
   type ReactComponent,
   getDisplayName
 } from 'frog-utils';
-import Spinner from 'react-spinner';
-import { cloneDeep } from 'lodash';
 
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';

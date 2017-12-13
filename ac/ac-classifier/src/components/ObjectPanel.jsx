@@ -23,7 +23,9 @@ const ImgPanel = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-const TextView = ({ data }) => data.text;
+const TextView = ({ data }) => (
+  <span style={{ fontSize: '36px' }}>{data.text}</span>
+);
 
 const components = {
   image: {

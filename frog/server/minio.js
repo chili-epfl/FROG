@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { shuffle } from 'lodash';
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || !Meteor.settings.Minio) {
   Meteor.methods({
-    'minio.signedurl': name => 'http://localhost:3000/file?name=' + name
+    'minio.signedurl': name => '/file?name=' + name
   });
 } else {
   Meteor.methods({
