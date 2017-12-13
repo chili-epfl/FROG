@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+// import { computed, action, observable } from 'mbox';
 import type { ActivityRunnerT } from 'frog-utils';
 // import ReconnectingWebSocket from 'reconnectingwebsocket';
 
@@ -31,11 +32,13 @@ const RemoteVideo = ({ src, index, name }) => {
   );
 };
 
-  type StateT = 
-    | { mode: 'notReady' }
-    | { mode: 'readyToCall', local: Object }
-    | { mode: 'calling', local: Object, remote: Array }
-    | { mode: 'hangUp' };
+type StateT = 
+  | { mode: 'notReady' }
+  | { mode: 'readyToCall', local: Object}
+  | { mode: 'calling', local: Object, remote: Array }
+  | { mode: 'hangUp' }
+  | { mode: 'normal' }
+  | { mode: 'readOnly' };
 
 class ActivityRunner extends Component {
   pcConfig = {
@@ -56,12 +59,22 @@ class ActivityRunner extends Component {
     ]
   };
 
-  state: {
-    local: {
-      src: string,
-      stream: string
-    },
-    remote: []
+  @observable _state: StateT;
+  @observable readOnly: boolean;
+
+
+
+  set state(newState: StateT){
+    console.log("SET STATE", newState); 
+    this._state = newState;
+  };
+
+  // @computed
+  get state(): StateT {
+    if (this.readOnly) {
+      return { mode: 'readOnly' };
+    }
+    return this._state || { mode: 'normal' };
   };
 
   findConnectionByRemoteUser = userInfo => {
@@ -74,13 +87,12 @@ class ActivityRunner extends Component {
     // CHECK if correct! Might be causing problems
     console.log(this.connections, remoteUser); 
     console.log(_.contains(this.connections, { remoteUser: remoteUser })); 
-    console.log(!_.isUndefined(this.state.local.stream));
-    console.log((this.state.local.stream !== 'null')); 
+    console.log(this.state.mode === 'readyToCall');
+    console.log(this.state.mode); 
       
     if (
       !_.contains(this.connections, { remoteUser: remoteUser }) &&
-      !_.isUndefined(this.state.local.stream) &&
-      (this.state.local.stream !== 'null')
+      this.state.mode === ('readyToCall' || 'calling')
     ) {
       console.log("INSIDE IF"); 
       var connection = this.createPeerConnection();
@@ -128,19 +140,36 @@ class ActivityRunner extends Component {
 
   handleRemoteStreamAdded = event => {
     let index = _.indexOf(this.connections, event.target);
-    let remotes = this.state.remote;
-    if (_.isUndefined(remotes[index])) {
+    if(this.state.mode === 'calling'){
+      let remotes = this.state.remote;
+      if (_.isUndefined(remotes[index])) {
+        remotes[index] = {
+          stream: event.stream,
+          src: window.URL.createObjectURL(event.stream),
+          remoteUser: this.connections[index].remoteUser
+        };
+      } else {
+        alert('ERROR on remote stream indexes');
+      }
+      this.setState({
+        mode: 'calling',
+        remote: remotes
+      });
+    }else if (this.state.mode === 'readyToCall'){
+      let remotes = [];
       remotes[index] = {
         stream: event.stream,
         src: window.URL.createObjectURL(event.stream),
         remoteUser: this.connections[index].remoteUser
       };
+      this.setState({
+        mode: 'calling',
+        remote: remotes
+      });
     } else {
       alert('ERROR on remote stream indexes');
-    }
-    this.setState({
-      remote: remotes
-    });
+    }  
+
   };
 
   handleRemoteStreamRemoved = event => {
@@ -237,6 +266,7 @@ class ActivityRunner extends Component {
         }
       });
       this.setState({
+        mode: 'calling',
         remote: newRemotes
       });
     }
@@ -327,16 +357,11 @@ class ActivityRunner extends Component {
     super(props);
 
     this.connections = [];
-    this.state = {
-      local: {
-        src: 'null',
-        stream: 'null'
-      },
-      remote: []
-    };
+    this.state = { mode: 'notReady'};
+
   }
 
-  componentWillMount() {
+  componentDidMount() {
     console.log('WILL MOUNT');
     navigator.mediaDevices
       .getUserMedia(this.props.activityData.config.sdpConstraints)
@@ -344,21 +369,41 @@ class ActivityRunner extends Component {
       .catch(function(e) {
         alert('getUserMedia() error: ' + e.name);
       });
+    let message = {
+      type: 'join',
+      data: {
+        room: this.props.groupingValue || 'room',
+        fromUser: this.props.userInfo
+      }
+    };
+    try{
+      this.props.dataFn.listAppend(message);
+    }catch (e){
+      console.log("ERROR" , e); 
+    } 
   }
 
   gotStream = stream => {
     console.log(stream); 
-    this.setState({
+    // this.setState({
+    //   local: {
+    //     src: window.URL.createObjectURL(stream),
+    //     stream: stream
+    //   }
+    // }, this.call);
+    console.log(this.state); 
+    this.setState({ 
+      mode : 'readyToCall',
       local: {
         src: window.URL.createObjectURL(stream),
         stream: stream
       }
     });
-    this.call();
   };
 
 
   call = () => {
+    console.log(this.props); 
     let message = {
       type: 'join',
       data: {
@@ -367,7 +412,12 @@ class ActivityRunner extends Component {
       }
     };
     // this.ws.send(JSON.stringify(message));
-    this.props.dataFn.listAppend(message);
+    try{
+      this.props.dataFn.listAppend(message);
+    }catch (e){
+      console.log("ERROR" , e); 
+    }
+
   };
 
   componentWillUnmount() {
@@ -380,6 +430,7 @@ class ActivityRunner extends Component {
     // };
     // // this.ws.send(JSON.stringify(message));
     // this.props.dataFn.listAppend(message);
+    if(this.state.mode === 'calling'){
     if (this.state.local.stream) {
       try {
         this.state.local.stream.getTracks().forEach(track => track.stop());
@@ -409,6 +460,10 @@ class ActivityRunner extends Component {
     }
 
     this.connections = [];
+    this.setState({
+      mode: 'hangUp'
+    });
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -465,12 +520,38 @@ class ActivityRunner extends Component {
         }
       }        
       return false;
-    } else if(!_.isEqual(nextState.local, this.state.local)){
-      console.log("CHANGE IN LOCAL");
+    } else if(!_.isEqual(nextState, this.state)){
+      console.log("CHANGE IN state", nextState, this.state);
+      switch (nextState.mode){
+        case 'notReady' : 
+          console.log("not ready"); 
+          break;
+        case 'readyToCall' :
+          console.log("ready"); 
+          console.log(this.props.dataFn); 
+          this.call(); 
+          break;
+        case 'calling' : 
+          console.log("calling");
+          break;
+        case 'hangUp' : 
+          console.log("hangup");
+          break;
+        case 'normal' : 
+          console.log("normal");
+          break;
+        case 'readOnly' : 
+          console.log("readonly");
+          break;    
+      }
 
       
       return true; 
-    } else{
+    } else if (!_.isEqual(nextProps.dataFn, this.props.dataFn)){
+      console.log("NOT EQUAL");
+      console.log(nextProps.dataFn);  
+
+    }else{
       return true;
     }
   }
@@ -491,10 +572,10 @@ class ActivityRunner extends Component {
         <h1>You are: {userInfo.name} in group {groupingValue}</h1>
         <div id="videos">
           <LocalVideo
-            src={this.state.local.src}
-            stream={this.state.local.stream}
+            src={this.state.local ? this.state.local.src : ""}
+            stream={this.state.local ? this.state.local.stream : ""}
           />
-          {this.state.remote.length > 0 ? (
+          {this.state.remote ? (
             this.state.remote.map((connection, index) => (
               <RemoteVideo
                 key={index}
