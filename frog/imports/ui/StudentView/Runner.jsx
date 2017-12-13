@@ -33,15 +33,15 @@ const Runner = ({path, activity, sessionId, object, single}) => {
     const socStructure = focusStudent(object.socialStructure);
     const studentSoc = socStructure[Meteor.userId()];
 
-    let groupingValue;
-    if (studentSoc && activity.groupingKey) {
-        groupingValue = studentSoc[activity.groupingKey];
-    } else if (activity.plane === 3) {
-        groupingValue = 'all';
-    } else {
-        groupingValue = Meteor.userId();
-    }
-    const reactiveId = activity._id + '/' + groupingValue;
+  let groupingValue;
+  if (activity.plane === 3) {
+    groupingValue = 'all';
+  } else if (activity.plane === 2) {
+    groupingValue = studentSoc[activity.groupingKey];
+  } else {
+    groupingValue = Meteor.userId();
+  }
+  const reactiveId = activity._id + '/' + groupingValue;
 
     const logger = createLogger(sessionId, groupingValue, activity);
 
