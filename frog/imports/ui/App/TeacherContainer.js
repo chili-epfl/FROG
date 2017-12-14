@@ -14,17 +14,15 @@ import Admin from './../Admin';
 import TopBar from './TopBar';
 
 const styles = {
-    uber: {
-        overflow: 'hidden',
-        width: '100%',
-        height: '100%',
+    gridContent: {
+        marginLeft: 0,
         display: 'flex',
         flexDirection: 'column',
-        fontFamily: 'Roboto'
-    }, navbar: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between"
+    },
+    subroot: {
+        paddingTop: 48,
+        paddingRight: 3,
+        paddingLeft: 3
     }
 };
 const TeacherContainer = ({ready}: { ready: boolean }) => {
@@ -32,31 +30,35 @@ const TeacherContainer = ({ready}: { ready: boolean }) => {
         return <Spinner/>;
     }
     return (
-        <div id="app" style={styles.uber}>
+        <div id="app">
             <Switch>
-                <Route path="/preview/:activityTypeId/:example" component={Preview} />
-                <Route path="/preview/:activityTypeId" component={Preview} />
-                <Route path="/graph/:graphId" component={GraphEditor} />
-                <Route path="/graph" component={GraphEditor} />
+                <Route path="/preview/:activityTypeId/:example" component={Preview}/>
+                <Route path="/preview/:activityTypeId" component={Preview}/>
+                <Route path="/graph/:graphId" component={GraphEditor}/>
+                <Route path="/graph" component={GraphEditor}/>
                 <Route component={WithTopBar}/>
             </Switch>
         </div>
     );
 };
 
-const WithTopBar = () => (
-    <div>
-        <TopBar />
-        <Switch>
-            <Route path="/teacher/:graphId" component={TeacherView} />
-            <Route path="/teacher" component={TeacherView} />
-            <Route path="/student" component={StudentView} />
-            <Route path="/admin" component={Admin} />
-            <Route path="/preview" component={Preview} />
-            <Route component={GraphEditor} />
-        </Switch>
-    </div>
-);
+const WithTopBar = () => {
+    return (
+        <div id="subroot" style={styles.subroot}>
+            <TopBar barHeight={styles.subroot.paddingTop}/>
+            <div id="gc" style={styles.gridContent}>
+                <Switch>
+                    <Route path="/teacher/:graphId" component={TeacherView}/>
+                    <Route path="/teacher" component={TeacherView}/>
+                    <Route path="/student" component={StudentView}/>
+                    <Route path="/admin" component={Admin}/>
+                    <Route path="/preview" component={Preview}/>
+                    <Route component={GraphEditor}/>
+                </Switch>
+            </div>
+        </div>
+    );
+};
 
 export default createContainer(() => {
     const collections = [

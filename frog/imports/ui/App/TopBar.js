@@ -11,8 +11,6 @@ import AccountCircle from 'material-ui-icons/AccountCircle';
 
 const styles = theme => ({
     root: {
-        flexGrow: 1,
-
         // marginTop: theme.spacing.unit * 3,
         backgroundColor: theme.palette.background.paper,
     },
@@ -27,7 +25,10 @@ const styles = theme => ({
 @withStyles(styles)
 class TopBar extends React.Component {
 
-    routes = [{name: 'Graph Editor', to: '/graph'}, {name: 'Sessions', to: '/teacher'}, {name: 'Preview', to: '/preview'}, {name: 'Admin', to: '/admin'}];
+    routes = [{name: 'Graph Editor', to: '/graph'}, {name: 'Sessions', to: '/teacher'}, {
+        name: 'Preview',
+        to: '/preview'
+    }, {name: 'Admin', to: '/admin'}];
 
     value = '/graph';
 
@@ -46,11 +47,11 @@ class TopBar extends React.Component {
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, barHeight} = this.props;
         return (
             <div className={classes.root}>
-                <AppBar position="static">
-                    <Toolbar className={classes.toolbar}>
+                <AppBar position="fixed">
+                    <Toolbar className={classes.toolbar} sytles={{minHeight: barHeight}}>
                         <Typography type="subheading" color="inherit">
                             CK : Teacher
                         </Typography>

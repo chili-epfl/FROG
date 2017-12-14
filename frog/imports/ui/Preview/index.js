@@ -11,7 +11,7 @@ import {activityTypes} from '../../activityTypes';
 
 const styles = {
     sheet: {
-        padding: 15,
+        padding: 0,
     }
 };
 

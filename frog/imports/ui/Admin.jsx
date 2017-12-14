@@ -52,7 +52,6 @@ class DisplayData extends Component {
                 display: "block",
             }
         };
-
         return (
             <List subheader={<ListSubheader>{this.props.title}</ListSubheader>}>
                 {this.props.data.map(d => (
@@ -76,7 +75,6 @@ class DisplayData extends Component {
 
 const styles = {
     sheet: {
-        padding: 15,
         overflowX: 'hidden'
     },
     root: {
