@@ -7,6 +7,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "cypress": "^1.1.4",
     "ac-autocode": "1.0.0",
     "ac-brainstorm": "1.0.0",
     "ac-chat": "1.0.0",
