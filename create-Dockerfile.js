@@ -9,6 +9,7 @@ fs.readdir('./ac', (_, ac) => {
       .join('\n');
     const template = `FROM cypress/base:8
 RUN apt-get update && apt-get install -y ocaml libelf-dev
+RUN npm install -g yarn@1.2.1 cypress
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
@@ -19,7 +20,6 @@ RUN mkdir -p frog/.meteor frog/server && \\
 COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
-RUN sudo npm install -g yarn@1.2.1 cypress
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 RUN mkdir -p frog-utils/src \\
 ${acopSrc}
