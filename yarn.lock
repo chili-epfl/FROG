@@ -5572,9 +5572,9 @@ react-overlays@^0.7.0, react-overlays@^0.7.4:
     prop-types-extra "^1.0.1"
     warning "^3.0.0"
 
-react-player@^0.25.3:
-  version "0.25.3"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.25.3.tgz#dc86010855fefe7e4460a341971e8e0d558ecf63"
+react-player@^1.0.0-beta.7:
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-1.0.0-beta.7.tgz#573f4538938f057032810be0063ab2a4f6a4ae72"
   dependencies:
     deepmerge "^2.0.0"
     load-script "^1.0.0"

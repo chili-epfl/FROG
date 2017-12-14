@@ -373,6 +373,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       </div>
     ) : (
       <Modal
+        ariaHideApp={false}
         contentLabel={'Preview of ' + activityType.id}
         isOpen
         onRequestClose={dismiss}
