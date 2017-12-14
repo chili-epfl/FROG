@@ -1,5 +1,5 @@
 {
-  plugins: [
+  "plugins": [
     "syntax-decorators",
     "transform-decorators-legacy",
     "transform-class-properties",
@@ -7,9 +7,19 @@
     [
       "captains-log",
       {
-        methods: ["debug", "error", "exception", "log", "warn"]
+        "methods": [
+          "debug",
+          "error",
+          "exception",
+          "log",
+          "warn"
+        ]
       }
     ]
   ],
-  presets: ["react", "stage-0", "es2015"]
-};
+  "presets": [
+    "react",
+    "stage-0",
+    "es2015"
+  ]
+}

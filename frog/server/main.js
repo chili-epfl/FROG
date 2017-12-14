@@ -39,8 +39,7 @@ if (process.env.NODE_ENV === 'production') {
   if (!Meteor.settings.token) {
     Meteor.settings.token = uuid();
   }
-  // eslint-disable-next-line no-console
-  console.log('Meteor login token ', Meteor.settings.token);
+  console.info('Meteor login token ', Meteor.settings.token);
 }
 
 Meteor.publish('userData', function() {
