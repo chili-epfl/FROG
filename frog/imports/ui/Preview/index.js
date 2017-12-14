@@ -2,10 +2,9 @@
 import React from 'react';
 import {toObject, toString} from 'query-parse';
 import {withRouter} from 'react-router';
-import {A} from 'frog-utils';
 import {omitBy} from 'lodash';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import List, {ListItem, ListSubheader, ListItemText} from 'material-ui/List';
+
 
 import {StatelessPreview} from './Preview';
 import {activityTypes} from '../../activityTypes';
@@ -18,18 +17,18 @@ const styles = {
 
 const ActivityList = ({history}) => (
     <div style={styles.sheet}>
-        <Typography type="heading" component="h2">
-            Choose an activity to preview
-        </Typography>
-        <ul>
+        <List subheader={<ListSubheader>Select to Preview</ListSubheader>}>
             {activityTypes.map(act => (
-                <li key={act.id}>
-                    <Button onClick={() => history.push(`/preview/${act.id}`)}>
-                        {act.id}
-                    </Button>
-                </li>
+                <ListItem
+                    key={act.id}
+                    dense
+                    button
+                    onClick={() => history.push(`/preview/${act.id}`)}
+                >
+                    <ListItemText primary={act.id} />
+                </ListItem>
             ))}
-        </ul>
+        </List>
     </div>
 );
 

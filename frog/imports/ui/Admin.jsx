@@ -1,94 +1,143 @@
 // @flow
 
-import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { buttons } from 'bootstrap-css';
-import { A } from 'frog-utils';
-import { Sessions } from '../api/sessions';
+import React, {Component} from 'react';
+import {createContainer} from 'meteor/react-meteor-data';
+import List, {ListItem, ListSubheader, ListItemText} from 'material-ui/List';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
+
+import {Sessions} from '../api/sessions';
 import {
-  Activities,
-  Operators,
-  Connections,
-  importActivity,
-  importOperator,
-  importConnection,
-  deleteDatabase
+    Activities,
+    Operators,
+    Connections,
+    importActivity,
+    importOperator,
+    importConnection,
+    deleteDatabase
 } from '../api/activities';
-import { Graphs, importGraph } from '../api/graphs';
+import {Graphs, importGraph} from '../api/graphs';
 
-import { mixedJigsaw } from '../datasets/mixedJigsaw';
-import { argueGraph } from '../datasets/argueGraph';
-
-Object.assign(buttons);
+import {mixedJigsaw} from '../datasets/mixedJigsaw';
+import {argueGraph} from '../datasets/argueGraph';
 
 const loadDatabase = data => {
-  data.graphs.forEach(item => importGraph(item));
-  data.activities.forEach(item => importActivity(item));
-  data.operators.forEach(item => importOperator(item));
-  data.connections.forEach(item => importConnection(item));
+    data.graphs.forEach(item => importGraph(item));
+    data.activities.forEach(item => importActivity(item));
+    data.operators.forEach(item => importOperator(item));
+    data.connections.forEach(item => importConnection(item));
 };
 
 class DisplayData extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isClicked: false };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {isClicked: false};
+    }
 
-  state = {
-    isClicked: Boolean
-  };
+    state = {
+        isClicked: Boolean
+    };
 
-  toggleDisplay = () => {
-    this.setState({ isClicked: !this.state.isClicked });
-  };
+    toggleDisplay = () => {
+        this.setState({isClicked: !this.state.isClicked});
+    };
 
-  render() {
-    return (
-      <ul>
-        {this.props.data.map(d => (
-          <li key={d._id}>
-            <A onClick={this.toggleDisplay}>{d._id}</A>
-            {this.state.isClicked ? (
-              <pre>{JSON.stringify(d, null, 2)}</pre>
-            ) : null}
-          </li>
-        ))}
-      </ul>
-    );
-  }
+    render() {
+        const listStyle = {
+            jsonFont: {
+                fontSize: "0.75rem",
+                fontWeight: 400,
+                fontFamily: "monospace",
+                display: "block",
+            }
+        };
+
+        return (
+            <List subheader={<ListSubheader>{this.props.title}</ListSubheader>}>
+                {this.props.data.map(d => (
+                    <ListItem
+                        key={d._id}
+                        dense
+                        button
+                        onClick={this.toggleDisplay}
+                        styles={listStyle.sheet}
+                    >
+                        <ListItemText primary={d._id}/>
+                        {this.state.isClicked ? (
+                            <Typography type="caption" style={listStyle.jsonFont}>{JSON.stringify(d, null, 2)}</Typography>
+                        ) : null}
+                    </ListItem>
+                ))}
+            </List>
+        );
+    }
 }
 
+const styles = {
+    sheet: {
+        padding: 15,
+        overflowX: 'hidden'
+    },
+    root: {
+        flexGrow: 1,
+    },
+};
 export default createContainer(
-  () => {
-    const sessions = Sessions.find().fetch();
-    const graphs = Graphs.find().fetch();
-    const activities = Activities.find().fetch();
-    const operators = Operators.find().fetch();
-    const connections = Connections.find().fetch();
-    return { sessions, graphs, activities, operators, connections };
-  },
-  ({ sessions, graphs, activities, operators, connections }) => (
-    <div id="admin">
-      <h1>Commands</h1>
-      <button onClick={() => deleteDatabase()}>Delete the database</button>
-      <br />
-      <button onClick={() => loadDatabase(argueGraph)}>Load argueGraph</button>
-      <br />
-      <button onClick={() => loadDatabase(mixedJigsaw)}>
-        Load mixedJigsaw
-      </button>
-      <br />
-
-      <h1>Graphs</h1>
-      <DisplayData data={graphs} />
-      <h1>Activities</h1>
-      <DisplayData data={activities} />
-      <h1>Operators</h1>
-      <DisplayData data={operators} />
-      <h1>Connections</h1>
-      <DisplayData data={connections} />
-      <h1>Sessions</h1>
-      <DisplayData data={sessions} />
-    </div>
-  )
+    () => {
+        const sessions = Sessions.find().fetch();
+        const graphs = Graphs.find().fetch();
+        const activities = Activities.find().fetch();
+        const operators = Operators.find().fetch();
+        const connections = Connections.find().fetch();
+        return {sessions, graphs, activities, operators, connections};
+    },
+    ({sessions, graphs, activities, operators, connections}) => (
+        <div id="admin" style={styles.sheet}>
+            <Grid container justify="center" spacing={40}>
+                <Grid item xs>
+                    <List subheader={<ListSubheader>Commands</ListSubheader>}>
+                        <ListItem
+                            dense
+                            button
+                            onClick={() => deleteDatabase()}
+                        >
+                            <ListItemText primary="DELETE DATABASE" />
+                        </ListItem>
+                        <ListItem
+                            dense
+                            button
+                            onClick={() => loadDatabase(argueGraph)}
+                        >
+                            <ListItemText primary="LOAD argueGraph" />
+                        </ListItem>
+                        <ListItem
+                            dense
+                            button
+                            onClick={() => loadDatabase(mixedJigsaw)}
+                        >
+                            <ListItemText primary="LOAD mixedJigsaw" />
+                        </ListItem>
+                    </List>
+                </Grid>
+                <Grid item xs>
+                    <DisplayData data={graphs} title="Graphs"/>
+                </Grid>
+                <Grid item xs>
+                    <DisplayData data={activities} title="Activities"/>
+                </Grid>
+            </Grid>
+            <Grid container justify="center" spacing={40}>
+                <Grid item xs>
+                    <DisplayData data={operators} title="Operators"/>
+                </Grid>
+                <Grid item xs>
+                    <DisplayData data={connections} title="Connections"/>
+                </Grid>
+                <Grid item xs>
+                    <DisplayData data={sessions} title="Sessions"/>
+                </Grid>
+            </Grid>
+        </div>
+    )
 );

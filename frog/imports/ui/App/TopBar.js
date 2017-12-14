@@ -1,5 +1,6 @@
 import React from 'react';
-import {NavLink, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router';
 import {withStyles} from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -7,14 +8,6 @@ import Typography from 'material-ui/Typography';
 import Tabs, {Tab} from 'material-ui/Tabs';
 import Button from 'material-ui/Button';
 import AccountCircle from 'material-ui-icons/AccountCircle';
-
-const ALink = ({to, children}) => (
-    <Link
-        to={to}
-    >
-        {children}
-    </Link>
-);
 
 const styles = theme => ({
     root: {
@@ -34,21 +27,26 @@ const styles = theme => ({
 @withStyles(styles)
 class TopBar extends React.Component {
 
-    constructor() {
-        super();
+    routes = [{name: 'Graph Editor', to: '/graph'}, {name: 'Sessions', to: '/teacher'}, {name: 'Preview', to: '/preview'}, {name: 'Admin', to: '/admin'}];
+
+    value = '/graph';
+
+    constructor(props) {
+        super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.state = {value: "/graph"};
+        const found = this.routes.filter(route => {
+            return props.location.pathname.indexOf(route.to) !== -1;
+        })[0];
+        this.value = found.to;
+        // console.log('found value', this.value,props);
     }
 
     handleChange = (event, value) => {
-        this.setState({value});
-        console.log('called state', value);
+        this.value = value;
     };
 
     render() {
         const {classes} = this.props;
-
-        console.log('props', this.props, this.state);
         return (
             <div className={classes.root}>
                 <AppBar position="static">
@@ -56,11 +54,10 @@ class TopBar extends React.Component {
                         <Typography type="subheading" color="inherit">
                             CK : Teacher
                         </Typography>
-                        <Tabs className={classes.tabs}  value={this.state.value} onChange={this.handleChange} fullWidth>
-                            <Tab label="Sessions" component={Link} to="/teacher" value="/teacher"/>
-                            <Tab label="Graph Editor" component={Link} to="/graph" value="/graph"/>
-                            <Tab label="Preview" component={Link} to="/preview" value="/preview"/>
-                            <Tab label="Admin" component={Link} to="/admin" value="/admin"/>
+                        <Tabs className={classes.tabs} value={this.value} onChange={this.handleChange} fullWidth>
+                            {this.routes.map(route =>
+                                <Tab key={route.to} label={route.name} component={Link} to={route.to} value={route.to}/>
+                            )}
                         </Tabs>
                         <Button color="contrast"><AccountCircle/></Button>
                     </Toolbar>
@@ -70,4 +67,4 @@ class TopBar extends React.Component {
     }
 }
 
-export default TopBar;
+export default withRouter(TopBar);
