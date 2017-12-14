@@ -4,6 +4,7 @@ import { type activityDataT } from 'frog-utils';
 import { Meteor } from 'meteor/meteor';
 
 import { Activities } from '../imports/api/activities';
+import { activityTypesObj } from '../imports/activityTypes';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Products } from '../imports/api/products';
@@ -16,21 +17,24 @@ declare var Promise: any;
 
 const cleanId = id => id.split('/')[1];
 
-const formatResults = results =>
-  results.reduce(
+const formatResults = (results, formatProduct, config) => {
+  const format = data => (formatProduct ? formatProduct(config, data) : data);
+  return results.reduce(
     (acc, k) => ({
       ...acc,
       [cleanId(k.id)]: {
-        data: k.data
+        data: format(k.data)
       }
     }),
     {}
   );
+};
 
 export const getActivityDataFromReactive = (
   activityId: string
 ): activityDataT => {
   const activity = Activities.findOne(activityId);
+  const aT = activityTypesObj[activity.activityType];
   const object = Objects.findOne(activityId);
   const { structure } = doGetInstances(activity, object);
 
@@ -43,7 +47,7 @@ export const getActivityDataFromReactive = (
         if (err) {
           reject(err);
         } else {
-          resolve(formatResults(results));
+          resolve(formatResults(results, aT.formatProduct, activity.data));
         }
       }
     );

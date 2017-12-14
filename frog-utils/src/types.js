@@ -75,7 +75,7 @@ export type ActivityRunnerT = {
   data: any,
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
-  uploadFn: (files: Array<any>, callback: (string) => any) => void,
+  uploadFn: (files: Array<any>, name: string) => Promise<*>,
   userInfo: { id: string, name: string },
   groupingValue: string
 };
@@ -134,7 +134,8 @@ export type ActivityPackageT = {
     mergeLog: (data: any, dataFn: Object, log: LogDBT) => void,
     initData: any
   },
-  exportData?: (config: Object, product: activityDataT) => string
+  exportData?: (config: Object, product: activityDataT) => string,
+  formatProduct?: (config: Object, item: any) => any
 };
 
 export type productOperatorT = {

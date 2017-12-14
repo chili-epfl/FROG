@@ -40,12 +40,12 @@ class ActivityRunner extends Component {
     this.categories = Object.keys(data).reduce(
       (acc, key) => ({
         ...acc,
-        all: [...(acc.all || []), data[key].url],
+        all: [...(acc.all || []), data[key]],
         ...(data[key].categories &&
           data[key].categories.reduce(
             (_acc, cat) => ({
               ..._acc,
-              [cat]: [...(acc[cat] || []), data[key].url]
+              [cat]: [...(acc[cat] || []), data[key]]
             }),
             {}
           ))
@@ -109,11 +109,11 @@ class ActivityRunner extends Component {
           category={this.state.category}
           canVote={activityData.config.canVote}
           hideCategory={activityData.config.hideCategory}
+          guidelines={activityData.config.guidelines}
           {...{ setCategory, setZoom }}
         />
-        <p style={{ fontSize: '22px' }}>{activityData.config.guidelines}</p>
         {images.length === 0 && this.state.category !== 'categories' ? (
-          <h1>No image</h1>
+          <h1>{activityData.config.acceptAnyFiles ? 'No file' : 'No image'}</h1>
         ) : (
           <ThumbList
             {...{

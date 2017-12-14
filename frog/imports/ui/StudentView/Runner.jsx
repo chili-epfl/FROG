@@ -34,10 +34,10 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   const studentSoc = socStructure[Meteor.userId()];
 
   let groupingValue;
-  if (studentSoc && activity.groupingKey) {
-    groupingValue = studentSoc[activity.groupingKey];
-  } else if (activity.plane === 3) {
+  if (activity.plane === 3) {
     groupingValue = 'all';
+  } else if (activity.plane === 2) {
+    groupingValue = studentSoc[activity.groupingKey];
   } else {
     groupingValue = Meteor.userId();
   }

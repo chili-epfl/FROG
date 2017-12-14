@@ -11,7 +11,6 @@ import EditorContainer from './EditorContainer';
 class AppClass extends Component {
   componentWillMount() {
     store.setBrowserHistory(this.props.history);
-    bindKeys();
     this.updateGraphId(this.props.match && this.props.match.params.graphId);
   }
 
@@ -29,6 +28,10 @@ class AppClass extends Component {
     const graphId = assignGraph(graphIdWanted);
     store.setId(graphId);
   };
+
+  componentDidMount() {
+    bindKeys();
+  }
 
   componentWillUnmount() {
     Mousetrap.reset();

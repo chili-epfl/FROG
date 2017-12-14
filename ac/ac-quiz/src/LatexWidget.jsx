@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Latex from 'react-latex';
+import { HTML } from 'frog-utils';
 
 export default (props: Object) => {
   const { options, value, required, disabled, readonly, onChange } = props;
@@ -23,7 +23,7 @@ export default (props: Object) => {
               disabled={disabled || readonly}
               onChange={() => onChange(option.value)}
             />
-            <Latex>{option.label}</Latex>
+            <HTML html={option.label} />
           </span>
         );
 

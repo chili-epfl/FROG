@@ -133,9 +133,10 @@ export const exportSession = (sessionId: string) => {
             .then(content =>
               FileSaver.saveAs(
                 content,
-                `${session.slug}--${strfTime('%d-%m-%y__%H-%M', succ)}--${
-                  sessionId
-                }.zip`,
+                `${session.slug}--${strfTime(
+                  '%d-%m-%y__%H-%M',
+                  succ
+                )}--${sessionId}.zip`,
                 true
               )
             );
