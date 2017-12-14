@@ -2,6 +2,7 @@ import { Picker } from 'meteor/meteorhacks:picker';
 import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import unzipper from 'unzipper';
+const childProcess = require('child_process');
 
 export default () => {
   Picker.filter(req => req.method === 'GET').route(
@@ -75,18 +76,17 @@ Meteor.methods({
               .createReadStream('/tmp/' + id)
               .pipe(unzipper.Extract({ path: '/tmp/h5p/' + id }))
               .on('error', _ => {
+                console.error(`Cannot unzip /tmp/${id}`);
                 resolve(-1);
               })
               .promise()
-              .then(() => {
-                fs.access('/tmp/h5p/' + id + '/h5p.json', error => {
-                  if (error) {
-                    resolve(-1);
-                  } else {
-                    resolve(1);
-                  }
-                });
-              });
+              .then(
+                () => resolve(1),
+                e => {
+                  console.error(e);
+                  resolve(-1);
+                }
+              );
           }
         });
       }).catch(() => -1)

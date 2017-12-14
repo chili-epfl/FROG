@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import type { ActivityPackageT } from 'frog-utils';
+import { H5PIframePrepare } from '/imports/ui/App/h5p';
 import ConfigComponent from './ConfigComponent';
 
 export const meta = {
@@ -12,6 +13,7 @@ export const meta = {
 
 export class ActivityRunner extends Component {
   componentDidMount = () => {
+    H5PIframePrepare();
     const eventMethod = window.addEventListener
       ? 'addEventListener'
       : 'attachEvent';
