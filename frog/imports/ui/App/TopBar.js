@@ -68,9 +68,9 @@ class TopBar extends React.Component {
                                 <Tab key={route.to} label={route.name} component={Link} to={route.to} value={route.to}/>
                             )}
                         </Tabs>
-                        <Button className={classes.button} color="contrast" >
+                        <Button className={classes.button} color="contrast">
                             Teacher
-                            <AccountCircle className={classes.rightIcon} />
+                            <AccountCircle className={classes.rightIcon}/>
                         </Button>
                     </Toolbar>
                 </AppBar>
