@@ -1,9 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-// import { computed, action, observable } from 'mbox';
 import type { ActivityRunnerT } from 'frog-utils';
-// import ReconnectingWebSocket from 'reconnectingwebsocket';
 
 const LocalVideo = ({ src }) => {
   return (
@@ -38,7 +36,7 @@ type StateT =
   | { mode: 'calling', local: Object, remote: Array }
   | { mode: 'hangUp' }
   | { mode: 'normal' }
-  | { mode: 'readOnly' };
+  | { mode: 'readOnly', local: Object, remote: Array };
 
 class ActivityRunner extends Component {
   pcConfig = {
@@ -59,22 +57,22 @@ class ActivityRunner extends Component {
     ]
   };
 
-  @observable _state: StateT;
-  @observable readOnly: boolean;
+  _state: StateT;
+  // readOnly: boolean;
 
 
 
   set state(newState: StateT){
     console.log("SET STATE", newState); 
+    // if(this.readOnly){console.log("you shouldn't") }
     this._state = newState;
   };
 
-  // @computed
   get state(): StateT {
-    if (this.readOnly) {
-      return { mode: 'readOnly' };
-    }
-    return this._state || { mode: 'normal' };
+    // if (this.readOnly) {
+    //   return { mode: 'readOnly' };
+    // }
+    return this._state || { mode: 'notReady' };
   };
 
   findConnectionByRemoteUser = userInfo => {
@@ -85,23 +83,71 @@ class ActivityRunner extends Component {
 
   startConnection = remoteUser => {
     // CHECK if correct! Might be causing problems
-    console.log(this.connections, remoteUser); 
-    console.log(_.contains(this.connections, { remoteUser: remoteUser })); 
-    console.log(this.state.mode === 'readyToCall');
-    console.log(this.state.mode); 
-      
-    if (
-      !_.contains(this.connections, { remoteUser: remoteUser }) &&
-      this.state.mode === ('readyToCall' || 'calling')
-    ) {
-      console.log("INSIDE IF"); 
-      var connection = this.createPeerConnection();
-      connection.addStream(this.state.local.stream);
-      connection.remoteUser = remoteUser;
-      this.connections.push(connection);
-      console.log(connection); 
-      return connection;
+    // console.log(this.connections, remoteUser); 
+    // console.log(_.contains(this.connections, { remoteUser: remoteUser })); 
+    // console.log(this.state.mode === 'readyToCall'|| this.state.mode ===  'calling');
+    // console.log(this.state.mode); 
+    console.log(this.connections.length); 
+    window.connections = this.connections;
+    window.remoteUser = remoteUser;
+    let remoteConn = this.findConnectionByRemoteUser(remoteUser)
+
+    if(this.state.mode !== 'notReady'){
+      if (_.isUndefined(remoteConn)) {
+        console.log("INSIDE IF"); 
+        var connection = this.createPeerConnection();
+        connection.addStream(this.state.local.stream);
+        connection.remoteUser = remoteUser;
+        this.connections.push(connection);
+        console.log(connection); 
+        return connection;
+      } else if (remoteConn.signalingState === 'have-local-offer'){
+        if(remoteUser.id > this.props.userInfo.id){
+          var connection = this.createPeerConnection();
+          connection.addStream(this.state.local.stream);
+          connection.remoteUser = remoteUser;
+          console.log(this.connections.length); 
+          this.connections.push(connection);
+          console.log("should be deleting", remoteConn);
+          console.log(this.connections.length); 
+          this.handleRemoteHangUp(remoteConn); 
+          // console.log("INSIDE IF"); 
+          return connection;
+        }else{
+          console.log("wait for answer"); 
+        }
+      }
+      else {
+        console.log(remoteConn.signalingState); 
+        console.log("not local offfer"); 
+        console.log(remoteConn); 
+        // console.log("INSIDE IF"); 
+        // var connection = this.createPeerConnection();
+        // connection.addStream(this.state.local.stream);
+        // connection.remoteUser = remoteUser;
+        // this.connections.push(connection);
+        // console.log(this.connections); 
+        // return connection;
+      }
+
+    }else{
+      console.log("not ready yet"); 
     }
+      
+    // if ( _.isUndefined(this.findConnectionByRemoteUser(remoteUser))&&
+    //   // (this.state.mode === 'readyToCall' || this.state.mode === 'calling')
+    //   this.state.mode !== 'notReady'
+    // ) {
+    //   console.log("INSIDE IF"); 
+    //   var connection = this.createPeerConnection();
+    //   connection.addStream(this.state.local.stream);
+    //   connection.remoteUser = remoteUser;
+    //   this.connections.push(connection);
+    //   console.log(connection); 
+    //   return connection;
+    // }else{
+    //   console.log("ALREADY EXISTS"); 
+    // }
   };
 
   createPeerConnection = () => {
@@ -110,6 +156,7 @@ class ActivityRunner extends Component {
       conn.onicecandidate = this.handleIceCandidate;
       conn.onaddstream = this.handleRemoteStreamAdded;
       conn.onremovestream = this.handleRemoteStreamRemoved;
+      conn.oniceconnectionstatechange = this.handleIceChange;
       console.log("create", conn); 
       return conn;
     } catch (e) {
@@ -141,6 +188,7 @@ class ActivityRunner extends Component {
   handleRemoteStreamAdded = event => {
     let index = _.indexOf(this.connections, event.target);
     if(this.state.mode === 'calling'){
+      console.log("stream added"); 
       let remotes = this.state.remote;
       if (_.isUndefined(remotes[index])) {
         remotes[index] = {
@@ -155,7 +203,9 @@ class ActivityRunner extends Component {
         mode: 'calling',
         remote: remotes
       });
+      // this.readOnly = false;
     }else if (this.state.mode === 'readyToCall'){
+      console.log("stream added"); 
       let remotes = [];
       remotes[index] = {
         stream: event.stream,
@@ -166,6 +216,7 @@ class ActivityRunner extends Component {
         mode: 'calling',
         remote: remotes
       });
+      // this.readOnly = false;
     } else {
       alert('ERROR on remote stream indexes');
     }  
@@ -174,6 +225,16 @@ class ActivityRunner extends Component {
 
   handleRemoteStreamRemoved = event => {
     console.log('Remote stream removed. Event: ', event);
+  };
+
+  handleIceChange = event => {
+    console.log("change event", event);
+      if (event.target.iceConnectionState === "failed" ||
+      event.target.iceConnectionState === "disconnected" ||
+      event.target.iceConnectionState === "closed") {
+        this.handleRemoteHangUp(event.target);
+      }
+    // Handle the failure
   };
 
   startOffer = connection => {
@@ -234,14 +295,14 @@ class ActivityRunner extends Component {
 
   // requestTurn!
 
-  handleRemoteHangUp = remoteUser => {
-    console.log('Session terminated', remoteUser);
-    let connection = this.findConnectionByRemoteUser(remoteUser);
-    if (connection !== null) {
+  handleRemoteHangUp = remoteConnection => {
+    console.log('Session terminated', remoteConnection);
+    // let connection = this.findConnectionByRemoteUser(remoteUser);
+    if (!_.isUndefined(remoteConnection) && this.state.mode !== 'notReady') {
       let newRemotes;
-      if (connection.getRemoteStreams() !== null) {
+      if (remoteConnection.getRemoteStreams() !== null) {
         newRemotes = _.filter(this.state.remote, ({ stream }) => {
-          if (stream == connection.getRemoteStreams()[0]) {
+          if (stream == remoteConnection.getRemoteStreams()[0]) {
             try {
               stream.getTracks().forEach(track => track.stop());
             } catch (e) {
@@ -254,7 +315,7 @@ class ActivityRunner extends Component {
         });
       }
       this.connections = _.filter(this.connections, conn => {
-        if (conn === connection) {
+        if (conn === remoteConnection) {
           try {
             conn.close();
           } catch (e) {
@@ -265,10 +326,12 @@ class ActivityRunner extends Component {
           return true;
         }
       });
+      console.log("remote hangup"); 
       this.setState({
         mode: 'calling',
         remote: newRemotes
       });
+      // this.readOnly = false;
     }
   };
 
@@ -358,6 +421,7 @@ class ActivityRunner extends Component {
 
     this.connections = [];
     this.state = { mode: 'notReady'};
+    // this.readOnly = true;
 
   }
 
@@ -369,18 +433,18 @@ class ActivityRunner extends Component {
       .catch(function(e) {
         alert('getUserMedia() error: ' + e.name);
       });
-    let message = {
-      type: 'join',
-      data: {
-        room: this.props.groupingValue || 'room',
-        fromUser: this.props.userInfo
-      }
-    };
-    try{
-      this.props.dataFn.listAppend(message);
-    }catch (e){
-      console.log("ERROR" , e); 
-    } 
+    // let message = {
+    //   type: 'join',
+    //   data: {
+    //     room: this.props.groupingValue || 'room',
+    //     fromUser: this.props.userInfo
+    //   }
+    // };
+    // try{
+    //   this.props.dataFn.listAppend(message);
+    // }catch (e){
+    //   console.log("ERROR" , e); 
+    // } 
   }
 
   gotStream = stream => {
@@ -392,13 +456,14 @@ class ActivityRunner extends Component {
     //   }
     // }, this.call);
     console.log(this.state); 
+    // this.readOnly = false;
     this.setState({ 
       mode : 'readyToCall',
       local: {
         src: window.URL.createObjectURL(stream),
         stream: stream
       }
-    });
+    }, this.call);
   };
 
 
@@ -422,12 +487,12 @@ class ActivityRunner extends Component {
 
   componentWillUnmount() {
     console.log('WILL UNMOUNT');
-    // let message = {
-    //   type: 'bye',
-    //   data: {
-    //     fromUser: this.props.userInfo
-    //   }
-    // };
+    let message = {
+      type: 'bye',
+      data: {
+        fromUser: this.props.userInfo
+      }
+    };
     // // this.ws.send(JSON.stringify(message));
     // this.props.dataFn.listAppend(message);
     if(this.state.mode === 'calling'){
@@ -474,20 +539,21 @@ class ActivityRunner extends Component {
         switch (newMess.type){
           case 'join':
             console.log("JOIN");
+            console.log(this.state); 
             console.log(newMess.data.fromUser.id, this.props.userInfo.id); 
-            if(newMess.data.fromUser.id !== this.props.userInfo.id){
+            if(this.state.mode !== 'notReady' && newMess.data.fromUser.id != this.props.userInfo.id){
               let connection = this.startConnection(newMess.data.fromUser);
               console.log("conn", connection); 
               if (connection) {
                 console.log("start offer"); 
                 this.startOffer(connection);
-              };
-            }
+              }
+            };
             break;
-          case 'bye' :
-            console.log("BYE");
-            this.handleRemoteHangUp(newMess.data.fromUser);
-            break;
+          // case 'bye' :
+          //   console.log("BYE");
+          //   this.handleRemoteHangUp(newMess.data.fromUser);
+          //   break;
           case 'log' :
             console.log("LOG");
             break;
@@ -497,7 +563,9 @@ class ActivityRunner extends Component {
               case 'offer':
                 console.log("OFFER");
                 let connectionOffer = this.startConnection(newMess.data.fromUser);
+                console.log(connectionOffer); 
                 if (connectionOffer) {
+                  console.log("start answer"); 
                   connectionOffer.setRemoteDescription(new RTCSessionDescription(newMess.data.message));
                   this.startAnswer(connectionOffer);
                 };
@@ -529,7 +597,7 @@ class ActivityRunner extends Component {
         case 'readyToCall' :
           console.log("ready"); 
           console.log(this.props.dataFn); 
-          this.call(); 
+          // this.call(); 
           break;
         case 'calling' : 
           console.log("calling");
