@@ -2,7 +2,6 @@ import { Picker } from 'meteor/meteorhacks:picker';
 import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import unzipper from 'unzipper';
-const childProcess = require('child_process');
 
 export default () => {
   Picker.filter(req => req.method === 'GET').route(

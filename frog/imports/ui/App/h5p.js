@@ -1,3 +1,4 @@
+/* eslint-disable */
 // H5P iframe Resizer
 export const H5PIframePrepare = () => {
   if (
@@ -10,7 +11,7 @@ export const H5PIframePrepare = () => {
   window.h5pResizerInitialized = true;
 
   // Map actions to handlers
-  var actionHandlers = {};
+  const actionHandlers = {};
 
   /**
    * Prepare iframe resize.
@@ -78,7 +79,7 @@ export const H5PIframePrepare = () => {
    *
    * @param {Event} event
    */
-  var escape = function(event) {
+  const escape = function(event) {
     if (event.keyCode === 27) {
       exitFullScreen();
     }
@@ -87,15 +88,15 @@ export const H5PIframePrepare = () => {
   // Listen for messages from iframes
   window.addEventListener(
     'message',
-    function receiveMessage(event) {
+    event => {
       if (event.data.context !== 'h5p') {
         return; // Only handle h5p requests.
       }
 
       // Find out who sent the message
-      var iframe,
+      let iframe,
         iframes = document.getElementsByTagName('iframe');
-      for (var i = 0; i < iframes.length; i++) {
+      for (let i = 0; i < iframes.length; i++) {
         if (iframes[i].contentWindow === event.source) {
           iframe = iframes[i];
           break;
@@ -108,29 +109,30 @@ export const H5PIframePrepare = () => {
 
       // Find action handler handler
       if (actionHandlers[event.data.action]) {
-        actionHandlers[event.data.action](iframe, event.data, function respond(
-          action,
-          data
-        ) {
-          if (data === undefined) {
-            data = {};
+        actionHandlers[event.data.action](
+          iframe,
+          event.data,
+          (action, data) => {
+            if (data === undefined) {
+              data = {};
+            }
+            data.action = action;
+            data.context = 'h5p';
+            event.source.postMessage(data, event.origin);
           }
-          data.action = action;
-          data.context = 'h5p';
-          event.source.postMessage(data, event.origin);
-        });
+        );
       }
     },
     false
   );
 
   // Let h5p iframes know we're ready!
-  var iframes = document.getElementsByTagName('iframe');
-  var ready = {
+  const iframes = document.getElementsByTagName('iframe');
+  const ready = {
     context: 'h5p',
     action: 'ready'
   };
-  for (var i = 0; i < iframes.length; i++) {
+  for (let i = 0; i < iframes.length; i++) {
     if (iframes[i].src.indexOf('h5p') !== -1) {
       iframes[i].contentWindow.postMessage(ready, '*');
     }
