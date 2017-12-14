@@ -26,7 +26,7 @@ RUN mkdir -p frog-utils/src \\
 ${acopSrc}
 COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
-COPY package.json yarn.lock .yarnrc .babelrc ./
+COPY package.json yarn.lock .yarnrc .babelrc cypress.json cypress ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/
 ${acopCP}
@@ -41,7 +41,7 @@ COPY frog /usr/src/frog/frog/
 RUN /usr/src/frog/initial_setup_wo_meteor.sh
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
-COPY *.js .*ignore *config package-scripts.js ./
+COPY *.js .*ignore *config package-scripts.js cypress.json cypress ./
 
 EXPOSE 3000
 CMD [ "npm", "test" ]
