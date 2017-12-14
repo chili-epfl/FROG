@@ -11,11 +11,19 @@ import AccountCircle from 'material-ui-icons/AccountCircle';
 
 const styles = theme => ({
     root: {
+        flexGrow: 1,
         // marginTop: theme.spacing.unit * 3,
         backgroundColor: theme.palette.background.paper,
     },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
     toolbar: {
         minHeight: '48px',
+        height: "48px"
     },
     tabs: {
         flexGrow: 1,
@@ -47,11 +55,11 @@ class TopBar extends React.Component {
     };
 
     render() {
-        const {classes, barHeight} = this.props;
+        const {classes} = this.props;
         return (
             <div className={classes.root}>
                 <AppBar position="fixed">
-                    <Toolbar className={classes.toolbar} sytles={{minHeight: barHeight}}>
+                    <Toolbar className={classes.toolbar}>
                         <Typography type="subheading" color="inherit">
                             CK : Teacher
                         </Typography>
@@ -60,7 +68,10 @@ class TopBar extends React.Component {
                                 <Tab key={route.to} label={route.name} component={Link} to={route.to} value={route.to}/>
                             )}
                         </Tabs>
-                        <Button color="contrast"><AccountCircle/></Button>
+                        <Button className={classes.button} color="contrast" >
+                            Teacher
+                            <AccountCircle className={classes.rightIcon} />
+                        </Button>
                     </Toolbar>
                 </AppBar>
             </div>
