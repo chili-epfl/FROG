@@ -12,6 +12,8 @@ import {activityTypes} from '../../activityTypes';
 const styles = {
     sheet: {
         padding: 0,
+        maxHeight: '100%',
+        overflow: 'auto'
     }
 };
 
@@ -25,7 +27,7 @@ const ActivityList = ({history}) => (
                     button
                     onClick={() => history.push(`/preview/${act.id}`)}
                 >
-                    <ListItemText primary={act.id} />
+                    <ListItemText primary={act.id}/>
                 </ListItem>
             ))}
         </List>
