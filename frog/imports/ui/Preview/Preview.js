@@ -263,9 +263,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
           {examples.map((x, i) => (
-            // eslint-disable-next-line react/no-array-index-key
             <NavItem
-              key={i}
+              key={x.title}
               className="examples"
               eventKey={i}
               onClick={() => setExample(i)}
