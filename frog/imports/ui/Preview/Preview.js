@@ -394,7 +394,8 @@ const StatefulPreview = compose(
   withState('fullWindow', 'setFullWindow', false),
   withState('showData', 'setShowData', false),
   withState('showDash', 'setShowDash', false),
-  withState('windows', 'setWindows', 1)
+  withState('windows', 'setWindows', 1),
+  withState('showLogs', 'setShowLogs', false)
 )(StatelessPreview);
 
 StatefulPreview.displayName = 'StatefulPreview';

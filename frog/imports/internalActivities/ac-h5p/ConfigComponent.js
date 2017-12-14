@@ -1,3 +1,4 @@
+// @flow
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Dropzone from 'react-dropzone';
@@ -24,7 +25,13 @@ const onDrop = (file, setConfigData) => {
   fr.readAsArrayBuffer(file[0]);
 };
 
-const ConfigComponent = ({ configData = {}, setConfigData }) => (
+const ConfigComponent = ({
+  configData = {},
+  setConfigData
+}: {
+  configData: Object,
+  setConfigData: Object => void
+}) => (
   <div style={{ marginTop: '20px' }}>
     {configData.component.fileId ? (
       <div>

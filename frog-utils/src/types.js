@@ -136,7 +136,10 @@ export type ActivityPackageT = {
   },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
-  ConfigComponent?: ReactComponent<any>
+  ConfigComponent?: ReactComponent<{
+    configData: Object,
+    setConfigData: Object => void
+  }>
 };
 
 export type productOperatorT = {

@@ -143,7 +143,7 @@ const RawEditActivity = ({
           nodeType: activityType,
           valid: props.store.valid,
           refreshValidate: props.store.refreshValidate,
-          reload: reload + outgoingConnections.map(x => x.id).join('')
+          reload: reload + (outgoingConnections || []).map(x => x.id).join('')
         }}
       />
       {activityType.ConfigComponent && (
