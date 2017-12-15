@@ -182,3 +182,32 @@ export const exampleConfig2 = {
   },
   data: {}
 };
+
+export const exampleConfig3 = {
+  title: 'Double in javascript',
+  config: {
+    language: 'javascript',
+    title: 'Double',
+    guidelines: 'Make it double!',
+    template: 'const double = x => 0',
+    solution: 'const double = x => 2*x',
+    tests: [
+      {
+        inputDesc: 'x=0',
+        preCode: '',
+        postCode: 'print(double(0))'
+      },
+      {
+        inputDesc: 'x=42',
+        preCode: '',
+        postCode: 'print(double(42))'
+      },
+      {
+        inputDesc: 'x=1234567890',
+        preCode: '',
+        postCode: 'print(double(1234567890))'
+      }
+    ]
+  },
+  data: {}
+};

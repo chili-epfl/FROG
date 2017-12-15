@@ -61,7 +61,7 @@ const TestList = ({ tests, ...props }) => (
   </ButtonList>
 );
 
-const Debug = ({ data, runCode, setFeedback, logger }) => {
+const Debug = ({ data, runCode, handleError, setFeedback, logger }) => {
   const debug = () => {
     const stdout = [];
     logger({ type: 'debug', value: data.code });
@@ -71,13 +71,7 @@ const Debug = ({ data, runCode, setFeedback, logger }) => {
       },
       err => {
         logger({ type: 'ERROR', itemId: 'debug' });
-        const t = err.traceback;
-        const a = err.args;
-        const lineno = t && t[0] && t[0].lineno;
-        const message = a && a.v && a.v[0] && a.v[0].v;
-        const error = lineno
-          ? 'On line ' + lineno + ', Received error: ' + message
-          : 'Received error: ' + message;
+        const error = handleError(err, 0);
         setFeedback({ error, stdout, status: 'ERROR' });
       }
     );

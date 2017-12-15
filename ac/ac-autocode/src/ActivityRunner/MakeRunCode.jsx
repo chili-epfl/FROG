@@ -1,7 +1,6 @@
 // @flow
 
 const makeRunCode = (language: string) => {
-  console.log(language);
   switch (language) {
     case 'python':
       return python();
@@ -13,26 +12,20 @@ const makeRunCode = (language: string) => {
 };
 
 const javascript = () => {
-  const javascriptRunCode = (code: string, out: Function) => {
-    return new Promise((resolve, reject) => {
+  /* eslint no-unused-vars: ["error", { "argsIgnorePattern": "print" }] */
+  const javascriptRunCode = (code: string, print: Function) =>
+    new Promise((resolve, reject) => {
       try {
-        // define the function to use for feedback, that is students and teacher put print(x) in their code
-        // could be changed to console.log(x):
-        // const obj = { console: { log: (...args) => args.forEach(output => out(output))} }
-        const s1 =
-          'const obj = { print: (...args) => args.forEach(output => out(output)) };';
-        const s2 = 'const handler = {has: () => true};';
-        const s3 = 'const proxy = new Proxy(obj, handler);';
-        eval(s1 + s2 + s3 + 'with(proxy){' + code + '}');
+        eval(code);
       } catch (e) {
-        out(e);
         reject(e);
       }
       resolve();
     });
-  };
 
-  return javascriptRunCode;
+  const javascriptHandleError = (err: Object) => err.name + ': ' + err.message;
+
+  return { runCode: javascriptRunCode, handleError: javascriptHandleError };
 };
 
 const python = () => {
@@ -59,18 +52,27 @@ const python = () => {
     return window.Sk.builtinFiles['files'][x];
   };
 
-  const pythonRunCode = (code: string, out: Function, err: Function) => {
+  const pythonRunCode = (code: string, out: Function) => {
     if (window.Sk) {
       window.Sk.configure({ output: out, read: builtinRead });
       return window.Sk.misceval.asyncToPromise(() => {
         window.Sk.importMainWithBody('<stdin>', false, code);
       });
-    } else {
-      err('Skulpt not loaded, please check internet connection');
     }
   };
 
-  return pythonRunCode;
+  const pythonHandleError = (err: Object, offset: number) => {
+    const t = err.traceback;
+    const a = err.args;
+    const lineno = t && t[0] && t[0].lineno - offset;
+    const message = a && a.v && a.v[0] && a.v[0].v;
+    const error = lineno
+      ? 'On line ' + lineno + ', Received error: ' + message
+      : 'Received error: ' + message;
+    return error;
+  };
+
+  return { runCode: pythonRunCode, handleError: pythonHandleError };
 };
 
 export default makeRunCode;

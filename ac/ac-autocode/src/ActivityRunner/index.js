@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import type { ActivityRunnerT } from 'frog-utils';
 import styled from 'styled-components';
 
 import Header from './Header';
@@ -17,9 +16,14 @@ const Main = styled.div`
 
 export default class ActivityRunner extends Component {
   runCode: Function;
+  handleError: Function;
 
   componentDidMount() {
-    this.runCode = makeRunCode(this.props.activityData.config.language);
+    const { runCode, handleError } = makeRunCode(
+      this.props.activityData.config.language
+    );
+    this.runCode = runCode;
+    this.handleError = handleError;
     this.forceUpdate();
   }
 
@@ -32,6 +36,7 @@ export default class ActivityRunner extends Component {
         <TestPanel
           tests={config.tests}
           runCode={this.runCode}
+          handleError={this.handleError}
           {...this.props}
         />
       </Main>
