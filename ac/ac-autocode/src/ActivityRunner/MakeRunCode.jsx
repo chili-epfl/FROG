@@ -13,16 +13,20 @@ const makeRunCode = (language: string) => {
 };
 
 const javascript = () => {
-  const javascriptRunCode = (code: string, out: Function, err: Function) => {
+  const javascriptRunCode = (code: string, out: Function) => {
     return new Promise((resolve, reject) => {
       try {
-        const consoleToOut =
-          'const print = (...args) => args.forEach(output => out(output));\n';
-        console.log(consoleToOut + code);
-        eval(consoleToOut + code);
+        // define the function to use for feedback, that is students and teacher put print(x) in their code
+        // could be changed to console.log(x):
+        // const obj = { console: { log: (...args) => args.forEach(output => out(output))} }
+        const s1 =
+          'const obj = { print: (...args) => args.forEach(output => out(output)) };';
+        const s2 = 'const handler = {has: () => true};';
+        const s3 = 'const proxy = new Proxy(obj, handler);';
+        eval(s1 + s2 + s3 + 'with(proxy){' + code + '}');
       } catch (e) {
-        out(String(e));
-        reject();
+        out(e);
+        reject(e);
       }
       resolve();
     });

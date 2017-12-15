@@ -18,10 +18,6 @@ const Main = styled.div`
 export default class ActivityRunner extends Component {
   runCode: Function;
 
-  constructor(props: ActivityRunnerT) {
-    super(props);
-  }
-
   componentDidMount() {
     this.runCode = makeRunCode(this.props.activityData.config.language);
     this.forceUpdate();
