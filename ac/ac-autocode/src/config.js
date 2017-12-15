@@ -32,9 +32,9 @@ export const config = {
       items: {
         type: 'object',
         properties: {
-          hint: {
+          inputDesc: {
             type: 'string',
-            title: 'show this as "input" for student'
+            title: 'show this as "input" for the student'
           },
           preCode: {
             type: 'string',
@@ -59,9 +59,14 @@ export const configUI = {
   },
   tests: {
     items: {
+      inputDesc: {
+        'ui:widget': 'textarea'
+      },
+
       preCode: {
         'ui:widget': 'textarea'
       },
+
       postCode: {
         'ui:widget': 'textarea'
       }
@@ -79,17 +84,17 @@ export const exampleConfig0 = {
     solution: 'def double(x):\n\treturn 2*x',
     tests: [
       {
-        hint: 'x=0',
+        inputDesc: 'x=0',
         preCode: '',
         postCode: 'print double(0)'
       },
       {
-        hint: 'x=42',
+        inputDesc: 'x=42',
         preCode: '',
         postCode: 'print double(42)'
       },
       {
-        hint: 'x=1234567890',
+        inputDesc: 'x=1234567890',
         preCode: '',
         postCode: 'print double(1234567890)'
       }
@@ -110,22 +115,22 @@ export const exampleConfig1 = {
     solution: 'b=sorted(a)',
     tests: [
       {
-        hint: 'a=[1, 2, 3]',
+        inputDesc: 'a=[1, 2, 3]',
         preCode: 'a=[1, 2, 3]',
         postCode: 'print b'
       },
       {
-        hint: 'a=[10, 2, 15, 8, 7]',
+        inputDesc: 'a=[10, 2, 15, 8, 7]',
         preCode: 'a=[10, 2, 15, 8, 7]',
         postCode: 'print b'
       },
       {
-        hint: 'a=[42]',
+        inputDesc: 'a=[42]',
         preCode: 'a=[42]',
         postCode: 'print b'
       },
       {
-        hint: 'a=[]',
+        inputDesc: 'a=[]',
         preCode: 'a=[]',
         postCode: 'print b'
       }
@@ -146,61 +151,32 @@ export const exampleConfig2 = {
     template:
       'from collections import OrderedDict\ndef write_roman(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])\nprint write_roman(3)',
     solution:
-      'from collections import OrderedDict\ndef solution(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])',
+      'from collections import OrderedDict\ndef solution(num):\n\troman = OrderedDict()\n\troman[1000] = "M"\n\troman[900] = "CM"\n\troman[500] = "D"\n\troman[400] = "CD"\n\troman[100] = "C"\n\troman[90] = "XC"\n\troman[50] = "L"\n\troman[40] = "XL"\n\troman[10] = "X"\n\troman[9] = "IX"\n\troman[5] = "V"\n\troman[4] = "IV"\n\troman[1] = "I"\n\tdef roman_num(num):\n\t\tfor r in roman.keys():\n\t\t\tx, y = divmod(num, r)\n\t\t\tyield roman[r] * x\n\t\t\tnum -= (r * x)\n\t\t\tif num > 0:\n\t\t\t\troman_num(num)\n\t\t\telse:\n\t\t\t\tbreak\n\treturn "".join([a for a in roman_num(num)])\nprint solution(N)',
     tests: [
       {
-        hint: 'N=50',
+        inputDesc: 'N=50',
         preCode: 'N=50',
-        postCode: 'print write_roman(N)'
+        postCode: ''
       },
       {
-        hint: 'N=12',
+        inputDesc: 'N=12',
         preCode: 'N=12',
-        postCode: 'print write_roman(N)'
+        postCode: ''
       },
       {
-        hint: 'N=1994',
+        inputDesc: 'N=1994',
         preCode: 'N=1994',
-        postCode: 'print write_roman(N)'
+        postCode: ''
       },
       {
-        hint: 'N=399',
-        preCode: 'N=399',
-        postCode: 'print write_roman(N)'
+        inputDesc: 'N=3999',
+        preCode: 'N=3999',
+        postCode: ''
       },
       {
-        hint: 'N=1474',
+        inputDesc: 'N=1474',
         preCode: 'N=1474',
-        postCode: 'print write_roman(N)'
-      }
-    ]
-  },
-  data: {}
-};
-
-export const exampleConfig3 = {
-  title: 'Double in javascript',
-  config: {
-    language: 'javascript',
-    title: 'Double',
-    guidelines: 'Make it double!',
-    template: 'const double = x => 0',
-    solution: 'const double = x => 2*x',
-    tests: [
-      {
-        hint: 'x=0',
-        preCode: '',
-        postCode: 'print(double(0))'
-      },
-      {
-        hint: 'x=42',
-        preCode: '',
-        postCode: 'print(double(42))'
-      },
-      {
-        hint: 'x=1234567890',
-        preCode: '',
-        postCode: 'print(double(1234567890))'
+        postCode: ''
       }
     ]
   },
