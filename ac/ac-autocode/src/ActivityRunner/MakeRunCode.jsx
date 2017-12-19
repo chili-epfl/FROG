@@ -5,13 +5,13 @@ const makeRunCode = (language: string) => {
     case 'python':
       return python();
     case 'javascript':
-      return javascript();
     default:
-      return python();
+      return javascript();
   }
 };
 
 const javascript = () => {
+  // print is the function used in the code to provide output
   /* eslint no-unused-vars: ["error", { "argsIgnorePattern": "print" }] */
   const javascriptRunCode = (code: string, print: Function) =>
     new Promise((resolve, reject) => {
