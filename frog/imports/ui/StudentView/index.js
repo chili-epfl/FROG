@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
@@ -65,19 +66,31 @@ class StudentViewComp extends Component {
 
 StudentViewComp.displayName = 'StudentView';
 
-export default createContainer(props => {
-  if (!once.already) {
+const monitor = () => {
+  if (Meteor.userId()) {
     try {
       UserStatus.startMonitor({
         threshold: 30000,
+        interval: 1000,
         idleOnBlur: true
       });
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-    } finally {
-      once.already = true;
+    } catch (_) {
+      console.warn('Error connecting to status monitoring, trying again');
+      window.setTimeout(monitor, 5000);
     }
+  } else {
+    UserStatus.stopMonitor();
+  }
+};
+
+export default createContainer(props => {
+  if (!once.already) {
+    Tracker.autorun(() => {
+      if (Meteor.userId()) {
+        monitor();
+      }
+    });
+    once.already = true;
   }
 
   const slug = props.match.params.slug.trim().toUpperCase();
