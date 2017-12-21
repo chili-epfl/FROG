@@ -96,11 +96,12 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activityType.id;
 
-    const examples = config
-      ? uniqBy(activityType.meta.exampleData, x => Stringify(x.data))
-      : activityType.meta.exampleData;
+    const examples =
+      (config
+        ? uniqBy(activityType.meta.exampleData, x => Stringify(x.data))
+        : activityType.meta.exampleData) || {};
 
-    const activityData = cloneDeep(examples[example]);
+    const activityData = examples[example] ? cloneDeep(examples[example]) : {};
     if (config) {
       activityData.config = config;
     }
@@ -147,12 +148,19 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
           if (!doc.type) {
             doc.create(cloneDeep(activityType.dataStructure) || {});
             const mergeFunction = activityType.mergeFunction;
-            if (mergeFunction && activityType.meta.exampleData[example]) {
+            if (
+              mergeFunction &&
+              example &&
+              activityType.meta.exampleData &&
+              activityType.meta.exampleData[example]
+            ) {
               const dataFn = generateReactiveFn(doc);
-              mergeFunction(
-                cloneDeep(activityType.meta.exampleData[example]),
-                dataFn
-              );
+              if (activityType.meta.exampleData) {
+                mergeFunction(
+                  cloneDeep(activityType.meta.exampleData[example]),
+                  dataFn
+                );
+              }
             }
           }
           doc.destroy();
@@ -262,12 +270,13 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
           )}
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
-          {examples.map((x, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
-              {x.title}
-            </NavItem>
-          ))}
+          {examples &&
+            examples.map((x, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <NavItem key={i} eventKey={i} onClick={() => setExample(i)}>
+                {x.title}
+              </NavItem>
+            ))}
         </Nav>
       </div>
     );
@@ -385,7 +394,8 @@ const StatefulPreview = compose(
   withState('fullWindow', 'setFullWindow', false),
   withState('showData', 'setShowData', false),
   withState('showDash', 'setShowDash', false),
-  withState('windows', 'setWindows', 1)
+  withState('windows', 'setWindows', 1),
+  withState('showLogs', 'setShowLogs', false)
 )(StatelessPreview);
 
 StatefulPreview.displayName = 'StatefulPreview';
