@@ -94,38 +94,40 @@ test('make sure config social role matches', () => {
   expect(getErrs(datakey, op1, conn1)).toEqual([]);
 });
 
-const datakey1 = [
-  {
-    groupingKey: 'group',
-    plane: 2,
-    _id: 'a1',
-    title: 'noTypeAct',
-    startTime: 0,
-    length: 5,
-    activityType: 'ac-brainstorm',
-    data: { roles: 'group' }
-  }
-];
-test("make sure config and grouping key don't overlap", () => {
-  expect(getErrs(datakey1, op1, conn1)).toEqual([
-    ['a1', 'groupingKeyInConfig']
-  ]);
-});
+// const datakey1 = [
+//   {
+//     groupingKey: 'group',
+//     plane: 2,
+//     _id: 'a1',
+//     title: 'noTypeAct',
+//     startTime: 0,
+//     length: 5,
+//     activityType: 'ac-brainstorm',
+//     data: { roles: 'group' }
+//   }
+// ];
+
+// we currently don't have any activities with socialAttribute, so we have
+// to suspend this test
+// test("make sure config and grouping key don't overlap", () => {
+//   expect(getErrs(datakey1, op1, conn1)).toEqual([
+//     ['a1', 'groupingKeyInConfig']
+//   ]);
+// });
 
 const datakey2 = [
   {
-    groupingKey: 'group',
-    plane: 2,
     _id: 'a1',
     title: 'noTypeAct',
     startTime: 0,
     length: 5,
-    activityType: 'ac-brainstorm',
-    data: { roles: 'alfa' }
+    operatorType: 'op-group-identical',
+    data: { old: 'group' }
   }
 ];
 test('make sure grouping key in config exists', () => {
-  expect(getErrs(datakey2, op1, conn1)).toEqual([
+  expect(getErrs([], datakey2, conn1)).toEqual([
+    ['a1', 'noOutgoing'],
     ['a1', 'missingSocialAttribute']
   ]);
 });
