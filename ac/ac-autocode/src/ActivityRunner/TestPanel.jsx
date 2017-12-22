@@ -54,14 +54,13 @@ const Feedback = ({ inputDesc, expected, received, error, stdout }) => (
 const TestList = ({ tests, ...props }) => (
   <ButtonList>
     <Debug key="debug" {...props} />
-    {tests.map((test, index) => {
-      test.id = index;
-      return <Test key={test.id} test={test} index={index} {...props} />;
-    })}
+    {tests.map((test, index) => (
+      <Test key={index} test={test} index={index} {...props} /> // eslint-disable-line
+    ))}
   </ButtonList>
 );
 
-const Debug = ({ data, runCode, handleError, setFeedback, logger }) => {
+const Debug = ({ data, runCode, setFeedback, logger }) => {
   const debug = () => {
     const stdout = [];
     logger({ type: 'debug', value: data.code });

@@ -32,7 +32,7 @@ module.exports = {
     'jsx-a11y/label-has-for': 'off',
     'jsx-a11y/heading-has-content': 'off',
     'no-confusing-arrow': 'off',
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
     'no-constant-condition': 'off',
     'no-else-return': 'off',
     'no-nested-ternary': 'off',

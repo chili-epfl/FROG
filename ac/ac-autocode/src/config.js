@@ -18,6 +18,10 @@ export const config = {
       type: 'string',
       title: 'Guidelines'
     },
+    specifications: {
+      type: 'string',
+      title: 'Specifications'
+    },
     template: {
       type: 'string',
       title: 'Code Template'
