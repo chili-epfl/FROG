@@ -115,7 +115,7 @@ export const exampleConfig1 = {
     guidelines: 'Code an algorithm to sort an array in python',
     specifications:
       'The variable a is an array of integers. You must sort it and assign the result to variable b.',
-    templateCode: 'b=a',
+    template: 'b=a',
     solution: 'b=sorted(a)',
     tests: [
       {

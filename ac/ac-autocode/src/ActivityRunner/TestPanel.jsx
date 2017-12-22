@@ -60,7 +60,7 @@ const TestList = ({ tests, ...props }) => (
   </ButtonList>
 );
 
-const Debug = ({ data, runCode, setFeedback, logger }) => {
+const Debug = ({ data, runCode, setFeedback, logger, handleError }) => {
   const debug = () => {
     const stdout = [];
     logger({ type: 'debug', value: data.code });
