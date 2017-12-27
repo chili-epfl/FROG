@@ -16,6 +16,7 @@ const javascript = () => {
   const javascriptRunCode = (code: string, print: Function) =>
     new Promise((resolve, reject) => {
       try {
+        /* eslint no-eval: "off" */
         eval(code);
       } catch (e) {
         reject(e);

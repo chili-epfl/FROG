@@ -8,7 +8,7 @@ export const config = {
       type: 'string',
       title: 'Language',
       enum: ['python', 'javascript'],
-      default: 'python'
+      default: 'javascript'
     },
     title: {
       type: 'string',
