@@ -3,22 +3,48 @@
 import React from 'react';
 
 import { type LogDBT } from 'frog-utils';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryTheme,
+  VictoryStack
+} from 'victory';
 
-const Viewer = (props: Object) => (
+const Viewer = (props: Object) => {
   //props = {users, instances, data, config}
-  <div style={{ overflow: 'scroll' }}>
-    <h1>Dashboard for activity: {props.config.title}</h1>
-    <p>
-      {Object.keys(props.users).length} students have registered to this
-      activity
-    </p>
-    <p>
-      {Object.keys(props.data.students).length} students have started coding
-    </p>
 
-    <pre>{JSON.stringify(props, null, 2)}</pre>
-  </div>
-);
+  const chartData = value => {
+    return props.config.tests.map((test, index) => {
+      return {
+        x: 'test ' + index,
+        y: props.data.tests[index] ? props.data.tests[index][value] : 0
+      };
+    });
+  };
+  return (
+    <div style={{ height: '2000px', overflow: 'scroll' }}>
+      <h1>Dashboard for activity: {props.config.title}</h1>
+      <p>
+        {Object.keys(props.users).length} students have registered to this
+        activity
+      </p>
+      <p>
+        {Object.keys(props.data.students).length} students have started coding
+      </p>
+      <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
+        <VictoryAxis />
+        <VictoryAxis dependentAxis />
+        <VictoryStack>
+          <VictoryBar data={chartData('success')} />
+          <VictoryBar data={chartData('danger')} />
+          <VictoryBar data={chartData('error')} />
+        </VictoryStack>
+      </VictoryChart>
+      <pre>{JSON.stringify(props, null, 2)}</pre>
+    </div>
+  );
+};
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   let previousStatus = '';
