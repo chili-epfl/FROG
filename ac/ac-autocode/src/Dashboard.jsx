@@ -5,9 +5,17 @@ import React from 'react';
 import { type LogDBT } from 'frog-utils';
 
 const Viewer = (props: Object) => (
-  <div>
+  //props = {users, instances, data, config}
+  <div style={{ overflow: 'scroll' }}>
     <h1>Dashboard for activity: {props.config.title}</h1>
-    <p>Graph 1</p>
+    <p>
+      {Object.keys(props.users).length} students have registered to this
+      activity
+    </p>
+    <p>
+      {Object.keys(props.data.students).length} students have started coding
+    </p>
+
     <pre>{JSON.stringify(props, null, 2)}</pre>
   </div>
 );
