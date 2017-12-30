@@ -91,7 +91,7 @@
     "ws": "^3.2.0",
     "op-check-concepts": "1.0.0",
     "ac-textarea": "1.0.0",
-    "ac-ck-student": "1.0.0",
-    "op-performance-select": "1.0.0"
+    "op-performance-select": "1.0.0",
+    "unzipper": "^0.8.11"
   }
 }

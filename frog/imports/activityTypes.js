@@ -1,6 +1,8 @@
 // @flow
 
-import acCkStudent from 'ac-ck-student';
+import { keyBy } from 'lodash';
+import { type ActivityPackageT, flattenOne } from 'frog-utils';
+
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';
@@ -19,9 +21,7 @@ import acQuiz from 'ac-quiz';
 import acMonty from 'ac-monty';
 import acCKBoard from 'ac-ck-board';
 
-import { type ActivityPackageT, flattenOne } from 'frog-utils';
-
-import { keyBy } from 'lodash';
+import acH5P from './internalActivities/ac-h5p';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
   acCkStudent,
@@ -41,7 +41,8 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acForm,
   acCKBoard,
   acQuiz,
-  acMonty
+  acMonty,
+  acH5P
 ]).map(x => Object.freeze(x));
 
 // see explanation of `any` in operatorTypes.js

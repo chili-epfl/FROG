@@ -1,21 +1,29 @@
 export const config = {
   type: 'object',
-  required: ['individuals'],
+  required: ['who', 'social'],
   properties: {
     applytoall: {
       type: 'boolean',
       title: 'Apply to all activities?',
       default: true
     },
+    social: {
+      type: 'socialAttribute',
+      title: 'Social attribute'
+    },
+    individuals: {
+      type: 'boolean',
+      title: 'Apply to individuals instead of groups'
+    },
     includeexclude: {
       type: 'string',
-      title: 'Include or exclude individuals',
+      title: 'Include or exclude students',
       enum: ['include', 'exclude'],
       default: 'include'
     },
-    individuals: {
+    who: {
       type: 'string',
-      title: 'List of individuals to include/exclude, separated by comma'
+      title: 'List of individuals/groups to include/exclude, separated by comma'
     },
     rules: {
       title: 'Rules',
@@ -23,7 +31,7 @@ export const config = {
       items: {
         type: 'object',
         title: 'New Rule',
-        required: ['activity', 'individuals'],
+        required: ['activity', 'who'],
         properties: {
           activity: {
             type: 'activity',
@@ -35,9 +43,10 @@ export const config = {
             enum: ['include', 'exclude'],
             default: 'include'
           },
-          individuals: {
+          who: {
             type: 'string',
-            title: 'List of individuals to include/exclude, separated by comma'
+            title:
+              'List of individuals/groups to include/exclude, separated by comma'
           }
         }
       }
@@ -49,8 +58,9 @@ export const configUI = {
   rules: {
     conditional: formdata => !formdata.applytoall
   },
+  social: { conditional: formdata => !formdata.individuals },
   includeexclude: { conditional: 'applytoall' },
-  individuals: { conditional: 'applytoall' }
+  who: { conditional: 'applytoall' }
 };
 
 export const validateConfig = [

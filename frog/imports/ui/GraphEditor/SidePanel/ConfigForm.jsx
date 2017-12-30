@@ -1,9 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import { EnhancedForm } from 'frog-utils';
-import { addOperator, addActivity } from '/imports/api/activities';
+import { isEqual } from 'lodash';
+
+import { Activities, addOperator, addActivity } from '/imports/api/activities';
 
 import {
   SelectFormWidget,
@@ -22,13 +23,20 @@ export default class ConfigForm extends Component {
   }
 
   componentWillReceiveProps(nextProps: PropT) {
-    if (this.props.node._id !== nextProps.node._id) {
-      this.setState({ formData: nextProps.node.data });
+    if (
+      this.props.node._id !== nextProps.node._id ||
+      this.props.reload !== nextProps.reload
+    ) {
+      this.setState({ formData: Activities.findOne(nextProps.node._id).data });
     }
   }
 
   shouldComponentUpdate(nextProps: PropT): boolean {
-    if (this.props.node._id === nextProps.node._id) {
+    if (
+      this.props.node._id === nextProps.node._id &&
+      this.props.reload === nextProps.reload &&
+      isEqual(this.props.connectedActivities, nextProps.connectedActivities)
+    ) {
       return false;
     } else {
       return true;
@@ -51,6 +59,7 @@ export default class ConfigForm extends Component {
         socialAttributeWidget: SelectFormWidget,
         activityWidget: SelectActivityWidget
       },
+      reload: this.props.reload,
       id: node._id,
       formContext: {
         options: valid.social[node._id] || [],

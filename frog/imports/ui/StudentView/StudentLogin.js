@@ -35,7 +35,7 @@ class StudentLogin extends Component {
               <ul className="list-group">
                 {lst.map(x => (
                   <li key={x} className="list-group-item">
-                    <A onClick={() => this.props.login(x)}>{x}</A>
+                    <A onClick={() => this.props.login(x, null, true)}>{x}</A>
                   </li>
                 ))}
               </ul>
