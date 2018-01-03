@@ -7,23 +7,19 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryAxis,
-  VictoryTheme,
   VictoryStack,
   VictoryLegend,
   VictoryLabel
 } from 'victory';
 
 const Viewer = (props: Object) => {
-  //props = {users, instances, data, config}
+  // props = {users, instances, data, config}
 
-  const chartData = value => {
-    return props.config.tests.map((test, index) => {
-      return {
-        x: 'test ' + index,
-        y: props.data.tests[index] ? props.data.tests[index][value] : 0
-      };
-    });
-  };
+  const chartData = value =>
+    props.config.tests.map((test, index) => ({
+      x: 'test ' + index,
+      y: props.data.tests[index] ? props.data.tests[index][value] : 0
+    }));
 
   const sum = x => x['success'] + x['danger'] + x['error'] || 0;
 
@@ -33,9 +29,13 @@ const Viewer = (props: Object) => {
         if (acc) {
           if (props.data.students[val][-1] !== undefined) {
             const num = sum(props.data.students[val][-1]);
-            acc[num] !== undefined ? acc[num]++ : (acc[num] = 1);
+            if (acc[num] !== undefined) {
+              acc[num] += 1;
+            } else {
+              acc[num] = 1;
+            }
           } else {
-            acc[0]++;
+            acc[0] += 1;
           }
         }
         return acc;
@@ -49,12 +49,12 @@ const Viewer = (props: Object) => {
     }, []);
   };
 
-  const green = '#33cc33',
-    red1 = '#ff0000',
-    red2 = '#cc0000';
+  const green = '#33cc33';
+  const red1 = '#ff0000';
+  const red2 = '#cc0000';
 
   return (
-    <div style={{ height: '2000px', overflow: 'scroll' }}>
+    <div style={{ height: '1000px', overflow: 'scroll' }}>
       <h1>Dashboard for activity: {props.config.title}</h1>
       <p>
         {Object.keys(props.users).length} students have registered to this
@@ -86,7 +86,7 @@ const Viewer = (props: Object) => {
         />
         <VictoryAxis
           tickFormat={props.config.tests.map(
-            (val, index) => 'Test ' + index + 1
+            (val, index) => 'Test ' + (index + 1)
           )}
         />
         <VictoryAxis dependentAxis />
@@ -111,21 +111,20 @@ const Viewer = (props: Object) => {
         }}
         domainPadding={20}
       >
-        <VictoryLabel text="Use of debug" />
+        <VictoryLabel x={125} text="Use of debug" />
         <VictoryAxis />
         <VictoryAxis dependentAxis />
         <VictoryBar data={debugData()} />
       </VictoryChart>
-      // <pre>{JSON.stringify(props, null, 2)}</pre>
     </div>
   );
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
-  let previousStatus = '',
-    codeUpdated = true;
+  let previousStatus = '';
+  let codeUpdated = true;
   if (data.students[log.userId]) {
-    //student already seen
+    // student already seen
     if (data.students[log.userId].code !== log.payload) {
       // update code if changed
       dataFn.objInsert(log.payload, ['students', log.userId, 'code']);
@@ -156,28 +155,29 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
         ['students', log.userId, log.itemId]
       );
     }
-  } else {
+  } else if (log.itemId !== undefined) {
     // first time that student is seen
-    log.itemId !== undefined &&
-      dataFn.objInsert(
-        {
-          code: log.payload,
-          [log.itemId]: {
-            status: log.value,
-            success: log.value === 'success' ? 1 : 0,
-            danger: log.value === 'danger' ? 1 : 0,
-            error: log.value === 'error' ? 1 : 0
-          }
-        },
-        ['students', log.userId]
-      );
+
+    dataFn.objInsert(
+      {
+        code: log.payload,
+        [log.itemId]: {
+          status: log.value,
+          success: log.value === 'success' ? 1 : 0,
+          danger: log.value === 'danger' ? 1 : 0,
+          error: log.value === 'error' ? 1 : 0
+        }
+      },
+      ['students', log.userId]
+    );
   }
 
   if (log.type === 'test') {
     if (data.tests[log.itemId]) {
       dataFn.numIncr(1, ['tests', log.itemId, log.value]);
-      previousStatus &&
+      if (previousStatus) {
         dataFn.numIncr(-1, ['tests', log.itemId, previousStatus]);
+      }
     } else {
       dataFn.objInsert(
         {
