@@ -1,4 +1,25 @@
 {
-   "plugins": ["syntax-decorators", "transform-decorators-legacy", "transform-class-properties","transform-flow-strip-types", "captains-log"],
-   "presets": [ "react", "stage-0", "es2015"]
- }
+  "plugins": [
+    "syntax-decorators",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-flow-strip-types",
+    [
+      "captains-log",
+      {
+        "methods": [
+          "debug",
+          "error",
+          "exception",
+          "log",
+          "warn"
+        ]
+      }
+    ]
+  ],
+  "presets": [
+    "react",
+    "stage-0",
+    "es2015"
+  ]
+}

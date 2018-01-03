@@ -7,8 +7,12 @@ import { WebApp } from 'meteor/webapp';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import fs from 'fs';
 
+import setupH5PRoutes from './h5p';
+
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
+
+setupH5PRoutes();
 
 Picker.filter(req => req.method === 'POST').route(
   '/lti/:slug',
