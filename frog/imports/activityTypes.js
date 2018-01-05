@@ -24,6 +24,7 @@ import acCKBoard from 'ac-ck-board';
 import acH5P from './internalActivities/ac-h5p';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acCkStudent,
   acTextarea,
   acAutocode,
   acDisplaySocial,

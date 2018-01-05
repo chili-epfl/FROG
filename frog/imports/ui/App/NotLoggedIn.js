@@ -25,12 +25,12 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
     const name = randomName();
     return (
       <div style={{ margin: '25px' }}>
-        <h1>FROG: Not logged in</h1>
+        <h1>CK: Not logged in</h1>
         <FlexView>
           <div style={{ width: '50%' }}>
             <h3>How to login as any user during development</h3>
             <p>
-              FROG is currently in development mode, to access teacher mode, use{' '}
+              CK is currently in development mode, to access teacher mode, use{' '}
               <b>
                 <i>{`<FROG_URL>?login=teacher`}</i>
               </b>. Or, to create/log in as a student, use{' '}
