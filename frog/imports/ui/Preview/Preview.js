@@ -19,6 +19,8 @@ import ShowInfo from './ShowInfo';
 import createLogger, { Logs } from './createLogger';
 import ShowLogs from './ShowLogs';
 
+Modal.setAppElement('#render-target')
+
 const Icon = ({
   onClick,
   icon,

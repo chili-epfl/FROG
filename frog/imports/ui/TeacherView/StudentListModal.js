@@ -6,6 +6,8 @@ import Form from 'react-jsonschema-form';
 
 import { Sessions } from '../../api/sessions';
 
+Modal.setAppElement('#render-target')
+
 const StudentListModal = ({
   dismiss,
   session
