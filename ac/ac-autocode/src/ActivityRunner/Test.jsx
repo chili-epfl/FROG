@@ -10,6 +10,7 @@ const Test = ({
   test,
   index,
   runCode,
+  handleError,
   data,
   activityData,
   logger
@@ -38,8 +39,8 @@ const Test = ({
       if (solutionOutput[i] !== studentOutput[i]) {
         return {
           newStatus: 'danger',
-          expected: solutionOutput[i],
-          received: studentOutput[i]
+          expected: '' + solutionOutput[i],
+          received: '' + studentOutput[i]
         };
       }
     return {
@@ -57,9 +58,9 @@ const Test = ({
     logger({ type: 'test', itemId: index, value: data.code });
     testOutput = [];
     solutionOutput = [];
-    runCode(solutionCode, handleOut('teacher'), () => {}).then(
+    runCode(solutionCode, handleOut('teacher')).then(
       () => {
-        runCode(testCode, handleOut('student'), () => {}).then(
+        runCode(testCode, handleOut('student')).then(
           () => {
             // Both code ran without error, checkSolution compare the outputs and assign the values for feedback
             const { newStatus, expected, received } = checkSolution();
@@ -68,20 +69,16 @@ const Test = ({
             setFeedback({
               inputDesc,
               expected,
-              received
+              received,
+              error: undefined,
+              stdout: undefined
             });
           },
           err => {
             // Student error
             logger({ type: 'ERROR', itemId: index });
             setStatus('danger');
-            const t = err.traceback;
-            const a = err.args;
-            const lineno = t && t[0] && t[0].lineno - lengthLines(preCode);
-            const message = a && a.v && a.v[0] && a.v[0].v;
-            const error = lineno
-              ? 'On line ' + lineno + ', Received error: ' + message
-              : 'Received error: ' + message;
+            const error = handleError(err, lengthLines(preCode));
             setFeedback({ error, inputDesc });
           }
         );
@@ -90,13 +87,7 @@ const Test = ({
       err => {
         // Teacher code error
         setStatus('warning');
-        const t = err.traceback;
-        const a = err.args;
-        const lineno = t && t[0] && t[0].lineno - lengthLines(preCode);
-        const message = a && a.v && a.v[0] && a.v[0].v;
-        const error = lineno
-          ? 'On line ' + lineno + ', Received error: ' + message
-          : 'Received error: ' + message;
+        const error = handleError(err, lengthLines(preCode));
         setFeedback({
           stdout: [
             'The code provided by the teacher seems incorrect, please report them the error'

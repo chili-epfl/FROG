@@ -8,7 +8,8 @@ import {
   configUI,
   exampleConfig0,
   exampleConfig1,
-  exampleConfig2
+  exampleConfig2,
+  exampleConfig3
 } from './config';
 
 const meta = {
@@ -19,7 +20,7 @@ const meta = {
   description:
     'Students upload code wich is tested against teacher-designed tests',
   // examples of config
-  exampleData: [exampleConfig0, exampleConfig1, exampleConfig2]
+  exampleData: [exampleConfig0, exampleConfig1, exampleConfig2, exampleConfig3]
 };
 
 // default empty reactive datastructure, typically either an empty object or array
