@@ -6,4 +6,5 @@ node_modules/
 **/.babelrc
 **/npm-debug.log*
 cypress/videos
+cypress/screenshots
 TEACHER_TOKEN

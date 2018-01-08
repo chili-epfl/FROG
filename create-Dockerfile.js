@@ -11,10 +11,10 @@ fs.readdir('./ac', (_, ac) => {
 RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN npm install -g yarn@1.3.2 
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
+RUN npm install -g cypress@1.4.1
 
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
-RUN npm install cypress
 
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
