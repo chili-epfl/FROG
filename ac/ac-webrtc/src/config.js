@@ -6,6 +6,10 @@ export const config = {
       title: 'Title',
       type: 'string'
     },
+    info: {
+      type: 'string',
+      title: 'Information for your students:'
+    },
     sdpConstraints : {
       type: 'object',
       properties: {

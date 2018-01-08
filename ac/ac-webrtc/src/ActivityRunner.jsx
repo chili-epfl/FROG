@@ -6,6 +6,8 @@ import type { ActivityRunnerT } from 'frog-utils';
 const LocalVideo = ({ src }) => {
   return (
     <video
+      playsInline
+      controls = "true"
       id="localVideo"
       height="200px"
       autoPlay="true"
@@ -19,9 +21,11 @@ const RemoteVideo = ({ src, index, name }) => {
   return(
     <div>
       <video 
+        playsInline
+        controls="true"
         id={index} 
+        height="200px"
         autoPlay="true" 
-        height="200px" 
         muted="false" 
         src={src} 
       />
@@ -57,23 +61,9 @@ class ActivityRunner extends Component {
     ]
   };
 
-  _state: StateT;
+  state: StateT;
   // readOnly: boolean;
 
-
-
-  set state(newState: StateT){
-    console.log("SET STATE", newState); 
-    // if(this.readOnly){console.log("you shouldn't") }
-    this._state = newState;
-  };
-
-  get state(): StateT {
-    // if (this.readOnly) {
-    //   return { mode: 'readOnly' };
-    // }
-    return this._state || { mode: 'notReady' };
-  };
 
   findConnectionByRemoteUser = userInfo => {
     return _.find(this.connections, conn => {
@@ -314,13 +304,18 @@ class ActivityRunner extends Component {
           }
         });
       }
+
+      // includes connection? then close it
+      // filter where comperes
+      
+      try {
+        remoteConnection.close();
+      } catch (e) {
+        console.log('error closing connection' + e);
+      }
+        
       this.connections = _.filter(this.connections, conn => {
         if (conn === remoteConnection) {
-          try {
-            conn.close();
-          } catch (e) {
-            console.log('error closing connection' + e);
-          }
           return false;
         } else {
           return true;
@@ -580,6 +575,7 @@ class ActivityRunner extends Component {
                   sdpMLineIndex: newMess.data.label,
                   candidate: newMess.data.candidate
                 });
+
                 this.findConnectionByRemoteUser(newMess.data.fromUser).addIceCandidate(candidate);
                 break;
               }
@@ -637,7 +633,8 @@ class ActivityRunner extends Component {
     return (
       <div id="webrtc">
         <h1>{activityData.config.title}</h1>
-        <h1>You are: {userInfo.name} in group {groupingValue}</h1>
+        <p>You are: {userInfo.name} in group {groupingValue}</p>
+        <p>{activityData.config.info}</p>
         <div id="videos">
           <LocalVideo
             src={this.state.local ? this.state.local.src : ""}
