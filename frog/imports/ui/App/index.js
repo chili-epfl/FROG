@@ -68,9 +68,17 @@ const subscriptionCallback = (error, response, setState) => {
 const FROGRouter = withRouter(
   class RawRouter extends Component {
     state: {
-      mode: 'ready' | 'loggingIn' | 'error' | 'waiting' | 'studentlist',
+      mode:
+        | 'ready'
+        | 'loggingIn'
+        | 'error'
+        | 'waiting'
+        | 'studentlist'
+        | 'nostudentlist',
       studentlist?: string[]
     };
+
+    wait: boolean = false;
 
     constructor(props) {
       super(props);
@@ -95,11 +103,17 @@ const FROGRouter = withRouter(
       }
     }
 
-    login = (username: string) => {
+    login = (username: string, token?: string, isStudentList?: boolean) => {
       this.setState({ mode: 'loggingIn' });
-      Meteor.call('frog.debuglogin', username, (err, id) => {
-        subscriptionCallback(err, id, x => this.setState({ mode: x }));
-      });
+      Meteor.call(
+        'frog.username.login',
+        username,
+        token,
+        isStudentList,
+        (err, id) => {
+          subscriptionCallback(err, id, x => this.setState({ mode: x }));
+        }
+      );
     };
 
     tokenLogin(token, slug) {
@@ -110,7 +124,9 @@ const FROGRouter = withRouter(
           this.setState({ mode: 'error' });
         } else {
           Meteor.subscribe('userData', {
-            onReady: () => this.setState({ mode: 'ready' })
+            onReady: () => {
+              this.setState({ mode: 'ready' });
+            }
           });
           if (slug) {
             this.props.history.push('/' + slug);
@@ -120,52 +136,40 @@ const FROGRouter = withRouter(
     }
 
     update() {
+      this.wait = true;
       InjectData.getData('login', data => {
         if (data && data.token) {
           this.tokenLogin(data.token, data.slug);
+        } else {
+          this.wait = false;
         }
       });
-      const query = queryToObject(this.props.location.search.slice(1));
-      const hasLogin = query.login;
+      if (!this.wait) {
+        const query = queryToObject(this.props.location.search.slice(1));
+        const hasLogin = query.login;
 
-      if (this.state.mode !== 'loggingIn') {
-        if (true) {
-          // (process.env.NODE_ENV !== 'production') {
+        if (this.state.mode !== 'loggingIn') {
           const username = query.login;
           if (username) {
-            this.setState({ mode: 'loggingIn' });
-            Meteor.call('frog.debuglogin', username, (err, id) => {
-              subscriptionCallback(err, id, x => this.setState({ mode: x }));
-            });
+            this.login(username, query.token);
           }
-
-          const token = query.token;
-          if (token) {
-            this.setState({ mode: 'loggingIn' });
-            Meteor.call('frog.teacherlogin', token.trim(), (err, id) =>
-              subscriptionCallback(err, id, x => {
-                this.setState({ mode: x });
-              })
-            );
-          }
-        }
-
-        if (!hasLogin && this.state.mode !== 'ready') {
-          if (Accounts._storedLoginToken()) {
-            this.tokenLogin(Accounts._storedLoginToken());
-          } else if (this.props.match.params.slug) {
-            this.setState({ mode: 'loggingIn' });
-            Meteor.call(
-              'frog.studentlist',
-              this.props.match.params.slug,
-              (err, result) => {
-                if (err || result === -1 || isEmpty(result)) {
-                  this.setState({ mode: 'error' });
-                } else {
-                  this.setState({ studentlist: result, mode: 'studentlist' });
+          if (!hasLogin && this.state.mode !== 'ready') {
+            if (Accounts._storedLoginToken()) {
+              this.tokenLogin(Accounts._storedLoginToken());
+            } else if (this.props.match.params.slug) {
+              this.setState({ mode: 'loggingIn' });
+              Meteor.call(
+                'frog.studentlist',
+                this.props.match.params.slug,
+                (err, result) => {
+                  if (err || result === -1 || isEmpty(result)) {
+                    this.setState({ mode: 'nostudentlist' });
+                  } else {
+                    this.setState({ studentlist: result, mode: 'studentlist' });
+                  }
                 }
-              }
-            );
+              );
+            }
           }
         }
       }
@@ -188,6 +192,9 @@ const FROGRouter = withRouter(
             </Switch>
           );
         }
+      }
+      if (this.state.mode === 'error') {
+        return <p1>There was an error logging in</p1>;
       }
       return this.state.mode === 'studentlist' ? (
         <StudentLogin login={this.login} slug={this.props.match.params.slug} />

@@ -17,7 +17,8 @@ export default (
         : operatorTypesObj[node.operatorType];
     if (nodePackage && node.data) {
       const socialFields =
-        (nodePackage.config.properties &&
+        (nodePackage.config &&
+          nodePackage.config.properties &&
           Object.keys(nodePackage.config.properties).filter(
             x => nodePackage.config.properties[x].type === 'socialAttribute'
           )) ||
