@@ -16,6 +16,7 @@ RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 
 RUN npm install cypress@1.4.1
+COPY cypress.json ./
 RUN ./node_modules/.bin/cypress run
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
@@ -27,7 +28,7 @@ RUN mkdir -p frog-utils/src \\
 ${acopSrc}
 COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
-COPY package.json yarn.lock .yarnrc .babelrc cypress.json cypress ./
+COPY package.json yarn.lock .yarnrc .babelrc cypress ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/
 ${acopCP}
