@@ -16,6 +16,7 @@ RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 
 RUN npm install cypress@1.4.1
+RUN ./node_modules/.bin/cypress run
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
