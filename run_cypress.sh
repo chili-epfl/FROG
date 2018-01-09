@@ -15,5 +15,8 @@ else
 fi
 echo "Cypress: $CYPRESS"
 
+cd frog;meteor & 
+../node_modules/.bin/wait-on http://localhost:3000
+cd ..
 "$CYPRESS" run
 exit 0
