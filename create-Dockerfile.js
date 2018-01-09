@@ -15,6 +15,7 @@ RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 
+RUN npm install cypress@1.4.1
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
