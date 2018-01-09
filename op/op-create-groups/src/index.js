@@ -95,7 +95,7 @@ const operator = (configData, object) => {
 
   const result = {
     [newGrouping]: struct.reduce(
-      (acc, k, i) => ({ ...acc, [i + 1]: compact(k) }),
+      (acc, k, i) => ({ ...acc, [i + 1 + '']: compact(k) }),
       {}
     )
   };

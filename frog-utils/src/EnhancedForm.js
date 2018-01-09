@@ -32,6 +32,7 @@ class EnhancedForm extends Component {
   componentDidUpdate = (prevProps: Object) => {
     if (
       !isEqual(this.props.schema, prevProps.schema) ||
+      !isEqual(this.props.reload, prevProps.reload) ||
       !isEqual(this.props.uiSchema, prevProps.uiSchema) ||
       !isEqual(this.props.id, prevProps.id)
     ) {
