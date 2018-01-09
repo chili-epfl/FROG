@@ -69,6 +69,8 @@ const Viewer = (props: Object) => {
           y: [0, Object.keys(props.data.students).length + 1]
         }}
         domainPadding={20}
+        height={200}
+        width={350}
       >
         <VictoryLegend
           x={125}
@@ -110,6 +112,8 @@ const Viewer = (props: Object) => {
           y: [0, Object.keys(props.data.students).length + 1]
         }}
         domainPadding={20}
+        height={200}
+        width={350}
       >
         <VictoryLabel x={125} text="Use of debug" />
         <VictoryAxis />
@@ -135,6 +139,7 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
       // student already submitted for this test (or debug) once
       previousStatus = data.students[log.userId][log.itemId].status;
       if (previousStatus !== log.value || codeUpdated) {
+        // only update if things change
         dataFn.numIncr(1, ['students', log.userId, log.itemId, log.value]);
         dataFn.objInsert(log.value, [
           'students',
