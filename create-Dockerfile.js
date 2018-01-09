@@ -41,6 +41,7 @@ COPY frog /usr/src/frog/frog/
 RUN /usr/src/frog/initial_setup_wo_meteor.sh
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
+COPY cypress cypress/
 COPY *.js .*ignore *config package-scripts.js cypress.json cypress ./
 
 EXPOSE 3000
