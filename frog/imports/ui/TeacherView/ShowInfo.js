@@ -11,6 +11,8 @@ import { Activities, Operators } from '../../api/activities';
 import { Products } from '../../api/products';
 import { downloadExport } from './exportComponent';
 
+Modal.setAppElement('#render-target');
+
 const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
   if (!showInfo) {
     return null;

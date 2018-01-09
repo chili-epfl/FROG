@@ -4,6 +4,12 @@
 export const config = {
   type: 'object',
   properties: {
+    language: {
+      type: 'string',
+      title: 'Language',
+      enum: ['python', 'javascript'],
+      default: 'javascript'
+    },
     title: {
       type: 'string',
       title: 'Title of the activity'
@@ -75,6 +81,7 @@ export const configUI = {
 export const exampleConfig0 = {
   title: 'Double',
   config: {
+    language: 'python',
     title: 'Double',
     guidelines: 'Make it double!',
     template: 'def double(x):\n\treturn 0',
@@ -103,11 +110,12 @@ export const exampleConfig0 = {
 export const exampleConfig1 = {
   title: 'SortArray',
   config: {
+    language: 'python',
     title: 'Sorting in python',
     guidelines: 'Code an algorithm to sort an array in python',
     specifications:
       'The variable a is an array of integers. You must sort it and assign the result to variable b.',
-    templateCode: 'b=a',
+    template: 'b=a',
     solution: 'b=sorted(a)',
     tests: [
       {
@@ -138,6 +146,7 @@ export const exampleConfig1 = {
 export const exampleConfig2 = {
   title: 'RomanNumbers',
   config: {
+    language: 'python',
     title: 'Converting integers to Roman numbers',
     guidelines:
       'The variable N is the input number. You must print a string representing it in roman notation',
@@ -172,6 +181,35 @@ export const exampleConfig2 = {
         inputDesc: 'N=1474',
         preCode: 'N=1474',
         postCode: ''
+      }
+    ]
+  },
+  data: {}
+};
+
+export const exampleConfig3 = {
+  title: 'Double in javascript',
+  config: {
+    language: 'javascript',
+    title: 'Double',
+    guidelines: 'Make it double!',
+    template: 'const double = x => 0',
+    solution: 'const double = x => 2*x',
+    tests: [
+      {
+        inputDesc: 'x=0',
+        preCode: '',
+        postCode: 'print(double(0))'
+      },
+      {
+        inputDesc: 'x=42',
+        preCode: '',
+        postCode: 'print(double(42))'
+      },
+      {
+        inputDesc: 'x=1234567890',
+        preCode: '',
+        postCode: 'print(double(1234567890))'
       }
     ]
   },
