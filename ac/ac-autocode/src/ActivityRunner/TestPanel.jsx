@@ -87,7 +87,7 @@ const Debug = ({ data, runCode, setFeedback, logger, handleError }) => {
   };
   return (
     <button className="btn btn-primary" onClick={debug}>
-      DEBUG
+      RUN
     </button>
   );
 };
