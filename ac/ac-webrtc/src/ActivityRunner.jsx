@@ -6,6 +6,7 @@ import 'webrtc-adapter';
 
 import { ICEConfig } from './iceServers';
 import { LocalVideo, RemoteVideo } from './Video';
+import { preferOpus } from './codec';
 
 type StateT = 
   | { mode: 'notReady' }
@@ -27,38 +28,42 @@ class ActivityRunner extends Component {
 
     if(this.state.mode !== 'notReady'){
       if (_.isUndefined(remoteConn)) {
-        let connection = this.createPeerConnection();
-        connection.addStream(this.state.local.stream);
-        connection.remoteUser = remoteUser;
-        this.connections.push(connection);
-        return connection;
+        return( this.createPeerConnection(remoteUser) );
       } else if (remoteConn.signalingState === 'have-local-offer'){
         if(remoteUser.id > this.props.userInfo.id){
-          let connection = this.createPeerConnection();
-          connection.addStream(this.state.local.stream);
-          connection.remoteUser = remoteUser;
-          this.connections.push(connection); 
           this.handleRemoteHangUp(remoteConn); 
-          return connection;
+          return this.createPeerConnection(remoteUser);
         }else{
           console.log("wait for answer"); 
         }
       }
-      else {
-        console.log("not local offfer"); 
+      else if (remoteConn.signalingState === 'stable')
+        if(remoteConn.localDescription.type === ""){
+          console.log("wait answer"); 
+        }else {
+          console.log("stable", remoteConn); 
+          if(remoteUser.id > this.props.userInfo.id){
+          this.handleRemoteHangUp(remoteConn); 
+          return this.createPeerConnection(remoteUser);
+        }
+
+      }else{
+        console.log("not local offer", remoteConn.signalingState, remoteConn.localDescription, remoteConn.remoteDescription); 
       }
     }else{
       console.log("not ready yet"); 
     }
   };
 
-  createPeerConnection = () => {
+  createPeerConnection = (remoteUser) => {
     try {
       let conn = new RTCPeerConnection(ICEConfig);
       conn.onicecandidate = this.handleIceCandidate;
       conn.onaddstream = this.handleRemoteStreamAdded;
-      // conn.ontrack = this.handleOnTrack;
       conn.oniceconnectionstatechange = this.handleIceChange;
+      conn.addStream(this.state.local.stream);
+      conn.remoteUser = remoteUser;
+      this.connections.push(conn)
       return conn;
     } catch (e) {
       alert('Cannot create RTCPeerConnection object.');
@@ -81,45 +86,42 @@ class ActivityRunner extends Component {
       this.props.dataFn.listAppend(message);
     } else {
       console.log('End of candidates.');
-      console.log(this.connections); 
     }
   };
 
   handleRemoteStreamAdded = event => {
     let index = _.indexOf(this.connections, event.target);
-    if(this.state.mode === 'calling'){
-      console.log("remote stream added");
-      let remotes = this.state.remote;
-      if (_.isUndefined(remotes[index])) {
-        remotes[index] = {
-          stream: event.stream,
-          src: window.URL.createObjectURL(event.stream),
-          remoteUser: this.connections[index].remoteUser
-        };
-      } else {
+    let remotes = []
+    switch(this.state.mode){
+      case 'readyToCall':
+        this.addRemoteStream(remotes, index, event.stream);
+        break;
+      case 'calling':
+        remotes = this.state.remote;
+        if (_.isUndefined(remotes[index])) {
+          this.addRemoteStream(remotes, index, event.stream);
+        } else {
+          alert('ERROR on remote stream indexes');
+        }
+        break;
+      default :
         alert('ERROR on remote stream indexes');
-      }
-      this.setState({
-        mode: 'calling',
-        remote: remotes
-      });
-    }else if (this.state.mode === 'readyToCall'){
-      console.log("remote stream added");
-      let remotes = [];
-      remotes[index] = {
-        stream: event.stream,
-        src: window.URL.createObjectURL(event.stream),
-        remoteUser: this.connections[index].remoteUser
-      };
-      this.setState({
-        mode: 'calling',
-        remote: remotes
-      });
-    } else {
-      alert('ERROR on remote stream indexes');
+        break;
     }  
 
   };
+
+  addRemoteStream = (remotes, index, stream) => {
+    remotes[index] = {
+      stream: stream,
+      src: window.URL.createObjectURL(stream),
+      remoteUser: this.connections[index].remoteUser
+    };
+    this.setState({
+      mode: 'calling',
+      remote: remotes
+    });
+  }
 
   handleIceChange = event => {
     console.log("change event", event);
@@ -144,7 +146,7 @@ class ActivityRunner extends Component {
   };
 
   setLocalInfoAndSendOffer = (offer, connection) => {
-    offer.sdp = this.preferOpus(offer.sdp);
+    offer.sdp = preferOpus(offer.sdp);
     connection.setLocalDescription(offer);
     let message = {
       type: 'offer',
@@ -167,7 +169,7 @@ class ActivityRunner extends Component {
   };
 
   setLocalInfoAndSendAnswer = (answer, connection) => {
-    answer.sdp = this.preferOpus(answer.sdp);
+    answer.sdp = preferOpus(answer.sdp);
     connection.setLocalDescription(answer);
     let message = {
       type: 'answer',
@@ -202,17 +204,14 @@ class ActivityRunner extends Component {
           }
         });
       }
-
-      // includes connection? then close it
-      // filter where comperes
-      
+    
       try {
         remoteConnection.close();
       } catch (e) {
         console.log('error closing connection' + e);
       }
 
-      _.pull(this.connections, remoteConnection);
+      this.connections = _.without(this.connections, remoteConnection);
 
       this.setState({
         mode: 'calling',
@@ -221,92 +220,13 @@ class ActivityRunner extends Component {
     }
   };
 
-  // Set Opus as the default audio codec if it's present.
-  preferOpus = sdp => {
-    console.log('Preferring opus');
-    var sdpLines = sdp.split('\r\n');
-    var mLineIndex;
-    // Search for m line.
-    for (var i = 0; i < sdpLines.length; i++) {
-      if (sdpLines[i].search('m=audio') !== -1) {
-        mLineIndex = i;
-        break;
-      }
-    }
-    if (mLineIndex === (null || undefined)) {
-      return sdp;
-    }
-
-    // If Opus is available, set it as the default in m line.
-    for (i = 0; i < sdpLines.length; i++) {
-      if (sdpLines[i].search('opus/48000') !== -1) {
-        var opusPayload = this.extractSdp(sdpLines[i], /:(\d+) opus\/48000/i);
-        if (opusPayload) {
-          sdpLines[mLineIndex] = this.setDefaultCodec(
-            sdpLines[mLineIndex],
-            opusPayload
-          );
-        }
-        break;
-      }
-    }
-
-    // Remove CN in m line and sdp.
-    sdpLines = this.removeCN(sdpLines, mLineIndex);
-
-    sdp = sdpLines.join('\r\n');
-    return sdp;
-  };
-
-  extractSdp = (sdpLine, pattern) => {
-    var result = sdpLine.match(pattern);
-    return result && result.length === 2 ? result[1] : null;
-  };
-
-  // Set the selected codec to the first in m line.
-  setDefaultCodec = (mLine, payload) => {
-    var elements = mLine.split(' ');
-    var newLine = [];
-    var index = 0;
-    for (var i = 0; i < elements.length; i++) {
-      if (index === 3) {
-        // Format of media starts from the fourth.
-        newLine[index++] = payload; // Put target payload to the first.
-      }
-      if (elements[i] !== payload) {
-        newLine[index++] = elements[i];
-      }
-    }
-    return newLine.join(' ');
-  };
-
-  // Strip CN from sdp before CN constraints is ready.
-  removeCN = (sdpLines, mLineIndex) => {
-    var mLineElements = sdpLines[mLineIndex].split(' ');
-    // Scan from end for the convenience of removing an item.
-    for (var i = sdpLines.length - 1; i >= 0; i--) {
-      var payload = this.extractSdp(sdpLines[i], /a=rtpmap:(\d+) CN\/\d+/i);
-      if (payload) {
-        var cnPos = mLineElements.indexOf(payload);
-        if (cnPos !== -1) {
-          // Remove CN payload from m line.
-          mLineElements.splice(cnPos, 1);
-        }
-        // Remove CN line in sdp
-        sdpLines.splice(i, 1);
-      }
-    }
-
-    sdpLines[mLineIndex] = mLineElements.join(' ');
-    return sdpLines;
-  };
-
   constructor(props: ActivityRunnerT) {
     console.log("cons"); 
     super(props);
 
     this.connections = [];
     this.state = { mode: 'notReady'};
+    window.conn = this.connections;
   }
 
   componentDidMount() {
@@ -315,6 +235,7 @@ class ActivityRunner extends Component {
       .getUserMedia(this.props.activityData.config.sdpConstraints)
       .then(this.gotStream)
       .catch(function(e) {
+        window.e =e
         alert('getUserMedia() error: ' + e.name);
       });
   }
@@ -396,72 +317,35 @@ class ActivityRunner extends Component {
     if (_.difference(nextProps.data, this.props.data).length > 0) {
       let newMess = _.last(nextProps.data);
       if (!_.isEqual(newMess.data.fromUser, this.props.userInfo)) {
-        switch (newMess.type){
-          case 'join':
-            if(this.state.mode !== 'notReady' && newMess.data.fromUser.id != this.props.userInfo.id){
-              let connection = this.startConnection(newMess.data.fromUser);
-              if (connection) {
-                this.startOffer(connection);
-              }
-            };
-            break;
-          default :
-            if (_.isEqual(newMess.data.toUser, this.props.userInfo)) {
-              switch(newMess.type){
-              case 'offer':
-                let connectionOffer = this.startConnection(newMess.data.fromUser);
-                if (connectionOffer) {
-                  connectionOffer.setRemoteDescription(new RTCSessionDescription(newMess.data.message));
-                  this.startAnswer(connectionOffer);
-                };
-                break;
-              case 'answer' :
-                this.findConnectionByRemoteUser(newMess.data.fromUser).setRemoteDescription(new RTCSessionDescription(newMess.data.message));
-                break;
-              case 'candidate' :
-                let candidate = new RTCIceCandidate({
-                  sdpMLineIndex: newMess.data.label,
-                  candidate: newMess.data.candidate
-                });
-                this.findConnectionByRemoteUser(newMess.data.fromUser).addIceCandidate(candidate);
-                break;
-              }
-            }
-            break;
+        if (newMess.type === 'join' && this.state.mode !== 'notReady'){
+          let connection = this.startConnection(newMess.data.fromUser);
+          if (connection) {
+            this.startOffer(connection);
+          }
+        }  
+        else if (_.isEqual(newMess.data.toUser, this.props.userInfo)) {
+          switch(newMess.type){
+            case 'offer':
+              let connectionOffer = this.startConnection(newMess.data.fromUser);
+              if (connectionOffer) {
+                connectionOffer.setRemoteDescription(new RTCSessionDescription(newMess.data.message));
+                this.startAnswer(connectionOffer);
+              };
+              break;
+            case 'answer' :
+              this.findConnectionByRemoteUser(newMess.data.fromUser).setRemoteDescription(new RTCSessionDescription(newMess.data.message));
+              break;
+            case 'candidate' :
+              let candidate = new RTCIceCandidate({
+                sdpMLineIndex: newMess.data.label,
+                candidate: newMess.data.candidate
+              });
+              this.findConnectionByRemoteUser(newMess.data.fromUser).addIceCandidate(candidate);
+              break;
+          }
         }
       }        
       return false;
-    // } else if(!_.isEqual(nextState, this.state)){
-    //   console.log("CHANGE IN state", nextState, this.state);
-    //   switch (nextState.mode){
-    //     case 'notReady' : 
-    //       console.log("not ready"); 
-    //       break;
-    //     case 'readyToCall' :
-    //       console.log("ready"); 
-    //       console.log(this.props.dataFn); 
-    //       // this.call(); 
-    //       break;
-    //     case 'calling' : 
-    //       console.log("calling");
-    //       break;
-    //     case 'hangUp' : 
-    //       console.log("hangup");
-    //       break;
-    //     case 'normal' : 
-    //       console.log("normal");
-    //       break;
-    //     case 'readOnly' : 
-    //       console.log("readonly");
-    //       break;    
-    //   }
-
-      
-    //   return true; 
-    // } else if (!_.isEqual(nextProps.dataFn, this.props.dataFn)){
-    //   console.log("NOT EQUAL");
-    //   console.log(nextProps.dataFn);  
-
     }else{
       return true;
     }
@@ -494,7 +378,7 @@ class ActivityRunner extends Component {
               />
             ))
           ) : (
-            <h1>Wait until anybody connects. </h1>
+            <h1>Wait until somebody connects. </h1>
           )}
         </div>
       </div>

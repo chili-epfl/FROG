@@ -21,15 +21,7 @@ const RemoteVideo = ({ stream, src, index, name }) => {
         id={index} 
         height="200px"
         autoPlay 
-        muted="false" 
         src={src} 
-        // ref={video => {
-        //   try{
-        //     video.srcObject = stream
-        //   }catch (e){
-        //     video.src = src;
-        //   }
-        // }}
       />
       <h2>{name}</h2>
     </div>
