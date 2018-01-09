@@ -111,50 +111,88 @@ const opinionQuizConfig = {
     'In average women earn less than men, we will discuss and try to discover why that is',
   argueWeighting: true,
   justify: true,
+  shuffle: 'both',
   questions: [
     {
-      question: 'Chose the most relevant explanation',
+      question: 'Why do women earn less in average?',
       answers: [
         {
-          choice: 'Women earn less because they are less able than men to work',
+          choice: 'Women are less able than men to work',
           x: -2,
           y: 5
         },
         {
-          choice: 'Women earn less because most employers are sexist men',
+          choice: 'Most employers are sexist men',
           x: 5,
           y: -2
         },
         {
-          choie:
-            'Women earn less because their career slows down when they are pregnant',
+          choice:
+            'Women\'s career slows down when they are pregnant',
           x: 2,
           y: 2
         }
       ]
     },
     {
-      question: 'Chose the most relevant explanation',
+      question: 'Why do men earn more in average?',
       answers: [
         {
           choice:
-            'Men earn more because they run faster to be on time at meetings',
+            'Men run faster to be on time at meetings',
           x: -2,
           y: 2
         },
         {
           choice:
-            'Men earn more because they tend to chose fields that pay more such as Finance, Computer Science, ...',
+            'Men tend to choose fields that pay more such as Finance, CS, Maths, ...',
           x: -5,
           y: 1
         },
-        { choice: "Men earn more because they steal women's pay", x: 5, y: -5 }
+        { choice: "Men steal women's pay", x: 5, y: -5 }
       ]
     }
   ]
 };
 
-export const meta = {
+const richQuizConfig = {
+  title: 'Rich text form',
+  shuffle: 'none',
+  guidelines:
+    '<p>Just a <strong>video</strong> [[https://www.youtube.com/watch?v=fb6UnKVkwVA&amp;feature=youtu.be]]</p>',
+  questions: [
+    {
+      question: rtQ,
+      answers: ['Pretty awesomer', 'OK', '$\\sqrt{x/1}$']
+    }
+  ]
+};
+
+const capitalQuizConfig = {
+  title: 'Capitals',
+  shuffle: 'none',
+  hasAnswers: true,
+  questions: [
+    {
+      question: 'Where is Oslo?',
+      answers: [
+        { choice: 'Norway', isCorrect: true },
+        { choice: 'Sweden' },
+        { choice: 'Denmark' }
+      ]
+    },
+    {
+      question: 'What is the capital of Latvia?',
+      answers: [
+        { choice: 'Bratislava' },
+        { choice: 'Vilnius', isCorrect: true },
+        { choice: 'Zagreb' }
+      ]
+    }
+  ]
+};
+
+export default {
   name: 'Multiple-Choice Questions',
   shortDesc: 'Filling a MCQ form (quiz)',
   description:
@@ -178,45 +216,12 @@ export const meta = {
     {
       title: 'Rich text and media',
       activityData: {},
-      config: {
-        title: 'Rich text form',
-        shuffle: 'none',
-        guidelines:
-          '<p>Just a <strong>video</strong> [[https://www.youtube.com/watch?v=fb6UnKVkwVA&amp;feature=youtu.be]]</p>',
-        questions: [
-          {
-            question: rtQ,
-            answers: ['Pretty awesomer', 'OK', '$\\sqrt{x/1}$']
-          }
-        ]
-      }
+      config: richQuizConfig
     },
     {
       title: 'European capitals with correct answer',
       activityData: {},
-      config: {
-        title: 'Capitals',
-        shuffle: 'none',
-        hasAnswers: true,
-        questions: [
-          {
-            question: 'Where is Oslo?',
-            answers: [
-              { choice: 'Norway', isCorrect: true },
-              { choice: 'Sweden' },
-              { choice: 'Denmark' }
-            ]
-          },
-          {
-            question: 'What is the capital of Latvia?',
-            answers: [
-              { choice: 'Bratislava' },
-              { choice: 'Vilnius', isCorrect: true },
-              { choice: 'Zagreb' }
-            ]
-          }
-        ]
-      }
+      config: capitalQuizConfig
     }
   ]
 };

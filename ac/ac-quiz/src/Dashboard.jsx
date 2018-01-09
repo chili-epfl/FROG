@@ -9,7 +9,6 @@ const Viewer = ({ data, config, instances }: Object) => {
     return null;
   }
   const questions = config.questions.filter(q => q.question && q.answers);
-
   const scatterData =
     (config.argueWeighting &&
       (instances || ['1', '2', '3', '4']).map(instance => {
@@ -20,8 +19,9 @@ const Viewer = ({ data, config, instances }: Object) => {
             data[instance]['q' + (i + 1)] &&
             q.answers[data[instance]['q' + (i + 1)] - 1]
           ) {
-            coordinates[0] += q.answers[data[instance]['q' + (i + 1)] - 1].x;
-            coordinates[1] += q.answers[data[instance]['q' + (i + 1)] - 1].y;
+            const answerIndex = data[instance]['q' + (i + 1)] - 1;
+            coordinates[0] += q.answers[answerIndex].x;
+            coordinates[1] += q.answers[answerIndex].y;
           }
         });
         return coordinates;
