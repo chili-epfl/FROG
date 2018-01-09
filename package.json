@@ -39,7 +39,8 @@
     "jest-cli": "^21.2.1",
     "nps": "^5.7.1",
     "prettier": "^1.8.2",
-    "watch": "^1.0.2"
+    "watch": "^1.0.2",
+    "start-server-and-test": "^1.0.0"
   },
   "license": "ISC",
   "dependencies": {
