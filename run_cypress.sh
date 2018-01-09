@@ -16,8 +16,6 @@ fi
 echo "Cypress: $CYPRESS"
 
 cd frog;meteor & 
-../node_modules/.bin/wait-on http://localhost:3000
-./node_modules/.bin/wait-on http://localhost:3000
-cd ..
+$FROG/node_modules/.bin/wait-on http://localhost:3000
 "$CYPRESS" run --record --key e92a866f-0cde-45be-9cd8-72f9ed6650f3
 exit 0
