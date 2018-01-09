@@ -2,37 +2,10 @@
 
 import React, { Component } from 'react';
 import type { ActivityRunnerT } from 'frog-utils';
+import 'webrtc-adapter';
 
-const LocalVideo = ({ src }) => {
-  return (
-    <video
-      playsInline
-      controls = "true"
-      id="localVideo"
-      height="200px"
-      autoPlay="true"
-      muted="true"
-      src={src}
-    />
-  );
-};
-
-const RemoteVideo = ({ src, index, name }) => {
-  return(
-    <div>
-      <video 
-        playsInline
-        controls="true"
-        id={index} 
-        height="200px"
-        autoPlay="true" 
-        muted="false" 
-        src={src} 
-      />
-      <h1>{name}</h1>
-    </div>
-  );
-};
+import { ICEConfig } from './iceServers';
+import { LocalVideo, RemoteVideo } from './Video';
 
 type StateT = 
   | { mode: 'notReady' }
@@ -43,23 +16,7 @@ type StateT =
   | { mode: 'readOnly', local: Object, remote: Array };
 
 class ActivityRunner extends Component {
-  pcConfig = {
-    iceServers: [
-      {
-        urls: 'stun:stun.l.google.com:19302'
-      },
-      {
-        urls: 'turn:138.197.182.1:3478',
-        username: 'test',
-        credential: 'test'
-      },
-      {
-        urls: 'stun:138.197.182.1:3478',
-        username: 'test',
-        credential: 'test'
-      }
-    ]
-  };
+
 
   state: StateT;
   // readOnly: boolean;
@@ -141,10 +98,13 @@ class ActivityRunner extends Component {
   };
 
   createPeerConnection = () => {
+    console.log("CREATE PEER CONN"); 
+    window.lala = this; 
     try {
-      var conn = new RTCPeerConnection(this.pcConfig);
+      var conn = new RTCPeerConnection(ICEConfig);
       conn.onicecandidate = this.handleIceCandidate;
       conn.onaddstream = this.handleRemoteStreamAdded;
+      // conn.ontrack = this.handleOnTrack;
       conn.onremovestream = this.handleRemoteStreamRemoved;
       conn.oniceconnectionstatechange = this.handleIceChange;
       console.log("create", conn); 
@@ -178,7 +138,7 @@ class ActivityRunner extends Component {
   handleRemoteStreamAdded = event => {
     let index = _.indexOf(this.connections, event.target);
     if(this.state.mode === 'calling'){
-      console.log("stream added"); 
+      console.log("stream added");
       let remotes = this.state.remote;
       if (_.isUndefined(remotes[index])) {
         remotes[index] = {
@@ -195,7 +155,8 @@ class ActivityRunner extends Component {
       });
       // this.readOnly = false;
     }else if (this.state.mode === 'readyToCall'){
-      console.log("stream added"); 
+      console.log("stream added");
+      console.log(event);  
       let remotes = [];
       remotes[index] = {
         stream: event.stream,
@@ -212,6 +173,45 @@ class ActivityRunner extends Component {
     }  
 
   };
+
+  // handleOnTrack = track => {
+  //   let index = _.indexOf(this.connections, track.target);
+  //   if(this.state.mode === 'calling'){
+  //     console.log("track added");
+  //     let remotes = this.state.remote;
+  //     if (_.isUndefined(remotes[index])) {
+  //       remotes[index] = {
+  //         stream: track.stream,
+  //         src: window.URL.createObjectURL(track.stream),
+  //         remoteUser: this.connections[index].remoteUser
+  //       };
+  //     } else {
+  //       alert('ERROR on remote stream indexes');
+  //     }
+  //     this.setState({
+  //       mode: 'calling',
+  //       remote: remotes
+  //     });
+  //     // this.readOnly = false;
+  //   }else if (this.state.mode === 'readyToCall'){
+  //     console.log("track added");
+  //     console.log(track);  
+  //     let remotes = [];
+  //     remotes[index] = {
+  //       stream: track.stream,
+  //       src: window.URL.createObjectURL(track.stream),
+  //       remoteUser: this.connections[index].remoteUser
+  //     };
+  //     this.setState({
+  //       mode: 'calling',
+  //       remote: remotes
+  //     });
+  //     // this.readOnly = false;
+  //   } else {
+  //     alert('ERROR on remote stream indexes');
+  //   }  
+
+  // };
 
   handleRemoteStreamRemoved = event => {
     console.log('Remote stream removed. Event: ', event);

@@ -1,0 +1,39 @@
+import React, { Component } from 'react';
+
+const LocalVideo = ({ stream, src }) => {
+  return (
+    <video
+      playsInline
+      id="localVideo"
+      height="200px"
+      autoPlay
+      muted="true"
+      src={src}
+    />
+  );
+};
+
+const RemoteVideo = ({ stream, src, index, name }) => {
+  return(
+    <div>
+      <video 
+        playsInline
+        id={index} 
+        height="200px"
+        autoPlay 
+        muted="false" 
+        src={src} 
+        // ref={video => {
+        //   try{
+        //     video.srcObject = stream
+        //   }catch (e){
+        //     video.src = src;
+        //   }
+        // }}
+      />
+      <h1>{name}</h1>
+    </div>
+  );
+};
+
+export {LocalVideo, RemoteVideo};
