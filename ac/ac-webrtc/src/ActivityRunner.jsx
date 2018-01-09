@@ -11,16 +11,10 @@ type StateT =
   | { mode: 'notReady' }
   | { mode: 'readyToCall', local: Object}
   | { mode: 'calling', local: Object, remote: Array }
-  | { mode: 'hangUp' }
-  | { mode: 'normal' }
-  | { mode: 'readOnly', local: Object, remote: Array };
+  | { mode: 'hangUp' };
 
 class ActivityRunner extends Component {
-
-
   state: StateT;
-  // readOnly: boolean;
-
 
   findConnectionByRemoteUser = userInfo => {
     return _.find(this.connections, conn => {
@@ -29,85 +23,42 @@ class ActivityRunner extends Component {
   };
 
   startConnection = remoteUser => {
-    // CHECK if correct! Might be causing problems
-    // console.log(this.connections, remoteUser); 
-    // console.log(_.contains(this.connections, { remoteUser: remoteUser })); 
-    // console.log(this.state.mode === 'readyToCall'|| this.state.mode ===  'calling');
-    // console.log(this.state.mode); 
-    console.log(this.connections.length); 
-    window.connections = this.connections;
-    window.remoteUser = remoteUser;
     let remoteConn = this.findConnectionByRemoteUser(remoteUser)
 
     if(this.state.mode !== 'notReady'){
       if (_.isUndefined(remoteConn)) {
-        console.log("INSIDE IF"); 
-        var connection = this.createPeerConnection();
+        let connection = this.createPeerConnection();
         connection.addStream(this.state.local.stream);
         connection.remoteUser = remoteUser;
         this.connections.push(connection);
-        console.log(connection); 
         return connection;
       } else if (remoteConn.signalingState === 'have-local-offer'){
         if(remoteUser.id > this.props.userInfo.id){
-          var connection = this.createPeerConnection();
+          let connection = this.createPeerConnection();
           connection.addStream(this.state.local.stream);
           connection.remoteUser = remoteUser;
-          console.log(this.connections.length); 
-          this.connections.push(connection);
-          console.log("should be deleting", remoteConn);
-          console.log(this.connections.length); 
+          this.connections.push(connection); 
           this.handleRemoteHangUp(remoteConn); 
-          // console.log("INSIDE IF"); 
           return connection;
         }else{
           console.log("wait for answer"); 
         }
       }
       else {
-        console.log(remoteConn.signalingState); 
         console.log("not local offfer"); 
-        console.log(remoteConn); 
-        // console.log("INSIDE IF"); 
-        // var connection = this.createPeerConnection();
-        // connection.addStream(this.state.local.stream);
-        // connection.remoteUser = remoteUser;
-        // this.connections.push(connection);
-        // console.log(this.connections); 
-        // return connection;
       }
-
     }else{
       console.log("not ready yet"); 
     }
-      
-    // if ( _.isUndefined(this.findConnectionByRemoteUser(remoteUser))&&
-    //   // (this.state.mode === 'readyToCall' || this.state.mode === 'calling')
-    //   this.state.mode !== 'notReady'
-    // ) {
-    //   console.log("INSIDE IF"); 
-    //   var connection = this.createPeerConnection();
-    //   connection.addStream(this.state.local.stream);
-    //   connection.remoteUser = remoteUser;
-    //   this.connections.push(connection);
-    //   console.log(connection); 
-    //   return connection;
-    // }else{
-    //   console.log("ALREADY EXISTS"); 
-    // }
   };
 
   createPeerConnection = () => {
-    console.log("CREATE PEER CONN"); 
-    window.lala = this; 
     try {
-      var conn = new RTCPeerConnection(ICEConfig);
+      let conn = new RTCPeerConnection(ICEConfig);
       conn.onicecandidate = this.handleIceCandidate;
       conn.onaddstream = this.handleRemoteStreamAdded;
       // conn.ontrack = this.handleOnTrack;
-      conn.onremovestream = this.handleRemoteStreamRemoved;
       conn.oniceconnectionstatechange = this.handleIceChange;
-      console.log("create", conn); 
       return conn;
     } catch (e) {
       alert('Cannot create RTCPeerConnection object.');
@@ -127,7 +78,6 @@ class ActivityRunner extends Component {
           fromUser: this.props.userInfo
         }
       };
-      // this.ws.send(JSON.stringify(message));
       this.props.dataFn.listAppend(message);
     } else {
       console.log('End of candidates.');
@@ -138,7 +88,7 @@ class ActivityRunner extends Component {
   handleRemoteStreamAdded = event => {
     let index = _.indexOf(this.connections, event.target);
     if(this.state.mode === 'calling'){
-      console.log("stream added");
+      console.log("remote stream added");
       let remotes = this.state.remote;
       if (_.isUndefined(remotes[index])) {
         remotes[index] = {
@@ -153,10 +103,8 @@ class ActivityRunner extends Component {
         mode: 'calling',
         remote: remotes
       });
-      // this.readOnly = false;
     }else if (this.state.mode === 'readyToCall'){
-      console.log("stream added");
-      console.log(event);  
+      console.log("remote stream added");
       let remotes = [];
       remotes[index] = {
         stream: event.stream,
@@ -167,64 +115,19 @@ class ActivityRunner extends Component {
         mode: 'calling',
         remote: remotes
       });
-      // this.readOnly = false;
     } else {
       alert('ERROR on remote stream indexes');
     }  
 
   };
 
-  // handleOnTrack = track => {
-  //   let index = _.indexOf(this.connections, track.target);
-  //   if(this.state.mode === 'calling'){
-  //     console.log("track added");
-  //     let remotes = this.state.remote;
-  //     if (_.isUndefined(remotes[index])) {
-  //       remotes[index] = {
-  //         stream: track.stream,
-  //         src: window.URL.createObjectURL(track.stream),
-  //         remoteUser: this.connections[index].remoteUser
-  //       };
-  //     } else {
-  //       alert('ERROR on remote stream indexes');
-  //     }
-  //     this.setState({
-  //       mode: 'calling',
-  //       remote: remotes
-  //     });
-  //     // this.readOnly = false;
-  //   }else if (this.state.mode === 'readyToCall'){
-  //     console.log("track added");
-  //     console.log(track);  
-  //     let remotes = [];
-  //     remotes[index] = {
-  //       stream: track.stream,
-  //       src: window.URL.createObjectURL(track.stream),
-  //       remoteUser: this.connections[index].remoteUser
-  //     };
-  //     this.setState({
-  //       mode: 'calling',
-  //       remote: remotes
-  //     });
-  //     // this.readOnly = false;
-  //   } else {
-  //     alert('ERROR on remote stream indexes');
-  //   }  
-
-  // };
-
-  handleRemoteStreamRemoved = event => {
-    console.log('Remote stream removed. Event: ', event);
-  };
-
   handleIceChange = event => {
     console.log("change event", event);
-      if (event.target.iceConnectionState === "failed" ||
-      event.target.iceConnectionState === "disconnected" ||
-      event.target.iceConnectionState === "closed") {
-        this.handleRemoteHangUp(event.target);
-      }
-    // Handle the failure
+    if (event.target.iceConnectionState === "failed" ||
+    event.target.iceConnectionState === "disconnected" ||
+    event.target.iceConnectionState === "closed") {
+      this.handleRemoteHangUp(event.target);
+    }
   };
 
   startOffer = connection => {
@@ -251,7 +154,6 @@ class ActivityRunner extends Component {
         fromUser: this.props.userInfo
       }
     };
-    // this.ws.send(JSON.stringify(message));
     this.props.dataFn.listAppend(message);
   };
 
@@ -275,7 +177,6 @@ class ActivityRunner extends Component {
         fromUser: this.props.userInfo
       }
     };
-    // this.ws.send(JSON.stringify(message));
     this.props.dataFn.listAppend(message);
   };
 
@@ -283,11 +184,8 @@ class ActivityRunner extends Component {
     console.log('Failed to create description: ', error.toString());
   };
 
-  // requestTurn!
-
   handleRemoteHangUp = remoteConnection => {
     console.log('Session terminated', remoteConnection);
-    // let connection = this.findConnectionByRemoteUser(remoteUser);
     if (!_.isUndefined(remoteConnection) && this.state.mode !== 'notReady') {
       let newRemotes;
       if (remoteConnection.getRemoteStreams() !== null) {
@@ -313,20 +211,13 @@ class ActivityRunner extends Component {
       } catch (e) {
         console.log('error closing connection' + e);
       }
-        
-      this.connections = _.filter(this.connections, conn => {
-        if (conn === remoteConnection) {
-          return false;
-        } else {
-          return true;
-        }
-      });
-      console.log("remote hangup"); 
+
+      _.pull(this.connections, remoteConnection);
+
       this.setState({
         mode: 'calling',
         remote: newRemotes
       });
-      // this.readOnly = false;
     }
   };
 
@@ -411,47 +302,24 @@ class ActivityRunner extends Component {
   };
 
   constructor(props: ActivityRunnerT) {
-    console.log('CONSTRUCTING');
+    console.log("cons"); 
     super(props);
 
     this.connections = [];
     this.state = { mode: 'notReady'};
-    // this.readOnly = true;
-
   }
 
   componentDidMount() {
-    console.log('WILL MOUNT');
+    console.log("mount"); 
     navigator.mediaDevices
       .getUserMedia(this.props.activityData.config.sdpConstraints)
       .then(this.gotStream)
       .catch(function(e) {
         alert('getUserMedia() error: ' + e.name);
       });
-    // let message = {
-    //   type: 'join',
-    //   data: {
-    //     room: this.props.groupingValue || 'room',
-    //     fromUser: this.props.userInfo
-    //   }
-    // };
-    // try{
-    //   this.props.dataFn.listAppend(message);
-    // }catch (e){
-    //   console.log("ERROR" , e); 
-    // } 
   }
 
   gotStream = stream => {
-    console.log(stream); 
-    // this.setState({
-    //   local: {
-    //     src: window.URL.createObjectURL(stream),
-    //     stream: stream
-    //   }
-    // }, this.call);
-    console.log(this.state); 
-    // this.readOnly = false;
     this.setState({ 
       mode : 'readyToCall',
       local: {
@@ -461,9 +329,7 @@ class ActivityRunner extends Component {
     }, this.call);
   };
 
-
   call = () => {
-    console.log(this.props); 
     let message = {
       type: 'join',
       data: {
@@ -471,7 +337,6 @@ class ActivityRunner extends Component {
         fromUser: this.props.userInfo
       }
     };
-    // this.ws.send(JSON.stringify(message));
     try{
       this.props.dataFn.listAppend(message);
     }catch (e){
@@ -481,101 +346,83 @@ class ActivityRunner extends Component {
   };
 
   componentWillUnmount() {
-    console.log('WILL UNMOUNT');
     let message = {
       type: 'bye',
       data: {
         fromUser: this.props.userInfo
       }
     };
-    // // this.ws.send(JSON.stringify(message));
-    // this.props.dataFn.listAppend(message);
-    if(this.state.mode === 'calling'){
-    if (this.state.local.stream) {
-      try {
-        this.state.local.stream.getTracks().forEach(track => track.stop());
-      } catch (e) {
-        console.log('error getting audio or video tracks' + e);
-      }
-    }
 
-    if (this.state.remote.length > 0) {
-      _.each(this.state.remote, ({ stream }) => {
+    if(this.state.mode !== 'notReady'){
+      console.log("unmounting local stream"); 
+      if (this.state.local.stream) {
         try {
-          stream.getTracks().forEach(track => track.stop());
+          this.state.local.stream.getTracks().forEach(track => track.stop());
         } catch (e) {
           console.log('error getting audio or video tracks' + e);
         }
-      });
+      }
     }
 
-    if (this.connections.length > 0) {
-      _.each(this.connections, connection => {
-        try {
-          connection.close();
-        } catch (e) {
-          console.log('error closing connection', e);
-        }
-      });
-    }
+    if(this.state.mode === 'calling'){
+      if (this.state.remote.length > 0) {
+        _.each(this.state.remote, ({ stream }) => {
+          try {
+            stream.getTracks().forEach(track => track.stop());
+          } catch (e) {
+            console.log('error getting audio or video tracks' + e);
+          }
+        });
+      }
 
-    this.connections = [];
-    this.setState({
-      mode: 'hangUp'
-    });
+      if (this.connections.length > 0) {
+        _.each(this.connections, connection => {
+          try {
+            connection.close();
+          } catch (e) {
+            console.log('error closing connection', e);
+          }
+        });
+      }
+
+      this.connections = [];
+      this.setState({
+        mode: 'hangUp'
+      });
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('SHOULD UPDATE');
     if (_.difference(nextProps.data, this.props.data).length > 0) {
       let newMess = _.last(nextProps.data);
       if (!_.isEqual(newMess.data.fromUser, this.props.userInfo)) {
         switch (newMess.type){
           case 'join':
-            console.log("JOIN");
-            console.log(this.state); 
-            console.log(newMess.data.fromUser.id, this.props.userInfo.id); 
             if(this.state.mode !== 'notReady' && newMess.data.fromUser.id != this.props.userInfo.id){
               let connection = this.startConnection(newMess.data.fromUser);
-              console.log("conn", connection); 
               if (connection) {
-                console.log("start offer"); 
                 this.startOffer(connection);
               }
             };
-            break;
-          // case 'bye' :
-          //   console.log("BYE");
-          //   this.handleRemoteHangUp(newMess.data.fromUser);
-          //   break;
-          case 'log' :
-            console.log("LOG");
             break;
           default :
             if (_.isEqual(newMess.data.toUser, this.props.userInfo)) {
               switch(newMess.type){
               case 'offer':
-                console.log("OFFER");
                 let connectionOffer = this.startConnection(newMess.data.fromUser);
-                console.log(connectionOffer); 
                 if (connectionOffer) {
-                  console.log("start answer"); 
                   connectionOffer.setRemoteDescription(new RTCSessionDescription(newMess.data.message));
                   this.startAnswer(connectionOffer);
                 };
                 break;
               case 'answer' :
-                console.log("ANSWER");
                 this.findConnectionByRemoteUser(newMess.data.fromUser).setRemoteDescription(new RTCSessionDescription(newMess.data.message));
                 break;
               case 'candidate' :
-                console.log("CANDIDATE");
                 let candidate = new RTCIceCandidate({
                   sdpMLineIndex: newMess.data.label,
                   candidate: newMess.data.candidate
                 });
-
                 this.findConnectionByRemoteUser(newMess.data.fromUser).addIceCandidate(candidate);
                 break;
               }
@@ -584,36 +431,36 @@ class ActivityRunner extends Component {
         }
       }        
       return false;
-    } else if(!_.isEqual(nextState, this.state)){
-      console.log("CHANGE IN state", nextState, this.state);
-      switch (nextState.mode){
-        case 'notReady' : 
-          console.log("not ready"); 
-          break;
-        case 'readyToCall' :
-          console.log("ready"); 
-          console.log(this.props.dataFn); 
-          // this.call(); 
-          break;
-        case 'calling' : 
-          console.log("calling");
-          break;
-        case 'hangUp' : 
-          console.log("hangup");
-          break;
-        case 'normal' : 
-          console.log("normal");
-          break;
-        case 'readOnly' : 
-          console.log("readonly");
-          break;    
-      }
+    // } else if(!_.isEqual(nextState, this.state)){
+    //   console.log("CHANGE IN state", nextState, this.state);
+    //   switch (nextState.mode){
+    //     case 'notReady' : 
+    //       console.log("not ready"); 
+    //       break;
+    //     case 'readyToCall' :
+    //       console.log("ready"); 
+    //       console.log(this.props.dataFn); 
+    //       // this.call(); 
+    //       break;
+    //     case 'calling' : 
+    //       console.log("calling");
+    //       break;
+    //     case 'hangUp' : 
+    //       console.log("hangup");
+    //       break;
+    //     case 'normal' : 
+    //       console.log("normal");
+    //       break;
+    //     case 'readOnly' : 
+    //       console.log("readonly");
+    //       break;    
+    //   }
 
       
-      return true; 
-    } else if (!_.isEqual(nextProps.dataFn, this.props.dataFn)){
-      console.log("NOT EQUAL");
-      console.log(nextProps.dataFn);  
+    //   return true; 
+    // } else if (!_.isEqual(nextProps.dataFn, this.props.dataFn)){
+    //   console.log("NOT EQUAL");
+    //   console.log(nextProps.dataFn);  
 
     }else{
       return true;
@@ -623,12 +470,8 @@ class ActivityRunner extends Component {
   render() {
     const {
       activityData,
-      data,
-      dataFn,
       groupingValue,
-      userInfo,
-      logger,
-      stream
+      userInfo
     } = this.props;
     return (
       <div id="webrtc">
@@ -651,7 +494,7 @@ class ActivityRunner extends Component {
               />
             ))
           ) : (
-            <h1>You are alone. </h1>
+            <h1>Wait until anybody connects. </h1>
           )}
         </div>
       </div>
