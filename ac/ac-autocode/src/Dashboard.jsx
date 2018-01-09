@@ -51,10 +51,10 @@ const Viewer = (props: Object) => {
 
   const green = '#33cc33';
   const red1 = '#ff0000';
-  const red2 = '#cc0000';
+  const red2 = '#660000';
 
   return (
-    <div style={{ height: '1000px', overflow: 'scroll' }}>
+    <div style={{ height: '1100px', overflow: 'scroll' }}>
       <h1>Dashboard for activity: {props.config.title}</h1>
       <p>
         {Object.keys(props.users).length} students have registered to this
@@ -63,63 +63,63 @@ const Viewer = (props: Object) => {
       <p>
         {Object.keys(props.data.students).length} students have started coding
       </p>
-      <VictoryChart
-        domain={{
-          x: [0, props.config.tests.length],
-          y: [0, Object.keys(props.data.students).length + 1]
-        }}
-        domainPadding={20}
-        height={200}
-        width={350}
-      >
-        <VictoryLegend
-          x={125}
-          y={0}
-          orientation="horizontal"
-          title="Students' current results"
-          centerTitle
-          gutter={20}
-          style={{ border: { stroke: 'black' } }}
-          data={[
-            { name: 'Sucess', symbol: { fill: green } },
-            { name: 'Danger', symbol: { fill: red1 } },
-            { name: 'Error', symbol: { fill: red2 } }
-          ]}
-        />
-        <VictoryAxis
-          tickFormat={props.config.tests.map(
-            (val, index) => 'Test ' + (index + 1)
-          )}
-        />
-        <VictoryAxis dependentAxis />
-        <VictoryStack>
-          <VictoryBar
-            data={chartData('success')}
-            style={{ data: { fill: green } }}
+      <div>
+        <VictoryChart
+          domain={{
+            x: [0, props.config.tests.length],
+            y: [0, Object.keys(props.data.students).length + 1]
+          }}
+          domainPadding={20}
+        >
+          <VictoryLegend
+            x={125}
+            y={0}
+            orientation="horizontal"
+            title="Students' current results"
+            centerTitle
+            gutter={20}
+            style={{ border: { stroke: 'black' } }}
+            data={[
+              { name: 'Sucess', symbol: { fill: green } },
+              { name: 'Danger', symbol: { fill: red1 } },
+              { name: 'Error', symbol: { fill: red2 } }
+            ]}
           />
-          <VictoryBar
-            data={chartData('danger')}
-            style={{ data: { fill: red1 } }}
+          <VictoryAxis
+            tickFormat={props.config.tests.map(
+              (val, index) => 'Test ' + (index + 1)
+            )}
           />
-          <VictoryBar
-            data={chartData('error')}
-            style={{ data: { fill: red2 } }}
-          />
-        </VictoryStack>
-      </VictoryChart>
-      <VictoryChart
-        domain={{
-          y: [0, Object.keys(props.data.students).length + 1]
-        }}
-        domainPadding={20}
-        height={200}
-        width={350}
-      >
-        <VictoryLabel x={125} text="Use of debug" />
-        <VictoryAxis />
-        <VictoryAxis dependentAxis />
-        <VictoryBar data={debugData()} />
-      </VictoryChart>
+          <VictoryAxis dependentAxis />
+          <VictoryStack>
+            <VictoryBar
+              data={chartData('success')}
+              style={{ data: { fill: green } }}
+            />
+            <VictoryBar
+              data={chartData('danger')}
+              style={{ data: { fill: red1 } }}
+            />
+            <VictoryBar
+              data={chartData('error')}
+              style={{ data: { fill: red2 } }}
+            />
+          </VictoryStack>
+        </VictoryChart>
+      </div>
+      <div>
+        <VictoryChart
+          domain={{
+            y: [0, Object.keys(props.data.students).length + 1]
+          }}
+          domainPadding={20}
+        >
+          <VictoryLabel x={125} y={20} text="Use of debug" />
+          <VictoryAxis label="Number of uses" />
+          <VictoryAxis dependentAxis />
+          <VictoryBar data={debugData()} />
+        </VictoryChart>
+      </div>
     </div>
   );
 };
