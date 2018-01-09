@@ -12,7 +12,7 @@ pipeline {
 			stage('test') {
 				steps {
 					ansiColor('xterm') {
-						sh 'docker run test'
+						sh 'docker run test --shm-size="1024m"'
 					}
 				}
 			}
