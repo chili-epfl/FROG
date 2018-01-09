@@ -1,8 +1,8 @@
 // @flow
-import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
-import Spinner from "react-spinner";
-import { A } from "frog-utils";
+import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
+import Spinner from 'react-spinner';
+import { A } from 'frog-utils';
 
 const splitList = (list: string[]) => {
   const extra = list.length % 2 ? 1 : 0;
@@ -14,7 +14,7 @@ class StudentLogin extends Component {
   state: { studentlist?: string[] };
 
   componentWillMount() {
-    Meteor.call("frog.studentlist", this.props.slug, (err, result) =>
+    Meteor.call('frog.studentlist', this.props.slug, (err, result) =>
       this.setState({ studentlist: result })
     );
   }
