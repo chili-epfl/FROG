@@ -40,7 +40,7 @@ class AppClass extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div id="graph">
+        <div className="bootstrap" id="graph">
           <EditorContainer />
         </div>
       </Provider>
