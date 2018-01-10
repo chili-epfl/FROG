@@ -3,14 +3,14 @@
 const javascript = () => {
   const javascriptRunCode = (code: string, print: Function) =>
     new Promise((resolve, reject) => {
-      //Define console.log
+      // Pipe console.log to postMessage
       const environment =
-        'let console = {log: function(){let str = "";for(let i = 0; i < arguments.length; i++){str += JSON.stringify(arguments[i])+" ";}str += "\\n";self.postMessage(str);}};';
+        'let console = {log: function(){let str = "";for(let i = 0; i < arguments.length; i++){str += JSON.stringify(arguments[i])+" ";}str += "\\n";self.postMessage(str)}};';
 
-      const fullCode = environment + code;
-      console.log(fullCode);
+      const fullCode = environment + code + '\nself.postMessage("FINISHED")';
+
       // prepare the string into an executable blob
-      const bb = new Blob([code], {
+      const bb = new Blob([fullCode], {
         type: 'text/javascript'
       });
 
@@ -22,30 +22,33 @@ const javascript = () => {
 
       // add a listener for messages from the Worker
       worker.addEventListener('message', e => {
-        console.log(e);
         if (e.data) {
-          print(e.data);
+          if (e.data === 'FINISHED' && worker) {
+            worker.terminate();
+            worker = null;
+            resolve();
+          } else {
+            print(e.data);
+          }
         }
-        resolve();
       });
 
       // add a listener for errors from the Worker
       worker.addEventListener('error', (e: Object) => reject(e));
 
-      console.log('start');
       worker.postMessage('start');
 
       // Put a timeout to automatically kill the worker
-      setTimeout(function() {
+      setTimeout(() => {
         if (worker) {
           worker.terminate();
+          reject(new Error('code execution timeout'));
+          worker = null;
         }
-        reject(new Error('code execution timeout'));
-        worker = null;
       }, 5000);
     });
 
-  const javascriptHandleError = (err: Object) => err.name + ': ' + err.message;
+  const javascriptHandleError = (err: Object) => err.message;
 
   return { runCode: javascriptRunCode, handleError: javascriptHandleError };
 };

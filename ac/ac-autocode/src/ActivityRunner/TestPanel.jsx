@@ -40,7 +40,7 @@ const Feedback = ({ inputDesc, expected, received, error, stdout }) => (
       inputDesc && <div key="inputDescT">INPUT</div>,
       inputDesc && <CodeBox key="inputDescB">{renderLines(inputDesc)}</CodeBox>,
       stdout && <div key="stdoutT">CONSOLE OUTPUT</div>,
-      stdout && <CodeBox key="stdoutB">{stdout}</CodeBox>,
+      stdout && <CodeBox key="stdoutB">{renderLines(stdout.join(''))}</CodeBox>,
       expected && <div key="expectedT">EXPECTED OUTPUT</div>,
       expected && <CodeBox key="expectedB">{expected}</CodeBox>,
       received && <div key="receivedT">RECEIVED OUTPUT</div>,
