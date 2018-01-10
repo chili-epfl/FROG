@@ -13,13 +13,13 @@ const Viewer = ({ data, config, instances }: Object) => {
     (config.argueWeighting &&
       (instances || ['1', '2', '3', '4']).map(instance => {
         const coordinates = [0, 0];
-        questions.forEach((q, i) => {
+        questions.forEach((q, qIndex) => {
           if (
             data[instance] &&
-            data[instance]['q' + (i + 1)] &&
-            q.answers[data[instance]['q' + (i + 1)] - 1]
+            data[instance][qIndex] &&
+            q.answers[data[instance][qIndex] - 1]
           ) {
-            const answerIndex = data[instance]['q' + (i + 1)] - 1;
+            const answerIndex = data[instance][qIndex] - 1;
             coordinates[0] += q.answers[answerIndex].x;
             coordinates[1] += q.answers[answerIndex].y;
           }
@@ -28,23 +28,24 @@ const Viewer = ({ data, config, instances }: Object) => {
       })) ||
     [];
 
-  const answerCounts = questions.map((q, i) =>
+  console.log(data)
+  const answerCounts = questions.map((q, qIndex) =>
     ((data && Object.values(data)) || []).reduce((acc, val) => {
-      acc[val['q' + (i + 1)] - 1] += 1;
+      acc[val[qIndex]] += 1;
       return acc;
     }, q.answers.map(() => 0))
   );
   return (
     <div>
       {config.argueWeighting && <ScatterChart data={scatterData} />}
-      {questions.map((q, i) => (
+      {questions.map((q, qIndex) => (
         <CountChart
-          key={i}
+          key={qIndex}
           title={q.question}
           vAxis="Possible answers"
           hAxis="Number of answers"
           categories={q.answers.map(x => x.choice)}
-          data={answerCounts[i]}
+          data={answerCounts[qIndex]}
         />
       ))}
     </div>
@@ -52,6 +53,7 @@ const Viewer = ({ data, config, instances }: Object) => {
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+  console.log(log)
   if (!data[log.instanceId]) {
     dataFn.objInsert({}, [log.instanceId]);
   }

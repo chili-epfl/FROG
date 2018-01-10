@@ -21,6 +21,7 @@ const DescriptionField = props => (
 
 export default ({
   question,
+  questionIndex,
   index,
   data,
   dataFn,
@@ -28,34 +29,35 @@ export default ({
   groupingValue,
   activityData
 }: Object) => {
-  const itemId = 'q' + (index + 1);
+  const answersWithIndex = question.answers.map((x, y) => [x, y])
   const answers = ['answers', 'both'].includes(activityData.config.shuffle)
     ? condShuffle(
-        question.answers.map((x, y) => [x, y]),
+        answersWithIndex,
         'answers',
         index,
         groupingValue
       )
-    : question.answers.map((x, y) => [x, y]);
+    : answersWithIndex;
 
   const uiSchema = {
-    'ui:widget': 'latexWidget',
+    'ui:widget': 'Widget',
     'ui:description': question.question
   };
 
   const schema = {
     type: 'number',
     title: 'Question ' + (index + 1),
-    enum: answers.map(([_, k]) => k + 1),
-    enumNames: answers.map(([k]) => k.choice)
+    enum: answers.map(([_, answerIndex]) => answerIndex + 1),
+    enumNames: answers.map(([answer,_]) => answer.choice)
   };
 
-  const widgets = { latexWidget: Widget };
+  const widgets = { Widget };
   const fields = { DescriptionField };
-  const formData = data[itemId];
+  const formData = data[questionIndex];
   const onChange = e => {
-    dataFn.objInsert(e.formData, [itemId]);
-    logger({ type: 'answer', itemId, payload: e.formData });
+    console.log(e.formData)
+    dataFn.objInsert(e.formData, [questionIndex]);
+    logger({ type: 'choice', itemId: questionIndex, payload: e.formData });
   };
 
   return (

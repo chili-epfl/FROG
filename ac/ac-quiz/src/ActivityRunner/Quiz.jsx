@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable react/no-array-index-key */
 
 import React from 'react';
 import seededShuffle from 'seededshuffle';
@@ -17,12 +16,12 @@ export const condShuffle = (
 export default (props: ActivityRunnerT) => {
   const { activityData, groupingValue, data, dataFn } = props;
 
-  const rawQuestions = activityData.config.questions.filter(
+  const questionsWithIndex = activityData.config.questions.filter(
     q => q.question && q.answers
   ).map((x,i) => [x, i]);
   const questions = ['questions', 'both'].includes(activityData.config.shuffle)
-    ? condShuffle(rawQuestions, 'questions', '', groupingValue)
-    : rawQuestions;
+    ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
+    : questionsWithIndex;
   const onSubmit = () => {
     if (Object.keys(data).length >= Object.keys(questions).length) {
       dataFn.objInsert(true, 'completed');
@@ -30,8 +29,8 @@ export default (props: ActivityRunnerT) => {
   };
 
   return [
-    ...questions.map(([ question, index]) => (
-      <Question {...props} question={question} index={index} key={index} />
+    ...questions.map(([question, questionIndex], index) => (
+      <Question {...{ ...props, question, index, questionIndex, key: questionIndex }} />
     )),
     <button onClick={onSubmit} key="submit">
       Submit
