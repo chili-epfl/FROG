@@ -1,48 +1,56 @@
 // @flow
 
-import { compact, range } from 'lodash';
+import { compact } from 'lodash';
 
 export const exportData = (config: Object, { payload }: Object) => {
-  console.log(payload)
-  const csv = Object.keys(payload).map(line => {
-    const data = payload[line].data;
-    const res = [];
+  const csv = Object.keys(payload).map(instanceId => {
+    const data = payload[instanceId].data;
     if (data) {
-      Object.keys(data).forEach((q,num) => {
-        res[num] = data[q];
-      });
-      return [line, ...res].join('\t');
+      return [
+        instanceId,
+        ...(data.answersIndex || config.questions.map(_ => -1)),
+        ...(data.answers || config.questions.map(_ => undefined))
+      ].join('\t');
     }
     return undefined;
   });
 
   const headers = [
     'instanceId',
-    ...range(config.questions.length).map(x => 'q' + (x + 1))
+    ...config.questions.map((_, qIndex) => 'Q' + qIndex + ' (index)'),
+    ...config.questions.map((_, qIndex) => 'Q' + qIndex + ' (text)')
   ].join('\t');
   return compact([headers, ...csv.sort()]).join('\n');
 };
 
 export const formatProduct = (config: Object, item: Object) => {
-  console.log(formatProduct)
-  console.log(item)
   if (item) {
     const questions = config.questions.map(q => q.question);
-    const answers = [];
-    const correctQs = [];
-    Object.keys(item).forEach((q,num) => {
-      const response = config.questions[num].answers[item[q]];
-      answers[num] = response.choice;
-      if (config.hasAnswers) {
-        correctQs[num] = !!response.isCorrect;
-      }
-    });
-    const correctCount = compact(correctQs).length;
-    const maxCorrect = config.questions.length;
-    if (config.hasAnswers) {
-      return { questions, answers, correctQs, correctCount, maxCorrect };
-    } else {
-      return { questions, answers };
-    }
+    const answers = config.questions.map(
+      (q, qIndex) =>
+        item[qIndex] !== undefined ? q.answers[item[qIndex]].choice : undefined
+    );
+    const answersIndex = config.questions.map(
+      (q, qIndex) => (item[qIndex] !== undefined ? item[qIndex] : -1)
+    );
+    const correctQs = config.hasAnswers
+      ? config.questions.map(
+          (q, qIndex) =>
+            item[qIndex] !== undefined && !!q.answers[item[qIndex]].isCorrect
+        )
+      : undefined;
+    const correctCount = correctQs
+      ? correctQs.filter(x => x).length
+      : undefined;
+    const maxCorrect = questions.length;
+
+    return {
+      questions,
+      answers,
+      answersIndex,
+      correctQs,
+      correctCount,
+      maxCorrect
+    };
   }
 };

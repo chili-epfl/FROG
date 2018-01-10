@@ -16,9 +16,9 @@ export const condShuffle = (
 export default (props: ActivityRunnerT) => {
   const { activityData, groupingValue, data, dataFn } = props;
 
-  const questionsWithIndex = activityData.config.questions.filter(
-    q => q.question && q.answers
-  ).map((x,i) => [x, i]);
+  const questionsWithIndex = activityData.config.questions
+    .filter(q => q.question && q.answers)
+    .map((x, i) => [x, i]);
   const questions = ['questions', 'both'].includes(activityData.config.shuffle)
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
@@ -30,7 +30,9 @@ export default (props: ActivityRunnerT) => {
 
   return [
     ...questions.map(([question, questionIndex], index) => (
-      <Question {...{ ...props, question, index, questionIndex, key: questionIndex }} />
+      <Question
+        {...{ ...props, question, index, questionIndex, key: questionIndex }}
+      />
     )),
     <button onClick={onSubmit} key="submit">
       Submit

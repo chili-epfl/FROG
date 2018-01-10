@@ -28,7 +28,6 @@ const Viewer = ({ data, config, instances }: Object) => {
       })) ||
     [];
 
-  console.log(data)
   const answerCounts = questions.map((q, qIndex) =>
     ((data && Object.values(data)) || []).reduce((acc, val) => {
       acc[val[qIndex]] += 1;
@@ -53,7 +52,6 @@ const Viewer = ({ data, config, instances }: Object) => {
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
-  console.log(log)
   if (!data[log.instanceId]) {
     dataFn.objInsert({}, [log.instanceId]);
   }

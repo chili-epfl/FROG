@@ -127,8 +127,7 @@ const opinionQuizConfig = {
           y: -2
         },
         {
-          choice:
-            'Women\'s career slows down when they are pregnant',
+          choice: "Women's career slows down when they are pregnant",
           x: 2,
           y: 2
         }
@@ -138,8 +137,7 @@ const opinionQuizConfig = {
       question: 'Why do men earn more in average?',
       answers: [
         {
-          choice:
-            'Men run faster to be on time at meetings',
+          choice: 'Men run faster to be on time at meetings',
           x: -2,
           y: 2
         },
