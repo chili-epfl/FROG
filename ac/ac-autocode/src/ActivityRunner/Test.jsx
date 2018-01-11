@@ -80,7 +80,6 @@ const Test = ({
           },
           err => {
             // Student error
-
             logger({
               type: 'test',
               itemId: index,
@@ -93,10 +92,8 @@ const Test = ({
           }
         );
       },
-
       err => {
         // Teacher code error
-
         setStatus('warning');
         const error = handleError(err, lengthLines(preCode));
         setFeedback({

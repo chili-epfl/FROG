@@ -14,39 +14,21 @@ import {
 
 const Viewer = (props: Object) => {
   // props = {users, instances, data, config}
-
   const chartData = value =>
     props.config.tests.map((test, index) => ({
       x: 'test ' + index,
       y: props.data.tests[index] ? props.data.tests[index][value] : 0
     }));
 
-  const sum = x => x['success'] + x['danger'] + x['error'] || 0;
-
   const debugData = () => {
-    const o = Object.keys(props.data.students).reduce(
-      (acc, val) => {
-        if (acc) {
-          if (props.data.students[val][-1] !== undefined) {
-            const num = sum(props.data.students[val][-1]);
-            if (acc[num] !== undefined) {
-              acc[num] += 1;
-            } else {
-              acc[num] = 1;
-            }
-          } else {
-            acc[0] += 1;
-          }
-        }
-        return acc;
-      },
-      { '0': 0 }
-    );
-    // ex o = {0:10, 1:5, 2:17} (10 students did not use the debug, 17 used it twice )
-    return Object.keys(o).reduce((acc, val) => {
-      acc.push({ x: val, y: o[val] });
+    const o = Object.keys(props.users).reduce((acc, userId) => {
+      const userData = props.data.students[userId];
+      const count = userData ? userData.debugCount : 0;
+      acc[count] = 1 + (acc[count] ? acc[count] : 0);
       return acc;
-    }, []);
+    }, {});
+    // ex o = {0:10, 1:5, 2:17} (10 students did not use the debug, 17 used it twice)
+    return Object.keys(o).map(key => ({ x: key, y: o[key] }));
   };
 
   const green = '#33cc33';
@@ -61,7 +43,8 @@ const Viewer = (props: Object) => {
         activity
       </p>
       <p>
-        {Object.keys(props.data.students).length} students have started coding
+        {Object.keys(props.data.students).length} students have started running
+        tests
       </p>
       <div>
         <VictoryChart
@@ -126,55 +109,24 @@ const Viewer = (props: Object) => {
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   let previousStatus = '';
-  let codeUpdated = true;
+
   if (data.students[log.userId]) {
     // student already seen
-    if (data.students[log.userId].code !== log.payload) {
-      // update code if changed
-      dataFn.objInsert(log.payload, ['students', log.userId, 'code']);
-    } else {
-      codeUpdated = false;
-    }
     if (data.students[log.userId][log.itemId]) {
       // student already submitted for this test (or debug) once
-      previousStatus = data.students[log.userId][log.itemId].status;
-      if (previousStatus !== log.value || codeUpdated) {
-        // only update if things change
-        dataFn.numIncr(1, ['students', log.userId, log.itemId, log.value]);
-        dataFn.objInsert(log.value, [
-          'students',
-          log.userId,
-          log.itemId,
-          'status'
-        ]);
-      }
-    } else {
-      // first time for that test
-      dataFn.objInsert(
-        {
-          status: log.value,
-          success: log.value === 'success' ? 1 : 0,
-          danger: log.value === 'danger' ? 1 : 0,
-          error: log.value === 'error' ? 1 : 0
-        },
-        ['students', log.userId, log.itemId]
-      );
+      previousStatus = data.students[log.userId][log.itemId];
     }
+    dataFn.objInsert(log.value, ['students', log.userId, log.itemId]);
   } else if (log.itemId !== undefined) {
     // first time that student is seen
+    dataFn.objInsert({ [log.itemId]: log.value, debugCount: 0 }, [
+      'students',
+      log.userId
+    ]);
+  }
 
-    dataFn.objInsert(
-      {
-        code: log.payload,
-        [log.itemId]: {
-          status: log.value,
-          success: log.value === 'success' ? 1 : 0,
-          danger: log.value === 'danger' ? 1 : 0,
-          error: log.value === 'error' ? 1 : 0
-        }
-      },
-      ['students', log.userId]
-    );
+  if (log.itemId === -1) {
+    dataFn.numIncr(1, ['students', log.userId, 'debugCount']);
   }
 
   if (log.type === 'test') {
