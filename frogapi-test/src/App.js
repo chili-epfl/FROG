@@ -5,11 +5,11 @@ import './App.css';
 
 const srcs = [
   'http://localhost:8000/demo/',
-  'http://frog.zapto.org/api/activityType/ac-quiz?config=%7B%22title%22%3A%22This%20is%20my%20quiz%22%2C%22shuffle%22%3A%22none%22%2C%22guidelines%22%3A%22Important%20stuff%22%2C%22questions%22%3A%5B%7B%22question%22%3A%22Questoin%201%22%2C%22answers%22%3A%5B%22a%22%2C%22b%22%5D%7D%5D%7D&instance_id=1&userid=330&username=Petrovsky',
-  'http://frog.zapto.org/api/activityType/ac-video?config=%7B%22url%22%3A%22https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D6YAHzyRRY8Q%22%2C%22playing%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky',
-  'http://frog.zapto.org/api/activityType/ac-image?config=%7B%22canUpload%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky',
-  'http://frog.zapto.org/api/config/ac-quiz',
-  'http://frog.zapto.org/api/chooseActivity'
+  'http://localhost:3000/api/activityType/ac-quiz?config=%7B%22title%22%3A%22This%20is%20my%20quiz%22%2C%22shuffle%22%3A%22none%22%2C%22guidelines%22%3A%22Important%20stuff%22%2C%22questions%22%3A%5B%7B%22question%22%3A%22Questoin%201%22%2C%22answers%22%3A%5B%22a%22%2C%22b%22%5D%7D%5D%7D&instance_id=1&userid=330&username=Petrovsky',
+  'http://localhost:3000/api/activityType/ac-video?config=%7B%22url%22%3A%22https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D6YAHzyRRY8Q%22%2C%22playing%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky',
+  'http://localhost:3000/api/activityType/ac-image?config=%7B%22canUpload%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky',
+  'http://localhost:3000/api/config/ac-quiz',
+  'http://localhost:3000/api/chooseActivity'
 ];
 
 class App extends Component {
@@ -84,7 +84,7 @@ class App extends Component {
                 <b>Valid?</b>:{' '}
                 {this.state.valid ? (
                   <a
-                    href={`http://frog.zapto.org/api/activityType/${
+                    href={`http://localhost:3000/api/activityType/${
                       this.state.aT
                     }?config=${encodeURIComponent(
                       JSON.stringify(this.state.config)
@@ -93,7 +93,7 @@ class App extends Component {
                       e.preventDefault();
                       this.setState({
                         errors: undefined,
-                        url: `http://frog.zapto.org/api/activityType/${
+                        url: `http://localhost:3000/api/activityType/${
                           this.state.aT
                         }?config=${encodeURIComponent(
                           JSON.stringify(this.state.config)
