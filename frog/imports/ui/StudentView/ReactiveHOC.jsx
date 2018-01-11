@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react';
+import Spinner from 'react-spinner';
+import { cloneDeep } from 'lodash';
 import {
   generateReactiveFn,
   type ReactComponent,
   getDisplayName
 } from 'frog-utils';
-import Spinner from 'react-spinner';
 
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
@@ -44,7 +45,7 @@ const ReactiveHOC = (docId: string, conn?: any) => (
         if (!this.state.dataFn) {
           this.setState({ dataFn: generateReactiveFn(this.doc) });
         }
-        this.setState({ data: this.doc.data });
+        this.setState({ data: cloneDeep(this.doc.data) });
         parent.postMessage(
           {
             type: 'frog-data',

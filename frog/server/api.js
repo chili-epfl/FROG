@@ -11,9 +11,12 @@ import fs from 'fs';
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
+import setupH5PRoutes from './h5p';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
+
+setupH5PRoutes();
 
 Picker.filter(req => req.method === 'POST').route(
   '/lti/:slug',
@@ -128,7 +131,6 @@ Picker.route(
         })
       );
     }
-    console.log(activityData);
     InjectData.pushData(response, 'api', {
       callType: 'runActivity',
       activityType: activityTypeId,
@@ -167,7 +169,7 @@ Picker.route('/api/chooseActivity', (req, request, response, next) => {
   next();
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || !Meteor.settings.Minio) {
   WebApp.connectHandlers.use('/file', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'PUT');
     res.setHeader('Access-Control-Allow-Origin', '*');

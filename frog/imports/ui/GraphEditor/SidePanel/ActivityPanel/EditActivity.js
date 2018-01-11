@@ -3,9 +3,9 @@
 import React from 'react';
 import FlexView from 'react-flexview';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
-import { withState } from 'recompose';
-import { ChangeableText, A } from 'frog-utils';
 import copy from 'copy-to-clipboard';
+import { withState, compose } from 'recompose';
+import { ChangeableText, A, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity, setStreamTarget } from '/imports/api/activities';
@@ -43,11 +43,16 @@ const copyURL = activity => {
 const RawEditActivity = ({
   advancedOpen,
   setAdvancedOpen,
+  reload,
+  setReload,
   activity,
   ...props
 }) => {
   const graphActivity = props.store.activityStore.all.find(
     act => act.id === activity._id
+  );
+  const outgoingConnections = props.store.connectionStore.all.find(
+    conn => conn.source.id === activity._id
   );
 
   // if no grouping key, and incoming social role, automatically assign first one
@@ -159,9 +164,25 @@ const RawEditActivity = ({
           node: activity,
           nodeType: activityType,
           valid: props.store.valid,
-          refreshValidate: props.store.refreshValidate
+          refreshValidate: props.store.refreshValidate,
+          reload: reload + (outgoingConnections || []).map(x => x.id).join('')
         }}
       />
+      {activityType.ConfigComponent && (
+        <activityType.ConfigComponent
+          configData={{ component: {}, ...activity.data }}
+          setConfigData={d => {
+            addActivity(
+              activity.activityType,
+              { ...activity.data, component: d },
+              activity._id,
+              null
+            );
+            props.store.refreshValidate();
+            setReload(uuid());
+          }}
+        />
+      )}
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
       {advancedOpen && (
         <React.Fragment>
@@ -184,7 +205,8 @@ const RawEditActivity = ({
   );
 };
 
-const EditActivity = withState('advancedOpen', 'setAdvancedOpen', false)(
-  RawEditActivity
-);
+const EditActivity = compose(
+  withState('advancedOpen', 'setAdvancedOpen', false),
+  withState('reload', 'setReload', uuid())
+)(RawEditActivity);
 export default connect(EditActivity);

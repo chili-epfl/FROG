@@ -41,7 +41,7 @@ export const startShareDB = () => {
       backend.listen(new WebsocketJSONStream(ws));
     });
     // eslint-disable-next-line no-console
-    console.log('Running shareDB server');
+    console.info('Running shareDB server');
 
     const shareDbPort =
       (Meteor.settings && Meteor.settings.public.sharedbport) || 3002;

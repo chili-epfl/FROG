@@ -24,6 +24,8 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     set(newSchema, [...x, 'type'], 'string')
   );
 
+  delete newSchema.properties.component;
+
   const socialMerges = socialPaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
       'ui:widget': 'socialAttributeWidget'
