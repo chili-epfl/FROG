@@ -14,20 +14,22 @@ import {
 
 const Viewer = (props: Object) => {
   // props = {users, instances, data, config}
-  const chartData = value =>
+  const testsData = value =>
+    props.config.tests &&
     props.config.tests.map((test, index) => ({
       x: 'test ' + index,
       y: props.data.tests[index] ? props.data.tests[index][value] : 0
     }));
 
-  const debugData = () => {
-    const o = Object.keys(props.users).reduce((acc, userId) => {
-      const userData = props.data.students[userId];
+  const runData = () => {
+    // props.instances is an array ex: ["hmASM6jiz7vRoEvoh","LhqDCQgqh3N733SXE"]
+    const o = props.instances.reduce((acc, instanceId) => {
+      const userData = props.data.students[instanceId];
       const count = userData ? userData.debugCount : 0;
       acc[count] = 1 + (acc[count] ? acc[count] : 0);
       return acc;
     }, {});
-    // ex o = {0:10, 1:5, 2:17} (10 students did not use the debug, 17 used it twice)
+    // ex o = {0:10, 1:5, 2:17} (10 students did not use the run button, 17 used it twice)
     return Object.keys(o).map(key => ({ x: key, y: o[key] }));
   };
 
@@ -35,72 +37,77 @@ const Viewer = (props: Object) => {
   const red1 = '#ff0000';
   const red2 = '#660000';
 
+  const displayTestChart = props.config.tests && props.config.tests.length > 0;
+
   return (
-    <div style={{ height: '1100px', overflow: 'scroll' }}>
+    <div
+      style={{
+        height: displayTestChart ? '1100px' : '550px',
+        overflow: 'scroll'
+      }}
+    >
       <h1>Dashboard for activity: {props.config.title}</h1>
       <p>
         {Object.keys(props.users).length} students have registered to this
         activity
       </p>
       <p>
-        {Object.keys(props.data.students).length} students have started running
-        tests
+        There are {Object.keys(props.instances).length} instance(s) of students
+        and {Object.keys(props.data.students).length} of them have started
+        running tests
       </p>
+      {displayTestChart && (
+        <div>
+          <VictoryChart
+            domain={{
+              x: [0, props.config.tests.length],
+              y: [0, Object.keys(props.data.students).length + 1]
+            }}
+            domainPadding={20}
+          >
+            <VictoryLegend
+              x={125}
+              y={0}
+              orientation="horizontal"
+              title="Students' current results"
+              centerTitle
+              gutter={20}
+              style={{ border: { stroke: 'black' } }}
+              data={[
+                { name: 'Sucess', symbol: { fill: green } },
+                { name: 'Danger', symbol: { fill: red1 } },
+                { name: 'Error', symbol: { fill: red2 } }
+              ]}
+            />
+            <VictoryAxis
+              tickFormat={props.config.tests.map(
+                (val, index) => 'Test ' + (index + 1)
+              )}
+            />
+            <VictoryAxis dependentAxis />
+            <VictoryStack>
+              <VictoryBar
+                data={testsData('success')}
+                style={{ data: { fill: green } }}
+              />
+              <VictoryBar
+                data={testsData('danger')}
+                style={{ data: { fill: red1 } }}
+              />
+              <VictoryBar
+                data={testsData('error')}
+                style={{ data: { fill: red2 } }}
+              />
+            </VictoryStack>
+          </VictoryChart>
+        </div>
+      )}
       <div>
-        <VictoryChart
-          domain={{
-            x: [0, props.config.tests.length],
-            y: [0, Object.keys(props.data.students).length + 1]
-          }}
-          domainPadding={20}
-        >
-          <VictoryLegend
-            x={125}
-            y={0}
-            orientation="horizontal"
-            title="Students' current results"
-            centerTitle
-            gutter={20}
-            style={{ border: { stroke: 'black' } }}
-            data={[
-              { name: 'Sucess', symbol: { fill: green } },
-              { name: 'Danger', symbol: { fill: red1 } },
-              { name: 'Error', symbol: { fill: red2 } }
-            ]}
-          />
-          <VictoryAxis
-            tickFormat={props.config.tests.map(
-              (val, index) => 'Test ' + (index + 1)
-            )}
-          />
+        <VictoryChart domainPadding={20}>
+          <VictoryLabel x={125} y={20} text="Run of own code" />
+          <VictoryAxis label="Number of times" />
           <VictoryAxis dependentAxis />
-          <VictoryStack>
-            <VictoryBar
-              data={chartData('success')}
-              style={{ data: { fill: green } }}
-            />
-            <VictoryBar
-              data={chartData('danger')}
-              style={{ data: { fill: red1 } }}
-            />
-            <VictoryBar
-              data={chartData('error')}
-              style={{ data: { fill: red2 } }}
-            />
-          </VictoryStack>
-        </VictoryChart>
-      </div>
-      <div>
-        <VictoryChart
-          domain={{
-            y: [0, Object.keys(props.data.students).length + 1]
-          }}
-          domainPadding={20}
-        >
-          <VictoryLabel x={125} y={20} text="Use of debug" />
-          <VictoryAxis label="Number of uses" />
-          <VictoryAxis dependentAxis />
-          <VictoryBar data={debugData()} />
+          <VictoryBar data={runData()} />
         </VictoryChart>
       </div>
     </div>
@@ -109,24 +116,23 @@ const Viewer = (props: Object) => {
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   let previousStatus = '';
-
-  if (data.students[log.userId]) {
+  if (data.students[log.instanceId]) {
     // student already seen
-    if (data.students[log.userId][log.itemId]) {
+    if (data.students[log.instanceId][log.itemId]) {
       // student already submitted for this test (or debug) once
-      previousStatus = data.students[log.userId][log.itemId];
+      previousStatus = data.students[log.instanceId][log.itemId];
     }
-    dataFn.objInsert(log.value, ['students', log.userId, log.itemId]);
+    dataFn.objInsert(log.value, ['students', log.instanceId, log.itemId]);
   } else if (log.itemId !== undefined) {
     // first time that student is seen
     dataFn.objInsert({ [log.itemId]: log.value, debugCount: 0 }, [
       'students',
-      log.userId
+      log.instanceId
     ]);
   }
 
   if (log.itemId === -1) {
-    dataFn.numIncr(1, ['students', log.userId, 'debugCount']);
+    dataFn.numIncr(1, ['students', log.instanceId, 'debugCount']);
   }
 
   if (log.type === 'test') {

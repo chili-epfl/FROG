@@ -54,9 +54,10 @@ const Feedback = ({ inputDesc, expected, received, error, stdout }) => (
 const TestList = ({ tests, ...props }) => (
   <ButtonList>
     <Debug key="debug" {...props} />
-    {tests.map((test, index) => (
-      <Test key={index} test={test} index={index} {...props} /> // eslint-disable-line
-    ))}
+    {tests &&
+      tests.map((test, index) => (
+        <Test key={index} test={test} index={index} {...props} /> // eslint-disable-line
+      ))}
   </ButtonList>
 );
 

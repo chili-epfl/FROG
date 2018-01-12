@@ -6,6 +6,7 @@ import dashboard from './Dashboard';
 import {
   config,
   configUI,
+  validateConfig,
   exampleConfig0,
   exampleConfig1,
   exampleConfig2,
@@ -38,6 +39,7 @@ export default ({
   meta,
   config,
   configUI,
+  validateConfig,
   ActivityRunner,
   dashboard,
   dataStructure,
