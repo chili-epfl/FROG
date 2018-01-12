@@ -19,7 +19,7 @@ const meta = {
   type: 'react-component',
   shortDesc: 'Autograded code snippets',
   description:
-    'Students upload code wich is tested against teacher-designed tests',
+    'Students upload code which is tested against teacher-designed tests',
   // examples of config
   exampleData: [exampleConfig0, exampleConfig1, exampleConfig2, exampleConfig3]
 };
@@ -29,7 +29,7 @@ const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (obj, dataFn) => {
-  const template = obj.config.template || 'print "Hello world"';
+  const template = obj.config.template || '"Write your code here"';
   dataFn.objInsert(template, 'code');
 };
 
