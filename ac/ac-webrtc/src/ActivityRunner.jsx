@@ -24,31 +24,16 @@ class ActivityRunner extends Component {
   };
 
   startConnection = remoteUser => {
-    let remoteConn = this.findConnectionByRemoteUser(remoteUser)
+    const remoteConn = this.findConnectionByRemoteUser(remoteUser)
 
     if(this.state.mode !== 'notReady'){
       if (_.isUndefined(remoteConn)) {
         return( this.createPeerConnection(remoteUser) );
-      } else if (remoteConn.signalingState === 'have-local-offer'){
+      } else if (remoteConn.signalingState === 'have-local-offer' || (remoteConn.signalingState ==='stable' && remoteConn.localDescription.type === "")){
         if(remoteUser.id > this.props.userInfo.id){
           this.handleRemoteHangUp(remoteConn); 
           return this.createPeerConnection(remoteUser);
-        }else{
-          console.log("wait for answer"); 
         }
-      }
-      else if (remoteConn.signalingState === 'stable')
-        if(remoteConn.localDescription.type === ""){
-          console.log("wait answer"); 
-        }else {
-          console.log("stable", remoteConn); 
-          if(remoteUser.id > this.props.userInfo.id){
-          this.handleRemoteHangUp(remoteConn); 
-          return this.createPeerConnection(remoteUser);
-        }
-
-      }else{
-        console.log("not local offer", remoteConn.signalingState, remoteConn.localDescription, remoteConn.remoteDescription); 
       }
     }else{
       console.log("not ready yet"); 
@@ -73,7 +58,7 @@ class ActivityRunner extends Component {
 
   handleIceCandidate = event => {
     if (event.candidate) {
-      let message = {
+      const message = {
         type: 'candidate',
         data: {
           label: event.candidate.sdpMLineIndex,
@@ -90,8 +75,8 @@ class ActivityRunner extends Component {
   };
 
   handleRemoteStreamAdded = event => {
-    let index = _.indexOf(this.connections, event.target);
-    let remotes = []
+    const index = this.connections.findIndex(x => x.remoteUser === event.currentTarget.remoteUser);
+    let remotes = [];  
     switch(this.state.mode){
       case 'readyToCall':
         this.addRemoteStream(remotes, index, event.stream);
@@ -105,13 +90,13 @@ class ActivityRunner extends Component {
         }
         break;
       default :
-        alert('ERROR on remote stream indexes');
+        alert('ERROR on state');
         break;
     }  
 
   };
 
-  addRemoteStream = (remotes, index, stream) => {
+  addRemoteStream = (remotes, index, stream) => {  
     remotes[index] = {
       stream: stream,
       src: window.URL.createObjectURL(stream),
@@ -124,7 +109,6 @@ class ActivityRunner extends Component {
   }
 
   handleIceChange = event => {
-    console.log("change event", event);
     if (event.target.iceConnectionState === "failed" ||
     event.target.iceConnectionState === "disconnected" ||
     event.target.iceConnectionState === "closed") {
@@ -148,7 +132,7 @@ class ActivityRunner extends Component {
   setLocalInfoAndSendOffer = (offer, connection) => {
     offer.sdp = preferOpus(offer.sdp);
     connection.setLocalDescription(offer);
-    let message = {
+    const message = {
       type: 'offer',
       data: {
         message: offer,
@@ -171,7 +155,7 @@ class ActivityRunner extends Component {
   setLocalInfoAndSendAnswer = (answer, connection) => {
     answer.sdp = preferOpus(answer.sdp);
     connection.setLocalDescription(answer);
-    let message = {
+    const message = {
       type: 'answer',
       data: {
         message: answer,
@@ -221,21 +205,18 @@ class ActivityRunner extends Component {
   };
 
   constructor(props: ActivityRunnerT) {
-    console.log("cons"); 
     super(props);
 
     this.connections = [];
     this.state = { mode: 'notReady'};
-    window.conn = this.connections;
   }
 
   componentDidMount() {
-    console.log("mount"); 
     navigator.mediaDevices
       .getUserMedia(this.props.activityData.config.sdpConstraints)
       .then(this.gotStream)
       .catch(function(e) {
-        window.e =e
+        console.log("Error:", e); 
         alert('getUserMedia() error: ' + e.name);
       });
   }
@@ -251,7 +232,7 @@ class ActivityRunner extends Component {
   };
 
   call = () => {
-    let message = {
+    const message = {
       type: 'join',
       data: {
         room: this.props.groupingValue || 'room',
@@ -267,55 +248,47 @@ class ActivityRunner extends Component {
   };
 
   componentWillUnmount() {
-    let message = {
+    const message = {
       type: 'bye',
       data: {
         fromUser: this.props.userInfo
       }
     };
 
-    if(this.state.mode !== 'notReady'){
-      console.log("unmounting local stream"); 
-      if (this.state.local.stream) {
-        try {
+    try{
+        if(this.state.mode !== 'notReady'){
+        console.log("unmounting local stream"); 
+        if (this.state.local.stream) {
           this.state.local.stream.getTracks().forEach(track => track.stop());
-        } catch (e) {
-          console.log('error getting audio or video tracks' + e);
         }
       }
-    }
 
-    if(this.state.mode === 'calling'){
-      if (this.state.remote.length > 0) {
-        _.each(this.state.remote, ({ stream }) => {
-          try {
-            stream.getTracks().forEach(track => track.stop());
-          } catch (e) {
-            console.log('error getting audio or video tracks' + e);
-          }
+      if(this.state.mode === 'calling'){
+        if (this.state.remote.length > 0) {
+          _.each(this.state.remote, ({ stream }) => {
+              stream.getTracks().forEach(track => track.stop());
+          });
+        }
+
+        if (this.connections.length > 0) {
+          _.each(this.connections, connection => {
+              connection.close();
+          });
+        }
+
+        this.connections = [];
+        this.setState({
+          mode: 'hangUp'
         });
       }
-
-      if (this.connections.length > 0) {
-        _.each(this.connections, connection => {
-          try {
-            connection.close();
-          } catch (e) {
-            console.log('error closing connection', e);
-          }
-        });
-      }
-
-      this.connections = [];
-      this.setState({
-        mode: 'hangUp'
-      });
+    }catch(e){
+      console.log("ERROR on unmounting", e); 
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (_.difference(nextProps.data, this.props.data).length > 0) {
-      let newMess = _.last(nextProps.data);
+      const newMess = _.last(nextProps.data);
       if (!_.isEqual(newMess.data.fromUser, this.props.userInfo)) {
         if (newMess.type === 'join' && this.state.mode !== 'notReady'){
           let connection = this.startConnection(newMess.data.fromUser);
