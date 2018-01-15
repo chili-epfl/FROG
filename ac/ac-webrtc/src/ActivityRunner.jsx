@@ -181,7 +181,6 @@ class ActivityRunner extends Component {
 
     this.connections = [];
     this.state = { mode: 'notReady' };
-    window.conn = this.connections;
   }
 
   componentDidMount() {
