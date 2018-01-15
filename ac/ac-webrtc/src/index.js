@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import {config} from './config';
+import { config } from './config';
 import ActivityRunner from './ActivityRunner';
 
 const meta = {
@@ -10,13 +10,13 @@ const meta = {
   shortDesc: 'Video Conference',
   description: 'Video conference using WebRTC peer to peer configuration',
   exampleData: [
-    { 
+    {
       title: 'Yourself',
-      config: { 
-        title: 'Talk with yourself', 
+      config: {
+        title: 'Talk with yourself',
         sdpConstraints: {
-          audio: true, 
-          video: true 
+          audio: true,
+          video: true
         }
       },
       data: []
@@ -31,7 +31,7 @@ const dataStructure = [];
 const mergeFunction = (object, dataFn) => {
   if (object.data) {
     object.data.forEach(x => dataFn.listAppend(x));
-  } 
+  }
 };
 
 export default ({

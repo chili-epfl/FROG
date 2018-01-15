@@ -1,4 +1,3 @@
-
 export const config = {
   type: 'object',
   properties: {
@@ -10,7 +9,7 @@ export const config = {
       type: 'string',
       title: 'Information for your students:'
     },
-    sdpConstraints : {
+    sdpConstraints: {
       type: 'object',
       properties: {
         audio: {
@@ -18,12 +17,12 @@ export const config = {
           type: 'boolean',
           default: true
         },
-        video:{
+        video: {
           title: 'Connect using camera',
           type: 'boolean',
           default: true
         }
       }
-    }    
+    }
   }
 };

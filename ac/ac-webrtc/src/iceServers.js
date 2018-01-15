@@ -1,4 +1,4 @@
-export const  ICEConfig = {
+export const ICEConfig = {
   iceServers: [
     {
       urls: 'stun:stun.l.google.com:19302'
