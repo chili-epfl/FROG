@@ -55,7 +55,6 @@ const Test = ({
     const solution = activityData.config.solution;
     const testCode = getCode(data.code, preCode, postCode);
     const solutionCode = getCode(solution, preCode, postCode);
-    logger({ type: 'test', itemId: index, value: data.code });
     testOutput = [];
     solutionOutput = [];
     runCode(solutionCode, handleOut('teacher')).then(
@@ -64,7 +63,12 @@ const Test = ({
           () => {
             // Both code ran without error, checkSolution compare the outputs and assign the values for feedback
             const { newStatus, expected, received } = checkSolution();
-            logger({ type: 'result', itemId: index, value: newStatus });
+            logger({
+              type: 'test',
+              itemId: index,
+              value: newStatus,
+              payload: data.code
+            });
             setStatus(newStatus);
             setFeedback({
               inputDesc,
@@ -76,14 +80,18 @@ const Test = ({
           },
           err => {
             // Student error
-            logger({ type: 'ERROR', itemId: index });
+            logger({
+              type: 'test',
+              itemId: index,
+              value: 'error',
+              payload: data.code
+            });
             setStatus('danger');
             const error = handleError(err, lengthLines(preCode));
             setFeedback({ error, inputDesc });
           }
         );
       },
-
       err => {
         // Teacher code error
         setStatus('warning');

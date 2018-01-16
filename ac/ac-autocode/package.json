@@ -15,7 +15,8 @@
     "react-ace": "^5.7.0",
     "react-dom": "^16.2.0",
     "react-bootstrap": "^0.31.5",
-    "styled-components": "^2.2.4"
+    "styled-components": "^2.2.4",
+    "victory": "^0.24.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
