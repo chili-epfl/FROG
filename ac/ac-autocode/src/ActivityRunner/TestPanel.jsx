@@ -54,22 +54,33 @@ const Feedback = ({ inputDesc, expected, received, error, stdout }) => (
 const TestList = ({ tests, ...props }) => (
   <ButtonList>
     <Debug key="debug" {...props} />
-    {tests.map((test, index) => (
-      <Test key={index} test={test} index={index} {...props} /> // eslint-disable-line
-    ))}
+    {tests &&
+      tests.map((test, index) => (
+        <Test key={index} test={test} index={index} {...props} /> // eslint-disable-line
+      ))}
   </ButtonList>
 );
 
 const Debug = ({ data, runCode, setFeedback, logger, handleError }) => {
   const debug = () => {
     const stdout = [];
-    logger({ type: 'debug', value: data.code });
     runCode(data.code, out => stdout.push(out), () => {}).then(
       () => {
+        logger({
+          type: 'debug',
+          itemId: -1,
+          value: 'success',
+          payload: data.code
+        });
         setFeedback({ stdout });
       },
       err => {
-        logger({ type: 'ERROR', itemId: 'debug' });
+        logger({
+          type: 'debug',
+          itemId: -1,
+          value: 'danger',
+          payload: data.code
+        });
         const error = handleError(err, 0);
         setFeedback({ error, stdout, status: 'ERROR' });
       }
@@ -77,7 +88,7 @@ const Debug = ({ data, runCode, setFeedback, logger, handleError }) => {
   };
   return (
     <button className="btn btn-primary" onClick={debug}>
-      DEBUG
+      RUN
     </button>
   );
 };

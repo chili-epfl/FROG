@@ -54,6 +54,16 @@ export const config = {
   }
 };
 
+export const validateConfig = [
+  (data: Object): null | { field?: string, err: string } =>
+    data.tests && data.tests.length > 0 && !data.solution
+      ? {
+          field: 'solution',
+          err: 'You must provide a solution to execute tests'
+        }
+      : null
+];
+
 export const configUI = {
   template: {
     'ui:widget': 'textarea'
