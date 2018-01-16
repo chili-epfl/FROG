@@ -209,17 +209,17 @@ export const exampleConfig3 = {
       {
         inputDesc: 'x=0',
         preCode: '',
-        postCode: 'print(double(0))'
+        postCode: 'console.log(double(0))'
       },
       {
         inputDesc: 'x=42',
         preCode: '',
-        postCode: 'print(double(42))'
+        postCode: 'console.log(double(42))'
       },
       {
         inputDesc: 'x=1234567890',
         preCode: '',
-        postCode: 'print(double(1234567890))'
+        postCode: 'console.log(double(1234567890))'
       }
     ]
   },
