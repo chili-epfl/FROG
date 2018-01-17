@@ -9,14 +9,20 @@ import { ICEConfig } from './iceServers';
 import { LocalVideo, RemoteVideo } from './Video';
 import { preferOpus } from './codec';
 
+declare var RTCPeerConnection: any;
+declare var RTCIceCandidate: any;
+declare var RTCSessionDescription: any;
+declare var navigator: any;
+
 type StateT =
   | { mode: 'notReady' }
   | { mode: 'readyToCall', local: Object }
-  | { mode: 'calling', local: Object, remote: Array }
+  | { mode: 'calling', local: Object, remote: Array<any> }
   | { mode: 'hangUp' };
 
 class ActivityRunner extends Component {
   state: StateT;
+  connections: Array<any>;
 
   findConnectionByRemoteUser = userInfo =>
     this.connections.find(conn => isEqual(conn.remoteUser, userInfo));
@@ -25,7 +31,7 @@ class ActivityRunner extends Component {
     const remoteConn = this.findConnectionByRemoteUser(remoteUser);
 
     if (this.state.mode !== 'notReady') {
-      if (isUndefined(remoteConn)) {
+      if (!remoteConn) {
         return this.createPeerConnection(remoteUser);
       } else if (remoteConn.signalingState === 'have-local-offer' || 'stable') {
         if (remoteUser.id > this.props.userInfo.id) {
@@ -42,7 +48,9 @@ class ActivityRunner extends Component {
       conn.onicecandidate = this.handleIceCandidate;
       conn.onaddstream = this.handleRemoteStreamAdded;
       conn.oniceconnectionstatechange = this.handleIceChange;
-      conn.addStream(this.state.local.stream);
+      if (this.state.mode === 'readyToCall' || this.state.mode === 'calling') {
+        conn.addStream(this.state.local.stream);
+      }
       conn.remoteUser = remoteUser;
       this.connections.push(conn);
       return conn;
@@ -154,7 +162,7 @@ class ActivityRunner extends Component {
   handleRemoteHangUp = remoteConnection => {
     if (!isUndefined(remoteConnection) && this.state.mode === 'calling') {
       let newRemotes;
-      if (remoteConnection.getRemoteStreams() !== null) {
+      if (remoteConnection.getRemoteStreams() !== null && this.state.remote) {
         newRemotes = this.state.remote.filter(({ stream }) => {
           if (stream === remoteConnection.getRemoteStreams()[0]) {
             stream.getTracks().forEach(track => track.stop());
