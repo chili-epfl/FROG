@@ -1,34 +1,5 @@
 // @flow
 
-const makeRunCode = (language: string) => {
-  switch (language) {
-    case 'python':
-      return python();
-    case 'javascript':
-    default:
-      return javascript();
-  }
-};
-
-const javascript = () => {
-  // print is the function used in the code to provide output
-  /* eslint no-unused-vars: ["error", { "argsIgnorePattern": "print" }] */
-  const javascriptRunCode = (code: string, print: Function) =>
-    new Promise((resolve, reject) => {
-      try {
-        /* eslint no-eval: "off" */
-        eval(code);
-      } catch (e) {
-        reject(e);
-      }
-      resolve();
-    });
-
-  const javascriptHandleError = (err: Object) => err.name + ': ' + err.message;
-
-  return { runCode: javascriptRunCode, handleError: javascriptHandleError };
-};
-
 const python = () => {
   const script = document.createElement('script');
   script.src = 'http://www.skulpt.org/static/skulpt.min.js';
@@ -76,4 +47,4 @@ const python = () => {
   return { runCode: pythonRunCode, handleError: pythonHandleError };
 };
 
-export default makeRunCode;
+export default python;
