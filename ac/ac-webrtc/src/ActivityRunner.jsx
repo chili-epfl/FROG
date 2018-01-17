@@ -47,7 +47,7 @@ class ActivityRunner extends Component {
       this.connections.push(conn);
       return conn;
     } catch (e) {
-      alert('Cannot create RTCPeerConnection object.');
+      console.warn('Cannot create RTCPeerConnection object.');
     }
   };
 
@@ -188,7 +188,7 @@ class ActivityRunner extends Component {
       .getUserMedia(this.props.activityData.config.sdpConstraints)
       .then(this.gotStream)
       .catch(e => {
-        alert('Not able to get camera: ' + e.name);
+        console.warn('Not able to get camera: ' + e.name);
       });
   }
 
