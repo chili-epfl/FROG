@@ -42,7 +42,7 @@ class TopBar extends React.Component {
     { name: 'Admin', to: '/admin' }
   ];
 
-  value = '/graph';
+  value = '/teacher';
 
   constructor(props) {
     super(props);
@@ -50,8 +50,10 @@ class TopBar extends React.Component {
     const found = this.routes.filter(
       route => props.location.pathname.indexOf(route.to) !== -1
     )[0];
-    this.value = found.to;
-    // console.log('found value', this.value,props);
+
+    if ( found !== undefined ) {
+        this.value = found.to;
+    }
   }
 
   handleChange = (event, value) => {
