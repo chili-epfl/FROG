@@ -15,7 +15,6 @@ import MenuIcon from 'material-ui-icons/Menu';
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
 import Runner from './Runner';
-import Countdown from './Countdown';
 
 const getInitialState = (activities, d = 1) => {
   const n = Math.floor(activities.length / 2);

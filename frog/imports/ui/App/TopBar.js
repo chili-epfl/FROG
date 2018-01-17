@@ -51,8 +51,8 @@ class TopBar extends React.Component {
       route => props.location.pathname.indexOf(route.to) !== -1
     )[0];
 
-    if ( found !== undefined ) {
-        this.value = found.to;
+    if (found !== undefined) {
+      this.value = found.to;
     }
   }
 
