@@ -11,9 +11,14 @@ const meta = {
   description: ''
 };
 
-const calcSingle = (mode, usernameString, nameToId) => {
+const calcSingle = (mode, usernameString, nameToId, individuals, social) => {
   const usernames = usernameString.split(',').map(x => x.trim());
-  const userids = compact(usernames.map(x => nameToId[x]));
+  let userids;
+  if (individuals) {
+    userids = compact(usernames.map(x => nameToId[x]));
+  } else {
+    userids = usernames.reduce((acc, x) => [...acc, ...(social[x] || [])], []);
+  }
   const payload = userids.reduce((acc, x) => ({ ...acc, [x]: true }), {});
   return { structure: 'individual', mode, payload };
 };
@@ -24,8 +29,10 @@ const operator = (configData, object) => {
     return {
       all: calcSingle(
         configData.includeexclude,
+        configData.who,
+        nameToId,
         configData.individuals,
-        nameToId
+        object.socialStructure[configData.social]
       )
     };
   } else {
@@ -33,7 +40,13 @@ const operator = (configData, object) => {
       list: configData.rules.reduce(
         (acc, x) => ({
           ...acc,
-          [x.activity]: calcSingle(x.includeexclude, x.individuals, nameToId)
+          [x.activity]: calcSingle(
+            x.includeexclude,
+            x.who,
+            nameToId,
+            configData.individuals,
+            object.socialStructure[configData.social]
+          )
         }),
         {}
       )

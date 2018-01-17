@@ -33,7 +33,7 @@ module.exports = {
     'jsx-a11y/media-has-caption': 'off',
     'jsx-a11y/heading-has-content': 'off',
     'no-confusing-arrow': 'off',
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
     'no-constant-condition': 'off',
     'no-else-return': 'off',
     'no-nested-ternary': 'off',
@@ -63,7 +63,8 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'react/sort-comp': 'off',
-    'jsx-a11y/mouse-events-have-key-events': 'off'
+    'jsx-a11y/mouse-events-have-key-events': 'off',
+    'global-require': 'off'
   },
   parserOptions: {
     ecmaVersion: 2016,

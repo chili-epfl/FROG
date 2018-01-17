@@ -4,15 +4,19 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist && flow-copy-source src dist",
+    "build":
+      "babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist && flow-copy-source src dist",
     "watch": "watch 'npm run build' ./src",
     "prepublish": "npm run build"
   },
   "dependencies": {
     "frog-utils": "1.0.0",
     "react": "^16.2.0",
+    "react-ace": "^5.7.0",
     "react-dom": "^16.2.0",
-    "styled-components": "^2.2.4"
+    "react-bootstrap": "^0.31.5",
+    "styled-components": "^2.2.4",
+    "victory": "^0.24.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

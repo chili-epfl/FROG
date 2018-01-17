@@ -20,6 +20,9 @@ const runFn = (id, fn, obj) => {
 };
 
 export default (nodeType, id, obj, schema, datafns, uiSchema) => {
+  if (!schema) {
+    return null;
+  }
   if (
     schema &&
     schema.properties &&
