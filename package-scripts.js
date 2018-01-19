@@ -1,8 +1,18 @@
 const { sync } = require('find-up');
 
 const dir = sync('.git');
-const watch = `${dir}/../node_modules/.bin/babel src --out-dir dist --watch`;
-const build = `${dir}/../node_modules/.bin/babel src --out-dir dist`;
+
+const fromRoot = cmd =>
+  `cd ${dir}/../ && PATH=${dir}/../node_modules/.bin:$PATH} ${cmd}`;
+
+const build = shouldWatch => {
+  const cwd = process.cwd();
+  return fromRoot(
+    `babel ${cwd}/src --out-dir ${cwd}/dist ${shouldWatch ? '--watch' : ''}`
+  );
+};
+
+const watch = build(true);
 
 const watchAll = `
 cd ${dir}/..
@@ -18,12 +28,9 @@ cd ./frog-utils
 ${watch}
 `;
 
-const fromRoot = cmd =>
-  `cd ${dir}/../ && PATH=${dir}/../node_modules/.bin:$PATH} ${cmd}`;
-
 module.exports = {
   scripts: {
-    build,
+    build: build(false),
     eslintTest: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
     fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
     flowTest: fromRoot('flow'),

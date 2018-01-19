@@ -27,6 +27,7 @@
     "babel-plugin-captains-log": "^1.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-optional-chaining": "^7.0.0-beta.3",
+    "babel-plugin-transform-flow-comments": "^6.22.0",
     "enzyme": "^3.3.0",
     "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -48,5 +49,8 @@
     "react-test-renderer": "^16.2.0",
     "watch": "^1.0.2"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "yarn": "^1.4.0"
+  }
 }
