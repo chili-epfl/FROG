@@ -42,7 +42,7 @@ class TopBar extends React.Component {
     { name: 'Admin', to: '/admin' }
   ];
 
-  value = '/teacher';
+  value = '/preview';
 
   constructor(props) {
     super(props);

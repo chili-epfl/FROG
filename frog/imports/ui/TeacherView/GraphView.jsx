@@ -31,12 +31,22 @@ class GraphView extends Component {
   }
 
   render() {
+      const styles = {
+          sheet: {
+              padding: 0,
+              maxHeight: '100%',
+              overflow: 'auto'
+          }
+      };
+
     return (
       <Provider store={store}>
+        <div style={styles.sheet}>
         <GraphViewContainer>
           <ShowInfo />
           <Graph scaled hasTimescale isSession />
         </GraphViewContainer>
+        </div>
       </Provider>
     );
   }

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 
-import { connect } from './store';
+import {connect} from './store';
 import Graph from './Graph';
-import { RenameBox } from './Rename';
+import {RenameBox} from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
@@ -12,52 +12,62 @@ import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
 
 const EditorPanel = () => (
-  <div>
-    <ExpandButton />
-    <div style={{ height: 600 }}>
-      <Graph scaled hasTimescale isEditable />
+    <div className="bootstrap">
+        <ExpandButton/>
+        <div style={{height: 600}}>
+            <Graph scaled hasTimescale isEditable/>
+        </div>
+        <RenameBox/>
+        <div style={{height: 150}}>
+            <Graph hasPanMap/>
+        </div>
+        <HelpModal/>
     </div>
-    <RenameBox />
-    <div style={{ height: 150 }}>
-      <Graph hasPanMap />
-    </div>
-    <HelpModal />
-  </div>
 );
 
 class Editor extends Component {
-  componentDidMount() {
-    window.addEventListener('resize', this.props.store.ui.updateWindow);
-    this.props.store.ui.updateWindow();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.props.store.ui.updateWindow);
-  }
-
-  render() {
-    if (this.props.store.ui.showPreview) {
-      return (
-        <Preview
-          activityTypeId={this.props.store.ui.showPreview.activityTypeId}
-          config={this.props.store.ui.showPreview.config}
-          dismiss={() => this.props.store.ui.setShowPreview(false)}
-        />
-      );
+    componentDidMount() {
+        window.addEventListener('resize', this.props.store.ui.updateWindow);
+        this.props.store.ui.updateWindow();
     }
-    return (
-      <div style={{ height: '100%' }}>
-        <TopBar />
-        <TopPanel />
-        <Container>
-          <Main>
-            <EditorPanel />
-          </Main>
-          <SidePanel />
-        </Container>
-      </div>
-    );
-  }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.props.store.ui.updateWindow);
+    }
+
+    render() {
+        if (this.props.store.ui.showPreview) {
+            return (
+                <Preview
+                    activityTypeId={this.props.store.ui.showPreview.activityTypeId}
+                    config={this.props.store.ui.showPreview.config}
+                    dismiss={() => this.props.store.ui.setShowPreview(false)}
+                />
+            );
+        }
+        const styles = {
+            gridContent: {
+                marginLeft: 0,
+                display: 'flex',
+                flexDirection: 'column'
+            },
+            subroot: {
+                paddingTop: 48,
+                paddingRight: 3,
+                paddingLeft: 3
+            }
+        };
+        return (
+            <div id="subroot" style={styles.subroot}>
+                <TopBar barHeight={styles.subroot.paddingTop}/>
+                <div id="gc" style={styles.gridContent}>
+                    <TopPanel/>
+                    <EditorPanel/>
+                    <SidePanel/>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default connect(Editor);

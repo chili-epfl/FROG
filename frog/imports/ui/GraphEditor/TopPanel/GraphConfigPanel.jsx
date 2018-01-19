@@ -7,14 +7,8 @@ import { Graphs, renameGraph } from '../../../api/graphs';
 import { ValidButton } from '../Validator';
 
 const Config = ({ graph }) => (
-  <div style={{ textAlign: 'center' }}>
-    <span
-      style={{
-        color: '#000000',
-        fontSize: '20px',
-        fontWeight: '900'
-      }}
-    >
+  <div style={{ textAlign: 'center' }} className="bootstrap">
+    <span>
       <ChangeableText
         onlyHover
         value={graph ? graph.name : 'untitled'}

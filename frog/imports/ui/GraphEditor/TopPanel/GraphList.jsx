@@ -7,7 +7,7 @@ import { connect, store } from '../store';
 import { Graphs } from '../../../api/graphs';
 
 const GraphMenuSimple = connect(({ store: { graphId }, graphs }) => (
-  <DropdownButton title="Select Graph" id="dropdown-basic-0">
+  <DropdownButton title="Select Graph" id="dropdown-basic-0" className="bootstrap">
     {graphs.length ? (
       graphs.map(graph => (
         <MenuItem
