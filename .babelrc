@@ -1,25 +1,25 @@
 {
-	"plugins": [
-		"transform-optional-chaining",
-		"transform-flow-comments",
-		"@babel/syntax-decorators",
-		"transform-class-properties",
-		[
-			"captains-log",
-		{
-			"methods": [
-				"debug",
-			"error",
-			"exception",
-			"log",
-			"warn"
-			]
-		}
-		]
-	],
-	"presets": [
-		"@babel/preset-react",
-	"@babel/preset-env",
-	"@babel/preset-stage-0",
-	]
+  "plugins": [
+    "transform-optional-chaining",
+    "transform-flow-comments",
+    "@babel/syntax-decorators",
+    "transform-class-properties",
+    [
+      "captains-log",
+      {
+        "methods": [
+          "debug",
+          "error",
+          "exception",
+          "log",
+          "warn"
+        ]
+      }
+    ]
+  ],
+  "presets": [
+    "@babel/preset-react",
+    "@babel/preset-env",
+    "@babel/preset-stage-0"
+  ]
 }
