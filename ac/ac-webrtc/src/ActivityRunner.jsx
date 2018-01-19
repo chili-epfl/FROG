@@ -189,7 +189,6 @@ class ActivityRunner extends Component {
 
   constructor(props: ActivityRunnerT) {
     super(props);
-
     this.connections = [];
     this.state = { mode: 'notReady' };
   }
