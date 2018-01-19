@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import List, { ListItem, ListSubheader, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 
 import { Sessions } from '../api/sessions';

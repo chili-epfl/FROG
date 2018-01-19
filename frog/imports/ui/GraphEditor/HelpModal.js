@@ -48,8 +48,8 @@ const HelpModal = ({ show, hide }) => (
       connect. To begin a connection from an operator, click on an operator and
       drag to the operator or activity you wish to connect.
       <h4>Deleting elements</h4>
-      To delete an element, select it (it will change color to red), and click
-      the delete button, while your cursor is over the main graph window.
+      To delete an element, select it (it will change color to red), and press
+      the backspace key, while your cursor is over the main graph window.
       <h4>Undo</h4>
       All your actions are immediately stored in the database. To undo, click
       the undo button at the bottom of the graph.
