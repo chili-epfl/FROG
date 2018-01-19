@@ -1,5 +1,6 @@
 {
   "plugins": [
+    "transform-optional-chaining",
     "syntax-decorators",
     "transform-decorators-legacy",
     "transform-class-properties",
