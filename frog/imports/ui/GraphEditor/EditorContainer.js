@@ -18,7 +18,7 @@ const EditorPanel = () => (
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
-    <div style={{ height: 150 }}>
+    <div className="bootstrap" style={{ height: 150 }}>
       <Graph hasPanMap />
     </div>
     <HelpModal />
