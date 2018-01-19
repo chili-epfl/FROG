@@ -3,7 +3,7 @@
 shopt -s dotglob
 
 FROG="`pwd`"
-YARN_VERSION='1.4'
+YARN_VERSION='1.4.0'
 if which yarn && [[ `yarn --version` == $YARN_VERSION ]]; then 
     echo 'Using pre-installed global Yarn'; YARN=yarn 
 else
