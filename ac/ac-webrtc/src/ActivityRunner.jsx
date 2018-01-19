@@ -162,7 +162,10 @@ class ActivityRunner extends Component {
   handleRemoteHangUp = remoteConnection => {
     if (!isUndefined(remoteConnection) && this.state.mode === 'calling') {
       let newRemotes;
-      if (remoteConnection.getRemoteStreams() !== null && this.state.remote) {
+      if (
+        remoteConnection.getRemoteStreams() !== null &&
+        this.state.mode === 'calling'
+      ) {
         newRemotes = this.state.remote.filter(({ stream }) => {
           if (stream === remoteConnection.getRemoteStreams()[0]) {
             stream.getTracks().forEach(track => track.stop());
@@ -226,7 +229,7 @@ class ActivityRunner extends Component {
 
   componentWillUnmount() {
     if (
-      this.state.mode !== 'notReady' &&
+      (this.state.mode === 'calling' || this.state.mode === 'readyToCall') &&
       !isUndefined(this.state.local.stream)
     ) {
       this.state.local.stream.getTracks().forEach(track => track.stop());
@@ -276,11 +279,14 @@ class ActivityRunner extends Component {
               break;
             }
             case 'answer': {
-              this.findConnectionByRemoteUser(
+              const cbru = this.findConnectionByRemoteUser(
                 newMess.data.fromUser
-              ).setRemoteDescription(
-                new RTCSessionDescription(newMess.data.message)
               );
+              if (cbru) {
+                cbru.setRemoteDescription(
+                  new RTCSessionDescription(newMess.data.message)
+                );
+              }
               break;
             }
             case 'candidate': {
@@ -288,9 +294,12 @@ class ActivityRunner extends Component {
                 sdpMLineIndex: newMess.data.label,
                 candidate: newMess.data.candidate
               });
-              this.findConnectionByRemoteUser(
+              const cbru = this.findConnectionByRemoteUser(
                 newMess.data.fromUser
-              ).addIceCandidate(candidate);
+              );
+              if (cbru) {
+                cbru.addIceCandidate(candidate);
+              }
               break;
             }
             default: {
@@ -315,8 +324,14 @@ class ActivityRunner extends Component {
         </p>
         <p>{activityData.config.info}</p>
         <div id="videos">
-          <LocalVideo src={this.state.local ? this.state.local.src : ''} />
-          {this.state.remote ? (
+          <LocalVideo
+            src={
+              this.state.mode === 'calling' || this.state.mode === 'readyToCall'
+                ? this.state.local.src
+                : ''
+            }
+          />
+          {this.state.mode === 'calling' ? (
             this.state.remote.map((connection, index) => (
               <RemoteVideo
                 key={connection.remoteUser.id}
