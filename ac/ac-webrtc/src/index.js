@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import { config } from './config';
+import config from './config';
 import ActivityRunner from './ActivityRunner';
 
 const meta = {

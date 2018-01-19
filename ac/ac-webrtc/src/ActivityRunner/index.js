@@ -5,9 +5,10 @@ import type { ActivityRunnerT } from 'frog-utils';
 import 'webrtc-adapter';
 import { isUndefined, isEqual, without, difference, last } from 'lodash';
 
-import { ICEConfig } from './iceServers';
-import { LocalVideo, RemoteVideo } from './Video';
-import { preferOpus } from './codec';
+import { ICEConfig } from '../utils/iceServers';
+import { preferOpus } from '../utils/codec';
+import Header from './Header';
+import VideoLayout from './VideoLayout';
 
 declare var RTCPeerConnection: any;
 declare var RTCIceCandidate: any;
@@ -315,34 +316,13 @@ class ActivityRunner extends Component {
 
   render() {
     const { activityData, groupingValue, userInfo } = this.props;
+    const mode = this.state.mode
+    const local = mode ==='readyTocall' || mode === 'calling' ? this.state.local : {}
+    const remote = mode === 'calling' ? this.state.remote : []
     return (
       <div id="webrtc">
-        <h1>{activityData.config.title}</h1>
-        <p>
-          You are: {userInfo.name} in group {groupingValue}
-        </p>
-        <p>{activityData.config.info}</p>
-        <div id="videos">
-          <LocalVideo
-            src={
-              this.state.mode === 'calling' || this.state.mode === 'readyToCall'
-                ? this.state.local.src
-                : ''
-            }
-          />
-          {this.state.mode === 'calling' ? (
-            this.state.remote.map((connection, index) => (
-              <RemoteVideo
-                key={connection.remoteUser.id}
-                index={'remotevideo' + index}
-                src={connection.src}
-                name={connection.remoteUser.name}
-              />
-            ))
-          ) : (
-            <h1>Wait until somebody connects. </h1>
-          )}
-        </div>
+        <Header {...this.props} />
+        <VideoLayout local={local} remote={remote} />
       </div>
     );
   }
