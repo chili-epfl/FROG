@@ -1,10 +1,8 @@
 const { sync } = require('find-up');
 
 const dir = sync('.git');
-const watch =
-  'babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist --watch &  flow-copy-source --watch src dist &';
-const build =
-  'babel src --presets babel-preset-react,babel-preset-stage-0,babel-preset-es2015 --plugins babel-plugin-transform-class-properties,syntax-flow --out-dir dist && flow-copy-source src dist';
+const watch = `${dir}/../node_modules/.bin/babel src --out-dir dist --watch`;
+const build = `${dir}/../node_modules/.bin/babel src --out-dir dist`;
 
 const watchAll = `
 cd ${dir}/..
