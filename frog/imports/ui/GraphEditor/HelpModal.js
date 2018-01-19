@@ -15,17 +15,14 @@ const HelpModal = ({ show, hide }) => (
       Double-click on an activity to rename it.
       <h4>Moving or resizing activities</h4>
       Move the cursor over an activity until the mouse cursor turns into a
-      cross. Click and drag the activity to where you want it. The activity
-      cannot overlap in time with any other activity (even if they are on
-      another plane). You will see indicators showing you the time between the
+      cross. Click and drag the activity to where you want it.  
+      You will see indicators showing you the time between the
       activity you are dragging, and the previous or next activity, or the
-      beginning/end of the class. If you drag one activity against another one,
-      and keep dragging, the two activities will change places.
+      beginning/end of the class. 
       <p />
       To resize, move the cursor to the end of the activity, until it turns into
       a two-ways arrow, and click and hold while dragging to resize the
-      activity. You cannot resize the activity past the beginning of the next
-      activity, even if it is on another plane.
+      activity. 
       <p />
       To change the plane, first select the activity, then press Shift+up if you
       want the activity to go to a higher plane or Shift-down to make it go to a
