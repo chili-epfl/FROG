@@ -51,7 +51,7 @@ export const mergeSocialStructures = (
   if (structures.length === 1) {
     return structures[0];
   }
-  const keys = structures.reduce((acc, k) => [...acc, ...Object.keys(k)], []);
+  const keys = structures?.reduce((acc, k) => [...acc, ...Object.keys(k)], []);
   if (new Set(keys).size < keys.length) {
     throw 'Cannot merge two social structures with overlapping attributeKeys';
   }
