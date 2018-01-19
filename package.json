@@ -48,7 +48,4 @@
     "react-test-renderer": "^16.2.0"
   },
   "license": "ISC",
-  "dependencies": {
-    "yarn": "^1.4.0"
-  }
 }
