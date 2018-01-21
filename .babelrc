@@ -1,6 +1,6 @@
 {
   "plugins": [
-    "transform-optional-chaining",
+    "@babel/plugin-proposal-optional-chaining",
     "transform-flow-comments",
     "@babel/syntax-decorators",
     "transform-class-properties",
