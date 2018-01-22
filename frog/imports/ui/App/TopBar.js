@@ -67,7 +67,7 @@ class TopBar extends React.Component {
         <AppBar position="fixed">
           <Toolbar className={classes.toolbar}>
             <Typography type="subheading" color="inherit">
-              CK : Teacher
+              Teacher
             </Typography>
             <Tabs
               className={classes.tabs}

@@ -37,16 +37,14 @@ class AppClass extends Component {
     Mousetrap.reset();
   }
 
-
-
   render() {
-      const styles = {
-          sheet: {
-              padding: 0,
-              maxHeight: '100%',
-              overflow: 'auto'
-          }
-      };
+    const styles = {
+      sheet: {
+        padding: 0,
+        maxHeight: '100%',
+        overflow: 'auto'
+      }
+    };
 
     return (
       <Provider store={store}>

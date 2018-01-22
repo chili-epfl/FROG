@@ -7,27 +7,31 @@ import { connect, store } from '../store';
 import { Graphs } from '../../../api/graphs';
 
 const GraphMenuSimple = connect(({ store: { graphId }, graphs }) => (
-    <div className="bootstrap">
-  <DropdownButton title="Select Graph" id="dropdown-basic-0" className="bootstrap">
-    {graphs.length ? (
-      graphs.map(graph => (
-        <MenuItem
-          key={graph._id}
-          eventKey={graph._id}
-          active={graph._id === graphId}
-          onClick={() => store.setId(graph._id)}
-        >
-          {graphId === graph._id && (
-            <i className="fa fa-check" aria-hidden="true" />
-          )}
-          {graph.name}
-        </MenuItem>
-      ))
-    ) : (
-      <MenuItem eventKey="0">No graph</MenuItem>
-    )}
-  </DropdownButton>
-    </div>
+  <div className="bootstrap">
+    <DropdownButton
+      title="Select Graph"
+      id="dropdown-basic-0"
+      className="bootstrap"
+    >
+      {graphs.length ? (
+        graphs.map(graph => (
+          <MenuItem
+            key={graph._id}
+            eventKey={graph._id}
+            active={graph._id === graphId}
+            onClick={() => store.setId(graph._id)}
+          >
+            {graphId === graph._id && (
+              <i className="fa fa-check" aria-hidden="true" />
+            )}
+            {graph.name}
+          </MenuItem>
+        ))
+      ) : (
+        <MenuItem eventKey="0">No graph</MenuItem>
+      )}
+    </DropdownButton>
+  </div>
 ));
 
 const toExport = createContainer(
