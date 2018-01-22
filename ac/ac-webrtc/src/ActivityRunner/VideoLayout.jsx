@@ -20,13 +20,12 @@ const LayoutBoxS = {
 
 export default ({ local, remote }: VideosPropsT) => {
   const VideoList = [
-    <div style={VideoBoxS}>
+    <div style={VideoBoxS} key="local">
       <Video src={local.src} self />
     </div>,
     ...remote.map((connection, index) => (
-      <div style={VideoBoxS}>
+      <div style={VideoBoxS} key={connection.remoteUser.id}>
         <Video
-          key={connection.remoteUser.id}
           index={'remotevideo' + index}
           src={connection.src}
           name={connection.remoteUser.name}
