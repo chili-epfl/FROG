@@ -10,9 +10,13 @@ import TopPanel from './TopPanel';
 import ExpandButton from './SidePanel/ExpandButton';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
-
+const styles = {
+    sheet: {
+        background: "white",
+    }
+};
 const EditorPanel = () => (
-    <div className="bootstrap">
+    <div className="bootstrap" style={styles.sheet}>
         <ExpandButton/>
         <div style={{height: 600}}>
             <Graph scaled hasTimescale isEditable/>
@@ -55,15 +59,29 @@ class Editor extends Component {
                 paddingTop: 48,
                 paddingRight: 3,
                 paddingLeft: 3
+            },
+            main: {
+                height: 760,
+                flex: 30,
+                overflow: "hidden",
+            },
+            container: {
+                height: "95%",
+                display: "flex",
+                flexDirection: "row"
             }
         };
         return (
-            <div id="subroot" style={styles.subroot}>
+            <div style={styles.subroot}>
                 <TopBar barHeight={styles.subroot.paddingTop}/>
-                <div id="gc" style={styles.gridContent}>
+                <div style={styles.gridContent}>
                     <TopPanel/>
-                    <EditorPanel/>
-                    <SidePanel/>
+                    <div style={styles.container}>
+                        <div style={styles.main}>
+                            <EditorPanel />
+                        </div>
+                        <SidePanel />
+                    </div>
                 </div>
             </div>
         );
@@ -71,15 +89,3 @@ class Editor extends Component {
 }
 
 export default connect(Editor);
-
-const Main = styled.div`
-  height: 760px;
-  flex: 3 0px;
-  overflow: hide;
-`;
-
-const Container = styled.div`
-  height: 95%;
-  display: flex;
-  flex-direction: row;
-`;
