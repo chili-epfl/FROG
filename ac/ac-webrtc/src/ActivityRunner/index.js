@@ -315,10 +315,11 @@ class ActivityRunner extends Component {
   }
 
   render() {
-    const { activityData, groupingValue, userInfo } = this.props;
-    const mode = this.state.mode
-    const local = mode ==='readyTocall' || mode === 'calling' ? this.state.local : {}
-    const remote = mode === 'calling' ? this.state.remote : []
+    const local =
+      this.state.mode === 'readyTocall' || this.state.mode === 'calling'
+        ? this.state.local
+        : {};
+    const remote = this.state.mode === 'calling' ? this.state.remote : [];
     return (
       <div id="webrtc">
         <Header {...this.props} />

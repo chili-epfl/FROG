@@ -3,27 +3,36 @@
 import React from 'react';
 import Video from './Video';
 
-type VideosPropsT = { local: Object, remote: Array<Object>}
+type VideosPropsT = { local: Object, remote: Array<Object> };
 
-const LayoutList = ({ local, remote }: VideosPropsT) =>
-  <div id="videos">
-    <Video
-      src={local.src}
-      self={true}
-    />
-    {remote.length > 0
-      ? remote.map((connection, index) => (
-          <Video
-            key={connection.remoteUser.id}
-            index={'remotevideo' + index}
-            src={connection.src}
-            name={connection.remoteUser.name}
-          />
-        ))
-      : (
-        <h1>Wait until somebody connects. </h1>
-      )}
-  </div>
+const VideoBoxS = {
+  maxWidth: '400px',
+  minWidth: '200px',
+  flex: '0 1 auto',
+  margin: 'auto'
+};
 
-export default (props: VideosPropsT) =>
-  <LayoutList {...props} />
+const LayoutBoxS = {
+  width: '100%',
+  display: 'flex',
+  flexWrap: 'wrap'
+};
+
+export default ({ local, remote }: VideosPropsT) => {
+  const VideoList = [
+    <div style={VideoBoxS}>
+      <Video src={local.src} self />
+    </div>,
+    ...remote.map((connection, index) => (
+      <div style={VideoBoxS}>
+        <Video
+          key={connection.remoteUser.id}
+          index={'remotevideo' + index}
+          src={connection.src}
+          name={connection.remoteUser.name}
+        />
+      </div>
+    ))
+  ];
+  return <div style={LayoutBoxS}>{VideoList}</div>;
+};
