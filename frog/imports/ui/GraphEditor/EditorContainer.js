@@ -10,6 +10,7 @@ import TopPanel from './TopPanel';
 import ExpandButton from './SidePanel/ExpandButton';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
+
 const styles = {
     sheet: {
         background: "white",
@@ -22,17 +23,11 @@ const EditorPanel = () => (
             <Graph scaled hasTimescale isEditable/>
         </div>
         <RenameBox/>
-        <div style={{height: 150}}>
+        <div className="bootstrap" style={{height: 150}}>
             <Graph hasPanMap/>
         </div>
         <HelpModal/>
     </div>
-    <RenameBox />
-    <div className="bootstrap" style={{ height: 150 }}>
-      <Graph hasPanMap />
-    </div>
-    <HelpModal />
-  </div>
 );
 
 class Editor extends Component {
@@ -84,9 +79,9 @@ class Editor extends Component {
                     <TopPanel/>
                     <div style={styles.container}>
                         <div style={styles.main}>
-                            <EditorPanel />
+                            <EditorPanel/>
                         </div>
-                        <SidePanel />
+                        <SidePanel/>
                     </div>
                 </div>
             </div>

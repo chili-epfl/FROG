@@ -13,7 +13,7 @@ const submitRemoveGraph = id => {
 };
 
 export const UndoButton = connect(({store: {undo}}) => (
-    <div className="className">
+    <div className="bootstrap">
         <Button onClick={undo}>
             <i className="fa fa-undo" aria-hidden="true"/> Undo
         </Button>
@@ -22,6 +22,7 @@ export const UndoButton = connect(({store: {undo}}) => (
 
 export const ConfigMenu = connect(
     ({store: {overlapAllowed, graphId, toggleOverlapAllowed}}) => (
+        <div className="bootstrap">
         <DropdownButton
             id="settings"
             title={
@@ -55,5 +56,6 @@ export const ConfigMenu = connect(
                 Export as image
             </MenuItem>
         </DropdownButton>
+        </div>
     )
 );

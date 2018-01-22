@@ -7,6 +7,7 @@ import { connect, store } from '../store';
 import { Graphs } from '../../../api/graphs';
 
 const GraphMenuSimple = connect(({ store: { graphId }, graphs }) => (
+    <div className="bootstrap">
   <DropdownButton title="Select Graph" id="dropdown-basic-0" className="bootstrap">
     {graphs.length ? (
       graphs.map(graph => (
@@ -26,6 +27,7 @@ const GraphMenuSimple = connect(({ store: { graphId }, graphs }) => (
       <MenuItem eventKey="0">No graph</MenuItem>
     )}
   </DropdownButton>
+    </div>
 ));
 
 const toExport = createContainer(
