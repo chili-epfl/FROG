@@ -27,6 +27,12 @@ const EditorPanel = () => (
         </div>
         <HelpModal/>
     </div>
+    <RenameBox />
+    <div className="bootstrap" style={{ height: 150 }}>
+      <Graph hasPanMap />
+    </div>
+    <HelpModal />
+  </div>
 );
 
 class Editor extends Component {
