@@ -6,7 +6,9 @@ import {
   generateReactiveFn,
   getMergedExtractedUnit,
   type ObjectT,
-  type GlobalStructureT
+  type GlobalStructureT,
+  type ActivityDbT,
+  type structureDefT
 } from 'frog-utils';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
@@ -20,28 +22,36 @@ declare var Promise: any;
 const backend = new ShareDB();
 const connection = backend.connect();
 
-const mergeOneInstance = (
-  grouping,
-  activity,
-  dataStructure,
-  mergeFunction,
-  activityData,
-  structure,
-  object
+export const mergeOneInstance = (
+  grouping: string,
+  activity: ActivityDbT,
+  dataStructure: any,
+  mergeFunction: ?Function,
+  activityData: Object,
+  structure: structureDefT,
+  object: Object,
+  providedInstanceActivityData?: any,
+  docId?: string
 ) => {
   let data;
   if (mergeFunction) {
-    const instanceActivityData = getMergedExtractedUnit(
-      activity.data,
-      activityData,
-      structure,
-      grouping,
-      object.socialStructure
-    );
+    const instanceActivityData =
+      providedInstanceActivityData !== undefined // allows it to be null and still picked up
+        ? providedInstanceActivityData
+        : getMergedExtractedUnit(
+            activity.data,
+            activityData,
+            structure,
+            grouping,
+            object.socialStructure
+          );
     if (instanceActivityData) {
       data = Promise.await(
         new Promise(resolve => {
-          const doc = connection.get('rz', activity._id + '/' + grouping);
+          const doc = connection.get(
+            'rz',
+            docId || activity._id + '/' + grouping
+          );
           doc.fetch();
           doc.once(
             'load',
@@ -53,10 +63,9 @@ const mergeOneInstance = (
               } catch (e) {
                 // eslint-disable-next-line no-console
                 console.error(
-                  Date.now,
+                  Date.now(),
                   'Creating collection for ',
-                  activity._id,
-                  grouping,
+                  docId || [activity._id, grouping].join('/'),
                   e
                 );
               }
@@ -78,15 +87,18 @@ const mergeOneInstance = (
     data = dataStructure || {};
   }
 
-  const serverDoc = serverConnection.get('rz', activity._id + '/' + grouping);
+  const serverDoc = serverConnection.get(
+    'rz',
+    docId || activity._id + '/' + grouping
+  );
   try {
     serverDoc.create(data, undefined, undefined, err => {
       if (err) {
         // eslint-disable-next-line no-console
         console.error(
-          Date.now,
+          Date.now(),
           'Creating ShareDB document',
-          activity._id + '/' + grouping,
+          docId || [activity._id + '/' + grouping].join('/'),
           err
         );
       }
@@ -94,7 +106,7 @@ const mergeOneInstance = (
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(
-      Date.now,
+      Date.now(),
       'Catch: Creating ShareDB document for ',
       activity._id,
       grouping,
@@ -141,7 +153,7 @@ const mergeData = (
       );
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.error(Date.now, 'Creating dashboard for ', activityId, e);
+      console.error(Date.now(), 'Creating dashboard for ', activityId, e);
     }
   }
 };

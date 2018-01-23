@@ -19,10 +19,12 @@ import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 
+import { RunActivity } from '../StudentView/Runner';
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
+import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 
 const TeacherLoadable = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -205,15 +207,77 @@ const FROGRouter = withRouter(
   }
 );
 
-export default () => (
-  <ErrorBoundary>
-    <Router>
-      <div style={{ width: '100%', height: '100%' }}>
-        <Switch>
-          <Route path="/:slug" component={FROGRouter} />
-          <Route component={FROGRouter} />
-        </Switch>
-      </div>
-    </Router>
-  </ErrorBoundary>
-);
+export default class Root extends Component {
+  state: { mode: string, api?: boolean, data?: Object };
+
+  constructor() {
+    super();
+    this.state = { mode: 'waiting' };
+  }
+
+  componentDidMount = () => {
+    InjectData.getData('api', data => {
+      this.setState({ mode: 'ready', api: !!data, data });
+    });
+  };
+
+  render() {
+    if (this.state.mode === 'waiting') {
+      return null;
+    } else if (this.state.api && this.state.data) {
+      if (this.state.data.callType === 'config') {
+        return (
+          <ApiForm
+            activityType={this.state.data.activityType}
+            config={this.state.data.config}
+          />
+        );
+      } else {
+        const data = this.state.data;
+        return (
+          <RunActivity
+            logger={msg =>
+              parent.postMessage(
+                {
+                  type: 'frog-log',
+                  msg: {
+                    activityType: data.activityType,
+                    username: data.username,
+                    userid: data.userid,
+                    instanceId: data.instance_id,
+                    timestamp: new Date(),
+                    ...msg
+                  }
+                },
+                '*'
+              )
+            }
+            activityTypeId={data.activityType}
+            username={data.username || 'Anonymous'}
+            userid={data.userid || '1'}
+            stream={() => {}}
+            reactiveId={data.instance_id}
+            groupingValue={data.instance_id}
+            activityData={{
+              data: data.activity_data,
+              config: data.config || {}
+            }}
+          />
+        );
+      }
+    } else {
+      return (
+        <ErrorBoundary>
+          <Router>
+            <div style={{ width: '100%', height: '100%' }}>
+              <Switch>
+                <Route path="/:slug" component={FROGRouter} />
+                <Route component={FROGRouter} />
+              </Switch>
+            </div>
+          </Router>
+        </ErrorBoundary>
+      );
+    }
+  }
+}
