@@ -3,6 +3,7 @@
 import { keyBy } from 'lodash';
 import { type ActivityPackageT, flattenOne } from 'frog-utils';
 
+import acWebrtc from 'ac-webrtc';
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';
@@ -24,6 +25,7 @@ import acCKBoard from 'ac-ck-board';
 import acH5P from './internalActivities/ac-h5p';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acWebrtc,
   acTextarea,
   acAutocode,
   acDisplaySocial,
