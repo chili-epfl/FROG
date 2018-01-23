@@ -120,27 +120,6 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
-const SessionBody = ({
-  activities,
-  session
-}: {
-  activities: Object[],
-  session: Object
-}) => {
-  if (!activities || activities.length === 0) {
-    return <h1>No Activity</h1>;
-  }
-  if (session.state === 'PAUSED') {
-    return <h1>Paused</h1>;
-  }
-  return (
-    <div style={{ height: '100%' }}>
-      {session.countdownStartTime && <Countdown session={session} />}
-      <ActivityContainer activities={activities} sessionId={session._id} />
-    </div>
-  );
-};
-
 SessionBody.displayName = 'SessionBody';
 
 export default createContainer(
