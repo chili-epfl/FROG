@@ -199,7 +199,7 @@ class ActivityRunner extends Component {
       .getUserMedia(this.props.activityData.config.sdpConstraints)
       .then(this.gotStream)
       .catch(e => {
-        console.warn('Not able to get camera: ' + e.name);
+        console.warn('Not able to get camera: ', e);
       });
   }
 
@@ -208,6 +208,7 @@ class ActivityRunner extends Component {
       {
         mode: 'readyToCall',
         local: {
+          user: this.props.userInfo.name,
           src: window.URL.createObjectURL(stream),
           stream
         }
