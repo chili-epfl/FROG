@@ -120,7 +120,7 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
-SessionBody.displayName = 'SessionBoday';
+SessionBody.displayName = 'SessionBody';
 
 export default createContainer(
   () => ({
