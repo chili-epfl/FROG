@@ -52,10 +52,13 @@ const Viewer = ({ data, config, instances }: Object) => {
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
-  if (!data[log.instanceId]) {
-    dataFn.objInsert({}, [log.instanceId]);
+  if (log.itemId !== undefined && log.type === 'choice') {
+    if (!data[log.instanceId]) {
+      dataFn.objInsert({ [log.itemId]: log.value }, [log.instanceId]);
+    } else {
+      dataFn.objInsert(log.value, [log.instanceId, log.itemId]);
+    }
   }
-  dataFn.objInsert(log.payload, [log.instanceId, log.itemId]);
 };
 
 const initData = {};
