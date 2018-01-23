@@ -51,7 +51,7 @@ export default ({
   const formData = data[questionIndex] + 1;
   const onChange = e => {
     dataFn.objInsert(e.formData - 1, [questionIndex]);
-    logger({ type: 'choice', itemId: questionIndex, payload: e.formData - 1 });
+    logger({ type: 'choice', itemId: questionIndex, value: e.formData - 1 });
   };
 
   return (
