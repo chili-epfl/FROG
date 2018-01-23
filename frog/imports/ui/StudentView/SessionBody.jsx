@@ -61,7 +61,7 @@ const SessionBody = ({
   );
 };
 
-SessionBody.displayName = 'SessionBoday';
+SessionBody.displayName = 'SessionBody';
 
 export default createContainer(
   () => ({
