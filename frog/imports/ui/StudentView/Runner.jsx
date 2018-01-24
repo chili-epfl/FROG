@@ -25,8 +25,6 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
-  const activityType = activityTypesObj[activity.activityType];
-
   if (!object) {
     return null;
   }
@@ -41,13 +39,6 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   } else {
     groupingValue = Meteor.userId();
   }
-  const reactiveId = activity._id + '/' + groupingValue;
-
-  const logger = createLogger(sessionId, groupingValue, activity);
-
-  const RunComp = activityType.ActivityRunner;
-  RunComp.displayName = activity.activityType;
-  const ActivityToRun = ReactiveHOC(reactiveId)(RunComp);
 
   const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
   let title = '(' + groupingStr + groupingValue + ')';
@@ -70,13 +61,18 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   const stream = (value, targetpath) => {
     Meteor.call('stream', activity, groupingValue, targetpath, value);
   };
+  const reactiveId = activity._id + '/' + groupingValue;
+  const logger = createLogger(sessionId, groupingValue, activity);
 
   const Torun = (
-    <ActivityToRun
-      activityData={activityData}
-      userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
+    <RunActivity
+      activityTypeId={activity.activityType}
+      reactiveId={reactiveId}
       logger={logger}
       stream={stream}
+      username={Meteor.user().username}
+      userid={Meteor.userId()}
+      activityData={activityData}
       groupingValue={groupingValue}
     />
   );
@@ -94,6 +90,51 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       </MosaicWindow>
     );
   }
+};
+
+export const RunActivity = ({
+  reactiveId,
+  logger,
+  activityData,
+  username,
+  userid,
+  stream,
+  groupingValue,
+  activityTypeId
+}: {
+  reactiveId: string,
+  logger: Function,
+  activityData?: Object | null,
+  username: string,
+  userid: string,
+  stream: Function,
+  groupingValue: string,
+  activityTypeId: string
+}) => {
+  const activityType = activityTypesObj[activityTypeId];
+  const RunComp = activityType.ActivityRunner;
+  RunComp.displayName = activityType.id;
+  const transform = activityType.formatProduct
+    ? x =>
+        activityType.formatProduct(
+          (activityData && activityData.config) || {},
+          x
+        )
+    : x => x;
+  const ActivityToRun = ReactiveHOC(reactiveId, undefined, transform)(RunComp);
+
+  return (
+    <ActivityToRun
+      activityData={activityData}
+      userInfo={{
+        name: username,
+        id: userid
+      }}
+      logger={logger}
+      stream={stream}
+      groupingValue={groupingValue}
+    />
+  );
 };
 
 export default createContainer(({ activity }) => {

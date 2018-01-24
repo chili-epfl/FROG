@@ -37,6 +37,7 @@ class ActivityRunner extends Component {
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
     const { data, activityData } = props;
+    console.log(data);
     this.categories = Object.keys(data).reduce(
       (acc, key) => ({
         ...acc,

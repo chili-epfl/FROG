@@ -10,9 +10,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "frog-utils": "1.0.0"
-  },
+  "dependencies": {"frog-utils": "1.0.0"},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.2",
@@ -23,7 +21,7 @@
     "babel-preset-es2017": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
-    "flow-copy-source": "^1.2.1",
+    "flow-copy-source": "^1.2.0",
     "watch": "^1.0.1"
   }
 }

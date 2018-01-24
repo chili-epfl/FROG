@@ -13,12 +13,12 @@ export const DEFAULT_COMMENT_VALUE = '';
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
-  if (object.config.images)
+  if (object && object.config && object.config.images)
     object.config.images.forEach((x, i) =>
       dataFn.objInsert({ votes: {}, comment: DEFAULT_COMMENT_VALUE, ...x }, i)
     );
 
-  if (object.data === null || object.data === {}) return;
+  if (!object.data || object.data === null || object.data === {}) return;
   const dataImgs = Array.isArray(object.data)
     ? object.data
     : Object.keys(object.data).map(x => object.data[x]);
