@@ -4,3 +4,4 @@
 !.eslintrc-prettier.js
 **/flow-typed/**
 templates/*
+frogapi-test/**

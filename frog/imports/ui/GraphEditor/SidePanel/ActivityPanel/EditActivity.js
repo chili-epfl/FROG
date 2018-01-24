@@ -2,6 +2,7 @@
 
 import React from 'react';
 import FlexView from 'react-flexview';
+import ReactTooltip from 'react-tooltip';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
@@ -33,11 +34,17 @@ const StreamSelect = ({ activity, targets, onChange }) => (
 );
 
 const copyURL = activity => {
-  const config = encodeURIComponent(JSON.stringify(activity.data));
+  const configStr = activity.data
+    ? `config=${encodeURIComponent(JSON.stringify(activity.data))}&`
+    : '';
   const url = `${window.location.protocol}//${window.location.hostname}${
     window.location.port ? ':' + window.location.port : ''
-  }/api/activityType/${activity.activityType}?config=${config}&instance_id=1`;
+  }/api/activityType/${activity.activityType}?${configStr}instance_id=1`;
   copy(url);
+  // eslint-disable-next-line no-alert
+  window.alert(
+    'Pre-configured URL for headless FROG has been copied to your clipboard'
+  );
 };
 
 const RawEditActivity = ({
@@ -108,6 +115,7 @@ const RawEditActivity = ({
               <Button
                 key="eyeopen"
                 className="glyphicon glyphicon-eye-open"
+                data-tip="Preview activity with current configuration"
                 style={{
                   position: 'absolute',
                   right: '2px',
@@ -125,6 +133,7 @@ const RawEditActivity = ({
               <Button
                 key="link"
                 className="glyphicon glyphicon-link"
+                data-tip="Embed config in link to headless FROG"
                 style={{
                   position: 'absolute',
                   right: '41px',
@@ -201,6 +210,7 @@ const RawEditActivity = ({
           <FileForm />
         </React.Fragment>
       )}
+      <ReactTooltip delayShow={1000} />
     </div>
   );
 };
