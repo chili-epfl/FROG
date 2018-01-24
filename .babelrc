@@ -2,7 +2,7 @@
   "plugins": [
     "@babel/plugin-transform-flow-comments",
     "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-syntax-decorators",
+    "@babel/plugin-proposal-decorators",
     "@babel/plugin-proposal-class-properties",
     [
       "captains-log",
