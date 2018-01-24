@@ -1,9 +1,9 @@
 {
   "plugins": [
-    "@babel/transform-flow-comments",
+    "@babel/plugin-transform-flow-comments",
     "@babel/plugin-proposal-optional-chaining",
-    "@babel/syntax-decorators",
-    "transform-class-properties",
+    "@babel/plugin-syntax-decorators",
+    "@babel/plugin-proposal-class-properties",
     [
       "captains-log",
       {
