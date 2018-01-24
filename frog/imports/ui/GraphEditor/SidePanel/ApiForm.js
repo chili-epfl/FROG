@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { hideConditional } from 'frog-utils';
+import { hideConditional, type ActivityDbT } from 'frog-utils';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 
@@ -12,13 +12,18 @@ import ConfigForm from './ConfigForm';
 import { ChooseActivityType } from './ActivityPanel/ChooseActivity';
 
 class Config extends Component {
-  state: { formData: Object };
+  state: { formData: Object, valid: Object[] };
   aT: any;
 
-  constructor(props: { activity: Object, setValid: Function }) {
+  constructor(props: {
+    activity: ActivityDbT,
+    setValid: Function,
+    config: Object
+  }) {
     super(props);
     this.state = {
-      formData: this.props.config
+      formData: this.props.config,
+      valid: []
     };
     this.aT = activityTypesObj[this.props.activity.activityType];
   }
@@ -38,7 +43,7 @@ class Config extends Component {
       this.aT.configUI
     );
     this.props.setValid(valid);
-    parent.postMessage(
+    window.parent.postMessage(
       {
         type: 'frog-config',
         activityType: this.aT.id,

@@ -11,9 +11,11 @@ import {
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
 
-const ReactiveHOC = (docId: string, conn?: any, transform = x => x) => (
-  WrappedComponent: ReactComponent<any>
-) => {
+const ReactiveHOC = (
+  docId: string,
+  conn?: any,
+  transform: Object => Object = x => x
+) => (WrappedComponent: ReactComponent<any>) => {
   class ReactiveComp extends Component {
     state: { data: any, dataFn: ?Object };
     doc: any;

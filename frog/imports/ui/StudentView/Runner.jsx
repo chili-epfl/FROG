@@ -114,12 +114,9 @@ export const RunActivity = ({
   const activityType = activityTypesObj[activityTypeId];
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activityType.id;
-  const transform = activityType.formatProduct
-    ? x =>
-        activityType.formatProduct(
-          (activityData && activityData.config) || {},
-          x
-        )
+  const formatProduct = activityType.formatProduct;
+  const transform = formatProduct
+    ? x => formatProduct((activityData && activityData.config) || {}, x)
     : x => x;
   const ActivityToRun = ReactiveHOC(reactiveId, undefined, transform)(RunComp);
 

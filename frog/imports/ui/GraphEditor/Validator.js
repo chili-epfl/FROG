@@ -84,7 +84,7 @@ export const ShowErrorsRaw = ({
   global
 }: {
   errors: Object[],
-  global: boolean
+  global?: boolean
 }) => {
   if (errors.length === 0) {
     return null;
@@ -118,10 +118,10 @@ export const ValidButtonRaw = ({
   errorColor,
   activityId
 }: {
-  graphErrorColor: string,
+  graphErrorColor?: string,
   setShowErrors: Function,
   errorColor: string,
-  activityId: string
+  activityId?: string
 }) => (
   <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
     <circle

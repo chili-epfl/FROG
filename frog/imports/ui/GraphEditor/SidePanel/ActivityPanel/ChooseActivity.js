@@ -12,21 +12,28 @@ export class ChooseActivityType extends Component {
   state: { expanded: ?string, searchStr: string, showInfo: ?string };
   inputRef: any;
 
-  constructor(props: { onSelect?: Function }) {
+  constructor(
+    props: { onSelect: Function, hidePreview: boolean } & {
+      activity: Object,
+      store: Object
+    }
+  ) {
     super(props);
     this.state = { expanded: null, searchStr: '', showInfo: null };
     this.inputRef = null;
   }
 
   render() {
-    const select =
-      this.props.onSelect ||
-      (activityType => {
-        Activities.update(this.props.activity._id, {
-          $set: { activityType: activityType.id }
-        });
-        this.props.store.addHistory();
-      });
+    const select = this.props.onSelect
+      ? this.props.onSelect
+      : activityType => {
+          Activities.update(this.props.activity.id, {
+            $set: { activityType: activityType.id }
+          });
+          if (this.props.store) {
+            this.props.store.addHistory();
+          }
+        };
 
     const changeSearch = e =>
       this.setState({
@@ -108,6 +115,7 @@ export class ChooseActivityType extends Component {
                 expand={() => this.setState({ expanded: x.id })}
                 key={x.id}
                 onPreview={() =>
+                  this.props.store &&
                   this.props.store.ui.setShowPreview({
                     activityTypeId: x.id
                   })
