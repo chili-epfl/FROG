@@ -321,8 +321,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                     reload={reload}
                     doc={dashboard}
                     instances={users
-                      .filter((y, i) => i % 2 !== 0)
-                      .map((z, i) => Math.ceil(i / 2))}
+                      .filter((_, i) => i % 2 !== 0)
+                      .map((_, i) => i + 1)}
                     users={users
                       .filter(e => e !== 'dashboard')
                       .map((e, i) => ({ _id: i + 1, username: e }))}
