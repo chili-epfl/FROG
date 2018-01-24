@@ -27,7 +27,7 @@ export class ChooseActivityType extends Component {
     const select = this.props.onSelect
       ? this.props.onSelect
       : activityType => {
-          Activities.update(this.props.activity.id, {
+          Activities.update(this.props.activity._id, {
             $set: { activityType: activityType.id }
           });
           if (this.props.store) {
