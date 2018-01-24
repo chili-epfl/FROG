@@ -30,6 +30,7 @@ do
 done
 
 cd "$FROG/frog"
+rm -rf "$FROG/frog/node_modules"
 ln -s "$FROG"/node_modules . 2>/dev/null
 ln -s "$FROG/.babelrc" . 2>/dev/null
 wait
