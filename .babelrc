@@ -3,7 +3,7 @@
     "@babel/plugin-transform-flow-comments",
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-decorators",
-    "@babel/plugin-proposal-class-properties",
+    ["@babel/plugin-proposal-class-properties", { "loose" : true }],
     [
       "captains-log",
       {

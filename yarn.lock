@@ -230,7 +230,7 @@
     "@babel/helper-function-name" "7.0.0-beta.38"
     "@babel/plugin-syntax-class-properties" "7.0.0-beta.38"
 
-"@babel/plugin-proposal-decorators@7.0.0-beta.38":
+"@babel/plugin-proposal-decorators@7.0.0-beta.38", "@babel/plugin-proposal-decorators@^7.0.0-beta.38":
   version "7.0.0-beta.38"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-decorators/-/plugin-proposal-decorators-7.0.0-beta.38.tgz#888903d395d902b763c4833e2bbf2f3d67e8155b"
   dependencies:
@@ -324,7 +324,7 @@
   version "7.0.0-beta.38"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-class-properties/-/plugin-syntax-class-properties-7.0.0-beta.38.tgz#e06a9bf6446611d78dfc71f84cddfe9219fb2829"
 
-"@babel/plugin-syntax-decorators@7.0.0-beta.38", "@babel/plugin-syntax-decorators@^7.0.0-beta.38":
+"@babel/plugin-syntax-decorators@7.0.0-beta.38":
   version "7.0.0-beta.38"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-decorators/-/plugin-syntax-decorators-7.0.0-beta.38.tgz#902cdc212cd3a6b10f9b1ed681a7fea0f5c87f65"
 

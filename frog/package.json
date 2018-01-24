@@ -7,6 +7,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.38",
     "ac-autocode": "1.0.0",
     "ac-brainstorm": "1.0.0",
     "ac-chat": "1.0.0",
