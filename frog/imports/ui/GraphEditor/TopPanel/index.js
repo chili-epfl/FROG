@@ -26,7 +26,7 @@ export default () => (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item>
         <GraphConfigPanel />
       </Grid>
       <Grid item>

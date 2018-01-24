@@ -1,61 +1,148 @@
 import React from 'react';
-import { DropdownButton, MenuItem, Button } from 'react-bootstrap';
+// import { DropdownButton, Button } from 'react-bootstrap';
+import classNames from 'classnames';
+import Button from 'material-ui/Button';
+import {MenuItem, MenuList} from 'material-ui/Menu';
+import Grow from 'material-ui/transitions/Grow';
+import Paper from 'material-ui/Paper';
+import {withStyles} from 'material-ui/styles';
+import {Manager, Target, Popper} from 'react-popper';
+import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
+import Undo from 'material-ui-icons/Undo';
+import Check from 'material-ui-icons/Check';
 
-import { exportGraph, importGraph, duplicateGraph } from '../utils/export';
-import { connect, store } from '../store';
+
+import {exportGraph, importGraph, duplicateGraph} from '../utils/export';
+import {connect, store} from '../store';
 import exportPicture from '../utils/exportPicture';
-import { removeGraph } from '../../../api/activities';
-import { addGraph, assignGraph } from '../../../api/graphs';
+import {removeGraph} from '../../../api/activities';
+import {addGraph, assignGraph} from '../../../api/graphs';
 
 const submitRemoveGraph = id => {
-  removeGraph(id);
-  store.setId(assignGraph());
+    removeGraph(id);
+    store.setId(assignGraph());
 };
 
-export const UndoButton = connect(({ store: { undo } }) => (
-  <div className="bootstrap">
-    <Button onClick={undo}>
-      <i className="fa fa-undo" aria-hidden="true" /> Undo
-    </Button>
-  </div>
+const styles = theme => ({
+    root: {
+        display: 'flex',
+    },
+    popperClose: {
+        pointerEvents: 'none',
+    },
+    button: {
+        margin: theme.spacing.unit/2,
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+});
+
+export const UndoButton = connect(({store: {undo}}) => (
+    <UndoButtonComponent undo={undo}/>
 ));
 
+@withStyles(styles)
+class UndoButtonComponent extends React.Component {
+
+    render() {
+        const {classes,undo} = this.props;
+        return (
+            <div className={classes.root}>
+                <Button
+                    onClick={undo}
+                    color="primary"
+                    className={classes.button}
+                >
+                    <Undo className={classes.leftIcon} />
+                    UNDO
+                </Button>
+            </div>
+        );
+    }
+}
+
+@withStyles(styles)
+class GraphActionMenu extends React.Component {
+    state = {
+        open: false,
+    };
+
+    handleClick = () => {
+        this.setState({open: true});
+    };
+
+    handleClose = () => {
+        this.setState({open: false});
+    };
+
+    render() {
+        const {classes, overlapAllowed, graphId, toggleOverlapAllowed} = this.props;
+        const {open} = this.state;
+
+        return (
+            <div className={classes.root}>
+                <Manager>
+                    <Target>
+                        <Button
+                            aria-owns={open ? 'menu-list' : null}
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                            color="primary"
+                            className={classes.button}
+                        >
+                            Graph Actions
+                        </Button>
+                    </Target>
+                    <Popper
+                        placement="bottom-start"
+                        eventsEnabled={open}
+                        className={classNames({[classes.popperClose]: !open})}
+                    >
+                        <ClickAwayListener onClickAway={this.handleClose}>
+                            <Grow in={open} id="menu-list" style={{transformOrigin: '0 0 0'}}>
+                                <Paper>
+                                    <MenuList role="menu">
+                                        <MenuItem eventKey="1" onClick={() => {
+                                            toggleOverlapAllowed();
+                                            this.handleClose();
+                                        }}>{overlapAllowed && <Check className={classes.leftIcon} aria-hidden="true" />}Overlap Allowed</MenuItem>
+                                        <MenuItem eventKey="5" onClick={() => {
+                                            store.setId(addGraph());
+                                            this.handleClose();
+                                        }}>Add New Graph</MenuItem>
+                                        <MenuItem eventKey="9" onClick={() => {
+                                            duplicateGraph(graphId);
+                                            this.handleClose()
+                                        }}>Copy Graph</MenuItem>
+                                        <MenuItem eventKey="7" onClick={() => {
+                                            submitRemoveGraph(graphId);
+                                            this.handleClose()
+                                        }}>Delete Current Graph</MenuItem>
+                                        <MenuItem eventKey="3" onClick={() => {
+                                            importGraph();
+                                            this.handleClose()
+                                        }}>Import Graph</MenuItem>
+                                        <MenuItem eventKey="2" onClick={() => {
+                                            exportGraph();
+                                            this.handleClose()
+                                        }}>Export Graph</MenuItem>
+                                        <MenuItem eventKey="4" onClick={() => {
+                                            exportPicture();
+                                            this.handleClose()
+                                        }}>Export Graph as Image</MenuItem>
+                                    </MenuList>
+                                </Paper>
+                            </Grow>
+                        </ClickAwayListener>
+                    </Popper>
+                </Manager>
+            </div>
+        );
+    }
+}
+
 export const ConfigMenu = connect(
-  ({ store: { overlapAllowed, graphId, toggleOverlapAllowed } }) => (
-    <div className="bootstrap">
-      <DropdownButton
-        id="settings"
-        title={
-          <span>
-            <i className="fa fa-bars" aria-hidden="true" /> Menu
-          </span>
-        }
-      >
-        <MenuItem eventKey="1" onSelect={toggleOverlapAllowed}>
-          {overlapAllowed && <i className="fa fa-check" aria-hidden="true" />}
-          Overlap allowed
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem eventKey="5" onSelect={() => store.setId(addGraph())}>
-          Add new graph
-        </MenuItem>
-        <MenuItem eventKey="9" onSelect={() => duplicateGraph(graphId)}>
-          Duplicate graph
-        </MenuItem>
-        <MenuItem eventKey="7" onSelect={() => submitRemoveGraph(graphId)}>
-          Delete current graph
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem eventKey="2" onSelect={exportGraph}>
-          Export graph
-        </MenuItem>
-        <MenuItem eventKey="3" onSelect={importGraph}>
-          Import graph
-        </MenuItem>
-        <MenuItem eventKey="4" onSelect={() => exportPicture()}>
-          Export as image
-        </MenuItem>
-      </DropdownButton>
-    </div>
-  )
+    ({store: {overlapAllowed, graphId, toggleOverlapAllowed}}) => (
+        <GraphActionMenu overlapAllowed={overlapAllowed} graphId={graphId} toggleOverlapAllowed={toggleOverlapAllowed}/>)
 );
