@@ -237,7 +237,7 @@ export default class Root extends Component {
         return (
           <RunActivity
             logger={msg =>
-              parent.postMessage(
+              window.parent.postMessage(
                 {
                   type: 'frog-log',
                   msg: {
