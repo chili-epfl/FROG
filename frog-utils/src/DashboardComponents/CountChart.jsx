@@ -3,7 +3,33 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
 
-export default ({
+export const ScatterChart = ({ data }: { data: Array<Array<number>> }) => (
+  <Chart
+    chartType="ScatterChart"
+    data={[['x', 'y'], ...data]}
+    width="100%"
+    height="300px"
+    options={{
+      title: 'dimensions',
+      bar: { groupWidth: '95%' },
+      legend: { position: 'none' },
+      vAxis: {
+        title: 'y',
+        minValue: -10,
+        maxValue: 10,
+        gridlines: { count: 11 }
+      },
+      hAxis: {
+        title: 'x',
+        minValue: -10,
+        maxValue: 10,
+        gridlines: { count: 11 }
+      }
+    }}
+  />
+);
+
+export const CountChart = ({
   title,
   vAxis,
   hAxis,
@@ -30,7 +56,7 @@ export default ({
         bar: { groupWidth: '95%' },
         legend: { position: 'none' },
         vAxis: { title: vAxis },
-        hAxis: { title: hAxis, minValue: 0, gridlines: { count: -1 } }
+        hAxis: { title: hAxis, minValue: 10, gridlines: { count: 3 } }
       }}
     />
   ) : (
