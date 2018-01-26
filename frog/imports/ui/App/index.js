@@ -30,19 +30,20 @@ const TeacherLoadable = Loadable({
   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
 });
 
-const shareDbUrl =
-  (Meteor.settings && Meteor.settings.public.sharedburl) ||
-  (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
-    '//' +
-    window.location.hostname +
-    ':3002';
+export const connection = {};
+// const shareDbUrl =
+//   (Meteor.settings && Meteor.settings.public.sharedburl) ||
+//   (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
+//     '//' +
+//     window.location.hostname +
+//     ':3002';
 
-const socket = new ReconnectingWebSocket(shareDbUrl);
-export const connection = new sharedbClient.Connection(socket);
+// const socket = new ReconnectingWebSocket(shareDbUrl);
+// export const connection = new sharedbClient.Connection(socket);
 
-if (process.env.NODE_ENV !== 'production') {
-  window.connection = connection;
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   window.connection = connection;
+// }
 
 Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();
@@ -51,6 +52,7 @@ const subscriptionCallback = (error, response, setState) => {
   if (response === 'NOTVALID') {
     setState('error');
   } else {
+    console.log('logging in');
     Accounts.makeClientLoggedIn(
       response.id,
       response.token,
@@ -61,6 +63,7 @@ const subscriptionCallback = (error, response, setState) => {
       response.token,
       response.tokenExpires
     );
+    console.log('subscribe');
     Meteor.subscribe('userData', { onReady: () => setState('ready') });
   }
 };
@@ -176,6 +179,7 @@ const FROGRouter = withRouter(
     }
 
     render() {
+      console.log('state', this.state.mode);
       const query = queryToObject(this.props.location.search.slice(1));
       if (query.login) {
         return <Redirect to={this.props.location.pathname} />;
@@ -183,6 +187,7 @@ const FROGRouter = withRouter(
         return <Spinner />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
         if (Meteor.user().username === 'teacher') {
+          console.log('teacher');
           return <Route component={TeacherLoadable} />;
         } else {
           return (

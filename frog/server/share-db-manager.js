@@ -14,6 +14,7 @@ const dbUrl =
   'mongodb://localhost:3001';
 const db = ShareDBMongo(`${dbUrl}/sharedb`);
 
+console.log('creating server');
 const server = http.createServer();
 let options = { db };
 if (Meteor.settings.sharedb_redis) {
@@ -22,12 +23,18 @@ if (Meteor.settings.sharedb_redis) {
   });
   options = { ...options, pubsub: redis };
 }
+console.log('new sharedb');
 const backend = new ShareDB(options);
+console.log('server conn');
 export const serverConnection = backend.connect();
 
 export const startShareDB = () => {
   if (!Meteor.settings.dont_start_sharedb) {
-    new WebSocket.Server({ server }).on('connection', ws => {
+    console.log('new ws server');
+    const ws = new WebSocket.Server({ server });
+    ws.on('connection', ws => {
+      console.log('backend listen');
+      ws.on('error', e => console.warn('WS error', e));
       backend.listen(new WebsocketJSONStream(ws));
     });
     // eslint-disable-next-line no-console
