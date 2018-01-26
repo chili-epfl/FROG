@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    "@babel/plugin-transform-flow-strip-types",
+    "@babel/plugin-proposal-decorators",
+    "@babel/plugin-proposal-optional-chaining",
+    [
+      "captains-log",
+      {
+        "methods": [
+          "debug",
+          "error",
+          "exception",
+          "log",
+          "warn"
+        ]
+      }
+    ]
+  ],
+  "presets": [
+    "@babel/preset-stage-0"
+  ]
+}
