@@ -63,7 +63,6 @@ class ActivityComponent extends Component {
         <g onClick={e => e.stopPropagation()} onMouseUp={this.clickHandler}>
           <DraggableCore
             onDrag={(_, { deltaX }) => {
-              console.log(deltaX)
               activity.move(deltaX)}}
             onStop={stopMoving}
           >
