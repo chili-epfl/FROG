@@ -48,8 +48,7 @@
     "json-stringify-pretty-compact": "^1.1.0",
     "nps": "^5.7.1",
     "prettier": "^1.10.2",
-    "react-test-renderer": "^16.2.0",
-    "watch": "^1.0.2"
+    "react-test-renderer": "^16.2.0"
   },
   "license": "ISC",
   "dependencies": {

@@ -16,7 +16,6 @@
     "victory": "^0.24.5"
   },
   "devDependencies": {
-    "nps": "5.7.1",
-    "watch": "^1.0.1"
+    "nps": "5.7.1"
   }
 }

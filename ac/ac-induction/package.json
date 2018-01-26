@@ -13,7 +13,6 @@
     "styled-components": "^2.4.0"
   },
   "devDependencies": {
-    "nps": "5.7.1",
-    "watch": "^1.0.1"
+    "nps": "5.7.1"
   }
 }
