@@ -18,14 +18,12 @@ echo "Yarn: $YARN"
 "$YARN" install
 
 cd frog-utils
-ln -s "$FROG/.babelrc" . 2>/dev/null
 "$YARN" start build &
 
 # install activities and operators packages
 for dir in "$FROG"/ac/ac-*/ "$FROG"/op/op-*/
 do
     cd "$dir"
-    ln -s "$FROG/.babelrc" . 2>/dev/null
     "$YARN" start build &
 done
 
