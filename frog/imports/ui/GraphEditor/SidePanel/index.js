@@ -31,6 +31,7 @@ export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
     );
   }
 });
+
 const SidebarContainer = connect(
   ({ store: { ui: { setSidepanelOpen } }, children }) => (
     <div className="bootstrap">

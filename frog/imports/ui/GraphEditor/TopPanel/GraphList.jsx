@@ -1,174 +1,225 @@
 import React from 'react';
-import {createContainer} from 'meteor/react-meteor-data';
-
-import classNames from 'classnames';
-
-import {withStyles} from 'material-ui/styles';
+import { createContainer } from 'meteor/react-meteor-data';
+import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import ModeEdit from 'material-ui-icons/ModeEdit';
-
-import MenuItem from 'material-ui/Menu/MenuItem';
 import TextField from 'material-ui/TextField';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
-import Visibility from 'material-ui-icons/Visibility';
-import VisibilityOff from 'material-ui-icons/VisibilityOff';
+import Input, { InputAdornment } from 'material-ui/Input';
+import Tooltip from 'material-ui/Tooltip';
 
-import {connect, store} from '../store';
-import {Graphs, renameGraph} from '../../../api/graphs';
+import { connect, store } from '../store';
+import { Graphs, renameGraph } from '../../../api/graphs';
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    button: {
-        margin: theme.spacing.unit / 2,
-    },
-    leftIcon: {
-        marginRight: theme.spacing.unit,
-    },
-    textField: {
-        margin: theme.spacing.unit,
-        backgroundColor: 'white',
-        width: 200,
-    },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  basic: {
+    backgroundColor: 'white'
+  },
+  button: {
+    marginTop: theme.spacing.unit / 2,
+    padding: 3,
+    width: 35
+  },
+  textField: {
+    marginTop: theme.spacing.unit,
+    backgroundColor: 'white',
+    paddingRight: 0,
+    width: 200
+  },
+  spacer: {
+    backgroundColor: 'gray',
+    width: 50,
+    height: 1
+  },
+  durationTextField: {
+    marginTop: theme.spacing.unit,
+    backgroundColor: 'white',
+    paddingRight: 0,
+    width: 65
+  }
 });
 
 @withStyles(styles)
 class GraphListMenu extends React.Component {
+  state = {
+    isEditingName: false,
+    isEditingDuration: false,
+    name: '',
+    duration: ''
+  };
 
-    state = {
-        isEditing: false,
-        name: "",
+  constructor(props) {
+    super(props);
+    const { graphId } = this.props;
+    this.selectedGraph = Graphs.findOne({ _id: graphId });
+    this.state = {
+      name: this.selectedGraph ? this.selectedGraph.name : 'untitled',
+      duration: this.selectedGraph ? this.selectedGraph.duration : 30
     };
+  }
 
-    constructor(props) {
-        super(props);
-        const {classes, graphId, graphs} = this.props;
-        const {isEditing} = this.state;
-        this.selectedGraph = Graphs.findOne({_id: graphId});
-        this.state = {
-            name: this.selectedGraph.name
-        };
+  handleNameChange = e => {
+    this.setState({
+      name: e.target.value
+    });
+  };
 
+  handleMenuChange = e => {
+    const selectedIndex = e.target.options.selectedIndex;
+    const graphId = e.target.options[selectedIndex].getAttribute('data-key');
+    this.selectedGraph = Graphs.findOne({ _id: graphId });
+    store.setId(graphId);
+    this.setState({
+      name: this.selectedGraph.name,
+      duration: this.selectedGraph.duration
+    });
+  };
+
+  handleDurationChange = e => {
+    this.setState({
+      duration: e.target.value
+    });
+  };
+
+  handleGraphNameSubmit = () => {
+    if (this.state.isEditingName) {
+      renameGraph(this.selectedGraph._id, this.state.name);
     }
+    this.setState({ isEditingName: !this.state.isEditingName });
+  };
 
-    handleChange = (event) => {
-
-
-        this.setState({
-            name: event.target.value,
-        });
-        console.log('CHNAGE: ', event.target.value);
-    };
-
-    handleClick = (e) => {
-        console.log('value',e.target.value);
-        if(this.state.isEditing) {
-            renameGraph(this.selectedGraph._id, this.state.name);
-        }
-        this.setState({isEditing: !this.state.isEditing});
-        console.log('renamed: ', this.state.name);
-    };
-
-    setSelectedGraph = (graph) => {
-        this.selectedGraph = graph;
-        this.setState({
-            name: this.selectedGraph.name,
-        });
-    };
-
-    render() {
-
-        const {classes} = this.props;
-
-        return (
-            <div className={classes.root}>
-                {this.renderGraphSubComponent()}
-            </div>
-        );
+  handleGraphDurationSubmit = () => {
+    if (this.state.isEditingDuration) {
+      store.changeDuration(parseInt(this.state.duration, 10));
     }
+    this.setState({ isEditingDuration: !this.state.isEditingDuration });
+  };
 
-    renderGraphSubComponent() {
+  render() {
+    const { classes } = this.props;
 
-        const {classes, graphId, graphs} = this.props;
-        const {isEditing} = this.state;
-        this.selectedGraph = Graphs.findOne({_id: graphId});
+    return (
+      <div className={classes.root}>
+        {this.renderGraphSubComponent()}
+        <div className={classes.spacer} />
+        {this.renderDurationSubComponent()}
+      </div>
+    );
+  }
 
+  renderDurationSubComponent() {
+    const { classes } = this.props;
+    const { isEditingDuration } = this.state;
 
-            this.state.name = this.selectedGraph.name;
-            console.log('graph', this.state.name, this.selectedGraph.name );
+    return (
+      <form className={classes.root} noValidate autoComplete="off">
+        <div className={classes.basic}>
+          <Input
+            autoFocus
+            id="adornment-duration"
+            className={classes.durationTextField}
+            value={this.state.duration}
+            onChange={this.handleDurationChange}
+            margin="normal"
+            disabled={!isEditingDuration}
+            endAdornment={
+              <InputAdornment margin="none" position="end">
+                min
+              </InputAdornment>
+            }
+          />
+        </div>
+        <div className={classes.basic}>
+          <Tooltip id="tooltip-top" title="edit graph duration" placement="top">
+            <IconButton
+              className={classes.button}
+              color={isEditingDuration ? 'accent' : 'primary'}
+              aria-label="Edit"
+              onClick={e => {
+                this.handleGraphDurationSubmit(e);
+              }}
+            >
+              <ModeEdit />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </form>
+    );
+  }
 
-        return (
-            <form className={classes.root} noValidate autoComplete="off">
-                {isEditing ?
-                    (
-                        <TextField
-                            autoFocus
-                            id="edit-graph"
-                            className={classes.textField}
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                        />
-                    ) : (
-                        <TextField
-                            id="select-graph"
-                            select
-                            value={this.selectedGraph.name}
-                            className={classes.textField}
-                            SelectProps={{
-                                native: true,
-                                MenuProps: {
-                                    className: classes.menu,
-                                },
-                            }}
-                        >
-                            {graphs.length ? (
-                                graphs.map(g => (
-                                    <option
-                                        key={g._id}
-                                        value={g.name}
-                                        // active={String(g._id === graphId)}
-                                        onClick={() => {
-                                            store.setId(g._id);
-                                            this.setSelectedGraph(g);
-                                            this.handleClose();
-                                        }}
-                                    >
-                                        {g.name}
-                                    </option>
-                                ))
-                            ) : (
-                                <MenuItem>No graph</MenuItem>
-                            )}
+  renderGraphSubComponent() {
+    const { classes, graphId, graphs } = this.props;
+    const { isEditingName } = this.state;
+    this.selectedGraph = Graphs.findOne({ _id: graphId });
 
-                        </TextField>
-                    )
+    return (
+      <form className={classes.root} noValidate autoComplete="off">
+        {isEditingName ? (
+          <div className={classes.basic}>
+            <TextField
+              autoFocus
+              id="edit-graph"
+              className={classes.textField}
+              value={this.state.name}
+              onChange={this.handleNameChange}
+            />
+          </div>
+        ) : (
+          <div className={classes.basic}>
+            <TextField
+              id="select-graph"
+              select
+              value={this.selectedGraph.name}
+              className={classes.textField}
+              onChange={this.handleMenuChange}
+              SelectProps={{
+                native: true,
+                MenuProps: {
+                  className: classes.menu
                 }
-                <IconButton
-                    className={classes.button}
-                    color={isEditing ? "accent" : "primary"}
-                    aria-label="Edit"
-                    onClick={e => {
-                        if (isEditing) {
-                            console.log('editing', isEditing, this.selectedGraph);
-                            this.handleClick(e);
-                        }
-                        this.handleClick(e);
-                    }}>
-                    <ModeEdit/>
-                </IconButton>
-            </form>);
-    };
+              }}
+            >
+              {graphs.length ? (
+                graphs.map(g => (
+                  <option key={g._id} data-key={g._id} value={g.name}>
+                    {g.name}
+                  </option>
+                ))
+              ) : (
+                <option>No graph</option>
+              )}
+            </TextField>
+          </div>
+        )}
+        <div className={classes.basic}>
+          <Tooltip id="tooltip-top" title="edit graph name" placement="top">
+            <IconButton
+              className={classes.button}
+              color={isEditingName ? 'accent' : 'primary'}
+              aria-label="Edit"
+              onClick={e => {
+                this.handleGraphNameSubmit(e);
+              }}
+            >
+              <ModeEdit />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </form>
+    );
+  }
 }
 
-const GraphMenuSimple = connect(({store: {graphId}, graphs}) => (
-    <GraphListMenu graphId={graphId} graphs={graphs}/>));
+const GraphMenuSimple = connect(({ store: { graphId }, graphs }) => (
+  <GraphListMenu graphId={graphId} graphs={graphs} />
+));
 
 const toExport = createContainer(
-    props => ({...props, graphs: Graphs.find().fetch()}),
-    GraphMenuSimple
+  props => ({ ...props, graphs: Graphs.find().fetch() }),
+  GraphMenuSimple
 );
 toExport.displayName = 'GraphMenuSimple';
 

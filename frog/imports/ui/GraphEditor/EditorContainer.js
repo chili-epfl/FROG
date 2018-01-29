@@ -5,7 +5,6 @@ import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
-import ExpandButton from './SidePanel/ExpandButton';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
 
@@ -36,7 +35,6 @@ const styles = {
 };
 const EditorPanel = () => (
   <div className="bootstrap" style={styles.sheet}>
-    <ExpandButton />
     <div style={{ height: 600 }}>
       <Graph scaled hasTimescale isEditable />
     </div>

@@ -4,8 +4,9 @@ import React from 'react';
 import Grid from 'material-ui/Grid';
 
 import GraphList from './GraphList';
-import GraphConfigPanel from './GraphConfigPanel';
+// import GraphConfigPanel from './GraphConfigPanel';
 import { UndoButton, ConfigMenu } from './Settings';
+import ExpandButton from '../SidePanel/ExpandButton';
 
 const styles = {
   root: {
@@ -17,7 +18,7 @@ export default () => (
   <div id="topPanel">
     <Grid container styles={styles.root} justify="space-between" spacing={24}>
       <Grid item>
-        <Grid container styles={styles.root} spacing={3}>
+        <Grid container styles={styles.root}>
           <Grid item>
             <ConfigMenu />
           </Grid>
@@ -26,11 +27,18 @@ export default () => (
           </Grid>
         </Grid>
       </Grid>
+      {/* <Grid item> */}
+      {/* /!*<GraphConfigPanel />*!/ */}
+      {/* </Grid> */}
       <Grid item>
-        {/*<GraphConfigPanel />*/}
-      </Grid>
-      <Grid item>
-        <UndoButton />
+        <Grid container styles={styles.root}>
+          <Grid item>
+            <UndoButton />
+          </Grid>
+          <Grid item>
+            <ExpandButton />
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   </div>

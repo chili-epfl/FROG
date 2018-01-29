@@ -1,6 +1,6 @@
 // @flow
-import styled from 'styled-components';
 import React from 'react';
+import Switch from 'material-ui/Switch';
 
 import { connect } from '../store';
 
@@ -10,16 +10,11 @@ export default connect(
       return null;
     }
     return (
-      <CloseA onClick={() => setSidepanelOpen(true)}>
-        <i className="fa fa-ellipsis-v" />
-      </CloseA>
+      <Switch
+        checked={sidepanelOpen}
+        onChange={() => setSidepanelOpen(true)}
+        aria-label="showSidePanel"
+      />
     );
   }
 );
-
-const CloseA = styled.a`
-  position: fixed;
-  right: 30px;
-  top: 100px;
-  font-size: 2em;
-`;
