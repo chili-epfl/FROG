@@ -27,7 +27,7 @@ export default () => (
         </Grid>
       </Grid>
       <Grid item>
-        <GraphConfigPanel />
+        {/*<GraphConfigPanel />*/}
       </Grid>
       <Grid item>
         <UndoButton />

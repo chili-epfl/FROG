@@ -1,5 +1,4 @@
 import React from 'react';
-// import { DropdownButton, Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import Button from 'material-ui/Button';
 import {MenuItem, MenuList} from 'material-ui/Menu';
@@ -31,7 +30,7 @@ const styles = theme => ({
         pointerEvents: 'none',
     },
     button: {
-        margin: theme.spacing.unit/2,
+        margin: theme.spacing.unit / 2,
     },
     leftIcon: {
         marginRight: theme.spacing.unit,
@@ -46,7 +45,7 @@ export const UndoButton = connect(({store: {undo}}) => (
 class UndoButtonComponent extends React.Component {
 
     render() {
-        const {classes,undo} = this.props;
+        const {classes, undo} = this.props;
         return (
             <div className={classes.root}>
                 <Button
@@ -54,7 +53,7 @@ class UndoButtonComponent extends React.Component {
                     color="primary"
                     className={classes.button}
                 >
-                    <Undo className={classes.leftIcon} />
+                    <Undo className={classes.leftIcon}/>
                     UNDO
                 </Button>
             </div>
@@ -103,31 +102,32 @@ class GraphActionMenu extends React.Component {
                             <Grow in={open} id="menu-list" style={{transformOrigin: '0 0 0'}}>
                                 <Paper>
                                     <MenuList role="menu">
-                                        <MenuItem eventKey="1" onClick={() => {
+                                        <MenuItem onClick={() => {
                                             toggleOverlapAllowed();
                                             this.handleClose();
-                                        }}>{overlapAllowed && <Check className={classes.leftIcon} aria-hidden="true" />}Overlap Allowed</MenuItem>
-                                        <MenuItem eventKey="5" onClick={() => {
+                                        }}>{overlapAllowed && <Check className={classes.leftIcon} aria-hidden="true"/>}Overlap
+                                            Allowed</MenuItem>
+                                        <MenuItem onClick={() => {
                                             store.setId(addGraph());
                                             this.handleClose();
                                         }}>Add New Graph</MenuItem>
-                                        <MenuItem eventKey="9" onClick={() => {
+                                        <MenuItem onClick={() => {
                                             duplicateGraph(graphId);
                                             this.handleClose()
                                         }}>Copy Graph</MenuItem>
-                                        <MenuItem eventKey="7" onClick={() => {
+                                        <MenuItem onClick={() => {
                                             submitRemoveGraph(graphId);
                                             this.handleClose()
                                         }}>Delete Current Graph</MenuItem>
-                                        <MenuItem eventKey="3" onClick={() => {
+                                        <MenuItem onClick={() => {
                                             importGraph();
                                             this.handleClose()
                                         }}>Import Graph</MenuItem>
-                                        <MenuItem eventKey="2" onClick={() => {
+                                        <MenuItem onClick={() => {
                                             exportGraph();
                                             this.handleClose()
                                         }}>Export Graph</MenuItem>
-                                        <MenuItem eventKey="4" onClick={() => {
+                                        <MenuItem onClick={() => {
                                             exportPicture();
                                             this.handleClose()
                                         }}>Export Graph as Image</MenuItem>
@@ -144,5 +144,6 @@ class GraphActionMenu extends React.Component {
 
 export const ConfigMenu = connect(
     ({store: {overlapAllowed, graphId, toggleOverlapAllowed}}) => (
-        <GraphActionMenu overlapAllowed={overlapAllowed} graphId={graphId} toggleOverlapAllowed={toggleOverlapAllowed}/>)
+        <GraphActionMenu overlapAllowed={overlapAllowed} graphId={graphId}
+                         toggleOverlapAllowed={toggleOverlapAllowed}/>)
 );

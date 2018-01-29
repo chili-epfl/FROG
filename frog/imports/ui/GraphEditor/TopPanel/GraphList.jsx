@@ -2,23 +2,25 @@ import React from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 
 import classNames from 'classnames';
-import Button from 'material-ui/Button';
-import {MenuItem, MenuList} from 'material-ui/Menu';
-import Grow from 'material-ui/transitions/Grow';
-import Paper from 'material-ui/Paper';
+
 import {withStyles} from 'material-ui/styles';
-import {Manager, Target, Popper} from 'react-popper';
-import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
-import Check from 'material-ui-icons/Check';
+import IconButton from 'material-ui/IconButton';
+import ModeEdit from 'material-ui-icons/ModeEdit';
+
+import MenuItem from 'material-ui/Menu/MenuItem';
+import TextField from 'material-ui/TextField';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import { FormControl, FormHelperText } from 'material-ui/Form';
+import Visibility from 'material-ui-icons/Visibility';
+import VisibilityOff from 'material-ui-icons/VisibilityOff';
+
 import {connect, store} from '../store';
-import {Graphs} from '../../../api/graphs';
+import {Graphs, renameGraph} from '../../../api/graphs';
 
 const styles = theme => ({
     root: {
         display: 'flex',
-    },
-    popperClose: {
-        pointerEvents: 'none',
+        flexWrap: 'wrap',
     },
     button: {
         margin: theme.spacing.unit / 2,
@@ -26,112 +28,140 @@ const styles = theme => ({
     leftIcon: {
         marginRight: theme.spacing.unit,
     },
+    textField: {
+        margin: theme.spacing.unit,
+        backgroundColor: 'white',
+        width: 200,
+    },
 });
 
 @withStyles(styles)
 class GraphListMenu extends React.Component {
 
     state = {
-        open: false,
+        isEditing: false,
+        name: "",
     };
 
     constructor(props) {
         super(props);
-        this.selectedGraph = 'none';
+        const {classes, graphId, graphs} = this.props;
+        const {isEditing} = this.state;
+        this.selectedGraph = Graphs.findOne({_id: graphId});
+        this.state = {
+            name: this.selectedGraph.name
+        };
+
     }
 
-    handleClick = () => {
-        this.setState({open: true});
+    handleChange = (event) => {
+
+
+        this.setState({
+            name: event.target.value,
+        });
+        console.log('CHNAGE: ', event.target.value);
     };
 
-    handleClose = () => {
-        this.setState({open: false});
+    handleClick = (e) => {
+        console.log('value',e.target.value);
+        if(this.state.isEditing) {
+            renameGraph(this.selectedGraph._id, this.state.name);
+        }
+        this.setState({isEditing: !this.state.isEditing});
+        console.log('renamed: ', this.state.name);
     };
 
-    setSelectedGraph = (graphName) => {
-        console.log('graphname:', graphName);
-        this.selectedGraph = graphName;
+    setSelectedGraph = (graph) => {
+        this.selectedGraph = graph;
+        this.setState({
+            name: this.selectedGraph.name,
+        });
     };
 
     render() {
-        const {classes, graphId, graphs} = this.props;
-        const {open } = this.state;
 
-        this.selectedGraph = Graphs.findOne({ _id: graphId }).name;
-        console.log('graphs', this.selectedGraph);
+        const {classes} = this.props;
 
         return (
             <div className={classes.root}>
-                <Manager>
-                    <Target>
-                        <Button
-                            aria-owns={open ? 'menu-list' : null}
-                            aria-haspopup="true"
-                            onClick={this.handleClick}
-                            color="primary"
-                            className={classes.button}
-                        >
-                            Select Graph: {this.selectedGraph}
-                        </Button>
-                    </Target>
-                    <Popper
-                        placement="bottom-start"
-                        eventsEnabled={open}
-                        className={classNames({[classes.popperClose]: !open})}
-                    >
-                        <ClickAwayListener onClickAway={this.handleClose}>
-                            <Grow in={open} id="menu-list" style={{transformOrigin: '0 0 0'}}>
-                                <Paper>
-                                    <MenuList role="menu">
-                                        {graphs.length ? (
-                                            graphs.map(graph => (
-                                                <MenuItem
-                                                    key={graph._id}
-                                                    eventKey={graph._id}
-                                                    active={graph._id === graphId}
-                                                    onClick={() => {
-                                                        store.setId(graph._id);
-                                                        this.setSelectedGraph(graph.name);
-                                                        this.handleClose();
-                                                    }}
-                                                >
-                                                    {graphId === graph._id && (
-                                                        <Check className={classes.leftIcon} aria-hidden="true"/>
-                                                    )}
-                                                    {graph.name}
-                                                </MenuItem>
-                                            ))
-                                        ) : (
-                                            <MenuItem eventKey="0">No graph</MenuItem>
-                                        )}
-                                    </MenuList>
-                                </Paper>
-                            </Grow>
-                        </ClickAwayListener>
-                    </Popper>
-                </Manager>
+                {this.renderGraphSubComponent()}
             </div>
         );
     }
-}
 
-// {graphs.length ? (
-//     graphs.map(graph => (
-//         <MenuItem
-//             key={graph._id}
-//             eventKey={graph._id}
-//             active={graph._id === graphId}
-//             onClick={() => store.setId(graph._id)}
-//         >
-//             {graphId === graph._id && (
-//                 <i className="fa fa-check" aria-hidden="true" />
-//             )}
-//             {graph.name}
-//         </MenuItem>
-//     ))
-// ) : (
-//     <MenuItem eventKey="0">No graph</MenuItem>
-// )}
+    renderGraphSubComponent() {
+
+        const {classes, graphId, graphs} = this.props;
+        const {isEditing} = this.state;
+        this.selectedGraph = Graphs.findOne({_id: graphId});
+
+
+            this.state.name = this.selectedGraph.name;
+            console.log('graph', this.state.name, this.selectedGraph.name );
+
+        return (
+            <form className={classes.root} noValidate autoComplete="off">
+                {isEditing ?
+                    (
+                        <TextField
+                            autoFocus
+                            id="edit-graph"
+                            className={classes.textField}
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                        />
+                    ) : (
+                        <TextField
+                            id="select-graph"
+                            select
+                            value={this.selectedGraph.name}
+                            className={classes.textField}
+                            SelectProps={{
+                                native: true,
+                                MenuProps: {
+                                    className: classes.menu,
+                                },
+                            }}
+                        >
+                            {graphs.length ? (
+                                graphs.map(g => (
+                                    <option
+                                        key={g._id}
+                                        value={g.name}
+                                        // active={String(g._id === graphId)}
+                                        onClick={() => {
+                                            store.setId(g._id);
+                                            this.setSelectedGraph(g);
+                                            this.handleClose();
+                                        }}
+                                    >
+                                        {g.name}
+                                    </option>
+                                ))
+                            ) : (
+                                <MenuItem>No graph</MenuItem>
+                            )}
+
+                        </TextField>
+                    )
+                }
+                <IconButton
+                    className={classes.button}
+                    color={isEditing ? "accent" : "primary"}
+                    aria-label="Edit"
+                    onClick={e => {
+                        if (isEditing) {
+                            console.log('editing', isEditing, this.selectedGraph);
+                            this.handleClick(e);
+                        }
+                        this.handleClick(e);
+                    }}>
+                    <ModeEdit/>
+                </IconButton>
+            </form>);
+    };
+}
 
 const GraphMenuSimple = connect(({store: {graphId}, graphs}) => (
     <GraphListMenu graphId={graphId} graphs={graphs}/>));
