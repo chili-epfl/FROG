@@ -230,6 +230,7 @@ export default class Root extends Component {
           <ApiForm
             activityType={this.state.data.activityType}
             config={this.state.data.config}
+            hideValidator={this.state.data.hideValidator}
           />
         );
       } else {

@@ -79,7 +79,11 @@ class Config extends Component {
   }
 }
 
-type PropsT = { activityType?: string, config?: Object };
+type PropsT = {
+  activityType?: string,
+  config?: Object,
+  hideValidator?: boolean
+};
 
 class State {
   @observable showErrors: boolean = false;
@@ -125,9 +129,11 @@ class ApiForm extends Component {
                 setValid={state.setValid}
               />
             </div>
-            <div style={{ position: 'absolute', right: '20px' }}>
-              <Valid />
-            </div>
+            {!this.props.hideValidator && (
+              <div style={{ position: 'absolute', right: '20px' }}>
+                <Valid />
+              </div>
+            )}
           </div>
         ) : (
           <div style={{ position: 'absolute', top: '30px' }}>
@@ -177,7 +183,7 @@ class Errors extends Component {
 const Container = (props: PropsT) => (
   <div>
     <ApiForm {...props} />
-    <Errors />
+    {!props.hideValidator && <Errors />}
   </div>
 );
 

@@ -157,6 +157,7 @@ Picker.route(
     InjectData.pushData(response, 'api', {
       callType: 'config',
       activityType: activityTypeId,
+      hideValidator: query.hideValidator,
       config
     });
     next();
