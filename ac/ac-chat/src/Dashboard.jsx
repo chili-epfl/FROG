@@ -2,26 +2,32 @@
 
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
+import { type LogDBT } from 'frog-utils';
 
 const fontSizeMapper = word => Math.max(10, Math.min(word.value * 10, 250));
 
-export default ({ logs }: any) => {
-  const data = {};
-  logs.forEach(log => {
-    log.chat.split(' ').forEach(word => {
-      data[word] = (data[word] || 0) + 1;
-    });
-  });
+const Viewer = ({ data }: Object) => (
+  <div>
+    <p>{data.length} data</p>
+    <WordCloud
+      data={[...Object.keys(data).map(w => ({ text: w, value: data[w] }))]}
+      fontSizeMapper={fontSizeMapper}
+    />
+  </div>
+);
 
-  return (
-    <div>
-      <p>{logs.length} logs</p>
-      <WordCloud
-        data={[
-          ...Object.keys(data).map(word => ({ text: word, value: data[word] }))
-        ]}
-        fontSizeMapper={fontSizeMapper}
-      />
-    </div>
-  );
+const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+  const tmp = String(log.value);
+  if (tmp !== undefined)
+    tmp
+      .split(' ')
+      .forEach(word => dataFn.objInsert((data[word] || 0) + 1, word));
+};
+
+const initData = {};
+
+export default {
+  Viewer,
+  mergeLog,
+  initData
 };
