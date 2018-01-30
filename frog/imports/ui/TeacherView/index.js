@@ -6,6 +6,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
 
+
 import { withStyles } from 'material-ui/styles';
 
 import StudentList from './StudentList';
@@ -54,7 +55,7 @@ const rawSessionController = ({
             toggle={toggleVisibility}
             setShowStudentList={setShowStudentList}
           />
-
+            {props.students && <StudentList students={props.students} />}
           {visible ? (
             <Dashboards
               session={session}
