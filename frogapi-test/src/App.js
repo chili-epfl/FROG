@@ -4,7 +4,10 @@ import Stringify from 'json-stringify-pretty-compact';
 import './App.css';
 
 const srcs = [
-  ['H5P interactive video', 'http://localhost:8000/demo'],
+  [
+    'Quiz readonly',
+    'http://localhost:3000/api/activityType/ac-quiz?config=%7B%22title%22%3A%22Identify%20the%20elephants%22%2C%22shuffle%22%3A%22none%22%2C%22hasAnswers%22%3Atrue%2C%22questions%22%3A%5B%7B%22question%22%3A%22%3Cp%3EWhat%20kind%20of%20elephant%20is%20this%3F%3C%2Fp%3E%5Cn%3Cp%3E%3Cimg%20src%3D%5C%22http%3A%2F%2Fcdn.elephant-world.com%2Fwp-content%2Fuploads%2FMale_African_Elephant_With_Curved_Tusks_600.jpg%5C%22%20width%3D%5C%22600%5C%22%20height%3D%5C%22474%5C%22%2F%3E%3C%2Fp%3E%22%2C%22answers%22%3A%5B%7B%22choice%22%3A%22African%20elephant%22%2C%22isCorrect%22%3Atrue%7D%2C%7B%22choice%22%3A%22Asian%20elephant%22%7D%5D%7D%5D%7D&instance_id=1&readOnly=true'
+  ],
   [
     'Quiz',
     'http://localhost:3000/api/activityType/ac-quiz?config=%7B%22title%22%3A%22Identify%20the%20elephants%22%2C%22shuffle%22%3A%22none%22%2C%22hasAnswers%22%3Atrue%2C%22questions%22%3A%5B%7B%22question%22%3A%22%3Cp%3EWhat%20kind%20of%20elephant%20is%20this%3F%3C%2Fp%3E%5Cn%3Cp%3E%3Cimg%20src%3D%5C%22http%3A%2F%2Fcdn.elephant-world.com%2Fwp-content%2Fuploads%2FMale_African_Elephant_With_Curved_Tusks_600.jpg%5C%22%20width%3D%5C%22600%5C%22%20height%3D%5C%22474%5C%22%2F%3E%3C%2Fp%3E%22%2C%22answers%22%3A%5B%7B%22choice%22%3A%22African%20elephant%22%2C%22isCorrect%22%3Atrue%7D%2C%7B%22choice%22%3A%22Asian%20elephant%22%7D%5D%7D%5D%7D&instance_id=1'

@@ -97,7 +97,7 @@ Picker.route(
       query.activity_id || 'default',
       query.instance_id
     ].join('/');
-    if (!InstanceDone[docId]) {
+    if (!InstanceDone[docId] && !query.readOnly) {
       InstanceDone[docId] = true;
       const aT = activityTypesObj[activityTypeId];
       Promise.await(
@@ -139,6 +139,7 @@ Picker.route(
       activityid: query.activityid,
       instance_id: docId,
       activity_data: activityData,
+      readOnly: query.readOnly,
       config
     });
     next();

@@ -236,22 +236,26 @@ export default class Root extends Component {
         const data = this.state.data;
         return (
           <RunActivity
-            logger={msg =>
-              parent.postMessage(
-                {
-                  type: 'frog-log',
-                  msg: {
-                    activityType: data.activityType,
-                    username: data.username,
-                    userid: data.userid,
-                    instanceId: data.instance_id,
-                    timestamp: new Date(),
-                    ...msg
-                  }
-                },
-                '*'
-              )
+            logger={
+              data.readOnly
+                ? () => {}
+                : msg =>
+                    parent.postMessage(
+                      {
+                        type: 'frog-log',
+                        msg: {
+                          activityType: data.activityType,
+                          username: data.username,
+                          userid: data.userid,
+                          instanceId: data.instance_id,
+                          timestamp: new Date(),
+                          ...msg
+                        }
+                      },
+                      '*'
+                    )
             }
+            readOnly={data.readOnly}
             activityTypeId={data.activityType}
             username={data.username || 'Anonymous'}
             userid={data.userid || '1'}

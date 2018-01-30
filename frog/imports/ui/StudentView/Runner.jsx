@@ -100,7 +100,8 @@ export const RunActivity = ({
   userid,
   stream,
   groupingValue,
-  activityTypeId
+  activityTypeId,
+  readOnly
 }: {
   reactiveId: string,
   logger: Function,
@@ -109,7 +110,8 @@ export const RunActivity = ({
   userid: string,
   stream: Function,
   groupingValue: string,
-  activityTypeId: string
+  activityTypeId: string,
+  readOnly: boolean
 }) => {
   const activityType = activityTypesObj[activityTypeId];
   const RunComp = activityType.ActivityRunner;
@@ -118,7 +120,9 @@ export const RunActivity = ({
   const transform = formatProduct
     ? x => formatProduct((activityData && activityData.config) || {}, x)
     : x => x;
-  const ActivityToRun = ReactiveHOC(reactiveId, undefined, transform)(RunComp);
+  const ActivityToRun = ReactiveHOC(reactiveId, undefined, transform, readOnly)(
+    RunComp
+  );
 
   return (
     <ActivityToRun
