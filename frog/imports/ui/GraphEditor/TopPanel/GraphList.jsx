@@ -86,14 +86,16 @@ class GraphListMenu extends React.Component {
     });
   };
 
-  handleGraphNameSubmit = () => {
+  handleGraphNameSubmit = e => {
+    e.preventDefault();
     if (this.state.isEditingName) {
       renameGraph(this.selectedGraph._id, this.state.name);
     }
     this.setState({ isEditingName: !this.state.isEditingName });
   };
 
-  handleGraphDurationSubmit = () => {
+  handleGraphDurationSubmit = e => {
+    e.preventDefault();
     if (this.state.isEditingDuration) {
       store.changeDuration(parseInt(this.state.duration, 10));
     }
@@ -117,7 +119,12 @@ class GraphListMenu extends React.Component {
     const { isEditingDuration } = this.state;
 
     return (
-      <form className={classes.root} noValidate autoComplete="off">
+      <form
+        onSubmit={this.handleGraphDurationSubmit}
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+      >
         <div className={classes.basic}>
           <Input
             autoFocus
@@ -158,7 +165,12 @@ class GraphListMenu extends React.Component {
     this.selectedGraph = Graphs.findOne({ _id: graphId });
 
     return (
-      <form className={classes.root} noValidate autoComplete="off">
+      <form
+        onSubmit={this.handleGraphNameSubmit}
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+      >
         {isEditingName ? (
           <div className={classes.basic}>
             <TextField
