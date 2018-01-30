@@ -18,7 +18,7 @@ const Viewer = ({ data }: Object) => (
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   const tmp = String(log.value);
-  if (tmp !== undefined)
+  if (tmp)
     tmp
       .split(' ')
       .forEach(word => dataFn.objInsert((data[word] || 0) + 1, word));
