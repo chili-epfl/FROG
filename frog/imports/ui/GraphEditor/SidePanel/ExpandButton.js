@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Switch from 'material-ui/Switch';
-
+import Tooltip from 'material-ui/Tooltip';
 import { connect } from '../store';
 
 export default connect(
@@ -10,11 +10,13 @@ export default connect(
       return null;
     }
     return (
-      <Switch
-        checked={sidepanelOpen}
-        onChange={() => setSidepanelOpen(true)}
-        aria-label="showSidePanel"
-      />
+      <Tooltip id="tooltip-top" title="show the activity menu" placement="top">
+        <Switch
+          checked={sidepanelOpen}
+          onChange={() => setSidepanelOpen(true)}
+          aria-label="showSidePanel"
+        />
+      </Tooltip>
     );
   }
 );

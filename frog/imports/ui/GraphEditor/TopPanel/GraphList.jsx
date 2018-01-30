@@ -62,6 +62,7 @@ class GraphListMenu extends React.Component {
   }
 
   handleNameChange = e => {
+    e.preventDefault();
     this.setState({
       name: e.target.value
     });
@@ -79,6 +80,7 @@ class GraphListMenu extends React.Component {
   };
 
   handleDurationChange = e => {
+    e.preventDefault();
     this.setState({
       duration: e.target.value
     });

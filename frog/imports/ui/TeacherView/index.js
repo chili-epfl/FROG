@@ -6,6 +6,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
 
+import { withStyles } from 'material-ui/styles';
+
 import StudentList from './StudentList';
 import StudentListModal from './StudentListModal';
 import ButtonList from './ButtonList';
@@ -16,41 +18,60 @@ import { Sessions } from '../../api/sessions';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 
+const styles = {
+  root: {
+    flexGrow: 1
+  },
+  sheet: {
+    padding: 0,
+    maxHeight: '100%',
+    overflow: 'auto',
+    backgroundColor: 'red'
+  }
+};
+
 const rawSessionController = ({
   session,
   visible,
   toggleVisibility,
   setShowStudentList,
-  showStudentList
-}) => (
-  <div>
-    {showStudentList && (
-      <StudentListModal
-        dismiss={() => setShowStudentList(false)}
-        session={session}
-      />
-    )}
-    {session ? (
-      <div>
-        <ButtonList
+  showStudentList,
+  ...props
+}) => {
+  const { classes } = props;
+  return (
+    <div className={classes.root}>
+      {showStudentList && (
+        <StudentListModal
+          dismiss={() => setShowStudentList(false)}
           session={session}
-          toggle={toggleVisibility}
-          setShowStudentList={setShowStudentList}
         />
-        {visible ? (
-          <Dashboards
+      )}
+      {session ? (
+        <div>
+          <ButtonList
             session={session}
-            openActivities={session.openActivities}
+            toggle={toggleVisibility}
+            setShowStudentList={setShowStudentList}
           />
-        ) : (
-          <GraphView session={session} />
-        )}
-      </div>
-    ) : (
-      <p>Create or select a session from the list below</p>
-    )}
-  </div>
-);
+
+          {visible ? (
+            <Dashboards
+              session={session}
+              openActivities={session.openActivities}
+            />
+          ) : (
+            <GraphView session={session} />
+          )}
+        </div>
+      ) : (
+        <div>
+          <p>Create or select a session from the list below</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const SessionController = compose(
   withVisibility,
@@ -79,8 +100,8 @@ const TeacherView = createContainer(
     };
   },
   props => (
-    <div id="teacher" style={{ display: 'flex' }}>
-      <div style={{ width: '80%' }}>
+    <div id="teacher" style={styles.sheet}>
+      <div>
         <SessionController {...props} />
         <hr />
         {props.students && <StudentList students={props.students} />}
@@ -92,4 +113,4 @@ const TeacherView = createContainer(
 );
 
 TeacherView.displayName = 'TeacherView';
-export default TeacherView;
+export default withStyles(styles)(TeacherView);
