@@ -8,7 +8,6 @@ const fontSizeMapper = word => Math.max(10, Math.min(word.value * 10, 250));
 
 const Viewer = ({ data }: Object) => (
   <div>
-    <p>{data.length} data</p>
     <WordCloud
       data={[...Object.keys(data).map(w => ({ text: w, value: data[w] }))]}
       fontSizeMapper={fontSizeMapper}
