@@ -260,10 +260,15 @@ export default class Root extends Component {
       } else {
         const data = this.state.data;
         const actId = data.activityType + '-' + (data.activity_id || 'default');
-        const logger = createLogger('headless', data.raw_instance_id, {
-          _id: actId,
-          activityType: data.activityType
-        });
+        const logger = createLogger(
+          'headless',
+          data.raw_instance_id,
+          {
+            _id: actId,
+            activityType: data.activityType
+          },
+          data.raw_instance_id
+        );
 
         return (
           <RunActivity

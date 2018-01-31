@@ -94,7 +94,7 @@ class Viewer extends Component {
         {Object.keys(this.props.data).map(x => (
           <VideoProgress
             data={this.props.data[x]}
-            user={this.props.users[x]}
+            user={this.props.users[x] || x}
             key={x}
           />
         ))}

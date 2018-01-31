@@ -22,11 +22,12 @@ export const engineLogger = (sessionId: string, type: string, value?: number) =>
 export const createLogger = (
   sessionId: string,
   instanceId: string,
-  activity: Object
+  activity: Object,
+  userId?: string
 ) => {
   const logger = (logItem: LogT) => {
     const log = ({
-      userId: Meteor.userId(),
+      userId: userId || Meteor.userId(),
       sessionId,
       activityType: activity.activityType,
       activityPlane: activity.plane,
