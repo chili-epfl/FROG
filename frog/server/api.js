@@ -78,6 +78,7 @@ const safeDecode = (json, msg, response) => {
 };
 
 const InstanceDone = {};
+const DashboardDone = {};
 Picker.route(
   '/api/activityType/:activityTypeId',
   ({ activityTypeId, query }, request, response, next) => {
@@ -95,7 +96,7 @@ Picker.route(
       query.client_id,
       activityTypeId,
       query.activity_id || 'default',
-      query.instance_id
+      query.instance_id || 'default'
     ].join('/');
     if (!InstanceDone[docId] && !query.readOnly) {
       InstanceDone[docId] = true;
@@ -131,12 +132,39 @@ Picker.route(
         })
       );
     }
+    const dashboardId = activityTypeId + '-' + (query.activity_id || 'default');
+    if (!DashboardDone[dashboardId] && !query.readOnly) {
+      DashboardDone[dashboardId] = true;
+      const aT = activityTypesObj[activityTypeId];
+      Promise.await(
+        new Promise(resolve => {
+          const doc = serverConnection.get('rz', 'DASHBOARD//' + dashboardId);
+          doc.fetch();
+          if (doc.type) {
+            resolve();
+          }
+          doc.once(
+            'load',
+            Meteor.bindEnvironment(() => {
+              if (doc.type) {
+                resolve();
+              } else {
+                doc.create((aT.dashboard && aT.dashboard.initData) || {});
+                resolve();
+              }
+            })
+          );
+        })
+      );
+    }
     InjectData.pushData(response, 'api', {
       callType: 'runActivity',
       activityType: activityTypeId,
       userid: query.userid,
       username: query.username,
       instance_id: docId,
+      activity_id: query.activity_id,
+      raw_instance_id: query.instance_id || 'default',
       activity_data: activityData,
       readOnly: query.readOnly,
       config
@@ -156,8 +184,25 @@ Picker.route(
     InjectData.pushData(response, 'api', {
       callType: 'config',
       activityType: activityTypeId,
-      hideValidator: query.hideValidator,
-      injectCSS: query.injectCSS,
+      config
+    });
+    next();
+  }
+);
+
+Picker.route(
+  '/api/dashboard/:activityTypeId',
+  ({ activityTypeId, query }, request, response, next) => {
+    if (!activityTypesObj[activityTypeId]) {
+      response.end('No matching activity type found');
+    }
+    const config = safeDecode(query.config, 'Config data not valid', response);
+
+    InjectData.pushData(response, 'api', {
+      callType: 'dashboard',
+      activityType: activityTypeId,
+      instances: query.instances,
+      activity_id: query.activity_id || 'default',
       config
     });
     next();

@@ -4,11 +4,21 @@
 import React from 'react';
 import { CountChart, ScatterChart, type LogDBT } from 'frog-utils';
 
+const stripHTML = html => {
+  const tmp = document.createElement('DIV');
+  tmp.innerHTML = html;
+  const res = tmp.textContent || tmp.innerText || '';
+  res.replace('\u200B', ''); // zero width space
+  return res.trim();
+};
+
 const Viewer = ({ data, config, instances }: Object) => {
   if (!config) {
     return null;
   }
-  const questions = config.questions.filter(q => q.question && q.answers);
+  const questions = config.questions
+    .filter(q => q.question && q.answers)
+    .map(q => ({ ...q, question: stripHTML(q.question) }));
   const scatterData =
     (config.argueWeighting &&
       (instances || ['1', '2', '3', '4']).map(instance => {

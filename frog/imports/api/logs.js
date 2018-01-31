@@ -26,7 +26,6 @@ export const createLogger = (
 ) => {
   const logger = (logItem: LogT) => {
     const log = ({
-      _id: uuid(),
       userId: Meteor.userId(),
       sessionId,
       activityType: activity.activityType,
@@ -39,4 +38,28 @@ export const createLogger = (
     Meteor.call('merge.log', log);
   };
   return logger;
+};
+
+export const createDashboardCollection = (
+  serverConnection: Object,
+  activityId: string,
+  activityType: Object
+) => {
+  const doc = serverConnection.get('rz', 'DASHBOARD//' + activityId);
+  doc.fetch();
+  doc.once(
+    'load',
+    Meteor.bindEnvironment(() => {
+      if (!doc.type) {
+        try {
+          doc.create(
+            (activityType.dashboard && activityType.dashboard.initData) || {}
+          );
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.error(Date.now(), 'Creating dashboard for ', activityId, e);
+        }
+      }
+    })
+  );
 };

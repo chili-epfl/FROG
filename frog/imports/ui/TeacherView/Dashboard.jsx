@@ -20,12 +20,18 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
+type PropsT = {
+  activity: { _id: string, activityType: string },
+  users: { _id: string, username: string }[],
+  config?: Object,
+  doc?: Object
+};
 export class DashboardComp extends Component {
   state: { data: any };
   doc: any;
   mounted: boolean;
 
-  constructor(props: Object) {
+  constructor(props: PropsT) {
     super(props);
     this.state = { data: null };
   }

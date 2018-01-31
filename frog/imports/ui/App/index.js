@@ -20,7 +20,9 @@ import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 import { DocHead } from 'meteor/kadira:dochead';
 
-import { createLogger } from '../../api/logs';
+import { DashboardComp } from '../TeacherView/Dashboard';
+import { activityTypesObj } from '../../activityTypes';
+import { createLogger, createDashboardCollection } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -227,6 +229,19 @@ export default class Root extends Component {
     if (this.state.mode === 'waiting') {
       return null;
     } else if (this.state.api && this.state.data) {
+      if (this.state.data.callType === 'dashboard') {
+        const data = this.state.data;
+        return (
+          <DashboardComp
+            activity={{
+              _id: data.activityType + '-' + data.activity_id,
+              activityType: data.activityType
+            }}
+            users={[]}
+            config={data.config}
+          />
+        );
+      }
       if (this.state.data.callType === 'config') {
         if (this.state.data.injectCSS) {
           DocHead.addLink({
@@ -244,7 +259,11 @@ export default class Root extends Component {
         );
       } else {
         const data = this.state.data;
-        const logger = createLogger('headless', data.instance_id, {});
+        const actId = data.activityType + '-' + (data.activity_id || 'default');
+        const logger = createLogger('headless', data.raw_instance_id, {
+          _id: actId,
+          activityType: data.activityType
+        });
 
         return (
           <RunActivity

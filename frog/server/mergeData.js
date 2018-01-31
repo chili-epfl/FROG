@@ -17,6 +17,7 @@ import { Sessions } from '../imports/api/sessions';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
+import { createDashboardCollection } from '../imports/api/logs';
 
 declare var Promise: any;
 const backend = new ShareDB();
@@ -143,18 +144,7 @@ const mergeData = (
 
   // only create dashboard on initial merge, not when called by individuals joining late
   if (!group) {
-    const mergedLogsDoc = serverConnection.get(
-      'rz',
-      'DASHBOARD//' + activityId
-    );
-    try {
-      mergedLogsDoc.create(
-        (activityType.dashboard && activityType.dashboard.initData) || {}
-      );
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(Date.now(), 'Creating dashboard for ', activityId, e);
-    }
+    createDashboardCollection(serverConnection, activityId, activityType);
   }
 };
 
