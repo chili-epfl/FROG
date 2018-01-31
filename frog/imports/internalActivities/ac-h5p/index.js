@@ -11,7 +11,7 @@ export const meta = {
   description: 'Displays H5P activity, and logs xAPI statements'
 };
 
-export class ActivityRunner extends Component {
+export class ActivityRunner extends Component<$FlowFixMeProps> {
   componentDidMount = () => {
     H5PIframePrepare();
     const eventMethod = window.addEventListener

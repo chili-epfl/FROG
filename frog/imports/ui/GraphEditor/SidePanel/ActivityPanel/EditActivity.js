@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import FlexView from 'react-flexview';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
@@ -37,7 +37,7 @@ const RawEditActivity = ({
   reload,
   setReload,
   activity,
-  ...props
+  rest
 }) => {
   const graphActivity = props.store.activityStore.all.find(
     act => act.id === activity._id

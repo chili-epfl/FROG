@@ -21,8 +21,7 @@ type StateT =
   | { mode: 'calling', local: Object, remote: Array<any> }
   | { mode: 'hangUp' };
 
-class ActivityRunner extends Component {
-  state: StateT;
+class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   connections: Array<any>;
 
   findConnectionByRemoteUser = userInfo =>

@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';

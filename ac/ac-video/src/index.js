@@ -43,7 +43,7 @@ export const config = {
   }
 };
 
-class Activity extends Component {
+class Activity extends Component<$FlowFixMeProps> {
   ref: any;
   componentDidMount() {
     this.ref.seekTo(this.props.data.play);

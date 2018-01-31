@@ -86,7 +86,7 @@ export type validateConfigFnT = Object => null | {
 };
 
 export type ReactComponent<Props> =
-  | Class<React$Component<*, Props, *>>
+  | Class<React$Component<Props, *>>
   | (Props => React$Element<any> | null | React$Element<any>[]);
 
 export type LogT = {|
@@ -128,15 +128,15 @@ export type ActivityPackageT = {
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: ReactComponent<ActivityRunnerT>,
+  ActivityRunner: React$Component<ActivityRunnerT>,
   dashboard?: {
-    Viewer: ReactComponent<any>,
+    Viewer: React$Component<any>,
     mergeLog: (data: any, dataFn: Object, log: LogDBT) => void,
     initData: any
   },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
-  ConfigComponent?: ReactComponent<{
+  ConfigComponent?: React$Component<{
     configData: Object,
     setConfigData: Object => void
   }>

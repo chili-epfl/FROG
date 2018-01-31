@@ -30,7 +30,7 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
   </g>
 );
 
-class ActivityComponent extends Component {
+class ActivityComponent extends Component<$FlowFixMeProps, $FlowFixMeState> {
   clickHandler: ?Function;
 
   componentWillMount() {

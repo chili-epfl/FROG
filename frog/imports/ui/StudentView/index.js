@@ -13,8 +13,7 @@ import SessionBody from './SessionBody';
 
 const once = { already: false };
 
-class StudentViewComp extends Component {
-  state: { result: string, message?: string };
+class StudentViewComp extends Component<$FlowFixMeProps, { result: string, message?: string }> {
   constructor(props) {
     super(props);
     this.state = { result: 'notyet' };

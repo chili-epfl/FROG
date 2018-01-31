@@ -69,18 +69,16 @@ const subscriptionCallback = (error, response, setState) => {
 };
 
 const FROGRouter = withRouter(
-  class RawRouter extends Component {
-    state: {
-      mode:
-        | 'ready'
-        | 'loggingIn'
-        | 'error'
-        | 'waiting'
-        | 'studentlist'
-        | 'nostudentlist',
-      studentlist?: string[]
-    };
-
+  class RawRouter extends Component<$FlowFixMeProps, {
+    mode:
+      | 'ready'
+      | 'loggingIn'
+      | 'error'
+      | 'waiting'
+      | 'studentlist'
+      | 'nostudentlist',
+    studentlist?: string[]
+  }> {
     wait: boolean = false;
 
     constructor(props) {

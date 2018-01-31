@@ -10,8 +10,7 @@ type TextInputPropsT = {
   style?: string
 };
 
-export class TextInput extends Component {
-  state: { value: string };
+export class TextInput extends Component<TextInputPropsT, { value: string }> {
   textInput: { focus: Function };
 
   constructor(props: TextInputPropsT) {
@@ -73,15 +72,16 @@ export class TextInput extends Component {
   }
 }
 
-export class ChangeableText extends Component {
-  state: {
-    edit: boolean,
-    value: string
-  };
-
+export class ChangeableText extends Component<TextInputPropsT & {
+  EditComponent?: React.ComponentType<*>,
+  onlyHover?: Boolean
+}, {
+  edit: boolean,
+  value: string
+}> {
   constructor(
     props: TextInputPropsT & {
-      EditComponent?: ReactClass<*>,
+      EditComponent?: React.ComponentType<*>,
       onlyHover?: Boolean
     }
   ) {

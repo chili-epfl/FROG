@@ -14,7 +14,7 @@ const Main = styled.div`
   overflow: auto;
 `;
 
-export default class ActivityRunner extends Component {
+export default class ActivityRunner extends Component<$FlowFixMeProps> {
   runCode: Function;
   handleError: Function;
 

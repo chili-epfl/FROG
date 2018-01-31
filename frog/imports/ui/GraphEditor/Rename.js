@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { TextInput } from 'frog-utils';
 
 import { connect, type StoreProp } from './store';
