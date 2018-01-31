@@ -62,3 +62,26 @@ export const CountChart = ({
   ) : (
     <h2>Missing data</h2>
   );
+
+  export const LineChart = ({ data }: { data: Array<Array<number>> }) => (
+    <Chart
+      chartType="LineChart"
+      data={[['x', 'y'], ...data]}
+      width="100%"
+      height="300px"
+      options={{
+        title: 'Activity Progress',
+        curveType: 'function',
+        legend: { position: 'none' },
+        vAxis: {
+          title: 'Class Progress',
+          minValue: 0,
+          maxValue: 100
+        },
+        hAxis: {
+          title: 'Time',
+          minValue: 0
+        }
+      }}
+    />
+  );

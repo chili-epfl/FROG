@@ -69,7 +69,7 @@ export type {
   LogT,
   LogDBT
 } from './types';
-export { CountChart, ScatterChart } from './DashboardComponents/CountChart';
+export { CountChart, ScatterChart, LineChart } from './DashboardComponents/CountChart';
 export {
   default as TableView,
   toTableData
