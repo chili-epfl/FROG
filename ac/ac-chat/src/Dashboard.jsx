@@ -6,21 +6,19 @@ import { type LogDBT } from 'frog-utils';
 
 const fontSizeMapper = (itMax, word) => 10 + word.value * 250 / Number(itMax);
 
-const Viewer = ({ data }: Object) => (
-  <div>
-    <WordCloud
-      data={[...Object.keys(data).map(w => ({ text: w, value: data[w] }))]}
-      fontSizeMapper={word =>
-        fontSizeMapper(
-          Object.values(data).reduce((acc, curr) =>
-            Math.max(Number(acc), Number(curr))
-          ),
-          word
-        )
-      }
-    />
-  </div>
-);
+const Viewer = ({ data }: Object) => {
+  const iMax = Object.values(data).reduce((acc, curr) =>
+    Math.max(Number(acc), Number(curr))
+  );
+  return (
+    <div>
+      <WordCloud
+        data={[...Object.keys(data).map(w => ({ text: w, value: data[w] }))]}
+        fontSizeMapper={word => fontSizeMapper(iMax, word)}
+      />
+    </div>
+  );
+};
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   const tmp = String(log.value);
