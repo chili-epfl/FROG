@@ -136,7 +136,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       actualStartingTime: Date.now(),
       length: 5,
       activityType: activityTypeId
-    }
+    };
 
     const mergeData = (log: LogDBT) => {
       if (activityType.dashboard && activityType.dashboard.mergeLog) {
