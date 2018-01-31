@@ -136,7 +136,6 @@ Picker.route(
       activityType: activityTypeId,
       userid: query.userid,
       username: query.username,
-      activityid: query.activityid,
       instance_id: docId,
       activity_data: activityData,
       readOnly: query.readOnly,
@@ -158,6 +157,7 @@ Picker.route(
       callType: 'config',
       activityType: activityTypeId,
       hideValidator: query.hideValidator,
+      injectCSS: query.injectCSS,
       config
     });
     next();

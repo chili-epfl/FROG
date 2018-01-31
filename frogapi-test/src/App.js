@@ -22,7 +22,10 @@ const srcs = [
   ],
   ['Choose activity', 'http://localhost:3000/api/chooseActivity'],
   ['List of activityTypes (API)', 'http://localhost:3000/api/activityTypes'],
-  ['Configure quiz', 'http://localhost:3000/api/config/ac-quiz']
+  [
+    'Configure quiz',
+    'http://localhost:3000/api/config/ac-quiz?injectCSS=http%3A%2F%2Flocalhost%3A3003%2Finject.css'
+  ]
 ];
 
 class App extends Component {

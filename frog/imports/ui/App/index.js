@@ -18,7 +18,9 @@ import { withRouter } from 'react-router';
 import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
+import { DocHead } from 'meteor/kadira:dochead';
 
+import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -226,6 +228,13 @@ export default class Root extends Component {
       return null;
     } else if (this.state.api && this.state.data) {
       if (this.state.data.callType === 'config') {
+        if (this.state.data.injectCSS) {
+          DocHead.addLink({
+            rel: 'stylesheet',
+            type: 'text/css',
+            href: this.state.data.injectCSS
+          });
+        }
         return (
           <ApiForm
             activityType={this.state.data.activityType}
@@ -235,12 +244,15 @@ export default class Root extends Component {
         );
       } else {
         const data = this.state.data;
+        const logger = createLogger('headless', data.instance_id, {});
+
         return (
           <RunActivity
             logger={
               data.readOnly
                 ? () => {}
-                : msg =>
+                : msg => {
+                    logger(msg);
                     parent.postMessage(
                       {
                         type: 'frog-log',
@@ -254,7 +266,8 @@ export default class Root extends Component {
                         }
                       },
                       '*'
-                    )
+                    );
+                  }
             }
             readOnly={data.readOnly}
             activityTypeId={data.activityType}
