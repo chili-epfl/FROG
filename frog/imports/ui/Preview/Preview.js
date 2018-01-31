@@ -127,12 +127,24 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
 
     const reactiveDash = generateReactiveFn(dashboard);
 
+    const activityDbObject = {
+      _id: 'preview',
+      data: activityData.config,
+      groupingKey: 'group',
+      plane: 2,
+      startTime: 0,
+      actualStartingTime: Date.now(),
+      length: 5,
+      activityType: activityTypeId
+    }
+
     const mergeData = (log: LogDBT) => {
       if (activityType.dashboard && activityType.dashboard.mergeLog) {
         activityType.dashboard.mergeLog(
           cloneDeep(dashboard.data),
           reactiveDash,
-          log
+          log,
+          activityDbObject
         );
       }
     };
