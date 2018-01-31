@@ -43,7 +43,7 @@ export const config = {
   }
 };
 
-class Activity extends Component<$FlowFixMeProps> {
+class ActivityRunner extends Component<ActivityRunnerT> {
   ref: any;
   componentDidMount() {
     this.ref.seekTo(this.props.data.play);
@@ -76,8 +76,6 @@ class Activity extends Component<$FlowFixMeProps> {
     );
   }
 }
-
-const ActivityRunner = (props: ActivityRunnerT) => <Activity {...props} />;
 
 export default {
   id: 'ac-video',

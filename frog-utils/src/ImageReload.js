@@ -3,7 +3,10 @@ import * as React from 'react';
 
 type propsT = { src: string, style?: Object, className?: string };
 
-class ImageReload extends React.Component<propsT, { src: string, origSrc: string, timeout: any, counter: number }> {
+class ImageReload extends React.Component<
+  propsT,
+  { src: string, origSrc: string, timeout: any, counter: number }
+> {
   constructor(props: propsT) {
     super(props);
     this.state = {

@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { ActivityRunnerT } from 'frog-utils';
 
 import Header from './Header';
 import Editor from './Editor';
@@ -14,7 +15,7 @@ const Main = styled.div`
   overflow: auto;
 `;
 
-export default class ActivityRunner extends Component<$FlowFixMeProps> {
+export default class ActivityRunner extends Component<ActivityRunnerT> {
   runCode: Function;
   handleError: Function;
 

@@ -6,9 +6,12 @@
 
 import React, { Component } from 'react';
 
-class TimedComponentClass extends Component<Object, {
-  timeNow: any
-}> {
+class TimedComponentClass extends Component<
+  Object,
+  {
+    timeNow: any
+  }
+> {
   constructor(props: Object) {
     super(props);
     this.state = {

@@ -15,11 +15,11 @@ declare var RTCIceCandidate: any;
 declare var RTCSessionDescription: any;
 declare var navigator: any;
 
-type StateT =
-  | { mode: 'notReady' }
-  | { mode: 'readyToCall', local: Object }
-  | { mode: 'calling', local: Object, remote: Array<any> }
-  | { mode: 'hangUp' };
+type StateT = {
+  mode: string,
+  local: Object,
+  remote: Array<any>
+};
 
 class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   connections: Array<any>;
@@ -190,7 +190,7 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   constructor(props: ActivityRunnerT) {
     super(props);
     this.connections = [];
-    this.state = { mode: 'notReady' };
+    this.state = { mode: 'notReady', local: {}, remote: [] };
   }
 
   componentDidMount() {

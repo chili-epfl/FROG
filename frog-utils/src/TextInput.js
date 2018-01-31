@@ -72,13 +72,16 @@ export class TextInput extends Component<TextInputPropsT, { value: string }> {
   }
 }
 
-export class ChangeableText extends Component<TextInputPropsT & {
-  EditComponent?: React.ComponentType<*>,
-  onlyHover?: Boolean
-}, {
-  edit: boolean,
-  value: string
-}> {
+export class ChangeableText extends Component<
+  TextInputPropsT & {
+    EditComponent?: React.ComponentType<*>,
+    onlyHover?: Boolean
+  },
+  {
+    edit: boolean,
+    value: string
+  }
+> {
   constructor(
     props: TextInputPropsT & {
       EditComponent?: React.ComponentType<*>,

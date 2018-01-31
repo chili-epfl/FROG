@@ -8,7 +8,10 @@ import ListComponent from '../ListComponent';
 import Preview from '../../../Preview/Preview';
 import { connect } from '../../store';
 
-class ChooseActivityType extends Component<$FlowFixMeProps, { expanded: ?string, searchStr: string, showInfo: ?string }> {
+class ChooseActivityType extends Component<
+  $FlowFixMeProps,
+  { expanded: ?string, searchStr: string, showInfo: ?string }
+> {
   inputRef: any;
 
   constructor(props) {

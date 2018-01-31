@@ -2,9 +2,11 @@
 
 import React, { Component } from 'react';
 
-class TextInput extends Component {
-  state: { value: string };
+type TextInputStateT = {
+  value: string
+};
 
+class TextInput extends Component<Object, TextInputStateT> {
   constructor(props: { callbackFn: Function }) {
     super(props);
     this.state = {

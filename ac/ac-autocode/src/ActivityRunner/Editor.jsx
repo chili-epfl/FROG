@@ -2,15 +2,19 @@
 
 import React, { Component } from 'react';
 
-export default class Editor extends Component {
-  Ace: React$Component<*, *, *>;
-  mode: String;
+type EditorPropsT = {
+  Ace: React$Component<any>,
+  mode: String,
+  data: any,
+  dataFn: any
+};
 
+export default class Editor extends Component<EditorPropsT> {
   constructor(props: Object) {
     super(props);
-    this.Ace = require('react-ace').default;
-    this.mode = props.activityData.config.language;
-    switch (this.mode) {
+    this.props.Ace = require('react-ace').default;
+    this.props.mode = props.activityData.config.language;
+    switch (this.props.mode) {
       case 'python':
         require('brace/mode/python');
         break;
@@ -29,10 +33,10 @@ export default class Editor extends Component {
 
   render() {
     return (
-      <this.Ace
+      <this.props.Ace
         id="yourcode"
         style={{ width: '600px', height: '750px' }}
-        mode={this.mode || 'javascript'}
+        mode={this.props.mode || 'javascript'}
         theme="textmate"
         highlightActiveLine
         value={this.props.data.code}
