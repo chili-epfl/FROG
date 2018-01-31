@@ -25,7 +25,7 @@ class Config extends Component {
       formData: this.props.config,
       valid: []
     };
-    this.aT = activityTypesObj[this.props.activity.activityType];
+    this.aT = activityTypesObj[this.props.activity.activityType || ''];
   }
 
   componentDidMount() {
