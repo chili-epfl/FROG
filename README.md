@@ -17,7 +17,6 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
   (17:25)](https://www.youtube.com/watch?v=GOsFwaKBFvs&feature=youtu.be)
 
 ## Graph editor
-Note that there are some bugs with the graph editor on Firefox ([#718](https://github.com/chili-epfl/FROG/issues/718)) which we will attempt to fix. In the meantime, Chrome is the recommended browser. PRs to improve compatibility with other browsers are welcome.
 
 ![](docs/frog-editor.png)
 

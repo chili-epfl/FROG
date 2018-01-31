@@ -23,7 +23,7 @@ const scrollMouse = e => {
 };
 
 const mousemove = e => {
-  store.ui.socialMove(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+  store.ui.socialMove(e.clientX, e.clientY);
 };
 
 export default connect(
