@@ -4,7 +4,7 @@ import { calculateHides } from 'frog-utils';
 
 const v = new Validator();
 
-const runFn = (id, fn, obj) => {
+const runValidationFn = (id, fn, obj) => {
   try {
     return fn(obj);
   } catch (e) {
@@ -19,7 +19,7 @@ const runFn = (id, fn, obj) => {
   }
 };
 
-export default (nodeType, id, obj, schema, datafns, uiSchema) => {
+export default (nodeType, id, configObj, schema, validationFns, uiSchema) => {
   if (!schema) {
     return null;
   }
@@ -27,7 +27,7 @@ export default (nodeType, id, obj, schema, datafns, uiSchema) => {
     schema &&
     schema.properties &&
     schema.properties !== {} &&
-    (obj === {} || !obj)
+    (configObj === {} || !configObj)
   ) {
     return {
       id,
@@ -37,9 +37,9 @@ export default (nodeType, id, obj, schema, datafns, uiSchema) => {
       err: 'No config available'
     };
   }
-  const hides = calculateHides(obj, schema, uiSchema);
+  const hides = calculateHides(configObj, schema, uiSchema);
 
-  const result = v.validate(obj, schema);
+  const result = v.validate(configObj, schema);
   const validResult = compact(
     result.errors.map(x => {
       const field = x.property.slice(9);
@@ -80,10 +80,12 @@ export default (nodeType, id, obj, schema, datafns, uiSchema) => {
     return validResult;
   }
 
-  const dataerrors =
-    datafns && obj ? compact(datafns.map(fn => runFn(id, fn, obj))) : [];
+  const errorList =
+    validationFns && configObj
+      ? compact(validationFns.map(fn => runValidationFn(id, fn, configObj)))
+      : [];
 
-  return dataerrors.map(x => ({
+  return errorList.map(x => ({
     ...x,
     id,
     nodeType,
