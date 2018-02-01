@@ -15,7 +15,7 @@ const once = { already: false };
 
 type StudentViewCompPropsT = {
   match: Object
-}
+};
 
 class StudentViewComp extends Component<
   StudentViewCompPropsT,

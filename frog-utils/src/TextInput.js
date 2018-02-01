@@ -10,9 +10,12 @@ type TextInputPropsT = {
   style?: string
 };
 
-export class TextInput extends React.Component<TextInputPropsT, { value: string }> {
+export class TextInput extends React.Component<
+  TextInputPropsT,
+  { value: string }
+> {
   // textInput: { focus: Function };
-  textInput: any
+  textInput: any;
 
   constructor(props: TextInputPropsT) {
     super(props);

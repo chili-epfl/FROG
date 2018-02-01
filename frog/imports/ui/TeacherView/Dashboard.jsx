@@ -27,9 +27,12 @@ type DashboardCompPropsT = {
   users: Array<{ _id: string | number, username: string }>,
   instances: Array<string | number>,
   config: Object
-}
+};
 
-export class DashboardComp extends React.Component<DashboardCompPropsT,{data: any}> {
+export class DashboardComp extends React.Component<
+  DashboardCompPropsT,
+  { data: any }
+> {
   doc: any;
   mounted: boolean;
 

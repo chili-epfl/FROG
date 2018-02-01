@@ -13,7 +13,7 @@ import { store } from '../GraphEditor/store';
 type GraphViewPropsT = {
   session: Object,
   history: Object
-}
+};
 
 class GraphView extends Component<GraphViewPropsT> {
   initStore = (session: any) => {

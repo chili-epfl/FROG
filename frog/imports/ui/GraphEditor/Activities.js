@@ -54,7 +54,7 @@ class ActivityComponent extends Component<Object> {
       activity,
       scaled
     }: StoreProp & { activity: Activity, scaled: Boolean } = this.props;
-    const { mode } = this.props.store.state
+    const { mode } = this.props.store.state;
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';

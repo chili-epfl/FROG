@@ -28,7 +28,7 @@ const loadDatabase = data => {
 
 type StateT = {
   isClicked: boolean
-}
+};
 
 class DisplayData extends React.Component<Object, StateT> {
   constructor(props) {

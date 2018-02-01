@@ -12,15 +12,14 @@ type StateT = {
   expanded: ?string,
   searchStr: string,
   showInfo: ?string
-}
+};
 
 type PropsT = {
   store: Object,
   activity: ActivityDbT
-}
+};
 
-class ChooseActivityType extends Component<
-  PropsT,StateT> {
+class ChooseActivityType extends Component<PropsT, StateT> {
   inputRef: any;
 
   constructor(props) {

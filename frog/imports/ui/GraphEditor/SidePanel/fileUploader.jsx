@@ -80,9 +80,9 @@ const FileList = ({ urls }) =>
     <h4>No uploaded file</h4>
   );
 
-type FileUploaderStateT = { urls: string[], display: boolean }
+type FileUploaderStateT = { urls: string[], display: boolean };
 
-class fileUploader extends Component<Object,FileUploaderStateT> {
+class fileUploader extends Component<Object, FileUploaderStateT> {
   mounted: boolean;
 
   constructor(props: Object) {

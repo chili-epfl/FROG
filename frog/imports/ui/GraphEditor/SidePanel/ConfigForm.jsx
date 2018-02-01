@@ -22,9 +22,10 @@ type ConfigFormPropsT = {
   widgets?: any
 };
 
-
-export default class ConfigForm extends Component<ConfigFormPropsT, { formData: Object }> {
-
+export default class ConfigForm extends Component<
+  ConfigFormPropsT,
+  { formData: Object }
+> {
   constructor(props: ConfigFormPropsT) {
     super(props);
     this.state = { formData: this.props.node.data };

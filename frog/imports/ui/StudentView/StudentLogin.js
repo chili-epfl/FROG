@@ -13,7 +13,7 @@ const splitList = (list: string[]) => {
 type StudentLoginPropsT = {
   slug: string,
   login: Function
-}
+};
 
 class StudentLogin extends Component<
   StudentLoginPropsT,

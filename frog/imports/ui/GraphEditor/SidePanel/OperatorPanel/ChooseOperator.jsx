@@ -14,8 +14,7 @@ type PropsT = StoreProp & {
 
 type StateT = { expanded: ?string, searchStr: string };
 
-export default class ChooseOperatorTypeComp extends Component<PropsT,StateT> {
-
+export default class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   constructor(props: PropsT) {
     super(props);
     this.state = { expanded: null, searchStr: '' };

@@ -8,7 +8,7 @@ import Operator from './operator';
 import Connection from './connection';
 import { drawPath } from '../utils/path';
 
-type MongoConnection =  {
+type MongoConnection = {
   source: { type: ElementTypes, id: string },
   target: { type: ElementTypes, id: string },
   _id: string

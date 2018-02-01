@@ -7,7 +7,7 @@ const fromRoot = cmd =>
 
 const build = shouldWatch => {
   const cwd = process.cwd();
-  return `babel ./src --out-dir ./dist ${shouldWatch ? '--watch' : ''} &`
+  return `babel ./src --out-dir ./dist ${shouldWatch ? '--watch' : ''} &`;
 };
 
 const watch = build(true);

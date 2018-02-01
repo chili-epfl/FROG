@@ -26,9 +26,7 @@ export const Line = observer(
 );
 
 export const DragLine = connect(
-  ({
-    store: { connectionStore: { dragPath }, state }
-  }: StoreProp) => {
+  ({ store: { connectionStore: { dragPath }, state } }: StoreProp) => {
     if (state.mode !== 'dragging') {
       return null;
     }
