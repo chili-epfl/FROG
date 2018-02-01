@@ -15,7 +15,7 @@ const RteField = props => (
 );
 
 class EnhancedForm extends Component<
-  $FlowFixMeProps,
+  Object,
   { formData?: ?Object, schema?: Object }
 > {
   hides: string[];

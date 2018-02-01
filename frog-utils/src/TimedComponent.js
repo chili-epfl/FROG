@@ -6,12 +6,19 @@
 
 import React, { Component } from 'react';
 
-class TimedComponentClass extends Component<
-  Object,
-  {
-    timeNow: any
-  }
-> {
+type PropsT = {
+  component: Component<*>,
+  interval: number,
+  props: Object
+}
+
+type StateT = {
+  timeNow: any
+}
+
+class TimedComponentClass extends Component<PropsT, StateT> {
+  compo = this.props.component
+
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -25,11 +32,11 @@ class TimedComponentClass extends Component<
   componentDidMount() {
     this._mounted = true;
 
-    this.interval = setInterval(() => {
+    this.interval = Number(setInterval(() => {
       if (this._mounted) {
         this.setState({ timeNow: Date.now() });
       }
-    }, this.props.interval || 3000);
+    }, this.props.interval || 3000));
   }
 
   componentWillUnmount() {
@@ -39,7 +46,7 @@ class TimedComponentClass extends Component<
 
   render() {
     return (
-      <this.props.component
+      <compo
         timeNow={this.state.timeNow}
         {...this.props.props}
       />

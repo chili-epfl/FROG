@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 
 type TextInputPropsT = {
   value?: string,
@@ -10,8 +10,9 @@ type TextInputPropsT = {
   style?: string
 };
 
-export class TextInput extends Component<TextInputPropsT, { value: string }> {
-  textInput: { focus: Function };
+export class TextInput extends React.Component<TextInputPropsT, { value: string }> {
+  // textInput: { focus: Function };
+  textInput: any
 
   constructor(props: TextInputPropsT) {
     super(props);
@@ -72,7 +73,7 @@ export class TextInput extends Component<TextInputPropsT, { value: string }> {
   }
 }
 
-export class ChangeableText extends Component<
+export class ChangeableText extends React.Component<
   TextInputPropsT & {
     EditComponent?: React.ComponentType<*>,
     onlyHover?: Boolean

@@ -6,12 +6,21 @@ import { Activities } from '/imports/api/activities';
 
 import ListComponent from '../ListComponent';
 import Preview from '../../../Preview/Preview';
-import { connect } from '../../store';
+import { connect, type StoreProp } from '../../store';
+
+type StateT = {
+  expanded: ?string,
+  searchStr: string,
+  showInfo: ?string
+}
+
+type PropsT = {
+  store: StoreProp,
+  activity: ActivityDbT
+}
 
 class ChooseActivityType extends Component<
-  $FlowFixMeProps,
-  { expanded: ?string, searchStr: string, showInfo: ?string }
-> {
+  PropsT,StateT> {
   inputRef: any;
 
   constructor(props) {

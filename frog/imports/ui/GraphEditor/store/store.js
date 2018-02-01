@@ -28,7 +28,19 @@ export type BoundsT = {
   rightBoundTime: number
 };
 
-type StateT =
+// type StateT = {
+//   mode: string,
+//   currentActivity?: Activity,
+//   bounds?: BoundsT,
+//   mouseOffset?: number,
+//   initialStartTime?: number,
+//   currentOperator?: Operator,
+//   draggingFrom?: Activity | Operator,
+//   operatorType?: OperatorTypes,
+//   val?: string
+// }
+
+export type StateT =
   | { mode: 'resizing', currentActivity: Activity, bounds: BoundsT }
   | {
       mode: 'moving',

@@ -30,7 +30,7 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
   </g>
 );
 
-class ActivityComponent extends Component<$FlowFixMeProps, $FlowFixMeState> {
+class ActivityComponent extends Component<Object> {
   clickHandler: ?Function;
 
   componentWillMount() {
@@ -48,13 +48,13 @@ class ActivityComponent extends Component<$FlowFixMeProps, $FlowFixMeState> {
   render() {
     const {
       store: {
-        state: { mode },
         activityStore: { stopMoving, startResizing, stopResizing },
         connectionStore: { startDragging, stopDragging }
       },
       activity,
       scaled
     }: StoreProp & { activity: Activity, scaled: Boolean } = this.props;
+    const { mode } = this.props.store.state
     const x = scaled ? activity.xScaled : activity.x;
     const width = scaled ? activity.widthScaled : activity.width;
     const readOnly = mode === 'readOnly';

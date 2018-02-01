@@ -70,7 +70,7 @@ const subscriptionCallback = (error, response, setState) => {
 
 const FROGRouter = withRouter(
   class RawRouter extends Component<
-    $FlowFixMeProps,
+    Object,
     {
       mode:
         | 'ready'
