@@ -1,12 +1,12 @@
 // @flow
 import React, { Component } from 'react';
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
 import { Activities } from '/imports/api/activities';
 
 import ListComponent from '../ListComponent';
 import Preview from '../../../Preview/Preview';
-import { connect, type StoreProp } from '../../store';
+import { connect } from '../../store';
 
 type StateT = {
   expanded: ?string,
@@ -15,7 +15,7 @@ type StateT = {
 }
 
 type PropsT = {
-  store: StoreProp,
+  store: Object,
   activity: ActivityDbT
 }
 
