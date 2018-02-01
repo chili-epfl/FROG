@@ -51,6 +51,10 @@ export default ({
   const formData = data[questionIndex] + 1;
   const onChange = e => {
     dataFn.objInsert(e.formData - 1, [questionIndex]);
+    const numAnswers =
+      Object.keys(data).length + (data[questionIndex] !== undefined ? 0 : 1);
+    const numQuestions = activityData.config.questions.length;
+    logger({ type: 'progress', value: numAnswers / numQuestions });
     logger({ type: 'choice', itemId: questionIndex, value: e.formData - 1 });
   };
 
