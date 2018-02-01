@@ -9,6 +9,14 @@ const Viewer = (props: Object) => {
   if (!config) {
     return null;
   }
+
+  const instAnswers = instances.reduce((newObj, prop) => {
+      if (Object.prototype.hasOwnProperty.call(data, prop)) {
+        (newObj[prop] = data[prop]);
+      }
+      return newObj;
+    }, {});
+
   const questions = config.questions.filter(q => q.question && q.answers);
   const scatterData =
     (config.argueWeighting &&
@@ -30,15 +38,15 @@ const Viewer = (props: Object) => {
     [];
 
   const answerCounts = questions.map((q, qIndex) =>
-    ((data && Object.values(data)) || []).reduce((acc, val) => {
+    ((instAnswers && Object.values(instAnswers)) || []).reduce((acc, val) => {
       acc[val[qIndex]] += 1;
       return acc;
     }, q.answers.map(() => 0))
   );
 
-  const timingData = [[]];
-  for (let i = 0; i < data['timing'].length; i+= 1) {
-    timingData.push([data['timing'][0],data['timing'][1]/(Object.keys(instances).length)*100]);
+  const timingData = [[0,0]];
+  for (let i = 0; i < (data['timing'] || []).length; i+= 1) {
+    timingData.push([data['timing'][i][0],(data['timing'][i][1]/(Object.keys(instances).length)*100)]);
   }
 
   return (
