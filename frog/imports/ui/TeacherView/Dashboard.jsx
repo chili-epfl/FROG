@@ -88,6 +88,7 @@ export class DashboardComp extends Component {
       <div style={{ width: '100%' }}>
         <aT.dashboard.Viewer
           users={users}
+          activity={this.props.activity}
           instances={this.props.instances}
           data={this.state.data}
           config={this.props.activity.data || this.props.config}
