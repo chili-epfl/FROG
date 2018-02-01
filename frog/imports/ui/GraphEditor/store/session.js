@@ -21,7 +21,7 @@ export default class Session {
   @observable timeInClass: number = 0;
   @observable timeInGraph: number = 0;
   @observable startedAt: number;
-  interval: number;
+  interval: IntervalID;
 
   @action
   setTimes = (session: Object): void => {
@@ -36,8 +36,8 @@ export default class Session {
   };
 
   @action
-  updateTimeInClass = (newTime: number): void => {
-    if (newTime > -1) {
+  updateTimeInClass = (newTime: ?number): void => {
+    if (newTime && newTime > -1) {
       this.timeInClass = newTime;
     } else if (this.startedAt > -1) {
       this.timeInClass = (Date.now() - this.startedAt) / 6e4;

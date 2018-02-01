@@ -13,8 +13,12 @@ import SessionBody from './SessionBody';
 
 const once = { already: false };
 
+type StudentViewCompPropsT = {
+  match: Object
+}
+
 class StudentViewComp extends Component<
-  $FlowFixMeProps,
+  StudentViewCompPropsT,
   { result: string, message?: string }
 > {
   constructor(props) {

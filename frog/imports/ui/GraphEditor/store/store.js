@@ -17,28 +17,16 @@ import Session from './session';
 import UI from './uiStore';
 import { timeToPx } from '../utils';
 
-type ElementTypes = 'operator' | 'activity' | 'connection';
-
+export type ElementTypes = 'operator' | 'activity' | 'connection';
 type Elem = Activity | Connection | Operator;
 type Coll = Array<any>;
+
 export type BoundsT = {
   leftBoundActivity: ?Activity,
   rightBoundActivity: ?Activity,
   leftBoundTime: number,
   rightBoundTime: number
 };
-
-// type StateT = {
-//   mode: string,
-//   currentActivity?: Activity,
-//   bounds?: BoundsT,
-//   mouseOffset?: number,
-//   initialStartTime?: number,
-//   currentOperator?: Operator,
-//   draggingFrom?: Activity | Operator,
-//   operatorType?: OperatorTypes,
-//   val?: string
-// }
 
 export type StateT =
   | { mode: 'resizing', currentActivity: Activity, bounds: BoundsT }
@@ -68,6 +56,7 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
   getOne(coll, x => x.id === id);
 
 export default class Store {
+  state: StateT;
   @observable _state: StateT;
   @observable connectionStore = new ConnectionStore();
   @observable activityStore = new ActivityStore();

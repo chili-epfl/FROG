@@ -1,13 +1,18 @@
 // @flow
 import { computed, action, observable } from 'mobx';
 
+import { type ElementTypes } from './store';
 import { store } from './index';
 import Activity from './activity';
 import Operator from './operator';
 import Connection from './connection';
 import { drawPath } from '../utils/path';
 
-type MongoConnection = Connection & { _id: string };
+type MongoConnection =  {
+  source: { type: ElementTypes, id: string },
+  target: { type: ElementTypes, id: string },
+  _id: string
+};
 
 export default class ConnectionStore {
   @observable all: any = [];

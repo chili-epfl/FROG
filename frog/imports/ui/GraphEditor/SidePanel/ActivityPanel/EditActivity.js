@@ -37,7 +37,7 @@ const RawEditActivity = ({
   reload,
   setReload,
   activity,
-  rest
+  ...props
 }) => {
   const graphActivity = props.store.activityStore.all.find(
     act => act.id === activity._id
@@ -138,13 +138,11 @@ const RawEditActivity = ({
         )}
       </div>
       <ConfigForm
-        {...{
-          node: activity,
-          nodeType: activityType,
-          valid: props.store.valid,
-          refreshValidate: props.store.refreshValidate,
-          reload: reload + (outgoingConnections || []).map(x => x.id).join('')
-        }}
+        node={activity}
+        nodeType= {activityType}
+        valid= {props.store.valid}
+        refreshValidate= {props.store.refreshValidate}
+        reload= {reload + (outgoingConnections || []).map(x => x.id).join('')}
       />
       {activityType.ConfigComponent && (
         <activityType.ConfigComponent

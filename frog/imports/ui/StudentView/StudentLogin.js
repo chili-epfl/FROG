@@ -10,8 +10,13 @@ const splitList = (list: string[]) => {
   return [list.slice(0, length + extra), list.slice(length + extra)];
 };
 
+type StudentLoginPropsT = {
+  slug: string,
+  login: Function
+}
+
 class StudentLogin extends Component<
-  $FlowFixMeProps,
+  StudentLoginPropsT,
   { studentlist?: string[] }
 > {
   componentWillMount() {
