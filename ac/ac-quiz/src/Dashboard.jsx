@@ -2,20 +2,26 @@
 /* eslint-disable react/no-array-index-key */
 
 import React from 'react';
-import { CountChart, ScatterChart, LineChart, type LogDBT, type ActivityDbT } from 'frog-utils';
+import {
+  CountChart,
+  ScatterChart,
+  LineChart,
+  type LogDBT,
+  type ActivityDbT
+} from 'frog-utils';
 
 const Viewer = (props: Object) => {
-  const { data, config, instances, activity} = props;
+  const { data, config, instances, activity } = props;
   if (!config) {
     return null;
   }
 
   const instAnswers = instances.reduce((newObj, prop) => {
-      if (Object.prototype.hasOwnProperty.call(data, prop)) {
-        (newObj[prop] = data[prop]);
-      }
-      return newObj;
-    }, {});
+    if (Object.prototype.hasOwnProperty.call(data, prop)) {
+      newObj[prop] = data[prop];
+    }
+    return newObj;
+  }, {});
 
   const questions = config.questions.filter(q => q.question && q.answers);
   const scatterData =
@@ -44,11 +50,17 @@ const Viewer = (props: Object) => {
     }, q.answers.map(() => 0))
   );
 
-  const timingData = [[0,0]];
-  for (let i = 0; i < (data['timing'] || []).length; i+= 1) {
-    timingData.push([data['timing'][i][0],(data['timing'][i][1]/(Object.keys(instances).length)*100)]);
+  const numWindow = Math.ceil(
+    (Date.now() - activity.actualStartingTime) / WINDOW
+  );
+  const timingData = Array(numWindow).fill().map((_, n) => [n * WINDOW / 60000, 0]);
+  const factor = 100 / Object.keys(instances).length;
+  Object.keys(data.timing).forEach(timeWindow => {
+    timingData[timeWindow][1] = data.timing[timeWindow] * factor;
+  });
+  for (let n = 0; n < numWindow-1; n+= 1) {
+    timingData[n + 1][1] += timingData[n][1];
   }
-
   return (
     <div>
       {config.argueWeighting && <ScatterChart data={scatterData} />}
@@ -62,7 +74,8 @@ const Viewer = (props: Object) => {
           data={answerCounts[qIndex]}
         />
       ))}
-      {<LineChart
+      {
+        <LineChart
           title="Activity Progress"
           vAxis="Percent Complete"
           hAxis="Time Elapsed"
@@ -74,61 +87,40 @@ const Viewer = (props: Object) => {
   );
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT, activity: ActivityDbT) => {
+// This could be a config
+const WINDOW = 10000;
+
+const mergeLog = (
+  data: any,
+  dataFn: Object,
+  log: LogDBT,
+  activity: ActivityDbT
+) => {
   if (log.itemId !== undefined && log.type === 'choice') {
     if (!data[log.instanceId]) {
       dataFn.objInsert({ [log.itemId]: log.value }, [log.instanceId]);
     } else {
       dataFn.objInsert(log.value, [log.instanceId, log.itemId]);
     }
-  } else if (log.type === 'progress') {
-    if (!data['timeCounter']) {
-      dataFn.objInsert(activity['actualStartingTime'], ('timeCounter'));
-    }
-
-    let diffProg = log.value;
-    if (data['progDiff_'+log.instanceId] === undefined) {
-      dataFn.objInsert(0, ('progress_'+log.instanceId));
-      dataFn.objInsert(diffProg, ('progDiff_'+log.instanceId));
-    } else {
-      diffProg = log.value - data['progress_'+log.instanceId];
-      dataFn.objInsert(diffProg, ('progDiff_'+log.instanceId));
-    }
-
-    if ((new Date(log.timestamp) - new Date(data['timeCounter']))/1000 > 10) {
-      let totalProgDiff = 0;
-      for (let i = 0; i < Object.keys(data).length; i+= 1) {
-         if(Object.keys(data)[i].includes('progDiff')) {
-           if ('progDiff_'+log.instanceId !== Object.keys(data)[i]) {
-             totalProgDiff += data[Object.keys(data)[i]];
-             const name = Object.keys(data)[i].split("_");
-             dataFn.objInsert(data['progress_'+name[1]]+data[Object.keys(data)[i]], ('progress_'+name[1]));
-             dataFn.objInsert(0, (Object.keys(data)[i]));
-           }
-         }
-       }
-
-       if (data['progress_'+log.instanceId] === undefined) {
-         dataFn.objInsert(diffProg, ('progress_'+log.instanceId));
-       } else {
-         dataFn.objInsert(data['progress_'+log.instanceId]+diffProg, ('progress_'+log.instanceId));
-       }
-       dataFn.objInsert(0, ('progDiff_'+log.instanceId));
-       totalProgDiff += diffProg;
-
-       if (!data['timing']) {
-        dataFn.objInsert([[(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProgDiff]], 'timing');
+  } else if (log.type === 'progress' && typeof log.value === 'number') {
+    if (activity.actualStartingTime instanceof Date) {
+      const progressDiff = log.value - (data.previous[log.instanceId] || 0);
+      const start = activity.actualStartingTime
+      const timeWindow = Math.floor((log.timestamp - start) / WINDOW);
+      if (data.timing[timeWindow]) {
+        dataFn.numIncr(progressDiff, ['timing', timeWindow]);
       } else {
-        const totalProg = data['timing'][data['timing'].length -1][1] + totalProgDiff;
-        data['timing'].push([(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProg]);
-        dataFn.objInsert(data['timing'], 'timing');
+        dataFn.objInsert(progressDiff, ['timing', timeWindow]);
       }
-      dataFn.objInsert(log.timestamp, ('timeCounter'));
+      dataFn.objInsert(log.value, ['previous', log.instanceId]);
     }
   }
 };
 
-const initData = {};
+const initData = {
+  previous: {},
+  timing: {}
+};
 
 export default {
   Viewer,
