@@ -11,42 +11,42 @@ const Viewer = (props: Object) => {
   }
 
   const instAnswers = instances.reduce((newObj, prop) => {
-      if (Object.prototype.hasOwnProperty.call(data, prop)) {
-        (newObj[prop] = data[prop]);
-      }
-      return newObj;
-    }, {});
+    if (Object.prototype.hasOwnProperty.call(data, prop)) {
+      (newObj[prop] = data[prop]);
+    }
+    return newObj;
+  }, {});
 
   const questions = config.questions.filter(q => q.question && q.answers);
   const scatterData =
-    (config.argueWeighting &&
-      (instances || ['1', '2', '3', '4']).map(instance => {
-        const coordinates = [0, 0];
-        questions.forEach((q, qIndex) => {
-          if (
-            data[instance] &&
-            data[instance][qIndex] &&
-            q.answers[data[instance][qIndex] - 1]
-          ) {
-            const answerIndex = data[instance][qIndex] - 1;
-            coordinates[0] += q.answers[answerIndex].x;
-            coordinates[1] += q.answers[answerIndex].y;
-          }
-        });
-        return coordinates;
-      })) ||
+  (config.argueWeighting &&
+    (instances || ['1', '2', '3', '4']).map(instance => {
+      const coordinates = [0, 0];
+      questions.forEach((q, qIndex) => {
+        if (
+          data[instance] &&
+          data[instance][qIndex] &&
+          q.answers[data[instance][qIndex] - 1]
+        ) {
+          const answerIndex = data[instance][qIndex] - 1;
+          coordinates[0] += q.answers[answerIndex].x;
+          coordinates[1] += q.answers[answerIndex].y;
+        }
+      });
+      return coordinates;
+    })) ||
     [];
 
-  const answerCounts = questions.map((q, qIndex) =>
+    const answerCounts = questions.map((q, qIndex) =>
     ((instAnswers && Object.values(instAnswers)) || []).reduce((acc, val) => {
       acc[val[qIndex]] += 1;
       return acc;
     }, q.answers.map(() => 0))
   );
 
-  const timingData = [[0,0]];
+  const timingData = [[0,0,0,0]];
   for (let i = 0; i < (data['timing'] || []).length; i+= 1) {
-    timingData.push([data['timing'][i][0],(data['timing'][i][1]/(Object.keys(instances).length)*100)]);
+    timingData.push([data['timing'][i][0],(data['timing'][i][1]/(Object.keys(instances).length)*100),data['timing'][i][2],data['timing'][i][3]]);
   }
 
   return (
@@ -63,15 +63,15 @@ const Viewer = (props: Object) => {
         />
       ))}
       {<LineChart
-          title="Activity Progress"
-          vAxis="Percent Complete"
-          hAxis="Time Elapsed"
-          hLen={activity['length']}
-          data={timingData}
-        />
-      }
-    </div>
-  );
+        title="Activity Progress"
+        vAxis="Percent Complete"
+        hAxis="Time Elapsed"
+        hLen={activity['length']}
+        rows={timingData}
+      />
+    }
+  </div>
+);
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT, activity: ActivityDbT) => {
@@ -87,46 +87,31 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT, activity: ActivityDbT)
     }
 
     let diffProg = log.value;
-    if (data['progDiff_'+log.instanceId] === undefined) {
-      dataFn.objInsert(0, ('progress_'+log.instanceId));
-      dataFn.objInsert(diffProg, ('progDiff_'+log.instanceId));
-    } else {
+
+    if (data['progress_'+log.instanceId] !== undefined) {
       diffProg = log.value - data['progress_'+log.instanceId];
-      dataFn.objInsert(diffProg, ('progDiff_'+log.instanceId));
     }
+    dataFn.objInsert(log.value, ('progress_'+log.instanceId));
 
-    if ((new Date(log.timestamp) - new Date(data['timeCounter']))/1000 > 10) {
-      let totalProgDiff = 0;
-      for (let i = 0; i < Object.keys(data).length; i+= 1) {
-         if(Object.keys(data)[i].includes('progDiff')) {
-           if ('progDiff_'+log.instanceId !== Object.keys(data)[i]) {
-             totalProgDiff += data[Object.keys(data)[i]];
-             const name = Object.keys(data)[i].split("_");
-             dataFn.objInsert(data['progress_'+name[1]]+data[Object.keys(data)[i]], ('progress_'+name[1]));
-             dataFn.objInsert(0, (Object.keys(data)[i]));
-           }
-         }
-       }
 
-       if (data['progress_'+log.instanceId] === undefined) {
-         dataFn.objInsert(diffProg, ('progress_'+log.instanceId));
-       } else {
-         dataFn.objInsert(data['progress_'+log.instanceId]+diffProg, ('progress_'+log.instanceId));
-       }
-       dataFn.objInsert(0, ('progDiff_'+log.instanceId));
-       totalProgDiff += diffProg;
-
-       if (!data['timing']) {
-        dataFn.objInsert([[(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProgDiff]], 'timing');
-      } else {
-        const totalProg = data['timing'][data['timing'].length -1][1] + totalProgDiff;
-        data['timing'].push([(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProg]);
-        dataFn.objInsert(data['timing'], 'timing');
-      }
+    if (!data['timing']) {
+      dataFn.objInsert([[(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, diffProg,0,0]], 'timing');
+    } else {
+      const totalProg = data['timing'][data['timing'].length -1][1] + diffProg;
+      if ((new Date(log.timestamp) - new Date(data['timeCounter']))/1000 > 5) {
+      data['timing'].push([(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProg,0,0]);
+      dataFn.objInsert(data['timing'], 'timing');
       dataFn.objInsert(log.timestamp, ('timeCounter'));
+    } else {
+      data['timing'][data['timing'].length - 1] = [(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProg,0,0];
+      dataFn.objInsert(data['timing'], 'timing');
     }
   }
+
+  }
+
 };
+
 
 const initData = {};
 

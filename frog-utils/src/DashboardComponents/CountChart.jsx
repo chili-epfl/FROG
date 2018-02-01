@@ -68,33 +68,41 @@ export const CountChart = ({
     vAxis,
     hAxis,
     hLen,
-    data
+    rows
   }: {
     title: string,
     vAxis: string,
     hAxis: string,
     hLen: number,
-    data: Array<Array<number>>
+    rows: Array<Array<number>>
   }) => (
     <Chart
       chartType="LineChart"
-      data={[['x', 'y'], ...data]}
+      rows= {rows}
+      columns={[
+            {'type': 'number', 'label': 'Time'},
+            {'type': 'number', 'label': 'Progress'},
+            {'type': 'number', 'label': 'Max', 'role': 'interval'},
+            {'type': 'number', 'label': 'Min', 'role': 'interval'}
+        ]}
       width="100%"
       height="300px"
       options={{
         title,
-        curveType: 'function',
         legend: { position: 'none' },
+        pointSize: 5,
         vAxis: {
           title: vAxis,
           minValue: 0,
-          maxValue: 100
+          maxValue: 100,
+          viewWindow: {max:100},
+          gridlines: {color: 'transparent'}
         },
         hAxis: {
           title: hAxis,
           minValue: 0,
           maxValue: hLen,
-          gridlines: { count: 'none' }
+          gridlines: {color: 'transparent'}
         }
       }}
     />
