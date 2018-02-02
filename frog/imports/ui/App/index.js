@@ -23,27 +23,26 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
+import TeacherLoadable from './TeacherContainer';
+// const TeacherLoadable = Loadable({
+//   loader: () => import('./TeacherContainer'),
+//   loading: () => null,
+//   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
+// });
 
-const TeacherLoadable = Loadable({
-  loader: () => import('./TeacherContainer'),
-  loading: () => null,
-  serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
-});
+const shareDbUrl =
+  (Meteor.settings && Meteor.settings.public.sharedburl) ||
+  (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
+    '//' +
+    window.location.hostname +
+    ':3002';
 
-export const connection = {};
-// const shareDbUrl =
-//   (Meteor.settings && Meteor.settings.public.sharedburl) ||
-//   (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
-//     '//' +
-//     window.location.hostname +
-//     ':3002';
+const socket = new ReconnectingWebSocket(shareDbUrl);
+export const connection = new sharedbClient.Connection(socket);
 
-// const socket = new ReconnectingWebSocket(shareDbUrl);
-// export const connection = new sharedbClient.Connection(socket);
-
-// if (process.env.NODE_ENV !== 'production') {
-//   window.connection = connection;
-// }
+if (process.env.NODE_ENV !== 'production') {
+  window.connection = connection;
+}
 
 Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();

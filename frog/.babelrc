@@ -2,6 +2,7 @@
   "plugins": [
     "@babel/plugin-transform-flow-strip-types",
     "@babel/plugin-proposal-decorators",
+    ["@babel/plugin-proposal-class-properties", { "loose" : true }],
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-object-rest-spread",
     [
@@ -16,8 +17,5 @@
         ]
       }
     ]
-  ],
-  "presets": [
-    "@babel/preset-stage-0"
   ]
 }

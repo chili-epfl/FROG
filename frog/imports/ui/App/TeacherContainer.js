@@ -14,8 +14,6 @@ import Admin from './../Admin';
 import TopBar from './TopBar';
 
 const TeacherContainer = ({ ready }: { ready: boolean }) => {
-  console.log('teacher container');
-  console.log(ready);
   if (!ready) {
     return <Spinner />;
   }
