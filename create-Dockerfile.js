@@ -7,28 +7,25 @@ fs.readdir('./ac', (_, ac) => {
     const acopCP = acop
       .map(dir => `COPY ${dir}/package.json ${dir}/`)
       .join('\n');
-    const template = `FROM cypress/base:8
+    const template = `FROM node:8.7.0
 RUN apt-get update && apt-get install -y ocaml libelf-dev
-RUN npm install -g yarn@1.3.2 
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 
-RUN npm install cypress@1.4.1
-COPY cypress.json ./
-RUN ./node_modules/.bin/cypress run
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
+RUN npm install -g yarn@1.2.1
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 RUN mkdir -p frog-utils/src \\
 ${acopSrc}
 COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
-COPY package.json yarn.lock .yarnrc .babelrc cypress ./
+COPY package.json yarn.lock .yarnrc .babelrc ./
 COPY *.sh ./
 COPY frog-utils/package.json frog-utils/
 ${acopCP}
@@ -43,8 +40,7 @@ COPY frog /usr/src/frog/frog/
 RUN /usr/src/frog/initial_setup_wo_meteor.sh
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
-COPY cypress cypress/
-COPY *.js .*ignore *config package-scripts.js cypress.json cypress ./
+COPY *.js .*ignore *config package-scripts.js ./
 
 EXPOSE 3000
 CMD [ "npm", "test" ]
