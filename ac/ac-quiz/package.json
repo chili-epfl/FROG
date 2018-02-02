@@ -15,7 +15,7 @@
     "react-jsonschema-form": "^1.0.0",
     "react-latex": "^1.1.0",
     "seededshuffle": "^0.2.0",
-    "styled-components": "^3.1.4"
+    "styled-components": "^3.1.5"
   },
   "devDependencies": {
     "nps": "5.7.1"

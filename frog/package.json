@@ -89,7 +89,7 @@
     "sharedb": "^1.0.0-beta.8",
     "sharedb-mongo": "^1.0.0-beta.4",
     "sharedb-redis-pubsub": "^1.0.0-beta.1",
-    "styled-components": "^3.1.4",
+    "styled-components": "^3.1.5",
     "unzipper": "^0.8.11",
     "utf-8-validate": "^4.0.0",
     "websocket-json-stream": "0.0.3",
