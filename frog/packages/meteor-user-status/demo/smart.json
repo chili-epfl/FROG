@@ -1,0 +1,10 @@
+{
+  "packages": {
+    "mizzao:timesync": {
+      "path": "../../mizzao:timesync"
+    },
+    "mizzao:user-status": {
+      "path": ".."
+    }
+  }
+}
