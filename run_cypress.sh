@@ -2,7 +2,6 @@
 
 shopt -s dotglob
 
-FROG="`pwd`"
 CYPRESS_VERSION='1.4.1'
 if which cypress && [[ `cypress --version` =~ $CYPRESS_VERSION ]]; then 
     echo 'Using pre-installed global Cypress'; CYPRESS=cypress
@@ -15,8 +14,5 @@ else
 fi
 echo "Cypress: $CYPRESS"
 
-cd frog;meteor & 
-cd ..
-npx wait-on http://localhost:3000
 "$CYPRESS" run --record --key e92a866f-0cde-45be-9cd8-72f9ed6650f3
 exit 0
