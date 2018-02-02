@@ -67,9 +67,11 @@ export type {
   ControlT,
   ReactComponent,
   LogT,
-  LogDBT
+  LogDBT,
+  dashboardT,
+  dashboardViewerPropsT
 } from './types';
-export { default as CountChart } from './DashboardComponents/CountChart';
+export { CountChart, ScatterChart } from './DashboardComponents/CountChart';
 export {
   default as TableView,
   toTableData

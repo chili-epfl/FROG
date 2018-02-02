@@ -3,6 +3,7 @@
 // Description of the config for the activity
 export const config = {
   type: 'object',
+  required: ['title'],
   properties: {
     language: {
       type: 'string',
@@ -53,6 +54,16 @@ export const config = {
     }
   }
 };
+
+export const validateConfig = [
+  (data: Object): null | { field?: string, err: string } =>
+    data.tests && data.tests.length > 0 && !data.solution
+      ? {
+          field: 'solution',
+          err: 'You must provide a solution to execute tests'
+        }
+      : null
+];
 
 export const configUI = {
   template: {
@@ -199,17 +210,17 @@ export const exampleConfig3 = {
       {
         inputDesc: 'x=0',
         preCode: '',
-        postCode: 'print(double(0))'
+        postCode: 'console.log(double(0))'
       },
       {
         inputDesc: 'x=42',
         preCode: '',
-        postCode: 'print(double(42))'
+        postCode: 'console.log(double(42))'
       },
       {
         inputDesc: 'x=1234567890',
         preCode: '',
-        postCode: 'print(double(1234567890))'
+        postCode: 'console.log(double(1234567890))'
       }
     ]
   },

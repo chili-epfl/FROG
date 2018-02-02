@@ -127,12 +127,24 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
 
     const reactiveDash = generateReactiveFn(dashboard);
 
+    const activityDbObject = {
+      _id: 'preview',
+      data: activityData.config,
+      groupingKey: 'group',
+      plane: 2,
+      startTime: 0,
+      actualStartingTime: Date.now(),
+      length: 5,
+      activityType: activityTypeId
+    };
+
     const mergeData = (log: LogDBT) => {
       if (activityType.dashboard && activityType.dashboard.mergeLog) {
         activityType.dashboard.mergeLog(
           cloneDeep(dashboard.data),
           reactiveDash,
-          log
+          log,
+          activityDbObject
         );
       }
     };
@@ -325,8 +337,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                     reload={reload}
                     doc={dashboard}
                     instances={users
-                      .filter((y, i) => i % 2 !== 0)
-                      .map((z, i) => Math.ceil(i / 2))}
+                      .filter((_, i) => i % 2 !== 0)
+                      .map((_, i) => i + 1)}
                     users={users
                       .filter(e => e !== 'dashboard')
                       .map((e, i) => ({ _id: i + 1, username: e }))}
