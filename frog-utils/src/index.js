@@ -71,7 +71,11 @@ export type {
   dashboardT,
   dashboardViewerPropsT
 } from './types';
-export { CountChart, ScatterChart, LineChart } from './DashboardComponents/CountChart';
+export {
+  CountChart,
+  ScatterChart,
+  LineChart
+} from './DashboardComponents/CountChart';
 export {
   default as TableView,
   toTableData
