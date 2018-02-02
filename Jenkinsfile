@@ -12,7 +12,7 @@ pipeline {
 			stage('test') {
 				steps {
 					ansiColor('xterm') {
-						sh 'docker run test'
+						sh 'docker run --shm-size="1024m" --security-opt seccomp=unconfined test'
 					}
 				}
 			}
