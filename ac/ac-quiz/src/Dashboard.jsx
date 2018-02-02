@@ -11,6 +11,8 @@ import {
   TimedComponent
 } from 'frog-utils';
 
+const TIMEWINDOW = 5;
+
 const ProgressViewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
 
@@ -19,23 +21,16 @@ const ProgressViewer = TimedComponent((props: Object) => {
   );
   const timingData = [[0, 0, 0, 0]];
   const factor = 100 / Object.keys(instances).length;
-  for (let i = 0, j = 0; i <= numWindow; i += 1) {
-    if (i * TIMEWINDOW === (data['timing'][j] || [0])[0]) {
-      timingData.push([
-        data['timing'][j][0] / 60,
-        data['timing'][j][1] * factor,
-        data['timing'][j][2],
-        data['timing'][j][3]
-      ]);
+  for (let i = 0, j = -1; i <= numWindow; i += 1) {
+    if (i * TIMEWINDOW === (data['timing'][j+1] || [0])[0]) {
       j += 1;
-    } else {
-      timingData.push([
-        i * TIMEWINDOW / 60,
-        data['timing'][j - 1][1] * factor,
-        data['timing'][j - 1][2],
-        data['timing'][j - 1][3]
-      ]);
     }
+    timingData.push([
+      i * TIMEWINDOW / 60,
+      data['timing'][j][1] * factor,
+      data['timing'][j][2],
+      data['timing'][j][3]
+    ]);
   }
   return (
     <LineChart
@@ -64,7 +59,7 @@ const Viewer = (props: Object) => {
   const questions = config.questions.filter(q => q.question && q.answers);
   const scatterData =
     (config.argueWeighting &&
-      (instances || ['1', '2', '3', '4']).map(instance => {
+      instances.map(instance => {
         const coordinates = [0, 0];
         questions.forEach((q, qIndex) => {
           if (
@@ -91,6 +86,7 @@ const Viewer = (props: Object) => {
   return (
     <div>
       {config.argueWeighting && <ScatterChart data={scatterData} />}
+      <ProgressViewer {...props} />
       {questions.map((q, qIndex) => (
         <CountChart
           key={qIndex}
@@ -101,12 +97,10 @@ const Viewer = (props: Object) => {
           data={answerCounts[qIndex]}
         />
       ))}
-      <ProgressViewer {...props} />
     </div>
   );
 };
 
-const TIMEWINDOW = 5;
 
 const mergeLog = (
   data: any,
