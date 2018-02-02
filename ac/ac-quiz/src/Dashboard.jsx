@@ -44,9 +44,16 @@ const Viewer = (props: Object) => {
     }, q.answers.map(() => 0))
   );
 
+  const numWindow = Math.ceil((Date.now() - activity.actualStartingTime)/1000/TIMEWINDOW);
   const timingData = [[0,0,0,0]];
-  for (let i = 0; i < (data['timing'] || []).length; i+= 1) {
-    timingData.push([data['timing'][i][0],(data['timing'][i][1]/(Object.keys(instances).length)*100),data['timing'][i][2],data['timing'][i][3]]);
+  for (let i = 0, j = 0; i <= numWindow; i+= 1) {
+    if(i*TIMEWINDOW === (data['timing'][j] || [0])[0]) {
+      timingData.push([data['timing'][j][0]/60,(data['timing'][j][1]/(Object.keys(instances).length)*100),data['timing'][j][2],data['timing'][j][3]]);
+      j += 1;
+    } else {
+      timingData.push([i*TIMEWINDOW/60,(data['timing'][j-1][1]/(Object.keys(instances).length)*100),data['timing'][j-1][2],data['timing'][j-1][3]]);
+    }
+
   }
 
   return (
@@ -74,46 +81,40 @@ const Viewer = (props: Object) => {
 );
 };
 
+const TIMEWINDOW = 5;
+
 const mergeLog = (data: any, dataFn: Object, log: LogDBT, activity: ActivityDbT) => {
+  console.log(data);
+
   if (log.itemId !== undefined && log.type === 'choice') {
     if (!data[log.instanceId]) {
       dataFn.objInsert({ [log.itemId]: log.value }, [log.instanceId]);
     } else {
       dataFn.objInsert(log.value, [log.instanceId, log.itemId]);
     }
-  } else if (log.type === 'progress') {
-    if (!data['timeCounter']) {
-      dataFn.objInsert(activity['actualStartingTime'], ('timeCounter'));
-    }
+  } else if (log.type === 'progress' && typeof log.value === 'number') {
+    const progDiff = (data['timing'][data['timing'].length -1][1] || 0)+ log.value - (data.progress[log.instanceId] || 0);
+    dataFn.objInsert(log.value, ['progress', log.instanceId]);
+    const timeDiff = (new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000;
 
-    let diffProg = log.value;
+    const max = (log.value > data['timing'][data['timing'].length - 1][2] ? log.value : data['timing'][data['timing'].length - 1][2]);
 
-    if (data['progress_'+log.instanceId] !== undefined) {
-      diffProg = log.value - data['progress_'+log.instanceId];
-    }
-    dataFn.objInsert(log.value, ('progress_'+log.instanceId));
-
-
-    if (!data['timing']) {
-      dataFn.objInsert([[(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, diffProg,0,0]], 'timing');
+    if ((Math.ceil(timeDiff/TIMEWINDOW) !== data['timing'][data['timing'].length - 1][0]/TIMEWINDOW)) {
+      dataFn.listAppend([Math.ceil(timeDiff/TIMEWINDOW)*TIMEWINDOW, progDiff,max,0], 'timing');
     } else {
-      const totalProg = data['timing'][data['timing'].length -1][1] + diffProg;
-      if ((new Date(log.timestamp) - new Date(data['timeCounter']))/1000 > 5) {
-      data['timing'].push([(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProg,0,0]);
-      dataFn.objInsert(data['timing'], 'timing');
-      dataFn.objInsert(log.timestamp, ('timeCounter'));
-    } else {
-      data['timing'][data['timing'].length - 1] = [(new Date(log.timestamp) - new Date(activity['actualStartingTime']))/1000/60, totalProg,0,0];
+      data['timing'][data['timing'].length - 1] = [Math.ceil(timeDiff/TIMEWINDOW)*TIMEWINDOW, progDiff,max,0];
       dataFn.objInsert(data['timing'], 'timing');
     }
-  }
 
   }
 
 };
 
 
-const initData = {};
+const initData = {
+  progress: {},
+  timing: [[0,0,0,0]]
+};
 
 export default {
   Viewer,
