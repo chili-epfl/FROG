@@ -2,10 +2,36 @@
 /* eslint-disable react/no-array-index-key */
 
 import React from 'react';
-import { CountChart, ScatterChart, LineChart, type LogDBT, type ActivityDbT } from 'frog-utils';
+import { CountChart, ScatterChart, LineChart, type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
+
+const ProgressViewer = (props: Object) => {
+  const { data, instances, activity, timeNow } = props;
+
+  const numWindow = Math.ceil((timeNow - activity.actualStartingTime)/1000/TIMEWINDOW);
+  const timingData = [[0,0,0,0]];
+  for (let i = 0, j = 0; i <= numWindow; i+= 1) {
+    if(i*TIMEWINDOW === (data['timing'][j] || [0])[0]) {
+      timingData.push([data['timing'][j][0]/60,(data['timing'][j][1]/(Object.keys(instances).length)*100),data['timing'][j][2],data['timing'][j][3]]);
+      j += 1;
+    } else {
+      timingData.push([i*TIMEWINDOW/60,(data['timing'][j-1][1]/(Object.keys(instances).length)*100),data['timing'][j-1][2],data['timing'][j-1][3]]);
+    }
+
+  }
+
+  return (<LineChart
+      title="Activity Progress"
+      vAxis="Percent Complete"
+      hAxis="Time Elapsed"
+      hLen={props.activity['length']}
+      rows={timingData}
+    />)
+
+}
+
 
 const Viewer = (props: Object) => {
-  const { data, config, instances, activity} = props;
+  const { data, config, instances} = props;
   if (!config) {
     return null;
   }
@@ -44,17 +70,7 @@ const Viewer = (props: Object) => {
     }, q.answers.map(() => 0))
   );
 
-  const numWindow = Math.ceil((Date.now() - activity.actualStartingTime)/1000/TIMEWINDOW);
-  const timingData = [[0,0,0,0]];
-  for (let i = 0, j = 0; i <= numWindow; i+= 1) {
-    if(i*TIMEWINDOW === (data['timing'][j] || [0])[0]) {
-      timingData.push([data['timing'][j][0]/60,(data['timing'][j][1]/(Object.keys(instances).length)*100),data['timing'][j][2],data['timing'][j][3]]);
-      j += 1;
-    } else {
-      timingData.push([i*TIMEWINDOW/60,(data['timing'][j-1][1]/(Object.keys(instances).length)*100),data['timing'][j-1][2],data['timing'][j-1][3]]);
-    }
 
-  }
 
   return (
     <div>
@@ -69,14 +85,11 @@ const Viewer = (props: Object) => {
           data={answerCounts[qIndex]}
         />
       ))}
-      {<LineChart
-        title="Activity Progress"
-        vAxis="Percent Complete"
-        hAxis="Time Elapsed"
-        hLen={activity['length']}
-        rows={timingData}
-      />
-    }
+    <TimedComponent
+      component={ProgressViewer}
+      props={props}
+      interval={TIMEWINDOW}
+    />
   </div>
 );
 };
