@@ -11,18 +11,19 @@ import {
   TimedComponent
 } from 'frog-utils';
 
-const ProgressViewer = (props: Object) => {
+const ProgressViewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
 
   const numWindow = Math.ceil(
     (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
   );
   const timingData = [[0, 0, 0, 0]];
+  const factor = 100 / Object.keys(instances).length;
   for (let i = 0, j = 0; i <= numWindow; i += 1) {
     if (i * TIMEWINDOW === (data['timing'][j] || [0])[0]) {
       timingData.push([
         data['timing'][j][0] / 60,
-        data['timing'][j][1] / Object.keys(instances).length * 100,
+        data['timing'][j][1] * factor,
         data['timing'][j][2],
         data['timing'][j][3]
       ]);
@@ -30,7 +31,7 @@ const ProgressViewer = (props: Object) => {
     } else {
       timingData.push([
         i * TIMEWINDOW / 60,
-        data['timing'][j - 1][1] / Object.keys(instances).length * 100,
+        data['timing'][j - 1][1] * factor,
         data['timing'][j - 1][2],
         data['timing'][j - 1][3]
       ]);
@@ -45,7 +46,7 @@ const ProgressViewer = (props: Object) => {
       rows={timingData}
     />
   );
-};
+}, TIMEWINDOW * 1000);
 
 const Viewer = (props: Object) => {
   const { data, config, instances } = props;
@@ -100,11 +101,7 @@ const Viewer = (props: Object) => {
           data={answerCounts[qIndex]}
         />
       ))}
-      <TimedComponent
-        component={ProgressViewer}
-        props={props}
-        interval={TIMEWINDOW}
-      />
+      <ProgressViewer {...props} />
     </div>
   );
 };
