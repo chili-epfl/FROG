@@ -54,7 +54,8 @@ class GraphView extends Component {
 
 const GraphViewContainer = styled.div`
   height: 400px;
-  width: 700px;
+  width: 100%;
+  text-align: center;
 `;
 
 GraphView.displayName = 'GraphView';
