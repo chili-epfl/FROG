@@ -67,7 +67,9 @@ export type {
   ControlT,
   ReactComponent,
   LogT,
-  LogDBT
+  LogDBT,
+  dashboardT,
+  dashboardViewerPropsT
 } from './types';
 export { CountChart, ScatterChart } from './DashboardComponents/CountChart';
 export {

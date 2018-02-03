@@ -42,7 +42,7 @@ const RawEditActivity = ({
   const graphActivity = props.store.activityStore.all.find(
     act => act.id === activity._id
   );
-  const outgoingConnections = props.store.connectionStore.all.find(
+  const outgoingConnections = props.store.connectionStore.all.filter(
     conn => conn.source.id === activity._id
   );
 
