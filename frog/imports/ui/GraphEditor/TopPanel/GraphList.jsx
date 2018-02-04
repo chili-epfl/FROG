@@ -47,7 +47,7 @@ class GraphListMenu extends React.Component {
   state = {
     isEditingName: false,
     isEditingDuration: false,
-    name: '',
+    graphName: '',
     duration: ''
   };
 

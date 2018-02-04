@@ -35,11 +35,14 @@ const styles = {
 };
 const EditorPanel = () => (
   <div className="bootstrap" style={styles.sheet}>
-    <div style={{ height: 600 }}>
+    <div style={{ height: 600, border: '1px solid black' }}>
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
-    <div className="bootstrap" style={{ height: 150 }}>
+    <div
+      className="bootstrap"
+      style={{ margin: 2, height: 150, border: '1px solid black' }}
+    >
       <Graph hasPanMap />
     </div>
     <HelpModal />
