@@ -21,7 +21,7 @@ import PlayArrow from 'material-ui-icons/PlayArrow';
 import PowerSettingNew from 'material-ui-icons/PowerSettingsNew';
 import Group from 'material-ui-icons/Group';
 import Avatar from 'material-ui/Avatar';
-import List, {ListItem, ListItemAvatar, ListItemText} from 'material-ui/List';
+import List, {ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction} from 'material-ui/List';
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -31,6 +31,7 @@ import Input, {InputLabel} from 'material-ui/Input';
 import {FormControl, FormHelperText} from 'material-ui/Form';
 import PersonIcon from 'material-ui-icons/Person';
 import AddIcon from 'material-ui-icons/Add';
+import Delete from 'material-ui-icons/Delete';
 
 import red from 'material-ui/colors/red';
 import green from 'material-ui/colors/green';
@@ -145,21 +146,34 @@ class SimpleDialog extends React.Component {
                 $set: {
                     studentlist: this.studentlist
                 }
-            })
+            });
 
         }
     };
-    //   handleListItemClick = value => {
-    //   this.props.onClose(value);
-    // };
+
+    handleDeleteStudent = (student) => {
+        const {session} = this.props;
+        if( student !== undefined ) {
+            const index = this.studentlist.indexOf(student);
+            if (index > -1) {
+                this.studentlist.splice(index, 1);
+                Sessions.update(session._id, {
+                    $set: {
+                        studentlist: this.studentlist
+                    }
+                });
+            }
+        }
+    };
 
     render() {
-        const {classes, onClose, session} = this.props;
-
+        const {classes, onClose, session, ...other} = this.props;
+        console.log('props', this.props);
         return (
             <Dialog
                 onClose={this.handleClose}
                 aria-labelledby="simple-dialog-title"
+                {...other}
             >
                 <DialogTitle id="simple-dialog-title">Roster</DialogTitle>
                 <DialogContent>
@@ -168,6 +182,7 @@ class SimpleDialog extends React.Component {
                             {session.studentlist ? (session.studentlist.map(student => (
                                 <ListItem
                                     button
+                                    key={student}
                                     // onClick={() => this.handleListItemClick(student)}
                                 >
                                     <ListItemAvatar>
@@ -176,9 +191,19 @@ class SimpleDialog extends React.Component {
                                         </Avatar>
                                     </ListItemAvatar>
                                     <ListItemText primary={student}/>
+                                    <ListItemSecondaryAction>
+                                        <IconButton
+                                            aria-label="Delete"
+                                            id={student}
+                                            onClick={() => this.handleDeleteStudent(student)}
+                                        >
+                                            <Delete />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
                                 </ListItem>
                             ))) : (
-                                <ListItem>
+                                <ListItem
+                                    key="none">
                                     <ListItemText
                                         primary="no students"
                                     />
@@ -593,8 +618,6 @@ const rawSessionController = ({
             source: 'menu'
         }
     ];
-
-    console.log('index: ', toggleVisibility, setShowStudentList, showStudentList);
     return (
         <div>
             <SessionMainContainer
