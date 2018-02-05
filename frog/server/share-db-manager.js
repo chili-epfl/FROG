@@ -34,7 +34,7 @@ export const startShareDB = () => {
     const ws = new WebSocket.Server({ server });
     ws.on('connection', ws => {
       console.log('backend listen');
-      ws.on('error', e => console.warn('WS error', e));
+      ws.on('error', e => null);
       backend.listen(new WebsocketJSONStream(ws));
     });
     // eslint-disable-next-line no-console

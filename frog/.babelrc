@@ -1,21 +1,6 @@
 {
   "plugins": [
-    "@babel/plugin-transform-flow-strip-types",
-    "@babel/plugin-proposal-decorators",
-    ["@babel/plugin-proposal-class-properties", { "loose" : true }],
-    "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-proposal-object-rest-spread",
-    [
-      "captains-log",
-      {
-        "methods": [
-          "debug",
-          "error",
-          "exception",
-          "log",
-          "warn"
-        ]
-      }
-    ]
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    "@babel/plugin-proposal-decorators"
   ]
 }
