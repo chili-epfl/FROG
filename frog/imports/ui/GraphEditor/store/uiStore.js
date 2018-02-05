@@ -23,6 +23,7 @@ export default class uiStore {
       isSvg: false,
       panx: 0,
       scrollIntervalID: '',
+      selected: undefined,
 
       setIsSvg: action((isSvg: boolean) => {
         this.isSvg = isSvg;
