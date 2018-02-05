@@ -58,20 +58,32 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
 export default class Store {
   state: StateT;
   @observable _state: StateT;
-  @observable connectionStore = new ConnectionStore();
-  @observable activityStore = new ActivityStore();
-  @observable operatorStore = new OperatorStore();
-  @observable session = new Session();
-  @observable ui = new UI();
-  @observable graphId: string = '';
-  @observable history = [];
+  @observable connectionStore;
+  @observable activityStore;
+  @observable operatorStore;
+  @observable session;
+  @observable ui;
+  @observable graphId: string;
+  @observable history;
   @observable readOnly: boolean;
-  @observable graphErrors: any[] = [];
+  @observable graphErrors: any[];
   @observable valid: any;
   browserHistory: any;
   url: string;
 
-  @observable _graphDuration: number = 120;
+  constructor() {
+    this.connectionStore = new ConnectionStore();
+    this.activityStore = new ActivityStore();
+    this.operatorStore = new OperatorStore();
+    this.session = new Session();
+    this.ui = new UI();
+    this.graphId = '';
+    this.history = [];
+    this.graphErrors = [];
+    this._graphDuration = 120;
+  }
+
+  @observable _graphDuration: number;
 
   @computed
   get graphDuration(): number {
@@ -82,18 +94,18 @@ export default class Store {
     this._state = newState;
   }
 
-  @action
-  setBrowserHistory = (history: any, url: string = '/graph') => {
-    this.browserHistory = history;
-    this.url = url;
-  };
-
   @computed
   get state(): StateT {
     if (this.readOnly) {
       return { mode: 'readOnly' };
     }
     return this._state || { mode: 'normal' };
+  }
+
+  @action
+  setBrowserHistory(history: any, url: string = '/graph') {
+    this.browserHistory = history;
+    this.url = url;
   }
 
   findId = ({ type, id }: { type: ElementTypes, id: string }): any => {
@@ -106,7 +118,7 @@ export default class Store {
   };
 
   @action
-  changeDuration = (duration: number) => {
+  changeDuration(duration: number) {
     if (duration && duration >= 30 && duration <= 1200) {
       const oldPanTime = this.ui.panTime;
       // changes the scale on duration change
@@ -116,24 +128,26 @@ export default class Store {
       this.ui.panDelta(needPanDelta);
       Graphs.update(this.graphId, { $set: { duration: this._graphDuration } });
     }
-  };
+  }
 
   @observable overlapAllowed = true;
   @action
-  toggleOverlapAllowed = () => (this.overlapAllowed = !this.overlapAllowed);
+  toggleOverlapAllowed() {
+    this.overlapAllowed = !this.overlapAllowed;
+  }
 
   @action
-  deleteSelected = (): void => {
+  deleteSelected() {
     if (this.state.mode === 'normal') {
       if (this.ui.selected) {
         this.ui.selected.remove();
       }
       this.ui.selected = null;
     }
-  };
+  }
 
   @action
-  setId = (id: string, readOnly: boolean = false): void => {
+  setId(id: string, readOnly: boolean = false): void {
     const desiredUrl = `${this.url}/${id}`;
     if (this.browserHistory.location.pathname !== desiredUrl) {
       this.browserHistory.push(desiredUrl);
@@ -196,10 +210,10 @@ export default class Store {
     cursors.activities.observe(this.activityStore.mongoObservers);
     cursors.connections.observe(this.connectionStore.mongoObservers);
     cursors.operators.observe(this.operatorStore.mongoObservers);
-  };
+  }
 
   @action
-  addHistory = () => {
+  addHistory() {
     if (this.readOnly || this.state.mode === 'readOnly') {
       return;
     }
@@ -214,7 +228,7 @@ export default class Store {
       mergeGraph(this.objects);
     }
     this.refreshValidate();
-  };
+  }
 
   validate = () =>
     valid(
@@ -224,7 +238,7 @@ export default class Store {
     );
 
   @action
-  refreshValidate = () => {
+  refreshValidate() {
     let validData = this.validate();
     if (validData.errors) {
       let change = 0;
@@ -251,7 +265,7 @@ export default class Store {
         broken: this.graphErrors.filter(x => x.severity === 'error').length > 0
       }
     });
-  };
+  }
 
   @computed
   get canUndo(): boolean {
@@ -259,7 +273,7 @@ export default class Store {
   }
 
   @action
-  undo = () => {
+  undo() {
     const [connections, activities, operators] =
       this.history.length > 1 ? this.history.pop() : this.history[0];
     this.activityStore.all = activities.map(
@@ -283,15 +297,15 @@ export default class Store {
     });
 
     mergeGraph(this.objects);
-  };
+  }
 
   @action
-  setSession = (session: any) => {
+  setSession(session: any) {
     if (this.session.id !== session._id) {
       this.session.close();
       this.session = new Session(session);
     }
-  };
+  }
 
   @computed
   get objects(): any {

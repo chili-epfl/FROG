@@ -10,11 +10,6 @@ import EditorContainer from './EditorContainer';
 
 class AppClass extends Component<$FlowFixMeProps> {
   componentWillMount() {
-    console.log(
-      store.setBrowserHistory,
-      String(store.setBrowserHistory),
-      store
-    );
     store.setBrowserHistory(this.props.history);
     this.updateGraphId(this.props.match && this.props.match.params.graphId);
   }

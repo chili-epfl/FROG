@@ -26,7 +26,7 @@ const mousemove = e => {
   store.ui.socialMove(e.clientX + 10, e.clientY - 75);
 };
 
-export default connect(
+const Graph = connect(
   ({
     store: {
       ui: {
@@ -99,3 +99,6 @@ export default connect(
     </svg>
   )
 );
+
+Graph.displayName = 'GraphContainer';
+export default Graph;

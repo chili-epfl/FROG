@@ -1,18 +1,17 @@
 // @flow
+//
 import { computed, action } from 'mobx';
 import { store } from './index';
 
 export default class Elem {
   over: boolean;
-  wasMoved: boolean = false;
+  wasMoved: boolean;
   klass: 'operator' | 'activity' | 'connection';
   id: string;
   state: ?string;
-  color: string;
-  strokeColor: string;
 
   @action
-  select = (): void => {
+  select(): void {
     if (store.state.mode === 'readOnly') {
       if (this.klass !== 'connection') {
         store.ui.setShowInfo(this.klass, this.id);
@@ -22,7 +21,7 @@ export default class Elem {
     } else {
       store.ui.selected = this;
     }
-  };
+  }
 
   @computed
   get selected(): boolean {
@@ -50,7 +49,7 @@ export default class Elem {
   }
 
   @action
-  remove = () => {
+  remove() {
     let thisstore;
     if (this.klass === 'activity') {
       thisstore = store.activityStore;
@@ -62,7 +61,7 @@ export default class Elem {
     thisstore.all = thisstore.all.filter(x => x !== this);
     store.connectionStore.cleanDangling();
     store.addHistory();
-  };
+  }
 
   @computed
   get highlighted(): boolean {

@@ -45,7 +45,7 @@ export default class ActivityStore {
     this.all = [];
   }
 
-  @observable all: any = [];
+  @observable all: any;
 
   @observable activitySequence: any;
 
@@ -63,15 +63,15 @@ export default class ActivityStore {
   }
 
   @action
-  duplicateActivity = () => {
+  duplicateActivity() {
     if (store.ui.selected instanceof Activity) {
       const x = duplicateActivity(store.ui.selected.id);
       this.mongoAdd(x);
     }
-  };
+  }
 
   @action
-  addActivity = (plane: number, rawX: number): void => {
+  addActivity(plane: number, rawX: number): void {
     if (store.state.mode === 'readOnly') {
       return;
     }
@@ -95,10 +95,10 @@ export default class ActivityStore {
       store.state = { mode: 'rename', currentActivity: newActivity, val: '' };
       store.addHistory();
     }
-  };
+  }
 
   @action
-  newActivityAbove = (plane?: number) => {
+  newActivityAbove(plane?: number) {
     if (store.ui.selected instanceof Activity) {
       const toCopy = store.ui.selected;
       store.activityStore.all.push(
@@ -111,26 +111,26 @@ export default class ActivityStore {
       );
       store.addHistory();
     }
-  };
+  }
 
   @action
-  swapActivities = (left: Activity, right: Activity) => {
+  swapActivities(left: Activity, right: Activity) {
     right.startTime = left.startTime;
     left.startTime = right.startTime + right.length;
     store.addHistory();
-  };
+  }
 
   @action
-  startResizing = (activity: Activity) => {
+  startResizing(activity: Activity) {
     if (store.state.mode === 'rename') {
       store.state.currentActivity.rename(store.state.val);
     }
     const bounds = calculateBounds(activity, this.all);
     store.state = { mode: 'resizing', currentActivity: activity, bounds };
-  };
+  }
 
   @action
-  movePlane = (increment: number) => {
+  movePlane(increment: number) {
     if (store.ui.selected instanceof Activity) {
       const oldplane = store.ui.selected.plane;
       store.ui.selected.plane = between(1, 3, oldplane + increment);
@@ -138,10 +138,10 @@ export default class ActivityStore {
         store.addHistory();
       }
     }
-  };
+  }
 
   @action
-  stopMoving = () => {
+  stopMoving() {
     if (store.state.mode === 'moving' && store.state.currentActivity.wasMoved) {
       if (
         store.state.currentActivity.startTime !== store.state.initialStartTime
@@ -155,37 +155,37 @@ export default class ActivityStore {
         store.state = { mode: 'normal' };
       }
     }
-  };
+  }
 
   @action
-  stopResizing = () => {
+  stopResizing() {
     store.state = { mode: 'normal' };
     store.ui.cancelScroll();
     store.addHistory();
-  };
+  }
 
   @action
-  mongoAdd = (x: any) => {
+  mongoAdd(x: any) {
     if (!store.findId({ type: 'activity', id: x._id })) {
       this.all.push(
         new Activity(x.plane, x.startTime, x.title, x.length, x._id, x.state)
       );
     }
-  };
+  }
 
   @action
-  mongoChange = (newact: any, oldact: any) => {
+  mongoChange(newact: any, oldact: any) {
     const toUpdate = store.findId({ type: 'activity', id: oldact._id });
     if (!toUpdate) {
       throw 'Could not find activity to update in Mongo';
     }
     toUpdate.update(newact);
-  };
+  }
 
   @action
-  mongoRemove = (remact: any) => {
+  mongoRemove(remact: any) {
     this.all = this.all.filter(x => x.id !== remact._id);
-  };
+  }
 
   @computed
   get mongoObservers(): Object {

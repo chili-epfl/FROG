@@ -8,22 +8,27 @@ import Operator from './operator';
 export type OperatorTypes = 'product' | 'social' | 'control';
 
 export default class OperatorStore {
-  @observable all: Array<Operator> = [];
+  constructor() {
+    this.all = [];
+  }
+
+  @observable all: Array<Operator>;
+
   @action
-  mongoAdd = (x: any) => {
+  mongoAdd(x: any) {
     if (!store.findId({ type: 'operator', id: x._id })) {
       this.all.push(new Operator(x.time, x.y, x.type, x._id, x.title, x.state));
     }
-  };
+  }
   @action
-  mongoChange = (newx: Operator, oldx: { _id: string }) => {
+  mongoChange(newx: Operator, oldx: { _id: string }) {
     store.findId({ type: 'operator', id: oldx._id }).update(newx);
-  };
+  }
 
   @action
-  mongoRemove = (remx: { _id: string }) => {
+  mongoRemove(remx: { _id: string }) {
     this.all = this.all.filter(x => x.id !== remx._id);
-  };
+  }
 
   @computed
   get mongoObservers(): {
@@ -39,11 +44,11 @@ export default class OperatorStore {
   }
 
   @action
-  place = (type: OperatorTypes): void => {
+  place(type: OperatorTypes): void {
     if (store.state.mode === 'normal') {
       store.state = { mode: 'placingOperator', operatorType: type };
     }
-  };
+  }
 
   @computed
   get history(): Array<any> {

@@ -14,7 +14,6 @@ export default class Operator extends Elem {
   @observable title: ?string;
   @observable over: boolean;
   @observable time: number;
-  @observable wasMoved: boolean = false;
   @observable state: ?string;
 
   @action
@@ -68,50 +67,50 @@ export default class Operator extends Elem {
   }
 
   @action
-  rename = (newname: string) => {
+  rename(newname: string) {
     this.title = newname;
     store.addHistory();
-  };
+  }
 
   @action
-  onOver = () => {
+  onOver() {
     this.over = true;
-  };
+  }
 
   @action
-  onLeave = () => {
+  onLeave() {
     this.over = false;
-  };
+  }
 
   @action
-  startDragging = (e: { shiftKey: boolean }): void => {
+  startDragging(e: { shiftKey: boolean }): void {
     if (!e.shiftKey) {
       store.connectionStore.startDragging(this);
     } else {
       store.state = { mode: 'movingOperator', currentOperator: this };
     }
-  };
+  }
 
   @action
-  onDrag = (
+  onDrag(
     e: { shiftKey: boolean },
     { deltaX, deltaY }: { deltaX: number, deltaY: number }
-  ) => {
+  ) {
     if (store.state.mode === 'movingOperator') {
       this.time += pxToTime(deltaX, store.ui.scale);
       this.y += deltaY;
       this.wasMoved = true;
     }
-  };
+  }
 
   @action
-  moveX = (deltaX: number): void => {
+  moveX(deltaX: number): void {
     this.time += pxToTime(deltaX, store.ui.scale);
     this.wasMoved = true;
-  };
+  }
 
   @action
-  stopDragging = (): void => {
+  stopDragging(): void {
     if (store.state.mode === 'movingOperator') {
       store.state = { mode: 'normal' };
       store.addHistory();
@@ -119,7 +118,7 @@ export default class Operator extends Elem {
       store.connectionStore.stopDragging();
     }
     store.ui.cancelScroll();
-  };
+  }
 
   @computed
   get object(): {
@@ -183,9 +182,9 @@ export default class Operator extends Elem {
   }
 
   @action
-  update = (newopt: $Shape<Operator>) => {
+  update(newopt: $Shape<Operator>) {
     this.time = newopt.time;
     this.y = newopt.y;
     this.title = newopt.title;
-  };
+  }
 }

@@ -12,14 +12,14 @@ import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
   @action
-  init = (
+  init(
     plane: number,
     startTime: number,
     title: string,
     length: number,
     id: ?string,
     state: ?string
-  ) => {
+  ) {
     this.id = id || cuid();
     this.over = false; // is mouse over this activity
     this.plane = plane;
@@ -28,7 +28,8 @@ export default class Activity extends Elem {
     this.startTime = startTime;
     this.klass = 'activity';
     this.state = state;
-  };
+    this.wasMoved = false;
+  }
 
   constructor(
     plane: number,
@@ -49,7 +50,7 @@ export default class Activity extends Elem {
   @observable rawTitle: string;
   @observable length: number;
   @observable startTime: number;
-  @observable wasMoved: boolean = false;
+  @observable wasMoved: boolean;
   @observable state: ?string;
 
   @computed
@@ -86,21 +87,21 @@ export default class Activity extends Elem {
   }
 
   @action
-  update = (newact: $Shape<Activity>) => {
+  update(newact: $Shape<Activity>) {
     this.length = newact.length;
     this.startTime = newact.startTime;
     this.rawTitle = newact.title;
     this.state = newact.state;
-  };
+  }
 
   @action
-  rename = (newname: string) => {
+  rename(newname: string) {
     this.rawTitle = newname;
     store.addHistory();
-  };
+  }
 
   @action
-  move = () => {
+  move() {
     if (store.state.mode === 'readOnly') {
       return;
     }
@@ -143,7 +144,7 @@ export default class Activity extends Elem {
         store.state = { mode: 'waitingDrag' };
       }
     }
-  };
+  }
 
   @action
   resize() {
@@ -158,28 +159,31 @@ export default class Activity extends Elem {
   }
 
   @action
-  onLeave = () => {
+  onLeave() {
     this.over = false;
-  };
+  }
 
   @action
-  onOver = () => {
+  onOver() {
     const state = store.state;
     if (state.mode !== 'waitingDrag') {
       this.over = true;
     }
-  };
-
-  @action onLeave = () => (this.over = false);
+  }
 
   @action
-  setRename = () => {
+  onLeave() {
+    this.over = false;
+  }
+
+  @action
+  setRename() {
     store.state = {
       mode: 'rename',
       currentActivity: this,
       val: this.title
     };
-  };
+  }
 
   @computed
   get y(): number {

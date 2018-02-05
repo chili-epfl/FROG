@@ -28,12 +28,12 @@ export default class Connection extends Elem {
   @observable target: ConnectableT;
 
   @action
-  init = (source: ConnectableT, target: ConnectableT, id: ?string) => {
+  init(source: ConnectableT, target: ConnectableT, id: ?string) {
     this.source = source;
     this.target = target;
     this.id = id || cuid();
     this.klass = 'connection';
-  };
+  }
 
   constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
     super();

@@ -15,7 +15,10 @@ type MongoConnection = {
 };
 
 export default class ConnectionStore {
-  @observable all: any = [];
+  constructor() {
+    this.all = [];
+  }
+  @observable all: any;
 
   // user begins dragging a line to make a connection
   @computed
@@ -36,12 +39,12 @@ export default class ConnectionStore {
   }
 
   @action
-  startDragging = (elem: Activity | Operator): void => {
+  startDragging(elem: Activity | Operator): void {
     store.state = { mode: 'dragging', draggingFrom: elem };
-  };
+  }
 
   @action
-  stopDragging = () => {
+  stopDragging() {
     const state = store.state;
     if (state.mode !== 'dragging') {
       return;
@@ -56,28 +59,28 @@ export default class ConnectionStore {
     }
     store.state = { mode: 'normal' };
     store.ui.cancelScroll();
-  };
+  }
 
   @action
-  cleanDangling = (): void => {
+  cleanDangling(): void {
     const elems = store.activityStore.all.concat(store.operatorStore.all);
     this.all = this.all.filter(
       x => elems.includes(x.source) && elems.includes(x.target)
     );
-  };
+  }
 
   @action
-  mongoAdd = (x: MongoConnection) => {
+  mongoAdd(x: MongoConnection) {
     if (!store.findId({ type: 'connection', id: x._id })) {
       this.all.push(
         new Connection(store.findId(x.source), store.findId(x.target), x._id)
       );
     }
-  };
+  }
   @action
-  mongoRemove = (remact: MongoConnection): void => {
+  mongoRemove(remact: MongoConnection): void {
     this.all = this.all.filter(x => x.id !== remact._id);
-  };
+  }
 
   @computed
   get mongoObservers(): any {
