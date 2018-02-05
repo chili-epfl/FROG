@@ -11,7 +11,7 @@
   "dependencies": {
     "frog-utils": "^1.0.0",
     "json-stable-stringify": "^1.0.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
     "nps": "5.7.1"

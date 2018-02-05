@@ -32,7 +32,7 @@
     "babel-jest": "^22.1.0",
     "babel-plugin-captains-log": "^1.0.1",
     "enzyme": "^3.3.0",
-    "eslint": "^4.16.0",
+    "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.42.0",
