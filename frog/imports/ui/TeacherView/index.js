@@ -219,9 +219,8 @@ export class SessionMainContainer extends React.Component {
       button => button.text === 'Next Activity'
     )[0];
 
-    this.sessionStatus = session.state
-      ? session.state.toLowerCase()
-      : 'stopped';
+    this.sessionStatus =
+      session && session.state ? session.state.toLowerCase() : 'stopped';
 
     return (
       <div className={classes.root}>
