@@ -1,5 +1,5 @@
 // @flow
-import { computed, action, observable } from 'mobx';
+import { extendObservable, computed, action, observable } from 'mobx';
 import { omit, maxBy } from 'lodash';
 
 import { store } from './index';
@@ -9,55 +9,51 @@ export type OperatorTypes = 'product' | 'social' | 'control';
 
 export default class OperatorStore {
   constructor() {
-    this.all = [];
-  }
+    extendObservable(this, {
+      all: [],
 
-  @observable all: Array<Operator>;
+      mongoAdd: action((x: any) => {
+        if (!store.findId({ type: 'operator', id: x._id })) {
+          this.all.push(
+            new Operator(x.time, x.y, x.type, x._id, x.title, x.state)
+          );
+        }
+      }),
 
-  @action
-  mongoAdd(x: any) {
-    if (!store.findId({ type: 'operator', id: x._id })) {
-      this.all.push(new Operator(x.time, x.y, x.type, x._id, x.title, x.state));
-    }
-  }
-  @action
-  mongoChange(newx: Operator, oldx: { _id: string }) {
-    store.findId({ type: 'operator', id: oldx._id }).update(newx);
-  }
+      mongoChange: action((newx: Operator, oldx: { _id: string }) => {
+        store.findId({ type: 'operator', id: oldx._id }).update(newx);
+      }),
 
-  @action
-  mongoRemove(remx: { _id: string }) {
-    this.all = this.all.filter(x => x.id !== remx._id);
-  }
+      mongoRemove: action((remx: { _id: string }) => {
+        this.all = this.all.filter(x => x.id !== remx._id);
+      }),
 
-  @computed
-  get mongoObservers(): {
-    added: Function,
-    changed: Function,
-    removed: Function
-  } {
-    return {
-      added: this.mongoAdd,
-      changed: this.mongoChange,
-      removed: this.mongoRemove
-    };
-  }
+      place: action((type: OperatorTypes) => {
+        if (store.state.mode === 'normal') {
+          store.state = { mode: 'placingOperator', operatorType: type };
+        }
+      }),
 
-  @action
-  place(type: OperatorTypes): void {
-    if (store.state.mode === 'normal') {
-      store.state = { mode: 'placingOperator', operatorType: type };
-    }
-  }
+      get mongoObservers(): {
+        added: Function,
+        changed: Function,
+        removed: Function
+      } {
+        return {
+          added: this.mongoAdd,
+          changed: this.mongoChange,
+          removed: this.mongoRemove
+        };
+      },
 
-  @computed
-  get history(): Array<any> {
-    return this.all.map(x => ({ ...omit(x, 'over') }));
-  }
+      get history(): Array<any> {
+        return this.all.map(x => ({ ...omit(x, 'over') }));
+      },
 
-  @computed
-  get furthestOperator(): number {
-    const op = maxBy(this.all, x => x.time);
-    return op && op.time + 1;
+      get furthestOperator(): number {
+        const op = maxBy(this.all, x => x.time);
+        return op && op.time + 1;
+      }
+    });
   }
 }
