@@ -205,15 +205,27 @@ const FROGRouter = withRouter(
   }
 );
 
-export default () => (
-  <ErrorBoundary>
-    <Router>
-      <div style={{ width: '100%', height: '100%' }}>
-        <Switch>
-          <Route path="/:slug" component={FROGRouter} />
-          <Route component={FROGRouter} />
-        </Switch>
-      </div>
-    </Router>
-  </ErrorBoundary>
-);
+export default () => ({
+  render() {
+    const styles = {
+      start: {
+        display: 'flex',
+        flexGrow: 1,
+        height: '100%',
+        width: '100%'
+      }
+    };
+    return (
+      <ErrorBoundary>
+        <Router>
+          <div id="start" style={styles.start}>
+            <Switch>
+              <Route path="/:slug" component={FROGRouter} />
+              <Route component={FROGRouter} />
+            </Switch>
+          </div>
+        </Router>
+      </ErrorBoundary>
+    );
+  }
+});
