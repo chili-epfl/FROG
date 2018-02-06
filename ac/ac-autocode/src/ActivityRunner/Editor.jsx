@@ -10,9 +10,9 @@ type EditorPropsT = {
 export default class Editor extends Component<EditorPropsT> {
   constructor(props: Object) {
     super(props);
-    this.props.Ace = require('react-ace').default;
-    this.props.mode = props.activityData.config.language;
-    switch (this.props.mode) {
+    this.Ace = require('react-ace').default;
+    this.mode = props.activityData.config.language;
+    switch (props.activityData.config.language) {
       case 'python':
         require('brace/mode/python');
         break;
@@ -31,10 +31,10 @@ export default class Editor extends Component<EditorPropsT> {
 
   render() {
     return (
-      <this.props.Ace
+      <this.Ace
         id="yourcode"
         style={{ width: '600px', height: '750px' }}
-        mode={this.props.mode || 'javascript'}
+        mode={this.props.activityData.config.language || 'javascript'}
         theme="textmate"
         highlightActiveLine
         value={this.props.data.code}

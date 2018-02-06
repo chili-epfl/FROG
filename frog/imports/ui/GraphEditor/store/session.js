@@ -1,22 +1,16 @@
 // @flow
 
-import { extendObservable, observable, action } from 'mobx';
+import { extendObservable, action } from 'mobx';
 
 export default class Session {
-  constructor(
-    session: ?{
-      _id: string,
-      timeInGraph: number,
-      startedAt: number
-    }
-  ) {
+  constructor(session) {
     extendObservable(this, {
       id: '',
       timeInClass: 0,
       timeInGraph: 0,
 
-      startedAt: number,
-      interval: IntervalID,
+      startedAt: 0,
+      interval: null,
 
       setTimes: action((session: Object) => {
         this.updateTimeInGraph(session.timeInGraph);

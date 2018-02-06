@@ -150,7 +150,6 @@ export default connect(
     scaled,
     transparent
   }: StoreProp & { scaled: boolean, transparent: boolean }) => {
-    console.log('activity rerender');
     return (
       <g>
         {all.map(x => (

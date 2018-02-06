@@ -51,7 +51,6 @@ const subscriptionCallback = (error, response, setState) => {
   if (response === 'NOTVALID') {
     setState('error');
   } else {
-    console.log('logging in');
     Accounts.makeClientLoggedIn(
       response.id,
       response.token,
@@ -62,7 +61,6 @@ const subscriptionCallback = (error, response, setState) => {
       response.token,
       response.tokenExpires
     );
-    console.log('subscribe');
     Meteor.subscribe('userData', { onReady: () => setState('ready') });
   }
 };
@@ -179,7 +177,6 @@ const FROGRouter = withRouter(
     }
 
     render() {
-      console.log('state', this.state.mode);
       const query = queryToObject(this.props.location.search.slice(1));
       if (query.login) {
         return <Redirect to={this.props.location.pathname} />;
@@ -187,7 +184,6 @@ const FROGRouter = withRouter(
         return <Spinner />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
         if (Meteor.user().username === 'teacher') {
-          console.log('teacher');
           return <Route component={TeacherLoadable} />;
         } else {
           return (
