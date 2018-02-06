@@ -1,7 +1,7 @@
 // @flow
 
 import cuid from 'cuid';
-import { observable, action, computed } from 'mobx';
+import { extendObservable, observable, action, computed } from 'mobx';
 
 import { drawPath } from '../utils/path';
 import Elem from './elemClass';
@@ -24,46 +24,39 @@ type ConnectableT = Activity | Operator;
 export default class Connection extends Elem {
   klass: 'operator' | 'activity' | 'connection';
   id: string;
-  @observable source: ConnectableT;
-  @observable target: ConnectableT;
-
-  @action
-  init(source: ConnectableT, target: ConnectableT, id: ?string) {
-    this.source = source;
-    this.target = target;
-    this.id = id || cuid();
-    this.klass = 'connection';
-  }
 
   constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
     super();
-    this.init(source, target, id);
-  }
 
-  @computed
-  get path(): string {
-    return drawPath({
-      dragging: false,
-      source: this.source.dragPointFrom,
-      target: this.target.dragPointTo
+    extendObservable(this, {
+      source: source,
+      target: target,
+      id: id || cuid(),
+      klass: 'connection',
+
+      get path(): string {
+        return drawPath({
+          dragging: false,
+          source: this.source.dragPointFrom,
+          target: this.target.dragPointTo
+        });
+      },
+
+      get pathScaled(): string {
+        return drawPath({
+          dragging: false,
+          source: this.source.dragPointFromScaled,
+          target: this.target.dragPointToScaled
+        });
+      },
+
+      get object(): Object {
+        return {
+          source: { type: getType(this.source), id: this.source.id },
+          target: { type: getType(this.target), id: this.target.id },
+          _id: this.id
+        };
+      }
     });
-  }
-
-  @computed
-  get pathScaled(): string {
-    return drawPath({
-      dragging: false,
-      source: this.source.dragPointFromScaled,
-      target: this.target.dragPointToScaled
-    });
-  }
-
-  @computed
-  get object(): Object {
-    return {
-      source: { type: getType(this.source), id: this.source.id },
-      target: { type: getType(this.target), id: this.target.id },
-      _id: this.id
-    };
   }
 }

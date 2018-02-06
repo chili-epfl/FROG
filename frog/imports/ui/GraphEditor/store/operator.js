@@ -1,6 +1,6 @@
 // @flow
 import cuid from 'cuid';
-import { observable, action, computed } from 'mobx';
+import { extendObservable, observable, action, computed } from 'mobx';
 import { store } from './index';
 import Elem from './elemClass';
 import { pxToTime, timeToPx } from '../utils';
@@ -10,29 +10,6 @@ export default class Operator extends Elem {
   id: string;
   type: string;
   klass: 'operator' | 'activity' | 'connection';
-  @observable y: number;
-  @observable title: ?string;
-  @observable over: boolean;
-  @observable time: number;
-  @observable state: ?string;
-
-  @action
-  init(
-    time: number,
-    y: number,
-    type: string,
-    id: ?string,
-    title: ?string,
-    state: ?string
-  ) {
-    this.time = time;
-    this.y = y;
-    this.id = id || cuid();
-    this.type = type;
-    this.klass = 'operator';
-    this.title = title;
-    this.state = state;
-  }
 
   constructor(
     time: number,
@@ -43,148 +20,142 @@ export default class Operator extends Elem {
     state: ?string
   ) {
     super();
-    this.init(time, y, type, id, title, state);
-  }
 
-  @computed
-  get x(): number {
-    return timeToPx(this.time, 4);
-  }
+    extendObservable(this, {
+      time: time,
+      y: y,
+      id: id || cuid(),
+      type: type,
+      klass: 'operator',
+      title: title,
+      state: state,
 
-  @computed
-  get xScaled(): number {
-    return timeToPx(this.time, store.ui.scale);
-  }
+      rename: action((newname: string) => {
+        this.title = newname;
+        store.addHistory();
+      }),
 
-  @computed
-  get coordsScaled(): [number, number] {
-    return [this.xScaled, this.y];
-  }
+      onOver: action(() => {
+        this.over = true;
+      }),
 
-  @computed
-  get coords(): [number, number] {
-    return [this.x, this.y];
-  }
+      onLeave: action(() => {
+        this.over = false;
+      }),
 
-  @action
-  rename(newname: string) {
-    this.title = newname;
-    store.addHistory();
-  }
+      startDragging: action((e: { shiftKey: boolean }) => {
+        if (!e.shiftKey) {
+          store.connectionStore.startDragging(this);
+        } else {
+          store.state = { mode: 'movingOperator', currentOperator: this };
+        }
+      }),
 
-  @action
-  onOver() {
-    this.over = true;
-  }
+      onDrag: action(
+        (
+          e: { shiftKey: boolean },
+          { deltaX, deltaY }: { deltaX: number, deltaY: number }
+        ) => {
+          if (store.state.mode === 'movingOperator') {
+            this.time += pxToTime(deltaX, store.ui.scale);
+            this.y += deltaY;
+            this.wasMoved = true;
+          }
+        }
+      ),
 
-  @action
-  onLeave() {
-    this.over = false;
-  }
+      moveX: action((deltaX: number) => {
+        this.time += pxToTime(deltaX, store.ui.scale);
+        this.wasMoved = true;
+      }),
 
-  @action
-  startDragging(e: { shiftKey: boolean }): void {
-    if (!e.shiftKey) {
-      store.connectionStore.startDragging(this);
-    } else {
-      store.state = { mode: 'movingOperator', currentOperator: this };
-    }
-  }
+      stopDragging: action(() => {
+        if (store.state.mode === 'movingOperator') {
+          store.state = { mode: 'normal' };
+          store.addHistory();
+        } else {
+          store.connectionStore.stopDragging();
+        }
+        store.ui.cancelScroll();
+      }),
 
-  @action
-  onDrag(
-    e: { shiftKey: boolean },
-    { deltaX, deltaY }: { deltaX: number, deltaY: number }
-  ) {
-    if (store.state.mode === 'movingOperator') {
-      this.time += pxToTime(deltaX, store.ui.scale);
-      this.y += deltaY;
-      this.wasMoved = true;
-    }
-  }
+      update: action((newopt: $Shape<Operator>) => {
+        this.time = newopt.time;
+        this.y = newopt.y;
+        this.title = newopt.title;
+      }),
 
-  @action
-  moveX(deltaX: number): void {
-    this.time += pxToTime(deltaX, store.ui.scale);
-    this.wasMoved = true;
-  }
+      get x(): number {
+        return timeToPx(this.time, 4);
+      },
 
-  @action
-  stopDragging(): void {
-    if (store.state.mode === 'movingOperator') {
-      store.state = { mode: 'normal' };
-      store.addHistory();
-    } else {
-      store.connectionStore.stopDragging();
-    }
-    store.ui.cancelScroll();
-  }
+      get xScaled(): number {
+        return timeToPx(this.time, store.ui.scale);
+      },
 
-  @computed
-  get object(): {
-    _id: string,
-    time: number,
-    y: number,
-    type: string,
-    title: ?string
-  } {
-    return {
-      _id: this.id,
-      time: this.time,
-      y: this.y,
-      type: this.type,
-      title: this.title
-    };
-  }
+      get coordsScaled(): [number, number] {
+        return [this.xScaled, this.y];
+      },
 
-  @computed
-  get dragPointTo(): AnchorT {
-    // operator has size of 60, finding midpoint
-    return {
-      X: this.x + 25,
-      Y: this.y + 25,
-      dX: -150,
-      dY: 0
-    };
-  }
+      get coords(): [number, number] {
+        return [this.x, this.y];
+      },
 
-  @computed
-  get dragPointFrom(): AnchorT {
-    // operator has size of 60, finding midpoint
-    return {
-      X: this.x + 25,
-      Y: this.y + 25,
-      dX: 150,
-      dY: 0
-    };
-  }
+      get object(): {
+        _id: string,
+        time: number,
+        y: number,
+        type: string,
+        title: ?string
+      } {
+        return {
+          _id: this.id,
+          time: this.time,
+          y: this.y,
+          type: this.type,
+          title: this.title
+        };
+      },
 
-  @computed
-  get dragPointToScaled(): AnchorT {
-    // operator has size of 60, finding midpoint
-    return {
-      X: this.xScaled + 25,
-      Y: this.y + 25,
-      dX: -150,
-      dY: 0
-    };
-  }
+      get dragPointTo(): AnchorT {
+        // operator has size of 60, finding midpoint
+        return {
+          X: this.x + 25,
+          Y: this.y + 25,
+          dX: -150,
+          dY: 0
+        };
+      },
 
-  @computed
-  get dragPointFromScaled(): AnchorT {
-    // operator has size of 60, finding midpoint
-    return {
-      X: this.xScaled + 25,
-      Y: this.y + 25,
-      dX: 150,
-      dY: 0
-    };
-  }
+      get dragPointToScaled(): AnchorT {
+        // operator has size of 60, finding midpoint
+        return {
+          X: this.xScaled + 25,
+          Y: this.y + 25,
+          dX: -150,
+          dY: 0
+        };
+      },
 
-  @action
-  update(newopt: $Shape<Operator>) {
-    this.time = newopt.time;
-    this.y = newopt.y;
-    this.title = newopt.title;
+      get dragPointFrom(): AnchorT {
+        // operator has size of 60, finding midpoint
+        return {
+          X: this.x + 25,
+          Y: this.y + 25,
+          dX: 150,
+          dY: 0
+        };
+      },
+
+      get dragPointFromScaled(): AnchorT {
+        // operator has size of 60, finding midpoint
+        return {
+          X: this.xScaled + 25,
+          Y: this.y + 25,
+          dX: 150,
+          dY: 0
+        };
+      }
+    });
   }
 }
