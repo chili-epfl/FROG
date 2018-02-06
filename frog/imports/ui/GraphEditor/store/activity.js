@@ -11,9 +11,6 @@ import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
-  klass: 'activity' | 'operator' | 'connection';
-  id: string;
-
   constructor(
     plane: number,
     startTime: number,

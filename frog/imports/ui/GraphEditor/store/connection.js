@@ -22,9 +22,6 @@ const getType = item => {
 type ConnectableT = Activity | Operator;
 
 export default class Connection extends Elem {
-  klass: 'operator' | 'activity' | 'connection';
-  id: string;
-
   constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
     super();
 

@@ -7,10 +7,6 @@ import { pxToTime, timeToPx } from '../utils';
 import type { AnchorT } from '../utils/path';
 
 export default class Operator extends Elem {
-  id: string;
-  type: string;
-  klass: 'operator' | 'activity' | 'connection';
-
   constructor(
     time: number,
     y: number,

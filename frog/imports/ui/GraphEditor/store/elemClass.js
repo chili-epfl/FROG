@@ -4,12 +4,6 @@ import { extendObservable, computed, action } from 'mobx';
 import { store } from './index';
 
 export default class Elem {
-  over: boolean;
-  wasMoved: boolean;
-  klass: 'operator' | 'activity' | 'connection';
-  id: string;
-  state: ?string;
-
   constructor() {
     extendObservable(this, {
       select: action(() => {
