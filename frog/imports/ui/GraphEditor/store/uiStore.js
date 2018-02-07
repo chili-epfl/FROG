@@ -8,10 +8,6 @@ import Operator from './operator';
 
 export default class uiStore {
   constructor() {
-    reaction(
-      () => [this.sidepanelOpen, this.windowWidth],
-      () => this.updateGraphWidth()
-    );
     extendObservable(this, {
       sidepanelOpen: false,
       svgRef: null,
@@ -234,6 +230,11 @@ export default class uiStore {
         );
       }
     });
+
+    reaction(
+      () => [this.sidepanelOpen, this.windowWidth],
+      () => this.updateGraphWidth()
+    );
   }
 
   timeToRaw = (coords: [number, number]): [number, number] => [

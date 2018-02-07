@@ -219,7 +219,7 @@ export default class Store {
           validData.errors
             .filter(x => x.type === 'needsGroupingKey')
             .forEach(x => {
-              if (validData.social && validData.social[x.id]) {
+              if (validData?.social[x.id]) {
                 Activities.update(x.id, {
                   $set: {
                     groupingKey: validData.social[x.id][0]
