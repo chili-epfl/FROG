@@ -22,7 +22,7 @@ const ProgressViewer = TimedComponent((props: Object) => {
   const timingData = [[0, 0, 0, 0]];
   const factor = 100 / Object.keys(instances).length;
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
-    if (i * TIMEWINDOW === (data['timing'][j+1] || [0])[0]) {
+    if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
       j += 1;
     }
     timingData.push([
@@ -101,7 +101,6 @@ const Viewer = (props: Object) => {
   );
 };
 
-
 const mergeLog = (
   data: any,
   dataFn: Object,
@@ -114,15 +113,19 @@ const mergeLog = (
     } else {
       dataFn.objInsert(log.value, [log.instanceId, log.itemId]);
     }
-  } else if (log.type === 'progress' && typeof log.value === 'number') {
+  } else if (
+    log.type === 'progress' &&
+    typeof log.value === 'number' &&
+    activity.actualStartingTime !== undefined
+  ) {
     const progDiff =
       (data['timing'][data['timing'].length - 1][1] || 0) +
       log.value -
       (data.progress[log.instanceId] || 0);
     dataFn.objInsert(log.value, ['progress', log.instanceId]);
-    const timeDiff =
-      (new Date(log.timestamp) - new Date(activity['actualStartingTime'])) /
-      1000;
+
+    // $FlowFixMe
+    const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
 
     const max =
       log.value > data['timing'][data['timing'].length - 1][2]
