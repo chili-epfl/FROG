@@ -28,7 +28,7 @@ export default () => (
         </Grid>
       </Grid>
       {/* <Grid item> */}
-      {/* /!*<GraphConfigPanel />*!/ */}
+
       {/* </Grid> */}
       <Grid item>
         <Grid container styles={styles.root}>

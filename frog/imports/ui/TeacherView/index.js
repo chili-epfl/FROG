@@ -18,6 +18,7 @@ import Stop from 'material-ui-icons/Stop';
 import Pause from 'material-ui-icons/Pause';
 import SkipNext from 'material-ui-icons/SkipNext';
 import PlayArrow from 'material-ui-icons/PlayArrow';
+import Refresh from 'material-ui-icons/Refresh';
 import PowerSettingNew from 'material-ui-icons/PowerSettingsNew';
 import Group from 'material-ui-icons/Group';
 import Avatar from 'material-ui/Avatar';
@@ -278,6 +279,9 @@ export class SessionMainContainer extends React.Component {
   render() {
     const { classes, session, buttons, visible, students } = this.props;
 
+    const restartButton = buttons.filter(
+      button => button.text === 'Restart'
+    )[0];
     const stopButton = buttons.filter(button => button.text === 'Stop')[0];
     const startButton = buttons.filter(button => button.text === 'Start')[0];
     const pauseButton = buttons.filter(button => button.text === 'Pause')[0];
@@ -457,7 +461,7 @@ export class SessionMainContainer extends React.Component {
                           <Button
                             raised
                             style={{
-                              backgroundColor: red[700],
+                              backgroundColor: blue[700],
                               minWidth: 15,
                               margin: 3
                             }}
@@ -469,7 +473,24 @@ export class SessionMainContainer extends React.Component {
                         </Tooltip>
                       </Grid>
                       <Grid item>
-                        <div className={classes.emptyDiv} />
+                        <Tooltip
+                          id="tooltip-top"
+                          title="restart the session"
+                          placement="top"
+                        >
+                          <Button
+                            raised
+                            style={{
+                              backgroundColor: red[700],
+                              minWidth: 15,
+                              margin: 3
+                            }}
+                            onClick={restartButton.onClick}
+                            id={restartButton.text}
+                          >
+                            <Refresh className={classes.icon} />
+                          </Button>
+                        </Tooltip>
                       </Grid>
                     </Grid>
                   </CardActions>
@@ -563,7 +584,7 @@ const rawSessionController = ({
       states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
       onClick: () => restartSession(session),
-      text: 'Restart session',
+      text: 'Restart',
       source: 'toolbar'
     },
     {

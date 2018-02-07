@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
+
 import { connect } from './store';
 import Graph from './Graph';
 import { RenameBox } from './Rename';
@@ -8,17 +10,18 @@ import TopPanel from './TopPanel';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
 
-const styles = {
+const styles = () => ({
+  root: {
+    paddingTop: 48,
+    paddingRight: 3,
+    paddingLeft: 3
+  },
   gridContent: {
     marginLeft: 0,
     display: 'flex',
     flexDirection: 'column'
   },
-  subroot: {
-    paddingTop: 48,
-    paddingRight: 3,
-    paddingLeft: 3
-  },
+
   main: {
     height: 760,
     flex: 30,
@@ -32,7 +35,7 @@ const styles = {
   sheet: {
     background: 'white'
   }
-};
+});
 const EditorPanel = () => (
   <div className="bootstrap" style={styles.sheet}>
     <div style={{ height: 600, border: '1px solid black' }}>
@@ -49,6 +52,7 @@ const EditorPanel = () => (
   </div>
 );
 
+@withStyles(styles)
 class Editor extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.props.store.ui.updateWindow);
@@ -60,6 +64,7 @@ class Editor extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     if (this.props.store.ui.showPreview) {
       return (
         <Preview
@@ -70,12 +75,12 @@ class Editor extends Component {
       );
     }
     return (
-      <div style={styles.subroot}>
-        <TopBar barHeight={styles.subroot.paddingTop} />
-        <div style={styles.gridContent}>
+      <div className={classes.root}>
+        <TopBar barHeight={classes.root.paddingTop} />
+        <div className={classes.gridContent}>
           <TopPanel />
-          <div style={styles.container}>
-            <div style={styles.main}>
+          <div className={classes.container}>
+            <div className={classes.main}>
               <EditorPanel />
             </div>
             <SidePanel />

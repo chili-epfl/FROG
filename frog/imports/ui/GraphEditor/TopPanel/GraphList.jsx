@@ -6,6 +6,7 @@ import ModeEdit from 'material-ui-icons/ModeEdit';
 import TextField from 'material-ui/TextField';
 import Input, { InputAdornment } from 'material-ui/Input';
 import Tooltip from 'material-ui/Tooltip';
+import { ValidButton } from '../Validator';
 
 import { connect, store } from '../store';
 import { Graphs, renameGraph } from '../../../api/graphs';
@@ -13,7 +14,9 @@ import { Graphs, renameGraph } from '../../../api/graphs';
 const styles = theme => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap'
+    minWidth: 0,
+    flexGrow: 1,
+    whiteSpace: 'nowrap'
   },
   basic: {
     backgroundColor: 'white'
@@ -33,6 +36,10 @@ const styles = theme => ({
     backgroundColor: 'gray',
     width: 50,
     height: 1
+  },
+  validButton: {
+    backgroundColor: 'gray',
+    width: 50
   },
   durationTextField: {
     marginTop: theme.spacing.unit,
@@ -125,35 +132,44 @@ class GraphListMenu extends React.Component {
         noValidate
         autoComplete="off"
       >
-        <div className={classes.basic}>
-          <Input
-            autoFocus
-            id="adornment-duration"
-            className={classes.durationTextField}
-            value={this.state.duration}
-            onChange={this.handleDurationChange}
-            margin="normal"
-            disabled={!isEditingDuration}
-            endAdornment={
-              <InputAdornment margin="none" position="end">
-                min
-              </InputAdornment>
-            }
-          />
-        </div>
-        <div className={classes.basic}>
-          <Tooltip id="tooltip-top" title="edit graph duration" placement="top">
-            <IconButton
-              className={classes.button}
-              color={isEditingDuration ? 'accent' : 'primary'}
-              aria-label="Edit"
-              onClick={e => {
-                this.handleGraphDurationSubmit(e);
-              }}
+        <div className={classes.root}>
+          <div className={classes.basic}>
+            <Input
+              autoFocus
+              id="adornment-duration"
+              className={classes.durationTextField}
+              value={this.state.duration}
+              onChange={this.handleDurationChange}
+              margin="normal"
+              disabled={!isEditingDuration}
+              endAdornment={
+                <InputAdornment margin="none" position="end">
+                  min
+                </InputAdornment>
+              }
+            />
+          </div>
+
+          <div className={classes.basic}>
+            <Tooltip
+              id="tooltip-top"
+              title="edit graph duration"
+              placement="top"
             >
-              <ModeEdit />
-            </IconButton>
-          </Tooltip>
+              <IconButton
+                className={classes.button}
+                color={isEditingDuration ? 'accent' : 'primary'}
+                aria-label="Edit"
+                onClick={e => {
+                  this.handleGraphDurationSubmit(e);
+                }}
+              >
+                <ModeEdit />
+              </IconButton>
+            </Tooltip>
+
+            <ValidButton />
+          </div>
         </div>
       </form>
     );

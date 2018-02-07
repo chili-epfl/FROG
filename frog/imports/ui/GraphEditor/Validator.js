@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { wordWrap } from 'frog-utils';
+import { blue } from 'material-ui/colors';
 
 import { connect } from './store';
 
@@ -112,11 +113,20 @@ export const ValidButton = connect(
       <circle
         cx="17"
         cy="17"
-        r="12"
-        stroke="transparent"
+        r="15"
+        stroke={blue[500]}
+        strokeWidth="3"
         fill={errorColor || graphErrorColor}
         onMouseOver={() => setShowErrors(activityId || true)}
         onMouseOut={() => setShowErrors(false)}
+      />
+      <circle
+        cx="17"
+        cy="17"
+        r="14"
+        stroke="white"
+        fill="none"
+        strokeWidth="2"
       />
     </svg>
   )
