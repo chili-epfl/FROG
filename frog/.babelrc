@@ -1,19 +1,27 @@
 {
-	"plugins": [
-		"@babel/plugin-transform-flow-strip-types",
-		"@babel/plugin-proposal-optional-chaining",
-		[
-			"captains-log",
-		{
-			"methods": [
-				"debug",
-			"error",
-			"exception",
-			"log",
-			"warn"
-			]
-		}
-		]
-	]
-	
+  "plugins": [
+    "@babel/plugin-transform-flow-strip-types",
+    "@babel/plugin-proposal-optional-chaining",
+    [
+      "captains-log",
+      {
+        "methods": [
+          "debug",
+          "error",
+          "exception",
+          "log",
+          "warn"
+        ]
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react",
+        "@babel/preset-stage-0"
+      ]
+    }
+  }
 }

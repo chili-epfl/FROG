@@ -1,6 +1,6 @@
 // @flow
 
-import { extendObservable, observable, computed, action } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
 
 import { store } from './index';
@@ -11,6 +11,18 @@ import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
+  length: number;
+  startTime: number;
+  id: string;
+  over: boolean;
+  rawTitle: string;
+  klass: string;
+  state: string;
+  wasMoved: boolean;
+  title: string;
+  bounds: BoundsT;
+  endTime: number;
+
   constructor(
     plane: number,
     startTime: number,
@@ -23,12 +35,12 @@ export default class Activity extends Elem {
     extendObservable(this, {
       id: id || cuid(),
       over: false, // is mouse over this activity
-      plane: plane,
+      plane,
       rawTitle: title || '',
-      length: length,
-      startTime: startTime,
+      length,
+      startTime,
       klass: 'activity',
-      state: state,
+      state,
       wasMoved: false,
 
       update: action((newact: $Shape<Activity>) => {

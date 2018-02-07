@@ -41,6 +41,9 @@ export const calculateBounds = (
 };
 
 export default class ActivityStore {
+  all: Activity[];
+  activitySequence: { [id: string]: number };
+
   constructor() {
     extendObservable(this, {
       all: [],

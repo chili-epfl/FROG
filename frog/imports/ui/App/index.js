@@ -31,7 +31,7 @@ import TeacherLoadable from './TeacherContainer';
 // });
 
 const shareDbUrl =
-  Meteor.settings?.public?.sharedburl ||
+  (Meteor.settings.public && Meteor.settings.public.sharedburl) ||
   (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
     '//' +
     window.location.hostname +
@@ -139,7 +139,7 @@ const FROGRouter = withRouter(
     update() {
       this.wait = true;
       InjectData.getData('login', data => {
-        if (data?.token) {
+        if (data && data.token) {
           this.tokenLogin(data.token, data.slug);
         } else {
           this.wait = false;
