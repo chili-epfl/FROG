@@ -7,7 +7,8 @@ export type ActivityDbT = {
   plane: number,
   startTime: number,
   length: number,
-  activityType: string
+  activityType: string,
+  actualStartingTime?: Date
 };
 
 export type OperatorDbT = {

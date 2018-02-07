@@ -133,7 +133,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       groupingKey: 'group',
       plane: 2,
       startTime: 0,
-      actualStartingTime: Date.now(),
+      actualStartingTime: new Date(Date.now()),
       length: 5,
       activityType: activityTypeId
     };
