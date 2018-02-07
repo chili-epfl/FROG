@@ -2962,9 +2962,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.64.0:
-  version "0.64.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.64.0.tgz#ddd3fb3b183ab1ab35a5d5dec9caf5ebbcded167"
+flow-bin@^0.65.0:
+  version "0.65.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.65.0.tgz#64ffeca27211c786e2d68508c65686ba1b8a2169"
 
 flow-classy-type-wrapper@^1.0.2:
   version "1.0.2"
@@ -7423,9 +7423,9 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-victory-chart@^25.0.1:
-  version "25.0.1"
-  resolved "https://registry.yarnpkg.com/victory-chart/-/victory-chart-25.0.1.tgz#27bbf80fa861b642b30e8cb2f3aa6e7992724e04"
+victory-chart@^25.0.2:
+  version "25.0.2"
+  resolved "https://registry.yarnpkg.com/victory-chart/-/victory-chart-25.0.2.tgz#c4d5f90a9ecc4e69e6a2ed1e0cbf68257ccbbf6e"
   dependencies:
     d3-voronoi "^1.1.2"
     lodash "^4.17.4"
@@ -7450,11 +7450,11 @@ victory-pie@^14.0.1:
     lodash "^4.17.4"
     victory-core "^21.0.2"
 
-victory@^0.25.1:
-  version "0.25.1"
-  resolved "https://registry.yarnpkg.com/victory/-/victory-0.25.1.tgz#cc50f293846fc920edea2debc37857b4f480e7e3"
+victory@^0.25.3:
+  version "0.25.3"
+  resolved "https://registry.yarnpkg.com/victory/-/victory-0.25.3.tgz#e3e0a1bcd23276555de4f8f6eaaacbdd83c14bb5"
   dependencies:
-    victory-chart "^25.0.1"
+    victory-chart "^25.0.2"
     victory-core "^21.0.2"
     victory-pie "^14.0.1"
 
