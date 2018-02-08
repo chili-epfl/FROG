@@ -32,12 +32,12 @@ export default class Session {
         }
       })
     });
-  }
 
-  if(session) {
-    this.id = session._id;
-    this.setTimes(session);
-    this.interval = setInterval(this.updateTimeInClass, 6000);
+    if(session) {
+      this.id = session._id;
+      this.setTimes(session);
+      this.interval = setInterval(this.updateTimeInClass, 6000);
+    }
   }
 
   close = () => {
