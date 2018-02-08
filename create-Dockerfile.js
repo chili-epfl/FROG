@@ -36,11 +36,11 @@ RUN /usr/src/frog/initial_setup_wo_meteor.sh
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
-COPY frog /usr/src/frog/frog/
-RUN /usr/src/frog/initial_setup_wo_meteor.sh
+COPY frog package-scripts.js /usr/src/frog/frog/
+RUN /usr/src/frog/initial_setup.sh
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
-COPY *.js .*ignore *config package-scripts.js ./
+COPY *.js .*ignore *config ./
 
 EXPOSE 3000
 CMD [ "npm", "test" ]
