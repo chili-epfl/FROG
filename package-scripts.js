@@ -18,7 +18,7 @@ const build = (shouldWatch, dirtowatch) => {
   const pkgdir = dirtowatch || dirname(sync('package.json'));
   return `${dir}/node_modules/.bin/babel ${pkgdir}/src --out-dir ${pkgdir}/dist ${
     shouldWatch ? '--watch' : ''
-  } &`;
+  }`;
 };
 
 const watch = build(true);
