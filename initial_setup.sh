@@ -22,4 +22,5 @@ npm start buildAll
 cd "$FROG/frog"
 ln -s "$FROG"/node_modules/* ./node_modules/ 2>/dev/null
 wait
+echo "Finished initial setup"
 exit 0

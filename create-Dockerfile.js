@@ -38,8 +38,8 @@ COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
 COPY frog /usr/src/frog/frog/
-RUN /usr/src/frog/initial_setup.sh
 COPY *.js .*ignore *config ./
+RUN /usr/src/frog/initial_setup.sh
 
 EXPOSE 3000
 CMD [ "npm", "test" ]
