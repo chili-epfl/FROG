@@ -1,30 +1,35 @@
 const { sync } = require('find-up');
+const { dirname } = require('path');
+const { readdirSync } = require('fs');
 
-const dir = sync('.git');
+const dir = dirname(sync('.git'));
 
 const fromRoot = cmd =>
-  `cd ${dir}/../ && PATH=${dir}/../node_modules/.bin:$PATH} ${cmd}`;
+  `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
 
-const build = shouldWatch => {
-  const cwd = process.cwd();
-  return `babel ./src --out-dir ./dist ${shouldWatch ? '--watch' : ''} &`;
+const build = (shouldWatch, dirtowatch) => {
+  const pkgdir = dirtowatch || dirname(sync('package.json'));
+  return `${dir}/node_modules/.bin/babel ${pkgdir}/src --out-dir ${pkgdir}/dist ${
+    shouldWatch ? '--watch' : ''
+  } &`;
 };
 
 const watch = build(true);
 
-const watchAll = `
-cd ${dir}/..
-for dir in ./ac/ac-*/ ./op/op-*/
-do
-    cd $dir
-    echo Beginning to watch $dir
-    ${watch}
-    cd ../..
-done
+const acop = () => {
+  const ac = readdirSync(dir + '/ac');
+  const op = readdirSync(dir + '/op');
+  return [
+    ...ac.map(x => dir + '/ac/' + x),
+    ...op.map(x => dir + '/op/' + x),
+    dir + '/frog-utils'
+  ];
+};
 
-cd ./frog-utils
-${watch}
-`;
+const buildAll = shouldWatch =>
+  acop()
+    .map(x => build(shouldWatch, x))
+    .join('\n');
 
 module.exports = {
   scripts: {
@@ -38,7 +43,8 @@ module.exports = {
       'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
     ),
     watch,
-    watchAll
+    watchAll: buildAll(true),
+    buildAll: buildAll(false)
   },
   options: {
     silent: true
