@@ -14,6 +14,8 @@ RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
 
+RUN mkdir -p ./flow-typed
+COPY flow-typed flow-typed/
 RUN mkdir -p frog/.meteor frog/server && \\
   echo "import './shutdown-if-env.js';" > frog/server/main.js
 COPY frog/imports/startup/shutdown-if-env.js frog/server
@@ -35,10 +37,8 @@ RUN /usr/src/frog/initial_setup.sh
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
-COPY frog package-scripts.js /usr/src/frog/frog/
+COPY frog /usr/src/frog/frog/
 RUN /usr/src/frog/initial_setup.sh
-RUN mkdir -p ./flow-typed
-COPY flow-typed flow-typed/
 COPY *.js .*ignore *config ./
 
 EXPOSE 3000
