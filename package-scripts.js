@@ -2,7 +2,14 @@ const { sync } = require('find-up');
 const { dirname } = require('path');
 const { readdirSync } = require('fs');
 
-const dir = dirname(sync('.git'));
+let dir;
+const findDir = sync('.git');
+if (findDir) {
+  dir = dirname(findDir);
+} else {
+  // for Docker CI
+  dir = '/usr/src/frog';
+}
 
 const fromRoot = cmd =>
   `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
