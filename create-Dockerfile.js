@@ -23,7 +23,6 @@ RUN npm install -g yarn@1.4.0
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 RUN mkdir -p frog-utils/src \\
 ${acopSrc}
-COPY initial_setup_wo_meteor.sh /usr/src/frog/
 
 COPY package.json yarn.lock .yarnrc .babelrc ./
 COPY *.sh ./
@@ -31,7 +30,7 @@ COPY frog-utils/package.json frog-utils/
 ${acopCP}
 COPY frog/package.json frog/
 WORKDIR /usr/src/frog
-RUN /usr/src/frog/initial_setup_wo_meteor.sh
+RUN /usr/src/frog/initial_setup.sh
 
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
