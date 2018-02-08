@@ -36,7 +36,7 @@ const acop = () => {
 const buildAll = shouldWatch =>
   acop()
     .map(x => build(shouldWatch, x))
-    .join('\n');
+    .join(' && ');
 
 module.exports = {
   scripts: {
