@@ -27,7 +27,7 @@ RUN mkdir -p frog-utils/src \\
 ${acopSrc}
 
 COPY package.json yarn.lock .yarnrc .babelrc ./
-COPY *.sh ./
+COPY *.sh package-scripts.js ./
 COPY frog-utils/package.json frog-utils/
 ${acopCP}
 COPY frog/package.json frog/
