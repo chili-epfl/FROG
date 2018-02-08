@@ -194,7 +194,7 @@ const FROGRouter = withRouter(
         }
       }
       if (this.state.mode === 'error') {
-        return <p1>There was an error logging in</p1>;
+        return <P1>There was an error logging in</P1>;
       }
       return this.state.mode === 'studentlist' ? (
         <StudentLogin login={this.login} slug={this.props.match.params.slug} />

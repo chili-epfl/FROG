@@ -6,7 +6,6 @@ import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
-
 declare var Promise: any;
 
 const dbUrl =
@@ -27,7 +26,9 @@ export const serverConnection = backend.connect();
 
 export const startShareDB = () => {
   if (!Meteor.settings.dont_start_sharedb) {
-    new WebSocket.Server({ server }).on('connection', ws => {
+    const wserver = new WebSocket.Server({ server });
+    wserver.on('connection', ws => {
+      ws.on('error', e => null);
       backend.listen(new WebsocketJSONStream(ws));
     });
     // eslint-disable-next-line no-console
