@@ -1,5 +1,4 @@
-// @flow
-import { extendObservable, action, observable, computed, reaction } from 'mobx';
+import { extendObservable, action, reaction } from 'mobx';
 
 import { getActivitySequence } from '/imports/api/graphSequence';
 import { between, timeToPx, pxToTime } from '../utils';

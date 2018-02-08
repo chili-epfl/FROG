@@ -1,7 +1,5 @@
-// @flow
-
 import cuid from 'cuid';
-import { extendObservable, observable, action, computed } from 'mobx';
+import { extendObservable } from 'mobx';
 
 import { drawPath } from '../utils/path';
 import Elem from './elemClass';
@@ -26,8 +24,8 @@ export default class Connection extends Elem {
     super();
 
     extendObservable(this, {
-      source: source,
-      target: target,
+      source,
+      target,
       id: id || cuid(),
       klass: 'connection',
 

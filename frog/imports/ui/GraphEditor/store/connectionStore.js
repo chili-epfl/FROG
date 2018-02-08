@@ -1,5 +1,4 @@
-// @flow
-import { extendObservable, computed, action, observable } from 'mobx';
+import { extendObservable, action } from 'mobx';
 
 import { type ElementTypes } from './store';
 import { store } from './index';

@@ -1,6 +1,5 @@
-// @flow
 import cuid from 'cuid';
-import { extendObservable, observable, action, computed } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import { store } from './index';
 import Elem from './elemClass';
 import { pxToTime, timeToPx } from '../utils';
@@ -18,13 +17,13 @@ export default class Operator extends Elem {
     super();
 
     extendObservable(this, {
-      time: time,
-      y: y,
+      time,
+      y,
       id: id || cuid(),
-      type: type,
+      type,
       klass: 'operator',
-      title: title,
-      state: state,
+      title,
+      state,
 
       rename: action((newname: string) => {
         this.title = newname;

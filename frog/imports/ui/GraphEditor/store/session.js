@@ -1,5 +1,3 @@
-// @flow
-
 import { extendObservable, action } from 'mobx';
 
 export default class Session {
@@ -12,9 +10,9 @@ export default class Session {
       startedAt: 0,
       interval: null,
 
-      setTimes: action((session: Object) => {
-        this.updateTimeInGraph(session.timeInGraph);
-        this.startedAt = session.startedAt;
+      setTimes: action((_session: Object) => {
+        this.updateTimeInGraph(_session.timeInGraph);
+        this.startedAt = _session.startedAt;
         this.updateTimeInClass((Date.now() - this.startedAt) / 6e4);
       }),
 
@@ -33,7 +31,7 @@ export default class Session {
       })
     });
 
-    if(session) {
+    if (session) {
       this.id = session._id;
       this.setTimes(session);
       this.interval = setInterval(this.updateTimeInClass, 6000);

@@ -1,5 +1,4 @@
-// @flow
-import { extendObservable, computed, action, observable } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import { omit, maxBy } from 'lodash';
 
 import { store } from './index';

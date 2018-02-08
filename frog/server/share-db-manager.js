@@ -27,9 +27,9 @@ export const serverConnection = backend.connect();
 
 export const startShareDB = () => {
   if (!Meteor.settings.dont_start_sharedb) {
-    const ws = new WebSocket.Server({ server });
-    ws.on('connection', ws => {
-      ws.on('error', e => null);
+    const wserver = new WebSocket.Server({ server });
+    wserver.on('connection', ws => {
+      ws.on('error', () => null);
       backend.listen(new WebsocketJSONStream(ws));
     });
     // eslint-disable-next-line no-console

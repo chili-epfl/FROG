@@ -1,6 +1,5 @@
-// @flow
 //
-import { extendObservable, computed, action } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import { store } from './index';
 
 export default class Elem {

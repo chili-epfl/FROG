@@ -149,18 +149,16 @@ export default connect(
     store: { activityStore: { all } },
     scaled,
     transparent
-  }: StoreProp & { scaled: boolean, transparent: boolean }) => {
-    return (
-      <g>
-        {all.map(x => (
-          <ActivityBox
-            activity={x}
-            transparent={transparent}
-            scaled={scaled}
-            key={x.id}
-          />
-        ))}
-      </g>
-    );
-  }
+  }: StoreProp & { scaled: boolean, transparent: boolean }) => (
+    <g>
+      {all.map(x => (
+        <ActivityBox
+          activity={x}
+          transparent={transparent}
+          scaled={scaled}
+          key={x.id}
+        />
+      ))}
+    </g>
+  )
 );

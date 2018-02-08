@@ -1,5 +1,3 @@
-// @flow
-
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
 
@@ -69,9 +67,9 @@ export default class Activity extends Elem {
           this.wasMoved = true;
         }
 
-        const state = store.state;
+        const _state = store.state;
         const newTime = Math.round(
-          store.ui.socialCoordsTime[0] - state.mouseOffset
+          store.ui.socialCoordsTime[0] - _state.mouseOffset
         );
         if (store.overlapAllowed) {
           this.startTime = between(
@@ -87,7 +85,7 @@ export default class Activity extends Elem {
           );
 
           const overdrag =
-            store.ui.socialCoordsTime[0] - state.mouseOffset - this.startTime;
+            store.ui.socialCoordsTime[0] - _state.mouseOffset - this.startTime;
 
           if (overdrag < -2 && this.bounds.leftBoundActivity) {
             store.activityStore.swapActivities(
@@ -108,12 +106,12 @@ export default class Activity extends Elem {
       }),
 
       resize: action(() => {
-        const state = store.state;
-        if (state.mode === 'resizing') {
+        const _state = store.state;
+        if (_state.mode === 'resizing') {
           const newTime = Math.round(store.ui.socialCoordsTime[0]);
           const max = store.overlapAllowed
             ? store.graphDuration
-            : state.bounds.rightBoundTime;
+            : _state.bounds.rightBoundTime;
           this.length = between(
             1,
             max - this.startTime,
@@ -127,8 +125,8 @@ export default class Activity extends Elem {
       }),
 
       onOver: action(() => {
-        const state = store.state;
-        if (state.mode !== 'waitingDrag') {
+        const _state = store.state;
+        if (_state.mode !== 'waitingDrag') {
           this.over = true;
         }
       }),

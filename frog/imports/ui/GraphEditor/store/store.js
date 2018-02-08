@@ -1,6 +1,5 @@
-// @flow
 import { isEqual, sortBy } from 'lodash';
-import { extendObservable, action, observable, computed } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
 import valid from '/imports/api/validGraphFn';
