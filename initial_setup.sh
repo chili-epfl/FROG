@@ -17,16 +17,8 @@ echo "Yarn: $YARN"
 
 "$YARN" install
 
-cd frog-utils
-"$YARN" start build &
-
-# install activities and operators packages
-for dir in "$FROG"/ac/ac-*/ "$FROG"/op/op-*/
-do
-    cd "$dir"
-    "$YARN" start build &
-done
-
+npm start buildAll
+ 
 cd "$FROG/frog"
 ln -s "$FROG"/node_modules/* ./node_modules/ 2>/dev/null
 wait
