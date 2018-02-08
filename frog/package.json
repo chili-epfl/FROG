@@ -3,8 +3,7 @@
   "license": "AGPL-3.0",
   "version": "1.0.0",
   "scripts": {
-    "test": "meteor test --once --full-app --driver-package dispatch:mocha-phantomjs",
-    "start": "meteor run"
+    "start": "nps"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.39",
@@ -94,5 +93,8 @@
     "utf-8-validate": "^4.0.0",
     "websocket-json-stream": "0.0.3",
     "ws": "^4.0.0"
+  },
+  "devDependencies": {
+    "nps": "^5.7.1"
   }
 }
