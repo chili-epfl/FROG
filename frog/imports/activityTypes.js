@@ -1,5 +1,6 @@
 // @flow
 
+import acStroop from 'ac-stroop';
 import { keyBy } from 'lodash';
 import { type ActivityPackageT, flattenOne } from 'frog-utils';
 
@@ -25,6 +26,7 @@ import acCKBoard from 'ac-ck-board';
 import acH5P from './internalActivities/ac-h5p';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acStroop,
   acWebrtc,
   acTextarea,
   acAutocode,
