@@ -3,8 +3,6 @@
 import { Meteor } from 'meteor/meteor';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
-import path from 'path';
-import Loadable from 'react-loadable';
 import React, { Component } from 'react';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
@@ -23,15 +21,15 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
-
-const TeacherLoadable = Loadable({
-  loader: () => import('./TeacherContainer'),
-  loading: () => null,
-  serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
-});
+import TeacherLoadable from './TeacherContainer';
+// const TeacherLoadable = Loadable({
+//   loader: () => import('./TeacherContainer'),
+//   loading: () => null,
+//   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
+// });
 
 const shareDbUrl =
-  (Meteor.settings && Meteor.settings.public.sharedburl) ||
+  (Meteor.settings.public && Meteor.settings.public.sharedburl) ||
   (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
     '//' +
     window.location.hostname +
@@ -66,8 +64,9 @@ const subscriptionCallback = (error, response, setState) => {
 };
 
 const FROGRouter = withRouter(
-  class RawRouter extends Component {
-    state: {
+  class RawRouter extends Component<
+    Object,
+    {
       mode:
         | 'ready'
         | 'loggingIn'
@@ -76,8 +75,8 @@ const FROGRouter = withRouter(
         | 'studentlist'
         | 'nostudentlist',
       studentlist?: string[]
-    };
-
+    }
+  > {
     wait: boolean = false;
 
     constructor(props) {

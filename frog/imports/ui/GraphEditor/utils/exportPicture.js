@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { saveSvgAsPng, svgAsPngUri } from 'save-svg-as-png';

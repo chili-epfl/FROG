@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Form from 'react-jsonschema-form';
 
 import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';

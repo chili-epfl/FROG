@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-export default class End extends Component {
+export default class End extends Component<Object> {
   componentWillMount() {
     this.props.dataFn.objDel({}, ['feedbackOpen']);
     this.props.dataFn.objDel({}, ['testChoice']);

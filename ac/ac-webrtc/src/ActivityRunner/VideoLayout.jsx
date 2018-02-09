@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Video from './Video';
 
 type VideosPropsT = { local: Object, remote: Array<Object> };

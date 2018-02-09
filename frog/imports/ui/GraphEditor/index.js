@@ -8,7 +8,7 @@ import { store } from './store';
 import { assignGraph } from '../../api/graphs';
 import EditorContainer from './EditorContainer';
 
-class AppClass extends Component {
+class AppClass extends Component<$FlowFixMeProps> {
   componentWillMount() {
     store.setBrowserHistory(this.props.history);
     this.updateGraphId(this.props.match && this.props.match.params.graphId);

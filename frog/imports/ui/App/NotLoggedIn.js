@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { A } from 'frog-utils';
 import { sample } from 'lodash';
 import FlexView from 'react-flexview';

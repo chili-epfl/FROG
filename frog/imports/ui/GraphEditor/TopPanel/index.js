@@ -1,10 +1,9 @@
 // @flow
 
-import React from 'react';
 import Grid from 'material-ui/Grid';
 
 import GraphList from './GraphList';
-// import GraphConfigPanel from './GraphConfigPanel';
+
 import { UndoButton, ConfigMenu } from './Settings';
 import ExpandButton from '../SidePanel/ExpandButton';
 
@@ -27,9 +26,6 @@ export default () => (
           </Grid>
         </Grid>
       </Grid>
-      {/* <Grid item> */}
-
-      {/* </Grid> */}
       <Grid item>
         <Grid container styles={styles.root}>
           <Grid item>

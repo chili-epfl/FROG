@@ -1,8 +1,8 @@
 // @flow
 
 const javascript = () => {
-  const javascriptRunCode = (code: string, print: Function) =>
-    new Promise((resolve, reject) => {
+  const javascriptRunCode = (code: string, print: Function) => {
+    const prom: Promise<any> = new Promise((resolve, reject) => {
       // Pipe console.log to postMessage
       const environment =
         'let console = {log: function(){let str = "";for(let i = 0; i < arguments.length; i++){str += JSON.stringify(arguments[i])+" ";}str += "\\n";self.postMessage(str)}};';
@@ -47,6 +47,8 @@ const javascript = () => {
         }
       }, 5000);
     });
+    return prom;
+  };
 
   const javascriptHandleError = (err: Object) => err.message;
 

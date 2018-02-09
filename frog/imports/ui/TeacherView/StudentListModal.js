@@ -1,12 +1,10 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Modal from 'react-modal';
 import Form from 'react-jsonschema-form';
 
 import { Sessions } from '../../api/sessions';
-
-Modal.setAppElement('#render-target');
 
 const StudentListModal = ({
   dismiss,

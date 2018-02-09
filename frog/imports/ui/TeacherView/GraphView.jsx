@@ -10,7 +10,12 @@ import ShowInfo from './ShowInfo';
 import Graph from '../GraphEditor/Graph';
 import { store } from '../GraphEditor/store';
 
-class GraphView extends Component {
+type GraphViewPropsT = {
+  session: Object,
+  history: Object
+};
+
+class GraphView extends Component<GraphViewPropsT> {
   initStore = (session: any) => {
     store.setBrowserHistory(this.props.history, '/teacher');
     store.setId(session.graphId, true);

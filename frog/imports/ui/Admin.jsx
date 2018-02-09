@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import List, { ListItem, ListSubheader, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
@@ -28,15 +28,15 @@ const loadDatabase = data => {
   data.connections.forEach(item => importConnection(item));
 };
 
-class DisplayData extends Component {
+type StateT = {
+  isClicked: boolean
+};
+
+class DisplayData extends React.Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = { isClicked: false };
   }
-
-  state = {
-    isClicked: Boolean
-  };
 
   toggleDisplay = () => {
     this.setState({ isClicked: !this.state.isClicked });
