@@ -1,5 +1,6 @@
 // @flow
 
+import React from 'react';
 import Grid from 'material-ui/Grid';
 
 import GraphList from './GraphList';
