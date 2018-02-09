@@ -20,19 +20,19 @@ const Main = styled.div`
   overflow: hidden;
 `;
 
-class ActivityRunner extends Component {
-  state: {
-    zoomOn: boolean,
-    index: number,
-    category: string,
-    webcamOn: boolean
-  };
+type ActivityRunnerStateT = {
+  zoomOn: boolean,
+  index: number,
+  category: string,
+  webcamOn: boolean
+};
 
+class ActivityRunner extends Component<ActivityRunnerT, ActivityRunnerStateT> {
   categories: {
     [categoryName: string]: string[]
   };
 
-  constructor(props: ActivityRunnerT) {
+  constructor(props) {
     super(props);
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 

@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { CountChart, type LogDBT } from 'frog-utils';
 import { sum } from 'lodash';
 

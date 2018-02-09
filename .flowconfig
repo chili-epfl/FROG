@@ -6,7 +6,6 @@ module.name_mapper='(react-draggable)' -> 'empty/object'
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/frog/\1'
 esproposal.decorators=ignore
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
-unsafe.enable_getters_and_setters=true
 suppress_type=$FlowIssue
 
 # Meteor none core package support

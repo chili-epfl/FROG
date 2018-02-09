@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { Inspector } from 'react-inspector';
 import { createContainer } from 'meteor/react-meteor-data';
 import { A } from 'frog-utils';
@@ -10,8 +10,6 @@ import { Objects } from '../../api/objects';
 import { Activities, Operators } from '../../api/activities';
 import { Products } from '../../api/products';
 import { downloadExport } from './exportComponent';
-
-Modal.setAppElement('#render-target');
 
 const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
   if (!showInfo) {
