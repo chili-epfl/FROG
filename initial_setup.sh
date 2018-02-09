@@ -17,7 +17,12 @@ echo "Yarn: $YARN"
 
 "$YARN" install
 
-npm start buildAll
+if [[ "$1" = "--single" ]]
+then
+    npm start buildAllSingle
+else
+    npm start buildAll
+fi
  
 cd "$FROG/frog"
 ln -s "$FROG"/node_modules/* ./node_modules/ 2>/dev/null

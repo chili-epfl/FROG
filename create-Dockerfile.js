@@ -32,14 +32,14 @@ COPY frog-utils/package.json frog-utils/
 ${acopCP}
 COPY frog/package.json frog/
 WORKDIR /usr/src/frog
-RUN /usr/src/frog/initial_setup.sh
+RUN /usr/src/frog/initial_setup.sh --single
 
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
 COPY frog /usr/src/frog/frog/
 COPY *.js .*ignore *config ./
-RUN /usr/src/frog/initial_setup.sh
+RUN /usr/src/frog/initial_setup.sh --single
 
 EXPOSE 3000
 CMD [ "npm", "test" ]

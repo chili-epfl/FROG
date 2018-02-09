@@ -33,10 +33,10 @@ const acop = () => {
   ];
 };
 
-const buildAll = shouldWatch =>
+const buildAll = (shouldWatch, notBackground) =>
   acop()
     .map(x => build(shouldWatch, x))
-    .join(' && ');
+    .join(notBackground ? ' && ' : ' & ');
 
 module.exports = {
   scripts: {
@@ -51,7 +51,8 @@ module.exports = {
     ),
     watch,
     watchAll: buildAll(true),
-    buildAll: buildAll(false)
+    buildAll: buildAll(false),
+    buildAllSingle: buildAll(false, true)
   },
   options: {
     silent: true
