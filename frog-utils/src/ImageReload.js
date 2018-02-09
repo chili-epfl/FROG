@@ -1,12 +1,12 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 
 type propsT = { src: string, style?: Object, className?: string };
 
-class ImageReload extends React.Component {
-  state: { src: string, origSrc: string, timeout: any, counter: number };
-  props: propsT;
-
+class ImageReload extends React.Component<
+  propsT,
+  { src: string, origSrc: string, timeout: any, counter: number }
+> {
   constructor(props: propsT) {
     super(props);
     this.state = {

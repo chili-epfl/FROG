@@ -13,8 +13,14 @@ import SessionBody from './SessionBody';
 
 const once = { already: false };
 
-class StudentViewComp extends Component {
-  state: { result: string, message?: string };
+type StudentViewCompPropsT = {
+  match: Object
+};
+
+class StudentViewComp extends Component<
+  StudentViewCompPropsT,
+  { result: string, message?: string }
+> {
   constructor(props) {
     super(props);
     this.state = { result: 'notyet' };

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
 import { Activities } from '/imports/api/activities';
 
@@ -8,8 +8,18 @@ import ListComponent from '../ListComponent';
 import Preview from '../../../Preview/Preview';
 import { connect } from '../../store';
 
-class ChooseActivityType extends Component {
-  state: { expanded: ?string, searchStr: string, showInfo: ?string };
+type StateT = {
+  expanded: ?string,
+  searchStr: string,
+  showInfo: ?string
+};
+
+type PropsT = {
+  store: Object,
+  activity: ActivityDbT
+};
+
+class ChooseActivityType extends Component<PropsT, StateT> {
   inputRef: any;
 
   constructor(props) {

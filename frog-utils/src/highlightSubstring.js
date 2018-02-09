@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
 export const Highlight = (props: { text: string, searchStr: string }) => {
   if (!props.text.toLowerCase().includes(props.searchStr))

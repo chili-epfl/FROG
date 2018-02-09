@@ -10,9 +10,15 @@ const splitList = (list: string[]) => {
   return [list.slice(0, length + extra), list.slice(length + extra)];
 };
 
-class StudentLogin extends Component {
-  state: { studentlist?: string[] };
+type StudentLoginPropsT = {
+  slug: string,
+  login: Function
+};
 
+class StudentLogin extends Component<
+  StudentLoginPropsT,
+  { studentlist?: string[] }
+> {
   componentWillMount() {
     Meteor.call('frog.studentlist', this.props.slug, (err, result) =>
       this.setState({ studentlist: result })

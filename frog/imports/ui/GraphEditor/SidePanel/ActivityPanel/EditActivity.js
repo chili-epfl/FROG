@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import FlexView from 'react-flexview';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
@@ -138,13 +138,11 @@ const RawEditActivity = ({
         )}
       </div>
       <ConfigForm
-        {...{
-          node: activity,
-          nodeType: activityType,
-          valid: props.store.valid,
-          refreshValidate: props.store.refreshValidate,
-          reload: reload + (outgoingConnections || []).map(x => x.id).join('')
-        }}
+        node={activity}
+        nodeType={activityType}
+        valid={props.store.valid}
+        refreshValidate={props.store.refreshValidate}
+        reload={reload + (outgoingConnections || []).map(x => x.id).join('')}
       />
       {activityType.ConfigComponent && (
         <activityType.ConfigComponent

@@ -90,7 +90,9 @@ const IdeaList = ({ userInfo, data, ideas, fun }) => (
             const individualVote = data[idea.id].students[userInfo.id];
             return (
               <div key={idea.id}>
-                <Idea {...{ individualVote, idea, fun, key: idea.id }} />
+                <Idea
+                  {...{ individualVote, idea, fun, key: idea.id, remove: true }}
+                />
               </div>
             );
           })}

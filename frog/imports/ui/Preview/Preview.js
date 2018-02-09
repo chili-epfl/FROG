@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
@@ -18,8 +18,6 @@ import { DashboardComp } from '../TeacherView/Dashboard';
 import ShowInfo from './ShowInfo';
 import createLogger, { Logs } from './createLogger';
 import ShowLogs from './ShowLogs';
-
-Modal.setAppElement('#render-target');
 
 const Icon = ({
   onClick,

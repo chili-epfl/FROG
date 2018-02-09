@@ -1,9 +1,7 @@
 {
   "plugins": [
-    "syntax-decorators",
-    "transform-decorators-legacy",
-    "transform-class-properties",
-    "transform-flow-strip-types",
+    "@babel/plugin-transform-flow-strip-types",
+    "@babel/plugin-proposal-optional-chaining",
     [
       "captains-log",
       {
@@ -18,8 +16,8 @@
     ]
   ],
   "presets": [
-    "react",
-    "stage-0",
-    "es2015"
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-stage-0",
   ]
 }

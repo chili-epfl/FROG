@@ -14,8 +14,10 @@ const RteField = props => (
   </div>
 );
 
-class EnhancedForm extends Component {
-  state: { formData?: ?Object, schema?: Object };
+class EnhancedForm extends Component<
+  Object,
+  { formData?: ?Object, schema?: Object }
+> {
   hides: string[];
   formData: ?Object;
 

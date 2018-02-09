@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
 import { A } from 'frog-utils';

@@ -62,8 +62,7 @@ const VideoProgress = ({ data, user }) => {
   );
 };
 
-class Viewer extends Component {
-  state: Object;
+class Viewer extends Component<any, Object> {
   interval: any;
   unmounted: boolean;
 

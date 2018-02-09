@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { type ActivityRunnerT, type ActivityPackageT, HTML } from 'frog-utils';
 
 export const meta = {
