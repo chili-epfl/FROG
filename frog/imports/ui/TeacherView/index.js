@@ -367,7 +367,7 @@ export class SessionMainContainer extends React.Component<
                         </Tooltip>
                         <SimpleDialog
                           students={students}
-                          open={Boolean(this.state.open)}
+                          open={this.state.open}
                           onClose={this.handleClose}
                           session={session}
                           {...this.props}
