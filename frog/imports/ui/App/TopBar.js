@@ -31,7 +31,7 @@ const styles = theme => ({
 });
 
 @withStyles(styles)
-class TopBar extends React.Component {
+class TopBar extends React.Component<{ classes: any }, {}> {
   routes = [
     { name: 'Graph Editor', to: '/graph' },
     { name: 'Sessions', to: '/teacher' },
@@ -67,7 +67,7 @@ class TopBar extends React.Component {
         <AppBar position="fixed">
           <Toolbar className={classes.toolbar}>
             <Typography type="subheading" color="inherit">
-              Teacher
+              Teacher View
             </Typography>
             <Tabs
               className={classes.tabs}

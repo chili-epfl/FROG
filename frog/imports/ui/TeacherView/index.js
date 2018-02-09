@@ -128,7 +128,18 @@ const styles = theme => ({
   }
 });
 
-class SimpleDialog extends React.Component {
+@withStyles(styles)
+class SimpleDialog extends React.Component<
+  {
+    classes: any,
+    session: Object,
+    onClose: Function,
+    open: boolean,
+    students: Array<Object>
+  },
+  { studentName: string }
+> {
+  studentlist = [];
   state = {
     studentName: ''
   };
@@ -139,8 +150,8 @@ class SimpleDialog extends React.Component {
     this.studentlist = session.studentlist ? session.studentlist : [];
   }
 
-  handleChange = event => {
-    this.setState({ studentName: event.target.value });
+  handleChange = (event: Object) => {
+    this.setState({ studentName: String(event.target.value) });
   };
   handleAddStudent = () => {
     const { session } = this.props;
@@ -155,7 +166,7 @@ class SimpleDialog extends React.Component {
     }
   };
 
-  handleDeleteStudent = student => {
+  handleDeleteStudent = (student: string) => {
     const { session } = this.props;
     if (student !== undefined) {
       const index = this.studentlist.indexOf(student);
@@ -174,7 +185,7 @@ class SimpleDialog extends React.Component {
     const { classes, onClose, session, ...other } = this.props;
     return (
       <Dialog
-        onClose={this.handleClose}
+        onClose={onClose}
         aria-labelledby="simple-dialog-title"
         {...other}
       >
@@ -212,7 +223,12 @@ class SimpleDialog extends React.Component {
                 </ListItem>
               )}
             </List>
-            <Grid container styles={classes.root} justify="center" spacing={8}>
+            <Grid
+              container
+              className={classes.root}
+              justify="center"
+              spacing={8}
+            >
               <Grid item>
                 <div className={classes.root}>
                   <FormControl
@@ -252,10 +268,17 @@ class SimpleDialog extends React.Component {
   }
 }
 
-const SimpleDialogWrapped = withStyles(styles)(SimpleDialog);
-
 @withStyles(styles)
-export class SessionMainContainer extends React.Component {
+export class SessionMainContainer extends React.Component<
+  {
+    classes: any,
+    session: Object,
+    buttons: Array<Object>,
+    visible: boolean,
+    students: Array<Object>
+  },
+  { open: boolean }
+> {
   sessionStatus = 'Stopped';
 
   state = {
@@ -272,7 +295,7 @@ export class SessionMainContainer extends React.Component {
     this.setState({ open: false });
   };
 
-  handleSessionStatusChange = text => {
+  handleSessionStatusChange = (text: string) => {
     this.sessionStatus = text;
   };
 
@@ -342,17 +365,18 @@ export class SessionMainContainer extends React.Component {
                             <Group className={classes.rightIcon} />
                           </Button>
                         </Tooltip>
-                        <SimpleDialogWrapped
+                        <SimpleDialog
                           students={students}
-                          open={this.state.open}
+                          open={Boolean(this.state.open)}
                           onClose={this.handleClose}
                           session={session}
+                          {...this.props}
                         />
                       </Grid>
                     </Grid>
                     <GraphView session={session} />
                   </CardContent>
-                  <CardActions style={{ textAlign: 'center' }}>
+                  <CardActions>
                     <Grid
                       container
                       spacing={8}

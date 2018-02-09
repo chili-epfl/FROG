@@ -1,4 +1,4 @@
-// @flow
+// @flow weak
 
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
@@ -30,19 +30,22 @@ const styles = theme => ({
 });
 
 @withStyles(styles)
-export class StudentStatus extends React.Component {
+export class StudentStatus extends React.Component<
+  { students: Array<Object> },
+  {}
+> {
   render() {
-    const { classes, students } = this.props;
+    const { students } = this.props;
 
     return (
-      <div className={classes.root}>
+      <div className={styles.root}>
         <Grid id="graph-session" item xs={12}>
           <Card id="card">
             <CardContent id="content">
-              <Typography type="title" className={classes.title}>
+              <Typography type="title" className={styles.title}>
                 Student Status
               </Typography>
-              <Table className={classes.table}>
+              <Table className={styles.table}>
                 <TableHead>
                   <TableRow>
                     <TableCell />
@@ -90,4 +93,4 @@ const StudentList = ({ students }: { students: Array<Object> }) => (
   <StudentStatus students={students} />
 );
 
-export default StudentList;
+export default withStyles(styles)(StudentList);

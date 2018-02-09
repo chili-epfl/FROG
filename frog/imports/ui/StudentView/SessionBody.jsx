@@ -69,9 +69,12 @@ const getInitialState = (activities, d = 1) => {
 };
 
 @withStyles(styles)
-class StudentView extends React.Component {
+class StudentView extends React.Component<
+  { activities: Object[], session: Object },
+  {}
+> {
   render() {
-    const { classes, activities, session } = this.props;
+    const { activities, session } = this.props;
     // console.log('activities',activities, session);
     if (!activities || activities.length === 0) {
       return <h1>No Activity</h1>;
@@ -80,10 +83,10 @@ class StudentView extends React.Component {
       return <h1>Paused</h1>;
     }
     return (
-      <div className={classes.root}>
-        <div className={classes.navbar}>
+      <div className={styles.root}>
+        <div className={styles.navbar}>
           <AppBar position="fixed">
-            <Toolbar className={classes.toolbar}>
+            <Toolbar className={styles.toolbar}>
               {/* <IconButton color="contrast" aria-label="Menu"> */}
               {/* <Typography type="title" color="inherit" style={styles.text}> */}
               {/* <MenuIcon/> */}
@@ -100,7 +103,7 @@ class StudentView extends React.Component {
             </Toolbar>
           </AppBar>
         </div>
-        <div style={styles.mainContent}>
+        <div className={styles.mainContent}>
           <ActivityContainer activities={activities} sessionId={session._id} />
         </div>
       </div>
@@ -112,7 +115,7 @@ const SessionBody = ({
   activities,
   session
 }: {
-  activities: Object[],
+  activities: Array<Object>,
   session: Object
 }) => (
   <div id="student" style={styles.root}>

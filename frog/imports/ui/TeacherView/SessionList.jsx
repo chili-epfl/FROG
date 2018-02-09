@@ -37,15 +37,18 @@ const styles = theme => ({
 });
 
 @withStyles(styles)
-export class SessionAdmin extends React.Component {
+export class SessionAdmin extends React.Component<
+  { sessions: Array<Object>, graphs: Array<Object>, classes: Object },
+  { graphId: string, sessionId: string }
+> {
   state = {
     graphId: '',
     sessionId: ''
   };
 
-  handleGraphChange = e => {
-    if (e.target.value !== undefined && e.target.value !== '') {
-      this.setState({ graphId: e.target.value });
+  handleGraphChange = (event: Event) => {
+    if (event.target.value !== undefined && event.target.value !== '') {
+      this.setState({ graphId: String(event.target.value) });
     }
   };
 
@@ -55,9 +58,9 @@ export class SessionAdmin extends React.Component {
     }
   };
 
-  handleSessionChange = e => {
-    if (e.target.value !== undefined && e.target.value !== '') {
-      this.setState({ sessionId: e.target.value });
+  handleSessionChange = (event: Event) => {
+    if (event.target.value !== undefined && event.target.value !== '') {
+      this.setState({ sessionId: String(event.target.value) });
     }
   };
 
@@ -182,7 +185,8 @@ const SessionList = ({
   ...props
 }: {
   graphs: Array<Object>,
-  sessions: Array<Object>
+  sessions: Array<Object>,
+  classes: Object
 }) => {
   const { classes } = props;
   return (

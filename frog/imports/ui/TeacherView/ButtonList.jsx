@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import Grid from 'material-ui/Grid';
@@ -56,7 +56,10 @@ const styles = () => ({
 });
 
 @withStyles(styles)
-export class SessionTitle extends React.Component {
+export class SessionTitle extends React.Component<
+  { classes: Object, session: Object, buttons: Array<Object> },
+  { open: boolean }
+> {
   state = {
     open: false
   };
@@ -172,8 +175,8 @@ const ButtonList = ({
   ...props
 }: {
   session: Object,
-  toggle: Function,
-  setShowStudentList: Function
+  buttons: Array<Object>,
+  classes: Object
 }) => {
   const { classes } = props;
   return (

@@ -6,6 +6,7 @@ import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
+
 declare var Promise: any;
 
 const dbUrl =

@@ -54,13 +54,7 @@ class DisplayData extends React.Component<Object, StateT> {
     return (
       <List subheader={<ListSubheader>{this.props.title}</ListSubheader>}>
         {this.props.data.map(d => (
-          <ListItem
-            key={d._id}
-            dense
-            button
-            onClick={this.toggleDisplay}
-            styles={listStyle.sheet}
-          >
+          <ListItem key={d._id} dense button onClick={this.toggleDisplay}>
             <ListItemText primary={d._id} />
             {this.state.isClicked ? (
               <Typography type="caption" style={listStyle.jsonFont}>
