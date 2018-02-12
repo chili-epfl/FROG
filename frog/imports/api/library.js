@@ -12,22 +12,18 @@ export const addActivityToLibrary = (
   description: string,
   activityType: string,
   configuration: Object,
-  groupingKey: ?string,
-  tags: ?string[]
+  tags: ?(string[])
 ) => {
+  Library.insert({
+    _id: uuid(),
+    parentId,
+    title,
+    description,
+    activityType,
+    configuration,
+    exportedAt: new Date(),
+    tags
+  });
+};
 
-    Library.insert({
-      _id: uuid(),
-      parentId,
-      title,
-      description,
-      activityType,
-      configuration,
-      groupingKey,
-      exportedAt: new Date(),
-      tags
-    });
-  };
-
-  export const removeActivity = (id: string) =>
-  Library.remove({_id: id})
+export const removeActivity = (id: string) => Library.remove({ _id: id });

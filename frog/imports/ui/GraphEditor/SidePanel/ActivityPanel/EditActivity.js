@@ -80,13 +80,13 @@ const RawEditActivity = ({
 
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <Modal {...{modalOpen, setModal}}/>
-      <div style={{ backgroundColor: '#eee' , minHeight: '100px'}}>
+      <Modal {...{ modalOpen, setModal, activity }} />
+      <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
         </div>
-        <div style={{display: 'flex', flexDirection: 'row'}}>
-        <FlexView style={{ flexDirection: 'column'}}>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <FlexView style={{ flexDirection: 'column' }}>
             <h3>
               <ChangeableText
                 EditComponent={RenameField}
@@ -107,26 +107,34 @@ const RawEditActivity = ({
                 } min.`}
               </i>
             </font>
-        </FlexView>
-        <FlexView marginLeft='auto' style={{flexDirection: 'column', position: 'absolute', right: '2px'}}>
-          <ValidButton activityId={activity._id} errorColor={errorColor} />
-          {errorColor === 'green' && (
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-            <Button
-              className="glyphicon glyphicon-eye-open"
-              onClick={() =>
-                  props.store.ui.setShowPreview({
-                    activityTypeId: activity.activityType,
-                    config: activity.data
-                  })
-                }
-            />
-            <Button
-              className="glyphicon glyphicon-share"
-              onClick={() => setModal(true)}
-            />
-          </div>)}
-        </FlexView>
+          </FlexView>
+          <FlexView
+            marginLeft="auto"
+            style={{
+              flexDirection: 'column',
+              position: 'absolute',
+              right: '2px'
+            }}
+          >
+            <ValidButton activityId={activity._id} errorColor={errorColor} />
+            {errorColor === 'green' && (
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <Button
+                  className="glyphicon glyphicon-eye-open"
+                  onClick={() =>
+                    props.store.ui.setShowPreview({
+                      activityTypeId: activity.activityType,
+                      config: activity.data
+                    })
+                  }
+                />
+                <Button
+                  className="glyphicon glyphicon-share"
+                  onClick={() => setModal(true)}
+                />
+              </div>
+            )}
+          </FlexView>
         </div>
         {activity.plane === 2 && (
           <SelectAttributeWidget

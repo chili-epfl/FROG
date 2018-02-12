@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { Button } from 'react-bootstrap';
 import { withState } from 'recompose';
@@ -42,80 +42,70 @@ const generateExample = (objects, colors) => {
   const colorName = colors[colorIndex];
   const colorFill = colors[colorFillIndex];
 
-  const startTime = Date.now()
+  const startTime = Date.now();
 
-  return { isConsistent, isCorrect, objectName, colorName, colorFill, startTime };
+  return {
+    isConsistent,
+    isCorrect,
+    objectName,
+    colorName,
+    colorFill,
+    startTime
+  };
 };
 
-const Start = ({ start, guidelines }) =>
+const Start = ({ start, guidelines }) => (
   <div style={styles.container}>
-    <div style={styles.text}>
-      {guidelines}
-    </div>
+    <div style={styles.text}>{guidelines}</div>
     <div style={styles.commands}>
-      <Button
-        style={{ ...styles.button, width: '100%'}}
-        onClick={start}
-      >
+      <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
         Start
       </Button>
     </div>
   </div>
+);
 
-
-const Question = withState('question', 'setQuestion', null)((props) => {
-  const { activityData, question, setQuestion } = props
-  const { colors, objects } = activityData.config
-  const colorList = colors.split(',')
-  const objectList = objects.split(',')
+const Question = withState('question', 'setQuestion', null)(props => {
+  const { activityData, question, setQuestion } = props;
+  const { colors, objects } = activityData.config;
+  const colorList = colors.split(',');
+  const objectList = objects.split(',');
 
   const nextQuestion = () => {
-    setQuestion(generateExample(objectList, colorList))
-  }
+    setQuestion(generateExample(objectList, colorList));
+  };
 
   if (question === null) {
-    return (
-      <Start
-        start={nextQuestion}
-        guidelines="fsfdgsdjsjfdfh"
-      />)
+    return <Start start={nextQuestion} guidelines="fsfdgsdjsjfdfh" />;
   }
 
-  const { objectName, colorName, colorFill } = question
-  const { logger } = props
-  const onClick = (answer) => (() => {
-    const answerTime = Date.now()
-    logger({ type: 'answer', payload: { ...question, answer, answerTime } })
-    nextQuestion()
-  })
+  const { objectName, colorName, colorFill } = question;
+  const { logger } = props;
+  const onClick = answer => () => {
+    const answerTime = Date.now();
+    logger({ type: 'answer', payload: { ...question, answer, answerTime } });
+    nextQuestion();
+  };
   return (
     <div style={styles.container}>
       <div style={styles.text}>
-      The color of {objectName} is{' '}
+        The color of {objectName} is{' '}
         <span style={{ color: colorFill }}>{colorName}</span>
       </div>
       <div style={styles.commands}>
-        <Button
-          style={{ ...styles.button, left: 0 }}
-          onClick={onClick(true)}
-        >
+        <Button style={{ ...styles.button, left: 0 }} onClick={onClick(true)}>
           Yes
         </Button>
-        <Button
-          style={{ ...styles.button, right: 0 }}
-          onClick={onClick(false)}
-        >
+        <Button style={{ ...styles.button, right: 0 }} onClick={onClick(false)}>
           No
         </Button>
       </div>
     </div>
   );
-})
+});
 
 // the actual component that the student sees
 export default (props: ActivityRunnerT) => {
-  props.logger({ type: 'start' })
-  return (
-    <Question {...props} />
-  );
+  props.logger({ type: 'start' });
+  return <Question {...props} />;
 };
