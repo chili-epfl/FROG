@@ -61,7 +61,6 @@ const generateExample = (objects, colors) => {
   };
 };
 
-
 const Start = withState('ready', 'setReady', false)(
   ({ ready, setReady, start, guidelines }) => (
     <div style={styles.container}>
