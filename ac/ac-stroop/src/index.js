@@ -68,7 +68,6 @@ const config = {
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = { progress: 0 };
 
-
 export default ({
   id: 'ac-stroop',
   type: 'react-component',
