@@ -8,6 +8,7 @@ import { ChangeableText, A, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity, setStreamTarget } from '/imports/api/activities';
+import { addActivityToLibrary } from '/imports/api/library';
 import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
@@ -77,12 +78,12 @@ const RawEditActivity = ({
 
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <div style={{ backgroundColor: '#eee' }}>
+      <div style={{ backgroundColor: '#eee' , minHeight: '100px'}}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
         </div>
-        <FlexView>
-          <div>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+        <FlexView style={{ flexDirection: 'column'}}>
             <h3>
               <ChangeableText
                 EditComponent={RenameField}
@@ -93,40 +94,42 @@ const RawEditActivity = ({
                 }
               />
             </h3>
-          </div>
-          <FlexView marginLeft="auto">
-            {errorColor === 'green' && (
-              <Button
-                className="glyphicon glyphicon-eye-open"
-                style={{
-                  position: 'absolute',
-                  right: '2px',
-                  top: '39px',
-                  width: '9%',
-                  height: '34px'
-                }}
-                onClick={() =>
+            <font size={-3}>
+              <i>
+                {`Type: ${activityType.meta.name}
+                         (${activity.activityType})`}
+                <br />
+                {`Starting after ${graphActivity.startTime} min., running for ${
+                  graphActivity.length
+                } min.`}
+              </i>
+            </font>
+        </FlexView>
+        <FlexView marginLeft='auto' style={{flexDirection: 'column', position: 'absolute', right: '2px'}}>
+          <ValidButton activityId={activity._id} errorColor={errorColor} />
+          {errorColor === 'green' && (
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+            <Button
+              className="glyphicon glyphicon-eye-open"
+              onClick={() =>
                   props.store.ui.setShowPreview({
                     activityTypeId: activity.activityType,
                     config: activity.data
                   })
                 }
-              />
-            )}
-
-            <ValidButton activityId={activity._id} errorColor={errorColor} />
-          </FlexView>
+            />
+            <Button
+              className="glyphicon glyphicon-share"
+              onClick={() => // redefine
+                props.store.ui.setShowPreview({
+                  activityTypeId: activity.activityType,
+                  config: activity.data
+                })
+              }
+            />
+          </div>)}
         </FlexView>
-        <font size={-3}>
-          <i>
-            {`Type: ${activityType.meta.name}
-                     (${activity.activityType})`}
-            <br />
-            {`Starting after ${graphActivity.startTime} min., running for ${
-              graphActivity.length
-            } min.`}
-          </i>
-        </font>
+        </div>
         {activity.plane === 2 && (
           <SelectAttributeWidget
             activity={activity}

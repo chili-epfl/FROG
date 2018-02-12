@@ -6,7 +6,7 @@ import { uuid } from 'frog-utils';
 
 export const Library = new Mongo.Collection('library');
 
-export const addActivity = (
+export const addActivityToLibrary = (
   parentId: string,
   title: string,
   description: string,

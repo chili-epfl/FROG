@@ -75,7 +75,7 @@ class ChooseActivityType extends Component<PropsT, StateT> {
           <h4>Select activity type</h4>
           <div
             className="input-group"
-            style={{ top: '5px', left: '10px', width: '230px' }}
+            style={{ top: '5px', left: '10px', width: '200px' }}
           >
             <span className="input-group-addon" id="basic-addon1">
               <span className="glyphicon glyphicon-search" aria-hidden="true" />
@@ -91,14 +91,15 @@ class ChooseActivityType extends Component<PropsT, StateT> {
             />
           </div>
           <Button
+            className={this.state.libraryOpen ? 'btn btn-success' : 'btn btn-primary'}
             style={{
               position: 'relative',
               top: '5px',
               left: '15px',
-              width: '70px'
+              width: '100px'
             }}
             onClick={()=> this.setState({libraryOpen: !this.state.libraryOpen})}
-          > {this.state.libraryOpen ? 'Create' : 'Library'} </Button>
+          > {this.state.libraryOpen ? 'New activity' : 'Library'} </Button>
         </div>
         {this.state.libraryOpen ? <ActivityLibrary {...closeLibrary}/> :
         (<div
