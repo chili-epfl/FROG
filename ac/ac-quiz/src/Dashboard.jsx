@@ -9,13 +9,14 @@ import {
   CountChart,
   ScatterChart,
   ProgressDashboard,
+  LeaderBoard,
   type LogDBT,
   type ActivityDbT,
   type dashboardViewerPropsT
 } from 'frog-utils';
 
 const ScatterViewer = (props: dashboardViewerPropsT) => {
-  const { data, config, instances } = props;
+  const { data: { answers }, config, instances } = props;
   const questions = config.questions.filter(q => q.question && q.answers);
   const scatterData =
     config.argueWeighting &&
@@ -23,11 +24,11 @@ const ScatterViewer = (props: dashboardViewerPropsT) => {
       const coordinates = [0, 0];
       questions.forEach((q, qIndex) => {
         if (
-          data[instance] &&
-          data[instance][qIndex] &&
-          q.answers[data[instance][qIndex] - 1]
+          answers[instance] &&
+          answers[instance][qIndex] &&
+          q.answers[answers[instance][qIndex] - 1]
         ) {
-          const answerIndex = data[instance][qIndex] - 1;
+          const answerIndex = answers[instance][qIndex] - 1;
           coordinates[0] += q.answers[answerIndex].x;
           coordinates[1] += q.answers[answerIndex].y;
         }
@@ -42,14 +43,14 @@ const ScatterViewer = (props: dashboardViewerPropsT) => {
 };
 
 const AnswerCountViewer = (props: dashboardViewerPropsT) => {
-  const { data, config, instances } = props;
+  const { data: { answers }, config, instances } = props;
   if (!config) {
     return null;
   }
 
   const instAnswers = instances.reduce((newObj, prop) => {
-    if (Object.prototype.hasOwnProperty.call(data, prop)) {
-      newObj[prop] = data[prop];
+    if (Object.prototype.hasOwnProperty.call(answers, prop)) {
+      newObj[prop] = answers[prop];
     }
     return newObj;
   }, {});
@@ -90,9 +91,11 @@ const Viewer = withState('which', 'setWhich', null)(
         <Select target="progress" onClick={setWhich} />
         <Select target="scatter" onClick={setWhich} />
         <Select target="count" onClick={setWhich} />
+        <Select target="leaderboard" onClick={setWhich} />
         {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
         {which === 'scatter' && <ScatterViewer {...props} />}
         {which === 'count' && <AnswerCountViewer {...props} />}
+        {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
       </div>
     );
   }
@@ -105,17 +108,20 @@ const mergeLog = (
   activity: ActivityDbT
 ) => {
   if (log.itemId !== undefined && log.type === 'choice') {
-    if (!data[log.instanceId]) {
-      dataFn.objInsert({ [log.itemId]: log.value }, [log.instanceId]);
+    if (!data['answers'][log.instanceId]) {
+      dataFn.objInsert({ [log.itemId]: log.value }, ['answers', log.instanceId]);
     } else {
-      dataFn.objInsert(log.value, [log.instanceId, log.itemId]);
+      dataFn.objInsert(log.value, ['answers', log.instanceId, log.itemId]);
     }
   }
   ProgressDashboard.mergeLog(data, dataFn, log, activity);
+  LeaderBoard.mergeLog(data, dataFn, log, activity);
 };
 
 const initData = {
-  ...ProgressDashboard.initData
+  answers: {},
+  ...ProgressDashboard.initData,
+  ...LeaderBoard.initData
 };
 
 export default {
