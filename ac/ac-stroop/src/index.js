@@ -2,8 +2,8 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './ActivityRunner'
-import dashboard from './Dashboard'
+import ActivityRunner from './ActivityRunner';
+import dashboard from './Dashboard';
 
 const meta = {
   name: 'Stroop Effect',
@@ -44,7 +44,7 @@ const config = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (_) => {};
+const mergeFunction = _ => {};
 
 export default ({
   id: 'ac-stroop',
