@@ -109,7 +109,10 @@ const mergeLog = (
 ) => {
   if (log.itemId !== undefined && log.type === 'choice') {
     if (!data['answers'][log.instanceId]) {
-      dataFn.objInsert({ [log.itemId]: log.value }, ['answers', log.instanceId]);
+      dataFn.objInsert({ [log.itemId]: log.value }, [
+        'answers',
+        log.instanceId
+      ]);
     } else {
       dataFn.objInsert(log.value, ['answers', log.instanceId, log.itemId]);
     }

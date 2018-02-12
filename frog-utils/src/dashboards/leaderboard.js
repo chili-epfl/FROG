@@ -2,10 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import React from 'react';
-import {
-  type LogDBT,
-  type dashboardViewerPropsT
-} from '../';
+import { type LogDBT, type dashboardViewerPropsT } from '../';
 
 const Viewer = (props: dashboardViewerPropsT) => {
   const { data, config, users, activity } = props;
@@ -43,11 +40,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
   );
 };
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  log: LogDBT,
-) => {
+const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   if (log.type === 'score') {
     dataFn.objInsert(log.value, ['scores', log.instanceId]);
   }
