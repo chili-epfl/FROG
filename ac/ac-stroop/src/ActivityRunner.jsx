@@ -114,7 +114,6 @@ const Question = props => {
 
   clearTimeout(noAnswerTimeout);
   noAnswerTimeout = setTimeout(onClick(undefined), 10000);
-
   return (
     <React.Fragment>
       <div style={styles.text}>
