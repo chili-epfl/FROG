@@ -8,8 +8,8 @@ import { ChangeableText, A, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity, setStreamTarget } from '/imports/api/activities';
-import { addActivityToLibrary } from '/imports/api/library';
 import { connect } from '../../store';
+import Modal from '../ModalExport';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
@@ -37,6 +37,8 @@ const RawEditActivity = ({
   setAdvancedOpen,
   reload,
   setReload,
+  modalOpen,
+  setModal,
   activity,
   ...props
 }) => {
@@ -78,6 +80,7 @@ const RawEditActivity = ({
 
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
+      <Modal {...{modalOpen, setModal}}/>
       <div style={{ backgroundColor: '#eee' , minHeight: '100px'}}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
@@ -120,12 +123,7 @@ const RawEditActivity = ({
             />
             <Button
               className="glyphicon glyphicon-share"
-              onClick={() => // redefine
-                props.store.ui.setShowPreview({
-                  activityTypeId: activity.activityType,
-                  config: activity.data
-                })
-              }
+              onClick={() => setModal(true)}
             />
           </div>)}
         </FlexView>
@@ -186,6 +184,7 @@ const RawEditActivity = ({
 
 const EditActivity = compose(
   withState('advancedOpen', 'setAdvancedOpen', false),
-  withState('reload', 'setReload', uuid())
+  withState('reload', 'setReload', uuid()),
+  withState('modalOpen', 'setModal', false)
 )(RawEditActivity);
 export default connect(EditActivity);
