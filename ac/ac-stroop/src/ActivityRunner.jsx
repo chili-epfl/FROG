@@ -97,15 +97,15 @@ const Delay = ({ next, delay }) => {
 };
 
 const Question = props => {
-  const { setQuestion, question, progress, setProgress, logger } = props;
+  const { setQuestion, question, logger, data, dataFn } = props;
   const { objectName, colorName, colorFill } = question;
 
   const onClick = answer => () => {
     clearTimeout(noAnswerTimeout);
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
-    logger({ type: 'progress', value: progress + 1 });
-    setProgress(progress + 1);
+    logger({ type: 'progress', value: data.progress + 1 });
+    dataFn.numIncr(1,'progress')
     setQuestion('waiting');
   };
 
@@ -152,12 +152,12 @@ const Main = withState('question', 'setQuestion', null)(props => {
 });
 
 // the actual component that the student sees
-const Runner = withState('progress', 'setProgress', 0)(
+const Runner =
   (props: ActivityRunnerT) => {
-    const { logger, progress, activityData } = props;
+    const { logger, data, activityData } = props;
     const { maxQuestions } = activityData.config;
-    const p = Math.round(progress / maxQuestions * 100);
-    if (progress < maxQuestions) {
+    const p = Math.round(data.progress / maxQuestions * 100);
+    if (data.progress < maxQuestions) {
       return (
         <div style={styles.main}>
           <ProgressBar now={p} label={`${p}%`} />
@@ -177,7 +177,6 @@ const Runner = withState('progress', 'setProgress', 0)(
       );
     }
   }
-);
 
 export default class ActivityRunner extends React.Component<ActivityRunnerT> {
   componentWillUnmount() {

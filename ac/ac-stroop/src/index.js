@@ -21,6 +21,17 @@ const meta = {
         maxQuestions: 20
       },
       data: {}
+    },
+    {
+      title: 'Be quick',
+      config: {
+        guidelines: 'Hurry!',
+        objects: 'lemons,wood,a tomato,grass,the sky',
+        colors: 'yellow,brown,red,green,blue',
+        delay: 100,
+        maxQuestions: 5
+      },
+      data: {}
     }
   ]
 };
@@ -55,7 +66,7 @@ const config = {
 };
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
+const dataStructure = { progress: 0 };
 
 export default ({
   id: 'ac-stroop',
