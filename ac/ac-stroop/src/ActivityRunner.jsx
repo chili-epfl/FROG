@@ -87,17 +87,18 @@ const Start = withState('ready', 'setReady', false)(
   )
 );
 
+let noAnswerTimeout;
+let delayTimeout;
+
 const Delay = ({ next, delay }) => {
-  setTimeout(next, delay);
+  clearTimeout(delayTimeout);
+  delayTimeout = setTimeout(next, delay);
   return <div style={styles.text}>Waiting for next question</div>;
 };
 
-let noAnswerTimeout;
-
 const Question = props => {
-  const { setQuestion, question, progress, setProgress } = props;
+  const { setQuestion, question, progress, setProgress, logger } = props;
   const { objectName, colorName, colorFill } = question;
-  const { logger } = props;
 
   const onClick = answer => () => {
     clearTimeout(noAnswerTimeout);
@@ -151,7 +152,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
 });
 
 // the actual component that the student sees
-const ActivityRunner = withState('progress', 'setProgress', 0)(
+const Runner = withState('progress', 'setProgress', 0)(
   (props: ActivityRunnerT) => {
     const { logger, progress, activityData } = props;
     const { maxQuestions } = activityData.config;
@@ -178,7 +179,15 @@ const ActivityRunner = withState('progress', 'setProgress', 0)(
   }
 );
 
-export default (props: ActivityRunnerT) => {
-  props.logger({ type: 'start' });
-  return <ActivityRunner {...props} />;
-};
+export default class ActivityRunner extends React.Component<ActivityRunnerT> {
+  componentWillUnmount() {
+    Mousetrap.reset();
+    clearTimeout(delayTimeout);
+    clearTimeout(noAnswerTimeout);
+  }
+
+  render() {
+    this.props.logger({ type: 'start' });
+    return <Runner {...this.props} />;
+  }
+}
