@@ -2,8 +2,9 @@
 
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
-import { Button } from 'react-bootstrap';
+import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
+import Mousetrap from 'mousetrap';
 
 const styles = {
   button: { width: '70px', margin: 'auto', position: 'absolute' },
@@ -13,6 +14,12 @@ const styles = {
     height: '400px',
     margin: 'auto',
     marginTop: '80px'
+  },
+  main: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#bbb',
+    position: 'absolute'
   },
   commands: {
     width: '200px',
@@ -54,40 +61,61 @@ const generateExample = (objects, colors) => {
   };
 };
 
-const Start = ({ start, guidelines }) => (
-  <div style={styles.container}>
-    <div style={styles.text}>{guidelines}</div>
-    <div style={styles.commands}>
-      <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
-        Start
-      </Button>
+const Start = withState('ready', 'setReady', false)(
+  ({ ready, setReady, start, guidelines }) => (
+    <div style={styles.container}>
+      {!ready && <div style={styles.text}>Answer the following form</div>}
+      {!ready && (
+        <div style={styles.commands}>
+          <Button
+            style={{ ...styles.button, width: '100%' }}
+            onClick={() => setReady(true)}
+          >
+            Submit
+          </Button>
+        </div>
+      )}
+      {ready && <div style={styles.text}>{guidelines}</div>}
+      {ready && (
+        <div style={styles.commands}>
+          <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
+            Start
+          </Button>
+        </div>
+      )}
     </div>
-  </div>
+  )
 );
 
-const Question = withState('question', 'setQuestion', null)(props => {
-  const { activityData, question, setQuestion } = props;
-  const { colors, objects } = activityData.config;
-  const colorList = colors.split(',');
-  const objectList = objects.split(',');
+let noAnswerTimeout;
+let delayTimeout;
 
-  const nextQuestion = () => {
-    setQuestion(generateExample(objectList, colorList));
-  };
+const Delay = ({ next, delay }) => {
+  clearTimeout(delayTimeout);
+  delayTimeout = setTimeout(next, delay);
+  return <div style={styles.text}>Waiting for next question</div>;
+};
 
-  if (question === null) {
-    return <Start start={nextQuestion} guidelines="fsfdgsdjsjfdfh" />;
-  }
-
+const Question = props => {
+  const { setQuestion, question, logger, data, dataFn } = props;
   const { objectName, colorName, colorFill } = question;
-  const { logger } = props;
+
   const onClick = answer => () => {
+    clearTimeout(noAnswerTimeout);
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
-    nextQuestion();
+    logger({ type: 'progress', value: data.progress + 1 });
+    dataFn.numIncr(1, 'progress');
+    setQuestion('waiting');
   };
+
+  Mousetrap.bind('y', onClick(true));
+  Mousetrap.bind('n', onClick(false));
+
+  clearTimeout(noAnswerTimeout);
+  noAnswerTimeout = setTimeout(onClick(undefined), 10000);
   return (
-    <div style={styles.container}>
+    <React.Fragment>
       <div style={styles.text}>
         The color of {objectName} is{' '}
         <span style={{ color: colorFill }}>{colorName}</span>
@@ -100,12 +128,63 @@ const Question = withState('question', 'setQuestion', null)(props => {
           No
         </Button>
       </div>
-    </div>
+    </React.Fragment>
   );
+};
+
+const Main = withState('question', 'setQuestion', null)(props => {
+  const { activityData, question, setQuestion } = props;
+  const { colors, objects, delay, guidelines } = activityData.config;
+  const colorList = colors.split(',');
+  const objectList = objects.split(',');
+  const next = () => {
+    setQuestion(generateExample(objectList, colorList));
+  };
+  const start = () => setQuestion('waiting');
+  if (!question) {
+    return <Start start={start} guidelines={guidelines} />;
+  } else if (question === 'waiting') {
+    return <Delay next={next} delay={delay} />;
+  } else {
+    return <Question {...props} />;
+  }
 });
 
 // the actual component that the student sees
-export default (props: ActivityRunnerT) => {
-  props.logger({ type: 'start' });
-  return <Question {...props} />;
+const Runner = (props: ActivityRunnerT) => {
+  const { logger, data, activityData } = props;
+  const { maxQuestions } = activityData.config;
+  const p = Math.round(data.progress / maxQuestions * 100);
+  if (data.progress < maxQuestions) {
+    return (
+      <div style={styles.main}>
+        <ProgressBar now={p} label={`${p}%`} />
+        <div style={styles.container}>
+          <Main {...props} />
+        </div>
+      </div>
+    );
+  } else {
+    logger({ type: 'completed' });
+    return (
+      <div style={styles.main}>
+        <div style={styles.container}>
+          <div style={styles.text}>Activity Completed!</div>
+        </div>
+      </div>
+    );
+  }
 };
+
+export default class ActivityRunner extends React.Component<ActivityRunnerT> {
+  componentWillUnmount() {
+    Mousetrap.reset();
+    clearTimeout(delayTimeout);
+    clearTimeout(noAnswerTimeout);
+  }
+
+  render() {
+    this.props.logger({ type: 'start' });
+    return <Runner {...this.props} />;
+  }
+}
