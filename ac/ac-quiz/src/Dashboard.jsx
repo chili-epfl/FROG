@@ -3,100 +3,46 @@
 
 import React from 'react';
 import {
-  CountChart,
-  ScatterChart,
-  LineChart,
   type LogDBT,
-  type ActivityDbT,
-  TimedComponent
+  type dashboardViewerPropsT,
+  type ActivityDbT
 } from 'frog-utils';
 
 const TIMEWINDOW = 5;
 
-const ProgressViewer = TimedComponent((props: Object) => {
-  const { data, instances, activity, timeNow } = props;
+const Viewer = (props: dashboardViewerPropsT) => {
+  const { data, config, users, activity } = props;
 
-  const numWindow = Math.ceil(
-    (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
-  );
-  const timingData = [[0, 0, 0, 0]];
-  const factor = 100 / Object.keys(instances).length;
-  for (let i = 0, j = -1; i <= numWindow; i += 1) {
-    if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
-      j += 1;
-    }
-    timingData.push([
-      i * TIMEWINDOW / 60,
-      data['timing'][j][1] * factor,
-      data['timing'][j][2],
-      data['timing'][j][3]
-    ]);
-  }
-  return (
-    <LineChart
-      title="Activity Progress"
-      vAxis="Percent Complete"
-      hAxis="Time Elapsed"
-      hLen={props.activity['length']}
-      rows={timingData}
-    />
-  );
-}, TIMEWINDOW * 1000);
-
-const Viewer = (props: Object) => {
-  const { data, config, instances } = props;
   if (!config) {
     return null;
   }
 
-  const instAnswers = instances.reduce((newObj, prop) => {
-    if (Object.prototype.hasOwnProperty.call(data, prop)) {
-      newObj[prop] = data[prop];
-    }
-    return newObj;
-  }, {});
-
-  const questions = config.questions.filter(q => q.question && q.answers);
-  const scatterData =
-    (config.argueWeighting &&
-      instances.map(instance => {
-        const coordinates = [0, 0];
-        questions.forEach((q, qIndex) => {
-          if (
-            data[instance] &&
-            data[instance][qIndex] &&
-            q.answers[data[instance][qIndex] - 1]
-          ) {
-            const answerIndex = data[instance][qIndex] - 1;
-            coordinates[0] += q.answers[answerIndex].x;
-            coordinates[1] += q.answers[answerIndex].y;
-          }
-        });
-        return coordinates;
-      })) ||
-    [];
-
-  const answerCounts = questions.map((q, qIndex) =>
-    ((instAnswers && Object.values(instAnswers)) || []).reduce((acc, val) => {
-      acc[val[qIndex]] += 1;
-      return acc;
-    }, q.answers.map(() => 0))
+  const ranking = Object.keys(data.progress).sort(
+    (a, b) => data.progress[b] - data.progress[a]
   );
 
+  const isPreview = activity.plane === undefined ? 1 : 0;
+
   return (
-    <div>
-      {config.argueWeighting && <ScatterChart data={scatterData} />}
-      <ProgressViewer {...props} />
-      {questions.map((q, qIndex) => (
-        <CountChart
-          key={qIndex}
-          title={q.question}
-          vAxis="Possible answers"
-          hAxis="Number of answers"
-          categories={q.answers.map(x => x.choice)}
-          data={answerCounts[qIndex]}
-        />
-      ))}
+    <div style={{ margin: '20px', backgroundColor: 'white' }}>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>{isPreview ? 'Group' : 'Name'}</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ranking.map((item, index) => (
+            <tr key={item}>
+              <td className="col-md-4">{index + 1}</td>
+              <td className="col-md-4">{isPreview ? item : users[item]}</td>
+              <td className="col-md-4">{data.progress[item]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
