@@ -105,7 +105,7 @@ const Question = props => {
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
     logger({ type: 'progress', value: data.progress + 1 });
-    dataFn.numIncr(1,'progress')
+    dataFn.numIncr(1, 'progress');
     setQuestion('waiting');
   };
 
@@ -152,31 +152,30 @@ const Main = withState('question', 'setQuestion', null)(props => {
 });
 
 // the actual component that the student sees
-const Runner =
-  (props: ActivityRunnerT) => {
-    const { logger, data, activityData } = props;
-    const { maxQuestions } = activityData.config;
-    const p = Math.round(data.progress / maxQuestions * 100);
-    if (data.progress < maxQuestions) {
-      return (
-        <div style={styles.main}>
-          <ProgressBar now={p} label={`${p}%`} />
-          <div style={styles.container}>
-            <Main {...props} />
-          </div>
+const Runner = (props: ActivityRunnerT) => {
+  const { logger, data, activityData } = props;
+  const { maxQuestions } = activityData.config;
+  const p = Math.round(data.progress / maxQuestions * 100);
+  if (data.progress < maxQuestions) {
+    return (
+      <div style={styles.main}>
+        <ProgressBar now={p} label={`${p}%`} />
+        <div style={styles.container}>
+          <Main {...props} />
         </div>
-      );
-    } else {
-      logger({ type: 'completed' });
-      return (
-        <div style={styles.main}>
-          <div style={styles.container}>
-            <div style={styles.text}>Activity Completed!</div>
-          </div>
+      </div>
+    );
+  } else {
+    logger({ type: 'completed' });
+    return (
+      <div style={styles.main}>
+        <div style={styles.container}>
+          <div style={styles.text}>Activity Completed!</div>
         </div>
-      );
-    }
+      </div>
+    );
   }
+};
 
 export default class ActivityRunner extends React.Component<ActivityRunnerT> {
   componentWillUnmount() {
