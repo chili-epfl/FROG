@@ -14,12 +14,20 @@ const initData = {
 
 const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
-    const { isCorrect, isConsistent, answer } = log.payload;
-    const stroopType = isConsistent ? 'consistent' : 'inconsistent';
+    const {
+      isConsistent,
+      isCorrect,
+      answer,
+      startTime,
+      answerTime
+    } = log.payload;
+    const qType = isConsistent ? 'consistent' : 'inconsistent';
     if (isCorrect === answer) {
-      dataFn.numIncr(1, [stroopType, 'correct', 'count']);
+      dataFn.numIncr(1, [qType, 'correct', 'count']);
+      dataFn.numIncr(answerTime - startTime, [qType, 'correct', 'time']);
     } else {
-      dataFn.numIncr(1, [stroopType, 'wrong', 'count']);
+      dataFn.numIncr(1, [qType, 'wrong', 'count']);
+      dataFn.numIncr(answerTime - startTime, [qType, 'wrong', 'time']);
     }
   }
 };
