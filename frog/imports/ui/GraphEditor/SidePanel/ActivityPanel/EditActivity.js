@@ -2,12 +2,18 @@
 
 import * as React from 'react';
 import FlexView from 'react-flexview';
+import ReactTooltip from 'react-tooltip';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
-import { addActivity, setStreamTarget } from '/imports/api/activities';
+import {
+  addActivity,
+  setStreamTarget,
+  setParticipation
+} from '/imports/api/activities';
 import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
@@ -30,6 +36,38 @@ const StreamSelect = ({ activity, targets, onChange }) => (
     </FormControl>
   </FormGroup>
 );
+
+const SelectParticipationMode = ({ activity, onChange }) => (
+  <FormGroup controlId="participationGrouping">
+    <FormControl
+      onChange={e => onChange(e.target.value)}
+      componentClass="select"
+      value={activity.participationMode || 'everyone'}
+    >
+      <option value="everyone">Everyone participate equally</option>
+      <option value="readonly">
+        Only teacher edits, students have read-only views
+      </option>
+      <option value="projector">
+        {"Only displayed in teacher's projector mode"}
+      </option>
+    </FormControl>
+  </FormGroup>
+);
+
+const copyURL = activity => {
+  const configStr = activity.data
+    ? `config=${encodeURIComponent(JSON.stringify(activity.data))}&`
+    : '';
+  const url = `${window.location.protocol}//${window.location.hostname}${
+    window.location.port ? ':' + window.location.port : ''
+  }/api/activityType/${activity.activityType}?${configStr}instance_id=1`;
+  copy(url);
+  // eslint-disable-next-line no-alert
+  window.alert(
+    'Pre-configured URL for headless FROG has been copied to your clipboard'
+  );
+};
 
 const RawEditActivity = ({
   advancedOpen,
@@ -96,22 +134,37 @@ const RawEditActivity = ({
           </div>
           <FlexView marginLeft="auto">
             {errorColor === 'green' && (
-              <Button
-                className="glyphicon glyphicon-eye-open"
-                style={{
-                  position: 'absolute',
-                  right: '2px',
-                  top: '39px',
-                  width: '9%',
-                  height: '34px'
-                }}
-                onClick={() =>
-                  props.store.ui.setShowPreview({
-                    activityTypeId: activity.activityType,
-                    config: activity.data
-                  })
-                }
-              />
+              <React.Fragment>
+                <Button
+                  className="glyphicon glyphicon-eye-open"
+                  data-tip="Preview activity with current configuration"
+                  style={{
+                    position: 'absolute',
+                    right: '2px',
+                    top: '39px',
+                    width: '9%',
+                    height: '34px'
+                  }}
+                  onClick={() =>
+                    props.store.ui.setShowPreview({
+                      activityTypeId: activity.activityType,
+                      config: activity.data
+                    })
+                  }
+                />
+                <Button
+                  className="glyphicon glyphicon-link"
+                  data-tip="Embed config in link to headless FROG"
+                  style={{
+                    position: 'absolute',
+                    right: '41px',
+                    top: '39px',
+                    width: '9%',
+                    height: '34px'
+                  }}
+                  onClick={() => copyURL(activity)}
+                />
+              </React.Fragment>
             )}
 
             <ValidButton activityId={activity._id} errorColor={errorColor} />
@@ -134,6 +187,12 @@ const RawEditActivity = ({
               addActivity(activity.activityType, null, activity._id, grp);
               props.store.refreshValidate();
             }}
+          />
+        )}
+        {activity.plane === 3 && (
+          <SelectParticipationMode
+            activity={activity}
+            onChange={e => setParticipation(activity._id, e)}
           />
         )}
       </div>
@@ -177,6 +236,7 @@ const RawEditActivity = ({
           <FileForm />
         </React.Fragment>
       )}
+      <ReactTooltip delayShow={1000} />
     </div>
   );
 };

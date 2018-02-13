@@ -79,6 +79,7 @@ export {
 export { default as TreeView } from './ActivityComponents/TreeView';
 // Exports for Dashboards
 export { default as ProgressDashboard } from './dashboards/progress';
+export { default as LeaderBoard } from './dashboards/leaderboard';
 
 export const A = ({ onClick, children, ...rest }: any): any => (
   <a

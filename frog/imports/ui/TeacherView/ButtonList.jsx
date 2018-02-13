@@ -191,7 +191,10 @@ const ButtonList = ({
           />
         )}
       <b style={{ marginLeft: '20px' }}>
-        session: <a href={`/${session.slug}`}>{session.slug}</a>
+        session:{' '}
+        <a target="_blank" href={`/projector/${session.slug}`}>
+          {session.slug}
+        </a>
       </b>
     </div>
   );

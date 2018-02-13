@@ -86,6 +86,7 @@ export default class ActivityStore {
             val: ''
           };
           store.addHistory();
+          return newActivity.id;
         }
       }),
 
