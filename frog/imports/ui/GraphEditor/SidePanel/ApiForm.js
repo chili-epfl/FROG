@@ -108,90 +108,81 @@ class State {
 
 const state = new State();
 
-@observer
-class ApiForm extends React.Component<
-  PropsT,
-  {
-    activity: {
-      id: string,
-      activityType?: string,
-      data?: Object
-    }
-  }
-> {
-  constructor(props) {
-    super(props);
-    this.state = {
+const ApiForm = observer(
+  class A extends React.Component<
+    PropsT,
+    {
       activity: {
-        id: '1',
-        activityType: this.props.activityType,
-        data: this.props.config
+        id: string,
+        activityType?: string,
+        data?: Object
       }
-    };
-  }
+    }
+  > {
+    constructor(props) {
+      super(props);
+      this.state = {
+        activity: {
+          id: '1',
+          activityType: this.props.activityType,
+          data: this.props.config
+        }
+      };
+    }
 
-  render() {
-    return (
-      <div style={{ margin: '10px' }}>
-        {this.state.activity.activityType ? (
-          <div>
-            <div style={{ position: 'absolute', top: '10px' }}>
-              <Config
+    render() {
+      return (
+        <div style={{ margin: '10px' }}>
+          {this.state.activity.activityType ? (
+            <div>
+              <div style={{ position: 'absolute', top: '10px' }}>
+                <Config
+                  activity={this.state.activity}
+                  setValid={state.setValid}
+                  config={{}}
+                />
+              </div>
+              {!this.props.hideValidator && (
+                <div style={{ position: 'absolute', right: '20px' }}>
+                  <Valid />
+                </div>
+              )}
+            </div>
+          ) : (
+            <div style={{ position: 'absolute', top: '30px' }}>
+              <ChooseActivityType
                 activity={this.state.activity}
-                setValid={state.setValid}
-                config={{}}
+                hidePreview
+                onSelect={e =>
+                  this.setState({
+                    activity: { id: '1', activityType: e.id, config: {} }
+                  })
+                }
               />
             </div>
-            {!this.props.hideValidator && (
-              <div style={{ position: 'absolute', right: '20px' }}>
-                <Valid />
-              </div>
-            )}
-          </div>
-        ) : (
-          <div style={{ position: 'absolute', top: '30px' }}>
-            <ChooseActivityType
-              activity={this.state.activity}
-              hidePreview
-              onSelect={e =>
-                this.setState({
-                  activity: { id: '1', activityType: e.id, config: {} }
-                })
-              }
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
-
-@observer
-class Valid extends React.Component<{}, void> {
-  render() {
-    return (
-      <ValidButtonRaw
-        setShowErrors={state.setShow}
-        errorColor={state.valid.length > 0 ? 'red' : 'green'}
-      />
-    );
-  }
-}
-
-@observer
-class Errors extends React.Component<{}, void> {
-  render() {
-    if (state.showErrors) {
-      return (
-        <div style={{ position: 'absolute', top: '20px', right: '200px' }}>
-          <ShowErrorsRaw errors={state.valid} />
+          )}
         </div>
       );
-    } else {
-      return null;
     }
   }
-}
+);
+
+const Valid = observer(() => (
+  <ValidButtonRaw
+    setShowErrors={state.setShow}
+    errorColor={state.valid.length > 0 ? 'red' : 'green'}
+  />
+));
+
+const Errors = observer(() => (
+  <React.Fragment>
+    {state.showErrors ? (
+      <div style={{ position: 'absolute', top: '20px', right: '200px' }}>
+        <ShowErrorsRaw errors={state.valid} />
+      </div>
+    ) : null}
+  </React.Fragment>
+));
 
 const Container = (props: PropsT) => (
   <div>
