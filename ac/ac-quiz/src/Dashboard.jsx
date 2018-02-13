@@ -43,22 +43,15 @@ const ScatterViewer = (props: dashboardViewerPropsT) => {
 };
 
 const AnswerCountViewer = (props: dashboardViewerPropsT) => {
-  const { data: { answers }, config, instances } = props;
+  const { data: { answers }, config } = props;
   if (!config) {
     return null;
   }
 
-  const instAnswers = instances.reduce((newObj, prop) => {
-    if (Object.prototype.hasOwnProperty.call(answers, prop)) {
-      newObj[prop] = answers[prop];
-    }
-    return newObj;
-  }, {});
-
   const questions = config.questions.filter(q => q.question && q.answers);
 
   const answerCounts = questions.map((q, qIndex) =>
-    ((instAnswers && Object.values(instAnswers)) || []).reduce((acc, val) => {
+    ((answers && Object.values(answers)) || []).reduce((acc, val) => {
       acc[val[qIndex]] += 1;
       return acc;
     }, q.answers.map(() => 0))

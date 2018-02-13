@@ -6,6 +6,7 @@
     "start": "nps"
   },
   "dependencies": {
+    "copy-to-clipboard": "^3.0.8",
     "@babel/runtime": "^7.0.0-beta.39",
     "ac-autocode": "1.0.0",
     "ac-brainstorm": "1.0.0",

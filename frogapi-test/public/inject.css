@@ -1,0 +1,27 @@
+body {
+font-family: SuisseIntl, Helvetica, Arial, sans-serif !important;
+background-color: #eee !important;
+}
+#render-target {
+    background-color: #eee !important;
+}
+input[type="text"].form-control { 
+    height: 38px;
+    padding: 7px 10px;
+    font-size: 18px;
+    line-height: 1.33333333;
+    border-radius: 0 !important;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+}
+legend, label, label.control-label {
+color: #5050d2;
+font-size: 19px;
+font-weight: 500;
+line-height: 21px;
+margin-botton: 7px;
+}
+legend {
+font-size: 24px;
+}
