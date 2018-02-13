@@ -18,15 +18,10 @@ import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 import { DocHead } from 'meteor/kadira:dochead';
 
-import { DashboardComp } from '../TeacherView/Dashboard';
-import { activityTypesObj } from '../../activityTypes';
-import { createLogger, createDashboardCollection } from '../../api/logs';
-import { RunActivity } from '../StudentView/Runner';
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
-import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 
 import TeacherLoadable from './TeacherContainer';
 // const TeacherLoadable = Loadable({
@@ -234,85 +229,7 @@ export default class Root extends React.Component<
     if (this.state.mode === 'waiting') {
       return null;
     } else if (this.state.api && this.state.data) {
-      if (this.state.data.callType === 'dashboard') {
-        const data = this.state.data;
-        return (
-          <DashboardComp
-            activity={{
-              _id: data.activityType + '-' + data.activity_id,
-              activityType: data.activityType
-            }}
-            users={[]}
-            config={data.config}
-            instances={[]}
-          />
-        );
-      }
-      if (this.state.data.callType === 'config') {
-        if (this.state.data.injectCSS) {
-          DocHead.addLink({
-            rel: 'stylesheet',
-            type: 'text/css',
-            href: this.state.data.injectCSS
-          });
-        }
-        return (
-          <ApiForm
-            activityType={this.state.data.activityType}
-            config={this.state.data.config}
-            hideValidator={this.state.data.hideValidator}
-          />
-        );
-      } else {
-        const data = this.state.data;
-        const actId = data.activityType + '-' + (data.activity_id || 'default');
-        const logger = createLogger(
-          'headless',
-          data.raw_instance_id,
-          {
-            _id: actId,
-            activityType: data.activityType
-          },
-          data.raw_instance_id
-        );
-
-        return (
-          <RunActivity
-            logger={
-              data.readOnly
-                ? () => {}
-                : msg => {
-                    logger(msg);
-                    window.parent.postMessage(
-                      {
-                        type: 'frog-log',
-                        msg: {
-                          activityType: data.activityType,
-                          username: data.username,
-                          userid: data.userid,
-                          instanceId: data.instance_id,
-                          timestamp: new Date(),
-                          ...msg
-                        }
-                      },
-                      '*'
-                    );
-                  }
-            }
-            readOnly={data.readOnly}
-            activityTypeId={data.activityType}
-            username={data.username || 'Anonymous'}
-            userid={data.userid || '1'}
-            stream={() => {}}
-            reactiveId={data.instance_id}
-            groupingValue={data.instance_id}
-            activityData={{
-              data: data.activity_data,
-              config: data.config || {}
-            }}
-          />
-        );
-      }
+      return <APICall data={this.state.data} />;
     } else {
       return (
         <ErrorBoundary>
