@@ -15,6 +15,7 @@ import {
   setParticipation
 } from '/imports/api/activities';
 import { connect } from '../../store';
+import Modal from '../ModalExport';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
@@ -74,6 +75,8 @@ const RawEditActivity = ({
   setAdvancedOpen,
   reload,
   setReload,
+  modalOpen,
+  setModal,
   activity,
   ...props
 }) => {
@@ -117,12 +120,13 @@ const RawEditActivity = ({
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <div style={{ backgroundColor: '#eee' }}>
+      <Modal {...{ modalOpen, setModal, activity }} />
+      <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
         </div>
-        <FlexView>
-          <div>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <FlexView style={{ flexDirection: 'column' }}>
             <h3>
               <ChangeableText
                 EditComponent={RenameField}
@@ -133,20 +137,30 @@ const RawEditActivity = ({
                 }
               />
             </h3>
-          </div>
-          <FlexView marginLeft="auto">
+            <font size={-3}>
+              <i>
+                {`Type: ${activityType.meta.name}
+                         (${activity.activityType})`}
+                <br />
+                {`Starting after ${graphActivity.startTime} min., running for ${
+                  graphActivity.length
+                } min.`}
+              </i>
+            </font>
+          </FlexView>
+          <FlexView
+            marginLeft="auto"
+            style={{
+              flexDirection: 'column',
+              position: 'absolute',
+              right: '2px'
+            }}
+          >
+            <ValidButton activityId={activity._id} errorColor={errorColor} />
             {errorColor === 'green' && (
-              <React.Fragment>
-                <Button
-                  className="glyphicon glyphicon-eye-open"
-                  data-tip="Preview activity with current configuration"
-                  style={{
-                    position: 'absolute',
-                    right: '2px',
-                    top: '39px',
-                    width: '9%',
-                    height: '34px'
-                  }}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <IconButton
+                  icon="glyphicon glyphicon-eye-open"
                   onClick={() =>
                     props.store.ui.setShowPreview({
                       activityTypeId: activity.activityType,
@@ -154,34 +168,19 @@ const RawEditActivity = ({
                     })
                   }
                 />
-                <Button
-                  className="glyphicon glyphicon-link"
-                  data-tip="Embed config in link to headless FROG"
-                  style={{
-                    position: 'absolute',
-                    right: '41px',
-                    top: '39px',
-                    width: '9%',
-                    height: '34px'
-                  }}
+                <IconButton
+                  icon="glyphicon glyphicon-share"
+                  onClick={() => setModal(true)}
+                />
+                <IconButton
+                  icon="glyphicon glyphicon-link"
+                  legend="Embed config in link to headless FROG"
                   onClick={() => copyURL(activity)}
                 />
-              </React.Fragment>
+              </div>
             )}
-
-            <ValidButton activityId={activity._id} errorColor={errorColor} />
           </FlexView>
-        </FlexView>
-        <font size={-3}>
-          <i>
-            {`Type: ${activityType.meta.name}
-                     (${activity.activityType})`}
-            <br />
-            {`Starting after ${graphActivity.startTime} min., running for ${
-              graphActivity.length
-            } min.`}
-          </i>
-        </font>
+        </div>
         {activity.plane === 2 && (
           <SelectAttributeWidget
             activity={activity}
@@ -242,8 +241,19 @@ const RawEditActivity = ({
   );
 };
 
+const IconButton = ({ icon, legend, onClick }: Object) => (
+  <Button
+    style={{ width: '35px', height: '25px' }}
+    data-tip={legend}
+    onClick={onClick}
+  >
+    <span className={icon} style={{ verticalAlign: 'top' }} />
+  </Button>
+);
+
 const EditActivity = compose(
   withState('advancedOpen', 'setAdvancedOpen', false),
-  withState('reload', 'setReload', uuid())
+  withState('reload', 'setReload', uuid()),
+  withState('modalOpen', 'setModal', false)
 )(RawEditActivity);
 export default connect(EditActivity);
