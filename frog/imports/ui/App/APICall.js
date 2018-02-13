@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
 
 import { DashboardComp } from '../TeacherView/Dashboard';
-import { createLogger, createDashboardCollection } from '../../api/logs';
+import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 
