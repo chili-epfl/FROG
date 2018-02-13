@@ -1,15 +1,25 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import traverse from 'traverse';
 import { Mongo } from 'meteor/mongo';
-import { uuid, calculateSchema } from 'frog-utils';
-import { get, set } from 'lodash';
+import { uuid } from 'frog-utils';
 
 import { Activities, Connections, Operators } from './activities';
-import { operatorTypesObj } from '../operatorTypes';
 
 export const Graphs = new Mongo.Collection('graphs');
+
+const replaceFromMatching = (matching: Object, data: any) => {
+   if (Array.isArray(data)) {
+    return [ ...data.map(d => replaceFromMatching(matching, d))]
+  } else if (typeof data === 'object') {
+    return Object.keys(data).reduce((acc,d) => {
+      acc[d] = replaceFromMatching(matching, data[d])
+      return acc
+    }, {})
+  } else {
+    return data in matching ? matching[data] : data
+  }
+}
 
 export const addGraph = (graphObj?: Object): string => {
   const graphId = uuid();
@@ -26,50 +36,20 @@ export const addGraph = (graphObj?: Object): string => {
 
   const matching = {};
 
-  const newAct = graphObj.activities
-    .map(activity => {
-      const id = uuid();
-      matching[activity._id] = id;
-      return { ...activity, _id: id, graphId };
-    })
-    .map(ac => ({ ...ac, streamTarget: matching[ac.streamTarget] }));
+  const copyAc = graphObj.activities.map(ac => {
+    const id = uuid();
+    matching[ac._id] = id;
+    return { ...ac, _id: id, graphId };
+  })
 
-  const newOp = graphObj.operators.map(op => {
+  const copyOp = graphObj.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
-    if (op.data) {
-      const opT = operatorTypesObj[op.operatorType];
-      const schema = calculateSchema(op.data, opT.config, opT.configUI);
-      const paths = traverse.paths(schema).filter(x => x.pop() === 'type');
-      const activityPaths = paths.filter(
-        x => get(schema, [...x, 'type']) === 'activity'
-      );
-
-      activityPaths.forEach(p => {
-        const path = p.filter(y => y !== 'properties');
-        if (path[1] === 'items') {
-          op.data[path[0]].forEach((_, i) => {
-            const relpath = [path[0], i, path[2]];
-            const curRef = get(op.data, relpath);
-            set(op.data, relpath, matching[curRef]);
-          });
-        } else if (path[2] === 'items') {
-          op.data[path[1]].forEach((_, i) => {
-            const relpath = [path[1], i, path[3]];
-            const curRef = get(op.data, relpath);
-            set(op.data, relpath, matching[curRef]);
-          });
-        } else {
-          const curRef = get(op.data, path.slice(1));
-          if (curRef) {
-            set(op.data, path.slice(1), matching[curRef]);
-          }
-        }
-      });
-    }
     return { ...op, _id: id, graphId };
   });
 
+  // Here we change the configured ids of activities and operators which
+  // have to change due to the copy
   const newConn = graphObj.connections.map(connection => {
     const id = uuid();
     matching[connection._id] = id;
@@ -87,8 +67,19 @@ export const addGraph = (graphObj?: Object): string => {
       }
     };
   });
+  
+  const newAc = copyAc.map(ac => ({
+    ...ac,
+    data: replaceFromMatching(matching, ac.data),
+    streamTarget: matching[ac.streamTarget]
+  }))
 
-  newAct.forEach(x => Activities.insert(x));
+  const newOp = copyOp.map(op => ({
+    ...op,
+    data: replaceFromMatching(matching, op.data),
+  }))
+
+  newAc.forEach(x => Activities.insert(x));
   newOp.forEach(x => Operators.insert(x));
   newConn.forEach(x => Connections.insert(x));
   return graphId;
