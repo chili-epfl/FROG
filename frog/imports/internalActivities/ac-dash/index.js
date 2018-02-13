@@ -23,7 +23,9 @@ type StateT = {
   session: any
 };
 
-class ActivityRunner extends React.Component<ActivityRunnerT, StateT> {
+type PropsT = ActivityRunnerT;
+
+class ActivityRunner extends React.Component<PropsT, StateT> {
   componentWillMount() {
     const { activityData: { config }, sessionId } = this.props;
     Meteor.call('get.activity', config.activity, (err, value) => {

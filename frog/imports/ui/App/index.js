@@ -4,8 +4,6 @@ import { Meteor } from 'meteor/meteor';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
-import sharedbClient from 'sharedb/lib/client';
-import ReconnectingWebSocket from 'reconnectingwebsocket';
 import {
   BrowserRouter as Router,
   Redirect,
