@@ -13,8 +13,7 @@ import {
 } from '../StyledComponents';
 
 class ModalSubmit extends Component<Object> {
-  constructor(props: Object) {
-    super(props);
+  componentDidMount() {
     Modal.setAppElement('#render-target');
   }
 
