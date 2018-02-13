@@ -97,7 +97,7 @@ const Delay = ({ next, delay }) => {
 };
 
 const Question = props => {
-  const { setQuestion, question, logger, data, dataFn } = props;
+  const { setQuestion, question, logger, data, dataFn, activityData } = props;
   const { objectName, colorName, colorFill } = question;
 
   const onClick = answer => () => {
@@ -113,7 +113,8 @@ const Question = props => {
   Mousetrap.bind('n', onClick(false));
 
   clearTimeout(noAnswerTimeout);
-  noAnswerTimeout = setTimeout(onClick(undefined), 10000);
+  noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
+
   return (
     <React.Fragment>
       <div style={styles.text}>
@@ -127,6 +128,9 @@ const Question = props => {
         <Button style={{ ...styles.button, right: 0 }} onClick={onClick(false)}>
           No
         </Button>
+      </div>
+      <div style={styles.text}>
+        {noAnswerTimeout/1000}
       </div>
     </React.Fragment>
   );

@@ -14,10 +14,14 @@ const meta = {
       title: 'Example with 5 objects',
       config: {
         guidelines:
-          'Click Yes or No only when the sentence is correct. You can also use Y and N on the keyboard',
-        objects: 'lemons,wood,a tomato,grass,the sky',
+        'This lab intends to measure some phenomena in human cognition. ' +
+        'A sentence will appear on the screen. Type Y (or use the Yes button'+
+        ') if the sentence\'s meaning is correct, or N (or the No button) ' +
+        'if it is not. The sentences make use of basic colors.',
+        objects: 'lemons,wood,blood,grass,the sky',
         colors: 'yellow,brown,red,green,blue',
-        delay: 2000,
+        delay: 3000,
+        maxTime: 5000,
         maxQuestions: 20
       },
       data: {}
@@ -26,9 +30,10 @@ const meta = {
       title: 'Be quick',
       config: {
         guidelines: 'Hurry!',
-        objects: 'lemons,wood,a tomato,grass,the sky',
+        objects: 'lemons,wood,blood,grass,the sky',
         colors: 'yellow,brown,red,green,blue',
         delay: 100,
+        maxTime: 1000,
         maxQuestions: 5
       },
       data: {}
@@ -40,12 +45,15 @@ const config = {
   type: 'object',
   properties: {
     guidelines: {
-      title: 'Guidelines',
+      title: 'Directions for Students',
       type: 'string',
-      default: 'Answer the questions'
+      default:
+      'A sentence will appear on the screen. Type Y (or use the Yes button'+
+      ') if the sentence\'s meaning is correct, or N (or the No button) ' +
+      'if it is not. The sentences make use of basic colors.'
     },
     objects: {
-      title: 'Comma separated objects',
+      title: 'Semantic objects for sentences',
       type: 'string'
     },
     colors: {
@@ -55,7 +63,12 @@ const config = {
     delay: {
       title: 'Delay between questions (ms)',
       type: 'number',
-      default: 2000
+      default: 3000
+    },
+    maxTime: {
+      title: 'Maximum time to answer question (ms)',
+      type: 'number',
+      default: 5000
     },
     maxQuestions: {
       title: 'Total number of questions',
