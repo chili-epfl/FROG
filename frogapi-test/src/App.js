@@ -161,7 +161,7 @@ class App extends Component {
                     .slice(-30)
                     .reverse()
                     .map(x => (
-                      <div>
+                      <div key={x._id}>
                         <pre>{Stringify(x.msg)}</pre>
                         <hr />
                       </div>
