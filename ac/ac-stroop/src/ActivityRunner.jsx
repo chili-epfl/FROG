@@ -91,22 +91,28 @@ let noAnswerTimeout;
 let delayTimeout;
 let timeCounter;
 
-const Delay = ({ next, delay }) => {
-  clearTimeout(delayTimeout);
-  delayTimeout = setTimeout(next, delay);
-  return <div style={styles.text}>Waiting for next question</div>;
-};
-
-const CountDownTimer = TimedComponent((props: Object) => {
-  const { activityData, timeNow } = props;
-  const countDown = (activityData.config.maxTime - (timeCounter - timeNow))/1000;
+const CountDownTimer = TimedComponent( () => {
+  timeCounter -= 1000;
 
   return (
     <div style={styles.text}>
-      {countDown}
+      {(timeCounter/1000)+1 + " s"}
     </div>
   );
 }, 1000);
+
+const Delay = ({ next, delay, props }) => {
+  clearTimeout(delayTimeout);
+  delayTimeout = setTimeout(next, delay);
+  timeCounter = delay;
+  return (
+    <React.Fragment>
+      <div style={styles.text}>Waiting for next question</div>
+      <CountDownTimer {...props} />
+    </React.Fragment>
+  );
+};
+
 
 const Question = props => {
   const { setQuestion, question, logger, data, dataFn, activityData } = props;
@@ -116,7 +122,8 @@ const Question = props => {
     clearTimeout(noAnswerTimeout);
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
-    logger({ type: 'progress', value: (data.progress + 1)/activityData.config.maxQuestions });
+    logger({ type: 'progress', value:
+      ((data.progress + 1)/activityData.config.maxQuestions) });
     dataFn.numIncr(1, 'progress');
     setQuestion('waiting');
   };
@@ -126,7 +133,7 @@ const Question = props => {
 
   clearTimeout(noAnswerTimeout);
   noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
-  timeCounter = Date.now();
+  timeCounter = activityData.config.maxTime;
 
   return (
     <React.Fragment>
@@ -159,7 +166,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
   if (!question) {
     return <Start start={start} guidelines={guidelines} />;
   } else if (question === 'waiting') {
-    return <Delay next={next} delay={delay} />;
+    return <Delay next={next} delay={delay} props={props} />;
   } else {
     return <Question {...props} />;
   }
