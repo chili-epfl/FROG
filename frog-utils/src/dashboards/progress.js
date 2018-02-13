@@ -86,9 +86,10 @@ const mergeLog = (
   data: any,
   dataFn: Object,
   log: LogDBT,
-  activity: ActivityDbT
+  activity?: ActivityDbT
 ) => {
   if (
+    activity &&
     log.type === 'progress' &&
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
