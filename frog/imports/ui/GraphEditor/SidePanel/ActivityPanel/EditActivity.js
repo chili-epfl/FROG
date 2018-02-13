@@ -9,7 +9,11 @@ import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
-import { addActivity, setStreamTarget } from '/imports/api/activities';
+import {
+  addActivity,
+  setStreamTarget,
+  setParticipation
+} from '/imports/api/activities';
 import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
@@ -29,6 +33,24 @@ const StreamSelect = ({ activity, targets, onChange }) => (
           {x.title}
         </option>
       ))}
+    </FormControl>
+  </FormGroup>
+);
+
+const SelectParticipationMode = ({ activity, onChange }) => (
+  <FormGroup controlId="participationGrouping">
+    <FormControl
+      onChange={e => onChange(e.target.value)}
+      componentClass="select"
+      value={activity.participationMode || 'everyone'}
+    >
+      <option value="everyone">Everyone participate equally</option>
+      <option value="readonly">
+        Only teacher edits, students have read-only views
+      </option>
+      <option value="projector">
+        {"Only displayed in teacher's projector mode"}
+      </option>
     </FormControl>
   </FormGroup>
 );
@@ -165,6 +187,12 @@ const RawEditActivity = ({
               addActivity(activity.activityType, null, activity._id, grp);
               props.store.refreshValidate();
             }}
+          />
+        )}
+        {activity.plane === 3 && (
+          <SelectParticipationMode
+            activity={activity}
+            onChange={e => setParticipation(activity._id, e)}
           />
         )}
       </div>

@@ -63,6 +63,9 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   };
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
+  const readOnly =
+    activity.participationMode === 'readonly' &&
+    Meteor.user().username !== 'teacher';
 
   const Torun = (
     <RunActivity
@@ -74,6 +77,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       userid={Meteor.userId()}
       activityData={activityData}
       groupingValue={groupingValue}
+      readOnly={readOnly}
     />
   );
 
