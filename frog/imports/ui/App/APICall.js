@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { DocHead } from 'meteor/kadira:dochead';
 
 import { DashboardComp } from '../TeacherView/Dashboard';
-import { activityTypesObj } from '../../activityTypes';
 import { createLogger, createDashboardCollection } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
@@ -36,7 +36,6 @@ export default ({ data }) => {
       />
     );
   } else {
-    const data = data;
     const actId = data.activityType + '-' + (data.activity_id || 'default');
     const logger = createLogger(
       'headless',
@@ -47,7 +46,6 @@ export default ({ data }) => {
       },
       data.raw_instance_id
     );
-
     return (
       <RunActivity
         logger={

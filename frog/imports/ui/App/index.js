@@ -16,19 +16,13 @@ import { withRouter } from 'react-router';
 import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
-import { DocHead } from 'meteor/kadira:dochead';
 
 import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
-
+import APICall from './APICall';
 import TeacherLoadable from './TeacherContainer';
-// const TeacherLoadable = Loadable({
-//   loader: () => import('./TeacherContainer'),
-//   loading: () => null,
-//   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
-// });
 
 const shareDbUrl =
   (Meteor.settings.public && Meteor.settings.public.sharedburl) ||
