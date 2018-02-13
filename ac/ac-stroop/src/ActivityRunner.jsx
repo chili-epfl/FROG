@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT, TimedComponent } from 'frog-utils';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
@@ -89,12 +89,24 @@ const Start = withState('ready', 'setReady', false)(
 
 let noAnswerTimeout;
 let delayTimeout;
+let timeCounter;
 
 const Delay = ({ next, delay }) => {
   clearTimeout(delayTimeout);
   delayTimeout = setTimeout(next, delay);
   return <div style={styles.text}>Waiting for next question</div>;
 };
+
+const CountDownTimer = TimedComponent((props: Object) => {
+  const { activityData, timeNow } = props;
+  const countDown = (activityData.config.maxTime - (timeCounter - timeNow))/1000;
+
+  return (
+    <div style={styles.text}>
+      {countDown}
+    </div>
+  );
+}, 1000);
 
 const Question = props => {
   const { setQuestion, question, logger, data, dataFn, activityData } = props;
@@ -104,7 +116,7 @@ const Question = props => {
     clearTimeout(noAnswerTimeout);
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
-    logger({ type: 'progress', value: data.progress + 1 });
+    logger({ type: 'progress', value: (data.progress + 1)/activityData.config.maxQuestions });
     dataFn.numIncr(1, 'progress');
     setQuestion('waiting');
   };
@@ -114,6 +126,7 @@ const Question = props => {
 
   clearTimeout(noAnswerTimeout);
   noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
+  timeCounter = Date.now();
 
   return (
     <React.Fragment>
@@ -129,9 +142,7 @@ const Question = props => {
           No
         </Button>
       </div>
-      <div style={styles.text}>
-        {noAnswerTimeout/1000}
-      </div>
+      <CountDownTimer {...props} />
     </React.Fragment>
   );
 };
