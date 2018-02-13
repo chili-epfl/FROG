@@ -111,39 +111,39 @@ const RawEditActivity = ({
             </h3>
           </div>
           <FlexView marginLeft="auto">
-            {errorColor === 'green' && [
-              <Button
-                key="eyeopen"
-                className="glyphicon glyphicon-eye-open"
-                data-tip="Preview activity with current configuration"
-                style={{
-                  position: 'absolute',
-                  right: '2px',
-                  top: '39px',
-                  width: '9%',
-                  height: '34px'
-                }}
-                onClick={() =>
-                  props.store.ui.setShowPreview({
-                    activityTypeId: activity.activityType,
-                    config: activity.data
-                  })
-                }
-              />,
-              <Button
-                key="link"
-                className="glyphicon glyphicon-link"
-                data-tip="Embed config in link to headless FROG"
-                style={{
-                  position: 'absolute',
-                  right: '41px',
-                  top: '39px',
-                  width: '9%',
-                  height: '34px'
-                }}
-                onClick={() => copyURL(activity)}
-              />
-            ]}
+            {errorColor === 'green' && (
+              <React.Fragment>
+                <Button
+                  className="glyphicon glyphicon-eye-open"
+                  data-tip="Preview activity with current configuration"
+                  style={{
+                    position: 'absolute',
+                    right: '2px',
+                    top: '39px',
+                    width: '9%',
+                    height: '34px'
+                  }}
+                  onClick={() =>
+                    props.store.ui.setShowPreview({
+                      activityTypeId: activity.activityType,
+                      config: activity.data
+                    })
+                  }
+                />
+                <Button
+                  className="glyphicon glyphicon-link"
+                  data-tip="Embed config in link to headless FROG"
+                  style={{
+                    position: 'absolute',
+                    right: '41px',
+                    top: '39px',
+                    width: '9%',
+                    height: '34px'
+                  }}
+                  onClick={() => copyURL(activity)}
+                />
+              </React.Fragment>
+            )}
 
             <ValidButton activityId={activity._id} errorColor={errorColor} />
           </FlexView>
