@@ -28,6 +28,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
+    'jsx-a11y/anchor-has-content': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/href-no-hash': 'off',
     'jsx-a11y/label-has-for': 'off',
