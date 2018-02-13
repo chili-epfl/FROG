@@ -49,7 +49,7 @@ const SelectParticipationMode = ({ activity, onChange }) => (
         Only teacher edits, students have read-only views
       </option>
       <option value="projector">
-        Only displayed in teacher's projector mode
+        {'Only displayed in teacher\'s projector mode'}
       </option>
     </FormControl>
   </FormGroup>
