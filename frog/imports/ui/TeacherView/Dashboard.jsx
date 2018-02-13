@@ -14,7 +14,7 @@ import doGetInstances from '../../api/doGetInstances';
 import { Activities } from '../../api/activities';
 import { Objects } from '../../api/objects';
 import { activityTypesObj } from '../../activityTypes';
-import { connection } from '../App/index';
+import { connection } from '../App/connection';
 
 const Container = styled.div`
   display: flex;
@@ -47,9 +47,10 @@ export class DashboardComp extends React.Component<
   };
 
   init(props: Object) {
-    this.doc =
-      this.props.doc ||
-      (props.conn || connection).get('rz', 'DASHBOARD//' + props.activity._id);
+    const _conn = props.conn || connection || {};
+    const _doc = _conn.get('rz', 'DASHBOARD//' + props.activity._id);
+    this.doc = this.props.doc || _doc;
+
     this.doc.setMaxListeners(30);
     this.doc.subscribe();
     if (this.doc.type) {
@@ -111,7 +112,7 @@ export class DashboardComp extends React.Component<
   }
 }
 
-const Dashboard = createContainer(({ session, activity }) => {
+export const Dashboard = createContainer(({ session, activity }) => {
   const object = Objects.findOne(activity._id);
   const instances = doGetInstances(activity, object).groups;
   return {

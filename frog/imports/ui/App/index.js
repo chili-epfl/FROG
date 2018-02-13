@@ -4,8 +4,6 @@ import { Meteor } from 'meteor/meteor';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import React, { Component } from 'react';
-import sharedbClient from 'sharedb/lib/client';
-import ReconnectingWebSocket from 'reconnectingwebsocket';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -27,20 +25,6 @@ import TeacherLoadable from './TeacherContainer';
 //   loading: () => null,
 //   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
 // });
-
-const shareDbUrl =
-  (Meteor.settings.public && Meteor.settings.public.sharedburl) ||
-  (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
-    '//' +
-    window.location.hostname +
-    ':3002';
-
-const socket = new ReconnectingWebSocket(shareDbUrl);
-export const connection = new sharedbClient.Connection(socket);
-
-if (process.env.NODE_ENV !== 'production') {
-  window.connection = connection;
-}
 
 Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();

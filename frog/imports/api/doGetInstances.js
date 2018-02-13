@@ -19,7 +19,7 @@ export default (
   let structure;
 
   if (activity.plane === 1) {
-    groups = object.globalStructure.studentIds;
+    groups = object.globalStructure ? object.globalStructure.studentIds : [];
     structure = 'individual';
   } else if (activity.plane === 2) {
     const key = activity.groupingKey;

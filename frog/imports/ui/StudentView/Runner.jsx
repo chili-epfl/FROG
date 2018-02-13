@@ -78,6 +78,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       logger={logger}
       stream={stream}
       groupingValue={groupingValue}
+      sessionId={sessionId}
     />
   );
 

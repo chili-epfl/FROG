@@ -9,7 +9,7 @@ import {
 } from 'frog-utils';
 
 import { uploadFile } from '../../api/openUploads';
-import { connection } from '../App/index';
+import { connection } from '../App/connection';
 
 type ReactiveCompPropsT = Object;
 
@@ -36,7 +36,7 @@ const ReactiveHOC = (docId: string, conn?: any) => (
 
     componentDidMount = () => {
       this.unmounted = false;
-      this.doc = (conn || connection).get('rz', docId);
+      this.doc = (conn || connection || {}).get('rz', docId);
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
       if (this.doc.type) {
