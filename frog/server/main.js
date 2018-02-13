@@ -102,6 +102,20 @@ publishComposite('session_activities', function(slug) {
 });
 
 const checkActivity = (activityId, operators, connections, userid) => {
+  const act = Activities.findOne(activityId);
+  const uname = Meteor.users.findOne(userid).username;
+
+  if (uname === 'teacher' && act.plane !== 3) {
+    return false;
+  }
+  if (
+    act.plane === 3 &&
+    act.participationMode === 'projector' &&
+    uname !== 'teacher'
+  ) {
+    return false;
+  }
+
   const connectedNodes = connections
     .filter(x => x.target.id === activityId)
     .map(x => x.source.id);
