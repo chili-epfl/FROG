@@ -110,7 +110,7 @@ const checkActivity = (activityId, operators, connections, userid) => {
   }
   if (
     act.plane === 3 &&
-    act.participationMode === 'onlyTeacher' &&
+    act.participationMode === 'projector' &&
     uname !== 'teacher'
   ) {
     return false;
