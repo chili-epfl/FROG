@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import Spinner from 'react-spinner';
 import { cloneDeep } from 'lodash';
 import {
@@ -9,9 +9,12 @@ import {
   uuid
 } from 'frog-utils';
 
-import { activityTypesObj } from '../../activityTypes';
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/index';
+
+type ReactiveCompPropsT = Object;
+
+type ReactiveCompsStateT = { data: any, dataFn: ?Object, uuid: string };
 
 const ReactiveHOC = (
   docId: string,
@@ -19,8 +22,11 @@ const ReactiveHOC = (
   transform: Object => Object = x => x,
   readOnly: boolean = false
 ) => (WrappedComponent: ReactComponent<any>) => {
-  class ReactiveComp extends Component {
-    state: { data: any, dataFn: ?Object, uuid: string };
+  class ReactiveComp extends React.Component<
+    ReactiveCompPropsT,
+    ReactiveCompsStateT
+  > {
+    state: { data: any, dataFn: ?Object, uuid: '' };
     doc: any;
     unmounted: boolean;
 
@@ -57,7 +63,7 @@ const ReactiveHOC = (
         if (readOnly) {
           this.setState({ uuid: uuid() });
         } else {
-          parent.postMessage(
+          window.parent.postMessage(
             {
               type: 'frog-data',
               msg: transform(this.doc.data)

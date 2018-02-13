@@ -6,7 +6,6 @@ module.name_mapper='(react-draggable)' -> 'empty/object'
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/frog/\1'
 esproposal.decorators=ignore
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
-unsafe.enable_getters_and_setters=true
 suppress_type=$FlowIssue
 
 # Meteor none core package support
@@ -42,6 +41,7 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/graphql/*
 .*node_modules/draft-js/*
 .*node_modules/match-at/*
+.*node_modules/cypress/*
 .*node_modules/react-draggable/lib/*
 .*/.meteor/.*/package.json
 frogapi-test

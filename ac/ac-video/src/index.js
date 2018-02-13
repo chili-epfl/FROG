@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import ReactPlayer from 'react-player';
 import { type ActivityRunnerT } from 'frog-utils';
 
@@ -43,7 +43,7 @@ export const config = {
   }
 };
 
-class Activity extends Component {
+class ActivityRunner extends React.Component<ActivityRunnerT> {
   ref: any;
   componentDidMount() {
     this.ref.seekTo(this.props.data.play);
@@ -76,8 +76,6 @@ class Activity extends Component {
     );
   }
 }
-
-const ActivityRunner = (props: ActivityRunnerT) => <Activity {...props} />;
 
 export default {
   id: 'ac-video',

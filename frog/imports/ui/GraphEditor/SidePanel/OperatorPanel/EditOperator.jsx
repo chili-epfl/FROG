@@ -78,13 +78,11 @@ export default ({
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
       <ConfigForm
-        {...{
-          node: operator,
-          nodeType: operatorType,
-          valid,
-          connectedActivities,
-          refreshValidate
-        }}
+        node={operator}
+        nodeType={operatorType}
+        valid={valid}
+        connectedActivities={connectedActivities}
+        refreshValidate={refreshValidate}
       />
     </div>
   );

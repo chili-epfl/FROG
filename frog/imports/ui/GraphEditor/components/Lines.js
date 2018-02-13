@@ -1,10 +1,9 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { observer } from 'mobx-react';
-import { connect } from './../store';
 
-import Connection from './../store/connection.js';
-import type { StoreProp } from './../store';
+import { connect, type StoreProp } from '../store';
+import Connection from '../store/connection.js';
 
 export const Line = observer(
   ({ connection, scaled }: { connection: Connection, scaled: boolean }) => (
@@ -27,10 +26,8 @@ export const Line = observer(
 );
 
 export const DragLine = connect(
-  ({
-    store: { connectionStore: { dragPath }, state: { mode } }
-  }: StoreProp) => {
-    if (mode !== 'dragging') {
+  ({ store: { connectionStore: { dragPath }, state } }: StoreProp) => {
+    if (state.mode !== 'dragging') {
       return null;
     }
     return (

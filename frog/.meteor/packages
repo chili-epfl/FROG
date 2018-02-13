@@ -26,9 +26,7 @@ check@1.2.5
 dispatch:mocha-phantomjs@0.1.9
 dynamic-import@0.2.0
 meteorhacks:picker
-mizzao:timesync
 reywood:publish-composite
-mizzao:user-status
 standard-minifier-js@2.2.0
 minifier-js@2.2.0
 staringatlights:inject-data

@@ -1,0 +1,19 @@
+{
+  "name": "ac-stroop",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "nps"
+  },
+  "dependencies": {
+    "frog-utils": "^1.0.0",    
+    "mousetrap": "^1.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
+    "recompose": "^0.26.0"
+  },
+  "devDependencies": {
+    "nps": "5.7.1"
+  }
+}

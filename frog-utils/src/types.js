@@ -7,7 +7,8 @@ export type ActivityDbT = {
   plane: number,
   startTime: number,
   length: number,
-  activityType: string
+  activityType: string,
+  actualStartingTime?: Date
 };
 
 export type OperatorDbT = {
@@ -86,7 +87,7 @@ export type validateConfigFnT = Object => null | {
 };
 
 export type ReactComponent<Props> =
-  | Class<React$Component<*, Props, *>>
+  | Class<React$Component<Props, *>>
   | (Props => React$Element<any> | null | React$Element<any>[]);
 
 export type LogT = {|
@@ -128,18 +129,33 @@ export type ActivityPackageT = {
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: ReactComponent<ActivityRunnerT>,
-  dashboard?: {
-    Viewer: ReactComponent<any>,
-    mergeLog: (data: any, dataFn: Object, log: LogDBT) => void,
-    initData: any
-  },
+  ActivityRunner: React$Component<ActivityRunnerT>,
+  dashboard?: dashboardT,
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
-  ConfigComponent?: ReactComponent<{
+  ConfigComponent?: React$Component<{
     configData: Object,
     setConfigData: Object => void
   }>
+};
+
+export type dashboardT = {
+  Viewer: ReactComponent<dashboardViewerPropsT>,
+  mergeLog: (
+    data: any,
+    dataFn: Object,
+    log: LogDBT,
+    activity: ActivityDbT
+  ) => void,
+  initData: any
+};
+
+export type dashboardViewerPropsT = {
+  users: Array<Object>,
+  activity: ActivityDbT,
+  instances: Array<string>,
+  data: any,
+  config: Object
 };
 
 export type productOperatorT = {

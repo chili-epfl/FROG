@@ -1,13 +1,14 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
-
 import { withState } from 'recompose';
 import { Nav, NavItem } from 'react-bootstrap';
 import styled from 'styled-components';
+
+import { type ActivityDbT } from 'frog-utils';
 
 import doGetInstances from '../../api/doGetInstances';
 import { Activities } from '../../api/activities';
@@ -20,18 +21,22 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-type PropsT = {
-  activity: { _id: string, activityType: string },
-  users: { _id: string, username: string }[],
-  config?: Object,
-  doc?: Object
+type DashboardCompPropsT = {
+  doc: any,
+  activity: ActivityDbT,
+  users: Array<{ _id: string | number, username: string }>,
+  instances: Array<string | number>,
+  config: Object
 };
-export class DashboardComp extends Component {
-  state: { data: any };
+
+export class DashboardComp extends React.Component<
+  DashboardCompPropsT,
+  { data: any }
+> {
   doc: any;
   mounted: boolean;
 
-  constructor(props: PropsT) {
+  constructor(props: DashboardCompPropsT) {
     super(props);
     this.state = { data: null };
   }
@@ -94,6 +99,7 @@ export class DashboardComp extends Component {
       <div style={{ width: '100%' }}>
         <aT.dashboard.Viewer
           users={users}
+          activity={this.props.activity}
           instances={this.props.instances}
           data={this.state.data}
           config={this.props.activity.data || this.props.config}

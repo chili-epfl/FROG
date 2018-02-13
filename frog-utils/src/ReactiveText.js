@@ -10,10 +10,9 @@ type ReactivePropsT = {
   logger?: LogT => void
 };
 
-export class ReactiveText extends Component {
+export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
   textRef: any;
   binding: any;
-  state: ReactivePropsT;
 
   update = (props: ReactivePropsT) => {
     this.setState({ path: props.path, dataFn: props.dataFn });

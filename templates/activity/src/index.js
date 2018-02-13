@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
 const meta = {
@@ -39,7 +39,7 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  Dashboard: null,
+  dashboard: null,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

@@ -12,17 +12,26 @@ import {
   addSocialFormSchema
 } from './FormUtils';
 
-type PropT = Object;
+type ConfigFormPropsT = {
+  node: Object,
+  nodeType: any,
+  connectedActivities?: any,
+  valid: any,
+  refreshValidate: any,
+  reload?: any,
+  widgets?: any
+};
 
-export default class ConfigForm extends Component {
-  state: { formData: Object };
-
-  constructor(props: PropT) {
+export default class ConfigForm extends Component<
+  ConfigFormPropsT,
+  { formData: Object }
+> {
+  constructor(props: ConfigFormPropsT) {
     super(props);
     this.state = { formData: this.props.node.data };
   }
 
-  componentWillReceiveProps(nextProps: PropT) {
+  componentWillReceiveProps(nextProps: ConfigFormPropsT) {
     if (
       this.props.node._id !== nextProps.node._id ||
       this.props.reload !== nextProps.reload
@@ -31,7 +40,7 @@ export default class ConfigForm extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps: PropT): boolean {
+  shouldComponentUpdate(nextProps: ConfigFormPropsT): boolean {
     if (
       this.props.node._id === nextProps.node._id &&
       this.props.reload === nextProps.reload &&

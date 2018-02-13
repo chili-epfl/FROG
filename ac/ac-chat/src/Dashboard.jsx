@@ -4,23 +4,36 @@ import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { type LogDBT } from 'frog-utils';
 
-const fontSizeMapper = word => Math.max(10, Math.min(word.value * 10, 250));
+const fontSizeMapper = (itMax, word) => 10 + word.value * 150 / Number(itMax);
 
-const Viewer = ({ data }: Object) => (
-  <div>
-    <WordCloud
-      data={[...Object.keys(data).map(w => ({ text: w, value: data[w] }))]}
-      fontSizeMapper={fontSizeMapper}
-    />
-  </div>
-);
+const Viewer = ({ data }: Object) => {
+  const iMax = Object.values(data).reduce(
+    (acc, curr) => Math.max(Number(acc), Number(curr)),
+    1
+  );
+  return (
+    <div style={{ width: '600px', height: '600px', margin: 'auto' }}>
+      <WordCloud
+        data={[...Object.keys(data).map(w => ({ text: w, value: data[w] }))]}
+        fontSizeMapper={word => fontSizeMapper(iMax, word)}
+        width="600"
+        height="600"
+      />
+    </div>
+  );
+};
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   const tmp = String(log.value);
   if (tmp)
     tmp
       .split(' ')
-      .forEach(word => dataFn.objInsert((data[word] || 0) + 1, word));
+      .forEach(
+        word =>
+          data[word]
+            ? dataFn.numIncr(1, word)
+            : dataFn.objInsert((data[word] || 0) + 1, word)
+      );
 };
 
 const initData = {};

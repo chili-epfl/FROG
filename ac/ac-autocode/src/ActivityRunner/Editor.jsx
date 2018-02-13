@@ -1,16 +1,18 @@
-// @flow
-
 import React, { Component } from 'react';
 
-export default class Editor extends Component {
-  Ace: React$Component<*, *, *>;
-  mode: String;
+type EditorPropsT = {
+  Ace: React$Component<any>,
+  mode: String,
+  data: any,
+  dataFn: any
+};
 
+export default class Editor extends Component<EditorPropsT> {
   constructor(props: Object) {
     super(props);
     this.Ace = require('react-ace').default;
     this.mode = props.activityData.config.language;
-    switch (this.mode) {
+    switch (props.activityData.config.language) {
       case 'python':
         require('brace/mode/python');
         break;
@@ -32,7 +34,7 @@ export default class Editor extends Component {
       <this.Ace
         id="yourcode"
         style={{ width: '600px', height: '750px' }}
-        mode={this.mode || 'javascript'}
+        mode={this.props.activityData.config.language || 'javascript'}
         theme="textmate"
         highlightActiveLine
         value={this.props.data.code}

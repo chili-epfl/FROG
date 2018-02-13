@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
 
@@ -67,9 +67,15 @@ export type {
   ControlT,
   ReactComponent,
   LogT,
-  LogDBT
+  LogDBT,
+  dashboardT,
+  dashboardViewerPropsT
 } from './types';
-export { CountChart, ScatterChart } from './DashboardComponents/CountChart';
+export {
+  CountChart,
+  ScatterChart,
+  LineChart
+} from './DashboardComponents/CountChart';
 export {
   default as TableView,
   toTableData

@@ -1,5 +1,4 @@
-// @flow
-import { computed, action, observable } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import { omit, maxBy } from 'lodash';
 
 import Activity from './activity';
@@ -41,170 +40,171 @@ export const calculateBounds = (
 };
 
 export default class ActivityStore {
+  all: Activity[];
+  activitySequence: { [id: string]: number };
+
   constructor() {
-    this.all = [];
-  }
+    extendObservable(this, {
+      all: [],
+      activitySequence: undefined,
 
-  @observable all: any = [];
+      setActivitySequence: action((act: any) => {
+        this.activitySequence = act;
+      }),
 
-  @observable activitySequence: any;
+      duplicateActivity: action(() => {
+        if (store.ui.selected instanceof Activity) {
+          const x = duplicateActivity(store.ui.selected.id);
+          this.mongoAdd(x);
+        }
+      }),
 
-  @action
-  setActivitySequence(act: any) {
-    this.activitySequence = act;
-  }
+      addActivity: action((plane: number, rawX: number) => {
+        if (store.state.mode === 'readOnly') {
+          return;
+        }
+        const [rawTime, _] = store.ui.rawMouseToTime(rawX, 0);
+        const time = Math.round(rawTime);
+        let length;
+        if (!store.overlapAllowed) {
+          const { rightBoundTime } = calculateBounds(
+            { startTime: time, length: 0, id: '0' },
+            this.all
+          );
+          const maxLength = rightBoundTime - time;
+          length = Math.min(maxLength, 5);
+        } else {
+          length = 5;
+        }
+        if (length >= 1) {
+          const newActivity = new Activity(plane, time, 'Unnamed', length);
 
-  @computed
-  get activityOffsets(): any {
-    return [1, 2, 3].reduce(
-      (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
-      {}
-    );
-  }
+          this.all.push(newActivity);
+          store.state = {
+            mode: 'rename',
+            currentActivity: newActivity,
+            val: ''
+          };
+          store.addHistory();
+          return newActivity.id;
+        }
+      }),
 
-  @action
-  duplicateActivity = () => {
-    if (store.ui.selected instanceof Activity) {
-      const x = duplicateActivity(store.ui.selected.id);
-      this.mongoAdd(x);
-    }
-  };
+      newActivityAbove: action((plane?: number) => {
+        if (store.ui.selected instanceof Activity) {
+          const toCopy = store.ui.selected;
+          store.activityStore.all.push(
+            new Activity(
+              plane || toCopy.plane,
+              toCopy.startTime,
+              'Unnamed',
+              toCopy.length
+            )
+          );
+          store.addHistory();
+        }
+      }),
 
-  @action
-  addActivity = (plane: number, rawX: number): void => {
-    if (store.state.mode === 'readOnly') {
-      return;
-    }
-    const [rawTime, _] = store.ui.rawMouseToTime(rawX, 0);
-    const time = Math.round(rawTime);
-    let length;
-    if (!store.overlapAllowed) {
-      const { rightBoundTime } = calculateBounds(
-        { startTime: time, length: 0, id: '0' },
-        this.all
-      );
-      const maxLength = rightBoundTime - time;
-      length = Math.min(maxLength, 5);
-    } else {
-      length = 5;
-    }
-    if (length >= 1) {
-      const newActivity = new Activity(plane, time, 'Unnamed', length);
-
-      this.all.push(newActivity);
-      store.state = { mode: 'rename', currentActivity: newActivity, val: '' };
-      store.addHistory();
-      return newActivity.id;
-    }
-  };
-
-  @action
-  newActivityAbove = (plane?: number) => {
-    if (store.ui.selected instanceof Activity) {
-      const toCopy = store.ui.selected;
-      store.activityStore.all.push(
-        new Activity(
-          plane || toCopy.plane,
-          toCopy.startTime,
-          'Unnamed',
-          toCopy.length
-        )
-      );
-      store.addHistory();
-    }
-  };
-
-  @action
-  swapActivities = (left: Activity, right: Activity) => {
-    right.startTime = left.startTime;
-    left.startTime = right.startTime + right.length;
-    store.addHistory();
-  };
-
-  @action
-  startResizing = (activity: Activity) => {
-    if (store.state.mode === 'rename') {
-      store.state.currentActivity.rename(store.state.val);
-    }
-    const bounds = calculateBounds(activity, this.all);
-    store.state = { mode: 'resizing', currentActivity: activity, bounds };
-  };
-
-  @action
-  movePlane = (increment: number) => {
-    if (store.ui.selected instanceof Activity) {
-      const oldplane = store.ui.selected.plane;
-      store.ui.selected.plane = between(1, 3, oldplane + increment);
-      if (oldplane !== store.ui.selected.plane) {
+      swapActivities: action((left: Activity, right: Activity) => {
+        right.startTime = left.startTime;
+        left.startTime = right.startTime + right.length;
         store.addHistory();
-      }
-    }
-  };
+      }),
 
-  @action
-  stopMoving = () => {
-    if (store.state.mode === 'moving' && store.state.currentActivity.wasMoved) {
-      if (
-        store.state.currentActivity.startTime !== store.state.initialStartTime
-      ) {
+      startResizing: action((activity: Activity) => {
+        if (store.state.mode === 'rename') {
+          store.state.currentActivity.rename(store.state.val);
+        }
+        const bounds = calculateBounds(activity, this.all);
+        store.state = { mode: 'resizing', currentActivity: activity, bounds };
+      }),
+
+      movePlane: action((increment: number) => {
+        if (store.ui.selected instanceof Activity) {
+          const oldplane = store.ui.selected.plane;
+          store.ui.selected.plane = between(1, 3, oldplane + increment);
+          if (oldplane !== store.ui.selected.plane) {
+            store.addHistory();
+          }
+        }
+      }),
+
+      stopMoving: action(() => {
+        if (
+          store.state.mode === 'moving' &&
+          store.state.currentActivity.wasMoved
+        ) {
+          if (
+            store.state.currentActivity.startTime !==
+            store.state.initialStartTime
+          ) {
+            store.state = { mode: 'normal' };
+            store.ui.cancelScroll();
+            store.addHistory();
+          } else {
+            store.state.currentActivity.select();
+            store.ui.cancelScroll();
+            store.state = { mode: 'normal' };
+          }
+        }
+      }),
+
+      stopResizing: action(() => {
         store.state = { mode: 'normal' };
         store.ui.cancelScroll();
         store.addHistory();
-      } else {
-        store.state.currentActivity.select();
-        store.ui.cancelScroll();
-        store.state = { mode: 'normal' };
+      }),
+
+      mongoAdd: action((x: any) => {
+        if (!store.findId({ type: 'activity', id: x._id })) {
+          this.all.push(
+            new Activity(
+              x.plane,
+              x.startTime,
+              x.title,
+              x.length,
+              x._id,
+              x.state
+            )
+          );
+        }
+      }),
+
+      mongoChange: action((newact: any, oldact: any) => {
+        const toUpdate = store.findId({ type: 'activity', id: oldact._id });
+        if (!toUpdate) {
+          throw 'Could not find activity to update in Mongo';
+        }
+        toUpdate.update(newact);
+      }),
+
+      mongoRemove: action((remact: any) => {
+        this.all = this.all.filter(x => x.id !== remact._id);
+      }),
+
+      get mongoObservers(): Object {
+        return {
+          added: this.mongoAdd,
+          changed: this.mongoChange,
+          removed: this.mongoRemove
+        };
+      },
+
+      get history(): Array<any> {
+        return this.all.map(x => ({ ...omit(x, 'over') }));
+      },
+
+      get furthestActivity(): number {
+        const max = maxBy(this.all, x => x.startTime + x.length);
+        return max && Math.ceil(max.startTime + max.length);
+      },
+
+      get activityOffsets(): any {
+        return [1, 2, 3].reduce(
+          (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
+          {}
+        );
       }
-    }
-  };
-
-  @action
-  stopResizing = () => {
-    store.state = { mode: 'normal' };
-    store.ui.cancelScroll();
-    store.addHistory();
-  };
-
-  @action
-  mongoAdd = (x: any) => {
-    if (!store.findId({ type: 'activity', id: x._id })) {
-      this.all.push(
-        new Activity(x.plane, x.startTime, x.title, x.length, x._id, x.state)
-      );
-    }
-  };
-
-  @action
-  mongoChange = (newact: any, oldact: any) => {
-    const toUpdate = store.findId({ type: 'activity', id: oldact._id });
-    if (!toUpdate) {
-      throw 'Could not find activity to update in Mongo';
-    }
-    toUpdate.update(newact);
-  };
-
-  @action
-  mongoRemove = (remact: any) => {
-    this.all = this.all.filter(x => x.id !== remact._id);
-  };
-
-  @computed
-  get mongoObservers(): Object {
-    return {
-      added: this.mongoAdd,
-      changed: this.mongoChange,
-      removed: this.mongoRemove
-    };
-  }
-
-  @computed
-  get history(): Array<any> {
-    return this.all.map(x => ({ ...omit(x, 'over') }));
-  }
-
-  @computed
-  get furthestActivity(): number {
-    const max = maxBy(this.all, x => x.startTime + x.length);
-    return max && Math.ceil(max.startTime + max.length);
+    });
   }
 }

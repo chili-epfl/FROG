@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { Inspector } from 'react-inspector';
 import { createContainer } from 'meteor/react-meteor-data';
 import { A } from 'frog-utils';

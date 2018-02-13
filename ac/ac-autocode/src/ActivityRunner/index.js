@@ -1,7 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
+import { type ActivityRunnerT } from 'frog-utils';
 
 import Header from './Header';
 import Editor from './Editor';
@@ -14,7 +15,7 @@ const Main = styled.div`
   overflow: auto;
 `;
 
-export default class ActivityRunner extends Component {
+export default class ActivityRunner extends React.Component<ActivityRunnerT> {
   runCode: Function;
   handleError: Function;
 

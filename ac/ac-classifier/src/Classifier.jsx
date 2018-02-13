@@ -35,9 +35,13 @@ export const getType = (obj: Object) => obj && (obj.url ? 'image' : obj.type);
 const isSupportedType = type =>
   ['table', 'tree', 'image', 'text'].includes(type);
 
-class Runner extends Component {
-  state: { objectKeyPlus: string, objects: Object[], categories: string[] };
+type RunnerStateT = {
+  objectKeyPlus: string,
+  objects: Object[],
+  categories: string[]
+};
 
+class Runner extends Component<Object, RunnerStateT> {
   assignCategory = categoryName => {
     const { dataFn, setObjectKey } = this.props;
     const { objectKeyPlus } = this.state;
