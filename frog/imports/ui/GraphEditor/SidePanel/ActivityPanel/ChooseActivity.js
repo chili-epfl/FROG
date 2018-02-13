@@ -119,56 +119,57 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             {this.state.libraryOpen ? 'New activity' : 'Library'}{' '}
           </Button>
         </div>
-{this.state.libraryOpen ? (
-  <ActivityLibrary
-    {...closeLibrary}
-    activityId={this.props.activity._id}
-    searchStr={this.state.searchStr}
-    store={this.props.store}
-  />
-) : (
-        <div
-          className="list-group"
-          style={{
-            height: '93%',
-            width: '100%',
-            overflowY: 'scroll',
-            transform: 'translateY(10px)'
-          }}
-        >
-          {filteredList.length === 0 ? (
-            <div
-              style={{
-                marginTop: '20px',
-                marginLeft: '10px',
-                fontSize: '40px'
-              }}
-            >
-              No result
-            </div>
-          ) : (
-            filteredList.map((x: ActivityPackageT) => (
-              <ListComponent
-                hasPreview={
-                  !this.props.hidePreview && x.meta.exampleData !== undefined
-                }
-                onSelect={() => select(x)}
-                showExpanded={this.state.expanded === x.id}
-                expand={() => this.setState({ expanded: x.id })}
-                key={x.id}
-                onPreview={() =>
-                  this.props.store &&
-                  this.props.store.ui.setShowPreview({
-                    activityTypeId: x.id
-                  })
-                }
-                object={x}
-                searchS={this.state.searchStr}
-                eventKey={x.id}
-              />
-            ))
-          )}
-        </div>)}
+        {this.state.libraryOpen ? (
+          <ActivityLibrary
+            {...closeLibrary}
+            activityId={this.props.activity._id}
+            searchStr={this.state.searchStr}
+            store={this.props.store}
+          />
+        ) : (
+          <div
+            className="list-group"
+            style={{
+              height: '93%',
+              width: '100%',
+              overflowY: 'scroll',
+              transform: 'translateY(10px)'
+            }}
+          >
+            {filteredList.length === 0 ? (
+              <div
+                style={{
+                  marginTop: '20px',
+                  marginLeft: '10px',
+                  fontSize: '40px'
+                }}
+              >
+                No result
+              </div>
+            ) : (
+              filteredList.map((x: ActivityPackageT) => (
+                <ListComponent
+                  hasPreview={
+                    !this.props.hidePreview && x.meta.exampleData !== undefined
+                  }
+                  onSelect={() => select(x)}
+                  showExpanded={this.state.expanded === x.id}
+                  expand={() => this.setState({ expanded: x.id })}
+                  key={x.id}
+                  onPreview={() =>
+                    this.props.store &&
+                    this.props.store.ui.setShowPreview({
+                      activityTypeId: x.id
+                    })
+                  }
+                  object={x}
+                  searchS={this.state.searchStr}
+                  eventKey={x.id}
+                />
+              ))
+            )}
+          </div>
+        )}
         {this.state.showInfo !== null && (
           <Preview
             activityTypeId={this.state.showInfo}

@@ -135,8 +135,8 @@ const RawEditActivity = ({
             <ValidButton activityId={activity._id} errorColor={errorColor} />
             {errorColor === 'green' && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Button
-                  className="glyphicon glyphicon-eye-open"
+                <IconButton
+                  icon="glyphicon glyphicon-eye-open"
                   onClick={() =>
                     props.store.ui.setShowPreview({
                       activityTypeId: activity.activityType,
@@ -144,13 +144,13 @@ const RawEditActivity = ({
                     })
                   }
                 />
-                <Button
-                  className="glyphicon glyphicon-share"
+                <IconButton
+                  icon="glyphicon glyphicon-share"
                   onClick={() => setModal(true)}
                 />
-              <Button
-                  className="glyphicon glyphicon-link"
-                  data-tip="Embed config in link to headless FROG"
+                <IconButton
+                  icon="glyphicon glyphicon-link"
+                  legend="Embed config in link to headless FROG"
                   onClick={() => copyURL(activity)}
                 />
               </div>
@@ -211,6 +211,16 @@ const RawEditActivity = ({
     </div>
   );
 };
+
+const IconButton = ({ icon, legend, onClick }: Object) => (
+  <Button
+    style={{ width: '35px', height: '25px' }}
+    data-tip={legend}
+    onClick={onClick}
+  >
+    <span className={icon} style={{ verticalAlign: 'top' }} />
+  </Button>
+);
 
 const EditActivity = compose(
   withState('advancedOpen', 'setAdvancedOpen', false),
