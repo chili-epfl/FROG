@@ -64,9 +64,9 @@ const Viewer = (props: Object) => {
     return newObj;
   }, {});
 
-  const questions = config.questions.filter(
-    q => stripHTML(q.question) && q.answers
-  );
+  const questions = config.questions
+    .filter(q => q.question && q.answers)
+    .map(x => ({ ...x, question: stripHTML(x.question) }));
   const scatterData =
     (config.argueWeighting &&
       instances.map(instance => {
