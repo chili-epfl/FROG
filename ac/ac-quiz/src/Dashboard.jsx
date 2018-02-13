@@ -125,6 +125,7 @@ const initData = {
   answers: {},
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
+
 };
 
 export default {
