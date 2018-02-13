@@ -14,10 +14,10 @@ const meta = {
       title: 'Example with 5 objects',
       config: {
         guidelines:
-        'This lab intends to measure some phenomena in human cognition. ' +
-        'A sentence will appear on the screen. Type Y (or use the Yes button'+
-        ') if the sentence\'s meaning is correct, or N (or the No button) ' +
-        'if it is not. The sentences make use of basic colors.',
+          'This lab intends to measure some phenomena in human cognition. ' +
+          'A sentence will appear on the screen. Type Y (or use the Yes button' +
+          ") if the sentence's meaning is correct, or N (or the No button) " +
+          'if it is not. The sentences make use of basic colors.',
         objects: 'lemons,wood,blood,grass,the sky',
         colors: 'yellow,brown,red,green,blue',
         delay: 3000,
@@ -48,9 +48,9 @@ const config = {
       title: 'Directions for Students',
       type: 'string',
       default:
-      'A sentence will appear on the screen. Type Y (or use the Yes button'+
-      ') if the sentence\'s meaning is correct, or N (or the No button) ' +
-      'if it is not. The sentences make use of basic colors.'
+        'A sentence will appear on the screen. Type Y (or use the Yes button' +
+        ") if the sentence's meaning is correct, or N (or the No button) " +
+        'if it is not. The sentences make use of basic colors.'
     },
     objects: {
       title: 'Semantic objects for sentences',

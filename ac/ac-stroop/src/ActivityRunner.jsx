@@ -91,14 +91,10 @@ let noAnswerTimeout;
 let delayTimeout;
 let timeCounter;
 
-const CountDownTimer = TimedComponent( () => {
+const CountDownTimer = TimedComponent(() => {
   timeCounter -= 1000;
 
-  return (
-    <div style={styles.text}>
-      {(timeCounter/1000)+1 + " s"}
-    </div>
-  );
+  return <div style={styles.text}>{timeCounter / 1000 + 1 + ' s'}</div>;
 }, 1000);
 
 const Delay = ({ next, delay, props }) => {
@@ -113,7 +109,6 @@ const Delay = ({ next, delay, props }) => {
   );
 };
 
-
 const Question = props => {
   const { setQuestion, question, logger, data, dataFn, activityData } = props;
   const { objectName, colorName, colorFill } = question;
@@ -122,8 +117,10 @@ const Question = props => {
     clearTimeout(noAnswerTimeout);
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
-    logger({ type: 'progress', value:
-      ((data.progress + 1)/activityData.config.maxQuestions) });
+    logger({
+      type: 'progress',
+      value: (data.progress + 1) / activityData.config.maxQuestions
+    });
     dataFn.numIncr(1, 'progress');
     setQuestion('waiting');
   };
