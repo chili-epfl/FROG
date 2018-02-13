@@ -39,7 +39,7 @@ class ActivityRunner extends React.Component<PropsT, StateT> {
 
   render() {
     const { activity, session } = this.state;
-    return activity ? (
+    return activity && session ? (
       <Dashboard activity={activity} session={session} />
     ) : (
       <p>No data</p>
