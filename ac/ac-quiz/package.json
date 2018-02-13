@@ -11,8 +11,10 @@
   "dependencies": {
     "frog-utils": "^1.0.0",
     "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
     "react-jsonschema-form": "^1.0.0",
+    "recompose": "^0.26.0",
     "react-latex": "1.0.1",
     "seededshuffle": "^0.2.0",
     "styled-components": "^3.1.6"
