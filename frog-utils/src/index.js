@@ -71,16 +71,14 @@ export type {
   dashboardT,
   dashboardViewerPropsT
 } from './types';
-export {
-  CountChart,
-  ScatterChart,
-  LineChart
-} from './DashboardComponents/CountChart';
+export { CountChart, ScatterChart } from './DashboardComponents/CountChart';
 export {
   default as TableView,
   toTableData
 } from './ActivityComponents/TableView';
 export { default as TreeView } from './ActivityComponents/TreeView';
+// Exports for Dashboards
+export { default as ProgressDashboard } from './dashboards/progress';
 
 export const A = ({ onClick, children, ...rest }: any): any => (
   <a
