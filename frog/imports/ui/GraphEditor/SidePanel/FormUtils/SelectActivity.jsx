@@ -7,7 +7,7 @@ export default ({ formContext, onChange, value = '' }: any) => {
   const options = formContext.connectedActivities;
   return (
     <span>
-      {options.length > 0 ? (
+      {options && options.length > 0 ? (
         <FormControl
           onChange={e => onChange(e.target.value)}
           componentClass="select"

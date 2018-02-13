@@ -7,5 +7,12 @@ export const Meteor = {
       message,
       key
     };
-  }
+  },
+  methods: () => undefined
 };
+
+export const Mongo = {
+  Collection: () => undefined
+};
+
+export const createContainer = () => undefined;

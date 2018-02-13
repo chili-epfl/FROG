@@ -77,6 +77,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       userid={Meteor.userId()}
       activityData={activityData}
       groupingValue={groupingValue}
+      sessionId={sessionId}
       readOnly={readOnly}
     />
   );
@@ -105,7 +106,8 @@ export const RunActivity = ({
   stream,
   groupingValue,
   activityTypeId,
-  readOnly
+  readOnly,
+  sessionId
 }: {
   reactiveId: string,
   logger: Function,
@@ -115,7 +117,8 @@ export const RunActivity = ({
   stream: Function,
   groupingValue: string,
   activityTypeId: string,
-  readOnly?: boolean
+  readOnly?: boolean,
+  sessionId: string
 }) => {
   const activityType = activityTypesObj[activityTypeId];
   const RunComp = activityType.ActivityRunner;
@@ -138,6 +141,7 @@ export const RunActivity = ({
       logger={logger}
       stream={stream}
       groupingValue={groupingValue}
+      sessionId={sessionId}
     />
   );
 };

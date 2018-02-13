@@ -112,7 +112,9 @@ const RawEditActivity = ({
   }
 
   const activityType = activityTypesObj[activity.activityType];
-
+  const otherActivityIds = props.store.activityStore.all.filter(
+    a => a.id !== activity._id
+  );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <div style={{ backgroundColor: '#eee' }}>
@@ -201,6 +203,7 @@ const RawEditActivity = ({
         nodeType={activityType}
         valid={props.store.valid}
         refreshValidate={props.store.refreshValidate}
+        connectedActivities={otherActivityIds}
         reload={reload + (outgoingConnections || []).map(x => x.id).join('')}
       />
       {activityType.ConfigComponent && (
@@ -225,9 +228,7 @@ const RawEditActivity = ({
             Select streaming target
             <StreamSelect
               activity={activity}
-              targets={props.store.activityStore.all.filter(
-                a => a.plane === 3 && a.id !== activity._id
-              )}
+              targets={otherActivityIds}
               onChange={streamTarget =>
                 setStreamTarget(activity._id, streamTarget)
               }
