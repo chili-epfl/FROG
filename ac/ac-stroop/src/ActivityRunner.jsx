@@ -97,14 +97,14 @@ const CountDownTimer = TimedComponent(() => {
   return <div style={styles.text}>{timeCounter / 1000 + 1 + ' s'}</div>;
 }, 1000);
 
-const Delay = ({ next, delay, props }) => {
+const Delay = ({ next, delay }) => {
   clearTimeout(delayTimeout);
   delayTimeout = setTimeout(next, delay);
   timeCounter = delay;
   return (
     <React.Fragment>
       <div style={styles.text}>Waiting for next question</div>
-      <CountDownTimer {...props} />
+      <CountDownTimer />
     </React.Fragment>
   );
 };
@@ -146,7 +146,7 @@ const Question = props => {
           No
         </Button>
       </div>
-      <CountDownTimer {...props} />
+      <CountDownTimer />
     </React.Fragment>
   );
 };
@@ -163,7 +163,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
   if (!question) {
     return <Start start={start} guidelines={guidelines} />;
   } else if (question === 'waiting') {
-    return <Delay next={next} delay={delay} props={props} />;
+    return <Delay next={next} delay={delay} />;
   } else {
     return <Question {...props} />;
   }
