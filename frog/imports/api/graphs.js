@@ -9,17 +9,17 @@ import { Activities, Connections, Operators } from './activities';
 export const Graphs = new Mongo.Collection('graphs');
 
 const replaceFromMatching = (matching: Object, data: any) => {
-   if (Array.isArray(data)) {
-    return [ ...data.map(d => replaceFromMatching(matching, d))]
+  if (Array.isArray(data)) {
+    return [...data.map(d => replaceFromMatching(matching, d))];
   } else if (typeof data === 'object') {
-    return Object.keys(data).reduce((acc,d) => {
-      acc[d] = replaceFromMatching(matching, data[d])
-      return acc
-    }, {})
+    return Object.keys(data).reduce((acc, d) => {
+      acc[d] = replaceFromMatching(matching, data[d]);
+      return acc;
+    }, {});
   } else {
-    return data in matching ? matching[data] : data
+    return data in matching ? matching[data] : data;
   }
-}
+};
 
 export const addGraph = (graphObj?: Object): string => {
   const graphId = uuid();
@@ -40,7 +40,7 @@ export const addGraph = (graphObj?: Object): string => {
     const id = uuid();
     matching[ac._id] = id;
     return { ...ac, _id: id, graphId };
-  })
+  });
 
   const copyOp = graphObj.operators.map(op => {
     const id = uuid();
@@ -67,17 +67,17 @@ export const addGraph = (graphObj?: Object): string => {
       }
     };
   });
-  
+
   const newAc = copyAc.map(ac => ({
     ...ac,
     data: replaceFromMatching(matching, ac.data),
     streamTarget: matching[ac.streamTarget]
-  }))
+  }));
 
   const newOp = copyOp.map(op => ({
     ...op,
-    data: replaceFromMatching(matching, op.data),
-  }))
+    data: replaceFromMatching(matching, op.data)
+  }));
 
   newAc.forEach(x => Activities.insert(x));
   newOp.forEach(x => Operators.insert(x));

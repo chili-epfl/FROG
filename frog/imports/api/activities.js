@@ -148,6 +148,7 @@ Meteor.methods({
   'activities.flush': () => {
     Activities.remove({});
   },
+  'get.activity': id => Activities.findOne(id),
   'graph.flush.all': graphId => {
     Graphs.remove(graphId);
     Activities.remove({ graphId });
