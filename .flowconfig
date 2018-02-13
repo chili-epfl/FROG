@@ -46,6 +46,7 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/material-ui/*
 .*node_modules/material-ui-icons/*
 .*/.meteor/.*/package.json
+frogapi-test
 
 # Ignore template files
 .*/templates/.*

@@ -39,7 +39,7 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  Dashboard: null,
+  dashboard: null,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

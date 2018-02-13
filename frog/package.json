@@ -6,6 +6,7 @@
     "start": "nps"
   },
   "dependencies": {
+    "copy-to-clipboard": "^3.0.8",
     "@babel/runtime": "^7.0.0-beta.39",
     "ac-autocode": "1.0.0",
     "ac-brainstorm": "1.0.0",
@@ -20,6 +21,7 @@
     "ac-monty": "1.0.0",
     "ac-prox": "1.0.0",
     "ac-quiz": "1.0.0",
+    "ac-stroop": "1.0.0",
     "ac-text": "1.0.0",
     "ac-textarea": "1.0.0",
     "ac-uploader": "1.0.0",
@@ -81,6 +83,7 @@
     "react-jsonschema-form": "^1.0.0",
     "react-loadable": "^5.3.1",
     "react-modal": "^3.1.12",
+    "react-tagsinput": "^3.19.0",
     "react-mosaic-component": "^1.0.3",
     "react-router-dom": "^4.2.2",
     "react-spinner": "^0.2.7",

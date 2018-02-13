@@ -4,21 +4,19 @@
 // updated every x milliseconds (default 3000)
 // for example export default TimedComponent(Clock)
 
-import React, { Component } from 'react';
+import * as React from 'react';
 
 type PropsT = {
-  component: Component<*>,
+  component: Class<React.Component<*, *>>,
   interval: number,
   props: Object
 };
 
 type StateT = {
-  timeNow: any
+  timeNow: number
 };
 
-class TimedComponentClass extends Component<PropsT, StateT> {
-  compo = this.props.component;
-
+class TimedComponentClass extends React.Component<PropsT, StateT> {
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -47,11 +45,14 @@ class TimedComponentClass extends Component<PropsT, StateT> {
   }
 
   render() {
-    return <compo timeNow={this.state.timeNow} {...this.props.props} />;
+    const Component = this.props.component;
+    return <Component timeNow={this.state.timeNow} {...this.props.props} />;
   }
 }
 
-export default (component: any, interval: number) => (props: Object) => (
+export default (component: Class<React.Component<*>>, interval: number) => (
+  props: Object
+) => (
   <TimedComponentClass
     component={component}
     interval={interval}

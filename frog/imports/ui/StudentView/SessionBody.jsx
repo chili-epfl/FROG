@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 // UI

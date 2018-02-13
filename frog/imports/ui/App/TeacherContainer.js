@@ -60,6 +60,7 @@ const WithTopBar = () => (
 
 export default createContainer(() => {
   const collections = [
+    'activity_library',
     'activities',
     'activity_data',
     'connections',
