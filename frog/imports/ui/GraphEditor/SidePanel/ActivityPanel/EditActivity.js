@@ -2,7 +2,9 @@
 
 import * as React from 'react';
 import FlexView from 'react-flexview';
+import ReactTooltip from 'react-tooltip';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
 
@@ -31,6 +33,20 @@ const StreamSelect = ({ activity, targets, onChange }) => (
     </FormControl>
   </FormGroup>
 );
+
+const copyURL = activity => {
+  const configStr = activity.data
+    ? `config=${encodeURIComponent(JSON.stringify(activity.data))}&`
+    : '';
+  const url = `${window.location.protocol}//${window.location.hostname}${
+    window.location.port ? ':' + window.location.port : ''
+  }/api/activityType/${activity.activityType}?${configStr}instance_id=1`;
+  copy(url);
+  // eslint-disable-next-line no-alert
+  window.alert(
+    'Pre-configured URL for headless FROG has been copied to your clipboard'
+  );
+};
 
 const RawEditActivity = ({
   advancedOpen,
@@ -132,6 +148,11 @@ const RawEditActivity = ({
                   className="glyphicon glyphicon-share"
                   onClick={() => setModal(true)}
                 />
+              <Button
+                  className="glyphicon glyphicon-link"
+                  data-tip="Embed config in link to headless FROG"
+                  onClick={() => copyURL(activity)}
+                />
               </div>
             )}
           </FlexView>
@@ -186,6 +207,7 @@ const RawEditActivity = ({
           <FileForm />
         </React.Fragment>
       )}
+      <ReactTooltip delayShow={1000} />
     </div>
   );
 };

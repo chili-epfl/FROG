@@ -30,5 +30,6 @@ reywood:publish-composite
 standard-minifier-js@2.2.0
 minifier-js@2.2.0
 staringatlights:inject-data
+kadira:dochead
 mizzao:timesync
 mizzao:user-status

@@ -18,14 +18,16 @@ type StateT = {
 };
 
 type PropsT = {
-  store: Object,
+  store?: Object,
+  hidePreview?: boolean,
+  onSelect?: Function,
   activity: ActivityDbT
 };
 
-class ChooseActivityType extends Component<PropsT, StateT> {
+export class ChooseActivityType extends Component<PropsT, StateT> {
   inputRef: any;
 
-  constructor(props) {
+  constructor(props: PropsT) {
     super(props);
     this.state = {
       expanded: null,
@@ -37,12 +39,16 @@ class ChooseActivityType extends Component<PropsT, StateT> {
   }
 
   render() {
-    const select = activityType => {
-      Activities.update(this.props.activity._id, {
-        $set: { activityType: activityType.id }
-      });
-      this.props.store.addHistory();
-    };
+    const select = this.props.onSelect
+      ? this.props.onSelect
+      : activityType => {
+          Activities.update(this.props.activity._id, {
+            $set: { activityType: activityType.id }
+          });
+          if (this.props.store) {
+            this.props.store.addHistory();
+          }
+        };
 
     const changeSearch = e =>
       this.setState({
@@ -113,54 +119,56 @@ class ChooseActivityType extends Component<PropsT, StateT> {
             {this.state.libraryOpen ? 'New activity' : 'Library'}{' '}
           </Button>
         </div>
-        {this.state.libraryOpen ? (
-          <ActivityLibrary
-            {...closeLibrary}
-            activityId={this.props.activity._id}
-            searchStr={this.state.searchStr}
-            store={this.props.store}
-          />
-        ) : (
-          <div
-            className="list-group"
-            style={{
-              height: '93%',
-              width: '100%',
-              overflowY: 'scroll',
-              transform: 'translateY(10px)'
-            }}
-          >
-            {filteredList.length === 0 ? (
-              <div
-                style={{
-                  marginTop: '20px',
-                  marginLeft: '10px',
-                  fontSize: '40px'
-                }}
-              >
-                No result
-              </div>
-            ) : (
-              filteredList.map((x: ActivityPackageT) => (
-                <ListComponent
-                  hasPreview={x.meta.exampleData !== undefined}
-                  onSelect={() => select(x)}
-                  showExpanded={this.state.expanded === x.id}
-                  expand={() => this.setState({ expanded: x.id })}
-                  key={x.id}
-                  onPreview={() =>
-                    this.props.store.ui.setShowPreview({
-                      activityTypeId: x.id
-                    })
-                  }
-                  object={x}
-                  searchS={this.state.searchStr}
-                  eventKey={x.id}
-                />
-              ))
-            )}
-          </div>
-        )}
+{this.state.libraryOpen ? (
+  <ActivityLibrary
+    {...closeLibrary}
+    activityId={this.props.activity._id}
+    searchStr={this.state.searchStr}
+    store={this.props.store}
+  />
+) : (
+        <div
+          className="list-group"
+          style={{
+            height: '93%',
+            width: '100%',
+            overflowY: 'scroll',
+            transform: 'translateY(10px)'
+          }}
+        >
+          {filteredList.length === 0 ? (
+            <div
+              style={{
+                marginTop: '20px',
+                marginLeft: '10px',
+                fontSize: '40px'
+              }}
+            >
+              No result
+            </div>
+          ) : (
+            filteredList.map((x: ActivityPackageT) => (
+              <ListComponent
+                hasPreview={
+                  !this.props.hidePreview && x.meta.exampleData !== undefined
+                }
+                onSelect={() => select(x)}
+                showExpanded={this.state.expanded === x.id}
+                expand={() => this.setState({ expanded: x.id })}
+                key={x.id}
+                onPreview={() =>
+                  this.props.store &&
+                  this.props.store.ui.setShowPreview({
+                    activityTypeId: x.id
+                  })
+                }
+                object={x}
+                searchS={this.state.searchStr}
+                eventKey={x.id}
+              />
+            ))
+          )}
+        </div>)}
         {this.state.showInfo !== null && (
           <Preview
             activityTypeId={this.state.showInfo}
