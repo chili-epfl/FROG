@@ -330,7 +330,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                 >
                   <DashboardComp
                     example={example}
-                    activity={{ activityType: activityType.id }}
+                    activity={{ activityType: activityType.id, plane: 2 }}
                     config={activityData.config}
                     reload={reload}
                     doc={dashboard}
