@@ -182,7 +182,12 @@ const FROGRouter = withRouter(
         return <Spinner />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
         if (Meteor.user().username === 'teacher') {
-          return <Route component={TeacherLoadable} />;
+          return (
+            <Switch>
+              <Route path="/projector/:slug" component={StudentView} />
+              <Route component={TeacherLoadable} />
+            </Switch>
+          );
         } else {
           return (
             <Switch>
