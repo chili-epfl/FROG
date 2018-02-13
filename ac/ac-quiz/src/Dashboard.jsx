@@ -1,49 +1,47 @@
 // @flow
 /* eslint-disable react/no-array-index-key */
 
-import React from 'react';
+import * as React from 'react';
+import { Button } from 'react-bootstrap';
+import { withState } from 'recompose';
+
 import {
   CountChart,
   ScatterChart,
-  LineChart,
+  ProgressDashboard,
   type LogDBT,
   type ActivityDbT,
-  TimedComponent
+  type dashboardViewerPropsT
 } from 'frog-utils';
 
-const TIMEWINDOW = 5;
-
-const ProgressViewer = TimedComponent((props: Object) => {
-  const { data, instances, activity, timeNow } = props;
-
-  const numWindow = Math.ceil(
-    (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
-  );
-  const timingData = [[0, 0, 0, 0]];
-  const factor = 100 / Object.keys(instances).length;
-  for (let i = 0, j = -1; i <= numWindow; i += 1) {
-    if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
-      j += 1;
-    }
-    timingData.push([
-      i * TIMEWINDOW / 60,
-      data['timing'][j][1] * factor,
-      data['timing'][j][2],
-      data['timing'][j][3]
-    ]);
+const ScatterViewer = (props: dashboardViewerPropsT) => {
+  const { data, config, instances } = props;
+  const questions = config.questions.filter(q => q.question && q.answers);
+  const scatterData =
+    config.argueWeighting &&
+    instances.map(instance => {
+      const coordinates = [0, 0];
+      questions.forEach((q, qIndex) => {
+        if (
+          data[instance] &&
+          data[instance][qIndex] &&
+          q.answers[data[instance][qIndex] - 1]
+        ) {
+          const answerIndex = data[instance][qIndex] - 1;
+          coordinates[0] += q.answers[answerIndex].x;
+          coordinates[1] += q.answers[answerIndex].y;
+        }
+      });
+      return coordinates;
+    });
+  if (scatterData) {
+    return <ScatterChart data={scatterData} />;
+  } else {
+    return <p>No data</p>;
   }
-  return (
-    <LineChart
-      title="Activity Progress"
-      vAxis="Percent Complete"
-      hAxis="Time Elapsed"
-      hLen={props.activity['length']}
-      rows={timingData}
-    />
-  );
-}, TIMEWINDOW * 1000);
+};
 
-const Viewer = (props: Object) => {
+const AnswerCountViewer = (props: dashboardViewerPropsT) => {
   const { data, config, instances } = props;
   if (!config) {
     return null;
@@ -57,24 +55,6 @@ const Viewer = (props: Object) => {
   }, {});
 
   const questions = config.questions.filter(q => q.question && q.answers);
-  const scatterData =
-    (config.argueWeighting &&
-      instances.map(instance => {
-        const coordinates = [0, 0];
-        questions.forEach((q, qIndex) => {
-          if (
-            data[instance] &&
-            data[instance][qIndex] &&
-            q.answers[data[instance][qIndex] - 1]
-          ) {
-            const answerIndex = data[instance][qIndex] - 1;
-            coordinates[0] += q.answers[answerIndex].x;
-            coordinates[1] += q.answers[answerIndex].y;
-          }
-        });
-        return coordinates;
-      })) ||
-    [];
 
   const answerCounts = questions.map((q, qIndex) =>
     ((instAnswers && Object.values(instAnswers)) || []).reduce((acc, val) => {
@@ -82,11 +62,8 @@ const Viewer = (props: Object) => {
       return acc;
     }, q.answers.map(() => 0))
   );
-
   return (
-    <div>
-      {config.argueWeighting && <ScatterChart data={scatterData} />}
-      <ProgressViewer {...props} />
+    <React.Fragment>
       {questions.map((q, qIndex) => (
         <CountChart
           key={qIndex}
@@ -97,9 +74,29 @@ const Viewer = (props: Object) => {
           data={answerCounts[qIndex]}
         />
       ))}
-    </div>
+    </React.Fragment>
   );
 };
+
+const Select = ({ target, onClick }) => (
+  <Button onClick={() => onClick(target)}>{target}</Button>
+);
+
+const Viewer = withState('which', 'setWhich', null)(
+  (props: dashboardViewerPropsT) => {
+    const { which, setWhich } = props;
+    return (
+      <div>
+        <Select target="progress" onClick={setWhich} />
+        <Select target="scatter" onClick={setWhich} />
+        <Select target="count" onClick={setWhich} />
+        {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
+        {which === 'scatter' && <ScatterViewer {...props} />}
+        {which === 'count' && <AnswerCountViewer {...props} />}
+      </div>
+    );
+  }
+);
 
 const mergeLog = (
   data: any,
@@ -113,48 +110,12 @@ const mergeLog = (
     } else {
       dataFn.objInsert(log.value, [log.instanceId, log.itemId]);
     }
-  } else if (
-    log.type === 'progress' &&
-    typeof log.value === 'number' &&
-    activity.actualStartingTime !== undefined
-  ) {
-    const progDiff =
-      (data['timing'][data['timing'].length - 1][1] || 0) +
-      log.value -
-      (data.progress[log.instanceId] || 0);
-    dataFn.objInsert(log.value, ['progress', log.instanceId]);
-
-    // $FlowFixMe
-    const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
-
-    const max =
-      log.value > data['timing'][data['timing'].length - 1][2]
-        ? log.value
-        : data['timing'][data['timing'].length - 1][2];
-
-    if (
-      Math.ceil(timeDiff / TIMEWINDOW) !==
-      data['timing'][data['timing'].length - 1][0] / TIMEWINDOW
-    ) {
-      dataFn.listAppend(
-        [Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW, progDiff, max, 0],
-        'timing'
-      );
-    } else {
-      data['timing'][data['timing'].length - 1] = [
-        Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
-        progDiff,
-        max,
-        0
-      ];
-      dataFn.objInsert(data['timing'], 'timing');
-    }
   }
+  ProgressDashboard.mergeLog(data, dataFn, log, activity);
 };
 
 const initData = {
-  progress: {},
-  timing: [[0, 0, 0, 0]]
+  ...ProgressDashboard.initData
 };
 
 export default {
