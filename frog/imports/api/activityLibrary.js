@@ -14,8 +14,9 @@ export const addActivityToLibrary = (
   configuration: Object,
   tags: ?(string[])
 ) => {
+  const id = uuid();
   ActivityLibrary.insert({
-    _id: uuid(),
+    _id: id,
     parentId,
     title,
     description,
@@ -24,6 +25,7 @@ export const addActivityToLibrary = (
     exportedAt: new Date(),
     tags
   });
+  return id;
 };
 
 export const removeActivity = (id: string) =>

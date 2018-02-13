@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
+import { Activities } from '/imports/api/activities';
 import { addActivityToLibrary } from '/imports/api/activityLibrary';
 
 type StateT = {
@@ -68,7 +69,7 @@ class ExportModal extends Component<Object, StateT> {
         <Button
           className="btn btn-primary"
           onClick={() => {
-            addActivityToLibrary(
+            const idExport = addActivityToLibrary(
               this.props.activity.parentId,
               this.state.title,
               this.state.description,
@@ -76,6 +77,9 @@ class ExportModal extends Component<Object, StateT> {
               { ...this.props.activity.data },
               this.state.tags
             );
+            Activities.update(this.props.activity._id, {
+              $set: { parentId: idExport }
+            });
             this.props.setModal(false);
             this.setState({
               title: '',
