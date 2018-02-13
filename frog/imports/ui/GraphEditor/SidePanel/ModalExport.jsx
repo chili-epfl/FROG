@@ -12,9 +12,10 @@ type StateT = {
   tags: array
 };
 
-class MyModal extends Component<Object, StateT> {
+class ExportModal extends Component<Object, StateT> {
   constructor(props) {
     super(props);
+    Modal.setAppElement('#render-target');
     this.state = {
       title: '',
       description: '',
@@ -90,4 +91,4 @@ class MyModal extends Component<Object, StateT> {
   }
 }
 
-export default MyModal;
+export default ExportModal;

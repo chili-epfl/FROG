@@ -20,7 +20,7 @@ export const addActivity = (
   groupingKey: ?string
 ) => {
   if (id) {
-    const toSet = omitBy({ data, groupingKey }, isNil);
+    const toSet = omitBy({ activityType, data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({

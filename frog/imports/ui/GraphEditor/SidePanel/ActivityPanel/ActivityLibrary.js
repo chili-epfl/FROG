@@ -1,16 +1,13 @@
 // @flow
 import React from 'react';
 
-import { Activities } from '/imports/api/activities';
+import { addActivity } from '/imports/api/activities';
 import { Library } from '/imports/api/library';
 import LibraryListComponent from '../LibraryListComponent';
 
-export default ({ searchStr, store }: Object) => {
-  // redefine !!!!!!!!!!!!!!!!!!!!
-  const select = activityType => {
-    Activities.update(this.props.activity._id, {
-      $set: { activityType: activityType.id }
-    });
+export default ({ activityId, searchStr, store }: Object) => {
+  const select = (activity: Object) => {
+    addActivity(activity.activityType, activity.configuration, activityId);
     store.addHistory();
   };
   const filteredList = Library.find()
@@ -19,7 +16,8 @@ export default ({ searchStr, store }: Object) => {
       x =>
         x.activityType.toLowerCase().includes(searchStr) ||
         x.title.toLowerCase().includes(searchStr) ||
-        x.description.toLowerCase().includes(searchStr)
+        x.description.toLowerCase().includes(searchStr) ||
+        x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
     )
     .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
   return (
@@ -44,7 +42,7 @@ export default ({ searchStr, store }: Object) => {
             No result
           </div>
         ) : (
-          filteredList.map((x: ActivityPackageT) => (
+          filteredList.map((x: Object) => (
             <LibraryListComponent
               onSelect={() => select(x)}
               activity={x}

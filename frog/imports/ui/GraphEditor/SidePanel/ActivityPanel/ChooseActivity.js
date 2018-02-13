@@ -116,6 +116,7 @@ class ChooseActivityType extends Component<PropsT, StateT> {
         {this.state.libraryOpen ? (
           <ActivityLibrary
             {...closeLibrary}
+            activityId={this.props.activity._id}
             searchStr={this.state.searchStr}
             store={this.props.store}
           />
