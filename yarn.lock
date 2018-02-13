@@ -1886,7 +1886,7 @@ copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
 
-copy-to-clipboard@^3:
+copy-to-clipboard@^3, copy-to-clipboard@^3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.0.8.tgz#f4e82f4a8830dce4666b7eb8ded0c9bcc313aba9"
   dependencies:
@@ -4398,9 +4398,9 @@ jszip@^3.1.5:
     pako "~1.0.2"
     readable-stream "~2.0.6"
 
-katex@^0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.8.3.tgz#909d99864baf964c3ccae39c4a99a8e0fb9a1bd0"
+katex@^0.7.0:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.7.1.tgz#06bb5298efad05e1e7228035ba8e1591f3061b8f"
   dependencies:
     match-at "^0.1.0"
 
@@ -5938,11 +5938,11 @@ react-jsonschema-form@^1.0.0:
     prop-types "^15.5.8"
     setimmediate "^1.0.5"
 
-react-latex@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-latex/-/react-latex-1.1.0.tgz#709dd5051db8df1bcf656ab7fa55d044f111f754"
+react-latex@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-latex/-/react-latex-1.0.1.tgz#208052ff0db20e413a1e070341ceb182607b52f5"
   dependencies:
-    katex "^0.8.3"
+    katex "^0.7.0"
 
 react-loadable@^5.3.1:
   version "5.3.1"

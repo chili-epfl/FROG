@@ -30,7 +30,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.mosaic {
+ .mosaic {
   height: 100%;
   width: 100%;
 }
@@ -227,7 +227,7 @@
   height: 0;
   background: white;
   z-index: 1;
-  overflow: hidden;
+  overflow: auto;
 }
 .mosaic-window .mosaic-window-additional-actions-bar,
 .mosaic-preview .mosaic-window-additional-actions-bar {

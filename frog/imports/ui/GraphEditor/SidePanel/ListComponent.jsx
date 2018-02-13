@@ -37,7 +37,7 @@ export default ({
         position: 'absolute',
         left: '2px',
         top: '4px',
-        width: '9%',
+        width: '34px',
         height: '34px'
       }}
       onClick={onSelect}
@@ -48,8 +48,8 @@ export default ({
           position: 'absolute',
           right: '2px',
           top: '4px',
-          width: '10%',
-          height: '35px'
+          width: '34px',
+          height: '34px'
         }}
         className="glyphicon glyphicon-menu-down"
         onClick={expand}
@@ -64,7 +64,7 @@ export default ({
           position: 'absolute',
           right: '2px',
           top: '39px',
-          width: '10%',
+          width: '34px',
           height: '34px'
         }}
         onClick={onPreview}

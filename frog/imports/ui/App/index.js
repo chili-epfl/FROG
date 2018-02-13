@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import {
@@ -21,12 +21,8 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
+import APICall from './APICall';
 import TeacherLoadable from './TeacherContainer';
-// const TeacherLoadable = Loadable({
-//   loader: () => import('./TeacherContainer'),
-//   loading: () => null,
-//   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
-// });
 
 const shareDbUrl =
   (Meteor.settings.public && Meteor.settings.public.sharedburl) ||
@@ -64,7 +60,7 @@ const subscriptionCallback = (error, response, setState) => {
 };
 
 const FROGRouter = withRouter(
-  class RawRouter extends Component<
+  class RawRouter extends React.Component<
     Object,
     {
       mode:
@@ -204,15 +200,43 @@ const FROGRouter = withRouter(
   }
 );
 
-export default () => (
-  <ErrorBoundary>
-    <Router>
-      <div style={{ width: '100%', height: '100%' }}>
-        <Switch>
-          <Route path="/:slug" component={FROGRouter} />
-          <Route component={FROGRouter} />
-        </Switch>
-      </div>
-    </Router>
-  </ErrorBoundary>
-);
+export default class Root extends React.Component<
+  {},
+  {
+    mode: string,
+    api?: boolean,
+    data?: Object
+  }
+> {
+  constructor() {
+    super();
+    this.state = { mode: 'waiting' };
+  }
+
+  componentDidMount = () => {
+    InjectData.getData('api', data => {
+      this.setState({ mode: 'ready', api: !!data, data });
+    });
+  };
+
+  render() {
+    if (this.state.mode === 'waiting') {
+      return null;
+    } else if (this.state.api && this.state.data) {
+      return <APICall data={this.state.data} />;
+    } else {
+      return (
+        <ErrorBoundary>
+          <Router>
+            <div style={{ width: '100%', height: '100%' }}>
+              <Switch>
+                <Route path="/:slug" component={FROGRouter} />
+                <Route component={FROGRouter} />
+              </Switch>
+            </div>
+          </Router>
+        </ErrorBoundary>
+      );
+    }
+  }
+}

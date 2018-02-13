@@ -15,10 +15,23 @@ const cleanPath = (defPath: string[], rawPath: rawPathT = []): string[] => {
 class Doc {
   doc: any;
   path: string[];
+  submitOp: Function;
+  readOnly: boolean;
+  updateFn: ?Function;
 
-  constructor(doc: any, path: ?(string[])) {
+  constructor(
+    doc: any,
+    path: ?(string[]),
+    readOnly: boolean,
+    updateFn?: Function
+  ) {
+    this.readOnly = !!readOnly;
     this.doc = doc;
     this.path = path || [];
+    this.submitOp = readOnly
+      ? () => updateFn && updateFn()
+      : e => doc.submitOp(e);
+    this.updateFn = updateFn;
   }
 
   bindTextField(ref, rawpath) {
@@ -43,66 +56,66 @@ class Doc {
   }
 
   listPrepend(newVal: any, path: rawPathT) {
-    this.doc.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
+    this.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
   }
   listAppend(newVal: any, path: rawPathT) {
-    this.doc.submitOp({
+    this.submitOp({
       p: [...cleanPath(this.path, path), 999999],
       li: newVal
     });
   }
   listInsert(newVal: any, path: rawPathT) {
-    this.doc.submitOp({
+    this.submitOp({
       p: cleanPath(this.path, path),
       li: newVal
     });
   }
   listDel(oldVal: any, path: rawPathT) {
-    this.doc.submitOp({
+    this.submitOp({
       p: cleanPath(this.path, path),
       ld: oldVal
     });
   }
   listReplace(oldVal: any, newVal: any, path: rawPathT) {
-    this.doc.submitOp({
+    this.submitOp({
       p: cleanPath(this.path, path),
       ld: oldVal,
       li: newVal
     });
   }
   numIncr(incr: number, path: rawPathT) {
-    this.doc.submitOp({ p: cleanPath(this.path, path), na: incr });
+    this.submitOp({ p: cleanPath(this.path, path), na: incr });
   }
   objInsert(newVal: Object, path: rawPathT) {
-    this.doc.submitOp({ p: cleanPath(this.path, path), oi: newVal });
+    this.submitOp({ p: cleanPath(this.path, path), oi: newVal });
   }
   keyedObjInsert(newVal: Object, path: rawPathT) {
     const id = uuid();
     const aryPath = Array.isArray(path) ? path : [path];
-    this.doc.submitOp({
+    this.submitOp({
       p: cleanPath(this.path, [...aryPath, id]),
       oi: { id, ...newVal }
     });
   }
   objDel(oldVal: Object, path: rawPathT) {
-    this.doc.submitOp({ p: cleanPath(this.path, path), od: oldVal });
+    this.submitOp({ p: cleanPath(this.path, path), od: oldVal });
   }
   objReplace(oldVal: Object, newVal: Object, path: rawPathT) {
-    this.doc.submitOp({
+    this.submitOp({
       p: cleanPath(this.path, path),
       od: oldVal,
       oi: newVal
     });
   }
   objSet(newVal: Object, path: rawPathT) {
-    this.doc.submitOp({
+    this.submitOp({
       p: [...this.path, path],
       oi: newVal
     });
   }
   specialize(rawPath: rawPathT) {
     const newPath = typeof rawPath === 'string' ? [rawPath] : rawPath;
-    return new Doc(this.doc, [...this.path, ...newPath]);
+    return new Doc(this.doc, [...this.path, ...newPath], this.readOnly);
   }
 
   specializeData(path: rawPathT, data: Object) {
@@ -113,9 +126,13 @@ class Doc {
   }
 }
 
-export const generateReactiveFn = (doc: any): Object => {
+export const generateReactiveFn = (
+  doc: any,
+  readOnly?: boolean,
+  updateFn: Function
+): Object => {
   if (doc) {
-    return new Doc(doc, []);
+    return new Doc(doc, [], !!readOnly, updateFn);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
@@ -134,5 +151,5 @@ export const inMemoryReactive = (
       doc.create(initial);
       resolve(doc);
     });
-  }).then(doc => ({ data: doc, dataFn: new Doc(doc, []) }));
+  }).then(doc => ({ data: doc, dataFn: new Doc(doc, [], false) }));
 };
