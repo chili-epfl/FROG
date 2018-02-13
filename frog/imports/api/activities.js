@@ -17,14 +17,16 @@ export const addActivity = (
   activityType: string,
   data: ?Object = {},
   id: string,
-  groupingKey: ?string
+  groupingKey: ?string,
+  parentId: ?string
 ) => {
   if (id) {
-    const toSet = omitBy({ data, groupingKey }, isNil);
+    const toSet = omitBy({ activityType, parentId, data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
       _id: uuid(),
+      parentId,
       activityType,
       data,
       groupingKey,
@@ -155,6 +157,7 @@ Meteor.methods({
   'activities.flush': () => {
     Activities.remove({});
   },
+  'get.activity': id => Activities.findOne(id),
   'graph.flush.all': graphId => {
     Graphs.remove(graphId);
     Activities.remove({ graphId });
