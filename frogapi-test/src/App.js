@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Stringify from 'json-stringify-pretty-compact';
 import './App.css';
 
@@ -19,6 +18,10 @@ const srcs = [
   [
     'Video',
     'http://localhost:3000/api/activityType/ac-video?config=%7B%22url%22%3A%22https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D6YAHzyRRY8Q%22%2C%22playing%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky'
+  ],
+  [
+    'Video dashboard',
+    'http://localhost:3000/api/dashboard/ac-video?config=%7B%22url%22%3A%22https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D6YAHzyRRY8Q%22%2C%22playing%22%3Atrue%7D&instance_id=1&userid=330&username=Petrovsky'
   ],
   [
     'Image gallery',
@@ -66,7 +69,7 @@ class App extends Component {
         <h1 className="App-title">FROG API test bed</h1>
         Examples:{' '}
         {srcs.map(([title, x], i) => (
-          <span>
+          <span key={title}>
             <a
               href="#"
               onClick={e => {

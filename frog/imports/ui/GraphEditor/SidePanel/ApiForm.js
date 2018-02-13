@@ -1,8 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { hideConditional, type ActivityDbT } from 'frog-utils';
-import { observable, action } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import { observer } from 'mobx-react';
 
 import { activityTypesObj } from '/imports/activityTypes';
@@ -11,8 +11,10 @@ import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
 import ConfigForm from './ConfigForm';
 import { ChooseActivityType } from './ActivityPanel/ChooseActivity';
 
-class Config extends Component {
-  state: { formData: Object, valid: Object[] };
+class Config extends React.Component<
+  { config: Object, activity: ActivityDbT, setValid: Function },
+  { formData: Object, valid: any[] }
+> {
   aT: any;
 
   constructor(props: {
@@ -72,6 +74,7 @@ class Config extends Component {
             }}
             nodeType={this.aT}
             valid={{ social: [] }}
+            refreshValidate={() => {}}
           />
         </div>
       </div>
@@ -86,27 +89,36 @@ type PropsT = {
 };
 
 class State {
-  @observable showErrors: boolean = false;
-  @observable valid: Object[] = [];
-  setShow = action(e => {
-    this.showErrors = e;
-  });
-  setValid = action(e => (this.valid = e));
+  showErrors: boolean;
+  valid: any[];
+  setShow: Function;
+  setValid: Function;
+
+  constructor() {
+    extendObservable(this, {
+      showErrors: false,
+      valid: [],
+      setShow: action(e => {
+        this.showErrors = e;
+      }),
+      setValid: action(e => (this.valid = e))
+    });
+  }
 }
 
 const state = new State();
 
 @observer
-class ApiForm extends Component {
-  props: PropsT;
-
-  state: {
+class ApiForm extends React.Component<
+  PropsT,
+  {
     activity: {
       id: string,
-      activityType?: string
+      activityType?: string,
+      data?: Object
     }
-  };
-
+  }
+> {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,6 +139,7 @@ class ApiForm extends Component {
               <Config
                 activity={this.state.activity}
                 setValid={state.setValid}
+                config={{}}
               />
             </div>
             {!this.props.hideValidator && (
@@ -154,7 +167,7 @@ class ApiForm extends Component {
 }
 
 @observer
-class Valid extends Component {
+class Valid extends React.Component<{}, void> {
   render() {
     return (
       <ValidButtonRaw
@@ -166,7 +179,7 @@ class Valid extends Component {
 }
 
 @observer
-class Errors extends Component {
+class Errors extends React.Component<{}, void> {
   render() {
     if (state.showErrors) {
       return (

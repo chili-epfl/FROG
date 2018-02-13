@@ -26,7 +26,7 @@ const ReactiveHOC = (
     ReactiveCompPropsT,
     ReactiveCompsStateT
   > {
-    state: { data: any, dataFn: ?Object, uuid: '' };
+    state: { data: any, dataFn: ?Object, uuid: string };
     doc: any;
     unmounted: boolean;
 

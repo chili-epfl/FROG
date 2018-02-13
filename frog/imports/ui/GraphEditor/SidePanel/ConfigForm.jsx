@@ -17,7 +17,7 @@ type ConfigFormPropsT = {
   nodeType: any,
   connectedActivities?: any,
   valid: any,
-  refreshValidate: any,
+  refreshValidate: Function,
   reload?: any,
   widgets?: any
 };

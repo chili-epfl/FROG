@@ -111,7 +111,7 @@ export const RunActivity = ({
   stream: Function,
   groupingValue: string,
   activityTypeId: string,
-  readOnly: boolean
+  readOnly?: boolean
 }) => {
   const activityType = activityTypesObj[activityTypeId];
   const RunComp = activityType.ActivityRunner;

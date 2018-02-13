@@ -15,19 +15,16 @@ type StateT = {
 };
 
 type PropsT = {
-  store: Object,
+  store?: Object,
+  hidePreview?: boolean,
+  onSelect?: Function,
   activity: ActivityDbT
 };
 
-class ChooseActivityType extends Component<PropsT, StateT> {
+export class ChooseActivityType extends Component<PropsT, StateT> {
   inputRef: any;
 
-  constructor(
-    props: { onSelect: Function, hidePreview: boolean } & {
-      activity: Object,
-      store: Object
-    }
-  ) {
+  constructor(props: PropsT) {
     super(props);
     this.state = { expanded: null, searchStr: '', showInfo: null };
     this.inputRef = null;

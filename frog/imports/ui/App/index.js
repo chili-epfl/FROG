@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import sharedbClient from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
 import {
@@ -71,7 +71,7 @@ const subscriptionCallback = (error, response, setState) => {
 };
 
 const FROGRouter = withRouter(
-  class RawRouter extends Component<
+  class RawRouter extends React.Component<
     Object,
     {
       mode:
@@ -211,9 +211,14 @@ const FROGRouter = withRouter(
   }
 );
 
-export default class Root extends Component {
-  state: { mode: string, api?: boolean, data?: Object };
-
+export default class Root extends React.Component<
+  {},
+  {
+    mode: string,
+    api?: boolean,
+    data?: Object
+  }
+> {
   constructor() {
     super();
     this.state = { mode: 'waiting' };
@@ -239,6 +244,7 @@ export default class Root extends Component {
             }}
             users={[]}
             config={data.config}
+            instances={[]}
           />
         );
       }

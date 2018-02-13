@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 
 type DashboardCompPropsT = {
-  doc: any,
+  doc?: any,
   activity: ActivityDbT,
   users: Array<{ _id: string | number, username: string }>,
   instances: Array<string | number>,
@@ -100,7 +100,7 @@ export class DashboardComp extends React.Component<
         <aT.dashboard.Viewer
           users={users}
           activity={this.props.activity}
-          instances={this.props.instances}
+          instances={this.props.instances || []}
           data={this.state.data}
           config={this.props.activity.data || this.props.config}
         />

@@ -16,13 +16,13 @@ class Doc {
   doc: any;
   path: string[];
   submitOp: Function;
-  readOnly: ?boolean;
+  readOnly: boolean;
   updateFn: ?Function;
 
   constructor(
     doc: any,
     path: ?(string[]),
-    readOnly?: boolean,
+    readOnly: boolean,
     updateFn?: Function
   ) {
     this.readOnly = !!readOnly;
@@ -128,11 +128,11 @@ class Doc {
 
 export const generateReactiveFn = (
   doc: any,
-  readOnly: boolean,
+  readOnly?: boolean,
   updateFn: Function
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], readOnly, updateFn);
+    return new Doc(doc, [], !!readOnly, updateFn);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
