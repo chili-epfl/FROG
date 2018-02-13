@@ -2,15 +2,21 @@
 import React from 'react';
 
 import { addActivity } from '/imports/api/activities';
-import { Library } from '/imports/api/library';
+import { ActivityLibrary } from '/imports/api/activityLibrary';
 import LibraryListComponent from '../LibraryListComponent';
 
 export default ({ activityId, searchStr, store }: Object) => {
   const select = (activity: Object) => {
-    addActivity(activity.activityType, activity.configuration, activityId);
+    addActivity(
+      activity.activityType,
+      activity.configuration,
+      activityId,
+      null,
+      activity._id
+    );
     store.addHistory();
   };
-  const filteredList = Library.find()
+  const filteredList = ActivityLibrary.find()
     .fetch()
     .filter(
       x =>

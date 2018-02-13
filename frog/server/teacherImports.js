@@ -11,7 +11,7 @@ import { Sessions } from '../imports/api/sessions.js';
 import { ActivityData } from '../imports/api/activityData.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
-import { Library } from '../imports/api/library.js';
+import { ActivityLibrary } from '../imports/api/activityLibrary.js';
 
 const teacherPublish = (publish, collection) =>
   Meteor.publish(publish, function() {
@@ -35,5 +35,5 @@ export default () => {
   teacherPublish('objects', Objects);
   teacherPublish('products', Products);
   teacherPublish('sessions', Sessions);
-  teacherPublish('library', Library);
+  teacherPublish('activity_library', ActivityLibrary);
 };

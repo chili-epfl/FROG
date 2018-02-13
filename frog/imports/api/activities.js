@@ -17,14 +17,16 @@ export const addActivity = (
   activityType: string,
   data: ?Object = {},
   id: string,
-  groupingKey: ?string
+  groupingKey: ?string,
+  parentId: ?string
 ) => {
   if (id) {
-    const toSet = omitBy({ activityType, data, groupingKey }, isNil);
+    const toSet = omitBy({ activityType, parentId, data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
       _id: uuid(),
+      parentId,
       activityType,
       data,
       groupingKey,

@@ -1,10 +1,10 @@
 // @flow
-// import { Meteor } from 'meteor/meteor';
+
 import { Mongo } from 'meteor/mongo';
 
 import { uuid } from 'frog-utils';
 
-export const Library = new Mongo.Collection('library');
+export const ActivityLibrary = new Mongo.Collection('activity_library');
 
 export const addActivityToLibrary = (
   parentId: string,
@@ -14,7 +14,7 @@ export const addActivityToLibrary = (
   configuration: Object,
   tags: ?(string[])
 ) => {
-  Library.insert({
+  ActivityLibrary.insert({
     _id: uuid(),
     parentId,
     title,
@@ -26,4 +26,5 @@ export const addActivityToLibrary = (
   });
 };
 
-export const removeActivity = (id: string) => Library.remove({ _id: id });
+export const removeActivity = (id: string) =>
+  ActivityLibrary.remove({ _id: id });
