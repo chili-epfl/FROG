@@ -31,27 +31,21 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 (more examples, and videos, on the
 [wiki](https://github.com/chili-epfl/FROG/wiki))
 
-## Branches
-
-Note that all active development happens on `develop`, and all pull requests
-should be based on this branch. `master` is a stable branch, where we will
-attempt to make no API changes until December 2017. We will attempt to fix bugs,
-and might add some features or packages, where this does not introduce
-backward-incompatibility.
-
 ## Set up
 
 * install [Meteor](https://www.meteor.com/install)
-* make sure you have a recent version of Node 8 (if you have node, but not the
+* make sure you have a recent version of Node 8 or 9 (if you have node, but not the
   latest, you can try `npm install -g n; n latest`
 
 * run the commands
 
   * `./initial_setup.sh` (if problem occur with bcrypt you can try to run
     `meteor npm install --python=python2.7` from the `frog/` directory)
-  * start `./run_and_watch_all.sh`, which watches all dependencies for changes,
-    and recompiles with Babel
+  
   * go to the `frog/` directory and run `meteor`
+  
+  * see more developer scripts and details [here](https://github.com/chili-epfl/FROG/wiki/Development-workflow-and-tools), including how to automatically rebuild
+    files in `ac/`, `op/` and `frog-utils`.
 
 * Go to http://localhost:3000/ on your browser
 
@@ -87,22 +81,22 @@ backward-incompatibility.
 * Learn Meteor framework with React:
   https://www.meteor.com/tutorials/react/creating-an-app
 
-* Use `./run_and_watch_all.sh` to automatically have packages rebuilt after
-  editing them (otherwise your changes will not be picked up by Meteor)
-* Note that we use `yarn` extensively. In all other directories than in the main
-  `./frog` application, you should only use `yarn add` to install packages (not
-  `npm install --save`). In `./frog`, you should use `meteor npm install
-  --save`. If you see lot's of error messages about missing dependencies etc,
-  commit your changes to Git, and run `git reset --hard; git clean -fdx;
-  ./initial_setup.sh` from the root directory again. (This will remove any
-  changes not committed to Git!)
+* Use `npm start watchAll` to automatically have packages rebuilt after
+  editing them (otherwise your changes will not be picked up by Meteor) (more details [here](https://github.com/chili-epfl/FROG/wiki/Development-workflow-and-tools))
+* Note that we use `yarn` extensively. Unfortunately, we currently need to symlink all
+the packages from the root `node_modules` directory into `frog/`, because of a problem with
+Meteor. This means that the best way to add or update a dependency is to directly edit the 
+`package.json` file in question, and rerun `git clean -fdx; ./initial_setup.sh`. We're working
+on improving this.
 
 * In development mode, you can use the URL shorthand `<host>?login={user}` to
   automatically login as a given user (which will be automatically created if it
-  does not yet exist). For example, `http://localhost:3000?login=peter`, will
+  does not yet exist). For example, `http://localhost:3000/<slug>?login=peter`, will
   open the student view logged in as peter. The user 'teacher' has access to the
-  graph editor and the teacher orchestration dashboard.
-* However, if you open a number of windows in the same browser, they will all be
+  graph editor and the teacher orchestration dashboard. If you want to see the
+  "projector mode", you log in like `<host>/projector/<slug>?login=teacher`. The slug is displayed
+  once you create a new session.
+* If you open a number of windows in the same browser, they will all be
   logged in as the latest user, because of cookies. A way around this is to add
   entries like this in /etc/hosts:
 
@@ -123,7 +117,7 @@ and then log in to different users on different "domains".
 * We use Jest for tests.
 * We use Flow for type checking.
 
-All PRs should pass all tests (`npm run test` in the repository root directory).
+All PRs should pass all tests (`npm start test` in the repository root directory).
 
 ## Licensing
 
