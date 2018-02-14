@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import styled from 'styled-components';
 
@@ -39,7 +39,7 @@ const CountdownDiv = styled.div`
   z-index: 999;
 `;
 
-export default createContainer(props => {
+export default withTracker(props => {
   const currentTime = TimeSync.serverTime();
   return { ...props, currentTime };
-}, Countdown);
+})(Countdown);

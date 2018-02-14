@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Mosaic } from 'react-mosaic-component';
 import styled from 'styled-components';
@@ -83,10 +83,7 @@ const SessionBody = ({
 
 SessionBody.displayName = 'SessionBody';
 
-export default createContainer(
-  () => ({
-    session: Sessions.findOne(),
-    activities: Activities.find().fetch()
-  }),
-  SessionBody
-);
+export default withTracker(() => ({
+  session: Sessions.findOne(),
+  activities: Activities.find().fetch()
+}))(SessionBody);

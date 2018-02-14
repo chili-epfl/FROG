@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
 import { Nav, NavItem } from 'react-bootstrap';
@@ -112,14 +112,14 @@ export class DashboardComp extends React.Component<
   }
 }
 
-export const Dashboard = createContainer(({ session, activity }) => {
+export const Dashboard = withTracker(({ session, activity }) => {
   const object = Objects.findOne(activity._id);
   const instances = doGetInstances(activity, object).groups;
   return {
     users: Meteor.users.find({ joinedSessions: session.slug }).fetch(),
     instances
   };
-}, DashboardComp);
+})(DashboardComp);
 
 const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
   const relevantActivities = openActivities.filter(
@@ -160,9 +160,6 @@ const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
   );
 };
 
-export default createContainer(
-  ({ openActivities }) => ({
-    openActivities: Activities.find({ _id: { $in: openActivities } }).fetch()
-  }),
-  withState('activityId', 'setActivity', null)(DashboardNav)
-);
+export default withTracker(({ openActivities }) => ({
+  openActivities: Activities.find({ _id: { $in: openActivities } }).fetch()
+}))(withState('activityId', 'setActivity', null)(DashboardNav));
