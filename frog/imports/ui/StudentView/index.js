@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
@@ -89,7 +89,7 @@ const monitor = () => {
   }
 };
 
-export default createContainer(props => {
+export default withTracker(props => {
   if (!once.already) {
     Tracker.autorun(() => {
       if (Meteor.userId()) {
@@ -107,4 +107,4 @@ export default createContainer(props => {
     session: Sessions.findOne({ slug }),
     ready: every(subscriptions.map(x => x.ready()), Boolean)
   };
-}, StudentViewComp);
+})(StudentViewComp);

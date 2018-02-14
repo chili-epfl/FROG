@@ -1,5 +1,5 @@
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
@@ -28,10 +28,10 @@ const GraphMenuSimple = connect(({ store: { graphId }, graphs }) => (
   </DropdownButton>
 ));
 
-const toExport = createContainer(
-  props => ({ ...props, graphs: Graphs.find().fetch() }),
-  GraphMenuSimple
-);
+const toExport = withTracker(props => ({
+  ...props,
+  graphs: Graphs.find().fetch()
+}))(GraphMenuSimple);
 toExport.displayName = 'GraphMenuSimple';
 
 export default toExport;

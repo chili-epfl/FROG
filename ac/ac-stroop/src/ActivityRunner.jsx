@@ -108,17 +108,25 @@ const Delay = ({ next, delay }) => {
 
 const Question = props => {
   const { setQuestion, question, logger, data, dataFn, activityData } = props;
-  const { objectName, colorName, colorFill } = question;
+  const { objectName, colorName, colorFill, isCorrect } = question;
 
   const onClick = answer => () => {
     clearTimeout(noAnswerTimeout);
+    // Logs the question and answer provided
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
+    // Increases the progress and logs the new progress
     logger({
       type: 'progress',
       value: (data.progress + 1) / activityData.config.maxQuestions
     });
     dataFn.numIncr(1, 'progress');
+    // Increases the score and logs the new score
+    const isCorrectAnswer = isCorrect === answer ? 1 : 0;
+    const value = data.score + isCorrectAnswer;
+    logger({ type: 'score', value });
+    dataFn.numIncr(isCorrectAnswer, 'score');
+    // Goes on to next question
     setQuestion('waiting');
   };
 

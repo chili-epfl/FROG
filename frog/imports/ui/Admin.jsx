@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { A } from 'frog-utils';
 
 import { Sessions } from '../api/sessions';
@@ -56,37 +56,32 @@ class DisplayData extends React.Component<Object, StateT> {
   }
 }
 
-export default createContainer(
-  () => {
-    const sessions = Sessions.find().fetch();
-    const graphs = Graphs.find().fetch();
-    const activities = Activities.find().fetch();
-    const operators = Operators.find().fetch();
-    const connections = Connections.find().fetch();
-    return { sessions, graphs, activities, operators, connections };
-  },
-  ({ sessions, graphs, activities, operators, connections }) => (
-    <div id="admin">
-      <h1>Commands</h1>
-      <button onClick={() => deleteDatabase()}>Delete the database</button>
-      <br />
-      <button onClick={() => loadDatabase(argueGraph)}>Load argueGraph</button>
-      <br />
-      <button onClick={() => loadDatabase(mixedJigsaw)}>
-        Load mixedJigsaw
-      </button>
-      <br />
+export default withTracker(() => {
+  const sessions = Sessions.find().fetch();
+  const graphs = Graphs.find().fetch();
+  const activities = Activities.find().fetch();
+  const operators = Operators.find().fetch();
+  const connections = Connections.find().fetch();
+  return { sessions, graphs, activities, operators, connections };
+})(({ sessions, graphs, activities, operators, connections }) => (
+  <div id="admin">
+    <h1>Commands</h1>
+    <button onClick={() => deleteDatabase()}>Delete the database</button>
+    <br />
+    <button onClick={() => loadDatabase(argueGraph)}>Load argueGraph</button>
+    <br />
+    <button onClick={() => loadDatabase(mixedJigsaw)}>Load mixedJigsaw</button>
+    <br />
 
-      <h1>Graphs</h1>
-      <DisplayData data={graphs} />
-      <h1>Activities</h1>
-      <DisplayData data={activities} />
-      <h1>Operators</h1>
-      <DisplayData data={operators} />
-      <h1>Connections</h1>
-      <DisplayData data={connections} />
-      <h1>Sessions</h1>
-      <DisplayData data={sessions} />
-    </div>
-  )
-);
+    <h1>Graphs</h1>
+    <DisplayData data={graphs} />
+    <h1>Activities</h1>
+    <DisplayData data={activities} />
+    <h1>Operators</h1>
+    <DisplayData data={operators} />
+    <h1>Connections</h1>
+    <DisplayData data={connections} />
+    <h1>Sessions</h1>
+    <DisplayData data={sessions} />
+  </div>
+));
