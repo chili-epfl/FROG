@@ -90,20 +90,18 @@ const Start = withState('ready', 'setReady', false)(
 let noAnswerTimeout;
 let delayTimeout;
 
-const CountDownTimer = TimedComponent(props => {
-  const { timeNow, length, start } = props;
+const CountDownTimer = TimedComponent(({ timeNow, length, start }) => {
   const timeLeft = Math.ceil((length - Math.ceil(timeNow - start)) / 1000);
-
   return <div style={styles.text}>{timeLeft + ' s'}</div>;
-}, 1000);
+}, 100);
 
-const Delay = ({ next, delay, props }) => {
+const Delay = ({ next, delay }) => {
   clearTimeout(delayTimeout);
   delayTimeout = setTimeout(next, delay);
   return (
     <React.Fragment>
       <div style={styles.text}>Waiting for next question</div>
-      <CountDownTimer {...props} start={Date.now()} length={delay} />
+      <CountDownTimer start={Date.now()} length={delay} />
     </React.Fragment>
   );
 };
@@ -144,11 +142,7 @@ const Question = props => {
           No
         </Button>
       </div>
-      <CountDownTimer
-        {...props}
-        start={Date.now()}
-        length={activityData.config.maxTime}
-      />
+      <CountDownTimer start={Date.now()} length={activityData.config.maxTime} />
     </React.Fragment>
   );
 };
