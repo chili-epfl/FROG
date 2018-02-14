@@ -43,6 +43,7 @@ const meta = {
 
 const config = {
   type: 'object',
+  required: ['objects', 'colors'],
   properties: {
     guidelines: {
       title: 'Directions for Students',
@@ -79,7 +80,10 @@ const config = {
 };
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = { progress: 0 };
+const dataStructure = {
+  progress: 0,
+  score: 0
+};
 
 export default ({
   id: 'ac-stroop',
