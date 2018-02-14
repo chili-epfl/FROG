@@ -26,8 +26,11 @@ type StateT = {
 type PropsT = ActivityRunnerT;
 
 class ActivityRunner extends React.Component<PropsT, StateT> {
+  subscription: any;
+
   componentWillMount() {
     const { activityData: { config }, sessionId } = this.props;
+    this.subscription = Meteor.subscribe('userDataForDashboard');
     Meteor.call('get.activity', config.activity, (err, value) => {
       if (!err) {
         this.setState({ activity: value });
@@ -35,6 +38,10 @@ class ActivityRunner extends React.Component<PropsT, StateT> {
     });
     const session = Sessions.findOne(sessionId);
     this.setState({ session });
+  }
+
+  componentWillUnmount() {
+    this.subscription.stop();
   }
 
   render() {
