@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 
@@ -146,7 +146,7 @@ export const RunActivity = ({
   );
 };
 
-export default createContainer(({ activity }) => {
+export default withTracker(({ activity }) => {
   const object = Objects.findOne(activity._id);
   return { object, activity };
-}, Runner);
+})(Runner);

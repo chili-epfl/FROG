@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
 import Spinner from 'react-spinner';
@@ -44,7 +44,7 @@ const WithTopBar = () => (
   </div>
 );
 
-export default createContainer(() => {
+export default withTracker(() => {
   const collections = [
     'activity_library',
     'activities',
@@ -59,4 +59,4 @@ export default createContainer(() => {
   ];
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   return { ready: every(subscriptions.map(x => x.ready()), Boolean) };
-}, TeacherContainer);
+})(TeacherContainer);

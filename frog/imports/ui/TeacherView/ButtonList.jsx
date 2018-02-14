@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { msToString } from 'frog-utils';
 import { TimeSync } from 'meteor/mizzao:timesync';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
@@ -36,10 +36,10 @@ const CountdownPure = ({ startTime, length, currentTime }) => {
   );
 };
 
-const Countdown = createContainer(
-  props => ({ ...props, currentTime: TimeSync.serverTime() }),
-  CountdownPure
-);
+const Countdown = withTracker(props => ({
+  ...props,
+  currentTime: TimeSync.serverTime()
+}))(CountdownPure);
 
 const ButtonList = ({
   session,

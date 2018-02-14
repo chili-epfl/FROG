@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
 
@@ -59,37 +59,33 @@ const SessionController = compose(
 
 SessionController.displayName = 'SessionController';
 
-const TeacherView = createContainer(
-  () => {
-    const user = Meteor.users.findOne(Meteor.userId());
-    const session =
-      user.profile && Sessions.findOne(user.profile.controlSession);
-    const activities =
-      session && Activities.find({ graphId: session.graphId }).fetch();
-    const students =
-      session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
+const TeacherView = withTracker(() => {
+  const user = Meteor.users.findOne(Meteor.userId());
+  const session = user.profile && Sessions.findOne(user.profile.controlSession);
+  const activities =
+    session && Activities.find({ graphId: session.graphId }).fetch();
+  const students =
+    session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
-    return {
-      sessions: Sessions.find().fetch(),
-      session,
-      graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
-      activities,
-      students,
-      user
-    };
-  },
-  props => (
-    <div id="teacher" style={{ display: 'flex' }}>
-      <div style={{ width: '80%' }}>
-        <SessionController {...props} />
-        <hr />
-        {props.students && <StudentList students={props.students} />}
-        <hr />
-        <SessionList {...props} />
-      </div>
+  return {
+    sessions: Sessions.find().fetch(),
+    session,
+    graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
+    activities,
+    students,
+    user
+  };
+})(props => (
+  <div id="teacher" style={{ display: 'flex' }}>
+    <div style={{ width: '80%' }}>
+      <SessionController {...props} />
+      <hr />
+      {props.students && <StudentList students={props.students} />}
+      <hr />
+      <SessionList {...props} />
     </div>
-  )
-);
+  </div>
+));
 
 TeacherView.displayName = 'TeacherView';
 export default TeacherView;
