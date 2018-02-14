@@ -10,11 +10,16 @@ const Viewer = (props: dashboardViewerPropsT) => {
     return null;
   }
 
-  const ranking = Object.keys(data.scores).sort(
-    (a, b) => data.scores[b] - data.scores[a]
-  );
+  const ranking = Object.keys(data.scores).sort((a, b) => {
+    if (data.scores[a].score === data.scores[b].score) {
+      return (
+        new Date(data.scores[a].timestamp) - new Date(data.scores[b].timestamp)
+      );
+    }
+    return data.scores[b].score - data.scores[a].score;
+  });
 
-  const isPreview = activity.plane === undefined ? 1 : 0;
+  const isGroup = activity.plane === 2 ? 1 : 0;
 
   return (
     <div style={{ margin: '20px', backgroundColor: 'white' }}>
@@ -22,7 +27,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
         <thead>
           <tr>
             <th>Rank</th>
-            <th>{isPreview ? 'Group' : 'Name'}</th>
+            <th>{isGroup ? 'Group' : 'Name'}</th>
             <th>Score</th>
           </tr>
         </thead>
@@ -30,8 +35,8 @@ const Viewer = (props: dashboardViewerPropsT) => {
           {ranking.map((item, index) => (
             <tr key={item}>
               <td className="col-md-4">{index + 1}</td>
-              <td className="col-md-4">{isPreview ? item : users[item]}</td>
-              <td className="col-md-4">{data.scores[item]}</td>
+              <td className="col-md-4">{isGroup ? item : users[item]}</td>
+              <td className="col-md-4">{data.scores[item].score}</td>
             </tr>
           ))}
         </tbody>
@@ -42,7 +47,10 @@ const Viewer = (props: dashboardViewerPropsT) => {
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
   if (log.type === 'score') {
-    dataFn.objInsert(log.value, ['scores', log.instanceId]);
+    dataFn.objInsert({ score: log.value, timestamp: log.timestamp }, [
+      'scores',
+      log.instanceId
+    ]);
   }
 };
 

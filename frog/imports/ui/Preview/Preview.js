@@ -132,7 +132,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       plane: 2,
       startTime: 0,
       actualStartingTime: new Date(Date.now()),
-      length: 5,
+      length: 3,
       activityType: activityTypeId
     };
 
@@ -330,7 +330,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                 >
                   <DashboardComp
                     example={example}
-                    activity={{ activityType: activityType.id, plane: 2 }}
+                    activity={activityDbObject}
                     config={activityData.config}
                     reload={reload}
                     doc={dashboard}

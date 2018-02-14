@@ -1,18 +1,109 @@
 // @flow
 
 import * as React from 'react';
-import { type LogT, dashboardViewerPropsT } from 'frog-utils';
+import { withState } from 'recompose';
+import { Button } from 'react-bootstrap';
+import { Chart } from 'react-google-charts';
 
-const Viewer = ({ data }: dashboardViewerPropsT) => (
+import {
+  type LogT,
+  type dashboardViewerPropsT,
+  type ActivityDbT,
+  ProgressDashboard,
+  LeaderBoard
+} from 'frog-utils';
+
+const Select = ({ target, onClick }) => (
+  <Button onClick={() => onClick(target)}>{target}</Button>
+);
+
+const Viewer = withState('which', 'setWhich', null)(
+  (props: dashboardViewerPropsT) => {
+    const { which, setWhich } = props;
+    return (
+      <div>
+        <Select target="progress" onClick={setWhich} />
+        <Select target="leaderboard" onClick={setWhich} />
+        <Select target="stroop" onClick={setWhich} />
+        <Select target="raw" onClick={setWhich} />
+        {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
+        {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
+        {which === 'stroop' && <StroopViewer {...props} />}
+        {which === 'raw' && <RawDataViewer {...props} />}
+      </div>
+    );
+  }
+);
+
+const StroopViewer = ({ data }: dashboardViewerPropsT) => {
+  const { consistent, inconsistent } = data;
+  const options = (title, xLabel, xmin, xmax) => ({
+    bar: { groupWidth: '90%' },
+    legend: { position: 'none' },
+    width: '100%',
+    height: '300px',
+    vAxis: { title: 'Type of question' },
+    hAxis: {
+      viewWindowMode: 'explicit',
+      viewWindow: {
+        max: xmax,
+        min: xmin
+      },
+      title: xLabel,
+      gridlines: { count: 5 }
+    }
+  });
+  const errRate = o => o.wrong.count / (o.wrong.count + o.correct.count);
+  const errorData = [
+    ['Category', 'Count'],
+    ['Consistent', errRate(consistent)],
+    ['Inconsistent', errRate(inconsistent)]
+  ];
+  const avgTime = o =>
+    (o.correct.time + o.wrong.time) / (o.correct.count + o.wrong.count);
+  const timeData = [
+    ['Category', 'Count'],
+    ['Consistent', avgTime(consistent)],
+    ['Inconsistent', avgTime(inconsistent)]
+  ];
+  return (
+    <React.Fragment>
+      <Chart
+        chartType="BarChart"
+        data={errorData}
+        options={options('Error rate', 'Percentage of error', 0, 1)}
+      />
+      <Chart
+        chartType="BarChart"
+        data={timeData}
+        options={options('Average time', 'Average time (ms)', 0, 4000)}
+      />
+    </React.Fragment>
+  );
+};
+
+const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
   <pre>{JSON.stringify(data, null, 2)}</pre>
 );
 
 const initData = {
   consistent: { correct: { count: 0, time: 0 }, wrong: { count: 0, time: 0 } },
-  inconsistent: { correct: { count: 0, time: 0 }, wrong: { count: 0, time: 0 } }
+  inconsistent: {
+    correct: { count: 0, time: 0 },
+    wrong: { count: 0, time: 0 }
+  },
+  ...ProgressDashboard.initData,
+  ...LeaderBoard.initData
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogT) => {
+const mergeLog = (
+  data: any,
+  dataFn: Object,
+  log: LogT,
+  activity: ActivityDbT
+) => {
+  ProgressDashboard.mergeLog(data, dataFn, log, activity);
+  LeaderBoard.mergeLog(data, dataFn, log, activity);
   if (log.type === 'answer' && log.payload) {
     const {
       isConsistent,

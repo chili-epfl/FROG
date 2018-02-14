@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT, TimedComponent } from 'frog-utils';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
@@ -90,22 +90,43 @@ const Start = withState('ready', 'setReady', false)(
 let noAnswerTimeout;
 let delayTimeout;
 
+const CountDownTimer = TimedComponent(({ timeNow, length, start }) => {
+  const timeLeft = Math.ceil((length - Math.ceil(timeNow - start)) / 1000);
+  return <div style={styles.text}>{timeLeft + ' s'}</div>;
+}, 100);
+
 const Delay = ({ next, delay }) => {
   clearTimeout(delayTimeout);
   delayTimeout = setTimeout(next, delay);
-  return <div style={styles.text}>Waiting for next question</div>;
+  return (
+    <React.Fragment>
+      <div style={styles.text}>Waiting for next question</div>
+      <CountDownTimer start={Date.now()} length={delay} />
+    </React.Fragment>
+  );
 };
 
 const Question = props => {
-  const { setQuestion, question, logger, data, dataFn } = props;
-  const { objectName, colorName, colorFill } = question;
+  const { setQuestion, question, logger, data, dataFn, activityData } = props;
+  const { objectName, colorName, colorFill, isCorrect } = question;
 
   const onClick = answer => () => {
     clearTimeout(noAnswerTimeout);
+    // Logs the question and answer provided
     const answerTime = Date.now();
     logger({ type: 'answer', payload: { ...question, answer, answerTime } });
-    logger({ type: 'progress', value: data.progress + 1 });
+    // Increases the progress and logs the new progress
+    logger({
+      type: 'progress',
+      value: (data.progress + 1) / activityData.config.maxQuestions
+    });
     dataFn.numIncr(1, 'progress');
+    // Increases the score and logs the new score
+    const isCorrectAnswer = isCorrect === answer ? 1 : 0;
+    const value = data.score + isCorrectAnswer;
+    logger({ type: 'score', value });
+    dataFn.numIncr(isCorrectAnswer, 'score');
+    // Goes on to next question
     setQuestion('waiting');
   };
 
@@ -113,7 +134,8 @@ const Question = props => {
   Mousetrap.bind('n', onClick(false));
 
   clearTimeout(noAnswerTimeout);
-  noAnswerTimeout = setTimeout(onClick(undefined), 10000);
+  noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
+
   return (
     <React.Fragment>
       <div style={styles.text}>
@@ -128,6 +150,7 @@ const Question = props => {
           No
         </Button>
       </div>
+      <CountDownTimer start={Date.now()} length={activityData.config.maxTime} />
     </React.Fragment>
   );
 };
@@ -144,7 +167,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
   if (!question) {
     return <Start start={start} guidelines={guidelines} />;
   } else if (question === 'waiting') {
-    return <Delay next={next} delay={delay} />;
+    return <Delay next={next} delay={delay} props={props} />;
   } else {
     return <Question {...props} />;
   }
