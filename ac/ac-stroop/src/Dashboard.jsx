@@ -59,7 +59,8 @@ const StroopViewer = ({ data }: dashboardViewerPropsT) => {
     ['Consistent', errRate(consistent)],
     ['Inconsistent', errRate(inconsistent)]
   ];
-  const avgTime = o => o.correct.time / o.correct.count;
+  const avgTime = o =>
+    (o.correct.time + o.wrong.time) / (o.correct.count + o.wrong.count);
   const timeData = [
     ['Category', 'Count'],
     ['Consistent', avgTime(consistent)],

@@ -43,7 +43,7 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['objects','colors'],
+  required: ['objects', 'colors'],
   properties: {
     guidelines: {
       title: 'Directions for Students',
