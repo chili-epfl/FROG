@@ -15,4 +15,4 @@ export const Mongo = {
   Collection: () => undefined
 };
 
-export const createContainer = () => undefined;
+export const withTracker = () => () => undefined;
