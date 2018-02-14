@@ -97,18 +97,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   }
 };
 
-export const RunActivity = ({
-  reactiveId,
-  logger,
-  activityData,
-  username,
-  userid,
-  stream,
-  groupingValue,
-  activityTypeId,
-  readOnly,
-  sessionId
-}: {
+type PropsT = {
   reactiveId: string,
   logger: Function,
   activityData?: Object | null,
@@ -119,32 +108,51 @@ export const RunActivity = ({
   activityTypeId: string,
   readOnly?: boolean,
   sessionId: string
-}) => {
-  const activityType = activityTypesObj[activityTypeId];
-  const RunComp = activityType.ActivityRunner;
-  RunComp.displayName = activityType.id;
-  const formatProduct = activityType.formatProduct;
-  const transform = formatProduct
-    ? x => formatProduct((activityData && activityData.config) || {}, x)
-    : x => x;
-  const ActivityToRun = ReactiveHOC(reactiveId, undefined, transform, readOnly)(
-    RunComp
-  );
-
-  return (
-    <ActivityToRun
-      activityData={activityData}
-      userInfo={{
-        name: username,
-        id: userid
-      }}
-      logger={logger}
-      stream={stream}
-      groupingValue={groupingValue}
-      sessionId={sessionId}
-    />
-  );
 };
+
+export class RunActivity extends React.Component<PropsT, {}> {
+  ActivityToRun: any;
+
+  constructor(props: PropsT) {
+    super();
+    const { reactiveId, activityData, activityTypeId, readOnly } = props;
+    const activityType = activityTypesObj[activityTypeId];
+    const RunComp = activityType.ActivityRunner;
+    RunComp.displayName = activityType.id;
+    const formatProduct = activityType.formatProduct;
+    const transform = formatProduct
+      ? x => formatProduct((activityData && activityData.config) || {}, x)
+      : x => x;
+
+    this.ActivityToRun = ReactiveHOC(
+      reactiveId,
+      undefined,
+      transform,
+      readOnly
+    )(RunComp);
+  }
+
+  componentDidMount() {
+    this.props.logger({ type: 'activityDidMount' });
+  }
+
+  render() {
+    const Activity = this.ActivityToRun;
+    return (
+      <Activity
+        activityData={this.props.activityData}
+        userInfo={{
+          name: this.props.username,
+          id: this.props.userid
+        }}
+        logger={this.props.logger}
+        stream={this.props.stream}
+        groupingValue={this.props.groupingValue}
+        sessionId={this.props.sessionId}
+      />
+    );
+  }
+}
 
 export default withTracker(({ activity }) => {
   const object = Objects.findOne(activity._id);
