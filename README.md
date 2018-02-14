@@ -54,16 +54,18 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 * Make sure Meteor works (`meteor --version`) (note that the Meteor version is
   not important, Meteor will automatically download and install the correct
   version when run the first time)
-* Make sure you have an up-to-date version of Node 8 (`node --version`), and
+* Make sure you have an up-to-date version of Node 8 or 9 (`node --version`), and
   that `npm` works (`npm --version` -- will not be the same as the Node version)
 * We do not support Windows - you might be able to get it to run, but all of our
   scripts etc, presume OSX/Linux
 * All scripts (`./initial_setup.sh` etc should be run as user, not root)
 * If you are running in a virtual machine, and the `./initial_setup.sh` script
   crashes the machine, or does not complete, try removing the parallelism from
-  `./initial_setup_wo_meteor.sh` (the `&`s, but not the `&&`s).
+  by running `./initial_setup.sh --single`.
 * Make sure you have enough disk-space, and that no other processes are
-  listening to ports 3000, 3001 and 3002.
+  listening to ports 3000, 3001 and 3002. (The need to expose these ports
+  means that FROG will not work easily with `ngrok`, which only exposes
+  a single port - 3000 and 3002 need to be exposed).
 * If you need to re-run `./initial_setup.sh`, execute these commands first.
   **(Note that this deletes any file that has not been checked in and
   committed)**: `git reset --hard; git clean -fdx; ./initial_setup.sh`
