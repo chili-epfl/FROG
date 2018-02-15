@@ -128,6 +128,7 @@ const Question = props => {
     dataFn.numIncr(isCorrectAnswer, 'score');
     // Goes on to next question
     setQuestion('waiting');
+    Mousetrap.reset();
   };
 
   Mousetrap.bind('y', onClick(true));
