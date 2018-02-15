@@ -121,13 +121,15 @@ export const Dashboard = withTracker(({ session, activity }) => {
   };
 })(DashboardComp);
 
-const DashboardNav = (props) => {
-  const { activityId, setActivity, session, activities } = props
+const DashboardNav = props => {
+  const { activityId, setActivity, session, activities } = props;
   const acWithDash = activities.filter(ac => {
-    const dash = activityTypesObj[ac.activityType].dashboard
-    return dash && dash.Viewer
+    const dash = activityTypesObj[ac.activityType].dashboard;
+    return dash && dash.Viewer;
   });
-  const aId = activityId || (session.openActivities.length > 0 && session.openActivities[0])
+  const aId =
+    activityId ||
+    (session.openActivities.length > 0 && session.openActivities[0]);
   return (
     <div>
       <h1>Dashboards</h1>
@@ -141,7 +143,8 @@ const DashboardNav = (props) => {
         >
           {acWithDash.map(a => (
             <NavItem eventKey={a._id} key={a._id} href="#">
-              {a.title}{session.openActivities.includes(a._id) ? ' (open)': ''}
+              {a.title}
+              {session.openActivities.includes(a._id) ? ' (open)' : ''}
             </NavItem>
           ))}
         </Nav>
@@ -157,5 +160,5 @@ const DashboardNav = (props) => {
 };
 
 export default withTracker(({ session }) => ({
-  activities: Activities.find({ graphId: session.graphId }).fetch(),
+  activities: Activities.find({ graphId: session.graphId }).fetch()
 }))(withState('activityId', 'setActivity', null)(DashboardNav));
