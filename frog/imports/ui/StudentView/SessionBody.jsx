@@ -4,7 +4,6 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Mosaic } from 'react-mosaic-component';
-import styled from 'styled-components';
 
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
@@ -41,14 +40,6 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
-const DashLink = styled.div`
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  font-size: 3em;
-  color: black;
-`;
-
 const SessionBody = ({
   activities,
   session
@@ -57,27 +48,16 @@ const SessionBody = ({
   session: Object
 }) => {
   if (!activities || activities.length === 0) {
-    return <h1>No Activity</h1>;
+    return <h1>No activity right now</h1>;
   }
   if (session.state === 'PAUSED') {
     return <h1>Paused</h1>;
   }
   return (
-    <React.Fragment>
-      <div style={{ height: '100%' }}>
-        {session.countdownStartTime && <Countdown session={session} />}
-        <ActivityContainer activities={activities} sessionId={session._id} />
-      </div>
-      <div className="bootstrap">
-        <DashLink>
-          <a
-            href="/"
-            target="_blank"
-            className="glyphicon glyphicon-dashboard"
-          />
-        </DashLink>
-      </div>
-    </React.Fragment>
+    <div style={{ height: '100%' }}>
+      {session.countdownStartTime && <Countdown session={session} />}
+      <ActivityContainer activities={activities} sessionId={session._id} />
+    </div>
   );
 };
 
