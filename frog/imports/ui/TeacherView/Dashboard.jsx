@@ -112,11 +112,11 @@ export class DashboardComp extends React.Component<
   }
 }
 
-export const Dashboard = withTracker(({ session, activity }) => {
+export const Dashboard = withTracker(({ session, activity, users }) => {
   const object = Objects.findOne(activity._id);
   const instances = doGetInstances(activity, object).groups;
   return {
-    users: Meteor.users.find({ joinedSessions: session.slug }).fetch(),
+    users: users || Meteor.users.find({ joinedSessions: session.slug }).fetch(),
     instances
   };
 })(DashboardComp);

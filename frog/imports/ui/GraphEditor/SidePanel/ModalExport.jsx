@@ -86,6 +86,7 @@ class ExportModal extends Component<Object, StateT> {
               tags: []
             });
           }}
+          disabled={Boolean(!this.state.title || !this.state.description)}
         >
           Save
         </Button>
