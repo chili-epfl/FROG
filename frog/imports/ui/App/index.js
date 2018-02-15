@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
+import Modal from 'react-modal';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -71,6 +72,10 @@ const FROGRouter = withRouter(
 
     componentWillMount() {
       this.update();
+    }
+
+    componentDidMount() {
+      Modal.setAppElement('#render-target');
     }
 
     componentDidUpdate(prevProps) {

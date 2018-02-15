@@ -16,7 +16,6 @@ type StateT = {
 class ExportModal extends Component<Object, StateT> {
   constructor(props) {
     super(props);
-    Modal.setAppElement('#render-target');
     this.state = {
       title: '',
       description: '',
