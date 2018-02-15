@@ -108,7 +108,7 @@ const Delay = ({ next, delay }) => {
 
 const Question = props => {
   const { setQuestion, question, logger, data, dataFn, activityData } = props;
-  const { objectName, colorName, colorFill, isCorrect } = question;
+  const { objectName, colorName, colorFill, isCorrect, startTime } = question;
 
   const onClick = answer => () => {
     clearTimeout(noAnswerTimeout);
@@ -123,9 +123,11 @@ const Question = props => {
     dataFn.numIncr(1, 'progress');
     // Increases the score and logs the new score
     const isCorrectAnswer = isCorrect === answer ? 1 : 0;
-    const value = data.score + isCorrectAnswer;
+    const timeIncr = Date.now() - startTime;
+    const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
     logger({ type: 'score', value });
     dataFn.numIncr(isCorrectAnswer, 'score');
+    dataFn.numIncr(timeIncr, 'time');
     // Goes on to next question
     setQuestion('waiting');
     Mousetrap.reset();
