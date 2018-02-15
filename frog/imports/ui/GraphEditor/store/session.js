@@ -2,6 +2,7 @@ import { extendObservable, action } from 'mobx';
 
 export default class Session {
   constructor(session) {
+    console.log('constructor', session);
     extendObservable(this, {
       id: '',
       timeInClass: 0,
@@ -11,12 +12,14 @@ export default class Session {
       interval: null,
 
       setTimes: action((_session: Object) => {
+        console.log('setTimes');
         this.updateTimeInGraph(_session.timeInGraph);
         this.startedAt = _session.startedAt;
         this.updateTimeInClass((Date.now() - this.startedAt) / 6e4);
       }),
 
       updateTimeInGraph: action((newTime: number) => {
+        console.log('update tig', newTime);
         this.timeInGraph = newTime;
       }),
 
@@ -32,6 +35,7 @@ export default class Session {
     });
 
     if (session) {
+      console.log('session', session.timeInGraph);
       this.id = session._id;
       this.setTimes(session);
       this.interval = setInterval(this.updateTimeInClass, 6000);

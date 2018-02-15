@@ -274,6 +274,7 @@ export default class Store {
       }),
 
       setSession: action((session: any) => {
+        console.log('setsession', session);
         if (this.session.id !== session._id) {
           this.session.close();
           this.session = new Session(session);
