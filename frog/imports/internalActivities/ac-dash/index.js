@@ -27,8 +27,6 @@ type StateT = {
 type PropsT = ActivityRunnerT;
 
 class ActivityRunner extends React.Component<PropsT, StateT> {
-  subscription: any;
-
   componentWillMount() {
     const { activityData: { config }, sessionId } = this.props;
     const session = Sessions.findOne(sessionId);
@@ -43,11 +41,7 @@ class ActivityRunner extends React.Component<PropsT, StateT> {
   render() {
     const { activity, session } = this.state;
     return activity && session ? (
-      <Dashboard
-        activity={activity}
-        session={session}
-        users={this.state.users}
-      />
+      <Dashboard {...this.state} />
     ) : (
       <p>No data</p>
     );
