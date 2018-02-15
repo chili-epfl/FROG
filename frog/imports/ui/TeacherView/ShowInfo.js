@@ -15,6 +15,7 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
   if (!showInfo) {
     return null;
   }
+  console.log('showinfo');
   return (
     <Modal
       contentLabel="showInfo"
