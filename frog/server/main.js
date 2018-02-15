@@ -53,15 +53,6 @@ Meteor.publish('userData', function() {
   });
 });
 
-Meteor.publish('userDataForDashboard', function() {
-  return Meteor.users.find(
-    {},
-    {
-      fields: { _id: 1, username: 1, joinedSessions: 1 }
-    }
-  );
-});
-
 publishComposite('session_activities', function(slug) {
   return {
     find() {

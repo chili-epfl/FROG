@@ -20,34 +20,28 @@ export const meta = {
 
 type StateT = {
   activity: ActivityDbT,
+  users: { _id: string, username: string }[],
   session: any
 };
 
 type PropsT = ActivityRunnerT;
 
 class ActivityRunner extends React.Component<PropsT, StateT> {
-  subscription: any;
-
   componentWillMount() {
     const { activityData: { config }, sessionId } = this.props;
-    this.subscription = Meteor.subscribe('userDataForDashboard');
-    Meteor.call('get.activity', config.activity, (err, value) => {
+    const session = Sessions.findOne(sessionId);
+    Meteor.call('get.activity.for.dashboard', config.activity, (err, value) => {
       if (!err) {
-        this.setState({ activity: value });
+        this.setState({ activity: value.activity, users: value.users });
       }
     });
-    const session = Sessions.findOne(sessionId);
     this.setState({ session });
-  }
-
-  componentWillUnmount() {
-    this.subscription.stop();
   }
 
   render() {
     const { activity, session } = this.state;
     return activity && session ? (
-      <Dashboard activity={activity} session={session} />
+      <Dashboard {...this.state} />
     ) : (
       <p>No data</p>
     );
