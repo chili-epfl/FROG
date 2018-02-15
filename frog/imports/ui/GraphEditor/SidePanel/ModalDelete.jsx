@@ -1,16 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import { Button } from 'react-bootstrap';
 
-class DeleteModal extends Component<Object> {
-  componentDidMount() {
-    Modal.setAppElement('#render-target');
-  }
-
-  render() {
-    return (
-      <Modal
-        isOpen={this.props.deleteOpen}
+export default ({deleteOpen, setDelete, remove}) => <Modal
+        isOpen={deleteOpen}
         contentLabel="Modal"
         style={{
           content: {
@@ -30,22 +23,17 @@ class DeleteModal extends Component<Object> {
         <div style={{ height: '10px' }} />
         <Button
           className="btn btn-primary"
-          onClick={() => this.props.setDelete(false)}
+          onClick={() => setDelete(false)}
         >
           Cancel
         </Button>
         <Button
           className="btn btn-danger"
           onClick={() => {
-            this.props.setDelete(false);
-            this.props.remove();
+            setDelete(false);
+            remove();
           }}
         >
           Delete
         </Button>
       </Modal>
-    );
-  }
-}
-
-export default DeleteModal;
