@@ -14,7 +14,7 @@ export default ({
   setIdRemove
 }: any) => (
   <div className="list-group-item">
-    <div style={{ marginLeft: '35px' }}>
+    <div style={{ marginLeft: '35px', minHeight: '48px' }}>
       <h5 style={{ fontWeight: 'bold' }}>
         <Highlight text={activity.title} searchStr={searchS} />
       </h5>
@@ -49,7 +49,7 @@ export default ({
       style={{
         position: 'absolute',
         left: '2px',
-        top: '55px',
+        top: '40px',
         width: '9%',
         height: '34px'
       }}
@@ -66,7 +66,7 @@ export default ({
       style={{
         position: 'absolute',
         right: '2px',
-        top: '30px',
+        top: '5px',
         width: '10%',
         height: '34px'
       }}
