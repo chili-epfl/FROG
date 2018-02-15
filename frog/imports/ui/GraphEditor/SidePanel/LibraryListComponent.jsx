@@ -5,9 +5,16 @@ import { Button } from 'react-bootstrap';
 
 import { Highlight } from 'frog-utils';
 
-export default ({ activity, onSelect, onPreview, searchS }: any) => (
+export default ({
+  activity,
+  onSelect,
+  onPreview,
+  searchS,
+  setDelete,
+  setIdRemove
+}: any) => (
   <div className="list-group-item">
-    <div style={{ marginLeft: '35px' }}>
+    <div style={{ marginLeft: '35px', minHeight: '48px' }}>
       <h5 style={{ fontWeight: 'bold' }}>
         <Highlight text={activity.title} searchStr={searchS} />
       </h5>
@@ -36,14 +43,30 @@ export default ({ activity, onSelect, onPreview, searchS }: any) => (
       }}
       onClick={onSelect}
     />
-
+    <Button
+      value={activity._id}
+      className="btn btn-danger"
+      style={{
+        position: 'absolute',
+        left: '2px',
+        top: '40px',
+        width: '9%',
+        height: '34px'
+      }}
+      onClick={() => {
+        setIdRemove(activity._id);
+        setDelete(true);
+      }}
+    >
+      <span className="glyphicon glyphicon-remove" />
+    </Button>
     <Button
       value={activity._id}
       className="glyphicon glyphicon-eye-open"
       style={{
         position: 'absolute',
         right: '2px',
-        top: '39px',
+        top: '5px',
         width: '10%',
         height: '34px'
       }}

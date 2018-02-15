@@ -16,7 +16,6 @@ type StateT = {
 class ExportModal extends Component<Object, StateT> {
   constructor(props) {
     super(props);
-    Modal.setAppElement('#render-target');
     this.state = {
       title: '',
       description: '',
@@ -87,6 +86,7 @@ class ExportModal extends Component<Object, StateT> {
               tags: []
             });
           }}
+          disabled={Boolean(!this.state.title || !this.state.description)}
         >
           Save
         </Button>

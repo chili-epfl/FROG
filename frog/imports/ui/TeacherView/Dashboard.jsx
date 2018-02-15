@@ -96,7 +96,7 @@ export class DashboardComp extends React.Component<
         )
       : {};
 
-    return this.state.data !== null ? (
+    return this.state.data ? (
       <div style={{ width: '100%' }}>
         <aT.dashboard.Viewer
           users={users}
@@ -112,26 +112,24 @@ export class DashboardComp extends React.Component<
   }
 }
 
-export const Dashboard = withTracker(({ session, activity }) => {
+export const Dashboard = withTracker(({ session, activity, users }) => {
   const object = Objects.findOne(activity._id);
   const instances = doGetInstances(activity, object).groups;
   return {
-    users: Meteor.users.find({ joinedSessions: session.slug }).fetch(),
+    users: users || Meteor.users.find({ joinedSessions: session.slug }).fetch(),
     instances
   };
 })(DashboardComp);
 
-const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
-  const relevantActivities = openActivities.filter(
-    x =>
-      activityTypesObj[x.activityType].dashboard &&
-      activityTypesObj[x.activityType].dashboard.Viewer
-  );
+const DashboardNav = props => {
+  const { activityId, setActivity, session, activities } = props;
+  const acWithDash = activities.filter(ac => {
+    const dash = activityTypesObj[ac.activityType].dashboard;
+    return dash && dash.Viewer;
+  });
   const aId =
-    activityId || (relevantActivities.length > 0 && relevantActivities[0]._id);
-  if (!aId) {
-    return null;
-  }
+    activityId ||
+    (session.openActivities.length > 0 && session.openActivities[0]);
   return (
     <div>
       <h1>Dashboards</h1>
@@ -143,16 +141,17 @@ const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
           onSelect={a => setActivity(a)}
           style={{ width: '150px' }}
         >
-          {relevantActivities.map(a => (
+          {acWithDash.map(a => (
             <NavItem eventKey={a._id} key={a._id} href="#">
               {a.title}
+              {session.openActivities.includes(a._id) ? ' (open)' : ''}
             </NavItem>
           ))}
         </Nav>
         {aId && (
           <Dashboard
             session={session}
-            activity={openActivities.find(a => a._id === aId)}
+            activity={activities.find(a => a._id === aId)}
           />
         )}
       </Container>
@@ -160,6 +159,6 @@ const DashboardNav = ({ activityId, setActivity, openActivities, session }) => {
   );
 };
 
-export default withTracker(({ openActivities }) => ({
-  openActivities: Activities.find({ _id: { $in: openActivities } }).fetch()
+export default withTracker(({ session }) => ({
+  activities: Activities.find({ graphId: session.graphId }).fetch()
 }))(withState('activityId', 'setActivity', null)(DashboardNav));
