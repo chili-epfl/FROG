@@ -221,13 +221,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
   } else if (data.progress < maxQuestions) {
     return <Question {...props} />;
   } else {
-    return (
-      <div style={styles.main}>
-        <div style={styles.container}>
-          <div style={styles.text}>{texts[lang].end}</div>
-        </div>
-      </div>
-    );
+    return <div style={styles.text}>{texts[lang].end}</div>;
   }
 });
 
