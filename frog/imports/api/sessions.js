@@ -225,6 +225,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
     setTeacherSession(sessionId);
     return sessionId;
   }
+  return '';
 };
 
 Meteor.methods({
@@ -246,7 +247,7 @@ Meteor.methods({
       const callback = () => {
         updateSessionCountdownStartTime(id, -1);
         updateSessionCountdownLength(id, DEFAULT_COUNTDOWN_LENGTH);
-        nextActivity(id);
+        runNextActivity(id);
       };
       SessionTimeouts[id] = Meteor.setTimeout(callback, delay);
     }
