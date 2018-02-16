@@ -30,7 +30,7 @@ export const LineChart = ({
     height="300px"
     options={{
       title,
-      legend: { position: 'none' },
+      legend: { position: 'top' },
       pointSize: 5,
       vAxis: {
         title: vAxis,
