@@ -148,12 +148,10 @@ const DashboardNav = props => {
             </NavItem>
           ))}
         </Nav>
-        {aId && (
-          <Dashboard
-            session={session}
-            activity={activities.find(a => a._id === aId)}
-          />
-        )}
+        <Dashboard
+          session={session}
+          activity={activities.find(a => a._id === aId)}
+        />
       </Container>
     </div>
   );

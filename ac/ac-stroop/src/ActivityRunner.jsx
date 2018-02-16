@@ -85,8 +85,9 @@ let noAnswerTimeout;
 let delayTimeout;
 
 const Form = withState('language', 'setLanguage', null)(
-  ({ language, setLanguage, onSubmit }) => (
+  ({ language, setLanguage, onSubmit, name }) => (
     <React.Fragment>
+      <div style={styles.text}>Welcome {name}!</div>
       <div style={styles.text}>Choisis ton langage</div>
       <div style={styles.text}>Choose your language</div>
       <div style={styles.commands}>
@@ -149,7 +150,7 @@ const Delay = ({ next, delay, lang }) => {
 
 const Question = props => {
   const { setQuestion, question, logger, data, dataFn, activityData } = props;
-  const { objectName, colorName, colorFill, isCorrect } = question;
+  const { objectName, colorName, colorFill, isCorrect, startTime } = question;
   const lang = data.language;
 
   const onClick = answer => () => {
@@ -165,9 +166,11 @@ const Question = props => {
     dataFn.numIncr(1, 'progress');
     // Increases the score and logs the new score
     const isCorrectAnswer = isCorrect === answer ? 1 : 0;
-    const value = data.score + isCorrectAnswer;
+    const timeIncr = Date.now() - startTime;
+    const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
     logger({ type: 'score', value });
     dataFn.numIncr(isCorrectAnswer, 'score');
+    dataFn.numIncr(timeIncr, 'time');
     // Goes on to next question
     setQuestion('waiting');
     Mousetrap.reset();
@@ -203,8 +206,9 @@ const Main = withState('question', 'setQuestion', null)(props => {
   const { activityData, question, setQuestion, data, dataFn } = props;
   const { maxQuestions, delay } = activityData.config;
   const lang = data.language;
+  const { name } = props.userInfo;
   if (!lang) {
-    return <Form onSubmit={l => dataFn.objInsert(l, 'language')} />;
+    return <Form onSubmit={l => dataFn.objInsert(l, 'language')} name={name} />;
   } else if (question === null) {
     const start = () => setQuestion('waiting');
     const { guidelines } = activityData.config[lang];
