@@ -1,23 +1,32 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
+import styled from 'styled-components';
 
 import { Sessions } from '/imports/api/sessions';
 import SessionBody from './SessionBody';
 
 const once = { already: false };
 
+const DashLink = styled.div`
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  font-size: 3em;
+  color: black;
+`;
+
 type StudentViewCompPropsT = {
   match: Object
 };
 
-class StudentViewComp extends Component<
+class StudentViewComp extends React.Component<
   StudentViewCompPropsT,
   { result: string, message?: string }
 > {
@@ -66,7 +75,23 @@ class StudentViewComp extends Component<
         </div>
       );
     }
-    return <SessionBody />;
+    return (
+      <React.Fragment>
+        <SessionBody />
+        {Meteor.user() &&
+          Meteor.user().username === 'teacher' && (
+            <div className="bootstrap">
+              <DashLink>
+                <a
+                  href="/"
+                  target="_blank"
+                  className="glyphicon glyphicon-dashboard"
+                />
+              </DashLink>
+            </div>
+          )}
+      </React.Fragment>
+    );
   }
 }
 
@@ -89,7 +114,7 @@ const monitor = () => {
   }
 };
 
-export default createContainer(props => {
+export default withTracker(props => {
   if (!once.already) {
     Tracker.autorun(() => {
       if (Meteor.userId()) {
@@ -107,4 +132,4 @@ export default createContainer(props => {
     session: Sessions.findOne({ slug }),
     ready: every(subscriptions.map(x => x.ready()), Boolean)
   };
-}, StudentViewComp);
+})(StudentViewComp);

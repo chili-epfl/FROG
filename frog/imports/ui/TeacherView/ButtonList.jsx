@@ -169,21 +169,14 @@ export class SessionTitle extends React.Component<
   }
 }
 
-const ButtonList = ({
-  session,
-  buttons,
-  ...props
-}: {
+const ButtonList = (props: {
   session: Object,
   buttons: Array<Object>,
   classes: Object
-}) => {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <SessionTitle session={session} buttons={buttons} {...props} />
-    </div>
-  );
-};
+}) => (
+  <div className={props.classes.root}>
+    <SessionTitle {...props} />
+  </div>
+);
 
 export default withStyles(styles)(ButtonList);

@@ -7,8 +7,9 @@ import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
 
 const styles = {
-  button: { width: '70px', margin: 'auto', position: 'absolute' },
+  button: { width: '90px', margin: 'auto', position: 'absolute' },
   text: { width: '100%', fontSize: 'xx-large', textAlign: 'center' },
+  guidelines: { width: '100%' },
   container: {
     width: '500px',
     height: '400px',
@@ -22,7 +23,7 @@ const styles = {
     position: 'absolute'
   },
   commands: {
-    width: '200px',
+    width: '250px',
     height: '50px',
     margin: 'auto',
     position: 'relative',
@@ -35,7 +36,7 @@ const randIndex = max => Math.round(max * Math.random() - 0.5);
 // returns an index different than `toAvoid`
 const notIndex = (max, toAvoid) => (1 + toAvoid + randIndex(max - 1)) % max;
 
-const generateExample = (objects, colors) => {
+const generateExample = (objects, colors, colorsFill) => {
   const N = objects.length;
 
   const isConsistent = Math.random() < 0.5;
@@ -47,7 +48,7 @@ const generateExample = (objects, colors) => {
 
   const objectName = objects[objectIndex];
   const colorName = colors[colorIndex];
-  const colorFill = colors[colorFillIndex];
+  const colorFill = colorsFill[colorFillIndex];
 
   const startTime = Date.now();
 
@@ -61,46 +62,87 @@ const generateExample = (objects, colors) => {
   };
 };
 
-const Start = withState('ready', 'setReady', false)(
-  ({ ready, setReady, start, guidelines }) => (
-    <div style={styles.container}>
-      {!ready && <div style={styles.text}>Answer the following form</div>}
-      {!ready && (
-        <div style={styles.commands}>
+const texts = {
+  en: {
+    start: 'Start',
+    yes: 'YES',
+    no: 'NO',
+    colorSentence: name => `The color of ${name} is `,
+    wait: 'Waiting for next question',
+    end: 'Activity completed! Thank you'
+  },
+  fr: {
+    start: 'Commencer',
+    yes: 'OUI',
+    no: 'NON',
+    colorSentence: name => `La couleur ${name} est `,
+    wait: 'Attendez la question suivante',
+    end: 'Activité terminée! Merci'
+  }
+};
+
+let noAnswerTimeout;
+let delayTimeout;
+
+const Form = withState('language', 'setLanguage', null)(
+  ({ language, setLanguage, onSubmit, name }) => (
+    <React.Fragment>
+      <div style={styles.text}>Welcome {name}!</div>
+      <div style={styles.text}>Choisis ton langage</div>
+      <div style={styles.text}>Choose your language</div>
+      <div style={styles.commands}>
+        <Button
+          style={{ ...styles.button, left: 0 }}
+          bsStyle={language === 'fr' ? 'success' : 'default'}
+          onClick={() => setLanguage('fr')}
+        >
+          Français
+        </Button>
+        <Button
+          style={{ ...styles.button, right: 0 }}
+          bsStyle={language === 'en' ? 'success' : 'default'}
+          onClick={() => setLanguage('en')}
+        >
+          English
+        </Button>
+      </div>
+      {language !== null && (
+        <div style={{ ...styles.commands, width: '100px' }}>
           <Button
             style={{ ...styles.button, width: '100%' }}
-            onClick={() => setReady(true)}
+            onClick={() => onSubmit(language)}
+            bsStyle="primary"
           >
             Submit
           </Button>
         </div>
       )}
-      {ready && <div style={styles.text}>{guidelines}</div>}
-      {ready && (
-        <div style={styles.commands}>
-          <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
-            Start
-          </Button>
-        </div>
-      )}
-    </div>
+    </React.Fragment>
   )
 );
 
-let noAnswerTimeout;
-let delayTimeout;
+const Guidelines = ({ start, guidelines, lang }) => (
+  <React.Fragment>
+    <div style={styles.guidelines}>{guidelines}</div>
+    <div style={{ ...styles.commands, width: '120px' }}>
+      <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
+        {texts[lang].start}
+      </Button>
+    </div>
+  </React.Fragment>
+);
 
 const CountDownTimer = TimedComponent(({ timeNow, length, start }) => {
   const timeLeft = Math.ceil((length - Math.ceil(timeNow - start)) / 1000);
   return <div style={styles.text}>{timeLeft + ' s'}</div>;
 }, 100);
 
-const Delay = ({ next, delay }) => {
+const Delay = ({ next, delay, lang }) => {
   clearTimeout(delayTimeout);
   delayTimeout = setTimeout(next, delay);
   return (
     <React.Fragment>
-      <div style={styles.text}>Waiting for next question</div>
+      <div style={styles.text}>{texts[lang].wait}</div>
       <CountDownTimer start={Date.now()} length={delay} />
     </React.Fragment>
   );
@@ -108,7 +150,8 @@ const Delay = ({ next, delay }) => {
 
 const Question = props => {
   const { setQuestion, question, logger, data, dataFn, activityData } = props;
-  const { objectName, colorName, colorFill, isCorrect } = question;
+  const { objectName, colorName, colorFill, isCorrect, startTime } = question;
+  const lang = data.language;
 
   const onClick = answer => () => {
     clearTimeout(noAnswerTimeout);
@@ -123,14 +166,18 @@ const Question = props => {
     dataFn.numIncr(1, 'progress');
     // Increases the score and logs the new score
     const isCorrectAnswer = isCorrect === answer ? 1 : 0;
-    const value = data.score + isCorrectAnswer;
+    const timeIncr = Date.now() - startTime;
+    const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
     logger({ type: 'score', value });
     dataFn.numIncr(isCorrectAnswer, 'score');
+    dataFn.numIncr(timeIncr, 'time');
     // Goes on to next question
     setQuestion('waiting');
+    Mousetrap.reset();
   };
 
   Mousetrap.bind('y', onClick(true));
+  Mousetrap.bind('o', onClick(true));
   Mousetrap.bind('n', onClick(false));
 
   clearTimeout(noAnswerTimeout);
@@ -139,15 +186,15 @@ const Question = props => {
   return (
     <React.Fragment>
       <div style={styles.text}>
-        The color of {objectName} is{' '}
+        {texts[lang].colorSentence(objectName)}
         <span style={{ color: colorFill }}>{colorName}</span>
       </div>
       <div style={styles.commands}>
         <Button style={{ ...styles.button, left: 0 }} onClick={onClick(true)}>
-          Yes
+          {texts[lang].yes}
         </Button>
         <Button style={{ ...styles.button, right: 0 }} onClick={onClick(false)}>
-          No
+          {texts[lang].no}
         </Button>
       </div>
       <CountDownTimer start={Date.now()} length={activityData.config.maxTime} />
@@ -156,47 +203,45 @@ const Question = props => {
 };
 
 const Main = withState('question', 'setQuestion', null)(props => {
-  const { activityData, question, setQuestion } = props;
-  const { colors, objects, delay, guidelines } = activityData.config;
-  const colorList = colors.split(',');
-  const objectList = objects.split(',');
-  const next = () => {
-    setQuestion(generateExample(objectList, colorList));
-  };
-  const start = () => setQuestion('waiting');
-  if (!question) {
-    return <Start start={start} guidelines={guidelines} />;
+  const { activityData, question, setQuestion, data, dataFn } = props;
+  const { maxQuestions, delay } = activityData.config;
+  const lang = data.language;
+  const { name } = props.userInfo;
+  if (!lang) {
+    return <Form onSubmit={l => dataFn.objInsert(l, 'language')} name={name} />;
+  } else if (question === null) {
+    const start = () => setQuestion('waiting');
+    const { guidelines } = activityData.config[lang];
+    return <Guidelines start={start} guidelines={guidelines} lang={lang} />;
   } else if (question === 'waiting') {
-    return <Delay next={next} delay={delay} props={props} />;
-  } else {
+    const { colors, objects } = activityData.config[lang];
+    const colorNames = colors.split(',');
+    const colorFillNames = activityData.config['en'].colors.split(',');
+    const objectNames = objects.split(',');
+    const next = () => {
+      setQuestion(generateExample(objectNames, colorNames, colorFillNames));
+    };
+    return <Delay next={next} delay={delay} props={props} lang={lang} />;
+  } else if (data.progress < maxQuestions) {
     return <Question {...props} />;
+  } else {
+    return <div style={styles.text}>{texts[lang].end}</div>;
   }
 });
 
 // the actual component that the student sees
 const Runner = (props: ActivityRunnerT) => {
-  const { logger, data, activityData } = props;
+  const { data, activityData } = props;
   const { maxQuestions } = activityData.config;
   const p = Math.round(data.progress / maxQuestions * 100);
-  if (data.progress < maxQuestions) {
-    return (
-      <div style={styles.main}>
-        <ProgressBar now={p} label={`${p}%`} />
-        <div style={styles.container}>
-          <Main {...props} />
-        </div>
+  return (
+    <div style={styles.main}>
+      <ProgressBar now={p} label={`${p}%`} />
+      <div style={styles.container}>
+        <Main {...props} />
       </div>
-    );
-  } else {
-    logger({ type: 'completed' });
-    return (
-      <div style={styles.main}>
-        <div style={styles.container}>
-          <div style={styles.text}>Activity Completed!</div>
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default class ActivityRunner extends React.Component<ActivityRunnerT> {
@@ -207,7 +252,6 @@ export default class ActivityRunner extends React.Component<ActivityRunnerT> {
   }
 
   render() {
-    this.props.logger({ type: 'start' });
-    return <Runner {...this.props} />;
+    return this.props.data && <Runner {...this.props} />;
   }
 }

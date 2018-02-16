@@ -28,5 +28,5 @@ export const addActivityToLibrary = (
   return id;
 };
 
-export const removeActivity = (id: string) =>
+export const removeFromLibrary = (id: string) =>
   ActivityLibrary.remove({ _id: id });

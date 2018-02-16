@@ -20,6 +20,7 @@ class GraphView extends Component<GraphViewPropsT> {
     store.setBrowserHistory(this.props.history, '/teacher');
     store.setId(session.graphId, true);
     store.setSession(session);
+    store.session.setTimes(session);
   };
 
   componentWillMount() {
@@ -33,6 +34,10 @@ class GraphView extends Component<GraphViewPropsT> {
         store.session.setTimes(nextProps.session);
       }
     }
+  }
+
+  componentWillUnmount() {
+    store.session.close();
   }
 
   render() {

@@ -1,10 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
 import List, { ListItem, ListSubheader, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import { Sessions } from '../api/sessions';
 import {
@@ -76,49 +76,47 @@ const styles = {
     flexGrow: 1
   }
 };
-export default createContainer(
-  () => {
-    const sessions = Sessions.find().fetch();
-    const graphs = Graphs.find().fetch();
-    const activities = Activities.find().fetch();
-    const operators = Operators.find().fetch();
-    const connections = Connections.find().fetch();
-    return { sessions, graphs, activities, operators, connections };
-  },
-  ({ sessions, graphs, activities, operators, connections }) => (
-    <div id="admin" style={styles.sheet}>
-      <Grid container justify="center" spacing={40}>
-        <Grid item xs>
-          <List subheader={<ListSubheader>Commands</ListSubheader>}>
-            <ListItem dense button onClick={() => deleteDatabase()}>
-              <ListItemText primary="DELETE DATABASE" />
-            </ListItem>
-            <ListItem dense button onClick={() => loadDatabase(argueGraph)}>
-              <ListItemText primary="LOAD argueGraph" />
-            </ListItem>
-            <ListItem dense button onClick={() => loadDatabase(mixedJigsaw)}>
-              <ListItemText primary="LOAD mixedJigsaw" />
-            </ListItem>
-          </List>
-        </Grid>
-        <Grid item xs>
-          <DisplayData data={graphs} title="Graphs" />
-        </Grid>
-        <Grid item xs>
-          <DisplayData data={activities} title="Activities" />
-        </Grid>
+
+export default withTracker(() => {
+  const sessions = Sessions.find().fetch();
+  const graphs = Graphs.find().fetch();
+  const activities = Activities.find().fetch();
+  const operators = Operators.find().fetch();
+  const connections = Connections.find().fetch();
+  return { sessions, graphs, activities, operators, connections };
+})(({ sessions, graphs, activities, operators, connections }) => (
+  <div id="admin" style={styles.sheet}>
+    <Grid container justify="center" spacing={40}>
+      <Grid item xs>
+        <List subheader={<ListSubheader>Commands</ListSubheader>}>
+          <ListItem dense button onClick={() => deleteDatabase()}>
+            <ListItemText primary="DELETE DATABASE" />
+          </ListItem>
+          <ListItem dense button onClick={() => loadDatabase(argueGraph)}>
+            <ListItemText primary="LOAD argueGraph" />
+          </ListItem>
+          <ListItem dense button onClick={() => loadDatabase(mixedJigsaw)}>
+            <ListItemText primary="LOAD mixedJigsaw" />
+          </ListItem>
+        </List>
       </Grid>
-      <Grid container justify="center" spacing={40}>
-        <Grid item xs>
-          <DisplayData data={operators} title="Operators" />
-        </Grid>
-        <Grid item xs>
-          <DisplayData data={connections} title="Connections" />
-        </Grid>
-        <Grid item xs>
-          <DisplayData data={sessions} title="Sessions" />
-        </Grid>
+      <Grid item xs>
+        <DisplayData data={graphs} title="Graphs" />
       </Grid>
-    </div>
-  )
-);
+      <Grid item xs>
+        <DisplayData data={activities} title="Activities" />
+      </Grid>
+    </Grid>
+    <Grid container justify="center" spacing={40}>
+      <Grid item xs>
+        <DisplayData data={operators} title="Operators" />
+      </Grid>
+      <Grid item xs>
+        <DisplayData data={connections} title="Connections" />
+      </Grid>
+      <Grid item xs>
+        <DisplayData data={sessions} title="Sessions" />
+      </Grid>
+    </Grid>
+  </div>
+));

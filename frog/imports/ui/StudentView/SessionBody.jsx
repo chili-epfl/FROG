@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 // UI
 import { Mosaic } from 'react-mosaic-component';
@@ -77,7 +77,7 @@ class StudentView extends React.Component<
     const { activities, session } = this.props;
     // console.log('activities',activities, session);
     if (!activities || activities.length === 0) {
-      return <h1>No Activity</h1>;
+      return <h1>No Activity right now</h1>;
     }
     if (session.state === 'PAUSED') {
       return <h1>Paused</h1>;
@@ -145,10 +145,7 @@ const ActivityContainer = ({ activities, sessionId }) => {
 
 SessionBody.displayName = 'SessionBody';
 
-export default createContainer(
-  () => ({
-    session: Sessions.findOne(),
-    activities: Activities.find().fetch()
-  }),
-  SessionBody
-);
+export default withTracker(() => ({
+  session: Sessions.findOne(),
+  activities: Activities.find().fetch()
+}))(SessionBody);

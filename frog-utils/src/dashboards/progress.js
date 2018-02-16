@@ -24,8 +24,7 @@ export const LineChart = ({
     columns={[
       { type: 'number', label: 'Time' },
       { type: 'number', label: 'Progress' },
-      { type: 'number', label: 'Max', role: 'interval' },
-      { type: 'number', label: 'Min', role: 'interval' }
+      { type: 'number', label: 'Complete' }
     ]}
     width="100%"
     height="300px"
@@ -58,7 +57,7 @@ const Viewer = TimedComponent((props: Object) => {
   const numWindow = Math.ceil(
     (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
   );
-  const timingData = [[0, 0, 0, 0]];
+  const timingData = [[0, 0, 0]];
   const factor = 100 / Object.keys(instances).length;
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
     if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
@@ -67,14 +66,13 @@ const Viewer = TimedComponent((props: Object) => {
     timingData.push([
       i * TIMEWINDOW / 60,
       data['timing'][j][1] * factor,
-      data['timing'][j][2],
-      data['timing'][j][3]
+      data['timing'][j][2] * factor
     ]);
   }
   return (
     <LineChart
       title="Activity Progress"
-      vAxis="Percent Complete"
+      vAxis="Average Class Progress"
       hAxis="Time Elapsed"
       hLen={props.activity['length']}
       rows={timingData}
@@ -98,30 +96,32 @@ const mergeLog = (
       (data['timing'][data['timing'].length - 1][1] || 0) +
       log.value -
       (data.progress[log.instanceId] || 0);
+    const complete =
+      log.value === 1 && log.value - (data.progress[log.instanceId] || 0) !== 0
+        ? 1
+        : 0;
     dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
     // $FlowFixMe
     const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
-
-    const max =
-      log.value > data['timing'][data['timing'].length - 1][2]
-        ? log.value
-        : data['timing'][data['timing'].length - 1][2];
 
     if (
       Math.ceil(timeDiff / TIMEWINDOW) !==
       data['timing'][data['timing'].length - 1][0] / TIMEWINDOW
     ) {
       dataFn.listAppend(
-        [Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW, progDiff, max, 0],
+        [
+          Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
+          progDiff,
+          data['timing'][data['timing'].length - 1][2] + complete
+        ],
         'timing'
       );
     } else {
       data['timing'][data['timing'].length - 1] = [
         Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
         progDiff,
-        max,
-        0
+        data['timing'][data['timing'].length - 1][2] + complete
       ];
       dataFn.objInsert(data['timing'], 'timing');
     }
@@ -130,7 +130,7 @@ const mergeLog = (
 
 const initData = {
   progress: {},
-  timing: [[0, 0, 0, 0]]
+  timing: [[0, 0, 0]]
 };
 
 export default {

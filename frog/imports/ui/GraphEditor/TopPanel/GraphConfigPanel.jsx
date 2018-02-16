@@ -1,5 +1,5 @@
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { ChangeableText } from 'frog-utils';
 
 import { connect, store } from '../store';
@@ -35,10 +35,10 @@ const Config = ({ graph }) => (
   </div>
 );
 
-const GraphConfigPanel = createContainer(
-  props => ({ ...props, graph: Graphs.findOne({ _id: props.graphId }) }),
-  Config
-);
+const GraphConfigPanel = withTracker(props => ({
+  ...props,
+  graph: Graphs.findOne({ _id: props.graphId })
+}))(Config);
 
 export default connect(({ store: { graphId } }) => (
   <div

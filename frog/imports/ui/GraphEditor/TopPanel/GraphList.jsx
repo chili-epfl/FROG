@@ -1,13 +1,13 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import * as React from 'react';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import ModeEdit from 'material-ui-icons/ModeEdit';
 import TextField from 'material-ui/TextField';
 import Input, { InputAdornment } from 'material-ui/Input';
 import Tooltip from 'material-ui/Tooltip';
-import { ValidButton } from '../Validator';
+import { withTracker } from 'meteor/react-meteor-data';
 
+import { ValidButton } from '../Validator';
 import { connect, store } from '../store';
 import { Graphs, renameGraph } from '../../../api/graphs';
 
@@ -247,10 +247,10 @@ const GraphMenuSimple = connect(({ store: { graphId }, graphs }) => (
   <GraphListMenu graphId={graphId} graphs={graphs} />
 ));
 
-const toExport = createContainer(
-  props => ({ ...props, graphs: Graphs.find().fetch() }),
-  GraphMenuSimple
-);
+const toExport = withTracker(props => ({
+  ...props,
+  graphs: Graphs.find().fetch()
+}))(GraphMenuSimple);
 toExport.displayName = 'GraphMenuSimple';
 
 export default toExport;
