@@ -38,10 +38,7 @@ const rawSessionController = ({
           setShowStudentList={setShowStudentList}
         />
         {visible ? (
-          <Dashboards
-            session={session}
-            openActivities={session.openActivities}
-          />
+          <Dashboards session={session} />
         ) : (
           <GraphView session={session} />
         )}

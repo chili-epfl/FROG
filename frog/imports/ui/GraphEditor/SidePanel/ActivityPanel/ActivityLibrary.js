@@ -1,11 +1,24 @@
 // @flow
 import React from 'react';
+import { compose, withState } from 'recompose';
 
 import { addActivity } from '/imports/api/activities';
-import { ActivityLibrary } from '/imports/api/activityLibrary';
+import {
+  ActivityLibrary,
+  removeFromLibrary
+} from '/imports/api/activityLibrary';
 import LibraryListComponent from '../LibraryListComponent';
+import Modal from '../ModalDelete';
 
-export default ({ activityId, searchStr, store }: Object) => {
+const Library = ({
+  activityId,
+  searchStr,
+  store,
+  deleteOpen,
+  setDelete,
+  idRemove,
+  setIdRemove
+}: Object) => {
   const select = (activity: Object) => {
     addActivity(
       activity.activityType,
@@ -16,6 +29,7 @@ export default ({ activityId, searchStr, store }: Object) => {
     );
     store.addHistory();
   };
+
   const filteredList = ActivityLibrary.find()
     .fetch()
     .filter(
@@ -28,6 +42,10 @@ export default ({ activityId, searchStr, store }: Object) => {
     .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
   return (
     <div>
+      <Modal
+        remove={() => removeFromLibrary(idRemove)}
+        {...{ deleteOpen, setDelete }}
+      />
       <div
         className="list-group"
         style={{
@@ -54,13 +72,14 @@ export default ({ activityId, searchStr, store }: Object) => {
               activity={x}
               key={x._id}
               onPreview={() =>
-                // redefine
                 store.ui.setShowPreview({
-                  activityTypeId: x._id
+                  activityTypeId: x.activityType,
+                  config: x.configuration
                 })
               }
               searchS={searchStr}
               eventKey={x._id}
+              {...{ setDelete, setIdRemove }}
             />
           ))
         )}
@@ -68,3 +87,8 @@ export default ({ activityId, searchStr, store }: Object) => {
     </div>
   );
 };
+
+export default compose(
+  withState('deleteOpen', 'setDelete', false),
+  withState('idRemove', 'setIdRemove', '')
+)(Library);
