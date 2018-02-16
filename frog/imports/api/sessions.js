@@ -5,7 +5,7 @@ import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
 import { Activities, Operators, Connections } from './activities';
-import { runSession, nextActivity } from './engine';
+import { runSessionFn, runNextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
 
@@ -29,14 +29,14 @@ Meteor.methods({
       }
       sessionCancelCountDown(session._id);
       Sessions.update(session._id, { $set: { slug: session.slug + '-old' } });
-      const newSessionId = Meteor.call('add.session', graphId, session.slug);
+      const newSessionId = addSessionFn(graphId, session.slug);
       if (session.studentlist) {
         Sessions.update(newSessionId, {
           $set: { studentlist: session.studentlist }
         });
       }
-      runSession(newSessionId);
-      nextActivity(newSessionId);
+      runSessionFn(newSessionId);
+      runNextActivity(newSessionId);
     }
   }
 });
@@ -168,65 +168,67 @@ export const updateOpenActivities = (
 export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
-Meteor.methods({
-  'add.session': (graphId, slug) => {
-    if (Meteor.isServer) {
-      const validOutput = valid(
-        Activities.find({ graphId }).fetch(),
-        Operators.find({ graphId }).fetch(),
-        Connections.find({ graphId }).fetch()
-      );
-      if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
-        Graphs.update(graphId, { $set: { broken: true } });
-        return 'invalidGraph';
-      }
-
-      const sessionId = uuid();
-      const graph = Graphs.findOne(graphId);
-      const count = Graphs.find({
-        name: { $regex: '#' + graph.name + '*' }
-      }).count();
-      const sessionName = '#' + graph.name + ' ' + (count + 1);
-
-      const copyGraphId = addGraph({
-        graph: { ...graph, name: sessionName },
-        activities: Activities.find({ graphId }).fetch(),
-        operators: Operators.find({ graphId }).fetch(),
-        connections: Connections.find({ graphId }).fetch()
-      });
-
-      let newSlug = slug;
-      if (!slug) {
-        let slugSize = 4;
-        const slugs = Sessions.find({}, { fields: { slug: 1 } })
-          .fetch()
-          .map(x => x.slug);
-        newSlug = getSlug(slugSize);
-        while (slugs.includes(newSlug)) {
-          newSlug = getSlug(slugSize);
-          slugSize += 1;
-        }
-      }
-
-      Sessions.insert({
-        _id: sessionId,
-        fromGraphId: graphId,
-        name: sessionName,
-        graphId: copyGraphId,
-        state: 'CREATED',
-        timeInGraph: -1,
-        countdownStartTime: -1,
-        countdownLength: DEFAULT_COUNTDOWN_LENGTH,
-        pausedAt: null,
-        openActivities: [],
-        slug: newSlug
-      });
-      Graphs.update(copyGraphId, { $set: { sessionId } });
-
-      setTeacherSession(sessionId);
-      return sessionId;
+const addSessionFn = (graphId: string, slug: string): string => {
+  if (Meteor.isServer) {
+    const validOutput = valid(
+      Activities.find({ graphId }).fetch(),
+      Operators.find({ graphId }).fetch(),
+      Connections.find({ graphId }).fetch()
+    );
+    if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
+      Graphs.update(graphId, { $set: { broken: true } });
+      return 'invalidGraph';
     }
-  },
+
+    const sessionId = uuid();
+    const graph = Graphs.findOne(graphId);
+    const count = Graphs.find({
+      name: { $regex: '#' + graph.name + '*' }
+    }).count();
+    const sessionName = '#' + graph.name + ' ' + (count + 1);
+
+    const copyGraphId = addGraph({
+      graph: { ...graph, name: sessionName },
+      activities: Activities.find({ graphId }).fetch(),
+      operators: Operators.find({ graphId }).fetch(),
+      connections: Connections.find({ graphId }).fetch()
+    });
+
+    let newSlug = slug;
+    if (!slug) {
+      let slugSize = 4;
+      const slugs = Sessions.find({}, { fields: { slug: 1 } })
+        .fetch()
+        .map(x => x.slug);
+      newSlug = getSlug(slugSize);
+      while (slugs.includes(newSlug)) {
+        newSlug = getSlug(slugSize);
+        slugSize += 1;
+      }
+    }
+
+    Sessions.insert({
+      _id: sessionId,
+      fromGraphId: graphId,
+      name: sessionName,
+      graphId: copyGraphId,
+      state: 'CREATED',
+      timeInGraph: -1,
+      countdownStartTime: -1,
+      countdownLength: DEFAULT_COUNTDOWN_LENGTH,
+      pausedAt: null,
+      openActivities: [],
+      slug: newSlug
+    });
+    Graphs.update(copyGraphId, { $set: { sessionId } });
+
+    setTeacherSession(sessionId);
+    return sessionId;
+  }
+};
+
+Meteor.methods({
+  'add.session': addSessionFn,
   'flush.session': sessionId => {
     const session = Sessions.findOne(sessionId);
     if (!session) {
