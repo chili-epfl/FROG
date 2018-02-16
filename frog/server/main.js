@@ -20,6 +20,7 @@ import {
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
+import { GlobalSettings } from '../imports/api/globalSettings.js';
 
 Meteor.users._ensureIndex('joinedSessions');
 Meteor.users._ensureIndex('services.frog.id');
@@ -35,12 +36,27 @@ Connections._ensureIndex('source.id');
 startShareDB();
 teacherImports();
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || true) {
   if (!Meteor.settings.token) {
     Meteor.settings.token = uuid();
   }
   console.info('Meteor login token ', Meteor.settings.token);
+  GlobalSettings.update(
+    'token',
+    { value: Meteor.settings.token },
+    { upsert: true }
+  );
 }
+
+Meteor.publish('globalSettings', function() {
+  const user = Meteor.user();
+  const username = user && user.username;
+  if (username !== 'teacher') {
+    return this.ready();
+  } else {
+    return GlobalSettings.find({});
+  }
+});
 
 Meteor.publish('userData', function() {
   const user = Meteor.user();

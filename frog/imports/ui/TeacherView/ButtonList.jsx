@@ -44,11 +44,13 @@ const Countdown = withTracker(props => ({
 const ButtonList = ({
   session,
   toggle,
-  setShowStudentList
+  setShowStudentList,
+  token
 }: {
   session: Object,
   toggle: Function,
-  setShowStudentList: Function
+  setShowStudentList: Function,
+  token?: { value: string }
 }) => {
   const buttons = [
     {
@@ -192,7 +194,12 @@ const ButtonList = ({
         )}
       <b style={{ marginLeft: '20px' }}>
         session:{' '}
-        <a target="_blank" href={`/projector/${session.slug}`}>
+        <a
+          target="_blank"
+          href={`/projector/${session.slug}?login=teacher&token=${(token &&
+            token.value) ||
+            ''}`}
+        >
           {session.slug}
         </a>
       </b>

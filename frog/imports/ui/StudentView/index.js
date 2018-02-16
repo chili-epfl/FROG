@@ -10,6 +10,7 @@ import { UserStatus } from 'meteor/mizzao:user-status';
 import styled from 'styled-components';
 
 import { Sessions } from '/imports/api/sessions';
+import { GlobalSettings } from '/imports/api/globalSettings';
 import SessionBody from './SessionBody';
 
 const once = { already: false };
@@ -23,7 +24,8 @@ const DashLink = styled.div`
 `;
 
 type StudentViewCompPropsT = {
-  match: Object
+  match: Object,
+  token?: { value: string }
 };
 
 class StudentViewComp extends React.Component<
@@ -83,7 +85,9 @@ class StudentViewComp extends React.Component<
             <div className="bootstrap">
               <DashLink>
                 <a
-                  href="/"
+                  href={`/?login=teacher&token=${(this.props.token &&
+                    this.props.token.value) ||
+                    ''}`}
                   target="_blank"
                   className="glyphicon glyphicon-dashboard"
                 />
@@ -126,10 +130,11 @@ export default withTracker(props => {
 
   const slug = props.match.params.slug.trim().toUpperCase();
 
-  const collections = ['session_activities'];
+  const collections = ['session_activities', 'globalSettings'];
   const subscriptions = collections.map(x => Meteor.subscribe(x, slug));
   return {
     session: Sessions.findOne({ slug }),
+    token: GlobalSettings.findOne('token'),
     ready: every(subscriptions.map(x => x.ready()), Boolean)
   };
 })(StudentViewComp);
