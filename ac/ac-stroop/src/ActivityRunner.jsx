@@ -68,7 +68,7 @@ const hardcodedList = shuffle([
     isConsistent: false,
     isCorrect: true,
     fr: { objectName: 'citron', colorName: 'jaune' },
-    en: { objectName: 'lemon', colorName: 'yellow' },
+    en: { objectName: 'lemons', colorName: 'yellow' },
     colorFill: 'red'
   },
   {
@@ -96,7 +96,7 @@ const hardcodedList = shuffle([
     isConsistent: true,
     isCorrect: true,
     fr: { objectName: 'citron', colorName: 'jaune' },
-    en: { objectName: 'lemon', colorName: 'yellow' },
+    en: { objectName: 'lemons', colorName: 'yellow' },
     colorFill: 'yellow'
   },
   {
@@ -117,14 +117,14 @@ const hardcodedList = shuffle([
     isConsistent: false,
     isCorrect: false,
     fr: { objectName: 'ciel', colorName: 'rouge' },
-    en: { objectName: 'sky', colorName: 'red' },
+    en: { objectName: 'the sky', colorName: 'red' },
     colorFill: 'yellow'
   },
   {
     isConsistent: true,
     isCorrect: true,
     fr: { objectName: 'ciel', colorName: 'bleu' },
-    en: { objectName: 'sky', colorName: 'blue' },
+    en: { objectName: 'the sky', colorName: 'blue' },
     colorFill: 'blue'
   },
   {
@@ -152,7 +152,7 @@ const hardcodedList = shuffle([
     isConsistent: true,
     isCorrect: false,
     fr: { objectName: 'ciel', colorName: 'vert' },
-    en: { objectName: 'sky', colorName: 'green' },
+    en: { objectName: 'the sky', colorName: 'green' },
     colorFill: 'green'
   },
   {
@@ -180,7 +180,7 @@ const hardcodedList = shuffle([
     isConsistent: true,
     isCorrect: false,
     fr: { objectName: 'citron', colorName: 'marron' },
-    en: { objectName: 'lemon', colorName: 'brown' },
+    en: { objectName: 'lemons', colorName: 'brown' },
     colorFill: 'brown'
   },
   {
@@ -194,14 +194,14 @@ const hardcodedList = shuffle([
     isConsistent: false,
     isCorrect: true,
     fr: { objectName: 'ciel', colorName: 'bleu' },
-    en: { objectName: 'sky', colorName: 'blue' },
+    en: { objectName: 'the sky', colorName: 'blue' },
     colorFill: 'brown'
   },
   {
     isConsistent: false,
     isCorrect: false,
     fr: { objectName: 'citron', colorName: 'bleu' },
-    en: { objectName: 'lemon', colorName: 'blue' },
+    en: { objectName: 'lemons', colorName: 'blue' },
     colorFill: 'brown'
   }
 ]);
