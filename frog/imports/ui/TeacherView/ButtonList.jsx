@@ -109,7 +109,10 @@ const ButtonList = ({
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
-      onClick: () => restartSession(session),
+      onClick: () => {
+        restartSession(session);
+        toggle(false);
+      },
       text: 'Restart session'
     },
     {

@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable react/no-array-index-key */
 
-import React from 'react';
+import * as React from 'react';
 import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
 
@@ -69,14 +69,35 @@ const Viewer = TimedComponent((props: Object) => {
       data['timing'][j][2] * factor
     ]);
   }
+  const usersStarted = Object.keys(data.progress).length;
+  const usersFinished = Object.keys(data.progress).filter(
+    x => data.progress[x] === 1
+  ).length;
+
   return (
-    <LineChart
-      title="Activity Progress"
-      vAxis="Average Class Progress"
-      hAxis="Time Elapsed"
-      hLen={props.activity['length']}
-      rows={timingData}
-    />
+    <React.Fragment>
+      <LineChart
+        title="Activity Progress"
+        vAxis="Average Class Progress"
+        hAxis="Time Elapsed"
+        hLen={props.activity['length']}
+        rows={timingData}
+      />
+      <table>
+        <tbody>
+          <tr>
+            <td style={{ paddingRight: '10px' }}>Users who started activity</td>
+            <td>{usersStarted}</td>
+          </tr>
+          <tr>
+            <td style={{ paddingRight: '10px' }}>
+              Users who completed activity
+            </td>
+            <td>{usersFinished}</td>
+          </tr>
+        </tbody>
+      </table>
+    </React.Fragment>
   );
 }, TIMEWINDOW * 1000);
 
