@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable react/no-array-index-key */
 
-import React from 'react';
+import * as React from 'react';
 import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
 
@@ -54,7 +54,9 @@ let timingData;
 
 const Viewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
+  console.log('rerender');
 
+<<<<<<< HEAD
   if (activity.actualClosingTime === undefined) {
     const numWindow = Math.ceil(
       (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
@@ -71,15 +73,52 @@ const Viewer = TimedComponent((props: Object) => {
         data['timing'][j][2] * factor
       ]);
     }
+=======
+  const numWindow = Math.ceil(
+    (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
+  );
+  const timingData = [[0, 0, 0]];
+  const factor = 100 / Math.max(Object.keys(instances).length, 1);
+  for (let i = 0, j = -1; i <= numWindow; i += 1) {
+    if (i * TIMEWINDOW === (data.timing[j + 1] || [0])[0]) {
+      j += 1;
+    }
+    timingData.push([
+      i * TIMEWINDOW / 60,
+      data.timing[j][1] * factor,
+      data.timing[j][2] * factor
+    ]);
+>>>>>>> b64923fc92565bc48c5fae2b8298e991d2b42e56
   }
+  const usersStarted = Object.keys(data.progress).length;
+  const usersFinished = Object.keys(data.progress).filter(
+    x => data.progress[x] === 1
+  ).length;
+
   return (
-    <LineChart
-      title="Activity Progress"
-      vAxis="Average Class Progress"
-      hAxis="Time Elapsed"
-      hLen={props.activity['length']}
-      rows={timingData}
-    />
+    <React.Fragment>
+      <LineChart
+        title="Activity Progress"
+        vAxis="Average Class Progress"
+        hAxis="Time Elapsed"
+        hLen={props.activity['length']}
+        rows={timingData}
+      />
+      <table>
+        <tbody>
+          <tr>
+            <td style={{ paddingRight: '10px' }}>Users who started activity</td>
+            <td>{usersStarted}</td>
+          </tr>
+          <tr>
+            <td style={{ paddingRight: '10px' }}>
+              Users who completed activity
+            </td>
+            <td>{usersFinished}</td>
+          </tr>
+        </tbody>
+      </table>
+    </React.Fragment>
   );
 }, TIMEWINDOW * 1000);
 
@@ -95,42 +134,33 @@ const mergeLog = (
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    const progDiff =
-      (data['timing'][data['timing'].length - 1][1] || 0) +
-      log.value -
-      (data.progress[log.instanceId] || 0);
-    const complete =
-      log.value === 1 && log.value - (data.progress[log.instanceId] || 0) !== 0
-        ? 1
-        : 0;
+    const lastIndex = data.timing.length - 1;
+    const lastTimingItem = data.timing[lastIndex];
+    const prevProgress = data.progress[log.instanceId] || 0;
+    const newProgress = lastTimingItem[1] + log.value - prevProgress;
+    const didComplete = log.value === 1 && log.value > prevProgress ? 1 : 0;
+    const newComplete = lastTimingItem[2] + didComplete;
+
     dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
     // $FlowFixMe
     const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
+    const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
 
-    if (
-      Math.ceil(timeDiff / TIMEWINDOW) !==
-      data['timing'][data['timing'].length - 1][0] / TIMEWINDOW
-    ) {
-      dataFn.listAppend(
-        [
-          Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
-          progDiff,
-          data['timing'][data['timing'].length - 1][2] + complete
-        ],
-        'timing'
-      );
+    const toInsert = [timeWindow, newProgress, newComplete];
+    if (timeWindow !== lastTimingItem[0]) {
+      dataFn.listAppend(toInsert, ['timing']);
     } else {
-      data['timing'][data['timing'].length - 1] = [
-        Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
-        progDiff,
-        data['timing'][data['timing'].length - 1][2] + complete
-      ];
-      dataFn.objInsert(data['timing'], 'timing');
+      dataFn.listReplace(lastTimingItem, toInsert, ['timing', lastIndex]);
     }
   }
 };
 
+// progress:
+// keyed by instanceId contain the latest logged progress of each instanceId
+//
+// timing:
+// Array of arrays of [ timeWindow, averageProgress, completionRate ]
 const initData = {
   progress: {},
   timing: [[0, 0, 0]]
