@@ -13,6 +13,7 @@ import SessionList from './SessionList';
 import GraphView from './GraphView';
 import Dashboards from './Dashboard';
 import { Sessions } from '../../api/sessions';
+import { GlobalSettings } from '../../api/globalSettings';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 
@@ -21,7 +22,8 @@ const rawSessionController = ({
   visible,
   toggleVisibility,
   setShowStudentList,
-  showStudentList
+  showStudentList,
+  token
 }) => (
   <div>
     {showStudentList && (
@@ -33,6 +35,7 @@ const rawSessionController = ({
     {session ? (
       <div>
         <ButtonList
+          token={token}
           session={session}
           toggle={toggleVisibility}
           setShowStudentList={setShowStudentList}
@@ -69,6 +72,7 @@ const TeacherView = withTracker(() => {
     session,
     graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
     activities,
+    token: GlobalSettings.findOne('token'),
     students,
     user
   };
