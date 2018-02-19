@@ -65,9 +65,10 @@ const Viewer = TimedComponent((props: Object) => {
   const timingData = [[0, 0, 0]];
   const factor = 100 / Math.max(Object.keys(instances).length, 1);
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
-
-    while (data.timing.length > j + 1 &&
-      i * TIMEWINDOW >= (data.timing[j + 1] || [0])[0]) {
+    while (
+      data.timing.length > j + 1 &&
+      i * TIMEWINDOW >= (data.timing[j + 1] || [0])[0]
+    ) {
       j += 1;
     }
     timingData.push([
