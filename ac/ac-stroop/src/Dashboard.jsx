@@ -83,9 +83,9 @@ const StroopViewer = ({ data }: dashboardViewerPropsT) => {
   );
 };
 
-const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
-  <pre>{JSON.stringify(data, null, 2)}</pre>
-);
+// const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
+//   <pre>{JSON.stringify(data, null, 2)}</pre>
+// );
 
 const initData = {
   consistent: { correct: { count: 0, time: 0 }, wrong: { count: 0, time: 0 } },

@@ -58,15 +58,15 @@ const Viewer = TimedComponent((props: Object) => {
     (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
   );
   const timingData = [[0, 0, 0]];
-  const factor = 100 / Object.keys(instances).length;
+  const factor = 100 / Math.min(Object.keys(instances).length, 1);
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
-    if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
+    if (i * TIMEWINDOW === (data.timing[j + 1] || [0])[0]) {
       j += 1;
     }
     timingData.push([
       i * TIMEWINDOW / 60,
-      data['timing'][j][1] * factor,
-      data['timing'][j][2] * factor
+      data.timing[j][1] * factor,
+      data.timing[j][2] * factor
     ]);
   }
   const usersStarted = Object.keys(data.progress).length;
@@ -128,23 +128,23 @@ const mergeLog = (
 
     if (
       Math.ceil(timeDiff / TIMEWINDOW) !==
-      data['timing'][data['timing'].length - 1][0] / TIMEWINDOW
+      data.timing[data.timing.length - 1][0] / TIMEWINDOW
     ) {
       dataFn.listAppend(
         [
           Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
           progDiff,
-          data['timing'][data['timing'].length - 1][2] + complete
+          data.timing[data.timing.length - 1][2] + complete
         ],
         'timing'
       );
     } else {
-      data['timing'][data['timing'].length - 1] = [
+      data.timing[data.timing.length - 1] = [
         Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
         progDiff,
-        data['timing'][data['timing'].length - 1][2] + complete
+        data.timing[data.timing.length - 1][2] + complete
       ];
-      dataFn.objInsert(data['timing'], 'timing');
+      dataFn.objInsert(data.timing, 'timing');
     }
   }
 };
