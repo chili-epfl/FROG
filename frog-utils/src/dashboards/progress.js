@@ -54,13 +54,14 @@ const TIMEWINDOW = 5;
 const Viewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
 
-  const numWindow = (activity.actualClosingTime === undefined) ?
-  Math.ceil(
-    (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
-  ) :
-  Math.ceil(
-    (activity.actualClosingTime - activity.actualStartingTime) / 1000 / TIMEWINDOW
-  );
+  const numWindow =
+    activity.actualClosingTime === undefined
+      ? Math.ceil((timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW)
+      : Math.ceil(
+          (activity.actualClosingTime - activity.actualStartingTime) /
+            1000 /
+            TIMEWINDOW
+        );
   const timingData = [[0, 0, 0]];
   const factor = 100 / Math.max(Object.keys(instances).length, 1);
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
