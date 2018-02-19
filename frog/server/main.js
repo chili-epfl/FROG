@@ -72,7 +72,9 @@ Meteor.publish('userData', function() {
 publishComposite('session_activities', function(slug) {
   return {
     find() {
-      return Meteor.users.find(this.userId);
+      return Meteor.users.find(this.userId, {
+        fields: { joinedSessions: 1, username: 1 }
+      });
     },
     children: [
       {
