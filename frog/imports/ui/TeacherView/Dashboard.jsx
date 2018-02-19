@@ -128,9 +128,12 @@ const DashboardNav = props => {
     const dash = activityTypesObj[ac.activityType].dashboard;
     return dash && dash.Viewer;
   });
+  const openAcWithDashIds = acWithDash
+    .filter(x => session.openActivities && session.openActivities.includes(x))
+    .map(x => x._id);
   const aId =
-    activityId ||
-    (session.openActivities.length > 0 && session.openActivities[0]);
+    activityId || (openAcWithDashIds.length > 0 && openAcWithDashIds[0]);
+  const activityToDash = activities.find(a => a._id === aId);
   return (
     <div>
       <h1>Dashboards</h1>
@@ -149,12 +152,9 @@ const DashboardNav = props => {
             </NavItem>
           ))}
         </Nav>
-        {aId && (
+        {activityToDash && (
           <ErrorBoundary msg="Dashboard crashed, try reloading">
-            <Dashboard
-              session={session}
-              activity={activities.find(a => a._id === aId)}
-            />
+            <Dashboard session={session} activity={activityToDash} />
           </ErrorBoundary>
         )}
       </Container>

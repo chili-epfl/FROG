@@ -53,6 +53,7 @@ const TIMEWINDOW = 5;
 
 const Viewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
+  console.log('rerender');
 
   const numWindow = Math.ceil(
     (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
@@ -127,10 +128,7 @@ const mergeLog = (
     // $FlowFixMe
     const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
 
-    if (
-      Math.ceil(timeDiff / TIMEWINDOW) !==
-      lastTimingLog[0] / TIMEWINDOW
-    ) {
+    if (Math.ceil(timeDiff / TIMEWINDOW) !== lastTimingLog[0] / TIMEWINDOW) {
       dataFn.listAppend(
         [
           Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
