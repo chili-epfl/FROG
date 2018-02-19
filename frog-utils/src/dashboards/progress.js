@@ -58,7 +58,7 @@ const Viewer = TimedComponent((props: Object) => {
     (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
   );
   const timingData = [[0, 0, 0]];
-  const factor = 100 / Math.min(Object.keys(instances).length, 1);
+  const factor = 100 / Math.max(Object.keys(instances).length, 1);
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
     if (i * TIMEWINDOW === (data.timing[j + 1] || [0])[0]) {
       j += 1;
@@ -113,8 +113,9 @@ const mergeLog = (
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
+    const lastTimingLog = data.timing[data.timing.length - 1];
     const progDiff =
-      (data.timing[data.timing.length - 1][1] || 0) +
+      (lastTimingLog[1] || 0) +
       log.value -
       (data.progress[log.instanceId] || 0);
     const complete =
@@ -128,13 +129,13 @@ const mergeLog = (
 
     if (
       Math.ceil(timeDiff / TIMEWINDOW) !==
-      data.timing[data.timing.length - 1][0] / TIMEWINDOW
+      lastTimingLog[0] / TIMEWINDOW
     ) {
       dataFn.listAppend(
         [
           Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
           progDiff,
-          data.timing[data.timing.length - 1][2] + complete
+          lastTimingLog[2] + complete
         ],
         'timing'
       );
@@ -142,7 +143,7 @@ const mergeLog = (
       data.timing[data.timing.length - 1] = [
         Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
         progDiff,
-        data.timing[data.timing.length - 1][2] + complete
+        lastTimingLog[2] + complete
       ];
       dataFn.objInsert(data.timing, 'timing');
     }
