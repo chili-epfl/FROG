@@ -15,7 +15,7 @@ const fromRoot = cmd =>
   `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
 
 const watchAll = () => {
-  const pattern = 'ac/*/src/** op/*/src/** frog-utils/**';
+  const pattern = 'ac/*/src/** op/*/src/** frog-utils/src/**';
 
   const command = `if [ "{event}" = "change" ]; 
                    then src={path}; 
