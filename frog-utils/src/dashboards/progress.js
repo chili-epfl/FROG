@@ -118,25 +118,26 @@ const mergeLog = (
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    const lastIndex = data.timing.length - 1;
+    let lastIndex = data.timing.length - 1;
     const lastTimingItem = data.timing[lastIndex];
+
     const prevProgress = data.progress[log.instanceId] || 0;
-    const newProgress = lastTimingItem[1] + log.value - prevProgress;
-    const didComplete = log.value === 1 && log.value > prevProgress ? 1 : 0;
-    const newComplete = lastTimingItem[2] + didComplete;
+    const progressIncr = log.value - prevProgress;
+
+    const completeIncr = log.value === 1 && log.value > prevProgress ? 1 : 0;
 
     dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
     // $FlowFixMe
     const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
     const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
-
-    const toInsert = [timeWindow, newProgress, newComplete];
     if (timeWindow !== lastTimingItem[0]) {
-      dataFn.listAppend(toInsert, ['timing']);
-    } else {
-      dataFn.listReplace(lastTimingItem, toInsert, ['timing', lastIndex]);
+      const newItem = [timeWindow, lastTimingItem[1], lastTimingItem[2]];
+      dataFn.listAppend(newItem, ['timing']);
+      lastIndex += 1;
     }
+    dataFn.numIncr(progressIncr, ['timing', lastIndex, 1]);
+    dataFn.numIncr(completeIncr, ['timing', lastIndex, 2]);
   }
 };
 
