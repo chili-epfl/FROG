@@ -100,51 +100,51 @@ test('Merge one', () => {
       scores: {
         u8dZtnrtMBy9AYzXC: {
           score: [20, -45314],
-          timestamp: { $date: '2018-02-19T08:16:29.448Z' }
+          timestamp: '2018-02-19T08:16:29.448Z'
         },
         G4TQn6q5Qfiaaub74: {
           score: [15, -62404],
-          timestamp: { $date: '2018-02-19T08:17:08.652Z' }
+          timestamp: '2018-02-19T08:17:08.652Z'
         },
         kYFL4RtPNz89XaFPN: {
           score: [15, -52862],
-          timestamp: { $date: '2018-02-19T08:17:11.978Z' }
+          timestamp: '2018-02-19T08:17:11.978Z'
         },
         WHhqbEoSojg5xvdjY: {
           score: [20, -26147],
-          timestamp: { $date: '2018-02-19T08:16:46.545Z' }
+          timestamp: '2018-02-19T08:16:46.545Z'
         },
         SeEQ2ypvR5eh3tYq6: {
           score: [17, -53409],
-          timestamp: { $date: '2018-02-19T08:17:31.222Z' }
+          timestamp: '2018-02-19T08:17:31.222Z'
         },
         '4xqdRzu9YTdqnR8mn': {
           score: [19, -52268],
-          timestamp: { $date: '2018-02-19T08:18:18.493Z' }
+          timestamp: '2018-02-19T08:18:18.493Z'
         },
         WSsnZfuX8ai3XGiqi: {
           score: [20, -33725],
-          timestamp: { $date: '2018-02-19T08:18:10.000Z' }
+          timestamp: '2018-02-19T08:18:10.000Z'
         },
         fLvGabbpRDdPibZeR: {
           score: [20, -45553],
-          timestamp: { $date: '2018-02-19T08:18:32.826Z' }
+          timestamp: '2018-02-19T08:18:32.826Z'
         },
         DRjdDKm8PcH3nnPKw: {
           score: [18, -46782],
-          timestamp: { $date: '2018-02-19T08:18:34.632Z' }
+          timestamp: '2018-02-19T08:18:34.632Z'
         },
         sGpLPtPAisiktjkSr: {
           score: [19, -51124],
-          timestamp: { $date: '2018-02-19T08:18:51.645Z' }
+          timestamp: '2018-02-19T08:18:51.645Z'
         },
         zwDjNmdvqQ9zGvATk: {
           score: [20, -32381],
-          timestamp: { $date: '2018-02-19T08:18:38.028Z' }
+          timestamp: '2018-02-19T08:18:38.028Z'
         },
         yW5LyMHQiYeFy2AN4: {
           score: [7, -40761],
-          timestamp: { $date: '2018-02-19T08:19:32.960Z' }
+          timestamp: '2018-02-19T08:19:32.960Z'
         }
       }
     });
