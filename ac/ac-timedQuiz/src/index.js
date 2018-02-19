@@ -123,13 +123,6 @@ const dataStructure = {
   time: 0
 };
 
-// receives incoming data, and merges it with the reactive data using dataFn.*
-// const mergeFunction = (object, dataFn) => {};
-//
-// // the actual component that the student sees
-// const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => (
-//   <div>{JSON.stringify(activityData)}</div>
-// );
 
 export default ({
   id: 'ac-timedQuiz',
