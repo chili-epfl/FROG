@@ -2,22 +2,34 @@
 import * as React from 'react';
 import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
-import { A } from 'frog-utils';
 import { omitBy } from 'lodash';
+import List, { ListItem, ListSubheader, ListItemText } from 'material-ui/List';
 
 import { StatelessPreview } from './Preview';
 import { activityTypes } from '../../activityTypes';
 
+const styles = {
+  sheet: {
+    padding: 0,
+    maxHeight: '100%',
+    overflow: 'auto'
+  }
+};
+
 const ActivityList = ({ history }) => (
-  <div>
-    <h2>Choose activity to preview</h2>
-    <ul>
-      {activityTypes.filter(x => x.meta.exampleData).map(act => (
-        <li key={act.id}>
-          <A onClick={() => history.push(`/preview/${act.id}`)}>{act.id}</A>
-        </li>
+  <div style={styles.sheet}>
+    <List subheader={<ListSubheader>Select to Preview</ListSubheader>}>
+      {activityTypes.map(act => (
+        <ListItem
+          key={act.id}
+          dense
+          button
+          onClick={() => history.push(`/preview/${act.id}`)}
+        >
+          <ListItemText primary={act.id} />
+        </ListItem>
       ))}
-    </ul>
+    </List>
   </div>
 );
 

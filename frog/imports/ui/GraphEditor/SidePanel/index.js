@@ -31,19 +31,23 @@ export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
     );
   }
 });
+
 const SidebarContainer = connect(
   ({ store: { ui: { setSidepanelOpen } }, children }) => (
-    <SidebarContainerDiv>
-      <CloseButtonA onClick={() => setSidepanelOpen(false)}>
-        <i className="fa fa-times" />
-      </CloseButtonA>
-      {children}
-    </SidebarContainerDiv>
+    <div className="bootstrap">
+      <SidebarContainerDiv>
+        <CloseButtonA onClick={() => setSidepanelOpen(false)}>
+          <i className="fa fa-times" />
+        </CloseButtonA>
+        {children}
+      </SidebarContainerDiv>
+    </div>
   )
 );
 
 const SidebarContainerDiv = styled.div`
   padding: 0px;
+  x: 300px;
   width: 497px;
   height: 760px;
   display: flex;

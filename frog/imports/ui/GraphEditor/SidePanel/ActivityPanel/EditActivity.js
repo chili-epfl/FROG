@@ -4,6 +4,7 @@ import * as React from 'react';
 import FlexView from 'react-flexview';
 import ReactTooltip from 'react-tooltip';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { yellow, red, lightGreen } from 'material-ui/colors';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
@@ -107,11 +108,11 @@ const RawEditActivity = ({
   const error = errors.filter(x => x.severity === 'error');
   const warning = errors.filter(x => x.severity === 'warning');
   if (error.length > 0) {
-    errorColor = 'red';
+    errorColor = red[500];
   } else if (warning.length > 0) {
-    errorColor = 'yellow';
+    errorColor = yellow[500];
   } else {
-    errorColor = 'green';
+    errorColor = lightGreen[500];
   }
 
   const activityType = activityTypesObj[activity.activityType];

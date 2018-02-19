@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { withStyles } from 'material-ui/styles';
 
 import { connect } from './store';
 import Graph from './Graph';
@@ -7,24 +7,52 @@ import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
-import ExpandButton from './SidePanel/ExpandButton';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
 
+const styles = () => ({
+  root: {
+    paddingTop: 48,
+    paddingRight: 3,
+    paddingLeft: 3
+  },
+  gridContent: {
+    marginLeft: 0,
+    display: 'flex',
+    flexDirection: 'column'
+  },
+
+  main: {
+    height: 760,
+    flex: 30,
+    overflow: 'hidden'
+  },
+  container: {
+    height: '95%',
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  sheet: {
+    background: 'white'
+  }
+});
 const EditorPanel = () => (
-  <div>
-    <ExpandButton />
-    <div style={{ height: 600 }}>
+  <div className="bootstrap" style={styles.sheet}>
+    <div style={{ height: 600, border: '1px solid black' }}>
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
-    <div style={{ height: 150 }}>
+    <div
+      className="bootstrap"
+      style={{ margin: 2, height: 150, border: '1px solid black' }}
+    >
       <Graph hasPanMap />
     </div>
     <HelpModal />
   </div>
 );
 
+@withStyles(styles)
 class Editor extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.props.store.ui.updateWindow);
@@ -36,6 +64,7 @@ class Editor extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     if (this.props.store.ui.showPreview) {
       return (
         <Preview
@@ -46,30 +75,20 @@ class Editor extends Component {
       );
     }
     return (
-      <div style={{ height: '100%' }}>
-        <TopBar />
-        <TopPanel />
-        <Container>
-          <Main>
-            <EditorPanel />
-          </Main>
-          <SidePanel />
-        </Container>
+      <div className={classes.root}>
+        <TopBar barHeight={classes.root.paddingTop} />
+        <div className={classes.gridContent}>
+          <TopPanel />
+          <div className={classes.container}>
+            <div className={classes.main}>
+              <EditorPanel />
+            </div>
+            <SidePanel />
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 export default connect(Editor);
-
-const Main = styled.div`
-  height: 760px;
-  flex: 3 0px;
-  overflow: hide;
-`;
-
-const Container = styled.div`
-  height: 95%;
-  display: flex;
-  flex-direction: row;
-`;
