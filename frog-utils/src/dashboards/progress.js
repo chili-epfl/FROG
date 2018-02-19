@@ -92,8 +92,8 @@ const mergeLog = (
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    const lastIndex = data['timing'].length - 1;
-    const lastTimingItem = data['timing'][lastIndex];
+    const lastIndex = data.timing.length - 1;
+    const lastTimingItem = data.timing[lastIndex];
     const prevProgress = data.progress[log.instanceId] || 0;
     const newProgress = lastTimingItem[1] + log.value - prevProgress;
     const didComplete = log.value === 1 && log.value > prevProgress ? 1 : 0;
