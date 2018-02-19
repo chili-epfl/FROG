@@ -14,6 +14,19 @@ if (findDir) {
 const fromRoot = cmd =>
   `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
 
+const watchAll = () => {
+  const pattern = 'ac/*/src/** op/*/src/** frog-utils/**';
+
+  const command = `if [ "{event}" = "change" ]; 
+                   then src={path}; 
+                   dist=$\{src/src/dist};
+                   finaldist=$\{dist/jsx/js};
+                   ${dir}/node_modules/.bin/babel $src  --out-file $finaldist; 
+                   fi;`;
+
+  return `${dir}/node_modules/.bin/chokidar ${pattern} -c '${command}'`;
+};
+
 const build = (shouldWatch, dirtowatch) => {
   const pkgdir = dirtowatch || dirname(sync('package.json'));
   return `${dir}/node_modules/.bin/babel ${pkgdir}/src --out-dir ${pkgdir}/dist ${
@@ -50,7 +63,7 @@ module.exports = {
       'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
     ),
     watch,
-    watchAll: buildAll(true),
+    watchAll: watchAll(),
     buildAll: buildAll(false),
     buildAllSingle: buildAll(false, true)
   },
