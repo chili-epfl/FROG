@@ -50,32 +50,16 @@ export const LineChart = ({
 );
 
 const TIMEWINDOW = 5;
-let timingData;
 
 const Viewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
-  console.log('rerender');
 
-<<<<<<< HEAD
-  if (activity.actualClosingTime === undefined) {
-    const numWindow = Math.ceil(
-      (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
-    );
-    timingData = [[0, 0, 0]];
-    const factor = 100 / Object.keys(instances).length;
-    for (let i = 0, j = -1; i <= numWindow; i += 1) {
-      if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
-        j += 1;
-      }
-      timingData.push([
-        i * TIMEWINDOW / 60,
-        data['timing'][j][1] * factor,
-        data['timing'][j][2] * factor
-      ]);
-    }
-=======
-  const numWindow = Math.ceil(
+  const numWindow = (activity.actualClosingTime === undefined) ?
+  Math.ceil(
     (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
+  ) :
+  Math.ceil(
+    (activity.actualClosingTime - activity.actualStartingTime) / 1000 / TIMEWINDOW
   );
   const timingData = [[0, 0, 0]];
   const factor = 100 / Math.max(Object.keys(instances).length, 1);
@@ -88,7 +72,6 @@ const Viewer = TimedComponent((props: Object) => {
       data.timing[j][1] * factor,
       data.timing[j][2] * factor
     ]);
->>>>>>> b64923fc92565bc48c5fae2b8298e991d2b42e56
   }
   const usersStarted = Object.keys(data.progress).length;
   const usersFinished = Object.keys(data.progress).filter(
