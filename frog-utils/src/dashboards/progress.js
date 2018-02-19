@@ -94,7 +94,7 @@ const mergeLog = (
   ) {
     const lastIndex = data['timing'].length - 1;
     const lastTimingItem = data['timing'][lastIndex];
-    const prevProgress = data.progress.get(log.instanceId, 0);
+    const prevProgress = data.progress[log.instanceId] || 0;
     const newProgress = lastTimingItem[1] + log.value - prevProgress;
     const didComplete = log.value === 1 && log.value > prevProgress ? 1 : 0;
     const newComplete = lastTimingItem[2] + didComplete;
@@ -109,7 +109,7 @@ const mergeLog = (
     if (timeWindow !== lastTimingItem[0]) {
       dataFn.listAppend(toInsert, ['timing']);
     } else {
-      dataFn.objInsert(toInsert, ['timing', lastIndex]);
+      dataFn.listReplace(lastTimingItem, toInsert, ['timing', lastIndex]);
     }
   }
 };
