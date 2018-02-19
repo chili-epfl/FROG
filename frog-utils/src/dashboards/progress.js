@@ -114,7 +114,7 @@ const mergeLog = (
     activity.actualStartingTime !== undefined
   ) {
     const progDiff =
-      (data['timing'][data['timing'].length - 1][1] || 0) +
+      (data.timing[data.timing.length - 1][1] || 0) +
       log.value -
       (data.progress[log.instanceId] || 0);
     const complete =

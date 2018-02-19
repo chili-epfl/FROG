@@ -10,6 +10,7 @@ import styled from 'styled-components';
 
 import { type ActivityDbT } from 'frog-utils';
 
+import { ErrorBoundary } from '../App/ErrorBoundary';
 import doGetInstances from '../../api/doGetInstances';
 import { Activities } from '../../api/activities';
 import { Objects } from '../../api/objects';
@@ -148,10 +149,14 @@ const DashboardNav = props => {
             </NavItem>
           ))}
         </Nav>
-        <Dashboard
-          session={session}
-          activity={activities.find(a => a._id === aId)}
-        />
+        {aId && (
+          <ErrorBoundary msg="Dashboard crashed, try reloading">
+            <Dashboard
+              session={session}
+              activity={activities.find(a => a._id === aId)}
+            />
+          </ErrorBoundary>
+        )}
       </Container>
     </div>
   );

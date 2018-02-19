@@ -9,7 +9,6 @@
     "copy-to-clipboard": "^3.0.8",
     "@babel/runtime": "^7.0.0-beta.39",
     "ac-stroop": "1.0.0",
-    "ac-dash": "1.0.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "bufferutil": "^3.0.3",
