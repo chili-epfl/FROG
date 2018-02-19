@@ -19,7 +19,7 @@ export const runSession = (sessionId: string) =>
 export const nextActivity = (sessionId: string) =>
   Meteor.call('next.activity', sessionId);
 
-const runNextActivity = (sessionId: string) => {
+export const runNextActivity = (sessionId: string) => {
   if (Meteor.isServer) {
     sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
@@ -46,31 +46,33 @@ const runNextActivity = (sessionId: string) => {
   }
 };
 
-Meteor.methods({
-  'run.session': (sessionId: string) => {
-    updateSessionState(sessionId, 'STARTED');
-    Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
-    engineLogger(sessionId, 'startSession');
-    const session = Sessions.findOne(sessionId);
-    if (Meteor.isServer) {
-      if (session.studentlist) {
-        session.studentlist.forEach(student => {
-          const { userId } = Accounts.updateOrCreateUserFromExternalService(
-            'frog',
-            {
-              id: student
-            }
-          );
-          Meteor.users.update(userId, { $set: { username: student } });
-          const joined = Meteor.users.findOne(userId).joinedSessions;
-          if (!joined || !joined.includes(session.slug)) {
-            Meteor.users.update(userId, {
-              $push: { joinedSessions: session.slug }
-            });
+export const runSessionFn = (sessionId: string) => {
+  updateSessionState(sessionId, 'STARTED');
+  Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
+  engineLogger(sessionId, 'startSession');
+  const session = Sessions.findOne(sessionId);
+  if (Meteor.isServer) {
+    if (session.studentlist) {
+      session.studentlist.forEach(student => {
+        const { userId } = Accounts.updateOrCreateUserFromExternalService(
+          'frog',
+          {
+            id: student
           }
-        });
-      }
+        );
+        Meteor.users.update(userId, { $set: { username: student } });
+        const joined = Meteor.users.findOne(userId).joinedSessions;
+        if (!joined || !joined.includes(session.slug)) {
+          Meteor.users.update(userId, {
+            $push: { joinedSessions: session.slug }
+          });
+        }
+      });
     }
-  },
+  }
+};
+
+Meteor.methods({
+  'run.session': runSessionFn,
   'next.activity': runNextActivity
 });

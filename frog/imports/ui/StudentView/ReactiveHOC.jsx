@@ -81,7 +81,7 @@ const ReactiveHOC = (
     };
 
     render = () =>
-      this.state.data !== null ? (
+      this.state.data ? (
         <WrappedComponent
           uuid={this.state.uuid}
           dataFn={this.state.dataFn}
