@@ -53,7 +53,6 @@ const TIMEWINDOW = 5;
 
 const Viewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
-  console.log('rerender');
 
   const numWindow = Math.ceil(
     (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
