@@ -50,24 +50,27 @@ export const LineChart = ({
 );
 
 const TIMEWINDOW = 5;
+let timingData;
 
 const Viewer = TimedComponent((props: Object) => {
   const { data, instances, activity, timeNow } = props;
 
-  const numWindow = Math.ceil(
-    (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
-  );
-  const timingData = [[0, 0, 0]];
-  const factor = 100 / Object.keys(instances).length;
-  for (let i = 0, j = -1; i <= numWindow; i += 1) {
-    if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
-      j += 1;
+  if (activity.actualClosingTime === undefined) {
+    const numWindow = Math.ceil(
+      (timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW
+    );
+    timingData = [[0, 0, 0]];
+    const factor = 100 / Object.keys(instances).length;
+    for (let i = 0, j = -1; i <= numWindow; i += 1) {
+      if (i * TIMEWINDOW === (data['timing'][j + 1] || [0])[0]) {
+        j += 1;
+      }
+      timingData.push([
+        i * TIMEWINDOW / 60,
+        data['timing'][j][1] * factor,
+        data['timing'][j][2] * factor
+      ]);
     }
-    timingData.push([
-      i * TIMEWINDOW / 60,
-      data['timing'][j][1] * factor,
-      data['timing'][j][2] * factor
-    ]);
   }
   return (
     <LineChart
