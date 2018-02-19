@@ -94,13 +94,11 @@ const mergeLog = (
   ) {
     const lastIndex = data['timing'].length - 1;
     const lastTimingItem = data['timing'][lastIndex];
-    const newProgress =
-      lastTimingItem[1] + log.value - (data.progress[log.instanceId] || 0);
-    const newComplete =
-      lastTimingItem[2] + log.value === 1 &&
-      log.value - (data.progress[log.instanceId] || 0) !== 0
-        ? 1
-        : 0;
+    const prevProgress = data.progress.get(log.instanceId, 0);
+    const newProgress = lastTimingItem[1] + log.value - prevProgress;
+    const didComplete = log.value === 1 && log.value > prevProgress ? 1 : 0;
+    const newComplete = lastTimingItem[2] + didComplete;
+
     dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
     // $FlowFixMe
@@ -117,7 +115,7 @@ const mergeLog = (
 };
 
 // progress:
-// keyed by instanceId contain the latets logged progress of each instanceId
+// keyed by instanceId contain the latest logged progress of each instanceId
 //
 // timing:
 // Array of arrays of [ timeWindow, averageProgress, completionRate ]
