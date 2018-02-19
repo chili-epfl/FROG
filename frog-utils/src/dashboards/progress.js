@@ -92,42 +92,35 @@ const mergeLog = (
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    const progDiff =
-      (data['timing'][data['timing'].length - 1][1] || 0) +
-      log.value -
-      (data.progress[log.instanceId] || 0);
-    const complete =
-      log.value === 1 && log.value - (data.progress[log.instanceId] || 0) !== 0
+    const lastIndex = data['timing'].length - 1;
+    const lastTimingItem = data['timing'][lastIndex];
+    const newProgress =
+      lastTimingItem[1] + log.value - (data.progress[log.instanceId] || 0);
+    const newComplete =
+      lastTimingItem[2] + log.value === 1 &&
+      log.value - (data.progress[log.instanceId] || 0) !== 0
         ? 1
         : 0;
     dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
     // $FlowFixMe
     const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
+    const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
 
-    if (
-      Math.ceil(timeDiff / TIMEWINDOW) !==
-      data['timing'][data['timing'].length - 1][0] / TIMEWINDOW
-    ) {
-      dataFn.listAppend(
-        [
-          Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
-          progDiff,
-          data['timing'][data['timing'].length - 1][2] + complete
-        ],
-        'timing'
-      );
+    const toInsert = [timeWindow, newProgress, newComplete];
+    if (timeWindow !== lastTimingItem[0]) {
+      dataFn.listAppend(toInsert, ['timing']);
     } else {
-      data['timing'][data['timing'].length - 1] = [
-        Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW,
-        progDiff,
-        data['timing'][data['timing'].length - 1][2] + complete
-      ];
-      dataFn.objInsert(data['timing'], 'timing');
+      dataFn.objInsert(toInsert, ['timing', lastIndex]);
     }
   }
 };
 
+// progress:
+// keyed by instanceId contain the latets logged progress of each instanceId
+//
+// timing:
+// Array of arrays of [ timeWindow, averageProgress, completionRate ]
 const initData = {
   progress: {},
   timing: [[0, 0, 0]]
