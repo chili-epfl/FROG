@@ -7,11 +7,10 @@ import ChooseActivity from './ChooseActivity';
 import EditActivity from './EditActivity';
 
 export default withTracker(({ id }) => ({ activity: Activities.findOne(id) }))(
-  ({ activity }) => {
-    if (activity.activityType && activity.activityType !== '') {
-      return <EditActivity activity={activity} />;
-    } else {
-      return <ChooseActivity activity={activity} />;
-    }
-  }
+  ({ activity }) =>
+    activity.activityType && activity.activityType !== '' ? (
+      <EditActivity activity={activity} />
+    ) : (
+      <ChooseActivity activity={activity} />
+    )
 );
