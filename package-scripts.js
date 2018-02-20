@@ -1,5 +1,5 @@
 const { sync } = require('find-up');
-const { dirname } = require('path');
+const { dirname, join } = require('path');
 const { readdirSync } = require('fs');
 
 let dir;
@@ -14,8 +14,10 @@ if (findDir) {
 const fromRoot = cmd =>
   `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
 
-const watchAll = () => {
-  const pattern = 'ac/*/src/** op/*/src/** frog-utils/src/**';
+const watch = all => {
+  const pattern = all
+    ? 'ac/*/src/** op/*/src/** frog-utils/src/**'
+    : join(dirname(sync('package.json')), '/src/');
 
   const command = `if [ "{event}" = "change" ]; 
                    then src={path}; 
@@ -33,8 +35,6 @@ const build = (shouldWatch, dirtowatch) => {
     shouldWatch ? '--watch' : ''
   }`;
 };
-
-const watch = build(true);
 
 const acop = () => {
   const ac = readdirSync(dir + '/ac');
@@ -62,8 +62,8 @@ module.exports = {
     test: fromRoot(
       'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
     ),
-    watch,
-    watchAll: watchAll(),
+    watch: watch(false),
+    watchAll: watch(true),
     buildAll: buildAll(false),
     buildAllSingle: buildAll(false, true)
   },
