@@ -6,7 +6,12 @@
     "start": "nps",
     "test": "nps test"
   },
-  "workspaces": ["ac/*", "op/*", "frog-utils", "frog"],
+  "workspaces": [
+    "ac/*",
+    "op/*",
+    "frog-utils",
+    "frog"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",
     "@babel/core": "^7.0.0-beta.39",
@@ -45,7 +50,8 @@
     "json-stringify-pretty-compact": "^1.1.0",
     "nps": "^5.7.1",
     "prettier": "^1.10.2",
-    "react-test-renderer": "^16.2.0"
+    "react-test-renderer": "^16.2.0",
+    "chokidar": "^2.0.2"
   },
   "license": "ISC",
   "dependencies": {
