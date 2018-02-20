@@ -129,7 +129,9 @@ const DashboardNav = props => {
     return dash && dash.Viewer;
   });
   const openAcWithDashIds = acWithDash
-    .filter(x => session.openActivities && session.openActivities.includes(x))
+    .filter(
+      x => session.openActivities && session.openActivities.includes(x._id)
+    )
     .map(x => x._id);
   const aId =
     activityId || (openAcWithDashIds.length > 0 && openAcWithDashIds[0]);

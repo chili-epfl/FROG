@@ -13,19 +13,32 @@ type PropsT = {
 };
 
 type StateT = {
-  timeNow: number
+  timeNow: number,
+  props: Object
 };
 
 class TimedComponentClass extends React.Component<PropsT, StateT> {
   constructor(props: Object) {
     super(props);
     this.state = {
-      timeNow: Date.now()
+      timeNow: new Date(),
+      props: props.props
     };
   }
 
   _mounted: boolean;
   interval: number;
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.timeNow !== this.state.timeNow) {
+      return true;
+    }
+    return !(
+      this.props.props.activity &&
+      nextProps.props.activity &&
+      this.props.props.activity._id === nextProps.props.activity._id
+    );
+  }
 
   componentDidMount() {
     this._mounted = true;
@@ -33,7 +46,7 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
     this.interval = Number(
       setInterval(() => {
         if (this._mounted) {
-          this.setState({ timeNow: Date.now() });
+          this.setState({ timeNow: new Date(), props: this.props.props });
         }
       }, this.props.interval || 3000)
     );
@@ -46,7 +59,7 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
 
   render() {
     const Component = this.props.component;
-    return <Component timeNow={this.state.timeNow} {...this.props.props} />;
+    return <Component {...this.state.props} timeNow={this.state.timeNow} />;
   }
 }
 

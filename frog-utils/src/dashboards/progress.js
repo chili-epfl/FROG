@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
 
-export const LineChart = ({
+const LineChart = ({
   title,
   vAxis,
   hAxis,
@@ -56,9 +56,14 @@ const Viewer = TimedComponent((props: Object) => {
 
   const numWindow =
     activity.actualClosingTime === undefined
-      ? Math.ceil((timeNow - activity.actualStartingTime) / 1000 / TIMEWINDOW)
+      ? Math.ceil(
+          (new Date(timeNow) - new Date(activity.actualStartingTime)) /
+            1000 /
+            TIMEWINDOW
+        )
       : Math.ceil(
-          (activity.actualClosingTime - activity.actualStartingTime) /
+          (new Date(activity.actualClosingTime) -
+            new Date(activity.actualStartingTime)) /
             1000 /
             TIMEWINDOW
         );
@@ -107,7 +112,7 @@ const Viewer = TimedComponent((props: Object) => {
       </table>
     </React.Fragment>
   );
-}, TIMEWINDOW * 1000);
+}, 2000);
 
 const mergeLog = (
   data: any,
@@ -132,7 +137,8 @@ const mergeLog = (
     dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
     // $FlowFixMe
-    const timeDiff = (log.timestamp - activity.actualStartingTime) / 1000;
+    const timeDiff =
+      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
     if (timeWindow !== lastTimingItem[0]) {
       const newItem = [timeWindow, lastTimingItem[1], lastTimingItem[2]];
