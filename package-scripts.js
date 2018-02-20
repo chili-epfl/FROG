@@ -1,5 +1,5 @@
 const { sync } = require('find-up');
-const { dirname, join } = require('path');
+const { dirname } = require('path');
 const { readdirSync } = require('fs');
 
 let dir;
