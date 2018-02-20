@@ -6,7 +6,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
 
-import StudentList from './StudentList';
 import StudentListModal from './StudentListModal';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
@@ -80,8 +79,6 @@ const TeacherView = withTracker(() => {
   <div id="teacher" style={{ display: 'flex' }}>
     <div style={{ width: '80%' }}>
       <SessionController {...props} />
-      <hr />
-      {props.students && <StudentList students={props.students} />}
       <hr />
       <SessionList {...props} />
     </div>
