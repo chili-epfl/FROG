@@ -69,6 +69,16 @@ Meteor.publish('userData', function() {
   });
 });
 
+Meteor.publish('dashboard.data', function(sessionId, activityId) {
+  const slug = Sessions.findOne(sessionId).slug;
+  const users = Meteor.users.find(
+    { joinedSessions: slug },
+    { fields: { username: 1, joinedSessions: 1 } }
+  );
+  const object = Objects.find(activityId);
+  return [users, object];
+});
+
 publishComposite('session_activities', function(slug) {
   return {
     find() {

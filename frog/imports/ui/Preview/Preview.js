@@ -339,7 +339,10 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                       .map((_, i) => i + 1)}
                     users={users
                       .filter(e => e !== 'dashboard')
-                      .map((e, i) => ({ _id: i + 1, username: e }))}
+                      .reduce(
+                        (acc, name, i) => ({ ...acc, [i + 1]: name }),
+                        {}
+                      )}
                   />
                 </MosaicWindow>
               ) : (
