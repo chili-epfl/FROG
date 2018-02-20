@@ -13,7 +13,7 @@ export class ErrorBoundary extends Component {
   }
   render() {
     if (this.state.error) {
-      return <p>Sorry — something's gone wrong.</p>;
+      return <p>{this.props.msg || `Sorry — something's gone wrong.`}</p>;
     } else {
       return this.props.children;
     }

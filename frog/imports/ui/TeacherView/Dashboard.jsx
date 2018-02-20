@@ -10,6 +10,7 @@ import styled from 'styled-components';
 
 import { type ActivityDbT } from 'frog-utils';
 
+import { ErrorBoundary } from '../App/ErrorBoundary';
 import doGetInstances from '../../api/doGetInstances';
 import { Activities } from '../../api/activities';
 import { Objects } from '../../api/objects';
@@ -127,9 +128,14 @@ const DashboardNav = props => {
     const dash = activityTypesObj[ac.activityType].dashboard;
     return dash && dash.Viewer;
   });
+  const openAcWithDashIds = acWithDash
+    .filter(
+      x => session.openActivities && session.openActivities.includes(x._id)
+    )
+    .map(x => x._id);
   const aId =
-    activityId ||
-    (session.openActivities.length > 0 && session.openActivities[0]);
+    activityId || (openAcWithDashIds.length > 0 && openAcWithDashIds[0]);
+  const activityToDash = activities.find(a => a._id === aId);
   return (
     <div>
       <h1>Dashboards</h1>
@@ -148,10 +154,11 @@ const DashboardNav = props => {
             </NavItem>
           ))}
         </Nav>
-        <Dashboard
-          session={session}
-          activity={activities.find(a => a._id === aId)}
-        />
+        {activityToDash && (
+          <ErrorBoundary msg="Dashboard crashed, try reloading">
+            <Dashboard session={session} activity={activityToDash} />
+          </ErrorBoundary>
+        )}
       </Container>
     </div>
   );

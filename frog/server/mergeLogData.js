@@ -13,54 +13,57 @@ import { Activities } from '../imports/api/activities.js';
 const activityCache = {};
 
 Meteor.methods({
-  'merge.log': (rawLog: LogDBT) => {
-    const log = { ...rawLog, timestamp: new Date() };
-    try {
-      Logs.insert(log);
+  'merge.log': (rawLog: LogDBT | LogDBT[], logExtra) => {
+    const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
+    logs.forEach(eachLog => {
+      const log = { ...logExtra, ...eachLog, timestamp: new Date() };
+      try {
+        Logs.insert(log);
 
-      if (log.activityType && log.activityId) {
-        const aT = activityTypesObj[log.activityType];
+        if (log.activityType && log.activityId) {
+          const aT = activityTypesObj[log.activityType];
 
-        if (!activityCache[log.activityId]) {
-          activityCache[log.activityId] = Activities.findOne(log.activityId);
-        }
-        const activity = activityCache[log.activityId];
+          if (!activityCache[log.activityId]) {
+            activityCache[log.activityId] = Activities.findOne(log.activityId);
+          }
+          const activity = activityCache[log.activityId];
 
-        if (aT.dashboard && aT.dashboard.mergeLog) {
-          const docId = 'DASHBOARD//' + log.activityId;
-          if (Cache[docId]) {
-            const [doc, dataFn] = Cache[docId];
-            aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log, activity);
-          } else {
-            const prepareDoc = doctmp => {
-              const dataFn = generateReactiveFn(doctmp);
-              Cache[docId] = [doctmp, dataFn];
-              if (aT.dashboard && aT.dashboard.mergeLog) {
-                aT.dashboard.mergeLog(
-                  cloneDeep(doctmp.data),
-                  dataFn,
-                  log,
-                  activity
-                );
-              }
-            };
-
-            const doc = serverConnection.get('rz', docId);
-            doc.fetch();
-            if (doc.type) {
-              prepareDoc(doc);
+          if (aT.dashboard && aT.dashboard.mergeLog) {
+            const docId = 'DASHBOARD//' + log.activityId;
+            if (Cache[docId]) {
+              const [doc, dataFn] = Cache[docId];
+              aT.dashboard.mergeLog(cloneDeep(doc.data), dataFn, log, activity);
             } else {
-              doc.once('load', () => {
+              const prepareDoc = doctmp => {
+                const dataFn = generateReactiveFn(doctmp);
+                Cache[docId] = [doctmp, dataFn];
+                if (aT.dashboard && aT.dashboard.mergeLog) {
+                  aT.dashboard.mergeLog(
+                    cloneDeep(doctmp.data),
+                    dataFn,
+                    log,
+                    activity
+                  );
+                }
+              };
+
+              const doc = serverConnection.get('rz', docId);
+              doc.fetch();
+              if (doc.type) {
                 prepareDoc(doc);
-              });
+              } else {
+                doc.once('load', () => {
+                  prepareDoc(doc);
+                });
+              }
             }
           }
         }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(log, e);
       }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(log, e);
-    }
+    });
   }
 });
 

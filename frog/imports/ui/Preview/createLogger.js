@@ -12,21 +12,24 @@ const createLogger = (
   activityPlane: number,
   callback: LogDBT => void
 ) => {
-  const logger = (logItem: LogT) => {
-    const log = ({
-      _id: uuid(),
-      userId,
-      sessionId,
-      activityType,
-      activityId: 'preview',
-      activityPlane,
-      instanceId,
-      timestamp: new Date(),
-      ...logItem
-    }: LogDBT);
-    Logs.push(log);
-    callback(log);
-    return log;
+  const logger = (logItems: Array<LogT> | LogT) => {
+    const list = Array.isArray(logItems) ? logItems : [logItems];
+    list.forEach(logItem => {
+      const log = ({
+        _id: uuid(),
+        userId,
+        sessionId,
+        activityType,
+        activityId: 'preview',
+        activityPlane,
+        instanceId,
+        timestamp: new Date(),
+        ...logItem
+      }: LogDBT);
+      Logs.push(log);
+      callback(log);
+      return log;
+    });
   };
   return logger;
 };

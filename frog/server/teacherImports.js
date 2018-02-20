@@ -13,13 +13,13 @@ import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 import { ActivityLibrary } from '../imports/api/activityLibrary.js';
 
-const teacherPublish = (publish, collection) =>
+const teacherPublish = (publish, collection, limitation) =>
   Meteor.publish(publish, function() {
     if (
       this.userId &&
       Meteor.users.findOne(this.userId).username === 'teacher'
     ) {
-      return collection.find({});
+      return limitation ? collection.find({}, limitation) : collection.find({});
     } else {
       return this.ready();
     }
@@ -27,7 +27,7 @@ const teacherPublish = (publish, collection) =>
 
 export default () => {
   teacherPublish('activities', Activities);
-  teacherPublish('users', Meteor.users);
+  teacherPublish('users', Meteor.users, { fields: { username: 1 } });
   teacherPublish('operators', Operators);
   teacherPublish('connections', Connections);
   teacherPublish('activity_data', ActivityData);
