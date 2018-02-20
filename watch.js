@@ -15,7 +15,7 @@ const watcher = chokidar.watch(pattern, {
   cwd: dir
 });
 
-const log = console.log.bind(console);
+const log = console.info.bind(console);
 
 watcher.on('change', src => {
   const dist = src.replace('src', 'dist').replace('.jsx', '.js');
