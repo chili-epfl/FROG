@@ -18,7 +18,7 @@ const watcher = chokidar.watch(pattern, {
 const log = console.log.bind(console);
 
 watcher.on('change', src => {
-  const dist = src.replace('src', 'dist').replace('.jsx', '.js');
+  const dist = src.replace('/src/', '/dist/').replace('.jsx', '.js');
 
   childProcess.exec(
     `${dir}/node_modules/.bin/babel ${src} -o ${dist}`,
