@@ -10,8 +10,6 @@ const pattern =
     ? ['ac/*/src/**', 'op/*/src/**', 'frog-utils/src/**']
     : `${process.argv[2]}/src`;
 
-console.log(pattern);
-
 const watcher = chokidar.watch(pattern, {
   persistent: true,
   cwd: dir
