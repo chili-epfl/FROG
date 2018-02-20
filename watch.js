@@ -10,6 +10,8 @@ const pattern =
     ? ['ac/*/src/**', 'op/*/src/**', 'frog-utils/src/**']
     : `${process.argv[2]}/src`;
 
+console.log(pattern);
+
 const watcher = chokidar.watch(pattern, {
   persistent: true,
   cwd: dir
@@ -17,17 +19,17 @@ const watcher = chokidar.watch(pattern, {
 
 const log = console.log.bind(console);
 
-watcher.on('change', path => {
-  const pkgDirSrc = dirname(path);
-  const pkgDirDest = pkgDirSrc.replace('src', 'dist');
+watcher.on('change', src => {
+  const dist = src.replace('src', 'dist').replace('.jsx', '.js');
+
   childProcess.exec(
-    `${dir}/node_modules/.bin/babel ${pkgDirSrc} --out-dir ${pkgDirDest}`,
-    (error, stdout) => {
+    `${dir}/node_modules/.bin/babel ${src} -o ${dist}`,
+    error => {
       if (error) {
         log(`Babel error: ${error}`);
         return;
       }
-      log(`${stdout}`);
+      log(`${src}->${dist}`);
     }
   );
 });
