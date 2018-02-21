@@ -204,7 +204,8 @@ export default class Store {
           this.operatorStore.history
         ];
         const lastEntry = this.history.slice(-1).pop() || [];
-        if (!isEqual(Stringify(lastEntry), Stringify(newEntry))) { // problem of is Equal
+        if (!isEqual(Stringify(lastEntry), Stringify(newEntry))) {
+          // problem of is Equal
           this.history.push(newEntry);
           mergeGraph(this.objects);
         }
@@ -248,22 +249,22 @@ export default class Store {
       },
 
       undo: action(() => {
-        if(this.history.length > 1){
-          this.history.pop()
-          this.activityStore = new ActivityStore()
-          this.operatorStore = new OperatorStore()
-          this.connectionStore = new ConnectionStore()
-          this.history[this.history.length-1][0].forEach(x => {
-          this.connectionStore.mongoAdd(x)
-        })
-        this.history[this.history.length-1][1].forEach(x => {
-          this.activityStore.mongoAdd(x)
-        })
-        this.history[this.history.length-1][2].forEach(x => {
-          this.connectionStore.mongoAdd(x)
-        })
-        mergeGraph(this.objects)
-        this.refreshValidate();
+        if (this.history.length > 1) {
+          this.history.pop();
+          this.activityStore = new ActivityStore();
+          this.operatorStore = new OperatorStore();
+          this.connectionStore = new ConnectionStore();
+          this.history[this.history.length - 1][0].forEach(x => {
+            this.connectionStore.mongoAdd(x);
+          });
+          this.history[this.history.length - 1][1].forEach(x => {
+            this.activityStore.mongoAdd(x);
+          });
+          this.history[this.history.length - 1][2].forEach(x => {
+            this.connectionStore.mongoAdd(x);
+          });
+          mergeGraph(this.objects);
+          this.refreshValidate();
         }
       }),
 

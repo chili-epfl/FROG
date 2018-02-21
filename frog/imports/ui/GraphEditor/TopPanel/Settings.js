@@ -12,8 +12,13 @@ const submitRemoveGraph = id => {
   store.setId(assignGraph());
 };
 
-export const UndoButton = connect(({ store: { ui: {unselect}, undo } }) => (
-  <Button onClick={() => {unselect();undo();}}>
+export const UndoButton = connect(({ store: { ui: { unselect }, undo } }) => (
+  <Button
+    onClick={() => {
+      unselect();
+      undo();
+    }}
+  >
     <i className="fa fa-undo" aria-hidden="true" /> Undo
   </Button>
 ));
