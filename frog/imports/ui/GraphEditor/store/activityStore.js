@@ -161,7 +161,7 @@ export default class ActivityStore {
             new Activity(
               x.plane,
               x.startTime,
-              x.title,
+              x.rawTitle,
               x.length,
               x._id,
               x.state
