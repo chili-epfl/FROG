@@ -34,7 +34,10 @@ export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
 const SidebarContainer = connect(
   ({ store: { ui: { setSidepanelOpen } }, children }) => (
     <SidebarContainerDiv>
-      <CloseButtonA onClick={() => setSidepanelOpen(false)}>
+      <CloseButtonA
+        onClick={() => setSidepanelOpen(false)}
+        style={{ zIndex: '10' }}
+      >
         <i className="fa fa-times" />
       </CloseButtonA>
       {children}
