@@ -8,6 +8,9 @@ import EditActivity from './EditActivity';
 
 export default withTracker(({ id }) => ({ activity: Activities.findOne(id) }))(
   ({ activity }) => {
+    if (!activity) {
+      return null;
+    }
     if (activity.activityType && activity.activityType !== '') {
       return <EditActivity activity={activity} />;
     } else {

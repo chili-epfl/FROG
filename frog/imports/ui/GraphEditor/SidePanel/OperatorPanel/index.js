@@ -14,6 +14,9 @@ const ChooseOperatorType = connect(ChooseOperatorTypeComp);
 
 export default withTracker(({ id }) => ({ operator: Operators.findOne(id) }))(
   ({ operator }) => {
+    if (!operator) {
+      return null;
+    }
     if (operator.operatorType && operator.operatorType !== '') {
       return <EditOperator operator={operator} />;
     } else {
