@@ -42,7 +42,8 @@ const config = {
   properties: {
     title: {
       type: 'string',
-      title: 'Title'
+      title: 'Title',
+      default: 'TOTO'
     }
   }
 };

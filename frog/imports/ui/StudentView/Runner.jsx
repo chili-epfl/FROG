@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypes, activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import ReactiveHOC from './ReactiveHOC';
@@ -46,7 +46,8 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     title = `(individual/${Meteor.user().username})`;
   }
 
-  const config = activity.data;
+  const config = activity.data || activityTypes.find(x => x.id === activity.activityType).config.properties;
+  console.log(config)
 
   const activityStructure = getStructure(activity);
 
