@@ -42,14 +42,14 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const select = this.props.onSelect
       ? this.props.onSelect
       : activityType => {
-        const actType = activityTypes.find(x => x.id === activityType.id);
-        const defaultConf =
-          typeof actType !== 'undefined' ? actType.config.properties : {};
-        Object.keys(defaultConf).forEach(
-          x => (defaultConf[x] = defaultConf[x].default)
-        );
-        console.log(defaultConf)
-          addActivity(activityType.id, defaultConf, this.props.activity._id)
+          const actType = activityTypes.find(x => x.id === activityType.id);
+          const defaultConf =
+            typeof actType !== 'undefined' ? actType.config.properties : {};
+          const defConf = Object.keys(defaultConf).reduce((acc, key) => {
+            acc[key] = defaultConf[key].defaultw;
+            return acc;
+          }, {});
+          addActivity(activityType.id, defConf, this.props.activity._id);
           if (this.props.store) {
             this.props.store.addHistory();
           }
