@@ -46,9 +46,13 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     title = `(individual/${Meteor.user().username})`;
   }
 
-  const defaultConf = activityTypes.find(x => x.id === activity.activityType).config.properties;
-  Object.keys(defaultConf).forEach(x => defaultConf[x] = defaultConf[x].default)
-  const config = activity.data || defaultConf
+  const actType = activityTypes.find(x => x.id === activity.activityType);
+  const defaultConf =
+    typeof actType !== 'undefined' ? actType.config.properties : {};
+  Object.keys(defaultConf).forEach(
+    x => (defaultConf[x] = defaultConf[x].default)
+  );
+  const config = activity.data || defaultConf;
 
   const activityStructure = getStructure(activity);
 
