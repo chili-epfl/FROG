@@ -17,7 +17,7 @@ export default withTracker(({ id }) => ({ operator: Operators.findOne(id) }))(
     if (!operator) {
       return null;
     }
-    if (operator.operatorType && operator.operatorType !== '') {
+    if (operator.operatorType) {
       return <EditOperator operator={operator} />;
     } else {
       return <ChooseOperatorType operator={operator} />;

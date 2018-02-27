@@ -11,7 +11,7 @@ export default withTracker(({ id }) => ({ activity: Activities.findOne(id) }))(
     if (!activity) {
       return null;
     }
-    if (activity.activityType && activity.activityType !== '') {
+    if (activity.activityType) {
       return <EditActivity activity={activity} />;
     } else {
       return <ChooseActivity activity={activity} />;
