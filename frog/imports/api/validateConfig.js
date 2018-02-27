@@ -20,6 +20,7 @@ const runValidationFn = (id, fn, obj) => {
 };
 
 export default (nodeType, id, configObj, schema, validationFns, uiSchema) => {
+  console.log(schema)
   if (!schema) {
     return null;
   }

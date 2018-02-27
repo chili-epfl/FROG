@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
-import { Activities } from '/imports/api/activities';
+import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
 
 import ActivityLibrary from './ActivityLibrary';
@@ -42,9 +42,14 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const select = this.props.onSelect
       ? this.props.onSelect
       : activityType => {
-          Activities.update(this.props.activity._id, {
-            $set: { activityType: activityType.id }
-          });
+        const actType = activityTypes.find(x => x.id === activityType.id);
+        const defaultConf =
+          typeof actType !== 'undefined' ? actType.config.properties : {};
+        Object.keys(defaultConf).forEach(
+          x => (defaultConf[x] = defaultConf[x].default)
+        );
+        console.log(defaultConf)
+          addActivity(activityType.id, defaultConf, this.props.activity._id)
           if (this.props.store) {
             this.props.store.addHistory();
           }

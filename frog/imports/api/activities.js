@@ -21,6 +21,7 @@ export const addActivity = (
   parentId: ?string
 ) => {
   if (id) {
+    console.log(data)
     const toSet = omitBy({ activityType, parentId, data, groupingKey }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
