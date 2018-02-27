@@ -29,6 +29,7 @@ const PreviewPage = ({
   const {
     showData: showDataRaw,
     showDash: showDashRaw,
+    showDashExample: showDashExampleRaw,
     fullWindow: fullWindowRaw,
     windows: windowsRaw,
     showLogs: showLogsRaw
@@ -36,6 +37,7 @@ const PreviewPage = ({
   const windows = parseInt(windowsRaw, 10) || 1;
   const showData = showDataRaw === 'true';
   const showDash = showDashRaw === 'true';
+  const showDashExample = showDashExampleRaw === 'true';
   const fullWindow = fullWindowRaw === 'true';
   const showLogs = showLogsRaw === 'true';
   const dismiss = () => history.push(`/preview`);
@@ -50,6 +52,7 @@ const PreviewPage = ({
         {
           showData: e.showData,
           showDash: e.showDash,
+          showDashExample: e.showDashExample,
           fullWindow: e.fullWindow,
           windows: e.windows,
           showLogs: e.showLogs
@@ -61,6 +64,8 @@ const PreviewPage = ({
   };
 
   const setShowDash = x => changeURL({ showDash: x, showLogs: false });
+  const setShowDashExample = x =>
+    changeURL({ showDashExample: x, showLogs: false, showDash: false });
   const setShowLogs = x => changeURL({ showLogs: x, showDash: false });
   const setShowData = x => changeURL({ showData: x });
   const setWindows = x => changeURL({ windows: x });
@@ -81,6 +86,8 @@ const PreviewPage = ({
         setShowData,
         showDash,
         setShowDash,
+        showDashExample,
+        setShowDashExample,
         dismiss,
         setShowLogs,
         showLogs,

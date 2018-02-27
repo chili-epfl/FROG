@@ -71,7 +71,9 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     setWindows,
     fullWindow,
     setFullWindow,
-    reload
+    reload,
+    showDashExample,
+    setShowDashExample
   }: {
     activityTypeId: string,
     example: number,
@@ -79,6 +81,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     showData: boolean,
     setShowDash: Function,
     showDash: boolean,
+    setShowDashExample: Function,
+    showDashExample: boolean,
     setShowData: Function,
     setShowLogs: Function,
     showLogs: boolean,
@@ -233,6 +237,15 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
               tooltip="Toggle dashboard"
             />
           )}
+          {activityType.dashboard &&
+            activityType.dashboard.exampleLogs && (
+              <Icon
+                onClick={() => setShowDashExample(!showDashExample)}
+                icon="fa fa-line-chart"
+                color={showDashExample ? '#3d76b8' : '#b3cae6'}
+                tooltip="Toggle example logs dashboard"
+              />
+            )}
           <Icon
             onClick={() => setShowLogs(!showLogs)}
             icon="fa fa-list"
@@ -414,6 +427,7 @@ const StatefulPreview = compose(
   withState('fullWindow', 'setFullWindow', false),
   withState('showData', 'setShowData', false),
   withState('showDash', 'setShowDash', false),
+  withState('showDashExample', 'setShowDashExample', false),
   withState('windows', 'setWindows', 1),
   withState('showLogs', 'setShowLogs', false)
 )(StatelessPreview);

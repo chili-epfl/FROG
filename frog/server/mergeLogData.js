@@ -3,6 +3,8 @@
 import { Meteor } from 'meteor/meteor';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn, type LogDBT } from 'frog-utils';
+import { readFileSync } from 'fs';
+import { resolve, join } from 'path';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
@@ -82,6 +84,25 @@ Meteor.methods({
       Meteor.users.findOne(this.userId).username === 'teacher'
     ) {
       return Logs.findOne({ sessionId }, { sort: { timestamp: -1 } }).timestamp;
+    }
+  },
+  'get.example.logs': function(ac) {
+    const rootPath = resolve('.').split('/.meteor')[0];
+    const d = activityTypesObj[ac].dashboard;
+    const examplePath = d && d.exampleLogs && d.exampleLogs[0].path;
+    if (examplePath) {
+      const log = readFileSync(
+        join(rootPath, '..', 'ac', ac, examplePath),
+        'utf-8'
+      );
+
+      console.log(log);
+      return log
+        .trim()
+        .split('\n')
+        .map(x => JSON.parse(x));
+    } else {
+      return false;
     }
   }
 });

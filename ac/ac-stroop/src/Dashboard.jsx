@@ -125,7 +125,7 @@ const mergeLog = (
 };
 
 const exampleLogs = [
-  { title: 'CS211 week 1', path: 'logExample/progress-cs211-w1.json' }
+  { title: 'CS211 week 1', path: 'src/logExamples/progress-cs211-w1.json' }
 ];
 
 export default { Viewer, mergeLog, initData, exampleLogs };
