@@ -124,4 +124,8 @@ const mergeLog = (
   }
 };
 
-export default { Viewer, mergeLog, initData };
+const exampleLogs = [
+  { title: 'CS211 week 1', path: 'logExample/progress-cs211-w1.json' }
+];
+
+export default { Viewer, mergeLog, initData, exampleLogs };
