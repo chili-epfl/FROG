@@ -36,10 +36,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     this.inputRef = null;
   }
 
-  componentWillUnmount() {
-    return this.props.store && this.props.store.ui.setLibraryOpen(false);
-  }
-
   render() {
     const select = this.props.onSelect
       ? this.props.onSelect
