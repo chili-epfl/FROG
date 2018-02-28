@@ -1,9 +1,10 @@
 // @flow
 
-import * as React from 'react';
-import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
+import React, { Component } from 'react';
+import type { ActivityPackageT } from 'frog-utils';
 import { H5PIframePrepare } from '/imports/ui/App/h5p';
 import ConfigComponent from './ConfigComponent';
+import dashboard from './Dashboard';
 
 export const meta = {
   name: 'H5P activity',
@@ -11,7 +12,7 @@ export const meta = {
   description: 'Displays H5P activity, and logs xAPI statements'
 };
 
-export class ActivityRunner extends React.Component<ActivityRunnerT> {
+export class ActivityRunner extends Component {
   componentDidMount = () => {
     H5PIframePrepare();
     const eventMethod = window.addEventListener
@@ -58,6 +59,7 @@ export default ({
   type: 'react-component',
   ActivityRunner,
   ConfigComponent,
+  dashboard,
   config: {
     type: 'object',
     required: ['component'],

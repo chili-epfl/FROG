@@ -1,0 +1,303 @@
+{
+  "logs": [
+    {
+      "_id": "CjgXHNiP2BkFNb422",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "attempted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/attempted\",\"display\":{\"en-US\":\"attempted\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}}}"
+      }
+    },
+    {
+      "_id": "Czn6kA3a6f9HNSdNW",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}}}"
+      }
+    },
+    {
+      "_id": "ir7uQYMSdtyXSiuWj",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}}}"
+      }
+    },
+    {
+      "_id": "Riix27A739RWNQJWE",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "answered",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/answered\",\"display\":{\"en-US\":\"answered\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"},\"description\":{\"en-US\":\"What kind of berry is this?\\n\"},\"type\":\"http://adlnet.gov/expapi/activities/cmi.interaction\",\"interactionType\":\"choice\",\"correctResponsesPattern\":[\"1\"],\"choices\":[{\"id\":\"1\",\"description\":{\"en-US\":\"Strawberry\\n\"}},{\"id\":\"0\",\"description\":{\"en-US\":\"Blueberry\\n\"}}]}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}},\"result\":{\"score\":{\"min\":0,\"max\":1,\"raw\":0,\"scaled\":0},\"completion\":true,\"success\":false,\"duration\":\"PT4.36S\",\"response\":\"0\"}}"
+      }
+    },
+    {
+      "_id": "JFsksReu8SaSMN664",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "attempted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/attempted\",\"display\":{\"en-US\":\"attempted\"}},\"object\":{\"id\":\"undefined?subContentId=ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\"},\"name\":{\"en-US\":\"Highlight the ingredients that have been added so far.\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MarkTheWords-1.7\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT20S\"}}}"
+      }
+    },
+    {
+      "_id": "owGQG2cGYgWXk57jF",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\"},\"name\":{\"en-US\":\"Highlight the ingredients that have been added so far.\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MarkTheWords-1.7\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT20S\"}}}"
+      }
+    },
+    {
+      "_id": "j85WMRAnhqx2ZRzqu",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\"},\"name\":{\"en-US\":\"Highlight the ingredients that have been added so far.\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MarkTheWords-1.7\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT20S\"}}}"
+      }
+    },
+    {
+      "_id": "HuqSmma8TcqJppNF6",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "answered",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/answered\",\"display\":{\"en-US\":\"answered\"}},\"object\":{\"id\":\"undefined?subContentId=ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"ac89ad57-8a23-402e-86dd-c5f7fcb3f08f\",\"https://h5p.org/x-api/line-breaks\":[]},\"name\":{\"en-US\":\"Highlight the ingredients that have been added so far.\\n\"},\"description\":{\"en-US\":\"Highlight the ingredients that have been added so far.<br/>\"},\"type\":\"http://adlnet.gov/expapi/activities/cmi.interaction\",\"interactionType\":\"choice\",\"correctResponsesPattern\":[\"0[,]2\"],\"choices\":[{\"id\":\"0\",\"description\":{\"en-US\":\"Strawberries\"}},{\"id\":\"1\",\"description\":{\"en-US\":\"Cookies\"}},{\"id\":\"2\",\"description\":{\"en-US\":\"Blueberries\"}},{\"id\":\"3\",\"description\":{\"en-US\":\"Milk\"}}]}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MarkTheWords-1.7\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT20S\"}},\"result\":{\"score\":{\"min\":0,\"max\":2,\"raw\":0,\"scaled\":0},\"completion\":true,\"success\":false,\"duration\":\"PT3.93S\",\"response\":\"1[,]3\"}}"
+      }
+    },
+    {
+      "_id": "EBjaSBemtnA9sNYCr",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "attempted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/attempted\",\"display\":{\"en-US\":\"attempted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "TSj3zTS75MK4ycyDn",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "5mv6paqqRZT3fQ9Mj",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "n3ZmoCq5DcEK5qmrn",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "XMEHTCqgmtSNqTXEc",
+      "userId": "okEHy3tDSmgmkbZjZ",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "answered",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/answered\",\"display\":{\"en-US\":\"answered\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"},\"description\":{\"en-US\":\"<p>Fill in the correct ingredients</p>\\n<p>Strawberries and __________berries are mixed with __________&nbsp;and oatmeal __________&nbsp;to make this delicious&nbsp;smoothie.&nbsp;</p>\\n\"},\"type\":\"http://adlnet.gov/expapi/activities/cmi.interaction\",\"interactionType\":\"fill-in\",\"correctResponsesPattern\":[\"{case_matters=true}blue[,]milk[,]cookies\"]}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}},\"result\":{\"score\":{\"min\":0,\"max\":3,\"raw\":0,\"scaled\":0},\"completion\":true,\"duration\":\"PT6.85S\",\"response\":\"oatmeal[,]cookies[,]coffee\"}}"
+      }
+    },
+    {
+      "_id": "JuZofz4ThQA4pj4z6",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "attempted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/attempted\",\"display\":{\"en-US\":\"attempted\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}}}"
+      }
+    },
+    {
+      "_id": "rvYdvJfbT4v8F6yja",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}}}"
+      }
+    },
+    {
+      "_id": "26QvENLnhrvh4YCxX",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}}}"
+      }
+    },
+    {
+      "_id": "vFFSHCX3neoYZ6bB8",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "answered",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/answered\",\"display\":{\"en-US\":\"answered\"}},\"object\":{\"id\":\"undefined?subContentId=d06868ac-688b-4a31-8fc4-9f756f7c545d\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"d06868ac-688b-4a31-8fc4-9f756f7c545d\"},\"name\":{\"en-US\":\"What kind of berry is this?\\n\"},\"description\":{\"en-US\":\"What kind of berry is this?\\n\"},\"type\":\"http://adlnet.gov/expapi/activities/cmi.interaction\",\"interactionType\":\"choice\",\"correctResponsesPattern\":[\"1\"],\"choices\":[{\"id\":\"0\",\"description\":{\"en-US\":\"Blueberry\\n\"}},{\"id\":\"1\",\"description\":{\"en-US\":\"Strawberry\\n\"}}]}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.MultiChoice-1.10\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT11S\"}},\"result\":{\"score\":{\"min\":0,\"max\":1,\"raw\":1,\"scaled\":1},\"completion\":true,\"success\":true,\"duration\":\"PT2.19S\",\"response\":\"1\"}}"
+      }
+    },
+    {
+      "_id": "LFpNd7A2zmG4dddjn",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "attempted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/attempted\",\"display\":{\"en-US\":\"attempted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "gDgyRAAA8KA9BpT5v",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "X8irrzuT3HG3t5fWB",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "Pei6bmFgN5D62TiKe",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "interacted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/interacted\",\"display\":{\"en-US\":\"interacted\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}}}"
+      }
+    },
+    {
+      "_id": "fX72875F7e4nRzgKq",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "answered",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/answered\",\"display\":{\"en-US\":\"answered\"}},\"object\":{\"id\":\"undefined?subContentId=6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"6ee46b4e-e3ad-4f3b-8d79-a9832b543dae\"},\"name\":{\"en-US\":\"Fill in the correct ingredients\\n\"},\"description\":{\"en-US\":\"<p>Fill in the correct ingredients</p>\\n<p>Strawberries and __________berries are mixed with __________&nbsp;and oatmeal __________&nbsp;to make this delicious&nbsp;smoothie.&nbsp;</p>\\n\"},\"type\":\"http://adlnet.gov/expapi/activities/cmi.interaction\",\"interactionType\":\"fill-in\",\"correctResponsesPattern\":[\"{case_matters=true}blue[,]milk[,]cookies\"]}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.Blanks-1.8\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT31S\"}},\"result\":{\"score\":{\"min\":0,\"max\":3,\"raw\":0,\"scaled\":0},\"completion\":true,\"duration\":\"PT3.95S\",\"response\":\"a[,]bc[,]d\"}}"
+      }
+    },
+    {
+      "_id": "kJdbECx6WfFMMrkWM",
+      "userId": "9sPaihtZiJtFoQLhM",
+      "sessionId": "cjd3163mb0000uksehp5qbv0e",
+      "activityType": "ac-h5p",
+      "activityPlane": 3,
+      "activityId": "cjd3163mj0002ukse9ugyd6f9",
+      "instanceId": "all",
+      "type": "attempted",
+      "payload": {
+        "msg": "{\"actor\":{\"account\":{\"name\":\"7bc8c5ea-45a1-47df-8e9d-5e354559cf9f\"},\"objectType\":\"Agent\"},\"verb\":{\"id\":\"http://adlnet.gov/expapi/verbs/attempted\",\"display\":{\"en-US\":\"attempted\"}},\"object\":{\"id\":\"undefined?subContentId=bd5267da-0da1-4aab-8206-0e205e6f31d1\",\"objectType\":\"Activity\",\"definition\":{\"extensions\":{\"http://h5p.org/x-api/h5p-local-content-id\":\"undefined\",\"http://h5p.org/x-api/h5p-subContentId\":\"bd5267da-0da1-4aab-8206-0e205e6f31d1\"},\"name\":{\"en-US\":\"Drag and drop\"}}},\"context\":{\"contextActivities\":{\"parent\":[{\"objectType\":\"Activity\"}],\"category\":[{\"id\":\"http://h5p.org/libraries/H5P.DragQuestion-1.11\",\"objectType\":\"Activity\"}]},\"extensions\":{\"http://id.tincanapi.com/extension/ending-point\":\"PT46S\"}}}"
+      }
+    }
+  ]
+}

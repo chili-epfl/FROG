@@ -1,6 +1,6 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
-import * as React from 'react';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 import { uploadFile } from '/imports/api/openUploads';
