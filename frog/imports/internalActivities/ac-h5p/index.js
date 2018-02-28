@@ -1,7 +1,7 @@
 // @flow
 
-import React, { Component } from 'react';
-import type { ActivityPackageT } from 'frog-utils';
+import * as React from 'react';
+import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
 import { H5PIframePrepare } from '/imports/ui/App/h5p';
 import ConfigComponent from './ConfigComponent';
 import dashboard from './Dashboard';
@@ -19,7 +19,7 @@ export const meta = {
   ]
 };
 
-export class ActivityRunner extends Component {
+export class ActivityRunner extends React.Component<ActivityRunnerT, void> {
   componentDidMount = () => {
     if (!this.props.activityData.config.component) {
       return null;
