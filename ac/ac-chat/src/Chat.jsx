@@ -68,7 +68,7 @@ const Chatmsg = ({ msg }) => (
   </div>
 );
 
-export default class Chat extends Component {
+export default class Chat extends Component<ActivityRunnerT> {
   ref: any;
 
   constructor(props: Object) {
@@ -83,7 +83,6 @@ export default class Chat extends Component {
     ReactDOM.findDOMNode(this.ref).scrollTop =
       maxScrollTop > 0 ? maxScrollTop : 0;
   };
-
   componentDidMount() {
     this.scrollToBottom();
   }
