@@ -212,6 +212,9 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       );
     };
 
+    const ex = showDashExample
+      ? activityType.dashboard.exampleLogs.map(x => x.title)
+      : examples;
     const Controls = (
       <div className="modal-header">
         <button
@@ -295,8 +298,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
           )}
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
-          {examples &&
-            examples.map((x, i) => (
+          {ex &&
+            ex.map((x, i) => (
               <NavItem
                 key={x.title}
                 className="examples"
@@ -309,18 +312,22 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         </Nav>
       </div>
     );
-    const users = [
-      ...[
-        'Chen Li',
-        'Maurice',
-        'Edgar',
-        'Noel',
-        'Patrick',
-        'Ole',
-        'Niels'
-      ].slice(0, windows),
-      ...((showDash && ['dashboard']) || [])
-    ];
+    const users = showDashExample
+      ? ['dashboard']
+      : [
+          ...[
+            'Chen Li',
+            'Maurice',
+            'Edgar',
+            'Noel',
+            'Patrick',
+            'Ole',
+            'Niels'
+          ].slice(0, windows),
+          ...((showDash && ['dashboard']) || [])
+        ];
+
+    const ShowDashExample = () => <h1>Dash</h1>;
 
     const Content = (
       <div
@@ -331,7 +338,9 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
           height: 'calc(100% - 60px)'
         }}
       >
-        {users.length === 1 || showData ? (
+        {showDashExample ? (
+          <ShowDashExample />
+        ) : users.length === 1 || showData ? (
           <Run name={users[0]} id={1} />
         ) : (
           <Mosaic
