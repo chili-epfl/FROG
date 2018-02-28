@@ -9,11 +9,21 @@ import dashboard from './Dashboard';
 export const meta = {
   name: 'H5P activity',
   shortDesc: 'Upload a fully configured H5P activity',
-  description: 'Displays H5P activity, and logs xAPI statements'
+  description: 'Displays H5P activity, and logs xAPI statements',
+  exampleData: [
+    {
+      title: 'Empty',
+      config: { title: 'Example H5P' },
+      data: []
+    }
+  ]
 };
 
 export class ActivityRunner extends Component {
   componentDidMount = () => {
+    if (!this.props.activityData.config.component) {
+      return null;
+    }
     H5PIframePrepare();
     const eventMethod = window.addEventListener
       ? 'addEventListener'
@@ -39,6 +49,9 @@ export class ActivityRunner extends Component {
   componentWillUnmount = () => {};
 
   render() {
+    if (!this.props.activityData.config.component) {
+      return null;
+    }
     return (
       <div style={{ width: '100%', height: '100%' }}>
         {this.props.activityData.config.prompt && (
