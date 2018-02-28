@@ -82,9 +82,6 @@ export default class Chat extends Component {
     const maxScrollTop = scrollHeight - height;
     ReactDOM.findDOMNode(this.ref).scrollTop =
       maxScrollTop > 0 ? maxScrollTop : 0;
-    // console.log(scrollHeight, height, maxScrollTop);
-
-    // console.log('fired');
   };
 
   componentDidMount() {
