@@ -84,9 +84,8 @@ class Doc {
     });
   }
   numIncr(incr: number, path: rawPathT) {
-    console.time('submitop');
+    this.doc.preventCompose = true;
     this.submitOp({ p: cleanPath(this.path, path), na: incr });
-    console.timeEnd('submitop');
   }
   objInsert(newVal: Object, path: rawPathT) {
     this.submitOp({ p: cleanPath(this.path, path), oi: newVal });
