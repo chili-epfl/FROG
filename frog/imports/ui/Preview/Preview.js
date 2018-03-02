@@ -336,7 +336,11 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         }}
       >
         {showDashExample ? (
-          <ShowDashExample example={example} activityType={activityType} />
+          <ShowDashExample
+            example={example}
+            activityType={activityType}
+            showLogs={showLogs}
+          />
         ) : users.length === 1 || showData ? (
           <Run name={users[0]} id={1} />
         ) : (
@@ -394,7 +398,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
             width: '100vw'
           }}
         >
-          {showLogs ? <ShowLogs logs={Logs} /> : Content}
+          {showLogs && !showDashExample ? <ShowLogs logs={Logs} /> : Content}
         </div>
         <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
           <div
@@ -421,7 +425,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         onRequestClose={dismiss}
       >
         {Controls}
-        {showLogs ? <ShowLogs logs={Logs} /> : Content}
+        {showLogs && !showDashExample ? <ShowLogs logs={Logs} /> : Content}
         <ReactTooltip delayShow={1000} />
       </Modal>
     );

@@ -7,6 +7,7 @@ import ShareDB from 'sharedb';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Spinner from 'react-spinner';
+import Inspector from 'react-inspector';
 
 import { DashboardComp } from '../TeacherView/Dashboard';
 
@@ -32,9 +33,7 @@ class ShowDashExample extends React.Component<
   }
 
   componentWillReceiveProps(nextProps: PropsT) {
-    this.setState({ uuid: uuid(), ready: false }, () =>
-      this.fetchLogs(nextProps)
-    );
+    this.setState({ uuid: uuid() }, () => this.fetchLogs(nextProps));
   }
 
   fetchLogs = (props: PropsT = this.props) => {
@@ -112,16 +111,21 @@ class ShowDashExample extends React.Component<
           onChange={throttle(this.displaySubset, 2000, { leading: false })}
         />
         {this.state.ready ? (
-          <DashboardComp
-            activity={this.activityDbObject}
-            config={this.props.activityType.meta.exampleData[0].config}
-            doc={this.dashboard}
-            instances={Array(
-              this.props.activityType.dashboard.exampleLogs[this.props.example]
-                .instances || []
-            ).fill('')}
-            users={{}}
-          />
+          this.props.showLogs ? (
+            <Inspector data={this.dashboard.data} />
+          ) : (
+            <DashboardComp
+              activity={this.activityDbObject}
+              config={this.props.activityType.meta.exampleData[0].config}
+              doc={this.dashboard}
+              instances={Array(
+                this.props.activityType.dashboard.exampleLogs[
+                  this.props.example
+                ].instances || []
+              ).fill('')}
+              users={{}}
+            />
+          )
         ) : (
           <Spinner />
         )}

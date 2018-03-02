@@ -31,9 +31,7 @@ class Doc {
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
       : e => {
-          console.time('submitOp');
           doc.submitOp(e);
-          console.timeEnd('submitOp');
         };
     this.updateFn = updateFn;
   }
