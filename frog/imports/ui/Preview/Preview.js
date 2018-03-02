@@ -18,6 +18,7 @@ import { DashboardComp } from '../TeacherView/Dashboard';
 import ShowInfo from './ShowInfo';
 import createLogger, { Logs } from './createLogger';
 import ShowLogs from './ShowLogs';
+import ShowDashExample from './ShowDashExample';
 
 const Icon = ({
   onClick,
@@ -212,9 +213,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       );
     };
 
-    const ex = showDashExample
-      ? activityType.dashboard.exampleLogs.map(x => x.title)
-      : examples;
+    const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
     const Controls = (
       <div className="modal-header">
         <button
@@ -327,8 +326,6 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
           ...((showDash && ['dashboard']) || [])
         ];
 
-    const ShowDashExample = () => <h1>Dash</h1>;
-
     const Content = (
       <div
         className="modal-body"
@@ -339,7 +336,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         }}
       >
         {showDashExample ? (
-          <ShowDashExample />
+          <ShowDashExample example={example} activityType={activityType} />
         ) : users.length === 1 || showData ? (
           <Run name={users[0]} id={1} />
         ) : (

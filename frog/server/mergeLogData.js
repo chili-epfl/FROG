@@ -86,17 +86,17 @@ Meteor.methods({
       return Logs.findOne({ sessionId }, { sort: { timestamp: -1 } }).timestamp;
     }
   },
-  'get.example.logs': function(ac) {
+  'get.example.logs': function(ac, idx) {
     const rootPath = resolve('.').split('/.meteor')[0];
     const d = activityTypesObj[ac].dashboard;
-    const examplePath = d && d.exampleLogs && d.exampleLogs[0].path;
+    const examplePath =
+      d && d.exampleLogs && d.exampleLogs[idx] && d.exampleLogs[idx].path;
     if (examplePath) {
       const log = readFileSync(
         join(rootPath, '..', 'ac', ac, examplePath),
         'utf-8'
       );
 
-      console.log(log);
       return log
         .trim()
         .split('\n')

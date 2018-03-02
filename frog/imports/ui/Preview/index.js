@@ -44,7 +44,15 @@ const PreviewPage = ({
 
   const changeURL = merge => {
     const e = {
-      ...{ showData, showDash, fullWindow, windows, example, activityTypeId },
+      ...{
+        showData,
+        showDash,
+        fullWindow,
+        windows,
+        example,
+        activityTypeId,
+        showDashExample
+      },
       ...merge
     };
     const opts = toString(
@@ -65,7 +73,12 @@ const PreviewPage = ({
 
   const setShowDash = x => changeURL({ showDash: x, showLogs: false });
   const setShowDashExample = x =>
-    changeURL({ showDashExample: x, showLogs: false, showDash: false });
+    changeURL({
+      showDashExample: x,
+      showLogs: false,
+      showDash: false,
+      example: 0
+    });
   const setShowLogs = x => changeURL({ showLogs: x, showDash: false });
   const setShowData = x => changeURL({ showData: x });
   const setWindows = x => changeURL({ windows: x });
