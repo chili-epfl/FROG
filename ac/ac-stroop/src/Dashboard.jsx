@@ -124,8 +124,24 @@ const mergeLog = (
   }
 };
 
+const activityMerge = {
+  actualStartingTime: '2018-02-20T08:16:05.308Z',
+  actualClosingTime: '2018-02-20T08:19:45.140Z'
+};
+
 const exampleLogs = [
-  { title: 'CS211 week 1', path: 'src/logExamples/progress-cs211-w1.json' }
+  {
+    title: 'CS211 week 1',
+    path: 'src/logExamples/progress-cs211-w1.json',
+    activityMerge,
+    instances: 118
+  },
+  {
+    title: 'CS211 week 1 (n=400)',
+    path: 'src/logExamples/progress-cs211-w1-short.json',
+    activityMerge,
+    instances: 118
+  }
 ];
 
 export default { Viewer, mergeLog, initData, exampleLogs };

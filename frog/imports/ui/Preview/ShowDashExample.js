@@ -8,6 +8,7 @@ import {
   uuid,
   ActivityPackageT
 } from 'frog-utils';
+import { cloneDeep } from 'lodash';
 import { withState, compose } from 'recompose';
 import ShareDB from 'sharedb';
 
@@ -20,23 +21,31 @@ const connection = backend.connect();
 
 type PropsT = { activityType: ActivityPackageT, example: number };
 
-class ShowDashExample extends React.Component<PropsT, any> {
+class ShowDashExample extends React.Component<
+  PropsT,
+  { ready: boolean, uuid: string }
+> {
   logs: Object[];
-  uuid: string;
+  activityDbObject: Object;
+  dashboard: any;
 
   constructor(props: PropsT) {
     super(props);
     this.logs = [];
-    this.state = {};
-    this.uuid = '1';
+    this.state = { ready: false, uuid: uuid() };
     this.fetchLogs();
   }
 
-  fetchLogs = () => {
+  componentWillReceiveProps(nextProps: PropsT) {
+    this.setState({ uuid: uuid(), ready: false });
+    this.fetchLogs(nextProps);
+  }
+
+  fetchLogs = (props: PropsT = this.props) => {
     Meteor.call(
       'get.example.logs',
-      this.props.activityType.id,
-      this.props.example,
+      props.activityType.id,
+      props.example,
       (err, succ) => {
         this.logs = succ;
         this.mergeLogs();
@@ -46,22 +55,30 @@ class ShowDashExample extends React.Component<PropsT, any> {
 
   mergeLogs = () => {
     this.activityDbObject = {
-      _id: 'preview',
-      data: this.props.activityType.examples[0].config,
-      groupingKey: 'group',
-      plane: 2,
-      startTime: 0,
-      actualStartingTime: new Date(Date.now()),
-      length: 3,
-      activityType: this.props.activityType.id
+      ...{
+        _id: 'preview',
+        data: this.props.activityType.meta.exampleData[0].config,
+        groupingKey: 'group',
+        plane: 2,
+        startTime: 0,
+        actualStartingTime: new Date(Date.now()),
+        length: 3,
+        activityType: this.props.activityType.id
+      },
+      ...this.props.activityType.dashboard.exampleLogs[this.props.example]
+        .activityMerge
     };
-    this.dashboard = connection.get('rz', this.uuid);
+    this.dashboard = null;
+    this.dashboard = connection.get('rz', this.state.uuid);
+    this.dashboard.subscribe();
     this.dashboard.once('load', () => {
-      this.dashboard.create(this.props.activityType.dashboard.initData || {});
-      const reactiveDash = generateReactiveFn(dashboard);
+      this.dashboard.create(
+        cloneDeep(this.props.activityType.dashboard.initData) || {}
+      );
+      const reactiveDash = generateReactiveFn(this.dashboard);
       this.logs.forEach(log =>
-        this.props.activityType.dashboard.mergeLogs(
-          this.dashboard,
+        this.props.activityType.dashboard.mergeLog(
+          this.dashboard.data,
           reactiveDash,
           log,
           this.activityDbObject
@@ -75,10 +92,13 @@ class ShowDashExample extends React.Component<PropsT, any> {
     return this.state.ready ? (
       <DashboardComp
         activity={this.activityDbObject}
-        config={this.props.activityType.examples[0].config}
+        config={this.props.activityType.meta.exampleData[0].config}
         doc={this.dashboard}
-        instances={[]}
-        users={[]}
+        instances={Array(
+          this.props.activityType.dashboard.exampleLogs[this.props.example]
+            .instances || []
+        ).fill('')}
+        users={{}}
       />
     ) : null;
   }
