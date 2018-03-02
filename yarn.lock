@@ -5468,6 +5468,10 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
+phaser-ce@^2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/phaser-ce/-/phaser-ce-2.10.1.tgz#504962d509dee2c9c595398fbe3f5dbcbb173a50"
+
 pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
