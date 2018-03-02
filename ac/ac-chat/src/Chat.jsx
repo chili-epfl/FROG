@@ -70,11 +70,6 @@ const Chatmsg = ({ msg }) => (
 export default class Chat extends Component<ActivityRunnerT> {
   node: any;
 
-  constructor(props: Object) {
-    super(props);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
-  }
-
   scrollToBottom = () => {
     const scrollHeight = this.node.scrollHeight;
     const height = this.node.clientHeight;
