@@ -66,6 +66,9 @@ class ShowDashExample extends React.Component<
         props.activityType.id,
         props.example,
         (err, succ) => {
+          if (err) {
+            console.error('Error fetching logs', err);
+          }
           this.logs = succ;
           this.mergeLogs();
         }

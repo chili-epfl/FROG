@@ -30,7 +30,11 @@ class Doc {
     this.path = path || [];
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
-      : e => doc.submitOp(e);
+      : e => {
+          console.time('submitOp');
+          doc.submitOp(e);
+          console.timeEnd('submitOp');
+        };
     this.updateFn = updateFn;
   }
 
