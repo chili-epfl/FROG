@@ -2,10 +2,11 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { generateReactiveFn, uuid, ActivityPackageT } from 'frog-utils';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, throttle } from 'lodash';
 import ShareDB from 'sharedb';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
+import Spinner from 'react-spinner';
 
 import { DashboardComp } from '../TeacherView/Dashboard';
 
@@ -72,36 +73,57 @@ class ShowDashExample extends React.Component<
     });
   };
 
-  mergeLogs = () => {
-    console.log('merge logs');
+  mergeLogs = (max: number = 999999) => {
     const mergeLog = this.props.activityType.dashboard.mergeLog;
     const dashboard = this.dashboard;
     const reactiveDash = this.reactiveDash;
     const activityDbObject = this.activityDbObject;
-    console.time('foreach');
-    this.logs.forEach(log => {
+    this.logs.slice(0, max).forEach(log => {
       mergeLog(dashboard.data, reactiveDash, log, activityDbObject);
     });
-    console.timeEnd('foreach');
     this.setState({ ready: true });
   };
 
+  displaySubset = (e: number) => {
+    this.setState({ uuid: uuid(), ready: false }, () => {
+      this.dashboard = null;
+      this.dashboard = connection.get('rz', this.state.uuid);
+      this.dashboard.subscribe();
+      this.dashboard.once('load', () => {
+        this.dashboard.create(
+          cloneDeep(this.props.activityType.dashboard.initData) || {}
+        );
+        this.reactiveDash = generateReactiveFn(this.dashboard);
+        this.mergeLogs(e);
+      });
+    });
+  };
+
   render() {
-    return this.state.ready ? (
+    return (
       <div>
-        <Slider min={0} max={5} onChange={e => console.log(e)} />
-        <DashboardComp
-          activity={this.activityDbObject}
-          config={this.props.activityType.meta.exampleData[0].config}
-          doc={this.dashboard}
-          instances={Array(
-            this.props.activityType.dashboard.exampleLogs[this.props.example]
-              .instances || []
-          ).fill('')}
-          users={{}}
+        <Slider
+          defaultValue={this.logs.length}
+          min={0}
+          max={this.logs.length}
+          onChange={throttle(this.displaySubset, 2000, { leading: false })}
         />
+        {this.state.ready ? (
+          <DashboardComp
+            activity={this.activityDbObject}
+            config={this.props.activityType.meta.exampleData[0].config}
+            doc={this.dashboard}
+            instances={Array(
+              this.props.activityType.dashboard.exampleLogs[this.props.example]
+                .instances || []
+            ).fill('')}
+            users={{}}
+          />
+        ) : (
+          <Spinner />
+        )}
       </div>
-    ) : null;
+    );
   }
 }
 
