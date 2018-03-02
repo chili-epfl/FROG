@@ -1,19 +1,10 @@
 // @flow
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import {
-  type LogDBT,
-  A,
-  generateReactiveFn,
-  uuid,
-  ActivityPackageT
-} from 'frog-utils';
+import { generateReactiveFn, uuid, ActivityPackageT } from 'frog-utils';
 import { cloneDeep } from 'lodash';
-import { withState, compose } from 'recompose';
 import ShareDB from 'sharedb';
 
-import { activityTypesObj } from '../../activityTypes';
-import ReactiveHOC from '../StudentView/ReactiveHOC';
 import { DashboardComp } from '../TeacherView/Dashboard';
 
 const backend = new ShareDB();
