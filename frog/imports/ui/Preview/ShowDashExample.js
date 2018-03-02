@@ -4,6 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { generateReactiveFn, uuid, ActivityPackageT } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 import ShareDB from 'sharedb';
+import 'rc-slider/assets/index.css';
+import Slider from 'rc-slider';
 
 import { DashboardComp } from '../TeacherView/Dashboard';
 
@@ -19,6 +21,7 @@ class ShowDashExample extends React.Component<
   logs: Object[];
   activityDbObject: Object;
   dashboard: any;
+  reactiveDash: any;
 
   constructor(props: PropsT) {
     super(props);
@@ -28,23 +31,12 @@ class ShowDashExample extends React.Component<
   }
 
   componentWillReceiveProps(nextProps: PropsT) {
-    this.setState({ uuid: uuid(), ready: false });
-    this.fetchLogs(nextProps);
+    this.setState({ uuid: uuid(), ready: false }, () =>
+      this.fetchLogs(nextProps)
+    );
   }
 
   fetchLogs = (props: PropsT = this.props) => {
-    Meteor.call(
-      'get.example.logs',
-      props.activityType.id,
-      props.example,
-      (err, succ) => {
-        this.logs = succ;
-        this.mergeLogs();
-      }
-    );
-  };
-
-  mergeLogs = () => {
     this.activityDbObject = {
       ...{
         _id: 'preview',
@@ -66,31 +58,49 @@ class ShowDashExample extends React.Component<
       this.dashboard.create(
         cloneDeep(this.props.activityType.dashboard.initData) || {}
       );
-      const reactiveDash = generateReactiveFn(this.dashboard);
-      this.logs.forEach(log =>
-        this.props.activityType.dashboard.mergeLog(
-          this.dashboard.data,
-          reactiveDash,
-          log,
-          this.activityDbObject
-        )
+      this.reactiveDash = generateReactiveFn(this.dashboard);
+
+      Meteor.call(
+        'get.example.logs',
+        props.activityType.id,
+        props.example,
+        (err, succ) => {
+          this.logs = succ;
+          this.mergeLogs();
+        }
       );
-      this.setState({ ready: true });
     });
+  };
+
+  mergeLogs = () => {
+    console.log('merge logs');
+    const mergeLog = this.props.activityType.dashboard.mergeLog;
+    const dashboard = this.dashboard;
+    const reactiveDash = this.reactiveDash;
+    const activityDbObject = this.activityDbObject;
+    console.time('foreach');
+    this.logs.forEach(log => {
+      mergeLog(dashboard.data, reactiveDash, log, activityDbObject);
+    });
+    console.timeEnd('foreach');
+    this.setState({ ready: true });
   };
 
   render() {
     return this.state.ready ? (
-      <DashboardComp
-        activity={this.activityDbObject}
-        config={this.props.activityType.meta.exampleData[0].config}
-        doc={this.dashboard}
-        instances={Array(
-          this.props.activityType.dashboard.exampleLogs[this.props.example]
-            .instances || []
-        ).fill('')}
-        users={{}}
-      />
+      <div>
+        <Slider min={0} max={5} onChange={e => console.log(e)} />
+        <DashboardComp
+          activity={this.activityDbObject}
+          config={this.props.activityType.meta.exampleData[0].config}
+          doc={this.dashboard}
+          instances={Array(
+            this.props.activityType.dashboard.exampleLogs[this.props.example]
+              .instances || []
+          ).fill('')}
+          users={{}}
+        />
+      </div>
     ) : null;
   }
 }
