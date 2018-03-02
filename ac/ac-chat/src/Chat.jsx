@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import { type ActivityRunnerT, uuid } from 'frog-utils';
 
@@ -69,7 +68,7 @@ const Chatmsg = ({ msg }) => (
 );
 
 export default class Chat extends Component<ActivityRunnerT> {
-  ref: any;
+  node: any;
 
   constructor(props: Object) {
     super(props);
@@ -77,11 +76,13 @@ export default class Chat extends Component<ActivityRunnerT> {
   }
 
   scrollToBottom = () => {
-    const scrollHeight = this.ref.scrollHeight;
-    const height = this.ref.clientHeight;
+    const scrollHeight = this.node.scrollHeight;
+    const height = this.node.clientHeight;
     const maxScrollTop = scrollHeight - height;
-    ReactDOM.findDOMNode(this.ref).scrollTop =
-      maxScrollTop > 0 ? maxScrollTop : 0;
+    const domNode = this.node;
+    if (domNode instanceof Element) {
+      domNode.scrollTop = Math.max(maxScrollTop, 0);
+    }
   };
   componentDidMount() {
     this.scrollToBottom();
@@ -97,7 +98,7 @@ export default class Chat extends Component<ActivityRunnerT> {
     return (
       <div style={styles.root}>
         <h4 style={styles.header}>{activityData.config.title}</h4>
-        <div style={styles.content} ref={ref => (this.ref = ref)}>
+        <div style={styles.content} ref={node => (this.node = node)}>
           {data.map(chatmsg => <Chatmsg msg={chatmsg} key={chatmsg.id} />)}
         </div>
 
