@@ -105,6 +105,7 @@ const mergeLog = (
 ) => {
   ProgressDashboard.mergeLog(data, dataFn, log, activity);
   LeaderBoard.mergeLog(data, dataFn, log, activity);
+
   if (log.type === 'answer' && log.payload) {
     const {
       isConsistent,
