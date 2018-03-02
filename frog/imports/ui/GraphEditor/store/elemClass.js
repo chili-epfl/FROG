@@ -6,6 +6,7 @@ export default class Elem {
   constructor() {
     extendObservable(this, {
       select: action(() => {
+        store.ui.setLibraryOpen(false);
         if (store.state.mode === 'readOnly') {
           if (this.klass !== 'connection') {
             store.ui.setShowInfo(this.klass, this.id);
