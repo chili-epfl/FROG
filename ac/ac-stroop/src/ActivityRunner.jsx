@@ -316,18 +316,20 @@ const Question = props => {
     clearTimeout(noAnswerTimeout);
     // Logs the question and answer provided
     const answerTime = Date.now();
-    logger({ type: 'answer', payload: { ...question, answer, answerTime } });
     // Increases the progress and logs the new progress
-    logger({
-      type: 'progress',
-      value: (data.progress + 1) / activityData.config.maxQuestions
-    });
     dataFn.numIncr(1, 'progress');
     // Increases the score and logs the new score
     const isCorrectAnswer = isCorrect === answer ? 1 : 0;
     const timeIncr = Date.now() - startTime;
     const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
-    logger({ type: 'score', value });
+    logger([
+      { type: 'answer', payload: { ...question, answer, answerTime } },
+      {
+        type: 'progress',
+        value: (data.progress + 1) / activityData.config.maxQuestions
+      },
+      { type: 'score', value }
+    ]);
     dataFn.numIncr(isCorrectAnswer, 'score');
     dataFn.numIncr(timeIncr, 'time');
     // Goes on to next question

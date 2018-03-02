@@ -6,13 +6,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
 
-import StudentList from './StudentList';
 import StudentListModal from './StudentListModal';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
 import Dashboards from './Dashboard';
 import { Sessions } from '../../api/sessions';
+import { GlobalSettings } from '../../api/globalSettings';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 
@@ -21,7 +21,8 @@ const rawSessionController = ({
   visible,
   toggleVisibility,
   setShowStudentList,
-  showStudentList
+  showStudentList,
+  token
 }) => (
   <div>
     {showStudentList && (
@@ -33,6 +34,7 @@ const rawSessionController = ({
     {session ? (
       <div>
         <ButtonList
+          token={token}
           session={session}
           toggle={toggleVisibility}
           setShowStudentList={setShowStudentList}
@@ -69,6 +71,7 @@ const TeacherView = withTracker(() => {
     session,
     graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
     activities,
+    token: GlobalSettings.findOne('token'),
     students,
     user
   };
@@ -76,8 +79,6 @@ const TeacherView = withTracker(() => {
   <div id="teacher" style={{ display: 'flex' }}>
     <div style={{ width: '80%' }}>
       <SessionController {...props} />
-      <hr />
-      {props.students && <StudentList students={props.students} />}
       <hr />
       <SessionList {...props} />
     </div>

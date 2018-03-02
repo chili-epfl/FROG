@@ -17,7 +17,7 @@ const Select = ({ target, onClick }) => (
   <Button onClick={() => onClick(target)}>{target}</Button>
 );
 
-const Viewer = withState('which', 'setWhich', null)(
+const Viewer = withState('which', 'setWhich', 'progress')(
   (props: dashboardViewerPropsT) => {
     const { which, setWhich } = props;
     return (
@@ -25,15 +25,16 @@ const Viewer = withState('which', 'setWhich', null)(
         <Select target="progress" onClick={setWhich} />
         <Select target="leaderboard" onClick={setWhich} />
         <Select target="stroop" onClick={setWhich} />
-        <Select target="raw" onClick={setWhich} />
         {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
         {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
         {which === 'stroop' && <StroopViewer {...props} />}
-        {which === 'raw' && <RawDataViewer {...props} />}
       </div>
     );
   }
 );
+
+// <Select target="raw" onClick={setWhich} />
+// {which === 'raw' && <RawDataViewer {...props} />}
 
 const StroopViewer = ({ data }: dashboardViewerPropsT) => {
   const { consistent, inconsistent } = data;
@@ -82,9 +83,9 @@ const StroopViewer = ({ data }: dashboardViewerPropsT) => {
   );
 };
 
-const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
-  <pre>{JSON.stringify(data, null, 2)}</pre>
-);
+// const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
+//   <pre>{JSON.stringify(data, null, 2)}</pre>
+// );
 
 const initData = {
   consistent: { correct: { count: 0, time: 0 }, wrong: { count: 0, time: 0 } },

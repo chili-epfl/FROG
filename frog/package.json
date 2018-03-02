@@ -26,6 +26,7 @@
     "ac-video": "1.0.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "buffer": "^5.1.0",
     "bufferutil": "^3.0.3",
     "color-hash": "^1.0.3",
     "cuid": "^2.0.2",
