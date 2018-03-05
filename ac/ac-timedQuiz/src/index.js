@@ -2,7 +2,7 @@
 
 import type { ActivityPackageT } from 'frog-utils';
 
-import { config, validateConfig, configUI } from './config';
+import { config, validateConfig } from './config';
 import ActivityRunner from './ActivityRunner';
 import meta from './meta';
 import dashboard from './Dashboard';
@@ -19,7 +19,6 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  configUI,
   validateConfig,
   ActivityRunner,
   dashboard,
