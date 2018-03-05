@@ -1,4 +1,5 @@
 import * as React from 'react';
+// import Game from './Game';
 
 const normaliseFigure = figure => {
   let maxX = 1;
