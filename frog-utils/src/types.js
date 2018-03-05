@@ -147,6 +147,8 @@ export type dashboardT = {
     log: LogDBT,
     activity: ActivityDbT
   ) => void,
+  exampleLogs?: { title: string, path: string }[],
+  exampleData?: { title: string, path: string }[],
   initData: any
 };
 
