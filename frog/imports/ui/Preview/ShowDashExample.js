@@ -18,7 +18,7 @@ type PropsT = { activityType: ActivityPackageT, example: number };
 
 class ShowDashExample extends React.Component<
   PropsT,
-  { ready: boolean, uuid: string }
+  { ready: boolean, uuid: string, display: number }
 > {
   logs: Object[];
   activityDbObject: Object;
@@ -28,7 +28,7 @@ class ShowDashExample extends React.Component<
   constructor(props: PropsT) {
     super(props);
     this.logs = [];
-    this.state = { ready: false, uuid: uuid() };
+    this.state = { ready: false, uuid: uuid(), display: 0 };
     this.fetchLogs();
   }
 
@@ -83,7 +83,7 @@ class ShowDashExample extends React.Component<
     this.logs.slice(0, max).forEach(log => {
       mergeLog(dashboard.data, reactiveDash, log, activityDbObject);
     });
-    this.setState({ ready: true });
+    this.setState({ ready: true, display: Math.min(max, this.logs.length) });
   };
 
   displaySubset = (e: number) => {
@@ -104,28 +104,30 @@ class ShowDashExample extends React.Component<
   render() {
     return (
       <div>
-        <Slider
-          defaultValue={this.logs.length}
-          min={0}
-          max={this.logs.length}
-          onChange={throttle(this.displaySubset, 2000, { leading: false })}
-        />
         {this.state.ready ? (
-          this.props.showLogs ? (
-            <Inspector data={this.dashboard.data} />
-          ) : (
-            <DashboardComp
-              activity={this.activityDbObject}
-              config={this.props.activityType.meta.exampleData[0].config}
-              doc={this.dashboard}
-              instances={Array(
-                this.props.activityType.dashboard.exampleLogs[
-                  this.props.example
-                ].instances || []
-              ).fill('')}
-              users={{}}
+          <React.Fragment>
+            <Slider
+              defaultValue={this.state.display}
+              min={0}
+              max={this.logs.length}
+              onChange={throttle(this.displaySubset, 2000, { leading: false })}
             />
-          )
+            {this.props.showLogs ? (
+              <Inspector data={this.dashboard.data} />
+            ) : (
+              <DashboardComp
+                activity={this.activityDbObject}
+                config={this.props.activityType.meta.exampleData[0].config}
+                doc={this.dashboard}
+                instances={Array(
+                  this.props.activityType.dashboard.exampleLogs[
+                    this.props.example
+                  ].instances || []
+                ).fill('')}
+                users={{}}
+              />
+            )}
+          </React.Fragment>
         ) : (
           <Spinner />
         )}
