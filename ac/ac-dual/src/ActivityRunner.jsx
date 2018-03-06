@@ -35,19 +35,24 @@ const Activity = props => {
 
   return (
     <React.Fragment>
-      <div style={styles.container}>
-        <div style={{ display: 'flex' }}>
-          {/* {(activityState === 1 || activityState === 2) && (
+      <div style={styles.text}>
+        {texts[language].question[parseInt(activityState, 10)]}
+      </div>
+      <div style={{ display: 'flex' }}>
+        {/* {(activityState === 1 || activityState === 2) && (
             <Game width={800} height={400} />
           )}
           {(activityState === 0 || activityState === 2) && (
-            <Symmetry {...props} />
+           
           )} */}
-          <Game width={500} height={400} />
-        </div>
-        {texts[language].question[parseInt(activityState, 10)]}
+        <Symmetry {...props} width={200} height={300} />
+        {/* <Game width={500} height={400} /> */}
       </div>
-      <CountDownTimer start={Date.now()} length={timeOfEachActivity} />
+      <div style={styles.activityCountdown}>
+        <CountDownTimer start={Date.now()} length={timeOfEachActivity}>
+          {texts[language].timeLeft}
+        </CountDownTimer>
+      </div>
     </React.Fragment>
   );
 };

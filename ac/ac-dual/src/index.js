@@ -14,7 +14,7 @@ const meta = {
       config: {
         fr: {
           guidelines:
-            'Vous devrez faire 3 tâches, pour une minute chacune: ' +
+            'Vous devrez faire 3 tâches, pour une minute chacune: </br>' +
             '1. Décidez si deux formes sont symétriques (O / N) ' +
             "2. Détruisez la boule qui tombe avant qu'elle ne touche le sol (touches curseur / flèches) " +
             '3. Faites les deux en même temps!'
@@ -48,7 +48,7 @@ const config = {
       properties: {
         guidelines: {
           title: 'Directions for Students',
-          type: 'string',
+          type: 'rte',
           default:
             'Vous devrez faire 3 tâches, pour une minute chacune: ' +
             '1. Décidez si deux formes sont symétriques (O / N) ' +
@@ -63,9 +63,9 @@ const config = {
       properties: {
         guidelines: {
           title: 'Directions for Students',
-          type: 'string',
+          type: 'rte',
           default:
-            'You will have to do 3 tasks, for one minute each: <br>' +
+            '<span>You will have to do 3 tasks, for one minute each: </span>' +
             '1. Decide whether two shapes are symmetrical (Y/N)' +
             '2. Destroy the falling ball before it touches the ground (cursor/arrow keys)' +
             '3. Do both at the same time!'

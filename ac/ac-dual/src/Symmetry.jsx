@@ -126,8 +126,15 @@ class Canvas extends React.Component {
   canvasLeft: any;
   canvasRight: any;
 
+  constructor(props) {
+    super(props);
+    this.width = this.props.width || 200;
+    this.height = this.props.height || 500;
+    this.figure = this.props.figure;
+  }
+
   draw = () => {
-    const figure = this.props.figure;
+    const figure = this.figure;
     const canvasLeft = this.canvasLeft;
     const canvasRight = this.canvasRight;
     const f = generateFigure(figure.complexity);
@@ -159,13 +166,13 @@ class Canvas extends React.Component {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <canvas
           ref={canvas => (this.canvasLeft = canvas)}
-          width={200}
-          height={500}
+          width={this.width}
+          height={this.height}
         />
         <canvas
           ref={canvas => (this.canvasRight = canvas)}
-          width={200}
-          height={500}
+          width={this.width}
+          height={this.height}
         />
       </div>
     );
@@ -174,21 +181,25 @@ class Canvas extends React.Component {
 
 let noAnswerTimeout;
 
-// const Symmetry = props => {
-
-// const { logger, data, dataFn, activityData } = props;
-// // const { objectName, colorName, colorFill, isCorrect, startTime } = question;
-// const {language} = data;
-
-// clearTimeout(noAnswerTimeout);
-// noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
-
-//   return (
-//   );
-// };
-
 export default class Symmetry extends Component {
   onClick = answer => () => {
+    const { dataFn, logger, data } = this.props;
+    const startTime = this.startTime;
+    const figure = this.state.figure;
+
+    clearTimeout(noAnswerTimeout);
+
+    const answerTime = Date.now();
+    const isCorrectAnswer = this.state.figure.symmetrical === answer ? 1 : 0;
+    const timeIncr = Date.now() - startTime;
+
+    const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
+
+    logger([
+      { type: 'answer', payload: { ...figure, answer, answerTime } },
+      { type: 'score', value }
+    ]);
+
     const symmetrical = Math.random() < 0.5;
     this.setState({
       figure: {
@@ -208,6 +219,7 @@ export default class Symmetry extends Component {
         symmetrical: Math.random() < 0.5
       }
     };
+    this.startTime = null;
   }
 
   componentWillUnmount() {
@@ -219,6 +231,8 @@ export default class Symmetry extends Component {
     const { activityData, data } = this.props;
     const { language } = data;
 
+    this.startTime = Date.now();
+
     Mousetrap.bind('y', this.onClick(true));
     Mousetrap.bind('o', this.onClick(true));
     Mousetrap.bind('n', this.onClick(false));
@@ -229,12 +243,12 @@ export default class Symmetry extends Component {
       activityData.config.symmetryTime
     );
 
-    console.log(this.state.figure);
+    // console.log(this.state.figure);
 
     return (
       <React.Fragment>
         <div style={styles.container}>
-          <Canvas figure={this.state.figure} />
+          <Canvas figure={this.state.figure} {...this.props} />
           <div>
             <Button
               style={{ ...styles.button, left: 0 }}

@@ -1,12 +1,11 @@
 import React from 'react';
 import { withState } from 'recompose';
-import { TimedComponent } from 'frog-utils';
+import { TimedComponent, HTML } from 'frog-utils';
 import { Button } from 'react-bootstrap';
 
 export const styles = {
   button: { width: '90px', margin: '0 5px' },
-  text: { width: '100%', fontSize: 'xx-large', textAlign: 'center' },
-  guidelines: { width: '100%' },
+  text: { fontSize: 'xx-large' },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -20,6 +19,9 @@ export const styles = {
   },
   commands: {
     marginTop: '20px'
+  },
+  activityCountdown: {
+    display: 'flex'
   }
 };
 
@@ -34,7 +36,8 @@ export const texts = {
       '2': 'Now do both together!'
     },
     wait: 'Waiting for next Task',
-    end: 'Activity completed! Thank you!'
+    end: 'Activity completed! Thank you!',
+    timeLeft: 'Time left in Task -> '
   },
   fr: {
     start: 'Commencer',
@@ -85,19 +88,29 @@ export const Form = withState('language', 'setLanguage', null)(
 
 export const Guidelines = ({ start, guidelines, lang }) => (
   <React.Fragment>
-    <div style={styles.guidelines}>{guidelines}</div>
-    <div style={{ ...styles.commands, width: '120px' }}>
-      <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
-        {texts[lang].start}
-      </Button>
+    <div style={{ ...styles.container, padding: '20px' }}>
+      <HTML html={guidelines} />
+      <div style={{ marginTop: '20px' }}>
+        <Button onClick={start} style={styles.button}>
+          {texts[lang].start}
+        </Button>
+      </div>
     </div>
   </React.Fragment>
 );
 
-export const CountDownTimer = TimedComponent(({ timeNow, length, start }) => {
-  const timeLeft = Math.ceil((length - Math.ceil(timeNow - start)) / 1000);
-  return <div>{timeLeft + ' s'}</div>;
-}, 100);
+export const CountDownTimer = TimedComponent(
+  ({ timeNow, length, start, children }) => {
+    const timeLeft = Math.ceil((length - Math.ceil(timeNow - start)) / 1000);
+    return (
+      <div>
+        {children}
+        {timeLeft + ' s'}
+      </div>
+    );
+  },
+  100
+);
 
 export const Delay = ({ next, delay, lang }) => {
   let delayTimeout;
