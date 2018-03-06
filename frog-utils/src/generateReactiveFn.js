@@ -30,7 +30,9 @@ class Doc {
     this.path = path || [];
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
-      : e => doc.submitOp(e);
+      : e => {
+          doc.submitOp(e);
+        };
     this.updateFn = updateFn;
   }
 
@@ -84,6 +86,7 @@ class Doc {
     });
   }
   numIncr(incr: number, path: rawPathT) {
+    this.doc.preventCompose = true;
     this.submitOp({ p: cleanPath(this.path, path), na: incr });
   }
   objInsert(newVal: Object, path: rawPathT) {
