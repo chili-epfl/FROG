@@ -8,11 +8,12 @@ import { shuffle } from 'lodash';
 
 const styles = {
   button: {
-    width: '150 px',
-    margin: '10 px',
+    width: 'auto',
+    margin: '10px',
     position: 'relative',
     whiteSpace: 'normal',
-    float: 'left'
+    float: 'center',
+    display: 'inline-block'
   },
   text: { width: '100%', fontSize: 'xx-large', textAlign: 'center' },
   guidelines: { width: '100%' },
@@ -28,24 +29,31 @@ const styles = {
     position: 'absolute'
   },
   commands: {
-    width: '250px',
+    width: '100%',
     height: '50px',
     margin: 'auto',
     position: 'relative',
-    marginTop: '50px'
+    marginTop: '50px',
+    display: 'block'
   }
 };
 
-// const questionsWithIndex = activityData.config.questions
-//   .filter(q => q.question && q.answers)
-//   .map((x, i) => [x, i]);
-//
-// const shuffledQuestions = ['questions', 'both'].includes(activityData.config.shuffle)
-//     ? shuffle(questionsWithIndex)
-//     : questionsWithIndex;
+const questionsWithIndex = props => {
+  const indexed = props.activityData.config.questions
+  .filter(q => q.question && q.answers)
+  .map((x, i) => [x, i]);
+  return indexed;
+};
 
-const generateExample = (shuffledQuestions, progress) => {
-  const curQuestion = shuffledQuestions[progress % shuffledQuestions.length];
+const shuffledQuestions = props => {
+  const questions = ['questions', 'both'].includes(props.activityData.config.shuffle)
+    ? shuffle(questionsWithIndex(props))
+    : questionsWithIndex(props);
+    return questions;
+  };
+
+const generateExample = (q, progress) => {
+  const curQuestion = q[progress % q.length];
 
   const startTime = Date.now();
   return {
@@ -90,8 +98,8 @@ const Question = props => {
   const { curQuestion, startTime } = question;
 
   const answers = ['answers', 'both'].includes(activityData.config.shuffle)
-    ? shuffle(curQuestion.answers)
-    : curQuestion.answers;
+    ? shuffle(curQuestion[0].answers)
+    : curQuestion[0].answers;
 
   const onClick = answer => () => {
     clearTimeout(noAnswerTimeout);
@@ -105,7 +113,7 @@ const Question = props => {
       answer.isCorrect === undefined ||
       !answer.isCorrect
         ? 0
-        : answer.isCorrect;
+        : 1;
     const timeIncr = Date.now() - startTime;
     const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
     logger([
@@ -127,13 +135,15 @@ const Question = props => {
 
   return (
     <React.Fragment>
-      <div style={styles.text}>{curQuestion.question}</div>
+      <div style={styles.text}>{curQuestion[0].question.split('\n').map(x => <p key={x}>{x}</p>)}</div>
       <div style={styles.commands}>
         {answers.map(option => {
+          const key = curQuestion[1] + option.choice;
           const buttonA = (
             <Button
+              key={key}
               style={{ ...styles.button }}
-              onClick={onClick(option.choice)}
+              onClick={onClick(option)}
             >
               {option.choice}
             </Button>
@@ -150,12 +160,14 @@ const Main = withState('question', 'setQuestion', null)(props => {
   const { activityData, question, setQuestion, data } = props;
   const { questions, delay, guidelines } = activityData.config;
   const { name } = props.userInfo;
+  let shuffledQ = questionsWithIndex(props);
   if (question === null) {
+    shuffledQ = shuffledQuestions(props);
     const start = () => setQuestion('waiting');
     return <Guidelines start={start} guidelines={guidelines} name={name} />;
   } else if (question === 'waiting') {
     const next = () => {
-      setQuestion(generateExample(questions, data.progress));
+      setQuestion(generateExample(shuffledQ, data.progress));
     };
     return <Delay next={next} delay={delay} props={props} />;
   } else if (data.progress < questions.length) {

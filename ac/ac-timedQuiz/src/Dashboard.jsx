@@ -1,127 +1,155 @@
 // @flow
-/* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { Button } from 'react-bootstrap';
 import { withState } from 'recompose';
+import { Button } from 'react-bootstrap';
+import { Chart } from 'react-google-charts';
 
 import {
-  CountChart,
-  ScatterChart,
-  ProgressDashboard,
-  LeaderBoard,
-  type LogDBT,
+  type LogT,
+  type dashboardViewerPropsT,
   type ActivityDbT,
-  type dashboardViewerPropsT
+  ProgressDashboard,
+  LeaderBoard
 } from 'frog-utils';
-
-const ScatterViewer = (props: dashboardViewerPropsT) => {
-  const { data: { answers }, config, instances } = props;
-  const questions = config.questions.filter(q => q.question && q.answers);
-  const scatterData =
-    config.argueWeighting &&
-    instances.map(instance => {
-      const coordinates = [0, 0];
-      questions.forEach((q, qIndex) => {
-        if (
-          answers[instance] &&
-          answers[instance][qIndex] &&
-          q.answers[answers[instance][qIndex] - 1]
-        ) {
-          const answerIndex = answers[instance][qIndex] - 1;
-          coordinates[0] += q.answers[answerIndex].x;
-          coordinates[1] += q.answers[answerIndex].y;
-        }
-      });
-      return coordinates;
-    });
-  if (scatterData) {
-    return <ScatterChart data={scatterData} />;
-  } else {
-    return <p>No data</p>;
-  }
-};
-
-const AnswerCountViewer = (props: dashboardViewerPropsT) => {
-  const { data: { answers }, config } = props;
-  if (!config) {
-    return null;
-  }
-
-  const questions = config.questions.filter(q => q.question && q.answers);
-
-  const answerCounts = questions.map((q, qIndex) =>
-    ((answers && Object.values(answers)) || []).reduce((acc, val) => {
-      acc[val[qIndex]] += 1;
-      return acc;
-    }, q.answers.map(() => 0))
-  );
-  return (
-    <React.Fragment>
-      {questions.map((q, qIndex) => (
-        <CountChart
-          key={qIndex}
-          title={q.question}
-          vAxis="Possible answers"
-          hAxis="Number of answers"
-          categories={q.answers.map(x => x.choice)}
-          data={answerCounts[qIndex]}
-        />
-      ))}
-    </React.Fragment>
-  );
-};
 
 const Select = ({ target, onClick }) => (
   <Button onClick={() => onClick(target)}>{target}</Button>
 );
 
-const Viewer = withState('which', 'setWhich', null)(
+const Viewer = withState('which', 'setWhich', 'progress')(
   (props: dashboardViewerPropsT) => {
     const { which, setWhich } = props;
     return (
       <div>
         <Select target="progress" onClick={setWhich} />
-        <Select target="scatter" onClick={setWhich} />
-        <Select target="count" onClick={setWhich} />
         <Select target="leaderboard" onClick={setWhich} />
+        <Select target="results" onClick={setWhich} />
         {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
-        {which === 'scatter' && <ScatterViewer {...props} />}
-        {which === 'count' && <AnswerCountViewer {...props} />}
         {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
+        {which === 'results' && <ResultsViewer {...props} />}
       </div>
     );
   }
 );
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  log: LogDBT,
-  activity: ActivityDbT
-) => {
-  if (log.itemId !== undefined && log.type === 'choice') {
-    if (!data['answers'][log.instanceId]) {
-      dataFn.objInsert({ [log.itemId]: log.value }, [
-        'answers',
-        log.instanceId
-      ]);
-    } else {
-      dataFn.objInsert(log.value, ['answers', log.instanceId, log.itemId]);
+
+const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
+  console.log(data);
+  const { results } = data;
+  console.log(results);
+  const options = (title, xLabel, yLabel, ymin, ymax) => ({
+    legend: { position: 'none' },
+    width: '100%',
+    height: '300px',
+    vAxis: {
+      viewWindowMode: 'explicit',
+      viewWindow: {
+        max: ymax,
+        min: ymin
+      },
+      title: yLabel },
+    hAxis: {
+      title: xLabel,
+      gridlines: { count: 'none' }
     }
-  }
-  ProgressDashboard.mergeLog(data, dataFn, log, activity);
-  LeaderBoard.mergeLog(data, dataFn, log, activity);
+  });
+
+
+  const errRate = o => o.wrong.count / (o.wrong.count + o.correct.count);
+  const errData = Object.keys(results).map((x) => [x, errRate(results[x])]);
+  console.log(errData);
+
+  const avgTime = o =>
+    (o.correct.time + o.wrong.time) / (o.correct.count + o.wrong.count);
+  const timeData = (Object.keys(results).map((x) => [x, avgTime(results[x])]));
+
+  return (
+    <React.Fragment>
+      null
+      {/* <Chart
+        chartType="LineChart"
+        columns={[
+          { type: 'string', label: 'Problem' },
+          { type: 'number', label: 'Errors' }
+        ]}
+        rows={errData}
+        options={options('Error rate by Difficulty', 'Difficulty', 'Error Percentage', 0, 1)}
+      />
+      <Chart
+        chartType="LineChart"
+        columns={[
+          { type: 'string', label: 'Problem' },
+          { type: 'number', label: 'Time' }
+        ]}
+        rows={timeData}
+        options={options('Timing by Difficulty', 'Difficulty', 'Average Time', 0, 45000)}
+      /> */}
+    </React.Fragment>
+  );
 };
 
+
 const initData = {
-  answers: {},
+  results: { },
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
 };
 
-export default {
-  Viewer,
-  mergeLog,
-  initData
+const mergeLog = (
+  data: any,
+  dataFn: Object,
+  log: LogT,
+  activity: ActivityDbT
+) => {
+  ProgressDashboard.mergeLog(data, dataFn, log, activity);
+  LeaderBoard.mergeLog(data, dataFn, log, activity);
+  if (log.type === 'answer' && log.payload) {
+    const {
+      answer,
+      startTime,
+      answerTime,
+      curQuestion
+    } = log.payload;
+    const index = curQuestion[1];
+    if (!data['results'][index]) {
+      if (answer === undefined || answer.isCorrect === undefined || answer.isCorrect === false) {
+        dataFn.objInsert(
+          {'wrong':
+            {'count': 1,
+            'time': (answerTime - startTime) },
+            'correct':
+              {'count': 0,
+              'time': 0 }
+          },
+          ['results', index]);
+      } else {
+        dataFn.objInsert(
+          {'correct':
+            {'count': 1,
+            'time': (answerTime - startTime) },
+            'wrong':
+              {'count': 0,
+              'time': 0 }
+          },
+          ['results', index]);
+      }
+    // } else if (!data['results'][index]['wrong'] && (answer.isCorrect === undefined || answer.isCorrect === false)) {
+    //   dataFn.objInsert(
+    //     {'count': 1, 'time': (answerTime - startTime) },
+    //     ['results', index, 'wrong']);
+    // } else if (!data['results'][index]['correct'] && (answer.isCorrect === true)) {
+    //   dataFn.objInsert(
+    //     {'count': 1, 'time': (answerTime - startTime) },
+    //     ['results', index, 'correct']);
+    } else if (answer.isCorrect === undefined || answer.isCorrect === false) {
+      dataFn.numIncr(1, ['results', index, 'wrong', 'count']);
+      dataFn.numIncr(answerTime - startTime, ['results', index, 'wrong', 'time']);
+    } else {
+      dataFn.numIncr(1, ['results', index, 'correct', 'count']);
+      dataFn.numIncr(answerTime - startTime, ['results', index, 'correct', 'time']);
+    }
+  }
 };
+
+export default { Viewer, mergeLog, initData };

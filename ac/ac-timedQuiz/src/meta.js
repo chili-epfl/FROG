@@ -1,106 +1,148 @@
 // @flow
 
-const statQuizConfig = {
-  title: 'Stat 101',
-  delay: '1000',
-  maxTime: '3000',
-  shuffle: 'both',
+const genealogyConfig = {
+  title: 'Genealogy',
+  delay: '3000',
+  maxTime: '45000',
+  shuffle: 'none',
   guidelines:
-    "Ce Quizz est anonyme, pas noté et ne compte donc en aucun cas pour la note à l'examen final. Une seule réponse est correcte par question. Si vous ne connaissez pas la réponse, répondez NA.",
+  'This lab intends to measure some phenomena in human cognition. ' +
+  'A set of sentences will appear on the screen. Below them, you will ' +
+  'be asked a question about the sentences, and you will be given several ' +
+  'options to answer to the question. ' +
+  'Please try to answer the questions from the top of your head, ' +
+  'rather than using pen and paper or other aids.',
   questions: [
     {
-      question: 'Laquelle de ces expressions est fausse?',
+      question:
+      "Ferdinand is the son of Donald\n" +
+      "Donald is the father of Jennifer\n" +
+      "Donald is the brother of Liam\n" +
+      "Who is the uncle of Jennifer?",
       answers: [
-        {
-          choice:
-            'Pour une variable discrète, le nombre de valeurs possibles est dénombrable.'
-        },
-        { choice: 'Les échelles nominales sont des échelles non ordonnées.' },
-        { choice: "Une échelle de rapport est une échelle d'intervalle." },
-        {
-          choice:
-            'La mesure de la température est forcément sur une échelle de rapport.'
-        },
-        { choice: 'NA' }
-      ]
-    },
-    {
-      question: 'Laquelle de ces expressions est fausse?',
-      answers: [
-        {
-          choice:
-            "Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci."
-        },
-        {
-          choice:
-            "Pour un nombre pair de données, la médiane tombe toujours sur une valeur de l'échantillon."
-        },
-        {
-          choice:
-            'Pour un échantillon de taille $8$, le quartile inférieur. est toujours entre les 2ème et 3ème valeurs ordonnées.'
-        },
-        {
-          choice:
-            'Pour un échantillon de taille $10$, le quartile supérieur est toujours entre les 7ème et 8ème valeurs ordonnées.'
-        },
-        { choice: 'NA' }
-      ]
-    },
-    {
-      question: 'Laquelle de ces expressions est juste?',
-      answers: [
-        {
-          choice:
-            'Une probabilité est un nombre qui prend ses valeurs entre $-1$ et $1$.'
-        },
-        {
-          choice:
-            'Une probabilité est un nombre qui prend ses valeurs dans $]0; 1[$.'
-        },
-        {
-          choice:
-            "Une probabilité est un nombre qui prend ses valeurs dans tout l'ensemble des réels."
-        },
-        {
-          choice:
-            'Une probabilité est un nombre qui prend ses valeurs dans $[0; 1]$.'
-        },
-        { choice: 'NA' }
+        { choice: 'Donald' },
+        { choice: 'Liam', isCorrect: true },
+        { choice: 'Ferdinand' },
+        { choice: "I don't know" }
       ]
     },
     {
       question:
-        'Pour deux événements $A$ et $B$ indépendants, laquelle de ces expressions est juste?',
+      "Susan is the mother of Kevin\n" + 
+      "Liam is the father of Walter\n" +
+      "Jerry is the brother of Kevin\n" +
+      "Walter is the brother of Susan\n" +
+      "Who is the grandfather of Jerry?",
       answers: [
-        { choice: '$P(A \\cup B) = P(A) + P(B)$' },
-        {
-          choice:
-            'Si $\\bar{A}$ est le complément de $A$ alors $P(\\bar{A}) = 1 + P(A)$'
-        },
-        { choice: '$P(A|B) = P(B|A)$' },
-        { choice: '$P(A \\cap B) = P(A) \\times P(B)$' },
-        { choice: 'NA' }
+        { choice: 'Liam', isCorrect: true },
+        { choice: 'Kevin' },
+        { choice: 'Walter' },
+        { choice: "I don't know" }
       ]
     },
     {
       question:
-        'Soient deux variables aléatoires X et Y indépendantes. On note $\\sigma (X)^2$ et $\\sigma (Y)^2$ leur variance respective. Laquelle de ces expressions est juste?',
+      "Iris is the mother of Dorothy\n" +
+      "Dorothy is the sister of Rose\n" +
+      "Rose is the mother of Bob\n" +
+      "Bob is the brother of Cynthia \n" +
+      "Charles is the son of Dorothy\n" +
+      "Who is the aunt of Cynthia?",
       answers: [
-        { choice: '$0.02 \\%$' },
-        { choice: '$0.01\\bar{6} \\%$' },
-        { choice: '$0.008\\bar{3} \\%$' },
-        { choice: '$0.01\\bar{3} \\%$' },
-        { choice: 'NA' }
+        { choice: 'Iris' },
+        { choice: 'Dorthy', isCorrect: true },
+        { choice: 'Rose' },
+        { choice: "I don't know" }
       ]
     },
     {
       question:
-        'Laquelle des fonctions suivantes est-elle une densité de probabilité?',
+      "Dorothy is the daughter of Zed\n" +
+      "Kevin is the brother of Dorothy\n" +
+      "Kevin is the husband of Elenna\n" +
+      "Manuel is the son of Elenna\n" +
+      "Dorothy is the mother of Richard\n" +
+      "Richard is the brother of Jerry\n" +
+      "Who is the grandfather of Manuel?",
       answers: [
-        { answer: '$f_X(x) = x$ si $x \\in \\{-0.5, 1.5\\}$, $0$ sinon.' },
-        { answer: '$f_X(x) = 2x$ si $x \\in \\{0, 1\\}$, $0$ sinon.' },
-        { answer: '$f_X(x) = x - 1$ si $x \\in \\{1, 3\\}$, $0$ sinon.' },
-        { answer: '$f_X(x) = x + 1$ si $x \\in \\{-1, 1\\}$, $0$ sinon.' }
+        { choice: 'Zed', isCorrect: true },
+        { choice: 'Kevin' },
+        { choice: 'Richard' },
+        { choice: "I don't know" }
+      ]
+    },
+    {
+      question:
+      "Nestor is the son of Vivian\n" +
+      "Nelly is the daughter of Donald\n" +
+      "Liam is the brother of Nelly\n" +
+      "Liam is the husband of Vivian\n" +
+      "Charles is the brother of Nelly\n" +
+      "Manuel is the brother of Grace \n" +
+      "Nelly is the mother of Manuel \n" +
+      "Who is the uncle of Nestor?",
+      answers: [
+        { choice: 'Donald' },
+        { choice: 'Manuel' },
+        { choice: 'Charles', isCorrect: true },
+        { choice: "I don't know" }
+      ]
+    },
+    {
+      question:
+      "Ferdinand is the husband of Grace\n" +
+      "Albert is the son of Grace\n" +
+      "Ferdinand is the brother of Laura\n" +
+      "Laura is the mother of Harold\n" +
+      "Tom is the brother of Laura\n" +
+      "Harold is the brother of Iris\n" +
+      "Laura is the daughter of Dorothy\n" +
+      "Richard is the son of Iris \n" +
+      "Who is the grandson of Laura?",
+      answers: [
+        { choice: 'Richard', isCorrect: true },
+        { choice: 'Ferdinand' },
+        { choice: 'Harold' },
+        { choice: "I don't know" }
+      ]
+    },
+    {
+      question:
+      "Laura is the daughter of Iris\n" +
+      "Jerry is the husband of Cynthia\n" +
+      "Charles is the son of Cynthia\n" +
+      "Jerry is the brother of Laura\n" +
+      "Laura is the mother of Zed\n" +
+      "Paul is the son of Vivian\n" +
+      "Tom is the brother of Donald\n" +
+      "Donald is the brother of Laura\n" +
+      "Zed is the brother of Vivian \n" +
+      "Who is the aunt of Vivian?",
+      answers: [
+        { choice: 'Iris' },
+        { choice: 'Cynthia', isCorrect: true },
+        { choice: 'Laura' },
+        { choice: "I don't know" }
+      ]
+    },
+    {
+      question:
+      "Petra is the mother of Walter \n" +
+      "Manuel is the son of Kevin\n" +
+      "Zed is the brother of Liam\n" +
+      "Petra is the daughter of Fatimah \n" +
+      "Harold is the husband of Wendy \n" +
+      "Grace is the wife of Fatimah\n" +
+      "Jerry is the son of Wendy\n" +
+      "Harold is the brother of Petra \n" +
+      "Liam is the brother of Petra\n" +
+      " Walter is the brother of Kevin\n" +
+      "Who is the mother of Liam? ",
+      answers: [
+        { choice: 'Petra' },
+        { choice: 'Wendy' },
+        { choice: 'Grace', isCorrect: true },
+        { choice: "I don't know" }
       ]
     }
   ]
@@ -112,8 +154,8 @@ export default {
   description: 'Provide limited time to answer each question.',
   exampleData: [
     {
-      config: statQuizConfig,
-      title: 'Statistic Quiz',
+      config: genealogyConfig,
+      title: 'Genealogy',
       activityData: {}
     }
   ]
