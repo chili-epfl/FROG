@@ -33,7 +33,7 @@ export const LevelLines = connect(
     scaled
   }: StoreProp & { scaled: boolean }) => (
     <g>
-      {[1, 2, 3].map(x => (
+      {[1, 2, 3, 4].map(x => (
         <g key={x}>
           <line
             x1={0}
@@ -45,7 +45,7 @@ export const LevelLines = connect(
             strokeDasharray="5,5"
           />
           <rect
-            onDoubleClick={e => onDoubleClick(4 - x, e)}
+            onDoubleClick={e => onDoubleClick(5 - x, e)}
             x={0}
             y={x * 100 + 45}
             width={graphWidth * (scaled ? scale : 4)}
