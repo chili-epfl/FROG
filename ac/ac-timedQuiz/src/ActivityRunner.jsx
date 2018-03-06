@@ -40,17 +40,19 @@ const styles = {
 
 const questionsWithIndex = props => {
   const indexed = props.activityData.config.questions
-  .filter(q => q.question && q.answers)
-  .map((x, i) => [x, i]);
+    .filter(q => q.question && q.answers)
+    .map((x, i) => [x, i]);
   return indexed;
 };
 
 const shuffledQuestions = props => {
-  const questions = ['questions', 'both'].includes(props.activityData.config.shuffle)
+  const questions = ['questions', 'both'].includes(
+    props.activityData.config.shuffle
+  )
     ? shuffle(questionsWithIndex(props))
     : questionsWithIndex(props);
-    return questions;
-  };
+  return questions;
+};
 
 const generateExample = (q, progress) => {
   const curQuestion = q[progress % q.length];
@@ -135,7 +137,9 @@ const Question = props => {
 
   return (
     <React.Fragment>
-      <div style={styles.text}>{curQuestion[0].question.split('\n').map(x => <p key={x}>{x}</p>)}</div>
+      <div style={styles.text}>
+        {curQuestion[0].question.split('\n').map(x => <p key={x}>{x}</p>)}
+      </div>
       <div style={styles.commands}>
         {answers.map(option => {
           const key = curQuestion[1] + option.choice;

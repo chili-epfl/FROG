@@ -33,11 +33,8 @@ const Viewer = withState('which', 'setWhich', 'progress')(
   }
 );
 
-
 const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
-  console.log(data);
   const { results } = data;
-  console.log(results);
   const options = (title, xLabel, yLabel, ymin, ymax) => ({
     legend: { position: 'none' },
     width: '100%',
@@ -48,33 +45,43 @@ const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
         max: ymax,
         min: ymin
       },
-      title: yLabel },
+      title: yLabel
+    },
     hAxis: {
       title: xLabel,
       gridlines: { count: 'none' }
     }
   });
 
-
   const errRate = o => o.wrong.count / (o.wrong.count + o.correct.count);
-  const errData = Object.keys(results).map((x) => [x, errRate(results[x])]);
-  console.log(errData);
+  const errData =
+    Object.keys(results).length === 0
+      ? [new Array(2)]
+      : Object.keys(results).map(x => [x, errRate(results[x])]);
 
   const avgTime = o =>
     (o.correct.time + o.wrong.time) / (o.correct.count + o.wrong.count);
-  const timeData = (Object.keys(results).map((x) => [x, avgTime(results[x])]));
+  const timeData =
+    Object.keys(results).length === 0
+      ? [new Array(2)]
+      : Object.keys(results).map(x => [x, avgTime(results[x])]);
 
   return (
     <React.Fragment>
-      null
-      {/* <Chart
+      <Chart
         chartType="LineChart"
         columns={[
           { type: 'string', label: 'Problem' },
           { type: 'number', label: 'Errors' }
         ]}
         rows={errData}
-        options={options('Error rate by Difficulty', 'Difficulty', 'Error Percentage', 0, 1)}
+        options={options(
+          'Error rate by Difficulty',
+          'Difficulty',
+          'Error Percentage',
+          0,
+          1
+        )}
       />
       <Chart
         chartType="LineChart"
@@ -83,15 +90,20 @@ const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
           { type: 'number', label: 'Time' }
         ]}
         rows={timeData}
-        options={options('Timing by Difficulty', 'Difficulty', 'Average Time', 0, 45000)}
-      /> */}
+        options={options(
+          'Timing by Difficulty',
+          'Difficulty',
+          'Average Time',
+          0,
+          45000
+        )}
+      />
     </React.Fragment>
   );
 };
 
-
 const initData = {
-  results: { },
+  results: {},
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
 };
@@ -105,49 +117,66 @@ const mergeLog = (
   ProgressDashboard.mergeLog(data, dataFn, log, activity);
   LeaderBoard.mergeLog(data, dataFn, log, activity);
   if (log.type === 'answer' && log.payload) {
-    const {
-      answer,
-      startTime,
-      answerTime,
-      curQuestion
-    } = log.payload;
+    const { answer, startTime, answerTime, curQuestion } = log.payload;
     const index = curQuestion[1];
     if (!data['results'][index]) {
-      if (answer === undefined || answer.isCorrect === undefined || answer.isCorrect === false) {
+      if (
+        answer === undefined ||
+        answer.isCorrect === undefined ||
+        answer.isCorrect === false
+      ) {
         dataFn.objInsert(
-          {'wrong':
-            {'count': 1,
-            'time': (answerTime - startTime) },
-            'correct':
-              {'count': 0,
-              'time': 0 }
+          {
+            wrong: {
+              count: 1,
+              time: answerTime - startTime
+            },
+            correct: {
+              count: 0,
+              time: 0
+            }
           },
-          ['results', index]);
+          ['results', index]
+        );
       } else {
         dataFn.objInsert(
-          {'correct':
-            {'count': 1,
-            'time': (answerTime - startTime) },
-            'wrong':
-              {'count': 0,
-              'time': 0 }
+          {
+            correct: {
+              count: 1,
+              time: answerTime - startTime
+            },
+            wrong: {
+              count: 0,
+              time: 0
+            }
           },
-          ['results', index]);
+          ['results', index]
+        );
       }
-    // } else if (!data['results'][index]['wrong'] && (answer.isCorrect === undefined || answer.isCorrect === false)) {
-    //   dataFn.objInsert(
-    //     {'count': 1, 'time': (answerTime - startTime) },
-    //     ['results', index, 'wrong']);
-    // } else if (!data['results'][index]['correct'] && (answer.isCorrect === true)) {
-    //   dataFn.objInsert(
-    //     {'count': 1, 'time': (answerTime - startTime) },
-    //     ['results', index, 'correct']);
+      // } else if (!data['results'][index]['wrong'] && (answer.isCorrect === undefined || answer.isCorrect === false)) {
+      //   dataFn.objInsert(
+      //     {'count': 1, 'time': (answerTime - startTime) },
+      //     ['results', index, 'wrong']);
+      // } else if (!data['results'][index]['correct'] && (answer.isCorrect === true)) {
+      //   dataFn.objInsert(
+      //     {'count': 1, 'time': (answerTime - startTime) },
+      //     ['results', index, 'correct']);
     } else if (answer.isCorrect === undefined || answer.isCorrect === false) {
       dataFn.numIncr(1, ['results', index, 'wrong', 'count']);
-      dataFn.numIncr(answerTime - startTime, ['results', index, 'wrong', 'time']);
+      dataFn.numIncr(answerTime - startTime, [
+        'results',
+        index,
+        'wrong',
+        'time'
+      ]);
     } else {
       dataFn.numIncr(1, ['results', index, 'correct', 'count']);
-      dataFn.numIncr(answerTime - startTime, ['results', index, 'correct', 'time']);
+      dataFn.numIncr(answerTime - startTime, [
+        'results',
+        index,
+        'correct',
+        'time'
+      ]);
     }
   }
 };
