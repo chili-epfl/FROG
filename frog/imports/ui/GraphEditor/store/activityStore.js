@@ -161,7 +161,7 @@ export default class ActivityStore {
             new Activity(
               x.plane,
               x.startTime,
-              x.title,
+              x.rawTitle,
               x.length,
               x._id,
               x.state
@@ -175,6 +175,7 @@ export default class ActivityStore {
         if (!toUpdate) {
           throw 'Could not find activity to update in Mongo';
         }
+        console.log(toUpdate)
         toUpdate.update(newact);
       }),
 

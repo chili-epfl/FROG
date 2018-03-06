@@ -20,6 +20,7 @@ export default class Activity extends Elem {
   title: string;
   bounds: BoundsT;
   endTime: number;
+  activityType: string;
 
   constructor(
     plane: number,
@@ -45,6 +46,7 @@ export default class Activity extends Elem {
         this.length = newact.length;
         this.startTime = newact.startTime;
         this.rawTitle = newact.title;
+        this.activityType = newact.activityType;
         this.state = newact.state;
       }),
 
@@ -129,6 +131,10 @@ export default class Activity extends Elem {
         if (_state.mode !== 'waitingDrag') {
           this.over = true;
         }
+      }),
+
+      ChooseActivityType: action ((type) => {
+        this.activityType = type
       }),
 
       setRename: action(() => {

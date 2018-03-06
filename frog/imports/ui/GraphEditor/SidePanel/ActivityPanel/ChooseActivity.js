@@ -44,6 +44,10 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             $set: { activityType: activityType.id }
           });
           if (this.props.store) {
+            console.log('add history')
+            console.log(this.props)
+            // this.props.store.activityStore.mongoChange(new, old)
+            this.props.store.activityStore.mongoChange(this.props.activity, this.props.activity)
             this.props.store.addHistory();
           }
         };

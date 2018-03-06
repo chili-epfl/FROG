@@ -204,7 +204,10 @@ export default class Store {
           this.operatorStore.history
         ];
         const lastEntry = this.history.slice(-1).pop() || [];
+        console.log(lastEntry)
+        console.log(newEntry)
         if (!isEqual(Stringify(lastEntry), Stringify(newEntry))) {
+          // problem of is Equal
           this.history.push(newEntry);
           mergeGraph(this.objects);
         }
@@ -248,29 +251,23 @@ export default class Store {
       },
 
       undo: action(() => {
-        const [connections, activities, operators] =
-          this.history.length > 1 ? this.history.pop() : this.history[0];
-        this.activityStore.all = activities.map(
-          x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
-        );
-        this.operatorStore.all = operators.map(
-          x => new Operator(x.time, x.y, x.type, x.id, x.title)
-        );
-        this.connectionStore.all = connections.map(x => {
-          const source = this.findId(x.source);
-          const target = this.findId(x.target);
-          if (
-            source instanceof Connection ||
-            target instanceof Connection ||
-            !source ||
-            !target
-          ) {
-            throw 'Cannot find connection source/target, or source/target is a connection';
-          }
-          return new Connection(source, target, x._id);
-        });
-
-        mergeGraph(this.objects);
+        if (this.history.length > 1) {
+          this.history.pop();
+          this.activityStore = new ActivityStore();
+          this.operatorStore = new OperatorStore();
+          this.connectionStore = new ConnectionStore();
+          this.history[this.history.length - 1][0].forEach(x => {
+            this.connectionStore.mongoAdd(x);
+          });
+          this.history[this.history.length - 1][1].forEach(x => {
+            this.activityStore.mongoAdd(x);
+          });
+          this.history[this.history.length - 1][2].forEach(x => {
+            this.connectionStore.mongoAdd(x);
+          });
+          mergeGraph(this.objects);
+          this.refreshValidate();
+        }
       }),
 
       setSession: action((session: any) => {
