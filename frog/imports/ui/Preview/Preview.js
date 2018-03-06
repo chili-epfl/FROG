@@ -18,6 +18,7 @@ import { DashboardComp } from '../TeacherView/Dashboard';
 import ShowInfo from './ShowInfo';
 import createLogger, { Logs } from './createLogger';
 import ShowLogs from './ShowLogs';
+import ShowDashExample from './ShowDashExample';
 
 const Icon = ({
   onClick,
@@ -71,7 +72,9 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     setWindows,
     fullWindow,
     setFullWindow,
-    reload
+    reload,
+    showDashExample,
+    setShowDashExample
   }: {
     activityTypeId: string,
     example: number,
@@ -79,6 +82,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     showData: boolean,
     setShowDash: Function,
     showDash: boolean,
+    setShowDashExample: Function,
+    showDashExample: boolean,
     setShowData: Function,
     setShowLogs: Function,
     showLogs: boolean,
@@ -208,6 +213,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       );
     };
 
+    const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
     const Controls = (
       <div className="modal-header">
         <button
@@ -233,6 +239,15 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
               tooltip="Toggle dashboard"
             />
           )}
+          {activityType.dashboard &&
+            activityType.dashboard.exampleLogs && (
+              <Icon
+                onClick={() => setShowDashExample(!showDashExample)}
+                icon="fa fa-line-chart"
+                color={showDashExample ? '#3d76b8' : '#b3cae6'}
+                tooltip="Toggle example logs dashboard"
+              />
+            )}
           <Icon
             onClick={() => setShowLogs(!showLogs)}
             icon="fa fa-list"
@@ -282,8 +297,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
           )}
         </h4>
         <Nav bsStyle="pills" activeKey={example}>
-          {examples &&
-            examples.map((x, i) => (
+          {ex &&
+            ex.map((x, i) => (
               <NavItem
                 key={x.title}
                 className="examples"
@@ -296,18 +311,20 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         </Nav>
       </div>
     );
-    const users = [
-      ...[
-        'Chen Li',
-        'Maurice',
-        'Edgar',
-        'Noel',
-        'Patrick',
-        'Ole',
-        'Niels'
-      ].slice(0, windows),
-      ...((showDash && ['dashboard']) || [])
-    ];
+    const users = showDashExample
+      ? ['dashboard']
+      : [
+          ...[
+            'Chen Li',
+            'Maurice',
+            'Edgar',
+            'Noel',
+            'Patrick',
+            'Ole',
+            'Niels'
+          ].slice(0, windows),
+          ...((showDash && ['dashboard']) || [])
+        ];
 
     const Content = (
       <div
@@ -318,7 +335,9 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
           height: 'calc(100% - 60px)'
         }}
       >
-        {users.length === 1 || showData ? (
+        {showDashExample ? (
+          <ShowDashExample example={example} activityType={activityType} />
+        ) : users.length === 1 || showData ? (
           <Run name={users[0]} id={1} />
         ) : (
           <Mosaic
@@ -339,7 +358,10 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                       .map((_, i) => i + 1)}
                     users={users
                       .filter(e => e !== 'dashboard')
-                      .map((e, i) => ({ _id: i + 1, username: e }))}
+                      .reduce(
+                        (acc, name, i) => ({ ...acc, [i + 1]: name }),
+                        {}
+                      )}
                   />
                 </MosaicWindow>
               ) : (
@@ -411,6 +433,7 @@ const StatefulPreview = compose(
   withState('fullWindow', 'setFullWindow', false),
   withState('showData', 'setShowData', false),
   withState('showDash', 'setShowDash', false),
+  withState('showDashExample', 'setShowDashExample', false),
   withState('windows', 'setWindows', 1),
   withState('showLogs', 'setShowLogs', false)
 )(StatelessPreview);
