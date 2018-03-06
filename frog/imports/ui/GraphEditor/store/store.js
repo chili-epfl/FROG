@@ -204,6 +204,8 @@ export default class Store {
           this.operatorStore.history
         ];
         const lastEntry = this.history.slice(-1).pop() || [];
+        console.log(lastEntry)
+        console.log(newEntry)
         if (!isEqual(Stringify(lastEntry), Stringify(newEntry))) {
           // problem of is Equal
           this.history.push(newEntry);

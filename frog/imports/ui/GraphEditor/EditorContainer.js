@@ -45,6 +45,8 @@ class Editor extends Component {
         />
       );
     }
+    console.log(this.props.store.history)
+
     return (
       <div style={{ height: '100%' }}>
         <TopBar />
