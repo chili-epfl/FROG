@@ -79,7 +79,7 @@ const PreviewPage = ({
       showDash: false,
       example: 0
     });
-  const setShowLogs = x => changeURL({ showLogs: x, showDash: false });
+  const setShowLogs = x => changeURL({ showLogs: x });
   const setShowData = x => changeURL({ showData: x });
   const setWindows = x => changeURL({ windows: x });
   const setExample = x => changeURL({ example: x });
