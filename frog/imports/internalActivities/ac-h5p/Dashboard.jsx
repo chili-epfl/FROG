@@ -34,6 +34,9 @@ const Viewer = ({ data }: { data: Object }) => {
 };
 
 const mergeLog = (data: any, dataFn: Object, rawlog: LogDBT) => {
+  if (!rawlog.payload) {
+    return null;
+  }
   const log = JSON.parse(rawlog.payload.msg);
   if (!data.students[rawlog.userId]) {
     dataFn.objInsert(true, ['students', rawlog.userId]);
