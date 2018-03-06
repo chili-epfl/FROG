@@ -153,14 +153,6 @@ const mergeLog = (
           ['results', index]
         );
       }
-      // } else if (!data['results'][index]['wrong'] && (answer.isCorrect === undefined || answer.isCorrect === false)) {
-      //   dataFn.objInsert(
-      //     {'count': 1, 'time': (answerTime - startTime) },
-      //     ['results', index, 'wrong']);
-      // } else if (!data['results'][index]['correct'] && (answer.isCorrect === true)) {
-      //   dataFn.objInsert(
-      //     {'count': 1, 'time': (answerTime - startTime) },
-      //     ['results', index, 'correct']);
     } else if (answer.isCorrect === undefined || answer.isCorrect === false) {
       dataFn.numIncr(1, ['results', index, 'wrong', 'count']);
       dataFn.numIncr(answerTime - startTime, [
