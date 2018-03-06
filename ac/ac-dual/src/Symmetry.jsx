@@ -1,5 +1,7 @@
-import * as React from 'react';
-// import Game from './Game';
+import React, { Component } from 'react';
+import Mousetrap from 'mousetrap';
+import { Button } from 'react-bootstrap';
+import { styles, texts, CountDownTimer } from './ActivityUtils';
 
 const normaliseFigure = figure => {
   let maxX = 1;
@@ -124,18 +126,27 @@ class Canvas extends React.Component {
   canvasLeft: any;
   canvasRight: any;
 
-  componentDidMount() {
-    const { figure } = this.props;
-    console.info(figure);
+  draw = () => {
+    const figure = this.props.figure;
     const canvasLeft = this.canvasLeft;
     const canvasRight = this.canvasRight;
     const f = generateFigure(figure.complexity);
+    clearFigure(this.canvasLeft);
+    clearFigure(this.canvasRight);
 
     drawFigure(canvasLeft, f);
     drawFigure(
       canvasRight,
       mirrorFigure(f, figure.symmetrical, figure.complexity_diff)
     );
+  };
+
+  componentDidMount() {
+    this.draw();
+  }
+
+  componentWillUpdate() {
+    this.draw();
   }
 
   componentWillUnmount() {
@@ -161,4 +172,89 @@ class Canvas extends React.Component {
   }
 }
 
-export default Canvas;
+let noAnswerTimeout;
+
+// const Symmetry = props => {
+
+// const { logger, data, dataFn, activityData } = props;
+// // const { objectName, colorName, colorFill, isCorrect, startTime } = question;
+// const {language} = data;
+
+// clearTimeout(noAnswerTimeout);
+// noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
+
+//   return (
+//   );
+// };
+
+export default class Symmetry extends Component {
+  onClick = answer => () => {
+    const symmetrical = Math.random() < 0.5;
+    this.setState({
+      figure: {
+        complexity: 0.5,
+        complexity_diff: 0.5,
+        symmetrical
+      }
+    });
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      figure: {
+        complexity: 0.5,
+        complexity_diff: 0.5,
+        symmetrical: Math.random() < 0.5
+      }
+    };
+  }
+
+  componentWillUnmount() {
+    Mousetrap.reset();
+    clearTimeout(noAnswerTimeout);
+  }
+
+  render() {
+    const { activityData, data } = this.props;
+    const { language } = data;
+
+    Mousetrap.bind('y', this.onClick(true));
+    Mousetrap.bind('o', this.onClick(true));
+    Mousetrap.bind('n', this.onClick(false));
+
+    clearTimeout(noAnswerTimeout);
+    noAnswerTimeout = setTimeout(
+      this.onClick(undefined),
+      activityData.config.symmetryTime
+    );
+
+    console.log(this.state.figure);
+
+    return (
+      <React.Fragment>
+        <div style={styles.container}>
+          <Canvas figure={this.state.figure} />
+          <div>
+            <Button
+              style={{ ...styles.button, left: 0 }}
+              onClick={this.onClick(true)}
+            >
+              {texts[language].yes}
+            </Button>
+            <Button
+              style={{ ...styles.button, right: 0 }}
+              onClick={this.onClick(false)}
+            >
+              {texts[language].no}
+            </Button>
+          </div>
+          <CountDownTimer
+            start={Date.now()}
+            length={activityData.config.symmetryTime}
+          />
+        </div>
+      </React.Fragment>
+    );
+  }
+}

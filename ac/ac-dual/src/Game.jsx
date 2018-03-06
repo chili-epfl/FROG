@@ -1,209 +1,269 @@
-import 'pixi';
-import 'p2';
-import * as React from 'react';
-import Phaser from 'phaser-ce/build/custom/phaser-split';
-import bulletPNG from './img/bullet.png';
-import shipPNG from './img/player.png';
-import kamboomPNG from './img/explode.png';
-import invadorPNG from './img/ball.png';
+import React, { Component } from 'react';
+import Mousetrap from 'mousetrap';
 
-var ball_speed = 1; //speed at which the ball falls
+class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.width = this.props.width || 800;
+    this.height = this.props.height || 500;
 
-// TODO 3: Define the number of tasks that will make up the workflow of the experiment for one subject
-num_tasks = 3; //i.e. the two single tasks, plus the dual task
+    this.ctx = null;
 
-// TODO 4: Define the init-specific() function with
-var game;
+    this.ball = {
+      x: this.width / 2 - 3,
+      y: this.height / 2 - 3,
+      radius: 6,
+      speedX: 0,
+      speedY: 6
+    };
 
-var player;
-var aliens;
-var bullets;
-var bulletTime = 0;
-var cursors;
-var fireButton;
-var explosions;
-var firingTimer = 0;
-var livingEnemies = [];
+    this.paddle = {
+      w: 100,
+      h: 10,
+      x: this.width / 2 - 100 / 2, // 100 is paddle.w
+      y: this.height - 10,
+      speed: 6
+    };
 
-function create() {
-  game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.bricks = [];
+    this.brickX = 2;
+    this.brickY = 10;
+    this.brickWidth = this.width / 10 - 2.25;
+    this.ballOn = false;
+    this.colors = [
+      '#18582b',
+      '#0c905d',
+      '#00c78e',
+      '#33dbff',
+      '#3375ff',
+      '#5733ff'
+    ];
 
-  game.stage.backgroundColor = '#ffffff';
-  game.world.setBounds(0, 0, 400, 600);
+    this.left = false;
+    this.right = false;
+    this.gameOver = 0;
+  }
 
-  //  Our bullet group
-  bullets = game.add.group();
-  bullets.enableBody = true;
-  bullets.physicsBodyType = Phaser.Physics.ARCADE;
-  bullets.createMultiple(30, 'bullet');
-  bullets.setAll('anchor.x', 0.5);
-  bullets.setAll('anchor.y', 1);
-  bullets.setAll('outOfBoundsKill', true);
-  bullets.setAll('checkWorldBounds', true);
+  createBricks = () => {
+    let brickX = 2;
+    let brickY = 10;
+    const bricks = this.bricks;
+    const brickWidth = this.brickWidth;
+    const width = this.width;
 
-  //  The hero!
-  player = game.add.sprite(200, 500, 'ship');
-  player.anchor.setTo(0.5, 0.5);
-  game.physics.enable(player, Phaser.Physics.ARCADE);
-  player.body.collideWorldBounds = true;
+    let j = 0;
 
-  //  The baddies!
-  aliens = game.add.group();
-  aliens.enableBody = true;
-  aliens.physicsBodyType = Phaser.Physics.ARCADE;
+    for (let i = 0; i < 60; i += 1) {
+      bricks.push({
+        x: brickX,
+        y: brickY,
+        w: brickWidth,
+        h: 10,
+        color: this.colors[j]
+      });
 
-  createBall();
-
-  //  An explosion pool
-  explosions = game.add.group();
-  explosions.createMultiple(1, 'kaboom');
-  explosions.forEach(setupInvader, this);
-
-  //  And some controls to play the game with
-  cursors = game.input.keyboard.createCursorKeys();
-
-  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-}
-
-function createBall() {
-  //We randomly set where the ball will appear
-  var initialx = game.rnd.integerInRange(1, 399);
-
-  console.log('creating ball at ' + initialx + '!');
-
-  var alien = aliens.create(initialx, 50, 'invader');
-  alien.anchor.setTo(0.5, 0.5);
-  alien.body.moves = false;
-
-  aliens.x = 0;
-  aliens.y = 0;
-
-  console.log('adding new tween to ' + game.tweens.getAll().length);
-
-  //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
-  var tween = game.add
-    .tween(aliens)
-    .to(
-      { y: 500 },
-      minitask_time_sym * 1000,
-      Phaser.Easing.Linear.None,
-      true,
-      0,
-      0,
-      false
-    );
-  tween.timeScale = (9 + ball_speed) / 10; //Speed of the ball movement, constant in the baseline, can be increased if needed
-  //  When the tween loops it calls descend
-  tween.onComplete.add(touchGround, this);
-}
-
-function setupInvader(invader) {
-  invader.anchor.x = 0.5;
-  invader.anchor.y = 0.5;
-  invader.animations.add('kaboom');
-}
-
-function update() {
-  if (player.alive && player.body) {
-    //  Reset the player, then check for movement keys
-    player.body.velocity.setTo(0, 0);
-
-    // TODO: Add the buttons actions????
-    if (cursors.left.isDown) {
-      player.body.velocity.x = -500;
-    } else if (cursors.right.isDown) {
-      player.body.velocity.x = 500;
+      brickX += brickWidth + 2;
+      if (brickX + brickWidth + 2 > width) {
+        brickY += 12;
+        brickX = 2;
+        j += 1;
+      }
     }
+  };
 
-    fireBullet();
+  destroyBrick = () => {
+    const bricks = this.bricks;
+    const ball = this.ball;
+    const checkCollision = this.checkCollision;
 
-    //  Run collision
-    // game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
-  }
-}
-
-function collisionHandler(bullet, alien) {
-  //  When a bullet hits an alien we kill them both
-  bullet.kill();
-  alien.kill();
-
-  //  And create an explosion :)
-  var explosion = explosions.getFirstExists(false);
-  explosion.reset(alien.body.x, alien.body.y);
-  explosion.play('kaboom', 30, false, true);
-
-  current_minitask_ball_success = true;
-
-  var time = new Date().getTime();
-  current_minitask_elapsed_time_ball = time - current_minitask_timestamp;
-
-  //  End the task
-  if (current_task == 1) endMiniTask();
-  else if (current_task == 2) {
-    dual_minitask_completed_ball = true;
-    if (dual_minitask_completed_ball && dual_minitask_completed_sym)
-      endMiniTask(); //We only end the minitask once the two halves are complete
-  }
-}
-
-function fireBullet() {
-  let bullet;
-  //  To avoid them being allowed to fire too fast we set a time limit
-  if (game.time.now > bulletTime) {
-    //  Grab the first bullet we can from the pool
-    bullet = bullets.getFirstExists(false);
-
-    if (bullet) {
-      //  And fire it
-      bullet.reset(player.x, player.y + 8);
-      bullet.body.velocity.y = -400;
-      bulletTime = game.time.now + 200;
+    for (let i = 0; i < bricks.length; i += 1) {
+      if (checkCollision(ball, bricks[i])) {
+        ball.speedY = -ball.speedY;
+        bricks.splice(i, 1);
+      }
     }
-  }
-}
+  };
 
-function resetBullet(bullet) {
-  //  Called if the bullet goes out of the screen
-  bullet.kill();
-}
+  checkCollision = (obj1, obj2) => {
+    if (
+      obj1.y + obj1.radius >= obj2.y &&
+      obj1.y - obj1.radius <= obj2.y + obj2.h &&
+      obj1.x - obj1.radius >= obj2.x &&
+      obj1.x + obj1.radius <= obj2.x + obj2.w
+    ) {
+      return true;
+    }
+  };
 
-function restart() {
-  console.log('restarting game!');
+  resetGame = () => {
+    this.ball = {
+      x: this.width / 2 - 3,
+      y: this.height / 2 - 3,
+      radius: 6,
+      speedX: 0,
+      speedY: 6
+    };
 
-  game.tweens.removeAll();
+    this.paddle = {
+      w: 100,
+      h: 10,
+      x: this.width / 2 - 100 / 2,
+      y: this.height - 10,
+      speed: 6
+    };
 
-  //bullets.removeAll();
-  if (bullets) bullets.callAll('kill');
-  if (aliens) aliens.removeAll();
+    this.ballOn = false;
+  };
 
-  //  And brings the aliens back from the dead :)
-  createBall();
+  move = () => {
+    const left = this.left;
+    const right = this.right;
+    const space = this.space;
+    const bricks = this.bricks;
+    const ball = this.ball;
+    const paddle = this.paddle;
+    const width = this.width;
+    const height = this.height;
 
-  //revives the player
-  if (player) {
-    player.kill();
-    player.revive();
-  }
-}
+    if (left && paddle.x > 0) {
+      paddle.x -= paddle.speed;
+    } else if (right && paddle.x + paddle.w < width) {
+      paddle.x += paddle.speed;
+    }
+    // // start ball on space key
+    if (space && this.ballOn === false) {
+      this.ballOn = true;
+      this.gameOver = 0;
+    }
+    // // ball movement
+    if (this.ballOn === true) {
+      ball.x += ball.speedX;
+      ball.y += ball.speedY;
+      // check ball hit ceiling
+      if (ball.y <= 0) {
+        ball.speedY = -ball.speedY;
+      }
+      // check ball hit paddle and angle
+      if (
+        ball.y + ball.radius >= paddle.y &&
+        ball.x - ball.radius >= paddle.x &&
+        ball.x + ball.radius <= paddle.x + paddle.w
+      ) {
+        ball.speedY = -ball.speedY;
+        const deltaX = ball.x - (paddle.x + paddle.w / 2);
+        ball.speedX = deltaX * 0.15;
+      }
+      // check ball hit wall left-right
+      if (ball.x >= width || ball.x <= 0) {
+        ball.speedX = -ball.speedX;
+      }
+      if (ball.y > height) {
+        this.gameOver = 1;
+        this.resetGame();
+      }
 
-function preload() {
-  //Load all the needed images, both for the ball, cannon and for the symmetry figures
-  game.load.image('bullet', bulletPNG);
-  game.load.image('ship', shipPNG);
-  game.load.spritesheet('kaboom', kamboomPNG, 128, 128);
-  game.load.image('invader', invadorPNG);
-}
+      this.destroyBrick();
+      // check if win
+      if (bricks.length < 1) {
+        this.gameOver = 2;
+        // newGame();
+      }
+    }
+  };
 
-class Game extends React.Component {
+  draw = () => {
+    const ctx = this.ctx;
+    const width = this.width;
+    const height = this.height;
+    const ball = this.ball;
+    const paddle = this.paddle;
+    const bricks = this.bricks;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = '#333';
+    ctx.fillRect(0, 0, width, height);
+    // paddle
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
+
+    if (!this.ballOn) {
+      ctx.font = '14px Roboto Mono';
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        'Press spacebar to start a new game.',
+        width / 2,
+        height / 2 - 25
+      );
+      ctx.font = '12px Roboto Mono';
+      ctx.fillText(
+        'Move with arrow keys or A & D.',
+        width / 2,
+        height / 2 + 25
+      );
+
+      if (this.gameOver === 1) {
+        ctx.font = '52px Roboto Mono';
+        ctx.fillText('YOU LOST!', width / 2, height / 2 - 90);
+        ctx.font = '36px Roboto Mono';
+        ctx.fillText('Keep trying!', width / 2, height / 2 - 50);
+      } else if (this.gameOver === 2) {
+        ctx.font = '52px Roboto Mono';
+        ctx.fillText('YOU WON!', width / 2, height / 2 - 90);
+        ctx.font = '36px Roboto Mono';
+        ctx.fillText('Congratulations!', width / 2, height / 2 - 50);
+      }
+    }
+    // ball
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Bricks
+    for (let i = 0; i < bricks.length; i += 1) {
+      ctx.fillStyle = bricks[i].color;
+      ctx.fillRect(bricks[i].x, bricks[i].y, bricks[i].w, bricks[i].h);
+    }
+  };
+
+  loop = () => {
+    this.move();
+    this.draw();
+    requestAnimationFrame(this.loop);
+  };
+
+  update = () => {
+    this.createBricks();
+    requestAnimationFrame(this.loop);
+  };
+
   componentDidMount() {
-    game = new Phaser.Game(400, 600, Phaser.AUTO, 'stimulus-game', {
-      preload,
-      create,
-      update
-    });
+    this.ctx = this.gameContainer.getContext('2d');
+
+    Mousetrap.bind('left', () => (this.left = true));
+    Mousetrap.bind('left', () => (this.left = false), 'keyup');
+    Mousetrap.bind('right', () => (this.right = true));
+    Mousetrap.bind('right', () => (this.right = false), 'keyup');
+
+    this.space = true;
+    // Mousetrap.bind('space', () => (this.space = true));
+
+    // Mousetrap.bind('');
+    this.update();
   }
+
+  componentWillUnmount() {
+    Mousetrap.reset();
+  }
+
   render() {
-    return <div id="stimulus-game" />;
+    return (
+      <canvas
+        ref={container => (this.gameContainer = container)}
+        width={this.props.width}
+        height="500"
+        id="gameCanvas"
+      />
+    );
   }
 }
 
