@@ -28,8 +28,11 @@ class TextInput extends Component<Object, TextInputStateT> {
 
   render() {
     return (
-      <input
+      <textarea
+        rows="2"
+        cols="50"
         type="text"
+        style={this.props.style}
         value={this.state.value}
         onChange={this.handleChange}
         onKeyPress={this.onKeyPress}

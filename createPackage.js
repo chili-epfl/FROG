@@ -4,11 +4,15 @@ const childProcess = require('child_process');
 
 if (!process.argv[4]) {
   /*eslint-disable */
-  console.log(`node createPackage.js <activity|operator> <short-name> <title>
+  console.log(`
+  usage: node createPackage.js <activity|operator> <short-name> <title>
+  
+  eg: To create an activity -> node createPackage.js activity ac-new-activity "A new activity" 
 
-Sets up a simple activity or operator package template in ./[ac|op]/<short-name>, and adds it to the relevant files
-    (frog/package.json and frog/imports/[activity|operator]Packages.js). Also does the correct symlinking and yarn
-    commands to be ready to develop.`);
+  Features: 
+  * Sets up a simple activity or operator package template in ./[ac|op]/<short-name>.  
+  * Adds it to the relevant files (frog/package.json and frog/imports/[activity|operator]Packages.js). 
+  * Also does the correct symlinking and yarn commands to be ready to develop.`);
   /* eslint-enable */
   process.exit();
 }
@@ -17,9 +21,9 @@ const type = process.argv[2];
 const prefix = type === 'activity' ? 'ac' : 'op';
 if (process.argv[3].slice(0, 3) !== prefix + '-') {
   /*eslint-disable */
-  console.log(
-    `activityPackage names should start by 'ac-...' and operatorPackage names with 'op-...'.`
-  );
+  console.log(`
+  activityPackage names should start by 'ac-...' and operatorPackage names with 'op-...'.
+  `);
   /* eslint-enable */
   process.exit();
 }
@@ -93,7 +97,7 @@ console.log(
 Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh' from the
 repository root directory (this will delete all untracked files).
 
-You can then restart './run_and_watch_all.sh' in the root directory, as well
+You can then restart 'npm start watchAll' in the root directory, as well
 as 'meteor' in the './frog' directory, which should pick up the new ${type}.
 
 Use 'git diff --cached' to see all the changes that the script has made.`
