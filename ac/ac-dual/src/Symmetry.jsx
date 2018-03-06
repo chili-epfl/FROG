@@ -181,6 +181,11 @@ class Canvas extends React.Component {
 
 let noAnswerTimeout;
 
+const DEFAULT_FIGURE = {
+  complexity: 0.2,
+  complexity_diff: 0.8
+}
+
 export default class Symmetry extends Component {
   onClick = answer => () => {
     const { dataFn, logger, data } = this.props;
@@ -200,15 +205,12 @@ export default class Symmetry extends Component {
       { type: 'score', value }
     ]);
 
-    const symmetrical = Math.random() < 0.5;
 
-    Mousetrap.reset();
+    const symmetrical = Math.random() < 0.5;
+    console.log(symmetrical)
+
     this.setState({
-      figure: {
-        complexity: 0.5,
-        complexity_diff: 0.5,
-        symmetrical
-      }
+      figure: { ...DEFAULT_FIGURE, symmetrical }
     });
   };
 
@@ -216,8 +218,7 @@ export default class Symmetry extends Component {
     super(props);
     this.state = {
       figure: {
-        complexity: 0.5,
-        complexity_diff: 0.5,
+        ...DEFAULT_FIGURE,
         symmetrical: Math.random() < 0.5
       }
     };
@@ -234,10 +235,6 @@ export default class Symmetry extends Component {
     const { language } = data;
 
     this.startTime = Date.now();
-
-    Mousetrap.bind('y', this.onClick(true));
-    Mousetrap.bind('o', this.onClick(true));
-    Mousetrap.bind('n', this.onClick(false));
 
     clearTimeout(noAnswerTimeout);
     noAnswerTimeout = setTimeout(
