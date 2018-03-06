@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Mousetrap from 'mousetrap';
 
+let gameTime;
+
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -9,27 +11,12 @@ class Game extends Component {
 
     this.ctx = null;
 
-    this.ball = {
-      x: this.width / 2 - 3,
-      y: this.height / 2 - 3,
-      radius: 6,
-      speedX: 0,
-      speedY: 6
-    };
-
-    this.paddle = {
-      w: 100,
-      h: 10,
-      x: this.width / 2 - 100 / 2, // 100 is paddle.w
-      y: this.height - 10,
-      speed: 6
-    };
-
+    this.ball = null;
+    this.paddle = null;
     this.bricks = [];
     this.brickX = 2;
     this.brickY = 10;
     this.brickWidth = this.width / 10 - 2.25;
-    this.ballOn = false;
     this.colors = [
       '#18582b',
       '#0c905d',
@@ -41,7 +28,15 @@ class Game extends Component {
 
     this.left = false;
     this.right = false;
+
+    this.score = 0;
+    this.errors = 0;
+
     this.gameOver = 0;
+    this.ballOn = false;
+
+    // If you want to have a pause before game starts
+    this.space = false;
   }
 
   createBricks = () => {
@@ -91,17 +86,18 @@ class Game extends Component {
       obj1.x - obj1.radius >= obj2.x &&
       obj1.x + obj1.radius <= obj2.x + obj2.w
     ) {
+      this.score += 1;
       return true;
     }
   };
 
-  resetGame = () => {
+  newGame = () => {
     this.ball = {
       x: this.width / 2 - 3,
       y: this.height / 2 - 3,
       radius: 6,
       speedX: 0,
-      speedY: 6
+      speedY: 4
     };
 
     this.paddle = {
@@ -109,10 +105,10 @@ class Game extends Component {
       h: 10,
       x: this.width / 2 - 100 / 2,
       y: this.height - 10,
-      speed: 6
+      speed: 8
     };
 
-    this.ballOn = false;
+    // this.ballOn = false;
   };
 
   move = () => {
@@ -159,7 +155,8 @@ class Game extends Component {
       }
       if (ball.y > height) {
         this.gameOver = 1;
-        this.resetGame();
+        this.errors += 1;
+        this.newGame();
       }
 
       this.destroyBrick();
@@ -233,7 +230,15 @@ class Game extends Component {
 
   update = () => {
     this.createBricks();
+    this.newGame();
     requestAnimationFrame(this.loop);
+  };
+
+  pollServer = () => {
+    const { dataFn, logger, data } = this.props;
+
+    console.log(this.score);
+    console.log(this.errors);
   };
 
   componentDidMount() {
@@ -245,13 +250,21 @@ class Game extends Component {
     Mousetrap.bind('right', () => (this.right = false), 'keyup');
 
     this.space = true;
+    this.update();
     // Mousetrap.bind('space', () => (this.space = true));
 
-    // Mousetrap.bind('');
-    this.update();
+    const { activityData } = this.props;
+
+    gameTime = setTimeout(
+      this.pollServer,
+      activityData.config.timeOfEachActivity
+    );
   }
 
   componentWillUnmount() {
+    // Have to refactor, if I uncomment the following line, the pollServer function is never called as
+    // the timer get's cleared out due to ComponentWillUnmount
+    // clearTimeout(gameTime);
     Mousetrap.reset();
   }
 
@@ -260,8 +273,7 @@ class Game extends Component {
       <canvas
         ref={container => (this.gameContainer = container)}
         width={this.props.width}
-        height="500"
-        id="gameCanvas"
+        height={this.props.height}
       />
     );
   }

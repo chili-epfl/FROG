@@ -27,7 +27,7 @@ const Activity = props => {
 
   const changeActivity = () => {
     dataFn.numIncr(1, 'activityState');
-    // setTask('waiting');
+    setTask('waiting');
   };
 
   clearTimeout(changeActivityTimeout);
@@ -39,14 +39,12 @@ const Activity = props => {
         {texts[language].question[parseInt(activityState, 10)]}
       </div>
       <div style={{ display: 'flex' }}>
-        {/* {(activityState === 1 || activityState === 2) && (
-            <Game width={800} height={400} />
-          )}
-          {(activityState === 0 || activityState === 2) && (
-           
-          )} */}
-        <Symmetry {...props} width={200} height={300} />
-        {/* <Game width={500} height={400} /> */}
+        {(activityState === 1 || activityState === 2) && (
+          <Game {...props} width={500} height={400} />
+        )}
+        {(activityState === 0 || activityState === 2) && (
+          <Symmetry {...props} width={200} height={300} />
+        )}
       </div>
       <div style={styles.activityCountdown}>
         <CountDownTimer start={Date.now()} length={timeOfEachActivity}>
@@ -60,16 +58,15 @@ const Activity = props => {
 const Main = withState('task', 'setTask', null)(props => {
   const { activityData, task, setTask, data, dataFn } = props;
   const { delayBetweenActivity } = activityData.config;
-  const lang = data.language;
+  const { language, activityState } = data;
   const { name } = props.userInfo;
-  const activityState = data.activityState;
 
-  if (!lang) {
+  if (!language) {
     return <Form onSubmit={l => dataFn.objInsert(l, 'language')} name={name} />;
   } else if (task === null) {
     const start = () => setTask('waiting');
-    const { guidelines } = activityData.config[lang];
-    return <Guidelines start={start} guidelines={guidelines} lang={lang} />;
+    const { guidelines } = activityData.config[language];
+    return <Guidelines start={start} guidelines={guidelines} lang={language} />;
   } else if (task === 'waiting') {
     const next = () => {
       setTask({ startTime: Date.now() });
@@ -79,17 +76,14 @@ const Main = withState('task', 'setTask', null)(props => {
         next={next}
         delay={delayBetweenActivity}
         props={props}
-        lang={lang}
+        lang={language}
       />
     );
-  } else {
+  } else if (activityState < 3) {
     return <Activity {...props} />;
+  } else {
+    return <div style={styles.text}>{texts[language].end}</div>;
   }
-  // else if (activityState < 3) {
-  //
-  // } else {
-  //   return <div style={styles.text}>{texts[lang].end}</div>;
-  // }
 });
 
 // the actual component that the student sees

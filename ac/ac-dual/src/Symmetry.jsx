@@ -201,6 +201,8 @@ export default class Symmetry extends Component {
     ]);
 
     const symmetrical = Math.random() < 0.5;
+
+    Mousetrap.reset();
     this.setState({
       figure: {
         complexity: 0.5,
