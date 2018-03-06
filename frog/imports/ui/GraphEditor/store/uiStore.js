@@ -20,6 +20,7 @@ export default class uiStore {
       scrollIntervalID: '',
       selected: undefined,
       showPreview: false,
+      libraryOpen: false,
       showInfo: false,
 
       setIsSvg: action((isSvg: boolean) => {
@@ -89,6 +90,10 @@ export default class uiStore {
 
       setShowPreview: action((x: ?Object) => {
         this.showPreview = x;
+      }),
+
+      setLibraryOpen: action((x: boolean) => {
+        this.libraryOpen = x;
       }),
 
       cancelInfo: action(() => {
