@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import type { ActivityRunnerT } from 'frog-utils';
 import 'webrtc-adapter';
-import * as KurentoUtils from 'kurento-utils';
 
 import { isUndefined, isEqual, without, difference, last } from 'lodash';
 
@@ -11,6 +10,23 @@ import { ICEConfig } from '../utils/iceServers';
 import { preferOpus } from '../utils/codec';
 import Header from './Header';
 import VideoLayout from './VideoLayout';
+
+export const isBrowser = (() => {
+  try {
+    return !!window;
+  } catch (e) {
+    return false;
+  }
+})();
+
+export const KurentoClient = isBrowser
+  ? require('./kurento-client.js').default
+  : () => null
+
+export const KurentoUtils = isBrowser
+  ? require('./kurento-utils.js').default
+  : () => null
+
 
 declare var RTCPeerConnection: any;
 declare var RTCIceCandidate: any;
@@ -191,6 +207,7 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   };
 
   constructor(props: ActivityRunnerT) {
+    console.log(props);
     super(props);
     this.connections = [];
     this.state = { mode: 'notReady', local: {}, remote: [] };
@@ -259,6 +276,8 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   }
 
   shouldComponentUpdate(nextProps) {
+    console.log("shouldcompUpdate");
+    console.log(nextProps);
     if (difference(nextProps.data, this.props.data).length > 0) {
       const newMess = last(nextProps.data);
       if (!isEqual(newMess.data.fromUser, this.props.userInfo)) {
