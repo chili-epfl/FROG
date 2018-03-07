@@ -131,7 +131,7 @@ const Question = props => {
     dataFn.numIncr(isCorrectAnswer, 'score');
     dataFn.numIncr(timeIncr, 'time');
     // Goes on to next question
-    if ((data.progress + 1) < activityData.config.questions.length) {
+    if (data.progress + 1 < activityData.config.questions.length) {
       setQuestion('waiting');
     }
   };
