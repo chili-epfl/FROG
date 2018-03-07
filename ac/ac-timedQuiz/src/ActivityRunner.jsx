@@ -131,7 +131,9 @@ const Question = props => {
     dataFn.numIncr(isCorrectAnswer, 'score');
     dataFn.numIncr(timeIncr, 'time');
     // Goes on to next question
-    setQuestion('waiting');
+    if ((data.progress + 1) < activityData.config.questions.length) {
+      setQuestion('waiting');
+    }
   };
 
   clearTimeout(noAnswerTimeout);
@@ -145,7 +147,7 @@ const Question = props => {
       <div style={styles.commands}>
         {answers.map(option => {
           const key = curQuestion[1] + option.choice;
-          const buttonA = (
+          return (
             <Button
               key={key}
               style={{ ...styles.button }}
@@ -154,7 +156,6 @@ const Question = props => {
               {option.choice}
             </Button>
           );
-          return buttonA;
         })}
       </div>
       <CountDownTimer start={Date.now()} length={activityData.config.maxTime} />
