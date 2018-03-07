@@ -2,7 +2,7 @@
 
 shopt -s dotglob
 
-CYPRESS_VERSION='1.4.1'
+CYPRESS_VERSION='2.0.1'
 if which cypress && [[ `cypress --version` =~ $CYPRESS_VERSION ]]; then 
     echo 'Using pre-installed global Cypress'; CYPRESS=cypress
 else
