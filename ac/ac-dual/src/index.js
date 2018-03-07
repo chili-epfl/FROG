@@ -10,28 +10,18 @@ const meta = {
   description: 'New activity, no description available',
   exampleData: [
     {
-      title: 'Example',
+      title: 'Normal',
       config: {
-        fr: {
-          guidelines:
-            'Vous devrez faire 3 tâches, pour une minute chacune: </br>' +
-            '1. Décidez si deux formes sont symétriques (O / N) ' +
-            "2. Détruisez la boule qui tombe avant qu'elle ne touche le sol (touches curseur / flèches) " +
-            '3. Faites les deux en même temps!'
-        },
-        en: {
-          guidelines:
-            'You will have to do 3 tasks, for one minute each:' +
-            '1. Decide whether two shapes are symmetrical (Y/N)' +
-            '2. Destroy the falling ball before it touches the ground (cursor/arrow keys)' +
-            '3. Do both at the same time!'
-        },
-        delayBetweenActivity: 1500,
-        first: 1,
-        timeOfEachActivity: 15000,
-        gameTime: 10000,
+        timeOfEachActivity: 60000,
         symmetryTime: 5000,
-        symmetryQuestions: 20
+      },
+      data: {}
+    },
+    {
+      title: 'Quick',
+      config: {
+        timeOfEachActivity: 15000,
+        symmetryTime: 3000,
       },
       data: {}
     }
@@ -40,68 +30,18 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['fr', 'en'],
+  required: ['timeOfEachActivity', 'symmetryTime'],
   properties: {
-    fr: {
-      type: 'object',
-      title: 'French',
-      properties: {
-        guidelines: {
-          title: 'Directions for Students',
-          type: 'rte',
-          default:
-            'Vous devrez faire 3 tâches, pour une minute chacune: ' +
-            '1. Décidez si deux formes sont symétriques (O / N) ' +
-            "2. Détruisez la boule qui tombe avant qu'elle ne touche le sol (touches curseur / flèches) " +
-            '3. Faites les deux en même temps!'
-        }
-      }
-    },
-    en: {
-      type: 'object',
-      title: 'English',
-      properties: {
-        guidelines: {
-          title: 'Directions for Students',
-          type: 'rte',
-          default:
-            '<span>You will have to do 3 tasks, for one minute each: </span>' +
-            '1. Decide whether two shapes are symmetrical (Y/N)' +
-            '2. Destroy the falling ball before it touches the ground (cursor/arrow keys)' +
-            '3. Do both at the same time!'
-        }
-      }
-    },
-    delayBetweenActivity: {
-      title: 'Delay between Activity (ms)',
-      type: 'number',
-      default: 2000
-    },
-    first: {
-      title:
-        'Which activity do you want to go first? 1 - for Game. 2 - for Symmetry',
-      type: 'number',
-      default: 1
-    },
     timeOfEachActivity: {
       title: 'Length of each individual activity',
       type: 'number',
-      default: 5000
-    },
-    gameConfig: {
-      title: 'Duration you want to play the game (ms)',
-      type: 'number',
-      default: 10000
+      default: 60000,
+
     },
     symmetryTime: {
       title: 'Maximum time to answer each question for symmetry task (ms)',
       type: 'number',
       default: 5000
-    },
-    symmetryQuestions: {
-      title: 'Total number of questions in Symmetry Task',
-      type: 'number',
-      default: 20
     }
   }
 };
@@ -115,7 +55,7 @@ const dataStructure = {
   progress: 0,
   score: 0,
   time: 0,
-  activityState: 0
+  step: 0
 };
 
 // the actual component that the student sees

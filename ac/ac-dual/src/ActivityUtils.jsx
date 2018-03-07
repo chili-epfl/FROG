@@ -86,7 +86,7 @@ export const Form = withState('language', 'setLanguage', null)(
   )
 );
 
-export const Guidelines = ({ start, guidelines, lang }) => (
+export const Guidelines = ({ start, guidelines, lang}) => (
   <React.Fragment>
     <div style={{ ...styles.container, padding: '20px' }}>
       <HTML html={guidelines} />
@@ -111,15 +111,3 @@ export const CountDownTimer = TimedComponent(
   },
   100
 );
-
-export const Delay = ({ next, delay, lang }) => {
-  let delayTimeout;
-  clearTimeout(delayTimeout);
-  delayTimeout = setTimeout(next, delay);
-  return (
-    <React.Fragment>
-      <div style={styles.text}>{texts[lang].wait}</div>
-      <CountDownTimer start={Date.now()} length={delay} />
-    </React.Fragment>
-  );
-};

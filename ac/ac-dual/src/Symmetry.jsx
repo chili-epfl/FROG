@@ -98,20 +98,11 @@ const mirrorFigure = (figure, exact, difficulty) => {
   }
   if (exact) return ret;
 
-  const angle = 0;
-
-  for (let i = 0; i < figure.length; i += 1) {
-    const x = ret[i].x * Math.cos(angle) - ret[i].y * Math.sin(angle);
-    const y = ret[i].x * Math.sin(angle) + ret[i].y * Math.cos(angle);
-    ret[i].x = x;
-    ret[i].y = y;
-  }
-
   const p = Math.floor(Math.random() * figure.length);
 
   const v = Math.random();
   let d = 1.1 - difficulty;
-  if (d > 0.3) d = 0.3;
+  if (d > 0.5) d = 0.5;
   ret[p].x += v * d * 2;
   ret[p].y += (1 - v) * d * 2;
   return normaliseFigure(ret);
@@ -130,11 +121,10 @@ class Canvas extends React.Component {
     super(props);
     this.width = this.props.width || 200;
     this.height = this.props.height || 500;
-    this.figure = this.props.figure;
   }
 
   draw = () => {
-    const figure = this.figure;
+    const figure = this.props.figure;
     const canvasLeft = this.canvasLeft;
     const canvasRight = this.canvasRight;
     const f = generateFigure(figure.complexity);
@@ -152,7 +142,7 @@ class Canvas extends React.Component {
     this.draw();
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     this.draw();
   }
 
@@ -182,8 +172,8 @@ class Canvas extends React.Component {
 let noAnswerTimeout;
 
 const DEFAULT_FIGURE = {
-  complexity: 0.2,
-  complexity_diff: 0.8
+  complexity: 0.1,
+  complexity_diff: 0.5
 }
 
 export default class Symmetry extends Component {
@@ -207,7 +197,6 @@ export default class Symmetry extends Component {
 
 
     const symmetrical = Math.random() < 0.5;
-    console.log(symmetrical)
 
     this.setState({
       figure: { ...DEFAULT_FIGURE, symmetrical }
@@ -241,8 +230,6 @@ export default class Symmetry extends Component {
       this.onClick(undefined),
       activityData.config.symmetryTime
     );
-
-    // console.log(this.state.figure);
 
     return (
       <React.Fragment>
