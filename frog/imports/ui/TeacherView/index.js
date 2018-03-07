@@ -50,7 +50,7 @@ const rawSessionController = ({
 
 const SessionController = compose(
   withVisibility,
-  withState('showSettings', 'setShowSettings', true)
+  withState('showSettings', 'setShowSettings', false)
 )(rawSessionController);
 
 SessionController.displayName = 'SessionController';
