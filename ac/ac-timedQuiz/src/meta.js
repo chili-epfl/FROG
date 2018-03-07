@@ -15,10 +15,10 @@ const genealogyConfig = {
   questions: [
     {
       question:
-        'Ferdinand is the son of Donald\n' +
-        'Donald is the father of Jennifer\n' +
-        'Donald is the brother of Liam\n' +
-        'Who is the uncle of Jennifer?',
+        '<p>Ferdinand is the son of Donald</p>' +
+        '<p>Donald is the father of Jennifer</p>' +
+        '<p>Donald is the brother of Liam</p>' +
+        '<p>Who is the uncle of Jennifer?</p>',
       answers: [
         { choice: 'Donald' },
         { choice: 'Liam', isCorrect: true },
@@ -28,11 +28,11 @@ const genealogyConfig = {
     },
     {
       question:
-        'Susan is the mother of Kevin\n' +
-        'Liam is the father of Walter\n' +
-        'Jerry is the brother of Kevin\n' +
-        'Walter is the brother of Susan\n' +
-        'Who is the grandfather of Jerry?',
+        '<p>Susan is the mother of Kevin</p>' +
+        '<p>Liam is the father of Walter</p>' +
+        '<p>Jerry is the brother of Kevin</p>' +
+        '<p>Walter is the brother of Susan</p>' +
+        '<p>Who is the grandfather of Jerry?</p>',
       answers: [
         { choice: 'Liam', isCorrect: true },
         { choice: 'Kevin' },
@@ -42,12 +42,12 @@ const genealogyConfig = {
     },
     {
       question:
-        'Iris is the mother of Dorothy\n' +
-        'Dorothy is the sister of Rose\n' +
-        'Rose is the mother of Bob\n' +
-        'Bob is the brother of Cynthia\n' +
-        'Charles is the son of Dorothy\n' +
-        'Who is the aunt of Cynthia?',
+        '<p>Iris is the mother of Dorothy</p>' +
+        '<p>Dorothy is the sister of Rose</p>' +
+        '<p>Rose is the mother of Bob</p>' +
+        '<p>Bob is the brother of Cynthia</p>' +
+        '<p>Charles is the son of Dorothy</p>' +
+        '<p>Who is the aunt of Cynthia?</p>',
       answers: [
         { choice: 'Iris' },
         { choice: 'Dorothy', isCorrect: true },
@@ -57,13 +57,13 @@ const genealogyConfig = {
     },
     {
       question:
-        'Dorothy is the daughter of Zed\n' +
-        'Kevin is the brother of Dorothy\n' +
-        'Kevin is the husband of Elenna\n' +
-        'Manuel is the son of Elenna\n' +
-        'Dorothy is the mother of Richard\n' +
-        'Richard is the brother of Jerry\n' +
-        'Who is the grandfather of Manuel?',
+        '<p>Dorothy is the daughter of Zed</p>' +
+        '<p>Kevin is the brother of Dorothy</p>' +
+        '<p>Kevin is the husband of Elenna</p>' +
+        '<p>Manuel is the son of Elenna</p>' +
+        '<p>Dorothy is the mother of Richard</p>' +
+        '<p>Richard is the brother of Jerry</p>' +
+        '<p>Who is the grandfather of Manuel?</p>',
       answers: [
         { choice: 'Zed', isCorrect: true },
         { choice: 'Kevin' },
@@ -73,14 +73,14 @@ const genealogyConfig = {
     },
     {
       question:
-        'Nestor is the son of Vivian\n' +
-        'Nelly is the daughter of Donald\n' +
-        'Liam is the brother of Nelly\n' +
-        'Liam is the husband of Vivian\n' +
-        'Charles is the brother of Nelly\n' +
-        'Manuel is the brother of Grace\n' +
-        'Nelly is the mother of Manuel\n' +
-        'Who is the uncle of Nestor?',
+        '<p>Nestor is the son of Vivian</p>' +
+        '<p>Nelly is the daughter of Donald</p>' +
+        '<p>Liam is the brother of Nelly</p>' +
+        '<p>Liam is the husband of Vivian</p>' +
+        '<p>Charles is the brother of Nelly</p>' +
+        '<p>Manuel is the brother of Grace</p>' +
+        '<p>Nelly is the mother of Manuel</p>' +
+        '<p>Who is the uncle of Nestor?</p>',
       answers: [
         { choice: 'Donald' },
         { choice: 'Manuel' },
@@ -90,15 +90,15 @@ const genealogyConfig = {
     },
     {
       question:
-        'Ferdinand is the husband of Grace\n' +
-        'Albert is the son of Grace\n' +
-        'Ferdinand is the brother of Laura\n' +
-        'Laura is the mother of Harold\n' +
-        'Tom is the brother of Laura\n' +
-        'Harold is the brother of Iris\n' +
-        'Laura is the daughter of Dorothy\n' +
-        'Richard is the son of Iris\n' +
-        'Who is the grandson of Laura?',
+        '<p>Ferdinand is the husband of Grace</p>' +
+        '<p>Albert is the son of Grace</p>' +
+        '<p>Ferdinand is the brother of Laura</p>' +
+        '<p>Laura is the mother of Harold</p>' +
+        '<p>Tom is the brother of Laura</p>' +
+        '<p>Harold is the brother of Iris</p>' +
+        '<p>Laura is the daughter of Dorothy</p>' +
+        '<p>Richard is the son of Iris</p>' +
+        '<p>Who is the grandson of Laura?</p>',
       answers: [
         { choice: 'Richard', isCorrect: true },
         { choice: 'Ferdinand' },
@@ -108,16 +108,16 @@ const genealogyConfig = {
     },
     {
       question:
-        'Laura is the daughter of Iris\n' +
-        'Jerry is the husband of Cynthia\n' +
-        'Charles is the son of Cynthia\n' +
-        'Jerry is the brother of Laura\n' +
-        'Laura is the mother of Zed\n' +
-        'Paul is the son of Vivian\n' +
-        'Tom is the brother of Donald\n' +
-        'Donald is the brother of Laura\n' +
-        'Zed is the brother of Vivian' +
-        'Who is the aunt of Vivian?',
+        '<p>Laura is the daughter of Iris</p>' +
+        '<p>Jerry is the husband of Cynthia</p>' +
+        '<p>Charles is the son of Cynthia</p>' +
+        '<p>Jerry is the brother of Laura</p>' +
+        '<p>Laura is the mother of Zed</p>' +
+        '<p>Paul is the son of Vivian</p>' +
+        '<p>Tom is the brother of Donald</p>' +
+        '<p>Donald is the brother of Laura</p>' +
+        '<p>Zed is the brother of Vivian' +
+        '<p>Who is the aunt of Vivian?</p>',
       answers: [
         { choice: 'Iris' },
         { choice: 'Cynthia', isCorrect: true },
@@ -127,17 +127,17 @@ const genealogyConfig = {
     },
     {
       question:
-        'Petra is the mother of Walter\n' +
-        'Manuel is the son of Kevin\n' +
-        'Zed is the brother of Liam\n' +
-        'Petra is the daughter of Fatimah\n' +
-        'Harold is the husband of Wendy\n' +
-        'Grace is the wife of Fatimah\n' +
-        'Jerry is the son of Wendy\n' +
-        'Harold is the brother of Petra\n' +
-        'Liam is the brother of Petra\n' +
-        'Walter is the brother of Kevin\n' +
-        'Who is the mother of Liam?',
+        '<p>Petra is the mother of Walter</p>' +
+        '<p>Manuel is the son of Kevin</p>' +
+        '<p>Zed is the brother of Liam</p>' +
+        '<p>Petra is the daughter of Fatimah</p>' +
+        '<p>Harold is the husband of Wendy</p>' +
+        '<p>Grace is the wife of Fatimah</p>' +
+        '<p>Jerry is the son of Wendy</p>' +
+        '<p>Harold is the brother of Petra</p>' +
+        '<p>Liam is the brother of Petra</p>' +
+        '<p>Walter is the brother of Kevin</p>' +
+        '<p>Who is the mother of Liam?</p>',
       answers: [
         { choice: 'Petra' },
         { choice: 'Wendy' },
