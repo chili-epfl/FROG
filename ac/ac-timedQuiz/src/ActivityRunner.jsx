@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, TimedComponent } from 'frog-utils';
+import { type ActivityRunnerT, TimedComponent, HTML } from 'frog-utils';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import { shuffle } from 'lodash';
@@ -70,7 +70,9 @@ let delayTimeout;
 const Guidelines = ({ start, guidelines, name }) => (
   <React.Fragment>
     <div style={styles.text}>Welcome {name}!</div>
-    <div style={styles.guidelines}>{guidelines}</div>
+    <div style={styles.guidelines}>
+      <HTML html={guidelines} />
+    </div>
     <div style={{ ...styles.commands, width: '120px' }}>
       <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
         {'Start'}
@@ -138,7 +140,7 @@ const Question = props => {
   return (
     <React.Fragment>
       <div style={styles.text}>
-        {curQuestion[0].question.split('\n').map(x => <p key={x}>{x}</p>)}
+        {curQuestion[0].question.split('\n').map(x => <HTML key={x} html={x} />)}
       </div>
       <div style={styles.commands}>
         {answers.map(option => {

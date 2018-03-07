@@ -55,10 +55,7 @@ export const config = {
 
 export const validateConfig = [
   (formData: Object) =>
-    !formData.questionsEN ||
-    formData.questionsEN.length === 0 ||
-    !formData.questionsFR ||
-    formData.questionsFR.length === 0
+    !formData.questions || formData.questions.length === 0
       ? { err: 'You must have at least one question' }
-      : null
+      : null 
 ];
