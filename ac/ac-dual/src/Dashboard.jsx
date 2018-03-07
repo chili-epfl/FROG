@@ -77,7 +77,7 @@ const SymmetryStats = ({ data }: dashboardViewerPropsT) => {
   );
 };
 
-const GameStats = ({ data, config,  }: dashboardViewerPropsT) => {
+const GameStats = ({ data, config }: dashboardViewerPropsT) => {
   const { single, easy, hard, participation } = data.game;
   const t = config.timeOfEachActivity / 1000;
   const gameData = [
@@ -123,8 +123,12 @@ const mergeLog = (
     dataFn.numIncr(1, errorPath);
   }
   if (log.type === 'starting_game' && log.payload) {
-    const { step } = log.payload
-    dataFn.numIncr(1, [ 'game', 'participation', step === 2 ? 'dual' : 'single']);
+    const { step } = log.payload;
+    dataFn.numIncr(1, [
+      'game',
+      'participation',
+      step === 2 ? 'dual' : 'single'
+    ]);
   }
 };
 

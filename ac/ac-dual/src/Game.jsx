@@ -267,7 +267,7 @@ class Game extends Component {
 
     this.space = true;
     const step = this.props.step;
-    this.props.logger({ type: 'starting_game', payload: { step } })
+    this.props.logger({ type: 'starting_game', payload: { step } });
     this.update();
   }
 
