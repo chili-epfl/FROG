@@ -266,6 +266,8 @@ class Game extends Component {
     Mousetrap.bind('right', () => (this.right = false), 'keyup');
 
     this.space = true;
+    const step = this.props.step;
+    this.props.logger({ type: 'starting_game', payload: { step } })
     this.update();
   }
 

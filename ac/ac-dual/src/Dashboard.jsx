@@ -77,15 +77,14 @@ const SymmetryStats = ({ data }: dashboardViewerPropsT) => {
   );
 };
 
-const GameStats = ({ data, config, instances }: dashboardViewerPropsT) => {
-  const { single, easy, hard } = data.game;
-  const i = instances.length;
+const GameStats = ({ data, config,  }: dashboardViewerPropsT) => {
+  const { single, easy, hard, participation } = data.game;
   const t = config.timeOfEachActivity / 1000;
   const gameData = [
     ['Category', 'Value'],
-    ['single', single / t / i],
-    ['easy', easy / (t / 2) / i],
-    ['hard', hard / (t / 2) / i]
+    ['single', single / t / (participation.single || 1)],
+    ['easy', easy / (t / 2) / (participation.dual || 1)],
+    ['hard', hard / (t / 2) / (participation.dual || 1)]
   ];
   return (
     <Chart
@@ -98,7 +97,7 @@ const GameStats = ({ data, config, instances }: dashboardViewerPropsT) => {
 
 const initData = {
   symmetry: { easy: { correct: 0, wrong: 0 }, hard: { correct: 0, wrong: 0 } },
-  game: { easy: 0, hard: 0, single: 0 },
+  game: { easy: 0, hard: 0, single: 0, participation: { dual: 0, single: 0 } },
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
 };
@@ -122,6 +121,10 @@ const mergeLog = (
   if (log.type === 'error' && log.payload) {
     const { errorPath } = log.payload;
     dataFn.numIncr(1, errorPath);
+  }
+  if (log.type === 'starting_game' && log.payload) {
+    const { step } = log.payload
+    dataFn.numIncr(1, [ 'game', 'participation', step === 2 ? 'dual' : 'single']);
   }
 };
 

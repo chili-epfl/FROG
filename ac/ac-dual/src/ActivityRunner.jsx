@@ -25,8 +25,8 @@ const Activity = withState('ready', 'setReady', false)(props => {
   const { language, step } = data;
 
   const nextStep = () => {
-    dataFn.numIncr(1, 'step');
     setReady(false);
+    dataFn.numIncr(1, 'step');
     logger({ type: 'progress', value: (step + 1) / 3 });
   };
 
