@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Modal from 'react-modal';
 import { EnhancedForm } from 'frog-utils';
-import { withState } from 'recompose';
 
 import { Sessions } from '../../api/sessions';
 

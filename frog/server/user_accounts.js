@@ -4,7 +4,6 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
-import { isEmpty } from 'lodash';
 
 import { Sessions } from '../imports/api/sessions';
 
