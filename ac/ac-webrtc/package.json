@@ -13,6 +13,6 @@
     "webrtc-adapter": "^6.1.1"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.8.1"
   }
 }
