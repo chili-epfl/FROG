@@ -47,7 +47,6 @@ const SessionBody = ({
   activities: Object[],
   session: Object
 }) => {
-  console.log(activities)
   if (!activities || !session || activities.length === 0) {
     return <h1>No activity right now</h1>;
   }
@@ -67,5 +66,7 @@ SessionBody.displayName = 'SessionBody';
 
 export default withTracker(() => ({
   session: Sessions.findOne(),
-  activities: Activities.find().fetch().filter(x => x.plane < 4)
+  activities: Activities.find()
+    .fetch()
+    .filter(x => x.plane < 4)
 }))(SessionBody);
