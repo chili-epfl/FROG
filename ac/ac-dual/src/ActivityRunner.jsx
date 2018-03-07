@@ -20,29 +20,30 @@ let delayTimeout;
 let changeActivityTimeout;
 
 const Activity = withState('ready', 'setReady', false)(props => {
-  const { data, dataFn, activityData, ready, setReady } = props;
+  const { data, dataFn, activityData, ready, setReady, logger } = props;
   const { timeOfEachActivity } = activityData.config;
   const { language, step } = data;
 
   const nextStep = () => {
     dataFn.numIncr(1, 'step');
-    setReady(false)
+    setReady(false);
+    logger({ type: 'progress', value: (step + 1) / 3 });
   };
 
   const startActivity = () => {
     setReady(true);
     clearTimeout(changeActivityTimeout);
     changeActivityTimeout = setTimeout(nextStep, timeOfEachActivity || 60000);
-  }
+  };
 
   if (!ready) {
     return (
       <Guidelines
         start={startActivity}
-        guidelines='placeholder'
+        guidelines="Placeholder for guidelines"
         lang={language}
       />
-    )
+    );
   } else {
     return (
       <React.Fragment>
@@ -51,10 +52,10 @@ const Activity = withState('ready', 'setReady', false)(props => {
         </div>
         <div style={{ display: 'flex' }}>
           {(step === 1 || step === 2) && (
-            <Game {...props} width={500} height={400} />
+            <Game {...props} width={500} height={400} step={step} />
           )}
           {(step === 0 || step === 2) && (
-            <Symmetry {...props} width={200} height={300} />
+            <Symmetry {...props} width={200} height={300} step={step} />
           )}
         </div>
         <div style={styles.activityCountdown}>
@@ -65,11 +66,9 @@ const Activity = withState('ready', 'setReady', false)(props => {
       </React.Fragment>
     );
   }
+});
 
-
-})
-
-const Main = (props => {
+const Main = props => {
   const { data, dataFn } = props;
   const { language, step } = data;
   const { name } = props.userInfo;
@@ -81,7 +80,7 @@ const Main = (props => {
   } else {
     return <div style={styles.text}>{texts[language].end}</div>;
   }
-});
+};
 
 // the actual component that the student sees
 const Runner = (props: ActivityRunnerT) => {

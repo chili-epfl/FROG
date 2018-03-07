@@ -102,7 +102,8 @@ const mirrorFigure = (figure, exact, difficulty) => {
 
   const v = Math.random();
   let d = 1.1 - difficulty;
-  if (d > 0.5) d = 0.5;
+  if (d > 1) d = 1;
+  if (d < 0) d = 0.1;
   ret[p].x += v * d * 2;
   ret[p].y += (1 - v) * d * 2;
   return normaliseFigure(ret);
@@ -170,60 +171,68 @@ class Canvas extends React.Component {
 }
 
 let noAnswerTimeout;
+let difficultyTimeout;
 
-const DEFAULT_FIGURE = {
-  complexity: 0.1,
-  complexity_diff: 0.5
-}
+const FIGURES = {
+  easy: {
+    complexity: 0.1,
+    complexity_diff: 0.6
+  },
+  hard: {
+    complexity: 0.3,
+    complexity_diff: 0.9
+  }
+};
 
 export default class Symmetry extends Component {
   onClick = answer => () => {
-    const { dataFn, logger, data } = this.props;
-    const startTime = this.startTime;
-    const figure = this.state.figure;
-
     clearTimeout(noAnswerTimeout);
 
-    const answerTime = Date.now();
-    const isCorrectAnswer = this.state.figure.symmetrical === answer ? 1 : 0;
-    const timeIncr = Date.now() - startTime;
-
-    const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
+    const { logger } = this.props;
+    const figure = this.state.figure;
+    const difficulty = this.difficulty;
 
     logger([
-      { type: 'answer', payload: { ...figure, answer, answerTime } },
-      { type: 'score', value }
+      {
+        type: 'answer',
+        payload: {
+          expectedAnswer: figure.symmetrical,
+          answer,
+          answerPath: ['symmetry', difficulty]
+        }
+      }
     ]);
 
-
     const symmetrical = Math.random() < 0.5;
-
     this.setState({
-      figure: { ...DEFAULT_FIGURE, symmetrical }
+      figure: { ...FIGURES[difficulty], symmetrical }
     });
   };
 
   constructor(props) {
     super(props);
+    const symmetrical = Math.random() < 0.5;
+    this.difficulty = 'easy';
     this.state = {
-      figure: {
-        ...DEFAULT_FIGURE,
-        symmetrical: Math.random() < 0.5
-      }
+      figure: { ...FIGURES['easy'], symmetrical }
     };
-    this.startTime = null;
+
+    const { activityData } = this.props;
+    clearTimeout(difficultyTimeout);
+    difficultyTimeout = setTimeout(() => {
+      this.difficulty = 'hard';
+    }, activityData.config.timeOfEachActivity / 2);
   }
 
   componentWillUnmount() {
     Mousetrap.reset();
     clearTimeout(noAnswerTimeout);
+    clearTimeout(difficultyTimeout);
   }
 
   render() {
     const { activityData, data } = this.props;
     const { language } = data;
-
-    this.startTime = Date.now();
 
     clearTimeout(noAnswerTimeout);
     noAnswerTimeout = setTimeout(

@@ -4,7 +4,7 @@ import { TimedComponent, HTML } from 'frog-utils';
 import { Button } from 'react-bootstrap';
 
 export const styles = {
-  button: { width: '90px', margin: '0 5px' },
+  button: { width: '120px', margin: '0 5px' },
   text: { fontSize: 'xx-large' },
   container: {
     display: 'flex',
@@ -35,7 +35,11 @@ export const texts = {
       '1': 'Destroy all the bricks! Use left and right arrows to move!',
       '2': 'Now do both together!'
     },
-    wait: 'Waiting for next Task',
+    guielines: {
+      '0': 'Are they symmetrical?',
+      '1': 'Destroy all the bricks! Use left and right arrows to move!',
+      '2': 'Now do both together!'
+    },
     end: 'Activity completed! Thank you!',
     timeLeft: 'Time left in Task -> '
   },
@@ -43,9 +47,18 @@ export const texts = {
     start: 'Commencer',
     yes: 'OUI',
     no: 'NON',
-    question: 'Sont-ils symétriques?',
-    wait: 'Attendez la question suivante',
-    end: 'Activité terminée! Merci'
+    question: {
+      '0': 'Les deux formes sont elles symmétriques?',
+      '1': 'Ne laisse pas tomber la balle.',
+      '2': 'Fais les deux activités en même temps.'
+    },
+    guidelines: {
+      '0': 'Les deux formes sont elles symmétriques?',
+      '1': 'Ne laisse pas tomber la balle.',
+      '2': 'Fais les deux activités en même temps.'
+    },
+    end: 'Activité terminée! Merci',
+    timeLeft: 'Temps restant -> '
   }
 };
 
@@ -86,7 +99,7 @@ export const Form = withState('language', 'setLanguage', null)(
   )
 );
 
-export const Guidelines = ({ start, guidelines, lang}) => (
+export const Guidelines = ({ start, guidelines, lang }) => (
   <React.Fragment>
     <div style={{ ...styles.container, padding: '20px' }}>
       <HTML html={guidelines} />

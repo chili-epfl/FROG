@@ -23,76 +23,82 @@ const Viewer = withState('which', 'setWhich', 'progress')(
     return (
       <div>
         <Select target="progress" onClick={setWhich} />
-        <Select target="leaderboard" onClick={setWhich} />
-        <Select target="stroop" onClick={setWhich} />
+        <Select target="raw" onClick={setWhich} />
+        <Select target="stats" onClick={setWhich} />
         {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
-        {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
-        {which === 'stroop' && <StroopViewer {...props} />}
+        {which === 'raw' && <RawViewer {...props} />}
+        {which === 'stats' && <StatsViewer {...props} />}
       </div>
     );
   }
 );
 
-// <Select target="raw" onClick={setWhich} />
-// {which === 'raw' && <RawDataViewer {...props} />}
+const RawViewer = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
 
-const StroopViewer = ({ data }: dashboardViewerPropsT) => {
-  const { consistent, inconsistent } = data;
-  const options = (title, xLabel, xmin, xmax) => ({
-    bar: { groupWidth: '90%' },
-    legend: { position: 'none' },
-    width: '100%',
-    height: '300px',
-    vAxis: { title: 'Type of question' },
-    hAxis: {
-      viewWindowMode: 'explicit',
-      viewWindow: {
-        max: xmax,
-        min: xmin
-      },
-      title: xLabel,
-      gridlines: { count: 5 }
-    }
-  });
-  const errRate = o => o.wrong.count / (o.wrong.count + o.correct.count);
-  const errorData = [
-    ['Category', 'Count'],
-    ['Consistent', errRate(consistent)],
-    ['Inconsistent', errRate(inconsistent)]
-  ];
-  const avgTime = o =>
-    (o.correct.time + o.wrong.time) / (o.correct.count + o.wrong.count);
-  const timeData = [
-    ['Category', 'Count'],
-    ['Consistent', avgTime(consistent)],
-    ['Inconsistent', avgTime(inconsistent)]
+const options = (title, yLabel, xLabel, xmin, xmax) => ({
+  bar: { groupWidth: '90%' },
+  legend: { position: 'none' },
+  width: '100%',
+  height: '300px',
+  title,
+  vAxis: { yLabel },
+  hAxis: {
+    viewWindowMode: 'explicit',
+    viewWindow: {
+      max: xmax,
+      min: xmin
+    },
+    title: xLabel,
+    gridlines: { count: 5 }
+  }
+});
+
+const StatsViewer = (props: dashboardViewerPropsT) => (
+  <React.Fragment>
+    <SymmetryStats {...props} />
+    <GameStats {...props} />
+  </React.Fragment>
+);
+
+const SymmetryStats = ({ data }: dashboardViewerPropsT) => {
+  const { easy, hard } = data.symmetry;
+  const errRate = o => o.wrong / (o.wrong + o.correct);
+  const symmetryData = [
+    ['Category', 'Value'],
+    ['Easy', errRate(easy)],
+    ['Hard', errRate(hard)]
   ];
   return (
-    <React.Fragment>
-      <Chart
-        chartType="BarChart"
-        data={errorData}
-        options={options('Error rate', 'Percentage of error', 0, 1)}
-      />
-      <Chart
-        chartType="BarChart"
-        data={timeData}
-        options={options('Average time', 'Average time (ms)', 0, 4000)}
-      />
-    </React.Fragment>
+    <Chart
+      chartType="BarChart"
+      data={symmetryData}
+      options={options('Symmetry', '', 'Percentage of error', 0, 0.5)}
+    />
   );
 };
 
-// const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
-//   <pre>{JSON.stringify(data, null, 2)}</pre>
-// );
+const GameStats = ({ data, config, instances }: dashboardViewerPropsT) => {
+  const { single, easy, hard } = data.game;
+  const i = instances.length;
+  const t = config.timeOfEachActivity / 1000;
+  const gameData = [
+    ['Category', 'Value'],
+    ['single', single / t / i],
+    ['easy', easy / (t / 2) / i],
+    ['hard', hard / (t / 2) / i]
+  ];
+  return (
+    <Chart
+      chartType="BarChart"
+      data={gameData}
+      options={options('Game', '...', 'Number of error per second', 0, 0.2)}
+    />
+  );
+};
 
 const initData = {
-  consistent: { correct: { count: 0, time: 0 }, wrong: { count: 0, time: 0 } },
-  inconsistent: {
-    correct: { count: 0, time: 0 },
-    wrong: { count: 0, time: 0 }
-  },
+  symmetry: { easy: { correct: 0, wrong: 0 }, hard: { correct: 0, wrong: 0 } },
+  game: { easy: 0, hard: 0, single: 0 },
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
 };
@@ -106,21 +112,16 @@ const mergeLog = (
   ProgressDashboard.mergeLog(data, dataFn, log, activity);
   LeaderBoard.mergeLog(data, dataFn, log, activity);
   if (log.type === 'answer' && log.payload) {
-    const {
-      isConsistent,
-      isCorrect,
-      answer,
-      startTime,
-      answerTime
-    } = log.payload;
-    const qType = isConsistent ? 'consistent' : 'inconsistent';
-    if (isCorrect === answer) {
-      dataFn.numIncr(1, [qType, 'correct', 'count']);
-      dataFn.numIncr(answerTime - startTime, [qType, 'correct', 'time']);
+    const { expectedAnswer, answer, answerPath } = log.payload;
+    if (expectedAnswer === answer) {
+      dataFn.numIncr(1, [...answerPath, 'correct']);
     } else {
-      dataFn.numIncr(1, [qType, 'wrong', 'count']);
-      dataFn.numIncr(answerTime - startTime, [qType, 'wrong', 'time']);
+      dataFn.numIncr(1, [...answerPath, 'wrong']);
     }
+  }
+  if (log.type === 'error' && log.payload) {
+    const { errorPath } = log.payload;
+    dataFn.numIncr(1, errorPath);
   }
 };
 

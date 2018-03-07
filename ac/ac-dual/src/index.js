@@ -13,7 +13,7 @@ const meta = {
       title: 'Normal',
       config: {
         timeOfEachActivity: 60000,
-        symmetryTime: 5000,
+        symmetryTime: 5000
       },
       data: {}
     },
@@ -21,7 +21,7 @@ const meta = {
       title: 'Quick',
       config: {
         timeOfEachActivity: 15000,
-        symmetryTime: 3000,
+        symmetryTime: 3000
       },
       data: {}
     }
@@ -35,8 +35,7 @@ const config = {
     timeOfEachActivity: {
       title: 'Length of each individual activity',
       type: 'number',
-      default: 60000,
-
+      default: 60000
     },
     symmetryTime: {
       title: 'Maximum time to answer each question for symmetry task (ms)',

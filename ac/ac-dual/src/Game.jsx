@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Mousetrap from 'mousetrap';
 
-let gameTime;
+let gameDifficultyTimeout;
 
 class Game extends Component {
   constructor(props) {
@@ -37,6 +37,12 @@ class Game extends Component {
 
     // If you want to have a pause before game starts
     this.space = false;
+
+    this.difficulty = 'easy';
+    clearTimeout(gameDifficultyTimeout);
+    gameDifficultyTimeout = setTimeout(() => {
+      this.difficulty = 'hard';
+    }, this.props.activityData.config.timeOfEachActivity / 2);
   }
 
   createBricks = () => {
@@ -112,6 +118,9 @@ class Game extends Component {
   };
 
   move = () => {
+    if (!this.mounted) {
+      return null;
+    }
     const left = this.left;
     const right = this.right;
     const space = this.space;
@@ -157,6 +166,11 @@ class Game extends Component {
         this.gameOver = 1;
         this.errors += 1;
         this.newGame();
+        const errorPath = [
+          'game',
+          this.props.step === 1 ? 'single' : this.difficulty
+        ];
+        this.props.logger({ type: 'error', payload: { errorPath } });
       }
 
       this.destroyBrick();
@@ -169,6 +183,9 @@ class Game extends Component {
   };
 
   draw = () => {
+    if (!this.mounted) {
+      return null;
+    }
     const ctx = this.ctx;
     const width = this.width;
     const height = this.height;
@@ -229,19 +246,18 @@ class Game extends Component {
   };
 
   update = () => {
+    if (!this.mounted) {
+      return null;
+    }
     this.createBricks();
     this.newGame();
     requestAnimationFrame(this.loop);
   };
 
-  pollServer = () => {
-    const { dataFn, logger, data } = this.props;
-
-    console.log(this.score);
-    console.log(this.errors);
-  };
+  pollServer = () => {};
 
   componentDidMount() {
+    this.mounted = true;
     this.ctx = this.gameContainer.getContext('2d');
 
     Mousetrap.bind('left', () => (this.left = true));
@@ -251,21 +267,13 @@ class Game extends Component {
 
     this.space = true;
     this.update();
-    // Mousetrap.bind('space', () => (this.space = true));
-
-    const { activityData } = this.props;
-
-    gameTime = setTimeout(
-      this.pollServer,
-      activityData.config.timeOfEachActivity
-    );
   }
 
   componentWillUnmount() {
-    // Have to refactor, if I uncomment the following line, the pollServer function is never called as
-    // the timer get's cleared out due to ComponentWillUnmount
-    // clearTimeout(gameTime);
+    this.mounted = false;
+    this.pollServer();
     Mousetrap.reset();
+    clearTimeout(gameDifficultyTimeout);
   }
 
   render() {

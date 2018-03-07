@@ -316,7 +316,6 @@ const Question = props => {
     clearTimeout(noAnswerTimeout);
     // Logs the question and answer provided
     const answerTime = Date.now();
-    console.log(question);
     // Increases the progress and logs the new progress
     dataFn.numIncr(1, 'progress');
     // Increases the score and logs the new score
