@@ -29,6 +29,7 @@ const PreviewPage = ({
   const {
     showData: showDataRaw,
     showDash: showDashRaw,
+    showDashExample: showDashExampleRaw,
     fullWindow: fullWindowRaw,
     windows: windowsRaw,
     showLogs: showLogsRaw
@@ -36,13 +37,22 @@ const PreviewPage = ({
   const windows = parseInt(windowsRaw, 10) || 1;
   const showData = showDataRaw === 'true';
   const showDash = showDashRaw === 'true';
+  const showDashExample = showDashExampleRaw === 'true';
   const fullWindow = fullWindowRaw === 'true';
   const showLogs = showLogsRaw === 'true';
   const dismiss = () => history.push(`/preview`);
 
   const changeURL = merge => {
     const e = {
-      ...{ showData, showDash, fullWindow, windows, example, activityTypeId },
+      ...{
+        showData,
+        showDash,
+        fullWindow,
+        windows,
+        example,
+        activityTypeId,
+        showDashExample
+      },
       ...merge
     };
     const opts = toString(
@@ -50,6 +60,7 @@ const PreviewPage = ({
         {
           showData: e.showData,
           showDash: e.showDash,
+          showDashExample: e.showDashExample,
           fullWindow: e.fullWindow,
           windows: e.windows,
           showLogs: e.showLogs
@@ -61,7 +72,14 @@ const PreviewPage = ({
   };
 
   const setShowDash = x => changeURL({ showDash: x, showLogs: false });
-  const setShowLogs = x => changeURL({ showLogs: x, showDash: false });
+  const setShowDashExample = x =>
+    changeURL({
+      showDashExample: x,
+      showLogs: false,
+      showDash: false,
+      example: 0
+    });
+  const setShowLogs = x => changeURL({ showLogs: x });
   const setShowData = x => changeURL({ showData: x });
   const setWindows = x => changeURL({ windows: x });
   const setExample = x => changeURL({ example: x });
@@ -81,6 +99,8 @@ const PreviewPage = ({
         setShowData,
         showDash,
         setShowDash,
+        showDashExample,
+        setShowDashExample,
         dismiss,
         setShowLogs,
         showLogs,
