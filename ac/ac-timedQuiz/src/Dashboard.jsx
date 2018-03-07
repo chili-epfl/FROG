@@ -38,7 +38,7 @@ const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
   const options = (title, xLabel, yLabel, ymin, ymax) => ({
     legend: { position: 'none' },
     width: '100%',
-    height: '300px',
+    height: '400px',
     vAxis: {
       viewWindowMode: 'explicit',
       viewWindow: {
@@ -57,14 +57,20 @@ const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
   const errData =
     Object.keys(results).length === 0
       ? [new Array(2)]
-      : Object.keys(results).map(x => [x, errRate(results[x])]);
+      : Object.keys(results).map(x => [
+          (Number(x) + 3).toString(),
+          errRate(results[x])
+        ]);
 
   const avgTime = o =>
     (o.correct.time + o.wrong.time) / (o.correct.count + o.wrong.count);
   const timeData =
     Object.keys(results).length === 0
       ? [new Array(2)]
-      : Object.keys(results).map(x => [x, avgTime(results[x])]);
+      : Object.keys(results).map(x => [
+          (Number(x) + 3).toString(),
+          avgTime(results[x])
+        ]);
 
   return (
     <React.Fragment>
