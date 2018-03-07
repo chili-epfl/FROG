@@ -33,13 +33,23 @@ const updateSession = (settings, session) => {
   }
 };
 
-class SettingsModal extends React.Component<
-  {
-    dismiss: Function,
-    session: Object
-  },
-  { formData?: {} }
-> {
+type PropsT = {
+  dismiss: Function,
+  session: Object
+};
+
+class SettingsModal extends React.Component<PropsT, void> {
+  formData: Object;
+
+  constructor(props: PropsT) {
+    super(props);
+    this.formData = this.props.session.settings;
+  }
+
+  shouldComponentUpdate(): boolean {
+    return false;
+  }
+
   render() {
     return (
       <Modal
@@ -61,7 +71,10 @@ class SettingsModal extends React.Component<
           <h4 className="modal-title">Configure session</h4>
           <EnhancedForm
             formData={this.props.session.settings}
-            onChange={({ formData: f }) => (this.formData = f)}
+            onChange={({ formData: f }) => {
+              this.formData = f;
+              updateSession(f, this.props.session);
+            }}
             onSubmit={({ formData: f }) => {
               updateSession(f, this.props.session);
               this.formData = {

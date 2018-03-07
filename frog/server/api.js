@@ -9,6 +9,7 @@ import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
+import { Sessions } from '/imports/api/sessions';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
@@ -21,31 +22,51 @@ setupH5PRoutes();
 Picker.filter(req => req.method === 'POST').route(
   '/lti/:slug',
   (params, request, response, next) => {
-    let user;
-    try {
-      user = request.body.lis_person_name_full;
-    } catch (e) {
-      user = uuid();
+    const session =
+      params.slug && Sessions.findOne({ slug: params.slug.toUpperCase() });
+    if (!session) {
+      response.writeHead(404);
+      response.end();
+    } else if (session.settings && session.settings.allowLTI === false) {
+      response.writeHead(403);
+      response.end();
+    } else {
+      let user;
+      try {
+        user = request.body.lis_person_name_full;
+      } catch (e) {
+        console.error('Error parsing username in lti request', request.body, e);
+        user = uuid();
+      }
+      let id;
+      try {
+        id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
+      } catch (e) {
+        console.error('Error parsing userid in lti request', request.body, e);
+        id = uuid();
+      }
+      try {
+        // eslint-disable-next-line no-console
+        const { userId } = Accounts.updateOrCreateUserFromExternalService(
+          'frog',
+          {
+            id: user
+          }
+        );
+        Meteor.users.update(userId, { $set: { username: user, userid: id } });
+        const stampedLoginToken = Accounts._generateStampedLoginToken();
+        Accounts._insertLoginToken(userId, stampedLoginToken);
+        InjectData.pushData(response, 'login', {
+          token: stampedLoginToken.token,
+          slug: params.slug
+        });
+        next();
+      } catch (e) {
+        console.error('Error responding to lti request', request.body, e);
+        response.writeHead(400);
+        response.end();
+      }
     }
-    let id;
-    try {
-      id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
-    } catch (e) {
-      id = uuid();
-    }
-
-    // eslint-disable-next-line no-console
-    const { userId } = Accounts.updateOrCreateUserFromExternalService('frog', {
-      id: user
-    });
-    Meteor.users.update(userId, { $set: { username: user, userid: id } });
-    const stampedLoginToken = Accounts._generateStampedLoginToken();
-    Accounts._insertLoginToken(userId, stampedLoginToken);
-    InjectData.pushData(response, 'login', {
-      token: stampedLoginToken.token,
-      slug: params.slug
-    });
-    next();
   }
 );
 

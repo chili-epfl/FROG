@@ -38,13 +38,13 @@ Meteor.methods({
       return doLogin(user, self);
     }
   },
-  'frog.studentlist': function(slug) {
+  'frog.session.settings': function(slug) {
     if (typeof slug !== 'string') {
       return -1;
     }
     const session = Sessions.findOne({ slug: slug.trim().toUpperCase() });
-    if (session && !isEmpty(session.studentlist)) {
-      return session.studentlist;
+    if (session && session.settings) {
+      return session.settings;
     } else {
       return -1;
     }
