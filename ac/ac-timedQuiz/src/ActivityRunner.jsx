@@ -15,7 +15,7 @@ const styles = {
     float: 'center',
     display: 'inline-block'
   },
-  text: { width: '100%', fontSize: 'xx-large', textAlign: 'center' },
+  text: { width: '100%', fontSize: 'large', textAlign: 'center' },
   guidelines: { width: '100%' },
   container: {
     width: '500px',
@@ -140,7 +140,7 @@ const Question = props => {
   return (
     <React.Fragment>
       <div style={styles.text}>
-        {curQuestion[0].question.split('\n').map(x => <HTML key={x} html={x} />)}
+        <HTML html={curQuestion[0].question} />
       </div>
       <div style={styles.commands}>
         {answers.map(option => {
