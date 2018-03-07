@@ -20,7 +20,7 @@ const transpile = (event, src) => {
         log(`Babel error: ${error}`);
         return;
       }
-      log(`${event}: ${src}->${dist}`);
+      log(`${event}: ${src}`);
     }
   );
 };
