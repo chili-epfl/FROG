@@ -1,5 +1,6 @@
 // @flow
 
+import acTimedQuiz from 'ac-timedQuiz';
 import acStroop from 'ac-stroop';
 import { keyBy } from 'lodash';
 import { type ActivityPackageT, flattenOne } from 'frog-utils';
@@ -27,6 +28,7 @@ import acH5P from './internalActivities/ac-h5p';
 import acDash from './internalActivities/ac-dash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acTimedQuiz,
   acStroop,
   acWebrtc,
   acTextarea,
