@@ -10,6 +10,8 @@ const pattern =
     ? ['ac/*/src/**', 'op/*/src/**', 'frog-utils/src/**']
     : `${process.argv[2]}/src`;
 
+const build = process.argv[3] === 'build';
+
 const transpile = (event, src) => {
   const dist = src.replace('/src/', '/dist/').replace('.jsx', '.js');
 
@@ -29,7 +31,8 @@ const watcher = chokidar
   .watch(pattern, {
     persistent: true,
     cwd: dir,
-    ignored: /\.(json|snap)/
+    ignored: /\.(json|snap)/,
+    ignoreInitial: !build
   })
   .on('add', src => {
     transpile('add', src);
