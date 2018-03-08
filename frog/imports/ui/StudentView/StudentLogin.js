@@ -1,11 +1,11 @@
 // @flow
 import * as React from 'react';
 import { isEmpty } from 'lodash';
-import Form from 'react-jsonschema-form';
 import { Button } from 'react-bootstrap';
+import { TextInput } from 'frog-utils';
 
 const splitList = (liststr: string) => {
-  const list = liststr.trim().split('\n');
+  const list = (liststr || '').split('\n');
   const extra = list.length % 2 ? 1 : 0;
   const length = list.length / 2;
   return [list.slice(0, length + extra), list.slice(length + extra)];
@@ -26,11 +26,12 @@ type StudentLoginPropsT = {
 
 class StudentLogin extends React.Component<
   StudentLoginPropsT,
-  { selected: string | null }
+  {
+    selected: string | null,
+    secret?: string,
+    name?: string
+  }
 > {
-  secret: ?string;
-  name: ?string;
-
   constructor(props: StudentLoginPropsT) {
     super(props);
     this.state = { selected: null };
@@ -44,15 +45,19 @@ class StudentLogin extends React.Component<
       !isEmpty(settings.secretString)
     ) {
       if (
-        !this.secret ||
+        !this.state.secret ||
         settings.secretString.trim().toUpperCase() !==
-          (this.secret && this.secret.trim().toUpperCase())
+          (this.state.secret && this.state.secret.trim().toUpperCase())
       ) {
         // eslint-disable-next-line no-alert
-        window.alert('Secret token is not correct');
-        return;
+        return window.alert('Secret token is not correct');
       }
     }
+    this.props.login(
+      this.state.selected || (this.state.name && this.state.name.trim()),
+      null,
+      true
+    );
   };
 
   render() {
@@ -108,12 +113,15 @@ class StudentLogin extends React.Component<
                   Cancel the selection above, to be able to specify a new name
                 </p>
               ) : (
-                <Form
-                  schema={{ title: 'Your name', type: 'string' }}
-                  onChange={({ formData }) => (this.name = formData)}
-                >
+                <React.Fragment>
+                  <b>Enter your name to login as a new user</b>
                   <br />
-                </Form>
+                  <TextInput
+                    focus={false}
+                    onChange={e => this.setState({ name: e })}
+                  />
+                  <p />
+                </React.Fragment>
               )}
             </React.Fragment>
           )}
@@ -121,16 +129,13 @@ class StudentLogin extends React.Component<
             !isEmpty(settings.secretString) && (
               <React.Fragment>
                 <h2>Secret token:</h2>
-                <Form
-                  schema={{
-                    title:
-                      'Your teacher should have given you a secret token, please fill it in',
-                    type: 'string'
-                  }}
-                  onChange={({ formData }) => (this.secret = formData)}
-                >
-                  <br />
-                </Form>
+                <b>Please enter the token that your teacher gave you:</b>
+                <br />
+                <TextInput
+                  focus={false}
+                  onChange={e => this.setState({ secret: e })}
+                />
+                <p />
               </React.Fragment>
             )}
         </div>
@@ -138,6 +143,13 @@ class StudentLogin extends React.Component<
           style={{ marginLeft: '10px' }}
           onClick={this.login}
           className="btn btn-success"
+          disabled={
+            (!this.state.selected && isEmpty(this.state.name)) ||
+            ((settings.studentlist && settings.studentlist) || '')
+              .split('\n')
+              .map(x => x.toUpperCase())
+              .includes(this.state.name && this.state.name.trim().toUpperCase())
+          }
         >
           Log in
         </Button>

@@ -24,8 +24,21 @@ const doLogin = (user, self) => {
   return result;
 };
 
+const cleanStudentList = studentList =>
+  studentList
+    ? [
+        ...new Set(
+          studentList
+            .split('\n')
+            .map(x => x.trim())
+            .filter(x => x.length > 0)
+            .sort((a, b) => a.localeCompare(b))
+        )
+      ].join('\n')
+    : '';
+
 Meteor.methods({
-  'frog.username.login': function(user, token, isStudentList) {
+  'frog.username.login': function(user, token, isStudentList, slug) {
     const self = this;
     if (
       !isStudentList &&
@@ -34,6 +47,27 @@ Meteor.methods({
     ) {
       return 'NOTVALID';
     } else {
+      if (isStudentList) {
+        const session = Sessions.findOne({ slug });
+        if (session) {
+          const studentlist = session.settings && session.settings.studentlist;
+          if (
+            studentlist &&
+            !studentlist
+              .split('\n')
+              .map(x => x.toUpperCase())
+              .includes(user.toUpperCase())
+          ) {
+            Sessions.update(session._id, {
+              $set: {
+                'settings.studentlist': cleanStudentList(
+                  session.settings.studentlist + '\n' + user
+                )
+              }
+            });
+          }
+        }
+      }
       return doLogin(user, self);
     }
   },
