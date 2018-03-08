@@ -17,24 +17,28 @@ import {
 
 const ScatterViewer = (props: dashboardViewerPropsT) => {
   const { data: { answers }, config, instances } = props;
+  if (!config.argueWeighting) {
+    return null;
+  }
+
   const questions = config.questions.filter(q => q.question && q.answers);
-  const scatterData =
-    config.argueWeighting &&
-    instances.map(instance => {
-      const coordinates = [0, 0];
-      questions.forEach((q, qIndex) => {
-        if (
-          answers[instance] &&
-          answers[instance][qIndex] &&
-          q.answers[answers[instance][qIndex] - 1]
-        ) {
-          const answerIndex = answers[instance][qIndex] - 1;
-          coordinates[0] += q.answers[answerIndex].x;
-          coordinates[1] += q.answers[answerIndex].y;
-        }
-      });
-      return coordinates;
+  const scatterData = instances.map(instance => {
+    const coordinates = [0, 0];
+    questions.forEach((q, qIndex) => {
+      if (
+        answers[instance] &&
+        answers[instance][qIndex] !== undefined &&
+        q.answers[answers[instance][qIndex]]
+      ) {
+        const answerIndex = answers[instance][qIndex];
+        const noiseX = 2 * Math.random() - 1;
+        const noiseY = 2 * Math.random() - 1;
+        coordinates[0] += q.answers[answerIndex].x + noiseX;
+        coordinates[1] += q.answers[answerIndex].y + noiseY;
+      }
     });
+    return coordinates;
+  });
   if (scatterData) {
     return <ScatterChart data={scatterData} />;
   } else {
@@ -72,6 +76,25 @@ const AnswerCountViewer = (props: dashboardViewerPropsT) => {
   );
 };
 
+const RawViewer = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
+
+const JustificationViewer = ({ data, users, activity }) => {
+  const { justifications } = data;
+  if (Object.keys(justifications).length === 0) {
+    return <p>No justifications written yet</p>;
+  } else {
+    return Object.keys(justifications).map(instance => {
+      const instanceName = activity.plane === 1 ? users[instance] : instance;
+      return (
+        <pre key={instance}>
+          <div>From: {instanceName}</div>
+          <div>Text: {justifications[instance]}</div>
+        </pre>
+      );
+    });
+  }
+};
+
 const Select = ({ target, onClick }) => (
   <Button onClick={() => onClick(target)}>{target}</Button>
 );
@@ -85,10 +108,14 @@ const Viewer = withState('which', 'setWhich', null)(
         <Select target="scatter" onClick={setWhich} />
         <Select target="count" onClick={setWhich} />
         <Select target="leaderboard" onClick={setWhich} />
+        <Select target="justifications" onClick={setWhich} />
+        <Select target="raw" onClick={setWhich} />
         {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
         {which === 'scatter' && <ScatterViewer {...props} />}
         {which === 'count' && <AnswerCountViewer {...props} />}
         {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
+        {which === 'justifications' && <JustificationViewer {...props} />}
+        {which === 'raw' && <RawViewer {...props} />}
       </div>
     );
   }
@@ -100,6 +127,8 @@ const mergeLog = (
   log: LogDBT,
   activity: ActivityDbT
 ) => {
+  ProgressDashboard.mergeLog(data, dataFn, log, activity);
+  LeaderBoard.mergeLog(data, dataFn, log, activity);
   if (log.itemId !== undefined && log.type === 'choice') {
     if (!data['answers'][log.instanceId]) {
       dataFn.objInsert({ [log.itemId]: log.value }, [
@@ -110,12 +139,14 @@ const mergeLog = (
       dataFn.objInsert(log.value, ['answers', log.instanceId, log.itemId]);
     }
   }
-  ProgressDashboard.mergeLog(data, dataFn, log, activity);
-  LeaderBoard.mergeLog(data, dataFn, log, activity);
+  if (log.type === 'reactivetext.focus' || log.type === 'reactivetext.blur') {
+    dataFn.objInsert(log.value, ['justifications', log.instanceId]);
+  }
 };
 
 const initData = {
   answers: {},
+  justifications: {},
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
 };

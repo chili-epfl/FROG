@@ -4,6 +4,7 @@ import React from 'react';
 import seededShuffle from 'seededshuffle';
 import { type ActivityRunnerT } from 'frog-utils';
 
+import Justification from './Justification';
 import Question from './Question';
 
 export const condShuffle = (
@@ -15,11 +16,12 @@ export const condShuffle = (
 
 export default (props: ActivityRunnerT) => {
   const { activityData, groupingValue, data, dataFn } = props;
+  const { config } = activityData;
 
-  const questionsWithIndex = activityData.config.questions
+  const questionsWithIndex = config.questions
     .filter(q => q.question && q.answers)
     .map((x, i) => [x, i]);
-  const questions = ['questions', 'both'].includes(activityData.config.shuffle)
+  const questions = ['questions', 'both'].includes(config.shuffle)
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
   const onSubmit = () => {
@@ -31,9 +33,11 @@ export default (props: ActivityRunnerT) => {
   return [
     ...questions.map(([question, questionIndex], index) => (
       <Question
-        {...{ ...props, question, index, questionIndex, key: questionIndex }}
+        key={questionIndex}
+        {...{ ...props, question, index, questionIndex }}
       />
     )),
+    <Justification {...props} key="justification" />,
     <button onClick={onSubmit} key="submit">
       Submit
     </button>

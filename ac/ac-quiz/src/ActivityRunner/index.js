@@ -26,18 +26,15 @@ const Container = styled.div`
 
 export default (props: ActivityRunnerT) => {
   const { activityData, data } = props;
+  const { config } = activityData;
   return (
     <Main>
-      <h1>{activityData.config.title || 'Quiz'}</h1>
+      <h1>{config.title || 'Quiz'}</h1>
       <Container>
-        <HTML
-          html={
-            activityData.config.guidelines || 'Answer the following questions'
-          }
-        />
+        <HTML html={config.guidelines || 'Answer the following questions'} />
       </Container>
       <Container>
-        {data.completed ? <h1>Form completed!</h1> : <Quiz {...props} />}
+        {data.completed ? <h1>Quiz completed!</h1> : <Quiz {...props} />}
       </Container>
     </Main>
   );

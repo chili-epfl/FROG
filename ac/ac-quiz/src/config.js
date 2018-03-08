@@ -61,6 +61,7 @@ export const config = {
     }
   }
 };
+
 export const validateConfig = [
   (formData: Object) =>
     !formData.questions || formData.questions.length === 0
