@@ -8,6 +8,7 @@ import {
   getDisplayName,
   uuid
 } from 'frog-utils';
+import { ErrorBoundary } from '../App/ErrorBoundary';
 
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/connection';
@@ -82,13 +83,15 @@ const ReactiveHOC = (
 
     render = () =>
       this.state.data ? (
-        <WrappedComponent
-          uuid={this.state.uuid}
-          dataFn={this.state.dataFn}
-          uploadFn={uploadFile}
-          data={this.state.data}
-          {...this.props}
-        />
+        <ErrorBoundary msg="Activity crashed, try reloading">
+          <WrappedComponent
+            uuid={this.state.uuid}
+            dataFn={this.state.dataFn}
+            uploadFn={uploadFile}
+            data={this.state.data}
+            {...this.props}
+          />
+        </ErrorBoundary>
       ) : (
         <Spinner />
       );
