@@ -97,7 +97,8 @@
     "websocket-json-stream": "0.0.3",
     "ws": "^4.0.0",
     "ac-dual": "1.0.0",
-    "ac-timedQuiz": "1.0.0"
+    "ac-timedQuiz": "1.0.0",
+    "op-xy-distance": "1.0.0"
   },
   "devDependencies": {"nps": "^5.7.1"}
 }
