@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import { A } from 'frog-utils';
 import { isEmpty } from 'lodash';
 import Form from 'react-jsonschema-form';
 import { Button } from 'react-bootstrap';
@@ -49,6 +48,7 @@ class StudentLogin extends React.Component<
         settings.secretString.trim().toUpperCase() !==
           (this.secret && this.secret.trim().toUpperCase())
       ) {
+        // eslint-disable-next-line no-alert
         window.alert('Secret token is not correct');
         return;
       }
