@@ -15,7 +15,7 @@ class Game extends Component {
     this.paddle = null;
     this.bricks = [];
     this.brickX = 2;
-    this.brickY = 10;
+    this.brickY = 30;
     this.brickWidth = this.width / 10 - 2.25;
     this.colors = [
       '#18582b',
@@ -46,8 +46,8 @@ class Game extends Component {
   }
 
   createBricks = () => {
-    let brickX = 2;
-    let brickY = 10;
+    let brickX = this.brickX;
+    let brickY = this.brickY;
     const bricks = this.bricks;
     const brickWidth = this.brickWidth;
     const width = this.width;
@@ -114,7 +114,7 @@ class Game extends Component {
       speed: 8
     };
 
-    // this.ballOn = false;
+    this.ballOn = false;
   };
 
   move = () => {
@@ -196,36 +196,50 @@ class Game extends Component {
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = '#333';
     ctx.fillRect(0, 0, width, height);
+
     // paddle
     ctx.fillStyle = '#fff';
     ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
 
-    if (!this.ballOn) {
-      ctx.font = '14px Roboto Mono';
-      ctx.textAlign = 'center';
-      ctx.fillText(
-        'Press spacebar to start a new game.',
-        width / 2,
-        height / 2 - 25
-      );
-      ctx.font = '12px Roboto Mono';
-      ctx.fillText(
-        'Move with arrow keys or A & D.',
-        width / 2,
-        height / 2 + 25
-      );
+    // Score
+    ctx.font = '12px Roboto Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText(`Score: ${this.score}`, 30, 10);
 
-      if (this.gameOver === 1) {
-        ctx.font = '52px Roboto Mono';
-        ctx.fillText('YOU LOST!', width / 2, height / 2 - 90);
-        ctx.font = '36px Roboto Mono';
-        ctx.fillText('Keep trying!', width / 2, height / 2 - 50);
-      } else if (this.gameOver === 2) {
-        ctx.font = '52px Roboto Mono';
-        ctx.fillText('YOU WON!', width / 2, height / 2 - 90);
-        ctx.font = '36px Roboto Mono';
-        ctx.fillText('Congratulations!', width / 2, height / 2 - 50);
-      }
+    ctx.font = '12px Roboto Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText(`Errors: ${this.errors}`, width - 30, 10);
+
+    if (!this.ballOn) {
+      ctx.strokeStyle = '#FF0000';
+      ctx.lineWidth = 25;
+      ctx.strokeRect(0, 0, width, height);
+
+      // ctx.font = '14px Roboto Mono';
+      // ctx.textAlign = 'center';
+      // ctx.fillText(
+      //   'Press spacebar to start a new game.',
+      //   width / 2,
+      //   height / 2 - 25
+      // );
+      // ctx.font = '12px Roboto Mono';
+      // ctx.fillText(
+      //   'Move with arrow keys or A & D.',
+      //   width / 2,
+      //   height / 2 + 25
+      // );
+
+      // if (this.gameOver === 1) {
+      //   ctx.font = '52px Roboto Mono';
+      //   ctx.fillText('YOU LOST!', width / 2, height / 2 - 90);
+      //   ctx.font = '36px Roboto Mono';
+      //   ctx.fillText('Keep trying!', width / 2, height / 2 - 50);
+      // } else if (this.gameOver === 2) {
+      //   ctx.font = '52px Roboto Mono';
+      //   ctx.fillText('YOU WON!', width / 2, height / 2 - 90);
+      //   ctx.font = '36px Roboto Mono';
+      //   ctx.fillText('Congratulations!', width / 2, height / 2 - 50);
+      // }
     }
     // ball
     ctx.beginPath();
