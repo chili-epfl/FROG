@@ -1,12 +1,11 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
 import type { productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Distance from (x,y) coordinates',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc: 'Distance from (x,y) coordinates.',
+  description: 'Distance from (x,y) coordinates.'
 };
 
 const config = {
@@ -14,7 +13,24 @@ const config = {
   properties: {}
 };
 
-const operator = (configData, object) => {};
+const operator = (_, object) => {
+  const { payload } = object.activityData;
+  const instances = Object.keys(payload);
+
+  const distance = (coordA, coordB) =>
+    Math.sqrt((coordA.x - coordB.x) ** 2 + (coordA.y - coordB.y) ** 2);
+
+  const distanceMatrix = instances.map(A =>
+    instances.map(B =>
+      distance(payload[A].data.coordinates, payload[B].data.coordinates)
+    )
+  );
+
+  return {
+    structure: 'all',
+    payload: { instances, distanceMatrix }
+  };
+};
 
 export default ({
   id: 'op-xy-distance',

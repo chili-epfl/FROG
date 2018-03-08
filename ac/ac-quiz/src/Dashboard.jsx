@@ -88,7 +88,9 @@ const JustificationViewer = ({ data, users, activity }) => {
       return (
         <pre key={instance}>
           <p>{'From: ' + instanceName}</p>
-          <p style={{width: '100%', whiteSpace: 'pre-wrap'}}>{'Text: ' + justifications[instance]}</p>
+          <p style={{ width: '100%', whiteSpace: 'pre-wrap' }}>
+            {'Text: ' + justifications[instance]}
+          </p>
         </pre>
       );
     });
@@ -143,7 +145,10 @@ const mergeLog = (
     dataFn.objInsert(log.value, ['justifications', log.instanceId]);
   }
   if (log.type === 'coordinates' && log.payload) {
-    dataFn.objInsert([log.payload.x, log.payload.y], ['coordinates', log.instanceId]);
+    dataFn.objInsert(
+      [log.payload.x, log.payload.y],
+      ['coordinates', log.instanceId]
+    );
   }
 };
 

@@ -24,18 +24,21 @@ const Container = styled.div`
   flex: 0 1 auto;
 `;
 
-const Completed = ({ dataFn }) =>
+const Completed = ({ dataFn }) => (
   <React.Fragment>
     <h1>Quiz completed!</h1>
-    <button onClick={() => dataFn.objInsert(false, ['completed'])}>Back to quiz</button>
+    <button onClick={() => dataFn.objInsert(false, ['completed'])}>
+      Back to quiz
+    </button>
   </React.Fragment>
+);
 
 export default (props: ActivityRunnerT) => {
   const { activityData, data } = props;
   const { config } = activityData;
   return (
     <Main>
-      <pre>{JSON.stringify(data,null,2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
       <h1>{config.title || 'Quiz'}</h1>
       <Container>
         <HTML html={config.guidelines || 'Answer the following questions'} />

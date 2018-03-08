@@ -18,33 +18,31 @@ export default (props: ActivityRunnerT) => {
   const { activityData, groupingValue, data, dataFn, logger } = props;
   const { config } = activityData;
 
-  const questionsWithIndex = config.questions
-    .map((x, i) => [x, i]);
+  const questionsWithIndex = config.questions.map((x, i) => [x, i]);
   const questions = ['questions', 'both'].includes(config.shuffle)
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
 
   const updateCoordinates = () => {
+    const coordinates = { x: 0, y: 0 };
 
-    const coordinates = { x: 0, y: 0 }
-
-    Object.keys(data.form).forEach((qIndex) => {
+    Object.keys(data.form).forEach(qIndex => {
       const answerIndex = data.form[qIndex];
-      const q = config.questions[qIndex]
-      const a = q.answers[answerIndex]
+      const q = config.questions[qIndex];
+      const a = q.answers[answerIndex];
       coordinates.x += a.x || 0;
       coordinates.y += a.y || 0;
     });
 
-    dataFn.objInsert(coordinates, ['coordinates'])
-    logger([{ type: 'coordinates', payload: coordinates}])
-  }
+    dataFn.objInsert(coordinates, ['coordinates']);
+    logger([{ type: 'coordinates', payload: coordinates }]);
+  };
 
   const onSubmit = () => {
-    updateCoordinates()
+    updateCoordinates();
     if (Object.keys(data.form).length >= Object.keys(questions).length) {
       dataFn.objInsert(true, ['completed']);
-      logger([{ type: 'progress', value: 1 }])
+      logger([{ type: 'progress', value: 1 }]);
     }
   };
 

@@ -25,13 +25,11 @@ export const exportData = (config: Object, { payload }: Object) => {
 
 export const formatProduct = (config: Object, item: Object) => {
   if (item) {
-    const { form, coordinates } = item
+    const { form, coordinates } = item;
     const questions = config.questions.map(q => q.question);
     const answers = config.questions.map(
       (q, qIndex) =>
-        form[qIndex] !== undefined
-          ? q.answers[form[qIndex]].choice
-          : undefined
+        form[qIndex] !== undefined ? q.answers[form[qIndex]].choice : undefined
     );
     const answersIndex = config.questions.map(
       (q, qIndex) => (form[qIndex] !== undefined ? form[qIndex] : -1)
@@ -39,8 +37,7 @@ export const formatProduct = (config: Object, item: Object) => {
     const correctQs = config.hasAnswers
       ? config.questions.map(
           (q, qIndex) =>
-            form[qIndex] !== undefined &&
-            !!q.answers[form[qIndex]].isCorrect
+            form[qIndex] !== undefined && !!q.answers[form[qIndex]].isCorrect
         )
       : undefined;
     const correctCount = correctQs
