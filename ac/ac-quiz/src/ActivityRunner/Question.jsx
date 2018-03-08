@@ -55,8 +55,9 @@ export default ({
       Object.keys(data.form).length +
       (data.form[questionIndex] !== undefined ? 0 : 1);
     const numQuestions = activityData.config.questions.length;
+
     logger([
-      { type: 'progress', value: numAnswers / numQuestions },
+      { type: 'progress', value: numAnswers / (numQuestions + 0.1)},
       { type: 'score', value: numAnswers },
       { type: 'choice', itemId: questionIndex, value: e.formData - 1 }
     ]);

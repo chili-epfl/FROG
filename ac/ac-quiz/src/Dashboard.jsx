@@ -16,13 +16,13 @@ import {
 } from 'frog-utils';
 
 const ScatterViewer = (props: dashboardViewerPropsT) => {
-  const { data: { answers }, config, instances } = props;
+  const { data: { answers }, config } = props;
   if (!config.argueWeighting) {
     return null;
   }
 
   const questions = config.questions.filter(q => q.question && q.answers);
-  const scatterData = instances.map(instance => {
+  const scatterData = Object.keys(answers).map(instance => {
     const coordinates = [0, 0];
     questions.forEach((q, qIndex) => {
       if (
@@ -87,8 +87,8 @@ const JustificationViewer = ({ data, users, activity }) => {
       const instanceName = activity.plane === 1 ? users[instance] : instance;
       return (
         <pre key={instance}>
-          <div>From: {instanceName}</div>
-          <div>Text: {justifications[instance]}</div>
+          <p>{'From: ' + instanceName}</p>
+          <p style={{width: '100%', whiteSpace: 'pre-wrap'}}>{'Text: ' + justifications[instance]}</p>
         </pre>
       );
     });
@@ -142,11 +142,15 @@ const mergeLog = (
   if (log.type === 'reactivetext.focus' || log.type === 'reactivetext.blur') {
     dataFn.objInsert(log.value, ['justifications', log.instanceId]);
   }
+  if (log.type === 'coordinates' && log.payload) {
+    dataFn.objInsert([log.payload.x, log.payload.y], ['coordinates', log.instanceId]);
+  }
 };
 
 const initData = {
   answers: {},
   justifications: {},
+  coordinates: {},
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
 };

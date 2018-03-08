@@ -8,7 +8,11 @@ import meta from './meta';
 import dashboard from './Dashboard';
 import { exportData, formatProduct } from './utils';
 
-const dataStructure = { justification: '', form: {} };
+const dataStructure = {
+  justification: '',
+  form: {},
+  coordinates: { x: 0, y: 0}
+};
 
 export default ({
   id: 'ac-quiz',
