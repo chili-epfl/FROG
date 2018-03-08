@@ -184,7 +184,7 @@ const FROGRouter = withRouter(
       if (this.state.mode === 'error') {
         return <p1>There was an error logging in</p1>;
       }
-      return this.state.mode === 'studentlist' ? (
+      return this.state.mode === 'studentlist' && this.state.settings ? (
         <StudentLogin
           settings={this.state.settings}
           login={this.login}
