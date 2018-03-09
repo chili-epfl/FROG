@@ -41,17 +41,17 @@ const config = {
 };
 
 // the actual component that the student sees
-const ActivityRunner = (props) => {
+const ActivityRunner = props => {
   const {
     activityData,
     groupingValue,
     userInfo: { name },
     dataFn,
     data
-  } = props
-  const configData = activityData.config
-  if(!data[name]){
-    dataFn.objInsert(true,[name])
+  } = props;
+  const configData = activityData.config;
+  if (!data[name]) {
+    dataFn.objInsert(true, [name]);
   }
   return (
     <div>
@@ -60,11 +60,14 @@ const ActivityRunner = (props) => {
         {configData.displayName && `Hi, ${name}. `} You are in group{' '}
         {groupingValue}.
       </h2>
-      {configData.displayGroup && <h3>{'The group members are: ' + Object.keys(data).join(', ')}</h3>}
-    </div>)
-}
+      {configData.displayGroup && (
+        <h3>{'The group members are: ' + Object.keys(data).join(', ')}</h3>
+      )}
+    </div>
+  );
+};
 
-const dataStructure = {}
+const dataStructure = {};
 
 export default ({
   id: 'ac-display-social',

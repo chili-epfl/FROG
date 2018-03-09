@@ -15,7 +15,11 @@ const config = {
 
 const operator = (_, object) => {
   const { payload } = object.activityData;
-  const instances = Object.keys(payload);
+  const isValid = i => {
+    const c = payload[i].data.coordinates;
+    return c && c.valid;
+  };
+  const instances = Object.keys(payload).filter(isValid);
 
   const distance = (coordA, coordB) =>
     Math.sqrt((coordA.x - coordB.x) ** 2 + (coordA.y - coordB.y) ** 2);

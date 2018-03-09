@@ -11,7 +11,7 @@ import { exportData, formatProduct } from './utils';
 const dataStructure = {
   justification: '',
   form: {},
-  coordinates: { x: 0, y: 0 }
+  coordinates: { x: 0, y: 0, valid: false }
 };
 
 export default ({

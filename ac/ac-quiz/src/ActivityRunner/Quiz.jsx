@@ -24,7 +24,7 @@ export default (props: ActivityRunnerT) => {
     : questionsWithIndex;
 
   const updateCoordinates = () => {
-    const coordinates = { x: 0, y: 0 };
+    const coordinates = { x: 0, y: 0, valid: true };
 
     Object.keys(data.form).forEach(qIndex => {
       const answerIndex = data.form[qIndex];

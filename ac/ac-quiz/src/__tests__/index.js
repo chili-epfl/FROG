@@ -83,30 +83,30 @@ const config = {
 };
 
 const reactiveData = {
-  '2D7YgM4iXzXtHb8i9': { data: { form: {} }},
-  '2SzYgAQ4rFwNzc6ca': { data: { form:{ 1: 0 } }},
-  '378CrSvKKXqXmoqgB': { data: { form:{ 0: 0, 1: 1 } }},
-  '3k8Dpn3ZRv5aMBMXC': { data: { form:{ 1: 0, completed: true } }},
-  '4C9h7ZrBx3WE8Csmi': { data: { form:{} }},
-  '62sFTRZf4DsyJZQxW': { data: { form:{ 1: 0 } }},
-  '6YNRJHCGM5xKdSwog': { data: { form:{ 0: 0, completed: true }} },
+  '2D7YgM4iXzXtHb8i9': { data: { form: {} } },
+  '2SzYgAQ4rFwNzc6ca': { data: { form: { 1: 0 } } },
+  '378CrSvKKXqXmoqgB': { data: { form: { 0: 0, 1: 1 } } },
+  '3k8Dpn3ZRv5aMBMXC': { data: { form: { 1: 0, completed: true } } },
+  '4C9h7ZrBx3WE8Csmi': { data: { form: {} } },
+  '62sFTRZf4DsyJZQxW': { data: { form: { 1: 0 } } },
+  '6YNRJHCGM5xKdSwog': { data: { form: { 0: 0, completed: true } } },
   '6axnbTEnud9SSyxWY': {
-    data: { form:{ 0: 0, 1: 0, completed: true }}
+    data: { form: { 0: 0, 1: 0, completed: true } }
   },
   '6cQLtWSHeSKeEswCs': {
-    data: { form:{ 0: 1, 1: 0, completed: true }}
+    data: { form: { 0: 1, 1: 0, completed: true } }
   },
-  '6sEbJJXFZa4kX7LgX': { data: { form:{} }},
+  '6sEbJJXFZa4kX7LgX': { data: { form: {} } },
   '74vM8DrJN4qvg88R6': {
-    data: { form:{ 0: 0, 1: 1, completed: true }}
+    data: { form: { 0: 0, 1: 1, completed: true } }
   },
   '7Lx9GjMib4pFHMQGh': {
-    data: { form:{ 0: 1, 1: 1, completed: true }}
+    data: { form: { 0: 1, 1: 1, completed: true } }
   },
-  '7rbpdZEHHvukaehyh': { data: { form:{} }},
-  '7z7wXxAJuwLMwstuX': { data: { form:{} }},
-  '83Zr8FgGMTWoFZDFn': { data: { form:{} }},
-  '86ZE85kFywrkSyR4E': { data: { form:{} }}
+  '7rbpdZEHHvukaehyh': { data: { form: {} } },
+  '7z7wXxAJuwLMwstuX': { data: { form: {} } },
+  '83Zr8FgGMTWoFZDFn': { data: { form: {} } },
+  '86ZE85kFywrkSyR4E': { data: { form: {} } }
 };
 
 const data = {
