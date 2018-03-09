@@ -28,7 +28,7 @@ const operator = (_, object) => {
 
   return {
     structure: 'all',
-    payload: { all : { data: { instances, distanceMatrix } } }
+    payload: { all: { data: { instances, distanceMatrix } } }
   };
 };
 

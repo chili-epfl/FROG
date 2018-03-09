@@ -14,29 +14,29 @@ const config = {
   properties: {}
 };
 
-const optim = (values) => values.reduce((acc,x) => acc + Math.sqrt(x), 0)
+const optim = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 
 const operator = (configData, object) => {
   const { activityData: { payload } } = object;
-  const { instances, distanceMatrix } = payload.all.data
+  const { instances, distanceMatrix } = payload.all.data;
 
-  if (instances.length === 1) return { group: { '1': [ instances[0] ] } };
+  if (instances.length === 1) return { group: { '1': [instances[0]] } };
 
   const last = instances.length % 2 ? instances.pop() : null;
 
   const tmp = chunk([...instances.keys()], 2);
 
-  let modified = true
-  let iter = 0
+  let modified = true;
+  let iter = 0;
   while (modified && iter < 10000) {
     iter += 1;
     modified = false;
     for (let i = 0; i < tmp.length && !modified; i = 1 + i) {
-      for (let j = i+1; j < tmp.length && !modified; j = 1 + j) {
+      for (let j = i + 1; j < tmp.length && !modified; j = 1 + j) {
         const currentScore = optim([
           distanceMatrix[tmp[i][0]][tmp[i][1]],
           distanceMatrix[tmp[j][0]][tmp[j][1]]
-        ])
+        ]);
         if (
           optim([
             distanceMatrix[tmp[i][0]][tmp[j][0]],
@@ -60,7 +60,7 @@ const operator = (configData, object) => {
         }
       }
     }
-  };
+  }
 
   if (last) {
     tmp[0].push(instances.length);

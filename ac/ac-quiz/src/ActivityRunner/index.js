@@ -38,7 +38,6 @@ export default (props: ActivityRunnerT) => {
   const { config } = activityData;
   return (
     <Main>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
       <h1>{config.title || 'Quiz'}</h1>
       <Container>
         <HTML html={config.guidelines || 'Answer the following questions'} />
