@@ -12,7 +12,6 @@ import {
   Switch
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { isEmpty } from 'lodash';
 import Spinner from 'react-spinner';
 import { toObject as queryToObject } from 'query-parse';
 
@@ -55,7 +54,7 @@ const FROGRouter = withRouter(
         | 'waiting'
         | 'studentlist'
         | 'nostudentlist',
-      studentlist?: string[]
+      settings?: Object
     }
   > {
     wait: boolean = false;
@@ -143,13 +142,13 @@ const FROGRouter = withRouter(
             } else if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
-                'frog.studentlist',
+                'frog.session.settings',
                 this.props.match.params.slug,
                 (err, result) => {
-                  if (err || result === -1 || isEmpty(result)) {
+                  if (err || result === -1) {
                     this.setState({ mode: 'nostudentlist' });
                   } else {
-                    this.setState({ studentlist: result, mode: 'studentlist' });
+                    this.setState({ settings: result, mode: 'studentlist' });
                   }
                 }
               );
@@ -185,8 +184,12 @@ const FROGRouter = withRouter(
       if (this.state.mode === 'error') {
         return <p1>There was an error logging in</p1>;
       }
-      return this.state.mode === 'studentlist' ? (
-        <StudentLogin login={this.login} slug={this.props.match.params.slug} />
+      return this.state.mode === 'studentlist' && this.state.settings ? (
+        <StudentLogin
+          settings={this.state.settings}
+          login={this.login}
+          slug={this.props.match.params.slug}
+        />
       ) : (
         <NotLoggedIn login={this.login} />
       );
