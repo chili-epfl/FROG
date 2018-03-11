@@ -8,7 +8,6 @@ import Mousetrap from 'mousetrap';
 import {
   styles,
   texts,
-  Form,
   Guidelines,
   CountDownTimer
 } from './ActivityUtils';
@@ -20,47 +19,37 @@ let delayTimeout;
 let changeActivityTimeout;
 
 const Activity = withState('ready', 'setReady', false)(props => {
-  const { data, dataFn, activityData, ready, setReady, logger } = props;
+  const { data: { step }, dataFn, activityData, logger } = props;
+  const { ready, setReady } = props;
   const { timeOfEachActivity } = activityData.config;
-  const { language, step } = data;
+  const activityTime = (timeOfEachActivity || 30000) * (step > 1 ? 2 : 1)
 
   const nextStep = () => {
     setReady(false);
     dataFn.numIncr(1, 'step');
-    logger({ type: 'progress', value: (step + 1) / 3 });
+    logger({ type: 'progress', value: (step + 1) / 4 });
   };
 
   const startActivity = () => {
     setReady(true);
     clearTimeout(changeActivityTimeout);
-    changeActivityTimeout = setTimeout(nextStep, timeOfEachActivity || 60000);
+    changeActivityTimeout = setTimeout(nextStep, activityTime);
   };
 
   if (!ready) {
     return (
       <Guidelines
         start={startActivity}
-        guidelines="Placeholder for guidelines"
-        lang={language}
+        guidelines={texts.guidelines[step]}
       />
     );
   } else {
     return (
       <React.Fragment>
-        <div style={styles.text}>
-          {texts[language].question[parseInt(step, 10)]}
-        </div>
-        <div style={{ display: 'flex' }}>
-          {(step === 1 || step === 2) && (
-            <Game {...props} width={500} height={400} step={step} />
-          )}
-          {(step === 0 || step === 2) && (
-            <Symmetry {...props} width={200} height={300} step={step} />
-          )}
-        </div>
+        <ActivityWithSpeed {...props} />
         <div style={styles.activityCountdown}>
-          <CountDownTimer start={Date.now()} length={timeOfEachActivity}>
-            {texts[language].timeLeft}
+          <CountDownTimer start={Date.now()} length={activityTime}>
+            {texts.timeLeft}
           </CountDownTimer>
         </div>
       </React.Fragment>
@@ -68,24 +57,61 @@ const Activity = withState('ready', 'setReady', false)(props => {
   }
 });
 
-const Main = props => {
-  const { data, dataFn } = props;
-  const { language, step } = data;
-  const { name } = props.userInfo;
+class ActivityWithSpeed extends React.Component<*,*> {
+  speedIncreaseInterval: any;
 
-  if (!language) {
-    return <Form onSubmit={l => dataFn.objInsert(l, 'language')} name={name} />;
-  } else if (step < 3) {
+  constructor (props) {
+    super(props)
+    this.state = { speed: 3 }
+  }
+
+  componentDidMount () {
+    this.speedIncreaseInterval = setInterval(
+      () => this.setState({ speed: this.state.speed + 1 }),
+      4000
+    )
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.speedIncreaseInterval)
+  }
+
+  render() {
+    const { data: { step } } = this.props
+    const { speed } = this.state
+
+    return (<React.Fragment>
+      <pre>{speed}</pre>
+      <div style={styles.text}>
+        {texts.guidelines[step]}
+      </div>
+      <div style={{ display: 'flex' }}>
+        {(step === 1 || step === 2 || step === 3) && (
+          <Game {...this.props} width={500} height={400} speed={speed} />
+        )}
+        {(step === 0 || step === 2 || step === 3) && (
+          <Symmetry {...this.props} width={200} height={300} speed={speed} />
+        )}
+      </div>
+    </React.Fragment>)
+  }
+}
+
+const Main = props => {
+  const { data } = props;
+  const { step } = data;
+
+  if (step < 4) {
     return <Activity {...props} />;
   } else {
-    return <div style={styles.text}>{texts[language].end}</div>;
+    return <div style={styles.text}>{texts.end}</div>;
   }
 };
 
 // the actual component that the student sees
 const Runner = (props: ActivityRunnerT) => {
   const { step } = props.data;
-  const p = Math.round(step / 3 * 100);
+  const p = Math.round(step / 4 * 100);
   return (
     <div style={styles.main}>
       <ProgressBar now={p} label={`${p}%`} />
