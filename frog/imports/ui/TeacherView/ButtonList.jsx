@@ -44,12 +44,12 @@ const Countdown = withTracker(props => ({
 const ButtonList = ({
   session,
   toggle,
-  setShowStudentList,
+  setShowSettings,
   token
 }: {
   session: Object,
   toggle: Function,
-  setShowStudentList: Function,
+  setShowSettings: Function,
   token?: { value: string }
 }) => {
   const buttons = [
@@ -103,8 +103,8 @@ const ButtonList = ({
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
       type: 'primary',
-      onClick: () => setShowStudentList(true),
-      text: 'Edit student list'
+      onClick: () => setShowSettings(true),
+      text: 'Configure settings'
     },
     {
       states: ['CREATED', 'STARTED', 'PAUSED'],
