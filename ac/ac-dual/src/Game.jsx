@@ -3,7 +3,7 @@ import Mousetrap from 'mousetrap';
 
 let gameDifficultyTimeout;
 
-class Game extends React.Component<*,*> {
+class Game extends React.Component<*, *> {
   constructor(props) {
     super(props);
 
@@ -278,10 +278,8 @@ class Game extends React.Component<*,*> {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('willReceiveProps')
-    console.log(newProps.speed)
-    this.ballSpeedY = newProps.speed
-    this.ball.speedY = Math.sign(this.ball.speedY) * this.ballSpeedY
+    this.ballSpeedY = newProps.speed;
+    this.ball.speedY = Math.sign(this.ball.speedY) * this.ballSpeedY;
   }
 
   componentWillUnmount() {

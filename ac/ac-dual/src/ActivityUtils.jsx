@@ -27,20 +27,26 @@ export const styles = {
 };
 
 export const texts = {
-    start: 'Start',
-    yes: 'YES',
-    no: 'NO',
-    guidelines: [
-      'Are the two shapes symmetrical? Click Yes or No to answer.',
-      'Do not let the ball fall and break the bricks! Use left and right arrows to move.',
-      'Now do both tasks at the same time!',
-      'Now do both tasks at the same time!'
-    ],
-    end: 'Activity completed! Thank you!',
-    timeLeft: 'Time left in Task -> '
+  start: 'Start',
+  yes: 'YES',
+  no: 'NO',
+  guidelines: [
+    'Are the two shapes symmetrical? Click Yes or No to answer.',
+    'Do not let the ball fall and break the bricks! Use left and right arrows to move.',
+    'Now do both tasks at the same time!',
+    'Now do both tasks at the same time!'
+  ],
+  end: 'Activity completed! Thank you!',
+  timeLeft: 'Time left in Task -> '
 };
 
-export const Guidelines = ({ start, guidelines }: {start: Function, guidelines: string}) => (
+export const Guidelines = ({
+  start,
+  guidelines
+}: {
+  start: Function,
+  guidelines: string
+}) => (
   <React.Fragment>
     <div style={{ ...styles.container, padding: '20px' }}>
       <HTML html={guidelines} />

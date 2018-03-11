@@ -1,16 +1,9 @@
-// @flow
-
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { ProgressBar } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
-import {
-  styles,
-  texts,
-  Guidelines,
-  CountDownTimer
-} from './ActivityUtils';
+import { styles, texts, Guidelines, CountDownTimer } from './ActivityUtils';
 import Symmetry from './Symmetry';
 import Game from './Game';
 
@@ -22,7 +15,7 @@ const Activity = withState('ready', 'setReady', false)(props => {
   const { data: { step }, dataFn, activityData, logger } = props;
   const { ready, setReady } = props;
   const { timeOfEachActivity } = activityData.config;
-  const activityTime = (timeOfEachActivity || 30000) * (step > 1 ? 2 : 1)
+  const activityTime = (timeOfEachActivity || 30000) * (step > 1 ? 2 : 1);
 
   const nextStep = () => {
     setReady(false);
@@ -38,10 +31,7 @@ const Activity = withState('ready', 'setReady', false)(props => {
 
   if (!ready) {
     return (
-      <Guidelines
-        start={startActivity}
-        guidelines={texts.guidelines[step]}
-      />
+      <Guidelines start={startActivity} guidelines={texts.guidelines[step]} />
     );
   } else {
     return (
@@ -57,43 +47,42 @@ const Activity = withState('ready', 'setReady', false)(props => {
   }
 });
 
-class ActivityWithSpeed extends React.Component<*,*> {
+class ActivityWithSpeed extends React.Component<any, any> {
   speedIncreaseInterval: any;
 
-  constructor (props) {
-    super(props)
-    this.state = { speed: 3 }
+  constructor(props) {
+    super(props);
+    this.state = { speed: 3 };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.speedIncreaseInterval = setInterval(
       () => this.setState({ speed: this.state.speed + 1 }),
-      4000
-    )
+      10000
+    );
   }
 
-  componentWillUnmount () {
-    clearInterval(this.speedIncreaseInterval)
+  componentWillUnmount() {
+    clearInterval(this.speedIncreaseInterval);
   }
 
   render() {
-    const { data: { step } } = this.props
-    const { speed } = this.state
+    const { data: { step } } = this.props;
+    const { speed } = this.state;
 
-    return (<React.Fragment>
-      <pre>{speed}</pre>
-      <div style={styles.text}>
-        {texts.guidelines[step]}
-      </div>
-      <div style={{ display: 'flex' }}>
-        {(step === 1 || step === 2 || step === 3) && (
-          <Game {...this.props} width={500} height={400} speed={speed} />
-        )}
-        {(step === 0 || step === 2 || step === 3) && (
-          <Symmetry {...this.props} width={200} height={300} speed={speed} />
-        )}
-      </div>
-    </React.Fragment>)
+    return (
+      <React.Fragment>
+        <div style={styles.text}>{texts.guidelines[step]}</div>
+        <div style={{ display: 'flex' }}>
+          {(step === 1 || step === 2 || step === 3) && (
+            <Game {...this.props} width={500} height={400} speed={speed} />
+          )}
+          {(step === 0 || step === 2 || step === 3) && (
+            <Symmetry {...this.props} width={200} height={300} speed={speed} />
+          )}
+        </div>
+      </React.Fragment>
+    );
   }
 }
 
