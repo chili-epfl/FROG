@@ -209,5 +209,8 @@ const DashboardNav = props => {
 };
 
 export default withTracker(({ session }) => ({
-  activities: Activities.find({ graphId: session.graphId }).fetch()
+  activities: Activities.find({
+    graphId: session.graphId,
+    actualStartingTime: { $exists: true }
+  }).fetch()
 }))(withState('activityId', 'setActivity', null)(DashboardNav));
