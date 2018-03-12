@@ -24,10 +24,10 @@ const Viewer = withState('which', 'setWhich', 'progress')(
       <div>
         <Select target="progress" onClick={setWhich} />
         <Select target="raw" onClick={setWhich} />
-        <Select target="stats" onClick={setWhich} />
+        <Select target="results" onClick={setWhich} />
         {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
         {which === 'raw' && <RawViewer {...props} />}
-        {which === 'stats' && <StatsViewer {...props} />}
+        {which === 'results' && <StatsViewer {...props} />}
       </div>
     );
   }
@@ -41,7 +41,7 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
   width: '100%',
   height: '300px',
   title,
-  vAxis: { yLabel },
+  vAxis: { title: yLabel },
   hAxis: {
     viewWindowMode: 'explicit',
     viewWindow: {
@@ -72,10 +72,10 @@ const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
       chartType="LineChart"
       columns={[
         { type: 'number', label: 'Speed' },
-        { type: 'number', label: 'ErrorRate' }
+        { type: 'number', label: 'Error Rate' }
       ]}
       rows={chartData}
-      options={options('Easy', 'Percentage of error', 'Speed', 3, 8)}
+      options={options('Condition: ' + task, 'Error rate', 'Speed', 3, 8)}
     />
   ) : (
     <p>No data currently</p>
