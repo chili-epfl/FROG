@@ -126,11 +126,7 @@ const mergeLog = (
     const { answer, startTime, answerTime, curQuestion } = log.payload;
     const index = curQuestion[1];
     if (!data['results'][index]) {
-      if (
-        answer === undefined ||
-        answer.isCorrect === undefined ||
-        answer.isCorrect === false
-      ) {
+      if (!answer || !answer.isCorrect || answer.isCorrect === false) {
         dataFn.objInsert(
           {
             wrong: {
@@ -159,7 +155,7 @@ const mergeLog = (
           ['results', index]
         );
       }
-    } else if (answer.isCorrect === undefined || answer.isCorrect === false) {
+    } else if (!answer.isCorrect || answer.isCorrect === false) {
       dataFn.numIncr(1, ['results', index, 'wrong', 'count']);
       dataFn.numIncr(answerTime - startTime, [
         'results',
