@@ -2,9 +2,7 @@
   "name": "frog",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "scripts": {
-    "start": "nps"
-  },
+  "scripts": {"start": "nps"},
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.40",
     "ac-autocode": "1.0.0",
@@ -13,6 +11,7 @@
     "ac-ck-board": "1.0.0",
     "ac-classifier": "1.0.0",
     "ac-display-social": "1.0.0",
+    "ac-dual": "1.0.0",
     "ac-form": "1.0.0",
     "ac-iframe": "1.0.0",
     "ac-image": "1.0.0",
@@ -23,6 +22,7 @@
     "ac-stroop": "1.0.0",
     "ac-text": "1.0.0",
     "ac-textarea": "1.0.0",
+    "ac-timedQuiz": "1.0.0",
     "ac-uploader": "1.0.0",
     "ac-video": "1.0.0",
     "bcrypt": "^1.0.3",

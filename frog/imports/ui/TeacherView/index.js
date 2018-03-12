@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
 
-import StudentListModal from './StudentListModal';
+import SettingsModal from './SettingsModal';
 import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
@@ -20,16 +20,13 @@ const rawSessionController = ({
   session,
   visible,
   toggleVisibility,
-  setShowStudentList,
-  showStudentList,
+  setShowSettings,
+  showSettings,
   token
 }) => (
   <div>
-    {showStudentList && (
-      <StudentListModal
-        dismiss={() => setShowStudentList(false)}
-        session={session}
-      />
+    {showSettings && (
+      <SettingsModal dismiss={() => setShowSettings(false)} session={session} />
     )}
     {session ? (
       <div>
@@ -37,7 +34,7 @@ const rawSessionController = ({
           token={token}
           session={session}
           toggle={toggleVisibility}
-          setShowStudentList={setShowStudentList}
+          setShowSettings={setShowSettings}
         />
         {visible ? (
           <Dashboards session={session} />
@@ -53,7 +50,7 @@ const rawSessionController = ({
 
 const SessionController = compose(
   withVisibility,
-  withState('showStudentList', 'setShowStudentList', false)
+  withState('showSettings', 'setShowSettings', false)
 )(rawSessionController);
 
 SessionController.displayName = 'SessionController';

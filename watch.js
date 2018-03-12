@@ -10,14 +10,9 @@ const pattern =
     ? ['ac/*/src/**', 'op/*/src/**', 'frog-utils/src/**']
     : `${process.argv[2]}/src`;
 
-const watcher = chokidar.watch(pattern, {
-  persistent: true,
-  cwd: dir
-});
+const build = process.argv[3] === 'build';
 
-const log = console.info.bind(console);
-
-watcher.on('change', src => {
+const transpile = (event, src) => {
   const dist = src.replace('/src/', '/dist/').replace('.jsx', '.js');
 
   childProcess.exec(
@@ -27,10 +22,26 @@ watcher.on('change', src => {
         log(`Babel error: ${error}`);
         return;
       }
-      log(`${src}->${dist}`);
+      log(`${event}: ${src}`);
     }
   );
-});
+};
+
+const watcher = chokidar
+  .watch(pattern, {
+    persistent: true,
+    cwd: dir,
+    ignored: /\.(json|snap)/,
+    ignoreInitial: !build
+  })
+  .on('add', src => {
+    transpile('add', src);
+  })
+  .on('change', src => {
+    transpile('change', src);
+  });
+
+const log = console.info.bind(console);
 
 process.on('SIGINT', () => {
   log('Quitting Watch');
