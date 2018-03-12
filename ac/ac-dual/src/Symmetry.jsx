@@ -222,6 +222,12 @@ export default class Symmetry extends React.Component<
     this.state = { figure: { ...FIGURES[this.difficulty], symmetrical } };
   }
 
+  componentWillMount() {
+    Mousetrap.bind('y', () => this.onClick(true));
+    Mousetrap.bind('o', () => this.onClick(true));
+    Mousetrap.bind('n', () => this.onClick(false));
+  }
+
   componentWillUnmount() {
     Mousetrap.reset();
     clearTimeout(noAnswerTimeout);
