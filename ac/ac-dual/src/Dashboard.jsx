@@ -33,9 +33,7 @@ const Viewer = withState('which', 'setWhich', 'progress')(
   }
 );
 
-const RawViewer = ({ data }) => (
-  <pre>{JSON.stringify({ e: data.easy, h: data.hard }, null, 2)}</pre>
-);
+const RawViewer = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
 
 const options = (title, yLabel, xLabel, xmin, xmax) => ({
   bar: { groupWidth: '90%' },
@@ -65,10 +63,11 @@ const StatsViewer = (props: dashboardViewerPropsT) => (
 const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
   const d = data[task];
   const errRate = o => o.wrong / (o.wrong + o.correct);
-  const chartData = [
-    ...Object.keys(d).map(speed => [parseInt(speed, 10), errRate(d[speed])])
-  ];
-  return (
+  const chartData = Object.keys(d).map(speed => [
+    parseInt(speed, 10),
+    errRate(d[speed])
+  ]);
+  return chartData.length > 0 ? (
     <Chart
       chartType="LineChart"
       columns={[
@@ -78,6 +77,8 @@ const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
       rows={chartData}
       options={options('Easy', 'Percentage of error', 'Speed', 3, 8)}
     />
+  ) : (
+    <p>No data currently</p>
   );
 };
 
