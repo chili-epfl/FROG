@@ -155,7 +155,7 @@ const mergeLog = (
           ['results', index]
         );
       }
-    } else if (!answer.isCorrect) {
+    } else if (!answer || !answer.isCorrect) {
       dataFn.numIncr(1, ['results', index, 'wrong', 'count']);
       dataFn.numIncr(answerTime - startTime, [
         'results',
