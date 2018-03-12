@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Mousetrap from 'mousetrap';
 
 let gameDifficultyTimeout;
 
-class Game extends Component {
+class Game extends React.Component<*, *> {
   constructor(props) {
     super(props);
 
@@ -16,7 +16,7 @@ class Game extends Component {
     this.ball = null;
     this.ballRadius = 6;
     this.ballSpeedX = 0;
-    this.ballSpeedY = 4;
+    this.ballSpeedY = props.speed || 4;
 
     // Paddle Config
     this.paddle = null;
@@ -232,32 +232,6 @@ class Game extends Component {
       ctx.strokeStyle = '#FF0000';
       ctx.lineWidth = 25;
       ctx.strokeRect(0, 0, width, height);
-
-      // ctx.font = '14px Roboto Mono';
-      // ctx.textAlign = 'center';
-      // ctx.fillText(
-      //   'Press spacebar to start a new game.',
-      //   width / 2,
-      //   height / 2 - 25
-      // );
-      // ctx.font = '12px Roboto Mono';
-      // ctx.fillText(
-      //   'Move with arrow keys or A & D.',
-      //   width / 2,
-      //   height / 2 + 25
-      // );
-
-      // if (this.gameState === 1) {
-      //   ctx.font = '52px Roboto Mono';
-      //   ctx.fillText('YOU LOST!', width / 2, height / 2 - 90);
-      //   ctx.font = '36px Roboto Mono';
-      //   ctx.fillText('Keep trying!', width / 2, height / 2 - 50);
-      // } else if (this.gameState === 2) {
-      //   ctx.font = '52px Roboto Mono';
-      //   ctx.fillText('YOU WON!', width / 2, height / 2 - 90);
-      //   ctx.font = '36px Roboto Mono';
-      //   ctx.fillText('Congratulations!', width / 2, height / 2 - 50);
-      // }
     }
 
     // ball
@@ -301,6 +275,11 @@ class Game extends Component {
     const step = this.props.step;
     this.props.logger({ type: 'starting_game', payload: { step } });
     this.update();
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.ballSpeedY = newProps.speed;
+    this.ball.speedY = Math.sign(this.ball.speedY) * this.ballSpeedY;
   }
 
   componentWillUnmount() {
