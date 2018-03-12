@@ -6,6 +6,7 @@ import { Tracker } from 'meteor/tracker';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
+import { A } from 'frog-utils';
 import { UserStatus } from 'meteor/mizzao:user-status';
 import styled from 'styled-components';
 
@@ -20,6 +21,14 @@ const DashLink = styled.div`
   bottom: 0px;
   right: 0px;
   font-size: 3em;
+  color: black;
+`;
+
+const Logout = styled.div`
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  font-size: 1em;
   color: black;
 `;
 
@@ -80,6 +89,16 @@ class StudentViewComp extends React.Component<
     return (
       <React.Fragment>
         <SessionBody />
+        {Meteor.user() && (
+          <div className="logout">
+            <Logout>
+              <A
+                onClick={Meteor.logout()}
+                className="glyphicon glyphicon-log-out"
+              />
+            </Logout>
+          </div>
+        )}
         {Meteor.user() &&
           Meteor.user().username === 'teacher' && (
             <div className="bootstrap">
