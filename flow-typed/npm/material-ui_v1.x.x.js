@@ -1,8 +1,9 @@
-// flow-typed signature: 39a05e0fd67fce65b5915b82fed4d27e
-// flow-typed version: c3112bc106/material-ui_v1.x.x/flow_>=v0.61.x
+// flow-typed signature: 442d727d3913448298976bb8fdc765ec
+// flow-typed version: ffa917f88e/material-ui_v1.x.x/flow_>=v0.61.x
 
 declare module "material-ui/AppBar/AppBar" {
-  declare type Color = "inherit" | "primary" | "accent" | "default";
+  declare type Color = "inherit" | "primary" | "secondary" | "default";
+  declare type Position = "fixed" | "absolute" | "sticky" | "static";
 
   declare module.exports: React$ComponentType<{
     children?: React$Node,
@@ -63,7 +64,7 @@ declare module "material-ui/BottomNavigation/BottomNavigation" {
   }>;
 }
 
-declare module "material-ui/BottomNavigation/BottomNavigationButton" {
+declare module "material-ui/BottomNavigation/BottomNavigationAction" {
   declare module.exports: React$ComponentType<{
     className?: string,
     classes?: Object,
@@ -79,20 +80,15 @@ declare module "material-ui/BottomNavigation/BottomNavigationButton" {
 
 declare module "material-ui/BottomNavigation" {
   declare module.exports: {
-    BottomNavigationButton: $Exports<
-      "material-ui/BottomNavigation/BottomNavigationButton"
+    BottomNavigationAction: $Exports<
+      "material-ui/BottomNavigation/BottomNavigationAction"
     >,
     default: $Exports<"material-ui/BottomNavigation/BottomNavigation">
   };
 }
 
 declare module "material-ui/Button/Button" {
-  declare type Color =
-    | "default"
-    | "inherit"
-    | "primary"
-    | "accent"
-    | "contrast";
+  declare type Color = "default" | "inherit" | "primary" | "secondary";
 
   declare module.exports: React$ComponentType<{
     children: React$Node,
@@ -367,7 +363,7 @@ declare module "material-ui/Dialog/Dialog" {
     TransitionCallback,
     TransitionDuration
   } from "material-ui/internal/transition";
-  declare type MaxWidth = "xs" | "sm" | "md";
+  declare type MaxWidth = "xs" | "sm" | "md" | false;
 
   declare module.exports: React$ComponentType<{
     children?: React$Node,
@@ -1312,12 +1308,17 @@ declare module "material-ui/Select/Select" {
 
   declare module.exports: React$ComponentType<{
     autoWidth?: boolean,
-    children: $ReadOnlyArray<ChildrenArray<*>>,
+    children: ChildrenArray<*>,
     classes?: Object,
     displayEmpty?: boolean,
     input?: React$Element<any>,
+    inputProps?: Object,
     native?: boolean,
     multiple?: boolean,
+    onChange?: (event: SyntheticUIEvent<*>, child: Object) => void,
+    onClose?: (event: SyntheticUIEvent<*>) => void,
+    onOpen?: (event: SyntheticUIEvent<*>) => void,
+    open?: boolean,
     MenuProps?: Object,
     renderValue?: Function,
     value?: $ReadOnlyArray<string | number> | string | number
@@ -1651,9 +1652,17 @@ declare module "material-ui/styles/withStyles" {
   declare module.exports: (
     stylesOrCreator: Object,
     options?: Options
-  ) => <Props: {}>(
+  ) => <
+    OwnProps: {},
+    Props: $Supertype<
+      OwnProps & {
+        classes: { +[string]: string },
+        innerRef: React$Ref<React$ElementType>
+      }
+    >
+  >(
     Component: React$ComponentType<Props>
-  ) => React$ComponentType<Props>;
+  ) => React$ComponentType<OwnProps>;
 }
 
 declare module "material-ui/styles/withTheme" {
@@ -1913,7 +1922,7 @@ declare module "material-ui/Tabs/Tabs" {
     fullWidth?: boolean,
     indicatorClassName?: string,
     indicatorColor?: IndicatorColor,
-    onChange: Function,
+    onChange?: (event: SyntheticEvent<>, value: any) => void,
     scrollable?: boolean,
     scrollButtons?: ScrollButtons,
     TabScrollButton?: React$ComponentType<*>,
@@ -2272,9 +2281,9 @@ declare module "material-ui/BottomNavigation/BottomNavigation.js" {
     "material-ui/BottomNavigation/BottomNavigation"
   >;
 }
-declare module "material-ui/BottomNavigation/BottomNavigationButton.js" {
+declare module "material-ui/BottomNavigation/BottomNavigationAction.js" {
   declare module.exports: $Exports<
-    "material-ui/BottomNavigation/BottomNavigationButton"
+    "material-ui/BottomNavigation/BottomNavigationAction"
   >;
 }
 declare module "material-ui/BottomNavigation/index.js" {

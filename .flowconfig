@@ -43,8 +43,6 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/match-at/*
 .*node_modules/cypress/*
 .*node_modules/react-draggable/lib/*
-.*node_modules/material-ui/*
-.*node_modules/material-ui-icons/*
 .*/.meteor/.*/package.json
 frogapi-test
 
