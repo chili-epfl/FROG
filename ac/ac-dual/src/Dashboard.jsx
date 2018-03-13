@@ -24,10 +24,10 @@ const Viewer = withState('which', 'setWhich', 'progress')(
       <div>
         <Select target="progress" onClick={setWhich} />
         <Select target="raw" onClick={setWhich} />
-        <Select target="stats" onClick={setWhich} />
+        <Select target="results" onClick={setWhich} />
         {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
         {which === 'raw' && <RawViewer {...props} />}
-        {which === 'stats' && <StatsViewer {...props} />}
+        {which === 'results' && <StatsViewer {...props} />}
       </div>
     );
   }
@@ -41,7 +41,7 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
   width: '100%',
   height: '300px',
   title,
-  vAxis: { yLabel },
+  vAxis: { title: yLabel },
   hAxis: {
     viewWindowMode: 'explicit',
     viewWindow: {
@@ -55,49 +55,36 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
 
 const StatsViewer = (props: dashboardViewerPropsT) => (
   <React.Fragment>
-    <SymmetryStats {...props} />
-    <GameStats {...props} />
+    <SymmetryStats {...props} task="easy" />
+    <SymmetryStats {...props} task="hard" />
   </React.Fragment>
 );
 
-const SymmetryStats = ({ data }: dashboardViewerPropsT) => {
-  const { easy, hard } = data.symmetry;
+const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
+  const d = data[task];
   const errRate = o => o.wrong / (o.wrong + o.correct);
-  const symmetryData = [
-    ['Category', 'Value'],
-    ['Easy', errRate(easy)],
-    ['Hard', errRate(hard)]
-  ];
-  return (
+  const chartData = Object.keys(d).map(speed => [
+    parseInt(speed, 10),
+    errRate(d[speed])
+  ]);
+  return chartData.length > 0 ? (
     <Chart
-      chartType="BarChart"
-      data={symmetryData}
-      options={options('Symmetry', '', 'Percentage of error', 0, 0.5)}
+      chartType="LineChart"
+      columns={[
+        { type: 'number', label: 'Speed' },
+        { type: 'number', label: 'Error Rate' }
+      ]}
+      rows={chartData}
+      options={options('Condition: ' + task, 'Error rate', 'Speed', 3, 8)}
     />
-  );
-};
-
-const GameStats = ({ data, config }: dashboardViewerPropsT) => {
-  const { single, easy, hard, participation } = data.game;
-  const t = config.timeOfEachActivity / 1000;
-  const gameData = [
-    ['Category', 'Value'],
-    ['single', single / t / (participation.single || 1)],
-    ['easy', easy / (t / 2) / (participation.dual || 1)],
-    ['hard', hard / (t / 2) / (participation.dual || 1)]
-  ];
-  return (
-    <Chart
-      chartType="BarChart"
-      data={gameData}
-      options={options('Game', '...', 'Number of error per second', 0, 0.2)}
-    />
+  ) : (
+    <p>No data currently</p>
   );
 };
 
 const initData = {
-  symmetry: { easy: { correct: 0, wrong: 0 }, hard: { correct: 0, wrong: 0 } },
-  game: { easy: 0, hard: 0, single: 0, participation: { dual: 0, single: 0 } },
+  easy: {},
+  hard: {},
   ...ProgressDashboard.initData,
   ...LeaderBoard.initData
 };
@@ -111,24 +98,18 @@ const mergeLog = (
   ProgressDashboard.mergeLog(data, dataFn, log, activity);
   LeaderBoard.mergeLog(data, dataFn, log, activity);
   if (log.type === 'answer' && log.payload) {
-    const { expectedAnswer, answer, answerPath } = log.payload;
-    if (expectedAnswer === answer) {
-      dataFn.numIncr(1, [...answerPath, 'correct']);
-    } else {
-      dataFn.numIncr(1, [...answerPath, 'wrong']);
+    const { expectedAnswer, answer, difficulty, speed } = log.payload;
+    if (!data[difficulty][speed.toString()]) {
+      dataFn.objInsert({ wrong: 0, correct: 0 }, [
+        difficulty,
+        speed.toString()
+      ]);
     }
-  }
-  if (log.type === 'error' && log.payload) {
-    const { errorPath } = log.payload;
-    dataFn.numIncr(1, errorPath);
-  }
-  if (log.type === 'starting_game' && log.payload) {
-    const { step } = log.payload;
-    dataFn.numIncr(1, [
-      'game',
-      'participation',
-      step === 2 ? 'dual' : 'single'
-    ]);
+    if (expectedAnswer === answer) {
+      dataFn.numIncr(1, [difficulty, speed.toString(), 'correct']);
+    } else {
+      dataFn.numIncr(1, [difficulty, speed.toString(), 'wrong']);
+    }
   }
 };
 

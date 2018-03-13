@@ -1,5 +1,6 @@
-import React from 'react';
-import { withState } from 'recompose';
+// @flow
+
+import * as React from 'react';
 import { TimedComponent, HTML } from 'frog-utils';
 import { Button } from 'react-bootstrap';
 
@@ -26,86 +27,33 @@ export const styles = {
 };
 
 export const texts = {
-  en: {
-    start: 'Start',
-    yes: 'YES',
-    no: 'NO',
-    question: {
-      '0': 'Are they symmetrical?',
-      '1': 'Destroy all the bricks! Use left and right arrows to move!',
-      '2': 'Now do both together!'
-    },
-    guielines: {
-      '0': 'Are they symmetrical?',
-      '1': 'Destroy all the bricks! Use left and right arrows to move!',
-      '2': 'Now do both together!'
-    },
-    end: 'Activity completed! Thank you!',
-    timeLeft: 'Time left in Task -> '
-  },
-  fr: {
-    start: 'Commencer',
-    yes: 'OUI',
-    no: 'NON',
-    question: {
-      '0': 'Les deux formes sont elles symmétriques?',
-      '1': 'Ne laisse pas tomber la balle.',
-      '2': 'Fais les deux activités en même temps.'
-    },
-    guidelines: {
-      '0': 'Les deux formes sont elles symmétriques?',
-      '1': 'Ne laisse pas tomber la balle.',
-      '2': 'Fais les deux activités en même temps.'
-    },
-    end: 'Activité terminée! Merci',
-    timeLeft: 'Temps restant -> '
-  }
+  start: 'Start',
+  yes: 'YES',
+  no: 'NO',
+  guidelines: [
+    'Are the two shapes symmetrical? Click Yes or No to answer. ' +
+      'You can also use the Keyboard: Y/O for Yes and N for No.',
+    'Do not let the ball fall and break the bricks! Use left and right arrows to move.',
+    'Now do both tasks at the same time!',
+    'Now do both tasks at the same time!'
+  ],
+  end: 'Activity completed! Thank you!',
+  timeLeft: 'Time left in Task -> '
 };
 
-export const Form = withState('language', 'setLanguage', null)(
-  ({ language, setLanguage, onSubmit, name }) => (
-    <React.Fragment>
-      <div style={styles.text}>Welcome {name}!</div>
-      <div style={styles.text}>Choisis ton langage</div>
-      <div style={styles.text}>Choose your language</div>
-      <div style={styles.commands}>
-        <Button
-          style={{ ...styles.button, left: 0 }}
-          bsStyle={language === 'fr' ? 'success' : 'default'}
-          onClick={() => setLanguage('fr')}
-        >
-          Français
-        </Button>
-        <Button
-          style={{ ...styles.button, right: 0 }}
-          bsStyle={language === 'en' ? 'success' : 'default'}
-          onClick={() => setLanguage('en')}
-        >
-          English
-        </Button>
-      </div>
-      {language !== null && (
-        <div style={{ ...styles.commands, width: '100px' }}>
-          <Button
-            style={{ ...styles.button, width: '100%' }}
-            onClick={() => onSubmit(language)}
-            bsStyle="primary"
-          >
-            Submit
-          </Button>
-        </div>
-      )}
-    </React.Fragment>
-  )
-);
-
-export const Guidelines = ({ start, guidelines, lang }) => (
+export const Guidelines = ({
+  start,
+  guidelines
+}: {
+  start: Function,
+  guidelines: string
+}) => (
   <React.Fragment>
     <div style={{ ...styles.container, padding: '20px' }}>
       <HTML html={guidelines} />
       <div style={{ marginTop: '20px' }}>
         <Button onClick={start} style={styles.button}>
-          {texts[lang].start}
+          {texts.start}
         </Button>
       </div>
     </div>
