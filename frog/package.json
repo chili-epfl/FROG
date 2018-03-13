@@ -44,6 +44,7 @@
     "lodash": "^4.17.5",
     "longjohn": "^0.2.12",
     "material-ui": "^1.0.0-beta.37",
+    "material-ui-icons": "^1.0.0-beta.36",
     "meteor-node-stubs": "^0.3.2",
     "minio": "^3.2.3",
     "mobx": "^3.5.1",
