@@ -21,15 +21,19 @@ const DashLink = styled.div`
   bottom: 0px;
   right: 0px;
   font-size: 3em;
-  color: black;
+  color: black !important;
+  cursor: pointer;
 `;
 
 const Logout = styled.div`
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  font-size: 1em;
-  color: black;
+  && {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    font-size: 2em;
+    color: black !important;
+    cursor: pointer;
+  }
 `;
 
 type StudentViewCompPropsT = {
@@ -64,7 +68,10 @@ class StudentViewComp extends React.Component<
         Meteor.user().joinedSessions.includes(slug)
       )
     ) {
-      Meteor.call('session.join', slug, (err, result) => this.setState(result));
+      Meteor.call('session.join', slug, (err, result) => {
+        if (err) console.error(err);
+        this.setState(result);
+      });
     }
   }
 
@@ -76,7 +83,7 @@ class StudentViewComp extends React.Component<
       return <Spinner />;
     }
     if (!this.props.session) {
-      return <h1>That session is no longer available</h1>;
+      return <Spinner />;
     }
     if (this.props.session.state === 'WAITINGFORNEXT') {
       return (
@@ -91,11 +98,14 @@ class StudentViewComp extends React.Component<
         <SessionBody />
         {Meteor.user() && (
           <div className="logout">
-            <Logout>
-              <A
-                onClick={Meteor.logout()}
-                className="glyphicon glyphicon-log-out"
-              />
+            <Logout
+              onClick={() => {
+                Meteor.logout();
+                window.location.reload();
+              }}
+            >
+              {Meteor.user().username}
+              <span className="glyphicon glyphicon-log-out" />
             </Logout>
           </div>
         )}
