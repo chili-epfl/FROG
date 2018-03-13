@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Mousetrap from 'mousetrap';
 import { Button } from 'react-bootstrap';
+
+import { type ActivityRunnerT } from 'frog-utils';
+
 import { styles, texts, CountDownTimer } from './ActivityUtils';
 
 const normaliseFigure = figure => {
@@ -114,9 +117,11 @@ const clearFigure = canvas => {
   c2.clearRect(0, 0, canvas.width, canvas.height);
 };
 
-class Canvas extends React.Component {
+class Canvas extends React.Component<*, *> {
   canvasLeft: any;
   canvasRight: any;
+  width: number;
+  height: number;
 
   constructor(props) {
     super(props);
@@ -171,7 +176,6 @@ class Canvas extends React.Component {
 }
 
 let noAnswerTimeout;
-let difficultyTimeout;
 
 const FIGURES = {
   easy: {
@@ -184,59 +188,66 @@ const FIGURES = {
   }
 };
 
-export default class Symmetry extends Component {
-  onClick = answer => () => {
+export default class Symmetry extends React.Component<
+  ActivityRunnerT,
+  { figure: Object }
+> {
+  onClick = (answer: ?boolean) => {
     clearTimeout(noAnswerTimeout);
 
-    const { logger } = this.props;
+    const { data: { step }, speed, logger } = this.props;
+
     const figure = this.state.figure;
     const difficulty = this.difficulty;
-
-    logger([
-      {
-        type: 'answer',
-        payload: {
-          expectedAnswer: figure.symmetrical,
-          answer,
-          answerPath: ['symmetry', difficulty]
+    const expectedAnswer = figure.symmetrical;
+    if (step > 1) {
+      logger([
+        {
+          type: 'answer',
+          payload: { expectedAnswer, answer, speed, difficulty }
         }
-      }
-    ]);
+      ]);
+    }
 
+    this.shouldUpdate = true;
     const symmetrical = Math.random() < 0.5;
-    this.setState({
-      figure: { ...FIGURES[difficulty], symmetrical }
-    });
+    this.setState({ figure: { ...FIGURES[this.difficulty], symmetrical } });
   };
 
-  constructor(props) {
+  constructor(props: ActivityRunnerT) {
     super(props);
     const symmetrical = Math.random() < 0.5;
-    this.difficulty = 'easy';
-    this.state = {
-      figure: { ...FIGURES['easy'], symmetrical }
-    };
+    const { step } = this.props.data;
+    this.difficulty = step > 2 ? 'hard' : 'easy';
+    this.state = { figure: { ...FIGURES[this.difficulty], symmetrical } };
+  }
 
-    const { activityData } = this.props;
-    clearTimeout(difficultyTimeout);
-    difficultyTimeout = setTimeout(() => {
-      this.difficulty = 'hard';
-    }, activityData.config.timeOfEachActivity / 2);
+  componentWillMount() {
+    Mousetrap.bind('y', () => this.onClick(true));
+    Mousetrap.bind('o', () => this.onClick(true));
+    Mousetrap.bind('n', () => this.onClick(false));
   }
 
   componentWillUnmount() {
     Mousetrap.reset();
     clearTimeout(noAnswerTimeout);
-    clearTimeout(difficultyTimeout);
+  }
+
+  shouldComponentUpdate() {
+    if (this.shouldUpdate) {
+      this.shouldUpdate = false;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   render() {
-    const { activityData, data } = this.props;
-    const { language } = data;
+    const { activityData } = this.props;
 
     clearTimeout(noAnswerTimeout);
     noAnswerTimeout = setTimeout(
-      this.onClick(undefined),
+      () => this.onClick(undefined),
       activityData.config.symmetryTime
     );
 
@@ -247,15 +258,15 @@ export default class Symmetry extends Component {
           <div>
             <Button
               style={{ ...styles.button, left: 0 }}
-              onClick={this.onClick(true)}
+              onClick={() => this.onClick(true)}
             >
-              {texts[language].yes}
+              {texts.yes}
             </Button>
             <Button
               style={{ ...styles.button, right: 0 }}
-              onClick={this.onClick(false)}
+              onClick={() => this.onClick(false)}
             >
-              {texts[language].no}
+              {texts.no}
             </Button>
           </div>
           <CountDownTimer

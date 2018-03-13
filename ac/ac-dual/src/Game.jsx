@@ -1,21 +1,31 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Mousetrap from 'mousetrap';
 
 let gameDifficultyTimeout;
 
-class Game extends Component {
+class Game extends React.Component<*, *> {
   constructor(props) {
     super(props);
+
+    // Canvas Config
+    this.ctx = null;
     this.width = this.props.width || 800;
     this.height = this.props.height || 500;
 
-    this.ctx = null;
-
+    // Ball Config
     this.ball = null;
+    this.ballRadius = 6;
+    this.ballSpeedX = 0;
+    this.ballSpeedY = props.speed || 4;
+
+    // Paddle Config
     this.paddle = null;
+    this.paddleSpeed = 8;
+
+    // Brick Config
     this.bricks = [];
     this.brickX = 2;
-    this.brickY = 10;
+    this.brickY = 30;
     this.brickWidth = this.width / 10 - 2.25;
     this.colors = [
       '#18582b',
@@ -26,19 +36,25 @@ class Game extends Component {
       '#5733ff'
     ];
 
+    // Keyboard Bindings
     this.left = false;
     this.right = false;
 
+    /* Game State describes the state of the game
+      gameState = 0 -> Game has not begun
+      gameState = 1 -> Game in error state
+      gameState = 2 -> All bricks destroyed
+    */
+    this.gameState = 0;
+
+    // Game loop check
+    this.start = false;
+
+    // Data
     this.score = 0;
     this.errors = 0;
-
-    this.gameOver = 0;
-    this.ballOn = false;
-
-    // If you want to have a pause before game starts
-    this.space = false;
-
     this.difficulty = 'easy';
+
     clearTimeout(gameDifficultyTimeout);
     gameDifficultyTimeout = setTimeout(() => {
       this.difficulty = 'hard';
@@ -46,8 +62,8 @@ class Game extends Component {
   }
 
   createBricks = () => {
-    let brickX = 2;
-    let brickY = 10;
+    let brickX = this.brickX;
+    let brickY = this.brickY;
     const bricks = this.bricks;
     const brickWidth = this.brickWidth;
     const width = this.width;
@@ -101,9 +117,9 @@ class Game extends Component {
     this.ball = {
       x: this.width / 2 - 3,
       y: this.height / 2 - 3,
-      radius: 6,
-      speedX: 0,
-      speedY: 4
+      radius: this.ballRadius,
+      speedX: this.ballSpeedX,
+      speedY: this.ballSpeedY
     };
 
     this.paddle = {
@@ -111,10 +127,10 @@ class Game extends Component {
       h: 10,
       x: this.width / 2 - 100 / 2,
       y: this.height - 10,
-      speed: 8
+      speed: this.paddleSpeed
     };
 
-    // this.ballOn = false;
+    this.start = false;
   };
 
   move = () => {
@@ -123,7 +139,6 @@ class Game extends Component {
     }
     const left = this.left;
     const right = this.right;
-    const space = this.space;
     const bricks = this.bricks;
     const ball = this.ball;
     const paddle = this.paddle;
@@ -135,13 +150,14 @@ class Game extends Component {
     } else if (right && paddle.x + paddle.w < width) {
       paddle.x += paddle.speed;
     }
-    // // start ball on space key
-    if (space && this.ballOn === false) {
-      this.ballOn = true;
-      this.gameOver = 0;
+
+    // Game Start Condition
+    if (this.start === false) {
+      this.start = true;
+      this.gameState = 0;
     }
     // // ball movement
-    if (this.ballOn === true) {
+    if (this.start === true) {
       ball.x += ball.speedX;
       ball.y += ball.speedY;
       // check ball hit ceiling
@@ -163,9 +179,10 @@ class Game extends Component {
         ball.speedX = -ball.speedX;
       }
       if (ball.y > height) {
-        this.gameOver = 1;
+        this.gameState = 1;
         this.errors += 1;
         this.newGame();
+
         const errorPath = [
           'game',
           this.props.step === 1 ? 'single' : this.difficulty
@@ -176,8 +193,7 @@ class Game extends Component {
       this.destroyBrick();
       // check if win
       if (bricks.length < 1) {
-        this.gameOver = 2;
-        // newGame();
+        this.gameState = 2;
       }
     }
   };
@@ -196,37 +212,28 @@ class Game extends Component {
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = '#333';
     ctx.fillRect(0, 0, width, height);
-    // paddle
+
+    // Paddle
     ctx.fillStyle = '#fff';
     ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
 
-    if (!this.ballOn) {
-      ctx.font = '14px Roboto Mono';
-      ctx.textAlign = 'center';
-      ctx.fillText(
-        'Press spacebar to start a new game.',
-        width / 2,
-        height / 2 - 25
-      );
-      ctx.font = '12px Roboto Mono';
-      ctx.fillText(
-        'Move with arrow keys or A & D.',
-        width / 2,
-        height / 2 + 25
-      );
+    // Score
+    ctx.font = '12px Roboto Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText(`Score: ${this.score}`, 30, 10);
 
-      if (this.gameOver === 1) {
-        ctx.font = '52px Roboto Mono';
-        ctx.fillText('YOU LOST!', width / 2, height / 2 - 90);
-        ctx.font = '36px Roboto Mono';
-        ctx.fillText('Keep trying!', width / 2, height / 2 - 50);
-      } else if (this.gameOver === 2) {
-        ctx.font = '52px Roboto Mono';
-        ctx.fillText('YOU WON!', width / 2, height / 2 - 90);
-        ctx.font = '36px Roboto Mono';
-        ctx.fillText('Congratulations!', width / 2, height / 2 - 50);
-      }
+    // Errors
+    ctx.font = '12px Roboto Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText(`Errors: ${this.errors}`, width - 30, 10);
+
+    if (!this.start) {
+      // Error boundary
+      ctx.strokeStyle = '#FF0000';
+      ctx.lineWidth = 25;
+      ctx.strokeRect(0, 0, width, height);
     }
+
     // ball
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
@@ -265,10 +272,14 @@ class Game extends Component {
     Mousetrap.bind('right', () => (this.right = true));
     Mousetrap.bind('right', () => (this.right = false), 'keyup');
 
-    this.space = true;
     const step = this.props.step;
     this.props.logger({ type: 'starting_game', payload: { step } });
     this.update();
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.ballSpeedY = newProps.speed;
+    this.ball.speedY = Math.sign(this.ball.speedY) * this.ballSpeedY;
   }
 
   componentWillUnmount() {

@@ -12,7 +12,7 @@ const meta = {
     {
       title: 'Normal',
       config: {
-        timeOfEachActivity: 60000,
+        timeOfEachActivity: 30000,
         symmetryTime: 5000
       },
       data: {}
