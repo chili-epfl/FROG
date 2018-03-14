@@ -24,8 +24,9 @@ const doLogin = (user, self) => {
   return result;
 };
 
-const cleanStudentList = studentList =>
-  studentList
+const cleanStudentList = studentList => {
+  console.log(studentList);
+  return studentList
     ? [
         ...new Set(
           studentList
@@ -36,6 +37,7 @@ const cleanStudentList = studentList =>
         )
       ].join('\n')
     : '';
+};
 
 Meteor.methods({
   'frog.username.login': function(user, token, isStudentList, slug) {
@@ -50,9 +52,9 @@ Meteor.methods({
       if (isStudentList) {
         const session = Sessions.findOne({ slug });
         if (session) {
-          const studentlist = session.settings && session.settings.studentlist;
+          const studentlist =
+            (session.settings && session.settings.studentlist) || '';
           if (
-            studentlist &&
             !studentlist
               .split('\n')
               .map(x => x.toUpperCase())
@@ -61,7 +63,7 @@ Meteor.methods({
             Sessions.update(session._id, {
               $set: {
                 'settings.studentlist': cleanStudentList(
-                  session.settings.studentlist + '\n' + user
+                  studentlist + '\n' + user
                 )
               }
             });

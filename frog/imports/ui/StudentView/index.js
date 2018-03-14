@@ -6,9 +6,9 @@ import { Tracker } from 'meteor/tracker';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
-import { A } from 'frog-utils';
 import { UserStatus } from 'meteor/mizzao:user-status';
 import styled from 'styled-components';
+import { Accounts } from 'meteor/accounts-base';
 
 import { Sessions } from '/imports/api/sessions';
 import { GlobalSettings } from '/imports/api/globalSettings';
@@ -38,7 +38,8 @@ const Logout = styled.div`
 
 type StudentViewCompPropsT = {
   match: Object,
-  token?: { value: string }
+  token?: { value: string },
+  slug: string
 };
 
 class StudentViewComp extends React.Component<
@@ -101,7 +102,8 @@ class StudentViewComp extends React.Component<
             <Logout
               onClick={() => {
                 Meteor.logout();
-                window.location.reload();
+                Accounts._unstoreLoginToken();
+                window.notReady();
               }}
             >
               {Meteor.user().username}
@@ -164,6 +166,7 @@ export default withTracker(props => {
   return {
     session: Sessions.findOne({ slug }),
     token: GlobalSettings.findOne('token'),
-    ready: every(subscriptions.map(x => x.ready()), Boolean)
+    ready: every(subscriptions.map(x => x.ready()), Boolean),
+    slug
   };
 })(StudentViewComp);
