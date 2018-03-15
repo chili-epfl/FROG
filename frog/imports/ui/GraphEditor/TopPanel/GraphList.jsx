@@ -140,13 +140,8 @@ class GraphListMenu extends React.Component {
               className={classes.durationTextField}
               value={this.state.duration}
               onChange={this.handleDurationChange}
-              margin="normal"
               disabled={!isEditingDuration}
-              endAdornment={
-                <InputAdornment margin="none" position="end">
-                  min
-                </InputAdornment>
-              }
+              endAdornment={<InputAdornment position="end">min</InputAdornment>}
             />
           </div>
 

@@ -391,7 +391,7 @@ export class SessionMainContainer extends React.Component<
                           placement="top"
                         >
                           <Button
-                            raised
+                            variant="raised"
                             style={{
                               backgroundColor: blue[700],
                               minWidth: 15,
@@ -414,7 +414,7 @@ export class SessionMainContainer extends React.Component<
                           placement="top"
                         >
                           <Button
-                            raised
+                            variant="raised"
                             style={{
                               backgroundColor: red[700],
                               minWidth: 15,
@@ -437,7 +437,7 @@ export class SessionMainContainer extends React.Component<
                           placement="top"
                         >
                           <Button
-                            raised
+                            variant="raised"
                             style={{
                               backgroundColor: green[700],
                               minWidth: 15,
@@ -460,7 +460,7 @@ export class SessionMainContainer extends React.Component<
                           placement="top"
                         >
                           <Button
-                            raised
+                            variant="raised"
                             style={{
                               backgroundColor: red[700],
                               minWidth: 15,
@@ -483,7 +483,7 @@ export class SessionMainContainer extends React.Component<
                           placement="top"
                         >
                           <Button
-                            raised
+                            variant="raised"
                             style={{
                               backgroundColor: blue[700],
                               minWidth: 15,
@@ -503,7 +503,7 @@ export class SessionMainContainer extends React.Component<
                           placement="top"
                         >
                           <Button
-                            raised
+                            variant="raised"
                             style={{
                               backgroundColor: red[700],
                               minWidth: 15,
