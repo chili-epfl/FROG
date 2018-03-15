@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -7,7 +9,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Button from 'material-ui/Button';
-import AccountCircle from 'material-ui-icons/AccountCircle';
+// import AccountCircle from 'material-ui-icons/AccountCircle';
 
 const styles = theme => ({
   root: {
@@ -85,9 +87,9 @@ class TopBar extends React.Component<{ classes: any }, {}> {
                 />
               ))}
             </Tabs>
-            <Button className={classes.button} color="contrast">
+            <Button className={classes.button} color="primary">
               Teacher
-              <AccountCircle className={classes.rightIcon} />
+              {/* <AccountCircle className={classes.rightIcon} /> */}
             </Button>
           </Toolbar>
         </AppBar>
