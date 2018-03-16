@@ -5,6 +5,7 @@ import { type ActivityRunnerT, TimedComponent } from 'frog-utils';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
+import { shuffle } from 'lodash';
 
 const styles = {
   button: { width: '90px', margin: 'auto', position: 'absolute' },
@@ -31,27 +32,185 @@ const styles = {
   }
 };
 
-const randIndex = max => Math.round(max * Math.random() - 0.5);
+// const randIndex = max => Math.round(max * Math.random() - 0.5);
+//
+// // returns an index different than `toAvoid`
+// const notIndex = (max, toAvoid) => (1 + toAvoid + randIndex(max - 1)) % max;
 
-// returns an index different than `toAvoid`
-const notIndex = (max, toAvoid) => (1 + toAvoid + randIndex(max - 1)) % max;
+// const generateExample = (objects, colors, colorsFill) => {
+//   const N = objects.length;
+//
+//   const isConsistent = Math.random() < 0.5;
+//   const isCorrect = Math.random() < 0.5;
+//
+//   const objectIndex = randIndex(N);
+//   const colorIndex = isCorrect ? objectIndex : notIndex(N, objectIndex);
+//   const colorFillIndex = isConsistent ? colorIndex : notIndex(N, colorIndex);
+//
+//   const objectName = objects[objectIndex];
+//   const colorName = colors[colorIndex];
+//   const colorFill = colorsFill[colorFillIndex];
+//
+//   const startTime = Date.now();
+//
+//   return {
+//     isConsistent,
+//     isCorrect,
+//     objectName,
+//     colorName,
+//     colorFill,
+//     startTime
+//   };
+// };
 
-const generateExample = (objects, colors, colorsFill) => {
-  const N = objects.length;
+const hardcodedList = shuffle([
+  {
+    isConsistent: false,
+    isCorrect: true,
+    fr: { objectName: 'citron', colorName: 'jaune' },
+    en: { objectName: 'lemons', colorName: 'yellow' },
+    colorFill: 'red'
+  },
+  {
+    isConsistent: false,
+    isCorrect: false,
+    fr: { objectName: 'bois', colorName: 'jaune' },
+    en: { objectName: 'wood', colorName: 'yellow' },
+    colorFill: 'red'
+  },
+  {
+    isConsistent: true,
+    isCorrect: true,
+    fr: { objectName: 'sang', colorName: 'rouge' },
+    en: { objectName: 'blood', colorName: 'red' },
+    colorFill: 'red'
+  },
+  {
+    isConsistent: true,
+    isCorrect: false,
+    fr: { objectName: 'gazon', colorName: 'rouge' },
+    en: { objectName: 'grass', colorName: 'red' },
+    colorFill: 'red'
+  },
+  {
+    isConsistent: true,
+    isCorrect: true,
+    fr: { objectName: 'citron', colorName: 'jaune' },
+    en: { objectName: 'lemons', colorName: 'yellow' },
+    colorFill: 'yellow'
+  },
+  {
+    isConsistent: true,
+    isCorrect: false,
+    fr: { objectName: 'sang', colorName: 'jaune' },
+    en: { objectName: 'blood', colorName: 'yellow' },
+    colorFill: 'yellow'
+  },
+  {
+    isConsistent: false,
+    isCorrect: true,
+    fr: { objectName: 'sang', colorName: 'rouge' },
+    en: { objectName: 'blood', colorName: 'red' },
+    colorFill: 'yellow'
+  },
+  {
+    isConsistent: false,
+    isCorrect: false,
+    fr: { objectName: 'ciel', colorName: 'rouge' },
+    en: { objectName: 'the sky', colorName: 'red' },
+    colorFill: 'yellow'
+  },
+  {
+    isConsistent: true,
+    isCorrect: true,
+    fr: { objectName: 'ciel', colorName: 'bleu' },
+    en: { objectName: 'the sky', colorName: 'blue' },
+    colorFill: 'blue'
+  },
+  {
+    isConsistent: true,
+    isCorrect: false,
+    fr: { objectName: 'bois', colorName: 'bleu' },
+    en: { objectName: 'wood', colorName: 'blue' },
+    colorFill: 'blue'
+  },
+  {
+    isConsistent: false,
+    isCorrect: false,
+    fr: { objectName: 'sang', colorName: 'vert' },
+    en: { objectName: 'blood', colorName: 'green' },
+    colorFill: 'blue'
+  },
+  {
+    isConsistent: false,
+    isCorrect: true,
+    fr: { objectName: 'gazon', colorName: 'vert' },
+    en: { objectName: 'grass', colorName: 'green' },
+    colorFill: 'blue'
+  },
+  {
+    isConsistent: true,
+    isCorrect: false,
+    fr: { objectName: 'ciel', colorName: 'vert' },
+    en: { objectName: 'the sky', colorName: 'green' },
+    colorFill: 'green'
+  },
+  {
+    isConsistent: true,
+    isCorrect: true,
+    fr: { objectName: 'gazon', colorName: 'vert' },
+    en: { objectName: 'grass', colorName: 'green' },
+    colorFill: 'green'
+  },
+  {
+    isConsistent: false,
+    isCorrect: true,
+    fr: { objectName: 'bois', colorName: 'marron' },
+    en: { objectName: 'wood', colorName: 'brown' },
+    colorFill: 'green'
+  },
+  {
+    isConsistent: false,
+    isCorrect: false,
+    fr: { objectName: 'gazon', colorName: 'marron' },
+    en: { objectName: 'grass', colorName: 'brown' },
+    colorFill: 'green'
+  },
+  {
+    isConsistent: true,
+    isCorrect: false,
+    fr: { objectName: 'citron', colorName: 'marron' },
+    en: { objectName: 'lemons', colorName: 'brown' },
+    colorFill: 'brown'
+  },
+  {
+    isConsistent: true,
+    isCorrect: true,
+    fr: { objectName: 'bois', colorName: 'marron' },
+    en: { objectName: 'wood', colorName: 'brown' },
+    colorFill: 'brown'
+  },
+  {
+    isConsistent: false,
+    isCorrect: true,
+    fr: { objectName: 'ciel', colorName: 'bleu' },
+    en: { objectName: 'the sky', colorName: 'blue' },
+    colorFill: 'brown'
+  },
+  {
+    isConsistent: false,
+    isCorrect: false,
+    fr: { objectName: 'citron', colorName: 'bleu' },
+    en: { objectName: 'lemons', colorName: 'blue' },
+    colorFill: 'brown'
+  }
+]);
 
-  const isConsistent = Math.random() < 0.5;
-  const isCorrect = Math.random() < 0.5;
-
-  const objectIndex = randIndex(N);
-  const colorIndex = isCorrect ? objectIndex : notIndex(N, objectIndex);
-  const colorFillIndex = isConsistent ? colorIndex : notIndex(N, colorIndex);
-
-  const objectName = objects[objectIndex];
-  const colorName = colors[colorIndex];
-  const colorFill = colorsFill[colorFillIndex];
-
+const generateExample = (progress, lang) => {
+  const ex = hardcodedList[progress % hardcodedList.length];
+  const { isConsistent, isCorrect, colorFill } = ex;
+  const { objectName, colorName } = ex[lang];
   const startTime = Date.now();
-
   return {
     isConsistent,
     isCorrect,
@@ -75,7 +234,7 @@ const texts = {
     start: 'Commencer',
     yes: 'OUI',
     no: 'NON',
-    colorSentence: name => `La couleur ${name} est `,
+    colorSentence: name => `La couleur du ${name} est `,
     wait: 'Attendez la question suivante',
     end: 'Activité terminée! Merci'
   }
@@ -157,18 +316,20 @@ const Question = props => {
     clearTimeout(noAnswerTimeout);
     // Logs the question and answer provided
     const answerTime = Date.now();
-    logger({ type: 'answer', payload: { ...question, answer, answerTime } });
     // Increases the progress and logs the new progress
-    logger({
-      type: 'progress',
-      value: (data.progress + 1) / activityData.config.maxQuestions
-    });
     dataFn.numIncr(1, 'progress');
     // Increases the score and logs the new score
     const isCorrectAnswer = isCorrect === answer ? 1 : 0;
     const timeIncr = Date.now() - startTime;
     const value = [data.score + isCorrectAnswer, -(data.time + timeIncr)];
-    logger({ type: 'score', value });
+    logger([
+      { type: 'answer', payload: { ...question, answer, answerTime } },
+      {
+        type: 'progress',
+        value: (data.progress + 1) / activityData.config.maxQuestions
+      },
+      { type: 'score', value }
+    ]);
     dataFn.numIncr(isCorrectAnswer, 'score');
     dataFn.numIncr(timeIncr, 'time');
     // Goes on to next question
@@ -214,12 +375,8 @@ const Main = withState('question', 'setQuestion', null)(props => {
     const { guidelines } = activityData.config[lang];
     return <Guidelines start={start} guidelines={guidelines} lang={lang} />;
   } else if (question === 'waiting') {
-    const { colors, objects } = activityData.config[lang];
-    const colorNames = colors.split(',');
-    const colorFillNames = activityData.config['en'].colors.split(',');
-    const objectNames = objects.split(',');
     const next = () => {
-      setQuestion(generateExample(objectNames, colorNames, colorFillNames));
+      setQuestion(generateExample(data.progress, lang));
     };
     return <Delay next={next} delay={delay} props={props} lang={lang} />;
   } else if (data.progress < maxQuestions) {

@@ -25,18 +25,17 @@ export const createLogger = (
   activity: Object,
   userId?: string
 ) => {
-  const logger = (logItem: LogT) => {
-    const log = ({
+  const logger = (logItem: LogT | LogT[]) => {
+    const logExtra = ({
       userId: userId || Meteor.userId(),
       sessionId,
       activityType: activity.activityType,
       activityPlane: activity.plane,
       activityId: activity._id,
-      instanceId,
-      ...logItem
+      instanceId
     }: $Diff<LogDBT, { timestamp: Date }>);
 
-    Meteor.call('merge.log', log);
+    Meteor.call('merge.log', logItem, logExtra);
   };
   return logger;
 };

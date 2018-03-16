@@ -4,7 +4,12 @@ import React, { Component } from 'react';
 import { EnhancedForm } from 'frog-utils';
 import { isEqual } from 'lodash';
 
-import { Activities, addOperator, addActivity } from '/imports/api/activities';
+import {
+  Activities,
+  Operators,
+  addOperator,
+  addActivity
+} from '/imports/api/activities';
 
 import {
   SelectFormWidget,
@@ -36,7 +41,8 @@ export default class ConfigForm extends Component<
       this.props.node._id !== nextProps.node._id ||
       this.props.reload !== nextProps.reload
     ) {
-      this.setState({ formData: Activities.findOne(nextProps.node._id).data });
+      const coll = this.props.node.operatorType ? Operators : Activities;
+      this.setState({ formData: coll.findOne(nextProps.node._id).data });
     }
   }
 

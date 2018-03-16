@@ -70,7 +70,8 @@ export default withTracker(() => {
     'operators',
     'products',
     'sessions',
-    'users'
+    'users',
+    'globalSettings'
   ];
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   return { ready: every(subscriptions.map(x => x.ready()), Boolean) };

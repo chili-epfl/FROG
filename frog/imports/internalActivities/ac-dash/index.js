@@ -1,15 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
 
-import type {
-  ActivityPackageT,
-  ActivityRunnerT,
-  ActivityDbT
-} from 'frog-utils';
-import { Sessions } from '/imports/api/sessions';
-import { Dashboard } from '/imports/ui/TeacherView/Dashboard';
+import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
+import { DashboardSubscriptionWrapper } from '/imports/ui/TeacherView/Dashboard';
 
 export const meta = {
   name: 'Dashboard activity',
@@ -18,31 +12,17 @@ export const meta = {
     'Show a dashboard from a previous activity. This is often useful for debriefing'
 };
 
-type StateT = {
-  activity: ActivityDbT,
-  users: { _id: string, username: string }[],
-  session: any
+const ActivityRunner = (props: ActivityRunnerT) => {
+  const activityId = props.activityData.config.activity;
+  const sessionId = props.sessionId;
+
+  return (
+    <DashboardSubscriptionWrapper
+      activityId={activityId}
+      sessionId={sessionId}
+    />
+  );
 };
-
-type PropsT = ActivityRunnerT;
-
-class ActivityRunner extends React.Component<PropsT, StateT> {
-  componentWillMount() {
-    const { activityData: { config }, sessionId } = this.props;
-    const session = Sessions.findOne(sessionId);
-    Meteor.call('get.activity.for.dashboard', config.activity, (err, value) => {
-      if (!err) {
-        this.setState({ activity: value.activity, users: value.users });
-      }
-    });
-    this.setState({ session });
-  }
-
-  render() {
-    const { activity, session } = this.state;
-    return activity && session ? <Dashboard {...this.state} /> : <p>No data</p>;
-  }
-}
 
 export default ({
   id: 'ac-dash',

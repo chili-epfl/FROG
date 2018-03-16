@@ -4,6 +4,7 @@ import * as React from 'react';
 
 type TextInputPropsT = {
   value?: string,
+  focus?: boolean,
   onChange?: Function,
   onSubmit?: Function,
   onCancel?: Function,
@@ -23,7 +24,9 @@ export class TextInput extends React.Component<
   }
 
   componentDidMount() {
-    this.textInput.focus();
+    if (this.props.focus !== false) {
+      this.textInput.focus();
+    }
   }
 
   componentWillReceiveProps(nextProps: TextInputPropsT) {

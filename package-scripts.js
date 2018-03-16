@@ -21,8 +21,6 @@ const build = (shouldWatch, dirtowatch) => {
   }`;
 };
 
-const watch = build(true);
-
 const acop = () => {
   const ac = readdirSync(dir + '/ac');
   const op = readdirSync(dir + '/op');
@@ -49,8 +47,9 @@ module.exports = {
     test: fromRoot(
       'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
     ),
-    watch,
-    watchAll: buildAll(true),
+    watch: fromRoot(`node watch.js ${process.env['PWD']}`),
+    watchAll: fromRoot('node watch.js all'),
+    buildAndWatchAll: fromRoot('node watch.js all build'),
     buildAll: buildAll(false),
     buildAllSingle: buildAll(false, true)
   },

@@ -130,7 +130,13 @@ export const zipList = (xs: Array<any>): Array<any> =>
 export const withVisibility = compose(
   withState('visible', 'setVisibility', false),
   withHandlers({
-    toggleVisibility: ({ setVisibility }) => () => setVisibility(n => !n)
+    toggleVisibility: ({ setVisibility }) => x => {
+      if (typeof x === 'boolean') {
+        setVisibility(x);
+      } else {
+        setVisibility(n => !n);
+      }
+    }
   })
 );
 

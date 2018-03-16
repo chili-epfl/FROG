@@ -7,6 +7,7 @@ import { compose, withState } from 'recompose';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { withVisibility, msToString } from 'frog-utils';
 
+import SettingsModal from './SettingsModal';
 import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
@@ -51,6 +52,8 @@ import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
 import Dashboards from './Dashboard';
+import { Sessions } from '../../api/sessions';
+import { GlobalSettings } from '../../api/globalSettings';
 
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
@@ -686,7 +689,7 @@ const rawSessionController = ({
 
 const SessionController = compose(
   withVisibility,
-  withState('showStudentList', 'setShowStudentList', false)
+  withState('showSettings', 'setShowSettings', false)
 )(rawSessionController);
 
 SessionController.displayName = 'SessionController';
@@ -703,6 +706,7 @@ const TeacherView = withTracker(() => {
     session,
     graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
     activities,
+    token: GlobalSettings.findOne('token'),
     students,
     user
   };
