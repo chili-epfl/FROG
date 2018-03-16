@@ -15,6 +15,6 @@
     "react-iframe": "^1.1.0"
   },
   "devDependencies": {
-    "nps": "5.8.1"
+    "nps": "5.8.2"
   }
 }

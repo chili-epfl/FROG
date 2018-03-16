@@ -16,6 +16,6 @@
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "nps": "5.8.1"
+    "nps": "5.8.2"
   }
 }
