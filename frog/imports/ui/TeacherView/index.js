@@ -52,7 +52,7 @@ import ButtonList from './ButtonList';
 import SessionList from './SessionList';
 import GraphView from './GraphView';
 import Dashboards from './Dashboard';
-import { Sessions } from '../../api/sessions';
+// import { Sessions } from '../../api/sessions';
 import { GlobalSettings } from '../../api/globalSettings';
 
 import { Activities } from '../../api/activities';
@@ -278,7 +278,8 @@ export class SessionMainContainer extends React.Component<
     session: Object,
     buttons: Array<Object>,
     visible: boolean,
-    students: Array<Object>
+    students: Array<Object>,
+
   },
   { open: boolean }
 > {
@@ -303,7 +304,7 @@ export class SessionMainContainer extends React.Component<
   };
 
   render() {
-    const { classes, session, buttons, visible, students } = this.props;
+    const { classes, session, buttons, visible, students, setShowSettings, showSettings } = this.props;
 
     const restartButton = buttons.filter(
       button => button.text === 'Restart'
@@ -320,9 +321,12 @@ export class SessionMainContainer extends React.Component<
 
     this.sessionStatus =
       session && session.state ? session.state.toLowerCase() : 'stopped';
-
+    
     return (
       <div className={classes.root}>
+          {showSettings && (
+              <SettingsModal dismiss={() => setShowSettings(false)} session={session} />
+          )}
         {session ? (
           <Grid id="main-container" container spacing={0}>
             <Grid id="button-list" item xs={12}>
@@ -542,7 +546,8 @@ const rawSessionController = ({
   visible,
   toggleVisibility,
   setShowStudentList,
-  showStudentList,
+  showStudentList, setShowSettings, showSettings,
+
   ...props
 }) => {
   const buttons = [
@@ -681,6 +686,8 @@ const rawSessionController = ({
         toggleVisibility={toggleVisibility}
         setShowStudentList={setShowStudentList}
         showStudentList={showStudentList}
+        setShowSettings={setShowSettings}
+        showSettings={showSettings}
         {...props}
       />
     </div>
