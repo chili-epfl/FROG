@@ -4,11 +4,12 @@ import pkg from '../index';
 
 const operator = pkg.operator;
 
+const valid = true;
 const payload = {
-  student1: { data: { coordinates: { x: 0, y: 0 } } },
-  student2: { data: { coordinates: { x: 3, y: 4 } } },
-  student3: { data: { coordinates: { x: 0, y: 0 } } },
-  student4: { data: { coordinates: { x: 3, y: -4 } } }
+  student1: { data: { coordinates: { x: 0, y: 0, valid } } },
+  student2: { data: { coordinates: { x: 3, y: 4, valid } } },
+  student3: { data: { coordinates: { x: 0, y: 0, valid } } },
+  student4: { data: { coordinates: { x: 3, y: -4, valid } } }
 };
 
 test('Operator works with 0 students', () =>

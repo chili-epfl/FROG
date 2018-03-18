@@ -15,7 +15,8 @@ const wrap = (instances, distanceMatrix) => ({
         }
       }
     }
-  }
+  },
+  globalStructure: { studentIds: [] }
 });
 
 const test1 = wrap(
