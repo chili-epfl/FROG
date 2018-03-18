@@ -39,7 +39,7 @@ const ScatterViewer = (props: dashboardViewerPropsT) => {
     });
     return coordinates;
   });
-  if (scatterData) {
+  if (scatterData.length > 0) {
     return <ScatterChart data={scatterData} />;
   } else {
     return <p>No data</p>;

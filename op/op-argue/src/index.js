@@ -25,7 +25,7 @@ const operator = (configData, object) => {
   const last = instances.length % 2 ? instances.pop() : null;
 
   if (instances.length === 0) {
-    result.group['1'] = [last]
+    result.group['1'] = [last];
   } else {
     const tmp = chunk([...instances.keys()], 2);
 

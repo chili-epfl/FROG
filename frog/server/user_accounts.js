@@ -24,9 +24,8 @@ const doLogin = (user, self) => {
   return result;
 };
 
-const cleanStudentList = studentList => {
-  console.log(studentList);
-  return studentList
+const cleanStudentList = studentList =>
+  studentList
     ? [
         ...new Set(
           studentList
@@ -37,7 +36,6 @@ const cleanStudentList = studentList => {
         )
       ].join('\n')
     : '';
-};
 
 Meteor.methods({
   'frog.username.login': function(user, token, isStudentList, slug) {
