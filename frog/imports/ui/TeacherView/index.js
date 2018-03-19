@@ -6,11 +6,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import StudentList from './StudentList';
 import SessionList from './SessionList';
+import OrchestrationView from './OrchestrationView';
+
 import { GlobalSettings } from '../../api/globalSettings';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
-import OrchestrationView from './OrchestrationView';
 
 const TeacherView = props => (
   <div>
