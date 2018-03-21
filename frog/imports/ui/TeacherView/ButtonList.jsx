@@ -170,14 +170,7 @@ const ButtonListContainer = ({
       text: 'Toggle dashboard/graph view',
       source: 'menu'
     },
-    {
-      states: ['STARTED'],
-      type: 'warning',
-      onClick: () =>
-        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime()),
-      text: 'Pause',
-      source: 'toolbar'
-    },
+
     {
       states: ['STOPPED'],
       type: 'danger',
@@ -192,7 +185,6 @@ const ButtonListContainer = ({
       text: 'Edit student list',
       source: 'toolbar'
     },
-
     {
       states: ['STARTED'],
       countdownStarted: false,

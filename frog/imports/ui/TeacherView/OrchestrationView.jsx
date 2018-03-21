@@ -73,7 +73,7 @@ const OrchestrationViewController = ({
           </Grid>
         ) : (
           <div>
-            <Typography type="body1" gutterBottom>
+            <Typography gutterBottom>
               Create a new session or choose a session from an existing one.
             </Typography>
           </div>
