@@ -1,182 +1,273 @@
-// @flow
-
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-
-import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import classNames from 'classnames';
-import Paper from 'material-ui/Paper';
-import Grow from 'material-ui/transitions/Grow';
+import * as React from 'react';
+import Grid from 'material-ui/Grid';
 
-import { MenuList, MenuItem } from 'material-ui/Menu';
+import Stop from 'material-ui-icons/Stop';
+import Pause from 'material-ui-icons/Pause';
+import SkipNext from 'material-ui-icons/SkipNext';
+import PlayArrow from 'material-ui-icons/PlayArrow';
+import Refresh from 'material-ui-icons/Refresh';
+import PowerSettingNew from 'material-ui-icons/PowerSettingsNew';
+
+import blue from 'material-ui/colors/blue';
+import red from 'material-ui/colors/red';
+import green from 'material-ui/colors/green';
+import Tooltip from 'material-ui/Tooltip';
+import { withVisibility, msToString } from 'frog-utils';
 
 import { withStyles } from 'material-ui/styles';
 
-import { Manager, Target, Popper } from 'react-popper';
-import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
+import { TimeSync } from 'meteor/mizzao:timesync';
+import {
+  removeSession,
+  updateSessionState,
+  sessionStartCountDown,
+  sessionCancelCountDown,
+  sessionChangeCountDown,
+  restartSession
+} from '../../api/sessions';
+import downloadLog from './downloadLog';
+import { runSession, nextActivity } from '../../api/engine';
+import { exportSession } from './exportComponent';
+import styles from './styles';
 
-import MoreVertIcon from 'material-ui-icons/MoreVert';
-import Tooltip from 'material-ui/Tooltip';
+const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
-const styles = () => ({
-  root: {
-    flexGrow: 1,
-    display: 'flex',
-    padding: 0,
-    margin: 0
-  },
-  popperClose: {
-    pointerEvents: 'none'
-  },
-  sessionButton: {
-    padding: 0,
-    margin: 0,
-    minWidth: 35
-  },
-  button: {
-    margin: 0
-  },
-  paperCenter: {
-    textAlign: 'center',
-    verticalAlign: 'middle',
-    margin: 0,
-    padding: 0
-  },
-  paperRight: {
-    padding: 0,
-    margin: 0,
-    textAlign: 'right',
-    verticalAlign: 'top'
-  },
-  zero: {
-    padding: 0,
-    textAlign: 'center'
-  }
-});
+const ControlButton = ({ btnModel, classes }) => {
+  const { tooltip, button, icon } = btnModel;
 
-@withStyles(styles)
-export class SessionTitle extends React.Component<
-  { classes: Object, session: Object, buttons: Array<Object> },
-  { open: boolean }
-> {
-  state = {
-    open: false
+  return (
+    <Tooltip
+      id={tooltip.id}
+      title={tooltip.title}
+      placement={tooltip.placement}
+    >
+      <Button
+        variant="raised"
+        className={classes.controlBtn}
+        style={{ backgroundColor: button.color }}
+        onClick={button.onClick}
+      >
+        {icon}
+      </Button>
+    </Tooltip>
+  );
+};
+
+const ButtonListContainer = ({
+  session,
+  toggle,
+  toggleVisibility,
+  classes
+}) => {
+  const buttonsModel = {
+    start: {
+      text: 'Start',
+      states: ['CREATED'],
+      tooltip: {
+        id: 'tooltip-top',
+        title: 'Star the current session',
+        placement: 'top'
+      },
+      button: {
+        color: blue[700],
+        onClick: () => {
+          runSession(session._id);
+          nextActivity(session._id);
+        }
+      },
+      icon: <PowerSettingNew className={classes.icon} />,
+      source: 'toolbar'
+    },
+    stop: {
+      text: 'Stop Activity',
+      states: ['CREATED', 'STARTED', 'PAUSED'],
+      tooltip: {
+        id: 'tooltip-top',
+        title: 'Stop the current session',
+        placement: 'top'
+      },
+      button: {
+        color: red[700],
+        onClick: () => updateSessionState(session._id, 'STOPPED')
+      },
+      icon: <Stop className={classes.icon} />,
+      source: 'toolbar'
+    },
+    continue: {
+      text: 'Continue Activity',
+      states: ['CREATED'],
+      tooltip: {
+        id: 'tooltip-top',
+        title: 'Continue the current session',
+        placement: 'top'
+      },
+      button: {
+        color: green[700],
+        onClick: () =>
+          updateSessionState(session._id, 'STARTED', TimeSync.serverTime())
+      },
+      icon: <PlayArrow className={classes.icon} />,
+      source: 'toolbar'
+    },
+    pause: {
+      text: 'Pause Activity',
+      states: ['CREATED'],
+      tooltip: {
+        id: 'tooltip-top',
+        title: 'Pause the current session',
+        placement: 'top'
+      },
+      button: {
+        color: red[700],
+        onClick: () => {}
+      },
+      icon: <Pause className={classes.icon} />,
+      source: 'toolbar'
+    },
+    next: {
+      text: 'Next Activity',
+      states: ['STARTED'],
+      tooltip: {
+        id: 'tooltip-top',
+        title: 'Next Activity',
+        placement: 'top'
+      },
+      button: {
+        color: blue[700],
+        onClick: () => nextActivity(session._id)
+      },
+      icon: <SkipNext className={classes.icon} />,
+      source: 'toolbar'
+    },
+    restart: {
+      text: 'Restart Activity',
+      states: ['CREATED'],
+      tooltip: {
+        id: 'tooltip-top',
+        title: 'Restart Activity',
+        placement: 'top'
+      },
+      button: {
+        color: red[700],
+        onClick: () => restartSession(session)
+      },
+      icon: <Refresh className={classes.icon} />,
+      source: 'toolbar'
+    }
   };
+  const buttons = [
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: toggleVisibility,
+      text: 'Toggle dashboard/graph view',
+      source: 'menu'
+    },
+    {
+      states: ['STARTED'],
+      type: 'warning',
+      onClick: () =>
+        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime()),
+      text: 'Pause',
+      source: 'toolbar'
+    },
+    {
+      states: ['STOPPED'],
+      type: 'danger',
+      onClick: () => removeSession(session._id),
+      text: 'Delete',
+      source: 'toolbar'
+    },
+    {
+      states: ['CREATED', 'STARTED', 'PAUSED'],
+      type: 'primary',
+      onClick: () => setShowStudentList(true),
+      text: 'Edit student list',
+      source: 'toolbar'
+    },
 
-  handleClick = () => {
-    this.setState({ open: true });
-  };
+    {
+      states: ['STARTED'],
+      countdownStarted: false,
+      type: 'primary',
+      onClick: () => sessionStartCountDown(session._id, TimeSync.serverTime()),
+      text: 'Start Countdown',
+      source: 'toolbar'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      countdownStarted: true,
+      type: 'danger',
+      onClick: () => sessionCancelCountDown(session._id),
+      text: 'Cancel Countdown',
+      source: 'toolbar'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'success',
+      onClick: () =>
+        sessionChangeCountDown(
+          session._id,
+          DEFAULT_COUNTDOWN_LENGTH,
+          TimeSync.serverTime()
+        ),
+      text: '+' + msToString(DEFAULT_COUNTDOWN_LENGTH),
+      source: 'toolbar'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => {
+        if (session.countdownLength > DEFAULT_COUNTDOWN_LENGTH) {
+          sessionChangeCountDown(
+            session._id,
+            0 - DEFAULT_COUNTDOWN_LENGTH,
+            TimeSync.serverTime()
+          );
+        }
+      },
+      text: '-' + msToString(DEFAULT_COUNTDOWN_LENGTH),
+      source: 'toolbar'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => downloadLog(session._id),
+      text: 'Download log csv',
+      source: 'menu'
+    },
+    {
+      states: ['STARTED', 'PAUSED'],
+      type: 'danger',
+      onClick: () => exportSession(session._id),
+      text: 'Export session',
+      source: 'menu'
+    }
+  ];
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  return (
+    <Grid
+      container
+      spacing={8}
+      alignItems="center"
+      direction="row"
+      justify="space-between"
+    >
+      <Grid item>
+        <ControlButton btnModel={buttonsModel.start} classes={classes} />
+      </Grid>
+      <Grid item>
+        <ControlButton btnModel={buttonsModel.stop} classes={classes} />
+        <ControlButton btnModel={buttonsModel.continue} classes={classes} />
+        <ControlButton btnModel={buttonsModel.pause} classes={classes} />
+        <ControlButton btnModel={buttonsModel.next} classes={classes} />
+      </Grid>
+      <Grid item>
+        <ControlButton btnModel={buttonsModel.restart} classes={classes} />
+      </Grid>
+    </Grid>
+  );
+};
 
-  render() {
-    const { classes, session, buttons } = this.props;
-    const { open } = this.state;
-    return (
-      <div className={classes.root}>
-        <Grid
-          container
-          className={classes.root}
-          justify="space-between"
-          containerspacing={0}
-        >
-          <Grid item xs className={classes.zero} />
-          <Grid
-            id="center-item"
-            item
-            xs={6}
-            style={{ padding: 0, textAlign: 'center' }}
-          >
-            <Tooltip
-              id="tooltip-top"
-              title="active session link"
-              placement="top"
-            >
-              <Button
-                color="primary"
-                component={Link}
-                to={`/${session.slug}`}
-                className={classes.button}
-              >
-                Current Session: {session.slug}
-              </Button>
-            </Tooltip>
-          </Grid>
-          <Grid
-            item
-            xs
-            className={classes.zero}
-            style={{ padding: 0, textAlign: 'right' }}
-          >
-            <Manager>
-              <Target>
-                <Tooltip
-                  id="tooltip-top"
-                  title="session actions"
-                  placement="top"
-                >
-                  <Button
-                    aria-owns={open ? 'menu-list' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleClick}
-                    color="primary"
-                    className={classes.sessionButton}
-                  >
-                    <MoreVertIcon />
-                  </Button>
-                </Tooltip>
-              </Target>
-              <Popper
-                placement="bottom-start"
-                eventsEnabled={open}
-                className={classNames({ [classes.popperClose]: !open })}
-              >
-                <ClickAwayListener onClickAway={this.handleClose}>
-                  <Grow
-                    in={open}
-                    id="menu-list"
-                    style={{ transformOrigin: '0 0 0' }}
-                  >
-                    <Paper>
-                      <MenuList role="menu">
-                        {buttons
-                          .filter(button => button.source === 'menu')
-                          .map(button => (
-                            <MenuItem
-                              key={button.text}
-                              onClick={() => {
-                                button.onClick();
-                                this.handleClose();
-                              }}
-                              id={button.text}
-                            >
-                              {button.text}
-                            </MenuItem>
-                          ))}
-                      </MenuList>
-                    </Paper>
-                  </Grow>
-                </ClickAwayListener>
-              </Popper>
-            </Manager>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  }
-}
-
-const ButtonList = (props: {
-  session: Object,
-  buttons: Array<Object>,
-  classes: Object
-}) => (
-  <div className={props.classes.root}>
-    <SessionTitle {...props} />
-  </div>
-);
-
-export default withStyles(styles)(ButtonList);
+export default withStyles(styles)(ButtonListContainer);

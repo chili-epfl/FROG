@@ -36,6 +36,34 @@ const styles = theme => ({
   dialogContainer: {
     display: 'flex',
     flexWrap: 'wrap'
+  },
+  popperClose: {
+    pointerEvents: 'none'
+  },
+  sessionButton: {
+    padding: 0,
+    margin: 0,
+    minWidth: 35
+  },
+  paperCenter: {
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    margin: 0,
+    padding: 0
+  },
+  paperRight: {
+    padding: 0,
+    margin: 0,
+    textAlign: 'right',
+    verticalAlign: 'top'
+  },
+  zero: {
+    padding: 0,
+    textAlign: 'center'
+  },
+  controlBtn: {
+    minWidth: 15,
+    margin: 3
   }
 });
 
