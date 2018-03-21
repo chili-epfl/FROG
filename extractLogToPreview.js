@@ -25,9 +25,9 @@ const logObj = log => {
 };
 const logstring = fs.readFileSync('log.tsv', 'utf-8');
 const id = process.argv[2] && process.argv[2].trim();
-const logs = logstring
+logstring
   .split('\n')
   .map(x => x.split('\t'))
   .filter(x => x[4] === id)
   .map(x => logObj(x))
-  .forEach(x => console.log(JSON.stringify(x)));
+  .forEach(x => console.info(JSON.stringify(x)));
