@@ -183,7 +183,7 @@ const activityMerge = {
 const exampleLogs = [
   {
     title: 'CS211 week 1',
-    path: 'src/logExamples/progress-cs211-w2.json',
+    path: 'src/logExamples/progress-cs211-w2-2018.json',
     activityMerge,
     instances: 81
   }
