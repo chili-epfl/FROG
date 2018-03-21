@@ -11,7 +11,7 @@ function sessionJoin(slug: string) {
   if (!session) {
     return { result: 'error', message: 'No such session' };
   }
-  if (session.tooLate) {
+  if (session.tooLate && user.username !== 'teacher') {
     return { result: 'error', message: 'Too late' };
   }
 
