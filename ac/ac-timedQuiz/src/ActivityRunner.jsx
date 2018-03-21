@@ -164,13 +164,21 @@ const Question = props => {
 };
 
 const Main = withState('question', 'setQuestion', null)(props => {
-  const { activityData, question, setQuestion, data } = props;
+  const { activityData, question, setQuestion, data, logger } = props;
   const { questions, delay, guidelines } = activityData.config;
   const { name } = props.userInfo;
   let shuffledQ = questionsWithIndex(props);
   if (question === null) {
     shuffledQ = shuffledQuestions(props);
-    const start = () => setQuestion('waiting');
+    const start = () => {
+      setQuestion('waiting');
+      logger([
+        {
+          type: 'progress',
+          value: data.progress / activityData.config.questions.length
+        }
+      ]);
+    };
     return <Guidelines start={start} guidelines={guidelines} name={name} />;
   } else if (question === 'waiting') {
     const next = () => {
