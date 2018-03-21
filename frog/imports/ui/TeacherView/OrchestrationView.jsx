@@ -10,7 +10,7 @@ import GraphView from './GraphView';
 import Dashboards from './Dashboard';
 import SessionActions from './SessionActions';
 import SessionInfo from './SessionInfo';
-import ButtonList from './ButtonList';
+import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import styles from './styles';
 
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
@@ -65,7 +65,7 @@ const OrchestrationViewController = ({
                     <GraphView session={session} />
                   </CardContent>
                   <CardActions>
-                    <ButtonList session={session} />
+                    <OrchestrationCtrlButtons session={session} />
                   </CardActions>
                 </Card>
               </Grid>
