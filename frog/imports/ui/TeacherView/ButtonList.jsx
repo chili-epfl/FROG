@@ -26,9 +26,9 @@ import {
   sessionChangeCountDown,
   restartSession
 } from '../../api/sessions';
-import downloadLog from './downloadLog';
+import downloadLog from './Utils/downloadLog';
 import { runSession, nextActivity } from '../../api/engine';
-import { exportSession } from './exportComponent';
+import { exportSession } from './Utils/exportComponent';
 import styles from './styles';
 
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
@@ -43,7 +43,7 @@ const ControlButton = ({ btnModel, classes }) => {
       placement={tooltip.placement}
     >
       <Button
-        variant="raised"
+        variant={button.variant || 'flat'}
         className={classes.controlBtn}
         style={{ backgroundColor: button.color }}
         onClick={button.onClick}
@@ -74,7 +74,8 @@ const ButtonListContainer = ({
         onClick: () => {
           runSession(session._id);
           nextActivity(session._id);
-        }
+        },
+        variant: 'raised'
       },
       icon: <PowerSettingNew className={classes.icon} />,
       source: 'toolbar'
@@ -89,7 +90,8 @@ const ButtonListContainer = ({
       },
       button: {
         color: red[700],
-        onClick: () => updateSessionState(session._id, 'STOPPED')
+        onClick: () => updateSessionState(session._id, 'STOPPED'),
+        variant: 'raised'
       },
       icon: <Stop className={classes.icon} />,
       source: 'toolbar'
@@ -105,7 +107,8 @@ const ButtonListContainer = ({
       button: {
         color: green[700],
         onClick: () =>
-          updateSessionState(session._id, 'STARTED', TimeSync.serverTime())
+          updateSessionState(session._id, 'STARTED', TimeSync.serverTime()),
+        variant: 'raised'
       },
       icon: <PlayArrow className={classes.icon} />,
       source: 'toolbar'
@@ -120,7 +123,8 @@ const ButtonListContainer = ({
       },
       button: {
         color: red[700],
-        onClick: () => {}
+        onClick: () => {},
+        variant: 'raised'
       },
       icon: <Pause className={classes.icon} />,
       source: 'toolbar'
@@ -135,7 +139,8 @@ const ButtonListContainer = ({
       },
       button: {
         color: blue[700],
-        onClick: () => nextActivity(session._id)
+        onClick: () => nextActivity(session._id),
+        variant: 'raised'
       },
       icon: <SkipNext className={classes.icon} />,
       source: 'toolbar'
@@ -150,7 +155,8 @@ const ButtonListContainer = ({
       },
       button: {
         color: red[700],
-        onClick: () => restartSession(session)
+        onClick: () => restartSession(session),
+        variant: 'raised'
       },
       icon: <Refresh className={classes.icon} />,
       source: 'toolbar'

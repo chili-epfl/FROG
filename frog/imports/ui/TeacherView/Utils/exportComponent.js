@@ -7,15 +7,15 @@ import FileSaver from 'file-saver';
 import { cleanEmptyCols, type ActivityDbT, strfTime } from 'frog-utils';
 import { omit } from 'lodash';
 
-import { Sessions } from '../../api/sessions';
-import { Objects } from '../../api/objects';
-import { Activities, Operators } from '../../api/activities';
-import { Products } from '../../api/products';
-import { activityTypesObj } from '../../activityTypes';
-import { getActivitySequence } from '../../api/graphSequence';
-import { graphToString } from '../GraphEditor/utils/export';
+import { Sessions } from '../../../api/sessions';
+import { Objects } from '../../../api/objects';
+import { Activities, Operators } from '../../../api/activities';
+import { Products } from '../../../api/products';
+import { activityTypesObj } from '../../../activityTypes';
+import { getActivitySequence } from '../../../api/graphSequence';
+import { graphToString } from '../../GraphEditor/utils/export';
 import downloadLog from './downloadLog';
-import exportGraphPNG from '../GraphEditor/utils/exportPicture';
+import exportGraphPNG from '../../GraphEditor/utils/exportPicture';
 
 const userIds = {};
 
