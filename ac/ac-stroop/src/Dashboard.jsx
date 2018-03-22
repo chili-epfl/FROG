@@ -1,42 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { withState } from 'recompose';
-import { Button } from 'react-bootstrap';
 import { Chart } from 'react-google-charts';
 
 import {
   type LogT,
   type dashboardViewerPropsT,
-  type ActivityDbT,
   ProgressDashboard,
   LeaderBoard
 } from 'frog-utils';
 
-const Select = ({ target, onClick }) => (
-  <Button onClick={() => onClick(target)}>{target}</Button>
-);
-
-const Viewer = withState('which', 'setWhich', 'progress')(
-  (props: dashboardViewerPropsT) => {
-    const { which, setWhich } = props;
-    return (
-      <div>
-        <Select target="progress" onClick={setWhich} />
-        <Select target="leaderboard" onClick={setWhich} />
-        <Select target="stroop" onClick={setWhich} />
-        {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
-        {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
-        {which === 'stroop' && <StroopViewer {...props} />}
-      </div>
-    );
-  }
-);
-
-// <Select target="raw" onClick={setWhich} />
-// {which === 'raw' && <RawDataViewer {...props} />}
-
-const StroopViewer = ({ data }: dashboardViewerPropsT) => {
+const Viewer = ({ data }: dashboardViewerPropsT) => {
   const { consistent, inconsistent } = data;
   const options = (title, xLabel, xmin, xmax) => ({
     bar: { groupWidth: '90%' },
@@ -83,29 +57,22 @@ const StroopViewer = ({ data }: dashboardViewerPropsT) => {
   );
 };
 
-// const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
-//   <pre>{JSON.stringify(data, null, 2)}</pre>
-// );
-
 const initData = {
-  consistent: { correct: { count: 0, time: 0 }, wrong: { count: 0, time: 0 } },
-  inconsistent: {
+  consistent: {
     correct: { count: 0, time: 0 },
     wrong: { count: 0, time: 0 }
   },
-  ...ProgressDashboard.initData,
-  ...LeaderBoard.initData
+  inconsistent: {
+    correct: { count: 0, time: 0 },
+    wrong: { count: 0, time: 0 }
+  }
 };
 
 const mergeLog = (
   data: any,
   dataFn: Object,
-  log: LogT,
-  activity: ActivityDbT
+  log: LogT
 ) => {
-  ProgressDashboard.mergeLog(data, dataFn, log, activity);
-  LeaderBoard.mergeLog(data, dataFn, log, activity);
-
   if (log.type === 'answer' && log.payload) {
     const {
       isConsistent,
@@ -145,4 +112,10 @@ const exampleLogs = [
   }
 ];
 
-export default { Viewer, mergeLog, initData, exampleLogs };
+const statsDashboard = { Viewer, mergeLog, initData, exampleLogs }
+
+export default {
+  leaderboard: LeaderBoard,
+  progress: ProgressDashboard,
+  stats: statsDashboard
+};

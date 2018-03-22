@@ -5,10 +5,10 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
-import { Nav, NavItem } from 'react-bootstrap';
+import { Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
 import styled from 'styled-components';
 
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT, type dashboardViewerPropsT } from 'frog-utils';
 
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import doGetInstances from '../../api/doGetInstances';
@@ -28,7 +28,8 @@ type DashboardCompPropsT = {
   activity: ActivityDbT,
   users: { [string | number]: string },
   instances: Array<string | number>,
-  config: Object
+  config: Object,
+  name: string
 };
 
 export class DashboardComp extends React.Component<
@@ -50,7 +51,8 @@ export class DashboardComp extends React.Component<
 
   init(props: Object) {
     const _conn = props.conn || connection || {};
-    const _doc = _conn.get('rz', 'DASHBOARD//' + props.activity._id);
+    const reactiveName = 'DASHBOARD/' + props.activity._id + '/' + props.name
+    const _doc = _conn.get('rz', reactiveName);
     this.doc = this.props.doc || _doc;
 
     this.doc.setMaxListeners(30);
@@ -87,13 +89,14 @@ export class DashboardComp extends React.Component<
 
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
-    if (!aT.dashboard || !aT.dashboard.Viewer) {
+    const { users, activity, instances, config, name } = this.props;
+    if (!aT.dashboard || !aT.dashboard[name] || !aT.dashboard[name].Viewer) {
       return <p>The selected activity has no dashboard</p>;
     }
-    const { users, activity, instances, config } = this.props;
+    const Viewer = aT.dashboard[name].Viewer
     return this.state.data ? (
       <div style={{ width: '100%' }}>
-        <aT.dashboard.Viewer
+        <Viewer
           users={users}
           activity={activity}
           instances={instances}
@@ -107,8 +110,32 @@ export class DashboardComp extends React.Component<
   }
 }
 
+const DashMultiWrapper = withState('which', 'setWhich', null)(
+  (props: dashboardViewerPropsT) => {
+    const { which, setWhich, activity } = props;
+    const aT = activityTypesObj[activity.activityType];
+    return (
+      <React.Fragment>
+        <DropdownButton
+          bsStyle='default'
+          title='Hello World'
+          onClick={() => { console.log('onClick')}}
+          onChange={() => { console.log('onChange')}}
+        >
+        {Object.keys(aT.dashboard).map(name =>
+          <MenuItem eventKey={name} key={name}>Action</MenuItem>
+        )}
+        </DropdownButton>
+        {which !== null && <DashboardComp {...props} name={which} />}
+        {which == null && <p>Choose a dashboard</p>}
+      </React.Fragment>
+    );
+  }
+);
+
 // This reactive wrapper works only when logged in as the teacher
 export const DashboardReactiveWrapper = withTracker(props => {
+  console.log('here')
   const { activity, sessionId } = props;
   const session = Sessions.findOne(sessionId);
   const object = Objects.findOne(activity._id);
@@ -119,7 +146,7 @@ export const DashboardReactiveWrapper = withTracker(props => {
     {}
   );
   return { users, instances, activity, config: activity.data };
-})(DashboardComp);
+})(DashMultiWrapper);
 
 export class DashboardSubscriptionWrapper extends React.Component<
   *,
