@@ -4,6 +4,7 @@ import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
+import jsonSchemaDefaults from 'json-schema-defaults';
 
 import ActivityLibrary from './ActivityLibrary';
 import ListComponent from '../ListComponent';
@@ -40,11 +41,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const select = this.props.onSelect
       ? this.props.onSelect
       : aT => {
-          const confProperties = aT.config.properties;
-          const defaultConf = Object.keys(confProperties).reduce((acc, key) => {
-            acc[key] = confProperties[key].default;
-            return acc;
-          }, {});
+          const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
           if (this.props.store) {
             this.props.store.addHistory();
