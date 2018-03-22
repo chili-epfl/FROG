@@ -10,6 +10,24 @@ import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import Preview, { StatelessPreview } from './Preview';
 import { activityTypesObj } from '../../activityTypes';
 
+const style = {
+  main: {
+    position: 'absolute',
+    top: '50px',
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    height: 'calc(100% - 50px)'
+  },
+  side: {
+    width: '500px',
+    position: 'relative',
+    overflow: 'auto',
+    height: '100%'
+  },
+  preview: { width: '100%', height: 'calc(100% - 50px)', overflow: 'visible' }
+};
+
 // const store = new Store();
 const RawActivityList = ({
   config,
@@ -18,17 +36,8 @@ const RawActivityList = ({
   setActivityType,
   history
 }) => (
-  <div
-    style={{
-      position: 'absolute',
-      top: '50px',
-      display: 'flex',
-      flexDirection: 'row',
-      width: '100%',
-      height: '100%'
-    }}
-  >
-    <div style={{ width: '500px', position: 'relative' }}>
+  <div style={style.main}>
+    <div style={style.side}>
       <ApiForm
         config={config.config}
         reload={config.reload}
@@ -43,7 +52,7 @@ const RawActivityList = ({
       />
     </div>
     {config.config && (
-      <div style={{ width: '100%', height: 'calc(100% - 100px)' }}>
+      <div style={style.preview}>
         <Preview
           noModal
           activityTypeId={config.activityType}
