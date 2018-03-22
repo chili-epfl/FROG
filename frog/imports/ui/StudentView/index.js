@@ -8,6 +8,7 @@ import Spinner from 'react-spinner';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
 import styled from 'styled-components';
+import { Accounts } from 'meteor/accounts-base';
 
 import { Sessions } from '/imports/api/sessions';
 import { GlobalSettings } from '/imports/api/globalSettings';
@@ -20,12 +21,25 @@ const DashLink = styled.div`
   bottom: 0px;
   right: 0px;
   font-size: 3em;
-  color: black;
+  color: black !important;
+  cursor: pointer;
+`;
+
+const Logout = styled.div`
+  && {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    font-size: 2em;
+    color: black !important;
+    cursor: pointer;
+  }
 `;
 
 type StudentViewCompPropsT = {
   match: Object,
-  token?: { value: string }
+  token?: { value: string },
+  slug: string
 };
 
 class StudentViewComp extends React.Component<
@@ -55,7 +69,10 @@ class StudentViewComp extends React.Component<
         Meteor.user().joinedSessions.includes(slug)
       )
     ) {
-      Meteor.call('session.join', slug, (err, result) => this.setState(result));
+      Meteor.call('session.join', slug, (err, result) => {
+        if (err) console.error(err);
+        this.setState(result);
+      });
     }
   }
 
@@ -67,7 +84,7 @@ class StudentViewComp extends React.Component<
       return <Spinner />;
     }
     if (!this.props.session) {
-      return <h1>That session is no longer available</h1>;
+      return <Spinner />;
     }
     if (this.props.session.state === 'WAITINGFORNEXT') {
       return (
@@ -80,6 +97,20 @@ class StudentViewComp extends React.Component<
     return (
       <React.Fragment>
         <SessionBody />
+        {Meteor.user() && (
+          <div className="logout">
+            <Logout
+              onClick={() => {
+                Meteor.logout();
+                Accounts._unstoreLoginToken();
+                window.notReady();
+              }}
+            >
+              {Meteor.user().username}
+              <span className="glyphicon glyphicon-log-out" />
+            </Logout>
+          </div>
+        )}
         {Meteor.user() &&
           Meteor.user().username === 'teacher' && (
             <div className="bootstrap">
@@ -135,6 +166,7 @@ export default withTracker(props => {
   return {
     session: Sessions.findOne({ slug }),
     token: GlobalSettings.findOne('token'),
-    ready: every(subscriptions.map(x => x.ready()), Boolean)
+    ready: every(subscriptions.map(x => x.ready()), Boolean),
+    slug
   };
 })(StudentViewComp);
