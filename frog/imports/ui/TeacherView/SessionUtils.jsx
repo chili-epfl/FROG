@@ -4,7 +4,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import { withStyles } from 'material-ui/styles';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-
+import Button from 'material-ui/Button';
 import styles from './styles';
 
 import SettingsModel from './SettingsModal';
@@ -30,6 +30,11 @@ class UtilsMenu extends React.Component {
   render() {
     const { anchorEl } = this.state;
     const { buttonsModel } = this.props;
+    const menuItems = [
+      buttonsModel.dashboard,
+      buttonsModel.export,
+      buttonsModel.download
+    ];
 
     return (
       <div>
@@ -48,29 +53,19 @@ class UtilsMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem
-            onClick={() => {
-              this.handleClose();
-              buttonsModel.dashboard.button.onClick();
-            }}
-          >
-            {buttonsModel.dashboard.button.text}
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              this.handleClose();
-              buttonsModel.export.button.onClick();
-            }}
-          >
-            {buttonsModel.export.button.text}
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              this.handleClose();
-              buttonsModel.download.button.onClick();
-            }}
-          >
-            {buttonsModel.download.button.text}
+          {menuItems.map(item => (
+            <MenuItem
+              key={item.button.text}
+              onClick={() => {
+                this.handleClose();
+                item.button.onClick();
+              }}
+            >
+              {item.button.text}
+            </MenuItem>
+          ))}
+          <MenuItem>
+            <a href={buttonsModel.projector.href}>Projector View</a>
           </MenuItem>
         </Menu>
       </div>
@@ -78,8 +73,8 @@ class UtilsMenu extends React.Component {
   }
 }
 
-const SessionUtils = ({ classes, session, toggle }) => {
-  const buttonsModel = SessionUtilsButtonsModel(session, toggle);
+const SessionUtils = ({ classes, session, toggle, token }) => {
+  const buttonsModel = SessionUtilsButtonsModel(session, toggle, token);
 
   return (
     <div className={classes.root}>

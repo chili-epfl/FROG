@@ -12,10 +12,9 @@ import SessionInfo from './SessionInfo';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import styles from './styles';
 
-const DEFAULT_COUNTDOWN_LENGTH = 10000;
-
 const OrchestrationViewController = ({
   session,
+  token,
   visible,
   toggleVisibility,
   classes
@@ -25,7 +24,11 @@ const OrchestrationViewController = ({
       {session ? (
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <SessionUtils session={session} toggle={toggleVisibility} />
+            <SessionUtils
+              session={session}
+              toggle={toggleVisibility}
+              token={token}
+            />
           </Grid>
           {visible ? (
             // when the graph is turned off

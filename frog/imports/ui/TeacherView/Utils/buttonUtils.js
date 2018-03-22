@@ -111,7 +111,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
   }
 });
 
-export const SessionUtilsButtonsModel = (session, toggle) => ({
+export const SessionUtilsButtonsModel = (session, toggle, token) => ({
   current: {
     tooltip: {
       id: 'tooltip-top',
@@ -143,6 +143,11 @@ export const SessionUtilsButtonsModel = (session, toggle) => ({
       onClick: () => toggle(),
       text: 'Toggle Dashboard'
     }
+  },
+  projector: {
+    href: `/projector/${session.slug}?login=teacher&token=${(token &&
+      token.value) ||
+      ''}`
   }
 });
 
