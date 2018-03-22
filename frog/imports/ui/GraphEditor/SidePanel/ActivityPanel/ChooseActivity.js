@@ -173,11 +173,10 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
                     onPreview={() => {
                       if (this.props.onPreview) {
                         this.props.onPreview(x.id);
-                      } else {
-                        this.props.store &&
-                          this.props.store.ui.setShowPreview({
-                            activityTypeId: x.id
-                          });
+                      } else if (this.props.store) {
+                        this.props.store.ui.setShowPreview({
+                          activityTypeId: x.id
+                        });
                       }
                     }}
                     object={x}
