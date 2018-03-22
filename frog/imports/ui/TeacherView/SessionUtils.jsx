@@ -4,8 +4,10 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import { withStyles } from 'material-ui/styles';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import SettingsModel from './SettingsModal';
+
 import styles from './styles';
+
+import SettingsModel from './SettingsModal';
 
 import {
   ControlButton,
@@ -88,14 +90,10 @@ const SessionUtils = ({ classes, session }) => {
         </Grid>
         <Grid item xs={4}>
           <Grid container>
-            <Grid item xs={6} style={{ textAlign: 'center' }}>
+            <Grid item xs={9} style={{ textAlign: 'center' }}>
               <SettingsModel session={session} />
-              {/* <SettingsModel
-                session={session}
-                dismiss={() => console.log('1')}
-              /> */}
             </Grid>
-            <Grid item xs={6} style={{ textAlign: 'right' }}>
+            <Grid item xs={3} style={{ textAlign: 'right' }}>
               <UtilsMenu buttonsModel={buttonsModel} />
             </Grid>
           </Grid>

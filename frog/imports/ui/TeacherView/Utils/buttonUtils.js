@@ -128,7 +128,7 @@ export const SessionUtilsButtonsModel = session => ({
     tooltip: {
       id: 'tooltip-top',
       title: 'Active Session Link',
-      placement: 'top'
+      placement: 'bottom'
     },
     button: {
       onClick: () => {},

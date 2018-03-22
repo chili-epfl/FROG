@@ -24,7 +24,6 @@ import { Sessions } from '../../api/sessions';
 
 import styles from './styles';
 
-@withStyles(styles)
 class Roster extends React.Component {
   studentlist = [];
   state = {
@@ -155,4 +154,4 @@ class Roster extends React.Component {
   }
 }
 
-export default Roster;
+export default withStyles(styles)(Roster);

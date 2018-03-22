@@ -5,7 +5,6 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-import SettingsModal from './SettingsModal';
 import GraphView from './GraphView';
 import Dashboards from './Dashboard';
 import SessionUtils from './SessionUtils';
@@ -31,12 +30,6 @@ const OrchestrationViewController = ({
   return (
     <div>
       <div className={classes.root}>
-        {showSettings && (
-          <SettingsModal
-            dismiss={() => setShowSettings(false)}
-            session={session}
-          />
-        )}
         {session ? (
           <Grid container spacing={0}>
             <Grid item xs={12}>
@@ -52,10 +45,7 @@ const OrchestrationViewController = ({
               <Grid item xs={12}>
                 <Card>
                   <CardContent>
-                    {/* <SessionInfo
-                      {...this.props}
-                      sessionStatus={sessionStatus}
-                    /> */}
+                    <SessionInfo session={session} />
                     <GraphView session={session} />
                   </CardContent>
                   <CardActions>
@@ -77,11 +67,9 @@ const OrchestrationViewController = ({
   );
 };
 
-const OrchestrationView = compose(
-  withVisibility,
-  withStyles(styles),
-  withState('showSettings', 'setShowSettings', false)
-)(OrchestrationViewController);
+const OrchestrationView = compose(withVisibility, withStyles(styles))(
+  OrchestrationViewController
+);
 
 OrchestrationView.displayName = 'OrchestrationView';
 export default OrchestrationView;

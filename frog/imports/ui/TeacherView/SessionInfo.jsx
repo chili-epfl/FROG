@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
 import { withState } from 'recompose';
 import Tooltip from 'material-ui/Tooltip';
 import Button from 'material-ui/Button';
 import Group from 'material-ui-icons/Group';
 import Roster from './Roster';
+import styles from './styles';
 
 const SessionInfo = withState('open', 'setModalState', false)(props => {
   const {
@@ -63,4 +65,4 @@ const SessionInfo = withState('open', 'setModalState', false)(props => {
   );
 });
 
-export default SessionInfo;
+export default withStyles(styles)(SessionInfo);
