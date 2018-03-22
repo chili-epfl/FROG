@@ -2,24 +2,76 @@
 import * as React from 'react';
 import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
-import { A } from 'frog-utils';
+import { withState, compose } from 'recompose';
 import { omitBy } from 'lodash';
+import { uuid } from 'frog-utils';
 
-import { StatelessPreview } from './Preview';
-import { activityTypes } from '../../activityTypes';
+import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import Preview, { StatelessPreview } from './Preview';
+import { activityTypesObj } from '../../activityTypes';
 
-const ActivityList = ({ history }) => (
-  <div>
-    <h2>Choose activity to preview</h2>
-    <ul>
-      {activityTypes.filter(x => x.meta.exampleData).map(act => (
-        <li key={act.id}>
-          <A onClick={() => history.push(`/preview/${act.id}`)}>{act.id}</A>
-        </li>
-      ))}
-    </ul>
+// const store = new Store();
+const RawActivityList = ({
+  config,
+  setConfig,
+  activityType,
+  setActivityType,
+  history
+}) => (
+  <div
+    style={{
+      position: 'absolute',
+      top: '50px',
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      height: '100%'
+    }}
+  >
+    <div style={{ width: '500px', position: 'relative' }}>
+      <ApiForm
+        config={config.config}
+        reload={config.reload}
+        activityType={activityType}
+        onConfigChange={e => {
+          if (e.errors.length === 0) {
+            setConfig({ ...config, ...e });
+            setActivityType(e.activityType);
+          }
+        }}
+        onPreview={e => history.push(`/preview/${e}`)}
+      />
+    </div>
+    {config.config && (
+      <div style={{ width: '100%', height: 'calc(100% - 100px)' }}>
+        <Preview
+          noModal
+          activityTypeId={config.activityType}
+          config={config.config}
+          allExamples
+          onExample={e => {
+            setConfig({
+              ...config,
+              reload: uuid(),
+              config:
+                activityTypesObj[config.activityType].meta.exampleData[e].config
+            });
+          }}
+          externalReload={config.reload}
+          dismiss={() => {
+            setConfig({});
+            setActivityType(undefined);
+          }}
+        />
+      </div>
+    )}
   </div>
 );
+
+const ActivityList = compose(
+  withState('config', 'setConfig', {}),
+  withState('activityType', 'setActivityType', '')
+)(RawActivityList);
 
 const PreviewPage = ({
   match: { params: { activityTypeId = null, example = 0 } },
