@@ -19,48 +19,44 @@ const OrchestrationViewController = ({
   visible,
   toggleVisibility,
   classes
-}) => {
-  sessionStatus =
-    session && session.state ? session.state.toLowerCase() : 'stopped';
-  return (
-    <div>
-      <div className={classes.root}>
-        {session ? (
-          <Grid container spacing={0}>
-            <Grid item xs={12}>
-              <SessionUtils session={session} toggle={toggleVisibility} />
-            </Grid>
-            {visible ? (
-              // when the graph is turned off
-              <Dashboards
-                session={session}
-                openActivities={session.openActivities}
-              />
-            ) : (
-              <Grid item xs={12}>
-                <Card>
-                  <CardContent>
-                    <SessionInfo session={session} />
-                    <GraphView session={session} />
-                  </CardContent>
-                  <CardActions>
-                    <OrchestrationCtrlButtons session={session} />
-                  </CardActions>
-                </Card>
-              </Grid>
-            )}
+}) => (
+  <div>
+    <div className={classes.root}>
+      {session ? (
+        <Grid container spacing={0}>
+          <Grid item xs={12}>
+            <SessionUtils session={session} toggle={toggleVisibility} />
           </Grid>
-        ) : (
-          <div>
-            <Typography gutterBottom>
-              Create a new session or choose a session from an existing one.
-            </Typography>
-          </div>
-        )}
-      </div>
+          {visible ? (
+            // when the graph is turned off
+            <Dashboards
+              session={session}
+              openActivities={session.openActivities}
+            />
+          ) : (
+            <Grid item xs={12}>
+              <Card>
+                <CardContent>
+                  <SessionInfo session={session} />
+                  <GraphView session={session} />
+                </CardContent>
+                <CardActions>
+                  <OrchestrationCtrlButtons session={session} />
+                </CardActions>
+              </Card>
+            </Grid>
+          )}
+        </Grid>
+      ) : (
+        <div>
+          <Typography gutterBottom>
+            Create a new session or choose a session from an existing one.
+          </Typography>
+        </div>
+      )}
     </div>
-  );
-};
+  </div>
+);
 
 const OrchestrationView = compose(withVisibility, withStyles(styles))(
   OrchestrationViewController
