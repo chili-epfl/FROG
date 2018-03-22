@@ -18,22 +18,17 @@ const OrchestrationViewController = ({
   session,
   visible,
   toggleVisibility,
-  setShowStudentList,
-  showStudentList,
-  setShowSettings,
-  showSettings,
   classes
 }) => {
   sessionStatus =
     session && session.state ? session.state.toLowerCase() : 'stopped';
-
   return (
     <div>
       <div className={classes.root}>
         {session ? (
           <Grid container spacing={0}>
             <Grid item xs={12}>
-              <SessionUtils session={session} />
+              <SessionUtils session={session} toggle={toggleVisibility} />
             </Grid>
             {visible ? (
               // when the graph is turned off

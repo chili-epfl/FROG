@@ -51,10 +51,18 @@ class UtilsMenu extends React.Component {
           <MenuItem
             onClick={() => {
               this.handleClose();
+              buttonsModel.dashboard.button.onClick();
+            }}
+          >
+            {buttonsModel.dashboard.button.text}
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              this.handleClose();
               buttonsModel.export.button.onClick();
             }}
           >
-            {buttonsModel.export.text}
+            {buttonsModel.export.button.text}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -62,7 +70,7 @@ class UtilsMenu extends React.Component {
               buttonsModel.download.button.onClick();
             }}
           >
-            {buttonsModel.download.text}
+            {buttonsModel.download.button.text}
           </MenuItem>
         </Menu>
       </div>
@@ -70,8 +78,8 @@ class UtilsMenu extends React.Component {
   }
 }
 
-const SessionUtils = ({ classes, session }) => {
-  const buttonsModel = SessionUtilsButtonsModel(session);
+const SessionUtils = ({ classes, session, toggle }) => {
+  const buttonsModel = SessionUtilsButtonsModel(session, toggle);
 
   return (
     <div className={classes.root}>
@@ -84,9 +92,7 @@ const SessionUtils = ({ classes, session }) => {
       >
         <Grid item xs={4} className={classes.zero} />
         <Grid item xs={4} style={{ textAlign: 'center' }}>
-          <ControlButton btnModel={buttonsModel.current} classes={classes}>
-            Current Session: {session.slug}
-          </ControlButton>
+          <ControlButton btnModel={buttonsModel.current} classes={classes} />
         </Grid>
         <Grid item xs={4}>
           <Grid container>

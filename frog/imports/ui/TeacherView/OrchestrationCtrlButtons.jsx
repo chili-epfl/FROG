@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
-import { withVisibility, msToString } from 'frog-utils';
-
 import {
   ControlButton,
   OrchestrationButtonsModel
@@ -10,24 +8,11 @@ import {
 
 import styles from './styles';
 
-const DEFAULT_COUNTDOWN_LENGTH = 10000;
-
-const OrchestrationCtrlButtons = ({
-  session,
-  toggle,
-  toggleVisibility,
-  classes
-}) => {
+const OrchestrationCtrlButtons = ({ session, classes }) => {
   const buttonsModel = OrchestrationButtonsModel(session, classes);
 
   return (
-    <Grid
-      container
-      spacing={8}
-      alignItems="center"
-      direction="row"
-      justify="space-between"
-    >
+    <Grid container justify="space-between">
       <Grid item>
         <ControlButton btnModel={buttonsModel.start} classes={classes} />
       </Grid>

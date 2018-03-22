@@ -27,8 +27,6 @@ import { exportSession } from './exportComponent';
 
 export const OrchestrationButtonsModel = (session, classes) => ({
   start: {
-    text: 'Start',
-    states: ['CREATED'],
     tooltip: {
       id: 'tooltip-top',
       title: 'Star the current session',
@@ -45,8 +43,6 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     icon: <PowerSettingNew className={classes.icon} />
   },
   stop: {
-    text: 'Stop Activity',
-    states: ['CREATED', 'STARTED', 'PAUSED'],
     tooltip: {
       id: 'tooltip-top',
       title: 'Stop the current session',
@@ -60,8 +56,6 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     icon: <Stop className={classes.icon} />
   },
   continue: {
-    text: 'Continue Activity',
-    states: ['CREATED'],
     tooltip: {
       id: 'tooltip-top',
       title: 'Continue the current session',
@@ -76,8 +70,6 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     icon: <PlayArrow className={classes.icon} />
   },
   pause: {
-    text: 'Pause Activity',
-    states: ['CREATED'],
     tooltip: {
       id: 'tooltip-top',
       title: 'Pause the current session',
@@ -92,8 +84,6 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     icon: <Pause className={classes.icon} />
   },
   next: {
-    text: 'Next Activity',
-    states: ['STARTED'],
     tooltip: {
       id: 'tooltip-top',
       title: 'Next Activity',
@@ -107,8 +97,6 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     icon: <SkipNext className={classes.icon} />
   },
   restart: {
-    text: 'Restart Activity',
-    states: ['CREATED'],
     tooltip: {
       id: 'tooltip-top',
       title: 'Restart Activity',
@@ -123,7 +111,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
   }
 });
 
-export const SessionUtilsButtonsModel = session => ({
+export const SessionUtilsButtonsModel = (session, toggle) => ({
   current: {
     tooltip: {
       id: 'tooltip-top',
@@ -133,57 +121,72 @@ export const SessionUtilsButtonsModel = session => ({
     button: {
       onClick: () => {},
       themeColor: 'primary',
+      text: `Current Session: ${session.slug}`,
       href: `/${session.slug}`
     },
     source: 'toolbar'
   },
   export: {
-    text: 'Export Session',
     button: {
-      onClick: () => exportSession(session._id)
+      onClick: () => exportSession(session._id),
+      text: 'Export Session'
     }
   },
   download: {
-    text: 'Download log CSV',
     button: {
-      onClick: () => downloadLog(session._id)
+      onClick: () => downloadLog(session._id),
+      text: 'Download log CSV'
+    }
+  },
+  dashboard: {
+    button: {
+      onClick: () => toggle(),
+      text: 'Toggle Dashboard'
     }
   }
 });
 
-export const ControlButton = ({ children, btnModel, classes }) => {
+const ToolTipComponent = ({ tooltip, children }) => (
+  <Tooltip id={tooltip.id} title={tooltip.title} placement={tooltip.placement}>
+    {children}
+  </Tooltip>
+);
+
+export const ControlButton = ({ btnModel, classes }) => {
   const { tooltip, button, icon } = btnModel;
-  const href = button.href || false;
 
   return (
-    <Tooltip
-      id={tooltip.id}
-      title={tooltip.title}
-      placement={tooltip.placement}
-    >
-      {href ? (
-        <Button
-          variant={button.variant || 'flat'}
-          color={button.themeColor || 'default'}
-          className={classes.controlBtn}
-          style={{ backgroundColor: button.color }}
-          onClick={button.onClick}
-          href={button.href}
-        >
-          {icon}
-          {children}
-        </Button>
-      ) : (
-        <Button
-          variant={button.variant || 'flat'}
-          color={button.themeColor || 'default'}
-          className={classes.controlBtn}
-          style={{ backgroundColor: button.color }}
-          onClick={button.onClick}
-        >
-          {icon}
-        </Button>
-      )}
-    </Tooltip>
+    <ToolTipComponent tooltip={tooltip}>
+      <Button
+        variant={button.variant || 'flat'}
+        color={button.themeColor || 'default'}
+        className={classes.controlBtn}
+        style={{ backgroundColor: button.color }}
+        onClick={button.onClick}
+      >
+        {icon}
+        {button.text}
+      </Button>
+    </ToolTipComponent>
+  );
+};
+
+export const ControlButtonLink = ({ btnModel, classes }) => {
+  const { tooltip, button, icon } = btnModel;
+
+  return (
+    <ToolTipComponent tooltip={tooltip}>
+      <Button
+        variant={button.variant || 'flat'}
+        color={button.themeColor || 'default'}
+        className={classes.controlBtn}
+        style={{ backgroundColor: button.color }}
+        onClick={button.onClick}
+        href={button.href}
+      >
+        {icon}
+        {button.text}
+      </Button>
+    </ToolTipComponent>
   );
 };
