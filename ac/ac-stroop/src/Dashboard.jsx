@@ -68,11 +68,7 @@ const initData = {
   }
 };
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  log: LogT
-) => {
+const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const {
       isConsistent,
@@ -112,7 +108,7 @@ const exampleLogs = [
   }
 ];
 
-const statsDashboard = { Viewer, mergeLog, initData, exampleLogs }
+const statsDashboard = { Viewer, mergeLog, initData, exampleLogs };
 
 export default {
   leaderboard: LeaderBoard,

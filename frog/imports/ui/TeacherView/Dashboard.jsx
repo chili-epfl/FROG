@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
-import { Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import { type ActivityDbT, type dashboardViewerPropsT } from 'frog-utils';
@@ -15,6 +15,7 @@ import doGetInstances from '../../api/doGetInstances';
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
 import { Objects } from '../../api/objects';
+import { dashDocId } from '../../api/logs';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from '../App/connection';
 
@@ -51,7 +52,7 @@ export class DashboardComp extends React.Component<
 
   init(props: Object) {
     const _conn = props.conn || connection || {};
-    const reactiveName = 'DASHBOARD/' + props.activity._id + '/' + props.name
+    const reactiveName = dashDocId(props.activity._id, props.name);
     const _doc = _conn.get('rz', reactiveName);
     this.doc = this.props.doc || _doc;
 
@@ -78,7 +79,11 @@ export class DashboardComp extends React.Component<
   };
 
   componentWillReceiveProps(nextProps: Object) {
-    if (this.props.activity._id !== nextProps.activity._id || !this.doc) {
+    if (
+      this.props.activity._id !== nextProps.activity._id ||
+      !this.doc ||
+      this.props.name !== nextProps.name
+    ) {
       if (this.doc) {
         this.doc.destroy();
       }
@@ -93,7 +98,7 @@ export class DashboardComp extends React.Component<
     if (!aT.dashboard || !aT.dashboard[name] || !aT.dashboard[name].Viewer) {
       return <p>The selected activity has no dashboard</p>;
     }
-    const Viewer = aT.dashboard[name].Viewer
+    const Viewer = aT.dashboard[name].Viewer;
     return this.state.data ? (
       <div style={{ width: '100%' }}>
         <Viewer
@@ -112,23 +117,21 @@ export class DashboardComp extends React.Component<
 
 const DashMultiWrapper = withState('which', 'setWhich', null)(
   (props: dashboardViewerPropsT) => {
-    console.log('MultiWrapper')
     const { which, setWhich, activity } = props;
     const aT = activityTypesObj[activity.activityType];
     return (
       <React.Fragment>
         <DropdownButton
-          bsStyle='default'
-          title='Choose dashboard'
-          id='dashboard-dropdown-chooser'
-          onClick={() => { console.log('onClick')}}
+          bsStyle="default"
+          title="Choose dashboard"
+          id="dashboard-dropdown-chooser"
           onSelect={w => setWhich(w)}
         >
-        {Object.keys(aT.dashboard).map(name =>
-          <MenuItem eventKey={name} key={name} active={name === which}>
-            {name}
-          </MenuItem>
-        )}
+          {Object.keys(aT.dashboard).map(name => (
+            <MenuItem eventKey={name} key={name} active={name === which}>
+              {name}
+            </MenuItem>
+          ))}
         </DropdownButton>
         {which !== null && <DashboardComp {...props} name={which} />}
         {which == null && <p>Choose a dashboard</p>}
@@ -139,7 +142,6 @@ const DashMultiWrapper = withState('which', 'setWhich', null)(
 
 // This reactive wrapper works only when logged in as the teacher
 export const DashboardReactiveWrapper = withTracker(props => {
-  console.log('ReactiveWrapper')
   const { activity, sessionId } = props;
   const session = Sessions.findOne(sessionId);
   const object = Objects.findOne(activity._id);
@@ -213,17 +215,17 @@ const DashboardNav = withState('activityId', 'setActivity', null)(props => {
       <h1>Dashboards</h1>
       <Container>
         <DropdownButton
-          bsStyle='default'
-          title='Choose activity'
-          id='dashboard-dropdown-chooser'
+          bsStyle="default"
+          title="Choose activity"
+          id="dashboard-dropdown-chooser"
           onSelect={a => setActivity(a)}
         >
-        {acWithDash.map(a =>
-          <MenuItem eventKey={a._id} key={a._id} active={a._id === aId}>
-            {a.title}
-            {session.openActivities.includes(a._id) ? ' (open)' : ''}
-          </MenuItem>
-        )}
+          {acWithDash.map(a => (
+            <MenuItem eventKey={a._id} key={a._id} active={a._id === aId}>
+              {a.title}
+              {session.openActivities.includes(a._id) ? ' (open)' : ''}
+            </MenuItem>
+          ))}
         </DropdownButton>
         {activityToDash && (
           <ErrorBoundary msg="Dashboard crashed, try reloading">
