@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
+import { uniq } from 'lodash';
 
 const meta = {
   name: 'Display social attribute',
@@ -50,8 +51,8 @@ const ActivityRunner = props => {
     data
   } = props;
   const configData = activityData.config;
-  if (!data[name]) {
-    dataFn.objInsert(true, [name]);
+  if (!data.includes(name)) {
+    dataFn.listAppend(name);
   }
   return (
     <div>
@@ -61,13 +62,19 @@ const ActivityRunner = props => {
         {groupingValue}.
       </h2>
       {configData.displayGroup && (
-        <h3>{'The group members are: ' + Object.keys(data).join(', ')}</h3>
+        <h3>
+          {'The other group members are: ' +
+            uniq(data)
+              .filter(x => x !== name)
+              .sort()
+              .join(', ')}
+        </h3>
       )}
     </div>
   );
 };
 
-const dataStructure = {};
+const dataStructure = [];
 
 export default ({
   id: 'ac-display-social',
