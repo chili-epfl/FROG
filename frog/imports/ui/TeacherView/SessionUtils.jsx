@@ -89,15 +89,11 @@ const SessionUtils = ({ classes, session, toggle, token }) => {
         <Grid item xs={4} style={{ textAlign: 'center' }}>
           <ControlButton btnModel={buttonsModel.current} classes={classes} />
         </Grid>
-        <Grid item xs={4}>
-          <Grid container>
-            <Grid item xs={9} style={{ textAlign: 'center' }}>
-              <SettingsModel session={session} />
-            </Grid>
-            <Grid item xs={3} style={{ textAlign: 'right' }}>
-              <UtilsMenu buttonsModel={buttonsModel} />
-            </Grid>
-          </Grid>
+        <Grid item xs={2}>
+          <SettingsModel session={session} />
+        </Grid>
+        <Grid item xs={2} style={{ textAlign: 'right' }}>
+          <UtilsMenu buttonsModel={buttonsModel} />
         </Grid>
       </Grid>
     </div>
