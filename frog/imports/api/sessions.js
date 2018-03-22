@@ -30,11 +30,12 @@ Meteor.methods({
       sessionCancelCountDown(session._id);
       Sessions.update(session._id, { $set: { slug: session.slug + '-old' } });
       const newSessionId = addSessionFn(graphId, session.slug);
-      Sessions.update(newSessionId, {
-        $set: { settings: session.settings }
-      });
+      if (session.settings) {
+        Sessions.update(newSessionId, {
+          $set: { settings: session.settings }
+        });
+      }
       runSessionFn(newSessionId);
-      runNextActivity(newSessionId);
     }
   }
 });
