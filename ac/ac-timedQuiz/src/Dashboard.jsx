@@ -1,39 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { withState } from 'recompose';
-import { Button } from 'react-bootstrap';
 import { Chart } from 'react-google-charts';
 
 import {
   type LogT,
   type dashboardViewerPropsT,
-  type ActivityDbT,
   ProgressDashboard,
   LeaderBoard
 } from 'frog-utils';
 
-const Select = ({ target, onClick }) => (
-  <Button onClick={() => onClick(target)}>{target}</Button>
-);
-
-const Viewer = withState('which', 'setWhich', 'progress')(
-  (props: dashboardViewerPropsT) => {
-    const { which, setWhich } = props;
-    return (
-      <div>
-        <Select target="progress" onClick={setWhich} />
-        <Select target="leaderboard" onClick={setWhich} />
-        <Select target="results" onClick={setWhich} />
-        {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
-        {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
-        {which === 'results' && <ResultsViewer {...props} />}
-      </div>
-    );
-  }
-);
-
-const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
+const Viewer = ({ data }: dashboardViewerPropsT) => {
   const { results } = data;
   const options = (title, xLabel, yLabel, ymin, ymax) => ({
     legend: { position: 'none' },
@@ -109,19 +86,10 @@ const ResultsViewer = ({ data }: dashboardViewerPropsT) => {
 };
 
 const initData = {
-  results: {},
-  ...ProgressDashboard.initData,
-  ...LeaderBoard.initData
+  results: {}
 };
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  log: LogT,
-  activity: ActivityDbT
-) => {
-  ProgressDashboard.mergeLog(data, dataFn, log, activity);
-  LeaderBoard.mergeLog(data, dataFn, log, activity);
+const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { answer, startTime, answerTime, curQuestion } = log.payload;
     const index = curQuestion[1];
@@ -189,4 +157,10 @@ const exampleLogs = [
   }
 ];
 
-export default { Viewer, mergeLog, initData, exampleLogs };
+const resultsDashboard = { Viewer, mergeLog, initData };
+
+export default {
+  progress: { ...ProgressDashboard, exampleLogs, activityMerge },
+  leaderboard: LeaderBoard,
+  results: resultsDashboard
+};
