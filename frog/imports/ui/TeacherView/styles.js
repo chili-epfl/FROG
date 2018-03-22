@@ -64,6 +64,12 @@ const styles = theme => ({
   controlBtn: {
     minWidth: 15,
     margin: 3
+  },
+  appBar: {
+    position: 'relative'
+  },
+  flex: {
+    flex: 1
   }
 });
 

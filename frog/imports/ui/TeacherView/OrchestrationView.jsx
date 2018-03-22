@@ -8,7 +8,7 @@ import { withStyles } from 'material-ui/styles';
 import SettingsModal from './SettingsModal';
 import GraphView from './GraphView';
 import Dashboards from './Dashboard';
-import SessionActions from './SessionActions';
+import SessionUtils from './SessionUtils';
 import SessionInfo from './SessionInfo';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import styles from './styles';
@@ -25,12 +25,6 @@ const OrchestrationViewController = ({
   showSettings,
   classes
 }) => {
-  let sessionStatus = 'Stopped';
-
-  handleSessionStatusChange = (text: string) => {
-    sessionStatus = text;
-  };
-
   sessionStatus =
     session && session.state ? session.state.toLowerCase() : 'stopped';
 
@@ -46,7 +40,7 @@ const OrchestrationViewController = ({
         {session ? (
           <Grid container spacing={0}>
             <Grid item xs={12}>
-              <SessionActions session={session} />
+              <SessionUtils session={session} />
             </Grid>
             {visible ? (
               // when the graph is turned off
