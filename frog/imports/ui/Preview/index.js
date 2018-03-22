@@ -35,7 +35,7 @@ const RawActivityList = ({
         activityType={activityType}
         onConfigChange={e => {
           if (e.errors.length === 0) {
-            setConfig({ ...config, ...e });
+            setConfig({ ...config, externalReload: uuid(), ...e });
             setActivityType(e.activityType);
           }
         }}
@@ -53,11 +53,12 @@ const RawActivityList = ({
             setConfig({
               ...config,
               reload: uuid(),
+              externalReload: uuid(),
               config:
                 activityTypesObj[config.activityType].meta.exampleData[e].config
             });
           }}
-          externalReload={config.reload}
+          externalReload={config.externalReload}
           dismiss={() => {
             setConfig({});
             setActivityType(undefined);
