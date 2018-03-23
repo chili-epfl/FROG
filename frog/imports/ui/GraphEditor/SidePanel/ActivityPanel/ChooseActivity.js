@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
-import { Activities } from '/imports/api/activities';
+import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
+import jsonSchemaDefaults from 'json-schema-defaults';
 
 import ActivityLibrary from './ActivityLibrary';
 import ListComponent from '../ListComponent';
@@ -39,10 +40,9 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
   render() {
     const select = this.props.onSelect
       ? this.props.onSelect
-      : activityType => {
-          Activities.update(this.props.activity._id, {
-            $set: { activityType: activityType.id }
-          });
+      : aT => {
+          const defaultConf = jsonSchemaDefaults(aT.config);
+          addActivity(aT.id, defaultConf, this.props.activity._id);
           if (this.props.store) {
             this.props.store.addHistory();
           }
