@@ -1,3 +1,5 @@
+// @flow
+
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';

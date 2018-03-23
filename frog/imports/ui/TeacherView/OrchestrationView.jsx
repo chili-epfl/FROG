@@ -1,3 +1,5 @@
+// @flow
+
 import * as React from 'react';
 import { withVisibility } from 'frog-utils';
 import { compose } from 'recompose';
