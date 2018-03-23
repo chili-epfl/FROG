@@ -32,6 +32,7 @@ export default ({ data }) => {
       <ApiForm
         activityType={data.activityType}
         config={data.config}
+        hidePreview
         hideValidator={data.hideValidator}
       />
     );

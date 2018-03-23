@@ -21,7 +21,9 @@ type PropsT = {
   store?: Object,
   hidePreview?: boolean,
   onSelect?: Function,
-  activity: ActivityDbT
+  onPreview?: Function,
+  activity: ActivityDbT,
+  onlyHasPreview?: boolean
 };
 
 export class ChooseActivityType extends Component<PropsT, StateT> {
@@ -38,6 +40,9 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
   }
 
   render() {
+    const activityTypesFiltered = this.props.onlyHasPreview
+      ? activityTypes.filter(x => x.meta.exampleData !== undefined)
+      : activityTypes;
     const select = this.props.onSelect
       ? this.props.onSelect
       : aT => {
@@ -54,7 +59,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
         searchStr: e.target.value.toLowerCase()
       });
 
-    const filteredList = activityTypes
+    const filteredList = activityTypesFiltered
       .filter(
         x =>
           x.meta.name.toLowerCase().includes(this.state.searchStr) ||
@@ -165,12 +170,15 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
                     showExpanded={this.state.expanded === x.id}
                     expand={() => this.setState({ expanded: x.id })}
                     key={x.id}
-                    onPreview={() =>
-                      this.props.store &&
-                      this.props.store.ui.setShowPreview({
-                        activityTypeId: x.id
-                      })
-                    }
+                    onPreview={() => {
+                      if (this.props.onPreview) {
+                        this.props.onPreview(x.id);
+                      } else if (this.props.store) {
+                        this.props.store.ui.setShowPreview({
+                          activityTypeId: x.id
+                        });
+                      }
+                    }}
                     object={x}
                     searchS={this.state.searchStr}
                     eventKey={x.id}
