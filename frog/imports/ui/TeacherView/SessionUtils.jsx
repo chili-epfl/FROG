@@ -2,12 +2,9 @@ import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
-import { withStyles } from 'material-ui/styles';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import Button from 'material-ui/Button';
+import { withStyles } from 'material-ui/styles';
 import styles from './styles';
-
-import SettingsModel from './SettingsModal';
 
 import {
   ControlButton,
@@ -85,14 +82,11 @@ const SessionUtils = ({ classes, session, toggle, token }) => {
         alignItems="center"
         containerspacing={0}
       >
-        <Grid item xs={4} className={classes.zero} />
-        <Grid item xs={4} style={{ textAlign: 'center' }}>
+        <Grid item xs={4} />
+        <Grid item xs={4} className={classes.textCenter}>
           <ControlButton btnModel={buttonsModel.current} classes={classes} />
         </Grid>
-        <Grid item xs={2}>
-          <SettingsModel session={session} />
-        </Grid>
-        <Grid item xs={2} style={{ textAlign: 'right' }}>
+        <Grid item xs={4} style={{ textAlign: 'right' }}>
           <UtilsMenu buttonsModel={buttonsModel} />
         </Grid>
       </Grid>

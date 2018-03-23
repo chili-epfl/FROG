@@ -27,7 +27,7 @@ const styles = theme => ({
     color: 'white'
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit
+    marginRight: theme.spacing.unit
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -57,8 +57,10 @@ const styles = theme => ({
     textAlign: 'right',
     verticalAlign: 'top'
   },
-  zero: {
-    padding: 0,
+  textRight: {
+    textAlign: 'right'
+  },
+  textCenter: {
     textAlign: 'center'
   },
   controlBtn: {

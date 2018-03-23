@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { withVisibility, msToString } from 'frog-utils';
-import { compose, withState } from 'recompose';
+import { withVisibility } from 'frog-utils';
+import { compose } from 'recompose';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+
 import GraphView from './GraphView';
 import Dashboards from './Dashboard';
 import SessionUtils from './SessionUtils';

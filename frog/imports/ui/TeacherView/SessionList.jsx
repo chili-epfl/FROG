@@ -34,8 +34,7 @@ const styles = theme => ({
   }
 });
 
-@withStyles(styles)
-export class SessionAdmin extends React.Component<
+class SessionAdmin extends React.Component<
   { sessions: Array<Object>, graphs: Array<Object>, classes: Object },
   { graphId: string, sessionId: string }
 > {
