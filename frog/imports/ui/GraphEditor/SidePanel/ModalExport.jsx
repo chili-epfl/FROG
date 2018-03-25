@@ -23,6 +23,10 @@ class ExportModal extends Component<Object, StateT> {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ title: nextProps.activity.title });
+  }
+
   render() {
     return (
       <Modal

@@ -56,6 +56,7 @@ const Collections = {};
 export const StatelessPreview = withState('reload', 'setReload', '')(
   ({
     activityTypeId,
+    noModal,
     example,
     setExample,
     showData,
@@ -74,7 +75,10 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     setFullWindow,
     reload,
     showDashExample,
-    setShowDashExample
+    setShowDashExample,
+    externalReload = '',
+    allExamples,
+    onExample
   }: {
     activityTypeId: string,
     example: number,
@@ -91,18 +95,22 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     config?: Object,
     isSeparatePage: boolean,
     setReload: string => void,
+    externalReload: string,
     windows: number,
     setWindows: number => void,
     fullWindow: boolean,
     setFullWindow: boolean => void,
-    reload: string
+    reload: string,
+    noModal?: boolean,
+    allExamples?: boolean,
+    onExample?: Function
   }) => {
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activityType.id;
 
     const examples =
-      (config
+      (config && !allExamples
         ? uniqBy(activityType.meta.exampleData, x => Stringify(x.data))
         : activityType.meta.exampleData) || {};
 
@@ -303,7 +311,13 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                 key={x.title}
                 className="examples"
                 eventKey={i}
-                onClick={() => setExample(i)}
+                onClick={() => {
+                  if (onExample) {
+                    onExample(i);
+                  } else {
+                    setExample(i);
+                  }
+                }}
               >
                 {x.title}
               </NavItem>
@@ -355,7 +369,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                     example={example}
                     activity={activityDbObject}
                     config={activityData.config}
-                    reload={reload}
+                    reload={reload + externalReload}
                     doc={dashboard}
                     instances={users
                       .filter((_, i) => i % 2 !== 0)
@@ -371,7 +385,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
               ) : (
                 <MosaicWindow
                   path={path}
-                  reload={reload}
+                  reload={reload + externalReload}
                   example={example}
                   title={
                     x + '/' + Math.ceil(id / 2) + ' - ' + activityType.meta.name
@@ -417,6 +431,12 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         </Draggable>
         <ReactTooltip delayShow={1000} />
       </div>
+    ) : noModal ? (
+      <React.Fragment>
+        {Controls}
+        {showLogs && !showDashExample ? <ShowLogs logs={Logs} /> : Content}
+        <ReactTooltip delayShow={1000} />
+      </React.Fragment>
     ) : (
       <Modal
         ariaHideApp={false}
