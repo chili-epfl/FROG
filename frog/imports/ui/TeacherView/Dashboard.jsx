@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import { type ActivityDbT, type dashboardViewerPropsT } from 'frog-utils';
@@ -115,27 +115,27 @@ export class DashboardComp extends React.Component<
   }
 }
 
-const DashMultiWrapper = withState('which', 'setWhich', null)(
+export const DashMultiWrapper = withState('which', 'setWhich', null)(
   (props: dashboardViewerPropsT) => {
     const { which, setWhich, activity } = props;
     const aT = activityTypesObj[activity.activityType];
+    const dashNames = Object.keys(aT.dashboard);
+    const defaultWhich = dashNames.includes(which) ? which : dashNames[0];
     return (
-      <React.Fragment>
-        <DropdownButton
-          bsStyle="default"
-          title="Choose dashboard"
-          id="dashboard-dropdown-chooser"
+      <div>
+        <Nav
+          bsStyle="pills"
+          activeKey={defaultWhich}
           onSelect={w => setWhich(w)}
         >
-          {Object.keys(aT.dashboard).map(name => (
-            <MenuItem eventKey={name} key={name} active={name === which}>
+          {dashNames.map(name => (
+            <NavItem eventKey={name} key={name} href="#">
               {name}
-            </MenuItem>
+            </NavItem>
           ))}
-        </DropdownButton>
-        {which !== null && <DashboardComp {...props} name={which} />}
-        {which == null && <p>Choose a dashboard</p>}
-      </React.Fragment>
+        </Nav>
+        <DashboardComp {...props} name={defaultWhich} />
+      </div>
     );
   }
 );
@@ -214,19 +214,20 @@ const DashboardNav = withState('activityId', 'setActivity', null)(props => {
     <div>
       <h1>Dashboards</h1>
       <Container>
-        <DropdownButton
-          bsStyle="default"
-          title="Choose activity"
-          id="dashboard-dropdown-chooser"
+        <Nav
+          bsStyle="pills"
+          stacked
+          activeKey={aId}
           onSelect={a => setActivity(a)}
+          style={{ width: '150px' }}
         >
           {acWithDash.map(a => (
-            <MenuItem eventKey={a._id} key={a._id} active={a._id === aId}>
+            <NavItem eventKey={a._id} key={a._id} href="#">
               {a.title}
               {session.openActivities.includes(a._id) ? ' (open)' : ''}
-            </MenuItem>
+            </NavItem>
           ))}
-        </DropdownButton>
+        </Nav>
         {activityToDash && (
           <ErrorBoundary msg="Dashboard crashed, try reloading">
             <DashboardReactiveWrapper
