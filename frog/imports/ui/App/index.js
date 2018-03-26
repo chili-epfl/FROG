@@ -75,6 +75,7 @@ const FROGRouter = withRouter(
 
     componentDidMount() {
       Modal.setAppElement('#render-target');
+      window.notReady = this.notReady;
     }
 
     componentDidUpdate(prevProps) {
@@ -93,6 +94,7 @@ const FROGRouter = withRouter(
         username,
         token,
         isStudentList,
+        this.props.match.params.slug,
         (err, id) => {
           subscriptionCallback(err, id, x => this.setState({ mode: x }));
         }
@@ -104,7 +106,7 @@ const FROGRouter = withRouter(
       Accounts.loginWithToken(token, err => {
         if (err) {
           Accounts._unstoreLoginToken();
-          this.setState({ mode: 'error' });
+          this.setState({ mode: 'waiting' });
         } else {
           Meteor.subscribe('userData', {
             onReady: () => {
@@ -117,8 +119,11 @@ const FROGRouter = withRouter(
         }
       });
     }
+    notReady = () => {
+      this.setState({ mode: 'waiting' }, () => this.update());
+    };
 
-    update() {
+    update = () => {
       this.wait = true;
       InjectData.getData('login', data => {
         if (data && data.token) {
@@ -156,7 +161,7 @@ const FROGRouter = withRouter(
           }
         }
       }
-    }
+    };
 
     render() {
       const query = queryToObject(this.props.location.search.slice(1));

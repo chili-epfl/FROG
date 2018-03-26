@@ -2,36 +2,86 @@
 import * as React from 'react';
 import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
+import { withState, compose } from 'recompose';
 import { omitBy } from 'lodash';
-import List, { ListItem, ListSubheader, ListItemText } from 'material-ui/List';
+import { uuid } from 'frog-utils';
 
-import { StatelessPreview } from './Preview';
-import { activityTypes } from '../../activityTypes';
+import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import Preview, { StatelessPreview } from './Preview';
+import { activityTypesObj } from '../../activityTypes';
 
-const styles = {
-  sheet: {
-    padding: 0,
-    maxHeight: '100%',
-    overflow: 'auto'
-  }
+const style = {
+  main: {
+    position: 'absolute',
+    top: '50px',
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    height: 'calc(100% - 50px)'
+  },
+  side: {
+    width: '500px',
+    position: 'relative',
+    overflow: 'auto',
+    height: '100%'
+  },
+  preview: { width: '100%', height: 'calc(100% - 50px)', overflow: 'visible' }
 };
 
-const ActivityList = ({ history }) => (
-  <div style={styles.sheet}>
-    <List subheader={<ListSubheader>Select to Preview</ListSubheader>}>
-      {activityTypes.map(act => (
-        <ListItem
-          key={act.id}
-          dense
-          button
-          onClick={() => history.push(`/preview/${act.id}`)}
-        >
-          <ListItemText primary={act.id} />
-        </ListItem>
-      ))}
-    </List>
+// const store = new Store();
+const RawActivityList = ({
+  config,
+  setConfig,
+  activityType,
+  setActivityType,
+  history
+}) => (
+  <div style={style.main} className="bootstrap">
+    <div style={style.side}>
+      <ApiForm
+        config={config.config}
+        reload={config.reload}
+        activityType={activityType}
+        onConfigChange={e => {
+          if (e.errors.length === 0) {
+            setConfig({ ...config, externalReload: uuid(), ...e });
+            setActivityType(e.activityType);
+          }
+        }}
+        onPreview={e => history.push(`/preview/${e}`)}
+      />
+    </div>
+    {config.config && (
+      <div style={style.preview}>
+        <Preview
+          noModal
+          activityTypeId={config.activityType}
+          config={config.config}
+          allExamples
+          onExample={e => {
+            setConfig({
+              ...config,
+              reload: uuid(),
+              externalReload: uuid(),
+              config:
+                activityTypesObj[config.activityType].meta.exampleData[e].config
+            });
+          }}
+          externalReload={config.externalReload}
+          dismiss={() => {
+            setConfig({});
+            setActivityType(undefined);
+          }}
+        />
+      </div>
+    )}
   </div>
 );
+
+const ActivityList = compose(
+  withState('config', 'setConfig', {}),
+  withState('activityType', 'setActivityType', '')
+)(RawActivityList);
 
 const PreviewPage = ({
   match: { params: { activityTypeId = null, example = 0 } },

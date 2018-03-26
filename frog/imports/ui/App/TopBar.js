@@ -1,15 +1,15 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
+import { compose } from 'recompose';
+import { A } from 'frog-utils';
+
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Button from 'material-ui/Button';
-// import AccountCircle from 'material-ui-icons/AccountCircle';
 
 const styles = theme => ({
   root: {
@@ -32,8 +32,7 @@ const styles = theme => ({
   }
 });
 
-@withStyles(styles)
-class TopBar extends React.Component<{ classes: any }, {}> {
+class TopBarController extends React.Component<{ classes: any }, {}> {
   routes = [
     { name: 'Graph Editor', to: '/graph' },
     { name: 'Sessions', to: '/teacher' },
@@ -87,9 +86,15 @@ class TopBar extends React.Component<{ classes: any }, {}> {
                 />
               ))}
             </Tabs>
-            <Button className={classes.button} color="primary">
-              Teacher
-              {/* <AccountCircle className={classes.rightIcon} /> */}
+            <Button
+              className={classes.button}
+              color="inherit"
+              onClick={() => {
+                Meteor.logout();
+                window.location.assign('/');
+              }}
+            >
+              Logout
             </Button>
           </Toolbar>
         </AppBar>
@@ -98,4 +103,7 @@ class TopBar extends React.Component<{ classes: any }, {}> {
   }
 }
 
-export default withRouter(TopBar);
+const TopBar = compose(withRouter, withStyles(styles))(TopBarController);
+
+TopBar.displayName = 'TopBar';
+export default TopBar;

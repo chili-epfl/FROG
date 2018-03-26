@@ -105,49 +105,36 @@ const statQuizConfig = {
   ]
 };
 
-const opinionQuizConfig = {
-  title: 'Opinion',
-  guidelines:
-    'In average women earn less than men, we will discuss and try to discover why that is',
+const withJustificationConfig = {
+  title: 'Question with justification',
+  guidelines: 'Placeholder for guidelines',
   argueWeighting: true,
   justify: true,
-  shuffle: 'both',
+  shuffle: 'none',
   questions: [
     {
-      question: 'Why do women earn less in average?',
+      question: 'Placeholder for question',
       answers: [
         {
-          choice: 'Women are less able than men to work',
-          x: -2,
-          y: 5
+          choice: 'Placeholder for answer 1',
+          x: 6,
+          y: 3
         },
         {
-          choice: 'Most employers are sexist men',
-          x: 5,
-          y: -2
+          choice: 'Placeholder for answer 2',
+          x: 6,
+          y: -3
         },
         {
-          choice: "Women's career slows down when they are pregnant",
-          x: 2,
-          y: 2
+          choice: 'Placeholder for answer 3',
+          x: -6,
+          y: 3
+        },
+        {
+          choice: 'Placeholder for answer 4',
+          x: -6,
+          y: -3
         }
-      ]
-    },
-    {
-      question: 'Why do men earn more in average?',
-      answers: [
-        {
-          choice: 'Men run faster to be on time at meetings',
-          x: -2,
-          y: 2
-        },
-        {
-          choice:
-            'Men tend to choose fields that pay more such as Finance, CS, Maths, ...',
-          x: -5,
-          y: 1
-        },
-        { choice: "Men steal women's pay", x: 5, y: -5 }
       ]
     }
   ]
@@ -202,8 +189,8 @@ export default {
       activityData: {}
     },
     {
-      config: opinionQuizConfig,
-      title: 'Opinion Quiz',
+      config: withJustificationConfig,
+      title: 'With justification',
       activityData: {}
     },
     {
