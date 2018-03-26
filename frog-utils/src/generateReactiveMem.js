@@ -5,7 +5,7 @@ type rawPathT = string | string[];
 
 const cleanPath = (defPath: rawPathT, rawPath: rawPathT = []): string[] => {
   const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
-  const p = Array.isArray(defPath) ? defPath : [defPath]
+  const p = Array.isArray(defPath) ? defPath : [defPath];
   return [...p, ...newPath];
 };
 
@@ -17,7 +17,7 @@ export class MemDoc {
   constructor(data: any, path?: rawPathT) {
     this.data = data;
     this.path = path || [];
-    this.callback = () => {}
+    this.callback = () => {};
   }
   submitOp(path: rawPathT, op: Function) {
     const setpath = cleanPath(this.path, path);
@@ -28,9 +28,9 @@ export class MemDoc {
     } else {
       set(this.data, setpath, newVal);
     }
-    console.log('MAKE CALLBACK')
-    console.log(this.data)
-    this.callback()
+    console.log('MAKE CALLBACK');
+    console.log(this.data);
+    this.callback();
   }
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp(path, x => [newVal, ...x]);
@@ -83,29 +83,29 @@ export class MemDoc {
     return path.reduce((acc, x) => acc[[x]], data);
   }
 
-  setMaxListeners= () => {}
+  setMaxListeners = () => {};
 
-  removeListener= () => {
-    this.callback = () => {}
-  }
+  removeListener = () => {
+    this.callback = () => {};
+  };
 
-  subscribe= () => {}
+  subscribe = () => {};
 
-  destroy= () => {
-    this.callback = () => {}
-  }
+  destroy = () => {
+    this.callback = () => {};
+  };
 
-  on= (type: string, callback: Function) => {
-    if(type === 'op'){
-      this.callback = callback
+  on = (type: string, callback: Function) => {
+    if (type === 'op') {
+      this.callback = callback;
     }
-    if(type === 'load'){
-      callback()
+    if (type === 'load') {
+      callback();
     }
-  }
+  };
 }
 
 export const inMemoryReactive = (initial: any) => {
-  const memDoc = new MemDoc(initial)
-  return [memDoc, memDoc]
-}
+  const memDoc = new MemDoc(initial);
+  return [memDoc, memDoc];
+};

@@ -19,8 +19,8 @@ import { activityTypesObj } from '../../activityTypes';
 export const DocumentCache = {};
 export const Logs: LogDBT[] = [];
 
-if(window) {
-  window.DocumentCache = DocumentCache
+if (window) {
+  window.DocumentCache = DocumentCache;
 }
 
 export const initDocuments = (
@@ -30,11 +30,11 @@ export const initDocuments = (
   if (activityType && activityType.dashboard) {
     Object.keys(activityType.dashboard).forEach(name => {
       const dash = activityType.dashboard[name];
-      const initData = cloneDeep((dash && dash.initData) || {})
+      const initData = cloneDeep((dash && dash.initData) || {});
       if (DocumentCache[name]) {
         if (refresh) {
           const [_, dataFn] = DocumentCache[name];
-          dataFn.objInsert(initData,[]);
+          dataFn.objInsert(initData, []);
         }
       } else {
         DocumentCache[name] = inMemoryReactive(initData);
@@ -43,11 +43,12 @@ export const initDocuments = (
   }
 };
 
-export const hasDashExample = (aT: ActivityPackageT) => (
-  aT.dashboard && Object.keys(aT.dashboard).reduce((acc,name) =>
-    acc || !!aT.dashboard[name].exampleLogs, false
-  )
-)
+export const hasDashExample = (aT: ActivityPackageT) =>
+  aT.dashboard &&
+  Object.keys(aT.dashboard).reduce(
+    (acc, name) => acc || !!aT.dashboard[name].exampleLogs,
+    false
+  );
 
 const activityDbObject = (config, activityType) => ({
   _id: 'preview',
@@ -60,7 +61,11 @@ const activityDbObject = (config, activityType) => ({
   activityType
 });
 
-export const mergeData = (aT: ActivityPackageT, log: LogDBT, config: Object) => {
+export const mergeData = (
+  aT: ActivityPackageT,
+  log: LogDBT,
+  config: Object
+) => {
   Object.keys(aT.dashboard).forEach(name => {
     if (DocumentCache[name]) {
       const dash = aT.dashboard[name];

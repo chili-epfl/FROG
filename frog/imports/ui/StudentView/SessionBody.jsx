@@ -25,7 +25,9 @@ const ActivityContainer = ({ activities, sessionId }) => {
             sessionId={sessionId}
           />
         )}
-        initialValue={getInitialState(sortBy(activities.map(x => x._id), 'activityType'))}
+        initialValue={getInitialState(
+          sortBy(activities.map(x => x._id), 'activityType')
+        )}
       />
     );
   }

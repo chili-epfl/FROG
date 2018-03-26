@@ -8,7 +8,11 @@ import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Inspector from 'react-inspector';
 
-import { DashPreviewWrapper, mergeData, initDocuments } from './dashboardInPreviewAPI';
+import {
+  DashPreviewWrapper,
+  mergeData,
+  initDocuments
+} from './dashboardInPreviewAPI';
 
 type PropsT = {
   activityType: ActivityPackageT,
@@ -17,13 +21,11 @@ type PropsT = {
 };
 
 type StateT = {
-  ready: boolean, logs: Object[]
-}
+  ready: boolean,
+  logs: Object[]
+};
 
-class ShowDashExample extends React.Component<
-  PropsT,
-  StateT
-> {
+class ShowDashExample extends React.Component<PropsT, StateT> {
   activityDbObject: Object;
 
   constructor(props: PropsT) {
@@ -37,11 +39,11 @@ class ShowDashExample extends React.Component<
   }
 
   fetchLogs = (props: PropsT = this.props) => {
-    const { meta: { exampleData }, dashboard } = this.props.activityType
-    const data = exampleData && exampleData[0].config || {}
+    const { meta: { exampleData }, dashboard } = this.props.activityType;
+    const data = (exampleData && exampleData[0].config) || {};
 
-    const name = Object.keys(dashboard).find(n => dashboard[n].exampleLogs)
-    const { activityMerge } = dashboard[name].exampleLogs[this.props.example]
+    const name = Object.keys(dashboard).find(n => dashboard[n].exampleLogs);
+    const { activityMerge } = dashboard[name].exampleLogs[this.props.example];
 
     this.activityDbObject = {
       ...{
@@ -66,27 +68,25 @@ class ShowDashExample extends React.Component<
         if (err) {
           console.error('Error fetching logs', err);
         }
-        this.setState({ logs: result});
+        this.setState({ logs: result });
       }
     );
   };
 
   displaySubset = (e: number) => {
-    console.log(e)
-    const aT = this.props.activityType
-    const config = this.activityDbObject.data || {}
-    initDocuments(aT, true)
-    this.state.logs.slice(0,e).forEach(log => mergeData(aT,log,config))
-    console.log('done')
+    const aT = this.props.activityType;
+    const config = this.activityDbObject.data || {};
+    initDocuments(aT, true);
+    this.state.logs.slice(0, e).forEach(log => mergeData(aT, log, config));
   };
 
   render() {
     // const instances = this.props.activityType.dashboard.exampleLogs[
     //   this.props.example
     // ].instances || []
-    const instances = []
-    const users = {}
-    const { logs } = this.state
+    const instances = [];
+    const users = {};
+    const { logs } = this.state;
     return (
       <React.Fragment>
         <Slider

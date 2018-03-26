@@ -13,11 +13,9 @@ export const meta = {
 };
 
 const ActivityRunner = (props: ActivityRunnerT) => {
-  const { sessionId, activityData: { config } } = props
-  const activityId = config.activityId
-  const names = config.names === 'all'
-    ? null
-    : config.names.split(',')
+  const { sessionId, activityData: { config } } = props;
+  const activityId = config.activityId;
+  const names = config.names === 'all' ? null : config.names.split(',');
   return (
     <DashboardSubscriptionWrapper
       activityId={activityId}

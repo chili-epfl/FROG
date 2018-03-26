@@ -62,20 +62,15 @@ export class DashboardComp extends React.Component<
       this.doc.on('load', this.update);
     }
     this.doc.on('op', this.update);
-    console.log('INIT', props.name)
-    console.log(this.doc.data)
   }
 
   update = () => {
-    console.log('UPDATE', this.props.name)
     if (this.mounted) {
-      console.log('UPDATE', this.props.name)
       this.setState({ data: this.doc.data });
     }
   };
 
   componentWillUnmount = () => {
-    console.log('WILL UNMOUNT')
     this.doc.removeListener('op', this.update);
     this.doc.removeListener('load', this.update);
     this.mounted = false;
@@ -88,7 +83,6 @@ export class DashboardComp extends React.Component<
       this.props.name !== nextProps.name ||
       this.props.doc !== nextProps.doc
     ) {
-      console.log('WILL RECEIVE PROPS')
       if (this.doc) {
         this.doc.destroy();
       }
@@ -126,20 +120,22 @@ export const DashMultiWrapper = withState('which', 'setWhich', null)(
     const aT = activityTypesObj[activity.activityType];
     const dashNames = names || Object.keys(aT.dashboard);
     const defaultWhich = dashNames.includes(which) ? which : dashNames[0];
-    const [ doc ] = (docs && docs[defaultWhich]) || [];
+    const [doc] = (docs && docs[defaultWhich]) || [];
     return (
       <div>
-        {dashNames.length > 1 && <Nav
-          bsStyle="pills"
-          activeKey={defaultWhich}
-          onSelect={w => setWhich(w)}
-        >
-          {dashNames.map(name => (
-            <NavItem eventKey={name} key={name} href="#">
-              {name}
-            </NavItem>
-          ))}
-        </Nav>}
+        {dashNames.length > 1 && (
+          <Nav
+            bsStyle="pills"
+            activeKey={defaultWhich}
+            onSelect={w => setWhich(w)}
+          >
+            {dashNames.map(name => (
+              <NavItem eventKey={name} key={name} href="#">
+                {name}
+              </NavItem>
+            ))}
+          </Nav>
+        )}
         <DashboardComp {...props} name={defaultWhich} doc={doc} />
       </div>
     );
@@ -195,10 +191,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
     return (
       ready &&
       activity && (
-        <DashboardReactiveWrapper
-          activity={activity}
-          {...this.props}
-        />
+        <DashboardReactiveWrapper activity={activity} {...this.props} />
       )
     );
   }

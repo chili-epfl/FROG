@@ -185,13 +185,13 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
             />
           )}
           {hasDashExample(activityType) && (
-              <Icon
-                onClick={() => setShowDashExample(!showDashExample)}
-                icon="fa fa-line-chart"
-                color={showDashExample ? '#3d76b8' : '#b3cae6'}
-                tooltip="Toggle example logs dashboard"
-              />
-            )}
+            <Icon
+              onClick={() => setShowDashExample(!showDashExample)}
+              icon="fa fa-line-chart"
+              color={showDashExample ? '#3d76b8' : '#b3cae6'}
+              tooltip="Toggle example logs dashboard"
+            />
+          )}
           <Icon
             onClick={() => setShowLogs(!showLogs)}
             icon="fa fa-list"

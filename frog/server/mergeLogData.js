@@ -96,10 +96,7 @@ Meteor.methods({
     const examplePath =
       d && d.exampleLogs && d.exampleLogs[idx] && d.exampleLogs[idx].path;
     if (examplePath) {
-      const log = readFileSync(
-        join(rootPath, '..', examplePath),
-        'utf-8'
-      );
+      const log = readFileSync(join(rootPath, '..', examplePath), 'utf-8');
       return log
         .trim()
         .split('\n')
