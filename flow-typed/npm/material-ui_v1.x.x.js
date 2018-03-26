@@ -220,13 +220,11 @@ declare module 'material-ui/Card/CardMedia' {
 }
 
 declare module 'material-ui/Card' {
-  declare module.exports: {
-    CardActions: $Exports<'material-ui/Card/CardActions'>,
-    CardContent: $Exports<'material-ui/Card/CardContent'>,
-    CardHeader: $Exports<'material-ui/Card/CardHeader'>,
-    CardMedia: $Exports<'material-ui/Card/CardMedia'>,
-    default: $Exports<'material-ui/Card/Card'>
-  };
+  declare export default $Exports<'material-ui/Card/Card'>
+  declare export var CardActions: $Exports<'material-ui/Card/CardActions'>;
+  declare export var CardContent: $Exports<'material-ui/Card/CardContent'>;
+  declare export var CardHeader: $Exports<'material-ui/Card/CardHeader'>;
+  declare export var CardMedia: $Exports<'material-ui/Card/CardMedia'>;
 }
 
 declare module 'material-ui/Checkbox/Checkbox' {
@@ -423,14 +421,20 @@ declare module 'material-ui/Dialog/DialogTitle' {
 }
 
 declare module 'material-ui/Dialog' {
-  declare module.exports: {
-    DialogActions: $Exports<'material-ui/Dialog/DialogActions'>,
-    DialogContent: $Exports<'material-ui/Dialog/DialogContent'>,
-    DialogContentText: $Exports<'material-ui/Dialog/DialogContentText'>,
-    DialogTitle: $Exports<'material-ui/Dialog/DialogTitle'>,
-    default: $Exports<'material-ui/Dialog/Dialog'>,
-    withMobileDialog: $Exports<'material-ui/Dialog/withMobileDialog'>
-  };
+  declare export var DialogActions: $Exports<
+    'material-ui/Dialog/DialogActions'
+  >;
+  declare export var DialogContent: $Exports<
+    'material-ui/Dialog/DialogContent'
+  >;
+  declare export var DialogContentText: $Exports<
+    'material-ui/Dialog/DialogContentText'
+  >;
+  declare export var DialogTitle: $Exports<'material-ui/Dialog/DialogTitle'>;
+  declare export var withMobileDialog: $Exports<
+    'material-ui/Dialog/withMobileDialog'
+  >;
+  declare export default $Exports<'material-ui/Dialog/Dialog'>
 }
 
 declare module 'material-ui/Dialog/withMobileDialog' {
@@ -949,16 +953,17 @@ declare module 'material-ui/internal/transition' {
 }
 
 declare module 'material-ui/List' {
-  declare module.exports: {
-    ListItem: $Exports<'material-ui/List/ListItem'>,
-    ListItemAvatar: $Exports<'material-ui/List/ListItemAvatar'>,
-    ListItemText: $Exports<'material-ui/List/ListItemText'>,
-    ListItemIcon: $Exports<'material-ui/List/ListItemIcon'>,
-    ListItemSecondaryAction: $Exports<
-      'material-ui/List/ListItemSecondaryAction'
-    >,
-    ListSubheader: $Exports<'material-ui/List/ListSubheader'>
-  };
+  declare export default $Exports<'material-ui/List/List'>
+  declare export var ListItem: $Exports<'material-ui/List/ListItem'>;
+  declare export var ListItemAvatar: $Exports<
+    'material-ui/List/ListItemAvatar'
+  >;
+  declare export var ListItemText: $Exports<'material-ui/List/ListItemText'>;
+  declare export var ListItemIcon: $Exports<'material-ui/List/ListItemIcon'>;
+  declare export var ListItemSecondaryAction: $Exports<
+    'material-ui/List/ListItemSecondaryAction'
+  >;
+  declare export var ListSubheader: $Exports<'material-ui/List/ListSubheader'>;
 }
 
 declare module 'material-ui/List/List' {
@@ -1757,16 +1762,18 @@ declare module 'material-ui/Switch/Switch' {
 }
 
 declare module 'material-ui/Table' {
-  declare module.exports: {
-    default: $Exports<'material-ui/Table/Table'>,
-    TableBody: $Exports<'material-ui/Table/TableBody'>,
-    TableCell: $Exports<'material-ui/Table/TableCell'>,
-    TableFooter: $Exports<'material-ui/Table/TableFooter'>,
-    TableHead: $Exports<'material-ui/Table/TableHead'>,
-    TablePagination: $Exports<'material-ui/Table/TablePagination'>,
-    TableRow: $Exports<'material-ui/Table/TableRow'>,
-    TableSortLabel: $Exports<'material-ui/Table/TableSortLabel'>
-  };
+  declare export default $Exports<'material-ui/Table/Table'>
+  declare export var TableBody: $Exports<'material-ui/Table/TableBody'>;
+  declare export var TableCell: $Exports<'material-ui/Table/TableCell'>;
+  declare export var TableFooter: $Exports<'material-ui/Table/TableFooter'>;
+  declare export var TableHead: $Exports<'material-ui/Table/TableHead'>;
+  declare export var TablePagination: $Exports<
+    'material-ui/Table/TablePagination'
+  >;
+  declare export var TableRow: $Exports<'material-ui/Table/TableRow'>;
+  declare export var TableSortLabel: $Exports<
+    'material-ui/Table/TableSortLabel'
+  >;
 }
 
 declare module 'material-ui/Table/Table' {
@@ -1868,10 +1875,8 @@ declare module 'material-ui/Table/TableSortLabel' {
 }
 
 declare module 'material-ui/Tabs' {
-  declare module.exports: {
-    default: $Exports<'material-ui/Tabs/Tabs'>,
-    Tab: $Exports<'material-ui/Tabs/Tab'>
-  };
+  declare export default $Exports<'material-ui/Tabs/Tabs'>
+  declare export var Tab: $Exports<'material-ui/Tabs/Tab'>;
 }
 
 declare module 'material-ui/Tabs/Tab' {
@@ -1983,7 +1988,7 @@ declare module 'material-ui/TextField/TextField' {
 }
 
 declare module 'material-ui/Toolbar' {
-  declare module.exports: $Exports<'material-ui/Toolbar/Toolbar'>;
+  declare export default $Exports<'material-ui/Toolbar/Toolbar'>
 }
 
 declare module 'material-ui/Toolbar/Toolbar' {
