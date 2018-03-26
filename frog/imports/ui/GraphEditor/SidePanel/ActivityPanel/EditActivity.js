@@ -158,7 +158,7 @@ const RawEditActivity = ({
             }}
           >
             <ValidButton activityId={activity._id} errorColor={errorColor} />
-            {errorColor === 'green' && (
+            {errorColor === lightGreen[500] && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <IconButton
                   icon="glyphicon glyphicon-eye-open"
