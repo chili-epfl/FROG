@@ -28,8 +28,6 @@ export class MemDoc {
     } else {
       set(this.data, setpath, newVal);
     }
-    console.log('MAKE CALLBACK');
-    console.log(this.data);
     this.callback();
   }
   listPrepend(newVal: any, path: rawPathT) {
