@@ -18,14 +18,14 @@ const ActivityContainer = ({ activities, sessionId }) => {
   } else {
     return (
       <Mosaic
-        renderTile={(activityid, path) => (
+        renderTile={(activityId, path) => (
           <Runner
-            activity={activities.find(x => x._id === activityid)}
+            activity={activities.find(x => x._id === activityId)}
             path={path}
             sessionId={sessionId}
           />
         )}
-        initialValue={getInitialState(sortBy(activities, 'activityType'))}
+        initialValue={getInitialState(sortBy(activities.map(x => x._id), 'activityType'))}
       />
     );
   }

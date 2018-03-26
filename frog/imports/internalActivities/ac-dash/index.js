@@ -33,7 +33,7 @@ export default ({
   ActivityRunner,
   config: {
     type: 'object',
-    required: ['activity'],
+    required: ['activityId'],
     properties: {
       activityId: {
         type: 'activity',
