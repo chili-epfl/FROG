@@ -16,10 +16,15 @@ import Draggable from 'react-draggable';
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
-import { createLogger, Logs, initDocuments, DashPreviewWrapper } from './dashboardInPreviewAPI';
+import {
+  createLogger,
+  Logs,
+  initDocuments,
+  DashPreviewWrapper
+} from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import ShowDashExample from './ShowDashExample';
-import Icon from './Icon'
+import Icon from './Icon';
 
 const backend = new ShareDB();
 export const connection = backend.connect();

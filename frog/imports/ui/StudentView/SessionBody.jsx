@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Mosaic } from 'react-mosaic-component';
 
-import { getInitialState } from 'frog-utils'
+import { getInitialState } from 'frog-utils';
 
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';

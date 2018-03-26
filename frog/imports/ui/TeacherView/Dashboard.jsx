@@ -46,16 +46,14 @@ export class DashboardComp extends React.Component<
   }
 
   componentDidMount = () => {
-    console.log('DASHBOARD COMP MOUNTING')
     this.mounted = true;
     this.init(this.props);
   };
 
   init(props: Object) {
-    console.log('DASHBOARD COMP INIT')
     const _conn = props.conn || connection || {};
     const reactiveName = dashDocId(props.activity._id, props.name);
-    this.doc = this.props.doc || _conn.get('rz', reactiveName);
+    this.doc = props.doc || _conn.get('rz', reactiveName);
 
     this.doc.setMaxListeners(30);
     this.doc.subscribe();
@@ -83,7 +81,8 @@ export class DashboardComp extends React.Component<
     if (
       this.props.activity._id !== nextProps.activity._id ||
       !this.doc ||
-      this.props.name !== nextProps.name
+      this.props.name !== nextProps.name ||
+      this.props.doc !== nextProps.doc
     ) {
       if (this.doc) {
         this.doc.destroy();
@@ -95,19 +94,18 @@ export class DashboardComp extends React.Component<
 
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
-    const { users, activity, instances, config, name } = this.props;
+    const { users, activity, instances, name } = this.props;
     if (!aT.dashboard || !aT.dashboard[name] || !aT.dashboard[name].Viewer) {
       return <p>The selected activity has no dashboard</p>;
     }
     const Viewer = aT.dashboard[name].Viewer;
-    console.log('DATA', this.state.data)
     return this.state.data ? (
       <div style={{ width: '100%' }}>
         <Viewer
           users={users}
           activity={activity}
           instances={instances}
-          config={config}
+          config={activity.data}
           data={this.state.data}
         />
       </div>
@@ -123,7 +121,7 @@ export const DashMultiWrapper = withState('which', 'setWhich', null)(
     const aT = activityTypesObj[activity.activityType];
     const dashNames = Object.keys(aT.dashboard);
     const defaultWhich = dashNames.includes(which) ? which : dashNames[0];
-    const [ doc, _ ] = docs && docs[defaultWhich] || []
+    const [doc, _] = (docs && docs[defaultWhich]) || [];
     return (
       <div>
         <Nav
@@ -154,7 +152,7 @@ export const DashboardReactiveWrapper = withTracker(props => {
     (acc, u) => ({ ...acc, [u._id]: u.username }),
     {}
   );
-  return { users, instances, activity, config: activity.data };
+  return { users, instances, activity };
 })(DashMultiWrapper);
 
 export class DashboardSubscriptionWrapper extends React.Component<

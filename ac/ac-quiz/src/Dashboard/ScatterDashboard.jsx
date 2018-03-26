@@ -9,33 +9,13 @@ import {
 } from 'frog-utils';
 
 const Viewer = (props: dashboardViewerPropsT) => {
-  const { data: { answers }, config } = props;
-  if (!config.argueWeighting) {
-    return null;
-  }
-
-  const questions = config.questions.filter(q => q.question && q.answers);
-  const scatterData = Object.keys(answers).map(instance => {
-    const coordinates = [0, 0];
-    questions.forEach((q, qIndex) => {
-      if (
-        answers[instance] &&
-        answers[instance][qIndex] !== undefined &&
-        q.answers[answers[instance][qIndex]]
-      ) {
-        const answerIndex = answers[instance][qIndex];
-        const noiseX = 2 * Math.random() - 1;
-        const noiseY = 2 * Math.random() - 1;
-        coordinates[0] += q.answers[answerIndex].x + noiseX;
-        coordinates[1] += q.answers[answerIndex].y + noiseY;
-      }
-    });
-    return coordinates;
-  });
-  if (scatterData.length > 0) {
-    return <ScatterChart data={scatterData} />;
+  const { coordinates } = props.data;
+  if (!coordinates || Object.keys(coordinates).length < 1) {
+    return <p>No data to display</p>;
   } else {
-    return <p>No data</p>;
+    const noise = c => c.map(x => x + 2 * Math.random() - 1);
+    const scatData = Object.keys(coordinates).map(k => noise(coordinates[k]));
+    return <ScatterChart data={scatData} />;
   }
 };
 
