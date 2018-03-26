@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import { compose } from 'recompose';
-import { A } from 'frog-utils';
 
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -47,7 +46,6 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
     const found = this.routes.filter(
       route => props.location.pathname.indexOf(route.to) !== -1
     )[0];
