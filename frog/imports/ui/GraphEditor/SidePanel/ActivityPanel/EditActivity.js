@@ -162,12 +162,12 @@ const RawEditActivity = ({
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <IconButton
                   icon="glyphicon glyphicon-eye-open"
-                  onClick={() =>
+                  onClick={() => {
                     props.store.ui.setShowPreview({
                       activityTypeId: activity.activityType,
                       config: activity.data
-                    })
-                  }
+                    });
+                  }}
                 />
                 <IconButton
                   icon="glyphicon glyphicon-share"
