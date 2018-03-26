@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import ShareDB from 'sharedb';
 import { cloneDeep } from 'lodash';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
@@ -11,16 +10,18 @@ import {
   type LogDBT,
   type ActivityPackageT,
   uuid,
-  generateReactiveFn
+  inMemoryReactive
 } from 'frog-utils';
 
 import { DashMultiWrapper } from '../TeacherView/Dashboard';
 import { activityTypesObj } from '../../activityTypes';
 
-const backend = new ShareDB();
-const connection = backend.connect();
 export const DocumentCache = {};
 export const Logs: LogDBT[] = [];
+
+if(window) {
+  window.DocumentCache = DocumentCache
+}
 
 export const initDocuments = (
   activityType: ActivityPackageT,
@@ -29,21 +30,14 @@ export const initDocuments = (
   if (activityType && activityType.dashboard) {
     Object.keys(activityType.dashboard).forEach(name => {
       const dash = activityType.dashboard[name];
+      const initData = cloneDeep((dash && dash.initData) || {})
       if (DocumentCache[name]) {
         if (refresh) {
-          const [doc, _] = DocumentCache[name];
-          doc.submitOp({ p: [], oi: (dash && dash.initData) || {} });
+          const [_, dataFn] = DocumentCache[name];
+          dataFn.objInsert(initData,[]);
         }
       } else {
-        const doc = connection.get('rz', name);
-        doc.fetch();
-        doc.once('load', () => {
-          if (!doc.type) {
-            doc.create((dash && dash.initData) || {});
-            const dataFn = generateReactiveFn(doc);
-            DocumentCache[name] = [doc, dataFn];
-          }
-        });
+        DocumentCache[name] = inMemoryReactive(initData);
       }
     });
   }

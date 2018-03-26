@@ -54,7 +54,6 @@ export class DashboardComp extends React.Component<
     const _conn = props.conn || connection || {};
     const reactiveName = dashDocId(props.activity._id, props.name);
     this.doc = props.doc || _conn.get('rz', reactiveName);
-
     this.doc.setMaxListeners(30);
     this.doc.subscribe();
     if (this.doc.type) {
@@ -63,15 +62,20 @@ export class DashboardComp extends React.Component<
       this.doc.on('load', this.update);
     }
     this.doc.on('op', this.update);
+    console.log('INIT', props.name)
+    console.log(this.doc.data)
   }
 
   update = () => {
+    console.log('UPDATE', this.props.name)
     if (this.mounted) {
+      console.log('UPDATE', this.props.name)
       this.setState({ data: this.doc.data });
     }
   };
 
   componentWillUnmount = () => {
+    console.log('WILL UNMOUNT')
     this.doc.removeListener('op', this.update);
     this.doc.removeListener('load', this.update);
     this.mounted = false;
@@ -84,6 +88,7 @@ export class DashboardComp extends React.Component<
       this.props.name !== nextProps.name ||
       this.props.doc !== nextProps.doc
     ) {
+      console.log('WILL RECEIVE PROPS')
       if (this.doc) {
         this.doc.destroy();
       }
@@ -121,7 +126,7 @@ export const DashMultiWrapper = withState('which', 'setWhich', null)(
     const aT = activityTypesObj[activity.activityType];
     const dashNames = names || Object.keys(aT.dashboard);
     const defaultWhich = dashNames.includes(which) ? which : dashNames[0];
-    const [doc, _] = (docs && docs[defaultWhich]) || [];
+    const [ doc ] = (docs && docs[defaultWhich]) || [];
     return (
       <div>
         {dashNames.length > 1 && <Nav
