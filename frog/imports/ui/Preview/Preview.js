@@ -20,7 +20,8 @@ import {
   createLogger,
   Logs,
   initDocuments,
-  DashPreviewWrapper
+  DashPreviewWrapper,
+  hasDashExample
 } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import ShowDashExample from './ShowDashExample';
@@ -183,8 +184,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
               tooltip="Toggle dashboard"
             />
           )}
-          {activityType.dashboard &&
-            activityType.dashboard.exampleLogs && (
+          {hasDashExample(activityType) && (
               <Icon
                 onClick={() => setShowDashExample(!showDashExample)}
                 icon="fa fa-line-chart"

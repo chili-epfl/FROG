@@ -49,6 +49,12 @@ export const initDocuments = (
   }
 };
 
+export const hasDashExample = (aT: ActivityPackageT) => (
+  aT.dashboard && Object.keys(aT.dashboard).reduce((acc,name) =>
+    acc || !!aT.dashboard[name].exampleLogs, false
+  )
+)
+
 const activityDbObject = (config, activityType) => ({
   _id: 'preview',
   data: config,
@@ -59,6 +65,21 @@ const activityDbObject = (config, activityType) => ({
   length: 3,
   activityType
 });
+
+export const mergeData = (aT: ActivityPackageT, log: LogDBT, config: Object) => {
+  Object.keys(aT.dashboard).forEach(name => {
+    if (DocumentCache[name]) {
+      const dash = aT.dashboard[name];
+      const [doc, dataFn] = DocumentCache[name];
+      dash.mergeLog(
+        cloneDeep(doc.data),
+        dataFn,
+        log,
+        activityDbObject(config, aT.id)
+      );
+    }
+  });
+};
 
 export const createLogger = (
   sessionId: string,
@@ -72,21 +93,6 @@ export const createLogger = (
   const aT = activityTypesObj[activityType];
 
   initDocuments(aT, false);
-
-  const mergeData = (log: LogDBT) => {
-    Object.keys(aT.dashboard).forEach(name => {
-      if (DocumentCache[name]) {
-        const dash = aT.dashboard[name];
-        const [doc, dataFn] = DocumentCache[name];
-        dash.mergeLog(
-          cloneDeep(doc.data),
-          dataFn,
-          log,
-          activityDbObject(config, activityType)
-        );
-      }
-    });
-  };
 
   const logger = (logItems: Array<LogT> | LogT) => {
     const list = Array.isArray(logItems) ? logItems : [logItems];
@@ -103,7 +109,7 @@ export const createLogger = (
         ...logItem
       };
       Logs.push(log);
-      mergeData(log);
+      mergeData(aT, log, config);
     });
   };
   return logger;

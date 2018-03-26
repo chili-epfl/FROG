@@ -143,24 +143,10 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   }
 };
 
-const activityMerge = {
-  actualStartingTime: '2018-03-13T07:28:02.833Z',
-  actualClosingTime: '2018-03-13T07:34:42.700Z'
-};
-
-const exampleLogs = [
-  {
-    title: 'CS211 week 1',
-    path: 'src/logExamples/progress-cs211-w2-2018.json',
-    activityMerge,
-    instances: 81
-  }
-];
-
 const resultsDashboard = { Viewer, mergeLog, initData };
 
 export default {
-  progress: { ...ProgressDashboard, exampleLogs, activityMerge },
+  progress: ProgressDashboard,
   leaderboard: LeaderBoard,
   results: resultsDashboard
 };
