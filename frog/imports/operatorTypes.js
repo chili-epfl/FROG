@@ -1,5 +1,6 @@
 // @flow
 
+import opXyDistance from 'op-xy-distance';
 import opPerformanceSelect from 'op-performance-select';
 import opCheckConcepts from 'op-check-concepts';
 import opFilter from 'op-filter';
@@ -20,6 +21,7 @@ import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: operatorPackageT[] = flattenOne([
+  opXyDistance,
   opPerformanceSelect,
   opCheckConcepts,
   opFilter,

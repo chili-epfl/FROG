@@ -9,7 +9,6 @@ import { calculateSchema } from './enhancedFormUtils';
 
 const RteField = props => (
   <div>
-    <label htmlFor={props.id}>{props.schema.title}</label>
     <Fields.rte {...props} />
   </div>
 );
