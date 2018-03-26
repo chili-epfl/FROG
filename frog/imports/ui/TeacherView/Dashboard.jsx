@@ -117,14 +117,14 @@ export class DashboardComp extends React.Component<
 
 export const DashMultiWrapper = withState('which', 'setWhich', null)(
   (props: dashboardViewerPropsT) => {
-    const { which, setWhich, activity, docs } = props;
+    const { which, setWhich, activity, docs, names } = props;
     const aT = activityTypesObj[activity.activityType];
-    const dashNames = Object.keys(aT.dashboard);
+    const dashNames = names || Object.keys(aT.dashboard);
     const defaultWhich = dashNames.includes(which) ? which : dashNames[0];
     const [doc, _] = (docs && docs[defaultWhich]) || [];
     return (
       <div>
-        <Nav
+        {dashNames.length > 1 && <Nav
           bsStyle="pills"
           activeKey={defaultWhich}
           onSelect={w => setWhich(w)}
@@ -134,7 +134,7 @@ export const DashMultiWrapper = withState('which', 'setWhich', null)(
               {name}
             </NavItem>
           ))}
-        </Nav>
+        </Nav>}
         <DashboardComp {...props} name={defaultWhich} doc={doc} />
       </div>
     );
@@ -192,7 +192,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
       activity && (
         <DashboardReactiveWrapper
           activity={activity}
-          sessionId={this.props.sessionId}
+          {...this.props}
         />
       )
     );
