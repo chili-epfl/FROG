@@ -1,9 +1,10 @@
 // @flow
+
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
-import { type LogDBT, A, generateReactiveFn, uuid } from 'frog-utils';
+import { generateReactiveFn, uuid, getInitialState } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
@@ -14,43 +15,14 @@ import Draggable from 'react-draggable';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
-import { DashboardComp } from '../TeacherView/Dashboard';
 import ShowInfo from './ShowInfo';
-import createLogger, { Logs } from './createLogger';
+import { createLogger, Logs, initDocuments, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import ShowDashExample from './ShowDashExample';
-
-const Icon = ({
-  onClick,
-  icon,
-  color,
-  tooltip
-}: {
-  onClick: Function,
-  icon: string,
-  color?: string,
-  tooltip?: string
-}) => (
-  <span style={{ marginLeft: '10px' }}>
-    <A onClick={onClick}>
-      <i className={icon} style={{ color }} data-tip={tooltip} />
-    </A>
-  </span>
-);
-
-const getInitialState = (activities, d = 1) => {
-  const n = Math.floor(activities.length / 2);
-  return n === 0
-    ? activities[0]
-    : {
-        direction: d > 0 ? 'row' : 'column',
-        first: getInitialState(activities.slice(0, n), -d),
-        second: getInitialState(activities.slice(n, activities.length), -d)
-      };
-};
+import Icon from './Icon'
 
 const backend = new ShareDB();
-const connection = backend.connect();
+export const connection = backend.connect();
 const Collections = {};
 
 export const StatelessPreview = withState('reload', 'setReload', '')(
@@ -119,47 +91,6 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
       activityData.config = config;
     }
 
-    const dashcoll = `demo-${activityType.id}-${example}-DASHBOARD`;
-    if (!Collections[dashcoll]) {
-      Collections[dashcoll] = uuid();
-    }
-
-    const dashboard = connection.get('rz', Collections[dashcoll]);
-    dashboard.fetch();
-    if (!dashboard.type) {
-      dashboard.once('load', () => {
-        if (!dashboard.type) {
-          dashboard.create(
-            (activityType.dashboard && activityType.dashboard.initData) || {}
-          );
-        }
-      });
-    }
-
-    const reactiveDash = generateReactiveFn(dashboard);
-
-    const activityDbObject = {
-      _id: 'preview',
-      data: activityData.config,
-      groupingKey: 'group',
-      plane: 2,
-      startTime: 0,
-      actualStartingTime: new Date(Date.now()),
-      length: 3,
-      activityType: activityTypeId
-    };
-
-    const mergeData = (log: LogDBT) => {
-      if (activityType.dashboard && activityType.dashboard.mergeLog) {
-        activityType.dashboard.mergeLog(
-          cloneDeep(dashboard.data),
-          reactiveDash,
-          log,
-          activityDbObject
-        );
-      }
-    };
-
     range(0, Math.ceil(windows / 2)).forEach(i => {
       const coll = `demo-${activityType.id}-${example}-${i + 1}`;
       if (!Collections[coll]) {
@@ -214,7 +145,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
             'preview',
             '' + id,
             2,
-            mergeData
+            activityData.config
           )}
           groupingValue={'' + Math.ceil(id / 2)}
         />
@@ -276,6 +207,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
 
               Logs.length = 0;
               setReload(uuid());
+              // resets the reactive documents for the dashboard
+              initDocuments(activityType, true);
             }}
             icon="fa fa-refresh"
             tooltip="Reset reactive data"
@@ -365,12 +298,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                   title={'dashboard - ' + activityType.meta.name}
                   path={path}
                 >
-                  <DashboardComp
-                    example={example}
-                    activity={activityDbObject}
+                  <DashPreviewWrapper
                     config={activityData.config}
-                    reload={reload + externalReload}
-                    doc={dashboard}
                     instances={users
                       .filter((_, i) => i % 2 !== 0)
                       .map((_, i) => i + 1)}
@@ -380,6 +309,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                         (acc, name, i) => ({ ...acc, [i + 1]: name }),
                         {}
                       )}
+                    activityType={activityType}
                   />
                 </MosaicWindow>
               ) : (

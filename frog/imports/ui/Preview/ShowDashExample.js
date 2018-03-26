@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { generateReactiveFn, uuid, ActivityPackageT } from 'frog-utils';
@@ -9,12 +10,16 @@ import Slider from 'rc-slider';
 import Spinner from 'react-spinner';
 import Inspector from 'react-inspector';
 
-import { DashboardComp } from '../TeacherView/Dashboard';
+import { DashMultiWrapper } from '../TeacherView/Dashboard';
 
 const backend = new ShareDB();
 const connection = backend.connect();
 
-type PropsT = { activityType: ActivityPackageT, example: number };
+type PropsT = {
+  activityType: ActivityPackageT,
+  example: number,
+  showLogs: boolean
+};
 
 class ShowDashExample extends React.Component<
   PropsT,
@@ -115,7 +120,7 @@ class ShowDashExample extends React.Component<
             {this.props.showLogs ? (
               <Inspector data={this.dashboard.data} />
             ) : (
-              <DashboardComp
+              <DashMultiWrapper
                 activity={this.activityDbObject}
                 config={this.props.activityType.meta.exampleData[0].config}
                 doc={this.dashboard}

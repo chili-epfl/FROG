@@ -46,15 +46,16 @@ export class DashboardComp extends React.Component<
   }
 
   componentDidMount = () => {
+    console.log('DASHBOARD COMP MOUNTING')
     this.mounted = true;
     this.init(this.props);
   };
 
   init(props: Object) {
+    console.log('DASHBOARD COMP INIT')
     const _conn = props.conn || connection || {};
     const reactiveName = dashDocId(props.activity._id, props.name);
-    const _doc = _conn.get('rz', reactiveName);
-    this.doc = this.props.doc || _doc;
+    this.doc = this.props.doc || _conn.get('rz', reactiveName);
 
     this.doc.setMaxListeners(30);
     this.doc.subscribe();
@@ -99,6 +100,7 @@ export class DashboardComp extends React.Component<
       return <p>The selected activity has no dashboard</p>;
     }
     const Viewer = aT.dashboard[name].Viewer;
+    console.log('DATA', this.state.data)
     return this.state.data ? (
       <div style={{ width: '100%' }}>
         <Viewer
@@ -117,10 +119,11 @@ export class DashboardComp extends React.Component<
 
 export const DashMultiWrapper = withState('which', 'setWhich', null)(
   (props: dashboardViewerPropsT) => {
-    const { which, setWhich, activity } = props;
+    const { which, setWhich, activity, docs } = props;
     const aT = activityTypesObj[activity.activityType];
     const dashNames = Object.keys(aT.dashboard);
     const defaultWhich = dashNames.includes(which) ? which : dashNames[0];
+    const [ doc, _ ] = docs && docs[defaultWhich] || []
     return (
       <div>
         <Nav
@@ -134,7 +137,7 @@ export const DashMultiWrapper = withState('which', 'setWhich', null)(
             </NavItem>
           ))}
         </Nav>
-        <DashboardComp {...props} name={defaultWhich} />
+        <DashboardComp {...props} name={defaultWhich} doc={doc} />
       </div>
     );
   }
