@@ -8,7 +8,6 @@ import Spinner from 'react-spinner';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
 import styled from 'styled-components';
-import { Accounts } from 'meteor/accounts-base';
 
 import { Sessions } from '/imports/api/sessions';
 import { GlobalSettings } from '/imports/api/globalSettings';

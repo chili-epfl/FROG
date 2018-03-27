@@ -62,7 +62,9 @@ class UtilsMenu extends React.Component {
             </MenuItem>
           ))}
           <MenuItem>
-            <a href={buttonsModel.projector.href}>Projector View</a>
+            <a href={buttonsModel.projector.href} target="_blank">
+              Projector View
+            </a>
           </MenuItem>
         </Menu>
       </div>

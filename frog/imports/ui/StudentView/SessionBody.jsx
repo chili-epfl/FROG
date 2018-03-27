@@ -11,6 +11,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+import { Accounts } from 'meteor/accounts-base';
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
 import Runner from './Runner';
@@ -27,9 +28,8 @@ const styles = {
     minHeight: 48,
     height: 48
   },
-  text: {
-    flex: 1,
-    fontSize: '1.5rem'
+  flex: {
+    flex: 1
   },
   mainContent: {
     width: '100%',
@@ -75,9 +75,7 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
-const StudentView = props => {
-  const { activities, session, classes } = props;
-
+const StudentView = ({ activities, session, token, classes }) => {
   if (!activities || activities.length === 0) {
     return <h1>No Activity right now</h1>;
   }
@@ -89,13 +87,35 @@ const StudentView = props => {
       <div className={classes.navbar}>
         <AppBar>
           <Toolbar className={classes.toolbar}>
-            <Typography type="subheading" color="inherit">
-              Student View
-            </Typography>
+            {Meteor.user() && (
+              <Typography
+                type="subheading"
+                color="inherit"
+                className={classes.flex}
+              >
+                {Meteor.user().username}
+              </Typography>
+            )}
+            {Meteor.user() &&
+              Meteor.user().username === 'teacher' && (
+                <Button
+                  className={classes.button}
+                  color="inherit"
+                  onClick={() => {}}
+                  href={`/?login=teacher&token=${(token && token.value) || ''}`}
+                  target="_blank"
+                >
+                  Dashboard
+                </Button>
+              )}
             <Button
               className={classes.button}
               color="inherit"
-              onClick={() => {}}
+              onClick={() => {
+                Meteor.logout();
+                Accounts._unstoreLoginToken();
+                window.notReady();
+              }}
             >
               Logout
             </Button>
