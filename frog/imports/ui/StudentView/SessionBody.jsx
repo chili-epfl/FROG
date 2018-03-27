@@ -132,15 +132,22 @@ const StudentView = ({ activities, session, token, classes }) => {
 const SessionBody = ({
   activities,
   session,
+  token,
   classes
 }: {
   activities: Array<Object>,
   session: Object,
-  classes: Object
+  classes: Object,
+  token?: { value: string }
 }) => (
   <div id="student" className={classes.root}>
     {session.countdownStartTime && <Countdown session={session} />}
-    <StudentView session={session} activities={activities} classes={classes} />
+    <StudentView
+      session={session}
+      activities={activities}
+      classes={classes}
+      token={token}
+    />
   </div>
 );
 

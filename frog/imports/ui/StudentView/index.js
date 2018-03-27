@@ -38,7 +38,9 @@ const Logout = styled.div`
 type StudentViewCompPropsT = {
   match: Object,
   token?: { value: string },
-  slug: string
+  slug: string,
+  session: Object,
+  ready: boolean
 };
 
 class StudentViewComp extends React.Component<
@@ -93,6 +95,7 @@ class StudentViewComp extends React.Component<
         </div>
       );
     }
+
     return (
       <React.Fragment>
         <SessionBody token={this.props.token} />
