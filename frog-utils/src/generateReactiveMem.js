@@ -103,7 +103,7 @@ export class MemDoc {
   };
 }
 
-export const inMemoryReactive = (initial: any) => {
+export const pureObjectReactive = (initial: any) => {
   const memDoc = new MemDoc(initial);
   return [memDoc, memDoc];
 };

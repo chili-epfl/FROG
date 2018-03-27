@@ -10,7 +10,7 @@ import {
   type LogDBT,
   type ActivityPackageT,
   uuid,
-  inMemoryReactive
+  pureObjectReactive
 } from 'frog-utils';
 
 import { DashMultiWrapper } from '../TeacherView/Dashboard';
@@ -37,7 +37,7 @@ export const initDocuments = (
           dataFn.objInsert(initData, []);
         }
       } else {
-        DocumentCache[name] = inMemoryReactive(initData);
+        DocumentCache[name] = pureObjectReactive(initData);
       }
     });
   }

@@ -20,8 +20,8 @@ export {
   calculateHides,
   calculateSchema
 } from './enhancedFormUtils';
-export { generateReactiveFn } from './generateReactiveFn';
-export { MemDoc, inMemoryReactive } from './generateReactiveMem';
+export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
+export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
