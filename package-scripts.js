@@ -49,6 +49,7 @@ module.exports = {
     ),
     watch: fromRoot(`node watch.js ${process.env['PWD']}`),
     watchAll: fromRoot('node watch.js all'),
+    buildAndWatchAll: fromRoot('node watch.js all build'),
     buildAll: buildAll(false),
     buildAllSingle: buildAll(false, true)
   },
