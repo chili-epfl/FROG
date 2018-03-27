@@ -99,7 +99,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
   restart: {
     tooltip: {
       id: 'tooltip-top',
-      title: 'Restart Activity',
+      title: 'Restart Session',
       placement: 'top'
     },
     button: {
