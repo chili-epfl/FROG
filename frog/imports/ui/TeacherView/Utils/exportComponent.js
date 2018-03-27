@@ -66,7 +66,7 @@ export const generateExport = (
     }
     img.file('data.tsv', data);
   }
-  if (item.plane === 2) {
+  if (item.plane === 2 && object && object.socialStructure) {
     const struct = object.socialStructure[item.groupingKey];
     const mappings = Object.keys(struct)
       .reduce(
