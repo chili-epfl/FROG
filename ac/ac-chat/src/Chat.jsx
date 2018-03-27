@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import { type ActivityRunnerT, uuid } from 'frog-utils';
 import { withStyles } from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
 import TextInput from './TextInput';
 
 const styles = {
@@ -12,8 +13,7 @@ const styles = {
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+    background: 'white'
   },
   header: {
     flex: '0 0 auto',
@@ -52,8 +52,10 @@ const styles = {
 
 const Chatmsg = ({ msg, classes }) => (
   <div className={classes.msg}>
-    <div className={classes.user}>{msg.user}</div>
-    {msg.msg}
+    <Typography variant="body2" gutterBottom color="secondary">
+      {msg.user}
+    </Typography>
+    <Typography gutterBottom>{msg.msg}</Typography>
   </div>
 );
 
