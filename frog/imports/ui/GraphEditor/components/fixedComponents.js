@@ -41,8 +41,8 @@ export const LevelLines = connect(
             x2={graphWidth * (scaled ? scale : 4)}
             y2={x * 100 + 65}
             stroke="grey"
-            strokeWidth={1}
-            strokeDasharray="5,5"
+            strokeWidth={x === 1 ? 2 : 1}
+            strokeDasharray={x === 1 ? '10,10' : '5,5'}
           />
           <rect
             onDoubleClick={e => onDoubleClick(5 - x, e)}
