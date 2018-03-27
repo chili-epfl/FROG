@@ -10,13 +10,13 @@ const http = require('http');
 const RedisPubsub = require('sharedb-redis-pubsub');
 
 const dbUrl =
-  (process.env && process.env.FROG_MONGOURL) || 'mongodb://localhost:27300';
+  (process.env && process.env.FROG_MONGOURL) || 'mongodb://localhost:27017';
 const db = shareDBMongo(dbUrl + '/sharedb');
 
 const server = http.createServer();
 
 console.log(
-  'This requires a Redis server and a MongoDB instance. Default URLs can be changed - Redis: redis://localhost:6379, Mongo: mongodb://localhost:27300. Use environment variables FROG_MONGOURL and FROG_REDISURL to modify default urls.'
+  'This requires a Redis server and a MongoDB instance. Default URLs can be changed - Redis: redis://localhost:6379, Mongo: mongodb://localhost:27017. Use environment variables FROG_MONGOURL and FROG_REDISURL to modify default urls.'
 );
 
 const redisUrl =

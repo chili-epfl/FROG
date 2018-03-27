@@ -26,6 +26,10 @@ class ExportModal extends Component<Object, StateT> {
     this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000')
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ title: nextProps.activity.title });
+  }
+
   render() {
     return (
       <Modal
