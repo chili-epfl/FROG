@@ -8,11 +8,7 @@ import { Mosaic } from 'react-mosaic-component';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-// import Button from 'material-ui/Button';
-// import IconButton from 'material-ui/IconButton';
-// import MenuIcon from 'material-ui-icons/Menu';
 import { withStyles } from 'material-ui/styles';
-
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
 import Runner from './Runner';
@@ -24,20 +20,10 @@ const styles = {
     flexGrow: 1,
     height: '100%',
     width: '100%'
-    // marginTop: theme.spacing.unit * 3,
   },
   toolbar: {
     minHeight: 48,
     height: 48
-  },
-  uber: {
-    overflow: 'hidden',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    fontFamily: 'Roboto',
-    backgroundColor: 'blue'
   },
   text: {
     flex: 1,
@@ -68,62 +54,6 @@ const getInitialState = (activities, d = 1) => {
       };
 };
 
-@withStyles(styles)
-class StudentView extends React.Component<
-  { activities: Object[], session: Object },
-  {}
-> {
-  render() {
-    const { activities, session } = this.props;
-    // console.log('activities',activities, session);
-    if (!activities || activities.length === 0) {
-      return <h1>No Activity right now</h1>;
-    }
-    if (session.state === 'PAUSED') {
-      return <h1>Paused</h1>;
-    }
-    return (
-      <div className={styles.root}>
-        <div className={styles.navbar}>
-          <AppBar position="fixed">
-            <Toolbar className={styles.toolbar}>
-              {/* <IconButton color="contrast" aria-label="Menu"> */}
-              {/* <Typography type="title" color="inherit" style={styles.text}> */}
-              {/* <MenuIcon/> */}
-              {/* </Typography> */}
-              {/* </IconButton> */}
-              <Typography type="subheading" color="inherit">
-                Student View
-              </Typography>
-              {/* <Button color="contrast"> */}
-              {/* <Typography type="button" color="inherit" style={styles.text}> */}
-              {/* ole */}
-              {/* </Typography> */}
-              {/* </Button> */}
-            </Toolbar>
-          </AppBar>
-        </div>
-        <div className={styles.mainContent}>
-          <ActivityContainer activities={activities} sessionId={session._id} />
-        </div>
-      </div>
-    );
-  }
-}
-
-const SessionBody = ({
-  activities,
-  session
-}: {
-  activities: Array<Object>,
-  session: Object
-}) => (
-  <div id="student" style={styles.root}>
-    {session.countdownStartTime && <Countdown session={session} />}
-    <StudentView session={session} activities={activities} />
-  </div>
-);
-
 const ActivityContainer = ({ activities, sessionId }) => {
   if (activities.length === 1) {
     return <Runner activity={activities[0]} sessionId={sessionId} single />;
@@ -143,9 +73,51 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
+const StudentView = props => {
+  const { activities, session, classes } = props;
+
+  if (!activities || activities.length === 0) {
+    return <h1>No Activity right now</h1>;
+  }
+  if (session.state === 'PAUSED') {
+    return <h1>Paused</h1>;
+  }
+  return (
+    <div className={classes.root}>
+      <div className={classes.navbar}>
+        <AppBar>
+          <Toolbar className={classes.toolbar}>
+            <Typography type="subheading" color="inherit">
+              Student View
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <div className={classes.mainContent}>
+        <ActivityContainer activities={activities} sessionId={session._id} />
+      </div>
+    </div>
+  );
+};
+
+const SessionBody = ({
+  activities,
+  session,
+  classes
+}: {
+  activities: Array<Object>,
+  session: Object,
+  classes: Object
+}) => (
+  <div id="student" className={classes.root}>
+    {session.countdownStartTime && <Countdown session={session} />}
+    <StudentView session={session} activities={activities} classes={classes} />
+  </div>
+);
+
 SessionBody.displayName = 'SessionBody';
 
 export default withTracker(() => ({
   session: Sessions.findOne(),
   activities: Activities.find().fetch()
-}))(SessionBody);
+}))(withStyles(styles)(SessionBody));

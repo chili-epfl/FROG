@@ -1,6 +1,17 @@
 // @flow
 
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
+
+const styles = {
+  textInput: {
+    fontSize: '12pt',
+    padding: '20px',
+    borderRadius: '5px',
+    border: '1px solid lightgrey',
+    resize: 'none'
+  }
+};
 
 type TextInputStateT = {
   value: string
@@ -32,7 +43,7 @@ class TextInput extends Component<Object, TextInputStateT> {
         rows="2"
         cols="50"
         type="text"
-        style={this.props.style}
+        className={this.props.classes}
         value={this.state.value}
         onChange={this.handleChange}
         onKeyPress={this.onKeyPress}
@@ -41,4 +52,4 @@ class TextInput extends Component<Object, TextInputStateT> {
   }
 }
 
-export default TextInput;
+export default withStyles(styles)(TextInput);

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { type ActivityRunnerT, uuid } from 'frog-utils';
-
+import { withStyles } from 'material-ui/styles';
 import TextInput from './TextInput';
 
 const styles = {
@@ -18,10 +18,7 @@ const styles = {
   header: {
     flex: '0 0 auto',
     margin: '0',
-    boxShadow: '0 4px 6px 0 hsla(0,0%,0%,0.2)',
     padding: '20px 0',
-    color: 'white',
-    background: 'rgb(71, 118, 230)',
     display: 'flex',
     justifyContent: 'center'
   },
@@ -39,13 +36,6 @@ const styles = {
     listStyle: 'none',
     padding: '0 20px'
   },
-  textInput: {
-    fontSize: '12pt',
-    padding: '20px',
-    borderRadius: '5px',
-    border: '1px solid lightgrey',
-    resize: 'none'
-  },
   msg: {
     margin: '20px 0',
     padding: '15px',
@@ -60,14 +50,14 @@ const styles = {
   }
 };
 
-const Chatmsg = ({ msg }) => (
-  <div style={styles.msg}>
-    <div style={styles.user}>{msg.user}</div>
+const Chatmsg = ({ msg, classes }) => (
+  <div className={classes.msg}>
+    <div className={classes.user}>{msg.user}</div>
     {msg.msg}
   </div>
 );
 
-export default class Chat extends Component<ActivityRunnerT> {
+class ChatController extends Component<ActivityRunnerT> {
   node: any;
 
   scrollToBottom = () => {
@@ -88,18 +78,26 @@ export default class Chat extends Component<ActivityRunnerT> {
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger } = this.props;
+    const {
+      activityData,
+      data,
+      dataFn,
+      userInfo,
+      logger,
+      classes
+    } = this.props;
 
     return (
-      <div style={styles.root}>
-        <h4 style={styles.header}>{activityData.config.title}</h4>
-        <div style={styles.content} ref={node => (this.node = node)}>
-          {data.map(chatmsg => <Chatmsg msg={chatmsg} key={chatmsg.id} />)}
+      <div className={classes.root}>
+        <h4 className={classes.header}>{activityData.config.title}</h4>
+        <div className={classes.content} ref={node => (this.node = node)}>
+          {data.map(chatmsg => (
+            <Chatmsg msg={chatmsg} key={chatmsg.id} classes={classes} />
+          ))}
         </div>
 
-        <div style={styles.inputContainer}>
+        <div className={classes.inputContainer}>
           <TextInput
-            style={styles.textInput}
             callbackFn={e => {
               const id = uuid();
               dataFn.listAppend({ msg: e, user: userInfo.name, id });
@@ -112,3 +110,7 @@ export default class Chat extends Component<ActivityRunnerT> {
     );
   }
 }
+
+const Chat = withStyles(styles)(ChatController);
+
+export default Chat;
