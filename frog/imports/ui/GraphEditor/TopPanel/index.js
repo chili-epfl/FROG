@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Grid from 'material-ui/Grid';
-
-import GraphList from './GraphList';
+import { withStyles } from 'material-ui/styles';
+import GraphMenu from './GraphMenu';
 
 import { UndoButton, ConfigMenu } from './Settings';
 import ExpandButton from '../SidePanel/ExpandButton';
@@ -14,21 +14,26 @@ const styles = {
   }
 };
 
-export default () => (
+const TopPanel = ({ classes }) => (
   <div id="topPanel">
-    <Grid container styles={styles.root} justify="space-between" spacing={24}>
+    <Grid
+      container
+      className={classes.root}
+      justify="space-between"
+      spacing={24}
+    >
       <Grid item>
-        <Grid container styles={styles.root}>
+        <Grid container className={classes.root}>
           <Grid item>
             <ConfigMenu />
           </Grid>
           <Grid item>
-            <GraphList />
+            <GraphMenu />
           </Grid>
         </Grid>
       </Grid>
       <Grid item>
-        <Grid container styles={styles.root}>
+        <Grid container className={classes.root}>
           <Grid item>
             <UndoButton />
           </Grid>
@@ -40,3 +45,5 @@ export default () => (
     </Grid>
   </div>
 );
+
+export default withStyles(styles)(TopPanel);
