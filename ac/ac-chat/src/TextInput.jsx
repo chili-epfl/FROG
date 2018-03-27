@@ -43,7 +43,7 @@ class TextInput extends Component<Object, TextInputStateT> {
         rows="2"
         cols="50"
         type="text"
-        className={this.props.classes}
+        className={this.props.classes.textInput}
         value={this.state.value}
         onChange={this.handleChange}
         onKeyPress={this.onKeyPress}
