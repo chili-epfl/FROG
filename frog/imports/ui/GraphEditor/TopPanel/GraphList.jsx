@@ -153,7 +153,7 @@ class GraphListMenu extends React.Component {
             >
               <IconButton
                 className={classes.button}
-                color={isEditingDuration ? 'accent' : 'primary'}
+                color={isEditingDuration ? 'secondary' : 'primary'}
                 aria-label="Edit"
                 onClick={e => {
                   this.handleGraphDurationSubmit(e);
@@ -223,7 +223,7 @@ class GraphListMenu extends React.Component {
           <Tooltip id="tooltip-top" title="edit graph name" placement="top">
             <IconButton
               className={classes.button}
-              color={isEditingName ? 'accent' : 'primary'}
+              color={isEditingName ? 'secondary' : 'primary'}
               aria-label="Edit"
               onClick={e => {
                 this.handleGraphNameSubmit(e);
