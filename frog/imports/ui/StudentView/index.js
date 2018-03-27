@@ -96,35 +96,7 @@ class StudentViewComp extends React.Component<
     }
     return (
       <React.Fragment>
-        <SessionBody />
-        {Meteor.user() && (
-          <div className="logout">
-            <Logout
-              onClick={() => {
-                Meteor.logout();
-                Accounts._unstoreLoginToken();
-                window.notReady();
-              }}
-            >
-              {Meteor.user().username}
-              <span className="glyphicon glyphicon-log-out" />
-            </Logout>
-          </div>
-        )}
-        {Meteor.user() &&
-          Meteor.user().username === 'teacher' && (
-            <div className="bootstrap">
-              <DashLink>
-                <a
-                  href={`/?login=teacher&token=${(this.props.token &&
-                    this.props.token.value) ||
-                    ''}`}
-                  target="_blank"
-                  className="glyphicon glyphicon-dashboard"
-                />
-              </DashLink>
-            </div>
-          )}
+        <SessionBody token={this.props.token} />
       </React.Fragment>
     );
   }

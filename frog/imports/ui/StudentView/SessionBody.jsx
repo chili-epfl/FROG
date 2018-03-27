@@ -3,10 +3,12 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
+import { Meteor } from 'meteor/meteor';
 // UI
 import { Mosaic } from 'react-mosaic-component';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import { Activities } from '../../api/activities';
@@ -90,6 +92,13 @@ const StudentView = props => {
             <Typography type="subheading" color="inherit">
               Student View
             </Typography>
+            <Button
+              className={classes.button}
+              color="inherit"
+              onClick={() => {}}
+            >
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
