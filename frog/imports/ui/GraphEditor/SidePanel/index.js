@@ -32,18 +32,11 @@ export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
   }
 });
 
-const SidebarContainer = connect(
-  ({ store: { ui: { setSidepanelOpen } }, children }) => (
-    <div className="bootstrap">
-      <SidebarContainerDiv>
-        <CloseButtonA onClick={() => setSidepanelOpen(false)}>
-          <i className="fa fa-times" />
-        </CloseButtonA>
-        {children}
-      </SidebarContainerDiv>
-    </div>
-  )
-);
+const SidebarContainer = connect(({ children }) => (
+  <div className="bootstrap">
+    <SidebarContainerDiv>{children}</SidebarContainerDiv>
+  </div>
+));
 
 const SidebarContainerDiv = styled.div`
   padding: 0px;
@@ -53,10 +46,4 @@ const SidebarContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-`;
-
-const CloseButtonA = styled.a`
-  font-size: 2em;
-  width: fit-content;
-  transform: translateX(470px);
 `;
