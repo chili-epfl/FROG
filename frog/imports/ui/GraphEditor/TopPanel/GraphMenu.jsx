@@ -58,10 +58,10 @@ type DurationPropsT = {
   onDurationChange: Function,
   onDurationSubmit: Function,
   classes: Object
-}
+};
 
 @withStyles(styles)
-class Duration extends React.Component<DurationPropsT,{}> {
+class Duration extends React.Component<DurationPropsT, {}> {
   render() {
     const {
       duration,
@@ -122,10 +122,10 @@ type GraphSubPropsT = {
   onRenameSubmit: Function,
   onMenuChange: Function,
   classes: Object
-}
+};
 
 @withStyles(styles)
-class GraphSubComponent extends React.Component<GraphSubPropsT,{}> {
+class GraphSubComponent extends React.Component<GraphSubPropsT, {}> {
   render() {
     const {
       graphList,
@@ -200,18 +200,17 @@ class GraphSubComponent extends React.Component<GraphSubPropsT,{}> {
 
 type PropsT = {
   graphId: string,
-  classes: Object,
-  graphs: Object
-}
+  graphs: Object,
+  classes: Object
+};
 
 type StateT = {
   isEditingName: boolean,
   isEditingDuration: boolean,
   name: string,
   duration: number
-}
+};
 
-@withStyles(styles)
 class GraphMenu extends React.Component<PropsT, StateT> {
   selectedGraph: Object;
 
@@ -293,9 +292,10 @@ class GraphMenu extends React.Component<PropsT, StateT> {
     );
   }
 }
+const StyledGraphMenu = withStyles(styles)(GraphMenu);
 
 const GraphMenuController = connect(({ store: { graphId }, graphs }) => (
-  <GraphMenu graphId={graphId} graphs={graphs} />
+  <StyledGraphMenu graphId={graphId} graphs={graphs} />
 ));
 
 const toExport = withTracker(props => ({
