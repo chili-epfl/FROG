@@ -14,7 +14,11 @@ import { DashboardComp } from '../TeacherView/Dashboard';
 const backend = new ShareDB();
 const connection = backend.connect();
 
-type PropsT = { activityType: ActivityPackageT, example: number };
+type PropsT = {
+  activityType: ActivityPackageT,
+  example: number,
+  showLogs?: boolean
+};
 
 class ShowDashExample extends React.Component<
   PropsT,
