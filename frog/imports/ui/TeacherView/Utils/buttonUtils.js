@@ -13,14 +13,7 @@ import Button from 'material-ui/Button';
 import Tooltip from 'material-ui/Tooltip';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
-import {
-  removeSession,
-  updateSessionState,
-  sessionStartCountDown,
-  sessionCancelCountDown,
-  sessionChangeCountDown,
-  restartSession
-} from '../../../api/sessions';
+import { updateSessionState, restartSession } from '../../../api/sessions';
 import downloadLog from './downloadLog';
 import { runSession, nextActivity } from '../../../api/engine';
 import { exportSession } from './exportComponent';

@@ -7,33 +7,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
-import styled from 'styled-components';
 
 import { Sessions } from '/imports/api/sessions';
 import { GlobalSettings } from '/imports/api/globalSettings';
 import SessionBody from './SessionBody';
 
 const once = { already: false };
-
-const DashLink = styled.div`
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  font-size: 3em;
-  color: black !important;
-  cursor: pointer;
-`;
-
-const Logout = styled.div`
-  && {
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    font-size: 2em;
-    color: black !important;
-    cursor: pointer;
-  }
-`;
 
 type StudentViewCompPropsT = {
   match: Object,

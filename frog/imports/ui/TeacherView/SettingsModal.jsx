@@ -39,11 +39,6 @@ const updateSession = (settings, session) => {
   }
 };
 
-type PropsT = {
-  dismiss: Function,
-  session: Object
-};
-
 const Transition = props => <Slide direction="up" {...props} />;
 
 class SettingsModal extends React.Component {
