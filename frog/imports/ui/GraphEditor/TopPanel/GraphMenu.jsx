@@ -7,7 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import ModeEdit from 'material-ui-icons/ModeEdit';
 import TextField from 'material-ui/TextField';
-import Input, { InputAdornment } from 'material-ui/Input';
+import { InputAdornment } from 'material-ui/Input';
 import Tooltip from 'material-ui/Tooltip';
 
 import { ValidButton } from '../Validator';
@@ -36,9 +36,7 @@ const styles = theme => ({
     width: 200
   },
   spacer: {
-    backgroundColor: 'gray',
-    width: 50,
-    height: 1
+    width: 50
   },
   validButton: {
     backgroundColor: 'gray',
@@ -60,59 +58,49 @@ type DurationPropsT = {
   classes: Object
 };
 
-@withStyles(styles)
-class Duration extends React.Component<DurationPropsT, {}> {
-  render() {
-    const {
-      duration,
-      editState,
-      onDurationChange,
-      onDurationSubmit,
-      classes
-    } = this.props;
-    return (
-      <form
-        onSubmit={onDurationSubmit}
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-      >
-        <div className={classes.root}>
-          <div className={classes.basic}>
-            <Input
-              autoFocus
-              id="adornment-duration"
-              className={classes.durationTextField}
-              value={duration}
-              onChange={onDurationChange}
-              disabled={!editState}
-              endAdornment={<InputAdornment position="end">min</InputAdornment>}
-            />
-          </div>
+const Duration = ({
+  duration,
+  editState,
+  onDurationChange,
+  onDurationSubmit,
+  classes
+}: DurationPropsT) => (
+  <form
+    onSubmit={onDurationSubmit}
+    className={classes.root}
+    noValidate
+    autoComplete="off"
+  >
+    <div className={classes.root}>
+      <div className={classes.basic}>
+        <TextField
+          autoFocus
+          className={classes.durationTextField}
+          value={duration}
+          onChange={onDurationChange}
+          disabled={!editState}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">min</InputAdornment>
+          }}
+        />
+      </div>
+      <div className={classes.basic}>
+        <Tooltip id="tooltip-top" title="edit graph duration" placement="top">
+          <IconButton
+            className={classes.button}
+            color={editState ? 'secondary' : 'primary'}
+            aria-label="Edit"
+            onClick={e => onDurationSubmit(e)}
+          >
+            <ModeEdit />
+          </IconButton>
+        </Tooltip>
+      </div>
+    </div>
+  </form>
+);
 
-          <div className={classes.basic}>
-            <Tooltip
-              id="tooltip-top"
-              title="edit graph duration"
-              placement="top"
-            >
-              <IconButton
-                className={classes.button}
-                color={editState ? 'secondary' : 'primary'}
-                aria-label="Edit"
-                onClick={e => onDurationSubmit(e)}
-              >
-                <ModeEdit />
-              </IconButton>
-            </Tooltip>
-
-            <ValidButton />
-          </div>
-        </div>
-      </form>
-    );
-  }
-}
+const StyledDuration = withStyles(styles)(Duration);
 
 type GraphSubPropsT = {
   graphList: Object[],
@@ -124,79 +112,74 @@ type GraphSubPropsT = {
   classes: Object
 };
 
-@withStyles(styles)
-class GraphSubComponent extends React.Component<GraphSubPropsT, {}> {
-  render() {
-    const {
-      graphList,
-      name,
-      editState,
-      onRename,
-      onRenameSubmit,
-      onMenuChange,
-      classes
-    } = this.props;
+const GraphSubComponent = ({
+  graphList,
+  name,
+  editState,
+  onRename,
+  onRenameSubmit,
+  onMenuChange,
+  classes
+}: GraphSubPropsT) => (
+  <form
+    onSubmit={onRenameSubmit}
+    className={classes.root}
+    noValidate
+    autoComplete="off"
+  >
+    {editState ? (
+      <div className={classes.basic}>
+        <TextField
+          autoFocus
+          id="edit-graph"
+          className={classes.textField}
+          value={name}
+          onChange={onRename}
+        />
+      </div>
+    ) : (
+      <div className={classes.basic}>
+        <TextField
+          id="select-graph"
+          select
+          value={name}
+          className={classes.textField}
+          onChange={onMenuChange}
+          SelectProps={{
+            native: true,
+            MenuProps: {
+              className: classes.menu
+            }
+          }}
+        >
+          {graphList.length ? (
+            graphList.map(g => (
+              <option key={g._id} data-key={g._id} value={g.name}>
+                {g.name}
+              </option>
+            ))
+          ) : (
+            <option>No graph</option>
+          )}
+        </TextField>
+      </div>
+    )}
+    <div className={classes.basic}>
+      <Tooltip id="tooltip-top" title="edit graph name" placement="top">
+        <IconButton
+          className={classes.button}
+          color={editState ? 'secondary' : 'primary'}
+          aria-label="Edit"
+          onClick={e => onRenameSubmit(e)}
+        >
+          <ModeEdit />
+        </IconButton>
+      </Tooltip>
+    </div>
+  </form>
+);
 
-    return (
-      <form
-        onSubmit={onRenameSubmit}
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-      >
-        {editState ? (
-          <div className={classes.basic}>
-            <TextField
-              autoFocus
-              id="edit-graph"
-              className={classes.textField}
-              value={name}
-              onChange={onRename}
-            />
-          </div>
-        ) : (
-          <div className={classes.basic}>
-            <TextField
-              id="select-graph"
-              select
-              value={name}
-              className={classes.textField}
-              onChange={onMenuChange}
-              SelectProps={{
-                native: true,
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-            >
-              {graphList.length ? (
-                graphList.map(g => (
-                  <option key={g._id} data-key={g._id} value={g.name}>
-                    {g.name}
-                  </option>
-                ))
-              ) : (
-                <option>No graph</option>
-              )}
-            </TextField>
-          </div>
-        )}
-        <div className={classes.basic}>
-          <Tooltip id="tooltip-top" title="edit graph name" placement="top">
-            <IconButton
-              className={classes.button}
-              color={editState ? 'secondary' : 'primary'}
-              aria-label="Edit"
-              onClick={e => onRenameSubmit(e)}
-            >
-              <ModeEdit />
-            </IconButton>
-          </Tooltip>
-        </div>
-      </form>
-    );
-  }
-}
+const StyledGraphSubComponent = withStyles(styles)(GraphSubComponent);
 
 type PropsT = {
   graphId: string,
@@ -273,7 +256,7 @@ class GraphMenu extends React.Component<PropsT, StateT> {
 
     return (
       <div className={classes.root}>
-        <GraphSubComponent
+        <StyledGraphSubComponent
           name={this.state.name}
           editState={this.state.isEditingName}
           graphList={graphs}
@@ -282,12 +265,14 @@ class GraphMenu extends React.Component<PropsT, StateT> {
           onMenuChange={this.handleMenuChange}
         />
         <div className={classes.spacer} />
-        <Duration
+        <StyledDuration
           duration={this.state.duration}
           editState={this.state.isEditingDuration}
           onDurationChange={this.handleDurationChange}
           onDurationSubmit={this.handleDurationSubmit}
         />
+        <div className={classes.spacer} />
+        <ValidButton />
       </div>
     );
   }

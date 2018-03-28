@@ -795,12 +795,7 @@ declare module 'material-ui/Icon' {
 }
 
 declare module 'material-ui/IconButton/IconButton' {
-  declare type Color =
-    | 'default'
-    | 'inherit'
-    | 'primary'
-    | 'contrast'
-    | 'accent';
+  declare type Color = 'default' | 'inherit' | 'primary' | 'secondary';
 
   declare module.exports: React$ComponentType<{
     buttonRef?: Function,
