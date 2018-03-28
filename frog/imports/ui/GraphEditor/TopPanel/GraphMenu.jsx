@@ -1,7 +1,8 @@
+// @flow
+
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { compose } from 'recompose';
-// UI
+
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import ModeEdit from 'material-ui-icons/ModeEdit';
@@ -51,8 +52,16 @@ const styles = theme => ({
   }
 });
 
+type DurationPropsT = {
+  duration: number,
+  editState: boolean,
+  onDurationChange: Function,
+  onDurationSubmit: Function,
+  classes: Object
+}
+
 @withStyles(styles)
-class Duration extends React.Component {
+class Duration extends React.Component<DurationPropsT,{}> {
   render() {
     const {
       duration,
@@ -105,8 +114,18 @@ class Duration extends React.Component {
   }
 }
 
+type GraphSubPropsT = {
+  graphList: Object[],
+  name: string,
+  editState: boolean,
+  onRename: Function,
+  onRenameSubmit: Function,
+  onMenuChange: Function,
+  classes: Object
+}
+
 @withStyles(styles)
-class GraphSubComponent extends React.Component {
+class GraphSubComponent extends React.Component<GraphSubPropsT,{}> {
   render() {
     const {
       graphList,
@@ -179,8 +198,23 @@ class GraphSubComponent extends React.Component {
   }
 }
 
+type PropsT = {
+  graphId: string,
+  classes: Object,
+  graphs: Object
+}
+
+type StateT = {
+  isEditingName: boolean,
+  isEditingDuration: boolean,
+  name: string,
+  duration: number
+}
+
 @withStyles(styles)
-class GraphMenu extends React.Component {
+class GraphMenu extends React.Component<PropsT, StateT> {
+  selectedGraph: Object;
+
   constructor(props) {
     super(props);
     this.selectedGraph = Graphs.findOne({ _id: this.props.graphId });
