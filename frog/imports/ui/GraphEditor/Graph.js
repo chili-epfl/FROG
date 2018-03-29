@@ -74,6 +74,15 @@ const Graph = connect(
         <rect
           x={0}
           y={0}
+          fill="#cccccc"
+          rx={10}
+          width={scaled ? graphWidth * scale : graphWidth * 4}
+          height={200}
+          onClick={canvasClick}
+        />
+        <rect
+          x={200}
+          y={0}
           fill="#fcf9e9"
           stroke="transparent"
           rx={10}
