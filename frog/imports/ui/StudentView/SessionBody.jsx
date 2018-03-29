@@ -5,12 +5,15 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mosaic } from 'react-mosaic-component';
+import { Accounts } from 'meteor/accounts-base';
+
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import { Accounts } from 'meteor/accounts-base';
+import { getInitialState } from 'frog-utils';
 
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
@@ -45,31 +48,22 @@ const styles = {
   }
 };
 
-const getInitialState = (activities, d = 1) => {
-  const n = Math.floor(activities.length / 2);
-  return n === 0
-    ? activities[0]._id
-    : {
-        direction: d > 0 ? 'row' : 'column',
-        first: getInitialState(activities.slice(0, n), -d),
-        second: getInitialState(activities.slice(n, activities.length), -d)
-      };
-};
-
 const ActivityContainer = ({ activities, sessionId }) => {
   if (activities.length === 1) {
     return <Runner activity={activities[0]} sessionId={sessionId} single />;
   } else {
     return (
       <Mosaic
-        renderTile={(activityid, path) => (
+        renderTile={(activityId, path) => (
           <Runner
-            activity={activities.find(x => x._id === activityid)}
+            activity={activities.find(x => x._id === activityId)}
             path={path}
             sessionId={sessionId}
           />
         )}
-        initialValue={getInitialState(sortBy(activities, 'activityType'))}
+        initialValue={getInitialState(
+          sortBy(activities.map(x => x._id), 'activityType')
+        )}
       />
     );
   }

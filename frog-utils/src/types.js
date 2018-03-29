@@ -130,7 +130,7 @@ export type ActivityPackageT = {
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: React$Component<ActivityRunnerT>,
-  dashboard?: dashboardT,
+  dashboard?: { [name: string]: dashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
   ConfigComponent?: React$Component<{
