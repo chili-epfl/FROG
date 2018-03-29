@@ -4,25 +4,16 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
-import { withState } from 'recompose';
-import { Nav, NavItem } from 'react-bootstrap';
-import styled from 'styled-components';
 
-import { type ActivityDbT, type dashboardViewerPropsT } from 'frog-utils';
+import { type ActivityDbT } from 'frog-utils';
 
-import { ErrorBoundary } from '../App/ErrorBoundary';
 import doGetInstances from '../../api/doGetInstances';
-import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
 import { Objects } from '../../api/objects';
 import { dashDocId } from '../../api/logs';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from '../App/connection';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import DashMultiWrapper from './DashMultiWrapper';
 
 type DashboardCompPropsT = {
   doc?: any,
@@ -114,34 +105,6 @@ export class DashboardComp extends React.Component<
   }
 }
 
-export const DashMultiWrapper = withState('which', 'setWhich', null)(
-  (props: dashboardViewerPropsT) => {
-    const { which, setWhich, activity, docs, names } = props;
-    const aT = activityTypesObj[activity.activityType];
-    const dashNames = names || Object.keys(aT.dashboard);
-    const defaultWhich = dashNames.includes(which) ? which : dashNames[0];
-    const [doc] = (docs && docs[defaultWhich]) || [];
-    return (
-      <div>
-        {dashNames.length > 1 && (
-          <Nav
-            bsStyle="pills"
-            activeKey={defaultWhich}
-            onSelect={w => setWhich(w)}
-          >
-            {dashNames.map(name => (
-              <NavItem eventKey={name} key={name} href="#">
-                {name}
-              </NavItem>
-            ))}
-          </Nav>
-        )}
-        <DashboardComp {...props} name={defaultWhich} doc={doc} />
-      </div>
-    );
-  }
-);
-
 // This reactive wrapper works only when logged in as the teacher
 export const DashboardReactiveWrapper = withTracker(props => {
   const { activity, sessionId } = props;
@@ -196,53 +159,3 @@ export class DashboardSubscriptionWrapper extends React.Component<
     );
   }
 }
-
-const DashboardNav = withState('activityId', 'setActivity', null)(props => {
-  const { activityId, setActivity, session, activities } = props;
-  const { openActivities } = session;
-  const acWithDash = activities.filter(ac => {
-    const dash = activityTypesObj[ac.activityType].dashboard;
-    return !!dash;
-  });
-  const openAcWithDashIds = acWithDash
-    .map(x => x._id)
-    .filter(aid => openActivities && openActivities.includes(aid));
-  const aId = activityId || openAcWithDashIds.find(() => true);
-  const activityToDash = activities.find(a => a._id === aId);
-  return (
-    <div>
-      <h1>Dashboards</h1>
-      <Container>
-        <Nav
-          bsStyle="pills"
-          stacked
-          activeKey={aId}
-          onSelect={a => setActivity(a)}
-          style={{ width: '150px' }}
-        >
-          {acWithDash.map(a => (
-            <NavItem eventKey={a._id} key={a._id} href="#">
-              {a.title}
-              {session.openActivities.includes(a._id) ? ' (open)' : ''}
-            </NavItem>
-          ))}
-        </Nav>
-        {activityToDash && (
-          <ErrorBoundary msg="Dashboard crashed, try reloading">
-            <DashboardReactiveWrapper
-              sessionId={session._id}
-              activity={activityToDash}
-            />
-          </ErrorBoundary>
-        )}
-      </Container>
-    </div>
-  );
-});
-
-export default withTracker(({ session }) => ({
-  activities: Activities.find({
-    graphId: session.graphId,
-    actualStartingTime: { $exists: true }
-  }).fetch()
-}))(DashboardNav);

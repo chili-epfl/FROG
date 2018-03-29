@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 import GraphView from './GraphView';
-import Dashboards from './Dashboard';
+import DashboardNav from './DashboardNav';
 import SessionUtils from './SessionUtils';
 import SessionInfo from './SessionInfo';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
@@ -35,7 +35,7 @@ const OrchestrationViewController = ({
           </Grid>
           {visible ? (
             // when the graph is turned off
-            <Dashboards
+            <DashboardNav
               session={session}
               openActivities={session.openActivities}
             />

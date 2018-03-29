@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
 
-import { DashMultiWrapper } from '../TeacherView/Dashboard';
+import DashMultiWrapper from '../TeacherView/DashMultiWrapper';
 import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
