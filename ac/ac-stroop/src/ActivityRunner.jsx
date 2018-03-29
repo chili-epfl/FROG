@@ -364,14 +364,22 @@ const Question = props => {
 };
 
 const Main = withState('question', 'setQuestion', null)(props => {
-  const { activityData, question, setQuestion, data, dataFn } = props;
+  const { activityData, question, setQuestion, data, dataFn, logger } = props;
   const { maxQuestions, delay } = activityData.config;
   const lang = data.language;
   const { name } = props.userInfo;
   if (!lang) {
     return <Form onSubmit={l => dataFn.objInsert(l, 'language')} name={name} />;
   } else if (question === null) {
-    const start = () => setQuestion('waiting');
+    const start = () => {
+      setQuestion('waiting');
+      logger([
+        {
+          type: 'progress',
+          value: data.progress / activityData.config.questions.length
+        }
+      ]);
+    };
     const { guidelines } = activityData.config[lang];
     return <Guidelines start={start} guidelines={guidelines} lang={lang} />;
   } else if (question === 'waiting') {

@@ -39,7 +39,9 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
 const initData = {};
 
 export default {
-  Viewer,
-  mergeLog,
-  initData
+  wordcloud: {
+    Viewer,
+    mergeLog,
+    initData
+  }
 };

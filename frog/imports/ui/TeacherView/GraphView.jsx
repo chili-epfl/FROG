@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Provider } from 'mobx-react';
 import { withRouter } from 'react-router';
@@ -15,7 +15,7 @@ type GraphViewPropsT = {
   history: Object
 };
 
-class GraphView extends Component<GraphViewPropsT> {
+class GraphView extends React.Component<GraphViewPropsT, {}> {
   initStore = (session: any) => {
     store.setBrowserHistory(this.props.history, '/teacher');
     store.setId(session.graphId, true);
@@ -41,12 +41,22 @@ class GraphView extends Component<GraphViewPropsT> {
   }
 
   render() {
+    const styles = {
+      sheet: {
+        padding: 0,
+        maxHeight: '100%',
+        overflow: 'auto'
+      }
+    };
+
     return (
       <Provider store={store}>
-        <GraphViewContainer>
-          <ShowInfo />
-          <Graph scaled hasTimescale isSession />
-        </GraphViewContainer>
+        <div style={styles.sheet}>
+          <GraphViewContainer>
+            <ShowInfo />
+            <Graph scaled hasTimescale isSession />
+          </GraphViewContainer>
+        </div>
       </Provider>
     );
   }
@@ -54,7 +64,9 @@ class GraphView extends Component<GraphViewPropsT> {
 
 const GraphViewContainer = styled.div`
   height: 400px;
-  width: 700px;
+  width: 99%;
+  text-align: center;
+  border: 1px solid black;
 `;
 
 GraphView.displayName = 'GraphView';

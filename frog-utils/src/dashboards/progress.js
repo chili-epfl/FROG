@@ -52,7 +52,7 @@ const LineChart = ({
 const TIMEWINDOW = 5;
 
 const Viewer = TimedComponent((props: Object) => {
-  const { data, instances, activity, timeNow } = props;
+  const { data, activity, timeNow } = props;
 
   const numWindow =
     activity.actualClosingTime === undefined
@@ -68,7 +68,7 @@ const Viewer = TimedComponent((props: Object) => {
             TIMEWINDOW
         );
   const timingData = [[0, 0, 0]];
-  const factor = 100 / Math.max(Object.keys(instances).length, 1);
+  const factor = 100 / Math.max(Object.keys(data.progress).length, 1);
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
     while (
       data.timing.length > j + 1 &&
@@ -160,8 +160,38 @@ const initData = {
   timing: [[0, 0, 0]]
 };
 
+const activityMerge = {
+  actualStartingTime: '2018-02-20T08:16:05.308Z',
+  actualClosingTime: '2018-02-20T08:19:45.140Z'
+};
+
+const exampleLogs = [
+  {
+    title: 'CS211 week 1',
+    path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1.json',
+    activityMerge,
+    instances: 118
+  },
+  {
+    title: 'CS211 week 1 (n=400)',
+    path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1-short.json',
+    activityMerge,
+    instances: 118
+  },
+  {
+    title: 'CS211 week 2',
+    path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w2-2018.json',
+    activityMerge: {
+      actualStartingTime: '2018-03-13T07:28:02.833Z',
+      actualClosingTime: '2018-03-13T07:34:42.700Z'
+    },
+    instances: 81
+  }
+];
+
 export default {
   Viewer,
   mergeLog,
-  initData
+  initData,
+  exampleLogs
 };

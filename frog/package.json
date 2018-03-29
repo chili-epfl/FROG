@@ -45,10 +45,19 @@
     "jszip": "^3.1.5",
     "lodash": "^4.17.5",
     "longjohn": "^0.2.12",
+<<<<<<< HEAD
     "meteor-node-stubs": "^0.3.3",
     "minio": "^4.0.0",
     "mobx": "^4.1.0",
     "mobx-react": "^5.0.0",
+=======
+    "material-ui": "^1.0.0-beta.37",
+    "material-ui-icons": "^1.0.0-beta.36",
+    "meteor-node-stubs": "^0.3.2",
+    "minio": "^3.2.3",
+    "mobx": "^3.5.1",
+    "mobx-react": "^4.4.1",
+>>>>>>> develop
     "mobx-react-devtools": "^4.2.11",
     "moment": "^2.21.0",
     "mousetrap": "^1.6.0",
@@ -98,6 +107,9 @@
     "unzipper": "^0.8.11",
     "utf-8-validate": "^4.0.0",
     "websocket-json-stream": "0.0.3",
+    "ac-dual": "1.0.0",
+    "ac-timedQuiz": "1.0.0",
+    "op-xy-distance": "1.0.0",
     "ws": "^5.0.0"
   },
   "devDependencies": {

@@ -13,6 +13,7 @@ import { Sessions } from '/imports/api/sessions';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
+import { dashDocId } from '../imports/api/logs';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
@@ -159,22 +160,30 @@ Picker.route(
       const aT = activityTypesObj[activityTypeId];
       Promise.await(
         new Promise(resolve => {
-          const doc = serverConnection.get('rz', 'DASHBOARD//' + dashboardId);
-          doc.fetch();
-          if (doc.type) {
-            resolve();
-          }
-          doc.once(
-            'load',
-            Meteor.bindEnvironment(() => {
+          if (aT.dashboard) {
+            Object.keys(aT.dashboard).forEach(name => {
+              const dash = aT.dashboard[name];
+              const doc = serverConnection.get(
+                'rz',
+                dashDocId(dashboardId, name)
+              );
+              doc.fetch();
               if (doc.type) {
                 resolve();
-              } else {
-                doc.create((aT.dashboard && aT.dashboard.initData) || {});
-                resolve();
               }
-            })
-          );
+              doc.once(
+                'load',
+                Meteor.bindEnvironment(() => {
+                  if (doc.type) {
+                    resolve();
+                  } else {
+                    doc.create((dash && dash.initData) || {});
+                    resolve();
+                  }
+                })
+              );
+            });
+          }
         })
       );
     }

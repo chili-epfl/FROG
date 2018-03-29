@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
 
-import { DashboardComp } from '../TeacherView/Dashboard';
+import { DashMultiWrapper } from '../TeacherView/Dashboard';
 import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
@@ -9,7 +9,7 @@ import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 export default ({ data }) => {
   if (data.callType === 'dashboard') {
     return (
-      <DashboardComp
+      <DashMultiWrapper
         activity={{
           _id: data.activityType + '-' + data.activity_id,
           activityType: data.activityType
@@ -32,6 +32,7 @@ export default ({ data }) => {
       <ApiForm
         activityType={data.activityType}
         config={data.config}
+        hidePreview
         hideValidator={data.hideValidator}
       />
     );

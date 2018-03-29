@@ -1,9 +1,10 @@
 // @flow
+
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { cloneDeep, uniqBy, range } from 'lodash';
 import Stringify from 'json-stable-stringify';
-import { type LogDBT, A, generateReactiveFn, uuid } from 'frog-utils';
+import { generateReactiveFn, uuid, getInitialState } from 'frog-utils';
 import Modal from 'react-modal';
 import { Nav, NavItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
@@ -14,48 +15,26 @@ import Draggable from 'react-draggable';
 
 import { activityTypesObj } from '../../activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
-import { DashboardComp } from '../TeacherView/Dashboard';
 import ShowInfo from './ShowInfo';
-import createLogger, { Logs } from './createLogger';
+import {
+  createLogger,
+  Logs,
+  initDocuments,
+  DashPreviewWrapper,
+  hasDashExample
+} from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import ShowDashExample from './ShowDashExample';
-
-const Icon = ({
-  onClick,
-  icon,
-  color,
-  tooltip
-}: {
-  onClick: Function,
-  icon: string,
-  color?: string,
-  tooltip?: string
-}) => (
-  <span style={{ marginLeft: '10px' }}>
-    <A onClick={onClick}>
-      <i className={icon} style={{ color }} data-tip={tooltip} />
-    </A>
-  </span>
-);
-
-const getInitialState = (activities, d = 1) => {
-  const n = Math.floor(activities.length / 2);
-  return n === 0
-    ? activities[0]
-    : {
-        direction: d > 0 ? 'row' : 'column',
-        first: getInitialState(activities.slice(0, n), -d),
-        second: getInitialState(activities.slice(n, activities.length), -d)
-      };
-};
+import Icon from './Icon';
 
 const backend = new ShareDB();
-const connection = backend.connect();
+export const connection = backend.connect();
 const Collections = {};
 
 export const StatelessPreview = withState('reload', 'setReload', '')(
   ({
     activityTypeId,
+    noModal,
     example,
     setExample,
     showData,
@@ -74,7 +53,10 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     setFullWindow,
     reload,
     showDashExample,
-    setShowDashExample
+    setShowDashExample,
+    externalReload = '',
+    allExamples,
+    onExample
   }: {
     activityTypeId: string,
     example: number,
@@ -91,18 +73,22 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     config?: Object,
     isSeparatePage: boolean,
     setReload: string => void,
+    externalReload: string,
     windows: number,
     setWindows: number => void,
     fullWindow: boolean,
     setFullWindow: boolean => void,
-    reload: string
+    reload: string,
+    noModal?: boolean,
+    allExamples?: boolean,
+    onExample?: Function
   }) => {
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activityType.id;
 
     const examples =
-      (config
+      (config && !allExamples
         ? uniqBy(activityType.meta.exampleData, x => Stringify(x.data))
         : activityType.meta.exampleData) || {};
 
@@ -110,47 +96,6 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
     if (config) {
       activityData.config = config;
     }
-
-    const dashcoll = `demo-${activityType.id}-${example}-DASHBOARD`;
-    if (!Collections[dashcoll]) {
-      Collections[dashcoll] = uuid();
-    }
-
-    const dashboard = connection.get('rz', Collections[dashcoll]);
-    dashboard.fetch();
-    if (!dashboard.type) {
-      dashboard.once('load', () => {
-        if (!dashboard.type) {
-          dashboard.create(
-            (activityType.dashboard && activityType.dashboard.initData) || {}
-          );
-        }
-      });
-    }
-
-    const reactiveDash = generateReactiveFn(dashboard);
-
-    const activityDbObject = {
-      _id: 'preview',
-      data: activityData.config,
-      groupingKey: 'group',
-      plane: 2,
-      startTime: 0,
-      actualStartingTime: new Date(Date.now()),
-      length: 3,
-      activityType: activityTypeId
-    };
-
-    const mergeData = (log: LogDBT) => {
-      if (activityType.dashboard && activityType.dashboard.mergeLog) {
-        activityType.dashboard.mergeLog(
-          cloneDeep(dashboard.data),
-          reactiveDash,
-          log,
-          activityDbObject
-        );
-      }
-    };
 
     range(0, Math.ceil(windows / 2)).forEach(i => {
       const coll = `demo-${activityType.id}-${example}-${i + 1}`;
@@ -206,7 +151,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
             'preview',
             '' + id,
             2,
-            mergeData
+            activityData.config
           )}
           groupingValue={'' + Math.ceil(id / 2)}
         />
@@ -215,7 +160,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
 
     const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
     const Controls = (
-      <div className="modal-header">
+      <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
         <button
           type="button"
           className="close"
@@ -239,15 +184,14 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
               tooltip="Toggle dashboard"
             />
           )}
-          {activityType.dashboard &&
-            activityType.dashboard.exampleLogs && (
-              <Icon
-                onClick={() => setShowDashExample(!showDashExample)}
-                icon="fa fa-line-chart"
-                color={showDashExample ? '#3d76b8' : '#b3cae6'}
-                tooltip="Toggle example logs dashboard"
-              />
-            )}
+          {hasDashExample(activityType) && (
+            <Icon
+              onClick={() => setShowDashExample(!showDashExample)}
+              icon="fa fa-line-chart"
+              color={showDashExample ? '#3d76b8' : '#b3cae6'}
+              tooltip="Toggle example logs dashboard"
+            />
+          )}
           <Icon
             onClick={() => setShowLogs(!showLogs)}
             icon="fa fa-list"
@@ -268,6 +212,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
 
               Logs.length = 0;
               setReload(uuid());
+              // resets the reactive documents for the dashboard
+              initDocuments(activityType, true);
             }}
             icon="fa fa-refresh"
             tooltip="Reset reactive data"
@@ -303,7 +249,12 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                 key={x.title}
                 className="examples"
                 eventKey={i}
-                onClick={() => setExample(i)}
+                onClick={() => {
+                  if (onExample) {
+                    onExample(i);
+                  }
+                  setExample(i);
+                }}
               >
                 {x.title}
               </NavItem>
@@ -351,12 +302,8 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                   title={'dashboard - ' + activityType.meta.name}
                   path={path}
                 >
-                  <DashboardComp
-                    example={example}
-                    activity={activityDbObject}
+                  <DashPreviewWrapper
                     config={activityData.config}
-                    reload={reload}
-                    doc={dashboard}
                     instances={users
                       .filter((_, i) => i % 2 !== 0)
                       .map((_, i) => i + 1)}
@@ -366,12 +313,13 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                         (acc, name, i) => ({ ...acc, [i + 1]: name }),
                         {}
                       )}
+                    activityType={activityType}
                   />
                 </MosaicWindow>
               ) : (
                 <MosaicWindow
                   path={path}
-                  reload={reload}
+                  reload={reload + externalReload}
                   example={example}
                   title={
                     x + '/' + Math.ceil(id / 2) + ' - ' + activityType.meta.name
@@ -417,6 +365,12 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
         </Draggable>
         <ReactTooltip delayShow={1000} />
       </div>
+    ) : noModal ? (
+      <React.Fragment>
+        {Controls}
+        {showLogs && !showDashExample ? <ShowLogs logs={Logs} /> : Content}
+        <ReactTooltip delayShow={1000} />
+      </React.Fragment>
     ) : (
       <Modal
         ariaHideApp={false}

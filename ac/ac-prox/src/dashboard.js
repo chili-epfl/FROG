@@ -52,7 +52,9 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
 const initData = {};
 
 export default {
-  Viewer,
-  mergeLog,
-  initData
+  dashboard: {
+    Viewer,
+    mergeLog,
+    initData
+  }
 };

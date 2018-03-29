@@ -157,7 +157,9 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
 const initData = { logs: [], tests: {}, students: {} };
 
 export default {
-  Viewer,
-  mergeLog,
-  initData
+  dashboard: {
+    Viewer,
+    mergeLog,
+    initData
+  }
 };

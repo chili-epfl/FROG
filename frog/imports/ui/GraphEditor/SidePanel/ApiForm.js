@@ -10,18 +10,25 @@ import validateConfig from '/imports/api/validateConfig';
 import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
 import ConfigForm from './ConfigForm';
 import { ChooseActivityType } from './ActivityPanel/ChooseActivity';
+import Store from '../store/store';
+
+const store = new Store();
+
+type ConfigPropsT = {
+  config: Object,
+  activity: ActivityDbT,
+  onConfigChange?: Function,
+  setValid: Function,
+  reload?: string
+};
 
 class Config extends React.Component<
-  { config: Object, activity: ActivityDbT, setValid: Function },
+  ConfigPropsT,
   { formData: Object, valid: any[] }
 > {
   aT: any;
 
-  constructor(props: {
-    activity: ActivityDbT,
-    setValid: Function,
-    config: Object
-  }) {
+  constructor(props: ConfigPropsT) {
     super(props);
     this.state = {
       formData: this.props.config,
@@ -45,16 +52,24 @@ class Config extends React.Component<
       this.aT.configUI
     );
     this.props.setValid(valid);
-    window.parent.postMessage(
-      {
-        type: 'frog-config',
+    if (this.props.onConfigChange) {
+      this.props.onConfigChange({
         activityType: this.aT.id,
         config: formData,
-        errors: valid,
-        valid: valid.length === 0
-      },
-      '*'
-    );
+        errors: valid
+      });
+    } else {
+      window.parent.postMessage(
+        {
+          type: 'frog-config',
+          activityType: this.aT.id,
+          config: formData,
+          errors: valid,
+          valid: valid.length === 0
+        },
+        '*'
+      );
+    }
   };
 
   render() {
@@ -68,6 +83,8 @@ class Config extends React.Component<
         <div>
           <ConfigForm
             node={this.props.activity}
+            data={this.props.config}
+            reload={this.props.reload}
             onChange={e => {
               this.setState({ formData: e.formData });
               this.check();
@@ -85,7 +102,12 @@ class Config extends React.Component<
 type PropsT = {
   activityType?: string,
   config?: Object,
-  hideValidator?: boolean
+  hideValidator?: boolean,
+  onSelect?: Function,
+  onPreview?: Function,
+  onConfigChange?: Function,
+  hidePreview?: boolean,
+  reload?: string
 };
 
 class State {
@@ -113,7 +135,7 @@ const ApiForm = observer(
     PropsT,
     {
       activity: {
-        id: string,
+        _id: string,
         activityType?: string,
         data?: Object
       }
@@ -123,12 +145,27 @@ const ApiForm = observer(
       super(props);
       this.state = {
         activity: {
-          id: '1',
+          _id: '1',
           activityType: this.props.activityType,
           data: this.props.config
         }
       };
     }
+
+    componentWillReceiveProps = nextprops => {
+      if (
+        this.props.activityType !== nextprops.activityType ||
+        this.props.config !== nextprops.config
+      ) {
+        this.setState({
+          activity: {
+            _id: '1',
+            activityType: nextprops.activityType,
+            data: nextprops.config
+          }
+        });
+      }
+    };
 
     render() {
       return (
@@ -137,9 +174,11 @@ const ApiForm = observer(
             <div>
               <div style={{ position: 'absolute', top: '10px' }}>
                 <Config
+                  onConfigChange={this.props.onConfigChange}
                   activity={this.state.activity}
                   setValid={state.setValid}
-                  config={{}}
+                  reload={this.props.reload}
+                  config={this.props.config || {}}
                 />
               </div>
               {!this.props.hideValidator && (
@@ -151,13 +190,18 @@ const ApiForm = observer(
           ) : (
             <div style={{ position: 'absolute', top: '30px' }}>
               <ChooseActivityType
+                store={store}
                 activity={this.state.activity}
-                hidePreview
-                onSelect={e =>
+                hidePreview={this.props.hidePreview}
+                onPreview={this.props.onPreview}
+                onSelect={e => {
+                  if (this.props.onSelect) {
+                    this.props.onSelect(e.id);
+                  }
                   this.setState({
-                    activity: { id: '1', activityType: e.id, config: {} }
-                  })
-                }
+                    activity: { _id: '1', activityType: e.id, config: {} }
+                  });
+                }}
               />
             </div>
           )}
