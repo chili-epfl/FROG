@@ -21,7 +21,7 @@ const javascript = () => {
       let worker = new Worker(bbURL);
 
       // add a listener for messages from the Worker
-      worker.addEventListener('message', e => {
+      worker.addEventListener('message', (e: Object) => {
         if (e.data) {
           if (e.data === 'FINISHED' && worker) {
             worker.terminate();

@@ -9,7 +9,7 @@ import { connect } from '../GraphEditor/store';
 import { Objects } from '../../api/objects';
 import { Activities, Operators } from '../../api/activities';
 import { Products } from '../../api/products';
-import { downloadExport } from './exportComponent';
+import { downloadExport } from './utils/exportComponent';
 
 const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
   if (!showInfo) {
