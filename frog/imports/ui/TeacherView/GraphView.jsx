@@ -36,7 +36,13 @@ class GraphView extends React.Component<GraphViewPropsT, {}> {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', store.ui.updateWindow);
+    store.ui.updateWindow();
+  }
+
   componentWillUnmount() {
+    window.removeEventListener('resize', store.ui.updateWindow);
     store.session.close();
   }
 
