@@ -17,7 +17,7 @@ import {
 type StateT = {
   ready: boolean,
   logs: Object[]
-}
+};
 
 type PropsT = {
   activityType: ActivityPackageT,

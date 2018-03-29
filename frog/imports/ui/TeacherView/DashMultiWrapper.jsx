@@ -14,11 +14,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
+    backgroundColor: theme.palette.background.paper
+  }
 });
 
-const DashMultiWrapper = withState('which', 'setWhich', 0)((props) => {
+const DashMultiWrapper = withState('which', 'setWhich', 0)(props => {
   const { which, setWhich, activity, docs, names, classes } = props;
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboard);
@@ -40,6 +40,6 @@ const DashMultiWrapper = withState('which', 'setWhich', 0)((props) => {
       <DashboardComp {...props} name={dashNames[which]} doc={doc} />
     </div>
   );
-})
+});
 
-export default withStyles(styles)(DashMultiWrapper)
+export default withStyles(styles)(DashMultiWrapper);

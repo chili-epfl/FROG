@@ -15,7 +15,7 @@ type GraphViewPropsT = {
   history: Object
 };
 
-class GraphView extends React.Component<GraphViewPropsT,{}> {
+class GraphView extends React.Component<GraphViewPropsT, {}> {
   initStore = (session: any) => {
     store.setBrowserHistory(this.props.history, '/teacher');
     store.setId(session.graphId, true);

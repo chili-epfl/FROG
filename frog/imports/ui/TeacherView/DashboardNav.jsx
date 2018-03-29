@@ -11,7 +11,7 @@ import Button from 'material-ui/Button';
 
 import { Activities } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
-import { DashboardReactiveWrapper } from './Dashboard'
+import { DashboardReactiveWrapper } from './Dashboard';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 
 const drawerWidth = 180;
@@ -21,54 +21,74 @@ const styles = theme => ({
     flexGrow: 1,
     width: '100%'
   },
+  button: {
+    floar: 'left'
+  },
   appFrame: {
     height: 600,
     overflow: 'hidden',
     zIndex: 1,
     position: 'relative',
     display: 'flex',
-    width: '100%',
+    width: '100%'
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     position: 'relative',
     width: drawerWidth,
+    backgroundColor: theme.palette.background.default
   },
   content: {
     flexGrow: 1,
     overflow: 'auto',
     backgroundColor: theme.palette.background.default,
-    width: `calc(100% - ${drawerWidth}px)`,
-  },
+    width: `calc(100% - ${drawerWidth}px)`
+  }
 });
 
-const ActivityChoiceButton = ({ ac, setActivityId }) =>
-  <Button onClick={() => setActivityId(ac._id)} >
-    {ac.title + (ac.open ? ' (open)' : '')}
-  </Button>
+const ActivityChoiceButton = withStyles(styles)(
+  ({ ac, setActivityId, classes, selected }) => (
+    <Button
+      onClick={() => setActivityId(ac._id)}
+      className={classes.button}
+      color={selected ? 'primary' : 'default'}
+    >
+      {ac.title + (ac.open ? ' (open)' : '')}
+    </Button>
+  )
+);
 
-const ActivityChoiceMenu = withStyles(styles)(({ classes, activities, setActivityId }) =>
-  <Drawer
-    variant="permanent"
-    classes={{ paper: classes.drawerPaper }}
-    anchor="left"
-  >
-    <div className={classes.toolbar} />
-    <List>{activities.map(ac => <ActivityChoiceButton
-      key={ac._id}
-      ac={ac}
-      setActivityId={setActivityId}
-    />)}</List>
-  </Drawer>
-)
+const ActivityChoiceMenu = withStyles(styles)(
+  ({ classes, activities, setActivityId, activityId }) => (
+    <Drawer
+      variant="permanent"
+      classes={{ paper: classes.drawerPaper }}
+      anchor="left"
+    >
+      <div className={classes.toolbar} />
+      <List>
+        {activities.map(ac => (
+          <ActivityChoiceButton
+            key={ac._id}
+            ac={ac}
+            setActivityId={setActivityId}
+            selected={ac._id === activityId}
+          />
+        ))}
+      </List>
+    </Drawer>
+  )
+);
 
-const DashboardNav = withState('activityId', 'setActivityId', null)((props) => {
+const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
   const { activityId, setActivityId, session, activities, classes } = props;
   const { openActivities } = session;
-  const acWithDash = activities.filter(ac => {
-    const dash = activityTypesObj[ac.activityType].dashboard;
-    return !!dash;
-  }).map(ac => ({ ...ac, open: openActivities.includes(ac._id)}));
+  const acWithDash = activities
+    .filter(ac => {
+      const dash = activityTypesObj[ac.activityType].dashboard;
+      return !!dash;
+    })
+    .map(ac => ({ ...ac, open: openActivities.includes(ac._id) }));
   const openAcWithDashIds = acWithDash
     .map(x => x._id)
     .filter(aid => openActivities && openActivities.includes(aid));
@@ -81,6 +101,7 @@ const DashboardNav = withState('activityId', 'setActivityId', null)((props) => {
         <ActivityChoiceMenu
           activities={acWithDash}
           setActivityId={setActivityId}
+          activityId={aId}
         />
         <main className={classes.content}>
           {activityToDash && (
@@ -94,8 +115,8 @@ const DashboardNav = withState('activityId', 'setActivityId', null)((props) => {
         </main>
       </div>
     </div>
-  )
-})
+  );
+});
 
 export default withTracker(({ session }) => ({
   activities: Activities.find({
