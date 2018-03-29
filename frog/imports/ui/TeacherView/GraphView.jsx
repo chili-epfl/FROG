@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Provider } from 'mobx-react';
 import { withRouter } from 'react-router';
@@ -15,7 +15,7 @@ type GraphViewPropsT = {
   history: Object
 };
 
-class GraphView extends Component<GraphViewPropsT> {
+class GraphView extends React.Component<GraphViewPropsT,{}> {
   initStore = (session: any) => {
     store.setBrowserHistory(this.props.history, '/teacher');
     store.setId(session.graphId, true);
