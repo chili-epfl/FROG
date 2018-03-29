@@ -112,7 +112,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
             const mergeFunction = activityType.mergeFunction;
             if (
               mergeFunction &&
-              example &&
+              example !== undefined &&
               activityType.meta.exampleData &&
               activityType.meta.exampleData[example]
             ) {
