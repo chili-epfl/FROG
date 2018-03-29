@@ -47,7 +47,7 @@ export const ActivityRunner = ({ activityData }: ActivityRunnerT) => (
   <div>
     <h1>{activityData.config ? activityData.config.title : ''}</h1>
     <span style={{ fontSize: '20px' }}>
-      {activityData.config ? <HTML html={activityData.config.text} /> : ''};
+      {activityData.config ? <HTML html={activityData.config.text} /> : ''}
     </span>
   </div>
 );

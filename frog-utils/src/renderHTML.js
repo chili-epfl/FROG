@@ -23,6 +23,9 @@ const HTML = ({
   html: string,
   setUpdate: string => void
 }) => {
+  if (typeof html !== 'string') {
+    return null;
+  }
   let toRender;
   try {
     toRender = html.replace(/\$(.*?)\$/gi, hit => {
@@ -40,7 +43,7 @@ const HTML = ({
     });
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(e);
+    console.warn(e);
     toRender = html;
   }
 
