@@ -252,6 +252,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
                 onClick={() => {
                   if (onExample) {
                     onExample(i);
+                    setExample(i);
                   } else {
                     setExample(i);
                   }
