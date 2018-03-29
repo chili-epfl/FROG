@@ -6,33 +6,28 @@ import { withState } from 'recompose';
 
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-import List from 'material-ui/List';
-import Button from 'material-ui/Button';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 
 import { Activities } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardReactiveWrapper } from './index';
 
-const drawerWidth = 180;
+const drawerWidth = 220;
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%'
   },
-  button: {
-    floar: 'left'
-  },
   appFrame: {
-    height: 600,
-    overflow: 'hidden',
-    zIndex: 1,
+    height: '50vh',
     position: 'relative',
     display: 'flex',
     width: '100%'
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
+    height: '50vh',
     position: 'relative',
     width: drawerWidth,
     backgroundColor: theme.palette.background.default
@@ -45,17 +40,14 @@ const styles = theme => ({
   }
 });
 
-const ActivityChoiceButton = withStyles(styles)(
-  ({ ac, setActivityId, classes, selected }) => (
-    <Button
-      onClick={() => setActivityId(ac._id)}
-      className={classes.button}
-      color={selected ? 'primary' : 'default'}
-    >
-      {ac.title + (ac.open ? ' (open)' : '')}
-    </Button>
-  )
-);
+const ActivityChoiceLI = ({ ac, setActivityId, selected }) => {
+  const txt = ac.title + (ac.open ? ' (open)' : '');
+  return (
+    <ListItem button onClick={() => setActivityId(ac._id)}>
+      <ListItemText primary={selected && txt} secondary={!selected && txt} />
+    </ListItem>
+  );
+};
 
 const ActivityChoiceMenu = withStyles(styles)(
   ({ classes, activities, setActivityId, activityId }) => (
@@ -67,7 +59,7 @@ const ActivityChoiceMenu = withStyles(styles)(
       <div className={classes.toolbar} />
       <List>
         {activities.map(ac => (
-          <ActivityChoiceButton
+          <ActivityChoiceLI
             key={ac._id}
             ac={ac}
             setActivityId={setActivityId}
