@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 import GraphView from './GraphView';
-import DashboardNav from './DashboardNav';
+import DashboardNav from '../Dashboard/DashboardNav';
 import SessionUtils from './SessionUtils';
 import SessionInfo from './SessionInfo';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';

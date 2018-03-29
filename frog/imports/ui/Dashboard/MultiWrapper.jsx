@@ -8,7 +8,8 @@ import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
 import { activityTypesObj } from '../../activityTypes';
-import { DashboardComp } from './Dashboard';
+import { DashboardComp } from './index';
+import { ErrorBoundary } from '../App/ErrorBoundary';
 
 const styles = theme => ({
   root: {
@@ -18,17 +19,18 @@ const styles = theme => ({
   }
 });
 
-const DashMultiWrapper = withState('which', 'setWhich', 0)(props => {
+const MultiWrapper = withState('which', 'setWhich', 0)(props => {
   const { which, setWhich, activity, docs, names, classes } = props;
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboard);
-  const [doc] = (docs && docs[which]) || [];
+  const w = which > dashNames.length ? 0 : which;
+  const [doc] = (docs && docs[dashNames[w]]) || [];
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          value={which}
-          onChange={(_, w) => setWhich(w)}
+          value={w}
+          onChange={(_, x) => setWhich(x)}
           indicatorColor="primary"
           textColor="primary"
           scrollable
@@ -37,9 +39,11 @@ const DashMultiWrapper = withState('which', 'setWhich', 0)(props => {
           {dashNames.map(name => <Tab key={name} label={name} />)}
         </Tabs>
       </AppBar>
-      <DashboardComp {...props} name={dashNames[which]} doc={doc} />
+      <ErrorBoundary msg="Dashboard crashed, try reloading">
+        <DashboardComp {...props} name={dashNames[w]} doc={doc} />
+      </ErrorBoundary>
     </div>
   );
 });
 
-export default withStyles(styles)(DashMultiWrapper);
+export default withStyles(styles)(MultiWrapper);

@@ -13,7 +13,7 @@ import { Objects } from '../../api/objects';
 import { dashDocId } from '../../api/logs';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from '../App/connection';
-import DashMultiWrapper from './DashMultiWrapper';
+import MultiWrapper from './MultiWrapper';
 
 type DashboardCompPropsT = {
   doc?: any,
@@ -117,7 +117,7 @@ export const DashboardReactiveWrapper = withTracker(props => {
     {}
   );
   return { users, instances, activity };
-})(DashMultiWrapper);
+})(MultiWrapper);
 
 export class DashboardSubscriptionWrapper extends React.Component<
   *,

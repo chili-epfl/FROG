@@ -11,8 +11,7 @@ import Button from 'material-ui/Button';
 
 import { Activities } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
-import { DashboardReactiveWrapper } from './Dashboard';
-import { ErrorBoundary } from '../App/ErrorBoundary';
+import { DashboardReactiveWrapper } from './index';
 
 const drawerWidth = 180;
 
@@ -105,12 +104,10 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
         />
         <main className={classes.content}>
           {activityToDash && (
-            <ErrorBoundary msg="Dashboard crashed, try reloading">
-              <DashboardReactiveWrapper
-                sessionId={session._id}
-                activity={activityToDash}
-              />
-            </ErrorBoundary>
+            <DashboardReactiveWrapper
+              sessionId={session._id}
+              activity={activityToDash}
+            />
           )}
         </main>
       </div>
