@@ -6,7 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import {
   ControlButton,
   OrchestrationButtonsModel
-} from './Utils/buttonUtils.js';
+} from './utils/buttonUtils.js';
 
 import styles from './styles';
 
