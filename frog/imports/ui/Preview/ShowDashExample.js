@@ -14,15 +14,15 @@ import {
   initDocuments
 } from './dashboardInPreviewAPI';
 
-type PropsT = {
-  activityType: ActivityPackageT,
-  example: number,
-  showLogs: boolean
-};
-
 type StateT = {
   ready: boolean,
   logs: Object[]
+}
+
+type PropsT = {
+  activityType: ActivityPackageT,
+  example: number,
+  showLogs?: boolean
 };
 
 class ShowDashExample extends React.Component<PropsT, StateT> {

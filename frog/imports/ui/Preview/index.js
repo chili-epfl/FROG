@@ -37,7 +37,7 @@ const RawActivityList = ({
   setActivityType,
   history
 }) => (
-  <div style={style.main}>
+  <div style={style.main} className="bootstrap">
     <div style={style.side}>
       <ApiForm
         config={config.config}

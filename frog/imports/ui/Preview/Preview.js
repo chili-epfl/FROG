@@ -160,7 +160,7 @@ export const StatelessPreview = withState('reload', 'setReload', '')(
 
     const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
     const Controls = (
-      <div className="modal-header">
+      <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
         <button
           type="button"
           className="close"
