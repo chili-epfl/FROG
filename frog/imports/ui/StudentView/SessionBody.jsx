@@ -5,8 +5,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Mosaic } from 'react-mosaic-component';
-import { Accounts } from 'meteor/accounts-base';
-
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
