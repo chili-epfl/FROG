@@ -9,7 +9,7 @@ import styles from './styles';
 import {
   ControlButton,
   SessionUtilsButtonsModel
-} from './Utils/buttonUtils.js';
+} from './utils/buttonUtils.js';
 
 class UtilsMenu extends React.Component {
   state = {
