@@ -137,8 +137,8 @@ const checkActivity = (activityId, operators, connections, userid) => {
     return false;
   }
   if (
-    act.plane === 3 &&
-    act.participationMode === 'projector' &&
+    ((act.plane === 3 && act.participationMode === 'projector') ||
+      act.plane === 4) &&
     uname !== 'teacher'
   ) {
     return false;

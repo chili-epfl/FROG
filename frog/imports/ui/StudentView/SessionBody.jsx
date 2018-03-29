@@ -155,7 +155,5 @@ SessionBody.displayName = 'SessionBody';
 
 export default withTracker(() => ({
   session: Sessions.findOne(),
-  activities: Activities.find()
-    .fetch()
-    .filter(x => x.plane < 4)
+  activities: Activities.find().fetch()
 }))(withStyles(styles)(SessionBody));
