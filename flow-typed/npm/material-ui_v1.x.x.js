@@ -220,11 +220,11 @@ declare module 'material-ui/Card/CardMedia' {
 }
 
 declare module 'material-ui/Card' {
-  declare export default $Exports<'material-ui/Card/Card'>
   declare export var CardActions: $Exports<'material-ui/Card/CardActions'>;
   declare export var CardContent: $Exports<'material-ui/Card/CardContent'>;
   declare export var CardHeader: $Exports<'material-ui/Card/CardHeader'>;
   declare export var CardMedia: $Exports<'material-ui/Card/CardMedia'>;
+  declare export default $Exports<'material-ui/Card/Card'>
 }
 
 declare module 'material-ui/Checkbox/Checkbox' {
