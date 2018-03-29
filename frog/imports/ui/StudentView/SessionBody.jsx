@@ -70,12 +70,6 @@ const ActivityContainer = ({ activities, sessionId }) => {
 };
 
 const StudentView = ({ activities, session, token, classes }) => {
-  if (!activities || activities.length === 0) {
-    return <h1>No Activity right now</h1>;
-  }
-  if (session.state === 'PAUSED') {
-    return <h1>Paused</h1>;
-  }
   return (
     <div className={classes.root}>
       <div className={classes.navbar}>
@@ -117,7 +111,20 @@ const StudentView = ({ activities, session, token, classes }) => {
         </AppBar>
       </div>
       <div className={classes.mainContent}>
-        <ActivityContainer activities={activities} sessionId={session._id} />
+        {(() => {
+          if (!activities || activities.length === 0) {
+            return <h1>No Activity right now</h1>;
+          }
+          if (session.state === 'PAUSED') {
+            return <h1>Paused</h1>;
+          }
+          return (
+            <ActivityContainer
+              activities={activities}
+              sessionId={session._id}
+            />
+          );
+        })()}
       </div>
     </div>
   );
