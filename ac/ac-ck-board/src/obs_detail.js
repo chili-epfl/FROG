@@ -1,9 +1,9 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import Dialog from 'material-ui/Dialog';
 
 export default ({ title, content, closeInfoFn }) => {
-  const actions = [<FlatButton label="X" secondary onClick={closeInfoFn} />];
+  const actions = [<Button label="X" secondary onClick={closeInfoFn} />];
 
   return (
     <Dialog
