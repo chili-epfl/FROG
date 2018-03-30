@@ -2,13 +2,13 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { type ActivityPackageT, pureObjectReactive } from 'frog-utils';
+import { type ActivityPackageT, LogDBT, pureObjectReactive } from 'frog-utils';
 import _, { throttle, cloneDeep } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Inspector from 'react-inspector';
+import Spinner from 'react-spinner';
 
-import { activityDbObject } from './dashboardInPreviewAPI';
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
 
 type StateT = {
@@ -28,6 +28,8 @@ type PropsT = {
 
 class ShowDashExample extends React.Component<PropsT, StateT> {
   activityDbObject: Object;
+  timeseries: LogDBT[][];
+  logsProcessed: number = 0;
 
   constructor(props: PropsT) {
     super(props);
@@ -83,18 +85,58 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     );
   };
 
-  clusterBySecond = () => {};
+  clusterBySecond = () => {
+    this.timeseries = [];
+    this.state.logs.forEach(log => {
+      const timeSeq = Math.floor(
+        (new Date(log.timestamp) - this.activityDbObject.actualStartingTime) /
+          1000
+      );
+      if (Array.isArray(this.timeseries[timeSeq])) {
+        this.timeseries[timeSeq].push(log);
+      } else {
+        this.timeseries[timeSeq] = [log];
+      }
+    });
+    this.loadBySeconds(this.state.play, 0);
+  };
 
-  displaySubset = (e: number) => {
+  loadBySeconds = (play: number | false, second: number) => {
+    if (this.state.play !== false && play === this.state.play) {
+      if (this.timeseries[second]) {
+        this.displaySubset(second, this.timeseries[second], second === 0);
+        this.logsProcessed =
+          this.logsProcessed + this.timeseries[second].length;
+        this.setState({
+          slider: {
+            ...this.state.slider,
+            [this.state.example]: this.logsProcessed
+          }
+        });
+      }
+      if (this.timeseries.length > second) {
+        window.setTimeout(
+          () => this.loadBySeconds(this.state.play, second + 1),
+          1000 / [1, 2, 4, 8, 16, 32][this.state.play]
+        );
+      }
+    }
+  };
+
+  displaySubset = (
+    e: number,
+    suppliedLogs?: LogDBT[],
+    restart: boolean = false
+  ) => {
     const aT = this.props.activityType;
     const mergeLog = aT.dashboard[this.state.example].mergeLog;
     const diff = e - this.state.oldSlider;
     let tempDb;
     let logs;
 
-    if (diff > 0) {
+    if (diff > 0 || (suppliedLogs && !restart)) {
       tempDb = pureObjectReactive(cloneDeep(this.state.data));
-      logs = this.state.logs.slice(this.state.oldSlider, e);
+      logs = suppliedLogs || this.state.logs.slice(this.state.oldSlider, e);
     } else {
       tempDb = pureObjectReactive(
         cloneDeep(aT.dashboard[this.state.example].initData)
@@ -102,10 +144,9 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       logs = this.state.logs.slice(0, e);
     }
     const [doc, dataFn] = tempDb;
-
-    this.activityDbObject.actualClosingTime = new Date(
-      this.state.logs[e].timestamp
-    );
+    this.activityDbObject.actualClosingTime =
+      (suppliedLogs && suppliedLogs[suppliedLogs.length - 1].timestamp) ||
+      this.state.logs[e].timestamp;
     logs.forEach(log => mergeLog(doc.data, dataFn, log, this.activityDbObject));
 
     this.setState({ data: tempDb[0].data, oldSlider: e });
@@ -127,11 +168,14 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       x => x.title
     );
     const Viewer = aT.dashboard[this.state.example].Viewer;
-
+    if (!this.state.logs) {
+      return <Spinner />;
+    }
     return (
       <React.Fragment>
         <DashboardSelector
           onChange={x => {
+            this.logsProcessed = 0;
             this.setState(
               {
                 oldSlider: 0,
@@ -148,6 +192,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         />
         <DashboardSelector
           onChange={x => {
+            this.logsProcessed = 0;
             this.setState(
               {
                 oldSlider: 0,
@@ -165,14 +210,22 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         <DashboardSelector
           onChange={x => {
             if (this.state.play === x) {
-              this.setState({ play: undefined });
+              this.setState({ play: false });
             } else {
-              this.setState({
-                play: x
-              });
+              this.setState(
+                {
+                  oldSlider: 0,
+                  data: aT.dashboard[this.state.example].initData,
+                  play: x
+                },
+                () => {
+                  this.logsProcessed = 0;
+                  this.clusterBySecond();
+                }
+              );
             }
           }}
-          dashNames={['1x', '2x', '4x', '8x', '16x']}
+          dashNames={['1x', '2x', '4x', '8x', '16x', '32x']}
           selected={this.state.play}
           returnIdx
         />
