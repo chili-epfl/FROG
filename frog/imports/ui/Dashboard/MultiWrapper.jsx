@@ -23,7 +23,7 @@ const styles = theme => ({
 type PropsT = {
   classes: any,
   dashNames: string[],
-  render: Function,
+  render?: Function,
   onChange?: Function,
   selected?: number
 };
@@ -71,7 +71,9 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
   }
 }
 
-export const DashboardSelector = withStyles(styles)(DashboardRaw);
+export const DashboardSelector: React.ComponentType<
+  $Diff<PropsT, { classes: any }>
+> = withStyles(styles)(DashboardRaw);
 DashboardSelector.displayName = 'DashboardSelector';
 
 const MultiWrapper = (props: {
@@ -87,6 +89,7 @@ const MultiWrapper = (props: {
   return (
     <DashboardSelector
       dashNames={dashNames}
+      onChange={() => {}}
       render={which => {
         const w = which > dashNames.length ? 0 : which;
         const [doc] = (docs && docs[dashNames[w]]) || [];

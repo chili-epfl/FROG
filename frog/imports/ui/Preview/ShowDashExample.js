@@ -251,8 +251,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             }
           }}
           dashNames={['1x', '2x', '4x', '8x', '16x', '32x']}
-          selected={this.state.play}
-          returnIdx
+          selected={this.state.play || 0}
         />
         <Slider
           value={this.state.slider[this.state.example] || 0}
