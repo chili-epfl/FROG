@@ -23,25 +23,50 @@ const styles = theme => ({
 export const DashboardSelector = compose(
   withStyles(styles),
   withState('which', 'setWhich', 0)
-)(({ which, setWhich, classes, dashNames, render }) => (
-  <div className={classes.root}>
-    <AppBar position="static" color="default">
-      <Tabs
-        value={which}
-        onChange={(_, x) => setWhich(x)}
-        indicatorColor="primary"
-        textColor="primary"
-        scrollable
-        scrollButtons="auto"
-      >
-        {dashNames.map(name => <Tab key={name} label={name} />)}
-      </Tabs>
-    </AppBar>
-    <ErrorBoundary msg="Dashboard crashed, try reloading">
-      {render(which)}
-    </ErrorBoundary>
-  </div>
-));
+)(
+  ({
+    which,
+    setWhich,
+    classes,
+    dashNames,
+    render,
+    onChange
+  }: {
+    which: number,
+    setWhich: Function,
+    classes: any,
+    dashNames: string[],
+    render: Function,
+    onChange?: Function
+  }) => (
+    <div className={classes.root}>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={which}
+          onChange={(_, x) => {
+            if (onChange) {
+              onChange(x);
+            }
+            setWhich(x);
+          }}
+          indicatorColor="primary"
+          textColor="primary"
+          scrollable
+          scrollButtons="auto"
+        >
+          {dashNames.map(name => <Tab key={name} label={name} />)}
+        </Tabs>
+      </AppBar>
+      {render && (
+        <ErrorBoundary msg="Dashboard crashed, try reloading">
+          {render(which)}
+        </ErrorBoundary>
+      )}
+    </div>
+  )
+);
+
+DashboardSelector.displayName = 'DashboardSelector';
 
 const MultiWrapper = (props: {
   activity: ActivityDBT,

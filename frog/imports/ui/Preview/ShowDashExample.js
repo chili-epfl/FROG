@@ -13,10 +13,12 @@ import {
   mergeData,
   initDocuments
 } from './dashboardInPreviewAPI';
+import { DashboardSelector } from '../Dashboard/MultiWrapper';
 
 type StateT = {
   ready: boolean,
-  logs: Object[]
+  logs: Object[],
+  example?: string
 };
 
 type PropsT = {
@@ -30,7 +32,14 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
 
   constructor(props: PropsT) {
     super(props);
-    this.state = { ready: false, logs: [] };
+    const aT = this.props.activityType;
+    this.state = {
+      example: Object.keys(aT.dashboard).filter(
+        x => aT.dashboard[x].exampleLogs
+      )[0],
+      ready: false,
+      logs: []
+    };
     this.fetchLogs();
   }
 
@@ -77,18 +86,26 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const aT = this.props.activityType;
     const config = this.activityDbObject.data || {};
     initDocuments(aT, true);
-    this.state.logs.slice(0, e).forEach(log => mergeData(aT, log, config));
+    this.state.logs
+      .slice(0, e)
+      .forEach(log => mergeData(aT, log, config, this.state.example));
   };
 
   render() {
-    // const instances = this.props.activityType.dashboard.exampleLogs[
-    //   this.props.example
-    // ].instances || []
     const instances = [];
     const users = {};
     const { logs } = this.state;
+    const aT = this.props.activityType;
+    const dashNames = Object.keys(aT.dashboard).filter(
+      x => aT.dashboard[x].exampleLogs
+    );
+
     return (
       <React.Fragment>
+        <DashboardSelector
+          onChange={x => this.setState({ example: x })}
+          dashNames={dashNames}
+        />
         <Slider
           defaultValue={500}
           min={0}
@@ -99,6 +116,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
           <Inspector data={this.state.logs} />
         ) : (
           <DashPreviewWrapper
+            example={this.state.example}
             activity={this.activityDbObject}
             config={this.activityDbObject.data}
             instances={instances}

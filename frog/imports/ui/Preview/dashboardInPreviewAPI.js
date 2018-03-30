@@ -13,6 +13,7 @@ import {
   pureObjectReactive
 } from 'frog-utils';
 
+import { DashboardComp } from '../Dashboard';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
 
@@ -25,21 +26,24 @@ if (window) {
 
 export const initDocuments = (
   activityType: ActivityPackageT,
-  refresh: boolean
+  refresh: boolean,
+  example?: string
 ) => {
   if (activityType && activityType.dashboard) {
-    Object.keys(activityType.dashboard).forEach(name => {
-      const dash = activityType.dashboard[name];
-      const initData = cloneDeep((dash && dash.initData) || {});
-      if (DocumentCache[name]) {
-        if (refresh) {
-          const [_, dataFn] = DocumentCache[name];
-          dataFn.objInsert(initData, []);
+    (example ? [example] : Object.keys(activityType.dashboard)).forEach(
+      name => {
+        const dash = activityType.dashboard[name];
+        const initData = cloneDeep((dash && dash.initData) || {});
+        if (DocumentCache[name]) {
+          if (refresh) {
+            const [_, dataFn] = DocumentCache[name];
+            dataFn.objInsert(initData, []);
+          }
+        } else {
+          DocumentCache[name] = pureObjectReactive(initData);
         }
-      } else {
-        DocumentCache[name] = pureObjectReactive(initData);
       }
-    });
+    );
   }
 };
 
@@ -64,9 +68,10 @@ const activityDbObject = (config, activityType) => ({
 export const mergeData = (
   aT: ActivityPackageT,
   log: LogDBT,
-  config: Object
+  config: Object,
+  example?: string
 ) => {
-  Object.keys(aT.dashboard).forEach(name => {
+  (example ? [example] : Object.keys(aT.dashboard)).forEach(name => {
     if (DocumentCache[name]) {
       const dash = aT.dashboard[name];
       const [doc, dataFn] = DocumentCache[name];
@@ -116,13 +121,23 @@ export const createLogger = (
 
 export const DashPreviewWrapper = withState('ready', 'setReady', false)(
   (props: Object) => {
-    const { instances, users, activityType, config, ready, setReady } = props;
-    initDocuments(activityType, false);
+    const {
+      example,
+      instances,
+      users,
+      activityType,
+      config,
+      ready,
+      setReady
+    } = props;
+    initDocuments(activityType, false, example);
     const ensureReady = () => {
       if (!ready) {
-        const initialized = Object.keys(activityType.dashboard).reduce(
-          (acc, name) => acc && !!DocumentCache[name]
-        );
+        const initialized = example
+          ? !!DocumentCache[example]
+          : Object.keys(activityType.dashboard).reduce(
+              (acc, name) => acc && !!DocumentCache[name]
+            );
         if (initialized) {
           setReady(true);
         }
@@ -132,12 +147,20 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       setTimeout(ensureReady, 500);
     }
     return ready ? (
-      <DashMultiWrapper
-        activity={activityDbObject(config, activityType.id)}
-        docs={DocumentCache}
-        instances={instances}
-        users={users}
-      />
+      example ? (
+        <DashboardComp
+          {...props}
+          name={example}
+          doc={DocumentCache[example][0]}
+        />
+      ) : (
+        <DashMultiWrapper
+          activity={activityDbObject(config, activityType.id)}
+          docs={DocumentCache}
+          instances={instances}
+          users={users}
+        />
+      )
     ) : (
       <Spinner />
     );
