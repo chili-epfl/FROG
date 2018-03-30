@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
-import { DashboardSubscriptionWrapper } from '/imports/ui/TeacherView/Dashboard';
+import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
 
 export const meta = {
   name: 'Dashboard activity',
