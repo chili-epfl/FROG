@@ -18,7 +18,8 @@ type StateT = {
   slider: { [example: string]: number },
   oldSlider: number,
   idx: number,
-  play: number | false
+  play: number | false,
+  exampleIdx?: number
 };
 
 type PropsT = {
@@ -30,6 +31,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   activityDbObject: Object;
   timeseries: LogDBT[][];
   logsProcessed: number = 0;
+  isUnmounted: boolean = false;
 
   constructor(props: PropsT) {
     super(props);
@@ -96,6 +98,8 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     );
   };
 
+  componentWillUnmount = () => (this.isUnmounted = true);
+
   clusterBySecond = () => {
     this.timeseries = [];
     this.state.logs.forEach(log => {
@@ -113,7 +117,11 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   };
 
   loadBySeconds = (play: number | false, second: number) => {
-    if (this.state.play !== false && play === this.state.play) {
+    if (
+      !this.isUnmounted &&
+      this.state.play !== false &&
+      play === this.state.play
+    ) {
       if (this.timeseries[second]) {
         this.displaySubset(second, this.timeseries[second], second === 0);
         this.logsProcessed =
@@ -189,13 +197,15 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     return (
       <React.Fragment>
         <DashboardSelector
+          selected={this.state.exampleIdx}
           onChange={x => {
             this.logsProcessed = 0;
             this.setState(
               {
                 oldSlider: 0,
-                data: aT.dashboard[x].initData,
-                example: x,
+                data: aT.dashboard[dashNames[x]].initData,
+                example: dashNames[x],
+                exampleIdx: x,
                 logs: [],
                 idx: 0,
                 play: false
@@ -206,6 +216,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
           dashNames={dashNames}
         />
         <DashboardSelector
+          selected={this.state.idx}
           onChange={x => {
             this.logsProcessed = 0;
             this.setState(
@@ -220,7 +231,6 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             );
           }}
           dashNames={examples}
-          returnIdx
         />
         <DashboardSelector
           onChange={x => {
