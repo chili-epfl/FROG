@@ -13,7 +13,6 @@ import {
   pureObjectReactive
 } from 'frog-utils';
 
-import { DashboardComp } from '../Dashboard';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
 
@@ -119,48 +118,38 @@ export const createLogger = (
   return logger;
 };
 
+export const ensureReady = (
+  activityType: ActivityPackageT,
+  callback: Function
+) => {
+  initDocuments(activityType, false);
+  checkReady(activityType, callback);
+};
+
+const checkReady = (activityType, callback) => {
+  const initialized = Object.keys(activityType.dashboard).reduce(
+    (acc, name) => acc && !!DocumentCache[name]
+  );
+  if (initialized) {
+    callback();
+  } else {
+    setTimeout(() => checkReady(activityType, callback), 500);
+  }
+};
+
 export const DashPreviewWrapper = withState('ready', 'setReady', false)(
   (props: Object) => {
-    const {
-      example,
-      instances,
-      users,
-      activityType,
-      config,
-      ready,
-      setReady
-    } = props;
-    initDocuments(activityType, false, example);
-    const ensureReady = () => {
-      if (!ready) {
-        const initialized = example
-          ? !!DocumentCache[example]
-          : Object.keys(activityType.dashboard).reduce(
-              (acc, name) => acc && !!DocumentCache[name]
-            );
-        if (initialized) {
-          setReady(true);
-        }
-      }
-    };
+    const { instances, users, activityType, config, ready, setReady } = props;
     if (!ready) {
-      setTimeout(ensureReady, 500);
+      ensureReady(activityType, () => setReady(true));
     }
     return ready ? (
-      example ? (
-        <DashboardComp
-          {...props}
-          name={example}
-          doc={DocumentCache[example][0]}
-        />
-      ) : (
-        <DashMultiWrapper
-          activity={activityDbObject(config, activityType.id)}
-          docs={DocumentCache}
-          instances={instances}
-          users={users}
-        />
-      )
+      <DashMultiWrapper
+        activity={activityDbObject(config, activityType.id)}
+        docs={DocumentCache}
+        instances={instances}
+        users={users}
+      />
     ) : (
       <Spinner />
     );

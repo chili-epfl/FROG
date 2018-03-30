@@ -6,19 +6,24 @@ import { type ActivityPackageT } from 'frog-utils';
 import { throttle } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
+import Spinner from 'react-spinner';
 import Inspector from 'react-inspector';
 
 import {
-  DashPreviewWrapper,
+  initDocuments,
+  DocumentCache,
   mergeData,
-  initDocuments
+  ensureReady
 } from './dashboardInPreviewAPI';
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
+import { DashboardComp } from '../Dashboard';
 
 type StateT = {
   ready: boolean,
   logs: Object[],
-  example?: string
+  example: string,
+  slider: { [example: string]: number },
+  wait: boolean
 };
 
 type PropsT = {
@@ -38,9 +43,15 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         x => aT.dashboard[x].exampleLogs
       )[0],
       ready: false,
-      logs: []
+      logs: [],
+      slider: {},
+      wait: true
     };
     this.fetchLogs();
+  }
+
+  componentDidMount() {
+    ensureReady(this.props.activityType, () => this.setState({ ready: true }));
   }
 
   componentWillReceiveProps(nextProps: PropsT) {
@@ -85,11 +96,15 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   displaySubset = (e: number) => {
     const aT = this.props.activityType;
     const config = this.activityDbObject.data || {};
-    initDocuments(aT, true);
+    initDocuments(aT, true, this.state.example);
     this.state.logs
       .slice(0, e)
       .forEach(log => mergeData(aT, log, config, this.state.example));
   };
+
+  throttledDisplaySubset = throttle(this.displaySubset, 2000, {
+    leading: false
+  });
 
   render() {
     const instances = [];
@@ -102,27 +117,40 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
 
     return (
       <React.Fragment>
-        <DashboardSelector
-          onChange={x => this.setState({ example: x })}
-          dashNames={dashNames}
-        />
-        <Slider
-          defaultValue={500}
-          min={0}
-          max={logs.length}
-          onChange={throttle(this.displaySubset, 2000, { leading: false })}
-        />
-        {this.props.showLogs ? (
-          <Inspector data={this.state.logs} />
+        {this.state.ready ? (
+          <React.Fragment>
+            <DashboardSelector
+              onChange={x => this.setState({ example: x })}
+              dashNames={dashNames}
+            />
+            <Slider
+              value={this.state.slider[this.state.example] || 0}
+              min={0}
+              max={logs.length}
+              onChange={e => {
+                this.setState({
+                  slider: { ...this.state.slider, [this.state.example]: e }
+                });
+                this.throttledDisplaySubset(e);
+              }}
+            />
+            {this.props.showLogs ? (
+              <Inspector data={this.state.logs} />
+            ) : (
+              <DashboardComp
+                activity={this.activityDbObject}
+                wait={this.state.wait}
+                config={this.activityDbObject.data}
+                instances={instances}
+                name={this.state.example}
+                users={users}
+                activityType={this.props.activityType}
+                doc={DocumentCache[this.state.example][0]}
+              />
+            )}
+          </React.Fragment>
         ) : (
-          <DashPreviewWrapper
-            example={this.state.example}
-            activity={this.activityDbObject}
-            config={this.activityDbObject.data}
-            instances={instances}
-            users={users}
-            activityType={this.props.activityType}
-          />
+          <Spinner />
         )}
       </React.Fragment>
     );

@@ -45,7 +45,7 @@ export const DashboardSelector = compose(
           value={which}
           onChange={(_, x) => {
             if (onChange) {
-              onChange(x);
+              onChange(dashNames[x]);
             }
             setWhich(x);
           }}
