@@ -17,12 +17,12 @@ type StateT = {
   example: string,
   slider: { [example: string]: number },
   oldSlider: number,
-  idx: number
+  idx: number,
+  play: number | false
 };
 
 type PropsT = {
   activityType: ActivityPackageT,
-  example: number,
   showLogs?: boolean
 };
 
@@ -41,7 +41,8 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       logs: [],
       oldSlider: 0,
       slider: {},
-      idx: 0
+      idx: 0,
+      play: false
     };
     this.fetchLogs();
   }
@@ -59,13 +60,11 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         groupingKey: 'group',
         plane: 2,
         startTime: 0,
-        actualStartingTime: new Date(Date.now()),
         length: 3,
         activityType: this.props.activityType.id
       },
       ...activityMerge
     };
-
     Meteor.call(
       'get.example.logs',
       props.activityType.id,
@@ -75,10 +74,19 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         if (err || result === false) {
           console.error('Error fetching logs', err);
         }
+
+        this.activityDbObject.actualStartingTime = new Date(
+          result[0].timestamp
+        );
+        this.activityDbObject.actualClosingTime = new Date(
+          result[result.length - 1].timestamp
+        );
         this.setState({ logs: result });
       }
     );
   };
+
+  clusterBySecond = () => {};
 
   displaySubset = (e: number) => {
     const aT = this.props.activityType;
@@ -133,7 +141,8 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                 data: aT.dashboard[x].initData,
                 example: x,
                 logs: [],
-                idx: 0
+                idx: 0,
+                play: false
               },
               () => this.fetchLogs()
             );
@@ -147,12 +156,27 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                 oldSlider: 0,
                 data: aT.dashboard[this.state.example].initData,
                 logs: [],
-                idx: x
+                idx: x,
+                play: false
               },
               () => this.fetchLogs()
             );
           }}
           dashNames={examples}
+          returnIdx
+        />
+        <DashboardSelector
+          onChange={x => {
+            if (this.state.play === x) {
+              this.setState({ play: undefined });
+            } else {
+              this.setState({
+                play: x
+              });
+            }
+          }}
+          dashNames={['1x', '2x', '4x', '8x', '16x']}
+          selected={this.state.play}
           returnIdx
         />
         <Slider

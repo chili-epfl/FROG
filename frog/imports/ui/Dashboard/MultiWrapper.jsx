@@ -31,7 +31,8 @@ export const DashboardSelector = compose(
     dashNames,
     render,
     onChange,
-    returnIdx
+    returnIdx,
+    selected
   }: {
     which: number,
     setWhich: Function,
@@ -39,12 +40,13 @@ export const DashboardSelector = compose(
     dashNames: string[],
     render: Function,
     onChange?: Function,
-    returnIdx?: boolean
+    returnIdx?: boolean,
+    selected: string
   }) => (
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          value={which}
+          value={selected !== undefined ? selected : which}
           onChange={(_, x) => {
             if (onChange) {
               onChange(returnIdx ? x : dashNames[x]);
