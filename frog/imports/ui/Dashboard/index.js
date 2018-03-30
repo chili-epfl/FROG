@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
+import _ from 'lodash';
 
 import { type ActivityDbT } from 'frog-utils';
 
@@ -43,15 +44,20 @@ export class DashboardComp extends React.Component<
   init(props: Object) {
     const _conn = props.conn || connection || {};
     const reactiveName = dashDocId(props.activity._id, props.name);
-    this.doc = props.doc || _conn.get('rz', reactiveName);
-    this.doc.setMaxListeners(30);
-    this.doc.subscribe();
-    if (this.doc.type) {
+    if (props.doc) {
+      this.doc = props.doc;
       this.update();
     } else {
-      this.doc.on('load', this.update);
+      _conn.get('rz', reactiveName);
+      this.doc.setMaxListeners(30);
+      this.doc.subscribe();
+      if (this.doc.type) {
+        this.update();
+      } else {
+        this.doc.on('load', this.update);
+      }
+      this.doc.on('op', this.update);
     }
-    this.doc.on('op', this.update);
   }
 
   update = () => {

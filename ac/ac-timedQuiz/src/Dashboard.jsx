@@ -48,7 +48,6 @@ const Viewer = ({ data }: dashboardViewerPropsT) => {
           (Number(x) + 3).toString(),
           avgTime(results[x])
         ]);
-
   return (
     <React.Fragment>
       <Chart

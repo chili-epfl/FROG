@@ -30,14 +30,16 @@ export const DashboardSelector = compose(
     classes,
     dashNames,
     render,
-    onChange
+    onChange,
+    returnIdx
   }: {
     which: number,
     setWhich: Function,
     classes: any,
     dashNames: string[],
     render: Function,
-    onChange?: Function
+    onChange?: Function,
+    returnIdx?: boolean
   }) => (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -45,7 +47,7 @@ export const DashboardSelector = compose(
           value={which}
           onChange={(_, x) => {
             if (onChange) {
-              onChange(dashNames[x]);
+              onChange(returnIdx ? x : dashNames[x]);
             }
             setWhich(x);
           }}

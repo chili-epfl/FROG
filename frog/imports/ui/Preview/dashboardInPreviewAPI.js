@@ -53,7 +53,7 @@ export const hasDashExample = (aT: ActivityPackageT) =>
     false
   );
 
-const activityDbObject = (config, activityType) => ({
+export const activityDbObject = (config: Object, activityType: string) => ({
   _id: 'preview',
   data: config,
   groupingKey: 'group',
@@ -67,19 +67,13 @@ const activityDbObject = (config, activityType) => ({
 export const mergeData = (
   aT: ActivityPackageT,
   log: LogDBT,
-  config: Object,
-  example?: string
+  config: Object
 ) => {
-  (example ? [example] : Object.keys(aT.dashboard)).forEach(name => {
+  Object.keys(aT.dashboard).forEach(name => {
     if (DocumentCache[name]) {
       const dash = aT.dashboard[name];
       const [doc, dataFn] = DocumentCache[name];
-      dash.mergeLog(
-        cloneDeep(doc.data),
-        dataFn,
-        log,
-        activityDbObject(config, aT.id)
-      );
+      dash.mergeLog(doc.data, dataFn, log, activityDbObject(config, aT.id));
     }
   });
 };
@@ -118,30 +112,12 @@ export const createLogger = (
   return logger;
 };
 
-export const ensureReady = (
-  activityType: ActivityPackageT,
-  callback: Function
-) => {
-  initDocuments(activityType, false);
-  checkReady(activityType, callback);
-};
-
-const checkReady = (activityType, callback) => {
-  const initialized = Object.keys(activityType.dashboard).reduce(
-    (acc, name) => acc && !!DocumentCache[name]
-  );
-  if (initialized) {
-    callback();
-  } else {
-    setTimeout(() => checkReady(activityType, callback), 500);
-  }
-};
-
 export const DashPreviewWrapper = withState('ready', 'setReady', false)(
   (props: Object) => {
     const { instances, users, activityType, config, ready, setReady } = props;
     if (!ready) {
-      ensureReady(activityType, () => setReady(true));
+      initDocuments(activityType, false);
+      setReady(true);
     }
     return ready ? (
       <DashMultiWrapper

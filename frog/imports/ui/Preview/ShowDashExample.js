@@ -2,28 +2,22 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { type ActivityPackageT } from 'frog-utils';
-import { throttle } from 'lodash';
+import { type ActivityPackageT, pureObjectReactive } from 'frog-utils';
+import _, { throttle, cloneDeep } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import Spinner from 'react-spinner';
 import Inspector from 'react-inspector';
 
-import {
-  initDocuments,
-  DocumentCache,
-  mergeData,
-  ensureReady
-} from './dashboardInPreviewAPI';
+import { activityDbObject } from './dashboardInPreviewAPI';
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
-import { DashboardComp } from '../Dashboard';
 
 type StateT = {
-  ready: boolean,
+  data: any,
   logs: Object[],
   example: string,
   slider: { [example: string]: number },
-  wait: boolean
+  oldSlider: number,
+  idx: number
 };
 
 type PropsT = {
@@ -38,32 +32,25 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   constructor(props: PropsT) {
     super(props);
     const aT = this.props.activityType;
+    const example = Object.keys(aT.dashboard).filter(
+      x => aT.dashboard[x].exampleLogs
+    )[0];
     this.state = {
-      example: Object.keys(aT.dashboard).filter(
-        x => aT.dashboard[x].exampleLogs
-      )[0],
-      ready: false,
+      data: aT.dashboard[example].initData,
+      example,
       logs: [],
+      oldSlider: 0,
       slider: {},
-      wait: true
+      idx: 0
     };
     this.fetchLogs();
-  }
-
-  componentDidMount() {
-    ensureReady(this.props.activityType, () => this.setState({ ready: true }));
-  }
-
-  componentWillReceiveProps(nextProps: PropsT) {
-    this.fetchLogs(nextProps);
   }
 
   fetchLogs = (props: PropsT = this.props) => {
     const { meta: { exampleData }, dashboard } = this.props.activityType;
     const data = (exampleData && exampleData[0].config) || {};
 
-    const name = Object.keys(dashboard).find(n => dashboard[n].exampleLogs);
-    const { activityMerge } = dashboard[name].exampleLogs[this.props.example];
+    const { activityMerge } = dashboard[this.state.example].exampleLogs[0];
 
     this.activityDbObject = {
       ...{
@@ -82,10 +69,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     Meteor.call(
       'get.example.logs',
       props.activityType.id,
-      name,
-      props.example,
+      this.state.example,
+      this.state.idx,
       (err, result) => {
-        if (err) {
+        if (err || result === false) {
           console.error('Error fetching logs', err);
         }
         this.setState({ logs: result });
@@ -96,13 +83,30 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   displaySubset = (e: number) => {
     const aT = this.props.activityType;
     const config = this.activityDbObject.data || {};
-    initDocuments(aT, true, this.state.example);
-    this.state.logs
-      .slice(0, e)
-      .forEach(log => mergeData(aT, log, config, this.state.example));
+    const mergeLog = aT.dashboard[this.state.example].mergeLog;
+    const diff = e - this.state.oldSlider;
+    let tempDb;
+    let logs;
+
+    if (diff > 0) {
+      tempDb = pureObjectReactive(cloneDeep(this.state.data));
+      logs = this.state.logs.slice(this.state.oldSlider, e);
+    } else {
+      tempDb = pureObjectReactive(
+        cloneDeep(aT.dashboard[this.state.example].initData)
+      );
+      logs = this.state.logs.slice(0, e);
+    }
+    const [doc, dataFn] = tempDb;
+
+    logs.forEach(log =>
+      mergeLog(doc.data, dataFn, log, activityDbObject(config, aT.id))
+    );
+
+    this.setState({ data: tempDb[0].data, oldSlider: e });
   };
 
-  throttledDisplaySubset = throttle(this.displaySubset, 2000, {
+  throttledDisplaySubset = throttle(this.displaySubset, 500, {
     leading: false
   });
 
@@ -114,43 +118,64 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const dashNames = Object.keys(aT.dashboard).filter(
       x => aT.dashboard[x].exampleLogs
     );
+    const examples = aT.dashboard[this.state.example].exampleLogs.map(
+      x => x.title
+    );
+    const Viewer = aT.dashboard[this.state.example].Viewer;
 
     return (
       <React.Fragment>
-        {this.state.ready ? (
-          <React.Fragment>
-            <DashboardSelector
-              onChange={x => this.setState({ example: x })}
-              dashNames={dashNames}
-            />
-            <Slider
-              value={this.state.slider[this.state.example] || 0}
-              min={0}
-              max={logs.length}
-              onChange={e => {
-                this.setState({
-                  slider: { ...this.state.slider, [this.state.example]: e }
-                });
-                this.throttledDisplaySubset(e);
-              }}
-            />
-            {this.props.showLogs ? (
-              <Inspector data={this.state.logs} />
-            ) : (
-              <DashboardComp
-                activity={this.activityDbObject}
-                wait={this.state.wait}
-                config={this.activityDbObject.data}
-                instances={instances}
-                name={this.state.example}
-                users={users}
-                activityType={this.props.activityType}
-                doc={DocumentCache[this.state.example][0]}
-              />
-            )}
-          </React.Fragment>
+        <DashboardSelector
+          onChange={x => {
+            this.setState(
+              {
+                oldSlider: 0,
+                data: aT.dashboard[x].initData,
+                example: x,
+                logs: [],
+                idx: 0
+              },
+              () => this.fetchLogs()
+            );
+          }}
+          dashNames={dashNames}
+        />
+        <DashboardSelector
+          onChange={x => {
+            this.setState(
+              {
+                oldSlider: 0,
+                data: aT.dashboard[this.state.example].initData,
+                logs: [],
+                idx: x
+              },
+              () => this.fetchLogs()
+            );
+          }}
+          dashNames={examples}
+          returnIdx
+        />
+        <Slider
+          value={this.state.slider[this.state.example] || 0}
+          min={0}
+          max={logs.length}
+          onChange={e => {
+            this.setState({
+              slider: { ...this.state.slider, [this.state.example]: e }
+            });
+            this.throttledDisplaySubset(e);
+          }}
+        />
+        {this.props.showLogs ? (
+          <Inspector data={this.state.logs} />
         ) : (
-          <Spinner />
+          <Viewer
+            users={users}
+            activity={this.activityDbObject}
+            instances={instances}
+            config={this.activityDbObject.data}
+            data={this.state.data}
+          />
         )}
       </React.Fragment>
     );
