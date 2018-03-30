@@ -20,7 +20,6 @@ type DashboardCompPropsT = {
   activity: ActivityDbT,
   users: { [string | number]: string },
   instances: Array<string | number>,
-  config: Object,
   name: string
 };
 

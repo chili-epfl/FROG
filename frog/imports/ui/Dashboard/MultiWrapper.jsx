@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
+import { type ActivityDBT } from 'frog-utils';
 
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -19,31 +20,49 @@ const styles = theme => ({
   }
 });
 
-const MultiWrapper = withState('which', 'setWhich', 0)(props => {
-  const { which, setWhich, activity, docs, names, classes } = props;
+export const DashboardSelector = compose(
+  withStyles(styles),
+  withState('which', 'setWhich', 0)
+)(({ which, setWhich, classes, dashNames, render }) => (
+  <div className={classes.root}>
+    <AppBar position="static" color="default">
+      <Tabs
+        value={which}
+        onChange={(_, x) => setWhich(x)}
+        indicatorColor="primary"
+        textColor="primary"
+        scrollable
+        scrollButtons="auto"
+      >
+        {dashNames.map(name => <Tab key={name} label={name} />)}
+      </Tabs>
+    </AppBar>
+    <ErrorBoundary msg="Dashboard crashed, try reloading">
+      {render(which)}
+    </ErrorBoundary>
+  </div>
+));
+
+const MultiWrapper = (props: {
+  activity: ActivityDBT,
+  docs: Object,
+  instances: Array<string | number>,
+  users: { [string | number]: string },
+  names?: string[]
+}) => {
+  const { activity, docs, names } = props;
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboard);
-  const w = which > dashNames.length ? 0 : which;
-  const [doc] = (docs && docs[dashNames[w]]) || [];
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={w}
-          onChange={(_, x) => setWhich(x)}
-          indicatorColor="primary"
-          textColor="primary"
-          scrollable
-          scrollButtons="auto"
-        >
-          {dashNames.map(name => <Tab key={name} label={name} />)}
-        </Tabs>
-      </AppBar>
-      <ErrorBoundary msg="Dashboard crashed, try reloading">
-        <DashboardComp {...props} name={dashNames[w]} doc={doc} />
-      </ErrorBoundary>
-    </div>
+    <DashboardSelector
+      dashNames={dashNames}
+      render={which => {
+        const w = which > dashNames.length ? 0 : which;
+        const [doc] = (docs && docs[dashNames[w]]) || [];
+        return <DashboardComp {...props} name={dashNames[w]} doc={doc} />;
+      }}
+    />
   );
-});
+};
 
-export default withStyles(styles)(MultiWrapper);
+export default MultiWrapper;
