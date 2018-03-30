@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
-import _ from 'lodash';
 
 import { type ActivityDbT } from 'frog-utils';
 

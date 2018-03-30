@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { type ActivityPackageT, LogDBT, pureObjectReactive } from 'frog-utils';
-import _, { throttle, cloneDeep } from 'lodash';
+import { throttle, cloneDeep } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Inspector from 'react-inspector';
