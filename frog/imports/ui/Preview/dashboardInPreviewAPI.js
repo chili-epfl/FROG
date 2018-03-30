@@ -53,13 +53,17 @@ export const hasDashExample = (aT: ActivityPackageT) =>
     false
   );
 
-export const activityDbObject = (config: Object, activityType: string) => ({
+export const activityDbObject = (
+  config: Object,
+  activityType: string,
+  startingTime?: Date
+) => ({
   _id: 'preview',
   data: config,
   groupingKey: 'group',
   plane: 2,
   startTime: 0,
-  actualStartingTime: new Date(Date.now()),
+  actualStartingTime: startingTime || new Date(Date.now()),
   length: 3,
   activityType
 });
@@ -67,13 +71,19 @@ export const activityDbObject = (config: Object, activityType: string) => ({
 export const mergeData = (
   aT: ActivityPackageT,
   log: LogDBT,
-  config: Object
+  config: Object,
+  startingTime?: Date
 ) => {
   Object.keys(aT.dashboard).forEach(name => {
     if (DocumentCache[name]) {
       const dash = aT.dashboard[name];
       const [doc, dataFn] = DocumentCache[name];
-      dash.mergeLog(doc.data, dataFn, log, activityDbObject(config, aT.id));
+      dash.mergeLog(
+        doc.data,
+        dataFn,
+        log,
+        activityDbObject(config, aT.id, startingTime)
+      );
     }
   });
 };
@@ -91,6 +101,7 @@ export const createLogger = (
 
   initDocuments(aT, false);
 
+  const startingTime = new Date();
   const logger = (logItems: Array<LogT> | LogT) => {
     const list = Array.isArray(logItems) ? logItems : [logItems];
     list.forEach(logItem => {
@@ -106,7 +117,7 @@ export const createLogger = (
         ...logItem
       };
       Logs.push(log);
-      mergeData(aT, log, config);
+      mergeData(aT, log, config, startingTime);
     });
   };
   return logger;
