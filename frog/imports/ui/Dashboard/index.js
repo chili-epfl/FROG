@@ -48,7 +48,7 @@ export class DashboardComp extends React.Component<
     } else {
       const _conn = props.conn || connection || {};
       const reactiveName = dashDocId(props.activity._id, props.name);
-      _conn.get('rz', reactiveName);
+      this.doc = _conn.get('rz', reactiveName);
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
       if (this.doc.type) {

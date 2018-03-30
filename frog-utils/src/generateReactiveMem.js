@@ -81,6 +81,10 @@ export class MemDoc extends EventEmitter {
     }
     return path.reduce((acc, x) => acc[[x]], data);
   }
+
+  destroy() {}
+  setMaxListeners() {}
+  removeListener() {}
 }
 
 export const pureObjectReactive = (initial: any) => {
