@@ -78,9 +78,6 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         this.activityDbObject.actualStartingTime = new Date(
           result[0].timestamp
         );
-        this.activityDbObject.actualClosingTime = new Date(
-          result[result.length - 1].timestamp
-        );
         this.setState({ logs: result });
       }
     );
@@ -90,7 +87,6 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
 
   displaySubset = (e: number) => {
     const aT = this.props.activityType;
-    const config = this.activityDbObject.data || {};
     const mergeLog = aT.dashboard[this.state.example].mergeLog;
     const diff = e - this.state.oldSlider;
     let tempDb;
@@ -107,9 +103,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     }
     const [doc, dataFn] = tempDb;
 
-    logs.forEach(log =>
-      mergeLog(doc.data, dataFn, log, activityDbObject(config, aT.id))
+    this.activityDbObject.actualClosingTime = new Date(
+      this.state.logs[e].timestamp
     );
+    logs.forEach(log => mergeLog(doc.data, dataFn, log, this.activityDbObject));
 
     this.setState({ data: tempDb[0].data, oldSlider: e });
   };
