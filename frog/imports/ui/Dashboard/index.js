@@ -42,12 +42,12 @@ export class DashboardComp extends React.Component<
   };
 
   init(props: Object) {
-    const _conn = props.conn || connection || {};
-    const reactiveName = dashDocId(props.activity._id, props.name);
     if (props.doc) {
       this.doc = props.doc;
       this.update();
     } else {
+      const _conn = props.conn || connection || {};
+      const reactiveName = dashDocId(props.activity._id, props.name);
       _conn.get('rz', reactiveName);
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
@@ -56,8 +56,8 @@ export class DashboardComp extends React.Component<
       } else {
         this.doc.on('load', this.update);
       }
-      this.doc.on('op', this.update);
     }
+    this.doc.on('op', this.update);
   }
 
   update = () => {
