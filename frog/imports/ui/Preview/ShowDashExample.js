@@ -81,6 +81,17 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
           result[0].timestamp
         );
         this.setState({ logs: result });
+        if (!this.state.slider[this.state.example]) {
+          this.setState(
+            {
+              slider: {
+                ...this.state.slider,
+                [this.state.example]: result.length - 1
+              }
+            },
+            () => this.displaySubset(result.length - 1)
+          );
+        }
       }
     );
   };
@@ -128,6 +139,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     suppliedLogs?: LogDBT[],
     restart: boolean = false
   ) => {
+    if (e === 0 && this.state.oldSlider === this.state.logs.length - 1) {
+      // fixes bug which kept resetting the graphs after they were automatically pushed to the end
+      return;
+    }
     const aT = this.props.activityType;
     const mergeLog = aT.dashboard[this.state.example].mergeLog;
     const diff = e - this.state.oldSlider;
