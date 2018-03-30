@@ -150,7 +150,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
     });
   }
 
-  componentWillUnmountMount() {
+  componentWillUnmount() {
     this.subscription.stop();
   }
 
