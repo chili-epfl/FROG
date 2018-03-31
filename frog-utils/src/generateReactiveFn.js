@@ -36,6 +36,10 @@ class Doc {
     this.updateFn = updateFn;
   }
 
+  // createLearningItem(item) {
+
+  // }
+
   bindTextField(ref, rawpath) {
     const path = cleanPath(this.path, rawpath);
     if (typeof get(this.doc.data, path) !== 'string') {
