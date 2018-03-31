@@ -86,7 +86,7 @@ class SessionAdmin extends React.Component<
                     >
                       <option value="" />
                       {graphs.length ? (
-                        graphs.filter(x => !x.sessionId).map(graph => (
+                        graphs.filter(x => x.sessionId).map(graph => (
                           <option
                             key={graph._id}
                             data-key={graph._id}
