@@ -56,11 +56,7 @@ class Doc {
         )}.`
       );
     }
-    const binding = new StringBinding(
-      ref,
-      this.doc,
-      cleanPath(this.path, path)
-    );
+    const binding = new StringBinding(ref, this.doc, path);
     binding.setup();
     return binding;
   }

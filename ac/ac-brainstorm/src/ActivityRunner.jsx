@@ -12,6 +12,7 @@ import {
   ListGroup,
   ListGroupItem
 } from 'react-bootstrap';
+import { withState } from 'recompose';
 
 import type { ActivityRunnerT } from 'frog-utils';
 
@@ -40,7 +41,7 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const Idea = ({ children, delFn, dataFn, meta, vote, userInfo }) => (
+const Idea = ({ children, delFn, dataFn, meta, vote, userInfo, editFn }) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
@@ -65,40 +66,70 @@ const Idea = ({ children, delFn, dataFn, meta, vote, userInfo }) => (
         <Badge>{meta.score}</Badge>
       </div>
     </font>
-    <div>
-      {children}
+    {children}
+    <div style={{ position: 'relative', top: '-15px' }}>
       <font size={4}>
         <A onClick={() => delFn(meta.id)}>
-          <Glyphicon glyph="scissors" style={{ float: 'right' }} />
+          <Glyphicon
+            glyph="scissors"
+            style={{
+              float: 'right',
+              marginRight: '10px'
+            }}
+          />
+        </A>
+        <A onClick={() => editFn(meta.id)}>
+          <Glyphicon
+            glyph="pencil"
+            style={{
+              float: 'right',
+              marginRight: '10px'
+            }}
+          />
         </A>
       </font>
     </div>
   </ListGroupItem>
 );
 
-const IdeaList = ({ data, dataFn, LearningItem, vote, userInfo }) => (
+const IdeaList = ({
+  data,
+  dataFn,
+  LearningItem,
+  vote,
+  userInfo,
+  edit,
+  setEdit
+}) => (
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {data.map(x => (
-          <div key={x}>
-            <LearningItem
-              render={props => (
-                <Idea
-                  {...props}
-                  vote={vote}
-                  delFn={e => {
-                    console.log(e, data);
-                    dataFn.listDel(e, data.findIndex(y => y === e));
-                  }}
-                  userInfo={userInfo}
-                />
-              )}
-              key={x}
-              id={x}
-            />
-          </div>
-        ))}
+        {data.map(x => {
+          return (
+            <div key={x}>
+              <LearningItem
+                type={edit === x ? 'edit' : 'view'}
+                render={props => (
+                  <Idea
+                    {...props}
+                    vote={vote}
+                    delFn={e => dataFn.listDel(e, data.findIndex(y => y === e))}
+                    editFn={e => {
+                      if (edit === e) {
+                        setEdit(undefined);
+                      } else {
+                        setEdit(e);
+                      }
+                    }}
+                    userInfo={userInfo}
+                  />
+                )}
+                key={x}
+                id={x}
+              />
+            </div>
+          );
+        })}
       </FlipMove>
     </ListGroup>
   </div>
@@ -124,8 +155,10 @@ const ActivityRunner = ({
   activityData,
   data,
   dataFn,
-  LearningItem
-}: ActivityRunnerT) => {
+  LearningItem,
+  edit,
+  setEdit
+}: ActivityRunnerT & { edit?: string, setEdit: Function }) => {
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
       const id = uuid();
@@ -180,6 +213,8 @@ const ActivityRunner = ({
           <p>{activityData.config.text}</p>
           <IdeaList
             data={data}
+            edit={edit}
+            setEdit={setEdit}
             vote={vote}
             dataFn={dataFn}
             LearningItem={LearningItem}
@@ -218,4 +253,4 @@ const AddIdea = ({ onSubmit }) => (
   </div>
 );
 
-export default ActivityRunner;
+export default withState('edit', 'setEdit', undefined)(ActivityRunner);
