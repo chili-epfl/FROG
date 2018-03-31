@@ -10,6 +10,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import ReactiveHOC from './ReactiveHOC';
+import LearningItem from './LearningItemRenderer';
 
 const getStructure = activity => {
   if (activity.plane === 1) {
@@ -153,7 +154,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
         stream={this.props.stream}
         groupingValue={this.props.groupingValue}
         sessionId={this.props.sessionId}
-        HOC={this.props.HOC}
+        LearningItem={LearningItem}
       />
     );
   }

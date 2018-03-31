@@ -5,7 +5,6 @@ import { uuid, A } from 'frog-utils';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
 import FlipMove from '@houshuang/react-flip-move';
-import { omit } from 'lodash';
 import {
   Badge,
   Glyphicon,
@@ -77,7 +76,7 @@ const Idea = ({ children, delFn, dataFn, meta, vote, userInfo }) => (
   </ListGroupItem>
 );
 
-const IdeaList = ({ data, dataFn, HOC, vote, userInfo }) => (
+const IdeaList = ({ data, dataFn, LearningItem, vote, userInfo }) => (
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
@@ -90,12 +89,11 @@ const IdeaList = ({ data, dataFn, HOC, vote, userInfo }) => (
                   vote={vote}
                   delFn={e => {
                     console.log(e, data);
-                    dataFn.listDel(e, data.findIndex(x => x === e));
+                    dataFn.listDel(e, data.findIndex(y => y === e));
                   }}
                   userInfo={userInfo}
                 />
               )}
-              HOC={HOC}
               key={x}
               id={x}
             />
@@ -120,49 +118,13 @@ const schema = {
   }
 };
 
-const IdeaLI = ({ data }) => {
-  return (
-    <p>
-      <b>{data.title}</b>
-      <br />
-      {data.content}
-    </p>
-  );
-};
-
-const learningItemTypesObj = { 'li-idea': IdeaLI };
-
-const RenderLearningItem = ({ data, dataFn, render }) => {
-  const Component = learningItemTypesObj[data.liType];
-  if (!Component) {
-    return <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>;
-  } else {
-    if (render) {
-      return render({
-        meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
-        dataFn,
-        children: <Component data={data.payload} />
-      });
-    } else {
-      return <Component data={data.payload} />;
-    }
-  }
-};
-
-const LearningItem = ({ HOC, id, render }) => {
-  const ToRun = HOC(id, undefined, undefined, undefined, 'li')(
-    RenderLearningItem
-  );
-  return <ToRun render={render} />;
-};
-
 const ActivityRunner = ({
   userInfo,
   logger,
   activityData,
   data,
   dataFn,
-  HOC
+  LearningItem
 }: ActivityRunnerT) => {
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
@@ -210,9 +172,7 @@ const ActivityRunner = ({
     }
   };
 
-  const del = item => dataFn.objDel(item, item.id);
   const formBoolean = activityData.config.formBoolean;
-  const fun = { vote, del, formBoolean };
   return (
     <div className="bootstrap">
       <Container>
@@ -222,7 +182,7 @@ const ActivityRunner = ({
             data={data}
             vote={vote}
             dataFn={dataFn}
-            HOC={HOC}
+            LearningItem={LearningItem}
             userInfo={userInfo}
           />
         </ListContainer>
