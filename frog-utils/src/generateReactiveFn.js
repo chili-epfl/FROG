@@ -36,9 +36,13 @@ class Doc {
     this.updateFn = updateFn;
   }
 
-  // createLearningItem(item) {
-
-  // }
+  createLearningItem(liType, item, meta) {
+    const id = uuid();
+    const itempointer = this.doc.connection.get('li', id);
+    itempointer.create({ liType, payload: item, ...meta });
+    itempointer.subscribe();
+    return id;
+  }
 
   bindTextField(ref, rawpath) {
     const path = cleanPath(this.path, rawpath);
@@ -68,6 +72,13 @@ class Doc {
     this.submitOp({
       p: [...cleanPath(this.path, path), 999999],
       li: newVal
+    });
+  }
+  listAppendLI(liType: string, payload: Object, meta: Object, path: rawPathT) {
+    const liID = this.createLearningItem(liType, payload, meta);
+    this.submitOp({
+      p: [...cleanPath(this.path, path), 999999],
+      li: liID
     });
   }
   listInsert(newVal: any, path: rawPathT) {

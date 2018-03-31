@@ -79,6 +79,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       groupingValue={groupingValue}
       sessionId={sessionId}
       readOnly={readOnly}
+      HOC={ReactiveHOC}
     />
   );
 
@@ -152,6 +153,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
         stream={this.props.stream}
         groupingValue={this.props.groupingValue}
         sessionId={this.props.sessionId}
+        HOC={this.props.HOC}
       />
     );
   }

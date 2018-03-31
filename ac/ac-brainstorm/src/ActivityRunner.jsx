@@ -1,11 +1,11 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { uuid, A } from 'frog-utils';
 import styled from 'styled-components';
 import Form from 'react-jsonschema-form';
 import FlipMove from '@houshuang/react-flip-move';
-import { values } from 'lodash';
+import { omit } from 'lodash';
 import {
   Badge,
   Glyphicon,
@@ -41,61 +41,66 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const Idea = ({ individualVote, fun, idea, remove }) => (
+const Idea = ({ children, delFn, dataFn, meta, vote, userInfo }) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
-        <A onClick={() => fun.vote(idea.id, -1)}>
+        <A onClick={() => vote(-1, meta, dataFn)}>
           <Glyphicon
             style={{
-              color: chooseColor(individualVote, false),
+              color: chooseColor(meta.students[userInfo.id], false),
               marginRight: '10px'
             }}
             glyph="thumbs-down"
           />
         </A>
-        <A onClick={() => fun.vote(idea.id, 1)}>
+        <A onClick={() => vote(1, meta, dataFn)}>
           <Glyphicon
             style={{
-              color: chooseColor(individualVote, true),
+              color: chooseColor(meta.students[userInfo.id], true),
               marginRight: '10px'
             }}
             glyph="thumbs-up"
           />
         </A>
-        <Badge>{idea.score}</Badge>
+        <Badge>{meta.score}</Badge>
       </div>
     </font>
-    <b>{idea.title}</b>
     <div>
-      {idea.content}
-      {remove && (
-        <font size={4}>
-          <A onClick={() => fun.del(idea)}>
-            <Glyphicon glyph="scissors" style={{ float: 'right' }} />
-          </A>
-        </font>
-      )}
+      {children}
+      <font size={4}>
+        <A onClick={() => delFn(meta.id)}>
+          <Glyphicon glyph="scissors" style={{ float: 'right' }} />
+        </A>
+      </font>
     </div>
   </ListGroupItem>
 );
 
-const IdeaList = ({ userInfo, data, ideas, fun }) => (
+const IdeaList = ({ data, dataFn, HOC, vote, userInfo }) => (
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {values(ideas)
-          .sort((a, b) => b.score - a.score)
-          .map(idea => {
-            const individualVote = data[idea.id].students[userInfo.id];
-            return (
-              <div key={idea.id}>
+        {data.map(x => (
+          <div key={x}>
+            <LearningItem
+              render={props => (
                 <Idea
-                  {...{ individualVote, idea, fun, key: idea.id, remove: true }}
+                  {...props}
+                  vote={vote}
+                  delFn={e => {
+                    console.log(e, data);
+                    dataFn.listDel(e, data.findIndex(x => x === e));
+                  }}
+                  userInfo={userInfo}
                 />
-              </div>
-            );
-          })}
+              )}
+              HOC={HOC}
+              key={x}
+              id={x}
+            />
+          </div>
+        ))}
       </FlipMove>
     </ListGroup>
   </div>
@@ -115,12 +120,49 @@ const schema = {
   }
 };
 
+const IdeaLI = ({ data }) => {
+  return (
+    <p>
+      <b>{data.title}</b>
+      <br />
+      {data.content}
+    </p>
+  );
+};
+
+const learningItemTypesObj = { 'li-idea': IdeaLI };
+
+const RenderLearningItem = ({ data, dataFn, render }) => {
+  const Component = learningItemTypesObj[data.liType];
+  if (!Component) {
+    return <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>;
+  } else {
+    if (render) {
+      return render({
+        meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
+        dataFn,
+        children: <Component data={data.payload} />
+      });
+    } else {
+      return <Component data={data.payload} />;
+    }
+  }
+};
+
+const LearningItem = ({ HOC, id, render }) => {
+  const ToRun = HOC(id, undefined, undefined, undefined, 'li')(
+    RenderLearningItem
+  );
+  return <ToRun render={render} />;
+};
+
 const ActivityRunner = ({
   userInfo,
   logger,
   activityData,
   data,
-  dataFn
+  dataFn,
+  HOC
 }: ActivityRunnerT) => {
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
@@ -130,34 +172,41 @@ const ActivityRunner = ({
         itemId: id,
         value: e.formData.title + '\n' + e.formData.content
       });
-      dataFn.objInsert({ score: 0, id, students: {}, ...e.formData }, id);
+      dataFn.listAppendLI(
+        'li-idea',
+        {
+          title: e.formData.title,
+          content: e.formData.content
+        },
+        { score: 0, students: {} }
+      );
     }
   };
 
-  const vote = (id, incr) => {
-    logger({ type: 'vote', itemId: id, value: incr });
-    switch (data[id].students[userInfo.id]) {
+  const vote = (incr, specdata, specdataFn) => {
+    logger({ type: 'vote', itemId: specdata.id, value: incr });
+    switch (specdata.students[userInfo.id]) {
       case -1:
         if (incr < 0) {
-          dataFn.objInsert(0, [id, 'students', userInfo.id]);
-          dataFn.numIncr(1, [id, 'score']);
+          specdataFn.objInsert(0, ['students', userInfo.id]);
+          specdataFn.numIncr(1, ['score']);
         } else {
-          dataFn.objInsert(1, [id, 'students', userInfo.id]);
-          dataFn.numIncr(2, [id, 'score']);
+          specdataFn.objInsert(1, ['students', userInfo.id]);
+          specdataFn.numIncr(2, ['score']);
         }
         break;
       case 1:
         if (incr < 0) {
-          dataFn.objInsert(-1, [id, 'students', userInfo.id]);
-          dataFn.numIncr(-2, [id, 'score']);
+          specdataFn.objInsert(-1, ['students', userInfo.id]);
+          specdataFn.numIncr(-2, ['score']);
         } else {
-          dataFn.objInsert(0, [id, 'students', userInfo.id]);
-          dataFn.numIncr(-1, [id, 'score']);
+          specdataFn.objInsert(0, ['students', userInfo.id]);
+          specdataFn.numIncr(-1, ['score']);
         }
         break;
       default:
-        dataFn.objInsert(incr, [id, 'students', userInfo.id]);
-        dataFn.numIncr(incr, [id, 'score']);
+        specdataFn.objInsert(incr, ['students', userInfo.id]);
+        specdataFn.numIncr(incr, ['score']);
     }
   };
 
@@ -169,10 +218,16 @@ const ActivityRunner = ({
       <Container>
         <ListContainer>
           <p>{activityData.config.text}</p>
-          <IdeaList ideas={data} data={data} userInfo={userInfo} fun={fun} />
-          {formBoolean && <AddIdea onSubmit={onSubmit} />}
+          <IdeaList
+            data={data}
+            vote={vote}
+            dataFn={dataFn}
+            HOC={HOC}
+            userInfo={userInfo}
+          />
         </ListContainer>
       </Container>
+      {formBoolean && <AddIdea onSubmit={onSubmit} />}
     </div>
   );
 };
