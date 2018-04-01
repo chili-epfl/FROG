@@ -64,7 +64,9 @@ class LearningItemChooser extends React.Component<
             return (
               <MenuItem
                 key={item.id}
-                onClick={() => this.setState({ open: item })}
+                onClick={() =>
+                  this.setState({ open: item, anchorEl: undefined })
+                }
               >
                 {item.name}
               </MenuItem>

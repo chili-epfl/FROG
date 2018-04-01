@@ -3,6 +3,8 @@ import * as React from 'react';
 import { omit } from 'lodash';
 import { ReactiveText, uuid } from 'frog-utils';
 import Button from 'material-ui/Button';
+import Dialog, { DialogTitle } from 'material-ui/Dialog';
+import { withState } from 'recompose';
 
 import ReactiveHOC from './ReactiveHOC';
 import fileLI from '../../internalLearningItems/li-file';
@@ -11,26 +13,30 @@ import { uploadFile } from '../../api/openUploads';
 import LearningItemChooser from './LearningItemChooser';
 
 const viewIdea = ({ data }) => (
-  <p>
+  <React.Fragment>
     <b>{data.title}</b>
     <br />
     {data.content}
-  </p>
+  </React.Fragment>
 );
 
 const editIdea = ({ dataFn }) => (
-  <div>
+  <div className="bootstrap">
+    <b>Title:</b>
+    <br />
     <ReactiveText
       path="title"
       dataFn={dataFn}
-      placeholder="Title"
-      style={{ width: '100%', height: '100%', fontSize: '20px' }}
+      style={{ width: '80%', height: '100%', fontSize: '20px' }}
     />
+    <br />
+    <b>Content:</b>
+    <br />
     <ReactiveText
       path="content"
+      type="textarea"
       dataFn={dataFn}
-      placeholder="Content"
-      style={{ width: '100%', height: '100%', fontSize: '20px' }}
+      style={{ width: '80%', height: '100%', fontSize: '20px' }}
     />
   </div>
 );
@@ -77,31 +83,64 @@ const createLearningItem = (liType, item, meta) => {
   return id;
 };
 
-const RenderLearningItem = ({ data, dataFn, render, type = 'view' }) => {
-  const liType = learningItemTypesObj[data.liType];
-  const Component = liType[type];
-  if (!Component) {
-    return <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>;
-  } else {
-    const Comp = (
-      <Component
-        data={data.payload}
-        dataFn={dataFn && dataFn.specialize('payload')}
-      />
-    );
-    if (render) {
-      return render({
-        meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
-        dataFn,
-        children: Comp,
-        editable: liType.editable,
-        zoomable: liType.zoomable
-      });
+const RenderLearningItem = withState('open', 'setOpen', undefined)(
+  ({ open, setOpen, data, dataFn, render, type = 'view', clickZoomable }) => {
+    const liType = learningItemTypesObj[data.liType];
+    if (!liType) {
+      return <h1>Upz</h1>;
+    }
+    const Component = liType[type];
+    if (!Component) {
+      return (
+        <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>
+      );
     } else {
-      return Comp;
+      const Comp = (
+        <React.Fragment>
+          <span onClick={() => setOpen(true)}>
+            <Component
+              data={data.payload}
+              dataFn={dataFn && dataFn.specialize('payload')}
+            />
+          </span>
+          {(() => {
+            if (
+              open &&
+              type === 'viewThumb' &&
+              clickZoomable &&
+              liType['view']
+            ) {
+              const View = liType['view'];
+
+              return (
+                <Dialog open onClose={() => setOpen(false)}>
+                  <View
+                    data={data.payload}
+                    dataFn={dataFn && dataFn.specialize('payload')}
+                  />
+                </Dialog>
+              );
+            }
+            return null;
+          })()}
+        </React.Fragment>
+      );
+      if (render) {
+        return render({
+          meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
+          dataFn,
+          children: Comp,
+          editable: liType.editable,
+          zoomable: liType.zoomable
+        });
+      } else {
+        return Comp;
+      }
     }
   }
-};
+);
+
+RenderLearningItem.displayName = 'RenderLearningItem';
 
 const LearningItem = ({
   id,
@@ -109,14 +148,16 @@ const LearningItem = ({
   type,
   li,
   onCreate,
-  meta
+  meta,
+  clickZoomable
 }: {
   id?: string,
   render?: Function,
   type?: string,
   li?: string,
   onCreate?: Function,
-  meta?: Object
+  meta?: Object,
+  clickZoomable?: boolean
 }) => {
   if (type === 'create') {
     if (li) {
@@ -135,9 +176,9 @@ const LearningItem = ({
       } else {
         const lid = createLearningItem(liT.id, liT.dataStructure, meta);
         return (
-          <div>
+          <div style={{ marginLeft: '10px' }}>
             <LearningItem id={lid} type="edit" meta={meta} />
-            <Button color="primary" onClick={() => onCreate(lid)}>
+            <Button color="primary" onClick={() => onCreate && onCreate(lid)}>
               Add
             </Button>
           </div>
@@ -154,7 +195,14 @@ const LearningItem = ({
       undefined,
       'li'
     )(RenderLearningItem);
-    return <ToRun render={render} type={type} li={li} />;
+    return (
+      <ToRun
+        render={render}
+        type={type}
+        li={li}
+        clickZoomable={clickZoomable}
+      />
+    );
   }
 };
 

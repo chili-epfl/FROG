@@ -1,65 +1,41 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 
 import { type ActivityRunnerT, uuid } from 'frog-utils';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import TextInput from './TextInput';
+import styles from './styles';
 
-const styles = {
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    height: '100%',
-    background: 'white'
-  },
-  header: {
-    flex: '0 0 auto',
-    margin: '0',
-    padding: '20px 0',
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  inputContainer: {
-    display: 'flex',
-    flex: '0 0 auto',
-    flexDirection: 'column',
-    background: '#EAEAEA',
-    justifyContent: 'center',
-    padding: '20px'
-  },
-  content: {
-    flex: '1 1 auto',
-    overflowY: 'auto',
-    listStyle: 'none',
-    padding: '0 20px'
-  },
-  msg: {
-    margin: '20px 0',
-    padding: '15px',
-    border: '1px solid #e0e0e0',
-    borderRadius: '200px 200px 200px 0px',
-    width: 'fit-content'
-  },
-  user: {
-    fontSize: '10pt',
-    paddingBottom: '2px',
-    color: '#0606066b'
-  }
-};
-
-const Chatmsg = ({ msg, classes }) => (
-  <div className={classes.msg}>
+const RenderMsg = ({ from, content }) => (
+  <React.Fragment>
     <Typography variant="body2" gutterBottom color="secondary">
-      {msg.user}
+      {from}
     </Typography>
-    <Typography gutterBottom>{msg.msg}</Typography>
+    <Typography gutterBottom>{content}</Typography>
+  </React.Fragment>
+);
+
+const Chatmsg = ({ LearningItem, msg, classes }) => (
+  <div className={classes.msg}>
+    {typeof msg === 'string' ? (
+      <LearningItem
+        key={msg}
+        id={msg}
+        clickZoomable
+        type="viewThumb"
+        render={({ meta, children }) => (
+          <RenderMsg from={meta.user} content={children} />
+        )}
+      />
+    ) : (
+      <RenderMsg from={msg.user} content={msg.msg} />
+    )}
   </div>
 );
 
-class ChatController extends Component<ActivityRunnerT> {
+class ChatController extends React.Component<ActivityRunnerT> {
   node: any;
 
   scrollToBottom = () => {
@@ -86,7 +62,8 @@ class ChatController extends Component<ActivityRunnerT> {
       dataFn,
       userInfo,
       logger,
-      classes
+      classes,
+      LearningItem
     } = this.props;
 
     return (
@@ -94,7 +71,12 @@ class ChatController extends Component<ActivityRunnerT> {
         <h4 className={classes.header}>{activityData.config.title}</h4>
         <div className={classes.content} ref={node => (this.node = node)}>
           {data.map(chatmsg => (
-            <Chatmsg msg={chatmsg} key={chatmsg.id} classes={classes} />
+            <Chatmsg
+              LearningItem={LearningItem}
+              msg={chatmsg}
+              key={chatmsg.id || chatmsg}
+              classes={classes}
+            />
           ))}
         </div>
 
@@ -106,6 +88,11 @@ class ChatController extends Component<ActivityRunnerT> {
               logger({ type: 'chat', value: e, itemId: id });
               this.scrollToBottom();
             }}
+          />
+          <LearningItem
+            type="create"
+            meta={{ user: userInfo.name }}
+            onCreate={e => dataFn.listAppend(e)}
           />
         </div>
       </div>

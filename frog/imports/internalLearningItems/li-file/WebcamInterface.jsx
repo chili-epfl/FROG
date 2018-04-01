@@ -51,7 +51,6 @@ const takePicture = ({
 
 const WebcamCapture = (props: Object) => {
   let webcam = { getScreenshot: () => null };
-  Mousetrap.bind('esc', () => props.setWebcam(false));
   return (
     <WebcamContainer>
       <button
