@@ -12,7 +12,7 @@ import {
   ListGroup,
   ListGroupItem
 } from 'react-bootstrap';
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
 
 import type { ActivityRunnerT } from 'frog-utils';
 
@@ -41,7 +41,18 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const Idea = ({ children, delFn, dataFn, meta, vote, userInfo, editFn }) => (
+const Idea = ({
+  children,
+  delFn,
+  dataFn,
+  meta,
+  vote,
+  userInfo,
+  editFn,
+  zoomable,
+  editable,
+  zoomFn
+}) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
@@ -78,28 +89,43 @@ const Idea = ({ children, delFn, dataFn, meta, vote, userInfo, editFn }) => (
             }}
           />
         </A>
-        <A onClick={() => editFn(meta.id)}>
-          <Glyphicon
-            glyph="pencil"
-            style={{
-              float: 'right',
-              marginRight: '10px'
-            }}
-          />
-        </A>
+        {editable && (
+          <A onClick={() => editFn(meta.id)}>
+            <Glyphicon
+              glyph="pencil"
+              style={{
+                float: 'right',
+                marginRight: '10px'
+              }}
+            />
+          </A>
+        )}
+        {zoomable && (
+          <A onClick={() => zoomFn(meta.id)}>
+            <Glyphicon
+              glyph="zoom-in"
+              style={{
+                float: 'right',
+                marginRight: '10px'
+              }}
+            />
+          </A>
+        )}
       </font>
     </div>
   </ListGroupItem>
 );
 
-const IdeaList = ({
+const IdeaListRaw = ({
   data,
   dataFn,
   LearningItem,
   vote,
   userInfo,
   edit,
-  setEdit
+  setEdit,
+  zoom,
+  setZoom
 }) => (
   <div>
     <ListGroup className="item">
@@ -108,18 +134,19 @@ const IdeaList = ({
           return (
             <div key={x}>
               <LearningItem
-                type={edit === x ? 'edit' : 'view'}
+                type={edit === x ? 'edit' : zoom === x ? 'view' : 'viewThumb'}
                 render={props => (
                   <Idea
                     {...props}
                     vote={vote}
                     delFn={e => dataFn.listDel(e, data.findIndex(y => y === e))}
                     editFn={e => {
-                      if (edit === e) {
-                        setEdit(undefined);
-                      } else {
-                        setEdit(e);
-                      }
+                      setZoom(false);
+                      setEdit(edit === e ? false : e);
+                    }}
+                    zoomFn={e => {
+                      setEdit(false);
+                      setZoom(zoom === e ? false : e);
                     }}
                     userInfo={userInfo}
                   />
@@ -134,6 +161,11 @@ const IdeaList = ({
     </ListGroup>
   </div>
 );
+
+const IdeaList = compose(
+  withState('edit', 'setEdit', undefined),
+  withState('zoom', 'setZoom', undefined)
+)(IdeaListRaw);
 
 const schema = {
   type: 'object',
@@ -155,10 +187,8 @@ const ActivityRunner = ({
   activityData,
   data,
   dataFn,
-  LearningItem,
-  edit,
-  setEdit
-}: ActivityRunnerT & { edit?: string, setEdit: Function }) => {
+  LearningItem
+}: ActivityRunnerT) => {
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
       const id = uuid();
@@ -206,24 +236,29 @@ const ActivityRunner = ({
   };
 
   const formBoolean = activityData.config.formBoolean;
+
   return (
-    <div className="bootstrap">
-      <Container>
-        <ListContainer>
-          <p>{activityData.config.text}</p>
-          <IdeaList
-            data={data}
-            edit={edit}
-            setEdit={setEdit}
-            vote={vote}
-            dataFn={dataFn}
-            LearningItem={LearningItem}
-            userInfo={userInfo}
-          />
-        </ListContainer>
-      </Container>
-      {formBoolean && <AddIdea onSubmit={onSubmit} />}
-    </div>
+    <React.Fragment>
+      <div className="bootstrap" style={{ width: '80%' }}>
+        <Container>
+          <ListContainer>
+            <p>{activityData.config.text}</p>
+            <IdeaList
+              data={data}
+              vote={vote}
+              dataFn={dataFn}
+              LearningItem={LearningItem}
+              userInfo={userInfo}
+            />
+          </ListContainer>
+        </Container>
+      </div>
+      <LearningItem
+        type="create"
+        meta={{ score: 0, students: {} }}
+        onCreate={e => dataFn.listAppend(e)}
+      />
+    </React.Fragment>
   );
 };
 
@@ -253,4 +288,4 @@ const AddIdea = ({ onSubmit }) => (
   </div>
 );
 
-export default withState('edit', 'setEdit', undefined)(ActivityRunner);
+export default ActivityRunner;

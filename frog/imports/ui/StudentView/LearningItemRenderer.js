@@ -1,9 +1,14 @@
 // @flow
 import * as React from 'react';
 import { omit } from 'lodash';
-import { ReactiveText } from 'frog-utils';
+import { ReactiveText, uuid } from 'frog-utils';
+import Button from 'material-ui/Button';
 
 import ReactiveHOC from './ReactiveHOC';
+import fileLI from '../../internalLearningItems/li-file';
+import { connection } from '../App/connection';
+import { uploadFile } from '../../api/openUploads';
+import LearningItemChooser from './LearningItemChooser';
 
 const viewIdea = ({ data }) => (
   <p>
@@ -31,43 +36,126 @@ const editIdea = ({ dataFn }) => (
 );
 
 const ideaLI = {
-  view: viewIdea,
+  viewThumb: viewIdea,
+  editable: true,
+  zoomable: false,
   edit: editIdea,
-  name: 'Idea'
+  name: 'Idea',
+  id: 'li-idea',
+  dataStructure: { title: '', content: '' }
 };
 
-const learningItemTypesObj = { 'li-idea': ideaLI };
+export type learningItemTypeT = {
+  name: string,
+  id: string,
+  dataStructure?: any,
+  viewer?: React.ComponentType<any>,
+  create?: React.ComponentType<any>,
+  editor?: React.ComponentType<any>,
+  editable: boolean,
+  viewThumb: React.ComponentType<any>,
+  zoomable: boolean,
+  editor?: React.ComponentType<any>,
+  editable: boolean
+};
+
+export const learningItemTypesObj: {
+  [name: string]: learningItemTypeT
+} = {
+  'li-idea': ideaLI,
+  'li-file': fileLI
+};
+
+const createLearningItem = (liType, item, meta) => {
+  const id = uuid();
+  if (!connection) {
+    throw new Error();
+  }
+  const itempointer = connection.get('li', id);
+  itempointer.create({ liType, payload: item, ...meta });
+  itempointer.subscribe();
+  return id;
+};
 
 const RenderLearningItem = ({ data, dataFn, render, type = 'view' }) => {
-  const Component = learningItemTypesObj[data.liType][type];
+  const liType = learningItemTypesObj[data.liType];
+  const Component = liType[type];
   if (!Component) {
     return <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>;
-  } else if (render) {
-    return render({
-      meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
-      dataFn,
-      children: (
-        <Component data={data.payload} dataFn={dataFn.specialize('payload')} />
-      )
-    });
   } else {
-    return <Component data={data.payload} />;
+    const Comp = (
+      <Component
+        data={data.payload}
+        dataFn={dataFn && dataFn.specialize('payload')}
+      />
+    );
+    if (render) {
+      return render({
+        meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
+        dataFn,
+        children: Comp,
+        editable: liType.editable,
+        zoomable: liType.zoomable
+      });
+    } else {
+      return Comp;
+    }
   }
 };
 
 const LearningItem = ({
   id,
   render,
-  type
+  type,
+  li,
+  onCreate,
+  meta
 }: {
-  id: string,
+  id?: string,
   render?: Function,
-  type?: string
+  type?: string,
+  li?: string,
+  onCreate?: Function,
+  meta?: Object
 }) => {
-  const ToRun = ReactiveHOC(id, undefined, undefined, undefined, 'li')(
-    RenderLearningItem
-  );
-  return <ToRun render={render} type={type} />;
+  if (type === 'create') {
+    if (li) {
+      const liT = learningItemTypesObj[li];
+      if (liT.create) {
+        const ToRun = liT.create;
+        return (
+          <ToRun
+            uploadFn={uploadFile}
+            createLearningItem={(liType, item) =>
+              createLearningItem(liType, item, meta)
+            }
+            onCreate={onCreate}
+          />
+        );
+      } else {
+        const lid = createLearningItem(liT.id, liT.dataStructure, meta);
+        return (
+          <div>
+            <LearningItem id={lid} type="edit" meta={meta} />
+            <Button color="primary" onClick={() => onCreate(lid)}>
+              Add
+            </Button>
+          </div>
+        );
+      }
+    } else {
+      return <LearningItemChooser onCreate={onCreate} meta={meta} />;
+    }
+  } else {
+    const ToRun = ReactiveHOC(
+      id || uuid(),
+      undefined,
+      undefined,
+      undefined,
+      'li'
+    )(RenderLearningItem);
+    return <ToRun render={render} type={type} li={li} />;
+  }
 };
 
 export default LearningItem;

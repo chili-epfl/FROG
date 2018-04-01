@@ -34,6 +34,14 @@ try {
   });
 }
 export const serverConnection = backend.connect();
+Meteor.methods({
+  'sharedb.get.ops': (coll, id) =>
+    new Promise(resolve =>
+      backend.db.getOps(coll, id, 0, null, {}, (_, res) => {
+        resolve(res);
+      })
+    ).catch(e => console.error(e))
+});
 
 export const startShareDB = () => {
   if (!Meteor.settings.dont_start_sharedb) {
