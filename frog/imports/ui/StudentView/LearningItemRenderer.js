@@ -1,15 +1,16 @@
 // @flow
 import * as React from 'react';
 import { omit } from 'lodash';
-import { ReactiveText, uuid } from 'frog-utils';
+import { uuid } from 'frog-utils';
 import Button from 'material-ui/Button';
-import Dialog, { DialogTitle } from 'material-ui/Dialog';
+import Dialog from 'material-ui/Dialog';
 import { withState } from 'recompose';
 
 import ReactiveHOC from './ReactiveHOC';
 import fileLI from '../../internalLearningItems/li-file';
 import ideaLI from '../../internalLearningItems/li-idea';
 import imageLI from '../../internalLearningItems/li-image';
+import ideaCompoundLI from '../../internalLearningItems/li-ideaCompound';
 import { connection } from '../App/connection';
 import { uploadFile } from '../../api/openUploads';
 import LearningItemChooser from './LearningItemChooser';
@@ -33,7 +34,8 @@ export const learningItemTypesObj: {
 } = {
   'li-idea': ideaLI,
   'li-file': fileLI,
-  'li-image': imageLI
+  'li-image': imageLI,
+  'li-ideaCompound': ideaCompoundLI
 };
 
 const createLearningItem = (liType, item, meta) => {
@@ -63,6 +65,7 @@ const RenderLearningItem = withState('open', 'setOpen', undefined)(
         <React.Fragment>
           <span onClick={() => setOpen(true)}>
             <Component
+              LearningItem={LearningItem}
               data={data.payload}
               dataFn={dataFn && dataFn.specialize('payload')}
             />
@@ -135,6 +138,7 @@ const LearningItem = ({
               createLearningItem(liType, item, meta)
             }
             onCreate={onCreate}
+            LearningItem={LearningItem}
           />
         );
       } else {

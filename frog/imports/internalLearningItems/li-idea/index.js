@@ -5,8 +5,8 @@ const viewIdea = ({ data }) => (
   <React.Fragment>
     <b>{data.title}</b>
     <br />
-    {data.content.split('\n').map(line => (
-      <React.Fragment>
+    {data.content.split('\n').map((line, i) => (
+      <React.Fragment key={i}>
         {line}
         <br />
       </React.Fragment>

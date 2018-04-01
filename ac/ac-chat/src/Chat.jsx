@@ -13,7 +13,7 @@ const RenderMsg = ({ from, content }) => (
     <Typography variant="body2" gutterBottom color="secondary">
       {from}
     </Typography>
-    <Typography gutterBottom>{content}</Typography>
+    {content}
   </React.Fragment>
 );
 
@@ -30,7 +30,10 @@ const Chatmsg = ({ LearningItem, msg, classes }) => (
         )}
       />
     ) : (
-      <RenderMsg from={msg.user} content={msg.msg} />
+      <RenderMsg
+        from={msg.user}
+        content={<Typography gutterBottom>{msg.msg}</Typography>}
+      />
     )}
   </div>
 );
