@@ -8,48 +8,11 @@ import { withState } from 'recompose';
 
 import ReactiveHOC from './ReactiveHOC';
 import fileLI from '../../internalLearningItems/li-file';
+import ideaLI from '../../internalLearningItems/li-idea';
+import imageLI from '../../internalLearningItems/li-image';
 import { connection } from '../App/connection';
 import { uploadFile } from '../../api/openUploads';
 import LearningItemChooser from './LearningItemChooser';
-
-const viewIdea = ({ data }) => (
-  <React.Fragment>
-    <b>{data.title}</b>
-    <br />
-    {data.content}
-  </React.Fragment>
-);
-
-const editIdea = ({ dataFn }) => (
-  <div className="bootstrap">
-    <b>Title:</b>
-    <br />
-    <ReactiveText
-      path="title"
-      dataFn={dataFn}
-      style={{ width: '80%', height: '100%', fontSize: '20px' }}
-    />
-    <br />
-    <b>Content:</b>
-    <br />
-    <ReactiveText
-      path="content"
-      type="textarea"
-      dataFn={dataFn}
-      style={{ width: '80%', height: '100%', fontSize: '20px' }}
-    />
-  </div>
-);
-
-const ideaLI = {
-  viewThumb: viewIdea,
-  editable: true,
-  zoomable: false,
-  edit: editIdea,
-  name: 'Idea',
-  id: 'li-idea',
-  dataStructure: { title: '', content: '' }
-};
 
 export type learningItemTypeT = {
   name: string,
@@ -69,7 +32,8 @@ export const learningItemTypesObj: {
   [name: string]: learningItemTypeT
 } = {
   'li-idea': ideaLI,
-  'li-file': fileLI
+  'li-file': fileLI,
+  'li-image': imageLI
 };
 
 const createLearningItem = (liType, item, meta) => {

@@ -9,6 +9,7 @@ import uploadWithTumbnail from './utils';
 const UploadDragDrop = ({
   dataFn,
   uploadFn,
+  fileTypes,
   createLearningItem,
   onCreate
 }: Object) => {
@@ -29,6 +30,7 @@ const UploadDragDrop = ({
     <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
       <Dropzone
         onDropAccepted={onDrop}
+        accept={fileTypes || null}
         style={{
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',

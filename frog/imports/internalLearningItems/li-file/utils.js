@@ -22,7 +22,7 @@ const uploadBufferWithThumbnail = (
         resizeImg(imageBuffer, { width: 800 }).then(buffery => {
           const blob2 = new Blob([buffery], { type: 'image/jpeg' });
           uploadFn(blob2, imageId).then(url => {
-            const id = createLearningItem('li-file', {
+            const id = createLearningItem('li-image', {
               url,
               thumburl,
               filename
@@ -34,7 +34,12 @@ const uploadBufferWithThumbnail = (
     });
   } else {
     uploadFn(imageBuffer, imageId).then(url => {
-      dataFn.objInsert({ url, ext, filename }, imageId);
+      const id = createLearningItem('li-file', {
+        url,
+        ext,
+        filename
+      });
+      onCreate(id);
     });
   }
 };
