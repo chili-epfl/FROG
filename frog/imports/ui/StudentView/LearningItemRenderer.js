@@ -29,54 +29,52 @@ const RenderLearningItem = withState('open', 'setOpen', undefined)(
     if (!liType) {
       return <h1>Upz</h1>;
     }
-    const Component = liType[type];
+    let Component = liType[type];
     if (!Component) {
-      return (
-        <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>
-      );
-    } else {
-      const Comp = (
-        <React.Fragment>
-          <span onClick={() => setOpen(true)}>
-            <Component
-              LearningItem={LearningItem}
-              data={data.payload}
-              dataFn={dataFn && dataFn.specialize('payload')}
-            />
-          </span>
-          {(() => {
-            if (
-              open &&
-              type === 'viewThumb' &&
-              clickZoomable &&
-              liType['view']
-            ) {
-              const View = liType['view'];
-
-              return (
-                <Dialog open onClose={() => setOpen(false)}>
-                  <View
-                    data={data.payload}
-                    dataFn={dataFn && dataFn.specialize('payload')}
-                  />
-                </Dialog>
-              );
-            }
-            return null;
-          })()}
-        </React.Fragment>
-      );
-      if (render) {
-        return render({
-          meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
-          dataFn,
-          children: Comp,
-          editable: liType.editable,
-          zoomable: liType.zoomable
-        });
+      if (type === 'view' && liType.viewThumb) {
+        Component = liType.viewThumb;
       } else {
-        return Comp;
+        return (
+          <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>
+        );
       }
+    }
+    const Comp = (
+      <React.Fragment>
+        <span onClick={() => setOpen(true)}>
+          <Component
+            LearningItem={LearningItem}
+            data={data.payload}
+            dataFn={dataFn && dataFn.specialize('payload')}
+          />
+        </span>
+        {(() => {
+          if (open && type === 'viewThumb' && clickZoomable && liType['view']) {
+            const View = liType['view'];
+
+            return (
+              <Dialog open onClose={() => setOpen(false)}>
+                <View
+                  data={data.payload}
+                  dataFn={dataFn && dataFn.specialize('payload')}
+                />
+              </Dialog>
+            );
+          }
+          return null;
+        })()}
+      </React.Fragment>
+    );
+    if (render) {
+      return render({
+        meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
+        dataFn,
+        children: Comp,
+        editable: liType.editable,
+        zoomable: liType.zoomable
+      });
+    } else {
+      return Comp;
     }
   }
 );

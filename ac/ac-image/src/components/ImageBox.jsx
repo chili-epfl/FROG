@@ -2,9 +2,16 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import getFA from 'font-awesome-filetypes';
+import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
 
-import CenteredImg from './CenteredImg';
+const styles = theme => ({
+  root: theme.mixins.gutters({
+    marginLeft: 20,
+    paddingTop: 36,
+    paddingBottom: 16
+  })
+});
 
 const getStyle = styleCode =>
   ({
@@ -30,32 +37,32 @@ const ImgButton = styled.button`
   flex: 0 1 auto;
 `;
 
+export const CenteredImg = styled.div`
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5%;
+`;
+
 const ImageBox = ({
-  image,
+  children,
   onClick,
-  styleCode
+  classes
 }: {
-  image: Object,
   onClick: Function,
-  styleCode: string
+  children: any,
+  classes: any
 }) => (
-  <ImgButton onClick={onClick} style={getStyle(styleCode)}>
-    {image.thumbnail || !image.filename ? (
-      <CenteredImg url={image.thumbnail || image.url} />
-    ) : (
-      <span>
-        <p>
-          <i
-            style={{ fontSize: '120px' }}
-            className={'fa ' + getFA(image.ext || '')}
-            aria-hidden="true"
-          />
-        </p>
-        {image.filename}
-      </span>
-    )}
+  <ImgButton onClick={onClick}>
+    <Paper elevation={24} className={classes.root}>
+      {children}
+    </Paper>
   </ImgButton>
 );
-
+// style={getStyle(styleCode)}
 ImageBox.displayName = 'ImageBox';
-export default ImageBox;
+export default withStyles(styles)(ImageBox);

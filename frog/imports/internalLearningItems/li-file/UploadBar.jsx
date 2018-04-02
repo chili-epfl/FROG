@@ -14,14 +14,26 @@ const UploadBar = (props: Object) => (
         <button
           className="btn btn-secondary"
           onClick={() => props.setWebcam(true)}
-          style={{ width: '50%', minWidth: 'fit-content' }}
+          style={{
+            width: '50%',
+            minWidth: 'fit-content',
+            border: '2px dashed rgb(102, 102, 102)',
+            borderRadius: '5px',
+            padding: '10px'
+          }}
         >
-          <h3 style={{ margin: 'auto' }}> Open the webcam </h3>
+          <TextStyled>Open the webcam</TextStyled>
         </button>
       </div>
     </Container>
   </Main>
 );
+const TextStyled = styled.h3`
+  position: relative;
+  top: 55%;
+  margin: 0 auto;
+  transform: translateY(-50%);
+`;
 
 const Main = styled.div`
   width: 100%;
