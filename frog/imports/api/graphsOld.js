@@ -2,10 +2,9 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { omitBy, isNil } from 'lodash';
 import { uuid } from 'frog-utils';
 
-// import { Activities, Connections, Operators } from './activities';
+import { Activities, Connections, Operators } from './activities';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -29,12 +28,7 @@ export const addGraph = (graphObj?: Object): string => {
     ...((graphObj && graphObj.graph) || {}),
     _id: graphId,
     name,
-    createdAt: new Date(),
-    duration: 120,
-    broken: false,
-    activities: [],
-    operators: [],
-    connections: []
+    createdAt: new Date()
   });
   if (!graphObj) {
     return graphId;
@@ -45,13 +39,13 @@ export const addGraph = (graphObj?: Object): string => {
   const copyAc = graphObj.activities.map(ac => {
     const id = uuid();
     matching[ac._id] = id;
-    return { ...ac, _id: id, actualStartingTime: undefined };
+    return { ...ac, _id: id, graphId, actualStartingTime: undefined };
   });
 
   const copyOp = graphObj.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
-    return { ...op, _id: id };
+    return { ...op, _id: id, graphId };
   });
 
   // Here we change the configured ids of activities and operators which
@@ -62,6 +56,7 @@ export const addGraph = (graphObj?: Object): string => {
     return {
       ...connection,
       _id: id,
+      graphId,
       source: {
         id: matching[connection.source.id],
         type: connection.source.type
@@ -84,10 +79,9 @@ export const addGraph = (graphObj?: Object): string => {
     data: replaceFromMatching(matching, op.data)
   }));
 
-
-  const toSet = omitBy({ activities: newAc, operators: newOp, connections: newConn }, isNil);
-  Graphs.update({_id: graphId}, { $set: toSet })
-
+  newAc.forEach(x => Activities.insert(x));
+  newOp.forEach(x => Operators.insert(x));
+  newConn.forEach(x => Connections.insert(x));
   return graphId;
 };
 
@@ -110,3 +104,54 @@ export const setCurrentGraph = (graphId: string) => {
     $set: { 'profile.editingGraph': graphId }
   });
 };
+
+export const assignGraph = (wantedId: string) => {
+  const user = Meteor.user();
+  if (wantedId && Graphs.findOne(wantedId)) {
+    return wantedId;
+  }
+  let graphId;
+  // Get the graph the user is editing and check if the graph exists
+  graphId = user.profile ? user.profile.editingGraph : null;
+  graphId = graphId && Graphs.findOne(graphId) ? graphId : null;
+  // Assign the id of the first graph of the graph list if there is one
+  const oneGraph = Graphs.findOne();
+  if (!graphId) graphId = oneGraph ? oneGraph._id : null;
+  // If nothing worked create new graph
+  if (!graphId) graphId = addGraph();
+  setCurrentGraph(graphId);
+  return graphId;
+};
+
+Meteor.methods({
+  'graph.merge': ({
+    connections,
+    activities,
+    operators,
+    graphId,
+    graphDuration
+  }) => {
+    if (Graphs.findOne(graphId)) {
+      Graphs.update(graphId, { $set: { duration: graphDuration } });
+
+      activities.map(({ _id, ...rest }) =>
+        Activities.update(_id, { $set: rest }, { upsert: true })
+      );
+
+      const actid = activities.map(x => x._id);
+      Activities.remove({ _id: { $nin: actid }, graphId });
+
+      operators.map(({ _id, ...rest }) =>
+        Operators.update(_id, { $set: rest }, { upsert: true })
+      );
+      const optid = operators.map(x => x._id);
+      Operators.remove({ _id: { $nin: optid }, graphId });
+
+      connections.map(({ _id, ...rest }) =>
+        Connections.update(_id, { $set: rest }, { upsert: true })
+      );
+      const conid = connections.map(x => x._id);
+      Connections.remove({ _id: { $nin: conid }, graphId });
+    }
+  }
+});
