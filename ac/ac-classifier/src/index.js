@@ -32,33 +32,9 @@ const config = {
 };
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
+const dataStructure = [];
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {
-  if (object.config.images) {
-    object.config.images.forEach(url => {
-      const key = uuid();
-      dataFn.objInsert({ url, key, type: 'image' }, key);
-    });
-  }
-
-  if (object.data === null) return;
-  if (object.data.length > 0 && typeof object.data[0] === 'string') {
-    object.data.forEach(text => {
-      if (text.length > 0) {
-        const key = uuid();
-        dataFn.objInsert({ text, key, type: 'text' }, key);
-      }
-    });
-  }
-  const objects = (Array.isArray(object.data)
-    ? object.data
-    : Object.keys(object.data).map(k => object.data[k])
-  ).filter(x => x && x.key);
-
-  objects.forEach(obj => dataFn.objInsert(obj, obj.key));
-};
 
 export default ({
   id: 'ac-classifier',
@@ -67,6 +43,5 @@ export default ({
   config,
   ActivityRunner,
   Dashboard: null,
-  dataStructure,
-  mergeFunction
+  dataStructure
 }: ActivityPackageT);

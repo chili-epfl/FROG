@@ -3,11 +3,10 @@
 import React, { Component } from 'react';
 import Mousetrap from 'mousetrap';
 import styled from 'styled-components';
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
 import { findIndex } from 'lodash';
 
 import ShortcutPanel, { shortcuts } from './components/ShortcutPanel';
-import ObjectPanel from './components/ObjectPanel';
 import ObjectList from './components/ObjectList';
 
 const Main = styled.div`
@@ -30,53 +29,22 @@ const FlexDiv = styled.div`
   flex: 0 1 auto;
 `;
 
-export const getType = (obj: Object) => obj && (obj.url ? 'image' : obj.type);
-
-const isSupportedType = type =>
-  ['table', 'tree', 'image', 'text'].includes(type);
-
 type RunnerStateT = {
   objectKeyPlus: string,
   objects: Object[],
   categories: string[]
 };
-
 class Runner extends Component<Object, RunnerStateT> {
-  assignCategory = categoryName => {
-    const { dataFn, setObjectKey } = this.props;
-    const { objectKeyPlus } = this.state;
-    if (!objectKeyPlus) return;
-    dataFn.objInsert(categoryName, [objectKeyPlus, 'category']);
-    this.props.logger({
-      type: 'assign.category',
-      itemId: objectKeyPlus,
-      value: categoryName
-    });
-    setObjectKey(null);
-  };
-
-  assignSelect = () => {
-    const { data, dataFn } = this.props;
-    const { objectKeyPlus } = this.state;
-    if (!objectKeyPlus) return;
-    dataFn.objInsert(!data[objectKeyPlus].selected, [
-      objectKeyPlus,
-      'selected'
-    ]);
-    this.props.logger({ type: 'select', itemId: objectKeyPlus });
-  };
-
-  initProps(props) {
-    const { data, objectKey, activityData } = props;
-    const objects = Object.keys(data)
-      .filter(x => data[x].key !== undefined)
-      .map(key => data[key])
-      .filter(x => isSupportedType(getType(x)));
-    const objectKeyPlus =
-      objectKey || (objects.find(obj => !obj.category) || {}).key;
-    const categories = activityData.config.categories || [];
-    this.setState({ objectKeyPlus, objects, categories });
+  constructor(props) {
+    super(props);
+    this.state = {
+      objectKeyPlus: props.data.length > 0 && props.data[0],
+      categories: this.props.activityData.config.categories
+    };
   }
+
+  assignSelect = () => this.props.ourDataFn.objInsert(true, 'selected');
+  assignCategory = e => this.props.ourDataFn.objInsert(e, 'category');
 
   bindAllMoustrap = categories => {
     categories.forEach((x, i) =>
@@ -100,13 +68,8 @@ class Runner extends Component<Object, RunnerStateT> {
 
   componentWillMount() {
     const { activityData } = this.props;
-    this.initProps(this.props);
     const categories = activityData.config.categories || [];
     this.bindAllMoustrap(categories);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.initProps(nextProps);
   }
 
   componentWillUnmount() {
@@ -124,33 +87,42 @@ class Runner extends Component<Object, RunnerStateT> {
   }
 
   render() {
-    const { activityData, data, dataFn, setObjectKey } = this.props;
+    const { activityData, objectKey, data, dataFn, setObjectKey } = this.props;
     const { objectKeyPlus, objects, categories } = this.state;
     return (
       <Main>
         <h2>{activityData.config.title}</h2>
-        {objectKeyPlus ? (
-          <FlexDiv>
-            <ObjectPanel obj={data[objectKeyPlus]} small={false} />
-            {categories.length > 0 && (
-              <ShortcutPanel
-                {...{
-                  categories,
-                  dataFn,
-                  data,
-                  assignCategory: this.assignCategory,
-                  objectKey: objectKeyPlus
-                }}
-              />
-            )}
-          </FlexDiv>
-        ) : (
-          <h1>Waiting for objects to classify</h1>
-        )}
-        <ObjectList {...{ objects, objectKey: objectKeyPlus, setObjectKey }} />
+        <FlexDiv>
+          {objectKeyPlus && (
+            <this.props.LearningItem id={objectKey} type="view" />
+          )}
+          {categories.length > 0 && (
+            <ShortcutPanel
+              {...{
+                categories,
+                dataFn: this.props.ourDataFn,
+                data,
+                assignCategory: this.assignCategory,
+                objectKey: objectKey
+              }}
+            />
+          )}
+        </FlexDiv>
+        <ObjectList
+          {...{
+            LearningItem: this.props.LearningItem,
+            objects: data,
+            objectKey: objectKey,
+            setObjectKey,
+            setDataFn: this.props.setDataFn
+          }}
+        />
       </Main>
     );
   }
 }
 
-export default withState('objectKey', 'setObjectKey', null)(Runner);
+export default compose(
+  withState('ourDataFn', 'setDataFn', undefined),
+  withState('objectKey', 'setObjectKey', null)
+)(Runner);

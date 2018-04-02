@@ -3,8 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ObjectPanel from './ObjectPanel';
-
 const Scroll = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
@@ -21,10 +19,11 @@ const Main = styled.div`
 
 const Box = styled.button`
   position: relative;
-  height: 100%;
-  width: 100px;
+  width: 150px;
+  vertical-align: top;
   flex: 0 1 auto;
   border: none;
+  overflow: hidden;
 `;
 
 const Category = styled.span`
@@ -38,32 +37,55 @@ const Category = styled.span`
   font-weight: bold;
 `;
 
-const Star = (
-  <span
-    className="glyphicon glyphicon-star"
-    style={{
-      right: 0,
-      color: 'gold',
-      fontSize: 'x-large',
-      position: 'absolute'
-    }}
-  />
+const Star = () => (
+  <div className="bootstrap">
+    <span
+      className="glyphicon glyphicon-star"
+      style={{
+        right: 0,
+        color: 'gold',
+        fontSize: 'x-large',
+        position: 'absolute'
+      }}
+    />
+  </div>
 );
+Star.displayName = 'Star';
 
-export default ({ objects, setObjectKey, objectKey }: Object) => (
-  <Scroll>
-    <Main style={{ width: 100 * objects.length + 'px' }}>
-      {objects.map(obj => (
-        <Box
-          key={obj.key}
-          onClick={() => setObjectKey(obj.key)}
-          style={{ background: objectKey === obj.key ? 'lightblue' : 'none' }}
-        >
-          <ObjectPanel obj={obj} small />
-          <Category>{obj.category}</Category>
-          {obj.selected && Star}
-        </Box>
-      ))}
-    </Main>
-  </Scroll>
-);
+export default ({
+  objects,
+  setDataFn,
+  setObjectKey,
+  objectKey,
+  LearningItem
+}: Object) => {
+  return (
+    <Scroll>
+      <Main style={{ width: 150 * objects.length + 'px' }}>
+        {objects.map(obj => (
+          <LearningItem
+            type="viewThumb"
+            key={obj}
+            id={obj}
+            render={props => (
+              <Box
+                key={obj}
+                onClick={() => {
+                  setObjectKey(obj);
+                  setDataFn(props.dataFn);
+                }}
+                style={{
+                  background: objectKey === obj ? 'lightblue' : 'none'
+                }}
+              >
+                {props.children}
+                <Category>{props.meta.category}</Category>
+                {props.meta.selected && <Star />}
+              </Box>
+            )}
+          />
+        ))}
+      </Main>
+    </Scroll>
+  );
+};

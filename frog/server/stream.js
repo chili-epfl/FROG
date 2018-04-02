@@ -6,34 +6,26 @@ import { generateReactiveFn, splitPathObject } from 'frog-utils';
 import { serverConnection } from './share-db-manager';
 import { Cache } from './sharedbCache';
 
-const safelyInsertObject = (doc, dataFn, path, value, instanceId) => {
-  const { insertObject, insertPath } = splitPathObject(doc.data, path, value);
-  dataFn.objInsert(insertObject, insertPath);
-  dataFn.objInsert(instanceId, [
-    ...path.slice(0, path.length - 1),
-    'instanceId'
-  ]);
-};
-
 Meteor.methods({
-  stream: (activity, instanceId, path, value) => {
+  stream: (activity, instanceId, rawpath, value) => {
+    const path = rawpath || [];
     if (activity.streamTarget) {
       const docId = activity.streamTarget + '/all';
       if (Cache[docId]) {
-        const [doc, dataFn] = Cache[docId];
-        safelyInsertObject(doc, dataFn, path, value, instanceId);
+        const [_, dataFn] = Cache[docId];
+        dataFn.listAppend(value, path);
       } else {
         const doc = serverConnection.get('rz', docId);
         doc.subscribe();
         if (doc.type) {
           const dataFn = generateReactiveFn(doc);
           Cache[docId] = [doc, dataFn];
-          safelyInsertObject(doc, dataFn, path, value, instanceId);
+          dataFn.listAppend(value, path);
         } else {
           doc.once('load', () => {
             const dataFn = generateReactiveFn(doc);
             Cache[docId] = [doc, dataFn];
-            safelyInsertObject(doc, dataFn, path, value, instanceId);
+            dataFn.listAppend(value, path);
           });
         }
       }
