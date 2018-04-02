@@ -6,10 +6,11 @@ import { withStyles } from 'material-ui/styles';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
 import AddCircle from 'material-ui-icons/AddCircle';
 
-import LearningItem, {
+import {
   learningItemTypesObj,
   type learningItemTypeT
-} from './LearningItemRenderer';
+} from './learningItemTypes';
+import LearningItem from './LearningItemRenderer';
 
 const styles = theme => ({
   button: {
