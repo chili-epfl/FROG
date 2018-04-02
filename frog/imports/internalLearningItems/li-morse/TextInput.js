@@ -47,11 +47,16 @@ class TextInput extends React.Component {
             color: this.props.data.string.length > 0 ? 'black' : 'grey'
           }}
         >
-          <p onClick={() => this.playAudio(this.props.data.string)}>
+          <p>
             {this.props.data.string.length > 0
               ? 'Play morse message'
               : 'Empty morse message'}{' '}
-            🔊
+            <span
+              role="img"
+              onClick={() => this.playAudio(this.props.data.string)}
+            >
+              🔊
+            </span>
           </p>
         </div>
         {this.props.edit && (

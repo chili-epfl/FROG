@@ -12,7 +12,8 @@ import { CenteredImg } from './ImageBox';
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 36,
-    paddingBottom: 16
+    paddingBottom: 16,
+    height: '100%'
   })
 });
 
