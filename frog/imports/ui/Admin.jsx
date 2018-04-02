@@ -7,26 +7,15 @@ import Grid from 'material-ui/Grid';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import { Sessions } from '../api/sessions';
-import {
-  Activities,
-  Operators,
-  Connections,
-  importActivity,
-  importOperator,
-  importConnection,
-  deleteDatabase
-} from '../api/activities';
-import { Graphs, importGraph } from '../api/graphs';
+
+import { Graphs, importGraph, deleteDatabase} from '../api/graphs';
 
 import { mixedJigsaw } from '../datasets/mixedJigsaw';
 import { argueGraph } from '../datasets/argueGraph';
 
-const loadDatabase = data => {
+const loadDatabase = data =>
   data.graphs.forEach(item => importGraph(item));
-  data.activities.forEach(item => importActivity(item));
-  data.operators.forEach(item => importOperator(item));
-  data.connections.forEach(item => importConnection(item));
-};
+;
 
 type StateT = {
   isClicked: boolean
@@ -80,11 +69,11 @@ const styles = {
 export default withTracker(() => {
   const sessions = Sessions.find().fetch();
   const graphs = Graphs.find().fetch();
-  const activities = Activities.find().fetch();
-  const operators = Operators.find().fetch();
-  const connections = Connections.find().fetch();
-  return { sessions, graphs, activities, operators, connections };
-})(({ sessions, graphs, activities, operators, connections }) => (
+  // const activities = Activities.find().fetch();
+  // const operators = Operators.find().fetch();
+  // const connections = Connections.find().fetch();
+  return { sessions, graphs /* , activities, operators, connections */ };
+})(({ sessions, graphs /* , activities, operators, connections */}) => (
   <div id="admin" style={styles.sheet}>
     <Grid container justify="center" spacing={40}>
       <Grid item xs>
@@ -103,17 +92,17 @@ export default withTracker(() => {
       <Grid item xs>
         <DisplayData data={graphs} title="Graphs" />
       </Grid>
-      <Grid item xs>
+      {/* <Grid item xs>
         <DisplayData data={activities} title="Activities" />
-      </Grid>
+      </Grid> */}
     </Grid>
     <Grid container justify="center" spacing={40}>
-      <Grid item xs>
+      {/* <Grid item xs>
         <DisplayData data={operators} title="Operators" />
       </Grid>
       <Grid item xs>
         <DisplayData data={connections} title="Connections" />
-      </Grid>
+      </Grid> */}
       <Grid item xs>
         <DisplayData data={sessions} title="Sessions" />
       </Grid>

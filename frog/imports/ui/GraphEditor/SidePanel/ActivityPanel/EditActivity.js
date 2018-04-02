@@ -14,7 +14,7 @@ import {
   addActivity,
   setStreamTarget,
   setParticipation
-} from '/imports/api/activities';
+} from '/imports/api/graphs';
 import { connect } from '../../store';
 import Modal from '../ModalExport';
 import { ErrorList, ValidButton } from '../../Validator';
@@ -79,6 +79,7 @@ const RawEditActivity = ({
   modalOpen,
   setModal,
   activity,
+  graphId,
   ...props
 }) => {
   const graphActivity = props.store.activityStore.all.find(
@@ -121,7 +122,7 @@ const RawEditActivity = ({
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <Modal {...{ modalOpen, setModal, activity }} />
+      <Modal {...{ graphId, modalOpen, setModal, activity }} />
       <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />

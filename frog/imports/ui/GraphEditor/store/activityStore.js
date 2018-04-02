@@ -2,7 +2,7 @@ import { extendObservable, action } from 'mobx';
 import { omit, maxBy } from 'lodash';
 
 import Activity from './activity';
-import { duplicateActivity } from '../../../api/activities';
+import { duplicateActivity } from '../../../api/graphs';
 import { store } from './index';
 import getOffsets from '../utils/getOffsets';
 import { between } from '../utils';

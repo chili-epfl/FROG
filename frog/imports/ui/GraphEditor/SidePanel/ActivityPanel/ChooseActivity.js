@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
-import { addActivity } from '/imports/api/activities';
+import { addActivity } from '/imports/api/graphs';
 import { Button } from 'react-bootstrap';
 import jsonSchemaDefaults from 'json-schema-defaults';
 

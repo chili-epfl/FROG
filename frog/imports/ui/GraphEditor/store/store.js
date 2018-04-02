@@ -4,7 +4,6 @@ import Stringify from 'json-stable-stringify';
 
 import valid from '/imports/api/validGraphFn';
 import { Graphs, mergeGraph, setCurrentGraph } from '/imports/api/graphs';
-import { Activities, Connections, Operators } from '/imports/api/activities';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';
@@ -101,7 +100,7 @@ export default class Store {
           this.ui.setScaleValue(this.ui.scale / this.graphDuration);
           const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1);
           this.ui.panDelta(needPanDelta);
-          Graphs.update(this.graphId, {
+          Graphs.update({_id: this.graphId}, {
             $set: { duration: this._graphDuration }
           });
         }
@@ -128,19 +127,14 @@ export default class Store {
           this.browserHistory.push(desiredUrl);
         }
         setCurrentGraph(id);
-        const graph = Graphs.findOne(id);
+        const graph = Graphs.findOne({_id: id});
 
         this.readOnly = readOnly;
         this.graphId = id;
 
         this.changeDuration(graph ? graph.duration || 120 : 120);
 
-        this.activityStore.all = Activities.find(
-          { graphId: id },
-          { reactive: false }
-        )
-          .fetch()
-          .map(
+        this.activityStore.all = graph.activities.filter(x => x.reactive === false).map(
             x =>
               new Activity(
                 x.plane,
@@ -152,18 +146,10 @@ export default class Store {
               )
           );
 
-        this.operatorStore.all = Operators.find(
-          { graphId: id },
-          { reactive: false }
-        )
-          .fetch()
+        this.operatorStore.all = graph.operators.filter(x => x.reactive === false)
           .map(x => new Operator(x.time, x.y, x.type, x._id, x.title, x.state));
 
-        this.connectionStore.all = Connections.find(
-          { graphId: id },
-          { reactive: false }
-        )
-          .fetch()
+        this.connectionStore.all = graph.connections.filter(x => x.reactive === false)
           .map(x => {
             const source = this.findId(x.source);
             const target = this.findId(x.target);
@@ -185,9 +171,9 @@ export default class Store {
         this.ui.setSidepanelOpen(false);
 
         const cursors = {
-          activities: Activities.find({ graphId: this.graphId }),
-          operators: Operators.find({ graphId: this.graphId }),
-          connections: Connections.find({ graphId: this.graphId })
+          activities: Graphs.findOne({_id: this.graphId}).activities,
+          operators: Graphs.findOne({_id: this.graphId}).operators,
+          connections: Graphs.findOne({_id: this.graphId}).connections
         };
         cursors.activities.observe(this.activityStore.mongoObservers);
         cursors.connections.observe(this.connectionStore.mongoObservers);
@@ -219,11 +205,10 @@ export default class Store {
             .filter(x => x.type === 'needsGroupingKey')
             .forEach(x => {
               if (validData && validData.social[x.id]) {
-                Activities.update(x.id, {
-                  $set: {
-                    groupingKey: validData.social[x.id][0]
-                  }
-                });
+                const acts = Graphs.findOne({_id: this.graphId}).activities
+                const act = acts.find(y => y.id === x.id)
+                act.groupingKey = validData.social[x.id][0]
+                Graphs.update({_id: this.graphId}, {$set: {actities:[...acts.filter(y => y.id !== x.id), act]}})
                 change += 1;
               }
             });
@@ -235,7 +220,7 @@ export default class Store {
         this.graphErrors = sortBy(validData.errors, 'severity');
         this.valid = validData;
 
-        Graphs.update(this.graphId, {
+        Graphs.update({_id: this.graphId}, {
           $set: {
             broken:
               this.graphErrors.filter(x => x.severity === 'error').length > 0
@@ -312,8 +297,8 @@ export default class Store {
 
   validate = () =>
     valid(
-      Activities.find({ graphId: this.graphId }).fetch(),
-      Operators.find({ graphId: this.graphId }).fetch(),
-      Connections.find({ graphId: this.graphId }).fetch()
+      Graphs.findOne({_id: this.graphId}).activities,
+      Graphs.findOne({_id: this.graphId}).operators,
+      Graphs.findOne({_id: this.graphId}).connections
     );
 }

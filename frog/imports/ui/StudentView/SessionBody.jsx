@@ -15,7 +15,7 @@ import { withStyles } from 'material-ui/styles';
 
 import { getInitialState } from 'frog-utils';
 
-import { Activities } from '../../api/activities';
+import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
 import Runner from './Runner';
 import Countdown from './Countdown';
@@ -139,10 +139,7 @@ const SessionBody = ({
   <div id="student" className={classes.root}>
     {session.countdownStartTime && <Countdown session={session} />}
     <StudentView
-      session={session}
-      activities={activities}
-      classes={classes}
-      token={token}
+      {...{session, activities, classes, token}}
     />
   </div>
 );
@@ -151,5 +148,5 @@ SessionBody.displayName = 'SessionBody';
 
 export default withTracker(() => ({
   session: Sessions.findOne(),
-  activities: Activities.find().fetch()
+  activities: Graphs.findOne({_id: Sessions.findOne()._id}).activities
 }))(withStyles(styles)(SessionBody));

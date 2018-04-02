@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose, withState } from 'recompose';
 
-import { addActivity } from '/imports/api/activities';
+import { addActivity } from '/imports/api/graphs';
 import {
   ActivityLibrary,
   removeFromLibrary

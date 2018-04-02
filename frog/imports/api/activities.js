@@ -1,4 +1,5 @@
 // @flow
+/*
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
@@ -188,3 +189,4 @@ Meteor.methods({
     Activities.remove(activityId);
   }
 });
+*/

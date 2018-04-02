@@ -8,7 +8,7 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 
-import { Activities } from '../../api/activities';
+import { Graphs } from '../../api/graphs';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardReactiveWrapper } from './index';
 
@@ -108,8 +108,9 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
 });
 
 export default withTracker(({ session }) => ({
-  activities: Activities.find({
-    graphId: session.graphId,
-    actualStartingTime: { $exists: true }
-  }).fetch()
+  activities: Graphs.findOne({_id:session.graphId}).activities
+  // activities: Activities.find({
+  //   graphId: session.graphId,
+  //   actualStartingTime: { $exists: true }
+  // }).fetch()
 }))(withStyles(styles)(DashboardNav));

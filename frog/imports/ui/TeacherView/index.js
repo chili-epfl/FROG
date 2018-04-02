@@ -9,7 +9,6 @@ import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
 import { GlobalSettings } from '../../api/globalSettings';
-import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
 
@@ -25,7 +24,7 @@ const TeacherViewRunner = withTracker(() => {
   const user = Meteor.users.findOne(Meteor.userId());
   const session = user.profile && Sessions.findOne(user.profile.controlSession);
   const activities =
-    session && Activities.find({ graphId: session.graphId }).fetch();
+    session && Graphs.findOne({ _id: session.graphId }).activities;
   const students =
     session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
   return {

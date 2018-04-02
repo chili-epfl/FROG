@@ -22,8 +22,7 @@ import Tooltip from 'material-ui/Tooltip';
 import { exportGraph, importGraph, duplicateGraph } from '../utils/export';
 import { connect, store } from '../store';
 import exportPicture from '../utils/exportPicture';
-import { removeGraph } from '../../../api/activities';
-import { addGraph, assignGraph } from '../../../api/graphs';
+import { addGraph, assignGraph, removeGraph } from '../../../api/graphs';
 
 const submitRemoveGraph = id => {
   removeGraph(id);

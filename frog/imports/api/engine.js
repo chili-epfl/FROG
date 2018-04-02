@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
-import { Activities } from './activities';
+import { Graphs } from './graphs';
 import {
   Sessions,
   updateSessionState,
@@ -24,7 +24,7 @@ export const runNextActivity = (sessionId: string) => {
     sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
     const oldOpen = [...session.openActivities];
-    const activities = Activities.find({ graphId: session.graphId }).fetch();
+    const activities = Graphs.findOne({_id:session.graphId}).activities
 
     const [newTimeInGraph, openActivities] = calculateNextOpen(
       session.timeInGraph,

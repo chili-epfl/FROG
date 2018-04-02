@@ -6,20 +6,20 @@ import { connect } from '../store';
 import ActivityPanel from './ActivityPanel';
 import OperatorPanel from './OperatorPanel';
 
-export default connect(({ store: { ui: { selected, sidepanelOpen } } }) => {
+export default connect(({ store: { graphId, ui: { selected, sidepanelOpen } } }) => {
   if (!sidepanelOpen) {
     return null;
   }
   if (selected && selected.klass === 'activity') {
     return (
       <SidebarContainer>
-        <ActivityPanel id={selected.id} />
+        <ActivityPanel {...graphId} id={selected.id} />
       </SidebarContainer>
     );
   } else if (selected && selected.klass === 'operator') {
     return (
       <SidebarContainer>
-        <OperatorPanel id={selected.id} />
+        <OperatorPanel {...graphId} id={selected.id} />
       </SidebarContainer>
     );
   } else {

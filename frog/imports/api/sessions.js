@@ -4,7 +4,6 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
-import { Activities, Operators, Connections } from './activities';
 import { runSessionFn, runNextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
@@ -143,20 +142,18 @@ export const updateOpenActivities = (
   if (Meteor.isServer) {
     Sessions.update(sessionId, { $set: { state: 'WAITINGFORNEXT' } });
     const oldOpen = Sessions.findOne(sessionId).openActivities;
-    difference(oldOpen, openActivities).forEach(activityId =>
-      Activities.update(activityId, { $set: { actualClosingTime: new Date() } })
+    const graphId = Sessions.findOne(sessionId).graphId
+    const acts = Graphs.findOne({_id:graphId}).activities
+    difference(oldOpen, openActivities).forEach(activityId =>{
+      const act = acts.find(x => x.id === activityId)
+      act.actualClosingTime = new Date()
+      Graphs.update({_id:graphId}, {$set: {activities: [...acts.filter(x => x.id !== activityId), act]}})}
     );
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
-      Activities.update(
-        {
-          _id: activityId,
-          actualStartingTime: { $exists: false }
-        },
-        {
-          $set: { actualStartingTime: new Date() }
-        }
-      );
+      const act = acts.find(x => x.id === activityId)
+      act.actualStartingTime = new Date()
+      Graphs.update({_id:graphId}, {$set: {activities: [...acts.filter(x => x.id !== activityId), act]}})
     });
   }
   Sessions.update(sessionId, {
@@ -170,17 +167,17 @@ export const removeSession = (sessionId: string) =>
 const addSessionFn = (graphId: string, slug: string): string => {
   if (Meteor.isServer) {
     const validOutput = valid(
-      Activities.find({ graphId }).fetch(),
-      Operators.find({ graphId }).fetch(),
-      Connections.find({ graphId }).fetch()
+      Graphs.findOne({_id:graphId}).activities,
+      Graphs.findOne({_id:graphId}).operators,
+      Graphs.findOne({_id:graphId}).connections,
     );
     if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
-      Graphs.update(graphId, { $set: { broken: true } });
+      Graphs.update({_id:graphId}, { $set: { broken: true } });
       return 'invalidGraph';
     }
 
     const sessionId = uuid();
-    const graph = Graphs.findOne(graphId);
+    const graph = Graphs.findOne({_id:graphId});
     const count = Graphs.find({
       name: { $regex: '#' + graph.name + '*' }
     }).count();
@@ -188,9 +185,9 @@ const addSessionFn = (graphId: string, slug: string): string => {
 
     const copyGraphId = addGraph({
       graph: { ...graph, name: sessionName },
-      activities: Activities.find({ graphId }).fetch(),
-      operators: Operators.find({ graphId }).fetch(),
-      connections: Connections.find({ graphId }).fetch()
+      activities: Graphs.findOne({_id:graphId}).activities,
+      operators: Graphs.findOne({_id:graphId}).operators,
+      connections: Graphs.findOne({_id:graphId}).connections
     });
 
     let newSlug = slug;
@@ -237,9 +234,6 @@ Meteor.methods({
     const graphId = session.graphId;
     Sessions.remove(sessionId);
     Graphs.remove(graphId);
-    Activities.remove({ graphId });
-    Operators.remove({ graphId });
-    Connections.remove({ graphId });
   },
   'set.timeout': (delay, id) => {
     if (Meteor.isServer) {
