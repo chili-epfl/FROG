@@ -122,7 +122,7 @@ export default class ActivityStore {
       movePlane: action((increment: number) => {
         if (store.ui.selected instanceof Activity) {
           const oldplane = store.ui.selected.plane;
-          store.ui.selected.plane = between(1, 3, oldplane + increment);
+          store.ui.selected.plane = between(1, 4, oldplane + increment);
           if (oldplane !== store.ui.selected.plane) {
             store.addHistory();
           }
@@ -200,7 +200,7 @@ export default class ActivityStore {
       },
 
       get activityOffsets(): any {
-        return [1, 2, 3].reduce(
+        return [1, 2, 3, 4].reduce(
           (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
           {}
         );

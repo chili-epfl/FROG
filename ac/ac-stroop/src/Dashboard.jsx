@@ -88,7 +88,21 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   }
 };
 
-const statsDashboard = { Viewer, mergeLog, initData };
+const activityMerge = {
+  actualStartingTime: '2018-02-20T08:16:05.308Z',
+  actualClosingTime: '2018-02-20T08:19:45.140Z'
+};
+
+const exampleLogs = [
+  {
+    title: 'CS211 week 1',
+    path: 'ac/ac-stroop/src/logExamples/progress-cs211-w1.json',
+    activityMerge,
+    instances: 118
+  }
+];
+
+const statsDashboard = { initData, mergeLog, Viewer, exampleLogs };
 
 export default {
   leaderboard: LeaderBoard,

@@ -23,7 +23,8 @@
     "react-rte": "^0.16.1",
     "recompose": "^0.26.0",
     "sharedb": "^1.0.0-beta.8",
-    "sharedb-string-binding": "^1.0.0"
+    "sharedb-string-binding": "^1.0.0",
+    "wolfy87-eventemitter": "^5.2.4"
   },
   "devDependencies": {
     "nps": "^5.8.2"
