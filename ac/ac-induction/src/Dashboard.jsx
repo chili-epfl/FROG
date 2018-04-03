@@ -66,7 +66,9 @@ const initData = {
 };
 
 export default {
-  Viewer,
-  mergeLog,
-  initData
+  induction: {
+    Viewer,
+    mergeLog,
+    initData
+  }
 };

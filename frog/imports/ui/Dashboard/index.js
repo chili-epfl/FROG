@@ -4,31 +4,24 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
-import { withState } from 'recompose';
-import { Nav, NavItem } from 'react-bootstrap';
-import styled from 'styled-components';
 
 import { type ActivityDbT } from 'frog-utils';
 
-import { ErrorBoundary } from '../App/ErrorBoundary';
 import doGetInstances from '../../api/doGetInstances';
-import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
 import { Objects } from '../../api/objects';
+import { dashDocId } from '../../api/logs';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from '../App/connection';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import MultiWrapper from './MultiWrapper';
 
 type DashboardCompPropsT = {
   doc?: any,
   activity: ActivityDbT,
   users: { [string | number]: string },
   instances: Array<string | number>,
-  config: Object
+  config: Object,
+  name: string
 };
 
 export class DashboardComp extends React.Component<
@@ -50,9 +43,8 @@ export class DashboardComp extends React.Component<
 
   init(props: Object) {
     const _conn = props.conn || connection || {};
-    const _doc = _conn.get('rz', 'DASHBOARD//' + props.activity._id);
-    this.doc = this.props.doc || _doc;
-
+    const reactiveName = dashDocId(props.activity._id, props.name);
+    this.doc = props.doc || _conn.get('rz', reactiveName);
     this.doc.setMaxListeners(30);
     this.doc.subscribe();
     if (this.doc.type) {
@@ -76,7 +68,12 @@ export class DashboardComp extends React.Component<
   };
 
   componentWillReceiveProps(nextProps: Object) {
-    if (this.props.activity._id !== nextProps.activity._id || !this.doc) {
+    if (
+      this.props.activity._id !== nextProps.activity._id ||
+      !this.doc ||
+      this.props.name !== nextProps.name ||
+      this.props.doc !== nextProps.doc
+    ) {
       if (this.doc) {
         this.doc.destroy();
       }
@@ -87,17 +84,18 @@ export class DashboardComp extends React.Component<
 
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
-    if (!aT.dashboard || !aT.dashboard.Viewer) {
+    const { users, activity, instances, name } = this.props;
+    if (!aT.dashboard || !aT.dashboard[name] || !aT.dashboard[name].Viewer) {
       return <p>The selected activity has no dashboard</p>;
     }
-    const { users, activity, instances, config } = this.props;
+    const Viewer = aT.dashboard[name].Viewer;
     return this.state.data ? (
       <div style={{ width: '100%' }}>
-        <aT.dashboard.Viewer
+        <Viewer
           users={users}
           activity={activity}
           instances={instances}
-          config={config}
+          config={activity.data}
           data={this.state.data}
         />
       </div>
@@ -118,8 +116,8 @@ export const DashboardReactiveWrapper = withTracker(props => {
     (acc, u) => ({ ...acc, [u._id]: u.username }),
     {}
   );
-  return { users, instances, activity, config: activity.data };
-})(DashboardComp);
+  return { users, instances, activity };
+})(MultiWrapper);
 
 export class DashboardSubscriptionWrapper extends React.Component<
   *,
@@ -156,61 +154,8 @@ export class DashboardSubscriptionWrapper extends React.Component<
     return (
       ready &&
       activity && (
-        <DashboardReactiveWrapper
-          activity={activity}
-          sessionId={this.props.sessionId}
-        />
+        <DashboardReactiveWrapper activity={activity} {...this.props} />
       )
     );
   }
 }
-
-const DashboardNav = props => {
-  const { activityId, setActivity, session, activities } = props;
-  const { openActivities } = session;
-  const acWithDash = activities.filter(ac => {
-    const dash = activityTypesObj[ac.activityType].dashboard;
-    return dash && dash.Viewer;
-  });
-  const openAcWithDashIds = acWithDash
-    .map(x => x._id)
-    .filter(aid => openActivities && openActivities.includes(aid));
-  const aId = activityId || openAcWithDashIds.find(() => true);
-  const activityToDash = activities.find(a => a._id === aId);
-  return (
-    <div>
-      <h1>Dashboards</h1>
-      <Container>
-        <Nav
-          bsStyle="pills"
-          stacked
-          activeKey={aId}
-          onSelect={a => setActivity(a)}
-          style={{ width: '150px' }}
-        >
-          {acWithDash.map(a => (
-            <NavItem eventKey={a._id} key={a._id} href="#">
-              {a.title}
-              {session.openActivities.includes(a._id) ? ' (open)' : ''}
-            </NavItem>
-          ))}
-        </Nav>
-        {activityToDash && (
-          <ErrorBoundary msg="Dashboard crashed, try reloading">
-            <DashboardReactiveWrapper
-              sessionId={session._id}
-              activity={activityToDash}
-            />
-          </ErrorBoundary>
-        )}
-      </Container>
-    </div>
-  );
-};
-
-export default withTracker(({ session }) => ({
-  activities: Activities.find({
-    graphId: session.graphId,
-    actualStartingTime: { $exists: true }
-  }).fetch()
-}))(withState('activityId', 'setActivity', null)(DashboardNav));

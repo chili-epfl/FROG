@@ -1,39 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import { withState } from 'recompose';
-import { Button } from 'react-bootstrap';
 import { Chart } from 'react-google-charts';
 
 import {
   type LogT,
   type dashboardViewerPropsT,
-  type ActivityDbT,
-  ProgressDashboard,
-  LeaderBoard
+  ProgressDashboard
 } from 'frog-utils';
-
-const Select = ({ target, onClick }) => (
-  <Button onClick={() => onClick(target)}>{target}</Button>
-);
-
-const Viewer = withState('which', 'setWhich', 'progress')(
-  (props: dashboardViewerPropsT) => {
-    const { which, setWhich } = props;
-    return (
-      <div>
-        <Select target="progress" onClick={setWhich} />
-        <Select target="raw" onClick={setWhich} />
-        <Select target="results" onClick={setWhich} />
-        {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
-        {which === 'raw' && <RawViewer {...props} />}
-        {which === 'results' && <StatsViewer {...props} />}
-      </div>
-    );
-  }
-);
-
-const RawViewer = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
 
 const options = (title, yLabel, xLabel, xmin, xmax) => ({
   bar: { groupWidth: '90%' },
@@ -53,7 +27,7 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
   }
 });
 
-const StatsViewer = (props: dashboardViewerPropsT) => (
+const Viewer = (props: dashboardViewerPropsT) => (
   <React.Fragment>
     <SymmetryStats {...props} task="easy" />
     <SymmetryStats {...props} task="hard" />
@@ -84,19 +58,10 @@ const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
 
 const initData = {
   easy: {},
-  hard: {},
-  ...ProgressDashboard.initData,
-  ...LeaderBoard.initData
+  hard: {}
 };
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  log: LogT,
-  activity: ActivityDbT
-) => {
-  ProgressDashboard.mergeLog(data, dataFn, log, activity);
-  LeaderBoard.mergeLog(data, dataFn, log, activity);
+const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { expectedAnswer, answer, difficulty, speed } = log.payload;
     if (!data[difficulty][speed.toString()]) {
@@ -113,4 +78,9 @@ const mergeLog = (
   }
 };
 
-export default { Viewer, mergeLog, initData };
+const statsDashboard = { Viewer, mergeLog, initData };
+
+export default {
+  progress: ProgressDashboard,
+  stats: statsDashboard
+};

@@ -11,7 +11,7 @@ export const Graphs = new Mongo.Collection('graphs');
 const replaceFromMatching = (matching: Object, data: any) => {
   if (Array.isArray(data)) {
     return [...data.map(d => replaceFromMatching(matching, d))];
-  } else if (typeof data === 'object') {
+  } else if (data && typeof data === 'object') {
     return Object.keys(data).reduce((acc, d) => {
       acc[d] = replaceFromMatching(matching, data[d]);
       return acc;

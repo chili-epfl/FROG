@@ -74,8 +74,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
       <div
         style={{
           height: '100%',
-          width: '100%',
-          transform: 'translateY(-40px)'
+          width: '100%'
         }}
       >
         <div

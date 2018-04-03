@@ -7,8 +7,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
-import styled from 'styled-components';
-import { Accounts } from 'meteor/accounts-base';
 
 import { Sessions } from '/imports/api/sessions';
 import { GlobalSettings } from '/imports/api/globalSettings';
@@ -16,30 +14,12 @@ import SessionBody from './SessionBody';
 
 const once = { already: false };
 
-const DashLink = styled.div`
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  font-size: 3em;
-  color: black !important;
-  cursor: pointer;
-`;
-
-const Logout = styled.div`
-  && {
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    font-size: 2em;
-    color: black !important;
-    cursor: pointer;
-  }
-`;
-
 type StudentViewCompPropsT = {
   match: Object,
   token?: { value: string },
-  slug: string
+  slug: string,
+  session: Object,
+  ready: boolean
 };
 
 class StudentViewComp extends React.Component<
@@ -94,37 +74,10 @@ class StudentViewComp extends React.Component<
         </div>
       );
     }
+
     return (
       <React.Fragment>
-        <SessionBody />
-        {Meteor.user() && (
-          <div className="logout">
-            <Logout
-              onClick={() => {
-                Meteor.logout();
-                Accounts._unstoreLoginToken();
-                window.notReady();
-              }}
-            >
-              {Meteor.user().username}
-              <span className="glyphicon glyphicon-log-out" />
-            </Logout>
-          </div>
-        )}
-        {Meteor.user() &&
-          Meteor.user().username === 'teacher' && (
-            <div className="bootstrap">
-              <DashLink>
-                <a
-                  href={`/?login=teacher&token=${(this.props.token &&
-                    this.props.token.value) ||
-                    ''}`}
-                  target="_blank"
-                  className="glyphicon glyphicon-dashboard"
-                />
-              </DashLink>
-            </div>
-          )}
+        <SessionBody token={this.props.token} />
       </React.Fragment>
     );
   }

@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import { toObject, toString } from 'query-parse';
 import { withRouter } from 'react-router';
@@ -36,7 +37,7 @@ const RawActivityList = ({
   setActivityType,
   history
 }) => (
-  <div style={style.main}>
+  <div style={style.main} className="bootstrap">
     <div style={style.side}>
       <ApiForm
         config={config.config}

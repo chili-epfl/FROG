@@ -103,7 +103,9 @@ class Viewer extends Component<any, Object> {
 }
 
 export default {
-  Viewer,
-  mergeLog,
-  initData
+  video: {
+    Viewer,
+    mergeLog,
+    initData
+  }
 };
