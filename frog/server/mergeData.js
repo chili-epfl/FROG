@@ -123,7 +123,9 @@ const mergeData = (
   group?: string
 ) => {
   const { activityData } = object;
-  const activity = Graphs.findOne({_id: graphId}).activities.find(x => x.id === activityId)
+  const activity = Graphs.findOne({ _id: graphId }).activities.find(
+    x => x.id === activityId
+  );
   const activityType = activityTypesObj[activity.activityType];
 
   const { groups, structure } = doGetInstances(activity, object);
@@ -155,7 +157,9 @@ Meteor.methods({
   'ensure.reactive': (sessionId, studentId) => {
     const session = Sessions.findOne(sessionId);
     const activities = session.openActivities
-      ? Graphs.findOne({_id: session.graphId}).activities.filter(x => x.plane === 1 && session.openActivities.includes(x))
+      ? Graphs.findOne({ _id: session.graphId }).activities.filter(
+          x => x.plane === 1 && session.openActivities.includes(x)
+        )
       : [];
     activities.forEach(ac => {
       const object = Objects.findOne(ac._id);

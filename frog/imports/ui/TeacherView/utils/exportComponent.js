@@ -91,8 +91,8 @@ const slugo = input =>
 
 export const exportSession = (sessionId: string) => {
   const session = Sessions.findOne(sessionId);
-  const activities = Graphs.findOne({_id: session.graphId}).activities
-  const operators = Graphs.findOne({_id: session.graphId}).operators
+  const activities = Graphs.findOne({ _id: session.graphId }).activities;
+  const operators = Graphs.findOne({ _id: session.graphId }).operators;
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
   activities.forEach(act => {

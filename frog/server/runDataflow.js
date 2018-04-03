@@ -14,7 +14,7 @@ import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
 import { operatorTypesObj } from '../imports/operatorTypes';
 import { Products } from '../imports/api/products';
-import {Graphs} from '../imports/api/graphs';
+import { Graphs } from '../imports/api/graphs';
 import { addObject } from '../imports/api/objects';
 
 declare var Promise: any;
@@ -48,8 +48,8 @@ const runDataflow = (
 ) => {
   const graphId = Sessions.findOne(sessionId).graphId;
   const nodeTypes = { operator: 'operators', activity: 'activities' };
-  const nodes = Graphs.findOne({_id: graphId})[nodeTypes[type]]
-  const node = nodes.find(x => x.id === nodeId)
+  const nodes = Graphs.findOne({ _id: graphId })[nodeTypes[type]];
+  const node = nodes.find(x => x.id === nodeId);
 
   if (!node) {
     throw `Can't find node! ${type} ${nodeId}`;
@@ -58,15 +58,16 @@ const runDataflow = (
     // we're done here
     return;
   }
-  const nodeT = nodes.find(x => x.id === nodeId)
-  nodeT.state = 'computed'
-  if(type === 'operator')
-    Graphs.update(graphId, {$set: {operators: [... nodes, nodeT]}})
-  else
-    Graphs.update(graphId, {$set: {activities: [... nodes, nodeT]}})
+  const nodeT = nodes.find(x => x.id === nodeId);
+  nodeT.state = 'computed';
+  if (type === 'operator')
+    Graphs.update(graphId, { $set: { operators: [...nodes, nodeT] } });
+  else Graphs.update(graphId, { $set: { activities: [...nodes, nodeT] } });
 
   // first make sure all incoming nodes have been computed
-  const connections = Graphs.findOne({_id: graphId}).connections.filter(x => x.target.id === nodeId)
+  const connections = Graphs.findOne({ _id: graphId }).connections.filter(
+    x => x.target.id === nodeId
+  );
 
   runAllConnecting(connections, sessionId);
 
@@ -116,10 +117,10 @@ const runDataflow = (
     const update = { [dataType]: product };
     Products.update(nodeId, { type: node.type, ...update }, { upsert: true });
 
-    nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
+    Graphs.update(graphId, { $set: { operators: [...nodes, nodeT] } });
   } else if (type === 'activity') {
     mergeData(nodeId, object);
-    nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
+    Graphs.update(graphId, { $set: { activities: [...nodes, nodeT] } });
   }
 };
 

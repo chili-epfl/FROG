@@ -138,9 +138,7 @@ const SessionBody = ({
 }) => (
   <div id="student" className={classes.root}>
     {session.countdownStartTime && <Countdown session={session} />}
-    <StudentView
-      {...{session, activities, classes, token}}
-    />
+    <StudentView {...{ session, activities, classes, token }} />
   </div>
 );
 
@@ -148,5 +146,5 @@ SessionBody.displayName = 'SessionBody';
 
 export default withTracker(() => ({
   session: Sessions.findOne(),
-  activities: Graphs.findOne({_id: Sessions.findOne()._id}).activities
+  activities: Graphs.findOne({ _id: Sessions.findOne()._id }).activities
 }))(withStyles(styles)(SessionBody));

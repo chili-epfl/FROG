@@ -24,7 +24,7 @@ export const runNextActivity = (sessionId: string) => {
     sessionCancelCountDown(sessionId);
     const session = Sessions.findOne(sessionId);
     const oldOpen = [...session.openActivities];
-    const activities = Graphs.findOne({_id:session.graphId}).activities
+    const activities = Graphs.findOne({ _id: session.graphId }).activities;
 
     const [newTimeInGraph, openActivities] = calculateNextOpen(
       session.timeInGraph,
@@ -36,12 +36,12 @@ export const runNextActivity = (sessionId: string) => {
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
 
-    engineLogger(sessionId, 'nextActivity', newTimeInGraph);
+    engineLogger(session.graphId, sessionId, 'nextActivity', newTimeInGraph);
     const justClosedActivities = oldOpen.filter(
       act => !openActivities.includes(act)
     );
     justClosedActivities.forEach(act =>
-      Meteor.call('reactive.to.product',session.graphId, act)
+      Meteor.call('reactive.to.product', session.graphId, act)
     );
   }
 };
@@ -49,7 +49,7 @@ export const runNextActivity = (sessionId: string) => {
 export const runSessionFn = (sessionId: string) => {
   updateSessionState(sessionId, 'STARTED');
   Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
-  engineLogger(sessionId, 'startSession');
+  engineLogger(Sessions.findOne(sessionId).graphId, sessionId, 'startSession');
   const session = Sessions.findOne(sessionId);
   if (Meteor.isServer) {
     if (session.studentlist) {

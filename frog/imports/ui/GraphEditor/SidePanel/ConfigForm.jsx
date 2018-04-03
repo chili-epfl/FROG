@@ -4,12 +4,7 @@ import React, { Component } from 'react';
 import { EnhancedForm } from 'frog-utils';
 import { isEqual } from 'lodash';
 
-import {
-  Activities,
-  Operators,
-  addOperator,
-  addActivity
-} from '/imports/api/activities';
+import { Graphs, addOperator, addActivity } from '/imports/api/graphs';
 
 import {
   SelectFormWidget,
@@ -18,6 +13,7 @@ import {
 } from './FormUtils';
 
 type ConfigFormPropsT = {
+  graphId: string,
   node: Object,
   nodeType: any,
   connectedActivities?: any,
@@ -51,8 +47,12 @@ export default class ConfigForm extends Component<
         this.props.reload !== nextProps.reload) &&
       !nextProps.data
     ) {
-      const coll = this.props.node.operatorType ? Operators : Activities;
-      this.setState({ formData: coll.findOne(nextProps.node._id).data });
+      const coll = this.props.node.operatorType
+        ? Graphs.findOne({ _id: this.props.graphId }).operators
+        : Graphs.findOne({ _id: this.props.graphId }).activities;
+      this.setState({
+        formData: coll.find(x => x.id === nextProps.node._id).data
+      });
     }
   }
 
@@ -101,9 +101,20 @@ export default class ConfigForm extends Component<
         this.props.onChange ||
         (data => {
           if (node.operatorType) {
-            addOperator(node.operatorType, data.formData, node._id);
+            addOperator(
+              this.props.graphId,
+              node.operatorType,
+              data.formData,
+              node._id
+            );
           } else {
-            addActivity(node.activityType, data.formData, node._id, null);
+            addActivity(
+              this.props.graphId,
+              node.activityType,
+              data.formData,
+              node._id,
+              null
+            );
           }
           refreshValidate();
         })

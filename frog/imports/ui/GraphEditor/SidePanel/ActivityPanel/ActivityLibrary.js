@@ -11,6 +11,7 @@ import LibraryListComponent from '../LibraryListComponent';
 import Modal from '../ModalDelete';
 
 const Library = ({
+  graphId,
   activityId,
   searchStr,
   store,
@@ -21,6 +22,7 @@ const Library = ({
 }: Object) => {
   const select = (activity: Object) => {
     addActivity(
+      graphId,
       activity.activityType,
       activity.configuration,
       activityId,

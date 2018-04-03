@@ -6,14 +6,19 @@ import { Graphs } from '/imports/api/graphs';
 const userIds = {};
 
 const activities = {};
-const activityInfo = (graphId: string, id: string): [string, string, string] => {
+const activityInfo = (
+  graphId: string,
+  id: string
+): [string, string, string] => {
   if (!id) {
     return ['', '', ''];
   }
   if (activities[id]) {
     return activities[id];
   }
-  const act = Graphs.findOne({_id: graphId}).activities.find(x => x.id === id)
+  const act = Graphs.findOne({ _id: graphId }).activities.find(
+    x => x.id === id
+  );
   activities[id] = [act.title, act.activityType, act.plane];
   return activities[id];
 };

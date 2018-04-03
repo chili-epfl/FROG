@@ -12,15 +12,15 @@ import ChooseOperatorTypeComp from './ChooseOperator';
 const EditOperator = connect(EditClass);
 const ChooseOperatorType = connect(ChooseOperatorTypeComp);
 
-export default withTracker(({ graphId, id }) => ({ operator: Graphs.findOne({_id:graphId}).operators.find(x => x.id === id) }))(
-  ({ graphId, operator }) => {
-    if (!operator) {
-      return null;
-    }
-    if (operator.operatorType) {
-      return <EditOperator operator={operator} />;
-    } else {
-      return <ChooseOperatorType {...{graphId, operator}}/>;
-    }
+export default withTracker(({ graphId, id }) => ({
+  operator: Graphs.findOne({ _id: graphId }).operators.find(x => x.id === id)
+}))(({ graphId, operator }) => {
+  if (!operator) {
+    return null;
   }
-);
+  if (operator.operatorType) {
+    return <EditOperator operator={operator} />;
+  } else {
+    return <ChooseOperatorType {...{ graphId, operator }} />;
+  }
+});

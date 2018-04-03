@@ -97,6 +97,7 @@ const RawEditActivity = ({
     activity.plane === 2
   ) {
     addActivity(
+      graphId,
       activity.activityType,
       null,
       activity._id,
@@ -135,7 +136,13 @@ const RawEditActivity = ({
                 activityId={activity._id}
                 value={graphActivity.title}
                 onChange={grp =>
-                  addActivity(activity.activityType, null, activity._id, grp)
+                  addActivity(
+                    graphId,
+                    activity.activityType,
+                    null,
+                    activity._id,
+                    grp
+                  )
                 }
               />
             </h3>
@@ -187,7 +194,13 @@ const RawEditActivity = ({
           <SelectAttributeWidget
             activity={activity}
             onChange={grp => {
-              addActivity(activity.activityType, null, activity._id, grp);
+              addActivity(
+                graphId,
+                activity.activityType,
+                null,
+                activity._id,
+                grp
+              );
               props.store.refreshValidate();
             }}
           />
@@ -195,11 +208,12 @@ const RawEditActivity = ({
         {activity.plane === 3 && (
           <SelectParticipationMode
             activity={activity}
-            onChange={e => setParticipation(activity._id, e)}
+            onChange={e => setParticipation(graphId, activity._id, e)}
           />
         )}
       </div>
       <ConfigForm
+        graphId={graphId}
         node={activity}
         nodeType={activityType}
         valid={props.store.valid}
@@ -212,6 +226,7 @@ const RawEditActivity = ({
           configData={{ component: {}, ...activity.data }}
           setConfigData={d => {
             addActivity(
+              graphId,
               activity.activityType,
               { ...activity.data, component: d },
               activity._id,
@@ -231,7 +246,7 @@ const RawEditActivity = ({
               activity={activity}
               targets={otherActivityIds}
               onChange={streamTarget =>
-                setStreamTarget(activity._id, streamTarget)
+                setStreamTarget(graphId, activity._id, streamTarget)
               }
             />
           </div>

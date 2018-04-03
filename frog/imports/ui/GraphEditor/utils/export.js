@@ -14,19 +14,16 @@ const clean = obj => {
 export const graphToString = graphId =>
   Stringify({
     graph: omit(Graphs.find({ _id: graphId }).fetch()[0], 'sessionId'),
-    activities: Graphs.find({ _id: graphId }).activities
-      .map(x => clean(x)),
-    operators: Graphs.find({ _id: graphId }).operators
-      .map(x => clean(x)),
-    connections: Graphs.find({ _id: graphId }).connections
-      .map(x => clean(x))
+    activities: Graphs.find({ _id: graphId }).activities.map(x => clean(x)),
+    operators: Graphs.find({ _id: graphId }).operators.map(x => clean(x)),
+    connections: Graphs.find({ _id: graphId }).connections.map(x => clean(x))
   });
 
 const cleanFilename = s =>
   s.replace(/[^a-z0-9_-]/gi, '_').replace(/_{2,}/g, '_');
 
 export const exportGraph = () => {
-  const name = Graphs.findOne({_id: store.graphId}).name;
+  const name = Graphs.findOne({ _id: store.graphId }).name;
   const blob = new Blob([graphToString(store.graphId)], {
     type: 'text/plain;charset=utf-8'
   });

@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 
 import { connect } from '../GraphEditor/store';
 import { Objects } from '../../api/objects';
-import {Graphs} from '../../api/graphs';
+import { Graphs } from '../../api/graphs';
 import { Products } from '../../api/products';
 import { downloadExport } from './utils/exportComponent';
 
@@ -60,8 +60,12 @@ const ShowInfoConnect = withTracker(({ showInfo, cancelInfo, graphId }) => {
   }
   const item =
     showInfo.klass === 'activity'
-      ? Graphs.findOne({_id: graphId}).activities.find(x => x.id === showInfo.id)
-      : Graphs.findOne({_id: graphId}).operators.find(x => x.id === showInfo.id);
+      ? Graphs.findOne({ _id: graphId }).activities.find(
+          x => x.id === showInfo.id
+        )
+      : Graphs.findOne({ _id: graphId }).operators.find(
+          x => x.id === showInfo.id
+        );
   return {
     item,
     object: Objects.findOne(showInfo.id),
@@ -72,8 +76,10 @@ const ShowInfoConnect = withTracker(({ showInfo, cancelInfo, graphId }) => {
 })(InfoComponent);
 ShowInfoConnect.displayName = 'ShowInfoConnect';
 
-const ShowInfo = connect(({ store: { graphId, ui: { showInfo, cancelInfo } } }) => (
-  <ShowInfoConnect {...{showInfo, cancelInfo, graphId}}/>
-));
+const ShowInfo = connect(
+  ({ store: { graphId, ui: { showInfo, cancelInfo } } }) => (
+    <ShowInfoConnect {...{ showInfo, cancelInfo, graphId }} />
+  )
+);
 
 export default ShowInfo;

@@ -108,7 +108,7 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
 });
 
 export default withTracker(({ session }) => ({
-  activities: Graphs.findOne({_id:session.graphId}).activities
+  activities: Graphs.findOne({ _id: session.graphId }).activities
   // activities: Activities.find({
   //   graphId: session.graphId,
   //   actualStartingTime: { $exists: true }

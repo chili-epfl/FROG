@@ -47,8 +47,13 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
       ? this.props.onSelect
       : aT => {
           const defaultConf = jsonSchemaDefaults(aT.config);
-          addActivity(aT.id, defaultConf, this.props.activity._id);
           if (this.props.store) {
+            addActivity(
+              this.props.store.graphId,
+              aT.id,
+              defaultConf,
+              this.props.activity._id
+            );
             this.props.store.addHistory();
           }
         };
@@ -134,6 +139,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
           (this.props.store.ui.libraryOpen ? (
             <ActivityLibrary
               {...closeLibrary}
+              graphId={this.props.store.graphId}
               activityId={this.props.activity._id}
               searchStr={this.state.searchStr}
               store={this.props.store}

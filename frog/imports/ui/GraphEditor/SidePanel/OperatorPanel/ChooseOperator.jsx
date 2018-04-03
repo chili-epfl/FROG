@@ -22,10 +22,17 @@ export default class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
 
   render() {
     const select = operatorType => {
-      const ops = Graphs.findOne({_id:this.props.graphId}).operators
-      const op = ops.find(x => x.id === this.props.operator._id)
-      op.operatorType = operatorType.id
-      Graphs.update({_id:this.props.graphId}, {$set: {operators: [...ops.filter(x => x.id !== operatorType.id), op]}})
+      const ops = Graphs.findOne({ _id: this.props.graphId }).operators;
+      const op = ops.find(x => x.id === this.props.operator._id);
+      op.operatorType = operatorType.id;
+      Graphs.update(
+        { _id: this.props.graphId },
+        {
+          $set: {
+            operators: [...ops.filter(x => x.id !== operatorType.id), op]
+          }
+        }
+      );
       this.props.store.addHistory();
     };
 

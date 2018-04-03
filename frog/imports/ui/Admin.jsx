@@ -8,15 +8,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { Sessions } from '../api/sessions';
 
-import { Graphs, importGraph, deleteDatabase} from '../api/graphs';
+import { Graphs, importGraph, deleteDatabase } from '../api/graphs';
 
 import { mixedJigsaw } from '../datasets/mixedJigsaw';
 import { argueGraph } from '../datasets/argueGraph';
 
-const loadDatabase = data =>
-  data.graphs.forEach(item => importGraph(item));
-;
-
+const loadDatabase = data => data.graphs.forEach(item => importGraph(item));
 type StateT = {
   isClicked: boolean
 };
@@ -73,7 +70,7 @@ export default withTracker(() => {
   // const operators = Operators.find().fetch();
   // const connections = Connections.find().fetch();
   return { sessions, graphs /* , activities, operators, connections */ };
-})(({ sessions, graphs /* , activities, operators, connections */}) => (
+})(({ sessions, graphs /* , activities, operators, connections */ }) => (
   <div id="admin" style={styles.sheet}>
     <Grid container justify="center" spacing={40}>
       <Grid item xs>

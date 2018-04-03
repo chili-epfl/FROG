@@ -52,7 +52,9 @@ Meteor.methods({
         if (log.activityType && log.activityId) {
           const aT = activityTypesObj[log.activityType];
           if (!activityCache[log.activityId])
-            activityCache[log.activityId] = Graphs.findOne({_id: graphId}).activities.find(x => x.id === log.activityId);
+            activityCache[log.activityId] = Graphs.findOne({
+              _id: graphId
+            }).activities.find(x => x.id === log.activityId);
           const activity = activityCache[log.activityId];
           if (aT.dashboard) {
             Object.keys(aT.dashboard).forEach(name => {

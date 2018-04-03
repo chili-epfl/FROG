@@ -80,10 +80,20 @@ class ExportModal extends Component<Object, StateT> {
               { ...this.props.activity.data },
               this.state.tags
             );
-            const acts = Graphs.findOne({_id:this.props.graphId}).activities
-            const act = acts.find(x => x.id === this.props.activity._id)
-            act.parentId = idExport
-            Graphs.update({_id:this.props.graphId}, {$set: {activities: [...acts.filter(x => x.id !== this.props.activity._id), act]} })
+            const acts = Graphs.findOne({ _id: this.props.graphId }).activities;
+            const act = acts.find(x => x.id === this.props.activity._id);
+            act.parentId = idExport;
+            Graphs.update(
+              { _id: this.props.graphId },
+              {
+                $set: {
+                  activities: [
+                    ...acts.filter(x => x.id !== this.props.activity._id),
+                    act
+                  ]
+                }
+              }
+            );
             this.props.setModal(false);
             this.setState({
               title: '',
