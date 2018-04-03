@@ -256,7 +256,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         <Slider
           value={this.state.slider[this.state.example] || 0}
           min={0}
-          max={logs.length}
+          max={logs.length - 1}
           onChange={e => {
             this.setState({
               slider: { ...this.state.slider, [this.state.example]: e }
