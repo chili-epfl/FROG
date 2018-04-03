@@ -84,7 +84,6 @@ export class MemDoc extends EventEmitter {
 
   destroy() {}
   setMaxListeners() {}
-  removeListener() {}
 }
 
 export const pureObjectReactive = (initial: any) => {
