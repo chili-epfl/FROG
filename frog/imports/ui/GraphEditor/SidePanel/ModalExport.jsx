@@ -3,8 +3,8 @@ import Modal from 'react-modal';
 import { Button } from 'react-bootstrap';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
-import PostgREST from 'postgrest-client';
-import {uuid} from 'frog-utils';
+import PostgREST from '@houshuang/postgrest-client';
+import { uuid } from 'frog-utils';
 
 import { Activities } from '/imports/api/activities';
 import { addActivityToLibrary } from '/imports/api/activityLibrary';
@@ -23,7 +23,7 @@ class ExportModal extends Component<Object, StateT> {
       description: '',
       tags: []
     };
-    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000')
+    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -76,8 +76,16 @@ class ExportModal extends Component<Object, StateT> {
           className="btn btn-primary"
           onClick={() => {
             this.Api.post('/activities')
-              .send({uuid: uuid(), parentId: this.props.activity.parentId, title: this.state.title, description: this.state.description,  activityType: this.props.activity.activityType, config: { ...this.props.activity.data }, tags: this.state.tags})
-              .then(x => console.log(x))
+              .send({
+                uuid: uuid(),
+                parentId: this.props.activity.parentId,
+                title: this.state.title,
+                description: this.state.description,
+                activityType: this.props.activity.activityType,
+                config: { ...this.props.activity.data },
+                tags: this.state.tags
+              })
+              .then(x => console.log(x));
             const idExport = addActivityToLibrary(
               this.props.activity.parentId,
               this.state.title,

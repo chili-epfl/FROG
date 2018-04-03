@@ -1,6 +1,6 @@
 // @flow
-import React, { Component} from 'react';
-import PostgREST from 'postgrest-client';
+import React, { Component } from 'react';
+import PostgREST from '@houshuang/postgrest-client';
 
 import { addActivity } from '/imports/api/activities';
 import {
@@ -16,21 +16,17 @@ type StateT = {
 };
 
 class Library extends Component<Object, StateT> {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       deleteOpen: false,
       idRemove: ''
     };
-    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000')
+    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000');
   }
 
-  render(){
-    const {
-      activityId,
-      searchStr,
-      store
-    } = this.props
+  render() {
+    const { activityId, searchStr, store } = this.props;
 
     const select = (activity: Object) => {
       addActivity(
@@ -57,8 +53,9 @@ class Library extends Component<Object, StateT> {
       <div>
         <Modal
           remove={() => removeFromLibrary(this.state.idRemove)}
-          setDelete={d => this.setState({deleteOpen: d})}
-          setIdRemove={i => this.setState({idRemove: i})}        />
+          setDelete={d => this.setState({ deleteOpen: d })}
+          setIdRemove={i => this.setState({ idRemove: i })}
+        />
         <div
           className="list-group"
           style={{
@@ -92,8 +89,8 @@ class Library extends Component<Object, StateT> {
                 }
                 searchS={searchStr}
                 eventKey={x._id}
-                setDelete={d => this.setState({deleteOpen: d})}
-                setIdRemove={i => this.setState({idRemove: i})}
+                setDelete={d => this.setState({ deleteOpen: d })}
+                setIdRemove={i => this.setState({ idRemove: i })}
               />
             ))
           )}
@@ -103,4 +100,4 @@ class Library extends Component<Object, StateT> {
   }
 }
 
-export default Library
+export default Library;
