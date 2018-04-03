@@ -133,12 +133,12 @@ const checkActivity = (activityId, operators, connections, userid) => {
   const act = Activities.findOne(activityId);
   const uname = Meteor.users.findOne(userid).username;
 
-  if (uname === 'teacher' && act.plane !== 3) {
+  if (uname === 'teacher' && ![3, 4].includes(act.plane)) {
     return false;
   }
   if (
-    act.plane === 3 &&
-    act.participationMode === 'projector' &&
+    ((act.plane === 3 && act.participationMode === 'projector') ||
+      act.plane === 4) &&
     uname !== 'teacher'
   ) {
     return false;
