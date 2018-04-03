@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { type LogT } from 'frog-utils';
 import getFA from 'font-awesome-filetypes';
 
-import CenteredImg from './CenteredImg';
+import CenteredImg from './ImageBox';
 
 const CategoryContainer = styled.button`
   position: relative;
