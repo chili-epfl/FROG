@@ -40,26 +40,38 @@ export const createLogger = (
   return logger;
 };
 
+export const dashDocId = (aId: string, name: string) =>
+  aId + '/dashboard/' + name;
+
 export const createDashboardCollection = (
   serverConnection: Object,
   activityId: string,
   activityType: Object
 ) => {
-  const doc = serverConnection.get('rz', 'DASHBOARD//' + activityId);
-  doc.fetch();
-  doc.once(
-    'load',
-    Meteor.bindEnvironment(() => {
-      if (!doc.type) {
-        try {
-          doc.create(
-            (activityType.dashboard && activityType.dashboard.initData) || {}
-          );
-        } catch (e) {
-          // eslint-disable-next-line no-console
-          console.error(Date.now(), 'Creating dashboard for ', activityId, e);
-        }
-      }
-    })
-  );
+  if (activityType.dashboard) {
+    Object.keys(activityType.dashboard).forEach(name => {
+      const dashObj = activityType.dashboard[name];
+      const docId = dashDocId(activityId, name);
+      const doc = serverConnection.get('rz', docId);
+      doc.fetch();
+      doc.once(
+        'load',
+        Meteor.bindEnvironment(() => {
+          if (!doc.type) {
+            try {
+              doc.create((dashObj && dashObj.initData) || {});
+            } catch (e) {
+              // eslint-disable-next-line no-console
+              console.error(
+                Date.now(),
+                'Creating dashboard for ',
+                activityId,
+                e
+              );
+            }
+          }
+        })
+      );
+    });
+  }
 };

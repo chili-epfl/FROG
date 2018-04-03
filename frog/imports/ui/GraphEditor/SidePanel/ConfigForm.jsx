@@ -25,7 +25,8 @@ type ConfigFormPropsT = {
   refreshValidate: Function,
   reload?: any,
   widgets?: any,
-  data?: Object
+  data?: Object,
+  onChange?: Function
 };
 
 export default class ConfigForm extends Component<

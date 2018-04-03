@@ -165,7 +165,7 @@ const ActivityRunner = ({
   const formBoolean = activityData.config.formBoolean;
   const fun = { vote, del, formBoolean };
   return (
-    <div>
+    <div className="bootstrap">
       <Container>
         <ListContainer>
           <p>{activityData.config.text}</p>
