@@ -9,23 +9,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cuid": "^2.0.2",
+    "cuid": "^2.1.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.5",
     "mousetrap": "^1.5.3",
     "react": "^16.2.0",
     "react-bootstrap-table": "^4.3.1",
-    "react-bootstrap-typeahead": "2.3.0",
+    "react-bootstrap-typeahead": "3.0.0-alpha.2",
     "react-dom": "^16.2.0",
-    "react-google-charts": "^1.5.5",
-    "react-jsonschema-form": "^1.0.0",
-    "react-jsonschema-form-extras": "^0.9.5",
-    "react-rte": "^0.16.0",
+    "react-google-charts": "^1.5.7",
+    "react-jsonschema-form": "^1.0.2",
+    "react-jsonschema-form-extras": "^0.9.11",
+    "react-rte": "^0.16.1",
     "recompose": "^0.26.0",
     "sharedb": "^1.0.0-beta.8",
     "sharedb-string-binding": "^1.0.0"
   },
   "devDependencies": {
-    "nps": "^5.7.1"
+    "nps": "^5.8.2"
   }
 }

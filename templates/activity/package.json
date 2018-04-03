@@ -2,6 +2,7 @@
   "name": "activity-template",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "license": "ISC",
   "scripts": {
     "start": "nps"
   },
@@ -11,6 +12,6 @@
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.8.2"
   }
 }
