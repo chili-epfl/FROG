@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.42",
-    "@houshuang/postgrest-client": "^1.1.2", 
+    "@houshuang/postgrest-client": "^1.1.2",
     "ac-autocode": "1.0.0",
     "ac-brainstorm": "1.0.0",
     "ac-chat": "1.0.0",
@@ -108,5 +108,4 @@
   "devDependencies": {
     "nps": "^5.8.2"
   }
->>>>>>> 28fbed00f13d0d7d3a253be3f7e6b1671fde9e7c
 }
