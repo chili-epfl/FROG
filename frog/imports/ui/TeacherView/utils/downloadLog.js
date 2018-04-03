@@ -1,19 +1,19 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import FileSaver from 'file-saver';
-import { Activities } from '/imports/api/activities';
+import { Graphs } from '/imports/api/graphs';
 
 const userIds = {};
 
 const activities = {};
-const activityInfo = (id: string): [string, string, string] => {
+const activityInfo = (graphId: string, id: string): [string, string, string] => {
   if (!id) {
     return ['', '', ''];
   }
   if (activities[id]) {
     return activities[id];
   }
-  const act = Activities.findOne(id);
+  const act = Graphs.findOne({_id: graphId}).activities.find(x => x.id === id)
   activities[id] = [act.title, act.activityType, act.plane];
   return activities[id];
 };
@@ -29,7 +29,7 @@ const userLookup = userId => {
   return ret;
 };
 
-export default (sessionId: string, callback?: Function) => {
+export default (graphId: string, sessionId: string, callback?: Function) => {
   Meteor.call('session.logs', sessionId, 9999999, (err, succ) => {
     if (err) {
       // eslint-disable-next-line no-alert
@@ -42,7 +42,7 @@ export default (sessionId: string, callback?: Function) => {
             ...userLookup(x.userId),
             x.instanceId,
             x.activityId,
-            ...activityInfo(x.activityId),
+            ...activityInfo(graphId, x.activityId),
             x.type,
             x.itemId,
             JSON.stringify(x.value),

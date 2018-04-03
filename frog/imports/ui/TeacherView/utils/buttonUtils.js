@@ -127,7 +127,7 @@ export const SessionUtilsButtonsModel = (session, toggle, token) => ({
   },
   download: {
     button: {
-      onClick: () => downloadLog(session._id),
+      onClick: () => downloadLog(session.graphId, session._id),
       text: 'Download log CSV'
     }
   },

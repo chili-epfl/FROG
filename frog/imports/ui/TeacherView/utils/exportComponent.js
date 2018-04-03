@@ -9,7 +9,7 @@ import { omit } from 'lodash';
 
 import { Sessions } from '../../../api/sessions';
 import { Objects } from '../../../api/objects';
-import { Activities, Operators } from '../../../api/activities';
+import { Graphs } from '../../../api/graphs';
 import { Products } from '../../../api/products';
 import { activityTypesObj } from '../../../activityTypes';
 import { getActivitySequence } from '../../../api/graphSequence';
@@ -91,8 +91,8 @@ const slugo = input =>
 
 export const exportSession = (sessionId: string) => {
   const session = Sessions.findOne(sessionId);
-  const activities = Activities.find({ graphId: session.graphId }).fetch();
-  const operators = Operators.find({ graphId: session.graphId }).fetch();
+  const activities = Graphs.findOne({_id: session.graphId}).activities
+  const operators = Graphs.findOne({_id: session.graphId}).operators
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
   activities.forEach(act => {

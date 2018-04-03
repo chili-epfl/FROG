@@ -14,7 +14,7 @@ import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
 import { operatorTypesObj } from '../imports/operatorTypes';
 import { Products } from '../imports/api/products';
-import { Operators, Activities, Connections } from '../imports/api/activities';
+import {Graphs} from '../imports/api/graphs';
 import { addObject } from '../imports/api/objects';
 
 declare var Promise: any;
@@ -46,8 +46,10 @@ const runDataflow = (
   nodeId: string,
   sessionId: string
 ) => {
-  const nodeTypes = { operator: Operators, activity: Activities };
-  const node = nodeTypes[type].findOne(nodeId);
+  const graphId = Sessions.findOne(sessionId).graphId;
+  const nodeTypes = { operator: 'operators', activity: 'activities' };
+  const nodes = Graphs.findOne({_id: graphId})[nodeTypes[type]]
+  const node = nodes.find(x => x.id === nodeId)
 
   if (!node) {
     throw `Can't find node! ${type} ${nodeId}`;
@@ -56,13 +58,15 @@ const runDataflow = (
     // we're done here
     return;
   }
-
-  nodeTypes[type].update(nodeId, { $set: { state: 'computing' } });
+  const nodeT = nodes.find(x => x.id === nodeId)
+  nodeT.state = 'computed'
+  if(type === 'operator')
+    Graphs.update(graphId, {$set: {operators: [... nodes, nodeT]}})
+  else
+    Graphs.update(graphId, {$set: {activities: [... nodes, nodeT]}})
 
   // first make sure all incoming nodes have been computed
-  const connections = Connections.find({
-    'target.id': nodeId
-  }).fetch();
+  const connections = Graphs.findOne({_id: graphId}).connections.filter(x => x.target.id === nodeId)
 
   runAllConnecting(connections, sessionId);
 

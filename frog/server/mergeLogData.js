@@ -10,7 +10,7 @@ import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 import { Logs, dashDocId } from '../imports/api/logs';
 import { Cache } from './sharedbCache';
-import { Activities } from '../imports/api/activities.js';
+import { Graphs } from '../imports/api/graphs';
 
 const activityCache = {};
 
@@ -43,7 +43,7 @@ const runMergeLog = (doc, dataFn, mergeLog, log, activity) => {
 };
 
 Meteor.methods({
-  'merge.log': (rawLog: LogDBT | LogDBT[], logExtra) => {
+  'merge.log': (graphId: string, rawLog: LogDBT | LogDBT[], logExtra) => {
     const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
     logs.forEach(eachLog => {
       const log = { ...logExtra, ...eachLog, timestamp: new Date() };
@@ -51,9 +51,8 @@ Meteor.methods({
         Logs.insert(log);
         if (log.activityType && log.activityId) {
           const aT = activityTypesObj[log.activityType];
-          if (!activityCache[log.activityId]) {
-            activityCache[log.activityId] = Activities.findOne(log.activityId);
-          }
+          if (!activityCache[log.activityId])
+            activityCache[log.activityId] = Graphs.findOne({_id: graphId}).activities.find(x => x.id === log.activityId);
           const activity = activityCache[log.activityId];
           if (aT.dashboard) {
             Object.keys(aT.dashboard).forEach(name => {
@@ -70,10 +69,7 @@ Meteor.methods({
         console.error(log, e);
       }
     });
-  }
-});
-
-Meteor.methods({
+  },
   'session.logs': function(sessionId, limit = 50) {
     if (
       this.userId &&

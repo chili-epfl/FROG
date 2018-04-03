@@ -41,7 +41,7 @@ export const runNextActivity = (sessionId: string) => {
       act => !openActivities.includes(act)
     );
     justClosedActivities.forEach(act =>
-      Meteor.call('reactive.to.product', act)
+      Meteor.call('reactive.to.product',session.graphId, act)
     );
   }
 };

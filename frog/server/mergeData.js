@@ -10,7 +10,7 @@ import {
   type ActivityDbT,
   type structureDefT
 } from 'frog-utils';
-import { Activities } from '../imports/api/activities';
+import { Graphs } from '../imports/api/graphs';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Sessions } from '../imports/api/sessions';
@@ -117,12 +117,13 @@ export const mergeOneInstance = (
 };
 
 const mergeData = (
+  graphId: string,
   activityId: string,
   object: ObjectT & GlobalStructureT,
   group?: string
 ) => {
   const { activityData } = object;
-  const activity = Activities.findOne(activityId);
+  const activity = Graphs.findOne({_id: graphId}).activities.find(x => x.id === activityId)
   const activityType = activityTypesObj[activity.activityType];
 
   const { groups, structure } = doGetInstances(activity, object);
@@ -154,10 +155,7 @@ Meteor.methods({
   'ensure.reactive': (sessionId, studentId) => {
     const session = Sessions.findOne(sessionId);
     const activities = session.openActivities
-      ? Activities.find({
-          _id: { $in: session.openActivities },
-          plane: 1
-        })
+      ? Graphs.findOne({_id: session.graphId}).activities.filter(x => x.plane === 1 && session.openActivities.includes(x))
       : [];
     activities.forEach(ac => {
       const object = Objects.findOne(ac._id);
@@ -171,7 +169,7 @@ Meteor.methods({
           }
         });
       }
-      mergeData(ac._id, object, studentId);
+      mergeData(session.graphId, ac._id, object, studentId);
     });
   }
 });

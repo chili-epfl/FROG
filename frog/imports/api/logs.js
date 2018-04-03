@@ -4,13 +4,14 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 import { type LogT, type LogDBT, uuid } from 'frog-utils';
+import {Sessions} from './sessions';
 
 export const Logs = new Mongo.Collection('logs');
 
-export const engineLogger = (sessionId: string, type: string, value?: number) =>
+export const engineLogger = (graphId: string, sessionId: string, type: string, value?: number) =>
   Meteor.call(
     'merge.log',
-    ({
+    (Sessions.findOne({_id: sessionId}).graphId, {
       _id: uuid(),
       userId: 'teacher',
       sessionId,
@@ -34,8 +35,8 @@ export const createLogger = (
       activityId: activity._id,
       instanceId
     }: $Diff<LogDBT, { timestamp: Date }>);
-
-    Meteor.call('merge.log', logItem, logExtra);
+    const graphId = Sessions.findOne({_id: sessionId}).graphId
+    Meteor.call('merge.log', graphId, logItem, logExtra);
   };
   return logger;
 };

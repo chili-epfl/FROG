@@ -3,7 +3,7 @@
 import { type activityDataT } from 'frog-utils';
 import { Meteor } from 'meteor/meteor';
 
-import { Activities } from '../imports/api/activities';
+import {Graphs} from '../imports/api/graphs';
 import { activityTypesObj } from '../imports/activityTypes';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
@@ -30,10 +30,11 @@ const formatResults = (results, formatProduct, config) => {
   );
 };
 
-export const getActivityDataFromReactive = (
+const getActivityDataFromReactive = (
+  graphId: string,
   activityId: string
 ): activityDataT => {
-  const activity = Activities.findOne(activityId);
+  const activity = Graphs.findOne({_id: graphId}).activities.find(x => x.id === activityId)
   const aT = activityTypesObj[activity.activityType];
   const object = Objects.findOne(activityId);
   const { structure } = doGetInstances(activity, object);
@@ -59,20 +60,23 @@ export const getActivityDataFromReactive = (
   return ret;
 };
 
-const ensure = (activityId: string) => {
+const ensure = (graphId: string, activityId: string) => {
   Products.update(
     activityId,
     {
       $set: {
-        activityData: getActivityDataFromReactive(activityId),
+        activityData: getActivityDataFromReactive(graphId, activityId),
         type: 'product'
       }
     },
     { upsert: true }
   );
-  Activities.update(activityId, { $set: { state: 'computed' } });
+  const acts = Graphs.findOne({_id: graphId}).activities
+  const act = acts.find(x => x.id === activityId)
+  act.state = 'computed'
+  Graphs.update({_id: graphId}, {$set: {activities: [...acts, act]}})
 };
 
-Meteor.methods({ 'reactive.to.product': id => ensure(id) });
+Meteor.methods({ 'reactive.to.product': (graphId, id) => ensure(graphId, id) });
 
 export default ensure;
