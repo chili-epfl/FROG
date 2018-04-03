@@ -187,6 +187,7 @@ const ActivityRunner = ({
   activityData,
   data,
   dataFn,
+  stream,
   LearningItem
 }: ActivityRunnerT) => {
   const onSubmit = e => {
@@ -253,11 +254,27 @@ const ActivityRunner = ({
           </ListContainer>
         </Container>
       </div>
-      <LearningItem
-        type="create"
-        meta={{ score: 0, students: {} }}
-        onCreate={e => dataFn.listAppend(e)}
-      />
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '500px' }}>
+          <LearningItem
+            li="li-idea"
+            type="create"
+            meta={{ score: 0, students: {} }}
+            onCreate={e => {
+              dataFn.listAppend(e);
+              stream(e);
+            }}
+          />
+        </div>
+        <LearningItem
+          type="create"
+          meta={{ score: 0, students: {} }}
+          onCreate={e => {
+            dataFn.listAppend(e);
+            stream(e);
+          }}
+        />
+      </div>
     </React.Fragment>
   );
 };

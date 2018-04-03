@@ -1,10 +1,14 @@
 // @flow
 import * as React from 'react';
-import { omit } from 'lodash';
 import { uuid } from 'frog-utils';
 import Button from 'material-ui/Button';
 import Dialog from 'material-ui/Dialog';
 import { withState } from 'recompose';
+import 'rc-slider/assets/index.css';
+import Slider from 'rc-slider';
+import { omit } from 'lodash';
+import Spinner from 'react-spinner';
+import { Meteor } from 'meteor/meteor';
 
 import ReactiveHOC from './ReactiveHOC';
 import { connection } from '../App/connection';
@@ -79,6 +83,49 @@ const RenderLearningItem = withState('open', 'setOpen', undefined)(
   }
 );
 
+class LearningItemWithSlider extends React.Component<
+  any,
+  { revisions: Object[], currentRev: number }
+> {
+  constructor(props) {
+    super(props);
+    this.state = { revisions: [], currentRev: 0 };
+  }
+
+  componentDidMount() {
+    Meteor.call('sharedb.get.revisions', 'li', this.props.id, (_, res) =>
+      this.setState({ revisions: res })
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    Meteor.call('sharedb.get.revisions', 'li', nextProps.id, (_, res) =>
+      this.setState({ revisions: res, currentRev: res.length - 1 })
+    );
+  }
+
+  render() {
+    if (this.state.revisions.length === 0) {
+      return <Spinner />;
+    }
+    return (
+      <div>
+        <Slider
+          value={this.state.currentRev}
+          min={0}
+          max={this.state.revisions.length - 1}
+          onChange={e => this.setState({ currentRev: e })}
+        />
+        <RenderLearningItem
+          type="view"
+          id={this.props.id}
+          data={this.state.revisions[this.state.currentRev]}
+        />
+      </div>
+    );
+  }
+}
+
 RenderLearningItem.displayName = 'RenderLearningItem';
 
 const LearningItem = ({
@@ -98,6 +145,9 @@ const LearningItem = ({
   meta?: Object,
   clickZoomable?: boolean
 }) => {
+  if (type === 'history') {
+    return <LearningItemWithSlider id={id} render={render} />;
+  }
   if (type === 'create') {
     if (li) {
       const liT = learningItemTypesObj[li];

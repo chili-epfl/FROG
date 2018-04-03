@@ -93,19 +93,21 @@ class Runner extends Component<Object, RunnerStateT> {
       <Main>
         <h2>{activityData.config.title}</h2>
         <FlexDiv>
-          {objectKeyPlus && (
-            <this.props.LearningItem id={objectKey} type="view" />
+          {objectKey && (
+            <this.props.LearningItem id={objectKey} type="history" />
           )}
           {categories.length > 0 && (
-            <ShortcutPanel
-              {...{
-                categories,
-                dataFn: this.props.ourDataFn,
-                data,
-                assignCategory: this.assignCategory,
-                objectKey: objectKey
-              }}
-            />
+            <div style={{ position: 'absolute', right: '20px' }}>
+              <ShortcutPanel
+                {...{
+                  categories,
+                  dataFn: this.props.ourDataFn,
+                  data,
+                  assignCategory: this.assignCategory,
+                  objectKey: objectKey
+                }}
+              />
+            </div>
           )}
         </FlexDiv>
         <ObjectList

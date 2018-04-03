@@ -133,14 +133,16 @@ class ActivityRunner extends Component<ActivityRunnerT, ActivityRunnerStateT> {
             stream(e);
           }}
         />
-        <LearningItem
-          meta={{ comment: '' }}
-          type="create"
-          onCreate={e => {
-            dataFn.listAppend(e);
-            stream(e);
-          }}
-        />
+        <div style={{ position: 'absolute', bottom: '10px' }}>
+          <LearningItem
+            meta={{ comment: '' }}
+            type="create"
+            onCreate={e => {
+              dataFn.listAppend(e);
+              stream(e);
+            }}
+          />
+        </div>
         {this.state.category !== 'categories' &&
           this.state.zoomOn && (
             <ZoomView
