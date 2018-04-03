@@ -86,7 +86,6 @@ const Viewer = TimedComponent((props: Object) => {
   const usersFinished = Object.keys(data.progress).filter(
     x => data.progress[x] === 1
   ).length;
-
   return (
     <React.Fragment>
       <LineChart

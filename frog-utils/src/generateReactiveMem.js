@@ -1,5 +1,6 @@
 // @flow
 import { get, set, isEmpty, omit } from 'lodash';
+import EventEmitter from 'wolfy87-eventemitter';
 
 type rawPathT = string | string[];
 
@@ -9,15 +10,15 @@ const cleanPath = (defPath: rawPathT, rawPath: rawPathT = []): string[] => {
   return [...p, ...newPath];
 };
 
-export class MemDoc {
+export class MemDoc extends EventEmitter {
   data: any;
   path: rawPathT;
-  callback: Function;
 
   constructor(data: any, path?: rawPathT) {
+    super();
     this.data = data;
     this.path = path || [];
-    this.callback = () => {};
+    this.emitEvent('load');
   }
   submitOp(path: rawPathT, op: Function) {
     const setpath = cleanPath(this.path, path);
@@ -28,7 +29,7 @@ export class MemDoc {
     } else {
       set(this.data, setpath, newVal);
     }
-    this.callback();
+    this.emitEvent('op');
   }
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp(path, x => [newVal, ...x]);
@@ -81,26 +82,8 @@ export class MemDoc {
     return path.reduce((acc, x) => acc[[x]], data);
   }
 
-  setMaxListeners = () => {};
-
-  removeListener = () => {
-    this.callback = () => {};
-  };
-
-  subscribe = () => {};
-
-  destroy = () => {
-    this.callback = () => {};
-  };
-
-  on = (type: string, callback: Function) => {
-    if (type === 'op') {
-      this.callback = callback;
-    }
-    if (type === 'load') {
-      callback();
-    }
-  };
+  destroy() {}
+  setMaxListeners() {}
 }
 
 export const pureObjectReactive = (initial: any) => {

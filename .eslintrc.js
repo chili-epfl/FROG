@@ -15,6 +15,7 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'flowtype/generic-spacing': 'off',
     'flowtype/no-types-missing-file-annotation': 'off',
     'class-methods-use-this': 'off',
     'consistent-return': 'off',
