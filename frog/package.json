@@ -101,7 +101,8 @@
     "ws": "^4.0.0",
     "ac-dual": "1.0.0",
     "ac-timedQuiz": "1.0.0",
-    "op-xy-distance": "1.0.0"
+    "op-xy-distance": "1.0.0",
+    "superagent": "^3.8.2"
   },
   "devDependencies": {"nps": "^5.7.1"}
 }
