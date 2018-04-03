@@ -16,6 +16,6 @@
     "strict-uri-encode": "^2.0.0"
   },
   "devDependencies": {
-    "nps": "5.8.2"
+    "nps": "5.9.0"
   }
 }
