@@ -67,59 +67,61 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
-const StudentView = ({ activities, session, token, classes }) => {
-  if (!activities || activities.length === 0) {
-    return <h1>No Activity right now</h1>;
-  }
-  if (session.state === 'PAUSED') {
-    return <h1>Paused</h1>;
-  }
-  return (
-    <div className={classes.root}>
-      <div className={classes.navbar}>
-        <AppBar>
-          <Toolbar className={classes.toolbar}>
-            {Meteor.user() && (
-              <Typography
-                type="subheading"
-                color="inherit"
-                className={classes.flex}
-              >
-                {Meteor.user().username}
-              </Typography>
-            )}
-            {Meteor.user() &&
-              Meteor.user().username === 'teacher' && (
-                <Button
-                  className={classes.button}
-                  color="inherit"
-                  onClick={() => {}}
-                  href={`/?login=teacher&token=${(token && token.value) || ''}`}
-                  target="_blank"
-                >
-                  Dashboard
-                </Button>
-              )}
-            <Button
-              className={classes.button}
+const StudentView = ({ activities, session, token, classes }) => (
+  <div className={classes.root}>
+    <div className={classes.navbar}>
+      <AppBar>
+        <Toolbar className={classes.toolbar}>
+          {Meteor.user() && (
+            <Typography
+              type="subheading"
               color="inherit"
-              onClick={() => {
-                Meteor.logout();
-                Accounts._unstoreLoginToken();
-                window.notReady();
-              }}
+              className={classes.flex}
             >
-              Logout
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </div>
-      <div className={classes.mainContent}>
-        <ActivityContainer activities={activities} sessionId={session._id} />
-      </div>
+              {Meteor.user().username}
+            </Typography>
+          )}
+          {Meteor.user() &&
+            Meteor.user().username === 'teacher' && (
+              <Button
+                className={classes.button}
+                color="inherit"
+                onClick={() => {}}
+                href={`/?login=teacher&token=${(token && token.value) || ''}`}
+                target="_blank"
+              >
+                Dashboard
+              </Button>
+            )}
+          <Button
+            className={classes.button}
+            color="inherit"
+            onClick={() => {
+              Meteor.logout();
+              Accounts._unstoreLoginToken();
+              window.notReady();
+            }}
+          >
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
     </div>
-  );
-};
+    <div className={classes.mainContent}>
+      {(() => {
+        if (!activities || activities.length === 0) {
+          return <h1>No Activity right now</h1>;
+        }
+        if (session.state === 'PAUSED') {
+          return <h1>Paused</h1>;
+        }
+        return (
+          <ActivityContainer activities={activities} sessionId={session._id} />
+        );
+      })()}
+    </div>
+  </div>
+);
 
 const SessionBody = ({
   activities,

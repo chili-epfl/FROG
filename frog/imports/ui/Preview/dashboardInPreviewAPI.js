@@ -13,7 +13,7 @@ import {
   pureObjectReactive
 } from 'frog-utils';
 
-import { DashMultiWrapper } from '../TeacherView/Dashboard';
+import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
 
 export const DocumentCache = {};
