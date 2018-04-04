@@ -10,9 +10,9 @@
     "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "webrtc-adapter": "^6.1.1"
+    "webrtc-adapter": "^6.1.4"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.8.2"
   }
 }

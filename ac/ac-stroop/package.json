@@ -12,11 +12,10 @@
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
-    "react-bootstrap": "^0.32.1",
-    "react-google-charts": "^1.5.5",
+    "react-google-charts": "^1.5.7",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.8.2"
   }
 }
