@@ -32,7 +32,7 @@ export default ({
       ))}
     </div>
     <Button
-      value={activity._id}
+      value={activity.uuid}
       className="glyphicon glyphicon-ok"
       style={{
         position: 'absolute',
@@ -44,7 +44,7 @@ export default ({
       onClick={onSelect}
     />
     <Button
-      value={activity._id}
+      value={activity.uuid}
       className="btn btn-danger"
       style={{
         position: 'absolute',
@@ -54,14 +54,14 @@ export default ({
         height: '34px'
       }}
       onClick={() => {
-        setIdRemove(activity._id);
+        setIdRemove(activity.uuid);
         setDelete(true);
       }}
     >
       <span className="glyphicon glyphicon-remove" />
     </Button>
     <Button
-      value={activity._id}
+      value={activity.uuid}
       className="glyphicon glyphicon-eye-open"
       style={{
         position: 'absolute',

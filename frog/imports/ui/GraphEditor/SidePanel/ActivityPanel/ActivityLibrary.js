@@ -1,64 +1,75 @@
 // @flow
-import React, { Component} from 'react';
-// import PostgREST from 'postgrest-client';
+import React, { Component } from 'react';
 
 import { addActivity } from '/imports/api/activities';
-import {
-  ActivityLibrary,
-  removeFromLibrary
-} from '/imports/api/activityLibrary';
 import LibraryListComponent from '../LibraryListComponent';
 import Modal from '../ModalDelete';
 
 type StateT = {
+  activityList: Array<any>,
   deleteOpen: boolean,
   idRemove: string
 };
 
 class Library extends Component<Object, StateT> {
-  constructor(props){
+  constructor(props: Object) {
     super(props);
     this.state = {
+      activityList: [],
       deleteOpen: false,
       idRemove: ''
     };
-    // this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000')
   }
 
-  render(){
-    const {
-      activityId,
-      searchStr,
-      store
-    } = this.props
+  componentWillMount() {
+    fetch('http://icchilisrv4.epfl.ch:5000/activities')
+      .then(e => e.json())
+      .then(e =>
+        e.forEach(x =>
+          this.setState({ activityList: [...this.state.activityList, x] })
+        )
+      );
+  }
+
+  render() {
+    const { activityId, searchStr, store } = this.props;
 
     const select = (activity: Object) => {
       addActivity(
-        activity.activityType,
-        activity.configuration,
+        activity.activity_type,
+        activity.config,
         activityId,
-        null,
-        activity._id
+        activity.parent_id,
+        activity.uuid
       );
       store.addHistory();
-    };
-
-    const filteredList = ActivityLibrary.find()
-      .fetch()
-      .filter(
-        x =>
-          x.activityType.toLowerCase().includes(searchStr) ||
-          x.title.toLowerCase().includes(searchStr) ||
-          x.description.toLowerCase().includes(searchStr) ||
-          x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
-      )
-      .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
+    }; // don't track changes on the list
+    const filteredList =
+      this.state.activityList ||
+      []
+        .filter(
+          x =>
+            x.activity_type.toLowerCase().includes(searchStr) ||
+            x.title.toLowerCase().includes(searchStr) ||
+            x.description.toLowerCase().includes(searchStr) ||
+            x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
+        )
+        .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
     return (
       <div>
         <Modal
-          remove={() => removeFromLibrary(this.state.idRemove)}
-          setDelete={d => this.setState({deleteOpen: d})}
-          setIdRemove={i => this.setState({idRemove: i})}        />
+          deleteOpen={this.state.deleteOpen}
+          remove={() =>
+            fetch(
+              'http://icchilisrv4.epfl.ch:5000/activities?uuid=eq.'.concat(
+                this.state.idRemove.toString()
+              ),
+              { method: 'DELETE' }
+            )
+          }
+          setDelete={d => this.setState({ deleteOpen: d })}
+          setIdRemove={i => this.setState({ idRemove: i })}
+        />
         <div
           className="list-group"
           style={{
@@ -83,17 +94,17 @@ class Library extends Component<Object, StateT> {
               <LibraryListComponent
                 onSelect={() => select(x)}
                 activity={x}
-                key={x._id}
+                key={x.uuid}
                 onPreview={() =>
                   store.ui.setShowPreview({
-                    activityTypeId: x.activityType,
-                    config: x.configuration
+                    activityTypeId: x.activity_type,
+                    config: x.config
                   })
                 }
                 searchS={searchStr}
-                eventKey={x._id}
-                setDelete={d => this.setState({deleteOpen: d})}
-                setIdRemove={i => this.setState({idRemove: i})}
+                eventKey={x.uuid}
+                setDelete={d => this.setState({ deleteOpen: d })}
+                setIdRemove={i => this.setState({ idRemove: i })}
               />
             ))
           )}
@@ -103,4 +114,4 @@ class Library extends Component<Object, StateT> {
   }
 }
 
-export default Library
+export default Library;

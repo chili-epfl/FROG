@@ -1,36 +1,39 @@
 import React from 'react';
-import Modal from 'react-modal';
-import { Button } from 'react-bootstrap';
+import Dialog from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
+import { withStyles } from 'material-ui/styles';
 
-export default ({ deleteOpen, setDelete, remove }) => (
-  <Modal
-    isOpen={deleteOpen}
-    contentLabel="Modal"
-    style={{
-      content: {
-        top: '170px',
-        left: 'auto',
-        bottom: 'auto',
-        right: '100px',
-        overflow: 'hidden'
-      }
-    }}
-  >
-    <h2>Remove this activity from the library :</h2>
-
+const DeleteModal = ({ deleteOpen, setDelete, remove }) => (
+  <Dialog open={deleteOpen} title="Remove this activity from the library:">
     <h3>Are you sure you want to remove this activity from the library ?</h3>
     <div style={{ height: '10px' }} />
-    <Button className="btn btn-primary" onClick={() => setDelete(false)}>
-      Cancel
-    </Button>
-    <Button
-      className="btn btn-danger"
-      onClick={() => {
-        setDelete(false);
-        remove();
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center'
       }}
     >
-      Delete
-    </Button>
-  </Modal>
+      <Button onClick={() => setDelete(false)}>Cancel</Button>
+      <Button
+        color="secondary"
+        onClick={() => {
+          setDelete(false);
+          remove();
+        }}
+      >
+        Delete
+      </Button>
+    </div>
+  </Dialog>
 );
+
+const styles = {
+  content: {
+    width: '100%',
+    padding: '20px',
+    overflow: 'hidden'
+  }
+};
+
+export default withStyles(styles)(DeleteModal);
