@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
-import { Button } from 'react-bootstrap';
+import Dialog from 'material-ui/Dialog';
+import {FlatButton} from 'material-ui';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
-import PostgREST from 'postgrest-client';
-import {uuid} from 'frog-utils';
+// import PostgREST from '@houshuang/postgrest-client';
+
+import { uuid } from 'frog-utils';
 
 import { Activities } from '/imports/api/activities';
 import { addActivityToLibrary } from '/imports/api/activityLibrary';
@@ -23,7 +24,7 @@ class ExportModal extends Component<Object, StateT> {
       description: '',
       tags: []
     };
-    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000')
+//    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,9 +33,9 @@ class ExportModal extends Component<Object, StateT> {
 
   render() {
     return (
-      <Modal
-        isOpen={this.props.modalOpen}
-        contentLabel="Modal"
+      <Dialog
+        title='Export activity to the library:'
+        open={this.props.modalOpen}
         style={{
           content: {
             top: '170px',
@@ -45,7 +46,6 @@ class ExportModal extends Component<Object, StateT> {
           }
         }}
       >
-        <h2>Export activity to the library:</h2>
         <h3>Title</h3>
         <input
           type="text"
@@ -66,18 +66,19 @@ class ExportModal extends Component<Object, StateT> {
           onChange={t => this.setState({ tags: t })}
         />
         <div style={{ height: '10px' }} />
-        <Button
-          className="btn btn-danger"
-          onClick={() => this.props.setModal(false)}
-        >
-          Cancel
-        </Button>
-        <Button
-          className="btn btn-primary"
-          onClick={() => {
-            this.Api.post('/activities')
-              .send({uuid: uuid(), parentId: this.props.activity.parentId, title: this.state.title, description: this.state.description,  activityType: this.props.activity.activityType, config: { ...this.props.activity.data }, tags: this.state.tags})
-              .then(x => console.log(x))
+        <FlatButton label='Cancel' onClick={() => this.props.setModal(false)} />
+        <FlatButton label='Save' onClick={() => {
+            const act = {
+                uuid: uuid(),
+                parentId: this.props.activity.parentId,
+                title: this.state.title,
+                description: this.state.description,
+                activityType: this.props.activity.activityType,
+                config: { ...this.props.activity.data },
+                tags: this.state.tags,
+                exportedAt: new Date()
+              }
+            fetch('http://icchilisrv4.epfl.ch:5000/activities',{method: 'POST', body: JSON.stringify(act)}).then(x => console.log(x));
             const idExport = addActivityToLibrary(
               this.props.activity.parentId,
               this.state.title,
@@ -97,10 +98,8 @@ class ExportModal extends Component<Object, StateT> {
             });
           }}
           disabled={Boolean(!this.state.title || !this.state.description)}
-        >
-          Save
-        </Button>
-      </Modal>
+        />
+      </Dialog>
     );
   }
 }

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component} from 'react';
-import PostgREST from 'postgrest-client';
+// import PostgREST from 'postgrest-client';
 
 import { addActivity } from '/imports/api/activities';
 import {
@@ -22,7 +22,7 @@ class Library extends Component<Object, StateT> {
       deleteOpen: false,
       idRemove: ''
     };
-    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000')
+//    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000')
   }
 
   render(){
