@@ -32,8 +32,7 @@ class UtilsMenu extends React.Component {
     const menuItems = [
       buttonsModel.dashboard,
       buttonsModel.export,
-      buttonsModel.download,
-      buttonsModel.liDashboard
+      buttonsModel.download
     ];
 
     return (
@@ -75,17 +74,8 @@ class UtilsMenu extends React.Component {
   }
 }
 
-const SessionUtils = ({
-  classes,
-  session,
-  toggle,
-  token,
-  dashboardVisible,
-  setDashboardVisible
-}) => {
-  const buttonsModel = SessionUtilsButtonsModel(session, toggle, token, () =>
-    setDashboardVisible(true)
-  );
+const SessionUtils = ({ classes, session, toggle, token }) => {
+  const buttonsModel = SessionUtilsButtonsModel(session, toggle, token);
 
   return (
     <React.Fragment>
@@ -106,7 +96,6 @@ const SessionUtils = ({
           </Grid>
         </Grid>
       </div>
-      {dashboardVisible && <LIDashboard sessionId={session._id} />}
     </React.Fragment>
   );
 };

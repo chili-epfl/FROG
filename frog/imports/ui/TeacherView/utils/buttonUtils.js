@@ -124,12 +124,6 @@ export const SessionUtilsButtonsModel = (
     },
     source: 'toolbar'
   },
-  liDashboard: {
-    button: {
-      onClick: liDashboard,
-      text: `Learning Items Dashboard`
-    }
-  },
   export: {
     button: {
       onClick: () => exportSession(session._id),

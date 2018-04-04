@@ -45,6 +45,7 @@ const editIdea = ({ LearningItem, data, dataFn }) => (
     ))}
     <LearningItem
       type="create"
+      dataFn={dataFn}
       onCreate={e => dataFn.listAppend(e, 'attachments')}
     />
   </React.Fragment>

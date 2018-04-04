@@ -16,8 +16,6 @@ import { Sessions } from '../../api/sessions';
 const TeacherView = props => (
   <div>
     <OrchestrationView {...props} />
-    {props.students && <StudentList students={props.students} />}
-    <SessionList {...props} />
   </div>
 );
 

@@ -42,7 +42,13 @@ class Doc {
   createLearningItem(liType, item, meta) {
     const id = uuid();
     const itempointer = this.doc.connection.get('li', id);
-    itempointer.create({ liType, payload: item, ...meta, ...this.meta });
+    itempointer.create({
+      liType,
+      payload: item,
+      createdAt: new Date(),
+      ...meta,
+      ...this.meta
+    });
     itempointer.subscribe();
     return id;
   }

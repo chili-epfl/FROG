@@ -60,7 +60,7 @@ const RenderLearningItem = withState('open', 'setOpen', undefined)(
     );
     if (render) {
       return render({
-        meta: { id: dataFn.doc.id, ...omit(data, 'payload') },
+        meta: { id: dataFn && dataFn.doc.id, ...omit(data, 'payload') },
         dataFn,
         children: Comp,
         editable: liType.editable,
@@ -83,7 +83,7 @@ class LearningItemWithSlider extends React.Component<
 
   componentDidMount() {
     Meteor.call('sharedb.get.revisions', 'li', this.props.id, (_, res) =>
-      this.setState({ revisions: res })
+      this.setState({ revisions: res, currentRev: res.length - 1 })
     );
   }
 
@@ -108,6 +108,7 @@ class LearningItemWithSlider extends React.Component<
         <RenderLearningItem
           type="view"
           id={this.props.id}
+          render={this.props.render}
           data={this.state.revisions[this.state.currentRev]}
         />
       </div>
@@ -174,6 +175,7 @@ const LearningItem = ({
                   color="primary"
                   onClick={() => {
                     childDataFn.objInsert(false, 'draft');
+                    childDataFn.objInsert(new Date(), 'createdAt');
                     if (onCreate) {
                       onCreate(lid);
                     }
