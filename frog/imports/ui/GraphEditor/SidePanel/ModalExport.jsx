@@ -3,7 +3,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
-import PostgREST from '@houshuang/postgrest-client';
 import { uuid } from 'frog-utils';
 
 import { Activities } from '/imports/api/activities';
@@ -23,7 +22,7 @@ class ExportModal extends Component<Object, StateT> {
       description: '',
       tags: []
     };
-    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000');
+//    this.Api = new PostgREST('http://icchilisrv4.epfl.ch:5000');
   }
 
   componentWillReceiveProps(nextProps) {
