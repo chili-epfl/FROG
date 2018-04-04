@@ -34,10 +34,7 @@ const styles = {
   },
   mainContent: {
     width: '100%',
-    marginTop: 48,
-    flex: 'auto',
-    display: 'flex',
-    alignItems: 'center'
+    marginTop: 48
   },
   navbar: {
     display: 'flex',
