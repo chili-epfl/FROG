@@ -89,7 +89,7 @@ class Viewer extends Component<any, Object> {
       return null;
     }
     return (
-      <div>
+      <div className="bootstrap">
         {Object.keys(this.props.data).map(x => (
           <VideoProgress
             data={this.props.data[x]}
