@@ -20,7 +20,6 @@ type DashboardCompPropsT = {
   activity: ActivityDbT,
   users: { [string | number]: string },
   instances: Array<string | number>,
-  config: Object,
   name: string
 };
 
@@ -42,15 +41,20 @@ export class DashboardComp extends React.Component<
   };
 
   init(props: Object) {
-    const _conn = props.conn || connection || {};
-    const reactiveName = dashDocId(props.activity._id, props.name);
-    this.doc = props.doc || _conn.get('rz', reactiveName);
-    this.doc.setMaxListeners(30);
-    this.doc.subscribe();
-    if (this.doc.type) {
+    if (props.doc) {
+      this.doc = props.doc;
       this.update();
     } else {
-      this.doc.on('load', this.update);
+      const _conn = props.conn || connection || {};
+      const reactiveName = dashDocId(props.activity._id, props.name);
+      this.doc = _conn.get('rz', reactiveName);
+      this.doc.setMaxListeners(30);
+      this.doc.subscribe();
+      if (this.doc.type) {
+        this.update();
+      } else {
+        this.doc.on('load', this.update);
+      }
     }
     this.doc.on('op', this.update);
   }
@@ -145,7 +149,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
     });
   }
 
-  componentWillUnmountMount() {
+  componentWillUnmount() {
     this.subscription.stop();
   }
 

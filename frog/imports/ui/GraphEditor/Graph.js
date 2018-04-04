@@ -74,11 +74,18 @@ const Graph = connect(
         <rect
           x={0}
           y={0}
+          fill="#f2e6a6"
+          width={scaled ? graphWidth * scale : graphWidth * 4}
+          height={200}
+          onClick={canvasClick}
+        />
+        <rect
+          x={0}
+          y={200}
           fill="#fcf9e9"
           stroke="transparent"
-          rx={10}
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={600}
+          height={400}
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />

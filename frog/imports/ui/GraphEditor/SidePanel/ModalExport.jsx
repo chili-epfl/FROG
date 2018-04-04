@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
+<<<<<<< HEAD
 import {FlatButton} from 'material-ui';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 // import PostgREST from '@houshuang/postgrest-client';
 
+=======
+import FlatButton from 'material-ui/FlatButton';
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
+>>>>>>> c2489b1b354bce625dde8be5f930cdcec8d71605
 import { uuid } from 'frog-utils';
 
 import { Activities } from '/imports/api/activities';
@@ -68,17 +74,28 @@ class ExportModal extends Component<Object, StateT> {
         <div style={{ height: '10px' }} />
         <FlatButton label='Cancel' onClick={() => this.props.setModal(false)} />
         <FlatButton label='Save' onClick={() => {
+<<<<<<< HEAD
             const act = {
+=======
+            this.Api.post('/activities')
+              .send({
+>>>>>>> c2489b1b354bce625dde8be5f930cdcec8d71605
                 uuid: uuid(),
                 parentId: this.props.activity.parentId,
                 title: this.state.title,
                 description: this.state.description,
                 activityType: this.props.activity.activityType,
                 config: { ...this.props.activity.data },
+<<<<<<< HEAD
                 tags: this.state.tags,
                 exportedAt: new Date()
               }
             fetch('http://icchilisrv4.epfl.ch:5000/activities',{method: 'POST', body: JSON.stringify(act)}).then(x => console.log(x));
+=======
+                tags: this.state.tags
+              })
+              .then(x => console.log(x));
+>>>>>>> c2489b1b354bce625dde8be5f930cdcec8d71605
             const idExport = addActivityToLibrary(
               this.props.activity.parentId,
               this.state.title,
