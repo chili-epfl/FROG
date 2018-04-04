@@ -5,7 +5,6 @@ import imageLI from '../../internalLearningItems/li-image';
 import ideaCompoundLI from '../../internalLearningItems/li-ideaCompound';
 import morseLI from '../../internalLearningItems/li-morse';
 import tableLI from '../../internalLearningItems/li-table';
-import spreadsheetLI from '../../internalLearningItems/li-spreadsheet';
 
 export type learningItemTypeT = {
   name: string,
@@ -29,6 +28,5 @@ export const learningItemTypesObj: {
   'li-image': imageLI,
   'li-ideaCompound': ideaCompoundLI,
   'li-morse': morseLI,
-  'li-table': tableLI,
-  'li-spreadsheet': spreadsheetLI
+  'li-table': tableLI
 };
