@@ -3,8 +3,10 @@ import Grid from 'material-ui/Grid';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
+import { withState, compose } from 'recompose';
 import { withStyles } from 'material-ui/styles';
 import styles from './styles';
+import LIDashboard from '../Dashboard/LIDashboard';
 
 import {
   ControlButton,
@@ -30,7 +32,8 @@ class UtilsMenu extends React.Component {
     const menuItems = [
       buttonsModel.dashboard,
       buttonsModel.export,
-      buttonsModel.download
+      buttonsModel.download,
+      buttonsModel.liDashboard
     ];
 
     return (
@@ -72,28 +75,43 @@ class UtilsMenu extends React.Component {
   }
 }
 
-const SessionUtils = ({ classes, session, toggle, token }) => {
-  const buttonsModel = SessionUtilsButtonsModel(session, toggle, token);
+const SessionUtils = ({
+  classes,
+  session,
+  toggle,
+  token,
+  dashboardVisible,
+  setDashboardVisible
+}) => {
+  const buttonsModel = SessionUtilsButtonsModel(session, toggle, token, () =>
+    setDashboardVisible(true)
+  );
 
   return (
-    <div className={classes.root}>
-      <Grid
-        container
-        className={classes.root}
-        justify="space-between"
-        alignItems="center"
-        containerspacing={0}
-      >
-        <Grid item xs={4} />
-        <Grid item xs={4} className={classes.textCenter}>
-          <ControlButton btnModel={buttonsModel.current} classes={classes} />
+    <React.Fragment>
+      <div className={classes.root}>
+        <Grid
+          container
+          className={classes.root}
+          justify="space-between"
+          alignItems="center"
+          containerspacing={0}
+        >
+          <Grid item xs={4} />
+          <Grid item xs={4} className={classes.textCenter}>
+            <ControlButton btnModel={buttonsModel.current} classes={classes} />
+          </Grid>
+          <Grid item xs={4} style={{ textAlign: 'right' }}>
+            <UtilsMenu buttonsModel={buttonsModel} />
+          </Grid>
         </Grid>
-        <Grid item xs={4} style={{ textAlign: 'right' }}>
-          <UtilsMenu buttonsModel={buttonsModel} />
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+      {dashboardVisible && <LIDashboard sessionId={session._id} />}
+    </React.Fragment>
   );
 };
 
-export default withStyles(styles)(SessionUtils);
+export default compose(
+  withStyles(styles),
+  withState('dashboardVisible', 'setDashboardVisible', false)
+)(SessionUtils);

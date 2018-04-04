@@ -23,7 +23,7 @@ const styles = theme => ({
 });
 
 class LearningItemChooser extends React.Component<
-  { classes: Object, onCreate: Function, meta?: Object },
+  { classes: Object, onCreate: Function, meta?: Object, dataFn: Object },
   { anchorEl: any, open?: learningItemTypeT }
 > {
   state = {
@@ -87,6 +87,7 @@ class LearningItemChooser extends React.Component<
               <LearningItem
                 li={this.state.open.id}
                 type="create"
+                dataFn={this.props.dataFn}
                 meta={this.props.meta}
                 onCreate={id => {
                   this.setState({ open: undefined, anchorEl: undefined });

@@ -104,7 +104,12 @@ export const OrchestrationButtonsModel = (session, classes) => ({
   }
 });
 
-export const SessionUtilsButtonsModel = (session, toggle, token) => ({
+export const SessionUtilsButtonsModel = (
+  session,
+  toggle,
+  token,
+  liDashboard
+) => ({
   current: {
     tooltip: {
       id: 'tooltip-top',
@@ -118,6 +123,12 @@ export const SessionUtilsButtonsModel = (session, toggle, token) => ({
       href: `/${session.slug}`
     },
     source: 'toolbar'
+  },
+  liDashboard: {
+    button: {
+      onClick: liDashboard,
+      text: `Learning Items Dashboard`
+    }
   },
   export: {
     button: {

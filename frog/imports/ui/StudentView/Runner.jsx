@@ -77,9 +77,12 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       username={Meteor.user().username}
       userid={Meteor.userId()}
       activityData={activityData}
+      activityId={activity._id}
       groupingValue={groupingValue}
+      groupingKey={activity.groupingKey}
       sessionId={sessionId}
       readOnly={readOnly}
+      groupingKey={activity.groupingKey}
       HOC={ReactiveHOC}
     />
   );
@@ -112,7 +115,9 @@ type PropsT = {
   groupingValue: string,
   activityTypeId: string,
   readOnly?: boolean,
-  sessionId: string
+  sessionId: string,
+  activityId: string,
+  groupingKey?: string
 };
 
 export class RunActivity extends React.Component<PropsT, {}> {
@@ -120,7 +125,17 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
   constructor(props: PropsT) {
     super();
-    const { reactiveId, activityData, activityTypeId, readOnly } = props;
+    const {
+      reactiveId,
+      activityData,
+      groupingKey,
+      activityId,
+      activityTypeId,
+      readOnly,
+      groupingValue,
+      userid,
+      sessionId
+    } = props;
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activityType.id;
@@ -128,12 +143,26 @@ export class RunActivity extends React.Component<PropsT, {}> {
     const transform = formatProduct
       ? x => formatProduct((activityData && activityData.config) || {}, x)
       : x => x;
-
+    const meta: {
+      createdInActivity: string,
+      createdByUser: string,
+      createdByInstance?: Object,
+      sessionId: string
+    } = {
+      createdInActivity: activityId,
+      createdByUser: userid,
+      sessionId
+    };
+    if (groupingKey) {
+      meta.createdByInstance = { [groupingKey]: groupingValue };
+    }
     this.ActivityToRun = ReactiveHOC(
       reactiveId,
       undefined,
       transform,
-      readOnly
+      readOnly,
+      undefined,
+      meta
     )(RunComp);
   }
 

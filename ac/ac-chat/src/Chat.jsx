@@ -94,6 +94,7 @@ class ChatController extends React.Component<ActivityRunnerT> {
           />
           <LearningItem
             type="create"
+            dataFn={dataFn}
             meta={{ user: userInfo.name }}
             onCreate={e => dataFn.listAppend(e)}
           />

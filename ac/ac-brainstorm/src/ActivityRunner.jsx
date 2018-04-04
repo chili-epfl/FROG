@@ -259,6 +259,7 @@ const ActivityRunner = ({
           <LearningItem
             li="li-idea"
             type="create"
+            dataFn={dataFn}
             meta={{ score: 0, students: {} }}
             onCreate={e => {
               dataFn.listAppend(e);
@@ -269,6 +270,7 @@ const ActivityRunner = ({
         <LearningItem
           type="create"
           meta={{ score: 0, students: {} }}
+          dataFn={dataFn}
           onCreate={e => {
             dataFn.listAppend(e);
             stream(e);

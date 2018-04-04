@@ -22,7 +22,8 @@ const ReactiveHOC = (
   conn?: any,
   transform: Object => Object = x => x,
   readOnly: boolean = false,
-  collection?: string
+  collection?: string,
+  meta?: Object
 ) => (WrappedComponent: ReactComponent<any>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
@@ -58,7 +59,7 @@ const ReactiveHOC = (
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({
-            dataFn: generateReactiveFn(this.doc, readOnly, this.update)
+            dataFn: generateReactiveFn(this.doc, readOnly, this.update, meta)
           });
         }
         this.setState({ data: cloneDeep(this.doc.data) });

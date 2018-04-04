@@ -127,6 +127,7 @@ class ActivityRunner extends Component<ActivityRunnerT, ActivityRunnerStateT> {
         <LearningItem
           type="create"
           li="li-image"
+          dataFn={dataFn}
           meta={{ comment: '' }}
           onCreate={e => {
             dataFn.listAppend(e);
@@ -137,6 +138,7 @@ class ActivityRunner extends Component<ActivityRunnerT, ActivityRunnerStateT> {
           <LearningItem
             meta={{ comment: '' }}
             type="create"
+            dataFn={dataFn}
             onCreate={e => {
               dataFn.listAppend(e);
               stream(e);

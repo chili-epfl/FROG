@@ -17,7 +17,6 @@ export const runSession = (sessionId: string) =>
   Meteor.call('run.session', sessionId);
 
 export const nextActivity = (sessionId: string) => {
-  console.log('next');
   Meteor.call('next.activity', sessionId);
 };
 

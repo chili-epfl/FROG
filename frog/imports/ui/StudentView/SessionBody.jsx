@@ -37,7 +37,6 @@ const styles = {
     width: '100%',
     marginTop: 48,
     flex: 'auto',
-    display: 'flex',
     alignItems: 'center'
   },
   navbar: {
@@ -89,7 +88,6 @@ const StudentView = ({ activities, session, token, classes }) => (
                   className={classes.button}
                   color="inherit"
                   onClick={() => {
-                    console.log('next');
                     nextActivity(session._id);
                   }}
                   target="_blank"

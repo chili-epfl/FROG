@@ -16,17 +16,6 @@ import { uploadFile } from '../../api/openUploads';
 import LearningItemChooser from './LearningItemChooser';
 import { learningItemTypesObj } from './learningItemTypes';
 
-const createLearningItem = (liType, item, meta) => {
-  const id = uuid();
-  if (!connection) {
-    throw new Error();
-  }
-  const itempointer = connection.get('li', id);
-  itempointer.create({ liType, payload: item, ...meta });
-  itempointer.subscribe();
-  return id;
-};
-
 const RenderLearningItem = withState('open', 'setOpen', undefined)(
   ({ open, setOpen, data, dataFn, render, type = 'view', clickZoomable }) => {
     const liType = learningItemTypesObj[data.liType];
@@ -135,7 +124,8 @@ const LearningItem = ({
   li,
   onCreate,
   meta,
-  clickZoomable
+  clickZoomable,
+  dataFn
 }: {
   id?: string,
   render?: Function,
@@ -143,12 +133,16 @@ const LearningItem = ({
   li?: string,
   onCreate?: Function,
   meta?: Object,
-  clickZoomable?: boolean
+  clickZoomable?: boolean,
+  dataFn?: Object
 }) => {
   if (type === 'history') {
     return <LearningItemWithSlider id={id} render={render} />;
   }
   if (type === 'create') {
+    if (!dataFn) {
+      throw new Error('Cannot create without dataFn');
+    }
     if (li) {
       const liT = learningItemTypesObj[li];
       if (liT.create) {
@@ -157,25 +151,45 @@ const LearningItem = ({
           <ToRun
             uploadFn={uploadFile}
             createLearningItem={(liType, item) =>
-              createLearningItem(liType, item, meta)
+              dataFn.createLearningItem(liType, item, meta)
             }
             onCreate={onCreate}
             LearningItem={LearningItem}
           />
         );
       } else {
-        const lid = createLearningItem(liT.id, liT.dataStructure, meta);
+        const lid = dataFn.createLearningItem(liT.id, liT.dataStructure, {
+          ...meta,
+          draft: true
+        });
         return (
-          <div style={{ marginLeft: '10px' }}>
-            <LearningItem id={lid} type="edit" meta={meta} />
-            <Button color="primary" onClick={() => onCreate && onCreate(lid)}>
-              Add
-            </Button>
-          </div>
+          <LearningItem
+            id={lid}
+            type="edit"
+            meta={meta}
+            render={({ dataFn: childDataFn, children }) => (
+              <div style={{ marginLeft: '10px' }}>
+                {children}
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    childDataFn.objInsert(false, 'draft');
+                    if (onCreate) {
+                      onCreate(lid);
+                    }
+                  }}
+                >
+                  Add
+                </Button>
+              </div>
+            )}
+          />
         );
       }
     } else {
-      return <LearningItemChooser onCreate={onCreate} meta={meta} />;
+      return (
+        <LearningItemChooser dataFn={dataFn} onCreate={onCreate} meta={meta} />
+      );
     }
   } else {
     const ToRun = ReactiveHOC(

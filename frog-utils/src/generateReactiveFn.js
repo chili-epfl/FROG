@@ -18,13 +18,16 @@ class Doc {
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
+  meta: Object;
 
   constructor(
     doc: any,
     path: ?(string[]),
     readOnly: boolean,
-    updateFn?: Function
+    updateFn?: Function,
+    meta: Object = {}
   ) {
+    this.meta = meta;
     this.readOnly = !!readOnly;
     this.doc = doc;
     this.path = path || [];
@@ -39,7 +42,7 @@ class Doc {
   createLearningItem(liType, item, meta) {
     const id = uuid();
     const itempointer = this.doc.connection.get('li', id);
-    itempointer.create({ liType, payload: item, ...meta });
+    itempointer.create({ liType, payload: item, ...meta, ...this.meta });
     itempointer.subscribe();
     return id;
   }
@@ -143,10 +146,11 @@ class Doc {
 export const generateReactiveFn = (
   doc: any,
   readOnly?: boolean,
-  updateFn: Function
+  updateFn: Function,
+  meta: Object = {}
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], !!readOnly, updateFn);
+    return new Doc(doc, [], !!readOnly, updateFn, meta);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
