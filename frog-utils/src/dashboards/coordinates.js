@@ -6,25 +6,11 @@ import { VictoryChart, VictoryScatter, VictoryTheme } from 'victory';
 
 import { type LogDBT, type dashboardViewerPropsT } from 'frog-utils';
 
-const eventHandlers = [
-  {
-    target: 'data',
-    eventHandlers: {
-      onMouseOver: () => [
-        {
-          target: 'labels',
-          mutation: p => ({ text: p.datum.name })
-        }
-      ],
-      onMouseOut: () => [
-        {
-          target: 'labels',
-          mutation: _ => ({ text: null })
-        }
-      ]
-    }
-  }
-];
+const target = 'labels';
+const onMouseOver = () => ({ target, mutation: p => ({ text: p.datum.name }) });
+const onMouseOut = () => ({ target, mutation: _ => ({ text: null }) });
+const eventHandlers = { onMouseOver, onMouseOut };
+const eventHandler = [{ target: 'data', eventHandlers }];
 
 const Viewer = (props: dashboardViewerPropsT) => {
   const { users, activity, data: { coordinates } } = props;
@@ -44,7 +30,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
         theme={VictoryTheme.material}
         domain={{ x: [-10, 10], y: [-10, 10] }}
       >
-        <VictoryScatter size={4} data={data} events={eventHandlers} />
+        <VictoryScatter size={4} data={data} events={eventHandler} />
       </VictoryChart>
     );
   }
