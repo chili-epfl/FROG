@@ -185,7 +185,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
 
     const sessionId = uuid();
     const graph = Graphs.findOne(graphId);
-    const match = graph.name.match(/(.+)\(([^(]+)\)$/);
+    const match = graph.name.match(/(.+)\((\d+)\)$/);
     let newName;
     if (match) {
       newName = match[1] + ' (' + (parseInt(match[2], 10) + 1) + ')';
