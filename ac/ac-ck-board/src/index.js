@@ -8,7 +8,7 @@ import { meta, config, configUI } from './meta';
 const dataStructure = [];
 
 const mergeFunction = (object, dataFn) => {
-  [...(object.config.boxes || []), ...(object.data || [])].forEach(box => {
+  (object.data || []).forEach(box => {
     dataFn.listAppend({
       li: box,
       x: Math.random() * 800,

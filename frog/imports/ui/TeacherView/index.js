@@ -4,8 +4,6 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import StudentList from './StudentList';
-import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
 import { GlobalSettings } from '../../api/globalSettings';

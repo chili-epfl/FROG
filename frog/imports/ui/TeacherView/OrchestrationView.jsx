@@ -75,6 +75,16 @@ const OrchestrationViewController = ({
           <Typography gutterBottom>
             Create a new session or choose a session from an existing one.
           </Typography>
+          <SessionList
+            {...{
+              session,
+              graphs,
+              sessions,
+              token,
+              visible,
+              toggleVisibility
+            }}
+          />
         </div>
       )}
     </div>

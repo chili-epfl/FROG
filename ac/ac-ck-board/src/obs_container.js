@@ -11,8 +11,7 @@ const ObservationContainer = ({
   scaleY,
   scaleX,
   y,
-  title,
-  content
+  children
 }) => {
   const scaleText = (scaleX + scaleY) / 2;
   const style = {
@@ -20,7 +19,8 @@ const ObservationContainer = ({
     width: 300 / scaleX,
     margin: 20 / scaleText,
     textAlign: 'center',
-    display: 'inline-block'
+    display: 'inline-block',
+    overflow: 'hidden'
   };
 
   return (
@@ -40,21 +40,11 @@ const ObservationContainer = ({
       >
         <Paper zDepth={3} style={style}>
           <div>
-            {shorten(title, 35)}
             <span style={{ float: 'right' }} className="noDrag">
               <AspectRatio onClick={openInfoFn} />
             </span>
           </div>
-          <div
-            style={{
-              fontSize: 16 / scaleText + 'px',
-              float: 'left',
-              marginTop: 5 / scaleText + 'px',
-              marginLeft: 2 / scaleText + 'px'
-            }}
-          >
-            {shorten(content, 100)}
-          </div>
+          {children}
         </Paper>
       </div>
     </Draggable>

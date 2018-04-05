@@ -28,17 +28,17 @@ const BoardPure = ({
   };
 
   const List = data.map((y, i) => (
-    <div key={y.id}>
+    <div key={y.li}>
       <ObservationContainer
         setXY={(_, ui) => setXY(i, ui)}
-        openInfoFn={() => setInfo(y)}
-        title={y.title}
+        openInfoFn={() => setInfo(y.li)}
         scaleY={scaleY}
         scaleX={scaleX}
-        content={y.content}
         x={y.x / scaleX - offsetWidth}
         y={y.y / scaleY - offsetHeight}
-      />
+      >
+        <LearningItem id={y.li} type="viewThumb" />
+      </ObservationContainer>
     </div>
   ));
   if (!width || !height) {
@@ -58,15 +58,14 @@ const BoardPure = ({
       )}
       {width && height && List}
       {info && (
-        <ObservationDetail
-          title={info.title}
-          content={info.content}
-          closeInfoFn={() => setInfo(null)}
-        />
+        <ObservationDetail closeInfoFn={() => setInfo(null)}>
+          <LearningItem id={info} />
+        </ObservationDetail>
       )}
       <div>
         <LearningItem
           type="create"
+          dataFn={dataFn}
           onCreate={e =>
             dataFn.listAppend({
               x: Math.random() * 800,
