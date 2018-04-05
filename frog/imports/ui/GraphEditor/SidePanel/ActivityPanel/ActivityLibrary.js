@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { addActivity } from '/imports/api/activities';
 import LibraryListComponent from '../LibraryListComponent';
-import Modal from '../ModalDelete';
+import Modal from '../../ModalDelete';
 
 type StateT = {
   activityList: Array<any>,
