@@ -18,7 +18,7 @@ class TextInput extends React.Component {
     this.baseChar = '.';
     setTimeout(() => {
       this.baseChar = '-';
-    }, 1000);
+    }, 700);
   };
 
   update = () => {

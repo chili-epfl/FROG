@@ -138,7 +138,13 @@ class Doc {
   }
   specialize(rawPath: rawPathT) {
     const newPath = typeof rawPath === 'string' ? [rawPath] : rawPath;
-    return new Doc(this.doc, [...this.path, ...newPath], this.readOnly);
+    return new Doc(
+      this.doc,
+      [...this.path, ...newPath],
+      this.readOnly,
+      undefined,
+      this.meta
+    );
   }
 
   specializeData(path: rawPathT, data: Object) {

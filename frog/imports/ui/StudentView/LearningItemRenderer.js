@@ -152,7 +152,10 @@ const LearningItem = ({
           <ToRun
             uploadFn={uploadFile}
             createLearningItem={(liType, item) =>
-              dataFn.createLearningItem(liType, item, meta)
+              dataFn.createLearningItem(liType, item, {
+                ...meta,
+                ...dataFn.meta
+              })
             }
             onCreate={onCreate}
             LearningItem={LearningItem}
