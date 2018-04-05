@@ -61,7 +61,6 @@ const WithTopBar = () => (
 
 export default withTracker(() => {
   const collections = [
-    'activity_library',
     'activities',
     'activity_data',
     'connections',

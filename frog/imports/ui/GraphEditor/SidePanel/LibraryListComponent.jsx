@@ -15,9 +15,17 @@ export default ({
 }: any) => (
   <div className="list-group-item">
     <div style={{ marginLeft: '35px', minHeight: '48px' }}>
-      <h5 style={{ fontWeight: 'bold' }}>
-        <Highlight text={activity.title} searchStr={searchS} />
-      </h5>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <h5 style={{ fontWeight: 'bold' }}>
+          <Highlight text={activity.title} searchStr={searchS} />
+        </h5>
+        <h5 style={{ fontStyle: 'italic' }}>
+          <Highlight
+            text={' ('.concat(activity.activity_type).concat(')')}
+            searchStr={searchS}
+          />
+        </h5>
+      </div>
       <div style={{ width: '87%' }}>
         <Highlight text={activity.description} searchStr={searchS} />
       </div>
@@ -32,7 +40,7 @@ export default ({
       ))}
     </div>
     <Button
-      value={activity._id}
+      value={activity.uuid}
       className="glyphicon glyphicon-ok"
       style={{
         position: 'absolute',
@@ -44,7 +52,7 @@ export default ({
       onClick={onSelect}
     />
     <Button
-      value={activity._id}
+      value={activity.uuid}
       className="btn btn-danger"
       style={{
         position: 'absolute',
@@ -54,14 +62,14 @@ export default ({
         height: '34px'
       }}
       onClick={() => {
-        setIdRemove(activity._id);
+        setIdRemove(activity.uuid);
         setDelete(true);
       }}
     >
       <span className="glyphicon glyphicon-remove" />
     </Button>
     <Button
-      value={activity._id}
+      value={activity.uuid}
       className="glyphicon glyphicon-eye-open"
       style={{
         position: 'absolute',
