@@ -50,7 +50,7 @@
     "json-stringify-pretty-compact": "^1.1.0",
     "nps": "^5.9.0",
     "prettier": "^1.11.1",
-    "react-test-renderer": "^16.3.0"
+    "react-test-renderer": "^16.3.1"
   },
   "license": "ISC",
   "dependencies": {
