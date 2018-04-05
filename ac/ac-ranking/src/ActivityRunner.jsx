@@ -14,6 +14,7 @@ import {
 } from 'react-bootstrap';
 
 import type { ActivityRunnerT } from 'frog-utils';
+import Justification from './Justification';
 
 const Container = styled.div`
   display: flex;
@@ -25,6 +26,17 @@ const ListContainer = styled.div`
   padding: 2%;
   width: 100%;
 `;
+
+const blue = '#ADD8E6';
+const grey = '#A0A0A0';
+const chooseColor = (disabled) => {
+  if (disabled) {
+      return grey;
+} else {
+  return blue;
+}
+};
+
 const styles = {
   button: {
     width: 'auto',
@@ -33,11 +45,14 @@ const styles = {
     position: 'relative',
     whiteSpace: 'normal',
     float: 'center',
-    display: 'inline-block'
+    display: 'inline-block',
+    backgroundColor: blue
   }
 };
 
-const Answer = ({ rank, answer }) => (
+
+
+const Answer = ({ rank, answer, data }) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
@@ -45,7 +60,7 @@ const Answer = ({ rank, answer }) => (
           <Glyphicon
             style={{
               marginRight: '10px',
-              color: '#A0A0A0'
+              color: chooseColor(answer.rank === Object.keys(data.rankedAnswers).length)
             }}
             glyph="arrow-down"
           />
@@ -54,7 +69,7 @@ const Answer = ({ rank, answer }) => (
           <Glyphicon
             style={{
               marginRight: '10px',
-              color: '#A0A0A0'
+              color: chooseColor(answer.rank === 1)
             }}
             glyph="arrow-up"
           />
@@ -72,7 +87,7 @@ const Answer = ({ rank, answer }) => (
   </ListGroupItem>
 );
 
-const AnswerList = ({ answers, rank }) => (
+const AnswerList = ({ answers, rank, data }) => (
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
@@ -80,7 +95,7 @@ const AnswerList = ({ answers, rank }) => (
           .sort((a, b) => a.rank - b.rank)
           .map(answer => (
             <div key={answer.id}>
-              <Answer {...{ answer, rank, key: answer.id }} />
+              <Answer {...{ answer, rank, data, key: answer.id }} />
             </div>
           ))}
       </FlipMove>
@@ -94,17 +109,26 @@ const ActivityRunner = ({
   data,
   dataFn
 }: ActivityRunnerT) => {
+  const props = {activityData, logger, dataFn};
   const onClick = (title, rank, id) => () => {
-    // logger({
-    //   type: 'idea',
-    //   itemId: id,
-    //   value: answer
-    // });
+    // want to fix what we log
+    logger({
+      type: 'listAdd',
+      itemId: id,
+      value: title + " " + rank
+    });
     dataFn.objInsert({ rank, id, title }, ['rankedAnswers', id]);
     const delItem = Object.keys(data.initialAnswers).find(
       key => data.initialAnswers[key] === title
     );
     dataFn.listDel(title, ['initialAnswers', delItem]);
+  };
+
+  const onSubmit = () => {
+    if(data.initialAnswers.length <= 0 && data.justification.length > 0) {
+      dataFn.objInsert(true, ['completed']);
+      logger([{ type: 'progress', value: 1 }]);
+    }
   };
 
   const rank = (id, incr) => {
@@ -119,7 +143,8 @@ const ActivityRunner = ({
         key =>
           data.rankedAnswers[key].rank === data.rankedAnswers[id].rank + incr
       );
-      // logger({ type: 'rank', itemId: id, value: incr });
+      // want to fix what we log
+      logger({ type: 'listOrder', itemId: id, value: incr });
       dataFn.numIncr(incr, ['rankedAnswers', id, 'rank']);
       dataFn.numIncr(-incr, ['rankedAnswers', switchID, 'rank']);
     }
@@ -130,7 +155,7 @@ const ActivityRunner = ({
       <Container>
         <ListContainer>
           <p>{activityData.config.guidelines}</p>
-          <AnswerList answers={data.rankedAnswers} rank={rank} />
+          <AnswerList answers={data.rankedAnswers} rank={rank} data={data} />
           <hr
             style={{
               height: '12px'
@@ -158,6 +183,10 @@ const ActivityRunner = ({
           </div>
         </ListContainer>
       </Container>
+      <Justification {...props} key="justification" />
+      <button onClick={onSubmit} key="submit" style={{ backgroundColor: chooseColor(data.initialAnswers.length > 0 || data.justification.length === 0)}}>
+        Submit
+      </button>
     </div>
   );
 };
