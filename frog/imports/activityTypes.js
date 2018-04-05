@@ -1,5 +1,6 @@
 // @flow
 
+import acTrain from 'ac-train';
 import acDual from 'ac-dual';
 import acTimedQuiz from 'ac-timedQuiz';
 import acStroop from 'ac-stroop';
@@ -29,6 +30,7 @@ import acH5P from './internalActivities/ac-h5p';
 import acDash from './internalActivities/ac-dash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acTrain,
   acDual,
   acTimedQuiz,
   acStroop,
