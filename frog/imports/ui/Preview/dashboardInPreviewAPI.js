@@ -74,18 +74,20 @@ export const mergeData = (
   config: Object,
   startingTime?: Date
 ) => {
-  Object.keys(aT.dashboard).forEach(name => {
-    if (DocumentCache[name]) {
-      const dash = aT.dashboard[name];
-      const [doc, dataFn] = DocumentCache[name];
-      dash.mergeLog(
-        doc.data,
-        dataFn,
-        log,
-        activityDbObject(config, aT.id, startingTime)
-      );
-    }
-  });
+  if (aT.dashboard) {
+    Object.keys(aT.dashboard).forEach(name => {
+      if (DocumentCache[name]) {
+        const dash = aT.dashboard[name];
+        const [doc, dataFn] = DocumentCache[name];
+        dash.mergeLog(
+          doc.data,
+          dataFn,
+          log,
+          activityDbObject(config, aT.id, startingTime)
+        );
+      }
+    });
+  }
 };
 
 export const createLogger = (

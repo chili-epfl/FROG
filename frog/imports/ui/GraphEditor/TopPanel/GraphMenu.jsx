@@ -21,9 +21,6 @@ const styles = theme => ({
     flexGrow: 1,
     whiteSpace: 'nowrap'
   },
-  basic: {
-    backgroundColor: 'white'
-  },
   button: {
     marginTop: theme.spacing.unit / 2,
     padding: 3,
@@ -31,7 +28,6 @@ const styles = theme => ({
   },
   textField: {
     marginTop: theme.spacing.unit,
-    backgroundColor: 'white',
     paddingRight: 0,
     width: 200
   },
@@ -39,12 +35,10 @@ const styles = theme => ({
     width: 50
   },
   validButton: {
-    backgroundColor: 'gray',
     width: 50
   },
   durationTextField: {
     marginTop: theme.spacing.unit,
-    backgroundColor: 'white',
     paddingRight: 0,
     width: 65
   }
@@ -72,30 +66,26 @@ const Duration = ({
     autoComplete="off"
   >
     <div className={classes.root}>
-      <div className={classes.basic}>
-        <TextField
-          autoFocus
-          className={classes.durationTextField}
-          value={duration}
-          onChange={onDurationChange}
-          disabled={!editState}
-          InputProps={{
-            endAdornment: <InputAdornment position="end">min</InputAdornment>
-          }}
-        />
-      </div>
-      <div className={classes.basic}>
-        <Tooltip id="tooltip-top" title="edit graph duration" placement="top">
-          <IconButton
-            className={classes.button}
-            color={editState ? 'secondary' : 'primary'}
-            aria-label="Edit"
-            onClick={e => onDurationSubmit(e)}
-          >
-            <ModeEdit />
-          </IconButton>
-        </Tooltip>
-      </div>
+      <TextField
+        autoFocus
+        className={classes.durationTextField}
+        value={duration}
+        onChange={onDurationChange}
+        disabled={!editState}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">min</InputAdornment>
+        }}
+      />
+      <Tooltip id="tooltip-top" title="edit graph duration" placement="top">
+        <IconButton
+          className={classes.button}
+          color={editState ? 'secondary' : 'primary'}
+          aria-label="Edit"
+          onClick={e => onDurationSubmit(e)}
+        >
+          <ModeEdit />
+        </IconButton>
+      </Tooltip>
     </div>
   </form>
 );
@@ -128,54 +118,48 @@ const GraphSubComponent = ({
     autoComplete="off"
   >
     {editState ? (
-      <div className={classes.basic}>
-        <TextField
-          autoFocus
-          id="edit-graph"
-          className={classes.textField}
-          value={name}
-          onChange={onRename}
-        />
-      </div>
+      <TextField
+        autoFocus
+        id="edit-graph"
+        className={classes.textField}
+        value={name}
+        onChange={onRename}
+      />
     ) : (
-      <div className={classes.basic}>
-        <TextField
-          id="select-graph"
-          select
-          value={name}
-          className={classes.textField}
-          onChange={onMenuChange}
-          SelectProps={{
-            native: true,
-            MenuProps: {
-              className: classes.menu
-            }
-          }}
-        >
-          {graphList.length ? (
-            graphList.map(g => (
-              <option key={g._id} data-key={g._id} value={g.name}>
-                {g.name}
-              </option>
-            ))
-          ) : (
-            <option>No graph</option>
-          )}
-        </TextField>
-      </div>
+      <TextField
+        id="select-graph"
+        select
+        value={name}
+        className={classes.textField}
+        onChange={onMenuChange}
+        SelectProps={{
+          native: true,
+          MenuProps: {
+            className: classes.menu
+          }
+        }}
+      >
+        {graphList.length ? (
+          graphList.map(g => (
+            <option key={g._id} data-key={g._id} value={g.name}>
+              {g.name}
+            </option>
+          ))
+        ) : (
+          <option>No graph</option>
+        )}
+      </TextField>
     )}
-    <div className={classes.basic}>
-      <Tooltip id="tooltip-top" title="edit graph name" placement="top">
-        <IconButton
-          className={classes.button}
-          color={editState ? 'secondary' : 'primary'}
-          aria-label="Edit"
-          onClick={e => onRenameSubmit(e)}
-        >
-          <ModeEdit />
-        </IconButton>
-      </Tooltip>
-    </div>
+    <Tooltip id="tooltip-top" title="edit graph name" placement="top">
+      <IconButton
+        className={classes.button}
+        color={editState ? 'secondary' : 'primary'}
+        aria-label="Edit"
+        onClick={e => onRenameSubmit(e)}
+      >
+        <ModeEdit />
+      </IconButton>
+    </Tooltip>
   </form>
 );
 
