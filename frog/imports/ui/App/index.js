@@ -230,12 +230,10 @@ export default class Root extends React.Component<
       return (
         <ErrorBoundary>
           <Router>
-            <div style={{ width: '100%', height: '100%' }}>
-              <Switch>
-                <Route path="/:slug" component={FROGRouter} />
-                <Route component={FROGRouter} />
-              </Switch>
-            </div>
+            <Switch>
+              <Route path="/:slug" component={FROGRouter} />
+              <Route component={FROGRouter} />
+            </Switch>
           </Router>
         </ErrorBoundary>
       );
