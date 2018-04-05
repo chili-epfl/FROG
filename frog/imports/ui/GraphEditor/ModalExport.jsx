@@ -79,7 +79,7 @@ export default class ExportModal extends Component<Object, StateT> {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ title: nextProps.activity.title });
+    this.setState({ title: nextProps.activity ? nextProps.activity.title : ''  });
   }
 
   render() {
@@ -115,7 +115,7 @@ export default class ExportModal extends Component<Object, StateT> {
             onClick={() => {
               if (this.props.exportType === 'activity')
                 sendActivityToServer(this.state, this.props)
-              else
+              else if (this.props.exportType === 'graph')
                 sendGraphToServer(this.state, this.props)
               this.setState({
                 title: '',

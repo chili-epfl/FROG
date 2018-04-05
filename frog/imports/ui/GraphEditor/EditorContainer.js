@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 
 import { connect } from './store';
+import { graphToString } from './utils/export'
 import Graph from './Graph';
 import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
+import ModalExport from './ModalExport';
+
 import TopPanel from './TopPanel';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
@@ -52,7 +55,14 @@ const EditorPanel = () => (
   </div>
 );
 
-class Editor extends Component {
+class Editor extends Component<Object, {exportOpen: Boolean}> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      exportOpen: false
+    };
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.props.store.ui.updateWindow);
     this.props.store.ui.updateWindow();
@@ -78,7 +88,8 @@ class Editor extends Component {
       <div className={classes.root}>
         <TopBar barHeight={classes.root.paddingTop} />
         <div className={classes.gridContent}>
-          <TopPanel />
+          <TopPanel openExport={() => this.setState({exportOpen: true})} />
+          <ModalExport exportType='graph' modalOpen={this.state.exportOpen} setModal={val => this.setState({exportOpen: val})} graph={graphToString(this.props.store.graphId)}/>
           <div className={classes.container}>
             <div className={classes.main}>
               <EditorPanel />

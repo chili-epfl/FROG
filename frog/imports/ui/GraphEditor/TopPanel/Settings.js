@@ -205,6 +205,28 @@ class GraphActionMenu extends React.Component {
                       <Image className={classes.leftIcon} aria-hidden="true" />Export
                       Graph as Image
                     </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        // missing
+                        this.handleClose();
+                      }}
+                    >
+                      <ImportExport
+                        className={classes.leftIcon}
+                        aria-hidden="true"
+                      />Import Graph from the Server
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        this.props.openExport()
+                        this.handleClose();
+                      }}
+                    >
+                      <Timeline
+                        className={classes.leftIcon}
+                        aria-hidden="true"
+                      />Export Graph to the Server
+                    </MenuItem>
                   </MenuList>
                 </Paper>
               </Grow>
@@ -217,11 +239,12 @@ class GraphActionMenu extends React.Component {
 }
 
 export const ConfigMenu = connect(
-  ({ store: { overlapAllowed, graphId, toggleOverlapAllowed } }) => (
+  ({ store: { overlapAllowed, graphId, toggleOverlapAllowed }, openExport }) => (
     <GraphActionMenu
       overlapAllowed={overlapAllowed}
       graphId={graphId}
       toggleOverlapAllowed={toggleOverlapAllowed}
+      {...{openExport}}
     />
   )
 );

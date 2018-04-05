@@ -14,7 +14,7 @@ const styles = {
   }
 };
 
-const TopPanel = ({ classes }) => (
+const TopPanel = ({ classes, openExport }) => (
   <div id="topPanel">
     <Grid
       container
@@ -25,7 +25,7 @@ const TopPanel = ({ classes }) => (
       <Grid item>
         <Grid container className={classes.root}>
           <Grid item>
-            <ConfigMenu />
+            <ConfigMenu {...{openExport}}/>
           </Grid>
           <Grid item>
             <GraphMenu />
