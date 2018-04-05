@@ -35,9 +35,7 @@ const styles = {
   },
   mainContent: {
     width: '100%',
-    marginTop: 48,
-    flex: 'auto',
-    alignItems: 'center'
+    marginTop: 48
   },
   navbar: {
     display: 'flex',
@@ -135,26 +133,25 @@ const StudentView = ({ activities, session, token, classes }) => (
   </div>
 );
 
+const StyledStudentView = withStyles(styles)(StudentView);
+
 const SessionBody = ({
   activities,
   session,
-  token,
-  classes
+  token
 }: {
   activities: Array<Object>,
   session: Object,
-  classes: Object,
   token?: { value: string }
 }) => (
-  <div id="student" className={classes.root}>
+  <React.Fragment>
     {session.countdownStartTime && <Countdown session={session} />}
-    <StudentView
+    <StyledStudentView
       session={session}
       activities={activities}
-      classes={classes}
       token={token}
     />
-  </div>
+  </React.Fragment>
 );
 
 SessionBody.displayName = 'SessionBody';
@@ -162,4 +159,4 @@ SessionBody.displayName = 'SessionBody';
 export default withTracker(() => ({
   session: Sessions.findOne(),
   activities: Activities.find().fetch()
-}))(withStyles(styles)(SessionBody));
+}))(SessionBody);
