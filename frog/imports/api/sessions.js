@@ -185,13 +185,18 @@ const addSessionFn = (graphId: string, slug: string): string => {
 
     const sessionId = uuid();
     const graph = Graphs.findOne(graphId);
-    const count = Graphs.find({
-      name: { $regex: '#' + graph.name + '*' }
-    }).count();
-    const sessionName = '#' + graph.name + ' ' + (count + 1);
-
+    const match = graph.name.match(/(.+)\(([^(]+)\)$/);
+    let newName;
+    if (match) {
+      newName = match[1] + ' (' + (parseInt(match[2], 10) + 1) + ')';
+    } else {
+      newName = graph.name + ' (2)';
+    }
+    if (newName[0] !== '#') {
+      newName = '#' + newName;
+    }
     const copyGraphId = addGraph({
-      graph: { ...graph, name: sessionName },
+      graph: { ...graph, name: newName },
       activities: Activities.find({ graphId }).fetch(),
       operators: Operators.find({ graphId }).fetch(),
       connections: Connections.find({ graphId }).fetch()
@@ -213,7 +218,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,
-      name: sessionName,
+      name: newName,
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,
