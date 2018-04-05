@@ -11,6 +11,17 @@ type StateT = {
   idRemove: string
 };
 
+const myFilter = (list: Array<any>, searchStr: string) =>
+  list
+    .filter(
+      x =>
+        x.activity_type.toLowerCase().includes(searchStr) ||
+        x.title.toLowerCase().includes(searchStr) ||
+        x.description.toLowerCase().includes(searchStr) ||
+        x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
+    )
+    .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
+
 class Library extends Component<Object, StateT> {
   constructor(props: Object) {
     super(props);
@@ -44,17 +55,6 @@ class Library extends Component<Object, StateT> {
       );
       store.addHistory();
     }; // don't track changes on the list
-    const filteredList =
-      this.state.activityList ||
-      []
-        .filter(
-          x =>
-            x.activity_type.toLowerCase().includes(searchStr) ||
-            x.title.toLowerCase().includes(searchStr) ||
-            x.description.toLowerCase().includes(searchStr) ||
-            x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
-        )
-        .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
     return (
       <div>
         <Modal
@@ -65,6 +65,12 @@ class Library extends Component<Object, StateT> {
                 this.state.idRemove.toString()
               ),
               { method: 'DELETE' }
+            ).then(
+              this.setState({
+                activityList: this.state.activityList.filter(
+                  x => x.uuid !== this.state.idRemove
+                )
+              })
             )
           }
           setDelete={d => this.setState({ deleteOpen: d })}
@@ -79,7 +85,7 @@ class Library extends Component<Object, StateT> {
             transform: 'translateY(10px)'
           }}
         >
-          {filteredList.length === 0 ? (
+          {myFilter(this.state.activityList, searchStr).length === 0 ? (
             <div
               style={{
                 marginTop: '20px',
@@ -90,7 +96,7 @@ class Library extends Component<Object, StateT> {
               No result
             </div>
           ) : (
-            filteredList.map((x: Object) => (
+            myFilter(this.state.activityList, searchStr).map((x: Object) => (
               <LibraryListComponent
                 onSelect={() => select(x)}
                 activity={x}

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle
+} from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import { withStyles } from 'material-ui/styles';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
 import { uuid } from 'frog-utils';
-
 import { Activities } from '/imports/api/activities';
 
 type StateT = {
@@ -16,7 +18,7 @@ type StateT = {
   tags: array
 };
 
-class ExportModal extends Component<Object, StateT> {
+export default class ExportModal extends Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,30 +34,31 @@ class ExportModal extends Component<Object, StateT> {
 
   render() {
     return (
-      <Dialog
-        title="Export activity to the library:"
-        open={this.props.modalOpen}
-      >
-        <h3>Title</h3>
-        <TextField
-          defaultValue={this.state.title}
-          onChange={e => this.setState({ title: e.target.value })}
-          name="title"
-        />
-        <h3>Description</h3>
-        <textarea
-          className="form-control"
-          value={this.state.description}
-          onChange={e => this.setState({ description: e.target.value })}
-          id="exampleFormControlTextarea1"
-          rows="3"
-        />
-        <TagsInput
-          value={this.state.tags}
-          onChange={t => this.setState({ tags: t })}
-        />
-        <div style={{ height: '10px' }} />
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <Dialog open={this.props.modalOpen}>
+        <DialogTitle>Export activity to the library:</DialogTitle>
+        <DialogContent>
+          <h3>Title</h3>
+          <TextField
+            defaultValue={this.state.title}
+            onChange={e => this.setState({ title: e.target.value })}
+            name="title"
+          />
+          <h3>Description</h3>
+          <TextField
+            value={this.state.description}
+            multiline
+            onChange={e => this.setState({ description: e.target.value })}
+            id="exampleFormControlTextarea1"
+            rows="3"
+          />
+          <div style={{ height: '20px' }} />
+          <TagsInput
+            value={this.state.tags}
+            onChange={t => this.setState({ tags: t })}
+          />
+          <div style={{ height: '10px' }} />
+        </DialogContent>
+        <DialogActions>
           <Button onClick={() => this.props.setModal(false)}>Cancel</Button>
           <Button
             color="primary"
@@ -92,18 +95,8 @@ class ExportModal extends Component<Object, StateT> {
           >
             Save
           </Button>
-        </div>
+        </DialogActions>
       </Dialog>
     );
   }
 }
-
-const styles = {
-  content: {
-    width: '100%',
-    padding: '20px',
-    overflow: 'hidden'
-  }
-};
-
-export default withStyles(styles)(ExportModal);

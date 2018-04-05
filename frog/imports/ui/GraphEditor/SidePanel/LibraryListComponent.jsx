@@ -15,9 +15,17 @@ export default ({
 }: any) => (
   <div className="list-group-item">
     <div style={{ marginLeft: '35px', minHeight: '48px' }}>
-      <h5 style={{ fontWeight: 'bold' }}>
-        <Highlight text={activity.title} searchStr={searchS} />
-      </h5>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <h5 style={{ fontWeight: 'bold' }}>
+          <Highlight text={activity.title} searchStr={searchS} />
+        </h5>
+        <h5 style={{ fontStyle: 'italic' }}>
+          <Highlight
+            text={' ('.concat(activity.activity_type).concat(')')}
+            searchStr={searchS}
+          />
+        </h5>
+      </div>
       <div style={{ width: '87%' }}>
         <Highlight text={activity.description} searchStr={searchS} />
       </div>
