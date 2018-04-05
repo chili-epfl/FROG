@@ -121,7 +121,7 @@ const RawEditActivity = ({
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <Modal exportType='activity' {...{ modalOpen, setModal, activity }} />
+      <Modal exportType="activity" {...{ modalOpen, setModal, activity }} />
       <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />

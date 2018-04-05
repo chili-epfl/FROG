@@ -23,6 +23,10 @@ type PropsT = {
   onSelect?: Function,
   onPreview?: Function,
   activity: ActivityDbT,
+  setDelete?: Function,
+  setIdRemove?: Function,
+  importList?: Array<Object>,
+  setImportList?: Function,
   onlyHasPreview?: boolean
 };
 
@@ -134,6 +138,10 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
           (this.props.store.ui.libraryOpen ? (
             <ActivityLibrary
               {...closeLibrary}
+              importList={this.props.importList}
+              setImportList={this.props.setImportList}
+              setDelete={this.props.setDelete}
+              setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
               searchStr={this.state.searchStr}
               store={this.props.store}

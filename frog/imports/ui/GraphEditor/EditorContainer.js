@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 
 import { connect } from './store';
-import { graphToString } from './utils/export'
 import Graph from './Graph';
 import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import ModalExport from './ModalExport';
+import ModalImport from './ModalImport';
+import ModalDelete from './ModalDelete';
 
 import TopPanel from './TopPanel';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
+
+import { removeActivity } from '../../api/remoteActivities';
 
 const styles = () => ({
   root: {
@@ -55,11 +58,23 @@ const EditorPanel = () => (
   </div>
 );
 
-class Editor extends Component<Object, {exportOpen: Boolean}> {
+type StateT = {
+  exportOpen: Boolean,
+  importOpen: Boolean,
+  deleteOpen: Boolean,
+  importList: Array<any>,
+  idRemove: string
+};
+
+class Editor extends Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
-      exportOpen: false
+      exportOpen: false,
+      importOpen: false,
+      deleteOpen: false,
+      importList: [],
+      idRemove: ''
     };
   }
 
@@ -84,17 +99,51 @@ class Editor extends Component<Object, {exportOpen: Boolean}> {
         />
       );
     }
+    const setDelete = val => this.setState({ deleteOpen: val });
+    const setIdRemove = val => this.setState({ idRemove: val });
+    const setImportList = val => this.setState({ importList: val });
+
     return (
       <div className={classes.root}>
         <TopBar barHeight={classes.root.paddingTop} />
         <div className={classes.gridContent}>
-          <TopPanel openExport={() => this.setState({exportOpen: true})} />
-          <ModalExport exportType='graph' modalOpen={this.state.exportOpen} setModal={val => this.setState({exportOpen: val})} graph={graphToString(this.props.store.graphId)}/>
+          <TopPanel
+            openExport={() => this.setState({ exportOpen: true })}
+            openImport={() => this.setState({ importOpen: true })}
+          />
+          <ModalExport
+            exportType="graph"
+            modalOpen={this.state.exportOpen}
+            setModal={val => this.setState({ exportOpen: val })}
+            graphId={this.props.store.graphId}
+          />
+          <ModalImport
+            modalOpen={this.state.importOpen}
+            setModal={val => this.setState({ importOpen: val })}
+            importList={this.state.importList}
+            {...{ setImportList, setDelete, setIdRemove }}
+          />
+          <ModalDelete
+            modalOpen={this.state.deleteOpen}
+            setModal={setDelete}
+            remove={() =>
+              removeActivity(this.state.idRemove, () =>
+                this.setState({
+                  importList: this.state.importList.filter(
+                    x => x.uuid !== this.state.idRemove
+                  )
+                })
+              )
+            }
+          />
           <div className={classes.container}>
             <div className={classes.main}>
               <EditorPanel />
             </div>
-            <SidePanel />
+            <SidePanel
+              importList={this.state.importList}
+              {...{ setDelete, setIdRemove, setImportList }}
+            />
           </div>
         </div>
       </div>

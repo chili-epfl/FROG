@@ -6,79 +6,85 @@ import { Button } from 'react-bootstrap';
 import { Highlight } from 'frog-utils';
 
 export default ({
-  activity,
+  object,
   onSelect,
   onPreview,
   searchS,
   setDelete,
   setIdRemove
 }: any) => (
-  <div className="list-group-item">
-    <div style={{ marginLeft: '35px', minHeight: '48px' }}>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <h5 style={{ fontWeight: 'bold' }}>
-          <Highlight text={activity.title} searchStr={searchS} />
-        </h5>
-        <h5 style={{ fontStyle: 'italic' }}>
-          <Highlight
-            text={' ('.concat(activity.activity_type).concat(')')}
-            searchStr={searchS}
-          />
-        </h5>
+  <div className="bootstrap">
+    <div className="list-group-item">
+      <div style={{ marginLeft: '35px', minHeight: '48px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <h5 style={{ fontWeight: 'bold' }}>
+            <Highlight text={object.title} searchStr={searchS} />
+          </h5>
+          {object.activity_type && (
+            <h5 style={{ fontStyle: 'italic' }}>
+              <Highlight
+                text={' ('.concat(object.activity_type).concat(')')}
+                searchStr={searchS}
+              />
+            </h5>
+          )}
+        </div>
+        <div style={{ width: '87%' }}>
+          <Highlight text={object.description} searchStr={searchS} />
+        </div>
+        {object.tags.map(tag => (
+          <span
+            className="label label-info"
+            key={tag}
+            style={{ marginLeft: '2px', border: '1px solid grey' }}
+          >
+            {tag}
+          </span>
+        ))}
       </div>
-      <div style={{ width: '87%' }}>
-        <Highlight text={activity.description} searchStr={searchS} />
-      </div>
-      {activity.tags.map(tag => (
-        <span
-          className="label label-info"
-          key={tag}
-          style={{ marginLeft: '2px', border: '1px solid grey' }}
-        >
-          {tag}
-        </span>
-      ))}
+      <Button
+        value={object.uuid}
+        className="glyphicon glyphicon-ok"
+        style={{
+          position: 'absolute',
+          left: '2px',
+          top: '4px',
+          width: '9%',
+          height: '34px'
+        }}
+        onClick={onSelect}
+      />
+      <Button
+        value={object.uuid}
+        className="btn btn-danger"
+        style={{
+          position: 'absolute',
+          left: '2px',
+          top: '40px',
+          width: '9%',
+          height: '34px'
+        }}
+        onClick={() => {
+          setIdRemove(object.uuid);
+          setDelete(true);
+        }}
+      >
+        <span className="glyphicon glyphicon-remove" />
+      </Button>
+      {object.activity_type && (
+        <Button
+          value={object.uuid}
+          className="glyphicon glyphicon-eye-open"
+          style={{
+            position: 'absolute',
+            right: '2px',
+            top: '5px',
+            width: '10%',
+            height: '34px'
+          }}
+          onClick={onPreview}
+        />
+      )}
     </div>
-    <Button
-      value={activity.uuid}
-      className="glyphicon glyphicon-ok"
-      style={{
-        position: 'absolute',
-        left: '2px',
-        top: '4px',
-        width: '9%',
-        height: '34px'
-      }}
-      onClick={onSelect}
-    />
-    <Button
-      value={activity.uuid}
-      className="btn btn-danger"
-      style={{
-        position: 'absolute',
-        left: '2px',
-        top: '40px',
-        width: '9%',
-        height: '34px'
-      }}
-      onClick={() => {
-        setIdRemove(activity.uuid);
-        setDelete(true);
-      }}
-    >
-      <span className="glyphicon glyphicon-remove" />
-    </Button>
-    <Button
-      value={activity.uuid}
-      className="glyphicon glyphicon-eye-open"
-      style={{
-        position: 'absolute',
-        right: '2px',
-        top: '5px',
-        width: '10%',
-        height: '34px'
-      }}
-      onClick={onPreview}
-    />
   </div>
 );

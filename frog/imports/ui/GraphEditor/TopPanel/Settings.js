@@ -99,7 +99,8 @@ class GraphActionMenu extends React.Component {
       classes,
       overlapAllowed,
       graphId,
-      toggleOverlapAllowed
+      toggleOverlapAllowed,
+      toggleSidepanelOpen
     } = this.props;
     const { open } = this.state;
 
@@ -207,7 +208,8 @@ class GraphActionMenu extends React.Component {
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
-                        // missing
+                        toggleSidepanelOpen();
+                        this.props.openImport();
                         this.handleClose();
                       }}
                     >
@@ -218,7 +220,7 @@ class GraphActionMenu extends React.Component {
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
-                        this.props.openExport()
+                        this.props.openExport();
                         this.handleClose();
                       }}
                     >
@@ -239,12 +241,25 @@ class GraphActionMenu extends React.Component {
 }
 
 export const ConfigMenu = connect(
-  ({ store: { overlapAllowed, graphId, toggleOverlapAllowed }, openExport }) => (
+  ({
+    store: {
+      overlapAllowed,
+      graphId,
+      toggleOverlapAllowed,
+      ui: { toggleSidepanelOpen }
+    },
+    openExport,
+    openImport
+  }) => (
     <GraphActionMenu
-      overlapAllowed={overlapAllowed}
-      graphId={graphId}
-      toggleOverlapAllowed={toggleOverlapAllowed}
-      {...{openExport}}
+      {...{
+        overlapAllowed,
+        graphId,
+        toggleOverlapAllowed,
+        toggleSidepanelOpen,
+        openExport,
+        openImport
+      }}
     />
   )
 );
