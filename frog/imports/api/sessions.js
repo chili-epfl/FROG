@@ -14,16 +14,20 @@ const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
 export const Sessions = new Mongo.Collection('sessions');
 
-export const restartSession = (session: {
-  slug: string,
-  fromGraphId: string,
-  _id: string
-}) => Meteor.call('sessions.restart', session);
+export const restartSession = (session: Object) => {
+  const graph = Graphs.findOne(session.graphId);
+  if (!graph || graph.broken) {
+    // eslint-disable-next-line no-alert
+    window.alert('Cannot restart session, graph currently broken');
+    return;
+  }
+  Meteor.call('sessions.restart', session);
+};
 
 Meteor.methods({
   'sessions.restart': session => {
     if (Meteor.isServer) {
-      const graphId = session.fromGraphId;
+      const graphId = session.graphId;
       if (!graphId || !session) {
         return;
       }
