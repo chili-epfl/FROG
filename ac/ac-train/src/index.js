@@ -46,7 +46,7 @@ const dataStructure = {
 };
 
 export default ({
-  id: 'ac-dual',
+  id: 'ac-train',
   type: 'react-component',
   meta,
   config,
