@@ -1,36 +1,32 @@
 import React from 'react';
-import Modal from 'react-modal';
-import { Button } from 'react-bootstrap';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
 
 export default ({ deleteOpen, setDelete, remove }) => (
-  <Modal
-    isOpen={deleteOpen}
-    contentLabel="Modal"
-    style={{
-      content: {
-        top: '170px',
-        left: 'auto',
-        bottom: 'auto',
-        right: '100px',
-        overflow: 'hidden'
-      }
-    }}
-  >
-    <h2>Remove this activity from the library :</h2>
-
-    <h3>Are you sure you want to remove this activity from the library ?</h3>
+  <Dialog open={deleteOpen}>
+    <DialogTitle>Remove this activity from the library:</DialogTitle>
+    <DialogContent>
+      <DialogContentText>
+        Are you sure you want to remove this activity from the library ?
+      </DialogContentText>
+    </DialogContent>
     <div style={{ height: '10px' }} />
-    <Button className="btn btn-primary" onClick={() => setDelete(false)}>
-      Cancel
-    </Button>
-    <Button
-      className="btn btn-danger"
-      onClick={() => {
-        setDelete(false);
-        remove();
-      }}
-    >
-      Delete
-    </Button>
-  </Modal>
+    <DialogActions>
+      <Button onClick={() => setDelete(false)}>Cancel</Button>
+      <Button
+        color="secondary"
+        onClick={() => {
+          setDelete(false);
+          remove();
+        }}
+      >
+        Delete
+      </Button>
+    </DialogActions>
+  </Dialog>
 );
