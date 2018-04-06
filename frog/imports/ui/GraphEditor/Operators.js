@@ -17,6 +17,7 @@ export default connect(
       const coords = scaled ? op.coordsScaled : op.coords;
       return (
         <Operator
+          title={op.title}
           transparent={transparent}
           key={op.id}
           x={coords[0]}

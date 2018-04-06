@@ -68,6 +68,7 @@ class ActivityComponent extends Component<Object> {
             onStop={stopMoving}
           >
             <rect
+              data-tip={activity.title}
               x={x}
               y={activity.y}
               fill="transparent"
@@ -112,6 +113,7 @@ class ActivityComponent extends Component<Object> {
               onStop={stopDragging}
             >
               <circle
+                data-tip={activity.title}
                 cx={x + width - 10}
                 cy={activity.y + 15}
                 r={10}

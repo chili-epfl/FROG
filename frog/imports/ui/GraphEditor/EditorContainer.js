@@ -9,6 +9,7 @@ import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
+import ReactTooltip from 'react-tooltip';
 
 const styles = () => ({
   root: {
@@ -86,6 +87,7 @@ class Editor extends Component {
             <SidePanel />
           </div>
         </div>
+        <ReactTooltip delayShow={500} />
       </div>
     );
   }
