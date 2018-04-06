@@ -1,16 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 
-import { addActivity } from '/imports/api/activities';
+import { collectGraphs, importGraph } from '/imports/api/remoteGraphs';
 import { collectActivities } from '/imports/api/remoteActivities';
-import LibraryListComponent from '../LibraryListComponent';
+import { addActivity } from '/imports/api/activities';
+import LibraryListComponent from './LibraryListComponent';
 
 const myFilter = (list: Array<any>, searchStr: string) =>
   list
     .filter(
       x =>
-        (x.activity_type &&
-          x.activity_type.toLowerCase().includes(searchStr)) ||
+      (x.activity_type &&
+        x.activity_type.toLowerCase().includes(searchStr)) ||
         x.title.toLowerCase().includes(searchStr) ||
         x.description.toLowerCase().includes(searchStr) ||
         x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
@@ -20,25 +21,20 @@ const myFilter = (list: Array<any>, searchStr: string) =>
 class Library extends Component<Object> {
   componentWillMount() {
     this.props.setImportList([]);
-    collectActivities()
+    const collect = this.props.libraryType === 'activity' ? collectActivities : collectGraphs
+    collect()
     .then(e =>
       e.forEach(x => this.props.setImportList([...this.props.importList, x]))
     );
   }
 
-  render() {
-    const { setDelete, setIdRemove, activityId, searchStr, store } = this.props;
+  componentWillUnmount() {
+    this.props.setImportList([]);
+  }
 
-    const select = (activity: Object) => {
-      addActivity(
-        activity.activity_type,
-        activity.config,
-        activityId,
-        activity.parent_id,
-        activity.uuid
-      );
-      store.addHistory();
-    };
+  render() {
+    const { setDelete, setIdRemove, activityId, searchStr, libraryType, store, importList } = this.props;
+
     return (
         <div
           className="list-group"
@@ -49,7 +45,7 @@ class Library extends Component<Object> {
             transform: 'translateY(10px)'
           }}
         >
-          {myFilter(this.props.importList, searchStr).length === 0 ? (
+          {myFilter(importList, searchStr).length === 0 ? (
             <div
               style={{
                 marginTop: '20px',
@@ -60,9 +56,24 @@ class Library extends Component<Object> {
               No result
             </div>
           ) : (
-            myFilter(this.props.importList, searchStr).map((x: Object) => (
+            myFilter(importList, searchStr).map((x: Object) => (
               <LibraryListComponent
-                onSelect={() => select(x)}
+                onSelect={() => {
+                  if(libraryType === 'activity'){
+                    addActivity(
+                        x.activity_type,
+                        x.config,
+                        activityId,
+                        x.parent_id,
+                        x.uuid
+                      );
+                      store.addHistory();
+                  } else if (libraryType === 'graph'){
+                    importGraph(x.uuid);
+                    this.props.setModal(false)
+                  }
+
+                }}
                 object={x}
                 key={x.uuid}
                 onPreview={() =>
@@ -71,9 +82,8 @@ class Library extends Component<Object> {
                     config: x.config
                   })
                 }
-                searchS={searchStr}
                 eventKey={x.uuid}
-                {...{ setDelete, setIdRemove }}
+                {...{searchStr, setDelete, setIdRemove}}
               />
             ))
           )}

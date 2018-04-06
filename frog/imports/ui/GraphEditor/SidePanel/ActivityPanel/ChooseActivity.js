@@ -6,7 +6,7 @@ import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
-import ActivityLibrary from './ActivityLibrary';
+import Library from '../../RemoteControllers/RemoteLibrary'
 import ListComponent from '../ListComponent';
 import Preview from '../../../Preview/Preview';
 import { connect } from '../../store';
@@ -136,8 +136,9 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
         </div>
         {this.props.store &&
           (this.props.store.ui.libraryOpen ? (
-            <ActivityLibrary
+            <Library
               {...closeLibrary}
+              libraryType='activity'
               importList={this.props.importList}
               setImportList={this.props.setImportList}
               setDelete={this.props.setDelete}
