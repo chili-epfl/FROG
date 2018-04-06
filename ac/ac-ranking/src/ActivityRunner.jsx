@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import { uuid, A } from 'frog-utils';
+import { A } from 'frog-utils';
+import { findKey } from 'lodash';
 import FlipMove from '@houshuang/react-flip-move';
-import { values } from 'lodash';
 import {
   Badge,
   Glyphicon,
@@ -65,101 +65,78 @@ const Completed = ({ dataFn }) => (
   </React.Fragment>
 );
 
-const Answer = ({ rank, answer, data }) => (
-  <ListGroupItem>
-    <font size={4}>
-      <div style={{ float: 'right' }}>
-        <A onClick={() => rank(answer.id, 1)}>
-          <Glyphicon
-            style={{
-              marginRight: '10px',
-              color: chooseColor(
-                answer.rank === Object.keys(data.rankedAnswers).length
-              )
-            }}
-            glyph="arrow-down"
-          />
-        </A>
-        <A onClick={() => rank(answer.id, -1)}>
-          <Glyphicon
-            style={{
-              marginRight: '10px',
-              color: chooseColor(answer.rank === 1)
-            }}
-            glyph="arrow-up"
-          />
-        </A>
-      </div>
-    </font>
-    <Badge
-      style={{
-        marginRight: '10px'
-      }}
-    >
-      {answer.rank}
-    </Badge>
-    <b>{answer.title}</b>
-  </ListGroupItem>
-);
+const Answer = ({ rank, ranking, answer, answers, config }) => {
+  return (
+    <ListGroupItem>
+      <font size={4}>
+        <div style={{ float: 'right' }}>
+          <A onClick={() => rank(answer, 1)}>
+            <Glyphicon
+              style={{
+                marginRight: '10px',
+                color: chooseColor(ranking === Object.keys(answers).length - 1)
+              }}
+              glyph="arrow-down"
+            />
+          </A>
+          <A onClick={() => rank(answer, -1)}>
+            <Glyphicon
+              style={{
+                marginRight: '10px',
+                color: chooseColor(ranking === 0)
+              }}
+              glyph="arrow-up"
+            />
+          </A>
+        </div>
+      </font>
+      <Badge
+        style={{
+          marginRight: '10px'
+        }}
+      >
+        {ranking + 1}
+      </Badge>
+      <b>{config.answers[answer].choice}</b>
+    </ListGroupItem>
+  );
+};
 
-const AnswerList = ({ answers, rank, data }) => (
-  <div>
-    <ListGroup className="item">
-      <FlipMove duration={750} easing="ease-out">
-        {values(answers)
-          .sort((a, b) => a.rank - b.rank)
-          .map(answer => (
-            <div key={answer.id}>
-              <Answer {...{ answer, rank, data, key: answer.id }} />
-            </div>
-          ))}
-      </FlipMove>
-    </ListGroup>
-  </div>
-);
+const AnswerList = ({ rank, answers, dataFn, config }) => {
+  if (!answers) {
+    return null;
+  }
+  return (
+    <div>
+      <ListGroup className="item">
+        <FlipMove duration={750} easing="ease-out">
+          {Object.entries(answers)
+            .sort((a, b) => a[1] - b[1])
+            .map(([answer, ranking]) => (
+              <div key={answer}>
+                <Answer {...{ answers, answer, ranking, rank, config }} />
+              </div>
+            ))}
+        </FlipMove>
+      </ListGroup>
+    </div>
+  );
+};
 
 const ActivityRunner = ({
   logger,
   activityData,
   data,
-  dataFn
+  dataFn,
+  userInfo
 }: ActivityRunnerT) => {
   const props = { activityData, logger, dataFn };
-  const onClick = (title, rank, id) => () => {
-    const curRank = Object.keys(data.rankedAnswers).map(
-      ans =>
-        data.rankedAnswers[ans].rank.toString() +
-        ': ' +
-        data.rankedAnswers[ans].title
-    );
-    logger([
-      {
-        type: 'listAdd',
-        itemId: title,
-        value: curRank.toString() + ',' + rank.toString() + ': ' + title
-      },
-      {
-        type: 'progress',
-        value: activityData.config.justify
-          ? (1 -
-              (Object.keys(data.initialAnswers).length - 1) /
-                activityData.config.answers.length) /
-            2
-          : 1 -
-            (Object.keys(data.initialAnswers).length - 1) /
-              activityData.config.answers.length
-      }
-    ]);
-    dataFn.objInsert({ rank, id, title }, ['rankedAnswers', id]);
-    const delItem = Object.keys(data.initialAnswers).find(
-      key => data.initialAnswers[key] === title
-    );
-    dataFn.listDel(title, ['initialAnswers', delItem]);
-  };
 
   const onSubmit = () => {
     if (
-      data.initialAnswers.length <= 0 &&
+      data.answers[userInfo.id] &&
+      Object.keys(data.answers[userInfo.id]).length ===
+        Object.keys(activityData.config.answers).length &&
       (!activityData.config.justify || data.justification.length > 0)
     ) {
       dataFn.objInsert(true, ['completed']);
@@ -168,45 +145,19 @@ const ActivityRunner = ({
   };
 
   const rank = (id, incr) => {
+    const answers = data.answers[userInfo.id];
     if (
-      !(data.rankedAnswers[id].rank === 1 && incr < 0) &&
-      !(
-        data.rankedAnswers[id].rank ===
-          Object.keys(data.rankedAnswers).length && incr > 0
-      )
+      answers &&
+      !(answers[id] === 0 && incr < 0) &&
+      !(answers[id] === Object.keys(answers).length - 1 && incr > 0)
     ) {
-      const switchID = Object.keys(data.rankedAnswers).find(
-        key =>
-          data.rankedAnswers[key].rank === data.rankedAnswers[id].rank + incr
-      );
-      const curRank = Object.keys(data.rankedAnswers).map(ans => {
-        if (data.rankedAnswers[ans].id === id) {
-          return (
-            (data.rankedAnswers[ans].rank + incr).toString() +
-            ': ' +
-            data.rankedAnswers[ans].title
-          );
-        } else if (data.rankedAnswers[ans].id === switchID) {
-          return (
-            (data.rankedAnswers[ans].rank - incr).toString() +
-            ': ' +
-            data.rankedAnswers[ans].title
-          );
-        } else {
-          return (
-            data.rankedAnswers[ans].rank.toString() +
-            ': ' +
-            data.rankedAnswers[ans].title
-          );
-        }
-      });
+      answers[findKey(answers, x => x === answers[id] + incr)] += incr * -1;
+      answers[id] += incr;
+      dataFn.objInsert(answers, ['answers', userInfo.id]);
       logger({
         type: 'listOrder',
-        itemId: data.rankedAnswers[id].title,
-        value: curRank.toString() + ''
+        value: JSON.stringify(answers)
       });
-      dataFn.numIncr(incr, ['rankedAnswers', id, 'rank']);
-      dataFn.numIncr(-incr, ['rankedAnswers', switchID, 'rank']);
     }
   };
 
@@ -218,7 +169,12 @@ const ActivityRunner = ({
         ) : (
           <ListContainer>
             <p>{activityData.config.guidelines}</p>
-            <AnswerList answers={data.rankedAnswers} rank={rank} data={data} />
+            <AnswerList
+              answers={data.answers[userInfo.id]}
+              config={activityData.config}
+              dataFn={dataFn}
+              rank={rank}
+            />
             <hr style={{ height: '5px' }} />
             <div>
               <div style={{ width: '100%' }}>
@@ -229,54 +185,58 @@ const ActivityRunner = ({
                     display: 'block'
                   }}
                 >
-                  {data.initialAnswers.map(ans => (
-                    <AddAnswer
-                      onClick={onClick}
-                      title={ans}
-                      data={data}
-                      key={uuid()}
-                    />
-                  ))}
+                  <AddAnswers
+                    dataFn={dataFn}
+                    config={activityData.config}
+                    data={data}
+                    userId={userInfo.id}
+                  />
                 </div>
               </div>
             </div>
             <hr style={{ height: '5px' }} />
             <Justification {...props} key="justification" />
-            <div>
-              <button
-                onClick={onSubmit}
-                key="submit"
-                style={{
-                  ...styles.button,
-                  backgroundColor: chooseColor(
-                    data.initialAnswers.length > 0 ||
-                      (activityData.config.justify &&
-                        data.justification.length === 0)
-                  ),
-                  marginLeft: '0px'
-                }}
-              >
-                Submit
-              </button>
-            </div>
+            <div />
           </ListContainer>
         )}
       </Container>
+      {activityData.config.justification && (
+        <Justification dataFn={dataFn} logger={logger} />
+      )}
+      <button
+        onClick={onSubmit}
+        key="submit"
+        style={{
+          ...styles.button,
+          backgroundColor: chooseColor(),
+          marginLeft: '0px'
+        }}
+      >
+        Submit
+      </button>
     </div>
   );
 };
 
-const AddAnswer = ({ onClick, title, data }) => {
-  const id = uuid();
-  return (
-    <Button
-      style={{ ...styles.button }}
-      key={id + 'b'}
-      onClick={onClick(title, Object.keys(data.rankedAnswers).length + 1, id)}
-    >
-      {Object.keys(data.rankedAnswers).length + 1 + ' ' + title}
-    </Button>
-  );
+const AddAnswers = ({ dataFn, data, config, userId }) => {
+  let exists = data.answers[userId] && Object.keys(data.answers[userId]);
+  if (exists === undefined) {
+    dataFn.objInsert({}, ['answers', userId]);
+    exists = [];
+  }
+  return Object.keys(config.answers)
+    .filter(x => !exists.includes(x))
+    .map(answer => (
+      <Button
+        style={{ ...styles.button }}
+        key={answer}
+        onClick={() =>
+          dataFn.objInsert(exists.length, ['answers', userId, answer])
+        }
+      >
+        {config.answers[answer].choice + ' ' + (exists.length + 1)}
+      </Button>
+    ));
 };
 
 export default ActivityRunner;
