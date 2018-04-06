@@ -163,6 +163,7 @@ const RawEditActivity = ({
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <IconButton
                   icon="glyphicon glyphicon-eye-open"
+                  tooltip="Preview"
                   onClick={() => {
                     props.store.ui.setShowPreview({
                       activityTypeId: activity.activityType,
@@ -171,13 +172,9 @@ const RawEditActivity = ({
                   }}
                 />
                 <IconButton
+                  tooltip="Send activity to activity library"
                   icon="glyphicon glyphicon-share"
                   onClick={() => setModal(true)}
-                />
-                <IconButton
-                  icon="glyphicon glyphicon-link"
-                  legend="Embed config in link to headless FROG"
-                  onClick={() => copyURL(activity)}
                 />
               </div>
             )}
@@ -226,6 +223,10 @@ const RawEditActivity = ({
       {advancedOpen && (
         <React.Fragment>
           <div>
+            <A onClick={() => copyURL(activity)}>
+              Copy link for headless FROG to clipboard
+            </A>
+            <br />
             Select streaming target
             <StreamSelect
               activity={activity}
@@ -238,15 +239,15 @@ const RawEditActivity = ({
           <FileForm />
         </React.Fragment>
       )}
-      <ReactTooltip delayShow={1000} />
+      <ReactTooltip />
     </div>
   );
 };
 
-const IconButton = ({ icon, legend, onClick }: Object) => (
+const IconButton = ({ icon, onClick, tooltip }: Object) => (
   <Button
     style={{ width: '35px', height: '25px' }}
-    data-tip={legend}
+    data-tip={tooltip}
     onClick={onClick}
   >
     <span className={icon} style={{ verticalAlign: 'top' }} />
