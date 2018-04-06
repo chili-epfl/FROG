@@ -1,13 +1,15 @@
 import { uuid } from 'frog-utils';
 import { Activities } from '/imports/api/activities';
 
+const RemoteServer = Meteor.settings.public.remoteServer || 'http://icchilisrv4.epfl.ch:5000/activities'
+
 export const removeActivity = (id: string) =>
-  fetch('http://icchilisrv4.epfl.ch:5000/activities?uuid=eq.'.concat(id), {
+  fetch(RemoteServer+'?uuid=eq.'+id, {
     method: 'DELETE'
   });
 
 export const collectActivities = () =>
-  fetch('http://icchilisrv4.epfl.ch:5000/activities').then(e => e.json());
+  fetch(RemoteServer+'?select=uuid,title,description,tags').then(e => e.json());
 
 export const sendActivity = (state: Object, props: Object) => {
   const newId = uuid();
@@ -15,12 +17,12 @@ export const sendActivity = (state: Object, props: Object) => {
     title: state.title,
     description: state.description,
     config: { ...props.activity.data },
-    tags: '{'.concat(state.tags.join(',')).concat('}'),
+    tags: '{'+state.tags.join(',')+'}',
     parent_id: props.activity.parentId,
     uuid: newId,
     activity_type: props.activity.activityType
   };
-  fetch('http://icchilisrv4.epfl.ch:5000/activities', {
+  fetch(RemoteServer, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -32,5 +34,3 @@ export const sendActivity = (state: Object, props: Object) => {
   });
   props.setModal(false);
 };
-
-export const importActivity = () => null;

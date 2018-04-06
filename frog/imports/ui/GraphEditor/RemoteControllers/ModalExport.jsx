@@ -33,7 +33,7 @@ export default class ExportModal extends Component<Object, StateT> {
   componentWillReceiveProps(nextProps: Object) {
     const name = nextProps.activity
       ? nextProps.activity.title
-      : Graphs.findOne({ _id: this.props.graphId }).name;
+      : Graphs.findOne({ _id: nextProps.graphId }).name;
     this.setState({
       title: name
     });

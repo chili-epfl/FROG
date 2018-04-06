@@ -42,7 +42,6 @@ class Library extends Component<Object> {
       store,
       importList
     } = this.props;
-
     return (
       <div
         className="list-group"
