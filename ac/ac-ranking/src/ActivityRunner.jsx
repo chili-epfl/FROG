@@ -1,8 +1,8 @@
 // @flow
 
-import React from 'react';
-import { uuid, A } from 'frog-utils';
+import * as React from 'react';
 import styled from 'styled-components';
+import { uuid, A } from 'frog-utils';
 import FlipMove from '@houshuang/react-flip-move';
 import { values } from 'lodash';
 import {
@@ -27,8 +27,8 @@ const ListContainer = styled.div`
   width: 100%;
 `;
 
-const blue = '#ADD8E6';
-const grey = '#A0A0A0';
+const blue = '#337ab7';
+const grey = '#d3d3d3';
 const chooseColor = disabled => {
   if (disabled) {
     return grey;
@@ -46,9 +46,24 @@ const styles = {
     whiteSpace: 'normal',
     float: 'center',
     display: 'inline-block',
-    backgroundColor: blue
+    backgroundColor: blue,
+    color: '#FFF'
   }
 };
+
+const Completed = ({ dataFn }) => (
+  <React.Fragment>
+    <h1>Activity completed!</h1>
+    <div style={{ width: '100%' }}>
+      <button
+        style={{ ...styles.button }}
+        onClick={() => dataFn.objInsert(false, ['completed'])}
+      >
+        Back to activity
+      </button>
+    </div>
+  </React.Fragment>
+);
 
 const Answer = ({ rank, answer, data }) => (
   <ListGroupItem>
@@ -120,7 +135,7 @@ const ActivityRunner = ({
     logger([
       {
         type: 'listAdd',
-        itemId: id,
+        itemId: title,
         value: curRank.toString() + ',' + rank.toString() + ': ' + title
       },
       {
@@ -185,7 +200,11 @@ const ActivityRunner = ({
           );
         }
       });
-      logger({ type: 'listOrder', itemId: id, value: curRank.toString() + '' });
+      logger({
+        type: 'listOrder',
+        itemId: data.rankedAnswers[id].title,
+        value: curRank.toString() + ''
+      });
       dataFn.numIncr(incr, ['rankedAnswers', id, 'rank']);
       dataFn.numIncr(-incr, ['rankedAnswers', switchID, 'rank']);
     }
@@ -194,49 +213,55 @@ const ActivityRunner = ({
   return (
     <div className="bootstrap">
       <Container>
-        <ListContainer>
-          <p>{activityData.config.guidelines}</p>
-          <AnswerList answers={data.rankedAnswers} rank={rank} data={data} />
-          <hr
-            style={{
-              height: '12px'
-            }}
-          />
-          <div>
-            <div style={{ width: '100%' }}>
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  display: 'block'
-                }}
-              >
-                {data.initialAnswers.map(ans => (
-                  <AddAnswer
-                    onClick={onClick}
-                    title={ans}
-                    data={data}
-                    key={uuid()}
-                  />
-                ))}
+        {data.completed ? (
+          <Completed {...props} />
+        ) : (
+          <ListContainer>
+            <p>{activityData.config.guidelines}</p>
+            <AnswerList answers={data.rankedAnswers} rank={rank} data={data} />
+            <hr style={{ height: '5px' }} />
+            <div>
+              <div style={{ width: '100%' }}>
+                <div
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    display: 'block'
+                  }}
+                >
+                  {data.initialAnswers.map(ans => (
+                    <AddAnswer
+                      onClick={onClick}
+                      title={ans}
+                      data={data}
+                      key={uuid()}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </ListContainer>
+            <hr style={{ height: '5px' }} />
+            <Justification {...props} key="justification" />
+            <div>
+              <button
+                onClick={onSubmit}
+                key="submit"
+                style={{
+                  ...styles.button,
+                  backgroundColor: chooseColor(
+                    data.initialAnswers.length > 0 ||
+                      (activityData.config.justify &&
+                        data.justification.length === 0)
+                  ),
+                  marginLeft: '0px'
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          </ListContainer>
+        )}
       </Container>
-      <Justification {...props} key="justification" />
-      <button
-        onClick={onSubmit}
-        key="submit"
-        style={{
-          backgroundColor: chooseColor(
-            data.initialAnswers.length > 0 ||
-              (activityData.config.justify && data.justification.length === 0)
-          )
-        }}
-      >
-        Submit
-      </button>
     </div>
   );
 };
