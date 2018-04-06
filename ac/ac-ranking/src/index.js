@@ -4,7 +4,7 @@ import { type dataUnitStructT, type ActivityPackageT } from 'frog-utils';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
-import Dashboard from './Dashboard';
+import dashboard from './Dashboard';
 import meta from './meta';
 
 // default empty reactive datastructure, typically either an empty object or array
@@ -33,7 +33,7 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  Dashboard,
+  dashboard,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

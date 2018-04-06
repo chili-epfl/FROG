@@ -29,12 +29,12 @@ const ListContainer = styled.div`
 
 const blue = '#ADD8E6';
 const grey = '#A0A0A0';
-const chooseColor = (disabled) => {
+const chooseColor = disabled => {
   if (disabled) {
-      return grey;
-} else {
-  return blue;
-}
+    return grey;
+  } else {
+    return blue;
+  }
 };
 
 const styles = {
@@ -50,8 +50,6 @@ const styles = {
   }
 };
 
-
-
 const Answer = ({ rank, answer, data }) => (
   <ListGroupItem>
     <font size={4}>
@@ -60,7 +58,9 @@ const Answer = ({ rank, answer, data }) => (
           <Glyphicon
             style={{
               marginRight: '10px',
-              color: chooseColor(answer.rank === Object.keys(data.rankedAnswers).length)
+              color: chooseColor(
+                answer.rank === Object.keys(data.rankedAnswers).length
+              )
             }}
             glyph="arrow-down"
           />
@@ -109,14 +109,32 @@ const ActivityRunner = ({
   data,
   dataFn
 }: ActivityRunnerT) => {
-  const props = {activityData, logger, dataFn};
+  const props = { activityData, logger, dataFn };
   const onClick = (title, rank, id) => () => {
-    // want to fix what we log
-    logger({
-      type: 'listAdd',
-      itemId: id,
-      value: title + " " + rank
-    });
+    const curRank = Object.keys(data.rankedAnswers).map(
+      ans =>
+        data.rankedAnswers[ans].rank.toString() +
+        ': ' +
+        data.rankedAnswers[ans].title
+    );
+    logger([
+      {
+        type: 'listAdd',
+        itemId: id,
+        value: curRank.toString() + ',' + rank.toString() + ': ' + title
+      },
+      {
+        type: 'progress',
+        value: activityData.config.justify
+          ? (1 -
+              (Object.keys(data.initialAnswers).length - 1) /
+                activityData.config.answers.length) /
+            2
+          : 1 -
+            (Object.keys(data.initialAnswers).length - 1) /
+              activityData.config.answers.length
+      }
+    ]);
     dataFn.objInsert({ rank, id, title }, ['rankedAnswers', id]);
     const delItem = Object.keys(data.initialAnswers).find(
       key => data.initialAnswers[key] === title
@@ -125,7 +143,10 @@ const ActivityRunner = ({
   };
 
   const onSubmit = () => {
-    if(data.initialAnswers.length <= 0 && data.justification.length > 0) {
+    if (
+      data.initialAnswers.length <= 0 &&
+      (!activityData.config.justify || data.justification.length > 0)
+    ) {
       dataFn.objInsert(true, ['completed']);
       logger([{ type: 'progress', value: 1 }]);
     }
@@ -143,8 +164,28 @@ const ActivityRunner = ({
         key =>
           data.rankedAnswers[key].rank === data.rankedAnswers[id].rank + incr
       );
-      // want to fix what we log
-      logger({ type: 'listOrder', itemId: id, value: incr });
+      const curRank = Object.keys(data.rankedAnswers).map(ans => {
+        if (data.rankedAnswers[ans].id === id) {
+          return (
+            (data.rankedAnswers[ans].rank + incr).toString() +
+            ': ' +
+            data.rankedAnswers[ans].title
+          );
+        } else if (data.rankedAnswers[ans].id === switchID) {
+          return (
+            (data.rankedAnswers[ans].rank - incr).toString() +
+            ': ' +
+            data.rankedAnswers[ans].title
+          );
+        } else {
+          return (
+            data.rankedAnswers[ans].rank.toString() +
+            ': ' +
+            data.rankedAnswers[ans].title
+          );
+        }
+      });
+      logger({ type: 'listOrder', itemId: id, value: curRank.toString() + '' });
       dataFn.numIncr(incr, ['rankedAnswers', id, 'rank']);
       dataFn.numIncr(-incr, ['rankedAnswers', switchID, 'rank']);
     }
@@ -171,7 +212,7 @@ const ActivityRunner = ({
                 }}
               >
                 {data.initialAnswers.map(ans => (
-                  <AddIdea
+                  <AddAnswer
                     onClick={onClick}
                     title={ans}
                     data={data}
@@ -184,14 +225,23 @@ const ActivityRunner = ({
         </ListContainer>
       </Container>
       <Justification {...props} key="justification" />
-      <button onClick={onSubmit} key="submit" style={{ backgroundColor: chooseColor(data.initialAnswers.length > 0 || data.justification.length === 0)}}>
+      <button
+        onClick={onSubmit}
+        key="submit"
+        style={{
+          backgroundColor: chooseColor(
+            data.initialAnswers.length > 0 ||
+              (activityData.config.justify && data.justification.length === 0)
+          )
+        }}
+      >
         Submit
       </button>
     </div>
   );
 };
 
-const AddIdea = ({ onClick, title, data }) => {
+const AddAnswer = ({ onClick, title, data }) => {
   const id = uuid();
   return (
     <Button
