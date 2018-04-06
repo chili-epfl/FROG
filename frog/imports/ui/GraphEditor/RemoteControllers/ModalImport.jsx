@@ -24,11 +24,13 @@ const ImportModal = ({
 }) => (
   <Dialog open={modalOpen}>
     <DialogTitle>Import a graph from the library:</DialogTitle>
-    <DialogContent style={{
-      width: '350px',
-      height: '650px',
-      overflowY: 'scroll'
-    }}>
+    <DialogContent
+      style={{
+        width: '350px',
+        height: '650px',
+        overflowY: 'scroll'
+      }}
+    >
       <TextField
         value={searchStr}
         onChange={e => setSearchStr(e.target.value)}
