@@ -41,11 +41,13 @@ export const exportGraph = () => {
 export const duplicateGraph = graphId =>
   doImportGraph({ target: { result: graphToString(graphId) } });
 
-const doImportGraph = graphStr => {
+export const doImportGraph = graphStr => {
   try {
-    const graphObj = JSON.parse(graphStr.target.result);
+    const graph = graphStr.target ? graphStr.target.result : graphStr
+    const graphObj = JSON.parse(graph);
     const graphId = addGraph(graphObj);
     store.setId(graphId);
+    return graphId
   } catch (e) {
     // eslint-disable-next-line no-console
     console.warn(e);

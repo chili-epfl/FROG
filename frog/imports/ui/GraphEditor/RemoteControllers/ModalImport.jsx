@@ -35,7 +35,7 @@ const ImportModal = ({
       />
       <div style={{ height: '10px' }} />
       <GraphsLibrary
-        {...{ searchStr, importList, setImportList, setDelete, setIdRemove }}
+        {...{ setModal, searchStr, importList, setImportList, setDelete, setIdRemove }}
       />
     </DialogContent>
     <DialogActions>

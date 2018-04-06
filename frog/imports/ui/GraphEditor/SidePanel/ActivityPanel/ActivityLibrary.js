@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 
 import { addActivity } from '/imports/api/activities';
+import { collectActivities } from '/imports/api/remoteActivities';
 import LibraryListComponent from '../LibraryListComponent';
-// import Modal from '../../ModalDelete';
 
 const myFilter = (list: Array<any>, searchStr: string) =>
   list
@@ -20,11 +20,10 @@ const myFilter = (list: Array<any>, searchStr: string) =>
 class Library extends Component<Object> {
   componentWillMount() {
     this.props.setImportList([]);
-    fetch('http://icchilisrv4.epfl.ch:5000/activities')
-      .then(e => e.json())
-      .then(e =>
-        e.forEach(x => this.props.setImportList([...this.props.importList, x]))
-      );
+    collectActivities()
+    .then(e =>
+      e.forEach(x => this.props.setImportList([...this.props.importList, x]))
+    );
   }
 
   render() {
@@ -41,25 +40,6 @@ class Library extends Component<Object> {
       store.addHistory();
     };
     return (
-      <div>
-        {/* <Modal
-          deleteOpen={this.state.deleteOpen}
-          remove={() =>
-            fetch(
-              'http://icchilisrv4.epfl.ch:5000/activities?uuid=eq.'.concat(
-                this.state.idRemove.toString()
-              ),
-              { method: 'DELETE' }
-            ).then(
-              this.setState({
-                activityList: this.state.activityList.filter(
-                  x => x.uuid !== this.state.idRemove
-                )
-              })
-            )
-          }
-          setDelete={d => this.setState({ deleteOpen: d })}
-        /> */}
         <div
           className="list-group"
           style={{
@@ -98,7 +78,6 @@ class Library extends Component<Object> {
             ))
           )}
         </div>
-      </div>
     );
   }
 }

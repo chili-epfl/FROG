@@ -10,57 +10,9 @@ import TextField from 'material-ui/TextField';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
-import { uuid } from 'frog-utils';
-import { Activities } from '/imports/api/activities';
+import { sendActivity } from '/imports/api/remoteActivities';
+import { sendGraph } from '/imports/api/remoteGraphs';
 import { Graphs } from '/imports/api/graphs';
-import { graphToString } from './utils/export';
-
-const sendActivityToServer = (state: Object, props: Object) => {
-  const newId = uuid();
-  const act = {
-    title: state.title,
-    description: state.description,
-    config: { ...props.activity.data },
-    tags: '{'.concat(state.tags.join(',')).concat('}'),
-    parent_id: props.activity.parentId,
-    uuid: newId,
-    activity_type: props.activity.activityType
-  };
-  fetch('http://icchilisrv4.epfl.ch:5000/activities', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify(act)
-  });
-  Activities.update(props.activity._id, {
-    $set: { parentId: newId }
-  });
-  props.setModal(false);
-};
-
-const sendGraphToServer = (state: Object, props: Object) => {
-  const newId = uuid();
-  const grph = {
-    title: state.title,
-    description: state.description,
-    tags: '{'.concat(state.tags.join(',')).concat('}'),
-    parent_id: Graphs.findOne(props.graphId).parentId,
-    uuid: newId,
-    graph: graphToString(props.graphId)
-  };
-  fetch('http://icchilisrv4.epfl.ch:5000/graphs', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify(grph)
-  });
-  Graphs.update(props.graphId, {
-    $set: { parentId: newId }
-  });
-  props.setModal(false);
-};
 
 type StateT = {
   title: string,
@@ -79,8 +31,9 @@ export default class ExportModal extends Component<Object, StateT> {
   }
 
   componentWillReceiveProps(nextProps: Object) {
+    const name = nextProps.activity ? nextProps.activity.title : Graphs.findOne({_id: this.props.graphId}).name
     this.setState({
-      title: nextProps.activity ? nextProps.activity.title : ''
+      title: name
     });
   }
 
@@ -116,9 +69,9 @@ export default class ExportModal extends Component<Object, StateT> {
             color="primary"
             onClick={() => {
               if (this.props.exportType === 'activity')
-                sendActivityToServer(this.state, this.props);
+                sendActivity(this.state, this.props);
               else if (this.props.exportType === 'graph')
-                sendGraphToServer(this.state, this.props);
+                sendGraph(this.state, this.props);
               this.setState({
                 title: '',
                 description: '',

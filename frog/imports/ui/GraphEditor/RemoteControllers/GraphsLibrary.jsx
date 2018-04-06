@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
-import LibraryListComponent from './SidePanel/LibraryListComponent';
+import { collectGraphs, importGraph } from '/imports/api/remoteGraphs';
+import LibraryListComponent from '../SidePanel/LibraryListComponent';
 
 const myFilter = (list: Array<any>, searchStr: string) =>
   list
@@ -16,11 +17,10 @@ const myFilter = (list: Array<any>, searchStr: string) =>
 class GraphLibrary extends Component<Object> {
   componentWillMount() {
     this.props.setImportList([]);
-    fetch('http://icchilisrv4.epfl.ch:5000/graphs')
-      .then(e => e.json())
-      .then(e =>
-        e.forEach(x => this.props.setImportList([...this.props.importList, x]))
-      );
+    collectGraphs()
+    .then(e =>
+      e.forEach(x => this.props.setImportList([...this.props.importList, x]))
+    );
   }
 
   componentWillUnmount() {
@@ -41,26 +41,6 @@ class GraphLibrary extends Component<Object> {
     //   store.addHistory();
     // };
     return (
-      <div>
-        {/* <Modal
-          deleteOpen={this.state.deleteOpen}
-          remove={() =>
-            fetch(
-              'http://icchilisrv4.epfl.ch:5000/activities?uuid=eq.'.concat(
-                this.state.idRemove.toString()
-              ),
-              { method: 'DELETE' }
-            ).then(
-              this.setState({
-                graphList: this.state.graphList.filter(
-                  x => x.uuid !== this.state.idRemove
-                )
-              })
-            )
-          }
-          setDelete={d => this.setState({ deleteOpen: d })}
-          setIdRemove={i => this.setState({ idRemove: i })}
-        /> */}
         <div
           className="list-group"
           style={{
@@ -83,7 +63,7 @@ class GraphLibrary extends Component<Object> {
           ) : (
             myFilter(this.props.importList, searchStr).map((x: Object) => (
               <LibraryListComponent
-                onSelect={() => null}
+                onSelect={() => {importGraph(x.uuid);this.props.setModal(false)}}
                 object={x}
                 key={x.uuid}
                 searchS={searchStr}
@@ -94,7 +74,6 @@ class GraphLibrary extends Component<Object> {
             ))
           )}
         </div>
-      </div>
     );
   }
 }

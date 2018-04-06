@@ -15,11 +15,12 @@ import {
   setStreamTarget,
   setParticipation
 } from '/imports/api/activities';
+
 import { connect } from '../../store';
-import Modal from '../../ModalExport';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
+import Modal from '../../RemoteControllers/ModalExport';
 import { SelectAttributeWidget } from '../FormUtils';
 import ConfigForm from '../ConfigForm';
 
