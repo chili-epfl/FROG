@@ -47,18 +47,18 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const select = this.props.onSelect
       ? this.props.onSelect
       : aT => {
-          const graphActivity = this.props.store.activityStore.all.find(
-            act => act.id === this.props.activity._id
-          );
           const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
-          if (this.props.activity.title === 'Unnamed') {
-            const newName =
-              activityTypesObj[aT.id].meta.shortName ||
-              activityTypesObj[aT.id].meta.name;
-            graphActivity.rename(newName);
-          }
           if (this.props.store) {
+            if (this.props.activity.title === 'Unnamed') {
+              const graphActivity = this.props.store.activityStore.all.find(
+                act => act.id === this.props.activity._id
+              );
+              const newName =
+                activityTypesObj[aT.id].meta.shortName ||
+                activityTypesObj[aT.id].meta.name;
+              graphActivity.rename(newName);
+            }
             this.props.store.addHistory();
           }
         };
