@@ -10,10 +10,7 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { withState } from 'recompose';
 
-import GraphsLibrary from './GraphsLibrary';
-// import { uuid } from 'frog-utils';
-// import { Activities } from '/imports/api/activities';
-// import { Graphs } from '/imports/api/graphs';
+import Library from './RemoteLibrary';
 
 const ImportModal = ({
   modalOpen,
@@ -34,8 +31,16 @@ const ImportModal = ({
         id="exampleFormControlTextarea1"
       />
       <div style={{ height: '10px' }} />
-      <GraphsLibrary
-        {...{ setModal, searchStr, importList, setImportList, setDelete, setIdRemove }}
+      <Library
+        libraryType="graph"
+        {...{
+          setModal,
+          searchStr,
+          importList,
+          setImportList,
+          setDelete,
+          setIdRemove
+        }}
       />
     </DialogContent>
     <DialogActions>

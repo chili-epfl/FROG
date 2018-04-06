@@ -9,7 +9,7 @@ export default ({
   object,
   onSelect,
   onPreview,
-  searchS,
+  searchStr,
   setDelete,
   setIdRemove
 }: any) => (
@@ -18,19 +18,19 @@ export default ({
       <div style={{ marginLeft: '35px', minHeight: '48px' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <h5 style={{ fontWeight: 'bold' }}>
-            <Highlight text={object.title} searchStr={searchS} />
+            <Highlight text={object.title} searchStr={searchStr} />
           </h5>
           {object.activity_type && (
             <h5 style={{ fontStyle: 'italic' }}>
               <Highlight
                 text={' ('.concat(object.activity_type).concat(')')}
-                searchStr={searchS}
+                searchStr={searchStr}
               />
             </h5>
           )}
         </div>
         <div style={{ width: '87%' }}>
-          <Highlight text={object.description} searchStr={searchS} />
+          <Highlight text={object.description} searchStr={searchStr} />
         </div>
         {object.tags.map(tag => (
           <span
