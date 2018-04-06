@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import Webcam from '@houshuang/react-webcam';
 import Mousetrap from 'mousetrap';
 
-import uploadImage from '../utils';
+import uploadImage from './utils';
 
 const takePicture = ({
   uploadFn,
   dataFn,
-  logger,
-  stream,
   webcam,
-  setWebcam
+  setWebcam,
+  createLearningItem,
+  onCreate
 }) => {
   const dataURI = webcam.getScreenshot();
   if (!dataURI) {
@@ -38,21 +38,21 @@ const takePicture = ({
   // write the ArrayBuffer to a blob, and you're done
   const blob = new Blob([ab], { type: mimeString });
 
-  uploadImage(blob, logger, dataFn, stream, uploadFn, 'webcam-upload');
+  uploadImage(
+    blob,
+    dataFn,
+    uploadFn,
+    'webcam-upload',
+    createLearningItem,
+    onCreate
+  );
   setWebcam(false);
 };
 
 const WebcamCapture = (props: Object) => {
   let webcam = { getScreenshot: () => null };
-  Mousetrap.bind('esc', () => props.setWebcam(false));
   return (
     <WebcamContainer>
-      <Webcam
-        audio={false}
-        ref={node => (webcam = node)}
-        screenshotFormat="image/jpeg"
-        style={{ width: '60%', height: '90%', margin: 'auto' }}
-      />
       <button
         className="btn btn-primary"
         onClick={() => takePicture({ ...props, webcam })}
@@ -65,6 +65,12 @@ const WebcamCapture = (props: Object) => {
       >
         Take a picture
       </button>
+      <Webcam
+        audio={false}
+        ref={node => (webcam = node)}
+        screenshotFormat="image/jpeg"
+        style={{ width: '60%', height: '90%', margin: 'auto' }}
+      />
       <button
         onClick={() => props.setWebcam(false)}
         className="btn btn-secondary"

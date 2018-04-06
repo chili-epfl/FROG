@@ -104,7 +104,12 @@ export const OrchestrationButtonsModel = (session, classes) => ({
   }
 });
 
-export const SessionUtilsButtonsModel = (session, toggle, token) => ({
+export const SessionUtilsButtonsModel = (
+  session,
+  toggle,
+  token,
+  liDashboard
+) => ({
   current: {
     tooltip: {
       id: 'tooltip-top',

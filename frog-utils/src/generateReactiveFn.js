@@ -18,13 +18,16 @@ class Doc {
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
+  meta: Object;
 
   constructor(
     doc: any,
     path: ?(string[]),
     readOnly: boolean,
-    updateFn?: Function
+    updateFn?: Function,
+    meta: Object = {}
   ) {
+    this.meta = meta;
     this.readOnly = !!readOnly;
     this.doc = doc;
     this.path = path || [];
@@ -34,6 +37,20 @@ class Doc {
           doc.submitOp(e);
         };
     this.updateFn = updateFn;
+  }
+
+  createLearningItem(liType, item, meta) {
+    const id = uuid();
+    const itempointer = this.doc.connection.get('li', id);
+    itempointer.create({
+      liType,
+      payload: item,
+      createdAt: new Date(),
+      ...meta,
+      ...this.meta
+    });
+    itempointer.subscribe();
+    return id;
   }
 
   bindTextField(ref, rawpath) {
@@ -48,11 +65,7 @@ class Doc {
         )}.`
       );
     }
-    const binding = new StringBinding(
-      ref,
-      this.doc,
-      cleanPath(this.path, path)
-    );
+    const binding = new StringBinding(ref, this.doc, path);
     binding.setup();
     return binding;
   }
@@ -64,6 +77,13 @@ class Doc {
     this.submitOp({
       p: [...cleanPath(this.path, path), 999999],
       li: newVal
+    });
+  }
+  listAppendLI(liType: string, payload: Object, meta: Object, path: rawPathT) {
+    const liID = this.createLearningItem(liType, payload, meta);
+    this.submitOp({
+      p: [...cleanPath(this.path, path), 999999],
+      li: liID
     });
   }
   listInsert(newVal: any, path: rawPathT) {
@@ -118,7 +138,13 @@ class Doc {
   }
   specialize(rawPath: rawPathT) {
     const newPath = typeof rawPath === 'string' ? [rawPath] : rawPath;
-    return new Doc(this.doc, [...this.path, ...newPath], this.readOnly);
+    return new Doc(
+      this.doc,
+      [...this.path, ...newPath],
+      this.readOnly,
+      undefined,
+      this.meta
+    );
   }
 
   specializeData(path: rawPathT, data: Object) {
@@ -132,10 +158,11 @@ class Doc {
 export const generateReactiveFn = (
   doc: any,
   readOnly?: boolean,
-  updateFn: Function
+  updateFn: Function,
+  meta: Object = {}
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], !!readOnly, updateFn);
+    return new Doc(doc, [], !!readOnly, updateFn, meta);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }

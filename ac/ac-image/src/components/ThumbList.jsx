@@ -24,41 +24,58 @@ const ImageList = ({
   userInfo,
   setZoom,
   setIndex,
-  logger
-}) => (
-  <Main>
-    {images.map((image, i) => {
-      const onClick = e => {
-        if (canVote && e.shiftKey) {
-          vote(image.key, userInfo.id);
-        } else if (image.thumbnail || !image.filename) {
-          setIndex(i);
-          setZoom(true);
-          logger({ type: 'zoom', itemId: image.key });
-        } else {
-          logger({
-            type: 'download',
-            itemId: image.key,
-            value: image.filename
-          });
-          download(image.url, image.filename);
-        }
-      };
+  logger,
+  LearningItem,
+  classes
+}) => {
+  return (
+    <Main>
+      {images.map((image, i) => {
+        const onClick = e => {
+          if (canVote && e.shiftKey) {
+            vote(image.key, userInfo.id);
+          } else if (image.thumbnail || !image.filename) {
+            setIndex(i);
+            setZoom(true);
+            logger({ type: 'zoom', itemId: image.key });
+          } else {
+            logger({
+              type: 'download',
+              itemId: image.key,
+              value: image.filename
+            });
+            download(image.url, image.filename);
+          }
+        };
 
-      const voteCount = Object.values(image.votes || {}).reduce(
-        (n, v) => (v ? n + 1 : n),
-        0
-      );
+        const voteCount = Object.values(image.votes || {}).reduce(
+          (n, v) => (v ? n + 1 : n),
+          0
+        );
 
-      const styleCode =
-        voteCount >= minVoteT
-          ? 'chosen_by_team'
-          : voteCount > 0 ? 'chosen_partially' : 'not_chosen';
+        const styleCode =
+          voteCount >= minVoteT
+            ? 'chosen_by_team'
+            : voteCount > 0 ? 'chosen_partially' : 'not_chosen';
 
-      return <ImageBox key={image.key} {...{ image, onClick, styleCode }} />;
-    })}
-  </Main>
-);
+        return (
+          <LearningItem
+            key={image}
+            type="viewThumb"
+            id={image}
+            render={props => (
+              <ImageBox
+                key={image}
+                {...{ image, onClick, styleCode }}
+                {...props}
+              />
+            )}
+          />
+        );
+      })}
+    </Main>
+  );
+};
 
 const CategoryList = ({ categories, setCategory, logger }) => (
   <Main>
@@ -74,8 +91,13 @@ const CategoryList = ({ categories, setCategory, logger }) => (
   </Main>
 );
 
-const ThumbList = (props: Object) =>
-  props.showCategories ? <CategoryList {...props} /> : <ImageList {...props} />;
+const ThumbList = (props: Object) => {
+  return props.showCategories ? (
+    <CategoryList {...props} />
+  ) : (
+    <ImageList {...props} />
+  );
+};
 
 ThumbList.displayName = 'ThumbList';
 export default ThumbList;

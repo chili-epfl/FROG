@@ -47,7 +47,7 @@ const meta = {
   ]
 };
 
-const dataStructure = {};
+const dataStructure = [];
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
   if (obj.data && Array.isArray(obj.data)) {

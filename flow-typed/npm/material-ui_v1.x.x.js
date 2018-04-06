@@ -1038,11 +1038,9 @@ declare module 'material-ui/List/ListSubheader' {
 }
 
 declare module 'material-ui/Menu' {
-  declare module.exports: {
-    default: $Exports<'material-ui/Menu/Menu'>,
-    MenuList: $Exports<'material-ui/Menu/MenuList'>,
-    MenuItem: $Exports<'material-ui/Menu/MenuItem'>
-  };
+  declare export default $Exports<'material-ui/Menu/Menu'>
+  declare export var MenuList: $Exports<'material-ui/Menu/MenuList'>;
+  declare export var MenuItem: $Exports<'material-ui/Menu/MenuItem'>;
 }
 
 declare module 'material-ui/Menu/Menu' {

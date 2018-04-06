@@ -4,24 +4,24 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
-import uploadWithTumbnail from '../utils';
+import uploadWithTumbnail from './utils';
 
 const UploadDragDrop = ({
   dataFn,
-  stream,
   uploadFn,
-  logger,
-  activityData
+  fileTypes,
+  createLearningItem,
+  onCreate
 }: Object) => {
   const onDrop = f => {
     f.forEach(imageFile =>
       uploadWithTumbnail(
         imageFile,
-        logger,
         dataFn,
-        stream,
         uploadFn,
-        'dragdrop-upload'
+        'dragdrop-upload',
+        createLearningItem,
+        onCreate
       )
     );
   };
@@ -30,9 +30,7 @@ const UploadDragDrop = ({
     <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
       <Dropzone
         onDropAccepted={onDrop}
-        accept={
-          activityData.config.acceptAnyFiles ? null : 'image/jpeg, image/png'
-        }
+        accept={fileTypes || null}
         style={{
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',
@@ -46,7 +44,7 @@ const UploadDragDrop = ({
     </div>
   );
 };
-
+// 'image/jpeg, image/png'
 const TextStyled = styled.h3`
   position: relative;
   top: 55%;

@@ -8,6 +8,7 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
+import SessionList from './SessionList';
 import GraphView from './GraphView';
 import DashboardNav from '../Dashboard/DashboardNav';
 import SessionUtils from './SessionUtils';
@@ -20,7 +21,9 @@ const OrchestrationViewController = ({
   token,
   visible,
   toggleVisibility,
-  classes
+  classes,
+  graphs,
+  sessions
 }) => (
   <div>
     <div className={classes.root}>
@@ -40,17 +43,31 @@ const OrchestrationViewController = ({
               openActivities={session.openActivities}
             />
           ) : (
-            <Grid item xs={12}>
-              <Card>
-                <CardContent>
-                  <SessionInfo session={session} />
-                  <GraphView session={session} />
-                </CardContent>
-                <CardActions>
-                  <OrchestrationCtrlButtons session={session} />
-                </CardActions>
-              </Card>
-            </Grid>
+            <React.Fragment>
+              <Grid item xs={12}>
+                <Card>
+                  <CardContent>
+                    <SessionInfo session={session} />
+                    <GraphView session={session} />
+                  </CardContent>
+                  <CardActions>
+                    <OrchestrationCtrlButtons session={session} />
+                  </CardActions>
+                </Card>
+              </Grid>
+              <div>
+                <SessionList
+                  {...{
+                    session,
+                    graphs,
+                    sessions,
+                    token,
+                    visible,
+                    toggleVisibility
+                  }}
+                />
+              </div>
+            </React.Fragment>
           )}
         </Grid>
       ) : (
@@ -58,6 +75,16 @@ const OrchestrationViewController = ({
           <Typography gutterBottom>
             Create a new session or choose a session from an existing one.
           </Typography>
+          <SessionList
+            {...{
+              session,
+              graphs,
+              sessions,
+              token,
+              visible,
+              toggleVisibility
+            }}
+          />
         </div>
       )}
     </div>

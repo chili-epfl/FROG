@@ -13,6 +13,7 @@ import { withStyles } from 'material-ui/styles';
 import { Accounts } from 'meteor/accounts-base';
 import { getInitialState } from 'frog-utils';
 
+import { nextActivity } from '../../api/engine';
 import { Activities } from '../../api/activities';
 import { Sessions } from '../../api/sessions';
 import Runner from './Runner';
@@ -80,15 +81,27 @@ const StudentView = ({ activities, session, token, classes }) => (
           )}
           {Meteor.user() &&
             Meteor.user().username === 'teacher' && (
-              <Button
-                className={classes.button}
-                color="inherit"
-                onClick={() => {}}
-                href={`/?login=teacher&token=${(token && token.value) || ''}`}
-                target="_blank"
-              >
-                Dashboard
-              </Button>
+              <React.Fragment>
+                <Button
+                  className={classes.button}
+                  color="inherit"
+                  onClick={() => {
+                    nextActivity(session._id);
+                  }}
+                  target="_blank"
+                >
+                  Next activity
+                </Button>
+                <Button
+                  className={classes.button}
+                  color="inherit"
+                  onClick={() => {}}
+                  href={`/?login=teacher&token=${(token && token.value) || ''}`}
+                  target="_blank"
+                >
+                  Dashboard
+                </Button>
+              </React.Fragment>
             )}
           <Button
             className={classes.button}

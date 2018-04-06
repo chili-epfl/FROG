@@ -4,8 +4,6 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import StudentList from './StudentList';
-import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
 import { GlobalSettings } from '../../api/globalSettings';
@@ -16,8 +14,6 @@ import { Sessions } from '../../api/sessions';
 const TeacherView = props => (
   <div>
     <OrchestrationView {...props} />
-    {props.students && <StudentList students={props.students} />}
-    <SessionList {...props} />
   </div>
 );
 

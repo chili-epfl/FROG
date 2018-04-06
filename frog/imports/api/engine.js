@@ -16,8 +16,9 @@ import { calculateNextOpen } from './graphSequence';
 export const runSession = (sessionId: string) =>
   Meteor.call('run.session', sessionId);
 
-export const nextActivity = (sessionId: string) =>
+export const nextActivity = (sessionId: string) => {
   Meteor.call('next.activity', sessionId);
+};
 
 export const runNextActivity = (sessionId: string) => {
   if (Meteor.isServer) {

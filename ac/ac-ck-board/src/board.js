@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ResizeAware from 'react-resize-aware';
 import { withState } from 'recompose';
 import { type ActivityRunnerT } from 'frog-utils';
@@ -16,7 +15,8 @@ const BoardPure = ({
   width,
   height,
   info,
-  setInfo
+  setInfo,
+  LearningItem
 }) => {
   const scaleX = 1000 / width;
   const scaleY = 1000 / height;
@@ -28,45 +28,54 @@ const BoardPure = ({
   };
 
   const List = data.map((y, i) => (
-    <div key={y.id}>
+    <div key={y.li}>
       <ObservationContainer
         setXY={(_, ui) => setXY(i, ui)}
-        openInfoFn={() => setInfo(y)}
-        title={y.title}
+        openInfoFn={() => setInfo(y.li)}
         scaleY={scaleY}
         scaleX={scaleX}
-        content={y.content}
         x={y.x / scaleX - offsetWidth}
         y={y.y / scaleY - offsetHeight}
-      />
+      >
+        <LearningItem id={y.li} type="viewThumb" />
+      </ObservationContainer>
     </div>
   ));
   if (!width || !height) {
     return null;
   }
   return (
-    <MuiThemeProvider>
-      <div style={{ height: '100%', width: '100%' }}>
-        {config.quadrants && (
-          <Quadrants config={config} width={width} height={height} />
-        )}
-        {config.image && (
-          <img
-            src={config.imageurl}
-            alt="Background"
-            style={{ width: width + 'px', height: height + 'px' }}
-          />
-        )}
-        {width && height && List}
-        {info && (
-          <ObservationDetail
-            title={info.title}
-            content={info.content}
-            closeInfoFn={() => setInfo(null)}
-          />
-        )}
+    <div style={{ height: '100%', width: '100%' }}>
+      {config.quadrants && (
+        <Quadrants config={config} width={width} height={height} />
+      )}
+      {config.image && (
+        <img
+          src={config.imageurl}
+          alt="Background"
+          style={{ width: width + 'px', height: height + 'px' }}
+        />
+      )}
+      {width && height && List}
+      {info && (
+        <ObservationDetail closeInfoFn={() => setInfo(null)}>
+          <LearningItem id={info} />
+        </ObservationDetail>
+      )}
+      <div>
+        <LearningItem
+          type="create"
+          dataFn={dataFn}
+          onCreate={e =>
+            dataFn.listAppend({
+              x: Math.random() * 800,
+              y: -(Math.random() * 800),
+              li: e
+            })
+          }
+        />
       </div>
-    </MuiThemeProvider>
+    </div>
   );
 };
 
