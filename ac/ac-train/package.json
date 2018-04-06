@@ -6,7 +6,8 @@
   "dependencies": {
     "frog-utils": "^1.0.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-timeout": "^1.1.1"
   },
   "devDependencies": { "nps": "5.7.1" }
 }

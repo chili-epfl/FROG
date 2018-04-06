@@ -12,14 +12,14 @@ const meta = {
     {
       title: 'Normal',
       config: {
-        timeOfEachActivity: 30000
+        timeOfEachInstance: 30000
       },
       data: {}
     },
     {
       title: 'Quick',
       config: {
-        timeOfEachActivity: 15000
+        timeOfEachInstance: 15000
       },
       data: {}
     }
@@ -28,12 +28,12 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['timeOfEachActivity', 'symmetryTime'],
+  required: ['timeOfEachInstance'],
   properties: {
-    timeOfEachActivity: {
+    timeOfEachInstance: {
       title: 'Length of each individual activity',
       type: 'number',
-      default: 6000
+      default: 10000
     }
   }
 };
@@ -42,7 +42,8 @@ const dataStructure = {
   progress: 0,
   score: 0,
   time: 0,
-  step: 0
+  step: 0,
+  helpCounter: 0
 };
 
 export default ({
