@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
-import { activityTypes } from '/imports/activityTypes';
+import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
 import jsonSchemaDefaults from 'json-schema-defaults';
@@ -23,7 +23,8 @@ type PropsT = {
   onSelect?: Function,
   onPreview?: Function,
   activity: ActivityDbT,
-  onlyHasPreview?: boolean
+  onlyHasPreview?: boolean,
+  store: Object
 };
 
 export class ChooseActivityType extends Component<PropsT, StateT> {
@@ -46,8 +47,17 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const select = this.props.onSelect
       ? this.props.onSelect
       : aT => {
+          const graphActivity = this.props.store.activityStore.all.find(
+            act => act.id === this.props.activity._id
+          );
           const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
+          if (this.props.activity.title === 'Unnamed') {
+            const newName =
+              activityTypesObj[aT.id].meta.shortName ||
+              activityTypesObj[aT.id].meta.name;
+            graphActivity.rename(newName);
+          }
           if (this.props.store) {
             this.props.store.addHistory();
           }

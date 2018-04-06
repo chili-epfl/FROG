@@ -16,6 +16,7 @@ import {
 const meta = {
   // the description when choosing the type of an activity
   name: 'Auto-graded coding',
+  shortName: 'Coding',
   type: 'react-component',
   shortDesc: 'Autograded code snippets',
   description:
