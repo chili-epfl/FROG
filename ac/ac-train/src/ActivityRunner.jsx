@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { ProgressBar } from 'react-bootstrap';
-import { withState } from 'recompose';
-import Mousetrap from 'mousetrap';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
+
 import { sample, shuffle } from 'lodash';
+import ReactTimeout from 'react-timeout';
 import Help from './Help';
+
+import Command from './Activities/Command';
+
 import {
   styles,
   texts,
@@ -15,9 +15,6 @@ import {
   CountDownTimer,
   CliGuidelines
 } from './ActivityUtils';
-
-// import Symmetry from './Symmetry';
-// import Game from './Game';
 
 let noAnswerTimeout;
 let delayTimeout;
@@ -54,59 +51,12 @@ const travel = ['one-way', 'return'];
 //   };
 // };
 
-class CLIActivity extends React.Component {
-  state = {
-    text: ''
-  };
-
-  handleChange = event => {
-    this.setState({ text: event.target.value });
-  };
-
-  handleSubmit = () => {
-    console.log('HandleSubmit of CliActivity called');
-    // const fullAnswer = this.state.text
-    //   .split(' ')
-    //   .filter(item => item !== 'from' && item !== 'to');
-    // const fromTo = fullAnswer.slice(0, 2);
-
-    // const ticket = {
-    //   from: answer[0],
-    //   to: answer[1],
-    //   fare: answer[2]
-    // };
-    this.props.submit();
-  };
-
-  render() {
-    const { ticket } = this.props;
-    return (
-      <React.Fragment>
-        <Typography gutterBottom>{ticket}</Typography>
-        <TextField
-          id="multiline-flexible"
-          label="Enter command"
-          value={this.state.text}
-          onChange={this.handleChange}
-          multiline
-          rowsMax="4"
-          fullWidth
-          margin="normal"
-        />
-        <Button color="primary" onClick={this.handleSubmit}>
-          Buy
-        </Button>
-      </React.Fragment>
-    );
-  }
-}
-
 const RunActivity = ({ activity, ticket, submit, helpOpen, helpClose }) => {
   switch (activity) {
     case 'command':
       return (
         <React.Fragment>
-          <CLIActivity ticket={ticket} submit={submit} />
+          <Command ticket={ticket} submit={submit} />
           <Help onOpen={helpOpen} onClose={helpClose}>
             <CliGuidelines />
           </Help>
@@ -123,6 +73,7 @@ class Activity extends React.Component {
     this.instanceCount = 0;
     this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
     // this.interfaces = shuffle(['dragdrop', 'command', 'graphical', 'form']);
+    this.changeInstanceTimer = null;
     this.interfaces = shuffle(['command']);
     this.state = { guidelines: true, ticket: this.generateTicket() };
   }
@@ -159,13 +110,24 @@ class Activity extends React.Component {
       this.setState({ guidelines: true });
     } else {
       this.instanceCount += 1;
+      this.timer();
       this.setState({ ticket: this.generateTicket() });
     }
   };
 
+  timer = () => {
+    clearTimeout(this.noAnswerTimeOut);
+    this.noAnswerTimeOut = setTimeout(
+      this.nextInstance,
+      this.timeOfEachInstance
+    );
+  };
+
   beginActivity = () => {
     const { dataFn } = this.props;
+
     dataFn.numIncr(1, 'step');
+    this.timer();
     this.setState({ guidelines: false });
   };
 
@@ -176,7 +138,6 @@ class Activity extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const { guidelines } = this.state;
     const { data: { step } } = this.props;
 
@@ -193,9 +154,9 @@ class Activity extends React.Component {
             helpClose={this.handleHelpClose}
           />
           <div style={styles.activityCountdown}>
-            <CountDownTimer start={Date.now()} length={this.timeOfEachInstance}>
+            {/* <CountDownTimer start={Date.now()} length={this.timeOfEachInstance}>
               {texts.timeLeft}
-            </CountDownTimer>
+            </CountDownTimer> */}
           </div>
         </React.Fragment>
       );
@@ -203,52 +164,14 @@ class Activity extends React.Component {
   }
 }
 
-// const Activity = withState('ready', 'setReady', false)(props => {
-//   const { data: { step }, dataFn, activityData, logger } = props;
-//   const { ready, setReady } = props;
-//   const { timeOfEachInstance } = activityData.config;
-
-//   const nextStep = () => {
-//     setReady(false);
-//     dataFn.numIncr(1, 'step');
-//     logger({ type: 'progress', value: (step + 1) / 4 });
-//   };
-
-//   const startActivity = () => {
-//     setReady(true);
-//     clearTimeout(changeInstanceTimeout);
-//     changeInstanceTimeout = setTimeout(nextStep, timeOfEachInstance);
-//   };
-
-//   const handleSubmit = (activity, value) => () => {
-//     console.log(activity, value);
-//   };
-
-//   if (!ready) {
-//     return <Guidelines start={startActivity} step={step} />;
-//   } else {
-//     return (
-//       <React.Fragment>
-//         <CLIActivity
-//           ticket={getCommandForTicket(generateTicket())}
-//           submit={handleSubmit}
-//         />
-//         <div style={styles.activityCountdown}>
-//           <CountDownTimer start={Date.now()} length={timeOfEachInstance}>
-//             {texts.timeLeft}
-//           </CountDownTimer>
-//         </div>
-//       </React.Fragment>
-//     );
-//   }
-// });
+const EnhancedActivity = ReactTimeout(Activity);
 
 const Main = props => {
   const { data } = props;
   const { step } = data;
 
   if (step < 4) {
-    return <Activity {...props} />;
+    return <EnhancedActivity {...props} />;
   } else {
     return <div style={styles.text}>{texts.end}</div>;
   }
@@ -269,12 +192,6 @@ const Runner = (props: ActivityRunnerT) => {
 };
 
 export default class ActivityRunner extends React.Component<ActivityRunnerT> {
-  componentWillUnmount() {
-    Mousetrap.reset();
-    clearTimeout(delayTimeout);
-    clearTimeout(noAnswerTimeout);
-  }
-
   render() {
     return this.props.data && <Runner {...this.props} />;
   }
