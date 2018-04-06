@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
+import ReactTooltip from 'react-tooltip';
 
 import { connect } from './store';
 import Graph from './Graph';
@@ -9,7 +10,6 @@ import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
 import Preview from '../Preview/Preview';
 import TopBar from '../App/TopBar';
-import ReactTooltip from 'react-tooltip';
 
 const styles = () => ({
   root: {
