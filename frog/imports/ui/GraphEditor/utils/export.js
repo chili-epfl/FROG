@@ -43,11 +43,11 @@ export const duplicateGraph = graphId =>
 
 export const doImportGraph = graphStr => {
   try {
-    const graph = graphStr.target ? graphStr.target.result : graphStr
+    const graph = graphStr.target ? graphStr.target.result : graphStr;
     const graphObj = JSON.parse(graph);
     const graphId = addGraph(graphObj);
     store.setId(graphId);
-    return graphId
+    return graphId;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.warn(e);

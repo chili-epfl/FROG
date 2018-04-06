@@ -102,7 +102,8 @@ class Editor extends Component<Object, StateT> {
     }
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
-    const setImportList = (val, fun?) => this.setState({ importList: val }, fun);
+    const setImportList = (val, fun?) =>
+      this.setState({ importList: val }, fun);
 
     return (
       <div className={classes.root}>
@@ -128,14 +129,17 @@ class Editor extends Component<Object, StateT> {
           <ModalDelete
             modalOpen={this.state.deleteOpen}
             setModal={setDelete}
-            remove={() =>{
-              const promise = this.state.importOpen ? removeGraph(this.state.idRemove) : removeActivity(this.state.idRemove)
+            remove={() => {
+              const promise = this.state.importOpen
+                ? removeGraph(this.state.idRemove)
+                : removeActivity(this.state.idRemove);
               promise.then(
                 this.setState({
                   importList: this.state.importList.filter(
                     x => x.uuid !== this.state.idRemove
                   )
-                }))
+                })
+              );
             }}
           />
           <div className={classes.container}>
