@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn } from 'frog-utils';
 import Modal from 'react-modal';
-import { withState, compose } from 'recompose';
 import ShareDB from 'sharedb';
 import Draggable from 'react-draggable';
 
@@ -195,21 +194,4 @@ export const StatelessPreview = (props: Object) => {
 
 const StyledPreview = withStyles(styles)(StatelessPreview);
 
-const StatefulPreview = compose(
-  withState('example', 'setExample', -1),
-  withState('fullWindow', 'setFullWindow', false),
-  withState('showData', 'setShowData', false),
-  withState('showDash', 'setShowDash', false),
-  withState('showDashExample', 'setShowDashExample', false),
-  withState('windows', 'setWindows', 1),
-  withState('showLogs', 'setShowLogs', false),
-  withState('users', 'setUsers', ['Chen Li']),
-  withState('instances', 'setInstances', ['Chen Li']),
-  withState('plane', 'setPlane', 1),
-  withState('config', 'setConfig', {}),
-  withState('activityTypeId', 'setActivityTypeId', undefined),
-  withState('reloadAPIform', 'setReloadAPIform', undefined)
-)(StyledPreview);
-
-StatefulPreview.displayName = 'StatefulPreview';
-export default StatefulPreview;
+export default StyledPreview;

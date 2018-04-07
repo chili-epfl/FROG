@@ -22,8 +22,6 @@ export default ({
   showLogs,
   showData,
   users,
-  reload,
-  externalReload,
   showDash
 }: Object) => {
   const activityType = activityTypesObj[activityTypeId];
@@ -46,11 +44,9 @@ export default ({
   RunComp.displayName = activityType.id;
 
   const examples = activityType.meta.exampleData || [];
-  const activityData =
+  const { data } =
     example > -1 && examples[example] ? cloneDeep(examples[example]) : {};
-  if (config) {
-    activityData.config = config;
-  }
+  const activityData = { data, config };
 
   const Run = ({ name, idx, instance }) => {
     const ActivityToRun = ReactiveHOC('preview/' + instance, connection)(
@@ -75,6 +71,7 @@ export default ({
       />
     );
   };
+
   return (
     <div
       className="modal-body"
@@ -110,8 +107,7 @@ export default ({
             ) : (
               <MosaicWindow
                 path={path}
-                reload={reload + externalReload}
-                example={example}
+                reload={JSON.stringify(config)}
                 title={name + '/' + instance + ' - ' + activityType.meta.name}
               >
                 <Run name={name} idx={idx} instance={instance} />

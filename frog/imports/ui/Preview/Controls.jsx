@@ -9,7 +9,8 @@ import { uuid } from 'frog-utils';
 import Icon from './Icon';
 import {
   initDashboardDocuments,
-  hasDashExample
+  hasDashExample,
+  Logs
 } from './dashboardInPreviewAPI';
 import { initActivityDocuments } from './Preview';
 import { activityTypesObj } from '../../activityTypes';
@@ -45,6 +46,7 @@ export default ({
     initActivityDocuments(instances, activityType, example, true);
     // resets the reactive documents for the dashboard
     initDashboardDocuments(activityType, true);
+    Logs.length = 0;
   };
 
   const dismiss = () => {
@@ -52,6 +54,7 @@ export default ({
     setExample(-1);
     setConfig({});
     setReloadAPIform(uuid());
+    Logs.length = 0;
   };
 
   return (

@@ -5,6 +5,7 @@ import * as React from 'react';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Preview';
 import { activityTypesObj } from '../../activityTypes';
+import { initDashboardDocuments } from './dashboardInPreviewAPI';
 
 const style = {
   side: {
@@ -34,6 +35,7 @@ export default ({
         setActivityTypeId(e.activityType);
         const activityType = activityTypesObj[e.activityType];
         initActivityDocuments(instances, activityType, -1, true);
+        initDashboardDocuments(activityType, true);
       }}
       onPreview={e => history.push(`/preview/${e}`)}
       reload={reloadAPIform}

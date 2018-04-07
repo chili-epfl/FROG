@@ -1,103 +1,65 @@
 // @flow
 
 import * as React from 'react';
-import { toObject, toString } from 'query-parse';
+import { toObject } from 'query-parse';
 import { withRouter } from 'react-router';
-import { omitBy } from 'lodash';
 
-import Preview, { StatelessPreview } from './Preview';
+import Preview from './Preview';
 
-const PreviewPage = ({
-  match: { params: { activityTypeId = null, example = 0 } },
-  location: { search },
-  history
-}) => {
-  const {
-    showData: showDataRaw,
-    showDash: showDashRaw,
-    showDashExample: showDashExampleRaw,
-    fullWindow: fullWindowRaw,
-    windows: windowsRaw,
-    showLogs: showLogsRaw
-  } = toObject(search.slice(1));
-  const windows = parseInt(windowsRaw, 10) || 1;
-  const showData = showDataRaw === 'true';
-  const showDash = showDashRaw === 'true';
-  const showDashExample = showDashExampleRaw === 'true';
-  const fullWindow = fullWindowRaw === 'true';
-  const showLogs = showLogsRaw === 'true';
-  const dismiss = () => history.push(`/preview`);
+class PreviewPage extends React.Component<any, any> {
+  setStates: { [state: string]: Function };
 
-  const changeURL = merge => {
-    const e = {
-      ...{
-        showData,
-        showDash,
-        fullWindow,
-        windows,
-        example,
-        activityTypeId,
-        showDashExample
-      },
-      ...merge
+  constructor(props) {
+    super(props);
+    const { location: { search } } = props;
+    const statedump = toObject(search.slice(1)).statedump;
+    if (statedump) {
+      this.state = JSON.parse(statedump);
+    } else {
+      this.state = {
+        example: -1,
+        fullWindow: false,
+        showData: false,
+        showDash: false,
+        showDashExample: false,
+        showLogs: false,
+        users: ['Chen Li'],
+        instances: ['Chen Li'],
+        plane: 1,
+        config: {},
+        activityTypeId: null,
+        reloadAPIform: ''
+      };
+    }
+    this.setStates = {
+      setExample: example => this.setState({ example }),
+      setFullWindow: fullWindow => this.setState({ fullWindow }),
+      setShowData: showData => this.setState({ showData }),
+      setShowDash: showDash => this.setState({ showDash }),
+      setShowDashExample: showDashExample => this.setState({ showDashExample }),
+      setShowLogs: showLogs => this.setState({ showLogs }),
+      setUsers: users => this.setState({ users }),
+      setInstances: instances => this.setState({ instances }),
+      setPlane: plane => this.setState({ plane }),
+      setConfig: config => this.setState({ config }),
+      setActivityTypeId: activityTypeId => this.setState({ activityTypeId }),
+      setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform })
     };
-    const opts = toString(
-      omitBy(
-        {
-          showData: e.showData,
-          showDash: e.showDash,
-          showDashExample: e.showDashExample,
-          fullWindow: e.fullWindow,
-          windows: e.windows,
-          showLogs: e.showLogs
-        },
-        x => !x
-      )
-    );
-    history.push(`/preview/${e.activityTypeId || ''}/${e.example}?${opts}`);
-  };
+  }
 
-  const setShowDash = x => changeURL({ showDash: x, showLogs: false });
-  const setShowDashExample = x =>
-    changeURL({
-      showDashExample: x,
-      showLogs: false,
-      showDash: false,
-      example: 0
-    });
-  const setShowLogs = x => changeURL({ showLogs: x });
-  const setShowData = x => changeURL({ showData: x });
-  const setWindows = x => changeURL({ windows: x });
-  const setExample = x => changeURL({ example: x });
-  const setFullWindow = x => changeURL({ fullWindow: x });
+  shouldComponentUpdate(nextProps, nextState) {
+    const { history, location: { search } } = nextProps;
+    const statedump = JSON.stringify(nextState);
+    if (statedump !== toObject(search.slice(1)).statedump) {
+      history.push(`/preview?statedump=${JSON.stringify(nextState)}`);
+    }
+    return true;
+  }
 
-  const statelessProps = {
-    activityTypeId,
-    setFullWindow,
-    fullWindow,
-    example,
-    setExample,
-    setWindows,
-    windows,
-    showData,
-    setShowData,
-    showDash,
-    setShowDash,
-    showDashExample,
-    setShowDashExample,
-    dismiss,
-    setShowLogs,
-    showLogs,
-    isSeparatePage: true
-  };
-
-  return (
-    <React.Fragment>
-      {activityTypeId && <StatelessPreview {...statelessProps} />}
-      {!activityTypeId && <Preview history={history} noModal />}
-    </React.Fragment>
-  );
-};
+  render() {
+    return <Preview noModal {...{ ...this.state, ...this.setStates }} />;
+  }
+}
 
 PreviewPage.displayName = 'PreviewPage';
 
