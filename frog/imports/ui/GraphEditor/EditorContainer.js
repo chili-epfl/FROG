@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import ReactTooltip from 'react-tooltip';
 
 import { connect } from './store';
 import Graph from './Graph';
@@ -87,7 +86,6 @@ class Editor extends Component {
             <SidePanel />
           </div>
         </div>
-        <ReactTooltip delayShow={500} />
       </div>
     );
   }
