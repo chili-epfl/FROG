@@ -133,9 +133,6 @@ const RawEditActivity = ({
                 EditComponent={RenameField}
                 activityId={activity._id}
                 value={graphActivity.title}
-                onChange={grp =>
-                  addActivity(activity.activityType, null, activity._id, grp)
-                }
               />
             </h3>
             <font size={-3}>

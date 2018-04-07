@@ -6,6 +6,7 @@ import { uniq } from 'lodash';
 
 const meta = {
   name: 'Display social attribute',
+  shortName: 'Display social',
   shortDesc: 'Display the social attribute chosen',
   description: '',
   exampleData: [
