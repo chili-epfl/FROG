@@ -25,8 +25,9 @@ export const initActivityDocuments = (
       if (mergeFunction) {
         const dataFn = generateReactiveFn(_doc);
         const exs = activityType.meta.exampleData;
-        const data = example === -1 ? {} : exs[example] || {};
-
+        const data = example === -1
+          ? cloneDeep(activityType.dataStructure)
+          : exs[example].data
         mergeFunction(cloneDeep({ data, config }), dataFn);
       }
     };
