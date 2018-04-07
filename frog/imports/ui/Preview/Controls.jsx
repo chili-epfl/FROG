@@ -16,9 +16,11 @@ import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 
 export default ({
+  withoutExamples,
   activityTypeId,
   instances,
   config,
+  dismiss,
   setFullWindow,
   fullWindow,
   example,
@@ -50,20 +52,20 @@ export default ({
     Logs.length = 0;
   };
 
-  const dismiss = () => {
+  const _dismiss = dismiss || (() => {
     setActivityTypeId(null);
     setExample(-1);
     setConfig({});
     setReloadAPIform(uuid());
     Logs.length = 0;
-  };
+  });
 
   return (
     <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
       <button
         type="button"
         className="close"
-        onClick={dismiss}
+        onClick={_dismiss}
         data-tip="Close, and show list of activity types to preview"
       >
         X
@@ -116,9 +118,8 @@ export default ({
           </Link>
         )}
       </h4>
-      <Nav bsStyle="pills" activeKey={example}>
-        {ex &&
-          ex.map((x, i) => (
+      {!withoutExamples && ex && <Nav bsStyle="pills" activeKey={example}>
+        {ex.map((x, i) => (
             <NavItem
               key={x.title}
               className="examples"
@@ -135,7 +136,7 @@ export default ({
               {x.title}
             </NavItem>
           ))}
-      </Nav>
+      </Nav>}
     </div>
   );
 };

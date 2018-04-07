@@ -6,6 +6,8 @@ import { withRouter } from 'react-router';
 
 import Preview from './Preview';
 
+export const ModalPreview = (props: Object) => <Preview modal {...props}/>
+
 class PreviewPage extends React.Component<any, any> {
   setStates: { [state: string]: Function };
 
@@ -57,7 +59,7 @@ class PreviewPage extends React.Component<any, any> {
   }
 
   render() {
-    return <Preview noModal {...{ ...this.state, ...this.setStates }} />;
+    return <Preview {...{ ...this.state, ...this.setStates }} />;
   }
 }
 

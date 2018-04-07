@@ -7,7 +7,7 @@ import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
-import Preview from '../Preview/Preview';
+import { ModalPreview } from '../Preview';
 import TopBar from '../App/TopBar';
 
 const styles = () => ({
@@ -66,11 +66,10 @@ class Editor extends Component {
     const { classes } = this.props;
     if (this.props.store.ui.showPreview) {
       return (
-        <Preview
+        <ModalPreview
           activityTypeId={this.props.store.ui.showPreview.activityTypeId}
           config={this.props.store.ui.showPreview.config}
           dismiss={() => this.props.store.ui.setShowPreview(false)}
-          className="bootstrap"
         />
       );
     }

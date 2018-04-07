@@ -68,8 +68,9 @@ const styles = () => ({
 export const StatelessPreview = (props: Object) => {
   const {
     activityTypeId,
-    noModal,
+    modal,
     config,
+    dismiss,
     example,
     showLogs,
     fullWindow,
@@ -77,6 +78,30 @@ export const StatelessPreview = (props: Object) => {
     classes,
     instances
   } = props;
+
+  if(modal) {
+    return (
+      <Modal
+        ariaHideApp={false}
+        contentLabel={'Preview of ' + activityTypeId}
+        isOpen
+        onRequestClose={dismiss}
+      >
+        <Controls {...props} withoutExamples />
+        {showLogs && !showDashExample ? (
+          <ShowLogs logs={Logs} />
+        ) : (
+          <Content
+            {...props}
+            users={['Chen Li']}
+            instances={['Chen Li']}
+          />
+        )}
+        <ReactTooltip delayShow={1000} />
+      </Modal>
+    )
+  }
+
   const activityType = activityTypesObj[activityTypeId];
   if (!activityType) {
     return (
@@ -120,12 +145,12 @@ export const StatelessPreview = (props: Object) => {
 
   const Layout = fullWindow ? (
     FullWindowLayout
-  ) : noModal ? (
+  ) : !modal ? (
     NoModalLayout
   ) : (
     <Modal
       ariaHideApp={false}
-      contentLabel={'Preview of ' + activityType.id}
+      contentLabel={'Preview of ' + activityTypeId}
       isOpen
       onRequestClose={() => {}}
     >

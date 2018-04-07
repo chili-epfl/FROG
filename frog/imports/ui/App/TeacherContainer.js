@@ -33,8 +33,6 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
   return (
     <div id="app">
       <Switch>
-        <Route path="/preview/:activityTypeId/:example" component={Preview} />
-        <Route path="/preview/:activityTypeId" component={Preview} />
         <Route path="/graph/:graphId" component={GraphEditor} />
         <Route path="/graph" component={GraphEditor} />
         <Route component={WithTopBar} />
