@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ResizeAware from 'react-resize-aware';
 import { withState } from 'recompose';
 import { type ActivityRunnerT } from 'frog-utils';
@@ -45,28 +44,26 @@ const BoardPure = ({
     return null;
   }
   return (
-    <MuiThemeProvider>
-      <div style={{ height: '100%', width: '100%' }}>
-        {config.quadrants && (
-          <Quadrants config={config} width={width} height={height} />
-        )}
-        {config.image && (
-          <img
-            src={config.imageurl}
-            alt="Background"
-            style={{ width: width + 'px', height: height + 'px' }}
-          />
-        )}
-        {width && height && List}
-        {info && (
-          <ObservationDetail
-            title={info.title}
-            content={info.content}
-            closeInfoFn={() => setInfo(null)}
-          />
-        )}
-      </div>
-    </MuiThemeProvider>
+    <div style={{ height: '100%', width: '100%' }}>
+      {config.quadrants && (
+        <Quadrants config={config} width={width} height={height} />
+      )}
+      {config.image && (
+        <img
+          src={config.imageurl}
+          alt="Background"
+          style={{ width: width + 'px', height: height + 'px' }}
+        />
+      )}
+      {width && height && List}
+      {info && (
+        <ObservationDetail
+          title={info.title}
+          content={info.content}
+          closeInfoFn={() => setInfo(null)}
+        />
+      )}
+    </div>
   );
 };
 
