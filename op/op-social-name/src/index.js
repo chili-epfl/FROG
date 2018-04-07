@@ -3,6 +3,7 @@ import { type socialOperatorT, focusRole } from 'frog-utils';
 
 const meta = {
   name: 'Assign group by name',
+  shortName: 'Manually group',
   shortDesc: 'Maps students to groups by name',
   description:
     'Input a list of student names, and group names, and it matches the students to the groups'

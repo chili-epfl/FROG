@@ -4,6 +4,7 @@ import type { controlOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Select activity based on past performance',
+  shortName: 'Performance split',
   shortDesc:
     'Split students into two groups based on quiz scores, and assign activities',
   description: ''

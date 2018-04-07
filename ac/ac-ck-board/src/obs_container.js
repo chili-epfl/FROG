@@ -38,7 +38,7 @@ const ObservationContainer = ({
           overflow: 'hidden'
         }}
       >
-        <Paper zDepth={3} style={style}>
+        <Paper style={style}>
           <div>
             {shorten(title, 35)}
             <span style={{ float: 'right' }} className="noDrag">
