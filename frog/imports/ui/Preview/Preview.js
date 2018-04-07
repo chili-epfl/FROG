@@ -2,8 +2,6 @@
 
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
-import { cloneDeep } from 'lodash';
-import { generateReactiveFn } from 'frog-utils';
 import Modal from 'react-modal';
 import ShareDB from 'sharedb';
 import Draggable from 'react-draggable';
@@ -14,7 +12,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import Controls from './Controls';
-import Content from './Content';
+import Content, { initActivityDocuments } from './Content';
 import SocialPanel from './SocialPanel';
 import ConfigPanel from './ConfigPanel';
 
@@ -67,53 +65,11 @@ const styles = () => ({
   }
 });
 
-export const initActivityDocuments = (
-  instances: string[],
-  activityType: Object,
-  example: number,
-  refresh: boolean
-) => {
-  instances.forEach(instance => {
-    const runMergeFunction = _doc => {
-      const mergeFunction = activityType.mergeFunction;
-      if (
-        mergeFunction &&
-        example !== undefined &&
-        activityType.meta.exampleData &&
-        activityType.meta.exampleData[example]
-      ) {
-        const dataFn = generateReactiveFn(_doc);
-        if (activityType.meta.exampleData) {
-          mergeFunction(
-            cloneDeep(activityType.meta.exampleData[example]),
-            dataFn
-          );
-        }
-      }
-    };
-
-    const doc = connection.get('rz', 'preview/' + instance);
-    doc.fetch();
-    if (!doc.type) {
-      doc.once('load', () => {
-        if (!doc.type) {
-          doc.create(cloneDeep(activityType.dataStructure) || {});
-          runMergeFunction(doc);
-        }
-        doc.destroy();
-      });
-    } else if (refresh) {
-      const dataFn = generateReactiveFn(doc);
-      dataFn.objInsert(cloneDeep(activityType.dataStructure) || {});
-      runMergeFunction(doc);
-    }
-  });
-};
-
 export const StatelessPreview = (props: Object) => {
   const {
     activityTypeId,
     noModal,
+    config,
     example,
     showLogs,
     fullWindow,
@@ -130,7 +86,7 @@ export const StatelessPreview = (props: Object) => {
     );
   }
 
-  initActivityDocuments(instances, activityType, example, false);
+  initActivityDocuments(instances, activityType, example, config, false);
 
   const FullWindowLayout = (
     <div>

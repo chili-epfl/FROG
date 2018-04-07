@@ -12,12 +12,13 @@ import {
   hasDashExample,
   Logs
 } from './dashboardInPreviewAPI';
-import { initActivityDocuments } from './Preview';
+import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 
 export default ({
   activityTypeId,
   instances,
+  config,
   setFullWindow,
   fullWindow,
   example,
@@ -43,7 +44,7 @@ export default ({
   const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
 
   const refresh = () => {
-    initActivityDocuments(instances, activityType, example, true);
+    initActivityDocuments(instances, activityType, example, config, true);
     // resets the reactive documents for the dashboard
     initDashboardDocuments(activityType, true);
     Logs.length = 0;
@@ -123,9 +124,10 @@ export default ({
               className="examples"
               eventKey={i}
               onClick={() => {
-                setConfig(activityType.meta.exampleData[i].config);
+                const exConf = activityType.meta.exampleData[i].config;
+                setConfig(exConf);
                 setReloadAPIform(uuid());
-                initActivityDocuments(instances, activityType, i, true);
+                initActivityDocuments(instances, activityType, i, exConf, true);
                 initDashboardDocuments(activityType, true);
                 setExample(i);
               }}

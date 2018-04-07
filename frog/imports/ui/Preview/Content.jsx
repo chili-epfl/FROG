@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
 import { cloneDeep } from 'lodash';
-import { getInitialState } from 'frog-utils';
+import { getInitialState, generateReactiveFn } from 'frog-utils';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
@@ -11,6 +11,42 @@ import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from './Preview';
+
+export const initActivityDocuments = (
+  instances: string[],
+  activityType: Object,
+  example: number,
+  config: Object,
+  refresh: boolean
+) => {
+  instances.forEach(instance => {
+    const runMergeFunction = _doc => {
+      const mergeFunction = activityType.mergeFunction;
+      if (mergeFunction) {
+        const dataFn = generateReactiveFn(_doc);
+        const exs = activityType.meta.exampleData;
+        const data = example === -1 ? {} : exs[example] || {};
+
+        mergeFunction(cloneDeep({ data, config }), dataFn);
+      }
+    };
+
+    const doc = connection.get('rz', 'preview/' + instance);
+    doc.fetch();
+    if (!doc.type) {
+      doc.once('load', () => {
+        if (!doc.type) {
+          doc.create(cloneDeep(activityType.dataStructure) || {});
+          runMergeFunction(doc);
+        }
+      });
+    } else if (refresh) {
+      const dataFn = generateReactiveFn(doc);
+      dataFn.objInsert(cloneDeep(activityType.dataStructure) || {}, []);
+      runMergeFunction(doc);
+    }
+  });
+};
 
 export default ({
   showDashExample,

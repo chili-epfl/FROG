@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
-import { initActivityDocuments } from './Preview';
+import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 
@@ -23,21 +23,24 @@ export default ({
   setConfig,
   activityTypeId,
   setActivityTypeId,
-  instances,
-  history
+  instances
 }: Object) => (
   <div style={style.side} className="bootstrap">
     <ApiForm
       config={config}
       activityType={activityTypeId}
       onConfigChange={e => {
-        setConfig(e.errors.length === 0 ? e.config : { invalid: true });
-        setActivityTypeId(e.activityType);
-        const activityType = activityTypesObj[e.activityType];
-        initActivityDocuments(instances, activityType, -1, true);
-        initDashboardDocuments(activityType, true);
+        if (e.errors.length === 0) {
+          setConfig(e.config);
+          const activityType = activityTypesObj[e.activityType];
+          initActivityDocuments(instances, activityType, -1, e.config, true);
+          setActivityTypeId(e.activityType);
+          initDashboardDocuments(activityType, true);
+        } else {
+          setConfig({ invalid: true });
+        }
       }}
-      onPreview={e => history.push(`/preview/${e}`)}
+      onPreview={setActivityTypeId}
       reload={reloadAPIform}
     />
   </div>
