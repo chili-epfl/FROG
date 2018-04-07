@@ -9,17 +9,16 @@ import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
-
-import { Collections, connection } from './Preview';
+import { activityTypesObj } from '../../activityTypes';
+import { connection } from './Preview';
 
 export default ({
   showDashExample,
   plane,
   instances,
   config,
-  examples,
   example,
-  activityType,
+  activityTypeId,
   showLogs,
   showData,
   users,
@@ -27,6 +26,8 @@ export default ({
   externalReload,
   showDash
 }: Object) => {
+  const activityType = activityTypesObj[activityTypeId];
+
   if (!activityType) {
     return <p>Choose an activityType</p>;
   }
@@ -43,13 +44,16 @@ export default ({
 
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activityType.id;
-  const activityData = examples[example] ? cloneDeep(examples[example]) : {};
+
+  const examples = activityType.meta.exampleData || [];
+  const activityData =
+    example > -1 && examples[example] ? cloneDeep(examples[example]) : {};
   if (config) {
     activityData.config = config;
   }
 
   const Run = ({ name, idx, instance }) => {
-    const ActivityToRun = ReactiveHOC(Collections[instance], connection)(
+    const ActivityToRun = ReactiveHOC('preview/' + instance, connection)(
       showData ? ShowInfo : RunComp
     );
     return (

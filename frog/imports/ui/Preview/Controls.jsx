@@ -7,14 +7,16 @@ import { Link } from 'react-router-dom';
 import { uuid } from 'frog-utils';
 
 import Icon from './Icon';
-import { Logs, initDocuments, hasDashExample } from './dashboardInPreviewAPI';
-
-import { Collections, initActivityDocuments } from './Preview';
+import {
+  initDashboardDocuments,
+  hasDashExample
+} from './dashboardInPreviewAPI';
+import { initActivityDocuments } from './Preview';
+import { activityTypesObj } from '../../activityTypes';
 
 export default ({
-  activityType,
+  activityTypeId,
   instances,
-  examples,
   setFullWindow,
   fullWindow,
   example,
@@ -32,27 +34,25 @@ export default ({
   setActivityTypeId,
   setExample
 }: Object) => {
+  const activityType = activityTypesObj[activityTypeId];
   if (!activityType) {
     return <p>Choose and activityType</p>;
   }
-
+  const examples = activityType.meta.exampleData || [];
   const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
 
   const refresh = () => {
-    instances.forEach(instance => {
-      Collections[instance] = uuid();
-    });
-    Logs.length = 0;
+    initActivityDocuments(instances, activityType, example, true);
     // resets the reactive documents for the dashboard
-    initDocuments(activityType, true);
+    initDashboardDocuments(activityType, true);
   };
 
   const dismiss = () => {
-    setActivityTypeId(null)
-    setExample(-1)
-    setConfig({})
-    setReloadAPIform(uuid())
-  }
+    setActivityTypeId(null);
+    setExample(-1);
+    setConfig({});
+    setReloadAPIform(uuid());
+  };
 
   return (
     <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
@@ -120,10 +120,11 @@ export default ({
               className="examples"
               eventKey={i}
               onClick={() => {
-                setConfig(activityType.meta.exampleData[i].config)
-                setReloadAPIform(uuid())
-                initActivityDocuments(instances,activityType, i, true)
-                setExample(i)
+                setConfig(activityType.meta.exampleData[i].config);
+                setReloadAPIform(uuid());
+                initActivityDocuments(instances, activityType, i, true);
+                initDashboardDocuments(activityType, true);
+                setExample(i);
               }}
             >
               {x.title}

@@ -2,30 +2,10 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-
-import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 import TextField from 'material-ui/TextField';
-
-const styles = {
-  drawer: {
-    marginTop: '48px',
-    width: 250,
-    height: 'calc(100% - 48px)'
-  },
-  button: {
-    position: 'fixed',
-    bottom: '20px',
-    right: '20px',
-    zIndex: '10'
-  },
-  text: {
-    width: '125px',
-    margin: 'auto'
-  }
-};
 
 const names = [
   'Chen Li',
@@ -42,62 +22,81 @@ const names = [
   'Louis'
 ];
 
-const StudentBox = ({ name, group, plane, onChange, classes }) => (
+const StudentBox = ({ name, instance, plane, onChange, classes }) => (
   <div>
     <TextField
       label="Name"
       value={name}
-      onChange={e => onChange({ name: e.target.value, group })}
+      onChange={e => onChange(e.target.value, instance)}
       className={classes.text}
     />
     {plane === 2 && (
       <TextField
         label="Group"
-        value={group}
-        onChange={e => onChange({ name, group: e.target.value })}
+        value={instance}
+        onChange={e => onChange(name, e.target.value)}
         className={classes.text}
       />
     )}
   </div>
 );
 
-const StyledStudentBox = withStyles(styles)(StudentBox);
+type PropsT = {
+  classes: Object,
+  users: string[],
+  instances: string[],
+  plane: number,
+  setUsers: Function,
+  setPlane: Function,
+  setInstances: Function
+};
 
-class SocialPanel extends React.Component {
+type StateT = {
+  open: boolean
+};
+
+class SocialPanel extends React.Component<PropsT, StateT> {
   state = {
-    open: false,
-    students: [{ name: names[0], group: 1 }],
-    plane: 1
+    open: false
   };
 
   render() {
-    const { classes, setUsers, setInstances, setPlane } = this.props;
-    const { open, students, plane } = this.state;
+    const {
+      classes,
+      setUsers,
+      setInstances,
+      setPlane,
+      plane,
+      users,
+      instances
+    } = this.props;
+    const { open } = this.state;
 
     const toggle = () => this.setState({ open: !open });
     const add = () => {
-      const newStudent = {
-        name: names[students.length % names.length],
-        group: 1 + Math.floor(students.length / 2)
-      };
-      this.setState({ students: [...students, newStudent] });
+      const newName = names[users.length % names.length];
+      const newGroup = 1 + Math.floor(users.length / 2);
+      setUsers([...users, newName]);
+      setInstances([...instances, [newName, newGroup, 'all'][plane - 1]]);
     };
     const remove = () => {
-      this.setState({ students: students.slice(0, students.length - 1) });
+      setUsers(users.slice(0, users.length - 1));
+      setInstances(instances.slice(0, instances.length - 1));
     };
-    const switchPlane = () => this.setState({ plane: 1 + plane % 3 });
-    const changeStudent = idx => newStudent => {
-      this.state.students[idx] = newStudent;
-      this.forceUpdate();
-    };
-
-    const save = () => {
-      setPlane(plane);
-      setUsers(students.map(s => s.name));
+    const switchPlane = () => {
+      const newPlane = 1 + plane % 3;
+      setPlane(newPlane);
       setInstances(
-        students.map(s => ({ 1: s.name, 2: s.group, 3: 'all' }[plane]))
+        users.map(
+          (name, idx) => [name, 1 + Math.floor(idx / 2), 'all'][newPlane - 1]
+        )
       );
-      toggle();
+    };
+    const onChange = idx => (newName, newInstance) => {
+      users[idx] = newName;
+      setUsers(users);
+      instances[idx] = newInstance;
+      setInstances(instances);
     };
 
     return (
@@ -125,19 +124,18 @@ class SocialPanel extends React.Component {
           <Button color="primary" onClick={remove}>
             REMOVE
           </Button>
-          {students.map((s, i) => (
-            <StyledStudentBox
+          {users.map((name, i) => (
+            <StudentBox
               key={i}
-              {...s}
+              classes={classes}
+              name={name}
+              instance={instances[i]}
               plane={plane}
-              onChange={changeStudent(i)}
+              onChange={onChange(i)}
             />
           ))}
-          <Button color="primary" onClick={save}>
-            APPLY
-          </Button>
           <Button color="secondary" onClick={toggle}>
-            DISCARD
+            CLOSE
           </Button>
         </Drawer>
       </div>
@@ -145,4 +143,5 @@ class SocialPanel extends React.Component {
   }
 }
 
-export default withStyles(styles)(SocialPanel);
+SocialPanel.displayName = 'SocialPanel';
+export default SocialPanel;

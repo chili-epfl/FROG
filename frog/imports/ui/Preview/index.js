@@ -94,7 +94,7 @@ const PreviewPage = ({
   return (
     <React.Fragment>
       {activityTypeId && <StatelessPreview {...statelessProps} />}
-      {!activityTypeId && <Preview history={history} noModal allExamples />}
+      {!activityTypeId && <Preview history={history} noModal />}
     </React.Fragment>
   );
 };

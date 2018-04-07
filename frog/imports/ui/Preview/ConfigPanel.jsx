@@ -3,6 +3,8 @@
 import * as React from 'react';
 
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import { initActivityDocuments } from './Preview';
+import { activityTypesObj } from '../../activityTypes';
 
 const style = {
   side: {
@@ -20,19 +22,18 @@ export default ({
   setConfig,
   activityTypeId,
   setActivityTypeId,
+  instances,
   history
-}) => (
+}: Object) => (
   <div style={style.side} className="bootstrap">
     <ApiForm
       config={config}
       activityType={activityTypeId}
       onConfigChange={e => {
-        if (e.errors.length === 0) {
-          setConfig(e.config);
-        } else {
-          setConfig({ invalid: true });
-        }
+        setConfig(e.errors.length === 0 ? e.config : { invalid: true });
         setActivityTypeId(e.activityType);
+        const activityType = activityTypesObj[e.activityType];
+        initActivityDocuments(instances, activityType, -1, true);
       }}
       onPreview={e => history.push(`/preview/${e}`)}
       reload={reloadAPIform}
