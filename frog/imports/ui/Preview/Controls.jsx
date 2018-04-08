@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { Nav, NavItem } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 import { uuid } from 'frog-utils';
 
@@ -35,7 +34,6 @@ export default (props: Object) => {
     setShowLogs,
     setReloadAPIform,
     showLogs,
-    isSeparatePage,
     setActivityTypeId,
     setExample,
     plane,
@@ -136,14 +134,6 @@ export default (props: Object) => {
           icon="fa fa-arrows-alt"
           tooltip="Toggle full window"
         />
-        {!isSeparatePage && (
-          <Link
-            style={{ marginLeft: '10px' }}
-            to={`/preview/${activityType.id}/${example}`}
-          >
-            <i className="fa fa-share" data-tip="Open in permanent URL" />
-          </Link>
-        )}
       </h4>
       {ex && (
         <Nav bsStyle="pills" activeKey={example}>
