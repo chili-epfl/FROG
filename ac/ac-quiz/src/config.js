@@ -72,5 +72,5 @@ export const validateConfig = [
 export const configUI = {
   'questions.answers.x': { conditional: 'argueWeighting' },
   'questions.answers.y': { conditional: 'argueWeighting' },
-  'questions.answers.iscorrect': { conditional: 'hasAnswers' }
+  'questions.answers.isCorrect': { conditional: 'hasAnswers' }
 };
