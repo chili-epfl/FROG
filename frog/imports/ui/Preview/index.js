@@ -3,10 +3,37 @@
 import * as React from 'react';
 import { toObject } from 'query-parse';
 import { withRouter } from 'react-router';
+import { withState, compose } from 'recompose';
 
 import Preview from './Preview';
+import { activityTypesObj } from '../../activityTypes';
 
-export const ModalPreview = (props: Object) => <Preview modal {...props}/>
+export const ModalPreview = compose(
+  withState('fullWindow', 'setFullWindow', false),
+  withState('showData', 'setShowData', false),
+  withState('showDash', 'setShowDash', false),
+  withState('showDashExample', 'setShowDashExample', false),
+  withState('windows', 'setWindows', 1),
+  withState('showLogs', 'setShowLogs', false),
+  withState('users', 'setUsers', ['Chen Li']),
+  withState('instances', 'setInstances', ['Chen Li']),
+  withState('plane', 'setPlane', 1),
+  withState('reloadAPIform', 'setReloadAPIform', undefined),
+  withState('example', 'setExample', 0),
+  withState('config', 'setConfig', undefined)
+)((props: Object) => {
+  const { config, _config, withoutExamples, activityTypeId, example } = props;
+  if (!config) {
+    if (_config) {
+      props.setConfig(_config);
+    } else if (!withoutExamples) {
+      const aT = activityTypesObj[activityTypeId];
+      const exConfig = aT.meta.exampleData[example].config;
+      props.setConfig(exConfig);
+    }
+  }
+  return <Preview modal {...props} />;
+});
 
 class PreviewPage extends React.Component<any, any> {
   setStates: { [state: string]: Function };

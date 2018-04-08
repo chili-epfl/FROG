@@ -79,29 +79,6 @@ export const StatelessPreview = (props: Object) => {
     instances
   } = props;
 
-  if(modal) {
-    return (
-      <Modal
-        ariaHideApp={false}
-        contentLabel={'Preview of ' + activityTypeId}
-        isOpen
-        onRequestClose={dismiss}
-      >
-        <Controls {...props} withoutExamples />
-        {showLogs && !showDashExample ? (
-          <ShowLogs logs={Logs} />
-        ) : (
-          <Content
-            {...props}
-            users={['Chen Li']}
-            instances={['Chen Li']}
-          />
-        )}
-        <ReactTooltip delayShow={1000} />
-      </Modal>
-    )
-  }
-
   const activityType = activityTypesObj[activityTypeId];
   if (!activityType) {
     return (
@@ -113,64 +90,53 @@ export const StatelessPreview = (props: Object) => {
 
   initActivityDocuments(instances, activityType, example, config, false);
 
-  const FullWindowLayout = (
+  const PreviewContent =
+    showLogs && !showDashExample ? (
+      <ShowLogs logs={Logs} />
+    ) : (
+      <Content {...props} />
+    );
+
+  const FullWindowP = (
     <div>
-      <div className={classes.fullWindow}>
-        {showLogs && !showDashExample ? (
-          <ShowLogs logs={Logs} />
-        ) : (
-          <Content {...props} />
-        )}
-      </div>
+      <div className={classes.fullWindow}>{PreviewContent}</div>
       <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
         <div className={classes.fullWindowControl}>
           <Controls {...props} />
         </div>
       </Draggable>
+      <SocialPanel {...props} />
       <ReactTooltip delayShow={1000} />
     </div>
   );
 
-  const NoModalLayout = (
-    <div className={classes.noModal}>
-      <Controls {...props} />
-      {showLogs && !showDashExample ? (
-        <ShowLogs logs={Logs} />
-      ) : (
-        <Content {...props} />
-      )}
-      <ReactTooltip delayShow={1000} />
+  const NoModalP = (
+    <div className={classes.main}>
+      <ConfigPanel {...props} />
+      <div className={classes.noModal}>
+        <Controls {...props} />
+        {PreviewContent}
+        <ReactTooltip delayShow={1000} />
+      </div>
+      <SocialPanel {...props} />
     </div>
   );
 
-  const Layout = fullWindow ? (
-    FullWindowLayout
-  ) : !modal ? (
-    NoModalLayout
-  ) : (
+  const ModalP = (
     <Modal
       ariaHideApp={false}
       contentLabel={'Preview of ' + activityTypeId}
       isOpen
-      onRequestClose={() => {}}
+      onRequestClose={dismiss}
     >
       <Controls {...props} />
-      {showLogs && !showDashExample ? (
-        <ShowLogs logs={Logs} />
-      ) : (
-        <Content {...props} />
-      )}
+      {PreviewContent}
+      <SocialPanel {...props} />
       <ReactTooltip delayShow={1000} />
     </Modal>
   );
 
-  return (
-    <div className={classes.main}>
-      <ConfigPanel {...props} />
-      {Layout}
-      <SocialPanel {...props} />
-    </div>
-  );
+  return fullWindow ? FullWindowP : modal ? ModalP : NoModalP;
 };
 
 const StyledPreview = withStyles(styles)(StatelessPreview);

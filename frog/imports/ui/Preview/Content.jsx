@@ -25,9 +25,10 @@ export const initActivityDocuments = (
       if (mergeFunction) {
         const dataFn = generateReactiveFn(_doc);
         const exs = activityType.meta.exampleData;
-        const data = example === -1
-          ? cloneDeep(activityType.dataStructure)
-          : exs[example].data
+        const data =
+          example === -1 || example === undefined
+            ? cloneDeep(activityType.dataStructure)
+            : exs[example].data;
         mergeFunction(cloneDeep({ data, config }), dataFn);
       }
     };
@@ -69,7 +70,7 @@ export default ({
   if (!users || !instances) {
     return <p>There is no user</p>;
   }
-  if (config && config.invalid) {
+  if (config === undefined || config.invalid) {
     return <p>The config is invalid</p>;
   }
 

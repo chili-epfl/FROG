@@ -52,13 +52,15 @@ export default ({
     Logs.length = 0;
   };
 
-  const _dismiss = dismiss || (() => {
-    setActivityTypeId(null);
-    setExample(-1);
-    setConfig({});
-    setReloadAPIform(uuid());
-    Logs.length = 0;
-  });
+  const _dismiss =
+    dismiss ||
+    (() => {
+      setActivityTypeId(null);
+      setExample(-1);
+      setConfig({});
+      setReloadAPIform(uuid());
+      Logs.length = 0;
+    });
 
   return (
     <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
@@ -118,25 +120,34 @@ export default ({
           </Link>
         )}
       </h4>
-      {!withoutExamples && ex && <Nav bsStyle="pills" activeKey={example}>
-        {ex.map((x, i) => (
-            <NavItem
-              key={x.title}
-              className="examples"
-              eventKey={i}
-              onClick={() => {
-                const exConf = activityType.meta.exampleData[i].config;
-                setConfig(exConf);
-                setReloadAPIform(uuid());
-                initActivityDocuments(instances, activityType, i, exConf, true);
-                initDashboardDocuments(activityType, true);
-                setExample(i);
-              }}
-            >
-              {x.title}
-            </NavItem>
-          ))}
-      </Nav>}
+      {!withoutExamples &&
+        ex && (
+          <Nav bsStyle="pills" activeKey={example}>
+            {ex.map((x, i) => (
+              <NavItem
+                key={x.title}
+                className="examples"
+                eventKey={i}
+                onClick={() => {
+                  const exConf = activityType.meta.exampleData[i].config;
+                  setConfig(exConf);
+                  setReloadAPIform(uuid());
+                  initActivityDocuments(
+                    instances,
+                    activityType,
+                    i,
+                    exConf,
+                    true
+                  );
+                  initDashboardDocuments(activityType, true);
+                  setExample(i);
+                }}
+              >
+                {x.title}
+              </NavItem>
+            ))}
+          </Nav>
+        )}
     </div>
   );
 };
