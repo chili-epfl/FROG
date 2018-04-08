@@ -27,7 +27,7 @@ export const restartSession = (session: Object) => {
 Meteor.methods({
   'sessions.restart': session => {
     if (Meteor.isServer) {
-      const graphId = session.graphId;
+      const graphId = session && session.fromGraphId;
       if (!graphId) {
         return;
       }
