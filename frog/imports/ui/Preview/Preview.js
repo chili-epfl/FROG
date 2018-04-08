@@ -13,7 +13,6 @@ import { Logs } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import Controls from './Controls';
 import Content, { initActivityDocuments } from './Content';
-import SocialPanel from './SocialPanel';
 import ConfigPanel from './ConfigPanel';
 
 const backend = new ShareDB();
@@ -105,7 +104,6 @@ export const StatelessPreview = (props: Object) => {
           <Controls {...props} />
         </div>
       </Draggable>
-      <SocialPanel {...props} />
       <ReactTooltip delayShow={1000} place="right" />
     </div>
   );
@@ -118,7 +116,6 @@ export const StatelessPreview = (props: Object) => {
         {PreviewContent}
         <ReactTooltip delayShow={1000} place="right" />
       </div>
-      <SocialPanel {...props} />
     </div>
   );
 
@@ -131,7 +128,6 @@ export const StatelessPreview = (props: Object) => {
     >
       <Controls {...props} />
       {PreviewContent}
-      <SocialPanel {...props} />
       <ReactTooltip delayShow={1000} place="right" />
     </Modal>
   );

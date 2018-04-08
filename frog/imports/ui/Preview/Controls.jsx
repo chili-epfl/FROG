@@ -13,7 +13,10 @@ import {
 } from './dashboardInPreviewAPI';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
-import { getSocialControls } from './SocialPanel';
+
+const names = 'Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis'.split(
+  ','
+);
 
 export default (props: Object) => {
   const {
@@ -37,7 +40,10 @@ export default (props: Object) => {
     setActivityTypeId,
     setExample,
     plane,
-    users
+    users,
+    setUsers,
+    setPlane,
+    setInstances
   } = props;
   const activityType = activityTypesObj[activityTypeId];
   if (!activityType) {
@@ -66,7 +72,26 @@ export default (props: Object) => {
     }
   };
 
-  const { add, remove, switchPlane } = getSocialControls(props);
+  const add = () => {
+    const newName = names[users.length % names.length];
+    const newGroup = 1 + Math.floor(users.length / 2);
+    setUsers([...users, newName]);
+    setInstances([...instances, [newName, newGroup, 'all'][plane - 1]]);
+  };
+  const remove = () => {
+    setUsers(users.slice(0, users.length - 1));
+    setInstances(instances.slice(0, instances.length - 1));
+  };
+  const switchPlane = () => {
+    const newPlane = 1 + plane % 3;
+    setPlane(newPlane);
+    setInstances(
+      users.map(
+        (name, idx) => [name, 1 + Math.floor(idx / 2), 'all'][newPlane - 1]
+      )
+    );
+  };
+
   return (
     <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
       <button
