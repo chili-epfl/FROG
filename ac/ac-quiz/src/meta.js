@@ -179,7 +179,6 @@ const capitalQuizConfig = {
 
 export default {
   name: 'Quiz',
-  shortName: 'Quiz',
   shortDesc: 'Filling a MCQ form (quiz)',
   description:
     'Display a multiple-choice questions form. Can also be used for questionnaires.',
