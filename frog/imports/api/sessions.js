@@ -28,7 +28,7 @@ Meteor.methods({
   'sessions.restart': session => {
     if (Meteor.isServer) {
       const graphId = session.graphId;
-      if (!graphId || !session) {
+      if (!graphId) {
         return;
       }
       sessionCancelCountDown(session._id);
