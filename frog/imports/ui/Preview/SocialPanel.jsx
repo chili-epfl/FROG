@@ -22,6 +22,35 @@ const names = [
   'Louis'
 ];
 
+export const getSocialControls = ({
+  users,
+  setUsers,
+  plane,
+  setPlane,
+  instances,
+  setInstances
+}: Object) => ({
+  add: () => {
+    const newName = names[users.length % names.length];
+    const newGroup = 1 + Math.floor(users.length / 2);
+    setUsers([...users, newName]);
+    setInstances([...instances, [newName, newGroup, 'all'][plane - 1]]);
+  },
+  remove: () => {
+    setUsers(users.slice(0, users.length - 1));
+    setInstances(instances.slice(0, instances.length - 1));
+  },
+  switchPlane: () => {
+    const newPlane = 1 + plane % 3;
+    setPlane(newPlane);
+    setInstances(
+      users.map(
+        (name, idx) => [name, 1 + Math.floor(idx / 2), 'all'][newPlane - 1]
+      )
+    );
+  }
+});
+
 const StudentBox = ({ name, instance, plane, onChange, classes }) => (
   <div>
     <TextField
@@ -47,7 +76,6 @@ type PropsT = {
   instances: string[],
   plane: number,
   setUsers: Function,
-  setPlane: Function,
   setInstances: Function
 };
 
@@ -65,7 +93,6 @@ class SocialPanel extends React.Component<PropsT, StateT> {
       classes,
       setUsers,
       setInstances,
-      setPlane,
       plane,
       users,
       instances
@@ -73,25 +100,7 @@ class SocialPanel extends React.Component<PropsT, StateT> {
     const { open } = this.state;
 
     const toggle = () => this.setState({ open: !open });
-    const add = () => {
-      const newName = names[users.length % names.length];
-      const newGroup = 1 + Math.floor(users.length / 2);
-      setUsers([...users, newName]);
-      setInstances([...instances, [newName, newGroup, 'all'][plane - 1]]);
-    };
-    const remove = () => {
-      setUsers(users.slice(0, users.length - 1));
-      setInstances(instances.slice(0, instances.length - 1));
-    };
-    const switchPlane = () => {
-      const newPlane = 1 + plane % 3;
-      setPlane(newPlane);
-      setInstances(
-        users.map(
-          (name, idx) => [name, 1 + Math.floor(idx / 2), 'all'][newPlane - 1]
-        )
-      );
-    };
+    const { add, remove, switchPlane } = getSocialControls(this.props);
     const onChange = idx => (newName, newInstance) => {
       users[idx] = newName;
       setUsers(users);

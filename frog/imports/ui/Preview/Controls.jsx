@@ -14,29 +14,33 @@ import {
 } from './dashboardInPreviewAPI';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
+import { getSocialControls } from './SocialPanel';
 
-export default ({
-  activityTypeId,
-  instances,
-  config,
-  dismiss,
-  setFullWindow,
-  fullWindow,
-  example,
-  setConfig,
-  setShowData,
-  showData,
-  setShowDash,
-  showDash,
-  setShowDashExample,
-  showDashExample,
-  setShowLogs,
-  setReloadAPIform,
-  showLogs,
-  isSeparatePage,
-  setActivityTypeId,
-  setExample
-}: Object) => {
+export default (props: Object) => {
+  const {
+    activityTypeId,
+    instances,
+    config,
+    dismiss,
+    setFullWindow,
+    fullWindow,
+    example,
+    setConfig,
+    setShowData,
+    showData,
+    setShowDash,
+    showDash,
+    setShowDashExample,
+    showDashExample,
+    setShowLogs,
+    setReloadAPIform,
+    showLogs,
+    isSeparatePage,
+    setActivityTypeId,
+    setExample,
+    plane,
+    users
+  } = props;
   const activityType = activityTypesObj[activityTypeId];
   if (!activityType) {
     return <p>Choose and activityType</p>;
@@ -60,7 +64,7 @@ export default ({
       setReloadAPIform(uuid());
       Logs.length = 0;
     });
-
+  const { add, remove, switchPlane } = getSocialControls(props);
   return (
     <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
       <button
@@ -99,6 +103,28 @@ export default ({
           icon="fa fa-list"
           color={showLogs ? '#3d76b8' : '#b3cae6'}
           tooltip="Toggle log table"
+        />
+        <Icon
+          onClick={add}
+          icon="fa fa-user-plus"
+          color="#3d76b8"
+          tooltip="Add a user"
+        />
+        <Icon
+          onClick={remove}
+          icon="fa fa-user-times"
+          color={users.length > 1 ? '#3d76b8' : '#b3cae6'}
+          tooltip="Remove one user"
+        />
+        <Icon
+          onClick={switchPlane}
+          icon={
+            ['fa fa-user-circle-o', 'fa fa-users', 'fa fa-university'][
+              plane - 1
+            ]
+          }
+          color="#3d76b8"
+          tooltip="Change plane"
         />
         <Icon
           onClick={refresh}

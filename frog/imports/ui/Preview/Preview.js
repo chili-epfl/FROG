@@ -106,7 +106,7 @@ export const StatelessPreview = (props: Object) => {
         </div>
       </Draggable>
       <SocialPanel {...props} />
-      <ReactTooltip delayShow={1000} />
+      <ReactTooltip delayShow={1000} place="right" />
     </div>
   );
 
@@ -116,7 +116,7 @@ export const StatelessPreview = (props: Object) => {
       <div className={classes.noModal}>
         <Controls {...props} />
         {PreviewContent}
-        <ReactTooltip delayShow={1000} />
+        <ReactTooltip delayShow={1000} place="right" />
       </div>
       <SocialPanel {...props} />
     </div>
@@ -132,7 +132,7 @@ export const StatelessPreview = (props: Object) => {
       <Controls {...props} />
       {PreviewContent}
       <SocialPanel {...props} />
-      <ReactTooltip delayShow={1000} />
+      <ReactTooltip delayShow={1000} place="right" />
     </Modal>
   );
 
