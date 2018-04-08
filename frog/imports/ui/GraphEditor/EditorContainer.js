@@ -70,7 +70,6 @@ class Editor extends Component {
           activityTypeId={this.props.store.ui.showPreview.activityTypeId}
           _config={this.props.store.ui.showPreview.config}
           dismiss={() => this.props.store.ui.setShowPreview(false)}
-          withoutExample
         />
       );
     }

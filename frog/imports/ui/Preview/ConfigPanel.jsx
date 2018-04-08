@@ -34,11 +34,11 @@ export default ({
           setConfig(e.config);
           const activityType = activityTypesObj[e.activityType];
           initActivityDocuments(instances, activityType, -1, e.config, true);
-          setActivityTypeId(e.activityType);
           initDashboardDocuments(activityType, true);
         } else {
           setConfig({ invalid: true });
         }
+        setActivityTypeId(e.activityType);
       }}
       onPreview={setActivityTypeId}
       reload={reloadAPIform}

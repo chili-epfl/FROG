@@ -12,6 +12,8 @@ import ShowDashExample from './ShowDashExample';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from './Preview';
 
+const DocId = (acId, instance) => ('preview/' + acId +  '/' + instance)
+
 export const initActivityDocuments = (
   instances: string[],
   activityType: Object,
@@ -19,6 +21,7 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
+  console.log('initActivityDocuments', activityType)
   instances.forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
@@ -33,7 +36,7 @@ export const initActivityDocuments = (
       }
     };
 
-    const doc = connection.get('rz', 'preview/' + instance);
+    const doc = connection.get('rz', DocId(activityType.id, instance));
     doc.fetch();
     if (!doc.type) {
       doc.once('load', () => {
@@ -87,7 +90,8 @@ export default ({
   const activityData = { data, config };
 
   const Run = ({ name, idx, instance }) => {
-    const ActivityToRun = ReactiveHOC('preview/' + instance, connection)(
+    const docId = DocId(activityType.id, instance)
+    const ActivityToRun = ReactiveHOC(docId, connection)(
       showData ? ShowInfo : RunComp
     );
     return (

@@ -16,7 +16,6 @@ import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 
 export default ({
-  withoutExamples,
   activityTypeId,
   instances,
   config,
@@ -120,7 +119,7 @@ export default ({
           </Link>
         )}
       </h4>
-      {!withoutExamples &&
+      {
         ex && (
           <Nav bsStyle="pills" activeKey={example}>
             {ex.map((x, i) => (

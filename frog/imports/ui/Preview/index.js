@@ -22,11 +22,11 @@ export const ModalPreview = compose(
   withState('example', 'setExample', 0),
   withState('config', 'setConfig', undefined)
 )((props: Object) => {
-  const { config, _config, withoutExamples, activityTypeId, example } = props;
+  const { config, _config, activityTypeId, example } = props;
   if (!config) {
     if (_config) {
       props.setConfig(_config);
-    } else if (!withoutExamples) {
+    } else {
       const aT = activityTypesObj[activityTypeId];
       const exConfig = aT.meta.exampleData[example].config;
       props.setConfig(exConfig);
@@ -76,13 +76,12 @@ class PreviewPage extends React.Component<any, any> {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps, nextState) {
     const { history, location: { search } } = nextProps;
     const statedump = JSON.stringify(nextState);
     if (statedump !== toObject(search.slice(1)).statedump) {
       history.push(`/preview?statedump=${JSON.stringify(nextState)}`);
     }
-    return true;
   }
 
   render() {
