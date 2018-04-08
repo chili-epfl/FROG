@@ -119,34 +119,27 @@ export default ({
           </Link>
         )}
       </h4>
-      {
-        ex && (
-          <Nav bsStyle="pills" activeKey={example}>
-            {ex.map((x, i) => (
-              <NavItem
-                key={x.title}
-                className="examples"
-                eventKey={i}
-                onClick={() => {
-                  const exConf = activityType.meta.exampleData[i].config;
-                  setConfig(exConf);
-                  setReloadAPIform(uuid());
-                  initActivityDocuments(
-                    instances,
-                    activityType,
-                    i,
-                    exConf,
-                    true
-                  );
-                  initDashboardDocuments(activityType, true);
-                  setExample(i);
-                }}
-              >
-                {x.title}
-              </NavItem>
-            ))}
-          </Nav>
-        )}
+      {ex && (
+        <Nav bsStyle="pills" activeKey={example}>
+          {ex.map((x, i) => (
+            <NavItem
+              key={x.title}
+              className="examples"
+              eventKey={i}
+              onClick={() => {
+                const exConf = activityType.meta.exampleData[i].config;
+                setConfig(exConf);
+                setReloadAPIform(uuid());
+                initActivityDocuments(instances, activityType, i, exConf, true);
+                initDashboardDocuments(activityType, true);
+                setExample(i);
+              }}
+            >
+              {x.title}
+            </NavItem>
+          ))}
+        </Nav>
+      )}
     </div>
   );
 };
