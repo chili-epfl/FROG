@@ -53,15 +53,19 @@ export default (props: Object) => {
     Logs.length = 0;
   };
 
-  const _dismiss =
-    dismiss ||
-    (() => {
+  const _dismiss = () => {
+    setFullWindow(false);
+    if (dismiss) {
+      dismiss();
+    } else {
       setActivityTypeId(null);
       setExample(-1);
       setConfig({});
       setReloadAPIform(uuid());
       Logs.length = 0;
-    });
+    }
+  };
+
   const { add, remove, switchPlane } = getSocialControls(props);
   return (
     <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
