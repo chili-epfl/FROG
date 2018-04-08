@@ -94,15 +94,13 @@ export class DashboardComp extends React.Component<
     }
     const Viewer = aT.dashboard[name].Viewer;
     return this.state.data ? (
-      <div style={{ width: '100%' }}>
-        <Viewer
-          users={users}
-          activity={activity}
-          instances={instances}
-          config={activity.data}
-          data={this.state.data}
-        />
-      </div>
+      <Viewer
+        users={users}
+        activity={activity}
+        instances={instances}
+        config={activity.data}
+        data={this.state.data}
+      />
     ) : (
       <Spinner />
     );
