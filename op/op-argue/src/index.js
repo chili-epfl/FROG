@@ -9,10 +9,7 @@ const meta = {
   description: 'Group students with as many similar answers as possible.'
 };
 
-const config = {
-  type: 'object',
-  properties: {}
-};
+const config = {};
 
 const optim = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 

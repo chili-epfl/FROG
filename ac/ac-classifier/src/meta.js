@@ -2,6 +2,7 @@
 
 export default {
   name: 'Learning Component Classifier',
+  shortName: 'Classifier',
   type: 'react-component',
   shortDesc: 'Quickly display images to classify',
   description:

@@ -2,6 +2,7 @@
 
 export const meta = {
   name: 'Common Knowledge board',
+  shortName: 'CK Board',
   mode: 'collab',
   shortDesc: '2D board for placing items',
   description:

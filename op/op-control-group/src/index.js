@@ -6,7 +6,7 @@ import { invert, compact } from 'lodash';
 import { config, configUI } from './config';
 
 const meta = {
-  name: 'Social -> Control',
+  name: 'Social->Control',
   shortDesc: 'Maps social attributes to control structures',
   description: ''
 };
