@@ -23,16 +23,11 @@ type PropsT = {
   onSelect?: Function,
   onPreview?: Function,
   activity: ActivityDbT,
-<<<<<<< HEAD
   setDelete?: Function,
   setIdRemove?: Function,
   importList?: Array<Object>,
   setImportList?: Function,
   onlyHasPreview?: boolean
-=======
-  onlyHasPreview?: boolean,
-  store: Object
->>>>>>> develop
 };
 
 export class ChooseActivityType extends Component<PropsT, StateT> {
