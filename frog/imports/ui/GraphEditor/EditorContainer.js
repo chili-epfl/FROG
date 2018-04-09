@@ -15,8 +15,8 @@ import TopPanel from './TopPanel';
 import { ModalPreview } from '../Preview';
 import TopBar from '../App/TopBar';
 
-import { removeActivity } from '../../api/remoteActivities';
-import { removeGraph } from '../../api/remoteGraphs';
+import { removeActivity, collectActivities } from '../../api/remoteActivities';
+import { removeGraph, collectGraphs } from '../../api/remoteGraphs';
 
 const styles = () => ({
   root: {
@@ -62,10 +62,13 @@ const EditorPanel = () => (
 );
 
 type StateT = {
+  lastRefreshAct: Date,
+  lastRefreshGraph: Date,
   exportOpen: Boolean,
   importOpen: Boolean,
   deleteOpen: Boolean,
-  importList: Array<any>,
+  importActivityList: Array<any>,
+  importGraphList: Array<any>,
   idRemove: string
 };
 
@@ -73,12 +76,21 @@ class Editor extends Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
+      lastRefreshAct: new Date(),
+      lastRefreshGraph: new Date(),
       exportOpen: false,
       importOpen: false,
       deleteOpen: false,
-      importList: [],
+      importActivityList: [],
+      importGraphList: [],
       idRemove: ''
     };
+    collectActivities().then(e =>
+      e.forEach(x => this.setState({importActivityList: [...this.state.importActivityList, x]}))
+    );
+    collectGraphs().then(e =>
+      e.forEach(x => this.setState({importGraphList: [...this.state.importGraphList, x]}))
+    );
   }
 
   componentDidMount() {
@@ -103,8 +115,10 @@ class Editor extends Component<Object, StateT> {
     }
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
-    const setImportList = (val, fun?) =>
-      this.setState({ importList: val }, fun);
+    const setImportActivityList = (val, fun?) =>
+      this.setState({ importActivityList: val }, fun);
+    const setImportGraphList = (val, fun?) =>
+      this.setState({ importGraphList: val }, fun);
 
     return (
       <div className={classes.root}>
@@ -124,8 +138,9 @@ class Editor extends Component<Object, StateT> {
           <ModalImport
             modalOpen={this.state.importOpen}
             setModal={val => this.setState({ importOpen: val })}
-            importList={this.state.importList}
-            {...{ setImportList, setDelete, setIdRemove }}
+            importGraphList={this.state.importGraphList}
+            importActivityList={this.state.importActivityList}
+            {...{ setImportActivityList, setImportGraphList, setDelete, setIdRemove }}
           />
           <ModalDelete
             modalOpen={this.state.deleteOpen}
@@ -136,7 +151,7 @@ class Editor extends Component<Object, StateT> {
                 : removeActivity(this.state.idRemove);
               promise.then(
                 this.setState({
-                  importList: this.state.importList.filter(
+                  importList: (this.state.importOpen ? this.state.importGraphList : this.state.importActivityList).filter(
                     x => x.uuid !== this.state.idRemove
                   )
                 })
@@ -148,8 +163,9 @@ class Editor extends Component<Object, StateT> {
               <EditorPanel />
             </div>
             <SidePanel
-              importList={this.state.importList}
-              {...{ setDelete, setIdRemove, setImportList }}
+              importList={this.state.importActivityList}
+              setImportList={setImportActivityList}
+              {...{ setDelete, setIdRemove }}
             />
           </div>
         </div>

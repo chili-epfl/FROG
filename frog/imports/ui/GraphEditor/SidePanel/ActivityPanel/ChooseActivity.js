@@ -153,7 +153,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               setDelete={this.props.setDelete}
               setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
-              searchStr={this.state.searchStr}
+              // searchStr={this.state.searchStr}
               store={this.props.store}
             />
           ) : (

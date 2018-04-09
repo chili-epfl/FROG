@@ -1,10 +1,12 @@
 // @flow
 import React, { Component } from 'react';
+import TextField from 'material-ui/TextField';
 
 import { collectGraphs, importGraph } from '/imports/api/remoteGraphs';
 import { collectActivities } from '/imports/api/remoteActivities';
 import { addActivity } from '/imports/api/activities';
 import LibraryListComponent from './LibraryListComponent';
+
 
 const myFilter = (list: Array<any>, searchStr: string) =>
   list
@@ -18,7 +20,12 @@ const myFilter = (list: Array<any>, searchStr: string) =>
     )
     .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
 
-class Library extends Component<Object> {
+class Library extends Component<Object, {searchStr: string}> {
+  constructor(props){
+    super(props)
+    this.state = {searchStr: ''}
+  }
+
   componentWillMount() {
     this.props.setImportList([]);
     const collect =
@@ -37,12 +44,17 @@ class Library extends Component<Object> {
       setDelete,
       setIdRemove,
       activityId,
-      searchStr,
       libraryType,
-      store,
-      importList
+      store
     } = this.props;
+    const list = libraryType === 'activity' ? this.props.importActivityList : this.props.importGraphList
     return (
+      <React.Fragment>
+      <TextField
+        value={this.state.searchStr}
+        onChange={e => this.setState({searchStr: e.target.value})}
+        id="exampleFormControlTextarea1"
+      />
       <div
         className="list-group"
         style={{
@@ -52,7 +64,7 @@ class Library extends Component<Object> {
           transform: 'translateY(10px)'
         }}
       >
-        {myFilter(importList, searchStr).length === 0 ? (
+        {myFilter(list, this.state.searchStr).length === 0 ? (
           <div
             style={{
               marginTop: '20px',
@@ -63,7 +75,7 @@ class Library extends Component<Object> {
             No result
           </div>
         ) : (
-          myFilter(importList, searchStr).map((x: Object) => (
+          myFilter(list, this.state.searchStr).map((x: Object) => (
             <LibraryListComponent
               onSelect={() => {
                 if (libraryType === 'activity') {
@@ -89,11 +101,13 @@ class Library extends Component<Object> {
                 })
               }
               eventKey={x.uuid}
-              {...{ searchStr, setDelete, setIdRemove }}
+              searchStr={this.state.searchStr}
+              {...{ setDelete, setIdRemove }}
             />
           ))
         )}
       </div>
+    </React.Fragment>
     );
   }
 }

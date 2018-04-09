@@ -7,18 +7,14 @@ import Dialog, {
   DialogTitle
 } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import { withState } from 'recompose';
 
 import Library from './RemoteLibrary';
 
 const ImportModal = ({
   modalOpen,
   setModal,
-  searchStr,
-  setSearchStr,
-  importList,
-  setImportList,
+  importGraphList,
+  importActivityList,
   setDelete,
   setIdRemove
 }) => (
@@ -31,19 +27,13 @@ const ImportModal = ({
         overflowY: 'scroll'
       }}
     >
-      <TextField
-        value={searchStr}
-        onChange={e => setSearchStr(e.target.value)}
-        id="exampleFormControlTextarea1"
-      />
       <div style={{ height: '10px' }} />
       <Library
         libraryType="graph"
         {...{
           setModal,
-          searchStr,
-          importList,
-          setImportList,
+          importGraphList,
+          importActivityList,
           setDelete,
           setIdRemove
         }}
@@ -55,4 +45,4 @@ const ImportModal = ({
   </Dialog>
 );
 
-export default withState('searchStr', 'setSearchStr', '')(ImportModal);
+export default ImportModal;
