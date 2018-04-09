@@ -1,31 +1,53 @@
 import { Meteor } from 'meteor/meteor';
+import { set, cloneDeep, isEqual } from 'lodash';
 import { uuid } from 'frog-utils';
 
-function update(that) {
-  that.changed('counter', 1, { date: new Date() });
-}
+import { activityTypesObj } from '../imports/activityTypes';
+import { DashboardStates } from './cache';
 
-let interval;
+const interval = {};
 const subscriptions = {};
-let initial = true;
+const oldState = {};
+const oldInput = {};
+
+const update = (that, dashId, func) => {
+  console.log('check');
+  if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
+    console.log('new input');
+    const newState = func(cloneDeep(DashboardStates[dashId]));
+    if (!isEqual(oldState[dashId], newState)) {
+      console.log('new output');
+      that.changed('dashboard', dashId, newState);
+      oldState[dashId] = newState;
+      oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
+    }
+  }
+};
 
 export default () => {
-  Meteor.publish('counter', function() {
+  Meteor.publish('dashboard', function(activityId, activityType, dashboard) {
     const id = uuid();
-    subscriptions[id] = true;
-    if (!interval) {
-      interval = setInterval(() => update(this), 1000);
+    const dashId = activityId + '-' + dashboard;
+    if (DashboardStates[dashId] === undefined) {
+      this.ready();
+      return;
     }
-    if (initial) {
-      this.added('counter', 1, { date: new Date() });
-      initial = false;
+    set(subscriptions, [dashId, id], true);
+    const func =
+      activityTypesObj[activityType].dashboard[dashboard].prepareDisplay;
+    const newState = func(cloneDeep(DashboardStates[dashId]));
+    this.added('dashboard', dashId, newState);
+    oldState[dashId] = newState;
+    oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
+    if (!interval[dashId]) {
+      interval[dashId] = setInterval(() => update(this, dashId, func), 1000);
     }
     this.ready();
     this.onStop(() => {
-      delete subscriptions[id];
-      if (Object.keys(subscriptions).length === 0) {
-        clearInterval(interval);
-        interval = false;
+      delete subscriptions[dashId][id];
+      if (Object.keys(subscriptions[dashId]).length === 0) {
+        clearInterval(interval[dashId]);
+        interval[dashId] = false;
       }
     });
   });

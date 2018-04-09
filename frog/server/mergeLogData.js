@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 import { activityTypesObj } from '../imports/activityTypes';
 import { Logs } from '../imports/api/logs';
-import { DashboardState } from './cache';
+import { DashboardStates } from './cache';
 import { Activities } from '../imports/api/activities.js';
 
 const activityCache = {};
@@ -25,12 +25,12 @@ const mergeLog = (rawLog, logExtra) => {
           Object.keys(aT.dashboard).forEach(name => {
             const mergeLogFn = aT.dashboard[name].mergeLog;
             if (mergeLogFn) {
-              if (!DashboardState[log.activityId + '-' + name]) {
-                DashboardState[log.activityId + '-' + name] =
+              if (!DashboardStates[log.activityId + '-' + name]) {
+                DashboardStates[log.activityId + '-' + name] =
                   aT.dashboard[name].initData || {};
               }
               mergeLogFn(
-                DashboardState[log.activityId + '-' + name],
+                DashboardStates[log.activityId + '-' + name],
                 log,
                 activity
               );

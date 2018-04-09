@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 
@@ -15,6 +16,8 @@ import { activityTypesObj } from '../../activityTypes';
 import { connection } from '../App/connection';
 import MultiWrapper from './MultiWrapper';
 
+const Dashboard = new Mongo.Collection('dashboard');
+
 type DashboardCompPropsT = {
   doc?: any,
   activity: ActivityDbT,
@@ -25,66 +28,31 @@ type DashboardCompPropsT = {
 
 export class DashboardComp extends React.Component<
   DashboardCompPropsT,
-  { data: any }
+  { ready: boolean }
 > {
   doc: any;
   mounted: boolean;
+  subscription: any;
 
   constructor(props: DashboardCompPropsT) {
     super(props);
-    this.state = { data: null };
+    this.state = { ready: false };
   }
 
   componentDidMount = () => {
     this.mounted = true;
-    this.init(this.props);
-  };
-
-  init(props: Object) {
-    if (props.doc) {
-      this.doc = props.doc;
-      this.update();
-    } else {
-      const _conn = props.conn || connection || {};
-      const reactiveName = dashDocId(props.activity._id, props.name);
-      this.doc = _conn.get('rz', reactiveName);
-      this.doc.setMaxListeners(30);
-      this.doc.subscribe();
-      if (this.doc.type) {
-        this.update();
-      } else {
-        this.doc.on('load', this.update);
-      }
-    }
-    this.doc.on('op', this.update);
-  }
-
-  update = () => {
-    if (this.mounted) {
-      this.setState({ data: this.doc.data });
-    }
+    this.subscription = Meteor.subscribe(
+      'dashboard',
+      this.props.activity._id,
+      this.props.activity.activityType,
+      this.props.name,
+      { onReady: () => this.setState({ ready: true }) }
+    );
   };
 
   componentWillUnmount = () => {
-    this.doc.removeListener('op', this.update);
-    this.doc.removeListener('load', this.update);
-    this.mounted = false;
+    this.subscription.stop();
   };
-
-  componentWillReceiveProps(nextProps: Object) {
-    if (
-      this.props.activity._id !== nextProps.activity._id ||
-      !this.doc ||
-      this.props.name !== nextProps.name ||
-      this.props.doc !== nextProps.doc
-    ) {
-      if (this.doc) {
-        this.doc.destroy();
-      }
-      this.setState({ data: null });
-      this.init(nextProps);
-    }
-  }
 
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
@@ -92,17 +60,24 @@ export class DashboardComp extends React.Component<
     if (!aT.dashboard || !aT.dashboard[name] || !aT.dashboard[name].Viewer) {
       return <p>The selected activity has no dashboard</p>;
     }
-    const Viewer = aT.dashboard[name].Viewer;
-    return this.state.data ? (
-      <Viewer
-        users={users}
-        activity={activity}
-        instances={instances}
-        config={activity.data}
-        data={this.state.data}
+    const Dash = aT.dashboard[name].Viewer;
+    const DashWith = withTracker(() => ({
+      state: Dashboard.findOne(this.props.activity._id + '-' + this.props.name)
+    }))(({ state, ...props }) => {
+      console.log(state);
+      return state ? <Dash state={state} {...props} /> : <Spinner />;
+    });
+    DashWith.displayName = 'DashWith';
+
+    return (
+      <DashWith
+        {...{
+          users,
+          activity,
+          instances,
+          config: activity.data
+        }}
       />
-    ) : (
-      <Spinner />
     );
   }
 }
