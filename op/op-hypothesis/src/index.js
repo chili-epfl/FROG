@@ -11,6 +11,7 @@ import {
 
 export const meta = {
   name: 'Get ideas from Hypothesis',
+  shortName: 'Hypothesis',
   shortDesc: 'Get ideas from Hypothesis API',
   description: 'Collect ideas from an Hypothesis API by hashtag or document id.'
 };

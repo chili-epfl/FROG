@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import type { operatorPackageT, OperatorDbT } from 'frog-utils';
 import { Operators } from '/imports/api/activities';
-import { operatorTypes } from '/imports/operatorTypes';
+import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { type StoreProp } from '../../store';
 import ListComponent from '../ListComponent';
 
@@ -22,10 +22,16 @@ export default class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
 
   render() {
     const select = operatorType => {
+      const graphOperator = this.props.store.operatorStore.all.find(
+        op => op.id === this.props.operator._id
+      );
+      const newName =
+        operatorTypesObj[operatorType.id].meta.shortName ||
+        operatorTypesObj[operatorType.id].meta.name;
       Operators.update(this.props.operator._id, {
         $set: { operatorType: operatorType.id }
       });
-      this.props.store.addHistory();
+      graphOperator.rename(newName);
     };
 
     const changeSearch = e =>

@@ -5,6 +5,7 @@ import { type productOperatorT, focusStudent } from 'frog-utils';
 
 const meta = {
   name: 'Distribute categorized objects',
+  shortName: 'Distribute categorized',
   shortDesc: 'Distribute categorized products objects to instances',
   description: 'Distribute categorized products objects to instances.'
 };

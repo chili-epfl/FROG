@@ -39,7 +39,13 @@ export const addGraph = (graphObj?: Object): string => {
   const copyAc = graphObj.activities.map(ac => {
     const id = uuid();
     matching[ac._id] = id;
-    return { ...ac, _id: id, graphId, actualStartingTime: undefined };
+    return {
+      ...ac,
+      _id: id,
+      graphId,
+      actualStartingTime: undefined,
+      state: undefined
+    };
   });
 
   const copyOp = graphObj.operators.map(op => {
