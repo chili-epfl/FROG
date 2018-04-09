@@ -9,7 +9,7 @@ import Dialog, {
 
 class Help extends React.Component {
   state = {
-    open: false
+    open: true
   };
 
   handleClickOpen = () => {

@@ -11,8 +11,8 @@ import Command from './Activities/Command';
 import {
   styles,
   texts,
-  Guidelines,
   CountDownTimer,
+  SpecificGuidelines,
   CliGuidelines
 } from './ActivityUtils';
 
@@ -67,6 +67,24 @@ const RunActivity = ({ activity, ticket, submit, helpOpen, helpClose }) => {
   }
 };
 
+const getCommandForTicket = ticket =>
+  `Please order a ${ticket.fare} ${ticket.travel} ${
+    ticket.travelClass === 0 ? '1st class ticket' : '2nd class ticket'
+  } ${ticket.bike ? 'with a bike' : 'without bike'} .`;
+
+const generateTicket = () => {
+  const randFrom = sample(cities);
+  const randTo = sample(cities.filter(city => city !== randFrom));
+
+  return {
+    from: randFrom,
+    to: randTo,
+    travel: sample(travel),
+    bike: Math.random() > 0.5,
+    fare: sample(fares)
+  };
+};
+
 class Activity extends React.Component {
   constructor(props) {
     super(props);
@@ -74,27 +92,9 @@ class Activity extends React.Component {
     this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
     // this.interfaces = shuffle(['dragdrop', 'command', 'graphical', 'form']);
     this.changeInstanceTimer = null;
-    this.interfaces = shuffle(['command']);
-    this.state = { guidelines: true, ticket: this.generateTicket() };
+    this.interfaces = ['start', ...shuffle(['command'])];
+    this.state = { guidelines: true, ticket: generateTicket() };
   }
-
-  getCommandForTicket = ticket =>
-    `Please order a ${ticket.fare} ${ticket.travel} ${
-      ticket.travelClass === 0 ? '1st class ticket' : '2nd class ticket'
-    } ${ticket.bike ? 'with a bike' : 'without bike'} .`;
-
-  generateTicket = () => {
-    const randFrom = sample(cities);
-    const randTo = sample(cities.filter(city => city !== randFrom));
-
-    return {
-      from: randFrom,
-      to: randTo,
-      travel: sample(travel),
-      bike: Math.random() > 0.5,
-      fare: sample(fares)
-    };
-  };
 
   handleHelpOpen = () => {
     console.log('Help Open');
@@ -124,11 +124,12 @@ class Activity extends React.Component {
   };
 
   beginActivity = () => {
-    const { dataFn } = this.props;
-
+    const { dataFn, data: { step } } = this.props;
     dataFn.numIncr(1, 'step');
-    this.timer();
-    this.setState({ guidelines: false });
+    if (step > 1) {
+      this.setState({ guidelines: false });
+    }
+    //
   };
 
   checkAnswer = answer => {
@@ -138,17 +139,23 @@ class Activity extends React.Component {
   };
 
   render() {
-    const { guidelines } = this.state;
+    const { guidelines, ticket } = this.state;
     const { data: { step } } = this.props;
+    console.log(this.interfaces);
 
     if (guidelines) {
-      return <Guidelines beginActivity={this.beginActivity} step={step} />;
+      return (
+        <SpecificGuidelines
+          beginActivity={this.beginActivity}
+          activity={this.interfaces[step]}
+        />
+      );
     } else {
       return (
         <React.Fragment>
           <RunActivity
-            activity={this.interfaces[0]}
-            ticket={this.getCommandForTicket(this.state.ticket)}
+            activity={this.interfaces[step]}
+            ticket={getCommandForTicket(ticket)}
             submit={this.checkAnswer}
             helpOpen={this.handleHelpOpen}
             helpClose={this.handleHelpClose}
@@ -167,11 +174,10 @@ class Activity extends React.Component {
 const EnhancedActivity = ReactTimeout(Activity);
 
 const Main = props => {
-  const { data } = props;
-  const { step } = data;
+  const { step } = props.data;
 
   if (step < 4) {
-    return <EnhancedActivity {...props} />;
+    return <Activity {...props} />;
   } else {
     return <div style={styles.text}>{texts.end}</div>;
   }

@@ -107,7 +107,13 @@ export const CliGuidelines = () => (
   </React.Fragment>
 );
 
-const StartingGuidlines = () => (
+export const StartingGuidlines = ({
+  beginActivity,
+  step
+}: {
+  beginActivity: Function,
+  step: Number
+}) => (
   <React.Fragment>
     <Typography variant="display2" gutterBottom>
       Train Activity
@@ -119,23 +125,48 @@ const StartingGuidlines = () => (
       one-way, standard fare, 2nd class and no bike are default in each
       interface.
     </Typography>
+    <CliGuidelines />
+    <GraphGuidelines />}
+    <FormGuidelines />}
+    <DragAndDropGuidelines />
+    <div style={{ marginTop: '20px' }}>
+      <Button color="primary" onClick={beginActivity}>
+        Start
+      </Button>
+    </div>
   </React.Fragment>
 );
 
-export const Guidelines = ({
+export const SpecificGuidelines = ({
   beginActivity,
-  step
+  activity
 }: {
   beginActivity: Function,
-  step: Number
+  activity: String
 }) => (
   <React.Fragment>
-    {step === 0 && <StartingGuidlines />}
-    {(step === 0 || step === 1) && <CliGuidelines />}
-    {(step === 0 || step === 2) && <GraphGuidelines />}
-    {(step === 0 || step === 3) && <FormGuidelines />}
-    {(step === 0 || step === 4) && <DragAndDropGuidelines />}
+    <Typography variant="display2" gutterBottom>
+      Train Activity
+    </Typography>
+    {console.log(activity)}
+    {activity === 'start' && (
+      <Typography gutterBottom>
+        You are about to see four different kinds of user interfaces for
+        ordering tickets. They will be presented in a random order. Your task is
+        to order a ticket, requested on the bottom of each page. Please note
+        that options one-way, standard fare, 2nd class and no bike are default
+        in each interface.
+      </Typography>
+    )}
 
+    {(activity === 'start' || activity === 'command') && <CliGuidelines />}
+    {activity === 'start' && (
+      <React.Fragment>
+        <GraphGuidelines />
+        <FormGuidelines />
+        <DragAndDropGuidelines />
+      </React.Fragment>
+    )}
     <div style={{ marginTop: '20px' }}>
       <Button color="primary" onClick={beginActivity}>
         Start
