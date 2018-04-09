@@ -51,7 +51,7 @@ const DragAndDropGuidelines = () => (
   </React.Fragment>
 );
 
-const FormGuidelines = () => (
+export const FormGuidelines = () => (
   <React.Fragment>
     <Typography variant="headline" gutterBottom>
       Form interface:
@@ -148,7 +148,6 @@ export const SpecificGuidelines = ({
     <Typography variant="display2" gutterBottom>
       Train Activity
     </Typography>
-    {console.log(activity)}
     {activity === 'start' && (
       <Typography gutterBottom>
         You are about to see four different kinds of user interfaces for
@@ -187,3 +186,18 @@ export const CountDownTimer = TimedComponent(
   },
   100
 );
+
+export const cities = [
+  'Geneve',
+  'Lausanne',
+  'Zurich',
+  'Fribourg',
+  'Basel',
+  'Neuchatel',
+  'Davos'
+];
+
+export const fares = ['standard', 'young', 'half-fare'];
+export const travel = ['one-way', 'return'];
+export const travelClass = ['1st', '2nd'];
+export const bike = ['yes', 'no'];

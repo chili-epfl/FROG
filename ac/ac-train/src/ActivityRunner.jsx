@@ -5,7 +5,7 @@ import { ProgressBar } from 'react-bootstrap';
 import { sample, shuffle } from 'lodash';
 import ReactTimeout from 'react-timeout';
 import Help from './Help';
-
+import Form from './Activities/Form';
 import Command from './Activities/Command';
 
 import {
@@ -13,64 +13,22 @@ import {
   texts,
   CountDownTimer,
   SpecificGuidelines,
-  CliGuidelines
+  CliGuidelines,
+  FormGuidelines,
+  cities,
+  fares,
+  travelClass,
+  travel
 } from './ActivityUtils';
 
 let noAnswerTimeout;
 let delayTimeout;
 let changeInstanceTimeout;
 
-const cities = [
-  'Geneve',
-  'Lausanne',
-  'Zurich',
-  'Fribourg',
-  'Basel',
-  'Neuchatel',
-  'Davos'
-];
-
-const fares = ['standard', 'young', 'half-fare'];
-const travel = ['one-way', 'return'];
-// const bike = ['yes', 'no'];
-// const totalTasks = 20;
-// const subtasksPerInterface = totalTasks / interfaces.length;
-
-// let ticketStructure = {};
-
-// const generateTicket = () => {
-//   const randFrom = sample(cities);
-//   const randTo = sample(cities.filter(city => city !== randFrom));
-
-//   ticketStructure = {
-//     from: randFrom,
-//     to: randTo,
-//     travel: sample(travel),
-//     bike: Math.random() > 0.5,
-//     fare: sample(fares)
-//   };
-// };
-
-const RunActivity = ({ activity, ticket, submit, helpOpen, helpClose }) => {
-  switch (activity) {
-    case 'command':
-      return (
-        <React.Fragment>
-          <Command ticket={ticket} submit={submit} />
-          <Help onOpen={helpOpen} onClose={helpClose}>
-            <CliGuidelines />
-          </Help>
-        </React.Fragment>
-      );
-    default:
-      return <h1>Hello World</h1>;
-  }
-};
-
 const getCommandForTicket = ticket =>
   `Please order a ${ticket.fare} ${ticket.travel} ${
-    ticket.travelClass === 0 ? '1st class ticket' : '2nd class ticket'
-  } ${ticket.bike ? 'with a bike' : 'without bike'} .`;
+    ticket.travelClass
+  } class ticket ${ticket.bike ? 'with a bike' : 'without bike'} .`;
 
 const generateTicket = () => {
   const randFrom = sample(cities);
@@ -80,9 +38,52 @@ const generateTicket = () => {
     from: randFrom,
     to: randTo,
     travel: sample(travel),
+    travelClass: sample(travelClass),
     bike: Math.random() > 0.5,
     fare: sample(fares)
   };
+};
+
+const RunActivity = ({
+  activity,
+  ticket,
+  guidelines,
+  help,
+  submit,
+  helpOpen,
+  helpClose
+}) => {
+  switch (activity) {
+    case 'command':
+      return (
+        <React.Fragment>
+          {!guidelines && <Command ticket={ticket} submit={submit} />}
+          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
+            <CliGuidelines />
+          </Help>
+        </React.Fragment>
+      );
+    case 'form':
+      return (
+        <React.Fragment>
+          {!guidelines && <Form ticket={ticket} submit={submit} />}
+          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
+            <FormGuidelines />
+          </Help>
+        </React.Fragment>
+      );
+    case 'dragdrop':
+      return (
+        <React.Fragment>
+          {!guidelines && <Form ticket={ticket} submit={submit} />}
+          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
+            <FormGuidelines />
+          </Help>
+        </React.Fragment>
+      );
+    default:
+      return <h1>Hello World</h1>;
+  }
 };
 
 class Activity extends React.Component {
@@ -92,16 +93,25 @@ class Activity extends React.Component {
     this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
     // this.interfaces = shuffle(['dragdrop', 'command', 'graphical', 'form']);
     this.changeInstanceTimer = null;
-    this.interfaces = ['start', ...shuffle(['command'])];
-    this.state = { guidelines: true, ticket: generateTicket() };
+    // this.interfaces = ['start', ...shuffle(['command'])];
+    this.interfaces = ['start', ...shuffle(['drapdrop'])];
+    this.state = {
+      ticket: generateTicket(),
+      help: false,
+      guidelines: false,
+      timer: false
+    };
   }
 
   handleHelpOpen = () => {
-    console.log('Help Open');
+    this.setState({ help: true });
   };
 
   handleHelpClose = () => {
-    console.log('help close');
+    if (this.state.guidelines) {
+      this.setState({ guidelines: false });
+    }
+    this.setState({ help: false });
   };
 
   nextInstance = () => {
@@ -126,10 +136,8 @@ class Activity extends React.Component {
   beginActivity = () => {
     const { dataFn, data: { step } } = this.props;
     dataFn.numIncr(1, 'step');
-    if (step > 1) {
-      this.setState({ guidelines: false });
-    }
-    //
+
+    this.setState({ guidelines: true, help: true });
   };
 
   checkAnswer = answer => {
@@ -139,39 +147,41 @@ class Activity extends React.Component {
   };
 
   render() {
-    const { guidelines, ticket } = this.state;
+    const { ticket } = this.state;
     const { data: { step } } = this.props;
     console.log(this.interfaces);
 
-    if (guidelines) {
+    if (this.interfaces[step] === 'start') {
       return (
         <SpecificGuidelines
           beginActivity={this.beginActivity}
           activity={this.interfaces[step]}
         />
       );
-    } else {
-      return (
-        <React.Fragment>
-          <RunActivity
-            activity={this.interfaces[step]}
-            ticket={getCommandForTicket(ticket)}
-            submit={this.checkAnswer}
-            helpOpen={this.handleHelpOpen}
-            helpClose={this.handleHelpClose}
-          />
-          <div style={styles.activityCountdown}>
-            {/* <CountDownTimer start={Date.now()} length={this.timeOfEachInstance}>
-              {texts.timeLeft}
-            </CountDownTimer> */}
-          </div>
-        </React.Fragment>
-      );
     }
+
+    return (
+      <React.Fragment>
+        <RunActivity
+          activity={this.interfaces[step]}
+          ticket={getCommandForTicket(ticket)}
+          submit={this.checkAnswer}
+          guidelines={this.state.guidelines}
+          help={this.state.help}
+          helpOpen={this.handleHelpOpen}
+          helpClose={this.handleHelpClose}
+        />
+        <div style={styles.activityCountdown}>
+          <CountDownTimer start={Date.now()} length={this.timeOfEachInstance}>
+            {texts.timeLeft}
+          </CountDownTimer>
+        </div>
+      </React.Fragment>
+    );
   }
 }
 
-const EnhancedActivity = ReactTimeout(Activity);
+// const EnhancedActivity = ReactTimeout(Activity);
 
 const Main = props => {
   const { step } = props.data;
