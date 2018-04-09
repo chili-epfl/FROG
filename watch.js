@@ -15,11 +15,7 @@ const build = process.argv[3] === 'build';
 const transpile = (event, src) => {
   const dist = src.replace('/src/', '/dist/').replace('.jsx', '.js');
 
-  childProcess.execFile('/bin/cp', [
-    '--no-target-directory',
-    src,
-    dist + '.flow'
-  ]);
+  childProcess.exec(`cp ${src} ${dist}.flow`);
   childProcess.exec(
     `${dir}/node_modules/.bin/babel ${src} -o ${dist}`,
     error => {
