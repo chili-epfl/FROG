@@ -97,7 +97,7 @@ export default ({
       <ActivityToRun
         activityType={activityType.id}
         activityData={activityData}
-        userInfo={{ name, idx }}
+        userInfo={{ name, id: idx + 1 }}
         stream={() => undefined}
         logger={createLogger(
           'preview',
