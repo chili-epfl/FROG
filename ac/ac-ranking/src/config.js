@@ -15,10 +15,6 @@ export const config = {
       type: 'boolean',
       title: 'Students must provide a justification for their ranking'
     },
-    shuffle: {
-      type: 'boolean',
-      title: 'Shuffle answer order for each student'
-    },
     answers: {
       type: 'array',
       title: 'Choices',
