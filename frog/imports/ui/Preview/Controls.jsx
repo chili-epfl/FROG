@@ -95,8 +95,9 @@ export default (props: Object) => {
     <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
       <button
         type="button"
-        className="close"
         onClick={_dismiss}
+        className="btn btn-danger btn-large"
+        style={{ float: 'right', margin: '5px' }}
         data-tip="Close, and show list of activity types to preview"
       >
         X

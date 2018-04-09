@@ -64,7 +64,7 @@ const styles = () => ({
   }
 });
 
-export const StatelessPreview = (props: Object) => {
+const StatelessPreview = (props: Object) => {
   const {
     activityTypeId,
     modal,
