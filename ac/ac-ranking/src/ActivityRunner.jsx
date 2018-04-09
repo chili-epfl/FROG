@@ -15,6 +15,7 @@ import {
 
 import type { ActivityRunnerT } from 'frog-utils';
 import Justification from './Justification';
+import { getXYFromRanking } from './Dashboard';
 
 const Container = styled.div`
   display: flex;
@@ -118,21 +119,15 @@ const AnswerList = ({ answers, rank }) => (
   </div>
 );
 
-const ActivityRunner = ({
-  logger,
-  activityData,
-  data,
-  dataFn,
-  userInfo
-}: ActivityRunnerT) => {
-  const props = { activityData, logger, dataFn, userInfo };
+const ActivityRunner = (props: ActivityRunnerT) => {
+  const { activityData: { config }, logger, dataFn, userInfo, data } = props;
 
   const onClick = (title, rank) => () => {
     const prog =
       (Object.keys(data.answers[userInfo.id] || {}).length -
-        Object.keys(activityData.data || {}).length +
+        Object.keys(data || {}).length +
         1) /
-      activityData.config.answers.length;
+      config.answers.length;
     const answersList = data.answers[userInfo.id] || {};
     answersList[title] = rank;
 
@@ -144,7 +139,11 @@ const ActivityRunner = ({
       },
       {
         type: 'progress',
-        value: activityData.config.justify ? prog / 2 : prog
+        value: config.justify ? prog / 2 : prog
+      },
+      {
+        type: 'coordinates',
+        payload: getXYFromRanking(answersList, config)
       }
     ]);
     if (!data.answers[userInfo.id]) {
@@ -157,9 +156,8 @@ const ActivityRunner = ({
   const done =
     data.answers[userInfo.id] &&
     Object.keys(data.answers[userInfo.id] || {}).length ===
-      Object.keys(activityData.config.answers).length +
-        Object.keys(activityData.data || {}).length &&
-    (!activityData.config.justify || data.justification.length > 0);
+      Object.keys(config.answers).length + Object.keys(data || {}).length &&
+    (!config.justify || data.justification.length > 0);
 
   const onSubmit = () => {
     if (done) {
@@ -179,11 +177,17 @@ const ActivityRunner = ({
       answersList[title] += incr;
       answersList[switchID] -= incr;
 
-      logger({
-        type: 'listOrder',
-        itemId: title,
-        value: JSON.stringify(answersList)
-      });
+      logger([
+        {
+          type: 'listOrder',
+          itemId: title,
+          value: JSON.stringify(answersList)
+        },
+        {
+          type: 'coordinates',
+          payload: getXYFromRanking(answersList, config)
+        }
+      ]);
       dataFn.numIncr(incr, ['answers', userInfo.id, title]);
       dataFn.numIncr(-incr, ['answers', userInfo.id, switchID]);
     }
@@ -196,7 +200,7 @@ const ActivityRunner = ({
           <Completed {...props} />
         ) : (
           <ListContainer>
-            <p>{activityData.config.guidelines}</p>
+            <p>{config.guidelines}</p>
             <AnswerList answers={data.answers[userInfo.id]} rank={rank} />
             <hr style={{ height: '5px' }} />
             <div>
@@ -208,21 +212,21 @@ const ActivityRunner = ({
                     display: 'block'
                   }}
                 >
-                  {activityData.config.answers.map(ans => {
+                  {config.answers.map(ans => {
                     if (
                       !Object.keys(data.answers[userInfo.id] || {}).includes(
-                        ans.choice
+                        ans
                       )
                     ) {
                       return (
                         <AddAnswer
                           onClick={onClick}
-                          title={ans.choice}
+                          title={ans}
                           rank={
                             Object.keys(data.answers[userInfo.id] || {})
                               .length || 0
                           }
-                          key={ans.choice}
+                          key={ans}
                         />
                       );
                     } else {

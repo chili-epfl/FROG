@@ -18,15 +18,7 @@ export const config = {
     answers: {
       type: 'array',
       title: 'Choices',
-      items: {
-        type: 'object',
-        properties: {
-          choice: {
-            type: 'string',
-            title: 'choice'
-          }
-        }
-      }
+      items: { type: 'string' }
     }
   }
 };
