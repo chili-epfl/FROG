@@ -1,6 +1,8 @@
 // @flow
 
 import * as React from 'react';
+import jsonSchemaDefaults from 'json-schema-defaults';
+import { isEmpty } from 'lodash';
 
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
@@ -31,10 +33,13 @@ export default ({
       activityType={activityTypeId}
       onConfigChange={e => {
         if (e.errors.length === 0) {
-          setConfig(e.config);
-          const activityType = activityTypesObj[e.activityType];
-          initActivityDocuments(instances, activityType, -1, e.config, true);
-          initDashboardDocuments(activityType, true);
+          const aT = activityTypesObj[e.activityType];
+          const _c = isEmpty(e.config)
+            ? jsonSchemaDefaults(aT.config)
+            : e.config;
+          setConfig(_c);
+          initActivityDocuments(instances, aT, -1, _c, true);
+          initDashboardDocuments(aT, true);
         } else {
           setConfig({ invalid: true });
         }
