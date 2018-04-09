@@ -82,13 +82,12 @@ export default (props: Object) => {
     setUsers(users.slice(0, users.length - 1));
     setInstances(instances.slice(0, instances.length - 1));
   };
+  const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
   const switchPlane = () => {
     const newPlane = 1 + plane % 3;
     setPlane(newPlane);
     setInstances(
-      users.map(
-        (name, idx) => [name, 1 + Math.floor(idx / 2), 'all'][newPlane - 1]
-      )
+      users.map((name, idx) => [name, groupName(idx), 'all'][newPlane - 1])
     );
   };
 
