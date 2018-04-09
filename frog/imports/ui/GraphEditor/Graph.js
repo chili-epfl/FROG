@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import ReactTooltip from 'react-tooltip';
 
 import { connect, store, type StoreProp } from './store';
 import Activities from './Activities';
@@ -104,7 +103,6 @@ const Graph = connect(
       {scaled &&
         scrollEnabled && <ScrollFields width={graphWidth} height={600} />}
       {!hasPanMap && <ErrorList />}
-      <ReactTooltip delayShow={500} />
     </svg>
   )
 );

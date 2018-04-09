@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
+import ReactTooltip from 'react-tooltip';
 
 import { connect } from './store';
 import Graph from './Graph';
@@ -39,6 +40,7 @@ const styles = () => ({
 const EditorPanel = () => (
   <div className="bootstrap" style={styles.sheet}>
     <div style={{ height: 600, border: '1px solid black' }}>
+      <ReactTooltip delayShow={500} />
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
