@@ -16,7 +16,13 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper
+    height: '100%',
+    backgroundColor: theme.palette.background.paper,
+    overflow: 'hidden'
+  },
+  dash: {
+    height: 'calc(100% - 48px)',
+    overflow: 'auto'
   }
 });
 
@@ -62,9 +68,11 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
           </Tabs>
         </AppBar>
         {render && (
-          <ErrorBoundary msg="Dashboard crashed, try reloading">
-            {render(this.state.which)}
-          </ErrorBoundary>
+          <div className={classes.dash}>
+            <ErrorBoundary msg="Dashboard crashed, try reloading">
+              {render(this.state.which)}
+            </ErrorBoundary>
+          </div>
         )}
       </div>
     );
