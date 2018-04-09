@@ -2,15 +2,16 @@
   "name": "activity-template",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "license": "ISC",
   "scripts": {
     "start": "nps"
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.9.0"
   }
 }
