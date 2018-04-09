@@ -7,6 +7,7 @@ import ReactTimeout from 'react-timeout';
 import Help from './Help';
 import Form from './Activities/Form';
 import Command from './Activities/Command';
+import DragDrop from './Activities/DragDrop/index';
 
 import {
   styles,
@@ -75,7 +76,7 @@ const RunActivity = ({
     case 'dragdrop':
       return (
         <React.Fragment>
-          {!guidelines && <Form ticket={ticket} submit={submit} />}
+          {!guidelines && <DragDrop ticket={ticket} submit={submit} />}
           <Help onOpen={helpOpen} onClose={helpClose} open={help}>
             <FormGuidelines />
           </Help>
@@ -94,7 +95,7 @@ class Activity extends React.Component {
     // this.interfaces = shuffle(['dragdrop', 'command', 'graphical', 'form']);
     this.changeInstanceTimer = null;
     // this.interfaces = ['start', ...shuffle(['command'])];
-    this.interfaces = ['start', ...shuffle(['drapdrop'])];
+    this.interfaces = ['start', ...shuffle(['dragdrop'])];
     this.state = {
       ticket: generateTicket(),
       help: false,
