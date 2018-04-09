@@ -1,14 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
-import { activityTypes } from '/imports/activityTypes';
+import { activityTypes, activityTypesObj } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
 import ActivityLibrary from './ActivityLibrary';
 import ListComponent from '../ListComponent';
-import Preview from '../../../Preview/Preview';
+import { ModalPreview } from '../../../Preview';
 import { connect } from '../../store';
 
 type StateT = {
@@ -23,7 +23,8 @@ type PropsT = {
   onSelect?: Function,
   onPreview?: Function,
   activity: ActivityDbT,
-  onlyHasPreview?: boolean
+  onlyHasPreview?: boolean,
+  store: Object
 };
 
 export class ChooseActivityType extends Component<PropsT, StateT> {
@@ -49,6 +50,15 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
           const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
           if (this.props.store) {
+            if (this.props.activity.title === 'Unnamed') {
+              const graphActivity = this.props.store.activityStore.all.find(
+                act => act.id === this.props.activity._id
+              );
+              const newName =
+                activityTypesObj[aT.id].meta.shortName ||
+                activityTypesObj[aT.id].meta.name;
+              graphActivity.rename(newName);
+            }
             this.props.store.addHistory();
           }
         };
@@ -187,7 +197,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             </div>
           ))}
         {this.state.showInfo !== null && (
-          <Preview
+          <ModalPreview
             activityTypeId={this.state.showInfo}
             dismiss={() => this.setState({ showInfo: null })}
           />

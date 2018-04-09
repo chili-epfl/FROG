@@ -1414,10 +1414,6 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
-bowser@^1.7.3:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.9.1.tgz#f86ef2132e8cb10b3eb6ea5af018758c587020db"
-
 brace-expansion@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.8.tgz#c07b211c7c952ec1f8efd51a77ef0d1d3990a292"
@@ -2052,12 +2048,6 @@ css-animation@^1.3.2:
 css-color-keywords@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/css-color-keywords/-/css-color-keywords-1.0.0.tgz#fea2616dc676b2962686b3af8dbdbe180b244e05"
-
-css-in-js-utils@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-2.0.0.tgz#5af1dd70f4b06b331f48d22a3d86e0786c0b9435"
-  dependencies:
-    hyphenate-style-name "^1.0.2"
 
 css-select@~1.2.0:
   version "1.2.0"
@@ -2931,6 +2921,10 @@ fast-deep-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.0.0.tgz#96256a3bc975595eb36d82e9929d060d893439ff"
 
+fast-deep-equal@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
+
 fast-diff@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.1.2.tgz#4b62c42b8e03de3f848460b639079920695d0154"
@@ -3589,10 +3583,6 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-hyphenate-style-name@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
-
 iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
@@ -3656,13 +3646,6 @@ inherits@2.0.1:
 ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
-
-inline-style-prefixer@^3.0.8:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/inline-style-prefixer/-/inline-style-prefixer-3.0.8.tgz#8551b8e5b4d573244e66a34b04f7d32076a2b534"
-  dependencies:
-    bowser "^1.7.3"
-    css-in-js-utils "^2.0.0"
 
 inquirer@^3.0.6:
   version "3.3.0"
@@ -4583,7 +4566,7 @@ kefir@^3.7.3:
   dependencies:
     symbol-observable "1.0.4"
 
-keycode@^2.1.2, keycode@^2.1.8, keycode@^2.1.9:
+keycode@^2.1.2, keycode@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.1.9.tgz#964a23c54e4889405b4861a5c9f0480d45141dfa"
 
@@ -4750,10 +4733,6 @@ lodash.keys@^3.1.2:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
-lodash.merge@^4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.0.tgz#69884ba144ac33fe699737a6086deffadd0f89c5"
-
 lodash.omit@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
@@ -4773,10 +4752,6 @@ lodash.sortby@^4.7.0:
 lodash.startswith@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/lodash.startswith/-/lodash.startswith-4.2.1.tgz#c598c4adce188a27e53145731cdc6c0e7177600c"
-
-lodash.throttle@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
 lodash.topath@^4.5.2:
   version "4.5.2"
@@ -4861,22 +4836,6 @@ material-ui-icons@^1.0.0-beta.36:
   resolved "https://registry.yarnpkg.com/material-ui-icons/-/material-ui-icons-1.0.0-beta.36.tgz#86390a61f4c83f718eaba77ccce575834f2cf2a8"
   dependencies:
     recompose "^0.26.0"
-
-material-ui@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-0.20.0.tgz#85411bb59c916c9c7703f29dcffc44e3a67d5111"
-  dependencies:
-    babel-runtime "^6.23.0"
-    inline-style-prefixer "^3.0.8"
-    keycode "^2.1.8"
-    lodash.merge "^4.6.0"
-    lodash.throttle "^4.1.1"
-    prop-types "^15.5.7"
-    react-event-listener "^0.5.1"
-    react-transition-group "^1.2.1"
-    recompose "^0.26.0"
-    simple-assign "^0.1.0"
-    warning "^3.0.0"
 
 material-ui@^1.0.0-beta.37:
   version "1.0.0-beta.37"
@@ -6433,7 +6392,7 @@ react-tooltip@^3.4.0:
     classnames "^2.2.5"
     prop-types "^15.6.0"
 
-react-transition-group@^1.2.0, react-transition-group@^1.2.1:
+react-transition-group@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.2.1.tgz#e11f72b257f921b213229a774df46612346c7ca6"
   dependencies:
@@ -7058,10 +7017,6 @@ shellwords@^0.1.1:
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
-
-simple-assign@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/simple-assign/-/simple-assign-0.1.0.tgz#17fd3066a5f3d7738f50321bb0f14ca281cc4baa"
 
 simple-get@^1.4.2:
   version "1.4.3"
@@ -7832,6 +7787,14 @@ victory-chart@^25.0.2:
     lodash "^4.17.4"
     victory-core "^21.0.2"
 
+victory-chart@^25.2.0:
+  version "25.2.2"
+  resolved "https://registry.yarnpkg.com/victory-chart/-/victory-chart-25.2.2.tgz#6a4fccd56d0dcf5064b40c992e89e2152c8b9e87"
+  dependencies:
+    d3-voronoi "^1.1.2"
+    lodash "^4.17.5"
+    victory-core "^21.1.2"
+
 victory-core@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/victory-core/-/victory-core-21.0.2.tgz#dc590f6a87c4f8e7927ed2fd42bfd822c60ee792"
@@ -7843,6 +7806,18 @@ victory-core@^21.0.2:
     d3-timer "^1.0.0"
     lodash "^4.17.4"
 
+victory-core@^21.1.0, victory-core@^21.1.1, victory-core@^21.1.2:
+  version "21.1.5"
+  resolved "https://registry.yarnpkg.com/victory-core/-/victory-core-21.1.5.tgz#1eb599e2ee7311305fd01040c5d178f3df5ccc7a"
+  dependencies:
+    d3-ease "^1.0.0"
+    d3-interpolate "^1.1.1"
+    d3-scale "^1.0.0"
+    d3-shape "^1.2.0"
+    d3-timer "^1.0.0"
+    fast-deep-equal "^1.1.0"
+    lodash "^4.17.5"
+
 victory-pie@^14.0.1:
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/victory-pie/-/victory-pie-14.0.1.tgz#53dff9e81696253c3da00f347d908d3ac1241c66"
@@ -7851,6 +7826,14 @@ victory-pie@^14.0.1:
     lodash "^4.17.4"
     victory-core "^21.0.2"
 
+victory-pie@^14.0.2:
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/victory-pie/-/victory-pie-14.0.2.tgz#fc284febf9c505b5de852e34891492d607145c39"
+  dependencies:
+    d3-shape "^1.0.0"
+    lodash "^4.17.5"
+    victory-core "^21.1.0"
+
 victory@^0.25.3:
   version "0.25.3"
   resolved "https://registry.yarnpkg.com/victory/-/victory-0.25.3.tgz#e3e0a1bcd23276555de4f8f6eaaacbdd83c14bb5"
@@ -7858,6 +7841,14 @@ victory@^0.25.3:
     victory-chart "^25.0.2"
     victory-core "^21.0.2"
     victory-pie "^14.0.1"
+
+victory@^0.25.7:
+  version "0.25.7"
+  resolved "https://registry.yarnpkg.com/victory/-/victory-0.25.7.tgz#7de7532ba5514f9703da880ffa06c998d86a98fb"
+  dependencies:
+    victory-chart "^25.2.0"
+    victory-core "^21.1.1"
+    victory-pie "^14.0.2"
 
 vm-browserify@0.0.4:
   version "0.0.4"
