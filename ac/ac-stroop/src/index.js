@@ -1,9 +1,18 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
-
+import { values, entries } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
+
+const names = { stian: 21, peter: 22 };
+const arys = { stian: [1, 2, 3], peter: [1, 2, 3] };
+
+values(names).map(x => x * 3);
+values(names).map(x => x.length);
+values(arys).map(x => x());
+values(arys).map(x => x * 3);
+entries(arys).map(([_, v]) => v * 3);
+entries(names).map(([_, v]) => v * 3);
 
 const meta = {
   name: 'Stroop Effect',
@@ -135,7 +144,7 @@ const dataStructure = {
   time: 0
 };
 
-export default ({
+export default {
   id: 'ac-stroop',
   type: 'react-component',
   meta,
@@ -143,4 +152,4 @@ export default ({
   ActivityRunner,
   dashboard,
   dataStructure
-}: ActivityPackageT);
+};
