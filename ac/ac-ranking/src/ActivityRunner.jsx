@@ -146,9 +146,10 @@ const ActivityRunner = ({
       }
     ]);
     if (!data.answers[userInfo.id]) {
-      dataFn.objInsert({}, ['answers', userInfo.id]);
+      dataFn.objInsert({ [title]: { rank, title } }, ['answers', userInfo.id]);
+    } else {
+      dataFn.objInsert({ rank, title }, ['answers', userInfo.id, title]);
     }
-    dataFn.objInsert({ rank, title }, ['answers', userInfo.id, title]);
   };
 
   const done =
