@@ -4,7 +4,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { A } from 'frog-utils';
 import FlipMove from '@houshuang/react-flip-move';
-import { values, findKey } from 'lodash';
+import { findKey } from 'lodash';
 import {
   Badge,
   Glyphicon,
@@ -69,20 +69,22 @@ const Answer = ({ rank, answer, answers }) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
-        <A onClick={() => rank(answer.title, 1, answers)}>
+        <A onClick={() => rank(answer, 1, answers)}>
           <Glyphicon
             style={{
               marginRight: '10px',
-              color: chooseColor(answer.rank === Object.keys(answers).length)
+              color: chooseColor(
+                answers[answer] === Object.keys(answers).length
+              )
             }}
             glyph="arrow-down"
           />
         </A>
-        <A onClick={() => rank(answer.title, -1, answers)}>
+        <A onClick={() => rank(answer, -1, answers)}>
           <Glyphicon
             style={{
               marginRight: '10px',
-              color: chooseColor(answer.rank === 1)
+              color: chooseColor(answers[answer] === 1)
             }}
             glyph="arrow-up"
           />
@@ -94,9 +96,9 @@ const Answer = ({ rank, answer, answers }) => (
         marginRight: '10px'
       }}
     >
-      {answer.rank}
+      {answers[answer]}
     </Badge>
-    <b>{answer.title}</b>
+    <b>{answer}</b>
   </ListGroupItem>
 );
 
@@ -104,11 +106,11 @@ const AnswerList = ({ answers, rank }) => (
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {values(answers)
-          .sort((a, b) => a.rank - b.rank)
+        {Object.keys(answers || {})
+          .sort((a, b) => answers[a] - answers[b])
           .map(answer => (
-            <div key={answer.title}>
-              <Answer {...{ answer, rank, answers, key: answer.title }} />
+            <div key={answer}>
+              <Answer {...{ answer, rank, answers, key: answer }} />
             </div>
           ))}
       </FlipMove>
@@ -131,8 +133,8 @@ const ActivityRunner = ({
         Object.keys(activityData.data || {}).length +
         1) /
       activityData.config.answers.length;
-    const answersList = Object.values(data.answers[userInfo.id] || {});
-    answersList.push({ rank, title });
+    const answersList = data.answers[userInfo.id] || {};
+    answersList[title] = rank;
 
     logger([
       {
@@ -148,7 +150,7 @@ const ActivityRunner = ({
     if (!data.answers[userInfo.id]) {
       dataFn.objInsert({}, ['answers', userInfo.id]);
     }
-    dataFn.objInsert({ rank, title }, ['answers', userInfo.id, title]);
+    dataFn.objInsert(rank, ['answers', userInfo.id, title]);
   };
 
   const done =
@@ -167,25 +169,22 @@ const ActivityRunner = ({
 
   const rank = (title, incr, answers) => {
     if (
-      !(answers[title].rank === 1 && incr < 0) &&
-      !(answers[title].rank === Object.keys(answers).length && incr > 0)
+      !(answers[title] === 1 && incr < 0) &&
+      !(answers[title] === Object.keys(answers).length && incr > 0)
     ) {
       const answersList = answers;
-      const switchID = findKey(
-        answers,
-        x => x.rank === answers[title].rank + incr
-      );
+      const switchID = findKey(answers, x => x === answers[title] + incr);
 
-      answersList[title].rank += incr;
-      answersList[switchID].rank -= incr;
+      answersList[title] += incr;
+      answersList[switchID] -= incr;
 
       logger({
         type: 'listOrder',
         itemId: title,
-        value: JSON.stringify(Object.values(answersList))
+        value: JSON.stringify(answersList)
       });
-      dataFn.numIncr(incr, ['answers', userInfo.id, title, 'rank']);
-      dataFn.numIncr(-incr, ['answers', userInfo.id, switchID, 'rank']);
+      dataFn.numIncr(incr, ['answers', userInfo.id, title]);
+      dataFn.numIncr(-incr, ['answers', userInfo.id, switchID]);
     }
   };
 
