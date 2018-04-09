@@ -216,3 +216,13 @@ export const getInitialState = (activities: Object, d: number = 1) => {
         second: getInitialState(activities.slice(n, activities.length), -d)
       };
 };
+
+export const entries = <T>(obj: { [string]: T }): Array<[string, T]> => {
+  const keys: string[] = Object.keys(obj);
+  return keys.map(key => [key, obj[key]]);
+};
+
+export const values = <T>(obj: { [string]: T }): Array<T> => {
+  const keys: string[] = Object.keys(obj);
+  return keys.map(key => obj[key]);
+};
