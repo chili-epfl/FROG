@@ -10,7 +10,6 @@ import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
 import Preview from './../Preview';
-import Admin from './../Admin';
 import TopBar from './TopBar';
 
 const styles = {
@@ -49,7 +48,6 @@ const WithTopBar = () => (
         <Route path="/teacher/:graphId" component={TeacherView} />
         <Route path="/teacher" component={TeacherView} />
         <Route path="/student" component={StudentView} />
-        <Route path="/admin" component={Admin} />
         <Route path="/preview" component={Preview} />
         <Route component={GraphEditor} />
       </Switch>
