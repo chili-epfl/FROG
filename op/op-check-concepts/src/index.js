@@ -4,6 +4,7 @@ import type { productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Provide feedback based on concepts in text',
+  shortName: 'Feedback',
   shortDesc: 'Group students to argue',
   description: 'Group students with as many similar answers as possible.'
 };

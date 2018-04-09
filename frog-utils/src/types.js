@@ -120,6 +120,7 @@ export type ActivityPackageT = {
   type: 'react-component',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string,
     exampleData?: { title: string, config?: Object, data?: any }[]
@@ -165,6 +166,7 @@ export type productOperatorT = {
   type: 'product',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string
   },
@@ -182,6 +184,7 @@ export type controlOperatorT = {
   type: 'control',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string
   },
@@ -199,6 +202,7 @@ export type socialOperatorT = {
   type: 'social',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string
   },
