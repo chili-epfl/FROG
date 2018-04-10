@@ -21,7 +21,10 @@ const randomName = () =>
   ]);
 
 const NotLoggedIn = ({ login }: { login: Function }) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (
+    process.env.NODE_ENV !== 'production' ||
+    Meteor.settings.public.friendlyProduction
+  ) {
     const name = randomName();
     return (
       <div style={{ margin: '25px' }}>
