@@ -76,7 +76,7 @@ export default (props: Object) => {
     const newName = names[users.length % names.length];
     const newGroup = 1 + Math.floor(users.length / 2);
     setUsers([...users, newName]);
-    setInstances([...instances, [newName, newGroup, 'all'][plane - 1]]);
+    setInstances([...instances, [undefined, newGroup, 'all'][plane - 1]]);
   };
   const remove = () => {
     setUsers(users.slice(0, users.length - 1));
@@ -87,7 +87,7 @@ export default (props: Object) => {
     const newPlane = 1 + plane % 3;
     setPlane(newPlane);
     setInstances(
-      users.map((name, idx) => [name, groupName(idx), 'all'][newPlane - 1])
+      users.map((name, idx) => [undefined, groupName(idx), 'all'][newPlane - 1])
     );
   };
 
