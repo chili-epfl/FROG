@@ -108,7 +108,7 @@ export default ({
           plane,
           activityData.config
         )}
-        groupingValue={instance}
+        groupingValue={plane === 1 ? idx + 1 : instance}
       />
     );
   };
