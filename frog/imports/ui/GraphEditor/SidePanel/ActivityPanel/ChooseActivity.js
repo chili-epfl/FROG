@@ -16,7 +16,6 @@ type StateT = {
   searchStr: string,
   showInfo: ?string
 };
-
 type PropsT = {
   store?: Object,
   hidePreview?: boolean,
@@ -25,8 +24,10 @@ type PropsT = {
   activity: ActivityDbT,
   setDelete?: Function,
   setIdRemove?: Function,
-  importList?: Array<Object>,
-  setImportList?: Function,
+  importActivityList?: Array<Object>,
+  setImportActivityList?: Function,
+  lastRefreshAct?: Number,
+  refreshActDate?: Function,
   onlyHasPreview?: boolean
 };
 
@@ -99,23 +100,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
           }}
         >
           <h4>Select activity type</h4>
-          <div
-            className="input-group"
-            style={{ top: '5px', left: '10px', width: '200px' }}
-          >
-            <span className="input-group-addon" id="basic-addon1">
-              <span className="glyphicon glyphicon-search" aria-hidden="true" />
-            </span>
-            <input
-              ref={ref => (this.inputRef = ref)}
-              type="text"
-              style={{ zIndex: 0 }}
-              onChange={changeSearch}
-              className="form-control"
-              placeholder="Search for..."
-              aria-describedby="basic-addon1"
-            />
-          </div>
           <Button
             className={
               this.props.store &&
@@ -148,60 +132,83 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             <Library
               {...closeLibrary}
               libraryType="activity"
-              importList={this.props.importList}
-              setImportList={this.props.setImportList}
+              importActivityList={this.props.importActivityList}
+              setImportActivityList={this.props.setImportActivityList}
               setDelete={this.props.setDelete}
               setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
-              // searchStr={this.state.searchStr}
+              lastRefreshAct={this.props.lastRefreshAct}
+              refreshActDate={this.props.refreshActDate}
               store={this.props.store}
             />
           ) : (
-            <div
-              className="list-group"
-              style={{
-                height: '93%',
-                width: '100%',
-                overflowY: 'scroll',
-                transform: 'translateY(10px)'
-              }}
-            >
-              {filteredList.length === 0 ? (
-                <div
-                  style={{
-                    marginTop: '20px',
-                    marginLeft: '10px',
-                    fontSize: '40px'
-                  }}
-                >
-                  No result
-                </div>
-              ) : (
-                filteredList.map((x: ActivityPackageT) => (
-                  <ListComponent
-                    hasPreview={
-                      !this.props.hidePreview &&
-                      x.meta.exampleData !== undefined
-                    }
-                    onSelect={() => select(x)}
-                    showExpanded={this.state.expanded === x.id}
-                    expand={() => this.setState({ expanded: x.id })}
-                    key={x.id}
-                    onPreview={() => {
-                      if (this.props.onPreview) {
-                        this.props.onPreview(x.id);
-                      } else if (this.props.store) {
-                        this.props.store.ui.setShowPreview({
-                          activityTypeId: x.id
-                        });
-                      }
-                    }}
-                    object={x}
-                    searchS={this.state.searchStr}
-                    eventKey={x.id}
+            <div>
+              <div
+                className="input-group"
+                style={{ top: '-30px', left: '280px', width: '200px' }}
+              >
+                <span className="input-group-addon" id="basic-addon1">
+                  <span
+                    className="glyphicon glyphicon-search"
+                    aria-hidden="true"
                   />
-                ))
-              )}
+                </span>
+                <input
+                  ref={ref => (this.inputRef = ref)}
+                  type="text"
+                  style={{ zIndex: 0 }}
+                  onChange={changeSearch}
+                  className="form-control"
+                  placeholder="Search for..."
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+              <div
+                className="list-group"
+                style={{
+                  height: '93%',
+                  width: '100%',
+                  overflowY: 'scroll',
+                  transform: 'translateY(10px)'
+                }}
+              >
+                {filteredList.length === 0 ? (
+                  <div
+                    style={{
+                      marginTop: '20px',
+                      marginLeft: '10px',
+                      fontSize: '40px'
+                    }}
+                  >
+                    No result
+                  </div>
+                ) : (
+                  filteredList.map((x: ActivityPackageT) => (
+                    <ListComponent
+                      hasPreview={
+                        !this.props.hidePreview &&
+                        x.meta.exampleData !== undefined
+                      }
+                      onSelect={() => select(x)}
+                      showExpanded={this.state.expanded === x.id}
+                      expand={() => this.setState({ expanded: x.id })}
+                      key={x.id}
+                      onPreview={() => {
+                        if (this.props.onPreview) {
+                          this.props.onPreview(x.id);
+                        } else if (this.props.store) {
+                          this.props.store.ui.setShowPreview({
+                            activityTypeId: x.id
+                          });
+                        }
+                      }}
+                      object={x}
+                      searchS={this.state.searchStr}
+                      eventKey={x.id}
+                    />
+                  ))
+                )}
+              </div>
             </div>
           ))}
         {this.state.showInfo !== null && (

@@ -10,14 +10,16 @@ import Button from 'material-ui/Button';
 
 import Library from './RemoteLibrary';
 
-const ImportModal = ({
+export default ({
   modalOpen,
   setModal,
   importGraphList,
-  importActivityList,
+  setImportGraphList,
+  lastRefreshGraph,
+  refreshGraphDate,
   setDelete,
   setIdRemove
-}) => (
+}: Object) => (
   <Dialog open={modalOpen}>
     <DialogTitle>Import a graph from the library:</DialogTitle>
     <DialogContent
@@ -33,7 +35,9 @@ const ImportModal = ({
         {...{
           setModal,
           importGraphList,
-          importActivityList,
+          setImportGraphList,
+          lastRefreshGraph,
+          refreshGraphDate,
           setDelete,
           setIdRemove
         }}
@@ -44,5 +48,3 @@ const ImportModal = ({
     </DialogActions>
   </Dialog>
 );
-
-export default ImportModal;

@@ -76,8 +76,8 @@ class Editor extends Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
-      lastRefreshAct: new Date(),
-      lastRefreshGraph: new Date(),
+      lastRefreshAct: new Date().getTime(),
+      lastRefreshGraph: new Date().getTime(),
       exportOpen: false,
       importOpen: false,
       deleteOpen: false,
@@ -86,10 +86,16 @@ class Editor extends Component<Object, StateT> {
       idRemove: ''
     };
     collectActivities().then(e =>
-      e.forEach(x => this.setState({importActivityList: [...this.state.importActivityList, x]}))
+      this.setState({
+        importActivityList: e,
+        lastRefreshAct: new Date().getTime()
+      })
     );
     collectGraphs().then(e =>
-      e.forEach(x => this.setState({importGraphList: [...this.state.importGraphList, x]}))
+      this.setState({
+        importGraphList: e,
+        lastRefreshGraph: new Date().getTime()
+      })
     );
   }
 
@@ -119,6 +125,10 @@ class Editor extends Component<Object, StateT> {
       this.setState({ importActivityList: val }, fun);
     const setImportGraphList = (val, fun?) =>
       this.setState({ importGraphList: val }, fun);
+    const refreshActDate = () =>
+      this.setState({ lastRefreshAct: new Date().getTime() });
+    const refreshGraphDate = () =>
+      this.setState({ lastRefreshGraph: new Date().getTime() });
 
     return (
       <div className={classes.root}>
@@ -138,9 +148,14 @@ class Editor extends Component<Object, StateT> {
           <ModalImport
             modalOpen={this.state.importOpen}
             setModal={val => this.setState({ importOpen: val })}
+            lastRefreshGraph={this.state.lastRefreshGraph}
             importGraphList={this.state.importGraphList}
-            importActivityList={this.state.importActivityList}
-            {...{ setImportActivityList, setImportGraphList, setDelete, setIdRemove }}
+            {...{
+              setImportGraphList,
+              setDelete,
+              setIdRemove,
+              refreshGraphDate
+            }}
           />
           <ModalDelete
             modalOpen={this.state.deleteOpen}
@@ -149,13 +164,20 @@ class Editor extends Component<Object, StateT> {
               const promise = this.state.importOpen
                 ? removeGraph(this.state.idRemove)
                 : removeActivity(this.state.idRemove);
-              promise.then(
-                this.setState({
-                  importList: (this.state.importOpen ? this.state.importGraphList : this.state.importActivityList).filter(
-                    x => x.uuid !== this.state.idRemove
-                  )
-                })
-              );
+              promise.then(() => {
+                if (this.state.importOpen)
+                  setImportGraphList(
+                    this.state.importGraphList.filter(
+                      x => x.uuid !== this.state.idRemove
+                    )
+                  );
+                else
+                  setImportActivityList(
+                    this.state.importActivityList.filter(
+                      x => x.uuid !== this.state.idRemove
+                    )
+                  );
+              });
             }}
           />
           <div className={classes.container}>
@@ -163,9 +185,14 @@ class Editor extends Component<Object, StateT> {
               <EditorPanel />
             </div>
             <SidePanel
-              importList={this.state.importActivityList}
-              setImportList={setImportActivityList}
-              {...{ setDelete, setIdRemove }}
+              importActivityList={this.state.importActivityList}
+              lastRefreshAct={this.state.lastRefreshAct}
+              {...{
+                refreshActDate,
+                setImportActivityList,
+                setDelete,
+                setIdRemove
+              }}
             />
           </div>
         </div>

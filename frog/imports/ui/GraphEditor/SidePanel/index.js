@@ -10,8 +10,10 @@ export default connect(
   ({
     setDelete,
     setIdRemove,
-    importList,
-    setImportList,
+    importActivityList,
+    setImportActivityList,
+    lastRefreshAct,
+    refreshActDate,
     store: { ui: { selected, sidepanelOpen } }
   }) => {
     if (!sidepanelOpen) {
@@ -21,7 +23,14 @@ export default connect(
       return (
         <SidebarContainer>
           <ActivityPanel
-            {...{ setDelete, setIdRemove, importList, setImportList }}
+            {...{
+              setDelete,
+              setIdRemove,
+              importActivityList,
+              setImportActivityList,
+              lastRefreshAct,
+              refreshActDate
+            }}
             id={selected.id}
           />
         </SidebarContainer>
