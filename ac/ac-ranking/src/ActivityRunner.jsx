@@ -125,7 +125,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
   const onClick = (title, rank) => () => {
     const prog =
       (Object.keys(data.answers[userInfo.id] || {}).length -
-        Object.keys(data || {}).length +
+        Object.keys(data).length +
         1) /
       config.answers.length;
     const answersList = data.answers[userInfo.id] || {};
@@ -156,7 +156,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
   const done =
     data.answers[userInfo.id] &&
     Object.keys(data.answers[userInfo.id] || {}).length ===
-      Object.keys(config.answers).length + Object.keys(data || {}).length &&
+      Object.keys(config.answers).length + Object.keys(data).length &&
     (!config.justify || data.justification.length > 0);
 
   const onSubmit = () => {
