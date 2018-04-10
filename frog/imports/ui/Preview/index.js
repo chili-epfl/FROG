@@ -2,9 +2,6 @@
 
 import * as React from 'react';
 import { withState, compose } from 'recompose';
-import { withRouter } from 'react-router';
-import { get } from 'lodash';
-import { uuid } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
@@ -41,24 +38,18 @@ class PreviewPage extends React.Component<any, any> {
 
   constructor(props: Object) {
     super(props);
-    const stateId = get(props, ['match', 'params', 'previewId']);
-    let statedump;
-    if (stateId) {
+
+    const statedump = sessionStorage.getItem('previewstate');
+    let state;
+    if (statedump) {
       try {
-        const statedumpraw = localStorage.getItem('preview-' + stateId);
-        if (statedumpraw) {
-          statedump = JSON.parse(statedumpraw);
-        }
+        state = JSON.parse(statedump);
       } catch (e) {
-        console.warn(
-          'Error when parsing localStorage preview state',
-          statedump,
-          e
-        );
+        console.warn('Could not parse sessionStorage', statedump, e);
       }
     }
-    if (statedump) {
-      this.state = statedump;
+    if (state) {
+      this.state = state;
     } else {
       this.state = {
         example: -1,
@@ -72,10 +63,8 @@ class PreviewPage extends React.Component<any, any> {
         plane: 1,
         config: {},
         activityTypeId: null,
-        reloadAPIform: '',
-        stateId: uuid()
+        reloadAPIform: ''
       };
-      this.props.history.push(`/preview/${this.state.stateId}`);
     }
     this.setStates = {
       setExample: example => this.setState({ example }),
@@ -94,14 +83,11 @@ class PreviewPage extends React.Component<any, any> {
   }
 
   render() {
-    localStorage.setItem(
-      'preview-' + this.state.stateId,
-      JSON.stringify(this.state)
-    );
+    sessionStorage.setItem('previewstate', JSON.stringify(this.state));
     return <Preview {...{ ...this.state, ...this.setStates }} />;
   }
 }
 
 PreviewPage.displayName = 'PreviewPage';
 
-export default withRouter(PreviewPage);
+export default PreviewPage;
