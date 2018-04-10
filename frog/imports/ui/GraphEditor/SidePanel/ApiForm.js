@@ -169,10 +169,15 @@ const ApiForm = observer(
 
     render() {
       return (
-        <div style={{ margin: '10px' }}>
+        <div>
           {this.state.activity.activityType ? (
             <div>
-              <div style={{ position: 'absolute', top: '10px' }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  marginRight: '20px'
+                }}
+              >
                 <Config
                   onConfigChange={this.props.onConfigChange}
                   activity={this.state.activity}
@@ -188,7 +193,7 @@ const ApiForm = observer(
               )}
             </div>
           ) : (
-            <div style={{ position: 'absolute', top: '30px' }}>
+            <div style={{ position: 'absolute', marginRight: '20px' }}>
               <ChooseActivityType
                 store={store}
                 activity={this.state.activity}

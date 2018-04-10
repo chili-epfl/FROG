@@ -13,6 +13,7 @@ import {
 } from './dashboardInPreviewAPI';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
+import { addDefaultExample } from './index';
 
 const names = 'Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis'.split(
   ','
@@ -49,7 +50,7 @@ export default (props: Object) => {
   if (!activityType) {
     return <p>Choose and activityType</p>;
   }
-  const examples = activityType.meta.exampleData || [];
+  const examples = addDefaultExample(activityType);
   const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
 
   const refresh = () => {
@@ -65,7 +66,7 @@ export default (props: Object) => {
       dismiss();
     } else {
       setActivityTypeId(null);
-      setExample(-1);
+      setExample(0);
       setConfig({});
       setReloadAPIform(uuid());
       Logs.length = 0;
@@ -103,7 +104,7 @@ export default (props: Object) => {
         X
       </button>
       <h4 className="modal-title">
-        {'Preview of ' + activityType.meta.name + ' (' + activityType.id + ')'}
+        Preview
         <Icon
           onClick={() => setShowData(!showData)}
           icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
@@ -172,7 +173,7 @@ export default (props: Object) => {
               className="examples"
               eventKey={i}
               onClick={() => {
-                const exConf = activityType.meta.exampleData[i].config;
+                const exConf = addDefaultExample(activityType)[i].config;
                 setConfig(exConf);
                 setReloadAPIform(uuid());
                 initActivityDocuments(instances, activityType, i, exConf, true);

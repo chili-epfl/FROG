@@ -3,7 +3,6 @@
 // Description of the config for the activity
 export const config = {
   type: 'object',
-  required: ['title'],
   properties: {
     language: {
       type: 'string',
