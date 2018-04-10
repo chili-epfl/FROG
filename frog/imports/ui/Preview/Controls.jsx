@@ -87,7 +87,7 @@ export default (props: Object) => {
     const newPlane = 1 + plane % 3;
     setPlane(newPlane);
     setInstances(
-      users.map((name, idx) => [name, groupName(idx), 'all'][newPlane - 1])
+      users.map((name, idx) => [idx + 1, groupName(idx), 'all'][newPlane - 1])
     );
   };
 

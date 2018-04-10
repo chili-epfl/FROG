@@ -149,7 +149,13 @@ export default ({
               <MosaicWindow
                 path={path}
                 reload={JSON.stringify({ config, showData })}
-                title={name + '/' + instance + ' - ' + activityType.meta.name}
+                title={
+                  name +
+                  '/' +
+                  ['individual', instance, 'all'][plane - 1] +
+                  ' - ' +
+                  activityType.meta.name
+                }
               >
                 <Run name={name} idx={idx} instance={instance} />
               </MosaicWindow>
