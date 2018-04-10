@@ -30,13 +30,8 @@ const ListContainer = styled.div`
 
 const blue = '#337ab7';
 const grey = '#d3d3d3';
-const chooseColor = disabled => {
-  if (disabled) {
-    return grey;
-  } else {
-    return blue;
-  }
-};
+
+const nKey = x => Object.keys(x).length;
 
 const styles = {
   button: {
@@ -70,22 +65,21 @@ const Answer = ({ rank, answer, answers }) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
-        <A onClick={() => rank(answer, 1, answers)}>
+        <A onClick={() => rank(answer, 1)}>
           <Glyphicon
             style={{
               marginRight: '10px',
-              color: chooseColor(
-                answers[answer] === Object.keys(answers).length
-              )
+              color:
+                answers[answer] === Object.keys(answers).length ? grey : blue
             }}
             glyph="arrow-down"
           />
         </A>
-        <A onClick={() => rank(answer, -1, answers)}>
+        <A onClick={() => rank(answer, -1)}>
           <Glyphicon
             style={{
               marginRight: '10px',
-              color: chooseColor(answers[answer] === 1)
+              color: answers[answer] === 1 ? grey : blue
             }}
             glyph="arrow-up"
           />
@@ -121,43 +115,38 @@ const AnswerList = ({ answers, rank }) => (
 
 const ActivityRunner = (props: ActivityRunnerT) => {
   const { activityData: { config }, logger, dataFn, userInfo, data } = props;
+  const { answers, justification } = data;
 
   const onClick = (title, rank) => () => {
-    const prog =
-      (Object.keys(data.answers[userInfo.id] || {}).length -
-        Object.keys(data).length +
-        1) /
-      config.answers.length;
-    const answersList = data.answers[userInfo.id] || {};
-    answersList[title] = rank;
+    const newAnswers = answers[userInfo.id] || {};
+    newAnswers[title] = rank;
+
+    const progress = answers[userInfo.id]
+      ? nKey(newAnswers) / config.answers.length
+      : 0;
 
     logger([
       {
         type: 'listAdd',
         itemId: title,
-        value: JSON.stringify(answersList)
+        payload: newAnswers
       },
       {
         type: 'progress',
-        value: config.justify ? prog / 2 : prog
+        value: config.justify ? progress / 2 : progress
       },
       {
         type: 'coordinates',
-        payload: getXYFromRanking(answersList, config)
+        payload: getXYFromRanking(newAnswers, config)
       }
     ]);
-    if (!data.answers[userInfo.id]) {
-      dataFn.objInsert({ [title]: rank }, ['answers', userInfo.id]);
-    } else {
-      dataFn.objInsert(rank, ['answers', userInfo.id, title]);
-    }
+    dataFn.objInsert(newAnswers, ['answers', userInfo.id]);
   };
 
   const done =
-    data.answers[userInfo.id] &&
-    Object.keys(data.answers[userInfo.id] || {}).length ===
-      Object.keys(config.answers).length + Object.keys(data).length &&
-    (!config.justify || data.justification.length > 0);
+    answers[userInfo.id] &&
+    nKey(answers[userInfo.id]) === nKey(config.answers) &&
+    (!config.justify || justification.length > 0);
 
   const onSubmit = () => {
     if (done) {
@@ -166,30 +155,28 @@ const ActivityRunner = (props: ActivityRunnerT) => {
     }
   };
 
-  const rank = (title, incr, answers) => {
+  const changeRank = (title, incr) => {
+    const ans = answers[userInfo.id];
     if (
-      !(answers[title] === 1 && incr < 0) &&
-      !(answers[title] === Object.keys(answers).length && incr > 0)
+      !(ans[title] === 1 && incr < 0) &&
+      !(ans[title] === nKey(ans) && incr > 0)
     ) {
-      const answersList = answers;
-      const switchID = findKey(answers, x => x === answers[title] + incr);
-
-      answersList[title] += incr;
-      answersList[switchID] -= incr;
-
+      const newAnswers = { ...ans };
+      const switchID = findKey(ans, x => x === ans[title] + incr);
+      newAnswers[title] += incr;
+      newAnswers[switchID] -= incr;
       logger([
         {
           type: 'listOrder',
           itemId: title,
-          value: JSON.stringify(answersList)
+          value: JSON.stringify(newAnswers)
         },
         {
           type: 'coordinates',
-          payload: getXYFromRanking(answersList, config)
+          payload: getXYFromRanking(newAnswers, config)
         }
       ]);
-      dataFn.numIncr(incr, ['answers', userInfo.id, title]);
-      dataFn.numIncr(-incr, ['answers', userInfo.id, switchID]);
+      dataFn.objInsert(newAnswers, ['answers', userInfo.id]);
     }
   };
 
@@ -201,7 +188,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
         ) : (
           <ListContainer>
             <p>{config.guidelines}</p>
-            <AnswerList answers={data.answers[userInfo.id]} rank={rank} />
+            <AnswerList answers={answers[userInfo.id]} rank={changeRank} />
             <hr style={{ height: '5px' }} />
             <div>
               <div style={{ width: '100%' }}>
@@ -212,27 +199,16 @@ const ActivityRunner = (props: ActivityRunnerT) => {
                     display: 'block'
                   }}
                 >
-                  {config.answers.map(ans => {
-                    if (
-                      !Object.keys(data.answers[userInfo.id] || {}).includes(
-                        ans
-                      )
-                    ) {
-                      return (
-                        <AddAnswer
-                          onClick={onClick}
-                          title={ans}
-                          rank={
-                            Object.keys(data.answers[userInfo.id] || {})
-                              .length || 0
-                          }
-                          key={ans}
-                        />
-                      );
-                    } else {
-                      return null;
-                    }
-                  })}
+                  {config.answers
+                    .filter(ans => !(answers[userInfo.id] || {})[ans])
+                    .map(ans => (
+                      <AddAnswer
+                        onClick={onClick}
+                        title={ans}
+                        rank={nKey(answers[userInfo.id] || {})}
+                        key={ans}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
@@ -244,7 +220,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
                 key="submit"
                 style={{
                   ...styles.button,
-                  backgroundColor: chooseColor(!done),
+                  backgroundColor: !done ? grey : blue,
                   marginLeft: '0px'
                 }}
               >
