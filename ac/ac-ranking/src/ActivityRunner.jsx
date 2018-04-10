@@ -133,7 +133,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
       },
       {
         type: 'progress',
-        value: config.justify ? progress / 2 : progress
+        value: config.mustJustify ? progress / 2 : progress
       },
       {
         type: 'coordinates',
@@ -146,7 +146,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
   const done =
     answers[userInfo.id] &&
     nKey(answers[userInfo.id]) === nKey(config.answers) &&
-    (!config.justify || justification.length > 0);
+    (!config.mustJustify || justification.length > 0);
 
   const onSubmit = () => {
     if (done) {
@@ -199,7 +199,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
                     display: 'block'
                   }}
                 >
-                  {config.answers
+                  {(config.answers || [])
                     .filter(ans => !(answers[userInfo.id] || {})[ans])
                     .map(ans => (
                       <AddAnswer
@@ -213,7 +213,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
               </div>
             </div>
             <hr style={{ height: '5px' }} />
-            <Justification {...props} key="justification" />
+            {config.justify && <Justification {...props} key="justification" />}
             <div>
               <button
                 onClick={onSubmit}
