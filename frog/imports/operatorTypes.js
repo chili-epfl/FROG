@@ -9,7 +9,6 @@ import opAggregateP2 from 'op-aggregate-p2';
 import opAggregate from 'op-aggregate';
 import opControlGroup from 'op-control-group';
 import opProx from 'op-prox';
-import opGroupIdentical from 'op-group-identical';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
 import opHypothesis from 'op-hypothesis';
@@ -30,7 +29,6 @@ export const operatorTypes: operatorPackageT[] = flattenOne([
   opAggregate,
   opControlGroup,
   opProx,
-  opGroupIdentical,
   opJigsaw,
   opArgue,
   opHypothesis,
