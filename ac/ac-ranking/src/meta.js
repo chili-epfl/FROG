@@ -4,12 +4,7 @@ const trainConfig = {
   title: 'Which interface is the best',
   guidelines: 'Please drag the items in order.',
   justify: true,
-  answers: [
-    { choice: 'Command' },
-    { choice: 'Drag and Drop' },
-    { choice: 'Graphical' },
-    { choice: 'Form' }
-  ]
+  answers: ['Form', 'Graphical', 'Command', 'Drag and Drop']
 };
 
 export default {

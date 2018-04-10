@@ -3,30 +3,26 @@
 export const config = {
   type: 'object',
   properties: {
-    title: {
-      title: 'Prompt',
-      type: 'string' // note that it will not autoload in preview with rte
-    },
     guidelines: {
       title: 'Guidelines',
       type: 'string'
     },
     justify: {
       type: 'boolean',
-      title: 'Students must provide a justification for their ranking'
+      title: 'Show textbox where students can justify their ranking'
+    },
+    mustJustify: {
+      type: 'boolean',
+      title: 'Require students to fill out the justification before submitting'
     },
     answers: {
       type: 'array',
       title: 'Choices',
-      items: {
-        type: 'object',
-        properties: {
-          choice: {
-            type: 'string',
-            title: 'choice'
-          }
-        }
-      }
+      items: { type: 'string' }
     }
   }
+};
+
+export const configUI = {
+  mustJustify: { conditional: 'justify' }
 };
