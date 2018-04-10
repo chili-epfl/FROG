@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { toObject } from 'query-parse';
-import { withRouter } from 'react-router';
 import { withState, compose } from 'recompose';
 
 import Preview from './Preview';
@@ -38,10 +36,9 @@ export const ModalPreview = compose(
 class PreviewPage extends React.Component<any, any> {
   setStates: { [state: string]: Function };
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
-    const { location: { search } } = props;
-    const statedump = toObject(search.slice(1)).statedump;
+    const statedump = localStorage.getItem('previewstate');
     if (statedump) {
       this.state = JSON.parse(statedump);
     } else {
@@ -76,19 +73,12 @@ class PreviewPage extends React.Component<any, any> {
     };
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    const { history, location: { search } } = nextProps;
-    const statedump = JSON.stringify(nextState);
-    if (statedump !== toObject(search.slice(1)).statedump) {
-      history.push(`/preview?statedump=${JSON.stringify(nextState)}`);
-    }
-  }
-
   render() {
+    localStorage.setItem('previewstate', JSON.stringify(this.state));
     return <Preview {...{ ...this.state, ...this.setStates }} />;
   }
 }
 
 PreviewPage.displayName = 'PreviewPage';
 
-export default withRouter(PreviewPage);
+export default PreviewPage;
