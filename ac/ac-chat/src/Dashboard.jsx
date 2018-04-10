@@ -29,9 +29,10 @@ const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
 
   if (tmp)
     tmp
-      .split(/[ _().!,]/)
+      .split(/[ :;?_().!,]/)
       .map(x => x.trim())
       .filter(x => !isEmpty(x))
+      .map(x => x.toLowerCase())
       .forEach(
         word =>
           data[word]
