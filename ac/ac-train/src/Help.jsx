@@ -1,13 +1,24 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 import Button from 'material-ui/Button';
 import Dialog, {
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog';
 
-const Help = ({ onOpen, onClose, open, children }) => (
+const Help = ({
+  onOpen,
+  onClose,
+  open,
+  children
+}: {
+  onOpen: Function,
+  onClose: Function,
+  open: boolean,
+  children?: React.Node
+}) => (
   <div>
     <Button onClick={onOpen}>Help</Button>
     <Dialog

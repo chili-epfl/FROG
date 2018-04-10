@@ -1,44 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { TimedComponent, HTML } from 'frog-utils';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
-export const styles = {
-  button: { width: '120px', margin: '0 5px' },
-  text: { fontSize: 'xx-large' },
-  main: {
-    width: '100%',
-    height: '100%'
-  },
-  container: {
-    padding: '40px'
-  },
-  commands: {
-    marginTop: '20px'
-  },
-  activityCountdown: {
-    display: 'flex'
-  }
-};
-
-export const texts = {
-  start: 'Start',
-  yes: 'YES',
-  no: 'NO',
-  guidelines: [
-    'Are the two shapes symmetrical? Click Yes or No to answer. ' +
-      'You can also use the Keyboard: Y/O for Yes and N for No.',
-    'Do not let the ball fall and break the bricks! Use left and right arrows to move.',
-    'Now do both tasks at the same time!',
-    'Now do both tasks at the same time!'
-  ],
-  end: 'Activity completed! Thank you!',
-  timeLeft: 'Time left in Task -> '
-};
-
-const DragAndDropGuidelines = () => (
+export const DragAndDropGuidelines = () => (
   <React.Fragment>
     <Typography variant="headline" gutterBottom>
       Drag-and-drop interface.
@@ -136,71 +102,3 @@ export const StartingGuidlines = ({
     </div>
   </React.Fragment>
 );
-
-export const SpecificGuidelines = ({
-  beginActivity,
-  activity
-}: {
-  beginActivity: Function,
-  activity: String
-}) => (
-  <React.Fragment>
-    <Typography variant="display2" gutterBottom>
-      Train Activity
-    </Typography>
-    {activity === 'start' && (
-      <Typography gutterBottom>
-        You are about to see four different kinds of user interfaces for
-        ordering tickets. They will be presented in a random order. Your task is
-        to order a ticket, requested on the bottom of each page. Please note
-        that options one-way, standard fare, 2nd class and no bike are default
-        in each interface.
-      </Typography>
-    )}
-
-    {(activity === 'start' || activity === 'command') && <CliGuidelines />}
-    {activity === 'start' && (
-      <React.Fragment>
-        <GraphGuidelines />
-        <FormGuidelines />
-        <DragAndDropGuidelines />
-      </React.Fragment>
-    )}
-    <div style={{ marginTop: '20px' }}>
-      <Button color="primary" onClick={beginActivity}>
-        Start
-      </Button>
-    </div>
-  </React.Fragment>
-);
-
-export const CountDownTimer = TimedComponent(
-  ({ timeNow, length, start, children }) => {
-    const timeLeft = Math.ceil((length - Math.ceil(timeNow - start)) / 1000);
-    return (
-      <div>
-        {children}
-        {timeLeft + ' s'}
-      </div>
-    );
-  },
-  100
-);
-
-export const cities = [
-  'Geneve',
-  'Lausanne',
-  'Zurich',
-  'Fribourg',
-  'Basel',
-  'Neuchatel',
-  'Davos'
-];
-
-export const fares = ['standard', 'young', 'half-fare'];
-export const travel = ['one-way', 'return'];
-export const travelClass = ['1st', '2nd'];
-export const bike = ['yes', 'no'];
-
-export const capitalizeFirstLetter = (string: string) =>
-  string.charAt(0).toUpperCase() + string.slice(1);

@@ -4,18 +4,19 @@ import { ProgressBar } from 'react-bootstrap';
 
 import { sample, shuffle } from 'lodash';
 import ReactTimeout from 'react-timeout';
+
+import { Form, Command, DragDrop, Graphical } from './Interfaces';
+import {
+  StartingGuidelines,
+  CliGuidelines,
+  FormGuidelines
+} from './Guidelines';
 import Help from './Help';
-import Form from './Activities/Form';
-import Command from './Activities/Command';
-import DragDrop from './Activities/DragDrop/index';
 
 import {
   styles,
   texts,
   CountDownTimer,
-  SpecificGuidelines,
-  CliGuidelines,
-  FormGuidelines,
   cities,
   fares,
   travelClass,
@@ -82,6 +83,15 @@ const RunActivity = ({
           </Help>
         </React.Fragment>
       );
+    case 'graphical':
+      return (
+        <React.Fragment>
+          {!guidelines && <Graphical ticket={ticket} submit={submit} />}
+          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
+            <FormGuidelines />
+          </Help>
+        </React.Fragment>
+      );
     default:
       return <h1>Hello World</h1>;
   }
@@ -92,10 +102,9 @@ class Activity extends React.Component {
     super(props);
     this.instanceCount = 0;
     this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
-    // this.interfaces = shuffle(['dragdrop', 'command', 'graphical', 'form']);
     this.changeInstanceTimer = null;
     // this.interfaces = ['start', ...shuffle(['command'])];
-    this.interfaces = ['start', ...shuffle(['dragdrop'])];
+    this.interfaces = ['start', ...shuffle(['graphical'])];
     this.state = {
       ticket: generateTicket(),
       help: false,
@@ -154,7 +163,7 @@ class Activity extends React.Component {
 
     if (this.interfaces[step] === 'start') {
       return (
-        <SpecificGuidelines
+        <StartingGuidelines
           beginActivity={this.beginActivity}
           activity={this.interfaces[step]}
         />

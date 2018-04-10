@@ -2,5 +2,6 @@ export default {
   CITY: 'city',
   TRAVEL: 'travel',
   FARE: 'fare',
-  OTHER: 'other'
+  CLASS: 'class',
+  BIKE: 'bike'
 };
