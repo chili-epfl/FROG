@@ -10,6 +10,7 @@ import { activityTypesObj } from '../../activityTypes';
 export const addDefaultExample = (activityType: Object) => [
   {
     title: 'Empty config',
+    data: undefined,
     config: jsonSchemaDefaults(activityType.config)
   },
   ...(activityType.meta.exampleData || [])
