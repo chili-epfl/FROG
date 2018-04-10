@@ -4,6 +4,7 @@ import * as React from 'react';
 import { A } from 'frog-utils';
 import { sample } from 'lodash';
 import FlexView from 'react-flexview';
+import { Meteor } from 'meteor/meteor';
 
 const randomName = () =>
   sample([
