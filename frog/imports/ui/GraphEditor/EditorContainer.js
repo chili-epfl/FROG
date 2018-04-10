@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
+import ReactTooltip from 'react-tooltip';
 
 import { connect } from './store';
 import Graph from './Graph';
@@ -7,7 +8,7 @@ import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
 import TopPanel from './TopPanel';
-import Preview from '../Preview/Preview';
+import { ModalPreview } from '../Preview';
 import TopBar from '../App/TopBar';
 
 const styles = () => ({
@@ -39,6 +40,7 @@ const styles = () => ({
 const EditorPanel = () => (
   <div className="bootstrap" style={styles.sheet}>
     <div style={{ height: 600, border: '1px solid black' }}>
+      <ReactTooltip delayShow={500} />
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
@@ -66,11 +68,10 @@ class Editor extends Component {
     const { classes } = this.props;
     if (this.props.store.ui.showPreview) {
       return (
-        <Preview
+        <ModalPreview
           activityTypeId={this.props.store.ui.showPreview.activityTypeId}
-          config={this.props.store.ui.showPreview.config}
+          _config={this.props.store.ui.showPreview.config}
           dismiss={() => this.props.store.ui.setShowPreview(false)}
-          className="bootstrap"
         />
       );
     }

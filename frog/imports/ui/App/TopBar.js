@@ -41,8 +41,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
     {
       name: 'Preview',
       to: '/preview'
-    },
-    { name: 'Admin', to: '/admin' }
+    }
   ];
 
   value = '/preview';

@@ -8,7 +8,7 @@ import jsonSchemaDefaults from 'json-schema-defaults';
 
 import ActivityLibrary from './ActivityLibrary';
 import ListComponent from '../ListComponent';
-import Preview from '../../../Preview/Preview';
+import { ModalPreview } from '../../../Preview';
 import { connect } from '../../store';
 
 type StateT = {
@@ -197,7 +197,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             </div>
           ))}
         {this.state.showInfo !== null && (
-          <Preview
+          <ModalPreview
             activityTypeId={this.state.showInfo}
             dismiss={() => this.setState({ showInfo: null })}
           />
