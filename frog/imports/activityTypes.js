@@ -11,7 +11,6 @@ import acWebrtc from 'ac-webrtc';
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';
-import acUploader from 'ac-uploader';
 import acProx from 'ac-prox';
 import acClassifier from 'ac-classifier';
 import acImage from 'ac-image';
@@ -38,7 +37,6 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acTextarea,
   acAutocode,
   acDisplaySocial,
-  acUploader,
   acImage,
   acProx,
   acClassifier,
