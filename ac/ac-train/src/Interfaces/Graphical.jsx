@@ -6,10 +6,14 @@ import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
-import Paper from 'material-ui/Paper';
-import update from 'immutability-helper';
 
-import { travelClass, fares, travel } from '../ActivityUtils';
+import {
+  FARES,
+  CLASS,
+  TRAVELDIRECTION,
+  WANTBIKE,
+  capitalizeFirstLetter
+} from '../ActivityUtils';
 
 const styles = theme => ({
   root: {},
@@ -28,7 +32,7 @@ const styles = theme => ({
     margin: `${theme.spacing.unit}px 0`
   },
   map: {
-    width: '100%',
+    width: '650px',
     height: 'auto'
   },
   container: {
@@ -42,11 +46,11 @@ const styles = theme => ({
 
 const coordinates = [
   { id: 'lucerne', minX: 510, maxX: 520, minY: 384, maxY: 394 },
-  { id: 'lausanne', minX: 182, maxX: 192, minY: 533, maxY: 543 }
+  { id: 'lausanne', minX: 130, maxX: 150, minY: 402, maxY: 422 }
 ];
 
 const findInRange = (x, y) => {
-  //   console.log(x, y);
+  console.log(x, y);
   for (let i = 0; i < coordinates.length; i += 1) {
     const index = coordinates[i];
 
@@ -98,13 +102,13 @@ const RadioGroupElements = ({ radioGroups, classes, answer, onRadio }) => (
 
 const FromToInputs = ({ answer, onFocus, classes }) => (
   <Grid container>
-    <Grid item sm={12}>
+    <Grid item sm={6}>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="from">From</InputLabel>
         <Input id="from" value={answer.from} onClick={onFocus('from')} />
       </FormControl>
     </Grid>
-    <Grid item sm={12}>
+    <Grid item sm={6}>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="to">To</InputLabel>
         <Input id="to" value={answer.to} onClick={onFocus('to')} />
@@ -116,19 +120,19 @@ const FromToInputs = ({ answer, onFocus, classes }) => (
 class Graphical extends React.Component {
   state = {
     answer: {
-      from: '------',
-      to: '-------',
-      travel: '------',
+      from: '',
+      to: '',
+      travel: '',
       class: '',
       fare: '',
       bike: false
     },
     input: false,
     radioGroups: [
-      { id: 'travel', values: travel },
-      { id: 'fare', values: fares },
-      { id: 'class', values: travelClass },
-      { id: 'bike', values: ['yes', 'no'] }
+      { id: 'travel', values: TRAVELDIRECTION },
+      { id: 'fare', values: FARES },
+      { id: 'class', values: CLASS },
+      { id: 'bike', values: WANTBIKE }
     ]
   };
 
@@ -160,8 +164,7 @@ class Graphical extends React.Component {
   };
 
   handleSubmit = () => {
-    console.log(this.state.answer);
-    this.props.submit();
+    this.props.submit(this.state.answer);
   };
 
   render() {
@@ -174,7 +177,7 @@ class Graphical extends React.Component {
           <Grid item xs={12} sm={12}>
             <Typography gutterBottom>{ticket}</Typography>
           </Grid>
-          <Grid item xs={12} sm={12}>
+          <Grid item xs={12} sm={6}>
             <img
               id="map"
               src="/train/swiss_map_2.jpg"
@@ -184,16 +187,16 @@ class Graphical extends React.Component {
               onClick={this.handleClick}
             />
           </Grid>
-          <Grid item sm={12}>
+          <Grid item sm={6}>
             <Grid container>
-              <Grid item sm={3}>
+              <Grid item sm={12}>
                 <FromToInputs
                   classes={classes}
                   answer={this.state.answer}
                   onFocus={this.onFocus}
                 />
               </Grid>
-              <Grid item sm={9}>
+              <Grid item sm={12}>
                 <RadioGroupElements
                   classes={classes}
                   radioGroups={radioGroups}
@@ -202,11 +205,15 @@ class Graphical extends React.Component {
                 />
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <Button color="primary" onClick={this.handleSubmit}>
-              Buy
-            </Button>
+            <Grid item sm={12}>
+              <Button
+                color="primary"
+                variant="raised"
+                onClick={this.handleSubmit}
+              >
+                Buy
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </div>

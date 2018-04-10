@@ -2,7 +2,7 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { ProgressBar } from 'react-bootstrap';
 
-import { sample, shuffle } from 'lodash';
+import { sample, shuffle, isEqual } from 'lodash';
 import ReactTimeout from 'react-timeout';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
@@ -17,10 +17,12 @@ import {
   styles,
   texts,
   CountDownTimer,
-  cities,
-  fares,
-  travelClass,
-  travel
+  CITIES,
+  FARES,
+  CLASS,
+  TRAVELDIRECTION,
+  WANTBIKE,
+  capitalizeFirstLetter
 } from './ActivityUtils';
 
 let noAnswerTimeout;
@@ -29,20 +31,24 @@ let changeInstanceTimeout;
 
 const getCommandForTicket = ticket =>
   `Please order a ${ticket.fare} ${ticket.travel} ${
-    ticket.travelClass
-  } class ticket ${ticket.bike ? 'with a bike' : 'without bike'} .`;
+    ticket.class
+  } class ticket from ${capitalizeFirstLetter(
+    ticket.from
+  )} to  ${capitalizeFirstLetter(ticket.to)} ${
+    ticket.bike === 'yes' ? 'with a bike' : 'without bike'
+  } .`;
 
 const generateTicket = () => {
-  const randFrom = sample(cities);
-  const randTo = sample(cities.filter(city => city !== randFrom));
+  const randomFrom = sample(CITIES);
+  const randomTo = sample(CITIES.filter(city => city !== randomFrom));
 
   return {
-    from: randFrom,
-    to: randTo,
-    travel: sample(travel),
-    travelClass: sample(travelClass),
-    bike: Math.random() > 0.5,
-    fare: sample(fares)
+    from: randomFrom,
+    to: randomTo,
+    travel: sample(TRAVELDIRECTION),
+    class: sample(CLASS),
+    bike: sample(WANTBIKE),
+    fare: sample(FARES)
   };
 };
 
@@ -151,9 +157,10 @@ class Activity extends React.Component {
   };
 
   checkAnswer = answer => {
-    console.log('will check answer here -> now move to next instance');
+    const checkAnswerIfCorrect = isEqual(this.state.ticket, answer);
 
-    this.nextInstance();
+    console.log(`Answer is ${checkAnswerIfCorrect}`);
+    // this.nextInstance();
   };
 
   render() {
