@@ -2,6 +2,9 @@
 
 import * as React from 'react';
 import { withState, compose } from 'recompose';
+import { withRouter } from 'react-router';
+import { get } from 'lodash';
+import { uuid } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
@@ -38,9 +41,24 @@ class PreviewPage extends React.Component<any, any> {
 
   constructor(props: Object) {
     super(props);
-    const statedump = localStorage.getItem('previewstate');
+    const stateId = get(props, ['match', 'params', 'previewId']);
+    let statedump;
+    if (stateId) {
+      try {
+        const statedumpraw = localStorage.getItem('preview-' + stateId);
+        if (statedumpraw) {
+          statedump = JSON.parse(statedumpraw);
+        }
+      } catch (e) {
+        console.warn(
+          'Error when parsing localStorage preview state',
+          statedump,
+          e
+        );
+      }
+    }
     if (statedump) {
-      this.state = JSON.parse(statedump);
+      this.state = statedump;
     } else {
       this.state = {
         example: -1,
@@ -54,8 +72,10 @@ class PreviewPage extends React.Component<any, any> {
         plane: 1,
         config: {},
         activityTypeId: null,
-        reloadAPIform: ''
+        reloadAPIform: '',
+        stateId: uuid()
       };
+      this.props.history.push(`/preview/${this.state.stateId}`);
     }
     this.setStates = {
       setExample: example => this.setState({ example }),
@@ -74,11 +94,14 @@ class PreviewPage extends React.Component<any, any> {
   }
 
   render() {
-    localStorage.setItem('previewstate', JSON.stringify(this.state));
+    localStorage.setItem(
+      'preview-' + this.state.stateId,
+      JSON.stringify(this.state)
+    );
     return <Preview {...{ ...this.state, ...this.setStates }} />;
   }
 }
 
 PreviewPage.displayName = 'PreviewPage';
 
-export default PreviewPage;
+export default withRouter(PreviewPage);
