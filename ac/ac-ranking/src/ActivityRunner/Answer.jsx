@@ -21,8 +21,7 @@ const changeRank = (props, incr) => {
   const { answers } = data;
 
   const ans = answers[userInfo.id];
-  console.log(ans);
-  console.log(answer);
+
   if (
     !(ans[answer] === 1 && incr < 0) &&
     !(ans[answer] === nKey(ans) && incr > 0)
@@ -48,7 +47,7 @@ const changeRank = (props, incr) => {
 };
 
 
-export default (props) => {
+export default (props: Object) => {
   const {answer, memAnswers, userID, uiID} = props;
   return (
   <ListGroupItem>

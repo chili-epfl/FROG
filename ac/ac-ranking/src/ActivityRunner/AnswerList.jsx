@@ -11,7 +11,7 @@ import Answer from './Answer';
 
 
 
-export default (props) => {
+export default (props: Object) => {
   const {  data, userID } = props;
   const { answers } = data;
 

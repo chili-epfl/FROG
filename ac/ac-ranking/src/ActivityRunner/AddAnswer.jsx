@@ -57,7 +57,7 @@ const onClick = ( props ) => () => {
 };
 
 
-export default (props) => {
+export default (props: Object) => {
   const { title, rank } = props;
   return (
     <Button
