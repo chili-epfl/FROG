@@ -64,7 +64,6 @@ export class DashboardComp extends React.Component<
     const DashWith = withTracker(() => ({
       state: Dashboard.findOne(this.props.activity._id + '-' + this.props.name)
     }))(({ state, ...props }) => {
-      console.log(state);
       return state ? <Dash state={state} {...props} /> : <Spinner />;
     });
     DashWith.displayName = 'DashWith';
