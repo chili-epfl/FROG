@@ -1,11 +1,22 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
+
+// UI
+import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Button from 'material-ui/Button';
-import { withStyles } from 'material-ui/styles';
 
-import { cities, travelClass, fares, bike } from '../ActivityUtils';
+import Help from './Help';
+import { FormGuidelines } from '../Guidelines';
+import {
+  CITIES,
+  CLASS,
+  FARES,
+  WANTBIKE,
+  TRAVELDIRECTION
+} from '../ActivityUtils';
 
 const styles = theme => ({
   root: {},
@@ -22,11 +33,28 @@ const styles = theme => ({
   }
 });
 
-class Form extends React.Component {
+type StateT = {
+  from: string,
+  to: string,
+  class: string,
+  fare: string,
+  bike: string
+};
+
+type PropsT = {
+  ticket: string,
+  submit: Function,
+  helpOpen: Function,
+  helpClose: Function,
+  help: boolean,
+  classes: Object
+};
+
+class Form extends React.Component<PropsT, StateT> {
   state = {
-    from: '------',
-    to: '-------',
-    travel: '------',
+    from: '',
+    to: '',
+    travel: '',
     class: '',
     fare: '',
     bike: 'No'
@@ -43,7 +71,7 @@ class Form extends React.Component {
   };
 
   render() {
-    const { ticket, classes } = this.props;
+    const { ticket, helpOpen, helpClose, help, classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -56,7 +84,7 @@ class Form extends React.Component {
             className={classes.textField}
             onChange={this.handleChange('from')}
           >
-            {cities.map(city => (
+            {CITIES.map(city => (
               <MenuItem key={city} value={city}>
                 {city}
               </MenuItem>
@@ -69,7 +97,7 @@ class Form extends React.Component {
             className={classes.textField}
             onChange={this.handleChange('to')}
           >
-            {cities.map(city => (
+            {CITIES.map(city => (
               <MenuItem key={city} value={city}>
                 {city}
               </MenuItem>
@@ -81,8 +109,8 @@ class Form extends React.Component {
             value={this.state.class}
             onChange={this.handleChange('class')}
           >
-            {travelClass.map(c => (
-              <MenuItem key={c} value={c}>
+            {CLASS.map((c, index) => (
+              <MenuItem key={c} value={index}>
                 {c}
               </MenuItem>
             ))}
@@ -93,9 +121,21 @@ class Form extends React.Component {
             value={this.state.fare}
             onChange={this.handleChange('fare')}
           >
-            {fares.map(fare => (
+            {FARES.map(fare => (
               <MenuItem key={fare} value={fare}>
                 {fare}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            select
+            label="Travel:"
+            value={this.state.travel}
+            onChange={this.handleChange('travel')}
+          >
+            {TRAVELDIRECTION.map(b => (
+              <MenuItem key={b} value={b}>
+                {b}
               </MenuItem>
             ))}
           </TextField>
@@ -105,7 +145,7 @@ class Form extends React.Component {
             value={this.state.bike}
             onChange={this.handleChange('bike')}
           >
-            {bike.map(b => (
+            {WANTBIKE.map(b => (
               <MenuItem key={b} value={b}>
                 {b}
               </MenuItem>
@@ -115,6 +155,9 @@ class Form extends React.Component {
         <Button color="primary" onClick={this.handleSubmit}>
           Buy
         </Button>
+        <Help onOpen={helpOpen} onClose={helpClose} open={help}>
+          <FormGuidelines />
+        </Help>
       </div>
     );
   }

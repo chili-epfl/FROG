@@ -1,12 +1,19 @@
+// @flow
 import React from 'react';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import ReactCursorPosition from 'react-cursor-position';
+
+// UI
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 
+// Interal Imports
+import Help from './Help';
+import { GraphicGuidelines } from '../Guidelines';
 import {
   FARES,
   CLASS,
@@ -32,7 +39,7 @@ const styles = theme => ({
     margin: `${theme.spacing.unit}px 0`
   },
   map: {
-    width: '650px',
+    width: '100%',
     height: 'auto'
   },
   container: {
@@ -45,8 +52,8 @@ const styles = theme => ({
 });
 
 const coordinates = [
-  { id: 'lucerne', minX: 510, maxX: 520, minY: 384, maxY: 394 },
-  { id: 'lausanne', minX: 130, maxX: 150, minY: 402, maxY: 422 }
+  { id: 'geneva', minX: 46, maxX: 56, minY: 755, maxY: 765 },
+  { id: 'lausanne', minX: 146, maxX: 166, minY: 598, maxY: 618 }
 ];
 
 const findInRange = (x, y) => {
@@ -117,7 +124,39 @@ const FromToInputs = ({ answer, onFocus, classes }) => (
   </Grid>
 );
 
-class Graphical extends React.Component {
+const SwissMap = ({
+  classes,
+  canSelectCity,
+  position,
+  elementDimensions,
+  onClickCity
+}) => {
+  return (
+    <img
+      id="map"
+      src="/train/swiss_map_2.jpg"
+      className={classes.map}
+      alt="swiss_map"
+      style={{ cursor: canSelectCity ? 'pointer' : 'not-allowed' }}
+      onClick={onClickCity(position, elementDimensions)}
+    />
+  );
+};
+
+type StateT = {
+  answer: Object
+};
+
+type PropsT = {
+  ticket: string,
+  submit: Function,
+  helpOpen: Function,
+  helpClose: Function,
+  help: boolean,
+  classes: Object
+};
+
+class Graphical extends React.Component<PropsT, StateT> {
   state = {
     answer: {
       from: '',
@@ -142,20 +181,22 @@ class Graphical extends React.Component {
     this.setState({ answer });
   };
 
-  handleClick = event => {
-    const { clientX, clientY } = event;
+  handleClickCity = (position, dimension) => () => {
+    const { x, y } = position;
+    const { width, height } = dimension;
+
+    const normX = Math.round(x / width * 1000);
+    const normY = Math.round(y / height * 1000);
 
     if (this.state.input) {
-      const id = findInRange(clientX, clientY);
+      const id = findInRange(normX, normY);
       const answer = { ...this.state.answer };
       answer[this.state.input] = id;
 
       if (id) {
-        this.setState({
-          answer,
-          input: false
-        });
+        this.setState({ answer });
       }
+      this.setState({ input: false });
     }
   };
 
@@ -168,7 +209,7 @@ class Graphical extends React.Component {
   };
 
   render() {
-    const { ticket, classes } = this.props;
+    const { ticket, helpOpen, helpClose, help, classes } = this.props;
     const { radioGroups } = this.state;
 
     return (
@@ -178,14 +219,13 @@ class Graphical extends React.Component {
             <Typography gutterBottom>{ticket}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <img
-              id="map"
-              src="/train/swiss_map_2.jpg"
-              className={classes.map}
-              style={{ cursor: this.state.input ? 'pointer' : 'not-allowed' }}
-              alt="swiss_map"
-              onClick={this.handleClick}
-            />
+            <ReactCursorPosition>
+              <SwissMap
+                classes={classes}
+                canSelectCity={this.state.input}
+                onClickCity={this.handleClickCity}
+              />
+            </ReactCursorPosition>
           </Grid>
           <Grid item sm={6}>
             <Grid container>
@@ -206,13 +246,18 @@ class Graphical extends React.Component {
               </Grid>
             </Grid>
             <Grid item sm={12}>
-              <Button
-                color="primary"
-                variant="raised"
-                onClick={this.handleSubmit}
-              >
-                Buy
-              </Button>
+              <Grid container>
+                <Button
+                  color="primary"
+                  variant="raised"
+                  onClick={this.handleSubmit}
+                >
+                  Buy
+                </Button>
+                <Help onOpen={helpOpen} onClose={helpClose} open={help}>
+                  <GraphicGuidelines />
+                </Help>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

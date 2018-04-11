@@ -31,7 +31,7 @@ export const FormGuidelines = () => (
   </React.Fragment>
 );
 
-const GraphGuidelines = () => (
+export const GraphicGuidelines = () => (
   <React.Fragment>
     <Typography variant="headline" gutterBottom>
       Graphical interface:
@@ -46,7 +46,7 @@ const GraphGuidelines = () => (
   </React.Fragment>
 );
 
-export const CliGuidelines = () => (
+export const CommandGuidelines = () => (
   <React.Fragment>
     <Typography variant="headline" gutterBottom>
       Command line interface:
@@ -56,8 +56,9 @@ export const CliGuidelines = () => (
       In this interface you write a command in the following format:
     </Typography>
     <pre>
-      from [city] to [city]{' '}
-      {'{ young|half-fare|standard} {bike} {one-way|return} {C1|C2}'}
+      {
+        'from [city] to [city] { young|half-fare|standard} {bike} {C1|C2} {one-way|return} '
+      }
     </pre>
     <Typography gutterBottom>
       where cities are obligatory. Optional arguments are{' '}
@@ -73,7 +74,7 @@ export const CliGuidelines = () => (
   </React.Fragment>
 );
 
-export const StartingGuidlines = ({
+export const StartingGuidelines = ({
   beginActivity,
   step
 }: {
@@ -91,9 +92,9 @@ export const StartingGuidlines = ({
       one-way, standard fare, 2nd class and no bike are default in each
       interface.
     </Typography>
-    <CliGuidelines />
-    <GraphGuidelines />}
-    <FormGuidelines />}
+    <CommandGuidelines />
+    <GraphicGuidelines />
+    <FormGuidelines />
     <DragAndDropGuidelines />
     <div style={{ marginTop: '20px' }}>
       <Button color="primary" onClick={beginActivity}>

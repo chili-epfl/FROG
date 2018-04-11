@@ -1,18 +1,26 @@
+// @flow
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
 import { DragDropContext } from 'react-dnd';
 import update from 'immutability-helper';
 import HTML5Backend from 'react-dnd-html5-backend';
+
+// UI
+import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+
+// Internal Imports
 import {
-  cities,
-  fares,
-  travelClass,
-  travel,
+  CITIES,
+  FARES,
+  CLASS,
+  TRAVELDIRECTION,
+  WANTBIKE,
   capitalizeFirstLetter
 } from '../../ActivityUtils';
+import Help from '../Help';
+import { DragAndDropGuidelines } from '../../Guidelines';
 import DropElements from './DropElements';
 import ItemTypes from './ItemTypes';
 import Box from './Box';
@@ -70,11 +78,11 @@ class DragDropController extends React.Component {
         }
       },
       boxes: [
-        { id: 'city', type: ItemTypes.CITY, values: cities },
-        { id: 'travel', type: ItemTypes.TRAVEL, values: travel },
-        { id: 'fare', type: ItemTypes.FARE, values: fares },
-        { id: 'class', type: ItemTypes.CLASS, values: travelClass },
-        { id: 'bike', type: ItemTypes.BIKE, values: ['yes', 'no'] }
+        { id: 'city', type: ItemTypes.CITY, values: CITIES },
+        { id: 'travel', type: ItemTypes.TRAVEL, values: TRAVELDIRECTION },
+        { id: 'fare', type: ItemTypes.FARE, values: FARES },
+        { id: 'class', type: ItemTypes.CLASS, values: CLASS },
+        { id: 'bike', type: ItemTypes.BIKE, values: WANTBIKE }
       ]
     };
   }
@@ -101,7 +109,7 @@ class DragDropController extends React.Component {
   };
 
   render() {
-    const { ticket, classes } = this.props;
+    const { ticket, helpOpen, helpClose, help, classes } = this.props;
     const { boxes, dropBins } = this.state;
 
     return (
@@ -147,6 +155,9 @@ class DragDropController extends React.Component {
         <Button color="primary" onClick={this.handleSubmit}>
           Buy
         </Button>
+        <Help onOpen={helpOpen} onClose={helpClose} open={help}>
+          <DragAndDropGuidelines />
+        </Help>
       </div>
     );
   }

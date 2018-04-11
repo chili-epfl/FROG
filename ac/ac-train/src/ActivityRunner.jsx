@@ -4,14 +4,10 @@ import { ProgressBar } from 'react-bootstrap';
 
 import { sample, shuffle, isEqual } from 'lodash';
 import ReactTimeout from 'react-timeout';
+import Button from 'material-ui/Button';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
-import {
-  StartingGuidelines,
-  CliGuidelines,
-  FormGuidelines
-} from './Guidelines';
-import Help from './Help';
+import { StartingGuidelines } from './Guidelines';
 
 import {
   styles,
@@ -52,56 +48,38 @@ const generateTicket = () => {
   };
 };
 
-const RunActivity = ({
-  activity,
-  ticket,
-  guidelines,
-  help,
-  submit,
-  helpOpen,
-  helpClose
-}) => {
-  switch (activity) {
+const RunActivity = props => {
+  switch (props.activity) {
     case 'command':
-      return (
-        <React.Fragment>
-          {!guidelines && <Command ticket={ticket} submit={submit} />}
-          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
-            <CliGuidelines />
-          </Help>
-        </React.Fragment>
-      );
+      return <Command {...props} />;
     case 'form':
-      return (
-        <React.Fragment>
-          {!guidelines && <Form ticket={ticket} submit={submit} />}
-          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
-            <FormGuidelines />
-          </Help>
-        </React.Fragment>
-      );
+      return <Form {...props} />;
     case 'dragdrop':
-      return (
-        <React.Fragment>
-          {!guidelines && <DragDrop ticket={ticket} submit={submit} />}
-          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
-            <FormGuidelines />
-          </Help>
-        </React.Fragment>
-      );
+      return <DragDrop {...props} />;
     case 'graphical':
-      return (
-        <React.Fragment>
-          {!guidelines && <Graphical ticket={ticket} submit={submit} />}
-          <Help onOpen={helpOpen} onClose={helpClose} open={help}>
-            <FormGuidelines />
-          </Help>
-        </React.Fragment>
-      );
+      return <Graphical {...props} />;
     default:
       return <h1>Hello World</h1>;
   }
 };
+
+class Interval extends React.Component {
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.nextInstance();
+    }, 500);
+  }
+
+  render() {
+    return (
+      <div>
+        <CountDownTimer start={Date.now()} length={500}>
+          {texts.timeLeft}
+        </CountDownTimer>
+      </div>
+    );
+  }
+}
 
 class Activity extends React.Component {
   constructor(props) {
@@ -109,13 +87,14 @@ class Activity extends React.Component {
     this.instanceCount = 0;
     this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
     this.changeInstanceTimer = null;
-    // this.interfaces = ['start', ...shuffle(['command'])];
-    this.interfaces = ['start', ...shuffle(['graphical'])];
+    this.interfaces = shuffle(['graphical', 'dragdrop', 'command', 'form']);
+
     this.state = {
+      start: true,
       ticket: generateTicket(),
       help: false,
-      guidelines: false,
-      timer: false
+      timer: false,
+      interval: false
     };
   }
 
@@ -131,13 +110,15 @@ class Activity extends React.Component {
   };
 
   nextInstance = () => {
+    const { dataFn } = this.props;
+
     if (this.instanceCount > 4) {
       this.instanceCount = 0;
-      this.setState({ guidelines: true });
+      this.setState({ help: true, interval: false });
+      dataFn.numIncr(1, 'step');
     } else {
       this.instanceCount += 1;
-      this.timer();
-      this.setState({ ticket: this.generateTicket() });
+      this.setState({ ticket: generateTicket(), interval: false });
     }
   };
 
@@ -150,31 +131,27 @@ class Activity extends React.Component {
   };
 
   beginActivity = () => {
-    const { dataFn, data: { step } } = this.props;
-    dataFn.numIncr(1, 'step');
-
-    this.setState({ guidelines: true, help: true });
+    this.setState({ start: false, help: true });
   };
 
   checkAnswer = answer => {
     const checkAnswerIfCorrect = isEqual(this.state.ticket, answer);
 
     console.log(`Answer is ${checkAnswerIfCorrect}`);
-    // this.nextInstance();
+
+    this.setState({ interval: true });
   };
 
   render() {
     const { ticket } = this.state;
     const { data: { step } } = this.props;
-    console.log(this.interfaces);
 
-    if (this.interfaces[step] === 'start') {
-      return (
-        <StartingGuidelines
-          beginActivity={this.beginActivity}
-          activity={this.interfaces[step]}
-        />
-      );
+    if (this.state.start) {
+      return <StartingGuidelines beginActivity={this.beginActivity} />;
+    }
+
+    if (this.state.interval) {
+      return <Interval nextInstance={this.nextInstance} />;
     }
 
     return (
@@ -188,11 +165,11 @@ class Activity extends React.Component {
           helpOpen={this.handleHelpOpen}
           helpClose={this.handleHelpClose}
         />
-        <div style={styles.activityCountdown}>
+        {/* <div style={styles.activityCountdown}>
           <CountDownTimer start={Date.now()} length={this.timeOfEachInstance}>
             {texts.timeLeft}
           </CountDownTimer>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }
@@ -203,7 +180,7 @@ class Activity extends React.Component {
 const Main = props => {
   const { step } = props.data;
 
-  if (step < 4) {
+  if (step < 5) {
     return <Activity {...props} />;
   } else {
     return <div style={styles.text}>{texts.end}</div>;
@@ -213,7 +190,7 @@ const Main = props => {
 // the actual component that the student sees
 const Runner = (props: ActivityRunnerT) => {
   const { step } = props.data;
-  const p = Math.round(step / 4 * 100);
+  const p = Math.round(step / 5 * 100);
   return (
     <div style={styles.main}>
       <ProgressBar now={p} label={`${p}%`} />
