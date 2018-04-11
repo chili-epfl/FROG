@@ -67,10 +67,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
   const listStyles = {
     list: {
       width: nKey(answers) === 0 ? '100%' : 100 / nKey(answers) + '%',
-      position: 'relative',
-      whiteSpace: 'normal',
-      float: 'center',
-      display: 'inline-block'
+      verticalAlign: 'top'
     }
   };
 
@@ -105,24 +102,23 @@ const ActivityRunner = (props: ActivityRunnerT) => {
             </div>
             <p>{config.guidelines}</p>
             <div style={{ width: '100%' }}>
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  display: 'block'
-                }}
-              >
-                {Object.keys(answers).map(member => (
-                  <div key={member} style={{ ...listStyles.list }}>
-                    <p>{data.group[member] + "'s List"}</p>
-                    <AnswerList
-                      {...props}
-                      answers={answers[member]}
-                      userID={member}
-                      uiID={userInfo.id}
-                    />
-                  </div>
-                ))}
+              <div>
+                <table style={{ width: '100%' }}>
+                  <tr>
+                    {Object.keys(answers).map(member => (
+                      <th style={{ ...listStyles.list }}>
+                        <p>{data.group[member] + "'s List"}</p>
+
+                        <AnswerList
+                          {...props}
+                          answers={answers[member]}
+                          userID={member}
+                          uiID={userInfo.id}
+                        />
+                      </th>
+                    ))}
+                  </tr>
+                </table>
               </div>
             </div>
 
