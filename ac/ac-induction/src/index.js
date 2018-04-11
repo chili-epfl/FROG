@@ -13,7 +13,6 @@ const meta = {
   description:
     "The student has an image that corresponds to the concept he needs to define an one that doens't and he has to check the rules that fit the concept."
 };
-
 // exampleData is currently broken
 
 export default ({
