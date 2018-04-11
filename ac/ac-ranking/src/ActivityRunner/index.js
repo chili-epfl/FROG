@@ -83,10 +83,23 @@ const ActivityRunner = (props: ActivityRunnerT) => {
       .includes(false);
   };
 
+  const alertMessage = () => {
+    if (!done) {
+      return 'Please complete all of the steps in the activity before submitting.';
+    } else if (!checkAnswers()) {
+      return 'Please make sure all members of the group have the same ranking before submitting.';
+    } else {
+      return null;
+    }
+  };
+
   const onSubmit = () => {
     if (done && checkAnswers()) {
+      dataFn.objInsert(false, ['alert']);
       dataFn.objInsert(true, ['completed']);
       logger([{ type: 'progress', value: 1 }]);
+    } else {
+      dataFn.objInsert(true, ['alert']);
     }
   };
 
@@ -104,20 +117,22 @@ const ActivityRunner = (props: ActivityRunnerT) => {
             <div style={{ width: '100%' }}>
               <div>
                 <table style={{ width: '100%' }}>
-                  <tr>
-                    {Object.keys(answers).map(member => (
-                      <th style={{ ...listStyles.list }}>
-                        <p>{data.group[member] + "'s List"}</p>
+                  <tbody>
+                    <tr>
+                      {Object.keys(answers).map(member => (
+                        <th key={member} style={{ ...listStyles.list }}>
+                          <p>{data.group[member] + "'s List"}</p>
 
-                        <AnswerList
-                          {...props}
-                          answers={answers[member]}
-                          userID={member}
-                          uiID={userInfo.id}
-                        />
-                      </th>
-                    ))}
-                  </tr>
+                          <AnswerList
+                            {...props}
+                            answers={answers[member]}
+                            userID={member}
+                            uiID={userInfo.id}
+                          />
+                        </th>
+                      ))}
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -159,6 +174,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
               >
                 Submit
               </button>
+              {data.alert ? <p>{alertMessage()}</p> : null}
             </div>
           </ListContainer>
         )}
