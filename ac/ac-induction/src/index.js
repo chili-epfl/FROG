@@ -1,10 +1,10 @@
 // @flow
 
+import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './ActivityRunner';
 import config from './config';
-import mergeFunction from './mergeFun';
+// import mergeFunction from './mergeFun';
 import dashboard from './Dashboard';
 
 const meta = {
@@ -20,7 +20,6 @@ export default ({
   type: 'react-component',
   config,
   meta,
-  ActivityRunner,
-  mergeFunction,
+  ActivityRunner: () => <div>Activity currently broken</div>,
   dashboard
 }: ActivityPackageT);
