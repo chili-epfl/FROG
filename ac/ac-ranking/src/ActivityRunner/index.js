@@ -171,6 +171,4 @@ const ActivityRunner = (props: ActivityRunnerT) => {
   );
 };
 
-
-
 export default ActivityRunner;
