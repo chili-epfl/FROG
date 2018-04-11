@@ -12,7 +12,7 @@ const Main = props => {
   //   ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
   // ];
 
-  const interfaces = ['start', ...shuffle(['form'])];
+  const interfaces = ['start', ...shuffle(['graphical'])];
 
   const start = () => {
     const { dataFn } = props;
