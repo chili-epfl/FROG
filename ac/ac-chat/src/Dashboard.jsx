@@ -21,7 +21,6 @@ const Viewer = ({ state }: Object) => {
 Viewer.displayName = 'Viewer';
 
 const prepareDisplay = state => {
-  console.log('prepareDisplayState', state);
   const iMax = Object.values(state).reduce(
     (acc, curr) => Math.max(Number(acc), Number(curr)),
     1

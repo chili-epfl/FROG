@@ -4,6 +4,7 @@ import { uuid } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
 import { DashboardStates } from './cache';
+import { regenerateState } from './mergeLogData';
 
 const interval = {};
 const subscriptions = {};
@@ -11,16 +12,11 @@ const oldState = {};
 const oldInput = {};
 
 const update = (that, dashId, func) => {
-  console.log('check');
   if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
-    console.log('new input');
     const newState = func(cloneDeep(DashboardStates[dashId]));
-    if (!isEqual(oldState[dashId], newState)) {
-      console.log('new output');
-      that.changed('dashboard', dashId, newState);
-      oldState[dashId] = newState;
-      oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
-    }
+    that.changed('dashboard', dashId, newState);
+    oldState[dashId] = newState;
+    oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
   }
 };
 
@@ -29,8 +25,7 @@ export default () => {
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
     if (DashboardStates[dashId] === undefined) {
-      this.ready();
-      return;
+      regenerateState(activityType, activityId, dashboard);
     }
     set(subscriptions, [dashId, id], true);
     const func =

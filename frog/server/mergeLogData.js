@@ -8,6 +8,26 @@ import { DashboardStates } from './cache';
 import { Activities } from '../imports/api/activities.js';
 
 const activityCache = {};
+export const regenerateState = (
+  activityType: string,
+  activityId: string,
+  name: string
+) => {
+  const dashId = activityId + '-' + name;
+  if (!DashboardStates[dashId]) {
+    if (!activityCache[activityId]) {
+      activityCache[activityId] = Activities.findOne(activityId);
+    }
+    const activity = activityCache[activityId];
+    const aT = activityTypesObj[activityType];
+    DashboardStates[dashId] = aT.dashboard[name].initData || {};
+    const logs = Logs.find({ activityId }).fetch();
+    const mergeLogFn = aT.dashboard[name].mergeLog;
+    logs.forEach(log =>
+      mergeLogFn(DashboardStates[log.activityId + '-' + name], log, activity)
+    );
+  }
+};
 
 const mergeLog = (rawLog, logExtra) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
@@ -26,8 +46,7 @@ const mergeLog = (rawLog, logExtra) => {
             const mergeLogFn = aT.dashboard[name].mergeLog;
             if (mergeLogFn) {
               if (!DashboardStates[log.activityId + '-' + name]) {
-                DashboardStates[log.activityId + '-' + name] =
-                  aT.dashboard[name].initData || {};
+                regenerateState(activity.activityType, log.activityId, name);
               }
               mergeLogFn(
                 DashboardStates[log.activityId + '-' + name],
