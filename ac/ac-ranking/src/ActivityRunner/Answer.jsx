@@ -3,11 +3,7 @@
 import * as React from 'react';
 import { A } from 'frog-utils';
 import { findKey } from 'lodash';
-import {
-  Badge,
-  Glyphicon,
-  ListGroupItem
-} from 'react-bootstrap';
+import { Badge, Glyphicon, ListGroupItem } from 'react-bootstrap';
 
 import { getXYFromRanking } from '../Dashboard';
 
@@ -17,7 +13,14 @@ const grey = '#d3d3d3';
 const nKey = x => Object.keys(x).length;
 
 const changeRank = (props, incr) => {
-  const { activityData: { config }, logger, dataFn, userInfo, data, answer } = props;
+  const {
+    activityData: { config },
+    logger,
+    dataFn,
+    userInfo,
+    data,
+    answer
+  } = props;
   const { answers } = data;
 
   const ans = answers[userInfo.id];
@@ -46,44 +49,45 @@ const changeRank = (props, incr) => {
   }
 };
 
-
 export default (props: Object) => {
-  const {answer, memAnswers, userID, uiID} = props;
+  const { answer, memAnswers, userID, uiID } = props;
   return (
-  <ListGroupItem>
-    <font size={4}>
-      {userID.toString() === uiID.toString() && (
-        <div style={{ float: 'right' }}>
-          <A onClick={() => changeRank(props, 1)}>
-            <Glyphicon
-              style={{
-                marginRight: '10px',
-                color:
-                  memAnswers[answer] === Object.keys(memAnswers).length ? grey : blue
-              }}
-              glyph="arrow-down"
-            />
-          </A>
-          <A onClick={() => changeRank(props, -1)}>
-            <Glyphicon
-              style={{
-                marginRight: '10px',
-                color: memAnswers[answer] === 1 ? grey : blue
-              }}
-              glyph="arrow-up"
-            />
-          </A>
-        </div>
-      )}
-    </font>
-    <Badge
-      style={{
-        marginRight: '10px'
-      }}
-    >
-      {memAnswers[answer]}
-    </Badge>
-    <b>{answer}</b>
-  </ListGroupItem>
-);
+    <ListGroupItem>
+      <font size={4}>
+        {userID.toString() === uiID.toString() && (
+          <div style={{ float: 'right' }}>
+            <A onClick={() => changeRank(props, 1)}>
+              <Glyphicon
+                style={{
+                  marginRight: '10px',
+                  color:
+                    memAnswers[answer] === Object.keys(memAnswers).length
+                      ? grey
+                      : blue
+                }}
+                glyph="arrow-down"
+              />
+            </A>
+            <A onClick={() => changeRank(props, -1)}>
+              <Glyphicon
+                style={{
+                  marginRight: '10px',
+                  color: memAnswers[answer] === 1 ? grey : blue
+                }}
+                glyph="arrow-up"
+              />
+            </A>
+          </div>
+        )}
+      </font>
+      <Badge
+        style={{
+          marginRight: '10px'
+        }}
+      >
+        {memAnswers[answer]}
+      </Badge>
+      <b>{answer}</b>
+    </ListGroupItem>
+  );
 };
