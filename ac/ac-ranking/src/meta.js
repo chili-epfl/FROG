@@ -1,9 +1,10 @@
 // @flow
 
 const trainConfig = {
-  title: 'Which interface is the best',
+  title: 'Which interface is the best?',
   guidelines: 'Please drag the items in order.',
   justify: true,
+  mustJustify: true,
   answers: ['Form', 'Graphical', 'Command', 'Drag and Drop']
 };
 
