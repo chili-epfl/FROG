@@ -63,17 +63,12 @@ const initData = {
 
 const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
-    const { expectedAnswer, answer, difficulty, speed } = log.payload;
-    if (!data[difficulty][speed.toString()]) {
-      dataFn.objInsert({ wrong: 0, correct: 0 }, [
-        difficulty,
-        speed.toString()
-      ]);
-    }
-    if (expectedAnswer === answer) {
-      dataFn.numIncr(1, [difficulty, speed.toString(), 'correct']);
+    const { answer } = log.payload;
+
+    if (answer) {
+      // dataFn.numIncr(1, ['correct']);
     } else {
-      dataFn.numIncr(1, [difficulty, speed.toString(), 'wrong']);
+      // dataFn.numIncr(1, ['wrong']);
     }
   }
 };

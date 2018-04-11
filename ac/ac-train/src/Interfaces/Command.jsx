@@ -6,20 +6,12 @@ import * as React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import Timer from 'material-ui-icons/Timer';
 import ShoppingCart from 'material-ui-icons/ShoppingCart';
-
-// import ShoppingCart from 'material-ui/icons/ShoppingCart';
-import Card, {
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions
-} from 'material-ui/Card';
+import Card, { CardContent, CardActions } from 'material-ui/Card';
 
 import Help from './Help';
 import { SwitchGuidelines } from '../Guidelines';

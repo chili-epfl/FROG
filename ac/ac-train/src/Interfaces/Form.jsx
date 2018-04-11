@@ -3,49 +3,68 @@ import * as React from 'react';
 
 // UI
 import { withStyles } from 'material-ui/styles';
+import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Button from 'material-ui/Button';
+import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
+import Timer from 'material-ui-icons/Timer';
+import ShoppingCart from 'material-ui-icons/ShoppingCart';
+import Card, { CardContent, CardActions } from 'material-ui/Card';
 
 import Help from './Help';
-import { FormGuidelines } from '../Guidelines';
+import { SwitchGuidelines } from '../Guidelines';
+
 import {
   CITIES,
   CLASS,
   FARES,
   WANTBIKE,
-  TRAVELDIRECTION
+  TRAVELDIRECTION,
+  capitalizeFirstLetter
 } from '../ActivityUtils';
 
-const styles = theme => ({
-  root: {},
-  formControls: {
+const ALL = [
+  { id: 'from', values: CITIES },
+  { id: 'to', values: CITIES },
+  { id: 'travel', values: TRAVELDIRECTION },
+  { id: 'fare', values: FARES },
+  { id: 'class', values: CLASS },
+  { id: 'bike', values: WANTBIKE }
+];
+
+const styles = {
+  card: {
+    maxWidth: 800
+  },
+  content: {
     display: 'flex',
-    flexDirection: 'column',
-    padding: '100px'
+    flexDirection: 'column'
   },
-  margin: {
-    margin: theme.spacing.unit
+  buy: {
+    marginLeft: 'auto'
   },
-  withoutLabel: {
-    marginTop: theme.spacing.unit * 3
+  actions: {
+    paddingBottom: '20px'
   }
-});
+};
 
 type StateT = {
   from: string,
   to: string,
   class: string,
   fare: string,
-  bike: string
+  bike: string,
+  travel: string
 };
 
 type PropsT = {
   ticket: string,
   submit: Function,
-  helpOpen: Function,
-  helpClose: Function,
+  onHelpOpen: Function,
+  onHelpClose: Function,
   help: boolean,
   classes: Object
 };
@@ -57,7 +76,7 @@ class Form extends React.Component<PropsT, StateT> {
     travel: '',
     class: '',
     fare: '',
-    bike: 'No'
+    bike: ''
   };
 
   handleChange = prop => event => {
@@ -65,100 +84,69 @@ class Form extends React.Component<PropsT, StateT> {
   };
 
   handleSubmit = () => {
-    console.log('HandleSubmit of Form called');
-
-    this.props.submit();
+    this.props.submit(this.state);
   };
 
   render() {
-    const { ticket, helpOpen, helpClose, help, classes } = this.props;
+    const {
+      ticket,
+      activity,
+      ticker,
+      help,
+      onHelpOpen,
+      onHelpClose,
+      classes
+    } = this.props;
 
     return (
-      <div className={classes.root}>
-        <Typography gutterBottom>{ticket}</Typography>
-        <div className={classes.formControls}>
-          <TextField
-            select
-            label="From:"
-            value={this.state.from}
-            className={classes.textField}
-            onChange={this.handleChange('from')}
-          >
-            {CITIES.map(city => (
-              <MenuItem key={city} value={city}>
-                {city}
-              </MenuItem>
+      <Grid container justify="center">
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="headline" color="secondary" gutterBottom>
+              Question
+            </Typography>
+            <Typography variant="subheading" gutterBottom>
+              {ticket}
+            </Typography>
+          </CardContent>
+          <Divider />
+          <CardContent className={classes.content}>
+            {ALL.map(item => (
+              <TextField
+                key={item.id}
+                select
+                label={`${capitalizeFirstLetter(item.id)}:`}
+                value={this.state[item.id]}
+                className={classes.textField}
+                onChange={this.handleChange(item.id)}
+                margin="normal"
+              >
+                {item.values.map(i => (
+                  <MenuItem key={i} value={i}>
+                    {capitalizeFirstLetter(i)}
+                  </MenuItem>
+                ))}
+              </TextField>
             ))}
-          </TextField>
-          <TextField
-            select
-            label="To:"
-            value={this.state.to}
-            className={classes.textField}
-            onChange={this.handleChange('to')}
-          >
-            {CITIES.map(city => (
-              <MenuItem key={city} value={city}>
-                {city}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            label="Class:"
-            value={this.state.class}
-            onChange={this.handleChange('class')}
-          >
-            {CLASS.map((c, index) => (
-              <MenuItem key={c} value={index}>
-                {c}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            label="Fares:"
-            value={this.state.fare}
-            onChange={this.handleChange('fare')}
-          >
-            {FARES.map(fare => (
-              <MenuItem key={fare} value={fare}>
-                {fare}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            label="Travel:"
-            value={this.state.travel}
-            onChange={this.handleChange('travel')}
-          >
-            {TRAVELDIRECTION.map(b => (
-              <MenuItem key={b} value={b}>
-                {b}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            label="Bike:"
-            value={this.state.bike}
-            onChange={this.handleChange('bike')}
-          >
-            {WANTBIKE.map(b => (
-              <MenuItem key={b} value={b}>
-                {b}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-        <Button color="primary" onClick={this.handleSubmit}>
-          Buy
-        </Button>
-        <Help onOpen={helpOpen} onClose={helpClose} open={help}>
-          <FormGuidelines />
-        </Help>
-      </div>
+          </CardContent>
+          <CardActions className={classes.actions} disableActionSpacing>
+            <IconButton disabled>
+              <Timer />
+              :{ticker}
+            </IconButton>
+            <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
+              <SwitchGuidelines activity={activity} />
+            </Help>
+            <IconButton
+              color="primary"
+              className={classes.buy}
+              onClick={this.handleSubmit}
+            >
+              <ShoppingCart />
+            </IconButton>
+          </CardActions>
+        </Card>
+      </Grid>
     );
   }
 }

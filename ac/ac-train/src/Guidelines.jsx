@@ -89,7 +89,7 @@ export const StartingGuidelines = () => (
     </Typography>
     <CommandGuidelines />
     <GraphicGuidelines />
-    <CommandGuidelines />
+    <FormGuidelines />
     <DragAndDropGuidelines />
     <div style={{ marginTop: '20px' }} />
   </React.Fragment>
@@ -102,7 +102,7 @@ export const SwitchGuidelines = ({ activity }) => {
     case 'command':
       return <CommandGuidelines />;
     case 'form':
-      return <CommandGuidelines />;
+      return <FormGuidelines />;
     case 'dragdrop':
       return <DragAndDropGuidelines />;
     case 'graphical':

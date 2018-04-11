@@ -54,11 +54,6 @@ const RunActivity = props => {
 };
 
 class Interval extends React.Component {
-  constructor() {
-    super();
-    this.interval = null;
-  }
-
   componentDidMount() {
     this.interval = setTimeout(() => {
       this.props.nextInstance();
@@ -85,15 +80,24 @@ class Interface extends React.Component {
     super(props);
     this.instanceCount = 0;
     this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
-    this.changeInstanceTimer = null;
 
     this.state = {
       ticket: generateTicket(),
-      secondsRemaining: 10,
+      secondsRemaining: 2,
       interval: false,
       help: false
     };
   }
+
+  reset = () => {
+    this.setState({
+      ticket: generateTicket(),
+      secondsRemaining: 2,
+      interval: false,
+      help: false
+    });
+    this.startTimer();
+  };
 
   handleHelpOpen = () => {
     this.stopTimer();
@@ -128,35 +132,42 @@ class Interface extends React.Component {
   nextInstance = () => {
     const { dataFn } = this.props;
 
-    if (this.instanceCount > 4) {
+    if (this.instanceCount > 2) {
       this.instanceCount = 0;
-      this.setState({ help: true, interval: false });
       dataFn.numIncr(1, 'step');
+      dataFn.objInsert(true, 'guidelines');
     } else {
       this.instanceCount += 1;
-      this.setState({ ticket: generateTicket(), interval: true });
-      this.timer();
+      this.reset();
     }
   };
 
   checkAnswer = answer => {
-    const checkAnswerIfCorrect = isEqual(this.state.ticket, answer);
-    this.setState({ interval: true });
+    const { logger } = this.props;
+
+    logger([
+      {
+        type: 'answer',
+        payload: { answer: isEqual(this.state.ticket, answer) }
+      }
+    ]);
+
+    this.stopTimer();
+    // this.setState({ interval: true });
   };
 
   componentDidMount() {
-    console.log('Interface Mounted');
     this.startTimer();
   }
 
   render() {
     const { ticket } = this.state;
     const { activity } = this.props;
-    console.log(activity);
+    console.log(this.state.interval);
 
-    // if (this.state.interval) {
-    //   return <Interval nextInstance={this.nextInstance} />;
-    // }
+    if (this.state.interval) {
+      return <Interval nextInstance={this.nextInstance} />;
+    }
 
     return (
       <React.Fragment>

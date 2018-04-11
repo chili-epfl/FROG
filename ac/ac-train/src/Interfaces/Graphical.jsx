@@ -147,7 +147,18 @@ const SwissMap = ({
 };
 
 type StateT = {
-  answer: Object
+  answer: {
+    from: string,
+    to: string,
+    travel: string,
+    class: string,
+    fare: string,
+    bike: false
+  },
+  input: {
+    which: string,
+    switch: boolean
+  }
 };
 
 type PropsT = {
@@ -169,7 +180,10 @@ class Graphical extends React.Component<PropsT, StateT> {
       fare: '',
       bike: false
     },
-    input: false,
+    input: {
+      which: '',
+      switch: false
+    },
     radioGroups: [
       { id: 'travel', values: TRAVELDIRECTION },
       { id: 'fare', values: FARES },
@@ -191,20 +205,20 @@ class Graphical extends React.Component<PropsT, StateT> {
     const normX = Math.round(x / width * 1000);
     const normY = Math.round(y / height * 1000);
 
-    if (this.state.input) {
+    if (this.state.input.switch) {
       const id = findInRange(normX, normY);
       const answer = { ...this.state.answer };
-      answer[this.state.input] = id;
+      answer.input.which = id;
 
       if (id) {
         this.setState({ answer });
       }
-      this.setState({ input: false });
+      this.setState({ input: { which: '', switch: false } });
     }
   };
 
   onFocus = focusedInput => () => {
-    this.setState({ input: focusedInput });
+    this.setState({ input: { which: focusedInput, switch: true } });
   };
 
   handleSubmit = () => {

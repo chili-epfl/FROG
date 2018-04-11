@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
-import { ProgressBar } from 'react-bootstrap';
+import { LinearProgress } from 'material-ui/Progress';
 import { shuffle } from 'lodash';
 import { SpecificGuideline } from './Guidelines';
 import { styles, texts } from './ActivityUtils';
@@ -12,7 +12,7 @@ const Main = props => {
   //   ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
   // ];
 
-  const interfaces = ['start', ...shuffle(['command'])];
+  const interfaces = ['start', ...shuffle(['form'])];
 
   const start = () => {
     const { dataFn } = props;
@@ -47,9 +47,10 @@ const Main = props => {
 const Runner = (props: ActivityRunnerT) => {
   const { step } = props.data;
   const p = Math.round(step / 5 * 100);
+  console.log(p);
   return (
     <div style={styles.main}>
-      <ProgressBar now={p} label={`${p}%`} />
+      <LinearProgress variant="determinate" color="secondary" value={p} />
       <div style={styles.container}>
         <Main {...props} />
       </div>
