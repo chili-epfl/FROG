@@ -2,6 +2,9 @@
 
 import * as React from 'react';
 import Button from 'material-ui/Button';
+import HelpOutLine from 'material-ui-icons/HelpOutline';
+import IconButton from 'material-ui/IconButton';
+
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -19,8 +22,10 @@ const Help = ({
   open: boolean,
   children?: React.Node
 }) => (
-  <div>
-    <Button onClick={onOpen}>Help</Button>
+  <React.Fragment>
+    <IconButton onClick={onOpen}>
+      <HelpOutLine />
+    </IconButton>
     <Dialog
       open={open}
       onClose={onClose}
@@ -35,7 +40,7 @@ const Help = ({
         </Button>
       </DialogActions>
     </Dialog>
-  </div>
+  </React.Fragment>
 );
 
 export default Help;

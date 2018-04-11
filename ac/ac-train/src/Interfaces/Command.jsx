@@ -10,7 +10,10 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
-import ShoppingCart from 'material-ui/icons/ShoppingCart';
+import Timer from 'material-ui-icons/Timer';
+import ShoppingCart from 'material-ui-icons/ShoppingCart';
+
+// import ShoppingCart from 'material-ui/icons/ShoppingCart';
 import Card, {
   CardHeader,
   CardMedia,
@@ -27,6 +30,12 @@ const styles = {
   },
   buy: {
     marginLeft: 'auto'
+  },
+  content: {
+    height: '200px'
+  },
+  actions: {
+    paddingBottom: '20px'
   }
 };
 
@@ -41,7 +50,8 @@ type Props = {
   onHelpClose: Function,
   help: boolean,
   classes: Object,
-  activity: string
+  activity: string,
+  ticker: string
 };
 
 class Command extends React.Component<Props, State> {
@@ -61,6 +71,7 @@ class Command extends React.Component<Props, State> {
     const {
       ticket,
       activity,
+      ticker,
       help,
       onHelpOpen,
       onHelpClose,
@@ -79,7 +90,7 @@ class Command extends React.Component<Props, State> {
             </Typography>
           </CardContent>
           <Divider />
-          <CardContent>
+          <CardContent className={classes.content}>
             <TextField
               id="multiline-flexible"
               label="Enter command"
@@ -92,17 +103,20 @@ class Command extends React.Component<Props, State> {
             />
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
+            <IconButton disabled>
+              <Timer />
+              :{ticker}
+            </IconButton>
             <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
               <SwitchGuidelines activity={activity} />
             </Help>
-            <Button
+            <IconButton
               color="primary"
-              variant="fab"
               className={classes.buy}
               onClick={this.handleSubmit}
             >
               <ShoppingCart />
-            </Button>
+            </IconButton>
           </CardActions>
         </Card>
       </Grid>

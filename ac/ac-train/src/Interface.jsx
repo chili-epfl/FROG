@@ -167,10 +167,8 @@ class Interface extends React.Component {
           help={this.state.help}
           onHelpOpen={this.handleHelpOpen}
           onHelpClose={this.handleHelpClose}
+          ticker={this.state.secondsRemaining}
         />
-        <div style={styles.activityCountdown}>
-          {texts.timeLeft} {this.state.secondsRemaining}
-        </div>
       </React.Fragment>
     );
   }
