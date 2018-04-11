@@ -40,7 +40,10 @@ Connections._ensureIndex('source.id');
 startShareDB();
 teacherImports();
 
-if (process.env.NODE_ENV === 'production') {
+if (
+  process.env.NODE_ENV === 'production' &&
+  !Meteor.settings.public.friendlyProduction
+) {
   if (!Meteor.settings.token) {
     Meteor.settings.token = uuid();
   }
