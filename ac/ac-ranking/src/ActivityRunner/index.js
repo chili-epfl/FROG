@@ -61,6 +61,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
 
   if (!answers[userInfo.id]) {
     dataFn.objInsert({}, ['answers', userInfo.id]);
+    dataFn.objInsert(userInfo.name, ['group', userInfo.id]);
   }
 
   const listStyles = {
@@ -113,7 +114,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
               >
                 {Object.keys(answers).map(member => (
                   <div key={member} style={{ ...listStyles.list }}>
-                    <p>{member + "'s List"}</p>
+                    <p>{data.group[member] + "'s List"}</p>
                     <AnswerList
                       {...props}
                       answers={answers[member]}
@@ -169,5 +170,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
     </div>
   );
 };
+
+
 
 export default ActivityRunner;
