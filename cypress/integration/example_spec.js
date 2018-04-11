@@ -22,7 +22,7 @@ describe('Logging in', function() {
           cy
             .get('li.examples a', { force: true })
             .each(function($el, i, $list) {
-              cy.wrap($el).click();
+              cy.wrap($el).click({ force: true });
             });
           cy.get('.glyphicon-arrow-left', { force: true }).click();
         }
