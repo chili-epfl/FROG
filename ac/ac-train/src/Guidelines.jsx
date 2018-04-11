@@ -95,32 +95,42 @@ export const StartingGuidelines = () => (
   </React.Fragment>
 );
 
-export const SpecificGuidelines = ({ activity, start }) => {
-  const guideline = a => {
-    switch (a) {
-      case 'start':
-        return <StartingGuidelines />;
-      case 'command':
-        return <CommandGuidelines />;
-      case 'form':
-        return <CommandGuidelines />;
-      case 'dragdrop':
-        return <DragAndDropGuidelines />;
-      case 'graphical':
-        return <GraphicGuidelines />;
-      default:
-        return null;
-    }
-  };
+export const SwitchGuidelines = ({ activity }) => {
+  switch (activity) {
+    case 'start':
+      return <StartingGuidelines />;
+    case 'command':
+      return <CommandGuidelines />;
+    case 'form':
+      return <CommandGuidelines />;
+    case 'dragdrop':
+      return <DragAndDropGuidelines />;
+    case 'graphical':
+      return <GraphicGuidelines />;
+    default:
+      return null;
+  }
+};
+
+export const SpecificGuideline = ({ activity, start, step }) => {
   return (
     <Grid container>
       <Grid item sm={12}>
-        {guideline(activity)}
+        {activity !== 'start' && (
+          <Typography variant="display2" gutterBottom>
+            Activity {step}
+          </Typography>
+        )}
       </Grid>
       <Grid item sm={12}>
-        <Button color="primary" onClick={start}>
-          Start
-        </Button>
+        <SwitchGuidelines activity={activity} />
+      </Grid>
+      <Grid item sm={12}>
+        <Grid container justify="flex-end">
+          <Button color="primary" variant="raised" onClick={start}>
+            {step === 0 ? 'Let the Games Begin!' : 'Start Activity'}
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   );

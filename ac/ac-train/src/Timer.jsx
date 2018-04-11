@@ -24,7 +24,6 @@ const withTimer = (WrappedComponent, total, callbackFn) =>
     };
 
     tick = () => {
-      console.log(this.state.secondsRemaining);
       this.setState({ secondsRemaining: this.state.secondsRemaining - 1 });
       if (this.state.secondsRemaining <= 0) {
         clearInterval(this.interval);

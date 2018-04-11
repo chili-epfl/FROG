@@ -43,6 +43,7 @@ const dataStructure = {
   score: 0,
   time: 0,
   step: 0,
+  guidelines: true,
   helpCounter: 0
 };
 
