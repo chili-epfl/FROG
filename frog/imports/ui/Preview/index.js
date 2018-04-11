@@ -2,19 +2,21 @@
 
 import * as React from 'react';
 import { withState, compose } from 'recompose';
-import jsonSchemaDefaults from 'json-schema-defaults';
+import { defaultConfig } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
 
-export const addDefaultExample = (activityType: Object) => [
-  {
-    title: 'Empty config',
-    data: undefined,
-    config: jsonSchemaDefaults(activityType.config)
-  },
-  ...(activityType.meta.exampleData || [])
-];
+export const addDefaultExample = (activityType: Object) => {
+  return [
+    {
+      title: 'Default config',
+      data: undefined,
+      config: defaultConfig(activityType)
+    },
+    ...(activityType.meta.exampleData || [])
+  ];
+};
 
 export const ModalPreview = compose(
   withState('fullWindow', 'setFullWindow', false),

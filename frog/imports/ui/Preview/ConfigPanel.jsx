@@ -1,14 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import jsonSchemaDefaults from 'json-schema-defaults';
-import { isEmpty } from 'lodash';
 import { uuid } from 'frog-utils';
 
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
+import { addDefaultExample } from './index';
 
 const style = {
   side: {
@@ -61,18 +60,12 @@ export default ({
     )}
     <ApiForm
       hidePreview
-      config={
-        isEmpty(config) && activityTypeId
-          ? jsonSchemaDefaults(activityTypesObj[activityTypeId].config)
-          : config
-      }
+      config={config}
       activityType={activityTypeId}
       onConfigChange={e => {
         if (e.errors.length === 0) {
           const aT = activityTypesObj[e.activityType];
-          const _c = isEmpty(e.config)
-            ? jsonSchemaDefaults(aT.config)
-            : e.config;
+          const _c = e.config;
           setConfig(_c);
           initActivityDocuments(instances, aT, -1, _c, true);
           initDashboardDocuments(aT, true);
@@ -81,7 +74,16 @@ export default ({
         }
         setActivityTypeId(e.activityType);
       }}
-      onPreview={setActivityTypeId}
+      onSelect={activityType => {
+        const exConf = addDefaultExample(activityTypesObj[activityType])[0]
+          .config;
+        setConfig(exConf);
+        setReloadAPIform(uuid());
+        initActivityDocuments(instances, activityType, 0, exConf, true);
+        initDashboardDocuments(activityType, true);
+        setExample(0);
+        setActivityTypeId(activityType);
+      }}
       reload={reloadAPIform}
     />
   </div>
