@@ -18,6 +18,9 @@ const names = 'Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis'.split(
   ','
 );
 
+export const getUserId = name => 'uid_' + name.toLowerCase().replace(/\s+/, '');
+const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
+
 export default (props: Object) => {
   const {
     activityTypeId,
@@ -74,20 +77,20 @@ export default (props: Object) => {
 
   const add = () => {
     const newName = names[users.length % names.length];
-    const newGroup = 1 + Math.floor(users.length / 2);
+    const newGroup = groupName(users.length);
+    const newId = getUserId(newName);
     setUsers([...users, newName]);
-    setInstances([...instances, [undefined, newGroup, 'all'][plane - 1]]);
+    setInstances([...instances, [newId, newGroup, 'all'][plane - 1]]);
   };
   const remove = () => {
     setUsers(users.slice(0, users.length - 1));
     setInstances(instances.slice(0, instances.length - 1));
   };
-  const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
   const switchPlane = () => {
     const newPlane = 1 + plane % 3;
     setPlane(newPlane);
     setInstances(
-      users.map((name, idx) => [undefined, groupName(idx), 'all'][newPlane - 1])
+      users.map((n, i) => [getUserId(n), groupName(i), 'all'][newPlane - 1])
     );
   };
 
