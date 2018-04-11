@@ -18,7 +18,8 @@ const names = 'Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis'.split(
   ','
 );
 
-export const getUserId = name => 'uid_' + name.toLowerCase().replace(/\s+/, '');
+export const getUserId = (name: string) =>
+  'uid_' + name.toLowerCase().replace(/\s+/, '');
 const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
 
 export default (props: Object) => {
