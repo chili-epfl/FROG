@@ -43,6 +43,7 @@ Meteor.methods({
     if (
       !isStudentList &&
       process.env.NODE_ENV === 'production' &&
+      !Meteor.settings.public.friendlyProduction &&
       token !== Meteor.settings.token
     ) {
       return 'NOTVALID';

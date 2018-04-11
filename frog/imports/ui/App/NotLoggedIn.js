@@ -4,6 +4,7 @@ import * as React from 'react';
 import { A } from 'frog-utils';
 import { sample } from 'lodash';
 import FlexView from 'react-flexview';
+import { Meteor } from 'meteor/meteor';
 
 const randomName = () =>
   sample([
@@ -21,7 +22,10 @@ const randomName = () =>
   ]);
 
 const NotLoggedIn = ({ login }: { login: Function }) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (
+    process.env.NODE_ENV !== 'production' ||
+    Meteor.settings.public.friendlyProduction
+  ) {
     const name = randomName();
     return (
       <div style={{ margin: '25px' }}>

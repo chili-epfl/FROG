@@ -96,10 +96,10 @@ const statQuizConfig = {
       question:
         'Laquelle des fonctions suivantes est-elle une densité de probabilité?',
       answers: [
-        { answer: '$f_X(x) = x$ si $x \\in \\{-0.5, 1.5\\}$, $0$ sinon.' },
-        { answer: '$f_X(x) = 2x$ si $x \\in \\{0, 1\\}$, $0$ sinon.' },
-        { answer: '$f_X(x) = x - 1$ si $x \\in \\{1, 3\\}$, $0$ sinon.' },
-        { answer: '$f_X(x) = x + 1$ si $x \\in \\{-1, 1\\}$, $0$ sinon.' }
+        { choice: '$f_X(x) = x$ si $x \\in \\{-0.5, 1.5\\}$, $0$ sinon.' },
+        { choice: '$f_X(x) = 2x$ si $x \\in \\{0, 1\\}$, $0$ sinon.' },
+        { choice: '$f_X(x) = x - 1$ si $x \\in \\{1, 3\\}$, $0$ sinon.' },
+        { choice: '$f_X(x) = x + 1$ si $x \\in \\{-1, 1\\}$, $0$ sinon.' }
       ]
     }
   ]
@@ -148,7 +148,11 @@ const richQuizConfig = {
   questions: [
     {
       question: rtQ,
-      answers: ['Pretty awesomer', 'OK', '$\\sqrt{x/1}$']
+      answers: [
+        { choice: 'Pretty awesomer' },
+        { choice: 'OK' },
+        { choice: '$\\sqrt{x/1}$' }
+      ]
     }
   ]
 };

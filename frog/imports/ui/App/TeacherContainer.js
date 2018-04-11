@@ -48,6 +48,7 @@ const WithTopBar = () => (
         <Route path="/teacher/:graphId" component={TeacherView} />
         <Route path="/teacher" component={TeacherView} />
         <Route path="/student" component={StudentView} />
+        <Route path="/preview/:previewId" component={Preview} />
         <Route path="/preview" component={Preview} />
         <Route component={GraphEditor} />
       </Switch>

@@ -19,6 +19,7 @@ class EnhancedForm extends Component<
 > {
   hides: string[];
   formData: ?Object;
+  state = {};
 
   componentWillMount() {
     if (!this.props.formData && jsonSchemaDefaults(this.props.schema) !== {}) {
@@ -75,17 +76,15 @@ class EnhancedForm extends Component<
   };
 
   render() {
-    return (
-      this.state.schema && (
-        <Form
-          {...this.props}
-          onChange={this.onChange}
-          schema={this.state.schema}
-          formData={this.state.formData}
-          fields={{ rteField: RteField }}
-        />
-      )
-    );
+    return this.state.schema ? (
+      <Form
+        {...this.props}
+        onChange={this.onChange}
+        schema={this.state.schema}
+        formData={this.state.formData}
+        fields={{ rteField: RteField }}
+      />
+    ) : null;
   }
 }
 
