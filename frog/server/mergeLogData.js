@@ -6,7 +6,7 @@ import { type ActivityDBT } from 'frog-utils';
 import { activityTypesObj } from '../imports/activityTypes';
 import { Logs } from '../imports/api/logs';
 import { DashboardStates } from './cache';
-import { Activities } from '../imports/api/activities.js';
+import { Activities, DashboardData } from '../imports/api/activities.js';
 
 const activityCache = {};
 
@@ -86,7 +86,24 @@ const mergeLog = (rawLog, logExtra) => {
     }
   });
 };
+const archiveDashboardState = activityId => {
+  const act = Activities.findOne(activityId);
+  const aT = activityTypesObj[act.activityType];
+  if (aT.dashboard) {
+    Object.keys(aT.dashboard).forEach(dash => {
+      const dashId = activityId + '-' + dash;
+      if (DashboardStates[dashId]) {
+        DashboardData.insert({
+          dashId,
+          data: aT.dashboard[dash].prepareDisplay(DashboardStates[dashId])
+        });
+        DashboardStates[dashId] = undefined;
+      }
+    });
+  }
+};
 
 Meteor.methods({
-  'merge.log': mergeLog
+  'merge.log': mergeLog,
+  'archive.dashboard.state': archiveDashboardState
 });

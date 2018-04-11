@@ -3,6 +3,7 @@ import { set, cloneDeep, isEqual } from 'lodash';
 import { uuid } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
+import { DashboardData } from '../imports/api/activities';
 import { DashboardStates } from './cache';
 import { regenerateState } from './mergeLogData';
 
@@ -25,7 +26,14 @@ export default () => {
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
     if (DashboardStates[dashId] === undefined) {
-      regenerateState(activityType, activityId, dashboard);
+      const archived = DashboardData.findOne({ dashId });
+      if (archived) {
+        this.added('dashboard', dashId, archived.data);
+        this.ready();
+        return;
+      } else {
+        regenerateState(activityType, activityId, dashboard);
+      }
     }
     set(subscriptions, [dashId, id], true);
     const func =

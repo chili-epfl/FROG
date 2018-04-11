@@ -6,21 +6,20 @@ import { isEmpty } from 'lodash';
 
 const fontSizeMapper = (itMax, word) => 10 + word.value * 150 / Number(itMax);
 
-const Viewer = ({ state }: Object) => {
-  return (
-    <div style={{ width: '600px', height: '600px', margin: 'auto' }}>
-      <WordCloud
-        data={state.data}
-        fontSizeMapper={word => fontSizeMapper(state.iMax, word)}
-        width="600"
-        height="600"
-      />
-    </div>
-  );
-};
+const Viewer = ({ state }: Object) => (
+  <div style={{ width: '600px', height: '600px', margin: 'auto' }}>
+    <WordCloud
+      data={state.data}
+      fontSizeMapper={word => fontSizeMapper(state.iMax, word)}
+      width="600"
+      height="600"
+    />
+  </div>
+);
+
 Viewer.displayName = 'Viewer';
 
-const prepareDisplay = state => {
+const prepareDisplay = (state: Object) => {
   const iMax = Object.values(state).reduce(
     (acc, curr) => Math.max(Number(acc), Number(curr)),
     1
@@ -29,8 +28,8 @@ const prepareDisplay = state => {
   return { iMax, data };
 };
 
-const mergeLog = (state, log, activity) => {
-  const tmp = String(log.value);
+const mergeLog = (state: Object, log: Object) => {
+  const tmp = log && log.value;
   if (tmp)
     tmp
       .split(/[ :;?_().!,]/)
