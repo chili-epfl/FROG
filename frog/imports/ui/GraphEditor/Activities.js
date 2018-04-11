@@ -68,6 +68,7 @@ class ActivityComponent extends Component<Object> {
             onStop={stopMoving}
           >
             <rect
+              data-tip={activity.title}
               x={x}
               y={activity.y}
               fill="transparent"
@@ -95,12 +96,17 @@ class ActivityComponent extends Component<Object> {
         />
         {width > 21 && (
           <g>
-            <svg style={{ overflow: 'hidden' }} width={width + x - 20}>
+            <svg
+              data-tip={activity.title}
+              style={{ overflow: 'hidden' }}
+              width={width + x - 20}
+            >
               <text x={x + 3} y={activity.y + 20}>
                 {activity.title}
               </text>
             </svg>
             <circle
+              data-tip={activity.title}
               cx={x + width - 10}
               cy={activity.y + 15}
               r={5}
@@ -112,6 +118,7 @@ class ActivityComponent extends Component<Object> {
               onStop={stopDragging}
             >
               <circle
+                data-tip={activity.title}
                 cx={x + width - 10}
                 cy={activity.y + 15}
                 r={10}
@@ -126,6 +133,7 @@ class ActivityComponent extends Component<Object> {
               onStop={stopResizing}
             >
               <rect
+                data-tip={activity.title}
                 fill="transparent"
                 stroke="transparent"
                 x={x + width - 5}

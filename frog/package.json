@@ -63,7 +63,6 @@
     "op-jigsaw": "1.0.0",
     "op-performance-select": "1.0.0",
     "op-prox": "1.0.0",
-    "postgrest-client": "^1.1.2", 
     "query-parse": "^2.0.0",
     "query-string": "^5.1.0",
     "react": "^16.2.0",
@@ -102,7 +101,8 @@
     "ac-dual": "1.0.0",
     "ac-timedQuiz": "1.0.0",
     "op-xy-distance": "1.0.0",
-    "ac-train": "1.0.0"
+    "ac-train": "1.0.0",
+    "ac-ranking": "1.0.0"
   },
   "devDependencies": {"nps": "^5.7.1"}
 }

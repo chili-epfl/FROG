@@ -23,26 +23,23 @@ if (window) {
   window.DocumentCache = DocumentCache;
 }
 
-export const initDocuments = (
+export const initDashboardDocuments = (
   activityType: ActivityPackageT,
-  refresh: boolean,
-  example?: string
+  refresh: boolean
 ) => {
   if (activityType && activityType.dashboard) {
-    (example ? [example] : Object.keys(activityType.dashboard)).forEach(
-      name => {
-        const dash = activityType.dashboard[name];
-        const initData = cloneDeep((dash && dash.initData) || {});
-        if (DocumentCache[name]) {
-          if (refresh) {
-            const [_, dataFn] = DocumentCache[name];
-            dataFn.objInsert(initData, []);
-          }
-        } else {
-          DocumentCache[name] = pureObjectReactive(initData);
+    Object.keys(activityType.dashboard).forEach(name => {
+      const dash = activityType.dashboard[name];
+      const initData = cloneDeep((dash && dash.initData) || {});
+      if (DocumentCache[name]) {
+        if (refresh) {
+          const [_, dataFn] = DocumentCache[name];
+          dataFn.objInsert(initData, []);
         }
+      } else {
+        DocumentCache[name] = pureObjectReactive(initData);
       }
-    );
+    });
   }
 };
 
@@ -101,7 +98,7 @@ export const createLogger = (
 ) => {
   const aT = activityTypesObj[activityType];
 
-  initDocuments(aT, false);
+  initDashboardDocuments(aT, false);
 
   const startingTime = new Date();
   const logger = (logItems: Array<LogT> | LogT) => {
@@ -129,7 +126,7 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
   (props: Object) => {
     const { instances, users, activityType, config, ready, setReady } = props;
     if (!ready) {
-      initDocuments(activityType, false);
+      initDashboardDocuments(activityType, false);
       setReady(true);
     }
     return ready ? (

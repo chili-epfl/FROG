@@ -1,179 +1,93 @@
 // @flow
 
 import * as React from 'react';
-import { toObject, toString } from 'query-parse';
-import { withRouter } from 'react-router';
 import { withState, compose } from 'recompose';
-import { omitBy } from 'lodash';
-import { uuid } from 'frog-utils';
 
-import ApiForm from '../GraphEditor/SidePanel/ApiForm';
-import Preview, { StatelessPreview } from './Preview';
+import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
 
-const style = {
-  main: {
-    position: 'absolute',
-    top: '50px',
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: 'calc(100% - 50px)'
-  },
-  side: {
-    width: '500px',
-    position: 'relative',
-    overflow: 'auto',
-    height: '100%'
-  },
-  preview: { width: '100%', height: 'calc(100% - 50px)', overflow: 'visible' }
-};
+export const ModalPreview = compose(
+  withState('fullWindow', 'setFullWindow', false),
+  withState('showData', 'setShowData', false),
+  withState('showDash', 'setShowDash', false),
+  withState('showDashExample', 'setShowDashExample', false),
+  withState('windows', 'setWindows', 1),
+  withState('showLogs', 'setShowLogs', false),
+  withState('users', 'setUsers', ['Chen Li']),
+  withState('instances', 'setInstances', ['Chen Li']),
+  withState('plane', 'setPlane', 1),
+  withState('reloadAPIform', 'setReloadAPIform', undefined),
+  withState('example', 'setExample', 0),
+  withState('config', 'setConfig', undefined)
+)((props: Object) => {
+  const { config, _config, activityTypeId, example } = props;
+  if (!config) {
+    if (_config) {
+      props.setConfig(_config);
+    } else {
+      const aT = activityTypesObj[activityTypeId];
+      const exConfig = aT.meta.exampleData[example].config;
+      props.setConfig(exConfig);
+    }
+  }
+  return <Preview modal {...props} />;
+});
 
-// const store = new Store();
-const RawActivityList = ({
-  config,
-  setConfig,
-  activityType,
-  setActivityType,
-  history
-}) => (
-  <div style={style.main} className="bootstrap">
-    <div style={style.side}>
-      <ApiForm
-        config={config.config}
-        reload={config.reload}
-        activityType={activityType}
-        onConfigChange={e => {
-          if (e.errors.length === 0) {
-            setConfig({ ...config, externalReload: uuid(), ...e });
-            setActivityType(e.activityType);
-          }
-        }}
-        onPreview={e => history.push(`/preview/${e}`)}
-      />
-    </div>
-    {config.config && (
-      <div style={style.preview}>
-        <Preview
-          noModal
-          activityTypeId={config.activityType}
-          config={config.config}
-          allExamples
-          onExample={e => {
-            setConfig({
-              ...config,
-              reload: uuid(),
-              externalReload: uuid(),
-              config:
-                activityTypesObj[config.activityType].meta.exampleData[e].config
-            });
-          }}
-          externalReload={config.externalReload}
-          dismiss={() => {
-            setConfig({});
-            setActivityType(undefined);
-          }}
-        />
-      </div>
-    )}
-  </div>
-);
+class PreviewPage extends React.Component<any, any> {
+  setStates: { [state: string]: Function };
 
-const ActivityList = compose(
-  withState('config', 'setConfig', {}),
-  withState('activityType', 'setActivityType', '')
-)(RawActivityList);
+  constructor(props: Object) {
+    super(props);
 
-const PreviewPage = ({
-  match: { params: { activityTypeId = null, example = 0 } },
-  location: { search },
-  history
-}) => {
-  const {
-    showData: showDataRaw,
-    showDash: showDashRaw,
-    showDashExample: showDashExampleRaw,
-    fullWindow: fullWindowRaw,
-    windows: windowsRaw,
-    showLogs: showLogsRaw
-  } = toObject(search.slice(1));
-  const windows = parseInt(windowsRaw, 10) || 1;
-  const showData = showDataRaw === 'true';
-  const showDash = showDashRaw === 'true';
-  const showDashExample = showDashExampleRaw === 'true';
-  const fullWindow = fullWindowRaw === 'true';
-  const showLogs = showLogsRaw === 'true';
-  const dismiss = () => history.push(`/preview`);
-
-  const changeURL = merge => {
-    const e = {
-      ...{
-        showData,
-        showDash,
-        fullWindow,
-        windows,
-        example,
-        activityTypeId,
-        showDashExample
-      },
-      ...merge
+    const statedump = sessionStorage.getItem('previewstate');
+    let state;
+    if (statedump) {
+      try {
+        state = JSON.parse(statedump);
+      } catch (e) {
+        console.warn('Could not parse sessionStorage', statedump, e);
+      }
+    }
+    if (state) {
+      this.state = state;
+    } else {
+      this.state = {
+        example: -1,
+        fullWindow: false,
+        showData: false,
+        showDash: false,
+        showDashExample: false,
+        showLogs: false,
+        users: ['Chen Li'],
+        instances: ['Chen Li'],
+        plane: 1,
+        config: {},
+        activityTypeId: null,
+        reloadAPIform: ''
+      };
+    }
+    this.setStates = {
+      setExample: example => this.setState({ example }),
+      setFullWindow: fullWindow => this.setState({ fullWindow }),
+      setShowData: showData => this.setState({ showData }),
+      setShowDash: showDash => this.setState({ showDash }),
+      setShowDashExample: showDashExample => this.setState({ showDashExample }),
+      setShowLogs: showLogs => this.setState({ showLogs }),
+      setUsers: users => this.setState({ users }),
+      setInstances: instances => this.setState({ instances }),
+      setPlane: plane => this.setState({ plane }),
+      setConfig: config => this.setState({ config }),
+      setActivityTypeId: activityTypeId => this.setState({ activityTypeId }),
+      setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform })
     };
-    const opts = toString(
-      omitBy(
-        {
-          showData: e.showData,
-          showDash: e.showDash,
-          showDashExample: e.showDashExample,
-          fullWindow: e.fullWindow,
-          windows: e.windows,
-          showLogs: e.showLogs
-        },
-        x => !x
-      )
-    );
-    history.push(`/preview/${e.activityTypeId || ''}/${e.example}?${opts}`);
-  };
+  }
 
-  const setShowDash = x => changeURL({ showDash: x, showLogs: false });
-  const setShowDashExample = x =>
-    changeURL({
-      showDashExample: x,
-      showLogs: false,
-      showDash: false,
-      example: 0
-    });
-  const setShowLogs = x => changeURL({ showLogs: x });
-  const setShowData = x => changeURL({ showData: x });
-  const setWindows = x => changeURL({ windows: x });
-  const setExample = x => changeURL({ example: x });
-  const setFullWindow = x => changeURL({ fullWindow: x });
-
-  return activityTypeId ? (
-    <StatelessPreview
-      {...{
-        activityTypeId,
-        setFullWindow,
-        fullWindow,
-        example,
-        setExample,
-        setWindows,
-        windows,
-        showData,
-        setShowData,
-        showDash,
-        setShowDash,
-        showDashExample,
-        setShowDashExample,
-        dismiss,
-        setShowLogs,
-        showLogs,
-        isSeparatePage: true
-      }}
-    />
-  ) : (
-    <ActivityList history={history} />
-  );
-};
+  render() {
+    sessionStorage.setItem('previewstate', JSON.stringify(this.state));
+    return <Preview {...{ ...this.state, ...this.setStates }} />;
+  }
+}
 
 PreviewPage.displayName = 'PreviewPage';
-export default withRouter(PreviewPage);
+
+export default PreviewPage;

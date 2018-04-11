@@ -2,6 +2,7 @@
 
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
+import { isEmpty } from 'lodash';
 import { type LogDBT } from 'frog-utils';
 
 const fontSizeMapper = (itMax, word) => 10 + word.value * 150 / Number(itMax);
@@ -24,10 +25,14 @@ const Viewer = ({ data }: Object) => {
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
-  const tmp = String(log.value);
+  const tmp = log.value && String(log.value);
+
   if (tmp)
     tmp
-      .split(' ')
+      .split(/[ :;?_().!,]/)
+      .map(x => x.trim())
+      .filter(x => !isEmpty(x))
+      .map(x => x.toLowerCase())
       .forEach(
         word =>
           data[word]
