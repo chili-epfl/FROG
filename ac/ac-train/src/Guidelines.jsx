@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
 
 export const DragAndDropGuidelines = () => (
   <React.Fragment>
@@ -74,13 +75,7 @@ export const CommandGuidelines = () => (
   </React.Fragment>
 );
 
-export const StartingGuidelines = ({
-  beginActivity,
-  step
-}: {
-  beginActivity: Function,
-  step: Number
-}) => (
+export const StartingGuidelines = () => (
   <React.Fragment>
     <Typography variant="display2" gutterBottom>
       Train Activity
@@ -94,12 +89,39 @@ export const StartingGuidelines = ({
     </Typography>
     <CommandGuidelines />
     <GraphicGuidelines />
-    <FormGuidelines />
+    <CommandGuidelines />
     <DragAndDropGuidelines />
-    <div style={{ marginTop: '20px' }}>
-      <Button color="primary" onClick={beginActivity}>
-        Start
-      </Button>
-    </div>
+    <div style={{ marginTop: '20px' }} />
   </React.Fragment>
 );
+
+export const SpecificGuidelines = ({ activity, start }) => {
+  const guideline = a => {
+    switch (a) {
+      case 'start':
+        return <StartingGuidelines />;
+      case 'command':
+        return <CommandGuidelines />;
+      case 'form':
+        return <CommandGuidelines />;
+      case 'dragdrop':
+        return <DragAndDropGuidelines />;
+      case 'graphical':
+        return <GraphicGuidelines />;
+      default:
+        return null;
+    }
+  };
+  return (
+    <Grid container>
+      <Grid item sm={12}>
+        {guideline(activity)}
+      </Grid>
+      <Grid item sm={12}>
+        <Button color="primary" onClick={start}>
+          Start
+        </Button>
+      </Grid>
+    </Grid>
+  );
+};

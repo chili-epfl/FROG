@@ -53,7 +53,10 @@ const styles = theme => ({
 
 const coordinates = [
   { id: 'geneva', minX: 46, maxX: 56, minY: 755, maxY: 765 },
-  { id: 'lausanne', minX: 146, maxX: 166, minY: 598, maxY: 618 }
+  { id: 'lausanne', minX: 146, maxX: 166, minY: 598, maxY: 618 },
+  { id: 'fribourg', minX: 255, maxX: 275, minY: 480, maxY: 500 },
+  { id: 'basel', minX: 350, maxX: 370, minY: 134, maxY: 154 },
+  { id: 'neuchatel', minX: 205, maxX: 225, minY: 390, maxY: 410 }
 ];
 
 const findInRange = (x, y) => {

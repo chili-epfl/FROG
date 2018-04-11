@@ -7,7 +7,7 @@ import ReactTimeout from 'react-timeout';
 import Button from 'material-ui/Button';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
-import { StartingGuidelines } from './Guidelines';
+import { SpecificGuidelines } from './Guidelines';
 
 import {
   styles,
@@ -64,16 +64,25 @@ const RunActivity = props => {
 };
 
 class Interval extends React.Component {
+  constructor() {
+    super();
+    this.interval = null;
+  }
+
   componentDidMount() {
-    setTimeout(() => {
+    this.interval = setTimeout(() => {
       this.props.nextInstance();
-    }, 500);
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
     return (
       <div>
-        <CountDownTimer start={Date.now()} length={500}>
+        <CountDownTimer start={Date.now()} length={1000}>
           {texts.timeLeft}
         </CountDownTimer>
       </div>
@@ -92,11 +101,33 @@ class Activity extends React.Component {
     this.state = {
       start: true,
       ticket: generateTicket(),
+      secondsRemaining: 10,
       help: false,
-      timer: false,
+      timer: 6000,
       interval: false
     };
   }
+
+  startTimer = () => {
+    this.callback = setInterval(() => {
+      this.nextInstance();
+    }, this.state.secondsRemaining * 1000);
+
+    this.interval = setInterval(this.tick, 1000);
+  };
+
+  pauseTimer = () => {
+    clearTimeout(this.callback);
+    clearInterval(this.interval);
+  };
+
+  tick = () => {
+    this.setState({ secondsRemaining: this.state.secondsRemaining - 1 });
+    if (this.state.secondsRemaining <= 0) {
+      clearInterval(this.interval);
+      clearTimeout(this.callback);
+    }
+  };
 
   handleHelpOpen = () => {
     this.setState({ help: true });
@@ -118,7 +149,8 @@ class Activity extends React.Component {
       dataFn.numIncr(1, 'step');
     } else {
       this.instanceCount += 1;
-      this.setState({ ticket: generateTicket(), interval: false });
+      this.setState({ ticket: generateTicket(), interval: true });
+      this.timer();
     }
   };
 
@@ -132,6 +164,7 @@ class Activity extends React.Component {
 
   beginActivity = () => {
     this.setState({ start: false, help: true });
+    this.timer();
   };
 
   checkAnswer = answer => {
@@ -165,27 +198,61 @@ class Activity extends React.Component {
           helpOpen={this.handleHelpOpen}
           helpClose={this.handleHelpClose}
         />
-        {/* <div style={styles.activityCountdown}>
+        <div style={styles.activityCountdown}>
           <CountDownTimer start={Date.now()} length={this.timeOfEachInstance}>
             {texts.timeLeft}
           </CountDownTimer>
-        </div> */}
+        </div>
       </React.Fragment>
     );
   }
 }
 
-// const EnhancedActivity = ReactTimeout(Activity);
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
 
-const Main = props => {
-  const { step } = props.data;
+    this.interfaces = [
+      'start',
+      ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
+    ];
 
-  if (step < 5) {
-    return <Activity {...props} />;
-  } else {
-    return <div style={styles.text}>{texts.end}</div>;
+    this.state = {
+      guidelines: true
+    };
   }
-};
+
+  start = () => {
+    const { dataFn } = this.props;
+    dataFn.numIncr(1, 'step');
+    this.setState({ guidelines: false });
+  };
+
+  beginActivity = () => {
+    const { dataFn } = this.props;
+    dataFn.numIncr(1, 'step');
+  };
+
+  render() {
+    const { step } = this.props.data;
+
+    if (this.state.guidelines) {
+      return (
+        <SpecificGuidelines
+          activity={this.interfaces[step]}
+          start={step === 0 ? this.beginActivity : this.start}
+        />
+      );
+    }
+
+    if (step < 5) {
+      return <h1> YOOOO </h1>;
+      // return <Activity interface={this.interfaces[step]} {...this.props} />;
+    } else {
+      return <div style={styles.text}>{texts.end}</div>;
+    }
+  }
+}
 
 // the actual component that the student sees
 const Runner = (props: ActivityRunnerT) => {
