@@ -163,7 +163,6 @@ class Interface extends React.Component {
   render() {
     const { ticket } = this.state;
     const { activity } = this.props;
-    console.log(this.state.interval);
 
     if (this.state.interval) {
       return <Interval nextInstance={this.nextInstance} />;
