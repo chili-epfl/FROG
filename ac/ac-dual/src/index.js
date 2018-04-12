@@ -10,14 +10,6 @@ const meta = {
   description: 'New activity, no description available',
   exampleData: [
     {
-      title: 'Normal',
-      config: {
-        timeOfEachActivity: 30000,
-        symmetryTime: 5000
-      },
-      data: {}
-    },
-    {
       title: 'Quick',
       config: {
         timeOfEachActivity: 15000,

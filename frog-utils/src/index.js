@@ -18,7 +18,8 @@ export const EnhancedForm = isBrowser
 export {
   hideConditional,
   calculateHides,
-  calculateSchema
+  calculateSchema,
+  defaultConfig
 } from './enhancedFormUtils';
 export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
