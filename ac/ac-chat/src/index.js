@@ -11,11 +11,6 @@ const meta = {
   description: 'Persistent text chat',
   exampleData: [
     {
-      title: 'Empty chat',
-      config: { title: 'Example chat' },
-      data: []
-    },
-    {
       title: 'Chat with some messages',
       config: { title: 'Example chat' },
       data: [

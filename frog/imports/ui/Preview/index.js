@@ -1,12 +1,20 @@
 // @flow
 
 import * as React from 'react';
-import { toObject } from 'query-parse';
-import { withRouter } from 'react-router';
 import { withState, compose } from 'recompose';
+import { defaultConfig } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
+
+export const addDefaultExample = (activityType: Object) => [
+  {
+    title: 'Default config',
+    data: undefined,
+    config: defaultConfig(activityType)
+  },
+  ...(activityType.meta.exampleData || [])
+];
 
 export const ModalPreview = compose(
   withState('fullWindow', 'setFullWindow', false),
@@ -28,7 +36,7 @@ export const ModalPreview = compose(
       props.setConfig(_config);
     } else {
       const aT = activityTypesObj[activityTypeId];
-      const exConfig = aT.meta.exampleData[example].config;
+      const exConfig = addDefaultExample(aT)[example].config;
       props.setConfig(exConfig);
     }
   }
@@ -38,12 +46,20 @@ export const ModalPreview = compose(
 class PreviewPage extends React.Component<any, any> {
   setStates: { [state: string]: Function };
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
-    const { location: { search } } = props;
-    const statedump = toObject(search.slice(1)).statedump;
+
+    const statedump = sessionStorage.getItem('previewstate');
+    let state;
     if (statedump) {
-      this.state = JSON.parse(statedump);
+      try {
+        state = JSON.parse(statedump);
+      } catch (e) {
+        console.warn('Could not parse sessionStorage', statedump, e);
+      }
+    }
+    if (state) {
+      this.state = state;
     } else {
       this.state = {
         example: -1,
@@ -76,19 +92,12 @@ class PreviewPage extends React.Component<any, any> {
     };
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    const { history, location: { search } } = nextProps;
-    const statedump = JSON.stringify(nextState);
-    if (statedump !== toObject(search.slice(1)).statedump) {
-      history.push(`/preview?statedump=${JSON.stringify(nextState)}`);
-    }
-  }
-
   render() {
+    sessionStorage.setItem('previewstate', JSON.stringify(this.state));
     return <Preview {...{ ...this.state, ...this.setStates }} />;
   }
 }
 
 PreviewPage.displayName = 'PreviewPage';
 
-export default withRouter(PreviewPage);
+export default PreviewPage;

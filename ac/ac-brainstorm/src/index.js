@@ -20,14 +20,6 @@ const meta = {
     'This activity features a list of items with title and content. Items have a score attached, and are ordered by score. Students can vote up or down, and optionally add new items.',
   exampleData: [
     {
-      title: 'Empty list',
-      config: {
-        text: 'This is an empty list, please fill it up',
-        formBoolean: true
-      },
-      data: {}
-    },
-    {
       title: 'List with some items, students not able to add',
       config: {
         text: 'This list has some items, vote them up or down',
