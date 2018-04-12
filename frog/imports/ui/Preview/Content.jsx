@@ -11,6 +11,8 @@ import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from './Preview';
+import { addDefaultExample } from './index';
+import { getUserId } from './Controls';
 
 const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
 
@@ -26,7 +28,7 @@ export const initActivityDocuments = (
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
         const dataFn = generateReactiveFn(_doc);
-        const exs = activityType.meta.exampleData;
+        const exs = addDefaultExample(activityType);
         const data =
           example === -1 || example === undefined
             ? cloneDeep(activityType.dataStructure)
@@ -88,7 +90,7 @@ export default ({
     example > -1 && examples[example] ? cloneDeep(examples[example]) : {};
   const activityData = { data, config };
 
-  const Run = ({ name, idx, instance }) => {
+  const Run = ({ name, instance }) => {
     const docId = DocId(activityType.id, instance);
     const ActivityToRun = ReactiveHOC(docId, connection)(
       showData ? ShowInfo : RunComp
@@ -97,18 +99,18 @@ export default ({
       <ActivityToRun
         activityType={activityType.id}
         activityData={activityData}
-        userInfo={{ name, id: idx + 1 }}
+        userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
         logger={createLogger(
           'preview',
           instance,
           activityType.id,
           'preview',
-          '' + idx,
+          getUserId(name),
           plane,
           activityData.config
         )}
-        groupingValue={plane === 1 ? idx + 1 : instance}
+        groupingValue={instance}
       />
     );
   };
@@ -132,7 +134,7 @@ export default ({
         <Run name={users[0]} idx={0} instance={instances[0]} />
       ) : (
         <Mosaic
-          renderTile={([name, idx, instance], path) =>
+          renderTile={([name, instance], path) =>
             name === 'dashboard' && activityType.dashboard ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
@@ -157,7 +159,7 @@ export default ({
                   activityType.meta.name
                 }
               >
-                <Run name={name} idx={idx} instance={instance} />
+                <Run name={name} instance={instance} />
               </MosaicWindow>
             )
           }
@@ -165,9 +167,9 @@ export default ({
             showDash
               ? [
                   ['dashboard'],
-                  ...users.map((name, idx) => [name, idx, instances[idx]])
+                  ...users.map((name, idx) => [name, instances[idx]])
                 ]
-              : users.map((name, idx) => [name, idx, instances[idx]])
+              : users.map((name, idx) => [name, instances[idx]])
           )}
         />
       )}

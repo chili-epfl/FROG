@@ -2,9 +2,19 @@
 
 import * as React from 'react';
 import { withState, compose } from 'recompose';
+import { defaultConfig } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
+
+export const addDefaultExample = (activityType: Object) => [
+  {
+    title: 'Default config',
+    data: undefined,
+    config: defaultConfig(activityType)
+  },
+  ...(activityType.meta.exampleData || [])
+];
 
 export const ModalPreview = compose(
   withState('fullWindow', 'setFullWindow', false),
@@ -26,7 +36,7 @@ export const ModalPreview = compose(
       props.setConfig(_config);
     } else {
       const aT = activityTypesObj[activityTypeId];
-      const exConfig = aT.meta.exampleData[example].config;
+      const exConfig = addDefaultExample(aT)[example].config;
       props.setConfig(exConfig);
     }
   }
