@@ -14,7 +14,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
     compare(data.scores[a], data.scores[b], 0)
   );
 
-  const isGroup = activity.plane === 2 ? 1 : 0;
+  const isGroup = activity.plane === 2;
 
   return (
     <div style={{ margin: '20px', backgroundColor: 'white' }}>

@@ -143,8 +143,12 @@ export default ({
                 <DashPreviewWrapper
                   config={activityData.config}
                   instances={uniqueInstances}
-                  users={users}
+                  users={users.reduce(
+                    (acc, x) => ({ ...acc, [getUserId(x)]: x }),
+                    {}
+                  )}
                   activityType={activityType}
+                  plane={{ plane }}
                 />
               </MosaicWindow>
             ) : (

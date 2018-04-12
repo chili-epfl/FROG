@@ -53,12 +53,13 @@ export const hasDashExample = (aT: ActivityPackageT) =>
 export const activityDbObject = (
   config: Object,
   activityType: string,
-  startingTime?: Date
+  startingTime?: Date,
+  plane?: 2
 ) => ({
   _id: 'preview',
   data: config,
   groupingKey: 'group',
-  plane: 2,
+  plane,
   startTime: 0,
   actualStartingTime: startingTime || new Date(Date.now()),
   length: 3,
