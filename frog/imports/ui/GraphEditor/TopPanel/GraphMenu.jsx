@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
-import ModeEdit from 'material-ui-icons/ModeEdit';
+import ModeEdit from '@material-ui/icons/ModeEdit';
 import TextField from 'material-ui/TextField';
 import { InputAdornment } from 'material-ui/Input';
 import Tooltip from 'material-ui/Tooltip';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withStyles } from 'material-ui/styles';
 import styles from './styles';
 
