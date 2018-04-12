@@ -14,7 +14,9 @@ const oldInput = {};
 
 const update = (that, dashId, func) => {
   if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
-    const newState = func(cloneDeep(DashboardStates[dashId]));
+    const newState = func
+      ? func(cloneDeep(DashboardStates[dashId]))
+      : DashboardStates[dashId];
     that.changed('dashboard', dashId, newState);
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
@@ -38,7 +40,9 @@ export default () => {
     set(subscriptions, [dashId, id], true);
     const func =
       activityTypesObj[activityType].dashboard[dashboard].prepareDisplay;
-    const newState = func(cloneDeep(DashboardStates[dashId]));
+    const newState = func
+      ? func(cloneDeep(DashboardStates[dashId]))
+      : DashboardStates[dashId];
     this.added('dashboard', dashId, newState);
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);

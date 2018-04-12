@@ -52,7 +52,7 @@ const LineChart = ({
 const TIMEWINDOW = 5;
 
 const Viewer = TimedComponent((props: Object) => {
-  const { data, activity, timeNow } = props;
+  const { state, activity, timeNow } = props;
 
   const numWindow =
     activity.actualClosingTime === undefined
@@ -68,23 +68,23 @@ const Viewer = TimedComponent((props: Object) => {
             TIMEWINDOW
         );
   const timingData = [[0, 0, 0]];
-  const factor = 100 / Math.max(Object.keys(data.progress).length, 1);
+  const factor = 100 / Math.max(Object.keys(state.progress).length, 1);
   for (let i = 0, j = -1; i <= numWindow; i += 1) {
     while (
-      data.timing.length > j + 1 &&
-      i * TIMEWINDOW >= (data.timing[j + 1] || [0])[0]
+      state.timing.length > j + 1 &&
+      i * TIMEWINDOW >= (state.timing[j + 1] || [0])[0]
     ) {
       j += 1;
     }
     timingData.push([
       i * TIMEWINDOW / 60,
-      data.timing[j][1] * factor,
-      data.timing[j][2] * factor
+      state.timing[j][1] * factor,
+      state.timing[j][2] * factor
     ]);
   }
-  const usersStarted = Object.keys(data.progress).length;
-  const usersFinished = Object.keys(data.progress).filter(
-    x => data.progress[x] === 1
+  const usersStarted = Object.keys(state.progress).length;
+  const usersFinished = Object.keys(state.progress).filter(
+    x => state.progress[x] === 1
   ).length;
   return (
     <React.Fragment>
@@ -113,27 +113,23 @@ const Viewer = TimedComponent((props: Object) => {
   );
 }, 2000);
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  log: LogDBT,
-  activity?: ActivityDbT
-) => {
+const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
   if (
     activity &&
     log.type === 'progress' &&
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    let lastIndex = data.timing.length - 1;
-    const lastTimingItem = data.timing[lastIndex];
+    let lastIndex = state.timing.length - 1;
+    const lastTimingItem = state.timing[lastIndex];
 
-    const prevProgress = data.progress[log.instanceId] || 0;
+    const prevProgress = state.progress[log.instanceId] || 0;
     const progressIncr = log.value - prevProgress;
 
     const completeIncr = log.value === 1 && log.value > prevProgress ? 1 : 0;
 
-    dataFn.objInsert(log.value, ['progress', log.instanceId]);
+    state.progress[log.instanceId] = log.value;
+    // dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
     // $FlowFixMe
     const timeDiff =
@@ -141,11 +137,14 @@ const mergeLog = (
     const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
     if (timeWindow !== lastTimingItem[0]) {
       const newItem = [timeWindow, lastTimingItem[1], lastTimingItem[2]];
-      dataFn.listAppend(newItem, ['timing']);
+      state.timing.push(newItem);
+      // dataFn.listAppend(newItem, ['timing']);
       lastIndex += 1;
     }
-    dataFn.numIncr(progressIncr, ['timing', lastIndex, 1]);
-    dataFn.numIncr(completeIncr, ['timing', lastIndex, 2]);
+    state.timing[lastIndex][1] += progressIncr;
+    state.timing[lastIndex][2] += completeIncr;
+    // dataFn.numIncr(progressIncr, ['timing', lastIndex, 1]);
+    // dataFn.numIncr(completeIncr, ['timing', lastIndex, 2]);
   }
 };
 

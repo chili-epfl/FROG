@@ -105,7 +105,7 @@ const exampleLogs = [
 const statsDashboard = { initData, mergeLog, Viewer, exampleLogs };
 
 export default {
-  leaderboard: LeaderBoard,
-  progress: ProgressDashboard,
-  stats: statsDashboard
+  progress: ProgressDashboard
 };
+// leaderboard: LeaderBoard,
+// stats: statsDashboard

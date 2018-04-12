@@ -23,6 +23,6 @@ export const getXYFromRanking = (answers: Object, config: Object) => {
 };
 
 export default {
-  progress: ProgressDashboard,
-  coordinates: CoordinatesDashboard
+  progress: ProgressDashboard
 };
+// coordinates: CoordinatesDashboard;
