@@ -6,6 +6,7 @@ import { defaultConfig } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
+import { getUserId } from './Controls';
 
 export const addDefaultExample = (activityType: Object) => [
   {
@@ -24,7 +25,7 @@ export const ModalPreview = compose(
   withState('windows', 'setWindows', 1),
   withState('showLogs', 'setShowLogs', false),
   withState('users', 'setUsers', ['Chen Li']),
-  withState('instances', 'setInstances', ['Chen Li']),
+  withState('instances', 'setInstances', [getUserId('Chen Li')]),
   withState('plane', 'setPlane', 1),
   withState('reloadAPIform', 'setReloadAPIform', undefined),
   withState('example', 'setExample', 0),
@@ -69,7 +70,7 @@ class PreviewPage extends React.Component<any, any> {
         showDashExample: false,
         showLogs: false,
         users: ['Chen Li'],
-        instances: ['Chen Li'],
+        instances: [getUserId('Chen Li')],
         plane: 1,
         config: {},
         activityTypeId: null,
