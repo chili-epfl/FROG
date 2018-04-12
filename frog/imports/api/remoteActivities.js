@@ -1,7 +1,6 @@
 import { uuid } from 'frog-utils';
 import { Activities, addActivity } from '/imports/api/activities';
 
-
 const RemoteServer =
   Meteor.settings.public.remoteServer ||
   'http://icchilisrv4.epfl.ch:5000/activities';
@@ -12,9 +11,9 @@ export const removeActivity = (id: string) =>
   });
 
 export const collectActivities = () =>
-  fetch(RemoteServer + '?select=uuid,title,description,tags,activity_type').then(e =>
-    e.json()
-  );
+  fetch(
+    RemoteServer + '?select=uuid,title,description,tags,activity_type'
+  ).then(e => e.json());
 
 export const sendActivity = (state: Object, props: Object) => {
   const newId = uuid();
@@ -44,12 +43,6 @@ export const importAct = (id, activityId) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e =>
-      addActivity(
-                            e[0].activity_type,
-                            e[0].config,
-                            activityId,
-                            null,
-                            id
-                          )
+      addActivity(e[0].activity_type, e[0].config, activityId, null, id)
     );
-}
+};
