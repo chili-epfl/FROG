@@ -15,6 +15,7 @@ import Card, { CardContent, CardActions } from 'material-ui/Card';
 
 import Help from './Help';
 import { SwitchGuidelines } from '../Guidelines';
+import { commandDataStructure } from '../ActivityUtils';
 
 const styles = {
   card: {
@@ -56,7 +57,7 @@ class Command extends React.Component<Props, State> {
   };
 
   handleSubmit = () => {
-    this.props.submit();
+    this.props.submit(commandDataStructure(this.state.text));
   };
 
   render() {

@@ -1,17 +1,31 @@
 import * as React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
-import { LinearProgress } from 'material-ui/Progress';
 import { shuffle } from 'lodash';
+import { type ActivityRunnerT } from 'frog-utils';
+
+import { withStyles } from 'material-ui/styles';
+import { LinearProgress } from 'material-ui/Progress';
+
 import { SpecificGuideline } from './Guidelines';
-import { styles, texts } from './ActivityUtils';
+import { texts } from './ActivityUtils';
 import Interface from './Interface';
 
-const interfaces = [
-  'start',
-  ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
-];
+const styles = {
+  main: {
+    width: '100%',
+    height: '100%'
+  },
+  container: {
+    padding: '40px',
+    height: '100%'
+  }
+};
 
-// const interfaces = ['start', ...shuffle(['graphical'])];
+// const interfaces = [
+//   'start',
+//   ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
+// ];
+
+const interfaces = ['start', ...shuffle(['dragdrop'])];
 
 const Main = props => {
   const start = () => {
@@ -44,18 +58,20 @@ const Main = props => {
 };
 
 // the actual component that the student sees
-const Runner = (props: ActivityRunnerT) => {
-  const { step } = props.data;
+const RunnerController = (props: ActivityRunnerT) => {
+  const { data: { step }, classes } = props;
   const p = Math.round(step / 5 * 100);
   return (
-    <div style={styles.main}>
+    <div className={classes.main}>
       <LinearProgress variant="determinate" color="secondary" value={p} />
-      <div style={styles.container}>
+      <div className={classes.container}>
         <Main {...props} />
       </div>
     </div>
   );
 };
+
+const Runner = withStyles(styles)(RunnerController);
 
 export default class ActivityRunner extends React.Component<ActivityRunnerT> {
   render() {

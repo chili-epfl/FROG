@@ -3,21 +3,15 @@
 import * as React from 'react';
 import { TimedComponent, HTML } from 'frog-utils';
 
-export const styles = {
-  button: { width: '120px', margin: '0 5px' },
-  text: { fontSize: 'xx-large' },
-  main: {
-    width: '100%',
+// UI
+import { sample } from 'lodash';
+import { withStyles } from 'material-ui/styles';
+import Grid from 'material-ui/Grid';
+import { CircularProgress } from 'material-ui/Progress';
+
+const styles = {
+  interval: {
     height: '100%'
-  },
-  container: {
-    padding: '40px'
-  },
-  commands: {
-    marginTop: '20px'
-  },
-  activityCountdown: {
-    display: 'flex'
   }
 };
 
@@ -66,3 +60,92 @@ export const WANTBIKE = ['yes', 'no'];
 
 export const capitalizeFirstLetter = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
+
+export const lowercaseFirstLetter = (string: string) =>
+  string.charAt(0).toLowerCase() + string.slice(1);
+
+export function getCommandForTicket(ticket) {
+  return `Please order a ${ticket.fare} ${ticket.travel} ${
+    ticket.class
+  } class ticket from ${capitalizeFirstLetter(
+    ticket.from
+  )} to  ${capitalizeFirstLetter(ticket.to)} ${
+    ticket.bike === 'yes' ? 'with a bike' : 'without bike'
+  }.`;
+}
+export function generateTicket() {
+  const randomFrom = sample(CITIES);
+  const randomTo = sample(CITIES.filter(city => city !== randomFrom));
+
+  return {
+    from: randomFrom,
+    to: randomTo,
+    travel: sample(TRAVELDIRECTION),
+    class: sample(CLASS),
+    bike: sample(WANTBIKE),
+    fare: sample(FARES)
+  };
+}
+
+class IntervalController extends React.Component {
+  componentDidMount() {
+    this.interval = setTimeout(() => {
+      this.props.nextInstance();
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        className={classes.interval}
+      >
+        <Grid item>
+          <CircularProgress size={50} />
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+export const Interval = withStyles(styles)(IntervalController);
+
+export function commandDataStructure(command) {
+  const answer = command.split(' ').filter(t => t !== 'from' && t !== 'to');
+  const cities = answer.splice(0, 2).map(city => lowercaseFirstLetter(city));
+
+  const bikeIndex = answer.indexOf('bike');
+
+  if (bikeIndex === 1) {
+    answer[bikeIndex] = 'yes';
+  } else if (bikeIndex === -1) {
+    answer.splice(1, 0, 'no');
+  }
+
+  const C1 = answer.indexOf('C1');
+  const C2 = answer.indexOf('C2');
+
+  if (C1 === 2) {
+    answer[C1] = '1st';
+  }
+
+  if (C2 === 2) {
+    answer[C2] = '2nd';
+  }
+
+  return {
+    from: cities[0],
+    to: cities[1],
+    fare: answer[0],
+    bike: answer[1],
+    class: answer[2],
+    travel: answer[3]
+  };
+}

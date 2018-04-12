@@ -1,41 +1,10 @@
-import * as React from 'react';
-import Button from 'material-ui/Button';
-import { sample, shuffle, isEqual } from 'lodash';
+import React from 'react';
+
+// UI
+import { isEqual } from 'lodash';
+
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
-
-import {
-  texts,
-  CountDownTimer,
-  CITIES,
-  FARES,
-  CLASS,
-  TRAVELDIRECTION,
-  WANTBIKE,
-  capitalizeFirstLetter
-} from './ActivityUtils';
-
-const getCommandForTicket = ticket =>
-  `Please order a ${ticket.fare} ${ticket.travel} ${
-    ticket.class
-  } class ticket from ${capitalizeFirstLetter(
-    ticket.from
-  )} to  ${capitalizeFirstLetter(ticket.to)} ${
-    ticket.bike === 'yes' ? 'with a bike' : 'without bike'
-  }.`;
-
-const generateTicket = () => {
-  const randomFrom = sample(CITIES);
-  const randomTo = sample(CITIES.filter(city => city !== randomFrom));
-
-  return {
-    from: randomFrom,
-    to: randomTo,
-    travel: sample(TRAVELDIRECTION),
-    class: sample(CLASS),
-    bike: sample(WANTBIKE),
-    fare: sample(FARES)
-  };
-};
+import { getCommandForTicket, generateTicket, Interval } from './ActivityUtils';
 
 const RunActivity = props => {
   switch (props.activity) {
@@ -51,28 +20,6 @@ const RunActivity = props => {
       return <h1>Hello World</h1>;
   }
 };
-
-class Interval extends React.Component {
-  componentDidMount() {
-    this.interval = setTimeout(() => {
-      this.props.nextInstance();
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  render() {
-    return (
-      <div>
-        <CountDownTimer start={Date.now()} length={1000}>
-          {texts.timeLeft}
-        </CountDownTimer>
-      </div>
-    );
-  }
-}
 
 class Interface extends React.Component {
   constructor(props) {
@@ -156,15 +103,20 @@ class Interface extends React.Component {
   checkAnswer = answer => {
     const { logger } = this.props;
 
+    console.log(this.state.ticket);
+    console.log(answer);
+    const checkAnswer = isEqual(this.state.ticket, answer);
+    console.log(checkAnswer);
+
     logger([
       {
         type: 'answer',
-        payload: { answer: isEqual(this.state.ticket, answer) }
+        payload: { answer: checkAnswer }
       }
     ]);
 
     this.stopTimer();
-    this.setState({ interval: true });
+    // this.setState({ interval: true });
   };
 
   componentDidMount() {

@@ -4,6 +4,13 @@ import * as React from 'react';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
+import { withStyles } from 'material-ui/styles';
+
+const styles = {
+  instance: {
+    width: '600px'
+  }
+};
 
 export const DragAndDropGuidelines = () => (
   <React.Fragment>
@@ -112,26 +119,32 @@ export const SwitchGuidelines = ({ activity }) => {
   }
 };
 
-export const SpecificGuideline = ({ activity, start, step }) => {
+const SpecificGuidelineController = ({ activity, start, step, classes }) => {
   return (
-    <Grid container>
-      <Grid item sm={12}>
-        {activity !== 'start' && (
-          <Typography variant="display2" gutterBottom>
-            Activity {step}
-          </Typography>
-        )}
-      </Grid>
-      <Grid item sm={12}>
-        <SwitchGuidelines activity={activity} />
-      </Grid>
-      <Grid item sm={12}>
-        <Grid container justify="flex-end">
-          <Button color="primary" variant="raised" onClick={start}>
-            {step === 0 ? 'Let the Games Begin!' : 'Start Activity'}
-          </Button>
+    <Grid container justify="center">
+      <Grid container className={step > 0 ? classes.instance : ''}>
+        <Grid item sm={12}>
+          {activity !== 'start' && (
+            <Typography variant="display2" gutterBottom>
+              Activity {step}
+            </Typography>
+          )}
+        </Grid>
+        <Grid item sm={12}>
+          <SwitchGuidelines activity={activity} />
+        </Grid>
+        <Grid item sm={12}>
+          <Grid container justify="flex-end">
+            <Button color="primary" variant="raised" onClick={start}>
+              {step === 0 ? 'Let the Games Begin!' : 'Start Activity'}
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
   );
 };
+
+export const SpecificGuideline = withStyles(styles)(
+  SpecificGuidelineController
+);
