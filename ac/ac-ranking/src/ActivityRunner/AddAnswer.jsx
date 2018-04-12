@@ -57,7 +57,7 @@ const onClick = props => () => {
       payload: getXYFromRanking(newAnswers, config)
     }
   ]);
-  dataFn.objInsert(newAnswers, ['answers', userInfo.id]);
+  dataFn.objInsert(rank + 1, ['answers', userInfo.id, title]);
 };
 
 export default (props: Object) => {
