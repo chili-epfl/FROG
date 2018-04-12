@@ -187,7 +187,9 @@ const ApiForm = observer(
                 />
               </div>
               {!this.props.hideValidator && (
-                <div style={{ position: 'absolute', right: '20px' }}>
+                <div
+                  style={{ position: 'absolute', right: '20px', top: '10px' }}
+                >
                   <Valid />
                 </div>
               )}
@@ -226,7 +228,13 @@ const Valid = observer(() => (
 const Errors = observer(() => (
   <React.Fragment>
     {state.showErrors ? (
-      <div style={{ position: 'absolute', top: '20px', right: '200px' }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: '25px',
+          right: '90px'
+        }}
+      >
         <ShowErrorsRaw errors={state.valid} />
       </div>
     ) : null}

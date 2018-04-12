@@ -196,63 +196,69 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     }
     return (
       <React.Fragment>
-        <DashboardSelector
-          selected={this.state.exampleIdx}
-          onChange={x => {
-            this.logsProcessed = 0;
-            this.setState(
-              {
-                oldSlider: 0,
-                data: aT.dashboard[dashNames[x]].initData,
-                example: dashNames[x],
-                exampleIdx: x,
-                logs: [],
-                idx: 0,
-                play: false
-              },
-              () => this.fetchLogs()
-            );
-          }}
-          dashNames={dashNames}
-        />
-        <DashboardSelector
-          selected={this.state.idx}
-          onChange={x => {
-            this.logsProcessed = 0;
-            this.setState(
-              {
-                oldSlider: 0,
-                data: aT.dashboard[this.state.example].initData,
-                logs: [],
-                idx: x,
-                play: false
-              },
-              () => this.fetchLogs()
-            );
-          }}
-          dashNames={examples}
-        />
-        <DashboardSelector
-          onChange={x => {
-            if (this.state.play === x) {
-              this.setState({ play: false });
-            } else {
+        <div style={{ height: '30px' }}>
+          <DashboardSelector
+            selected={this.state.exampleIdx}
+            onChange={x => {
+              this.logsProcessed = 0;
+              this.setState(
+                {
+                  oldSlider: 0,
+                  data: aT.dashboard[dashNames[x]].initData,
+                  example: dashNames[x],
+                  exampleIdx: x,
+                  logs: [],
+                  idx: 0,
+                  play: false
+                },
+                () => this.fetchLogs()
+              );
+            }}
+            dashNames={dashNames}
+          />
+        </div>
+        <div style={{ height: '30px' }}>
+          <DashboardSelector
+            selected={this.state.idx}
+            onChange={x => {
+              this.logsProcessed = 0;
               this.setState(
                 {
                   oldSlider: 0,
                   data: aT.dashboard[this.state.example].initData,
-                  play: x
+                  logs: [],
+                  idx: x,
+                  play: false
                 },
-                () => {
-                  this.logsProcessed = 0;
-                  this.clusterBySecond();
-                }
+                () => this.fetchLogs()
               );
-            }
-          }}
-          dashNames={['1x', '2x', '4x', '8x', '16x', '32x']}
-          selected={this.state.play || 0}
-        />
+            }}
+            dashNames={examples}
+          />
+        </div>
+        <div style={{ height: '30px' }}>
+          <DashboardSelector
+            onChange={x => {
+              if (this.state.play === x) {
+                this.setState({ play: false });
+              } else {
+                this.setState(
+                  {
+                    oldSlider: 0,
+                    data: aT.dashboard[this.state.example].initData,
+                    play: x
+                  },
+                  () => {
+                    this.logsProcessed = 0;
+                    this.clusterBySecond();
+                  }
+                );
+              }
+            }}
+            dashNames={['1x', '2x', '4x', '8x', '16x', '32x']}
+            selected={this.state.play || 0}
+          />
+        </div>
         <Slider
           value={this.state.slider[this.state.example] || 0}
           min={0}
