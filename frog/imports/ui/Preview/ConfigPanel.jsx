@@ -25,9 +25,12 @@ export default ({
   reloadAPIform,
   setConfig,
   setExample,
+  setShowDashExample,
   activityTypeId,
   setReloadAPIform,
   setActivityTypeId,
+  showDash,
+  setShowDash,
   instances
 }: Object) => (
   <div style={style.side} className="bootstrap">
@@ -78,10 +81,14 @@ export default ({
         const exConf = addDefaultExample(activityTypesObj[activityType])[0]
           .config;
         setConfig(exConf);
+        if (showDash && !activityTypesObj[activityType].dashboard) {
+          setShowDash(false);
+        }
         setReloadAPIform(uuid());
         initActivityDocuments(instances, activityType, 0, exConf, true);
         initDashboardDocuments(activityType, true);
         setExample(0);
+        setShowDashExample(false);
         setActivityTypeId(activityType);
       }}
       reload={reloadAPIform}
