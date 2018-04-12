@@ -7,12 +7,20 @@ import { type LogT, type LogDBT, uuid } from 'frog-utils';
 
 export const Logs = new Mongo.Collection('logs');
 
+export const logLogin = (sessionId: string) => {
+  Meteor.call('merge.log', {
+    userId: Meteor.userId(),
+    sessionId,
+    type: 'Logged in'
+  });
+};
+
 export const engineLogger = (sessionId: string, type: string, value?: number) =>
   Meteor.call(
     'merge.log',
     ({
       _id: uuid(),
-      userId: 'teacher',
+      userId: Meteor.userId(),
       sessionId,
       type,
       value
@@ -26,8 +34,9 @@ export const createLogger = (
   userId?: string
 ) => {
   const logger = (logItem: LogT | LogT[]) => {
+    const user = Meteor.users.findOne(userId || Meteor.userId());
     const logExtra = ({
-      userId: userId || Meteor.userId(),
+      userId: userId || user._id,
       sessionId,
       activityType: activity.activityType,
       activityPlane: activity.plane,

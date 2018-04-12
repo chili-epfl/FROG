@@ -11,6 +11,7 @@ import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
 import { activityTypesObj } from '../../activityTypes';
 import { connection } from './Preview';
+import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
 
 const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
@@ -27,7 +28,7 @@ export const initActivityDocuments = (
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
         const dataFn = generateReactiveFn(_doc);
-        const exs = activityType.meta.exampleData;
+        const exs = addDefaultExample(activityType);
         const data =
           example === -1 || example === undefined
             ? cloneDeep(activityType.dataStructure)
@@ -73,7 +74,7 @@ export default ({
   if (!users || !instances) {
     return <p>There is no user</p>;
   }
-  if (config === undefined || config.invalid) {
+  if (!showDashExample && (config === undefined || config.invalid)) {
     return <p>The config is invalid</p>;
   }
 

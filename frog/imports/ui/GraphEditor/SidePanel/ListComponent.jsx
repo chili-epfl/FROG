@@ -15,7 +15,7 @@ export default ({
   searchS
 }: any) => (
   <div className="list-group-item">
-    <div style={{ marginLeft: '35px' }}>
+    <div style={{ marginLeft: '35px', cursor: 'pointer' }} onClick={onSelect}>
       <h5 style={{ fontWeight: 'bold' }}>
         <Highlight text={object.meta.name} searchStr={searchS} />
       </h5>

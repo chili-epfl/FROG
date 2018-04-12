@@ -9,7 +9,8 @@ import meta from './meta';
 
 const dataStructure = {
   justification: '',
-  answers: {}
+  answers: {},
+  group: {}
 };
 
 export default ({

@@ -1,5 +1,7 @@
 // @flow
 import { cloneDeep, isEqual } from 'lodash';
+import jsonSchemaDefaults from 'json-schema-defaults';
+import { type ActivityPackageT } from './index';
 
 export const calculateHides = (
   formData: Object = {},
@@ -29,6 +31,13 @@ export const calculateHides = (
   }
   return hide;
 };
+
+export const defaultConfig = (activityType: ActivityPackageT) =>
+  hideConditional(
+    jsonSchemaDefaults(activityType.config),
+    activityType.config,
+    activityType.configUI || {}
+  );
 
 export const hideConditional = (
   formData: Object = {},

@@ -3,6 +3,10 @@
 export const config = {
   type: 'object',
   properties: {
+    title: {
+      title: 'Prompt',
+      type: 'rte'
+    },
     guidelines: {
       title: 'Guidelines',
       type: 'string'

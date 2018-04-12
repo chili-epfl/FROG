@@ -2,9 +2,20 @@
 
 import * as React from 'react';
 import { withState, compose } from 'recompose';
+import { defaultConfig } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
+import { getUserId } from './Controls';
+
+export const addDefaultExample = (activityType: Object) => [
+  {
+    title: 'Default config',
+    data: undefined,
+    config: defaultConfig(activityType)
+  },
+  ...(activityType.meta.exampleData || [])
+];
 
 export const ModalPreview = compose(
   withState('fullWindow', 'setFullWindow', false),
@@ -14,7 +25,7 @@ export const ModalPreview = compose(
   withState('windows', 'setWindows', 1),
   withState('showLogs', 'setShowLogs', false),
   withState('users', 'setUsers', ['Chen Li']),
-  withState('instances', 'setInstances', ['Chen Li']),
+  withState('instances', 'setInstances', [getUserId('Chen Li')]),
   withState('plane', 'setPlane', 1),
   withState('reloadAPIform', 'setReloadAPIform', undefined),
   withState('example', 'setExample', 0),
@@ -26,7 +37,7 @@ export const ModalPreview = compose(
       props.setConfig(_config);
     } else {
       const aT = activityTypesObj[activityTypeId];
-      const exConfig = aT.meta.exampleData[example].config;
+      const exConfig = addDefaultExample(aT)[example].config;
       props.setConfig(exConfig);
     }
   }
@@ -59,7 +70,7 @@ class PreviewPage extends React.Component<any, any> {
         showDashExample: false,
         showLogs: false,
         users: ['Chen Li'],
-        instances: ['Chen Li'],
+        instances: [getUserId('Chen Li')],
         plane: 1,
         config: {},
         activityTypeId: null,

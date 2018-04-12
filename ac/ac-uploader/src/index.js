@@ -8,10 +8,7 @@ const meta = {
   name: 'File Uploader',
   type: 'react-component',
   shortDesc: 'File Uploader',
-  description: 'Allow any student to upload files in the database',
-  exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
-  ]
+  description: 'Allow any student to upload files in the database'
 };
 
 const config = {

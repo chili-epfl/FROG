@@ -14,6 +14,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { getInitialState } from 'frog-utils';
 
 import { Activities } from '../../api/activities';
+import { logLogin } from '../../api/logs';
 import { Sessions } from '../../api/sessions';
 import Runner from './Runner';
 import Countdown from './Countdown';
@@ -122,24 +123,32 @@ const StudentView = ({ activities, session, token, classes }) => (
 
 const StyledStudentView = withStyles(styles)(StudentView);
 
-const SessionBody = ({
-  activities,
-  session,
-  token
-}: {
-  activities: Array<Object>,
-  session: Object,
-  token?: { value: string }
-}) => (
-  <React.Fragment>
-    {session.countdownStartTime && <Countdown session={session} />}
-    <StyledStudentView
-      session={session}
-      activities={activities}
-      token={token}
-    />
-  </React.Fragment>
-);
+class SessionBody extends React.Component<
+  {
+    activities: Array<Object>,
+    session: Object,
+    token?: { value: string }
+  },
+  void
+> {
+  componentDidMount() {
+    logLogin(this.props.session._id);
+  }
+
+  render() {
+    const { activities, session, token } = this.props;
+    return (
+      <React.Fragment>
+        {session.countdownStartTime && <Countdown session={session} />}
+        <StyledStudentView
+          session={session}
+          activities={activities}
+          token={token}
+        />
+      </React.Fragment>
+    );
+  }
+}
 
 SessionBody.displayName = 'SessionBody';
 

@@ -24,7 +24,12 @@ const userLookup = userId => {
     return cache;
   }
   const userobj = Meteor.users.findOne(userId);
-  const ret = userobj ? [userobj.userid || '', userobj.username] : [userId, ''];
+  let ret;
+  if (userobj && userobj.username === 'teacher') {
+    ret = ['teacher', 'teacher'];
+  } else {
+    ret = userobj ? [userobj.userid || '', userobj.username] : [userId, ''];
+  }
   userIds[userId] = ret;
   return ret;
 };
