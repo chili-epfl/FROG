@@ -54,7 +54,7 @@ export const initActivityDocuments = (
   });
 };
 
-export default ({
+const Content = ({
   showDashExample,
   plane,
   instances,
@@ -134,6 +134,7 @@ export default ({
         <Run name={users[0]} idx={0} instance={instances[0]} />
       ) : (
         <Mosaic
+          key={plane}
           renderTile={([name, instance], path) =>
             name === 'dashboard' && activityType.dashboard ? (
               <MosaicWindow
@@ -148,7 +149,7 @@ export default ({
                     {}
                   )}
                   activityType={activityType}
-                  plane={{ plane }}
+                  plane={plane}
                 />
               </MosaicWindow>
             ) : (
@@ -180,3 +181,6 @@ export default ({
     </div>
   );
 };
+
+Content.displayName = 'Content';
+export default Content;

@@ -280,4 +280,5 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   }
 }
 
+ShowDashExample.displayName = 'ShowDashExample';
 export default ShowDashExample;

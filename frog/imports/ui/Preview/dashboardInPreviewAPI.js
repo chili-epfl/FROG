@@ -54,23 +54,26 @@ export const activityDbObject = (
   config: Object,
   activityType: string,
   startingTime?: Date,
-  plane?: 2
-) => ({
-  _id: 'preview',
-  data: config,
-  groupingKey: 'group',
-  plane,
-  startTime: 0,
-  actualStartingTime: startingTime || new Date(Date.now()),
-  length: 3,
-  activityType
-});
+  plane?: number
+) => {
+  return {
+    _id: 'preview',
+    data: config,
+    groupingKey: 'group',
+    plane,
+    startTime: 0,
+    actualStartingTime: startingTime || new Date(Date.now()),
+    length: 3,
+    activityType
+  };
+};
 
 export const mergeData = (
   aT: ActivityPackageT,
   log: LogDBT,
   config: Object,
-  startingTime?: Date
+  startingTime?: Date,
+  plane: number
 ) => {
   if (aT.dashboard) {
     Object.keys(aT.dashboard).forEach(name => {
@@ -81,7 +84,7 @@ export const mergeData = (
           doc.data,
           dataFn,
           log,
-          activityDbObject(config, aT.id, startingTime)
+          activityDbObject(config, aT.id, startingTime, plane)
         );
       }
     });
@@ -117,7 +120,7 @@ export const createLogger = (
         ...logItem
       };
       Logs.push(log);
-      mergeData(aT, log, config, startingTime);
+      mergeData(aT, log, config, startingTime, activityPlane);
     });
   };
   return logger;
@@ -125,14 +128,22 @@ export const createLogger = (
 
 export const DashPreviewWrapper = withState('ready', 'setReady', false)(
   (props: Object) => {
-    const { instances, users, activityType, config, ready, setReady } = props;
+    const {
+      instances,
+      users,
+      activityType,
+      config,
+      ready,
+      setReady,
+      plane
+    } = props;
     if (!ready) {
       initDashboardDocuments(activityType, false);
       setReady(true);
     }
     return ready ? (
       <DashMultiWrapper
-        activity={activityDbObject(config, activityType.id)}
+        activity={activityDbObject(config, activityType.id, undefined, plane)}
         docs={DocumentCache}
         instances={instances}
         users={users}
@@ -142,3 +153,5 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
     );
   }
 );
+
+DashPreviewWrapper.displayName = 'DashPreviewWrapper';
