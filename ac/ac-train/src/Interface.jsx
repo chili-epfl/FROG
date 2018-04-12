@@ -25,13 +25,14 @@ const RunActivity = props => {
 class Interface extends React.Component {
   constructor(props) {
     super(props);
-    this.instanceCount = 0;
-    this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
+    this.instanceCount = this.props.activityData.config.instanceCount;
+    this.timeOfEachInstanceInSec =
+      this.props.activityData.config.timeOfEachInstance / 1000;
     this.helpCount = 0;
 
     this.state = {
       ticket: generateTicket(),
-      secondsRemaining: 10,
+      secondsRemaining: this.timeOfEachInstanceInSec,
       interval: false,
       help: false
     };
@@ -40,7 +41,7 @@ class Interface extends React.Component {
   reset = () => {
     this.setState({
       ticket: generateTicket(),
-      secondsRemaining: 10,
+      secondsRemaining: this.timeOfEachInstanceInSec,
       interval: false,
       help: false
     });
@@ -89,14 +90,14 @@ class Interface extends React.Component {
   };
 
   nextInstance = () => {
-    const { dataFn } = this.props;
+    const { dataFn, activityData } = this.props;
 
-    if (this.instanceCount > 1) {
-      this.instanceCount = 0;
+    if (this.instanceCount === 1) {
+      this.instanceCount = activityData.instanceCount;
       dataFn.numIncr(1, 'step');
       dataFn.objInsert(true, 'guidelines');
     } else {
-      this.instanceCount += 1;
+      this.instanceCount -= 1;
       this.reset();
     }
   };
@@ -107,7 +108,7 @@ class Interface extends React.Component {
     // console.log(this.state.ticket);
     // console.log(answer);
     const checkAnswer = isEqual(this.state.ticket, answer);
-    console.log(checkAnswer);
+    // console.log(checkAnswer);
 
     logger([
       {
@@ -117,7 +118,7 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    // this.setState({ interval: true });
+    this.setState({ interval: true });
   };
 
   componentDidMount() {

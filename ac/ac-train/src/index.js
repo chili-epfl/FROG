@@ -12,14 +12,16 @@ const meta = {
     {
       title: 'Normal',
       config: {
-        timeOfEachInstance: 30000
+        timeOfEachInstance: 10000,
+        instanceCount: 5
       },
       data: {}
     },
     {
       title: 'Quick',
       config: {
-        timeOfEachInstance: 15000
+        timeOfEachInstance: 5000,
+        instanceCount: 5
       },
       data: {}
     }
@@ -28,12 +30,17 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['timeOfEachInstance'],
+  required: ['timeOfEachInstance', 'instanceCount'],
   properties: {
     timeOfEachInstance: {
-      title: 'Length of each individual activity',
+      title: 'Length of each individual instance',
       type: 'number',
       default: 10000
+    },
+    instanceCount: {
+      title: 'Number of instances per interface',
+      type: 'number',
+      default: 5
     }
   }
 };

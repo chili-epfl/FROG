@@ -22,12 +22,12 @@ const styles = {
   }
 };
 
-// const interfaces = [
-//   'start',
-//   ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
-// ];
+const interfaces = [
+  'start',
+  ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
+];
 
-const interfaces = ['start', ...shuffle(['graphical'])];
+// const interfaces = ['start', ...shuffle(['graphical'])];
 
 const Main = props => {
   const start = () => {
