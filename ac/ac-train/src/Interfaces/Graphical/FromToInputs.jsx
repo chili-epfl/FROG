@@ -20,7 +20,15 @@ const styles = theme => ({
   }
 });
 
-const FromToInputs = ({ answer, onFocus, classes }) => (
+const FromToInputs = ({
+  answer,
+  onFocus,
+  classes
+}: {
+  answer: Object,
+  onFocus: Function,
+  classes: Object
+}) => (
   <Grid container>
     <Grid item sm={6}>
       <FormControl className={classes.formControl} margin="normal">

@@ -17,17 +17,21 @@ const SwissMap = ({
   position,
   elementDimensions,
   onClickCity
-}) => {
-  return (
-    <img
-      id="map"
-      src="/train/swissmap.png"
-      className={classes.map}
-      alt="swiss_map"
-      style={{ cursor: canSelectCity ? 'pointer' : 'not-allowed' }}
-      onClick={onClickCity(position, elementDimensions)}
-    />
-  );
-};
+}: {
+  classes: Object,
+  canSelectCity: boolean,
+  position: Object,
+  elementDimensions: Object,
+  onClickCity: Function
+}) => (
+  <img
+    id="map"
+    src="/train/swissmap.png"
+    className={classes.map}
+    alt="swiss_map"
+    style={{ cursor: canSelectCity ? 'pointer' : 'not-allowed' }}
+    onClick={onClickCity(position, elementDimensions)}
+  />
+);
 
 export default withStyles(styles)(SwissMap);

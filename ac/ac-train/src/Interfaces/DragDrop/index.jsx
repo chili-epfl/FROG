@@ -52,7 +52,30 @@ const styles = theme => ({
   })
 });
 
-class DragDropController extends React.Component {
+type PropsT = {
+  ticket: string,
+  submit: Function,
+  onHelpOpen: Function,
+  onHelpClose: Function,
+  help: boolean,
+  classes: Object,
+  activity: string,
+  ticker: string
+};
+type StateT = {
+  dropBins: Array<{
+    id: string,
+    accepts: string,
+    lastDroppedItem: string
+  }>,
+  boxes: Array<{
+    id: string,
+    type: string,
+    values: Array<string>
+  }>
+};
+
+class DragDropController extends React.Component<PropsT, StateT> {
   constructor(props) {
     super(props);
 
@@ -61,32 +84,32 @@ class DragDropController extends React.Component {
         {
           id: 'from',
           accepts: ItemTypes.CITY,
-          lastDroppedItem: null
+          lastDroppedItem: ''
         },
         {
           id: 'to',
           accepts: ItemTypes.CITY,
-          lastDroppedItem: null
+          lastDroppedItem: ''
         },
         {
           id: 'travel',
           accepts: ItemTypes.TRAVEL,
-          lastDroppedItem: null
+          lastDroppedItem: ''
         },
         {
           id: 'fare',
           accepts: ItemTypes.FARE,
-          lastDroppedItem: null
+          lastDroppedItem: ''
         },
         {
           id: 'class',
           accepts: ItemTypes.CLASS,
-          lastDroppedItem: null
+          lastDroppedItem: ''
         },
         {
           id: 'bike',
           accepts: ItemTypes.BIKE,
-          lastDroppedItem: null
+          lastDroppedItem: ''
         }
       ],
       boxes: [

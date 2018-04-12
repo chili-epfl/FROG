@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 import { withStyles } from 'material-ui/styles';
 
-const styles = theme => ({
+const styles = {
   button: {
     cursor: 'move',
     border: '1px dashed gray',
@@ -10,7 +10,7 @@ const styles = theme => ({
     textAlign: 'center',
     padding: '10px'
   }
-});
+};
 
 const boxSource = {
   beginDrag(props) {
@@ -20,23 +20,17 @@ const boxSource = {
   }
 };
 
-@withStyles(styles)
-@DragSource(props => props.type, boxSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
-}))
-export default class Box extends Component {
+class BoxController extends Component {
   render() {
-    const {
-      name,
-      isDropped,
-      isDragging,
-      connectDragSource,
-      classes
-    } = this.props;
-
-    const opacity = isDragging ? 0.4 : 1;
+    const { name, connectDragSource, classes } = this.props;
 
     return connectDragSource(<div className={classes.button}>{name}</div>);
   }
 }
+
+const Box = DragSource(props => props.type, boxSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))(withStyles(styles)(BoxController));
+
+export default Box;

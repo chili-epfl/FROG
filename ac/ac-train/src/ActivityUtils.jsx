@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { TimedComponent, HTML } from 'frog-utils';
 
 // UI
 import { sample } from 'lodash';
@@ -30,19 +29,6 @@ export const texts = {
   timeLeft: 'Time left in Task -> '
 };
 
-export const CountDownTimer = TimedComponent(
-  ({ timeNow, length, start, children }) => {
-    const timeLeft = Math.ceil((length - Math.ceil(timeNow - start)) / 1000);
-    return (
-      <div>
-        {children}
-        {timeLeft + ' s'}
-      </div>
-    );
-  },
-  100
-);
-
 export const CITIES = [
   'geneve',
   'lausanne',
@@ -64,7 +50,7 @@ export const capitalizeFirstLetter = (string: string) =>
 export const lowercaseFirstLetter = (string: string) =>
   string.charAt(0).toLowerCase() + string.slice(1);
 
-export function getCommandForTicket(ticket) {
+export function getCommandForTicket(ticket: Object) {
   return `Please order a ${ticket.fare} ${ticket.travel} ${
     ticket.class
   } class ticket from ${capitalizeFirstLetter(
@@ -87,7 +73,14 @@ export function generateTicket() {
   };
 }
 
-class IntervalController extends React.Component {
+type IntervalPropsT = {
+  classes: Object,
+  nextInstance: Function
+};
+
+class IntervalController extends React.Component<IntervalPropsT> {
+  interval: TimeoutID;
+
   componentDidMount() {
     this.interval = setTimeout(() => {
       this.props.nextInstance();
@@ -95,7 +88,7 @@ class IntervalController extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearTimeout(this.interval);
   }
 
   render() {
@@ -117,7 +110,7 @@ class IntervalController extends React.Component {
 
 export const Interval = withStyles(styles)(IntervalController);
 
-export function commandDataStructure(command) {
+export function commandDataStructure(command: string) {
   const answer = command.split(' ').filter(t => t !== 'from' && t !== 'to');
   const cities = answer.splice(0, 2).map(city => lowercaseFirstLetter(city));
 

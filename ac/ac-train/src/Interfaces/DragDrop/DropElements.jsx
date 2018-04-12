@@ -1,7 +1,8 @@
+// @flow
 import React, { Component } from 'react';
+
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import { DropTarget } from 'react-dnd';
 import { capitalizeFirstLetter } from '../../ActivityUtils';
@@ -21,16 +22,24 @@ const dustbinTarget = {
   }
 };
 
+type PropsT = {
+  title: string,
+  isOver?: Function,
+  canDrop?: Function,
+  connectDropTarget: Function,
+  lastDroppedItem: string,
+  classes: Object
+};
+
 @withStyles(styles)
 @DropTarget(props => props.accepts, dustbinTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
 }))
-export default class DropElements extends Component {
+export default class DropElements extends Component<PropsT> {
   render() {
     const {
-      accepts,
       title,
       isOver,
       canDrop,
@@ -39,13 +48,6 @@ export default class DropElements extends Component {
       classes
     } = this.props;
     const isActive = isOver && canDrop;
-
-    let backgroundColor = '#222';
-    if (isActive) {
-      backgroundColor = 'darkgreen';
-    } else if (canDrop) {
-      backgroundColor = 'darkkhaki';
-    }
 
     return connectDropTarget(
       <div>

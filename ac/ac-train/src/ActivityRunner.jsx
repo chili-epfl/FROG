@@ -1,3 +1,5 @@
+// @flow
+
 import * as React from 'react';
 import { shuffle } from 'lodash';
 import { type ActivityRunnerT } from 'frog-utils';
@@ -53,7 +55,7 @@ const Main = props => {
   if (step < 5) {
     return <Interface activity={interfaces[step]} {...props} />;
   } else {
-    return <div style={styles.text}>{texts.end}</div>;
+    return <div>{texts.end}</div>;
   }
 };
 

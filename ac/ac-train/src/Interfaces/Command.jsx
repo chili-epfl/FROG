@@ -32,11 +32,11 @@ const styles = {
   }
 };
 
-type State = {
+type StateT = {
   text: string
 };
 
-type Props = {
+type PropsT = {
   ticket: string,
   submit: Function,
   onHelpOpen: Function,
@@ -47,7 +47,7 @@ type Props = {
   ticker: string
 };
 
-class Command extends React.Component<Props, State> {
+class Command extends React.Component<PropsT, StateT> {
   state = {
     text: ''
   };

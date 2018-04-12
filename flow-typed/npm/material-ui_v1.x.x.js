@@ -1248,7 +1248,7 @@ declare module 'material-ui/Progress' {
 }
 
 declare module 'material-ui/Progress/LinearProgress' {
-  declare type Color = 'primary' | 'accent';
+  declare type Color = 'primary' | 'secondary';
   declare type Mode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
 
   declare module.exports: React$ComponentType<{

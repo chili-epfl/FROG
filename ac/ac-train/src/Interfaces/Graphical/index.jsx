@@ -5,7 +5,6 @@ import ReactCursorPosition from 'react-cursor-position';
 // UI
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
@@ -38,6 +37,23 @@ const coordinates = [
   { id: 'neuchatel', minX: 205, maxX: 225, minY: 390, maxY: 410 }
 ];
 
+const findInRange = (x, y) => {
+  for (let i = 0; i < coordinates.length; i += 1) {
+    const index = coordinates[i];
+
+    if (
+      x >= index.minX &&
+      x <= index.maxX &&
+      y >= index.minY &&
+      y <= index.maxY
+    ) {
+      return index.id;
+    }
+  }
+
+  return false;
+};
+
 type StateT = {
   answer: {
     from: string,
@@ -56,27 +72,12 @@ type StateT = {
 type PropsT = {
   ticket: string,
   submit: Function,
-  helpOpen: Function,
-  helpClose: Function,
+  onHelpOpen: Function,
+  onHelpClose: Function,
   help: boolean,
-  classes: Object
-};
-
-const findInRange = (x, y) => {
-  for (let i = 0; i < coordinates.length; i += 1) {
-    const index = coordinates[i];
-
-    if (
-      x >= index.minX &&
-      x <= index.maxX &&
-      y >= index.minY &&
-      y <= index.maxY
-    ) {
-      return index.id;
-    }
-  }
-
-  return false;
+  classes: Object,
+  activity: string,
+  ticker: string
 };
 
 class Graphical extends React.Component<PropsT, StateT> {
@@ -95,20 +96,18 @@ class Graphical extends React.Component<PropsT, StateT> {
     }
   };
 
-  handleRadio = name => event => {
+  handleRadio = (name: string) => event => {
     const answer = { ...this.state.answer };
     answer[name] = event.target.value;
     this.setState({ answer });
   };
 
-  handleClickCity = (position, dimension) => () => {
+  handleClickCity = (position: Object, dimension: Object) => () => {
     const { x, y } = position;
     const { width, height } = dimension;
 
     const normX = Math.round(x / width * 1000);
     const normY = Math.round(y / height * 1000);
-
-    console.log(normX, normY);
 
     if (this.state.input.switch) {
       const id = findInRange(normX, normY);
@@ -122,7 +121,7 @@ class Graphical extends React.Component<PropsT, StateT> {
     }
   };
 
-  onFocus = focusedInput => () => {
+  onFocus = (focusedInput: string) => () => {
     this.setState({ input: { focus: focusedInput, switch: true } });
   };
 

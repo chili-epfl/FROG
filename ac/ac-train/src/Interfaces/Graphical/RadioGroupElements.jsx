@@ -15,7 +15,7 @@ import {
   capitalizeFirstLetter
 } from '../../ActivityUtils';
 
-const styles = theme => ({
+const styles = (theme: Object) => ({
   formControls: {
     display: 'flex',
     flexDirection: 'column',
@@ -33,7 +33,15 @@ const radioGroups = [
   { id: 'bike', values: WANTBIKE }
 ];
 
-const RadioGroupElements = ({ classes, answer, onRadio }) => (
+const RadioGroupElements = ({
+  classes,
+  answer,
+  onRadio
+}: {
+  classes: Object,
+  answer: Object,
+  onRadio: Function
+}) => (
   <Grid container>
     {radioGroups.map(group => (
       <Grid key={group.id} item xs={6} lg={3}>
