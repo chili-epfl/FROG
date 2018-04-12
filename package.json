@@ -6,7 +6,12 @@
     "start": "nps",
     "test": "nps test"
   },
-  "workspaces": ["ac/*", "op/*", "frog-utils", "frog"],
+  "workspaces": [
+    "ac/*",
+    "op/*",
+    "frog-utils",
+    "frog"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",
     "@babel/core": "^7.0.0-beta.39",
