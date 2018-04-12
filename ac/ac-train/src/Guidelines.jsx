@@ -135,7 +135,7 @@ const SpecificGuidelineController = ({
       <Grid item sm={12}>
         {activity !== 'start' && (
           <Typography variant="display2" gutterBottom>
-            Activity {step}
+            Interface {step}
           </Typography>
         )}
       </Grid>

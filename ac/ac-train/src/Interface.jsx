@@ -107,7 +107,7 @@ class Interface extends React.Component {
     // console.log(this.state.ticket);
     // console.log(answer);
     const checkAnswer = isEqual(this.state.ticket, answer);
-    // console.log(checkAnswer);
+    console.log(checkAnswer);
 
     logger([
       {
@@ -117,7 +117,7 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    this.setState({ interval: true });
+    // this.setState({ interval: true });
   };
 
   componentDidMount() {

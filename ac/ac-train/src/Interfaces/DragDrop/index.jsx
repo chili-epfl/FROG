@@ -9,10 +9,6 @@ import { zipObject, map } from 'lodash';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import Timer from 'material-ui-icons/Timer';
-import ShoppingCart from 'material-ui-icons/ShoppingCart';
-
 // Internal Imports
 import {
   CITIES,
@@ -22,11 +18,10 @@ import {
   WANTBIKE,
   capitalizeFirstLetter
 } from '../../ActivityUtils';
-import { SwitchGuidelines } from '../../Guidelines';
+import Actions from '../Actions';
 import DropElements from './DropElements';
 import ItemTypes from './ItemTypes';
 import Box from './Box';
-import Help from '../Help';
 
 const styles = theme => ({
   root: {},
@@ -150,15 +145,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
   };
 
   render() {
-    const {
-      ticket,
-      activity,
-      ticker,
-      help,
-      onHelpOpen,
-      onHelpClose,
-      classes
-    } = this.props;
+    const { ticket, classes, ...actionProps } = this.props;
 
     const { boxes, dropBins } = this.state;
 
@@ -215,20 +202,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
         </Grid>
         <Grid item xs={12} sm={12}>
           <Grid container>
-            <IconButton disabled>
-              <Timer />
-              :{ticker}
-            </IconButton>
-            <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
-              <SwitchGuidelines activity={activity} />
-            </Help>
-            <IconButton
-              color="primary"
-              className={classes.buy}
-              onClick={this.handleSubmit}
-            >
-              <ShoppingCart />
-            </IconButton>
+            <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </Grid>
         </Grid>
       </Grid>
@@ -236,6 +210,8 @@ class DragDropController extends React.Component<PropsT, StateT> {
   }
 }
 
-const DragDrop = withStyles(styles)(DragDropController);
+const DragDrop = DragDropContext(HTML5Backend)(
+  withStyles(styles)(DragDropController)
+);
 
-export default DragDropContext(HTML5Backend)(DragDrop);
+export default DragDrop;

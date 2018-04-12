@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Button from 'material-ui/Button';
 import HelpOutLine from 'material-ui-icons/HelpOutline';
-import IconButton from 'material-ui/IconButton';
 
 import Dialog, {
   DialogActions,
@@ -23,16 +22,16 @@ const Help = ({
   children?: React.Node
 }) => (
   <React.Fragment>
-    <IconButton onClick={onOpen}>
+    <Button color="secondary" variant="fab" aria-label="help" onClick={onOpen}>
       <HelpOutLine />
-    </IconButton>
+    </Button>
     <Dialog
       open={open}
       onClose={onClose}
-      aria-labelledby="alert-dialog-slide-title"
+      aria-labelledby="alert-dialog-slide-help"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">Help</DialogTitle>
+      <DialogTitle id="alert-dialog-slide-help">Help</DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">

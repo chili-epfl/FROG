@@ -31,13 +31,7 @@ type PropsT = {
   classes: Object
 };
 
-@withStyles(styles)
-@DropTarget(props => props.accepts, dustbinTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop()
-}))
-export default class DropElements extends Component<PropsT> {
+class DropElementsController extends Component<PropsT> {
   render() {
     const {
       title,
@@ -62,3 +56,15 @@ export default class DropElements extends Component<PropsT> {
     );
   }
 }
+
+const DropElements = DropTarget(
+  props => props.accepts,
+  dustbinTarget,
+  (connect, monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
+  })
+)(withStyles(styles)(DropElementsController));
+
+export default DropElements;

@@ -8,13 +8,9 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
-import IconButton from 'material-ui/IconButton';
-import Timer from 'material-ui-icons/Timer';
-import ShoppingCart from 'material-ui-icons/ShoppingCart';
 import Card, { CardContent, CardActions } from 'material-ui/Card';
 
-import Help from './Help';
-import { SwitchGuidelines } from '../Guidelines';
+import Actions from './Actions';
 import { commandDataStructure } from '../ActivityUtils';
 
 const styles = {
@@ -61,15 +57,7 @@ class Command extends React.Component<PropsT, StateT> {
   };
 
   render() {
-    const {
-      ticket,
-      activity,
-      ticker,
-      help,
-      onHelpOpen,
-      onHelpClose,
-      classes
-    } = this.props;
+    const { ticket, classes, ...actionProps } = this.props;
 
     return (
       <Grid container justify="center">
@@ -96,20 +84,7 @@ class Command extends React.Component<PropsT, StateT> {
             />
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
-            <IconButton disabled>
-              <Timer />
-              :{ticker}
-            </IconButton>
-            <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
-              <SwitchGuidelines activity={activity} />
-            </Help>
-            <IconButton
-              color="primary"
-              className={classes.buy}
-              onClick={this.handleSubmit}
-            >
-              <ShoppingCart />
-            </IconButton>
+            <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </CardActions>
         </Card>
       </Grid>
