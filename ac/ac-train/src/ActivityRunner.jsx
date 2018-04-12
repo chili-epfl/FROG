@@ -6,14 +6,14 @@ import { SpecificGuideline } from './Guidelines';
 import { styles, texts } from './ActivityUtils';
 import Interface from './Interface';
 
+const interfaces = [
+  'start',
+  ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
+];
+
+// const interfaces = ['start', ...shuffle(['graphical'])];
+
 const Main = props => {
-  // const interfaces = [
-  //   'start',
-  //   ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
-  // ];
-
-  const interfaces = ['start', ...shuffle(['graphical'])];
-
   const start = () => {
     const { dataFn } = props;
     dataFn.objInsert(false, 'guidelines');
@@ -26,7 +26,7 @@ const Main = props => {
 
   const { step, guidelines } = props.data;
 
-  if (guidelines) {
+  if (step < 5 && guidelines) {
     return (
       <SpecificGuideline
         activity={interfaces[step]}
@@ -47,7 +47,6 @@ const Main = props => {
 const Runner = (props: ActivityRunnerT) => {
   const { step } = props.data;
   const p = Math.round(step / 5 * 100);
-  console.log(p);
   return (
     <div style={styles.main}>
       <LinearProgress variant="determinate" color="secondary" value={p} />

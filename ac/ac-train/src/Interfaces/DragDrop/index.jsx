@@ -19,11 +19,11 @@ import {
   WANTBIKE,
   capitalizeFirstLetter
 } from '../../ActivityUtils';
-import Help from '../Help';
-import { DragAndDropGuidelines } from '../../Guidelines';
+import { SwitchGuidelines } from '../../Guidelines';
 import DropElements from './DropElements';
 import ItemTypes from './ItemTypes';
 import Box from './Box';
+import Help from '../Help';
 
 const styles = theme => ({
   root: {},
@@ -109,7 +109,16 @@ class DragDropController extends React.Component {
   };
 
   render() {
-    const { ticket, helpOpen, helpClose, help, classes } = this.props;
+    const {
+      ticket,
+      activity,
+      ticker,
+      help,
+      onHelpOpen,
+      onHelpClose,
+      classes
+    } = this.props;
+
     const { boxes, dropBins } = this.state;
 
     return (
@@ -155,9 +164,10 @@ class DragDropController extends React.Component {
         <Button color="primary" onClick={this.handleSubmit}>
           Buy
         </Button>
-        <Help onOpen={helpOpen} onClose={helpClose} open={help}>
-          <DragAndDropGuidelines />
+        <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
+          <SwitchGuidelines activity={activity} />
         </Help>
+        {ticker}
       </div>
     );
   }

@@ -21,7 +21,7 @@ const SwissMap = ({
   return (
     <img
       id="map"
-      src="/train/swiss_map_2.jpg"
+      src="/train/swissmap.png"
       className={classes.map}
       alt="swiss_map"
       style={{ cursor: canSelectCity ? 'pointer' : 'not-allowed' }}

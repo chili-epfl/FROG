@@ -7,6 +7,8 @@ import Grid from 'material-ui/Grid';
 import { FormControl } from 'material-ui/Form';
 import Input, { InputLabel } from 'material-ui/Input';
 
+import { capitalizeFirstLetter } from '../../ActivityUtils';
+
 const styles = theme => ({
   formControls: {
     display: 'flex',
@@ -21,15 +23,23 @@ const styles = theme => ({
 const FromToInputs = ({ answer, onFocus, classes }) => (
   <Grid container>
     <Grid item sm={6}>
-      <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl} margin="normal">
         <InputLabel htmlFor="from">From</InputLabel>
-        <Input id="from" value={answer.from} onClick={onFocus('from')} />
+        <Input
+          id="from"
+          value={capitalizeFirstLetter(answer.from)}
+          onClick={onFocus('from')}
+        />
       </FormControl>
     </Grid>
     <Grid item sm={6}>
-      <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl} margin="normal">
         <InputLabel htmlFor="to">To</InputLabel>
-        <Input id="to" value={answer.to} onClick={onFocus('to')} />
+        <Input
+          id="to"
+          value={capitalizeFirstLetter(answer.to)}
+          onClick={onFocus('to')}
+        />
       </FormControl>
     </Grid>
   </Grid>

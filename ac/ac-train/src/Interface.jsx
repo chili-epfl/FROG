@@ -4,7 +4,6 @@ import { sample, shuffle, isEqual } from 'lodash';
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
 
 import {
-  styles,
   texts,
   CountDownTimer,
   CITIES,
@@ -22,7 +21,7 @@ const getCommandForTicket = ticket =>
     ticket.from
   )} to  ${capitalizeFirstLetter(ticket.to)} ${
     ticket.bike === 'yes' ? 'with a bike' : 'without bike'
-  } .`;
+  }.`;
 
 const generateTicket = () => {
   const randomFrom = sample(CITIES);
@@ -80,10 +79,11 @@ class Interface extends React.Component {
     super(props);
     this.instanceCount = 0;
     this.timeOfEachInstance = this.props.activityData.config.timeOfEachInstance;
+    this.helpCount = 0;
 
     this.state = {
       ticket: generateTicket(),
-      secondsRemaining: 2,
+      secondsRemaining: 10,
       interval: false,
       help: false
     };
@@ -92,7 +92,7 @@ class Interface extends React.Component {
   reset = () => {
     this.setState({
       ticket: generateTicket(),
-      secondsRemaining: 2,
+      secondsRemaining: 10,
       interval: false,
       help: false
     });
@@ -100,6 +100,17 @@ class Interface extends React.Component {
   };
 
   handleHelpOpen = () => {
+    const { logger } = this.props;
+
+    this.helpCount += 1;
+
+    logger([
+      {
+        type: 'help',
+        payload: { help: this.helpCount }
+      }
+    ]);
+
     this.stopTimer();
     this.setState({ help: true });
   };
@@ -132,7 +143,7 @@ class Interface extends React.Component {
   nextInstance = () => {
     const { dataFn } = this.props;
 
-    if (this.instanceCount > 2) {
+    if (this.instanceCount > 1) {
       this.instanceCount = 0;
       dataFn.numIncr(1, 'step');
       dataFn.objInsert(true, 'guidelines');
@@ -153,7 +164,7 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    // this.setState({ interval: true });
+    this.setState({ interval: true });
   };
 
   componentDidMount() {

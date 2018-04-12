@@ -20,35 +20,19 @@ import SwissMap from './SwissMap';
 import Help from '../Help';
 import { SwitchGuidelines } from '../../Guidelines';
 
-const styles = theme => ({
-  root: {},
-  formControls: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '100px'
+const styles = {
+  card: {},
+  radioGroup: {
+    marginTop: '40px'
   },
-  margin: {
-    margin: theme.spacing.unit
-  },
-  withoutLabel: {
-    marginTop: theme.spacing.unit * 3
-  },
-  group: {
-    margin: `${theme.spacing.unit}px 0`
-  },
-
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  formControl: {
-    margin: theme.spacing.unit
+  buy: {
+    marginLeft: 'auto'
   }
-});
+};
 
 const coordinates = [
-  { id: 'geneva', minX: 46, maxX: 56, minY: 755, maxY: 765 },
-  { id: 'lausanne', minX: 146, maxX: 166, minY: 598, maxY: 618 },
+  { id: 'geneva', minX: 146, maxX: 166, minY: 598, maxY: 618 },
+  { id: 'lausanne', minX: 165, maxX: 185, minY: 614, maxY: 634 },
   { id: 'fribourg', minX: 255, maxX: 275, minY: 480, maxY: 500 },
   { id: 'basel', minX: 350, maxX: 370, minY: 134, maxY: 154 },
   { id: 'neuchatel', minX: 205, maxX: 225, minY: 390, maxY: 410 }
@@ -61,10 +45,10 @@ type StateT = {
     travel: string,
     class: string,
     fare: string,
-    bike: false
+    bike: string
   },
   input: {
-    which: string,
+    focus: string,
     switch: boolean
   }
 };
@@ -79,7 +63,6 @@ type PropsT = {
 };
 
 const findInRange = (x, y) => {
-  console.log(x, y);
   for (let i = 0; i < coordinates.length; i += 1) {
     const index = coordinates[i];
 
@@ -104,10 +87,10 @@ class Graphical extends React.Component<PropsT, StateT> {
       travel: '',
       class: '',
       fare: '',
-      bike: false
+      bike: ''
     },
     input: {
-      which: '',
+      focus: '',
       switch: false
     }
   };
@@ -125,20 +108,22 @@ class Graphical extends React.Component<PropsT, StateT> {
     const normX = Math.round(x / width * 1000);
     const normY = Math.round(y / height * 1000);
 
+    console.log(normX, normY);
+
     if (this.state.input.switch) {
       const id = findInRange(normX, normY);
       const answer = { ...this.state.answer };
-      answer.input.which = id;
+      answer[this.state.input.focus] = id;
 
       if (id) {
         this.setState({ answer });
       }
-      this.setState({ input: { which: '', switch: false } });
+      this.setState({ input: { focus: '', switch: false } });
     }
   };
 
   onFocus = focusedInput => () => {
-    this.setState({ input: { which: focusedInput, switch: true } });
+    this.setState({ input: { focus: focusedInput, switch: true } });
   };
 
   handleSubmit = () => {
@@ -157,7 +142,7 @@ class Graphical extends React.Component<PropsT, StateT> {
     } = this.props;
 
     return (
-      <Grid container>
+      <Grid container justify="center">
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="headline" color="secondary" gutterBottom>
@@ -168,29 +153,30 @@ class Graphical extends React.Component<PropsT, StateT> {
             </Typography>
           </CardContent>
           <Divider />
-          <CardContent className={classes.content}>
-            <Grid item xs={12} sm={6}>
-              <ReactCursorPosition>
-                <SwissMap
-                  classes={classes}
-                  canSelectCity={this.state.input}
-                  onClickCity={this.handleClickCity}
-                />
-              </ReactCursorPosition>
-            </Grid>
-            <Grid item sm={6}>
-              <Grid container>
-                <Grid item sm={12}>
-                  <FromToInputs
-                    answer={this.state.answer}
-                    onFocus={this.onFocus}
+          <CardContent>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <ReactCursorPosition>
+                  <SwissMap
+                    canSelectCity={this.state.input.switch}
+                    onClickCity={this.handleClickCity}
                   />
-                </Grid>
-                <Grid item sm={12}>
-                  <RadioGroupElements
-                    answer={this.state.answer}
-                    onRadio={this.handleRadio}
-                  />
+                </ReactCursorPosition>
+              </Grid>
+              <Grid item sm={6}>
+                <Grid container>
+                  <Grid item sm={12}>
+                    <FromToInputs
+                      answer={this.state.answer}
+                      onFocus={this.onFocus}
+                    />
+                  </Grid>
+                  <Grid item sm={12} className={classes.radioGroup}>
+                    <RadioGroupElements
+                      answer={this.state.answer}
+                      onRadio={this.handleRadio}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

@@ -66,8 +66,10 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
     const { answer } = log.payload;
 
     if (answer) {
+      console.log('Correct');
       // dataFn.numIncr(1, ['correct']);
     } else {
+      console.log('Wrong');
       // dataFn.numIncr(1, ['wrong']);
     }
   }

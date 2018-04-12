@@ -36,13 +36,11 @@ const radioGroups = [
 const RadioGroupElements = ({ classes, answer, onRadio }) => (
   <Grid container>
     {radioGroups.map(group => (
-      <Grid key={group.id} item sm={3}>
-        <FormControl
-          component="fieldset"
-          required
-          className={classes.formControl}
-        >
-          <FormLabel component="legend">{group.id}</FormLabel>
+      <Grid key={group.id} item xs={6} lg={3}>
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">
+            {capitalizeFirstLetter(group.id)}
+          </FormLabel>
           <RadioGroup
             aria-label={group.id}
             name={group.id}
@@ -53,7 +51,7 @@ const RadioGroupElements = ({ classes, answer, onRadio }) => (
             {group.values.map(item => (
               <FormControlLabel
                 key={item}
-                value={item}
+                value={capitalizeFirstLetter(item)}
                 control={<Radio />}
                 label={item}
               />

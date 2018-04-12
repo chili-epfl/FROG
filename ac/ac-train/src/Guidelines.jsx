@@ -12,8 +12,9 @@ export const DragAndDropGuidelines = () => (
     </Typography>
 
     <Typography gutterBottom>
-      Choose your city, destination, fare and other options from dropdown fields
-      in a form.
+      In this interface you will choose the different possible elements of the
+      ticket (origin, destination, fare, etc.) using the mouse, dragging them
+      onto the appropriate box/field (from, to, fare, bike, etc.).
     </Typography>
   </React.Fragment>
 );
@@ -25,9 +26,8 @@ export const FormGuidelines = () => (
     </Typography>
 
     <Typography gutterBottom>
-      In this interface you will choose the different possible elements of the
-      ticket (origin, destination, fare, etc.) using the mouse, dragging them
-      onto the appropriate box/field (from, to, fare, bike, etc.).
+      Choose your city, destination, fare and other options from dropdown fields
+      in a form.
     </Typography>
   </React.Fragment>
 );
