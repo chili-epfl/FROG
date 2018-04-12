@@ -2,11 +2,10 @@
 import React, { Component } from 'react';
 
 import { importGraph, collectGraphs } from '/imports/api/remoteGraphs';
-import { collectActivities } from '/imports/api/remoteActivities';
-import { addActivity } from '/imports/api/activities';
+import { collectActivities, importAct } from '/imports/api/remoteActivities';
 import LibraryListComponent from './LibraryListComponent';
 
-const myFilter = (list: Array<any>, searchStr: string) =>
+const filterWithStr = (list: Array<any>, searchStr: string) =>
   list &&
   list
     .filter(
@@ -51,7 +50,7 @@ class Library extends Component<Object, { searchStr: string }> {
       libraryType === 'activity'
         ? this.props.importActivityList
         : this.props.importGraphList;
-    const filtered = myFilter(list, this.state.searchStr);
+    const filtered = filterWithStr(list, this.state.searchStr);
 
     const onClick = () => {
       if (this.props.libraryType === 'activity')
@@ -108,13 +107,7 @@ class Library extends Component<Object, { searchStr: string }> {
                 onSelect={() => {
                   if (libraryType === 'activity') {
                     // broken
-                    addActivity(
-                      x.activity_type,
-                      x.config,
-                      activityId,
-                      null,
-                      x.uuid
-                    );
+                    importAct(x.uuid, activityId)
                     store.addHistory();
                   } else if (libraryType === 'graph') {
                     importGraph(x.uuid);
