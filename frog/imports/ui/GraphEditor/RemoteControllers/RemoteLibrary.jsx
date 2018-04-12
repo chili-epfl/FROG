@@ -62,27 +62,26 @@ class Library extends Component<Object, { searchStr: string }> {
     };
 
     return (
-      <div>
-        <div
-          className="input-group"
-          style={{ top: '-30px', left: '280px', width: '200px' }}
-        >
-          <span className="input-group-addon" id="basic-addon1">
-            <span className="glyphicon glyphicon-search" aria-hidden="true" />
-          </span>
-          <input
-            type="text"
-            value={this.state.searchStr}
-            style={{ zIndex: 0 }}
-            onChange={e => this.setState({ searchStr: e.target.value })}
-            className="form-control"
-            placeholder="Search for..."
-            aria-describedby="basic-addon1"
-          />
+      <div className="bootstrap">
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div className="input-group">
+            <span className="input-group-addon" id="basic-addon1">
+              <span className="glyphicon glyphicon-search" aria-hidden="true" />
+            </span>
+            <input
+              type="text"
+              value={this.state.searchStr}
+              style={{ zIndex: 0 }}
+              onChange={e => this.setState({ searchStr: e.target.value })}
+              className="form-control"
+              placeholder="Search for..."
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <button type="button" className="btn btn-primary" onClick={onClick}>
+            <span className="glyphicon glyphicon-repeat" />
+          </button>
         </div>
-        <button type="button" className="btn btn-primary" onClick={onClick}>
-          <span className="glyphicon glyphicon-repeat" />
-        </button>
         <div
           className="list-group"
           style={{

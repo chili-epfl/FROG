@@ -50,6 +50,7 @@ export default ({
           left: '2px',
           top: '4px',
           width: '9%',
+          minWidth: '40px',
           height: '34px'
         }}
         onClick={onSelect}
@@ -61,6 +62,7 @@ export default ({
           position: 'absolute',
           left: '2px',
           top: '40px',
+          minWidth: '40px',
           width: '9%',
           height: '34px'
         }}
