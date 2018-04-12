@@ -54,7 +54,7 @@ export default (props: Object) => {
   return (
     <ListGroupItem>
       <font size={4}>
-        {userID.toString() === uiID.toString() && (
+        {userID === uiID && (
           <div style={{ float: 'right' }}>
             <A onClick={() => changeRank(props, 1)}>
               <Glyphicon
