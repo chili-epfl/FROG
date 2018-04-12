@@ -116,11 +116,15 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    // this.setState({ interval: true });
+    this.setState({ interval: true });
   };
 
   componentDidMount() {
     this.startTimer();
+  }
+
+  componentWillUnmount() {
+    this.stopTimer();
   }
 
   render() {
