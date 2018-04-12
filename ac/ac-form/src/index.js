@@ -4,6 +4,7 @@ import * as React from 'react';
 import Form from 'react-jsonschema-form';
 
 import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
+import { isEmpty } from 'lodash';
 
 import { config, validateConfig } from './config';
 
@@ -34,6 +35,9 @@ const meta = {
 };
 
 const modifyForm = (questions, title) => {
+  if (isEmpty(questions)) {
+    return {};
+  }
   const propdef = questions
     .split(',')
     .reduce(

@@ -2,19 +2,6 @@
 
 export default [
   {
-    title: 'Empty induction',
-    config: {
-      title: 'Empty induction',
-      partStr: '',
-      properties: [],
-      suffisantSets: '',
-      contradictoryProperties: '',
-      unnecessaryProperties: '',
-      examples: []
-    },
-    data: []
-  },
-  {
     title: 'Learning about SETs',
     config: {
       title: 'a set',

@@ -104,15 +104,6 @@ export const meta = {
         ]
       },
       data: {}
-    },
-    {
-      title: 'Empty, can upload any file',
-      config: {
-        guidelines: 'Upload any file',
-        canUpload: true,
-        acceptAnyFiles: true
-      },
-      data: {}
     }
   ]
 };
