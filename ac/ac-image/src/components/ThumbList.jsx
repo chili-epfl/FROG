@@ -53,7 +53,9 @@ const ImageList = ({
       const styleCode =
         voteCount >= minVoteT
           ? 'chosen_by_team'
-          : voteCount > 0 ? 'chosen_partially' : 'not_chosen';
+          : voteCount > 0
+            ? 'chosen_partially'
+            : 'not_chosen';
 
       return <ImageBox key={image.key} {...{ image, onClick, styleCode }} />;
     })}
