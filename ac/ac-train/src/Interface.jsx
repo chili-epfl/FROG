@@ -6,7 +6,7 @@ import { isEqual } from 'lodash';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
 import Validation from './Validation';
-import { getCommandForTicket, generateTicket } from './ActivityUtils';
+import { getCommandForTicket, generateTicket, testing } from './ActivityUtils';
 
 const RunActivity = props => {
   switch (props.activity) {
@@ -118,7 +118,9 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    this.setState({ interval: true, checkAnswer });
+    if (!testing) {
+      this.setState({ interval: true, checkAnswer });
+    }
   };
 
   componentDidMount() {

@@ -8,7 +8,7 @@ import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
 
 import { SpecificGuideline } from './Guidelines';
-import { texts, testing } from './ActivityUtils';
+import { testing } from './ActivityUtils';
 import Interface from './Interface';
 
 const styles = {
@@ -25,13 +25,34 @@ const styles = {
 let interfaces;
 
 if (testing) {
-  interfaces = ['start', ...shuffle(['form'])];
+  interfaces = ['start', ...shuffle(['dragdrop'])];
 } else {
   interfaces = [
     'start',
     ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
   ];
 }
+
+const ActivityEnded = () => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      width: '100%',
+      height: '100%',
+      position: 'relative'
+    }}
+  >
+    <iframe
+      title="thank"
+      src="https://giphy.com/embed/l3q2wJsC23ikJg9xe"
+      width="100%"
+      height="60%"
+      style={{ position: 'absolute', pointerEvents: 'none', border: 'none' }}
+      allowFullScreen
+    />
+  </div>
+);
 
 const Main = props => {
   const start = () => {
@@ -59,7 +80,7 @@ const Main = props => {
   if (step < 5) {
     return <Interface activity={interfaces[step]} {...props} />;
   } else {
-    return <div>{texts.end}</div>;
+    return <ActivityEnded />;
   }
 };
 
