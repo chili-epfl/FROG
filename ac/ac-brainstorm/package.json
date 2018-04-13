@@ -12,14 +12,14 @@
     "@houshuang/react-flip-move": "^2.9.16",
     "frog-utils": "^1.0.0",
     "json-stable-stringify": "^1.0.1",
-    "react": "^16.2.0",
+    "react": "^16.3.1",
     "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.2.0",
-    "react-google-charts": "^1.5.5",
-    "react-jsonschema-form": "^1.0.0",
-    "styled-components": "^3.1.6"
+    "react-dom": "^16.3.1",
+    "react-google-charts": "^1.5.7",
+    "react-jsonschema-form": "^1.0.3",
+    "styled-components": "^3.2.5"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.9.0"
   }
 }
