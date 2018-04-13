@@ -5,7 +5,8 @@ import React from 'react';
 import { isEqual } from 'lodash';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
-import { getCommandForTicket, generateTicket, Interval } from './ActivityUtils';
+import Validation from './Validation';
+import { getCommandForTicket, generateTicket } from './ActivityUtils';
 
 const RunActivity = props => {
   switch (props.activity) {
@@ -28,23 +29,22 @@ class Interface extends React.Component {
     this.instanceCount = this.props.activityData.config.instanceCount;
     this.timeOfEachInstanceInSec =
       this.props.activityData.config.timeOfEachInstance / 1000;
-    this.helpCount = 0;
 
-    this.state = {
+    this.initialState = {
       ticket: generateTicket(),
+      checkAnswer: false,
       secondsRemaining: this.timeOfEachInstanceInSec,
       interval: false,
       help: false
     };
+
+    this.helpCount = 0;
+
+    this.state = { ...this.initialState };
   }
 
   reset = () => {
-    this.setState({
-      ticket: generateTicket(),
-      secondsRemaining: this.timeOfEachInstanceInSec,
-      interval: false,
-      help: false
-    });
+    this.setState({ ...this.initialState, ticket: generateTicket() });
     this.startTimer();
   };
 
@@ -118,7 +118,7 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    this.setState({ interval: true });
+    this.setState({ interval: true, checkAnswer });
   };
 
   componentDidMount() {
@@ -130,11 +130,16 @@ class Interface extends React.Component {
   }
 
   render() {
-    const { ticket } = this.state;
+    const { ticket, checkAnswer } = this.state;
     const { activity } = this.props;
 
     if (this.state.interval) {
-      return <Interval nextInstance={this.nextInstance} />;
+      return (
+        <Validation
+          nextInstance={this.nextInstance}
+          checkAnswer={checkAnswer}
+        />
+      );
     }
 
     return (

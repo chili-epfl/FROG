@@ -8,7 +8,7 @@ import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
 
 import { SpecificGuideline } from './Guidelines';
-import { texts } from './ActivityUtils';
+import { texts, testing } from './ActivityUtils';
 import Interface from './Interface';
 
 const styles = {
@@ -22,12 +22,16 @@ const styles = {
   }
 };
 
-const interfaces = [
-  'start',
-  ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
-];
+let interfaces;
 
-// const interfaces = ['start', ...shuffle(['graphical'])];
+if (testing) {
+  interfaces = ['start', ...shuffle(['form'])];
+} else {
+  interfaces = [
+    'start',
+    ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
+  ];
+}
 
 const Main = props => {
   const start = () => {

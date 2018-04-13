@@ -1,18 +1,5 @@
 // @flow
-
-import * as React from 'react';
-
-// UI
 import { sample } from 'lodash';
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import { CircularProgress } from 'material-ui/Progress';
-
-const styles = {
-  interval: {
-    height: '100%'
-  }
-};
 
 export const texts = {
   start: 'Start',
@@ -73,43 +60,6 @@ export function generateTicket() {
   };
 }
 
-type IntervalPropsT = {
-  classes: Object,
-  nextInstance: Function
-};
-
-class IntervalController extends React.Component<IntervalPropsT> {
-  interval: TimeoutID;
-
-  componentDidMount() {
-    this.interval = setTimeout(() => {
-      this.props.nextInstance();
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.interval);
-  }
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.interval}
-      >
-        <Grid item>
-          <CircularProgress size={50} />
-        </Grid>
-      </Grid>
-    );
-  }
-}
-
-export const Interval = withStyles(styles)(IntervalController);
-
 export function commandDataStructure(command: string) {
   const answer = command.split(' ').filter(t => t !== 'from' && t !== 'to');
   const cities = answer.splice(0, 2).map(city => lowercaseFirstLetter(city));
@@ -142,3 +92,5 @@ export function commandDataStructure(command: string) {
     travel: answer[3]
   };
 }
+
+export const testing = false;
