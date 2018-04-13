@@ -6,8 +6,8 @@ import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import Check from 'material-ui-icons/Check';
-import Clear from 'material-ui-icons/Clear';
+import Check from '@material-ui/icons/Check';
+import Clear from '@material-ui/icons/Clear';
 import green from 'material-ui/colors/green';
 
 const styles = {

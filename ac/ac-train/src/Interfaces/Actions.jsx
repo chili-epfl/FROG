@@ -3,8 +3,8 @@ import React from 'react';
 // UI
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
-import Timer from 'material-ui-icons/Timer';
-import ShoppingCart from 'material-ui-icons/ShoppingCart';
+import Timer from '@material-ui/icons/Timer';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Button from 'material-ui/Button';
 
 import Help from './Help';
