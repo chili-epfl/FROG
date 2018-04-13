@@ -10,7 +10,10 @@ import {
 } from 'frog-utils';
 
 const Viewer = (props: dashboardViewerPropsT) => {
-  const { data: { answers }, config } = props;
+  const {
+    data: { answers },
+    config
+  } = props;
   if (!config) {
     return null;
   }

@@ -11,7 +11,10 @@ const ProgressLine = ({ color, x }) => (
 export default connect(
   ({
     scaled,
-    store: { ui: { scale }, session: { timeInGraph, timeInClass } }
+    store: {
+      ui: { scale },
+      session: { timeInGraph, timeInClass }
+    }
   }: StoreProp & { scaled: Boolean }) => {
     const s = scaled ? scale : 4;
     return (

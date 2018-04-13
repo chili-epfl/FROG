@@ -56,7 +56,13 @@ const Completed = ({ dataFn }) => (
 );
 
 const ActivityRunner = (props: ActivityRunnerT) => {
-  const { activityData: { config }, logger, dataFn, userInfo, data } = props;
+  const {
+    activityData: { config },
+    logger,
+    dataFn,
+    userInfo,
+    data
+  } = props;
   const { answers, justification } = data;
 
   if (!answers[userInfo.id]) {
