@@ -31,7 +31,7 @@ export default class ActivityRunner extends React.Component<ActivityRunnerT> {
   render() {
     const { config } = this.props.activityData;
     return (
-      <Main>
+      <Main className="bootstrap">
         <Header config={config} style={{ width: '100%' }} />
         <Editor {...this.props} />
         <TestPanel
