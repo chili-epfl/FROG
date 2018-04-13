@@ -4,7 +4,11 @@ import React from 'react';
 import { ReactiveText, type ActivityRunnerT } from 'frog-utils';
 
 export default (props: ActivityRunnerT) => {
-  const { activityData: { config }, logger, dataFn } = props;
+  const {
+    activityData: { config },
+    logger,
+    dataFn
+  } = props;
   if (!config.justify) {
     return null;
   } else {

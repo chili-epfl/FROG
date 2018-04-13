@@ -52,7 +52,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   }
 
   fetchLogs = (props: PropsT = this.props) => {
-    const { meta: { exampleData }, dashboard } = this.props.activityType;
+    const {
+      meta: { exampleData },
+      dashboard
+    } = this.props.activityType;
     const data = (exampleData && exampleData[0].config) || {};
 
     const { activityMerge } = dashboard[this.state.example].exampleLogs[0];

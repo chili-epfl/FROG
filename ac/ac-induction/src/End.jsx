@@ -41,7 +41,9 @@ const Result = ({ title, list }: Object) => (
             backgroundColor:
               x.correction.result === 0
                 ? '#00CC00'
-                : x.correction.result === 1 ? '#FF9933' : '#CC0000',
+                : x.correction.result === 1
+                  ? '#FF9933'
+                  : '#CC0000',
             border: 'solid black 1px',
             textAlign: 'center'
           }}

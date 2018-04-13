@@ -12,7 +12,9 @@ const meta = {
 const config = {};
 
 const operator = (configData, object) => {
-  const { activityData: { structure, payload } } = object;
+  const {
+    activityData: { structure, payload }
+  } = object;
   if (structure !== 'all') throw 'The structure needs to be all';
 
   const data: { [string]: string } = payload.all.data.students;

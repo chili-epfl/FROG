@@ -17,7 +17,9 @@ const ScrollField = connect(
     x,
     height,
     direction,
-    store: { ui: { cancelScroll, panx, graphWidth } }
+    store: {
+      ui: { cancelScroll, panx, graphWidth }
+    }
   }: StoreProp & { x: number, height: number, direction: number }) => {
     if (
       (direction === -1 && panx > 0) ||

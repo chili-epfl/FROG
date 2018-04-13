@@ -59,14 +59,18 @@ class ModalSubmit extends Component<Object> {
                     backgroundColor:
                       result === 0
                         ? '#00CC00'
-                        : result === 1 ? '#FF9933' : '#CC0000'
+                        : result === 1
+                          ? '#FF9933'
+                          : '#CC0000'
                   }}
                 />
                 <h3 style={{ marginLeft: '10px' }}>
                   {'Your answer is ' +
                     (result === 0
                       ? 'correct'
-                      : result === 1 ? 'almost correct' : 'incorrect')}
+                      : result === 1
+                        ? 'almost correct'
+                        : 'incorrect')}
                 </h3>
               </TestCorrectionDiv>
             </div>

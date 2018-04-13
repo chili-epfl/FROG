@@ -7,7 +7,11 @@ import { connect, store, type StoreProp } from './../store';
 import { timeToPx, rangeExclusive } from './../utils';
 
 export const PanMap = connect(
-  ({ store: { ui: { panx, panDelta, scale, graphWidth } } }: StoreProp) => (
+  ({
+    store: {
+      ui: { panx, panDelta, scale, graphWidth }
+    }
+  }: StoreProp) => (
     <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
       <rect
         x={panx}
@@ -29,7 +33,9 @@ const onDoubleClick = (x, e) => {
 
 export const LevelLines = connect(
   ({
-    store: { ui: { scale, graphWidth } },
+    store: {
+      ui: { scale, graphWidth }
+    },
     scaled
   }: StoreProp & { scaled: boolean }) => (
     <g>
@@ -59,7 +65,13 @@ export const LevelLines = connect(
 );
 
 export const TimeScale = connect(
-  ({ store: { ui: { scale }, graphDuration }, scaled }) => {
+  ({
+    store: {
+      ui: { scale },
+      graphDuration
+    },
+    scaled
+  }) => {
     let divider = Math.round(5 / scale * (graphDuration / 120)) * 5;
     divider = divider || 1;
     return (
