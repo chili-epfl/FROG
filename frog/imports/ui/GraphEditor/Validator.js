@@ -139,7 +139,9 @@ export const ValidButtonRaw = ({
 
 export const ValidButton = connect(
   ({
-    store: { ui: { graphErrorColor, setShowErrors } },
+    store: {
+      ui: { graphErrorColor, setShowErrors }
+    },
     errorColor,
     activityId
   }) => (

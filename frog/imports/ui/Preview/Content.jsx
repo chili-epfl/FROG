@@ -74,7 +74,7 @@ export default ({
   if (!users || !instances) {
     return <p>There is no user</p>;
   }
-  if (config === undefined || config.invalid) {
+  if (!showDashExample && (config === undefined || config.invalid)) {
     return <p>The config is invalid</p>;
   }
 

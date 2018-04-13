@@ -28,7 +28,9 @@ export default ({
     const index = tmpList[data.indexCurrent];
     const caseAnswer = index.selectedChoice
       ? 0
-      : index.realIndex % 2 === 0 ? 1 : 2;
+      : index.realIndex % 2 === 0
+        ? 1
+        : 2;
     const correction = feedback
       ? Correction(
           examples[index.realIndex].isIncorrect,
