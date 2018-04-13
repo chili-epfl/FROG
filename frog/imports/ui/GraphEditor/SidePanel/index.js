@@ -14,7 +14,9 @@ export default connect(
     setImportActivityList,
     lastRefreshAct,
     refreshActDate,
-    store: { ui: { selected, sidepanelOpen } }
+    store: {
+      ui: { selected, sidepanelOpen }
+    }
   }) => {
     if (!sidepanelOpen) {
       return null;
