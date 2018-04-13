@@ -154,7 +154,9 @@ const ActivityBox = connect(ActivityComponent);
 
 export default connect(
   ({
-    store: { activityStore: { all } },
+    store: {
+      activityStore: { all }
+    },
     scaled,
     transparent
   }: StoreProp & { scaled: boolean, transparent: boolean }) => (

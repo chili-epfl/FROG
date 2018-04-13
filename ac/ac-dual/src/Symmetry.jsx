@@ -195,7 +195,11 @@ export default class Symmetry extends React.Component<
   onClick = (answer: ?boolean) => {
     clearTimeout(noAnswerTimeout);
 
-    const { data: { step }, speed, logger } = this.props;
+    const {
+      data: { step },
+      speed,
+      logger
+    } = this.props;
 
     const figure = this.state.figure;
     const difficulty = this.difficulty;
