@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import { DropTarget } from 'react-dnd';
+import { compose } from 'recompose';
 import { capitalizeFirstLetter } from '../../ActivityUtils';
 
 const styles = theme => ({
@@ -16,11 +17,19 @@ const styles = theme => ({
   })
 });
 
-const dustbinTarget = {
+const dropElementsTarget = {
   drop(props, monitor) {
     props.onDrop(monitor.getItem());
   }
 };
+
+const collect = (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+});
+
+const acceptedItems = ({ accepts }) => accepts;
 
 type PropsT = {
   title: string,
@@ -57,14 +66,9 @@ class DropElementsController extends Component<PropsT> {
   }
 }
 
-const DropElements = DropTarget(
-  props => props.accepts,
-  dustbinTarget,
-  (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
-  })
-)(withStyles(styles)(DropElementsController));
+const DropElements = compose(
+  DropTarget(acceptedItems, dropElementsTarget, collect),
+  withStyles(styles)
+)(DropElementsController);
 
 export default DropElements;
