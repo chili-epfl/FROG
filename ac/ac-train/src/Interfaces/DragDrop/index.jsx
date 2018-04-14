@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-dnd';
 import update from 'immutability-helper';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { zipObject, map } from 'lodash';
+import { compose } from 'recompose';
 
 // UI
 import { withStyles } from 'material-ui/styles';
@@ -210,8 +211,8 @@ class DragDropController extends React.Component<PropsT, StateT> {
   }
 }
 
-const DragDrop = DragDropContext(HTML5Backend)(
-  withStyles(styles)(DragDropController)
+const DragDrop = compose(DragDropContext(HTML5Backend), withStyles(styles))(
+  DragDropController
 );
 
 export default DragDrop;

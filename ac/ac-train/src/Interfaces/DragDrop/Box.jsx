@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
+import { compose } from 'recompose';
+
 import { withStyles } from 'material-ui/styles';
 
 const styles = {
@@ -20,6 +22,13 @@ const boxSource = {
   }
 };
 
+const collect = (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+});
+
+const boxTypes = ({ type }) => type;
+
 class BoxController extends Component {
   render() {
     const { name, connectDragSource, classes } = this.props;
@@ -28,9 +37,9 @@ class BoxController extends Component {
   }
 }
 
-const Box = DragSource(props => props.type, boxSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
-}))(withStyles(styles)(BoxController));
+const Box = compose(
+  DragSource(boxTypes, boxSource, collect),
+  withStyles(styles)
+)(BoxController);
 
 export default Box;
