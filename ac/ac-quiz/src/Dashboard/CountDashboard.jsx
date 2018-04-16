@@ -3,18 +3,27 @@
 
 import * as React from 'react';
 
-import {
-  CountChart,
-  type LogDBT,
-  type dashboardViewerPropsT
-} from 'frog-utils';
+import { CountChart, type LogDBT, type ActivityDBT } from 'frog-utils';
 
-const Viewer = (props: dashboardViewerPropsT) => {
-  const {
-    data: { answers },
-    config
-  } = props;
-  if (!config) {
+const Viewer = ({ state: { answerCounts, questions } }: any) => (
+  <React.Fragment>
+    {(questions || []).map((q, qIndex) => (
+      <CountChart
+        key={qIndex}
+        title={q.question}
+        vAxis="Possible answers"
+        hAxis="Number of answers"
+        categories={q.answers.map(x => x.choice)}
+        data={answerCounts[qIndex]}
+      />
+    ))}
+  </React.Fragment>
+);
+
+const prepareDisplay = (state: any, activity: ActivityDBT) => {
+  const { answers } = state;
+  const { data: config } = activity;
+  if (!config || !config.questions) {
     return null;
   }
 
@@ -26,31 +35,15 @@ const Viewer = (props: dashboardViewerPropsT) => {
       return acc;
     }, q.answers.map(() => 0))
   );
-  return (
-    <React.Fragment>
-      {questions.map((q, qIndex) => (
-        <CountChart
-          key={qIndex}
-          title={q.question}
-          vAxis="Possible answers"
-          hAxis="Number of answers"
-          categories={q.answers.map(x => x.choice)}
-          data={answerCounts[qIndex]}
-        />
-      ))}
-    </React.Fragment>
-  );
+  return { answerCounts, questions };
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDBT) => {
   if (log.itemId !== undefined && log.type === 'choice') {
-    if (!data['answers'][log.instanceId]) {
-      dataFn.objInsert({ [log.itemId]: log.value }, [
-        'answers',
-        log.instanceId
-      ]);
+    if (!state['answers'][log.instanceId]) {
+      state.answers[log.instanceId] = { [log.itemId]: log.value };
     } else {
-      dataFn.objInsert(log.value, ['answers', log.instanceId, log.itemId]);
+      state.answers[log.instanceId][log.itemId] = log.value;
     }
   }
 };
@@ -61,6 +54,7 @@ const initData = {
 
 export default {
   Viewer,
+  prepareDisplay,
   mergeLog,
   initData
 };

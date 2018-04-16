@@ -141,7 +141,10 @@ class PreviewDash extends React.Component<
     state:
       DashboardStates[this.dashId] &&
       (this.func
-        ? this.func(cloneDeep(DashboardStates[this.dashId]))
+        ? this.func(
+            cloneDeep(DashboardStates[this.dashId]),
+            this.props.activity
+          )
         : DashboardStates[this.dashId])
   };
 
@@ -153,7 +156,10 @@ class PreviewDash extends React.Component<
     if (DashboardStates[this.dashId]) {
       if (!isEqual(this.oldInput, DashboardStates[this.dashId])) {
         const newState = this.func
-          ? this.func(cloneDeep(DashboardStates[this.dashId]))
+          ? this.func(
+              cloneDeep(DashboardStates[this.dashId]),
+              this.props.activity
+            )
           : DashboardStates[this.dashId];
         this.setState({ state: newState });
         this.oldInput = cloneDeep(DashboardStates[this.dashId]);
@@ -188,7 +194,6 @@ class PreviewDash extends React.Component<
         <Viewer
           state={this.state.state}
           activity={this.props.activity}
-          config={this.props.config}
           instances={uniq(this.props.instances)}
           users={this.props.users}
         />
