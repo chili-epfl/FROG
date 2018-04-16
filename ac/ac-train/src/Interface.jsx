@@ -26,13 +26,14 @@ const RunActivity = props => {
 class Interface extends React.Component {
   constructor(props) {
     super(props);
-    this.instanceCount = this.props.activityData.config.instanceCount;
+    this.instanceCount = 0;
     this.timeOfEachInstanceInSec =
       this.props.activityData.config.timeOfEachInstance / 1000;
 
     this.initialState = {
-      ticket: generateTicket(),
+      question: generateTicket(),
       checkAnswer: false,
+      start: Date.now(),
       secondsRemaining: this.timeOfEachInstanceInSec,
       interval: false,
       help: false
@@ -44,7 +45,11 @@ class Interface extends React.Component {
   }
 
   reset = () => {
-    this.setState({ ...this.initialState, ticket: generateTicket() });
+    this.setState({
+      ...this.initialState,
+      start: Date.now(),
+      question: generateTicket()
+    });
     this.startTimer();
   };
 
@@ -92,24 +97,22 @@ class Interface extends React.Component {
   nextInstance = () => {
     const { dataFn, activityData } = this.props;
 
-    if (this.instanceCount === 1) {
-      this.instanceCount = activityData.instanceCount;
+    if (this.instanceCount === 4) {
+      this.instanceCount = 0;
       dataFn.numIncr(1, 'step');
       dataFn.objInsert(true, 'guidelines');
     } else {
-      this.instanceCount -= 1;
+      this.instanceCount += 1;
       this.reset();
     }
   };
 
   checkAnswer = answer => {
-    const { logger } = this.props;
-    const { activity } = this.props;
+    const { logger, activity } = this.props;
+    const { question, start } = this.state;
     // console.log(this.state.ticket);
     // console.log(answer);
-    const checkAnswer = isEqual(this.state.ticket, answer);
-
-    console.log(this.instanceCount);
+    const checkAnswer = isEqual(question, answer);
 
     logger([
       {
@@ -117,7 +120,8 @@ class Interface extends React.Component {
         payload: {
           activity,
           iteration: this.instanceCount,
-          checkAnswer
+          checkAnswer,
+          timeTaken: Date.now() - start
         }
       }
     ]);
@@ -137,7 +141,7 @@ class Interface extends React.Component {
   }
 
   render() {
-    const { ticket, checkAnswer } = this.state;
+    const { question, checkAnswer } = this.state;
     const { activity } = this.props;
 
     if (this.state.interval) {
@@ -153,7 +157,7 @@ class Interface extends React.Component {
       <React.Fragment>
         <RunActivity
           activity={activity}
-          ticket={getCommandForTicket(ticket)}
+          ticket={getCommandForTicket(question)}
           submit={this.checkAnswer}
           help={this.state.help}
           onHelpOpen={this.handleHelpOpen}

@@ -25,12 +25,9 @@ const styles = {
 let interfaces;
 
 if (testing) {
-  interfaces = ['start', ...shuffle(['dragdrop'])];
+  interfaces = ['start', ...shuffle(['command'])];
 } else {
-  interfaces = [
-    'start',
-    ...shuffle(['graphical', 'dragdrop', 'command', 'form'])
-  ];
+  interfaces = ['start', ...shuffle(['graphical', 'command', 'form'])];
 }
 
 const ActivityEnded = () => (
@@ -86,7 +83,10 @@ const Main = props => {
 
 // the actual component that the student sees
 const RunnerController = (props: ActivityRunnerT) => {
-  const { data: { step }, classes } = props;
+  const {
+    data: { step },
+    classes
+  } = props;
   const p = Math.round(step / 5 * 100);
   return (
     <div className={classes.main}>

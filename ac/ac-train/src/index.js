@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboard';
+import dashboard from './Dashboards';
 
 const meta = {
   name: 'Train Activity',
