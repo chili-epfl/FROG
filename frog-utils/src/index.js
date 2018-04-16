@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
+import ReactJsonView from 'react-json-view';
 
 export const isBrowser = (() => {
   try {
@@ -243,3 +244,14 @@ export const cloneDeep = (o: any) => {
   }
   return newO;
 };
+
+export const Inspector = ({ data }: { data: Object }) => (
+  <ReactJsonView
+    src={data}
+    iconStyle="triangle"
+    enableClipboard={false}
+    displayObjectSize={false}
+    displayDataTypes={false}
+    theme="shapeshifter:inverted"
+  />
+);
