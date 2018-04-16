@@ -27,50 +27,60 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
   }
 });
 
-const Viewer = (props: dashboardViewerPropsT) => (
-  <React.Fragment>
-    <SymmetryStats {...props} task="easy" />
-    <SymmetryStats {...props} task="hard" />
-  </React.Fragment>
-);
+const Viewer = (props: dashboardViewerPropsT) => {
+  console.log(props.data);
 
-const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
-  const d = data[task];
-  const errRate = o => o.wrong / (o.wrong + o.correct);
-  const chartData = Object.keys(d).map(speed => [
-    parseInt(speed, 10),
-    errRate(d[speed])
-  ]);
-  return chartData.length > 0 ? (
-    <Chart
-      chartType="LineChart"
-      columns={[
-        { type: 'number', label: 'Speed' },
-        { type: 'number', label: 'Error Rate' }
-      ]}
-      rows={chartData}
-      options={options('Condition: ' + task, 'Error rate', 'Speed', 3, 8)}
-    />
-  ) : (
-    <p>No data currently</p>
-  );
+  return <h1>H</h1>;
+};
+
+const SymmetryStats = props => {
+  // const errRate = o => o.wrong / (o.wrong + o.correct);
+  // const chartData = Object.keys(d).map(speed => [
+  //   parseInt(speed, 10),
+  //   errRate(d[speed])
+  // ]);
+  // return chartData.length > 0 ? (
+  //   <Chart
+  //     chartType="LineChart"
+  //     columns={[
+  //       { type: 'number', label: 'Speed' },
+  //       { type: 'number', label: 'Error Rate' }
+  //     ]}
+  //     rows={chartData}
+  //     options={options('Condition: ' + task, 'Error rate', 'Speed', 3, 8)}
+  //   />
+  // ) : (
+  //   <p>No data currently</p>
+  // );
 };
 
 const initData = {
-  easy: {},
-  hard: {}
+  error: {},
+  time: {}
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
-    const { answer } = log.payload;
+    const { activity, iteration, checkAnswer } = log.payload;
 
-    if (answer) {
-      // console.log('Correct');
-      // dataFn.numIncr(1, ['correct']);
+    if (!data['error'][activity] || !data['error'][activity][iteration]) {
+      const payload = {
+        [activity]: {
+          [iteration]: {
+            wrong: 0,
+            count: 0,
+            correct: 0
+          }
+        }
+      };
+      dataFn.objInsert(...payload, ['error']);
+    }
+    if (checkAnswer) {
+      dataFn.numIncr(1, ['error', activity, iteration, 'correct']);
+      dataFn.numIncr(1, ['error', activity, iteration, 'count']);
     } else {
-      // console.log('Wrong');
-      // dataFn.numIncr(1, ['wrong']);
+      dataFn.numIncr(1, ['error', activity, iteration, 'wrong']);
+      dataFn.numIncr(1, ['error', activity, iteration, 'count']);
     }
   }
 };

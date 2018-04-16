@@ -104,21 +104,24 @@ class Interface extends React.Component {
 
   checkAnswer = answer => {
     const { logger } = this.props;
-
+    const { activity } = this.props;
     // console.log(this.state.ticket);
     // console.log(answer);
     const checkAnswer = isEqual(this.state.ticket, answer);
-    // console.log(checkAnswer);
 
     logger([
       {
         type: 'answer',
-        payload: { answer: checkAnswer }
+        payload: {
+          activity,
+          iteration: this.instanceCount,
+          checkAnswer
+        }
       }
     ]);
 
     this.stopTimer();
-    if (!testing) {
+    if (true) {
       this.setState({ interval: true, checkAnswer });
     }
   };

@@ -36,6 +36,7 @@ const Viewer = (props: dashboardViewerPropsT) => (
 
 const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
   const d = data[task];
+  console.log(data);
   const errRate = o => o.wrong / (o.wrong + o.correct);
   const chartData = Object.keys(d).map(speed => [
     parseInt(speed, 10),
