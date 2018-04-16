@@ -10,8 +10,8 @@ import {
   LeaderBoard
 } from 'frog-utils';
 
-const Viewer = ({ data }: dashboardViewerPropsT) => {
-  const { consistent, inconsistent } = data;
+const Viewer = ({ state }: dashboardViewerPropsT) => {
+  const { consistent, inconsistent } = state;
   const options = (title, xLabel, xmin, xmax) => ({
     bar: { groupWidth: '90%' },
     legend: { position: 'none' },
@@ -68,7 +68,7 @@ const initData = {
   }
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogT) => {
+const mergeLog = (state: any, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const {
       isConsistent,
@@ -79,11 +79,11 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
     } = log.payload;
     const qType = isConsistent ? 'consistent' : 'inconsistent';
     if (isCorrect === answer) {
-      dataFn.numIncr(1, [qType, 'correct', 'count']);
-      dataFn.numIncr(answerTime - startTime, [qType, 'correct', 'time']);
+      state[qType].correct.count += 1;
+      state[qType].correct.time += answerTime - startTime;
     } else {
-      dataFn.numIncr(1, [qType, 'wrong', 'count']);
-      dataFn.numIncr(answerTime - startTime, [qType, 'wrong', 'time']);
+      state[qType].wrong.count += 1;
+      state[qType].wrong.time += answerTime - startTime;
     }
   }
 };
@@ -105,7 +105,7 @@ const exampleLogs = [
 const statsDashboard = { initData, mergeLog, Viewer, exampleLogs };
 
 export default {
-  progress: ProgressDashboard
+  progress: ProgressDashboard,
+  leaderboard: LeaderBoard,
+  stats: statsDashboard
 };
-// leaderboard: LeaderBoard,
-// stats: statsDashboard
