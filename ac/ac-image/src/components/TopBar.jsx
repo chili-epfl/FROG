@@ -5,7 +5,6 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Main = styled.div`
-  height: 90px;
   justify-content: center;
   align-items: center;
 `;
@@ -26,7 +25,7 @@ const TopBar = ({
 }: Object) => (
   <Main>
     <p style={{ fontSize: '22px' }}>{guidelines}</p>
-    <Body>
+    <Body className="bootstrap">
       {!hideCategory &&
         Object.keys(categories).length > 2 && (
           <div>
