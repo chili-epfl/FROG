@@ -12,8 +12,8 @@ import JustificationDashboard from './JustificationDashboard';
 export default {
   count: CountDashboard,
   progress: ProgressDashboard,
-  leaderboard: LeaderBoard
+  leaderboard: LeaderBoard,
+  coordinates: CoordinatesDashboard
 };
 
-// coordinates: CoordinatesDashboard,
 // justification: JustificationDashboard,
