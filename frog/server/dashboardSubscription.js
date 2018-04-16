@@ -1,8 +1,8 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { set, cloneDeep, isEqual } from 'lodash';
-import { uuid } from 'frog-utils';
+import { set, isEqual } from 'lodash';
+import { uuid, cloneDeep } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
 import { DashboardData } from '../imports/api/activities';

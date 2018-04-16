@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { cloneDeep, isEqual } from 'lodash';
+import { isEqual } from 'lodash';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
 import {
+  cloneDeep,
   type LogT,
   type LogDBT,
   type ActivityPackageT,
@@ -104,14 +105,20 @@ export const createLogger = (
     };
     const items = Array.isArray(logItems) ? logItems : [logItems];
 
-    Logs.push([...items.map(x => ({ ...x, ...extra }))]);
+    Logs.push(...items.map(x => ({ ...x, ...extra })));
     mergeLog(items, extra);
   };
   return logger;
 };
 
 class PreviewDash extends React.Component<
-  { name: string, activity: ActivityDBT, instances: Object, users: Object },
+  {
+    name: string,
+    activity: ActivityDBT,
+    instances: Object,
+    users: Object,
+    config: Object
+  },
   { state: any }
 > {
   interval: any;
@@ -157,7 +164,15 @@ class PreviewDash extends React.Component<
       activityTypesObj[this.props.activity.activityType].dashboards[
         this.props.name
       ].Viewer;
-    return this.state.state ? <Viewer state={this.state.state} /> : null;
+    return this.state.state ? (
+      <Viewer
+        state={this.state.state}
+        activity={this.props.activity}
+        config={this.props.config}
+        instances={this.props.instances}
+        users={this.props.users}
+      />
+    ) : null;
   };
 }
 
@@ -168,6 +183,7 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       initDashboardDocuments(activityType, false);
       setReady(true);
     }
+    console.log(config);
     return ready ? (
       <DashMultiWrapper
         activity={activityDbObject(config, activityType.id)}
@@ -179,6 +195,7 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
             key={activityType.id + 'e'}
             name={e}
             activity={activityDbObject(config, activityType.id)}
+            config={config}
             instances={instances}
             users={users}
           />
