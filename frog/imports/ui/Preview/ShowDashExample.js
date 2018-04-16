@@ -2,11 +2,15 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { type ActivityPackageT, LogDBT, pureObjectReactive } from 'frog-utils';
+import {
+  Inspector,
+  type ActivityPackageT,
+  LogDBT,
+  pureObjectReactive
+} from 'frog-utils';
 import { throttle, cloneDeep } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import Inspector from 'react-inspector';
 import Spinner from 'react-spinner';
 
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
@@ -52,10 +56,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   }
 
   fetchLogs = (props: PropsT = this.props) => {
-    const {
-      meta: { exampleData },
-      dashboard
-    } = this.props.activityType;
+    const { meta: { exampleData }, dashboard } = this.props.activityType;
     const data = (exampleData && exampleData[0].config) || {};
 
     const { activityMerge } = dashboard[this.state.example].exampleLogs[0];

@@ -55,6 +55,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "yarn": "^1.4.0"
+    "yarn": "^1.5.1"
   }
 }

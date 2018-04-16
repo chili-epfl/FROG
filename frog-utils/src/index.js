@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
-import ReactJsonView from 'react-json-view';
 
 export const isBrowser = (() => {
   try {
@@ -14,6 +13,10 @@ export const isBrowser = (() => {
 
 export const EnhancedForm = isBrowser
   ? require('./EnhancedForm.js').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
+export const ReactJsonView = isBrowser
+  ? require('react-json-view').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 export {
@@ -245,13 +248,32 @@ export const cloneDeep = (o: any) => {
   return newO;
 };
 
-export const Inspector = ({ data }: { data: Object }) => (
-  <ReactJsonView
-    src={data}
-    iconStyle="triangle"
-    enableClipboard={false}
-    displayObjectSize={false}
-    displayDataTypes={false}
-    theme="shapeshifter:inverted"
-  />
-);
+export const Inspector = ({ data }: { data: Object }) =>
+  data ? (
+    <ReactJsonView
+      style={{ fontSize: '1.2em' }}
+      src={data}
+      iconStyle="triangle"
+      enableClipboard={false}
+      displayObjectSize={false}
+      displayDataTypes={false}
+      theme={{
+        base00: '#fafafa',
+        base01: '#f0f0f1',
+        base02: '#e5e5e6',
+        base03: '#a0a1a7',
+        base04: '#696c77',
+        base05: '#383a42',
+        base06: '#202227',
+        base07: '#090a0b',
+        base08: '#ca1243',
+        base09: '#d75f00',
+        base0A: '#c18401',
+        base0B: '#50a14f',
+        base0C: '#0184bc',
+        base0D: '#4078f2',
+        base0E: '#a626a4',
+        base0F: '#986801'
+      }}
+    />
+  ) : null;
