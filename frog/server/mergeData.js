@@ -17,7 +17,7 @@ import { Sessions } from '../imports/api/sessions';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
-import { createDashboards } from './mergeLogData';
+import { createDashboards } from '../imports/api/mergeLogData';
 
 declare var Promise: any;
 const backend = new ShareDB();

@@ -81,6 +81,6 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
 const statsDashboard = { Viewer, mergeLog, initData };
 
 export default {
-  progress: ProgressDashboard,
-  stats: statsDashboard
+  progress: ProgressDashboard
 };
+// stats: statsDashboard

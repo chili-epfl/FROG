@@ -135,7 +135,7 @@ export default ({
       ) : (
         <Mosaic
           renderTile={([name, instance], path) =>
-            name === 'dashboard' && activityType.dashboard ? (
+            name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
                 path={path}

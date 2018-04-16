@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { generateReactiveFn, splitPathObject } from 'frog-utils';
 
 import { serverConnection } from './share-db-manager';
-import { SharedbCache } from './cache';
+import { SharedbCache } from '../imports/api/cache';
 
 const safelyInsertObject = (doc, dataFn, path, value, instanceId) => {
   const { insertObject, insertPath } = splitPathObject(doc.data, path, value);

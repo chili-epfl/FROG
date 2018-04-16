@@ -11,9 +11,7 @@ import { type ActivityDbT } from 'frog-utils';
 import doGetInstances from '../../api/doGetInstances';
 import { Sessions } from '../../api/sessions';
 import { Objects } from '../../api/objects';
-import { dashDocId } from '../../api/logs';
 import { activityTypesObj } from '../../activityTypes';
-import { connection } from '../App/connection';
 import MultiWrapper from './MultiWrapper';
 
 const Dashboard = new Mongo.Collection('dashboard');
@@ -63,9 +61,10 @@ export class DashboardComp extends React.Component<
     const Dash = aT.dashboard[name].Viewer;
     const DashWith = withTracker(() => ({
       state: Dashboard.findOne(this.props.activity._id + '-' + this.props.name)
-    }))(({ state, ...props }) => {
-      return state ? <Dash state={state} {...props} /> : <Spinner />;
-    });
+    }))(
+      ({ state, ...props }) =>
+        state ? <Dash state={state} {...props} /> : <Spinner />
+    );
     DashWith.displayName = 'DashWith';
 
     return (

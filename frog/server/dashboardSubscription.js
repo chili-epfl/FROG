@@ -1,11 +1,13 @@
+// @flow
+
 import { Meteor } from 'meteor/meteor';
 import { set, cloneDeep, isEqual } from 'lodash';
 import { uuid } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
 import { DashboardData } from '../imports/api/activities';
-import { DashboardStates } from './cache';
-import { regenerateState } from './mergeLogData';
+import { DashboardStates } from '../imports/api/cache';
+import { regenerateState } from '../imports/api/mergeLogData';
 
 const interval = {};
 const subscriptions = {};
@@ -39,7 +41,7 @@ export default () => {
     }
     set(subscriptions, [dashId, id], true);
     const func =
-      activityTypesObj[activityType].dashboard[dashboard].prepareDisplay;
+      activityTypesObj[activityType].dashboards[dashboard].prepareDisplay;
     const newState = func
       ? func(cloneDeep(DashboardStates[dashId]))
       : DashboardStates[dashId];

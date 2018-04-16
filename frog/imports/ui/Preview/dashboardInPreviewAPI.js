@@ -1,45 +1,33 @@
 // @flow
 
 import * as React from 'react';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isEqual } from 'lodash';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
-
 import {
   type LogT,
   type LogDBT,
   type ActivityPackageT,
-  uuid,
-  pureObjectReactive
+  type ActivityDBT
 } from 'frog-utils';
 
+import { mergeLog, createDashboards } from '../../api/mergeLogData';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
+import { DashboardStates } from '../../api/cache';
 
 export const DocumentCache = {};
 export const Logs: LogDBT[] = [];
-
-if (window) {
-  window.DocumentCache = DocumentCache;
-}
 
 export const initDashboardDocuments = (
   activityType: ActivityPackageT,
   refresh: boolean
 ) => {
-  if (activityType && activityType.dashboard) {
-    Object.keys(activityType.dashboard).forEach(name => {
-      const dash = activityType.dashboard[name];
-      const initData = cloneDeep((dash && dash.initData) || {});
-      if (DocumentCache[name]) {
-        if (refresh) {
-          const [_, dataFn] = DocumentCache[name];
-          dataFn.objInsert(initData, []);
-        }
-      } else {
-        DocumentCache[name] = pureObjectReactive(initData);
-      }
-    });
+  if (activityType && activityType.dashboards) {
+    createDashboards(
+      { activityType: activityType.id, _id: activityType.id },
+      refresh
+    );
   }
 };
 
@@ -55,7 +43,7 @@ export const activityDbObject = (
   activityType: string,
   startingTime?: Date
 ) => ({
-  _id: 'preview',
+  _id: activityType,
   data: config,
   groupingKey: 'group',
   plane: 2,
@@ -101,26 +89,77 @@ export const createLogger = (
   initDashboardDocuments(aT, false);
 
   const startingTime = new Date();
+  const logExtra = {
+    userId,
+    sessionId,
+    activityType,
+    activityId: activityType,
+    activityPlane,
+    instanceId
+  };
   const logger = (logItems: Array<LogT> | LogT) => {
-    const list = Array.isArray(logItems) ? logItems : [logItems];
-    list.forEach(logItem => {
-      const log = {
-        _id: uuid(),
-        userId,
-        sessionId,
-        activityType,
-        activityId: 'preview',
-        activityPlane,
-        instanceId,
-        timestamp: new Date(),
-        ...logItem
-      };
-      Logs.push(log);
-      mergeData(aT, log, config, startingTime);
-    });
+    const extra = {
+      ...logExtra,
+      timestamp: new Date()
+    };
+    const items = Array.isArray(logItems) ? logItems : [logItems];
+
+    Logs.push([...items.map(x => ({ ...x, ...extra }))]);
+    mergeLog(items, extra);
   };
   return logger;
 };
+
+class PreviewDash extends React.Component<
+  { name: string, activity: ActivityDBT, instances: Object, users: Object },
+  { state: any }
+> {
+  interval: any;
+  oldInput: any = undefined;
+  func = activityTypesObj[this.props.activity.activityType].dashboards[
+    this.props.name
+  ].prepareDisplay;
+
+  dashId = this.props.activity._id + '-' + this.props.name;
+
+  state = {
+    state:
+      DashboardStates[this.dashId] &&
+      (this.func
+        ? this.func(cloneDeep(DashboardStates[this.dashId]))
+        : DashboardStates[this.dashId])
+  };
+
+  componentDidMount = () => {
+    this.interval = setInterval(this.update, 300);
+  };
+
+  update = () => {
+    if (DashboardStates[this.dashId]) {
+      if (!isEqual(this.oldInput, DashboardStates[this.dashId])) {
+        const newState = this.func
+          ? this.func(cloneDeep(DashboardStates[this.dashId]))
+          : DashboardStates[this.dashId];
+        this.setState({ state: newState });
+        this.oldInput = cloneDeep(DashboardStates[this.dashId]);
+      }
+    }
+  };
+
+  componentWillUnmount = () => {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  };
+
+  render = () => {
+    const Viewer =
+      activityTypesObj[this.props.activity.activityType].dashboards[
+        this.props.name
+      ].Viewer;
+    return this.state.state ? <Viewer state={this.state.state} /> : null;
+  };
+}
 
 export const DashPreviewWrapper = withState('ready', 'setReady', false)(
   (props: Object) => {
@@ -132,10 +171,19 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
     return ready ? (
       <DashMultiWrapper
         activity={activityDbObject(config, activityType.id)}
-        docs={DocumentCache}
         instances={instances}
         users={users}
-      />
+      >
+        {e => (
+          <PreviewDash
+            key={activityType.id + 'e'}
+            name={e}
+            activity={activityDbObject(config, activityType.id)}
+            instances={instances}
+            users={users}
+          />
+        )}
+      </DashMultiWrapper>
     ) : (
       <Spinner />
     );

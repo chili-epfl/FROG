@@ -29,7 +29,7 @@ const styles = theme => ({
 type PropsT = {
   classes: any,
   dashNames: string[],
-  render?: Function,
+  children?: Function,
   onChange?: Function,
   selected?: number
 };
@@ -47,7 +47,7 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
   }
 
   render() {
-    const { dashNames, render, onChange, classes, selected } = this.props;
+    const { dashNames, onChange, classes, selected, children } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -67,10 +67,14 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
             {dashNames.map(name => <Tab key={name} label={name} />)}
           </Tabs>
         </AppBar>
-        {render && (
+        {children && (
           <div className={classes.dash}>
             <ErrorBoundary msg="Dashboard crashed, try reloading">
-              {render(this.state.which)}
+              {children(
+                this.state.which > dashNames.length
+                  ? 0
+                  : dashNames[this.state.which]
+              )}
             </ErrorBoundary>
           </div>
         )}
@@ -87,23 +91,20 @@ DashboardSelector.displayName = 'DashboardSelector';
 const MultiWrapper = (props: {
   activity: ActivityDBT,
   docs: Object,
-  instances: Array<string | number>,
-  users: { [string | number]: string },
-  names?: string[]
+  names?: string[],
+  children?: Function
 }) => {
-  const { activity, docs, names } = props;
+  const { activity, docs, names, children } = props;
   const aT = activityTypesObj[activity.activityType];
-  const dashNames = names || Object.keys(aT.dashboard);
+  const dashNames = names || Object.keys(aT.dashboards);
   return (
-    <DashboardSelector
-      dashNames={dashNames}
-      onChange={() => {}}
-      render={which => {
-        const w = which > dashNames.length ? 0 : which;
-        const [doc] = (docs && docs[dashNames[w]]) || [];
-        return <DashboardComp {...props} name={dashNames[w]} doc={doc} />;
-      }}
-    />
+    <DashboardSelector dashNames={dashNames} onChange={() => {}}>
+      {children ||
+        (which => {
+          const [doc] = (docs && docs[dashNames[which]]) || [];
+          return <DashboardComp {...props} name={dashNames[which]} doc={doc} />;
+        })}
+    </DashboardSelector>
   );
 };
 
