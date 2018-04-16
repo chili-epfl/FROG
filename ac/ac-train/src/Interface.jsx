@@ -109,6 +109,8 @@ class Interface extends React.Component {
     // console.log(answer);
     const checkAnswer = isEqual(this.state.ticket, answer);
 
+    console.log(this.instanceCount);
+
     logger([
       {
         type: 'answer',

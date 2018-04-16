@@ -63,24 +63,18 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { activity, iteration, checkAnswer } = log.payload;
 
-    if (!data['error'][activity] || !data['error'][activity][iteration]) {
-      const payload = {
-        [activity]: {
-          [iteration]: {
-            wrong: 0,
-            count: 0,
-            correct: 0
-          }
-        }
-      };
-      dataFn.objInsert(...payload, ['error']);
+    const iterationString = iteration.toString();
+
+    if (!data['error'][activity] && !data['error'][activity][iteration]) {
+      console.log('went here');
     }
     if (checkAnswer) {
-      dataFn.numIncr(1, ['error', activity, iteration, 'correct']);
-      dataFn.numIncr(1, ['error', activity, iteration, 'count']);
+      // dataFn.numIncr(1, ['error', activity, iteration, 'correct']);
+      // dataFn.numIncr(1, ['error', activity, iteration, 'count']);
     } else {
-      dataFn.numIncr(1, ['error', activity, iteration, 'wrong']);
-      dataFn.numIncr(1, ['error', activity, iteration, 'count']);
+      // console.log(data);
+      // dataFn.numIncr(1, ['error', activity, iteration, 'wrong']);
+      // dataFn.numIncr(1, ['error', activity, iteration, 'count']);
     }
   }
 };
