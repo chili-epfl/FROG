@@ -157,7 +157,7 @@ export type dashboardViewerPropsT = {
   users: Array<Object>,
   activity: ActivityDbT,
   instances: Array<string>,
-  data: any,
+  state: any,
   config: Object
 };
 

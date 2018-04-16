@@ -102,25 +102,23 @@ const Content = ({
           activityType.id,
           'preview',
           getUserId(name),
-          plane,
-          activityData.config
+          plane
         )}
         groupingValue={instance}
       />
     );
   };
 
-  const Dashboard = () => {
-    return (
-      <DashPreviewWrapper
-        config={activityData.config}
-        instances={instances}
-        users={users}
-        activityType={activityType}
-        showData={showData}
-      />
-    );
-  };
+  const Dashboard = () => (
+    <DashPreviewWrapper
+      config={activityData.config}
+      instances={instances}
+      users={users.reduce((acc, x) => ({ ...acc, [getUserId(x)]: x }), {})}
+      activityType={activityType}
+      showData={showData}
+      plane={plane}
+    />
+  );
 
   return (
     <div

@@ -43,12 +43,13 @@ export const hasDashExample = (aT: ActivityPackageT) =>
 export const activityDbObject = (
   config: Object,
   activityType: string,
-  startingTime?: Date
+  startingTime?: Date,
+  plane: number
 ) => ({
   _id: activityType,
   data: config,
   groupingKey: 'group',
-  plane: 2,
+  plane,
   startTime: 0,
   actualStartingTime: startingTime || new Date(Date.now()),
   length: 3,
@@ -83,8 +84,7 @@ export const createLogger = (
   activityType: string,
   activityId: string,
   userId: string,
-  activityPlane: number,
-  config: Object
+  activityPlane: number
 ) => {
   const aT = activityTypesObj[activityType];
 
@@ -211,24 +211,27 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       config,
       ready,
       setReady,
-      showData
+      showData,
+      plane
     } = props;
     if (!ready) {
       initDashboardDocuments(activityType, false);
       setReady(true);
     }
+    const activity = activityDbObject(
+      config,
+      activityType.id,
+      undefined,
+      plane
+    );
     return ready ? (
-      <DashMultiWrapper
-        activity={activityDbObject(config, activityType.id)}
-        instances={instances}
-        users={users}
-      >
+      <DashMultiWrapper activity={activity} instances={instances} users={users}>
         {e => (
           <PreviewDash
             showData={showData}
             key={activityType.id + e}
             name={e}
-            activity={activityDbObject(config, activityType.id)}
+            activity={activity}
             config={config}
             instances={instances}
             users={users}

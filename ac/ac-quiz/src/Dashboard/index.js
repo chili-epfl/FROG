@@ -10,10 +10,10 @@ import CountDashboard from './CountDashboard';
 import JustificationDashboard from './JustificationDashboard';
 
 export default {
-  count: CountDashboard
+  count: CountDashboard,
+  progress: ProgressDashboard,
+  leaderboard: LeaderBoard
 };
 
-// progress: ProgressDashboard,
-// leaderboard: LeaderBoard,
 // coordinates: CoordinatesDashboard,
 // justification: JustificationDashboard,
