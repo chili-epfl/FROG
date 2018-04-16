@@ -13,7 +13,6 @@ export default {
   count: CountDashboard,
   progress: ProgressDashboard,
   leaderboard: LeaderBoard,
-  coordinates: CoordinatesDashboard
+  coordinates: CoordinatesDashboard,
+  justification: JustificationDashboard
 };
-
-// justification: JustificationDashboard,
