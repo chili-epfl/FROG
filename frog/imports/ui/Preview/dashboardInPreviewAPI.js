@@ -16,6 +16,7 @@ import { mergeLog, createDashboards } from '../../api/mergeLogData';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardStates } from '../../api/cache';
+import { ShowInfoDash } from './ShowInfo';
 
 export const DocumentCache = {};
 export const Logs: LogDBT[] = [];
@@ -117,7 +118,8 @@ class PreviewDash extends React.Component<
     activity: ActivityDBT,
     instances: Object,
     users: Object,
-    config: Object
+    config: Object,
+    showData: boolean
   },
   { state: any }
 > {
@@ -165,20 +167,42 @@ class PreviewDash extends React.Component<
         this.props.name
       ].Viewer;
     return this.state.state ? (
-      <Viewer
-        state={this.state.state}
-        activity={this.props.activity}
-        config={this.props.config}
-        instances={uniq(this.props.instances)}
-        users={this.props.users}
-      />
+      this.props.showData ? (
+        <ShowInfoDash
+          state={DashboardStates[this.dashId]}
+          prepareDataForDisplay={
+            activityTypesObj[this.props.activity.activityType].dashboards[
+              this.props.name
+            ].prepareDisplay
+              ? this.state.state
+              : null
+          }
+        />
+      ) : (
+        <Viewer
+          state={this.state.state}
+          activity={this.props.activity}
+          config={this.props.config}
+          instances={uniq(this.props.instances)}
+          users={this.props.users}
+        />
+      )
     ) : null;
   };
 }
 
 export const DashPreviewWrapper = withState('ready', 'setReady', false)(
   (props: Object) => {
-    const { instances, users, activityType, config, ready, setReady } = props;
+    const {
+      instances,
+      users,
+      activityType,
+      config,
+      ready,
+      setReady,
+      showData
+    } = props;
+    console.log(showData, instances);
     if (!ready) {
       initDashboardDocuments(activityType, false);
       setReady(true);
@@ -191,6 +215,7 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       >
         {e => (
           <PreviewDash
+            showData={showData}
             key={activityType.id + 'e'}
             name={e}
             activity={activityDbObject(config, activityType.id)}

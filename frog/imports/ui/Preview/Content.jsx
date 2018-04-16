@@ -110,6 +110,18 @@ const Content = ({
     );
   };
 
+  const Dashboard = () => {
+    return (
+      <DashPreviewWrapper
+        config={activityData.config}
+        instances={instances}
+        users={users}
+        activityType={activityType}
+        showData={showData}
+      />
+    );
+  };
+
   return (
     <div
       className="modal-body"
@@ -133,19 +145,15 @@ const Content = ({
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
+                key={JSON.stringify({ config, showData })}
                 path={path}
               >
-                <DashPreviewWrapper
-                  config={activityData.config}
-                  instances={instances}
-                  users={users}
-                  activityType={activityType}
-                />
+                <Dashboard />
               </MosaicWindow>
             ) : (
               <MosaicWindow
                 path={path}
-                reload={JSON.stringify({ config, showData })}
+                key={JSON.stringify({ config, showData })}
                 title={
                   name +
                   '/' +
