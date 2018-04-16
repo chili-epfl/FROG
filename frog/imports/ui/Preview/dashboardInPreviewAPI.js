@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { isEqual } from 'lodash';
+import { uniq, isEqual } from 'lodash';
 import Spinner from 'react-spinner';
 import { withState } from 'recompose';
 import {
@@ -169,7 +169,7 @@ class PreviewDash extends React.Component<
         state={this.state.state}
         activity={this.props.activity}
         config={this.props.config}
-        instances={this.props.instances}
+        instances={uniq(this.props.instances)}
         users={this.props.users}
       />
     ) : null;
@@ -183,7 +183,6 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       initDashboardDocuments(activityType, false);
       setReady(true);
     }
-    console.log(config);
     return ready ? (
       <DashMultiWrapper
         activity={activityDbObject(config, activityType.id)}

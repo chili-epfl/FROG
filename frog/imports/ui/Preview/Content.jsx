@@ -2,8 +2,7 @@
 
 import * as React from 'react';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
-import { cloneDeep } from 'lodash';
-import { getInitialState, generateReactiveFn } from 'frog-utils';
+import { cloneDeep, getInitialState, generateReactiveFn } from 'frog-utils';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
@@ -54,7 +53,7 @@ export const initActivityDocuments = (
   });
 };
 
-export default ({
+const Content = ({
   showDashExample,
   plane,
   instances,
@@ -77,10 +76,6 @@ export default ({
   if (!showDashExample && (config === undefined || config.invalid)) {
     return <p>The config is invalid</p>;
   }
-
-  const uniqueInstances = instances.filter(
-    (ins, idx) => instances.indexOf(ins) === idx
-  );
 
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activityType.id;
@@ -142,7 +137,7 @@ export default ({
               >
                 <DashPreviewWrapper
                   config={activityData.config}
-                  instances={uniqueInstances}
+                  instances={instances}
                   users={users}
                   activityType={activityType}
                 />
@@ -176,3 +171,5 @@ export default ({
     </div>
   );
 };
+
+export default Content;
