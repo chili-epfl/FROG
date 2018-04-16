@@ -90,7 +90,7 @@ export const createLogger = (
 
   initDashboardDocuments(aT, false);
 
-  const startingTime = new Date();
+  const actualStartingTime = new Date();
   const logExtra = {
     userId,
     sessionId,
@@ -107,7 +107,13 @@ export const createLogger = (
     const items = Array.isArray(logItems) ? logItems : [logItems];
 
     Logs.push(...items.map(x => ({ ...x, ...extra })));
-    mergeLog(items, extra);
+    mergeLog(items, extra, {
+      actualStartingTime,
+      activityType,
+      _id: activityId,
+      plane: activityPlane,
+      sessionId
+    });
   };
   return logger;
 };
@@ -202,7 +208,6 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       setReady,
       showData
     } = props;
-    console.log(showData, instances);
     if (!ready) {
       initDashboardDocuments(activityType, false);
       setReady(true);
@@ -216,7 +221,7 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
         {e => (
           <PreviewDash
             showData={showData}
-            key={activityType.id + 'e'}
+            key={activityType.id + e}
             name={e}
             activity={activityDbObject(config, activityType.id)}
             config={config}

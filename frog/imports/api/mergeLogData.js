@@ -60,7 +60,11 @@ export const regenerateState = (
   }
 };
 
-export const mergeLog = (rawLog: Object | Object[], logExtra: Object) => {
+export const mergeLog = (
+  rawLog: Object | Object[],
+  logExtra: Object,
+  suppliedActivity?: Object
+) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
   logs.forEach(eachLog => {
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
@@ -69,10 +73,10 @@ export const mergeLog = (rawLog: Object | Object[], logExtra: Object) => {
       if (log.activityType && log.activityId) {
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
-          if (!activityCache[log.activityId]) {
+          if (!activityCache[log.activityId] && !suppliedActivity) {
             activityCache[log.activityId] = Activities.findOne(log.activityId);
           }
-          const activity = activityCache[log.activityId];
+          const activity = suppliedActivity || activityCache[log.activityId];
           Object.keys(aT.dashboards).forEach(name => {
             const mergeLogFn = aT.dashboards[name].mergeLog;
             if (mergeLogFn) {
