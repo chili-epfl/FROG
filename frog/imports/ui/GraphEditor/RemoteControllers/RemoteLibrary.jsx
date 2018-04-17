@@ -107,9 +107,10 @@ class Library extends Component<Object, { searchStr: string }> {
               <LibraryListComponent
                 onSelect={() => {
                   if (libraryType === 'activity') {
-                    importAct(x.uuid, activityId);
-                    store.addHistory();
-                    store.refreshValidate();
+                    importAct(x.uuid, activityId, () => {
+                      store.addHistory();
+                      store.refreshValidate();
+                    });
                   } else if (libraryType === 'graph') {
                     importGraph(x.uuid);
                     this.props.setModal(false);

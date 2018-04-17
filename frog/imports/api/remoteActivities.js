@@ -61,10 +61,13 @@ export const sendActivity = (state: Object, props: Object) => {
   });
 };
 
-export const importAct = (id, activityId) => {
+export const importAct = (id, activityId, callback) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
       addActivity(e[0].activity_type, e[0].config, activityId, null, id);
+      if (callback) {
+        callback();
+      }
     });
 };
