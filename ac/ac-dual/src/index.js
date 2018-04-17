@@ -2,21 +2,13 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 const meta = {
   name: 'Dual Activity',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   exampleData: [
-    {
-      title: 'Normal',
-      config: {
-        timeOfEachActivity: 30000,
-        symmetryTime: 5000
-      },
-      data: {}
-    },
     {
       title: 'Quick',
       config: {
@@ -65,6 +57,6 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  dashboard,
+  dashboards,
   dataStructure
 }: ActivityPackageT);

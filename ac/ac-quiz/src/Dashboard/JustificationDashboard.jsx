@@ -4,8 +4,8 @@ import * as React from 'react';
 
 import { type LogDBT, type dashboardViewerPropsT } from 'frog-utils';
 
-const Viewer = ({ data, users, activity }: dashboardViewerPropsT) => {
-  const { justifications } = data;
+const Viewer = ({ state, users, activity }: dashboardViewerPropsT) => {
+  const { justifications } = state;
   if (Object.keys(justifications).length === 0) {
     return <p>No justifications written yet</p>;
   } else {
@@ -23,9 +23,9 @@ const Viewer = ({ data, users, activity }: dashboardViewerPropsT) => {
   }
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDBT) => {
   if (log.type === 'reactivetext.focus' || log.type === 'reactivetext.blur') {
-    dataFn.objInsert(log.value, ['justifications', log.instanceId]);
+    state.justifications[log.instanceId] = log.value;
   }
 };
 

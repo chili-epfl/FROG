@@ -12,6 +12,7 @@ import { Sessions } from './sessions';
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
+export const DashboardData = new Mongo.Collection('dashboard_data');
 
 export const addActivity = (
   activityType: string,

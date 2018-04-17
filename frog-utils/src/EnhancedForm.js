@@ -8,7 +8,7 @@ import Fields from 'react-jsonschema-form-extras';
 import { calculateSchema } from './enhancedFormUtils';
 
 const RteField = props => (
-  <div>
+  <div key={props.reload || 'x'}>
     <Fields.rte {...props} />
   </div>
 );
@@ -19,6 +19,7 @@ class EnhancedForm extends Component<
 > {
   hides: string[];
   formData: ?Object;
+  state = {};
 
   componentWillMount() {
     if (!this.props.formData && jsonSchemaDefaults(this.props.schema) !== {}) {
@@ -75,17 +76,17 @@ class EnhancedForm extends Component<
   };
 
   render() {
-    return (
-      this.state.schema && (
-        <Form
-          {...this.props}
-          onChange={this.onChange}
-          schema={this.state.schema}
-          formData={this.state.formData}
-          fields={{ rteField: RteField }}
-        />
-      )
-    );
+    return this.state.schema ? (
+      <Form
+        {...this.props}
+        onChange={this.onChange}
+        schema={this.state.schema}
+        formData={this.state.formData}
+        fields={{
+          rteField: props => <RteField reload={this.props.reload} {...props} />
+        }}
+      />
+    ) : null;
   }
 }
 

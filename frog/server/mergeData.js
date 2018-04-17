@@ -17,7 +17,7 @@ import { Sessions } from '../imports/api/sessions';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
-import { createDashboardCollection } from '../imports/api/logs';
+import { createDashboards } from '../imports/api/mergeLogData';
 
 declare var Promise: any;
 const backend = new ShareDB();
@@ -144,7 +144,7 @@ const mergeData = (
 
   // only create dashboard on initial merge, not when called by individuals joining late
   if (!group) {
-    createDashboardCollection(serverConnection, activityId, activityType);
+    createDashboards(activity);
   }
 };
 

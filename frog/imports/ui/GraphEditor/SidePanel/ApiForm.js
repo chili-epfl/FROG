@@ -169,10 +169,15 @@ const ApiForm = observer(
 
     render() {
       return (
-        <div style={{ margin: '10px' }}>
+        <div>
           {this.state.activity.activityType ? (
             <div>
-              <div style={{ position: 'absolute', top: '10px' }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  marginRight: '20px'
+                }}
+              >
                 <Config
                   onConfigChange={this.props.onConfigChange}
                   activity={this.state.activity}
@@ -182,13 +187,15 @@ const ApiForm = observer(
                 />
               </div>
               {!this.props.hideValidator && (
-                <div style={{ position: 'absolute', right: '20px' }}>
+                <div
+                  style={{ position: 'absolute', right: '20px', top: '10px' }}
+                >
                   <Valid />
                 </div>
               )}
             </div>
           ) : (
-            <div style={{ position: 'absolute', top: '30px' }}>
+            <div style={{ position: 'absolute', marginRight: '20px' }}>
               <ChooseActivityType
                 store={store}
                 activity={this.state.activity}
@@ -221,7 +228,13 @@ const Valid = observer(() => (
 const Errors = observer(() => (
   <React.Fragment>
     {state.showErrors ? (
-      <div style={{ position: 'absolute', top: '20px', right: '200px' }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: '25px',
+          right: '90px'
+        }}
+      >
         <ShowErrorsRaw errors={state.valid} />
       </div>
     ) : null}

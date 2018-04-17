@@ -12,7 +12,12 @@ let delayTimeout;
 let changeActivityTimeout;
 
 const Activity = withState('ready', 'setReady', false)(props => {
-  const { data: { step }, dataFn, activityData, logger } = props;
+  const {
+    data: { step },
+    dataFn,
+    activityData,
+    logger
+  } = props;
   const { ready, setReady } = props;
   const { timeOfEachActivity } = activityData.config;
   const activityTime = (timeOfEachActivity || 30000) * (step > 1 ? 2 : 1);
@@ -67,7 +72,9 @@ class ActivityWithSpeed extends React.Component<any, any> {
   }
 
   render() {
-    const { data: { step } } = this.props;
+    const {
+      data: { step }
+    } = this.props;
     const { speed } = this.state;
 
     return (

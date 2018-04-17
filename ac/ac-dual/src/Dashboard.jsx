@@ -34,8 +34,8 @@ const Viewer = (props: dashboardViewerPropsT) => (
   </React.Fragment>
 );
 
-const SymmetryStats = ({ data, task }: dashboardViewerPropsT) => {
-  const d = data[task];
+const SymmetryStats = ({ state, task }: dashboardViewerPropsT) => {
+  const d = state[task];
   const errRate = o => o.wrong / (o.wrong + o.correct);
   const chartData = Object.keys(d).map(speed => [
     parseInt(speed, 10),
@@ -61,19 +61,16 @@ const initData = {
   hard: {}
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogT) => {
+const mergeLog = (state: any, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { expectedAnswer, answer, difficulty, speed } = log.payload;
-    if (!data[difficulty][speed.toString()]) {
-      dataFn.objInsert({ wrong: 0, correct: 0 }, [
-        difficulty,
-        speed.toString()
-      ]);
+    if (!state[difficulty][speed.toString()]) {
+      state[difficulty][speed.toString()] = { wrong: 0, correct: 0 };
     }
     if (expectedAnswer === answer) {
-      dataFn.numIncr(1, [difficulty, speed.toString(), 'correct']);
+      state[difficulty][speed.toString()].correct += 1;
     } else {
-      dataFn.numIncr(1, [difficulty, speed.toString(), 'wrong']);
+      state[difficulty][speed.toString()].wrong += 1;
     }
   }
 };

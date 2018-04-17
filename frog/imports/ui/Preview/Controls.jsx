@@ -13,10 +13,16 @@ import {
 } from './dashboardInPreviewAPI';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
+import { addDefaultExample } from './index';
 
-const names = 'Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis'.split(
+const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Rosa,Lyskamm,Weisshorn,Matterhorn,Dent Blanche,Grand Combin,Finsteraarhorn,Zinalrothorn,Alphubel,Rimpfischhorn,Aletschhorn,Strahlhorn,Dent d'Hérens,Breithorn,Jungfrau,Mönch,Schreckhorn,Ober Gabelhorn,Piz Bernina,Gross Fiescherhorn,Gross Grünhorn,Weissmies,Lagginhorn,Piz Zupò,Gletscherhorn,Eiger,Grand Cornier,Piz Roseg,Bietschhorn,Trugberg,Gross Wannenhorn,Aiguille d'Argentière,Ruinette,Bouquetins,Tour Noir,Nesthorn,Mont Dolen`.split(
   ','
 );
+
+export const getUserId = (name: string) =>
+  'uid_' + name.toLowerCase().replace(/\s+/, '');
+
+const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
 
 export default (props: Object) => {
   const {
@@ -36,6 +42,7 @@ export default (props: Object) => {
     showDashExample,
     setShowLogs,
     setReloadAPIform,
+    setReloadActivity,
     showLogs,
     setActivityTypeId,
     setExample,
@@ -49,14 +56,15 @@ export default (props: Object) => {
   if (!activityType) {
     return <p>Choose and activityType</p>;
   }
-  const examples = activityType.meta.exampleData || [];
-  const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
+  const examples = addDefaultExample(activityType);
+  const ex = showDashExample ? activityType.dashboards.exampleLogs : examples;
 
   const refresh = () => {
     initActivityDocuments(instances, activityType, example, config, true);
     // resets the reactive documents for the dashboard
     initDashboardDocuments(activityType, true);
     Logs.length = 0;
+    setReloadActivity(uuid());
   };
 
   const _dismiss = () => {
@@ -65,7 +73,7 @@ export default (props: Object) => {
       dismiss();
     } else {
       setActivityTypeId(null);
-      setExample(-1);
+      setExample(0);
       setConfig({});
       setReloadAPIform(uuid());
       Logs.length = 0;
@@ -74,20 +82,20 @@ export default (props: Object) => {
 
   const add = () => {
     const newName = names[users.length % names.length];
-    const newGroup = 1 + Math.floor(users.length / 2);
+    const newGroup = groupName(users.length);
+    const newId = getUserId(newName);
     setUsers([...users, newName]);
-    setInstances([...instances, [newName, newGroup, 'all'][plane - 1]]);
+    setInstances([...instances, [newId, newGroup, 'all'][plane - 1]]);
   };
   const remove = () => {
     setUsers(users.slice(0, users.length - 1));
     setInstances(instances.slice(0, instances.length - 1));
   };
-  const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
   const switchPlane = () => {
     const newPlane = 1 + plane % 3;
     setPlane(newPlane);
     setInstances(
-      users.map((name, idx) => [name, groupName(idx), 'all'][newPlane - 1])
+      users.map((n, i) => [getUserId(n), groupName(i), 'all'][newPlane - 1])
     );
   };
 
@@ -103,13 +111,13 @@ export default (props: Object) => {
         X
       </button>
       <h4 className="modal-title">
-        {'Preview of ' + activityType.meta.name + ' (' + activityType.id + ')'}
+        Preview
         <Icon
           onClick={() => setShowData(!showData)}
           icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
           tooltip={showData ? 'Show component' : 'Show underlying data'}
         />
-        {activityType.dashboard && (
+        {activityType.dashboards && (
           <Icon
             onClick={() => setShowDash(!showDash)}
             icon="fa fa-tachometer"
@@ -172,7 +180,7 @@ export default (props: Object) => {
               className="examples"
               eventKey={i}
               onClick={() => {
-                const exConf = activityType.meta.exampleData[i].config;
+                const exConf = addDefaultExample(activityType)[i].config;
                 setConfig(exConf);
                 setReloadAPIform(uuid());
                 initActivityDocuments(instances, activityType, i, exConf, true);
