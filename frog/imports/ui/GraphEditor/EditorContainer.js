@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import ReactTooltip from 'react-tooltip';
 
+import { removeActivity } from '/imports/api/remoteActivities';
+import { removeGraph } from '/imports/api/remoteGraphs';
+
 import { connect } from './store';
 import Graph from './Graph';
 import { RenameBox } from './Rename';
@@ -14,9 +17,6 @@ import ModalDelete from './RemoteControllers/ModalDelete';
 import TopPanel from './TopPanel';
 import { ModalPreview } from '../Preview';
 import TopBar from '../App/TopBar';
-
-import { removeActivity, collectActivities } from '../../api/remoteActivities';
-import { removeGraph, collectGraphs } from '../../api/remoteGraphs';
 
 const styles = () => ({
   root: {
@@ -62,13 +62,9 @@ const EditorPanel = () => (
 );
 
 type StateT = {
-  lastRefreshAct: Date,
-  lastRefreshGraph: Date,
   exportOpen: Boolean,
   importOpen: Boolean,
   deleteOpen: Boolean,
-  importActivityList: Array<any>,
-  importGraphList: Array<any>,
   locallyChanged: Boolean,
   idRemove: string
 };
@@ -77,24 +73,12 @@ class Editor extends Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
-      lastRefreshAct: new Date().getTime(),
-      lastRefreshGraph: new Date().getTime(),
       exportOpen: false,
       importOpen: false,
       deleteOpen: false,
-      importActivityList: [],
-      importGraphList: [],
       locallyChanged: false,
       idRemove: ''
     };
-    collectActivities().then(e => {
-      this.state.importActivityList = e;
-      this.state.lastRefreshAct = new Date().getTime();
-    });
-    collectGraphs().then(e => {
-      this.state.importGraphList = e;
-      this.state.lastRefreshGraph = new Date().getTime();
-    });
   }
 
   componentDidMount() {
@@ -119,14 +103,6 @@ class Editor extends Component<Object, StateT> {
     }
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
-    const setImportActivityList = (val, fun?) =>
-      this.setState({ importActivityList: val }, fun);
-    const setImportGraphList = (val, fun?) =>
-      this.setState({ importGraphList: val }, fun);
-    const refreshActDate = () =>
-      this.setState({ lastRefreshAct: new Date().getTime() });
-    const refreshGraphDate = () =>
-      this.setState({ lastRefreshGraph: new Date().getTime() });
 
     return (
       <div className={classes.root}>
@@ -147,38 +123,21 @@ class Editor extends Component<Object, StateT> {
           <ModalImport
             modalOpen={this.state.importOpen}
             setModal={val => this.setState({ importOpen: val })}
-            lastRefreshGraph={this.state.lastRefreshGraph}
-            importGraphList={this.state.importGraphList}
             locallyChanged={this.state.locallyChanged}
             changesLoaded={() => this.setState({ locallyChanged: true })}
             {...{
-              setImportGraphList,
               setDelete,
-              setIdRemove,
-              refreshGraphDate
+              setIdRemove
             }}
           />
           <ModalDelete
             modalOpen={this.state.deleteOpen}
             setModal={setDelete}
             remove={() => {
-              const promise = this.state.importOpen
-                ? removeGraph(this.state.idRemove)
-                : removeActivity(this.state.idRemove);
-              promise.then(() => {
-                if (this.state.importOpen)
-                  setImportGraphList(
-                    this.state.importGraphList.filter(
-                      x => x.uuid !== this.state.idRemove
-                    )
-                  );
-                else
-                  setImportActivityList(
-                    this.state.importActivityList.filter(
-                      x => x.uuid !== this.state.idRemove
-                    )
-                  );
-              });
+              if (this.state.importOpen)
+                removeGraph(this.state.idRemove, () => this.forceUpdate());
+              else
+                removeActivity(this.state.idRemove, () => this.forceUpdate());
             }}
           />
           <div className={classes.container}>
@@ -186,14 +145,10 @@ class Editor extends Component<Object, StateT> {
               <EditorPanel />
             </div>
             <SidePanel
-              importActivityList={this.state.importActivityList}
-              lastRefreshAct={this.state.lastRefreshAct}
               madeChanges={() => this.setState({ locallyChanged: true })}
               locallyChanged={this.state.locallyChanged}
               changesLoaded={() => this.setState({ locallyChanged: true })}
               {...{
-                refreshActDate,
-                setImportActivityList,
                 setDelete,
                 setIdRemove
               }}

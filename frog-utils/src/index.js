@@ -15,6 +15,10 @@ export const EnhancedForm = isBrowser
   ? require('./EnhancedForm.js').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
+export const ReactJsonView = isBrowser
+  ? require('react-json-view').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
 export {
   hideConditional,
   calculateHides,
@@ -216,4 +220,70 @@ export const getInitialState = (activities: Object, d: number = 1) => {
         first: getInitialState(activities.slice(0, n), -d),
         second: getInitialState(activities.slice(n, activities.length), -d)
       };
+};
+
+export const cloneDeep = (o: any) => {
+  let newO;
+  let i;
+
+  if (typeof o !== 'object') return o;
+
+  if (!o) return o;
+  if (o instanceof Date) return new Date(o.valueOf());
+  if (Object.prototype.toString.apply(o) === '[object Array]') {
+    newO = [];
+    for (i = 0; i < o.length; i += 1) {
+      newO[i] = cloneDeep(o[i]);
+    }
+    return newO;
+  }
+
+  newO = {};
+  // eslint-disable-next-line no-restricted-syntax
+  for (i in o) {
+    if (Object.prototype.hasOwnProperty.call(o, i)) {
+      newO[i] = cloneDeep(o[i]);
+    }
+  }
+  return newO;
+};
+
+export const Inspector = ({ data }: { data: Object }) =>
+  data ? (
+    <ReactJsonView
+      style={{ fontSize: '1.2em' }}
+      src={data}
+      iconStyle="triangle"
+      enableClipboard={false}
+      displayObjectSize={false}
+      displayDataTypes={false}
+      theme={{
+        base00: '#fafafa',
+        base01: '#f0f0f1',
+        base02: '#e5e5e6',
+        base03: '#a0a1a7',
+        base04: '#696c77',
+        base05: '#383a42',
+        base06: '#202227',
+        base07: '#090a0b',
+        base08: '#ca1243',
+        base09: '#d75f00',
+        base0A: '#c18401',
+        base0B: '#50a14f',
+        base0C: '#0184bc',
+        base0D: '#4078f2',
+        base0E: '#a626a4',
+        base0F: '#986801'
+      }}
+    />
+  ) : null;
+
+export const entries = <T>(obj: { [string]: T }): Array<[string, T]> => {
+  const keys: string[] = Object.keys(obj);
+  return keys.map(key => [key, obj[key]]);
+};
+
+export const values = (obj: { [string]: string }): Array<string> => {
+  const keys: string[] = Object.keys(obj);
+  return keys.map(key => obj[key]);
 };

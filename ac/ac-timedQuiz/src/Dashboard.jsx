@@ -10,8 +10,8 @@ import {
   LeaderBoard
 } from 'frog-utils';
 
-const Viewer = ({ data }: dashboardViewerPropsT) => {
-  const { results } = data;
+const Viewer = ({ state }: dashboardViewerPropsT) => {
+  const { results } = state;
   const options = (title, xLabel, yLabel, ymin, ymax) => ({
     legend: { position: 'none' },
     width: '100%',
@@ -88,56 +88,40 @@ const initData = {
   results: {}
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogT) => {
+const mergeLog = (state: any, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { answer, startTime, answerTime, curQuestion } = log.payload;
     const index = curQuestion[1];
-    if (!data['results'][index]) {
+    if (!state['results'][index]) {
       if (!answer || !answer.isCorrect) {
-        dataFn.objInsert(
-          {
-            wrong: {
-              count: 1,
-              time: answerTime - startTime
-            },
-            correct: {
-              count: 0,
-              time: 0
-            }
+        state.results[index] = {
+          wrong: {
+            count: 1,
+            time: answerTime - startTime
           },
-          ['results', index]
-        );
+          correct: {
+            count: 0,
+            time: 0
+          }
+        };
       } else {
-        dataFn.objInsert(
-          {
-            correct: {
-              count: 1,
-              time: answerTime - startTime
-            },
-            wrong: {
-              count: 0,
-              time: 0
-            }
+        state.results[index] = {
+          correct: {
+            count: 1,
+            time: answerTime - startTime
           },
-          ['results', index]
-        );
+          wrong: {
+            count: 0,
+            time: 0
+          }
+        };
       }
     } else if (!answer || !answer.isCorrect) {
-      dataFn.numIncr(1, ['results', index, 'wrong', 'count']);
-      dataFn.numIncr(answerTime - startTime, [
-        'results',
-        index,
-        'wrong',
-        'time'
-      ]);
+      state.results[index].wrong.count += 1;
+      state.results[index].wrong.time += answerTime - startTime;
     } else {
-      dataFn.numIncr(1, ['results', index, 'correct', 'count']);
-      dataFn.numIncr(answerTime - startTime, [
-        'results',
-        index,
-        'correct',
-        'time'
-      ]);
+      state.results[index].correct.count += 1;
+      state.results[index].correct += answerTime - startTime;
     }
   }
 };

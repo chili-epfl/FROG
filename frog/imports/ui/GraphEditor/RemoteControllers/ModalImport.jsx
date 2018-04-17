@@ -10,19 +10,8 @@ import Button from 'material-ui/Button';
 
 import Library from './RemoteLibrary';
 
-export default ({
-  modalOpen,
-  setModal,
-  importGraphList,
-  setImportGraphList,
-  lastRefreshGraph,
-  refreshGraphDate,
-  setDelete,
-  setIdRemove,
-  locallyChanged,
-  changesLoaded
-}: Object) => (
-  <Dialog open={modalOpen}>
+export default (props: Object) => (
+  <Dialog open={props.modalOpen}>
     <DialogTitle>Import a graph from the library:</DialogTitle>
     <DialogContent
       style={{
@@ -32,23 +21,10 @@ export default ({
       }}
     >
       <div style={{ height: '10px' }} />
-      <Library
-        libraryType="graph"
-        {...{
-          setModal,
-          importGraphList,
-          setImportGraphList,
-          lastRefreshGraph,
-          refreshGraphDate,
-          setDelete,
-          setIdRemove,
-          locallyChanged,
-          changesLoaded
-        }}
-      />
+      <Library libraryType="graph" {...props} />
     </DialogContent>
     <DialogActions>
-      <Button onClick={() => setModal(false)}>Cancel</Button>
+      <Button onClick={() => props.setModal(false)}>Cancel</Button>
     </DialogActions>
   </Dialog>
 );

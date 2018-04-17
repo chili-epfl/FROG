@@ -3,7 +3,7 @@
 import { type ActivityPackageT } from 'frog-utils';
 
 import ActivityRunner from './Chat';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 const meta = {
   name: 'Chat',
@@ -55,6 +55,6 @@ export default ({
   config,
   meta,
   dataStructure,
-  dashboard,
+  dashboards,
   mergeFunction
 }: ActivityPackageT);

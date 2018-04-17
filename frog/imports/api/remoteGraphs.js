@@ -1,20 +1,38 @@
 import { uuid } from 'frog-utils';
 import { Graphs } from '/imports/api/graphs';
+import { LibraryStates } from './cache';
 import { graphToString, doImportGraph } from '../ui/GraphEditor/utils/export';
 
 const RemoteServer =
   Meteor.settings.public.remoteServer ||
   'http://icchilisrv4.epfl.ch:5000/graphs';
 
-export const removeGraph = (id: string) =>
+export const removeGraph = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {
     method: 'DELETE'
-  });
+  }).then(() => collectGraphs(callback));
+};
 
-export const collectGraphs = () =>
-  fetch(RemoteServer + '?select=uuid,title,description,tags').then(e =>
-    e.json()
-  );
+export const refreshGraphDate = () =>
+  (LibraryStates.lastRefreshGraph = new Date());
+
+export const collectGraphs = (callback: ?Function) =>
+  fetch(RemoteServer + '?select=uuid,title,description,tags')
+    .then(e => e.json())
+    .then(r => {
+      LibraryStates.graphList = r;
+      refreshGraphDate();
+      if (callback) callback();
+    });
+
+export const checkDateGraph = (callback: ?Function) => {
+  if (
+    !LibraryStates.lastRefreshGraph ||
+    new Date() - LibraryStates.lastRefreshGraph > 60000
+  ) {
+    collectGraphs(callback);
+  }
+};
 
 export const sendGraph = (state: Object, props: Object) => {
   const newId = uuid();
@@ -36,7 +54,12 @@ export const sendGraph = (state: Object, props: Object) => {
   Graphs.update(props.graphId, {
     $set: { parentId: newId }
   });
-  props.setModal(false);
+  LibraryStates.graphList.push({
+    uuid: newId,
+    title: state.title,
+    description: state.description,
+    tags: state.tags
+  });
 };
 
 export const importGraph = (id: string) => {

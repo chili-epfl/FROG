@@ -5,19 +5,27 @@ import React from 'react';
 import { type LogDBT, type dashboardViewerPropsT } from '../';
 
 const Viewer = (props: dashboardViewerPropsT) => {
-  const { data, config, users, activity } = props;
+  const {
+    users,
+    activity: { data: config },
+    state,
+    activity
+  } = props;
   if (!config) {
     return null;
   }
 
-  const ranking = Object.keys(data.scores).sort((a, b) =>
-    compare(data.scores[a], data.scores[b], 0)
+  const ranking = Object.keys(state.scores).sort((a, b) =>
+    compare(state.scores[a], state.scores[b], 0)
   );
 
   const isGroup = activity.plane === 2 ? 1 : 0;
 
   return (
-    <div style={{ margin: '20px', backgroundColor: 'white' }}>
+    <div
+      className="bootstrap"
+      style={{ margin: '20px', backgroundColor: 'white' }}
+    >
       <table className="table table-striped">
         <thead>
           <tr>
@@ -31,7 +39,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
             <tr key={item}>
               <td className="col-md-4">{index + 1}</td>
               <td className="col-md-4">{isGroup ? item : users[item]}</td>
-              {data.scores[item].score.map((scoreItem, i) => (
+              {state.scores[item].score.map((scoreItem, i) => (
                 <td className="col-md-4" key={i}>
                   {Math.abs(scoreItem)}
                 </td>
@@ -56,12 +64,12 @@ const compare = (a: Object, b: Object, n: number) => {
 
 const makeArray = x => (Array.isArray(x) ? x : [x]);
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDBT) => {
   if (log.type === 'score') {
-    dataFn.objInsert(
-      { score: makeArray(log.value), timestamp: log.timestamp },
-      ['scores', log.instanceId]
-    );
+    state.scores[log.instanceId] = {
+      score: makeArray(log.value),
+      timestamp: log.timestamp
+    };
   }
 };
 

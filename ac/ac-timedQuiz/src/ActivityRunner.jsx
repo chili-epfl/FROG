@@ -199,7 +199,7 @@ const Runner = (props: ActivityRunnerT) => {
   const p = Math.round(data.progress / questions.length * 100);
 
   return (
-    <div style={styles.main}>
+    <div className="bootstrap" style={styles.main}>
       <ProgressBar now={p} label={`${p}%`} />
       <div style={styles.container}>
         <Main {...props} />

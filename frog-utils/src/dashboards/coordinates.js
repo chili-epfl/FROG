@@ -16,7 +16,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
   const {
     users,
     activity,
-    data: { coordinates }
+    state: { coordinates }
   } = props;
   if (!coordinates || Object.keys(coordinates).length < 1) {
     return <p>No data to display</p>;
@@ -25,7 +25,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
     const noise = x => x + noiseWeight * (2 * Math.random() - 1);
     const instanceName = instanceId =>
       activity.plane === 1 ? users[instanceId] : instanceId;
-    const data = Object.keys(coordinates).map(k => {
+    const state = Object.keys(coordinates).map(k => {
       const { x, y } = coordinates[k];
       return { x: noise(x), y: noise(y), name: instanceName(k) };
     });
@@ -34,15 +34,15 @@ const Viewer = (props: dashboardViewerPropsT) => {
         theme={VictoryTheme.material}
         domain={{ x: [-10, 10], y: [-10, 10] }}
       >
-        <VictoryScatter size={4} data={data} events={eventHandler} />
+        <VictoryScatter size={4} data={state} events={eventHandler} />
       </VictoryChart>
     );
   }
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDBT) => {
   if (log.type === 'coordinates' && log.payload) {
-    dataFn.objInsert(log.payload, ['coordinates', log.instanceId]);
+    state.coordinates[log.instanceId] = log.payload;
   }
 };
 
