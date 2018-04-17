@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { set, isEqual } from 'lodash';
-import { uuid, cloneDeep } from 'frog-utils';
+import { uuid, cloneDeep, values } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
 import { DashboardData } from '../imports/api/activities';
@@ -14,12 +14,14 @@ const subscriptions = {};
 const oldState = {};
 const oldInput = {};
 
-const updateAndSend = (that, dashId, prepareDataForDisplayFn) => {
+const updateAndSend = (dashId, prepareDataForDisplayFn) => {
   if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
     const newState = prepareDataForDisplayFn
       ? prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
       : DashboardStates[dashId];
-    that.changed('dashboard', dashId, newState);
+    values(subscriptions[dashId]).forEach(that => {
+      that.changed('dashboard', dashId, newState);
+    });
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
   }
@@ -39,7 +41,7 @@ export default () => {
         regenerateState(activityTypesObj[activityType], activityId, dashboard);
       }
     }
-    set(subscriptions, [dashId, id], true);
+    set(subscriptions, [dashId, id], this);
     const prepareDataForDisplayFn =
       activityTypesObj[activityType].dashboards[dashboard].prepareDisplay;
     const newState = prepareDataForDisplayFn
@@ -50,7 +52,7 @@ export default () => {
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
       interval[dashId] = setInterval(
-        () => updateAndSend(this, dashId, prepareDataForDisplayFn),
+        () => updateAndSend(dashId, prepareDataForDisplayFn),
         1000
       );
     }
