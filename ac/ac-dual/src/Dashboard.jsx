@@ -37,22 +37,22 @@ const Viewer = (props: dashboardViewerPropsT) => (
 const SymmetryStats = ({ state, task }: dashboardViewerPropsT) => {
   const d = state[task];
   const errRate = o => o.wrong / (o.wrong + o.correct);
-  const chartstate = Object.keys(d).map(speed => [
+  const chartData = Object.keys(d).map(speed => [
     parseInt(speed, 10),
     errRate(d[speed])
   ]);
-  return chartstate.length > 0 ? (
+  return chartData.length > 0 ? (
     <Chart
       chartType="LineChart"
       columns={[
         { type: 'number', label: 'Speed' },
         { type: 'number', label: 'Error Rate' }
       ]}
-      rows={chartstate}
+      rows={chartData}
       options={options('Condition: ' + task, 'Error rate', 'Speed', 3, 8)}
     />
   ) : (
-    <p>No state currently</p>
+    <p>No data currently</p>
   );
 };
 
