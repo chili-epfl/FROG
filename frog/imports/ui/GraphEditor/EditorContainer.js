@@ -77,6 +77,8 @@ class Editor extends Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
+      lastRefreshAct: new Date(),
+      lastRefreshGraph: new Date(),
       exportOpen: false,
       importOpen: false,
       deleteOpen: false,
@@ -124,6 +126,8 @@ class Editor extends Component<Object, StateT> {
     const refreshActDate = () => this.setState({ lastRefreshAct: new Date() });
     const refreshGraphDate = () =>
       this.setState({ lastRefreshGraph: new Date() });
+
+      console.log(this.state.importActivityList)
 
     return (
       <div className={classes.root}>

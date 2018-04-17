@@ -86,6 +86,8 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
 
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
+
+    console.log(this.props)
     return (
       <div
         style={{

@@ -14,10 +14,8 @@ export default withTracker(({ id }) => ({ activity: Activities.findOne(id) }))(
     else
       return (
         <ChooseActivity
-          {...{
-            rest,
-            activity
-          }}
+          {...{activity}}
+          {...rest}
         />
       );
   }
