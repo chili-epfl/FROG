@@ -47,11 +47,10 @@ const config = {
 
 const dataStructure = {
   progress: 0,
-  score: 0,
   time: 0,
   step: 0,
   guidelines: true,
-  helpCounter: 0
+  instance: 0
 };
 
 export default ({

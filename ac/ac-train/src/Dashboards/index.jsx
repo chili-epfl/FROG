@@ -10,25 +10,41 @@ import {
 
 import { times, constant } from 'lodash';
 
-import MeanErrPerTryForEachInterface from './MeanErrPerTryForEachInterface';
+import MeanError from './MeanError';
+import MeanTime from './MeanTime';
+
 import MeanErrorPerInterface from './MeanErrorPerInterface';
+import MeanTimePerInterface from './MeanTimePerInterface';
+import MeanHelpPerInterface from './MeanHelpPerInterface';
+
+import MeanTimePerTryForEachInterface from './MeanTimePerTryForEachInterface';
+import MeanErrPerTryForEachInterface from './MeanErrPerTryForEachInterface';
 
 const Viewer = (props: dashboardViewerPropsT) => {
   return (
     <React.Fragment>
       <Grid container spacing={24}>
         <Grid item xs={6}>
+          <MeanError {...props} />
+        </Grid>
+        <Grid item xs={6}>
+          <MeanTime {...props} />
+        </Grid>
+        <Grid item xs={6}>
+          <MeanTimePerTryForEachInterface {...props} />
+        </Grid>
+        <Grid item xs={6}>
           <MeanErrPerTryForEachInterface {...props} />
+        </Grid>
+        <Grid item xs={6}>
+          <MeanTimePerInterface {...props} />
         </Grid>
         <Grid item xs={6}>
           <MeanErrorPerInterface {...props} />
         </Grid>
-
-        {[0, 1, 2, 3, 4, 5, 6].map(i => (
-          <Grid key={i} item xs={6}>
-            <h1>H</h1>
-          </Grid>
-        ))}
+        <Grid item xs={6}>
+          <MeanHelpPerInterface {...props} />
+        </Grid>
       </Grid>
     </React.Fragment>
   );
@@ -36,33 +52,50 @@ const Viewer = (props: dashboardViewerPropsT) => {
 
 const initData = {
   error: {},
-  time: {}
+  time: {},
+  help: {},
+  count: {},
+  sum: {
+    error: times(20, constant(0)),
+    count: times(20, constant(0)),
+    time: times(20, constant(0))
+  }
 };
 
 const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
-    const { activity, iteration, checkAnswer, timeTaken } = log.payload;
+    const { activity, instance, isCorrect, timeTaken } = log.payload;
 
-    console.log(timeTaken);
+    const iteration = instance % 5;
 
-    if (!data['error'][activity]) {
-      const payload = {
-        ...data['error'],
-        [activity]: {
-          wrong: times(5, constant(0)),
-          count: times(5, constant(0)),
-          time: times(5, constant(0))
+    Object.keys(data)
+      .filter(d => d !== 'help' && d !== 'sum')
+      .forEach(d => {
+        if (!data[d][activity]) {
+          dataFn.objInsert({ [activity]: times(5, constant(0)) }, [d]);
         }
-      };
+      });
 
-      dataFn.objInsert(payload, ['error']);
+    if (!isCorrect) {
+      dataFn.numIncr(1, ['error', activity, iteration]);
+      dataFn.numIncr(1, ['sum', 'error', instance]);
     }
 
-    if (!checkAnswer) {
-      dataFn.numIncr(1, ['error', activity, 'wrong', iteration]);
+    dataFn.numIncr(1, ['count', activity, iteration]);
+    dataFn.numIncr(1, ['sum', 'count', instance]);
+
+    dataFn.numIncr(timeTaken / 1000, ['time', activity, iteration]);
+    dataFn.numIncr(timeTaken / 1000, ['sum', 'time', instance]);
+  }
+
+  if (log.type === 'help' && log.payload) {
+    const { activity } = log.payload;
+
+    if (!data['help'][activity]) {
+      dataFn.objInsert({ [activity]: 0 }, ['help']);
     }
-    dataFn.numIncr(1, ['error', activity, 'count', iteration]);
-    dataFn.numIncr(timeTaken, ['error', activity, 'time', iteration]);
+
+    dataFn.numIncr(1, ['help', activity]);
   }
 };
 

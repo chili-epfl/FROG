@@ -23,12 +23,11 @@ const whatColor = color => {
   }
 };
 
-const meanError = (wrong, count) =>
-  Number.isFinite(wrong / count) ? wrong / count : 0;
+const meanTime = (time, count) =>
+  Number.isFinite(time / count) ? time / count : 0;
 
-const MeanErrPerTryForEachInterface = props => {
-  const { error, count } = props.data;
-
+const MeanTimePerTryForEachInterface = props => {
+  const { time, count } = props.data;
   const interfaces = Object.keys(count);
 
   const data = interfaces.map(int => {
@@ -37,7 +36,7 @@ const MeanErrPerTryForEachInterface = props => {
     for (let i = 0; i < 5; i += 1) {
       coordinates.push({
         x: i,
-        y: meanError(error[int][i], count[int][i]),
+        y: meanTime(time[int][i], count[int][i]),
         fill: whatColor(int)
       });
     }
@@ -51,7 +50,7 @@ const MeanErrPerTryForEachInterface = props => {
 
   return interfaces.length > 0 ? (
     <React.Fragment>
-      <div>Mean error per try for each interface</div>
+      <div>Mean Time Per Try For Each Interface</div>
       <VictoryChart theme={VictoryTheme.material}>
         <VictoryLegend
           x={125}
@@ -72,7 +71,7 @@ const MeanErrPerTryForEachInterface = props => {
         {data.map(int => (
           <VictoryLine
             key={int.name}
-            domain={{ x: [0, 4], y: [0, 1] }}
+            domain={{ x: [0, 4] }}
             style={{
               data: { stroke: whatColor(int.name) },
               parent: { border: '1px solid #ccc' }
@@ -87,4 +86,4 @@ const MeanErrPerTryForEachInterface = props => {
   );
 };
 
-export default MeanErrPerTryForEachInterface;
+export default MeanTimePerTryForEachInterface;

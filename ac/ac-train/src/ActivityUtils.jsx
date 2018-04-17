@@ -102,4 +102,4 @@ export function commandDataStructure(command: string) {
   };
 }
 
-export const testing = true;
+export const testing = false;

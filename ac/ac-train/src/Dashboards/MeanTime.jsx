@@ -23,29 +23,25 @@ const whatColor = color => {
   }
 };
 
-const calcErrorRate = (wrong, count) =>
-  Number.isFinite(wrong / count) ? wrong / count : 0;
+const calcAvgTime = (time, count) =>
+  Number.isFinite(time / count) ? time / count : 0;
 
-const MeanError = props => {
-  const { error, count } = props.data['sum'];
+const MeanTime = props => {
+  const { time, count } = props.data['sum'];
   const coordinates = [];
   for (let i = 0; i < 20; i += 1) {
     coordinates.push({
       x: i,
-      y: calcErrorRate(error[i], count[i])
+      y: calcAvgTime(time[i], count[i])
     });
   }
 
   return (
     <React.Fragment>
-      <div>Mean error</div>
+      <div>Mean Time</div>
       <VictoryChart theme={VictoryTheme.material} domainPadding={{ y: 15 }}>
         <VictoryLine
-          domain={{ x: [0, 20], y: [0, 1] }}
-          animate={{
-            duration: 2000,
-            onLoad: { duration: 1000 }
-          }}
+          domain={{ x: [0, 20] }}
           style={{
             data: { stroke: 'blue' },
             parent: { border: '1px solid #ccc' }
@@ -57,4 +53,4 @@ const MeanError = props => {
   );
 };
 
-export default MeanError;
+export default MeanTime;

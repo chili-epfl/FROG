@@ -32,14 +32,12 @@ class Interface extends React.Component {
 
     this.initialState = {
       question: generateTicket(),
-      checkAnswer: false,
+      isCorrect: false,
       start: Date.now(),
       secondsRemaining: this.timeOfEachInstanceInSec,
       interval: false,
       help: false
     };
-
-    this.helpCount = 0;
 
     this.state = { ...this.initialState };
   }
@@ -54,14 +52,12 @@ class Interface extends React.Component {
   };
 
   handleHelpOpen = () => {
-    const { logger } = this.props;
-
-    this.helpCount += 1;
+    const { logger, activity } = this.props;
 
     logger([
       {
         type: 'help',
-        payload: { help: this.helpCount }
+        payload: { activity }
       }
     ]);
 
@@ -95,32 +91,42 @@ class Interface extends React.Component {
   };
 
   nextInstance = () => {
-    const { dataFn, activityData } = this.props;
+    const {
+      dataFn,
+      data: { instance }
+    } = this.props;
 
-    if (this.instanceCount === 4) {
-      this.instanceCount = 0;
+    console.log(instance);
+
+    if (instance !== 0 && instance % 4 === 0) {
       dataFn.numIncr(1, 'step');
       dataFn.objInsert(true, 'guidelines');
     } else {
-      this.instanceCount += 1;
       this.reset();
     }
+
+    dataFn.numIncr(1, 'instance');
   };
 
   checkAnswer = answer => {
-    const { logger, activity } = this.props;
+    const {
+      logger,
+      activity,
+      data: { instance }
+    } = this.props;
+
     const { question, start } = this.state;
     // console.log(this.state.ticket);
     // console.log(answer);
-    const checkAnswer = isEqual(question, answer);
+    const isCorrect = isEqual(question, answer);
 
     logger([
       {
         type: 'answer',
         payload: {
           activity,
-          iteration: this.instanceCount,
-          checkAnswer,
+          instance,
+          isCorrect,
           timeTaken: Date.now() - start
         }
       }
@@ -128,7 +134,7 @@ class Interface extends React.Component {
 
     this.stopTimer();
     if (true) {
-      this.setState({ interval: true, checkAnswer });
+      this.setState({ interval: true, isCorrect });
     }
   };
 
@@ -141,15 +147,18 @@ class Interface extends React.Component {
   }
 
   render() {
-    const { question, checkAnswer } = this.state;
+    const {
+      question,
+      isCorrect,
+      interval,
+      help,
+      secondsRemaining
+    } = this.state;
     const { activity } = this.props;
 
-    if (this.state.interval) {
+    if (interval) {
       return (
-        <Validation
-          nextInstance={this.nextInstance}
-          checkAnswer={checkAnswer}
-        />
+        <Validation nextInstance={this.nextInstance} isCorrect={isCorrect} />
       );
     }
 
@@ -159,10 +168,10 @@ class Interface extends React.Component {
           activity={activity}
           ticket={getCommandForTicket(question)}
           submit={this.checkAnswer}
-          help={this.state.help}
+          help={help}
           onHelpOpen={this.handleHelpOpen}
           onHelpClose={this.handleHelpClose}
-          ticker={this.state.secondsRemaining}
+          ticker={secondsRemaining}
         />
       </React.Fragment>
     );

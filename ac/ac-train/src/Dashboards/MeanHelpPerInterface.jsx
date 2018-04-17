@@ -23,24 +23,22 @@ const whatColor = color => {
   }
 };
 
-const meanError = (wrong, count) =>
-  Number.isFinite(wrong / count) ? wrong / count : 0;
+const meanHelp = (help, count) =>
+  Number.isFinite(help / count) ? help / count : 0;
 
-const MeanErrorPerInterface = props => {
-  const { error, count } = props.data;
+const MeanTimePerInterface = props => {
+  const { help, count } = props.data;
 
   const interfaces = Object.keys(count);
 
   const data = interfaces.map((int, index) => {
-    let errorSum = 0;
     let countSum = 0;
 
     for (let i = 0; i < 5; i += 1) {
-      errorSum += error[int][i];
       countSum += count[int][i];
     }
 
-    const avg = meanError(errorSum, countSum);
+    const avg = meanHelp(help[int], countSum);
 
     return {
       y: avg,
@@ -51,13 +49,13 @@ const MeanErrorPerInterface = props => {
 
   return interfaces.length > 0 ? (
     <React.Fragment>
-      <div>Mean error per interface</div>
+      <div>Mean Help per interface</div>
       <VictoryChart theme={VictoryTheme.material} domainPadding={{ y: 15 }}>
         <VictoryBar
           horizontal
-          style={{ data: { fill: '#c43a31' } }}
+          style={{ data: { fill: 'green' } }}
           categories={{ x: ['command', 'dragdrop', 'graphical', 'form'] }}
-          domain={{ x: [0, 1], y: [1, 4] }}
+          domain={{ x: [0, 1], y: [0, 4] }}
           data={data}
         />
       </VictoryChart>
@@ -67,4 +65,4 @@ const MeanErrorPerInterface = props => {
   );
 };
 
-export default MeanErrorPerInterface;
+export default MeanTimePerInterface;

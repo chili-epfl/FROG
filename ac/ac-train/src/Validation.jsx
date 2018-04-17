@@ -56,22 +56,22 @@ const Transition = ({ classes }) => (
   </React.Fragment>
 );
 
-const ValidationStatus = ({ checkAnswer, classes }) => (
+const ValidationStatus = ({ isCorrect, classes }) => (
   <React.Fragment>
     <Grid item xs={12} className={classes.center}>
       <Button
         variant="fab"
-        className={checkAnswer ? classes.success : classes.failure}
+        className={isCorrect ? classes.success : classes.failure}
       >
-        {checkAnswer ? <Check /> : <Clear />}
+        {isCorrect ? <Check /> : <Clear />}
       </Button>
     </Grid>
     <Grid>
       <Typography
         align="center"
-        className={checkAnswer ? classes.successText : classes.failureText}
+        className={isCorrect ? classes.successText : classes.failureText}
       >
-        {checkAnswer ? validationText['success'] : validationText['failure']}
+        {isCorrect ? validationText['success'] : validationText['failure']}
       </Typography>
     </Grid>
   </React.Fragment>
@@ -82,7 +82,7 @@ class Validation extends React.Component<IntervalPropsT> {
 
   constructor(props) {
     super(props);
-    this.state = { checkAnswer: this.props.checkAnswer, transition: true };
+    this.state = { isCorrect: this.props.isCorrect, transition: true };
   }
 
   startTimer = () => {
@@ -110,7 +110,7 @@ class Validation extends React.Component<IntervalPropsT> {
   }
 
   render() {
-    const { classes, checkAnswer } = this.props;
+    const { classes, isCorrect } = this.props;
     const { transition } = this.state;
 
     return (
@@ -123,7 +123,7 @@ class Validation extends React.Component<IntervalPropsT> {
         {transition ? (
           <Transition classes={classes} />
         ) : (
-          <ValidationStatus classes={classes} checkAnswer={checkAnswer} />
+          <ValidationStatus classes={classes} isCorrect={isCorrect} />
         )}
       </Grid>
     );
