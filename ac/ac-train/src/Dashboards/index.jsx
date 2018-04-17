@@ -15,35 +15,37 @@ import MeanPerInterface from './MeanPerInterface';
 
 import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 
-const Viewer = (props: dashboardViewerPropsT) => {
-  return (
-    <React.Fragment>
-      <Grid container spacing={24} style={{ padding: '40px' }}>
-        <Grid item lg={4} sm={6}>
-          <MeanThroughOutStudy {...props} whichDash="error" />
-        </Grid>
-        <Grid item lg={4} sm={6}>
-          <MeanThroughOutStudy {...props} whichDash="time" />
-        </Grid>
-        <Grid item lg={4} sm={6}>
-          <MeanPerTryForEachInterface {...props} whichDash="error" />
-        </Grid>
-        <Grid item lg={4} sm={6}>
-          <MeanPerTryForEachInterface {...props} whichDash="time" />
-        </Grid>
-        <Grid item lg={4} sm={6}>
-          <MeanPerInterface {...props} whichDash="time" />
-        </Grid>
-        <Grid item lg={4} sm={6}>
-          <MeanPerInterface {...props} whichDash="error" />
-        </Grid>
-        <Grid item lg={4} sm={6}>
-          <MeanPerInterface {...props} whichDash="help" />
-        </Grid>
+const Viewer = (props: dashboardViewerPropsT) => (
+  <React.Fragment>
+    <Grid
+      container
+      spacing={24}
+      style={{ padding: '40px', background: '#f5f8fa' }}
+    >
+      <Grid item lg={4} md={6} sm={12}>
+        <MeanThroughOutStudy {...props} whichDash="error" />
       </Grid>
-    </React.Fragment>
-  );
-};
+      <Grid item lg={4} md={6} sm={12}>
+        <MeanThroughOutStudy {...props} whichDash="time" />
+      </Grid>
+      <Grid item lg={4} md={6} sm={12}>
+        <MeanPerTryForEachInterface {...props} whichDash="error" />
+      </Grid>
+      <Grid item lg={4} md={6} sm={12}>
+        <MeanPerTryForEachInterface {...props} whichDash="time" />
+      </Grid>
+      <Grid item lg={4} md={6} sm={12}>
+        <MeanPerInterface {...props} whichDash="time" />
+      </Grid>
+      <Grid item lg={4} md={6} sm={12}>
+        <MeanPerInterface {...props} whichDash="error" />
+      </Grid>
+      <Grid item lg={4} md={6} sm={12}>
+        <MeanPerInterface {...props} whichDash="help" />
+      </Grid>
+    </Grid>
+  </React.Fragment>
+);
 
 const initData = {
   error: {},

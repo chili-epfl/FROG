@@ -1,4 +1,10 @@
+// @flow
 import * as React from 'react';
+
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
 
 import {
   VictoryChart,
@@ -8,22 +14,15 @@ import {
   VictoryLabel
 } from 'victory';
 
-const color = (c: string) => {
-  switch (c) {
-    case 'graphical':
-      return '#96E283';
-    case 'command':
-      return '#E2E062';
-    case 'form':
-      return '#8BB0DD';
-    case 'dragdrop':
-      return '#C192C4';
-    default:
-      break;
-  }
-};
+import { color, div } from './utils';
 
-const div = (x, y) => (Number.isFinite(x / y) ? x / y : 0);
+const styles = theme => ({
+  root: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginTop: theme.spacing.unit * 3
+  })
+});
 
 const MeanPerTryForEachInterface = props => {
   const { whichDash, data } = props;
@@ -49,47 +48,63 @@ const MeanPerTryForEachInterface = props => {
       };
     });
 
-    const legend = allCoordinates.map(int => {
-      return {
-        name: int.name,
-        symbol: { fill: color(int.name) }
-      };
-    });
+    const legend = allCoordinates.map(int => ({
+      name: int.name,
+      symbol: { fill: color(int.name) }
+    }));
 
     const domain =
       whichDash === 'error' ? { x: [0, 4], y: [0, 1] } : { x: [0, 4] };
 
     return (
-      <React.Fragment>
-        <div>Mean {whichDash} Per Try For Each Interface</div>
-        <VictoryChart theme={VictoryTheme.material}>
-          <VictoryLegend
-            x={125}
-            y={50}
-            title="Legend"
-            centerTitle
-            orientation="vertical"
-            gutter={20}
-            style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
-            data={legend}
-          />
-          {data.map(int => (
-            <VictoryLine
-              key={int.name}
-              domain={domain}
-              style={{
-                data: { stroke: color(int.name) },
-                parent: { border: '1px solid #ccc' }
-              }}
-              data={int.coordinates}
-            />
-          ))}
-        </VictoryChart>
-      </React.Fragment>
+      <Paper className={props.classes.root} elevation={4}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography align="center" variant="button" gutterBottom>
+              Mean {whichDash} Per Try For Each Interface
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <VictoryChart>
+              <VictoryLegend
+                x={125}
+                y={50}
+                title="Legend"
+                centerTitle
+                orientation="vertical"
+                gutter={20}
+                style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
+                data={legend}
+              />
+              {allCoordinates.map(int => (
+                <VictoryLine
+                  key={int.name}
+                  domain={domain}
+                  style={{
+                    data: { stroke: color(int.name) },
+                    parent: { border: '1px solid #ccc' }
+                  }}
+                  data={int.coordinates}
+                />
+              ))}
+            </VictoryChart>
+          </Grid>
+        </Grid>
+      </Paper>
     );
   } else {
-    return <p>No data currently</p>;
+    return (
+      <Paper className={props.classes.root} elevation={4}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography align="center" variant="button" gutterBottom>
+              Waiting for data
+            </Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+    );
   }
 };
 
-export default MeanPerTryForEachInterface;
+export default withStyles(styles)(MeanPerTryForEachInterface);

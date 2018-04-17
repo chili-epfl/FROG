@@ -20,7 +20,7 @@ const meta = {
     {
       title: 'Quick',
       config: {
-        timeOfEachInstance: 5000,
+        timeOfEachInstance: 3000,
         instanceCount: 5
       },
       data: {}

@@ -1,16 +1,13 @@
+// @flow
 import * as React from 'react';
+
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
+import { VictoryChart, VictoryLine } from 'victory';
 
-import {
-  VictoryChart,
-  VictoryLine,
-  VictoryLegend,
-  VictoryTheme,
-  VictoryLabel
-} from 'victory';
+import { div } from './utils';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -19,8 +16,6 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   })
 });
-
-const div = (x, y) => (Number.isFinite(x / y) ? x / y : 0);
 
 const MeanThrougOutStudy = props => {
   const { whichDash, data } = props;
@@ -49,10 +44,7 @@ const MeanThrougOutStudy = props => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <VictoryChart
-              theme={VictoryTheme.material}
-              domainPadding={{ y: 15 }}
-            >
+            <VictoryChart domainPadding={{ y: 15 }}>
               <VictoryLine
                 domain={domain}
                 style={{
