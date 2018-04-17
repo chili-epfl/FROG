@@ -8,40 +8,31 @@ import {
   VictoryLabel
 } from 'victory';
 
-const whatColor = color => {
-  switch (color) {
-    case 'graphical':
-      return 'green';
-    case 'command':
-      return 'blue';
-    case 'form':
-      return 'red';
-    case 'dragdrop':
-      return 'orange';
-    default:
-      break;
-  }
-};
+const div = (x, y) => (Number.isFinite(x / y) ? x / y : 0);
 
-const calcAvgTime = (time, count) =>
-  Number.isFinite(time / count) ? time / count : 0;
+const MeanThrougOutStudy = props => {
+  const { whichDash, data } = props;
 
-const MeanTime = props => {
-  const { time, count } = props.data['sum'];
+  const count = data['sum']['count'];
+  const dash = data['sum'][whichDash];
+
   const coordinates = [];
   for (let i = 0; i < 20; i += 1) {
     coordinates.push({
       x: i,
-      y: calcAvgTime(time[i], count[i])
+      y: div(dash[i], count[i])
     });
   }
 
+  const domain =
+    whichDash === 'time' ? { x: [0, 20] } : { x: [0, 20], y: [0, 1] };
+
   return (
     <React.Fragment>
-      <div>Mean Time</div>
+      <div>Mean {whichDash} throughout study</div>
       <VictoryChart theme={VictoryTheme.material} domainPadding={{ y: 15 }}>
         <VictoryLine
-          domain={{ x: [0, 20] }}
+          domain={domain}
           style={{
             data: { stroke: 'blue' },
             parent: { border: '1px solid #ccc' }
@@ -53,4 +44,4 @@ const MeanTime = props => {
   );
 };
 
-export default MeanTime;
+export default MeanThrougOutStudy;

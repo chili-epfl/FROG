@@ -98,8 +98,6 @@ class Interface extends React.Component {
       data: { instance }
     } = this.props;
 
-    console.log(instance);
-
     if (instance % 5 === 0) {
       dataFn.numIncr(1, 'step');
       dataFn.objInsert(true, 'guidelines');
@@ -117,8 +115,6 @@ class Interface extends React.Component {
 
     const { question, start } = this.state;
     const isCorrect = isEqual(question, answer);
-
-    console.log(isCorrect);
 
     logger([
       {

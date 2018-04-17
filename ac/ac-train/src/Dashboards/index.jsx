@@ -10,8 +10,7 @@ import {
 
 import { times, constant } from 'lodash';
 
-import MeanError from './MeanError';
-import MeanTime from './MeanTime';
+import MeanThroughOutStudy from './MeanThroughOutStudy';
 
 import MeanErrorPerInterface from './MeanErrorPerInterface';
 import MeanTimePerInterface from './MeanTimePerInterface';
@@ -25,10 +24,10 @@ const Viewer = (props: dashboardViewerPropsT) => {
     <React.Fragment>
       <Grid container spacing={24}>
         <Grid item xs={6}>
-          <MeanError {...props} />
+          <MeanThroughOutStudy {...props} whichDash="error" />
         </Grid>
         <Grid item xs={6}>
-          <MeanTime {...props} />
+          <MeanThroughOutStudy {...props} whichDash="time" />
         </Grid>
         <Grid item xs={6}>
           <MeanTimePerTryForEachInterface {...props} />
@@ -66,6 +65,8 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { activity, instance, isCorrect, timeTaken } = log.payload;
 
+    // activity = interfaceType, instance = iteration,
+
     const iteration = instance % 5;
 
     if (!data['error'][activity]) {
@@ -83,9 +84,7 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
     }
 
     if (!data['time'][activity]) {
-      dataFn.objInsert({ [activity]: times(5, constant(0)), ...data['time'] }, [
-        'time'
-      ]);
+      dataFn.objInsert(times(5, constant(0)), ['time', activity]);
     }
 
     if (!isCorrect) {
@@ -98,8 +97,6 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
 
     dataFn.numIncr(timeTaken / 1000, ['time', activity, iteration]);
     dataFn.numIncr(timeTaken / 1000, ['sum', 'time', instance]);
-
-    console.log('DATA', data);
   }
 
   if (log.type === 'help' && log.payload) {
