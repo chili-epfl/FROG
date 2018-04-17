@@ -9,6 +9,8 @@ import { activityTypesObj } from '../../activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 
+import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
+
 const style = {
   side: {
     flex: '0 1 500px',
@@ -19,6 +21,62 @@ const style = {
   },
   preview: { width: '100%', height: 'calc(100% - 50px)', overflow: 'visible' }
 };
+
+// type StateT = {
+//   lastRefreshAct: Date,
+//   exportOpen: Boolean,
+//   deleteOpen: Boolean,
+//   importActivityList: Array<any>,
+//   locallyChanged: Boolean,
+//   idRemove: string
+// };
+//
+// class PreviewContainer extends React.Component<Object, StateT> {
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       lastRefreshAct: new Date().getTime(),
+//       exportOpen: false,
+//       deleteOpen: false,
+//       importActivityList: [],
+//       locallyChanged: false,
+//       idRemove: ''
+//     }
+//     collectActivities().then(e => {
+//       this.state.importActivityList = e;
+//       this.state.lastRefreshAct = new Date().getTime();
+//     });
+//   }
+
+// const setDelete = val => this.setState({ deleteOpen: val });
+// const setIdRemove = val => this.setState({ idRemove: val });
+// const setImportActivityList = (val, fun?) =>
+//   this.setState({ importActivityList: val }, fun);
+// const refreshActDate = () =>
+//   this.setState({ lastRefreshAct: new Date().getTime() });
+
+{
+  /* <Modal
+  exportType="activity"
+  modalOpen={this.state.exportOpen}
+  setModal={x => this.setState({exportOpen: x})}
+  madeChanges={() => this.setState({ locallyChanged: true})}
+  // {...{ activity }}
+/>
+<ModalDelete
+  modalOpen={this.state.deleteOpen}
+  setModal={setDelete}
+  remove={() =>
+    removeActivity(this.state.idRemove).then(() =>
+      setImportActivityList(
+            this.state.importActivityList.filter(
+              x => x.uuid !== this.state.idRemove
+            )
+          )
+    )
+  }
+/> */
+}
 
 export default ({
   config,
@@ -59,6 +117,10 @@ export default ({
           }}
         />
         <h3>{activityTypesObj[activityTypeId].meta.name}</h3>
+        <ExportButton
+          activity={{ title: activityTypesObj[activityTypeId].meta.name }}
+          madeChanges={() => console.log('changes')}
+        />
       </div>
     )}
     <ApiForm
