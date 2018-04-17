@@ -11,9 +11,8 @@ import {
 import { times, constant } from 'lodash';
 
 import MeanThroughOutStudy from './MeanThroughOutStudy';
+import MeanPerInterface from './MeanPerInterface';
 
-import MeanErrorPerInterface from './MeanErrorPerInterface';
-import MeanTimePerInterface from './MeanTimePerInterface';
 import MeanHelpPerInterface from './MeanHelpPerInterface';
 
 import MeanTimePerTryForEachInterface from './MeanTimePerTryForEachInterface';
@@ -36,10 +35,10 @@ const Viewer = (props: dashboardViewerPropsT) => {
           <MeanErrPerTryForEachInterface {...props} />
         </Grid>
         <Grid item xs={6}>
-          <MeanTimePerInterface {...props} />
+          <MeanPerInterface {...props} whichDash="time" />
         </Grid>
         <Grid item xs={6}>
-          <MeanErrorPerInterface {...props} />
+          <MeanPerInterface {...props} whichDash="error" />
         </Grid>
         <Grid item xs={6}>
           <MeanHelpPerInterface {...props} />
