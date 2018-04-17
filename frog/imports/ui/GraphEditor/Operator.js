@@ -14,19 +14,20 @@ export default ({
   startDragging,
   onDrag,
   onStop,
-  transparent
+  transparent,
+  title
 }) => {
   const stroke = selected ? '#ff9900' : 'transparent';
   let icon;
   switch (type) {
     case 'social':
-      icon = <People />;
+      icon = <People title={title} />;
       break;
     case 'product':
-      icon = <Arrows />;
+      icon = <Arrows title={title} />;
       break;
     case 'control':
-      icon = <Control />;
+      icon = <Control title={title} />;
       break;
     default:
       throw 'Icon type not supported';
@@ -38,19 +39,22 @@ export default ({
         x={`${x}px`}
         y={`${y}px`}
         width="60px"
+        data-tip={title}
         height="60px"
         viewBox="0 0 900 900"
         xmlSpace="preserve"
-        overflow="visibile"
+        overflow="visible"
       >
         <g onMouseUp={onClick}>
           <DraggableCore
+            data-tip={title}
             onStart={startDragging}
             onDrag={onDrag}
             onStop={onStop}
           >
             <circle
               cx={300}
+              data-tip={title}
               cy={300}
               r={320}
               style={{ fill: 'transparent', stroke, strokeWidth: 25 }}
@@ -66,15 +70,17 @@ export default ({
 
   return (
     <svg
+      data-tip={title}
       x={`${x}px`}
       y={`${y}px`}
       width="60px"
       height="60px"
       viewBox="0 0 900 900"
       xmlSpace="preserve"
-      overflow="visibile"
+      overflow="visible"
     >
       <circle
+        data-tip={title}
         cx={300}
         cy={300}
         r={290}
@@ -90,8 +96,9 @@ export default ({
   );
 };
 
-const People = () => (
+const People = title => (
   <path
+    data-tip={title}
     transform="translate(100,90),scale(0.9)"
     d="M147.128,91.076c0-37.95,30.766-68.716,68.721-68.716c37.95,0,68.719,30.766,68.719,68.716s-30.769,68.715-68.719,68.715
     C177.894,159.792,147.128,129.026,147.128,91.076z M248.873,206.607c0.689-14.963,5.84-28.812,14.127-40.261
@@ -117,8 +124,9 @@ const People = () => (
   />
 );
 
-const Arrows = () => (
+const Arrows = title => (
   <path
+    data-tip={title}
     transform="translate(110,100),scale(1.1)"
     d="M383.904,40.45l-87.639,87.639l52.812,22.901c1.768,0.769,2.808,2.628,2.542,4.534c-0.261,1.906-1.779,3.407-3.688,3.655
     l-131.544,17.2c-1.318,0.172-2.648-0.283-3.588-1.22c-0.94-0.94-1.396-2.264-1.224-3.591L228.77,40.028
@@ -138,9 +146,10 @@ const Arrows = () => (
   />
 );
 
-const Control = () => (
-  <svg x="0px" y="0px" viewBox="-5 -5 50 50">
-    <path d="M15.794,25.937h-5.552c-0.092,0-0.169-0.073-0.169-0.165v-8.7c-0.76-0.727-1.74-1.695-2.594-2.74
+const Control = title => (
+  <svg x="0px" y="0px" data-tip={title} viewBox="-5 -5 50 50">
+    <path
+      d="M15.794,25.937h-5.552c-0.092,0-0.169-0.073-0.169-0.165v-8.7c-0.76-0.727-1.74-1.695-2.594-2.74
 		c-1.03-1.286-2.22-3.043-2.244-5.255v-2.83H2.274c-0.069,0-0.127-0.036-0.156-0.097C2.091,6.09,2.102,6.022,2.143,5.97l4.993-5.905
 		C7.164,0.023,7.212,0,7.261,0l0,0c0.05,0,0.099,0.023,0.128,0.064l4.953,5.876c0.047,0.029,0.074,0.082,0.074,0.136
 		c0,0.099-0.082,0.179-0.172,0.17c-0.003,0-0.003,0-0.005,0H9.356v2.829c0,0.354,0.126,0.943,0.716,1.833
@@ -148,6 +157,7 @@ const Control = () => (
 		c1.04-1.02,1.807-1.909,2.28-2.634c0.59-0.89,0.716-1.477,0.716-1.814V6.246h-2.882c-0.064,0-0.126-0.036-0.151-0.097
 		c-0.03-0.06-0.02-0.127,0.02-0.18l4.976-5.905C18.579,0.023,18.625,0,18.674,0l0,0c0.053,0,0.097,0.023,0.128,0.064l4.991,5.906
 		c0.043,0.053,0.054,0.12,0.027,0.18c-0.03,0.061-0.089,0.097-0.155,0.097H20.7v2.829c-0.022,2.213-1.211,3.97-2.241,5.256
-		c-0.65,0.794-1.421,1.612-2.497,2.644v8.797C15.962,25.863,15.887,25.937,15.794,25.937z" />
+		c-0.65,0.794-1.421,1.612-2.497,2.644v8.797C15.962,25.863,15.887,25.937,15.794,25.937z"
+    />
   </svg>
 );

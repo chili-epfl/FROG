@@ -43,7 +43,7 @@ const mergeFunction = (object, dataFn) => {
     });
   }
 
-  if (object.data === null) return;
+  if (!object.data) return;
   if (object.data.length > 0 && typeof object.data[0] === 'string') {
     object.data.forEach(text => {
       if (text.length > 0) {
@@ -66,7 +66,6 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  Dashboard: null,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

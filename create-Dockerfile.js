@@ -21,7 +21,7 @@ RUN mkdir -p frog/.meteor frog/server && \\
 COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
-RUN npm install -g yarn@1.4.0
+RUN npm install -g yarn@1.6.0
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 RUN mkdir -p frog-utils/src \\
 ${acopSrc}

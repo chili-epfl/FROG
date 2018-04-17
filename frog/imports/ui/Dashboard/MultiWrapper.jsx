@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { type ActivityDBT } from 'frog-utils';
-import { isEqual } from 'lodash';
+import { isEqual, isEmpty } from 'lodash';
 
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -16,14 +16,20 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper
+    height: '100%',
+    backgroundColor: theme.palette.background.paper,
+    overflow: 'hidden'
+  },
+  dash: {
+    height: 'calc(100% - 48px)',
+    overflow: 'auto'
   }
 });
 
 type PropsT = {
   classes: any,
   dashNames: string[],
-  render?: Function,
+  children?: Function,
   onChange?: Function,
   selected?: number
 };
@@ -41,7 +47,7 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
   }
 
   render() {
-    const { dashNames, render, onChange, classes, selected } = this.props;
+    const { dashNames, onChange, classes, selected, children } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -61,10 +67,16 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
             {dashNames.map(name => <Tab key={name} label={name} />)}
           </Tabs>
         </AppBar>
-        {render && (
-          <ErrorBoundary msg="Dashboard crashed, try reloading">
-            {render(this.state.which)}
-          </ErrorBoundary>
+        {children && (
+          <div className={classes.dash}>
+            <ErrorBoundary msg="Dashboard crashed, try reloading">
+              {children(
+                this.state.which > dashNames.length
+                  ? 0
+                  : dashNames[this.state.which]
+              )}
+            </ErrorBoundary>
+          </div>
         )}
       </div>
     );
@@ -78,24 +90,31 @@ DashboardSelector.displayName = 'DashboardSelector';
 
 const MultiWrapper = (props: {
   activity: ActivityDBT,
-  docs: Object,
-  instances: Array<string | number>,
-  users: { [string | number]: string },
-  names?: string[]
+  names?: string[],
+  children?: Function,
+  users: Object,
+  instances: any
 }) => {
-  const { activity, docs, names } = props;
+  const { activity, names, children, users, instances } = props;
   const aT = activityTypesObj[activity.activityType];
-  const dashNames = names || Object.keys(aT.dashboard);
+  const dashNames = names || Object.keys(aT.dashboards || {});
+  if (isEmpty(dashNames)) {
+    return null;
+  }
+
   return (
-    <DashboardSelector
-      dashNames={dashNames}
-      onChange={() => {}}
-      render={which => {
-        const w = which > dashNames.length ? 0 : which;
-        const [doc] = (docs && docs[dashNames[w]]) || [];
-        return <DashboardComp {...props} name={dashNames[w]} doc={doc} />;
-      }}
-    />
+    <DashboardSelector dashNames={dashNames} onChange={() => {}}>
+      {children ||
+        (which => (
+          <DashboardComp
+            {...props}
+            name={which}
+            key={which + activity._id}
+            users={users}
+            instances={instances}
+          />
+        ))}
+    </DashboardSelector>
   );
 };
 

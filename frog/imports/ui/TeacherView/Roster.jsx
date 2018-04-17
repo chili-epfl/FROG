@@ -16,9 +16,9 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
-import PersonIcon from 'material-ui-icons/Person';
-import AddIcon from 'material-ui-icons/Add';
-import Delete from 'material-ui-icons/Delete';
+import PersonIcon from '@material-ui/icons/Person';
+import AddIcon from '@material-ui/icons/Add';
+import Delete from '@material-ui/icons/Delete';
 import { withStyles } from 'material-ui/styles';
 import { Sessions } from '../../api/sessions';
 

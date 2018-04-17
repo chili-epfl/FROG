@@ -37,7 +37,7 @@ export default (props: ActivityRunnerT) => {
   const { activityData, data } = props;
   const { config } = activityData;
   return (
-    <Main>
+    <Main className="bootstrap">
       <h1>{config.title || 'Quiz'}</h1>
       <Container>
         <HTML html={config.guidelines || 'Answer the following questions'} />

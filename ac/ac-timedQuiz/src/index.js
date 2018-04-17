@@ -5,7 +5,7 @@ import type { ActivityPackageT } from 'frog-utils';
 import { config, validateConfig } from './config';
 import ActivityRunner from './ActivityRunner';
 import meta from './meta';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 import { exportData, formatProduct } from './utils';
 
 const dataStructure = {
@@ -21,7 +21,7 @@ export default ({
   config,
   validateConfig,
   ActivityRunner,
-  dashboard,
+  dashboards,
   exportData,
   dataStructure,
   formatProduct

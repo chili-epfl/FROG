@@ -26,7 +26,12 @@ export const Line = observer(
 );
 
 export const DragLine = connect(
-  ({ store: { connectionStore: { dragPath }, state } }: StoreProp) => {
+  ({
+    store: {
+      connectionStore: { dragPath },
+      state
+    }
+  }: StoreProp) => {
     if (state.mode !== 'dragging') {
       return null;
     }
@@ -38,7 +43,9 @@ export const DragLine = connect(
 
 export default connect(
   ({
-    store: { connectionStore: { all: connections } },
+    store: {
+      connectionStore: { all: connections }
+    },
     scaled
   }: StoreProp & { scaled: boolean }) => (
     <g>

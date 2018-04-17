@@ -1,15 +1,18 @@
 // @flow
 
-import { ProgressDashboard, LeaderBoard } from 'frog-utils';
+import {
+  ProgressDashboard,
+  LeaderBoard,
+  CoordinatesDashboard
+} from 'frog-utils';
 
-import ScatterDashboard from './ScatterDashboard';
 import CountDashboard from './CountDashboard';
 import JustificationDashboard from './JustificationDashboard';
 
 export default {
+  count: CountDashboard,
   progress: ProgressDashboard,
   leaderboard: LeaderBoard,
-  scatter: ScatterDashboard,
-  justification: JustificationDashboard,
-  count: CountDashboard
+  coordinates: CoordinatesDashboard,
+  justification: JustificationDashboard
 };

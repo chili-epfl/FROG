@@ -4,7 +4,7 @@ import { type dataUnitStructT, type ActivityPackageT } from 'frog-utils';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
-import Dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 const listItems = [
   { id: '1', score: 0, title: 'AirBnB', content: 'Uber for hotels' },
@@ -19,14 +19,6 @@ const meta = {
   description:
     'This activity features a list of items with title and content. Items have a score attached, and are ordered by score. Students can vote up or down, and optionally add new items.',
   exampleData: [
-    {
-      title: 'Empty list',
-      config: {
-        text: 'This is an empty list, please fill it up',
-        formBoolean: true
-      },
-      data: {}
-    },
     {
       title: 'List with some items, students not able to add',
       config: {
@@ -61,9 +53,9 @@ export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
   ActivityRunner,
-  Dashboard,
+  dashboards,
   config,
   meta,
-  dataStructure,
-  mergeFunction
+  mergeFunction,
+  dataStructure
 }: ActivityPackageT);

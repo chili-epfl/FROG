@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { generateReactiveFn, splitPathObject } from 'frog-utils';
 
 import { serverConnection } from './share-db-manager';
-import { Cache } from './sharedbCache';
+import { SharedbCache } from '../imports/api/cache';
 
 const safelyInsertObject = (doc, dataFn, path, value, instanceId) => {
   const { insertObject, insertPath } = splitPathObject(doc.data, path, value);
@@ -19,7 +19,7 @@ Meteor.methods({
   stream: (activity, instanceId, path, value) => {
     if (activity.streamTarget) {
       const docId = activity.streamTarget + '/all';
-      if (Cache[docId]) {
+      if (SharedbCache[docId]) {
         const [doc, dataFn] = Cache[docId];
         safelyInsertObject(doc, dataFn, path, value, instanceId);
       } else {
@@ -27,12 +27,12 @@ Meteor.methods({
         doc.subscribe();
         if (doc.type) {
           const dataFn = generateReactiveFn(doc);
-          Cache[docId] = [doc, dataFn];
+          SharedbCache[docId] = [doc, dataFn];
           safelyInsertObject(doc, dataFn, path, value, instanceId);
         } else {
           doc.once('load', () => {
             const dataFn = generateReactiveFn(doc);
-            Cache[docId] = [doc, dataFn];
+            SharedbCache[docId] = [doc, dataFn];
             safelyInsertObject(doc, dataFn, path, value, instanceId);
           });
         }

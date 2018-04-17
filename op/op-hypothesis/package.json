@@ -12,10 +12,10 @@
     "frog-utils": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jsonpath-plus": "^0.16.0",
-    "query-string": "^5.1.0",
+    "query-string": "^6.0.0",
     "strict-uri-encode": "^2.0.0"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.9.0"
   }
 }

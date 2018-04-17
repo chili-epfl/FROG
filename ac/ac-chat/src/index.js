@@ -3,18 +3,13 @@
 import { type ActivityPackageT } from 'frog-utils';
 
 import ActivityRunner from './Chat';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 const meta = {
   name: 'Chat',
   shortDesc: 'Chat component',
   description: 'Persistent text chat',
   exampleData: [
-    {
-      title: 'Empty chat',
-      config: { title: 'Example chat' },
-      data: []
-    },
     {
       title: 'Chat with some messages',
       config: { title: 'Example chat' },
@@ -60,6 +55,6 @@ export default ({
   config,
   meta,
   dataStructure,
-  dashboard,
+  dashboards,
   mergeFunction
 }: ActivityPackageT);

@@ -9,15 +9,14 @@ const meta = {
   description: 'Group students with as many similar answers as possible.'
 };
 
-const config = {
-  type: 'object',
-  properties: {}
-};
+const config = {};
 
 const optim = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 
 const operator = (configData, object) => {
-  const { activityData: { payload } } = object;
+  const {
+    activityData: { payload }
+  } = object;
   const { instances, distanceMatrix } = payload.all.data;
 
   const result = { group: { '1': [] } };
