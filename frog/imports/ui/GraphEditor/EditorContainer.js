@@ -77,8 +77,6 @@ class Editor extends Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
-      lastRefreshAct: new Date().getTime(),
-      lastRefreshGraph: new Date().getTime(),
       exportOpen: false,
       importOpen: false,
       deleteOpen: false,
@@ -89,11 +87,11 @@ class Editor extends Component<Object, StateT> {
     };
     collectActivities().then(e => {
       this.state.importActivityList = e;
-      this.state.lastRefreshAct = new Date().getTime();
+      this.state.lastRefreshAct = new Date();
     });
     collectGraphs().then(e => {
       this.state.importGraphList = e;
-      this.state.lastRefreshGraph = new Date().getTime();
+      this.state.lastRefreshGraph = new Date();
     });
   }
 
@@ -123,10 +121,9 @@ class Editor extends Component<Object, StateT> {
       this.setState({ importActivityList: val }, fun);
     const setImportGraphList = (val, fun?) =>
       this.setState({ importGraphList: val }, fun);
-    const refreshActDate = () =>
-      this.setState({ lastRefreshAct: new Date().getTime() });
+    const refreshActDate = () => this.setState({ lastRefreshAct: new Date() });
     const refreshGraphDate = () =>
-      this.setState({ lastRefreshGraph: new Date().getTime() });
+      this.setState({ lastRefreshGraph: new Date() });
 
     return (
       <div className={classes.root}>

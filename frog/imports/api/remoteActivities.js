@@ -36,7 +36,6 @@ export const sendActivity = (state: Object, props: Object) => {
   Activities.update(props.activity._id, {
     $set: { parentId: newId }
   });
-  props.setModal(false);
 };
 
 export const importAct = (id, activityId) => {

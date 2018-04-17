@@ -11,11 +11,10 @@ const filterWithStr = (list: Array<any>, searchStr: string) =>
     .filter(
       x =>
         (x.activity_type &&
-          x.activity_type.toLowerCase().includes(searchStr.toLowerCase())) ||
-        x.title.toLowerCase().includes(searchStr.toLowerCase()) ||
-        x.description.toLowerCase().includes(searchStr.toLowerCase()) ||
-        x.tags.find(y => y.toLowerCase().includes(searchStr.toLowerCase())) !==
-          undefined
+          x.activity_type.toLowerCase().includes(searchStr)) ||
+        x.title.toLowerCase().includes(searchStr) ||
+        x.description.toLowerCase().includes(searchStr) ||
+        x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
     )
     .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
 
@@ -28,12 +27,12 @@ class Library extends Component<Object, { searchStr: string }> {
   componentWillMount() {
     if (
       this.props.libraryType === 'activity' &&
-      new Date().getTime() - this.props.lastRefreshAct > 600000
+      new Date() - this.props.lastRefreshAct > 600000
     )
       collectActivities().then(this.props.setImportActivityList);
     else if (
       this.props.libraryType === 'graph' &&
-      new Date().getTime() - this.props.lastRefreshGraph > 600000
+      new Date() - this.props.lastRefreshGraph > 600000
     )
       collectGraphs().then(this.props.setImportGraphList);
     else if (this.props.locallyChanged) {
@@ -55,7 +54,7 @@ class Library extends Component<Object, { searchStr: string }> {
       libraryType === 'activity'
         ? this.props.importActivityList
         : this.props.importGraphList;
-    const filtered = filterWithStr(list, this.state.searchStr);
+    const filtered = filterWithStr(list, this.state.searchStr.toLowerCase());
 
     const onClick = () => {
       if (this.props.libraryType === 'activity')

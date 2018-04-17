@@ -23,7 +23,7 @@ export default ({
           {object.activity_type && (
             <h5 style={{ fontStyle: 'italic' }}>
               <Highlight
-                text={' ('.concat(object.activity_type).concat(')')}
+                text={`(${object.activity_type})`}
                 searchStr={searchStr}
               />
             </h5>

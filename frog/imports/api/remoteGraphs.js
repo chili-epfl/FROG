@@ -36,7 +36,6 @@ export const sendGraph = (state: Object, props: Object) => {
   Graphs.update(props.graphId, {
     $set: { parentId: newId }
   });
-  props.setModal(false);
 };
 
 export const importGraph = (id: string) => {
