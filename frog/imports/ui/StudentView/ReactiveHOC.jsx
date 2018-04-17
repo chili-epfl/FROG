@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import Spinner from 'react-spinner';
 import { cloneDeep } from 'lodash';
+import Spinner from 'react-spinner';
 import {
   generateReactiveFn,
   type ReactComponent,
@@ -46,20 +46,24 @@ const ReactiveHOC = (
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
       if (this.doc.type) {
-        this.update();
+        console.log('already type');
+        this.update(undefined, 'already');
       } else {
-        this.doc.on('load', this.update);
+        this.doc.once('load', e => this.update(e, 'load'));
       }
-      this.doc.on('op', this.update);
+      this.doc.on('op', e => this.update(e, 'op'));
     };
 
-    update = () => {
+    update = (e: any, type: string) => {
+      console.log(type, e);
       if (!this.unmounted) {
         if (!this.state.dataFn) {
+          console.log('Generating reactive Fn');
           this.setState({
-            dataFn: generateReactiveFn(this.doc, readOnly, this.update)
+            dataFn: generateReactiveFn(this.doc, readOnly)
           });
         }
+        console.log('Setting data', this.doc.data);
         this.setState({ data: cloneDeep(this.doc.data) });
         if (readOnly) {
           this.setState({ uuid: uuid() });
