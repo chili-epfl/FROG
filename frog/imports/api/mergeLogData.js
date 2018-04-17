@@ -94,6 +94,7 @@ export const mergeLog = (
     }
   });
 };
+
 const archiveDashboardState = activityId => {
   const act = Activities.findOne(activityId);
   const aT = activityTypesObj[act.activityType];
