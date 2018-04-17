@@ -22,6 +22,59 @@ type ConfigPropsT = {
   reload?: string
 };
 
+const ConfigComponent = ({ activityTypeId, config, setConfig }) => {
+  const aT = activityTypesObj[activityTypeId];
+  if (!aT || !aT.ConfigComponent) {
+    return null;
+  }
+  return (
+    <aT.ConfigComponent
+      configData={{ component: {}, invalid: false, ...config }}
+      setConfigData={d =>
+        setConfig({ ...config, invalid: false, component: d })
+      }
+    />
+  );
+};
+
+export const check = (
+  activityType: string,
+  formData: Object,
+  setValid?: Function,
+  onConfigChange?: Function
+) => {
+  const aT = activityTypesObj[activityType];
+  const valid = validateConfig(
+    'activity',
+    '1',
+    hideConditional(formData, aT.config, aT.configUI),
+    aT.config,
+    aT.validateConfig,
+    aT.configUI
+  );
+  if (setValid) {
+    setValid(valid);
+  }
+  if (onConfigChange) {
+    onConfigChange({
+      activityType,
+      config: formData,
+      errors: valid
+    });
+  } else {
+    window.parent.postMessage(
+      {
+        type: 'frog-config',
+        activityType,
+        config: formData,
+        errors: valid,
+        valid: valid.length === 0
+      },
+      '*'
+    );
+  }
+};
+
 class Config extends React.Component<
   ConfigPropsT,
   { formData: Object, valid: any[] }
@@ -38,39 +91,13 @@ class Config extends React.Component<
   }
 
   componentDidMount() {
-    this.check();
-  }
-
-  check = _formData => {
-    const formData = _formData || this.state.formData;
-    const valid = validateConfig(
-      'activity',
-      '1',
-      hideConditional(formData, this.aT.config, this.aT.configUI),
-      this.aT.config,
-      this.aT.validateConfig,
-      this.aT.configUI
+    check(
+      this.aT.id,
+      this.state.formData,
+      this.props.setValid,
+      this.props.onConfigChange
     );
-    this.props.setValid(valid);
-    if (this.props.onConfigChange) {
-      this.props.onConfigChange({
-        activityType: this.aT.id,
-        config: formData,
-        errors: valid
-      });
-    } else {
-      window.parent.postMessage(
-        {
-          type: 'frog-config',
-          activityType: this.aT.id,
-          config: formData,
-          errors: valid,
-          valid: valid.length === 0
-        },
-        '*'
-      );
-    }
-  };
+  }
 
   render() {
     return (
@@ -86,14 +113,34 @@ class Config extends React.Component<
             data={this.props.config}
             reload={this.props.reload}
             onChange={e => {
+              console.log(e);
               this.setState({ formData: e.formData });
-              this.check();
+              check(
+                this.aT.id,
+                e.formData || this.state.formData,
+                this.props.setValid,
+                this.props.onConfigChange
+              );
             }}
             nodeType={this.aT}
             valid={{ social: [] }}
             refreshValidate={() => {}}
           />
         </div>
+        <ConfigComponent
+          activityTypeId={this.aT.id}
+          config={this.props.config}
+          setConfig={e => {
+            console.log(e);
+            this.setState({ formData: e });
+            check(
+              this.aT.id,
+              e || this.state.formData,
+              this.props.setValid,
+              this.props.onConfigChange
+            );
+          }}
+        />
       </div>
     );
   }
@@ -174,7 +221,7 @@ const ApiForm = observer(
             <div>
               <div
                 style={{
-                  position: 'absolute',
+                  position: 'relative',
                   marginRight: '20px'
                 }}
               >
