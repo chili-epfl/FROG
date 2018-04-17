@@ -104,7 +104,9 @@ const archiveDashboardState = activityId => {
       if (DashboardStates[dashId]) {
         DashboardData.insert({
           dashId,
-          data: aT.dashboards[dash].prepareDisplay(DashboardStates[dashId])
+          data: aT.dashboards[dash].prepareDisplay
+            ? aT.dashboards[dash].prepareDisplay(DashboardStates[dashId])
+            : DashboardStates[dashId]
         });
         DashboardStates[dashId] = undefined;
       }
