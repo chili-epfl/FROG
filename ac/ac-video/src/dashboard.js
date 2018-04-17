@@ -2,9 +2,10 @@
 
 import React, { Component } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { colorRange as color, splitPathObject, type LogDBT } from 'frog-utils';
+import { colorRange as color, type LogDBT } from 'frog-utils';
+import { set } from 'lodash';
 
-export const mergeLog = (data: any, dataFn: any, log: LogDBT) => {
+export const mergeLog = (state: any, log: LogDBT) => {
   let path;
   let value;
   if (log.type === 'videoProgress') {
@@ -15,30 +16,25 @@ export const mergeLog = (data: any, dataFn: any, log: LogDBT) => {
     value = log.type;
   }
   if (path) {
-    const { insertObject, insertPath } = splitPathObject(
-      data,
-      [log.userId, path],
-      value
-    );
-    dataFn.objInsert(insertObject, insertPath);
+    set(state, [log.userId, path], value);
     if (log.type === 'pause') {
-      dataFn.objInsert(log.timestamp, [log.userId, 'pausedAt']);
+      set(state, [log.userId, 'pausedAt'], log.timestamp);
     }
   }
 };
 
 export const initData = {};
 
-const VideoProgress = ({ data, user }) => {
+const VideoProgress = ({ state, user }) => {
   let backgroundColor;
   let bsStyle;
 
-  if (data.state === 'pause') {
+  if (state.state === 'pause') {
     bsStyle = 'warning';
-    backgroundColor = color(data.pausedAt);
+    backgroundColor = color(state.pausedAt);
   }
 
-  if (data.state === 'finishPlaying') {
+  if (state.state === 'finishPlaying') {
     bsStyle = 'danger';
   }
 
@@ -53,8 +49,8 @@ const VideoProgress = ({ data, user }) => {
         {user}
       </h4>
       <ProgressBar
-        now={data.playing * 100}
-        label={Math.round(data.playing * 1000) / 10}
+        now={state.playing * 100}
+        label={Math.round(state.playing * 1000) / 10}
         bsStyle={bsStyle}
         style={{ align: 'right', backgroundColor }}
       />
@@ -85,14 +81,14 @@ class Viewer extends Component<any, Object> {
   }
 
   render() {
-    if (!this.props.data) {
+    if (!this.props.state) {
       return null;
     }
     return (
       <div className="bootstrap">
-        {Object.keys(this.props.data).map(x => (
+        {Object.keys(this.props.state).map(x => (
           <VideoProgress
-            data={this.props.data[x]}
+            state={this.props.state[x]}
             user={this.props.users[x] || x}
             key={x}
           />

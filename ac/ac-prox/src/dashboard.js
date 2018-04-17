@@ -4,8 +4,8 @@ import * as React from 'react';
 import { CountChart, type LogDBT } from 'frog-utils';
 import { sum } from 'lodash';
 
-const Viewer = ({ data }: Object) => {
-  const d = Object.values(data).reduce(
+const Viewer = ({ state }: Object) => {
+  const d = Object.values(state).reduce(
     (acc, val) => {
       if (val && typeof val === 'number') {
         acc[Math.min(Math.max(0, val), 5)] += 1;
@@ -14,7 +14,7 @@ const Viewer = ({ data }: Object) => {
     },
     [0, 0, 0, 0, 0, 0]
   );
-  const students = sum(Object.values(data));
+  const students = sum(Object.values(state));
   return (
     <div>
       <CountChart
@@ -29,22 +29,22 @@ const Viewer = ({ data }: Object) => {
   );
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDBT) => {
   if (log.type === 'group.create') {
-    dataFn.objInsert(1, [log.itemId]);
+    state[log.itemId] = 1;
   }
   if (log.type === 'group.join') {
-    if (!data[log.itemId]) {
-      dataFn.objInsert(1, [log.itemId]);
+    if (!state[log.itemId]) {
+      state[log.itemId] = 1;
     } else {
-      dataFn.numIncr(1, [log.itemId]);
+      state[log.itemId] += 1;
     }
   }
   if (log.type === 'group.leave') {
-    if (!data[log.itemId]) {
-      dataFn.objInsert(0, [log.itemId]);
+    if (!state[log.itemId]) {
+      state[log.itemId] = 0;
     } else {
-      dataFn.numIncr(-1, [log.itemId]);
+      state[log.itemId] -= 1;
     }
   }
 };
