@@ -28,7 +28,7 @@
     "@babel/preset-stage-0": "7.0.0-beta.39",
     "@babel/runtime": "7.0.0-beta.39",
     "assert": "^1.4.1",
-    "babel-core": "7.0.0-beta.39",
+    "babel-core": "7.0.0-beta.3",
     "babel-eslint": "^8.2.2",
     "babel-jest": "^22.4.3",
     "babel-plugin-captains-log": "^1.0.1",
