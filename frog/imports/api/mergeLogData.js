@@ -105,7 +105,7 @@ const archiveDashboardState = activityId => {
         const prepDataFn = aT.dashboards[dash].prepareDataForDisplay || (x => x)
         DashboardData.insert({
           dashId,
-          data: prepDataFn(DashboardStates[dashId])
+          data: prepDataFn(DashboardStates[dashId], act)
         });
         DashboardStates[dashId] = undefined;
       }

@@ -22,7 +22,7 @@ const Viewer = ({ state: { answerCounts, questions } }: any) => (
 
 const prepareDataForDisplay = (state: any, activity: ActivityDBT) => {
   const { answers } = state;
-  const { data: config } = activity;
+  const config = activity.data;
   if (!config || !config.questions) {
     return null;
   }

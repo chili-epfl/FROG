@@ -5,7 +5,7 @@ import { set, isEqual } from 'lodash';
 import { uuid, cloneDeep, values } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
-import { DashboardData } from '../imports/api/activities';
+import { DashboardData, Activities } from '../imports/api/activities';
 import { DashboardStates } from '../imports/api/cache';
 import { regenerateState } from '../imports/api/mergeLogData';
 
@@ -14,9 +14,10 @@ const subscriptions = {};
 const oldState = {};
 const oldInput = {};
 
-const updateAndSend = (dashId, prepareDataForDisplayFn) => {
+const updateAndSend = (dashId, prepareDataForDisplayFn, activity) => {
   if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
-    const newState = prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
+    const dashState = cloneDeep(DashboardStates[dashId])
+    const newState = prepareDataForDisplayFn(dashState, activity)
     values(subscriptions[dashId]).forEach(that => {
       that.changed('dashboard', dashId, newState);
     });
@@ -29,7 +30,8 @@ export default () => {
   Meteor.publish('dashboard', function(activityId, activityType, dashboard) {
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
-    const aT = activityTypesObj[activityType]
+    const aT = activityTypesObj[activityType];
+    const act = Activities.findOne(activityId)
     if (DashboardStates[dashId] === undefined) {
       const archived = DashboardData.findOne({ dashId });
       if (archived) {
@@ -43,13 +45,14 @@ export default () => {
     set(subscriptions, [dashId, id], this);
     const aTDash = aT.dashboards[dashboard]
     const prepareDataForDisplayFn = aTDash.prepareDataForDisplay || (x => x)
-    const newState = prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
+    const dashState = cloneDeep(DashboardStates[dashId])
+    const newState = prepareDataForDisplayFn(dashState,act)
     this.added('dashboard', dashId, newState);
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
       interval[dashId] = setInterval(
-        () => updateAndSend(dashId, prepareDataForDisplayFn),
+        () => updateAndSend(dashId, prepareDataForDisplayFn, act),
         1000
       );
     }
