@@ -63,6 +63,7 @@ const Content = ({
   showLogs,
   showData,
   users,
+  reloadActivity,
   showDash
 }: Object) => {
   const activityType = activityTypesObj[activityTypeId];
@@ -93,6 +94,7 @@ const Content = ({
     return (
       <ActivityToRun
         activityType={activityType.id}
+        key={reloadActivity}
         activityData={activityData}
         userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
@@ -151,7 +153,7 @@ const Content = ({
             ) : (
               <MosaicWindow
                 path={path}
-                key={JSON.stringify({ config, showData })}
+                key={JSON.stringify({ config, showData, reloadActivity })}
                 title={
                   name +
                   '/' +

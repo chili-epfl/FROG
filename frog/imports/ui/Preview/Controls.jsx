@@ -42,6 +42,7 @@ export default (props: Object) => {
     showDashExample,
     setShowLogs,
     setReloadAPIform,
+    setReloadActivity,
     showLogs,
     setActivityTypeId,
     setExample,
@@ -63,6 +64,7 @@ export default (props: Object) => {
     // resets the reactive documents for the dashboard
     initDashboardDocuments(activityType, true);
     Logs.length = 0;
+    setReloadActivity(uuid());
   };
 
   const _dismiss = () => {
