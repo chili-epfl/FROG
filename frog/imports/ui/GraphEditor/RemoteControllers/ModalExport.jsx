@@ -39,6 +39,9 @@ export default class ExportModal extends Component<Object, StateT> {
     });
   }
 
+  // lastRefreshGraph={this.state.lastRefreshGraph}
+  // importGraphList={this.state.importGraphList}
+  // collectGraphs().then(this.props.setImportGraphList);
   render() {
     return (
       <Dialog open={this.props.modalOpen}>
@@ -74,6 +77,7 @@ export default class ExportModal extends Component<Object, StateT> {
                 sendActivity(this.state, this.props);
               else if (this.props.exportType === 'graph')
                 sendGraph(this.state, this.props);
+              this.props.madeChanges();
               this.setState({
                 title: '',
                 description: '',

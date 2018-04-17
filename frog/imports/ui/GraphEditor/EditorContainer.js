@@ -69,6 +69,7 @@ type StateT = {
   deleteOpen: Boolean,
   importActivityList: Array<any>,
   importGraphList: Array<any>,
+  locallyChanged: Boolean,
   idRemove: string
 };
 
@@ -83,20 +84,17 @@ class Editor extends Component<Object, StateT> {
       deleteOpen: false,
       importActivityList: [],
       importGraphList: [],
+      locallyChanged: false,
       idRemove: ''
     };
-    collectActivities().then(e =>
-      this.setState({
-        importActivityList: e,
-        lastRefreshAct: new Date().getTime()
-      })
-    );
-    collectGraphs().then(e =>
-      this.setState({
-        importGraphList: e,
-        lastRefreshGraph: new Date().getTime()
-      })
-    );
+    collectActivities().then(e => {
+      this.state.importActivityList = e;
+      this.state.lastRefreshAct = new Date().getTime();
+    });
+    collectGraphs().then(e => {
+      this.state.importGraphList = e;
+      this.state.lastRefreshGraph = new Date().getTime();
+    });
   }
 
   componentDidMount() {
@@ -144,12 +142,15 @@ class Editor extends Component<Object, StateT> {
             setModal={val => this.setState({ exportOpen: val })}
             graphId={this.props.store.graphId}
             graphName={this.props.store}
+            madeChanges={() => this.setState({ locallyChanged: true })}
           />
           <ModalImport
             modalOpen={this.state.importOpen}
             setModal={val => this.setState({ importOpen: val })}
             lastRefreshGraph={this.state.lastRefreshGraph}
             importGraphList={this.state.importGraphList}
+            locallyChanged={this.state.locallyChanged}
+            changesLoaded={() => this.setState({ locallyChanged: true })}
             {...{
               setImportGraphList,
               setDelete,
@@ -187,6 +188,9 @@ class Editor extends Component<Object, StateT> {
             <SidePanel
               importActivityList={this.state.importActivityList}
               lastRefreshAct={this.state.lastRefreshAct}
+              madeChanges={() => this.setState({ locallyChanged: true })}
+              locallyChanged={this.state.locallyChanged}
+              changesLoaded={() => this.setState({ locallyChanged: true })}
               {...{
                 refreshActDate,
                 setImportActivityList,

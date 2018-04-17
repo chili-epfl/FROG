@@ -18,7 +18,9 @@ export default ({
   lastRefreshGraph,
   refreshGraphDate,
   setDelete,
-  setIdRemove
+  setIdRemove,
+  locallyChanged,
+  changesLoaded
 }: Object) => (
   <Dialog open={modalOpen}>
     <DialogTitle>Import a graph from the library:</DialogTitle>
@@ -39,7 +41,9 @@ export default ({
           lastRefreshGraph,
           refreshGraphDate,
           setDelete,
-          setIdRemove
+          setIdRemove,
+          locallyChanged,
+          changesLoaded
         }}
       />
     </DialogContent>

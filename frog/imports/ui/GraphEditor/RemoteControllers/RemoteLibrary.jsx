@@ -36,6 +36,11 @@ class Library extends Component<Object, { searchStr: string }> {
       new Date().getTime() - this.props.lastRefreshGraph > 600000
     )
       collectGraphs().then(this.props.setImportGraphList);
+    else if (this.props.locallyChanged) {
+      collectActivities().then(this.props.setImportActivityList);
+      collectGraphs().then(this.props.setImportGraphList);
+      this.props.changesLoaded();
+    }
   }
 
   render() {

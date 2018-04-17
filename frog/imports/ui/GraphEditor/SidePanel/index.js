@@ -14,6 +14,9 @@ export default connect(
     setImportActivityList,
     lastRefreshAct,
     refreshActDate,
+    madeChanges,
+    locallyChanged,
+    changesLoaded,
     store: {
       ui: { selected, sidepanelOpen }
     }
@@ -31,7 +34,10 @@ export default connect(
               importActivityList,
               setImportActivityList,
               lastRefreshAct,
-              refreshActDate
+              refreshActDate,
+              madeChanges,
+              locallyChanged,
+              changesLoaded
             }}
             id={selected.id}
           />

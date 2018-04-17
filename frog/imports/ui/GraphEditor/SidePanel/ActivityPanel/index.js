@@ -14,10 +14,14 @@ export default withTracker(({ id }) => ({ activity: Activities.findOne(id) }))(
     setImportActivityList,
     lastRefreshAct,
     refreshActDate,
-    setIdRemove
+    setIdRemove,
+    madeChanges,
+    locallyChanged,
+    changesLoaded
   }) => {
     if (!activity) return null;
-    if (activity.activityType) return <EditActivity activity={activity} />;
+    if (activity.activityType)
+      return <EditActivity {...{ activity, madeChanges }} />;
     else
       return (
         <ChooseActivity
@@ -28,7 +32,9 @@ export default withTracker(({ id }) => ({ activity: Activities.findOne(id) }))(
             setImportActivityList,
             lastRefreshAct,
             refreshActDate,
-            activity
+            activity,
+            locallyChanged,
+            changesLoaded
           }}
         />
       );

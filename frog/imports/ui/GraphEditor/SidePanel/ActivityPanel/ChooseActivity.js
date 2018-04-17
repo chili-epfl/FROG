@@ -28,7 +28,9 @@ type PropsT = {
   setImportActivityList?: Function,
   lastRefreshAct?: Number,
   refreshActDate?: Function,
-  onlyHasPreview?: boolean
+  onlyHasPreview?: boolean,
+  locallyChanged?: boolean,
+  changesLoaded?: Function
 };
 
 export class ChooseActivityType extends Component<PropsT, StateT> {
@@ -140,6 +142,8 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               lastRefreshAct={this.props.lastRefreshAct}
               refreshActDate={this.props.refreshActDate}
               store={this.props.store}
+              locallyChanged={this.props.locallyChanged}
+              changesLoaded={this.props.changesLoaded}
             />
           ) : (
             <div>
