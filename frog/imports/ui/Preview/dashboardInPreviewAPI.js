@@ -34,9 +34,9 @@ export const initDashboardDocuments = (
 };
 
 export const hasDashExample = (aT: ActivityPackageT) =>
-  aT.dashboard &&
-  Object.keys(aT.dashboard).reduce(
-    (acc, name) => acc || !!aT.dashboard[name].exampleLogs,
+  aT.dashboards &&
+  Object.keys(aT.dashboards).reduce(
+    (acc, name) => acc || !!aT.dashboards[name].exampleLogs,
     false
   );
 
@@ -55,28 +55,6 @@ export const activityDbObject = (
   length: 3,
   activityType
 });
-
-export const mergeData = (
-  aT: ActivityPackageT,
-  log: LogDBT,
-  config: Object,
-  startingTime?: Date
-) => {
-  if (aT.dashboard) {
-    Object.keys(aT.dashboard).forEach(name => {
-      if (DocumentCache[name]) {
-        const dash = aT.dashboard[name];
-        const [doc, dataFn] = DocumentCache[name];
-        dash.mergeLog(
-          doc.data,
-          dataFn,
-          log,
-          activityDbObject(config, aT.id, startingTime)
-        );
-      }
-    });
-  }
-};
 
 export const createLogger = (
   sessionId: string,

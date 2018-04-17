@@ -25,7 +25,7 @@ Meteor.methods({
   },
   'get.example.logs': function(ac, name, idx) {
     const rootPath = resolve('.').split('/.meteor')[0];
-    const d = activityTypesObj[ac].dashboard[name];
+    const d = activityTypesObj[ac].dashboards[name];
     const examplePath =
       d && d.exampleLogs && d.exampleLogs[idx] && d.exampleLogs[idx].path;
     if (examplePath) {

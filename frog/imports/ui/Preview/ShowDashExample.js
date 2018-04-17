@@ -3,15 +3,18 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import {
+  cloneDeep,
   Inspector,
   type ActivityPackageT,
-  LogDBT,
-  pureObjectReactive
+  LogDBT
 } from 'frog-utils';
-import { throttle, cloneDeep } from 'lodash';
+import { throttle } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Spinner from 'react-spinner';
+
+import { mergeLog, createDashboards } from '../../api/mergeLogData';
+import { DashboardStates } from '../../../imports/api/cache';
 
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
 
@@ -40,11 +43,11 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   constructor(props: PropsT) {
     super(props);
     const aT = this.props.activityType;
-    const example = Object.keys(aT.dashboard).filter(
-      x => aT.dashboard[x].exampleLogs
+    const example = Object.keys(aT.dashboards).filter(
+      x => aT.dashboards[x].exampleLogs
     )[0];
     this.state = {
-      data: aT.dashboard[example].initData,
+      data: aT.dashboards[example].initData,
       example,
       logs: [],
       oldSlider: 0,
@@ -56,10 +59,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   }
 
   fetchLogs = (props: PropsT = this.props) => {
-    const { meta: { exampleData }, dashboard } = this.props.activityType;
+    const { meta: { exampleData }, dashboards } = this.props.activityType;
     const data = (exampleData && exampleData[0].config) || {};
 
-    const { activityMerge } = dashboard[this.state.example].exampleLogs[0];
+    const { activityMerge } = dashboards[this.state.example].exampleLogs[0];
 
     this.activityDbObject = {
       ...{
@@ -156,27 +159,29 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       return;
     }
     const aT = this.props.activityType;
-    const mergeLog = aT.dashboard[this.state.example].mergeLog;
     const diff = e - this.state.oldSlider;
-    let tempDb;
+    const func = aT.dashboards[this.state.example].prepareDisplay;
     let logs;
 
+    createDashboards({ activityType: aT.id, _id: 'showExampleLogs' }, restart);
     if (diff > 0 || (suppliedLogs && !restart)) {
-      tempDb = pureObjectReactive(cloneDeep(this.state.data));
       logs = suppliedLogs || this.state.logs.slice(this.state.oldSlider, e);
     } else {
-      tempDb = pureObjectReactive(
-        cloneDeep(aT.dashboard[this.state.example].initData)
-      );
       logs = this.state.logs.slice(0, e);
     }
-    const [doc, dataFn] = tempDb;
     this.activityDbObject.actualClosingTime =
       (suppliedLogs && suppliedLogs[suppliedLogs.length - 1].timestamp) ||
       this.state.logs[e].timestamp;
-    logs.forEach(log => mergeLog(doc.data, dataFn, log, this.activityDbObject));
+    mergeLog(logs, {}, this.activityDbObject);
 
-    this.setState({ data: tempDb[0].data, oldSlider: e });
+    const data = func
+      ? func(
+          cloneDeep(DashboardStates['showExampleLogs-' + this.state.example]),
+          this.activityDbObject
+        )
+      : DashboardStates['showExampleLogs-' + this.state.example];
+
+    this.setState({ data, oldSlider: e });
   };
 
   throttledDisplaySubset = throttle(this.displaySubset, 500, {
@@ -188,13 +193,13 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const users = {};
     const { logs } = this.state;
     const aT = this.props.activityType;
-    const dashNames = Object.keys(aT.dashboard).filter(
-      x => aT.dashboard[x].exampleLogs
+    const dashNames = Object.keys(aT.dashboards).filter(
+      x => aT.dashboards[x].exampleLogs
     );
-    const examples = aT.dashboard[this.state.example].exampleLogs.map(
+    const examples = aT.dashboards[this.state.example].exampleLogs.map(
       x => x.title
     );
-    const Viewer = aT.dashboard[this.state.example].Viewer;
+    const Viewer = aT.dashboards[this.state.example].Viewer;
     if (!this.state.logs) {
       return <Spinner />;
     }
@@ -208,7 +213,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
               this.setState(
                 {
                   oldSlider: 0,
-                  data: aT.dashboard[dashNames[x]].initData,
+                  data: aT.dashboards[dashNames[x]].initData,
                   example: dashNames[x],
                   exampleIdx: x,
                   logs: [],
@@ -229,7 +234,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
               this.setState(
                 {
                   oldSlider: 0,
-                  data: aT.dashboard[this.state.example].initData,
+                  data: aT.dashboards[this.state.example].initData,
                   logs: [],
                   idx: x,
                   play: false
@@ -249,7 +254,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                 this.setState(
                   {
                     oldSlider: 0,
-                    data: aT.dashboard[this.state.example].initData,
+                    data: aT.dashboards[this.state.example].initData,
                     play: x
                   },
                   () => {
@@ -282,7 +287,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             activity={this.activityDbObject}
             instances={instances}
             config={this.activityDbObject.data}
-            data={this.state.data}
+            state={this.state.data}
           />
         )}
       </React.Fragment>
