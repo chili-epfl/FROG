@@ -13,7 +13,7 @@ import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Spinner from 'react-spinner';
 
-import { mergeLog, createDashboards } from '../../api/mergeLogData';
+import { createDashboards } from '../../api/mergeLogData';
 import { DashboardStates } from '../../../imports/api/cache';
 
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
@@ -59,7 +59,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   }
 
   fetchLogs = (props: PropsT = this.props) => {
-    const { meta: { exampleData }, dashboards } = this.props.activityType;
+    const {
+      meta: { exampleData },
+      dashboards
+    } = this.props.activityType;
     const data = (exampleData && exampleData[0].config) || {};
 
     const { activityMerge } = dashboards[this.state.example].exampleLogs[0];
@@ -83,6 +86,12 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       this.state.idx,
       (err, result) => {
         if (err || result === false) {
+          console.warn(
+            'Error getting example logs',
+            props.activityType.id,
+            this.state.example,
+            err
+          );
         }
 
         this.activityDbObject.actualStartingTime = new Date(
@@ -97,7 +106,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                 [this.state.example]: result.length - 1
               }
             },
-            () => this.displaySubset(result.length - 1, false, true)
+            () => this.displaySubset(result.length - 1, undefined, true)
           );
         }
       }

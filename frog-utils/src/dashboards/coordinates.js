@@ -13,7 +13,11 @@ const eventHandlers = { onMouseOver, onMouseOut };
 const eventHandler = [{ target: 'data', eventHandlers }];
 
 const Viewer = (props: dashboardViewerPropsT) => {
-  const { users, activity, state: { coordinates } } = props;
+  const {
+    users,
+    activity,
+    state: { coordinates }
+  } = props;
   if (!coordinates || Object.keys(coordinates).length < 1) {
     return <p>No data to display</p>;
   } else {

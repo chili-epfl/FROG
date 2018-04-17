@@ -5,7 +5,12 @@ import React from 'react';
 import { type LogDBT, type dashboardViewerPropsT } from '../';
 
 const Viewer = (props: dashboardViewerPropsT) => {
-  const { users, activity: { data: config }, state, activity } = props;
+  const {
+    users,
+    activity: { data: config },
+    state,
+    activity
+  } = props;
   if (!config) {
     return null;
   }

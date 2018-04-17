@@ -102,7 +102,6 @@ class PreviewDash extends React.Component<
     activity: ActivityDBT,
     instances: Object,
     users: Object,
-    config: Object,
     showData: boolean
   },
   { state: any }
@@ -210,7 +209,6 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
             key={activityType.id + e}
             name={e}
             activity={activity}
-            config={config}
             instances={instances}
             users={users}
           />

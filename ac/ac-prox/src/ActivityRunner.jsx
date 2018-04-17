@@ -7,7 +7,10 @@ import HasNoGroupPanel from './NoGroupPanel';
 import HasGroupPanel from './GroupPanel';
 
 export default (props: ActivityRunnerT) => {
-  const { data, userInfo: { id } } = props;
+  const {
+    data,
+    userInfo: { id }
+  } = props;
   const hasGroup = data.students[id];
 
   return (
