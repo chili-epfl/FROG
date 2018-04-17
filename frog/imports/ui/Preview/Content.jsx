@@ -125,7 +125,7 @@ const Content = ({
       className="modal-body"
       style={{
         position: 'relative',
-        width: '100%',
+        width: 'calc(100% - 30px)',
         height: 'calc(100% - 60px)'
       }}
     >

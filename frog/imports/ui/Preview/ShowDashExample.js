@@ -83,7 +83,6 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       this.state.idx,
       (err, result) => {
         if (err || result === false) {
-          console.error('Error fetching logs', err);
         }
 
         this.activityDbObject.actualStartingTime = new Date(
@@ -98,7 +97,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                 [this.state.example]: result.length - 1
               }
             },
-            () => this.displaySubset(result.length - 1)
+            () => this.displaySubset(result.length - 1, false, true)
           );
         }
       }
@@ -162,8 +161,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const diff = e - this.state.oldSlider;
     const func = aT.dashboards[this.state.example].prepareDisplay;
     let logs;
-
-    createDashboards({ activityType: aT.id, _id: 'showExampleLogs' }, restart);
+    createDashboards(
+      { activityType: aT.id, _id: 'showExampleLogs' },
+      restart || diff < 0
+    );
     if (diff > 0 || (suppliedLogs && !restart)) {
       logs = suppliedLogs || this.state.logs.slice(this.state.oldSlider, e);
     } else {
@@ -172,7 +173,15 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     this.activityDbObject.actualClosingTime =
       (suppliedLogs && suppliedLogs[suppliedLogs.length - 1].timestamp) ||
       this.state.logs[e].timestamp;
-    mergeLog(logs, {}, this.activityDbObject);
+
+    const mergeLogFn = aT.dashboards[this.state.example].mergeLog;
+    logs.forEach(log =>
+      mergeLogFn(
+        DashboardStates['showExampleLogs-' + this.state.example],
+        log,
+        this.activityDbObject
+      )
+    );
 
     const data = func
       ? func(
