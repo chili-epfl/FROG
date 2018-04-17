@@ -142,12 +142,8 @@ export type ActivityPackageT = {
 
 export type dashboardT = {
   Viewer: ReactComponent<dashboardViewerPropsT>,
-  mergeLog: (
-    data: any,
-    dataFn: Object,
-    log: LogDBT,
-    activity: ActivityDbT
-  ) => void,
+  mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
+
   exampleLogs?: { title: string, path: string }[],
   exampleData?: { title: string, path: string }[],
   initData: any
