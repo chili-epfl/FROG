@@ -20,7 +20,7 @@ const Viewer = ({ state }: Object) => (
 
 Viewer.displayName = 'Viewer';
 
-const prepareDisplay = (state: Object) => {
+const prepareDataForDisplay = (state: Object) => {
   const iMax = Object.values(state).reduce(
     (acc, curr) => Math.max(Number(acc), Number(curr)),
     1
@@ -47,6 +47,6 @@ export default {
     Viewer,
     mergeLog,
     initData,
-    prepareDisplay
+    prepareDataForDisplay
   }
 };

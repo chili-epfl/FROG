@@ -110,7 +110,7 @@ class PreviewDash extends React.Component<
   oldInput: any = undefined;
   func = activityTypesObj[this.props.activity.activityType].dashboards[
     this.props.name
-  ].prepareDisplay;
+  ].prepareDataForDisplay;
 
   dashId = this.props.activity._id + '-' + this.props.name;
 
@@ -162,7 +162,7 @@ class PreviewDash extends React.Component<
           prepareDataForDisplay={
             activityTypesObj[this.props.activity.activityType].dashboards[
               this.props.name
-            ].prepareDisplay
+            ].prepareDataForDisplay
               ? this.state.state
               : null
           }

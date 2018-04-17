@@ -16,9 +16,7 @@ const oldInput = {};
 
 const updateAndSend = (dashId, prepareDataForDisplayFn) => {
   if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
-    const newState = prepareDataForDisplayFn
-      ? prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
-      : DashboardStates[dashId];
+    const newState = prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
     values(subscriptions[dashId]).forEach(that => {
       that.changed('dashboard', dashId, newState);
     });
@@ -31,6 +29,7 @@ export default () => {
   Meteor.publish('dashboard', function(activityId, activityType, dashboard) {
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
+    const aT = activityTypesObj[activityType]
     if (DashboardStates[dashId] === undefined) {
       const archived = DashboardData.findOne({ dashId });
       if (archived) {
@@ -38,15 +37,13 @@ export default () => {
         this.ready();
         return;
       } else {
-        regenerateState(activityTypesObj[activityType], activityId, dashboard);
+        regenerateState(aT, activityId, dashboard);
       }
     }
     set(subscriptions, [dashId, id], this);
-    const prepareDataForDisplayFn =
-      activityTypesObj[activityType].dashboards[dashboard].prepareDisplay;
-    const newState = prepareDataForDisplayFn
-      ? prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
-      : DashboardStates[dashId];
+    const aTDash = aT.dashboards[dashboard]
+    const prepareDataForDisplayFn = aTDash.prepareDataForDisplay || (x => x)
+    const newState = prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
     this.added('dashboard', dashId, newState);
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);

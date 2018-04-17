@@ -168,7 +168,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     }
     const aT = this.props.activityType;
     const diff = e - this.state.oldSlider;
-    const func = aT.dashboards[this.state.example].prepareDisplay;
+    const func = aT.dashboards[this.state.example].prepareDataForDisplay;
     let logs;
     createDashboards(
       { activityType: aT.id, _id: 'showExampleLogs' },

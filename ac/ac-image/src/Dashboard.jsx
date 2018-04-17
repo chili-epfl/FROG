@@ -20,7 +20,7 @@ const Viewer = ({ state }: Object) => (
   </div>
 );
 
-const prepareDisplay = (state: Object) =>
+const prepareDataForDisplay = (state: Object) =>
   state &&
   actionTypes.map(actionType =>
     Object.keys(state).reduce(
@@ -55,6 +55,6 @@ export default {
     Viewer,
     mergeLog,
     initData,
-    prepareDisplay
+    prepareDataForDisplay
   }
 };

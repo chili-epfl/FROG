@@ -20,7 +20,7 @@ const Viewer = ({ state: { answerCounts, questions } }: any) => (
   </React.Fragment>
 );
 
-const prepareDisplay = (state: any, activity: ActivityDBT) => {
+const prepareDataForDisplay = (state: any, activity: ActivityDBT) => {
   const { answers } = state;
   const { data: config } = activity;
   if (!config || !config.questions) {
@@ -54,7 +54,7 @@ const initData = {
 
 export default {
   Viewer,
-  prepareDisplay,
+  prepareDataForDisplay,
   mergeLog,
   initData
 };
