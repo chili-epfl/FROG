@@ -91,12 +91,18 @@ class Interface extends React.Component {
   };
 
   nextInstance = () => {
-    const { dataFn } = this.props;
+    const { dataFn, logger, data } = this.props;
     dataFn.numIncr(1, 'instance');
-
     const {
       data: { instance }
     } = this.props;
+
+    logger([
+      {
+        type: 'progress',
+        value: (instance + 1) / 20
+      }
+    ]);
 
     if (instance % 5 === 0) {
       dataFn.numIncr(1, 'step');

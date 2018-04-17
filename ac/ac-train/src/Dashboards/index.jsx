@@ -13,8 +13,6 @@ import { times, constant } from 'lodash';
 import MeanThroughOutStudy from './MeanThroughOutStudy';
 import MeanPerInterface from './MeanPerInterface';
 
-import MeanHelpPerInterface from './MeanHelpPerInterface';
-
 import MeanTimePerTryForEachInterface from './MeanTimePerTryForEachInterface';
 import MeanErrPerTryForEachInterface from './MeanErrPerTryForEachInterface';
 
@@ -112,5 +110,6 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
 const statsDashboard = { Viewer, mergeLog, initData };
 
 export default {
-  stats: statsDashboard
+  stats: statsDashboard,
+  progress: ProgressDashboard
 };
