@@ -16,8 +16,8 @@ const oldInput = {};
 
 const updateAndSend = (dashId, prepareDataForDisplayFn, activity) => {
   if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
-    const dashState = cloneDeep(DashboardStates[dashId])
-    const newState = prepareDataForDisplayFn(dashState, activity)
+    const dashState = cloneDeep(DashboardStates[dashId]);
+    const newState = prepareDataForDisplayFn(dashState, activity);
     values(subscriptions[dashId]).forEach(that => {
       that.changed('dashboard', dashId, newState);
     });
@@ -31,7 +31,7 @@ export default () => {
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
     const aT = activityTypesObj[activityType];
-    const act = Activities.findOne(activityId)
+    const act = Activities.findOne(activityId);
     if (DashboardStates[dashId] === undefined) {
       const archived = DashboardData.findOne({ dashId });
       if (archived) {
@@ -43,10 +43,10 @@ export default () => {
       }
     }
     set(subscriptions, [dashId, id], this);
-    const aTDash = aT.dashboards[dashboard]
-    const prepareDataForDisplayFn = aTDash.prepareDataForDisplay || (x => x)
-    const dashState = cloneDeep(DashboardStates[dashId])
-    const newState = prepareDataForDisplayFn(dashState,act)
+    const aTDash = aT.dashboards[dashboard];
+    const prepareDataForDisplayFn = aTDash.prepareDataForDisplay || (x => x);
+    const dashState = cloneDeep(DashboardStates[dashId]);
+    const newState = prepareDataForDisplayFn(dashState, act);
     this.added('dashboard', dashId, newState);
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);

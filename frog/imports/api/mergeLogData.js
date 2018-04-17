@@ -102,7 +102,8 @@ const archiveDashboardState = activityId => {
     Object.keys(aT.dashboards).forEach(dash => {
       const dashId = activityId + '-' + dash;
       if (DashboardStates[dashId]) {
-        const prepDataFn = aT.dashboards[dash].prepareDataForDisplay || (x => x)
+        const prepDataFn =
+          aT.dashboards[dash].prepareDataForDisplay || (x => x);
         DashboardData.insert({
           dashId,
           data: prepDataFn(DashboardStates[dashId], act)
