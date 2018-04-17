@@ -13,32 +13,31 @@ import { times, constant } from 'lodash';
 import MeanThroughOutStudy from './MeanThroughOutStudy';
 import MeanPerInterface from './MeanPerInterface';
 
-import MeanTimePerTryForEachInterface from './MeanTimePerTryForEachInterface';
-import MeanErrPerTryForEachInterface from './MeanErrPerTryForEachInterface';
+import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 
 const Viewer = (props: dashboardViewerPropsT) => {
   return (
     <React.Fragment>
-      <Grid container spacing={24}>
-        <Grid item xs={6}>
+      <Grid container spacing={24} style={{ padding: '40px' }}>
+        <Grid item lg={4} sm={6}>
           <MeanThroughOutStudy {...props} whichDash="error" />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item lg={4} sm={6}>
           <MeanThroughOutStudy {...props} whichDash="time" />
         </Grid>
-        <Grid item xs={6}>
-          <MeanTimePerTryForEachInterface {...props} />
+        <Grid item lg={4} sm={6}>
+          <MeanPerTryForEachInterface {...props} whichDash="error" />
         </Grid>
-        <Grid item xs={6}>
-          <MeanErrPerTryForEachInterface {...props} />
+        <Grid item lg={4} sm={6}>
+          <MeanPerTryForEachInterface {...props} whichDash="time" />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item lg={4} sm={6}>
           <MeanPerInterface {...props} whichDash="time" />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item lg={4} sm={6}>
           <MeanPerInterface {...props} whichDash="error" />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item lg={4} sm={6}>
           <MeanPerInterface {...props} whichDash="help" />
         </Grid>
       </Grid>

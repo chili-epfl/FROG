@@ -8,48 +8,60 @@ import {
   VictoryLabel
 } from 'victory';
 
-const whatColor = color => {
-  switch (color) {
+const color = (c: string) => {
+  switch (c) {
     case 'graphical':
-      return 'green';
+      return '#96E283';
     case 'command':
-      return 'blue';
+      return '#E2E062';
     case 'form':
-      return 'red';
+      return '#8BB0DD';
     case 'dragdrop':
-      return 'orange';
+      return '#C192C4';
     default:
       break;
   }
 };
 
-const meanTime = (time, count) =>
-  Number.isFinite(time / count) ? time / count : 0;
+const div = (x, y) => (Number.isFinite(x / y) ? x / y : 0);
 
-const MeanTimePerTryForEachInterface = props => {
-  const { time, count } = props.data;
-  const interfaces = Object.keys(time);
+const MeanPerTryForEachInterface = props => {
+  const { whichDash, data } = props;
+
+  const count = data['count'];
+  const dash = data[whichDash];
+
+  const interfaces = Object.keys(dash);
 
   if (interfaces.length > 0) {
-    const data = interfaces.map(int => {
+    const allCoordinates = interfaces.map(int => {
       const coordinates = [];
       for (let i = 0; i < 5; i += 1) {
         coordinates.push({
           x: i,
-          y: meanTime(time[int][i], count[int][i]),
-          fill: whatColor(int)
+          y: div(dash[int][i], count[int][i]),
+          fill: color(int)
         });
       }
-      const specificCharcData = {
+      return {
         name: int,
         coordinates
       };
-      return specificCharcData;
     });
+
+    const legend = allCoordinates.map(int => {
+      return {
+        name: int.name,
+        symbol: { fill: color(int.name) }
+      };
+    });
+
+    const domain =
+      whichDash === 'error' ? { x: [0, 4], y: [0, 1] } : { x: [0, 4] };
 
     return (
       <React.Fragment>
-        <div>Mean Time Per Try For Each Interface</div>
+        <div>Mean {whichDash} Per Try For Each Interface</div>
         <VictoryChart theme={VictoryTheme.material}>
           <VictoryLegend
             x={125}
@@ -59,20 +71,14 @@ const MeanTimePerTryForEachInterface = props => {
             orientation="vertical"
             gutter={20}
             style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
-            data={data.map(int => {
-              const obj = {
-                name: int.name,
-                symbol: { fill: whatColor(int.name) }
-              };
-              return obj;
-            })}
+            data={legend}
           />
           {data.map(int => (
             <VictoryLine
               key={int.name}
-              domain={{ x: [0, 4] }}
+              domain={domain}
               style={{
-                data: { stroke: whatColor(int.name) },
+                data: { stroke: color(int.name) },
                 parent: { border: '1px solid #ccc' }
               }}
               data={int.coordinates}
@@ -86,4 +92,4 @@ const MeanTimePerTryForEachInterface = props => {
   }
 };
 
-export default MeanTimePerTryForEachInterface;
+export default MeanPerTryForEachInterface;

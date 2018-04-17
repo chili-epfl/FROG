@@ -1,4 +1,8 @@
 import * as React from 'react';
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
 
 import {
   VictoryChart,
@@ -7,6 +11,14 @@ import {
   VictoryTheme,
   VictoryLabel
 } from 'victory';
+
+const styles = theme => ({
+  root: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginTop: theme.spacing.unit * 3
+  })
+});
 
 const div = (x, y) => (Number.isFinite(x / y) ? x / y : 0);
 
@@ -29,19 +41,32 @@ const MeanThrougOutStudy = props => {
 
   return (
     <React.Fragment>
-      <div>Mean {whichDash} throughout study</div>
-      <VictoryChart theme={VictoryTheme.material} domainPadding={{ y: 15 }}>
-        <VictoryLine
-          domain={domain}
-          style={{
-            data: { stroke: 'blue' },
-            parent: { border: '1px solid #ccc' }
-          }}
-          data={coordinates}
-        />
-      </VictoryChart>
+      <Paper className={props.classes.root} elevation={4}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography align="center" variant="button" gutterBottom>
+              Mean {whichDash} throughout study
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <VictoryChart
+              theme={VictoryTheme.material}
+              domainPadding={{ y: 15 }}
+            >
+              <VictoryLine
+                domain={domain}
+                style={{
+                  data: { stroke: 'blue' },
+                  parent: { border: '1px solid #ccc' }
+                }}
+                data={coordinates}
+              />
+            </VictoryChart>
+          </Grid>
+        </Grid>
+      </Paper>
     </React.Fragment>
   );
 };
 
-export default MeanThrougOutStudy;
+export default withStyles(styles)(MeanThrougOutStudy);
