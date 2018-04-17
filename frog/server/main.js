@@ -3,7 +3,6 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable func-names */
 
-global.window = {};
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { uuid } from 'frog-utils';

@@ -14,10 +14,10 @@ const subscriptions = {};
 const oldState = {};
 const oldInput = {};
 
-const update = (that, dashId, func) => {
+const updateAndSend = (that, dashId, prepareDataForDisplayFn) => {
   if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
-    const newState = func
-      ? func(cloneDeep(DashboardStates[dashId]))
+    const newState = prepareDataForDisplayFn
+      ? prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
       : DashboardStates[dashId];
     that.changed('dashboard', dashId, newState);
     oldState[dashId] = newState;
@@ -40,16 +40,19 @@ export default () => {
       }
     }
     set(subscriptions, [dashId, id], true);
-    const func =
+    const prepareDataForDisplayFn =
       activityTypesObj[activityType].dashboards[dashboard].prepareDisplay;
-    const newState = func
-      ? func(cloneDeep(DashboardStates[dashId]))
+    const newState = prepareDataForDisplayFn
+      ? prepareDataForDisplayFn(cloneDeep(DashboardStates[dashId]))
       : DashboardStates[dashId];
     this.added('dashboard', dashId, newState);
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
-      interval[dashId] = setInterval(() => update(this, dashId, func), 1000);
+      interval[dashId] = setInterval(
+        () => updateAndSend(this, dashId, prepareDataForDisplayFn),
+        1000
+      );
     }
     this.ready();
     this.onStop(() => {

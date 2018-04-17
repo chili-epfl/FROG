@@ -3,6 +3,7 @@
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { isEmpty } from 'lodash';
+import { type LogDBT } from 'frog-utils';
 
 const fontSizeMapper = (itMax, word) => 10 + word.value * 150 / Number(itMax);
 
@@ -28,7 +29,7 @@ const prepareDisplay = (state: Object) => {
   return { iMax, data };
 };
 
-const mergeLog = (state: Object, log: Object) => {
+const mergeLog = (state: Object, log: LogDBT) => {
   const tmp = log && log.value;
   if (tmp)
     tmp

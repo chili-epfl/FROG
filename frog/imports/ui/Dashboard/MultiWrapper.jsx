@@ -90,20 +90,25 @@ DashboardSelector.displayName = 'DashboardSelector';
 
 const MultiWrapper = (props: {
   activity: ActivityDBT,
-  docs: Object,
   names?: string[],
-  children?: Function
+  children?: Function,
+  users: Object,
+  instances: any
 }) => {
-  const { activity, docs, names, children } = props;
+  const { activity, names, children, users, instances } = props;
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboards);
   return (
     <DashboardSelector dashNames={dashNames} onChange={() => {}}>
       {children ||
-        (which => {
-          const [doc] = (docs && docs[dashNames[which]]) || [];
-          return <DashboardComp {...props} name={dashNames[which]} doc={doc} />;
-        })}
+        (which => (
+          <DashboardComp
+            {...props}
+            name={dashNames[which]}
+            users={users}
+            instances={instances}
+          />
+        ))}
     </DashboardSelector>
   );
 };

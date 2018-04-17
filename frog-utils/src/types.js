@@ -131,7 +131,7 @@ export type ActivityPackageT = {
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: React$Component<ActivityRunnerT>,
-  dashboard?: { [name: string]: dashboardT },
+  dashboards?: { [name: string]: dashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
   ConfigComponent?: React$Component<{
@@ -143,7 +143,7 @@ export type ActivityPackageT = {
 export type dashboardT = {
   Viewer: ReactComponent<dashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
-
+  prepareDataForDisplay: (state: any, activity: ActivityDbT) => any,
   exampleLogs?: { title: string, path: string }[],
   exampleData?: { title: string, path: string }[],
   initData: any
@@ -153,8 +153,7 @@ export type dashboardViewerPropsT = {
   users: Array<Object>,
   activity: ActivityDbT,
   instances: Array<string>,
-  state: any,
-  config: Object
+  state: any
 };
 
 export type productOperatorT = {

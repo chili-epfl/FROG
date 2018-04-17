@@ -55,10 +55,10 @@ export class DashboardComp extends React.Component<
   render() {
     const aT = activityTypesObj[this.props.activity.activityType];
     const { users, activity, instances, name } = this.props;
-    if (!aT.dashboard || !aT.dashboard[name] || !aT.dashboard[name].Viewer) {
+    if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
       return <p>The selected activity has no dashboard</p>;
     }
-    const Dash = aT.dashboard[name].Viewer;
+    const Dash = aT.dashboards[name].Viewer;
     const DashWith = withTracker(() => ({
       state: Dashboard.findOne(this.props.activity._id + '-' + this.props.name)
     }))(
