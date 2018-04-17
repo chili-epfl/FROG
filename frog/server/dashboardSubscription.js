@@ -44,15 +44,15 @@ export default () => {
     }
     set(subscriptions, [dashId, id], this);
     const aTDash = aT.dashboards[dashboard];
-    const prepareDataForDisplayFn = aTDash.prepareDataForDisplay || (x => x);
+    const prepDataForDisplayFn = aTDash.prepareDataForDisplay || ((x, _) => x);
     const dashState = cloneDeep(DashboardStates[dashId]);
-    const newState = prepareDataForDisplayFn(dashState, act);
+    const newState = prepDataForDisplayFn(dashState, act);
     this.added('dashboard', dashId, newState);
     oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
       interval[dashId] = setInterval(
-        () => updateAndSend(dashId, prepareDataForDisplayFn, act),
+        () => updateAndSend(dashId, prepDataForDisplayFn, act),
         1000
       );
     }
