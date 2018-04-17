@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
+import { omit } from 'lodash';
 
 import { type ActivityDbT } from 'frog-utils';
 
@@ -17,7 +18,6 @@ import MultiWrapper from './MultiWrapper';
 const Dashboard = new Mongo.Collection('dashboard');
 
 type DashboardCompPropsT = {
-  doc?: any,
   activity: ActivityDbT,
   users: { [string | number]: string },
   instances: Array<string | number>,
@@ -28,7 +28,6 @@ export class DashboardComp extends React.Component<
   DashboardCompPropsT,
   { ready: boolean }
 > {
-  doc: any;
   mounted: boolean;
   subscription: any;
 
@@ -63,7 +62,7 @@ export class DashboardComp extends React.Component<
       state: Dashboard.findOne(this.props.activity._id + '-' + this.props.name)
     }))(
       ({ state, ...props }) =>
-        state ? <Dash state={state} {...props} /> : <Spinner />
+        state ? <Dash state={omit(state, '_id')} {...props} /> : <Spinner />
     );
     DashWith.displayName = 'DashWith';
 

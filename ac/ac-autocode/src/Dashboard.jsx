@@ -14,9 +14,10 @@ import {
 
 const Viewer = (props: Object) => {
   // props = {users, instances, data, config}
+  const config = props.activity.data;
   const testsData = value =>
-    props.config.tests &&
-    props.config.tests.map((test, index) => ({
+    config.tests &&
+    config.tests.map((test, index) => ({
       x: 'test ' + index,
       y: props.state.tests[index] ? props.state.tests[index][value] : 0
     }));
@@ -37,7 +38,7 @@ const Viewer = (props: Object) => {
   const red1 = '#ff0000';
   const red2 = '#660000';
 
-  const displayTestChart = props.config.tests && props.config.tests.length > 0;
+  const displayTestChart = config.tests && config.tests.length > 0;
 
   return (
     <div
@@ -46,7 +47,7 @@ const Viewer = (props: Object) => {
         overflow: 'scroll'
       }}
     >
-      <h1>Dashboard for activity: {props.config.title}</h1>
+      <h1>Dashboard for activity: {config.title}</h1>
       <p>
         {Object.keys(props.users).length} students have registered to this
         activity
@@ -60,7 +61,7 @@ const Viewer = (props: Object) => {
         <div>
           <VictoryChart
             domain={{
-              x: [0, props.config.tests.length],
+              x: [0, config.tests.length],
               y: [0, Object.keys(props.state.students).length + 1]
             }}
             domainPadding={20}
@@ -80,7 +81,7 @@ const Viewer = (props: Object) => {
               ]}
             />
             <VictoryAxis
-              tickFormat={props.config.tests.map(
+              tickFormat={config.tests.map(
                 (val, index) => 'Test ' + (index + 1)
               )}
             />

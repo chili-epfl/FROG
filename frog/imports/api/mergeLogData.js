@@ -10,9 +10,6 @@ import { DashboardStates } from './cache';
 import { Activities, DashboardData } from './activities.js';
 
 const activityCache = {};
-if (typeof window !== 'undefined') {
-  window.D = DashboardStates;
-}
 
 export const createDashboards = (
   activity: ActivityDBT,
@@ -40,7 +37,7 @@ export const initializeDashboardState = (
 };
 
 export const regenerateState = (
-  activityType: string,
+  activityType: ActivityPackageT,
   activityId: string,
   name: string
 ) => {
@@ -48,8 +45,7 @@ export const regenerateState = (
   if (!DashboardStates[dashId]) {
     initializeDashboardState(activityType, activityId, name);
     const logs = Logs.find({ activityId }).fetch();
-    const aT = activityTypesObj[activityType];
-    const mergeLogFn = aT.dashboards[name].mergeLog;
+    const mergeLogFn = activityType.dashboards[name].mergeLog;
     if (!activityCache[activityId]) {
       activityCache[activityId] = Activities.findOne(activityId);
     }
@@ -81,7 +77,7 @@ export const mergeLog = (
             const mergeLogFn = aT.dashboards[name].mergeLog;
             if (mergeLogFn) {
               if (!DashboardStates[log.activityId + '-' + name]) {
-                regenerateState(activity.activityType, log.activityId, name);
+                regenerateState(aT, log.activityId, name);
               }
               mergeLogFn(
                 DashboardStates[log.activityId + '-' + name],

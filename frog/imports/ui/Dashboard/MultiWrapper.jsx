@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { type ActivityDBT } from 'frog-utils';
-import { isEqual } from 'lodash';
+import { isEqual, isEmpty } from 'lodash';
 
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -97,14 +97,19 @@ const MultiWrapper = (props: {
 }) => {
   const { activity, names, children, users, instances } = props;
   const aT = activityTypesObj[activity.activityType];
-  const dashNames = names || Object.keys(aT.dashboards);
+  const dashNames = names || Object.keys(aT.dashboards || {});
+  if (isEmpty(dashNames)) {
+    return null;
+  }
+
   return (
     <DashboardSelector dashNames={dashNames} onChange={() => {}}>
       {children ||
         (which => (
           <DashboardComp
             {...props}
-            name={dashNames[which]}
+            name={which}
+            key={which + activity._id}
             users={users}
             instances={instances}
           />

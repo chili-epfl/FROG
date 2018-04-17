@@ -1,8 +1,8 @@
 import React from 'react';
 import { omit, sum, compact, get } from 'lodash';
 
-const Viewer = ({ data }: { data: Object }) => {
-  const d = omit(data, 'students');
+const Viewer = ({ state }: { state: Object }) => {
+  const d = omit(state, 'students');
   return (
     <div>
       <h1>Engagement</h1>
@@ -27,42 +27,41 @@ const Viewer = ({ data }: { data: Object }) => {
       })}
       <hr />
       <p>
-        Total students who have interacted: {Object.keys(data.students).length}
+        Total students who have interacted: {Object.keys(state.students).length}
       </p>
     </div>
   );
 };
 
-const mergeLog = (data: any, dataFn: Object, rawlog: LogDBT) => {
+const mergeLog = (state: any, rawlog: LogDBT) => {
   if (!rawlog.payload) {
     return null;
   }
   const log = JSON.parse(rawlog.payload.msg);
-  if (!data.students[rawlog.userId]) {
-    dataFn.objInsert(true, ['students', rawlog.userId]);
+  if (!state.students[rawlog.userId]) {
+    state.students[rawlog.userId] = true;
   }
   if (log.verb && log.verb.id === 'http://adlnet.gov/expapi/verbs/answered') {
     const id = log.object.id || 'id';
-    if (!data[id]) {
-      dataFn.objInsert(
-        {
-          name:
-            get(log, 'object.definition.name["en-US"]') ||
-            get(log, 'object.definition.description["en-US"]') ||
-            '',
-          students: {}
-        },
-        id
-      );
+    if (!state[id]) {
+      state[id] = {
+        name:
+          get(log, 'object.definition.name["en-US"]') ||
+          get(log, 'object.definition.description["en-US"]') ||
+          '',
+        students: {}
+      };
     }
-    dataFn.objInsert(log.result, [id, 'students', rawlog.userId]);
+    state[id].students[rawlog.userId] = log.result;
   }
 };
 
 const initData = { students: {} };
 
 export default {
-  Viewer,
-  mergeLog,
-  initData
+  dashboard: {
+    Viewer,
+    mergeLog,
+    initData
+  }
 };

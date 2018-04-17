@@ -36,7 +36,7 @@ export default () => {
         this.ready();
         return;
       } else {
-        regenerateState(activityType, activityId, dashboard);
+        regenerateState(activityTypesObj[activityType], activityId, dashboard);
       }
     }
     set(subscriptions, [dashId, id], true);
