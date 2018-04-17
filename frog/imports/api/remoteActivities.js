@@ -1,19 +1,36 @@
 import { uuid } from 'frog-utils';
 import { Activities, addActivity } from '/imports/api/activities';
+import { LibraryStates } from './cache';
 
 const RemoteServer =
   Meteor.settings.public.remoteServer ||
   'http://icchilisrv4.epfl.ch:5000/activities';
 
-export const removeActivity = (id: string) =>
+export const removeActivity = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {
     method: 'DELETE'
-  });
+  }).then(() => collectActivities(callback));
+};
 
-export const collectActivities = () =>
-  fetch(
-    RemoteServer + '?select=uuid,title,description,tags,activity_type'
-  ).then(e => e.json());
+export const refreshActDate = () => (LibraryStates.lastRefreshAct = new Date());
+
+export const collectActivities = (callback: ?Function) =>
+  fetch(RemoteServer + '?select=uuid,title,description,tags,activity_type')
+    .then(e => e.json())
+    .then(r => {
+      LibraryStates.activityList = r;
+      refreshActDate();
+      if (callback) callback();
+    });
+
+export const checkDateAct = (callback: ?Function) => {
+  if (
+    !LibraryStates.lastRefreshAct ||
+    new Date() - LibraryStates.lastRefreshAct > 60000
+  ) {
+    collectActivities(callback);
+  }
+};
 
 export const sendActivity = (state: Object, props: Object) => {
   const newId = uuid();
@@ -36,12 +53,18 @@ export const sendActivity = (state: Object, props: Object) => {
   Activities.update(props.activity._id, {
     $set: { parentId: newId }
   });
+  LibraryStates.activityList.push({
+    uuid: newId,
+    title: state.title,
+    description: state.description,
+    tags: state.tags
+  });
 };
 
 export const importAct = (id, activityId) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
-    .then(e =>
-      addActivity(e[0].activity_type, e[0].config, activityId, null, id)
-    );
+    .then(e => {
+      addActivity(e[0].activity_type, e[0].config, activityId, null, id);
+    });
 };

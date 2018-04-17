@@ -8,18 +8,10 @@ import OperatorPanel from './OperatorPanel';
 
 export default connect(
   ({
-    setDelete,
-    setIdRemove,
-    importActivityList,
-    setImportActivityList,
-    lastRefreshAct,
-    refreshActDate,
-    madeChanges,
-    locallyChanged,
-    changesLoaded,
     store: {
       ui: { selected, sidepanelOpen }
-    }
+    },
+    ...rest
   }) => {
     if (!sidepanelOpen) {
       return null;
@@ -27,20 +19,7 @@ export default connect(
     if (selected && selected.klass === 'activity') {
       return (
         <SidebarContainer>
-          <ActivityPanel
-            {...{
-              setDelete,
-              setIdRemove,
-              importActivityList,
-              setImportActivityList,
-              lastRefreshAct,
-              refreshActDate,
-              madeChanges,
-              locallyChanged,
-              changesLoaded
-            }}
-            id={selected.id}
-          />
+          <ActivityPanel {...rest} id={selected.id} />
         </SidebarContainer>
       );
     } else if (selected && selected.klass === 'operator') {

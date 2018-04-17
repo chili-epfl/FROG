@@ -24,10 +24,6 @@ type PropsT = {
   activity: ActivityDbT,
   setDelete?: Function,
   setIdRemove?: Function,
-  importActivityList?: Array<Object>,
-  setImportActivityList?: Function,
-  lastRefreshAct?: Number,
-  refreshActDate?: Function,
   onlyHasPreview?: boolean,
   locallyChanged?: boolean,
   changesLoaded?: Function
@@ -87,7 +83,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
 
-    console.log(this.props)
     return (
       <div
         style={{
@@ -136,13 +131,9 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             <Library
               {...closeLibrary}
               libraryType="activity"
-              importActivityList={this.props.importActivityList}
-              setImportActivityList={this.props.setImportActivityList}
               setDelete={this.props.setDelete}
               setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
-              lastRefreshAct={this.props.lastRefreshAct}
-              refreshActDate={this.props.refreshActDate}
               store={this.props.store}
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}

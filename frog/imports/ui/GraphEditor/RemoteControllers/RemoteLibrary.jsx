@@ -1,8 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 
-import { importGraph, collectGraphs } from '/imports/api/remoteGraphs';
-import { collectActivities, importAct } from '/imports/api/remoteActivities';
+import { LibraryStates } from '/imports/api/cache';
+import {
+  importGraph,
+  collectGraphs,
+  checkDateGraph
+} from '/imports/api/remoteGraphs';
+import {
+  collectActivities,
+  importAct,
+  checkDateAct
+} from '/imports/api/remoteActivities';
 import LibraryListComponent from './LibraryListComponent';
 
 const filterWithStr = (list: Array<any>, searchStr: string) =>
@@ -25,19 +34,12 @@ class Library extends Component<Object, { searchStr: string }> {
   }
 
   componentWillMount() {
-    if (
-      this.props.libraryType === 'activity' &&
-      new Date() - this.props.lastRefreshAct > 600000
-    )
-      collectActivities().then(this.props.setImportActivityList);
-    else if (
-      this.props.libraryType === 'graph' &&
-      new Date() - this.props.lastRefreshGraph > 600000
-    )
-      collectGraphs().then(this.props.setImportGraphList);
+    if (this.props.libraryType === 'activity')
+      checkDateAct(() => this.forceUpdate());
+    else if (this.props.libraryType === 'graph')
+      checkDateGraph(() => this.forceUpdate());
     else if (this.props.locallyChanged) {
-      collectActivities().then(this.props.setImportActivityList);
-      collectGraphs().then(this.props.setImportGraphList);
+      collectActivities(() => collectGraphs(() => this.forceUpdate()));
       this.props.changesLoaded();
     }
   }
@@ -52,18 +54,13 @@ class Library extends Component<Object, { searchStr: string }> {
     } = this.props;
     const list =
       libraryType === 'activity'
-        ? this.props.importActivityList
-        : this.props.importGraphList;
+        ? LibraryStates.activityList
+        : LibraryStates.graphList;
     const filtered = filterWithStr(list, this.state.searchStr.toLowerCase());
-
     const onClick = () => {
-      if (this.props.libraryType === 'activity')
-        collectActivities().then(this.props.setImportActivityList);
-      else if (this.props.libraryType === 'graph')
-        this.props.setImportGraphList([]);
-      collectGraphs().then(this.props.setImportGraphList);
+      if (this.props.libraryType === 'activity') collectActivities();
+      else if (this.props.libraryType === 'graph') collectGraphs();
     };
-
     return (
       <div className="bootstrap">
         <div style={{ display: 'flex', flexDirection: 'row' }}>
