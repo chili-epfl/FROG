@@ -22,13 +22,7 @@ const styles = {
   }
 };
 
-let interfaces;
-
-if (testing) {
-  interfaces = ['start', ...shuffle(['command'])];
-} else {
-  interfaces = ['start', ...shuffle(['graphical', 'command', 'form'])];
-}
+// console.log(interfaces);
 
 const ActivityEnded = () => (
   <div
@@ -51,35 +45,41 @@ const ActivityEnded = () => (
   </div>
 );
 
-const Main = props => {
-  const start = () => {
-    const { dataFn } = props;
+class Main extends React.Component {
+  start = () => {
+    const { dataFn } = this.props;
     dataFn.objInsert(false, 'guidelines');
   };
 
-  const beginActivity = () => {
-    const { dataFn } = props;
+  beginActivity = () => {
+    const { dataFn } = this.props;
     dataFn.numIncr(1, 'step');
   };
 
-  const { step, guidelines } = props.data;
-
-  if (step < 5 && guidelines) {
-    return (
-      <SpecificGuideline
-        activity={interfaces[step]}
-        start={step === 0 ? beginActivity : start}
-        step={step}
-      />
-    );
+  componentWillMount() {
+    this.interfaces = ['start', ...shuffle(['graphical', 'command', 'form'])];
   }
 
-  if (step < 5) {
-    return <Interface activity={interfaces[step]} {...props} />;
-  } else {
-    return <ActivityEnded />;
+  render() {
+    const { step, guidelines } = this.props.data;
+
+    if (step < 5 && guidelines) {
+      return (
+        <SpecificGuideline
+          activity={this.interfaces[step]}
+          start={step === 0 ? this.beginActivity : this.start}
+          step={step}
+        />
+      );
+    }
+
+    if (step < 5) {
+      return <Interface activity={this.interfaces[step]} {...this.props} />;
+    } else {
+      return <ActivityEnded />;
+    }
   }
-};
+}
 
 // the actual component that the student sees
 const RunnerController = (props: ActivityRunnerT) => {

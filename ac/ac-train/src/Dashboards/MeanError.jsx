@@ -42,10 +42,6 @@ const MeanError = props => {
       <VictoryChart theme={VictoryTheme.material} domainPadding={{ y: 15 }}>
         <VictoryLine
           domain={{ x: [0, 20], y: [0, 1] }}
-          animate={{
-            duration: 2000,
-            onLoad: { duration: 1000 }
-          }}
           style={{
             data: { stroke: 'blue' },
             parent: { border: '1px solid #ccc' }

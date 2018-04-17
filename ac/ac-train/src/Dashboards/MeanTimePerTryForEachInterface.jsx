@@ -31,27 +31,25 @@ const MeanTimePerTryForEachInterface = props => {
   const interfaces = Object.keys(count);
 
   const data = interfaces.map(int => {
-    const coordinates = [];
-
-    for (let i = 0; i < 5; i += 1) {
-      coordinates.push({
-        x: i,
-        y: meanTime(time[int][i], count[int][i]),
-        fill: whatColor(int)
-      });
-    }
-
-    const specificCharcData = {
-      name: int,
-      coordinates
-    };
-    return specificCharcData;
+    // const coordinates = [];
+    // for (let i = 0; i < 5; i += 1) {
+    //   coordinates.push({
+    //     x: i,
+    //     y: meanTime(time[int][i], count[int][i]),
+    //     fill: whatColor(int)
+    //   });
+    // }
+    // const specificCharcData = {
+    //   name: int,
+    //   coordinates
+    // };
+    // return specificCharcData;
   });
 
   return interfaces.length > 0 ? (
     <React.Fragment>
       <div>Mean Time Per Try For Each Interface</div>
-      <VictoryChart theme={VictoryTheme.material}>
+      {/* <VictoryChart theme={VictoryTheme.material}>
         <VictoryLegend
           x={125}
           y={50}
@@ -79,7 +77,7 @@ const MeanTimePerTryForEachInterface = props => {
             data={int.coordinates}
           />
         ))}
-      </VictoryChart>
+      </VictoryChart> */}
     </React.Fragment>
   ) : (
     <p>No data currently</p>

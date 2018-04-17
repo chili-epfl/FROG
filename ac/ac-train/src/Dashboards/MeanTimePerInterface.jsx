@@ -31,48 +31,60 @@ const meanTime = (time, count) =>
 const MeanTimePerInterface = props => {
   const { time, count } = props.data;
 
-  const interfaces = Object.keys(count);
-  let max = 0;
+  const allInterfaces = ['dragdrop', 'form', 'graphical', 'command'];
 
-  const data = interfaces.map((int, index) => {
+  const interfaces = Object.keys(count);
+
+  console.log(interfaces);
+
+  const data = interfaces.map(int => {
     let timeSum = 0;
     let countSum = 0;
 
-    for (let i = 0; i < 5; i += 1) {
-      timeSum += time[int][i];
-      countSum += count[int][i];
-    }
+    console.log(int);
+    // for (let i = 0; i < 5; i += 1) {
+    //   timeSum += time[int][i];
+    //   countSum += count[int][i];
+    // }
 
-    const avg = meanTime(timeSum, countSum);
+    // const avg = meanTime(timeSum, countSum);
 
-    max = Math.max(max, avg);
+    // const index = allInterfaces.indexOf(int) + 1;
 
-    return {
-      activity: int,
-      mean: avg,
-      label: `${int}-> ${avg} sec`
-    };
+    // return {
+    //   activity: index,
+    //   name: int,
+    //   mean: avg,
+    //   label: `${int}-> ${avg} sec`
+    // };
   });
+
+  // console.log(data);
 
   return interfaces.length > 0 ? (
     <React.Fragment>
       <div>Mean Time per interface</div>
-      <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
-        <VictoryAxis />
+      {/* <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
         <VictoryAxis
-          tickValues={[1, 2, 3, 4]}
           dependentAxis
-          tickFormat={['command', 'dragdrop', 'form', 'graphic']}
+          domain={[0, 4]}
+          tickValues={[1, 2, 3, 4]}
+          tickFormat={allInterfaces}
         />
+        <VictoryAxis />
         <VictoryBar
           horizontal
-          style={{ data: { fill: 'red' } }}
+          style={{
+            data: {
+              fill: d => whatColor(d.name)
+            }
+          }}
           data={data}
           x="activity"
           y="mean"
           labelComponent={<VictoryTooltip />}
         />
-      </VictoryChart>
+      </VictoryChart> */}
     </React.Fragment>
   ) : (
     <p>No data currently</p>

@@ -50,22 +50,13 @@ export function generateTicket() {
   const randomFrom = sample(CITIES);
   const randomTo = sample(CITIES.filter(city => city !== randomFrom));
 
-  // return {
-  //   from: randomFrom,
-  //   to: randomTo,
-  //   travel: sample(TRAVELDIRECTION),
-  //   class: sample(CLASS),
-  //   bike: sample(WANTBIKE),
-  //   fare: sample(FARES)
-  // };
-
   return {
-    from: 'geneva',
-    to: 'lausanne',
-    travel: 'return',
-    class: '1st',
-    bike: 'no',
-    fare: 'standard'
+    from: randomFrom,
+    to: randomTo,
+    travel: sample(TRAVELDIRECTION),
+    class: sample(CLASS),
+    bike: sample(WANTBIKE),
+    fare: sample(FARES)
   };
 }
 

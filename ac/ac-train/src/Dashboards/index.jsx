@@ -68,13 +68,25 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
 
     const iteration = instance % 5;
 
-    Object.keys(data)
-      .filter(d => d !== 'help' && d !== 'sum')
-      .forEach(d => {
-        if (!data[d][activity]) {
-          dataFn.objInsert({ [activity]: times(5, constant(0)) }, [d]);
-        }
-      });
+    if (!data['error'][activity]) {
+      dataFn.objInsert(
+        { [activity]: times(5, constant(0)), ...data['error'] },
+        ['error']
+      );
+    }
+
+    if (!data['count'][activity]) {
+      dataFn.objInsert(
+        { [activity]: times(5, constant(0)), ...data['count'] },
+        ['count']
+      );
+    }
+
+    if (!data['time'][activity]) {
+      dataFn.objInsert({ [activity]: times(5, constant(0)), ...data['time'] }, [
+        'time'
+      ]);
+    }
 
     if (!isCorrect) {
       dataFn.numIncr(1, ['error', activity, iteration]);
@@ -86,6 +98,8 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
 
     dataFn.numIncr(timeTaken / 1000, ['time', activity, iteration]);
     dataFn.numIncr(timeTaken / 1000, ['sum', 'time', instance]);
+
+    console.log('DATA', data);
   }
 
   if (log.type === 'help' && log.payload) {

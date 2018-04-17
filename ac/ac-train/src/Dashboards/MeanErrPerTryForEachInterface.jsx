@@ -23,12 +23,11 @@ const whatColor = color => {
   }
 };
 
-const meanError = (wrong, count) =>
-  Number.isFinite(wrong / count) ? wrong / count : 0;
+const meanError = (error, count) =>
+  Number.isFinite(error / count) ? error / count : 0;
 
 const MeanErrPerTryForEachInterface = props => {
   const { error, count } = props.data;
-
   const interfaces = Object.keys(count);
 
   const data = interfaces.map(int => {
@@ -51,7 +50,7 @@ const MeanErrPerTryForEachInterface = props => {
 
   return interfaces.length > 0 ? (
     <React.Fragment>
-      <div>Mean error per try for each interface</div>
+      <div>Mean Error Per Try For Each Interface</div>
       <VictoryChart theme={VictoryTheme.material}>
         <VictoryLegend
           x={125}

@@ -91,21 +91,21 @@ class Interface extends React.Component {
   };
 
   nextInstance = () => {
+    const { dataFn } = this.props;
+    dataFn.numIncr(1, 'instance');
+
     const {
-      dataFn,
       data: { instance }
     } = this.props;
 
     console.log(instance);
 
-    if (instance !== 0 && instance % 4 === 0) {
+    if (instance % 5 === 0) {
       dataFn.numIncr(1, 'step');
       dataFn.objInsert(true, 'guidelines');
     } else {
       this.reset();
     }
-
-    dataFn.numIncr(1, 'instance');
   };
 
   checkAnswer = answer => {
@@ -116,9 +116,9 @@ class Interface extends React.Component {
     } = this.props;
 
     const { question, start } = this.state;
-    // console.log(this.state.ticket);
-    // console.log(answer);
     const isCorrect = isEqual(question, answer);
+
+    console.log(isCorrect);
 
     logger([
       {
@@ -133,9 +133,7 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    if (true) {
-      this.setState({ interval: true, isCorrect });
-    }
+    this.setState({ interval: true, isCorrect });
   };
 
   componentDidMount() {
