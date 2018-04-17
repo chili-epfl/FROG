@@ -1,0 +1,20 @@
+{
+  "name": "ac-prez",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "nps"
+  },
+  "dependencies": {
+    "frog-utils": "^1.0.0",
+    "pdf-annotate": "0.0.0",
+    "pdfjs-dist": "^2.0.419",
+    "react": "^16.2.0",
+    "react-d3-cloud": "^0.6.0",
+    "react-dom": "^16.2.0",
+    "react-pdf-js": "^3.0.7"
+  },
+  "devDependencies": {
+    "nps": "5.7.1"
+  }
+}
