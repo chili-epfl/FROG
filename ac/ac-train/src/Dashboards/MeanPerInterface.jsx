@@ -1,25 +1,25 @@
+// @flow
+
 import * as React from 'react';
 
 import {
   VictoryChart,
   VictoryBar,
-  VictoryLegend,
   VictoryTheme,
-  VictoryLabel,
   VictoryTooltip,
   VictoryAxis
 } from 'victory';
 
-const whatColor = color => {
-  switch (color) {
+const color = (c: string) => {
+  switch (c) {
     case 'graphical':
-      return 'green';
+      return '#96E283';
     case 'command':
-      return 'blue';
+      return '#E2E062';
     case 'form':
-      return 'red';
+      return '#8BB0DD';
     case 'dragdrop':
-      return 'orange';
+      return '#C192C4';
     default:
       break;
   }
@@ -30,33 +30,52 @@ const div = (x, y) => (Number.isFinite(x / y) ? x / y : 0);
 const MeanPerInterface = props => {
   const { whichDash, data } = props;
 
-  const count = data['sum']['count'];
-  const dash = data['sum'][whichDash];
+  const count = data['count'];
+  const dash = data[whichDash];
 
-  const interfaces = Object.key(dash);
+  const interfaces = Object.keys(dash);
 
   if (interfaces.length > 0) {
     const allInterfaces = ['dragdrop', 'form', 'graphical', 'command'];
 
     const coordinates = interfaces.map(int => {
-      let dashSum = 0;
-      let countSum = 0;
+      if (whichDash === 'help') {
+        let countSum = 0;
 
-      for (let i = 0; i < 5; i += 1) {
-        dashSum += dash[int][i];
-        countSum += count[int][i];
+        for (let i = 0; i < 5; i += 1) {
+          countSum += count[int][i];
+        }
+
+        const avg = div(dash[int], countSum);
+        const index = allInterfaces.indexOf(int) + 1;
+
+        return {
+          interface: index,
+          avg,
+          name: int
+        };
+      } else {
+        let dashSum = 0;
+        let countSum = 0;
+
+        for (let i = 0; i < 5; i += 1) {
+          dashSum += dash[int][i];
+          countSum += count[int][i];
+        }
+
+        const avg = div(dashSum, countSum);
+        const index = allInterfaces.indexOf(int) + 1;
+
+        return {
+          interface: index,
+          avg,
+          name: int,
+          label: `${int}-> ${avg} sec`
+        };
       }
-      const avg = div(dashSum, countSum);
-
-      const index = allInterfaces.indexOf(int) + 1;
-
-      return {
-        activity: index,
-        name: int,
-        mean: avg,
-        label: `${int}-> ${avg} sec`
-      };
     });
+
+    const xDomain = whichDash === 'error' ? [0, 1] : null;
 
     return (
       <React.Fragment>
@@ -64,21 +83,20 @@ const MeanPerInterface = props => {
         <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
           <VictoryAxis
             dependentAxis
-            domain={[0, 4]}
             tickValues={[1, 2, 3, 4]}
             tickFormat={allInterfaces}
           />
-          <VictoryAxis />
+          <VictoryAxis domain={xDomain} />
           <VictoryBar
             horizontal
             style={{
               data: {
-                fill: d => whatColor(d.name)
+                fill: d => color(d.name)
               }
             }}
             data={coordinates}
-            x="activity"
-            y="mean"
+            x="interface"
+            y="avg"
             labelComponent={<VictoryTooltip />}
           />
         </VictoryChart>

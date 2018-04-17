@@ -41,7 +41,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
           <MeanPerInterface {...props} whichDash="error" />
         </Grid>
         <Grid item xs={6}>
-          <MeanHelpPerInterface {...props} />
+          <MeanPerInterface {...props} whichDash="help" />
         </Grid>
       </Grid>
     </React.Fragment>
@@ -102,7 +102,7 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
     const { activity } = log.payload;
 
     if (!data['help'][activity]) {
-      dataFn.objInsert({ [activity]: 0 }, ['help']);
+      dataFn.objInsert(0, ['help', activity]);
     }
 
     dataFn.numIncr(1, ['help', activity]);
