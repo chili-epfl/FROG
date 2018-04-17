@@ -129,22 +129,17 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
     const completeIncr = log.value === 1 && log.value > prevProgress ? 1 : 0;
 
     state.progress[log.instanceId] = log.value;
-    // dataFn.objInsert(log.value, ['progress', log.instanceId]);
 
-    // $FlowFixMe
     const timeDiff =
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
     if (timeWindow !== lastTimingItem[0]) {
       const newItem = [timeWindow, lastTimingItem[1], lastTimingItem[2]];
       state.timing.push(newItem);
-      // dataFn.listAppend(newItem, ['timing']);
       lastIndex += 1;
     }
     state.timing[lastIndex][1] += progressIncr;
     state.timing[lastIndex][2] += completeIncr;
-    // dataFn.numIncr(progressIncr, ['timing', lastIndex, 1]);
-    // dataFn.numIncr(completeIncr, ['timing', lastIndex, 2]);
   }
 };
 
