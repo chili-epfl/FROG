@@ -4,7 +4,7 @@ import { type dataUnitStructT, type ActivityPackageT } from 'frog-utils';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
-import Dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 const listItems = [
   { id: '1', score: 0, title: 'AirBnB', content: 'Uber for hotels' },
@@ -53,9 +53,9 @@ export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
   ActivityRunner,
-  Dashboard,
+  dashboards,
   config,
   meta,
-  dataStructure,
-  mergeFunction
+  mergeFunction,
+  dataStructure
 }: ActivityPackageT);

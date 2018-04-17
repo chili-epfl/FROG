@@ -4,7 +4,7 @@ import { type ActivityPackageT, uuid } from 'frog-utils';
 import { compact, isEmpty } from 'lodash';
 
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 import { meta } from './meta';
 import { config, configUI } from './config';
 
@@ -80,6 +80,6 @@ export default ({
   dataStructure,
   mergeFunction,
   ActivityRunner,
-  dashboard,
+  dashboards,
   exportData
 }: ActivityPackageT);

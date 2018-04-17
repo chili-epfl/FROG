@@ -14,17 +14,18 @@ import {
 
 const Viewer = (props: Object) => {
   // props = {users, instances, data, config}
+  const config = props.activity.data;
   const testsData = value =>
-    props.config.tests &&
-    props.config.tests.map((test, index) => ({
+    config.tests &&
+    config.tests.map((test, index) => ({
       x: 'test ' + index,
-      y: props.data.tests[index] ? props.data.tests[index][value] : 0
+      y: props.state.tests[index] ? props.state.tests[index][value] : 0
     }));
 
   const runData = () => {
     // props.instances is an array ex: ["hmASM6jiz7vRoEvoh","LhqDCQgqh3N733SXE"]
     const o = props.instances.reduce((acc, instanceId) => {
-      const userData = props.data.students[instanceId];
+      const userData = props.state.students[instanceId];
       const count = userData ? userData.debugCount : 0;
       acc[count] = 1 + (acc[count] ? acc[count] : 0);
       return acc;
@@ -37,7 +38,7 @@ const Viewer = (props: Object) => {
   const red1 = '#ff0000';
   const red2 = '#660000';
 
-  const displayTestChart = props.config.tests && props.config.tests.length > 0;
+  const displayTestChart = config.tests && config.tests.length > 0;
 
   return (
     <div
@@ -46,22 +47,22 @@ const Viewer = (props: Object) => {
         overflow: 'scroll'
       }}
     >
-      <h1>Dashboard for activity: {props.config.title}</h1>
+      <h1>Dashboard for activity: {config.title}</h1>
       <p>
         {Object.keys(props.users).length} students have registered to this
         activity
       </p>
       <p>
         There are {Object.keys(props.instances).length} instance(s) of students
-        and {Object.keys(props.data.students).length} of them have started
+        and {Object.keys(props.state.students).length} of them have started
         running tests
       </p>
       {displayTestChart && (
         <div>
           <VictoryChart
             domain={{
-              x: [0, props.config.tests.length],
-              y: [0, Object.keys(props.data.students).length + 1]
+              x: [0, config.tests.length],
+              y: [0, Object.keys(props.state.students).length + 1]
             }}
             domainPadding={20}
           >
@@ -80,7 +81,7 @@ const Viewer = (props: Object) => {
               ]}
             />
             <VictoryAxis
-              tickFormat={props.config.tests.map(
+              tickFormat={config.tests.map(
                 (val, index) => 'Test ' + (index + 1)
               )}
             />
@@ -114,42 +115,36 @@ const Viewer = (props: Object) => {
   );
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDBT) => {
   let previousStatus = '';
-  if (data.students[log.instanceId]) {
+  if (state.students[log.instanceId]) {
     // student already seen
-    if (data.students[log.instanceId][log.itemId]) {
+    if (state.students[log.instanceId][log.itemId]) {
       // student already submitted for this test (or debug) once
-      previousStatus = data.students[log.instanceId][log.itemId];
+      previousStatus = state.students[log.instanceId][log.itemId];
     }
-    dataFn.objInsert(log.value, ['students', log.instanceId, log.itemId]);
+    state.students[log.instanceId][log.itemId] = log.value;
   } else if (log.itemId !== undefined) {
     // first time that student is seen
-    dataFn.objInsert({ [log.itemId]: log.value, debugCount: 0 }, [
-      'students',
-      log.instanceId
-    ]);
+    state.students[log.instanceId] = { [log.itemId]: log.value, debugCount: 0 };
   }
 
   if (log.itemId === -1) {
-    dataFn.numIncr(1, ['students', log.instanceId, 'debugCount']);
+    state.students[log.instanceId].debugCount += 1;
   }
 
   if (log.type === 'test') {
-    if (data.tests[log.itemId]) {
-      dataFn.numIncr(1, ['tests', log.itemId, log.value]);
+    if (state.tests[log.itemId]) {
+      state.tests[log.itemId][log.value] += 1;
       if (previousStatus) {
-        dataFn.numIncr(-1, ['tests', log.itemId, previousStatus]);
+        state.tests[log.itemId][previousStatus] -= 1;
       }
     } else {
-      dataFn.objInsert(
-        {
-          success: log.value === 'success' ? 1 : 0,
-          danger: log.value === 'danger' ? 1 : 0,
-          error: log.value === 'error' ? 1 : 0
-        },
-        ['tests', log.itemId]
-      );
+      state.tests[log.itemId] = {
+        success: log.value === 'success' ? 1 : 0,
+        danger: log.value === 'danger' ? 1 : 0,
+        error: log.value === 'error' ? 1 : 0
+      };
     }
   }
 };

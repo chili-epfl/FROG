@@ -4,7 +4,7 @@ import * as React from 'react';
 import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
 import { H5PIframePrepare } from '/imports/ui/App/h5p';
 import ConfigComponent from './ConfigComponent';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 export const meta = {
   name: 'H5P activity',
@@ -72,7 +72,7 @@ export default ({
   type: 'react-component',
   ActivityRunner,
   ConfigComponent,
-  dashboard,
+  dashboards,
   config: {
     type: 'object',
     required: ['component'],

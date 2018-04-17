@@ -1,8 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Inspector } from 'react-inspector';
 import { withTracker } from 'meteor/react-meteor-data';
-import { A } from 'frog-utils';
+import { Inspector, A } from 'frog-utils';
 import Modal from 'react-modal';
 
 import { connect } from '../GraphEditor/store';
@@ -37,17 +36,15 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div style={{ flexBasis: 0, flexGrow: 1 }}>
           <h3>Config</h3>
-          {item.data ? (
-            <Inspector data={{ data: item.data }} expandLevel={5} />
-          ) : null}
+          {item.data ? <Inspector data={{ data: item.data }} /> : null}
         </div>
         <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
           <h3>Object</h3>
-          {object ? <Inspector data={{ object }} expandLevel={5} /> : null}
+          {object ? <Inspector data={{ object }} /> : null}
         </div>
         <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
           <h3>Product</h3>
-          {product ? <Inspector data={{ product }} expandLevel={5} /> : null}
+          {product ? <Inspector data={{ product }} /> : null}
         </div>
       </div>
     </Modal>

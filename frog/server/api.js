@@ -160,9 +160,9 @@ Picker.route(
       const aT = activityTypesObj[activityTypeId];
       Promise.await(
         new Promise(resolve => {
-          if (aT.dashboard) {
-            Object.keys(aT.dashboard).forEach(name => {
-              const dash = aT.dashboard[name];
+          if (aT.dashboards) {
+            Object.keys(aT.dashboards).forEach(name => {
+              const dash = aT.dashboards[name];
               const doc = serverConnection.get(
                 'rz',
                 dashDocId(dashboardId, name)
