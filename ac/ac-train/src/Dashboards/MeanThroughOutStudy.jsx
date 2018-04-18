@@ -16,10 +16,10 @@ const styles = theme => ({
 });
 
 const MeanThrougOutStudy = props => {
-  const { whichDash, data } = props;
+  const { whichDash, state } = props;
 
-  const count = data['sum']['count'];
-  const dash = data['sum'][whichDash];
+  const count = state['sum']['count'];
+  const dash = state['sum'][whichDash];
 
   const coordinates = [];
 

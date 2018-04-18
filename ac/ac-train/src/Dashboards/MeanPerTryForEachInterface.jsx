@@ -21,10 +21,10 @@ const styles = theme => ({
 const checkDefined = item => typeof item !== 'undefined';
 
 const MeanPerTryForEachInterface = props => {
-  const { whichDash, data } = props;
+  const { whichDash, state } = props;
 
-  const count = data['count'];
-  const dash = data[whichDash];
+  const count = state['count'];
+  const dash = state[whichDash];
 
   const interfaces = Object.keys(dash);
 

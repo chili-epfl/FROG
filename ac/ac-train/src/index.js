@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboards';
+import dashboards from './Dashboards';
 
 const meta = {
   name: 'Train Activity',
@@ -75,6 +75,6 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  dashboard,
+  dashboards,
   dataStructure
 }: ActivityPackageT);

@@ -59,7 +59,7 @@ const initData = {
   }
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogT) => {
+const mergeLog = (state, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { activity, instance, isCorrect, timeTaken } = log.payload;
 
@@ -67,44 +67,36 @@ const mergeLog = (data: any, dataFn: Object, log: LogT) => {
 
     const iteration = instance % 5;
 
-    if (!data['error'][activity]) {
-      dataFn.objInsert(
-        { [activity]: times(5, constant(0)), ...data['error'] },
-        ['error']
-      );
+    if (!state['error'][activity]) {
+      state['error'][activity] = times(5, constant(0))
     }
 
-    if (!data['count'][activity]) {
-      dataFn.objInsert(
-        { [activity]: times(5, constant(0)), ...data['count'] },
-        ['count']
-      );
+    if (!state['count'][activity]) {
+      state['count'][activity] = times(5, constant(0))
     }
 
-    if (!data['time'][activity]) {
-      dataFn.objInsert(times(5, constant(0)), ['time', activity]);
+    if (!state['time'][activity]) {
+      state['time'][activity] = times(5, constant(0))
     }
 
     if (!isCorrect) {
-      dataFn.numIncr(1, ['error', activity, iteration]);
-      dataFn.numIncr(1, ['sum', 'error', instance]);
+      state['error'][activity][iteration] += 1;
+      state['sum']['error'][instance] += 1;
     }
 
-    dataFn.numIncr(1, ['count', activity, iteration]);
-    dataFn.numIncr(1, ['sum', 'count', instance]);
+    state['count'][activity][iteration] += 1
+    state['sum']['count'][instance] += 1
 
-    dataFn.numIncr(timeTaken / 1000, ['time', activity, iteration]);
-    dataFn.numIncr(timeTaken / 1000, ['sum', 'time', instance]);
+    state['time'][activity][iteration] += timeTaken / 1000
+    state['sum']['time'][instance] += timeTaken / 1000
   }
 
   if (log.type === 'help' && log.payload) {
     const { activity } = log.payload;
-
-    if (!data['help'][activity]) {
-      dataFn.objInsert(0, ['help', activity]);
+    if (!state['help'][activity]) {
+      state['help'][activity] = 0;
     }
-
-    dataFn.numIncr(1, ['help', activity]);
+    state['help'][activity] += 1;
   }
 };
 
