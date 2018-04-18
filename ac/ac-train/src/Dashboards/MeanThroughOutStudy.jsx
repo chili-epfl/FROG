@@ -26,7 +26,7 @@ const MeanThrougOutStudy = props => {
   let index = 0;
 
   for (let i = 0; i < 20; i += 1) {
-    if (i !== 0 && count[i] === 0) {
+    if (count[i] === 0) {
       index = i;
       break;
     }
