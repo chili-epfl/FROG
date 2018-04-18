@@ -24,6 +24,8 @@ const styles = theme => ({
   })
 });
 
+const checkDefined = item => typeof item !== 'undefined';
+
 const MeanPerTryForEachInterface = props => {
   const { whichDash, data } = props;
 
@@ -35,12 +37,21 @@ const MeanPerTryForEachInterface = props => {
   if (interfaces.length > 0) {
     const allCoordinates = interfaces.map(int => {
       const coordinates = [];
+
       for (let i = 0; i < 5; i += 1) {
-        coordinates.push({
-          x: i,
-          y: div(dash[int][i], count[int][i]),
-          fill: color(int)
-        });
+        const shouldUpdate =
+          checkDefined(dash[int]) &&
+          checkDefined(count[int]) &&
+          checkDefined(dash[int][i]) &&
+          checkDefined(count[int][i]);
+
+        if (shouldUpdate) {
+          coordinates.push({
+            x: i,
+            y: div(dash[int][i], count[int][i]),
+            fill: color(int)
+          });
+        }
       }
       return {
         name: int,
