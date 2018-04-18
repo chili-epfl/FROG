@@ -74,11 +74,9 @@ const MeanPerTryForEachInterface = props => {
           <Grid item xs={12}>
             <VictoryChart>
               <VictoryLegend
-                x={125}
-                y={50}
-                title="Legend"
-                centerTitle
-                orientation="vertical"
+                x={50}
+                y={0}
+                orientation="horizontal"
                 gutter={20}
                 style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
                 data={legend}
