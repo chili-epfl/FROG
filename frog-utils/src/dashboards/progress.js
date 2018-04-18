@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
-import regression from 'regression'
+import regression from 'regression';
 
 const TIMEWINDOW = 5;
 
@@ -16,8 +16,26 @@ const Viewer = TimedComponent((props: Object) => {
   );
 }, 2000);
 
+//  we calculate predicted time for each student
 const prepareDataForDisplay = (state) => {
-  console.log(state)
+  //console.log(state);
+  const predictedTime = [];
+  for (var user in state) {
+    let lastIndex = state[user].length - 1
+    if (state[user][lastIndex][0] === 1) {
+      // already finished - use actual finish time
+      var userPredictedTime = Math.max(totalTime);      
+    } else if (state[user].length === 1) {
+      // finished only 1 task - zero-intercept linear projection
+      var userPredictedTime = state[user][0][1] / state[user][0][0]
+    } else {
+      // not finished - linear projection
+      const userResult = regression.linear(state[user]);
+      var userPredictedTime = userResult.equation[0] * 1 + userResult.equation[1];      
+    }
+    predictedTime.push(userPredictedTime.toFixed(2));
+  } 
+  console.log(predictedTime.length, predictedTime);
   return state
   // const numWindow =
   //   activity.actualClosingTime === undefined
@@ -74,6 +92,9 @@ const prepareDataForDisplay = (state) => {
   // return timingData
 }
 
+
+
+
 const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
   if (
     activity &&
@@ -81,14 +102,14 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    console.log(state)
+    //console.log(state)
     console.log(log)
     if(!state[log.instanceId]) {
       state[log.instanceId] = []
     }
-    const totalTime = activity.actualStartingTime - log.timestamp
+    const totalTime = (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const progress = log.value
-    state[log.instanceId].push([ totalTime, progress ])
+    state[log.instanceId].push([ progress, totalTime ])
   }
   // ) {
   //   let lastIndex = state.timing.length - 1;
@@ -118,9 +139,7 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
 //
 // timing:
 // Array of arrays of [ timeWindow, averageProgress, completionRate ]
-const initData = {
-  users: {}
-};
+const initData = {};
 
 const activityMerge = {
   actualStartingTime: '2018-02-20T08:16:05.308Z',
@@ -155,5 +174,6 @@ export default {
   Viewer,
   mergeLog,
   initData,
-  exampleLogs
+  exampleLogs,
+  prepareDataForDisplay
 };
