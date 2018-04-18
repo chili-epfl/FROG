@@ -74,6 +74,9 @@ export type {
   dashboardViewerPropsT
 } from './types';
 export { CountChart } from './DashboardComponents/CountChart';
+
+export { default as withDragDropContext } from './withDragDropContext';
+
 export {
   default as TableView,
   toTableData

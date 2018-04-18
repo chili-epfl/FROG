@@ -1,9 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { Mosaic, MosaicWindow } from 'react-mosaic-component';
+import {
+  MosaicWithoutDragDropContext,
+  MosaicWindow
+} from 'react-mosaic-component';
 import { cloneDeep } from 'lodash';
-import { getInitialState, generateReactiveFn } from 'frog-utils';
+import {
+  getInitialState,
+  generateReactiveFn,
+  withDragDropContext
+} from 'frog-utils';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
@@ -54,7 +61,7 @@ export const initActivityDocuments = (
   });
 };
 
-export default ({
+const Content = ({
   showDashExample,
   plane,
   instances,
@@ -133,7 +140,7 @@ export default ({
       ) : users.length === 1 && !showDash ? (
         <Run name={users[0]} idx={0} instance={instances[0]} />
       ) : (
-        <Mosaic
+        <MosaicWithoutDragDropContext
           renderTile={([name, instance], path) =>
             name === 'dashboard' && activityType.dashboard ? (
               <MosaicWindow
@@ -176,3 +183,5 @@ export default ({
     </div>
   );
 };
+
+export default withDragDropContext(Content);

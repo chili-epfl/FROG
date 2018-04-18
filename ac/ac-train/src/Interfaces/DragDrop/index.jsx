@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { DragDropContext } from 'react-dnd';
+import { withDragDropContext } from 'frog-utils';
 import update from 'immutability-helper';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { zipObject, map } from 'lodash';
@@ -211,7 +211,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
   }
 }
 
-const DragDrop = compose(DragDropContext(HTML5Backend), withStyles(styles))(
+const DragDrop = compose(withDragDropContext, withStyles(styles))(
   DragDropController
 );
 
