@@ -51,7 +51,7 @@ export const addGraph = (graphObj?: Object): string => {
   const copyOp = graphObj.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
-    return { ...op, _id: id, graphId };
+    return { ...op, _id: id, graphId, state: undefined };
   });
 
   // Here we change the configured ids of activities and operators which
