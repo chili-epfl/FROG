@@ -8,7 +8,7 @@ import { withStyles } from 'material-ui/styles';
 
 import { VictoryChart, VictoryLine, VictoryLegend } from 'victory';
 
-import { color, div } from './utils';
+import { color } from './utils';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -40,11 +40,13 @@ const MeanPerTryForEachInterface = props => {
           checkDefined(count[int][i]);
 
         if (shouldUpdate) {
-          coordinates.push({
-            x: i,
-            y: div(dash[int][i], count[int][i]),
-            fill: color(int)
-          });
+          if (Number.isFinite(dash[int][i] / count[int][i])) {
+            coordinates.push({
+              x: i,
+              y: dash[int][i] / count[int][i],
+              fill: color(int)
+            });
+          }
         }
       }
       return {

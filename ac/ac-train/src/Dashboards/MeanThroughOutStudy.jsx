@@ -7,8 +7,6 @@ import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import { VictoryChart, VictoryLine } from 'victory';
 
-import { div } from './utils';
-
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 16,
@@ -23,21 +21,15 @@ const MeanThrougOutStudy = props => {
   const count = data['sum']['count'];
   const dash = data['sum'][whichDash];
 
-  let index = 0;
+  const coordinates = [];
 
   for (let i = 0; i < 20; i += 1) {
-    if (count[i] === 0) {
-      index = i;
-      break;
+    if (Number.isFinite(dash[i] / count[i])) {
+      coordinates.push({
+        x: i,
+        y: dash[i] / count[i]
+      });
     }
-  }
-
-  const coordinates = [];
-  for (let i = 0; i < index; i += 1) {
-    coordinates.push({
-      x: i,
-      y: div(dash[i], count[i])
-    });
   }
 
   const domain =
