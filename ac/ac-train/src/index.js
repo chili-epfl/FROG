@@ -10,7 +10,15 @@ const meta = {
   description: 'New activity, no description available',
   exampleData: [
     {
-      title: 'Normal',
+      title: 'Slow',
+      config: {
+        timeOfEachInstance: 60000,
+        instanceCount: 5
+      },
+      data: {}
+    },
+    {
+      title: 'Quick',
       config: {
         timeOfEachInstance: 10000,
         instanceCount: 5
@@ -18,7 +26,7 @@ const meta = {
       data: {}
     },
     {
-      title: 'Quick',
+      title: 'Play with fire',
       config: {
         timeOfEachInstance: 3000,
         instanceCount: 5

@@ -8,7 +8,6 @@ import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
 
 import { SpecificGuideline } from './Guidelines';
-import { testing } from './ActivityUtils';
 import Interface from './Interface';
 
 const styles = {
@@ -57,10 +56,7 @@ class Main extends React.Component {
   };
 
   componentWillMount() {
-    this.interfaces = [
-      'start',
-      ...shuffle(['graphical', 'command', 'form', 'dragdrop'])
-    ];
+    this.interfaces = ['start', ...shuffle(['graphical'])];
   }
 
   render() {

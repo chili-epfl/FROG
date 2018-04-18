@@ -93,4 +93,4 @@ export function commandDataStructure(command: string) {
   };
 }
 
-export const testing = false;
+export const testing = true;

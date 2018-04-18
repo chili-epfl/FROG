@@ -59,9 +59,9 @@ const RadioGroupElements = ({
             {group.values.map(item => (
               <FormControlLabel
                 key={item}
-                value={capitalizeFirstLetter(item)}
+                value={item}
                 control={<Radio />}
-                label={item}
+                label={capitalizeFirstLetter(item)}
               />
             ))}
           </RadioGroup>

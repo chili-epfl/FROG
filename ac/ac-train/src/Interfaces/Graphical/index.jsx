@@ -128,6 +128,7 @@ class Graphical extends React.Component<PropsT, StateT> {
   };
 
   handleSubmit = () => {
+    console.log(this.state.answer);
     this.props.submit(this.state.answer);
   };
 
