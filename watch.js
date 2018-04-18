@@ -30,7 +30,6 @@ const transpile = (event, src) => {
 
 const deleteLogs = (err, src) => {
   if (err) {
-    console.log(err);
     log(`delete: ${src} failed.`);
   } else {
     log(`delete: ${src}`);
@@ -66,9 +65,7 @@ const watcher = chokidar
     transpile('add', src);
   })
   .on('addDir', src => {
-    if (build) rm('directory', src);
-
-    mkdir(src);
+    if (!build) mkdir(src);
   })
   .on('change', src => {
     transpile('change', src);
