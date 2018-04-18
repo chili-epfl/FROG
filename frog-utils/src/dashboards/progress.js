@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
 import regression from 'regression';
-import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
+import { VictoryChart, VictoryLine, VictoryTheme, VictoryLabel } from 'victory';
 
 const Viewer = TimedComponent((props: Object) => {
   const { state } = props;
@@ -25,6 +25,15 @@ const Viewer = TimedComponent((props: Object) => {
       />
       <VictoryLine data={state.completion} />
       <VictoryLine data={state.progress} />
+      <VictoryLine
+        style={{
+          data: { stroke: "red", strokeWidth: 2 },
+          labels: { angle: -90, fill: "red", fontSize: 20 }
+        }}
+        labels={["Now"]}
+        labelComponent={<VictoryLabel y={100}/>}
+        x={() => state.now}
+  />
     </VictoryChart>
   );
 }, 2000);
@@ -83,10 +92,10 @@ const prepareDataForDisplay = state => {
         progress.push(0);
       }
     }
-    if (t < currentMaxTime) {
+    if (t <= currentMaxTime) {
       completionCurve[t] =
         progress.filter(value => value === 1).length / progress.length;
-      progressCurve[t] = progress.reduce((a, b) => a + b) / progress.length;
+      progressCurve[t] = progress.reduce((a, b) => a + b, 0) / progress.length;
       predictionCurve[t] = completionCurve[t];
       progpredCurve[t] = progressCurve[t];
     } else if (userResultObject.length != 0) {
@@ -113,7 +122,8 @@ const prepareDataForDisplay = state => {
     prediction: parse(predictionCurve),
     completion: parse(completionCurve),
     progress: parse(progressCurve),
-    progpred: parse(progpredCurve)
+    progpred: parse(progpredCurve),
+    now: Math.floor(currentMaxTime / UPDATE_INTERVAL) * UPDATE_INTERVAL
   };
 };
 
