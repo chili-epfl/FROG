@@ -59,7 +59,7 @@ const initData = {
   }
 };
 
-const mergeLog = (state, log: LogT) => {
+const mergeLog = (state: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { activity, instance, isCorrect, timeTaken } = log.payload;
 
@@ -68,15 +68,15 @@ const mergeLog = (state, log: LogT) => {
     const iteration = instance % 5;
 
     if (!state['error'][activity]) {
-      state['error'][activity] = times(5, constant(0))
+      state['error'][activity] = times(5, constant(0));
     }
 
     if (!state['count'][activity]) {
-      state['count'][activity] = times(5, constant(0))
+      state['count'][activity] = times(5, constant(0));
     }
 
     if (!state['time'][activity]) {
-      state['time'][activity] = times(5, constant(0))
+      state['time'][activity] = times(5, constant(0));
     }
 
     if (!isCorrect) {
@@ -84,11 +84,11 @@ const mergeLog = (state, log: LogT) => {
       state['sum']['error'][instance] += 1;
     }
 
-    state['count'][activity][iteration] += 1
-    state['sum']['count'][instance] += 1
+    state['count'][activity][iteration] += 1;
+    state['sum']['count'][instance] += 1;
 
-    state['time'][activity][iteration] += timeTaken / 1000
-    state['sum']['time'][instance] += timeTaken / 1000
+    state['time'][activity][iteration] += timeTaken / 1000;
+    state['sum']['time'][instance] += timeTaken / 1000;
   }
 
   if (log.type === 'help' && log.payload) {
