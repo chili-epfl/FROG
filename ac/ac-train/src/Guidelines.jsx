@@ -133,13 +133,6 @@ const SpecificGuidelineController = ({
   <Grid container justify="center">
     <Grid container className={step > 0 ? classes.instance : ''}>
       <Grid item sm={12}>
-        {activity !== 'start' && (
-          <Typography variant="display2" gutterBottom>
-            Interface {step}
-          </Typography>
-        )}
-      </Grid>
-      <Grid item sm={12}>
         <SwitchGuidelines activity={activity} />
       </Grid>
       <Grid item sm={12}>

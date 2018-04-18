@@ -2,7 +2,6 @@
 import React from 'react';
 import { withDragDropContext } from 'frog-utils';
 import update from 'immutability-helper';
-import HTML5Backend from 'react-dnd-html5-backend';
 import { zipObject, map } from 'lodash';
 import { compose } from 'recompose';
 

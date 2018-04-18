@@ -63,7 +63,10 @@ class Main extends React.Component<PropsT> {
   };
 
   componentWillMount() {
-    this.interfaces = ['start', ...shuffle(['dragdrop'])];
+    this.interfaces = [
+      'start',
+      ...shuffle(['dragdrop', 'form', 'command', 'graphical'])
+    ];
   }
 
   render() {
