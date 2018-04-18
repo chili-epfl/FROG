@@ -1,0 +1,17 @@
+{
+  "name": "ac-train",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": { "start": "nps" },
+  "dependencies": {
+    "frog-utils": "^1.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-timeout": "^1.1.1",
+    "react-dnd": "^2.6.0",
+    "immutability-helper": "^2.6.6",
+    "react-dnd-html5-backend": "^2.6.0",
+    "react-cursor-position": "^2.4.1"
+  },
+  "devDependencies": { "nps": "5.7.1" }
+}
