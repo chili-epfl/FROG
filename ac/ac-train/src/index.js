@@ -13,7 +13,8 @@ const meta = {
       title: 'Slow',
       config: {
         timeOfEachInstance: 60000,
-        instanceCount: 5
+        instanceCount: 5,
+        intervalTime: 1000
       },
       data: {}
     },
@@ -21,15 +22,17 @@ const meta = {
       title: 'Quick',
       config: {
         timeOfEachInstance: 10000,
-        instanceCount: 5
+        instanceCount: 5,
+        intervalTime: 1000
       },
       data: {}
     },
     {
-      title: 'Play with fire',
+      title: 'Supersonic',
       config: {
-        timeOfEachInstance: 3000,
-        instanceCount: 5
+        timeOfEachInstance: 1500,
+        instanceCount: 5,
+        intervalTime: 500
       },
       data: {}
     }
@@ -49,6 +52,11 @@ const config = {
       title: 'Number of instances per interface',
       type: 'number',
       default: 5
+    },
+    intervalTime: {
+      title: 'Time to show ticket validation status',
+      type: 'number',
+      default: 2000
     }
   }
 };

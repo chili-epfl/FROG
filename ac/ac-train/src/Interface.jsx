@@ -154,11 +154,21 @@ class Interface extends React.Component {
       help,
       secondsRemaining
     } = this.state;
-    const { activity } = this.props;
+
+    const {
+      activity,
+      activityData: {
+        config: { intervalTime }
+      }
+    } = this.props;
 
     if (interval) {
       return (
-        <Validation nextInstance={this.nextInstance} isCorrect={isCorrect} />
+        <Validation
+          nextInstance={this.nextInstance}
+          isCorrect={isCorrect}
+          time={intervalTime}
+        />
       );
     }
 

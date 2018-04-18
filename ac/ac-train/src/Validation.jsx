@@ -86,6 +86,8 @@ class Validation extends React.Component<IntervalPropsT> {
   }
 
   startTimer = () => {
+    const { time } = this.props;
+
     this.interval = setTimeout(() => {
       if (this.state.transition) {
         this.setState({ transition: false });
@@ -94,7 +96,7 @@ class Validation extends React.Component<IntervalPropsT> {
       } else {
         this.props.nextInstance();
       }
-    }, this.state.transition ? 1000 : 2000);
+    }, this.state.transition ? time / 2 : time);
   };
 
   stopTimer = () => {
