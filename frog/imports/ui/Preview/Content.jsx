@@ -1,6 +1,9 @@
 // @flow
 
 import * as React from 'react';
+
+import { compose, toClass } from 'recompose';
+
 import {
   MosaicWithoutDragDropContext,
   MosaicWindow
@@ -61,7 +64,7 @@ export const initActivityDocuments = (
   });
 };
 
-const Content = ({
+const ContentController = ({
   showDashExample,
   plane,
   instances,
@@ -184,4 +187,6 @@ const Content = ({
   );
 };
 
-export default withDragDropContext(Content);
+const Content = compose(withDragDropContext, toClass)(ContentController);
+
+export default Content;

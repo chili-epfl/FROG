@@ -11,7 +11,8 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import { Accounts } from 'meteor/accounts-base';
-import { getInitialState } from 'frog-utils';
+import { getInitialState, withDragDropContext } from 'frog-utils';
+import { compose, toClass } from 'recompose';
 
 import { Activities } from '../../api/activities';
 import { logLogin } from '../../api/logs';
@@ -123,7 +124,7 @@ const StudentView = ({ activities, session, token, classes }) => (
 
 const StyledStudentView = withStyles(styles)(StudentView);
 
-class SessionBody extends React.Component<
+class SessionBodyController extends React.Component<
   {
     activities: Array<Object>,
     session: Object,
@@ -149,6 +150,10 @@ class SessionBody extends React.Component<
     );
   }
 }
+
+const SessionBody = compose(withDragDropContext, toClass)(
+  SessionBodyController
+);
 
 SessionBody.displayName = 'SessionBody';
 
