@@ -5,96 +5,108 @@ import * as React from 'react';
 import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
 import regression from 'regression';
-import { VictoryChart, VictoryLine, VictoryTheme } from 'victory'
+import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
 
 const TIMEWINDOW = 5;
 
 const Viewer = TimedComponent((props: Object) => {
   const { state } = props;
   return (
-    <VictoryChart theme={VictoryTheme.material} >
-      <VictoryLine 
+    <VictoryChart theme={VictoryTheme.material}>
+      <VictoryLine
         style={{
-          data: { stroke: "#b51212"}
+          data: { stroke: '#b51212' }
         }}
-        data={state.prediction}/>
-      <VictoryLine 
+        data={state.prediction}
+      />
+      <VictoryLine
         style={{
-          data: { stroke: "#11b52d"}
+          data: { stroke: '#11b52d' }
         }}
-        data={state.progpred}/>
-      <VictoryLine data={state.completion}/>
-      <VictoryLine data={state.progress}/>
+        data={state.progpred}
+      />
+      <VictoryLine data={state.completion} />
+      <VictoryLine data={state.progress} />
     </VictoryChart>
   );
 }, 2000);
 
 // calculate predicted time for each student
-const prepareDataForDisplay = (state) => {
+const prepareDataForDisplay = state => {
   // predictions
   const predictedTime = [];
   const userResultObject = {};
-  var currentMaxTime = 0;
-  var finishedStudents = 0;
+  let currentMaxTime = 0;
+  let finishedStudents = 0;
   for (var user in state) {
     var lastIndex = state[user].length - 1;
-    var userMaxTime = state[user][lastIndex][1];
+    const userMaxTime = state[user][lastIndex][1];
     if (userMaxTime > currentMaxTime) {
       currentMaxTime = userMaxTime;
     }
     if (state[user][lastIndex][0] === 1) {
       // already finished - use actual finish time
       var userPredictedTime = state[user][lastIndex][1];
-      finishedStudents += 1;      
+      finishedStudents += 1;
     } else if (state[user].length < 3) {
       // finished only less than 2 task - not sufficient
       var userPredictedTime = -1;
     } else {
       // finished multiple tasks - linear projection
       const userResult = regression.linear(state[user]);
-      var userPredictedTime = userResult.equation[0] * 1 + userResult.equation[1];
+      var userPredictedTime =
+        userResult.equation[0] * 1 + userResult.equation[1];
       userResultObject[user] = userResult.equation;
     }
     if (userPredictedTime != -1) {
       predictedTime.push(userPredictedTime);
     }
-  } 
+  }
   const predictionCurve = {};
   const completionCurve = {};
   const progpredCurve = {};
-  const progressCurve = {}; 
+  const progressCurve = {};
   const UPDATE_INTERVAL = 20;
-  for (var t = 0; t <= Math.max(...predictedTime) + UPDATE_INTERVAL; t += UPDATE_INTERVAL) {
-    var filtered = predictedTime.filter(value => value <= t)
-    var progress = [];
+  for (
+    var t = 0;
+    t <= Math.max(...predictedTime) + UPDATE_INTERVAL;
+    t += UPDATE_INTERVAL
+  ) {
+    const filtered = predictedTime.filter(value => value <= t);
+    const progress = [];
     for (var user in state) {
-      var filteredProgress = state[user].filter(value => value[1] <= t)
+      const filteredProgress = state[user].filter(value => value[1] <= t);
       if (filteredProgress.length != 0) {
         var lastIndex = filteredProgress.length - 1;
-        progress.push(filteredProgress[lastIndex][0])
+        progress.push(filteredProgress[lastIndex][0]);
       } else {
-        progress.push(0)
+        progress.push(0);
       }
     }
     if (t < currentMaxTime) {
-      completionCurve[t] = progress.filter(value => value === 1).length / progress.length;
-      progressCurve[t] = progress.reduce(function(a, b){ return a + b; }) / progress.length;
-      predictionCurve[t] = completionCurve[t]
-      progpredCurve[t] = progressCurve[t]
+      completionCurve[t] =
+        progress.filter(value => value === 1).length / progress.length;
+      progressCurve[t] = progress.reduce((a, b) => a + b) / progress.length;
+      predictionCurve[t] = completionCurve[t];
+      progpredCurve[t] = progressCurve[t];
     } else if (userResultObject.length != 0) {
-      predictionCurve[t] = (filtered.length / predictedTime.length);
-      var predictedProgress = 0
+      predictionCurve[t] = filtered.length / predictedTime.length;
+      let predictedProgress = 0;
       for (var user in userResultObject) {
         if (userResultObject[user] != 0) {
-          predictedProgress += Math.min(((t - userResultObject[user][1]) / userResultObject[user][0]), 1)
-        }  
+          predictedProgress += Math.min(
+            (t - userResultObject[user][1]) / userResultObject[user][0],
+            1
+          );
+        }
       }
-      progpredCurve[t] = (predictedProgress + finishedStudents) / (Object.keys(userResultObject).length + finishedStudents);
+      progpredCurve[t] =
+        (predictedProgress + finishedStudents) /
+        (Object.keys(userResultObject).length + finishedStudents);
     }
-
   }
   function parse(curve) {
-    return Object.keys(curve).map(k => ({ x: parseInt(k), y: curve[k]}))
+    return Object.keys(curve).map(k => ({ x: parseInt(k), y: curve[k] }));
   }
 
   return {
@@ -102,7 +114,7 @@ const prepareDataForDisplay = (state) => {
     completion: parse(completionCurve),
     progress: parse(progressCurve),
     progpred: parse(progpredCurve)
-  }
+  };
   // const numWindow =
   //   activity.actualClosingTime === undefined
   //     ? Math.ceil(
@@ -156,7 +168,7 @@ const prepareDataForDisplay = (state) => {
   //   x => state.progress[x] === 1
   // ).length;
   // return timingData
-}
+};
 
 const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
   if (
@@ -165,12 +177,13 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    if(!state[log.instanceId]) {
-      state[log.instanceId] = []
+    if (!state[log.instanceId]) {
+      state[log.instanceId] = [];
     }
-    const totalTime = (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
-    const progress = log.value
-    state[log.instanceId].push([ progress, totalTime ])
+    const totalTime =
+      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
+    const progress = log.value;
+    state[log.instanceId].push([progress, totalTime]);
   }
   // ) {
   //   let lastIndex = state.timing.length - 1;
