@@ -8,8 +8,8 @@ import {
   MosaicWithoutDragDropContext,
   MosaicWindow
 } from 'react-mosaic-component';
-import { cloneDeep } from 'lodash';
 import {
+  cloneDeep,
   getInitialState,
   generateReactiveFn,
   withDragDropContext
@@ -74,6 +74,7 @@ const ContentController = ({
   showLogs,
   showData,
   users,
+  reloadActivity,
   showDash
 }: Object) => {
   const activityType = activityTypesObj[activityTypeId];
@@ -87,10 +88,6 @@ const ContentController = ({
   if (!showDashExample && (config === undefined || config.invalid)) {
     return <p>The config is invalid</p>;
   }
-
-  const uniqueInstances = instances.filter(
-    (ins, idx) => instances.indexOf(ins) === idx
-  );
 
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activityType.id;
@@ -108,6 +105,7 @@ const ContentController = ({
     return (
       <ActivityToRun
         activityType={activityType.id}
+        key={reloadActivity}
         activityData={activityData}
         userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
@@ -117,20 +115,30 @@ const ContentController = ({
           activityType.id,
           'preview',
           getUserId(name),
-          plane,
-          activityData.config
+          plane
         )}
         groupingValue={instance}
       />
     );
   };
 
+  const Dashboard = () => (
+    <DashPreviewWrapper
+      config={activityData.config}
+      instances={instances}
+      users={users.reduce((acc, x) => ({ ...acc, [getUserId(x)]: x }), {})}
+      activityType={activityType}
+      showData={showData}
+      plane={plane}
+    />
+  );
+
   return (
     <div
       className="modal-body"
       style={{
         position: 'relative',
-        width: '100%',
+        width: 'calc(100% - 30px)',
         height: 'calc(100% - 60px)'
       }}
     >
@@ -145,22 +153,18 @@ const ContentController = ({
       ) : (
         <MosaicWithoutDragDropContext
           renderTile={([name, instance], path) =>
-            name === 'dashboard' && activityType.dashboard ? (
+            name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
+                key={JSON.stringify({ config, showData })}
                 path={path}
               >
-                <DashPreviewWrapper
-                  config={activityData.config}
-                  instances={uniqueInstances}
-                  users={users}
-                  activityType={activityType}
-                />
+                <Dashboard />
               </MosaicWindow>
             ) : (
               <MosaicWindow
                 path={path}
-                reload={JSON.stringify({ config, showData })}
+                key={JSON.stringify({ config, showData, reloadActivity })}
                 title={
                   name +
                   '/' +

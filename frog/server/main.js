@@ -21,6 +21,10 @@ import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
 import { GlobalSettings } from '../imports/api/globalSettings.js';
+import dashboardSubscription from './dashboardSubscription';
+import './getLogMethods';
+
+dashboardSubscription();
 
 Meteor.users._ensureIndex('joinedSessions');
 Meteor.users._ensureIndex('services.frog.id');

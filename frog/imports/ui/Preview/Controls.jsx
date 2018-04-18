@@ -42,6 +42,7 @@ export default (props: Object) => {
     showDashExample,
     setShowLogs,
     setReloadAPIform,
+    setReloadActivity,
     showLogs,
     setActivityTypeId,
     setExample,
@@ -56,13 +57,14 @@ export default (props: Object) => {
     return <p>Choose and activityType</p>;
   }
   const examples = addDefaultExample(activityType);
-  const ex = showDashExample ? activityType.dashboard.exampleLogs : examples;
+  const ex = showDashExample ? activityType.dashboards.exampleLogs : examples;
 
   const refresh = () => {
     initActivityDocuments(instances, activityType, example, config, true);
     // resets the reactive documents for the dashboard
     initDashboardDocuments(activityType, true);
     Logs.length = 0;
+    setReloadActivity(uuid());
   };
 
   const _dismiss = () => {
@@ -115,7 +117,7 @@ export default (props: Object) => {
           icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
           tooltip={showData ? 'Show component' : 'Show underlying data'}
         />
-        {activityType.dashboard && (
+        {activityType.dashboards && (
           <Icon
             onClick={() => setShowDash(!showDash)}
             icon="fa fa-tachometer"

@@ -15,11 +15,12 @@ import {
   setStreamTarget,
   setParticipation
 } from '/imports/api/activities';
+
 import { connect } from '../../store';
-import Modal from '../ModalExport';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
+import Modal from '../../RemoteControllers/ModalExport';
 import { SelectAttributeWidget } from '../FormUtils';
 import ConfigForm from '../ConfigForm';
 
@@ -79,6 +80,9 @@ const RawEditActivity = ({
   modalOpen,
   setModal,
   activity,
+  refreshActDate,
+  setImportActivityList,
+  madeChanges,
   ...props
 }) => {
   const graphActivity = props.store.activityStore.all.find(
@@ -121,7 +125,10 @@ const RawEditActivity = ({
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <Modal {...{ modalOpen, setModal, activity }} />
+      <Modal
+        exportType="activity"
+        {...{ modalOpen, setModal, activity, madeChanges }}
+      />
       <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />

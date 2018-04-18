@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 import {
   config,
   configUI,
@@ -42,7 +42,7 @@ export default ({
   configUI,
   validateConfig,
   ActivityRunner,
-  dashboard,
+  dashboards,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

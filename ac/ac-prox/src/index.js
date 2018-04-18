@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import dashboard from './dashboard.js';
+import dashboards from './dashboard.js';
 
 const meta = {
   name: 'Proximity',
@@ -22,7 +22,7 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  dashboard,
+  dashboards,
   ActivityRunner,
   dataStructure
 }: ActivityPackageT);
