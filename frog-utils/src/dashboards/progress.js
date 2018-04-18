@@ -4,114 +4,75 @@
 import * as React from 'react';
 import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
-
-const LineChart = ({
-  title,
-  vAxis,
-  hAxis,
-  hLen,
-  rows
-}: {
-  title: string,
-  vAxis: string,
-  hAxis: string,
-  hLen: number,
-  rows: Array<Array<number>>
-}) => (
-  <Chart
-    chartType="LineChart"
-    rows={rows}
-    columns={[
-      { type: 'number', label: 'Time' },
-      { type: 'number', label: 'Progress' },
-      { type: 'number', label: 'Complete' }
-    ]}
-    width="100%"
-    height="300px"
-    options={{
-      title,
-      legend: { position: 'top' },
-      pointSize: 5,
-      vAxis: {
-        title: vAxis,
-        minValue: 0,
-        maxValue: 100,
-        viewWindow: { max: 100 },
-        gridlines: { color: 'transparent' }
-      },
-      hAxis: {
-        title: hAxis,
-        minValue: 0,
-        maxValue: hLen,
-        gridlines: { color: 'transparent' }
-      }
-    }}
-  />
-);
+import regression from 'regression'
 
 const TIMEWINDOW = 5;
 
 const Viewer = TimedComponent((props: Object) => {
-  const { state, activity, timeNow } = props;
+  const { state } = props;
 
-  const numWindow =
-    activity.actualClosingTime === undefined
-      ? Math.ceil(
-          (new Date(timeNow) - new Date(activity.actualStartingTime)) /
-            1000 /
-            TIMEWINDOW
-        )
-      : Math.ceil(
-          (new Date(activity.actualClosingTime) -
-            new Date(activity.actualStartingTime)) /
-            1000 /
-            TIMEWINDOW
-        );
-  const timingData = [[0, 0, 0]];
-  const factor = 100 / Math.max(Object.keys(state.progress).length, 1);
-  for (let i = 0, j = -1; i <= numWindow; i += 1) {
-    while (
-      state.timing.length > j + 1 &&
-      i * TIMEWINDOW >= (state.timing[j + 1] || [0])[0]
-    ) {
-      j += 1;
-    }
-    timingData.push([
-      i * TIMEWINDOW / 60,
-      state.timing[j][1] * factor,
-      state.timing[j][2] * factor
-    ]);
-  }
-  const usersStarted = Object.keys(state.progress).length;
-  const usersFinished = Object.keys(state.progress).filter(
-    x => state.progress[x] === 1
-  ).length;
   return (
-    <React.Fragment>
-      <LineChart
-        title="Activity Progress"
-        vAxis="Average Class Progress"
-        hAxis="Time Elapsed"
-        hLen={props.activity['length']}
-        rows={timingData}
-      />
-      <table>
-        <tbody>
-          <tr>
-            <td style={{ paddingRight: '10px' }}>Users who started activity</td>
-            <td>{usersStarted}</td>
-          </tr>
-          <tr>
-            <td style={{ paddingRight: '10px' }}>
-              Users who completed activity
-            </td>
-            <td>{usersFinished}</td>
-          </tr>
-        </tbody>
-      </table>
-    </React.Fragment>
+    <p>{JSON.stringify(state,null,2)}</p>
   );
 }, 2000);
+
+const prepareDataForDisplay = (state) => {
+  console.log(state)
+  return state
+  // const numWindow =
+  //   activity.actualClosingTime === undefined
+  //     ? Math.ceil(
+  //         (new Date(timeNow) - new Date(activity.actualStartingTime)) /
+  //           1000 /
+  //           TIMEWINDOW
+  //       )
+  //     : Math.ceil(
+  //         (new Date(activity.actualClosingTime) -
+  //           new Date(activity.actualStartingTime)) /
+  //           1000 /
+  //           TIMEWINDOW
+  //       );
+  // const timingData = [[0, 0, 0, 0]];
+  // const factor = 100 / Math.max(Object.keys(state.progress).length, 1);
+  // for (let i = 0, j = -1; i <= numWindow; i += 1) {
+  //   while (
+  //     state.timing.length > j + 1 &&
+  //     i * TIMEWINDOW >= (state.timing[j + 1] || [0])[0]
+  //   ) {
+  //     j += 1;
+  //   }
+  //   // making predictions
+  //   // this 'data' object is made out of nowhere and subject to change
+  //   const predictedTime = [];
+  //   for (u = 0; u < data.users.length; u++) {
+  //     if (Math.max(data.users[u].progress) === 1) {
+  //       const userPredictedTime = Math.max(data.users[u].totalTime); // get max time
+  //     } else {
+  //       const userData = [];
+  //       for (e = 0; e < data.users[u].progress.length; e++) {
+  //         userData.push([data.users[u].totalTime[e], data.users[u].progress[e]]);
+  //       }
+  //       const userResult = regression.linear(userData);
+  //       const userPredictedTime = userResult.predict[1];
+  //     }
+  //     predictedTime.push(userPredictedTime);
+  //   }
+  //   // pass plot info to timingData
+  //   predictedTime.filter(x => predictedTime < i).length
+
+  //   timingData.push([
+  //     i * TIMEWINDOW / 60,
+  //     state.timing[j][1] * factor,
+  //     state.timing[j][2] * factor,
+  //     predictedTime * factor // prediction info
+  //   ]);
+  // }
+  // const usersStarted = Object.keys(state.progress).length;
+  // const usersFinished = Object.keys(state.progress).filter(
+  //   x => state.progress[x] === 1
+  // ).length;
+  // return timingData
+}
 
 const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
   if (
@@ -120,27 +81,36 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    let lastIndex = state.timing.length - 1;
-    const lastTimingItem = state.timing[lastIndex];
-
-    const prevProgress = state.progress[log.instanceId] || 0;
-    const progressIncr = log.value - prevProgress;
-
-    const completeIncr = log.value === 1 && log.value > prevProgress ? 1 : 0;
-
-    state.progress[log.instanceId] = log.value;
-
-    const timeDiff =
-      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
-    const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
-    if (timeWindow !== lastTimingItem[0]) {
-      const newItem = [timeWindow, lastTimingItem[1], lastTimingItem[2]];
-      state.timing.push(newItem);
-      lastIndex += 1;
+    console.log(state)
+    console.log(log)
+    if(!state[log.instanceId]) {
+      state[log.instanceId] = []
     }
-    state.timing[lastIndex][1] += progressIncr;
-    state.timing[lastIndex][2] += completeIncr;
+    const totalTime = activity.actualStartingTime - log.timestamp
+    const progress = log.value
+    state[log.instanceId].push([ totalTime, progress ])
   }
+  // ) {
+  //   let lastIndex = state.timing.length - 1;
+  //   const lastTimingItem = state.timing[lastIndex];
+
+  //   const prevProgress = state.progress[log.instanceId] || 0;
+  //   const progressIncr = log.value - prevProgress;
+
+  //   const completeIncr = log.value === 1 && log.value > prevProgress ? 1 : 0;
+
+  //   state.progress[log.instanceId] = log.value;
+
+  //   const timeDiff =
+  //     (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
+  //   const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
+  //   if (timeWindow !== lastTimingItem[0]) {
+  //     const newItem = [timeWindow, lastTimingItem[1], lastTimingItem[2]];
+  //     state.timing.push(newItem);
+  //     lastIndex += 1;
+  //   }
+  //   state.timing[lastIndex][1] += progressIncr;
+  //   state.timing[lastIndex][2] += completeIncr;
 };
 
 // progress:
@@ -149,8 +119,7 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
 // timing:
 // Array of arrays of [ timeWindow, averageProgress, completionRate ]
 const initData = {
-  progress: {},
-  timing: [[0, 0, 0]]
+  users: {}
 };
 
 const activityMerge = {
