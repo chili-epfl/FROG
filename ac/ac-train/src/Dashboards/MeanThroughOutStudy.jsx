@@ -23,8 +23,17 @@ const MeanThrougOutStudy = props => {
   const count = data['sum']['count'];
   const dash = data['sum'][whichDash];
 
-  const coordinates = [];
+  let index = 0;
+
   for (let i = 0; i < 20; i += 1) {
+    if (i !== 0 && count[i] === 0) {
+      index = i;
+      break;
+    }
+  }
+
+  const coordinates = [];
+  for (let i = 0; i < index; i += 1) {
     coordinates.push({
       x: i,
       y: div(dash[i], count[i])
@@ -32,7 +41,7 @@ const MeanThrougOutStudy = props => {
   }
 
   const domain =
-    whichDash === 'time' ? { x: [0, 20] } : { x: [0, 20], y: [0, 1] };
+    whichDash === 'time' ? { x: [0, 19] } : { x: [0, 19], y: [0, 1] };
 
   return (
     <React.Fragment>

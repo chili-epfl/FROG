@@ -122,6 +122,7 @@ class Interface extends React.Component {
     const { question, start } = this.state;
     const isCorrect = isEqual(question, answer);
 
+    const timeTaken = Date.now() - start;
     logger([
       {
         type: 'answer',
@@ -129,7 +130,7 @@ class Interface extends React.Component {
           activity,
           instance,
           isCorrect,
-          timeTaken: Date.now() - start
+          timeTaken
         }
       }
     ]);
@@ -137,6 +138,10 @@ class Interface extends React.Component {
     this.stopTimer();
     this.setState({ interval: true, isCorrect });
   };
+
+  componentWillMount() {
+    this.setState({ start: Date.now() });
+  }
 
   componentDidMount() {
     this.startTimer();
