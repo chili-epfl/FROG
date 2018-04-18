@@ -44,7 +44,14 @@ const ActivityEnded = () => (
   </div>
 );
 
-class Main extends React.Component {
+type PropsT = {
+  dataFn: any,
+  data: Object
+};
+
+class Main extends React.Component<PropsT> {
+  interfaces: Array<string>;
+
   start = () => {
     const { dataFn } = this.props;
     dataFn.objInsert(false, 'guidelines');

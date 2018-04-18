@@ -6,13 +6,7 @@ import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 
-import {
-  VictoryChart,
-  VictoryBar,
-  VictoryTheme,
-  VictoryTooltip,
-  VictoryAxis
-} from 'victory';
+import { VictoryChart, VictoryBar, VictoryTooltip, VictoryAxis } from 'victory';
 
 import { color, div } from './utils';
 

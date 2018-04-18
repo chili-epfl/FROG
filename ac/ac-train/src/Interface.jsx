@@ -6,7 +6,7 @@ import { isEqual } from 'lodash';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
 import Validation from './Validation';
-import { getCommandForTicket, generateTicket, testing } from './ActivityUtils';
+import { getCommandForTicket, generateTicket } from './ActivityUtils';
 
 const RunActivity = props => {
   switch (props.activity) {
@@ -91,7 +91,7 @@ class Interface extends React.Component {
   };
 
   nextInstance = () => {
-    const { dataFn, logger, data } = this.props;
+    const { dataFn, logger } = this.props;
     dataFn.numIncr(1, 'instance');
     const {
       data: { instance }
