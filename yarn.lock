@@ -3001,17 +3001,13 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-<<<<<<< HEAD
-fbjs@^0.8.1, fbjs@^0.8.15, fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.9:
-=======
 fbemitter@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/fbemitter/-/fbemitter-2.1.1.tgz#523e14fdaf5248805bb02f62efc33be703f51865"
   dependencies:
     fbjs "^0.8.4"
 
-fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.15, fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.5:
->>>>>>> develop
+fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.15, fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.9:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -6550,7 +6546,12 @@ react-test-renderer@^16.3.1:
     prop-types "^15.6.0"
     react-is "^16.3.1"
 
-<<<<<<< HEAD
+react-textarea-autosize@^5.1.0:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-5.2.1.tgz#2b78f9067180f41b08ac59f78f1581abadd61e54"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-timeout@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-timeout/-/react-timeout-1.1.1.tgz#50e49d8c861e4b5745ce230182bdd279b82400ba"
@@ -6558,13 +6559,6 @@ react-timeout@^1.1.1:
     create-react-class "^15.5.2"
     hoist-non-react-statics "^2.3.1"
     object-assign "^4.0.1"
-=======
-react-textarea-autosize@^5.1.0:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-5.2.1.tgz#2b78f9067180f41b08ac59f78f1581abadd61e54"
-  dependencies:
-    prop-types "^15.6.0"
->>>>>>> develop
 
 react-tooltip@^3.5.0:
   version "3.5.0"
@@ -6830,6 +6824,10 @@ regjsparser@^0.2.1:
   resolved "https://registry.yarnpkg.com/regjsparser/-/regjsparser-0.2.1.tgz#c3787553faf04e775c302102ef346d995000ec1c"
   dependencies:
     jsesc "~0.5.0"
+
+regression@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/regression/-/regression-2.0.1.tgz#8d29c3e8224a10850c35e337e85a8b2fac3b0c87"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
@@ -8345,10 +8343,6 @@ yargs@~3.10.0:
     decamelize "^1.0.0"
     window-size "0.1.0"
 
-<<<<<<< HEAD
-yarn@^1.5.1:
-=======
 yarn@^1.6.0:
->>>>>>> develop
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.6.0.tgz#9cec6f7986dc237d39ec705ce74d95155fe55d4b"
