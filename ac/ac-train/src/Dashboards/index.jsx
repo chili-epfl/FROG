@@ -61,42 +61,43 @@ const initData = {
 
 const mergeLog = (state: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
-    const { activity, instance, isCorrect, timeTaken } = log.payload;
+    const { whichInterface, iteration, isCorrect, timeTaken } = log.payload;
 
+    // console.log(activity);
     // activity = interfaceType, instance = iteration,
 
-    const iteration = instance % 5;
+    const iterationOnInterface = iteration % 5;
 
-    if (!state['error'][activity]) {
-      state['error'][activity] = times(5, constant(0));
+    if (!state['error'][whichInterface]) {
+      state['error'][whichInterface] = times(5, constant(0));
     }
 
-    if (!state['count'][activity]) {
-      state['count'][activity] = times(5, constant(0));
+    if (!state['count'][whichInterface]) {
+      state['count'][whichInterface] = times(5, constant(0));
     }
 
-    if (!state['time'][activity]) {
-      state['time'][activity] = times(5, constant(0));
+    if (!state['time'][whichInterface]) {
+      state['time'][whichInterface] = times(5, constant(0));
     }
 
     if (!isCorrect) {
-      state['error'][activity][iteration] += 1;
-      state['sum']['error'][instance] += 1;
+      state['error'][whichInterface][iterationOnInterface] += 1;
+      state['sum']['error'][iteration] += 1;
     }
 
-    state['count'][activity][iteration] += 1;
-    state['sum']['count'][instance] += 1;
+    state['count'][whichInterface][iterationOnInterface] += 1;
+    state['sum']['count'][iteration] += 1;
 
-    state['time'][activity][iteration] += timeTaken / 1000;
-    state['sum']['time'][instance] += timeTaken / 1000;
+    state['time'][whichInterface][iterationOnInterface] += timeTaken / 1000;
+    state['sum']['time'][iteration] += timeTaken / 1000;
   }
 
   if (log.type === 'help' && log.payload) {
-    const { activity } = log.payload;
-    if (!state['help'][activity]) {
-      state['help'][activity] = 0;
+    const { whichInterface } = log.payload;
+    if (!state['help'][whichInterface]) {
+      state['help'][whichInterface] = 0;
     }
-    state['help'][activity] += 1;
+    state['help'][whichInterface] += 1;
   }
 };
 

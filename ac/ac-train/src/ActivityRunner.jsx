@@ -98,10 +98,10 @@ class Main extends React.Component<PropsT> {
 // the actual component that the student sees
 const RunnerController = (props: ActivityRunnerT) => {
   const {
-    data: { step },
+    data: { iteration },
     classes
   } = props;
-  const p = Math.round(step / 5 * 100);
+  const p = Math.round(iteration / 20 * 100);
   return (
     <div className={classes.main}>
       <LinearProgress

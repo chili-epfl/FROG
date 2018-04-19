@@ -12,27 +12,27 @@ const meta = {
     {
       title: 'Slow',
       config: {
-        timeOfEachInstance: 60000,
-        instanceCount: 5,
-        intervalTime: 1000
+        timeOfEachIteration: 60000,
+        iterationPerInterface: 5,
+        ticketStatusDisplayTime: 1000
       },
       data: {}
     },
     {
       title: 'Quick',
       config: {
-        timeOfEachInstance: 10000,
-        instanceCount: 5,
-        intervalTime: 1000
+        timeOfEachIteration: 10000,
+        iterationPerInterface: 5,
+        ticketStatusDisplayTime: 1000
       },
       data: {}
     },
     {
       title: 'Supersonic',
       config: {
-        timeOfEachInstance: 1500,
-        instanceCount: 5,
-        intervalTime: 500
+        timeOfEachIteration: 1500,
+        iterationPerInterface: 5,
+        ticketStatusDisplayTime: 500
       },
       data: {}
     }
@@ -41,19 +41,19 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['timeOfEachInstance', 'instanceCount'],
+  required: ['timeOfEachIteration', 'iterationPerInterface'],
   properties: {
-    timeOfEachInstance: {
-      title: 'Length of each individual instance',
+    timeOfEachIteration: {
+      title: 'Length of each iteration',
       type: 'number',
       default: 10000
     },
-    instanceCount: {
-      title: 'Number of instances per interface',
+    iterationPerInterface: {
+      title: 'Number of iterations per interface',
       type: 'number',
       default: 5
     },
-    intervalTime: {
+    ticketStatusDisplayTime: {
       title: 'Time to show ticket validation status',
       type: 'number',
       default: 2000
@@ -66,7 +66,7 @@ const dataStructure = {
   time: 0,
   step: 0,
   guidelines: true,
-  instance: 0
+  iteration: 0
 };
 
 export default ({
