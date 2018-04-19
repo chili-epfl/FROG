@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
 import regression from 'regression';
-import { VictoryChart, VictoryLine, VictoryTheme, VictoryLabel } from 'victory';
+import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
 
 const Viewer = TimedComponent((props: Object) => {
   const { state } = props;
@@ -25,8 +25,6 @@ const Viewer = TimedComponent((props: Object) => {
           data: { stroke: "red", strokeWidth: 2 },
           labels: { angle: -90, fill: "red", fontSize: 20 }
         }}
-        labels={["Now"]}
-        labelComponent={<VictoryLabel y={100}/>}
         x={() => state.now}
   />
     </VictoryChart>
