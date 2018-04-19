@@ -11,15 +11,11 @@ const Viewer = TimedComponent((props: Object) => {
   return (
     <VictoryChart theme={VictoryTheme.material}>
       <VictoryLine
-        style={{
-          data: { stroke: '#b51212' }
-        }}
+        style={{ data: { stroke: '#b51212' } }}
         data={state.prediction}
       />
       <VictoryLine
-        style={{
-          data: { stroke: '#11b52d' }
-        }}
+        style={{ data: { stroke: '#11b52d' } }}
         data={state.progpred}
       />
       <VictoryLine data={state.completion} />
@@ -38,20 +34,20 @@ const Viewer = TimedComponent((props: Object) => {
 }, 2000);
 
 // calculate predicted time for each student
-const prepareDataForDisplay = state => {
+const prepareDataForDisplay = (state: Object) => {
   // assemble predictions
   const predictedTime = [];
   // assemble trained linear regression weights
   const userResultObject = {};
   let currentMaxTime = 0;
   let finishedStudents = 0;
-  for (let user in state) {
-    var lastIndex = state[user].length - 1;
+  Object.keys(state).forEach(user => {
+    const lastIndex = state[user].length - 1;
     const userMaxTime = state[user][lastIndex][1];
     if (userMaxTime > currentMaxTime) {
       currentMaxTime = userMaxTime;
     }
-    var userPredictedTime;
+    let userPredictedTime;
     if (state[user][lastIndex][0] === 1) {
       // already finished - use actual finish time
       userPredictedTime = state[user][lastIndex][1];
@@ -66,56 +62,57 @@ const prepareDataForDisplay = state => {
         userResult.equation[0] * 1 + userResult.equation[1];
       userResultObject[user] = userResult.equation;
     }
-    if (userPredictedTime != -1) {
+    if (userPredictedTime !== -1) {
       predictedTime.push(userPredictedTime);
     }
-  }
+  })
   const predictionCurve = {};
   const completionCurve = {};
   const progpredCurve = {};
   const progressCurve = {};
   const UPDATE_INTERVAL = 20;
+  const T_MAX = Math.max(...predictedTime) + UPDATE_INTERVAL
 
   for (
-    var t = 0;
-    t <= Math.max(...predictedTime) + UPDATE_INTERVAL;
+    let t = 0;
+    t <= T_MAX;
     t += UPDATE_INTERVAL
   ) {
     const filtered = predictedTime.filter(value => value <= t);
     const progress = [];
-    for (let user in state) {
+    Object.keys(state).forEach(user => {
       const filteredProgress = state[user].filter(value => value[1] <= t);
-      if (filteredProgress.length != 0) {
-        let lastIndex = filteredProgress.length - 1;
+      if (filteredProgress.length !== 0) {
+        const lastIndex = filteredProgress.length - 1;
         progress.push(filteredProgress[lastIndex][0]);
       } else {
         progress.push(0);
       }
-    }
+    })
     if (t <= currentMaxTime) {
       completionCurve[t] =
         progress.filter(value => value === 1).length / progress.length;
       progressCurve[t] = progress.reduce((a, b) => a + b, 0) / progress.length;
       predictionCurve[t] = completionCurve[t];
       progpredCurve[t] = progressCurve[t];
-    } else if (userResultObject.length != 0) {
+    } else if (userResultObject.length !== 0) {
       predictionCurve[t] = filtered.length / predictedTime.length;
       let predictedProgress = 0;
-      for (var user in userResultObject) {
-        if (userResultObject[user] != 0) {
+      Object.keys(userResultObject).forEach( user => {
+        if (userResultObject[user] !== 0) {
           predictedProgress += Math.min(
             (t - userResultObject[user][1]) / userResultObject[user][0],
             1
           );
         }
-      }
+      })
       progpredCurve[t] =
         (predictedProgress + finishedStudents) /
         (Object.keys(userResultObject).length + finishedStudents);
     }
   }
   function parse(curve) {
-    return Object.keys(curve).map(k => ({ x: parseInt(k), y: curve[k] }));
+    return Object.keys(curve).map(k => ({ x: parseInt(k, 10), y: curve[k] }));
   }
 
   return {
