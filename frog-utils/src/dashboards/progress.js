@@ -22,11 +22,11 @@ const Viewer = TimedComponent((props: Object) => {
       <VictoryLine data={state.progress} />
       <VictoryLine
         style={{
-          data: { stroke: "red", strokeWidth: 2 },
-          labels: { angle: -90, fill: "red", fontSize: 20 }
+          data: { stroke: 'red', strokeWidth: 2 },
+          labels: { angle: -90, fill: 'red', fontSize: 20 }
         }}
         x={() => state.now}
-  />
+      />
     </VictoryChart>
   );
 }, 2000);
@@ -56,26 +56,21 @@ const prepareDataForDisplay = (state: Object) => {
     } else {
       // finished multiple tasks - linear projection
       const userResult = regression.linear(state[user]);
-      userPredictedTime =
-        userResult.equation[0] * 1 + userResult.equation[1];
+      userPredictedTime = userResult.equation[0] * 1 + userResult.equation[1];
       userResultObject[user] = userResult.equation;
     }
     if (userPredictedTime !== -1) {
       predictedTime.push(userPredictedTime);
     }
-  })
+  });
   const predictionCurve = {};
   const completionCurve = {};
   const progpredCurve = {};
   const progressCurve = {};
   const UPDATE_INTERVAL = 20;
-  const T_MAX = Math.max(...predictedTime) + UPDATE_INTERVAL
+  const T_MAX = Math.max(...predictedTime) + UPDATE_INTERVAL;
 
-  for (
-    let t = 0;
-    t <= T_MAX;
-    t += UPDATE_INTERVAL
-  ) {
+  for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
     const filtered = predictedTime.filter(value => value <= t);
     const progress = [];
     Object.keys(state).forEach(user => {
@@ -86,7 +81,7 @@ const prepareDataForDisplay = (state: Object) => {
       } else {
         progress.push(0);
       }
-    })
+    });
     if (t <= currentMaxTime) {
       completionCurve[t] =
         progress.filter(value => value === 1).length / progress.length;
@@ -96,14 +91,14 @@ const prepareDataForDisplay = (state: Object) => {
     } else if (userResultObject.length !== 0) {
       predictionCurve[t] = filtered.length / predictedTime.length;
       let predictedProgress = 0;
-      Object.keys(userResultObject).forEach( user => {
+      Object.keys(userResultObject).forEach(user => {
         if (userResultObject[user] !== 0) {
           predictedProgress += Math.min(
             (t - userResultObject[user][1]) / userResultObject[user][0],
             1
           );
         }
-      })
+      });
       progpredCurve[t] =
         (predictedProgress + finishedStudents) /
         (Object.keys(userResultObject).length + finishedStudents);
