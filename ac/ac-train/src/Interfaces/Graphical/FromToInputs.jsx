@@ -20,17 +20,34 @@ const styles = theme => ({
   }
 });
 
-class FromToInputs extends React.Component {
+type PropsT = {
+  inputState: {
+    initial: string,
+    focus: string
+  },
+  classes: Object,
+  answer: Object,
+  onClickFromTo: Function
+};
+
+class FromToInputs extends React.Component<PropsT> {
+  from: HTMLInputElement;
+  to: HTMLInputElement;
+
   handleFocus = () => {
     const { inputState } = this.props;
 
     if (inputState.initial) {
-      this[inputState.focus].focus();
+      if (inputState.focus === 'from') this.from.focus();
+
+      if (inputState.focus === 'to') this.to.focus();
     }
   };
 
-  handleInputRefs = (id, ref) => {
-    this[id] = ref;
+  handleInputRefs = (id: string, ref: HTMLInputElement) => {
+    if (id === 'from') this.from = ref;
+
+    if (id === 'to') this.to = ref;
   };
 
   componentWillReceiveProps() {
@@ -42,7 +59,7 @@ class FromToInputs extends React.Component {
   }
 
   render() {
-    const { classes, answer } = this.props;
+    const { classes, answer, onClickFromTo } = this.props;
     return (
       <Grid container>
         <Grid item sm={6}>
@@ -51,9 +68,11 @@ class FromToInputs extends React.Component {
             <Input
               id="from"
               value={capitalizeFirstLetter(answer.from)}
-              onClick={this.props.onClickFromTo('from')}
+              onClick={onClickFromTo('from')}
               placeholder="Click on Map"
-              inputRef={input => this.handleInputRefs('from', input)}
+              inputRef={(input: HTMLInputElement) =>
+                this.handleInputRefs('from', input)
+              }
             />
           </FormControl>
         </Grid>
@@ -63,9 +82,11 @@ class FromToInputs extends React.Component {
             <Input
               id="to"
               value={capitalizeFirstLetter(answer.to)}
-              onClick={this.props.onClickFromTo('to')}
+              onClick={onClickFromTo('to')}
               placeholder="Click on Map"
-              inputRef={input => this.handleInputRefs('to', input)}
+              inputRef={(input: HTMLInputElement) =>
+                this.handleInputRefs('to', input)
+              }
             />
           </FormControl>
         </Grid>
