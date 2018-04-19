@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Button from 'material-ui/Button';
-import HelpOutLine from '@material-ui/icons/HelpOutline';
 
 import Dialog, {
   DialogActions,
