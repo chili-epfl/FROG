@@ -63,9 +63,6 @@ const mergeLog = (state: Object, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const { whichInterface, iteration, isCorrect, timeTaken } = log.payload;
 
-    // console.log(activity);
-    // activity = interfaceType, instance = iteration,
-
     const iterationOnInterface = iteration % 5;
 
     if (!state['error'][whichInterface]) {
