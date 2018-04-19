@@ -68,7 +68,7 @@ const MeanPerTryForEachInterface = props => {
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
-              Mean {whichDash} Per Try For Each Interface
+              Mean {whichDash} Per Ticket For Each Interface
             </Typography>
           </Grid>
           <Grid item xs={12}>

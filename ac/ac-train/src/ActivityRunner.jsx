@@ -18,6 +18,11 @@ const styles = {
   container: {
     padding: '40px',
     height: '100%'
+  },
+  progressBarHeight: { height: '12px' },
+  progressBarColor: { backgroundColor: '#F45B69' },
+  progressBarBGColor: {
+    backgroundColor: '#ffbec7'
   }
 };
 
@@ -99,7 +104,15 @@ const RunnerController = (props: ActivityRunnerT) => {
   const p = Math.round(step / 5 * 100);
   return (
     <div className={classes.main}>
-      <LinearProgress variant="determinate" color="secondary" value={p} />
+      <LinearProgress
+        variant="determinate"
+        value={p}
+        classes={{
+          root: classes.progressBarHeight,
+          barColorPrimary: classes.progressBarColor,
+          colorPrimary: classes.progressBarBGColor
+        }}
+      />
       <div className={classes.container}>
         <Main {...props} />
       </div>

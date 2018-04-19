@@ -35,9 +35,8 @@ const styles = {
 };
 
 const validationText = {
-  success: 'Your ticket was successfully purchased!',
-  failure:
-    '"Ever tried. Ever failed. No matter. Try Again. Fail again. Fail better." - Samuel Beckett'
+  success: 'Correct ticket purchased!',
+  failure: 'Wrong ticket purchased.'
 };
 
 type IntervalPropsT = {

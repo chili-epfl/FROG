@@ -22,8 +22,8 @@ const Help = ({
   children?: React.Node
 }) => (
   <React.Fragment>
-    <Button color="secondary" variant="fab" aria-label="help" onClick={onOpen}>
-      <HelpOutLine />
+    <Button color="secondary" onClick={onOpen}>
+      Help
     </Button>
     <Dialog
       open={open}

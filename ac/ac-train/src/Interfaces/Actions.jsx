@@ -1,10 +1,10 @@
 import React from 'react';
+import Mousetrap from 'mousetrap';
 
 // UI
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Timer from '@material-ui/icons/Timer';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Button from 'material-ui/Button';
 
 import Help from './Help';
@@ -29,34 +29,47 @@ const styles = {
   }
 };
 
-const Actions = ({
-  ticker,
-  activity,
-  onHelpOpen,
-  onHelpClose,
-  help,
-  classes,
-  submitAnswer
-}) => (
-  <React.Fragment>
-    <IconButton className={classes.tickerButton}>
-      <Timer />
-      <span className={classes.ticker}>:{ticker}</span>
-    </IconButton>
-    <div className={classes.buttons}>
-      <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
-        <SwitchGuidelines activity={activity} />
-      </Help>
-      <Button
-        color="primary"
-        variant="fab"
-        className={classes.buy}
-        onClick={submitAnswer}
-      >
-        <ShoppingCart />
-      </Button>
-    </div>
-  </React.Fragment>
-);
+class Actions extends React.Component {
+  componentWillMount() {
+    Mousetrap.bind('enter', this.props.submitAnswer);
+  }
+
+  componentWillUnmount() {
+    Mousetrap.reset();
+  }
+
+  render() {
+    const {
+      ticker,
+      activity,
+      onHelpOpen,
+      onHelpClose,
+      help,
+      classes,
+      submitAnswer
+    } = this.props;
+    return (
+      <React.Fragment>
+        <IconButton className={classes.tickerButton}>
+          <Timer />
+          <span className={classes.ticker}>:{ticker}</span>
+        </IconButton>
+        <div className={classes.buttons}>
+          <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
+            <SwitchGuidelines activity={activity} />
+          </Help>
+          <Button
+            color="primary"
+            variant="raised"
+            className={classes.buy}
+            onClick={submitAnswer}
+          >
+            Buy
+          </Button>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
 
 export default withStyles(styles)(Actions);
