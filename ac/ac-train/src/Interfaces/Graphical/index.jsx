@@ -67,7 +67,7 @@ type StateT = {
   },
   input: {
     focus: string,
-    switch: boolean
+    clickOnCity: boolean
   }
 };
 
@@ -93,8 +93,9 @@ class Graphical extends React.Component<PropsT, StateT> {
       bike: ''
     },
     input: {
-      focus: '',
-      switch: false
+      focus: 'from',
+      clickOnCity: true,
+      initial: true
     }
   };
 
@@ -107,24 +108,35 @@ class Graphical extends React.Component<PropsT, StateT> {
   handleClickCity = (position: Object, dimension: Object) => () => {
     const { x, y } = position;
     const { width, height } = dimension;
+    const { input } = this.state;
 
     const normX = Math.round(x / width * 1000);
     const normY = Math.round(y / height * 1000);
 
-    if (this.state.input.switch) {
+    if (input.clickOnCity) {
       const id = findInRange(normX, normY);
-      const answer = { ...this.state.answer };
-      answer[this.state.input.focus] = id;
 
       if (id) {
-        this.setState({ answer });
+        const answer = { ...this.state.answer };
+        answer[input.focus] = id;
+
+        let nextInputState;
+
+        if (input.initial && input.focus === 'from') {
+          nextInputState = { focus: 'to', clickOnCity: true, initial: true };
+        } else {
+          nextInputState = { focus: '', clickOnCity: false, initial: false };
+        }
+
+        this.setState({ answer, input: nextInputState });
       }
-      this.setState({ input: { focus: '', switch: false } });
     }
   };
 
-  onFocus = (focusedInput: string) => () => {
-    this.setState({ input: { focus: focusedInput, switch: true } });
+  handleClickFromTo = (focusedInput: string) => () => {
+    this.setState({
+      input: { focus: focusedInput, clickOnCity: true, initial: false }
+    });
   };
 
   handleSubmit = () => {
@@ -133,6 +145,7 @@ class Graphical extends React.Component<PropsT, StateT> {
 
   render() {
     const { ticket, classes, ...actionProps } = this.props;
+    const { answer, input } = this.state;
 
     return (
       <Grid container justify="center">
@@ -151,7 +164,7 @@ class Graphical extends React.Component<PropsT, StateT> {
               <Grid item xs={12} md={8} lg={6}>
                 <ReactCursorPosition>
                   <SwissMap
-                    canSelectCity={this.state.input.switch}
+                    canSelectCity={input.clickOnCity}
                     onClickCity={this.handleClickCity}
                   />
                 </ReactCursorPosition>
@@ -160,13 +173,14 @@ class Graphical extends React.Component<PropsT, StateT> {
                 <Grid container>
                   <Grid item sm={12}>
                     <FromToInputs
-                      answer={this.state.answer}
-                      onFocus={this.onFocus}
+                      inputState={input}
+                      answer={answer}
+                      onClickFromTo={this.handleClickFromTo}
                     />
                   </Grid>
                   <Grid item sm={12} className={classes.radioGroup}>
                     <RadioGroupElements
-                      answer={this.state.answer}
+                      answer={answer}
                       onRadio={this.handleRadio}
                     />
                   </Grid>
