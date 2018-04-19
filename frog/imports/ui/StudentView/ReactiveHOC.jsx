@@ -79,7 +79,6 @@ const ReactiveHOC = (
     };
 
     update = () => {
-      console.info('Update');
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           console.info('dataFn');
@@ -87,14 +86,15 @@ const ReactiveHOC = (
             dataFn: generateReactiveFn(this.doc, readOnly, this.update)
           });
         }
-        console.info('Setting data', this.doc.data);
-        if (this.doc.data) {
+        if (this.doc.data !== undefined) {
           this.setState({ data: cloneDeep(this.doc.data) });
           if (this.interval) {
             console.info('Clearing interval');
             window.clearInterval(this.interval);
             this.interval = undefined;
           }
+        } else {
+          console.info('Update, not this.doc.data');
         }
         if (readOnly) {
           this.setState({ uuid: uuid() });
