@@ -4,28 +4,63 @@
 import * as React from 'react';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
 import regression from 'regression';
-import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryTheme,
+  VictoryLegend,
+  VictoryAxis
+} from 'victory';
 
 const Viewer = TimedComponent((props: Object) => {
   const { state } = props;
   return (
     <VictoryChart theme={VictoryTheme.material}>
+      <VictoryLegend
+        x={50}
+        y={0}
+        orientation="horizontal"
+        gutter={20}
+        style={{ border: { stroke: 'black' }, title: { fontSize: 16 } }}
+        data={[
+          { name: 'Progress', symbol: { fill: '#0000ff' } },
+          { name: 'Completion', symbol: { fill: '#6d0909' } }
+        ]}
+      />
       <VictoryLine
-        style={{ data: { stroke: '#b51212' } }}
+        style={{ data: { stroke: '#f25959', strokeDasharray: '5,5' } }}
         data={state.prediction}
       />
       <VictoryLine
-        style={{ data: { stroke: '#11b52d' } }}
+        style={{ data: { stroke: '#5454f7', strokeDasharray: '5,5' } }}
         data={state.progpred}
       />
-      <VictoryLine data={state.completion} />
-      <VictoryLine data={state.progress} />
+      <VictoryLine
+        style={{ data: { stroke: '#6d0909' } }}
+        data={state.completion}
+      />
+      <VictoryLine
+        style={{ data: { stroke: '#0000ff' } }}
+        data={state.progress}
+      />
       <VictoryLine
         style={{
-          data: { stroke: 'red', strokeWidth: 2 },
-          labels: { angle: -90, fill: 'red', fontSize: 20 }
+          data: { stroke: 'grey', strokeWidth: 2 }
         }}
         x={() => state.now}
+      />
+      <VictoryAxis
+        label="Time (sec)"
+        style={{
+          axisLabel: { fontSize: 14, padding: 30 }
+        }}
+      />
+      <VictoryAxis
+        dependentAxis
+        label="Class Percentage"
+        style={{
+          axisLabel: { fontSize: 14, padding: 30 }
+        }}
       />
     </VictoryChart>
   );
