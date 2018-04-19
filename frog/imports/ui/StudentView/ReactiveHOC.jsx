@@ -15,7 +15,12 @@ import { connection } from '../App/connection';
 
 type ReactiveCompPropsT = Object;
 
-type ReactiveCompsStateT = { data: any, dataFn: ?Object, uuid: string };
+type ReactiveCompsStateT = {
+  data: any,
+  dataFn: ?Object,
+  uuid: string,
+  timeout: boolean
+};
 
 const ReactiveHOC = (
   docId: string,
@@ -27,16 +32,18 @@ const ReactiveHOC = (
     ReactiveCompPropsT,
     ReactiveCompsStateT
   > {
-    state: { data: any, dataFn: ?Object, uuid: string };
     doc: any;
     unmounted: boolean;
+    interval: any;
+    times: 0;
 
     constructor(props: Object) {
       super(props);
       this.state = {
         data: null,
         dataFn: null,
-        uuid: uuid()
+        uuid: uuid(),
+        timeout: false
       };
     }
 
@@ -45,22 +52,50 @@ const ReactiveHOC = (
       this.doc = (conn || connection || {}).get('rz', docId);
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
+      this.interval = window.setInterval(() => {
+        console.info('Interval', this.interval);
+        this.interval += 1;
+        if (this.interval > 10) {
+          this.setState({ timeout: true });
+          window.clearInterval(this.interval);
+          this.interval = undefined;
+        } else {
+          this.update();
+        }
+      }, 1000);
       if (this.doc.type) {
+        console.info('Update already');
         this.update();
       } else {
-        this.doc.on('load', this.update);
+        this.doc.on('load', () => {
+          console.info('Load');
+          this.update();
+        });
       }
-      this.doc.on('op', this.update);
+      this.doc.on('op', () => {
+        console.info('Op');
+        this.update();
+      });
     };
 
     update = () => {
+      console.info('Update');
       if (!this.unmounted) {
         if (!this.state.dataFn) {
+          console.info('dataFn');
           this.setState({
             dataFn: generateReactiveFn(this.doc, readOnly, this.update)
           });
         }
-        this.setState({ data: cloneDeep(this.doc.data) });
+        console.info('Setting data', this.doc.data);
+        if (this.doc.data) {
+          this.setState({ data: cloneDeep(this.doc.data) });
+          if (this.interval) {
+            console.info('Clearing interval');
+            window.clearInterval(this.interval);
+            this.interval = undefined;
+          }
+        }
         if (readOnly) {
           this.setState({ uuid: uuid() });
         } else {
@@ -79,10 +114,16 @@ const ReactiveHOC = (
       this.doc.removeListener('op', this.update);
       this.doc.removeListener('load', this.update);
       this.unmounted = true;
+      if (this.interval) {
+        console.info('Clearing interval, unmount');
+        window.clearInterval(this.interval);
+      }
     };
 
     render = () =>
-      this.state.data ? (
+      this.state.timeout ? (
+        <h1>Sorry, reactive data timed out. Try reloading the page</h1>
+      ) : this.state.data ? (
         <ErrorBoundary msg="Activity crashed, try reloading">
           <WrappedComponent
             uuid={this.state.uuid}
