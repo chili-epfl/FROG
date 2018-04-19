@@ -2,116 +2,155 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { Chart } from 'react-google-charts';
 import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
-
-const LineChart = ({
-  title,
-  vAxis,
-  hAxis,
-  hLen,
-  rows
-}: {
-  title: string,
-  vAxis: string,
-  hAxis: string,
-  hLen: number,
-  rows: Array<Array<number>>
-}) => (
-  <Chart
-    chartType="LineChart"
-    rows={rows}
-    columns={[
-      { type: 'number', label: 'Time' },
-      { type: 'number', label: 'Progress' },
-      { type: 'number', label: 'Complete' }
-    ]}
-    width="100%"
-    height="300px"
-    options={{
-      title,
-      legend: { position: 'top' },
-      pointSize: 5,
-      vAxis: {
-        title: vAxis,
-        minValue: 0,
-        maxValue: 100,
-        viewWindow: { max: 100 },
-        gridlines: { color: 'transparent' }
-      },
-      hAxis: {
-        title: hAxis,
-        minValue: 0,
-        maxValue: hLen,
-        gridlines: { color: 'transparent' }
-      }
-    }}
-  />
-);
-
-const TIMEWINDOW = 5;
+import regression from 'regression';
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryTheme,
+  VictoryLegend,
+  VictoryAxis
+} from 'victory';
 
 const Viewer = TimedComponent((props: Object) => {
-  const { state, activity, timeNow } = props;
-
-  const numWindow =
-    activity.actualClosingTime === undefined
-      ? Math.ceil(
-          (new Date(timeNow) - new Date(activity.actualStartingTime)) /
-            1000 /
-            TIMEWINDOW
-        )
-      : Math.ceil(
-          (new Date(activity.actualClosingTime) -
-            new Date(activity.actualStartingTime)) /
-            1000 /
-            TIMEWINDOW
-        );
-  const timingData = [[0, 0, 0]];
-  const factor = 100 / Math.max(Object.keys(state.progress).length, 1);
-  for (let i = 0, j = -1; i <= numWindow; i += 1) {
-    while (
-      state.timing.length > j + 1 &&
-      i * TIMEWINDOW >= (state.timing[j + 1] || [0])[0]
-    ) {
-      j += 1;
-    }
-    timingData.push([
-      i * TIMEWINDOW / 60,
-      state.timing[j][1] * factor,
-      state.timing[j][2] * factor
-    ]);
-  }
-  const usersStarted = Object.keys(state.progress).length;
-  const usersFinished = Object.keys(state.progress).filter(
-    x => state.progress[x] === 1
-  ).length;
+  const { state } = props;
   return (
-    <React.Fragment>
-      <LineChart
-        title="Activity Progress"
-        vAxis="Average Class Progress"
-        hAxis="Time Elapsed"
-        hLen={props.activity['length']}
-        rows={timingData}
+    <VictoryChart theme={VictoryTheme.material}>
+      <VictoryLegend
+        x={50}
+        y={0}
+        orientation="horizontal"
+        gutter={20}
+        style={{ border: { stroke: 'black' }, title: { fontSize: 16 } }}
+        data={[
+          { name: 'Progress', symbol: { fill: '#0000ff' } },
+          { name: 'Completion', symbol: { fill: '#6d0909' } }
+        ]}
       />
-      <table>
-        <tbody>
-          <tr>
-            <td style={{ paddingRight: '10px' }}>Users who started activity</td>
-            <td>{usersStarted}</td>
-          </tr>
-          <tr>
-            <td style={{ paddingRight: '10px' }}>
-              Users who completed activity
-            </td>
-            <td>{usersFinished}</td>
-          </tr>
-        </tbody>
-      </table>
-    </React.Fragment>
+      <VictoryLine
+        style={{ data: { stroke: '#f25959', strokeDasharray: '5,5' } }}
+        data={state.prediction}
+      />
+      <VictoryLine
+        style={{ data: { stroke: '#5454f7', strokeDasharray: '5,5' } }}
+        data={state.progpred}
+      />
+      <VictoryLine
+        style={{ data: { stroke: '#6d0909' } }}
+        data={state.completion}
+      />
+      <VictoryLine
+        style={{ data: { stroke: '#0000ff' } }}
+        data={state.progress}
+      />
+      <VictoryLine
+        style={{
+          data: { stroke: 'grey', strokeWidth: 2 }
+        }}
+        x={() => state.now}
+      />
+      <VictoryAxis
+        label="Time (sec)"
+        style={{
+          axisLabel: { fontSize: 14, padding: 30 }
+        }}
+      />
+      <VictoryAxis
+        dependentAxis
+        label="Class Percentage"
+        style={{
+          axisLabel: { fontSize: 14, padding: 30 }
+        }}
+      />
+    </VictoryChart>
   );
 }, 2000);
+
+// calculate predicted time for each student
+const prepareDataForDisplay = (state: Object) => {
+  // assemble predictions
+  const predictedTime = [];
+  // assemble trained linear regression weights
+  const userResultObject = {};
+  let currentMaxTime = 0;
+  let finishedStudents = 0;
+  Object.keys(state).forEach(user => {
+    const lastIndex = state[user].length - 1;
+    const userMaxTime = state[user][lastIndex][1];
+    if (userMaxTime > currentMaxTime) {
+      currentMaxTime = userMaxTime;
+    }
+    let userPredictedTime;
+    if (state[user][lastIndex][0] === 1) {
+      // already finished - use actual finish time
+      userPredictedTime = state[user][lastIndex][1];
+      finishedStudents += 1;
+    } else if (state[user].length < 3) {
+      // finished only less than 2 task - not sufficient
+      userPredictedTime = -1;
+    } else {
+      // finished multiple tasks - linear projection
+      const userResult = regression.linear(state[user]);
+      userPredictedTime = userResult.equation[0] * 1 + userResult.equation[1];
+      userResultObject[user] = userResult.equation;
+    }
+    if (userPredictedTime !== -1) {
+      predictedTime.push(userPredictedTime);
+    }
+  });
+  const predictionCurve = {};
+  const completionCurve = {};
+  const progpredCurve = {};
+  const progressCurve = {};
+  const UPDATE_INTERVAL = 20;
+  const T_MAX = Math.max(...predictedTime) + UPDATE_INTERVAL;
+
+  for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
+    const filtered = predictedTime.filter(value => value <= t);
+    const progress = [];
+    Object.keys(state).forEach(user => {
+      const filteredProgress = state[user].filter(value => value[1] <= t);
+      if (filteredProgress.length !== 0) {
+        const lastIndex = filteredProgress.length - 1;
+        progress.push(filteredProgress[lastIndex][0]);
+      } else {
+        progress.push(0);
+      }
+    });
+    if (t <= currentMaxTime) {
+      completionCurve[t] =
+        progress.filter(value => value === 1).length / progress.length;
+      progressCurve[t] = progress.reduce((a, b) => a + b, 0) / progress.length;
+      predictionCurve[t] = completionCurve[t];
+      progpredCurve[t] = progressCurve[t];
+    } else if (userResultObject.length !== 0) {
+      predictionCurve[t] = filtered.length / predictedTime.length;
+      let predictedProgress = 0;
+      Object.keys(userResultObject).forEach(user => {
+        if (userResultObject[user] !== 0) {
+          predictedProgress += Math.min(
+            (t - userResultObject[user][1]) / userResultObject[user][0],
+            1
+          );
+        }
+      });
+      progpredCurve[t] =
+        (predictedProgress + finishedStudents) /
+        (Object.keys(userResultObject).length + finishedStudents);
+    }
+  }
+  function parse(curve) {
+    return Object.keys(curve).map(k => ({ x: parseInt(k, 10), y: curve[k] }));
+  }
+
+  return {
+    prediction: parse(predictionCurve),
+    completion: parse(completionCurve),
+    progress: parse(progressCurve),
+    progpred: parse(progpredCurve),
+    now: Math.floor(currentMaxTime / UPDATE_INTERVAL) * UPDATE_INTERVAL
+  };
+};
 
 const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
   if (
@@ -120,38 +159,17 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    let lastIndex = state.timing.length - 1;
-    const lastTimingItem = state.timing[lastIndex];
-
-    const prevProgress = state.progress[log.instanceId] || 0;
-    const progressIncr = log.value - prevProgress;
-
-    const completeIncr = log.value === 1 && log.value > prevProgress ? 1 : 0;
-
-    state.progress[log.instanceId] = log.value;
-
-    const timeDiff =
-      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
-    const timeWindow = Math.ceil(timeDiff / TIMEWINDOW) * TIMEWINDOW;
-    if (timeWindow !== lastTimingItem[0]) {
-      const newItem = [timeWindow, lastTimingItem[1], lastTimingItem[2]];
-      state.timing.push(newItem);
-      lastIndex += 1;
+    if (!state[log.instanceId]) {
+      state[log.instanceId] = [];
     }
-    state.timing[lastIndex][1] += progressIncr;
-    state.timing[lastIndex][2] += completeIncr;
+    const totalTime =
+      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
+    const progress = log.value;
+    state[log.instanceId].push([progress, totalTime]);
   }
 };
 
-// progress:
-// keyed by instanceId contain the latest logged progress of each instanceId
-//
-// timing:
-// Array of arrays of [ timeWindow, averageProgress, completionRate ]
-const initData = {
-  progress: {},
-  timing: [[0, 0, 0]]
-};
+const initData = {};
 
 const activityMerge = {
   actualStartingTime: '2018-02-20T08:16:05.308Z',
@@ -186,5 +204,6 @@ export default {
   Viewer,
   mergeLog,
   initData,
-  exampleLogs
+  exampleLogs,
+  prepareDataForDisplay
 };
