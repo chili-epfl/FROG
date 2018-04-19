@@ -75,12 +75,12 @@ class Interface extends React.Component {
       this.checkAnswer(undefined);
     }, this.state.secondsRemaining * 1000);
 
-    this.tickerOnIteration = setInterval(this.ticker, 1000);
+    this.timerOnIteration = setInterval(this.ticker, 1000);
   };
 
   stopTimer = () => {
     clearTimeout(this.noAnswerTimeOut);
-    clearInterval(this.timerPerIteration);
+    clearInterval(this.timerOnIteration);
   };
 
   ticker = () => {
@@ -145,7 +145,7 @@ class Interface extends React.Component {
     ]);
 
     this.stopTimer();
-    this.setState({ ticketStatus: true, isCorrect });
+    this.setState({ showticketStatus: true, isCorrect });
   };
 
   componentWillMount() {

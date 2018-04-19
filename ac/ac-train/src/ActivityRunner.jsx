@@ -80,7 +80,7 @@ class Main extends React.Component<PropsT> {
     if (step < 5 && guidelines) {
       return (
         <SpecificGuideline
-          activity={this.interfaces[step]}
+          whichInterface={this.interfaces[step]}
           start={step === 0 ? this.beginActivity : this.start}
           step={step}
         />
@@ -88,7 +88,9 @@ class Main extends React.Component<PropsT> {
     }
 
     if (step < 5) {
-      return <Interface activity={this.interfaces[step]} {...this.props} />;
+      return (
+        <Interface whichInterface={this.interfaces[step]} {...this.props} />
+      );
     } else {
       return <ActivityEnded />;
     }

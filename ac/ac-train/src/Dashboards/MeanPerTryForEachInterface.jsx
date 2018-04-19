@@ -72,7 +72,7 @@ const MeanPerTryForEachInterface = props => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <VictoryChart>
+            <VictoryChart domainPadding={{ y: [0, 5] }}>
               <VictoryLegend
                 x={50}
                 y={0}

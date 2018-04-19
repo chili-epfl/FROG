@@ -39,7 +39,7 @@ type PropsT = {
   onHelpClose: Function,
   help: boolean,
   classes: Object,
-  activity: string,
+  whichInterface: string,
   ticker: string
 };
 

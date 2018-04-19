@@ -41,7 +41,7 @@ class Actions extends React.Component {
   render() {
     const {
       ticker,
-      activity,
+      whichInterface,
       onHelpOpen,
       onHelpClose,
       help,
@@ -56,7 +56,7 @@ class Actions extends React.Component {
         </IconButton>
         <div className={classes.buttons}>
           <Help onOpen={onHelpOpen} onClose={onHelpClose} open={help}>
-            <SwitchGuidelines activity={activity} />
+            <SwitchGuidelines whichInterface={whichInterface} />
           </Help>
           <Button
             color="primary"
