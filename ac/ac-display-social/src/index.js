@@ -55,26 +55,22 @@ const ActivityRunner = props => {
   if (!data.includes(name)) {
     dataFn.listAppend(name);
   }
-
-  const others = uniq(data).filter(x => x !== name);
-  const hasOthers = others.length > 0;
   return (
     <div>
       {configData.title && <h1>{configData.title}</h1>}
       <h2>
-        {configData.displayName && `Hi, ${name}. `} You are{' '}
-        {!hasOthers && 'alone '}in group {groupingValue}.
+        {configData.displayName && `Hi, ${name}. `} You are in group{' '}
+        {groupingValue}.
       </h2>
-      {configData.displayGroup &&
-        hasOthers && (
-          <h3>
-            {'The other group members are: ' +
-              uniq(data)
-                .filter(x => x !== name)
-                .sort()
-                .join(', ')}
-          </h3>
-        )}
+      {configData.displayGroup && (
+        <h3>
+          {'The other group members are: ' +
+            uniq(data)
+              .filter(x => x !== name)
+              .sort()
+              .join(', ')}
+        </h3>
+      )}
     </div>
   );
 };
