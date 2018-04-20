@@ -119,7 +119,9 @@ const ActivityRunner = (props: ActivityRunnerT) => {
             <div>
               <HTML html={config.title} />
             </div>
-            <p>{config.guidelines}</p>
+            <div>
+              <HTML html={config.guidelines} />
+            </div>
             <div style={{ width: '100%' }}>
               <div>
                 <table style={{ width: '100%' }}>
@@ -146,6 +148,7 @@ const ActivityRunner = (props: ActivityRunnerT) => {
             <hr style={{ height: '5px' }} />
             <div>
               <div style={{ width: '100%' }}>
+                <p>At rank {nKey(answers[userInfo.id] || {}) + 1}, add item:</p>
                 <div
                   style={{
                     position: 'relative',
