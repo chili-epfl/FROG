@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { VictoryChart, VictoryScatter, VictoryTheme } from 'victory';
+import { VictoryChart, VictoryScatter, VictoryTheme, VictoryLabel } from 'victory';
 
 import { type LogDBT, type dashboardViewerPropsT } from 'frog-utils';
 
@@ -18,6 +18,10 @@ const Viewer = (props: dashboardViewerPropsT) => {
     activity,
     state: { coordinates }
   } = props;
+  console.log(activity);
+  // We should make this universal in the case that it is coming from a quiz
+  const coordinateLabels = activity.data.answers || [];
+  console.log(coordinateLabels);
   if (!coordinates || Object.keys(coordinates).length < 1) {
     return <p>No data to display</p>;
   } else {
@@ -34,6 +38,34 @@ const Viewer = (props: dashboardViewerPropsT) => {
         theme={VictoryTheme.material}
         domain={{ x: [-10, 10], y: [-10, 10] }}
       >
+        {coordinateLabels.map((x,y) => {
+          switch(y) {
+            case 0:
+            return (
+              <VictoryLabel key={x} x={300} y={40} textAnchor="end" style={{ title: { fontSize: 16 } }}
+                text={x}
+              />
+            );
+            case 1:
+            return (
+              <VictoryLabel key={x} x={300} y={310} textAnchor="end" style={{ title: { fontSize: 16 } }}
+                text={x}
+              />
+            );
+            case 2:
+            return (
+              <VictoryLabel key={x} x={50} y={40} style={{ title: { fontSize: 16 } }}
+                text={x}
+              />
+            );
+            default:
+            return (
+              <VictoryLabel key={x} x={50} y={310} style={{ title: { fontSize: 16 } }}
+                text={x}
+              />
+            );
+          }
+        })}
         <VictoryScatter size={4} data={state} events={eventHandler} />
       </VictoryChart>
     );
