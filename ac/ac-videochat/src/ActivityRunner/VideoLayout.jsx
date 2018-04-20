@@ -21,30 +21,28 @@ const LayoutBoxS = {
 };
 
 export default ({ local, remote }: VideosPropsT) => {
+  console.log(remote);
   const VideoList =
-    remote.length > 0 ? (
       <React.Fragment>
         <div style={VideoBoxS} key="local">
-          <Video src={local.src} self />
-          {local.user && (
+          <Video videoId={local.id} self />
+          {local.name && (
             <p>
-              <i>Local: {local.user}</i>
+              <i>Local: {local.name}</i>
             </p>
           )}
         </div>
-        {remote.map((connection, index) => (
-          <div style={VideoBoxS} key={connection.remoteUser.id}>
+        {remote.map((participant, index) => (
+          <div style={VideoBoxS} key="remote">
             <Video
+              videoId={participant.id}
               index={'remotevideo' + index}
-              src={connection.src}
-              name={connection.remoteUser.name}
+              name={participant.name}
             />
-            <p>{connection.remoteUser && connection.remoteUser.name}</p>
+            <p>{participant.name}</p>
           </div>
         ))}
       </React.Fragment>
-    ) : (
-      <h2>Waiting for other users to join</h2>
-    );
+
   return <div style={LayoutBoxS}>{VideoList}</div>;
 };

@@ -19,331 +19,293 @@ export const isBrowser = (() => {
   }
 })();
 
-export const KurentoClient = isBrowser
-  ? require('./kurento-client.js').default
+export const Participant = isBrowser
+	? require('./participant.js')
   : () => null
+  
+export const hark = isBrowser
+	? require('./hark.bundle.js')
+	: () => null
 
-export const KurentoUtils = isBrowser
-  ? require('./kurento-utils.js').default
-  : () => null
-
+// const signalServerUrl = 'wss://frog-marin.tk:6443/frog';
+const signalServerUrl = 'wss://osls-signal-server.tk:443/osls';
+const ice_servers = ICEConfig;
 
 declare var RTCPeerConnection: any;
 declare var RTCIceCandidate: any;
 declare var RTCSessionDescription: any;
 declare var navigator: any;
 
+declare var kurentoClient: any;
+declare var webRtcPeer: any;
+
 type StateT = {
-  mode: string,
   local: Object,
   remote: Array<any>
 };
 
 class ActivityRunner extends Component<ActivityRunnerT, StateT> {
-  connections: Array<any>;
+  configuration = {
+      "iceServers": [
+          { "urls": "stun:stun.l.google.com:19302" }
+    , { "urls": "turn:oslsturn.westeurope.cloudapp.azure.com:3478", "username": "test", "credential": "test" }
+    , { "urls": "turn:oslsturn.westeurope.cloudapp.azure.com:3478?transport=tcp", "username": "test", "credential": "test" }
+      ]
+  };
 
+  createWebSocketConnection = () => {
+    this.ws = new WebSocket(signalServerUrl);
 
-  findConnectionByRemoteUser = userInfo =>
-    this.connections.find(conn => isEqual(conn.remoteUser, userInfo));
+    var self = this;
 
-  startConnection = remoteUser => {
-    const remoteConn = this.findConnectionByRemoteUser(remoteUser);
+    //when web socket connection is oppened, register on signal server
+    this.ws.onopen = function (event) {
+      self.register(this.name, this.id, this.roomId);
+    }
 
-    if (this.state.mode !== 'notReady') {
-      if (!remoteConn) {
-        return this.createPeerConnection(remoteUser);
-      } else if (remoteConn.signalingState === 'have-local-offer' || 'stable') {
-        if (remoteUser.id > this.props.userInfo.id) {
-          this.handleRemoteHangUp(remoteConn);
-          return this.createPeerConnection(remoteUser);
-        }
+    this.ws.onmessage = function(message) {
+      const parsedMessage = JSON.parse(message.data);
+      if(parsedMessage.id !== "iceCandidate") {
+        console.info('Received message: ' + message.data);
       }
-    }
-  };
 
-  createPeerConnection = remoteUser => {
-    try {
-      const conn = new RTCPeerConnection(ICEConfig);
-      conn.onicecandidate = this.handleIceCandidate;
-      conn.onaddstream = this.handleRemoteStreamAdded;
-      conn.oniceconnectionstatechange = this.handleIceChange;
-      if (this.state.mode === 'readyToCall' || this.state.mode === 'calling') {
-        conn.addStream(this.state.local.stream);
-      }
-      conn.remoteUser = remoteUser;
-      this.connections.push(conn);
-      return conn;
-    } catch (e) {
-      console.warn('Cannot create RTCPeerConnection object.');
-    }
-  };
-
-  handleIceCandidate = event => {
-    if (event.candidate) {
-      const message = {
-        type: 'candidate',
-        data: {
-          label: event.candidate.sdpMLineIndex,
-          id: event.candidate.sdpMid,
-          candidate: event.candidate.candidate,
-          toUser: event.target.remoteUser,
-          fromUser: this.props.userInfo
-        }
-      };
-      this.props.dataFn.listAppend(message);
-    }
-  };
-
-  handleRemoteStreamAdded = event => {
-    const index = this.connections.findIndex(
-      x => x.remoteUser === event.currentTarget.remoteUser
-    );
-    let remotes = [];
-    switch (this.state.mode) {
-      case 'readyToCall':
-        this.addRemoteStream(remotes, index, event.stream);
+    
+      switch (parsedMessage.id) {
+      case 'existingParticipants':
+        console.log("==>existingParticipants");
+        console.log(parsedMessage);
+        self.onExistingParticipants(parsedMessage);
         break;
-      case 'calling':
-        remotes = this.state.remote;
-        if (isUndefined(remotes[index])) {
-          this.addRemoteStream(remotes, index, event.stream);
-        }
+      case 'newParticipantArrived':
+        console.log("==>newParticipantArrived");
+        self.onNewParticipant(parsedMessage.name, parsedMessage.userId);
+        break;
+      case 'participantLeft':
+        console.log("==>participantLeft");
+        self.onParticipantLeft(parsedMessage.userId);
+        break;
+      case 'receiveVideoAnswer':
+        console.log("==>receiveVideoAnswer");
+        self.receiveVideoResponse(parsedMessage.userId, parsedMessage.sdpAnswer);
+        break;
+      case 'iceCandidate':
+        //console.log("==>iceCandidate");
+        self.participants[parsedMessage.userId].onRemoteCandidate(parsedMessage.candidate);
         break;
       default:
-        break;
+        console.error('Unrecognized message', parsedMessage);
+      }
     }
   };
 
-  addRemoteStream = (remotes, index, stream) => {
-    remotes[index] = {
-      stream,
-      src: window.URL.createObjectURL(stream),
-      remoteUser: this.connections[index].remoteUser
-    };
+  sendMessage = message => {
+    const jsonMessage = JSON.stringify(message);
+    // console.log('Senging message: ' + jsonMessage);
+    this.ws.send(jsonMessage);
+  };
+
+  register = (name, id, roomId) => {
+	  const message = {
+		  id : 'joinRoom',
+      name : this.name,
+      userId: this.id,
+		  room : this.roomId,
+	  }
+	  this.sendMessage(message);
+  };
+
+  onExistingParticipants = msg => {
+    // var constraints = {
+    //   audio : true,
+    //   video : {
+    //     mandatory : {
+    //       maxWidth : 320,
+    //       maxFrameRate : 15,
+    //       minFrameRate : 15
+    //     }
+    //   }
+    // };
+
+    const self = this;
+  
+
+
+
+
+
+    //this functions will be given to Participant object
+    //when stream is created, this function will be called
+    function onAddLocalStream(stream){
+
+      var speechEvents = hark(stream);
+
+
+      speechEvents.on('speaking', function() {
+        console.log('speaking');
+
+        //self.name
+        //show user on dashboard
+        logger({type: "videochat", payload: {name: self.name}})
+      });
+
+      speechEvents.on('stopped_speaking', function() {
+        console.log('stopped_speaking');
+
+        //self.name
+        
+
+      });
+
+      self.setState(
+        {
+          local: {
+            name: self.name,
+            id: self.id
+          }
+        }
+      );
+
+
+
+
+
+
+
+      //setting stream to my video (myVideo is rendered after updating state)
+      var myVideo = document.getElementById(self.id);
+      myVideo.srcObject = stream;
+    }
+
+    var options = {
+      onAddLocalStream: onAddLocalStream,
+      configuration: self.configuration		  
+    }
+
+    //create new participant for send only my stream
+    var participant = new Participant(this.name, this.id, this.sendMessage);
+    this.participants[participant.id] = participant;
+    participant.createSendOnlyPeer(options);
+
+    //for each of the existing participants, receive their video feed
+    msg.data.forEach(this.receiveVideo);
+  };
+
+  onNewParticipant = (name, userId) => {
+    this.receiveVideo({name: name, id: userId});
+  };
+
+  //receive video from remote peer
+  receiveVideo = newParticipant => {
+    const self = this;
+
+    console.log("receiveVideo()");
+    var participant = new Participant(newParticipant.name, newParticipant.id, this.sendMessage);
+    this.participants[participant.id] = participant;
+    
+    function onAddRemoteStream(event){
+      console.log("onAddRemoteStream");
+      var stream = event.stream;
+      // console.warn(stream);
+
+      self.addRemoteUserToState(newParticipant);
+      var newParticipantVideo = document.getElementById(newParticipant.id);
+      newParticipantVideo.srcObject = stream;
+    }
+
+    //ice servers? (configuration)
+    var options = {
+      onaddstream: onAddRemoteStream,
+      configuration: self.configuration		  
+    }
+
+    participant.createRecvOnlyPeer(options);
+  }
+
+  addRemoteUserToState = (participant) => {
+    var remotes = this.state.remote;
+    //remotes.push({remoteUser: {name: participant.name, id: participant.id}});
+    remotes.push({name: participant.name, id: participant.id});
     this.setState({
-      mode: 'calling',
       remote: remotes
     });
   };
 
-  handleIceChange = event => {
-    if (
-      event.target.iceConnectionState === 'failed' ||
-      event.target.iceConnectionState === 'disconnected' ||
-      event.target.iceConnectionState === 'closed'
-    ) {
-      this.handleRemoteHangUp(event.target);
-    }
-  };
-
-  startOffer = connection => {
-    connection
-      .createOffer(this.props.activityData.config.sdpConstraints)
-      .then(offer => {
-        this.setLocalInfoAndSendOffer(offer, connection);
-      });
-  };
-
-  setLocalInfoAndSendOffer = (offer, connection) => {
-    offer.sdp = preferOpus(offer.sdp);
-    connection.setLocalDescription(offer);
-    const message = {
-      type: 'offer',
-      data: {
-        message: offer,
-        toUser: connection.remoteUser,
-        fromUser: this.props.userInfo
-      }
-    };
-    this.props.dataFn.listAppend(message);
-  };
-
-  startAnswer = connection => {
-    connection.createAnswer().then(answer => {
-      this.setLocalInfoAndSendAnswer(answer, connection);
+  removeRemoteUserFromState = (participantId) => {
+    var remotes = this.state.remote;
+    remotes = remotes.filter(r => r.id !== participantId);
+    console.log("Remotes after removing user");
+    console.log(remotes);
+    this.setState({
+      remote: remotes
     });
   };
 
-  setLocalInfoAndSendAnswer = (answer, connection) => {
-    answer.sdp = preferOpus(answer.sdp);
-    connection.setLocalDescription(answer);
-    const message = {
-      type: 'answer',
-      data: {
-        message: answer,
-        toUser: connection.remoteUser,
-        fromUser: this.props.userInfo
-      }
-    };
-    this.props.dataFn.listAppend(message);
-  };
 
-  handleRemoteHangUp = remoteConnection => {
-    if (!isUndefined(remoteConnection) && this.state.mode === 'calling') {
-      let newRemotes;
-      if (
-        remoteConnection.getRemoteStreams() !== null &&
-        this.state.mode === 'calling'
-      ) {
-        newRemotes = this.state.remote.filter(({ stream }) => {
-          if (stream === remoteConnection.getRemoteStreams()[0]) {
-            stream.getTracks().forEach(track => track.stop());
-            return false;
-          } else {
-            return true;
-          }
-        });
-      }
+  //receive answer from remote peer
+  receiveVideoResponse = (id, sdpAnswer) => {
+    this.participants[id].processAnswer(sdpAnswer);
+  }
 
-      remoteConnection.close();
+  //remove participant from remotes and update state
+  onParticipantLeft = participantId => {
+    console.log('Participant ', participantId, ' left');
+    var participant = this.participants[participantId];
+  
+    //remove and update state
+    this.removeRemoteUserFromState(participantId);
+  
+    participant.dispose();
+    delete this.participants[participantId];
+  }
 
-      this.connections = without(this.connections, remoteConnection);
-
-      this.setState({
-        mode: 'calling',
-        remote: newRemotes
-      });
+  leaveRoom = () => {
+    this.sendMessage({
+      id : 'leaveRoom'
+    });
+  
+    for ( var key in this.participants) {
+      this.participants[key].dispose();
     }
-  };
+    
+    this.ws.close();
+  }
 
   constructor(props: ActivityRunnerT) {
-    console.log(props);
     super(props);
-    this.connections = [];
-    this.state = { mode: 'notReady', local: {}, remote: [] };
+
+    console.log("constructor");
+    console.log(props);
+    this.name = "";
+    this.id = "";
+    this.roomId = "";
+    this.ws = null;
+    this.participants = {};
+    this.state = { local: {}, remote: [] };
   }
 
   componentDidMount() {
-    navigator.mediaDevices
-      .getUserMedia(this.props.activityData.config.sdpConstraints)
-      .then(this.gotStream)
-      .catch(e => {
-        console.warn('Not able to get camera: ', e);
-      });
+    console.log("component mounted");
+
+    //set up variables
+    this.name = this.props.userInfo.name;
+    this.id = this.props.userInfo.id;
+    this.roomId = this.props.sessionId + this.props.groupingValue;
+
+    //should be set with setState command
+    this.state.local.user = this.name;
+    // this.props.dataFn.listAppend({ msg: this.name});
+
+    this.createWebSocketConnection();
   }
-
-  gotStream = stream => {
-    this.setState(
-      {
-        mode: 'readyToCall',
-        local: {
-          user: this.props.userInfo.name,
-          src: window.URL.createObjectURL(stream),
-          stream
-        }
-      },
-      this.call
-    );
-  };
-
-  call = () => {
-    const message = {
-      type: 'join',
-      data: {
-        room: this.props.groupingValue || 'room',
-        fromUser: this.props.userInfo
-      }
-    };
-    this.props.dataFn.listAppend(message);
-  };
 
   componentWillUnmount() {
-    if (
-      (this.state.mode === 'calling' || this.state.mode === 'readyToCall') &&
-      !isUndefined(this.state.local.stream)
-    ) {
-      this.state.local.stream.getTracks().forEach(track => track.stop());
-    }
-
-    if (this.state.mode === 'calling') {
-      if (this.state.remote.length > 0) {
-        this.state.remote.forEach(({ stream }) => {
-          stream.getTracks().forEach(track => track.stop());
-        });
-      }
-
-      if (this.connections.length > 0) {
-        this.connections.forEach(connection => {
-          connection.close();
-        });
-      }
-
-      this.connections = [];
-      this.setState({
-        mode: 'hangUp'
-      });
-    }
-  }
-
-  shouldComponentUpdate(nextProps) {
-    console.log("shouldcompUpdate");
-    console.log(nextProps);
-    if (difference(nextProps.data, this.props.data).length > 0) {
-      const newMess = last(nextProps.data);
-      if (!isEqual(newMess.data.fromUser, this.props.userInfo)) {
-        if (newMess.type === 'join' && this.state.mode !== 'notReady') {
-          const connection = this.startConnection(newMess.data.fromUser);
-          if (connection) {
-            this.startOffer(connection);
-          }
-        } else if (isEqual(newMess.data.toUser, this.props.userInfo)) {
-          switch (newMess.type) {
-            case 'offer': {
-              const connectionOffer = this.startConnection(
-                newMess.data.fromUser
-              );
-              if (connectionOffer) {
-                connectionOffer.setRemoteDescription(
-                  new RTCSessionDescription(newMess.data.message)
-                );
-                this.startAnswer(connectionOffer);
-              }
-              break;
-            }
-            case 'answer': {
-              const cbru = this.findConnectionByRemoteUser(
-                newMess.data.fromUser
-              );
-              if (cbru) {
-                cbru.setRemoteDescription(
-                  new RTCSessionDescription(newMess.data.message)
-                );
-              }
-              break;
-            }
-            case 'candidate': {
-              const candidate = new RTCIceCandidate({
-                sdpMLineIndex: newMess.data.label,
-                candidate: newMess.data.candidate
-              });
-              const cbru = this.findConnectionByRemoteUser(
-                newMess.data.fromUser
-              );
-              if (cbru) {
-                cbru.addIceCandidate(candidate);
-              }
-              break;
-            }
-            default: {
-              break;
-            }
-          }
-        }
-      }
-      return false;
-    } else {
-      return true;
-    }
+    console.log("component Will Unmount!"); 
+    this.leaveRoom();
   }
 
   render() {
-    //console.warn('test');
-
-    const local =
-      this.state.mode === 'readyTocall' || this.state.mode === 'calling'
-        ? this.state.local
-        : {};
-    const remote = this.state.mode === 'calling' ? this.state.remote : [];
+    const local = this.state.local;
+    const remote = this.state.remote;
     return (
       <div id="webrtc">
         <Header {...this.props} />

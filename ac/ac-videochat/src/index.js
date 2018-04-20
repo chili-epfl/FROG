@@ -4,6 +4,7 @@ import { type ActivityPackageT } from 'frog-utils';
 
 import config from './config';
 import ActivityRunner from './ActivityRunner';
+import dashboard from './Dashboard';
 
 const meta = {
   name: 'VideoChat',
@@ -39,8 +40,8 @@ export default ({
   type: 'react-component',
   meta,
   config,
+  dashboard,
   ActivityRunner,
-  Dashboard: null,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

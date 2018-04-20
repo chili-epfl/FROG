@@ -4,13 +4,12 @@ import React from 'react';
 
 type VideoPropsT = Object;
 
-export default ({ src, self }: VideoPropsT) => (
+export default ({ videoId, self }: VideoPropsT) => (
   <video
     playsInline
-    id="localVideo"
+    id={videoId}
     autoPlay
     muted={self}
-    src={src}
     height="100%"
     width="100%"
   />

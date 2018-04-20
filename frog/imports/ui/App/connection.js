@@ -10,7 +10,7 @@ if (Meteor.isClient) {
     (window.location.protocol === 'https:' ? 'wss:' : 'ws:') +
       '//' +
       window.location.hostname +
-      ':3002';
+      ':3010';
 
   const ReconnectingWebSocket = require('reconnectingwebsocket');
   const sharedbClient = require('sharedb/lib/client');
