@@ -113,9 +113,10 @@ const ContentController = ({
           'preview',
           instance,
           activityType.id,
-          'preview',
+          activityType.id,
           getUserId(name),
-          plane
+          plane,
+          config
         )}
         groupingValue={instance}
       />
