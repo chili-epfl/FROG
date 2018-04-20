@@ -59,7 +59,6 @@ const WithTopBar = () => (
 export default withTracker(() => {
   const collections = [
     'activities',
-    'activity_data',
     'connections',
     'graphs',
     'objects',

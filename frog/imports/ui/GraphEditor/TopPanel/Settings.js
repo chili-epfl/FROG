@@ -99,7 +99,8 @@ class GraphActionMenu extends React.Component {
       classes,
       overlapAllowed,
       graphId,
-      toggleOverlapAllowed
+      toggleOverlapAllowed,
+      setSidepanelOpen
     } = this.props;
     const { open } = this.state;
 
@@ -205,6 +206,29 @@ class GraphActionMenu extends React.Component {
                       <Image className={classes.leftIcon} aria-hidden="true" />Export
                       Graph as Image
                     </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        setSidepanelOpen(false);
+                        this.props.openImport();
+                        this.handleClose();
+                      }}
+                    >
+                      <ImportExport
+                        className={classes.leftIcon}
+                        aria-hidden="true"
+                      />Import Graph from the Server
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        this.props.openExport();
+                        this.handleClose();
+                      }}
+                    >
+                      <Timeline
+                        className={classes.leftIcon}
+                        aria-hidden="true"
+                      />Export Graph to the Server
+                    </MenuItem>
                   </MenuList>
                 </Paper>
               </Grow>
@@ -217,11 +241,25 @@ class GraphActionMenu extends React.Component {
 }
 
 export const ConfigMenu = connect(
-  ({ store: { overlapAllowed, graphId, toggleOverlapAllowed } }) => (
+  ({
+    store: {
+      overlapAllowed,
+      graphId,
+      toggleOverlapAllowed,
+      ui: { setSidepanelOpen }
+    },
+    openExport,
+    openImport
+  }) => (
     <GraphActionMenu
-      overlapAllowed={overlapAllowed}
-      graphId={graphId}
-      toggleOverlapAllowed={toggleOverlapAllowed}
+      {...{
+        overlapAllowed,
+        graphId,
+        toggleOverlapAllowed,
+        setSidepanelOpen,
+        openExport,
+        openImport
+      }}
     />
   )
 );

@@ -20,7 +20,7 @@ Meteor.methods({
     if (activity.streamTarget) {
       const docId = activity.streamTarget + '/all';
       if (SharedbCache[docId]) {
-        const [doc, dataFn] = Cache[docId];
+        const [doc, dataFn] = SharedbCache[docId];
         safelyInsertObject(doc, dataFn, path, value, instanceId);
       } else {
         const doc = serverConnection.get('rz', docId);

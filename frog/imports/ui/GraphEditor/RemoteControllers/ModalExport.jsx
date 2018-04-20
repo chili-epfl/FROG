@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import Dialog, {
   DialogActions,
@@ -9,17 +10,18 @@ import TextField from 'material-ui/TextField';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
-import { uuid } from 'frog-utils';
-import { Activities } from '/imports/api/activities';
+import { sendActivity } from '/imports/api/remoteActivities';
+import { sendGraph } from '/imports/api/remoteGraphs';
+import { Graphs } from '/imports/api/graphs';
 
 type StateT = {
   title: string,
   description: string,
-  tags: array
+  tags: Array<string>
 };
 
 export default class ExportModal extends Component<Object, StateT> {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = {
       title: '',
@@ -28,8 +30,13 @@ export default class ExportModal extends Component<Object, StateT> {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ title: nextProps.activity.title });
+  componentWillReceiveProps(nextProps: Object) {
+    const name = nextProps.activity
+      ? nextProps.activity.title
+      : Graphs.findOne({ _id: nextProps.graphId }).name;
+    this.setState({
+      title: name
+    });
   }
 
   render() {
@@ -63,28 +70,14 @@ export default class ExportModal extends Component<Object, StateT> {
           <Button
             color="primary"
             onClick={() => {
-              const newId = uuid();
-              const act = {
-                title: this.state.title,
-                description: this.state.description,
-                config: { ...this.props.activity.data },
-                tags: '{'.concat(this.state.tags.join(',')).concat('}'),
-                timestamp: new Date().toDateString(),
-                parent_id: this.props.activity.parentId,
-                uuid: newId,
-                activity_type: this.props.activity.activityType
-              };
-              fetch('http://icchilisrv4.epfl.ch:5000/activities', {
-                method: 'POST',
-                headers: {
-                  'Content-type': 'application/json'
-                },
-                body: JSON.stringify(act)
-              });
-              Activities.update(this.props.activity._id, {
-                $set: { parentId: newId }
-              });
-              this.props.setModal(false);
+              if (this.props.exportType === 'activity') {
+                sendActivity(this.state, this.props);
+                this.props.setModal(false);
+              } else if (this.props.exportType === 'graph') {
+                sendGraph(this.state, this.props);
+                this.props.setModal(false);
+              }
+              this.props.madeChanges();
               this.setState({
                 title: '',
                 description: '',

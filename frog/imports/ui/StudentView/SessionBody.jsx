@@ -4,14 +4,15 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import { Mosaic } from 'react-mosaic-component';
+import { MosaicWithoutDragDropContext } from 'react-mosaic-component';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import { Accounts } from 'meteor/accounts-base';
-import { getInitialState } from 'frog-utils';
+import { getInitialState, withDragDropContext } from 'frog-utils';
+import { compose, toClass } from 'recompose';
 
 import { Activities } from '../../api/activities';
 import { logLogin } from '../../api/logs';
@@ -49,7 +50,7 @@ const ActivityContainer = ({ activities, sessionId }) => {
     return <Runner activity={activities[0]} sessionId={sessionId} single />;
   } else {
     return (
-      <Mosaic
+      <MosaicWithoutDragDropContext
         renderTile={(activityId, path) => (
           <Runner
             activity={activities.find(x => x._id === activityId)}
@@ -123,7 +124,7 @@ const StudentView = ({ activities, session, token, classes }) => (
 
 const StyledStudentView = withStyles(styles)(StudentView);
 
-class SessionBody extends React.Component<
+class SessionBodyController extends React.Component<
   {
     activities: Array<Object>,
     session: Object,
@@ -149,6 +150,10 @@ class SessionBody extends React.Component<
     );
   }
 }
+
+const SessionBody = compose(withDragDropContext, toClass)(
+  SessionBodyController
+);
 
 SessionBody.displayName = 'SessionBody';
 

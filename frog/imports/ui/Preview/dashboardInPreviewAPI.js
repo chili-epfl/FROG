@@ -9,7 +9,7 @@ import {
   type LogT,
   type LogDBT,
   type ActivityPackageT,
-  type ActivityDBT
+  type ActivityDbT
 } from 'frog-utils';
 
 import { mergeLog, createDashboards } from '../../api/mergeLogData';
@@ -45,12 +45,11 @@ export const activityDbObject = (
   activityType: string,
   startingTime?: Date,
   plane: number
-) => ({
+): ActivityDbT => ({
   _id: activityType,
   data: config,
-  groupingKey: 'group',
+  groupingKey: plane === 2 ? 'group' : null,
   plane,
-  startTime: 0,
   actualStartingTime: startingTime || new Date(Date.now()),
   length: 3,
   activityType
@@ -62,7 +61,8 @@ export const createLogger = (
   activityType: string,
   activityId: string,
   userId: string,
-  activityPlane: number
+  activityPlane: number,
+  config: Object
 ) => {
   const aT = activityTypesObj[activityType];
 
@@ -73,7 +73,7 @@ export const createLogger = (
     userId,
     sessionId,
     activityType,
-    activityId: activityType,
+    activityId,
     activityPlane,
     instanceId
   };
@@ -83,15 +83,14 @@ export const createLogger = (
       timestamp: new Date()
     };
     const items = Array.isArray(logItems) ? logItems : [logItems];
-
     Logs.push(...items.map(x => ({ ...x, ...extra })));
-    mergeLog(items, extra, {
+    const acDbObj = activityDbObject(
+      config,
+      activityId,
       actualStartingTime,
-      activityType,
-      _id: activityId,
-      plane: activityPlane,
-      sessionId
-    });
+      activityPlane
+    );
+    mergeLog(items, extra, acDbObj);
   };
   return logger;
 };
@@ -99,7 +98,7 @@ export const createLogger = (
 class PreviewDash extends React.Component<
   {
     name: string,
-    activity: ActivityDBT,
+    activity: ActivityDbT,
     instances: Object,
     users: Object,
     showData: boolean
