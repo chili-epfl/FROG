@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
+import { uniq } from 'lodash';
 
 const meta = {
   name: 'Display social attribute',
+  shortName: 'Display social',
   shortDesc: 'Display the social attribute chosen',
   description: '',
   exampleData: [
@@ -32,29 +34,54 @@ const config = {
     displayName: {
       title: 'Display user name in message?',
       type: 'boolean'
+    },
+    displayGroup: {
+      title: 'Display the names of all the students in the group?',
+      type: 'boolean'
     }
   }
 };
 
 // the actual component that the student sees
-const ActivityRunner = ({
-  activityData: { config: configData },
-  groupingValue,
-  userInfo: { name }
-}) => (
-  <div>
-    {configData.title && <h1>{configData.title}</h1>}
-    <h2>
-      {configData.displayName && `Hi, ${name}. `} You are in group{' '}
-      {groupingValue}.
-    </h2>
-  </div>
-);
+const ActivityRunner = props => {
+  const {
+    activityData,
+    groupingValue,
+    userInfo: { name },
+    dataFn,
+    data
+  } = props;
+  const configData = activityData.config;
+  if (!data.includes(name)) {
+    dataFn.listAppend(name);
+  }
+  return (
+    <div>
+      {configData.title && <h1>{configData.title}</h1>}
+      <h2>
+        {configData.displayName && `Hi, ${name}. `} You are in group{' '}
+        {groupingValue}.
+      </h2>
+      {configData.displayGroup && (
+        <h3>
+          {'The other group members are: ' +
+            uniq(data)
+              .filter(x => x !== name)
+              .sort()
+              .join(', ')}
+        </h3>
+      )}
+    </div>
+  );
+};
+
+const dataStructure = [];
 
 export default ({
   id: 'ac-display-social',
   type: 'react-component',
   meta,
   config,
-  ActivityRunner
+  ActivityRunner,
+  dataStructure
 }: ActivityPackageT);

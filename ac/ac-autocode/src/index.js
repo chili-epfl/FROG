@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 import {
   config,
   configUI,
@@ -16,6 +16,7 @@ import {
 const meta = {
   // the description when choosing the type of an activity
   name: 'Auto-graded coding',
+  shortName: 'Coding',
   type: 'react-component',
   shortDesc: 'Autograded code snippets',
   description:
@@ -41,7 +42,7 @@ export default ({
   configUI,
   validateConfig,
   ActivityRunner,
-  dashboard,
+  dashboards,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

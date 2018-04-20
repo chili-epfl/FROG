@@ -4,15 +4,26 @@ import * as React from 'react';
 import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
 import { H5PIframePrepare } from '/imports/ui/App/h5p';
 import ConfigComponent from './ConfigComponent';
+import dashboards from './Dashboard';
 
 export const meta = {
   name: 'H5P activity',
   shortDesc: 'Upload a fully configured H5P activity',
-  description: 'Displays H5P activity, and logs xAPI statements'
+  description: 'Displays H5P activity, and logs xAPI statements',
+  exampleData: [
+    {
+      title: 'Empty',
+      config: { title: 'Example H5P' },
+      data: []
+    }
+  ]
 };
 
-export class ActivityRunner extends React.Component<ActivityRunnerT> {
+export class ActivityRunner extends React.Component<ActivityRunnerT, void> {
   componentDidMount = () => {
+    if (!this.props.activityData.config.component) {
+      return null;
+    }
     H5PIframePrepare();
     const eventMethod = window.addEventListener
       ? 'addEventListener'
@@ -38,6 +49,9 @@ export class ActivityRunner extends React.Component<ActivityRunnerT> {
   componentWillUnmount = () => {};
 
   render() {
+    if (!this.props.activityData.config.component) {
+      return null;
+    }
     return (
       <div style={{ width: '100%', height: '100%' }}>
         {this.props.activityData.config.prompt && (
@@ -58,6 +72,7 @@ export default ({
   type: 'react-component',
   ActivityRunner,
   ConfigComponent,
+  dashboards,
   config: {
     type: 'object',
     required: ['component'],

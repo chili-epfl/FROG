@@ -14,29 +14,32 @@ const DEFAULT_COUNTDOWN_LENGTH = 10000;
 
 export const Sessions = new Mongo.Collection('sessions');
 
-export const restartSession = (session: {
-  slug: string,
-  fromGraphId: string,
-  _id: string
-}) => Meteor.call('sessions.restart', session);
+export const restartSession = (session: Object) => {
+  const graph = Graphs.findOne(session.graphId);
+  if (!graph || graph.broken) {
+    // eslint-disable-next-line no-alert
+    window.alert('Cannot restart session, graph currently broken');
+    return;
+  }
+  Meteor.call('sessions.restart', session);
+};
 
 Meteor.methods({
   'sessions.restart': session => {
     if (Meteor.isServer) {
-      const graphId = session.fromGraphId;
-      if (!graphId || !session) {
+      const graphId = session && session.graphId;
+      if (!graphId) {
         return;
       }
       sessionCancelCountDown(session._id);
       Sessions.update(session._id, { $set: { slug: session.slug + '-old' } });
       const newSessionId = addSessionFn(graphId, session.slug);
-      if (session.studentlist) {
+      if (session.settings) {
         Sessions.update(newSessionId, {
-          $set: { studentlist: session.studentlist }
+          $set: { settings: session.settings }
         });
       }
       runSessionFn(newSessionId);
-      runNextActivity(newSessionId);
     }
   }
 });
@@ -182,13 +185,18 @@ const addSessionFn = (graphId: string, slug: string): string => {
 
     const sessionId = uuid();
     const graph = Graphs.findOne(graphId);
-    const count = Graphs.find({
-      name: { $regex: '#' + graph.name + '*' }
-    }).count();
-    const sessionName = '#' + graph.name + ' ' + (count + 1);
-
+    const match = graph.name.match(/(.+)\((\d+)\)$/);
+    let newName;
+    if (match) {
+      newName = match[1] + ' (' + (parseInt(match[2], 10) + 1) + ')';
+    } else {
+      newName = graph.name + ' (2)';
+    }
+    if (newName[0] !== '#') {
+      newName = '#' + newName;
+    }
     const copyGraphId = addGraph({
-      graph: { ...graph, name: sessionName },
+      graph: { ...graph, name: newName },
       activities: Activities.find({ graphId }).fetch(),
       operators: Operators.find({ graphId }).fetch(),
       connections: Connections.find({ graphId }).fetch()
@@ -210,7 +218,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,
-      name: sessionName,
+      name: newName,
       graphId: copyGraphId,
       state: 'CREATED',
       timeInGraph: -1,

@@ -2,15 +2,14 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
-import dashboard from './dashboard.js';
+import dashboards from './dashboard.js';
 
 const meta = {
   name: 'Proximity',
   type: 'react-component',
   shortDesc: 'Manually create group',
   description:
-    'Gives the possibility for students to make their own group if followed by the prox operator',
-  exampleData: [{ title: 'Case with no data', config: {}, data: {} }]
+    'Gives the possibility for students to make their own group if followed by the prox operator'
 };
 
 const config = {};
@@ -23,7 +22,7 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  dashboard,
+  dashboards,
   ActivityRunner,
   dataStructure
 }: ActivityPackageT);

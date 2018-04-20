@@ -24,12 +24,14 @@ type ConfigFormPropsT = {
   valid: any,
   refreshValidate: Function,
   reload?: any,
-  widgets?: any
+  widgets?: any,
+  data?: Object,
+  onChange?: Function
 };
 
 export default class ConfigForm extends Component<
   ConfigFormPropsT,
-  { formData: Object }
+  { formData: Object, id?: string }
 > {
   constructor(props: ConfigFormPropsT) {
     super(props);
@@ -38,8 +40,16 @@ export default class ConfigForm extends Component<
 
   componentWillReceiveProps(nextProps: ConfigFormPropsT) {
     if (
-      this.props.node._id !== nextProps.node._id ||
-      this.props.reload !== nextProps.reload
+      this.props.reload !== nextProps.reload &&
+      this.props.data !== nextProps.data
+    ) {
+      this.setState({ formData: nextProps.data, id: nextProps.reload });
+      return;
+    }
+    if (
+      (this.props.node._id !== nextProps.node._id ||
+        this.props.reload !== nextProps.reload) &&
+      !nextProps.data
     ) {
       const coll = this.props.node.operatorType ? Operators : Activities;
       this.setState({ formData: coll.findOne(nextProps.node._id).data });
@@ -47,6 +57,12 @@ export default class ConfigForm extends Component<
   }
 
   shouldComponentUpdate(nextProps: ConfigFormPropsT): boolean {
+    if (
+      this.props.data !== nextProps.data &&
+      this.props.reload !== nextProps.reload
+    ) {
+      return true;
+    }
     if (
       this.props.node._id === nextProps.node._id &&
       this.props.reload === nextProps.reload &&
@@ -95,7 +111,12 @@ export default class ConfigForm extends Component<
 
     const nodeConfig = this.props.nodeType.config;
     return nodeConfig && ![{}, undefined].includes(nodeConfig.properties) ? (
-      <EnhancedForm showErrorList={false} noHtml5Validate {...props}>
+      <EnhancedForm
+        showErrorList={false}
+        noHtml5Validate
+        {...props}
+        id={this.state.id}
+      >
         <div />
       </EnhancedForm>
     ) : null;

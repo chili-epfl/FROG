@@ -3,7 +3,7 @@
 import { type ActivityPackageT } from 'frog-utils';
 
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 const meta = {
   name: 'Stroop Effect',
@@ -141,6 +141,6 @@ export default ({
   meta,
   config,
   ActivityRunner,
-  dashboard,
+  dashboards,
   dataStructure
 }: ActivityPackageT);

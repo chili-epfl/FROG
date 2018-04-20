@@ -19,7 +19,7 @@ export const config = {
     },
     justify: {
       type: 'boolean',
-      title: 'Students must justify their answers'
+      title: 'Students must provide a justification after filling out the quiz'
     },
     argueWeighting: {
       type: 'boolean',
@@ -61,6 +61,7 @@ export const config = {
     }
   }
 };
+
 export const validateConfig = [
   (formData: Object) =>
     !formData.questions || formData.questions.length === 0
@@ -71,5 +72,5 @@ export const validateConfig = [
 export const configUI = {
   'questions.answers.x': { conditional: 'argueWeighting' },
   'questions.answers.y': { conditional: 'argueWeighting' },
-  'questions.answers.correct': { conditional: 'hasAnswers' }
+  'questions.answers.isCorrect': { conditional: 'hasAnswers' }
 };

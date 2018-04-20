@@ -11,7 +11,7 @@ export const Graphs = new Mongo.Collection('graphs');
 const replaceFromMatching = (matching: Object, data: any) => {
   if (Array.isArray(data)) {
     return [...data.map(d => replaceFromMatching(matching, d))];
-  } else if (typeof data === 'object') {
+  } else if (data && typeof data === 'object') {
     return Object.keys(data).reduce((acc, d) => {
       acc[d] = replaceFromMatching(matching, data[d]);
       return acc;
@@ -39,13 +39,19 @@ export const addGraph = (graphObj?: Object): string => {
   const copyAc = graphObj.activities.map(ac => {
     const id = uuid();
     matching[ac._id] = id;
-    return { ...ac, _id: id, graphId, actualStartingTime: undefined };
+    return {
+      ...ac,
+      _id: id,
+      graphId,
+      actualStartingTime: undefined,
+      state: undefined
+    };
   });
 
   const copyOp = graphObj.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
-    return { ...op, _id: id, graphId };
+    return { ...op, _id: id, graphId, state: undefined };
   });
 
   // Here we change the configured ids of activities and operators which

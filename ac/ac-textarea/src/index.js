@@ -10,11 +10,6 @@ const meta = {
   description: 'Can also show configurable prompt',
   exampleData: [
     {
-      title: 'Case with no data or config',
-      config: {},
-      activityData: {}
-    },
-    {
       title: 'Case with title and prompt',
       config: {
         title: 'Reflection',

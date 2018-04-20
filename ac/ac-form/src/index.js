@@ -4,6 +4,7 @@ import * as React from 'react';
 import Form from 'react-jsonschema-form';
 
 import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
+import { isEmpty } from 'lodash';
 
 import { config, validateConfig } from './config';
 
@@ -34,6 +35,9 @@ const meta = {
 };
 
 const modifyForm = (questions, title) => {
+  if (isEmpty(questions)) {
+    return {};
+  }
   const propdef = questions
     .split(',')
     .reduce(
@@ -77,7 +81,7 @@ const ActivityRunner = ({ activityData, data, dataFn }: ActivityRunnerT) => {
       {data.completed ? (
         <h1>Form(s) submitted</h1>
       ) : (
-        <div>
+        <div className="bootstrap">
           <Form {...{ schema, formData, onChange, onSubmit }} />
           {activityData.config.multiple && (
             <button onClick={complete} className="btn btn-primary btn-sm">

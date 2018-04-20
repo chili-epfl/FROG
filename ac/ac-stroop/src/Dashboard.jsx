@@ -1,43 +1,17 @@
 // @flow
 
 import * as React from 'react';
-import { withState } from 'recompose';
-import { Button } from 'react-bootstrap';
 import { Chart } from 'react-google-charts';
 
 import {
   type LogT,
   type dashboardViewerPropsT,
-  type ActivityDbT,
   ProgressDashboard,
   LeaderBoard
 } from 'frog-utils';
 
-const Select = ({ target, onClick }) => (
-  <Button onClick={() => onClick(target)}>{target}</Button>
-);
-
-const Viewer = withState('which', 'setWhich', 'progress')(
-  (props: dashboardViewerPropsT) => {
-    const { which, setWhich } = props;
-    return (
-      <div>
-        <Select target="progress" onClick={setWhich} />
-        <Select target="leaderboard" onClick={setWhich} />
-        <Select target="stroop" onClick={setWhich} />
-        {which === 'progress' && <ProgressDashboard.Viewer {...props} />}
-        {which === 'leaderboard' && <LeaderBoard.Viewer {...props} />}
-        {which === 'stroop' && <StroopViewer {...props} />}
-      </div>
-    );
-  }
-);
-
-// <Select target="raw" onClick={setWhich} />
-// {which === 'raw' && <RawDataViewer {...props} />}
-
-const StroopViewer = ({ data }: dashboardViewerPropsT) => {
-  const { consistent, inconsistent } = data;
+const Viewer = ({ state }: dashboardViewerPropsT) => {
+  const { consistent, inconsistent } = state;
   const options = (title, xLabel, xmin, xmax) => ({
     bar: { groupWidth: '90%' },
     legend: { position: 'none' },
@@ -83,28 +57,18 @@ const StroopViewer = ({ data }: dashboardViewerPropsT) => {
   );
 };
 
-// const RawDataViewer = ({ data }: dashboardViewerPropsT) => (
-//   <pre>{JSON.stringify(data, null, 2)}</pre>
-// );
-
 const initData = {
-  consistent: { correct: { count: 0, time: 0 }, wrong: { count: 0, time: 0 } },
-  inconsistent: {
+  consistent: {
     correct: { count: 0, time: 0 },
     wrong: { count: 0, time: 0 }
   },
-  ...ProgressDashboard.initData,
-  ...LeaderBoard.initData
+  inconsistent: {
+    correct: { count: 0, time: 0 },
+    wrong: { count: 0, time: 0 }
+  }
 };
 
-const mergeLog = (
-  data: any,
-  dataFn: Object,
-  log: LogT,
-  activity: ActivityDbT
-) => {
-  ProgressDashboard.mergeLog(data, dataFn, log, activity);
-  LeaderBoard.mergeLog(data, dataFn, log, activity);
+const mergeLog = (state: any, log: LogT) => {
   if (log.type === 'answer' && log.payload) {
     const {
       isConsistent,
@@ -115,11 +79,11 @@ const mergeLog = (
     } = log.payload;
     const qType = isConsistent ? 'consistent' : 'inconsistent';
     if (isCorrect === answer) {
-      dataFn.numIncr(1, [qType, 'correct', 'count']);
-      dataFn.numIncr(answerTime - startTime, [qType, 'correct', 'time']);
+      state[qType].correct.count += 1;
+      state[qType].correct.time += answerTime - startTime;
     } else {
-      dataFn.numIncr(1, [qType, 'wrong', 'count']);
-      dataFn.numIncr(answerTime - startTime, [qType, 'wrong', 'time']);
+      state[qType].wrong.count += 1;
+      state[qType].wrong.time += answerTime - startTime;
     }
   }
 };
@@ -132,16 +96,16 @@ const activityMerge = {
 const exampleLogs = [
   {
     title: 'CS211 week 1',
-    path: 'src/logExamples/progress-cs211-w1.json',
-    activityMerge,
-    instances: 118
-  },
-  {
-    title: 'CS211 week 1 (n=400)',
-    path: 'src/logExamples/progress-cs211-w1-short.json',
+    path: 'ac/ac-stroop/src/logExamples/progress-cs211-w1.json',
     activityMerge,
     instances: 118
   }
 ];
 
-export default { Viewer, mergeLog, initData, exampleLogs };
+const statsDashboard = { initData, mergeLog, Viewer, exampleLogs };
+
+export default {
+  progress: ProgressDashboard,
+  leaderboard: LeaderBoard,
+  stats: statsDashboard
+};

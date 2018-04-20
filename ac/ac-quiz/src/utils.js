@@ -25,32 +25,39 @@ export const exportData = (config: Object, { payload }: Object) => {
 
 export const formatProduct = (config: Object, item: Object) => {
   if (item) {
-    const questions = config.questions.map(q => q.question);
-    const answers = config.questions.map(
-      (q, qIndex) =>
-        item[qIndex] !== undefined ? q.answers[item[qIndex]].choice : undefined
-    );
-    const answersIndex = config.questions.map(
-      (q, qIndex) => (item[qIndex] !== undefined ? item[qIndex] : -1)
-    );
-    const correctQs = config.hasAnswers
-      ? config.questions.map(
-          (q, qIndex) =>
-            item[qIndex] !== undefined && !!q.answers[item[qIndex]].isCorrect
-        )
-      : undefined;
-    const correctCount = correctQs
-      ? correctQs.filter(x => x).length
-      : undefined;
-    const maxCorrect = questions.length;
-
-    return {
-      questions,
-      answers,
-      answersIndex,
-      correctQs,
-      correctCount,
-      maxCorrect
-    };
+    const { form, coordinates } = item;
+    if (form) {
+      const questions = config.questions.map(q => q.question);
+      const answers = config.questions.map(
+        (q, qIndex) =>
+          form[qIndex] !== undefined
+            ? q.answers[form[qIndex]].choice
+            : undefined
+      );
+      const answersIndex = config.questions.map(
+        (q, qIndex) => (form[qIndex] !== undefined ? form[qIndex] : -1)
+      );
+      const correctQs = config.hasAnswers
+        ? config.questions.map(
+            (q, qIndex) =>
+              form[qIndex] !== undefined && !!q.answers[form[qIndex]].isCorrect
+          )
+        : undefined;
+      const correctCount = correctQs
+        ? correctQs.filter(x => x).length
+        : undefined;
+      const maxCorrect = questions.length;
+      return {
+        questions,
+        answers,
+        answersIndex,
+        correctQs,
+        correctCount,
+        maxCorrect,
+        coordinates
+      };
+    } else {
+      return { coordinates };
+    }
   }
 };

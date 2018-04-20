@@ -1,13 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
-import { activityTypes } from '/imports/activityTypes';
-import { Activities } from '/imports/api/activities';
+import { activityTypes, activityTypesObj } from '/imports/activityTypes';
+import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
+import jsonSchemaDefaults from 'json-schema-defaults';
 
-import ActivityLibrary from './ActivityLibrary';
+import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
-import Preview from '../../../Preview/Preview';
+import { ModalPreview } from '../../../Preview';
 import { connect } from '../../store';
 
 type StateT = {
@@ -15,12 +16,17 @@ type StateT = {
   searchStr: string,
   showInfo: ?string
 };
-
 type PropsT = {
   store?: Object,
   hidePreview?: boolean,
   onSelect?: Function,
-  activity: ActivityDbT
+  onPreview?: Function,
+  activity: ActivityDbT,
+  setDelete?: Function,
+  setIdRemove?: Function,
+  onlyHasPreview?: boolean,
+  locallyChanged?: boolean,
+  changesLoaded?: Function
 };
 
 export class ChooseActivityType extends Component<PropsT, StateT> {
@@ -37,13 +43,24 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
   }
 
   render() {
+    const activityTypesFiltered = this.props.onlyHasPreview
+      ? activityTypes.filter(x => x.meta.exampleData !== undefined)
+      : activityTypes;
     const select = this.props.onSelect
       ? this.props.onSelect
-      : activityType => {
-          Activities.update(this.props.activity._id, {
-            $set: { activityType: activityType.id }
-          });
+      : aT => {
+          const defaultConf = jsonSchemaDefaults(aT.config);
+          addActivity(aT.id, defaultConf, this.props.activity._id);
           if (this.props.store) {
+            if (this.props.activity.title === 'Unnamed') {
+              const graphActivity = this.props.store.activityStore.all.find(
+                act => act.id === this.props.activity._id
+              );
+              const newName =
+                activityTypesObj[aT.id].meta.shortName ||
+                activityTypesObj[aT.id].meta.name;
+              graphActivity.rename(newName);
+            }
             this.props.store.addHistory();
           }
         };
@@ -54,7 +71,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
         searchStr: e.target.value.toLowerCase()
       });
 
-    const filteredList = activityTypes
+    const filteredList = activityTypesFiltered
       .filter(
         x =>
           x.meta.name.toLowerCase().includes(this.state.searchStr) ||
@@ -65,12 +82,12 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
 
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
+
     return (
       <div
         style={{
           height: '100%',
-          width: '100%',
-          transform: 'translateY(-40px)'
+          width: '100%'
         }}
       >
         <div
@@ -82,23 +99,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
           }}
         >
           <h4>Select activity type</h4>
-          <div
-            className="input-group"
-            style={{ top: '5px', left: '10px', width: '200px' }}
-          >
-            <span className="input-group-addon" id="basic-addon1">
-              <span className="glyphicon glyphicon-search" aria-hidden="true" />
-            </span>
-            <input
-              ref={ref => (this.inputRef = ref)}
-              type="text"
-              style={{ zIndex: 0 }}
-              onChange={changeSearch}
-              className="form-control"
-              placeholder="Search for..."
-              aria-describedby="basic-addon1"
-            />
-          </div>
           <Button
             className={
               this.props.store &&
@@ -128,59 +128,88 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
         </div>
         {this.props.store &&
           (this.props.store.ui.libraryOpen ? (
-            <ActivityLibrary
+            <Library
               {...closeLibrary}
+              libraryType="activity"
+              setDelete={this.props.setDelete}
+              setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
-              searchStr={this.state.searchStr}
               store={this.props.store}
+              locallyChanged={this.props.locallyChanged}
+              changesLoaded={this.props.changesLoaded}
             />
           ) : (
-            <div
-              className="list-group"
-              style={{
-                height: '93%',
-                width: '100%',
-                overflowY: 'scroll',
-                transform: 'translateY(10px)'
-              }}
-            >
-              {filteredList.length === 0 ? (
-                <div
-                  style={{
-                    marginTop: '20px',
-                    marginLeft: '10px',
-                    fontSize: '40px'
-                  }}
-                >
-                  No result
-                </div>
-              ) : (
-                filteredList.map((x: ActivityPackageT) => (
-                  <ListComponent
-                    hasPreview={
-                      !this.props.hidePreview &&
-                      x.meta.exampleData !== undefined
-                    }
-                    onSelect={() => select(x)}
-                    showExpanded={this.state.expanded === x.id}
-                    expand={() => this.setState({ expanded: x.id })}
-                    key={x.id}
-                    onPreview={() =>
-                      this.props.store &&
-                      this.props.store.ui.setShowPreview({
-                        activityTypeId: x.id
-                      })
-                    }
-                    object={x}
-                    searchS={this.state.searchStr}
-                    eventKey={x.id}
+            <div>
+              <div
+                className="input-group"
+                style={{ top: '-30px', left: '280px', width: '200px' }}
+              >
+                <span className="input-group-addon" id="basic-addon1">
+                  <span
+                    className="glyphicon glyphicon-search"
+                    aria-hidden="true"
                   />
-                ))
-              )}
+                </span>
+                <input
+                  ref={ref => (this.inputRef = ref)}
+                  type="text"
+                  style={{ zIndex: 0 }}
+                  onChange={changeSearch}
+                  className="form-control"
+                  placeholder="Search for..."
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+              <div
+                className="list-group"
+                style={{
+                  height: '93%',
+                  width: '100%',
+                  overflowY: 'scroll',
+                  transform: 'translateY(10px)'
+                }}
+              >
+                {filteredList.length === 0 ? (
+                  <div
+                    style={{
+                      marginTop: '20px',
+                      marginLeft: '10px',
+                      fontSize: '40px'
+                    }}
+                  >
+                    No result
+                  </div>
+                ) : (
+                  filteredList.map((x: ActivityPackageT) => (
+                    <ListComponent
+                      hasPreview={
+                        !this.props.hidePreview &&
+                        x.meta.exampleData !== undefined
+                      }
+                      onSelect={() => select(x)}
+                      showExpanded={this.state.expanded === x.id}
+                      expand={() => this.setState({ expanded: x.id })}
+                      key={x.id}
+                      onPreview={() => {
+                        if (this.props.onPreview) {
+                          this.props.onPreview(x.id);
+                        } else if (this.props.store) {
+                          this.props.store.ui.setShowPreview({
+                            activityTypeId: x.id
+                          });
+                        }
+                      }}
+                      object={x}
+                      searchS={this.state.searchStr}
+                      eventKey={x.id}
+                    />
+                  ))
+                )}
+              </div>
             </div>
           ))}
         {this.state.showInfo !== null && (
-          <Preview
+          <ModalPreview
             activityTypeId={this.state.showInfo}
             dismiss={() => this.setState({ showInfo: null })}
           />

@@ -1,0 +1,17 @@
+{
+  "name": "op-xy-distance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "nps"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "frog-utils": "1.0.0"
+  },
+  "devDependencies": {
+    "nps": "5.9.0"
+  }
+}

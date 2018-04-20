@@ -120,6 +120,7 @@ export type ActivityPackageT = {
   type: 'react-component',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string,
     exampleData?: { title: string, config?: Object, data?: any }[]
@@ -130,7 +131,7 @@ export type ActivityPackageT = {
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: React$Component<ActivityRunnerT>,
-  dashboard?: dashboardT,
+  dashboards?: { [name: string]: dashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
   ConfigComponent?: React$Component<{
@@ -141,12 +142,8 @@ export type ActivityPackageT = {
 
 export type dashboardT = {
   Viewer: ReactComponent<dashboardViewerPropsT>,
-  mergeLog: (
-    data: any,
-    dataFn: Object,
-    log: LogDBT,
-    activity: ActivityDbT
-  ) => void,
+  mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
+  prepareDataForDisplay: (state: any, activity: ActivityDbT) => any,
   exampleLogs?: { title: string, path: string }[],
   exampleData?: { title: string, path: string }[],
   initData: any
@@ -156,8 +153,7 @@ export type dashboardViewerPropsT = {
   users: Array<Object>,
   activity: ActivityDbT,
   instances: Array<string>,
-  data: any,
-  config: Object
+  state: any
 };
 
 export type productOperatorT = {
@@ -165,6 +161,7 @@ export type productOperatorT = {
   type: 'product',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string
   },
@@ -182,6 +179,7 @@ export type controlOperatorT = {
   type: 'control',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string
   },
@@ -199,6 +197,7 @@ export type socialOperatorT = {
   type: 'social',
   meta: {
     name: string,
+    shortName?: string,
     shortDesc: string,
     description: string
   },

@@ -1,0 +1,16 @@
+{
+  "name": "ac-dual",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "nps"
+  },
+  "dependencies": {
+    "frog-utils": "^1.0.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  },
+  "devDependencies": {
+    "nps": "5.9.0"
+  }
+}

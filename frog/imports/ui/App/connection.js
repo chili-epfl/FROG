@@ -18,7 +18,10 @@ if (Meteor.isClient) {
   socket = new ReconnectingWebSocket(shareDbUrl);
   _connection = new sharedbClient.Connection(socket);
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (
+    process.env.NODE_ENV !== 'production' ||
+    Meteor.settings.public.friendlyProduction
+  ) {
     window.connection = _connection;
   }
 }

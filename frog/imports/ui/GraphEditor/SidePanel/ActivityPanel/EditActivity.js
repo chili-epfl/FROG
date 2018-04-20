@@ -4,6 +4,7 @@ import * as React from 'react';
 import FlexView from 'react-flexview';
 import ReactTooltip from 'react-tooltip';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { yellow, red, lightGreen } from 'material-ui/colors';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
@@ -14,11 +15,12 @@ import {
   setStreamTarget,
   setParticipation
 } from '/imports/api/activities';
+
 import { connect } from '../../store';
-import Modal from '../ModalExport';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
+import Modal from '../../RemoteControllers/ModalExport';
 import { SelectAttributeWidget } from '../FormUtils';
 import ConfigForm from '../ConfigForm';
 
@@ -78,6 +80,9 @@ const RawEditActivity = ({
   modalOpen,
   setModal,
   activity,
+  refreshActDate,
+  setImportActivityList,
+  madeChanges,
   ...props
 }) => {
   const graphActivity = props.store.activityStore.all.find(
@@ -107,11 +112,11 @@ const RawEditActivity = ({
   const error = errors.filter(x => x.severity === 'error');
   const warning = errors.filter(x => x.severity === 'warning');
   if (error.length > 0) {
-    errorColor = 'red';
+    errorColor = red[500];
   } else if (warning.length > 0) {
-    errorColor = 'yellow';
+    errorColor = yellow[500];
   } else {
-    errorColor = 'green';
+    errorColor = lightGreen[500];
   }
 
   const activityType = activityTypesObj[activity.activityType];
@@ -120,7 +125,10 @@ const RawEditActivity = ({
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <Modal {...{ modalOpen, setModal, activity }} />
+      <Modal
+        exportType="activity"
+        {...{ modalOpen, setModal, activity, madeChanges }}
+      />
       <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
@@ -132,9 +140,6 @@ const RawEditActivity = ({
                 EditComponent={RenameField}
                 activityId={activity._id}
                 value={graphActivity.title}
-                onChange={grp =>
-                  addActivity(activity.activityType, null, activity._id, grp)
-                }
               />
             </h3>
             <font size={-3}>
@@ -157,25 +162,22 @@ const RawEditActivity = ({
             }}
           >
             <ValidButton activityId={activity._id} errorColor={errorColor} />
-            {errorColor === 'green' && (
+            {errorColor === lightGreen[500] && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <IconButton
                   icon="glyphicon glyphicon-eye-open"
-                  onClick={() =>
+                  tooltip="Preview"
+                  onClick={() => {
                     props.store.ui.setShowPreview({
                       activityTypeId: activity.activityType,
                       config: activity.data
-                    })
-                  }
+                    });
+                  }}
                 />
                 <IconButton
+                  tooltip="Send activity to activity library"
                   icon="glyphicon glyphicon-share"
                   onClick={() => setModal(true)}
-                />
-                <IconButton
-                  icon="glyphicon glyphicon-link"
-                  legend="Embed config in link to headless FROG"
-                  onClick={() => copyURL(activity)}
                 />
               </div>
             )}
@@ -224,6 +226,10 @@ const RawEditActivity = ({
       {advancedOpen && (
         <React.Fragment>
           <div>
+            <A onClick={() => copyURL(activity)}>
+              Copy link for headless FROG to clipboard
+            </A>
+            <br />
             Select streaming target
             <StreamSelect
               activity={activity}
@@ -236,15 +242,15 @@ const RawEditActivity = ({
           <FileForm />
         </React.Fragment>
       )}
-      <ReactTooltip delayShow={1000} />
+      <ReactTooltip />
     </div>
   );
 };
 
-const IconButton = ({ icon, legend, onClick }: Object) => (
+const IconButton = ({ icon, onClick, tooltip }: Object) => (
   <Button
     style={{ width: '35px', height: '25px' }}
-    data-tip={legend}
+    data-tip={tooltip}
     onClick={onClick}
   >
     <span className={icon} style={{ verticalAlign: 'top' }} />

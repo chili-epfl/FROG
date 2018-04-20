@@ -48,15 +48,19 @@ export default ({
 
   const widgets = { Widget };
   const fields = { DescriptionField };
-  const formData = data[questionIndex] + 1;
+  const formData = data.form[questionIndex] + 1;
   const onChange = e => {
-    dataFn.objInsert(e.formData - 1, [questionIndex]);
+    dataFn.objInsert(e.formData - 1, ['form', questionIndex]);
     const numAnswers =
-      Object.keys(data).length + (data[questionIndex] !== undefined ? 0 : 1);
+      Object.keys(data.form).length +
+      (data.form[questionIndex] !== undefined ? 0 : 1);
     const numQuestions = activityData.config.questions.length;
-    logger({ type: 'progress', value: numAnswers / numQuestions });
-    logger({ type: 'score', value: numAnswers });
-    logger({ type: 'choice', itemId: questionIndex, value: e.formData - 1 });
+
+    logger([
+      { type: 'progress', value: numAnswers / (numQuestions + 0.1) },
+      { type: 'score', value: numAnswers },
+      { type: 'choice', itemId: questionIndex, value: e.formData - 1 }
+    ]);
   };
 
   return (

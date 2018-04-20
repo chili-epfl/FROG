@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
-import { DashboardSubscriptionWrapper } from '/imports/ui/TeacherView/Dashboard';
+import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
 
 export const meta = {
   name: 'Dashboard activity',
@@ -13,13 +13,17 @@ export const meta = {
 };
 
 const ActivityRunner = (props: ActivityRunnerT) => {
-  const activityId = props.activityData.config.activity;
-  const sessionId = props.sessionId;
-
+  const {
+    sessionId,
+    activityData: { config }
+  } = props;
+  const activityId = config.activityId;
+  const names = config.names === 'all' ? null : config.names.split(',');
   return (
     <DashboardSubscriptionWrapper
       activityId={activityId}
       sessionId={sessionId}
+      names={names}
     />
   );
 };
@@ -30,11 +34,16 @@ export default ({
   ActivityRunner,
   config: {
     type: 'object',
-    required: ['activity'],
+    required: ['activityId'],
     properties: {
-      activity: {
+      activityId: {
         type: 'activity',
         title: 'Applies to which activity'
+      },
+      names: {
+        type: 'string',
+        title: 'Choose which dashboard to show (comma separated names)',
+        default: 'all'
       }
     }
   },

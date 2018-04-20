@@ -7,7 +7,11 @@ import { connect, store, type StoreProp } from './../store';
 import { timeToPx, rangeExclusive } from './../utils';
 
 export const PanMap = connect(
-  ({ store: { ui: { panx, panDelta, scale, graphWidth } } }: StoreProp) => (
+  ({
+    store: {
+      ui: { panx, panDelta, scale, graphWidth }
+    }
+  }: StoreProp) => (
     <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
       <rect
         x={panx}
@@ -29,11 +33,13 @@ const onDoubleClick = (x, e) => {
 
 export const LevelLines = connect(
   ({
-    store: { ui: { scale, graphWidth } },
+    store: {
+      ui: { scale, graphWidth }
+    },
     scaled
   }: StoreProp & { scaled: boolean }) => (
     <g>
-      {[1, 2, 3].map(x => (
+      {[1, 2, 3, 4].map(x => (
         <g key={x}>
           <line
             x1={0}
@@ -41,11 +47,11 @@ export const LevelLines = connect(
             x2={graphWidth * (scaled ? scale : 4)}
             y2={x * 100 + 65}
             stroke="grey"
-            strokeWidth={1}
-            strokeDasharray="5,5"
+            strokeWidth={x === 1 ? 2 : 1}
+            strokeDasharray={x === 1 ? '10,10' : '5,5'}
           />
           <rect
-            onDoubleClick={e => onDoubleClick(4 - x, e)}
+            onDoubleClick={e => onDoubleClick(5 - x, e)}
             x={0}
             y={x * 100 + 45}
             width={graphWidth * (scaled ? scale : 4)}
@@ -59,7 +65,13 @@ export const LevelLines = connect(
 );
 
 export const TimeScale = connect(
-  ({ store: { ui: { scale }, graphDuration }, scaled }) => {
+  ({
+    store: {
+      ui: { scale },
+      graphDuration
+    },
+    scaled
+  }) => {
     let divider = Math.round(5 / scale * (graphDuration / 120)) * 5;
     divider = divider || 1;
     return (

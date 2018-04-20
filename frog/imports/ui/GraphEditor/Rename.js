@@ -5,7 +5,12 @@ import { TextInput } from 'frog-utils';
 import { connect, type StoreProp } from './store';
 
 export const RenameBox = connect(
-  ({ store: { state, ui: { endRename } } }: StoreProp) => {
+  ({
+    store: {
+      state,
+      ui: { endRename }
+    }
+  }: StoreProp) => {
     if (state.mode !== 'rename') {
       return null;
     }
@@ -15,7 +20,7 @@ export const RenameBox = connect(
         style={{
           position: 'absolute',
           left: `${renameOpen.screenX}px`,
-          top: `${renameOpen.y + 75}px`
+          top: `${renameOpen.y + 102}px`
         }}
       >
         <RenameField activityId={renameOpen.id} onSubmit={endRename} />
@@ -26,7 +31,9 @@ export const RenameBox = connect(
 
 export const RenameField = connect(
   ({
-    store: { activityStore: { all } },
+    store: {
+      activityStore: { all }
+    },
     activityId,
     onSubmit
   }: StoreProp & {

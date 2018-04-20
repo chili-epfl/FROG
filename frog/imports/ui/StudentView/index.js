@@ -7,7 +7,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
-import styled from 'styled-components';
 
 import { Sessions } from '/imports/api/sessions';
 import { GlobalSettings } from '/imports/api/globalSettings';
@@ -15,17 +14,12 @@ import SessionBody from './SessionBody';
 
 const once = { already: false };
 
-const DashLink = styled.div`
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  font-size: 3em;
-  color: black;
-`;
-
 type StudentViewCompPropsT = {
   match: Object,
-  token?: { value: string }
+  token?: { value: string },
+  slug: string,
+  session: Object,
+  ready: boolean
 };
 
 class StudentViewComp extends React.Component<
@@ -55,7 +49,10 @@ class StudentViewComp extends React.Component<
         Meteor.user().joinedSessions.includes(slug)
       )
     ) {
-      Meteor.call('session.join', slug, (err, result) => this.setState(result));
+      Meteor.call('session.join', slug, (err, result) => {
+        if (err) console.error(err);
+        this.setState(result);
+      });
     }
   }
 
@@ -67,7 +64,7 @@ class StudentViewComp extends React.Component<
       return <Spinner />;
     }
     if (!this.props.session) {
-      return <h1>That session is no longer available</h1>;
+      return <Spinner />;
     }
     if (this.props.session.state === 'WAITINGFORNEXT') {
       return (
@@ -77,23 +74,10 @@ class StudentViewComp extends React.Component<
         </div>
       );
     }
+
     return (
       <React.Fragment>
-        <SessionBody />
-        {Meteor.user() &&
-          Meteor.user().username === 'teacher' && (
-            <div className="bootstrap">
-              <DashLink>
-                <a
-                  href={`/?login=teacher&token=${(this.props.token &&
-                    this.props.token.value) ||
-                    ''}`}
-                  target="_blank"
-                  className="glyphicon glyphicon-dashboard"
-                />
-              </DashLink>
-            </div>
-          )}
+        <SessionBody token={this.props.token} />
       </React.Fragment>
     );
   }
@@ -135,6 +119,7 @@ export default withTracker(props => {
   return {
     session: Sessions.findOne({ slug }),
     token: GlobalSettings.findOne('token'),
-    ready: every(subscriptions.map(x => x.ready()), Boolean)
+    ready: every(subscriptions.map(x => x.ready()), Boolean),
+    slug
   };
 })(StudentViewComp);

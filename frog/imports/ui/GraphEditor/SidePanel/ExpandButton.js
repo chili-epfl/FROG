@@ -1,25 +1,22 @@
 // @flow
-import styled from 'styled-components';
 import * as React from 'react';
+import Switch from 'material-ui/Switch';
+import Tooltip from 'material-ui/Tooltip';
 
 import { connect } from '../store';
 
 export default connect(
-  ({ store: { ui: { setSidepanelOpen, sidepanelOpen } } }) => {
-    if (sidepanelOpen) {
-      return null;
+  ({
+    store: {
+      ui: { sidepanelOpen, setSidepanelOpen }
     }
-    return (
-      <CloseA onClick={() => setSidepanelOpen(true)}>
-        <i className="fa fa-ellipsis-v" />
-      </CloseA>
-    );
-  }
+  }) => (
+    <Tooltip id="tooltip-top" title="show the activity menu" placement="top">
+      <Switch
+        checked={sidepanelOpen}
+        onChange={() => setSidepanelOpen(!sidepanelOpen)}
+        aria-label="showSidePanel"
+      />
+    </Tooltip>
+  )
 );
-
-const CloseA = styled.a`
-  position: fixed;
-  right: 30px;
-  top: 100px;
-  font-size: 2em;
-`;
