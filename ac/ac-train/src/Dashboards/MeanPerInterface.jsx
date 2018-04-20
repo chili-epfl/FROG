@@ -18,8 +18,6 @@ const styles = theme => ({
   })
 });
 
-const checkDefined = item => typeof item !== 'undefined';
-
 const MeanPerInterface = props => {
   const { whichDash, state } = props;
 
@@ -36,12 +34,7 @@ const MeanPerInterface = props => {
         let countSum = 0;
 
         for (let i = 0; i < 5; i += 1) {
-          const shouldUpdate =
-            checkDefined(count[int]) && checkDefined(count[int][i]);
-
-          if (shouldUpdate) {
-            countSum += count[int][i];
-          }
+          countSum += count[int][i];
         }
 
         const avg = div(dash[int], countSum);
@@ -57,16 +50,8 @@ const MeanPerInterface = props => {
         let countSum = 0;
 
         for (let i = 0; i < 5; i += 1) {
-          const shouldUpdate =
-            checkDefined(dash[int]) &&
-            checkDefined(dash[int][i]) &&
-            checkDefined(count[int]) &&
-            checkDefined(count[int][i]);
-
-          if (shouldUpdate) {
-            dashSum += dash[int][i];
-            countSum += count[int][i];
-          }
+          dashSum += dash[int][i];
+          countSum += count[int][i];
         }
 
         const avg = div(dashSum, countSum);

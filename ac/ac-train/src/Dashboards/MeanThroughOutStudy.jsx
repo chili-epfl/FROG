@@ -21,45 +21,58 @@ const MeanThrougOutStudy = props => {
   const count = state['sum']['count'];
   const dash = state['sum'][whichDash];
 
-  const coordinates = [];
+  if (count && count.length > 0) {
+    const coordinates = [];
 
-  for (let i = 0; i < 20; i += 1) {
-    if (Number.isFinite(dash[i] / count[i])) {
-      coordinates.push({
-        x: i,
-        y: dash[i] / count[i]
-      });
+    for (let i = 0; i < 20; i += 1) {
+      if (Number.isFinite(dash[i] / count[i])) {
+        coordinates.push({
+          x: i,
+          y: dash[i] / count[i]
+        });
+      }
     }
-  }
 
-  const domain =
-    whichDash === 'time' ? { x: [0, 19] } : { x: [0, 19], y: [0, 1] };
-
-  return (
-    <React.Fragment>
+    const domain =
+      whichDash === 'time' ? { x: [0, 19] } : { x: [0, 19], y: [0, 1] };
+    return (
+      <React.Fragment>
+        <Paper className={props.classes.root} elevation={4}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography align="center" variant="button" gutterBottom>
+                Mean {whichDash} throughout study
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <VictoryChart domainPadding={{ y: 15 }}>
+                <VictoryLine
+                  domain={domain}
+                  style={{
+                    data: { stroke: 'blue' },
+                    parent: { border: '1px solid #ccc' }
+                  }}
+                  data={coordinates}
+                />
+              </VictoryChart>
+            </Grid>
+          </Grid>
+        </Paper>
+      </React.Fragment>
+    );
+  } else {
+    return (
       <Paper className={props.classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
-              Mean {whichDash} throughout study
+              Waiting for data
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <VictoryChart domainPadding={{ y: 15 }}>
-              <VictoryLine
-                domain={domain}
-                style={{
-                  data: { stroke: 'blue' },
-                  parent: { border: '1px solid #ccc' }
-                }}
-                data={coordinates}
-              />
-            </VictoryChart>
           </Grid>
         </Grid>
       </Paper>
-    </React.Fragment>
-  );
+    );
+  }
 };
 
 export default withStyles(styles)(MeanThrougOutStudy);

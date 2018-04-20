@@ -18,8 +18,6 @@ const styles = theme => ({
   })
 });
 
-const checkDefined = item => typeof item !== 'undefined';
-
 const MeanPerTryForEachInterface = props => {
   const { whichDash, state } = props;
 
@@ -33,20 +31,12 @@ const MeanPerTryForEachInterface = props => {
       const coordinates = [];
 
       for (let i = 0; i < 5; i += 1) {
-        const shouldUpdate =
-          checkDefined(dash[int]) &&
-          checkDefined(count[int]) &&
-          checkDefined(dash[int][i]) &&
-          checkDefined(count[int][i]);
-
-        if (shouldUpdate) {
-          if (Number.isFinite(dash[int][i] / count[int][i])) {
-            coordinates.push({
-              x: i,
-              y: dash[int][i] / count[int][i],
-              fill: color(int)
-            });
-          }
+        if (Number.isFinite(dash[int][i] / count[int][i])) {
+          coordinates.push({
+            x: i,
+            y: dash[int][i] / count[int][i],
+            fill: color(int)
+          });
         }
       }
       return {

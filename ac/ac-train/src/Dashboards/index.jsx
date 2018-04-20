@@ -4,6 +4,7 @@ import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import {
   type LogT,
+  type ActivityDbT,
   type dashboardViewerPropsT,
   ProgressDashboard
 } from 'frog-utils';
@@ -12,7 +13,6 @@ import { times, constant } from 'lodash';
 
 import MeanThroughOutStudy from './MeanThroughOutStudy';
 import MeanPerInterface from './MeanPerInterface';
-
 import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 
 const Viewer = (props: dashboardViewerPropsT) => (
@@ -52,30 +52,26 @@ const initData = {
   time: {},
   help: {},
   count: {},
-  sum: {
-    error: times(20, constant(0)),
-    count: times(20, constant(0)),
-    time: times(20, constant(0))
-  }
+  sum: {}
 };
 
-const mergeLog = (state: Object, log: LogT) => {
+const mergeLog = (state: Object, log: LogT, activity: ActivityDbT) => {
   if (log.type === 'answer' && log.payload) {
+    const { iterationPerInterface } = activity.data;
+
     const { whichInterface, iteration, isCorrect, timeTaken } = log.payload;
 
-    const iterationOnInterface = iteration % 5;
+    const iterationOnInterface = iteration % iterationPerInterface;
 
-    if (!state['error'][whichInterface]) {
-      state['error'][whichInterface] = times(5, constant(0));
-    }
+    ['error', 'count', 'time'].forEach(type => {
+      if (!state[type][whichInterface]) {
+        state[type][whichInterface] = times(iterationPerInterface, constant(0));
+      }
 
-    if (!state['count'][whichInterface]) {
-      state['count'][whichInterface] = times(5, constant(0));
-    }
-
-    if (!state['time'][whichInterface]) {
-      state['time'][whichInterface] = times(5, constant(0));
-    }
+      if (!state['sum'][type]) {
+        state['sum'][type] = times(4 * iterationPerInterface, constant(0));
+      }
+    });
 
     if (!isCorrect) {
       state['error'][whichInterface][iterationOnInterface] += 1;
