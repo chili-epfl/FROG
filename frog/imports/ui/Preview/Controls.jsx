@@ -178,7 +178,6 @@ export default (props: Object) => {
             <NavItem
               key={x.title}
               className="examples"
-              style={x.type === 'deeplink' ? { fontStyle: 'italic' } : {}}
               eventKey={i}
               onClick={() => {
                 const exConf = addDefaultExample(activityType)[i].config;
