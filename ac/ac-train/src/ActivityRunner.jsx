@@ -51,7 +51,8 @@ const ActivityEnded = () => (
 
 type PropsT = {
   dataFn: any,
-  data: Object
+  data: Object,
+  activityData: { config: Object }
 };
 
 class Main extends React.Component<PropsT> {
@@ -76,7 +77,14 @@ class Main extends React.Component<PropsT> {
 
   render() {
     const { step, guidelines } = this.props.data;
-
+    if (this.props.activityData.config.interface) {
+      return (
+        <Interface
+          whichInterface={this.props.activityData.config.interface}
+          {...this.props}
+        />
+      );
+    }
     if (step < 5 && guidelines) {
       return (
         <SpecificGuideline

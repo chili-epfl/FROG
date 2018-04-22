@@ -4,6 +4,17 @@ import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboards';
 
+const interfaceExample = int => ({
+  title: `${int} interface`,
+  config: {
+    timeOfEachIteration: 600000,
+    iterationPerInterface: 5,
+    ticketStatusDisplayTime: 10000,
+    interface: int
+  },
+  data: {}
+});
+
 const meta = {
   name: 'Train Activity',
   shortDesc: 'New activity, no description available',
@@ -35,7 +46,10 @@ const meta = {
         ticketStatusDisplayTime: 500
       },
       data: {}
-    }
+    },
+    ...['dragdrop', 'form', 'command', 'graphical'].map(x =>
+      interfaceExample(x)
+    )
   ]
 };
 
