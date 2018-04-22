@@ -178,9 +178,7 @@ class State {
       setShow: action(e => {
         this.showErrors = e;
       }),
-      setValid: action(e => {
-        this.valid = e;
-      })
+      setValid: action(e => (this.valid = e))
     });
   }
 }
