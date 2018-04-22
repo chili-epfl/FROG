@@ -136,9 +136,6 @@ class Interface extends React.Component {
       to: answer.to && answer.to.toLowerCase()
     };
     const isCorrect = isEqual(question, cleanedUpAnswer);
-    console.log(answer);
-    console.log(question, cleanedUpAnswer);
-
     const timeTaken = Date.now() - start;
 
     logger([

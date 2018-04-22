@@ -103,7 +103,6 @@ class FormInterface extends React.Component<PropsT, StateT> {
               <TextField
                 key={item.id}
                 select
-                SelectProps={{ displayEmpty: true }}
                 label={`${capitalizeFirstLetter(item.id)}:`}
                 value={this.state[item.id]}
                 className={classes.textField}
