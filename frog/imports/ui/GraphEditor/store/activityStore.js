@@ -94,7 +94,6 @@ export default class ActivityStore {
               this.positions[act.id] = act.startTime;
             }
             if (act.startTime === last[0]) {
-              console.log(act.title, last[1].title);
               act.setStart(last[1].startTime);
               if (last[1].length < act.length) {
                 index += act.length - last[1].length;
