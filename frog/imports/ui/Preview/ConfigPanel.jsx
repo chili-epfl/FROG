@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { uuid } from 'frog-utils';
-import { isEqual } from 'lodash';
 
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
@@ -23,17 +22,26 @@ const style = {
 
 class ConfigPanel extends React.Component<*, *> {
   onConfigChange = (e: any) => {
-    console.log(e);
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
-      const _c = e.config;
-      this.props.setConfig(_c);
-      initActivityDocuments(this.props.instances, aT, -1, _c, true);
+      this.props.setConfig(e.config);
+      initActivityDocuments(this.props.instances, aT, -1, e.config, true);
       initDashboardDocuments(aT, true);
     } else {
-      this.props.setConfig({ invalid: true });
+      this.props.setConfig({ ...e.config, invalid: true });
     }
     this.props.setActivityTypeId(e.activityType);
+  };
+
+  componentDidUpdate = () => {
+    if (this.props.activityTypeId && this.props.config.invalid === undefined) {
+      check(
+        this.props.activityTypeId,
+        this.props.config,
+        () => {},
+        this.onConfigChange
+      );
+    }
   };
 
   render() {

@@ -14,14 +14,6 @@ import Store from '../store/store';
 
 const store = new Store();
 
-type ConfigPropsT = {
-  config: Object,
-  activity: ActivityDbT,
-  onConfigChange?: Function,
-  setValid: Function,
-  reload?: string
-};
-
 const ConfigComponent = ({ activityTypeId, config, setConfig }) => {
   const aT = activityTypesObj[activityTypeId];
   if (!aT || !aT.ConfigComponent) {
@@ -58,21 +50,30 @@ export const check = (
   if (onConfigChange) {
     onConfigChange({
       activityType,
-      config: formData,
-      errors: valid
+      config: { ...formData, invalid: valid.length > 0 },
+      errors: valid,
+      invalid: valid.length > 0
     });
   } else {
     window.parent.postMessage(
       {
         type: 'frog-config',
         activityType,
-        config: formData,
+        config: { ...formData, invalid: valid.length > 0 },
         errors: valid,
         valid: valid.length === 0
       },
       '*'
     );
   }
+};
+
+type ConfigPropsT = {
+  config: Object,
+  activity: ActivityDbT,
+  onConfigChange?: Function,
+  setValid: Function,
+  reload?: string
 };
 
 class Config extends React.Component<
@@ -113,13 +114,20 @@ class Config extends React.Component<
             data={this.props.config}
             reload={this.props.reload}
             onChange={e => {
-              console.log(e);
-              this.setState({ formData: e.formData });
-              check(
-                this.aT.id,
-                e.formData || this.state.formData,
-                this.props.setValid,
-                this.props.onConfigChange
+              this.setState(
+                {
+                  formData: {
+                    ...e.formData,
+                    component: this.state.formData.component
+                  }
+                },
+                () =>
+                  check(
+                    this.aT.id,
+                    this.state.formData,
+                    this.props.setValid,
+                    this.props.onConfigChange
+                  )
               );
             }}
             nodeType={this.aT}
@@ -131,13 +139,13 @@ class Config extends React.Component<
           activityTypeId={this.aT.id}
           config={this.props.config}
           setConfig={e => {
-            console.log(e);
-            this.setState({ formData: e });
-            check(
-              this.aT.id,
-              e || this.state.formData,
-              this.props.setValid,
-              this.props.onConfigChange
+            this.setState({ formData: { ...this.state.formData, ...e } }, () =>
+              check(
+                this.aT.id,
+                this.state.formData,
+                this.props.setValid,
+                this.props.onConfigChange
+              )
             );
           }}
         />
@@ -170,7 +178,9 @@ class State {
       setShow: action(e => {
         this.showErrors = e;
       }),
-      setValid: action(e => (this.valid = e))
+      setValid: action(e => {
+        this.valid = e;
+      })
     });
   }
 }
@@ -204,6 +214,9 @@ const ApiForm = observer(
         this.props.activityType !== nextprops.activityType ||
         this.props.config !== nextprops.config
       ) {
+        if (nextprops.activityType) {
+          check(nextprops.activityType, nextprops.config || {}, state.setValid);
+        }
         this.setState({
           activity: {
             _id: '1',
@@ -264,6 +277,8 @@ const ApiForm = observer(
     }
   }
 );
+
+ApiForm.displayName = 'ApiForm';
 
 const Valid = observer(() => (
   <ValidButtonRaw
