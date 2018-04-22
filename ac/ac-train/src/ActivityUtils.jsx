@@ -54,7 +54,6 @@ export function generateTicket() {
 }
 
 export function commandDataStructure(command: string) {
-  console.log(command);
   const answer = command.split(' ').filter(t => t !== 'from' && t !== 'to');
   const cities = answer.splice(0, 2).map(city => lowercaseFirstLetter(city));
 
@@ -88,8 +87,6 @@ export function commandDataStructure(command: string) {
   } else {
     answer.splice(0, 0, 'standard');
   }
-
-  console.log(answer);
 
   return {
     from: cities[0],
