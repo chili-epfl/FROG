@@ -123,7 +123,12 @@ export type ActivityPackageT = {
     shortName?: string,
     shortDesc: string,
     description: string,
-    exampleData?: { title: string, config?: Object, data?: any }[]
+    exampleData?: {
+      title: string,
+      config?: Object,
+      data?: any,
+      type?: 'deeplink'
+    }[]
   },
   config: Object,
   configUI?: Object,
