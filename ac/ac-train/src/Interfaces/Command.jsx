@@ -77,10 +77,15 @@ class Command extends React.Component<PropsT, StateT> {
               label="Enter command"
               value={this.state.text}
               onChange={this.handleChange}
-              multiline
-              rowsMax="4"
               fullWidth
               margin="normal"
+              autoFocus
+              onKeyPress={ev => {
+                if (ev.key === 'Enter') {
+                  ev.preventDefault();
+                  this.handleSubmit();
+                }
+              }}
             />
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>

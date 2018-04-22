@@ -108,7 +108,11 @@ class DragDropController extends React.Component<PropsT, StateT> {
         }
       ],
       boxes: [
-        { id: 'city', type: ItemTypes.CITY, values: CITIES },
+        {
+          id: 'city',
+          type: ItemTypes.CITY,
+          values: CITIES.map(x => capitalizeFirstLetter(x))
+        },
         { id: 'travel', type: ItemTypes.TRAVEL, values: TRAVELDIRECTION },
         { id: 'fare', type: ItemTypes.FARE, values: FARES },
         { id: 'class', type: ItemTypes.CLASS, values: CLASS },

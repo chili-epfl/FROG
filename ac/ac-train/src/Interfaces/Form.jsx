@@ -65,7 +65,7 @@ type PropsT = {
   classes: Object
 };
 
-class Form extends React.Component<PropsT, StateT> {
+class FormInterface extends React.Component<PropsT, StateT> {
   state = {
     from: '',
     to: '',
@@ -126,4 +126,6 @@ class Form extends React.Component<PropsT, StateT> {
   }
 }
 
-export default withStyles(styles)(Form);
+FormInterface.displayName = 'FormInterface';
+
+export default withStyles(styles)(FormInterface);
