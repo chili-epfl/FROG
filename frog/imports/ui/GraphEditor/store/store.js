@@ -32,14 +32,16 @@ export type StateT =
       mode: 'resizing',
       currentActivity: Activity,
       bounds: BoundsT,
-      activitiesToPush?: Activity[]
+      activitiesToPush?: Activity[],
+      operatorsToPush?: Operator[]
     }
   | {
       mode: 'moving',
       currentActivity: Activity,
       mouseOffset: number,
       initialStartTime: number,
-      activitiesToPush?: Activity[]
+      activitiesToPush?: Activity[],
+      operatorsToPush?: Operator[]
     }
   | { mode: 'waitingDrag' }
   | { mode: 'movingOperator', currentOperator: Operator }

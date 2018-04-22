@@ -71,6 +71,9 @@ export default class Activity extends Elem {
             ...store.state,
             activitiesToPush: store.activityStore.all.filter(
               x => x.startTime >= this.startTime && x.id !== this.id
+            ),
+            operatorsToPush: store.operatorStore.all.filter(
+              x => x.time >= this.startTime
             )
           };
         }
@@ -90,6 +93,7 @@ export default class Activity extends Elem {
           const diff = newTime - oldTime;
           if (diff !== 0 && store.state.activitiesToPush) {
             store.state.activitiesToPush.forEach(x => x.push(diff));
+            store.state.operatorsToPush.forEach(x => x.push(diff));
           }
         } else {
           this.startTime = between(
@@ -143,6 +147,9 @@ export default class Activity extends Elem {
               ...store.state,
               activitiesToPush: store.activityStore.all.filter(
                 x => x.startTime > this.startTime && x.id !== this.id
+              ),
+              operatorsToPush: store.operatorStore.all.filter(
+                x => x.time >= this.startTime
               )
             };
           }
@@ -159,6 +166,7 @@ export default class Activity extends Elem {
           const diff = this.length - oldLength;
           if (diff !== 0 && store.state.activitiesToPush) {
             store.state.activitiesToPush.forEach(x => x.push(diff));
+            store.state.operatorsToPush.forEach(x => x.push(diff));
           }
         }
         store.activityStore.emptySizes();
