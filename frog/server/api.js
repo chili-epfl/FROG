@@ -7,7 +7,7 @@ import { WebApp } from 'meteor/webapp';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
-import { resolve, join } from 'path';
+import { resolve as pathResolve, join } from 'path';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -269,7 +269,7 @@ WebApp.connectHandlers.use('/file', (req, res) => {
     let fname;
     if (req.query.name.startsWith('ac/')) {
       const path = req.query.name.split('/');
-      const rootPath = resolve('.').split('/.meteor')[0];
+      const rootPath = pathResolve('.').split('/.meteor')[0];
       fname = join(rootPath, '..', 'ac', path[1], 'clientFiles', path[2]);
     } else {
       fname = req.query.name && '/tmp/' + req.query.name.split('?')[0];
