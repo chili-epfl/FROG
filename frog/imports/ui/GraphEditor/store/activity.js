@@ -127,6 +127,14 @@ export default class Activity extends Elem {
         );
       }),
 
+      setStart: action(x => {
+        this.startTime = x;
+      }),
+
+      setLength: action(x => {
+        this.length = x;
+      }),
+
       resize: action(shiftkey => {
         const _state = store.state;
         if (_state.mode === 'resizing') {

@@ -75,6 +75,8 @@ const bindKeys = () => {
   Mousetrap.bind('+', () => store.activityStore.duplicateActivity());
   Mousetrap.bind('c', () => store.operatorStore.place('control'));
   Mousetrap.bind('p', () => store.operatorStore.place('product'));
+  Mousetrap.bind('z', store.activityStore.organize);
+  Mousetrap.bind('r', store.activityStore.resize);
   Mousetrap.bind('w', e => {
     store.ui.toggleSidepanelOpen();
     e.preventDefault();

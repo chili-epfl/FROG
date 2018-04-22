@@ -1,5 +1,5 @@
 import { extendObservable, action } from 'mobx';
-import { omit, maxBy } from 'lodash';
+import { omit, maxBy, isEmpty } from 'lodash';
 
 import Activity from './activity';
 import { duplicateActivity } from '../../../api/activities';
@@ -46,6 +46,9 @@ export default class ActivityStore {
   constructor() {
     extendObservable(this, {
       all: [],
+      sizes: {},
+      positions: {},
+      organizeNextState: 'compress',
       activitySequence: undefined,
 
       setActivitySequence: action((act: any) => {
@@ -59,7 +62,54 @@ export default class ActivityStore {
         }
       }),
 
-      addActivity: action((plane: number, rawX: number) => {
+      organize: action(() => {
+        if (this.organizeNextState === 'restore') {
+          Object.keys(this.positions).forEach(key => {
+            const act = this.all.find(x => x.id === key);
+            if (act) {
+              act.setStart(this.positions[key]);
+            }
+          });
+          this.organizeNextState = 'compress';
+        } else {
+          let expand = 0;
+          if (this.organizeNextState === 'compress') {
+            this.organizeNextState = 'expand';
+          } else {
+            this.organizeNextState = 'restore';
+            expand = 5;
+          }
+          let index = 0;
+          this.all.sort((x, y) => x.startTime - y.startTime).forEach(act => {
+            if (this.organizeNextState === 'expand') {
+              this.positions[act.id] = act.startTime;
+            }
+            act.setStart(index);
+            index += act.length + expand;
+          });
+        }
+        store.addHistory();
+      }),
+
+      resize: action(() => {
+        if (isEmpty(this.sizes)) {
+          this.all.forEach(act => {
+            this.sizes[act.id] = act.length;
+            act.setLength(5);
+          });
+        } else {
+          Object.keys(this.sizes).forEach(key => {
+            const act = this.all.find(x => x.id === key);
+            if (act) {
+              act.setLength(this.sizes[key]);
+            }
+          });
+          this.sizes = {};
+        }
+        store.addHistory();
+      }),
+
+      addActivity: action((plane: number, rawX: number, shiftKey) => {
         if (store.state.mode === 'readOnly') {
           return;
         }
@@ -79,12 +129,12 @@ export default class ActivityStore {
         if (length >= 1) {
           const newActivity = new Activity(plane, time, 'Unnamed', length);
 
+          if (shiftKey) {
+            this.all
+              .filter(x => x.startTime >= newActivity.startTime)
+              .forEach(x => x.push(newActivity.length));
+          }
           this.all.push(newActivity);
-          store.state = {
-            mode: 'rename',
-            currentActivity: newActivity,
-            val: ''
-          };
           store.addHistory();
           return newActivity.id;
         }
@@ -113,7 +163,7 @@ export default class ActivityStore {
 
       moveDelete: action(activity => {
         this.all
-          .filter(x => x.startTime > activity.startTime)
+          .filter(x => x.startTime >= activity.startTime + activity.length)
           .forEach(act => act.push(-activity.length));
       }),
 
