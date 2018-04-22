@@ -53,7 +53,7 @@ export default class Activity extends Elem {
         store.addHistory();
       }),
 
-      move: action(() => {
+      move: action(shiftkey => {
         if (store.state.mode === 'readOnly') {
           return;
         }
@@ -66,8 +66,17 @@ export default class Activity extends Elem {
           };
           this.wasMoved = true;
         }
+        if (shiftkey && !store.state.activitiesToPush) {
+          store.state = {
+            ...store.state,
+            activitiesToPush: store.activityStore.all.filter(
+              x => x.startTime >= this.startTime && x.id !== this.id
+            )
+          };
+        }
 
         const _state = store.state;
+        const oldTime = this.startTime;
         const newTime = Math.round(
           store.ui.socialCoordsTime[0] - _state.mouseOffset
         );
@@ -77,6 +86,11 @@ export default class Activity extends Elem {
             store.graphDuration - this.length,
             newTime
           );
+
+          const diff = newTime - oldTime;
+          if (diff !== 0 && store.state.activitiesToPush) {
+            store.state.activitiesToPush.forEach(x => x.push(diff));
+          }
         } else {
           this.startTime = between(
             this.bounds.leftBoundTime,
@@ -105,18 +119,39 @@ export default class Activity extends Elem {
         }
       }),
 
-      resize: action(() => {
+      push: action(diff => {
+        this.startTime = between(
+          0,
+          store.graphDuration - this.length,
+          this.startTime + diff
+        );
+      }),
+
+      resize: action(shiftkey => {
         const _state = store.state;
         if (_state.mode === 'resizing') {
+          if (shiftkey && !store.state.activitiesToPush) {
+            store.state = {
+              ...store.state,
+              activitiesToPush: store.activityStore.all.filter(
+                x => x.startTime > this.startTime && x.id !== this.id
+              )
+            };
+          }
           const newTime = Math.round(store.ui.socialCoordsTime[0]);
           const max = store.overlapAllowed
             ? store.graphDuration
             : _state.bounds.rightBoundTime;
+          const oldLength = this.length;
           this.length = between(
             1,
             max - this.startTime,
             newTime - this.startTime
           );
+          const diff = this.length - oldLength;
+          if (diff !== 0 && store.state.activitiesToPush) {
+            store.state.activitiesToPush.forEach(x => x.push(diff));
+          }
         }
       }),
 

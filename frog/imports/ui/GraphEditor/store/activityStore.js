@@ -111,6 +111,12 @@ export default class ActivityStore {
         store.addHistory();
       }),
 
+      moveDelete: action(activity => {
+        this.all
+          .filter(x => x.startTime > activity.startTime)
+          .forEach(act => act.push(-activity.length));
+      }),
+
       startResizing: action((activity: Activity) => {
         if (store.state.mode === 'rename') {
           store.state.currentActivity.rename(store.state.val);

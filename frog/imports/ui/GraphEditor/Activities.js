@@ -62,8 +62,8 @@ class ActivityComponent extends Component<Object> {
       return (
         <g onClick={e => e.stopPropagation()} onMouseUp={this.clickHandler}>
           <DraggableCore
-            onDrag={(_, { deltaX }) => {
-              activity.move(deltaX);
+            onDrag={(e, { deltaX }) => {
+              activity.move(e.shiftKey);
             }}
             onStop={stopMoving}
           >
@@ -129,7 +129,7 @@ class ActivityComponent extends Component<Object> {
             </DraggableCore>
             <DraggableCore
               onStart={() => startResizing(activity)}
-              onDrag={() => activity.resize()}
+              onDrag={e => activity.resize(e.shiftKey)}
               onStop={stopResizing}
             >
               <rect

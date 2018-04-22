@@ -68,7 +68,8 @@ const bindKeys = () => {
       store.ui.unselect();
     }
   });
-  Mousetrap.bind('backspace', store.deleteSelected);
+  Mousetrap.bind('backspace', () => store.deleteSelected(false));
+  Mousetrap.bind('shift+backspace', () => store.deleteSelected(true));
   Mousetrap.bind('?', () => store.ui.setModal(true));
   Mousetrap.bind('s', () => store.operatorStore.place('social'));
   Mousetrap.bind('+', () => store.activityStore.duplicateActivity());
