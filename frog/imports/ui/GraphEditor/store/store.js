@@ -215,6 +215,7 @@ export default class Store {
           mergeGraph(this.objects);
         }
         this.refreshValidate();
+        this.activityStore.setOrganizeNextState('compress');
       }),
 
       refreshValidate: action(() => {

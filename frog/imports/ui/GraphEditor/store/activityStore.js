@@ -62,6 +62,10 @@ export default class ActivityStore {
         }
       }),
 
+      setOrganizeNextState: action(toSet => {
+        this.organizeNextState = toSet;
+      }),
+
       organize: action(() => {
         if (this.organizeNextState === 'restore') {
           Object.keys(this.positions).forEach(key => {
@@ -88,7 +92,6 @@ export default class ActivityStore {
             index += act.length + expand;
           });
         }
-        store.addHistory();
       }),
 
       resize: action(() => {
@@ -106,7 +109,6 @@ export default class ActivityStore {
           });
           this.sizes = {};
         }
-        store.addHistory();
       }),
 
       addActivity: action((plane: number, rawX: number, shiftKey) => {
