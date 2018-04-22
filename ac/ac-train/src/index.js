@@ -6,6 +6,7 @@ import dashboards from './Dashboards';
 
 const interfaceExample = int => ({
   title: `${int} interface`,
+  type: 'deeplink',
   config: {
     timeOfEachIteration: 600000,
     iterationPerInterface: 5,
