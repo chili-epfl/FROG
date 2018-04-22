@@ -161,6 +161,7 @@ export default class Activity extends Elem {
             store.state.activitiesToPush.forEach(x => x.push(diff));
           }
         }
+        store.activityStore.emptySizes();
       }),
 
       onLeave: action(() => {

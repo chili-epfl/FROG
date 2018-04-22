@@ -49,6 +49,13 @@ const HelpModal = ({ show, hide }) => (
       <h4>Undo</h4>
       All your actions are immediately stored in the database. To undo, click
       the undo button at the bottom of the graph.
+      <h4>Resizing automatically</h4>
+      <b>r</b> jumps between two states: resize all activities to be five
+      minutes long, and restore their original sizes
+      <h4>Organizing automatically</h4>
+      <b>z</b> jumps between three states: move all activities next to each
+      other, put five minutes distance between all activities, and restore
+      original positions
     </Modal.Body>
   </Modal>
 );

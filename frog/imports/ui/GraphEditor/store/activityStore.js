@@ -66,6 +66,10 @@ export default class ActivityStore {
         this.organizeNextState = toSet;
       }),
 
+      emptySizes: action(() => {
+        this.sizes = {};
+      }),
+
       organize: action(() => {
         if (this.organizeNextState === 'restore') {
           Object.keys(this.positions).forEach(key => {
@@ -77,6 +81,7 @@ export default class ActivityStore {
           this.organizeNextState = 'compress';
         } else {
           let expand = 0;
+          const last = [null, null];
           if (this.organizeNextState === 'compress') {
             this.organizeNextState = 'expand';
           } else {
@@ -88,8 +93,18 @@ export default class ActivityStore {
             if (this.organizeNextState === 'expand') {
               this.positions[act.id] = act.startTime;
             }
-            act.setStart(index);
-            index += act.length + expand;
+            if (act.startTime === last[0]) {
+              console.log(act.title, last[1].title);
+              act.setStart(last[1].startTime);
+              if (last[1].length < act.length) {
+                index += act.length - last[1].length;
+              }
+            } else {
+              last[0] = act.startTime;
+              last[1] = act;
+              act.setStart(index);
+              index += act.length + expand;
+            }
           });
         }
       }),
