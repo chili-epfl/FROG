@@ -1,8 +1,6 @@
 // @ flow
 import React from 'react';
-
-// UI
-import { isEqual } from 'lodash';
+import { isEqual, omitBy } from 'lodash';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
 import TicketStatus from './TicketStatus';
@@ -128,7 +126,18 @@ class Interface extends React.Component {
     } = this.props;
 
     const { question, start } = this.state;
-    const isCorrect = isEqual(question, answer);
+    const cleanedUpAnswer = {
+      class: '2nd',
+      travel: 'one-way',
+      fare: 'standard',
+      bike: 'no',
+      ...omitBy(answer, x => x === '' || x === undefined),
+      from: answer.from && answer.from.toLowerCase(),
+      to: answer.to && answer.to.toLowerCase()
+    };
+    const isCorrect = isEqual(question, cleanedUpAnswer);
+    console.log(answer);
+    console.log(question, cleanedUpAnswer);
 
     const timeTaken = Date.now() - start;
 

@@ -65,7 +65,7 @@ type PropsT = {
   classes: Object
 };
 
-class Form extends React.Component<PropsT, StateT> {
+class FormInterface extends React.Component<PropsT, StateT> {
   state = {
     from: '',
     to: '',
@@ -103,6 +103,7 @@ class Form extends React.Component<PropsT, StateT> {
               <TextField
                 key={item.id}
                 select
+                SelectProps={{ displayEmpty: true }}
                 label={`${capitalizeFirstLetter(item.id)}:`}
                 value={this.state[item.id]}
                 className={classes.textField}
@@ -126,4 +127,6 @@ class Form extends React.Component<PropsT, StateT> {
   }
 }
 
-export default withStyles(styles)(Form);
+FormInterface.displayName = 'FormInterface';
+
+export default withStyles(styles)(FormInterface);

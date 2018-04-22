@@ -5,25 +5,18 @@ export const texts = {
   start: 'Start',
   yes: 'YES',
   no: 'NO',
-  guidelines: [
-    'Are the two shapes symmetrical? Click Yes or No to answer. ' +
-      'You can also use the Keyboard: Y/O for Yes and N for No.',
-    'Do not let the ball fall and break the bricks! Use left and right arrows to move.',
-    'Now do both tasks at the same time!',
-    'Now do both tasks at the same time!'
-  ],
   end: 'Activity completed! Thank you!',
   timeLeft: 'Time left in Task -> '
 };
 
 export const CITIES = [
+  'basel',
+  'davos',
+  'fribourg',
   'geneve',
   'lausanne',
-  'zurich',
-  'fribourg',
-  'basel',
   'neuchatel',
-  'davos'
+  'zurich'
 ];
 
 export const FARES = ['standard', 'young', 'half-fare'];
@@ -61,11 +54,11 @@ export function generateTicket() {
 }
 
 export function commandDataStructure(command: string) {
+  console.log(command);
   const answer = command.split(' ').filter(t => t !== 'from' && t !== 'to');
   const cities = answer.splice(0, 2).map(city => lowercaseFirstLetter(city));
 
   const bikeIndex = answer.indexOf('bike');
-
   if (bikeIndex === 1) {
     answer[bikeIndex] = 'yes';
   } else if (bikeIndex === -1) {
@@ -74,14 +67,29 @@ export function commandDataStructure(command: string) {
 
   const C1 = answer.indexOf('C1');
   const C2 = answer.indexOf('C2');
-
   if (C1 === 2) {
-    answer[C1] = '1st';
+    answer[2] = '1st';
+  } else if (C2 === 2) {
+    answer[2] = '2nd';
+  } else {
+    answer.splice(2, 0, '2nd');
   }
 
-  if (C2 === 2) {
-    answer[C2] = '2nd';
+  const young = answer.indexOf('young');
+  const halfFare = answer.indexOf('half-fare');
+  const standard = answer.indexOf('standard');
+
+  if (young > -1) {
+    answer[0] = 'young';
+  } else if (halfFare > -1) {
+    answer[0] = 'half-fare';
+  } else if (standard > -1) {
+    answer[0] = 'standard';
+  } else {
+    answer.splice(0, 0, 'standard');
   }
+
+  console.log(answer);
 
   return {
     from: cities[0],
