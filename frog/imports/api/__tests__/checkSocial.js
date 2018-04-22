@@ -26,8 +26,9 @@ test('checking that period in social attribute triggers error', () => {
     errors: [
       {
         err:
-          'The name of social attribute role.group contains a period, this is not allowed.',
+          'The name of social attribute "role.group" contains a period, which is not allowed.',
         id: 'o4',
+        nodeType: 'operator',
         severity: 'error',
         type: 'socialAttributeWithPeriod'
       }

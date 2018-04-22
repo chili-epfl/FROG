@@ -32,8 +32,7 @@ export default (
               nodeType,
               err: `Config requires the social attribute '${x}', which is not provided by any connected social operator`,
               type: 'missingSocialAttribute',
-              severity: 'error',
-              nodeType: 'operator'
+              severity: 'error'
             });
           } else {
             return [...acc, node.data[x]];
