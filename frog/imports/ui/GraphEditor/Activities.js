@@ -62,7 +62,7 @@ class ActivityComponent extends Component<Object> {
       return (
         <g onClick={e => e.stopPropagation()} onMouseUp={this.clickHandler}>
           <DraggableCore
-            onDrag={(e, { deltaX }) => {
+            onDrag={e => {
               activity.move(e.shiftKey);
             }}
             onStop={stopMoving}
