@@ -264,11 +264,10 @@ WebApp.connectHandlers.use('/file', (req, res) => {
       res.end();
     }
     let fname;
-    if (req.query.name.beginsWith('ac/')) {
+    if (req.query.name.startsWith('ac/')) {
       const path = req.query.name.split('/');
       const rootPath = resolve('.').split('/.meteor')[0];
-      fname = join(rootPath, 'ac', path[1], 'src', 'clientFiles', path[2]);
-      console.log(fname);
+      fname = join(rootPath, '..', 'ac', path[1], 'clientFiles', path[2]);
     } else {
       fname = req.query.name && '/tmp/' + req.query.name.split('?')[0];
     }
