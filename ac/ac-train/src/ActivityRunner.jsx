@@ -1,8 +1,7 @@
 // @flow
-
 import * as React from 'react';
-import { shuffle } from 'lodash';
 import { type ActivityRunnerT } from 'frog-utils';
+import seededShuffle from 'seededshuffle';
 
 import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
@@ -50,7 +49,8 @@ const ActivityEnded = () => (
 type PropsT = {
   dataFn: any,
   data: Object,
-  activityData: { config: Object }
+  activityData: { config: Object },
+  userInfo: { id: string }
 };
 
 class Main extends React.Component<PropsT> {
@@ -67,39 +67,43 @@ class Main extends React.Component<PropsT> {
   };
 
   componentWillMount() {
-    this.interfaces = [
-      'start',
-      ...shuffle(['dragdrop', 'form', 'command', 'graphical'])
-    ];
+    const { userInfo } = this.props;
+
+    const shuffledInterfaces = seededShuffle.shuffle(
+      ['dragdrop', 'form', 'command', 'graphical'],
+      userInfo.id
+    );
+
+    this.interfaces = ['start', ...shuffledInterfaces];
   }
 
   render() {
-    const { step, guidelines } = this.props.data;
-    if (this.props.activityData.config.interface) {
-      return (
-        <Interface
-          whichInterface={this.props.activityData.config.interface}
-          {...this.props}
-        />
-      );
-    }
-    if (step < 5 && guidelines) {
-      return (
-        <SpecificGuideline
-          whichInterface={this.interfaces[step]}
-          start={step === 0 ? this.beginActivity : this.start}
-          step={step}
-        />
-      );
+    const {
+      data: { step, guidelines },
+      activityData: { config }
+    } = this.props;
+
+    if (config.interface) {
+      return <Interface whichInterface={config.interface} {...this.props} />;
     }
 
     if (step < 5) {
+      if (guidelines) {
+        return (
+          <SpecificGuideline
+            whichInterface={this.interfaces[step]}
+            start={step === 0 ? this.beginActivity : this.start}
+            step={step}
+          />
+        );
+      }
+
       return (
         <Interface whichInterface={this.interfaces[step]} {...this.props} />
       );
-    } else {
-      return <ActivityEnded />;
     }
+
+    return <ActivityEnded />;
   }
 }
 
@@ -107,9 +111,13 @@ class Main extends React.Component<PropsT> {
 const RunnerController = (props: ActivityRunnerT) => {
   const {
     data: { iteration },
+    activityData: {
+      config: { iterationPerInterface }
+    },
     classes
   } = props;
-  const p = Math.round(iteration / 20 * 100);
+
+  const p = Math.round(iteration / (4 * iterationPerInterface) * 100);
   return (
     <div className={classes.main}>
       <LinearProgress
