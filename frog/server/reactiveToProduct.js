@@ -18,12 +18,13 @@ declare var Promise: any;
 const cleanId = id => id.split('/')[1];
 
 const formatResults = (results, formatProduct, config) => {
-  const format = data => (formatProduct ? formatProduct(config, data) : data);
+  const format = (data, instance) =>
+    formatProduct ? formatProduct(config, data, instance) : data;
   return results.reduce(
     (acc, k) => ({
       ...acc,
       [cleanId(k.id)]: {
-        data: format(k.data)
+        data: format(k.data, cleanId(k.id))
       }
     }),
     {}
