@@ -4,8 +4,9 @@ import * as React from 'react';
 import { Chart } from 'react-google-charts';
 
 import {
-  type LogT,
+  type LogDbT,
   type DashboardViewerPropsT,
+  type DashboardT,
   ProgressDashboard,
   LeaderBoard
 } from 'frog-utils';
@@ -68,7 +69,7 @@ const initData = {
   }
 };
 
-const mergeLog = (state: any, log: LogT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'answer' && log.payload) {
     const {
       isConsistent,
@@ -102,7 +103,7 @@ const exampleLogs = [
   }
 ];
 
-const statsDashboard = { initData, mergeLog, Viewer, exampleLogs };
+const statsDashboard: DashboardT = { initData, mergeLog, Viewer, exampleLogs };
 
 export default {
   progress: ProgressDashboard,

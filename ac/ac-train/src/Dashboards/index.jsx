@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import {
-  type LogT,
+  type LogDbT,
   type DashboardViewerPropsT,
   type DashboardT,
   ProgressDashboard
@@ -60,7 +60,7 @@ const initData = {
   }
 };
 
-const mergeLog = (state: Object, log: LogT) => {
+const mergeLog = (state: Object, log: LogDbT) => {
   if (log.type === 'answer' && log.payload) {
     const { activity, instance, isCorrect, timeTaken } = log.payload;
 

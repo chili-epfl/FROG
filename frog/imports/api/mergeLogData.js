@@ -1,7 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { type ActivityDBT, type ActivityPackageT } from 'frog-utils';
+import { type ActivityDbT, type ActivityPackageT } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
 import { activityTypesObj } from '../activityTypes';
@@ -12,7 +12,7 @@ import { Activities, DashboardData } from './activities.js';
 const activityCache = {};
 
 export const createDashboards = (
-  activity: ActivityDBT,
+  activity: ActivityDbT,
   refresh: boolean = false
 ) => {
   const aT = activityTypesObj[activity.activityType];

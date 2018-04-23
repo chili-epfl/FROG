@@ -251,7 +251,7 @@ export const cloneDeep = (o: any) => {
   return newO;
 };
 
-export const Inspector = ({ data }: { data: Object }) =>
+export const Inspector = ({ data }: { data: Object | Object[] }) =>
   data ? (
     <ReactJsonView
       style={{ fontSize: '1.2em' }}

@@ -73,14 +73,15 @@ export type ControlStructureT =
   | { list: { [activityId: string]: ControlT } };
 
 export type ActivityRunnerPropsT = {
-  logger: (log: LogT) => void,
+  logger: (logs: LogT | LogT[]) => void,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, name: string) => Promise<*>,
   userInfo: { id: string, name: string },
-  groupingValue: string
+  groupingValue: string,
+  sessionId: string
 };
 
 export type ActivityRunnerT = React.ComponentType<ActivityRunnerPropsT>;

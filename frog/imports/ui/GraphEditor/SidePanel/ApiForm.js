@@ -39,7 +39,7 @@ export const check = (
   const valid = validateConfig(
     'activity',
     '1',
-    hideConditional(formData, aT.config, aT.configUI),
+    hideConditional(formData, aT.config, aT.configUI), 
     aT.config,
     aT.validateConfig,
     aT.configUI

@@ -57,7 +57,6 @@ export default (props: Object) => {
     return <p>Choose and activityType</p>;
   }
   const examples = addDefaultExample(activityType);
-  const ex = showDashExample ? activityType.dashboards.exampleLogs : examples;
 
   const refresh = () => {
     initActivityDocuments(instances, activityType, example, config, true);
@@ -172,9 +171,9 @@ export default (props: Object) => {
           tooltip="Toggle full window"
         />
       </h4>
-      {ex && (
+      {examples && (
         <Nav bsStyle="pills" activeKey={example}>
-          {ex.map((x, i) => (
+          {examples.map((x, i) => (
             <NavItem
               key={x.title}
               className="examples"

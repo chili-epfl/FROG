@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Chart } from 'react-google-charts';
 
 import {
-  type LogT,
+  type LogDbT,
   type DashboardViewerPropsT,
   ProgressDashboard,
   LeaderBoard
@@ -88,7 +88,7 @@ const initData = {
   results: {}
 };
 
-const mergeLog = (state: any, log: LogT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'answer' && log.payload) {
     const { answer, startTime, answerTime, curQuestion } = log.payload;
     const index = curQuestion[1];

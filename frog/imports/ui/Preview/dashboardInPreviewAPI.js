@@ -108,22 +108,23 @@ class PreviewDash extends React.Component<
 > {
   interval: any;
   oldInput: any = undefined;
-  func = activityTypesObj[this.props.activity.activityType].dashboards[
-    this.props.name
-  ].prepareDataForDisplay;
+  prepDataFn: Function;
 
   dashId = this.props.activity._id + '-' + this.props.name;
 
-  state = {
-    state:
-      DashboardStates[this.dashId] &&
-      (this.func
-        ? this.func(
-            cloneDeep(DashboardStates[this.dashId]),
-            this.props.activity
-          )
-        : DashboardStates[this.dashId])
-  };
+  constructor(props) {
+    super(props)
+    const aT = activityTypesObj[this.props.activity.activityType]
+    const dash = aT.dashboards && aT.dashboards[this.props.name]
+    this.prepDataFn = (dash && dash.prepareDataForDisplay) || ((x, _) => x)
+
+    const dashState = DashboardStates[this.dashId]
+    this.state = {
+      state:
+        dashState &&
+        this.prepDataFn(cloneDeep(dashState),this.props.activity)
+    };
+  }
 
   componentDidMount = () => {
     this.interval = setInterval(this.update, 300);
@@ -132,12 +133,10 @@ class PreviewDash extends React.Component<
   update = () => {
     if (DashboardStates[this.dashId]) {
       if (!isEqual(this.oldInput, DashboardStates[this.dashId])) {
-        const newState = this.func
-          ? this.func(
-              cloneDeep(DashboardStates[this.dashId]),
-              this.props.activity
-            )
-          : DashboardStates[this.dashId];
+        const newState = this.prepDataFn(
+          cloneDeep(DashboardStates[this.dashId]),
+          this.props.activity
+        )
         this.setState({ state: newState });
         this.oldInput = cloneDeep(DashboardStates[this.dashId]);
       }
