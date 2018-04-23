@@ -171,15 +171,15 @@ export default (props: Object) => {
           tooltip="Toggle full window"
         />
       </h4>
-      {examples && (
+      {!showDashExample && (
         <Nav bsStyle="pills" activeKey={example}>
-          {examples.map((x, i) => (
+          {examples.map((ex, i) => (
             <NavItem
-              key={x.title}
+              key={ex.title}
               className="examples"
               eventKey={i}
               onClick={() => {
-                const exConf = addDefaultExample(activityType)[i].config;
+                const exConf = ex.config;
                 setConfig(exConf);
                 setReloadAPIform(uuid());
                 initActivityDocuments(instances, activityType, i, exConf, true);
@@ -187,7 +187,7 @@ export default (props: Object) => {
                 setExample(i);
               }}
             >
-              {x.title}
+              {ex.title}
             </NavItem>
           ))}
         </Nav>

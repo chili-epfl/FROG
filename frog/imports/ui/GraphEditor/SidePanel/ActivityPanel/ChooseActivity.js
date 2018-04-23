@@ -51,17 +51,16 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
       : aT => {
           const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
-          if (this.props.store) {
-            if (this.props.activity.title === 'Unnamed') {
-              const graphActivity = this.props.store.activityStore.all.find(
-                act => act.id === this.props.activity._id
+          const { store, activity } = this.props
+          if (store) {
+            if (activity.title && activity.title === 'Unnamed') {
+              const graphActivity = store.activityStore.all.find(
+                act => act.id === activity._id
               );
-              const newName =
-                activityTypesObj[aT.id].meta.shortName ||
-                activityTypesObj[aT.id].meta.name;
+              const newName = aT.meta.shortName || aT.meta.name;
               graphActivity.rename(newName);
             }
-            this.props.store.addHistory();
+            store.addHistory();
           }
         };
 

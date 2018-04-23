@@ -5,6 +5,7 @@ import * as React from 'react';
 export type ActivityDbT = {
   _id: string,
   data: Object,
+  title?: string,
   groupingKey?: string,
   plane: number,
   startTime: number,

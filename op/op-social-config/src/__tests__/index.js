@@ -12,7 +12,10 @@ const configData = {
 };
 
 const object = {
-  activityData: { structure: 'all', payload: { all: {} } },
+  activityData: {
+    structure: 'all',
+    payload: { all: { data: {}, config: {} } }
+  },
   socialStructure: {
     group: { '1': ['stud1'], '2': ['stud2'], '3': ['stud3'] }
   },
