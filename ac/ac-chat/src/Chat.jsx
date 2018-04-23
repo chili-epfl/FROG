@@ -51,6 +51,9 @@ const styles = {
     fontSize: '10pt',
     paddingBottom: '2px',
     color: '#0606066b'
+  },
+  robot: {
+    fontStyle: 'italic'
   }
 };
 
@@ -59,7 +62,12 @@ const Chatmsg = ({ msg, classes }) => (
     <Typography variant="body2" gutterBottom color="secondary">
       {msg.user}
     </Typography>
-    <Typography gutterBottom>{msg.msg}</Typography>
+    <Typography
+      gutterBottom
+      className={msg.user === 'Friendly robot' ? classes.robot : undefined}
+    >
+      {msg.msg}
+    </Typography>
   </div>
 );
 

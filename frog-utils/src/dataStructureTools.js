@@ -9,7 +9,7 @@ import type {
 } from './types';
 import { focusStudent } from './socstructTools';
 
-const logFirst = msg => {
+const logFirst = (...msg) => {
   console.error(msg);
   return msg;
 };
@@ -55,7 +55,11 @@ export const extractUnit = (
   } else {
     if (typeof activityStructure === 'object') {
       if (data.structure.groupingKey !== activityStructure.groupingKey) {
-        throw logFirst('Incompatible grouping keys');
+        throw logFirst(
+          'Incompatible grouping keys',
+          data.structure.groupingKey,
+          activityStructure.groupingKey
+        );
       }
       if (data.payload[attributeValue] !== undefined) {
         return data.payload[attributeValue];
