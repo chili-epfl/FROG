@@ -26,8 +26,6 @@ const styles = {
   }
 };
 
-// console.log(interfaces);
-
 const ActivityEnded = () => (
   <div
     style={{

@@ -77,8 +77,7 @@ class Command extends React.Component<PropsT, StateT> {
               label="Enter command"
               value={this.state.text}
               onChange={this.handleChange}
-              multiline
-              rowsMax="4"
+              autoFocus
               fullWidth
               margin="normal"
             />
