@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 
-import { CountChart, type LogDBT, type ActivityDBT } from 'frog-utils';
+import { CountChart, type LogDbT, type ActivityDBT } from 'frog-utils';
 
 const Viewer = ({ state: { answerCounts, questions } }: any) => (
   <React.Fragment>
@@ -38,7 +38,7 @@ const prepareDataForDisplay = (state: any, activity: ActivityDBT) => {
   return { answerCounts, questions };
 };
 
-const mergeLog = (state: any, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.itemId !== undefined && log.type === 'choice') {
     if (!state['answers'][log.instanceId]) {
       state.answers[log.instanceId] = { [log.itemId]: log.value };

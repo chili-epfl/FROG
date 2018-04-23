@@ -61,7 +61,7 @@ const initData = {
   hard: {}
 };
 
-const mergeLog = (state: any, log: LogT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'answer' && log.payload) {
     const { expectedAnswer, answer, difficulty, speed } = log.payload;
     if (!state[difficulty][speed.toString()]) {

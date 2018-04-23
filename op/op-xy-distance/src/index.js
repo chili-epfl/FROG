@@ -30,12 +30,12 @@ const operator = (_, object) => {
     )
   );
 
-  const toReturn: activityDataT = ({
+  const toReturn: activityDataT = {
     structure: 'all',
     payload: { all: { data: { instances, distanceMatrix }, config: {} } }
-  });
+  };
 
-  return toReturn
+  return toReturn;
 };
 
 export default ({

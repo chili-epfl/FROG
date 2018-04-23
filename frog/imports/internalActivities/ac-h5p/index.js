@@ -12,7 +12,10 @@ export const meta = {
   description: 'Displays H5P activity, and logs xAPI statements'
 };
 
-export class ActivityRunner extends React.Component<ActivityRunnerPropsT, void> {
+export class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT,
+  void
+> {
   componentDidMount = () => {
     if (!this.props.activityData.config.component) {
       return null;

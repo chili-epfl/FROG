@@ -27,7 +27,10 @@ type ActivityRunnerStateT = {
   webcamOn: boolean
 };
 
-class ActivityRunner extends Component<ActivityRunnerPropsT, ActivityRunnerStateT> {
+class ActivityRunner extends Component<
+  ActivityRunnerPropsT,
+  ActivityRunnerStateT
+> {
   categories: {
     [categoryName: string]: string[]
   };

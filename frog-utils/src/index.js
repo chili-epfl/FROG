@@ -73,7 +73,7 @@ export type {
   ControlStructureT,
   ControlT,
   LogT,
-  LogDBT,
+  LogDbT,
   DashboardT,
   DashboardViewerPropsT
 } from './types';

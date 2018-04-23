@@ -9,7 +9,7 @@ import {
   VictoryLabel
 } from 'victory';
 
-import { type LogDBT, type DashboardViewerPropsT } from 'frog-utils';
+import { type LogDbT, type DashboardViewerPropsT } from 'frog-utils';
 
 const target = 'labels';
 const onMouseOver = () => ({ target, mutation: p => ({ text: p.datum.name }) });
@@ -76,7 +76,7 @@ const Viewer = (props: DashboardViewerPropsT) => {
   }
 };
 
-const mergeLog = (state: any, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'coordinates' && log.payload) {
     state.coordinates[log.instanceId] = log.payload;
   }

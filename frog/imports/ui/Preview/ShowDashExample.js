@@ -6,7 +6,7 @@ import {
   cloneDeep,
   Inspector,
   type ActivityPackageT,
-  type LogDBT
+  type LogDbT
 } from 'frog-utils';
 import { throttle } from 'lodash';
 import 'rc-slider/assets/index.css';
@@ -36,7 +36,7 @@ type PropsT = {
 
 class ShowDashExample extends React.Component<PropsT, StateT> {
   activityDbObject: Object;
-  timeseries: LogDBT[][];
+  timeseries: LogDbT[][];
   logsProcessed: number = 0;
   isUnmounted: boolean = false;
 
@@ -52,13 +52,13 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       play: false
     };
     const aTdashs = this.props.activityType.dashboards;
-    if(aTdashs){
+    if (aTdashs) {
       const example = Object.keys(aTdashs).find(
         x => aTdashs[x] && aTdashs[x].exampleLogs
       );
-      if(example && aTdashs[example]) {
-        this.state.data = aTdashs[example].initData
-        this.state.example = example
+      if (example && aTdashs[example]) {
+        this.state.data = aTdashs[example].initData;
+        this.state.example = example;
       }
     }
     this.fetchLogs();
@@ -72,10 +72,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const data = (exampleData && exampleData[0].config) || {};
 
     const dash = dashboards && dashboards[this.state.example];
-    if(!dash){
+    if (!dash) {
       return;
     }
-    const { activityMerge } = dash.exampleLogs && dash.exampleLogs[0] || {};
+    const { activityMerge } = (dash.exampleLogs && dash.exampleLogs[0]) || {};
 
     this.activityDbObject = {
       ...{
@@ -169,7 +169,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
 
   displaySubset = (
     e: number,
-    suppliedLogs?: LogDBT[],
+    suppliedLogs?: LogDbT[],
     restart: boolean = false
   ) => {
     if (e === 0 && this.state.oldSlider === this.state.logs.length - 1) {
@@ -180,7 +180,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     if (!aT.dashboards || !aT.dashboards[this.state.example]) {
       return;
     }
-    const dash = aT.dashboards[this.state.example]
+    const dash = aT.dashboards[this.state.example];
     const diff = e - this.state.oldSlider;
     const func = dash.prepareDataForDisplay;
     let logs;
@@ -221,22 +221,21 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   });
 
   render() {
-
     const instances = [];
     const users = {};
     const { logs } = this.state;
     const aTdashs = this.props.activityType.dashboards;
 
-    if(!aTdashs) {
-      return <p>Activity type has no dashboard</p>
+    if (!aTdashs) {
+      return <p>Activity type has no dashboard</p>;
     }
 
     const dashNames = Object.keys(aTdashs).filter(
       x => aTdashs[x] && aTdashs[x].exampleLogs
     );
-    const dash = aTdashs[this.state.example]
-    if(!dash.exampleLogs) {
-      return <p>The chosen dashboard has no example logs</p>
+    const dash = aTdashs[this.state.example];
+    if (!dash.exampleLogs) {
+      return <p>The chosen dashboard has no example logs</p>;
     }
     const examples = dash.exampleLogs.map(x => x.title);
     const Viewer = aTdashs[this.state.example].Viewer;

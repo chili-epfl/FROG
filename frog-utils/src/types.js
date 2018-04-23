@@ -83,7 +83,7 @@ export type ActivityRunnerPropsT = {
   groupingValue: string
 };
 
-export type ActivityRunnerT = React.ComponentType<ActivityRunnerPropsT>
+export type ActivityRunnerT = React.ComponentType<ActivityRunnerPropsT>;
 
 export type validateConfigFnT = Object => null | {
   field?: string,
@@ -111,7 +111,7 @@ type LogExtraDBT = {|
   timestamp: Date
 |} & LogT;
 
-export type LogDBT =
+export type LogDbT =
   | {| ...LogExtraDBT, ...ActivityDefT, ...LogT |}
   | {| ...LogExtraDBT, ...LogT |};
 
@@ -142,10 +142,15 @@ export type ActivityPackageT = {
 
 export type DashboardT = {
   Viewer: React.ComponentType<DashboardViewerPropsT>,
-  mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
+  mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
   initData: any,
-  exampleLogs?: { title: string, path: string, activityMerge: Object, instances: number }[],
+  exampleLogs?: {
+    title: string,
+    path: string,
+    activityMerge: Object,
+    instances: number
+  }[],
   exampleData?: { title: string, path: string }[]
 };
 

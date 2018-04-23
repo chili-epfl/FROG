@@ -11,7 +11,12 @@ import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
-export default ({ activityData, data, dataFn, logger }: ActivityRunnerPropsT) => {
+export default ({
+  activityData,
+  data,
+  dataFn,
+  logger
+}: ActivityRunnerPropsT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
   switch (data.parts && data.parts[data.indexPart][0]) {

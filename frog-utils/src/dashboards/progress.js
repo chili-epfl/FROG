@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { type LogDBT, type ActivityDbT } from 'frog-utils';
+import { type LogDbT, type ActivityDbT } from 'frog-utils';
 import regression from 'regression';
 import {
   VictoryChart,
@@ -64,7 +64,7 @@ const Viewer = (props: Object) => {
       />
     </VictoryChart>
   );
-}
+};
 
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object) => {
@@ -152,7 +152,7 @@ const prepareDataForDisplay = (state: Object) => {
   };
 };
 
-const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
+const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
   if (
     activity &&
     log.type === 'progress' &&

@@ -84,7 +84,7 @@ export const createLogger = (
       timestamp: new Date()
     };
     const items = Array.isArray(logItems) ? logItems : [logItems];
-    items.forEach(x => Logs.push({ ...x, ...extra }))
+    items.forEach(x => Logs.push({ ...x, ...extra }));
     const acDbObj = activityDbObject(
       config,
       activityId,
@@ -151,13 +151,13 @@ class PreviewDash extends React.Component<
   };
 
   render = () => {
-    const aT = activityTypesObj[this.props.activity.activityType]
+    const aT = activityTypesObj[this.props.activity.activityType];
     if (!aT) {
-      return <p>Chose an activity type</p>
+      return <p>Chose an activity type</p>;
     }
-    const dash = aT.dashboards && aT.dashboards[this.props.name]
-    if(!dash) {
-      return <p>This activity has no dashboard</p>
+    const dash = aT.dashboards && aT.dashboards[this.props.name];
+    if (!dash) {
+      return <p>This activity has no dashboard</p>;
     }
     const Viewer = dash.Viewer;
     return this.state.state ? (
@@ -165,9 +165,7 @@ class PreviewDash extends React.Component<
         <ShowInfoDash
           state={DashboardStates[this.dashId]}
           prepareDataForDisplay={
-            dash.prepareDataForDisplay
-              ? this.state.state
-              : null
+            dash.prepareDataForDisplay ? this.state.state : null
           }
         />
       ) : (

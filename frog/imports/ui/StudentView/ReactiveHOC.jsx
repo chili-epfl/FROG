@@ -2,11 +2,7 @@
 import * as React from 'react';
 import Spinner from 'react-spinner';
 import { cloneDeep } from 'lodash';
-import {
-  generateReactiveFn,
-  getDisplayName,
-  uuid
-} from 'frog-utils';
+import { generateReactiveFn, getDisplayName, uuid } from 'frog-utils';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 
 import { uploadFile } from '../../api/openUploads';

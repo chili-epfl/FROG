@@ -5,6 +5,7 @@ import Grid from 'material-ui/Grid';
 import {
   type LogT,
   type DashboardViewerPropsT,
+  type DashboardT,
   ProgressDashboard
 } from 'frog-utils';
 
@@ -100,7 +101,7 @@ const mergeLog = (state: Object, log: LogT) => {
   }
 };
 
-const statsDashboard = { Viewer, mergeLog, initData };
+const statsDashboard: DashboardT = { Viewer, mergeLog, initData };
 
 export default {
   stats: statsDashboard,

@@ -45,4 +45,4 @@ class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   }
 }
 
-export default ActivityRunner
+export default ActivityRunner;

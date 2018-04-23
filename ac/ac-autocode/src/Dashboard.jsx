@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { type LogDBT } from 'frog-utils';
+import { type LogDbT } from 'frog-utils';
 import {
   VictoryBar,
   VictoryChart,
@@ -115,7 +115,7 @@ const Viewer = (props: Object) => {
   );
 };
 
-const mergeLog = (state: any, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   let previousStatus = '';
   if (state.students[log.instanceId]) {
     // student already seen

@@ -1,7 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerPropsT, type ActivityPackageT, HTML } from 'frog-utils';
+import {
+  type ActivityRunnerPropsT,
+  type ActivityPackageT,
+  HTML
+} from 'frog-utils';
 
 export const meta = {
   name: 'Text Component',

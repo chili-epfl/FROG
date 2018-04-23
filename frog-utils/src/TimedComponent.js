@@ -59,9 +59,7 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
 
   render() {
     const Component = this.props.component;
-    return (
-      <Component {...this.state.props} timeNow={this.state.timeNow} />
-    )
+    return <Component {...this.state.props} timeNow={this.state.timeNow} />;
   }
 }
 

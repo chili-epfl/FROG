@@ -1,6 +1,6 @@
 // @flow
 
-import { type ObjectT, type GlobalStructureT} from 'frog-utils';
+import { type ObjectT, type GlobalStructureT } from 'frog-utils';
 
 import pkg from '../index';
 

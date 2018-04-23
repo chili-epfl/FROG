@@ -91,7 +91,9 @@ class Main extends React.Component<PropsT> {
 }
 
 // the actual component that the student sees
-const RunnerController = (props: ActivityRunnerPropsT) => {
+const RunnerController = (
+  props: ActivityRunnerPropsT & { classes: Object }
+) => {
   const {
     data: { step },
     classes
@@ -107,10 +109,12 @@ const RunnerController = (props: ActivityRunnerPropsT) => {
   );
 };
 
-const Runner = withStyles(styles)(RunnerController);
+const StyledRunner = withStyles(styles)(RunnerController);
 
-export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
+export default class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT
+> {
   render() {
-    return this.props.data && <Runner {...this.props} />;
+    return this.props.data && <StyledRunner {...this.props} />;
   }
 }

@@ -54,7 +54,11 @@ const modifyForm = (questions, title) => {
   return formdef;
 };
 
-const ActivityRunner = ({ activityData, data, dataFn }: ActivityRunnerPropsT) => {
+const ActivityRunner = ({
+  activityData,
+  data,
+  dataFn
+}: ActivityRunnerPropsT) => {
   const formData = data.form;
 
   const schema = modifyForm(

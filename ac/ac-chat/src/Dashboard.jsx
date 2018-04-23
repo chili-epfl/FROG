@@ -3,7 +3,7 @@
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { isEmpty } from 'lodash';
-import { type LogDBT, type DashboardT } from 'frog-utils';
+import { type LogDbT, type DashboardT } from 'frog-utils';
 
 const fontSizeMapper = (itMax, word) => 10 + word.value * 150 / Number(itMax);
 
@@ -29,7 +29,7 @@ const prepareDataForDisplay = (state: Object) => {
   return { iMax, data };
 };
 
-const mergeLog = (state: Object, log: LogDBT) => {
+const mergeLog = (state: Object, log: LogDbT) => {
   const tmp = log && log.value;
   if (tmp && typeof tmp === 'string')
     tmp
@@ -47,6 +47,6 @@ const wordcloud: DashboardT = {
   mergeLog,
   initData,
   prepareDataForDisplay
-}
+};
 
 export default { wordcloud };

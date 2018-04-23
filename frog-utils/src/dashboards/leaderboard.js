@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import React from 'react';
-import { type LogDBT, type DashboardViewerPropsT } from '../';
+import { type LogDbT, type DashboardViewerPropsT } from '../';
 
 const Viewer = (props: DashboardViewerPropsT) => {
   const {
@@ -64,7 +64,7 @@ const compare = (a: Object, b: Object, n: number) => {
 
 const makeArray = x => (Array.isArray(x) ? x : [x]);
 
-const mergeLog = (state: any, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'score') {
     state.scores[log.instanceId] = {
       score: makeArray(log.value),
