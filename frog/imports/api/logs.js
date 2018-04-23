@@ -36,7 +36,6 @@ export const createLogger = (
   const logger = (logItem: LogT | LogT[]) => {
     const user = Meteor.users.findOne(userId || Meteor.userId());
     const logExtra = ({
-      _id: uuid(),
       userId: userId || user._id,
       sessionId,
       instanceId,
