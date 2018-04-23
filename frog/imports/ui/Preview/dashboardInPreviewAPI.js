@@ -113,16 +113,15 @@ class PreviewDash extends React.Component<
   dashId = this.props.activity._id + '-' + this.props.name;
 
   constructor(props) {
-    super(props)
-    const aT = activityTypesObj[this.props.activity.activityType]
-    const dash = aT.dashboards && aT.dashboards[this.props.name]
-    this.prepDataFn = (dash && dash.prepareDataForDisplay) || ((x, _) => x)
+    super(props);
+    const aT = activityTypesObj[this.props.activity.activityType];
+    const dash = aT.dashboards && aT.dashboards[this.props.name];
+    this.prepDataFn = (dash && dash.prepareDataForDisplay) || ((x, _) => x);
 
-    const dashState = DashboardStates[this.dashId]
+    const dashState = DashboardStates[this.dashId];
     this.state = {
       state:
-        dashState &&
-        this.prepDataFn(cloneDeep(dashState),this.props.activity)
+        dashState && this.prepDataFn(cloneDeep(dashState), this.props.activity)
     };
   }
 
@@ -136,7 +135,7 @@ class PreviewDash extends React.Component<
         const newState = this.prepDataFn(
           cloneDeep(DashboardStates[this.dashId]),
           this.props.activity
-        )
+        );
         this.setState({ state: newState });
         this.oldInput = cloneDeep(DashboardStates[this.dashId]);
       }

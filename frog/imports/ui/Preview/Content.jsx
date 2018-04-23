@@ -93,8 +93,8 @@ const ContentController = ({
   RunComp.displayName = activityType.id;
 
   const examples = activityType.meta.exampleData || [];
-  const exData = examples[example] && cloneDeep(examples[example])
-  const data = exData && (exData.data ? exData.data : undefined)
+  const exData = examples[example] && cloneDeep(examples[example]);
+  const data = exData && (exData.data ? exData.data : undefined);
   const activityData = { data, config };
 
   const Run = ({ name, instance }) => {

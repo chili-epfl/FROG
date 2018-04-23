@@ -34,7 +34,10 @@ const Viewer = (props: DashboardViewerPropsT) => (
   </React.Fragment>
 );
 
-const SymmetryStats = ({ state, task }: DashboardViewerPropsT & { task: string}) => {
+const SymmetryStats = ({
+  state,
+  task
+}: DashboardViewerPropsT & { task: string }) => {
   const d = state[task];
   const errRate = o => o.wrong / (o.wrong + o.correct);
   const chartData = Object.keys(d).map(speed => [

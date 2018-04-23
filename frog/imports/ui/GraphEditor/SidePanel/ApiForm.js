@@ -186,10 +186,7 @@ class State {
 const state = new State();
 
 const ApiForm = observer(
-  class A extends React.Component<
-    PropsT,
-    { activity: ActivityDbT }
-  > {
+  class A extends React.Component<PropsT, { activity: ActivityDbT }> {
     constructor(props) {
       super(props);
       const activity: ActivityDbT = {
@@ -199,7 +196,7 @@ const ApiForm = observer(
         plane: 1,
         startTime: 0,
         length: 5
-      }
+      };
       this.state = { activity };
     }
 
