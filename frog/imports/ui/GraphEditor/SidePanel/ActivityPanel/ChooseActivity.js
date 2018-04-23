@@ -51,7 +51,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
       : aT => {
           const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
-          const { store, activity } = this.props
+          const { store, activity } = this.props;
           if (store) {
             if (activity.title && activity.title === 'Unnamed') {
               const graphActivity = store.activityStore.all.find(
