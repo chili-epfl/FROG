@@ -39,7 +39,7 @@ export const check = (
   const valid = validateConfig(
     'activity',
     '1',
-    hideConditional(formData, aT.config, aT.configUI), 
+    hideConditional(formData, aT.config, aT.configUI),
     aT.config,
     aT.validateConfig,
     aT.configUI
@@ -155,7 +155,7 @@ class Config extends React.Component<
 }
 
 type PropsT = {
-  activityType?: string,
+  activityType: string,
   config?: Object,
   hideValidator?: boolean,
   onSelect?: Function,
@@ -188,23 +188,19 @@ const state = new State();
 const ApiForm = observer(
   class A extends React.Component<
     PropsT,
-    {
-      activity: {
-        _id: string,
-        activityType?: string,
-        data?: Object
-      }
-    }
+    { activity: ActivityDbT }
   > {
     constructor(props) {
       super(props);
-      this.state = {
-        activity: {
-          _id: '1',
-          activityType: this.props.activityType,
-          data: this.props.config
-        }
-      };
+      const activity: ActivityDbT = {
+        _id: '1',
+        activityType: this.props.activityType,
+        data: this.props.config || {},
+        plane: 1,
+        startTime: 0,
+        length: 5
+      }
+      this.state = { activity };
     }
 
     componentWillReceiveProps = nextprops => {
@@ -219,7 +215,10 @@ const ApiForm = observer(
           activity: {
             _id: '1',
             activityType: nextprops.activityType,
-            data: nextprops.config
+            data: nextprops.config || {},
+            plane: 1,
+            startTime: 0,
+            length: 5
           }
         });
       }
@@ -264,7 +263,14 @@ const ApiForm = observer(
                     this.props.onSelect(e.id);
                   }
                   this.setState({
-                    activity: { _id: '1', activityType: e.id, config: {} }
+                    activity: {
+                      _id: '1',
+                      activityType: e.id,
+                      data: {},
+                      plane: 1,
+                      startTime: 0,
+                      length: 5
+                    }
                   });
                 }}
               />

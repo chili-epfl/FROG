@@ -12,7 +12,7 @@ import { Activities, DashboardData } from './activities.js';
 const activityCache = {};
 
 export const createDashboards = (
-  activity: ActivityDbT,
+  activity: { activityType: string, _id: string },
   refresh: boolean = false
 ) => {
   const aT = activityTypesObj[activity.activityType];
