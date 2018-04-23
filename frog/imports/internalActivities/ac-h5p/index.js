@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
+import { get } from 'lodash';
 import { H5PIframePrepare } from '/imports/ui/App/h5p';
 import ConfigComponent from './ConfigComponent';
 import dashboards from './Dashboard';
@@ -30,6 +31,10 @@ export class ActivityRunner extends React.Component<ActivityRunnerT, void> {
         e.data.type === 'h5p-log' &&
         e.data.id === this.props.activityData.config.component.fileId
       ) {
+        const score = get(e, 'data.msg.result.score.scaled');
+        if (score) {
+          this.props.dataFn.objInsert(score, 'scaledScore');
+        }
         this.props.logger({
           type:
             (e.data.msg.verb && e.data.msg.verb.display['en-US']) || 'h5p-xapi',
@@ -65,6 +70,7 @@ export default ({
   type: 'react-component',
   ActivityRunner,
   ConfigComponent,
+  dataStructure: {},
   dashboards,
   config: {
     type: 'object',

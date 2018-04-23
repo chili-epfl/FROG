@@ -41,20 +41,33 @@ const configUI = {
 
 const operator = (configData, object) => {
   const isHighPerformer = configData.use_percentage
-    ? (actual, max) => actual / max >= configData.min_percentage / 100
-    : (actual, _) => actual >= configData.min_correct;
+    ? (actual, max, scaled) =>
+        scaled
+          ? scaled >= configData.min_percentage
+          : actual / max >= configData.min_percentage / 100
+    : (actual, _, __) => actual >= configData.min_correct;
 
   const data = object.activityData;
   const high = [];
   const low = [];
   if (data.structure === 'individual') {
     Object.keys(data.payload).forEach(student => {
+      console.log(data.payload[student].data.scaledScore);
+      console.log(
+        isHighPerformer(
+          data.payload[student].data.correctCount,
+          data.payload[student].data.maxCorrect,
+          data.payload[student].data.scaledScore
+        )
+      );
       if (!data.payload[student].data) {
+        console.log('no data');
         low.push(student);
       } else if (
         isHighPerformer(
           data.payload[student].data.correctCount,
-          data.payload[student].data.maxCorrect
+          data.payload[student].data.maxCorrect,
+          data.payload[student].data.scaledScore
         )
       ) {
         high.push(student);
