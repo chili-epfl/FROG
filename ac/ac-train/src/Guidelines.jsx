@@ -89,8 +89,8 @@ export const StartingGuidelines = () => (
     </Typography>
     <Typography gutterBottom>
       You are about to see four different kinds of user interfaces for ordering
-      tickets. They will be presented in a random order. Your task is to order a
-      ticket, requested on the bottom of each page.
+      tickets. They will be presented in a random order. Your task is to buy the
+      ticket that is specified at the top of each page.
     </Typography>
     <CommandGuidelines />
     <GraphicGuidelines />
