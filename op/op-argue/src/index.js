@@ -27,12 +27,12 @@ const operator = (configData, object): socialStructureT => {
   const { instances, distanceMatrix } = payload.all.data;
   testInput(instances);
 
-  const groups = { group1: [] };
+  const groups = { '1': [] };
 
   const last = instances.length % 2 ? instances.pop() : null;
 
   if (last && instances.length === 0) {
-    groups['group1'] = [last];
+    groups['1'] = [last];
   } else {
     const tmp = chunk([...instances.keys()], 2);
 
@@ -80,7 +80,7 @@ const operator = (configData, object): socialStructureT => {
       tmp[i].sort((a, b) => a - b);
       const pair = tmp[i].map(x => instances[x] || last);
       if (Array.isArray(pair)) {
-        groups['group' + (i + 1)] = pair;
+        groups['' + (i + 1)] = pair;
       }
     }
   }

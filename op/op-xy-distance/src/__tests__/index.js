@@ -26,6 +26,7 @@ test('Operator works with 0 students', () =>
     structure: 'all',
     payload: {
       all: {
+        config: {},
         data: {
           instances: ['student1', 'student2', 'student3', 'student4'],
           distanceMatrix: [
