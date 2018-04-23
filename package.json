@@ -10,7 +10,9 @@
     "ac/*",
     "op/*",
     "frog-utils",
-    "frog"
+    "frog",
+    "templates/activity",
+    "templates/operator"
   ],
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",

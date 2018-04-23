@@ -47,7 +47,7 @@ class SettingsModal extends React.Component {
   };
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.setState({ open: true, settings: this.props.session.settings });
   };
 
   handleClose = () => {
@@ -57,12 +57,11 @@ class SettingsModal extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div className="bootstrap">
         <Button onClick={this.handleClickOpen} className={classes.controlBtn}>
           Configure Settings
         </Button>
         <Dialog
-          fullScreen
           open={this.state.open}
           onClose={this.handleClose}
           transition={Transition}
@@ -90,8 +89,9 @@ class SettingsModal extends React.Component {
           </AppBar>
           <List>
             <EnhancedForm
-              formData={this.props.session.settings}
+              formData={this.state.settings}
               onChange={({ formData: f }) => {
+                this.setState({ settings: f });
                 this.formData = f;
                 updateSession(f, this.props.session);
               }}
@@ -152,9 +152,7 @@ class SettingsModal extends React.Component {
                 }
               }}
             >
-              <button className="btn btn-default" type="submit">
-                Save
-              </button>
+              &nbsp;
             </EnhancedForm>
           </List>
         </Dialog>

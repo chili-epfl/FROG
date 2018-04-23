@@ -2,7 +2,12 @@
 
 import * as React from 'react';
 
-import { VictoryChart, VictoryScatter, VictoryTheme } from 'victory';
+import {
+  VictoryChart,
+  VictoryScatter,
+  VictoryTheme,
+  VictoryLabel
+} from 'victory';
 
 import { type LogDBT, type dashboardViewerPropsT } from 'frog-utils';
 
@@ -18,6 +23,7 @@ const Viewer = (props: dashboardViewerPropsT) => {
     activity,
     state: { coordinates }
   } = props;
+  const coordinateLabels = activity.data.answers || [];
   if (!coordinates || Object.keys(coordinates).length < 1) {
     return <p>No data to display</p>;
   } else {
@@ -34,6 +40,36 @@ const Viewer = (props: dashboardViewerPropsT) => {
         theme={VictoryTheme.material}
         domain={{ x: [-10, 10], y: [-10, 10] }}
       >
+        <VictoryLabel
+          key={coordinateLabels[0]}
+          x={300}
+          y={40}
+          textAnchor="end"
+          style={{ title: { fontSize: 16 } }}
+          text={coordinateLabels[0]}
+        />
+        <VictoryLabel
+          key={coordinateLabels[1]}
+          x={300}
+          y={310}
+          textAnchor="end"
+          style={{ title: { fontSize: 16 } }}
+          text={coordinateLabels[1]}
+        />
+        <VictoryLabel
+          key={coordinateLabels[2]}
+          x={50}
+          y={40}
+          style={{ title: { fontSize: 16 } }}
+          text={coordinateLabels[2]}
+        />
+        <VictoryLabel
+          key={coordinateLabels[3]}
+          x={50}
+          y={310}
+          style={{ title: { fontSize: 16 } }}
+          text={coordinateLabels[3]}
+        />
         <VictoryScatter size={4} data={state} events={eventHandler} />
       </VictoryChart>
     );
