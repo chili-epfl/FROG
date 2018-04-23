@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 
-import { type LogDBT, type dashboardViewerPropsT } from 'frog-utils';
+import { type LogDBT, type DashboardViewerPropsT } from 'frog-utils';
 
-const Viewer = ({ state, users, activity }: dashboardViewerPropsT) => {
+const Viewer = ({ state, users, activity }: DashboardViewerPropsT) => {
   const { justifications } = state;
   if (Object.keys(justifications).length === 0) {
     return <p>No justifications written yet</p>;

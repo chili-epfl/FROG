@@ -2,9 +2,9 @@
 /* eslint-disable react/no-array-index-key */
 
 import React from 'react';
-import { type LogDBT, type dashboardViewerPropsT } from '../';
+import { type LogDBT, type DashboardViewerPropsT } from '../';
 
-const Viewer = (props: dashboardViewerPropsT) => {
+const Viewer = (props: DashboardViewerPropsT) => {
   const {
     users,
     activity: { data: config },

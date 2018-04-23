@@ -4,7 +4,6 @@ import Spinner from 'react-spinner';
 import { cloneDeep } from 'lodash';
 import {
   generateReactiveFn,
-  type ReactComponent,
   getDisplayName,
   uuid
 } from 'frog-utils';
@@ -22,7 +21,7 @@ const ReactiveHOC = (
   conn?: any,
   transform: Object => Object = x => x,
   readOnly: boolean = false
-) => (WrappedComponent: Class<React.Component<any>>) => {
+) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT

@@ -4,7 +4,7 @@ import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import {
   type LogT,
-  type dashboardViewerPropsT,
+  type DashboardViewerPropsT,
   ProgressDashboard
 } from 'frog-utils';
 
@@ -15,7 +15,7 @@ import MeanPerInterface from './MeanPerInterface';
 
 import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 
-const Viewer = (props: dashboardViewerPropsT) => (
+const Viewer = (props: DashboardViewerPropsT) => (
   <React.Fragment>
     <Grid
       container

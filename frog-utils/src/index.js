@@ -72,11 +72,10 @@ export type {
   controlOperatorT,
   ControlStructureT,
   ControlT,
-  ReactComponent,
   LogT,
   LogDBT,
-  dashboardT,
-  dashboardViewerPropsT
+  DashboardT,
+  DashboardViewerPropsT
 } from './types';
 export { CountChart } from './DashboardComponents/CountChart';
 

@@ -6,8 +6,8 @@ import Spinner from 'react-spinner';
 import { withState } from 'recompose';
 import {
   cloneDeep,
+  values,
   type LogT,
-  type LogDBT,
   type ActivityPackageT,
   type ActivityDbT
 } from 'frog-utils';
@@ -19,7 +19,7 @@ import { DashboardStates } from '../../api/cache';
 import { ShowInfoDash } from './ShowInfo';
 
 export const DocumentCache = {};
-export const Logs: LogDBT[] = [];
+export const Logs: Object[] = [];
 
 export const initDashboardDocuments = (
   activityType: ActivityPackageT,
@@ -35,8 +35,8 @@ export const initDashboardDocuments = (
 
 export const hasDashExample = (aT: ActivityPackageT) =>
   aT.dashboards &&
-  Object.keys(aT.dashboards).reduce(
-    (acc, name) => acc || !!aT.dashboards[name].exampleLogs,
+  values(aT.dashboards).reduce(
+    (acc, dash) => acc || (dash && !!dash.exampleLogs),
     false
   );
 
@@ -48,9 +48,10 @@ export const activityDbObject = (
 ): ActivityDbT => ({
   _id: activityType,
   data: config,
-  groupingKey: plane === 2 ? 'group' : null,
+  groupingKey: plane === 2 ? 'group' : '',
   plane,
   actualStartingTime: startingTime || new Date(Date.now()),
+  startTime: 0,
   length: 3,
   activityType
 });
@@ -83,7 +84,7 @@ export const createLogger = (
       timestamp: new Date()
     };
     const items = Array.isArray(logItems) ? logItems : [logItems];
-    Logs.push(...items.map(x => ({ ...x, ...extra })));
+    items.forEach(x => Logs.push({ ...x, ...extra }))
     const acDbObj = activityDbObject(
       config,
       activityId,
@@ -150,18 +151,21 @@ class PreviewDash extends React.Component<
   };
 
   render = () => {
-    const Viewer =
-      activityTypesObj[this.props.activity.activityType].dashboards[
-        this.props.name
-      ].Viewer;
+    const aT = activityTypesObj[this.props.activity.activityType]
+    if (!aT) {
+      return <p>Chose an activity type</p>
+    }
+    const dash = aT.dashboards && aT.dashboards[this.props.name]
+    if(!dash) {
+      return <p>This activity has no dashboard</p>
+    }
+    const Viewer = dash.Viewer;
     return this.state.state ? (
       this.props.showData ? (
         <ShowInfoDash
           state={DashboardStates[this.dashId]}
           prepareDataForDisplay={
-            activityTypesObj[this.props.activity.activityType].dashboards[
-              this.props.name
-            ].prepareDataForDisplay
+            dash.prepareDataForDisplay
               ? this.state.state
               : null
           }

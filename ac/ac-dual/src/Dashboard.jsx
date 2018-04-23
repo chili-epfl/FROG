@@ -5,7 +5,7 @@ import { Chart } from 'react-google-charts';
 
 import {
   type LogT,
-  type dashboardViewerPropsT,
+  type DashboardViewerPropsT,
   ProgressDashboard
 } from 'frog-utils';
 
@@ -27,14 +27,14 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
   }
 });
 
-const Viewer = (props: dashboardViewerPropsT) => (
+const Viewer = (props: DashboardViewerPropsT) => (
   <React.Fragment>
     <SymmetryStats {...props} task="easy" />
     <SymmetryStats {...props} task="hard" />
   </React.Fragment>
 );
 
-const SymmetryStats = ({ state, task }: dashboardViewerPropsT) => {
+const SymmetryStats = ({ state, task }: DashboardViewerPropsT) => {
   const d = state[task];
   const errRate = o => o.wrong / (o.wrong + o.correct);
   const chartData = Object.keys(d).map(speed => [

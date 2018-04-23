@@ -5,12 +5,12 @@ import { Chart } from 'react-google-charts';
 
 import {
   type LogT,
-  type dashboardViewerPropsT,
+  type DashboardViewerPropsT,
   ProgressDashboard,
   LeaderBoard
 } from 'frog-utils';
 
-const Viewer = ({ state }: dashboardViewerPropsT) => {
+const Viewer = ({ state }: DashboardViewerPropsT) => {
   const { results } = state;
   const options = (title, xLabel, yLabel, ymin, ymax) => ({
     legend: { position: 'none' },

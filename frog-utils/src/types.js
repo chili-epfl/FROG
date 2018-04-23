@@ -5,7 +5,7 @@ import * as React from 'react';
 export type ActivityDbT = {
   _id: string,
   data: Object,
-  groupingKey: string,
+  groupingKey?: string,
   plane: number,
   startTime: number,
   length: number,
@@ -83,14 +83,12 @@ export type ActivityRunnerPropsT = {
   groupingValue: string
 };
 
-export type ActivityRunnerT = ReactComponent<ActivityRunnerPropsT>
+export type ActivityRunnerT = React.ComponentType<ActivityRunnerPropsT>
 
 export type validateConfigFnT = Object => null | {
   field?: string,
   err: string
 };
-
-export type ReactComponent<P> = Class<React.Component<P>> | Class<React.StatelessFunctionalComponent<P>>;
 
 export type LogT = {|
   type: string,
@@ -133,17 +131,17 @@ export type ActivityPackageT = {
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: ActivityRunnerT,
-  dashboards?: { [name: string]: dashboardT },
+  dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
-  ConfigComponent?: ReactComponent<{
+  ConfigComponent?: React.ComponentType<{
     configData: Object,
     setConfigData: Object => void
   }>
 };
 
-export type dashboardT = {
-  Viewer: ReactComponent<dashboardViewerPropsT>,
+export type DashboardT = {
+  Viewer: React.ComponentType<DashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
   initData: any,
@@ -151,7 +149,7 @@ export type dashboardT = {
   exampleData?: { title: string, path: string }[]
 };
 
-export type dashboardViewerPropsT = {
+export type DashboardViewerPropsT = {
   users: { [uid: string]: string },
   activity: ActivityDbT,
   instances: Array<string>,

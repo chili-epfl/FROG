@@ -70,7 +70,10 @@ const operator = (configData, object): socialStructureT => {
 
     for (let i = 0; i < tmp.length; i = 1 + i) {
       tmp[i].sort((a, b) => a - b);
-      result.group[(i + 1).toString()] = tmp[i].map(x => instances[x] || last);
+      const pair = tmp[i].map(x => instances[x] || last)
+      if(Array.isArray(pair)) {
+        result.group[(i + 1).toString()] = pair;
+      }
     }
   }
 

@@ -25,7 +25,7 @@ type StateT = {
   slider: { [example: string]: number },
   oldSlider: number,
   idx: number,
-  play: number | boolean,
+  play: number | false,
   exampleIdx?: number
 };
 
@@ -71,7 +71,11 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     } = this.props.activityType;
     const data = (exampleData && exampleData[0].config) || {};
 
-    const { activityMerge } = dashboards[this.state.example].exampleLogs[0];
+    const dash = dashboards && dashboards[this.state.example];
+    if(!dash){
+      return;
+    }
+    const { activityMerge } = dash.exampleLogs && dash.exampleLogs[0] || {};
 
     this.activityDbObject = {
       ...{
