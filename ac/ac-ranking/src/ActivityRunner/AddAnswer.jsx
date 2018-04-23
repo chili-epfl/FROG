@@ -61,10 +61,10 @@ const onClick = props => () => {
 };
 
 export default (props: Object) => {
-  const { title, rank } = props;
+  const { title } = props;
   return (
     <Button style={{ ...styles.button }} key={title} onClick={onClick(props)}>
-      {rank + 1 + ' ' + title}
+      {title}
     </Button>
   );
 };

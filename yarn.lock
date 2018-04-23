@@ -5403,23 +5403,6 @@ npmlog@^4.0.1, npmlog@^4.0.2:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nps@5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/nps/-/nps-5.7.1.tgz#12cbfc635a6535ccb4f6eb516e6011f3af6bef42"
-  dependencies:
-    arrify "^1.0.1"
-    chalk "^2.0.1"
-    common-tags "^1.4.0"
-    find-up "^2.1.0"
-    js-yaml "^3.9.0"
-    lodash "^4.17.4"
-    manage-path "^2.0.0"
-    prefix-matches "^1.0.1"
-    readline-sync "^1.4.7"
-    spawn-command-with-kill "^1.0.0"
-    type-detect "^4.0.3"
-    yargs "^8.0.2"
-
 nps@5.9.0, nps@^5.9.0:
   version "5.9.0"
   resolved "https://registry.yarnpkg.com/nps/-/nps-5.9.0.tgz#432d781b98d7ffc497b0cb4f478873dd958d89ff"
