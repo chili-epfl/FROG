@@ -11,6 +11,7 @@ import {
   VictoryLegend,
   VictoryAxis
 } from 'victory';
+import { entries } from 'lodash';
 
 const Viewer = (props: Object) => {
   const { state } = props;
@@ -139,9 +140,8 @@ const prepareDataForDisplay = (state: Object) => {
         (Object.keys(userResultObject).length + finishedStudents);
     }
   }
-  function parse(curve) {
-    return Object.keys(curve).map(k => ({ x: parseInt(k, 10), y: curve[k] }));
-  }
+  const parse = curve =>
+    entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
 
   return {
     prediction: parse(predictionCurve),

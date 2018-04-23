@@ -20,7 +20,7 @@ const Viewer = ({ state }: Object) => (
   </div>
 );
 
-const prepareDataForDisplay = (state: Object) =>
+const prepareDataForDisplay = (state: Object): any =>
   state &&
   actionTypes.map(actionType =>
     Object.keys(state).reduce(

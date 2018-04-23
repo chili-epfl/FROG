@@ -1,6 +1,7 @@
 // @flow
 import { flatMap, filter, includes, uniq } from 'lodash';
 import { operatorTypesObj } from '../operatorTypes';
+import { type SocialT, type ErrorListT } from './validGraphFn';
 
 export const getOperator = (operator: any) => {
   const optype = operatorTypesObj[operator.operatorType];
@@ -31,7 +32,7 @@ export default (
   activities: Array<any>,
   operators: Array<any>,
   connections: Array<any>
-) => {
+): { socialErrors: ErrorListT, social: SocialT } => {
   const socOperators = operators.filter(op => op.type === 'social');
   const socOperatorIds = socOperators.map(x => x._id);
   const socConnections = connections.filter(con =>
