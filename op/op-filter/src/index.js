@@ -48,18 +48,19 @@ export const objFilter = (
   );
 
 const operator = (configData, object) => {
-  const structure = object.activityData.structure;
-  const payload = {};
-  const oap = object.activityData.payload;
-  Object.keys(oap).forEach(instance => {
-    payload[instance] = { data: {} };
-    Object.keys(oap[instance].data).forEach(objKey => {
-      if (objFilter(configData, oap[instance].data[objKey])) {
-        payload[instance].data[objKey] = oap[instance].data[objKey];
-      }
-    });
-  });
-  return { structure, payload };
+  console.log(object);
+  // const structure = object.activityData.structure;
+  // const payload = {};
+  // const oap = object.activityData.payload;
+  // Object.keys(oap).forEach(instance => {
+  //   payload[instance] = { data: {} };
+  //   Object.keys(oap[instance].data).forEach(objKey => {
+  //     if (objFilter(configData, oap[instance].data[objKey])) {
+  //       payload[instance].data[objKey] = oap[instance].data[objKey];
+  //     }
+  //   });
+  // });
+  // return { structure, payload };
 };
 
 export default ({

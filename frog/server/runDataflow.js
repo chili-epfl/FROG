@@ -78,14 +78,22 @@ const runDataflow = (
   );
 
   // Extract the product
-  const prod = allProducts.find(c => c.type === 'product');
-  const activityData: activityDataT =
-    prod && prod.activityData
-      ? prod.activityData
-      : {
-          structure: 'all',
-          payload: { all: { data: null, config: {} } }
-        };
+  const prod = allProducts.filter(c => c.type === 'product');
+  let activityData;
+  if (prod && prod.length < 2) {
+    activityData =
+      prod && prod.activityData
+        ? prod.activityData
+        : {
+            structure: 'all',
+            payload: { all: { data: null, config: {} } }
+          };
+  } else {
+    activityData = prod.reduce(
+      (acc, x) => ({ ...acc, [x._id]: x.activityData }),
+      {}
+    );
+  }
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure: { studentIds: string[], students: Object } = {
