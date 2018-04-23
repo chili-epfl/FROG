@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, TimedComponent } from 'frog-utils';
+import { type ActivityRunnerPropsT, TimedComponent } from 'frog-utils';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
@@ -395,7 +395,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
 });
 
 // the actual component that the student sees
-const Runner = (props: ActivityRunnerT) => {
+const Runner = (props: ActivityRunnerPropsT) => {
   const { data, activityData } = props;
   const { maxQuestions } = activityData.config;
   const p = Math.round(data.progress / maxQuestions * 100);
@@ -409,7 +409,7 @@ const Runner = (props: ActivityRunnerT) => {
   );
 };
 
-export default class ActivityRunner extends React.Component<ActivityRunnerT> {
+export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   componentWillUnmount() {
     Mousetrap.reset();
     clearTimeout(delayTimeout);

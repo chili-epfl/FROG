@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Form from 'react-jsonschema-form';
 
-import type { ActivityRunnerT, ActivityPackageT } from 'frog-utils';
+import type { ActivityRunnerPropsT, ActivityPackageT } from 'frog-utils';
 import { isEmpty } from 'lodash';
 
 import { config, validateConfig } from './config';
@@ -54,7 +54,7 @@ const modifyForm = (questions, title) => {
   return formdef;
 };
 
-const ActivityRunner = ({ activityData, data, dataFn }: ActivityRunnerT) => {
+const ActivityRunner = ({ activityData, data, dataFn }: ActivityRunnerPropsT) => {
   const formData = data.form;
 
   const schema = modifyForm(

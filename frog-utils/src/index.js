@@ -64,6 +64,7 @@ export type {
   ObjectT,
   GlobalStructureT,
   ActivityRunnerT,
+  ActivityRunnerPropsT,
   ActivityPackageT,
   productOperatorT,
   socialOperatorT,

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import ReactPlayer from 'react-player';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import dashboards from './dashboard';
 
@@ -43,7 +43,7 @@ export const config = {
   }
 };
 
-class ActivityRunner extends React.Component<ActivityRunnerT> {
+class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   ref: any;
   componentDidMount() {
     this.ref.seekTo(this.props.data.play);

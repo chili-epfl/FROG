@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, TimedComponent, HTML } from 'frog-utils';
+import { type ActivityRunnerPropsT, TimedComponent, HTML } from 'frog-utils';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import { shuffle } from 'lodash';
@@ -193,7 +193,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
 });
 
 // the actual component that the student sees
-const Runner = (props: ActivityRunnerT) => {
+const Runner = (props: ActivityRunnerPropsT) => {
   const { data, activityData } = props;
   const { questions } = activityData.config;
   const p = Math.round(data.progress / questions.length * 100);
@@ -208,7 +208,7 @@ const Runner = (props: ActivityRunnerT) => {
   );
 };
 
-export default class ActivityRunner extends React.Component<ActivityRunnerT> {
+export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   componentWillUnmount() {
     clearTimeout(delayTimeout);
     clearTimeout(noAnswerTimeout);

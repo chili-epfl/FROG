@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { shuffle } from 'lodash';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
@@ -91,7 +91,7 @@ class Main extends React.Component<PropsT> {
 }
 
 // the actual component that the student sees
-const RunnerController = (props: ActivityRunnerT) => {
+const RunnerController = (props: ActivityRunnerPropsT) => {
   const {
     data: { step },
     classes
@@ -109,7 +109,7 @@ const RunnerController = (props: ActivityRunnerT) => {
 
 const Runner = withStyles(styles)(RunnerController);
 
-export default class ActivityRunner extends React.Component<ActivityRunnerT> {
+export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   render() {
     return this.props.data && <Runner {...this.props} />;
   }

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 
 import { Main } from './StyledComponents';
 import NavigationBar from './NavigationBar';
@@ -11,7 +11,7 @@ import Test from './TestPart/Test';
 import Definition from './Definition';
 import End from './End';
 
-export default ({ activityData, data, dataFn, logger }: ActivityRunnerT) => {
+export default ({ activityData, data, dataFn, logger }: ActivityRunnerPropsT) => {
   const { title, examples, definition, properties } = activityData.config;
   let page = null;
   switch (data.parts && data.parts[data.indexPart][0]) {

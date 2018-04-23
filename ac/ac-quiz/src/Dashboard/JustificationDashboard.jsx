@@ -10,7 +10,9 @@ const Viewer = ({ state, users, activity }: dashboardViewerPropsT) => {
     return <p>No justifications written yet</p>;
   } else {
     return Object.keys(justifications).map(instance => {
-      const instanceName = activity.plane === 1 ? users[instance] : instance;
+      const instanceName = activity.plane === 1 && typeof users[instance] === 'string'
+        ? users[instance]
+        : instance
       return (
         <pre key={instance}>
           <p>{'From: ' + instanceName}</p>

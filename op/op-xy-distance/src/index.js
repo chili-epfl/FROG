@@ -1,6 +1,6 @@
 // @flow
 
-import type { productOperatorT } from 'frog-utils';
+import { type productOperatorT, type activityDataT } from 'frog-utils';
 
 const meta = {
   name: 'Distance from (x,y) coordinates',
@@ -30,10 +30,12 @@ const operator = (_, object) => {
     )
   );
 
-  return {
+  const toReturn: activityDataT = ({
     structure: 'all',
-    payload: { all: { data: { instances, distanceMatrix } } }
-  };
+    payload: { all: { data: { instances, distanceMatrix }, config: {} } }
+  });
+
+  return toReturn
 };
 
 export default ({

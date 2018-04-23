@@ -1,12 +1,12 @@
 // @flow
 
 import React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import HasNoGroupPanel from './NoGroupPanel';
 import HasGroupPanel from './GroupPanel';
 
-export default (props: ActivityRunnerT) => {
+export default (props: ActivityRunnerPropsT) => {
   const {
     data,
     userInfo: { id }

@@ -1,7 +1,7 @@
 // @flow
 
 import { chunk } from 'lodash';
-import type { socialOperatorT } from 'frog-utils';
+import type { socialOperatorT, socialStructureT } from 'frog-utils';
 
 const meta = {
   name: 'Argue',
@@ -13,7 +13,7 @@ const config = {};
 
 const optim = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 
-const operator = (configData, object) => {
+const operator = (configData, object): socialStructureT => {
   const {
     activityData: { payload }
   } = object;

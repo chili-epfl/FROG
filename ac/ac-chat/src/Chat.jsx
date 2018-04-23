@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { type ActivityRunnerT, uuid } from 'frog-utils';
+import { type ActivityRunnerPropsT, uuid } from 'frog-utils';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import TextInput from './TextInput';
@@ -59,7 +59,7 @@ const Chatmsg = ({ msg, classes }) => (
   </div>
 );
 
-class ChatController extends Component<ActivityRunnerT> {
+class ChatController extends Component<ActivityRunnerPropsT> {
   node: any;
 
   scrollToBottom = () => {

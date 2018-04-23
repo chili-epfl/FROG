@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Mousetrap from 'mousetrap';
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 
 import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
@@ -27,7 +27,7 @@ type ActivityRunnerStateT = {
   webcamOn: boolean
 };
 
-class ActivityRunner extends Component<ActivityRunnerT, ActivityRunnerStateT> {
+class ActivityRunner extends Component<ActivityRunnerPropsT, ActivityRunnerStateT> {
   categories: {
     [categoryName: string]: string[]
   };
@@ -153,4 +153,4 @@ class ActivityRunner extends Component<ActivityRunnerT, ActivityRunnerStateT> {
 }
 
 ActivityRunner.displayName = 'ActivityRunner';
-export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
+export default (props: ActivityRunnerPropsT) => <ActivityRunner {...props} />;

@@ -1,5 +1,7 @@
 // @flow
 
+import * as React from 'react';
+
 export type ActivityDbT = {
   _id: string,
   data: Object,
@@ -70,7 +72,7 @@ export type ControlStructureT =
   | { all: ControlT }
   | { list: { [activityId: string]: ControlT } };
 
-export type ActivityRunnerT = {
+export type ActivityRunnerPropsT = {
   logger: (log: LogT) => void,
   activityData: dataUnitStructT,
   data: any,
@@ -81,14 +83,16 @@ export type ActivityRunnerT = {
   groupingValue: string
 };
 
+export type ActivityRunnerT = ReactComponent<ActivityRunnerPropsT>
+
 export type validateConfigFnT = Object => null | {
   field?: string,
   err: string
 };
 
 export type ReactComponent<Props> =
-  | Class<React$Component<Props, *>>
-  | (Props => React$Element<any> | null | React$Element<any>[]);
+  | React.Component<Props>
+  | React.StatelessFunctionalComponent<Props>;
 
 export type LogT = {|
   type: string,
@@ -130,11 +134,11 @@ export type ActivityPackageT = {
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: React$Component<ActivityRunnerT>,
+  ActivityRunner: ActivityRunnerT,
   dashboards?: { [name: string]: dashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
-  ConfigComponent?: React$Component<{
+  ConfigComponent?: React.Component<{
     configData: Object,
     setConfigData: Object => void
   }>
@@ -143,14 +147,14 @@ export type ActivityPackageT = {
 export type dashboardT = {
   Viewer: ReactComponent<dashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
-  prepareDataForDisplay: (state: any, activity: ActivityDbT) => any,
+  prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
+  initData: any,
   exampleLogs?: { title: string, path: string }[],
-  exampleData?: { title: string, path: string }[],
-  initData: any
+  exampleData?: { title: string, path: string }[]
 };
 
 export type dashboardViewerPropsT = {
-  users: Array<Object>,
+  users: { [uid: string]: string },
   activity: ActivityDbT,
   instances: Array<string>,
   state: any

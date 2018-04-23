@@ -12,7 +12,8 @@ const wrap = (instances, distanceMatrix) => ({
         data: {
           instances,
           distanceMatrix
-        }
+        },
+        config: {}
       }
     }
   },
