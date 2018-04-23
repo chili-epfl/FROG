@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
-import { activityTypes, activityTypesObj } from '/imports/activityTypes';
+import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import { Button } from 'react-bootstrap';
 import jsonSchemaDefaults from 'json-schema-defaults';
