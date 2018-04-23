@@ -105,8 +105,7 @@ type ActivityDefT = {|
   activityPlane: number
 |};
 
-type LogExtraDBT = {|
-  _id: string,
+type LogExtraT = {|
   sessionId: string,
   userId: string,
   instanceId?: string,
@@ -114,8 +113,8 @@ type LogExtraDBT = {|
 |} & LogT;
 
 export type LogDbT =
-  | {| ...LogExtraDBT, ...ActivityDefT, ...LogT |}
-  | {| ...LogExtraDBT, ...LogT |};
+  | {| ...LogExtraT, ...ActivityDefT, ...LogT, _id: string |}
+  | {| ...LogExtraT, ...LogT, _id: string |};
 
 export type ActivityPackageT = {
   id: string,
