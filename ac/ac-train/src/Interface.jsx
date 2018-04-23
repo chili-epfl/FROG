@@ -138,6 +138,8 @@ class Interface extends React.Component {
         payload: {
           whichInterface,
           iteration,
+          question,
+          answer,
           isCorrect,
           timeTaken
         }
