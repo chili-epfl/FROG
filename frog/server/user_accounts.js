@@ -49,7 +49,7 @@ Meteor.methods({
       return 'NOTVALID';
     } else {
       if (isStudentList) {
-        const session = Sessions.findOne({ slug });
+        const session = Sessions.findOne({ slug: (slug || '').toUpperCase() });
         if (session) {
           const studentlist =
             (session.settings && session.settings.studentlist) || '';
