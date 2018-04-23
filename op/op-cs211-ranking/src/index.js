@@ -1,6 +1,5 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
 import type { productOperatorT } from 'frog-utils';
 
 const meta = {
@@ -9,9 +8,14 @@ const meta = {
   description: 'Group students with as many similar answers as possible.'
 };
 
-const config = {
+export const config = {
   type: 'object',
-  properties: {}
+  required: ['individual', 'group', 'groupData'],
+  properties: {
+    individual: { type: 'activity', title: 'Individual classification' },
+    group: { type: 'activity', title: 'Group classification' },
+    groupData: { type: 'activity', title: 'Group classification with data' }
+  }
 };
 
 const operator = (configData, object) => {};
@@ -23,3 +27,15 @@ export default ({
   config,
   meta
 }: productOperatorT);
+
+const object = {
+  activityData: {
+    cjgcb9q6y0003jvj44nqjprg6: { structure: 'all', payload: [Object] },
+    cjgcb9q6y0002jvj4bvmm8xdc: { structure: 'all', payload: [Object] }
+  },
+  socialStructure: {},
+  globalStructure: {
+    studentIds: ['udfypgRAzePTYZazW'],
+    students: { udfypgRAzePTYZazW: 'teacher' }
+  }
+};

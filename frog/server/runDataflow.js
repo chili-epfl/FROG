@@ -80,19 +80,19 @@ const runDataflow = (
   // Extract the product
   const prod = allProducts.filter(c => c.type === 'product');
   let activityData;
-  if (prod && prod.length < 2) {
-    activityData =
-      prod && prod.activityData
-        ? prod.activityData
-        : {
-            structure: 'all',
-            payload: { all: { data: null, config: {} } }
-          };
-  } else {
+  if (prod && prod.length > 1) {
     activityData = prod.reduce(
       (acc, x) => ({ ...acc, [x._id]: x.activityData }),
       {}
     );
+  } else {
+    activityData =
+      prod && prod[0] && prod[0].activityData
+        ? prod[0].activityData
+        : {
+            structure: 'all',
+            payload: { all: { data: null, config: {} } }
+          };
   }
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible

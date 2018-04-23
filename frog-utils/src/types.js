@@ -170,7 +170,7 @@ export type productOperatorT = {
   validateConfig?: validateConfigFnT[],
   operator: (
     configData: Object,
-    object: ObjectT & GlobalStructureT
+    object: (ObjectT | { [activityId: string]: ObjectT }) & GlobalStructureT
   ) => activityDataT
 };
 
