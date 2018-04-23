@@ -6,7 +6,7 @@ import {
   cloneDeep,
   Inspector,
   type ActivityPackageT,
-  LogDBT
+  type LogDBT
 } from 'frog-utils';
 import { throttle } from 'lodash';
 import 'rc-slider/assets/index.css';
@@ -25,7 +25,7 @@ type StateT = {
   slider: { [example: string]: number },
   oldSlider: number,
   idx: number,
-  play: number | false,
+  play: number | boolean,
   exampleIdx?: number
 };
 
@@ -42,19 +42,25 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
 
   constructor(props: PropsT) {
     super(props);
-    const aT = this.props.activityType;
-    const example = Object.keys(aT.dashboards).filter(
-      x => aT.dashboards[x].exampleLogs
-    )[0];
     this.state = {
-      data: aT.dashboards[example].initData,
-      example,
+      data: null,
+      example: '',
       logs: [],
       oldSlider: 0,
       slider: {},
       idx: 0,
       play: false
     };
+    const aTdashs = this.props.activityType.dashboards;
+    if(aTdashs){
+      const example = Object.keys(aTdashs).find(
+        x => aTdashs[x] && aTdashs[x].exampleLogs
+      );
+      if(example && aTdashs[example]) {
+        this.state.data = aTdashs[example].initData
+        this.state.example = example
+      }
+    }
     this.fetchLogs();
   }
 
@@ -167,8 +173,12 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       return;
     }
     const aT = this.props.activityType;
+    if (!aT.dashboards || !aT.dashboards[this.state.example]) {
+      return;
+    }
+    const dash = aT.dashboards[this.state.example]
     const diff = e - this.state.oldSlider;
-    const func = aT.dashboards[this.state.example].prepareDataForDisplay;
+    const func = dash.prepareDataForDisplay;
     let logs;
     createDashboards(
       { activityType: aT.id, _id: 'showExampleLogs' },
@@ -183,7 +193,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       (suppliedLogs && suppliedLogs[suppliedLogs.length - 1].timestamp) ||
       this.state.logs[e].timestamp;
 
-    const mergeLogFn = aT.dashboards[this.state.example].mergeLog;
+    const mergeLogFn = dash.mergeLog;
     logs.forEach(log =>
       mergeLogFn(
         DashboardStates['showExampleLogs-' + this.state.example],
@@ -207,17 +217,25 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   });
 
   render() {
+
     const instances = [];
     const users = {};
     const { logs } = this.state;
-    const aT = this.props.activityType;
-    const dashNames = Object.keys(aT.dashboards).filter(
-      x => aT.dashboards[x].exampleLogs
+    const aTdashs = this.props.activityType.dashboards;
+
+    if(!aTdashs) {
+      return <p>Activity type has no dashboard</p>
+    }
+
+    const dashNames = Object.keys(aTdashs).filter(
+      x => aTdashs[x] && aTdashs[x].exampleLogs
     );
-    const examples = aT.dashboards[this.state.example].exampleLogs.map(
-      x => x.title
-    );
-    const Viewer = aT.dashboards[this.state.example].Viewer;
+    const dash = aTdashs[this.state.example]
+    if(!dash.exampleLogs) {
+      return <p>The chosen dashboard has no example logs</p>
+    }
+    const examples = dash.exampleLogs.map(x => x.title);
+    const Viewer = aTdashs[this.state.example].Viewer;
     if (!this.state.logs) {
       return <Spinner />;
     }
@@ -231,7 +249,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
               this.setState(
                 {
                   oldSlider: 0,
-                  data: aT.dashboards[dashNames[x]].initData,
+                  data: aTdashs[dashNames[x]].initData,
                   example: dashNames[x],
                   exampleIdx: x,
                   logs: [],
@@ -252,7 +270,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
               this.setState(
                 {
                   oldSlider: 0,
-                  data: aT.dashboards[this.state.example].initData,
+                  data: aTdashs[this.state.example].initData,
                   logs: [],
                   idx: x,
                   play: false
@@ -272,7 +290,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                 this.setState(
                   {
                     oldSlider: 0,
-                    data: aT.dashboards[this.state.example].initData,
+                    data: aTdashs[this.state.example].initData,
                     play: x
                   },
                   () => {

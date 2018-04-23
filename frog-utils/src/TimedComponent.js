@@ -6,8 +6,10 @@
 
 import * as React from 'react';
 
+type ComponentT = Class<React.Component<*> | React.StatelessFunctionalComponent<*>>
+
 type PropsT = {
-  component: Class<React.Component<*, *>>,
+  component: ComponentT,
   interval: number,
   props: Object
 };
@@ -59,11 +61,13 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
 
   render() {
     const Component = this.props.component;
-    return <Component {...this.state.props} timeNow={this.state.timeNow} />;
+    return (
+      <Component {...this.state.props} timeNow={this.state.timeNow} />
+    )
   }
 }
 
-export default (component: Class<React.Component<*>>, interval: number) => (
+export default (component: ComponentT, interval: number) => (
   props: Object
 ) => (
   <TimedComponentClass

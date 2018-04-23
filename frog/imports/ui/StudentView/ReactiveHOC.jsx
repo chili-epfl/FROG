@@ -22,7 +22,7 @@ const ReactiveHOC = (
   conn?: any,
   transform: Object => Object = x => x,
   readOnly: boolean = false
-) => (WrappedComponent: ReactComponent<any>) => {
+) => (WrappedComponent: Class<React.Component<any>>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT

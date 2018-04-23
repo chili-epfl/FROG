@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
+import { type LogDBT, type ActivityDbT } from 'frog-utils';
 import regression from 'regression';
 import {
   VictoryChart,
@@ -12,7 +12,7 @@ import {
   VictoryAxis
 } from 'victory';
 
-const Viewer = TimedComponent((props: Object) => {
+const Viewer = (props: Object) => {
   const { state } = props;
   return (
     <VictoryChart theme={VictoryTheme.material}>
@@ -64,7 +64,7 @@ const Viewer = TimedComponent((props: Object) => {
       />
     </VictoryChart>
   );
-}, 2000);
+}
 
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object) => {

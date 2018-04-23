@@ -90,9 +90,7 @@ export type validateConfigFnT = Object => null | {
   err: string
 };
 
-export type ReactComponent<Props> =
-  | React.Component<Props>
-  | React.StatelessFunctionalComponent<Props>;
+export type ReactComponent<P> = Class<React.Component<P>> | Class<React.StatelessFunctionalComponent<P>>;
 
 export type LogT = {|
   type: string,
@@ -138,7 +136,7 @@ export type ActivityPackageT = {
   dashboards?: { [name: string]: dashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any) => any,
-  ConfigComponent?: React.Component<{
+  ConfigComponent?: ReactComponent<{
     configData: Object,
     setConfigData: Object => void
   }>
@@ -149,7 +147,7 @@ export type dashboardT = {
   mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
   initData: any,
-  exampleLogs?: { title: string, path: string }[],
+  exampleLogs?: { title: string, path: string, activityMerge: Object, instances: number }[],
   exampleData?: { title: string, path: string }[]
 };
 
