@@ -3,7 +3,7 @@
 import type { productOperatorT } from 'frog-utils';
 
 const meta = {
-  name: 'Config->social',
+  name: 'Social->config',
   shortDesc: 'Match config to social structure',
   description:
     'Send different values for a config field based on a social structure'
