@@ -94,7 +94,8 @@ class Graphical extends React.Component<PropsT, StateT> {
     },
     input: {
       focus: 'from',
-      clickOnCity: true
+      clickOnCity: true,
+      initial: true
     }
   };
 
@@ -116,16 +117,25 @@ class Graphical extends React.Component<PropsT, StateT> {
       const id = findInRange(normX, normY);
 
       if (id) {
-        const answer = { ...this.state.answer, [input.focus]: id };
-        this.setState({ answer });
+        const answer = { ...this.state.answer };
+        answer[input.focus] = id;
+
+        let nextInputState;
+
+        if (input.initial && input.focus === 'from') {
+          nextInputState = { focus: 'to', clickOnCity: true, initial: true };
+        } else {
+          nextInputState = { focus: '', clickOnCity: false, initial: false };
+        }
+
+        this.setState({ answer, input: nextInputState });
       }
-      this.setState({ input: { focus: '', clickOnCity: false } });
     }
   };
 
   handleClickFromTo = (focusedInput: string) => () => {
     this.setState({
-      input: { focus: focusedInput, clickOnCity: true }
+      input: { focus: focusedInput, clickOnCity: true, initial: false }
     });
   };
 
@@ -170,9 +180,10 @@ class Graphical extends React.Component<PropsT, StateT> {
                 <Grid container>
                   <Grid item sm={12}>
                     <FromToInputs
+                      inputState={input}
                       answer={answer}
-                      onClickFromTo={this.handleClickFromTo}
                       onEnter={this.handleEnter}
+                      onClickFromTo={this.handleClickFromTo}
                     />
                   </Grid>
                   <Grid item sm={12} className={classes.radioGroup}>
