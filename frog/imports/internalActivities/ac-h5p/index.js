@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
+import type { ActivityPackageT, ActivityRunnerPropsT } from 'frog-utils';
 import { H5PIframePrepare } from '/imports/ui/App/h5p';
 import ConfigComponent from './ConfigComponent';
 import dashboards from './Dashboard';
@@ -12,7 +12,10 @@ export const meta = {
   description: 'Displays H5P activity, and logs xAPI statements'
 };
 
-export class ActivityRunner extends React.Component<ActivityRunnerT, void> {
+export class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT,
+  void
+> {
   componentDidMount = () => {
     if (!this.props.activityData.config.component) {
       return null;
