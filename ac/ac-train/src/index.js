@@ -10,7 +10,7 @@ const interfaceExample = int => ({
   config: {
     timeOfEachIteration: 600000,
     iterationPerInterface: 5,
-    ticketStatusDisplayTime: 10000,
+    ticketStatusDisplayTime: 1000,
     interface: int
   },
   data: {}

@@ -20,79 +20,42 @@ const styles = theme => ({
   }
 });
 
-type PropsT = {
-  inputState: {
-    initial: string,
-    focus: string
-  },
+const FromToInputs = ({
+  classes,
+  answer,
+  onClickFromTo,
+  onEnter
+}: {
   classes: Object,
   answer: Object,
-  onClickFromTo: Function
-};
-
-class FromToInputs extends React.Component<PropsT> {
-  from: HTMLInputElement;
-  to: HTMLInputElement;
-
-  handleFocus = () => {
-    const { inputState } = this.props;
-
-    if (inputState.initial) {
-      if (inputState.focus === 'from') this.from.focus();
-
-      if (inputState.focus === 'to') this.to.focus();
-    }
-  };
-
-  handleInputRefs = (id: string, ref: HTMLInputElement) => {
-    if (id === 'from') this.from = ref;
-
-    if (id === 'to') this.to = ref;
-  };
-
-  componentWillReceiveProps() {
-    this.handleFocus();
-  }
-
-  componentDidMount() {
-    this.handleFocus();
-  }
-
-  render() {
-    const { classes, answer, onClickFromTo } = this.props;
-    return (
-      <Grid container>
-        <Grid item sm={6}>
-          <FormControl className={classes.formControl} margin="normal">
-            <InputLabel htmlFor="from">From</InputLabel>
-            <Input
-              id="from"
-              value={capitalizeFirstLetter(answer.from)}
-              onClick={onClickFromTo('from')}
-              placeholder="Click on Map"
-              inputRef={(input: HTMLInputElement) =>
-                this.handleInputRefs('from', input)
-              }
-            />
-          </FormControl>
-        </Grid>
-        <Grid item sm={6}>
-          <FormControl className={classes.formControl} margin="normal">
-            <InputLabel htmlFor="to">To</InputLabel>
-            <Input
-              id="to"
-              value={capitalizeFirstLetter(answer.to)}
-              onClick={onClickFromTo('to')}
-              placeholder="Click on Map"
-              inputRef={(input: HTMLInputElement) =>
-                this.handleInputRefs('to', input)
-              }
-            />
-          </FormControl>
-        </Grid>
-      </Grid>
-    );
-  }
-}
+  onClickFromTo: Function,
+  onEnter: Function
+}) => (
+  <Grid container onKeyPress={onEnter}>
+    <Grid item sm={6}>
+      <FormControl className={classes.formControl} margin="normal">
+        <InputLabel htmlFor="from">From</InputLabel>
+        <Input
+          id="from"
+          value={capitalizeFirstLetter(answer.from)}
+          onClick={onClickFromTo('from')}
+          autoFocus
+          placeholder="Click on Map"
+        />
+      </FormControl>
+    </Grid>
+    <Grid item sm={6}>
+      <FormControl className={classes.formControl} margin="normal">
+        <InputLabel htmlFor="to">To</InputLabel>
+        <Input
+          id="to"
+          value={capitalizeFirstLetter(answer.to)}
+          onClick={onClickFromTo('to')}
+          placeholder="Click on Map"
+        />
+      </FormControl>
+    </Grid>
+  </Grid>
+);
 
 export default withStyles(styles)(FromToInputs);

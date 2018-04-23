@@ -36,11 +36,13 @@ const radioGroups = [
 const RadioGroupElements = ({
   classes,
   answer,
-  onRadio
+  onRadio,
+  onEnter
 }: {
   classes: Object,
   answer: Object,
-  onRadio: Function
+  onRadio: Function,
+  onEnter: Function
 }) => (
   <Grid container>
     {radioGroups.map(group => (
@@ -55,6 +57,7 @@ const RadioGroupElements = ({
             className={classes.group}
             value={answer[group.id]}
             onChange={onRadio(group.id)}
+            onKeyPress={onEnter}
           >
             {group.values.map(item => (
               <FormControlLabel

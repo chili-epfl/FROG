@@ -94,8 +94,7 @@ class Graphical extends React.Component<PropsT, StateT> {
     },
     input: {
       focus: 'from',
-      clickOnCity: true,
-      initial: true
+      clickOnCity: true
     }
   };
 
@@ -117,30 +116,28 @@ class Graphical extends React.Component<PropsT, StateT> {
       const id = findInRange(normX, normY);
 
       if (id) {
-        const answer = { ...this.state.answer };
-        answer[input.focus] = id;
-
-        let nextInputState;
-
-        if (input.initial && input.focus === 'from') {
-          nextInputState = { focus: 'to', clickOnCity: true, initial: true };
-        } else {
-          nextInputState = { focus: '', clickOnCity: false, initial: false };
-        }
-
-        this.setState({ answer, input: nextInputState });
+        const answer = { ...this.state.answer, [input.focus]: id };
+        this.setState({ answer });
       }
+      this.setState({ input: { focus: '', clickOnCity: false } });
     }
   };
 
   handleClickFromTo = (focusedInput: string) => () => {
     this.setState({
-      input: { focus: focusedInput, clickOnCity: true, initial: false }
+      input: { focus: focusedInput, clickOnCity: true }
     });
   };
 
   handleSubmit = () => {
     this.props.submit(this.state.answer);
+  };
+
+  handleEnter = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.handleSubmit();
+    }
   };
 
   render() {
@@ -173,15 +170,16 @@ class Graphical extends React.Component<PropsT, StateT> {
                 <Grid container>
                   <Grid item sm={12}>
                     <FromToInputs
-                      inputState={input}
                       answer={answer}
                       onClickFromTo={this.handleClickFromTo}
+                      onEnter={this.handleEnter}
                     />
                   </Grid>
                   <Grid item sm={12} className={classes.radioGroup}>
                     <RadioGroupElements
                       answer={answer}
                       onRadio={this.handleRadio}
+                      onEnter={this.handleEnter}
                     />
                   </Grid>
                 </Grid>

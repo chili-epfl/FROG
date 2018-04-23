@@ -56,6 +56,13 @@ class Command extends React.Component<PropsT, StateT> {
     this.props.submit(commandDataStructure(this.state.text));
   };
 
+  handleEnter = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.handleSubmit();
+    }
+  };
+
   render() {
     const { ticket, classes, ...actionProps } = this.props;
 
@@ -80,6 +87,7 @@ class Command extends React.Component<PropsT, StateT> {
               autoFocus
               fullWidth
               margin="normal"
+              onKeyPress={this.handleEnter}
             />
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>

@@ -108,11 +108,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
         }
       ],
       boxes: [
-        {
-          id: 'city',
-          type: ItemTypes.CITY,
-          values: CITIES.map(city => capitalizeFirstLetter(city))
-        },
+        { id: 'city', type: ItemTypes.CITY, values: CITIES },
         { id: 'travel', type: ItemTypes.TRAVEL, values: TRAVELDIRECTION },
         { id: 'fare', type: ItemTypes.FARE, values: FARES },
         { id: 'class', type: ItemTypes.CLASS, values: CLASS },
@@ -124,12 +120,12 @@ class DragDropController extends React.Component<PropsT, StateT> {
   handleSubmit = () => {
     const { dropBins } = this.state;
 
-    const answerMake = zipObject(
+    const answer = zipObject(
       map(dropBins, key => key.id),
       map(dropBins, value => value.lastDroppedItem)
     );
 
-    this.props.submit(answerMake);
+    this.props.submit(answer);
   };
 
   handleDrop = (index, answer) => {

@@ -90,9 +90,7 @@ export const StartingGuidelines = () => (
     <Typography gutterBottom>
       You are about to see four different kinds of user interfaces for ordering
       tickets. They will be presented in a random order. Your task is to order a
-      ticket, requested on the bottom of each page. Please note that options
-      one-way, standard fare, 2nd class and no bike are default in each
-      interface.
+      ticket, requested on the bottom of each page.
     </Typography>
     <CommandGuidelines />
     <GraphicGuidelines />
