@@ -8,7 +8,6 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
-import { detect } from 'detect-browser';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -20,11 +19,24 @@ import { dashDocId } from '../imports/api/logs';
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
 
-setupH5PRoutes();
+Picker.filter(req => {
+  const userAgent = req.headers['user-agent'];
+  const isIE =
+    userAgent.indexOf('MSIE') > -1 ||
+    (userAgent.indexOf('Windows') > -1 &&
+      userAgent.indexOf('WOW64') > -1 &&
+      userAgent.indexOf('Trident') > -1);
+  const isSafari9or10 =
+    userAgent.indexOf('Safari/') > -1 &&
+    (userAgent.indexOf('Version/9') > -1 ||
+      userAgent.indexOf('Version/10') > -1) &&
+    userAgent.indexOf('AppleWebKit') > -1;
+  return isIE || isSafari9or10;
+}).route('/(.*)', (params, request, response) =>
+  response.end('Internet explorer and Safari 9/10 not supported')
+);
 
-Picker.route('/', (params, request, response) => {
-  console.log(response)
-});
+setupH5PRoutes();
 
 Picker.filter(req => req.method === 'POST').route(
   '/lti/:slug',
@@ -77,18 +89,7 @@ Picker.filter(req => req.method === 'POST').route(
   }
 );
 
-// mac chrome: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36
-// mac firef : Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0
-// emu     ie: Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko
-// emu chrome: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36
-// emu safari: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1 Safari/605.1.15
-// emu Edge  : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299
-
-
 Picker.route('/api/activityTypes', (params, request, response) => {
-  browser = detect()
-  console.log(browser)
-  console.log(request.rawHeaders.filter(x => x.indexOf('Mozilla') > -1)[0])
   response.end(
     Stringify(
       activityTypes.map(x => ({
