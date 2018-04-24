@@ -19,9 +19,12 @@ const config = {
   type: 'object',
   required: ['individual', 'group', 'groupData'],
   properties: {
-    individual: { type: 'activity', title: 'Individual classification' },
-    group: { type: 'activity', title: 'Group classification' },
-    groupData: { type: 'activity', title: 'Group classification with data' }
+    individual: { type: 'sourceActivity', title: 'Individual classification' },
+    group: { type: 'sourceActivity', title: 'Group classification' },
+    groupData: {
+      type: 'sourceActivity',
+      title: 'Group classification with data'
+    }
   }
 };
 
