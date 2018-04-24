@@ -14,7 +14,7 @@ import {
 import { entries } from 'lodash';
 
 const Viewer = (props: Object) => {
-  const { state } = props;
+  const { state, activity } = props;
   return (
     <VictoryChart theme={VictoryTheme.material}>
       <VictoryLegend
@@ -52,6 +52,7 @@ const Viewer = (props: Object) => {
       />
       <VictoryAxis
         label="Time (sec)"
+        domain={[0, activity.length * 60]}
         style={{
           axisLabel: { fontSize: 14, padding: 30 }
         }}
@@ -172,7 +173,9 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
     activity.actualStartingTime !== undefined &&
     !state[log.instanceId]
   ) {
-    state[log.instanceId] = [0, 0];
+    const startTime =
+      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
+    state[log.instanceId] = [[0, startTime]];
   }
 };
 
