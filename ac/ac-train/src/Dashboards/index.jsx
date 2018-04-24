@@ -1,8 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import { times, constant, compose } from 'lodash';
-import componentQueries from 'react-component-queries';
+import { times, constant } from 'lodash';
+import Measure from 'react-measure';
 
 import {
   type LogDbT,
@@ -12,66 +12,98 @@ import {
   ProgressDashboard
 } from 'frog-utils';
 
-import Grid from 'material-ui/Grid';
-
 import MeanThroughOutStudy from './MeanThroughOutStudy';
 import MeanPerInterface from './MeanPerInterface';
 import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 
-class MyComponent extends React.Component {
+const styles = {
+  flexGrid: {
+    display: 'flex',
+    padding: '40px',
+    background: '#f5f8fa',
+    flexWrap: 'wrap'
+  },
+  lg: {
+    width: '25%',
+    padding: '10px'
+  },
+  md: {
+    width: '33%',
+    padding: '10px'
+  },
+  sm: {
+    width: '50%',
+    padding: '10px'
+  },
+  xs: {
+    width: '100%'
+  }
+};
+
+const getComponentStyles = width => {
+  if (width > 600 && width <= 960) {
+    return 'sm';
+  } else if (width > 960 && width <= 1280) {
+    return 'md';
+  } else if (width > 1280) {
+    return 'lg';
+  }
+
+  return 'xs';
+};
+
+type StateT = {
+  width: number
+};
+
+class AllDashboards extends React.Component<DashboardViewerPropsT, StateT> {
+  state = {
+    width: -1
+  };
+
   render() {
+    const { width } = this.state;
+
+    const widthStyle = getComponentStyles(width);
+
     return (
-      <div>
-        {/* We recieve the following props from our queries */}
-        I am at {this.props.scale} scale.
-      </div>
+      <Measure
+        bounds
+        onResize={contentRect => {
+          this.setState({ width: contentRect.bounds.width });
+        }}
+      >
+        {({ measureRef }) => (
+          <div ref={measureRef} style={styles.flexGrid}>
+            <div style={styles[widthStyle]}>
+              <MeanThroughOutStudy {...this.props} whichDash="error" />
+            </div>
+            <div style={styles[widthStyle]}>
+              <MeanThroughOutStudy {...this.props} whichDash="time" />
+            </div>
+            <div style={styles[widthStyle]}>
+              <MeanPerTryForEachInterface {...this.props} whichDash="error" />
+            </div>
+            <div style={styles[widthStyle]}>
+              <MeanPerTryForEachInterface {...this.props} whichDash="time" />
+            </div>
+            <div style={styles[widthStyle]}>
+              <MeanPerInterface {...this.props} whichDash="time" />
+            </div>
+            <div style={styles[widthStyle]}>
+              <MeanPerInterface {...this.props} whichDash="error" />
+            </div>
+            <div style={styles[widthStyle]}>
+              <MeanPerInterface {...this.props} whichDash="help" />
+            </div>
+          </div>
+        )}
+      </Measure>
     );
   }
 }
 
-const Testing = componentQueries(
-  // Provide as many query functions as you need.
-  ({ width }) => {
-    if (width <= 330) return { breakpoint: 'small' };
-    if (width > 330 && width <= 960) return { breakpoint: 'medium' };
-    return { breakpoint: 'large' };
-  }
-)(MyComponent);
-
-const Viewer = (props: DashboardViewerPropsT) => {
-  return (
-    <React.Fragment>
-      <Grid
-        container
-        spacing={24}
-        style={{ padding: '40px', background: '#f5f8fa' }}
-      >
-        <Grid item lg={4} md={6} sm={12}>
-          <MeanThroughOutStudy {...props} whichDash="error" />
-        </Grid>
-        <Grid item lg={4} md={6} sm={12}>
-          <MeanThroughOutStudy {...props} whichDash="time" />
-        </Grid>
-        <Grid item lg={4} md={6} sm={12}>
-          <MeanPerTryForEachInterface {...props} whichDash="error" />
-        </Grid>
-        <Grid item lg={4} md={6} sm={12}>
-          <MeanPerTryForEachInterface {...props} whichDash="time" />
-        </Grid>
-        <Grid item lg={4} md={6} sm={12}>
-          <MeanPerInterface {...props} whichDash="time" />
-        </Grid>
-        <Grid item lg={4} md={6} sm={12}>
-          <MeanPerInterface {...props} whichDash="error" />
-        </Grid>
-        <Grid item lg={4} md={6} sm={12}>
-          <MeanPerInterface {...props} whichDash="help" />
-        </Grid>
-      </Grid>
-      <Testing />
-    </React.Fragment>
-  );
-};
+const Viewer = (props: DashboardViewerPropsT) => <AllDashboards {...props} />;
 
 const initData = {
   error: {},
