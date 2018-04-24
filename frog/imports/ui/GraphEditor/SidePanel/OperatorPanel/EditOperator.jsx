@@ -95,8 +95,8 @@ export default ({
         connectedTargetActivities={connectedTargetActivities}
         refreshValidate={refreshValidate}
         reload={
-          connectedSourceActivities.map(x => x.id).join('') +
-          connectedTargetActivities.map(x => x.id).join('')
+          (connectedSourceActivities || []).map(x => x.id).join('') +
+          (connectedTargetActivities || []).map(x => x.id).join('')
         }
       />
     </div>

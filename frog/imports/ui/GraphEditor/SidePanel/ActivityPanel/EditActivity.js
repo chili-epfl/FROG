@@ -223,8 +223,8 @@ const RawEditActivity = ({
         connectedTargetActivities={connectedTargetActivities}
         reload={
           reload +
-          connectedSourceActivities.map(x => x.id).join('') +
-          connectedTargetActivities.map(x => x.id).join('')
+          (connectedSourceActivities || []).map(x => x.id).join('') +
+          (connectedTargetActivities || []).map(x => x.id).join('')
         }
       />
       {activityType.ConfigComponent && (
