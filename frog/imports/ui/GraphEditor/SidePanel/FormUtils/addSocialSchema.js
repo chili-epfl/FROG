@@ -49,13 +49,13 @@ export default (schema: Object, uiSchema: ?Object): Object => {
 
   const sourceActivityMerges = sourceActivityPaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'targetActivityWidget'
+      'ui:widget': 'sourceActivityWidget'
     })
   );
 
   const targetActivityMerges = targetActivityPaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'sourceActivityWidget'
+      'ui:widget': 'targetActivityWidget'
     })
   );
 
