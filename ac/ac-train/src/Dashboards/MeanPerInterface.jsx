@@ -18,10 +18,23 @@ const styles = theme => ({
   })
 });
 
-const MeanPerInterface = props => {
-  const { whichDash, state, activity } = props;
-  const iterations = Number(activity.data.iterationPerInterface);
-
+const MeanPerInterface = ({
+  whichDash,
+  state,
+  activity: {
+    data: { iterationPerInterface }
+  },
+  classes
+}: {
+  whichDash: string,
+  state: Object,
+  activity: {
+    data: {
+      iterationPerInterface: number
+    }
+  },
+  classes: Object
+}) => {
   const count = state['count'];
   const dash = state[whichDash];
 
@@ -34,7 +47,7 @@ const MeanPerInterface = props => {
       if (whichDash === 'help') {
         let countSum = 0;
 
-        for (let i = 0; i < iterations; i += 1) {
+        for (let i = 0; i < iterationPerInterface; i += 1) {
           countSum += count[int][i];
         }
 
@@ -50,7 +63,7 @@ const MeanPerInterface = props => {
         let dashSum = 0;
         let countSum = 0;
 
-        for (let i = 0; i < count[int].length; i += 1) {
+        for (let i = 0; i < iterationPerInterface; i += 1) {
           dashSum += dash[int][i];
           countSum += count[int][i];
         }
@@ -70,7 +83,7 @@ const MeanPerInterface = props => {
     const xDomain = whichDash === 'error' ? [0, 1] : null;
 
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
@@ -105,7 +118,7 @@ const MeanPerInterface = props => {
     );
   } else {
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>

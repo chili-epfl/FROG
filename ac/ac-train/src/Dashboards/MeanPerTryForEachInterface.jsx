@@ -18,10 +18,23 @@ const styles = theme => ({
   })
 });
 
-const MeanPerTryForEachInterface = props => {
-  const { whichDash, state, activity } = props;
-  const iterations = Number(activity.data.iterationPerInterface);
-
+const MeanPerTryForEachInterface = ({
+  whichDash,
+  state,
+  activity: {
+    data: { iterationPerInterface }
+  },
+  classes
+}: {
+  whichDash: string,
+  state: Object,
+  activity: {
+    data: {
+      iterationPerInterface: number
+    }
+  },
+  classes: Object
+}) => {
   const count = state['count'];
   const dash = state[whichDash];
 
@@ -31,7 +44,7 @@ const MeanPerTryForEachInterface = props => {
     const allCoordinates = interfaces.map(int => {
       const coordinates = [];
 
-      for (let i = 0; i < iterations; i += 1) {
+      for (let i = 0; i < iterationPerInterface; i += 1) {
         if (Number.isFinite(dash[int][i] / count[int][i])) {
           coordinates.push({
             x: i + 1,
@@ -53,11 +66,11 @@ const MeanPerTryForEachInterface = props => {
 
     const domain =
       whichDash === 'error'
-        ? { x: [1, iterations], y: [0, 1] }
-        : { x: [1, iterations] };
+        ? { x: [1, iterationPerInterface], y: [0, 1] }
+        : { x: [1, iterationPerInterface] };
 
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
@@ -92,7 +105,7 @@ const MeanPerTryForEachInterface = props => {
     );
   } else {
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
