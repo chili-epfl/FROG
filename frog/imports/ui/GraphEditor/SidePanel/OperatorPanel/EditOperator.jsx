@@ -4,6 +4,7 @@ import React from 'react';
 
 import FlexView from 'react-flexview';
 import { yellow, red, lightGreen } from 'material-ui/colors';
+import { compact } from 'lodash';
 
 import { ChangeableText } from 'frog-utils';
 
@@ -70,12 +71,21 @@ export default ({
     errorColor = lightGreen[500];
   }
 
-  const connectedNodesIds = connections
-    .filter(con => con.source.id === operator._id)
-    .map(con => con.target.id);
-  const connectedActivities = activities.filter(act =>
-    connectedNodesIds.includes(act.id)
+  const outgoingConnections = connections.filter(
+    conn => conn.source.id === operator._id
   );
+  const incomingConnections = connections.filter(
+    conn => conn.target.id === operator._id
+  );
+  console.log(outgoingConnections, incomingConnections);
+  const connectedTargetActivities = compact(
+    outgoingConnections.map(x => activities.find(act => act.id === x.target.id))
+  );
+  console.log([...activities]);
+  const connectedSourceActivities = compact(
+    incomingConnections.map(x => activities.find(act => act.id === x.source.id))
+  );
+  console.log(connectedSourceActivities, connectedTargetActivities);
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
@@ -83,7 +93,9 @@ export default ({
         node={operator}
         nodeType={operatorType}
         valid={valid}
-        connectedActivities={connectedActivities}
+        connectedActivities={activities}
+        connectedSourceActivities={connectedSourceActivities}
+        connectedTargetActivities={connectedTargetActivities}
         refreshValidate={refreshValidate}
       />
     </div>
