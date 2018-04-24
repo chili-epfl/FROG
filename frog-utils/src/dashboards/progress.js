@@ -25,7 +25,7 @@ const Viewer = (props: Object) => {
         style={{ border: { stroke: 'black' }, title: { fontSize: 16 } }}
         data={[
           { name: 'Progress', symbol: { fill: '#0000ff' } },
-          { name: 'Completion', symbol: { fill: '#6d0909' } }
+          { name: 'Completion', symbol: { fill: '#b20e0e' } }
         ]}
       />
       <VictoryLine
@@ -37,7 +37,7 @@ const Viewer = (props: Object) => {
         data={state.progpred}
       />
       <VictoryLine
-        style={{ data: { stroke: '#6d0909' } }}
+        style={{ data: { stroke: '#b20e0e' } }}
         data={state.completion}
       />
       <VictoryLine
@@ -166,6 +166,14 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const progress = log.value;
     state[log.instanceId].push([progress, totalTime]);
+  } else if (
+    activity &&
+    log.type === 'activityDidMount' &&
+    activity.actualStartingTime !== undefined &&
+    !state[log.instanceId]
+  ) {
+    state[log.instanceId] = [0, 0];
+    // state[log.instanceId].push([0, 0]);
   }
 };
 
