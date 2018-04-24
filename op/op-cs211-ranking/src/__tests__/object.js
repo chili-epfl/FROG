@@ -3,6 +3,39 @@ export const object = {
     cjgdgp46h001kblj4cwsqtmrk: {
       structure: 'individual',
       payload: {
+        notfirst: {
+          config: {},
+          data: {
+            justification: 'sfdsdfsdfsdffdfff',
+            answers: {
+              notfirst: {}
+            },
+            group: {
+              notfirst: 'Never Again'
+            },
+            msg:
+              'Rina ranked the interfaces in the following order: train, drag, wave, jump, with the justification "sfdsdfsdfsdffdfff".'
+          }
+        },
+        neveragain: {
+          config: {},
+          data: {
+            justification: 'sfdsdfsdfsdffdfff',
+            answers: {
+              neveragain: {
+                train: 1,
+                drag: 2,
+                wave: 3,
+                jump: 4
+              }
+            },
+            group: {
+              neveragain: 'Never Again'
+            },
+            msg:
+              'Rina ranked the interfaces in the following order: train, drag, wave, jump, with the justification "sfdsdfsdfsdffdfff".'
+          }
+        },
         AhRFh8ZDGroQ5DzdK: {
           config: {},
           data: {
@@ -28,9 +61,9 @@ export const object = {
             justification: 'ff',
             answers: {
               EWwaMdYKGDZym44Tt: {
-                wave: 1,
-                drag: 2,
-                train: 3,
+                wave: 2,
+                drag: 3,
+                train: 1,
                 jump: 4
               }
             },
