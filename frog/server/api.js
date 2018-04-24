@@ -21,6 +21,10 @@ Picker.middleware(bodyParser.json());
 
 setupH5PRoutes();
 
+Picker.route('/', (params, request, response) => {
+  console.log(response)
+});
+
 Picker.filter(req => req.method === 'POST').route(
   '/lti/:slug',
   (params, request, response, next) => {
@@ -72,7 +76,16 @@ Picker.filter(req => req.method === 'POST').route(
   }
 );
 
+// mac chrome: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36
+// mac firef : Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0
+// emu     ie: Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko
+// emu chrome: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36
+// emu safari: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1 Safari/605.1.15
+// emu Edge  : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299
+
+
 Picker.route('/api/activityTypes', (params, request, response) => {
+  console.log(request.rawHeaders.filter(x => x.indexOf('Mozilla') > -1)[0])
   response.end(
     Stringify(
       activityTypes.map(x => ({
