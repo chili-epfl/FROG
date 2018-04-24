@@ -123,8 +123,12 @@ export default class ActivityRunner extends React.Component<
 > {
   componentWillUnmount() {
     Mousetrap.reset();
-    clearTimeout(delayTimeout);
-    clearTimeout(noAnswerTimeout);
+    if (clearTimeout) {
+      clearTimeout(delayTimeout);
+    }
+    if (noAnswerTimeout) {
+      clearTimeout(noAnswerTimeout);
+    }
   }
 
   render() {
