@@ -25,6 +25,7 @@ class ConfigPanel extends React.Component<*, *> {
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
       this.props.setConfig(e.config);
+      console.log('init from config');
       initActivityDocuments(this.props.instances, aT, -1, e.config, true);
       initDashboardDocuments(aT, true);
     } else {
@@ -103,6 +104,7 @@ class ConfigPanel extends React.Component<*, *> {
                 setShowDash(false);
               }
               setReloadAPIform(uuid());
+              console.log('init from select');
               initActivityDocuments(instances, activityType, 0, exConf, true);
               initDashboardDocuments(activityType, true);
               setExample(0);
