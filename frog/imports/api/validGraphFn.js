@@ -184,6 +184,14 @@ const checkStream = activities => {
         type: 'streamTargetOpensLate',
         severity: 'error'
       });
+    } else if (target && target.startTime + target.length <= act.startTime) {
+      errors.push({
+        id: act._id,
+        nodeType: 'activity',
+        err: 'Streaming target is already closed by the time source opens',
+        type: 'streamTargetAlreadyClosed',
+        severity: 'warning'
+      });
     }
   });
   return errors;
