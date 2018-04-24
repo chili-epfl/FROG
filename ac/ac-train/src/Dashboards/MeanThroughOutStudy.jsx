@@ -16,7 +16,8 @@ const styles = theme => ({
 });
 
 const MeanThrougOutStudy = props => {
-  const { whichDash, state } = props;
+  const { whichDash, state, activity } = props;
+  const iterations = Number(activity.data.iterationPerInterface) * 4;
 
   const count = state['sum']['count'];
   const dash = state['sum'][whichDash];
@@ -24,7 +25,7 @@ const MeanThrougOutStudy = props => {
   if (count && count.length > 0) {
     const coordinates = [];
 
-    for (let i = 0; i < dash.length; i += 1) {
+    for (let i = 0; i < iterations; i += 1) {
       if (Number.isFinite(dash[i] / count[i])) {
         coordinates.push({
           x: i + 1,
@@ -35,8 +36,8 @@ const MeanThrougOutStudy = props => {
 
     const domain =
       whichDash === 'time'
-        ? { x: [1, dash.length] }
-        : { x: [1, dash.length], y: [0, 1] };
+        ? { x: [1, iterations] }
+        : { x: [1, iterations], y: [0, 1] };
     return (
       <React.Fragment>
         <Paper className={props.classes.root} elevation={4}>

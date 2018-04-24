@@ -19,7 +19,8 @@ const styles = theme => ({
 });
 
 const MeanPerTryForEachInterface = props => {
-  const { whichDash, state } = props;
+  const { whichDash, state, activity } = props;
+  const iterations = Number(activity.data.iterationPerInterface);
 
   const count = state['count'];
   const dash = state[whichDash];
@@ -30,7 +31,7 @@ const MeanPerTryForEachInterface = props => {
     const allCoordinates = interfaces.map(int => {
       const coordinates = [];
 
-      for (let i = 0; i < dash[int].length; i += 1) {
+      for (let i = 0; i < iterations; i += 1) {
         if (Number.isFinite(dash[int][i] / count[int][i])) {
           coordinates.push({
             x: i + 1,
@@ -52,8 +53,8 @@ const MeanPerTryForEachInterface = props => {
 
     const domain =
       whichDash === 'error'
-        ? { x: [1, count[interfaces[0]].length], y: [0, 1] }
-        : { x: [1, count[interfaces[0]].length] };
+        ? { x: [1, iterations], y: [0, 1] }
+        : { x: [1, iterations] };
 
     return (
       <Paper className={props.classes.root} elevation={4}>

@@ -19,7 +19,8 @@ const styles = theme => ({
 });
 
 const MeanPerInterface = props => {
-  const { whichDash, state } = props;
+  const { whichDash, state, activity } = props;
+  const iterations = Number(activity.data.iterationPerInterface);
 
   const count = state['count'];
   const dash = state[whichDash];
@@ -33,7 +34,7 @@ const MeanPerInterface = props => {
       if (whichDash === 'help') {
         let countSum = 0;
 
-        for (let i = 0; i < count[int].length; i += 1) {
+        for (let i = 0; i < iterations; i += 1) {
           countSum += count[int][i];
         }
 
