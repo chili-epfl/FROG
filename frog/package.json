@@ -99,7 +99,7 @@
     "styled-components": "^3.2.5",
     "unzipper": "^0.8.12",
     "utf-8-validate": "^4.0.1",
-    "express-useragent": "2.4.0",
+    "detect-browser": "2.4.0",
     "websocket-json-stream": "0.0.3",
     "ac-train": "1.0.0",
     "ws": "^5.1.1",
