@@ -5,8 +5,7 @@ import {
   mergeSocialStructures,
   type ObjectT,
   type GlobalStructureT,
-  type socialStructureT,
-  type activityDataT
+  type socialStructureT
 } from 'frog-utils';
 
 import { Sessions } from '/imports/api/sessions';
