@@ -12,10 +12,6 @@ import {
   VictoryAxis
 } from 'victory';
 
-const FINISHED_STATUS = true;
-const NOT_SUFFICIENT_STATUS = false;
-var timer = 0;
-
 const Viewer = TimedComponent((props: Object) => {
   const { state } = props;
   return (
@@ -70,24 +66,30 @@ const Viewer = TimedComponent((props: Object) => {
   );
 }, 2000);
 
+const FINISHED_STATUS = true;
+const NOT_SUFFICIENT_STATUS = false;
+const UPDATE_INTERVAL = 20;
+const PREDICT_THRESHOLD = 150;
+
+function linearRegression(userdata) {
+  const userResult = regression.linear(userdata);
+  return userResult.equation;
+}
+
+function parse(curve) {
+  return Object.keys(curve).map(k => ({ x: parseInt(k, 10), y: curve[k] }));
+}
+
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object) => {
-  var t_start = performance.now()
   const predStatus = {};
 
   Object.keys(state.user).forEach(user => {
     let lastIndex = state.user[user].length - 1;
-    if (state.user[user][lastIndex][0] === 1) {
-      // already finished - use actual finish time
-      predStatus[user] = FINISHED_STATUS
-    } else if (state.user[user].length < 2) {
-      // finished less than 2 task - not sufficient
-      predStatus[user] = NOT_SUFFICIENT_STATUS;
-    } else {
-      // finished multiple tasks - linear projection
-      const userResult = regression.linear(state.user[user]);
-      predStatus[user] = userResult.equation;
-    }
+    let userStatus = (state.user[user][lastIndex][0] === 1) ?
+      FINISHED_STATUS : (state.user[user].length < 2) ?
+        NOT_SUFFICIENT_STATUS : linearRegression(state.user[user]);
+    predStatus[user] = userStatus
   });
 
   const progressCurve = {};
@@ -95,9 +97,7 @@ const prepareDataForDisplay = (state: Object) => {
   const predictedProgressCurve = {};
   const predictedCompletionCurve = {};
 
-  const UPDATE_INTERVAL = 20;
-  const PREDICT_TIMEFRAME = 180;
-  const T_MAX = state.maxTime + PREDICT_TIMEFRAME;
+  const T_MAX = state.maxTime + PREDICT_THRESHOLD;
 
   for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
     const progress = [];
@@ -127,9 +127,7 @@ const prepareDataForDisplay = (state: Object) => {
       Object.keys(predStatus).forEach(user => {
         if (predStatus[user] === FINISHED_STATUS) {
           progress.push(1);
-        } else if (predStatus[user] === NOT_SUFFICIENT_STATUS) {
-          // do nothing
-        } else {
+        } else if (predStatus[user] != NOT_SUFFICIENT_STATUS) {
           progress.push(Math.min((t - predStatus[user][1]) / predStatus[user][0], 1));
         }
       });
@@ -143,13 +141,27 @@ const prepareDataForDisplay = (state: Object) => {
     }
   }
 
-  function parse(curve) {
-    return Object.keys(curve).map(k => ({ x: parseInt(k, 10), y: curve[k] }));
-  }
+  // interpolate at maxTime
+  const progress = [];
+  Object.keys(state.user).forEach(user => {
+    let stateBeforeT = state.user[user].filter( value => value[1] <= state.maxTime );
+    if (stateBeforeT.length === 0) {
+      progress.push(0)
+    } else {
+      let lastIndex = stateBeforeT.length - 1;
+      progress.push(stateBeforeT[lastIndex][0]);
+    }
+  });
 
-  var t_end = performance.now()
-  timer += ( t_end - t_start )
-  console.log(t_end - t_start, timer)
+  if (progress.length === 0) {
+    completionCurve[state.maxTime] = 0
+    progressCurve[state.maxTime] = 0
+  } else {
+    completionCurve[state.maxTime] = progress.filter( value => value === 1 ).length / progress.length;
+    progressCurve[state.maxTime] = progress.reduce((a, b) => a + b, 0) / progress.length;
+  }
+  predictedProgressCurve[state.maxTime] = progressCurve[state.maxTime];
+  predictedCompletionCurve[state.maxTime] = completionCurve[state.maxTime];
 
   return {
     prediction: parse(predictedCompletionCurve),
