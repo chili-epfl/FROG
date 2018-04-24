@@ -39,5 +39,5 @@ export const getClickHandler = (
 };
 
 // only allows positive ranges
-export const rangeExclusive = (start: number, end: number) =>
+export const rangeExclusive = (start: number, end: number): number[] =>
   [...Array(end - start).keys()].map(x => start + x);

@@ -8,11 +8,23 @@ import traceSocial from './traceSocial';
 import checkSocial from './checkSocial';
 import validateConfig from './validateConfig';
 
+export type ErrorT = {
+  id: string,
+  nodeType?: 'operator' | 'activity',
+  err: string,
+  type: string,
+  severity: 'error' | 'warning'
+};
+
+export type ErrorListT = ErrorT[];
+
+export type SocialT = { [activityId: string]: string[] };
+
 export const checkComponent = (
   obj: Array<any>,
   nodeType: 'activity' | 'operator',
   connections: any[]
-) =>
+): ErrorListT =>
   obj.reduce((acc: Object[], x: Object): Object[] => {
     const type = nodeType === 'activity' ? x.activityType : x.operatorType;
     if (type === undefined) {
@@ -181,7 +193,7 @@ export default (
   activities: Array<any>,
   operators: Array<any>,
   connections: Array<any>
-) => {
+): { errors: ErrorListT, social: SocialT } => {
   const { social, socialErrors } = traceSocial(
     activities,
     operators,

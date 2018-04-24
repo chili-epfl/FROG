@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
+import { type LogDbT, type ActivityDbT } from 'frog-utils';
 import regression from 'regression';
 import {
   VictoryChart,
@@ -11,8 +11,9 @@ import {
   VictoryLegend,
   VictoryAxis
 } from 'victory';
+import { entries } from 'lodash';
 
-const Viewer = TimedComponent((props: Object) => {
+const Viewer = (props: Object) => {
   const { state } = props;
   return (
     <VictoryChart theme={VictoryTheme.material}>
@@ -64,7 +65,7 @@ const Viewer = TimedComponent((props: Object) => {
       />
     </VictoryChart>
   );
-}, 2000);
+};
 
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object) => {
@@ -139,9 +140,8 @@ const prepareDataForDisplay = (state: Object) => {
         (Object.keys(userResultObject).length + finishedStudents);
     }
   }
-  function parse(curve) {
-    return Object.keys(curve).map(k => ({ x: parseInt(k, 10), y: curve[k] }));
-  }
+  const parse = curve =>
+    entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
 
   return {
     prediction: parse(predictionCurve),
@@ -152,7 +152,7 @@ const prepareDataForDisplay = (state: Object) => {
   };
 };
 
-const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
+const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
   if (
     activity &&
     log.type === 'progress' &&

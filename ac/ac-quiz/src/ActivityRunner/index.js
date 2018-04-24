@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import { type ActivityRunnerT, HTML } from 'frog-utils';
+import { type ActivityRunnerPropsT, HTML } from 'frog-utils';
 
 import Quiz from './Quiz';
 
@@ -33,7 +33,7 @@ const Completed = ({ dataFn }) => (
   </React.Fragment>
 );
 
-export default (props: ActivityRunnerT) => {
+export default (props: ActivityRunnerPropsT) => {
   const { activityData, data } = props;
   const { config } = activityData;
   return (
