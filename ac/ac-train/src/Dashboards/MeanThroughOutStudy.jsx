@@ -15,8 +15,24 @@ const styles = theme => ({
   })
 });
 
-const MeanThrougOutStudy = props => {
-  const { whichDash, state } = props;
+const MeanThrougOutStudy = ({
+  whichDash,
+  state,
+  activity: {
+    data: { iterationPerInterface }
+  },
+  classes
+}: {
+  whichDash: string,
+  state: Object,
+  activity: {
+    data: {
+      iterationPerInterface: number
+    }
+  },
+  classes: Object
+}) => {
+  const totalIterations = iterationPerInterface * 4;
 
   const count = state['sum']['count'];
   const dash = state['sum'][whichDash];
@@ -24,20 +40,22 @@ const MeanThrougOutStudy = props => {
   if (count && count.length > 0) {
     const coordinates = [];
 
-    for (let i = 0; i < 20; i += 1) {
+    for (let i = 0; i < totalIterations; i += 1) {
       if (Number.isFinite(dash[i] / count[i])) {
         coordinates.push({
-          x: i,
+          x: i + 1,
           y: dash[i] / count[i]
         });
       }
     }
 
     const domain =
-      whichDash === 'time' ? { x: [0, 19] } : { x: [0, 19], y: [0, 1] };
+      whichDash === 'time'
+        ? { x: [1, totalIterations] }
+        : { x: [1, totalIterations], y: [0, 1] };
     return (
       <React.Fragment>
-        <Paper className={props.classes.root} elevation={4}>
+        <Paper className={classes.root} elevation={4}>
           <Grid container>
             <Grid item xs={12}>
               <Typography align="center" variant="button" gutterBottom>
@@ -62,7 +80,7 @@ const MeanThrougOutStudy = props => {
     );
   } else {
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
