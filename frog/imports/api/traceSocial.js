@@ -44,9 +44,21 @@ export default (
     const sources = socConnections
       .filter(con => con.target.id === x._id)
       .map(y => y.source.id);
-    const socAttribs = flatMap(sources, y =>
-      getOperator(socOperators.find(op => op._id === y))
-    );
+    const socAttribs = flatMap(sources, y => {
+      const attribs = getOperator(socOperators.find(op => op._id === y));
+      attribs.forEach(item => {
+        if (item.includes('.')) {
+          errors.push({
+            id: y,
+            nodeType: 'operator',
+            type: 'socialAttributeWithPeriod',
+            severity: 'error',
+            err: `The name of social attribute "${item}" contains a period, which is not allowed.`
+          });
+        }
+      });
+      return attribs;
+    });
     if (socAttribs.length > 0) {
       const dup = duplicates(socAttribs);
       if (dup.length > 0) {
