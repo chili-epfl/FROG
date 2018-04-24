@@ -95,8 +95,8 @@ export default class ConfigForm extends Component<
         ...this.props.widgets,
         socialAttributeWidget: SelectFormWidget,
         anyActivityWidget: SelectAnyActivityWidget,
-        targetActivityWidget: SelectSourceActivityWidget,
-        sourceActivityWidget: SelectTargetActivityWidget
+        targetActivityWidget: SelectTargetActivityWidget,
+        sourceActivityWidget: SelectSourceActivityWidget
       },
       reload: this.props.reload,
       id: node._id,
