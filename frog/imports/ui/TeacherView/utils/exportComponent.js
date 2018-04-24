@@ -78,7 +78,8 @@ export const generateExport = (
       )
       .join('\n');
     const userfile = 'userid\tusername\tinstanceid\n' + mappings;
-    img.file('usermappings-' + item.groupingKey + '.tsv', userfile);
+
+    img.file('usermappings-' + (item.groupingKey || '???') + '.tsv', userfile);
   }
 };
 
