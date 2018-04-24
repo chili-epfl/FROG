@@ -79,18 +79,20 @@ function linearRegression(activities) {
 }
 
 function registerUserProgress(userActivities, t) {
-  let stateBeforeT = userActivities.filter( value => value[1] <= t);
-  const userProgress = stateBeforeT.length === 0 ? 
-    0 : stateBeforeT[stateBeforeT.length - 1][0];
+  const stateBeforeT = userActivities.filter(value => value[1] <= t);
+  const userProgress =
+    stateBeforeT.length === 0 ? 0 : stateBeforeT[stateBeforeT.length - 1][0];
   return userProgress;
 }
 
 function assembleCurve(progress) {
-  const curves = progress.length === 0 ?
-    [0, 0] : [
-      progress.filter( value => value === 1 ).length / progress.length,
-      progress.reduce((a, b) => a + b, 0) / progress.length
-    ]
+  const curves =
+    progress.length === 0
+      ? [0, 0]
+      : [
+          progress.filter(value => value === 1).length / progress.length,
+          progress.reduce((a, b) => a + b, 0) / progress.length
+        ];
   return curves;
 }
 
@@ -102,12 +104,15 @@ const prepareDataForDisplay = (state: Object) => {
   const sessionStatus = {};
 
   Object.keys(state.user).forEach(user => {
-    let userActivities = state.user[user]
-    let lastIndex = userActivities.length - 1;
-    let userStatus = (userActivities[lastIndex][0] === 1) ?
-      FINISHED : (userActivities.length < 2) ?
-        NOT_SUFFICIENT : linearRegression(userActivities);
-    sessionStatus[user] = userStatus
+    const userActivities = state.user[user];
+    const lastIndex = userActivities.length - 1;
+    const userStatus =
+      userActivities[lastIndex][0] === 1
+        ? FINISHED
+        : userActivities.length < 2
+          ? NOT_SUFFICIENT
+          : linearRegression(userActivities);
+    sessionStatus[user] = userStatus;
   });
 
   const progressCurve = {};
@@ -121,10 +126,10 @@ const prepareDataForDisplay = (state: Object) => {
     if (t <= state.maxTime) {
       // visualize actual data
       Object.keys(state.user).forEach(user => {
-        const userProgress = registerUserProgress(state.user[user], t)
-        progress.push(userProgress)
+        const userProgress = registerUserProgress(state.user[user], t);
+        progress.push(userProgress);
       });
-      [ completionCurve[t], progressCurve[t] ] = assembleCurve(progress)
+      [completionCurve[t], progressCurve[t]] = assembleCurve(progress);
       predictedProgressCurve[t] = progressCurve[t];
       predictedCompletionCurve[t] = completionCurve[t];
     } else {
@@ -133,20 +138,27 @@ const prepareDataForDisplay = (state: Object) => {
         if (sessionStatus[user] === FINISHED) {
           progress.push(1);
         } else if (sessionStatus[user] != NOT_SUFFICIENT) {
-          progress.push(Math.min((t - sessionStatus[user][1]) / sessionStatus[user][0], 1));
+          progress.push(
+            Math.min((t - sessionStatus[user][1]) / sessionStatus[user][0], 1)
+          );
         }
       });
-      [ predictedCompletionCurve[t], predictedProgressCurve[t] ] = assembleCurve(progress)
+      [predictedCompletionCurve[t], predictedProgressCurve[t]] = assembleCurve(
+        progress
+      );
     }
   }
-  
+
   // interpolate at maxTime
   const progress = [];
   Object.keys(state.user).forEach(user => {
-    const userProgress = registerUserProgress(state.user[user], state.maxTime)
-    progress.push(userProgress)
+    const userProgress = registerUserProgress(state.user[user], state.maxTime);
+    progress.push(userProgress);
   });
-  [ completionCurve[state.maxTime], progressCurve[state.maxTime] ] = assembleCurve(progress)
+  [
+    completionCurve[state.maxTime],
+    progressCurve[state.maxTime]
+  ] = assembleCurve(progress);
   predictedProgressCurve[state.maxTime] = progressCurve[state.maxTime];
   predictedCompletionCurve[state.maxTime] = completionCurve[state.maxTime];
 
@@ -173,7 +185,7 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const progress = log.value;
     state.user[log.instanceId].push([progress, totalTime]);
-    state.maxTime = totalTime
+    state.maxTime = totalTime;
   } else if (
     activity &&
     log.type === 'activityDidMount' &&
@@ -183,9 +195,8 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
     const startTime =
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     state.user[log.instanceId] = [[0, startTime]];
-    state.maxTime = startTime
+    state.maxTime = startTime;
   }
-  console.log(state)
 };
 
 const initData = {
