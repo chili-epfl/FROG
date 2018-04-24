@@ -24,17 +24,19 @@ const MeanThrougOutStudy = props => {
   if (count && count.length > 0) {
     const coordinates = [];
 
-    for (let i = 0; i < 20; i += 1) {
+    for (let i = 0; i < dash.length; i += 1) {
       if (Number.isFinite(dash[i] / count[i])) {
         coordinates.push({
-          x: i,
+          x: i + 1,
           y: dash[i] / count[i]
         });
       }
     }
 
     const domain =
-      whichDash === 'time' ? { x: [0, 19] } : { x: [0, 19], y: [0, 1] };
+      whichDash === 'time'
+        ? { x: [1, dash.length] }
+        : { x: [1, dash.length], y: [0, 1] };
     return (
       <React.Fragment>
         <Paper className={props.classes.root} elevation={4}>

@@ -33,7 +33,7 @@ const MeanPerInterface = props => {
       if (whichDash === 'help') {
         let countSum = 0;
 
-        for (let i = 0; i < 5; i += 1) {
+        for (let i = 0; i < count[int].length; i += 1) {
           countSum += count[int][i];
         }
 
@@ -49,7 +49,7 @@ const MeanPerInterface = props => {
         let dashSum = 0;
         let countSum = 0;
 
-        for (let i = 0; i < 5; i += 1) {
+        for (let i = 0; i < count[int].length; i += 1) {
           dashSum += dash[int][i];
           countSum += count[int][i];
         }
