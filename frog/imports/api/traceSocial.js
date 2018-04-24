@@ -1,6 +1,7 @@
 // @flow
 import { flatMap, filter, includes, uniq } from 'lodash';
 import { operatorTypesObj } from '../operatorTypes';
+import { type SocialT, type ErrorListT } from './validGraphFn';
 
 export const getOperator = (operator: any) => {
   const optype = operatorTypesObj[operator.operatorType];
@@ -31,7 +32,7 @@ export default (
   activities: Array<any>,
   operators: Array<any>,
   connections: Array<any>
-) => {
+): { socialErrors: ErrorListT, social: SocialT } => {
   const socOperators = operators.filter(op => op.type === 'social');
   const socOperatorIds = socOperators.map(x => x._id);
   const socConnections = connections.filter(con =>
@@ -43,9 +44,21 @@ export default (
     const sources = socConnections
       .filter(con => con.target.id === x._id)
       .map(y => y.source.id);
-    const socAttribs = flatMap(sources, y =>
-      getOperator(socOperators.find(op => op._id === y))
-    );
+    const socAttribs = flatMap(sources, y => {
+      const attribs = getOperator(socOperators.find(op => op._id === y));
+      attribs.forEach(item => {
+        if (item.includes('.')) {
+          errors.push({
+            id: y,
+            nodeType: 'operator',
+            type: 'socialAttributeWithPeriod',
+            severity: 'error',
+            err: `The name of social attribute "${item}" contains a period, which is not allowed.`
+          });
+        }
+      });
+      return attribs;
+    });
     if (socAttribs.length > 0) {
       const dup = duplicates(socAttribs);
       if (dup.length > 0) {

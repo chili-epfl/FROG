@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { colorRange as color, type LogDBT } from 'frog-utils';
+import { colorRange as color, type LogDbT } from 'frog-utils';
 import { set } from 'lodash';
 
-export const mergeLog = (state: any, log: LogDBT) => {
+export const mergeLog = (state: any, log: LogDbT) => {
   let path;
   let value;
   if (log.type === 'videoProgress') {

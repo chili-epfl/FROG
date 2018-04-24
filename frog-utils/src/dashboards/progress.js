@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { type LogDBT, type ActivityDbT, TimedComponent } from 'frog-utils';
+import { type LogDbT, type ActivityDbT } from 'frog-utils';
 import regression from 'regression';
 import {
   VictoryChart,
@@ -11,9 +11,10 @@ import {
   VictoryLegend,
   VictoryAxis
 } from 'victory';
+import { entries } from 'lodash';
 
-const Viewer = TimedComponent((props: Object) => {
-  const { state } = props;
+const Viewer = (props: Object) => {
+  const { state, activity } = props;
   return (
     <VictoryChart theme={VictoryTheme.material}>
       <VictoryLegend
@@ -24,7 +25,7 @@ const Viewer = TimedComponent((props: Object) => {
         style={{ border: { stroke: 'black' }, title: { fontSize: 16 } }}
         data={[
           { name: 'Progress', symbol: { fill: '#0000ff' } },
-          { name: 'Completion', symbol: { fill: '#6d0909' } }
+          { name: 'Completion', symbol: { fill: '#b20e0e' } }
         ]}
       />
       <VictoryLine
@@ -36,7 +37,7 @@ const Viewer = TimedComponent((props: Object) => {
         data={state.progpred}
       />
       <VictoryLine
-        style={{ data: { stroke: '#6d0909' } }}
+        style={{ data: { stroke: '#b20e0e' } }}
         data={state.completion}
       />
       <VictoryLine
@@ -47,10 +48,11 @@ const Viewer = TimedComponent((props: Object) => {
         style={{
           data: { stroke: 'grey', strokeWidth: 2 }
         }}
-        x={() => state.now}
+        x={() => state.maxTime}
       />
       <VictoryAxis
         label="Time (sec)"
+        domain={[0, activity.length * 60]}
         style={{
           axisLabel: { fontSize: 14, padding: 30 }
         }}
@@ -64,7 +66,7 @@ const Viewer = TimedComponent((props: Object) => {
       />
     </VictoryChart>
   );
-}, 2000);
+};
 
 const FINISHED_STATUS = true;
 const NOT_SUFFICIENT_STATUS = false;
@@ -74,10 +76,6 @@ const PREDICT_THRESHOLD = 150;
 function linearRegression(userdata) {
   const userResult = regression.linear(userdata);
   return userResult.equation;
-}
-
-function parse(curve) {
-  return Object.keys(curve).map(k => ({ x: parseInt(k, 10), y: curve[k] }));
 }
 
 // calculate predicted time for each student
@@ -153,6 +151,9 @@ const prepareDataForDisplay = (state: Object) => {
     }
   });
 
+  const parse = curve =>
+    entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
+
   if (progress.length === 0) {
     completionCurve[state.maxTime] = 0
     progressCurve[state.maxTime] = 0
@@ -167,12 +168,11 @@ const prepareDataForDisplay = (state: Object) => {
     prediction: parse(predictedCompletionCurve),
     completion: parse(completionCurve),
     progpred: parse(predictedProgressCurve),
-    progress: parse(progressCurve),
-    now: Math.floor(state.maxTime / UPDATE_INTERVAL) * UPDATE_INTERVAL
+    progress: parse(progressCurve)
   };
 };
 
-const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
+const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
   if (
     activity &&
     log.type === 'progress' &&
@@ -185,8 +185,16 @@ const mergeLog = (state: Object, log: LogDBT, activity?: ActivityDbT) => {
     const totalTime =
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const progress = log.value;
-    state.user[log.instanceId].push([progress, totalTime]);
-    state.maxTime = totalTime;
+    state[log.instanceId].push([progress, totalTime]);
+  } else if (
+    activity &&
+    log.type === 'activityDidMount' &&
+    activity.actualStartingTime !== undefined &&
+    !state[log.instanceId]
+  ) {
+    const startTime =
+      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
+    state[log.instanceId] = [[0, startTime]];
   }
 };
 

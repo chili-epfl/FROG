@@ -118,13 +118,24 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
   constructor(props: PropsT) {
     super();
-    const { reactiveId, activityData, activityTypeId, readOnly } = props;
+    const {
+      reactiveId,
+      activityData,
+      activityTypeId,
+      readOnly,
+      groupingValue
+    } = props;
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activityType.id;
     const formatProduct = activityType.formatProduct;
     const transform = formatProduct
-      ? x => formatProduct((activityData && activityData.config) || {}, x)
+      ? x =>
+          formatProduct(
+            (activityData && activityData.config) || {},
+            x,
+            groupingValue
+          )
       : x => x;
 
     this.ActivityToRun = ReactiveHOC(

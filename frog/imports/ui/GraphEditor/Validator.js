@@ -80,6 +80,8 @@ export const ErrorList = connect(
   }
 );
 
+ErrorList.displayName = 'ErrorList';
+
 export const ShowErrorsRaw = ({
   errors,
   global
@@ -173,3 +175,5 @@ export const ValidButton = connect(
     // />
   )
 );
+
+ValidButton.displayName = 'ValidButton';

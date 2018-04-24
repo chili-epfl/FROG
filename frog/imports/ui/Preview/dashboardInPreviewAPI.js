@@ -6,10 +6,10 @@ import Spinner from 'react-spinner';
 import { withState } from 'recompose';
 import {
   cloneDeep,
+  values,
   type LogT,
-  type LogDBT,
   type ActivityPackageT,
-  type ActivityDBT
+  type ActivityDbT
 } from 'frog-utils';
 
 import { mergeLog, createDashboards } from '../../api/mergeLogData';
@@ -19,7 +19,7 @@ import { DashboardStates } from '../../api/cache';
 import { ShowInfoDash } from './ShowInfo';
 
 export const DocumentCache = {};
-export const Logs: LogDBT[] = [];
+export const Logs: Object[] = [];
 
 export const initDashboardDocuments = (
   activityType: ActivityPackageT,
@@ -35,8 +35,8 @@ export const initDashboardDocuments = (
 
 export const hasDashExample = (aT: ActivityPackageT) =>
   aT.dashboards &&
-  Object.keys(aT.dashboards).reduce(
-    (acc, name) => acc || !!aT.dashboards[name].exampleLogs,
+  values(aT.dashboards).reduce(
+    (acc, dash) => acc || (dash && !!dash.exampleLogs),
     false
   );
 
@@ -45,13 +45,13 @@ export const activityDbObject = (
   activityType: string,
   startingTime?: Date,
   plane: number
-) => ({
+): ActivityDbT => ({
   _id: activityType,
   data: config,
-  groupingKey: 'group',
+  groupingKey: plane === 2 ? 'group' : '',
   plane,
-  startTime: 0,
   actualStartingTime: startingTime || new Date(Date.now()),
+  startTime: 0,
   length: 3,
   activityType
 });
@@ -62,7 +62,8 @@ export const createLogger = (
   activityType: string,
   activityId: string,
   userId: string,
-  activityPlane: number
+  activityPlane: number,
+  config: Object
 ) => {
   const aT = activityTypesObj[activityType];
 
@@ -73,7 +74,7 @@ export const createLogger = (
     userId,
     sessionId,
     activityType,
-    activityId: activityType,
+    activityId,
     activityPlane,
     instanceId
   };
@@ -83,15 +84,14 @@ export const createLogger = (
       timestamp: new Date()
     };
     const items = Array.isArray(logItems) ? logItems : [logItems];
-
-    Logs.push(...items.map(x => ({ ...x, ...extra })));
-    mergeLog(items, extra, {
+    items.forEach(x => Logs.push({ ...x, ...extra }));
+    const acDbObj = activityDbObject(
+      config,
+      activityId,
       actualStartingTime,
-      activityType,
-      _id: activityId,
-      plane: activityPlane,
-      sessionId
-    });
+      activityPlane
+    );
+    mergeLog(items, extra, acDbObj);
   };
   return logger;
 };
@@ -99,7 +99,7 @@ export const createLogger = (
 class PreviewDash extends React.Component<
   {
     name: string,
-    activity: ActivityDBT,
+    activity: ActivityDbT,
     instances: Object,
     users: Object,
     showData: boolean
@@ -108,22 +108,22 @@ class PreviewDash extends React.Component<
 > {
   interval: any;
   oldInput: any = undefined;
-  func = activityTypesObj[this.props.activity.activityType].dashboards[
-    this.props.name
-  ].prepareDataForDisplay;
+  prepDataFn: Function;
 
   dashId = this.props.activity._id + '-' + this.props.name;
 
-  state = {
-    state:
-      DashboardStates[this.dashId] &&
-      (this.func
-        ? this.func(
-            cloneDeep(DashboardStates[this.dashId]),
-            this.props.activity
-          )
-        : DashboardStates[this.dashId])
-  };
+  constructor(props) {
+    super(props);
+    const aT = activityTypesObj[this.props.activity.activityType];
+    const dash = aT.dashboards && aT.dashboards[this.props.name];
+    this.prepDataFn = (dash && dash.prepareDataForDisplay) || ((x, _) => x);
+
+    const dashState = DashboardStates[this.dashId];
+    this.state = {
+      state:
+        dashState && this.prepDataFn(cloneDeep(dashState), this.props.activity)
+    };
+  }
 
   componentDidMount = () => {
     this.interval = setInterval(this.update, 300);
@@ -132,12 +132,10 @@ class PreviewDash extends React.Component<
   update = () => {
     if (DashboardStates[this.dashId]) {
       if (!isEqual(this.oldInput, DashboardStates[this.dashId])) {
-        const newState = this.func
-          ? this.func(
-              cloneDeep(DashboardStates[this.dashId]),
-              this.props.activity
-            )
-          : DashboardStates[this.dashId];
+        const newState = this.prepDataFn(
+          cloneDeep(DashboardStates[this.dashId]),
+          this.props.activity
+        );
         this.setState({ state: newState });
         this.oldInput = cloneDeep(DashboardStates[this.dashId]);
       }
@@ -151,20 +149,21 @@ class PreviewDash extends React.Component<
   };
 
   render = () => {
-    const Viewer =
-      activityTypesObj[this.props.activity.activityType].dashboards[
-        this.props.name
-      ].Viewer;
+    const aT = activityTypesObj[this.props.activity.activityType];
+    if (!aT) {
+      return <p>Chose an activity type</p>;
+    }
+    const dash = aT.dashboards && aT.dashboards[this.props.name];
+    if (!dash) {
+      return <p>This activity has no dashboard</p>;
+    }
+    const Viewer = dash.Viewer;
     return this.state.state ? (
       this.props.showData ? (
         <ShowInfoDash
           state={DashboardStates[this.dashId]}
           prepareDataForDisplay={
-            activityTypesObj[this.props.activity.activityType].dashboards[
-              this.props.name
-            ].prepareDataForDisplay
-              ? this.state.state
-              : null
+            dash.prepareDataForDisplay ? this.state.state : null
           }
         />
       ) : (
