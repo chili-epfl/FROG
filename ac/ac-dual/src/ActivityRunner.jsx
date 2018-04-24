@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 import { ProgressBar } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
@@ -105,7 +105,7 @@ const Main = props => {
 };
 
 // the actual component that the student sees
-const Runner = (props: ActivityRunnerT) => {
+const Runner = (props: ActivityRunnerPropsT) => {
   const { step } = props.data;
   const p = Math.round(step / 4 * 100);
   return (
@@ -118,7 +118,9 @@ const Runner = (props: ActivityRunnerT) => {
   );
 };
 
-export default class ActivityRunner extends React.Component<ActivityRunnerT> {
+export default class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT
+> {
   componentWillUnmount() {
     Mousetrap.reset();
     clearTimeout(delayTimeout);

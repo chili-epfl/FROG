@@ -101,9 +101,24 @@ export default class ConfigForm extends Component<
         this.props.onChange ||
         (data => {
           if (node.operatorType) {
-            addOperator(node.operatorType, data.formData, node._id);
+            addOperator(
+              node.operatorType,
+              {
+                component: this.props.data && this.props.data.component,
+                ...data.formData
+              },
+              node._id
+            );
           } else {
-            addActivity(node.activityType, data.formData, node._id, null);
+            addActivity(
+              node.activityType,
+              {
+                component: this.props.data && this.props.data.component,
+                ...data.formData
+              },
+              node._id,
+              null
+            );
           }
           refreshValidate();
         })

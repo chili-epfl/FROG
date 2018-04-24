@@ -6,10 +6,10 @@ const operator = pkg.operator;
 
 const valid = true;
 const payload = {
-  student1: { data: { coordinates: { x: 0, y: 0, valid } } },
-  student2: { data: { coordinates: { x: 3, y: 4, valid } } },
-  student3: { data: { coordinates: { x: 0, y: 0, valid } } },
-  student4: { data: { coordinates: { x: 3, y: -4, valid } } }
+  student1: { data: { coordinates: { x: 0, y: 0, valid } }, config: {} },
+  student2: { data: { coordinates: { x: 3, y: 4, valid } }, config: {} },
+  student3: { data: { coordinates: { x: 0, y: 0, valid } }, config: {} },
+  student4: { data: { coordinates: { x: 3, y: -4, valid } }, config: {} }
 };
 
 test('Operator works with 0 students', () =>
@@ -26,6 +26,7 @@ test('Operator works with 0 students', () =>
     structure: 'all',
     payload: {
       all: {
+        config: {},
         data: {
           instances: ['student1', 'student2', 'student3', 'student4'],
           distanceMatrix: [

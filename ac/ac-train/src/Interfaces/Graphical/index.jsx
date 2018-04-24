@@ -114,7 +114,9 @@ class Graphical extends React.Component<PropsT, StateT> {
     if (this.state.input.switch) {
       const id = findInRange(normX, normY);
       const answer = { ...this.state.answer };
-      answer[this.state.input.focus] = id;
+      if (this.state.input.focus !== '') {
+        answer[this.state.input.focus] = id;
+      }
 
       if (id) {
         this.setState({ answer });
