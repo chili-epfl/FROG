@@ -5,7 +5,7 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
-import { VictoryChart, VictoryLine } from 'victory';
+import { VictoryChart, VictoryLine, VictoryAxis } from 'victory';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -64,6 +64,11 @@ const MeanThrougOutStudy = ({
             </Grid>
             <Grid item xs={12}>
               <VictoryChart domainPadding={{ y: 15 }}>
+                <VictoryAxis
+                  tickCount={iterationPerInterface}
+                  tickFormat={t => Math.round(t)}
+                />
+                <VictoryAxis dependentAxis />
                 <VictoryLine
                   domain={domain}
                   style={{

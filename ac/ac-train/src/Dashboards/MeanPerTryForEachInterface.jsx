@@ -1,12 +1,11 @@
 // @flow
 import * as React from 'react';
+import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis } from 'victory';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
-
-import { VictoryChart, VictoryLine, VictoryLegend } from 'victory';
 
 import { color } from './utils';
 
@@ -79,6 +78,11 @@ const MeanPerTryForEachInterface = ({
           </Grid>
           <Grid item xs={12}>
             <VictoryChart domainPadding={{ y: [0, 5] }}>
+              <VictoryAxis
+                tickCount={iterationPerInterface}
+                tickFormat={t => Math.round(t)}
+              />
+              <VictoryAxis dependentAxis />
               <VictoryLegend
                 x={50}
                 y={0}
@@ -87,6 +91,7 @@ const MeanPerTryForEachInterface = ({
                 style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
                 data={legend}
               />
+
               {allCoordinates.map(int => (
                 <VictoryLine
                   key={int.name}

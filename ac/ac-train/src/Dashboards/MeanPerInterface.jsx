@@ -92,7 +92,10 @@ const MeanPerInterface = ({
           </Grid>
 
           <Grid item xs={12}>
-            <VictoryChart domainPadding={20}>
+            <VictoryChart
+              domainPadding={20}
+              padding={{ top: 50, left: 70, right: 0, bottom: 50 }}
+            >
               <VictoryAxis
                 dependentAxis
                 tickValues={[1, 2, 3, 4]}
