@@ -8,6 +8,7 @@ const object = {
     structure: 'individual',
     payload: {
       '2vxRoyvvKJY3dpEDd': {
+        config: {},
         data: {
           justification: '',
           answers: {
@@ -21,6 +22,7 @@ const object = {
         }
       },
       J29phNHao76KzhiAY: {
+        config: {},
         data: {
           justification: '',
           answers: {
@@ -34,6 +36,7 @@ const object = {
         }
       },
       student3: {
+        config: {},
         data: {
           justification: '',
           msg: 'Just a simple message'
@@ -63,6 +66,7 @@ test('deal with whole instance data', () => {
   expect(pkg.operator(config, object)).toEqual({
     payload: {
       '1': {
+        config: {},
         data: [
           {
             answers: { '2vxRoyvvKJY3dpEDd': {} },
@@ -80,7 +84,10 @@ test('deal with whole instance data', () => {
           }
         ]
       },
-      '2': { data: [{ justification: '', msg: 'Just a simple message' }] }
+      '2': {
+        config: {},
+        data: [{ justification: '', msg: 'Just a simple message' }]
+      }
     },
     structure: { groupingKey: 'group' }
   });
@@ -92,18 +99,21 @@ const object2 = {
     structure: 'individual',
     payload: {
       '2vxRoyvvKJY3dpEDd': {
+        config: {},
         data: {
           ididi: { msg: 'hello' },
           pap33: { msg: 'hi' }
         }
       },
       J29phNHao76KzhiAY: {
+        config: {},
         data: {
           i3idi: { msg: 'ciao cara' },
           p4p33: { msg: 'dobriy dyen' }
         }
       },
       student3: {
+        config: {},
         data: {
           j3434: { msg: '3403' },
           f4343: { msg: '0440' }
@@ -133,6 +143,7 @@ test('deal with whole instance data', () => {
   expect(pkg.operator(config2, object2)).toEqual({
     payload: {
       '1': {
+        config: {},
         data: [
           { msg: 'hello' },
           { msg: 'hi' },
@@ -140,7 +151,10 @@ test('deal with whole instance data', () => {
           { msg: 'dobriy dyen' }
         ]
       },
-      '2': { data: [{ msg: '3403' }, { msg: '0440' }] }
+      '2': {
+        config: {},
+        data: [{ msg: '3403' }, { msg: '0440' }]
+      }
     },
     structure: { groupingKey: 'group' }
   });
