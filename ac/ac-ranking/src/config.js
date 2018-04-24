@@ -9,7 +9,7 @@ export const config = {
     },
     guidelines: {
       title: 'Guidelines',
-      type: 'string'
+      type: 'rte'
     },
     justify: {
       type: 'boolean',

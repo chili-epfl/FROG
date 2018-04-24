@@ -7,6 +7,7 @@ import { WebApp } from 'meteor/webapp';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
+import { resolve as pathResolve, join } from 'path';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -246,30 +247,42 @@ Picker.route('/api/chooseActivity', (req, request, response, next) => {
   next();
 });
 
-if (process.env.NODE_ENV !== 'production' || !Meteor.settings.Minio) {
-  WebApp.connectHandlers.use('/file', (req, res) => {
-    res.setHeader('Access-Control-Allow-Methods', 'PUT');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    if (req.method === 'OPTIONS') {
-      res.writeHead(200);
+const allowLocalUpload =
+  process.env.NODE_ENV !== 'production' || !Meteor.settings.Minio;
+
+WebApp.connectHandlers.use('/file', (req, res) => {
+  res.setHeader('Access-Control-Allow-Methods', 'PUT');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+  } else if (req.method === 'PUT' && allowLocalUpload) {
+    req.pipe(fs.createWriteStream('/tmp/' + req.query.name));
+    res.writeHead(200);
+    res.end();
+  } else if (req.method === 'GET') {
+    if (!req.query.name) {
+      res.writeHead(404);
       res.end();
-    } else if (req.method === 'PUT') {
-      req.pipe(fs.createWriteStream('/tmp/' + req.query.name));
-      res.writeHead(200);
-      res.end();
-    } else if (req.method === 'GET') {
-      const fname = req.query.name && '/tmp/' + req.query.name.split('?')[0];
-      fs.access(fname, err => {
-        if (err) {
-          res.writeHead(404);
-          res.end();
-        } else {
-          res.writeHead(200);
-          const readStream = fs.createReadStream(fname);
-          readStream.once('open', () => readStream.pipe(res));
-        }
-      });
     }
-  });
-}
+    let fname;
+    if (req.query.name.startsWith('ac/')) {
+      const path = req.query.name.split('/');
+      const rootPath = pathResolve('.').split('/.meteor')[0];
+      fname = join(rootPath, '..', 'ac', path[1], 'clientFiles', path[2]);
+    } else {
+      fname = req.query.name && '/tmp/' + req.query.name.split('?')[0];
+    }
+    fs.access(fname, err => {
+      if (err) {
+        res.writeHead(404);
+        res.end();
+      } else {
+        res.writeHead(200);
+        const readStream = fs.createReadStream(fname);
+        readStream.once('open', () => readStream.pipe(res));
+      }
+    });
+  }
+});

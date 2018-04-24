@@ -2,7 +2,7 @@
 
 import React from 'react';
 import seededShuffle from 'seededshuffle';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import Justification from './Justification';
 import Question from './Question';
@@ -14,7 +14,7 @@ export const condShuffle = (
   seed: string
 ) => seededShuffle.shuffle(list, seed + salt, true);
 
-export default (props: ActivityRunnerT) => {
+export default (props: ActivityRunnerPropsT) => {
   const { activityData, groupingValue, data, dataFn, logger } = props;
   const { config } = activityData;
 
