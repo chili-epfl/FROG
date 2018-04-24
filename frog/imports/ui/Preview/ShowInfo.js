@@ -1,17 +1,19 @@
+// flow
+
 import React from 'react';
 import { Inspector } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 
-const formatProduct = (data, activityType, config) => {
+const formatProduct = (data, activityType, config, userInfo) => {
   const formatter = activityTypesObj[activityType].formatProduct;
   if (formatter) {
-    return formatter(config, data);
+    return formatter(config, data, userInfo);
   } else {
     return data;
   }
 };
 
-const ShowInfo = ({ activityData, data, activityType }) => (
+const ShowInfo = ({ activityData, data, activityType, userInfo }) => (
   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
     <div style={{ flexBasis: 0, flexGrow: 1 }}>
       <h3>Config</h3>
@@ -24,7 +26,12 @@ const ShowInfo = ({ activityData, data, activityType }) => (
     <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
       <h3>Current reactive data</h3>
       <Inspector
-        data={formatProduct(data, activityType, activityData.config)}
+        data={formatProduct(
+          data,
+          activityType,
+          activityData.config,
+          userInfo.id
+        )}
       />
     </div>
   </div>

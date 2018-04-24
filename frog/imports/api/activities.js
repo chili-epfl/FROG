@@ -43,9 +43,9 @@ export const setParticipation = (
   Activities.update(activityId, { $set: { participationMode } });
 };
 
-export const setStreamTarget = (activityId: string, target: string) => {
-  const streamTarget = target === 'undefined' ? undefined : target;
-  Activities.update(activityId, { $set: { streamTarget } });
+export const setStreamTarget = (activityId: string, streamTarget: string) => {
+  const operation = streamTarget ? '$set' : '$unset';
+  Activities.update(activityId, { [operation]: { streamTarget } });
 };
 
 export const duplicateActivity = (actId: string) => {
