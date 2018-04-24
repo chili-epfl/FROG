@@ -101,6 +101,7 @@ const parse = curve =>
 
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object) => {
+  const currentMaxTime = state.maxTime;
   const sessionStatus = {};
 
   Object.keys(state.user).forEach(user => {
@@ -119,48 +120,50 @@ const prepareDataForDisplay = (state: Object) => {
   const completionCurve = {};
   const predictedProgressCurve = {};
   const predictedCompletionCurve = {};
-  const T_MAX = state.maxTime + PREDICT_THRESHOLD;
+  const T_MAX = currentMaxTime + PREDICT_THRESHOLD;
 
   for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
     const progress = [];
-    if (t <= state.maxTime) {
+    if (t <= currentMaxTime) {
       // visualize actual data
       Object.keys(state.user).forEach(user => {
         const userProgress = registerUserProgress(state.user[user], t);
         progress.push(userProgress);
       });
-      [completionCurve[t], progressCurve[t]] = assembleCurve(progress);
-      predictedProgressCurve[t] = progressCurve[t];
-      predictedCompletionCurve[t] = completionCurve[t];
+      let [comp, prog] = assembleCurve(progress);
+      completionCurve[t] = comp;
+      predictedCompletionCurve[t] = comp;
+      progressCurve[t] = prog;
+      predictedProgressCurve[t] = prog;
     } else {
       // predict future data
       Object.keys(sessionStatus).forEach(user => {
         if (sessionStatus[user] === FINISHED) {
           progress.push(1);
-        } else if (sessionStatus[user] != NOT_SUFFICIENT) {
+        } else if (sessionStatus[user] !== NOT_SUFFICIENT) {
           progress.push(
             Math.min((t - sessionStatus[user][1]) / sessionStatus[user][0], 1)
           );
         }
       });
-      [predictedCompletionCurve[t], predictedProgressCurve[t]] = assembleCurve(
-        progress
-      );
+      let [comp, prog] = assembleCurve(progress);
+      predictedCompletionCurve[t] = comp;
+      predictedProgressCurve[t] = prog;
     }
   }
 
   // interpolate at maxTime
   const progress = [];
   Object.keys(state.user).forEach(user => {
-    const userProgress = registerUserProgress(state.user[user], state.maxTime);
+    const userProgress = registerUserProgress(state.user[user], currentMaxTime);
     progress.push(userProgress);
   });
   [
-    completionCurve[state.maxTime],
-    progressCurve[state.maxTime]
+    completionCurve[currentMaxTime],
+    progressCurve[currentMaxTime]
   ] = assembleCurve(progress);
-  predictedProgressCurve[state.maxTime] = progressCurve[state.maxTime];
-  predictedCompletionCurve[state.maxTime] = completionCurve[state.maxTime];
+  predictedProgressCurve[currentMaxTime] = progressCurve[currentMaxTime];
+  predictedCompletionCurve[currentMaxTime] = completionCurve[currentMaxTime];
 
   return {
     prediction: parse(predictedCompletionCurve),
