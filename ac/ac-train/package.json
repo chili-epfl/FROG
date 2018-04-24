@@ -12,8 +12,7 @@
     "immutability-helper": "^2.6.6",
     "react-dnd-html5-backend": "^2.6.0",
     "react-cursor-position": "^2.4.1",
-    "react-component-queries": "^2.3.0",
-    "react-sizeme": "^2.4.2"
+    "react-measure": "^2.0.2"
   },
   "devDependencies": { "nps": "5.9.0" }
 }

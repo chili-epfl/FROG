@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
+import { VictoryChart, VictoryBar, VictoryTooltip, VictoryAxis } from 'victory';
+
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
-
-import { VictoryChart, VictoryBar, VictoryTooltip, VictoryAxis } from 'victory';
 
 import { color, div } from './utils';
 

@@ -38,6 +38,8 @@ const buildAll = (shouldWatch, notBackground) =>
 
 module.exports = {
   scripts: {
+    setup: fromRoot('git clean -fdx; ./initial_setup.sh'),
+    server: fromRoot('cd frog && meteor'),
     build: build(false),
     eslintTest: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
     fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
