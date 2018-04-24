@@ -14,11 +14,9 @@ if (findDir) {
 const fromRoot = cmd =>
   `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
 
-const build = (shouldWatch, dirtowatch) => {
-  const pkgdir = dirtowatch || dirname(sync('package.json'));
-  return `${dir}/node_modules/.bin/babel ${pkgdir}/src --out-dir ${pkgdir}/dist ${
-    shouldWatch ? '--watch' : ''
-  }`;
+const build = x => {
+  const bin = 'node_modules/.bin';
+  return `${dir}/${bin}/babel ${x}/src --out-dir ${x}/dist && ${dir}/${bin}/flow-copy-source ${x}/src ${x}/dist`;
 };
 
 const acop = () => {
@@ -31,27 +29,25 @@ const acop = () => {
   ];
 };
 
-const buildAll = (shouldWatch, notBackground) =>
+const buildAll = () =>
   acop()
-    .map(x => build(shouldWatch, x))
-    .join(notBackground ? ' && ' : ' & ');
+    .map(x => build(x))
+    .join(' & ');
 
 module.exports = {
   scripts: {
-    build: build(false),
-    eslintTest: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    flowTest: fromRoot('flow'),
-    jest: fromRoot('jest'),
-    jestWatch: fromRoot('jest --watch'),
-    test: fromRoot(
-      'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
-    ),
-    watch: fromRoot(`node watch.js ${process.env['PWD']}`),
-    watchAll: fromRoot('node watch.js all'),
-    buildAndWatchAll: fromRoot('node watch.js all build'),
-    buildAll: buildAll(false),
-    buildAllSingle: buildAll(false, true)
+    setup: {
+      default: fromRoot('git clean -fdx; ./initial_setup.sh'),
+      clean: fromRoot('killall -9 node; git clean -fdx; ./initial_setup.sh')
+    },
+    server: fromRoot('cd frog && meteor'),
+    build: {
+      all: fromRoot('node watch.js build all'),
+      setup: buildAll()
+    },
+    watch: {
+      all: fromRoot('node watch.js watch all')
+    }
   },
   options: {
     silent: true

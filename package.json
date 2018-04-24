@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nps",
-    "test": "nps test"
+    "test": "nps test",
+    "setup": "git clean -fdx; ./initial_setup.sh"
   },
   "workspaces": [
     "ac/*",
@@ -50,6 +51,7 @@
     "jest-cli": "^22.4.3",
     "json-stringify-pretty-compact": "^1.1.0",
     "nps": "^5.9.0",
+    "nps-utils": "^1.5.0",
     "prettier": "^1.12.0",
     "react-test-renderer": "^16.3.1"
   },
