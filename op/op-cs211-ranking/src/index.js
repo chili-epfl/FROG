@@ -1,6 +1,11 @@
 // @flow
 
-import type { productOperatorT } from 'frog-utils';
+import type {
+  productOperatorT,
+  values,
+  entries,
+  wrapUnitAll
+} from 'frog-utils';
 
 const meta = {
   name: 'Ranking compare CS211',
@@ -8,7 +13,7 @@ const meta = {
   description: 'Group students with as many similar answers as possible.'
 };
 
-export const config = {
+const config = {
   type: 'object',
   required: ['individual', 'group', 'groupData'],
   properties: {
@@ -18,24 +23,16 @@ export const config = {
   }
 };
 
-const operator = (configData, object) => {};
-
-export default ({
-  id: 'op-cs211-ranking',
-  type: 'product',
-  operator,
-  config,
-  meta
-}: productOperatorT);
-
-const object = {
-  activityData: {
-    cjgcb9q6y0003jvj44nqjprg6: { structure: 'all', payload: [Object] },
-    cjgcb9q6y0002jvj4bvmm8xdc: { structure: 'all', payload: [Object] }
-  },
-  socialStructure: {},
-  globalStructure: {
-    studentIds: ['udfypgRAzePTYZazW'],
-    students: { udfypgRAzePTYZazW: 'teacher' }
+const operator = (configData, object) => {
+  const first = object.activityData[configData.individual];
+  if (!first) {
+    throw 'No individual activity data';
   }
+
+  console.log(
+    values(first).map(x => x.data && x.data.answers && entries(x.data.answers))
+  );
+  return wrapUnitAll({}, {});
 };
+
+export default ({ operator, config, meta }: productOperatorT);

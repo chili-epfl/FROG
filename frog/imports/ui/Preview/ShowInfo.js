@@ -31,7 +31,7 @@ const ShowInfo = ({ activityData, data, activityType, userInfo }) => {
       {formatter && (
         <Data
           title="formatProduct"
-          data={formatter(activityData.config, data, userInfo)}
+          data={formatter(activityData.config, data, userInfo.id)}
         />
       )}
     </div>
