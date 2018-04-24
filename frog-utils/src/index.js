@@ -254,6 +254,7 @@ export const cloneDeep = (o: any) => {
 export const Inspector = ({ data }: { data: Object | Object[] }) =>
   data ? (
     <ReactJsonView
+      name={false}
       style={{ fontSize: '1.2em' }}
       src={data}
       iconStyle="triangle"
