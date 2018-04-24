@@ -173,7 +173,6 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
     !state[log.instanceId]
   ) {
     state[log.instanceId] = [0, 0];
-    // state[log.instanceId].push([0, 0]);
   }
 };
 
