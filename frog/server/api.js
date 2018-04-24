@@ -8,6 +8,7 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
+import { detect } from 'detect-browser';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -85,6 +86,8 @@ Picker.filter(req => req.method === 'POST').route(
 
 
 Picker.route('/api/activityTypes', (params, request, response) => {
+  browser = detect()
+  console.log(browser)
   console.log(request.rawHeaders.filter(x => x.indexOf('Mozilla') > -1)[0])
   response.end(
     Stringify(
