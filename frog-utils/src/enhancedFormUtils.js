@@ -42,7 +42,7 @@ export const defaultConfig = (activityType: ActivityPackageT) =>
 export const hideConditional = (
   formData: Object = {},
   schema: Object,
-  UISchema: Object
+  UISchema: ?Object
 ): Object => {
   if (UISchema) {
     const hides = calculateHides(formData, schema, UISchema);

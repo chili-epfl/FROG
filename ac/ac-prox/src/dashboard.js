@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { CountChart, type LogDBT } from 'frog-utils';
+import { CountChart, type LogDbT } from 'frog-utils';
 import { sum } from 'lodash';
 
 const Viewer = ({ state }: Object) => {
@@ -29,7 +29,7 @@ const Viewer = ({ state }: Object) => {
   );
 };
 
-const mergeLog = (state: any, log: LogDBT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'group.create') {
     state[log.itemId] = 1;
   }

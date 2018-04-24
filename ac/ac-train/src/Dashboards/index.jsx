@@ -3,9 +3,10 @@
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import {
-  type LogT,
+  type LogDbT,
   type ActivityDbT,
-  type dashboardViewerPropsT,
+  type DashboardViewerPropsT,
+  type DashboardT,
   ProgressDashboard
 } from 'frog-utils';
 
@@ -15,7 +16,7 @@ import MeanThroughOutStudy from './MeanThroughOutStudy';
 import MeanPerInterface from './MeanPerInterface';
 import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 
-const Viewer = (props: dashboardViewerPropsT) => (
+const Viewer = (props: DashboardViewerPropsT) => (
   <React.Fragment>
     <Grid
       container
@@ -55,7 +56,7 @@ const initData = {
   sum: {}
 };
 
-const mergeLog = (state: Object, log: LogT, activity: ActivityDbT) => {
+const mergeLog = (state: Object, log: LogDbT, activity: ActivityDbT) => {
   if (log.type === 'answer' && log.payload) {
     const { iterationPerInterface } = activity.data;
 
@@ -94,7 +95,7 @@ const mergeLog = (state: Object, log: LogT, activity: ActivityDbT) => {
   }
 };
 
-const statsDashboard = { Viewer, mergeLog, initData };
+const statsDashboard: DashboardT = { Viewer, mergeLog, initData };
 
 export default {
   stats: statsDashboard,
