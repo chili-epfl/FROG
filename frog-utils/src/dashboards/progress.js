@@ -48,7 +48,7 @@ const Viewer = (props: Object) => {
         style={{
           data: { stroke: 'grey', strokeWidth: 2 }
         }}
-        x={() => state.maxTime}
+        x={() => state.now}
       />
       <VictoryAxis
         label="Time (sec)"
@@ -68,33 +68,52 @@ const Viewer = (props: Object) => {
   );
 };
 
-const FINISHED_STATUS = true;
-const NOT_SUFFICIENT_STATUS = false;
+const FINISHED = 'finished';
+const NOT_SUFFICIENT = 'notsufficient';
 const UPDATE_INTERVAL = 20;
 const PREDICT_THRESHOLD = 150;
 
-function linearRegression(userdata) {
-  const userResult = regression.linear(userdata);
+function linearRegression(activities) {
+  const userResult = regression.linear(activities);
   return userResult.equation;
 }
 
+function registerUserProgress(userActivities, t) {
+  let stateBeforeT = userActivities.filter( value => value[1] <= t);
+  const userProgress = stateBeforeT.length === 0 ? 
+    0 : stateBeforeT[stateBeforeT.length - 1][0];
+  return userProgress;
+}
+
+function assembleCurve(progress) {
+  const curves = progress.length === 0 ?
+    [0, 0] : [
+      progress.filter( value => value === 1 ).length / progress.length,
+      progress.reduce((a, b) => a + b, 0) / progress.length
+    ]
+  return curves;
+}
+
+const parse = curve =>
+  entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
+
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object) => {
-  const predStatus = {};
+  const sessionStatus = {};
 
   Object.keys(state.user).forEach(user => {
-    let lastIndex = state.user[user].length - 1;
-    let userStatus = (state.user[user][lastIndex][0] === 1) ?
-      FINISHED_STATUS : (state.user[user].length < 2) ?
-        NOT_SUFFICIENT_STATUS : linearRegression(state.user[user]);
-    predStatus[user] = userStatus
+    let userActivities = state.user[user]
+    let lastIndex = userActivities.length - 1;
+    let userStatus = (userActivities[lastIndex][0] === 1) ?
+      FINISHED : (userActivities.length < 2) ?
+        NOT_SUFFICIENT : linearRegression(userActivities);
+    sessionStatus[user] = userStatus
   });
 
   const progressCurve = {};
   const completionCurve = {};
   const predictedProgressCurve = {};
   const predictedCompletionCurve = {};
-
   const T_MAX = state.maxTime + PREDICT_THRESHOLD;
 
   for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
@@ -102,65 +121,32 @@ const prepareDataForDisplay = (state: Object) => {
     if (t <= state.maxTime) {
       // visualize actual data
       Object.keys(state.user).forEach(user => {
-        let stateBeforeT = state.user[user].filter( value => value[1] <= t );
-        if (stateBeforeT.length === 0) {
-          progress.push(0)
-        } else {
-          let lastIndex = stateBeforeT.length - 1;
-          progress.push(stateBeforeT[lastIndex][0]);
-        }
+        const userProgress = registerUserProgress(state.user[user], t)
+        progress.push(userProgress)
       });
-
-      if (progress.length === 0) {
-        completionCurve[t] = 0
-        progressCurve[t] = 0
-      } else {
-        completionCurve[t] = progress.filter( value => value === 1 ).length / progress.length;
-        progressCurve[t] = progress.reduce((a, b) => a + b, 0) / progress.length;
-      }
+      [ completionCurve[t], progressCurve[t] ] = assembleCurve(progress)
       predictedProgressCurve[t] = progressCurve[t];
       predictedCompletionCurve[t] = completionCurve[t];
     } else {
       // predict future data
-      Object.keys(predStatus).forEach(user => {
-        if (predStatus[user] === FINISHED_STATUS) {
+      Object.keys(sessionStatus).forEach(user => {
+        if (sessionStatus[user] === FINISHED) {
           progress.push(1);
-        } else if (predStatus[user] != NOT_SUFFICIENT_STATUS) {
-          progress.push(Math.min((t - predStatus[user][1]) / predStatus[user][0], 1));
+        } else if (sessionStatus[user] != NOT_SUFFICIENT) {
+          progress.push(Math.min((t - sessionStatus[user][1]) / sessionStatus[user][0], 1));
         }
       });
-      if (progress.length === 0) {
-        predictedCompletionCurve[t] = 0;
-        predictedProgressCurve[t] = 0;
-      } else {
-        predictedCompletionCurve[t] = progress.filter( value => value === 1 ).length / progress.length;
-        predictedProgressCurve[t] = progress.reduce((a, b) => a + b, 0) / progress.length;
-      }
+      [ predictedCompletionCurve[t], predictedProgressCurve[t] ] = assembleCurve(progress)
     }
   }
-
+  
   // interpolate at maxTime
   const progress = [];
   Object.keys(state.user).forEach(user => {
-    let stateBeforeT = state.user[user].filter( value => value[1] <= state.maxTime );
-    if (stateBeforeT.length === 0) {
-      progress.push(0)
-    } else {
-      let lastIndex = stateBeforeT.length - 1;
-      progress.push(stateBeforeT[lastIndex][0]);
-    }
+    const userProgress = registerUserProgress(state.user[user], state.maxTime)
+    progress.push(userProgress)
   });
-
-  const parse = curve =>
-    entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
-
-  if (progress.length === 0) {
-    completionCurve[state.maxTime] = 0
-    progressCurve[state.maxTime] = 0
-  } else {
-    completionCurve[state.maxTime] = progress.filter( value => value === 1 ).length / progress.length;
-    progressCurve[state.maxTime] = progress.reduce((a, b) => a + b, 0) / progress.length;
-  }
+  [ completionCurve[state.maxTime], progressCurve[state.maxTime] ] = assembleCurve(progress)
   predictedProgressCurve[state.maxTime] = progressCurve[state.maxTime];
   predictedCompletionCurve[state.maxTime] = completionCurve[state.maxTime];
 
@@ -168,7 +154,8 @@ const prepareDataForDisplay = (state: Object) => {
     prediction: parse(predictedCompletionCurve),
     completion: parse(completionCurve),
     progpred: parse(predictedProgressCurve),
-    progress: parse(progressCurve)
+    progress: parse(progressCurve),
+    now: state.maxTime
   };
 };
 
@@ -185,17 +172,20 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
     const totalTime =
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const progress = log.value;
-    state[log.instanceId].push([progress, totalTime]);
+    state.user[log.instanceId].push([progress, totalTime]);
+    state.maxTime = totalTime
   } else if (
     activity &&
     log.type === 'activityDidMount' &&
     activity.actualStartingTime !== undefined &&
-    !state[log.instanceId]
+    !state.user[log.instanceId]
   ) {
     const startTime =
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
-    state[log.instanceId] = [[0, startTime]];
+    state.user[log.instanceId] = [[0, startTime]];
+    state.maxTime = startTime
   }
+  console.log(state)
 };
 
 const initData = {
