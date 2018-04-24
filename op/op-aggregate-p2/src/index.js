@@ -43,7 +43,7 @@ const operator = (configData, object) => {
     ];
   });
   res = Object.keys(res).reduce(
-    (acc, x) => ({ ...acc, [x]: { data: res[x] } }),
+    (acc, x) => ({ ...acc, [x]: { data: res[x], config: {} } }),
     {}
   );
   return { structure: { groupingKey: configData.grouping }, payload: res };
