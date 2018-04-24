@@ -77,15 +77,12 @@ export default ({
   const incomingConnections = connections.filter(
     conn => conn.target.id === operator._id
   );
-  console.log(outgoingConnections, incomingConnections);
   const connectedTargetActivities = compact(
     outgoingConnections.map(x => activities.find(act => act.id === x.target.id))
   );
-  console.log([...activities]);
   const connectedSourceActivities = compact(
     incomingConnections.map(x => activities.find(act => act.id === x.source.id))
   );
-  console.log(connectedSourceActivities, connectedTargetActivities);
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
@@ -97,6 +94,10 @@ export default ({
         connectedSourceActivities={connectedSourceActivities}
         connectedTargetActivities={connectedTargetActivities}
         refreshValidate={refreshValidate}
+        reload={
+          connectedSourceActivities.map(x => x.id).join('') +
+          connectedTargetActivities.map(x => x.id).join('')
+        }
       />
     </div>
   );
