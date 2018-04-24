@@ -1,8 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 
-import { type ActivityRunnerT, uuid } from 'frog-utils';
+import {
+  type ActivityRunnerPropsT,
+  type ActivityRunnerT,
+  uuid
+} from 'frog-utils';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import TextInput from './TextInput';
@@ -67,7 +71,8 @@ const Chatmsg = ({ msg, classes }) => (
   </div>
 );
 
-class ChatController extends Component<ActivityRunnerT> {
+type StyledPropsT = ActivityRunnerPropsT & { classes: Object };
+class ChatController extends React.Component<StyledPropsT> {
   node: any;
 
   scrollToBottom = () => {
@@ -121,6 +126,9 @@ class ChatController extends Component<ActivityRunnerT> {
   }
 }
 
-const Chat = withStyles(styles)(ChatController);
+const StyledChat = withStyles(styles)(ChatController);
+const Chat: ActivityRunnerT = (props: ActivityRunnerPropsT) => (
+  <StyledChat {...props} />
+);
 
 export default Chat;

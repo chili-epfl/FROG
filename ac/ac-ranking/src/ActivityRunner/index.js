@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { HTML } from 'frog-utils';
 import { isEqual } from 'lodash';
 
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 import Justification from './Justification';
 
 import AnswerList from './AnswerList';
@@ -55,7 +55,7 @@ const Completed = ({ dataFn }) => (
   </React.Fragment>
 );
 
-const ActivityRunner = (props: ActivityRunnerT) => {
+const ActivityRunner = (props: ActivityRunnerPropsT) => {
   const {
     activityData: { config },
     logger,
