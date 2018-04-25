@@ -7,12 +7,11 @@ import {
   wrapUnitAll
 } from 'frog-utils';
 import { compact } from 'lodash';
-import Stringify from 'json-stringify-pretty-compact';
 
 const meta = {
   name: 'Ranking compare CS211',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc: 'Make change matrix based upon rankings',
+  description: 'Make change matrix based upon changed rankings'
 };
 
 const config = {
@@ -49,11 +48,23 @@ const transitionMatrix = (first, second) =>
       if (!second[k]) {
         return { ...acc, notCompleted: acc.notCompleted + 1 };
       }
+      const options = Object.keys(v);
       const firsttop = entries(v).find(([_, rank]) => rank === 1);
       const secondtop = entries(second[k]).find(([_, rank]) => rank === 1);
       if (!firsttop || !secondtop) {
         return { ...acc, notCompleted: acc.notCompleted + 1 };
       }
+
+      options.forEach(f => {
+        if (!acc[f]) {
+          acc[f] = {};
+        }
+        options.forEach(s => {
+          if (!acc[f][s]) {
+            acc[f][s] = 0;
+          }
+        });
+      });
 
       if (!acc[firsttop[0]]) {
         acc[firsttop[0]] = {};
@@ -91,19 +102,78 @@ const operator = (configData, object) => {
   const transitionFirstSecond = transitionMatrix(first, second);
   const transitionSecondThird = transitionMatrix(second, third);
 
-  const result = `Result:
+  const header = matrix =>
+    Object.keys(matrix)
+      .map(key => {
+        if (key !== 'notCompleted') {
+          return `<th>${key}</th>`;
+        } else {
+          return null;
+        }
+      })
+      .join(' ');
 
-Not completing second activity: ${secondNonCompletion}
-Not completing third activity: ${thirdNonCompletion}
+  const body = matrix =>
+    entries(matrix)
+      .map(([row, column]) => {
+        if (row !== 'notCompleted') {
+          return `<tr key=${row}>
+        <td>${row}</td>
+        ${values(column)
+          .map(c => `<td>${c}</td>`)
+          .join(' ')}
+        </tr>`;
+        } else {
+          return null;
+        }
+      })
+      .join(' ');
 
-Transition matrix first->second activity:
-${Stringify(transitionFirstSecond)}
+  const htmlResult = `<div>
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        display: 'block'
+      }}>
+        <table border="1" style={{marginRight: '20px',
+        position: 'relative',
+        whiteSpace: 'normal',
+        float: 'center',
+        display: 'inline-block'}}>
+          <thead>
+            <tr>
+              <th></th>
+              ${header(transitionFirstSecond)}
+            </tr>
+          </thead>
+          <tbody>
+            ${body(transitionFirstSecond)}
+          </tbody>
+        </table>
+        <table border="1" style={{marginRight: '20px',
+        position: 'relative',
+        whiteSpace: 'normal',
+        float: 'center',
+        display: 'inline-block'}}>
+          <thead>
+            <tr>
+              <th></th>
+              ${header(transitionSecondThird)}
+            </tr>
+          </thead>
+          <tbody>
+            ${body(transitionSecondThird)}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p>${secondNonCompletion} group(s) did not complete the second activity.</p>
+        <p>${thirdNonCompletion} group(s) did not complete the third activity.</p>
+      </div>
+    </div>
+    `;
 
-
-Transition matrix second->third activity:
-${Stringify(transitionSecondThird)}
-`;
-  return wrapUnitAll({}, { text: result });
+  return wrapUnitAll({}, { text: htmlResult });
 };
 
 export default ({
