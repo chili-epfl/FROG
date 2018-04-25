@@ -41,7 +41,6 @@ export class DashboardComp extends React.Component<
   componentDidMount = () => {
     this.mounted = true;
     if (!this.props.data) {
-      console.log('connect');
       dashboardConnect(this.subscribe);
     }
   };

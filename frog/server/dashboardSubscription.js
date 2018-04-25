@@ -28,7 +28,6 @@ const updateAndSend = (dashId, prepareDataForDisplayFn, activity) => {
 
 export default () => {
   Meteor.publish('dashboard', function(activityId, activityType, dashboard) {
-    console.log('Subscription', activityId, activityType, dashboard);
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
     const aT = activityTypesObj[activityType];

@@ -99,14 +99,12 @@ export const mergeLog = (
         }
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(log, e);
     }
   });
 };
 
 const archiveDashboardState = activityId => {
-  console.log('archiveDash');
   if (Meteor.settings.dashboardServer) {
     const act = Activities.findOne(activityId);
     const aT = activityTypesObj[act.activityType];
