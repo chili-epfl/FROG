@@ -1,7 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { type ActivityDBT, type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
 import { activityTypesObj } from '../activityTypes';
@@ -12,7 +12,7 @@ import { Activities, DashboardData } from './activities.js';
 const activityCache = {};
 
 export const createDashboards = (
-  activity: ActivityDBT,
+  activity: { activityType: string, _id: string },
   refresh: boolean = false
 ) => {
   const aT = activityTypesObj[activity.activityType];
@@ -30,9 +30,11 @@ export const initializeDashboardState = (
   refresh: boolean = false
 ) => {
   const dashId = activityId + '-' + name;
-  if (!DashboardStates[dashId] || refresh) {
-    DashboardStates[dashId] =
-      cloneDeep(activityType.dashboards[name].initData) || {};
+  const dashState = DashboardStates[dashId];
+  if (!dashState || refresh) {
+    const dash = activityType.dashboards && activityType.dashboards[name];
+    const init = (dash && dash.initData) || {};
+    DashboardStates[dashId] = cloneDeep(init);
   }
 };
 
@@ -45,14 +47,17 @@ export const regenerateState = (
   if (!DashboardStates[dashId]) {
     initializeDashboardState(activityType, activityId, name);
     const logs = Logs.find({ activityId }).fetch();
-    const mergeLogFn = activityType.dashboards[name].mergeLog;
+    const dash = activityType.dashboards && activityType.dashboards[name];
+    const mergeLogFn = dash && dash.mergeLog;
     if (!activityCache[activityId]) {
       activityCache[activityId] = Activities.findOne(activityId);
     }
     const activity = activityCache[activityId];
-    logs.forEach(log =>
-      mergeLogFn(DashboardStates[log.activityId + '-' + name], log, activity)
-    );
+    if (mergeLogFn) {
+      logs.forEach(log =>
+        mergeLogFn(DashboardStates[log.activityId + '-' + name], log, activity)
+      );
+    }
   }
 };
 
@@ -74,7 +79,8 @@ export const mergeLog = (
           }
           const activity = suppliedActivity || activityCache[log.activityId];
           Object.keys(aT.dashboards).forEach(name => {
-            const mergeLogFn = aT.dashboards[name].mergeLog;
+            const dash = aT.dashboards && aT.dashboards[name];
+            const mergeLogFn = dash && dash.mergeLog;
             if (mergeLogFn) {
               if (!DashboardStates[log.activityId + '-' + name]) {
                 regenerateState(aT, log.activityId, name);
@@ -99,11 +105,12 @@ const archiveDashboardState = activityId => {
   const act = Activities.findOne(activityId);
   const aT = activityTypesObj[act.activityType];
   if (aT.dashboards) {
-    Object.keys(aT.dashboards).forEach(dash => {
-      const dashId = activityId + '-' + dash;
+    Object.keys(aT.dashboards).forEach(name => {
+      const dashId = activityId + '-' + name;
       if (DashboardStates[dashId]) {
+        const dash = aT.dashboards && aT.dashboards[name];
         const prepDataFn =
-          aT.dashboards[dash].prepareDataForDisplay || ((x, _) => x);
+          (dash && dash.prepareDataForDisplay) || ((x, _) => x);
         DashboardData.insert({
           dashId,
           data: prepDataFn(DashboardStates[dashId], act)
@@ -115,6 +122,10 @@ const archiveDashboardState = activityId => {
 };
 
 Meteor.methods({
-  'merge.log': mergeLog,
+  'merge.log': (rawLog, logExtra, suppliedActivity) => {
+    if (Meteor.isServer) {
+      mergeLog(rawLog, logExtra, suppliedActivity);
+    }
+  },
   'archive.dashboard.state': archiveDashboardState
 });

@@ -2,12 +2,7 @@
 import * as React from 'react';
 import Spinner from 'react-spinner';
 import { cloneDeep } from 'lodash';
-import {
-  generateReactiveFn,
-  type ReactComponent,
-  getDisplayName,
-  uuid
-} from 'frog-utils';
+import { generateReactiveFn, getDisplayName, uuid } from 'frog-utils';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 
 import { uploadFile } from '../../api/openUploads';
@@ -27,7 +22,7 @@ const ReactiveHOC = (
   conn?: any,
   transform: Object => Object = x => x,
   readOnly: boolean = false
-) => (WrappedComponent: ReactComponent<any>) => {
+) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT

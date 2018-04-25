@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
+import type { ActivityPackageT, ActivityRunnerPropsT } from 'frog-utils';
 import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
 
 export const meta = {
@@ -12,7 +12,7 @@ export const meta = {
     'Show a dashboard from a previous activity. This is often useful for debriefing'
 };
 
-const ActivityRunner = (props: ActivityRunnerT) => {
+const ActivityRunner = (props: ActivityRunnerPropsT) => {
   const {
     sessionId,
     activityData: { config }
@@ -37,7 +37,7 @@ export default ({
     required: ['activityId'],
     properties: {
       activityId: {
-        type: 'activity',
+        type: 'anyActivity',
         title: 'Applies to which activity'
       },
       names: {

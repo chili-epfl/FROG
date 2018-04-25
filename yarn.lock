@@ -3156,9 +3156,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.69.0:
-  version "0.69.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.69.0.tgz#053159a684a6051fcbf0b71a2eb19a9679082da6"
+flow-bin@^0.70.0:
+  version "0.70.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.70.0.tgz#080ae83a997f2b4ddb3dc2649bf13336825292b5"
 
 flow-classy-type-wrapper@^1.0.2:
   version "1.0.2"
@@ -3333,6 +3333,10 @@ gauge@~2.7.3:
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
+
+get-node-dimensions@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/get-node-dimensions/-/get-node-dimensions-1.2.1.tgz#fb7b4bb57060fb4247dd51c9d690dfbec56b0823"
 
 get-stdin@^5.0.1:
   version "5.0.1"
@@ -5403,23 +5407,6 @@ npmlog@^4.0.1, npmlog@^4.0.2:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nps@5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/nps/-/nps-5.7.1.tgz#12cbfc635a6535ccb4f6eb516e6011f3af6bef42"
-  dependencies:
-    arrify "^1.0.1"
-    chalk "^2.0.1"
-    common-tags "^1.4.0"
-    find-up "^2.1.0"
-    js-yaml "^3.9.0"
-    lodash "^4.17.4"
-    manage-path "^2.0.0"
-    prefix-matches "^1.0.1"
-    readline-sync "^1.4.7"
-    spawn-command-with-kill "^1.0.0"
-    type-detect "^4.0.3"
-    yargs "^8.0.2"
-
 nps@5.9.0, nps@^5.9.0:
   version "5.9.0"
   resolved "https://registry.yarnpkg.com/nps/-/nps-5.9.0.tgz#432d781b98d7ffc497b0cb4f478873dd958d89ff"
@@ -6417,6 +6404,14 @@ react-loadable@^5.3.1:
   dependencies:
     prop-types "^15.5.0"
 
+react-measure@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-measure/-/react-measure-2.0.2.tgz#072a9a5fafc01dfbadc1fa5fb09fc351037f636c"
+  dependencies:
+    get-node-dimensions "^1.2.0"
+    prop-types "^15.5.10"
+    resize-observer-polyfill "^1.4.2"
+
 react-modal@^3.1.7, react-modal@^3.3.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.4.2.tgz#507ce89c528380497ec6c5adf5d7448f99ab6d27"
@@ -6934,6 +6929,10 @@ require_optional@~1.0.0:
   dependencies:
     resolve-from "^2.0.0"
     semver "^5.1.0"
+
+resize-observer-polyfill@^1.4.2:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"

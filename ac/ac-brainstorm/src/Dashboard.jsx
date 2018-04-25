@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Chart } from 'react-google-charts';
-import { type ActivityDBT } from 'frog-utils';
+import { type ActivityDbT } from 'frog-utils';
 
 const Viewer = ({
   state,
@@ -10,7 +10,7 @@ const Viewer = ({
   users
 }: {
   state: Object,
-  activity: ActivityDBT,
+  activity: ActivityDbT,
   users: Object
 }) => (
   <div>
