@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
+import { VictoryChart, VictoryBar, VictoryTooltip, VictoryAxis } from 'victory';
+
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
-
-import { VictoryChart, VictoryBar, VictoryTooltip, VictoryAxis } from 'victory';
 
 import { color, div } from './utils';
 
@@ -18,11 +18,23 @@ const styles = theme => ({
   })
 });
 
-const checkDefined = item => typeof item !== 'undefined';
-
-const MeanPerInterface = props => {
-  const { whichDash, state } = props;
-
+const MeanPerInterface = ({
+  whichDash,
+  state,
+  activity: {
+    data: { iterationPerInterface }
+  },
+  classes
+}: {
+  whichDash: string,
+  state: Object,
+  activity: {
+    data: {
+      iterationPerInterface: number
+    }
+  },
+  classes: Object
+}) => {
   const count = state['count'];
   const dash = state[whichDash];
 
@@ -35,13 +47,8 @@ const MeanPerInterface = props => {
       if (whichDash === 'help') {
         let countSum = 0;
 
-        for (let i = 0; i < 5; i += 1) {
-          const shouldUpdate =
-            checkDefined(count[int]) && checkDefined(count[int][i]);
-
-          if (shouldUpdate) {
-            countSum += count[int][i];
-          }
+        for (let i = 0; i < iterationPerInterface; i += 1) {
+          countSum += count[int][i];
         }
 
         const avg = div(dash[int], countSum);
@@ -56,17 +63,9 @@ const MeanPerInterface = props => {
         let dashSum = 0;
         let countSum = 0;
 
-        for (let i = 0; i < 5; i += 1) {
-          const shouldUpdate =
-            checkDefined(dash[int]) &&
-            checkDefined(dash[int][i]) &&
-            checkDefined(count[int]) &&
-            checkDefined(count[int][i]);
-
-          if (shouldUpdate) {
-            dashSum += dash[int][i];
-            countSum += count[int][i];
-          }
+        for (let i = 0; i < iterationPerInterface; i += 1) {
+          dashSum += dash[int][i];
+          countSum += count[int][i];
         }
 
         const avg = div(dashSum, countSum);
@@ -84,7 +83,7 @@ const MeanPerInterface = props => {
     const xDomain = whichDash === 'error' ? [0, 1] : null;
 
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
@@ -93,7 +92,10 @@ const MeanPerInterface = props => {
           </Grid>
 
           <Grid item xs={12}>
-            <VictoryChart domainPadding={20}>
+            <VictoryChart
+              domainPadding={20}
+              padding={{ top: 50, left: 70, right: 0, bottom: 50 }}
+            >
               <VictoryAxis
                 dependentAxis
                 tickValues={[1, 2, 3, 4]}
@@ -119,7 +121,7 @@ const MeanPerInterface = props => {
     );
   } else {
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
