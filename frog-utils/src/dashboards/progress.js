@@ -109,8 +109,10 @@ const parse = curve =>
   entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
 
 // calculate predicted time for each student
-const prepareDataForDisplay = (state: Object) => {
-  const currentMaxTime = state.maxTime;
+const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
+  const currentMaxTime = activity.actualStartingTime
+    ? (new Date() - new Date(activity.actualStartingTime)) / 1000
+    : state.maxTime;
   const sessionStatus = {};
 
   Object.keys(state.user).forEach(user => {
@@ -185,7 +187,7 @@ const prepareDataForDisplay = (state: Object) => {
     completion: parse(completionCurve),
     progpred: parse(predictedProgressCurve),
     progress: parse(progressCurve),
-    now: state.maxTime
+    now: currentMaxTime
   };
 };
 
