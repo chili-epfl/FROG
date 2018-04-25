@@ -66,7 +66,9 @@ export class DashboardComp extends React.Component<
   };
 
   componentWillUnmount = () => {
-    this.subscription && this.subscription.stop();
+    if (this.subscription) {
+      this.subscription.stop();
+    }
   };
 
   render() {
