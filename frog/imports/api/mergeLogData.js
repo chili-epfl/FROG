@@ -122,6 +122,10 @@ const archiveDashboardState = activityId => {
 };
 
 Meteor.methods({
-  'merge.log': mergeLog,
+  'merge.log': (rawLog, logExtra, suppliedActivity) => {
+    if (Meteor.isServer) {
+      mergeLog(rawLog, logExtra, suppliedActivity);
+    }
+  },
   'archive.dashboard.state': archiveDashboardState
 });

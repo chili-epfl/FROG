@@ -1,29 +1,14 @@
 // @flow
 import { sample } from 'lodash';
 
-export const texts = {
-  start: 'Start',
-  yes: 'YES',
-  no: 'NO',
-  guidelines: [
-    'Are the two shapes symmetrical? Click Yes or No to answer. ' +
-      'You can also use the Keyboard: Y/O for Yes and N for No.',
-    'Do not let the ball fall and break the bricks! Use left and right arrows to move.',
-    'Now do both tasks at the same time!',
-    'Now do both tasks at the same time!'
-  ],
-  end: 'Activity completed! Thank you!',
-  timeLeft: 'Time left in Task -> '
-};
-
 export const CITIES = [
+  'basel',
+  'davos',
+  'fribourg',
   'geneve',
   'lausanne',
-  'zurich',
-  'fribourg',
-  'basel',
   'neuchatel',
-  'davos'
+  'zurich'
 ];
 
 export const FARES = ['standard', 'young', 'half-fare'];
