@@ -42,9 +42,12 @@ module.exports = {
     },
     server: fromRoot('cd frog && meteor'),
     build: {
-      all: fromRoot('node watch.js build all'),
-      setup: buildAll()
+      all: buildAll(),
+      watch: {
+        all: 'nps build.all watch.all'
+      }
     },
+    babel: fromRoot('babel --help'),
     watch: {
       all: fromRoot('node watch.js watch all')
     }
