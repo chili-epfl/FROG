@@ -69,6 +69,7 @@ export const mergeLog = (
   dontWriteDB?: boolean
 ) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
+  console.log('mergelog', logs);
   logs.forEach(eachLog => {
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
     try {
@@ -76,6 +77,7 @@ export const mergeLog = (
         Logs.insert(log);
       }
       if (!onlyWriteDB && log.activityType && log.activityId) {
+        console.log('merging!');
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
           if (!activityCache[log.activityId] && !suppliedActivity) {
@@ -104,7 +106,7 @@ export const mergeLog = (
   });
 };
 
-const archiveDashboardState = activityId => {
+export const archiveDashboardState = (activityId: string) => {
   if (Meteor.settings.dashboardServer) {
     const act = Activities.findOne(activityId);
     const aT = activityTypesObj[act.activityType];
@@ -125,7 +127,3 @@ const archiveDashboardState = activityId => {
     }
   }
 };
-
-Meteor.methods({
-  'archive.dashboard.state': archiveDashboardState
-});

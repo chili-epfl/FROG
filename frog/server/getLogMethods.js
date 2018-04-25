@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import { resolve, join } from 'path';
 
 import { Logs } from '../imports/api/logs';
-import { mergeLog } from '../imports/api/mergeLogData';
+import { mergeLog, archiveDashboardState } from '../imports/api/mergeLogData';
 import { activityTypesObj } from '../imports/activityTypes';
 import { client } from './redis';
 
@@ -49,12 +49,15 @@ if (Meteor.settings.sendLogsToExternalDashboardServer) {
         JSON.stringify([rawLog, logExtra, suppliedActivity])
       );
       mergeLog(rawLog, logExtra, suppliedActivity, true);
-    }
+    },
+    'archive.dashboard.state': activityId =>
+      client.rpush('frog.archive', activityId)
   });
 } else {
   Meteor.methods({
     'merge.log': (rawLog, logExtra, suppliedActivity) => {
       mergeLog(rawLog, logExtra, suppliedActivity);
-    }
+    },
+    'archive.dashboard.state': archiveDashboardState
   });
 }
