@@ -19,7 +19,6 @@ const Main = styled.div`
 
 const Container = styled.div`
   max-width: 500px;
-  max-height: 100%;
   margin: 10px;
   flex: 0 1 auto;
 `;

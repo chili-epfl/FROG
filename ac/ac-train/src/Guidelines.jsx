@@ -7,8 +7,8 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 
 const styles = {
-  instance: {
-    width: '600px'
+  specificGuidelines: {
+    width: '80%'
   }
 };
 
@@ -89,10 +89,8 @@ export const StartingGuidelines = () => (
     </Typography>
     <Typography gutterBottom>
       You are about to see four different kinds of user interfaces for ordering
-      tickets. They will be presented in a random order. Your task is to order a
-      ticket, requested on the bottom of each page. Please note that options
-      one-way, standard fare, 2nd class and no bike are default in each
-      interface.
+      tickets. They will be presented in a random order. Your task is to buy the
+      ticket that is specified at the top of each page.
     </Typography>
     <CommandGuidelines />
     <GraphicGuidelines />
@@ -102,8 +100,12 @@ export const StartingGuidelines = () => (
   </React.Fragment>
 );
 
-export const SwitchGuidelines = ({ activity }: { activity: string }) => {
-  switch (activity) {
+export const SwitchGuidelines = ({
+  whichInterface
+}: {
+  whichInterface: string
+}) => {
+  switch (whichInterface) {
     case 'start':
       return <StartingGuidelines />;
     case 'command':
@@ -120,25 +122,25 @@ export const SwitchGuidelines = ({ activity }: { activity: string }) => {
 };
 
 const SpecificGuidelineController = ({
-  activity,
+  whichInterface,
   start,
   step,
   classes
 }: {
-  activity: string,
+  whichInterface: string,
   start: Function,
   step: number,
   classes: Object
 }) => (
   <Grid container justify="center">
-    <Grid container className={step > 0 ? classes.instance : ''}>
+    <Grid container className={step > 0 ? classes.specificGuidelines : ''}>
       <Grid item sm={12}>
-        <SwitchGuidelines activity={activity} />
+        <SwitchGuidelines whichInterface={whichInterface} />
       </Grid>
       <Grid item sm={12}>
         <Grid container justify="flex-end">
           <Button color="primary" variant="raised" onClick={start}>
-            {step === 0 ? 'Let the Games Begin!' : 'Start Activity'}
+            {step === 0 ? 'Game on!' : 'Start'}
           </Button>
         </Grid>
       </Grid>

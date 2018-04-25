@@ -34,7 +34,7 @@ export const config = {
         required: ['activity', 'who'],
         properties: {
           activity: {
-            type: 'activity',
+            type: 'targetActivity',
             title: 'Applies to which activity'
           },
           includeexclude: {
