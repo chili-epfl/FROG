@@ -70,7 +70,7 @@ const Viewer = (props: Object) => {
 
 const FINISHED = 'finished';
 const NOT_SUFFICIENT = 'notsufficient';
-const UPDATE_INTERVAL = 20;
+const UPDATE_INTERVAL = 10;
 const PREDICT_THRESHOLD = 150;
 
 function linearRegression(activities) {
@@ -106,6 +106,10 @@ const prepareDataForDisplay = (state: Object) => {
 
   Object.keys(state.user).forEach(user => {
     const userActivities = state.user[user];
+    if (userActivities[0][0] !== 0) {
+      userActivities.push([0, 0])
+    } 
+    console.log(userActivities)
     const lastIndex = userActivities.length - 1;
     const userStatus =
       userActivities[lastIndex][0] === 1
