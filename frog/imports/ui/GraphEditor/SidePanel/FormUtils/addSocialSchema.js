@@ -10,8 +10,14 @@ export default (schema: Object, uiSchema: ?Object): Object => {
 
   const newSchema = cloneDeep(schema);
   const paths = traverse.paths(newSchema).filter(x => x.pop() === 'type');
-  const activityPaths = paths.filter(
-    x => get(schema, [...x, 'type']) === 'activity'
+  const anyActivityPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'anyActivity'
+  );
+  const targetActivityPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'targetActivity'
+  );
+  const sourceActivityPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'sourceActivity'
   );
 
   const socialPaths = paths.filter(
@@ -20,9 +26,13 @@ export default (schema: Object, uiSchema: ?Object): Object => {
 
   const rtePaths = paths.filter(x => get(schema, [...x, 'type']) === 'rte');
 
-  [...activityPaths, ...socialPaths, ...rtePaths].forEach(x =>
-    set(newSchema, [...x, 'type'], 'string')
-  );
+  [
+    ...anyActivityPaths,
+    ...targetActivityPaths,
+    ...sourceActivityPaths,
+    ...socialPaths,
+    ...rtePaths
+  ].forEach(x => set(newSchema, [...x, 'type'], 'string'));
 
   delete newSchema.properties.component;
 
@@ -31,9 +41,21 @@ export default (schema: Object, uiSchema: ?Object): Object => {
       'ui:widget': 'socialAttributeWidget'
     })
   );
-  const activityMerges = activityPaths.map(x =>
+  const anyActivityMerges = anyActivityPaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'activityWidget'
+      'ui:widget': 'anyActivityWidget'
+    })
+  );
+
+  const sourceActivityMerges = sourceActivityPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'sourceActivityWidget'
+    })
+  );
+
+  const targetActivityMerges = targetActivityPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'targetActivityWidget'
     })
   );
 
@@ -65,7 +87,9 @@ export default (schema: Object, uiSchema: ?Object): Object => {
   const newUiSchema = merge(
     uiSchema,
     ...socialMerges,
-    ...activityMerges,
+    ...anyActivityMerges,
+    ...sourceActivityMerges,
+    ...targetActivityMerges,
     ...rteMerges
   );
   return { uiSchema: newUiSchema, schema: newSchema };

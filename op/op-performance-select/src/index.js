@@ -24,11 +24,11 @@ const config = {
       title: 'Minimum percentage of answers for high-performers'
     },
     activity_low: {
-      type: 'activity',
+      type: 'targetActivity',
       title: 'Activity for low-performance students'
     },
     activity_high: {
-      type: 'activity',
+      type: 'targetActivity',
       title: 'Activity for high-performance students'
     }
   }

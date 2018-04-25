@@ -42,6 +42,8 @@ const onClick = props => () => {
     ? nKey(newAnswers) / config.answers.length
     : 0;
 
+  const coordinates = getXYFromRanking(newAnswers, config);
+  dataFn.objInsert(coordinates, 'coordinates');
   logger([
     {
       type: 'listAdd',
@@ -54,7 +56,7 @@ const onClick = props => () => {
     },
     {
       type: 'coordinates',
-      payload: getXYFromRanking(newAnswers, config)
+      payload: coordinates
     }
   ]);
   dataFn.objInsert(rank + 1, ['answers', userInfo.id, title]);
