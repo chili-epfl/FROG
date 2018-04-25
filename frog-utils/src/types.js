@@ -142,7 +142,8 @@ export type ActivityPackageT = {
   formatProduct?: (config: Object, item: any, instanceId: string) => any,
   ConfigComponent?: React.ComponentType<{
     configData: Object,
-    setConfigData: Object => void
+    setConfigData: Object => void,
+    formContext: Object
   }>
 };
 
