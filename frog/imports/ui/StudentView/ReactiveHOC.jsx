@@ -48,7 +48,6 @@ const ReactiveHOC = (
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
       this.interval = window.setInterval(() => {
-        console.info('Interval', this.interval);
         this.interval += 1;
         if (this.interval > 10) {
           this.setState({ timeout: true });
@@ -59,16 +58,13 @@ const ReactiveHOC = (
         }
       }, 1000);
       if (this.doc.type) {
-        console.info('Update already');
         this.update();
       } else {
         this.doc.on('load', () => {
-          console.info('Load');
           this.update();
         });
       }
       this.doc.on('op', () => {
-        console.info('Op');
         this.update();
       });
     };
@@ -76,7 +72,6 @@ const ReactiveHOC = (
     update = () => {
       if (!this.unmounted) {
         if (!this.state.dataFn) {
-          console.info('dataFn');
           this.setState({
             dataFn: generateReactiveFn(this.doc, readOnly, this.update)
           });
@@ -84,12 +79,9 @@ const ReactiveHOC = (
         if (this.doc.data !== undefined) {
           this.setState({ data: cloneDeep(this.doc.data) });
           if (this.interval) {
-            console.info('Clearing interval');
             window.clearInterval(this.interval);
             this.interval = undefined;
           }
-        } else {
-          console.info('Update, not this.doc.data');
         }
         if (readOnly) {
           this.setState({ uuid: uuid() });
@@ -110,7 +102,6 @@ const ReactiveHOC = (
       this.doc.removeListener('load', this.update);
       this.unmounted = true;
       if (this.interval) {
-        console.info('Clearing interval, unmount');
         window.clearInterval(this.interval);
       }
     };
