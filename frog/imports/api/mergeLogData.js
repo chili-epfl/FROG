@@ -69,7 +69,6 @@ export const mergeLog = (
   dontWriteDB?: boolean
 ) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
-  console.log('mergelog', logs);
   logs.forEach(eachLog => {
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
     try {
@@ -77,7 +76,6 @@ export const mergeLog = (
         Logs.insert(log);
       }
       if (!onlyWriteDB && log.activityType && log.activityId) {
-        console.log('merging!');
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
           if (!activityCache[log.activityId] && !suppliedActivity) {
