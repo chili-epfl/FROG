@@ -2,10 +2,10 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 import { withTracker } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinner';
 import { omit } from 'lodash';
+import { Mongo } from 'meteor/mongo';
 
 import { type ActivityDbT } from 'frog-utils';
 
@@ -14,8 +14,7 @@ import { Sessions } from '../../api/sessions';
 import { Objects } from '../../api/objects';
 import { activityTypesObj } from '../../activityTypes';
 import MultiWrapper from './MultiWrapper';
-
-const Dashboard = new Mongo.Collection('dashboard');
+import dashboardConnect from './dashboardConnection';
 
 type DashboardCompPropsT = {
   activity: ActivityDbT,
@@ -30,6 +29,7 @@ export class DashboardComp extends React.Component<
 > {
   mounted: boolean;
   subscription: any;
+  dashboardCollection: any = false;
 
   constructor(props: DashboardCompPropsT) {
     super(props);
@@ -38,12 +38,26 @@ export class DashboardComp extends React.Component<
 
   componentDidMount = () => {
     this.mounted = true;
-    this.subscription = Meteor.subscribe(
+    dashboardConnect(this.subscribe);
+  };
+
+  subscribe = (dashboardCollection: Mongo.Collection, conn?: Object) => {
+    this.dashboardCollection = dashboardCollection;
+    this.subscription = (conn || Meteor).subscribe(
       'dashboard',
       this.props.activity._id,
       this.props.activity.activityType,
       this.props.name,
-      { onReady: () => this.setState({ ready: true }) }
+      {
+        onReady: () => {
+          this.setState({ ready: true });
+        },
+        onStop: err => {
+          if (err) {
+            console.error('Error on subscribing to dashboard data', err);
+          }
+        }
+      }
     );
   };
 
@@ -52,6 +66,9 @@ export class DashboardComp extends React.Component<
   };
 
   render() {
+    if (!this.state.ready) {
+      return <Spinner />;
+    }
     const aT = activityTypesObj[this.props.activity.activityType];
     const { users, activity, instances, name } = this.props;
     if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
@@ -59,11 +76,16 @@ export class DashboardComp extends React.Component<
     }
     const Dash = aT.dashboards[name].Viewer;
     const DashWith = withTracker(() => ({
-      state: Dashboard.findOne(this.props.activity._id + '-' + this.props.name)
-    }))(
-      ({ state, ...props }) =>
-        state ? <Dash state={omit(state, '_id')} {...props} /> : <Spinner />
-    );
+      state: this.dashboardCollection.findOne(
+        this.props.activity._id + '-' + this.props.name
+      )
+    }))(({ state, ...props }) => {
+      return state ? (
+        <Dash state={omit(state, '_id')} {...props} />
+      ) : (
+        <Spinner />
+      );
+    });
     DashWith.displayName = 'DashWith';
 
     return (

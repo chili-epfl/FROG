@@ -24,6 +24,8 @@ import { GlobalSettings } from '../imports/api/globalSettings.js';
 import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 
+console.info('Meteor settings', Meteor.settings);
+
 dashboardSubscription();
 
 Meteor.users._ensureIndex('joinedSessions');

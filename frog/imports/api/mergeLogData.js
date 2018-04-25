@@ -64,14 +64,20 @@ export const regenerateState = (
 export const mergeLog = (
   rawLog: Object | Object[],
   logExtra: Object,
-  suppliedActivity?: Object
+  suppliedActivity?: Object,
+  onlyWriteDB?: boolean,
+  dontWriteDB?: boolean
 ) => {
+  console.log('mergeLog');
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
   logs.forEach(eachLog => {
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
     try {
-      Logs.insert(log);
-      if (log.activityType && log.activityId) {
+      if (!dontWriteDB) {
+        Logs.insert(log);
+      }
+      if (!onlyWriteDB && log.activityType && log.activityId) {
+        console.log('mergeLog merging log');
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
           if (!activityCache[log.activityId] && !suppliedActivity) {
@@ -122,10 +128,5 @@ const archiveDashboardState = activityId => {
 };
 
 Meteor.methods({
-  'merge.log': (rawLog, logExtra, suppliedActivity) => {
-    if (Meteor.isServer) {
-      mergeLog(rawLog, logExtra, suppliedActivity);
-    }
-  },
   'archive.dashboard.state': archiveDashboardState
 });
