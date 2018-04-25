@@ -7,6 +7,7 @@ import {
   type GlobalStructureT,
   type socialStructureT
 } from 'frog-utils';
+import { compact } from 'lodash';
 
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
@@ -96,7 +97,9 @@ const runDataflow = (
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure: { studentIds: string[], students: Object } = {
-    studentIds: students.map(student => student._id),
+    studentIds: compact(
+      students.map(student => student.username !== 'teacher' && student._id)
+    ),
     students: students.reduce((acc, x) => ({ ...acc, [x._id]: x.username }), {})
   };
 
