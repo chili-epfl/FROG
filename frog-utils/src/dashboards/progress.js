@@ -86,6 +86,14 @@ function registerUserProgress(userActivities, t) {
   return userProgress;
 }
 
+function predictUserProgress(userStatus, t) {
+  const userProgress =
+    userStatus === FINISHED
+      ? 1
+      : Math.min((t - userStatus[1]) / userStatus[0], 1);
+  return userProgress;
+}
+
 function assembleCurve(progress) {
   const curves =
     progress.length === 0
@@ -108,9 +116,8 @@ const prepareDataForDisplay = (state: Object) => {
   Object.keys(state.user).forEach(user => {
     const userActivities = state.user[user];
     if (userActivities[0][0] !== 0) {
-      userActivities.push([0, 0])
-    } 
-    console.log(userActivities)
+      userActivities.push([0, 0]);
+    }
     const lastIndex = userActivities.length - 1;
     const userStatus =
       userActivities[lastIndex][0] === 1
@@ -132,8 +139,10 @@ const prepareDataForDisplay = (state: Object) => {
     if (t <= currentMaxTime) {
       // visualize actual data
       Object.keys(state.user).forEach(user => {
-        const userProgress = registerUserProgress(state.user[user], t);
-        progress.push(userProgress);
+        if (sessionStatus[user] !== NOT_SUFFICIENT) {
+          const userProgress = registerUserProgress(state.user[user], t);
+          progress.push(userProgress);
+        }
       });
       const [comp, prog] = assembleCurve(progress);
       completionCurve[t] = comp;
@@ -143,12 +152,9 @@ const prepareDataForDisplay = (state: Object) => {
     } else {
       // predict future data
       Object.keys(sessionStatus).forEach(user => {
-        if (sessionStatus[user] === FINISHED) {
-          progress.push(1);
-        } else if (sessionStatus[user] !== NOT_SUFFICIENT) {
-          progress.push(
-            Math.min((t - sessionStatus[user][1]) / sessionStatus[user][0], 1)
-          );
+        if (sessionStatus[user] !== NOT_SUFFICIENT) {
+          const userProgress = predictUserProgress(sessionStatus[user], t);
+          progress.push(userProgress);
         }
       });
       const [comp, prog] = assembleCurve(progress);
@@ -160,8 +166,13 @@ const prepareDataForDisplay = (state: Object) => {
   // interpolate at maxTime
   const progress = [];
   Object.keys(state.user).forEach(user => {
-    const userProgress = registerUserProgress(state.user[user], currentMaxTime);
-    progress.push(userProgress);
+    if (sessionStatus[user] !== NOT_SUFFICIENT) {
+      const userProgress = registerUserProgress(
+        state.user[user],
+        currentMaxTime
+      );
+      progress.push(userProgress);
+    }
   });
   const [comp, prog] = assembleCurve(progress);
   completionCurve[currentMaxTime] = comp;
