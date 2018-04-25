@@ -13,7 +13,9 @@ import {
 
 import {
   SelectFormWidget,
-  SelectActivityWidget,
+  SelectAnyActivityWidget,
+  SelectSourceActivityWidget,
+  SelectTargetActivityWidget,
   addSocialFormSchema
 } from './FormUtils';
 
@@ -21,6 +23,8 @@ type ConfigFormPropsT = {
   node: Object,
   nodeType: any,
   connectedActivities?: any,
+  connectedSourceActivities?: any,
+  connectedTargetActivities?: any,
   valid: any,
   refreshValidate: Function,
   reload?: any,
@@ -80,6 +84,8 @@ export default class ConfigForm extends Component<
       nodeType,
       valid,
       connectedActivities,
+      connectedSourceActivities,
+      connectedTargetActivities,
       refreshValidate
     } = this.props;
     const props = {
@@ -88,13 +94,17 @@ export default class ConfigForm extends Component<
       widgets: {
         ...this.props.widgets,
         socialAttributeWidget: SelectFormWidget,
-        activityWidget: SelectActivityWidget
+        anyActivityWidget: SelectAnyActivityWidget,
+        targetActivityWidget: SelectTargetActivityWidget,
+        sourceActivityWidget: SelectSourceActivityWidget
       },
       reload: this.props.reload,
       id: node._id,
       formContext: {
         options: valid.social[node._id] || [],
         connectedActivities,
+        connectedSourceActivities,
+        connectedTargetActivities,
         groupingKey: node.groupingKey
       },
       onChange:

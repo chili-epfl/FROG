@@ -37,7 +37,7 @@ export default ({
     required: ['activityId'],
     properties: {
       activityId: {
-        type: 'activity',
+        type: 'anyActivity',
         title: 'Applies to which activity'
       },
       names: {
