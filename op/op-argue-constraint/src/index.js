@@ -16,6 +16,10 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
+    grouping: {
+      type: 'socialAttribute',
+      title: 'Grouping attribute'
+    },
     matching: {
       type: 'string',
       title: 'What group pairs are ok? example "1,1;2,3;3,2;4,4"'
@@ -29,13 +33,17 @@ const M = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 const operator = (configData, object): socialStructureT => {
   const { activityData, socialStructure, globalStructure } = object;
   const studentStruct = focusStudent(socialStructure);
-
+  const grouping = (configData && configData.grouping) || 'group';
   // Function to check if pairs of students are valid given the
   // configured constraints
-  const validMatchings = configData.matching.split(';');
+  const matching = configData && configData.matching;
+  const validMatchings = matching && matching.split(';');
   const V = (studentA, studentB) => {
-    const groupA = studentStruct[studentA] && studentStruct[studentA].group;
-    const groupB = studentStruct[studentB] && studentStruct[studentB].group;
+    if (!validMatchings) {
+      return true;
+    }
+    const groupA = studentStruct[studentA] && studentStruct[studentA][grouping];
+    const groupB = studentStruct[studentB] && studentStruct[studentB][grouping];
     const str = [groupA, groupB].join(',');
     return validMatchings.includes(str);
   };
