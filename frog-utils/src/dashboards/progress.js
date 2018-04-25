@@ -15,6 +15,7 @@ import { entries } from 'lodash';
 
 const Viewer = (props: Object) => {
   const { state, activity } = props;
+  const nowLine = [{ x: state.now, y: 0 }, { x: state.now, y: 1 }];
   return (
     <VictoryChart theme={VictoryTheme.material}>
       <VictoryLegend
@@ -48,7 +49,7 @@ const Viewer = (props: Object) => {
         style={{
           data: { stroke: 'grey', strokeWidth: 2 }
         }}
-        x={() => state.now}
+        data={nowLine}
       />
       <VictoryAxis
         label="Time (sec)"
