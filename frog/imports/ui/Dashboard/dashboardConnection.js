@@ -24,7 +24,6 @@ export default (callback: Function) => {
     Tracker.autorun(() => {
       if (conn.status().connected) {
         connection = conn;
-        // Tracker.currentComputation.stop();
         callback(dashboardCollection, connection);
       }
     });
