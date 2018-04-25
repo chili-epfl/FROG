@@ -100,7 +100,11 @@ const runDataflow = (
     studentIds: compact(
       students.map(student => student.username !== 'teacher' && student._id)
     ),
-    students: students.reduce((acc, x) => ({ ...acc, [x._id]: x.username }), {})
+    students: students.reduce(
+      (acc, x) =>
+        x.username === 'teacher' ? acc : { ...acc, [x._id]: x.username },
+      {}
+    )
   };
 
   const object: ObjectT & GlobalStructureT = {
