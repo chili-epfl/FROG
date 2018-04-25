@@ -130,7 +130,7 @@ const prepareDataForDisplay = (state: Object) => {
         const userProgress = registerUserProgress(state.user[user], t);
         progress.push(userProgress);
       });
-      let [comp, prog] = assembleCurve(progress);
+      const [comp, prog] = assembleCurve(progress);
       completionCurve[t] = comp;
       predictedCompletionCurve[t] = comp;
       progressCurve[t] = prog;
@@ -146,7 +146,7 @@ const prepareDataForDisplay = (state: Object) => {
           );
         }
       });
-      let [comp, prog] = assembleCurve(progress);
+      const [comp, prog] = assembleCurve(progress);
       predictedCompletionCurve[t] = comp;
       predictedProgressCurve[t] = prog;
     }
@@ -158,10 +158,9 @@ const prepareDataForDisplay = (state: Object) => {
     const userProgress = registerUserProgress(state.user[user], currentMaxTime);
     progress.push(userProgress);
   });
-  [
-    completionCurve[currentMaxTime],
-    progressCurve[currentMaxTime]
-  ] = assembleCurve(progress);
+  const [comp, prog] = assembleCurve(progress);
+  completionCurve[currentMaxTime] = comp;
+  progressCurve[currentMaxTime] = prog;
   predictedProgressCurve[currentMaxTime] = progressCurve[currentMaxTime];
   predictedCompletionCurve[currentMaxTime] = completionCurve[currentMaxTime];
 
