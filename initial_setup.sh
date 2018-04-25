@@ -27,5 +27,12 @@ fi
 cd "$FROG/frog"
 ln -s "$FROG"/node_modules/* ./node_modules/ 2>/dev/null
 wait
-echo "Finished initial setup"
+
+LBLUE='\033[0;36m'
+NC='\033[0m'
+
+echo 
+echo -e "\xE2\x9C\xA8  Finished Initial Setup."
+echo -e "\xF0\x9F\xA4\x93  Run ${LBLUE}npm start server ${NC}to begin hacking!"
+
 exit 0
