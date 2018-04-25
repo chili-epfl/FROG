@@ -21,7 +21,7 @@ if [[ "$1" = "--single" ]]
 then
     npm start buildAllSingle
 else
-    npm start build.setup --silent
+    npm start build.all --silent
 fi
  
 cd "$FROG/frog"
