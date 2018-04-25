@@ -1,7 +1,6 @@
 // @flow
-
 import * as React from 'react';
-import { shuffle } from 'lodash';
+import seededShuffle from 'seededshuffle';
 import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import { withStyles } from 'material-ui/styles';
@@ -18,10 +17,13 @@ const styles = {
   container: {
     padding: '40px',
     height: '100%'
+  },
+  progressBarHeight: { height: '12px' },
+  progressBarColor: { backgroundColor: '#F45B69' },
+  progressBarBGColor: {
+    backgroundColor: '#ffbec7'
   }
 };
-
-// console.log(interfaces);
 
 const ActivityEnded = () => (
   <div
@@ -46,7 +48,9 @@ const ActivityEnded = () => (
 
 type PropsT = {
   dataFn: any,
-  data: Object
+  data: Object,
+  activityData: { config: Object },
+  userInfo: { id: string }
 };
 
 class Main extends React.Component<PropsT> {
@@ -63,30 +67,43 @@ class Main extends React.Component<PropsT> {
   };
 
   componentWillMount() {
-    this.interfaces = [
-      'start',
-      ...shuffle(['dragdrop', 'form', 'command', 'graphical'])
-    ];
+    const { userInfo } = this.props;
+
+    const shuffledInterfaces = seededShuffle.shuffle(
+      ['dragdrop', 'form', 'command', 'graphical'],
+      userInfo.id
+    );
+
+    this.interfaces = ['start', ...shuffledInterfaces];
   }
 
   render() {
-    const { step, guidelines } = this.props.data;
+    const {
+      data: { step, guidelines },
+      activityData: { config }
+    } = this.props;
 
-    if (step < 5 && guidelines) {
-      return (
-        <SpecificGuideline
-          activity={this.interfaces[step]}
-          start={step === 0 ? this.beginActivity : this.start}
-          step={step}
-        />
-      );
+    if (config.interface) {
+      return <Interface whichInterface={config.interface} {...this.props} />;
     }
 
     if (step < 5) {
-      return <Interface activity={this.interfaces[step]} {...this.props} />;
-    } else {
-      return <ActivityEnded />;
+      if (guidelines) {
+        return (
+          <SpecificGuideline
+            whichInterface={this.interfaces[step]}
+            start={step === 0 ? this.beginActivity : this.start}
+            step={step}
+          />
+        );
+      }
+
+      return (
+        <Interface whichInterface={this.interfaces[step]} {...this.props} />
+      );
     }
+
+    return <ActivityEnded />;
   }
 }
 
@@ -95,13 +112,25 @@ const RunnerController = (
   props: ActivityRunnerPropsT & { classes: Object }
 ) => {
   const {
-    data: { step },
+    data: { iteration },
+    activityData: {
+      config: { iterationPerInterface }
+    },
     classes
   } = props;
-  const p = Math.round(step / 5 * 100);
+
+  const p = Math.round(iteration / (4 * iterationPerInterface) * 100);
   return (
     <div className={classes.main}>
-      <LinearProgress variant="determinate" color="secondary" value={p} />
+      <LinearProgress
+        variant="determinate"
+        value={p}
+        classes={{
+          root: classes.progressBarHeight,
+          barColorPrimary: classes.progressBarColor,
+          colorPrimary: classes.progressBarBGColor
+        }}
+      />
       <div className={classes.container}>
         <Main {...props} />
       </div>

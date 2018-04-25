@@ -243,7 +243,7 @@ const RawEditActivity = ({
         />
       )}
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
-      {advancedOpen && (
+      {(advancedOpen || activity.streamTarget) && (
         <React.Fragment>
           <div>
             <A onClick={() => copyURL(activity)}>
