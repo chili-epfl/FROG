@@ -30,10 +30,10 @@ const acop = () => {
   ];
 };
 
-const buildAll = () =>
+const buildAll = background =>
   acop()
     .map(x => build(x))
-    .join(' & ');
+    .join(background ? ' &&' : '&');
 
 module.exports = {
   scripts: {
@@ -44,7 +44,8 @@ module.exports = {
     server: fromRoot('cd frog && meteor'),
     build: {
       default: build(),
-      all: buildAll()
+      all: buildAll(),
+      ci: buildAll(true)
     },
     watch: fromRoot('node watch.js watch'),
     test: fromRoot('nps flow.quiet eslint jest'),

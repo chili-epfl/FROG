@@ -19,7 +19,7 @@ echo "Yarn: $YARN"
 
 if [[ "$1" = "--single" ]]
 then
-    npm start build
+    npm start build.ci
 else
     npm start build.all
 fi
