@@ -18,7 +18,7 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
     activityData: { config }
   } = props;
   const activityId = config.activityId;
-  const names = config.names === 'all' ? null : config.names.split(',');
+  const names = config.names === 'all' ? undefined : config.names.split(',');
   return (
     <DashboardSubscriptionWrapper
       activityId={activityId}

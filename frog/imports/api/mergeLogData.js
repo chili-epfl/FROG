@@ -68,7 +68,6 @@ export const mergeLog = (
   onlyWriteDB?: boolean,
   dontWriteDB?: boolean
 ) => {
-  console.log('mergeLog');
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
   logs.forEach(eachLog => {
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
@@ -77,7 +76,6 @@ export const mergeLog = (
         Logs.insert(log);
       }
       if (!onlyWriteDB && log.activityType && log.activityId) {
-        console.log('mergeLog merging log');
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
           if (!activityCache[log.activityId] && !suppliedActivity) {
@@ -108,22 +106,25 @@ export const mergeLog = (
 };
 
 const archiveDashboardState = activityId => {
-  const act = Activities.findOne(activityId);
-  const aT = activityTypesObj[act.activityType];
-  if (aT.dashboards) {
-    Object.keys(aT.dashboards).forEach(name => {
-      const dashId = activityId + '-' + name;
-      if (DashboardStates[dashId]) {
-        const dash = aT.dashboards && aT.dashboards[name];
-        const prepDataFn =
-          (dash && dash.prepareDataForDisplay) || ((x, _) => x);
-        DashboardData.insert({
-          dashId,
-          data: prepDataFn(DashboardStates[dashId], act)
-        });
-        DashboardStates[dashId] = undefined;
-      }
-    });
+  console.log('archiveDash');
+  if (Meteor.settings.dashboardServer) {
+    const act = Activities.findOne(activityId);
+    const aT = activityTypesObj[act.activityType];
+    if (aT.dashboards) {
+      Object.keys(aT.dashboards).forEach(name => {
+        const dashId = activityId + '-' + name;
+        if (DashboardStates[dashId]) {
+          const dash = aT.dashboards && aT.dashboards[name];
+          const prepDataFn =
+            (dash && dash.prepareDataForDisplay) || ((x, _) => x);
+          DashboardData.insert({
+            dashId,
+            data: prepDataFn(DashboardStates[dashId], act)
+          });
+          DashboardStates[dashId] = undefined;
+        }
+      });
+    }
   }
 };
 

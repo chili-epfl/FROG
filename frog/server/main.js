@@ -15,7 +15,8 @@ import teacherImports from './teacherImports';
 import {
   Activities,
   Operators,
-  Connections
+  Connections,
+  DashboardData
 } from '../imports/api/activities.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
@@ -23,6 +24,7 @@ import { Objects } from '../imports/api/objects.js';
 import { GlobalSettings } from '../imports/api/globalSettings.js';
 import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
+import { activityTypesObj } from '../imports/activityTypes';
 
 console.info('Meteor settings', Meteor.settings);
 
@@ -78,16 +80,26 @@ Meteor.publish('userData', function() {
   });
 });
 
-Meteor.publish('dashboard.data', function(sessionId, activityId) {
+Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
   if (!sessionId) return;
   const slug = Sessions.findOne(sessionId).slug;
   if (!slug) return;
+  const act = Activities.findOne(activityId);
+  if (!act) return;
+  const aT = activityTypesObj[act.activityType];
+  const dashNames = (
+    (!names || names === 'all'
+      ? aT.dashboards && Object.keys(aT.dashboards)
+      : names) || []
+  ).map(x => activityId + '-' + x);
+  const dashData = DashboardData.find({ dashId: { $in: dashNames } });
+
   const users = Meteor.users.find(
     { joinedSessions: slug },
     { fields: { username: 1, joinedSessions: 1 } }
   );
   const object = Objects.find(activityId);
-  return [users, object];
+  return [users, object, dashData];
 });
 
 publishComposite('session_activities', function(slug) {
