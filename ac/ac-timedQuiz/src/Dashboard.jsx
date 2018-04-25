@@ -4,13 +4,13 @@ import * as React from 'react';
 import { Chart } from 'react-google-charts';
 
 import {
-  type LogT,
-  type dashboardViewerPropsT,
+  type LogDbT,
+  type DashboardViewerPropsT,
   ProgressDashboard,
   LeaderBoard
 } from 'frog-utils';
 
-const Viewer = ({ state }: dashboardViewerPropsT) => {
+const Viewer = ({ state }: DashboardViewerPropsT) => {
   const { results } = state;
   const options = (title, xLabel, yLabel, ymin, ymax) => ({
     legend: { position: 'none' },
@@ -88,7 +88,7 @@ const initData = {
   results: {}
 };
 
-const mergeLog = (state: any, log: LogT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'answer' && log.payload) {
     const { answer, startTime, answerTime, curQuestion } = log.payload;
     const index = curQuestion[1];

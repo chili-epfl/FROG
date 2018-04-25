@@ -60,10 +60,16 @@ const watcher = chokidar
     ignored: /\.(json|snap)/
   })
   .on('add', src => {
+    if (build) rm('file', src);
+
     transpile('add', src);
   })
   .on('addDir', src => {
+<<<<<<< HEAD
     mkdir(src);
+=======
+    if (!build) mkdir(src);
+>>>>>>> develop
   })
   .on('change', src => {
     transpile('change', src);

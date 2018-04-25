@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 type PropsT = {
-  component: Class<React.Component<*, *>>,
+  component: React.ComponentType<*>,
   interval: number,
   props: Object
 };
@@ -63,7 +63,7 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
   }
 }
 
-export default (component: Class<React.Component<*>>, interval: number) => (
+export default (component: React.ComponentType<*>, interval: number) => (
   props: Object
 ) => (
   <TimedComponentClass

@@ -2,9 +2,7 @@
   "name": "frog",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "scripts": {
-    "start": "nps"
-  },
+  "scripts": {"start": "nps"},
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.39",
     "@material-ui/icons": "^1.0.0-beta.42",
@@ -102,9 +100,9 @@
     "unzipper": "^0.8.12",
     "utf-8-validate": "^4.0.1",
     "websocket-json-stream": "0.0.3",
-    "ws": "^5.1.1"
+    "ac-train": "1.0.0",
+    "ws": "^5.1.1",
+    "op-social-config": "1.0.0"
   },
-  "devDependencies": {
-    "nps": "^5.9.0"
-  }
+  "devDependencies": {"nps": "^5.9.0"}
 }

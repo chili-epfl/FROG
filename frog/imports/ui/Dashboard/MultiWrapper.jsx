@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityDBT } from 'frog-utils';
+import { type ActivityDbT } from 'frog-utils';
 import { isEqual, isEmpty } from 'lodash';
 
 import { withStyles } from 'material-ui/styles';
@@ -89,7 +89,7 @@ export const DashboardSelector: React.ComponentType<
 DashboardSelector.displayName = 'DashboardSelector';
 
 const MultiWrapper = (props: {
-  activity: ActivityDBT,
+  activity: ActivityDbT,
   names?: string[],
   children?: Function,
   users: Object,
