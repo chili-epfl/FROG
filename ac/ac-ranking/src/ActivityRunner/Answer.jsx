@@ -34,6 +34,8 @@ const changeRank = (props, incr) => {
     newAnswers[answer] += incr;
     newAnswers[switchID] -= incr;
 
+    const coordinates = getXYFromRanking(newAnswers, config);
+    dataFn.objInsert(coordinates, 'coordinates');
     logger([
       {
         type: 'listOrder',
@@ -42,7 +44,7 @@ const changeRank = (props, incr) => {
       },
       {
         type: 'coordinates',
-        payload: getXYFromRanking(newAnswers, config)
+        payload: coordinates
       }
     ]);
     dataFn.objInsert(newAnswers, ['answers', userInfo.id]);

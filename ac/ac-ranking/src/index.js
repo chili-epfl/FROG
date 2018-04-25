@@ -25,6 +25,7 @@ export const formatProduct = (
     .join(', ');
 
   return {
+    ...data,
     msg: `${userName} ranked the interfaces in the following order: ${choices}, with the justification "${
       data.justification
     }".`

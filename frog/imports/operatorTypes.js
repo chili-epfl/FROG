@@ -1,5 +1,6 @@
 // @flow
 
+import opCs211Ranking from 'op-cs211-ranking';
 import opSocialConfig from 'op-social-config';
 import opXyDistance from 'op-xy-distance';
 import opPerformanceSelect from 'op-performance-select';
@@ -22,6 +23,7 @@ import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: operatorPackageT[] = flattenOne([
+  opCs211Ranking,
   opSocialConfig,
   opXyDistance,
   opPerformanceSelect,
