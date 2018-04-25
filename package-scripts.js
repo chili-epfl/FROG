@@ -16,14 +16,9 @@ const fromRoot = cmd =>
 
 const build = x => {
   const bin = 'node_modules/.bin';
-  return `${dir}/${bin}/babel ${x}/src --out-dir ${x}/dist && ${dir}/${bin}/flow-copy-source ${x}/src ${x}/dist`;
+  const pkgdir = x || dirname(sync('package.json'));
+  return `${dir}/${bin}/babel ${pkgdir}/src --out-dir ${pkgdir}/dist && ${dir}/${bin}/flow-copy-source ${pkgdir}/src ${pkgdir}/dist`;
 };
-// const build = (shouldWatch, dirtowatch) => {
-//   const pkgdir = dirtowatch || dirname(sync('package.json'));
-//   return `${dir}/node_modules/.bin/babel ${pkgdir}/src --out-dir ${pkgdir}/dist ${
-//     shouldWatch ? '--watch' : ''
-//   } && ${dir}/node_modules/.bin/flow-copy-source ${pkgdir}/src ${pkgdir}/dist`;
-// };
 
 const acop = () => {
   const ac = readdirSync(dir + '/ac');
@@ -48,14 +43,22 @@ module.exports = {
     },
     server: fromRoot('cd frog && meteor'),
     build: {
-      all: buildAll(),
-      watch: {
-        all: 'nps build.all watch.all'
-      }
+      default: build(),
+      all: buildAll()
     },
-    babel: fromRoot('babel --help'),
-    watch: {
-      all: fromRoot('node watch.js watch all')
+    watch: fromRoot('node watch.js watch'),
+    test: fromRoot('nps flow.quiet eslint jest'),
+    eslint: {
+      default: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
+      fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .')
+    },
+    flow: {
+      default: fromRoot('flow'),
+      quiet: fromRoot('flow --quiet')
+    },
+    jest: {
+      default: fromRoot('jest'),
+      watch: fromRoot('jest --watch')
     }
   },
   options: {

@@ -19,9 +19,9 @@ echo "Yarn: $YARN"
 
 if [[ "$1" = "--single" ]]
 then
-    npm start buildAllSingle
+    npm start build
 else
-    npm start build.all --silent
+    npm start build.all
 fi
  
 cd "$FROG/frog"

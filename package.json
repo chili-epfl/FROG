@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nps",
-    "test": "nps test",
-    "setup": "git clean -fdx; ./initial_setup.sh"
+    "test": "nps test"
   },
   "workspaces": [
     "ac/*",
