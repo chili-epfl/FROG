@@ -108,7 +108,7 @@ class Interface extends React.Component {
     logger([
       {
         type: 'progress',
-        value: (iteration + 1) / (4 * iterationPerInterface)
+        value: iteration / (4 * iterationPerInterface)
       }
     ]);
 
