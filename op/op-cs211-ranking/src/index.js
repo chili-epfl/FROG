@@ -43,42 +43,39 @@ const extractGroup = (data, title) => {
 };
 
 const transitionMatrix = (first, second) =>
-  entries(first).reduce(
-    (acc: { notCompleted: number }, [k, v]) => {
-      if (!second[k]) {
-        return { ...acc, notCompleted: acc.notCompleted + 1 };
-      }
-      const options = Object.keys(v);
-      const firsttop = entries(v).find(([_, rank]) => rank === 1);
-      const secondtop = entries(second[k]).find(([_, rank]) => rank === 1);
-      if (!firsttop || !secondtop) {
-        return { ...acc, notCompleted: acc.notCompleted + 1 };
-      }
+  entries(first).reduce((acc: {}, [k, v]) => {
+    if (!second[k]) {
+      return { ...acc };
+    }
+    const options = Object.keys(v);
+    const firsttop = entries(v).find(([_, rank]) => rank === 1);
+    const secondtop = entries(second[k]).find(([_, rank]) => rank === 1);
+    if (!firsttop || !secondtop) {
+      return { ...acc };
+    }
 
-      options.forEach(f => {
-        if (!acc[f]) {
-          acc[f] = {};
+    options.forEach(f => {
+      if (!acc[f]) {
+        acc[f] = {};
+      }
+      options.forEach(s => {
+        if (!acc[f][s]) {
+          acc[f][s] = 0;
         }
-        options.forEach(s => {
-          if (!acc[f][s]) {
-            acc[f][s] = 0;
-          }
-        });
       });
+    });
 
-      if (!acc[firsttop[0]]) {
-        acc[firsttop[0]] = {};
-      }
+    if (!acc[firsttop[0]]) {
+      acc[firsttop[0]] = {};
+    }
 
-      if (!acc[firsttop[0]][secondtop[0]]) {
-        acc[firsttop[0]][secondtop[0]] = 1;
-      } else {
-        acc[firsttop[0]][secondtop[0]] += 1;
-      }
-      return acc;
-    },
-    { notCompleted: 0 }
-  );
+    if (!acc[firsttop[0]][secondtop[0]]) {
+      acc[firsttop[0]][secondtop[0]] = 1;
+    } else {
+      acc[firsttop[0]][secondtop[0]] += 1;
+    }
+    return acc;
+  }, {});
 
 const operator = (configData, object) => {
   const individual = object.activityData[configData.individual];
@@ -90,7 +87,6 @@ const operator = (configData, object) => {
     values(individual.payload).map(x => x && x.data && x.data.answers)
   );
 
-  // console.log(individual);
   const [secondNonCompletion, second] = extractGroup(
     object.activityData[configData.group],
     'group'
@@ -99,6 +95,7 @@ const operator = (configData, object) => {
     object.activityData[configData.groupData],
     'groupData'
   );
+
   const transitionFirstSecond = transitionMatrix(first, second);
   const transitionSecondThird = transitionMatrix(second, third);
 
