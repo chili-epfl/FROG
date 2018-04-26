@@ -7,12 +7,11 @@ import {
   wrapUnitAll
 } from 'frog-utils';
 import { compact } from 'lodash';
-import Stringify from 'json-stringify-pretty-compact';
 
 const meta = {
   name: 'Ranking compare CS211',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc: 'Make change matrix based upon rankings',
+  description: 'Make change matrix based upon changed rankings'
 };
 
 const config = {
@@ -44,30 +43,39 @@ const extractGroup = (data, title) => {
 };
 
 const transitionMatrix = (first, second) =>
-  entries(first).reduce(
-    (acc: { notCompleted: number }, [k, v]) => {
-      if (!second[k]) {
-        return { ...acc, notCompleted: acc.notCompleted + 1 };
-      }
-      const firsttop = entries(v).find(([_, rank]) => rank === 1);
-      const secondtop = entries(second[k]).find(([_, rank]) => rank === 1);
-      if (!firsttop || !secondtop) {
-        return { ...acc, notCompleted: acc.notCompleted + 1 };
-      }
+  entries(first).reduce((acc: {}, [k, v]) => {
+    if (!second[k]) {
+      return { ...acc };
+    }
+    const options = Object.keys(v);
+    const firsttop = entries(v).find(([_, rank]) => rank === 1);
+    const secondtop = entries(second[k]).find(([_, rank]) => rank === 1);
+    if (!firsttop || !secondtop) {
+      return { ...acc };
+    }
 
-      if (!acc[firsttop[0]]) {
-        acc[firsttop[0]] = {};
+    options.forEach(f => {
+      if (!acc[f]) {
+        acc[f] = {};
       }
+      options.forEach(s => {
+        if (!acc[f][s]) {
+          acc[f][s] = 0;
+        }
+      });
+    });
 
-      if (!acc[firsttop[0]][secondtop[0]]) {
-        acc[firsttop[0]][secondtop[0]] = 1;
-      } else {
-        acc[firsttop[0]][secondtop[0]] += 1;
-      }
-      return acc;
-    },
-    { notCompleted: 0 }
-  );
+    if (!acc[firsttop[0]]) {
+      acc[firsttop[0]] = {};
+    }
+
+    if (!acc[firsttop[0]][secondtop[0]]) {
+      acc[firsttop[0]][secondtop[0]] = 1;
+    } else {
+      acc[firsttop[0]][secondtop[0]] += 1;
+    }
+    return acc;
+  }, {});
 
 const operator = (configData, object) => {
   const individual = object.activityData[configData.individual];
@@ -79,7 +87,6 @@ const operator = (configData, object) => {
     values(individual.payload).map(x => x && x.data && x.data.answers)
   );
 
-  // console.log(individual);
   const [secondNonCompletion, second] = extractGroup(
     object.activityData[configData.group],
     'group'
@@ -88,22 +95,77 @@ const operator = (configData, object) => {
     object.activityData[configData.groupData],
     'groupData'
   );
+
   const transitionFirstSecond = transitionMatrix(first, second);
   const transitionSecondThird = transitionMatrix(second, third);
 
-  const result = `Result:
+  const header = matrix =>
+    Object.keys(matrix)
+      .map(key => {
+        if (key !== 'notCompleted') {
+          return `<th>${key}</th>`;
+        } else {
+          return null;
+        }
+      })
+      .join(' ');
 
-Not completing second activity: ${secondNonCompletion}
-Not completing third activity: ${thirdNonCompletion}
+  const body = matrix =>
+    entries(matrix)
+      .map(([row, column]) => {
+        if (row !== 'notCompleted') {
+          return `<tr key=${row}>
+        <td class="vertical-th">${row}</td>
+        ${values(column)
+          .map(c => `<td>${c}</td>`)
+          .join(' ')}
+        </tr>`;
+        } else {
+          return null;
+        }
+      })
+      .join(' ');
 
-Transition matrix first->second activity:
-${Stringify(transitionFirstSecond)}
+  const htmlResult = `
+    <div class="op-cs211-ranking">
+      <div>
+        <div class="table-container">
+          <table>
+            <caption> Text1 </caption>
+            <thead>
+              <tr>
+                <th></th>
+                ${header(transitionFirstSecond)}
+              </tr>
+            </thead>
+            <tbody>
+              ${body(transitionFirstSecond)}
+            </tbody>
+          </table>
+       </div>
+       <div class="table-container">
+          <table>
+             <caption> Text2 </caption>
+            <thead>
+             <tr>
+               <th></th>
+              ${header(transitionSecondThird)}
+             </tr>
+            </thead>
+            <tbody>
+               ${body(transitionSecondThird)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <p>${secondNonCompletion} group(s) did not complete the second activity.</p>
+        <p>${thirdNonCompletion} group(s) did not complete the third activity.</p>
+      </div>
+    </div>
+    `;
 
-
-Transition matrix second->third activity:
-${Stringify(transitionSecondThird)}
-`;
-  return wrapUnitAll({}, { text: result });
+  return wrapUnitAll({}, { text: htmlResult });
 };
 
 export default ({

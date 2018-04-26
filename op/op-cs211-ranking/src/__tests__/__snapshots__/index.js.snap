@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`works 1`] = `
+Object {
+  "payload": Object {
+    "all": Object {
+      "config": Object {
+        "text": "
+    <div class=\\"op-cs211-ranking\\">
+      <div>
+        <div class=\\"table-container\\">
+          <table>
+            <caption> Text1 </caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>train</th> <th>drag</th> <th>wave</th> <th>jump</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr key=train>
+        <td class=\\"vertical-th\\">train</td>
+        <td>1</td> <td>0</td> <td>0</td> <td>1</td>
+        </tr> <tr key=drag>
+        <td class=\\"vertical-th\\">drag</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>1</td>
+        </tr> <tr key=wave>
+        <td class=\\"vertical-th\\">wave</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr> <tr key=jump>
+        <td class=\\"vertical-th\\">jump</td>
+        <td>1</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr>
+            </tbody>
+          </table>
+       </div>
+       <div class=\\"table-container\\">
+          <table>
+             <caption> Text2 </caption>
+            <thead>
+             <tr>
+               <th></th>
+              <th>train</th> <th>drag</th> <th>wave</th> <th>jump</th>
+             </tr>
+            </thead>
+            <tbody>
+               <tr key=train>
+        <td class=\\"vertical-th\\">train</td>
+        <td>0</td> <td>2</td> <td>0</td> <td>0</td>
+        </tr> <tr key=drag>
+        <td class=\\"vertical-th\\">drag</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr> <tr key=wave>
+        <td class=\\"vertical-th\\">wave</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr> <tr key=jump>
+        <td class=\\"vertical-th\\">jump</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <p>0 group(s) did not complete the second activity.</p>
+        <p>1 group(s) did not complete the third activity.</p>
+      </div>
+    </div>
+    ",
+      },
+      "data": Object {},
+    },
+  },
+  "structure": "all",
+}
+`;
+
+exports[`works twice 1`] = `
+Object {
+  "payload": Object {
+    "all": Object {
+      "config": Object {
+        "text": "
+    <div class=\\"op-cs211-ranking\\">
+      <div>
+        <div class=\\"table-container\\">
+          <table>
+            <caption> Text1 </caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>plane</th> <th>automotive</th> <th>swimming</th> <th>train</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr key=plane>
+        <td class=\\"vertical-th\\">plane</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>2</td>
+        </tr> <tr key=automotive>
+        <td class=\\"vertical-th\\">automotive</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr> <tr key=swimming>
+        <td class=\\"vertical-th\\">swimming</td>
+        <td>0</td> <td>0</td> <td>1</td> <td>0</td>
+        </tr> <tr key=train>
+        <td class=\\"vertical-th\\">train</td>
+        <td>0</td> <td>0</td> <td>1</td> <td>0</td>
+        </tr>
+            </tbody>
+          </table>
+       </div>
+       <div class=\\"table-container\\">
+          <table>
+             <caption> Text2 </caption>
+            <thead>
+             <tr>
+               <th></th>
+              <th>train</th> <th>plane</th> <th>automotive</th> <th>swimming</th>
+             </tr>
+            </thead>
+            <tbody>
+               <tr key=train>
+        <td class=\\"vertical-th\\">train</td>
+        <td>2</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr> <tr key=plane>
+        <td class=\\"vertical-th\\">plane</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr> <tr key=automotive>
+        <td class=\\"vertical-th\\">automotive</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>0</td>
+        </tr> <tr key=swimming>
+        <td class=\\"vertical-th\\">swimming</td>
+        <td>0</td> <td>0</td> <td>0</td> <td>2</td>
+        </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <p>2 group(s) did not complete the second activity.</p>
+        <p>2 group(s) did not complete the third activity.</p>
+      </div>
+    </div>
+    ",
+      },
+      "data": Object {},
+    },
+  },
+  "structure": "all",
+}
+`;

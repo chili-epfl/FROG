@@ -64,14 +64,18 @@ export const regenerateState = (
 export const mergeLog = (
   rawLog: Object | Object[],
   logExtra: Object,
-  suppliedActivity?: Object
+  suppliedActivity?: Object,
+  onlyWriteDB?: boolean,
+  dontWriteDB?: boolean
 ) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
   logs.forEach(eachLog => {
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
     try {
-      Logs.insert(log);
-      if (log.activityType && log.activityId) {
+      if (!dontWriteDB) {
+        Logs.insert(log);
+      }
+      if (!onlyWriteDB && log.activityType && log.activityId) {
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
           if (!activityCache[log.activityId] && !suppliedActivity) {
@@ -95,37 +99,28 @@ export const mergeLog = (
         }
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(log, e);
     }
   });
 };
 
-const archiveDashboardState = activityId => {
-  const act = Activities.findOne(activityId);
-  const aT = activityTypesObj[act.activityType];
-  if (aT.dashboards) {
-    Object.keys(aT.dashboards).forEach(name => {
-      const dashId = activityId + '-' + name;
-      if (DashboardStates[dashId]) {
-        const dash = aT.dashboards && aT.dashboards[name];
-        const prepDataFn =
-          (dash && dash.prepareDataForDisplay) || ((x, _) => x);
-        DashboardData.insert({
-          dashId,
-          data: prepDataFn(DashboardStates[dashId], act)
-        });
-        DashboardStates[dashId] = undefined;
-      }
-    });
+export const archiveDashboardState = (activityId: string) => {
+  if (!Meteor.sendLogsToExternalDashboardServer) {
+    const act = Activities.findOne(activityId);
+    const aT = activityTypesObj[act.activityType];
+    if (aT.dashboards) {
+      Object.keys(aT.dashboards).forEach(name => {
+        const dashId = activityId + '-' + name;
+        if (DashboardStates[dashId]) {
+          const dash = aT.dashboards && aT.dashboards[name];
+          const prepDataFn =
+            (dash && dash.prepareDataForDisplay) || ((x, _) => x);
+          DashboardData.insert({
+            dashId,
+            data: prepDataFn(DashboardStates[dashId], act)
+          });
+        }
+      });
+    }
   }
 };
-
-Meteor.methods({
-  'merge.log': (rawLog, logExtra, suppliedActivity) => {
-    if (Meteor.isServer) {
-      mergeLog(rawLog, logExtra, suppliedActivity);
-    }
-  },
-  'archive.dashboard.state': archiveDashboardState
-});
