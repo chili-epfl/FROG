@@ -68,7 +68,6 @@ const operator = (configData, object): socialStructureT => {
     return pairs;
   };
   const pairs = makeInitialGrouping();
-
   // Function to return the distance between two students
   const { payload } = activityData;
   const data = (payload.all && payload.all.data) || {};
@@ -91,7 +90,7 @@ const operator = (configData, object): socialStructureT => {
     modified = false;
     pairs.forEach((p0, i0) => {
       pairs.forEach((p1, i1) => {
-        if (!modified) {
+        if (!modified && i0 < i1) {
           const [A, B, a, b] = [...p0, ...p1];
           const score = M([D(A, B), D(a, b)]);
           if (V(A, a) && V(B, b) && M([D(A, a), D(B, b)]) > score) {
