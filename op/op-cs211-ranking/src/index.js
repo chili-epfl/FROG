@@ -131,7 +131,7 @@ const operator = (configData, object) => {
       <div>
         <div class="table-container">
           <table>
-            <caption> Text1 </caption>
+            <caption> Individual to Group </caption>
             <thead>
               <tr>
                 <th></th>
@@ -145,7 +145,7 @@ const operator = (configData, object) => {
        </div>
        <div class="table-container">
           <table>
-             <caption> Text2 </caption>
+             <caption> Group to Group with data </caption>
             <thead>
              <tr>
                <th></th>
