@@ -161,11 +161,7 @@ Meteor.methods({
   'get.activity.for.dashboard': id => {
     if (Meteor.isServer) {
       const activity = Activities.findOne(id);
-      const graph = Graphs.findOne(activity.graphId);
-      const users = Meteor.users
-        .find({ slug: graph.slug }, { fields: { username: 1 } })
-        .fetch();
-      return { activity, users };
+      return { activity };
     }
   },
   'graph.flush.all': graphId => {
