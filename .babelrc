@@ -16,8 +16,19 @@
     ]
   ],
   "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react",
-    "@babel/preset-stage-0",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "chrome > 62",
+            "firefox > 46",
+            "safari >= 11",
+            "opera > 49",
+            "edge > 11"
+          ]
+        }
+      }
+    ]
   ]
 }
