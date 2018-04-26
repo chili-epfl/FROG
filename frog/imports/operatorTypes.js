@@ -14,6 +14,7 @@ import opProx from 'op-prox';
 import opGroupIdentical from 'op-group-identical';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
+import opArgueConstraint from 'op-argue-constraint';
 import opHypothesis from 'op-hypothesis';
 import opCreateGroups from 'op-create-groups';
 import opDistribute from 'op-distribute';
@@ -37,6 +38,7 @@ export const operatorTypes: operatorPackageT[] = flattenOne([
   opGroupIdentical,
   opJigsaw,
   opArgue,
+  opArgueConstraint,
   opHypothesis,
   opCreateGroups,
   opDistribute

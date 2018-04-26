@@ -115,7 +115,6 @@ const archiveDashboardState = activityId => {
           dashId,
           data: prepDataFn(DashboardStates[dashId], act)
         });
-        DashboardStates[dashId] = undefined;
       }
     });
   }
