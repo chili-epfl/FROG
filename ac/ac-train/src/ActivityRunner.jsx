@@ -125,6 +125,10 @@ const RunnerController = (
       <LinearProgress
         variant="determinate"
         value={p}
+        style={{
+          position: 'fixed',
+          width: '100%'
+        }}
         classes={{
           root: classes.progressBarHeight,
           barColorPrimary: classes.progressBarColor,

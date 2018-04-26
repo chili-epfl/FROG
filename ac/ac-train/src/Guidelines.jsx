@@ -5,20 +5,21 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
+import pink from 'material-ui/colors/pink';
 
 const styles = {
-  specificGuidelines: {
-    width: '80%'
+  guidelines: {
+    maxWidth: '600px'
   }
 };
 
 export const DragAndDropGuidelines = () => (
   <React.Fragment>
-    <Typography variant="headline" gutterBottom>
+    <Typography variant="title" gutterBottom>
       Drag-and-drop interface.
     </Typography>
 
-    <Typography gutterBottom>
+    <Typography variant="subheading" gutterBottom>
       In this interface you will choose the different possible elements of the
       ticket (origin, destination, fare, etc.) using the mouse, dragging them
       onto the appropriate box/field (from, to, fare, bike, etc.).
@@ -28,11 +29,11 @@ export const DragAndDropGuidelines = () => (
 
 export const FormGuidelines = () => (
   <React.Fragment>
-    <Typography variant="headline" gutterBottom>
+    <Typography variant="title" gutterBottom>
       Form interface:
     </Typography>
 
-    <Typography gutterBottom>
+    <Typography variant="subheading" gutterBottom>
       Choose your city, destination, fare and other options from dropdown fields
       in a form.
     </Typography>
@@ -41,11 +42,11 @@ export const FormGuidelines = () => (
 
 export const GraphicGuidelines = () => (
   <React.Fragment>
-    <Typography variant="headline" gutterBottom>
+    <Typography variant="title" gutterBottom>
       Graphical interface:
     </Typography>
 
-    <Typography gutterBottom>
+    <Typography variant="subheading" gutterBottom>
       In this interface you choose origin/destination cities from a map. The
       first chosen city is the one you from which you start the travel and the
       second is the destination. Other options are to be chosen from the form
@@ -56,26 +57,28 @@ export const GraphicGuidelines = () => (
 
 export const CommandGuidelines = () => (
   <React.Fragment>
-    <Typography variant="headline" gutterBottom>
+    <Typography variant="title" gutterBottom>
       Command line interface:
     </Typography>
 
-    <Typography gutterBottom>
+    <Typography variant="subheading" gutterBottom>
       In this interface you write a command in the following format:
     </Typography>
-    <pre>
+    <pre style={{ color: pink[500], fontWeight: 500 }}>
       {
         'from [city] to [city] { young|half-fare|standard} {bike} {C1|C2} {one-way|return} '
       }
     </pre>
-    <Typography gutterBottom>
+    <Typography variant="subheading" gutterBottom>
       where cities are obligatory. Optional arguments are{' '}
       {'{ young | half-fare | standard }'} stands for fare, {'{ bike }'} for
       ticket with a bike, {'{ one-way | return }'} for the type of travel and{' '}
       {'{ C1|C2 }'} is the first or the second class. Example:
     </Typography>
-    <pre>from Zurich to Lausanne young C1 one-way</pre>
-    <Typography gutterBottom>
+    <pre style={{ color: pink[500], fontWeight: 500 }}>
+      from Zurich to Lausanne young C1 one-way
+    </pre>
+    <Typography variant="subheading" gutterBottom>
       will order a ticket 1st class one-way from Zurich to Lausanne with a
       discount for young people and without bike.
     </Typography>
@@ -83,21 +86,36 @@ export const CommandGuidelines = () => (
 );
 
 export const StartingGuidelines = () => (
-  <React.Fragment>
-    <Typography variant="display2" gutterBottom>
-      Train Activity
-    </Typography>
-    <Typography gutterBottom>
-      You are about to see four different kinds of user interfaces for ordering
-      tickets. They will be presented in a random order. Your task is to buy the
-      ticket that is specified at the top of each page.
-    </Typography>
-    <CommandGuidelines />
-    <GraphicGuidelines />
-    <FormGuidelines />
-    <DragAndDropGuidelines />
+  <Grid container spacing={24}>
+    <Grid item style={{ width: '100%' }}>
+      <Typography variant="display2" gutterBottom>
+        Train Activity
+      </Typography>
+      <Typography variant="subheading" gutterBottom>
+        You are about to see{' '}
+        <span style={{ color: pink[500], fontWeight: 500 }}>four</span>{' '}
+        different kinds of user interfaces for ordering tickets. They will be
+        presented in a random order. Your task is to buy the ticket that is
+        specified at the top of each page.
+      </Typography>
+    </Grid>
+
+    <Grid item style={{ width: '100%' }}>
+      <CommandGuidelines />
+    </Grid>
+
+    <Grid item style={{ width: '100%' }}>
+      <GraphicGuidelines />
+    </Grid>
+
+    <Grid item style={{ width: '100%' }}>
+      <FormGuidelines />
+    </Grid>
+    <Grid item style={{ width: '100%' }}>
+      <DragAndDropGuidelines />
+    </Grid>
     <div style={{ marginTop: '20px' }} />
-  </React.Fragment>
+  </Grid>
 );
 
 export const SwitchGuidelines = ({
@@ -133,7 +151,7 @@ const SpecificGuidelineController = ({
   classes: Object
 }) => (
   <Grid container justify="center">
-    <Grid container className={step > 0 ? classes.specificGuidelines : ''}>
+    <Grid container className={classes.guidelines} spacing={24}>
       <Grid item sm={12}>
         <SwitchGuidelines whichInterface={whichInterface} />
       </Grid>
