@@ -115,7 +115,7 @@ const operator = (configData, object) => {
       .map(([row, column]) => {
         if (row !== 'notCompleted') {
           return `<tr key=${row}>
-        <td>${row}</td>
+        <td class="vertical-th">${row}</td>
         ${values(column)
           .map(c => `<td>${c}</td>`)
           .join(' ')}
@@ -126,42 +126,37 @@ const operator = (configData, object) => {
       })
       .join(' ');
 
-  const htmlResult = `<div>
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        display: 'block'
-      }}>
-        <table border="1" style={{marginRight: '20px',
-        position: 'relative',
-        whiteSpace: 'normal',
-        float: 'center',
-        display: 'inline-block'}}>
-          <thead>
-            <tr>
-              <th></th>
-              ${header(transitionFirstSecond)}
-            </tr>
-          </thead>
-          <tbody>
-            ${body(transitionFirstSecond)}
-          </tbody>
-        </table>
-        <table border="1" style={{marginRight: '20px',
-        position: 'relative',
-        whiteSpace: 'normal',
-        float: 'center',
-        display: 'inline-block'}}>
-          <thead>
-            <tr>
-              <th></th>
+  const htmlResult = `
+    <div class="op-cs211-ranking">
+      <div>
+        <div class="table-container">
+          <table>
+            <caption> Text1 </caption>
+            <thead>
+              <tr>
+                <th></th>
+                ${header(transitionFirstSecond)}
+              </tr>
+            </thead>
+            <tbody>
+              ${body(transitionFirstSecond)}
+            </tbody>
+          </table>
+       </div>
+       <div class="table-container">
+          <table>
+             <caption> Text2 </caption>
+            <thead>
+             <tr>
+               <th></th>
               ${header(transitionSecondThird)}
-            </tr>
-          </thead>
-          <tbody>
-            ${body(transitionSecondThird)}
-          </tbody>
-        </table>
+             </tr>
+            </thead>
+            <tbody>
+               ${body(transitionSecondThird)}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div>
         <p>${secondNonCompletion} group(s) did not complete the second activity.</p>
