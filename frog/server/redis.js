@@ -2,11 +2,19 @@ import { Meteor } from 'meteor/meteor';
 import redis from 'redis';
 import { mergeLog, archiveDashboardState } from '../imports/api/mergeLogData';
 
-export const client = redis.createClient();
-client.on('connect', () => {});
-client.on('error', e => {
-  console.error('Redis error', e);
-});
+let clientRaw = null;
+if (
+  Meteor.settings.sendLogsToExternalDashboardServer ||
+  Meteor.settings.dashboardServer
+) {
+  clientRaw = redis.createClient();
+  clientRaw.on('connect', () => {});
+  clientRaw.on('error', e => {
+    console.error('Redis error', e);
+  });
+}
+
+export const client = clientRaw;
 
 const loop = (err, result) => {
   if (err) {
@@ -21,6 +29,6 @@ const loop = (err, result) => {
   client.blpop('frog.logs', 'frog.archive', 0, Meteor.bindEnvironment(loop));
 };
 
-if (Meteor.settings.dashboardServer) {
+if (Meteor.settings.dashboardServer && client) {
   client.blpop('frog.logs', 0, Meteor.bindEnvironment(loop));
 }
