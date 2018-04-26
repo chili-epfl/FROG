@@ -1,3 +1,4 @@
+import userAgent from 'useragent';
 import bodyParser from 'body-parser';
 import { Picker } from 'meteor/meteorhacks:picker';
 import { uuid } from 'frog-utils';
@@ -20,16 +21,15 @@ Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
 
 Picker.filter(req => {
-  const userAgent = req.headers['user-agent'] || '';
-  const IEStrings = ['Windows', 'WOW64', 'Trident'];
-  const isIE =
-    IEStrings.some(x => userAgent.includes(x)) || userAgent.includes('MSIE');
-  const isSafari9or10 =
-    (userAgent.includes('Safari/') && userAgent.includes('Version/9')) ||
-    (userAgent.includes('Version/10') && userAgent.includes('AppleWebKit'));
-  return isIE || isSafari9or10;
+  const agent = userAgent.lookup(req.headers['user-agent'] || '');
+  return (
+    ((agent.family === 'Safari' && agent.major < 11) ||
+      agent.family === 'IE') &&
+    !(req.url && req.url.includes('dontblock=true'))
+  );
 }).route('/(.*)', (params, request, response) =>
-  response.end(`<html><body><h1>FROG does not support this browser</h1><p>Unfortunately, we do not support Internet Explorer (only Microsoft Edge) or Safari 9/10 (only Safari 11). </p>
+  response.end(`<html><body>
+  <h1>FROG does not support this browser</h1><p>Unfortunately, we do not support Internet Explorer (only Microsoft Edge) or Safari 9/10 (only Safari 11). </p>
   <p>We suggest you use <a href='https://www.google.com/chrome/'><b>Chrome</b></a> or <a href='https://www.mozilla.org/en-US/firefox/new/'><b>Firefox</b></a></p></body></h1>`)
 );
 
