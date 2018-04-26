@@ -5,8 +5,7 @@ import {
   mergeSocialStructures,
   type ObjectT,
   type GlobalStructureT,
-  type socialStructureT,
-  type activityDataT
+  type socialStructureT
 } from 'frog-utils';
 
 import { Sessions } from '/imports/api/sessions';
@@ -78,14 +77,22 @@ const runDataflow = (
   );
 
   // Extract the product
-  const prod = allProducts.find(c => c.type === 'product');
-  const activityData: activityDataT =
-    prod && prod.activityData
-      ? prod.activityData
-      : {
-          structure: 'all',
-          payload: { all: { data: null, config: {} } }
-        };
+  const prod = allProducts.filter(c => c.type === 'product');
+  let activityData;
+  if (prod && prod.length > 1) {
+    activityData = prod.reduce(
+      (acc, x) => ({ ...acc, [x._id]: x.activityData }),
+      {}
+    );
+  } else {
+    activityData =
+      prod && prod[0] && prod[0].activityData
+        ? prod[0].activityData
+        : {
+            structure: 'all',
+            payload: { all: { data: null, config: {} } }
+          };
+  }
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure: { studentIds: string[], students: Object } = {

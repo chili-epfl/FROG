@@ -69,6 +69,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
 
   const Torun = (
     <RunActivity
+      key={reactiveId}
       activityTypeId={activity.activityType}
       reactiveId={reactiveId}
       logger={logger}
@@ -154,6 +155,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
     const Activity = this.ActivityToRun;
     return (
       <Activity
+        key={this.props.reactiveId}
         activityData={this.props.activityData}
         userInfo={{
           name: this.props.username,

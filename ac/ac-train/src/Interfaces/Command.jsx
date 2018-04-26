@@ -39,7 +39,7 @@ type PropsT = {
   onHelpClose: Function,
   help: boolean,
   classes: Object,
-  activity: string,
+  whichInterface: string,
   ticker: string
 };
 
@@ -54,6 +54,13 @@ class Command extends React.Component<PropsT, StateT> {
 
   handleSubmit = () => {
     this.props.submit(commandDataStructure(this.state.text));
+  };
+
+  handleEnter = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.handleSubmit();
+    }
   };
 
   render() {
@@ -77,10 +84,10 @@ class Command extends React.Component<PropsT, StateT> {
               label="Enter command"
               value={this.state.text}
               onChange={this.handleChange}
-              multiline
-              rowsMax="4"
+              autoFocus
               fullWidth
               margin="normal"
+              onKeyPress={this.handleEnter}
             />
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>

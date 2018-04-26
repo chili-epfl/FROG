@@ -177,6 +177,7 @@ export default (props: Object) => {
             <NavItem
               key={ex.title}
               className="examples"
+              style={ex.type === 'deeplink' ? { fontStyle: 'italic' } : {}}
               eventKey={i}
               onClick={() => {
                 const exConf = ex.config;
