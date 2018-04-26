@@ -93,9 +93,10 @@ const MultiWrapper = (props: {
   names?: string[],
   children?: Function,
   users: Object,
-  instances: any
+  instances: any,
+  dashboardData?: Object
 }) => {
-  const { activity, names, children, users, instances } = props;
+  const { dashboardData, activity, names, children, users, instances } = props;
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboards || {});
   if (isEmpty(dashNames)) {
@@ -108,6 +109,15 @@ const MultiWrapper = (props: {
         (which => (
           <DashboardComp
             {...props}
+            data={
+              (
+                (dashboardData &&
+                  dashboardData.find(
+                    x => x.dashId === activity._id + '-' + which
+                  )) ||
+                {}
+              ).data
+            }
             name={which}
             key={which + activity._id}
             users={users}
