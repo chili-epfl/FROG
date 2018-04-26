@@ -1,0 +1,9 @@
+{
+  "public": {
+    "sharedburl": "ws://localhost:4000"
+  },
+  "dashboardServer": true,
+  "sharedb_dburl": "mongodb://127.0.0.1:27017",
+  "sharedb_redis": "localhost:6379",
+  "dont_start_sharedb": true
+}

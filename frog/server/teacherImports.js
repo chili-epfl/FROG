@@ -4,7 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import {
   Activities,
   Operators,
-  Connections
+  Connections,
+  DashboardData
 } from '../imports/api/activities.js';
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
@@ -29,6 +30,7 @@ export default () => {
     fields: { username: 1, joinedSessions: 1 }
   });
   teacherPublish('operators', Operators);
+  teacherPublish('dashboardData', DashboardData);
   teacherPublish('connections', Connections);
   teacherPublish('graphs', Graphs);
   teacherPublish('objects', Objects);
