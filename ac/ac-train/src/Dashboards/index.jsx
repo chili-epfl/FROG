@@ -9,7 +9,8 @@ import {
   type ActivityDbT,
   type DashboardViewerPropsT,
   type DashboardT,
-  ProgressDashboard
+  ProgressDashboard,
+  LeaderBoard
 } from 'frog-utils';
 
 import MeanThroughOutStudy from './MeanThroughOutStudy';
@@ -156,5 +157,6 @@ const statsDashboard: DashboardT = { Viewer, mergeLog, initData };
 
 export default {
   stats: statsDashboard,
-  progress: ProgressDashboard
+  progress: ProgressDashboard,
+  leaderboard: LeaderBoard
 };

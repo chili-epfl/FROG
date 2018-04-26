@@ -80,6 +80,7 @@ const dataStructure = {
   progress: 0,
   time: 0,
   step: 0,
+  score: 0,
   guidelines: true,
   iteration: 0
 };
