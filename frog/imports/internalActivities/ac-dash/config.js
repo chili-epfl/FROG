@@ -15,7 +15,7 @@ const SelectDashboard = ({ formContext, onChange, value = '' }: any) => (
         componentClass="select"
         value={value}
       >
-        {['', ...((formContext && formContext.names) || [])].map(x => (
+        {['', ...formContext.names].map(x => (
           <option value={x || ''} key={x || 'choose'}>
             {x === '' ? 'Select a dashboard' : x}
           </option>
