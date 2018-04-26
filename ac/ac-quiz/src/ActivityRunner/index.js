@@ -25,9 +25,9 @@ const Container = styled.div`
 
 const Completed = ({ dataFn }) => (
   <React.Fragment>
-    <h1>Quiz completed!</h1>
+    <h1>Completed!</h1>
     <button onClick={() => dataFn.objInsert(false, ['completed'])}>
-      Back to quiz
+      Go back
     </button>
   </React.Fragment>
 );
