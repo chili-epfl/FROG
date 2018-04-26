@@ -105,7 +105,7 @@ export const mergeLog = (
 };
 
 export const archiveDashboardState = (activityId: string) => {
-  if (Meteor.settings.dashboardServer) {
+  if (!Meteor.sendLogsToExternalDashboardServer) {
     const act = Activities.findOne(activityId);
     const aT = activityTypesObj[act.activityType];
     if (aT.dashboards) {
@@ -119,7 +119,6 @@ export const archiveDashboardState = (activityId: string) => {
             dashId,
             data: prepDataFn(DashboardStates[dashId], act)
           });
-          DashboardStates[dashId] = undefined;
         }
       });
     }

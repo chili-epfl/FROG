@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import type { ActivityPackageT, ActivityRunnerPropsT } from 'frog-utils';
 import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
+import ConfigComponent from './config.js';
 
 export const meta = {
   name: 'Dashboard activity',
@@ -17,8 +18,8 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
     sessionId,
     activityData: { config }
   } = props;
-  const activityId = config.activityId;
-  const names = config.names === 'all' ? undefined : config.names.split(',');
+  const activityId = config.component.activity;
+  const names = config.component.dashboards;
   return (
     <DashboardSubscriptionWrapper
       activityId={activityId}
@@ -32,20 +33,7 @@ export default ({
   id: 'ac-dash',
   type: 'react-component',
   ActivityRunner,
-  config: {
-    type: 'object',
-    required: ['activityId'],
-    properties: {
-      activityId: {
-        type: 'anyActivity',
-        title: 'Applies to which activity'
-      },
-      names: {
-        type: 'string',
-        title: 'Choose which dashboard to show (comma separated names)',
-        default: 'all'
-      }
-    }
-  },
+  config: {},
+  ConfigComponent,
   meta
 }: ActivityPackageT);

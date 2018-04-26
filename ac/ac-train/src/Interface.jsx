@@ -121,16 +121,15 @@ class Interface extends React.Component {
   };
 
   checkAnswer = answer => {
-    const {
-      logger,
-      whichInterface,
-      data: { iteration }
-    } = this.props;
+    const { dataFn, logger, whichInterface, data } = this.props;
 
+    const { iteration } = data;
     const { question, start } = this.state;
     const isCorrect = isEqual(question, answer);
 
     const timeTaken = Date.now() - start;
+
+    const value = [data.score + (isCorrect ? 1 : 0), -(data.time + timeTaken)];
 
     logger([
       {
@@ -143,8 +142,12 @@ class Interface extends React.Component {
           isCorrect,
           timeTaken
         }
-      }
+      },
+      { type: 'score', value }
     ]);
+
+    dataFn.numIncr(isCorrect ? 1 : 0, 'score');
+    dataFn.numIncr(timeTaken, 'time');
 
     this.stopTimer();
     this.setState({ showticketStatus: true, isCorrect });
