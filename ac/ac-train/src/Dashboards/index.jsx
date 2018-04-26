@@ -13,7 +13,6 @@ import {
   LeaderBoard
 } from 'frog-utils';
 
-import MeanThroughOutStudy from './MeanThroughOutStudy';
 import MeanPerInterface from './MeanPerInterface';
 import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 
@@ -76,12 +75,6 @@ class AllDashboards extends React.Component<DashboardViewerPropsT, StateT> {
       >
         {({ measureRef }) => (
           <div ref={measureRef} style={styles.flexGrid}>
-            <div style={styles[widthStyle]}>
-              <MeanThroughOutStudy {...this.props} whichDash="error" />
-            </div>
-            <div style={styles[widthStyle]}>
-              <MeanThroughOutStudy {...this.props} whichDash="time" />
-            </div>
             <div style={styles[widthStyle]}>
               <MeanPerTryForEachInterface {...this.props} whichDash="error" />
             </div>
