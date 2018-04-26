@@ -6,7 +6,11 @@ import pkg from '../index';
 
 const operator = pkg.operator;
 
-const wrap = (instances, distanceMatrix, groups): ObjectT & GlobalStructureT => ({
+const wrap = (
+  instances,
+  distanceMatrix,
+  groups
+): ObjectT & GlobalStructureT => ({
   activityData: {
     structure: 'all',
     payload: {
@@ -25,10 +29,7 @@ const wrap = (instances, distanceMatrix, groups): ObjectT & GlobalStructureT => 
   }
 });
 
-const test1 = wrap(
-  ['s1', 's2', 's3', 's4'],
-  null
-);
+const test1 = wrap(['s1', 's2', 's3', 's4'], null);
 
 const test2 = wrap(
   ['s1', 's2', 's3', 's4'],
@@ -58,25 +59,27 @@ const test4 = wrap(
   ]
 );
 
-const getRandomTest = (length) => {
-  const distanceMatrix = Array.from({length}, () => Array.from({ length }, () => 100 * Math.random()))
-  const instances = Array.from({length}, (_,i) => 's' + (i+1))
+const getRandomTest = length => {
+  const distanceMatrix = Array.from({ length }, () =>
+    Array.from({ length }, () => 100 * Math.random())
+  );
+  const instances = Array.from({ length }, (_, i) => 's' + (i + 1));
   const groups = instances.reduce(
     (acc, val, idx) => {
-      acc['' + ( 1 + (idx % 3) )].push(val)
-      return acc
+      acc['' + (1 + idx % 3)].push(val);
+      return acc;
     },
     { '1': [], '2': [], '3': [] }
-  )
-  return wrap(instances, distanceMatrix, groups)
-}
+  );
+  return wrap(instances, distanceMatrix, groups);
+};
 
-const time = (fn) => {
-  const start = new Date().getTime()
-  fn()
-  const end = new Date().getTime()
-  return (end - start) < 2000
-}
+const time = fn => {
+  const start = new Date().getTime();
+  fn();
+  const end = new Date().getTime();
+  return end - start < 2000;
+};
 
 test('test 1', () =>
   expect(operator({ matching: '1,1;2,2' }, test1)).toEqual({
@@ -101,29 +104,24 @@ test('test 4', () =>
 test('test 50', () =>
   expect(
     time(() => operator({ matching: '1,1;2,2' }, getRandomTest(50)))
-  ).toEqual(true)
-);
+  ).toEqual(true));
 
 test('test 51', () =>
   expect(
     time(() => operator({ matching: '1,1;2,2' }, getRandomTest(51)))
-  ).toEqual(true)
-);
+  ).toEqual(true));
 
 test('test 99', () =>
   expect(
     time(() => operator({ matching: '1,1;2,2' }, getRandomTest(100)))
-  ).toEqual(true)
-);
+  ).toEqual(true));
 
 test('test 100', () =>
   expect(
     time(() => operator({ matching: '1,1;2,2' }, getRandomTest(100)))
-  ).toEqual(true)
-);
+  ).toEqual(true));
 
 test('test 200', () =>
   expect(
     time(() => operator({ matching: '1,1;2,2' }, getRandomTest(200)))
-  ).toEqual(true)
-);
+  ).toEqual(true));
