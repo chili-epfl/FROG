@@ -1,5 +1,3 @@
-// @flow
-
 import bodyParser from 'body-parser';
 import { Picker } from 'meteor/meteorhacks:picker';
 import { uuid } from 'frog-utils';
