@@ -25,6 +25,7 @@ const ConfigComponent = ({ activityTypeId, config, setConfig }) => {
       setConfigData={d =>
         setConfig({ ...config, invalid: false, component: d })
       }
+      formContext={{}}
     />
   );
 };

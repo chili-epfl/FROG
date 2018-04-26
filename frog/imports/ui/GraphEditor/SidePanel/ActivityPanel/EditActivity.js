@@ -229,6 +229,12 @@ const RawEditActivity = ({
       />
       {activityType.ConfigComponent && (
         <activityType.ConfigComponent
+          key={activity._id}
+          formContext={{
+            connectedActivities: otherActivityIds,
+            connectedSourceActivities,
+            connectedTargetActivities
+          }}
           configData={{ component: {}, ...activity.data }}
           setConfigData={d => {
             addActivity(
