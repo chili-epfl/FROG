@@ -118,7 +118,15 @@ const operator = (configData, object): socialStructureT => {
 
   const unmatchedStudents = studentIds.filter(id => !matchedStudents[id]);
   chunk(unmatchedStudents, 2).forEach((pair, idx) => {
-    groups['unmatched' + (idx + 1)] = pair;
+    if (pair.length > 1) {
+      groups['unmatched' + (idx + 1)] = pair;
+    } else if (groups['unmatched1']) {
+      groups['unmatched1'].push(pair[0]);
+    } else if (groups['1']) {
+      groups['1'].push(pair[0]);
+    } else {
+      groups['alone'] = pair;
+    }
   });
 
   return { group: groups };

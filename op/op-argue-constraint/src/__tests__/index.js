@@ -11,19 +11,16 @@ const wrap = (instances, distanceMatrix): ObjectT & GlobalStructureT => ({
     structure: 'all',
     payload: {
       all: {
-        data: {
-          instances,
-          distanceMatrix
-        },
+        data: { distanceMatrix },
         config: {}
       }
     }
   },
   socialStructure: {
-    group: { '1': ['s1', 's2', 's5', 's6'], '2': ['s3', 's4'] }
+    group: { '1': ['s1', 's2', 's3'], '2': ['s4', 's5', 's6'] }
   },
   globalStructure: {
-    studentIds: ['s1', 's2', 's3', 's4', 's5', 's6'],
+    studentIds: instances,
     students: {}
   }
 });
@@ -63,20 +60,20 @@ const test4 = wrap(
 
 test('test 1', () =>
   expect(operator({ matching: '1,1;2,2' }, test1)).toEqual({
-    group: { '1': ['s1', 's2'], '2': ['s3', 's4'], '3': ['s5', 's6'] }
+    group: { '1': ['s1', 's2'], unmatched1: ['s3', 's4'] }
   }));
 
 test('test 2', () =>
   expect(operator({ matching: '1,1;2,2' }, test2)).toEqual({
-    group: { '1': ['s1', 's2'], '2': ['s3', 's4'], '3': ['s5', 's6'] }
+    group: { '1': ['s1', 's2'], unmatched1: ['s3', 's4'] }
   }));
 
 test('test 3', () =>
   expect(operator({ matching: '1,1;2,2' }, test3)).toEqual({
-    group: { '1': ['s1', 's6'], '2': ['s3', 's4'], '3': ['s5', 's2'] }
+    group: { '1': ['s1', 's2'], '2': ['s4', 's5'], unmatched1: ['s3', 's6'] }
   }));
 
 test('test 4', () =>
   expect(operator({ matching: '1,1;2,2' }, test4)).toEqual({
-    group: { '1': ['s1', 's6'], '2': ['s3', 's4'], '3': ['s5', 's2'] }
+    group: { '1': ['s1', 's2', 's3'], '2': ['s4', 's5'] }
   }));
