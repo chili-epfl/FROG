@@ -38,7 +38,7 @@ const MeanPerInterface = ({
 
     const coordinates = interfaces.map(int => {
       if (whichDash === 'help') {
-        const countSum = count[int].reduce((a,b) => a+b, 0);
+        const countSum = count[int].reduce((a, b) => a + b, 0);
         const avg = div(dash[int], countSum);
         const index = allInterfaces.indexOf(int) + 1;
 
@@ -48,8 +48,8 @@ const MeanPerInterface = ({
           name: int
         };
       } else {
-        const dashSum = dash[int].reduce((a,b) => a+b, 0);
-        const countSum = count[int].reduce((a,b) => a+b, 0);
+        const dashSum = dash[int].reduce((a, b) => a + b, 0);
+        const countSum = count[int].reduce((a, b) => a + b, 0);
         const avg = div(dashSum, countSum);
         const index = allInterfaces.indexOf(int) + 1;
 

@@ -103,9 +103,9 @@ export type DashStateT = {
   error: { [t: string]: number[] },
   time: { [t: string]: number[] },
   help: { [t: string]: number },
-  count: {[t: string]: number[] },
+  count: { [t: string]: number[] },
   sum: { [t: string]: number[] }
-}
+};
 
 const initData: DashStateT = {
   error: {},
