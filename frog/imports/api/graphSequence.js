@@ -43,7 +43,7 @@ export const calculateNextOpen = (
 export const getActivitySequence = (
   activities: ActivityDbT[]
 ): { [string]: number } => {
-  let timeInGraph;
+  let timeInGraph = 0;
   const activitySeq = {};
   let c = 0;
   while (timeInGraph !== -1) {
