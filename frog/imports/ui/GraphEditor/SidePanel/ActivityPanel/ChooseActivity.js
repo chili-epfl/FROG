@@ -162,10 +162,9 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               <div
                 className="list-group"
                 style={{
-                  height: '93%',
+                  maxHeight: '700px',
                   width: '100%',
-                  overflowY: 'scroll',
-                  transform: 'translateY(10px)'
+                  overflowY: 'scroll'
                 }}
               >
                 {filteredList.length === 0 ? (

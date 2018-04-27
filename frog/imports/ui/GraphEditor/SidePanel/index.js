@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
 import styled from 'styled-components';
+import Grid from 'material-ui/Grid';
 
 import { connect } from '../store';
 import ActivityPanel from './ActivityPanel';
@@ -40,16 +41,14 @@ export default connect(
 );
 
 const SidebarContainer = connect(({ children }) => (
-  <div className="bootstrap">
-    <SidebarContainerDiv>{children}</SidebarContainerDiv>
-  </div>
+  <Grid item xs={5}>
+    <div className="bootstrap">
+      <SidebarContainerDiv>{children}</SidebarContainerDiv>
+    </div>
+  </Grid>
 ));
 
 const SidebarContainerDiv = styled.div`
-  padding: 0px;
-  x: 300px;
-  width: 497px;
-  height: 760px;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;

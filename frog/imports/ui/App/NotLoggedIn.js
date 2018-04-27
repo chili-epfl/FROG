@@ -28,7 +28,7 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
   ) {
     const name = randomName();
     return (
-      <div style={{ margin: '25px' }}>
+      <div style={{ height: '100%', padding: '25px' }}>
         <h1>FROG: Not logged in</h1>
         <FlexView>
           <div style={{ width: '50%' }}>
@@ -79,7 +79,7 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
               as a student, and these logins will survive reloads.
             </p>
             <p>
-              More information for developers about code style, developer tools,{' '}
+              More information for developers about code style, developer tools,
               type definitions, and data structures, on the{' '}
               <b>
                 <a href="https://github.com/chili-epfl/frog">GitHub wiki</a>.
