@@ -5,11 +5,7 @@ import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
 import { Activities, Operators, Connections } from './activities';
-import {
-  runSessionFn,
-  runNextActivity,
-  updateNextOpenActivities
-} from './engine';
+import { runSessionFn, runNextActivity } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
 
@@ -205,11 +201,9 @@ const addSessionFn = (graphId: string, slug: string): string => {
     if (newName[0] !== '#') {
       newName = '#' + newName;
     }
-    const activities = Activities.find({ graphId }).fetch();
-
     const copyGraphId = addGraph({
       graph: { ...graph, name: newName },
-      activities,
+      activities: Activities.find({ graphId }).fetch(),
       operators: Operators.find({ graphId }).fetch(),
       connections: Connections.find({ graphId }).fetch()
     });
@@ -240,11 +234,9 @@ const addSessionFn = (graphId: string, slug: string): string => {
       openActivities: [],
       slug: newSlug
     });
-    updateNextOpenActivities(sessionId, -1, activities);
     Graphs.update(copyGraphId, { $set: { sessionId } });
 
     setTeacherSession(sessionId);
-    runSessionFn(sessionId);
     return sessionId;
   }
   return '';

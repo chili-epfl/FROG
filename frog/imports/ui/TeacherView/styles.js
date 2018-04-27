@@ -72,12 +72,6 @@ const styles = theme => ({
   },
   flex: {
     flex: 1
-  },
-  buttonBar: {
-    position: 'absolute',
-    bottom: '20px',
-    width: 'calc(100% - 30px)',
-    marginRight: '10px'
   }
 });
 
