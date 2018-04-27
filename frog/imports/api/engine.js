@@ -2,6 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { type ActivityDbT } from 'frog-utils';
 
 import { Activities } from './activities';
 import {
@@ -18,6 +19,20 @@ export const runSession = (sessionId: string) =>
 
 export const nextActivity = (sessionId: string) =>
   Meteor.call('next.activity', sessionId);
+
+export const updateNextOpenActivities = (
+  sessionId: string,
+  timeInGraph: number,
+  activities: ActivityDbT[]
+) => {
+  const [_, futureOpen] = calculateNextOpen(timeInGraph, activities);
+  const nextActivities = futureOpen.map(
+    x => `${x.title || ''} (${x.plane === 4 ? 'teacher task' : 'p' + x.plane})`
+  );
+  Sessions.update(sessionId, {
+    $set: { nextActivities }
+  });
+};
 
 export const runNextActivity = (sessionId: string) => {
   if (Meteor.isServer) {
@@ -44,6 +59,7 @@ export const runNextActivity = (sessionId: string) => {
       Meteor.call('reactive.to.product', act);
       Meteor.call('archive.dashboard.state', act);
     });
+    updateNextOpenActivities(sessionId, newTimeInGraph, activities);
   }
 };
 

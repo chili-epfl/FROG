@@ -11,18 +11,20 @@ import red from 'material-ui/colors/red';
 import green from 'material-ui/colors/green';
 import Button from 'material-ui/Button';
 import Tooltip from 'material-ui/Tooltip';
+import { withStyles } from 'material-ui/styles';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { updateSessionState, restartSession } from '../../../api/sessions';
 import downloadLog from './downloadLog';
 import { runSession, nextActivity } from '../../../api/engine';
 import { exportSession } from './exportComponent';
+import styles from '../styles';
 
 export const OrchestrationButtonsModel = (session, classes) => ({
   start: {
     tooltip: {
       id: 'tooltip-top',
-      title: 'Star the current session',
+      title: 'Start the current session',
       placement: 'top'
     },
     button: {
@@ -104,7 +106,12 @@ export const OrchestrationButtonsModel = (session, classes) => ({
   }
 });
 
-export const SessionUtilsButtonsModel = (session, toggle, token) => ({
+export const SessionUtilsButtonsModel = (
+  session,
+  toggle,
+  token,
+  openSettings
+) => ({
   current: {
     tooltip: {
       id: 'tooltip-top',
@@ -123,6 +130,19 @@ export const SessionUtilsButtonsModel = (session, toggle, token) => ({
     button: {
       onClick: () => exportSession(session._id),
       text: 'Export Session'
+    }
+  },
+  settings: {
+    button: {
+      onClick: openSettings,
+      text: 'Session Settings'
+    }
+  },
+  restart: {
+    button: {
+      onClick: () => restartSession(session),
+      text: 'Restart Session',
+      color: red[700]
     }
   },
   download: {
@@ -150,7 +170,7 @@ const ToolTipComponent = ({ tooltip, children }) => (
   </Tooltip>
 );
 
-export const ControlButton = ({ btnModel, classes }) => {
+export const ControlButton = ({ btnModel, classes, style }) => {
   const { tooltip, button, icon } = btnModel;
 
   return (
@@ -159,7 +179,10 @@ export const ControlButton = ({ btnModel, classes }) => {
         variant={button.variant || 'flat'}
         color={button.themeColor || 'default'}
         className={classes.controlBtn}
-        style={{ backgroundColor: button.color }}
+        style={{
+          backgroundColor: button.color,
+          ...style
+        }}
         onClick={button.onClick}
       >
         {icon}
@@ -188,3 +211,33 @@ export const ControlButtonLink = ({ btnModel, classes }) => {
     </ToolTipComponent>
   );
 };
+
+const DashToggleRaw = ({
+  visible,
+  toggleVisible,
+  classes
+}: {
+  visible: boolean,
+  toggleVisible: Function,
+  classes: Object
+}) => (
+  <ToolTipComponent
+    tooltip={{
+      id: 'tooltip-dashtoggle',
+      title: 'Toggle between dashboard and graph view',
+      placement: 'bottom'
+    }}
+  >
+    <Button
+      className={classes.controlBtn}
+      variant="raised"
+      color="default"
+      style={{ backgroundColor: blue[700], color: '#ffffff' }}
+      onClick={toggleVisible}
+    >
+      {visible ? 'Graph' : 'Dashboard'}
+    </Button>
+  </ToolTipComponent>
+);
+
+export const DashToggle = withStyles(styles)(DashToggleRaw);
