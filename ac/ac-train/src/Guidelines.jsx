@@ -40,10 +40,10 @@ export const FormGuidelines = () => (
   </React.Fragment>
 );
 
-export const GraphicGuidelines = () => (
+export const MapGuidelines = () => (
   <React.Fragment>
     <Typography variant="title" gutterBottom>
-      Graphical interface:
+      Map interface:
     </Typography>
 
     <Typography variant="subheading" gutterBottom>
@@ -105,7 +105,7 @@ export const StartingGuidelines = () => (
     </Grid>
 
     <Grid item style={{ width: '100%' }}>
-      <GraphicGuidelines />
+      <MapGuidelines />
     </Grid>
 
     <Grid item style={{ width: '100%' }}>
@@ -132,8 +132,8 @@ export const SwitchGuidelines = ({
       return <FormGuidelines />;
     case 'dragdrop':
       return <DragAndDropGuidelines />;
-    case 'graphical':
-      return <GraphicGuidelines />;
+    case 'map':
+      return <MapGuidelines />;
     default:
       return null;
   }
@@ -151,7 +151,7 @@ const SpecificGuidelineController = ({
   classes: Object
 }) => (
   <Grid container justify="center">
-    <Grid container className={classes.guidelines} spacing={24}>
+    <Grid container className={step > 0 ? classes.guidelines : ''} spacing={24}>
       <Grid item sm={12}>
         <SwitchGuidelines whichInterface={whichInterface} />
       </Grid>

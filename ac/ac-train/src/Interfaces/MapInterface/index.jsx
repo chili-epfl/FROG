@@ -82,7 +82,7 @@ type PropsT = {
   ticker: string
 };
 
-class Graphical extends React.Component<PropsT, StateT> {
+class MapInterface extends React.Component<PropsT, StateT> {
   state = {
     answer: {
       from: '',
@@ -206,4 +206,4 @@ class Graphical extends React.Component<PropsT, StateT> {
   }
 }
 
-export default withStyles(styles)(Graphical);
+export default withStyles(styles)(MapInterface);

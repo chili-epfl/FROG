@@ -70,7 +70,7 @@ class Main extends React.Component<PropsT> {
     const { userInfo } = this.props;
 
     const shuffledInterfaces = seededShuffle.shuffle(
-      ['dragdrop', 'form', 'command', 'graphical'],
+      ['dragdrop', 'form', 'command', 'map'],
       userInfo.id
     );
 
@@ -125,10 +125,6 @@ const RunnerController = (
       <LinearProgress
         variant="determinate"
         value={p}
-        style={{
-          position: 'fixed',
-          width: '100%'
-        }}
         classes={{
           root: classes.progressBarHeight,
           barColorPrimary: classes.progressBarColor,

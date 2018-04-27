@@ -1,6 +1,6 @@
 export const color = (c: string) => {
   switch (c) {
-    case 'graphical':
+    case 'map':
       return '#d7191c';
     case 'command':
       return '#fdae61';

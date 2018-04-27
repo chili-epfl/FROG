@@ -2,6 +2,8 @@
 import * as React from 'react';
 import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis } from 'victory';
 
+import { range } from 'lodash';
+
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
@@ -78,11 +80,8 @@ const MeanPerTryForEachInterface = ({
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <VictoryChart domainPadding={{ y: [0, 5] }}>
-              <VictoryAxis
-                tickCount={iterationPerInterface}
-                tickFormat={t => Math.round(t)}
-              />
+            <VictoryChart domain={domain} domainPadding={20}>
+              <VictoryAxis tickValues={range(1, iterationPerInterface + 1)} />
               <VictoryAxis dependentAxis />
               <VictoryLegend
                 x={50}
@@ -96,7 +95,6 @@ const MeanPerTryForEachInterface = ({
               {allCoordinates.map(int => (
                 <VictoryLine
                   key={int.name}
-                  domain={domain}
                   style={{
                     data: { stroke: color(int.name) },
                     parent: { border: '1px solid #ccc' }

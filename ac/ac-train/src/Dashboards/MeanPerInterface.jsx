@@ -31,17 +31,16 @@ const MeanPerInterface = ({
   const count = state['count'];
   const dash = state[whichDash];
 
-  const interfaces = Object.keys(dash);
+  const interfaces = Object.keys(count);
 
   if (interfaces.length > 0) {
-    const allInterfaces = ['dragdrop', 'form', 'graphical', 'command'];
+    const allInterfaces = ['dragdrop', 'form', 'map', 'command'];
 
     const coordinates = interfaces.map(int => {
       if (whichDash === 'help') {
         const countSum = count[int].reduce((a, b) => a + b, 0);
         const avg = div(dash[int], countSum);
         const index = allInterfaces.indexOf(int) + 1;
-
         return {
           interface: index,
           avg,
@@ -57,7 +56,7 @@ const MeanPerInterface = ({
           interface: index,
           avg,
           name: int,
-          label: `${int}-> ${avg} sec`
+          label: `${int}-> ${Math.round(avg * 100) / 100}`
         };
       }
     });
