@@ -59,6 +59,7 @@ export default (props: Object) => {
   const examples = addDefaultExample(activityType);
 
   const refresh = () => {
+    console.log('init from refresh');
     initActivityDocuments(instances, activityType, example, config, true);
     // resets the reactive documents for the dashboard
     initDashboardDocuments(activityType, true);
@@ -183,6 +184,7 @@ export default (props: Object) => {
                 const exConf = ex.config;
                 setConfig(exConf);
                 setReloadAPIform(uuid());
+                console.log('init from nav');
                 initActivityDocuments(instances, activityType, i, exConf, true);
                 initDashboardDocuments(activityType, true);
                 setExample(i);

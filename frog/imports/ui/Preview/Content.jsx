@@ -33,6 +33,7 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
+  console.log('init', instances, activityType, example, config, refresh);
   instances.forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
@@ -92,7 +93,7 @@ const ContentController = ({
   const RunComp = activityType.ActivityRunner;
   RunComp.displayName = activityType.id;
 
-  const examples = activityType.meta.exampleData || [];
+  const examples = addDefaultExample(activityType);
   const exData = examples[example] && cloneDeep(examples[example]);
   const data = exData && (exData.data ? exData.data : undefined);
   const activityData = { data, config };
