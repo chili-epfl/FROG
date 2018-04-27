@@ -1,6 +1,12 @@
 // @flow
 import * as React from 'react';
-import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis } from 'victory';
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryLegend,
+  VictoryAxis,
+  VictoryLabel
+} from 'victory';
 
 import { range } from 'lodash';
 
@@ -11,6 +17,7 @@ import { withStyles } from 'material-ui/styles';
 
 import { type DashStateT } from '.';
 import { color } from './utils';
+import { capitalizeFirstLetter } from '../ActivityUtils';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -81,8 +88,16 @@ const MeanPerTryForEachInterface = ({
           </Grid>
           <Grid item xs={12}>
             <VictoryChart domain={domain} domainPadding={20}>
-              <VictoryAxis tickValues={range(1, iterationPerInterface + 1)} />
-              <VictoryAxis dependentAxis />
+              <VictoryAxis
+                tickValues={range(1, iterationPerInterface + 1)}
+                tickFormat={d => `Trial ${d}`}
+              />
+              <VictoryAxis
+                dependentAxis
+                label={`Mean ${capitalizeFirstLetter(whichDash)}`}
+                axisLabelComponent={<VictoryLabel dy={-12} />}
+                tickFormat={d => Math.round(d * 10) / 10}
+              />
               <VictoryLegend
                 x={50}
                 y={0}

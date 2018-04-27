@@ -1,7 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import { VictoryChart, VictoryBar, VictoryTooltip, VictoryAxis } from 'victory';
+import {
+  VictoryChart,
+  VictoryBar,
+  VictoryTooltip,
+  VictoryAxis,
+  VictoryLabel
+} from 'victory';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -10,6 +16,7 @@ import { withStyles } from 'material-ui/styles';
 
 import { type DashStateT } from '.';
 import { color, div } from './utils';
+import { capitalizeFirstLetter } from '../ActivityUtils';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -63,6 +70,13 @@ const MeanPerInterface = ({
 
     const xDomain = whichDash === 'error' ? [0, 1] : null;
 
+    const xAxisLabel = d => {
+      if (whichDash === 'time') {
+        return `${d} sec`;
+      }
+      return d;
+    };
+
     return (
       <Paper className={classes.root} elevation={4}>
         <Grid container>
@@ -82,7 +96,12 @@ const MeanPerInterface = ({
                 tickValues={[1, 2, 3, 4]}
                 tickFormat={allInterfaces}
               />
-              <VictoryAxis domain={xDomain} />
+              <VictoryAxis
+                domain={xDomain}
+                tickFormat={xAxisLabel}
+                label={`Mean ${capitalizeFirstLetter(whichDash)}`}
+                axisLabelComponent={<VictoryLabel dy={15} />}
+              />
               <VictoryBar
                 horizontal
                 style={{
