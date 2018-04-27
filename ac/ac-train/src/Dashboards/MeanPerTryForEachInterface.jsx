@@ -7,6 +7,7 @@ import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 
+import { type DashStateT } from '.';
 import { color } from './utils';
 
 const styles = theme => ({
@@ -26,7 +27,7 @@ const MeanPerTryForEachInterface = ({
   classes
 }: {
   whichDash: string,
-  state: Object,
+  state: DashStateT,
   activity: {
     data: {
       iterationPerInterface: number
