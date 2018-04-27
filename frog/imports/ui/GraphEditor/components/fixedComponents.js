@@ -28,6 +28,7 @@ export const PanMap = connect(
 );
 
 const onDoubleClick = (x, e) => {
+  e.preventDefault();
   store.activityStore.addActivity(x, e.nativeEvent.offsetX, e.shiftKey);
 };
 
@@ -51,7 +52,10 @@ export const LevelLines = connect(
             strokeDasharray={x === 1 ? '10,10' : '5,5'}
           />
           <rect
-            onDoubleClick={e => onDoubleClick(5 - x, e)}
+            onDoubleClick={e => {
+              onDoubleClick(5 - x, e);
+              e.preventDefault();
+            }}
             x={0}
             y={x * 100 + 45}
             width={graphWidth * (scaled ? scale : 4)}
