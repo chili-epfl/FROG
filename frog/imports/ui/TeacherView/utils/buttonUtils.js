@@ -201,8 +201,6 @@ export const ControlButton = ({ btnModel, classes, style }) => {
 export const ControlButtonLink = ({ btnModel, classes }) => {
   const { tooltip, button, icon } = btnModel;
 
-  console.log(icon);
-
   return (
     <ToolTipComponent tooltip={tooltip}>
       <Button
