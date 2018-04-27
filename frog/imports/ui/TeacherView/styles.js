@@ -78,6 +78,13 @@ const styles = theme => ({
     bottom: '20px',
     width: 'calc(100% - 30px)',
     marginRight: '10px'
+  },
+  tempButtons: {
+    position: 'absolute',
+    bottom: '0',
+    width: '100%',
+    textAlign: 'center',
+    marginBottom: '20px'
   }
 });
 
