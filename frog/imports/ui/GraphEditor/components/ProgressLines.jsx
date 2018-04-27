@@ -13,7 +13,7 @@ export default connect(
     scaled,
     store: {
       ui: { scale },
-      session: { timeInGraph, timeInClass }
+      session: { timeInGraph }
     }
   }: StoreProp & { scaled: Boolean }) => {
     const s = scaled ? scale : 4;

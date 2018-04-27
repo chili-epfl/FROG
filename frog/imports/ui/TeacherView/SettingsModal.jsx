@@ -47,7 +47,7 @@ class SettingsModal extends React.Component {
   };
 
   render() {
-    const { onClose, classes, session } = this.props;
+    const { onClose, classes } = this.props;
     return (
       <Dialog open onClose={onClose} transition={Transition}>
         <AppBar className={classes.appBar}>
