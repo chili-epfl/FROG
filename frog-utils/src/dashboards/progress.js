@@ -114,8 +114,6 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   //   : state.maxTime;
   const currentMaxTime = state.maxTime;
   const sessionStatus = {};
-  console.log(state)
-  console.log(linearRegression([[0, 0], [1, 1], [1, 2]]))
 
   Object.keys(state.user).forEach(user => {
     const userActivities = state.user[user];
