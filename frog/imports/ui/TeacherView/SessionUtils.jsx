@@ -10,9 +10,8 @@ import styles from './styles';
 import { setTeacherSession } from '../../api/sessions';
 
 import {
-  ControlButton,
-  SessionUtilsButtonsModel,
-  DashToggle
+  ControlButtonLink,
+  SessionUtilsButtonsModel
 } from './utils/buttonUtils.js';
 
 class UtilsMenu extends React.Component<any, { anchorEl: any }> {
@@ -85,20 +84,8 @@ class UtilsMenu extends React.Component<any, { anchorEl: any }> {
   }
 }
 
-const SessionUtils = ({
-  classes,
-  session,
-  toggle,
-  token,
-  visible,
-  openSettings
-}) => {
-  const buttonsModel = SessionUtilsButtonsModel(
-    session,
-    toggle,
-    token,
-    openSettings
-  );
+const SessionUtils = ({ classes, session, token, openSettings }) => {
+  const buttonsModel = SessionUtilsButtonsModel(session, token, openSettings);
 
   return (
     <div className={classes.root}>
@@ -109,11 +96,12 @@ const SessionUtils = ({
         alignItems="center"
         containerspacing={0}
       >
+        <Grid item xs={4} />
         <Grid item xs={4} className={classes.textCenter}>
-          <ControlButton btnModel={buttonsModel.current} classes={classes} />
-        </Grid>
-        <Grid item>
-          <DashToggle visible={visible} toggleVisible={toggle} />
+          <ControlButtonLink
+            btnModel={buttonsModel.current}
+            classes={classes}
+          />
         </Grid>
         <Grid item xs={4} style={{ textAlign: 'right' }}>
           <UtilsMenu buttonsModel={buttonsModel} />

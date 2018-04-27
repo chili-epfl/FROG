@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
@@ -31,33 +31,39 @@ const OrchestrationViewController = ({
           <Grid item xs={12}>
             <SessionUtils
               session={session}
-              toggle={toggleVisibility}
-              visible={visible}
               token={token}
               openSettings={() => setSettingsOpen(true)}
             />
           </Grid>
-          {visible ? (
-            // when the graph is turned off
-            <React.Fragment>
-              <DashboardNav
-                session={session}
-                openActivities={session.openActivities}
-              />
-              <OrchestrationCtrlButtons session={session} />
-            </React.Fragment>
-          ) : (
-            <Grid item xs={12}>
-              <Card>
-                <CardContent>
-                  <GraphView session={session} />
-                </CardContent>
-                <CardActions>
-                  <OrchestrationCtrlButtons session={session} />
-                </CardActions>
-              </Card>
+          <Grid item xs={12}>
+            <Grid container>
+              <Grid item xs={12}>
+                {visible ? (
+                  // when the graph is turned off
+                  <React.Fragment>
+                    <DashboardNav
+                      session={session}
+                      openActivities={session.openActivities}
+                    />
+                    <OrchestrationCtrlButtons session={session} />
+                  </React.Fragment>
+                ) : (
+                  <Card>
+                    <CardContent>
+                      <GraphView session={session} />
+                    </CardContent>
+                  </Card>
+                )}
+              </Grid>
+              <Grid item xs={12} className={classes.tempButtons}>
+                <OrchestrationCtrlButtons
+                  session={session}
+                  toggle={toggleVisibility}
+                  visible={visible}
+                />
+              </Grid>
             </Grid>
-          )}
+          </Grid>
         </Grid>
       ) : (
         <div>

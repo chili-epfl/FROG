@@ -6,6 +6,10 @@ import SkipNext from '@material-ui/icons/SkipNext';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Refresh from '@material-ui/icons/Refresh';
 import PowerSettingNew from '@material-ui/icons/PowerSettingsNew';
+import Create from '@material-ui/icons/Create';
+import TrendingUp from '@material-ui/icons/TrendingUp';
+import ScreenShare from '@material-ui/icons/ScreenShare';
+
 import blue from 'material-ui/colors/blue';
 import red from 'material-ui/colors/red';
 import green from 'material-ui/colors/green';
@@ -115,15 +119,17 @@ export const SessionUtilsButtonsModel = (
   current: {
     tooltip: {
       id: 'tooltip-top',
-      title: 'Active Session Link',
+      title: 'Active Session Link. Click for Projecter View',
       placement: 'bottom'
     },
     button: {
-      onClick: () => {},
       themeColor: 'primary',
-      text: `Current Session: ${session.slug}`,
-      href: `/${session.slug}`
+      text: `Session : ${session.slug}`,
+      href: `/projector/${session.slug}?login=teacher&token=${(token &&
+        token.value) ||
+        ''}`
     },
+    icon: <ScreenShare style={{ marginRight: '5px' }} />,
     source: 'toolbar'
   },
   export: {
@@ -204,6 +210,7 @@ export const ControlButtonLink = ({ btnModel, classes }) => {
         style={{ backgroundColor: button.color }}
         onClick={button.onClick}
         href={button.href}
+        target="_blank"
       >
         {icon}
         {button.text}
@@ -224,18 +231,25 @@ const DashToggleRaw = ({
   <ToolTipComponent
     tooltip={{
       id: 'tooltip-dashtoggle',
-      title: 'Toggle between dashboard and graph view',
-      placement: 'bottom'
+      title: visible ? 'Orchestration' : 'Dashboard',
+      placement: 'top'
     }}
   >
     <Button
-      className={classes.controlBtn}
       variant="raised"
-      color="default"
-      style={{ backgroundColor: blue[700], color: '#ffffff' }}
+      className={classes.controlBtn}
+      color="primary"
+      style={{ backgroundColor: red[700] }}
       onClick={toggleVisible}
     >
-      {visible ? 'Graph' : 'Dashboard'}
+      {visible ? (
+        <Create
+          className={classes.icon}
+          style={{ transform: 'rotate(180deg)' }}
+        />
+      ) : (
+        <TrendingUp className={classes.icon} />
+      )}
     </Button>
   </ToolTipComponent>
 );
