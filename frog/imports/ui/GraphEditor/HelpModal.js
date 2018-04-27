@@ -1,13 +1,28 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
-import { connect } from './store';
+import Dialog from 'material-ui/Dialog';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from 'material-ui/transitions/Slide';
+import List from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+
+const Transition = props => <Slide direction="up" {...props} />;
 
 const HelpModal = ({ show, hide }) => (
-  <Modal show={show} onHide={hide}>
-    <Modal.Header closeButton>
-      <Modal.Title>Graph Editor Help</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
+  <Dialog open={show} onClose={hide} transition={Transition}>
+    <AppBar>
+      <Toolbar>
+        <IconButton color="inherit" onClick={hide} aria-label="Close">
+          <CloseIcon />
+        </IconButton>
+        <Typography variant="title" color="inherit">
+          Help for the graph editor
+        </Typography>
+      </Toolbar>
+    </AppBar>
+    <List style={{ margin: '10px' }}>
       <h4>Adding activities</h4>
       Double-click on one of the three plane lines to add activities. Choose the
       kind of activity, and configure it, in the right sidebar.
@@ -49,10 +64,15 @@ const HelpModal = ({ show, hide }) => (
       <h4>Undo</h4>
       All your actions are immediately stored in the database. To undo, click
       the undo button at the bottom of the graph.
-    </Modal.Body>
-  </Modal>
+      <h4>Resizing automatically</h4>
+      <b>r</b> jumps between two states: resize all activities to be five
+      minutes long, and restore their original sizes
+      <h4>Organizing automatically</h4>
+      <b>z</b> jumps between three states: move all activities next to each
+      other, put five minutes distance between all activities, and restore
+      original positions
+    </List>
+  </Dialog>
 );
 
-export default connect(({ store: { ui: { showModal, setModal } } }) => (
-  <HelpModal show={showModal} hide={() => setModal(false)} />
-));
+export default HelpModal;
