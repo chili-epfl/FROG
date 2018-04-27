@@ -1,31 +1,24 @@
 // @flow
 
 import { DDP } from 'meteor/ddp-client';
-import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 let connection = null;
 let dashboardCollection = null;
 
-export default (callback: Function) => {
+export default (): [any, any] => {
   if (!Meteor.settings.public.dashboard_server_url) {
     if (!dashboardCollection) {
       dashboardCollection = new Mongo.Collection('dashboard');
     }
-    callback(dashboardCollection);
-    return;
+    return [false, dashboardCollection];
   }
   if (connection) {
-    callback(dashboardCollection, connection);
+    return [connection, dashboardCollection];
   } else {
-    const conn = DDP.connect(Meteor.settings.public.dashboard_server_url);
-    dashboardCollection = new Mongo.Collection('dashboard', conn);
-    Tracker.autorun(() => {
-      if (conn.status().connected) {
-        connection = conn;
-        callback(dashboardCollection, connection);
-      }
-    });
+    connection = DDP.connect(Meteor.settings.public.dashboard_server_url);
+    dashboardCollection = new Mongo.Collection('dashboard', connection);
+    return [connection, dashboardCollection];
   }
 };

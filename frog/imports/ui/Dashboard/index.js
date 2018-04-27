@@ -3,9 +3,8 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import Spinner from 'react-spinner';
 import { omit } from 'lodash';
-import { Mongo } from 'meteor/mongo';
+import { CircularProgress } from 'material-ui/Progress';
 
 import { type ActivityDbT } from 'frog-utils';
 
@@ -25,89 +24,61 @@ type DashboardCompPropsT = {
   data?: any
 };
 
-export class DashboardComp extends React.Component<
-  DashboardCompPropsT,
-  { ready: boolean }
-> {
-  mounted: boolean;
-  subscription: any;
-  dashboardCollection: any = false;
-
-  constructor(props: DashboardCompPropsT) {
-    super(props);
-    this.state = { ready: false };
+const RawDashboardComp = ({
+  activity,
+  users,
+  instances,
+  name,
+  state,
+  ready
+}) => {
+  if (!ready && !state) {
+    return <CircularProgress />;
   }
+  const aT = activityTypesObj[activity.activityType];
+  if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
+    return <p>The selected activity has no dashboard</p>;
+  }
+  const Dash = aT.dashboards[name].Viewer;
+  return (
+    <Dash
+      {...{
+        state,
+        users,
+        activity,
+        instances,
+        config: activity.data
+      }}
+    />
+  );
+};
 
-  componentDidMount = () => {
-    this.mounted = true;
-    if (!this.props.data) {
-      dashboardConnect(this.subscribe);
-    }
-  };
-
-  subscribe = (dashboardCollection: Mongo.Collection, conn?: Object) => {
-    this.dashboardCollection = dashboardCollection;
-    this.subscription = (conn || Meteor).subscribe(
+export const DashboardComp = withTracker(props => {
+  if (props.data) {
+    return { ready: true, state: props.data };
+  }
+  const [connection, dashboardCollection] = dashboardConnect();
+  if (connection === false || connection.status().ready) {
+    (connection || Meteor).subscribe(
       'dashboard',
-      this.props.activity._id,
-      this.props.activity.activityType,
-      this.props.name,
-      {
-        onReady: () => {
-          this.setState({ ready: true });
-        },
-        onStop: err => {
-          if (err) {
-            console.error('Error on subscribing to dashboard data', err);
-          }
-        }
-      }
+      props.activity._id,
+      props.activity.activityType,
+      props.name
     );
-  };
-
-  componentWillUnmount = () => {
-    if (this.subscription) {
-      this.subscription.stop();
-    }
-  };
-
-  render() {
-    if (!this.state.ready && !this.props.data) {
-      return <Spinner />;
-    }
-    const aT = activityTypesObj[this.props.activity.activityType];
-    const { users, activity, instances, name } = this.props;
-    if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
-      return <p>The selected activity has no dashboard</p>;
-    }
-    const Dash = aT.dashboards[name].Viewer;
-    const DashWith = this.props.data
-      ? props => <Dash state={this.props.data} {...props} />
-      : withTracker(() => ({
-          state: this.dashboardCollection.findOne(
-            this.props.activity._id + '-' + this.props.name
-          )
-        }))(
-          ({ state, ...props }) =>
-            state ? <Dash state={omit(state, '_id')} {...props} /> : <Spinner />
-        );
-
-    DashWith.displayName = 'DashWith';
-
-    return (
-      <DashWith
-        {...{
-          users,
-          activity,
-          instances,
-          config: activity.data
-        }}
-      />
+    const state = dashboardCollection.findOne(
+      props.activity._id + '-' + props.name
     );
+    if (state)
+      return {
+        ready: true,
+        state: omit(state, '_id')
+      };
+    else {
+      return { ready: false };
+    }
   }
-}
+})(RawDashboardComp);
 
-// This reactive wrapper works only when logged in as the teacher
 export const DashboardReactiveWrapper = withTracker(props => {
   const { activity, sessionId } = props;
   const session = Sessions.findOne(sessionId);
