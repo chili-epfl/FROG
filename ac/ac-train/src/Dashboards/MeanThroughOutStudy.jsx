@@ -7,6 +7,8 @@ import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import { VictoryChart, VictoryLine, VictoryAxis } from 'victory';
 
+import { type DashStateT } from '.';
+
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 16,
@@ -24,7 +26,7 @@ const MeanThrougOutStudy = ({
   classes
 }: {
   whichDash: string,
-  state: Object,
+  state: DashStateT,
   activity: {
     data: {
       iterationPerInterface: number

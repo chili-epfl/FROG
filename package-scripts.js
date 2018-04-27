@@ -14,11 +14,10 @@ if (findDir) {
 const fromRoot = cmd =>
   `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
 
-const build = (shouldWatch, dirtowatch) => {
-  const pkgdir = dirtowatch || dirname(sync('package.json'));
-  return `${dir}/node_modules/.bin/babel ${pkgdir}/src --out-dir ${pkgdir}/dist ${
-    shouldWatch ? '--watch' : ''
-  } && ${dir}/node_modules/.bin/flow-copy-source ${pkgdir}/src ${pkgdir}/dist`;
+const build = x => {
+  const bin = 'node_modules/.bin';
+  const pkgdir = x || dirname(sync('package.json'));
+  return `${dir}/${bin}/babel ${pkgdir}/src --out-dir ${pkgdir}/dist && ${dir}/${bin}/flow-copy-source ${pkgdir}/src ${pkgdir}/dist`;
 };
 
 const acop = () => {
@@ -31,27 +30,37 @@ const acop = () => {
   ];
 };
 
-const buildAll = (shouldWatch, notBackground) =>
+const buildAll = background =>
   acop()
-    .map(x => build(shouldWatch, x))
-    .join(notBackground ? ' && ' : ' & ');
+    .map(x => build(x))
+    .join(background ? ' &&' : '&');
 
 module.exports = {
   scripts: {
-    build: build(false),
-    eslintTest: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .'),
-    flowTest: fromRoot('flow'),
-    jest: fromRoot('jest'),
-    jestWatch: fromRoot('jest --watch'),
-    test: fromRoot(
-      'flow --quiet && npm run -s start eslint-test && npm run -s start jest'
-    ),
-    watch: fromRoot(`node watch.js ${process.env['PWD']}`),
-    watchAll: fromRoot('node watch.js all'),
-    buildAndWatchAll: fromRoot('node watch.js all build'),
-    buildAll: buildAll(false),
-    buildAllSingle: buildAll(false, true)
+    setup: {
+      default: fromRoot('git clean -fdx; ./initial_setup.sh'),
+      clean: fromRoot('killall -9 node; git clean -fdx; ./initial_setup.sh')
+    },
+    server: fromRoot('cd frog && meteor'),
+    build: {
+      default: build(),
+      all: buildAll(),
+      ci: buildAll(true)
+    },
+    watch: fromRoot('node watch.js watch'),
+    test: fromRoot('nps flow.quiet eslint jest'),
+    eslint: {
+      default: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
+      fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .')
+    },
+    flow: {
+      default: fromRoot('flow'),
+      quiet: fromRoot('flow --quiet')
+    },
+    jest: {
+      default: fromRoot('jest'),
+      watch: fromRoot('jest --watch')
+    }
   },
   options: {
     silent: true

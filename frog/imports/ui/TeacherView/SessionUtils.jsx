@@ -1,3 +1,5 @@
+// @flow
+
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
 import Menu, { MenuItem } from 'material-ui/Menu';
@@ -5,13 +7,14 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withStyles } from 'material-ui/styles';
 import styles from './styles';
+import { setTeacherSession } from '../../api/sessions';
 
 import {
   ControlButton,
   SessionUtilsButtonsModel
 } from './utils/buttonUtils.js';
 
-class UtilsMenu extends React.Component {
+class UtilsMenu extends React.Component<any, { anchorEl: any }> {
   state = {
     anchorEl: null
   };
@@ -65,6 +68,9 @@ class UtilsMenu extends React.Component {
             <a href={buttonsModel.projector.href} target="_blank">
               Projector View
             </a>
+          </MenuItem>
+          <MenuItem onClick={() => setTeacherSession(undefined)}>
+            Quit session
           </MenuItem>
         </Menu>
       </div>

@@ -28,12 +28,20 @@ export type BoundsT = {
 };
 
 export type StateT =
-  | { mode: 'resizing', currentActivity: Activity, bounds: BoundsT }
+  | {
+      mode: 'resizing',
+      currentActivity: Activity,
+      bounds: BoundsT,
+      activitiesToPush?: Activity[],
+      operatorsToPush?: Operator[]
+    }
   | {
       mode: 'moving',
       currentActivity: Activity,
       mouseOffset: number,
-      initialStartTime: number
+      initialStartTime: number,
+      activitiesToPush?: Activity[],
+      operatorsToPush?: Operator[]
     }
   | { mode: 'waitingDrag' }
   | { mode: 'movingOperator', currentOperator: Operator }
@@ -113,10 +121,10 @@ export default class Store {
         this.overlapAllowed = !this.overlapAllowed;
       }),
 
-      deleteSelected: action(() => {
+      deleteSelected: action(shift => {
         if (this.state.mode === 'normal') {
           if (this.ui.selected) {
-            this.ui.selected.remove();
+            this.ui.selected.remove(shift);
           }
           this.ui.selected = null;
         }
@@ -209,6 +217,7 @@ export default class Store {
           mergeGraph(this.objects);
         }
         this.refreshValidate();
+        this.activityStore.setOrganizeNextState('compress');
       }),
 
       refreshValidate: action(() => {
