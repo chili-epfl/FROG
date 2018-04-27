@@ -8,6 +8,7 @@ import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 
+import { type DashStateT } from '.';
 import { color, div } from './utils';
 
 const styles = theme => ({
@@ -21,18 +22,10 @@ const styles = theme => ({
 const MeanPerInterface = ({
   whichDash,
   state,
-  activity: {
-    data: { iterationPerInterface }
-  },
   classes
 }: {
   whichDash: string,
-  state: Object,
-  activity: {
-    data: {
-      iterationPerInterface: number
-    }
-  },
+  state: DashStateT,
   classes: Object
 }) => {
   const count = state['count'];
@@ -45,12 +38,7 @@ const MeanPerInterface = ({
 
     const coordinates = interfaces.map(int => {
       if (whichDash === 'help') {
-        let countSum = 0;
-
-        for (let i = 0; i < iterationPerInterface; i += 1) {
-          countSum += count[int][i];
-        }
-
+        const countSum = count[int].reduce((a,b) => a+b, 0);
         const avg = div(dash[int], countSum);
         const index = allInterfaces.indexOf(int) + 1;
 
@@ -60,14 +48,8 @@ const MeanPerInterface = ({
           name: int
         };
       } else {
-        let dashSum = 0;
-        let countSum = 0;
-
-        for (let i = 0; i < iterationPerInterface; i += 1) {
-          dashSum += dash[int][i];
-          countSum += count[int][i];
-        }
-
+        const dashSum = dash[int].reduce((a,b) => a+b, 0);
+        const countSum = count[int].reduce((a,b) => a+b, 0);
         const avg = div(dashSum, countSum);
         const index = allInterfaces.indexOf(int) + 1;
 

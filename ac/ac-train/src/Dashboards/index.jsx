@@ -99,7 +99,15 @@ class AllDashboards extends React.Component<DashboardViewerPropsT, StateT> {
 
 const Viewer = (props: DashboardViewerPropsT) => <AllDashboards {...props} />;
 
-const initData = {
+export type DashStateT = {
+  error: { [t: string]: number[] },
+  time: { [t: string]: number[] },
+  help: { [t: string]: number },
+  count: {[t: string]: number[] },
+  sum: { [t: string]: number[] }
+}
+
+const initData: DashStateT = {
   error: {},
   time: {},
   help: {},
@@ -107,7 +115,7 @@ const initData = {
   sum: {}
 };
 
-const mergeLog = (state: Object, log: LogDbT, activity: ActivityDbT) => {
+const mergeLog = (state: DashStateT, log: LogDbT, activity: ActivityDbT) => {
   if (log.type === 'answer' && log.payload) {
     const { iterationPerInterface } = activity.data;
 
@@ -115,16 +123,17 @@ const mergeLog = (state: Object, log: LogDbT, activity: ActivityDbT) => {
 
     const iterationOnInterface = iteration % iterationPerInterface;
 
+    // Ensure initialization of state
     ['error', 'count', 'time'].forEach(type => {
       if (!state[type][whichInterface]) {
         state[type][whichInterface] = times(iterationPerInterface, constant(0));
       }
-
       if (!state['sum'][type]) {
         state['sum'][type] = times(4 * iterationPerInterface, constant(0));
       }
     });
 
+    // Increment desired values
     if (!isCorrect) {
       state['error'][whichInterface][iterationOnInterface] += 1;
       state['sum']['error'][iteration] += 1;
