@@ -40,7 +40,7 @@ const MeanPerTryForEachInterface = ({
   const count = state['count'];
   const dash = state[whichDash];
 
-  const interfaces = Object.keys(dash);
+  const interfaces = Object.keys(count);
 
   if (interfaces.length > 0) {
     const allCoordinates = interfaces.map(int => {
