@@ -44,10 +44,16 @@ Meteor.methods({
   }
 });
 
-export const setTeacherSession = (sessionId: string) => {
-  Meteor.users.update(Meteor.userId(), {
-    $set: { 'profile.controlSession': sessionId }
-  });
+export const setTeacherSession = (sessionId: ?string) => {
+  if (!sessionId) {
+    Meteor.users.update(Meteor.userId(), {
+      $unset: { 'profile.controlSession': '' }
+    });
+  } else {
+    Meteor.users.update(Meteor.userId(), {
+      $set: { 'profile.controlSession': sessionId }
+    });
+  }
 };
 
 export const addSession = (graphId: string) => {

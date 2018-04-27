@@ -19,9 +19,6 @@ const OrchestrationCtrlButtons = ({ session, classes }) => {
         <ControlButton btnModel={buttonsModel.start} classes={classes} />
       </Grid>
       <Grid item>
-        <ControlButton btnModel={buttonsModel.stop} classes={classes} />
-        <ControlButton btnModel={buttonsModel.continue} classes={classes} />
-        <ControlButton btnModel={buttonsModel.pause} classes={classes} />
         <ControlButton btnModel={buttonsModel.next} classes={classes} />
       </Grid>
       <Grid item>
