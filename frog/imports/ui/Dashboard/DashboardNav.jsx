@@ -20,14 +20,14 @@ const styles = theme => ({
     width: '100%'
   },
   appFrame: {
-    height: '50vh',
+    height: '80vh',
     position: 'relative',
     display: 'flex',
     width: '100%'
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    height: '50vh',
+    height: '80vh',
     position: 'relative',
     width: drawerWidth,
     backgroundColor: theme.palette.background.default
