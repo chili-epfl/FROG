@@ -178,6 +178,9 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
             <hr style={{ height: '5px' }} />
             {config.justify && <Justification {...props} key="justification" />}
             <div>
+              {data.alert ? (
+                <p style={{ color: 'red' }}>{alertMessage()}</p>
+              ) : null}
               <button
                 onClick={onSubmit}
                 key="submit"
@@ -189,7 +192,6 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
               >
                 Submit
               </button>
-              {data.alert ? <p>{alertMessage()}</p> : null}
             </div>
           </ListContainer>
         )}
