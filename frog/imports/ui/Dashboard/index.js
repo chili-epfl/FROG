@@ -3,9 +3,10 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Mongo } from 'meteor/mongo';
+import { DDP } from 'meteor/ddp-client';
 import { omit } from 'lodash';
 import { CircularProgress } from 'material-ui/Progress';
-
 import { type ActivityDbT } from 'frog-utils';
 
 import doGetInstances from '../../api/doGetInstances';
@@ -14,14 +15,17 @@ import { Objects } from '../../api/objects';
 import { DashboardData } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
 import MultiWrapper from './MultiWrapper';
-import dashboardConnect from './dashboardConnection';
+
+let connection = null;
+let dashboardCollection = null;
 
 type DashboardCompPropsT = {
   activity: ActivityDbT,
   users: { [string]: string },
   instances: Array<string>,
   name: string,
-  data?: any
+  state?: any,
+  ready: boolean
 };
 
 const RawDashboardComp = ({
@@ -31,7 +35,7 @@ const RawDashboardComp = ({
   name,
   state,
   ready
-}) => {
+}: DashboardCompPropsT) => {
   if (!ready && !state) {
     return <CircularProgress />;
   }
@@ -57,25 +61,36 @@ export const DashboardComp = withTracker(props => {
   if (props.data) {
     return { ready: true, state: props.data };
   }
-  const [connection, dashboardCollection] = dashboardConnect();
-  if (connection === false || connection.status().ready) {
+  if (!Meteor.settings.public.dashboard_server_url) {
+    if (!dashboardCollection) {
+      dashboardCollection = new Mongo.Collection('dashboard');
+    }
+    connection = false;
+  }
+  if (connection === null) {
+    connection = DDP.connect(Meteor.settings.public.dashboard_server_url);
+    dashboardCollection = new Mongo.Collection('dashboard', connection);
+  }
+  if (connection === false || connection.status().connected) {
     (connection || Meteor).subscribe(
       'dashboard',
       props.activity._id,
       props.activity.activityType,
       props.name
     );
-    const state = dashboardCollection.findOne(
-      props.activity._id + '-' + props.name
-    );
-    if (state)
+    const state =
+      dashboardCollection &&
+      dashboardCollection.findOne(props.activity._id + '-' + props.name);
+    if (state) {
       return {
         ready: true,
         state: omit(state, '_id')
       };
-    else {
+    } else {
       return { ready: false };
     }
+  } else {
+    return { ready: false };
   }
 })(RawDashboardComp);
 
