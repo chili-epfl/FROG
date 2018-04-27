@@ -8,7 +8,7 @@ export const calculateNextOpen = (
   timeInGraph: number,
   activities: ActivityDbT[],
   sessionId?: string
-): [number, ActivityDbT[]] => {
+): [number, ActivityDbT[], boolean] => {
   const [t0, t1] = [
     ...new Set(
       [
@@ -26,35 +26,40 @@ export const calculateNextOpen = (
       a =>
         a.startTime <= newTimeInGraph && a.startTime + a.length > newTimeInGraph
     );
-    return [newTimeInGraph, openActivities];
+    return [newTimeInGraph, openActivities, false];
   } else {
     if (!sessionId) {
-      return [-1, []];
+      return [-1, [], true];
     }
     const graph = Graphs.findOne(Sessions.findOne(sessionId).graphId);
     const newTime =
       (Math.max(...activities.map(x => x.startTime + x.length)) +
         graph.duration) /
       2;
-    return [newTime, []];
+    return [newTime, [], true];
   }
 };
 
 export const getActivitySequence = (
   activities: ActivityDbT[]
 ): { [string]: number } => {
-  let timeInGraph = 0;
+  let timeInGraph = -1;
   const activitySeq = {};
   let c = 0;
-  while (timeInGraph !== -1) {
+  while (true) {
     c += 1;
-    const [_, open] = calculateNextOpen(timeInGraph || -1, activities);
+    const [nt, open, final] = calculateNextOpen(timeInGraph, activities);
+    // eslint-disable-next-line no-loop-func
+    if (final) {
+      break;
+    }
     // eslint-disable-next-line no-loop-func
     open.forEach(x => {
       if (!activitySeq[x._id]) {
         activitySeq[x._id] = c;
       }
     });
+    timeInGraph = nt;
   }
   return activitySeq;
 };
