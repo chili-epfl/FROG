@@ -214,6 +214,7 @@ const RawEditActivity = ({
         )}
       </div>
       <ConfigForm
+        key={activity._id}
         node={activity}
         nodeType={activityType}
         valid={props.store.valid}
