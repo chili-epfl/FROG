@@ -127,7 +127,7 @@ class Interface extends React.Component {
     const { question, start } = this.state;
 
     const answerWOText = omit(answer, 'text');
-    const text = answer.text || '';
+    const text = (answer && answer.text) || '';
 
     const isCorrect = isEqual(question, answerWOText);
 
