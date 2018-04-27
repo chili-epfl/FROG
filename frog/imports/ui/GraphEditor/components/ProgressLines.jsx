@@ -19,6 +19,7 @@ export default connect(
     const s = scaled ? scale : 4;
     return (
       <g>
+        <ProgressLine color="red" x={timeToPx(timeInClass, s)} />
         <ProgressLine color="green" x={timeToPx(timeInGraph, s)} />
       </g>
     );

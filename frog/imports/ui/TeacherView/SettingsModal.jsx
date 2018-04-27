@@ -43,32 +43,51 @@ const Transition = props => <Slide direction="up" {...props} />;
 
 class SettingsModal extends React.Component {
   state = {
-    settings: this.props.session.settings
+    open: false
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true, settings: this.props.session.settings });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   render() {
-    const { onClose, classes, session } = this.props;
+    const { classes } = this.props;
     return (
-      <Dialog open onClose={onClose} transition={Transition}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton color="inherit" onClick={onClose} aria-label="Close">
-              <CloseIcon />
-            </IconButton>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
-              Configure Settings
-            </Typography>
-            <Button color="inherit" onClick={onClose}>
-              save
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <List>
-          <div className="bootstrap">
+      <div className="bootstrap">
+        <Button onClick={this.handleClickOpen} className={classes.controlBtn}>
+          Configure Settings
+        </Button>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          transition={Transition}
+        >
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                onClick={this.handleClose}
+                aria-label="Close"
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography
+                variant="title"
+                color="inherit"
+                className={classes.flex}
+              >
+                Configure Settings
+              </Typography>
+              <Button color="inherit" onClick={this.handleClose}>
+                save
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <List>
             <EnhancedForm
               formData={this.state.settings}
               onChange={({ formData: f }) => {
@@ -135,9 +154,9 @@ class SettingsModal extends React.Component {
             >
               &nbsp;
             </EnhancedForm>
-          </div>
-        </List>
-      </Dialog>
+          </List>
+        </Dialog>
+      </div>
     );
   }
 }
