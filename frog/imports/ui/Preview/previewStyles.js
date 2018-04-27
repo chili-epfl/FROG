@@ -2,16 +2,14 @@
 //
 export default {
   main: {
-    position: 'absolute',
-    top: '50px',
     display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: 'calc(100% - 50px)'
+    margin: '50px 8px',
+    height: 'calc(100% - 60px)',
+    width: '100%'
   },
   noModal: {
-    width: '100%',
-    height: 'calc(100% - 50px)'
+    flex: '0 1 auto',
+    marginLeft: '10px'
   },
   fullWindow: {
     position: 'relative',

@@ -11,13 +11,8 @@ import { addDefaultExample } from './index';
 
 const style = {
   side: {
-    flex: '0 1 500px',
-    position: 'relative',
-    overflow: 'auto',
-    height: '100%',
-    rightMargin: '20px'
-  },
-  preview: { width: '100%', height: 'calc(100% - 50px)', overflow: 'visible' }
+    flex: '0 0 auto'
+  }
 };
 
 class ConfigPanel extends React.Component<*, *> {

@@ -138,9 +138,8 @@ const ContentController = ({
     <div
       className="modal-body"
       style={{
-        position: 'relative',
-        width: 'calc(100% - 30px)',
-        height: 'calc(100% - 60px)'
+        overflow: 'auto',
+        height: '85%'
       }}
     >
       {showDashExample ? (
