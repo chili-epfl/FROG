@@ -57,7 +57,6 @@ const EditorPanel = () => (
     >
       <Graph hasPanMap />
     </div>
-    <HelpModal />
   </div>
 );
 
@@ -155,6 +154,10 @@ class Editor extends Component<Object, StateT> {
             />
           </div>
         </div>
+        <HelpModal
+          show={this.props.store.ui.showModal}
+          hide={() => this.props.store.ui.setModal(false)}
+        />
       </div>
     );
   }
