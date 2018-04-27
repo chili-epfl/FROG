@@ -74,7 +74,8 @@ export function commandDataStructure(command: string) {
     fare: answer[0],
     bike: answer[1],
     class: answer[2],
-    travel: answer[3]
+    travel: answer[3],
+    text: command
   };
 }
 

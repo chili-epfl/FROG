@@ -2,7 +2,7 @@
 import React from 'react';
 
 // UI
-import { isEqual } from 'lodash';
+import { isEqual, omit } from 'lodash';
 
 import { Form, Command, DragDrop, Graphical } from './Interfaces';
 import TicketStatus from './TicketStatus';
@@ -125,7 +125,11 @@ class Interface extends React.Component {
 
     const { iteration } = data;
     const { question, start } = this.state;
-    const isCorrect = isEqual(question, answer);
+
+    const answerWOText = omit(answer, 'text');
+    const text = answer.text || '';
+
+    const isCorrect = isEqual(question, answerWOText);
 
     const timeTaken = Date.now() - start;
 
@@ -140,7 +144,8 @@ class Interface extends React.Component {
           question,
           answer,
           isCorrect,
-          timeTaken
+          timeTaken,
+          text
         }
       },
       { type: 'score', value }
