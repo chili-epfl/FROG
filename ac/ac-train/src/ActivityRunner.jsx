@@ -70,7 +70,7 @@ class Main extends React.Component<PropsT> {
     const { userInfo } = this.props;
 
     const shuffledInterfaces = seededShuffle.shuffle(
-      ['dragdrop', 'form', 'command', 'graphical'],
+      ['dragdrop', 'form', 'command', 'map'],
       userInfo.id
     );
 
