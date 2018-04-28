@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nps",
-    "test": "nps test",
+    "start": "nps -s",
+    "test": "nps -s test",
     "create-package": "node createPackage.js"
   },
   "workspaces": [
