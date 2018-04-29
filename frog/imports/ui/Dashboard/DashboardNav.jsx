@@ -90,17 +90,18 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
     <div className={classes.root}>
       <div className={classes.appFrame}>
         <ActivityChoiceMenu
-          activities={acWithDash}
+          activities={[{ title: 'Blank screen', _id: 'blank' }, ...acWithDash]}
           setActivityId={setActivityId}
           activityId={aId}
         />
         <main className={classes.content}>
-          {activityToDash && (
-            <DashboardReactiveWrapper
-              sessionId={session._id}
-              activity={activityToDash}
-            />
-          )}
+          {activityToDash &&
+            (activityToDash === 'blank' ? null : (
+              <DashboardReactiveWrapper
+                sessionId={session._id}
+                activity={activityToDash}
+              />
+            ))}
         </main>
       </div>
     </div>
