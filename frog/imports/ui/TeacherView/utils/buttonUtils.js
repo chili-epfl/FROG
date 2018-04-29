@@ -5,7 +5,6 @@ import Pause from '@material-ui/icons/Pause';
 import SkipNext from '@material-ui/icons/SkipNext';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Refresh from '@material-ui/icons/Refresh';
-import PowerSettingNew from '@material-ui/icons/PowerSettingsNew';
 import blue from 'material-ui/colors/blue';
 import red from 'material-ui/colors/red';
 import green from 'material-ui/colors/green';
