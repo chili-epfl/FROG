@@ -20,6 +20,22 @@ import { runSession, nextActivity } from '../../../api/engine';
 import { exportSession } from './exportComponent';
 import styles from '../styles';
 
+let lastNext = null;
+
+const throttledNext = sessionId => {
+  if (lastNext && new Date() - lastNext < 10000) {
+    // eslint-disable-next-line no-alert
+    const response = window.confirm(
+      'You very recently pressed next activity. Do you want to advance once more?'
+    );
+    if (!response) {
+      return;
+    }
+  }
+  lastNext = new Date();
+  nextActivity(sessionId);
+};
+
 export const OrchestrationButtonsModel = (session, classes) => ({
   start: {
     tooltip: {
@@ -86,7 +102,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: blue[700],
-      onClick: () => nextActivity(session._id),
+      onClick: () => throttledNext(session._id),
       variant: 'raised'
     },
     icon: <SkipNext className={classes.icon} />
@@ -99,7 +115,10 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: red[700],
-      onClick: () => restartSession(session),
+      onClick: () => {
+        lastNext = null;
+        restartSession(session);
+      },
       variant: 'raised'
     },
     icon: <Refresh className={classes.icon} />
