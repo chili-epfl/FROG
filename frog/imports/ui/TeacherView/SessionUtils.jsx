@@ -11,7 +11,8 @@ import { setTeacherSession } from '../../api/sessions';
 
 import {
   ControlButton,
-  SessionUtilsButtonsModel
+  SessionUtilsButtonsModel,
+  DashToggle
 } from './utils/buttonUtils.js';
 
 class UtilsMenu extends React.Component<any, { anchorEl: any }> {
@@ -31,7 +32,8 @@ class UtilsMenu extends React.Component<any, { anchorEl: any }> {
     const { anchorEl } = this.state;
     const { buttonsModel } = this.props;
     const menuItems = [
-      buttonsModel.dashboard,
+      buttonsModel.settings,
+      buttonsModel.restart,
       buttonsModel.export,
       buttonsModel.download
     ];
@@ -60,13 +62,18 @@ class UtilsMenu extends React.Component<any, { anchorEl: any }> {
                 this.handleClose();
                 item.button.onClick();
               }}
+              style={{ color: item.button.color || '#000000' }}
             >
               {item.button.text}
             </MenuItem>
           ))}
           <MenuItem>
-            <a href={buttonsModel.projector.href} target="_blank">
-              Projector View
+            <a
+              style={{ textDecoration: 'none', color: '#000000' }}
+              href={buttonsModel.projector.href}
+              target="_blank"
+            >
+              Projector View in New Tab
             </a>
           </MenuItem>
           <MenuItem onClick={() => setTeacherSession(undefined)}>
@@ -78,8 +85,20 @@ class UtilsMenu extends React.Component<any, { anchorEl: any }> {
   }
 }
 
-const SessionUtils = ({ classes, session, toggle, token }) => {
-  const buttonsModel = SessionUtilsButtonsModel(session, toggle, token);
+const SessionUtils = ({
+  classes,
+  session,
+  toggle,
+  token,
+  visible,
+  openSettings
+}) => {
+  const buttonsModel = SessionUtilsButtonsModel(
+    session,
+    toggle,
+    token,
+    openSettings
+  );
 
   return (
     <div className={classes.root}>
@@ -90,9 +109,11 @@ const SessionUtils = ({ classes, session, toggle, token }) => {
         alignItems="center"
         containerspacing={0}
       >
-        <Grid item xs={4} />
         <Grid item xs={4} className={classes.textCenter}>
           <ControlButton btnModel={buttonsModel.current} classes={classes} />
+        </Grid>
+        <Grid item>
+          <DashToggle visible={visible} toggleVisible={toggle} />
         </Grid>
         <Grid item xs={4} style={{ textAlign: 'right' }}>
           <UtilsMenu buttonsModel={buttonsModel} />
