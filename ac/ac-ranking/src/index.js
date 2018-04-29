@@ -24,12 +24,13 @@ export const formatProduct = (
     .map(x => x[0])
     .join(', ');
 
-  return {
-    ...data,
-    msg: `${userName} ranked the interfaces in the following order: ${choices}, with the justification "${
-      data.justification
-    }".`
-  };
+  const msg = userName
+    ? `${userName} ranked the interfaces in the following order: ${choices}, with the justification "${
+        data.justification
+      }".`
+    : 'Uh Oh !! The student assigned to work with you has not completed the previous activity. If he still does not participate, you could discuss with your fellow student sitting next to you.';
+
+  return { ...data, msg };
 };
 
 export default ({
