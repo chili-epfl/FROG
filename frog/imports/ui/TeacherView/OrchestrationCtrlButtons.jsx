@@ -34,7 +34,9 @@ const OrchestrationCtrlButtons = ({ session, classes }) => {
           </Grid>
           <Grid item xs={5}>
             <ul style={{ listStyleType: 'none' }}>
-              {(session.nextActivities || []).map(x => <li key={x}>{x}</li>)}
+              {(session.nextActivities || []).map(x => (
+                <li key={x.activityId}>{x.description}</li>
+              ))}
             </ul>
           </Grid>
         </Grid>
