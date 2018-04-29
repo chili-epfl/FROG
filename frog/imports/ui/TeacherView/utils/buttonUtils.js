@@ -5,7 +5,6 @@ import Pause from '@material-ui/icons/Pause';
 import SkipNext from '@material-ui/icons/SkipNext';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Refresh from '@material-ui/icons/Refresh';
-import PowerSettingNew from '@material-ui/icons/PowerSettingsNew';
 import blue from 'material-ui/colors/blue';
 import red from 'material-ui/colors/red';
 import green from 'material-ui/colors/green';
@@ -44,14 +43,14 @@ export const OrchestrationButtonsModel = (session, classes) => ({
       placement: 'top'
     },
     button: {
-      color: blue[700],
+      color: green[700],
       onClick: () => {
         runSession(session._id);
         nextActivity(session._id);
       },
       variant: 'raised'
     },
-    icon: <PowerSettingNew className={classes.icon} />
+    icon: <PlayArrow className={classes.icon} />
   },
   stop: {
     tooltip: {

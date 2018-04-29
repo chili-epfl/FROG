@@ -26,9 +26,12 @@ export const updateNextOpenActivities = (
   activities: ActivityDbT[]
 ) => {
   const [_, futureOpen] = calculateNextOpen(timeInGraph, activities);
-  const nextActivities = futureOpen.map(
-    x => `${x.title || ''} (${x.plane === 4 ? 'teacher task' : 'p' + x.plane})`
-  );
+  const nextActivities = futureOpen.map(x => ({
+    activityId: x._id,
+    description: `${x.title || ''} (${
+      x.plane === 4 ? 'teacher task' : 'p' + x.plane
+    })`
+  }));
   Sessions.update(sessionId, {
     $set: { nextActivities }
   });
