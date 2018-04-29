@@ -27,7 +27,11 @@ const OrchestrationCtrlButtons = ({ session, classes }) => {
           <Grid item xs={3} />
           <Grid item>
             <ControlButton
-              btnModel={buttonsModel.next}
+              btnModel={
+                session.timeInGraph === -1
+                  ? buttonsModel.start
+                  : buttonsModel.next
+              }
               classes={classes}
               style={{ transform: 'scale(1.5)' }}
             />
