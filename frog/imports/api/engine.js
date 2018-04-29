@@ -28,7 +28,8 @@ export const runNextActivity = (sessionId: string) => {
 
     const [newTimeInGraph, openActivities] = calculateNextOpen(
       session.timeInGraph,
-      activities
+      activities,
+      sessionId
     );
     const openActivityIds = openActivities.map(x => x._id);
     updateOpenActivities(sessionId, openActivityIds, newTimeInGraph);
@@ -37,9 +38,10 @@ export const runNextActivity = (sessionId: string) => {
     }
 
     engineLogger(sessionId, 'nextActivity', newTimeInGraph);
-    const justClosedActivities = oldOpen.filter(
-      act => !openActivities.includes(act)
-    );
+    const justClosedActivities = oldOpen.filter(actId => {
+      const act = Activities.findOne(actId);
+      return act.startTime + act.length < newTimeInGraph;
+    });
     justClosedActivities.forEach(act => {
       Meteor.call('reactive.to.product', act);
       Meteor.call('archive.dashboard.state', act);
