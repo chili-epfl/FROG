@@ -1,10 +1,10 @@
 // @flow
 import * as React from 'react';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn, getDisplayName, uuid } from 'frog-utils';
-import { ErrorBoundary } from '../App/ErrorBoundary';
 
+import { ErrorBoundary } from '../App/ErrorBoundary';
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/connection';
 
@@ -45,14 +45,7 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
       this.interval = window.setInterval(() => {
-        this.interval += 1;
-        if (this.interval > 20) {
-          this.setState({ timeout: true });
-          window.clearInterval(this.interval);
-          this.interval = undefined;
-        } else {
-          this.update();
-        }
+        this.update();
       }, 1000);
       if (this.doc.type) {
         this.update();
@@ -77,7 +70,6 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
           this.setState({ data: cloneDeep(this.doc.data) });
           if (this.interval) {
             window.clearInterval(this.interval);
-            this.interval = undefined;
           }
         }
       }
@@ -93,22 +85,23 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
     };
 
     render = () =>
-      this.state.timeout ? (
-        <h1>Sorry, reactive data timed out. Try reloading the page</h1>
-      ) : this.state.data ? (
+      this.state.data ? (
         <ErrorBoundary msg="Activity crashed, try reloading">
-          <WrappedComponent
-            uuid={this.state.uuid}
-            dataFn={this.state.dataFn}
-            uploadFn={uploadFile}
-            data={this.state.data}
-            {...this.props}
-          />
+          <React.Fragment>
+            <WrappedComponent
+              uuid={this.state.uuid}
+              dataFn={this.state.dataFn}
+              uploadFn={uploadFile}
+              data={this.state.data}
+              {...this.props}
+            />
+          </React.Fragment>
         </ErrorBoundary>
       ) : (
-        <Spinner />
+        <CircularProgress />
       );
   }
+
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;
 };
