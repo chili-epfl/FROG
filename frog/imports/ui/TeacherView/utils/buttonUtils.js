@@ -44,10 +44,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: green[700],
-      onClick: () => {
-        runSession(session._id);
-        nextActivity(session._id);
-      },
+      onClick: () => throttledNext(session._id),
       variant: 'raised'
     },
     icon: <PlayArrow className={classes.icon} />
