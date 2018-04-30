@@ -150,28 +150,26 @@ const mergeData = (
 
 export default mergeData;
 
-Meteor.methods({
-  'ensure.reactive': (sessionId, studentId) => {
-    const session = Sessions.findOne(sessionId);
-    const activities = session.openActivities
-      ? Activities.find({
-          _id: { $in: session.openActivities },
-          plane: 1
-        })
-      : [];
-    activities.forEach(ac => {
-      const object = Objects.findOne(ac._id);
-      if (!object.globalStructure.studentIds.includes(studentId)) {
-        Objects.update(ac._id, {
-          $push: { 'globalStructure.studentIds': studentId }
-        });
-        Objects.update(ac._id, {
-          $set: {
-            ['globalStructure.students.' + studentId]: Meteor.user().username
-          }
-        });
-      }
-      mergeData(ac._id, object, studentId);
-    });
-  }
-});
+export const ensureReactive = (sessionId: string, studentId: string) => {
+  const session = Sessions.findOne(sessionId);
+  const activities = session.openActivities
+    ? Activities.find({
+        _id: { $in: session.openActivities },
+        plane: 1
+      })
+    : [];
+  activities.forEach(ac => {
+    const object = Objects.findOne(ac._id);
+    if (!object.globalStructure.studentIds.includes(studentId)) {
+      Objects.update(ac._id, {
+        $push: { 'globalStructure.studentIds': studentId }
+      });
+      Objects.update(ac._id, {
+        $set: {
+          ['globalStructure.students.' + studentId]: Meteor.user().username
+        }
+      });
+    }
+    mergeData(ac._id, object, studentId);
+  });
+};

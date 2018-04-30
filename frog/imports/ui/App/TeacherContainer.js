@@ -65,7 +65,6 @@ export default withTracker(() => {
     'operators',
     'products',
     'sessions',
-    'users',
     'globalSettings',
     'dashboardData'
   ];

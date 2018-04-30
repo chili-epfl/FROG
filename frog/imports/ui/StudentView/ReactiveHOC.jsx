@@ -17,12 +17,9 @@ type ReactiveCompsStateT = {
   timeout: boolean
 };
 
-const ReactiveHOC = (
-  docId: string,
-  conn?: any,
-  transform: Object => Object = x => x,
-  readOnly: boolean = false
-) => (WrappedComponent: React.ComponentType<*>) => {
+const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
+  WrappedComponent: React.ComponentType<*>
+) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT
@@ -82,17 +79,6 @@ const ReactiveHOC = (
             window.clearInterval(this.interval);
             this.interval = undefined;
           }
-        }
-        if (readOnly) {
-          this.setState({ uuid: uuid() });
-        } else {
-          window.parent.postMessage(
-            {
-              type: 'frog-data',
-              msg: transform(this.doc.data)
-            },
-            '*'
-          );
         }
       }
     };
