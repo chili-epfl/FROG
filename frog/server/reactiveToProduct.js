@@ -1,6 +1,6 @@
 // @flow
 
-import { type activityDataT } from 'frog-utils';
+import { type activityDataT, type ActivityPackageT } from 'frog-utils';
 import { Meteor } from 'meteor/meteor';
 
 import { Activities } from '../imports/api/activities';
@@ -17,13 +17,24 @@ declare var Promise: any;
 
 const cleanId = id => id.split('/')[1];
 
-const formatResults = (results, formatProduct, config) => {
+const formatResults = (results, formatProduct, config, initData) => {
   const format = (data, instance) => {
     let product;
-    try {
-      product = formatProduct ? formatProduct(config, data, instance) : data;
-    } catch (error) {
-      console.error(error);
+    if (formatProduct) {
+      try {
+        product = formatProduct(config, data, instance);
+      } catch (error) {
+        console.error('Err: Failed to run formatProduct with reactive data');
+        console.error(error);
+        try {
+          product = formatProduct(config, initData, instance);
+        } catch (err) {
+          console.error('Err: Failed to run formatProduct with initialData');
+          console.error(err);
+          product = {};
+        }
+      }
+    } else {
       product = data;
     }
     return product;
@@ -39,7 +50,7 @@ export const getActivityDataFromReactive = (
   activityId: string
 ): activityDataT => {
   const activity = Activities.findOne(activityId);
-  const aT = activityTypesObj[activity.activityType];
+  const aT: ActivityPackageT = activityTypesObj[activity.activityType];
   const object = Objects.findOne(activityId);
   const { structure } = doGetInstances(activity, object);
 
@@ -52,7 +63,14 @@ export const getActivityDataFromReactive = (
         if (err) {
           reject(err);
         } else {
-          resolve(formatResults(results, aT.formatProduct, activity.data));
+          resolve(
+            formatResults(
+              results,
+              aT.formatProduct,
+              activity.data,
+              aT.dataStructure
+            )
+          );
         }
       }
     );
