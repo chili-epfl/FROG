@@ -40,7 +40,7 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  dashboard,
+  dashboards: {test: dashboard},
   ActivityRunner,
   dataStructure,
   mergeFunction

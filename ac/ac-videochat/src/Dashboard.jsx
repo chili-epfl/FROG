@@ -8,6 +8,7 @@ const Viewer = ({state}: Object) => {
     return (
         <div>
            {state.count}
+           <br/>
            {state.any}
         </div>
     );
@@ -16,11 +17,13 @@ const Viewer = ({state}: Object) => {
 const initData = {any: "Hello World", count: 0}
 
 const mergeLog = (state, log) => {
-    state.count += 1;
-    state.any = log.payload.name;
+    if(log.type === "videochat") {
+        state.count += 1;
+        state.any = log.payload.name;
+    }
 }
 
 export default {
-    Viewer
+    Viewer, initData, mergeLog
 };
 

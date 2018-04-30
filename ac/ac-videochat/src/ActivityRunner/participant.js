@@ -6,13 +6,14 @@ function Participant(name, id, sendMessageF) {
 	var isSendOnly = null;
 	var self = this;
 
-	console.log("Creted Particiapnt " + name + " " + id);
+	console.log("Created Particiapnt " + name + " " + id);
 
-	this.createSendOnlyPeer = function(options){
+	this.createSendOnlyPeer = options => {
 		this.isSendOnly = true;
 		console.log("CreteSendOnlyPeer()");
 		var self = this;
-		navigator.getUserMedia({ video: true, audio: true }, function (myStream) {
+		navigator.mediaDevices.getUserMedia(options.userMediaConstraints)
+		.then(myStream => {
             if(options && options.onAddLocalStream){
                 options.onAddLocalStream(myStream);
 			}
@@ -22,7 +23,7 @@ function Participant(name, id, sendMessageF) {
             rtcPeer.onicecandidate = self.onIceCandidate;
 
 			rtcPeer.createOffer((offer) => {
-				console.log("Created offer for " + this.name);
+				console.log("Created offer for " + self.name);
 				
 				rtcPeer.setLocalDescription(offer);
 				var msg =  { 
@@ -42,13 +43,14 @@ function Participant(name, id, sendMessageF) {
                 }
 			}); 
 			
-        }, function (error) {
+		})
+		.catch(error => {
             console.log("Media already in use, or blocked");
             console.log(error);
         });
 	}
 
-	this.createRecvOnlyPeer = function(options){
+	this.createRecvOnlyPeer = options => {
 		this.isSendOnly = false;
 		console.log("CreteRecvOnlyPeer()");
 		var self = this;

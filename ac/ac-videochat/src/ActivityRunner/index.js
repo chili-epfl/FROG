@@ -6,7 +6,8 @@ import 'webrtc-adapter';
 
 import { isUndefined, isEqual, without, difference, last } from 'lodash';
 
-import { ICEConfig } from '../utils/iceServers';
+import { rtcConfiguration, signalServerURL } from '../webrtc-config/config';
+import { onStreamAdded } from '../analytics/AVStreamAnalysis';
 import { preferOpus } from '../utils/codec';
 import Header from './Header';
 import VideoLayout from './VideoLayout';
@@ -27,10 +28,6 @@ export const hark = isBrowser
 	? require('./hark.bundle.js')
 	: () => null
 
-// const signalServerUrl = 'wss://frog-marin.tk:6443/frog';
-const signalServerUrl = 'wss://osls-signal-server.tk:443/osls';
-const ice_servers = ICEConfig;
-
 declare var RTCPeerConnection: any;
 declare var RTCIceCandidate: any;
 declare var RTCSessionDescription: any;
@@ -45,16 +42,9 @@ type StateT = {
 };
 
 class ActivityRunner extends Component<ActivityRunnerT, StateT> {
-  configuration = {
-      "iceServers": [
-          { "urls": "stun:stun.l.google.com:19302" }
-    , { "urls": "turn:oslsturn.westeurope.cloudapp.azure.com:3478", "username": "test", "credential": "test" }
-    , { "urls": "turn:oslsturn.westeurope.cloudapp.azure.com:3478?transport=tcp", "username": "test", "credential": "test" }
-      ]
-  };
 
   createWebSocketConnection = () => {
-    this.ws = new WebSocket(signalServerUrl);
+    this.ws = new WebSocket(signalServerURL);
 
     var self = this;
 
@@ -115,46 +105,31 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   };
 
   onExistingParticipants = msg => {
-    // var constraints = {
-    //   audio : true,
-    //   video : {
-    //     mandatory : {
-    //       maxWidth : 320,
-    //       maxFrameRate : 15,
-    //       minFrameRate : 15
-    //     }
-    //   }
-    // };
+    var userMediaConstraints = {
+      audio : true,
+      video : true 
+      // {
+      //   mandatory : {
+      //     maxWidth : 320,
+      //     maxFrameRate : 15,
+      //     minFrameRate : 15
+      //   }
+      // }
+    };
 
     const self = this;
-  
-
-
-
 
 
     //this functions will be given to Participant object
     //when stream is created, this function will be called
     function onAddLocalStream(stream){
 
-      var speechEvents = hark(stream);
+      var captions = stream.addTextTrack('captions', 'live captions', 'en-US');
+      // as caption cues come in, add them to the track for display
+      stream.addCue(new TextTrackCue('1', 12.783, 14.612, 'Mum, give me the butter.'));
+      stream.addCue(new TextTrackCue('2', 14.612, 16.091, 'I am waiting for the magic word!'));
 
-
-      speechEvents.on('speaking', function() {
-        console.log('speaking');
-
-        //self.name
-        //show user on dashboard
-        logger({type: "videochat", payload: {name: self.name}})
-      });
-
-      speechEvents.on('stopped_speaking', function() {
-        console.log('stopped_speaking');
-
-        //self.name
-        
-
-      });
+      onStreamAdded(stream);
 
       self.setState(
         {
@@ -165,12 +140,6 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
         }
       );
 
-
-
-
-
-
-
       //setting stream to my video (myVideo is rendered after updating state)
       var myVideo = document.getElementById(self.id);
       myVideo.srcObject = stream;
@@ -178,7 +147,8 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
     var options = {
       onAddLocalStream: onAddLocalStream,
-      configuration: self.configuration		  
+      configuration: rtcConfiguration,
+      userMediaConstraints: userMediaConstraints
     }
 
     //create new participant for send only my stream
@@ -198,24 +168,20 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   receiveVideo = newParticipant => {
     const self = this;
 
-    console.log("receiveVideo()");
     var participant = new Participant(newParticipant.name, newParticipant.id, this.sendMessage);
     this.participants[participant.id] = participant;
     
     function onAddRemoteStream(event){
-      console.log("onAddRemoteStream");
       var stream = event.stream;
-      // console.warn(stream);
 
       self.addRemoteUserToState(newParticipant);
       var newParticipantVideo = document.getElementById(newParticipant.id);
       newParticipantVideo.srcObject = stream;
     }
 
-    //ice servers? (configuration)
     var options = {
       onaddstream: onAddRemoteStream,
-      configuration: self.configuration		  
+      configuration: rtcConfiguration
     }
 
     participant.createRecvOnlyPeer(options);
@@ -272,9 +238,6 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
   constructor(props: ActivityRunnerT) {
     super(props);
-
-    console.log("constructor");
-    console.log(props);
     this.name = "";
     this.id = "";
     this.roomId = "";
@@ -284,22 +247,15 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   }
 
   componentDidMount() {
-    console.log("component mounted");
-
     //set up variables
     this.name = this.props.userInfo.name;
     this.id = this.props.userInfo.id;
     this.roomId = this.props.sessionId + this.props.groupingValue;
 
-    //should be set with setState command
-    this.state.local.user = this.name;
-    // this.props.dataFn.listAppend({ msg: this.name});
-
     this.createWebSocketConnection();
   }
 
   componentWillUnmount() {
-    console.log("component Will Unmount!"); 
     this.leaveRoom();
   }
 
