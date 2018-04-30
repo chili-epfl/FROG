@@ -51,6 +51,7 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
         if (this.intervalCount > 10) {
           this.setState({ timeout: true });
           window.clearInterval(this.interval);
+          this.interval = undefined;
         } else {
           this.update();
         }
@@ -79,6 +80,7 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
           this.setState({ data: cloneDeep(this.doc.data) });
           if (this.interval) {
             window.clearInterval(this.interval);
+            this.interval = undefined;
           }
         }
       }
@@ -90,6 +92,7 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
       this.unmounted = true;
       if (this.interval) {
         window.clearInterval(this.interval);
+        this.interval = undefined;
       }
     };
 
