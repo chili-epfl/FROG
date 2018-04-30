@@ -98,15 +98,13 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
         <h1>Sorry, reactive data timed out. Try reloading the page</h1>
       ) : this.state.data ? (
         <ErrorBoundary msg="Activity crashed, try reloading">
-          <React.Fragment>
-            <WrappedComponent
-              uuid={this.state.uuid}
-              dataFn={this.state.dataFn}
-              uploadFn={uploadFile}
-              data={this.state.data}
-              {...this.props}
-            />
-          </React.Fragment>
+          <WrappedComponent
+            uuid={this.state.uuid}
+            dataFn={this.state.dataFn}
+            uploadFn={uploadFile}
+            data={this.state.data}
+            {...this.props}
+          />
         </ErrorBoundary>
       ) : (
         <CircularProgress />
