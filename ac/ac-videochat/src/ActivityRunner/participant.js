@@ -14,35 +14,38 @@ function Participant(name, id, sendMessageF) {
 		var self = this;
 		navigator.mediaDevices.getUserMedia(options.userMediaConstraints)
 		.then(myStream => {
-            if(options && options.onAddLocalStream){
-                options.onAddLocalStream(myStream);
-			}
-
-			rtcPeer = new RTCPeerConnection(options.configuration);
-			rtcPeer.addStream(myStream);
-            rtcPeer.onicecandidate = self.onIceCandidate;
-
-			rtcPeer.createOffer((offer) => {
-				console.log("Created offer for " + self.name);
-				
-				rtcPeer.setLocalDescription(offer);
-				var msg =  { 
-					id : "receiveVideoFrom",
-					sender : id,
-					userId: id,
-					sdpOffer : offer.sdp
-				};
-				sendMessage(msg);
-			}, (error) => {
-
-				console.error("CreateOffer error ", error);
-			},{
-                mandatory: {
-					OfferToReceiveVideo: false
-                    ,OfferToReceiveAudio: false
-                }
-			}); 
-			
+			try {
+				if(options && options.onAddLocalStream){
+					options.onAddLocalStream(myStream);
+				}
+	
+				rtcPeer = new RTCPeerConnection(options.configuration);
+				rtcPeer.addStream(myStream);
+				rtcPeer.onicecandidate = self.onIceCandidate;
+	
+				rtcPeer.createOffer((offer) => {
+					console.log("Created offer for " + self.name);
+					
+					rtcPeer.setLocalDescription(offer);
+					var msg =  { 
+						id : "receiveVideoFrom",
+						sender : id,
+						userId: id,
+						sdpOffer : offer.sdp
+					};
+					sendMessage(msg);
+				}, (error) => {
+	
+					console.error("CreateOffer error ", error);
+				},{
+					mandatory: {
+						OfferToReceiveVideo: false
+						,OfferToReceiveAudio: false
+					}
+				}); 
+			} catch (error) {
+				console.log("Error in create Send only peer after obtaining media", error);
+			}	
 		})
 		.catch(error => {
             console.log("Media already in use, or blocked");
@@ -153,60 +156,8 @@ function Participant(name, id, sendMessageF) {
 		}
 	}
 
-	// this.writeStats = function () {
-	// 	// var pc = this.rtcPeer.peerConnection;
-	// 	// console.log("STATS");
-	// 	// window.getStats(
-	// 	// 	pc,
-	// 	// 	(result) => {
-	// 	// 		//console.log(result.video);
-	// 	// 	},
-	// 	// 	5000
-	// 	// );
-
-	// 	var pc = rtcPeer;
-
-	// 	var selector;
-	// 	if(this.isSendOnly) {
-	// 		selector = pc.getLocalStreams()[0].getVideoTracks()[0];
-	// 	} else {
-	// 		selector = pc.getRemoteStreams()[0].getVideoTracks()[0]
-	// 	}
-	// 	console.log(selector);
-	// 	pc.getStats(selector, (result) => {
-	// 		var key = Object.keys(result).filter(k => k.startsWith("ssrc"));
-	// 		console.log("Participant: " + this.name + " codec, " + result[key]["googCodecName"]);
-	// 		var msg =  { 
-	// 			id : "info",
-	// 			name : name,
-	// 			info : "Participant: " + this.name + " codec, " + result[key]["googCodecName"]
-	// 		};
-	// 		sendMessage(msg);
-	// 		// console.log(result);
-	// 	},(error) => {
-	// 		console.error(error);
-	// 	});
-
-	// 	pc.getStats()
-
-	// }
-
-
-
 	this.dispose = function() {
 		console.log('Disposing participant ' + this.name);
-		// var selector;
-		// if(this.isSendOnly) {
-		// 	selector = rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
-		// 	selector.stop();
-		// 	selector = rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
-		// 	selector.stop();
-		// } else {
-		// 	selector = rtcPeer.getRemoteStreams()[0].getVideoTracks()[0]
-		// 	selector.stop();
-		// 	selector = rtcPeer.getLocalStreams()[0].getAudioTracks()[0];			
-		// 	selector.stop();
-		// }
 		this.disposeRtcPeer();
 	};
 

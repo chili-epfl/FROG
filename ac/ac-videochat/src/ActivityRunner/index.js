@@ -5,10 +5,10 @@ import type { ActivityRunnerT } from 'frog-utils';
 import 'webrtc-adapter';
 
 import { isUndefined, isEqual, without, difference, last } from 'lodash';
-
-import { rtcConfiguration, signalServerURL } from '../webrtc-config/config';
+import WebRtcConfig from '../webrtc-config/config';
 import { onStreamAdded } from '../analytics/AVStreamAnalysis';
 import { preferOpus } from '../utils/codec';
+
 import Header from './Header';
 import VideoLayout from './VideoLayout';
 
@@ -25,17 +25,23 @@ export const Participant = isBrowser
   : () => null
   
 export const hark = isBrowser
-	? require('./hark.bundle.js')
+	? require('../lib/hark.bundle.js')
 	: () => null
 
-declare var RTCPeerConnection: any;
-declare var RTCIceCandidate: any;
-declare var RTCSessionDescription: any;
-declare var navigator: any;
-
-declare var kurentoClient: any;
-declare var webRtcPeer: any;
-
+/**
+ * State consists of local and remote
+ * local = {
+ *   id: "this user's id",
+ *   name: "this user's name"
+ * }
+ * 
+ * remote has same structure as local (id and name fields)
+ * for each remote participant, object is added to remote array
+ * 
+ * After state is updated and render is called, 
+ *   video element is fetched and received video stream is set 
+ *   to that video element
+ */
 type StateT = {
   local: Object,
   remote: Array<any>
@@ -44,7 +50,7 @@ type StateT = {
 class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
   createWebSocketConnection = () => {
-    this.ws = new WebSocket(signalServerURL);
+    this.ws = new WebSocket(WebRtcConfig.signalServerURL);
 
     var self = this;
 
@@ -105,30 +111,12 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   };
 
   onExistingParticipants = msg => {
-    var userMediaConstraints = {
-      audio : true,
-      video : true 
-      // {
-      //   mandatory : {
-      //     maxWidth : 320,
-      //     maxFrameRate : 15,
-      //     minFrameRate : 15
-      //   }
-      // }
-    };
-
     const self = this;
-
 
     //this functions will be given to Participant object
     //when stream is created, this function will be called
     function onAddLocalStream(stream){
-
-      var captions = stream.addTextTrack('captions', 'live captions', 'en-US');
-      // as caption cues come in, add them to the track for display
-      stream.addCue(new TextTrackCue('1', 12.783, 14.612, 'Mum, give me the butter.'));
-      stream.addCue(new TextTrackCue('2', 14.612, 16.091, 'I am waiting for the magic word!'));
-
+      //from AVStreamAnalysis
       onStreamAdded(stream);
 
       self.setState(
@@ -147,8 +135,8 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
     var options = {
       onAddLocalStream: onAddLocalStream,
-      configuration: rtcConfiguration,
-      userMediaConstraints: userMediaConstraints
+      configuration: WebRtcConfig.rtcConfiguration,
+      userMediaConstraints: WebRtcConfig.sendOnlyMediaConstraints
     }
 
     //create new participant for send only my stream
@@ -181,7 +169,7 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
     var options = {
       onaddstream: onAddRemoteStream,
-      configuration: rtcConfiguration
+      configuration: WebRtcConfig.rtcConfiguration
     }
 
     participant.createRecvOnlyPeer(options);
