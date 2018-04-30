@@ -18,17 +18,21 @@ declare var Promise: any;
 const cleanId = id => id.split('/')[1];
 
 const formatResults = (results, formatProduct, config) => {
-  const format = (data, instance) =>
-    formatProduct ? formatProduct(config, data, instance) : data;
-  return results.reduce(
-    (acc, k) => ({
-      ...acc,
-      [cleanId(k.id)]: {
-        data: format(k.data, cleanId(k.id))
-      }
-    }),
-    {}
-  );
+  const format = (data, instance) => {
+    let product;
+    try {
+      product = formatProduct ? formatProduct(config, data, instance) : data;
+    } catch (error) {
+      console.error(error);
+      product = data;
+    }
+    return product;
+  };
+
+  return results.reduce((acc, k) => {
+    acc[cleanId(k.id)] = { data: format(k.data, cleanId(k.id)) };
+    return acc;
+  }, {});
 };
 
 export const getActivityDataFromReactive = (
