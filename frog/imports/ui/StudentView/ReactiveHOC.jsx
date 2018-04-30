@@ -27,6 +27,7 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
     doc: any;
     unmounted: boolean;
     interval: any;
+    intervalCount: 0;
     times: 0;
 
     constructor(props: Object) {
@@ -44,13 +45,22 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
       this.doc = (conn || connection || {}).get('rz', docId);
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
+
       this.interval = window.setInterval(() => {
-        this.update();
+        this.intervalCount += 1;
+        if (this.intervalCount > 10) {
+          this.setState({ timeout: true });
+          window.clearInterval(this.interval);
+          this.interval = undefined;
+        } else {
+          this.update();
+        }
       }, 1000);
+
       if (this.doc.type) {
         this.update();
       } else {
-        this.doc.on('load', () => {
+        this.doc.once('load', () => {
           this.update();
         });
       }
@@ -85,7 +95,9 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
     };
 
     render = () =>
-      this.state.data ? (
+      this.state.timeout ? (
+        <h1>Sorry, reactive data timed out. Try reloading the page</h1>
+      ) : this.state.data ? (
         <ErrorBoundary msg="Activity crashed, try reloading">
           <React.Fragment>
             <WrappedComponent
