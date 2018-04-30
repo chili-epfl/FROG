@@ -18,7 +18,6 @@ import { Activities } from '../../api/activities';
 import { logLogin } from '../../api/logs';
 import { Sessions } from '../../api/sessions';
 import Runner from './Runner';
-import Countdown from './Countdown';
 
 const styles = {
   root: {
@@ -140,7 +139,6 @@ class SessionBodyController extends React.Component<
     const { activities, session, token } = this.props;
     return (
       <React.Fragment>
-        {session.countdownStartTime && <Countdown session={session} />}
         <StyledStudentView
           session={session}
           activities={activities}
