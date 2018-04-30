@@ -63,6 +63,7 @@ export default withTracker(() => {
     'graphs',
     'objects',
     'operators',
+    'users',
     'products',
     'sessions',
     'globalSettings',
