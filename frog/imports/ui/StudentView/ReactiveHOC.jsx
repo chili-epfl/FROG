@@ -51,7 +51,6 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
         if (this.intervalCount > 10) {
           this.setState({ timeout: true });
           window.clearInterval(this.interval);
-          this.interval = undefined;
         } else {
           this.update();
         }
