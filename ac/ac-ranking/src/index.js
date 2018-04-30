@@ -1,7 +1,7 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import { toPairs, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 
 import { config, configUI } from './config';
 import ActivityRunner from './ActivityRunner';
@@ -20,16 +20,25 @@ export const formatProduct = (
   instanceId: string
 ) => {
   const userName = data.group[instanceId];
-  const choices = sortBy(toPairs(data.answers[instanceId] || {}), x => x[1])
-    .map(x => x[0])
-    .join(', ');
+  const obj = data.answers[instanceId];
+  const choices = sortBy(Object.keys(obj || {}), k => obj[k]).join(', ');
 
-  return {
-    ...data,
-    msg: `${userName} ranked the interfaces in the following order: ${choices}, with the justification "${
-      data.justification
-    }".`
-  };
+  let msg;
+  if (userName && choices) {
+    msg = `${userName} ranked the interfaces in the following order: ${choices}`;
+    if (data.justification) {
+      msg += `, with the justification "${data.justification}".`;
+    } else {
+      msg += ', with no justification.';
+    }
+  } else if (userName) {
+    msg = `${userName} has not ranked the interfaces.`;
+  } else {
+    msg =
+      'Uh Oh !! The student assigned to work with you has not completed the previous activity. If he still does not participate, you could discuss with your fellow student sitting next to you.';
+  }
+
+  return { ...data, msg };
 };
 
 export default ({
