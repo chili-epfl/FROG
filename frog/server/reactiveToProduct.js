@@ -24,13 +24,18 @@ const formatResults = (results, formatProduct, config, initData) => {
       try {
         product = formatProduct(config, data, instance);
       } catch (error) {
-        console.error('Err: Failed to run formatProduct with reactive data');
+        console.error(
+          'Err: Failed to run formatProduct with reactive data',
+          error
+        );
         console.error(error);
         try {
           product = formatProduct(config, initData, instance);
         } catch (err) {
-          console.error('Err: Failed to run formatProduct with initialData');
-          console.error(err);
+          console.error(
+            'Err: Failed to run formatProduct with initialData',
+            error
+          );
           product = {};
         }
       }
