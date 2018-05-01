@@ -136,7 +136,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               store={this.props.store}
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}
-              setConfig={this.props.setConfig}
+              onSelect={this.props.onSelect}
             />
           ) : (
             <div>
@@ -186,7 +186,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
                         !this.props.hidePreview &&
                         x.meta.exampleData !== undefined
                       }
-                      onSelect={() => select(x)}
+                      onSelect={() => {select(x);console.log(x)}}
                       showExpanded={this.state.expanded === x.id}
                       expand={() => this.setState({ expanded: x.id })}
                       key={x.id}

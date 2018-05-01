@@ -33,6 +33,7 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
+  console.log(activityType)
   instances.forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;

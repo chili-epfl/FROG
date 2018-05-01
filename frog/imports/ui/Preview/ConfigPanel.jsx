@@ -91,7 +91,7 @@ class ConfigPanel extends React.Component<*, *> {
               />
               <h3>{activityTypesObj[activityTypeId].meta.name}</h3>
               <ExportButton
-                activity={{ title: activityTypesObj[activityTypeId].meta.name }}
+                activity={{ title: activityTypesObj[activityTypeId].meta.name, data: config }}
                 madeChanges={() => console.log('changes')}
               />
             </div>
@@ -101,20 +101,23 @@ class ConfigPanel extends React.Component<*, *> {
             {...{config, setConfig}}
             activityType={activityTypeId}
             onConfigChange={this.onConfigChange}
-            onSelect={activityType => {
-              const exConf = addDefaultExample(
+            onSelect={activityType => {// activityTypesObj[activityType.activity_type]
+              console.log(activityType)
+              const exConf = activityType.title ? activityType.config : addDefaultExample(
                 activityTypesObj[activityType]
               )[0].config;
-              setConfig(exConf);
-              if (showDash && !activityTypesObj[activityType].dashboard) {
-                setShowDash(false);
-              }
-              setReloadAPIform(uuid());
-              initActivityDocuments(instances, activityType, 0, exConf, true);
-              initDashboardDocuments(activityType, true);
-              setExample(0);
-              setShowDashExample(false);
-              setActivityTypeId(activityType);
+              const actType = activityType.title ? activityTypesObj[activityType.activity_type] : activityType;
+                setConfig(exConf);
+                if (showDash && !activityTypesObj[actType].dashboard) {
+                  setShowDash(false);
+                }
+                setReloadAPIform(uuid());
+                console.log(actType)
+                initActivityDocuments(instances, actType, 0, exConf, true);
+                initDashboardDocuments(actType, true);
+                setExample(0);
+                setShowDashExample(false);
+                setActivityTypeId(actType.id);
             }}
             reload={reloadAPIform}
           />

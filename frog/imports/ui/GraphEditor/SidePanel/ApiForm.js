@@ -265,7 +265,6 @@ const ApiForm = observer(
                 activity={this.state.activity}
                 hidePreview={this.props.hidePreview}
                 onPreview={this.props.onPreview}
-                setConfig={this.props.setConfig}
                 onSelect={e => {
                   if (this.props.onSelect) {
                     this.props.onSelect(e.id);

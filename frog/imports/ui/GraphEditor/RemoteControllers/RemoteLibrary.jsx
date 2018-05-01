@@ -110,7 +110,7 @@ class Library extends Component<Object, { searchStr: string }> {
                     importAct(x.uuid, activityId, () => {
                       store.addHistory();
                       store.refreshValidate();
-                    }, this.props.setConfig);
+                    }, this.props.onSelect);
                   } else if (libraryType === 'graph') {
                     importGraph(x.uuid);
                     this.props.setModal(false);
