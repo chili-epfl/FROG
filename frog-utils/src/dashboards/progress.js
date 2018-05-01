@@ -17,55 +17,58 @@ const Viewer = (props: Object) => {
   const { state, activity } = props;
   const nowLine = [{ x: state.now, y: 0 }, { x: state.now, y: 1 }];
   return (
-    <VictoryChart theme={VictoryTheme.material}>
-      <VictoryLegend
-        x={50}
-        y={0}
-        orientation="horizontal"
-        gutter={20}
-        style={{ border: { stroke: 'black' }, title: { fontSize: 16 } }}
-        data={[
-          { name: 'Progress', symbol: { fill: '#0000ff' } },
-          { name: 'Completion', symbol: { fill: '#b20e0e' } }
-        ]}
-      />
-      <VictoryLine
-        style={{ data: { stroke: '#f25959', strokeDasharray: '5,5' } }}
-        data={state.prediction}
-      />
-      <VictoryLine
-        style={{ data: { stroke: '#5454f7', strokeDasharray: '5,5' } }}
-        data={state.progpred}
-      />
-      <VictoryLine
-        style={{ data: { stroke: '#b20e0e' } }}
-        data={state.completion}
-      />
-      <VictoryLine
-        style={{ data: { stroke: '#0000ff' } }}
-        data={state.progress}
-      />
-      <VictoryLine
-        style={{
-          data: { stroke: 'grey', strokeWidth: 2 }
-        }}
-        data={nowLine}
-      />
-      <VictoryAxis
-        label="Time (sec)"
-        domain={[0, activity.length * 60]}
-        style={{
-          axisLabel: { fontSize: 14, padding: 30 }
-        }}
-      />
-      <VictoryAxis
-        dependentAxis
-        label="Class Percentage"
-        style={{
-          axisLabel: { fontSize: 14, padding: 30 }
-        }}
-      />
-    </VictoryChart>
+    <React.Fragment>
+      <VictoryChart theme={VictoryTheme.material}>
+        <VictoryLegend
+          x={50}
+          y={0}
+          orientation="horizontal"
+          gutter={20}
+          style={{ border: { stroke: 'black' }, title: { fontSize: 16 } }}
+          data={[
+            { name: 'Progress', symbol: { fill: '#0000ff' } },
+            { name: 'Completion', symbol: { fill: '#b20e0e' } }
+          ]}
+        />
+        <VictoryLine
+          style={{ data: { stroke: '#f25959', strokeDasharray: '5,5' } }}
+          data={state.prediction}
+        />
+        <VictoryLine
+          style={{ data: { stroke: '#5454f7', strokeDasharray: '5,5' } }}
+          data={state.progpred}
+        />
+        <VictoryLine
+          style={{ data: { stroke: '#b20e0e' } }}
+          data={state.completion}
+        />
+        <VictoryLine
+          style={{ data: { stroke: '#0000ff' } }}
+          data={state.progress}
+        />
+        <VictoryLine
+          style={{
+            data: { stroke: 'grey', strokeWidth: 2 }
+          }}
+          data={nowLine}
+        />
+        <VictoryAxis
+          label="Time (sec)"
+          domain={[0, activity.length * 60]}
+          style={{
+            axisLabel: { fontSize: 14, padding: 30 }
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          label="Class Percentage"
+          style={{
+            axisLabel: { fontSize: 14, padding: 30 }
+          }}
+        />
+      </VictoryChart>
+      <p>Total users: {state.users}</p>
+    </React.Fragment>
   );
 };
 
@@ -178,7 +181,8 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
     completion: parse(completionCurve),
     progpred: parse(predictedProgressCurve),
     progress: parse(progressCurve),
-    now: currentMaxTime
+    now: currentMaxTime,
+    users: Object.keys(state.user).length
   };
 };
 

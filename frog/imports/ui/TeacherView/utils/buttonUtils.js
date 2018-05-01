@@ -15,7 +15,7 @@ import { withStyles } from 'material-ui/styles';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { updateSessionState, restartSession } from '../../../api/sessions';
 import downloadLog from './downloadLog';
-import { runSession, nextActivity } from '../../../api/engine';
+import { nextActivity } from '../../../api/engine';
 import { exportSession } from './exportComponent';
 import styles from '../styles';
 
