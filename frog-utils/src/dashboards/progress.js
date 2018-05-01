@@ -74,6 +74,7 @@ const Viewer = (props: Object) => {
 
 const FINISHED = 'finished';
 const UPDATE_INTERVAL = 10;
+const HIATUS_THRESHOLD = 30;
 const PREDICT_THRESHOLD = 150;
 
 function linearRegression(activities) {
@@ -92,7 +93,9 @@ function predictUserProgress(userStatus, t) {
   const userProgress =
     userStatus === FINISHED
       ? 1
-      : Math.min((t - userStatus[1]) / userStatus[0], 1);
+      : userStatus[0] === 0
+        ? Math.min(userStatus[1], 1);
+        : Math.min((t - userStatus[1]) / userStatus[0], 1);
   return userProgress;
 }
 
@@ -120,15 +123,17 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
 
   Object.keys(state.user).forEach(user => {
     const userActivities = state.user[user];
+    const lastIndex = userActivities.length - 1;
     if (userActivities[0][0] !== 0) {
-      userActivities.push([0, 0]);
+      userActivities.unshift([0, 0]);
     }
-    if (userActivities.length >= 2) {
-      const lastIndex = userActivities.length - 1;
+    if (lastIndex >= 1) {
       const userStatus = 
         userActivities[lastIndex][0] === 1
           ? FINISHED
-          : linearRegression(userActivities);
+          : currentMaxTime - userActivities[lastIndex][1] < Math.max(HIATUS_THRESHOLD, (userActivities[lastIndex][1] - userActivities[0][1]))
+            ? linearRegression(userActivities)
+            : [0, userActivities[lastIndex][0]] // student in hiatus stops working, returns final progress
       sessionStatus[user] = userStatus
     }
   });
@@ -143,7 +148,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
     const progress = [];
     if (t <= currentMaxTime) {
       // visualize actual data
-      Object.keys(state.user).forEach(user => {
+      Object.keys(sessionStatus).forEach(user => {
         const userProgress = registerUserProgress(state.user[user], t);
         progress.push(userProgress);
       });
@@ -156,7 +161,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
       // predict future data
       Object.keys(sessionStatus).forEach(user => {
         const userProgress = predictUserProgress(sessionStatus[user], t);
-        progress.push(userProgress);
+        progress.push(userProgress); 
       });
       const [comp, prog] = assembleCurve(progress);
       predictedCompletionCurve[t] = comp;
@@ -166,9 +171,9 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
 
   // interpolate at maxTime
   const progress = [];
-  Object.keys(state.user).forEach(user => {
+  Object.keys(sessionStatus).forEach(user => {
     const userProgress = registerUserProgress(state.user[user], currentMaxTime);
-    progress.push(userProgress);
+    progress.push(userProgress);  
   });
   const [comp, prog] = assembleCurve(progress);
   completionCurve[currentMaxTime] = comp;
