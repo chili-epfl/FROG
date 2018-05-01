@@ -17,7 +17,7 @@ export const refreshGraphDate = () =>
   (LibraryStates.lastRefreshGraph = new Date());
 
 export const collectGraphs = (callback: ?Function) =>
-  fetch(RemoteServer + '?select=uuid,title,description,tags')
+  fetch(RemoteServer + '?select=uuid,title,description,tags,timestamp')
     .then(e => e.json())
     .then(r => {
       LibraryStates.graphList = r;
@@ -67,6 +67,6 @@ export const importGraph = (id: string) => {
     .then(e => e.json())
     .then(e => {
       const graphId = doImportGraph(e[0].graph);
-      Graphs.update({ _id: graphId }, { $set: { parentId: id } });
+      Graphs.update({ _id: graphId }, { $set: { parentId: id} });
     });
 };
