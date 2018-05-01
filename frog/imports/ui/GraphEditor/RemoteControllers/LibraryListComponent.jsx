@@ -67,7 +67,7 @@ export default ({
           height: '34px'
         }}
         onClick={() => {
-          if(setIdRemove) setIdRemove(object.uuid);
+          if (setIdRemove) setIdRemove(object.uuid);
           setDelete(true);
         }}
       >

@@ -186,7 +186,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
                         !this.props.hidePreview &&
                         x.meta.exampleData !== undefined
                       }
-                      onSelect={() => {select(x);console.log(x)}}
+                      onSelect={() => select(x)}
                       showExpanded={this.state.expanded === x.id}
                       expand={() => this.setState({ expanded: x.id })}
                       key={x.id}

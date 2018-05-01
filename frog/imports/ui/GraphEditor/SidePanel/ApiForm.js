@@ -189,7 +189,10 @@ class State {
 const state = new State();
 
 const ApiForm = observer(
-  class A extends React.Component<PropsT, { activity: ActivityDbT, idRemove: string, deleteOpen: boolean }> {
+  class A extends React.Component<
+    PropsT,
+    { activity: ActivityDbT, idRemove: string, deleteOpen: boolean }
+  > {
     constructor(props) {
       super(props);
       const activity: ActivityDbT = {
@@ -255,12 +258,14 @@ const ApiForm = observer(
             <div style={{ position: 'absolute', marginRight: '20px' }}>
               <ModalDelete
                 modalOpen={this.state.deleteOpen}
-                setModal={x => this.setState({deleteOpen: x})}
-                remove={() => removeActivity(this.state.idRemove, () => this.forceUpdate())}
+                setModal={x => this.setState({ deleteOpen: x })}
+                remove={() =>
+                  removeActivity(this.state.idRemove, () => this.forceUpdate())
+                }
               />
               <ChooseActivityType
-                setDelete={x => this.setState({deleteOpen: x})}
-                setIdRemove={x => this.setState({idRemove: x})}
+                setDelete={x => this.setState({ deleteOpen: x })}
+                setIdRemove={x => this.setState({ idRemove: x })}
                 store={store}
                 activity={this.state.activity}
                 hidePreview={this.props.hidePreview}

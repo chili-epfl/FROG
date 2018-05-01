@@ -22,7 +22,6 @@ const style = {
   preview: { width: '100%', height: 'calc(100% - 50px)', overflow: 'visible' }
 };
 
-
 class ConfigPanel extends React.Component<*, *> {
   onConfigChange = (e: any) => {
     if (e.errors && e.errors.length === 0) {
@@ -91,33 +90,42 @@ class ConfigPanel extends React.Component<*, *> {
               />
               <h3>{activityTypesObj[activityTypeId].meta.name}</h3>
               <ExportButton
-                activity={{ title: activityTypesObj[activityTypeId].meta.name, data: config }}
-                madeChanges={() => console.log('changes')}
+                activity={{
+                  title: activityTypesObj[activityTypeId].meta.name,
+                  data: config,
+                  activityType: activityTypeId
+                }}
               />
             </div>
           )}
           <ApiForm
             hidePreview
-            {...{config, setConfig}}
+            {...{ config, setConfig }}
             activityType={activityTypeId}
             onConfigChange={this.onConfigChange}
-            onSelect={activityType => {// activityTypesObj[activityType.activity_type]
-              console.log(activityType)
-              const exConf = activityType.title ? activityType.config : addDefaultExample(
-                activityTypesObj[activityType]
-              )[0].config;
-              const actType = activityType.title ? activityTypesObj[activityType.activity_type] : activityType;
-                setConfig(exConf);
-                if (showDash && !activityTypesObj[actType].dashboard) {
-                  setShowDash(false);
-                }
-                setReloadAPIform(uuid());
-                console.log(actType)
-                initActivityDocuments(instances, actType, 0, exConf, true);
-                initDashboardDocuments(actType, true);
-                setExample(0);
-                setShowDashExample(false);
-                setActivityTypeId(actType.id);
+            onSelect={activityType => {
+              const exConf = activityType.title
+                ? activityType.config
+                : addDefaultExample(activityTypesObj[activityType])[0].config;
+              const actTypeId = activityType.title
+                ? activityType.activity_type
+                : activityType;
+              setConfig(exConf);
+              if (showDash && !activityTypesObj[actTypeId].dashboard) {
+                setShowDash(false);
+              }
+              setReloadAPIform(uuid());
+              initActivityDocuments(
+                instances,
+                activityTypesObj[actTypeId],
+                0,
+                exConf,
+                true
+              );
+              initDashboardDocuments(actTypeId, true);
+              setExample(0);
+              setShowDashExample(false);
+              setActivityTypeId(actTypeId);
             }}
             reload={reloadAPIform}
           />

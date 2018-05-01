@@ -66,7 +66,7 @@ export const importAct = (id, activityId, callback, onSelect) => {
     .then(e => e.json())
     .then(e => {
       addActivity(e[0].activity_type, e[0].config, activityId, null, id);
-      if (onSelect) onSelect({id: e[0]})
+      if (onSelect) onSelect({ id: e[0] });
       if (callback) {
         callback();
       }
