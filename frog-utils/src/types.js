@@ -1,9 +1,12 @@
 // @flow
 
+import * as React from 'react';
+
 export type ActivityDbT = {
   _id: string,
   data: Object,
-  groupingKey: string,
+  title?: string,
+  groupingKey?: string,
   plane: number,
   startTime: number,
   length: number,
@@ -70,25 +73,24 @@ export type ControlStructureT =
   | { all: ControlT }
   | { list: { [activityId: string]: ControlT } };
 
-export type ActivityRunnerT = {
-  logger: (log: LogT) => void,
+export type ActivityRunnerPropsT = {
+  logger: (logs: LogT | LogT[]) => void,
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, name: string) => Promise<*>,
   userInfo: { id: string, name: string },
-  groupingValue: string
+  groupingValue: string,
+  sessionId: string
 };
+
+export type ActivityRunnerT = React.ComponentType<ActivityRunnerPropsT>;
 
 export type validateConfigFnT = Object => null | {
   field?: string,
   err: string
 };
-
-export type ReactComponent<Props> =
-  | Class<React$Component<Props, *>>
-  | (Props => React$Element<any> | null | React$Element<any>[]);
 
 export type LogT = {|
   type: string,
@@ -103,17 +105,16 @@ type ActivityDefT = {|
   activityPlane: number
 |};
 
-type LogExtraDBT = {|
-  _id: string,
+type LogExtraT = {|
   sessionId: string,
   userId: string,
   instanceId?: string,
   timestamp: Date
 |} & LogT;
 
-export type LogDBT =
-  | {| ...LogExtraDBT, ...ActivityDefT, ...LogT |}
-  | {| ...LogExtraDBT, ...LogT |};
+export type LogDbT =
+  | {| ...LogExtraT, ...ActivityDefT, ...LogT, _id: string |}
+  | {| ...LogExtraT, ...LogT, _id: string |};
 
 export type ActivityPackageT = {
   id: string,
@@ -123,34 +124,45 @@ export type ActivityPackageT = {
     shortName?: string,
     shortDesc: string,
     description: string,
-    exampleData?: { title: string, config?: Object, data?: any }[]
+    exampleData?: {
+      title: string,
+      config?: Object,
+      data?: any,
+      type?: 'deeplink'
+    }[]
   },
   config: Object,
   configUI?: Object,
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: React$Component<ActivityRunnerT>,
-  dashboards?: { [name: string]: dashboardT },
+  ActivityRunner: ActivityRunnerT,
+  dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
-  formatProduct?: (config: Object, item: any) => any,
-  ConfigComponent?: React$Component<{
+  formatProduct?: (config: Object, item: any, instanceId: string) => any,
+  ConfigComponent?: React.ComponentType<{
     configData: Object,
-    setConfigData: Object => void
+    setConfigData: Object => void,
+    formContext: Object
   }>
 };
 
-export type dashboardT = {
-  Viewer: ReactComponent<dashboardViewerPropsT>,
-  mergeLog: (state: any, log: LogDBT, activity: ActivityDbT) => void,
-  prepareDataForDisplay: (state: any, activity: ActivityDbT) => any,
-  exampleLogs?: { title: string, path: string }[],
-  exampleData?: { title: string, path: string }[],
-  initData: any
+export type DashboardT = {
+  Viewer: React.ComponentType<DashboardViewerPropsT>,
+  mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
+  prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
+  initData: any,
+  exampleLogs?: {
+    title: string,
+    path: string,
+    activityMerge: Object,
+    instances: number
+  }[],
+  exampleData?: { title: string, path: string }[]
 };
 
-export type dashboardViewerPropsT = {
-  users: Array<Object>,
+export type DashboardViewerPropsT = {
+  users: { [uid: string]: string },
   activity: ActivityDbT,
   instances: Array<string>,
   state: any

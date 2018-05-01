@@ -59,7 +59,6 @@ const WithTopBar = () => (
 export default withTracker(() => {
   const collections = [
     'activities',
-    'activity_data',
     'connections',
     'graphs',
     'objects',
@@ -67,7 +66,8 @@ export default withTracker(() => {
     'products',
     'sessions',
     'users',
-    'globalSettings'
+    'globalSettings',
+    'dashboardData'
   ];
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   return { ready: every(subscriptions.map(x => x.ready()), Boolean) };

@@ -70,12 +70,12 @@ class StudentLogin extends React.Component<
       return <h1>Must log in to access this session</h1>;
     }
     return (
-      <React.Fragment>
+      <div className="bootstrap">
         {settings.studentlist && (
           <div className="row" style={{ marginLeft: '10px' }}>
             <h2>Select your name below</h2>
             {splitList(settings.studentlist).map(lst => (
-              <div className="col-md-5" key={lst[0]}>
+              <div className="col-md-6" key={lst[0]}>
                 <ul className="list-group">
                   {lst.map(x => (
                     <li
@@ -153,7 +153,7 @@ class StudentLogin extends React.Component<
         >
           Log in
         </Button>
-      </React.Fragment>
+      </div>
     );
   }
 }

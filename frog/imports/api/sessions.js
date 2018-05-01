@@ -5,7 +5,11 @@ import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
 import { Activities, Operators, Connections } from './activities';
-import { runSessionFn, runNextActivity } from './engine';
+import {
+  runSessionFn,
+  runNextActivity,
+  updateNextOpenActivities
+} from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
 
@@ -44,10 +48,16 @@ Meteor.methods({
   }
 });
 
-export const setTeacherSession = (sessionId: string) => {
-  Meteor.users.update(Meteor.userId(), {
-    $set: { 'profile.controlSession': sessionId }
-  });
+export const setTeacherSession = (sessionId: ?string) => {
+  if (!sessionId) {
+    Meteor.users.update(Meteor.userId(), {
+      $unset: { 'profile.controlSession': '' }
+    });
+  } else {
+    Meteor.users.update(Meteor.userId(), {
+      $set: { 'profile.controlSession': sessionId }
+    });
+  }
 };
 
 export const addSession = (graphId: string) => {
@@ -195,9 +205,11 @@ const addSessionFn = (graphId: string, slug: string): string => {
     if (newName[0] !== '#') {
       newName = '#' + newName;
     }
+    const activities = Activities.find({ graphId }).fetch();
+
     const copyGraphId = addGraph({
       graph: { ...graph, name: newName },
-      activities: Activities.find({ graphId }).fetch(),
+      activities,
       operators: Operators.find({ graphId }).fetch(),
       connections: Connections.find({ graphId }).fetch()
     });
@@ -228,9 +240,11 @@ const addSessionFn = (graphId: string, slug: string): string => {
       openActivities: [],
       slug: newSlug
     });
+    updateNextOpenActivities(sessionId, -1, activities);
     Graphs.update(copyGraphId, { $set: { sessionId } });
 
     setTeacherSession(sessionId);
+    runSessionFn(sessionId);
     return sessionId;
   }
   return '';

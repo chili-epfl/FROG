@@ -5,9 +5,9 @@ import {
   mergeSocialStructures,
   type ObjectT,
   type GlobalStructureT,
-  type socialStructureT,
-  type activityDataT
+  type socialStructureT
 } from 'frog-utils';
+import { compact } from 'lodash';
 
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
@@ -78,19 +78,33 @@ const runDataflow = (
   );
 
   // Extract the product
-  const prod = allProducts.find(c => c.type === 'product');
-  const activityData: activityDataT =
-    prod && prod.activityData
-      ? prod.activityData
-      : {
-          structure: 'all',
-          payload: { all: { data: null, config: {} } }
-        };
+  const prod = allProducts.filter(c => c.type === 'product');
+  let activityData;
+  if (prod && prod.length > 1) {
+    activityData = prod.reduce(
+      (acc, x) => ({ ...acc, [x._id]: x.activityData }),
+      {}
+    );
+  } else {
+    activityData =
+      prod && prod[0] && prod[0].activityData
+        ? prod[0].activityData
+        : {
+            structure: 'all',
+            payload: { all: { data: null, config: {} } }
+          };
+  }
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure: { studentIds: string[], students: Object } = {
-    studentIds: students.map(student => student._id),
-    students: students.reduce((acc, x) => ({ ...acc, [x._id]: x.username }), {})
+    studentIds: compact(
+      students.map(student => student.username !== 'teacher' && student._id)
+    ),
+    students: students.reduce(
+      (acc, x) =>
+        x.username === 'teacher' ? acc : { ...acc, [x._id]: x.username },
+      {}
+    )
   };
 
   const object: ObjectT & GlobalStructureT = {
@@ -113,6 +127,9 @@ const runDataflow = (
     Products.update(nodeId, { type: node.type, ...update }, { upsert: true });
 
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
+    if (node.type === 'social') {
+      Sessions.update(sessionId, { $set: { tooLate: true } });
+    }
   } else if (type === 'activity') {
     mergeData(nodeId, object);
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });

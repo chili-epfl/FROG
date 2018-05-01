@@ -4,7 +4,11 @@ import React from 'react';
 
 import SpreadsheetComponent from './react-spreadsheet-component/spreadsheet';
 
-export const toTableData = (obj: Object, nRows: number, nColumns: number) => {
+export const toTableData = (
+  obj: Object,
+  nRows: number,
+  nColumns: number
+): any => {
   const rows = Array(nRows)
     .fill(0)
     .map(() => Array(nColumns).fill('-'));

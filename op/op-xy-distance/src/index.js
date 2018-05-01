@@ -1,6 +1,6 @@
 // @flow
 
-import type { productOperatorT } from 'frog-utils';
+import { type productOperatorT, type activityDataT } from 'frog-utils';
 
 const meta = {
   name: 'Distance from (x,y) coordinates',
@@ -14,26 +14,32 @@ const config = {
 };
 
 const operator = (_, object) => {
-  const { payload } = object.activityData;
-  const isValid = i => {
-    const c = payload[i].data.coordinates;
-    return c && c.valid;
-  };
-  const instances = Object.keys(payload).filter(isValid);
+  const {
+    activityData: { payload },
+    globalStructure: { studentIds }
+  } = object;
 
   const distance = (coordA, coordB) =>
     Math.sqrt((coordA.x - coordB.x) ** 2 + (coordA.y - coordB.y) ** 2);
 
-  const distanceMatrix = instances.map(A =>
-    instances.map(B =>
-      distance(payload[A].data.coordinates, payload[B].data.coordinates)
-    )
+  const distanceMatrix = studentIds.map(A =>
+    studentIds.map(B => {
+      const coordA = payload[A] && payload[A].data.coordinates;
+      const coordB = payload[B] && payload[B].data.coordinates;
+      if (!coordA || !coordB) {
+        return 0;
+      } else {
+        return distance(coordA, coordB);
+      }
+    })
   );
 
-  return {
+  const toReturn: activityDataT = {
     structure: 'all',
-    payload: { all: { data: { instances, distanceMatrix } } }
+    payload: { all: { data: { distanceMatrix }, config: {} } }
   };
+
+  return toReturn;
 };
 
 export default ({

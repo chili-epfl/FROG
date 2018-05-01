@@ -12,7 +12,10 @@ function sessionJoin(slug: string) {
     return { result: 'error', message: 'No such session' };
   }
   if (session.tooLate && user.username !== 'teacher') {
-    return { result: 'error', message: 'Too late' };
+    return {
+      result: 'error',
+      message: 'Unfortunately it is too late to join this session.'
+    };
   }
 
   Meteor.users.update(this.userId, { $push: { joinedSessions: slug } });
