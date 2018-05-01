@@ -19,20 +19,6 @@ import { dashDocId } from '../imports/api/logs';
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
 
-Picker.filter(req => {
-  const userAgent = req.headers['user-agent'] || '';
-  const IEStrings = ['Windows', 'WOW64', 'Trident'];
-  const isIE =
-    IEStrings.some(x => userAgent.includes(x)) || userAgent.includes('MSIE');
-  const isSafari9or10 =
-    (userAgent.includes('Safari/') && userAgent.includes('Version/9')) ||
-    (userAgent.includes('Version/10') && userAgent.includes('AppleWebKit'));
-  return isIE || isSafari9or10;
-}).route('/(.*)', (params, request, response) =>
-  response.end(`<html><body><h1>FROG does not support this browser</h1><p>Unfortunately, we do not support Internet Explorer (only Microsoft Edge) or Safari 9/10 (only Safari 11). </p>
-  <p>We suggest you use <a href='https://www.google.com/chrome/'><b>Chrome</b></a> or <a href='https://www.mozilla.org/en-US/firefox/new/'><b>Firefox</b></a></p></body></h1>`)
-);
-
 setupH5PRoutes();
 
 Picker.filter(req => req.method === 'POST').route(
@@ -72,7 +58,7 @@ Picker.filter(req => req.method === 'POST').route(
         Meteor.users.update(userId, { $set: { username: user, userid: id } });
         const stampedLoginToken = Accounts._generateStampedLoginToken();
         Accounts._insertLoginToken(userId, stampedLoginToken);
-        InjectData.pushData(response, 'login', {
+        InjectData.pushData(request, 'login', {
           token: stampedLoginToken.token,
           slug: params.slug
         });
