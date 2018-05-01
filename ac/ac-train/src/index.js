@@ -48,9 +48,7 @@ const meta = {
       },
       data: {}
     },
-    ...['dragdrop', 'form', 'command', 'graphical'].map(x =>
-      interfaceExample(x)
-    )
+    ...['dragdrop', 'form', 'command', 'map'].map(x => interfaceExample(x))
   ]
 };
 
