@@ -94,7 +94,7 @@ function predictUserProgress(userStatus, t) {
     userStatus === FINISHED
       ? 1
       : userStatus[0] === 0
-        ? Math.min(userStatus[1], 1);
+        ? Math.min(userStatus[1], 1)
         : Math.min((t - userStatus[1]) / userStatus[0], 1);
   return userProgress;
 }
@@ -123,10 +123,10 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
 
   Object.keys(state.user).forEach(user => {
     const userActivities = state.user[user];
-    const lastIndex = userActivities.length - 1;
     if (userActivities[0][0] !== 0) {
       userActivities.unshift([0, 0]);
     }
+    const lastIndex = userActivities.length - 1;
     if (lastIndex >= 1) {
       const userStatus = 
         userActivities[lastIndex][0] === 1
