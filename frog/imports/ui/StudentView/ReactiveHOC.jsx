@@ -27,7 +27,7 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
     doc: any;
     unmounted: boolean;
     interval: any;
-    intervalCount: 0;
+    intervalCount: number = 0;
     times: 0;
 
     constructor(props: Object) {
