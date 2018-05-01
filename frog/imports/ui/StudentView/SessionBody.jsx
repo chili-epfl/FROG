@@ -89,7 +89,7 @@ const StudentView = ({ activities, session, token, classes }) => (
                 href={`/?login=teacher&token=${(token && token.value) || ''}`}
                 target="_blank"
               >
-                Dashboard
+                Orchestration View
               </Button>
             )}
           <Button
