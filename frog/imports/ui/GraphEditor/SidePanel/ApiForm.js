@@ -7,9 +7,11 @@ import { observer } from 'mobx-react';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import validateConfig from '/imports/api/validateConfig';
+import { removeActivity } from '/imports/api/remoteActivities';
 import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
 import ConfigForm from './ConfigForm';
 import { ChooseActivityType } from './ActivityPanel/ChooseActivity';
+import ModalDelete from '../RemoteControllers/ModalDelete';
 import Store from '../store/store';
 
 const store = new Store();
@@ -187,7 +189,7 @@ class State {
 const state = new State();
 
 const ApiForm = observer(
-  class A extends React.Component<PropsT, { activity: ActivityDbT }> {
+  class A extends React.Component<PropsT, { activity: ActivityDbT, idRemove: string, deleteOpen: boolean }> {
     constructor(props) {
       super(props);
       const activity: ActivityDbT = {
@@ -198,7 +200,7 @@ const ApiForm = observer(
         startTime: 0,
         length: 5
       };
-      this.state = { activity };
+      this.state = { activity, idRemove: '', deleteOpen: false };
     }
 
     componentWillReceiveProps = nextprops => {
@@ -251,11 +253,19 @@ const ApiForm = observer(
             </div>
           ) : (
             <div style={{ position: 'absolute', marginRight: '20px' }}>
+              <ModalDelete
+                modalOpen={this.state.deleteOpen}
+                setModal={x => this.setState({deleteOpen: x})}
+                remove={() => removeActivity(this.state.idRemove, () => this.forceUpdate())}
+              />
               <ChooseActivityType
+                setDelete={x => this.setState({deleteOpen: x})}
+                setIdRemove={x => this.setState({idRemove: x})}
                 store={store}
                 activity={this.state.activity}
                 hidePreview={this.props.hidePreview}
                 onPreview={this.props.onPreview}
+                setConfig={this.props.setConfig}
                 onSelect={e => {
                   if (this.props.onSelect) {
                     this.props.onSelect(e.id);

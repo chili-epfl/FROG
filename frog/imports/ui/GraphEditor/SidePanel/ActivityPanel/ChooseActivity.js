@@ -136,6 +136,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               store={this.props.store}
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}
+              setConfig={this.props.setConfig}
             />
           ) : (
             <div>

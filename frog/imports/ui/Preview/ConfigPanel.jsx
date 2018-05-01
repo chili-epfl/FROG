@@ -98,7 +98,7 @@ class ConfigPanel extends React.Component<*, *> {
           )}
           <ApiForm
             hidePreview
-            config={config}
+            {...{config, setConfig}}
             activityType={activityTypeId}
             onConfigChange={this.onConfigChange}
             onSelect={activityType => {
