@@ -1,6 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import { Sessions } from '/imports/api/sessions';
+import { ensureReactive } from './mergeData';
 
 function sessionJoin(slug: string) {
   const user = Meteor.users.findOne(this.userId);
@@ -19,7 +20,7 @@ function sessionJoin(slug: string) {
   }
 
   Meteor.users.update(this.userId, { $push: { joinedSessions: slug } });
-  Meteor.call('ensure.reactive', session._id, this.userId);
+  ensureReactive(session._id, this.userId);
   return { result: 'success' };
 }
 
