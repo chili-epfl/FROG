@@ -5,7 +5,8 @@ import {
   Activities,
   Operators,
   Connections,
-  DashboardData
+  DashboardData,
+  ExternalOperators
 } from '../imports/api/activities.js';
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
@@ -27,6 +28,7 @@ const teacherPublish = (publish, collection, limitation) =>
 export default () => {
   teacherPublish('activities', Activities);
   teacherPublish('operators', Operators);
+  teacherPublish('externalOperators', ExternalOperators);
   teacherPublish('dashboardData', DashboardData);
   teacherPublish('users', Meteor.users, {
     fields: { username: 1, joinedSessions: 1 }

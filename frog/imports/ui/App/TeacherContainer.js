@@ -5,6 +5,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
 import Spinner from 'react-spinner';
+import { ExternalOperators } from '../../api/activities';
+import { operatorTypesObj, operatorTypes } from '../../operatorTypes';
 
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
@@ -67,8 +69,17 @@ export default withTracker(() => {
     'products',
     'sessions',
     'globalSettings',
-    'dashboardData'
+    'dashboardData',
+    'externalOperators'
   ];
   const subscriptions = collections.map(x => Meteor.subscribe(x));
+  const extOp = ExternalOperators.find({}).fetch();
+  extOp.forEach(ext => {
+    if (!operatorTypes.includes(ext)) {
+      operatorTypes.push(ext);
+    }
+    operatorTypesObj[ext.id] = ext;
+  });
+
   return { ready: every(subscriptions.map(x => x.ready()), Boolean) };
 })(TeacherContainer);

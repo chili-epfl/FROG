@@ -171,6 +171,7 @@ export type DashboardViewerPropsT = {
 export type productOperatorT = {
   id: string,
   type: 'product',
+  external?: boolean,
   meta: {
     name: string,
     shortName?: string,
@@ -189,6 +190,7 @@ export type productOperatorT = {
 export type controlOperatorT = {
   id: string,
   type: 'control',
+  external?: boolean,
   meta: {
     name: string,
     shortName?: string,
@@ -207,6 +209,7 @@ export type controlOperatorT = {
 export type socialOperatorT = {
   id: string,
   type: 'social',
+  external?: boolean,
   meta: {
     name: string,
     shortName?: string,
