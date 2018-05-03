@@ -6,6 +6,7 @@ import 'webrtc-adapter';
 
 import { isUndefined, isEqual, without, difference, last } from 'lodash';
 import WebRtcConfig from '../webrtc-config/config';
+import BrowserUtils from '../utils/browser';
 import { onStreamAdded } from '../analytics/AVStreamAnalysis';
 import { preferOpus } from '../utils/codec';
 
@@ -49,27 +50,33 @@ type StateT = {
 
 class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
+
+
   createWebSocketConnection = () => {
     this.ws = new WebSocket(WebRtcConfig.signalServerURL);
+    console.log(this.isFirefox);
+    console.log(this.isChrome);
+
 
     var self = this;
 
     //when web socket connection is oppened, register on signal server
     this.ws.onopen = function (event) {
+
+      self.sendMessage({id: "info", 
+        name: self.name,
+        browser: self.browser
+      });
+
       self.register(this.name, this.id, this.roomId);
     }
 
     this.ws.onmessage = function(message) {
       const parsedMessage = JSON.parse(message.data);
-      if(parsedMessage.id !== "iceCandidate") {
-        console.info('Received message: ' + message.data);
-      }
-
     
       switch (parsedMessage.id) {
       case 'existingParticipants':
         console.log("==>existingParticipants");
-        console.log(parsedMessage);
         self.onExistingParticipants(parsedMessage);
         break;
       case 'newParticipantArrived':
@@ -86,6 +93,8 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
         break;
       case 'iceCandidate':
         //console.log("==>iceCandidate");
+
+        //method below may throw exception
         self.participants[parsedMessage.userId].onRemoteCandidate(parsedMessage.candidate);
         break;
       default:
@@ -95,8 +104,10 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   };
 
   sendMessage = message => {
+    //TODO try catch?
+
     const jsonMessage = JSON.stringify(message);
-    // console.log('Senging message: ' + jsonMessage);
+    // console.log('Send message: ' + jsonMessage);
     this.ws.send(jsonMessage);
   };
 
@@ -113,30 +124,55 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   onExistingParticipants = msg => {
     const self = this;
 
-    //this functions will be given to Participant object
-    //when stream is created, this function will be called
     function onAddLocalStream(stream){
+      console.log("onAddLocalStream");
+      const options = {
+        local: true,
+        name: self.name,
+        id: self.id,
+        logger: self.props.logger
+      };
+      
       //from AVStreamAnalysis
-      onStreamAdded(stream);
+      onStreamAdded(stream, options);
 
-      self.setState(
-        {
-          local: {
+      self.setState({local: {
             name: self.name,
             id: self.id
-          }
-        }
-      );
+      }});
 
       //setting stream to my video (myVideo is rendered after updating state)
-      var myVideo = document.getElementById(self.id);
-      myVideo.srcObject = stream;
+      //TODO put small delay to wait for React's render and try to obtain video
+      function setVideo(){
+        setTimeout(() => { 
+          var myVideo = document.getElementById(self.id);
+          if(myVideo) {
+            myVideo.srcObject = stream;
+          } else {
+            setVideo();
+          }
+        }, 50);
+      }
+      setVideo();
+    }
+
+    function onUserMediaError(error) {
+      console.log("Media already in use, or blocked:", error);
     }
 
     var options = {
-      onAddLocalStream: onAddLocalStream,
+      onaddstream: onAddLocalStream,
       configuration: WebRtcConfig.rtcConfiguration,
-      userMediaConstraints: WebRtcConfig.sendOnlyMediaConstraints
+      userMediaConstraints: WebRtcConfig.sendOnlyMediaConstraints,
+      onUserMediaError: onUserMediaError
+    };
+
+    if(this.browser.browser == "chrome"){
+      options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintsChrome;
+    } else if(this.browser.browser == "firefox") {
+      options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
+    } else {
+      options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
     }
 
     //create new participant for send only my stream
@@ -163,21 +199,39 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
       var stream = event.stream;
 
       self.addRemoteUserToState(newParticipant);
-      var newParticipantVideo = document.getElementById(newParticipant.id);
-      newParticipantVideo.srcObject = stream;
+
+      function setVideo(){
+        setTimeout(() => { 
+          var newParticipantVideo = document.getElementById(newParticipant.id);
+          if(newParticipantVideo) {
+            newParticipantVideo.srcObject = stream;
+          } else {
+            setVideo();
+          }
+        }, 50);
+      }
+      setVideo();
+
     }
 
     var options = {
       onaddstream: onAddRemoteStream,
       configuration: WebRtcConfig.rtcConfiguration
+    };
+
+    if(this.browser.browser == "chrome"){
+      options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintChrome;
+    } else if(this.browser.browser == "firefox") {
+      options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintFirefox;
+    } else {
+      options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintFirefox;
     }
 
     participant.createRecvOnlyPeer(options);
-  }
+  };
 
   addRemoteUserToState = (participant) => {
     var remotes = this.state.remote;
-    //remotes.push({remoteUser: {name: participant.name, id: participant.id}});
     remotes.push({name: participant.name, id: participant.id});
     this.setState({
       remote: remotes
@@ -194,11 +248,10 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     });
   };
 
-
   //receive answer from remote peer
   receiveVideoResponse = (id, sdpAnswer) => {
     this.participants[id].processAnswer(sdpAnswer);
-  }
+  };
 
   //remove participant from remotes and update state
   onParticipantLeft = participantId => {
@@ -210,18 +263,33 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   
     participant.dispose();
     delete this.participants[participantId];
-  }
+  };
 
   leaveRoom = () => {
     this.sendMessage({
       id : 'leaveRoom'
     });
-  
-    for ( var key in this.participants) {
-      this.participants[key].dispose();
-    }
-    
+
+    Object.values(this.participants).forEach(p => p.dispose());
     this.ws.close();
+  };
+
+  //toogles audio from being sent to media server
+  toogleAudio = () => {
+    var thisParticipant = this.participants[this.id];
+    thisParticipant.toogleAudio();
+  };
+
+  //toogles video from being sent to media server
+  toogleVideo = () => {
+    var thisParticipant = this.participants[this.id];
+    thisParticipant.toogleVideo();
+  };
+
+  reloadStream = (participantId) => {
+    this.removeRemoteUserFromState(participantId);
+    var participant = this.participants[participantId];
+    participant.reloadStream();
   }
 
   constructor(props: ActivityRunnerT) {
@@ -232,13 +300,20 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     this.ws = null;
     this.participants = {};
     this.state = { local: {}, remote: [] };
+    this.browser;
+    this.videoSwitch = false;
+    this.audioSwitch = false;
   }
 
   componentDidMount() {
-    //set up variables
     this.name = this.props.userInfo.name;
     this.id = this.props.userInfo.id;
+
+    //TODO, change in the future with activity ID
     this.roomId = this.props.sessionId + this.props.groupingValue;
+
+    this.browser = BrowserUtils.detectBrowser();
+    console.log(this.browser);
 
     this.createWebSocketConnection();
   }
@@ -253,7 +328,13 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     return (
       <div id="webrtc">
         <Header {...this.props} />
-        <VideoLayout local={local} remote={remote} />
+        <VideoLayout 
+          local={local} 
+          remote={remote} 
+          toogleAudio={this.toogleAudio}
+          toogleVideo={this.toogleVideo} 
+          reloadStream={this.reloadStream}
+        />
       </div>
     );
   }
