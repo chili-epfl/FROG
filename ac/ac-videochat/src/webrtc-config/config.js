@@ -11,7 +11,7 @@ const rtcConfiguration = {
   ]
 };
 
-export const signalServerURL = 'wss://frog-marin.tk:443/webrtc';
+const signalServerURL = 'wss://frog-marin.tk:443/webrtc'; 
 
 const sendOnlyMediaConstraints = {
   audio: true,
@@ -21,8 +21,36 @@ const sendOnlyMediaConstraints = {
   }
 };
 
+const sendOnlyOfferConstraintChrome = {
+	mandatory: {
+		'OfferToReceiveAudio': false,
+		'OfferToReceiveVideo': false
+	}
+};
+
+const sendOnlyOfferConstraintFirefox = {
+	offerToReceiveAudio: 0,
+	offerToReceiveVideo: 0
+};
+
+const recvOnlyOfferConstraintChrome = {
+	mandatory: {
+		'OfferToReceiveAudio': true,
+		'OfferToReceiveVideo': true
+	}
+};
+
+const recvOnlyOfferConstraintFirefox = {
+	offerToReceiveAudio: 1,
+	offerToReceiveVideo: 1
+};
+
 export default {
   rtcConfiguration: rtcConfiguration,
   signalServerURL: signalServerURL,
-  sendOnlyMediaConstraints: sendOnlyMediaConstraints
+  sendOnlyMediaConstraints: sendOnlyMediaConstraints,
+  sendOnlyOfferConstraintChrome: sendOnlyOfferConstraintChrome,
+  sendOnlyOfferConstraintFirefox: sendOnlyOfferConstraintFirefox,
+  recvOnlyOfferConstraintChrome: recvOnlyOfferConstraintChrome,
+  recvOnlyOfferConstraintFirefox: recvOnlyOfferConstraintFirefox
 }
