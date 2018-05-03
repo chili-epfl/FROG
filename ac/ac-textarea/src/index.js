@@ -107,12 +107,10 @@ export const formatProduct = (
   data: Object,
   instanceId: string,
   username?: string
-) => {
-  return {
-    ...data,
-    msg: `${username || 'Anonymous'} wrote ${data.text}`
-  };
-};
+) => ({
+  ...data,
+  msg: `${username || 'Anonymous'} wrote ${data.text}`
+});
 
 export default ({
   id: 'ac-textarea',

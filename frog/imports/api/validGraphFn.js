@@ -215,7 +215,6 @@ export default (
     .concat(checkConfigs(operators, activities))
     .concat(checkStream(activities));
 
-  console.log(errors);
   return {
     errors,
     social
