@@ -11,28 +11,38 @@ export const hark = isBrowser
     : () => null
 
 export const onStreamAdded = (stream, options) => {
-    if(options && options.local) {
-        console.log("Received local stream");
-    } 
-    if(options && options.remote) {
-        console.log("Received remote stream");
-    }
+  if(options && options.local) {
+      console.log("Received local stream");
+  } 
+  if(options && options.remote) {
+      console.log("Received remote stream");
+  }
 
-    var speechEvents = hark(stream);
+  var speechEvents = hark(stream);
 
-      speechEvents.on('speaking', function() {
-        console.log('speaking');
+    speechEvents.on('speaking', function() {
+      console.log('speaking');
 
-        //self.name
-        //show user on dashboard
-        if(options && options.logger)
-            logger({type: "videochat", payload: "<name>"})
-      });
+      //self.name
+      //show user on dashboard
+      if(options && options.logger)
+          options.logger({type: "videochat", 
+          payload: {
+            name: options.name,
+            id: options.id,
+            type: "speaking"
+          }})
+    });
 
-      speechEvents.on('stopped_speaking', function() {
-        console.log('stopped_speaking');
-
-        //self.name
-      });
+    speechEvents.on('stopped_speaking', function() {
+      console.log('stopped_speaking');
+      if(options && options.logger)
+        options.logger({type: "videochat", 
+        payload: {
+          name: options.name,
+          id: options.id,
+          type: "stopped_speaking"
+        }})
+    });
 };
 
