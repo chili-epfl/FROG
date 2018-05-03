@@ -7,7 +7,7 @@ export default connect(
   ({
     store: {
       operatorStore: { all: operators },
-      ui: { socialCoords, socialCoordsScaled, canvasClick },
+      ui: { socialCoords, socialCoordsScaled },
       state
     },
     scaled,
@@ -20,8 +20,8 @@ export default connect(
           title={op.title}
           transparent={transparent}
           key={op.id}
-          x={coords[0] - 10}
-          y={coords[1] - 30}
+          x={coords[0]}
+          y={coords[1]}
           color={op.color}
           onLeave={op.onLeave}
           onOver={op.onOver}
@@ -40,13 +40,7 @@ export default connect(
     if (state.mode === 'placingOperator') {
       const coords = scaled ? socialCoordsScaled : socialCoords;
       dragOp = (
-        <svg onClick={canvasClick}>
-          <Operator
-            type={state.operatorType}
-            x={coords[0] - 30}
-            y={coords[1] - 30}
-          />
-        </svg>
+        <Operator type={state.operatorType} x={coords[0]} y={coords[1]} />
       );
     } else {
       dragOp = null;

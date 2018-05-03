@@ -163,13 +163,8 @@ export default class uiStore {
       canvasClick: action(() => {
         const state = store.state;
         if (state.mode === 'placingOperator') {
-          const offset = pxToTime(20, this.scale);
           store.operatorStore.all.push(
-            new Operator(
-              this.socialCoordsTime[0] - offset,
-              this.socialCoordsTime[1] - offset,
-              state.operatorType
-            )
+            new Operator(...this.socialCoordsTime, state.operatorType)
           );
           store.state = { mode: 'normal' };
           store.addHistory();
@@ -256,7 +251,7 @@ export default class uiStore {
 
   rawMouseToTime = (rawX: number, rawY: number): [number, number] => {
     const x = pxToTime(rawX, this.scale) + this.panTime;
-    const y = rawY - 15;
+    const y = rawY;
     return [x, y];
   };
 }

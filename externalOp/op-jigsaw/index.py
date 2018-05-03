@@ -32,7 +32,6 @@ def operator(data, object):
     kmeans.fit(docs)
     y_kmeans = kmeans.predict(docs)
     indices = [[i, k] for (i,k) in enumerate(y_kmeans)]
-    print(indices)
     roles = {}
     groups = {}
 
@@ -43,7 +42,6 @@ def operator(data, object):
         groups[str(group)] = [roles['1'][group], roles['2'][group]]
 
     product = {'group': groups, 'role': roles}
-    print(product)
 
     return product
 
