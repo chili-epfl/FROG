@@ -4,9 +4,8 @@ import redis from 'redis';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 
-export default (operatorType: string) => (data: any, object: any) => {
-  console.log('remote operator', data, object);
-  return new Promise(resolve => {
+export default (operatorType: string) => (data: any, object: any) =>
+  new Promise(resolve => {
     const client = redis.createClient();
     client.on('error', e => {
       console.error('Redis error', e);
@@ -18,20 +17,18 @@ export default (operatorType: string) => (data: any, object: any) => {
       JSON.stringify({ msgType: 'run', data, object, callback: returnId })
     );
 
-    console.log('listening');
     client.blpop(
       'frog.external.' + returnId,
       0,
       Meteor.bindEnvironment((err, msg) => {
-        console.log(msg);
         try {
           const incoming = JSON.parse(msg[1]);
-          console.log(incoming);
           if (incoming.msgType === 'product') {
             resolve(incoming.payload);
           }
-        } catch (e) {}
+        } catch (e) {
+          console.error('Broken incoming message', msg[1], e);
+        }
       })
     );
   });
-};

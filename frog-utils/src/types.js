@@ -139,7 +139,12 @@ export type ActivityPackageT = {
   ActivityRunner: ActivityRunnerT,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
-  formatProduct?: (config: Object, item: any, instanceId: string) => any,
+  formatProduct?: (
+    config: Object,
+    item: any,
+    instanceId: string,
+    username?: string
+  ) => any,
   ConfigComponent?: React.ComponentType<{
     configData: Object,
     setConfigData: Object => void,
