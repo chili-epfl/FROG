@@ -7,19 +7,19 @@ const Viewer = ({state}: Object) => {
     console.log(state);
     return (
         <div>
-           {state.count}
            <br/>
-           {state.any}
+           {state.user}
         </div>
     );
 };
 
-const initData = {any: "Hello World", count: 0}
+const initData = {user: "Hello World"}
 
 const mergeLog = (state, log) => {
+
     if(log.type === "videochat") {
-        state.count += 1;
-        state.any = log.payload.name;
+        console.log(log);
+        state.user = log.payload.name + " " + log.payload.type;
     }
 }
 
