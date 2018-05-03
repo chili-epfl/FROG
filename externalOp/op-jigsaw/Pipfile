@@ -8,6 +8,7 @@ redis = "*"
 spacy = "*"
 scipy = "*"
 jupyter = "*"
+sklearn = "*"
 
 [dev-packages]
 

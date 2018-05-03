@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 
 export default (operatorType: string) => (data: any, object: any) => {
-  console.log('remote operator');
+  console.log('remote operator', data, object);
   return new Promise(resolve => {
     const client = redis.createClient();
     client.on('error', e => {

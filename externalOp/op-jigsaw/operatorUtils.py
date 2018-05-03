@@ -23,6 +23,10 @@ def defineOperator(operatorPackage, operator):
     while True:
         incoming = r.blpop('frog.operator.' + operatorPackage['id'])
         msg = json.loads(incoming[1])
-        if(msg['msgType'] == 'run'):
-            r.rpush('frog.external.'+msg['callback'], json.dumps({'msgType': 'product', 'payload': operator(msg['data'], msg['object'])}))
+        print(msg)
+        try:
+            if(msg['msgType'] == 'run'):
+                r.rpush('frog.external.'+msg['callback'], json.dumps({'msgType': 'product', 'payload': operator(msg['data'], msg['object'])}))
+        except:
+            pass
 

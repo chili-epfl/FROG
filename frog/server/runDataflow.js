@@ -120,7 +120,7 @@ const runDataflow = (
     const operatorFunction = operatorTypesObj[node.operatorType].external
       ? remote(node.operatorType)
       : operatorTypesObj[node.operatorType].operator;
-    const product = Promise.await(operatorFunction(node.data, object));
+    const product = Promise.await(operatorFunction(node.data || {}, object));
     const dataType = {
       product: 'activityData',
       social: 'socialStructure',
