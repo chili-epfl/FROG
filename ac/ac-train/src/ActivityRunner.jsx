@@ -100,10 +100,6 @@ class Main extends React.Component<ActivityRunnerPropsT & { classes: any }> {
   }
 }
 
-const f = (props: { x?: string, name?: { first?: string, last?: string } }) => {
-  console.log(props.name?.first);
-};
-
 // the actual component that the student sees
 const RunnerController = props => {
   const {
