@@ -105,8 +105,7 @@
     "ac-train": "1.0.0",
     "ws": "^5.1.1",
     "op-social-config": "1.0.0",
-    "op-cs211-ranking": "1.0.0",
-    "idx": "^2.3.0"
+    "op-cs211-ranking": "1.0.0"
   },
   "devDependencies": {
     "nps": "^5.9.0"
