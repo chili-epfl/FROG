@@ -2,6 +2,7 @@
   "plugins": [
     "@babel/plugin-transform-flow-strip-types",
     "@babel/plugin-proposal-optional-chaining",
+    "babel-plugin-idx",
     [
       "captains-log",
       {
