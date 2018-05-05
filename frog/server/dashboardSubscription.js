@@ -19,7 +19,7 @@ const reactiveWrapper = (act, dashboard) => {
   activityQuery[act._id] = serverConnection.createSubscribeQuery('rz', {
     _id: { $regex: '^' + act._id }
   });
-  return () => {
+  return (_, __) => {
     const data = (activityQuery[act._id].results || []).reduce(
       (acc, res) => ({
         [res.id.split('/')[1]]: res.data
@@ -62,11 +62,9 @@ export default () => {
     let prepDataForDisplayFn;
     if (aTDash.prepareDataForDisplay) {
       prepDataForDisplayFn = aTDash.prepareDataForDisplay;
-    }
-    if (aTDash.reactiveToDisplay) {
+    } else if (aTDash.reactiveToDisplay) {
       prepDataForDisplayFn = reactiveWrapper(act, aTDash);
-    }
-    if (!prepDataForDisplayFn) {
+    } else {
       prepDataForDisplayFn = (x, _) => x;
     }
     const dashState = cloneDeep(DashboardStates[dashId]);
