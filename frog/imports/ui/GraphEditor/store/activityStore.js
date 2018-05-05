@@ -1,5 +1,5 @@
 import { extendObservable, action } from 'mobx';
-import { omit, maxBy, isEmpty } from 'lodash';
+import { maxBy, isEmpty } from 'lodash';
 
 import Activity from './activity';
 import { duplicateActivity } from '../../../api/activities';
@@ -263,7 +263,13 @@ export default class ActivityStore {
       },
 
       get history(): Array<any> {
-        return this.all.map(x => ({ ...omit(x, 'over') }));
+        return this.all.map(x => ({
+          title: x.title,
+          plane: x.plane,
+          startTime: x.startTime,
+          length: x.length,
+          id: x.id
+        }));
       },
 
       get furthestActivity(): number {
