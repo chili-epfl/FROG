@@ -7,6 +7,7 @@ import {
 } from 'frog-utils';
 
 import CountDashboard from './CountDashboard';
+import ReactiveCountDashboard from './ReactiveCountDashboard';
 import JustificationDashboard from './JustificationDashboard';
 
 export default {
@@ -14,5 +15,6 @@ export default {
   progress: ProgressDashboard,
   leaderboard: LeaderBoard,
   coordinates: CoordinatesDashboard,
-  justification: JustificationDashboard
+  justification: JustificationDashboard,
+  reactive: ReactiveCountDashboard
 };

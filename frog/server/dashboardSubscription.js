@@ -8,20 +8,35 @@ import { activityTypesObj } from '../imports/activityTypes';
 import { DashboardData, Activities } from '../imports/api/activities';
 import { DashboardStates } from '../imports/api/cache';
 import { regenerateState } from '../imports/api/mergeLogData';
+import { serverConnection } from './share-db-manager';
 
 const interval = {};
 const subscriptions = {};
-const oldState = {};
 const oldInput = {};
+const activityQuery = {};
 
-const updateAndSend = (dashId, prepareDataForDisplayFn, activity) => {
-  if (!isEqual(oldInput[dashId], DashboardStates[dashId])) {
+const reactiveWrapper = (act, dashboard) => {
+  activityQuery[act._id] = serverConnection.createSubscribeQuery('rz', {
+    _id: { $regex: '^' + act._id }
+  });
+  return () => {
+    const data = (activityQuery[act._id].results || []).reduce(
+      (acc, res) => ({
+        [res.id.split('/')[1]]: res.data
+      }),
+      {}
+    );
+    return dashboard.reactiveToDisplay(data);
+  };
+};
+
+const updateAndSend = (dashId, prepareDataForDisplayFn, activity, reactive) => {
+  if (reactive || !isEqual(oldInput[dashId], DashboardStates[dashId])) {
     const dashState = cloneDeep(DashboardStates[dashId]);
     const newState = prepareDataForDisplayFn(dashState, activity);
     values(subscriptions[dashId]).forEach(that => {
       that.changed('dashboard', dashId, newState);
     });
-    oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
   }
 };
@@ -44,15 +59,29 @@ export default () => {
     }
     set(subscriptions, [dashId, id], this);
     const aTDash = aT.dashboards[dashboard];
-    const prepDataForDisplayFn = aTDash.prepareDataForDisplay || ((x, _) => x);
+    let prepDataForDisplayFn;
+    if (aTDash.prepareDataForDisplay) {
+      prepDataForDisplayFn = aTDash.prepareDataForDisplay;
+    }
+    if (aTDash.reactiveToDisplay) {
+      prepDataForDisplayFn = reactiveWrapper(act, aTDash);
+    }
+    if (!prepDataForDisplayFn) {
+      prepDataForDisplayFn = (x, _) => x;
+    }
     const dashState = cloneDeep(DashboardStates[dashId]);
     const newState = prepDataForDisplayFn(dashState, act);
     this.added('dashboard', dashId, newState);
-    oldState[dashId] = newState;
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
       interval[dashId] = setInterval(
-        () => updateAndSend(dashId, prepDataForDisplayFn, act),
+        () =>
+          updateAndSend(
+            dashId,
+            prepDataForDisplayFn,
+            act,
+            aTDash.reactiveToDisplay
+          ),
         1000
       );
     }
