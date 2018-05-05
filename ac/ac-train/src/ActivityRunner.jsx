@@ -46,14 +46,7 @@ const ActivityEnded = () => (
   </div>
 );
 
-type PropsT = {
-  dataFn: any,
-  data: Object,
-  activityData: { config: Object },
-  userInfo: { id: string }
-};
-
-class Main extends React.Component<PropsT> {
+class Main extends React.Component<ActivityRunnerPropsT & { classes: any }> {
   interfaces: Array<string>;
 
   start = () => {
@@ -107,10 +100,12 @@ class Main extends React.Component<PropsT> {
   }
 }
 
+const f = (props: { x?: string, name?: { first?: string, last?: string } }) => {
+  console.log(props.name?.first);
+};
+
 // the actual component that the student sees
-const RunnerController = (
-  props: ActivityRunnerPropsT & { classes: Object }
-) => {
+const RunnerController = props => {
   const {
     data: { iteration },
     activityData: {
