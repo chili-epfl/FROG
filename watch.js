@@ -8,7 +8,7 @@ const dir = dirname(sync('.git'));
 
 const pattern = ['ac/*/src/**', 'op/*/src/**', 'frog-utils/src/**'];
 
-const distFlow = path => path.replace('/src/', '/dist/').replace('.jsx', '.js');
+const distFlow = path => path.replace('/src/', '/dist/');
 const dist = path => path.replace('/src/', '/dist/').replace('.jsx', '.js');
 
 const transpile = (event, src) => {
