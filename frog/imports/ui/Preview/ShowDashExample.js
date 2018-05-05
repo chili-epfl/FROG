@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { get } from 'lodash';
+import { throttle, get, isEmpty } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import {
   cloneDeep,
@@ -9,7 +9,6 @@ import {
   type ActivityPackageT,
   type LogDbT
 } from 'frog-utils';
-import { throttle } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import Spinner from 'react-spinner';
@@ -63,8 +62,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       }
     }
     if (
-      get(aTdashs, [this.state.example, 'exampleLogs', 0, 'type']) ===
-      'stateOnly'
+      get(aTdashs, [this.state.example, 'exampleLogs', 0, 'type']) === 'state'
     ) {
       this.state.data = aTdashs[this.state.example].exampleLogs[0].state;
       this.setActivityObj(
@@ -113,7 +111,11 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const data = (exampleData && exampleData[0].config) || {};
 
     const dash = dashboards && dashboards[this.state.example];
-    if (!dash || !dash.exampleLogs) {
+    if (
+      !dash ||
+      !dash.exampleLogs ||
+      dash.exampleLogs[this.state.idx].type === 'state'
+    ) {
       return;
     }
 
@@ -264,12 +266,19 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       x => aTdashs[x] && aTdashs[x].exampleLogs
     );
     const dash = aTdashs[this.state.example];
-    if (dash && !dash.exampleLogs) {
+    if (!dash && !dash.exampleLogs) {
       return <p>The chosen dashboard has no example logs/state</p>;
     }
     const examples = (dash.exampleLogs || []).map(x => x.title);
     const Viewer = aTdashs[this.state.example].Viewer;
-    if (!this.state.logs && !this.state.data) {
+    if (
+      (aTdashs[this.state.example].exampleLogs[this.state.idx].type ===
+        'logs' &&
+        !this.state.logs) ||
+      (aTdashs[this.state.example].exampleLogs[this.state.idx].type ==
+        'state' &&
+        !this.state.data)
+    ) {
       return <Spinner />;
     }
     return (
@@ -279,14 +288,27 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             selected={this.state.exampleIdx}
             onChange={x => {
               this.logsProcessed = 0;
+              const dash = aTdashs[dashNames[x]];
+              let data;
+              if (get(dash, ['exampleLogs', x, 'type']) === 'state') {
+                data = dash.exampleLogs[x].state;
+              } else if (dash.prepareDataForDisplay) {
+                data = dash.prepareDataForDisplay(
+                  dash.initData,
+                  this.activityDbObject
+                );
+              } else {
+                data = dash.initData;
+              }
               this.setState(
                 {
+                  slider: { ...this.state.slider, [this.state.example]: 0 },
                   oldSlider: 0,
-                  data: aTdashs[dashNames[x]].initData,
-                  example: dashNames[x],
-                  exampleIdx: x,
+                  data,
                   logs: [],
                   idx: 0,
+                  exampleIdx: x,
+                  example: dashNames[x],
                   play: false
                 },
                 () => this.fetchLogs()
@@ -300,10 +322,23 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             selected={this.state.idx}
             onChange={x => {
               this.logsProcessed = 0;
+              const dash = aTdashs[this.state.example];
+              let data;
+              if (get(dash, ['exampleLogs', x, 'type']) === 'state') {
+                data = dash.exampleLogs[x].state;
+              } else if (dash.prepareDataForDisplay) {
+                data = dash.prepareDataForDisplay(
+                  dash.initData,
+                  this.activityDbObject
+                );
+              } else {
+                data = dash.initData;
+              }
               this.setState(
                 {
                   oldSlider: 0,
-                  data: aTdashs[this.state.example].initData,
+                  slider: { ...this.state.slider, [this.state.example]: 0 },
+                  data,
                   logs: [],
                   idx: x,
                   play: false
@@ -314,40 +349,55 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             dashNames={examples}
           />
         </div>
-        <div style={{ height: '30px' }}>
-          <DashboardSelector
-            onChange={x => {
-              if (this.state.play === x) {
-                this.setState({ play: false });
-              } else {
-                this.setState(
-                  {
-                    oldSlider: 0,
-                    data: aTdashs[this.state.example].initData,
-                    play: x
-                  },
-                  () => {
-                    this.logsProcessed = 0;
-                    this.clusterBySecond();
+        {!isEmpty(this.state.logs) && (
+          <React.Fragment>
+            <div style={{ height: '30px' }}>
+              <DashboardSelector
+                onChange={x => {
+                  if (this.state.play === x) {
+                    this.setState({ play: false });
+                  } else {
+                    let data;
+                    const dash = aTdashs[this.state.example];
+                    if (dash.prepareDataForDisplay) {
+                      data = dash.prepareDataForDisplay(
+                        dash.initData,
+                        this.activityDbObject
+                      );
+                    } else {
+                      data = dash.initData;
+                    }
+                    this.setState(
+                      {
+                        data,
+                        oldSlider: 0,
+                        play: x
+                      },
+                      () => {
+                        this.logsProcessed = 0;
+                        this.clusterBySecond();
+                      }
+                    );
                   }
-                );
-              }
-            }}
-            dashNames={['1x', '2x', '4x', '8x', '16x', '32x']}
-            selected={this.state.play || 0}
-          />
-        </div>
-        <Slider
-          value={this.state.slider[this.state.example] || 0}
-          min={0}
-          max={logs.length - 1}
-          onChange={e => {
-            this.setState({
-              slider: { ...this.state.slider, [this.state.example]: e }
-            });
-            this.throttledDisplaySubset(e);
-          }}
-        />
+                }}
+                dashNames={['1x', '2x', '4x', '8x', '16x', '32x']}
+                selected={this.state.play || 0}
+              />
+            </div>
+            <Slider
+              value={this.state.slider[this.state.example] || 0}
+              min={0}
+              max={logs.length - 1}
+              onChange={e => {
+                this.setState({
+                  play: false,
+                  slider: { ...this.state.slider, [this.state.example]: e }
+                });
+                this.throttledDisplaySubset(e);
+              }}
+            />
+          </React.Fragment>
+        )}
         {this.props.showLogs ? (
           <Inspector data={this.state.logs} />
         ) : (

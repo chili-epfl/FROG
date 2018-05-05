@@ -11,7 +11,8 @@ export type ActivityDbT = {
   startTime: number,
   length: number,
   activityType: string,
-  actualStartingTime?: Date
+  actualStartingTime?: Date,
+  actualClosingTime?: Date
 };
 
 export type OperatorDbT = {
@@ -154,12 +155,13 @@ export type DashboardT = {
   initData: any,
   exampleLogs?: (
     | {
+        type: 'logs',
         title: string,
         path: string,
         activityMerge?: Object,
-        instances: number
+        instances?: number
       }
-    | { title: string, type: 'stateOnly', activityMerge?: Object, state: any }
+    | { title: string, type: 'state', activityMerge?: Object, state: any }
   )[]
 };
 

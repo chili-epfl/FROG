@@ -1,7 +1,7 @@
 export default [
   {
     title: 'CS211 with Avion',
-    type: 'stateOnly',
+    type: 'state',
     state: {
       iMax: 916,
       data: [

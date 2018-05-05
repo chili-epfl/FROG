@@ -113,8 +113,11 @@ const parse = curve =>
 
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
+  const currentTime = activity.actualClosingTime
+    ? new Date(activity.actualClosingTime)
+    : new Date();
   const currentMaxTime = activity.actualStartingTime
-    ? (new Date() - new Date(activity.actualStartingTime)) / 1000
+    ? (currentTime - new Date(activity.actualStartingTime)) / 1000
     : state.maxTime;
   const sessionStatus = {};
 
@@ -235,18 +238,21 @@ const activityMerge = {
 
 const exampleLogs = [
   {
+    type: 'logs',
     title: 'CS211 week 1 (n=400)',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1-short.json',
     activityMerge,
     instances: 118
   },
   {
+    type: 'logs',
     title: 'CS211 week 1',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1.json',
     activityMerge,
     instances: 118
   },
   {
+    type: 'logs',
     title: 'CS211 week 2',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w2-2018.json',
     activityMerge: {
