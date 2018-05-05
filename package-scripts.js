@@ -31,7 +31,7 @@ if (findDir) {
 }
 
 const fromRoot = cmd =>
-  `PATH=${dir}/node_modules/.bin:$PATH && cd ${dir}/ && ${cmd}`;
+  `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH ${cmd}`;
 
 const build = x => {
   const bin = 'node_modules/.bin';
