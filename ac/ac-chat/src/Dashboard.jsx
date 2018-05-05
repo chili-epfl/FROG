@@ -4,6 +4,7 @@ import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { isEmpty } from 'lodash';
 import { type LogDbT, type DashboardT } from 'frog-utils';
+import exampleLogs from './dashboardExample/avion.js';
 
 const fontSizeMapper = (itMax, word) => 10 + word.value * 150 / Number(itMax);
 
@@ -46,7 +47,8 @@ const wordcloud: DashboardT = {
   Viewer,
   mergeLog,
   initData,
-  prepareDataForDisplay
+  prepareDataForDisplay,
+  exampleLogs
 };
 
 export default { wordcloud };

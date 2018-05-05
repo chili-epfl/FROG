@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { get } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import {
   cloneDeep,
@@ -61,21 +62,34 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         this.state.example = example;
       }
     }
-    this.fetchLogs();
+    if (
+      get(aTdashs, [this.state.example, 'exampleLogs', 0, 'type']) ===
+      'stateOnly'
+    ) {
+      this.state.data = aTdashs[this.state.example].exampleLogs[0].state;
+      this.setActivityObj(
+        this.props.activityType.dashboards,
+        get(
+          this.props,
+          ['activityType', 'meta', 'exampleData', 0, 'config'],
+          {}
+        )
+      );
+    } else {
+      this.fetchLogs();
+    }
   }
 
-  fetchLogs = (props: PropsT = this.props) => {
-    const {
-      meta: { exampleData },
-      dashboards
-    } = this.props.activityType;
-    const data = (exampleData && exampleData[0].config) || {};
-
+  setActivityObj = (dashboards: any, data: any) => {
     const dash = dashboards && dashboards[this.state.example];
-    if (!dash) {
+    if (!dash || !dash.exampleLogs) {
       return;
     }
-    const { activityMerge } = (dash.exampleLogs && dash.exampleLogs[0]) || {};
+    const activityMerge = get(
+      dash,
+      ['exampleLogs', this.state.idx, 'activityMerge'],
+      {}
+    );
 
     this.activityDbObject = {
       ...{
@@ -89,6 +103,22 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       },
       ...activityMerge
     };
+  };
+
+  fetchLogs = (props: PropsT = this.props) => {
+    const {
+      meta: { exampleData },
+      dashboards
+    } = this.props.activityType;
+    const data = (exampleData && exampleData[0].config) || {};
+
+    const dash = dashboards && dashboards[this.state.example];
+    if (!dash || !dash.exampleLogs) {
+      return;
+    }
+
+    this.setActivityObj(dashboards, data);
+
     Meteor.call(
       'get.example.logs',
       props.activityType.id,
@@ -234,12 +264,12 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       x => aTdashs[x] && aTdashs[x].exampleLogs
     );
     const dash = aTdashs[this.state.example];
-    if (!dash.exampleLogs) {
-      return <p>The chosen dashboard has no example logs</p>;
+    if (dash && !dash.exampleLogs) {
+      return <p>The chosen dashboard has no example logs/state</p>;
     }
-    const examples = dash.exampleLogs.map(x => x.title);
+    const examples = (dash.exampleLogs || []).map(x => x.title);
     const Viewer = aTdashs[this.state.example].Viewer;
-    if (!this.state.logs) {
+    if (!this.state.logs && !this.state.data) {
       return <Spinner />;
     }
     return (

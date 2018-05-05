@@ -152,13 +152,15 @@ export type DashboardT = {
   mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
   initData: any,
-  exampleLogs?: {
-    title: string,
-    path: string,
-    activityMerge: Object,
-    instances: number
-  }[],
-  exampleData?: { title: string, path: string }[]
+  exampleLogs?: (
+    | {
+        title: string,
+        path: string,
+        activityMerge?: Object,
+        instances: number
+      }
+    | { title: string, type: 'stateOnly', activityMerge?: Object, state: any }
+  )[]
 };
 
 export type DashboardViewerPropsT = {
