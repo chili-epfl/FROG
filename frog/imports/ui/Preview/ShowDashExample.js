@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { throttle, get, isEmpty } from 'lodash';
+import { throttle, isEmpty } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import {
   cloneDeep,
@@ -42,7 +42,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
 
   constructor(props: PropsT) {
     super(props);
-    this.state = {
+    this.state = ({
       data: null,
       example: '',
       logs: [],
@@ -50,7 +50,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       slider: {},
       idx: 0,
       play: false
-    };
+    }: StateT);
     const aTdashs = this.props.activityType.dashboards;
     if (aTdashs) {
       const example = Object.keys(aTdashs).find(
@@ -61,17 +61,15 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         this.state.example = example;
       }
     }
-    if (
-      get(aTdashs, [this.state.example, 'exampleLogs', 0, 'type']) === 'state'
-    ) {
-      this.state.data = aTdashs[this.state.example].exampleLogs[0].state;
+    const dashex = aTdashs?.[this.state.example]?.exampleLogs?.[0];
+    if (!dashex) {
+      return;
+    }
+    if (dashex.type === 'state') {
+      this.state.data = dashex.state;
       this.setActivityObj(
         this.props.activityType.dashboards,
-        get(
-          this.props,
-          ['activityType', 'meta', 'exampleData', 0, 'config'],
-          {}
-        )
+        this.props.activityType.meta?.exampleData?.[0]?.config || {}
       );
     } else {
       this.fetchLogs();
@@ -83,11 +81,8 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     if (!dash || !dash.exampleLogs) {
       return;
     }
-    const activityMerge = get(
-      dash,
-      ['exampleLogs', this.state.idx, 'activityMerge'],
-      {}
-    );
+    const activityMerge =
+      dash?.exampleLogs?.[this.state.idx]?.activityMerge || {};
 
     this.activityDbObject = {
       ...{
@@ -272,10 +267,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const examples = (dash.exampleLogs || []).map(x => x.title);
     const Viewer = aTdashs[this.state.example].Viewer;
     if (
-      (aTdashs[this.state.example].exampleLogs[this.state.idx].type ===
+      (aTdashs[this.state.example].exampleLogs?.[this.state.idx].type ===
         'logs' &&
         !this.state.logs) ||
-      (aTdashs[this.state.example].exampleLogs[this.state.idx].type ==
+      (aTdashs[this.state.example].exampleLogs?.[this.state.idx].type ===
         'state' &&
         !this.state.data)
     ) {
@@ -288,17 +283,17 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             selected={this.state.exampleIdx}
             onChange={x => {
               this.logsProcessed = 0;
-              const dash = aTdashs[dashNames[x]];
+              const mydash = aTdashs[dashNames[x]];
               let data;
-              if (get(dash, ['exampleLogs', x, 'type']) === 'state') {
-                data = dash.exampleLogs[x].state;
-              } else if (dash.prepareDataForDisplay) {
-                data = dash.prepareDataForDisplay(
-                  dash.initData,
+              if (mydash?.exampleLogs?.[x]?.type === 'state') {
+                data = mydash.exampleLogs[x].state;
+              } else if (mydash.prepareDataForDisplay) {
+                data = mydash.prepareDataForDisplay(
+                  mydash.initData,
                   this.activityDbObject
                 );
               } else {
-                data = dash.initData;
+                data = mydash.initData;
               }
               this.setState(
                 {
@@ -322,17 +317,17 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             selected={this.state.idx}
             onChange={x => {
               this.logsProcessed = 0;
-              const dash = aTdashs[this.state.example];
+              const mydash = aTdashs[this.state.example];
               let data;
-              if (get(dash, ['exampleLogs', x, 'type']) === 'state') {
-                data = dash.exampleLogs[x].state;
-              } else if (dash.prepareDataForDisplay) {
-                data = dash.prepareDataForDisplay(
-                  dash.initData,
+              if (mydash?.exampleLogs?.[x].type === 'state') {
+                data = mydash.exampleLogs?.[x].state;
+              } else if (mydash.prepareDataForDisplay) {
+                data = mydash.prepareDataForDisplay(
+                  mydash.initData,
                   this.activityDbObject
                 );
               } else {
-                data = dash.initData;
+                data = mydash.initData;
               }
               this.setState(
                 {
