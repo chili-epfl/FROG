@@ -26,7 +26,8 @@ const config = {
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {
   "annotations": [],
-  "pageNum": 1
+  "pageNum": 1,
+  "pdf_file": ''
 };
 
 // receives incoming data, and merges it with the reactive data using dataFn.*

@@ -23,6 +23,16 @@ export default class PDF extends Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.props, prevProps);
+    if (this.props.src!=prevProps.src) {
+      PDFJS.getDocument(this.props.src).then((pdf) => {
+        console.log(pdf);
+        this.setState({ pdf });
+      });
+    }
+  }
+
   // onNextPage() {
   //   const { pageNumber, pdf } = this.state;
   //   if (pageNumber >= pdf.numPages) return;

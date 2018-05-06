@@ -83,7 +83,7 @@ export default class AnnotalstionLayer extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.data)
+    // console.log(this.props.data)
     this.forceReRender();
   }
 
@@ -139,8 +139,8 @@ export default class AnnotalstionLayer extends Component {
     var that = this;
     const UI = this.state.PDFJSAnnotate.UI;
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then((result) => {
-      console.log('RENDER RESULT page:', result[0]);
-      console.log('RENDER RESULT annotations:', result[1]);
+      // console.log('RENDER RESULT page:', result[0]);
+      // console.log('RENDER RESULT annotations:', result[1]);
       // that.forceUpdate();
     }, (err) => {
       console.error(err);
@@ -222,7 +222,7 @@ export default class AnnotalstionLayer extends Component {
 
 
   render() {
-    console.log('Rendering AnnotationLayer:', this.props.data)
+    // console.log('Rendering AnnotationLayer:', this.props.data)
     const UI = this.state.PDFJSAnnotate.UI;
 
     const shownPageNum = (this.state.studentPaging) ? this.state.pageNumStudent : this.props.data.pageNum;
