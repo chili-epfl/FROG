@@ -21,7 +21,7 @@ import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
-import Modal from '../../RemoteControllers/ModalExport';
+import ExportButton from './ExportButton';
 import { SelectAttributeWidget } from '../FormUtils';
 import ConfigForm from '../ConfigForm';
 
@@ -139,10 +139,6 @@ const RawEditActivity = ({
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <Modal
-        exportType="activity"
-        {...{ modalOpen, setModal, activity, madeChanges }}
-      />
       <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
@@ -188,11 +184,7 @@ const RawEditActivity = ({
                     });
                   }}
                 />
-                <IconButton
-                  tooltip="Send activity to activity library"
-                  icon="glyphicon glyphicon-share"
-                  onClick={() => setModal(true)}
-                />
+                <ExportButton {...{ activity, madeChanges }} />
               </div>
             )}
           </FlexView>
@@ -274,7 +266,7 @@ const RawEditActivity = ({
   );
 };
 
-const IconButton = ({ icon, onClick, tooltip }: Object) => (
+export const IconButton = ({ icon, onClick, tooltip }: Object) => (
   <Button
     style={{ width: '35px', height: '25px' }}
     data-tip={tooltip}
