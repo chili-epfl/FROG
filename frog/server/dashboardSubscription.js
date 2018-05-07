@@ -13,7 +13,7 @@ import { serverConnection } from './share-db-manager';
 const interval = {};
 const subscriptions = {};
 const oldInput = {};
-const activityQuery = {};
+export const activityQuery = {};
 
 const reactiveWrapper = (act, dashboard) => {
   activityQuery[act._id] = serverConnection.createSubscribeQuery('rz', {
@@ -22,6 +22,7 @@ const reactiveWrapper = (act, dashboard) => {
   return (_, __) => {
     const data = (activityQuery[act._id].results || []).reduce(
       (acc, res) => ({
+        ...acc,
         [res.id.split('/')[1]]: res.data
       }),
       {}
