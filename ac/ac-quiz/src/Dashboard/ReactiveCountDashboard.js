@@ -1,15 +1,42 @@
 /* eslint-disable react/no-array-index-key */
 
-import * as React from 'react';
-
-import { CountChart, type LogDbT, type ActivityDbT } from 'frog-utils';
-
-const Viewer = ({ state }) => (
-  <React.Fragment>{JSON.stringify(state)}</React.Fragment>
-);
+import { type ActivityDbT, entries, values } from 'frog-utils';
+import Viewer from './ViewerCount';
 
 const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
-  return { text: JSON.stringify(reactive) };
+  const questions = activity?.data?.questions;
+  if (!questions) {
+    return;
+  }
+
+  // const questionStats = questions.map((x,i) => ({
+  //   [x.question]: x.answers.map(ans => ({ x: ans.choice, y: 0 }))
+  // }));
+  const questionStats = questions.reduce(
+    (acc, x, i) => ({
+      ...acc,
+      [i]: x.answers.reduce(
+        (acc2, ans, i2) => ({ ...acc2, [i2]: { x: ans.choice, y: 0 } }),
+        {}
+      )
+    }),
+    {}
+  );
+
+  values(reactive).forEach(student =>
+    entries(student.form || {}).forEach(
+      ([k, v]) => (questionStats[k][v].y += 1)
+    )
+  );
+
+  const result = entries(questionStats).reduce(
+    (acc, [k, v]) => ({
+      ...acc,
+      [questions[parseInt(k, 10)].question]: values(v)
+    }),
+    {}
+  );
+  return result;
 };
 
 export default {

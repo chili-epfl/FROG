@@ -4,21 +4,22 @@
 import * as React from 'react';
 
 import { CountChart, type LogDbT, type ActivityDbT } from 'frog-utils';
+import Viewer from './ViewerCount';
 
-const Viewer = ({ state: { answerCounts, questions } }: any) => (
-  <React.Fragment>
-    {(questions || []).map((q, qIndex) => (
-      <CountChart
-        key={qIndex}
-        title={q.question}
-        vAxis="Possible answers"
-        hAxis="Number of answers"
-        categories={q.answers.map(x => x.choice)}
-        data={answerCounts[qIndex]}
-      />
-    ))}
-  </React.Fragment>
-);
+// const Viewer = ({ state: { answerCounts, questions } }: any) => (
+//   <React.Fragment>
+//     {(questions || []).map((q, qIndex) => (
+//       <CountChart
+//         key={qIndex}
+//         title={q.question}
+//         vAxis="Possible answers"
+//         hAxis="Number of answers"
+//         categories={q.answers.map(x => x.choice)}
+//         data={answerCounts[qIndex]}
+//       />
+//     ))}
+//   </React.Fragment>
+// );
 
 const prepareDataForDisplay = (state: any, activity: ActivityDbT) => {
   const { answers } = state;

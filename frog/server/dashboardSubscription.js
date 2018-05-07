@@ -16,10 +16,15 @@ const oldInput = {};
 export const activityQuery = {};
 
 const reactiveWrapper = (act, dashboard) => {
-  activityQuery[act._id] = serverConnection.createSubscribeQuery('rz', {
-    _id: { $regex: '^' + act._id }
-  });
+  if (!activityQuery[act._id]) {
+    activityQuery[act._id] = serverConnection.createSubscribeQuery('rz', {
+      _id: { $regex: '^' + act._id }
+    });
+  }
   return (_, __) => {
+    if (!activityQuery[act._id].ready) {
+      return null;
+    }
     const data = (activityQuery[act._id].results || []).reduce(
       (acc, res) => ({
         ...acc,
@@ -27,7 +32,7 @@ const reactiveWrapper = (act, dashboard) => {
       }),
       {}
     );
-    return dashboard.reactiveToDisplay(data);
+    return dashboard.reactiveToDisplay(data, act);
   };
 };
 
