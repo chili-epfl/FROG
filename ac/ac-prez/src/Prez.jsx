@@ -26,20 +26,19 @@ export default class Prez extends Component<ActivityRunnerT> {
   }
 
   render() {
-    // console.log('rendering Prez.jsx', this.props.data);
     const { activityData, data, dataFn, userInfo, logger } = this.props;
-
+    // console.log(activityData, data, dataFn, userInfo, logger)
+    
     // const PDF_FILE = "http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"
     // const PDF_FILE = "http://localhost:3000/file?name=cjgvboit400033i6izhcbvkmx"
 
     // console.log(PDF_FILE);
 
-    // console.log(activityData, data, dataFn, userInfo, logger)
     const hostname = window.location.hostname;
     const initial_pdf =
       hostname == 'localhost'
         ? 'http://localhost:3000/file?name=ac/ac-prez/sample.pdf'
-        : window.location.hostname + '/file?name=ac/ac-prez/sample.pdf';
+        : hostname + '/file?name=ac/ac-prez/sample.pdf';
     console.log(initial_pdf);
 
     const pdf_src = this.props.data.pdf_file
@@ -60,7 +59,7 @@ export default class Prez extends Component<ActivityRunnerT> {
         <PDF
           src={pdf_src}
           userInfo={userInfo}
-          data={this.props.data}
+          data={data}
           dataFn={dataFn}
         />
       </div>

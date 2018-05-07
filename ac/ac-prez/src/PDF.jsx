@@ -58,21 +58,8 @@ export default class PDF extends Component {
     const numPages = pdf.pdfInfo.numPages;
     const fingerprint = pdf.pdfInfo.fingerprint;
 
-    // const pages = Array(numPages).fill(null).map((v, i) =>
-    //   (<Page pdf={pdf} scale={this.state.scale} index={i + 1} key={`${fingerprint}-${i}`}/>)
-    // )
-
-    // const page = (
-    //   <Page pdf={pdf} scale={this.state.scale} index={this.state.pageNumber} key={`${fingerprint}-${this.state.pageNumber}`}/>
-    // )
-
     return (
       <div id="viewer" className="pdf-viewer">
-        {/* <button onClick={this.onPrevPage}>Prev</button>
-        <button onClick={this.onNextPage}>Next</button>
-        {page} */}
-
-        {/* {pages} */}
 
         <AnnotationLayer
           pdf={pdf}
