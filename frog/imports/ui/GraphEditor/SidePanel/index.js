@@ -11,6 +11,7 @@ import OperatorPanel from './OperatorPanel';
 
 const styles = {
   root: {
+    height: 'calc(100vh - 64px - 48px)',
     backgroundColor: '#ffffff',
     boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'
   },
@@ -26,21 +27,21 @@ const SideBarHelperText = ({ classes }) => (
     alignItems="center"
     className={classes.helperContainer}
   >
-    <Grid item>
+    <div>
       <Typography variant="title" align="center" gutterBottom>
         Select an activity or an operator to configure it.
       </Typography>
       <Typography variant="subheading" align="center">
         Press the <kbd>w</kbd> key to toggle the sidebar.
       </Typography>
-    </Grid>
+    </div>
   </Grid>
 );
 
 const StyledSideBarHelperText = withStyles(styles)(SideBarHelperText);
 
 const SidebarContainer = connect(({ children, classes }) => (
-  <Grid item xs={5} className={classes.root}>
+  <Grid item xs={4} className={classes.root}>
     {children}
   </Grid>
 ));

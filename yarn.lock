@@ -5978,6 +5978,12 @@ prop-types-extra@^1.0.1:
   dependencies:
     warning "^3.0.0"
 
+prop-types@15.5.8:
+  version "15.5.8"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
+  dependencies:
+    fbjs "^0.8.9"
+
 prop-types@15.x, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
@@ -6381,6 +6387,12 @@ react-google-charts@^1.5.7:
     prop-types "^15.5.8"
     react "^15.3.2 || ^16"
     react-dom "^15.3.2 || ^16"
+
+react-height@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-height/-/react-height-3.0.0.tgz#fae322f9da64d3e9e25536f26b77c73954261524"
+  dependencies:
+    prop-types "15.5.8"
 
 react-icon-base@2.1.0:
   version "2.1.0"

@@ -4,7 +4,7 @@ import * as React from 'react';
 
 export const Highlight = (props: { text: string, searchStr: string }) => {
   if (!props.text.toLowerCase().includes(props.searchStr))
-    return <React.Fragment>>{props.text}</React.Fragment>;
+    return <React.Fragment>{props.text}</React.Fragment>;
   else {
     const index1 = props.text.toLowerCase().indexOf(props.searchStr);
     const index2 = index1 + props.searchStr.length;

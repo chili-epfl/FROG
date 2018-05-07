@@ -5,10 +5,13 @@ import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
+import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import List from 'material-ui/List';
+import { withStyles } from 'material-ui/styles';
+import Search from '@material-ui/icons/Search';
 
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
@@ -33,6 +36,39 @@ type PropsT = {
   changesLoaded?: Function
 };
 
+const styles = {
+  topPanel: {
+    padding: '10px'
+  },
+  activityList: {
+    height: 'calc(((100vh - 64px) - 48px) - 90px)',
+    overflowY: 'auto'
+  },
+  searchContainer: {
+    position: 'relative',
+    borderRadius: '5px',
+    background: 'rgba(0,0,0,.05)'
+  },
+  searchIcon: {
+    width: '50px',
+    height: '100%',
+    display: 'flex',
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  searchInput: {
+    border: '0',
+    width: '100%',
+    padding: '8px 8px 8px 50px',
+    background: 'none',
+    outline: 'none',
+    whiteSpace: 'normal',
+    verticalAlign: 'middle',
+    fontSize: '1rem'
+  }
+};
+
 const ToggleChooseActivityLibraryButton = props => (
   <Button color="primary" onClick={props.onToggle}>
     {props.store && (props.store.ui.libraryOpen ? 'New activity' : 'Library')}{' '}
@@ -44,7 +80,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
 
   constructor(props: PropsT) {
     super(props);
-    this.container = React.createRef();
     this.state = {
       expanded: null,
       searchStr: '',
@@ -101,30 +136,40 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
 
+    const { classes } = this.props;
     return (
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="title" gutterBottom component="p">
-            Select activity type
-          </Typography>
+          <Grid container className={classes.topPanel} alignItems="center">
+            <Grid item xs={12}>
+              <Typography variant="title" gutterBottom>
+                Select activity type
+              </Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <div className={classes.searchContainer}>
+                <div className={classes.searchIcon}>
+                  <Search />
+                </div>
+                <input
+                  ref={ref => (this.inputRef = ref)}
+                  type="text"
+                  style={{ zIndex: 0 }}
+                  onChange={this.handleSearch}
+                  className={classes.searchInput}
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <ToggleChooseActivityLibraryButton
+                onToggle={this.handleToggle}
+                {...this.props}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          <input
-            ref={ref => (this.inputRef = ref)}
-            type="text"
-            style={{ zIndex: 0 }}
-            onChange={this.handleSearch}
-            className="form-control"
-            placeholder="Search for..."
-            aria-describedby="basic-addon1"
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <ToggleChooseActivityLibraryButton
-            onToggle={this.handleToggle}
-            {...this.props}
-          />
-        </Grid>
+
         {this.props.store &&
           (this.props.store.ui.libraryOpen ? (
             <Library
@@ -138,11 +183,8 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               changesLoaded={this.props.changesLoaded}
             />
           ) : (
-            <Grid
-              item
-              xs={12}
-              style={{ maxHeight: '700px', overflowY: 'auto' }}
-            >
+            <Grid item xs={12} className={classes.activityList}>
+              <Divider />
               {filteredList.length === 0 ? (
                 <div>No result</div>
               ) : (
@@ -186,4 +228,4 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
   }
 }
 
-export default connect(ChooseActivityType);
+export default connect(withStyles(styles)(ChooseActivityType));
