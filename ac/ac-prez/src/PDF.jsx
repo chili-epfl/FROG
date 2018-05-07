@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PDFJS from './pdfjs-dist/build/pdf';
+import PDFJS from '@houshuang/pdfjs-dist';
 import AnnotationLayer from './AnnotationLayer';
 
 export default class PDF extends Component {
@@ -60,7 +60,6 @@ export default class PDF extends Component {
 
     return (
       <div id="viewer" className="pdf-viewer">
-
         <AnnotationLayer
           pdf={pdf}
           userInfo={this.props.userInfo}
