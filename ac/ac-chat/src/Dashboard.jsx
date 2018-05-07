@@ -46,6 +46,7 @@ const initData = {};
 const exampleLogs = [
   ...exampleState,
   {
+    type: 'logs',
     title: 'CS211 test',
     path: 'ac/ac-chat/src/dashboardExample/cs211-test-logs.json'
   }
