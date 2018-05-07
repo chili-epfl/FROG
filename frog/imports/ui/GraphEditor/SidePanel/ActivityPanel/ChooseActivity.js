@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
-import { Button } from 'react-bootstrap';
 import jsonSchemaDefaults from 'json-schema-defaults';
+
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
@@ -29,6 +32,12 @@ type PropsT = {
   changesLoaded?: Function
 };
 
+const ToggleChooseActivityLibraryButton = props => (
+  <Button color="primary" onClick={props.onToggle}>
+    {props.store && (props.store.ui.libraryOpen ? 'New activity' : 'Library')}{' '}
+  </Button>
+);
+
 export class ChooseActivityType extends Component<PropsT, StateT> {
   inputRef: any;
 
@@ -42,10 +51,24 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     this.inputRef = null;
   }
 
+  handleToggle = () => {
+    if (this.props.store) {
+      this.props.store.ui.setLibraryOpen(!this.props.store.ui.libraryOpen);
+    }
+  };
+
+  handleSearch = e => {
+    this.setState({
+      expanded: null,
+      searchStr: e.target.value.toLowerCase()
+    });
+  };
+
   render() {
     const activityTypesFiltered = this.props.onlyHasPreview
       ? activityTypes.filter(x => x.meta.exampleData !== undefined)
       : activityTypes;
+
     const select = this.props.onSelect
       ? this.props.onSelect
       : aT => {
@@ -64,12 +87,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
           }
         };
 
-    const changeSearch = e =>
-      this.setState({
-        expanded: null,
-        searchStr: e.target.value.toLowerCase()
-      });
-
     const filteredList = activityTypesFiltered
       .filter(
         x =>
@@ -83,48 +100,29 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
       this.props.store && this.props.store.ui.setLibraryOpen(false);
 
     return (
-      <div
-        style={{
-          height: '100%',
-          width: '100%'
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '95%',
-            height: '35px'
-          }}
-        >
-          <h4>Select activity type</h4>
-          <Button
-            className={
-              this.props.store &&
-              (this.props.store.ui.libraryOpen
-                ? 'btn btn-success'
-                : 'btn btn-primary')
-            }
-            style={{
-              position: 'relative',
-              top: '5px',
-              left: '15px',
-              width: '100px'
-            }}
-            onClick={() =>
-              this.props.store &&
-              this.props.store.ui.setLibraryOpen(
-                !this.props.store.ui.libraryOpen
-              )
-            }
-          >
-            {' '}
-            {this.props.store &&
-              (this.props.store.ui.libraryOpen
-                ? 'New activity'
-                : 'Library')}{' '}
-          </Button>
-        </div>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="title" gutterBottom component="p">
+            Select activity type
+          </Typography>
+        </Grid>
+        <Grid item xs={8}>
+          <input
+            ref={ref => (this.inputRef = ref)}
+            type="text"
+            style={{ zIndex: 0 }}
+            onChange={this.handleSearch}
+            className="form-control"
+            placeholder="Search for..."
+            aria-describedby="basic-addon1"
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <ToggleChooseActivityLibraryButton
+            onToggle={this.handleToggle}
+            {...this.props}
+          />
+        </Grid>
         {this.props.store &&
           (this.props.store.ui.libraryOpen ? (
             <Library
@@ -139,26 +137,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             />
           ) : (
             <div>
-              <div
-                className="input-group"
-                style={{ top: '-30px', left: '280px', width: '200px' }}
-              >
-                <span className="input-group-addon" id="basic-addon1">
-                  <span
-                    className="glyphicon glyphicon-search"
-                    aria-hidden="true"
-                  />
-                </span>
-                <input
-                  ref={ref => (this.inputRef = ref)}
-                  type="text"
-                  style={{ zIndex: 0 }}
-                  onChange={changeSearch}
-                  className="form-control"
-                  placeholder="Search for..."
-                  aria-describedby="basic-addon1"
-                />
-              </div>
               <div
                 className="list-group"
                 style={{
@@ -212,7 +190,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             dismiss={() => this.setState({ showInfo: null })}
           />
         )}
-      </div>
+      </Grid>
     );
   }
 }

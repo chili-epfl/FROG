@@ -11,11 +11,11 @@ export const Highlight = (props: { text: string, searchStr: string }) => {
     const tmp = props.text.substring(index1, index2);
 
     return (
-      <div>
+      <React.Fragment>
         {props.text.substring(0, index1)}
         <span style={{ backgroundColor: '#FFFF00' }}>{tmp}</span>
         {props.text.substring(index2)}
-      </div>
+      </React.Fragment>
     );
   }
 };
