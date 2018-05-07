@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import PDFJS from 'pdfjs-dist';
-import AnnotationLayer from './AnnotationLayer'
+import PDFJS from './pdfjs-dist/build/pdf';
+import AnnotationLayer from './AnnotationLayer';
 
 export default class PDF extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     // this.onNextPage = this.onNextPage.bind(this)
@@ -13,20 +13,20 @@ export default class PDF extends Component {
       pdf: null,
       pageNumber: 1,
       scale: 1
-    }
+    };
   }
 
-  componentDidMount () {
-    PDFJS.getDocument(this.props.src).then((pdf) => {
+  componentDidMount() {
+    PDFJS.getDocument(this.props.src).then(pdf => {
       // console.log(pdf)
-      this.setState({ pdf })
-    })
+      this.setState({ pdf });
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     console.log(this.props, prevProps);
-    if (this.props.src!=prevProps.src) {
-      PDFJS.getDocument(this.props.src).then((pdf) => {
+    if (this.props.src != prevProps.src) {
+      PDFJS.getDocument(this.props.src).then(pdf => {
         console.log(pdf);
         this.setState({ pdf });
       });
@@ -51,14 +51,12 @@ export default class PDF extends Component {
   //   })
   // }
 
-  render () {
+  render() {
     if (!this.state.pdf) return null;
-
 
     const pdf = this.state.pdf;
     const numPages = pdf.pdfInfo.numPages;
     const fingerprint = pdf.pdfInfo.fingerprint;
-
 
     // const pages = Array(numPages).fill(null).map((v, i) =>
     //   (<Page pdf={pdf} scale={this.state.scale} index={i + 1} key={`${fingerprint}-${i}`}/>)
@@ -69,15 +67,20 @@ export default class PDF extends Component {
     // )
 
     return (
-      <div id='viewer' className='pdf-viewer'>
+      <div id="viewer" className="pdf-viewer">
         {/* <button onClick={this.onPrevPage}>Prev</button>
         <button onClick={this.onNextPage}>Next</button>
         {page} */}
 
         {/* {pages} */}
 
-        <AnnotationLayer pdf={pdf} userInfo={this.props.userInfo} data={this.props.data} dataFn={this.props.dataFn}/>
+        <AnnotationLayer
+          pdf={pdf}
+          userInfo={this.props.userInfo}
+          data={this.props.data}
+          dataFn={this.props.dataFn}
+        />
       </div>
-    )
+    );
   }
 }
