@@ -250,29 +250,27 @@ const ApiForm = observer(
               )}
             </div>
           ) : (
-            <div style={{ position: 'absolute', marginRight: '20px' }}>
-              <ChooseActivityType
-                store={store}
-                activity={this.state.activity}
-                hidePreview={this.props.hidePreview}
-                onPreview={this.props.onPreview}
-                onSelect={e => {
-                  if (this.props.onSelect) {
-                    this.props.onSelect(e.id);
+            <ChooseActivityType
+              store={store}
+              activity={this.state.activity}
+              hidePreview={this.props.hidePreview}
+              onPreview={this.props.onPreview}
+              onSelect={e => {
+                if (this.props.onSelect) {
+                  this.props.onSelect(e.id);
+                }
+                this.setState({
+                  activity: {
+                    _id: '1',
+                    activityType: e.id,
+                    data: {},
+                    plane: 1,
+                    startTime: 0,
+                    length: 5
                   }
-                  this.setState({
-                    activity: {
-                      _id: '1',
-                      activityType: e.id,
-                      data: {},
-                      plane: 1,
-                      startTime: 0,
-                      length: 5
-                    }
-                  });
-                }}
-              />
-            </div>
+                });
+              }}
+            />
           )}
         </div>
       );

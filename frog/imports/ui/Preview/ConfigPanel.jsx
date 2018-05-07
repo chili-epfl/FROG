@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { uuid } from 'frog-utils';
+import { withStyles } from 'material-ui/styles';
 
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
@@ -9,9 +10,10 @@ import { activityTypesObj } from '../../activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 
-const style = {
+const styles = {
   side: {
-    flex: '0 0 auto'
+    flex: '0 0 auto',
+    overflowY: 'auto'
   }
 };
 
@@ -41,6 +43,7 @@ class ConfigPanel extends React.Component<*, *> {
 
   render() {
     const {
+      classes,
       config,
       reloadAPIform,
       setConfig,
@@ -55,8 +58,8 @@ class ConfigPanel extends React.Component<*, *> {
     } = this.props;
 
     return (
-      <div style={style.side} className="bootstrap">
-        <div>
+      <div className={classes.side}>
+        <div className="bootstrap">
           {activityTypeId && (
             <div
               style={{
@@ -112,4 +115,4 @@ class ConfigPanel extends React.Component<*, *> {
   }
 }
 
-export default ConfigPanel;
+export default withStyles(styles)(ConfigPanel);

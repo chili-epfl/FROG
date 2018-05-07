@@ -24,6 +24,7 @@ type StateT = {
   showInfo: ?string
 };
 type PropsT = {
+  classes: Object,
   store?: Object,
   hidePreview?: boolean,
   onSelect?: Function,
@@ -75,7 +76,7 @@ const ToggleChooseActivityLibraryButton = props => (
   </Button>
 );
 
-export class ChooseActivityType extends Component<PropsT, StateT> {
+class ChooseActivityTypeController extends Component<PropsT, StateT> {
   inputRef: any;
 
   constructor(props: PropsT) {
@@ -228,4 +229,8 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
   }
 }
 
-export default connect(withStyles(styles)(ChooseActivityType));
+export const ChooseActivityType = withStyles(styles)(
+  ChooseActivityTypeController
+);
+
+export default connect(ChooseActivityType);
