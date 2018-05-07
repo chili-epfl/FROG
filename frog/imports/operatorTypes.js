@@ -1,5 +1,7 @@
 // @flow
 
+import opCs211Ranking from 'op-cs211-ranking';
+import opSocialConfig from 'op-social-config';
 import opXyDistance from 'op-xy-distance';
 import opPerformanceSelect from 'op-performance-select';
 import opCheckConcepts from 'op-check-concepts';
@@ -12,6 +14,7 @@ import opProx from 'op-prox';
 import opGroupIdentical from 'op-group-identical';
 import opJigsaw from 'op-jigsaw';
 import opArgue from 'op-argue';
+import opArgueConstraint from 'op-argue-constraint';
 import opHypothesis from 'op-hypothesis';
 import opCreateGroups from 'op-create-groups';
 import opDistribute from 'op-distribute';
@@ -21,6 +24,8 @@ import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
 
 export const operatorTypes: operatorPackageT[] = flattenOne([
+  opCs211Ranking,
+  opSocialConfig,
   opXyDistance,
   opPerformanceSelect,
   opCheckConcepts,
@@ -33,6 +38,7 @@ export const operatorTypes: operatorPackageT[] = flattenOne([
   opGroupIdentical,
   opJigsaw,
   opArgue,
+  opArgueConstraint,
   opHypothesis,
   opCreateGroups,
   opDistribute

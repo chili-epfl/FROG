@@ -2,7 +2,7 @@
 import * as React from 'react';
 import ResizeAware from 'react-resize-aware';
 import { withState } from 'recompose';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import ObservationContainer from './obs_container';
 import ObservationDetail from './obs_detail';
@@ -69,7 +69,7 @@ const BoardPure = ({
 
 const Board = withState('info', 'setInfo', null)(BoardPure);
 
-export default (props: ActivityRunnerT) => (
+export default (props: ActivityRunnerPropsT) => (
   <ResizeAware style={{ position: 'relative', height: '100%', width: '100%' }}>
     <Board {...props} />
   </ResizeAware>

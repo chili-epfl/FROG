@@ -68,12 +68,15 @@ const bindKeys = () => {
       store.ui.unselect();
     }
   });
-  Mousetrap.bind('backspace', store.deleteSelected);
+  Mousetrap.bind('backspace', () => store.deleteSelected(false));
+  Mousetrap.bind('shift+backspace', () => store.deleteSelected(true));
   Mousetrap.bind('?', () => store.ui.setModal(true));
   Mousetrap.bind('s', () => store.operatorStore.place('social'));
   Mousetrap.bind('+', () => store.activityStore.duplicateActivity());
   Mousetrap.bind('c', () => store.operatorStore.place('control'));
   Mousetrap.bind('p', () => store.operatorStore.place('product'));
+  Mousetrap.bind('z', store.activityStore.organize);
+  Mousetrap.bind('r', store.activityStore.resize);
   Mousetrap.bind('w', e => {
     store.ui.toggleSidepanelOpen();
     e.preventDefault();

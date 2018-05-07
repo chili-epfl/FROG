@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 const Main = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const GroupPanel = ({
   data,
   dataFn,
   userInfo: { id }
-}: ActivityRunnerT) => {
+}: ActivityRunnerPropsT) => {
   const currentGroup = data.students[id];
   const onClickCancel = () => {
     logger({ type: 'group.leave', itemId: currentGroup });

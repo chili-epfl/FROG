@@ -8,11 +8,23 @@ import traceSocial from './traceSocial';
 import checkSocial from './checkSocial';
 import validateConfig from './validateConfig';
 
+export type ErrorT = {
+  id: string,
+  nodeType?: 'operator' | 'activity',
+  err: string,
+  type: string,
+  severity: 'error' | 'warning'
+};
+
+export type ErrorListT = ErrorT[];
+
+export type SocialT = { [activityId: string]: string[] };
+
 export const checkComponent = (
   obj: Array<any>,
   nodeType: 'activity' | 'operator',
   connections: any[]
-) =>
+): ErrorListT =>
   obj.reduce((acc: Object[], x: Object): Object[] => {
     const type = nodeType === 'activity' ? x.activityType : x.operatorType;
     if (type === undefined) {
@@ -159,11 +171,37 @@ const checkConfigs = (operators, activities) => {
   return compact([...operatorErrors, ...activityErrors]);
 };
 
+const checkStream = activities => {
+  const errors = [];
+  activities.filter(x => x.streamTarget).forEach(act => {
+    const target = activities.find(x => x._id === act.streamTarget);
+    if (target && target.startTime > act.startTime) {
+      errors.push({
+        id: act._id,
+        nodeType: 'activity',
+        err:
+          'Streaming target has a later start time than the streaming source',
+        type: 'streamTargetOpensLate',
+        severity: 'error'
+      });
+    } else if (target && target.startTime + target.length <= act.startTime) {
+      errors.push({
+        id: act._id,
+        nodeType: 'activity',
+        err: 'Streaming target is already closed by the time source opens',
+        type: 'streamTargetAlreadyClosed',
+        severity: 'warning'
+      });
+    }
+  });
+  return errors;
+};
+
 export default (
   activities: Array<any>,
   operators: Array<any>,
   connections: Array<any>
-) => {
+): { errors: ErrorListT, social: SocialT } => {
   const { social, socialErrors } = traceSocial(
     activities,
     operators,
@@ -174,7 +212,8 @@ export default (
     .concat(checkConnection(activities, operators, connections))
     .concat(socialErrors)
     .concat(checkSocial(operators, activities, social))
-    .concat(checkConfigs(operators, activities));
+    .concat(checkConfigs(operators, activities))
+    .concat(checkStream(activities));
 
   return {
     errors,

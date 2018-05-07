@@ -4,7 +4,7 @@ import React from 'react';
 import { shuffle } from 'lodash';
 import { withState, compose } from 'recompose';
 import styled from 'styled-components';
-import { type ActivityRunnerT, type LogT } from 'frog-utils';
+import { type ActivityRunnerPropsT, type LogT } from 'frog-utils';
 
 const Main = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const NoGroupPanelState = compose(
   withState('errLog', 'setErr', '')
 );
 
-type NoGroupPanelT = ActivityRunnerT & {
+type NoGroupPanelT = ActivityRunnerPropsT & {
   setErr: string => void,
   setText: string => void,
   textGrp: string,

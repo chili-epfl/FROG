@@ -12,7 +12,8 @@ export const addDefaultExample = (activityType: Object) => [
   {
     title: 'Default config',
     data: undefined,
-    config: defaultConfig(activityType)
+    config: defaultConfig(activityType),
+    type: undefined
   },
   ...(activityType.meta.exampleData || [])
 ];

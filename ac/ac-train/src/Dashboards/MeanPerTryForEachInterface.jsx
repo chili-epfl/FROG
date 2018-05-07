@@ -1,14 +1,23 @@
 // @flow
 import * as React from 'react';
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryLegend,
+  VictoryAxis,
+  VictoryLabel
+} from 'victory';
+
+import { range } from 'lodash';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 
-import { VictoryChart, VictoryLine, VictoryLegend } from 'victory';
-
+import { type DashStateT } from '.';
 import { color } from './utils';
+import { capitalizeFirstLetter } from '../ActivityUtils';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -18,35 +27,39 @@ const styles = theme => ({
   })
 });
 
-const checkDefined = item => typeof item !== 'undefined';
-
-const MeanPerTryForEachInterface = props => {
-  const { whichDash, state } = props;
-
+const MeanPerTryForEachInterface = ({
+  whichDash,
+  state,
+  activity: {
+    data: { iterationPerInterface }
+  },
+  classes
+}: {
+  whichDash: string,
+  state: DashStateT,
+  activity: {
+    data: {
+      iterationPerInterface: number
+    }
+  },
+  classes: Object
+}) => {
   const count = state['count'];
   const dash = state[whichDash];
 
-  const interfaces = Object.keys(dash);
+  const interfaces = Object.keys(count);
 
   if (interfaces.length > 0) {
     const allCoordinates = interfaces.map(int => {
       const coordinates = [];
 
-      for (let i = 0; i < 5; i += 1) {
-        const shouldUpdate =
-          checkDefined(dash[int]) &&
-          checkDefined(count[int]) &&
-          checkDefined(dash[int][i]) &&
-          checkDefined(count[int][i]);
-
-        if (shouldUpdate) {
-          if (Number.isFinite(dash[int][i] / count[int][i])) {
-            coordinates.push({
-              x: i,
-              y: dash[int][i] / count[int][i],
-              fill: color(int)
-            });
-          }
+      for (let i = 0; i < iterationPerInterface; i += 1) {
+        if (Number.isFinite(dash[int][i] / count[int][i])) {
+          coordinates.push({
+            x: i + 1,
+            y: dash[int][i] / count[int][i],
+            fill: color(int)
+          });
         }
       }
       return {
@@ -61,18 +74,30 @@ const MeanPerTryForEachInterface = props => {
     }));
 
     const domain =
-      whichDash === 'error' ? { x: [0, 4], y: [0, 1] } : { x: [0, 4] };
+      whichDash === 'error'
+        ? { x: [1, iterationPerInterface], y: [0, 1] }
+        : { x: [1, iterationPerInterface] };
 
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>
-              Mean {whichDash} Per Try For Each Interface
+              Mean {whichDash} Per Ticket For Each Interface
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <VictoryChart>
+            <VictoryChart domain={domain} domainPadding={20}>
+              <VictoryAxis
+                tickValues={range(1, iterationPerInterface + 1)}
+                tickFormat={d => `Trial ${d}`}
+              />
+              <VictoryAxis
+                dependentAxis
+                label={`Mean ${capitalizeFirstLetter(whichDash)}`}
+                axisLabelComponent={<VictoryLabel dy={-12} />}
+                tickFormat={d => Math.round(d * 10) / 10}
+              />
               <VictoryLegend
                 x={50}
                 y={0}
@@ -81,10 +106,10 @@ const MeanPerTryForEachInterface = props => {
                 style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
                 data={legend}
               />
+
               {allCoordinates.map(int => (
                 <VictoryLine
                   key={int.name}
-                  domain={domain}
                   style={{
                     data: { stroke: color(int.name) },
                     parent: { border: '1px solid #ccc' }
@@ -99,7 +124,7 @@ const MeanPerTryForEachInterface = props => {
     );
   } else {
     return (
-      <Paper className={props.classes.root} elevation={4}>
+      <Paper className={classes.root} elevation={4}>
         <Grid container>
           <Grid item xs={12}>
             <Typography align="center" variant="button" gutterBottom>

@@ -28,7 +28,7 @@ export const PanMap = connect(
 );
 
 const onDoubleClick = (x, e) => {
-  store.activityStore.addActivity(x, e.nativeEvent.offsetX);
+  store.activityStore.addActivity(x, e.nativeEvent.offsetX, e.shiftKey);
 };
 
 export const LevelLines = connect(

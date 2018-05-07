@@ -83,6 +83,7 @@ const g2 = {
       startTime: 0,
       length: 5,
       plane: 1,
+      data: { url: 'http://youtube.com' },
       activityType: 'ac-video'
     }
   ],

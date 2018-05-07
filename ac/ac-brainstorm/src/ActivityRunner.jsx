@@ -14,7 +14,7 @@ import {
   ListGroupItem
 } from 'react-bootstrap';
 
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 
 const Container = styled.div`
   display: flex;
@@ -121,7 +121,7 @@ const ActivityRunner = ({
   activityData,
   data,
   dataFn
-}: ActivityRunnerT) => {
+}: ActivityRunnerPropsT) => {
   const onSubmit = e => {
     if (e.formData && e.formData.title && e.formData.content) {
       const id = uuid();

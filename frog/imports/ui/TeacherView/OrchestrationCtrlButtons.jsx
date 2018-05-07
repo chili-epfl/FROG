@@ -14,19 +14,38 @@ const OrchestrationCtrlButtons = ({ session, classes }) => {
   const buttonsModel = OrchestrationButtonsModel(session, classes);
 
   return (
-    <Grid container justify="space-between">
-      <Grid item>
-        <ControlButton btnModel={buttonsModel.start} classes={classes} />
+    <Grid
+      container
+      spacing={16}
+      alignItems="flex-end"
+      justify="space-between"
+      className={classes.buttonBar}
+    >
+      <Grid item />
+      <Grid item xs={9}>
+        <Grid justify="center" container alignItems="flex-end">
+          <Grid item xs={3} />
+          <Grid item>
+            <ControlButton
+              btnModel={
+                session.timeInGraph === -1
+                  ? buttonsModel.start
+                  : buttonsModel.next
+              }
+              classes={classes}
+              style={{ transform: 'scale(1.5)' }}
+            />
+          </Grid>
+          <Grid item xs={5}>
+            <ul style={{ listStyleType: 'none' }}>
+              {(session.nextActivities || []).map(x => (
+                <li key={x.activityId}>{x.description}</li>
+              ))}
+            </ul>
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid item>
-        <ControlButton btnModel={buttonsModel.stop} classes={classes} />
-        <ControlButton btnModel={buttonsModel.continue} classes={classes} />
-        <ControlButton btnModel={buttonsModel.pause} classes={classes} />
-        <ControlButton btnModel={buttonsModel.next} classes={classes} />
-      </Grid>
-      <Grid item>
-        <ControlButton btnModel={buttonsModel.restart} classes={classes} />
-      </Grid>
+      <Grid item />
     </Grid>
   );
 };

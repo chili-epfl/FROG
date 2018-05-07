@@ -22,7 +22,7 @@ export const arrayIncludes = (a: Array<any>, b: any) =>
     ? a.reduce((acc, curr) => acc || arrayEquals(curr, b), false)
     : a.reduce((acc, curr) => acc || curr === b, false);
 
-export const stringToArray = (a: string) =>
+export const stringToArray = (a: string): number[] =>
   a !== undefined
     ? a
         .split(',')
@@ -30,13 +30,13 @@ export const stringToArray = (a: string) =>
         .map(y => Number(y))
     : [];
 
-export const arrayDifference = (a: Array<any>, b: Array<any>) =>
+export const arrayDifference = (a: Array<any>, b: Array<any>): Array<any> =>
   a
     .filter((x: Array<any>) => !arrayIncludes(b, x))
     .concat(b.filter((x: Array<any>) => !arrayIncludes(a, x)));
 
-export const arrayIntersection = (a: Array<any>, b: Array<any>) =>
+export const arrayIntersection = (a: Array<any>, b: Array<any>): Array<any> =>
   a.filter(x => arrayIncludes(b, x));
 
-export const arrayMinus = (a: Array<any>, b: Array<any>) =>
+export const arrayMinus = (a: Array<any>, b: Array<any>): Array<any> =>
   a.filter(x => !arrayIncludes(b, x));

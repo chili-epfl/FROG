@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 import 'webrtc-adapter';
 import { isUndefined, isEqual, without, difference, last } from 'lodash';
 
@@ -21,7 +21,7 @@ type StateT = {
   remote: Array<any>
 };
 
-class ActivityRunner extends Component<ActivityRunnerT, StateT> {
+class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   connections: Array<any>;
 
   findConnectionByRemoteUser = userInfo =>
@@ -187,7 +187,7 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     }
   };
 
-  constructor(props: ActivityRunnerT) {
+  constructor(props: ActivityRunnerPropsT) {
     super(props);
     this.connections = [];
     this.state = { mode: 'notReady', local: {}, remote: [] };
@@ -331,4 +331,4 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
 ActivityRunner.displayName = 'ActivityRunner';
 
-export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
+export default (props: ActivityRunnerPropsT) => <ActivityRunner {...props} />;

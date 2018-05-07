@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { HTML } from 'frog-utils';
 import { isEqual } from 'lodash';
 
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 import Justification from './Justification';
 
 import AnswerList from './AnswerList';
@@ -55,7 +55,7 @@ const Completed = ({ dataFn }) => (
   </React.Fragment>
 );
 
-const ActivityRunner = (props: ActivityRunnerT) => {
+const ActivityRunner = (props: ActivityRunnerPropsT) => {
   const {
     activityData: { config },
     logger,
@@ -117,9 +117,12 @@ const ActivityRunner = (props: ActivityRunnerT) => {
         ) : (
           <ListContainer>
             <div>
+              <HTML html={config.guidelines} />
+            </div>
+            <hr style={{ height: '5px' }} />
+            <div>
               <HTML html={config.title} />
             </div>
-            <p>{config.guidelines}</p>
             <div style={{ width: '100%' }}>
               <div>
                 <table style={{ width: '100%' }}>
@@ -127,8 +130,9 @@ const ActivityRunner = (props: ActivityRunnerT) => {
                     <tr>
                       {Object.keys(answers).map(member => (
                         <th key={member} style={{ ...listStyles.list }}>
-                          <p>{data.group[member] + "'s List"}</p>
-
+                          <p style={{ fontWeight: 'normal' }}>
+                            {data.group[member] + "'s List"}
+                          </p>
                           <AnswerList
                             {...props}
                             answers={answers[member]}
@@ -142,33 +146,42 @@ const ActivityRunner = (props: ActivityRunnerT) => {
                 </table>
               </div>
             </div>
-
-            <hr style={{ height: '5px' }} />
-            <div>
-              <div style={{ width: '100%' }}>
-                <div
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    display: 'block'
-                  }}
-                >
-                  {(config.answers || [])
-                    .filter(ans => !(answers[userInfo.id] || {})[ans])
-                    .map(ans => (
-                      <AddAnswer
-                        {...props}
-                        title={ans}
-                        rank={nKey(answers[userInfo.id] || {})}
-                        key={ans}
-                      />
-                    ))}
+            {nKey(answers[userInfo.id] || {}) < config.answers.length && (
+              <React.Fragment>
+                <hr style={{ height: '5px' }} />
+                <div>
+                  <div style={{ width: '100%' }}>
+                    <p>
+                      At rank {nKey(answers[userInfo.id] || {}) + 1}, add item:
+                    </p>
+                    <div
+                      style={{
+                        position: 'relative',
+                        width: '100%',
+                        display: 'block'
+                      }}
+                    >
+                      {(config.answers || [])
+                        .filter(ans => !(answers[userInfo.id] || {})[ans])
+                        .map(ans => (
+                          <AddAnswer
+                            {...props}
+                            title={ans}
+                            rank={nKey(answers[userInfo.id] || {})}
+                            key={ans}
+                          />
+                        ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </React.Fragment>
+            )}
             <hr style={{ height: '5px' }} />
             {config.justify && <Justification {...props} key="justification" />}
             <div>
+              {data.alert ? (
+                <p style={{ color: 'red' }}>{alertMessage()}</p>
+              ) : null}
               <button
                 onClick={onSubmit}
                 key="submit"
@@ -180,7 +193,6 @@ const ActivityRunner = (props: ActivityRunnerT) => {
               >
                 Submit
               </button>
-              {data.alert ? <p>{alertMessage()}</p> : null}
             </div>
           </ListContainer>
         )}

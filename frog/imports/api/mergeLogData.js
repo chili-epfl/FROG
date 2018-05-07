@@ -1,7 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { type ActivityDBT, type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 
 import { activityTypesObj } from '../activityTypes';
@@ -12,7 +12,7 @@ import { Activities, DashboardData } from './activities.js';
 const activityCache = {};
 
 export const createDashboards = (
-  activity: ActivityDBT,
+  activity: { activityType: string, _id: string },
   refresh: boolean = false
 ) => {
   const aT = activityTypesObj[activity.activityType];
@@ -30,9 +30,11 @@ export const initializeDashboardState = (
   refresh: boolean = false
 ) => {
   const dashId = activityId + '-' + name;
-  if (!DashboardStates[dashId] || refresh) {
-    DashboardStates[dashId] =
-      cloneDeep(activityType.dashboards[name].initData) || {};
+  const dashState = DashboardStates[dashId];
+  if (!dashState || refresh) {
+    const dash = activityType.dashboards && activityType.dashboards[name];
+    const init = (dash && dash.initData) || {};
+    DashboardStates[dashId] = cloneDeep(init);
   }
 };
 
@@ -45,28 +47,35 @@ export const regenerateState = (
   if (!DashboardStates[dashId]) {
     initializeDashboardState(activityType, activityId, name);
     const logs = Logs.find({ activityId }).fetch();
-    const mergeLogFn = activityType.dashboards[name].mergeLog;
+    const dash = activityType.dashboards && activityType.dashboards[name];
+    const mergeLogFn = dash && dash.mergeLog;
     if (!activityCache[activityId]) {
       activityCache[activityId] = Activities.findOne(activityId);
     }
     const activity = activityCache[activityId];
-    logs.forEach(log =>
-      mergeLogFn(DashboardStates[log.activityId + '-' + name], log, activity)
-    );
+    if (mergeLogFn) {
+      logs.forEach(log =>
+        mergeLogFn(DashboardStates[log.activityId + '-' + name], log, activity)
+      );
+    }
   }
 };
 
 export const mergeLog = (
   rawLog: Object | Object[],
   logExtra: Object,
-  suppliedActivity?: Object
+  suppliedActivity?: Object,
+  onlyWriteDB?: boolean,
+  dontWriteDB?: boolean
 ) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
   logs.forEach(eachLog => {
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
     try {
-      Logs.insert(log);
-      if (log.activityType && log.activityId) {
+      if (!dontWriteDB) {
+        Logs.insert(log);
+      }
+      if (!onlyWriteDB && log.activityType && log.activityId) {
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
           if (!activityCache[log.activityId] && !suppliedActivity) {
@@ -74,7 +83,8 @@ export const mergeLog = (
           }
           const activity = suppliedActivity || activityCache[log.activityId];
           Object.keys(aT.dashboards).forEach(name => {
-            const mergeLogFn = aT.dashboards[name].mergeLog;
+            const dash = aT.dashboards && aT.dashboards[name];
+            const mergeLogFn = dash && dash.mergeLog;
             if (mergeLogFn) {
               if (!DashboardStates[log.activityId + '-' + name]) {
                 regenerateState(aT, log.activityId, name);
@@ -89,32 +99,28 @@ export const mergeLog = (
         }
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(log, e);
     }
   });
 };
 
-const archiveDashboardState = activityId => {
-  const act = Activities.findOne(activityId);
-  const aT = activityTypesObj[act.activityType];
-  if (aT.dashboards) {
-    Object.keys(aT.dashboards).forEach(dash => {
-      const dashId = activityId + '-' + dash;
-      if (DashboardStates[dashId]) {
-        const prepDataFn =
-          aT.dashboards[dash].prepareDataForDisplay || ((x, _) => x);
-        DashboardData.insert({
-          dashId,
-          data: prepDataFn(DashboardStates[dashId], act)
-        });
-        DashboardStates[dashId] = undefined;
-      }
-    });
+export const archiveDashboardState = (activityId: string) => {
+  if (!Meteor.sendLogsToExternalDashboardServer) {
+    const act = Activities.findOne(activityId);
+    const aT = activityTypesObj[act.activityType];
+    if (aT.dashboards) {
+      Object.keys(aT.dashboards).forEach(name => {
+        const dashId = activityId + '-' + name;
+        if (DashboardStates[dashId]) {
+          const dash = aT.dashboards && aT.dashboards[name];
+          const prepDataFn =
+            (dash && dash.prepareDataForDisplay) || ((x, _) => x);
+          DashboardData.insert({
+            dashId,
+            data: prepDataFn(DashboardStates[dashId], act)
+          });
+        }
+      });
+    }
   }
 };
-
-Meteor.methods({
-  'merge.log': mergeLog,
-  'archive.dashboard.state': archiveDashboardState
-});

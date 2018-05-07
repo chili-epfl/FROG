@@ -6,16 +6,13 @@ const fs = require('fs');
 
 const dir = dirname(sync('.git'));
 
-const pattern =
-  process.argv[2] === 'all'
-    ? ['ac/*/src/**', 'op/*/src/**', 'frog-utils/src/**']
-    : `${process.argv[2]}/src`;
+const pattern = ['ac/*/src/**', 'op/*/src/**', 'frog-utils/src/**'];
 
-const build = process.argv[3] === 'build';
-
+const distFlow = path => path.replace('/src/', '/dist/');
 const dist = path => path.replace('/src/', '/dist/').replace('.jsx', '.js');
 
 const transpile = (event, src) => {
+  childProcess.exec(`cp ${src} ${distFlow(src)}.flow`);
   childProcess.exec(
     `${dir}/node_modules/.bin/babel ${src} -o ${dist(src)}`,
     error => {
@@ -37,7 +34,10 @@ const deleteLogs = (err, src) => {
 };
 
 const rm = (event, src) => {
-  if (event === 'file') fs.unlink(dist(src), err => deleteLogs(err, src));
+  if (event === 'file') {
+    fs.unlink(dist(src), err => deleteLogs(err, src));
+    fs.unlink(`${dist(src)}.flow`, err => deleteLogs(err, src));
+  }
 
   if (event === 'directory') fs.rmdir(dist(src), err => deleteLogs(err, src));
 };
@@ -57,15 +57,13 @@ const watcher = chokidar
     persistent: true,
     cwd: dir,
     ignored: /\.(json|snap)/,
-    ignoreInitial: !build
+    ignoreInitial: true
   })
   .on('add', src => {
-    if (build) rm('file', src);
-
     transpile('add', src);
   })
   .on('addDir', src => {
-    if (!build) mkdir(src);
+    mkdir(src);
   })
   .on('change', src => {
     transpile('change', src);

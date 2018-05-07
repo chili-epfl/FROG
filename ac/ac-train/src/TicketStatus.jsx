@@ -35,14 +35,13 @@ const styles = {
 };
 
 const validationText = {
-  success: 'Your ticket was successfully purchased!',
-  failure:
-    '"Ever tried. Ever failed. No matter. Try Again. Fail again. Fail better." - Samuel Beckett'
+  success: 'Correct ticket purchased!',
+  failure: 'Wrong ticket purchased :('
 };
 
 type IntervalPropsT = {
   classes: Object,
-  nextInstance: Function
+  nextIteration: Function
 };
 
 const Transition = ({ classes }) => (
@@ -77,8 +76,8 @@ const ValidationStatus = ({ isCorrect, classes }) => (
   </React.Fragment>
 );
 
-class Validation extends React.Component<IntervalPropsT> {
-  interval: TimeoutID;
+class TicketStatus extends React.Component<IntervalPropsT> {
+  timer: TimeoutID;
 
   constructor(props) {
     super(props);
@@ -86,21 +85,21 @@ class Validation extends React.Component<IntervalPropsT> {
   }
 
   startTimer = () => {
-    const { time } = this.props;
+    const { timeToDisplay } = this.props;
 
-    this.interval = setTimeout(() => {
+    this.timer = setTimeout(() => {
       if (this.state.transition) {
         this.setState({ transition: false });
         this.stopTimer();
         this.startTimer();
       } else {
-        this.props.nextInstance();
+        this.props.nextIteration();
       }
-    }, this.state.transition ? time / 2 : time);
+    }, this.state.transition ? timeToDisplay / 2 : timeToDisplay);
   };
 
   stopTimer = () => {
-    clearTimeout(this.interval);
+    clearTimeout(this.timer);
   };
 
   componentDidMount() {
@@ -132,4 +131,4 @@ class Validation extends React.Component<IntervalPropsT> {
   }
 }
 
-export default withStyles(styles)(Validation);
+export default withStyles(styles)(TicketStatus);

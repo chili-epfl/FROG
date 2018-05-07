@@ -22,6 +22,7 @@ export default class uiStore {
       showPreview: false,
       libraryOpen: false,
       showInfo: false,
+      showModal: false,
 
       setIsSvg: action((isSvg: boolean) => {
         this.isSvg = isSvg;

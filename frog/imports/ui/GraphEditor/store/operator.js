@@ -64,6 +64,10 @@ export default class Operator extends Elem {
         this.wasMoved = true;
       }),
 
+      push: action((diff: number) => {
+        this.time += diff;
+      }),
+
       stopDragging: action(() => {
         if (store.state.mode === 'movingOperator') {
           store.state = { mode: 'normal' };

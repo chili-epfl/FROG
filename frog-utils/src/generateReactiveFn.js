@@ -132,7 +132,7 @@ class Doc {
 export const generateReactiveFn = (
   doc: any,
   readOnly?: boolean,
-  updateFn: Function
+  updateFn?: Function
 ): Object => {
   if (doc) {
     return new Doc(doc, [], !!readOnly, updateFn);

@@ -64,6 +64,7 @@ export type {
   ObjectT,
   GlobalStructureT,
   ActivityRunnerT,
+  ActivityRunnerPropsT,
   ActivityPackageT,
   productOperatorT,
   socialOperatorT,
@@ -71,11 +72,10 @@ export type {
   controlOperatorT,
   ControlStructureT,
   ControlT,
-  ReactComponent,
   LogT,
-  LogDBT,
-  dashboardT,
-  dashboardViewerPropsT
+  LogDbT,
+  DashboardT,
+  DashboardViewerPropsT
 } from './types';
 export { CountChart } from './DashboardComponents/CountChart';
 
@@ -251,9 +251,10 @@ export const cloneDeep = (o: any) => {
   return newO;
 };
 
-export const Inspector = ({ data }: { data: Object }) =>
+export const Inspector = ({ data }: { data: Object | Object[] }) =>
   data ? (
     <ReactJsonView
+      name={false}
       style={{ fontSize: '1.2em' }}
       src={data}
       iconStyle="triangle"
@@ -286,7 +287,7 @@ export const entries = <T>(obj: { [string]: T }): Array<[string, T]> => {
   return keys.map(key => [key, obj[key]]);
 };
 
-export const values = (obj: { [string]: string }): Array<string> => {
+export const values = <T>(obj: { [string]: T }): Array<T> => {
   const keys: string[] = Object.keys(obj);
   return keys.map(key => obj[key]);
 };

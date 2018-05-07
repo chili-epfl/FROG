@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import { ReactiveText, type ActivityRunnerT } from 'frog-utils';
+import { ReactiveText, type ActivityRunnerPropsT } from 'frog-utils';
 
-export default (props: ActivityRunnerT) => {
+export default (props: ActivityRunnerPropsT) => {
   const {
     activityData: { config },
     logger,
