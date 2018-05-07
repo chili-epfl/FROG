@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { type ActivityRunnerT } from 'frog-utils';
 
-import PDF from './PDF'
+import PDF from './PDF';
 
 // import PDF from 'react-pdf-js';
 
@@ -36,20 +36,34 @@ export default class Prez extends Component<ActivityRunnerT> {
 
     // console.log(activityData, data, dataFn, userInfo, logger)
     const hostname = window.location.hostname;
-    const initial_pdf = (hostname=='localhost') ? 'http://localhost:3000/sample.pdf' : window.location.hostname+'/sample.pdf';
+    const initial_pdf =
+      hostname == 'localhost'
+        ? 'http://localhost:3000/file?name=ac/ac-prez/sample.pdf'
+        : window.location.hostname + '/file?name=ac/ac-prez/sample.pdf';
     console.log(initial_pdf);
 
-    const pdf_src = (this.props.data.pdf_file) ? this.props.data.pdf_file : initial_pdf;
+    const pdf_src = this.props.data.pdf_file
+      ? this.props.data.pdf_file
+      : initial_pdf;
 
     console.log(pdf_src);
 
     return (
       <div>
-        <input defaultValue={initial_pdf} type="text" ref={(input) => this.pdf_file_input = input} />
+        <input
+          defaultValue={initial_pdf}
+          type="text"
+          ref={input => (this.pdf_file_input = input)}
+        />
         <button onClick={this.updateFile.bind(this)}>Update PDF</button>
-        <hr></hr>
-        <PDF src={pdf_src} userInfo={userInfo} data={this.props.data} dataFn={dataFn}/>
+        <hr />
+        <PDF
+          src={pdf_src}
+          userInfo={userInfo}
+          data={this.props.data}
+          dataFn={dataFn}
+        />
       </div>
-    )
+    );
   }
 }
