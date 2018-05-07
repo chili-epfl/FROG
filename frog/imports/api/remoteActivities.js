@@ -4,7 +4,7 @@ import { LibraryStates } from './cache';
 
 const RemoteServer =
   Meteor.settings.public.remoteServer ||
-  'http://icchilisrv4.epfl.ch:5000/activities';
+  'https://icchilisrv4.epfl.ch:5500/activities';
 
 export const removeActivity = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {

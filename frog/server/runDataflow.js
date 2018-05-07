@@ -127,6 +127,9 @@ const runDataflow = (
     Products.update(nodeId, { type: node.type, ...update }, { upsert: true });
 
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
+    if (node.type === 'social') {
+      Sessions.update(sessionId, { $set: { tooLate: true } });
+    }
   } else if (type === 'activity') {
     mergeData(nodeId, object);
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });

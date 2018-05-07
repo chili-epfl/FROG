@@ -1,6 +1,14 @@
 // @flow
 import * as React from 'react';
-import { VictoryChart, VictoryLine, VictoryLegend, VictoryAxis } from 'victory';
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryLegend,
+  VictoryAxis,
+  VictoryLabel
+} from 'victory';
+
+import { range } from 'lodash';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -9,6 +17,7 @@ import { withStyles } from 'material-ui/styles';
 
 import { type DashStateT } from '.';
 import { color } from './utils';
+import { capitalizeFirstLetter } from '../ActivityUtils';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -38,7 +47,7 @@ const MeanPerTryForEachInterface = ({
   const count = state['count'];
   const dash = state[whichDash];
 
-  const interfaces = Object.keys(dash);
+  const interfaces = Object.keys(count);
 
   if (interfaces.length > 0) {
     const allCoordinates = interfaces.map(int => {
@@ -78,12 +87,17 @@ const MeanPerTryForEachInterface = ({
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <VictoryChart domainPadding={{ y: [0, 5] }}>
+            <VictoryChart domain={domain} domainPadding={20}>
               <VictoryAxis
-                tickCount={iterationPerInterface}
-                tickFormat={t => Math.round(t)}
+                tickValues={range(1, iterationPerInterface + 1)}
+                tickFormat={d => `Trial ${d}`}
               />
-              <VictoryAxis dependentAxis />
+              <VictoryAxis
+                dependentAxis
+                label={`Mean ${capitalizeFirstLetter(whichDash)}`}
+                axisLabelComponent={<VictoryLabel dy={-12} />}
+                tickFormat={d => Math.round(d * 10) / 10}
+              />
               <VictoryLegend
                 x={50}
                 y={0}
@@ -96,7 +110,6 @@ const MeanPerTryForEachInterface = ({
               {allCoordinates.map(int => (
                 <VictoryLine
                   key={int.name}
-                  domain={domain}
                   style={{
                     data: { stroke: color(int.name) },
                     parent: { border: '1px solid #ccc' }

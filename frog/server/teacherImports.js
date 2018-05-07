@@ -26,11 +26,11 @@ const teacherPublish = (publish, collection, limitation) =>
 
 export default () => {
   teacherPublish('activities', Activities);
+  teacherPublish('operators', Operators);
+  teacherPublish('dashboardData', DashboardData);
   teacherPublish('users', Meteor.users, {
     fields: { username: 1, joinedSessions: 1 }
   });
-  teacherPublish('operators', Operators);
-  teacherPublish('dashboardData', DashboardData);
   teacherPublish('connections', Connections);
   teacherPublish('graphs', Graphs);
   teacherPublish('objects', Objects);

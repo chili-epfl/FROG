@@ -83,17 +83,17 @@ const time = fn => {
 
 test('test 1', () =>
   expect(operator({ matching: '1,1;2,2' }, test1)).toEqual({
-    group: { '1': ['s1', 's2'], unmatched1: ['s3', 's4'] }
+    group: { '1': ['s1', 's2'], A1: ['s3', 's4'] }
   }));
 
 test('test 2', () =>
   expect(operator({ matching: '1,1;2,2' }, test2)).toEqual({
-    group: { '1': ['s1', 's2'], unmatched1: ['s3', 's4'] }
+    group: { '1': ['s1', 's2'], A1: ['s3', 's4'] }
   }));
 
 test('test 3', () =>
   expect(operator({ matching: '1,1;2,2' }, test3)).toEqual({
-    group: { '1': ['s1', 's2'], '2': ['s4', 's5'], unmatched1: ['s3', 's6'] }
+    group: { '1': ['s1', 's2'], '2': ['s4', 's5'], A1: ['s3', 's6'] }
   }));
 
 test('test 4', () =>
