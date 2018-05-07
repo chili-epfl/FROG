@@ -27,7 +27,8 @@
     "sharedb-string-binding": "^1.0.0",
     "victory": "^0.25.7",
     "wolfy87-eventemitter": "^5.2.4",
-    "regression": "2.0.1"
+    "regression": "2.0.1",
+    "react-height": "^3.0.0"
   },
   "devDependencies": {
     "nps": "^5.9.0"
