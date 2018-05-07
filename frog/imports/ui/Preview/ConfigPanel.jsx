@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { uuid } from 'frog-utils';
-
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
