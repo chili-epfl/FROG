@@ -224,7 +224,7 @@ const ApiForm = observer(
 
     render() {
       return (
-        <div>
+        <React.Fragment>
           {this.state.activity.activityType ? (
             <div>
               <div
@@ -272,7 +272,7 @@ const ApiForm = observer(
               }}
             />
           )}
-        </div>
+        </React.Fragment>
       );
     }
   }

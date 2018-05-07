@@ -19,8 +19,7 @@ const styles = {
   main: {
     display: 'flex',
     margin: '50px 8px',
-    height: 'calc(100% - 60px)',
-    width: '100%'
+    height: 'calc(100% - 60px)'
   },
   noModal: {
     flex: '0 0 auto',
