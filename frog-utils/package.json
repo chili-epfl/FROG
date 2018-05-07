@@ -20,7 +20,7 @@
     "react-dom": "^16.3.1",
     "react-google-charts": "^1.5.7",
     "react-jsonschema-form": "^1.0.3",
-    "material-ui-schema-form": "0.9.9",
+    "material-ui-jsonschema-form": "1.0.14",
     "react-jsonschema-form-extras": "^0.9.14",
     "react-rte": "^0.16.1",
     "recompose": "^0.26.0",
