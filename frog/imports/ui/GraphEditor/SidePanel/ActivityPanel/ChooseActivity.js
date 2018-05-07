@@ -8,6 +8,7 @@ import jsonSchemaDefaults from 'json-schema-defaults';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import List from 'material-ui/List';
 
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
@@ -43,6 +44,7 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
 
   constructor(props: PropsT) {
     super(props);
+    this.container = React.createRef();
     this.state = {
       expanded: null,
       searchStr: '',
@@ -136,27 +138,16 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               changesLoaded={this.props.changesLoaded}
             />
           ) : (
-            <div>
-              <div
-                className="list-group"
-                style={{
-                  maxHeight: '700px',
-                  width: '100%',
-                  overflowY: 'scroll'
-                }}
-              >
-                {filteredList.length === 0 ? (
-                  <div
-                    style={{
-                      marginTop: '20px',
-                      marginLeft: '10px',
-                      fontSize: '40px'
-                    }}
-                  >
-                    No result
-                  </div>
-                ) : (
-                  filteredList.map((x: ActivityPackageT) => (
+            <Grid
+              item
+              xs={12}
+              style={{ maxHeight: '700px', overflowY: 'auto' }}
+            >
+              {filteredList.length === 0 ? (
+                <div>No result</div>
+              ) : (
+                <List>
+                  {filteredList.map((x: ActivityPackageT) => (
                     <ListComponent
                       hasPreview={
                         !this.props.hidePreview &&
@@ -179,10 +170,10 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
                       searchS={this.state.searchStr}
                       eventKey={x.id}
                     />
-                  ))
-                )}
-              </div>
-            </div>
+                  ))}
+                </List>
+              )}
+            </Grid>
           ))}
         {this.state.showInfo !== null && (
           <ModalPreview

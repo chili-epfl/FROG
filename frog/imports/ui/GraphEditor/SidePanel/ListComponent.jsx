@@ -12,7 +12,8 @@ import List, {
   ListItemText
 } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import DeleteIcon from '@material-ui/icons/Delete';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 
 import { Highlight } from 'frog-utils';
 
@@ -25,44 +26,27 @@ export default ({
   onPreview,
   searchS
 }: any) => (
-  <div className="list-group-item">
-    <div style={{ cursor: 'pointer' }} onClick={onSelect}>
-      <List>
-        <ListItem>
-          <ListItemText
-            secondary={
-              <Highlight text={object.meta.shortDesc} searchStr={searchS} />
-            }
+  <List>
+    <ListItem button value={object.id} onClick={onSelect}>
+      <ListItemText
+        secondary={
+          <Highlight text={object.meta.shortDesc} searchStr={searchS} />
+        }
+      >
+        <Highlight text={object.meta.name} searchStr={searchS} />
+      </ListItemText>
+
+      <ListItemSecondaryAction>
+        {hasPreview && (
+          <IconButton
+            value={object.id}
+            aria-label="Preview"
+            onClick={onPreview}
           >
-            <Highlight text={object.meta.name} searchStr={searchS} />
-          </ListItemText>
-
-          <ListItemSecondaryAction>
-            <IconButton aria-label="Delete">
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <Divider />
-      </List>
-      {/* {showExpanded && (
-        <div style={{ width: '87%' }}>
-          <i>
-            <Highlight text={object.meta.description} searchStr={searchS} />
-          </i>
-        </div>
-      )}
-    </div>
-    <Button value={object.id} onClick={onSelect}>
-      Ok
-    </Button>
-    {!showExpanded && <Button onClick={expand}>Menu-Down</Button>}
-
-    {hasPreview && (
-      <Button value={object.id} onClick={onPreview}>
-        Eye
-      </Button>
-    )} */}
-    </div>
-  </div>
+            <RemoveRedEye />
+          </IconButton>
+        )}
+      </ListItemSecondaryAction>
+    </ListItem>
+  </List>
 );

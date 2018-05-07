@@ -138,7 +138,10 @@ const RawEditActivity = ({
     a => a.id !== activity._id
   );
   return (
-    <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
+    <div
+      className="bootstrap"
+      style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}
+    >
       <Modal
         exportType="activity"
         {...{ modalOpen, setModal, activity, madeChanges }}

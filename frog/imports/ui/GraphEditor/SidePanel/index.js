@@ -12,10 +12,32 @@ import OperatorPanel from './OperatorPanel';
 const styles = {
   root: {
     backgroundColor: '#ffffff',
-    padding: '5px 5px',
     boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'
+  },
+  helperContainer: {
+    height: '100%'
   }
 };
+
+const SideBarHelperText = ({ classes }) => (
+  <Grid
+    container
+    justify="center"
+    alignItems="center"
+    className={classes.helperContainer}
+  >
+    <Grid item>
+      <Typography variant="title" align="center" gutterBottom>
+        Select an activity or an operator to configure it.
+      </Typography>
+      <Typography variant="subheading" align="center">
+        Press the <kbd>w</kbd> key to toggle the sidebar.
+      </Typography>
+    </Grid>
+  </Grid>
+);
+
+const StyledSideBarHelperText = withStyles(styles)(SideBarHelperText);
 
 const SidebarContainer = connect(({ children, classes }) => (
   <Grid item xs={5} className={classes.root}>
@@ -50,12 +72,7 @@ export default connect(
     } else {
       return (
         <StyledSideBarContainer>
-          <Typography variant="title" gutterBottom component="p">
-            Select an activity or an operator to configure it.
-          </Typography>
-          <Typography gutterBottom component="p">
-            Press the <kbd>w</kbd> key toggle the sidebar.
-          </Typography>
+          <StyledSideBarHelperText />
         </StyledSideBarContainer>
       );
     }
