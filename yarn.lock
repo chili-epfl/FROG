@@ -922,6 +922,10 @@
   dependencies:
     pngjs "^3.2.0"
 
+"@houshuang/pdfjs-dist@1.4.162":
+  version "1.4.162"
+  resolved "https://registry.yarnpkg.com/@houshuang/pdfjs-dist/-/pdfjs-dist-1.4.162.tgz#49a1c76e6838c48a084888cf1f885596c41a8672"
+
 "@houshuang/react-flip-move@^2.9.16":
   version "2.9.16"
   resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
