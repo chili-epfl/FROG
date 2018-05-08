@@ -21,13 +21,9 @@ export const isBrowser = (() => {
   }
 })();
 
-export const Participant = isBrowser
-	? require('./participant.js')
-  : () => null
-  
-export const hark = isBrowser
-	? require('../lib/hark.bundle.js')
-	: () => null
+export const Participant = isBrowser ? require('./participant.js') : () => null;
+
+export const hark = isBrowser ? require('../lib/hark.bundle.js') : () => null;
 
 /**
  * State consists of local and remote
@@ -35,12 +31,12 @@ export const hark = isBrowser
  *   id: "this user's id",
  *   name: "this user's name"
  * }
- * 
+ *
  * remote has same structure as local (id and name fields)
  * for each remote participant, object is added to remote array
- * 
- * After state is updated and render is called, 
- *   video element is fetched and received video stream is set 
+ *
+ * After state is updated and render is called,
+ *   video element is fetched and received video stream is set
  *   to that video element
  */
 type StateT = {
@@ -49,115 +45,121 @@ type StateT = {
 };
 
 class ActivityRunner extends Component<ActivityRunnerT, StateT> {
+  constructor(props: ActivityRunnerT) {
+    super(props);
+    this.name = '';
+    this.id = '';
+    this.roomId = '';
+    this.ws = null;
+    this.participants = {};
+    this.state = { local: {}, remote: [] };
+    this.browser;
+  }
 
+  componentDidMount() {
+    this.name = this.props.userInfo.name;
+    this.id = this.props.userInfo.id;
 
+    //TODO, change in the future with activity ID + instanceId
+    this.roomId = this.props.sessionId + this.props.groupingValue;
+
+    this.browser = BrowserUtils.detectBrowser();
+    console.log(this.browser);
+
+    this.createWebSocketConnection();
+  }
+
+  componentWillUnmount() {
+    this.leaveRoom();
+  }
 
   createWebSocketConnection = () => {
     this.ws = new WebSocket(WebRtcConfig.signalServerURL);
-    console.log(this.isFirefox);
-    console.log(this.isChrome);
-
 
     var self = this;
 
     //when web socket connection is oppened, register on signal server
-    this.ws.onopen = function (event) {
-
-      self.sendMessage({id: "info", 
-        name: self.name,
-        browser: self.browser
-      });
-
+    this.ws.onopen = function(event) {
       self.register(this.name, this.id, this.roomId);
-    }
+    };
 
     this.ws.onmessage = function(message) {
       const parsedMessage = JSON.parse(message.data);
-    
-      switch (parsedMessage.id) {
-      case 'existingParticipants':
-        console.log("==>existingParticipants");
-        self.onExistingParticipants(parsedMessage);
-        break;
-      case 'newParticipantArrived':
-        console.log("==>newParticipantArrived");
-        self.onNewParticipant(parsedMessage.name, parsedMessage.userId);
-        break;
-      case 'participantLeft':
-        console.log("==>participantLeft");
-        self.onParticipantLeft(parsedMessage.userId);
-        break;
-      case 'receiveVideoAnswer':
-        console.log("==>receiveVideoAnswer");
-        self.receiveVideoResponse(parsedMessage.userId, parsedMessage.sdpAnswer);
-        break;
-      case 'iceCandidate':
-        //console.log("==>iceCandidate");
 
-        //method below may throw exception
-        self.participants[parsedMessage.userId].onRemoteCandidate(parsedMessage.candidate);
-        break;
-      default:
-        console.error('Unrecognized message', parsedMessage);
+      switch (parsedMessage.id) {
+        case 'existingParticipants':
+          console.log('==>existingParticipants');
+          self.onExistingParticipants(parsedMessage);
+          break;
+        case 'newParticipantArrived':
+          console.log('==>newParticipantArrived');
+          self.onNewParticipant(parsedMessage.name, parsedMessage.userId);
+          break;
+        case 'participantLeft':
+          console.log('==>participantLeft');
+          self.onParticipantLeft(parsedMessage.userId);
+          break;
+        case 'receiveVideoAnswer':
+          console.log('==>receiveVideoAnswer');
+          self.receiveVideoResponse(
+            parsedMessage.userId,
+            parsedMessage.sdpAnswer
+          );
+          break;
+        case 'iceCandidate':
+          //console.log("==>iceCandidate");
+
+          //method below may throw exception
+          self.participants[parsedMessage.userId].onRemoteCandidate(
+            parsedMessage.candidate
+          );
+          break;
+        default:
+          console.error('Unrecognized message', parsedMessage);
       }
-    }
+    };
   };
 
   sendMessage = message => {
-    //TODO try catch?
-
-    const jsonMessage = JSON.stringify(message);
-    // console.log('Send message: ' + jsonMessage);
-    this.ws.send(jsonMessage);
+    this.ws.send(JSON.stringify(message));
   };
 
   register = (name, id, roomId) => {
-	  const message = {
-		  id : 'joinRoom',
-      name : this.name,
+    const message = {
+      id: 'joinRoom',
+      name: this.name,
       userId: this.id,
-		  room : this.roomId,
-	  }
-	  this.sendMessage(message);
+      room: this.roomId
+    };
+    this.sendMessage(message);
   };
 
   onExistingParticipants = msg => {
     const self = this;
 
-    function onAddLocalStream(stream){
-      console.log("onAddLocalStream");
+    function onAddLocalStream(stream) {
+      console.log('onAddLocalStream');
       const options = {
         local: true,
         name: self.name,
         id: self.id,
         logger: self.props.logger
       };
-      
+
       //from AVStreamAnalysis
       onStreamAdded(stream, options);
 
-      self.setState({local: {
-            name: self.name,
-            id: self.id
-      }});
-
-      //setting stream to my video (myVideo is rendered after updating state)
-      //TODO put small delay to wait for React's render and try to obtain video
-      function setVideo(){
-        setTimeout(() => { 
-          var myVideo = document.getElementById(self.id);
-          if(myVideo) {
-            myVideo.srcObject = stream;
-          } else {
-            setVideo();
-          }
-        }, 50);
-      }
-      setVideo();
+      self.setState({
+        local: {
+          name: self.name,
+          id: self.id,
+          srcObject: stream
+        }
+      });
     }
 
     function onUserMediaError(error) {
-      console.log("Media already in use, or blocked:", error);
+      console.log('Media already in use, or blocked:', error);
     }
 
     var options = {
@@ -167,9 +169,9 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
       onUserMediaError: onUserMediaError
     };
 
-    if(this.browser.browser == "chrome"){
+    if (this.browser.browser == 'chrome') {
       options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintsChrome;
-    } else if(this.browser.browser == "firefox") {
+    } else if (this.browser.browser == 'firefox') {
       options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
     } else {
       options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
@@ -185,33 +187,23 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   };
 
   onNewParticipant = (name, userId) => {
-    this.receiveVideo({name: name, id: userId});
+    this.receiveVideo({ name: name, id: userId });
   };
 
   //receive video from remote peer
   receiveVideo = newParticipant => {
     const self = this;
 
-    var participant = new Participant(newParticipant.name, newParticipant.id, this.sendMessage);
+    var participant = new Participant(
+      newParticipant.name,
+      newParticipant.id,
+      this.sendMessage
+    );
     this.participants[participant.id] = participant;
-    
-    function onAddRemoteStream(event){
+
+    function onAddRemoteStream(event) {
       var stream = event.stream;
-
-      self.addRemoteUserToState(newParticipant);
-
-      function setVideo(){
-        setTimeout(() => { 
-          var newParticipantVideo = document.getElementById(newParticipant.id);
-          if(newParticipantVideo) {
-            newParticipantVideo.srcObject = stream;
-          } else {
-            setVideo();
-          }
-        }, 50);
-      }
-      setVideo();
-
+      self.addRemoteUserToState(newParticipant, stream);
     }
 
     var options = {
@@ -219,9 +211,9 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
       configuration: WebRtcConfig.rtcConfiguration
     };
 
-    if(this.browser.browser == "chrome"){
+    if (this.browser.browser == 'chrome') {
       options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintChrome;
-    } else if(this.browser.browser == "firefox") {
+    } else if (this.browser.browser == 'firefox') {
       options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintFirefox;
     } else {
       options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintFirefox;
@@ -230,19 +222,23 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     participant.createRecvOnlyPeer(options);
   };
 
-  addRemoteUserToState = (participant) => {
+  addRemoteUserToState = (participant, stream) => {
     var remotes = this.state.remote;
-    remotes.push({name: participant.name, id: participant.id});
+    remotes.push({
+      name: participant.name,
+      id: participant.id,
+      srcObject: stream
+    });
     this.setState({
       remote: remotes
     });
   };
 
-  removeRemoteUserFromState = (participantId) => {
+  removeRemoteUserFromState = participantId => {
     var remotes = this.state.remote;
     remotes = remotes.filter(r => r.id !== participantId);
-    console.log("Remotes after removing user");
-    console.log(remotes);
+    // console.log('Remotes after removing user');
+    // console.log(remotes);
     this.setState({
       remote: remotes
     });
@@ -257,17 +253,17 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
   onParticipantLeft = participantId => {
     console.log('Participant ', participantId, ' left');
     var participant = this.participants[participantId];
-  
+
     //remove and update state
     this.removeRemoteUserFromState(participantId);
-  
+
     participant.dispose();
     delete this.participants[participantId];
   };
 
   leaveRoom = () => {
     this.sendMessage({
-      id : 'leaveRoom'
+      id: 'leaveRoom'
     });
 
     Object.values(this.participants).forEach(p => p.dispose());
@@ -286,41 +282,11 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     thisParticipant.toogleVideo();
   };
 
-  reloadStream = (participantId) => {
+  reloadStream = participantId => {
     this.removeRemoteUserFromState(participantId);
     var participant = this.participants[participantId];
     participant.reloadStream();
-  }
-
-  constructor(props: ActivityRunnerT) {
-    super(props);
-    this.name = "";
-    this.id = "";
-    this.roomId = "";
-    this.ws = null;
-    this.participants = {};
-    this.state = { local: {}, remote: [] };
-    this.browser;
-    this.videoSwitch = false;
-    this.audioSwitch = false;
-  }
-
-  componentDidMount() {
-    this.name = this.props.userInfo.name;
-    this.id = this.props.userInfo.id;
-
-    //TODO, change in the future with activity ID
-    this.roomId = this.props.sessionId + this.props.groupingValue;
-
-    this.browser = BrowserUtils.detectBrowser();
-    console.log(this.browser);
-
-    this.createWebSocketConnection();
-  }
-
-  componentWillUnmount() {
-    this.leaveRoom();
-  }
+  };
 
   render() {
     const local = this.state.local;
@@ -328,11 +294,11 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     return (
       <div id="webrtc">
         <Header {...this.props} />
-        <VideoLayout 
-          local={local} 
-          remote={remote} 
+        <VideoLayout
+          local={local}
+          remote={remote}
           toogleAudio={this.toogleAudio}
-          toogleVideo={this.toogleVideo} 
+          toogleVideo={this.toogleVideo}
           reloadStream={this.reloadStream}
         />
       </div>

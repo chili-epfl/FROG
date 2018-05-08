@@ -2,7 +2,8 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import config from './config';
+import { config, configUI } from './config';
+
 import ActivityRunner from './ActivityRunner';
 import dashboard from './Dashboard';
 
@@ -15,9 +16,13 @@ const meta = {
       title: 'Yourself',
       config: {
         title: 'Talk with yourself',
-        sdpConstraints: {
+        userMediaConstraints: {
           audio: true,
           video: true
+        },
+        activityType: {
+          many2many: true,
+          one2many: false
         }
       },
       data: []
@@ -40,7 +45,8 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  dashboards: {test: dashboard},
+  configUI,
+  dashboards: { test: dashboard },
   ActivityRunner,
   dataStructure,
   mergeFunction

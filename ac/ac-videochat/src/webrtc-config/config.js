@@ -11,7 +11,7 @@ const rtcConfiguration = {
   ]
 };
 
-const signalServerURL = 'wss://frog-marin.tk:443/webrtc'; 
+const signalServerURL = 'wss://icchilisrv3.epfl.ch:7777';
 
 const sendOnlyMediaConstraints = {
   audio: true,
@@ -22,27 +22,27 @@ const sendOnlyMediaConstraints = {
 };
 
 const sendOnlyOfferConstraintChrome = {
-	mandatory: {
-		'OfferToReceiveAudio': false,
-		'OfferToReceiveVideo': false
-	}
+  mandatory: {
+    OfferToReceiveAudio: false,
+    OfferToReceiveVideo: false
+  }
 };
 
 const sendOnlyOfferConstraintFirefox = {
-	offerToReceiveAudio: 0,
-	offerToReceiveVideo: 0
+  offerToReceiveAudio: 0,
+  offerToReceiveVideo: 0
 };
 
 const recvOnlyOfferConstraintChrome = {
-	mandatory: {
-		'OfferToReceiveAudio': true,
-		'OfferToReceiveVideo': true
-	}
+  mandatory: {
+    OfferToReceiveAudio: true,
+    OfferToReceiveVideo: true
+  }
 };
 
 const recvOnlyOfferConstraintFirefox = {
-	offerToReceiveAudio: 1,
-	offerToReceiveVideo: 1
+  offerToReceiveAudio: 1,
+  offerToReceiveVideo: 1
 };
 
 export default {
@@ -53,4 +53,4 @@ export default {
   sendOnlyOfferConstraintFirefox: sendOnlyOfferConstraintFirefox,
   recvOnlyOfferConstraintChrome: recvOnlyOfferConstraintChrome,
   recvOnlyOfferConstraintFirefox: recvOnlyOfferConstraintFirefox
-}
+};

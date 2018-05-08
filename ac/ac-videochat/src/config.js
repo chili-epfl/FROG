@@ -1,4 +1,4 @@
-export default {
+export const config = {
   type: 'object',
   properties: {
     title: {
@@ -9,20 +9,34 @@ export default {
       type: 'string',
       title: 'Information for your students:'
     },
-    sdpConstraints: {
+    userMediaConstraints: {
       type: 'object',
+      title: 'Web camera and microphone',
       properties: {
         audio: {
-          title: 'Connect with audio input',
+          title: 'Use microphone',
           type: 'boolean',
           default: true
         },
         video: {
-          title: 'Connect using camera',
+          title: 'Use web camera',
           type: 'boolean',
           default: true
         }
       }
+    },
+    activityType: {
+      type: 'string',
+      title:
+        'Type of activity (many2many - group call, one2many - teacher to all)',
+      enum: ['many2many', 'one2many'],
+      default: 'many2many'
     }
+  }
+};
+
+export const configUI = {
+  activityType: {
+    'ui:widget': 'radio'
   }
 };

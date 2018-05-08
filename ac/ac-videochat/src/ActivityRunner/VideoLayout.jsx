@@ -8,81 +8,113 @@ import VideocamOff from '@material-ui/icons/VideocamOff';
 import Refresh from '@material-ui/icons/Refresh';
 import Video from './Video';
 
-type VideosPropsT = { 
-  local: Object, 
-  remote: Array<Object>, 
-  toogleVideo: Function, 
-  toogleAudio: Function,
-  reloadStream: Function
+const styles = {
+  videoBoxS: {
+    maxWidth: '400px',
+    minWidth: '200px',
+    flex: '0 1 auto',
+    margin: 'auto',
+    textAlign: 'center',
+    fontSize: '1.20em'
+  },
+  layoutBoxS: {
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  buttonBoxS: {
+    backgroundColor: '#3f51b5',
+    border: 'none',
+    color: 'white',
+    padding: '20px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    display: 'inline-block',
+    fontSize: '16px',
+    margin: '4px 2px',
+    cursor: 'pointer',
+    borderRadius: '50%'
+  }
 };
 
-const VideoBoxS = {
-  maxWidth: '400px',
-  minWidth: '200px',
-  flex: '0 1 auto',
-  margin: 'auto',
-  textAlign: 'center',
-  fontSize: '1.20em'
-};
+class VideoLayout extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      video: true,
+      audio: true
+    };
+  }
 
-const LayoutBoxS = {
-  width: '100%',
-  display: 'flex',
-  flexWrap: 'wrap'
-};
+  handleVideoToggle = toogleVideo => {
+    this.setState({ video: !this.state.video });
+    toogleVideo();
+  };
 
-const ButtonBoxS = {
-  backgroundColor: '#3f51b5',
-  border: 'none',
-  color: 'white',
-  padding: '20px',
-  textAlign: 'center',
-  textDecoration: 'none',
-  display: 'inline-block',
-  fontSize: '16px',
-  margin: '4px 2px',
-  cursor: 'pointer',
-  borderRadius: '50%'
-};
+  handleAudioToggle = toogleAudio => {
+    this.setState({ audio: !this.state.audio });
+    toogleAudio();
+  };
 
+  render() {
+    const {
+      local,
+      remote,
+      toogleVideo,
+      toogleAudio,
+      reloadStream
+    } = this.props;
+    const sortedRemote = remote.sort((a, b) => {
+      return a.name > b.name ? 1 : 0;
+    });
 
-export default ({ local, remote, toogleVideo, toogleAudio, reloadStream }: VideosPropsT) => {
-  const VideoList =
+    return (
       <React.Fragment>
-        <div style={VideoBoxS} key={local.id}>
-          <Video videoId={local.id} self />
-          <button style={ButtonBoxS} id={"btn_"+local.id} onClick={() => {
-            toogleVideo();
-            //change Videocam to VideocamOff
-          }}>
-            <Videocam/>
-          </button>
-          <button style={ButtonBoxS} onClick={() => {
-            toogleAudio();
-            //change Mic to MicOff
-          }}>
-            <Mic/>
-          </button>
-          {local.name && (
-            <p>
-              <i>Local: {local.name}</i>
-            </p>
-          )}
-        </div>
-        {remote.map((participant, index) => (
-          <div style={VideoBoxS} key={participant.id}>
-            <Video
-              videoId={participant.id}
-              index={'remotevideo' + index}
-              name={participant.name}
-            />
-            <button style={ButtonBoxS} onClick={() => reloadStream(participant.id)}>
-              <Refresh/>
+        <div style={styles.layoutBoxS}>
+          <div style={styles.videoBoxS}>
+            <Video videoId={local.id} mute={true} srcObject={local.srcObject} />
+            <button
+              style={styles.buttonBoxS}
+              onClick={() => this.handleVideoToggle(toogleVideo)}
+            >
+              {this.state.video && <Videocam />}
+              {!this.state.video && <VideocamOff />}
             </button>
-            <p>{participant.name}</p>
+            <button
+              style={styles.buttonBoxS}
+              onClick={() => this.handleAudioToggle(toogleAudio)}
+            >
+              {this.state.audio && <Mic />}
+              {!this.state.audio && <MicOff />}
+            </button>
+            {local.name && (
+              <p>
+                <i>Local: {local.name}</i>
+              </p>
+            )}
           </div>
-        ))}
+          {sortedRemote.map((participant, index) => (
+            <div style={styles.videoBoxS} key={participant.id}>
+              <Video
+                videoId={participant.id}
+                index={'remotevideo' + index}
+                mute={false}
+                srcObject={participant.srcObject}
+                name={participant.name}
+              />
+              <button
+                style={styles.buttonBoxS}
+                onClick={() => reloadStream(participant.id)}
+              >
+                <Refresh />
+              </button>
+              <p>{participant.name}</p>
+            </div>
+          ))}
+        </div>
       </React.Fragment>
+    );
+  }
+}
 
-  return <div style={LayoutBoxS}>{VideoList}</div>;
-};
+export default VideoLayout;
