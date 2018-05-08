@@ -229,7 +229,7 @@ const ApiForm = observer(
 
     render() {
       return (
-        <div>
+        <React.Fragment>
           {this.state.activity.activityType ? (
             <div>
               <div
@@ -255,7 +255,7 @@ const ApiForm = observer(
               )}
             </div>
           ) : (
-            <div style={{ position: 'absolute', marginRight: '20px' }}>
+            <React.Fragment>
               <ModalDelete
                 modalOpen={this.state.deleteOpen}
                 setModal={x => this.setState({ deleteOpen: x })}
@@ -286,9 +286,9 @@ const ApiForm = observer(
                   });
                 }}
               />
-            </div>
+            </React.Fragment>
           )}
-        </div>
+        </React.Fragment>
       );
     }
   }

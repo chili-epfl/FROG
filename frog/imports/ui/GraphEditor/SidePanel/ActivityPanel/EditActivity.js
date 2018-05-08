@@ -138,7 +138,10 @@ const RawEditActivity = ({
     a => a.id !== activity._id
   );
   return (
-    <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
+    <div
+      className="bootstrap"
+      style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}
+    >
       <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
