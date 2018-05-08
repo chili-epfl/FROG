@@ -53,6 +53,7 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     this.ws = null;
     this.participants = {};
     this.state = { local: {}, remote: [] };
+    this.stream;
     this.browser;
   }
 
@@ -80,7 +81,7 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
     //when web socket connection is oppened, register on signal server
     this.ws.onopen = function(event) {
-      self.register(this.name, this.id, this.roomId);
+      self.requestMediaDevices();
     };
 
     this.ws.onmessage = function(message) {
@@ -124,63 +125,72 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     this.ws.send(JSON.stringify(message));
   };
 
-  register = (name, id, roomId) => {
+  requestMediaDevices = () => {
+    navigator.mediaDevices
+      .getUserMedia(WebRtcConfig.mediaConstraints)
+      .then(myStream => {
+        this.stream = myStream;
+        this.register(this.name, this.id, this.roomId);
+      })
+      .catch(error => {
+        this.register(this.name, this.id, this.roomId, 'watcher');
+      });
+  };
+
+  register = (name, id, roomId, role) => {
     const message = {
       id: 'joinRoom',
       name: this.name,
       userId: this.id,
       room: this.roomId
     };
+    if (role && role === 'watcher') {
+      message.role = role;
+    } else if (role && role === 'lecturer') {
+      message.role = role;
+    }
     this.sendMessage(message);
   };
 
   onExistingParticipants = msg => {
-    const self = this;
-
-    function onAddLocalStream(stream) {
-      console.log('onAddLocalStream');
-      const options = {
+    if (this.stream) {
+      const analysisOptions = {
         local: true,
-        name: self.name,
-        id: self.id,
-        logger: self.props.logger
+        name: this.name,
+        id: this.id,
+        logger: this.props.logger
       };
 
       //from AVStreamAnalysis
-      onStreamAdded(stream, options);
+      onStreamAdded(this.stream, analysisOptions);
 
-      self.setState({
+      this.setState({
         local: {
-          name: self.name,
-          id: self.id,
-          srcObject: stream
+          name: this.name,
+          id: this.id,
+          srcObject: this.stream
         }
       });
+
+      var options = {
+        configuration: WebRtcConfig.rtcConfiguration,
+        userMediaConstraints: WebRtcConfig.mediaConstraints,
+        myStream: this.stream
+      };
+
+      if (this.browser.browser == 'chrome') {
+        options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintsChrome;
+      } else if (this.browser.browser == 'firefox') {
+        options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
+      } else {
+        options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
+      }
+
+      //create new participant for send only my stream
+      var participant = new Participant(this.name, this.id, this.sendMessage);
+      this.participants[participant.id] = participant;
+      participant.createSendOnlyPeer(options);
     }
-
-    function onUserMediaError(error) {
-      console.log('Media already in use, or blocked:', error);
-    }
-
-    var options = {
-      onaddstream: onAddLocalStream,
-      configuration: WebRtcConfig.rtcConfiguration,
-      userMediaConstraints: WebRtcConfig.sendOnlyMediaConstraints,
-      onUserMediaError: onUserMediaError
-    };
-
-    if (this.browser.browser == 'chrome') {
-      options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintsChrome;
-    } else if (this.browser.browser == 'firefox') {
-      options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
-    } else {
-      options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
-    }
-
-    //create new participant for send only my stream
-    var participant = new Participant(this.name, this.id, this.sendMessage);
-    this.participants[participant.id] = participant;
-    participant.createSendOnlyPeer(options);
 
     //for each of the existing participants, receive their video feed
     msg.data.forEach(this.receiveVideo);

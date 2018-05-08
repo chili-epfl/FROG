@@ -15,9 +15,9 @@ function Participant(name, id, sendMessage) {
     }
     console.log(options);
     try {
-      if (mode === 'sendOnly' && options && options.onaddstream) {
-        options.onaddstream(options.myStream);
-      }
+      //   if (mode === 'sendOnly' && options && options.onaddstream) {
+      //     options.onaddstream(options.myStream);
+      //   }
 
       rtcPeer = new RTCPeerConnection(options.configuration);
       rtcPeer.onicecandidate = self.onIceCandidate;
@@ -56,18 +56,7 @@ function Participant(name, id, sendMessage) {
   };
 
   this.createSendOnlyPeer = options => {
-    //TODO throw error if options does not containt required constraints?
-
-    navigator.mediaDevices
-      .getUserMedia(options.userMediaConstraints)
-      .then(myStream => {
-        options.myStream = myStream;
-        createPeer('sendOnly', options);
-      })
-      .catch(error => {
-        if (options && options.onUserMediaError)
-          options.onUserMediaError(error);
-      });
+    createPeer('sendOnly', options);
   };
 
   this.createRecvOnlyPeer = options => {

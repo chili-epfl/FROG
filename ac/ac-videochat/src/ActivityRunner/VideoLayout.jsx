@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { isEmpty } from 'lodash';
 import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
 import Videocam from '@material-ui/icons/Videocam';
@@ -67,32 +68,39 @@ class VideoLayout extends React.Component {
     const sortedRemote = remote.sort((a, b) => {
       return a.name > b.name ? 1 : 0;
     });
-
+    console.log(this.props);
     return (
       <React.Fragment>
         <div style={styles.layoutBoxS}>
-          <div style={styles.videoBoxS}>
-            <Video videoId={local.id} mute={true} srcObject={local.srcObject} />
-            <button
-              style={styles.buttonBoxS}
-              onClick={() => this.handleVideoToggle(toogleVideo)}
-            >
-              {this.state.video && <Videocam />}
-              {!this.state.video && <VideocamOff />}
-            </button>
-            <button
-              style={styles.buttonBoxS}
-              onClick={() => this.handleAudioToggle(toogleAudio)}
-            >
-              {this.state.audio && <Mic />}
-              {!this.state.audio && <MicOff />}
-            </button>
-            {local.name && (
-              <p>
-                <i>Local: {local.name}</i>
-              </p>
+          {local &&
+            !isEmpty(local) && (
+              <div style={styles.videoBoxS}>
+                <Video
+                  videoId={local.id}
+                  mute={true}
+                  srcObject={local.srcObject}
+                />
+                <button
+                  style={styles.buttonBoxS}
+                  onClick={() => this.handleVideoToggle(toogleVideo)}
+                >
+                  {this.state.video && <Videocam />}
+                  {!this.state.video && <VideocamOff />}
+                </button>
+                <button
+                  style={styles.buttonBoxS}
+                  onClick={() => this.handleAudioToggle(toogleAudio)}
+                >
+                  {this.state.audio && <Mic />}
+                  {!this.state.audio && <MicOff />}
+                </button>
+                {local.name && (
+                  <p>
+                    <i>Local: {local.name}</i>
+                  </p>
+                )}
+              </div>
             )}
-          </div>
           {sortedRemote.map((participant, index) => (
             <div style={styles.videoBoxS} key={participant.id}>
               <Video

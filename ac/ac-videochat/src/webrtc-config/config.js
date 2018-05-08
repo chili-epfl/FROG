@@ -13,7 +13,7 @@ const rtcConfiguration = {
 
 const signalServerURL = 'wss://icchilisrv3.epfl.ch:7777';
 
-const sendOnlyMediaConstraints = {
+const mediaConstraints = {
   audio: true,
   video: {
     width: { ideal: 320 },
@@ -48,7 +48,7 @@ const recvOnlyOfferConstraintFirefox = {
 export default {
   rtcConfiguration: rtcConfiguration,
   signalServerURL: signalServerURL,
-  sendOnlyMediaConstraints: sendOnlyMediaConstraints,
+  mediaConstraints: mediaConstraints,
   sendOnlyOfferConstraintChrome: sendOnlyOfferConstraintChrome,
   sendOnlyOfferConstraintFirefox: sendOnlyOfferConstraintFirefox,
   recvOnlyOfferConstraintChrome: recvOnlyOfferConstraintChrome,
