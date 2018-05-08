@@ -8,44 +8,37 @@ import {
   OrchestrationButtonsModel
 } from './utils/buttonUtils.js';
 
-import styles from './styles';
+const styles = {
+  textRight: {
+    textAlign: 'right'
+  },
+  textLeft: {
+    textAlign: 'left'
+  },
+  list: {
+    listStyle: 'none'
+  }
+};
 
 const OrchestrationCtrlButtons = ({ session, classes }) => {
   const buttonsModel = OrchestrationButtonsModel(session, classes);
 
   return (
-    <Grid
-      container
-      spacing={16}
-      alignItems="flex-end"
-      justify="space-between"
-      className={classes.buttonBar}
-    >
-      <Grid item />
-      <Grid item xs={9}>
-        <Grid justify="center" container alignItems="flex-end">
-          <Grid item xs={3} />
-          <Grid item>
-            <ControlButton
-              btnModel={
-                session.timeInGraph === -1
-                  ? buttonsModel.start
-                  : buttonsModel.next
-              }
-              classes={classes}
-              style={{ transform: 'scale(1.5)' }}
-            />
-          </Grid>
-          <Grid item xs={5}>
-            <ul style={{ listStyleType: 'none' }}>
-              {(session.nextActivities || []).map(x => (
-                <li key={x.activityId}>{x.description}</li>
-              ))}
-            </ul>
-          </Grid>
-        </Grid>
+    <Grid container>
+      <Grid item xs={6} className={classes.textRight}>
+        <ControlButton
+          btnModel={
+            session.timeInGraph === -1 ? buttonsModel.start : buttonsModel.next
+          }
+        />
       </Grid>
-      <Grid item />
+      <Grid item xs={6} className={classes.textLeft}>
+        <ul className={classes.list}>
+          {(session.nextActivities || []).map(x => (
+            <li key={x.activityId}>{x.description}</li>
+          ))}
+        </ul>
+      </Grid>
     </Grid>
   );
 };

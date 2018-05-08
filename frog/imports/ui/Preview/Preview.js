@@ -14,7 +14,50 @@ import ShowLogs from './ShowLogs';
 import Controls from './Controls';
 import Content, { initActivityDocuments } from './Content';
 import ConfigPanel from './ConfigPanel';
-import styles from './previewStyles';
+
+const styles = {
+  main: {
+    display: 'flex',
+    marginTop: '48px',
+    height: 'calc(100vh - 48px)'
+  },
+  noModal: {
+    flex: '0 0 auto',
+    marginLeft: '10px',
+    width: '70%'
+  },
+  fullWindow: {
+    position: 'relative',
+    top: '0px',
+    left: '0px',
+    height: '100vh',
+    width: '100vw'
+  },
+  fullWindowControl: {
+    zIndex: 99,
+    border: '1px solid',
+    width: '500px',
+    position: 'fixed',
+    top: '200px',
+    left: '200px',
+    background: 'lightgreen'
+  },
+  drawer: {
+    marginTop: '48px',
+    width: 250,
+    height: 'calc(100% - 48px)'
+  },
+  button: {
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+    zIndex: '10'
+  },
+  text: {
+    width: '125px',
+    margin: 'auto'
+  }
+};
 
 const backend = new ShareDB();
 export const connection = backend.connect();

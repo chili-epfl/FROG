@@ -10,6 +10,15 @@ body,
   width: 100%;
 }
 
+kbd {
+  margin: 0 3px;
+  padding: 4px 6px;
+  font-size: 1.5rem;
+  background-color: #f2f3f5;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 #c1c7cd;
+}
+
 .op-cs211-ranking {
   display: flex;
   flex-direction: column;

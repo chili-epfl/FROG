@@ -31,7 +31,7 @@ if (findDir) {
 }
 
 const fromRoot = cmd =>
-  `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
+  `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH ${cmd}`;
 
 const build = x => {
   const bin = 'node_modules/.bin';
@@ -66,9 +66,9 @@ module.exports = {
       all: buildAll(),
       ci: buildAll(true)
     },
-    watch: fromRoot(
-      `echo 'Watching and transpiling files' & node watch.js watch`
-    ),
+    watch:
+      console.info('Watching and transpiling files') ||
+      fromRoot(`node watch.js watch`),
     test: fromRoot(
       `echo 'Running Flow, ESLint and Jest' & nps -s flow.quiet eslint jest`
     ),
