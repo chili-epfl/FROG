@@ -13,10 +13,10 @@ import List from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 import Search from '@material-ui/icons/Search';
 
+import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
 import { ModalPreview } from '../../../Preview';
-import { connect } from '../../store';
 
 type StateT = {
   expanded: ?string,
@@ -70,11 +70,11 @@ const styles = {
   }
 };
 
-const ToggleChooseActivityLibraryButton = props => (
+const ToggleChooseActivityLibraryButton = connect(props => (
   <Button color="primary" onClick={props.onToggle}>
     {props.store && (props.store.ui.libraryOpen ? 'New activity' : 'Library')}{' '}
   </Button>
-);
+));
 
 class ChooseActivityTypeController extends Component<PropsT, StateT> {
   inputRef: any;
@@ -232,8 +232,6 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
   }
 }
 
-export const ChooseActivityType = withStyles(styles)(
-  ChooseActivityTypeController
-);
+const ChooseActivityConnected = connect(ChooseActivityTypeController);
 
-export default connect(ChooseActivityType);
+export default withStyles(styles)(ChooseActivityConnected);
