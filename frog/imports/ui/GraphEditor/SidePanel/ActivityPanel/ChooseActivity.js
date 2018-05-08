@@ -12,6 +12,7 @@ import Button from 'material-ui/Button';
 import List from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 import Search from '@material-ui/icons/Search';
+import Cloud from '@material-ui/icons/Cloud';
 
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
@@ -42,7 +43,7 @@ const styles = {
     padding: '10px'
   },
   activityList: {
-    height: 'calc(((100vh - 64px) - 48px) - 90px)',
+    height: 'calc(100vh - 112px - 90px)',
     overflowY: 'auto'
   },
   searchContainer: {
@@ -67,14 +68,55 @@ const styles = {
     whiteSpace: 'normal',
     verticalAlign: 'middle',
     fontSize: '1rem'
+  },
+  centerButton: {
+    textAlign: 'center'
+  },
+  cloudIcon: {
+    marginRight: '8px',
+    fontSize: 20
   }
 };
 
-const ToggleChooseActivityLibraryButton = connect(props => (
-  <Button color="primary" onClick={props.onToggle}>
-    {props.store && (props.store.ui.libraryOpen ? 'New activity' : 'Library')}{' '}
-  </Button>
+const ChooseActivityTopPanel = connect(props => (
+  <Grid
+    container
+    className={props.classes.topPanel}
+    alignItems="center"
+    spacing={8}
+  >
+    <Grid item xs={12}>
+      <Typography variant="title">Select activity type</Typography>
+    </Grid>
+    <Grid item xs={12}>
+      <Grid container justify="center">
+        <Grid item xs={8}>
+          <div className={props.classes.searchContainer}>
+            <div className={props.classes.searchIcon}>
+              <Search />
+            </div>
+            <input
+              type="text"
+              onChange={props.onSearch}
+              className={props.classes.searchInput}
+              aria-describedby="basic-addon1"
+            />
+          </div>
+        </Grid>
+        <Grid item xs={4} className={props.classes.centerButton}>
+          <Button color="primary" onClick={props.onToggle}>
+            <Cloud className={props.classes.cloudIcon} /> Library
+          </Button>
+        </Grid>
+      </Grid>
+    </Grid>
+    <Grid item xs={12}>
+      <Divider />
+    </Grid>
+  </Grid>
 ));
+
+const StyledChooseActivityTopPanel = withStyles(styles)(ChooseActivityTopPanel);
 
 class ChooseActivityTypeController extends Component<PropsT, StateT> {
   inputRef: any;
@@ -141,37 +183,11 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
     return (
       <Grid container>
         <Grid item xs={12}>
-          <Grid container className={classes.topPanel} alignItems="center">
-            <Grid item xs={12}>
-              <Typography variant="title" gutterBottom>
-                Select activity type
-              </Typography>
-            </Grid>
-            <Grid item xs={8}>
-              <div className={classes.searchContainer}>
-                <div className={classes.searchIcon}>
-                  <Search />
-                </div>
-                <input
-                  ref={ref => (this.inputRef = ref)}
-                  type="text"
-                  style={{ zIndex: 0 }}
-                  onChange={this.handleSearch}
-                  className={classes.searchInput}
-                  aria-describedby="basic-addon1"
-                />
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <ToggleChooseActivityLibraryButton
-                onToggle={this.handleToggle}
-                {...this.props}
-              />
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Divider />
-          </Grid>
+          <StyledChooseActivityTopPanel
+            onSearch={this.handleSearch}
+            onToggle={this.handleToggle}
+            {...this.props}
+          />
         </Grid>
 
         {this.props.store &&
