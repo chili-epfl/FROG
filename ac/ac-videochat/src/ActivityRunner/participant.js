@@ -25,7 +25,8 @@ function Participant(name, id, sendMessage) {
       if (mode === 'sendOnly') {
         rtcPeer.addStream(options.myStream);
       } else if (mode === 'recvOnly' && options && options.onaddstream) {
-        rtcPeer.onaddstream = options.onaddstream;
+		//rtcPeer.onaddstream = options.onaddstream;
+		rtcPeer.ontrack = options.onaddstream;
       }
 
       rtcPeer.createOffer(

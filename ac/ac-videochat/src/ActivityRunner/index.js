@@ -133,6 +133,10 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
         this.register(this.name, this.id, this.roomId);
       })
       .catch(error => {
+        console.log(
+          'User blocked media devices, there are no devices or are already in use'
+        );
+        console.log('Registering user as watcher');
         this.register(this.name, this.id, this.roomId, 'watcher');
       });
   };
@@ -212,8 +216,11 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
     this.participants[participant.id] = participant;
 
     function onAddRemoteStream(event) {
-      var stream = event.stream;
+      //var stream = event.stream;
+      var stream = event.streams[0];
+      console.log(stream);
       self.addRemoteUserToState(newParticipant, stream);
+      stream = true;
     }
 
     var options = {
@@ -234,14 +241,18 @@ class ActivityRunner extends Component<ActivityRunnerT, StateT> {
 
   addRemoteUserToState = (participant, stream) => {
     var remotes = this.state.remote;
-    remotes.push({
-      name: participant.name,
-      id: participant.id,
-      srcObject: stream
-    });
-    this.setState({
-      remote: remotes
-    });
+    var userInRemotes =
+      remotes.filter(r => r.name == participant.name).length > 0;
+    if (!userInRemotes) {
+      remotes.push({
+        name: participant.name,
+        id: participant.id,
+        srcObject: stream
+      });
+      this.setState({
+        remote: remotes
+      });
+    }
   };
 
   removeRemoteUserFromState = participantId => {
