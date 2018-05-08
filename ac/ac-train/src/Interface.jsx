@@ -2,9 +2,9 @@
 import React from 'react';
 
 // UI
-import { isEqual } from 'lodash';
+import { isEqual, omit } from 'lodash';
 
-import { Form, Command, DragDrop, Graphical } from './Interfaces';
+import { Form, Command, DragDrop, MapInterface } from './Interfaces';
 import TicketStatus from './TicketStatus';
 import { getCommandForTicket, generateTicket } from './ActivityUtils';
 
@@ -16,8 +16,8 @@ const RunActivity = props => {
       return <Form {...props} />;
     case 'dragdrop':
       return <DragDrop {...props} />;
-    case 'graphical':
-      return <Graphical {...props} />;
+    case 'map':
+      return <MapInterface {...props} />;
     default:
       return <h1>Hello World</h1>;
   }
@@ -125,7 +125,11 @@ class Interface extends React.Component {
 
     const { iteration } = data;
     const { question, start } = this.state;
-    const isCorrect = isEqual(question, answer);
+
+    const answerWOText = omit(answer, 'text');
+    const text = (answer && answer.text) || '';
+
+    const isCorrect = isEqual(question, answerWOText);
 
     const timeTaken = Date.now() - start;
 
@@ -140,7 +144,8 @@ class Interface extends React.Component {
           question,
           answer,
           isCorrect,
-          timeTaken
+          timeTaken,
+          text
         }
       },
       { type: 'score', value }

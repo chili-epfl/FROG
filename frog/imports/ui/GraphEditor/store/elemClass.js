@@ -18,7 +18,7 @@ export default class Elem {
         }
       }),
 
-      remove: action(() => {
+      remove: action(shift => {
         let thisstore;
         if (this.klass === 'activity') {
           thisstore = store.activityStore;
@@ -26,6 +26,9 @@ export default class Elem {
           thisstore = store.operatorStore;
         } else {
           thisstore = store.connectionStore;
+        }
+        if (this.klass === 'activity' && shift) {
+          store.activityStore.moveDelete(this);
         }
         thisstore.all = thisstore.all.filter(x => x !== this);
         store.connectionStore.cleanDangling();

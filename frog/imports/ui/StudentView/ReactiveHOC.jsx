@@ -1,10 +1,10 @@
 // @flow
 import * as React from 'react';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn, getDisplayName, uuid } from 'frog-utils';
-import { ErrorBoundary } from '../App/ErrorBoundary';
 
+import { ErrorBoundary } from '../App/ErrorBoundary';
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/connection';
 
@@ -17,12 +17,9 @@ type ReactiveCompsStateT = {
   timeout: boolean
 };
 
-const ReactiveHOC = (
-  docId: string,
-  conn?: any,
-  transform: Object => Object = x => x,
-  readOnly: boolean = false
-) => (WrappedComponent: React.ComponentType<*>) => {
+const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
+  WrappedComponent: React.ComponentType<*>
+) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT
@@ -30,6 +27,7 @@ const ReactiveHOC = (
     doc: any;
     unmounted: boolean;
     interval: any;
+    intervalCount: number = 0;
     times: 0;
 
     constructor(props: Object) {
@@ -47,9 +45,10 @@ const ReactiveHOC = (
       this.doc = (conn || connection || {}).get('rz', docId);
       this.doc.setMaxListeners(30);
       this.doc.subscribe();
+
       this.interval = window.setInterval(() => {
-        this.interval += 1;
-        if (this.interval > 10) {
+        this.intervalCount += 1;
+        if (this.intervalCount > 10) {
           this.setState({ timeout: true });
           window.clearInterval(this.interval);
           this.interval = undefined;
@@ -57,10 +56,11 @@ const ReactiveHOC = (
           this.update();
         }
       }, 1000);
+
       if (this.doc.type) {
         this.update();
       } else {
-        this.doc.on('load', () => {
+        this.doc.once('load', () => {
           this.update();
         });
       }
@@ -83,17 +83,6 @@ const ReactiveHOC = (
             this.interval = undefined;
           }
         }
-        if (readOnly) {
-          this.setState({ uuid: uuid() });
-        } else {
-          window.parent.postMessage(
-            {
-              type: 'frog-data',
-              msg: transform(this.doc.data)
-            },
-            '*'
-          );
-        }
       }
     };
 
@@ -103,6 +92,7 @@ const ReactiveHOC = (
       this.unmounted = true;
       if (this.interval) {
         window.clearInterval(this.interval);
+        this.interval = undefined;
       }
     };
 
@@ -120,9 +110,10 @@ const ReactiveHOC = (
           />
         </ErrorBoundary>
       ) : (
-        <Spinner />
+        <CircularProgress />
       );
   }
+
   ReactiveComp.displayName = `ReactiveHOC(${getDisplayName(WrappedComponent)})`;
   return ReactiveComp;
 };

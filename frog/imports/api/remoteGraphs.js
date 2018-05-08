@@ -5,7 +5,7 @@ import { graphToString, doImportGraph } from '../ui/GraphEditor/utils/export';
 
 const RemoteServer =
   Meteor.settings.public.remoteServer ||
-  'http://icchilisrv4.epfl.ch:5000/graphs';
+  'https://icchilisrv4.epfl.ch:5500/graphs';
 
 export const removeGraph = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {

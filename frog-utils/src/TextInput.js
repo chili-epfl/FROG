@@ -8,6 +8,7 @@ type TextInputPropsT = {
   onChange?: Function,
   onSubmit?: Function,
   onCancel?: Function,
+  onFocus?: Function,
   style?: string
 };
 
@@ -68,6 +69,7 @@ export class TextInput extends React.Component<
       <input
         type="text"
         onChange={this.onChange}
+        onFocus={this.props.onFocus}
         onKeyDown={this.handleKey}
         value={this.state.value}
         ref={input => (this.textInput = input)}

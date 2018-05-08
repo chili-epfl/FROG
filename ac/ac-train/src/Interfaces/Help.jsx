@@ -29,6 +29,7 @@ const Help = ({
       onClose={onClose}
       aria-labelledby="alert-dialog-slide-help"
       aria-describedby="alert-dialog-slide-description"
+      maxWidth="md"
     >
       <DialogTitle id="alert-dialog-slide-help">Help</DialogTitle>
       <DialogContent>{children}</DialogContent>

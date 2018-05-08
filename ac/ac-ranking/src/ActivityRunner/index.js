@@ -117,10 +117,11 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
         ) : (
           <ListContainer>
             <div>
-              <HTML html={config.title} />
-            </div>
-            <div>
               <HTML html={config.guidelines} />
+            </div>
+            <hr style={{ height: '5px' }} />
+            <div>
+              <HTML html={config.title} />
             </div>
             <div style={{ width: '100%' }}>
               <div>
@@ -129,8 +130,9 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
                     <tr>
                       {Object.keys(answers).map(member => (
                         <th key={member} style={{ ...listStyles.list }}>
-                          <p>{data.group[member] + "'s List"}</p>
-
+                          <p style={{ fontWeight: 'normal' }}>
+                            {data.group[member] + "'s List"}
+                          </p>
                           <AnswerList
                             {...props}
                             answers={answers[member]}
@@ -144,7 +146,6 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
                 </table>
               </div>
             </div>
-
             {nKey(answers[userInfo.id] || {}) < config.answers.length && (
               <React.Fragment>
                 <hr style={{ height: '5px' }} />
@@ -178,6 +179,9 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
             <hr style={{ height: '5px' }} />
             {config.justify && <Justification {...props} key="justification" />}
             <div>
+              {data.alert ? (
+                <p style={{ color: 'red' }}>{alertMessage()}</p>
+              ) : null}
               <button
                 onClick={onSubmit}
                 key="submit"
@@ -189,7 +193,6 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
               >
                 Submit
               </button>
-              {data.alert ? <p>{alertMessage()}</p> : null}
             </div>
           </ListContainer>
         )}

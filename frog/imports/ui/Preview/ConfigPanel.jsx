@@ -9,6 +9,8 @@ import { activityTypesObj } from '../../activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 
+import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
+
 const style = {
   side: {
     flex: '0 1 500px',
@@ -87,27 +89,43 @@ class ConfigPanel extends React.Component<*, *> {
                 }}
               />
               <h3>{activityTypesObj[activityTypeId].meta.name}</h3>
+              <ExportButton
+                activity={{
+                  title: activityTypesObj[activityTypeId].meta.name,
+                  data: config,
+                  activityType: activityTypeId
+                }}
+              />
             </div>
           )}
           <ApiForm
             hidePreview
-            config={config}
+            {...{ config, setConfig }}
             activityType={activityTypeId}
             onConfigChange={this.onConfigChange}
             onSelect={activityType => {
-              const exConf = addDefaultExample(
-                activityTypesObj[activityType]
-              )[0].config;
+              const exConf = activityType.title
+                ? activityType.config
+                : addDefaultExample(activityTypesObj[activityType])[0].config;
+              const actTypeId = activityType.title
+                ? activityType.activity_type
+                : activityType;
               setConfig(exConf);
-              if (showDash && !activityTypesObj[activityType].dashboard) {
+              if (showDash && !activityTypesObj[actTypeId].dashboard) {
                 setShowDash(false);
               }
               setReloadAPIform(uuid());
-              initActivityDocuments(instances, activityType, 0, exConf, true);
-              initDashboardDocuments(activityType, true);
+              initActivityDocuments(
+                instances,
+                activityTypesObj[actTypeId],
+                0,
+                exConf,
+                true
+              );
+              initDashboardDocuments(actTypeId, true);
               setExample(0);
               setShowDashExample(false);
-              setActivityTypeId(activityType);
+              setActivityTypeId(actTypeId);
             }}
             reload={reloadAPIform}
           />
