@@ -136,7 +136,7 @@ export default class ConfigForm extends Component<
 
     const nodeConfig = this.props.nodeType.config;
     return nodeConfig && ![{}, undefined].includes(nodeConfig.properties) ? (
-      <div className="bootstrap">
+      <div className="bootstrap" style={{ padding: '0 10px' }}>
         <EnhancedForm
           showErrorList={false}
           noHtml5Validate

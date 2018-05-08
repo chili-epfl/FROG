@@ -107,6 +107,7 @@ const ChooseActivityTopPanel = connect(
           <Grid item xs={4} className={classes.centerButton}>
             <Button
               color="primary"
+              size="small"
               variant={store.ui.libraryOpen ? 'raised' : null}
               onClick={onToggle}
             >
