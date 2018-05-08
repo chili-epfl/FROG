@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { uniq, isEqual } from 'lodash';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 import { withState } from 'recompose';
 import {
   cloneDeep,
@@ -214,7 +214,7 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
         )}
       </DashMultiWrapper>
     ) : (
-      <Spinner />
+      <CircularProgress />
     );
   }
 );
