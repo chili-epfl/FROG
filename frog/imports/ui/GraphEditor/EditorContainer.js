@@ -97,6 +97,10 @@ class Editor extends Component<Object, StateT> {
             <TopPanel
               openExport={() => this.setState({ exportOpen: true })}
               openImport={() => this.setState({ importOpen: true })}
+              {...{
+                setDelete,
+                setIdRemove
+              }}
             />
             <ModalExport
               exportType="graph"

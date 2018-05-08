@@ -13,7 +13,7 @@ export default ({
   setDelete,
   setIdRemove
 }: any) => (
-  <div className="bootstrap">
+  <div className="bootstrap" onClick={object.activity_type ? null : onSelect}>
     <div className="list-group-item">
       <div style={{ marginLeft: '35px', minHeight: '48px' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -47,6 +47,8 @@ export default ({
           </span>
         ))}
       </div>
+      {object.activity_type && (
+        <div>
       <Button
         value={object.uuid}
         className="glyphicon glyphicon-ok"
@@ -78,7 +80,7 @@ export default ({
       >
         <span className="glyphicon glyphicon-remove" />
       </Button>
-      {object.activity_type && (
+
         <Button
           value={object.uuid}
           className="glyphicon glyphicon-eye-open"
@@ -91,6 +93,8 @@ export default ({
           }}
           onClick={onPreview}
         />
+      </div>
+
       )}
     </div>
   </div>

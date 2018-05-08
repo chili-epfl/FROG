@@ -102,7 +102,9 @@ class GraphActionMenu extends React.Component {
       overlapAllowed,
       graphId,
       toggleOverlapAllowed,
-      setSidepanelOpen
+      setSidepanelOpen,
+      setDelete,
+      setIdRemove
     } = this.props;
     const { open } = this.state;
     const parentId = Graphs.findOne(graphId).parentId;
@@ -237,6 +239,8 @@ class GraphActionMenu extends React.Component {
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
+                        if (setIdRemove) setIdRemove(parentId);
+                        setDelete(true);
                         // submitRemoveGraph(graphId); DO SOMETHING
                         this.handleClose();
                       }}
@@ -264,7 +268,9 @@ export const ConfigMenu = connect(
       ui: { setSidepanelOpen }
     },
     openExport,
-    openImport
+    openImport,
+    setDelete,
+    setIdRemove
   }) => (
     <GraphActionMenu
       {...{
@@ -273,7 +279,9 @@ export const ConfigMenu = connect(
         toggleOverlapAllowed,
         setSidepanelOpen,
         openExport,
-        openImport
+        openImport,
+        setDelete,
+        setIdRemove
       }}
     />
   )
