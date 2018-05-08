@@ -1,11 +1,33 @@
 // @flow
 
 import React from 'react';
-import { Button } from 'react-bootstrap';
+
+import Grid from 'material-ui/Grid';
+import IconButton from 'material-ui/IconButton';
+import { withStyles } from 'material-ui/styles';
+import { ListItem, ListItemSecondaryAction } from 'material-ui/List';
+import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Typography from 'material-ui/Typography';
 
 import { Highlight } from 'frog-utils';
 
-export default ({
+const styles = {
+  iconButtonRoot: {
+    height: '25px',
+    width: '25px'
+  },
+  iconRoot: {
+    width: '0.8em',
+    height: '0.8em'
+  },
+  secondaryText: {
+    color: 'rgba(0, 0, 0, 0.54)'
+  }
+};
+
+const ListItems = ({
+  classes,
   object,
   showExpanded,
   onSelect,
@@ -14,61 +36,80 @@ export default ({
   onPreview,
   searchS
 }: any) => (
-  <div className="list-group-item">
-    <div style={{ marginLeft: '35px', cursor: 'pointer' }} onClick={onSelect}>
-      <h5 style={{ fontWeight: 'bold' }}>
-        <Highlight text={object.meta.name} searchStr={searchS} />
-      </h5>
-      <div style={{ width: '87%' }}>
-        <Highlight text={object.meta.shortDesc} searchStr={searchS} />
-      </div>
+  <ListItem button value={object.id} onClick={onSelect}>
+    <Grid container>
+      <Grid item xs={12}>
+        <Typography variant="subheading" gutterBottom>
+          <Highlight text={object.meta.name} searchStr={searchS} />
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Typography gutterBottom className={classes.secondaryText}>
+          <Highlight text={object.meta.shortDesc} searchStr={searchS} />
+        </Typography>
+      </Grid>
       {showExpanded && (
-        <div style={{ width: '87%' }}>
-          <i>
-            <Highlight text={object.meta.description} searchStr={searchS} />
-          </i>
-        </div>
+        <Grid item xs={12}>
+          <Typography
+            variant="caption"
+            gutterBottom
+            className={classes.secondaryText}
+          >
+            <i>
+              <Highlight text={object.meta.description} searchStr={searchS} />
+            </i>
+          </Typography>
+        </Grid>
       )}
-    </div>
-    <Button
-      value={object.id}
-      className="glyphicon glyphicon-ok"
-      style={{
-        position: 'absolute',
-        left: '2px',
-        top: '4px',
-        width: '34px',
-        height: '34px'
-      }}
-      onClick={onSelect}
-    />
-    {!showExpanded && (
-      <Button
-        style={{
-          position: 'absolute',
-          right: '2px',
-          top: '4px',
-          width: '34px',
-          height: '34px'
-        }}
-        className="glyphicon glyphicon-menu-down"
-        onClick={expand}
-      />
-    )}
+    </Grid>
 
-    {hasPreview && (
-      <Button
-        value={object.id}
-        className="glyphicon glyphicon-eye-open"
-        style={{
-          position: 'absolute',
-          right: '2px',
-          top: '39px',
-          width: '34px',
-          height: '34px'
-        }}
-        onClick={onPreview}
-      />
-    )}
-  </div>
+    {/* <ListItemText
+      secondary={<Highlight text={object.meta.shortDesc} searchStr={searchS} />}
+    >
+      
+    </ListItemText> */}
+
+    <ListItemSecondaryAction>
+      <Grid container direction="column" justify="center">
+        <Grid item xs={6}>
+          {hasPreview && (
+            <IconButton
+              value={object.id}
+              aria-label="Preview"
+              onClick={onPreview}
+              classes={{
+                root: classes.iconButtonRoot
+              }}
+            >
+              <RemoveRedEye
+                classes={{
+                  root: classes.iconRoot
+                }}
+              />
+            </IconButton>
+          )}
+        </Grid>
+        <Grid item xs={6}>
+          {!showExpanded && (
+            <IconButton
+              value={object.id}
+              aria-label="Preview"
+              onClick={expand}
+              classes={{
+                root: classes.iconButtonRoot
+              }}
+            >
+              <ExpandMore
+                classes={{
+                  root: classes.iconRoot
+                }}
+              />
+            </IconButton>
+          )}
+        </Grid>
+      </Grid>
+    </ListItemSecondaryAction>
+  </ListItem>
 );
+
+export default withStyles(styles)(ListItems);
