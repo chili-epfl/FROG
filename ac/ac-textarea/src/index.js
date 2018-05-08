@@ -89,17 +89,19 @@ const ActivityRunner = ({ activityData, dataFn }) => {
       {conf.prompt && conf.prompt.split('\n').map(x => <li key={x}>{x}</li>)}
     </ul>
   ];
-  return [
-    ...header,
-    <ReactiveText
-      type="textarea"
-      path="text"
-      dataFn={dataFn}
-      key="textarea"
-      placeholder={conf && conf.placeholder}
-      style={{ width: '100%', height: '100%', fontSize: '20px' }}
-    />
-  ];
+  return (
+    <div style={{ height: '95%' }}>
+      {header}
+      <ReactiveText
+        type="textarea"
+        path="text"
+        dataFn={dataFn}
+        key="textarea"
+        placeholder={conf && conf.placeholder}
+        style={{ width: '100%', height: '100%', fontSize: '20px' }}
+      />
+    </div>
+  );
 };
 
 export default ({
