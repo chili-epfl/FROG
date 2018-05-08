@@ -208,6 +208,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}
               onSelect={this.props.onSelect}
+              searchStr={this.state.searchStr}
             />
           ) : (
             <Grid item xs={12} className={classes.activityList}>
