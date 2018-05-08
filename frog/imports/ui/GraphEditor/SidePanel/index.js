@@ -14,7 +14,7 @@ const styles = {
     height: 'calc(100vh - 64px - 48px)',
     backgroundColor: '#ffffff',
     boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    maxWidth: '400px'
+    width: '500px'
   },
   helperContainer: {
     height: '100%'
@@ -42,7 +42,7 @@ const SideBarHelperText = ({ classes }) => (
 const StyledSideBarHelperText = withStyles(styles)(SideBarHelperText);
 
 const SidebarContainer = connect(({ children, classes }) => (
-  <Grid item xs={4} className={classes.root}>
+  <Grid item className={classes.root}>
     {children}
   </Grid>
 ));
