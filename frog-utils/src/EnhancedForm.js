@@ -77,15 +77,22 @@ class EnhancedForm extends Component<
 
   render() {
     return this.state.schema ? (
-      <Form
-        {...this.props}
-        onChange={this.onChange}
-        schema={this.state.schema}
-        formData={this.state.formData}
-        fields={{
-          rteField: props => <RteField reload={this.props.reload} {...props} />
-        }}
-      />
+      <div className="bootstrap">
+        <div className="md-form">
+          <Form
+            className="md-form"
+            {...this.props}
+            onChange={this.onChange}
+            schema={this.state.schema}
+            formData={this.state.formData}
+            fields={{
+              rteField: props => (
+                <RteField reload={this.props.reload} {...props} />
+              )
+            }}
+          />
+        </div>
+      </div>
     ) : null;
   }
 }
