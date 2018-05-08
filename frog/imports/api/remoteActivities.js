@@ -1,3 +1,5 @@
+import { omitBy, isNil } from 'lodash';
+
 import { uuid } from 'frog-utils';
 import { Activities, addActivity } from '/imports/api/activities';
 import { LibraryStates } from './cache';
@@ -13,6 +15,29 @@ export const removeActivity = (id: string, callback: ?Function) => {
       'Content-type': 'application/json'
     },
     body: JSON.stringify({ deleted: true })
+  }).then(() => collectActivities(callback));
+};
+
+export const updateActivity = (
+  id: string,
+  activity: Object,
+  callback: ?Function
+) => {
+  const act = omitBy(
+    {
+      title: activity.title,
+      description: activity.description,
+      config: { ...activity.data },
+      tags: '{' + activity.tags.join(',') + '}'
+    },
+    isNil
+  );
+  fetch(RemoteServer + '?uuid=eq.' + id, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(act)
   }).then(() => collectActivities(callback));
 };
 
@@ -65,6 +90,30 @@ export const sendActivity = (state: Object, props: Object) => {
     description: state.description,
     tags: state.tags
   });
+};
+
+export const loadActivityMetaData = (id: string, callback: ?Function) => {
+  fetch(RemoteServer + '?uuid=eq.' + id)
+    .then(e => e.json())
+    .then(e => {
+      if (LibraryStates.activityList.filter(x => x.uuid === id).length > 0) {
+        LibraryStates.activityList.filter(x => x.uuid === id)[0] = {
+          uuid: id,
+          title: e[0].title,
+          description: e[0].description,
+          tags: e[0].tags
+        };
+      } else
+        LibraryStates.activityList.push({
+          uuid: id,
+          title: e[0].title,
+          description: e[0].description,
+          tags: e[0].tags
+        });
+      if (callback) {
+        callback();
+      }
+    });
 };
 
 export const importAct = (id, activityId, callback, onSelect) => {

@@ -19,6 +19,13 @@ const styles = {
 };
 
 class ConfigPanel extends React.Component<*, *> {
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      parentId: ''
+    };
+  }
+
   onConfigChange = (e: any) => {
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
@@ -89,7 +96,8 @@ class ConfigPanel extends React.Component<*, *> {
               activity={{
                 title: activityTypesObj[activityTypeId].meta.name,
                 data: config,
-                activityType: activityTypeId
+                activityType: activityTypeId,
+                parentId: this.state.parentId
               }}
             />
           </div>
@@ -107,6 +115,8 @@ class ConfigPanel extends React.Component<*, *> {
               ? activityType.activity_type
               : activityType;
             setConfig(exConf);
+            if (activityType.uuid)
+              this.setState({ parentId: activityType.uuid });
             if (showDash && !activityTypesObj[actTypeId].dashboard) {
               setShowDash(false);
             }

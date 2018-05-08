@@ -17,6 +17,16 @@ export const removeGraph = (id: string, callback: ?Function) => {
   }).then(() => collectGraphs(callback));
 };
 
+export const updateGraph = (id: string, graph: Object, callback: ?Function) => {
+  fetch(RemoteServer + '?uuid=eq.' + id, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({ graph: graphToString(graph) })
+  }).then(() => collectGraphs(callback));
+};
+
 export const refreshGraphDate = () =>
   (LibraryStates.lastRefreshGraph = new Date());
 

@@ -10,7 +10,7 @@ import TextField from 'material-ui/TextField';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
-import { sendActivity } from '/imports/api/remoteActivities';
+import { sendActivity, updateActivity } from '/imports/api/remoteActivities';
 import { sendGraph } from '/imports/api/remoteGraphs';
 import { Graphs } from '/imports/api/graphs';
 
@@ -31,12 +31,18 @@ export default class ExportModal extends Component<Object, StateT> {
   }
 
   componentWillReceiveProps(nextProps: Object) {
-    const name = nextProps.activity
-      ? nextProps.activity.title
-      : Graphs.findOne({ _id: nextProps.graphId }).name;
-    this.setState({
-      title: name
-    });
+    if (nextProps.metaDatas)
+      this.setState({
+        ...nextProps.metaDatas[0]
+      });
+    else {
+      const name = nextProps.activity
+        ? nextProps.activity.title
+        : Graphs.findOne({ _id: nextProps.graphId }).name;
+      this.setState({
+        title: name
+      });
+    }
   }
 
   render() {
@@ -77,7 +83,7 @@ export default class ExportModal extends Component<Object, StateT> {
                 sendGraph(this.state, this.props);
                 this.props.setModal(false);
               }
-              this.props.madeChanges();
+              if (this.props.madeChanges) this.props.madeChanges();
               this.setState({
                 title: '',
                 description: '',
@@ -88,6 +94,32 @@ export default class ExportModal extends Component<Object, StateT> {
           >
             Save
           </Button>
+          {this.props.activity.parentId && (
+            <Button
+              color="primary"
+              onClick={() => {
+                if (this.props.exportType === 'activity') {
+                  updateActivity(this.props.activity.parentId, {
+                    ...this.props.activity,
+                    ...this.state
+                  });
+                  this.props.setModal(false);
+                } else if (this.props.exportType === 'graph') {
+                  sendGraph(this.state, this.props);
+                  this.props.setModal(false);
+                }
+                if (this.props.madeChanges) this.props.madeChanges();
+                this.setState({
+                  title: '',
+                  description: '',
+                  tags: []
+                });
+              }}
+              disabled={Boolean(!this.state.title || !this.state.description)}
+            >
+              Overwrite parent
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     );

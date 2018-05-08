@@ -109,7 +109,6 @@ class Library extends Component<Object, { searchStr: string }> {
             filtered.map((x: Object) => (
               <LibraryListComponent
                 onSelect={() => {
-                  // setConfig
                   if (libraryType === 'activity') {
                     importAct(
                       x.uuid,
