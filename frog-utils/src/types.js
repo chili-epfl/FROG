@@ -11,7 +11,8 @@ export type ActivityDbT = {
   startTime: number,
   length: number,
   activityType: string,
-  actualStartingTime?: Date
+  actualStartingTime?: Date,
+  actualClosingTime?: Date
 };
 
 export type OperatorDbT = {
