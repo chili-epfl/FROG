@@ -43,7 +43,7 @@ const styles = {
     padding: '10px'
   },
   activityList: {
-    height: 'calc(100vh - 112px - 90px)',
+    height: 'calc(100vh - 112px - 100px)',
     overflowY: 'auto'
   },
   searchContainer: {
@@ -78,43 +78,49 @@ const styles = {
   }
 };
 
-const ChooseActivityTopPanel = connect(props => (
-  <Grid
-    container
-    className={props.classes.topPanel}
-    alignItems="center"
-    spacing={8}
-  >
-    <Grid item xs={12}>
-      <Typography variant="title">Select activity type</Typography>
-    </Grid>
-    <Grid item xs={12}>
-      <Grid container justify="center">
-        <Grid item xs={8}>
-          <div className={props.classes.searchContainer}>
-            <div className={props.classes.searchIcon}>
-              <Search />
+const ChooseActivityTopPanel = connect(
+  ({ classes, onSearch, onToggle, store }) => (
+    <Grid
+      container
+      className={classes.topPanel}
+      alignItems="center"
+      spacing={8}
+    >
+      <Grid item xs={12}>
+        <Typography variant="title">Select activity type</Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container justify="center">
+          <Grid item xs={8}>
+            <div className={classes.searchContainer}>
+              <div className={classes.searchIcon}>
+                <Search />
+              </div>
+              <input
+                type="text"
+                onChange={onSearch}
+                className={classes.searchInput}
+                aria-describedby="basic-addon1"
+              />
             </div>
-            <input
-              type="text"
-              onChange={props.onSearch}
-              className={props.classes.searchInput}
-              aria-describedby="basic-addon1"
-            />
-          </div>
-        </Grid>
-        <Grid item xs={4} className={props.classes.centerButton}>
-          <Button color="primary" onClick={props.onToggle}>
-            <Cloud className={props.classes.cloudIcon} /> Library
-          </Button>
+          </Grid>
+          <Grid item xs={4} className={classes.centerButton}>
+            <Button
+              color="primary"
+              variant={store.ui.libraryOpen ? 'raised' : null}
+              onClick={onToggle}
+            >
+              <Cloud className={classes.cloudIcon} /> Library
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
     </Grid>
-    <Grid item xs={12}>
-      <Divider />
-    </Grid>
-  </Grid>
-));
+  )
+);
 
 const StyledChooseActivityTopPanel = withStyles(styles)(ChooseActivityTopPanel);
 
