@@ -38,17 +38,9 @@ class AppClass extends Component<$FlowFixMeProps> {
   }
 
   render() {
-    const styles = {
-      sheet: {
-        padding: 0,
-        maxHeight: '100%',
-        overflow: 'auto'
-      }
-    };
-
     return (
       <Provider store={store}>
-        <div style={styles.sheet} id="graph">
+        <div id="graph" style={{ height: '100%', overflow: 'hidden' }}>
           <EditorContainer />
         </div>
       </Provider>
