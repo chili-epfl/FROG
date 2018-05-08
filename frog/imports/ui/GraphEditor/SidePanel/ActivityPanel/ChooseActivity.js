@@ -169,6 +169,9 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
               />
             </Grid>
           </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
         </Grid>
 
         {this.props.store &&
@@ -186,7 +189,6 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             />
           ) : (
             <Grid item xs={12} className={classes.activityList}>
-              <Divider />
               {filteredList.length === 0 ? (
                 <div>No result</div>
               ) : (
