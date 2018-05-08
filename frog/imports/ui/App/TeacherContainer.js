@@ -13,9 +13,6 @@ import Preview from './../Preview';
 import TopBar from './TopBar';
 
 const styles = {
-  gc: {
-    height: '100%'
-  },
   subroot: {
     overflow: 'hidden',
     height: '100%'
@@ -38,9 +35,9 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
 };
 
 const WithTopBar = () => (
-  <div id="subroot" style={styles.subroot}>
+  <React.Fragment>
     <TopBar />
-    <div id="gc" style={styles.gc}>
+    <div id="everything-except-top-bar" style={styles.subroot}>
       <Switch>
         <Route path="/teacher/:graphId" component={TeacherView} />
         <Route path="/teacher" component={TeacherView} />
@@ -50,7 +47,7 @@ const WithTopBar = () => (
         <Route component={GraphEditor} />
       </Switch>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 export default withTracker(() => {

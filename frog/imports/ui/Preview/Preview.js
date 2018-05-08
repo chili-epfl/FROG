@@ -18,8 +18,8 @@ import ConfigPanel from './ConfigPanel';
 const styles = {
   main: {
     display: 'flex',
-    margin: '50px 8px',
-    height: 'calc(100% - 60px)'
+    marginTop: '48px',
+    height: 'calc(100vh - 48px)'
   },
   noModal: {
     flex: '0 0 auto',
