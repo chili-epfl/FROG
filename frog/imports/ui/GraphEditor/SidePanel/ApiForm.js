@@ -10,7 +10,7 @@ import validateConfig from '/imports/api/validateConfig';
 import { removeActivity } from '/imports/api/remoteActivities';
 import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
 import ConfigForm from './ConfigForm';
-import { ChooseActivityType } from './ActivityPanel/ChooseActivity';
+import ChooseActivityType from './ActivityPanel/ChooseActivity';
 import ModalDelete from '../RemoteControllers/ModalDelete';
 import Store from '../store/store';
 
@@ -229,13 +229,13 @@ const ApiForm = observer(
 
     render() {
       return (
-        <div>
+        <React.Fragment>
           {this.state.activity.activityType ? (
             <div>
               <div
                 style={{
-                  position: 'relative',
-                  marginRight: '20px'
+                  marginTop: '20px',
+                  padding: '0 10px'
                 }}
               >
                 <Config
@@ -255,7 +255,7 @@ const ApiForm = observer(
               )}
             </div>
           ) : (
-            <div style={{ position: 'absolute', marginRight: '20px' }}>
+            <React.Fragment>
               <ModalDelete
                 modalOpen={this.state.deleteOpen}
                 setModal={x => this.setState({ deleteOpen: x })}
@@ -286,9 +286,9 @@ const ApiForm = observer(
                   });
                 }}
               />
-            </div>
+            </React.Fragment>
           )}
-        </div>
+        </React.Fragment>
       );
     }
   }
