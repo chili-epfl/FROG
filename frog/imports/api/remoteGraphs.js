@@ -67,6 +67,6 @@ export const importGraph = (id: string) => {
     .then(e => e.json())
     .then(e => {
       const graphId = doImportGraph(e[0].graph);
-      Graphs.update({ _id: graphId }, { $set: { parentId: id} });
+      Graphs.update({ _id: graphId }, { $set: { parentId: id } });
     });
 };
