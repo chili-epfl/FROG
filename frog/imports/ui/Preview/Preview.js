@@ -12,7 +12,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import Controls from './Controls';
-import Content, { initActivityDocuments } from './Content';
+import Content from './Content';
 import ConfigPanel from './ConfigPanel';
 
 const styles = {
@@ -66,14 +66,11 @@ const StatelessPreview = (props: Object) => {
   const {
     activityTypeId,
     modal,
-    config,
     dismiss,
-    example,
     showLogs,
     fullWindow,
     showDashExample,
-    classes,
-    instances
+    classes
   } = props;
 
   const activityType = activityTypesObj[activityTypeId];
