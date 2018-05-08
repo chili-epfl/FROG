@@ -44,8 +44,9 @@ export default ({
         viewBox="0 0 900 900"
         xmlSpace="preserve"
         overflow="visible"
+        onMouseUp={onClick}
       >
-        <g onMouseUp={onClick}>
+        <g>
           <DraggableCore
             data-tip={title}
             onStart={startDragging}
