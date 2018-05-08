@@ -10,7 +10,7 @@ import validateConfig from '/imports/api/validateConfig';
 import { removeActivity } from '/imports/api/remoteActivities';
 import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
 import ConfigForm from './ConfigForm';
-import { ChooseActivityType } from './ActivityPanel/ChooseActivity';
+import ChooseActivityType from './ActivityPanel/ChooseActivity';
 import ModalDelete from '../RemoteControllers/ModalDelete';
 import Store from '../store/store';
 
