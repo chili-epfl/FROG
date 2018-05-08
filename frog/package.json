@@ -89,7 +89,6 @@
     "react-modal": "^3.3.2",
     "react-mosaic-component": "^1.1.0",
     "react-router-dom": "^4.2.2",
-    "react-spinner": "^0.2.7",
     "react-tagsinput": "^3.19.0",
     "react-tooltip": "^3.5.0",
     "reconnectingwebsocket": "^1.0.0",

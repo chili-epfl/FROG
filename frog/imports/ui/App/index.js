@@ -12,7 +12,7 @@ import {
   Switch
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 import { toObject as queryToObject } from 'query-parse';
 
 import NotLoggedIn from './NotLoggedIn';
@@ -168,7 +168,7 @@ const FROGRouter = withRouter(
       if (query.login) {
         return <Redirect to={this.props.location.pathname} />;
       } else if (this.state.mode === 'loggingIn') {
-        return <Spinner />;
+        return <CircularProgress />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
         if (Meteor.user().username === 'teacher') {
           return (

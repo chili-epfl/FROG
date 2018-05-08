@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
@@ -21,7 +21,7 @@ const styles = {
 
 const TeacherContainer = ({ ready }: { ready: boolean }) => {
   if (!ready) {
-    return <Spinner />;
+    return <CircularProgress />;
   }
   return (
     <div id="app">
