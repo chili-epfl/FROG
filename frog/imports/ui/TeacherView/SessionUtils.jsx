@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -134,7 +135,7 @@ const SessionUtils = ({
   return (
     <Grid container alignItems="center">
       <Grid item xs={4} className={classes.textCenter}>
-        h
+        <Typography>Current Session: {session.slug}</Typography>
       </Grid>
       <Grid item xs={4} className={classes.textCenter}>
         <DashToggle visible={visible} toggleVisible={toggle} />

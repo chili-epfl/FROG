@@ -19,7 +19,8 @@ const styles = {
     marginTop: '48px'
   },
   subroot: {
-    height: 'calc(100vh - 96px)'
+    height: 'calc(100vh - 106px)',
+    padding: '10px 0'
   },
   buttonsToBottom: {
     alignSelf: 'flex-end'
