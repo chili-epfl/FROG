@@ -106,11 +106,17 @@ class Library extends Component<Object, { searchStr: string }> {
             filtered.map((x: Object) => (
               <LibraryListComponent
                 onSelect={() => {
+                  // setConfig
                   if (libraryType === 'activity') {
-                    importAct(x.uuid, activityId, () => {
-                      store.addHistory();
-                      store.refreshValidate();
-                    });
+                    importAct(
+                      x.uuid,
+                      activityId,
+                      () => {
+                        store.addHistory();
+                        store.refreshValidate();
+                      },
+                      this.props.onSelect
+                    );
                   } else if (libraryType === 'graph') {
                     importGraph(x.uuid);
                     this.props.setModal(false);
