@@ -1,5 +1,5 @@
 import { extendObservable, action } from 'mobx';
-import { omit, maxBy } from 'lodash';
+import { maxBy } from 'lodash';
 
 import { store } from './index';
 import Operator from './operator';
@@ -46,7 +46,13 @@ export default class OperatorStore {
       },
 
       get history(): Array<any> {
-        return this.all.map(x => ({ ...omit(x, 'over') }));
+        return this.all.map(x => ({
+          time: x.time,
+          y: x.y,
+          type: x.type,
+          id: x.id,
+          title: x.id
+        }));
       },
 
       get furthestOperator(): number {
