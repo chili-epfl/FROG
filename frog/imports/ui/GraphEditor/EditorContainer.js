@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+// @flow
+
+import * as React from 'react';
 import { withStyles } from 'material-ui/styles';
 import ReactTooltip from 'react-tooltip';
 import Grid from 'material-ui/Grid';
@@ -45,14 +47,14 @@ const EditorPanel = () => (
 );
 
 type StateT = {
-  exportOpen: Boolean,
-  importOpen: Boolean,
-  deleteOpen: Boolean,
-  locallyChanged: Boolean,
+  exportOpen: boolean,
+  importOpen: boolean,
+  deleteOpen: boolean,
+  locallyChanged: boolean,
   idRemove: string
 };
 
-class Editor extends Component<Object, StateT> {
+class Editor extends React.Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {
