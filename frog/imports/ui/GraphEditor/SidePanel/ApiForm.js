@@ -234,8 +234,8 @@ const ApiForm = observer(
             <div>
               <div
                 style={{
-                  position: 'relative',
-                  marginRight: '20px'
+                  marginTop: '20px',
+                  padding: '0 10px'
                 }}
               >
                 <Config
