@@ -75,8 +75,26 @@ const styles = {
   cloudIcon: {
     marginRight: '8px',
     fontSize: 20
+  },
+  resultContainer: {
+    height: '100%'
   }
 };
+
+const NoResult = ({ classes }) => (
+  <Grid
+    container
+    justify="center"
+    alignItems="center"
+    className={classes.resultContainer}
+  >
+    <Grid item>
+      <Typography variant="body2">No results found</Typography>
+    </Grid>
+  </Grid>
+);
+
+const StyledNoResult = withStyles(styles)(NoResult);
 
 const ChooseActivityTopPanel = connect(
   ({ classes, onSearch, onToggle, store }) => (
@@ -214,7 +232,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
           ) : (
             <Grid item xs={12} className={classes.activityList}>
               {filteredList.length === 0 ? (
-                <div>No result</div>
+                <StyledNoResult />
               ) : (
                 <List>
                   {filteredList.map((x: ActivityPackageT) => (
