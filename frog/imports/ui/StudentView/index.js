@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { withTracker } from 'meteor/react-meteor-data';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
 
@@ -61,16 +61,16 @@ class StudentViewComp extends React.Component<
       return <h1>Error: {this.state.message}</h1>;
     }
     if (!this.props.ready) {
-      return <Spinner />;
+      return <CircularProgress />;
     }
     if (!this.props.session) {
-      return <Spinner />;
+      return <CircularProgress />;
     }
     if (this.props.session.state === 'WAITINGFORNEXT') {
       return (
         <div>
           <h1>Waiting for next activity</h1>
-          <Spinner />
+          <CircularProgress />
         </div>
       );
     }
