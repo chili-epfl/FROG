@@ -8,17 +8,23 @@ const RemoteServer =
 
 export const removeActivity = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {
-    method: 'DELETE'
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({ deleted: true })
   }).then(() => collectActivities(callback));
 };
 
 export const refreshActDate = () => (LibraryStates.lastRefreshAct = new Date());
 
 export const collectActivities = (callback: ?Function) =>
-  fetch(RemoteServer + '?select=uuid,title,description,tags,activity_type')
+  fetch(
+    RemoteServer + '?select=uuid,title,description,tags,activity_type,deleted'
+  )
     .then(e => e.json())
     .then(r => {
-      LibraryStates.activityList = r;
+      LibraryStates.activityList = r.filter(x => !x.deleted);
       refreshActDate();
       if (callback) callback();
     });
