@@ -353,7 +353,6 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                     this.setState({ play: false });
                   } else {
                     let data;
-                    const dash = aTdashs[this.state.example];
                     if (dash.prepareDataForDisplay) {
                       data = dash.prepareDataForDisplay(
                         dash.initData,
