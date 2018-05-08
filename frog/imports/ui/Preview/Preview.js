@@ -85,8 +85,6 @@ const StatelessPreview = (props: Object) => {
     );
   }
 
-  initActivityDocuments(instances, activityType, example, config, false);
-
   const PreviewContent =
     showLogs && !showDashExample ? (
       <ShowLogs logs={Logs} />
