@@ -270,13 +270,15 @@ const RawEditActivity = ({
 };
 
 export const IconButton = ({ icon, onClick, tooltip }: Object) => (
-  <Button
-    style={{ width: '35px', height: '25px' }}
-    data-tip={tooltip}
-    onClick={onClick}
-  >
-    <span className={icon} style={{ verticalAlign: 'top' }} />
-  </Button>
+  <div className="bootstrap">
+    <Button
+      style={{ width: '35px', height: '25px' }}
+      data-tip={tooltip}
+      onClick={onClick}
+    >
+      <span className={icon} style={{ verticalAlign: 'top' }} />
+    </Button>
+  </div>
 );
 
 const EditActivity = compose(
