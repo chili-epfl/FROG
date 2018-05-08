@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import ReactTooltip from 'react-tooltip';
 import Grid from 'material-ui/Grid';
+import { Graphs } from '/imports/api/graphs';
 import { removeActivity } from '/imports/api/remoteActivities';
 import { removeGraph } from '/imports/api/remoteGraphs';
+import { LibraryStates } from '/imports/api/cache';
 
 import { connect } from './store';
 import Graph from './Graph';
@@ -102,6 +104,10 @@ class Editor extends Component<Object, StateT> {
               setModal={val => this.setState({ exportOpen: val })}
               graphId={this.props.store.graphId}
               graphName={this.props.store}
+              metaDatas={LibraryStates.graphList.filter(
+                x =>
+                  x.uuid === Graphs.findOne(this.props.store.graphId).parentId
+              )}
               madeChanges={() => this.setState({ locallyChanged: true })}
             />
             <ModalImport

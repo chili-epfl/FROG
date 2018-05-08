@@ -120,6 +120,7 @@ class Library extends Component<Object, { searchStr: string }> {
                       this.props.onSelect
                     );
                   } else if (libraryType === 'graph') {
+                    // setParentId(x.uuid)
                     importGraph(x.uuid);
                     this.props.setModal(false);
                   }

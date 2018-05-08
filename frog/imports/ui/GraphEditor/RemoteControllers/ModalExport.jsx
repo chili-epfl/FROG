@@ -11,7 +11,7 @@ import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
 import { sendActivity, updateActivity } from '/imports/api/remoteActivities';
-import { sendGraph } from '/imports/api/remoteGraphs';
+import { sendGraph, updateGraph } from '/imports/api/remoteGraphs';
 import { Graphs } from '/imports/api/graphs';
 
 type StateT = {
@@ -48,7 +48,9 @@ export default class ExportModal extends Component<Object, StateT> {
   render() {
     return (
       <Dialog open={this.props.modalOpen}>
-        <DialogTitle>Export activity to the library:</DialogTitle>
+        <DialogTitle>
+          {'Export ' + this.props.exportType + ' to the Server:'}
+        </DialogTitle>
         <DialogContent>
           <h3>Title</h3>
           <TextField
@@ -94,20 +96,27 @@ export default class ExportModal extends Component<Object, StateT> {
           >
             Save
           </Button>
-          {this.props.activity.parentId && (
+          {((this.props.activity && this.props.activity.parentId) ||
+            (this.props.exportType === 'graph' &&
+              Graphs.findOne(this.props.graphId).parentId)) && (
             <Button
               color="primary"
               onClick={() => {
                 if (this.props.exportType === 'activity') {
-                  updateActivity(this.props.activity.parentId, {
-                    ...this.props.activity,
-                    ...this.state
-                  });
-                  this.props.setModal(false);
-                } else if (this.props.exportType === 'graph') {
-                  sendGraph(this.state, this.props);
-                  this.props.setModal(false);
-                }
+                  updateActivity(
+                    this.props.activity.parentId,
+                    {
+                      ...this.props.activity,
+                      ...this.state
+                    },
+                    () => this.props.setModal(false)
+                  );
+                } else if (this.props.exportType === 'graph')
+                  updateGraph(
+                    Graphs.findOne(this.props.graphId).parentId,
+                    this.props.graphId,
+                    () => this.props.setModal(false)
+                  );
                 if (this.props.madeChanges) this.props.madeChanges();
                 this.setState({
                   title: '',

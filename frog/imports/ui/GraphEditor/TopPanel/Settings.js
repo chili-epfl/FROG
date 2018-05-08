@@ -19,11 +19,13 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from 'material-ui/Tooltip';
 
+import { loadGraphMetaData } from '/imports/api/remoteGraphs';
+
 import { exportGraph, importGraph, duplicateGraph } from '../utils/export';
 import { connect, store } from '../store';
 import exportPicture from '../utils/exportPicture';
 import { removeGraph } from '../../../api/activities';
-import { addGraph, assignGraph } from '../../../api/graphs';
+import { addGraph, assignGraph, Graphs } from '../../../api/graphs';
 
 const submitRemoveGraph = id => {
   removeGraph(id);
@@ -103,7 +105,7 @@ class GraphActionMenu extends React.Component {
       setSidepanelOpen
     } = this.props;
     const { open } = this.state;
-
+    const parentId = Graphs.findOne(graphId).parentId;
     return (
       <div className={classes.root}>
         <Manager>
@@ -219,15 +221,28 @@ class GraphActionMenu extends React.Component {
                       />Import Graph from the Server
                     </MenuItem>
                     <MenuItem
-                      onClick={() => {
-                        this.props.openExport();
-                        this.handleClose();
-                      }}
+                      onClick={() =>
+                        parentId
+                          ? loadGraphMetaData(parentId, () => {
+                              this.props.openExport();
+                              this.handleClose();
+                            })
+                          : this.props.openExport()
+                      }
                     >
                       <Timeline
                         className={classes.leftIcon}
                         aria-hidden="true"
                       />Export Graph to the Server
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        // submitRemoveGraph(graphId); DO SOMETHING
+                        this.handleClose();
+                      }}
+                    >
+                      <Delete className={classes.leftIcon} aria-hidden="true" />Remove
+                      Current Graph from the Server
                     </MenuItem>
                   </MenuList>
                 </Paper>
