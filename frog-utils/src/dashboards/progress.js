@@ -73,9 +73,10 @@ const Viewer = (props: Object) => {
 };
 
 const FINISHED = 'finished';
-const UPDATE_INTERVAL = 10;
-const HIATUS_THRESHOLD = 30;
+const UPDATE_THRESHOLD = 10;
+const HIATUS_THRESHOLD = 60;
 const PREDICT_THRESHOLD = 150;
+const MAX_NUM_INTERVAL = 100;
 
 function linearRegression(activities) {
   const userResult = regression.linear(activities);
@@ -145,6 +146,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   const predictedProgressCurve = {};
   const predictedCompletionCurve = {};
   const T_MAX = currentMaxTime + PREDICT_THRESHOLD;
+  const UPDATE_INTERVAL = Math.max(UPDATE_THRESHOLD, Math.ceil(T_MAX / MAX_NUM_INTERVAL))
 
   for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
     const progress = [];
@@ -182,7 +184,6 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   progressCurve[currentMaxTime] = prog;
   predictedProgressCurve[currentMaxTime] = progressCurve[currentMaxTime];
   predictedCompletionCurve[currentMaxTime] = completionCurve[currentMaxTime];
-
   return {
     prediction: parse(predictedCompletionCurve),
     completion: parse(completionCurve),
