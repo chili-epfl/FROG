@@ -74,7 +74,7 @@ const Viewer = (props: Object) => {
 
 const FINISHED = 'finished';
 const UPDATE_THRESHOLD = 10;
-const HIATUS_THRESHOLD = 60;
+const HIATUS_THRESHOLD = 90;
 const PREDICT_THRESHOLD = 150;
 const MAX_NUM_INTERVAL = 100;
 
@@ -114,6 +114,8 @@ function assembleCurve(progress) {
 const parse = curve =>
   entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
 
+const hiatusCoefficient = progress => Math.exp(1 - 2 * progress);
+
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   const currentTime = activity.actualClosingTime
@@ -137,7 +139,8 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
           : currentMaxTime - userActivities[lastIndex][1] <
             Math.max(
               HIATUS_THRESHOLD,
-              userActivities[lastIndex][1] - userActivities[0][1]
+              hiatusCoefficient(userActivities[lastIndex][0]) *
+                (userActivities[lastIndex][1] - userActivities[0][1])
             )
             ? linearRegression(userActivities)
             : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
@@ -191,6 +194,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   progressCurve[currentMaxTime] = prog;
   predictedProgressCurve[currentMaxTime] = progressCurve[currentMaxTime];
   predictedCompletionCurve[currentMaxTime] = completionCurve[currentMaxTime];
+
   return {
     prediction: parse(predictedCompletionCurve),
     completion: parse(completionCurve),
