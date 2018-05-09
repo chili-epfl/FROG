@@ -131,13 +131,17 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
     }
     const lastIndex = userActivities.length - 1;
     if (lastIndex >= 1) {
-      const userStatus = 
+      const userStatus =
         userActivities[lastIndex][0] === 1
           ? FINISHED
-          : currentMaxTime - userActivities[lastIndex][1] < Math.max(HIATUS_THRESHOLD, (userActivities[lastIndex][1] - userActivities[0][1]))
+          : currentMaxTime - userActivities[lastIndex][1] <
+            Math.max(
+              HIATUS_THRESHOLD,
+              userActivities[lastIndex][1] - userActivities[0][1]
+            )
             ? linearRegression(userActivities)
-            : [0, userActivities[lastIndex][0]] // student in hiatus stops working, returns final progress
-      sessionStatus[user] = userStatus
+            : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
+      sessionStatus[user] = userStatus;
     }
   });
 
@@ -146,7 +150,10 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   const predictedProgressCurve = {};
   const predictedCompletionCurve = {};
   const T_MAX = currentMaxTime + PREDICT_THRESHOLD;
-  const UPDATE_INTERVAL = Math.max(UPDATE_THRESHOLD, Math.ceil(T_MAX / MAX_NUM_INTERVAL))
+  const UPDATE_INTERVAL = Math.max(
+    UPDATE_THRESHOLD,
+    Math.ceil(T_MAX / MAX_NUM_INTERVAL)
+  );
 
   for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
     const progress = [];
@@ -165,7 +172,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
       // predict future data
       Object.keys(sessionStatus).forEach(user => {
         const userProgress = predictUserProgress(sessionStatus[user], t);
-        progress.push(userProgress); 
+        progress.push(userProgress);
       });
       const [comp, prog] = assembleCurve(progress);
       predictedCompletionCurve[t] = comp;
@@ -177,7 +184,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   const progress = [];
   Object.keys(sessionStatus).forEach(user => {
     const userProgress = registerUserProgress(state.user[user], currentMaxTime);
-    progress.push(userProgress);  
+    progress.push(userProgress);
   });
   const [comp, prog] = assembleCurve(progress);
   completionCurve[currentMaxTime] = comp;
