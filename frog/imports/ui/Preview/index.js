@@ -7,6 +7,7 @@ import { defaultConfig } from 'frog-utils';
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
 import { getUserId } from './Controls';
+import ErrorWrapper from './ErrorWrapper';
 
 export const addDefaultExample = (activityType: Object) => [
   {
@@ -105,4 +106,8 @@ class PreviewPage extends React.Component<any, any> {
 
 PreviewPage.displayName = 'PreviewPage';
 
-export default PreviewPage;
+export default (props: any) => (
+  <ErrorWrapper>
+    <PreviewPage {...props} />
+  </ErrorWrapper>
+);

@@ -1060,13 +1060,7 @@ div.bootstrap html {
   font-size: 10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-div.bootstrap body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #333333;
-  background-color: #fff;
-}
+
 div.bootstrap input,
 div.bootstrap button,
 div.bootstrap select,
@@ -1146,124 +1140,7 @@ div.bootstrap .sr-only-focusable:focus {
 div.bootstrap [role="button"] {
   cursor: pointer;
 }
-div.bootstrap h1,
-div.bootstrap h2,
-div.bootstrap h3,
-div.bootstrap h4,
-div.bootstrap h5,
-div.bootstrap h6,
-div.bootstrap .h1,
-div.bootstrap .h2,
-div.bootstrap .h3,
-div.bootstrap .h4,
-div.bootstrap .h5,
-div.bootstrap .h6 {
-  font-family: inherit;
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
-}
-div.bootstrap h1 small,
-div.bootstrap h2 small,
-div.bootstrap h3 small,
-div.bootstrap h4 small,
-div.bootstrap h5 small,
-div.bootstrap h6 small,
-div.bootstrap .h1 small,
-div.bootstrap .h2 small,
-div.bootstrap .h3 small,
-div.bootstrap .h4 small,
-div.bootstrap .h5 small,
-div.bootstrap .h6 small,
-div.bootstrap h1 .small,
-div.bootstrap h2 .small,
-div.bootstrap h3 .small,
-div.bootstrap h4 .small,
-div.bootstrap h5 .small,
-div.bootstrap h6 .small,
-div.bootstrap .h1 .small,
-div.bootstrap .h2 .small,
-div.bootstrap .h3 .small,
-div.bootstrap .h4 .small,
-div.bootstrap .h5 .small,
-div.bootstrap .h6 .small {
-  font-weight: normal;
-  line-height: 1;
-  color: #777777;
-}
-div.bootstrap h1,
-div.bootstrap .h1,
-div.bootstrap h2,
-div.bootstrap .h2,
-div.bootstrap h3,
-div.bootstrap .h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-div.bootstrap h1 small,
-div.bootstrap .h1 small,
-div.bootstrap h2 small,
-div.bootstrap .h2 small,
-div.bootstrap h3 small,
-div.bootstrap .h3 small,
-div.bootstrap h1 .small,
-div.bootstrap .h1 .small,
-div.bootstrap h2 .small,
-div.bootstrap .h2 .small,
-div.bootstrap h3 .small,
-div.bootstrap .h3 .small {
-  font-size: 65%;
-}
-div.bootstrap h4,
-div.bootstrap .h4,
-div.bootstrap h5,
-div.bootstrap .h5,
-div.bootstrap h6,
-div.bootstrap .h6 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-div.bootstrap h4 small,
-div.bootstrap .h4 small,
-div.bootstrap h5 small,
-div.bootstrap .h5 small,
-div.bootstrap h6 small,
-div.bootstrap .h6 small,
-div.bootstrap h4 .small,
-div.bootstrap .h4 .small,
-div.bootstrap h5 .small,
-div.bootstrap .h5 .small,
-div.bootstrap h6 .small,
-div.bootstrap .h6 .small {
-  font-size: 75%;
-}
-div.bootstrap h1,
-div.bootstrap .h1 {
-  font-size: 36px;
-}
-div.bootstrap h2,
-div.bootstrap .h2 {
-  font-size: 30px;
-}
-div.bootstrap h3,
-div.bootstrap .h3 {
-  font-size: 24px;
-}
-div.bootstrap h4,
-div.bootstrap .h4 {
-  font-size: 18px;
-}
-div.bootstrap h5,
-div.bootstrap .h5 {
-  font-size: 14px;
-}
-div.bootstrap h6,
-div.bootstrap .h6 {
-  font-size: 12px;
-}
-div.bootstrap p {
-  margin: 0 0 10px;
-}
+
 div.bootstrap .lead {
   margin-bottom: 20px;
   font-size: 16px;
@@ -2481,8 +2358,7 @@ div.bootstrap legend {
 div.bootstrap label {
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 0.35em;
 }
 div.bootstrap input[type="search"] {
   -webkit-box-sizing: border-box;
@@ -2526,17 +2402,12 @@ div.bootstrap .form-control {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #555555;
   background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
+  border: none; 
+  background: rgba(0,0,0,.05); 
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+
 div.bootstrap .form-control:focus {
   border-color: #66afe9;
   outline: 0;
