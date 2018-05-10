@@ -8,7 +8,6 @@ import uploadWithTumbnail from './utils';
 
 const UploadDragDrop = ({
   dataFn,
-  uploadFn,
   fileTypes,
   createLearningItem,
   onCreate
@@ -18,7 +17,6 @@ const UploadDragDrop = ({
       uploadWithTumbnail(
         imageFile,
         dataFn,
-        uploadFn,
         'dragdrop-upload',
         createLearningItem,
         onCreate

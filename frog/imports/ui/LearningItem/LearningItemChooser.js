@@ -52,7 +52,7 @@ class LearningItemChooser extends React.Component<
           onClick={this.handleClick}
           color="primary"
         >
-          <AddCircle />
+          <AddCircle style={{ color: 'white' }} />
         </Button>
         <Menu
           id="simple-menu"
@@ -65,9 +65,9 @@ class LearningItemChooser extends React.Component<
             return (
               <MenuItem
                 key={item.id}
-                onClick={() =>
-                  this.setState({ open: item, anchorEl: undefined })
-                }
+                onClick={() => {
+                  this.setState({ open: item, anchorEl: undefined });
+                }}
               >
                 {item.name}
               </MenuItem>
@@ -85,7 +85,7 @@ class LearningItemChooser extends React.Component<
             </DialogTitle>
             <div className={this.props.classes.dialog}>
               <LearningItem
-                li={this.state.open.id}
+                liType={this.state.open.id}
                 type="create"
                 dataFn={this.props.dataFn}
                 meta={this.props.meta}

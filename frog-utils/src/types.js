@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import type { Doc } from './generateReactiveFn';
 
 export type ActivityDbT = {
   _id: string,
@@ -129,6 +130,7 @@ export type ActivityPackageT = {
       title: string,
       config?: Object,
       data?: any,
+      learningItems?: any,
       type?: 'deeplink'
     }[]
   },
@@ -228,3 +230,22 @@ export type operatorPackageT =
   | socialOperatorT
   | productOperatorT
   | controlOperatorT;
+
+export type LearningItemFnT =
+  | { type: 'history', id: string, render?: Function, dataFn: Doc }
+  | {
+      type: 'create',
+      meta?: Object,
+      liType?: string,
+      dataFn: Doc,
+      onCreate?: string => void
+    }
+  | { type: 'view', id: string, render?: Function, dataFn: Doc }
+  | {
+      type: 'viewThumb',
+      id: string,
+      render?: Function,
+      clickZoomable?: Boolean,
+      dataFn: Doc
+    }
+  | { type: 'edit', id: string, dataFn: Doc, render?: Function };

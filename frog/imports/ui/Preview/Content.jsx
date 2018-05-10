@@ -1,9 +1,7 @@
 // @flow
 
 import * as React from 'react';
-
 import { compose, toClass } from 'recompose';
-
 import {
   MosaicWithoutDragDropContext,
   MosaicWindow
@@ -23,6 +21,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { connection } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
+import LearningItem from '../LearningItem';
 
 const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
 
@@ -33,12 +32,22 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
+  const exs = addDefaultExample(activityType);
+  if (exs[example].learningItems) {
+    exs[example].learningItems.forEach(li => {
+      const doc = connection.get('li', li.id);
+      if (doc.type) {
+        doc.submitOp({ p: [], oi: li });
+      } else {
+        doc.create(li);
+      }
+    });
+  }
   instances.forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
-        const dataFn = generateReactiveFn(_doc);
-        const exs = addDefaultExample(activityType);
+        const dataFn = generateReactiveFn(_doc, LearningItem);
         const data =
           example === -1 || example === undefined
             ? cloneDeep(activityType.dataStructure)
@@ -57,7 +66,7 @@ export const initActivityDocuments = (
         }
       });
     } else if (refresh) {
-      const dataFn = generateReactiveFn(doc);
+      const dataFn = generateReactiveFn(doc, LearningItem);
       dataFn.objInsert(cloneDeep(activityType.dataStructure) || {}, []);
       runMergeFunction(doc);
     }

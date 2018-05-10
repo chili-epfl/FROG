@@ -1,9 +1,10 @@
 // @flow
+import * as React from 'react';
 import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 
-import { uuid } from './index';
+import { uuid, type LearningItemFnT } from './index';
 
 type rawPathT = string | string[];
 
@@ -18,6 +19,7 @@ export class Doc {
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
+  LearningItemFn: React.ComponentType<LearningItemFnT>;
   meta: Object;
 
   constructor(
@@ -25,7 +27,8 @@ export class Doc {
     path: ?(string[]),
     readOnly: boolean,
     updateFn?: Function,
-    meta: Object = {}
+    meta: Object = {},
+    LearningItem: React.ComponentType<LearningItemFnT>
   ) {
     this.meta = meta;
     this.readOnly = !!readOnly;
@@ -37,6 +40,7 @@ export class Doc {
           doc.submitOp(e);
         };
     this.updateFn = updateFn;
+    this.LearningItemFn = LearningItem;
   }
 
   createLearningItem(liType: string, item?: Object, meta?: Object): string {
@@ -52,6 +56,11 @@ export class Doc {
     itempointer.subscribe();
     return id;
   }
+
+  LearningItem = ({ ...props }: any) => {
+    const LI = this.LearningItemFn;
+    return <LI {...props} dataFn={this} />;
+  };
 
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
@@ -143,7 +152,8 @@ export class Doc {
       [...this.path, ...newPath],
       this.readOnly,
       undefined,
-      this.meta
+      this.meta,
+      this.LearningItemFn
     );
   }
 
@@ -157,19 +167,21 @@ export class Doc {
 
 export const generateReactiveFn = (
   doc: any,
+  LearningItem: React.ComponentType<LearningItemFnT>,
+  meta?: Object,
   readOnly?: boolean,
-  updateFn?: Function,
-  meta: Object = {}
+  updateFn?: Function
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], !!readOnly, updateFn, meta);
+    return new Doc(doc, [], !!readOnly, updateFn, meta, LearningItem);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
 };
 
 export const inMemoryReactive = (
-  initial: any
+  initial: any,
+  LearningItem: React.ComponentType<LearningItemFnT>
 ): Promise<{ data: any, dataFn: Doc }> => {
   const share = new ShareDB();
   const connection = share.connect();
@@ -181,5 +193,8 @@ export const inMemoryReactive = (
       doc.create(initial);
       resolve(doc);
     });
-  }).then(doc => ({ data: doc, dataFn: new Doc(doc, [], false) }));
+  }).then(doc => ({
+    data: doc,
+    dataFn: new Doc(doc, [], false, undefined, undefined, LearningItem)
+  }));
 };

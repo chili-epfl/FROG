@@ -3,9 +3,17 @@ import * as React from 'react';
 
 import { Meteor } from 'meteor/meteor';
 import { CircularProgress } from 'material-ui/Progress';
-import Slider from 'rc-slider';
+import { isBrowser } from 'frog-utils';
 
 import RenderLearningItem from './RenderLearningItem';
+
+if (isBrowser) {
+  require('./sliderCSS');
+}
+
+const Slider = isBrowser
+  ? require('rc-slider').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 type PropsT = { id: string, render?: Function };
 

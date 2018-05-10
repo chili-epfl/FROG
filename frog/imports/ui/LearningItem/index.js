@@ -1,8 +1,7 @@
 // @flow
 import * as React from 'react';
-import { uuid, type Doc } from 'frog-utils';
+import { type LearningItemFnT } from 'frog-utils';
 import Button from 'material-ui/Button';
-import 'rc-slider/assets/index.css';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import LearningItemChooser from './LearningItemChooser';
@@ -10,32 +9,21 @@ import { learningItemTypesObj } from './learningItemTypes';
 import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
-type PropsT =
-  | { type: 'history', id: string, render?: Function }
-  | {
-      type: 'create',
-      meta?: Object,
-      liType?: string,
-      dataFn: Doc,
-      onCreate?: string => void
-    }
-  | { type: 'view', id: string, render?: Function }
-  | {
-      type: 'viewThumb',
-      id: string,
-      render?: Function,
-      clickZoomable?: Boolean
-    }
-  | { type: 'edit', id: string };
-
-const LearningItem = (props: PropsT) => {
+const LearningItem = (props: LearningItemFnT) => {
   if (props.type === 'history') {
     return <LearningItemWithSlider id={props.id} render={props.render} />;
   }
-  if (props.type === 'view' || props.type === 'viewThumb') {
-    const ToRun = ReactiveHOC(props.id || uuid(), undefined, undefined, 'li')(
-      RenderLearningItem
-    );
+  if (
+    props.type === 'view' ||
+    props.type === 'viewThumb' ||
+    props.type === 'edit'
+  ) {
+    const ToRun = ReactiveHOC(
+      props.id,
+      props.dataFn.doc.connection,
+      undefined,
+      'li'
+    )(RenderLearningItem);
     return (
       <ToRun
         render={props.render}
@@ -73,6 +61,7 @@ const LearningItem = (props: PropsT) => {
           <LearningItem
             id={lid}
             type="edit"
+            dataFn={props.dataFn}
             meta={props.meta}
             render={({ dataFn: childDataFn, children }) => (
               <div style={{ marginLeft: '10px' }}>
@@ -104,6 +93,7 @@ const LearningItem = (props: PropsT) => {
       );
     }
   }
+  return null;
 };
 
 export default LearningItem;

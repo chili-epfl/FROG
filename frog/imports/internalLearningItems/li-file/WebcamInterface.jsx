@@ -3,12 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Webcam from '@houshuang/react-webcam';
-import Mousetrap from 'mousetrap';
-
 import uploadImage from './utils';
 
 const takePicture = ({
-  uploadFn,
   dataFn,
   webcam,
   setWebcam,
@@ -38,14 +35,7 @@ const takePicture = ({
   // write the ArrayBuffer to a blob, and you're done
   const blob = new Blob([ab], { type: mimeString });
 
-  uploadImage(
-    blob,
-    dataFn,
-    uploadFn,
-    'webcam-upload',
-    createLearningItem,
-    onCreate
-  );
+  uploadImage(blob, dataFn, 'webcam-upload', createLearningItem, onCreate);
   setWebcam(false);
 };
 
