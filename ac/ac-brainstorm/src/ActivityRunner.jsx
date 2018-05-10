@@ -110,7 +110,8 @@ const IdeaListRaw = ({
   setEdit,
   zoom,
   setZoom,
-  LearningItem
+  LearningItem,
+  history
 }) => (
   <div>
     <ListGroup className="item">
@@ -119,11 +120,17 @@ const IdeaListRaw = ({
           <div key={x.li}>
             <LearningItem
               type={
-                edit === x.id ? 'edit' : zoom === x.id ? 'view' : 'thumbView'
+                edit === x.id
+                  ? 'edit'
+                  : zoom === x.id
+                    ? history
+                      ? 'history'
+                      : 'view'
+                    : 'thumbView'
               }
               render={({ zoomable, editable, children }) => (
                 <Idea
-                  zoomable={zoomable}
+                  zoomable={zoomable || history}
                   editable={editable}
                   meta={x}
                   vote={vote}
@@ -191,6 +198,7 @@ const ActivityRunner = ({
 
   const formBoolean = activityData.config.formBoolean;
   const LearningItem = dataFn.LearningItem;
+  const slider = activityData.config.zoomShowsHistory;
   return (
     <React.Fragment>
       <div className="bootstrap" style={{ width: '80%' }}>
@@ -202,6 +210,7 @@ const ActivityRunner = ({
             dataFn={dataFn}
             userInfo={userInfo}
             LearningItem={LearningItem}
+            history={slider}
           />
         </ListContainer>
       </div>

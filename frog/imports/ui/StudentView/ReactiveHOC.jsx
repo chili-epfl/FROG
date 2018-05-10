@@ -23,7 +23,8 @@ const ReactiveHOC = (
   conn?: any,
   readOnly: boolean = false,
   collection?: string,
-  meta?: Object
+  meta?: Object,
+  backend: any
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
@@ -83,7 +84,8 @@ const ReactiveHOC = (
               LearningItem,
               meta,
               readOnly,
-              this.update
+              this.update,
+              backend
             )
           });
         }

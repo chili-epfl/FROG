@@ -11,7 +11,13 @@ import RenderLearningItem from './RenderLearningItem';
 
 const LearningItem = (props: LearningItemFnT) => {
   if (props.type === 'history') {
-    return <LearningItemWithSlider id={props.id} render={props.render} />;
+    return (
+      <LearningItemWithSlider
+        id={props.id}
+        render={props.render}
+        dataFn={props.dataFn}
+      />
+    );
   }
   if (
     props.type === 'view' ||
@@ -22,7 +28,9 @@ const LearningItem = (props: LearningItemFnT) => {
       props.id,
       props.dataFn.doc.connection,
       undefined,
-      'li'
+      'li',
+      undefined,
+      props.dataFn.backend
     )(RenderLearningItem);
     return (
       <ToRun

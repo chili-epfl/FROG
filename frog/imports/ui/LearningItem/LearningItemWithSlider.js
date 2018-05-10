@@ -4,6 +4,8 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { CircularProgress } from 'material-ui/Progress';
 import { isBrowser } from 'frog-utils';
+import json from 'ot-json0';
+import { isEmpty, cloneDeep } from 'lodash';
 
 import RenderLearningItem from './RenderLearningItem';
 
@@ -15,7 +17,7 @@ const Slider = isBrowser
   ? require('rc-slider').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
-type PropsT = { id: string, render?: Function };
+type PropsT = { id: string, render?: Function, dataFn?: Object };
 
 class LearningItemWithSlider extends React.Component<
   PropsT,
@@ -39,10 +41,31 @@ class LearningItemWithSlider extends React.Component<
     }
   }
 
-  getRevisions = (id: string) =>
-    Meteor.call('sharedb.get.revisions', 'id', id, (_, res) =>
-      this.setState({ revisions: res, currentRev: res.length - 1 })
-    );
+  getRevisions = (id: string) => {
+    if (this.props.dataFn && this.props.dataFn.backend) {
+      this.props.dataFn.backend.db.getOps('li', id, 0, null, {}, (err, res) => {
+        if (err || isEmpty(res)) {
+          return [];
+        }
+        const beg = res.shift().create.data;
+        const revisions = res.reduce(
+          (acc, x) => {
+            const result = json.type.apply(
+              cloneDeep(acc[acc.length - 1]),
+              x.op
+            );
+            return [...acc, result];
+          },
+          [beg]
+        );
+        this.setState({ revisions, currentRev: revisions.length - 1 });
+      });
+    } else {
+      Meteor.call('sharedb.get.revisions', 'li', id, (_, res) =>
+        this.setState({ revisions: res, currentRev: res.length - 1 })
+      );
+    }
+  };
 
   render() {
     if (this.state.revisions.length === 0) {

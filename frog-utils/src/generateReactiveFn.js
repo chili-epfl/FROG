@@ -21,6 +21,7 @@ export class Doc {
   updateFn: ?Function;
   LearningItemFn: React.ComponentType<LearningItemFnT>;
   meta: Object;
+  backend: any;
 
   constructor(
     doc: any,
@@ -28,8 +29,10 @@ export class Doc {
     readOnly: boolean,
     updateFn?: Function,
     meta: Object = {},
-    LearningItem: React.ComponentType<LearningItemFnT>
+    LearningItem: React.ComponentType<LearningItemFnT>,
+    backend: any
   ) {
+    this.backend = backend;
     this.meta = meta;
     this.readOnly = !!readOnly;
     this.doc = doc;
@@ -151,9 +154,10 @@ export class Doc {
       this.doc,
       [...this.path, ...newPath],
       this.readOnly,
-      undefined,
+      this.updateFn || (_ => {}),
       this.meta,
-      this.LearningItemFn
+      this.LearningItemFn,
+      this.backend
     );
   }
 
@@ -170,10 +174,11 @@ export const generateReactiveFn = (
   LearningItem: React.ComponentType<LearningItemFnT>,
   meta?: Object,
   readOnly?: boolean,
-  updateFn?: Function
+  updateFn?: Function,
+  backend?: any
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], !!readOnly, updateFn, meta, LearningItem);
+    return new Doc(doc, [], !!readOnly, updateFn, meta, LearningItem, backend);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
@@ -181,7 +186,8 @@ export const generateReactiveFn = (
 
 export const inMemoryReactive = (
   initial: any,
-  LearningItem: React.ComponentType<LearningItemFnT>
+  LearningItem: React.ComponentType<LearningItemFnT>,
+  backend: any
 ): Promise<{ data: any, dataFn: Doc }> => {
   const share = new ShareDB();
   const connection = share.connect();
@@ -195,6 +201,6 @@ export const inMemoryReactive = (
     });
   }).then(doc => ({
     data: doc,
-    dataFn: new Doc(doc, [], false, undefined, undefined, LearningItem)
+    dataFn: new Doc(doc, [], false, undefined, undefined, LearningItem, backend)
   }));
 };
