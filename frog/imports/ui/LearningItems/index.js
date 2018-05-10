@@ -1,73 +1,79 @@
 // @flow
 import * as React from 'react';
-import { uuid } from 'frog-utils';
+import { uuid, type Doc } from 'frog-utils';
 import Button from 'material-ui/Button';
-import Dialog from 'material-ui/Dialog';
-import { withState } from 'recompose';
 import 'rc-slider/assets/index.css';
-import { omit } from 'lodash';
-import Spinner from 'react-spinner';
-import { Meteor } from 'meteor/meteor';
 
-import ReactiveHOC from './ReactiveHOC';
-import { connection } from '../App/connection';
-import { uploadFile } from '../../api/openUploads';
+import ReactiveHOC from '../StudentView/ReactiveHOC';
 import LearningItemChooser from './LearningItemChooser';
 import { learningItemTypesObj } from './learningItemTypes';
+import LearningItemWithSlider from './LearningItemWithSlider';
+import RenderLearningItem from './RenderLearningItem';
 
-const LearningItem = ({
-  id,
-  render,
-  type,
-  li,
-  onCreate,
-  meta,
-  clickZoomable,
-  dataFn
-}: {
-  id?: string,
-  render?: Function,
-  type?: string,
-  li?: string,
-  onCreate?: Function,
-  meta?: Object,
-  clickZoomable?: boolean,
-  dataFn?: Object
-}) => {
-  if (type === 'history') {
-    return <LearningItemWithSlider id={id} render={render} />;
-  }
-  if (type === 'create') {
-    if (!dataFn) {
-      throw new Error('Cannot create without dataFn');
+type PropsT =
+  | { type: 'history', id: string, render?: Function }
+  | {
+      type: 'create',
+      meta?: Object,
+      liType?: string,
+      dataFn: Doc,
+      onCreate?: string => void
     }
-    if (li) {
-      const liT = learningItemTypesObj[li];
+  | { type: 'view', id: string, render?: Function }
+  | {
+      type: 'viewThumb',
+      id: string,
+      render?: Function,
+      clickZoomable?: Boolean
+    }
+  | { type: 'edit', id: string };
+
+const LearningItem = (props: PropsT) => {
+  if (props.type === 'history') {
+    return <LearningItemWithSlider id={props.id} render={props.render} />;
+  }
+  if (props.type === 'view' || props.type === 'viewThumb') {
+    const ToRun = ReactiveHOC(props.id || uuid(), undefined, undefined, 'li')(
+      RenderLearningItem
+    );
+    return (
+      <ToRun
+        render={props.render}
+        type={props.type}
+        id={props.id}
+        clickZoomable={props.type === 'viewThumb' && props.clickZoomable}
+      />
+    );
+  }
+  if (props.type === 'create') {
+    if (props.liType) {
+      const liT = learningItemTypesObj[props.liType];
       if (liT.create) {
         const ToRun = liT.create;
+        const dataFn = props.dataFn;
         return (
           <ToRun
-            uploadFn={uploadFile}
             createLearningItem={(liType, item) =>
               dataFn.createLearningItem(liType, item, {
-                ...meta,
+                ...(props.meta || {}),
                 ...dataFn.meta
               })
             }
-            onCreate={onCreate}
+            onCreate={props.onCreate}
             LearningItem={LearningItem}
           />
         );
       } else {
-        const lid = dataFn.createLearningItem(liT.id, liT.dataStructure, {
-          ...meta,
+        const lid = props.dataFn.createLearningItem(liT.id, liT.dataStructure, {
+          ...props.meta,
           draft: true
         });
+        const onCreate = props.onCreate;
         return (
           <LearningItem
             id={lid}
             type="edit"
-            meta={meta}
+            meta={props.meta}
             render={({ dataFn: childDataFn, children }) => (
               <div style={{ marginLeft: '10px' }}>
                 {children}
@@ -90,25 +96,13 @@ const LearningItem = ({
       }
     } else {
       return (
-        <LearningItemChooser dataFn={dataFn} onCreate={onCreate} meta={meta} />
+        <LearningItemChooser
+          dataFn={props.dataFn}
+          onCreate={props.onCreate}
+          meta={props.meta}
+        />
       );
     }
-  } else {
-    const ToRun = ReactiveHOC(
-      id || uuid(),
-      undefined,
-      undefined,
-      undefined,
-      'li'
-    )(RenderLearningItem);
-    return (
-      <ToRun
-        render={render}
-        type={type}
-        li={li}
-        clickZoomable={clickZoomable}
-      />
-    );
   }
 };
 

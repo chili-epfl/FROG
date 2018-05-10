@@ -4,13 +4,13 @@ import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
-import AddCircle from 'material-ui-icons/AddCircle';
+import AddCircle from '@material-ui/icons/AddCircle';
 
 import {
   learningItemTypesObj,
   type learningItemTypeT
 } from './learningItemTypes';
-import LearningItem from './LearningItemRenderer';
+import LearningItem from './index';
 
 const styles = theme => ({
   button: {

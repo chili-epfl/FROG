@@ -7,7 +7,7 @@ import Slider from 'rc-slider';
 
 import RenderLearningItem from './RenderLearningItem';
 
-type PropsT = { id: string, render: Function };
+type PropsT = { id: string, render?: Function };
 
 class LearningItemWithSlider extends React.Component<
   PropsT,
@@ -32,7 +32,7 @@ class LearningItemWithSlider extends React.Component<
   }
 
   getRevisions = (id: string) =>
-    Meteor.call('sharedb.get.revisions', 'li', id, (_, res) =>
+    Meteor.call('sharedb.get.revisions', 'id', id, (_, res) =>
       this.setState({ revisions: res, currentRev: res.length - 1 })
     );
 
