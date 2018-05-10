@@ -4,7 +4,6 @@ import { type dataUnitStructT, type ActivityPackageT, uuid } from 'frog-utils';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
-import Dashboard from './Dashboard';
 
 const learningItems = [
   {
@@ -102,7 +101,6 @@ export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
   ActivityRunner,
-  Dashboard,
   config,
   meta,
   dataStructure,
