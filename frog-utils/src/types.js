@@ -252,7 +252,7 @@ export type LearningItemFnT =
     }
   | { type: 'edit', id: string, dataFn: Doc, render?: Function };
 
-export type learningItemTypeT = {
+export type learningItemT = {
   name: string,
   id: string
 } & (

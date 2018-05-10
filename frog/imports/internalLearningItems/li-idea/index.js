@@ -3,7 +3,7 @@ import { ReactiveText } from 'frog-utils';
 import Form from 'react-jsonschema-form';
 import { withState } from 'recompose';
 import Button from 'material-ui/Button';
-import { type learningItemTypeT } from 'frog-utils';
+import { type learningItemT } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (
   <React.Fragment>
@@ -101,4 +101,4 @@ export default ({
   ThumbViewer,
   Creator,
   Editor
-}: learningItemTypeT);
+}: learningItemT);
