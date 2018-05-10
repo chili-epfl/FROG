@@ -247,8 +247,10 @@ export default class Activity extends Elem {
       },
 
       get dragPointFromScaled(): AnchorT {
+        // + 15 on Y because the activity box is 30px high
+        // - 10 on X to be on top of the activity connection dot
         return {
-          X: this.xScaled + this.widthScaled - 15,
+          X: this.xScaled + this.widthScaled - 10,
           Y: this.y + 15,
           dX: 50,
           dY: 0
