@@ -3,8 +3,9 @@ import { ReactiveText } from 'frog-utils';
 import Form from 'react-jsonschema-form';
 import { withState } from 'recompose';
 import Button from 'material-ui/Button';
+import { type learningItemTypeT } from 'frog-utils';
 
-const viewIdea = ({ data }) => (
+const ThumbViewer = ({ data }) => (
   <React.Fragment>
     <b>{data.title}</b>
     <br />
@@ -17,7 +18,7 @@ const viewIdea = ({ data }) => (
   </React.Fragment>
 );
 
-const editIdea = ({ dataFn }) => (
+const Editor = ({ dataFn }) => (
   <div className="bootstrap">
     <b>Title:</b>
     <br />
@@ -53,7 +54,7 @@ const schema = {
   }
 };
 
-const creator = withState('formdata', 'setFormdata', {})(
+const Creator = withState('formdata', 'setFormdata', {})(
   ({ formdata, setFormdata, onCreate, createLearningItem }) => (
     <div className="bootstrap">
       <hr
@@ -93,13 +94,11 @@ const creator = withState('formdata', 'setFormdata', {})(
   )
 );
 
-export default {
-  viewThumb: viewIdea,
-  editable: true,
-  create: creator,
-  zoomable: false,
-  edit: editIdea,
+export default ({
   name: 'Idea',
   id: 'li-idea',
-  dataStructure: { title: '', content: '' }
-};
+  dataStructure: { title: '', content: '' },
+  ThumbViewer,
+  Creator,
+  Editor
+}: learningItemTypeT);

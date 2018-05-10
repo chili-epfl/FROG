@@ -4,6 +4,7 @@ import { withState } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
 import download from 'downloadjs';
+import { type learningItemTypeT } from 'frog-utils';
 
 import WebcamInterface from './WebcamInterface';
 import UploadBar from './UploadBar';
@@ -19,42 +20,37 @@ const ImgButton = styled.button`
   padding: 0px;
   flex: 0 1 auto;
 `;
-const Create = withState('webcamOn', 'setWebcam', false)(props => {
-  return (
-    <React.Fragment>
-      <UploadBar {...props} />
-      {props.webcamOn && <WebcamInterface {...props} />}
-    </React.Fragment>
-  );
-});
-Create.displayName = 'Create';
+const Creator = withState('webcamOn', 'setWebcam', false)(props => (
+  <React.Fragment>
+    <UploadBar {...props} />
+    {props.webcamOn && <WebcamInterface {...props} />}
+  </React.Fragment>
+));
 
-const viewThumb = ({ data }: { data: any }) => {
-  return (
-    <ImgButton>
-      <span>
-        <p className="bootstrap">
-          <i
-            style={{ fontSize: '120px' }}
-            className={'fa ' + getFA(data.ext || '')}
-            aria-hidden="true"
-          />
-        </p>
-        {data.filename}
-      </span>
-    </ImgButton>
-  );
-};
+Creator.displayName = 'Creator';
 
-export default {
+const ThumbViewer = ({ data }: { data: any }) => (
+  <ImgButton>
+    <span>
+      <p className="bootstrap">
+        <i
+          style={{ fontSize: '120px' }}
+          className={'fa ' + getFA(data.ext || '')}
+          aria-hidden="true"
+        />
+      </p>
+      {data.filename}
+    </span>
+  </ImgButton>
+);
+
+export default ({
   name: 'file',
   id: 'li-file',
-  editable: false,
-  zoomable: true,
-  view: ({ data }: { data: any }) => {
+  Viewer: ({ data }: { data: any }) => {
     download(data.url, data.filename);
     return <h2>Downloading file {data.filename} </h2>;
   },
-  viewThumb,
-  create: Create
-};
+  ThumbViewer,
+  Creator
+}: learningItemTypeT);

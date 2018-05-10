@@ -251,3 +251,23 @@ export type LearningItemFnT =
       dataFn: Doc
     }
   | { type: 'edit', id: string, dataFn: Doc, render?: Function };
+
+type learningItemTypeT = {
+  name: string,
+  id: string
+} & (
+  | { dataStructure: any, Editor: React.ComponentType<any> }
+  | { Creator: React.ComponentType<any>, Editor?: React.ComponentType<any> }
+) &
+  (
+    | {
+        ThumbViewer: React.ComponentType<any>
+      }
+    | {
+        Viewer: React.ComponentType<any>
+      }
+    | {
+        ThumbViewer: React.ComponentType<any>,
+        Viewer: React.ComponentType<any>
+      }
+  );

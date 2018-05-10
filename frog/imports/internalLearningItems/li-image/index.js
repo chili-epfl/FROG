@@ -1,16 +1,15 @@
 // @flow
 import * as React from 'react';
-import fileLI from '../li-file';
-import { ImageReload } from 'frog-utils';
+import { ImageReload, type learningItemTypeT } from 'frog-utils';
 
-export default {
+import fileLI from '../li-file';
+
+export default ({
   name: 'image',
   id: 'li-image',
-  editable: false,
-  zoomable: true,
-  view: ({ data }: { data: any }) => <ImageReload src={data.url} />,
-  viewThumb: ({ data }: { data: any }) => <ImageReload src={data.thumburl} />,
-  create: (props: any) => (
-    <fileLI.create {...props} fileTypes="image/jpeg, image/png" />
+  Viewer: ({ data }: { data: any }) => <ImageReload src={data.url} />,
+  ThumbViewer: ({ data }: { data: any }) => <ImageReload src={data.thumburl} />,
+  Creator: (props: any) => (
+    <fileLI.Creator {...props} fileTypes="image/jpeg, image/png" />
   )
-};
+}: learningItemTypeT);

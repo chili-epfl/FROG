@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { ReactiveText } from 'frog-utils';
-import { isEqual } from 'lodash';
 
-const viewIdea = ({ dataFn, data }) => (
+const ThumbViewer = ({ dataFn, data }) => (
   <React.Fragment>
     <b>{data.title}</b>
     <br />
@@ -19,41 +18,34 @@ const viewIdea = ({ dataFn, data }) => (
   </React.Fragment>
 );
 
-class EditIdea extends React.Component<any, any> {
-  render = () => {
-    const { data, dataFn } = this.props;
-    return (
-      <React.Fragment>
-        <div className="bootstrap">
-          <b>Title:</b>
-          <br />
-          <ReactiveText path="title" dataFn={dataFn} />
-          <br />
-          <br />
-          <b>Content:</b>
-          <br />
-          <ReactiveText path="content" type="textarea" dataFn={dataFn} />
-        </div>
-        {data.attachments.map((x, i) => (
-          <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
-            <dataFn.LearningItem id={x} type="viewThumb" />
-          </span>
-        ))}
-        <dataFn.LearningItem
-          type="create"
-          onCreate={e => dataFn.listAppend(e, 'attachments')}
-        />
-      </React.Fragment>
-    );
-  };
-}
+const Editor = (data, dataFn) => (
+  <React.Fragment>
+    <div className="bootstrap">
+      <b>Title:</b>
+      <br />
+      <ReactiveText path="title" dataFn={dataFn} />
+      <br />
+      <br />
+      <b>Content:</b>
+      <br />
+      <ReactiveText path="content" type="textarea" dataFn={dataFn} />
+    </div>
+    {data.attachments.map((x, i) => (
+      <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
+        <dataFn.LearningItem id={x} type="viewThumb" />
+      </span>
+    ))}
+    <dataFn.LearningItem
+      type="create"
+      onCreate={e => dataFn.listAppend(e, 'attachments')}
+    />
+  </React.Fragment>
+);
 
-export default {
-  viewThumb: viewIdea,
-  editable: true,
-  zoomable: false,
-  edit: EditIdea,
+export default ({
   name: 'Idea with attachments',
   id: 'li-ideaCompound',
+  ThumbViewer,
+  Editor,
   dataStructure: { title: '', content: '', attachments: [] }
-};
+}: LearningItemTypeT);
