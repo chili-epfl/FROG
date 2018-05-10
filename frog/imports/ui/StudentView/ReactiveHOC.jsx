@@ -22,8 +22,7 @@ const ReactiveHOC = (
   docId: string,
   conn?: any,
   readOnly: boolean = false,
-  collection?: string,
-  meta?: Object
+  collection?: string
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,

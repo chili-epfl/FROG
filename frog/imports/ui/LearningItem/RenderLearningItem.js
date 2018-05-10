@@ -48,7 +48,7 @@ class RenderLearningItem extends React.Component<any, any> {
         {(() => {
           if (
             this.state.open &&
-            type === 'viewThumb' &&
+            type === 'thumbView' &&
             clickZoomable &&
             liType.Viewer
           ) {

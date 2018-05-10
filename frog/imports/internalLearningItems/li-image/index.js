@@ -9,7 +9,7 @@ export default ({
   id: 'li-image',
   Viewer: ({ data }: { data: any }) => <ImageReload src={data.url} />,
   ThumbViewer: ({ data }: { data: any }) => <ImageReload src={data.thumburl} />,
-  Creator: (props: any) => {
-    return <Creator {...props} fileTypes="image/jpeg, image/png" />;
-  }
+  Creator: (props: any) => (
+    <Creator {...props} fileTypes="image/jpeg, image/png" />
+  )
 }: learningItemT);

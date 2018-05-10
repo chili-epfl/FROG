@@ -15,7 +15,7 @@ const LearningItem = (props: LearningItemFnT) => {
   }
   if (
     props.type === 'view' ||
-    props.type === 'viewThumb' ||
+    props.type === 'thumbView' ||
     props.type === 'edit'
   ) {
     const ToRun = ReactiveHOC(
@@ -29,7 +29,7 @@ const LearningItem = (props: LearningItemFnT) => {
         render={props.render}
         type={props.type}
         id={props.id}
-        clickZoomable={props.type === 'viewThumb' && props.clickZoomable}
+        clickZoomable={props.type === 'thumbView' && props.clickZoomable}
       />
     );
   }

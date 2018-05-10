@@ -8,12 +8,6 @@ import { Badge, Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
 import { sortBy } from 'lodash';
 
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
-`;
-
 const ListContainer = styled.div`
   padding: 2%;
   width: 100%;
@@ -125,7 +119,7 @@ const IdeaListRaw = ({
           <div key={x.li}>
             <LearningItem
               type={
-                edit === x.id ? 'edit' : zoom === x.id ? 'view' : 'viewThumb'
+                edit === x.id ? 'edit' : zoom === x.id ? 'view' : 'thumbView'
               }
               render={({ zoomable, editable, children }) => (
                 <Idea
@@ -166,8 +160,7 @@ const ActivityRunner = ({
   logger,
   activityData,
   data,
-  dataFn,
-  stream
+  dataFn
 }: ActivityRunnerPropsT) => {
   const vote = (id, incr) => {
     logger({ type: 'vote', itemId: id, value: incr });

@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { ReactiveText } from 'frog-utils';
 import Form from 'react-jsonschema-form';
 import { withState } from 'recompose';
 import Button from 'material-ui/Button';
-import { type learningItemT } from 'frog-utils';
+import { type learningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (
   <React.Fragment>
     <b>{data.title}</b>
     <br />
     {data.content.split('\n').map((line, i) => (
+      // eslint-disable-next-line react/no-array-index-key
       <React.Fragment key={i}>
         {line}
         <br />
@@ -22,21 +22,11 @@ const Editor = ({ dataFn }) => (
   <div className="bootstrap">
     <b>Title:</b>
     <br />
-    <ReactiveText
-      path="title"
-      dataFn={dataFn}
-      style={{ width: '80%', height: '100%', fontSize: '20px' }}
-    />
-    <br />
+    <ReactiveText path="title" dataFn={dataFn} />
     <br />
     <b>Content:</b>
     <br />
-    <ReactiveText
-      path="content"
-      type="textarea"
-      dataFn={dataFn}
-      style={{ width: '80%', height: '100%', fontSize: '20px' }}
-    />
+    <ReactiveText path="content" type="textarea" dataFn={dataFn} />
   </div>
 );
 

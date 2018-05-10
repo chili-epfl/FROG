@@ -244,7 +244,7 @@ export type LearningItemFnT =
     }
   | { type: 'view', id: string, render?: Function, dataFn: Doc }
   | {
-      type: 'viewThumb',
+      type: 'thumbView',
       id: string,
       render?: Function,
       clickZoomable?: Boolean,
