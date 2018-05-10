@@ -5,7 +5,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
 import AddCircle from '@material-ui/icons/AddCircle';
-import { type learningItemT } from 'frog-utils';
+import { type learningItemT, values } from 'frog-utils';
 
 import { learningItemTypesObj } from './learningItemTypes';
 import LearningItem from './index';
@@ -26,7 +26,7 @@ class LearningItemChooser extends React.Component<
 > {
   state = {
     anchorEl: null,
-    open?: learningItemT
+    open: undefined
   };
 
   handleClick = (event: any) => {
@@ -58,19 +58,16 @@ class LearningItemChooser extends React.Component<
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {Object.keys(learningItemTypesObj).map(x => {
-            const item = learningItemTypesObj[x];
-            return (
-              <MenuItem
-                key={item.id}
-                onClick={() => {
-                  this.setState({ open: item, anchorEl: undefined });
-                }}
-              >
-                {item.name}
-              </MenuItem>
-            );
-          })}
+          {values(learningItemTypesObj).map(item => (
+            <MenuItem
+              key={item.id}
+              onClick={() => {
+                this.setState({ open: item, anchorEl: undefined });
+              }}
+            >
+              {item.name}
+            </MenuItem>
+          ))}
         </Menu>
         {this.state.open && (
           <Dialog

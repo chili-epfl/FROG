@@ -254,18 +254,10 @@ export type LearningItemFnT =
 
 export type learningItemT = {
   name: string,
-  id: string
-} & (
-  | { dataStructure: any, Editor: React.ComponentType<any> }
-  | { Creator: React.ComponentType<any>, Editor?: React.ComponentType<any> }
-) &
-  (
-    | {
-        ThumbViewer: React.ComponentType<any>,
-        Viewer?: React.ComponentType<any>
-      }
-    | {
-        ThumbViewer?: React.ComponentType<any>,
-        Viewer: React.ComponentType<any>
-      }
-  );
+  id: string,
+  dataStructure?: any,
+  Editor?: React.ComponentType<any>,
+  Creator?: React.ComponentType<any>,
+  ThumbViewer?: React.ComponentType<any>,
+  Viewer?: React.ComponentType<any>
+};

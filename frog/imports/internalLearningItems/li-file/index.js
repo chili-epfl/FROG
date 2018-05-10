@@ -4,7 +4,7 @@ import { withState } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
 import download from 'downloadjs';
-// import { type learningItemT } from 'frog-utils';
+import { type learningItemT } from 'frog-utils';
 
 import WebcamInterface from './WebcamInterface';
 import UploadBar from './UploadBar';
@@ -20,7 +20,8 @@ const ImgButton = styled.button`
   padding: 0px;
   flex: 0 1 auto;
 `;
-const Creator = withState('webcamOn', 'setWebcam', false)(props => (
+
+export const Creator = withState('webcamOn', 'setWebcam', false)(props => (
   <React.Fragment>
     <UploadBar {...props} />
     {props.webcamOn && <WebcamInterface {...props} />}
@@ -43,24 +44,6 @@ const ThumbViewer = ({ data }: { data: any }) => (
     </span>
   </ImgButton>
 );
-
-export type learningItemT = {
-  name: string,
-  id: string
-} & (
-  | { dataStructure: any, Editor: React.ComponentType<any> }
-  | { Creator: React.ComponentType<any>, Editor?: React.ComponentType<any> }
-) &
-  (
-    | {
-        ThumbViewer: React.ComponentType<any>,
-        Viewer?: React.ComponentType<any>
-      }
-    | {
-        ThumbViewer?: React.ComponentType<any>,
-        Viewer: React.ComponentType<any>
-      }
-  );
 
 export default ({
   name: 'file',
