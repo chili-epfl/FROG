@@ -10,9 +10,11 @@ const UploadDragDrop = ({
   dataFn,
   fileTypes,
   createLearningItem,
-  onCreate
+  onCreate,
+  setSpinner
 }: Object) => {
   const onDrop = f => {
+    setSpinner(true);
     f.forEach(imageFile =>
       uploadWithTumbnail(
         imageFile,

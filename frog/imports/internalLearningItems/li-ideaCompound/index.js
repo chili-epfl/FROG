@@ -1,5 +1,7 @@
+// @flow
+
 import * as React from 'react';
-import { ReactiveText } from 'frog-utils';
+import { type learningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ dataFn, data }) => (
   <React.Fragment>
@@ -13,17 +15,17 @@ const ThumbViewer = ({ dataFn, data }) => (
       </React.Fragment>
     ))}
     {data.attachments.map(x => (
-      <dataFn.LearningItem key={x} id={x} type="viewThumb" />
+      <dataFn.LearningItem key={x} id={x} type="thumbView" />
     ))}
   </React.Fragment>
 );
 
-const Editor = (data, dataFn) => (
+const Editor = ({ data, dataFn }) => (
   <React.Fragment>
     <div className="bootstrap">
       <b>Title:</b>
       <br />
-      <ReactiveText path="title" dataFn={dataFn} />
+      <ReactiveText type="textinput" path="title" dataFn={dataFn} />
       <br />
       <br />
       <b>Content:</b>
@@ -32,13 +34,15 @@ const Editor = (data, dataFn) => (
     </div>
     {data.attachments.map((x, i) => (
       <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
-        <dataFn.LearningItem id={x} type="viewThumb" />
+        <dataFn.LearningItem id={x} type="thumbView" />
       </span>
     ))}
-    <dataFn.LearningItem
-      type="create"
-      onCreate={e => dataFn.listAppend(e, 'attachments')}
-    />
+    <div style={{ position: 'absolute', right: '0px' }}>
+      <dataFn.LearningItem
+        type="create"
+        onCreate={e => dataFn.listAppend(e, 'attachments')}
+      />
+    </div>
   </React.Fragment>
 );
 
@@ -48,4 +52,4 @@ export default ({
   ThumbViewer,
   Editor,
   dataStructure: { title: '', content: '', attachments: [] }
-}: LearningItemTypeT);
+}: learningItemT);

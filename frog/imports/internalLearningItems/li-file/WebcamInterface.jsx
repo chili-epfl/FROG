@@ -10,7 +10,8 @@ const takePicture = ({
   webcam,
   setWebcam,
   createLearningItem,
-  onCreate
+  onCreate,
+  setSpinner
 }) => {
   const dataURI = webcam.getScreenshot();
   if (!dataURI) {
@@ -35,6 +36,7 @@ const takePicture = ({
   // write the ArrayBuffer to a blob, and you're done
   const blob = new Blob([ab], { type: mimeString });
 
+  setSpinner(true);
   uploadImage(blob, dataFn, 'webcam-upload', createLearningItem, onCreate);
   setWebcam(false);
 };

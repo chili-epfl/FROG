@@ -1,10 +1,10 @@
 // @flow
 import * as React from 'react';
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
-import download from 'downloadjs';
 import { type learningItemT } from 'frog-utils';
+import { CircularProgress } from 'material-ui/Progress';
 
 import WebcamInterface from './WebcamInterface';
 import UploadBar from './UploadBar';
@@ -21,12 +21,20 @@ const ImgButton = styled.button`
   flex: 0 1 auto;
 `;
 
-export const Creator = withState('webcamOn', 'setWebcam', false)(props => (
-  <React.Fragment>
-    <UploadBar {...props} />
-    {props.webcamOn && <WebcamInterface {...props} />}
-  </React.Fragment>
-));
+export const Creator = compose(
+  withState('spinner', 'setSpinner', false),
+  withState('webcamOn', 'setWebcam', false)
+)(
+  props =>
+    props.spinner ? (
+      <CircularProgress />
+    ) : (
+      <React.Fragment>
+        <UploadBar {...props} />
+        {props.webcamOn && <WebcamInterface {...props} />}
+      </React.Fragment>
+    )
+);
 
 Creator.displayName = 'Creator';
 
@@ -48,10 +56,11 @@ const ThumbViewer = ({ data }: { data: any }) => (
 export default ({
   name: 'file',
   id: 'li-file',
-  Viewer: ({ data }: { data: any }) => {
-    download(data.url, data.filename);
-    return <h2>Downloading file {data.filename} </h2>;
-  },
+  Viewer: ({ data }: { data: any }) => (
+    <a href={data.url} download={data.filename}>
+      <h2>Click here to download file {data.filename}</h2>
+    </a>
+  ),
   ThumbViewer,
   Creator
 }: learningItemT);

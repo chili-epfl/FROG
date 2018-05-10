@@ -4,7 +4,6 @@ import * as React from 'react';
 import Dialog from 'material-ui/Dialog';
 import { omit, isEqual } from 'lodash';
 
-import LearningItem from './index';
 import { learningItemTypesObj } from './learningItemTypes';
 
 const mapping = { view: 'Viewer', edit: 'Editor', thumbView: 'ThumbViewer' };
@@ -32,7 +31,10 @@ class RenderLearningItem extends React.Component<any, any> {
         Component = liType.ThumbViewer;
       } else {
         return (
-          <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>
+          <b>
+            Unsupported learning item type {JSON.stringify(data.liType)} or
+            component type {type}
+          </b>
         );
       }
     }
@@ -40,7 +42,6 @@ class RenderLearningItem extends React.Component<any, any> {
       <React.Fragment>
         <span onClick={() => this.setState({ open: true })}>
           <Component
-            LearningItem={LearningItem}
             data={data.payload}
             dataFn={dataFn && dataFn.specialize('payload')}
           />
@@ -69,7 +70,6 @@ class RenderLearningItem extends React.Component<any, any> {
     );
     if (render) {
       return render({
-        meta: { id: dataFn && dataFn.doc.id, ...omit(data, 'payload') },
         dataFn,
         children: Comp,
         editable: liType.Editor,
