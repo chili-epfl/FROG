@@ -55,10 +55,7 @@ const LearningItem = (props: LearningItemFnT) => {
         return (
           <ToRun
             createLearningItem={(liType, item) =>
-              dataFn.createLearningItem(liType, item, {
-                ...(props.meta || {}),
-                ...dataFn.meta
-              })
+              dataFn.createLearningItem(liType, item, dataFn.meta)
             }
             onCreate={onCreate}
             LearningItem={LearningItem}
@@ -94,13 +91,7 @@ const LearningItem = (props: LearningItemFnT) => {
         );
       }
     } else {
-      return (
-        <LearningItemChooser
-          dataFn={props.dataFn}
-          onCreate={onCreate}
-          meta={props.meta}
-        />
-      );
+      return <LearningItemChooser dataFn={props.dataFn} onCreate={onCreate} />;
     }
   }
   return null;
