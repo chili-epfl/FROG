@@ -1,6 +1,6 @@
 // @flow
 
-import { type dataUnitStructT, type ActivityPackageT } from 'frog-utils';
+import { type dataUnitStructT, type ActivityPackageT, uuid } from 'frog-utils';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
@@ -68,16 +68,33 @@ const meta = {
         formBoolean: true
       },
       learningItems,
-      data: ['1', '2', '3', '4']
+      data: [
+        { li: '1' },
+        { li: '2' },
+        { li: '3', tags: ['should', 'not', 'break'] },
+        '4'
+      ]
     }
   ]
 };
 
-const dataStructure = [];
+const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
   if (obj.data && Array.isArray(obj.data)) {
-    obj.data.forEach(box => dataFn.listAppend(box));
+    obj.data.forEach(box => {
+      const id = box.id || uuid();
+      const item = typeof box === 'object' ? box : { li: box };
+      dataFn.objInsert(
+        {
+          students: {},
+          score: 0,
+          id,
+          ...item
+        },
+        id
+      );
+    });
   }
 };
 

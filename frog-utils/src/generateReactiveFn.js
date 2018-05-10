@@ -2,7 +2,7 @@
 import * as React from 'react';
 import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
-import { get } from 'lodash';
+import { get, uuid } from 'lodash';
 
 import { uuid, type LearningItemFnT } from './index';
 

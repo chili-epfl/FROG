@@ -1,21 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { uuid, A } from 'frog-utils';
+import { values, A, type ActivityRunnerT } from 'frog-utils';
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form';
 import FlipMove from '@houshuang/react-flip-move';
-import {
-  Badge,
-  Glyphicon,
-  Button,
-  ListGroup,
-  ListGroupItem
-} from 'react-bootstrap';
+import { Badge, Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
-import { isEmpty } from 'lodash';
-
-import type { ActivityRunnerT } from 'frog-utils';
+import { sortBy } from 'lodash';
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +36,6 @@ const chooseColor = (vote, isUp) => {
 const Idea = ({
   children,
   delFn,
-  dataFn,
   meta,
   vote,
   userInfo,
@@ -57,7 +47,7 @@ const Idea = ({
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
-        <A onClick={() => vote(-1, meta, dataFn)}>
+        <A onClick={() => vote(meta.id, -1)}>
           <Glyphicon
             style={{
               color: chooseColor(meta.students[userInfo.id], false),
@@ -66,7 +56,7 @@ const Idea = ({
             glyph="thumbs-down"
           />
         </A>
-        <A onClick={() => vote(1, meta, dataFn)}>
+        <A onClick={() => vote(meta.id, 1)}>
           <Glyphicon
             style={{
               color: chooseColor(meta.students[userInfo.id], true),
@@ -81,7 +71,7 @@ const Idea = ({
     {children}
     <div style={{ position: 'relative', top: '-15px' }}>
       <font size={4}>
-        <A onClick={() => delFn(meta.id)}>
+        <A onClick={() => delFn(meta)}>
           <Glyphicon
             glyph="scissors"
             style={{
@@ -131,15 +121,19 @@ const IdeaListRaw = ({
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {data.map(x => (
-          <div key={x}>
+        {sortBy(values(data), x => -x.score).map(x => (
+          <div key={x.li}>
             <LearningItem
-              type={edit === x ? 'edit' : zoom === x ? 'view' : 'viewThumb'}
-              render={props => (
+              type={
+                edit === x.id ? 'edit' : zoom === x.id ? 'view' : 'viewThumb'
+              }
+              render={({ zoomable, editable, children }) => (
                 <Idea
-                  {...props}
+                  zoomable={zoomable}
+                  editable={editable}
+                  meta={x}
                   vote={vote}
-                  delFn={e => dataFn.listDel(e, data.findIndex(y => y === e))}
+                  delFn={item => dataFn.objDel(item, item.id)}
                   editFn={e => {
                     setZoom(false);
                     setEdit(edit === e ? false : e);
@@ -149,10 +143,11 @@ const IdeaListRaw = ({
                     setZoom(zoom === e ? false : e);
                   }}
                   userInfo={userInfo}
-                />
+                >
+                  {children}
+                </Idea>
               )}
-              key={x}
-              id={x}
+              id={x.li}
             />
           </div>
         ))}
@@ -166,20 +161,6 @@ const IdeaList = compose(
   withState('zoom', 'setZoom', undefined)
 )(IdeaListRaw);
 
-const schema = {
-  type: 'object',
-  properties: {
-    title: {
-      type: 'string',
-      title: 'Idea'
-    },
-    content: {
-      type: 'string',
-      title: 'Text'
-    }
-  }
-};
-
 const ActivityRunner = ({
   userInfo,
   logger,
@@ -188,49 +169,30 @@ const ActivityRunner = ({
   dataFn,
   stream
 }: ActivityRunnerT) => {
-  const onSubmit = e => {
-    if (e.formData && e.formData.title && e.formData.content) {
-      const id = uuid();
-      logger({
-        type: 'idea',
-        itemId: id,
-        value: e.formData.title + '\n' + e.formData.content
-      });
-      dataFn.listAppendLI(
-        'li-idea',
-        {
-          title: e.formData.title,
-          content: e.formData.content
-        },
-        { score: 0, students: {} }
-      );
-    }
-  };
-
-  const vote = (incr, specdata, specdataFn) => {
-    logger({ type: 'vote', itemId: specdata.id, value: incr });
-    switch (specdata.students[userInfo.id]) {
+  const vote = (id, incr) => {
+    logger({ type: 'vote', itemId: id, value: incr });
+    switch (data[id].students[userInfo.id]) {
       case -1:
         if (incr < 0) {
-          specdataFn.objInsert(0, ['students', userInfo.id]);
-          specdataFn.numIncr(1, ['score']);
+          dataFn.objInsert(0, [id, 'students', userInfo.id]);
+          dataFn.numIncr(1, [id, 'score']);
         } else {
-          specdataFn.objInsert(1, ['students', userInfo.id]);
-          specdataFn.numIncr(2, ['score']);
+          dataFn.objInsert(1, [id, 'students', userInfo.id]);
+          dataFn.numIncr(2, [id, 'score']);
         }
         break;
       case 1:
         if (incr < 0) {
-          specdataFn.objInsert(-1, ['students', userInfo.id]);
-          specdataFn.numIncr(-2, ['score']);
+          dataFn.objInsert(-1, [id, 'students', userInfo.id]);
+          dataFn.numIncr(-2, [id, 'score']);
         } else {
-          specdataFn.objInsert(0, ['students', userInfo.id]);
-          specdataFn.numIncr(-1, ['score']);
+          dataFn.objInsert(0, [id, 'students', userInfo.id]);
+          dataFn.numIncr(-1, [id, 'score']);
         }
         break;
       default:
-        specdataFn.objInsert(incr, ['students', userInfo.id]);
-        specdataFn.numIncr(incr, ['score']);
+        dataFn.objInsert(incr, [id, 'students', userInfo.id]);
+        dataFn.numIncr(incr, [id, 'score']);
     }
   };
 
@@ -239,18 +201,16 @@ const ActivityRunner = ({
   return (
     <React.Fragment>
       <div className="bootstrap" style={{ width: '80%' }}>
-        <Container>
-          <ListContainer>
-            <p>{activityData.config.text}</p>
-            <IdeaList
-              data={data}
-              vote={vote}
-              dataFn={dataFn}
-              userInfo={userInfo}
-              LearningItem={LearningItem}
-            />
-          </ListContainer>
-        </Container>
+        <ListContainer>
+          <p>{activityData.config.text}</p>
+          <IdeaList
+            data={data}
+            vote={vote}
+            dataFn={dataFn}
+            userInfo={userInfo}
+            LearningItem={LearningItem}
+          />
+        </ListContainer>
       </div>
       {formBoolean && (
         <React.Fragment>
@@ -260,19 +220,13 @@ const ActivityRunner = ({
                 liType="li-idea"
                 type="create"
                 meta={{ score: 0, students: {} }}
-                onCreate={e => {
-                  dataFn.listAppend(e);
-                  stream(e);
-                }}
+                autoInsert
               />
             </div>
             <LearningItem
               type="create"
               meta={{ score: 0, students: {} }}
-              onCreate={e => {
-                dataFn.listAppend(e);
-                stream(e);
-              }}
+              autoInsert
             />
           </div>
         </React.Fragment>
@@ -280,31 +234,5 @@ const ActivityRunner = ({
     </React.Fragment>
   );
 };
-
-const AddIdea = ({ onSubmit }) => (
-  <div>
-    <hr
-      style={{
-        boxShadow: 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)',
-        height: '12px'
-      }}
-    />
-    <div style={{ width: '500px' }}>
-      <Form {...{ schema, onSubmit }}>
-        <div
-          style={{
-            layout: 'flex',
-            flexDirection: 'row',
-            width: '100%'
-          }}
-        >
-          <Button style={{ marginRight: '20px' }} type="submit" id="addButton">
-            Add idea
-          </Button>
-        </div>
-      </Form>
-    </div>
-  </div>
-);
 
 export default ActivityRunner;

@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { type LearningItemFnT } from 'frog-utils';
+import { type LearningItemFnT, uuid } from 'frog-utils';
 import Button from 'material-ui/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -34,6 +34,19 @@ const LearningItem = (props: LearningItemFnT) => {
     );
   }
   if (props.type === 'create') {
+    let onCreate;
+    if (props.autoInsert) {
+      onCreate = li => {
+        const id = uuid();
+        props.dataFn.objInsert({ li, id, ...(props.meta || {}) }, id);
+        if (typeof props.onCreate === 'function') {
+          props.onCreate(li);
+        }
+      };
+    }
+    if (!onCreate) {
+      onCreate = props.onCreate || (_ => {});
+    }
     if (props.liType) {
       const liT = learningItemTypesObj[props.liType];
       if (liT.create) {
@@ -47,7 +60,7 @@ const LearningItem = (props: LearningItemFnT) => {
                 ...dataFn.meta
               })
             }
-            onCreate={props.onCreate}
+            onCreate={onCreate}
             LearningItem={LearningItem}
           />
         );
@@ -56,7 +69,7 @@ const LearningItem = (props: LearningItemFnT) => {
           ...props.meta,
           draft: true
         });
-        const onCreate = props.onCreate;
+        const onCreateFlow = onCreate;
         return (
           <LearningItem
             id={lid}
@@ -67,13 +80,12 @@ const LearningItem = (props: LearningItemFnT) => {
               <div style={{ marginLeft: '10px' }}>
                 {children}
                 <Button
+                  variant="raised"
                   color="primary"
                   onClick={() => {
                     childDataFn.objInsert(false, 'draft');
                     childDataFn.objInsert(new Date(), 'createdAt');
-                    if (onCreate) {
-                      onCreate(lid);
-                    }
+                    onCreateFlow(lid);
                   }}
                 >
                   Add
@@ -87,7 +99,7 @@ const LearningItem = (props: LearningItemFnT) => {
       return (
         <LearningItemChooser
           dataFn={props.dataFn}
-          onCreate={props.onCreate}
+          onCreate={onCreate}
           meta={props.meta}
         />
       );

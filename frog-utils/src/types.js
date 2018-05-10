@@ -238,7 +238,9 @@ export type LearningItemFnT =
       meta?: Object,
       liType?: string,
       dataFn: Doc,
-      onCreate?: string => void
+      onCreate?: Function,
+      autoInsert?: Boolean,
+      meta?: Object
     }
   | { type: 'view', id: string, render?: Function, dataFn: Doc }
   | {
