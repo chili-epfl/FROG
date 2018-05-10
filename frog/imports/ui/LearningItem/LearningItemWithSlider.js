@@ -83,6 +83,7 @@ class LearningItemWithSlider extends React.Component<
           type="view"
           id={this.props.id}
           render={this.props.render}
+          dataFn={this.props.dataFn}
           data={this.state.revisions[this.state.currentRev]}
         />
       </div>

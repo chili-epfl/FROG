@@ -10,25 +10,19 @@ const learningItems = [
     id: '1',
     liType: 'li-idea',
     payload: { title: 'Hi', content: 'Hello' },
-    createdAt: '2018-05-10T12:02:07.525Z',
-    students: {},
-    score: 0
+    createdAt: '2018-05-10T12:02:07.525Z'
   },
   {
     id: '2',
     liType: 'li-idea',
     payload: { title: 'Uber', content: 'AirBnB for taxis' },
-    createdAt: '2018-05-10T12:02:07.525Z',
-    students: {},
-    score: 4
+    createdAt: '2018-05-10T12:02:07.525Z'
   },
   {
     id: '3',
     liType: 'li-idea',
     payload: { title: 'Amazon Alexa', content: 'AskJeeves for speech' },
-    createdAt: '2018-05-10T12:02:07.525Z',
-    students: {},
-    score: 5
+    createdAt: '2018-05-10T12:02:07.525Z'
   },
   {
     id: '4',
@@ -37,9 +31,7 @@ const learningItems = [
       url: 'https://i.imgur.com/pfZAxeTb.jpg',
       thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
     },
-    createdAt: '2018-05-10T12:05:08.700Z',
-    score: 10,
-    students: {}
+    createdAt: '2018-05-10T12:05:08.700Z'
   }
 ];
 
