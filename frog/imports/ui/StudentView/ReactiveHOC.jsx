@@ -22,7 +22,8 @@ const ReactiveHOC = (
   docId: string,
   conn?: any,
   readOnly: boolean = false,
-  collection?: string
+  collection?: string,
+  meta?: Object
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
@@ -80,7 +81,7 @@ const ReactiveHOC = (
             dataFn: generateReactiveFn(
               this.doc,
               LearningItem,
-              undefined,
+              meta,
               readOnly,
               this.update
             )

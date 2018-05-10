@@ -66,7 +66,6 @@ const LearningItem = (props: LearningItemFnT) => {
         );
       } else {
         const lid = props.dataFn.createLearningItem(liT.id, liT.dataStructure, {
-          ...props.meta,
           draft: true
         });
         const onCreateFlow = onCreate;
@@ -75,7 +74,6 @@ const LearningItem = (props: LearningItemFnT) => {
             id={lid}
             type="edit"
             dataFn={props.dataFn}
-            meta={props.meta}
             render={({ dataFn: childDataFn, children }) => (
               <div style={{ marginLeft: '10px' }}>
                 {children}
