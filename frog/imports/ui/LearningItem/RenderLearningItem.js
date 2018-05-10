@@ -73,7 +73,8 @@ class RenderLearningItem extends React.Component<any, any> {
         dataFn,
         children: Comp,
         editable: liType.Editor,
-        zoomable: liType.Viewer
+        zoomable: liType.Viewer,
+        liType: liType.id
       });
     } else {
       return Comp;

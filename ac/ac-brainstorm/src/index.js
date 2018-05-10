@@ -5,6 +5,24 @@ import { type dataUnitStructT, type ActivityPackageT, uuid } from 'frog-utils';
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
 
+const a = {
+  ckdfisjf988898: {
+    id: 'ckdfisjf988898',
+    liType: 'li-idea',
+    payload: { title: 'Hi', content: 'Hello' },
+    createdAt: '2018-05-10T12:02:07.525Z',
+    students: {},
+    score: 0
+  },
+  lskffd049034094: {
+    id: 'lskffd049034094',
+    liType: 'li-idea',
+    payload: { title: 'Uber', content: 'AirBnB for taxis' },
+    createdAt: '2018-05-10T12:02:07.525Z',
+    students: {},
+    score: 4
+  }
+};
 const learningItems = [
   {
     id: '1',

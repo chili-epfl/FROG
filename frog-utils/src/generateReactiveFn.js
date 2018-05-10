@@ -43,12 +43,12 @@ export class Doc {
     this.LearningItemFn = LearningItem;
   }
 
-  createLearningItem(liType: string, item?: Object, meta?: Object): string {
+  createLearningItem(liType: string, payload?: Object, meta?: Object): string {
     const id = uuid();
     const itempointer = this.doc.connection.get('li', id);
     itempointer.create({
       liType,
-      payload: item,
+      payload,
       createdAt: new Date(),
       ...meta,
       ...this.meta
