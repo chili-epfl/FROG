@@ -5,11 +5,9 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
 import AddCircle from '@material-ui/icons/AddCircle';
+import { type learningItemTypeT } from 'frog-utils';
 
-import {
-  learningItemTypesObj,
-  type learningItemTypeT
-} from './learningItemTypes';
+import { learningItemTypesObj } from './learningItemTypes';
 import LearningItem from './index';
 
 const styles = theme => ({
@@ -28,7 +26,7 @@ class LearningItemChooser extends React.Component<
 > {
   state = {
     anchorEl: null,
-    open: undefined
+    open?: learningItemTypeT
   };
 
   handleClick = (event: any) => {

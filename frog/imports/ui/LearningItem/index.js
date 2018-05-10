@@ -49,8 +49,8 @@ const LearningItem = (props: LearningItemFnT) => {
     }
     if (props.liType) {
       const liT = learningItemTypesObj[props.liType];
-      if (liT.create) {
-        const ToRun = liT.create;
+      if (liT.Creator) {
+        const ToRun = liT.Creator;
         const dataFn = props.dataFn;
         return (
           <ToRun

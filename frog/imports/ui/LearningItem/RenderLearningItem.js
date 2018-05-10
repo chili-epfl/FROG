@@ -7,6 +7,7 @@ import { omit, isEqual } from 'lodash';
 import LearningItem from './index';
 import { learningItemTypesObj } from './learningItemTypes';
 
+const mapping = { view: 'Viewer', edit: 'Editor', thumbView: 'ThumbViewer' };
 class RenderLearningItem extends React.Component<any, any> {
   state = { open: false };
 
@@ -25,10 +26,10 @@ class RenderLearningItem extends React.Component<any, any> {
     if (!liType) {
       return <h1>Upz</h1>;
     }
-    let Component = liType[type];
+    let Component = liType[mapping[type]];
     if (!Component) {
-      if (type === 'view' && liType.viewThumb) {
-        Component = liType.viewThumb;
+      if (type === 'view' && liType.ThumbViewer) {
+        Component = liType.ThumbViewer;
       } else {
         return (
           <b>Unsupported learning item type {JSON.stringify(data.liType)}</b>
@@ -49,9 +50,9 @@ class RenderLearningItem extends React.Component<any, any> {
             this.state.open &&
             type === 'viewThumb' &&
             clickZoomable &&
-            liType['view']
+            liType.Viewer
           ) {
-            const View = liType['view'];
+            const View = liType.Viewer;
 
             return (
               <Dialog open onClose={() => this.setState({ open: false })}>
@@ -71,8 +72,8 @@ class RenderLearningItem extends React.Component<any, any> {
         meta: { id: dataFn && dataFn.doc.id, ...omit(data, 'payload') },
         dataFn,
         children: Comp,
-        editable: liType.editable,
-        zoomable: liType.zoomable
+        editable: liType.Editor,
+        zoomable: liType.Viewer
       });
     } else {
       return Comp;

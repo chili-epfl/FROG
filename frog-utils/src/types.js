@@ -252,7 +252,7 @@ export type LearningItemFnT =
     }
   | { type: 'edit', id: string, dataFn: Doc, render?: Function };
 
-type learningItemTypeT = {
+export type learningItemTypeT = {
   name: string,
   id: string
 } & (
@@ -261,13 +261,11 @@ type learningItemTypeT = {
 ) &
   (
     | {
-        ThumbViewer: React.ComponentType<any>
-      }
-    | {
-        Viewer: React.ComponentType<any>
-      }
-    | {
         ThumbViewer: React.ComponentType<any>,
+        Viewer?: React.ComponentType<any>
+      }
+    | {
+        ThumbViewer?: React.ComponentType<any>,
         Viewer: React.ComponentType<any>
       }
   );

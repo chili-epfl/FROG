@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { values, A, type ActivityRunnerT } from 'frog-utils';
+import { values, A, type ActivityRunnerPropsT } from 'frog-utils';
 import styled from 'styled-components';
 import FlipMove from '@houshuang/react-flip-move';
 import { Badge, Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
@@ -168,7 +168,7 @@ const ActivityRunner = ({
   data,
   dataFn,
   stream
-}: ActivityRunnerT) => {
+}: ActivityRunnerPropsT) => {
   const vote = (id, incr) => {
     logger({ type: 'vote', itemId: id, value: incr });
     switch (data[id].students[userInfo.id]) {

@@ -4,7 +4,7 @@ import { withState } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
 import download from 'downloadjs';
-import { type learningItemTypeT } from 'frog-utils';
+// import { type learningItemTypeT } from 'frog-utils';
 
 import WebcamInterface from './WebcamInterface';
 import UploadBar from './UploadBar';
@@ -43,6 +43,24 @@ const ThumbViewer = ({ data }: { data: any }) => (
     </span>
   </ImgButton>
 );
+
+export type learningItemTypeT = {
+  name: string,
+  id: string
+} & (
+  | { dataStructure: any, Editor: React.ComponentType<any> }
+  | { Creator: React.ComponentType<any>, Editor?: React.ComponentType<any> }
+) &
+  (
+    | {
+        ThumbViewer: React.ComponentType<any>,
+        Viewer?: React.ComponentType<any>
+      }
+    | {
+        ThumbViewer?: React.ComponentType<any>,
+        Viewer: React.ComponentType<any>
+      }
+  );
 
 export default ({
   name: 'file',
