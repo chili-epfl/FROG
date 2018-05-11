@@ -135,13 +135,7 @@ const ContentController = ({
   );
 
   return (
-    <div
-      className="modal-body"
-      style={{
-        overflow: 'auto',
-        height: '85%'
-      }}
-    >
+    <div style={{ height: '100%' }}>
       {showDashExample ? (
         <ShowDashExample
           example={example}
