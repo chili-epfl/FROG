@@ -4,8 +4,6 @@ import * as React from 'react';
 
 import { compose, toClass } from 'recompose';
 
-import { withStyles } from 'material-ui/styles';
-
 import {
   MosaicWithoutDragDropContext,
   MosaicWindow
@@ -25,12 +23,6 @@ import { activityTypesObj } from '../../activityTypes';
 import { connection } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
-
-const styles = {
-  root: {
-    height: '100%'
-  }
-};
 
 const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
 
