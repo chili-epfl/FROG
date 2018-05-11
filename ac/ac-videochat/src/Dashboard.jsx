@@ -106,30 +106,28 @@ const Viewer = ({ state }: Object) => {
 };
 
 const mergeLog = (state, log) => {
-  if (log.type === 'activityDidMount') {
-    // set id(name) and start time of a group
-    // this will be set up once for each group
-    if (!state[log.instanceId]) {
-      state[log.instanceId] = {
-        id: log.instanceId,
-        timeStart: log.timestamp.getTime() / 1000,
-        participants: {}
-      };
-    }
+  // set id(name) and start time of a group
+  // this will be set up once for each group
+  if (!state[log.instanceId]) {
+    state[log.instanceId] = {
+      id: log.instanceId,
+      timeStart: new Date(log.timestamp).getTime() / 1000,
+      participants: {}
+    };
+  }
 
-    // each user will make activityDidMount message
-    // creates new user
-    if (!state[log.instanceId].participants[log.userId]) {
-      state[log.instanceId].participants[log.userId] = {
-        id: log.userId,
-        timeRanges: []
-      };
-    }
+  // each user will make activityDidMount message
+  // creates new user
+  if (!state[log.instanceId].participants[log.userId]) {
+    state[log.instanceId].participants[log.userId] = {
+      id: log.userId,
+      timeRanges: []
+    };
   }
 
   if (log.type === 'videochat') {
     const startTime = state[log.instanceId].timeStart;
-    const currentTime = log.timestamp.getTime() / 1000;
+    const currentTime = new Date(log.timestamp).getTime() / 1000;
     const relativeTime = currentTime - startTime;
 
     if (!state[log.instanceId].participants[log.userId].name) {

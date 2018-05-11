@@ -1,3 +1,4 @@
+/* eslint-disable */
 (function(e) {
   if (typeof bootstrap === 'function') bootstrap('hark', e);
   else if (typeof exports === 'object') module.exports = e();

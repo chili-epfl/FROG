@@ -1,3 +1,4 @@
+/* eslint-disable */
 const extractVersion = (uastring, expr, pos) => {
   const match = uastring.match(expr);
   return match && match.length >= pos && parseInt(match[pos], 10);

@@ -4,11 +4,9 @@ import React, { Component } from 'react';
 import type { ActivityRunnerPropsT } from 'frog-utils';
 import 'webrtc-adapter';
 
-import { isUndefined, isEqual, without, difference, last } from 'lodash';
 import WebRtcConfig from '../webrtc-config/config';
 import BrowserUtils from '../utils/browser';
 import { onStreamAdded } from '../analytics/AVStreamAnalysis';
-import { preferOpus } from '../utils/codec';
 
 import Header from './Header';
 import VideoLayout from './VideoLayout';
@@ -22,8 +20,6 @@ export const isBrowser = (() => {
 })();
 
 export const Participant = isBrowser ? require('./participant.js') : () => null;
-
-export const hark = isBrowser ? require('../lib/hark.bundle.js') : () => null;
 
 /**
  * State consists of local and remote
