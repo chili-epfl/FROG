@@ -3,44 +3,33 @@
 import React from 'react';
 import { range } from 'lodash';
 import { VictoryChart, VictoryTheme, VictoryAxis, VictoryBar } from 'victory';
-import { type LogDbT, type DashboardT } from 'frog-utils';
+import { type DashboardT, values, type LogDbT } from 'frog-utils';
 
-type LogT = {
-  instanceId: string,
-  timestamp: Date,
-  userId: string,
-  type: string,
-  payload: {
-    name: string,
-    id: string,
-    speaking: boolean
-  }
-};
-
-type StateT = Map<string, GroupT>;
+type StateT = { [group: string]: GroupT };
 
 type GroupT = {
-  id: string,
+  id?: string,
   timeStart: number,
-  participants: Map<string, ParticipantT>,
-  tickValues: Array<number>,
-  tickFormat: Array<string>,
-  data: Array<{
+  participants: { [id: string]: ParticipantT },
+  tickValues?: number[],
+  tickFormat?: string[],
+  data: {
     x: number,
     y: number,
     y0: number
-  }>
+  }[]
 };
 
 type ParticipantT = {
   id: string,
+  index: number,
   name: string,
   timeRanges: Array<TimeRangeT>
 };
 
 type TimeRangeT = {
   start: number,
-  end: number
+  end: number | null
 };
 
 const styles = {
@@ -63,7 +52,7 @@ const prepareData = (group: GroupT) => {
   group.tickValues = range(0, Object.keys(group.participants).length + 2);
   const tickFormat = [''];
   let counter = 1;
-  Object.values(group.participants).forEach((participant: ParticipantT) => {
+  values(group.participants).forEach((participant: ParticipantT) => {
     participant.index = counter;
     tickFormat.push(participant.name);
     counter += 1;
@@ -74,13 +63,13 @@ const prepareData = (group: GroupT) => {
   group.tickFormat = tickFormat;
 
   const data = [];
-  Object.values(group.participants).forEach((participant: ParticipantT) => {
-    participant.timeRanges.forEach((range: TimeRangeT) => {
-      if (range.end != null) {
+  values(group.participants).forEach((participant: ParticipantT) => {
+    participant.timeRanges.forEach((prange: TimeRangeT) => {
+      if (prange.end != null) {
         data.push({
           x: participant.index,
-          y: range.end,
-          y0: range.start
+          y: prange.end,
+          y0: prange.start
         });
       }
     });
@@ -88,13 +77,13 @@ const prepareData = (group: GroupT) => {
   group.data = data;
 };
 
-const Viewer = (state: Map<string, GroupT>) => {
+const Viewer = ({ state }) => {
   // set up data for display in chart
-  Object.values(state).forEach((group: GroupT) => prepareData(group));
+  values((state: any)).forEach((group: any) => prepareData(group));
 
   return (
     <React.Fragment>
-      {Object.values(state).map((group: GroupT, index: number) => (
+      {values((state: any)).map((group: any) => (
         <div style={styles.divStyle} key={group.id}>
           <VictoryChart theme={VictoryTheme.material}>
             <VictoryAxis label="Time (sec)" style={styles.axisStyle} />
@@ -112,9 +101,12 @@ const Viewer = (state: Map<string, GroupT>) => {
   );
 };
 
-const mergeLog = (state: StateT, log: LogT) => {
+const mergeLog = (state: StateT, log: LogDbT) => {
   // set id(name) and start time of a group
   // this will be set up once for each group
+  if (!log.instanceId) {
+    return;
+  }
   if (!state[log.instanceId]) {
     state[log.instanceId] = {
       id: log.instanceId,
@@ -131,17 +123,19 @@ const mergeLog = (state: StateT, log: LogT) => {
     state[log.instanceId].participants[log.userId] = {
       id: log.userId,
       name: '',
-      timeRanges: []
+      timeRanges: [],
+      index: 0
     };
   }
-  if (log.type === 'videochat') {
+  const payload = log.payload;
+  if (log.type === 'videochat' && payload) {
     const startTime = state[log.instanceId].timeStart;
     const currentTime = new Date(log.timestamp).getTime() / 1000;
     const relativeTime = currentTime - startTime;
     if (!state[log.instanceId].participants[log.userId].name) {
-      state[log.instanceId].participants[log.userId].name = log.payload.name;
+      state[log.instanceId].participants[log.userId].name = payload.name;
     }
-    if (log.payload.speaking) {
+    if (payload.speaking) {
       const timeRanges =
         state[log.instanceId].participants[log.userId].timeRanges;
       if (timeRanges.length > 0) {
