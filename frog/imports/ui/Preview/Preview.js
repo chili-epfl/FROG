@@ -26,6 +26,10 @@ const styles = {
     marginLeft: '10px',
     width: '70%'
   },
+  noModalPreviewContent: {
+    overflow: 'auto',
+    height: 'calc(100% - 100px)'
+  },
   fullWindow: {
     zIndex: 1101,
     position: 'absolute',
@@ -111,9 +115,7 @@ const StatelessPreview = (props: Object) => {
       <ConfigPanel {...props} />
       <div className={classes.noModal}>
         <Controls {...props} />
-        <div style={{ overflow: 'auto', height: 'calc(100% - 100px)' }}>
-          {PreviewContent}
-        </div>
+        <div className={classes.noModalPreviewContent}>{PreviewContent}</div>
         <ReactTooltip delayShow={1000} place="right" />
       </div>
     </div>
