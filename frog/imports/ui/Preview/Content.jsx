@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { compose, toClass } from 'recompose';
+import { uniq } from 'lodash';
 
 import {
   MosaicWithoutDragDropContext,
@@ -33,7 +34,7 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
-  instances.forEach(instance => {
+  uniq(instances).forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {

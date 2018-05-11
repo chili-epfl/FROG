@@ -191,7 +191,6 @@ export default (props: Object) => {
                 const exConf = ex.config;
                 setConfig(exConf);
                 setReloadAPIform(uuid());
-                initActivityDocuments(instances, activityType, i, exConf, true);
                 initDashboardDocuments(activityType, true);
                 setExample(i);
               }}
