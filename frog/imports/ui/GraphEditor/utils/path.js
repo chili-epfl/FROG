@@ -18,11 +18,9 @@ export const drawPath = ({
 }) => {
   // parameters for the curviness of the connections
   const q = 50;
-  // parameter for the over bug (mouse can be over the connection while it is also over the activity, so onleave tiggers wrongly)
-  const o = 5;
 
   if (dragging) {
-    return ['M', source.X, source.Y, 'L', target.X - o, target.Y].join(' ');
+    return ['M', source.X, source.Y, 'L', target.X, target.Y].join(' ');
   }
 
   return ['M', source.X, source.Y, 'C']

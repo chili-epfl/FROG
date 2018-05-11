@@ -30,7 +30,13 @@ class ConfigPanel extends React.Component<*, *> {
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
       this.props.setConfig(e.config);
-      initActivityDocuments(this.props.instances, aT, -1, e.config, true);
+      initActivityDocuments(
+        this.props.instances,
+        aT,
+        this.props.example,
+        e.config,
+        true
+      );
       initDashboardDocuments(aT, true);
     } else {
       this.props.setConfig({ ...e.config, invalid: true });

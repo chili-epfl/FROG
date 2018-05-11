@@ -33,6 +33,16 @@ export default class OperatorStore {
         }
       }),
 
+      addOperator: action(() => {
+        if (store.state.mode === 'placingOperator') {
+          this.all.push(
+            new Operator(...store.ui.socialCoordsTime, store.state.operatorType)
+          );
+          store.state = { mode: 'normal' };
+          store.addHistory();
+        }
+      }),
+
       get mongoObservers(): {
         added: Function,
         changed: Function,
