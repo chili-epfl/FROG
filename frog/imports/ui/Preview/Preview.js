@@ -7,6 +7,8 @@ import ShareDB from 'sharedb';
 import Draggable from 'react-draggable';
 
 import { withStyles } from 'material-ui/styles';
+import Dialog from 'material-ui/Dialog';
+import Slide from 'material-ui/transitions/Slide';
 
 import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
@@ -30,15 +32,8 @@ const styles = {
     overflow: 'auto',
     height: 'calc(100% - 100px)'
   },
-  fullWindow: {
-    zIndex: 1101,
-    position: 'absolute',
-    background: '#fafafa',
-    height: '100vh',
-    width: '100vw'
-  },
   fullWindowControl: {
-    zIndex: 1102,
+    zIndex: '99',
     border: '1px solid',
     width: '500px',
     position: 'fixed',
@@ -99,15 +94,15 @@ const StatelessPreview = (props: Object) => {
     );
 
   const FullWindowP = (
-    <div>
-      <div className={classes.fullWindow}>{PreviewContent}</div>
+    <Dialog open={fullWindow} fullScreen>
+      {PreviewContent}
       <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
         <div className={classes.fullWindowControl}>
           <Controls {...props} />
         </div>
       </Draggable>
       <ReactTooltip delayShow={1000} place="right" />
-    </div>
+    </Dialog>
   );
 
   const NoModalP = (
