@@ -10,8 +10,11 @@ const mapping = { view: 'Viewer', edit: 'Editor', thumbView: 'ThumbViewer' };
 class RenderLearningItem extends React.Component<any, any> {
   state = { open: false };
 
-  shouldComponentUpdate(nextProps: any) {
-    if (!isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn'))) {
+  shouldComponentUpdate(nextProps: Object, nextState: Object) {
+    if (
+      !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn')) ||
+      nextState.open !== this.state.open
+    ) {
       return true;
     } else {
       return false;
@@ -20,7 +23,6 @@ class RenderLearningItem extends React.Component<any, any> {
 
   render() {
     const { data, dataFn, render, type = 'view', clickZoomable } = this.props;
-
     const liType = learningItemTypesObj[data.liType];
     if (!liType) {
       return <h1>Upz</h1>;
