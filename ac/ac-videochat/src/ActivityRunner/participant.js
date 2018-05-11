@@ -81,7 +81,7 @@ class Participant {
     this.createPeer(this.mode, options);
   };
 
-  processAnswer = function(answerSdp) {
+  processAnswer = answerSdp => {
     const answer = new RTCSessionDescription({
       type: 'answer',
       sdp: answerSdp
@@ -89,7 +89,7 @@ class Participant {
     this.rtcPeer.setRemoteDescription(answer);
   };
 
-  onRemoteCandidate = function(candidate) {
+  onRemoteCandidate = candidate => {
     this.rtcPeer.addIceCandidate(new RTCIceCandidate(candidate));
   };
 
@@ -104,31 +104,31 @@ class Participant {
     }
   };
 
-  toogleAudio = function(sendAudio) {
+  toogleAudio = () => {
     const audioTracks = this.rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
     audioTracks.enabled = !audioTracks.enabled;
   };
 
-  toogleVideo = function(sendVideo) {
+  toogleVideo = () => {
     const videoTrack = this.rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
     videoTrack.enabled = !videoTrack.enabled;
   };
 
-  isAudioEnabled = function() {
+  isAudioEnabled = () => {
     const audioTracks = this.rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
     return audioTracks.enabled;
   };
 
-  isVideoEnabled = function() {
+  isVideoEnabled = () => {
     const videoTrack = this.rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
     return videoTrack.enabled;
   };
 
-  dispose = function() {
+  dispose = () => {
     this.disposeRtcPeer();
   };
 
-  disposeRtcPeer = function() {
+  disposeRtcPeer = () => {
     this.rtcPeer.close();
     this.rtcPeer = null;
   };

@@ -14,7 +14,7 @@ type OptionsT = {
   logger: Function
 };
 
-export const onStreamAdded = (stream: MediaStream, options) => {
+export const onStreamAdded = (stream: MediaStream, options: OptionsT) => {
   const speechEvents = hark(stream);
 
   speechEvents.on('speaking', () => {
