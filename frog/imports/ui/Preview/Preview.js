@@ -29,7 +29,7 @@ const styles = {
   fullWindow: {
     zIndex: 1101,
     position: 'absolute',
-    background: 'white',
+    background: '#fafafa',
     height: '100vh',
     width: '100vw'
   },
