@@ -23,7 +23,7 @@ const styles = {
   },
   noModal: {
     flex: '0 0 auto',
-    marginLeft: '10px',
+    paddingLeft: '10px',
     width: '70%'
   },
   noModalPreviewContent: {
