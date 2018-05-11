@@ -5,11 +5,9 @@ import React, { Component } from 'react';
 import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import List from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 import Search from '@material-ui/icons/Search';
-import Cloud from '@material-ui/icons/Cloud';
 
 import type { operatorPackageT, OperatorDbT } from 'frog-utils';
 import { Operators } from '/imports/api/activities';
@@ -28,7 +26,7 @@ const styles = {
   topPanel: {
     padding: '10px'
   },
-  activityList: {
+  operatorList: {
     height: 'calc(100vh - 112px - 100px)',
     overflowY: 'auto'
   },
@@ -54,13 +52,6 @@ const styles = {
     whiteSpace: 'normal',
     verticalAlign: 'middle',
     fontSize: '1rem'
-  },
-  centerButton: {
-    textAlign: 'center'
-  },
-  cloudIcon: {
-    marginRight: '8px',
-    fontSize: 20
   },
   resultContainer: {
     height: '100%'
@@ -88,21 +79,17 @@ const ChooseOperatorTopPanel = ({ classes, onSearch }) => (
       <Typography variant="title">Select Operator type</Typography>
     </Grid>
     <Grid item xs={12}>
-      <Grid container justify="center">
-        <Grid item xs={8}>
-          <div className={classes.searchContainer}>
-            <div className={classes.searchIcon}>
-              <Search />
-            </div>
-            <input
-              type="text"
-              onChange={onSearch}
-              className={classes.searchInput}
-              aria-describedby="basic-addon1"
-            />
-          </div>
-        </Grid>
-      </Grid>
+      <div className={classes.searchContainer}>
+        <div className={classes.searchIcon}>
+          <Search />
+        </div>
+        <input
+          type="text"
+          onChange={onSearch}
+          className={classes.searchInput}
+          aria-describedby="search-operator"
+        />
+      </div>
     </Grid>
     <Grid item xs={12}>
       <Divider />
@@ -161,7 +148,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
           <StyledChooseOperatorTopPanel onSearch={this.handleSearch} />
         </Grid>
 
-        <Grid item xs={12} className={classes.activityList}>
+        <Grid item xs={12} className={classes.operatorList}>
           {filteredList.length === 0 ? (
             <StyledNoResult />
           ) : (
