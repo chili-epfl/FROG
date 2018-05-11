@@ -8,7 +8,6 @@ import acStroop from 'ac-stroop';
 import { keyBy } from 'lodash';
 import { type ActivityPackageT, flattenOne } from 'frog-utils';
 
-import acWebrtc from 'ac-webrtc';
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';
@@ -37,7 +36,6 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acDual,
   acTimedQuiz,
   acStroop,
-  acWebrtc,
   acTextarea,
   acAutocode,
   acDisplaySocial,
