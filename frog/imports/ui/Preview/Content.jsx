@@ -73,7 +73,6 @@ export const initActivityDocuments = (
 };
 
 const ContentController = ({
-  classes,
   showDashExample,
   plane,
   instances,
@@ -144,7 +143,7 @@ const ContentController = ({
   );
 
   return (
-    <div className={classes.root}>
+    <div style={{ height: '100%' }}>
       {showDashExample ? (
         <ShowDashExample
           example={example}
@@ -194,8 +193,6 @@ const ContentController = ({
   );
 };
 
-const Content = compose(withDragDropContext, toClass, withStyles(styles))(
-  ContentController
-);
+const Content = compose(withDragDropContext, toClass)(ContentController);
 
 export default Content;
