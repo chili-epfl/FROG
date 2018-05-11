@@ -53,7 +53,7 @@ export default class Activity extends Elem {
         store.addHistory();
       }),
 
-      move: action(() => {
+      move: action(shiftkey => {
         if (store.state.mode === 'readOnly') {
           return;
         }
@@ -66,8 +66,20 @@ export default class Activity extends Elem {
           };
           this.wasMoved = true;
         }
+        if (shiftkey && !store.state.activitiesToPush) {
+          store.state = {
+            ...store.state,
+            activitiesToPush: store.activityStore.all.filter(
+              x => x.startTime >= this.startTime && x.id !== this.id
+            ),
+            operatorsToPush: store.operatorStore.all.filter(
+              x => x.time >= this.startTime
+            )
+          };
+        }
 
         const _state = store.state;
+        const oldTime = this.startTime;
         const newTime = Math.round(
           store.ui.socialCoordsTime[0] - _state.mouseOffset
         );
@@ -77,6 +89,12 @@ export default class Activity extends Elem {
             store.graphDuration - this.length,
             newTime
           );
+
+          const diff = newTime - oldTime;
+          if (diff !== 0 && store.state.activitiesToPush) {
+            store.state.activitiesToPush.forEach(x => x.push(diff));
+            store.state.operatorsToPush.forEach(x => x.push(diff));
+          }
         } else {
           this.startTime = between(
             this.bounds.leftBoundTime,
@@ -105,19 +123,53 @@ export default class Activity extends Elem {
         }
       }),
 
-      resize: action(() => {
+      push: action(diff => {
+        this.startTime = between(
+          0,
+          store.graphDuration - this.length,
+          this.startTime + diff
+        );
+      }),
+
+      setStart: action(x => {
+        this.startTime = x;
+      }),
+
+      setLength: action(x => {
+        this.length = x;
+      }),
+
+      resize: action(shiftkey => {
         const _state = store.state;
         if (_state.mode === 'resizing') {
+          if (shiftkey && !store.state.activitiesToPush) {
+            store.state = {
+              ...store.state,
+              activitiesToPush: store.activityStore.all.filter(
+                x => x.startTime > this.startTime && x.id !== this.id
+              ),
+              operatorsToPush: store.operatorStore.all.filter(
+                x => x.time >= this.startTime
+              )
+            };
+          }
           const newTime = Math.round(store.ui.socialCoordsTime[0]);
           const max = store.overlapAllowed
             ? store.graphDuration
             : _state.bounds.rightBoundTime;
+          const oldLength = this.length;
           this.length = between(
             1,
             max - this.startTime,
             newTime - this.startTime
           );
+          const diff = this.length - oldLength;
+          if (diff !== 0 && store.state.activitiesToPush) {
+            store.state.activitiesToPush.forEach(x => x.push(diff));
+            store.state.operatorsToPush.forEach(x => x.push(diff));
+          }
         }
+        store.activityStore.emptySizes();
       }),
 
       onLeave: action(() => {
@@ -195,8 +247,10 @@ export default class Activity extends Elem {
       },
 
       get dragPointFromScaled(): AnchorT {
+        // + 15 on Y because the activity box is 30px high
+        // - 10 on X to be on top of the activity connection dot
         return {
-          X: this.xScaled + this.widthScaled - 15,
+          X: this.xScaled + this.widthScaled - 10,
           Y: this.y + 15,
           dX: 50,
           dY: 0

@@ -33,7 +33,7 @@ const Viewer = ({ state }: { state: Object }) => {
   );
 };
 
-const mergeLog = (state: any, rawlog: LogDBT) => {
+const mergeLog = (state: any, rawlog: LogDbT) => {
   if (!rawlog.payload) {
     return null;
   }

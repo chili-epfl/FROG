@@ -1,7 +1,7 @@
 // @flow
 
 import { chunk } from 'lodash';
-import type { socialOperatorT } from 'frog-utils';
+import type { socialOperatorT, socialStructureT } from 'frog-utils';
 
 const meta = {
   name: 'Argue',
@@ -13,18 +13,26 @@ const config = {};
 
 const optim = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 
-const operator = (configData, object) => {
+const testInput = instances => {
+  if (instances.find(i => typeof i !== 'string')) {
+    throw 'instances should all be strings';
+  }
+  return true;
+};
+
+const operator = (configData, object): socialStructureT => {
   const {
     activityData: { payload }
   } = object;
   const { instances, distanceMatrix } = payload.all.data;
+  testInput(instances);
 
-  const result = { group: { '1': [] } };
+  const groups = { '1': [] };
 
   const last = instances.length % 2 ? instances.pop() : null;
 
-  if (instances.length === 0) {
-    result.group['1'] = [last];
+  if (last && instances.length === 0) {
+    groups['1'] = [last];
   } else {
     const tmp = chunk([...instances.keys()], 2);
 
@@ -70,7 +78,10 @@ const operator = (configData, object) => {
 
     for (let i = 0; i < tmp.length; i = 1 + i) {
       tmp[i].sort((a, b) => a - b);
-      result.group[(i + 1).toString()] = tmp[i].map(x => instances[x] || last);
+      const pair = tmp[i].map(x => instances[x] || last);
+      if (Array.isArray(pair)) {
+        groups['' + (i + 1)] = pair;
+      }
     }
   }
 
@@ -78,10 +89,10 @@ const operator = (configData, object) => {
     id => !instances.includes(id) && id !== last
   );
   chunk(unmatchedStudents, 2).forEach((pair, idx) => {
-    result.group['unmatched' + (idx + 1)] = pair;
+    groups['unmatched' + (idx + 1)] = pair;
   });
 
-  return result;
+  return { group: groups };
 };
 
 export default ({

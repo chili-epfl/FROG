@@ -43,55 +43,36 @@ const Transition = props => <Slide direction="up" {...props} />;
 
 class SettingsModal extends React.Component {
   state = {
-    open: false
-  };
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
+    settings: this.props.session.settings
   };
 
   render() {
-    const { classes } = this.props;
+    const { onClose, classes } = this.props;
     return (
-      <div>
-        <Button onClick={this.handleClickOpen} className={classes.controlBtn}>
-          Configure Settings
-        </Button>
-        <Dialog
-          fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}
-          transition={Transition}
-        >
-          <AppBar className={classes.appBar}>
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                onClick={this.handleClose}
-                aria-label="Close"
-              >
-                <CloseIcon />
-              </IconButton>
-              <Typography
-                variant="title"
-                color="inherit"
-                className={classes.flex}
-              >
-                Configure Settings
-              </Typography>
-              <Button color="inherit" onClick={this.handleClose}>
-                save
-              </Button>
-            </Toolbar>
-          </AppBar>
-          <List>
+      <Dialog open onClose={onClose} transition={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton color="inherit" onClick={onClose} aria-label="Close">
+              <CloseIcon />
+            </IconButton>
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.flex}
+            >
+              Configure Settings
+            </Typography>
+            <Button color="inherit" onClick={onClose}>
+              save
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <List>
+          <div className="bootstrap">
             <EnhancedForm
-              formData={this.props.session.settings}
+              formData={this.state.settings}
               onChange={({ formData: f }) => {
+                this.setState({ settings: f });
                 this.formData = f;
                 updateSession(f, this.props.session);
               }}
@@ -152,13 +133,11 @@ class SettingsModal extends React.Component {
                 }
               }}
             >
-              <button className="btn btn-default" type="submit">
-                Save
-              </button>
+              &nbsp;
             </EnhancedForm>
-          </List>
-        </Dialog>
-      </div>
+          </div>
+        </List>
+      </Dialog>
     );
   }
 }

@@ -46,6 +46,7 @@ export const RenameField = connect(
         <TextInput
           value={renameOpen.title}
           onChange={renameOpen.rename}
+          onFocus={e => e.target.select()}
           onCancel={onSubmit}
           onSubmit={onSubmit}
         />

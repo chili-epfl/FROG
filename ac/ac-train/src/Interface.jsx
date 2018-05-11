@@ -2,22 +2,22 @@
 import React from 'react';
 
 // UI
-import { isEqual } from 'lodash';
+import { isEqual, omit } from 'lodash';
 
-import { Form, Command, DragDrop, Graphical } from './Interfaces';
-import Validation from './Validation';
+import { Form, Command, DragDrop, MapInterface } from './Interfaces';
+import TicketStatus from './TicketStatus';
 import { getCommandForTicket, generateTicket } from './ActivityUtils';
 
 const RunActivity = props => {
-  switch (props.activity) {
+  switch (props.whichInterface) {
     case 'command':
       return <Command {...props} />;
     case 'form':
       return <Form {...props} />;
     case 'dragdrop':
       return <DragDrop {...props} />;
-    case 'graphical':
-      return <Graphical {...props} />;
+    case 'map':
+      return <MapInterface {...props} />;
     default:
       return <h1>Hello World</h1>;
   }
@@ -27,15 +27,15 @@ class Interface extends React.Component {
   constructor(props) {
     super(props);
     this.instanceCount = 0;
-    this.timeOfEachInstanceInSec =
-      this.props.activityData.config.timeOfEachInstance / 1000;
+    this.timeOfEachIteration =
+      this.props.activityData.config.timeOfEachIteration / 1000;
 
     this.initialState = {
       question: generateTicket(),
       isCorrect: false,
       start: Date.now(),
-      secondsRemaining: this.timeOfEachInstanceInSec,
-      interval: false,
+      secondsRemaining: this.timeOfEachIteration,
+      showticketStatus: false,
       help: false
     };
 
@@ -52,12 +52,12 @@ class Interface extends React.Component {
   };
 
   handleHelpOpen = () => {
-    const { logger, activity } = this.props;
+    const { logger, whichInterface } = this.props;
 
     logger([
       {
         type: 'help',
-        payload: { activity }
+        payload: { whichInterface }
       }
     ]);
 
@@ -75,36 +75,44 @@ class Interface extends React.Component {
       this.checkAnswer(undefined);
     }, this.state.secondsRemaining * 1000);
 
-    this.interval = setInterval(this.tick, 1000);
+    this.timerOnIteration = setInterval(this.ticker, 1000);
   };
 
   stopTimer = () => {
     clearTimeout(this.noAnswerTimeOut);
-    clearInterval(this.interval);
+    clearInterval(this.timerOnIteration);
   };
 
-  tick = () => {
+  ticker = () => {
     this.setState({ secondsRemaining: this.state.secondsRemaining - 1 });
     if (this.state.secondsRemaining <= 0) {
       this.stopTimer();
     }
   };
 
-  nextInstance = () => {
-    const { dataFn, logger } = this.props;
-    dataFn.numIncr(1, 'instance');
+  nextIteration = () => {
     const {
-      data: { instance }
+      dataFn,
+      logger,
+      activityData: {
+        config: { iterationPerInterface }
+      }
+    } = this.props;
+
+    dataFn.numIncr(1, 'iteration');
+
+    const {
+      data: { iteration }
     } = this.props;
 
     logger([
       {
         type: 'progress',
-        value: (instance + 1) / 20
+        value: iteration / (4 * iterationPerInterface)
       }
     ]);
 
-    if (instance % 5 === 0) {
+    if (iteration % iterationPerInterface === 0) {
       dataFn.numIncr(1, 'step');
       dataFn.objInsert(true, 'guidelines');
     } else {
@@ -113,30 +121,41 @@ class Interface extends React.Component {
   };
 
   checkAnswer = answer => {
-    const {
-      logger,
-      activity,
-      data: { instance }
-    } = this.props;
+    const { dataFn, logger, whichInterface, data } = this.props;
 
+    const { iteration } = data;
     const { question, start } = this.state;
-    const isCorrect = isEqual(question, answer);
+
+    const answerWOText = omit(answer, 'text');
+    const text = (answer && answer.text) || '';
+
+    const isCorrect = isEqual(question, answerWOText);
 
     const timeTaken = Date.now() - start;
+
+    const value = [data.score + (isCorrect ? 1 : 0), -(data.time + timeTaken)];
+
     logger([
       {
         type: 'answer',
         payload: {
-          activity,
-          instance,
+          whichInterface,
+          iteration,
+          question,
+          answer,
           isCorrect,
-          timeTaken
+          timeTaken,
+          text
         }
-      }
+      },
+      { type: 'score', value }
     ]);
 
+    dataFn.numIncr(isCorrect ? 1 : 0, 'score');
+    dataFn.numIncr(timeTaken, 'time');
+
     this.stopTimer();
-    this.setState({ interval: true, isCorrect });
+    this.setState({ showticketStatus: true, isCorrect });
   };
 
   componentWillMount() {
@@ -155,24 +174,24 @@ class Interface extends React.Component {
     const {
       question,
       isCorrect,
-      interval,
+      showticketStatus,
       help,
       secondsRemaining
     } = this.state;
 
     const {
-      activity,
+      whichInterface,
       activityData: {
-        config: { intervalTime }
+        config: { ticketStatusDisplayTime }
       }
     } = this.props;
 
-    if (interval) {
+    if (showticketStatus) {
       return (
-        <Validation
-          nextInstance={this.nextInstance}
+        <TicketStatus
+          nextIteration={this.nextIteration}
           isCorrect={isCorrect}
-          time={intervalTime}
+          timeToDisplay={ticketStatusDisplayTime}
         />
       );
     }
@@ -180,7 +199,7 @@ class Interface extends React.Component {
     return (
       <React.Fragment>
         <RunActivity
-          activity={activity}
+          whichInterface={whichInterface}
           ticket={getCommandForTicket(question)}
           submit={this.checkAnswer}
           help={help}

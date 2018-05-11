@@ -7,12 +7,14 @@ import { defaultConfig } from 'frog-utils';
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
 import { getUserId } from './Controls';
+import ErrorWrapper from './ErrorWrapper';
 
 export const addDefaultExample = (activityType: Object) => [
   {
     title: 'Default config',
     data: undefined,
-    config: defaultConfig(activityType)
+    config: defaultConfig(activityType),
+    type: undefined
   },
   ...(activityType.meta.exampleData || [])
 ];
@@ -104,4 +106,8 @@ class PreviewPage extends React.Component<any, any> {
 
 PreviewPage.displayName = 'PreviewPage';
 
-export default PreviewPage;
+export default (props: any) => (
+  <ErrorWrapper>
+    <PreviewPage {...props} />
+  </ErrorWrapper>
+);

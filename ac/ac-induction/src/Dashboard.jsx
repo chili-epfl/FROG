@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { type LogDBT } from 'frog-utils';
+import { type LogDbT } from 'frog-utils';
 
 import { ListComponent } from './DashboardComponents';
 
@@ -33,7 +33,7 @@ const Viewer = ({ instances, data, config }: Object) => {
   );
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (data: any, dataFn: Object, log: LogDbT) => {
   switch (log.type) {
     case actionTypes[0]:
       dataFn.objInsert(

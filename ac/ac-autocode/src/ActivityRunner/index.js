@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import Header from './Header';
 import Editor from './Editor';
@@ -15,7 +15,7 @@ const Main = styled.div`
   overflow: auto;
 `;
 
-export default class ActivityRunner extends React.Component<ActivityRunnerT> {
+class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   runCode: Function;
   handleError: Function;
 
@@ -44,3 +44,5 @@ export default class ActivityRunner extends React.Component<ActivityRunnerT> {
     );
   }
 }
+
+export default ActivityRunner;

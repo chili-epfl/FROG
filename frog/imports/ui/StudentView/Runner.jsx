@@ -69,6 +69,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
 
   const Torun = (
     <RunActivity
+      key={reactiveId}
       activityTypeId={activity.activityType}
       reactiveId={reactiveId}
       logger={logger}
@@ -118,21 +119,12 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
   constructor(props: PropsT) {
     super();
-    const { reactiveId, activityData, activityTypeId, readOnly } = props;
+    const { reactiveId, activityTypeId, readOnly } = props;
     const activityType = activityTypesObj[activityTypeId];
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activityType.id;
-    const formatProduct = activityType.formatProduct;
-    const transform = formatProduct
-      ? x => formatProduct((activityData && activityData.config) || {}, x)
-      : x => x;
 
-    this.ActivityToRun = ReactiveHOC(
-      reactiveId,
-      undefined,
-      transform,
-      readOnly
-    )(RunComp);
+    this.ActivityToRun = ReactiveHOC(reactiveId, undefined, readOnly)(RunComp);
   }
 
   componentDidMount() {
@@ -143,6 +135,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
     const Activity = this.ActivityToRun;
     return (
       <Activity
+        key={this.props.reactiveId}
         activityData={this.props.activityData}
         userInfo={{
           name: this.props.username,

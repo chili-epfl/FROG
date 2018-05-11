@@ -37,7 +37,7 @@ export const meta = {
       config: {
         quadrants: false,
         image: true,
-        imageurl: 'https://i.imgur.com/FzCbRU9.png'
+        imageurl: '/file?name=ac/ac-ck-board/researchCycle.png'
       },
       data: [
         { title: 'Box 1', content: 'Contents of box 1' },

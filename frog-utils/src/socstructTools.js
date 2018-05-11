@@ -1,4 +1,5 @@
 // @flow
+
 import { forIn, get, setWith } from 'lodash';
 import type { socialStructureT, studentStructureT } from './types';
 

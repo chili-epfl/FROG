@@ -2,8 +2,9 @@
 
 import * as React from 'react';
 
-import type { ActivityPackageT, ActivityRunnerT } from 'frog-utils';
+import type { ActivityPackageT, ActivityRunnerPropsT } from 'frog-utils';
 import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
+import ConfigComponent from './config.js';
 
 export const meta = {
   name: 'Dashboard activity',
@@ -12,13 +13,13 @@ export const meta = {
     'Show a dashboard from a previous activity. This is often useful for debriefing'
 };
 
-const ActivityRunner = (props: ActivityRunnerT) => {
+const ActivityRunner = (props: ActivityRunnerPropsT) => {
   const {
     sessionId,
     activityData: { config }
   } = props;
-  const activityId = config.activityId;
-  const names = config.names === 'all' ? null : config.names.split(',');
+  const activityId = config.component.activity;
+  const names = config.component.dashboards;
   return (
     <DashboardSubscriptionWrapper
       activityId={activityId}
@@ -32,20 +33,7 @@ export default ({
   id: 'ac-dash',
   type: 'react-component',
   ActivityRunner,
-  config: {
-    type: 'object',
-    required: ['activityId'],
-    properties: {
-      activityId: {
-        type: 'activity',
-        title: 'Applies to which activity'
-      },
-      names: {
-        type: 'string',
-        title: 'Choose which dashboard to show (comma separated names)',
-        default: 'all'
-      }
-    }
-  },
+  config: {},
+  ConfigComponent,
   meta
 }: ActivityPackageT);

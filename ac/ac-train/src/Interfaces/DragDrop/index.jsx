@@ -120,12 +120,12 @@ class DragDropController extends React.Component<PropsT, StateT> {
   handleSubmit = () => {
     const { dropBins } = this.state;
 
-    const answerMake = zipObject(
+    const answer = zipObject(
       map(dropBins, key => key.id),
       map(dropBins, value => value.lastDroppedItem)
     );
 
-    this.props.submit(answerMake);
+    this.props.submit(answer);
   };
 
   handleDrop = (index, answer) => {

@@ -4,7 +4,7 @@ import { LibraryStates } from './cache';
 
 const RemoteServer =
   Meteor.settings.public.remoteServer ||
-  'http://icchilisrv4.epfl.ch:5000/activities';
+  'https://icchilisrv4.epfl.ch:5500/activities';
 
 export const removeActivity = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {
@@ -61,11 +61,12 @@ export const sendActivity = (state: Object, props: Object) => {
   });
 };
 
-export const importAct = (id, activityId, callback) => {
+export const importAct = (id, activityId, callback, onSelect) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
       addActivity(e[0].activity_type, e[0].config, activityId, null, id);
+      if (onSelect) onSelect({ id: e[0] });
       if (callback) {
         callback();
       }

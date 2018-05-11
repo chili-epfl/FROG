@@ -8,24 +8,36 @@ import {
   OrchestrationButtonsModel
 } from './utils/buttonUtils.js';
 
-import styles from './styles';
+const styles = {
+  textRight: {
+    textAlign: 'right'
+  },
+  textLeft: {
+    textAlign: 'left'
+  },
+  list: {
+    listStyle: 'none'
+  }
+};
 
 const OrchestrationCtrlButtons = ({ session, classes }) => {
   const buttonsModel = OrchestrationButtonsModel(session, classes);
 
   return (
-    <Grid container justify="space-between">
-      <Grid item>
-        <ControlButton btnModel={buttonsModel.start} classes={classes} />
+    <Grid container>
+      <Grid item xs={6} className={classes.textRight}>
+        <ControlButton
+          btnModel={
+            session.timeInGraph === -1 ? buttonsModel.start : buttonsModel.next
+          }
+        />
       </Grid>
-      <Grid item>
-        <ControlButton btnModel={buttonsModel.stop} classes={classes} />
-        <ControlButton btnModel={buttonsModel.continue} classes={classes} />
-        <ControlButton btnModel={buttonsModel.pause} classes={classes} />
-        <ControlButton btnModel={buttonsModel.next} classes={classes} />
-      </Grid>
-      <Grid item>
-        <ControlButton btnModel={buttonsModel.restart} classes={classes} />
+      <Grid item xs={6} className={classes.textLeft}>
+        <ul className={classes.list}>
+          {(session.nextActivities || []).map(x => (
+            <li key={x.activityId}>{x.description}</li>
+          ))}
+        </ul>
       </Grid>
     </Grid>
   );

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Mousetrap from 'mousetrap';
 import { Button } from 'react-bootstrap';
 
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import { styles, texts, CountDownTimer } from './ActivityUtils';
 
@@ -189,7 +189,7 @@ const FIGURES = {
 };
 
 export default class Symmetry extends React.Component<
-  ActivityRunnerT,
+  ActivityRunnerPropsT,
   { figure: Object }
 > {
   onClick = (answer: ?boolean) => {
@@ -218,7 +218,7 @@ export default class Symmetry extends React.Component<
     this.setState({ figure: { ...FIGURES[this.difficulty], symmetrical } });
   };
 
-  constructor(props: ActivityRunnerT) {
+  constructor(props: ActivityRunnerPropsT) {
     super(props);
     const symmetrical = Math.random() < 0.5;
     const { step } = this.props.data;

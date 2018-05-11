@@ -1,0 +1,9 @@
+{
+  "sendLogsToExternalDashboardServer": true,
+  "public": {
+    "sharedburl": "ws://localhost:4000",
+    "dashboard_server_url": "ws://localhost:5000"
+  },
+  "sharedb_dburl": "mongodb://127.0.0.1:27017",
+  "sharedb_redis": "localhost:6379"
+}

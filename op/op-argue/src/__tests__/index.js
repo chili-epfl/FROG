@@ -1,10 +1,12 @@
 // @flow
 
+import { type ObjectT, type GlobalStructureT } from 'frog-utils';
+
 import pkg from '../index';
 
 const operator = pkg.operator;
 
-const wrap = (instances, distanceMatrix) => ({
+const wrap = (instances, distanceMatrix): ObjectT & GlobalStructureT => ({
   activityData: {
     structure: 'all',
     payload: {
@@ -12,11 +14,13 @@ const wrap = (instances, distanceMatrix) => ({
         data: {
           instances,
           distanceMatrix
-        }
+        },
+        config: {}
       }
     }
   },
-  globalStructure: { studentIds: [] }
+  socialStructure: {},
+  globalStructure: { studentIds: [], students: {} }
 });
 
 const test1 = wrap(

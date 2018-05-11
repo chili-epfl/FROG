@@ -5,7 +5,6 @@ import Pause from '@material-ui/icons/Pause';
 import SkipNext from '@material-ui/icons/SkipNext';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Refresh from '@material-ui/icons/Refresh';
-import PowerSettingNew from '@material-ui/icons/PowerSettingsNew';
 import blue from 'material-ui/colors/blue';
 import red from 'material-ui/colors/red';
 import green from 'material-ui/colors/green';
@@ -15,25 +14,38 @@ import Tooltip from 'material-ui/Tooltip';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { updateSessionState, restartSession } from '../../../api/sessions';
 import downloadLog from './downloadLog';
-import { runSession, nextActivity } from '../../../api/engine';
+import { nextActivity } from '../../../api/engine';
 import { exportSession } from './exportComponent';
+
+let lastNext = null;
+
+const throttledNext = sessionId => {
+  if (lastNext && new Date() - lastNext < 10000) {
+    // eslint-disable-next-line no-alert
+    const response = window.confirm(
+      'You very recently pressed next activity. Do you want to advance once more?'
+    );
+    if (!response) {
+      return;
+    }
+  }
+  lastNext = new Date();
+  nextActivity(sessionId);
+};
 
 export const OrchestrationButtonsModel = (session, classes) => ({
   start: {
     tooltip: {
       id: 'tooltip-top',
-      title: 'Star the current session',
+      title: 'Start the current session',
       placement: 'top'
     },
     button: {
-      color: blue[700],
-      onClick: () => {
-        runSession(session._id);
-        nextActivity(session._id);
-      },
+      color: green[700],
+      onClick: () => throttledNext(session._id),
       variant: 'raised'
     },
-    icon: <PowerSettingNew className={classes.icon} />
+    icon: <PlayArrow className={classes.icon} />
   },
   stop: {
     tooltip: {
@@ -84,7 +96,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: blue[700],
-      onClick: () => nextActivity(session._id),
+      onClick: () => throttledNext(session._id),
       variant: 'raised'
     },
     icon: <SkipNext className={classes.icon} />
@@ -97,14 +109,22 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: red[700],
-      onClick: () => restartSession(session),
+      onClick: () => {
+        lastNext = null;
+        restartSession(session);
+      },
       variant: 'raised'
     },
     icon: <Refresh className={classes.icon} />
   }
 });
 
-export const SessionUtilsButtonsModel = (session, toggle, token) => ({
+export const SessionUtilsButtonsModel = (
+  session,
+  toggle,
+  token,
+  openSettings
+) => ({
   current: {
     tooltip: {
       id: 'tooltip-top',
@@ -123,6 +143,19 @@ export const SessionUtilsButtonsModel = (session, toggle, token) => ({
     button: {
       onClick: () => exportSession(session._id),
       text: 'Export Session'
+    }
+  },
+  settings: {
+    button: {
+      onClick: openSettings,
+      text: 'Session Settings'
+    }
+  },
+  restart: {
+    button: {
+      onClick: () => restartSession(session),
+      text: 'Restart Session',
+      color: red[700]
     }
   },
   download: {
@@ -144,13 +177,13 @@ export const SessionUtilsButtonsModel = (session, toggle, token) => ({
   }
 });
 
-const ToolTipComponent = ({ tooltip, children }) => (
+export const ToolTipComponent = ({ tooltip, children }) => (
   <Tooltip id={tooltip.id} title={tooltip.title} placement={tooltip.placement}>
     {children}
   </Tooltip>
 );
 
-export const ControlButton = ({ btnModel, classes }) => {
+export const ControlButton = ({ btnModel }) => {
   const { tooltip, button, icon } = btnModel;
 
   return (
@@ -158,8 +191,10 @@ export const ControlButton = ({ btnModel, classes }) => {
       <Button
         variant={button.variant || 'flat'}
         color={button.themeColor || 'default'}
-        className={classes.controlBtn}
-        style={{ backgroundColor: button.color }}
+        style={{
+          backgroundColor: button.color,
+          color: 'white'
+        }}
         onClick={button.onClick}
       >
         {icon}

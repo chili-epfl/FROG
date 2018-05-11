@@ -1,4 +1,4 @@
-import { isEqual, sortBy } from 'lodash';
+import { isEmpty, isEqual, sortBy } from 'lodash';
 import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
@@ -28,12 +28,20 @@ export type BoundsT = {
 };
 
 export type StateT =
-  | { mode: 'resizing', currentActivity: Activity, bounds: BoundsT }
+  | {
+      mode: 'resizing',
+      currentActivity: Activity,
+      bounds: BoundsT,
+      activitiesToPush?: Activity[],
+      operatorsToPush?: Operator[]
+    }
   | {
       mode: 'moving',
       currentActivity: Activity,
       mouseOffset: number,
-      initialStartTime: number
+      initialStartTime: number,
+      activitiesToPush?: Activity[],
+      operatorsToPush?: Operator[]
     }
   | { mode: 'waitingDrag' }
   | { mode: 'movingOperator', currentOperator: Operator }
@@ -57,6 +65,7 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
 export default class Store {
   browserHistory: any;
   url: string;
+  history: any[];
 
   constructor() {
     extendObservable(this, {
@@ -67,7 +76,6 @@ export default class Store {
       session: new Session(),
       ui: new UI(),
       graphId: '',
-      history: [],
       graphErrors: [],
       valid: undefined,
       _graphDuration: 120,
@@ -113,10 +121,10 @@ export default class Store {
         this.overlapAllowed = !this.overlapAllowed;
       }),
 
-      deleteSelected: action(() => {
+      deleteSelected: action(shift => {
         if (this.state.mode === 'normal') {
           if (this.ui.selected) {
-            this.ui.selected.remove();
+            this.ui.selected.remove(shift);
           }
           this.ui.selected = null;
         }
@@ -209,6 +217,7 @@ export default class Store {
           mergeGraph(this.objects);
         }
         this.refreshValidate();
+        this.activityStore.setOrganizeNextState('compress');
       }),
 
       refreshValidate: action(() => {
@@ -243,13 +252,15 @@ export default class Store {
         });
       }),
 
-      get canUndo(): boolean {
-        return Boolean(this.history.length > 0);
-      },
-
       undo: action(() => {
-        const [connections, activities, operators] =
-          this.history.length > 1 ? this.history.pop() : this.history[0];
+        const last = this.history.slice(this.history.length - 2);
+        if (this.history.length > 1) {
+          this.history.pop();
+        }
+        if (isEmpty(last)) {
+          return;
+        }
+        const [connections, activities, operators] = last[0];
         this.activityStore.all = activities.map(
           x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
         );

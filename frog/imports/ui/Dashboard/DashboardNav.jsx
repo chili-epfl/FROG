@@ -20,14 +20,14 @@ const styles = theme => ({
     width: '100%'
   },
   appFrame: {
-    height: '50vh',
+    height: '80vh',
     position: 'relative',
     display: 'flex',
     width: '100%'
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    height: '50vh',
+    height: '80vh',
     position: 'relative',
     width: drawerWidth,
     backgroundColor: theme.palette.background.default
@@ -90,17 +90,18 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
     <div className={classes.root}>
       <div className={classes.appFrame}>
         <ActivityChoiceMenu
-          activities={acWithDash}
+          activities={[{ title: 'Blank screen', _id: 'blank' }, ...acWithDash]}
           setActivityId={setActivityId}
           activityId={aId}
         />
         <main className={classes.content}>
-          {activityToDash && (
-            <DashboardReactiveWrapper
-              sessionId={session._id}
-              activity={activityToDash}
-            />
-          )}
+          {activityToDash &&
+            (activityToDash === 'blank' ? null : (
+              <DashboardReactiveWrapper
+                sessionId={session._id}
+                activity={activityToDash}
+              />
+            ))}
         </main>
       </div>
     </div>

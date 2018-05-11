@@ -38,17 +38,9 @@ class AppClass extends Component<$FlowFixMeProps> {
   }
 
   render() {
-    const styles = {
-      sheet: {
-        padding: 0,
-        maxHeight: '100%',
-        overflow: 'auto'
-      }
-    };
-
     return (
       <Provider store={store}>
-        <div style={styles.sheet} id="graph">
+        <div id="graph" style={{ height: '100%', overflow: 'hidden' }}>
           <EditorContainer />
         </div>
       </Provider>
@@ -68,12 +60,15 @@ const bindKeys = () => {
       store.ui.unselect();
     }
   });
-  Mousetrap.bind('backspace', store.deleteSelected);
+  Mousetrap.bind('backspace', () => store.deleteSelected(false));
+  Mousetrap.bind('shift+backspace', () => store.deleteSelected(true));
   Mousetrap.bind('?', () => store.ui.setModal(true));
   Mousetrap.bind('s', () => store.operatorStore.place('social'));
   Mousetrap.bind('+', () => store.activityStore.duplicateActivity());
   Mousetrap.bind('c', () => store.operatorStore.place('control'));
   Mousetrap.bind('p', () => store.operatorStore.place('product'));
+  Mousetrap.bind('z', store.activityStore.organize);
+  Mousetrap.bind('r', store.activityStore.resize);
   Mousetrap.bind('w', e => {
     store.ui.toggleSidepanelOpen();
     e.preventDefault();

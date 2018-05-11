@@ -64,6 +64,10 @@ export default class Operator extends Elem {
         this.wasMoved = true;
       }),
 
+      push: action((diff: number) => {
+        this.time += diff;
+      }),
+
       stopDragging: action(() => {
         if (store.state.mode === 'movingOperator') {
           store.state = { mode: 'normal' };
@@ -113,40 +117,36 @@ export default class Operator extends Elem {
       },
 
       get dragPointTo(): AnchorT {
-        // operator has size of 60, finding midpoint
         return {
-          X: this.x + 25,
-          Y: this.y + 25,
+          X: this.x,
+          Y: this.y,
           dX: -150,
           dY: 0
         };
       },
 
       get dragPointToScaled(): AnchorT {
-        // operator has size of 60, finding midpoint
         return {
-          X: this.xScaled + 25,
-          Y: this.y + 25,
+          X: this.xScaled,
+          Y: this.y,
           dX: -150,
           dY: 0
         };
       },
 
       get dragPointFrom(): AnchorT {
-        // operator has size of 60, finding midpoint
         return {
-          X: this.x + 25,
-          Y: this.y + 25,
+          X: this.x,
+          Y: this.y,
           dX: 150,
           dY: 0
         };
       },
 
       get dragPointFromScaled(): AnchorT {
-        // operator has size of 60, finding midpoint
         return {
-          X: this.xScaled + 25,
-          Y: this.y + 25,
+          X: this.xScaled,
+          Y: this.y,
           dX: 150,
           dY: 0
         };

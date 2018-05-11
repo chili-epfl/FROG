@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import StudentList from './StudentList';
 import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
@@ -14,11 +13,10 @@ import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
 
 const TeacherView = props => (
-  <div>
+  <React.Fragment>
     <OrchestrationView {...props} />
-    {props.students && <StudentList students={props.students} />}
-    <SessionList {...props} />
-  </div>
+    {!props.session && <SessionList {...props} />}
+  </React.Fragment>
 );
 
 const TeacherViewRunner = withTracker(() => {

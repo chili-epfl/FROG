@@ -8,6 +8,7 @@ import { yellow, red, lightGreen } from 'material-ui/colors';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
+import { compact } from 'lodash';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import {
@@ -20,7 +21,7 @@ import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';
 import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
-import Modal from '../../RemoteControllers/ModalExport';
+import ExportButton from './ExportButton';
 import { SelectAttributeWidget } from '../FormUtils';
 import ConfigForm from '../ConfigForm';
 
@@ -91,6 +92,19 @@ const RawEditActivity = ({
   const outgoingConnections = props.store.connectionStore.all.filter(
     conn => conn.source.id === activity._id
   );
+  const incomingConnections = props.store.connectionStore.all.filter(
+    conn => conn.target.id === activity._id
+  );
+  const connectedTargetActivities = compact(
+    outgoingConnections.map(x =>
+      props.store.activityStore.all.find(act => act.id === x.target.id)
+    )
+  );
+  const connectedSourceActivities = compact(
+    incomingConnections.map(x =>
+      props.store.activityStore.all.find(act => act.id === x.source.id)
+    )
+  );
 
   // if no grouping key, and incoming social role, automatically assign first one
   if (
@@ -124,12 +138,14 @@ const RawEditActivity = ({
     a => a.id !== activity._id
   );
   return (
-    <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
-      <Modal
-        exportType="activity"
-        {...{ modalOpen, setModal, activity, madeChanges }}
-      />
-      <div style={{ backgroundColor: '#eee', minHeight: '110px' }}>
+    <div className="bootstrap" style={{ height: '100%', overflowY: 'scroll' }}>
+      <div
+        style={{
+          backgroundColor: '#eee',
+          minHeight: '110px',
+          padding: '0 10px'
+        }}
+      >
         <div style={{ position: 'absolute', left: -40 }}>
           <ErrorList activityId={activity._id} />
         </div>
@@ -174,11 +190,7 @@ const RawEditActivity = ({
                     });
                   }}
                 />
-                <IconButton
-                  tooltip="Send activity to activity library"
-                  icon="glyphicon glyphicon-share"
-                  onClick={() => setModal(true)}
-                />
+                <ExportButton {...{ activity, madeChanges }} />
               </div>
             )}
           </FlexView>
@@ -200,15 +212,28 @@ const RawEditActivity = ({
         )}
       </div>
       <ConfigForm
+        key={activity._id}
         node={activity}
         nodeType={activityType}
         valid={props.store.valid}
         refreshValidate={props.store.refreshValidate}
         connectedActivities={otherActivityIds}
-        reload={reload + (outgoingConnections || []).map(x => x.id).join('')}
+        connectedSourceActivities={connectedSourceActivities}
+        connectedTargetActivities={connectedTargetActivities}
+        reload={
+          reload +
+          (connectedSourceActivities || []).map(x => x.id).join('') +
+          (connectedTargetActivities || []).map(x => x.id).join('')
+        }
       />
       {activityType.ConfigComponent && (
         <activityType.ConfigComponent
+          key={activity._id}
+          formContext={{
+            connectedActivities: otherActivityIds,
+            connectedSourceActivities,
+            connectedTargetActivities
+          }}
           configData={{ component: {}, ...activity.data }}
           setConfigData={d => {
             addActivity(
@@ -223,7 +248,7 @@ const RawEditActivity = ({
         />
       )}
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
-      {advancedOpen && (
+      {(advancedOpen || activity.streamTarget) && (
         <React.Fragment>
           <div>
             <A onClick={() => copyURL(activity)}>
@@ -247,14 +272,16 @@ const RawEditActivity = ({
   );
 };
 
-const IconButton = ({ icon, onClick, tooltip }: Object) => (
-  <Button
-    style={{ width: '35px', height: '25px' }}
-    data-tip={tooltip}
-    onClick={onClick}
-  >
-    <span className={icon} style={{ verticalAlign: 'top' }} />
-  </Button>
+export const IconButton = ({ icon, onClick, tooltip }: Object) => (
+  <div className="bootstrap">
+    <Button
+      style={{ width: '35px', height: '25px' }}
+      data-tip={tooltip}
+      onClick={onClick}
+    >
+      <span className={icon} style={{ verticalAlign: 'top' }} />
+    </Button>
+  </div>
 );
 
 const EditActivity = compose(

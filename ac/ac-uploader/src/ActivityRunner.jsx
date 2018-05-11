@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { withState } from 'recompose';
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 
 import Presentation from './Presentation';
 import UploadPanel from './UploadPanel';
 import List from './List';
 
 const ActivityRunner = (
-  props: ActivityRunnerT & { done: boolean, setDone: Function }
+  props: ActivityRunnerPropsT & { done: boolean, setDone: Function }
 ) => {
   const { activityData, data, dataFn, done } = props;
 

@@ -4,8 +4,8 @@ import * as React from 'react';
 import { Chart } from 'react-google-charts';
 
 import {
-  type LogT,
-  type dashboardViewerPropsT,
+  type LogDbT,
+  type DashboardViewerPropsT,
   ProgressDashboard
 } from 'frog-utils';
 
@@ -27,14 +27,17 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
   }
 });
 
-const Viewer = (props: dashboardViewerPropsT) => (
+const Viewer = (props: DashboardViewerPropsT) => (
   <React.Fragment>
     <SymmetryStats {...props} task="easy" />
     <SymmetryStats {...props} task="hard" />
   </React.Fragment>
 );
 
-const SymmetryStats = ({ state, task }: dashboardViewerPropsT) => {
+const SymmetryStats = ({
+  state,
+  task
+}: DashboardViewerPropsT & { task: string }) => {
   const d = state[task];
   const errRate = o => o.wrong / (o.wrong + o.correct);
   const chartData = Object.keys(d).map(speed => [
@@ -61,7 +64,7 @@ const initData = {
   hard: {}
 };
 
-const mergeLog = (state: any, log: LogT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   if (log.type === 'answer' && log.payload) {
     const { expectedAnswer, answer, difficulty, speed } = log.payload;
     if (!state[difficulty][speed.toString()]) {
