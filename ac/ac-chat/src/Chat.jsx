@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { values } from 'frog-utils';
 
 import {
   type ActivityRunnerPropsT,
   type ActivityRunnerT,
-  uuid
+  uuid,
+  values
 } from 'frog-utils';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
