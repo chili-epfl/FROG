@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import type { ActivityRunnerT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from 'frog-utils';
 import 'webrtc-adapter';
 
 import { isUndefined, isEqual, without, difference, last } from 'lodash';
@@ -44,9 +44,10 @@ type StateT = {
   remote: Array<any>
 };
 
-class ActivityRunner extends Component<ActivityRunnerT, StateT> {
-  constructor(props: ActivityRunnerT) {
+class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
+  constructor(props: ActivityRunnerPropsT) {
     super(props);
+    console.log(props);
     this.name = '';
     this.id = '';
     this.roomId = '';
