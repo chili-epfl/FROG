@@ -8,7 +8,6 @@ import Draggable from 'react-draggable';
 
 import { withStyles } from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
-import Slide from 'material-ui/transitions/Slide';
 
 import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
