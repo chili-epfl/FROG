@@ -21,7 +21,7 @@ import Participant from './participant';
 //   }
 // })();
 
-//export const Participant = isBrowser ? require('./participant.js') : () => null;
+// export const Participant = isBrowser ? require('./participant.js') : () => null;
 
 /**
  * State consists of local and remote
@@ -78,12 +78,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   createWebSocketConnection = () => {
     this.ws = new WebSocket(WebRtcConfig.signalServerURL);
 
-    this.ws.onopen = event => {
+    this.ws.onopen = _ => {
       // when web socket connection is oppened, register on signal server
       this.requestMediaDevices();
     };
 
-    this.ws.onmessage = (message: MessageEvent) => {
+    this.ws.onmessage = (message: any) => {
       const parsedMessage = JSON.parse(message.data);
 
       switch (parsedMessage.id) {
@@ -118,18 +118,20 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   requestMediaDevices = () => {
-    navigator.mediaDevices
-      .getUserMedia(WebRtcConfig.mediaConstraints)
-      .then(myStream => {
-        this.stream = myStream;
-        this.register(this.name, this.id, this.roomId, 'none');
-      })
-      .catch(error => {
-        console.info(
-          'User blocked media devices, there are no devices or are already in use'
-        );
-        this.register(this.name, this.id, this.roomId, 'watcher');
-      });
+    if (navigator.mediaDevices)
+      navigator.mediaDevices
+        .getUserMedia(WebRtcConfig.mediaConstraints)
+        .then(myStream => {
+          this.stream = myStream;
+          this.register(this.name, this.id, this.roomId, 'none');
+        })
+        .catch(error => {
+          console.info(
+            'User blocked media devices, there are no devices or are already in use',
+            error
+          );
+          this.register(this.name, this.id, this.roomId, 'watcher');
+        });
   };
 
   register = (name, id, roomId, role) => {
@@ -138,7 +140,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       name: this.name,
       userId: this.id,
       room: this.roomId,
-      role: role
+      role
     };
     this.sendMessage(message);
   };
@@ -169,7 +171,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         offerConstraints: WebRtcConfig.sendOnlyOfferConstraintChrome
       };
 
-      if (this.browser.browser == 'firefox') {
+      if (this.browser.browser === 'firefox') {
         options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
       }
 
@@ -208,7 +210,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       offerConstraints: WebRtcConfig.recvOnlyOfferConstraintChrome
     };
 
-    if (this.browser.browser == 'firefox') {
+    if (this.browser.browser === 'firefox') {
       options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintFirefox;
     }
 
@@ -218,7 +220,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   addRemoteUserToState = (participant: Participant, stream: MediaStream) => {
     const remotes = this.state.remote;
     const userInRemotes =
-      remotes.filter(r => r.name == participant.name).length > 0;
+      remotes.filter(r => r.name === participant.name).length > 0;
     if (!userInRemotes) {
       remotes.push({
         name: participant.name,
