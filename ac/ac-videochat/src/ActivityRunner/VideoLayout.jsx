@@ -38,21 +38,34 @@ const styles = {
   }
 };
 
-class VideoLayout extends React.Component {
-  constructor() {
-    super();
+type VideoLayoutPropsT = {
+  local: Object,
+  remote: Array<any>,
+  toogleAudio: Function,
+  toogleVideo: Function,
+  reloadStream: Function
+};
+
+type StateT = {
+  video: boolean,
+  audio: boolean
+};
+
+class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
+  constructor(props: VideoLayoutPropsT) {
+    super(props);
     this.state = {
       video: true,
       audio: true
     };
   }
 
-  handleVideoToggle = toogleVideo => {
+  handleVideoToggle = (toogleVideo: Function) => {
     this.setState({ video: !this.state.video });
     toogleVideo();
   };
 
-  handleAudioToggle = toogleAudio => {
+  handleAudioToggle = (toogleAudio: Function) => {
     this.setState({ audio: !this.state.audio });
     toogleAudio();
   };
@@ -66,7 +79,6 @@ class VideoLayout extends React.Component {
       reloadStream
     } = this.props;
     const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
-    console.log(this.props);
     return (
       <React.Fragment>
         <div style={styles.layoutBoxS}>

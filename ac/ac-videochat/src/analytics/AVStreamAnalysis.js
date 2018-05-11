@@ -8,18 +8,17 @@ export const isBrowser = (() => {
 
 export const hark = isBrowser ? require('../lib/hark.bundle.js') : () => null;
 
-export const onStreamAdded = (stream, options) => {
-  if (options && options.local) {
-    console.log('Received local stream');
-  }
-  if (options && options.remote) {
-    console.log('Received remote stream');
-  }
+type OptionsT = {
+  name: string,
+  id: string,
+  logger: Function
+};
 
+export const onStreamAdded = (stream: MediaStream, options) => {
   const speechEvents = hark(stream);
 
   speechEvents.on('speaking', () => {
-    console.log('speaking');
+    console.log('Speaking');
     if (options && options.logger) {
       options.logger({
         type: 'videochat',
@@ -33,7 +32,6 @@ export const onStreamAdded = (stream, options) => {
   });
 
   speechEvents.on('stopped_speaking', () => {
-    console.log('stopped speaking');
     if (options && options.logger) {
       options.logger({
         type: 'videochat',

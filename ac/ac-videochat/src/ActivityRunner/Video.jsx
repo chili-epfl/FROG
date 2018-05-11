@@ -2,13 +2,21 @@
 
 import React from 'react';
 
-class Video extends React.Component {
-  constructor(props) {
+type VideoPropsT = {
+  mute: boolean,
+  srcObject: Object,
+  videoId: string
+};
+
+class Video extends React.Component<VideoPropsT> {
+  videoRef: Object;
+
+  constructor(props: VideoPropsT) {
     super(props);
     this.videoRef = React.createRef();
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: VideoPropsT) {
     return (
       nextProps.videoId !== this.props.videoId ||
       nextProps.mute !== this.props.mute ||
@@ -25,7 +33,7 @@ class Video extends React.Component {
     this.setSource(this.props.srcObject);
   }
 
-  setSource = srcObject => {
+  setSource = (srcObject: MediaStream) => {
     const video = this.videoRef.current;
     video.srcObject = srcObject;
   };

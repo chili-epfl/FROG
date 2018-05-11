@@ -5,7 +5,7 @@ import { type ActivityPackageT } from 'frog-utils';
 import { config, configUI } from './config';
 
 import ActivityRunner from './ActivityRunner';
-import dashboard from './Dashboard';
+import dashboards from './Dashboard';
 
 const meta = {
   name: 'VideoChat',
@@ -39,7 +39,7 @@ export default ({
   meta,
   config,
   configUI,
-  dashboards: { test: dashboard },
+  dashboards,
   ActivityRunner,
   dataStructure
 }: ActivityPackageT);

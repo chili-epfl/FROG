@@ -3,38 +3,45 @@
 import React from 'react';
 import { range } from 'lodash';
 import { VictoryChart, VictoryTheme, VictoryAxis, VictoryBar } from 'victory';
+import { type LogDbT, type DashboardT } from 'frog-utils';
 
-// type TimeRangeT = {
-//     start: number,
-//     end: number
-// };
+type LogT = {
+  instanceId: string,
+  timestamp: Date,
+  userId: string,
+  type: string,
+  payload: {
+    name: string,
+    id: string,
+    speaking: boolean
+  }
+};
 
-// type ParticipantT = {
-//     id: string,
-//     name: string,
-//     timeRanges: Array<TimeRangeT>
-// };
+type StateT = Map<string, GroupT>;
 
-// type GroupChartT = {
-//     id: string,
-//     timeStart: number,
-//     participants: Array<ParticipantT>
-// };
+type GroupT = {
+  id: string,
+  timeStart: number,
+  participants: Map<string, ParticipantT>,
+  tickValues: Array<number>,
+  tickFormat: Array<string>,
+  data: Array<{
+    x: number,
+    y: number,
+    y0: number
+  }>
+};
 
-// type ViewerStateT = Array<GroupChartT>;
+type ParticipantT = {
+  id: string,
+  name: string,
+  timeRanges: Array<TimeRangeT>
+};
 
-// type ViewerStateT = Array<{
-//     id: string,
-//     timeStart: number,
-//     participants: Array<{
-//         id: string,
-//         name: string,
-//         timeRanges: Array<{
-//             start: number,
-//             end: number
-//         }>
-//     }>
-// }>;
+type TimeRangeT = {
+  start: number,
+  end: number
+};
 
 const styles = {
   axisStyle: {
@@ -50,13 +57,14 @@ const styles = {
   }
 };
 
-const prepareData = group => {
+const prepareData = (group: GroupT) => {
   // create range of [0, 1, ..., n] - range will be number of participants + 2
   // so that graph looks nicely (it could porbably be solved with padding)
+  console.log(group.participants);
   group.tickValues = range(0, Object.keys(group.participants).length + 2);
   const tickFormat = [''];
   let counter = 1;
-  Object.values(group.participants).forEach(participant => {
+  Object.values(group.participants).forEach((participant: ParticipantT) => {
     participant.index = counter;
     tickFormat.push(participant.name);
     counter += 1;
@@ -67,8 +75,8 @@ const prepareData = group => {
   group.tickFormat = tickFormat;
 
   const data = [];
-  Object.values(group.participants).forEach(participant => {
-    participant.timeRanges.forEach(range => {
+  Object.values(group.participants).forEach((participant: ParticipantT) => {
+    participant.timeRanges.forEach((range: TimeRangeT) => {
       if (range.end != null) {
         data.push({
           x: participant.index,
@@ -81,13 +89,13 @@ const prepareData = group => {
   group.data = data;
 };
 
-const Viewer = ({ state }: Object) => {
+const Viewer = (state: Map<string, GroupT>) => {
   // set up data for display in chart
-  Object.values(state).forEach(group => prepareData(group));
+  Object.values(state).forEach((group: GroupT) => prepareData(group));
 
   return (
     <React.Fragment>
-      {Object.values(state).map((group, index) => (
+      {Object.values(state).map((group: GroupT, index: number) => (
         <div style={styles.divStyle} key={group.id}>
           <VictoryChart theme={VictoryTheme.material}>
             <VictoryAxis label="Time (sec)" style={styles.axisStyle} />
@@ -105,38 +113,36 @@ const Viewer = ({ state }: Object) => {
   );
 };
 
-const mergeLog = (state, log) => {
+const mergeLog = (state: StateT, log: LogT) => {
   // set id(name) and start time of a group
   // this will be set up once for each group
   if (!state[log.instanceId]) {
     state[log.instanceId] = {
       id: log.instanceId,
       timeStart: new Date(log.timestamp).getTime() / 1000,
-      participants: {}
+      participants: {},
+      tickValues: [],
+      tickFormat: [],
+      data: []
     };
   }
-
-  // each user will make activityDidMount message
-  // creates new user
+  // // each user will make activityDidMount message
+  // // creates new user
   if (!state[log.instanceId].participants[log.userId]) {
     state[log.instanceId].participants[log.userId] = {
       id: log.userId,
+      name: '',
       timeRanges: []
     };
   }
-
   if (log.type === 'videochat') {
     const startTime = state[log.instanceId].timeStart;
     const currentTime = new Date(log.timestamp).getTime() / 1000;
     const relativeTime = currentTime - startTime;
-
     if (!state[log.instanceId].participants[log.userId].name) {
       state[log.instanceId].participants[log.userId].name = log.payload.name;
     }
-
     if (log.payload.speaking) {
-      // if we missed the last time user stopped talking
-      // TODO what to do?
       const timeRanges =
         state[log.instanceId].participants[log.userId].timeRanges;
       if (timeRanges.length > 0) {
@@ -145,7 +151,6 @@ const mergeLog = (state, log) => {
             timeRanges[timeRanges.length - 1].start;
         }
       }
-
       state[log.instanceId].participants[log.userId].timeRanges.push({
         start: relativeTime,
         end: null
@@ -159,10 +164,12 @@ const mergeLog = (state, log) => {
   }
 };
 
-const initData = {};
+const initData: StateT = {};
 
-export default {
+const talkDashboard: DashboardT = {
   Viewer,
   mergeLog,
   initData
 };
+
+export default { talkDashboard };
