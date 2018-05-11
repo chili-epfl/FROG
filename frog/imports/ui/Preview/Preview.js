@@ -12,7 +12,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import Controls from './Controls';
-import Content, { initActivityDocuments } from './Content';
+import Content from './Content';
 import ConfigPanel from './ConfigPanel';
 
 const styles = {
