@@ -34,7 +34,7 @@ class Participant {
       this.rtcPeer.onicecandidate = this.onIceCandidate;
       if (mode === 'sendOnly') {
         this.rtcPeer.addStream(options.myStream);
-      } else if (mode === 'recvOnly' && options && options.ontrack) {
+      } else if (mode === 'recvOnly' && options.ontrack) {
         this.rtcPeer.ontrack = options.ontrack;
       }
 

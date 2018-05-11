@@ -61,12 +61,14 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
   }
 
   handleVideoToggle = (toogleVideo: Function) => {
-    this.setState({ video: !this.state.video });
+    const videoValue = !this.state.video;
+    this.setState({ video: videoValue });
     toogleVideo();
   };
 
   handleAudioToggle = (toogleAudio: Function) => {
-    this.setState({ audio: !this.state.audio });
+    const audioValue = !this.state.audio;
+    this.setState({ audio: audioValue });
     toogleAudio();
   };
 
