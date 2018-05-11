@@ -32,7 +32,7 @@ const styles = {
     height: 'calc(100% - 100px)'
   },
   fullWindowControl: {
-    zIndex: '99',
+    zIndex: 99,
     border: '1px solid',
     width: '500px',
     position: 'fixed',
