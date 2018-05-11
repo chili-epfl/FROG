@@ -60,7 +60,6 @@ const styles = {
 const prepareData = (group: GroupT) => {
   // create range of [0, 1, ..., n] - range will be number of participants + 2
   // so that graph looks nicely (it could porbably be solved with padding)
-  console.log(group.participants);
   group.tickValues = range(0, Object.keys(group.participants).length + 2);
   const tickFormat = [''];
   let counter = 1;

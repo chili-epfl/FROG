@@ -18,7 +18,6 @@ export const onStreamAdded = (stream: MediaStream, options) => {
   const speechEvents = hark(stream);
 
   speechEvents.on('speaking', () => {
-    console.log('Speaking');
     if (options && options.logger) {
       options.logger({
         type: 'videochat',

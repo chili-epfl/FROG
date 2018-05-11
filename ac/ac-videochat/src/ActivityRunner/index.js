@@ -84,24 +84,19 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     };
 
     this.ws.onmessage = (message: MessageEvent) => {
-      console.log(message);
       const parsedMessage = JSON.parse(message.data);
 
       switch (parsedMessage.id) {
         case 'existingParticipants':
-          console.log('====> existingParticipants');
           this.onExistingParticipants(parsedMessage);
           break;
         case 'newParticipantArrived':
-          console.log('====> newParticipantArrived');
           this.onNewParticipant(parsedMessage.name, parsedMessage.userId);
           break;
         case 'participantLeft':
-          console.log('====> participantLeft');
           this.onParticipantLeft(parsedMessage.userId);
           break;
         case 'receiveVideoAnswer':
-          console.log('====> receiveVideoAnswer');
           this.receiveVideoResponse(
             parsedMessage.userId,
             parsedMessage.sdpAnswer
@@ -130,7 +125,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         this.register(this.name, this.id, this.roomId, 'none');
       })
       .catch(error => {
-        console.log(
+        console.info(
           'User blocked media devices, there are no devices or are already in use'
         );
         this.register(this.name, this.id, this.roomId, 'watcher');
@@ -180,7 +175,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
       // create new participant for send only my stream
       const participant = new Participant(this.name, this.id, this.sendMessage);
-      console.log(participant);
       this.participants[participant.id] = participant;
       participant.createSendOnlyPeer(options);
     }
@@ -200,11 +194,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       newParticipant.id,
       this.sendMessage
     );
-    console.log(participant);
+
     this.participants[participant.id] = participant;
 
     const onAddRemoteTrack = event => {
-      console.log('RECEIVED REMOTE STREAM');
       const stream = event.streams[0];
       this.addRemoteUserToState(newParticipant, stream);
     };
@@ -241,8 +234,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   removeRemoteUserFromState = (participantId: string) => {
     let remotes = this.state.remote;
     remotes = remotes.filter(r => r.id !== participantId);
-    // console.log('Remotes after removing user');
-    // console.log(remotes);
     this.setState({
       remote: remotes
     });
@@ -255,7 +246,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
   // remove participant from remotes and update state
   onParticipantLeft = (participantId: string) => {
-    console.log('Participant ', participantId, ' left');
     const participant = this.participants[participantId];
 
     // remove and update state
