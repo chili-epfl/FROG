@@ -1,12 +1,12 @@
 function Participant(name, id, sendMessage) {
   this.name = name;
   this.id = id;
-  var rtcPeer;
+  let rtcPeer;
   this.options;
   this.mode;
-  var self = this;
+  const self = this;
 
-  var createPeer = (mode, options) => {
+  const createPeer = (mode, options) => {
     if (!this.mode) {
       this.mode = mode;
     }
@@ -25,14 +25,14 @@ function Participant(name, id, sendMessage) {
       if (mode === 'sendOnly') {
         rtcPeer.addStream(options.myStream);
       } else if (mode === 'recvOnly' && options && options.onaddstream) {
-		//rtcPeer.onaddstream = options.onaddstream;
-		rtcPeer.ontrack = options.onaddstream;
+        // rtcPeer.onaddstream = options.onaddstream;
+        rtcPeer.ontrack = options.onaddstream;
       }
 
       rtcPeer.createOffer(
         offer => {
           rtcPeer.setLocalDescription(offer);
-          var msg = {
+          let msg = {
             id: 'receiveVideoFrom',
             userId: id,
             sdpOffer: offer.sdp
@@ -67,28 +67,28 @@ function Participant(name, id, sendMessage) {
   this.reloadStream = () => {
     this.dispose();
 
-    var options = this.options;
+    const options = this.options;
     options.reload = true;
     createPeer(this.mode, options);
   };
 
   this.processAnswer = function(answerSdp) {
-    var answer = new RTCSessionDescription({
+    const answer = new RTCSessionDescription({
       type: 'answer',
       sdp: answerSdp
     });
     rtcPeer.setRemoteDescription(answer);
   };
 
-  //can throw exception
+  // can throw exception
   this.onRemoteCandidate = function(candidate) {
     rtcPeer.addIceCandidate(new RTCIceCandidate(candidate));
   };
 
   this.onIceCandidate = function(event) {
     if (event && event.candidate) {
-      //console.log('Sending local ice, ', event.candidate);
-      var message = {
+      // console.log('Sending local ice, ', event.candidate);
+      const message = {
         id: 'onIceCandidate',
         candidate: event.candidate,
         userId: id
@@ -98,22 +98,22 @@ function Participant(name, id, sendMessage) {
   };
 
   this.toogleAudio = function(sendAudio) {
-    var audioTracks = rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
+    const audioTracks = rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
     audioTracks.enabled = !audioTracks.enabled;
   };
 
   this.toogleVideo = function(sendVideo) {
-    var videoTrack = rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
+    const videoTrack = rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
     videoTrack.enabled = !videoTrack.enabled;
   };
 
   this.isAudioEnabled = function() {
-    var audioTracks = rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
+    const audioTracks = rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
     return audioTracks.enabled;
   };
 
   this.isVideoEnabled = function() {
-    var videoTrack = rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
+    const videoTrack = rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
     return videoTrack.enabled;
   };
 

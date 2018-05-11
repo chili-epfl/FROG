@@ -46,11 +46,11 @@ const recvOnlyOfferConstraintFirefox = {
 };
 
 export default {
-  rtcConfiguration: rtcConfiguration,
-  signalServerURL: signalServerURL,
-  mediaConstraints: mediaConstraints,
-  sendOnlyOfferConstraintChrome: sendOnlyOfferConstraintChrome,
-  sendOnlyOfferConstraintFirefox: sendOnlyOfferConstraintFirefox,
-  recvOnlyOfferConstraintChrome: recvOnlyOfferConstraintChrome,
-  recvOnlyOfferConstraintFirefox: recvOnlyOfferConstraintFirefox
+  rtcConfiguration,
+  signalServerURL,
+  mediaConstraints,
+  sendOnlyOfferConstraintChrome,
+  sendOnlyOfferConstraintFirefox,
+  recvOnlyOfferConstraintChrome,
+  recvOnlyOfferConstraintFirefox
 };

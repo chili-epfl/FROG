@@ -25,13 +25,13 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   connections: Array<any>;
 
   findConnectionByRemoteUser = userInfo => {
-    console.log("findConnectionByRemoteUser");
+    console.log('findConnectionByRemoteUser');
 
     this.connections.find(conn => isEqual(conn.remoteUser, userInfo));
   };
 
   startConnection = remoteUser => {
-    console.log("startConnection");
+    console.log('startConnection');
 
     const remoteConn = this.findConnectionByRemoteUser(remoteUser);
 
@@ -48,7 +48,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   createPeerConnection = remoteUser => {
-    console.log("createPeerConnectiion");
+    console.log('createPeerConnectiion');
 
     try {
       const conn = new RTCPeerConnection(ICEConfig);
@@ -67,7 +67,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   handleIceCandidate = event => {
-    console.log("handleIceCandidate");
+    console.log('handleIceCandidate');
 
     if (event.candidate) {
       const message = {
@@ -85,7 +85,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   handleRemoteStreamAdded = event => {
-    console.log("handleRemoteStreamAdded");
+    console.log('handleRemoteStreamAdded');
 
     const index = this.connections.findIndex(
       x => x.remoteUser === event.currentTarget.remoteUser
@@ -107,7 +107,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   addRemoteStream = (remotes, index, stream) => {
-    console.log("addRemoteStream");
+    console.log('addRemoteStream');
 
     remotes[index] = {
       stream,
@@ -121,7 +121,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   handleIceChange = event => {
-    console.log("handleIceChange");
+    console.log('handleIceChange');
 
     if (
       event.target.iceConnectionState === 'failed' ||
@@ -133,7 +133,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   startOffer = connection => {
-    console.log("startOffer");
+    console.log('startOffer');
 
     connection
       .createOffer(this.props.activityData.config.sdpConstraints)
@@ -143,7 +143,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   setLocalInfoAndSendOffer = (offer, connection) => {
-    console.log("setLocalInfoAndSendOffer");
+    console.log('setLocalInfoAndSendOffer');
 
     offer.sdp = preferOpus(offer.sdp);
     connection.setLocalDescription(offer);
@@ -159,7 +159,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   startAnswer = connection => {
-    console.log("startAnswer");
+    console.log('startAnswer');
 
     connection.createAnswer().then(answer => {
       this.setLocalInfoAndSendAnswer(answer, connection);
@@ -167,7 +167,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   setLocalInfoAndSendAnswer = (answer, connection) => {
-    console.log("setLocalInfoAndSendAnswer");
+    console.log('setLocalInfoAndSendAnswer');
 
     answer.sdp = preferOpus(answer.sdp);
     connection.setLocalDescription(answer);
@@ -183,7 +183,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   handleRemoteHangUp = remoteConnection => {
-    console.log("handleRemoteHangUp");
+    console.log('handleRemoteHangUp');
 
     if (!isUndefined(remoteConnection) && this.state.mode === 'calling') {
       let newRemotes;
@@ -219,7 +219,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
+    console.log('componentDidMount');
 
     navigator.mediaDevices
       .getUserMedia(this.props.activityData.config.sdpConstraints)
@@ -230,7 +230,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   }
 
   gotStream = stream => {
-    console.log("gotStream");
+    console.log('gotStream');
 
     this.setState(
       {
@@ -246,7 +246,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   call = () => {
-    console.log("call");
+    console.log('call');
 
     const message = {
       type: 'join',
@@ -259,7 +259,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   componentWillUnmount() {
-    console.log("componentWillUnmount");
+    console.log('componentWillUnmount');
 
     if (
       (this.state.mode === 'calling' || this.state.mode === 'readyToCall') &&
@@ -289,7 +289,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("shouldComponentUpdate");
+    console.log('shouldComponentUpdate');
     console.log(this.state.remote);
 
     console.log(nextProps);
@@ -352,8 +352,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   }
 
   render() {
-    console.log("render: remotes:");
-    
+    console.log('render: remotes:');
+
     const local =
       this.state.mode === 'readyTocall' || this.state.mode === 'calling'
         ? this.state.local

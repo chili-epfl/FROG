@@ -65,9 +65,7 @@ class VideoLayout extends React.Component {
       toogleAudio,
       reloadStream
     } = this.props;
-    const sortedRemote = remote.sort((a, b) => {
-      return a.name > b.name ? 1 : 0;
-    });
+    const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
     console.log(this.props);
     return (
       <React.Fragment>
@@ -75,11 +73,7 @@ class VideoLayout extends React.Component {
           {local &&
             !isEmpty(local) && (
               <div style={styles.videoBoxS}>
-                <Video
-                  videoId={local.id}
-                  mute={true}
-                  srcObject={local.srcObject}
-                />
+                <Video videoId={local.id} mute srcObject={local.srcObject} />
                 <button
                   style={styles.buttonBoxS}
                   onClick={() => this.handleVideoToggle(toogleVideo)}

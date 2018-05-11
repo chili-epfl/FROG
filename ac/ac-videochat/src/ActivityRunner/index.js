@@ -62,7 +62,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.name = this.props.userInfo.name;
     this.id = this.props.userInfo.id;
 
-    //TODO, change in the future with activity ID + instanceId
+    // TODO, change in the future with activity ID + instanceId
     this.roomId = this.props.sessionId + this.props.groupingValue;
 
     this.browser = BrowserUtils.detectBrowser();
@@ -78,9 +78,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   createWebSocketConnection = () => {
     this.ws = new WebSocket(WebRtcConfig.signalServerURL);
 
-    var self = this;
+    const self = this;
 
-    //when web socket connection is oppened, register on signal server
+    // when web socket connection is oppened, register on signal server
     this.ws.onopen = function(event) {
       self.requestMediaDevices();
     };
@@ -109,9 +109,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           );
           break;
         case 'iceCandidate':
-          //console.log("==>iceCandidate");
+          // console.log("==>iceCandidate");
 
-          //method below may throw exception
+          // method below may throw exception
           self.participants[parsedMessage.userId].onRemoteCandidate(
             parsedMessage.candidate
           );
@@ -166,7 +166,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         logger: this.props.logger
       };
 
-      //from AVStreamAnalysis
+      // from AVStreamAnalysis
       onStreamAdded(this.stream, analysisOptions);
 
       this.setState({
@@ -177,7 +177,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         }
       });
 
-      var options = {
+      const options = {
         configuration: WebRtcConfig.rtcConfiguration,
         userMediaConstraints: WebRtcConfig.mediaConstraints,
         myStream: this.stream
@@ -191,25 +191,25 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
       }
 
-      //create new participant for send only my stream
-      var participant = new Participant(this.name, this.id, this.sendMessage);
+      // create new participant for send only my stream
+      const participant = new Participant(this.name, this.id, this.sendMessage);
       this.participants[participant.id] = participant;
       participant.createSendOnlyPeer(options);
     }
 
-    //for each of the existing participants, receive their video feed
+    // for each of the existing participants, receive their video feed
     msg.data.forEach(this.receiveVideo);
   };
 
   onNewParticipant = (name, userId) => {
-    this.receiveVideo({ name: name, id: userId });
+    this.receiveVideo({ name, id: userId });
   };
 
-  //receive video from remote peer
+  // receive video from remote peer
   receiveVideo = newParticipant => {
     const self = this;
 
-    var participant = new Participant(
+    const participant = new Participant(
       newParticipant.name,
       newParticipant.id,
       this.sendMessage
@@ -217,14 +217,14 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.participants[participant.id] = participant;
 
     function onAddRemoteStream(event) {
-      //var stream = event.stream;
-      var stream = event.streams[0];
+      // var stream = event.stream;
+      let stream = event.streams[0];
       console.log(stream);
       self.addRemoteUserToState(newParticipant, stream);
       stream = true;
     }
 
-    var options = {
+    const options = {
       onaddstream: onAddRemoteStream,
       configuration: WebRtcConfig.rtcConfiguration
     };
@@ -241,8 +241,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   addRemoteUserToState = (participant, stream) => {
-    var remotes = this.state.remote;
-    var userInRemotes =
+    const remotes = this.state.remote;
+    const userInRemotes =
       remotes.filter(r => r.name == participant.name).length > 0;
     if (!userInRemotes) {
       remotes.push({
@@ -257,7 +257,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   removeRemoteUserFromState = participantId => {
-    var remotes = this.state.remote;
+    let remotes = this.state.remote;
     remotes = remotes.filter(r => r.id !== participantId);
     // console.log('Remotes after removing user');
     // console.log(remotes);
@@ -266,17 +266,17 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     });
   };
 
-  //receive answer from remote peer
+  // receive answer from remote peer
   receiveVideoResponse = (id, sdpAnswer) => {
     this.participants[id].processAnswer(sdpAnswer);
   };
 
-  //remove participant from remotes and update state
+  // remove participant from remotes and update state
   onParticipantLeft = participantId => {
     console.log('Participant ', participantId, ' left');
-    var participant = this.participants[participantId];
+    const participant = this.participants[participantId];
 
-    //remove and update state
+    // remove and update state
     this.removeRemoteUserFromState(participantId);
 
     participant.dispose();
@@ -292,21 +292,21 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.ws.close();
   };
 
-  //toogles audio from being sent to media server
+  // toogles audio from being sent to media server
   toogleAudio = () => {
-    var thisParticipant = this.participants[this.id];
+    const thisParticipant = this.participants[this.id];
     thisParticipant.toogleAudio();
   };
 
-  //toogles video from being sent to media server
+  // toogles video from being sent to media server
   toogleVideo = () => {
-    var thisParticipant = this.participants[this.id];
+    const thisParticipant = this.participants[this.id];
     thisParticipant.toogleVideo();
   };
 
   reloadStream = participantId => {
     this.removeRemoteUserFromState(participantId);
-    var participant = this.participants[participantId];
+    const participant = this.participants[participantId];
     participant.reloadStream();
   };
 

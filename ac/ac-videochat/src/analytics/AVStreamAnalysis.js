@@ -16,9 +16,9 @@ export const onStreamAdded = (stream, options) => {
     console.log('Received remote stream');
   }
 
-  var speechEvents = hark(stream);
+  const speechEvents = hark(stream);
 
-  speechEvents.on('speaking', function() {
+  speechEvents.on('speaking', () => {
     console.log('speaking');
     if (options && options.logger) {
       options.logger({
@@ -32,7 +32,7 @@ export const onStreamAdded = (stream, options) => {
     }
   });
 
-  speechEvents.on('stopped_speaking', function() {
+  speechEvents.on('stopped_speaking', () => {
     console.log('stopped speaking');
     if (options && options.logger) {
       options.logger({

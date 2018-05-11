@@ -33,13 +33,6 @@ const meta = {
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = [];
 
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {
-  if (object.data) {
-    object.data.forEach(x => dataFn.listAppend(x));
-  }
-};
-
 export default ({
   id: 'ac-videochat',
   type: 'react-component',
@@ -48,6 +41,5 @@ export default ({
   configUI,
   dashboards: { test: dashboard },
   ActivityRunner,
-  dataStructure,
-  mergeFunction
+  dataStructure
 }: ActivityPackageT);

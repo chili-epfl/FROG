@@ -1,13 +1,13 @@
 const extractVersion = (uastring, expr, pos) => {
-  var match = uastring.match(expr);
+  const match = uastring.match(expr);
   return match && match.length >= pos && parseInt(match[pos], 10);
 };
 
 const detectBrowser = () => {
-  var navigator = window && window.navigator;
+  const navigator = window && window.navigator;
 
   // Returned result object.
-  var result = {};
+  const result = {};
   result.browser = null;
   result.version = null;
 
@@ -62,5 +62,5 @@ const detectBrowser = () => {
 };
 
 export default {
-  detectBrowser: detectBrowser
+  detectBrowser
 };

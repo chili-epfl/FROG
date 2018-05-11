@@ -20,7 +20,7 @@ class Video extends React.Component {
     this.setSource(this.props.srcObject);
   }
 
-  //when component updates, set up video source
+  // when component updates, set up video source
   componentDidUpdate() {
     this.setSource(this.props.srcObject);
   }
