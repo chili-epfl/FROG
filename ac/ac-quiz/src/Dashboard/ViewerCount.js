@@ -26,16 +26,17 @@ const Question = ({ question, answers }) => (
       domainPadding={20}
     >
       <VictoryAxis
-        tickLabelComponent={<VictoryLabel />}
         style={{ tickLabels: { fontSize: 7 } }}
+        tickLabelComponent={<VictoryLabel />}
       />
       <VictoryAxis
         dependentAxis
-        tickLabelComponent={<VictoryLabel />}
         style={{ tickLabels: { fontSize: 7 } }}
+        tickLabelComponent={<VictoryLabel />}
       />
       <VictoryBar
         horizontal
+        domain={{ x: [0, Math.max(5, ...answers.map(ans => ans.y))] }}
         data={answers}
         style={{
           data: {

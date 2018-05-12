@@ -24,7 +24,7 @@ import { connection } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
 
-const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
+const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
 
 export const initActivityDocuments = (
   instances: string[],

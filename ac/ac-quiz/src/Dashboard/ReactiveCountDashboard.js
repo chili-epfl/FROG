@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import { type ActivityDbT, entries, values } from 'frog-utils';
+import { reverse } from 'lodash';
 import Viewer from './ViewerCount';
 
 const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
@@ -9,9 +10,6 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
     return;
   }
 
-  // const questionStats = questions.map((x,i) => ({
-  //   [x.question]: x.answers.map(ans => ({ x: ans.choice, y: 0 }))
-  // }));
   const questionStats = questions.reduce(
     (acc, x, i) => ({
       ...acc,
@@ -32,7 +30,10 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
   const result = entries(questionStats).reduce(
     (acc, [k, v]) => ({
       ...acc,
-      [questions[parseInt(k, 10)].question]: values(v)
+      [parseInt(k, 10) +
+      1 +
+      ': ' +
+      questions[parseInt(k, 10)].question]: reverse(values(v))
     }),
     {}
   );
