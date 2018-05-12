@@ -25,6 +25,7 @@ export default class Operator extends Elem {
       type,
       klass: 'operator',
       title,
+      over: false,
       state,
       data: data || {},
       operatorType,
@@ -156,6 +157,18 @@ export default class Operator extends Elem {
           dX: 150,
           dY: 0
         };
+      },
+
+      get incoming() {
+        return store.connectionStore.all
+          .filter(x => x.target === this)
+          .map(x => x.source);
+      },
+
+      get outgoing() {
+        return store.connectionStore.all
+          .filter(x => x.source === this)
+          .map(x => x.target);
       }
     });
   }

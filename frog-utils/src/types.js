@@ -207,6 +207,8 @@ export type controlOperatorT = {
   ) => ControlStructureT
 };
 
+export type outputDefinitionT = (string | [string, string[]])[];
+
 export type socialOperatorT = {
   id: string,
   type: 'social',
@@ -216,7 +218,7 @@ export type socialOperatorT = {
     shortDesc: string,
     description: string
   },
-  outputDefinition: string[] | ((config: Object) => string[]),
+  outputDefinition: outputDefinitionT | ((config: Object) => outputDefinitionT),
   validateConfig?: validateConfigFnT[],
   config: Object,
   configUI?: Object,
