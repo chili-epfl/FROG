@@ -13,16 +13,6 @@ import VideoLayout from './VideoLayout';
 
 import Participant from './participant';
 
-// export const isBrowser = (() => {
-//   try {
-//     return !!window;
-//   } catch (e) {
-//     return false;
-//   }
-// })();
-
-// export const Participant = isBrowser ? require('./participant.js') : () => null;
-
 /**
  * State consists of local and remote
  * local = {
