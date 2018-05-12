@@ -34,7 +34,7 @@ export const initDashboardDocuments = (
   }
 };
 
-const reactiveWrapper = (act, dashboard) => {
+const reactiveWrapper = (act, reactiveToDisplay: Function) => {
   const query = connection.createSubscribeQuery('rz', {
     _id: { $regex: '^preview-' + act.activityType + '/' }
   });
@@ -50,7 +50,7 @@ const reactiveWrapper = (act, dashboard) => {
       }),
       {}
     );
-    return dashboard.reactiveToDisplay(data, act);
+    return reactiveToDisplay(data, act);
   };
 };
 
@@ -143,7 +143,10 @@ class PreviewDash extends React.Component<
       if (this.dash.prepareDataForDisplay) {
         this.prepDataFn = this.dash.prepareDataForDisplay;
       } else if (this.dash.reactiveToDisplay) {
-        this.prepDataFn = reactiveWrapper(this.props.activity, this.dash);
+        this.prepDataFn = reactiveWrapper(
+          this.props.activity,
+          this.dash.reactiveToDisplay
+        );
       } else {
         this.prepDataFn = (x, _) => x;
       }
