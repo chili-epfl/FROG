@@ -176,10 +176,6 @@
   dependencies:
     "@babel/types" "7.0.0-beta.46"
 
-"@babel/helper-plugin-utils@7.0.0-beta.44":
-  version "7.0.0-beta.44"
-  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0-beta.44.tgz#9f590bc3ae6daa8a10b853233baa3e25d263751d"
-
 "@babel/helper-plugin-utils@7.0.0-beta.46":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0-beta.46.tgz#f630adbd9d645d0ba2e43f4955b4ad61f44ccdf4"
@@ -428,12 +424,6 @@
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-beta.46"
 
-"@babel/plugin-syntax-flow@7.0.0-beta.44":
-  version "7.0.0-beta.44"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-flow/-/plugin-syntax-flow-7.0.0-beta.44.tgz#12498c9c6565e185317fcead2cb2ea6b196ce8c1"
-  dependencies:
-    "@babel/helper-plugin-utils" "7.0.0-beta.44"
-
 "@babel/plugin-syntax-flow@7.0.0-beta.46":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-flow/-/plugin-syntax-flow-7.0.0-beta.46.tgz#f9940274770945cc758a947944949e70ea530e7f"
@@ -585,12 +575,12 @@
     "@babel/helper-builder-binary-assignment-operator-visitor" "7.0.0-beta.46"
     "@babel/helper-plugin-utils" "7.0.0-beta.46"
 
-"@babel/plugin-transform-flow-comments@^7.0.0-beta.39":
-  version "7.0.0-beta.44"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-flow-comments/-/plugin-transform-flow-comments-7.0.0-beta.44.tgz#1e2538684acf62bbeb360505c37bbf2d9b3cbe97"
+"@babel/plugin-transform-flow-comments@^7.0.0-beta.46":
+  version "7.0.0-beta.46"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-flow-comments/-/plugin-transform-flow-comments-7.0.0-beta.46.tgz#7689977237b680db92cbbe55c0948d6145ca3c2e"
   dependencies:
-    "@babel/helper-plugin-utils" "7.0.0-beta.44"
-    "@babel/plugin-syntax-flow" "7.0.0-beta.44"
+    "@babel/helper-plugin-utils" "7.0.0-beta.46"
+    "@babel/plugin-syntax-flow" "7.0.0-beta.46"
 
 "@babel/plugin-transform-flow-strip-types@^7.0.0-beta.46":
   version "7.0.0-beta.46"
@@ -6357,7 +6347,7 @@ react-dnd@^2.5.4, react-dnd@^2.6.0:
     lodash "^4.2.0"
     prop-types "^15.5.10"
 
-"react-dom@^15.3.2 || ^16", react-dom@^16.3.1:
+react-dom@^16.3.1:
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
@@ -6418,15 +6408,11 @@ react-fontawesome@^1.3.1:
   dependencies:
     prop-types "^15.5.6"
 
-react-google-charts@^1.5.7:
-  version "1.5.7"
-  resolved "https://registry.yarnpkg.com/react-google-charts/-/react-google-charts-1.5.7.tgz#70d5daf1e362a9ef199576f15e37769185888067"
+react-google-charts@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/react-google-charts/-/react-google-charts-1.6.0.tgz#b58688341f17c81efa76378c168c2f8e3b541c1a"
   dependencies:
-    debug "^2.2.0"
     loadjs "^3.3.1"
-    prop-types "^15.5.8"
-    react "^15.3.2 || ^16"
-    react-dom "^15.3.2 || ^16"
 
 react-icon-base@2.1.0:
   version "2.1.0"
@@ -6693,7 +6679,7 @@ react-transition-group@^2.0.0, react-transition-group@^2.2.0, react-transition-g
     loose-envify "^1.3.1"
     prop-types "^15.6.1"
 
-"react@^15.3.2 || ^16", react@^16.3.1:
+react@^16.3.1:
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
@@ -7990,9 +7976,23 @@ unset-value@^1.0.0:
     has-value "^0.3.1"
     isobject "^3.0.0"
 
-unzipper@^0.8.11, unzipper@^0.8.12:
+unzipper@^0.8.11:
   version "0.8.13"
   resolved "https://registry.yarnpkg.com/unzipper/-/unzipper-0.8.13.tgz#ea889ca10cdda4dcf604e632f19fc5f81871beae"
+  dependencies:
+    big-integer "^1.6.17"
+    binary "~0.3.0"
+    bluebird "~3.4.1"
+    buffer-indexof-polyfill "~1.0.0"
+    duplexer2 "~0.1.4"
+    fstream "~1.0.10"
+    listenercount "~1.0.1"
+    readable-stream "~2.1.5"
+    setimmediate "~1.0.4"
+
+unzipper@^0.8.14:
+  version "0.8.14"
+  resolved "https://registry.yarnpkg.com/unzipper/-/unzipper-0.8.14.tgz#ade0524cd2fc14d11b8de258be22f9d247d3f79b"
   dependencies:
     big-integer "^1.6.17"
     binary "~0.3.0"
