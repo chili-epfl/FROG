@@ -13,6 +13,8 @@ export default class Activity extends Elem {
   startTime: number;
   id: string;
   over: boolean;
+  config: Object;
+  activityType: string;
   rawTitle: string;
   klass: string;
   state: string;
@@ -26,6 +28,8 @@ export default class Activity extends Elem {
     startTime: number,
     title: string,
     length: number,
+    config: Object,
+    activityType: string,
     id: ?string,
     state: ?string
   ) {
@@ -39,6 +43,8 @@ export default class Activity extends Elem {
       startTime,
       klass: 'activity',
       state,
+      config: config || {},
+      activityType,
       wasMoved: false,
 
       update: action((newact: $Shape<Activity>) => {
@@ -46,6 +52,8 @@ export default class Activity extends Elem {
         this.startTime = newact.startTime;
         this.rawTitle = newact.title;
         this.state = newact.state;
+        this.config = newact.config;
+        this.activityType = newact.activityType;
       }),
 
       rename: action((newname: string) => {

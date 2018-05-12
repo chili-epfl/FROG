@@ -10,6 +10,8 @@ export default class Operator extends Elem {
     time: number,
     y: number,
     type: string,
+    config: Object,
+    operatorType: string,
     id: ?string,
     title: ?string,
     state: ?string
@@ -24,6 +26,8 @@ export default class Operator extends Elem {
       klass: 'operator',
       title,
       state,
+      config: config || {},
+      operatorType,
 
       rename: action((newname: string) => {
         this.title = newname;
@@ -82,6 +86,8 @@ export default class Operator extends Elem {
         this.time = newopt.time;
         this.y = newopt.y;
         this.title = newopt.title;
+        this.config = newopt.config;
+        this.operatorType = newopt.operatorType;
       }),
 
       get x(): number {
