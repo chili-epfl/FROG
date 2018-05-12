@@ -7,11 +7,8 @@ import { isEmpty } from 'lodash';
 
 import { connect } from '../../store';
 
-export default connect(({ activity, onChange, store: { valid } }) => {
-  const socialChoices = [
-    '',
-    ...(activity.socialInputs || []).filter(x => Array.isArray(x))
-  ].map(x => x[0]);
+export default connect(({ activity, onChange, store }) => {
+  const storeact = store.activityStore.all.find(x => x.id === activity._id);
   return (
     <FormGroup controlId="selectGrouping">
       <FlexView>
@@ -19,13 +16,13 @@ export default connect(({ activity, onChange, store: { valid } }) => {
           <ControlLabel>Group by attribute</ControlLabel>
         </FlexView>
         <FlexView vAlignContent="center">
-          {!isEmpty(socialChoices) ? (
+          {!isEmpty(storeact.socialInputs.inputKeys) ? (
             <FormControl
               onChange={e => onChange(e.target.value)}
               componentClass="select"
               value={activity.groupingKey}
             >
-              {socialChoices.map(x => (
+              {['', ...storeact.socialInputs.inputKeys].map(x => (
                 <option value={x} key={x}>
                   {x === '' ? 'Choose an attribute' : x}
                 </option>
@@ -38,8 +35,7 @@ export default connect(({ activity, onChange, store: { valid } }) => {
           )}
           {typeof activity.groupingKey === 'string' &&
           activity.groupingKey.length > 0 &&
-          valid.social[activity._id] &&
-          !valid.social[activity._id].includes(activity.groupingKey) ? (
+          !storeact.socialInputs.inputKeys.includes(activity.groupingKey) ? (
             <p style={{ color: 'red' }}>
               You previously selected the <b>{activity.groupingKey}</b>{' '}
               attribute, but no social operator is currently providing that

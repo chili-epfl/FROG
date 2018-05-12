@@ -71,34 +71,16 @@ export default ({
     errorColor = lightGreen[500];
   }
 
-  const outgoingConnections = connections.filter(
-    conn => conn.source.id === operator._id
-  );
-  const incomingConnections = connections.filter(
-    conn => conn.target.id === operator._id
-  );
-  const connectedTargetActivities = compact(
-    outgoingConnections.map(x => activities.find(act => act.id === x.target.id))
-  );
-  const connectedSourceActivities = compact(
-    incomingConnections.map(x => activities.find(act => act.id === x.source.id))
-  );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel {...{ operator, graphOperator, errorColor, operatorType }} />
       <ConfigForm
         key={operator._id}
         node={operator}
+        type="operator"
         nodeType={operatorType}
         valid={valid}
-        connectedActivities={activities}
-        connectedSourceActivities={connectedSourceActivities}
-        connectedTargetActivities={connectedTargetActivities}
         refreshValidate={refreshValidate}
-        reload={
-          (connectedSourceActivities || []).map(x => x.id).join('') +
-          (connectedTargetActivities || []).map(x => x.id).join('')
-        }
       />
     </div>
   );

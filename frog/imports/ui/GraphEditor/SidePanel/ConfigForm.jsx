@@ -22,15 +22,13 @@ import {
 type ConfigFormPropsT = {
   node: Object,
   nodeType: any,
-  connectedActivities?: any,
-  connectedSourceActivities?: any,
-  connectedTargetActivities?: any,
   valid: any,
   refreshValidate: Function,
   reload?: any,
   widgets?: any,
   data?: Object,
-  onChange?: Function
+  onChange?: Function,
+  type: 'activity' | 'operator'
 };
 
 export default class ConfigForm extends Component<
@@ -69,8 +67,7 @@ export default class ConfigForm extends Component<
     }
     if (
       this.props.node._id === nextProps.node._id &&
-      this.props.reload === nextProps.reload &&
-      isEqual(this.props.connectedActivities, nextProps.connectedActivities)
+      this.props.reload === nextProps.reload
     ) {
       return false;
     } else {
@@ -79,15 +76,7 @@ export default class ConfigForm extends Component<
   }
 
   render() {
-    const {
-      node,
-      nodeType,
-      valid,
-      connectedActivities,
-      connectedSourceActivities,
-      connectedTargetActivities,
-      refreshValidate
-    } = this.props;
+    const { node, nodeType, valid, refreshValidate, type } = this.props;
     const props = {
       formData: this.state.formData,
       ...addSocialFormSchema(nodeType.config, nodeType.configUI),
@@ -101,10 +90,10 @@ export default class ConfigForm extends Component<
       reload: this.props.reload,
       id: node._id,
       formContext: {
+        nodeType,
+        type,
+        nodeId: node._id,
         options: valid.social[node._id] || [],
-        connectedActivities,
-        connectedSourceActivities,
-        connectedTargetActivities,
         groupingKey: node.groupingKey
       },
       onChange:

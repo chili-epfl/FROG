@@ -1,5 +1,6 @@
 //
 import { extendObservable, action } from 'mobx';
+import { flatten, compact } from 'lodash';
 import { store } from './index';
 
 export default class Elem {
@@ -76,6 +77,21 @@ export default class Elem {
         return store.connectionStore.all
           .filter(x => x.source === this)
           .map(x => x.target);
+      },
+
+      get socialInputs() {
+        if (!this.incoming) {
+          return { inputs: [], inputKeys: [], inputKeysWithValues: [] };
+        }
+        const inputs = flatten(
+          compact(this.incoming.map(x => x.socialOutputDefinition))
+        );
+        const toStrings = ary => ary.map(x => (Array.isArray(x) ? x[0] : x));
+        return {
+          inputs,
+          inputKeys: toStrings(inputs),
+          inputKeysWithValues: toStrings(inputs.filter(x => Array.isArray(x)))
+        };
       },
 
       get strokeColor(): string {
