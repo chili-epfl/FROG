@@ -75,7 +75,10 @@ export type {
   LogT,
   LogDbT,
   DashboardT,
-  DashboardViewerPropsT
+  DashboardViewerPropsT,
+  LearningItemFnT,
+  learningItemT,
+  socialOutputDefinitionT
 } from './types';
 export { CountChart } from './DashboardComponents/CountChart';
 

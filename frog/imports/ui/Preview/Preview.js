@@ -57,8 +57,9 @@ const styles = {
   }
 };
 
-const backend = new ShareDB();
+export const backend = new ShareDB();
 export const connection = backend.connect();
+window.connection = connection;
 
 const StatelessPreview = (props: Object) => {
   const {

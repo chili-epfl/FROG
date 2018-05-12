@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import type { Doc } from './generateReactiveFn';
 
 export type ActivityDbT = {
   _id: string,
@@ -129,6 +130,7 @@ export type ActivityPackageT = {
       title: string,
       config?: Object,
       data?: any,
+      learningItems?: any,
       type?: 'deeplink'
     }[]
   },
@@ -205,6 +207,8 @@ export type controlOperatorT = {
   ) => ControlStructureT
 };
 
+export type socialOutputDefinitionT = (string | [string, string[]])[];
+
 export type socialOperatorT = {
   id: string,
   type: 'social',
@@ -214,7 +218,7 @@ export type socialOperatorT = {
     shortDesc: string,
     description: string
   },
-  outputDefinition: string[] | ((config: Object) => string[]),
+  socialOutputDefinition: socialOutputDefinitionT | ((config: Object) => socialOutputDefinitionT),
   validateConfig?: validateConfigFnT[],
   config: Object,
   configUI?: Object,
@@ -228,3 +232,34 @@ export type operatorPackageT =
   | socialOperatorT
   | productOperatorT
   | controlOperatorT;
+
+export type LearningItemFnT =
+  | { type: 'history', id: string, render?: Function, dataFn: Doc }
+  | {
+      type: 'create',
+      meta?: Object,
+      liType?: string,
+      dataFn: Doc,
+      onCreate?: Function,
+      autoInsert?: Boolean,
+      meta?: Object
+    }
+  | { type: 'view', id: string, render?: Function, dataFn: Doc }
+  | {
+      type: 'thumbView',
+      id: string,
+      render?: Function,
+      clickZoomable?: Boolean,
+      dataFn: Doc
+    }
+  | { type: 'edit', id: string, dataFn: Doc, render?: Function };
+
+export type learningItemT = {
+  name: string,
+  id: string,
+  dataStructure?: any,
+  Editor?: React.ComponentType<any>,
+  Creator?: React.ComponentType<any>,
+  ThumbViewer?: React.ComponentType<any>,
+  Viewer?: React.ComponentType<any>
+};

@@ -1,9 +1,10 @@
 // @flow
+import * as React from 'react';
 import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 
-import { uuid } from './index';
+import { uuid, type LearningItemFnT } from './index';
 
 type rawPathT = string | string[];
 
@@ -12,19 +13,27 @@ const cleanPath = (defPath: string[], rawPath: rawPathT = []): string[] => {
   return [...defPath, ...newPath];
 };
 
-class Doc {
+export class Doc {
   doc: any;
   path: string[];
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
+  LearningItemFn: React.ComponentType<LearningItemFnT>;
+  meta: Object;
+  backend: any;
 
   constructor(
     doc: any,
     path: ?(string[]),
     readOnly: boolean,
-    updateFn?: Function
+    updateFn?: Function,
+    meta: Object = {},
+    LearningItem: React.ComponentType<LearningItemFnT>,
+    backend: any
   ) {
+    this.backend = backend;
+    this.meta = meta;
     this.readOnly = !!readOnly;
     this.doc = doc;
     this.path = path || [];
@@ -34,9 +43,29 @@ class Doc {
           doc.submitOp(e);
         };
     this.updateFn = updateFn;
+    this.LearningItemFn = LearningItem;
   }
 
-  bindTextField(ref, rawpath) {
+  createLearningItem(liType: string, payload?: Object, meta?: Object): string {
+    const id = uuid();
+    const itempointer = this.doc.connection.get('li', id);
+    itempointer.create({
+      liType,
+      payload,
+      createdAt: new Date(),
+      ...meta,
+      ...this.meta
+    });
+    itempointer.subscribe();
+    return id;
+  }
+
+  LearningItem = ({ ...props }: any) => {
+    const LI = this.LearningItemFn;
+    return <LI {...props} dataFn={this} />;
+  };
+
+  bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
     if (typeof get(this.doc.data, path) !== 'string') {
       // eslint-disable-next-line no-console
@@ -48,11 +77,7 @@ class Doc {
         )}.`
       );
     }
-    const binding = new StringBinding(
-      ref,
-      this.doc,
-      cleanPath(this.path, path)
-    );
+    const binding = new StringBinding(ref, this.doc, path);
     binding.setup();
     return binding;
   }
@@ -64,6 +89,13 @@ class Doc {
     this.submitOp({
       p: [...cleanPath(this.path, path), 999999],
       li: newVal
+    });
+  }
+  listAppendLI(liType: string, payload: Object, meta: Object, path: rawPathT) {
+    const liID = this.createLearningItem(liType, payload, meta);
+    this.submitOp({
+      p: [...cleanPath(this.path, path), 999999],
+      li: liID
     });
   }
   listInsert(newVal: any, path: rawPathT) {
@@ -118,7 +150,15 @@ class Doc {
   }
   specialize(rawPath: rawPathT) {
     const newPath = typeof rawPath === 'string' ? [rawPath] : rawPath;
-    return new Doc(this.doc, [...this.path, ...newPath], this.readOnly);
+    return new Doc(
+      this.doc,
+      [...this.path, ...newPath],
+      this.readOnly,
+      this.updateFn || (_ => {}),
+      this.meta,
+      this.LearningItemFn,
+      this.backend
+    );
   }
 
   specializeData(path: rawPathT, data: Object) {
@@ -131,18 +171,23 @@ class Doc {
 
 export const generateReactiveFn = (
   doc: any,
+  LearningItem: React.ComponentType<LearningItemFnT>,
+  meta?: Object,
   readOnly?: boolean,
-  updateFn?: Function
+  updateFn?: Function,
+  backend?: any
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], !!readOnly, updateFn);
+    return new Doc(doc, [], !!readOnly, updateFn, meta, LearningItem, backend);
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
 };
 
 export const inMemoryReactive = (
-  initial: any
+  initial: any,
+  LearningItem: React.ComponentType<LearningItemFnT>,
+  backend: any
 ): Promise<{ data: any, dataFn: Doc }> => {
   const share = new ShareDB();
   const connection = share.connect();
@@ -154,5 +199,8 @@ export const inMemoryReactive = (
       doc.create(initial);
       resolve(doc);
     });
-  }).then(doc => ({ data: doc, dataFn: new Doc(doc, [], false) }));
+  }).then(doc => ({
+    data: doc,
+    dataFn: new Doc(doc, [], false, undefined, undefined, LearningItem, backend)
+  }));
 };
