@@ -1,6 +1,7 @@
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
-
+import { compact, flatten } from 'lodash';
+import { activityTypesObj } from '/imports/activityTypes';
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, timeToPxScreen, between } from '../utils';
@@ -295,6 +296,16 @@ export default class Activity extends Elem {
 
       get bounds(): BoundsT {
         return calculateBounds(this, store.activityStore.all);
+      },
+
+      get aT() {
+        return this.activityType && activityTypesObj[this.operatorType];
+      },
+
+      get socialInputs() {
+        return flatten(
+          compact(this.incoming.map(x => x.socialOutputDefinition))
+        );
       }
     });
   }

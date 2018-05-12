@@ -59,5 +59,10 @@ export default ({
   meta,
   config,
   operator,
-  socialOutputDefinition: ['group', 'role']
+  socialOutputDefinition: formdata => [
+    'group',
+    formdata.roles
+      ? ['role', formdata.roles.split(',').map(x => x.trim())]
+      : 'role'
+  ]
 }: socialOperatorT);

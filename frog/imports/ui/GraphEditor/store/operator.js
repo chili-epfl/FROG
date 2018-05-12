@@ -1,5 +1,7 @@
 import cuid from 'cuid';
 import { extendObservable, action } from 'mobx';
+import { isFunction } from 'lodash';
+import { operatorTypesObj } from '/imports/operatorTypes';
 import { store } from './index';
 import Elem from './elemClass';
 import { pxToTime, timeToPx } from '../utils';
@@ -159,16 +161,21 @@ export default class Operator extends Elem {
         };
       },
 
-      get incoming() {
-        return store.connectionStore.all
-          .filter(x => x.target === this)
-          .map(x => x.source);
+      get oT() {
+        return this.operatorType && operatorTypesObj[this.operatorType];
       },
 
-      get outgoing() {
-        return store.connectionStore.all
-          .filter(x => x.source === this)
-          .map(x => x.target);
+      get socialOutputDefinition() {
+        const definition = this.oT?.socialOutputDefinition;
+        if (definition) {
+          if (isFunction(definition)) {
+            return definition(this.data);
+          } else {
+            return definition;
+          }
+        } else {
+          return undefined;
+        }
       }
     });
   }

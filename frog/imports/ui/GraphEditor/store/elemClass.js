@@ -66,6 +66,18 @@ export default class Elem {
         );
       },
 
+      get incoming() {
+        return store.connectionStore.all
+          .filter(x => x.target === this)
+          .map(x => x.source);
+      },
+
+      get outgoing() {
+        return store.connectionStore.all
+          .filter(x => x.source === this)
+          .map(x => x.target);
+      },
+
       get strokeColor(): string {
         const errors = store.graphErrors.filter(x => x.id === this.id);
         if (errors.length === 0) {
