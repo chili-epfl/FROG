@@ -78,7 +78,7 @@ export type {
   DashboardViewerPropsT,
   LearningItemFnT,
   learningItemT,
-  outputDefinitionT
+  socialOutputDefinitionT
 } from './types';
 export { CountChart } from './DashboardComponents/CountChart';
 

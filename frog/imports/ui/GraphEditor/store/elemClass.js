@@ -59,11 +59,6 @@ export default class Elem {
       },
 
       get highlighted(): boolean {
-          this.title,
-          this.over,
-          store.state.draggingFrom,
-          store.state.mode
-        );
         return (
           this.over &&
           store.state.draggingFrom !== this &&
