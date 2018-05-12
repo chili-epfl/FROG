@@ -109,7 +109,7 @@ type ActivityDefT = {|
 type LogExtraT = {|
   sessionId: string,
   userId: string,
-  instanceId?: string,
+  instanceId: string,
   timestamp: Date
 |} & LogT;
 

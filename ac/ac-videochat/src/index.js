@@ -2,11 +2,13 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import config from './config';
+import { config, configUI } from './config';
+
 import ActivityRunner from './ActivityRunner';
+import dashboards from './Dashboard';
 
 const meta = {
-  name: 'WebRTC',
+  name: 'VideoChat',
   shortDesc: 'Video Conference',
   description: 'Video conference using WebRTC peer to peer configuration',
   exampleData: [
@@ -14,9 +16,13 @@ const meta = {
       title: 'Yourself',
       config: {
         title: 'Talk with yourself',
-        sdpConstraints: {
+        userMediaConstraints: {
           audio: true,
           video: true
+        },
+        activityType: {
+          many2many: true,
+          one2many: false
         }
       },
       data: []
@@ -27,20 +33,13 @@ const meta = {
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = [];
 
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {
-  if (object.data) {
-    object.data.forEach(x => dataFn.listAppend(x));
-  }
-};
-
 export default ({
-  id: 'ac-webrtc',
+  id: 'ac-videochat',
   type: 'react-component',
   meta,
   config,
+  configUI,
+  dashboards,
   ActivityRunner,
-  Dashboard: null,
-  dataStructure,
-  mergeFunction
+  dataStructure
 }: ActivityPackageT);
