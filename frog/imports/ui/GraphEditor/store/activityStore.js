@@ -227,6 +227,29 @@ export default class ActivityStore {
         store.addHistory();
       }),
 
+      get history(): Array<any> {
+        return this.all.map(x => ({
+          title: x.title,
+          plane: x.plane,
+          startTime: x.startTime,
+          length: x.length,
+          id: x.id,
+          data: x.data,
+          activityType: x.activityType
+        }));
+      },
+
+      get furthestActivity(): number {
+        const max = maxBy(this.all, x => x.startTime + x.length);
+        return max && Math.ceil(max.startTime + max.length);
+      },
+
+      get activityOffsets(): any {
+        return [1, 2, 3, 4].reduce(
+          (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
+          {}
+        );
+      },
       mongoAdd: action((x: any) => {
         if (!store.findId({ type: 'activity', id: x._id })) {
           this.all.push(
@@ -255,39 +278,12 @@ export default class ActivityStore {
 
       mongoRemove: action((remact: any) => {
         this.all = this.all.filter(x => x.id !== remact._id);
-      }),
-
-      get mongoObservers(): Object {
-        return {
-          added: this.mongoAdd,
-          changed: this.mongoChange,
-          removed: this.mongoRemove
-        };
-      },
-
-      get history(): Array<any> {
-        return this.all.map(x => ({
-          title: x.title,
-          plane: x.plane,
-          startTime: x.startTime,
-          length: x.length,
-          id: x.id,
-          data: x.data,
-          activityType: x.activityType
-        }));
-      },
-
-      get furthestActivity(): number {
-        const max = maxBy(this.all, x => x.startTime + x.length);
-        return max && Math.ceil(max.startTime + max.length);
-      },
-
-      get activityOffsets(): any {
-        return [1, 2, 3, 4].reduce(
-          (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
-          {}
-        );
-      }
+      })
     });
   }
+  mongoObservers = {
+    added: this.mongoAdd,
+    changed: this.mongoChange,
+    removed: this.mongoRemove
+  };
 }

@@ -15,7 +15,6 @@ import Connection from './connection';
 import Session from './session';
 import UI from './uiStore';
 import { timeToPx } from '../utils';
-import { store } from '../index';
 
 export type ElementTypes = 'operator' | 'activity' | 'connection';
 type Elem = Activity | Connection | Operator;
@@ -206,8 +205,6 @@ export default class Store {
         this.addHistory();
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(false);
-
-        setupListeners(this.graphId);
       }),
 
       addHistory: action(() => {
@@ -336,9 +333,3 @@ export default class Store {
       Connections.find({ graphId: this.graphId }).fetch()
     );
 }
-
-const setupListeners = graphId => {
-  Activities.find({ graphId }).observe(store.activityStore.mongoObservers);
-  Operators.find({ graphId }).observe(store.operatorStore.mongoObservers);
-  Connections.find({ graphId }).observe(store.connectionStore.mongoObservers);
-};

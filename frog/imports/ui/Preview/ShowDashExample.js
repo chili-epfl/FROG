@@ -6,17 +6,24 @@ import {
   cloneDeep,
   Inspector,
   type ActivityPackageT,
-  type LogDbT
+  type LogDbT,
+  isBrowser
 } from 'frog-utils';
 import { throttle } from 'lodash';
-import 'rc-slider/assets/index.css';
-import Slider from 'rc-slider';
 import { CircularProgress } from 'material-ui/Progress';
 
 import { createDashboards } from '../../api/mergeLogData';
 import { DashboardStates } from '../../../imports/api/cache';
 
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
+
+if (isBrowser) {
+  require('../LearningItem/sliderCSS');
+}
+
+const Slider = isBrowser
+  ? require('rc-slider').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 type StateT = {
   data: any,
