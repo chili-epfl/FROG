@@ -102,6 +102,16 @@ const ContentController = ({
     const ActivityToRun = ReactiveHOC(docId, connection)(
       showData ? ShowInfo : RunComp
     );
+    const logger = createLogger(
+      'preview',
+      instance,
+      activityType.id,
+      activityType.id,
+      getUserId(name),
+      plane,
+      config
+    );
+    logger({ type: 'activityDidMount' });
     return (
       <ActivityToRun
         activityType={activityType.id}
@@ -109,15 +119,7 @@ const ContentController = ({
         activityData={activityData}
         userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
-        logger={createLogger(
-          'preview',
-          instance,
-          activityType.id,
-          activityType.id,
-          getUserId(name),
-          plane,
-          config
-        )}
+        logger={logger}
         groupingValue={instance}
       />
     );
