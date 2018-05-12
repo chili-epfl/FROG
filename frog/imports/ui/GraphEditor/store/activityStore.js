@@ -235,6 +235,8 @@ export default class ActivityStore {
               x.startTime,
               x.title,
               x.length,
+              x.data,
+              x.activityType,
               x._id,
               x.state
             )
@@ -243,6 +245,7 @@ export default class ActivityStore {
       }),
 
       mongoChange: action((newact: any, oldact: any) => {
+        console.log(newact, oldact);
         const toUpdate = store.findId({ type: 'activity', id: oldact._id });
         if (!toUpdate) {
           throw 'Could not find activity to update in Mongo';
@@ -268,7 +271,9 @@ export default class ActivityStore {
           plane: x.plane,
           startTime: x.startTime,
           length: x.length,
-          id: x.id
+          id: x.id,
+          data: x.data,
+          activityType: x.activityType
         }));
       },
 

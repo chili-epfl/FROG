@@ -15,6 +15,7 @@ import Connection from './connection';
 import Session from './session';
 import UI from './uiStore';
 import { timeToPx } from '../utils';
+import { store } from '../index';
 
 export type ElementTypes = 'operator' | 'activity' | 'connection';
 type Elem = Activity | Connection | Operator;
@@ -155,6 +156,8 @@ export default class Store {
                 x.startTime,
                 x.title,
                 x.length,
+                x.config,
+                x.activityType,
                 x._id,
                 x.state
               )
@@ -165,7 +168,19 @@ export default class Store {
           { reactive: false }
         )
           .fetch()
-          .map(x => new Operator(x.time, x.y, x.type, x._id, x.title, x.state));
+          .map(
+            x =>
+              new Operator(
+                x.time,
+                x.y,
+                x.type,
+                x.config,
+                x.operatorType,
+                x._id,
+                x.title,
+                x.state
+              )
+          );
 
         this.connectionStore.all = Connections.find(
           { graphId: id },
@@ -192,14 +207,7 @@ export default class Store {
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(false);
 
-        const cursors = {
-          activities: Activities.find({ graphId: this.graphId }),
-          operators: Operators.find({ graphId: this.graphId }),
-          connections: Connections.find({ graphId: this.graphId })
-        };
-        cursors.activities.observe(this.activityStore.mongoObservers);
-        cursors.connections.observe(this.connectionStore.mongoObservers);
-        cursors.operators.observe(this.operatorStore.mongoObservers);
+        setupListeners(this.graphId);
       }),
 
       addHistory: action(() => {
@@ -328,3 +336,9 @@ export default class Store {
       Connections.find({ graphId: this.graphId }).fetch()
     );
 }
+
+const setupListeners = graphId => {
+  Activities.find({ graphId }).observe(store.activityStore.mongoObservers);
+  Operators.find({ graphId }).observe(store.operatorStore.mongoObservers);
+  Connections.find({ graphId }).observe(store.connectionStore.mongoObservers);
+};
