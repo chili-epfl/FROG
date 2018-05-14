@@ -1,7 +1,8 @@
 module.exports = {
   plugins: [
     '@babel/plugin-transform-flow-strip-types',
-    '@babel/plugin-proposal-optional-chaining'
+    '@babel/plugin-proposal-optional-chaining',
+    'transform-decorators-legacy'
   ],
   presets: [
     '@babel/preset-env',
