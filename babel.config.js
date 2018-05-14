@@ -1,13 +1,7 @@
 module.exports = {
   plugins: [
     '@babel/plugin-transform-flow-strip-types',
-    '@babel/plugin-proposal-optional-chaining',
-    [
-      'captains-log',
-      {
-        methods: ['debug', 'error', 'exception', 'log', 'warn']
-      }
-    ]
+    '@babel/plugin-proposal-optional-chaining'
   ],
   presets: [
     '@babel/preset-env',

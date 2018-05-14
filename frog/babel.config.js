@@ -8,13 +8,7 @@ module.exports = {
         loose: true
       }
     ],
-    '@babel/plugin-proposal-optional-chaining',
-    [
-      'captains-log',
-      {
-        methods: ['debug', 'error', 'exception', 'log', 'warn']
-      }
-    ]
+    '@babel/plugin-proposal-optional-chaining'
   ],
   env: {
     test: {
