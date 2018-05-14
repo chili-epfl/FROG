@@ -2,7 +2,13 @@ module.exports = {
   plugins: [
     '@babel/plugin-transform-flow-strip-types',
     '@babel/plugin-proposal-optional-chaining',
-    'transform-decorators-legacy'
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
+    [
+      'captains-log',
+      {
+        methods: ['debug', 'error', 'exception', 'log', 'warn']
+      }
+    ]
   ],
   presets: [
     '@babel/preset-env',
