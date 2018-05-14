@@ -67,6 +67,7 @@ const FROGRouter = withRouter(
           onReady: () => this.setState({ mode: 'ready' })
         });
       }
+      console.log('heya');
     }
 
     componentWillMount() {
