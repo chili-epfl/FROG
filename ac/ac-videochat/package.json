@@ -1,5 +1,5 @@
 {
-  "name": "ac-webrtc",
+  "name": "ac-videochat",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "lodash": "^4.17.10",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "webrtc-adapter": "^6.1.5"
+    "lodash": "^4.17.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webrtc-adapter": "^6.1.1"
   },
   "devDependencies": {
-    "nps": "5.9.0"
+    "nps": "5.7.1"
   }
 }
