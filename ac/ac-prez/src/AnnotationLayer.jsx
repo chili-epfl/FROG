@@ -19,7 +19,7 @@ export default class AnnotalstionLayer extends Component {
       getAnnotations(documentId, pageNumber) {
         let annotations = that.getAnnotations()
         annotations = annotations.filter((a) => a.page == pageNumber);
-        console.log('getAnnotations:', annotations);
+        // console.log('getAnnotations:', annotations);
         return new Promise((resolve, reject) => {
           resolve({
             documentId,
@@ -73,7 +73,8 @@ export default class AnnotalstionLayer extends Component {
       PDFJSAnnotate,
       penActive: false,
       rectActive: false,
-      studentPaging: false
+      studentPaging: false,
+      queuedRender: false
     }
 
   }
@@ -82,9 +83,16 @@ export default class AnnotalstionLayer extends Component {
     this.forceReRender();
   }
 
-  componentDidUpdate() {
-    // console.log(this.props.data)
-    this.forceReRender();
+  componentDidUpdate(prevProps, prevState, snapshot) {
+
+    if (this.state.rendering) {
+      if (!prevState.rendering || this.state.queuedRender) return; 
+      this.setState({ queuedRender: true });
+    }
+    else if ((!prevState.rendering) || (this.state.queuedRender)) {
+      this.forceReRender();
+      this.setState({ rendering: true, queuedRender: false })
+    }
   }
 
   getAnnotations() {
@@ -141,9 +149,9 @@ export default class AnnotalstionLayer extends Component {
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then((result) => {
       // console.log('RENDER RESULT page:', result[0]);
       // console.log('RENDER RESULT annotations:', result[1]);
-      // that.forceUpdate();
+      that.setState({rendering: false});
     }, (err) => {
-      console.error(err);
+      console.error('ERROR RENDERING PAGE:\n', err)
     });
   }
 
@@ -227,7 +235,7 @@ export default class AnnotalstionLayer extends Component {
 
     const shownPageNum = (this.state.studentPaging) ? this.state.pageNumStudent : this.props.data.pageNum;
 
-    const test = UI.createPage(shownPageNum)
+    const test = UI.createPage(shownPageNum);
     const svgStyle = test.querySelector('svg').style;
     svgStyle.position = 'absolute';
     svgStyle.top = '0';

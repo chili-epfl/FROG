@@ -27,6 +27,7 @@ export default class Prez extends Component<ActivityRunnerT> {
 
   render() {
     const { activityData, data, dataFn, userInfo, logger } = this.props;
+    console.log(activityData);
     // console.log(activityData, data, dataFn, userInfo, logger)
     
     // const PDF_FILE = "http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"
@@ -35,10 +36,14 @@ export default class Prez extends Component<ActivityRunnerT> {
     // console.log(PDF_FILE);
 
     const hostname = window.location.hostname;
-    const initial_pdf =
+    let initial_pdf =
       hostname == 'localhost'
         ? 'http://localhost:3000/file?name=ac/ac-prez/sample.pdf'
         : hostname + '/file?name=ac/ac-prez/sample.pdf';
+    
+    if (activityData.config.pdf_url) {
+      initial_pdf = activityData.config.pdf_url;
+    }
     console.log(initial_pdf);
 
     const pdf_src = this.props.data.pdf_file

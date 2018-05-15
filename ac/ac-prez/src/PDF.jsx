@@ -6,66 +6,75 @@ export default class PDF extends Component {
   constructor(props) {
     super(props);
 
-    // this.onNextPage = this.onNextPage.bind(this)
-    // this.onPrevPage = this.onPrevPage.bind(this)
+    this.getPDF = this.getPDF.bind(this);
 
     this.state = {
       pdf: null,
       pageNumber: 1,
-      scale: 1
+      scale: 1,
+      err: null
     };
   }
 
   componentDidMount() {
-    PDFJS.getDocument(this.props.src).then(pdf => {
-      // console.log(pdf)
-      this.setState({ pdf });
-    });
+    this.getPDF();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.props, prevProps);
+    // console.log(this.props, prevProps);
+    console.log(this.state, prevState);
     if (this.props.src != prevProps.src) {
-      PDFJS.getDocument(this.props.src).then(pdf => {
-        console.log(pdf);
-        this.setState({ pdf });
-      });
+      this.getPDF();
     }
   }
+  
 
-  // onNextPage() {
-  //   const { pageNumber, pdf } = this.state;
-  //   if (pageNumber >= pdf.numPages) return;
-
-  //   this.setState({
-  //     pageNumber: pageNumber+1
-  //   })
-  // }
-
-  // onPrevPage() {
-  //   const { pageNumber } = this.state;
-  //   if (pageNumber <= 1) return;
-
-  //   this.setState({
-  //     pageNumber: pageNumber-1
-  //   })
-  // }
+  getPDF() {
+    try {
+      PDFJS.getDocument(this.props.src)
+      .then((pdf) => {
+        console.log(pdf)
+        this.setState({ pdf, err: null });
+      }, (err) => {
+        console.log('ERROR in THEN');
+        this.setState({ pdf: null, err: err.message })
+      })
+    }
+    catch(err) {
+      console.error('ERROR GET PDF:', err);
+      this.setState({ pdf: null, err: err.message })
+    };
+  }
 
   render() {
-    if (!this.state.pdf) return null;
-
     const pdf = this.state.pdf;
-    const numPages = pdf.pdfInfo.numPages;
-    const fingerprint = pdf.pdfInfo.fingerprint;
+    // const numPages = pdf.pdfInfo.numPages;
+    // const fingerprint = pdf.pdfInfo.fingerprint;
 
-    return (
-      <div id="viewer" className="pdf-viewer">
+    let layerDisplay = null;
+
+    if (this.state.err) {
+      layerDisplay = (
+        <div>
+          <p>Invalid PDF provided!</p>
+          <p>Error: {this.state.err}</p>
+        </div>
+      );
+    }
+    else if (pdf) {
+      layerDisplay = (
         <AnnotationLayer
           pdf={pdf}
           userInfo={this.props.userInfo}
           data={this.props.data}
           dataFn={this.props.dataFn}
         />
+      )
+    }
+
+    return (
+      <div id="viewer" className="pdf-viewer">
+        {layerDisplay}
       </div>
     );
   }

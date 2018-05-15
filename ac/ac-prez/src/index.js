@@ -19,6 +19,14 @@ const config = {
     title: {
       title: 'What is the title?',
       type: 'string'
+    },
+    pdf_url: {
+      title: 'Full PDF URL',
+      type: 'string'
+    },
+    debug: {
+      debug: true,
+      type: 'boolean'
     }
   }
 };
