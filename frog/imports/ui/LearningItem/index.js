@@ -1,7 +1,11 @@
 // @flow
 import * as React from 'react';
-import { type LIComponentPropsT, type LearningItemT, uuid } from 'frog-utils';
-import { Doc } from 'frog-utils';
+import {
+  type LIComponentPropsT,
+  type LearningItemT,
+  uuid,
+  Doc
+} from 'frog-utils';
 import Button from 'material-ui/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
