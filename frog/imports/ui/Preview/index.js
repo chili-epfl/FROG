@@ -79,7 +79,7 @@ class PreviewPage extends React.Component<any, any> {
         config: {},
         activityTypeId: null,
         reloadAPIform: '',
-        metadatas: {uuid: '',title: '', description: '', tags: []}
+        metadatas: { uuid: '', title: '', description: '', tags: [] }
       };
     }
     this.setStates = {
@@ -96,7 +96,7 @@ class PreviewPage extends React.Component<any, any> {
       setConfig: config => this.setState({ config }),
       setActivityTypeId: activityTypeId => this.setState({ activityTypeId }),
       setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform }),
-      setMetadatas: metadatas => this.setState({metadatas})
+      setMetadatas: metadatas => this.setState({ metadatas })
     };
   }
 

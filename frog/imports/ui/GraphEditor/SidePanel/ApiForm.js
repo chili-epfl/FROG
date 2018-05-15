@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from 'react';
 import { hideConditional, type ActivityDbT } from 'frog-utils';
 import { extendObservable, action } from 'mobx';
@@ -91,7 +89,12 @@ class Config extends React.Component<
       formData: this.props.config,
       valid: []
     };
-    this.aT = activityTypesObj[this.props.activity.activityType.activity_type || this.props.activity.activityType]
+    this.aT =
+      activityTypesObj[
+        typeof this.props.activity.activityType.activity_type === 'object'
+          ? this.props.activity.activityType.activity_type
+          : this.props.activity.activityType
+      ];
   }
 
   componentDidMount() {

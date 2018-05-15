@@ -49,10 +49,10 @@ const EditorPanel = () => (
 );
 
 type StateT = {
-  exportOpen: Boolean,
-  importOpen: Boolean,
-  deleteOpen: Boolean,
-  locallyChanged: Boolean,
+  exportOpen: boolean,
+  importOpen: boolean,
+  deleteOpen: boolean,
+  locallyChanged: boolean,
   idRemove: Object
 };
 
