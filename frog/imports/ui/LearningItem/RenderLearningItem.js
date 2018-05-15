@@ -43,7 +43,7 @@ class RenderLearningItem extends React.Component<any, any> {
           <LIComponent
             data={data.payload}
             dataFn={dataFn && dataFn.specialize('payload')}
-            LearningItem={dataFn.LearningItem}
+            LearningItem={dataFn && dataFn.LearningItem}
           />
         </span>
         {(() => {
