@@ -55,10 +55,13 @@ export const refreshGraphDate = () =>
   (LibraryStates.lastRefreshGraph = new Date());
 
 export const collectGraphs = (callback: ?Function) =>
-  fetch(RemoteServer + '?select=uuid,title,description,tags,timestamp,deleted')
+  fetch(
+    RemoteServer +
+      '?select=uuid,title,description,tags,timestamp&deleted=not.is.true'
+  )
     .then(e => e.json())
     .then(r => {
-      LibraryStates.graphList = r.filter(x => !x.deleted);
+      LibraryStates.graphList = r;
       refreshGraphDate();
       if (callback) callback();
     });
