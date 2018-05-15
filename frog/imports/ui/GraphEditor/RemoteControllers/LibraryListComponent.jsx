@@ -49,52 +49,52 @@ export default ({
       </div>
       {object.activity_type && (
         <div>
-      <Button
-        value={object.uuid}
-        className="glyphicon glyphicon-ok"
-        style={{
-          position: 'absolute',
-          left: '2px',
-          top: '4px',
-          width: '9%',
-          minWidth: '40px',
-          height: '34px'
-        }}
-        onClick={onSelect}
-      />
-      <Button
-        value={object.uuid}
-        className="btn btn-danger"
-        style={{
-          position: 'absolute',
-          left: '2px',
-          top: '40px',
-          minWidth: '40px',
-          width: '9%',
-          height: '34px'
-        }}
-        onClick={() => {
-          if (setIdRemove) setIdRemove({type: 'activity' ,id: object.uuid});
-          setDelete(true);
-        }}
-      >
-        <span className="glyphicon glyphicon-remove" />
-      </Button>
+          <Button
+            value={object.uuid}
+            className="glyphicon glyphicon-ok"
+            style={{
+              position: 'absolute',
+              left: '2px',
+              top: '4px',
+              width: '9%',
+              minWidth: '40px',
+              height: '34px'
+            }}
+            onClick={onSelect}
+          />
+          <Button
+            value={object.uuid}
+            className="btn btn-danger"
+            style={{
+              position: 'absolute',
+              left: '2px',
+              top: '40px',
+              minWidth: '40px',
+              width: '9%',
+              height: '34px'
+            }}
+            onClick={() => {
+              if (setIdRemove)
+                setIdRemove({ type: 'activity', id: object.uuid });
+              setDelete(true);
+            }}
+          >
+            <span className="glyphicon glyphicon-remove" />
+          </Button>
 
-        <Button
-          value={object.uuid}
-          className="glyphicon glyphicon-eye-open"
-          style={{
-            position: 'absolute',
-            right: '2px',
-            top: '5px',
-            width: '10%',
-            height: '34px'
-          }}
-          onClick={onPreview}
-        />
-      </div>
-
+          <Button
+            value={object.uuid}
+            className="glyphicon glyphicon-eye-open"
+            style={{
+              position: 'absolute',
+              right: '2px',
+              top: '5px',
+              width: '10%',
+              height: '34px'
+            }}
+            onClick={onPreview}
+          />
+        </div>
       )}
     </div>
   </div>

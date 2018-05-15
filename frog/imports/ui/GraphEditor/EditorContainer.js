@@ -127,7 +127,11 @@ class Editor extends Component<Object, StateT> {
               modalOpen={this.state.deleteOpen}
               setModal={setDelete}
               remove={() =>
-                this.state.idRemove.type === 'graph' ? removeGraph(this.state.idRemove.id) : removeActivity(this.state.idRemove.id, () => this.forceUpdate())
+                this.state.idRemove.type === 'graph'
+                  ? removeGraph(this.state.idRemove.id)
+                  : removeActivity(this.state.idRemove.id, () =>
+                      this.forceUpdate()
+                    )
               }
             />
           </Grid>

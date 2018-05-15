@@ -239,7 +239,8 @@ class GraphActionMenu extends React.Component {
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
-                        if (setIdRemove) setIdRemove({type: 'graph', id: parentId});
+                        if (setIdRemove)
+                          setIdRemove({ type: 'graph', id: parentId });
                         setDelete(true);
                         // submitRemoveGraph(graphId); DO SOMETHING
                         this.handleClose();
