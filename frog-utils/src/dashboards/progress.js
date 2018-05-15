@@ -113,8 +113,11 @@ const parse = curve =>
 
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
+  const currentTime = activity.actualClosingTime
+    ? new Date(activity.actualClosingTime)
+    : new Date();
   const currentMaxTime = activity.actualStartingTime
-    ? (new Date() - new Date(activity.actualStartingTime)) / 1000
+    ? (currentTime - new Date(activity.actualStartingTime)) / 1000
     : state.maxTime;
   const sessionStatus = {};
 

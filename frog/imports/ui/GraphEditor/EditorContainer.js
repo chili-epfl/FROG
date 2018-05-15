@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+// @flow
+
+import * as React from 'react';
 import { withStyles } from 'material-ui/styles';
 import ReactTooltip from 'react-tooltip';
 import Grid from 'material-ui/Grid';
@@ -23,7 +25,7 @@ import TopBar from '../App/TopBar';
 const styles = () => ({
   root: {
     marginTop: '48px',
-    height: '100%'
+    height: 'calc(100vh - 48px)'
   },
   sheet: {
     background: 'white'
@@ -32,7 +34,7 @@ const styles = () => ({
 
 const EditorPanel = () => (
   <div className="bootstrap" style={styles.sheet}>
-    <div style={{ height: 'calc(100vh - 64px - 48px - 150px)' }}>
+    <div style={{ height: '600px' }}>
       <ReactTooltip delayShow={500} />
       <Graph scaled hasTimescale isEditable />
     </div>
@@ -54,7 +56,7 @@ type StateT = {
   idRemove: Object
 };
 
-class Editor extends Component<Object, StateT> {
+class Editor extends React.Component<Object, StateT> {
   constructor(props) {
     super(props);
     this.state = {

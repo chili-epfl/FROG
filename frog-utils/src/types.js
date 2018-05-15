@@ -11,7 +11,8 @@ export type ActivityDbT = {
   startTime: number,
   length: number,
   activityType: string,
-  actualStartingTime?: Date
+  actualStartingTime?: Date,
+  actualClosingTime?: Date
 };
 
 export type OperatorDbT = {
@@ -108,7 +109,7 @@ type ActivityDefT = {|
 type LogExtraT = {|
   sessionId: string,
   userId: string,
-  instanceId?: string,
+  instanceId: string,
   timestamp: Date
 |} & LogT;
 

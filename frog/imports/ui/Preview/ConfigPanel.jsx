@@ -2,19 +2,27 @@
 
 import * as React from 'react';
 import { uuid } from 'frog-utils';
+import { isEqual } from 'lodash';
+
+import Grid from 'material-ui/Grid';
+import IconButton from 'material-ui/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import Typography from 'material-ui/Typography';
+import Divider from 'material-ui/Divider';
+
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
-
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
 
 const styles = {
   side: {
     flex: '0 0 auto',
     overflowY: 'auto',
-    width: '30%'
+    width: '350px',
+    background: 'white'
   }
 };
 
@@ -30,12 +38,29 @@ class ConfigPanel extends React.Component<*, *> {
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
       this.props.setConfig(e.config);
-      initActivityDocuments(this.props.instances, aT, -1, e.config, true);
+      initActivityDocuments(
+        this.props.instances,
+        aT,
+        this.props.example,
+        e.config,
+        true
+      );
       initDashboardDocuments(aT, true);
     } else {
       this.props.setConfig({ ...e.config, invalid: true });
     }
     this.props.setActivityTypeId(e.activityType);
+  };
+
+  shouldComponentUpdate = (nextProps: any) => {
+    if (
+      !isEqual(nextProps.config, this.props.config) ||
+      this.props.activityId !== nextProps.activityId
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   componentDidUpdate = () => {
@@ -47,6 +72,20 @@ class ConfigPanel extends React.Component<*, *> {
         this.onConfigChange
       );
     }
+  };
+
+  backToPreview = () => {
+    const {
+      setConfig,
+      setExample,
+      setReloadAPIform,
+      setActivityTypeId
+    } = this.props;
+
+    setActivityTypeId(null);
+    setExample(0);
+    setConfig({});
+    setReloadAPIform(uuid());
   };
 
   render() {
@@ -67,40 +106,34 @@ class ConfigPanel extends React.Component<*, *> {
     return (
       <div style={styles.side}>
         {activityTypeId && (
-          <div
-            className="bootstrap"
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignContent: 'center'
-            }}
-          >
-            <button
-              onClick={() => {
-                setActivityTypeId(null);
-                setExample(0);
-                setConfig({});
-                setReloadAPIform(uuid());
-              }}
-              className="glyphicon glyphicon-arrow-left"
-              style={{
-                fontSize: '2em',
-                color: 'blue',
-                border: 0,
-                background: 'none',
-                cursor: 'pointer'
-              }}
-            />
-            <h3>{activityTypesObj[activityTypeId].meta.name}</h3>
-            <ExportButton
-              activity={{
-                title: activityTypesObj[activityTypeId].meta.name,
-                data: config,
-                activityType: activityTypeId,
-                parentId: this.state.parentId
-              }}
-            />
-          </div>
+          <Grid container spacing={8} alignItems="center">
+            <Grid item xs={2}>
+              <IconButton
+                aria-label="back-to-preview"
+                onClick={this.backToPreview}
+              >
+                <ArrowBack />
+              </IconButton>
+            </Grid>
+
+            <Grid item xs={8}>
+              <Typography variant="title">
+                {activityTypesObj[activityTypeId].meta.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <ExportButton
+                activity={{
+                  title: activityTypesObj[activityTypeId].meta.name,
+                  data: config,
+                  activityType: activityTypeId
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
         )}
         <ApiForm
           hidePreview

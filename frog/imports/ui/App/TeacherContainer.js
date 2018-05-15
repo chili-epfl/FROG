@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
@@ -13,9 +13,6 @@ import Preview from './../Preview';
 import TopBar from './TopBar';
 
 const styles = {
-  gc: {
-    height: '100%'
-  },
   subroot: {
     overflow: 'hidden',
     height: '100%'
@@ -24,7 +21,7 @@ const styles = {
 
 const TeacherContainer = ({ ready }: { ready: boolean }) => {
   if (!ready) {
-    return <Spinner />;
+    return <CircularProgress />;
   }
   return (
     <div id="app">
@@ -38,9 +35,9 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
 };
 
 const WithTopBar = () => (
-  <div id="subroot" style={styles.subroot}>
+  <React.Fragment>
     <TopBar />
-    <div id="gc" style={styles.gc}>
+    <div id="everything-except-top-bar" style={styles.subroot}>
       <Switch>
         <Route path="/teacher/:graphId" component={TeacherView} />
         <Route path="/teacher" component={TeacherView} />
@@ -50,7 +47,7 @@ const WithTopBar = () => (
         <Route component={GraphEditor} />
       </Switch>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 export default withTracker(() => {

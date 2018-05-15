@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { compose, toClass } from 'recompose';
+import { uniq } from 'lodash';
 
 import {
   MosaicWithoutDragDropContext,
@@ -33,7 +34,7 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
-  instances.forEach(instance => {
+  uniq(instances).forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
@@ -102,6 +103,16 @@ const ContentController = ({
     const ActivityToRun = ReactiveHOC(docId, connection)(
       showData ? ShowInfo : RunComp
     );
+    const logger = createLogger(
+      'preview',
+      instance,
+      activityType.id,
+      activityType.id,
+      getUserId(name),
+      plane,
+      config
+    );
+    logger({ type: 'activityDidMount' });
     return (
       <ActivityToRun
         activityType={activityType.id}
@@ -109,15 +120,7 @@ const ContentController = ({
         activityData={activityData}
         userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
-        logger={createLogger(
-          'preview',
-          instance,
-          activityType.id,
-          activityType.id,
-          getUserId(name),
-          plane,
-          config
-        )}
+        logger={logger}
         groupingValue={instance}
       />
     );
@@ -135,13 +138,7 @@ const ContentController = ({
   );
 
   return (
-    <div
-      className="modal-body"
-      style={{
-        overflow: 'auto',
-        height: '85%'
-      }}
-    >
+    <div style={{ height: '100%' }}>
       {showDashExample ? (
         <ShowDashExample
           example={example}
