@@ -66,7 +66,7 @@ export class Doc {
     return id;
   }
 
-  LearningItem = ({ ...props }: any) => {
+  LearningItem = (props: any) => {
     const LI = this.LearningItemFn;
     return <LI {...props} dataFn={this} />;
   };
@@ -127,7 +127,7 @@ export class Doc {
     this.doc.preventCompose = true;
     this.submitOp({ p: cleanPath(this.path, path), na: incr });
   }
-  objInsert(newVal: Object, path: rawPathT) {
+  objInsert(newVal: any, path: rawPathT) {
     this.submitOp({ p: cleanPath(this.path, path), oi: newVal });
   }
   keyedObjInsert(newVal: Object, path: rawPathT) {

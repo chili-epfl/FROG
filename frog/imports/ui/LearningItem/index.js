@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { type LIComponentPropsT, type LearningItemT, uuid } from 'frog-utils';
-import { Doc } from 'frog-utils/src/generateReactiveFn';
+import { Doc } from 'frog-utils';
 import Button from 'material-ui/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -83,7 +83,7 @@ const LearningItem = (props: {
         return (
           <LearningItem
             id={lid}
-            type="create"
+            type="edit"
             dataFn={props.dataFn}
             render={({ dataFn: childDataFn, children }) => (
               <div style={{ marginLeft: '10px' }}>
@@ -94,7 +94,7 @@ const LearningItem = (props: {
                   onClick={() => {
                     childDataFn.objInsert(false, 'draft');
                     childDataFn.objInsert(new Date(), 'createdAt');
-                    if (lid && onCreate) {
+                    if (onCreate) {
                       onCreate(lid);
                     }
                   }}

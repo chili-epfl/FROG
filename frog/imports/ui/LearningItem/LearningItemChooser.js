@@ -86,7 +86,9 @@ class LearningItemChooser extends React.Component<
                 dataFn={this.props.dataFn}
                 onCreate={id => {
                   this.setState({ open: undefined, anchorEl: undefined });
-                  this.props.onCreate(id);
+                  if (this.props.onCreate) {
+                    this.props.onCreate(id);
+                  }
                 }}
               />
             </div>

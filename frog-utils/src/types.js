@@ -238,7 +238,7 @@ type LIRenderPropsT = {|
   liType: string
 |};
 
-export type LIRenderT = React.Component<LIRenderPropsT>;
+export type LIRenderT = React.ComponentType<LIRenderPropsT>;
 
 export type LIComponentPropsT =
   | {| type: 'history', id: string, render?: LIRenderT |}
@@ -260,7 +260,7 @@ export type LIComponentPropsT =
   | {|
       type: 'edit',
       id: string,
-      render?: React.Component<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
+      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
