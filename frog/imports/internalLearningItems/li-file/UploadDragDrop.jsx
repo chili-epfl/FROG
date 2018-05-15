@@ -10,7 +10,6 @@ const UploadDragDrop = ({
   dataFn,
   fileTypes,
   createLearningItem,
-  onCreate,
   setSpinner
 }: Object) => {
   const onDrop = f => {
@@ -20,8 +19,7 @@ const UploadDragDrop = ({
         imageFile,
         dataFn,
         'dragdrop-upload',
-        createLearningItem,
-        onCreate
+        createLearningItem
       )
     );
   };

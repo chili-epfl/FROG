@@ -2,7 +2,7 @@ import * as React from 'react';
 import Form from 'react-jsonschema-form';
 import { withState } from 'recompose';
 import Button from 'material-ui/Button';
-import { type learningItemT, ReactiveText } from 'frog-utils';
+import { type LearningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (
   <React.Fragment>
@@ -45,7 +45,7 @@ const schema = {
 };
 
 const Creator = withState('formdata', 'setFormdata', {})(
-  ({ formdata, setFormdata, onCreate, createLearningItem }) => (
+  ({ formdata, setFormdata, createLearningItem }) => (
     <div className="bootstrap">
       <hr
         style={{
@@ -58,11 +58,10 @@ const Creator = withState('formdata', 'setFormdata', {})(
         formData={formdata}
         onSubmit={e => {
           if (e.formData && e.formData.title && e.formData.content) {
-            const lid = createLearningItem('li-idea', {
+            createLearningItem('li-idea', {
               title: e.formData.title,
               content: e.formData.content
             });
-            onCreate(lid);
             setFormdata({});
           }
         }}
@@ -91,4 +90,4 @@ export default ({
   ThumbViewer,
   Creator,
   Editor
-}: learningItemT);
+}: LearningItemT<{ title: string, content: string }>);

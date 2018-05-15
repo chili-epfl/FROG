@@ -252,12 +252,26 @@ export type LearningItemFnT =
     }
   | { type: 'edit', id: string, dataFn: Doc, render?: Function };
 
-export type learningItemT = {
+type LearningItemComponentT = React.ComponentType<LearningItemFnT>;
+
+export type LearningItemT<T> = {
   name: string,
   id: string,
-  dataStructure?: any,
-  Editor?: React.ComponentType<any>,
-  Creator?: React.ComponentType<any>,
-  ThumbViewer?: React.ComponentType<any>,
-  Viewer?: React.ComponentType<any>
+  dataStructure?: T,
+  Editor?: React.ComponentType<{
+    data: T,
+    dataFn: Doc
+  }>,
+  Creator?: React.ComponentType<{
+    createLearningItem: Function,
+    LearningItem: LearningItemComponentT
+  }>,
+  ThumbViewer?: React.ComponentType<{
+    data: T,
+    dataFn: Doc
+  }>,
+  Viewer?: React.ComponentType<{
+    data: T,
+    dataFn: Doc
+  }>
 };

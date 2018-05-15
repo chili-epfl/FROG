@@ -6,26 +6,31 @@ import { get } from 'lodash';
 
 import { uuid, type LearningItemFnT } from './index';
 
-type rawPathT = string | string[];
+type rawPathElement = string | number;
+type rawPathT = rawPathElement | rawPathElement[];
 
-const cleanPath = (defPath: string[], rawPath: rawPathT = []): string[] => {
+const cleanPath = (
+  defPath: rawPathElement[],
+  rawPath: rawPathT = []
+): rawPathElement[] => {
   const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
   return [...defPath, ...newPath];
 };
 
 export class Doc {
   doc: any;
-  path: string[];
+  path: rawPathElement[];
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
   LearningItemFn: React.ComponentType<LearningItemFnT>;
   meta: Object;
   backend: any;
+  path: rawPathElement[];
 
   constructor(
     doc: any,
-    path: ?(string[]),
+    path?: rawPathElement[],
     readOnly: boolean,
     updateFn?: Function,
     meta: Object = {},
@@ -149,7 +154,7 @@ export class Doc {
     });
   }
   specialize(rawPath: rawPathT) {
-    const newPath = typeof rawPath === 'string' ? [rawPath] : rawPath;
+    const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
     return new Doc(
       this.doc,
       [...this.path, ...newPath],
@@ -162,7 +167,7 @@ export class Doc {
   }
 
   specializeData(path: rawPathT, data: Object) {
-    if (typeof path === 'string') {
+    if (typeof path === 'string' || typeof path === 'number') {
       return data[[path]];
     }
     return path.reduce((acc, x) => acc[[x]], data);

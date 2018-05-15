@@ -63,9 +63,10 @@ const LearningItem = (props: LearningItemFnT) => {
         return (
           <ToRun
             createLearningItem={(liType, item) =>
-              dataFn.createLearningItem(liType, item, dataFn.meta)
+              (onCreate || (id => id))(
+                dataFn.createLearningItem(liType, item, dataFn.meta)
+              )
             }
-            onCreate={onCreate}
             LearningItem={LearningItem}
           />
         );

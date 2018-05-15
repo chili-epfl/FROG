@@ -1,6 +1,7 @@
 // @flow
+
 import * as React from 'react';
-import { ImageReload, type learningItemT } from 'frog-utils';
+import { ImageReload, type LearningItemT } from 'frog-utils';
 
 import { Creator } from '../li-file';
 
@@ -12,4 +13,4 @@ export default ({
   Creator: (props: any) => (
     <Creator {...props} fileTypes="image/jpeg, image/png" />
   )
-}: learningItemT);
+}: LearningItemT<any>);

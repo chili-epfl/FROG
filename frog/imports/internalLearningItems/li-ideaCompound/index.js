@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type learningItemT, ReactiveText } from 'frog-utils';
+import { type LearningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ dataFn, data }) => (
   <React.Fragment>
@@ -52,4 +52,4 @@ export default ({
   ThumbViewer,
   Editor,
   dataStructure: { title: '', content: '', attachments: [] }
-}: learningItemT);
+}: LearningItemT<{ title: string, content: string, attachments: any[] }>);
