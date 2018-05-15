@@ -1,11 +1,12 @@
 // @flow
+
 import * as React from 'react';
 import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
 import AddCircle from '@material-ui/icons/AddCircle';
-import { type learningItemT, values } from 'frog-utils';
+import { type LearningItemT, values } from 'frog-utils';
 
 import { learningItemTypesObj } from './learningItemTypes';
 import LearningItem from './index';
@@ -22,7 +23,7 @@ const styles = theme => ({
 
 class LearningItemChooser extends React.Component<
   { classes: Object, onCreate: Function, dataFn: Object },
-  { anchorEl: any, open?: learningItemT }
+  { anchorEl: any, open?: LearningItemT<any> }
 > {
   state = {
     anchorEl: null,
@@ -85,7 +86,9 @@ class LearningItemChooser extends React.Component<
                 dataFn={this.props.dataFn}
                 onCreate={id => {
                   this.setState({ open: undefined, anchorEl: undefined });
-                  this.props.onCreate(id);
+                  if (this.props.onCreate) {
+                    this.props.onCreate(id);
+                  }
                 }}
               />
             </div>

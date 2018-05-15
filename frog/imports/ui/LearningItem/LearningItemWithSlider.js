@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Meteor } from 'meteor/meteor';
 import { CircularProgress } from 'material-ui/Progress';
-import { isBrowser } from 'frog-utils';
+import { isBrowser, type LIRenderT } from 'frog-utils';
 import json from 'ot-json0';
 import { isEmpty, cloneDeep } from 'lodash';
 
@@ -17,7 +17,7 @@ const Slider = isBrowser
   ? require('rc-slider').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
-type PropsT = { id: string, render?: Function, dataFn?: Object };
+type PropsT = { id: string, render?: LIRenderT, dataFn?: Object };
 
 class LearningItemWithSlider extends React.Component<
   PropsT,

@@ -10,8 +10,7 @@ const uploadBufferWithThumbnail = (
   dataFn,
   type,
   filename,
-  createLearningItem,
-  onCreate
+  createLearningItem
 ) => {
   const ext = filename && filename.split('.').pop();
   if (!filename || ['jpg', 'png', 'jpeg'].includes(ext.toLowerCase())) {
@@ -22,24 +21,22 @@ const uploadBufferWithThumbnail = (
         resizeImg(imageBuffer, { width: 800 }).then(buffery => {
           const blob2 = new Blob([buffery], { type: 'image/jpeg' });
           uploadFile(blob2, imageId).then(url => {
-            const id = createLearningItem('li-image', {
+            createLearningItem('li-image', {
               url,
               thumburl,
               filename
             });
-            onCreate(id);
           });
         });
       });
     });
   } else {
     uploadFile(imageBuffer, imageId).then(url => {
-      const id = createLearningItem('li-file', {
+      createLearningItem('li-file', {
         url,
         ext,
         filename
       });
-      onCreate(id);
     });
   }
 };
@@ -48,8 +45,7 @@ export default (
   file: any,
   dataFn: Object,
   type: string,
-  createLearningItem: Function,
-  onCreate: Function
+  createLearningItem: Function
 ) => {
   const fr = new FileReader();
   const imageId = uuid();
@@ -63,8 +59,7 @@ export default (
       dataFn,
       type,
       filename,
-      createLearningItem,
-      onCreate
+      createLearningItem
     );
   };
   fr.readAsArrayBuffer(file);

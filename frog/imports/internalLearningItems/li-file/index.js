@@ -3,7 +3,7 @@ import * as React from 'react';
 import { withState, compose } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
-import { type learningItemT } from 'frog-utils';
+import { type LearningItemT } from 'frog-utils';
 import { CircularProgress } from 'material-ui/Progress';
 
 import WebcamInterface from './WebcamInterface';
@@ -63,4 +63,4 @@ export default ({
   ),
   ThumbViewer,
   Creator
-}: learningItemT);
+}: LearningItemT<any>);

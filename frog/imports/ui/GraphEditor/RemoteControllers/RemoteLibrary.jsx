@@ -25,7 +25,10 @@ const filterWithStr = (list: Array<any>, searchStr: string) =>
         x.description.toLowerCase().includes(searchStr) ||
         x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
     )
-    .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
+    .sort((x: Object, y: Object) => {
+      if (x.activity_type) return x.title < y.title ? -1 : 1;
+      else return x.timestamp > y.timestamp ? -1 : 1;
+    });
 
 class Library extends Component<Object, { searchStr: string }> {
   constructor(props: Object) {

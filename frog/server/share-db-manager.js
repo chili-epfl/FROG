@@ -71,7 +71,8 @@ Meteor.methods({
               cloneDeep(acc[acc.length - 1]),
               x.op
             );
-            return [...acc, result];
+            acc.push(result);
+            return acc;
           },
           [beg]
         );

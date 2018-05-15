@@ -1,6 +1,11 @@
 // @flow
 import * as React from 'react';
-import { type LearningItemFnT, uuid } from 'frog-utils';
+import {
+  type LIComponentPropsT,
+  type LearningItemT,
+  uuid,
+  Doc
+} from 'frog-utils';
 import Button from 'material-ui/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -9,7 +14,10 @@ import { learningItemTypesObj } from './learningItemTypes';
 import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
-const LearningItem = (props: LearningItemFnT) => {
+const LearningItem = (props: {
+  ...{| dataFn: Doc |},
+  ...LIComponentPropsT
+}) => {
   if (props.type === 'history') {
     return (
       <LearningItemWithSlider
@@ -53,27 +61,29 @@ const LearningItem = (props: LearningItemFnT) => {
       };
     }
     if (!onCreate) {
-      onCreate = props.onCreate || (_ => {});
+      onCreate = props.onCreate;
     }
     if (props.liType) {
-      const liT = learningItemTypesObj[props.liType];
+      const liT: LearningItemT<any> = learningItemTypesObj[props.liType];
       if (liT.Creator) {
         const ToRun = liT.Creator;
         const dataFn = props.dataFn;
         return (
           <ToRun
-            createLearningItem={(liType, item) =>
-              dataFn.createLearningItem(liType, item, dataFn.meta)
-            }
-            onCreate={onCreate}
-            LearningItem={LearningItem}
+            createLearningItem={(liType, item) => {
+              const id = dataFn.createLearningItem(liType, item, dataFn.meta);
+              if (id && onCreate) {
+                onCreate(id);
+              }
+              return id;
+            }}
+            LearningItem={dataFn.LearningItem}
           />
         );
       } else {
         const lid = props.dataFn.createLearningItem(liT.id, liT.dataStructure, {
           draft: true
         });
-        const onCreateFlow = onCreate;
         return (
           <LearningItem
             id={lid}
@@ -88,7 +98,9 @@ const LearningItem = (props: LearningItemFnT) => {
                   onClick={() => {
                     childDataFn.objInsert(false, 'draft');
                     childDataFn.objInsert(new Date(), 'createdAt');
-                    onCreateFlow(lid);
+                    if (onCreate) {
+                      onCreate(lid);
+                    }
                   }}
                 >
                   Add
