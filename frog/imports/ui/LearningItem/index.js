@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { type LearningItemFnT, uuid } from 'frog-utils';
+import { type LearningItemFnT, type LearningItemT, uuid } from 'frog-utils';
 import Button from 'material-ui/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -53,28 +53,29 @@ const LearningItem = (props: LearningItemFnT) => {
       };
     }
     if (!onCreate) {
-      onCreate = props.onCreate || (_ => {});
+      onCreate = props.onCreate;
     }
     if (props.liType) {
-      const liT = learningItemTypesObj[props.liType];
+      const liT: LearningItemT<any> = learningItemTypesObj[props.liType];
       if (liT.Creator) {
         const ToRun = liT.Creator;
         const dataFn = props.dataFn;
         return (
           <ToRun
-            createLearningItem={(liType, item) =>
-              (onCreate || (id => id))(
-                dataFn.createLearningItem(liType, item, dataFn.meta)
-              )
-            }
-            LearningItem={LearningItem}
+            createLearningItem={(liType, item) => {
+              const id = dataFn.createLearningItem(liType, item, dataFn.meta);
+              if (id && onCreate) {
+                onCreate(id);
+              }
+              return id;
+            }}
+            LearningItem={dataFn.LearningItem}
           />
         );
       } else {
         const lid = props.dataFn.createLearningItem(liT.id, liT.dataStructure, {
           draft: true
         });
-        const onCreateFlow = onCreate;
         return (
           <LearningItem
             id={lid}
@@ -89,7 +90,9 @@ const LearningItem = (props: LearningItemFnT) => {
                   onClick={() => {
                     childDataFn.objInsert(false, 'draft');
                     childDataFn.objInsert(new Date(), 'createdAt');
-                    onCreateFlow(lid);
+                    if (lid && onCreate) {
+                      onCreate(lid);
+                    }
                   }}
                 >
                   Add

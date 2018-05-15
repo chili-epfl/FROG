@@ -77,6 +77,8 @@ export type {
   DashboardT,
   DashboardViewerPropsT,
   LearningItemFnT,
+  LIComponentPropsT,
+  LearningItemComponentT,
   LearningItemT
 } from './types';
 export { CountChart } from './DashboardComponents/CountChart';

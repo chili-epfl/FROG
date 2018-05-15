@@ -4,7 +4,8 @@ import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 
-import { uuid, type LearningItemFnT } from './index';
+import { uuid } from './index';
+import type { LearningItemComponentT, LearningItemFnT } from './types';
 
 type rawPathElement = string | number;
 type rawPathT = rawPathElement | rawPathElement[];
@@ -24,6 +25,7 @@ export class Doc {
   readOnly: boolean;
   updateFn: ?Function;
   LearningItemFn: React.ComponentType<LearningItemFnT>;
+  LearningItem: LearningItemComponentT;
   meta: Object;
   backend: any;
   path: rawPathElement[];
