@@ -94,7 +94,7 @@ export default class ExportModal extends Component<Object, StateT> {
             }}
             disabled={Boolean(!this.state.title || !this.state.description)}
           >
-            Save
+            Save as new
           </Button>
           {((this.props.activity && this.props.activity.parentId) ||
             (this.props.exportType === 'graph' &&

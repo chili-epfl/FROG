@@ -9,7 +9,11 @@ import IconButton from 'material-ui/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
+import TextField from 'material-ui/TextField';
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
+import { LibraryStates } from '/imports/api/cache';
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
@@ -26,12 +30,15 @@ const styles = {
   }
 };
 
+
 class ConfigPanel extends React.Component<*, *> {
   constructor(props: Object) {
     super(props);
-    this.state = {
-      parentId: ''
-    };
+    console.log(props)
+    const metadatas = LibraryStates.activityList.find(
+      x => x.uuid === props.state.metadatas.uuid
+    )
+    props.setMetadatas(metadatas)
   }
 
   onConfigChange = (e: any) => {
@@ -50,6 +57,7 @@ class ConfigPanel extends React.Component<*, *> {
       this.props.setConfig({ ...e.config, invalid: true });
     }
     this.props.setActivityTypeId(e.activityType);
+    this.forceUpdate()
   };
 
   shouldComponentUpdate = (nextProps: any) => {
@@ -96,13 +104,13 @@ class ConfigPanel extends React.Component<*, *> {
       setExample,
       setShowDashExample,
       activityTypeId,
+      metadatas,
       setReloadAPIform,
       setActivityTypeId,
       showDash,
       setShowDash,
       instances
     } = this.props;
-
     return (
       <div style={styles.side}>
         {activityTypeId && (
@@ -133,6 +141,31 @@ class ConfigPanel extends React.Component<*, *> {
             <Grid item xs={12}>
               <Divider />
             </Grid>
+            {metadatas && <div style={{backgroundColor: '#A9A9A0', display: 'flex', flexDirection: 'column', width: '100%', padding: '10px'}}>
+              <h3>Metadatas:</h3>
+              <TextField
+                id="name"
+                label="Title"
+                defaultValue={metadatas.title}
+                onChange={e => this.setState({ title: e.target.value })}
+                name="title"
+                margin="normal"
+              />
+              <TextField
+                label="Description"
+                defaultValue={metadatas.description}
+                multiline
+                onChange={e => this.setState({ description: e.target.value })}
+                id="exampleFormControlTextarea1"
+                rows="3"
+              />
+              <div style={{ height: '20px' }} />
+              <TagsInput
+                value={metadatas.tags}
+                onChange={t => this.setState({ tags: t })}
+              />
+              <div style={{height: '10px'}}/>
+            </div>}
           </Grid>
         )}
         <ApiForm
@@ -148,8 +181,12 @@ class ConfigPanel extends React.Component<*, *> {
               ? activityType.activity_type
               : activityType;
             setConfig(exConf);
-            if (activityType.uuid)
-              this.setState({ parentId: activityType.uuid });
+            if (activityType.uuid){
+              const newMetadatas = LibraryStates.activityList.find(
+                x => x.uuid === activityType.uuid
+              )
+              this.props.setMetadatas({uuid: activityType.uuid, title: newMetadatas.title, description: newMetadatas.description, tags: newMetadatas.tags })
+              }
             if (showDash && !activityTypesObj[actTypeId].dashboard) {
               setShowDash(false);
             }

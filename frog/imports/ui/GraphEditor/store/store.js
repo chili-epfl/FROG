@@ -203,7 +203,7 @@ export default class Store {
       }),
 
       addHistory: action(() => {
-        if (this.readOnly || this.state.mode === 'readOnly') {
+        if (!this.history || this.readOnly || this.state.mode === 'readOnly') {
           return;
         }
         const newEntry = [

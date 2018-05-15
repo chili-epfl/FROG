@@ -91,7 +91,7 @@ class Config extends React.Component<
       formData: this.props.config,
       valid: []
     };
-    this.aT = activityTypesObj[this.props.activity.activityType || ''];
+    this.aT = activityTypesObj[this.props.activity.activityType.activity_type || this.props.activity.activityType]
   }
 
   componentDidMount() {
