@@ -15,7 +15,7 @@ export const Connections = new Mongo.Collection('connections');
 export const DashboardData = new Mongo.Collection('dashboard_data');
 
 export const addActivity = (
-  activityType: string,
+  activityType?: string,
   data: ?Object = {},
   id: string,
   groupingKey: ?string,
@@ -34,6 +34,14 @@ export const addActivity = (
       createdAt: new Date()
     });
   }
+};
+
+export const removeActivityType = (id: string) => {
+  Activities.update(id, { $unset: { activityType: null, data: null } });
+};
+
+export const removeOperatorType = (id: string) => {
+  Operators.update(id, { $unset: { operatorType: null, data: null } });
 };
 
 export const setParticipation = (
