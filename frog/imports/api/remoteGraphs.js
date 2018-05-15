@@ -9,7 +9,11 @@ const RemoteServer =
 
 export const removeGraph = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {
-    method: 'DELETE'
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({ deleted: true })
   }).then(() => collectGraphs(callback));
 };
 
@@ -17,7 +21,10 @@ export const refreshGraphDate = () =>
   (LibraryStates.lastRefreshGraph = new Date());
 
 export const collectGraphs = (callback: ?Function) =>
-  fetch(RemoteServer + '?select=uuid,title,description,tags')
+  fetch(
+    RemoteServer +
+      '?select=uuid,title,description,tags,timestamp&deleted=not.is.true'
+  )
     .then(e => e.json())
     .then(r => {
       LibraryStates.graphList = r;
@@ -58,7 +65,8 @@ export const sendGraph = (state: Object, props: Object) => {
     uuid: newId,
     title: state.title,
     description: state.description,
-    tags: state.tags
+    tags: state.tags,
+    timestamp: new Date()
   });
 };
 
