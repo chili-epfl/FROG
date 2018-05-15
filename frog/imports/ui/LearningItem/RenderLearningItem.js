@@ -11,11 +11,7 @@ class RenderLearningItem extends React.Component<any, any> {
   state = { open: false };
 
   shouldComponentUpdate(nextProps: any) {
-    if (!isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn'))) {
-      return true;
-    } else {
-      return false;
-    }
+    return !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn'));
   }
 
   render() {
