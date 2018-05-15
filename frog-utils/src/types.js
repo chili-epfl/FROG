@@ -231,33 +231,59 @@ export type operatorPackageT =
   | productOperatorT
   | controlOperatorT;
 
-export type LearningItemFnT =
-  | { type: 'history', id: string, render?: Function, dataFn: Doc }
-  | {
+type LIRenderPropsT = {|
+  children: React.Element<*>,
+  editable: Boolean,
+  zoomable: Boolean,
+  liType: string
+|};
+
+export type LIRenderT = React.ComponentType<LIRenderPropsT>;
+
+export type LIComponentPropsT =
+  | {| type: 'history', id: string, render?: LIRenderT |}
+  | {|
       type: 'create',
       meta?: Object,
       liType?: string,
-      dataFn: Doc,
       onCreate?: Function,
       autoInsert?: Boolean,
       meta?: Object
-    }
-  | { type: 'view', id: string, render?: Function, dataFn: Doc }
-  | {
+    |}
+  | {| type: 'view', id: string, render?: LIRenderT |}
+  | {|
       type: 'thumbView',
       id: string,
-      render?: Function,
-      clickZoomable?: Boolean,
-      dataFn: Doc
-    }
-  | { type: 'edit', id: string, dataFn: Doc, render?: Function };
+      render?: LIRenderT,
+      clickZoomable?: Boolean
+    |}
+  | {|
+      type: 'edit',
+      id: string,
+      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
+    |};
 
-export type learningItemT = {
+export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
+
+export type LearningItemT<T> = {
   name: string,
   id: string,
-  dataStructure?: any,
-  Editor?: React.ComponentType<any>,
-  Creator?: React.ComponentType<any>,
-  ThumbViewer?: React.ComponentType<any>,
-  Viewer?: React.ComponentType<any>
+  dataStructure?: T,
+  Editor?: React.ComponentType<{
+    data: T,
+    dataFn: Doc,
+    LearningItem: LearningItemComponentT
+  }>,
+  Creator?: React.ComponentType<{
+    createLearningItem: Function,
+    LearningItem: LearningItemComponentT
+  }>,
+  ThumbViewer?: React.ComponentType<{
+    data: T,
+    LearningItem: LearningItemComponentT
+  }>,
+  Viewer?: React.ComponentType<{
+    data: T,
+    LearningItem: LearningItemComponentT
+  }>
 };

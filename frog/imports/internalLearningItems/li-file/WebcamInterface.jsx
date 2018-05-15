@@ -10,7 +10,6 @@ const takePicture = ({
   webcam,
   setWebcam,
   createLearningItem,
-  onCreate,
   setSpinner
 }) => {
   const dataURI = webcam.getScreenshot();
@@ -37,7 +36,7 @@ const takePicture = ({
   const blob = new Blob([ab], { type: mimeString });
 
   setSpinner(true);
-  uploadImage(blob, dataFn, 'webcam-upload', createLearningItem, onCreate);
+  uploadImage(blob, dataFn, 'webcam-upload', createLearningItem);
   setWebcam(false);
 };
 

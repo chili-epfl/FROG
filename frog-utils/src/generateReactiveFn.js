@@ -4,32 +4,38 @@ import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 
-import { uuid, type LearningItemFnT } from './index';
+import { uuid } from './index';
+import type { LearningItemComponentT } from './types';
 
-type rawPathT = string | string[];
+type rawPathElement = string | number;
+type rawPathT = rawPathElement | rawPathElement[];
 
-const cleanPath = (defPath: string[], rawPath: rawPathT = []): string[] => {
+const cleanPath = (
+  defPath: rawPathElement[],
+  rawPath: rawPathT = []
+): rawPathElement[] => {
   const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
   return [...defPath, ...newPath];
 };
 
 export class Doc {
   doc: any;
-  path: string[];
+  path: rawPathElement[];
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
-  LearningItemFn: React.ComponentType<LearningItemFnT>;
+  LearningItemFn: LearningItemComponentT;
   meta: Object;
   backend: any;
+  path: rawPathElement[];
 
   constructor(
     doc: any,
-    path: ?(string[]),
+    path?: rawPathElement[],
     readOnly: boolean,
     updateFn?: Function,
     meta: Object = {},
-    LearningItem: React.ComponentType<LearningItemFnT>,
+    LearningItem: LearningItemComponentT,
     backend: any
   ) {
     this.backend = backend;
@@ -60,7 +66,7 @@ export class Doc {
     return id;
   }
 
-  LearningItem = ({ ...props }: any) => {
+  LearningItem = (props: any) => {
     const LI = this.LearningItemFn;
     return <LI {...props} dataFn={this} />;
   };
@@ -121,7 +127,7 @@ export class Doc {
     this.doc.preventCompose = true;
     this.submitOp({ p: cleanPath(this.path, path), na: incr });
   }
-  objInsert(newVal: Object, path: rawPathT) {
+  objInsert(newVal: any, path: rawPathT) {
     this.submitOp({ p: cleanPath(this.path, path), oi: newVal });
   }
   keyedObjInsert(newVal: Object, path: rawPathT) {
@@ -149,7 +155,7 @@ export class Doc {
     });
   }
   specialize(rawPath: rawPathT) {
-    const newPath = typeof rawPath === 'string' ? [rawPath] : rawPath;
+    const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
     return new Doc(
       this.doc,
       [...this.path, ...newPath],
@@ -162,7 +168,7 @@ export class Doc {
   }
 
   specializeData(path: rawPathT, data: Object) {
-    if (typeof path === 'string') {
+    if (typeof path === 'string' || typeof path === 'number') {
       return data[[path]];
     }
     return path.reduce((acc, x) => acc[[x]], data);
@@ -171,7 +177,7 @@ export class Doc {
 
 export const generateReactiveFn = (
   doc: any,
-  LearningItem: React.ComponentType<LearningItemFnT>,
+  LearningItem: any,
   meta?: Object,
   readOnly?: boolean,
   updateFn?: Function,
@@ -186,7 +192,7 @@ export const generateReactiveFn = (
 
 export const inMemoryReactive = (
   initial: any,
-  LearningItem: React.ComponentType<LearningItemFnT>,
+  LearningItem: any,
   backend: any
 ): Promise<{ data: any, dataFn: Doc }> => {
   const share = new ShareDB();

@@ -6,46 +6,47 @@ import { omit, isEqual } from 'lodash';
 
 import { learningItemTypesObj } from './learningItemTypes';
 
-const mapping = { view: 'Viewer', edit: 'Editor', thumbView: 'ThumbViewer' };
 class RenderLearningItem extends React.Component<any, any> {
   state = { open: false };
 
-  shouldComponentUpdate(nextProps: Object, nextState: Object) {
-    if (
+  shouldComponentUpdate(nextProps: any, nextState: any) {
+    return (
       !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn')) ||
       nextState.open !== this.state.open
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   render() {
     const { data, dataFn, render, type = 'view', clickZoomable } = this.props;
     const liType = learningItemTypesObj[data.liType];
     if (!liType) {
-      return <h1>Upz</h1>;
+      return <h3>Oops ! Incorrect LI-type</h3>;
     }
-    let Component = liType[mapping[type]];
-    if (!Component) {
-      if (type === 'view' && liType.ThumbViewer) {
-        Component = liType.ThumbViewer;
-      } else {
-        return (
-          <b>
-            Unsupported learning item type {JSON.stringify(data.liType)} or
-            component type {type}
-          </b>
-        );
-      }
+    let LIComponent;
+    if (type === 'view' && liType.Viewer) {
+      LIComponent = liType.Viewer;
+    } else if (
+      (type === 'view' || type === 'thumbView') &&
+      liType.ThumbViewer
+    ) {
+      LIComponent = liType.ThumbViewer;
+    } else if (type === 'edit' && liType.Editor) {
+      LIComponent = liType.Editor;
+    } else {
+      return (
+        <b>
+          Unsupported learning item type {JSON.stringify(data.liType)} or
+          component type {type}
+        </b>
+      );
     }
     const Comp = (
       <React.Fragment>
         <span onClick={() => this.setState({ open: true })}>
-          <Component
+          <LIComponent
             data={data.payload}
             dataFn={dataFn && dataFn.specialize('payload')}
+            LearningItem={dataFn && dataFn.LearningItem}
           />
         </span>
         {(() => {
@@ -56,12 +57,11 @@ class RenderLearningItem extends React.Component<any, any> {
             liType.Viewer
           ) {
             const View = liType.Viewer;
-
             return (
               <Dialog open onClose={() => this.setState({ open: false })}>
                 <View
                   data={data.payload}
-                  dataFn={dataFn && dataFn.specialize('payload')}
+                  LearningItem={dataFn && dataFn.LearningItem}
                 />
               </Dialog>
             );
