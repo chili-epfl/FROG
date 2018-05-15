@@ -79,23 +79,31 @@ export default (props: Object) => {
     }
   };
 
-  const add = () => {
+  const addStudent = () => {
     const newName = names[users.length % names.length];
     const newGroup = groupName(users.length);
     const newId = getUserId(newName);
     setUsers([...users, newName]);
-    setInstances([...instances, [newId, newGroup, 'all'][plane - 1]]);
+    const newInstances = [...instances, [newId, newGroup, 'all'][plane - 1]];
+    setInstances(newInstances);
+    initActivityDocuments(newInstances, activityType, example, config, false);
   };
-  const remove = () => {
+
+  const removeStudent = () => {
     setUsers(users.slice(0, users.length - 1));
-    setInstances(instances.slice(0, instances.length - 1));
+    const newInstances = instances.slice(0, instances.length - 1);
+    setInstances(newInstances);
+    initActivityDocuments(newInstances, activityType, example, config, false);
   };
+
   const switchPlane = () => {
     const newPlane = 1 + plane % 3;
     setPlane(newPlane);
-    setInstances(
-      users.map((n, i) => [getUserId(n), groupName(i), 'all'][newPlane - 1])
+    const newInstances = users.map(
+      (n, i) => [getUserId(n), groupName(i), 'all'][newPlane - 1]
     );
+    setInstances(newInstances);
+    initActivityDocuments(newInstances, activityType, example, config, false);
   };
 
   return (
@@ -139,13 +147,13 @@ export default (props: Object) => {
           tooltip="Toggle log table"
         />
         <Icon
-          onClick={add}
+          onClick={addStudent}
           icon="fa fa-user-plus"
           color="#3d76b8"
           tooltip="Add a user"
         />
         <Icon
-          onClick={remove}
+          onClick={removeStudent}
           icon="fa fa-user-times"
           color={users.length > 1 ? '#3d76b8' : '#b3cae6'}
           tooltip="Remove one user"
@@ -183,7 +191,6 @@ export default (props: Object) => {
                 const exConf = ex.config;
                 setConfig(exConf);
                 setReloadAPIform(uuid());
-                initActivityDocuments(instances, activityType, i, exConf, true);
                 initDashboardDocuments(activityType, true);
                 setExample(i);
               }}
