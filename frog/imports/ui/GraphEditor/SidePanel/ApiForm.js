@@ -191,7 +191,7 @@ const state = new State();
 const ApiForm = observer(
   class A extends React.Component<
     PropsT,
-    { activity: ActivityDbT, idRemove: string, deleteOpen: boolean }
+    { activity: ActivityDbT, idRemove: Object, deleteOpen: boolean }
   > {
     constructor(props) {
       super(props);
@@ -203,7 +203,7 @@ const ApiForm = observer(
         startTime: 0,
         length: 5
       };
-      this.state = { activity, idRemove: '', deleteOpen: false };
+      this.state = { activity, idRemove: {}, deleteOpen: false };
     }
 
     componentWillReceiveProps = nextprops => {

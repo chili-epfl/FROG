@@ -51,7 +51,7 @@ type StateT = {
   importOpen: Boolean,
   deleteOpen: Boolean,
   locallyChanged: Boolean,
-  idRemove: string
+  idRemove: Object
 };
 
 class Editor extends Component<Object, StateT> {
@@ -62,7 +62,7 @@ class Editor extends Component<Object, StateT> {
       importOpen: false,
       deleteOpen: false,
       locallyChanged: false,
-      idRemove: ''
+      idRemove: {}
     };
   }
 
@@ -88,7 +88,6 @@ class Editor extends Component<Object, StateT> {
     }
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
-
     return (
       <div className={classes.root}>
         <TopBar />
@@ -127,12 +126,9 @@ class Editor extends Component<Object, StateT> {
             <ModalDelete
               modalOpen={this.state.deleteOpen}
               setModal={setDelete}
-              remove={() => {
-                if (this.state.importOpen)
-                  removeGraph(this.state.idRemove, () => this.forceUpdate());
-                else
-                  removeActivity(this.state.idRemove, () => this.forceUpdate());
-              }}
+              remove={() =>
+                this.state.idRemove.type === 'graph' ? removeGraph(this.state.idRemove.id) : removeActivity(this.state.idRemove.id, () => this.forceUpdate())
+              }
             />
           </Grid>
           <Grid item xs={12}>
