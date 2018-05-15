@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import Operator from './Operator';
 import { connect, type StoreProp } from './store';
@@ -6,7 +7,7 @@ import { connect, type StoreProp } from './store';
 export default connect(
   ({
     store: {
-      operatorStore: { all: operators },
+      operatorStore: { all: operators, addOperator },
       ui: { socialCoords, socialCoordsScaled },
       state
     },
@@ -20,8 +21,8 @@ export default connect(
           title={op.title}
           transparent={transparent}
           key={op.id}
-          x={coords[0]}
-          y={coords[1]}
+          x={coords[0] - 25}
+          y={coords[1] - 25}
           color={op.color}
           onLeave={op.onLeave}
           onOver={op.onOver}
@@ -39,8 +40,15 @@ export default connect(
     let dragOp;
     if (state.mode === 'placingOperator') {
       const coords = scaled ? socialCoordsScaled : socialCoords;
+      // This -25, -25 is need so that operator are not dragged from
+      // the top left corner when created
       dragOp = (
-        <Operator type={state.operatorType} x={coords[0]} y={coords[1]} />
+        <Operator
+          type={state.operatorType}
+          x={coords[0] - 25}
+          y={coords[1] - 25}
+          onClick={addOperator}
+        />
       );
     } else {
       dragOp = null;

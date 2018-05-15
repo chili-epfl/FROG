@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import styled from 'styled-components';
 import { Provider } from 'mobx-react';
 import { withRouter } from 'react-router';
 import { isEqual } from 'lodash';
+
+import { withStyles } from 'material-ui/styles';
 
 import ShowInfo from './ShowInfo';
 import Graph from '../GraphEditor/Graph';
@@ -12,10 +13,18 @@ import { store } from '../GraphEditor/store';
 
 type GraphViewPropsT = {
   session: Object,
-  history: Object
+  history: Object,
+  classes: Object
 };
 
-class GraphView extends React.Component<GraphViewPropsT, {}> {
+const styles = {
+  graphInSession: {
+    height: '400px',
+    border: '1px solid black'
+  }
+};
+
+class GraphViewController extends React.Component<GraphViewPropsT, {}> {
   initStore = (session: any) => {
     store.setBrowserHistory(this.props.history, '/teacher');
     store.setId(session.graphId, true);
@@ -47,33 +56,18 @@ class GraphView extends React.Component<GraphViewPropsT, {}> {
   }
 
   render() {
-    const styles = {
-      sheet: {
-        padding: 0,
-        maxHeight: '100%',
-        overflow: 'auto'
-      }
-    };
-
+    const { classes } = this.props;
     return (
       <Provider store={store}>
-        <div style={styles.sheet}>
-          <GraphViewContainer>
-            <ShowInfo />
-            <Graph scaled hasTimescale isSession />
-          </GraphViewContainer>
+        <div className={classes.graphInSession}>
+          <ShowInfo />
+          <Graph scaled hasTimescale isSession />
         </div>
       </Provider>
     );
   }
 }
 
-const GraphViewContainer = styled.div`
-  height: 400px;
-  width: 99%;
-  text-align: center;
-  border: 1px solid black;
-`;
+const GraphView = withRouter(GraphViewController);
 
-GraphView.displayName = 'GraphView';
-export default withRouter(GraphView);
+export default withStyles(styles)(GraphView);

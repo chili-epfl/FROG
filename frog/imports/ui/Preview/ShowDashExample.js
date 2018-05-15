@@ -11,7 +11,7 @@ import {
 import { throttle } from 'lodash';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import Spinner from 'react-spinner';
+import { CircularProgress } from 'material-ui/Progress';
 
 import { createDashboards } from '../../api/mergeLogData';
 import { DashboardStates } from '../../../imports/api/cache';
@@ -240,7 +240,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const examples = dash.exampleLogs.map(x => x.title);
     const Viewer = aTdashs[this.state.example].Viewer;
     if (!this.state.logs) {
-      return <Spinner />;
+      return <CircularProgress />;
     }
     return (
       <React.Fragment>

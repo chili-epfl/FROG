@@ -2,7 +2,6 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import styled from 'styled-components';
 import { uploadFile } from '/imports/api/openUploads';
 import { uuid, A } from 'frog-utils';
 
@@ -50,17 +49,10 @@ const ConfigComponent = ({
           minWidth: 'fit-content'
         }}
       >
-        <TextStyled>Drop H5P package here / Click to upload</TextStyled>
+        <h3>Drop H5P package here / Click to upload</h3>
       </Dropzone>
     )}
   </div>
 );
-
-const TextStyled = styled.h3`
-  position: relative;
-  top: 55%;
-  margin: 0 auto;
-  transform: translateY(-50%);
-`;
 
 export default ConfigComponent;

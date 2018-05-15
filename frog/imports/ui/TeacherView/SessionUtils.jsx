@@ -2,18 +2,46 @@
 
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
+
+import { withStyles } from 'material-ui/styles';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { withStyles } from 'material-ui/styles';
-import styles from './styles';
+
 import { setTeacherSession } from '../../api/sessions';
 
 import {
-  ControlButton,
-  SessionUtilsButtonsModel,
-  DashToggle
+  ToolTipComponent,
+  SessionUtilsButtonsModel
 } from './utils/buttonUtils.js';
+
+const styles = {
+  textCenter: {
+    textAlign: 'center'
+  }
+};
+
+const DashToggle = ({
+  visible,
+  toggleVisible
+}: {
+  visible: boolean,
+  toggleVisible: Function
+}) => (
+  <ToolTipComponent
+    tooltip={{
+      id: 'tooltip-dashtoggle',
+      title: 'Toggle between dashboard and graph view',
+      placement: 'bottom'
+    }}
+  >
+    <Button variant="raised" color="primary" onClick={toggleVisible}>
+      {visible ? 'Graph' : 'Dashboard'}
+    </Button>
+  </ToolTipComponent>
+);
 
 class UtilsMenu extends React.Component<any, { anchorEl: any }> {
   state = {
@@ -101,25 +129,17 @@ const SessionUtils = ({
   );
 
   return (
-    <div className={classes.root}>
-      <Grid
-        container
-        className={classes.root}
-        justify="space-between"
-        alignItems="center"
-        containerspacing={0}
-      >
-        <Grid item xs={4} className={classes.textCenter}>
-          <ControlButton btnModel={buttonsModel.current} classes={classes} />
-        </Grid>
-        <Grid item>
-          <DashToggle visible={visible} toggleVisible={toggle} />
-        </Grid>
-        <Grid item xs={4} style={{ textAlign: 'right' }}>
-          <UtilsMenu buttonsModel={buttonsModel} />
-        </Grid>
+    <Grid container alignItems="center">
+      <Grid item xs={4} className={classes.textCenter}>
+        <Typography>Current Session: {session.slug}</Typography>
       </Grid>
-    </div>
+      <Grid item xs={4} className={classes.textCenter}>
+        <DashToggle visible={visible} toggleVisible={toggle} />
+      </Grid>
+      <Grid item xs={4} style={{ textAlign: 'right' }}>
+        <UtilsMenu buttonsModel={buttonsModel} />
+      </Grid>
+    </Grid>
   );
 };
 

@@ -23,7 +23,8 @@ const scrollMouse = e => {
 };
 
 const mousemove = e => {
-  store.ui.socialMove(e.clientX + 10, e.clientY - 75);
+  // We do -100 here because there is 100px above the graph editor
+  store.ui.socialMove(e.clientX, e.clientY - 100);
 };
 
 const Graph = connect(
