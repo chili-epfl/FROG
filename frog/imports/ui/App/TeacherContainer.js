@@ -4,10 +4,10 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
-import { ExternalOperators } from '../../api/activities';
-import { operatorTypesObj, operatorTypes } from '../../operatorTypes';
 import { CircularProgress } from 'material-ui/Progress';
 
+import { ExternalOperators } from '../../api/activities';
+import { operatorTypesObj, operatorTypes } from '../../operatorTypes';
 import StudentView from './../StudentView';
 import TeacherView from './../TeacherView';
 import GraphEditor from './../GraphEditor';
