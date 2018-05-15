@@ -5,7 +5,7 @@ import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 
 import { uuid } from './index';
-import type { LearningItemComponentT, LearningItemFnT } from './types';
+import type { LearningItemComponentT } from './types';
 
 type rawPathElement = string | number;
 type rawPathT = rawPathElement | rawPathElement[];
@@ -24,8 +24,7 @@ export class Doc {
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
-  LearningItemFn: React.ComponentType<LearningItemFnT>;
-  LearningItem: LearningItemComponentT;
+  LearningItemFn: LearningItemComponentT;
   meta: Object;
   backend: any;
   path: rawPathElement[];
@@ -36,7 +35,7 @@ export class Doc {
     readOnly: boolean,
     updateFn?: Function,
     meta: Object = {},
-    LearningItem: React.ComponentType<LearningItemFnT>,
+    LearningItem: LearningItemComponentT,
     backend: any
   ) {
     this.backend = backend;
@@ -178,7 +177,7 @@ export class Doc {
 
 export const generateReactiveFn = (
   doc: any,
-  LearningItem: React.ComponentType<LearningItemFnT>,
+  LearningItem: any,
   meta?: Object,
   readOnly?: boolean,
   updateFn?: Function,
@@ -193,7 +192,7 @@ export const generateReactiveFn = (
 
 export const inMemoryReactive = (
   initial: any,
-  LearningItem: React.ComponentType<LearningItemFnT>,
+  LearningItem: any,
   backend: any
 ): Promise<{ data: any, dataFn: Doc }> => {
   const share = new ShareDB();

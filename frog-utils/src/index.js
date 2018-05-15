@@ -76,8 +76,8 @@ export type {
   LogDbT,
   DashboardT,
   DashboardViewerPropsT,
-  LearningItemFnT,
   LIComponentPropsT,
+  LIRenderT,
   LearningItemComponentT,
   LearningItemT
 } from './types';

@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
-import { type LearningItemFnT, type LearningItemT, uuid } from 'frog-utils';
+import { type LIComponentPropsT, type LearningItemT, uuid } from 'frog-utils';
+import { Doc } from 'frog-utils/src/generateReactiveFn';
 import Button from 'material-ui/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -9,7 +10,10 @@ import { learningItemTypesObj } from './learningItemTypes';
 import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
-const LearningItem = (props: LearningItemFnT) => {
+const LearningItem = (props: {
+  ...{| dataFn: Doc |},
+  ...LIComponentPropsT
+}) => {
   if (props.type === 'history') {
     return (
       <LearningItemWithSlider
@@ -79,7 +83,7 @@ const LearningItem = (props: LearningItemFnT) => {
         return (
           <LearningItem
             id={lid}
-            type="edit"
+            type="create"
             dataFn={props.dataFn}
             render={({ dataFn: childDataFn, children }) => (
               <div style={{ marginLeft: '10px' }}>
