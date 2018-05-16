@@ -1,26 +1,12 @@
 // @flow
 
-import React from 'react';
-import { uuid, A } from 'frog-utils';
+import * as React from 'react';
+import { values, A, type ActivityRunnerPropsT } from 'frog-utils';
 import styled from 'styled-components';
-import Form from 'react-jsonschema-form';
 import FlipMove from '@houshuang/react-flip-move';
-import { values } from 'lodash';
-import {
-  Badge,
-  Glyphicon,
-  Button,
-  ListGroup,
-  ListGroupItem
-} from 'react-bootstrap';
-
-import type { ActivityRunnerPropsT } from 'frog-utils';
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
-`;
+import { Badge, Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { withState, compose } from 'recompose';
+import { sortBy } from 'lodash';
 
 const ListContainer = styled.div`
   padding: 2%;
@@ -41,79 +27,140 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const Idea = ({ individualVote, fun, idea, remove }) => (
+const Idea = ({
+  children,
+  delFn,
+  meta,
+  vote,
+  userInfo,
+  editFn,
+  zoomable,
+  editable,
+  zoomFn
+}) => (
   <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
-        <A onClick={() => fun.vote(idea.id, -1)}>
+        <A onClick={() => vote(meta.id, -1)}>
           <Glyphicon
             style={{
-              color: chooseColor(individualVote, false),
+              color: chooseColor(meta.students[userInfo.id], false),
               marginRight: '10px'
             }}
             glyph="thumbs-down"
           />
         </A>
-        <A onClick={() => fun.vote(idea.id, 1)}>
+        <A onClick={() => vote(meta.id, 1)}>
           <Glyphicon
             style={{
-              color: chooseColor(individualVote, true),
+              color: chooseColor(meta.students[userInfo.id], true),
               marginRight: '10px'
             }}
             glyph="thumbs-up"
           />
         </A>
-        <Badge>{idea.score}</Badge>
+        <Badge>{meta.score}</Badge>
       </div>
     </font>
-    <b>{idea.title}</b>
-    <div>
-      {idea.content}
-      {remove && (
-        <font size={4}>
-          <A onClick={() => fun.del(idea)}>
-            <Glyphicon glyph="scissors" style={{ float: 'right' }} />
+    {children}
+    <div style={{ position: 'relative', top: '-15px' }}>
+      <font size={4}>
+        <A onClick={() => delFn(meta)}>
+          <Glyphicon
+            glyph="scissors"
+            style={{
+              float: 'right',
+              marginRight: '10px'
+            }}
+          />
+        </A>
+        {editable && (
+          <A onClick={() => editFn(meta.id)}>
+            <Glyphicon
+              glyph="pencil"
+              style={{
+                float: 'right',
+                marginRight: '10px'
+              }}
+            />
           </A>
-        </font>
-      )}
+        )}
+        {zoomable && (
+          <A onClick={() => zoomFn(meta.id)}>
+            <Glyphicon
+              glyph="zoom-in"
+              style={{
+                float: 'right',
+                marginRight: '10px'
+              }}
+            />
+          </A>
+        )}
+      </font>
     </div>
   </ListGroupItem>
 );
 
-const IdeaList = ({ userInfo, data, ideas, fun }) => (
+const IdeaListRaw = ({
+  data,
+  dataFn,
+  vote,
+  userInfo,
+  edit,
+  setEdit,
+  zoom,
+  setZoom,
+  LearningItem,
+  history
+}) => (
   <div>
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
-        {values(ideas)
-          .sort((a, b) => b.score - a.score)
-          .map(idea => {
-            const individualVote = data[idea.id].students[userInfo.id];
-            return (
-              <div key={idea.id}>
+        {sortBy(values(data), x => [-x.score, x.id]).map(x => (
+          <div key={x.li}>
+            <LearningItem
+              type={
+                edit === x.id
+                  ? 'edit'
+                  : zoom === x.id
+                    ? history
+                      ? 'history'
+                      : 'view'
+                    : 'thumbView'
+              }
+              render={({ zoomable, editable, children }) => (
                 <Idea
-                  {...{ individualVote, idea, fun, key: idea.id, remove: true }}
-                />
-              </div>
-            );
-          })}
+                  zoomable={zoomable || history}
+                  editable={editable}
+                  meta={x}
+                  vote={vote}
+                  delFn={item => dataFn.objDel(item, item.id)}
+                  editFn={e => {
+                    setZoom(false);
+                    setEdit(edit === e ? false : e);
+                  }}
+                  zoomFn={e => {
+                    setEdit(false);
+                    setZoom(zoom === e ? false : e);
+                  }}
+                  userInfo={userInfo}
+                >
+                  {children}
+                </Idea>
+              )}
+              id={x.li}
+            />
+          </div>
+        ))}
       </FlipMove>
     </ListGroup>
   </div>
 );
 
-const schema = {
-  type: 'object',
-  properties: {
-    title: {
-      type: 'string',
-      title: 'Idea'
-    },
-    content: {
-      type: 'string',
-      title: 'Text'
-    }
-  }
-};
+const IdeaList = compose(
+  withState('edit', 'setEdit', undefined),
+  withState('zoom', 'setZoom', undefined)
+)(IdeaListRaw);
 
 const ActivityRunner = ({
   userInfo,
@@ -122,18 +169,6 @@ const ActivityRunner = ({
   data,
   dataFn
 }: ActivityRunnerPropsT) => {
-  const onSubmit = e => {
-    if (e.formData && e.formData.title && e.formData.content) {
-      const id = uuid();
-      logger({
-        type: 'idea',
-        itemId: id,
-        value: e.formData.title + '\n' + e.formData.content
-      });
-      dataFn.objInsert({ score: 0, id, students: {}, ...e.formData }, id);
-    }
-  };
-
   const vote = (id, incr) => {
     logger({ type: 'vote', itemId: id, value: incr });
     switch (data[id].students[userInfo.id]) {
@@ -161,46 +196,45 @@ const ActivityRunner = ({
     }
   };
 
-  const del = item => dataFn.objDel(item, item.id);
   const formBoolean = activityData.config.formBoolean;
-  const fun = { vote, del, formBoolean };
+  const LearningItem = dataFn.LearningItem;
+  const slider = activityData.config.zoomShowsHistory;
   return (
-    <div className="bootstrap">
-      <Container>
+    <React.Fragment>
+      <div className="bootstrap" style={{ width: '80%' }}>
         <ListContainer>
           <p>{activityData.config.text}</p>
-          <IdeaList ideas={data} data={data} userInfo={userInfo} fun={fun} />
-          {formBoolean && <AddIdea onSubmit={onSubmit} />}
+          <IdeaList
+            data={data}
+            vote={vote}
+            dataFn={dataFn}
+            userInfo={userInfo}
+            LearningItem={LearningItem}
+            history={slider}
+          />
         </ListContainer>
-      </Container>
-    </div>
+      </div>
+      {formBoolean && (
+        <React.Fragment>
+          <div style={{ display: 'flex' }}>
+            <div style={{ width: '500px' }}>
+              <LearningItem
+                liType="li-idea"
+                type="create"
+                meta={{ score: 0, students: {} }}
+                autoInsert
+              />
+            </div>
+            <LearningItem
+              type="create"
+              meta={{ score: 0, students: {} }}
+              autoInsert
+            />
+          </div>
+        </React.Fragment>
+      )}
+    </React.Fragment>
   );
 };
-
-const AddIdea = ({ onSubmit }) => (
-  <div>
-    <hr
-      style={{
-        boxShadow: 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)',
-        height: '12px'
-      }}
-    />
-    <div style={{ width: '500px' }}>
-      <Form {...{ schema, onSubmit }}>
-        <div
-          style={{
-            layout: 'flex',
-            flexDirection: 'row',
-            width: '100%'
-          }}
-        >
-          <Button style={{ marginRight: '20px' }} type="submit" id="addButton">
-            Add idea
-          </Button>
-        </div>
-      </Form>
-    </div>
-  </div>
-);
 
 export default ActivityRunner;

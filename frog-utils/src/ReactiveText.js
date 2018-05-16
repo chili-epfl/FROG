@@ -64,22 +64,28 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
       rest.defaultValue = undefined;
     }
     return this.props.type === 'textarea' ? (
-      <textarea
-        ref={ref => (this.textRef = ref)}
-        defaultValue=""
-        {...rest}
-        onBlur={() => this.log('blur')}
-        onFocus={() => this.log('focus')}
-      />
+      <div className="bootstrap">
+        <textarea
+          ref={ref => (this.textRef = ref)}
+          className="form-control"
+          defaultValue=""
+          {...rest}
+          onBlur={() => this.log('blur')}
+          onFocus={() => this.log('focus')}
+        />
+      </div>
     ) : (
-      <input
-        type="text"
-        ref={ref => (this.textRef = ref)}
-        defaultValue=""
-        {...rest}
-        onBlur={() => this.log('blur')}
-        onFocus={() => this.log('focus')}
-      />
+      <div className="bootstrap">
+        <input
+          type="text"
+          className="form-control"
+          ref={ref => (this.textRef = ref)}
+          defaultValue=""
+          {...rest}
+          onBlur={() => this.log('blur')}
+          onFocus={() => this.log('focus')}
+        />
+      </div>
     );
   }
 }
