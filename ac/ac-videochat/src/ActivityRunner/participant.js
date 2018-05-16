@@ -1,3 +1,5 @@
+// @flow
+
 type OptionsT = {
   configuration: Object,
   myStream: MediaStream,
@@ -11,18 +13,20 @@ type OptionsT = {
 class Participant {
   name: string;
   id: string;
+  role: string;
   sendMessage: Function;
   rtcPeer: RTCPeerConnection;
   options: OptionsT;
   mode: string;
 
-  constructor(name, id, sendMessage) {
+  constructor(name: string, id: string, role: string, sendMessage: Function) {
     this.name = name;
     this.id = id;
+    this.role = role;
     this.sendMessage = sendMessage;
   }
 
-  createPeer = (mode: string, options: OptionsT) => {
+  createPeer = (mode: string, options: Object) => {
     if (!this.mode) {
       this.mode = mode;
     }
@@ -32,45 +36,57 @@ class Participant {
     try {
       this.rtcPeer = new RTCPeerConnection(options.configuration);
       this.rtcPeer.onicecandidate = this.onIceCandidate;
-      if (mode === 'sendOnly') {
+      if (mode === 'sendonly') {
         this.rtcPeer.addStream(options.myStream);
-      } else if (mode === 'recvOnly' && options.ontrack) {
+      } else if (mode === 'recvonly' && options.ontrack) {
         this.rtcPeer.ontrack = options.ontrack;
       }
 
-      this.rtcPeer.createOffer(
-        offer => {
-          this.rtcPeer.setLocalDescription(offer);
-          let msg = {
-            id: 'receiveVideoFrom',
-            userId: this.id,
-            sdpOffer: offer.sdp
-          };
-          if (options && options.reload) {
-            msg = {
-              id: 'reloadStreamFrom',
-              userId: this.id,
-              sdpOffer: offer.sdp
-            };
-          }
-          this.sendMessage(msg);
-        },
-        error => {
-          if (options && options.onOfferError) options.onOfferError(error);
-        },
-        options.offerConstraints
-      );
+      var offerOptions = {
+        offerToReceiveAudio: 1,
+        offerToReceiveVideo: 1
+      };
+
+      if (mode == 'sendOnly') {
+        offerOptions.offerToReceiveAudio = 0;
+        offerOptions.offerToReceiveVideo = 0;
+      }
+
+      if (mode == 'sendrecv') {
+        this.rtcPeer
+          .createOffer()
+          .then(this.onOffer)
+          .catch(this.onOfferError);
+      } else {
+        this.rtcPeer
+          .createOffer(offerOptions)
+          .then(this.onOffer)
+          .catch(this.onOfferError);
+      }
     } catch (error) {
       if (options && options.onError) options.onError(error);
     }
   };
 
-  createSendOnlyPeer = options => {
-    this.createPeer('sendOnly', options);
+  onOffer = (offer: Object) => {
+    this.rtcPeer.setLocalDescription(offer);
+    let msg = {
+      id: 'receiveVideoFrom',
+      userId: this.id,
+      sdpOffer: offer.sdp
+    };
+    if (this.options && this.options.reload) {
+      msg = {
+        id: 'reloadStreamFrom',
+        userId: this.id,
+        sdpOffer: offer.sdp
+      };
+    }
+    this.sendMessage(msg);
   };
 
-  createRecvOnlyPeer = options => {
-    this.createPeer('recvOnly', options);
+  onOfferError = (error: Object) => {
+    console.error(error);
   };
 
   reloadStream = () => {
@@ -81,7 +97,7 @@ class Participant {
     this.createPeer(this.mode, options);
   };
 
-  processAnswer = answerSdp => {
+  processAnswer = (answerSdp: string) => {
     const answer = new RTCSessionDescription({
       type: 'answer',
       sdp: answerSdp
@@ -89,11 +105,11 @@ class Participant {
     this.rtcPeer.setRemoteDescription(answer);
   };
 
-  onRemoteCandidate = candidate => {
+  onRemoteCandidate = (candidate: Object) => {
     this.rtcPeer.addIceCandidate(new RTCIceCandidate(candidate));
   };
 
-  onIceCandidate = event => {
+  onIceCandidate = (event: Object) => {
     if (event && event.candidate) {
       const message = {
         id: 'onIceCandidate',
@@ -129,8 +145,10 @@ class Participant {
   };
 
   disposeRtcPeer = () => {
-    this.rtcPeer.close();
-    this.rtcPeer = null;
+    if (this.rtcPeer) {
+      this.rtcPeer.close();
+      this.rtcPeer = null;
+    }
   };
 }
 
