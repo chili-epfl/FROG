@@ -119,7 +119,7 @@ export type LogDbT =
   | {| ...LogExtraT, ...LogT, _id: string |};
 
 type OutputDefinitionT = {
-  [field: string]: { title: string, format: 'number' | 'string' }
+  [field: string]: { title: string, type: 'number' | 'string' }
 };
 
 export type ActivityPackageT = {

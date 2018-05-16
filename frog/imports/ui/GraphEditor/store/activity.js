@@ -7,6 +7,7 @@ import { timeToPx, timeToPxScreen, between } from '../utils';
 import type { AnchorT } from '../utils/path';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
+import { isFunction } from 'lodash';
 
 export default class Activity extends Elem {
   length: number;
@@ -299,6 +300,17 @@ export default class Activity extends Elem {
 
       get aT() {
         return this.activityType && activityTypesObj[this.activityType];
+      },
+
+      get outputDefinition() {
+        if (!this.aT.outputDefinition) {
+          return undefined;
+        }
+        if (isFunction(this.aT.outputDefinition)) {
+          return this.aT.outputDefinition(this.data);
+        } else {
+          return this.aT.outputDefinition;
+        }
       }
     });
   }

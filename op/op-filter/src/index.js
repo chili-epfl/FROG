@@ -11,21 +11,36 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
-    field: {
-      type: 'string',
-      title: 'Filtering field'
+    condition: {
+      title: 'Only include items that fulfill all conditions',
+      type: 'inputCondition'
     },
-    value: {
-      type: 'string',
-      title: 'Filtering value (leave empty for testing with booleans)'
-    },
-    remove: {
-      type: 'boolean',
-      title: 'Remove matching objects?'
-    },
-    removeUndefined: {
-      type: 'boolean',
-      title: 'Remove object which do not have the required field?'
+    conditions: {
+      title: '',
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          logical: {
+            title: '',
+            type: 'string',
+            enum: ['and', 'or'],
+            default: 'and'
+          },
+          condition: {
+            type: 'inputCondition',
+            title: ''
+          }
+        }
+      }
+    }
+  }
+};
+
+const configUI = {
+  conditions: {
+    'ui:options': {
+      orderable: false
     }
   }
 };
@@ -67,5 +82,6 @@ export default ({
   type: 'product',
   operator,
   config,
+  configUI,
   meta
 }: productOperatorT);

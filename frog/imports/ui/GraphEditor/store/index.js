@@ -21,13 +21,3 @@ export type StoreProp = { store: Store };
 export function connect(component: any): any {
   return inject('store')(observer(component));
 }
-
-autorun(
-  Meteor.bindEnvironment(() => {
-    if (store.graphId) {
-      console.log('triggered');
-      Activities.find({}).observe({ changed: (e, x) => console.log(e, x) });
-      Activities.find({}).observe(store.activityStore.mongoObservers);
-    }
-  })
-);

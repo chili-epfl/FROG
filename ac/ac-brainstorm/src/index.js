@@ -90,7 +90,11 @@ const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
 };
 
 const outputDefinition = {
-  score: { title: 'Score by voting (can be negative)', type: 'number' }
+  score: { title: 'Vote score (can be negative)', type: 'number' },
+  rank: { title: 'Rank (1st, 2nd etc)', type: 'number' },
+  LI_title: { title: 'Title field', type: 'string' },
+  LI_content: { title: 'Content filed', type: 'string' },
+  LI_all: { title: 'All text', type: 'string' }
 };
 
 export default ({

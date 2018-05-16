@@ -24,6 +24,10 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     x => get(schema, [...x, 'type']) === 'socialAttribute'
   );
 
+  const inputPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'inputCondition'
+  );
+
   const rtePaths = paths.filter(x => get(schema, [...x, 'type']) === 'rte');
 
   [
@@ -31,6 +35,7 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...targetActivityPaths,
     ...sourceActivityPaths,
     ...socialPaths,
+    ...inputPaths,
     ...rtePaths
   ].forEach(x => set(newSchema, [...x, 'type'], 'string'));
 
@@ -41,6 +46,13 @@ export default (schema: Object, uiSchema: ?Object): Object => {
       'ui:widget': 'socialAttributeWidget'
     })
   );
+
+  const inputMerges = inputPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'inputConditionWidget'
+    })
+  );
+
   const anyActivityMerges = anyActivityPaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
       'ui:widget': 'anyActivityWidget'
@@ -90,6 +102,7 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...anyActivityMerges,
     ...sourceActivityMerges,
     ...targetActivityMerges,
+    ...inputMerges,
     ...rteMerges
   );
   return { uiSchema: newUiSchema, schema: newSchema };
