@@ -49,7 +49,7 @@ const configUI = {
   globalnum: { conditional: 'groupnumber' }
 };
 
-const outputDefinition = conf => [(conf && conf.grouping) || 'group'];
+const socialOutputDefinition = conf => [(conf && conf.grouping) || 'group'];
 
 const splitArray = (ary, splits) => {
   const grpsize = Math.round(ary.length / splits);
@@ -109,5 +109,5 @@ export default ({
   config,
   configUI,
   meta,
-  outputDefinition
+  socialOutputDefinition
 }: socialOperatorT);

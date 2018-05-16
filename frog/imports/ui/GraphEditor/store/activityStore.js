@@ -227,6 +227,38 @@ export default class ActivityStore {
         store.addHistory();
       }),
 
+      mongoAdd: action((x: any) => {
+        if (!store.findId({ type: 'activity', id: x._id })) {
+          this.all.push(
+            new Activity(
+              x.plane,
+              x.startTime,
+              x.title,
+              x.length,
+              x.data,
+              x.activityType,
+              x._id,
+              x.state
+            )
+          );
+          store.refreshValidate();
+        }
+      }),
+
+      mongoChange: action((newact: any, oldact: any) => {
+        const toUpdate = store.findId({ type: 'activity', id: oldact._id });
+        if (!toUpdate) {
+          throw 'Could not find activity to update in Mongo';
+        }
+        toUpdate.update(newact);
+        store.refreshValidate();
+      }),
+
+      mongoRemove: action((remact: any) => {
+        this.all = this.all.filter(x => x.id !== remact._id);
+        store.refreshValidate();
+      }),
+
       get history(): Array<any> {
         return this.all.map(x => ({
           title: x.title,
@@ -249,41 +281,7 @@ export default class ActivityStore {
           (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
           {}
         );
-      },
-      mongoAdd: action((x: any) => {
-        if (!store.findId({ type: 'activity', id: x._id })) {
-          this.all.push(
-            new Activity(
-              x.plane,
-              x.startTime,
-              x.title,
-              x.length,
-              x.data,
-              x.activityType,
-              x._id,
-              x.state
-            )
-          );
-        }
-      }),
-
-      mongoChange: action((newact: any, oldact: any) => {
-        console.log(newact, oldact);
-        const toUpdate = store.findId({ type: 'activity', id: oldact._id });
-        if (!toUpdate) {
-          throw 'Could not find activity to update in Mongo';
-        }
-        toUpdate.update(newact);
-      }),
-
-      mongoRemove: action((remact: any) => {
-        this.all = this.all.filter(x => x.id !== remact._id);
-      })
+      }
     });
   }
-  mongoObservers = {
-    added: this.mongoAdd,
-    changed: this.mongoChange,
-    removed: this.mongoRemove
-  };
 }

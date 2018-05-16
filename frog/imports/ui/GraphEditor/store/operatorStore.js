@@ -25,15 +25,18 @@ export default class OperatorStore {
               x.state
             )
           );
+          store.refreshValidate();
         }
       }),
 
       mongoChange: action((newx: Operator, oldx: { _id: string }) => {
         store.findId({ type: 'operator', id: oldx._id }).update(newx);
+        store.refreshValidate();
       }),
 
       mongoRemove: action((remx: { _id: string }) => {
         this.all = this.all.filter(x => x.id !== remx._id);
+        store.refreshValidate();
       }),
 
       place: action((type: OperatorTypes) => {
@@ -51,18 +54,6 @@ export default class OperatorStore {
           store.addHistory();
         }
       }),
-
-      get mongoObservers(): {
-        added: Function,
-        changed: Function,
-        removed: Function
-      } {
-        return {
-          added: this.mongoAdd,
-          changed: this.mongoChange,
-          removed: this.mongoRemove
-        };
-      },
 
       get history(): Array<any> {
         return this.all.map(x => ({

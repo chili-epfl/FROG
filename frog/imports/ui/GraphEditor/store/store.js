@@ -15,6 +15,7 @@ import Connection from './connection';
 import Session from './session';
 import UI from './uiStore';
 import { timeToPx } from '../utils';
+import { store } from './index';
 
 export type ElementTypes = 'operator' | 'activity' | 'connection';
 type Elem = Activity | Connection | Operator;
@@ -155,7 +156,7 @@ export default class Store {
                 x.startTime,
                 x.title,
                 x.length,
-                x.config,
+                x.data,
                 x.activityType,
                 x._id,
                 x.state
@@ -173,7 +174,7 @@ export default class Store {
                 x.time,
                 x.y,
                 x.type,
-                x.config,
+                x.data,
                 x.operatorType,
                 x._id,
                 x.title,
@@ -203,6 +204,7 @@ export default class Store {
         this.ui.selected = null;
         this.history = [];
         this.addHistory();
+        window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(false);
       }),
@@ -333,3 +335,19 @@ export default class Store {
       Connections.find({ graphId: this.graphId }).fetch()
     );
 }
+const mongoWatch = graphId => {
+  Activities.find({ graphId }).observe({
+    added: store.activityStore.mongoAdd,
+    changed: store.activityStore.mongoChange,
+    removed: store.activityStore.mongoRemove
+  });
+  Connections.find({ graphId }).observe({
+    added: store.connectionStore.mongoAdd,
+    removed: store.connectionStore.mongoRemove
+  });
+  Operators.find({ graphId }).observe({
+    added: store.operatorStore.mongoAdd,
+    changed: store.operatorStore.mongoChange,
+    removed: store.operatorStore.mongoRemove
+  });
+};
