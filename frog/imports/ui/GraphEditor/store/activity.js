@@ -7,6 +7,7 @@ import { timeToPx, timeToPxScreen, between } from '../utils';
 import type { AnchorT } from '../utils/path';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
+import {isFunction}from 'lodash'
 
 export default class Activity extends Elem {
   length: number;
@@ -295,6 +296,10 @@ export default class Activity extends Elem {
 
       get bounds(): BoundsT {
         return calculateBounds(this, store.activityStore.all);
+      }
+
+      get outputDefinition(): {
+      if
       }
     });
   }

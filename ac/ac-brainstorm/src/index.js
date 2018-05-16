@@ -89,6 +89,10 @@ const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
   }
 };
 
+const outputDefinition = {
+  score: { title: 'Score by voting (can be negative)', type: 'number' }
+};
+
 export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
@@ -96,5 +100,6 @@ export default ({
   config,
   meta,
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  outputDefinition
 }: ActivityPackageT);
