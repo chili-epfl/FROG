@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withState } from 'recompose';
 import Modal from '../../RemoteControllers/ModalExport';
-import { IconButton } from './EditActivity';
+import { IconButton } from '../index';
 
 const StatelessExportButton = (props: Object) => (
   <div>
