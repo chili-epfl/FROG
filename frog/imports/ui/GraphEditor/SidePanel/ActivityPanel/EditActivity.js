@@ -199,7 +199,10 @@ const RawEditActivity = ({
             <DeleteButton
               tooltip="Reset activity"
               msg="Do you really want to remove the activity type, and loose all the configuration data?"
-              onConfirmation={() => removeActivityType(activity._id)}
+              onConfirmation={() => {
+                removeActivityType(activity._id);
+                props.store.refreshValidate();
+              }}
             />
           </FlexView>
         </div>
