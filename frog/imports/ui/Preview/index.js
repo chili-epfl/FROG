@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { defaultConfig } from 'frog-utils';
+import { omit } from 'lodash';
 
 import Preview from './Preview';
 import { getUserId } from './Controls';
@@ -97,7 +98,12 @@ class PreviewPage extends React.Component<any, any> {
   }
 
   render() {
-    sessionStorage.setItem('previewstate', JSON.stringify(this.state));
+    if (!this.props.modal) {
+      sessionStorage.setItem(
+        'previewstate',
+        JSON.stringify(omit(this.state, 'modal'))
+      );
+    }
     return <Preview {...{ ...this.state, ...this.setStates }} />;
   }
 }
