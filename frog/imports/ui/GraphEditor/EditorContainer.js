@@ -80,11 +80,10 @@ class Editor extends React.Component<Object, StateT> {
     if (this.props.store.ui.showPreview) {
       return (
         <Preview
-          modal={true}
+          modal
           activityTypeId={this.props.store.ui.showPreview.activityTypeId}
           config={this.props.store.ui.showPreview.config}
           dismiss={() => this.props.store.ui.setShowPreview(false)}
-          modal
         />
       );
     }

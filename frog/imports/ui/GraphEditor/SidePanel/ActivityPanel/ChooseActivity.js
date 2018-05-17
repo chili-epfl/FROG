@@ -17,7 +17,7 @@ import Cloud from '@material-ui/icons/Cloud';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
-import { ModalPreview } from '../../../Preview';
+import Preview from '../../../Preview';
 
 type StateT = {
   expanded: ?string,
@@ -264,7 +264,8 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             </Grid>
           ))}
         {this.state.showInfo !== null && (
-          <ModalPreview
+          <Preview
+            modal
             activityTypeId={this.state.showInfo}
             dismiss={() => this.setState({ showInfo: null })}
           />
