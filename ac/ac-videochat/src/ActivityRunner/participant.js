@@ -10,6 +10,10 @@ type OptionsT = {
   onError: Function
 };
 
+declare var RTCIceCandidate: any;
+declare var RTCPeerConnection: any;
+declare var RTCSessionDescription: any;
+
 class Participant {
   name: string;
   id: string;

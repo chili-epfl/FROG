@@ -1,7 +1,8 @@
 // @flow
 
+/* eslint-disable no-alert */
 import React, { Component } from 'react';
-import type { ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT, values } from 'frog-utils';
 
 import WebRtcConfig from '../webrtc-config/config';
 import BrowserUtils from '../utils/browser';
@@ -11,6 +12,10 @@ import Header from './Header';
 import VideoLayout from './VideoLayout';
 
 import Participant from './participant';
+
+declare var RTCIceCandidate: any;
+declare var RTCPeerConnection: any;
+declare var RTCSessionDescription: any;
 
 /**
  * State consists of local and remote
@@ -30,6 +35,7 @@ type StateT = {
   local: Object,
   remote: Array<any>
 };
+type OptionsT = { myStream?: *, ontrack?: *, configuration: * };
 
 class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   name: string;
@@ -279,7 +285,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         this.addRemoteUserToState(participant, stream);
       };
 
-      const options = {
+      const options: OptionsT = {
         configuration: WebRtcConfig.rtcConfiguration
       };
 
@@ -359,7 +365,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       id: 'leaveRoom'
     });
 
-    Object.values(this.participants).forEach((p: Participant) => p.dispose());
+    values(this.participants).forEach((p: Participant) => p.dispose());
     this.ws.close();
   };
 

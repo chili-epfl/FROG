@@ -8,7 +8,9 @@ export const isBrowser = (() => {
   }
 })();
 
-export const hark = isBrowser ? require('../lib/hark.bundle.js') : () => null;
+export const hark = isBrowser
+  ? require('../lib/hark.bundle.js')
+  : (_: any) => {};
 
 type OptionsT = {
   name: string,
@@ -18,7 +20,7 @@ type OptionsT = {
 
 export const onStreamAdded = (stream: MediaStream, options: OptionsT) => {
   if (hark) {
-    const speechEvents = hark(stream);
+    const speechEvents: any = hark(stream);
 
     speechEvents.on('speaking', () => {
       if (options && options.logger) {

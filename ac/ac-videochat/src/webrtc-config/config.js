@@ -15,7 +15,11 @@ const rtcConfiguration = {
 
 const signalServerURL = 'wss://icchilisrv3.epfl.ch:7777';
 
-const mediaConstraints = {
+type MediaConstraintsT = {
+  audio: boolean,
+  video: false | { width: { ideal: number }, frameRate: { ideal: number } }
+};
+const mediaConstraints: MediaConstraintsT = {
   audio: true,
   video: {
     width: { ideal: 320 },
