@@ -106,7 +106,6 @@ class ChatController extends React.Component<StyledPropsT> {
       classes
     } = this.props;
 
-    console.log(data);
     return (
       <div className={classes.root}>
         <h4 className={classes.header}>{activityData.config.title}</h4>
@@ -143,7 +142,10 @@ class ChatController extends React.Component<StyledPropsT> {
           <dataFn.LearningItem
             type="create"
             dataFn={dataFn}
-            meta={{ user: userInfo.name }}
+            meta={{
+              user: userInfo.name,
+              order: Object.keys(data).length + 1
+            }}
             autoInsert
           />
         </div>

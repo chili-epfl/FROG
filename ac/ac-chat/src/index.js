@@ -110,14 +110,12 @@ const robotFormat = (id, msg, order) => ({
 });
 
 const mergeFunction = (obj, dataFn) => {
-  console.log('starting merge');
   if (obj.config.hasRobotPrompt) {
     const id = uuid();
     dataFn.objInsert(robotFormat(id, obj.config.robotPrompt), id);
   }
   if (obj.data) {
     obj.data.forEach((x, i) => {
-      console.log('for each');
       const id = uuid();
       dataFn.objInsert(
         x.user
