@@ -5,6 +5,24 @@ import { type ActivityPackageT, uuid } from 'frog-utils';
 import ActivityRunner from './Chat';
 import dashboards from './Dashboard';
 
+const learningItems = [
+  {
+    id: '1',
+    liType: 'li-idea',
+    payload: { title: 'Hi', content: 'Hello' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '4',
+    liType: 'li-image',
+    payload: {
+      thumburl: 'https://i.imgur.com/ypw3CGOb.jpg',
+      url: 'https://i.imgur.com/ypw3CGO.jpg'
+    },
+    createdAt: '2018-05-10T12:05:08.700Z'
+  }
+];
+
 const meta = {
   name: 'Chat',
   shortDesc: 'Chat component',
@@ -14,13 +32,15 @@ const meta = {
       title: 'Chat with some messages',
       config: { title: 'Example chat' },
       data: [
-        { id: '1', msg: 'This is the first message', user: 'Ole' },
+        { order: 1, id: '1', msg: 'This is the first message', user: 'Ole' },
         {
+          order: 2,
           id: '2',
           msg: "I don't agree, but we can discuss it",
           user: 'Petter'
         },
         {
+          order: 3,
           id: '3',
           msg: 'Let us do an experiment to test our hypothesis',
           user: 'Alfons'
@@ -33,7 +53,7 @@ const meta = {
       data: [{ msg: 'Nicole uploaded an image' }]
     },
     {
-      title: 'Robot prompt through merge and with config',
+      title: 'Robot prompt (merge+config)',
       config: {
         title: 'Chat with robot',
         hasRobotPrompt: true,
@@ -43,11 +63,27 @@ const meta = {
         { msg: 'John said Obama is the best' },
         { msg: 'Peter said John Travolta would be a good president' }
       ]
+    },
+    {
+      title: 'Learning Items',
+      config: {
+        title: 'Learning Items'
+      },
+      learningItems,
+      data: [
+        { li: '4', user: 'Ole' },
+        { msg: 'John said Obama is the best' },
+        { li: '1', user: 'Nils' },
+        {
+          msg: 'Peter said John Travolta would be a good president',
+          user: 'Romain'
+        }
+      ]
     }
   ]
 };
 
-const dataStructure = [];
+const dataStructure = {};
 
 const config = {
   type: 'object',
@@ -66,19 +102,27 @@ const config = {
 
 const configUI = { robotPrompt: { conditional: 'hasRobotPrompt' } };
 
-const robotFormat = msg => ({
+const robotFormat = (id, msg, order) => ({
+  id,
   msg,
   user: 'Friendly robot',
-  id: uuid()
+  order
 });
 
 const mergeFunction = (obj, dataFn) => {
   if (obj.config.hasRobotPrompt) {
-    dataFn.listAppend(robotFormat(obj.config.robotPrompt));
+    const id = uuid();
+    dataFn.objInsert(robotFormat(id, obj.config.robotPrompt), id);
   }
   if (obj.data) {
-    obj.data.forEach(x => {
-      dataFn.listAppend(x.user ? x : robotFormat(x.msg || x));
+    obj.data.forEach((x, i) => {
+      const id = uuid();
+      dataFn.objInsert(
+        x.user
+          ? { id, order: i + 1, ...x }
+          : robotFormat(id, x.msg || x, i + 1),
+        id
+      );
     });
   }
 };

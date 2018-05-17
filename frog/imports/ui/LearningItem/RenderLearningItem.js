@@ -9,8 +9,11 @@ import { learningItemTypesObj } from './learningItemTypes';
 class RenderLearningItem extends React.Component<any, any> {
   state = { open: false };
 
-  shouldComponentUpdate(nextProps: any) {
-    return !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn'));
+  shouldComponentUpdate(nextProps: any, nextState: any) {
+    return (
+      !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn')) ||
+      nextState.open !== this.state.open
+    );
   }
 
   render() {
