@@ -48,6 +48,7 @@ export default (props: Object) => {
     setExample,
     plane,
     users,
+    modal,
     setUsers,
     setPlane,
     setInstances
@@ -193,6 +194,9 @@ export default (props: Object) => {
                 setReloadAPIform(uuid());
                 initDashboardDocuments(activityType, true);
                 setExample(i);
+                if (modal) {
+                  refresh();
+                }
               }}
             >
               {ex.title}

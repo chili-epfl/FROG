@@ -34,6 +34,7 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
+  console.log(instances, activityType, example, config, refresh);
   const exs = addDefaultExample(activityType);
   if (exs[example].learningItems) {
     exs[example].learningItems.forEach(li => {
