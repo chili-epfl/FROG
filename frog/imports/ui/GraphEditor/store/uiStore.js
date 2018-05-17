@@ -3,7 +3,6 @@ import { extendObservable, action, reaction } from 'mobx';
 import { getActivitySequence } from '/imports/api/graphSequence';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
-import Operator from './operator';
 
 export default class uiStore {
   constructor() {
@@ -161,14 +160,6 @@ export default class uiStore {
       }),
 
       canvasClick: action(() => {
-        const state = store.state;
-        if (state.mode === 'placingOperator') {
-          store.operatorStore.all.push(
-            new Operator(...this.socialCoordsTime, state.operatorType)
-          );
-          store.state = { mode: 'normal' };
-          store.addHistory();
-        }
         store.state = { mode: 'normal' };
         store.ui.selected = null;
       }),

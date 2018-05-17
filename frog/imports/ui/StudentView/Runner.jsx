@@ -71,12 +71,14 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     <RunActivity
       key={reactiveId}
       activityTypeId={activity.activityType}
+      activityId={activity._id}
       reactiveId={reactiveId}
       logger={logger}
       stream={stream}
       username={Meteor.user().username}
       userid={Meteor.userId()}
       activityData={activityData}
+      groupingKey={activity.groupingKey}
       groupingValue={groupingValue}
       sessionId={sessionId}
       readOnly={readOnly}
@@ -108,10 +110,12 @@ type PropsT = {
   username: string,
   userid: string,
   stream: Function,
+  groupingKey: string,
   groupingValue: string,
   activityTypeId: string,
   readOnly?: boolean,
-  sessionId: string
+  sessionId: string,
+  activityId: string
 };
 
 export class RunActivity extends React.Component<PropsT, {}> {
@@ -119,12 +123,41 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
   constructor(props: PropsT) {
     super();
-    const { reactiveId, activityTypeId, readOnly } = props;
+    const {
+      reactiveId,
+      activityTypeId,
+      readOnly,
+      activityId,
+      userid,
+      sessionId,
+      groupingKey,
+      groupingValue
+    } = props;
     const activityType = activityTypesObj[activityTypeId];
+    const meta: {
+      createdInActivity: string,
+      createdByUser: string,
+      createdByInstance?: Object,
+      sessionId: string
+    } = {
+      createdInActivity: activityId,
+      createdByUser: userid,
+      sessionId
+    };
+    if (groupingKey) {
+      meta.createdByInstance = { [groupingKey]: groupingValue };
+    }
+
     const RunComp = activityType.ActivityRunner;
     RunComp.displayName = activityType.id;
 
-    this.ActivityToRun = ReactiveHOC(reactiveId, undefined, readOnly)(RunComp);
+    this.ActivityToRun = ReactiveHOC(
+      reactiveId,
+      undefined,
+      readOnly,
+      undefined,
+      meta
+    )(RunComp);
   }
 
   componentDidMount() {

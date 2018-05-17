@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { uuid } from 'frog-utils';
+import { isEqual } from 'lodash';
 
 import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
@@ -30,12 +31,29 @@ class ConfigPanel extends React.Component<*, *> {
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
       this.props.setConfig(e.config);
-      initActivityDocuments(this.props.instances, aT, -1, e.config, true);
+      initActivityDocuments(
+        this.props.instances,
+        aT,
+        this.props.example,
+        e.config,
+        true
+      );
       initDashboardDocuments(aT, true);
     } else {
       this.props.setConfig({ ...e.config, invalid: true });
     }
     this.props.setActivityTypeId(e.activityType);
+  };
+
+  shouldComponentUpdate = (nextProps: any) => {
+    if (
+      !isEqual(nextProps.config, this.props.config) ||
+      this.props.activityId !== nextProps.activityId
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   componentDidUpdate = () => {

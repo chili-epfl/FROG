@@ -7,12 +7,13 @@ import ShareDB from 'sharedb';
 import Draggable from 'react-draggable';
 
 import { withStyles } from 'material-ui/styles';
+import Dialog from 'material-ui/Dialog';
 
 import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import Controls from './Controls';
-import Content, { initActivityDocuments } from './Content';
+import Content from './Content';
 import ConfigPanel from './ConfigPanel';
 
 const styles = {
@@ -23,15 +24,12 @@ const styles = {
   },
   noModal: {
     flex: '0 0 auto',
-    marginLeft: '10px',
+    paddingLeft: '10px',
     width: '70%'
   },
-  fullWindow: {
-    position: 'relative',
-    top: '0px',
-    left: '0px',
-    height: '100vh',
-    width: '100vw'
+  noModalPreviewContent: {
+    overflow: 'auto',
+    height: 'calc(100% - 100px)'
   },
   fullWindowControl: {
     zIndex: 99,
@@ -59,21 +57,19 @@ const styles = {
   }
 };
 
-const backend = new ShareDB();
+export const backend = new ShareDB();
 export const connection = backend.connect();
+window.connection = connection;
 
 const StatelessPreview = (props: Object) => {
   const {
     activityTypeId,
     modal,
-    config,
     dismiss,
-    example,
     showLogs,
     fullWindow,
     showDashExample,
-    classes,
-    instances
+    classes
   } = props;
 
   const activityType = activityTypesObj[activityTypeId];
@@ -85,8 +81,6 @@ const StatelessPreview = (props: Object) => {
     );
   }
 
-  initActivityDocuments(instances, activityType, example, config, false);
-
   const PreviewContent =
     showLogs && !showDashExample ? (
       <ShowLogs logs={Logs} />
@@ -95,15 +89,15 @@ const StatelessPreview = (props: Object) => {
     );
 
   const FullWindowP = (
-    <div>
-      <div className={classes.fullWindow}>{PreviewContent}</div>
+    <Dialog open={fullWindow} fullScreen>
+      {PreviewContent}
       <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
         <div className={classes.fullWindowControl}>
           <Controls {...props} />
         </div>
       </Draggable>
       <ReactTooltip delayShow={1000} place="right" />
-    </div>
+    </Dialog>
   );
 
   const NoModalP = (
@@ -111,7 +105,7 @@ const StatelessPreview = (props: Object) => {
       <ConfigPanel {...props} />
       <div className={classes.noModal}>
         <Controls {...props} />
-        {PreviewContent}
+        <div className={classes.noModalPreviewContent}>{PreviewContent}</div>
         <ReactTooltip delayShow={1000} place="right" />
       </div>
     </div>

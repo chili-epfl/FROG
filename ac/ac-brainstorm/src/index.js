@@ -1,15 +1,38 @@
 // @flow
 
-import { type dataUnitStructT, type ActivityPackageT } from 'frog-utils';
+import { type dataUnitStructT, type ActivityPackageT, uuid } from 'frog-utils';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
-import dashboards from './Dashboard';
 
-const listItems = [
-  { id: '1', score: 0, title: 'AirBnB', content: 'Uber for hotels' },
-  { id: '2', score: 1, title: 'Uber', content: 'AirBnB for taxis' },
-  { id: '3', score: 4, title: 'Amazon Alexa', content: 'AskJeeves for speech' }
+const learningItems = [
+  {
+    id: '1',
+    liType: 'li-idea',
+    payload: { title: 'Hi', content: 'Hello' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '2',
+    liType: 'li-idea',
+    payload: { title: 'Uber', content: 'AirBnB for taxis' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '3',
+    liType: 'li-idea',
+    payload: { title: 'Amazon Alexa', content: 'AskJeeves for speech' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '4',
+    liType: 'li-image',
+    payload: {
+      url: 'https://i.imgur.com/pfZAxeTb.jpg',
+      thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
+    },
+    createdAt: '2018-05-10T12:05:08.700Z'
+  }
 ];
 
 const meta = {
@@ -25,7 +48,8 @@ const meta = {
         text: 'This list has some items, vote them up or down',
         formBoolean: false
       },
-      data: listItems
+      learningItems,
+      data: ['1', '2', '3', '4']
     },
     {
       title: 'List with some items, students able to add',
@@ -34,7 +58,13 @@ const meta = {
           'This list has some items, vote them up or down, and add new ones',
         formBoolean: true
       },
-      data: listItems
+      learningItems,
+      data: [
+        { li: '1' },
+        { li: '2' },
+        { li: '3', tags: ['should', 'not', 'break'] },
+        '4'
+      ]
     }
   ]
 };
@@ -43,9 +73,19 @@ const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
   if (obj.data && Array.isArray(obj.data)) {
-    obj.data.forEach(box =>
-      dataFn.objInsert({ score: 0, ...box, students: {} }, box.id)
-    );
+    obj.data.forEach(box => {
+      const id = box.id || uuid();
+      const item = typeof box === 'object' ? box : { li: box };
+      dataFn.objInsert(
+        {
+          students: {},
+          score: 0,
+          id,
+          ...item
+        },
+        id
+      );
+    });
   }
 };
 
@@ -53,9 +93,8 @@ export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
   ActivityRunner,
-  dashboards,
   config,
   meta,
-  mergeFunction,
-  dataStructure
+  dataStructure,
+  mergeFunction
 }: ActivityPackageT);
