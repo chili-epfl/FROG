@@ -14,6 +14,7 @@ import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Sessions } from '../imports/api/sessions';
+import LearningItem from '../imports/ui/LearningItem';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
@@ -71,7 +72,7 @@ export const mergeOneInstance = (
                 );
               }
 
-              const dataFn = generateReactiveFn(doc);
+              const dataFn = generateReactiveFn(doc, LearningItem);
               // merging in config with incoming product
               if (mergeFunction) {
                 mergeFunction(instanceActivityData, dataFn);
