@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { uuid } from 'frog-utils';
+import { isEqual } from 'lodash';
 
 import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
@@ -42,6 +43,17 @@ class ConfigPanel extends React.Component<*, *> {
       this.props.setConfig({ ...e.config, invalid: true });
     }
     this.props.setActivityTypeId(e.activityType);
+  };
+
+  shouldComponentUpdate = (nextProps: any) => {
+    if (
+      !isEqual(nextProps.config, this.props.config) ||
+      this.props.activityId !== nextProps.activityId
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   componentDidUpdate = () => {
