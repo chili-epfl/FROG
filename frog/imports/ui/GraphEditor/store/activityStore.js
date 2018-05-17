@@ -227,48 +227,15 @@ export default class ActivityStore {
         store.addHistory();
       }),
 
-      mongoAdd: action((x: any) => {
-        if (!store.findId({ type: 'activity', id: x._id })) {
-          this.all.push(
-            new Activity(
-              x.plane,
-              x.startTime,
-              x.title,
-              x.length,
-              x._id,
-              x.state
-            )
-          );
-        }
-      }),
-
-      mongoChange: action((newact: any, oldact: any) => {
-        const toUpdate = store.findId({ type: 'activity', id: oldact._id });
-        if (!toUpdate) {
-          throw 'Could not find activity to update in Mongo';
-        }
-        toUpdate.update(newact);
-      }),
-
-      mongoRemove: action((remact: any) => {
-        this.all = this.all.filter(x => x.id !== remact._id);
-      }),
-
-      get mongoObservers(): Object {
-        return {
-          added: this.mongoAdd,
-          changed: this.mongoChange,
-          removed: this.mongoRemove
-        };
-      },
-
       get history(): Array<any> {
         return this.all.map(x => ({
           title: x.title,
           plane: x.plane,
           startTime: x.startTime,
           length: x.length,
-          id: x.id
+          id: x.id,
+          data: x.data,
+          activityType: x.activityType
         }));
       },
 
@@ -282,7 +249,41 @@ export default class ActivityStore {
           (acc, plane) => ({ ...acc, ...getOffsets(plane, this.all) }),
           {}
         );
-      }
+      },
+      mongoAdd: action((x: any) => {
+        if (!store.findId({ type: 'activity', id: x._id })) {
+          this.all.push(
+            new Activity(
+              x.plane,
+              x.startTime,
+              x.title,
+              x.length,
+              x.data,
+              x.activityType,
+              x._id,
+              x.state
+            )
+          );
+        }
+      }),
+
+      mongoChange: action((newact: any, oldact: any) => {
+        console.log(newact, oldact);
+        const toUpdate = store.findId({ type: 'activity', id: oldact._id });
+        if (!toUpdate) {
+          throw 'Could not find activity to update in Mongo';
+        }
+        toUpdate.update(newact);
+      }),
+
+      mongoRemove: action((remact: any) => {
+        this.all = this.all.filter(x => x.id !== remact._id);
+      })
     });
   }
+  mongoObservers = {
+    added: this.mongoAdd,
+    changed: this.mongoChange,
+    removed: this.mongoRemove
+  };
 }
