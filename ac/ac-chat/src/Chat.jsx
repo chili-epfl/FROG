@@ -106,25 +106,36 @@ class ChatController extends React.Component<StyledPropsT> {
       classes
     } = this.props;
 
+    console.log(data);
     return (
       <div className={classes.root}>
         <h4 className={classes.header}>{activityData.config.title}</h4>
         <div className={classes.content} ref={node => (this.node = node)}>
-          {values(data).map(chatmsg => (
-            <Chatmsg
-              LearningItem={dataFn.LearningItem}
-              msg={chatmsg}
-              key={chatmsg.id}
-              classes={classes}
-            />
-          ))}
+          {values(data)
+            .sort((x, y) => x.order - y.order)
+            .map(chatmsg => (
+              <Chatmsg
+                LearningItem={dataFn.LearningItem}
+                msg={chatmsg}
+                key={chatmsg.id}
+                classes={classes}
+              />
+            ))}
         </div>
 
         <div className={classes.inputContainer}>
           <TextInput
             callbackFn={e => {
               const id = uuid();
-              dataFn.objInsert({ msg: e, user: userInfo.name, id }, id);
+              dataFn.objInsert(
+                {
+                  order: Object.keys(data).length + 1,
+                  msg: e,
+                  user: userInfo.name,
+                  id
+                },
+                id
+              );
               logger({ type: 'chat', value: e, itemId: id });
               this.scrollToBottom();
             }}

@@ -32,13 +32,15 @@ const meta = {
       title: 'Chat with some messages',
       config: { title: 'Example chat' },
       data: [
-        { id: '1', msg: 'This is the first message', user: 'Ole' },
+        { order: 1, id: '1', msg: 'This is the first message', user: 'Ole' },
         {
+          order: 2,
           id: '2',
           msg: "I don't agree, but we can discuss it",
           user: 'Petter'
         },
         {
+          order: 3,
           id: '3',
           msg: 'Let us do an experiment to test our hypothesis',
           user: 'Alfons'
@@ -100,10 +102,11 @@ const config = {
 
 const configUI = { robotPrompt: { conditional: 'hasRobotPrompt' } };
 
-const robotFormat = (id, msg) => ({
+const robotFormat = (id, msg, order) => ({
   id,
   msg,
-  user: 'Friendly robot'
+  user: 'Friendly robot',
+  order
 });
 
 const mergeFunction = (obj, dataFn) => {
@@ -112,9 +115,14 @@ const mergeFunction = (obj, dataFn) => {
     dataFn.objInsert(robotFormat(id, obj.config.robotPrompt), id);
   }
   if (obj.data) {
-    obj.data.forEach(x => {
+    obj.data.forEach((x, i) => {
       const id = uuid();
-      dataFn.objInsert(x.user ? { id, ...x } : robotFormat(id, x.msg || x), id);
+      dataFn.objInsert(
+        x.user
+          ? { id, order: i + 1, ...x }
+          : robotFormat(id, x.msg || x, i + 1),
+        id
+      );
     });
   }
 };
