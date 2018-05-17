@@ -5,7 +5,8 @@ import * as React from 'react';
 import {
   type ActivityRunnerPropsT,
   type ActivityRunnerT,
-  uuid
+  uuid,
+  values
 } from 'frog-utils';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
@@ -29,7 +30,6 @@ const styles = {
   inputContainer: {
     display: 'flex',
     flex: '0 0 auto',
-    flexDirection: 'column',
     background: '#EAEAEA',
     justifyContent: 'center',
     padding: '20px'
@@ -57,17 +57,21 @@ const styles = {
   }
 };
 
-const Chatmsg = ({ msg, classes }) => (
+const Chatmsg = ({ msg, classes, LearningItem }) => (
   <div className={classes.msg}>
     <Typography variant="body2" gutterBottom color="secondary">
       {msg.user}
     </Typography>
-    <Typography
-      gutterBottom
-      className={msg.user === 'Friendly robot' ? classes.robot : undefined}
-    >
-      {msg.msg}
-    </Typography>
+    {msg.li ? (
+      <LearningItem id={msg.li} clickZoomable type="thumbView" />
+    ) : (
+      <Typography
+        gutterBottom
+        className={msg.user === 'robot' ? classes.robot : undefined}
+      >
+        {msg.msg}
+      </Typography>
+    )}
   </div>
 );
 
@@ -106,19 +110,43 @@ class ChatController extends React.Component<StyledPropsT> {
       <div className={classes.root}>
         <h4 className={classes.header}>{activityData.config.title}</h4>
         <div className={classes.content} ref={node => (this.node = node)}>
-          {data.map(chatmsg => (
-            <Chatmsg msg={chatmsg} key={chatmsg.id} classes={classes} />
-          ))}
+          {values(data)
+            .sort((x, y) => x.order - y.order)
+            .map(chatmsg => (
+              <Chatmsg
+                LearningItem={dataFn.LearningItem}
+                msg={chatmsg}
+                key={chatmsg.id}
+                classes={classes}
+              />
+            ))}
         </div>
 
         <div className={classes.inputContainer}>
           <TextInput
             callbackFn={e => {
               const id = uuid();
-              dataFn.listAppend({ msg: e, user: userInfo.name, id });
+              dataFn.objInsert(
+                {
+                  order: Object.keys(data).length + 1,
+                  msg: e,
+                  user: userInfo.name,
+                  id
+                },
+                id
+              );
               logger({ type: 'chat', value: e, itemId: id });
               this.scrollToBottom();
             }}
+          />
+          <dataFn.LearningItem
+            type="create"
+            dataFn={dataFn}
+            meta={{
+              user: userInfo.name,
+              order: Object.keys(data).length + 1
+            }}
+            autoInsert
           />
         </div>
       </div>
