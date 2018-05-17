@@ -259,6 +259,8 @@ export type MongoT<T> = {
   findOne: (string | $Shape<T>, ?Object) => ?T,
   update: (string | $Shape<T>, UpdateQueryT<T>) => void,
   insert: (T, ?(T) => void) => string
+};
+
 type LIRenderPropsT = {|
   children: React.Element<*>,
   editable: Boolean,
