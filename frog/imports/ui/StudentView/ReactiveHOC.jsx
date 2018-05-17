@@ -7,6 +7,7 @@ import { generateReactiveFn, getDisplayName, uuid } from 'frog-utils';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/connection';
+import LearningItem from '../LearningItem';
 
 type ReactiveCompPropsT = Object;
 
@@ -17,9 +18,14 @@ type ReactiveCompsStateT = {
   timeout: boolean
 };
 
-const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
-  WrappedComponent: React.ComponentType<*>
-) => {
+const ReactiveHOC = (
+  docId: string,
+  conn?: any,
+  readOnly: boolean = false,
+  collection?: string,
+  meta?: Object,
+  backend: any
+) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT
@@ -42,8 +48,8 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
 
     componentDidMount = () => {
       this.unmounted = false;
-      this.doc = (conn || connection || {}).get('rz', docId);
-      this.doc.setMaxListeners(30);
+      this.doc = (conn || connection || {}).get(collection || 'rz', docId);
+      this.doc.setMaxListeners(3000);
       this.doc.subscribe();
 
       this.interval = window.setInterval(() => {
@@ -73,7 +79,14 @@ const ReactiveHOC = (docId: string, conn?: any, readOnly: boolean = false) => (
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({
-            dataFn: generateReactiveFn(this.doc, readOnly, this.update)
+            dataFn: generateReactiveFn(
+              this.doc,
+              LearningItem,
+              meta,
+              readOnly,
+              this.update,
+              backend
+            )
           });
         }
         if (this.doc.data !== undefined) {
