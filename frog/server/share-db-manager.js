@@ -6,6 +6,8 @@ import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
 import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
+import json from 'ot-json0';
+import { cloneDeep, isEmpty } from 'lodash';
 
 declare var Promise: any;
 const server = http.createServer();
@@ -53,3 +55,28 @@ export const startShareDB = () => {
     });
   }
 };
+
+Meteor.methods({
+  'sharedb.get.revisions': (coll, id) =>
+    new Promise(resolve =>
+      backend.db.getOps(coll, id, 0, null, {}, (err, res) => {
+        if (err || isEmpty(res)) {
+          resolve([]);
+          return;
+        }
+        const beg = res.shift().create.data;
+        const revisions = res.reduce(
+          (acc, x) => {
+            const result = json.type.apply(
+              cloneDeep(acc[acc.length - 1]),
+              x.op
+            );
+            acc.push(result);
+            return acc;
+          },
+          [beg]
+        );
+        resolve(revisions);
+      })
+    ).catch(e => console.error(e))
+});
