@@ -18,6 +18,7 @@ class Participant {
   rtcPeer: RTCPeerConnection;
   options: OptionsT;
   mode: string;
+  isRemoteDescriptionSet: boolean;
 
   constructor(name: string, id: string, role: string, sendMessage: Function) {
     this.name = name;
@@ -36,23 +37,23 @@ class Participant {
     try {
       this.rtcPeer = new RTCPeerConnection(options.configuration);
       this.rtcPeer.onicecandidate = this.onIceCandidate;
-      if (mode === 'sendonly') {
+      if (mode === 'sendonly' || mode === 'sendrecv') {
         this.rtcPeer.addStream(options.myStream);
       } else if (mode === 'recvonly' && options.ontrack) {
         this.rtcPeer.ontrack = options.ontrack;
       }
 
-      var offerOptions = {
+      const offerOptions = {
         offerToReceiveAudio: 1,
         offerToReceiveVideo: 1
       };
 
-      if (mode == 'sendOnly') {
+      if (mode === 'sendOnly') {
         offerOptions.offerToReceiveAudio = 0;
         offerOptions.offerToReceiveVideo = 0;
       }
 
-      if (mode == 'sendrecv') {
+      if (mode === 'sendrecv') {
         this.rtcPeer
           .createOffer()
           .then(this.onOffer)
@@ -102,7 +103,9 @@ class Participant {
       type: 'answer',
       sdp: answerSdp
     });
-    this.rtcPeer.setRemoteDescription(answer);
+    this.rtcPeer.setRemoteDescription(answer).then(() => {
+      this.isRemoteDescriptionSet = true;
+    });
   };
 
   onRemoteCandidate = (candidate: Object) => {

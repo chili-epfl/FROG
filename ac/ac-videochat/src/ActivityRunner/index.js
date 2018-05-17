@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import type { ActivityRunnerPropsT } from 'frog-utils';
-import AdapterJs from 'webrtc-adapter';
 
 import WebRtcConfig from '../webrtc-config/config';
 import BrowserUtils from '../utils/browser';
@@ -87,10 +86,23 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   createWebSocketConnection = () => {
     this.ws = new WebSocket(WebRtcConfig.signalServerURL);
 
+    this.ws.onerror = error => {
+      alert(
+        "If you have AdBlock, it might be blocking connections, please put FROG on AdBlock's whitelist"
+      );
+      console.error(error);
+    };
+
     this.ws.onopen = _ => {
       // when web socket connection is oppened, register on signal server
       if (this.role === 'watcher') {
-        this.register(this.name, this.id, this.roomId, 'watcher');
+        if (this.browser.browser === 'safari') {
+          // safari has a bug where you cannot receive streams if you don't allow media devices
+          // this code should be updated once safari fixes that problem
+          this.requestMediaDevices(this.role);
+        } else {
+          this.register(this.name, this.id, this.roomId, 'watcher');
+        }
       } else {
         this.requestMediaDevices(this.role);
       }
@@ -135,7 +147,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   requestMediaDevices = (role: string) => {
-    const self = this;
     if (navigator.mediaDevices)
       navigator.mediaDevices
         .getUserMedia(WebRtcConfig.mediaConstraints)
@@ -153,6 +164,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
                     'Press F5 to refresh the page and allow camera/microphone'
                 );
               } else {
+                if (this.browser.browser !== 'safari') {
+                  alert(
+                    'Safari has an issue where you cannot see and hear other users unless ' +
+                      'you allow application to use camera/microphone. '
+                  );
+                }
                 this.register(this.name, this.id, this.roomId, 'watcher');
               }
               break;
@@ -161,16 +178,19 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               alert(
                 'Your camera and microphone are already being used by another application.'
               );
+              this.register(this.name, this.id, this.roomId, 'watcher');
               break;
 
             case 'NotFoundError':
               alert('Camera and microphon not found on your computer');
+              this.register(this.name, this.id, this.roomId, 'watcher');
               break;
 
             case 'OverconstrainedError':
               alert(
                 'Your camera/microphone do not meet the constraints requested by this application.'
               );
+              this.register(this.name, this.id, this.roomId, 'watcher');
               console.error(error);
               break;
 
@@ -178,12 +198,14 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               alert(
                 'Application requested your camera/mic with illegal constraints'
               );
+              this.register(this.name, this.id, this.roomId, 'watcher');
               break;
 
             case 'SecurityError':
               alert(
                 'User media support is disabled on the Document which requested your camera/mic.'
               );
+              this.register(this.name, this.id, this.roomId, 'watcher');
               console.error(error);
               break;
 
@@ -191,6 +213,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               alert(
                 'Unknown error appeared that prevents usage of your camera/microphone'
               );
+              this.register(this.name, this.id, this.roomId, 'watcher');
               console.error(error);
               break;
 
@@ -209,13 +232,15 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       name: this.name,
       userId: this.id,
       room: this.roomId,
-      role: role
+      role
     };
     this.sendMessage(message);
   };
 
   onExistingParticipants = msg => {
-    if (this.stream) {
+    // we chach if role is watcher because of bug in safari
+    // that condition should be removed once safari fixes recvonly connections
+    if (this.stream && this.role !== 'watcher') {
       const analysisOptions = {
         local: true,
         name: this.name,
@@ -242,6 +267,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   createPeer = (mode, name, id, role) => {
+    const peerMode = {
+      mode
+    };
     const participant = new Participant(name, id, role, this.sendMessage);
     this.participants[participant.id] = participant;
 
@@ -255,17 +283,16 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         configuration: WebRtcConfig.rtcConfiguration
       };
 
-      if (mode == 'sendonly') {
+      if (mode === 'sendonly') {
         options.myStream = this.stream;
-      } else if (mode == 'recvonly') {
+        if (this.browser.browser !== 'chrome') {
+          peerMode.mode = 'sendrecv';
+        }
+      } else if (mode === 'recvonly') {
         options.ontrack = onAddRemoteTrack;
       }
 
-      if (this.browser.browser !== 'chrome') {
-        mode = 'sendrecv';
-      }
-
-      participant.createPeer(mode, options);
+      participant.createPeer(peerMode.mode, options);
     }
   };
 

@@ -23,36 +23,8 @@ const mediaConstraints = {
   }
 };
 
-const sendOnlyOfferConstraintChrome = {
-  mandatory: {
-    OfferToReceiveAudio: false,
-    OfferToReceiveVideo: false
-  }
-};
-
-const sendOnlyOfferConstraintFirefox = {
-  offerToReceiveAudio: 0,
-  offerToReceiveVideo: 0
-};
-
-const recvOnlyOfferConstraintChrome = {
-  mandatory: {
-    OfferToReceiveAudio: true,
-    OfferToReceiveVideo: true
-  }
-};
-
-const recvOnlyOfferConstraintFirefox = {
-  offerToReceiveAudio: 1,
-  offerToReceiveVideo: 1
-};
-
 export default {
   rtcConfiguration,
   signalServerURL,
-  mediaConstraints,
-  sendOnlyOfferConstraintChrome,
-  sendOnlyOfferConstraintFirefox,
-  recvOnlyOfferConstraintChrome,
-  recvOnlyOfferConstraintFirefox
+  mediaConstraints
 };
