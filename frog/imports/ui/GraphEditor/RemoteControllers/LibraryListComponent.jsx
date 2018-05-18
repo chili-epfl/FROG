@@ -29,6 +29,11 @@ export default ({
             </h5>
           )}
         </div>
+        {object.timestamp && (
+          <div style={{ width: '87%', fontStyle: 'italic' }}>
+            {new Date(object.timestamp).toDateString()}
+          </div>
+        )}
         <div style={{ width: '87%' }}>
           <Highlight text={object.description} searchStr={searchStr} />
         </div>
@@ -67,7 +72,7 @@ export default ({
           height: '34px'
         }}
         onClick={() => {
-          setIdRemove(object.uuid);
+          if (setIdRemove) setIdRemove(object.uuid);
           setDelete(true);
         }}
       >

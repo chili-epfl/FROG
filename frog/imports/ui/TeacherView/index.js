@@ -13,10 +13,10 @@ import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
 
 const TeacherView = props => (
-  <div>
+  <React.Fragment>
     <OrchestrationView {...props} />
     {!props.session && <SessionList {...props} />}
-  </div>
+  </React.Fragment>
 );
 
 const TeacherViewRunner = withTracker(() => {

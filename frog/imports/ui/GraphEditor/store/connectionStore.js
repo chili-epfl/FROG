@@ -1,3 +1,5 @@
+// @flow
+
 import { extendObservable, action } from 'mobx';
 
 import { type ElementTypes } from './store';
@@ -7,13 +9,15 @@ import Operator from './operator';
 import Connection from './connection';
 import { drawPath } from '../utils/path';
 
-type MongoConnection = {
+type MongoConnectionT = {
   source: { type: ElementTypes, id: string },
   target: { type: ElementTypes, id: string },
   _id: string
 };
 
 export default class ConnectionStore {
+  all: Object[];
+
   constructor() {
     extendObservable(this, {
       all: [],
@@ -46,7 +50,7 @@ export default class ConnectionStore {
         store.ui.cancelScroll();
       }),
 
-      mongoAdd: action((x: MongoConnection) => {
+      mongoAdd: action((x: MongoConnectionT) => {
         if (!store.findId({ type: 'connection', id: x._id })) {
           this.all.push(
             new Connection(
@@ -58,7 +62,7 @@ export default class ConnectionStore {
         }
       }),
 
-      mongoRemove: action((remact: MongoConnection) => {
+      mongoRemove: action((remact: MongoConnectionT) => {
         this.all = this.all.filter(x => x.id !== remact._id);
       }),
 

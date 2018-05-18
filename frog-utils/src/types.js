@@ -1,18 +1,26 @@
 // @flow
 
 import * as React from 'react';
+import type { Doc } from './generateReactiveFn';
 
-export type ActivityDbT = {
+export type ActivityDbT = {|
   _id: string,
   data: Object,
   title?: string,
   groupingKey?: string,
-  plane: number,
+  plane?: number,
   startTime: number,
   length: number,
   activityType: string,
-  actualStartingTime?: Date
-};
+  actualStartingTime?: Date,
+  actualClosingTime?: Date,
+  parentId?: string
+|};
+
+export type DashboardDataDbT = {|
+  dashId: string,
+  data: any
+|};
 
 export type OperatorDbT = {
   _id: string,
@@ -108,7 +116,7 @@ type ActivityDefT = {|
 type LogExtraT = {|
   sessionId: string,
   userId: string,
-  instanceId?: string,
+  instanceId: string,
   timestamp: Date
 |} & LogT;
 
@@ -128,6 +136,7 @@ export type ActivityPackageT = {
       title: string,
       config?: Object,
       data?: any,
+      learningItems?: any,
       type?: 'deeplink'
     }[]
   },
@@ -152,12 +161,16 @@ export type DashboardT = {
   mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
   initData: any,
-  exampleLogs?: {
-    title: string,
-    path: string,
-    activityMerge: Object,
-    instances: number
-  }[],
+  exampleLogs?: (
+    | {
+        type: 'logs',
+        title: string,
+        path: string,
+        activityMerge?: Object,
+        instances?: number
+      }
+    | { title: string, type: 'state', activityMerge?: Object, state: any }
+  )[],
   exampleData?: { title: string, path: string }[]
 };
 
@@ -227,3 +240,84 @@ export type operatorPackageT =
   | socialOperatorT
   | productOperatorT
   | controlOperatorT;
+
+export type CursorT<T> = {
+  fetch: () => T[],
+  map: T => void,
+  forEach: T => void,
+  observe: Object => void,
+  observeChanges: Object => void
+};
+
+type UpdateQueryT<T> = {
+  $set?: $Shape<T>,
+  $inc?: { [key: $Keys<T>]: number },
+  $unset?: { [key: $Keys<T>]: any }
+};
+
+export type MongoT<T> = {
+  find: (
+    string | $Shape<T> | { [$Keys<T>]: { $in: any } },
+    ?Object
+  ) => CursorT<T>,
+  findOne: (string | $Shape<T>, ?Object) => ?T,
+  update: (string | $Shape<T>, UpdateQueryT<T>) => void,
+  insert: (T, ?(T) => void) => string
+};
+
+type LIRenderPropsT = {|
+  children: React.Element<*>,
+  editable: Boolean,
+  zoomable: Boolean,
+  liType: string
+|};
+
+export type LIRenderT = React.ComponentType<LIRenderPropsT>;
+
+export type LIComponentPropsT =
+  | {| type: 'history', id: string, render?: LIRenderT |}
+  | {|
+      type: 'create',
+      meta?: Object,
+      liType?: string,
+      onCreate?: Function,
+      autoInsert?: Boolean,
+      meta?: Object
+    |}
+  | {| type: 'view', id: string, render?: LIRenderT |}
+  | {|
+      type: 'thumbView',
+      id: string,
+      render?: LIRenderT,
+      clickZoomable?: Boolean
+    |}
+  | {|
+      type: 'edit',
+      id: string,
+      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
+    |};
+
+export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
+
+export type LearningItemT<T> = {
+  name: string,
+  id: string,
+  dataStructure?: T,
+  Editor?: React.ComponentType<{
+    data: T,
+    dataFn: Doc,
+    LearningItem: LearningItemComponentT
+  }>,
+  Creator?: React.ComponentType<{
+    createLearningItem: Function,
+    LearningItem: LearningItemComponentT
+  }>,
+  ThumbViewer?: React.ComponentType<{
+    data: T,
+    LearningItem: LearningItemComponentT
+  }>,
+  Viewer?: React.ComponentType<{
+    data: T,
+    LearningItem: LearningItemComponentT
+  }>
+};

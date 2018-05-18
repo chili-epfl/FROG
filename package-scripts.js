@@ -30,8 +30,9 @@ if (findDir) {
   dir = '/usr/src/frog';
 }
 
-const fromRoot = cmd =>
-  `cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH} ${cmd}`;
+const fromRoot = (cmd, msg) =>
+  `echo ${msg ||
+    ''} & cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH ${cmd}`;
 
 const build = x => {
   const bin = 'node_modules/.bin';
@@ -57,32 +58,43 @@ const buildAll = background =>
 module.exports = {
   scripts: {
     setup: {
-      default: fromRoot('git clean -fdx; ./initial_setup.sh'),
-      clean: fromRoot('killall -9 node; git clean -fdx; ./initial_setup.sh')
+      default: fromRoot(
+        'git clean -fdx; ./initial_setup.sh',
+        'Cleaning all files and running initial setup'
+      ),
+      clean: fromRoot(
+        'killall -9 node; git clean -fdx; ./initial_setup.sh',
+        'Killing Node, cleaning all files and running initial setup'
+      )
     },
-    server: fromRoot('cd frog && meteor'),
+    server: fromRoot('cd frog && meteor', 'Starting Meteor'),
     build: {
       default: build(),
       all: buildAll(),
       ci: buildAll(true)
     },
-    watch: fromRoot(
-      `echo 'Watching and transpiling files' & node watch.js watch`
-    ),
+    watch: fromRoot(`node watch.js watch`, 'Watching and transpiling files'),
     test: fromRoot(
-      `echo 'Running Flow, ESLint and Jest' & nps -s flow.quiet eslint jest`
+      `nps -s flow.quiet eslint jest`,
+      'Running Flow, ESLint and Jest'
     ),
     eslint: {
-      default: fromRoot('eslint -c .eslintrc-prettier.js --ext .js,.jsx .'),
-      fix: fromRoot('eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .')
+      default: fromRoot(
+        'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'Running ESLint'
+      ),
+      fix: fromRoot(
+        'eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'Running ESLint in Fix mode'
+      )
     },
     flow: {
-      default: fromRoot('flow'),
-      quiet: fromRoot('flow --quiet')
+      default: fromRoot('flow', 'Running Flow'),
+      quiet: fromRoot('flow --quiet', 'Running Flow quietly')
     },
     jest: {
-      default: fromRoot('jest'),
-      watch: fromRoot('jest --watch')
+      default: fromRoot('jest', 'Starting Jest'),
+      watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
     },
     help
   },

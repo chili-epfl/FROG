@@ -2,22 +2,28 @@
 
 import * as React from 'react';
 import { uuid } from 'frog-utils';
+import { isEqual } from 'lodash';
+
+import Grid from 'material-ui/Grid';
+import IconButton from 'material-ui/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import Typography from 'material-ui/Typography';
+import Divider from 'material-ui/Divider';
 
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
+import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
 
-const style = {
+const styles = {
   side: {
-    flex: '0 1 500px',
-    position: 'relative',
-    overflow: 'auto',
-    height: '100%',
-    rightMargin: '20px'
-  },
-  preview: { width: '100%', height: 'calc(100% - 50px)', overflow: 'visible' }
+    flex: '0 0 auto',
+    overflowY: 'auto',
+    width: '350px',
+    background: 'white'
+  }
 };
 
 class ConfigPanel extends React.Component<*, *> {
@@ -25,12 +31,29 @@ class ConfigPanel extends React.Component<*, *> {
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
       this.props.setConfig(e.config);
-      initActivityDocuments(this.props.instances, aT, -1, e.config, true);
+      initActivityDocuments(
+        this.props.instances,
+        aT,
+        this.props.example,
+        e.config,
+        true
+      );
       initDashboardDocuments(aT, true);
     } else {
       this.props.setConfig({ ...e.config, invalid: true });
     }
     this.props.setActivityTypeId(e.activityType);
+  };
+
+  shouldComponentUpdate = (nextProps: any) => {
+    if (
+      !isEqual(nextProps.config, this.props.config) ||
+      this.props.activityId !== nextProps.activityId
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   componentDidUpdate = () => {
@@ -42,6 +65,20 @@ class ConfigPanel extends React.Component<*, *> {
         this.onConfigChange
       );
     }
+  };
+
+  backToPreview = () => {
+    const {
+      setConfig,
+      setExample,
+      setReloadAPIform,
+      setActivityTypeId
+    } = this.props;
+
+    setActivityTypeId(null);
+    setExample(0);
+    setConfig({});
+    setReloadAPIform(uuid());
   };
 
   render() {
@@ -60,58 +97,68 @@ class ConfigPanel extends React.Component<*, *> {
     } = this.props;
 
     return (
-      <div style={style.side} className="bootstrap">
-        <div>
-          {activityTypeId && (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignContent: 'center'
-              }}
-            >
-              <button
-                onClick={() => {
-                  setActivityTypeId(null);
-                  setExample(0);
-                  setConfig({});
-                  setReloadAPIform(uuid());
-                }}
-                className="glyphicon glyphicon-arrow-left"
-                style={{
-                  fontSize: '2em',
-                  color: 'blue',
-                  border: 0,
-                  background: 'none',
-                  cursor: 'pointer'
+      <div style={styles.side}>
+        {activityTypeId && (
+          <Grid container spacing={8} alignItems="center">
+            <Grid item xs={2}>
+              <IconButton
+                aria-label="back-to-preview"
+                onClick={this.backToPreview}
+              >
+                <ArrowBack />
+              </IconButton>
+            </Grid>
+
+            <Grid item xs={8}>
+              <Typography variant="title">
+                {activityTypesObj[activityTypeId].meta.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <ExportButton
+                activity={{
+                  title: activityTypesObj[activityTypeId].meta.name,
+                  data: config,
+                  activityType: activityTypeId
                 }}
               />
-              <h3>{activityTypesObj[activityTypeId].meta.name}</h3>
-            </div>
-          )}
-          <ApiForm
-            hidePreview
-            config={config}
-            activityType={activityTypeId}
-            onConfigChange={this.onConfigChange}
-            onSelect={activityType => {
-              const exConf = addDefaultExample(
-                activityTypesObj[activityType]
-              )[0].config;
-              setConfig(exConf);
-              if (showDash && !activityTypesObj[activityType].dashboard) {
-                setShowDash(false);
-              }
-              setReloadAPIform(uuid());
-              initActivityDocuments(instances, activityType, 0, exConf, true);
-              initDashboardDocuments(activityType, true);
-              setExample(0);
-              setShowDashExample(false);
-              setActivityTypeId(activityType);
-            }}
-            reload={reloadAPIform}
-          />
-        </div>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
+        )}
+        <ApiForm
+          hidePreview
+          {...{ config, setConfig }}
+          activityType={activityTypeId}
+          onConfigChange={this.onConfigChange}
+          onSelect={activityType => {
+            const exConf = activityType.title
+              ? activityType.config
+              : addDefaultExample(activityTypesObj[activityType])[0].config;
+            const actTypeId = activityType.title
+              ? activityType.activity_type
+              : activityType;
+            setConfig(exConf);
+            if (showDash && !activityTypesObj[actTypeId].dashboard) {
+              setShowDash(false);
+            }
+            setReloadAPIform(uuid());
+            initActivityDocuments(
+              instances,
+              activityTypesObj[actTypeId],
+              0,
+              exConf,
+              true
+            );
+            initDashboardDocuments(actTypeId, true);
+            setExample(0);
+            setShowDashExample(false);
+            setActivityTypeId(actTypeId);
+          }}
+          reload={reloadAPIform}
+        />
       </div>
     );
   }

@@ -10,14 +10,12 @@ import red from 'material-ui/colors/red';
 import green from 'material-ui/colors/green';
 import Button from 'material-ui/Button';
 import Tooltip from 'material-ui/Tooltip';
-import { withStyles } from 'material-ui/styles';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { updateSessionState, restartSession } from '../../../api/sessions';
 import downloadLog from './downloadLog';
 import { nextActivity } from '../../../api/engine';
 import { exportSession } from './exportComponent';
-import styles from '../styles';
 
 let lastNext = null;
 
@@ -179,13 +177,13 @@ export const SessionUtilsButtonsModel = (
   }
 });
 
-const ToolTipComponent = ({ tooltip, children }) => (
+export const ToolTipComponent = ({ tooltip, children }) => (
   <Tooltip id={tooltip.id} title={tooltip.title} placement={tooltip.placement}>
     {children}
   </Tooltip>
 );
 
-export const ControlButton = ({ btnModel, classes, style }) => {
+export const ControlButton = ({ btnModel }) => {
   const { tooltip, button, icon } = btnModel;
 
   return (
@@ -193,10 +191,9 @@ export const ControlButton = ({ btnModel, classes, style }) => {
       <Button
         variant={button.variant || 'flat'}
         color={button.themeColor || 'default'}
-        className={classes.controlBtn}
         style={{
           backgroundColor: button.color,
-          ...style
+          color: 'white'
         }}
         onClick={button.onClick}
       >
@@ -226,33 +223,3 @@ export const ControlButtonLink = ({ btnModel, classes }) => {
     </ToolTipComponent>
   );
 };
-
-const DashToggleRaw = ({
-  visible,
-  toggleVisible,
-  classes
-}: {
-  visible: boolean,
-  toggleVisible: Function,
-  classes: Object
-}) => (
-  <ToolTipComponent
-    tooltip={{
-      id: 'tooltip-dashtoggle',
-      title: 'Toggle between dashboard and graph view',
-      placement: 'bottom'
-    }}
-  >
-    <Button
-      className={classes.controlBtn}
-      variant="raised"
-      color="default"
-      style={{ backgroundColor: blue[700], color: '#ffffff' }}
-      onClick={toggleVisible}
-    >
-      {visible ? 'Graph' : 'Dashboard'}
-    </Button>
-  </ToolTipComponent>
-);
-
-export const DashToggle = withStyles(styles)(DashToggleRaw);

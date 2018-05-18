@@ -73,9 +73,10 @@ const Viewer = (props: Object) => {
 };
 
 const FINISHED = 'finished';
-const NOT_SUFFICIENT = 'notsufficient';
-const UPDATE_INTERVAL = 10;
+const UPDATE_THRESHOLD = 10;
+const HIATUS_THRESHOLD = 90;
 const PREDICT_THRESHOLD = 150;
+const MAX_NUM_INTERVAL = 100;
 
 function linearRegression(activities) {
   const userResult = regression.linear(activities);
@@ -93,7 +94,9 @@ function predictUserProgress(userStatus, t) {
   const userProgress =
     userStatus === FINISHED
       ? 1
-      : Math.min((t - userStatus[1]) / userStatus[0], 1);
+      : userStatus[0] === 0
+        ? Math.min(userStatus[1], 1)
+        : Math.min((t - userStatus[1]) / userStatus[0], 1);
   return userProgress;
 }
 
@@ -111,26 +114,38 @@ function assembleCurve(progress) {
 const parse = curve =>
   entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
 
+const hiatusCoefficient = progress => Math.exp(1 - 2 * progress);
+
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
+  const currentTime = activity.actualClosingTime
+    ? new Date(activity.actualClosingTime)
+    : new Date();
   const currentMaxTime = activity.actualStartingTime
-    ? (new Date() - new Date(activity.actualStartingTime)) / 1000
+    ? (currentTime - new Date(activity.actualStartingTime)) / 1000
     : state.maxTime;
   const sessionStatus = {};
 
   Object.keys(state.user).forEach(user => {
     const userActivities = state.user[user];
     if (userActivities[0][0] !== 0) {
-      userActivities.push([0, 0]);
+      userActivities.unshift([0, 0]);
     }
     const lastIndex = userActivities.length - 1;
-    const userStatus =
-      userActivities[lastIndex][0] === 1
-        ? FINISHED
-        : userActivities.length < 2
-          ? NOT_SUFFICIENT
-          : linearRegression(userActivities);
-    sessionStatus[user] = userStatus;
+    if (lastIndex >= 1) {
+      const userStatus =
+        userActivities[lastIndex][0] === 1
+          ? FINISHED
+          : currentMaxTime - userActivities[lastIndex][1] <
+            Math.max(
+              HIATUS_THRESHOLD,
+              hiatusCoefficient(userActivities[lastIndex][0]) *
+                (userActivities[lastIndex][1] - userActivities[0][1])
+            )
+            ? linearRegression(userActivities)
+            : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
+      sessionStatus[user] = userStatus;
+    }
   });
 
   const progressCurve = {};
@@ -138,16 +153,18 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   const predictedProgressCurve = {};
   const predictedCompletionCurve = {};
   const T_MAX = currentMaxTime + PREDICT_THRESHOLD;
+  const UPDATE_INTERVAL = Math.max(
+    UPDATE_THRESHOLD,
+    Math.ceil(T_MAX / MAX_NUM_INTERVAL)
+  );
 
   for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
     const progress = [];
     if (t <= currentMaxTime) {
       // visualize actual data
-      Object.keys(state.user).forEach(user => {
-        if (sessionStatus[user] !== NOT_SUFFICIENT) {
-          const userProgress = registerUserProgress(state.user[user], t);
-          progress.push(userProgress);
-        }
+      Object.keys(sessionStatus).forEach(user => {
+        const userProgress = registerUserProgress(state.user[user], t);
+        progress.push(userProgress);
       });
       const [comp, prog] = assembleCurve(progress);
       completionCurve[t] = comp;
@@ -157,10 +174,8 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
     } else {
       // predict future data
       Object.keys(sessionStatus).forEach(user => {
-        if (sessionStatus[user] !== NOT_SUFFICIENT) {
-          const userProgress = predictUserProgress(sessionStatus[user], t);
-          progress.push(userProgress);
-        }
+        const userProgress = predictUserProgress(sessionStatus[user], t);
+        progress.push(userProgress);
       });
       const [comp, prog] = assembleCurve(progress);
       predictedCompletionCurve[t] = comp;
@@ -170,14 +185,9 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
 
   // interpolate at maxTime
   const progress = [];
-  Object.keys(state.user).forEach(user => {
-    if (sessionStatus[user] !== NOT_SUFFICIENT) {
-      const userProgress = registerUserProgress(
-        state.user[user],
-        currentMaxTime
-      );
-      progress.push(userProgress);
-    }
+  Object.keys(sessionStatus).forEach(user => {
+    const userProgress = registerUserProgress(state.user[user], currentMaxTime);
+    progress.push(userProgress);
   });
   const [comp, prog] = assembleCurve(progress);
   completionCurve[currentMaxTime] = comp;
@@ -238,13 +248,15 @@ const exampleLogs = [
     title: 'CS211 week 1 (n=400)',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1-short.json',
     activityMerge,
-    instances: 118
+    instances: 118,
+    type: 'logs'
   },
   {
     title: 'CS211 week 1',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1.json',
     activityMerge,
-    instances: 118
+    instances: 118,
+    type: 'logs'
   },
   {
     title: 'CS211 week 2',
@@ -253,7 +265,8 @@ const exampleLogs = [
       actualStartingTime: '2018-03-13T07:28:02.833Z',
       actualClosingTime: '2018-03-13T07:34:42.700Z'
     },
-    instances: 81
+    instances: 81,
+    type: 'logs'
   }
 ];
 

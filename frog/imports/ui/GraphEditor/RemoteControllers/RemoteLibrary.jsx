@@ -25,7 +25,10 @@ const filterWithStr = (list: Array<any>, searchStr: string) =>
         x.description.toLowerCase().includes(searchStr) ||
         x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
     )
-    .sort((x: Object, y: Object) => (x.title < y.title ? -1 : 1));
+    .sort((x: Object, y: Object) => {
+      if (x.activity_type) return x.title < y.title ? -1 : 1;
+      else return x.timestamp > y.timestamp ? -1 : 1;
+    });
 
 class Library extends Component<Object, { searchStr: string }> {
   constructor(props: Object) {
@@ -50,13 +53,17 @@ class Library extends Component<Object, { searchStr: string }> {
       setIdRemove,
       activityId,
       libraryType,
+      searchStr,
       store
     } = this.props;
     const list =
       libraryType === 'activity'
         ? LibraryStates.activityList
         : LibraryStates.graphList;
-    const filtered = filterWithStr(list, this.state.searchStr.toLowerCase());
+    const filtered = filterWithStr(
+      list,
+      searchStr || this.state.searchStr.toLowerCase()
+    );
     const onClick = () => {
       if (this.props.libraryType === 'activity') collectActivities();
       else if (this.props.libraryType === 'graph') collectGraphs();
@@ -64,20 +71,25 @@ class Library extends Component<Object, { searchStr: string }> {
     return (
       <div className="bootstrap">
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <div className="input-group">
-            <span className="input-group-addon" id="basic-addon1">
-              <span className="glyphicon glyphicon-search" aria-hidden="true" />
-            </span>
-            <input
-              type="text"
-              value={this.state.searchStr}
-              style={{ zIndex: 0 }}
-              onChange={e => this.setState({ searchStr: e.target.value })}
-              className="form-control"
-              placeholder="Search for..."
-              aria-describedby="basic-addon1"
-            />
-          </div>
+          {searchStr === undefined && (
+            <div className="input-group">
+              <span className="input-group-addon" id="basic-addon1">
+                <span
+                  className="glyphicon glyphicon-search"
+                  aria-hidden="true"
+                />
+              </span>
+              <input
+                type="text"
+                value={this.state.searchStr}
+                style={{ zIndex: 0 }}
+                onChange={e => this.setState({ searchStr: e.target.value })}
+                className="form-control"
+                placeholder="Search for..."
+                aria-describedby="basic-addon1"
+              />
+            </div>
+          )}
           <button type="button" className="btn btn-primary" onClick={onClick}>
             <span className="glyphicon glyphicon-repeat" />
           </button>
@@ -106,11 +118,17 @@ class Library extends Component<Object, { searchStr: string }> {
             filtered.map((x: Object) => (
               <LibraryListComponent
                 onSelect={() => {
+                  // setConfig
                   if (libraryType === 'activity') {
-                    importAct(x.uuid, activityId, () => {
-                      store.addHistory();
-                      store.refreshValidate();
-                    });
+                    importAct(
+                      x.uuid,
+                      activityId,
+                      () => {
+                        store.addHistory();
+                        store.refreshValidate();
+                      },
+                      this.props.onSelect
+                    );
                   } else if (libraryType === 'graph') {
                     importGraph(x.uuid);
                     this.props.setModal(false);
@@ -125,7 +143,7 @@ class Library extends Component<Object, { searchStr: string }> {
                   })
                 }
                 eventKey={x.uuid}
-                searchStr={this.state.searchStr}
+                searchStr={searchStr || this.state.searchStr}
                 {...{ setDelete, setIdRemove }}
               />
             ))

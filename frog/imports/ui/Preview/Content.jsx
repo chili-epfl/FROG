@@ -1,8 +1,8 @@
 // @flow
 
 import * as React from 'react';
-
 import { compose, toClass } from 'recompose';
+import { uniq } from 'lodash';
 
 import {
   MosaicWithoutDragDropContext,
@@ -20,9 +20,10 @@ import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
 import { activityTypesObj } from '../../activityTypes';
-import { connection } from './Preview';
+import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
+import LearningItem from '../LearningItem';
 
 const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
 
@@ -33,12 +34,29 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
-  instances.forEach(instance => {
+  const exs = addDefaultExample(activityType);
+  if (exs[example].learningItems) {
+    exs[example].learningItems.forEach(li => {
+      const doc = connection.get('li', li.id);
+      if (doc.type) {
+        doc.submitOp({ p: [], oi: li });
+      } else {
+        doc.create(li);
+      }
+    });
+  }
+  uniq(instances).forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
-        const dataFn = generateReactiveFn(_doc);
-        const exs = addDefaultExample(activityType);
+        const dataFn = generateReactiveFn(
+          _doc,
+          LearningItem,
+          undefined,
+          undefined,
+          undefined,
+          backend
+        );
         const data =
           example === -1 || example === undefined
             ? cloneDeep(activityType.dataStructure)
@@ -57,7 +75,14 @@ export const initActivityDocuments = (
         }
       });
     } else if (refresh) {
-      const dataFn = generateReactiveFn(doc);
+      const dataFn = generateReactiveFn(
+        doc,
+        LearningItem,
+        undefined,
+        undefined,
+        undefined,
+        backend
+      );
       dataFn.objInsert(cloneDeep(activityType.dataStructure) || {}, []);
       runMergeFunction(doc);
     }
@@ -99,9 +124,24 @@ const ContentController = ({
 
   const Run = ({ name, instance }) => {
     const docId = DocId(activityType.id, instance);
-    const ActivityToRun = ReactiveHOC(docId, connection)(
-      showData ? ShowInfo : RunComp
+    const ActivityToRun = ReactiveHOC(
+      docId,
+      connection,
+      false,
+      undefined,
+      undefined,
+      backend
+    )(showData ? ShowInfo : RunComp);
+    const logger = createLogger(
+      'preview',
+      instance,
+      activityType.id,
+      activityType.id,
+      getUserId(name),
+      plane,
+      config
     );
+    logger({ type: 'activityDidMount' });
     return (
       <ActivityToRun
         activityType={activityType.id}
@@ -109,15 +149,7 @@ const ContentController = ({
         activityData={activityData}
         userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
-        logger={createLogger(
-          'preview',
-          instance,
-          activityType.id,
-          activityType.id,
-          getUserId(name),
-          plane,
-          config
-        )}
+        logger={logger}
         groupingValue={instance}
       />
     );
@@ -135,14 +167,7 @@ const ContentController = ({
   );
 
   return (
-    <div
-      className="modal-body"
-      style={{
-        position: 'relative',
-        width: 'calc(100% - 30px)',
-        height: 'calc(100% - 60px)'
-      }}
-    >
+    <div style={{ height: '100%' }}>
       {showDashExample ? (
         <ShowDashExample
           example={example}

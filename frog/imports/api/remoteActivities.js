@@ -8,17 +8,24 @@ const RemoteServer =
 
 export const removeActivity = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id, {
-    method: 'DELETE'
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({ deleted: true })
   }).then(() => collectActivities(callback));
 };
 
 export const refreshActDate = () => (LibraryStates.lastRefreshAct = new Date());
 
 export const collectActivities = (callback: ?Function) =>
-  fetch(RemoteServer + '?select=uuid,title,description,tags,activity_type')
+  fetch(
+    RemoteServer +
+      '?select=uuid,title,description,tags,activity_type&deleted=not.is.true'
+  )
     .then(e => e.json())
     .then(r => {
-      LibraryStates.activityList = r;
+      LibraryStates.activityList = r.filter(x => !x.deleted);
       refreshActDate();
       if (callback) callback();
     });
@@ -61,11 +68,12 @@ export const sendActivity = (state: Object, props: Object) => {
   });
 };
 
-export const importAct = (id, activityId, callback) => {
+export const importAct = (id, activityId, callback, onSelect) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
       addActivity(e[0].activity_type, e[0].config, activityId, null, id);
+      if (onSelect) onSelect({ id: e[0] });
       if (callback) {
         callback();
       }

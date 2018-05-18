@@ -3,13 +3,21 @@ import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
-import { Button } from 'react-bootstrap';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
+import Divider from 'material-ui/Divider';
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import List from 'material-ui/List';
+import { withStyles } from 'material-ui/styles';
+import Search from '@material-ui/icons/Search';
+import Cloud from '@material-ui/icons/Cloud';
+
+import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
 import { ModalPreview } from '../../../Preview';
-import { connect } from '../../store';
 
 type StateT = {
   expanded: ?string,
@@ -17,6 +25,7 @@ type StateT = {
   showInfo: ?string
 };
 type PropsT = {
+  classes: Object,
   store?: Object,
   hidePreview?: boolean,
   onSelect?: Function,
@@ -29,7 +38,112 @@ type PropsT = {
   changesLoaded?: Function
 };
 
-export class ChooseActivityType extends Component<PropsT, StateT> {
+const styles = {
+  topPanel: {
+    padding: '10px'
+  },
+  activityList: {
+    height: 'calc(100vh - 112px - 100px)',
+    overflowY: 'auto'
+  },
+  searchContainer: {
+    position: 'relative',
+    borderRadius: '5px',
+    background: 'rgba(0,0,0,.05)'
+  },
+  searchIcon: {
+    width: '50px',
+    height: '100%',
+    display: 'flex',
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  searchInput: {
+    border: '0',
+    width: '100%',
+    padding: '8px 8px 8px 50px',
+    background: 'none',
+    outline: 'none',
+    whiteSpace: 'normal',
+    verticalAlign: 'middle',
+    fontSize: '1rem'
+  },
+  centerButton: {
+    textAlign: 'center'
+  },
+  cloudIcon: {
+    marginRight: '8px',
+    fontSize: 20
+  },
+  resultContainer: {
+    height: '100%'
+  }
+};
+
+const NoResult = ({ classes }) => (
+  <Grid
+    container
+    justify="center"
+    alignItems="center"
+    className={classes.resultContainer}
+  >
+    <Grid item>
+      <Typography variant="body2">No results found</Typography>
+    </Grid>
+  </Grid>
+);
+
+const StyledNoResult = withStyles(styles)(NoResult);
+
+const ChooseActivityTopPanel = connect(
+  ({ classes, onSearch, onToggle, store }) => (
+    <Grid
+      container
+      className={classes.topPanel}
+      alignItems="center"
+      spacing={8}
+    >
+      <Grid item xs={12}>
+        <Typography variant="title">Select activity type</Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container justify="center">
+          <Grid item xs={8}>
+            <div className={classes.searchContainer}>
+              <div className={classes.searchIcon}>
+                <Search />
+              </div>
+              <input
+                type="text"
+                onChange={onSearch}
+                className={classes.searchInput}
+                aria-describedby="basic-addon1"
+              />
+            </div>
+          </Grid>
+          <Grid item xs={4} className={classes.centerButton}>
+            <Button
+              color="primary"
+              size="small"
+              variant={store.ui.libraryOpen ? 'raised' : null}
+              onClick={onToggle}
+            >
+              <Cloud className={classes.cloudIcon} /> Library
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
+    </Grid>
+  )
+);
+
+const StyledChooseActivityTopPanel = withStyles(styles)(ChooseActivityTopPanel);
+
+class ChooseActivityTypeController extends Component<PropsT, StateT> {
   inputRef: any;
 
   constructor(props: PropsT) {
@@ -42,10 +156,24 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     this.inputRef = null;
   }
 
+  handleToggle = () => {
+    if (this.props.store) {
+      this.props.store.ui.setLibraryOpen(!this.props.store.ui.libraryOpen);
+    }
+  };
+
+  handleSearch = e => {
+    this.setState({
+      expanded: null,
+      searchStr: e.target.value.toLowerCase()
+    });
+  };
+
   render() {
     const activityTypesFiltered = this.props.onlyHasPreview
       ? activityTypes.filter(x => x.meta.exampleData !== undefined)
       : activityTypes;
+
     const select = this.props.onSelect
       ? this.props.onSelect
       : aT => {
@@ -64,12 +192,6 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
           }
         };
 
-    const changeSearch = e =>
-      this.setState({
-        expanded: null,
-        searchStr: e.target.value.toLowerCase()
-      });
-
     const filteredList = activityTypesFiltered
       .filter(
         x =>
@@ -82,49 +204,17 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
 
+    const { classes } = this.props;
     return (
-      <div
-        style={{
-          height: '100%',
-          width: '100%'
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '95%',
-            height: '35px'
-          }}
-        >
-          <h4>Select activity type</h4>
-          <Button
-            className={
-              this.props.store &&
-              (this.props.store.ui.libraryOpen
-                ? 'btn btn-success'
-                : 'btn btn-primary')
-            }
-            style={{
-              position: 'relative',
-              top: '5px',
-              left: '15px',
-              width: '100px'
-            }}
-            onClick={() =>
-              this.props.store &&
-              this.props.store.ui.setLibraryOpen(
-                !this.props.store.ui.libraryOpen
-              )
-            }
-          >
-            {' '}
-            {this.props.store &&
-              (this.props.store.ui.libraryOpen
-                ? 'New activity'
-                : 'Library')}{' '}
-          </Button>
-        </div>
+      <Grid container>
+        <Grid item xs={12}>
+          <StyledChooseActivityTopPanel
+            onSearch={this.handleSearch}
+            onToggle={this.handleToggle}
+            {...this.props}
+          />
+        </Grid>
+
         {this.props.store &&
           (this.props.store.ui.libraryOpen ? (
             <Library
@@ -136,50 +226,16 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
               store={this.props.store}
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}
+              onSelect={this.props.onSelect}
+              searchStr={this.state.searchStr}
             />
           ) : (
-            <div>
-              <div
-                className="input-group"
-                style={{ top: '-30px', left: '280px', width: '200px' }}
-              >
-                <span className="input-group-addon" id="basic-addon1">
-                  <span
-                    className="glyphicon glyphicon-search"
-                    aria-hidden="true"
-                  />
-                </span>
-                <input
-                  ref={ref => (this.inputRef = ref)}
-                  type="text"
-                  style={{ zIndex: 0 }}
-                  onChange={changeSearch}
-                  className="form-control"
-                  placeholder="Search for..."
-                  aria-describedby="basic-addon1"
-                />
-              </div>
-              <div
-                className="list-group"
-                style={{
-                  height: '93%',
-                  width: '100%',
-                  overflowY: 'scroll',
-                  transform: 'translateY(10px)'
-                }}
-              >
-                {filteredList.length === 0 ? (
-                  <div
-                    style={{
-                      marginTop: '20px',
-                      marginLeft: '10px',
-                      fontSize: '40px'
-                    }}
-                  >
-                    No result
-                  </div>
-                ) : (
-                  filteredList.map((x: ActivityPackageT) => (
+            <Grid item xs={12} className={classes.activityList}>
+              {filteredList.length === 0 ? (
+                <StyledNoResult />
+              ) : (
+                <List>
+                  {filteredList.map((x: ActivityPackageT) => (
                     <ListComponent
                       hasPreview={
                         !this.props.hidePreview &&
@@ -202,10 +258,10 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
                       searchS={this.state.searchStr}
                       eventKey={x.id}
                     />
-                  ))
-                )}
-              </div>
-            </div>
+                  ))}
+                </List>
+              )}
+            </Grid>
           ))}
         {this.state.showInfo !== null && (
           <ModalPreview
@@ -213,9 +269,11 @@ export class ChooseActivityType extends Component<PropsT, StateT> {
             dismiss={() => this.setState({ showInfo: null })}
           />
         )}
-      </div>
+      </Grid>
     );
   }
 }
 
-export default connect(ChooseActivityType);
+const ChooseActivityConnected = connect(ChooseActivityTypeController);
+
+export default withStyles(styles)(ChooseActivityConnected);
