@@ -24,6 +24,26 @@ export const config = {
           title: 'Use web camera',
           type: 'boolean',
           default: true
+        },
+        videoResolution: {
+          title: 'Video resolution',
+          type: 'string',
+          enum: [
+            '1280x720',
+            '800x600',
+            '640x480',
+            '640x360',
+            '352x288',
+            '320x240',
+            '176x144',
+            '160x120'
+          ],
+          default: '320x240'
+        },
+        frameRate: {
+          title: 'Frames per second',
+          type: 'number',
+          default: 15
         }
       }
     },
@@ -36,6 +56,17 @@ export const config = {
     }
   }
 };
+
+export const validateConfig = [
+  (data: Object): null | { field?: string, err: string } =>
+    !data.userMediaConstraints.frameRate ||
+    data.userMediaConstraints.frameRate <= 0
+      ? {
+          field: 'frameRate',
+          err: 'Frames per second must be positive number'
+        }
+      : null
+];
 
 export const configUI = {
   activityType: {
