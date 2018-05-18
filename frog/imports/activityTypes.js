@@ -25,11 +25,8 @@ import acForm from 'ac-form';
 import acQuiz from 'ac-quiz';
 import acMonty from 'ac-monty';
 import acCKBoard from 'ac-ck-board';
-<<<<<<< HEAD
-import acPrez from 'ac-prez'
-=======
+import acPrez from 'ac-prez';
 import acVideoChat from 'ac-videochat';
->>>>>>> develop
 
 import acH5P from './internalActivities/ac-h5p';
 import acDash from './internalActivities/ac-dash';
