@@ -1,24 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import { type ActivityRunnerPropsT } from 'frog-utils';
-
 import PDF from './PDF';
 
-// import PDF from 'react-pdf-js';
-
-// import { Document, Page } from 'react-pdf/build/entry.noworker';
-
-export default class Prez extends Component<ActivityRunnerPropsT> {
+class Prez extends Component<ActivityRunnerPropsT> {
   node: any;
-  pdfFileInput: any;
-
-  constructor() {
-    super();
-
-    this.pdfFileInput = null;
-  }
+  pdfFileInput: any = null;
 
   updateFile = () => {
     localStorage.removeItem('savedAnnotations');
@@ -29,8 +17,6 @@ export default class Prez extends Component<ActivityRunnerPropsT> {
 
   render() {
     const { activityData, data, dataFn, userInfo } = this.props;
-    // console.log(activityData);
-    // console.log(activityData, data, dataFn, userInfo)
 
     const hostname = window.location.hostname;
     let initialPDF =
@@ -41,13 +27,10 @@ export default class Prez extends Component<ActivityRunnerPropsT> {
     if (activityData.config.pdf_url) {
       initialPDF = activityData.config.pdf_url;
     }
-    // console.log(initialPDF);
 
     const pdfSRC = this.props.data.pdf_file
       ? this.props.data.pdf_file
       : initialPDF;
-
-    // console.log(pdfSRC);
 
     const inputItem = !activityData.config.debug ? null : (
       <span>
@@ -75,3 +58,5 @@ export default class Prez extends Component<ActivityRunnerPropsT> {
     );
   }
 }
+
+export default Prez;

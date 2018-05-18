@@ -1,38 +1,30 @@
 import React, { Component } from 'react';
 import PDFJS from '@houshuang/pdfjs-dist';
+
 import AnnotationLayer from './AnnotationLayer';
 
 export default class PDF extends Component {
-  constructor(props) {
-    super(props);
-
-    this.getPDF = this.getPDF.bind(this);
-
-    this.state = {
-      pdf: null,
-      pageNumber: 1,
-      scale: 1,
-      err: null
-    };
-  }
+  state = {
+    pdf: null,
+    pageNumber: 1,
+    scale: 1,
+    err: null
+  };
 
   componentDidMount() {
     this.getPDF();
   }
 
   componentDidUpdate(prevProps) {
-    // console.log(this.props, prevProps);
-    // console.log(this.state, prevState);
     if (this.props.src !== prevProps.src) {
       this.getPDF();
     }
   }
 
-  getPDF() {
+  getPDF = () => {
     try {
       PDFJS.getDocument(this.props.src).then(
         pdf => {
-          // console.log(pdf);
           this.setState({ pdf, err: null });
         },
         err => {
@@ -44,14 +36,12 @@ export default class PDF extends Component {
       console.error('ERROR GET PDF:', err);
       this.setState({ pdf: null, err: err.message });
     }
-  }
+  };
 
   render() {
     const { activityData, data, dataFn, userInfo } = this.props;
 
-    const pdf = this.state.pdf;
-    // const numPages = pdf.pdfInfo.numPages;
-    // const fingerprint = pdf.pdfInfo.fingerprint;
+    const { pdf } = this.state;
 
     let layerDisplay = null;
 
