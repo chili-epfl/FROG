@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import PDF from './PDF';
 
@@ -10,15 +10,15 @@ import PDF from './PDF';
 
 // import { Document, Page } from 'react-pdf/build/entry.noworker';
 
-export default class Prez extends Component<ActivityRunnerT> {
+export default class Prez extends Component<ActivityRunnerPropsT> {
   node: any;
+  pdf_file_input: any;
 
   constructor() {
     super();
   }
 
   updateFile() {
-    console.log(this.pdf_file_input);
     localStorage.removeItem('savedAnnotations');
     this.props.dataFn.objSet(1, ['pageNum']);
     this.props.dataFn.objSet([], ['annotations']);
