@@ -20,7 +20,7 @@ export default class Prez extends Component<ActivityRunnerPropsT> {
     this.pdfFileInput = null;
   }
 
-  updateFile() {
+  updateFile = () => {
     localStorage.removeItem('savedAnnotations');
     this.props.dataFn.objSet(1, ['pageNum']);
     this.props.dataFn.objSet([], ['annotations']);

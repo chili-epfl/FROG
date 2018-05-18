@@ -152,7 +152,7 @@ export default class AnnotalstionLayer extends Component {
       return;
     }
 
-    if (!this.rendering) this.forceRenderPage();
+    this.forceRenderPage();
   }
 
   queueUpRender = () => {
