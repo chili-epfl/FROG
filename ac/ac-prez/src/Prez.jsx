@@ -16,6 +16,8 @@ export default class Prez extends Component<ActivityRunnerPropsT> {
 
   constructor() {
     super();
+
+    this.pdf_file_input = null;
   }
 
   updateFile() {

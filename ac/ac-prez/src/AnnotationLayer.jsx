@@ -10,6 +10,8 @@ export default class AnnotalstionLayer extends Component {
     this.clearAnnotations = this.clearAnnotations.bind(this);
     this.getAnnotations = this.getAnnotations.bind(this);
     this.setActiveToolbarItem = this.setActiveToolbarItem.bind(this);
+    this.selectPenSize = this.selectPenSize.bind(this);
+    this.selectPenColor = this.selectPenColor.bind(this);
 
     this.toolbarItems = [
       'cursor',
@@ -126,8 +128,11 @@ export default class AnnotalstionLayer extends Component {
       studentPaging: false,
       queuedRender: false,
       activeItem: 'cursor',
-      renderBool: false
-    };
+      renderBool: false,
+      penSize: 1,
+      penColor: '#000000'
+    }
+
   }
 
   componentDidMount() {
@@ -323,6 +328,23 @@ export default class AnnotalstionLayer extends Component {
     this.setState({ renderBool: !this.state.renderBool });
   }
 
+  selectPenSize(e) {
+    const size = e.target.value;
+    console.log(size);
+    const UI = this.state.PDFJSAnnotate.UI;
+    UI.setPen(size, this.state.penColor);
+    this.setState({ penSize: size })
+  }
+
+  selectPenColor(e) {
+    const color = e.target.value;
+    console.log(color);
+    const UI = this.state.PDFJSAnnotate.UI;
+    UI.setPen(this.state.penSize, color);
+    this.setState({ penColor: color })
+  }
+
+
   render() {
     // console.log('RENDERING')
     const { activityData, data, dataFn, userInfo, logger } = this.props;
@@ -380,7 +402,39 @@ export default class AnnotalstionLayer extends Component {
       );
     });
 
-    const debugItem = !activityData.config.debug ? null : (
+    const sizeOptions = [1, 2, 3, 4, 5, 6, 7, 8].map((size) => {
+      return (
+        <option key={'penSize'+size} value={size}> {size}</option>
+      )
+    })
+
+    const penSizeItem = (
+      <select key={'penSize'} value={this.state.penSize} onChange={this.selectPenSize}>
+          {sizeOptions}
+      </select>
+    )
+
+    const colorOptions = [['#000000', 'Black'], ['#FF0000', 'Red'], ['#FFFF00', 'Yellow'], ['#0000FF', 'Blue']].map((colorOption) => {
+      const color = colorOption[0];
+      const text = colorOption[1];
+      const style = {
+        background: color
+      }
+      return (
+        <option key={'penColor'+color} value={color} style={style}>{text}</option>
+      )
+    })
+
+    const penColorItem = (
+      <select key={'penColor'} value={this.state.penColor} onChange={this.selectPenColor}>
+          {colorOptions}
+      </select>
+    )
+
+    items.splice(2, 0, penColorItem)
+    items.splice(2, 0, penSizeItem)
+
+    const debugItem = (!activityData.config.debug) ? null : (
       <span>
         <span>Debugging: </span>
         <button onClick={this.forceReRender.bind(this)}>Force Re-Render</button>
