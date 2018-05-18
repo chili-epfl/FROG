@@ -22,7 +22,7 @@ export default class PDF extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // console.log(this.props, prevProps);
-    console.log(this.state, prevState);
+    // console.log(this.state, prevState);
     if (this.props.src != prevProps.src) {
       this.getPDF();
     }
@@ -47,6 +47,8 @@ export default class PDF extends Component {
   }
 
   render() {
+    const { activityData, data, dataFn, userInfo, logger } = this.props;
+    
     const pdf = this.state.pdf;
     // const numPages = pdf.pdfInfo.numPages;
     // const fingerprint = pdf.pdfInfo.fingerprint;
@@ -65,9 +67,10 @@ export default class PDF extends Component {
       layerDisplay = (
         <AnnotationLayer
           pdf={pdf}
-          userInfo={this.props.userInfo}
-          data={this.props.data}
-          dataFn={this.props.dataFn}
+          userInfo = {userInfo}
+          activityData = {activityData}
+          data = {data}
+          dataFn = {dataFn}
         />
       )
     }

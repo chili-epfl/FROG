@@ -27,13 +27,8 @@ export default class Prez extends Component<ActivityRunnerT> {
 
   render() {
     const { activityData, data, dataFn, userInfo, logger } = this.props;
-    console.log(activityData);
+    // console.log(activityData);
     // console.log(activityData, data, dataFn, userInfo, logger)
-    
-    // const PDF_FILE = "http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"
-    // const PDF_FILE = "http://localhost:3000/file?name=cjgvboit400033i6izhcbvkmx"
-
-    // console.log(PDF_FILE);
 
     const hostname = window.location.hostname;
     let initial_pdf =
@@ -44,16 +39,16 @@ export default class Prez extends Component<ActivityRunnerT> {
     if (activityData.config.pdf_url) {
       initial_pdf = activityData.config.pdf_url;
     }
-    console.log(initial_pdf);
+    // console.log(initial_pdf);
 
     const pdf_src = this.props.data.pdf_file
       ? this.props.data.pdf_file
       : initial_pdf;
 
-    console.log(pdf_src);
+    // console.log(pdf_src);
 
-    return (
-      <div>
+    const inputItem = (!activityData.config.debug) ? null : (
+      <span>
         <input
           defaultValue={initial_pdf}
           type="text"
@@ -61,11 +56,18 @@ export default class Prez extends Component<ActivityRunnerT> {
         />
         <button onClick={this.updateFile.bind(this)}>Update PDF</button>
         <hr />
+      </span>
+    )
+
+    return (
+      <div>
+        {inputItem}
         <PDF
-          src={pdf_src}
-          userInfo={userInfo}
-          data={data}
-          dataFn={dataFn}
+          src = {pdf_src}
+          userInfo = {userInfo}
+          activityData = {activityData}
+          data = {data}
+          dataFn = {dataFn}
         />
       </div>
     );
