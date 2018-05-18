@@ -278,9 +278,9 @@ export default class AnnotalstionLayer extends Component {
   nextPageStudent = () => {
     if (this.state.studentPaging) {
       if (this.state.pageNumStudent + 1 > this.props.pdf.numPages) return;
-      this.setState({
-        pageNumStudent: this.state.pageNumStudent + 1
-      });
+      this.setState(prevstate => ({
+        pageNumStudent: prevstate.pageNumStudent + 1
+      }));
     } else {
       if (this.props.data.pageNum + 1 > this.props.pdf.numPages) return;
       this.setState({
@@ -293,9 +293,9 @@ export default class AnnotalstionLayer extends Component {
   prevPageStudent = () => {
     if (this.state.studentPaging) {
       if (this.state.pageNumStudent <= 1) return;
-      this.setState({
-        pageNumStudent: this.state.pageNumStudent - 1
-      });
+      this.setState(prevstate => ({
+        pageNumStudent: prevstate.pageNumStudent - 1
+      }));
     } else {
       if (this.props.data.pageNum <= 1) return;
       this.setState({
