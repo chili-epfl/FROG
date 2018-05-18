@@ -922,6 +922,10 @@
   dependencies:
     pngjs "^3.2.0"
 
+"@houshuang/pdfjs-dist@1.4.162":
+  version "1.4.162"
+  resolved "https://registry.yarnpkg.com/@houshuang/pdfjs-dist/-/pdfjs-dist-1.4.162.tgz#49a1c76e6838c48a084888cf1f885596c41a8672"
+
 "@houshuang/react-flip-move@^2.9.16":
   version "2.9.16"
   resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
@@ -2146,6 +2150,10 @@ create-react-class@^15.5.2:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
+
+create-stylesheet@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/create-stylesheet/-/create-stylesheet-0.3.0.tgz#37479d83c75131b0677d00510d0419fcccc9bc96"
 
 cross-spawn@^5.0.1, cross-spawn@^5.1.0:
   version "5.1.0"
@@ -5827,6 +5835,13 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+pdf-annotate@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/pdf-annotate/-/pdf-annotate-0.0.0.tgz#c40c799326dcb4c863a9dc4a00d921d90fae00b8"
+  dependencies:
+    create-stylesheet "^0.3.0"
+    object-assign "^4.0.1"
 
 performance-now@^0.2.0:
   version "0.2.0"
