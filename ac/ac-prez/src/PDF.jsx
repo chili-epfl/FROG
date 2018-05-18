@@ -27,28 +27,28 @@ export default class PDF extends Component {
       this.getPDF();
     }
   }
-  
 
   getPDF() {
     try {
-      PDFJS.getDocument(this.props.src)
-      .then((pdf) => {
-        console.log(pdf)
-        this.setState({ pdf, err: null });
-      }, (err) => {
-        console.log('ERROR in THEN');
-        this.setState({ pdf: null, err: err.message })
-      })
-    }
-    catch(err) {
+      PDFJS.getDocument(this.props.src).then(
+        pdf => {
+          console.log(pdf);
+          this.setState({ pdf, err: null });
+        },
+        err => {
+          console.log('ERROR in THEN');
+          this.setState({ pdf: null, err: err.message });
+        }
+      );
+    } catch (err) {
       console.error('ERROR GET PDF:', err);
-      this.setState({ pdf: null, err: err.message })
-    };
+      this.setState({ pdf: null, err: err.message });
+    }
   }
 
   render() {
     const { activityData, data, dataFn, userInfo, logger } = this.props;
-    
+
     const pdf = this.state.pdf;
     // const numPages = pdf.pdfInfo.numPages;
     // const fingerprint = pdf.pdfInfo.fingerprint;
@@ -62,17 +62,16 @@ export default class PDF extends Component {
           <p>Error: {this.state.err}</p>
         </div>
       );
-    }
-    else if (pdf) {
+    } else if (pdf) {
       layerDisplay = (
         <AnnotationLayer
           pdf={pdf}
-          userInfo = {userInfo}
-          activityData = {activityData}
-          data = {data}
-          dataFn = {dataFn}
+          userInfo={userInfo}
+          activityData={activityData}
+          data={data}
+          dataFn={dataFn}
         />
-      )
+      );
     }
 
     return (

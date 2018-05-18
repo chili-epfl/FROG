@@ -35,7 +35,7 @@ export default class Prez extends Component<ActivityRunnerT> {
       hostname == 'localhost'
         ? 'http://localhost:3000/file?name=ac/ac-prez/sample.pdf'
         : hostname + '/file?name=ac/ac-prez/sample.pdf';
-    
+
     if (activityData.config.pdf_url) {
       initial_pdf = activityData.config.pdf_url;
     }
@@ -47,7 +47,7 @@ export default class Prez extends Component<ActivityRunnerT> {
 
     // console.log(pdf_src);
 
-    const inputItem = (!activityData.config.debug) ? null : (
+    const inputItem = !activityData.config.debug ? null : (
       <span>
         <input
           defaultValue={initial_pdf}
@@ -57,17 +57,17 @@ export default class Prez extends Component<ActivityRunnerT> {
         <button onClick={this.updateFile.bind(this)}>Update PDF</button>
         <hr />
       </span>
-    )
+    );
 
     return (
       <div>
         {inputItem}
         <PDF
-          src = {pdf_src}
-          userInfo = {userInfo}
-          activityData = {activityData}
-          data = {data}
-          dataFn = {dataFn}
+          src={pdf_src}
+          userInfo={userInfo}
+          activityData={activityData}
+          data={data}
+          dataFn={dataFn}
         />
       </div>
     );
