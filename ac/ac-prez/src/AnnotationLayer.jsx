@@ -5,13 +5,6 @@ import constants from './constants.js';
 export default class AnnotalstionLayer extends Component {
   constructor(props) {
     super();
-    // console.log(props.pdf);
-
-    // this.clearAnnotations = this.clearAnnotations.bind(this);
-    // this.getAnnotations = this.getAnnotations.bind(this);
-    // this.setActiveToolbarItem = this.setActiveToolbarItem.bind(this);
-    // this.selectPenSize = this.selectPenSize.bind(this);
-    // this.selectPenColor = this.selectPenColor.bind(this);
 
     const PDFJSAnnotate = require('pdf-annotate').default;
 
@@ -506,7 +499,7 @@ export default class AnnotalstionLayer extends Component {
         <div
           id={divIDTest}
           style={testStyle}
-          dangerouslySetInnerHTML={{ __html: test.innerHTML }}
+          dangerouslySetInnerHTML={{ __html: test.innerHTML }} // eslint-disable-line react/no-danger
         />
       </div>
     );

@@ -25,7 +25,7 @@ export default class Prez extends Component<ActivityRunnerPropsT> {
     this.props.dataFn.objSet(1, ['pageNum']);
     this.props.dataFn.objSet([], ['annotations']);
     this.props.dataFn.objSet(this.pdfFileInput.value, ['pdf_file']);
-  }
+  };
 
   render() {
     const { activityData, data, dataFn, userInfo } = this.props;
