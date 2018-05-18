@@ -12,51 +12,51 @@ import PDF from './PDF';
 
 export default class Prez extends Component<ActivityRunnerPropsT> {
   node: any;
-  pdf_file_input: any;
+  pdfFileInput: any;
 
   constructor() {
     super();
 
-    this.pdf_file_input = null;
+    this.pdfFileInput = null;
   }
 
   updateFile() {
     localStorage.removeItem('savedAnnotations');
     this.props.dataFn.objSet(1, ['pageNum']);
     this.props.dataFn.objSet([], ['annotations']);
-    this.props.dataFn.objSet(this.pdf_file_input.value, ['pdf_file']);
+    this.props.dataFn.objSet(this.pdfFileInput.value, ['pdf_file']);
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger } = this.props;
+    const { activityData, data, dataFn, userInfo } = this.props;
     // console.log(activityData);
-    // console.log(activityData, data, dataFn, userInfo, logger)
+    // console.log(activityData, data, dataFn, userInfo)
 
     const hostname = window.location.hostname;
-    let initial_pdf =
-      hostname == 'localhost'
+    let initialPDF =
+      hostname === 'localhost'
         ? 'http://localhost:3000/file?name=ac/ac-prez/sample.pdf'
         : hostname + '/file?name=ac/ac-prez/sample.pdf';
 
     if (activityData.config.pdf_url) {
-      initial_pdf = activityData.config.pdf_url;
+      initialPDF = activityData.config.pdf_url;
     }
-    // console.log(initial_pdf);
+    // console.log(initialPDF);
 
-    const pdf_src = this.props.data.pdf_file
+    const pdfSRC = this.props.data.pdf_file
       ? this.props.data.pdf_file
-      : initial_pdf;
+      : initialPDF;
 
-    // console.log(pdf_src);
+    // console.log(pdfSRC);
 
     const inputItem = !activityData.config.debug ? null : (
       <span>
         <input
-          defaultValue={initial_pdf}
+          defaultValue={initialPDF}
           type="text"
-          ref={input => (this.pdf_file_input = input)}
+          ref={input => (this.pdfFileInput = input)}
         />
-        <button onClick={this.updateFile.bind(this)}>Update PDF</button>
+        <button onClick={this.updateFile}>Update PDF</button>
         <hr />
       </span>
     );
@@ -65,7 +65,7 @@ export default class Prez extends Component<ActivityRunnerPropsT> {
       <div>
         {inputItem}
         <PDF
-          src={pdf_src}
+          src={pdfSRC}
           userInfo={userInfo}
           activityData={activityData}
           data={data}

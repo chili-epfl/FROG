@@ -20,10 +20,10 @@ export default class PDF extends Component {
     this.getPDF();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     // console.log(this.props, prevProps);
     // console.log(this.state, prevState);
-    if (this.props.src != prevProps.src) {
+    if (this.props.src !== prevProps.src) {
       this.getPDF();
     }
   }
@@ -32,11 +32,11 @@ export default class PDF extends Component {
     try {
       PDFJS.getDocument(this.props.src).then(
         pdf => {
-          console.log(pdf);
+          // console.log(pdf);
           this.setState({ pdf, err: null });
         },
         err => {
-          console.log('ERROR in THEN');
+          console.error('ERROR in THEN of getPDF:', err);
           this.setState({ pdf: null, err: err.message });
         }
       );
@@ -47,7 +47,7 @@ export default class PDF extends Component {
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger } = this.props;
+    const { activityData, data, dataFn, userInfo } = this.props;
 
     const pdf = this.state.pdf;
     // const numPages = pdf.pdfInfo.numPages;

@@ -105,9 +105,7 @@
     "ws": "^5.1.1",
     "op-social-config": "1.0.0",
     "op-cs211-ranking": "1.0.0",
-    "ac-prez": "1.0.0",
-    "pdfjs-dist": "1.4.162",
-    "pdf-annotate": "0.0.0"
+    "ac-prez": "1.0.0"
   },
   "devDependencies": {
     "nps": "^5.9.0"

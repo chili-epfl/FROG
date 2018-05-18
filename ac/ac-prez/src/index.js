@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react';
+// import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './Prez';
 
@@ -39,7 +39,7 @@ const dataStructure = {
 };
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
+// const mergeFunction = (object, dataFn) => {};
 
 export default ({
   id: 'ac-prez',
@@ -48,6 +48,6 @@ export default ({
   config,
   ActivityRunner,
   dashboard: null,
-  dataStructure,
-  mergeFunction
+  // mergeFunction,
+  dataStructure
 }: ActivityPackageT);
