@@ -25,7 +25,11 @@ export {
   calculateSchema,
   defaultConfig
 } from './enhancedFormUtils';
-export { generateReactiveFn, inMemoryReactive } from './generateReactiveFn';
+export {
+  generateReactiveFn,
+  inMemoryReactive,
+  Doc
+} from './generateReactiveFn';
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
@@ -53,6 +57,9 @@ export {
 } from './dataStructureTools';
 export type {
   ActivityDbT,
+  DashboardDataDbT,
+  MongoT,
+  CursorT,
   OperatorDbT,
   studentStructureT,
   socialStructureT,
@@ -75,7 +82,11 @@ export type {
   LogT,
   LogDbT,
   DashboardT,
-  DashboardViewerPropsT
+  DashboardViewerPropsT,
+  LIComponentPropsT,
+  LIRenderT,
+  LearningItemComponentT,
+  LearningItemT
 } from './types';
 export { CountChart } from './DashboardComponents/CountChart';
 

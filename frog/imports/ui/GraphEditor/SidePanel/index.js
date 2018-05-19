@@ -4,6 +4,7 @@ import * as React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import { Button } from 'react-bootstrap';
 
 import { connect } from '../store';
 import ActivityPanel from './ActivityPanel';
@@ -14,7 +15,7 @@ const styles = {
     height: 'calc(100vh - 64px - 48px)',
     backgroundColor: '#ffffff',
     boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    maxWidth: '400px'
+    width: '500px'
   },
   helperContainer: {
     height: '100%'
@@ -39,10 +40,22 @@ const SideBarHelperText = ({ classes }) => (
   </Grid>
 );
 
+export const IconButton = ({ icon, onClick, tooltip }: Object) => (
+  <div className="bootstrap">
+    <Button
+      style={{ width: '35px', height: '25px' }}
+      data-tip={tooltip}
+      onClick={onClick}
+    >
+      <span className={icon} style={{ verticalAlign: 'top' }} />
+    </Button>
+  </div>
+);
+
 const StyledSideBarHelperText = withStyles(styles)(SideBarHelperText);
 
 const SidebarContainer = connect(({ children, classes }) => (
-  <Grid item xs={4} className={classes.root}>
+  <Grid item className={classes.root}>
     {children}
   </Grid>
 ));

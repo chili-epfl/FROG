@@ -8,7 +8,6 @@ import acStroop from 'ac-stroop';
 import { keyBy } from 'lodash';
 import { type ActivityPackageT, flattenOne } from 'frog-utils';
 
-import acWebrtc from 'ac-webrtc';
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';
@@ -26,6 +25,8 @@ import acForm from 'ac-form';
 import acQuiz from 'ac-quiz';
 import acMonty from 'ac-monty';
 import acCKBoard from 'ac-ck-board';
+import acPrez from 'ac-prez';
+import acVideoChat from 'ac-videochat';
 
 import acH5P from './internalActivities/ac-h5p';
 import acDash from './internalActivities/ac-dash';
@@ -36,7 +37,6 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acDual,
   acTimedQuiz,
   acStroop,
-  acWebrtc,
   acTextarea,
   acAutocode,
   acDisplaySocial,
@@ -55,7 +55,9 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acQuiz,
   acMonty,
   acH5P,
-  acDash
+  acDash,
+  acVideoChat,
+  acPrez
 ]).map(x => Object.freeze(x));
 
 // see explanation of `any` in operatorTypes.js

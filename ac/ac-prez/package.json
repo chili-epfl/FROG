@@ -1,5 +1,5 @@
 {
-  "name": "ac-webrtc",
+  "name": "ac-prez",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "lodash": "^4.17.5",
+    "pdf-annotate": "0.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "webrtc-adapter": "^6.1.5"
+    "@houshuang/pdfjs-dist": "1.4.162"
   },
   "devDependencies": {
     "nps": "5.9.0"
