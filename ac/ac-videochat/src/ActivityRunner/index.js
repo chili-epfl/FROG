@@ -256,10 +256,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               break;
 
             default:
+              console.error('Error happened: ' + error.name);
               console.error(
                 'Error happened when requesting user media, ',
                 error
               );
+              this.register(this.name, this.id, this.roomId, 'watcher');
           }
         });
   };
