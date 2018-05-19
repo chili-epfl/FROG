@@ -57,7 +57,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.participants = {};
     this.state = { local: {}, remote: [] };
     this.mediaConstraints = WebRtcConfig.mediaConstraints;
-    console.log(props);
   }
 
   componentDidMount() {
@@ -279,16 +278,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     // we chach if role is watcher because of bug in safari
     // that condition should be removed once safari fixes recvonly connections
     if (this.stream && this.role !== 'watcher') {
-      const log =
-        this.stream.getVideoTracks()[0].getSettings().aspectRatio +
-        ' ' +
-        this.stream.getVideoTracks()[0].getSettings().width +
-        'x' +
-        this.stream.getVideoTracks()[0].getSettings().height +
-        ', fps: ' +
-        this.stream.getVideoTracks()[0].getSettings().frameRate;
-      console.log(log);
-
       const analysisOptions = {
         local: true,
         name: this.name,
