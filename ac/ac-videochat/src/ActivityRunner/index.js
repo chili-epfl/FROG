@@ -3,6 +3,7 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import { type ActivityRunnerPropsT, values, uuid } from 'frog-utils';
+import 'webrtc-adapter';
 
 import WebRtcConfig from '../webrtc-config/config';
 import BrowserUtils from '../utils/browser';
