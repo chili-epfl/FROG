@@ -1,3 +1,4 @@
+import userAgent from 'useragent';
 import bodyParser from 'body-parser';
 import { Picker } from 'meteor/meteorhacks:picker';
 import { uuid } from 'frog-utils';
@@ -8,6 +9,7 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
+import { entries } from 'frog-utils';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -18,6 +20,40 @@ import { dashDocId } from '../imports/api/logs';
 
 Picker.middleware(bodyParser.urlencoded({ extended: false }));
 Picker.middleware(bodyParser.json());
+
+Picker.filter(req => {
+  const agent = userAgent.lookup(req.headers['user-agent'] || '');
+  return (
+    ((agent.family === 'Safari' && agent.major < 12) ||
+      agent.family === 'IE') &&
+    !(
+      req.url &&
+      ['dontblock=true', '.', 'websocket'].some(x => req.url.includes(x))
+    )
+  );
+}).route('/(.*)', (params, request, response) => {
+  let href;
+  let form;
+  if (request.method === 'POST') {
+    const formFields = entries(request.body)
+      .map(
+        ([k, v]) =>
+          `<input type="hidden" name="${k}" value="${encodeURIComponent(v)}" />`
+      )
+      .join('');
+    form = `<form id="postform" action="${
+      request.originalUrl
+    }">${formFields}</form>`;
+    href = `<a href='#' onClick="document.getElementById("postform").submit()">`;
+  } else {
+    form = '';
+    href = `<a href="${request.originalUrl + '?dontblock=true'}">`;
+  }
+  response.end(`<html><body>
+  <h1>FROG does not support this browser</h1><p>Unfortunately, we do not support Internet Explorer (only Microsoft Edge) or Safari 9/10 (only Safari 11).
+  <p>We suggest you use <a href='https://www.google.com/chrome/'><b>Chrome</b></a> or <a href='https://www.mozilla.org/en-US/firefox/new/'><b>Firefox</b></a></p>
+  <p><b>If you still want to try to load the page, ${href}click here.</a></b></p>${form}</body>`);
+});
 
 setupH5PRoutes();
 
