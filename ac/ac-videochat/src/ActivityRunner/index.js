@@ -6,7 +6,6 @@ import { type ActivityRunnerPropsT, values } from 'frog-utils';
 
 import WebRtcConfig from '../webrtc-config/config';
 import BrowserUtils from '../utils/browser';
-import RandomUtils from '../utils/random';
 import { onStreamAdded } from '../analytics/AVStreamAnalysis';
 
 import Header from './Header';
@@ -58,6 +57,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.participants = {};
     this.state = { local: {}, remote: [] };
     this.mediaConstraints = WebRtcConfig.mediaConstraints;
+    console.log(props);
   }
 
   componentDidMount() {
@@ -92,7 +92,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       this.roomId = this.props.sessionId + this.props.groupingValue;
     } else {
       // activity preview does not generate sessionId
-      this.roomId = RandomUtils.randomString(15);
+      this.roomId = this.props.uuid;
     }
 
     if (this.activityType === 'many2many') {
