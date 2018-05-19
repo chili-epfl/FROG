@@ -2,7 +2,7 @@
 
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
-import { type ActivityRunnerPropsT, values } from 'frog-utils';
+import { type ActivityRunnerPropsT, values, uuid } from 'frog-utils';
 
 import WebRtcConfig from '../webrtc-config/config';
 import BrowserUtils from '../utils/browser';
@@ -91,7 +91,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       this.roomId = this.props.sessionId + this.props.groupingValue;
     } else {
       // activity preview does not generate sessionId
-      this.roomId = this.props.uuid;
+      this.roomId = uuid();
     }
 
     if (this.activityType === 'many2many') {
