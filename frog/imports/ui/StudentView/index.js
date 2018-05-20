@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { withTracker } from 'meteor/react-meteor-data';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
 

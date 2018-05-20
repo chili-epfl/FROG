@@ -1,11 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import Grid from 'material-ui/Grid';
-import { withStyles } from 'material-ui/styles';
-import pink from 'material-ui/colors/pink';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import pink from '@material-ui/core/colors/pink';
 
 const styles = {
   guidelines: {

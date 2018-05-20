@@ -28,7 +28,7 @@ const UploadDragDrop = ({
     <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
       <Dropzone
         onDropAccepted={onDrop}
-        accept={fileTypes || null}
+        accept={fileTypes || undefined}
         style={{
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',

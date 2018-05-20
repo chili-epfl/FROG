@@ -31,7 +31,9 @@ const UploadDragDrop = ({
       <Dropzone
         onDropAccepted={onDrop}
         accept={
-          activityData.config.acceptAnyFiles ? null : 'image/jpeg, image/png'
+          activityData.config.acceptAnyFiles
+            ? undefined
+            : 'image/jpeg, image/png'
         }
         style={{
           width: '50%',

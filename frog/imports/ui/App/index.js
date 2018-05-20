@@ -12,7 +12,7 @@ import {
   Switch
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { toObject as queryToObject } from 'query-parse';
 
 import NotLoggedIn from './NotLoggedIn';

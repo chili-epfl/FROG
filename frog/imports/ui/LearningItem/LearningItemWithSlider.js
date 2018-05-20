@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import { Meteor } from 'meteor/meteor';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { isBrowser, type LIRenderT } from 'frog-utils';
 import json from 'ot-json0';
 import { isEmpty, cloneDeep } from 'lodash';

@@ -3,12 +3,14 @@
 import * as React from 'react';
 
 // UI
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
-import Card, { CardContent, CardActions } from 'material-ui/Card';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 
 import Actions from './Actions';
 import { commandDataStructure } from '../ActivityUtils';
