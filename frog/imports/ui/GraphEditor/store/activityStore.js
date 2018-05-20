@@ -235,13 +235,10 @@ export default class ActivityStore {
               x.startTime,
               x.title,
               x.length,
-              x.data,
-              x.activityType,
               x._id,
               x.state
             )
           );
-          store.refreshValidate();
         }
       }),
 
@@ -251,13 +248,19 @@ export default class ActivityStore {
           throw 'Could not find activity to update in Mongo';
         }
         toUpdate.update(newact);
-        store.refreshValidate();
       }),
 
       mongoRemove: action((remact: any) => {
         this.all = this.all.filter(x => x.id !== remact._id);
-        store.refreshValidate();
       }),
+
+      get mongoObservers(): Object {
+        return {
+          added: this.mongoAdd,
+          changed: this.mongoChange,
+          removed: this.mongoRemove
+        };
+      },
 
       get history(): Array<any> {
         return this.all.map(x => ({
@@ -265,9 +268,7 @@ export default class ActivityStore {
           plane: x.plane,
           startTime: x.startTime,
           length: x.length,
-          id: x.id,
-          data: x.data,
-          activityType: x.activityType
+          id: x.id
         }));
       },
 

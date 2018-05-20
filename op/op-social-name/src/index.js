@@ -94,7 +94,7 @@ const operator = (
   return focusRole(studentStruct);
 };
 
-const socialOutputDefinition = configData =>
+const outputDefinition = configData =>
   configData.defaultGroupingValue.split(',').map(f => f.trim());
 
 export default ({
@@ -104,6 +104,6 @@ export default ({
   config,
   configUI,
   validateConfig,
-  socialOutputDefinition,
+  outputDefinition,
   meta
 }: socialOperatorT);

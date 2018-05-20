@@ -8,6 +8,7 @@ import { yellow, red, lightGreen } from '@material-ui/core/colors';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
+import { compact } from 'lodash';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import {
@@ -90,6 +91,22 @@ const RawEditActivity = ({
 }) => {
   const graphActivity = props.store.activityStore.all.find(
     act => act.id === activity._id
+  );
+  const outgoingConnections = props.store.connectionStore.all.filter(
+    conn => conn.source.id === activity._id
+  );
+  const incomingConnections = props.store.connectionStore.all.filter(
+    conn => conn.target.id === activity._id
+  );
+  const connectedTargetActivities = compact(
+    outgoingConnections.map(x =>
+      props.store.activityStore.all.find(act => act.id === x.target.id)
+    )
+  );
+  const connectedSourceActivities = compact(
+    incomingConnections.map(x =>
+      props.store.activityStore.all.find(act => act.id === x.source.id)
+    )
   );
 
   // if no grouping key, and incoming social role, automatically assign first one
@@ -209,19 +226,25 @@ const RawEditActivity = ({
         key={activity._id}
         node={activity}
         nodeType={activityType}
-        type="activity"
         valid={props.store.valid}
         refreshValidate={props.store.refreshValidate}
-        reload={reload}
-        formContext={{
-          type: 'activity',
-          nodeId: activity._id,
-          groupingKey: activity.groupingKey
-        }}
+        connectedActivities={otherActivityIds}
+        connectedSourceActivities={connectedSourceActivities}
+        connectedTargetActivities={connectedTargetActivities}
+        reload={
+          reload +
+          (connectedSourceActivities || []).map(x => x.id).join('') +
+          (connectedTargetActivities || []).map(x => x.id).join('')
+        }
       />
       {activityType.ConfigComponent && (
         <activityType.ConfigComponent
           key={activity._id}
+          formContext={{
+            connectedActivities: otherActivityIds,
+            connectedSourceActivities,
+            connectedTargetActivities
+          }}
           configData={{ component: {}, ...activity.data }}
           setConfigData={d => {
             addActivity(

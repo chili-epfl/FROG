@@ -4,7 +4,6 @@ import Form from 'react-jsonschema-form';
 import { FormControl } from 'react-bootstrap';
 import { activityTypesObj } from '../../activityTypes';
 import { Activities } from '../../api/activities';
-import { connect } from '../../ui/GraphEditor/store';
 
 import { SelectAnyActivityWidget } from '../../ui/GraphEditor/SidePanel/FormUtils';
 
@@ -31,8 +30,7 @@ const SelectDashboard = ({ formContext, onChange, value = '' }: any) => (
 type PropsT = {
   configData: Object,
   setConfigData: Object => void,
-  formContext: Object,
-  store: Object
+  formContext: Object
 };
 
 class ConfigComponent extends React.Component<PropsT, { formData: Object }> {
@@ -42,9 +40,18 @@ class ConfigComponent extends React.Component<PropsT, { formData: Object }> {
   }
 
   render() {
-    const activities = this.props.store.activityStore.all.filter(
-      x => x.aT && x.aT.dashboards
-    );
+    const activities =
+      this.props.formContext && this.props.formContext.connectedActivities;
+    const dashAct =
+      activities &&
+      activities.filter(x => {
+        const act = Activities.findOne(x.id);
+        return (
+          act &&
+          act.activityType &&
+          activityTypesObj[act.activityType].dashboards
+        );
+      });
 
     const currAct =
       this.state.formData.component.activity &&
@@ -85,11 +92,7 @@ class ConfigComponent extends React.Component<PropsT, { formData: Object }> {
             activity: { 'ui:widget': SelectAnyActivityWidget },
             dashboards: { items: { 'ui:widget': SelectDashboard } }
           }}
-          formContext={{
-            ...this.props.formContext,
-            names,
-            connectedActivities: activities || []
-          }}
+          formContext={{ names, connectedActivities: dashAct || [] }}
         >
           &nbsp;
         </Form>
@@ -98,5 +101,4 @@ class ConfigComponent extends React.Component<PropsT, { formData: Object }> {
   }
 }
 
-ConfigComponent.displayName = 'ConfigComponent';
-export default connect(ConfigComponent);
+export default ConfigComponent;

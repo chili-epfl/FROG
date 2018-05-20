@@ -29,68 +29,54 @@ const styles = theme => ({
   }
 });
 
-withStyles(styles)
-export class StudentStatus extends React.Component<
-  { students: Array<Object> },
-  {}
-> {
-  render() {
-    const { students } = this.props;
-
-    return (
-      <div className={styles.root}>
-        <Grid id="graph-session" item xs={12}>
-          <Card id="card">
-            <CardContent id="content">
-              <Typography type="title" className={styles.title}>
-                Student Status
-              </Typography>
-              <Table className={styles.table}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell />
-                    <TableCell numeric>Online (active)</TableCell>
-                    <TableCell numeric>Online (idle)</TableCell>
-                    <TableCell numeric>Offline</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>Students</TableCell>
-                    <TableCell numeric>
-                      {
-                        students.filter(
-                          x => x.status && x.status.online && !x.status.idle
-                        ).length
-                      }
-                    </TableCell>
-                    <TableCell numeric>
-                      {
-                        students.filter(
-                          x => x.status && x.status.online && x.status.idle
-                        ).length
-                      }
-                    </TableCell>
-                    <TableCell numeric>
-                      {
-                        students.filter(
-                          x => x.status && !x.status.online && !x.status.idle
-                        ).length
-                      }
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </Grid>
-      </div>
-    );
-  }
-}
-
-const StudentList = ({ students }: { students: Array<Object> }) => (
-  <StudentStatus students={students} />
+const StudentStatus = ({ students }) => (
+  <div className={styles.root}>
+    <Grid id="graph-session" item xs={12}>
+      <Card id="card">
+        <CardContent id="content">
+          <Typography type="title" className={styles.title}>
+            Student Status
+          </Typography>
+          <Table className={styles.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell numeric>Online (active)</TableCell>
+                <TableCell numeric>Online (idle)</TableCell>
+                <TableCell numeric>Offline</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>Students</TableCell>
+                <TableCell numeric>
+                  {
+                    students.filter(
+                      x => x.status && x.status.online && !x.status.idle
+                    ).length
+                  }
+                </TableCell>
+                <TableCell numeric>
+                  {
+                    students.filter(
+                      x => x.status && x.status.online && x.status.idle
+                    ).length
+                  }
+                </TableCell>
+                <TableCell numeric>
+                  {
+                    students.filter(
+                      x => x.status && !x.status.online && !x.status.idle
+                    ).length
+                  }
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </Grid>
+  </div>
 );
 
-export default withStyles(styles)(StudentList);
+export default withStyles(styles)(StudentStatus);
