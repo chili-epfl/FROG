@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { defaultConfig, uuid } from 'frog-utils';
 import { omit } from 'lodash';
-import { withState, compose } from 'recompose';
 
 import Preview from './Preview';
 import { getUserId } from './Controls';
