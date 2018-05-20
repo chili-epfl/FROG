@@ -8,8 +8,8 @@ import {
   uuid,
   values
 } from 'frog-utils';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import TextInput from './TextInput';
 
 const styles = {

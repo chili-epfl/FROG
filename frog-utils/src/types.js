@@ -138,7 +138,8 @@ export type ActivityPackageT = {
       data?: any,
       learningItems?: any,
       type?: 'deeplink'
-    }[]
+    }[],
+    preview?: boolean
   },
   config: Object,
   configUI?: Object,

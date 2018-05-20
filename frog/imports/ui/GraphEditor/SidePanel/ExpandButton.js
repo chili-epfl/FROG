@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import Switch from 'material-ui/Switch';
-import Tooltip from 'material-ui/Tooltip';
+import Switch from '@material-ui/core/Switch';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { connect } from '../store';
 
