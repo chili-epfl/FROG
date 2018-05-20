@@ -37,7 +37,7 @@ const fromRoot = (cmd, msg) =>
 const build = x => {
   const bin = 'node_modules/.bin';
   const pkgdir = x || dirname(sync('package.json'));
-  return `${dir}/${bin}/babel ${pkgdir}/src --out-dir ${pkgdir}/dist && ${dir}/${bin}/flow-copy-source ${pkgdir}/src ${pkgdir}/dist`;
+  return `${dir}/${bin}/babel ${pkgdir}/src --root=${dir} --config-file=${dir}/babel.config.js --out-dir ${pkgdir}/dist && ${dir}/${bin}/flow-copy-source ${pkgdir}/src ${pkgdir}/dist`;
 };
 
 const acop = () => {

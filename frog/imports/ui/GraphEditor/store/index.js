@@ -1,11 +1,14 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { useStrict } from 'mobx';
+import { autorun, configure } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Store from './store';
+import { Activities } from '../../../api/activities';
 
-useStrict(true);
+configure({
+  enforceActions: true
+});
 
 export const store = new Store();
 export default Store;

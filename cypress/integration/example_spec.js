@@ -15,16 +15,16 @@ describe('Logging in', function() {
   it.only('preview', function() {
     cy.visit('http://localhost:3000?login=teacher');
     cy.contains('Preview').click();
-    cy.get('div.list-group-item h5').then(x => {
+    cy.get('.listitem').then(x => {
       x.each(function() {
-        if (this.innerText !== 'ac-ck-board') {
+        if (this.innerText !== 'Dashboard activity') {
           cy.contains(this.innerText.trim()).click();
           cy
             .get('li.examples a', { force: true })
             .each(function($el, i, $list) {
               cy.wrap($el).click({ force: true });
             });
-          cy.get('.glyphicon-arrow-left', { force: true }).click();
+          cy.get('.arrowback', { force: true }).click();
         }
       });
       return undefined;

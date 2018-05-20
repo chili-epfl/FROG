@@ -1,18 +1,21 @@
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
-
+import { activityTypesObj } from '/imports/activityTypes';
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, timeToPxScreen, between } from '../utils';
 import type { AnchorT } from '../utils/path';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
+import { isFunction } from 'lodash';
 
 export default class Activity extends Elem {
   length: number;
   startTime: number;
   id: string;
   over: boolean;
+  data: Object;
+  activityType: string;
   rawTitle: string;
   klass: string;
   state: string;
@@ -26,6 +29,8 @@ export default class Activity extends Elem {
     startTime: number,
     title: string,
     length: number,
+    data: Object,
+    activityType: string,
     id: ?string,
     state: ?string
   ) {
@@ -39,6 +44,8 @@ export default class Activity extends Elem {
       startTime,
       klass: 'activity',
       state,
+      data: data || {},
+      activityType,
       wasMoved: false,
 
       update: action((newact: $Shape<Activity>) => {
@@ -46,6 +53,9 @@ export default class Activity extends Elem {
         this.startTime = newact.startTime;
         this.rawTitle = newact.title;
         this.state = newact.state;
+        this.data = newact.data;
+        this.plane = newact.plane;
+        this.activityType = newact.activityType;
       }),
 
       rename: action((newname: string) => {
@@ -286,6 +296,21 @@ export default class Activity extends Elem {
 
       get bounds(): BoundsT {
         return calculateBounds(this, store.activityStore.all);
+      },
+
+      get aT() {
+        return this.activityType && activityTypesObj[this.activityType];
+      },
+
+      get outputDefinition() {
+        if (!this.aT.outputDefinition) {
+          return undefined;
+        }
+        if (isFunction(this.aT.outputDefinition)) {
+          return this.aT.outputDefinition(this.data);
+        } else {
+          return this.aT.outputDefinition;
+        }
       }
     });
   }

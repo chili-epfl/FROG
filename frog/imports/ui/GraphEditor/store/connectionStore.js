@@ -59,11 +59,13 @@ export default class ConnectionStore {
               x._id
             )
           );
+          store.refreshValidate();
         }
       }),
 
       mongoRemove: action((remact: MongoConnectionT) => {
         this.all = this.all.filter(x => x.id !== remact._id);
+        store.refreshValidate();
       }),
 
       // user begins dragging a line to make a connection
@@ -81,13 +83,6 @@ export default class ConnectionStore {
             dY: 0
           }
         });
-      },
-
-      get mongoObservers(): any {
-        return {
-          added: this.mongoAdd,
-          removed: this.mongoRemove
-        };
       },
 
       get history(): Array<any> {

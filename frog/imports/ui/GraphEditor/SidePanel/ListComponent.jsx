@@ -2,13 +2,14 @@
 
 import React from 'react';
 
-import Grid from 'material-ui/Grid';
-import IconButton from 'material-ui/IconButton';
-import { withStyles } from 'material-ui/styles';
-import { ListItem, ListItemSecondaryAction } from 'material-ui/List';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 
 import { Highlight } from 'frog-utils';
 
@@ -39,7 +40,7 @@ const ListItems = ({
   <ListItem button value={object.id} onClick={onSelect}>
     <Grid container>
       <Grid item xs={12}>
-        <Typography variant="subheading" gutterBottom>
+        <Typography className="listitem" variant="subheading" gutterBottom>
           <Highlight text={object.meta.name} searchStr={searchS} />
         </Typography>
       </Grid>

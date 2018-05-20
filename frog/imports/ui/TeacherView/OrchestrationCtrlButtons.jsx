@@ -1,8 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import Grid from 'material-ui/Grid';
-import { withStyles } from 'material-ui/styles';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import {
   ControlButton,
   OrchestrationButtonsModel

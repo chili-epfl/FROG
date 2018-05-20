@@ -124,6 +124,10 @@ export type LogDbT =
   | {| ...LogExtraT, ...ActivityDefT, ...LogT, _id: string |}
   | {| ...LogExtraT, ...LogT, _id: string |};
 
+type OutputDefinitionT = {
+  [field: string]: { title: string, type: 'number' | 'string' }
+};
+
 export type ActivityPackageT = {
   id: string,
   type: 'react-component',
@@ -138,11 +142,13 @@ export type ActivityPackageT = {
       data?: any,
       learningItems?: any,
       type?: 'deeplink'
-    }[]
+    }[],
+    preview?: boolean
   },
   config: Object,
   configUI?: Object,
   dataStructure?: any,
+  outputDefinition: OutputDefinitionT | (Object => OutputDefinitionT),
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: ActivityRunnerT,
