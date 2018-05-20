@@ -136,6 +136,5 @@ export default ({
   meta,
   dataStructure,
   dashboards,
-  mergeFunction,
-  outputDefinition: { LI_chat: { title: 'Chat content', type: 'string' } }
+  mergeFunction
 }: ActivityPackageT);
