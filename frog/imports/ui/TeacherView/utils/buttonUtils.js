@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import Stop from '@@material-ui/core/icons/Stop';
-import Pause from '@@material-ui/core/icons/Pause';
-import SkipNext from '@@material-ui/core/icons/SkipNext';
-import PlayArrow from '@@material-ui/core/icons/PlayArrow';
-import Refresh from '@@material-ui/core/icons/Refresh';
+import Stop from '@@@material-ui/icons/Stop';
+import Pause from '@@@material-ui/icons/Pause';
+import SkipNext from '@@@material-ui/icons/SkipNext';
+import PlayArrow from '@@@material-ui/icons/PlayArrow';
+import Refresh from '@@@material-ui/icons/Refresh';
 import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';

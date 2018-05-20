@@ -7,8 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
-import Add from '@@material-ui/core/icons/Add';
-import CompareArrows from '@@material-ui/core/icons/CompareArrows';
+import Add from '@@@material-ui/icons/Add';
+import CompareArrows from '@@@material-ui/icons/CompareArrows';
 import Card, { CardContent } from '@material-ui/core/Card';
 
 import { addSession, setTeacherSession } from '../../api/sessions';

@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import { isEmpty } from 'lodash';
-import Mic from '@@material-ui/core/icons/Mic';
-import MicOff from '@@material-ui/core/icons/MicOff';
-import Videocam from '@@material-ui/core/icons/Videocam';
-import VideocamOff from '@@material-ui/core/icons/VideocamOff';
-import Refresh from '@@material-ui/core/icons/Refresh';
+import Mic from '@@@material-ui/icons/Mic';
+import MicOff from '@@@material-ui/icons/MicOff';
+import Videocam from '@@@material-ui/icons/Videocam';
+import VideocamOff from '@@@material-ui/icons/VideocamOff';
+import Refresh from '@@@material-ui/icons/Refresh';
 import Video from './Video';
 
 const styles = {
