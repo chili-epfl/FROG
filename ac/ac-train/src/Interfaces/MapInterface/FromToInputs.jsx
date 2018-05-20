@@ -3,8 +3,9 @@ import React from 'react';
 // UI
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { FormControl } from '@material-ui/core/Form';
-import Input, { InputLabel } from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
 
 import { capitalizeFirstLetter } from '../../ActivityUtils';
 
