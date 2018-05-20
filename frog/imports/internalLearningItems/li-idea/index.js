@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Form from 'react-jsonschema-form';
 import { withState } from 'recompose';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import { type LearningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (

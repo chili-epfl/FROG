@@ -1,7 +1,8 @@
 // @flow
 
+/* eslint-disable no-alert */
 import React, { Component } from 'react';
-import type { ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT, values } from 'frog-utils';
 import 'webrtc-adapter';
 
 import WebRtcConfig from '../webrtc-config/config';
@@ -12,6 +13,10 @@ import Header from './Header';
 import VideoLayout from './VideoLayout';
 
 import Participant from './participant';
+
+declare var RTCIceCandidate: any;
+declare var RTCPeerConnection: any;
+declare var RTCSessionDescription: any;
 
 /**
  * State consists of local and remote
@@ -31,6 +36,7 @@ type StateT = {
   local: Object,
   remote: Array<any>
 };
+type OptionsT = { myStream?: *, ontrack?: *, configuration: * };
 
 class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   name: string;
@@ -43,34 +49,92 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     browser: string,
     version: number
   };
+  activityType: string;
+  role: string;
+  mediaConstraints: Object;
 
   constructor(props: ActivityRunnerPropsT) {
     super(props);
     this.participants = {};
     this.state = { local: {}, remote: [] };
+    this.mediaConstraints = WebRtcConfig.mediaConstraints;
   }
 
   componentDidMount() {
     this.name = this.props.userInfo.name;
     this.id = this.props.userInfo.id;
     this.browser = BrowserUtils.detectBrowser();
+    this.activityType = this.props.activityData.config.activityType;
+    if (!this.props.activityData.config.userMediaConstraints.audio) {
+      this.mediaConstraints.audio = false;
+    }
+    if (!this.props.activityData.config.userMediaConstraints.video) {
+      this.mediaConstraints.video = false;
+    } else {
+      const res = this.props.activityData.config.userMediaConstraints
+        .videoResolution;
+
+      const width = res.split('x')[0];
+      const height = res.split('x')[1];
+
+      const frameRate = this.props.activityData.config.userMediaConstraints
+        .frameRate;
+
+      this.mediaConstraints.video = {
+        width,
+        height,
+        frameRate
+      };
+    }
 
     // TODO, change in the future with activity ID + instanceId
     this.roomId = this.props.sessionId + this.props.groupingValue;
+
+    if (this.activityType === 'many2many') {
+      this.role = 'none';
+    } else if (this.activityType === 'one2many') {
+      if (this.name === 'teacher') {
+        this.role = 'teacher';
+      } else {
+        this.role = 'watcher';
+      }
+    }
 
     this.createWebSocketConnection();
   }
 
   componentWillUnmount() {
     this.leaveRoom();
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => {
+        track.stop();
+      });
+    }
   }
 
   createWebSocketConnection = () => {
     this.ws = new WebSocket(WebRtcConfig.signalServerURL);
 
+    this.ws.onerror = error => {
+      alert(
+        "If you have AdBlock, it might be blocking connections, please put FROG on AdBlock's whitelist"
+      );
+      console.error(error);
+    };
+
     this.ws.onopen = _ => {
       // when web socket connection is oppened, register on signal server
-      this.requestMediaDevices();
+      if (this.role === 'watcher') {
+        if (this.browser.browser === 'safari') {
+          // safari has a bug where you cannot receive streams if you don't allow media devices
+          // this code should be updated once safari fixes that problem
+          this.requestMediaDevices(this.role);
+        } else {
+          this.register(this.name, this.id, this.roomId, this.role);
+        }
+      } else {
+        this.requestMediaDevices(this.role);
+      }
     };
 
     this.ws.onmessage = (message: any) => {
@@ -81,7 +145,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           this.onExistingParticipants(parsedMessage);
           break;
         case 'newParticipantArrived':
-          this.onNewParticipant(parsedMessage.name, parsedMessage.userId);
+          this.onNewParticipant(
+            parsedMessage.name,
+            parsedMessage.userId,
+            parsedMessage.role
+          );
           break;
         case 'participantLeft':
           this.onParticipantLeft(parsedMessage.userId);
@@ -104,23 +172,92 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   sendMessage = (message: Object) => {
-    this.ws.send(JSON.stringify(message));
+    if (this.ws.readyState === 1) {
+      this.ws.send(JSON.stringify(message));
+    } else {
+      console.warn('Trying to send message on unopened websocket');
+    }
   };
 
-  requestMediaDevices = () => {
+  requestMediaDevices = (role: string) => {
     if (navigator.mediaDevices)
       navigator.mediaDevices
-        .getUserMedia(WebRtcConfig.mediaConstraints)
+        .getUserMedia(this.mediaConstraints)
         .then(myStream => {
           this.stream = myStream;
-          this.register(this.name, this.id, this.roomId, 'none');
+          this.register(this.name, this.id, this.roomId, role);
         })
         .catch(error => {
-          console.info(
-            'User blocked media devices, there are no devices or are already in use',
-            error
-          );
-          this.register(this.name, this.id, this.roomId, 'watcher');
+          console.error('Error happened when requesting user media, ', error);
+          switch (error.name) {
+            case 'NotAllowedError':
+              if (role === 'teacher') {
+                alert(
+                  'Your students cannot see/hear you if you do not allow camera/microphone. ' +
+                    'Press F5 to refresh the page and allow camera/microphone'
+                );
+              } else {
+                if (this.browser.browser !== 'safari') {
+                  alert(
+                    'Safari has an issue where you cannot see and hear other users unless ' +
+                      'you allow application to use camera/microphone. '
+                  );
+                }
+                this.register(this.name, this.id, this.roomId, 'watcher');
+              }
+              break;
+
+            case 'NotReadableError':
+              alert(
+                'Your camera and microphone are already being used by another application.'
+              );
+              this.register(this.name, this.id, this.roomId, 'watcher');
+              break;
+
+            case 'NotFoundError':
+              alert('Camera and microphon not found on your computer');
+              this.register(this.name, this.id, this.roomId, 'watcher');
+              break;
+
+            case 'OverconstrainedError':
+              alert(
+                'Your camera/microphone do not meet the constraints requested by this application.'
+              );
+              this.register(this.name, this.id, this.roomId, 'watcher');
+              console.error(error);
+              break;
+
+            case 'TypeError':
+              alert(
+                'Application requested your camera/mic with illegal constraints'
+              );
+              this.register(this.name, this.id, this.roomId, 'watcher');
+              break;
+
+            case 'SecurityError':
+              alert(
+                'User media support is disabled on the Document which requested your camera/mic.'
+              );
+              this.register(this.name, this.id, this.roomId, 'watcher');
+              console.error(error);
+              break;
+
+            case 'AbortError':
+              alert(
+                'Unknown error appeared that prevents usage of your camera/microphone'
+              );
+              this.register(this.name, this.id, this.roomId, 'watcher');
+              console.error(error);
+              break;
+
+            default:
+              console.error('Error happened: ' + error.name);
+              console.error(
+                'Error happened when requesting user media, ',
+                error
+              );
+              this.register(this.name, this.id, this.roomId, 'watcher');
+          }
         });
   };
 
@@ -136,7 +273,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   onExistingParticipants = msg => {
-    if (this.stream) {
+    // we chach if role is watcher because of bug in safari
+    // that condition should be removed once safari fixes recvonly connections
+    if (this.stream && this.role !== 'watcher') {
       const analysisOptions = {
         local: true,
         name: this.name,
@@ -155,56 +294,59 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         }
       });
 
-      const options = {
-        configuration: WebRtcConfig.rtcConfiguration,
-        myStream: this.stream,
-        offerConstraints: WebRtcConfig.sendOnlyOfferConstraintChrome
-      };
-
-      if (this.browser.browser === 'firefox') {
-        options.offerConstraints = WebRtcConfig.sendOnlyOfferConstraintFirefox;
-      }
-
-      // create new participant for send only my stream
-      const participant = new Participant(this.name, this.id, this.sendMessage);
-      this.participants[participant.id] = participant;
-      participant.createSendOnlyPeer(options);
+      this.createPeer('sendonly', this.name, this.id, this.role);
     }
 
     // for each of the existing participants, receive their video feed
     msg.data.forEach(this.receiveVideo);
   };
 
-  onNewParticipant = (name, userId) => {
-    this.receiveVideo({ name, id: userId });
+  createPeer = (mode, name, id, role) => {
+    const peerMode = {
+      mode
+    };
+    const participant = new Participant(name, id, role, this.sendMessage);
+    this.participants[participant.id] = participant;
+
+    if (role !== 'watcher') {
+      const onAddRemoteTrack = event => {
+        const stream = event.streams[0];
+        this.addRemoteUserToState(participant, stream);
+      };
+
+      const options: OptionsT = {
+        configuration: WebRtcConfig.rtcConfiguration
+      };
+
+      if (mode === 'sendonly') {
+        options.myStream = this.stream;
+        if (this.browser.browser !== 'chrome') {
+          peerMode.mode = 'sendrecv';
+        }
+      } else if (mode === 'recvonly') {
+        options.ontrack = onAddRemoteTrack;
+      }
+
+      participant.createPeer(peerMode.mode, options);
+    }
+  };
+
+  onNewParticipant = (name, userId, role) => {
+    this.receiveVideo({ name, id: userId, role });
   };
 
   // receive video from remote peer
-  receiveVideo = (newParticipant: { name: string, id: string }) => {
-    const participant = new Participant(
+  receiveVideo = (newParticipant: {
+    name: string,
+    id: string,
+    role: string
+  }) => {
+    this.createPeer(
+      'recvonly',
       newParticipant.name,
       newParticipant.id,
-      this.sendMessage
+      newParticipant.role
     );
-
-    this.participants[participant.id] = participant;
-
-    const onAddRemoteTrack = event => {
-      const stream = event.streams[0];
-      this.addRemoteUserToState(newParticipant, stream);
-    };
-
-    const options = {
-      ontrack: onAddRemoteTrack,
-      configuration: WebRtcConfig.rtcConfiguration,
-      offerConstraints: WebRtcConfig.recvOnlyOfferConstraintChrome
-    };
-
-    if (this.browser.browser === 'firefox') {
-      options.offerConstraints = WebRtcConfig.recvOnlyOfferConstraintFirefox;
-    }
-
-    participant.createRecvOnlyPeer(options);
   };
 
   addRemoteUserToState = (participant: Participant, stream: MediaStream) => {
@@ -252,8 +394,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       id: 'leaveRoom'
     });
 
-    Object.values(this.participants).forEach((p: Participant) => p.dispose());
-    this.ws.close();
+    values(this.participants).forEach((p: Participant) => p.dispose());
+    if (this.ws.readyState === 1) {
+      this.ws.close();
+    }
   };
 
   // toogles audio from being sent to media server

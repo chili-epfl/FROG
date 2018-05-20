@@ -6,7 +6,7 @@ import {
   uuid,
   Doc
 } from 'frog-utils';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import LearningItemChooser from './LearningItemChooser';

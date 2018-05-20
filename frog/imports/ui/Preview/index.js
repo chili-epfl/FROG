@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { withState, compose } from 'recompose';
-import { defaultConfig } from 'frog-utils';
+import { defaultConfig, uuid } from 'frog-utils';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
@@ -26,7 +26,7 @@ export const ModalPreview = compose(
   withState('showDashExample', 'setShowDashExample', false),
   withState('windows', 'setWindows', 1),
   withState('showLogs', 'setShowLogs', false),
-  withState('reloadActivity', 'setReloadActivity', false),
+  withState('reloadActivity', 'setReloadActivity', uuid()),
   withState('users', 'setUsers', ['Chen Li']),
   withState('instances', 'setInstances', [getUserId('Chen Li')]),
   withState('plane', 'setPlane', 1),
@@ -68,7 +68,7 @@ class PreviewPage extends React.Component<any, any> {
       this.state = {
         example: -1,
         fullWindow: false,
-        reloadActivity: false,
+        reloadActivity: uuid(),
         showData: false,
         showDash: false,
         showDashExample: false,
@@ -93,7 +93,11 @@ class PreviewPage extends React.Component<any, any> {
       setReloadActivity: reloadActivity => this.setState({ reloadActivity }),
       setPlane: plane => this.setState({ plane }),
       setConfig: config => this.setState({ config }),
-      setActivityTypeId: activityTypeId => this.setState({ activityTypeId }),
+      setActivityTypeId: activityTypeId => {
+        if (!(activityTypesObj[activityTypeId]?.meta?.preview === false)) {
+          this.setState({ activityTypeId });
+        }
+      },
       setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform })
     };
   }
