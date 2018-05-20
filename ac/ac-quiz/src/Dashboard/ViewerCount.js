@@ -9,7 +9,7 @@ import {
 } from 'victory';
 import { HTML, entries } from 'frog-utils';
 
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 
 const Question = ({ question, answers }) => (
   <React.Fragment>
