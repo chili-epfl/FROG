@@ -2,13 +2,15 @@
 import * as React from 'react';
 
 // UI
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import MenuItem from 'material-ui/Menu/MenuItem';
-import Divider from 'material-ui/Divider';
-import Card, { CardContent, CardActions } from 'material-ui/Card';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 
 import Actions from './Actions';
 import {

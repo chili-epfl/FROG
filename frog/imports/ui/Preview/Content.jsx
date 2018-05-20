@@ -123,6 +123,9 @@ const ContentController = ({
   const activityData = { data, config };
 
   const Run = ({ name, instance }) => {
+    if (activityType.meta.preview === false) {
+      return <h1>No preview available for this activity type</h1>;
+    }
     const docId = DocId(activityType.id, instance);
     const ActivityToRun = ReactiveHOC(
       docId,
@@ -151,6 +154,7 @@ const ContentController = ({
         stream={() => undefined}
         logger={logger}
         groupingValue={instance}
+        sessionId={reloadActivity}
       />
     );
   };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 import { compose } from 'recompose';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import { capitalizeFirstLetter } from '../../ActivityUtils';
 

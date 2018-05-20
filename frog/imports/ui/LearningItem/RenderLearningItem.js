@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
 
 import { learningItemTypesObj } from './learningItemTypes';

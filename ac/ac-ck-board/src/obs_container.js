@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import AspectRatio from 'react-icons/lib/md/aspect-ratio';
 import Draggable from 'react-draggable';
 import { shorten } from 'frog-utils';

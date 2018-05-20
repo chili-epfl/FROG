@@ -3,18 +3,24 @@
 import * as React from 'react';
 import type { Doc } from './generateReactiveFn';
 
-export type ActivityDbT = {
+export type ActivityDbT = {|
   _id: string,
   data: Object,
   title?: string,
   groupingKey?: string,
-  plane: number,
+  plane?: number,
   startTime: number,
   length: number,
   activityType: string,
   actualStartingTime?: Date,
-  actualClosingTime?: Date
-};
+  actualClosingTime?: Date,
+  parentId?: string
+|};
+
+export type DashboardDataDbT = {|
+  dashId: string,
+  data: any
+|};
 
 export type OperatorDbT = {
   _id: string,
@@ -132,7 +138,8 @@ export type ActivityPackageT = {
       data?: any,
       learningItems?: any,
       type?: 'deeplink'
-    }[]
+    }[],
+    preview?: boolean
   },
   config: Object,
   configUI?: Object,
@@ -165,7 +172,8 @@ export type DashboardT = {
         instances?: number
       }
     | { title: string, type: 'state', activityMerge?: Object, state: any }
-  )[]
+  )[],
+  exampleData?: { title: string, path: string }[]
 };
 
 export type DashboardViewerPropsT = {
@@ -234,6 +242,30 @@ export type operatorPackageT =
   | socialOperatorT
   | productOperatorT
   | controlOperatorT;
+
+export type CursorT<T> = {
+  fetch: () => T[],
+  map: T => void,
+  forEach: T => void,
+  observe: Object => void,
+  observeChanges: Object => void
+};
+
+type UpdateQueryT<T> = {
+  $set?: $Shape<T>,
+  $inc?: { [key: $Keys<T>]: number },
+  $unset?: { [key: $Keys<T>]: any }
+};
+
+export type MongoT<T> = {
+  find: (
+    string | $Shape<T> | { [$Keys<T>]: { $in: any } },
+    ?Object
+  ) => CursorT<T>,
+  findOne: (string | $Shape<T>, ?Object) => ?T,
+  update: (string | $Shape<T>, UpdateQueryT<T>) => void,
+  insert: (T, ?(T) => void) => string
+};
 
 type LIRenderPropsT = {|
   children: React.Element<*>,

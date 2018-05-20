@@ -4,7 +4,7 @@ import * as React from 'react';
 import FlexView from 'react-flexview';
 import ReactTooltip from 'react-tooltip';
 import { FormGroup, FormControl } from 'react-bootstrap';
-import { yellow, red, lightGreen } from 'material-ui/colors';
+import { yellow, red, lightGreen } from '@material-ui/core/colors';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
