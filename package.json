@@ -24,6 +24,8 @@
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.46",
     "@babel/plugin-transform-flow-comments": "^7.0.0-beta.46",
     "@babel/plugin-transform-flow-strip-types": "^7.0.0-beta.46",
+    "@babel/runtime/helpers/slicedToArray": "^7.0.0-beta.46",
+    "@babel/runtime/helpers/slicedToArray": "^7.0.0-beta.46", 
     "@babel/preset-env": "^7.0.0-beta.46",
     "@babel/preset-es2015": "^7.0.0-beta.46",
     "@babel/preset-es2017": "^7.0.0-beta.46",
