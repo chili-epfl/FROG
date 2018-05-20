@@ -151,6 +151,7 @@ const ContentController = ({
         stream={() => undefined}
         logger={logger}
         groupingValue={instance}
+        sessionId={reloadActivity}
       />
     );
   };

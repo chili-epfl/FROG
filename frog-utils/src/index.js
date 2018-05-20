@@ -57,6 +57,9 @@ export {
 } from './dataStructureTools';
 export type {
   ActivityDbT,
+  DashboardDataDbT,
+  MongoT,
+  CursorT,
   OperatorDbT,
   studentStructureT,
   socialStructureT,

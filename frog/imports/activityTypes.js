@@ -25,6 +25,7 @@ import acForm from 'ac-form';
 import acQuiz from 'ac-quiz';
 import acMonty from 'ac-monty';
 import acCKBoard from 'ac-ck-board';
+import acPrez from 'ac-prez';
 import acVideoChat from 'ac-videochat';
 
 import acH5P from './internalActivities/ac-h5p';
@@ -55,7 +56,8 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acMonty,
   acH5P,
   acDash,
-  acVideoChat
+  acVideoChat,
+  acPrez
 ]).map(x => Object.freeze(x));
 
 // see explanation of `any` in operatorTypes.js

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import FlexView from 'react-flexview';
 import ReactTooltip from 'react-tooltip';
-import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { FormGroup, FormControl } from 'react-bootstrap';
 import { yellow, red, lightGreen } from 'material-ui/colors';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
@@ -12,6 +12,7 @@ import { ChangeableText, A, uuid } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 import {
   addActivity,
+  removeActivityType,
   setStreamTarget,
   setParticipation
 } from '/imports/api/activities';
@@ -22,7 +23,9 @@ import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
 import ExportButton from './ExportButton';
 import { SelectAttributeWidget } from '../FormUtils';
+import { IconButton } from '../index';
 import ConfigForm from '../ConfigForm';
+import DeleteButton from '../DeleteButton';
 
 const StreamSelect = ({ activity, targets, onChange }) => (
   <FormGroup controlId="selectGrouping">
@@ -176,6 +179,14 @@ const RawEditActivity = ({
                 <ExportButton {...{ activity, madeChanges }} />
               </div>
             )}
+            <DeleteButton
+              tooltip="Reset activity"
+              msg="Do you really want to remove the activity type, and loose all the configuration data?"
+              onConfirmation={() => {
+                removeActivityType(activity._id);
+                props.store.refreshValidate();
+              }}
+            />
           </FlexView>
         </div>
         {activity.plane === 2 && (
@@ -248,18 +259,6 @@ const RawEditActivity = ({
     </div>
   );
 };
-
-export const IconButton = ({ icon, onClick, tooltip }: Object) => (
-  <div className="bootstrap">
-    <Button
-      style={{ width: '35px', height: '25px' }}
-      data-tip={tooltip}
-      onClick={onClick}
-    >
-      <span className={icon} style={{ verticalAlign: 'top' }} />
-    </Button>
-  </div>
-);
 
 const EditActivity = compose(
   withState('advancedOpen', 'setAdvancedOpen', false),
