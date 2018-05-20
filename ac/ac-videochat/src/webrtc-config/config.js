@@ -17,7 +17,7 @@ const signalServerURL = 'wss://icchilisrv3.epfl.ch:7777';
 
 type MediaConstraintsT = {
   audio: boolean,
-  video: false | { width: { ideal: number }, frameRate: { ideal: number } }
+  video: boolean | { width: { ideal: number }, frameRate: { ideal: number } }
 };
 const mediaConstraints: MediaConstraintsT = {
   audio: true,

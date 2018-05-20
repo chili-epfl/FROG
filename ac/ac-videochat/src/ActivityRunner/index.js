@@ -3,6 +3,7 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import { type ActivityRunnerPropsT, values } from 'frog-utils';
+import 'webrtc-adapter';
 
 import WebRtcConfig from '../webrtc-config/config';
 import BrowserUtils from '../utils/browser';
@@ -50,11 +51,13 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
   activityType: string;
   role: string;
+  mediaConstraints: Object;
 
   constructor(props: ActivityRunnerPropsT) {
     super(props);
     this.participants = {};
     this.state = { local: {}, remote: [] };
+    this.mediaConstraints = WebRtcConfig.mediaConstraints;
   }
 
   componentDidMount() {
@@ -63,10 +66,25 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.browser = BrowserUtils.detectBrowser();
     this.activityType = this.props.activityData.config.activityType;
     if (!this.props.activityData.config.userMediaConstraints.audio) {
-      WebRtcConfig.mediaConstraints.audio = false;
+      this.mediaConstraints.audio = false;
     }
     if (!this.props.activityData.config.userMediaConstraints.video) {
-      WebRtcConfig.mediaConstraints.video = false;
+      this.mediaConstraints.video = false;
+    } else {
+      const res = this.props.activityData.config.userMediaConstraints
+        .videoResolution;
+
+      const width = res.split('x')[0];
+      const height = res.split('x')[1];
+
+      const frameRate = this.props.activityData.config.userMediaConstraints
+        .frameRate;
+
+      this.mediaConstraints.video = {
+        width,
+        height,
+        frameRate
+      };
     }
 
     // TODO, change in the future with activity ID + instanceId
@@ -87,6 +105,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
   componentWillUnmount() {
     this.leaveRoom();
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => {
+        track.stop();
+      });
+    }
   }
 
   createWebSocketConnection = () => {
@@ -107,7 +130,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           // this code should be updated once safari fixes that problem
           this.requestMediaDevices(this.role);
         } else {
-          this.register(this.name, this.id, this.roomId, 'watcher');
+          this.register(this.name, this.id, this.roomId, this.role);
         }
       } else {
         this.requestMediaDevices(this.role);
@@ -149,13 +172,17 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   sendMessage = (message: Object) => {
-    this.ws.send(JSON.stringify(message));
+    if (this.ws.readyState === 1) {
+      this.ws.send(JSON.stringify(message));
+    } else {
+      console.warn('Trying to send message on unopened websocket');
+    }
   };
 
   requestMediaDevices = (role: string) => {
     if (navigator.mediaDevices)
       navigator.mediaDevices
-        .getUserMedia(WebRtcConfig.mediaConstraints)
+        .getUserMedia(this.mediaConstraints)
         .then(myStream => {
           this.stream = myStream;
           this.register(this.name, this.id, this.roomId, role);
@@ -224,10 +251,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               break;
 
             default:
+              console.error('Error happened: ' + error.name);
               console.error(
                 'Error happened when requesting user media, ',
                 error
               );
+              this.register(this.name, this.id, this.roomId, 'watcher');
           }
         });
   };
@@ -366,7 +395,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     });
 
     values(this.participants).forEach((p: Participant) => p.dispose());
-    this.ws.close();
+    if (this.ws.readyState === 1) {
+      this.ws.close();
+    }
   };
 
   // toogles audio from being sent to media server
