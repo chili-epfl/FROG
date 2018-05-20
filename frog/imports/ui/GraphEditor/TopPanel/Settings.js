@@ -2,12 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { MenuItem, MenuList } from '@material-ui/core/Menu';
-import Grow from '@material-ui/core/transitions/Grow';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { Manager, Target, Popper } from 'react-popper';
-import ClickAwayListener from '@material-ui/core/utils/ClickAwayListener';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Undo from '@@@material-ui/icons/Undo';
 import Check from '@@@material-ui/icons/Check';
 import Add from '@@@material-ui/icons/Add';
@@ -59,7 +60,7 @@ export const UndoButton = connect(({ store: { undo } }) => (
   <UndoButtonComponent undo={undo} />
 ));
 
-@withStyles(styles)
+withStyles(styles)
 class UndoButtonComponent extends React.Component {
   render() {
     const { classes, undo } = this.props;
@@ -80,7 +81,7 @@ class UndoButtonComponent extends React.Component {
   }
 }
 
-@withStyles(styles)
+withStyles(styles)
 class GraphActionMenu extends React.Component {
   state = {
     open: false

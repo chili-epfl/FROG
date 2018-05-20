@@ -6,7 +6,8 @@ import { isEqual, isEmpty } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs, { Tab } from '@material-ui/core/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardComp } from './index';

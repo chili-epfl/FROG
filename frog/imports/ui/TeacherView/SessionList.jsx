@@ -1,7 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Input, { InputLabel } from '@material-ui/core/Input';
-import { FormControl, FormHelperText } from '@material-ui/core/Form';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -9,7 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Add from '@@@material-ui/icons/Add';
 import CompareArrows from '@@@material-ui/icons/CompareArrows';
-import Card, { CardContent } from '@material-ui/core/Card';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 import { addSession, setTeacherSession } from '../../api/sessions';
 

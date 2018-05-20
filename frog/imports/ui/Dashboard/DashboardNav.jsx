@@ -6,7 +6,9 @@ import { withState } from 'recompose';
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import List, { ListItem, ListItemText } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import { Activities } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';

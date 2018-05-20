@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { CircularProgress } from '@material-ui/core/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn, getDisplayName, uuid } from 'frog-utils';
 

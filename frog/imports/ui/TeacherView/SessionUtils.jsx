@@ -4,7 +4,8 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import { withStyles } from '@material-ui/core/styles';
-import Menu, { MenuItem } from '@material-ui/core/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
