@@ -26,7 +26,7 @@
     "regression": "2.0.1",
     "sharedb": "^1.0.0-beta.8",
     "sharedb-string-binding": "^1.0.0",
-    "victory": "^0.26.0",
+    "victory": "^0.26.1",
     "wolfy87-eventemitter": "^5.2.4"
   },
   "devDependencies": {
