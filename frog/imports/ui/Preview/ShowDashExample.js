@@ -10,13 +10,7 @@ import {
   type LogDbT,
   isBrowser
 } from 'frog-utils';
-<<<<<<< HEAD
-import 'rc-slider/assets/index.css';
-import Slider from 'rc-slider';
-import { CircularProgress } from 'material-ui/Progress';
-=======
 import { CircularProgress } from '@material-ui/core/CircularProgress';
->>>>>>> develop
 
 import { createDashboards } from '../../api/mergeLogData';
 import { DashboardStates } from '../../../imports/api/cache';
