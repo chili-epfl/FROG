@@ -90,6 +90,7 @@ class ConfigPanel extends React.Component<*, *> {
           <Grid container spacing={8} alignItems="center">
             <Grid item xs={2}>
               <IconButton
+                className="arrowback"
                 aria-label="back-to-preview"
                 onClick={this.backToPreview}
               >

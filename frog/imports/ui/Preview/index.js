@@ -93,7 +93,11 @@ class PreviewPage extends React.Component<any, any> {
       setReloadActivity: reloadActivity => this.setState({ reloadActivity }),
       setPlane: plane => this.setState({ plane }),
       setConfig: config => this.setState({ config }),
-      setActivityTypeId: activityTypeId => this.setState({ activityTypeId }),
+      setActivityTypeId: activityTypeId => {
+        if (!(activityTypesObj[activityTypeId]?.meta?.preview === false)) {
+          this.setState({ activityTypeId });
+        }
+      },
       setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform })
     };
   }
