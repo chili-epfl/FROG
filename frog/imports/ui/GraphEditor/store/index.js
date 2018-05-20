@@ -1,7 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { autorun, configure } from 'mobx';
+import { configure } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Store from './store';
 

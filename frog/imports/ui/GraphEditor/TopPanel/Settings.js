@@ -10,7 +10,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { Manager, Target, Popper } from 'react-popper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Undo from '@material-ui/icons/Undo';
-import Check from '@material-ui/icons/Check';
 import Add from '@material-ui/icons/Add';
 import ContentCopy from '@material-ui/icons/ContentCopy';
 import Delete from '@material-ui/icons/Delete';
