@@ -53,12 +53,8 @@
     "jest-cli": "^22.4.4",
     "json-stringify-pretty-compact": "^1.2.0",
     "nps": "^5.9.0",
-    "prettier": "^1.12.0",
+    "prettier": "^1.12.1",
     "react-test-renderer": "^16.3.1"
   },
-  "license": "ISC",
-  "dependencies": {
-    "@material-ui/codemod": "^1.0.0",
-    "yarn": "^1.6.0"
-  }
+  "license": "ISC"
 }

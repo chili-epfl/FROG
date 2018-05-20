@@ -10,7 +10,7 @@ import {
   type LogDbT,
   isBrowser
 } from 'frog-utils';
-import { CircularProgress } from '@material-ui/core/Progress';
+import { CircularProgress } from '@material-ui/core/CircularProgress';
 
 import { createDashboards } from '../../api/mergeLogData';
 import { DashboardStates } from '../../../imports/api/cache';
