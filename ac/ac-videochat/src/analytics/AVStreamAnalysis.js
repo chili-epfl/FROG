@@ -1,3 +1,5 @@
+// @flow
+
 export const isBrowser = (() => {
   try {
     return !!window;
@@ -6,7 +8,9 @@ export const isBrowser = (() => {
   }
 })();
 
-export const hark = isBrowser ? require('../lib/hark.bundle.js') : () => null;
+export const hark = isBrowser
+  ? require('../lib/hark.bundle.js')
+  : (_: any) => {};
 
 type OptionsT = {
   name: string,
@@ -15,31 +19,33 @@ type OptionsT = {
 };
 
 export const onStreamAdded = (stream: MediaStream, options: OptionsT) => {
-  const speechEvents = hark(stream);
+  if (hark) {
+    const speechEvents: any = hark(stream);
 
-  speechEvents.on('speaking', () => {
-    if (options && options.logger) {
-      options.logger({
-        type: 'videochat',
-        payload: {
-          name: options.name,
-          id: options.id,
-          speaking: true
-        }
-      });
-    }
-  });
+    speechEvents.on('speaking', () => {
+      if (options && options.logger) {
+        options.logger({
+          type: 'videochat',
+          payload: {
+            name: options.name,
+            id: options.id,
+            speaking: true
+          }
+        });
+      }
+    });
 
-  speechEvents.on('stopped_speaking', () => {
-    if (options && options.logger) {
-      options.logger({
-        type: 'videochat',
-        payload: {
-          name: options.name,
-          id: options.id,
-          speaking: false
-        }
-      });
-    }
-  });
+    speechEvents.on('stopped_speaking', () => {
+      if (options && options.logger) {
+        options.logger({
+          type: 'videochat',
+          payload: {
+            name: options.name,
+            id: options.id,
+            speaking: false
+          }
+        });
+      }
+    });
+  }
 };

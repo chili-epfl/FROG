@@ -4,9 +4,10 @@ import * as React from 'react';
 import { withVisibility } from 'frog-utils';
 import { compose, withState } from 'recompose';
 
-import { withStyles } from 'material-ui/styles';
-import Card, { CardContent } from 'material-ui/Card';
-import Grid from 'material-ui/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
 
 import GraphView from './GraphView';
 import DashboardNav from '../Dashboard/DashboardNav';

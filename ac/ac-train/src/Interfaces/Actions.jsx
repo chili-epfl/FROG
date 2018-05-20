@@ -2,10 +2,10 @@ import React from 'react';
 import Mousetrap from 'mousetrap';
 
 // UI
-import { withStyles } from 'material-ui/styles';
-import IconButton from 'material-ui/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 import Timer from '@material-ui/icons/Timer';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 import Help from './Help';
 import { SwitchGuidelines } from '../Guidelines';

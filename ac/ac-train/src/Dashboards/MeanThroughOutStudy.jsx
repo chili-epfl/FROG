@@ -1,10 +1,10 @@
 // @flow
 import * as React from 'react';
 
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
-import Paper from 'material-ui/Paper';
-import { withStyles } from 'material-ui/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 import { VictoryChart, VictoryLine, VictoryAxis } from 'victory';
 
 import { type DashStateT } from '.';

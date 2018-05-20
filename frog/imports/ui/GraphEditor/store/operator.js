@@ -28,6 +28,7 @@ export default class Operator extends Elem {
       state,
       data: data || {},
       operatorType,
+      over: false,
 
       rename: action((newname: string) => {
         this.title = newname;

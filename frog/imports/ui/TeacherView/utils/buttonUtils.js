@@ -5,11 +5,11 @@ import Pause from '@material-ui/icons/Pause';
 import SkipNext from '@material-ui/icons/SkipNext';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Refresh from '@material-ui/icons/Refresh';
-import blue from 'material-ui/colors/blue';
-import red from 'material-ui/colors/red';
-import green from 'material-ui/colors/green';
-import Button from 'material-ui/Button';
-import Tooltip from 'material-ui/Tooltip';
+import blue from '@material-ui/core/colors/blue';
+import red from '@material-ui/core/colors/red';
+import green from '@material-ui/core/colors/green';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { updateSessionState, restartSession } from '../../../api/sessions';

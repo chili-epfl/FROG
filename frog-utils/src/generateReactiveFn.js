@@ -73,14 +73,15 @@ export class Doc {
 
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
-    if (typeof get(this.doc.data, path) !== 'string') {
+    if (typeof get(this.doc.data, String(path)) !== 'string') {
       // eslint-disable-next-line no-console
       console.error(
         `Cannot use bindTextField on path that is not initialized as a string, path: ${JSON.stringify(
           path
-        )}, value ${get(this.doc.data, path)}, doc.data: ${JSON.stringify(
-          this.doc.data
-        )}.`
+        )}, value ${get(
+          this.doc.data,
+          String(path)
+        )}, doc.data: ${JSON.stringify(this.doc.data)}.`
       );
     }
     const binding = new StringBinding(ref, this.doc, path);
