@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import { uuid } from 'frog-utils';
+import { uuid, type MongoT, type DashboardDataDbT } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
@@ -12,7 +12,9 @@ import { Sessions } from './sessions';
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
-export const DashboardData = new Mongo.Collection('dashboard_data');
+export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
+  'dashboard_data'
+);
 
 export const addActivity = (
   activityType?: string,

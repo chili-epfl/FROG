@@ -29,7 +29,7 @@ export const updateNextOpenActivities = (
   const nextActivities = futureOpen.map(x => ({
     activityId: x._id,
     description: `${x.title || ''} (${
-      x.plane === 4 ? 'teacher task' : 'p' + x.plane
+      x.plane === 4 ? 'teacher task' : 'p' + (x.plane || '')
     })`
   }));
   Sessions.update(sessionId, {

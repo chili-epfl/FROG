@@ -109,14 +109,12 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                 )}
               </div>
             )}
-          {sortedRemote.map((participant, index) => (
+          {sortedRemote.map((participant, _) => (
             <div style={styles.videoBoxS} key={participant.id}>
               <Video
                 videoId={participant.id}
-                index={'remotevideo' + index}
                 mute={false}
                 srcObject={participant.srcObject}
-                name={participant.name}
               />
               <button
                 style={styles.buttonBoxS}

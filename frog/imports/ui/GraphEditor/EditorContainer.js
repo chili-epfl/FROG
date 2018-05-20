@@ -1,9 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from 'react-tooltip';
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 import { removeActivity } from '/imports/api/remoteActivities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 

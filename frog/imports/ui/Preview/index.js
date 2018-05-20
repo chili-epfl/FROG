@@ -1,8 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { defaultConfig } from 'frog-utils';
+import { defaultConfig, uuid } from 'frog-utils';
 import { omit } from 'lodash';
+import { withState, compose } from 'recompose';
 
 import Preview from './Preview';
 import { getUserId } from './Controls';
@@ -24,7 +25,7 @@ export const addDefaultExample = (activityType: Object) => [
 const defaultState = {
   example: 0,
   fullWindow: false,
-  reloadActivity: false,
+  reloadActivity: uuid(),
   showData: false,
   showDash: false,
   showDashExample: false,
@@ -48,7 +49,8 @@ class PreviewPage extends React.Component<any, any> {
         activityTypeId: this.props.activityTypeId,
         config: { ...this.props.config },
         modal: true,
-        dismiss: this.props.dismiss
+        dismiss: this.props.dismiss,
+        reloadActivity: uuid()
       };
       if (!this.state.activityTypeId) {
         return null;
@@ -92,7 +94,11 @@ class PreviewPage extends React.Component<any, any> {
       setReloadActivity: reloadActivity => this.setState({ reloadActivity }),
       setPlane: plane => this.setState({ plane }),
       setConfig: config => this.setState({ config }),
-      setActivityTypeId: activityTypeId => this.setState({ activityTypeId }),
+      setActivityTypeId: activityTypeId => {
+        if (!(activityTypesObj[activityTypeId]?.meta?.preview === false)) {
+          this.setState({ activityTypeId });
+        }
+      },
       setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform })
     };
   }

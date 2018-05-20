@@ -4,7 +4,7 @@ import { withState, compose } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
 import { type LearningItemT } from 'frog-utils';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import WebcamInterface from './WebcamInterface';
 import UploadBar from './UploadBar';

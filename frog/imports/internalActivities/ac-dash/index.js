@@ -10,7 +10,8 @@ export const meta = {
   name: 'Dashboard activity',
   shortDesc: 'Show a dashboard from a previous activity',
   description:
-    'Show a dashboard from a previous activity. This is often useful for debriefing'
+    'Show a dashboard from a previous activity. This is often useful for debriefing',
+  preview: false
 };
 
 const ActivityRunner = (props: ActivityRunnerPropsT) => {

@@ -1,4 +1,4 @@
-import blue from 'material-ui/colors/blue';
+import blue from '@material-ui/core/colors/blue';
 
 const styles = theme => ({
   root: {
