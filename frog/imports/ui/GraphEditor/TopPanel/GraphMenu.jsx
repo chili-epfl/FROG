@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
-import ModeEdit from '@@@material-ui/icons/ModeEdit';
+import ModeEdit from '@material-ui/icons/ModeEdit';
 
 import { ValidButton } from '../Validator';
 import { connect, store } from '../store';

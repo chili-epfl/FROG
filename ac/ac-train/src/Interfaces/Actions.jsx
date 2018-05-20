@@ -4,7 +4,7 @@ import Mousetrap from 'mousetrap';
 // UI
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import Timer from '@@@material-ui/icons/Timer';
+import Timer from '@material-ui/icons/Timer';
 import Button from '@material-ui/core/Button';
 
 import Help from './Help';

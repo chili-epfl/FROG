@@ -7,8 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import RemoveRedEye from '@@@material-ui/icons/RemoveRedEye';
-import ExpandMore from '@@@material-ui/icons/ExpandMore';
+import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 
 import { Highlight } from 'frog-utils';

@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@@@material-ui/icons/MoreVert';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { setTeacherSession } from '../../api/sessions';
 

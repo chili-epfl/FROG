@@ -16,9 +16,9 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import PersonIcon from '@@@material-ui/icons/Person';
-import AddIcon from '@@@material-ui/icons/Add';
-import Delete from '@@@material-ui/icons/Delete';
+import PersonIcon from '@material-ui/icons/Person';
+import AddIcon from '@material-ui/icons/Add';
+import Delete from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import { Sessions } from '../../api/sessions';
 

@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
-import Add from '@@@material-ui/icons/Add';
-import CompareArrows from '@@@material-ui/icons/CompareArrows';
+import Add from '@material-ui/icons/Add';
+import CompareArrows from '@material-ui/icons/CompareArrows';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 

@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AddCircle from '@@@material-ui/icons/AddCircle';
+import AddCircle from '@material-ui/icons/AddCircle';
 import { type LearningItemT, values } from 'frog-utils';
 
 import { learningItemTypesObj } from './learningItemTypes';

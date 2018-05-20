@@ -5,7 +5,7 @@ import { uuid } from 'frog-utils';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowBack from '@@@material-ui/icons/ArrowBack';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
