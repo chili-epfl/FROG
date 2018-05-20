@@ -28,16 +28,7 @@ export const config = {
         videoResolution: {
           title: 'Video resolution',
           type: 'string',
-          enum: [
-            '1280x720',
-            '800x600',
-            '640x480',
-            '640x360',
-            '352x288',
-            '320x240',
-            '176x144',
-            '160x120'
-          ],
+          enum: ['1280x720', '640x480', '352x288', '320x240'],
           default: '320x240'
         },
         frameRate: {
