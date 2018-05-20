@@ -1,25 +1,25 @@
 import * as React from 'react';
-import IconButton from 'material-ui/IconButton';
-import Avatar from 'material-ui/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
 import List, {
   ListItem,
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction
-} from 'material-ui/List';
+} from '@material-ui/core/List';
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import Grid from 'material-ui/Grid';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
-import Delete from '@material-ui/icons/Delete';
-import { withStyles } from 'material-ui/styles';
+} from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Input, { InputLabel } from '@material-ui/core/Input';
+import { FormControl, FormHelperText } from '@material-ui/core/Form';
+import PersonIcon from '@@material-ui/core/icons/Person';
+import AddIcon from '@@material-ui/core/icons/Add';
+import Delete from '@@material-ui/core/icons/Delete';
+import { withStyles } from '@material-ui/core/styles';
 import { Sessions } from '../../api/sessions';
 
 import styles from './styles';

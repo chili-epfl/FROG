@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 
-import Divider from 'material-ui/Divider';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
-import List from 'material-ui/List';
-import { withStyles } from 'material-ui/styles';
-import Search from '@material-ui/icons/Search';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import { withStyles } from '@material-ui/core/styles';
+import Search from '@@material-ui/core/icons/Search';
 
 import type { operatorPackageT, OperatorDbT } from 'frog-utils';
 import { Operators } from '/imports/api/activities';

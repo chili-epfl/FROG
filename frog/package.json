@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.46",
-    "@material-ui/icons": "^1.0.0",
+    "@@material-ui/core/icons": "^1.0.0",
     "ac-autocode": "1.0.0",
     "ac-brainstorm": "1.0.0",
     "ac-chat": "1.0.0",
@@ -49,7 +49,7 @@
     "jszip": "^3.1.5",
     "lodash": "^4.17.10",
     "longjohn": "^0.2.12",
-    "material-ui": "^1.0.0-beta.41",
+    "@material-ui/core": "^1.0.0-beta.41",
     "meteor-node-stubs": "^0.4.1",
     "minio": "^3.2.3",
     "mobx": "^4.2.1",

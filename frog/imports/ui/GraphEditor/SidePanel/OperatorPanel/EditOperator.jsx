@@ -3,7 +3,7 @@
 import React from 'react';
 
 import FlexView from 'react-flexview';
-import { yellow, red, lightGreen } from 'material-ui/colors';
+import { yellow, red, lightGreen } from '@material-ui/core/colors';
 import { compact } from 'lodash';
 
 import { ChangeableText } from 'frog-utils';

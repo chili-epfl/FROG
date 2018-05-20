@@ -2,13 +2,13 @@
 
 import React from 'react';
 
-import Grid from 'material-ui/Grid';
-import IconButton from 'material-ui/IconButton';
-import { withStyles } from 'material-ui/styles';
-import { ListItem, ListItemSecondaryAction } from 'material-ui/List';
-import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Typography from 'material-ui/Typography';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import { ListItem, ListItemSecondaryAction } from '@material-ui/core/List';
+import RemoveRedEye from '@@material-ui/core/icons/RemoveRedEye';
+import ExpandMore from '@@material-ui/core/icons/ExpandMore';
+import Typography from '@material-ui/core/Typography';
 
 import { Highlight } from 'frog-utils';
 

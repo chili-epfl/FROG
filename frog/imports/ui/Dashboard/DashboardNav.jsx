@@ -4,9 +4,9 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withState } from 'recompose';
 
-import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List, { ListItem, ListItemText } from '@material-ui/core/List';
 
 import { Activities } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';

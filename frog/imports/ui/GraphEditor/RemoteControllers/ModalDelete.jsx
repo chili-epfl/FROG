@@ -6,8 +6,8 @@ import Dialog, {
   DialogContent,
   DialogContentText,
   DialogTitle
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
+} from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
 
 export default ({ modalOpen, setModal, remove }: Object) => (
   <Dialog open={modalOpen}>

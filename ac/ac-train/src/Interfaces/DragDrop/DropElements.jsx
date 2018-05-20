@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import { DropTarget } from 'react-dnd';
 import { compose } from 'recompose';
 import { capitalizeFirstLetter } from '../../ActivityUtils';

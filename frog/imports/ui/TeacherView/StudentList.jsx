@@ -1,16 +1,16 @@
 // @flow weak
 
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Table, {
   TableBody,
   TableCell,
   TableHead,
   TableRow
-} from 'material-ui/Table';
-import Grid from 'material-ui/Grid';
-import Card, { CardContent } from 'material-ui/Card';
+} from '@material-ui/core/Table';
+import Grid from '@material-ui/core/Grid';
+import Card, { CardContent } from '@material-ui/core/Card';
 
 const styles = theme => ({
   root: {

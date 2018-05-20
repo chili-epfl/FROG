@@ -3,11 +3,11 @@
 import * as React from 'react';
 import { uuid } from 'frog-utils';
 
-import Grid from 'material-ui/Grid';
-import IconButton from 'material-ui/IconButton';
-import ArrowBack from '@material-ui/icons/ArrowBack';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@@material-ui/core/icons/ArrowBack';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';

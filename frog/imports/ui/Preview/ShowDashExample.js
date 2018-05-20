@@ -12,7 +12,7 @@ import {
 } from 'frog-utils';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import { CircularProgress } from 'material-ui/Progress';
+import { CircularProgress } from '@material-ui/core/Progress';
 
 import { createDashboards } from '../../api/mergeLogData';
 import { DashboardStates } from '../../../imports/api/cache';

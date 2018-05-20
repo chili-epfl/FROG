@@ -5,8 +5,8 @@ import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
+} from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
 
 import Library from './RemoteLibrary';
 

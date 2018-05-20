@@ -2,10 +2,10 @@
 import React from 'react';
 
 // UI
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
-import Radio, { RadioGroup } from 'material-ui/Radio';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { FormLabel, FormControl, FormControlLabel } from '@material-ui/core/Form';
+import Radio, { RadioGroup } from '@material-ui/core/Radio';
 
 import {
   FARES,

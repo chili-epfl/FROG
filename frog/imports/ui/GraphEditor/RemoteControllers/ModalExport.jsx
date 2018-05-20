@@ -4,9 +4,9 @@ import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
+} from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
