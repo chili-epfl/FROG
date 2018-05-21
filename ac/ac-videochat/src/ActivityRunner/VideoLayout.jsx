@@ -97,6 +97,7 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
               <div style={styles.videoBoxS}>
                 <Video videoId={local.id} mute srcObject={local.srcObject} />
                 <button
+                  disabled={this.state.screen}
                   style={styles.buttonBoxS}
                   onClick={() => this.handleVideoToggle()}
                 >
