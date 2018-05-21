@@ -3,10 +3,9 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import { type ActivityRunnerPropsT, values } from 'frog-utils';
-import 'webrtc-adapter';
+import * as AdapterJs from 'webrtc-adapter';
 
 import WebRtcConfig from '../webrtc-config/config';
-import BrowserUtils from '../utils/browser';
 import { onStreamAdded } from '../analytics/AVStreamAnalysis';
 
 import Header from './Header';
@@ -52,18 +51,20 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   activityType: string;
   role: string;
   mediaConstraints: Object;
+  screenSharingOn: boolean;
+  sendOnlyParticipant: Object;
 
   constructor(props: ActivityRunnerPropsT) {
     super(props);
     this.participants = {};
     this.state = { local: {}, remote: [] };
     this.mediaConstraints = WebRtcConfig.mediaConstraints;
+    this.browser = AdapterJs.browserDetails;
   }
 
   componentDidMount() {
     this.name = this.props.userInfo.name;
     this.id = this.props.userInfo.id;
-    this.browser = BrowserUtils.detectBrowser();
     this.activityType = this.props.activityData.config.activityType;
     if (!this.props.activityData.config.userMediaConstraints.audio) {
       this.mediaConstraints.audio = false;
@@ -306,6 +307,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       mode
     };
     const participant = new Participant(name, id, role, this.sendMessage);
+
+    if (mode === 'sendonly') {
+      this.sendOnlyParticipant = participant;
+    }
+
     this.participants[participant.id] = participant;
 
     if (role !== 'watcher') {
@@ -418,6 +424,31 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     participant.reloadStream();
   };
 
+  toogleScreenShare = () => {
+    if (this.browser.browser === 'firefox') {
+      if (this.screenSharingOn) {
+        this.sendOnlyParticipant.stopScreenShare();
+        this.screenSharingOn = false;
+      } else {
+        if (navigator.mediaDevices) {
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                mediaSource: 'screen'
+              }
+            })
+            .then(screenStream => {
+              this.sendOnlyParticipant.startScreenShare(screenStream);
+            })
+            .catch(err => {
+              console.error('Could not get stream: ', err);
+            });
+        }
+        this.screenSharingOn = true;
+      }
+    }
+  };
+
   render() {
     const local = this.state.local;
     const remote = this.state.remote;
@@ -430,6 +461,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           toogleAudio={this.toogleAudio}
           toogleVideo={this.toogleVideo}
           reloadStream={this.reloadStream}
+          toogleScreenShare={this.toogleScreenShare}
+          toogleScreenSupported={this.browser.browser === 'firefox'}
         />
       </div>
     );

@@ -7,6 +7,8 @@ import MicOff from '@material-ui/icons/MicOff';
 import Videocam from '@material-ui/icons/Videocam';
 import VideocamOff from '@material-ui/icons/VideocamOff';
 import Refresh from '@material-ui/icons/Refresh';
+import Screen from '@material-ui/icons/ScreenShare';
+import ScreenOff from '@material-ui/icons/StopScreenShare';
 import Video from './Video';
 
 const styles = {
@@ -43,12 +45,15 @@ type VideoLayoutPropsT = {
   remote: Array<any>,
   toogleAudio: Function,
   toogleVideo: Function,
-  reloadStream: Function
+  reloadStream: Function,
+  toogleScreenShare: Function,
+  toogleScreenSupported: boolean
 };
 
 type StateT = {
   video: boolean,
-  audio: boolean
+  audio: boolean,
+  screen: boolean
 };
 
 class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
@@ -56,30 +61,33 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     super(props);
     this.state = {
       video: true,
-      audio: true
+      audio: true,
+      screen: false
     };
   }
 
-  handleVideoToggle = (toogleVideo: Function) => {
-    const videoValue = !this.state.video;
-    this.setState({ video: videoValue });
-    toogleVideo();
+  handleVideoToggle = () => {
+    if (!this.state.screen) {
+      const videoValue = !this.state.video;
+      this.setState({ video: videoValue });
+      this.props.toogleVideo();
+    }
   };
 
-  handleAudioToggle = (toogleAudio: Function) => {
+  handleAudioToggle = () => {
     const audioValue = !this.state.audio;
     this.setState({ audio: audioValue });
-    toogleAudio();
+    this.props.toogleAudio();
+  };
+
+  handleScreenShareToogle = () => {
+    const screenValue = !this.state.screen;
+    this.setState({ screen: screenValue });
+    this.props.toogleScreenShare();
   };
 
   render() {
-    const {
-      local,
-      remote,
-      toogleVideo,
-      toogleAudio,
-      reloadStream
-    } = this.props;
+    const { local, remote, reloadStream, toogleScreenSupported } = this.props;
     const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
     return (
       <React.Fragment>
@@ -90,18 +98,27 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                 <Video videoId={local.id} mute srcObject={local.srcObject} />
                 <button
                   style={styles.buttonBoxS}
-                  onClick={() => this.handleVideoToggle(toogleVideo)}
+                  onClick={() => this.handleVideoToggle()}
                 >
                   {this.state.video && <Videocam />}
                   {!this.state.video && <VideocamOff />}
                 </button>
                 <button
                   style={styles.buttonBoxS}
-                  onClick={() => this.handleAudioToggle(toogleAudio)}
+                  onClick={() => this.handleAudioToggle()}
                 >
                   {this.state.audio && <Mic />}
                   {!this.state.audio && <MicOff />}
                 </button>
+                {toogleScreenSupported && (
+                  <button
+                    style={styles.buttonBoxS}
+                    onClick={() => this.handleScreenShareToogle()}
+                  >
+                    {this.state.screen && <Screen />}
+                    {!this.state.screen && <ScreenOff />}
+                  </button>
+                )}
                 {local.name && (
                   <p>
                     <i>Local: {local.name}</i>
