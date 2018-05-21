@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
-
+import Mousetrap from 'mousetrap';
 import constants from './constants.js';
 
 class AnnotationLayer extends Component {
@@ -11,8 +11,7 @@ class AnnotationLayer extends Component {
     const that = this;
     const StoreAdapter = new PDFJSAnnotate.StoreAdapter({
       getAnnotations(documentId, pageNumber) {
-        let annotations = that.getAnnotations();
-        annotations = annotations.filter(a => a.page === pageNumber);
+        const annotations = that.getPageAnnotations();
         return Promise.resolve({
           documentId,
           pageNumber,
@@ -21,48 +20,56 @@ class AnnotationLayer extends Component {
       },
 
       getAnnotation(documentId, annotationId) {
-        const annotations = that.getAnnotations();
+        const annotations = that.getPageAnnotations();
         const annotation = annotations.filter(a => a.uuid === annotationId)[0];
         return Promise.resolve(annotation);
       },
 
       addAnnotation(documentId, pageNumber, annotation) {
-        localStorage.removeItem('savedAnnotations');
+        const currentPageNum = that.getCurrentPageNum();
+        const savedAnnotations = that.getSavedAnnotations();
+        delete savedAnnotations[currentPageNum]
+        that.replaceSavedAnnotations(savedAnnotations);
+
         annotation.class = 'Annotation';
         annotation.uuid = uuid();
         annotation.page = pageNumber;
-        props.dataFn.listAppend(annotation, ['annotations']);
+        const pageAnnotations = that.getPageAnnotations();
+        if (pageAnnotations.length===0) props.dataFn.objInsert([annotation], ['annotations', currentPageNum]);
+        else props.dataFn.listAppend(annotation, ['annotations', currentPageNum]);
         return Promise.resolve(annotation);
       },
 
       editAnnotation(documentId, pageNumber, annotation) {
-        const annotations = that.getAnnotations();
+        const currentPageNum = that.getCurrentPageNum();
+        const annotations = that.getPageAnnotations();
         const index = annotations.findIndex(x => x.uuid === annotation.uuid);
 
         return new Promise((resolve, reject) => {
-          if (index == null) reject(new Error('Could not find annotation!'));
+          if (index == -1) reject(new Error('Could not find annotation!'));
           else {
-            props.dataFn.objSet(annotation, ['annotations', index.toString()]);
+            props.dataFn.objSet(annotation, ['annotations', currentPageNum, index.toString()]);
             resolve(annotation);
           }
         });
       },
 
       deleteAnnotation(documentId, annotationId) {
-        const annotations = that.getAnnotations();
-        const index = annotations.findIndex(x => x.id === annotationId);
-
+        const currentPageNum = that.getCurrentPageNum();
+        const annotations = that.getPageAnnotations();
+        const index = annotations.findIndex(x => x.uuid === annotationId);
+        console.log(index);
         return new Promise((resolve, reject) => {
-          if (index == null) reject(new Error('Could not find annotation!'));
+          if (index == -1) reject(new Error('Could not find annotation!'));
           else {
-            props.dataFn.listDel(null, ['annotations', index]);
-            const savedAnnotations =
-              JSON.parse(localStorage.getItem('savedAnnotations')) || [];
-            savedAnnotations.push(annotations[index]);
-            localStorage.setItem(
-              'savedAnnotations',
-              JSON.stringify(savedAnnotations)
-            );
+            const savedAnnotations = that.getSavedAnnotations();
+            const currentPageNum = that.getCurrentPageNum();
+            if (savedAnnotations[currentPageNum]) savedAnnotations[currentPageNum].push(annotations[index]);
+            else savedAnnotations[currentPageNum] = [annotations[index]]
+            that.replaceSavedAnnotations(savedAnnotations);
+
+            props.dataFn.listDel(null, ['annotations', currentPageNum, index]);
+            
             resolve(true);
           }
         });
@@ -90,27 +97,56 @@ class AnnotationLayer extends Component {
     this.editorRender = false;
   }
 
+  componentWillMount() {
+    if (!localStorage.getItem('savedAnnotations')) this.replaceSavedAnnotations({});
+    
+    Mousetrap.bind('backspace', () => this.undo());
+    Mousetrap.bind('left', () => this.handleLeftArrow());
+    Mousetrap.bind('right', () => this.handleRightArror());
+  }
+
+  handleLeftArrow = () => {
+    if (this.state.studentPaging) this.prevPageStudent();
+    else if (this.checkIfTeacher()) this.prevPageAdmin();
+  }
+
+  handleRightArror = () => {
+    if (this.state.studentPaging) this.nextPageStudent();
+    else if (this.checkIfTeacher()) this.nextPageAdmin();
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind('backspace');
+    Mousetrap.unbind('left');
+    Mousetrap.unbind('right');
+  }
+
   componentDidMount() {
     this.forceRenderPage();
   }
 
-  shouldComponentUpdate = (nextProps, nextState) =>
-    !this.queuedRender &&
-    (!nextState.studentPaging ||
-      this.state.pageNumStudent !== nextState.pageNumStudent);
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.queuedRender) return false;
+    return true;
+  }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.checkIfTeacher() && !this.editorRender) return;
 
-    this.editorRender = false;
+    if (this.state.studentPaging && 
+      this.state.pageNumStudent !== this.props.data.pageNum &&
+      prevProps.data.pageNum !== this.props.data.pageNum) return;
 
     if (this.rendering) {
+      console.log('Currently rendering')
       if (!this.queuedRender) {
         this.queuedRender = true;
-        setTimeout(this.queueUpRender, 1000);
+        setTimeout(this.queueUpRender, 500);
       }
       return;
     }
+
+    this.editorRender = false;
 
     this.forceRenderPage();
   }
@@ -118,6 +154,8 @@ class AnnotationLayer extends Component {
   queueUpRender = () => {
     if (!this.rendering) {
       this.queuedRender = false;
+      if (this.checkIfTeacher()) this.editorRender = true;
+      this.forceUpdate();
     } else {
       setTimeout(this.queueUpRender, 500);
     }
@@ -129,6 +167,27 @@ class AnnotationLayer extends Component {
   };
 
   getAnnotations = () => this.props.data.annotations;
+
+  getCurrentPageNum = () => {
+    if (this.studentPaging) return this.state.pageNumStudent;
+    else return this.props.data.pageNum;
+  }
+
+  getPageAnnotations = () => (this.props.data.annotations[this.getCurrentPageNum()] || []);
+
+  getSavedAnnotations = () => JSON.parse(localStorage.getItem('savedAnnotations')) || {};
+
+  getSavedPageAnnotations = () => JSON.parse(localStorage.getItem('savedAnnotations'))[this.getCurrentPageNum()] || [];
+  
+  replaceSavedAnnotations = (savedAnnotations) => {
+    localStorage.setItem('savedAnnotations', JSON.stringify(savedAnnotations));
+  }
+  
+  clearAnnotations = () => {
+    this.replaceSavedAnnotations({});
+    this.props.dataFn.objSet({}, 'annotations');
+    this.editorRender = true;
+  };
 
   setActiveToolbarItem = item => {
     const UI = this.PDFJSAnnotate.UI;
@@ -181,13 +240,8 @@ class AnnotationLayer extends Component {
     this.setState({ activeItem: item });
   };
 
-  clearAnnotations = () => {
-    localStorage.removeItem('savedAnnotations');
-    this.props.dataFn.objSet([], 'annotations');
-    this.editorRender = true;
-  };
-
   forceRenderPage = () => {
+    // console.log('RENDERING PAGE');
     this.rendering = true;
     const RENDER_OPTIONS = {
       documentId: this.props.pdf.fingerprint,
@@ -215,14 +269,14 @@ class AnnotationLayer extends Component {
 
   nextPageAdmin = () => {
     if (this.props.data.pageNum + 1 > this.props.pdf.numPages) return;
-    this.props.dataFn.numIncr(1, ['pageNum']);
     this.editorRender = true;
+    this.props.dataFn.numIncr(1, ['pageNum']);
   };
 
   prevPageAdmin = () => {
     if (this.props.data.pageNum <= 1) return;
-    this.props.dataFn.numIncr(-1, ['pageNum']);
     this.editorRender = true;
+    this.props.dataFn.numIncr(-1, ['pageNum']);
   };
 
   nextPageStudent = () => {
@@ -259,40 +313,70 @@ class AnnotationLayer extends Component {
     this.setState({ studentPaging: false });
   };
 
+  getValidPageNum(pageNum) {
+    try {
+      pageNum = Number(pageNum);
+      return pageNum;
+    }
+    catch(e) {
+      console.error(e);
+    }
+    return 0;
+  }
+
+  changePageAdmin = (pageNum) => {
+    pageNum = this.getValidPageNum(pageNum);
+    if (pageNum) {
+      this.editorRender = true;
+      this.props.dataFn.objSet(pageNum, ['pageNum']);
+    }
+  };
+
+  changePageStudent = (pageNum) => {
+    pageNum = this.getValidPageNum(pageNum);
+    if (pageNum) {
+      this.setState({
+        studentPaging: true,
+        pageNumStudent: pageNum
+      });
+    }
+  }
+  
+
+
   checkIfSamePageNum = pageNum =>
     (this.state.studentPaging && this.state.pageNumStudent === pageNum) ||
     (!this.state.studentPaging && this.props.data.pageNum === pageNum);
 
   undo = () => {
-    if (this.props.data.annotations.length === 0) return;
-    const index = this.props.data.annotations.length - 1;
-    const annotation = this.props.data.annotations[index];
+    const currentPageNum = this.getCurrentPageNum();
+    const pageAnnotations = this.getPageAnnotations();
+    if (pageAnnotations.length === 0) return;
 
-    if (!this.checkIfSamePageNum(annotation.page)) return;
+    const index = pageAnnotations.length-1;
+    const annotation = pageAnnotations[index];
 
-    const savedAnnotations =
-      JSON.parse(localStorage.getItem('savedAnnotations')) || [];
-    savedAnnotations.push(annotation);
-    localStorage.setItem('savedAnnotations', JSON.stringify(savedAnnotations));
-
-    this.props.dataFn.listDel(null, ['annotations', index.toString()]);
+    const savedAnnotations = this.getSavedAnnotations();
+    if (savedAnnotations[currentPageNum]) savedAnnotations[currentPageNum].push(annotation);
+    else savedAnnotations[currentPageNum] = [annotation]
+    this.replaceSavedAnnotations(savedAnnotations);
+    
     this.editorRender = true;
+    this.props.dataFn.listDel(null, ['annotations', currentPageNum, index.toString()]);
   };
 
   redo = () => {
-    const savedAnnotations =
-      JSON.parse(localStorage.getItem('savedAnnotations')) || [];
-    if (savedAnnotations.length === 0) return;
-    const annotation = savedAnnotations[savedAnnotations.length - 1];
+    const savedAnnotations = this.getSavedAnnotations();
+    const currentPageNum = this.getCurrentPageNum();
+    const pageAnnotations = savedAnnotations[currentPageNum]
+    if (pageAnnotations.length === 0) return;
 
-    if (!this.checkIfSamePageNum(annotation.page)) return;
+    const annotation = savedAnnotations[currentPageNum][pageAnnotations.length - 1];
+    savedAnnotations[currentPageNum] = savedAnnotations[currentPageNum].slice(0, -1)
+    this.replaceSavedAnnotations(savedAnnotations);
 
-    localStorage.setItem(
-      'savedAnnotations',
-      JSON.stringify(savedAnnotations.slice(0, -1))
-    );
-    this.props.dataFn.listAppend(annotation, ['annotations']);
     this.editorRender = true;
+    this.props.dataFn.listAppend(annotation, ['annotations', currentPageNum]);
   };
 
   selectPenSize = e => {
@@ -310,6 +394,7 @@ class AnnotationLayer extends Component {
   };
 
   render() {
+    // console.log('RENDERING');
     const { activityData } = this.props;
 
     const UI = this.PDFJSAnnotate.UI;
@@ -318,6 +403,10 @@ class AnnotationLayer extends Component {
       ? this.state.pageNumStudent
       : this.props.data.pageNum;
 
+    const pageAnnotationsLocalStorage = this.getSavedPageAnnotations();
+    const pageAnnotationsDatabase = this.getPageAnnotations();
+
+    
     const test = UI.createPage(shownPageNum);
     const svgStyle = test.querySelector('svg').style;
     svgStyle.position = 'absolute';
@@ -410,22 +499,26 @@ class AnnotationLayer extends Component {
     const editorItems = !this.checkIfTeacher() ? null : (
       <span>
         <span>Teacher/Admin: </span>
-        <button onClick={this.undo}>UNDO</button>
-        <button onClick={this.redo}>REDO</button>
-        <button onClick={this.clearAnnotations}>Clear Annotations</button>
+        <button onClick={this.undo} disabled={pageAnnotationsDatabase.length===0}>UNDO</button>
+        <button onClick={this.redo} disabled={pageAnnotationsLocalStorage.length===0}>REDO</button>
+        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
         <button onClick={this.prevPageAdmin}>Prev Page</button>
         <button onClick={this.nextPageAdmin}>Next Page</button>
+        <button onClick={() => this.changePageAdmin(1)}>First</button>
+        <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>Last</button>
         <hr />
         <span>Annotate: </span>
         {annotateItems}
       </span>
     );
 
-    const studentItems = this.checkIfTeacher() ? null : (
+    const studentItems = (this.checkIfTeacher() || activityData.config.studentMustFollow) ? null : (
       <span>
         <span>Student: </span>
         <button onClick={this.prevPageStudent}>Prev Page</button>
         <button onClick={this.nextPageStudent}>Next Page</button>
+        <button onClick={() => this.changePageStudent(1)}>First</button>
+        <button onClick={() => this.changePageStudent(this.props.pdf.numPages)}>Last</button>
         {this.state.studentPaging && (
           <button onClick={this.goBackToAdminPaging}>Back To Teacher</button>
         )}
@@ -434,6 +527,7 @@ class AnnotationLayer extends Component {
 
     return (
       <div>
+        <hr />
         {debugItems}
         {editorItems}
         {studentItems}

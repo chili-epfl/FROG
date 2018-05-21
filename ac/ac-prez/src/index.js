@@ -2,6 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import ActivityRunner from './Prez';
+import { config } from './config';
 
 const meta = {
   name: 'Presentation activity',
@@ -12,26 +13,8 @@ const meta = {
   ]
 };
 
-const config = {
-  type: 'object',
-  properties: {
-    title: {
-      title: 'What is the title?',
-      type: 'string'
-    },
-    pdf_url: {
-      title: 'Full PDF URL',
-      type: 'string'
-    },
-    debug: {
-      debug: true,
-      type: 'boolean'
-    }
-  }
-};
-
 const dataStructure = {
-  annotations: [],
+  annotations: {},
   pageNum: 1,
   pdf_file: ''
 };
