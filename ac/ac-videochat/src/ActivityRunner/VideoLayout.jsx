@@ -88,7 +88,7 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
   };
 
   toogleFullScreen = (videoId: string) => {
-    const video = document.getElementById(videoId);
+    const video: any = document.getElementById(videoId);
     if (video.requestFullscreen) {
       video.requestFullscreen();
     } else if (video.mozRequestFullScreen) {
