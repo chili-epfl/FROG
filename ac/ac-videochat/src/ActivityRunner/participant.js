@@ -47,7 +47,6 @@ class Participant {
       this.rtcPeer = new RTCPeerConnection(options.configuration);
       this.rtcPeer.onicecandidate = this.onIceCandidate;
       if (mode === 'sendonly' || mode === 'sendrecv') {
-        // this.rtcPeer.addStream(options.myStream);
         this.sendOnlyStream = options.myStream;
         this.cameraVideoTrack = options.myStream.getVideoTracks()[0];
         const audioTrack = options.myStream.getAudioTracks()[0];

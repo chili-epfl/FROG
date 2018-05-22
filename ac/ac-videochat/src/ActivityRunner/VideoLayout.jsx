@@ -111,14 +111,14 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                 <button
                   disabled={this.state.screen}
                   style={styles.buttonBoxS}
-                  onClick={() => this.handleVideoToggle()}
+                  onClick={this.handleVideoToggle}
                 >
                   {this.state.video && <Videocam />}
                   {!this.state.video && <VideocamOff />}
                 </button>
                 <button
                   style={styles.buttonBoxS}
-                  onClick={() => this.handleAudioToggle()}
+                  onClick={this.handleAudioToggle}
                 >
                   {this.state.audio && <Mic />}
                   {!this.state.audio && <MicOff />}
@@ -126,7 +126,7 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                 {toogleScreenSupported && (
                   <button
                     style={styles.buttonBoxS}
-                    onClick={() => this.handleScreenShareToogle()}
+                    onClick={this.handleScreenShareToogle}
                   >
                     {this.state.screen && <Screen />}
                     {!this.state.screen && <ScreenOff />}
