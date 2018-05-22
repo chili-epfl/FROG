@@ -189,6 +189,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
       Connections.find({ graphId }).fetch()
     );
     if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
+      console.warn('Broken graph', validOutput);
       Graphs.update(graphId, { $set: { broken: true } });
       return 'invalidGraph';
     }
