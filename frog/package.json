@@ -31,6 +31,7 @@
     "ac-train": "1.0.0",
     "ac-uploader": "1.0.0",
     "ac-video": "1.0.0",
+    "ac-videochat": "1.0.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
     "buffer": "^5.1.0",
