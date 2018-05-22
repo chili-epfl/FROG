@@ -9,6 +9,7 @@ import VideocamOff from '@material-ui/icons/VideocamOff';
 import Refresh from '@material-ui/icons/Refresh';
 import Screen from '@material-ui/icons/ScreenShare';
 import ScreenOff from '@material-ui/icons/StopScreenShare';
+import FullScreen from '@material-ui/icons/Fullscreen';
 import Video from './Video';
 
 const styles = {
@@ -86,6 +87,17 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     this.props.toogleScreenShare();
   };
 
+  toogleFullScreen = (videoId: string) => {
+    const video = document.getElementById(videoId);
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) {
+      video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen();
+    }
+  };
+
   render() {
     const { local, remote, reloadStream, toogleScreenSupported } = this.props;
     const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
@@ -130,7 +142,7 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
           {sortedRemote.map((participant, _) => (
             <div style={styles.videoBoxS} key={participant.id}>
               <Video
-                videoId={participant.id}
+                videoId={'remote_' + participant.id}
                 mute={false}
                 srcObject={participant.srcObject}
               />
@@ -139,6 +151,14 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                 onClick={() => reloadStream(participant.id)}
               >
                 <Refresh />
+              </button>
+              <button
+                style={styles.buttonBoxS}
+                onClick={() =>
+                  this.toogleFullScreen('remote_' + participant.id)
+                }
+              >
+                <FullScreen />
               </button>
               <p>{participant.name}</p>
             </div>
