@@ -25,7 +25,7 @@ import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
 import LearningItem from '../LearningItem';
 
-const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
+const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
 
 export const initActivityDocuments = (
   instances: string[],

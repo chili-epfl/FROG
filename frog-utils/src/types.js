@@ -161,6 +161,7 @@ export type DashboardT = {
   Viewer: React.ComponentType<DashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
+  reactiveToDisplay?: (reactive: any, activity: ActivityDbT) => any,
   initData: any,
   exampleLogs?: (
     | {

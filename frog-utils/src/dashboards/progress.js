@@ -245,28 +245,28 @@ const activityMerge = {
 
 const exampleLogs = [
   {
+    type: 'logs',
     title: 'CS211 week 1 (n=400)',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1-short.json',
     activityMerge,
-    instances: 118,
-    type: 'logs'
+    instances: 118
   },
   {
+    type: 'logs',
     title: 'CS211 week 1',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1.json',
     activityMerge,
-    instances: 118,
-    type: 'logs'
+    instances: 118
   },
   {
+    type: 'logs',
     title: 'CS211 week 2',
     path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w2-2018.json',
     activityMerge: {
       actualStartingTime: '2018-03-13T07:28:02.833Z',
       actualClosingTime: '2018-03-13T07:34:42.700Z'
     },
-    instances: 81,
-    type: 'logs'
+    instances: 81
   }
 ];
 
