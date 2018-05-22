@@ -7,10 +7,10 @@ import { isEqual } from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
