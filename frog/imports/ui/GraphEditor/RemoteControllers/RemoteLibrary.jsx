@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
+import List from '@material-ui/core/List';
+
 import { LibraryStates } from '/imports/api/cache';
 import {
   importGraph,
@@ -12,7 +14,7 @@ import {
   importAct,
   checkDateAct
 } from '/imports/api/remoteActivities';
-import LibraryListComponent from './LibraryListComponent';
+import LibraryListComponent from '../SidePanel/ListComponent';
 
 const filterWithStr = (list: Array<any>, searchStr: string) =>
   list &&
@@ -94,7 +96,8 @@ class Library extends Component<Object, { searchStr: string }> {
             <span className="glyphicon glyphicon-repeat" />
           </button>
         </div>
-        <div
+        <List>
+        {/* <div
           className="list-group"
           style={{
             height: '93%',
@@ -102,7 +105,7 @@ class Library extends Component<Object, { searchStr: string }> {
             overflowY: 'scroll',
             transform: 'translateY(10px)'
           }}
-        >
+        > */}
           {filtered && filtered.length === 0 ? (
             <div
               style={{
@@ -117,6 +120,14 @@ class Library extends Component<Object, { searchStr: string }> {
             filtered &&
             filtered.map((x: Object) => (
               <LibraryListComponent
+                object={{
+                  id: x.uuid,
+                  meta:{
+                    name: x.title,
+                    shortDesc: x.description
+                  },
+                  ...x
+                }}
                 onSelect={() => {
                   // setConfig
                   if (libraryType === 'activity') {
@@ -134,7 +145,7 @@ class Library extends Component<Object, { searchStr: string }> {
                     this.props.setModal(false);
                   }
                 }}
-                object={x}
+                // object={x}
                 key={x.uuid}
                 onPreview={() =>
                   store.ui.setShowPreview({
@@ -143,12 +154,14 @@ class Library extends Component<Object, { searchStr: string }> {
                   })
                 }
                 eventKey={x.uuid}
-                searchStr={searchStr || this.state.searchStr}
+                searchS={searchStr || this.state.searchStr}
                 {...{ setDelete, setIdRemove }}
+                isLibrary='true'
               />
             ))
           )}
-        </div>
+        {/* </div> */}
+      </List>
       </div>
     );
   }

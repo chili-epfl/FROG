@@ -9,7 +9,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 
 import { Highlight } from 'frog-utils';
 
@@ -35,8 +37,11 @@ const ListItems = ({
   expand,
   hasPreview,
   onPreview,
+  isLibrary,
+  setIdRemove,
+  setDelete,
   searchS
-}: any) => (
+}: any) =>(
   <ListItem button value={object.id} onClick={onSelect}>
     <Grid container>
       <Grid item xs={12}>
@@ -49,7 +54,11 @@ const ListItems = ({
           <Highlight text={object.meta.shortDesc} searchStr={searchS} />
         </Typography>
       </Grid>
-      {showExpanded && (
+      {isLibrary ?
+        <div>
+          {object.tags.map((x) => <Chip key={x} label={x}/>)}
+        </div>
+        : showExpanded && (
         <Grid item xs={12}>
           <Typography
             variant="caption"
@@ -67,7 +76,7 @@ const ListItems = ({
     {/* <ListItemText
       secondary={<Highlight text={object.meta.shortDesc} searchStr={searchS} />}
     >
-      
+
     </ListItemText> */}
 
     <ListItemSecondaryAction>
@@ -91,22 +100,41 @@ const ListItems = ({
           )}
         </Grid>
         <Grid item xs={6}>
-          {!showExpanded && (
+          {isLibrary ?
             <IconButton
               value={object.id}
               aria-label="Preview"
-              onClick={expand}
+              onClick={() => {
+                if (setIdRemove) setIdRemove(object.uuid);
+                setDelete(true);
+              }}
               classes={{
                 root: classes.iconButtonRoot
               }}
             >
-              <ExpandMore
-                classes={{
-                  root: classes.iconRoot
-                }}
+              <DeleteOutline
+                  classes={{
+                    root: classes.iconRoot
+                  }}
               />
             </IconButton>
-          )}
+            : !showExpanded && (
+              <IconButton
+                value={object.id}
+                aria-label="Preview"
+                onClick={expand}
+                classes={{
+                  root: classes.iconButtonRoot
+                }}
+              >
+                <ExpandMore
+                  classes={{
+                    root: classes.iconRoot
+                  }}
+                />
+              </IconButton>
+            )
+          }
         </Grid>
       </Grid>
     </ListItemSecondaryAction>

@@ -12,7 +12,9 @@ export default ({
   searchStr,
   setDelete,
   setIdRemove
-}: any) => (
+}: any) => {
+  console.log(object)
+  return(
   <div className="bootstrap">
     <div className="list-group-item">
       <div style={{ marginLeft: '35px', minHeight: '48px' }}>
@@ -94,4 +96,4 @@ export default ({
       )}
     </div>
   </div>
-);
+)};
