@@ -64,8 +64,8 @@ export const checkDateAct = (callback: ?Function) => {
   }
 };
 
-export const sendActivity = (state: Object, props: Object) => {
-  const newId = uuid();
+export const sendActivity = (state: Object, props: Object, id: string) => {
+  const newId = id || uuid();
   const act = {
     title: state.title,
     description: state.description,

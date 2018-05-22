@@ -91,9 +91,9 @@ class Config extends React.Component<
     };
     this.aT =
       activityTypesObj[
-        typeof this.props.activity.activityType.activity_type === 'object'
-          ? this.props.activity.activityType.activity_type
-          : this.props.activity.activityType
+        typeof props.activity.activityType === 'object'
+          ? props.activity.activityType.activity_type
+          : props.activity.activityType
       ];
   }
 

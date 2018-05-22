@@ -100,7 +100,7 @@ class PreviewPage extends React.Component<any, any> {
         if (!(activityTypesObj[activityTypeId]?.meta?.preview === false)) {
           this.setState({ activityTypeId });
         }
-      },
+      }
     };
   }
 

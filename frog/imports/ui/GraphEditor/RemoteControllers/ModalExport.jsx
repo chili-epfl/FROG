@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { uuid } from 'frog-utils';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -78,7 +79,15 @@ export default class ExportModal extends Component<Object, StateT> {
             color="primary"
             onClick={() => {
               if (this.props.exportType === 'activity') {
-                sendActivity(this.state, this.props);
+                const id = uuid();
+                sendActivity(this.state, this.props, id);
+                if (this.props.setMetadatas) {
+                  this.props.setMetadatas({
+                    uuid: id,
+                    ...this.state
+                  });
+                  this.props.updateParent();
+                }
                 this.props.setModal(false);
               } else if (this.props.exportType === 'graph') {
                 sendGraph(this.state, this.props);

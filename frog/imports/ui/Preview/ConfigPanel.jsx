@@ -15,6 +15,7 @@ import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
 import { LibraryStates } from '/imports/api/cache';
+import { updateActivity } from '/imports/api/remoteActivities';
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
@@ -134,7 +135,16 @@ class ConfigPanel extends React.Component<*, *> {
             </Grid>
             <Grid item xs={2}>
               {metadatas.uuid && (
-                <Button color="primary" onClick={() => {}}>
+                <Button
+                  color="primary"
+                  style={{ left: '-25px' }}
+                  onClick={() => {
+                    updateActivity(metadatas.uuid, {
+                      ...metadatas,
+                      data: { ...config }
+                    });
+                  }}
+                >
                   Save
                 </Button>
               )}
@@ -144,6 +154,8 @@ class ConfigPanel extends React.Component<*, *> {
                   data: config,
                   activityType: activityTypeId
                 }}
+                {...{ setMetadatas }}
+                updateParent={() => this.forceUpdate()}
               />
             </Grid>
             <Grid item xs={12}>
@@ -200,7 +212,7 @@ class ConfigPanel extends React.Component<*, *> {
         )}
         <ApiForm
           hidePreview
-          {...{ config, setConfig }}
+          {...{ config, setConfig, setMetadatas }}
           activityType={activityTypeId}
           onConfigChange={this.onConfigChange}
           onSelect={activityType => {
