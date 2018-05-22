@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import { uuid } from 'frog-utils';
+import { uuid, type MongoT, type DashboardDataDbT } from 'frog-utils';
 
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
@@ -12,10 +12,12 @@ import { Sessions } from './sessions';
 export const Activities = new Mongo.Collection('activities');
 export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
-export const DashboardData = new Mongo.Collection('dashboard_data');
+export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
+  'dashboard_data'
+);
 
 export const addActivity = (
-  activityType: string,
+  activityType?: string,
   data: ?Object = {},
   id: string,
   groupingKey: ?string,
@@ -34,6 +36,14 @@ export const addActivity = (
       createdAt: new Date()
     });
   }
+};
+
+export const removeActivityType = (id: string) => {
+  Activities.update(id, { $unset: { activityType: null, data: null } });
+};
+
+export const removeOperatorType = (id: string) => {
+  Operators.update(id, { $unset: { operatorType: null, data: null } });
 };
 
 export const setParticipation = (

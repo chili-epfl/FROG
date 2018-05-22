@@ -5,7 +5,7 @@ import { LibraryStates } from '/imports/api/cache';
 import { loadActivityMetaData } from '/imports/api/remoteActivities';
 
 import Modal from '../../RemoteControllers/ModalExport';
-import { IconButton } from './EditActivity';
+import { IconButton } from '../index';
 
 const StatelessExportButton = (props: Object) => (
   <div>

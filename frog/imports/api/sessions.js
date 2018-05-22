@@ -176,6 +176,7 @@ export const updateOpenActivities = (
   Sessions.update(sessionId, {
     $set: { openActivities, timeInGraph, state: 'STARTED' }
   });
+  Meteor.call('reactive.listen', openActivities);
 };
 
 export const removeSession = (sessionId: string) =>
@@ -189,6 +190,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
       Connections.find({ graphId }).fetch()
     );
     if (validOutput.errors.filter(x => x.severity === 'error').length > 0) {
+      console.warn('Broken graph', validOutput);
       Graphs.update(graphId, { $set: { broken: true } });
       return 'invalidGraph';
     }

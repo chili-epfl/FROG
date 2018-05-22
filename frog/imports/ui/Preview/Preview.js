@@ -6,8 +6,8 @@ import Modal from 'react-modal';
 import ShareDB from 'sharedb';
 import Draggable from 'react-draggable';
 
-import { withStyles } from 'material-ui/styles';
-import Dialog from 'material-ui/Dialog';
+import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
 
 import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
@@ -57,8 +57,9 @@ const styles = {
   }
 };
 
-const backend = new ShareDB();
+export const backend = new ShareDB();
 export const connection = backend.connect();
+window.connection = connection;
 
 const StatelessPreview = (props: Object) => {
   const {

@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react';
 import { withRouter } from 'react-router';
 import { isEqual } from 'lodash';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import ShowInfo from './ShowInfo';
 import Graph from '../GraphEditor/Graph';

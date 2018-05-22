@@ -1,9 +1,10 @@
 // @flow
 import * as React from 'react';
 
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { Button } from 'react-bootstrap';
 
 import { connect } from '../store';
 import ActivityPanel from './ActivityPanel';
@@ -37,6 +38,18 @@ const SideBarHelperText = ({ classes }) => (
       </Typography>
     </div>
   </Grid>
+);
+
+export const IconButton = ({ icon, onClick, tooltip }: Object) => (
+  <div className="bootstrap">
+    <Button
+      style={{ width: '35px', height: '25px' }}
+      data-tip={tooltip}
+      onClick={onClick}
+    >
+      <span className={icon} style={{ verticalAlign: 'top' }} />
+    </Button>
+  </div>
 );
 
 const StyledSideBarHelperText = withStyles(styles)(SideBarHelperText);

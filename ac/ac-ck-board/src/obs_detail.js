@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from 'material-ui/Button';
-import Dialog from 'material-ui/Dialog';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 
 export default ({ title, content, closeInfoFn }) => {
   const actions = [<Button label="X" secondary onClick={closeInfoFn} />];

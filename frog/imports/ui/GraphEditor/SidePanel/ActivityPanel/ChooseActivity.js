@@ -5,19 +5,19 @@ import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
-import Divider from 'material-ui/Divider';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import List from 'material-ui/List';
-import { withStyles } from 'material-ui/styles';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import { withStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
 import Cloud from '@material-ui/icons/Cloud';
 
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
-import { ModalPreview } from '../../../Preview';
+import Preview from '../../../Preview';
 
 type StateT = {
   expanded: ?string,
@@ -264,7 +264,8 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             </Grid>
           ))}
         {this.state.showInfo !== null && (
-          <ModalPreview
+          <Preview
+            modal
             activityTypeId={this.state.showInfo}
             dismiss={() => this.setState({ showInfo: null })}
           />

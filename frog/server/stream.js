@@ -5,6 +5,7 @@ import { generateReactiveFn, splitPathObject } from 'frog-utils';
 
 import { serverConnection } from './share-db-manager';
 import { SharedbCache } from '../imports/api/cache';
+import LearningItem from '../imports/ui/LearningItem';
 
 const safelyInsertObject = (doc, dataFn, path, value, instanceId) => {
   const { insertObject, insertPath } = splitPathObject(doc.data, path, value);
@@ -26,12 +27,12 @@ Meteor.methods({
         const doc = serverConnection.get('rz', docId);
         doc.subscribe();
         if (doc.type) {
-          const dataFn = generateReactiveFn(doc);
+          const dataFn = generateReactiveFn(doc, LearningItem);
           SharedbCache[docId] = [doc, dataFn];
           safelyInsertObject(doc, dataFn, path, value, instanceId);
         } else {
           doc.once('load', () => {
-            const dataFn = generateReactiveFn(doc);
+            const dataFn = generateReactiveFn(doc, LearningItem);
             SharedbCache[docId] = [doc, dataFn];
             safelyInsertObject(doc, dataFn, path, value, instanceId);
           });

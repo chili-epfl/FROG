@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { wordWrap } from 'frog-utils';
-import { blue } from 'material-ui/colors';
+import { blue } from '@material-ui/core/colors';
 
 import { connect } from './store';
 

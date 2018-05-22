@@ -155,7 +155,15 @@ const mergeLog = (state: DashStateT, log: LogDbT, activity: ActivityDbT) => {
   }
 };
 
-const statsDashboard: DashboardT = { Viewer, mergeLog, initData };
+const exampleLogs = [
+  {
+    type: 'logs',
+    title: 'CS211',
+    path: 'ac/ac-train/src/Dashboards/exampleLogs/cs211.json'
+  }
+];
+
+const statsDashboard: DashboardT = { Viewer, mergeLog, initData, exampleLogs };
 
 export default {
   stats: statsDashboard,

@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-
 import { compose, toClass } from 'recompose';
 import { uniq } from 'lodash';
 
@@ -21,11 +20,12 @@ import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
 import { activityTypesObj } from '../../activityTypes';
-import { connection } from './Preview';
+import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
+import LearningItem from '../LearningItem';
 
-const DocId = (acId, instance) => 'preview/' + acId + '/' + instance;
+const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
 
 export const initActivityDocuments = (
   instances: string[],
@@ -34,12 +34,29 @@ export const initActivityDocuments = (
   config: Object,
   refresh: boolean
 ) => {
+  const exs = addDefaultExample(activityType);
+  if (exs[example].learningItems) {
+    exs[example].learningItems.forEach(li => {
+      const doc = connection.get('li', li.id);
+      if (doc.type) {
+        doc.submitOp({ p: [], oi: li });
+      } else {
+        doc.create(li);
+      }
+    });
+  }
   uniq(instances).forEach(instance => {
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
-        const dataFn = generateReactiveFn(_doc);
-        const exs = addDefaultExample(activityType);
+        const dataFn = generateReactiveFn(
+          _doc,
+          LearningItem,
+          undefined,
+          undefined,
+          undefined,
+          backend
+        );
         const data =
           example === -1 || example === undefined
             ? cloneDeep(activityType.dataStructure)
@@ -58,7 +75,14 @@ export const initActivityDocuments = (
         }
       });
     } else if (refresh) {
-      const dataFn = generateReactiveFn(doc);
+      const dataFn = generateReactiveFn(
+        doc,
+        LearningItem,
+        undefined,
+        undefined,
+        undefined,
+        backend
+      );
       dataFn.objInsert(cloneDeep(activityType.dataStructure) || {}, []);
       runMergeFunction(doc);
     }
@@ -99,10 +123,18 @@ const ContentController = ({
   const activityData = { data, config };
 
   const Run = ({ name, instance }) => {
+    if (activityType.meta.preview === false) {
+      return <h1>No preview available for this activity type</h1>;
+    }
     const docId = DocId(activityType.id, instance);
-    const ActivityToRun = ReactiveHOC(docId, connection)(
-      showData ? ShowInfo : RunComp
-    );
+    const ActivityToRun = ReactiveHOC(
+      docId,
+      connection,
+      false,
+      undefined,
+      undefined,
+      backend
+    )(showData ? ShowInfo : RunComp);
     const logger = createLogger(
       'preview',
       instance,
@@ -122,6 +154,7 @@ const ContentController = ({
         stream={() => undefined}
         logger={logger}
         groupingValue={instance}
+        sessionId={reloadActivity}
       />
     );
   };

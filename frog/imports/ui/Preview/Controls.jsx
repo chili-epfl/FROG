@@ -48,6 +48,7 @@ export default (props: Object) => {
     setExample,
     plane,
     users,
+    modal,
     setUsers,
     setPlane,
     setInstances
@@ -58,8 +59,14 @@ export default (props: Object) => {
   }
   const examples = addDefaultExample(activityType);
 
-  const refresh = () => {
-    initActivityDocuments(instances, activityType, example, config, true);
+  const refresh = ex => {
+    initActivityDocuments(
+      instances,
+      activityType,
+      ex === undefined ? example : ex,
+      config,
+      true
+    );
     // resets the reactive documents for the dashboard
     initDashboardDocuments(activityType, true);
     Logs.length = 0;
@@ -188,8 +195,12 @@ export default (props: Object) => {
               style={ex.type === 'deeplink' ? { fontStyle: 'italic' } : {}}
               eventKey={i}
               onClick={() => {
-                const exConf = ex.config;
-                setConfig(exConf);
+                if (modal) {
+                  refresh(i);
+                } else {
+                  const exConf = ex.config;
+                  setConfig(exConf);
+                }
                 setReloadAPIform(uuid());
                 initDashboardDocuments(activityType, true);
                 setExample(i);

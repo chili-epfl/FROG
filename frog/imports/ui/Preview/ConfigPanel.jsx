@@ -4,8 +4,8 @@ import * as React from 'react';
 import { uuid } from 'frog-utils';
 import { isEqual } from 'lodash';
 
-import Grid from 'material-ui/Grid';
-import IconButton from 'material-ui/IconButton';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -119,6 +119,7 @@ class ConfigPanel extends React.Component<*, *> {
           <Grid container spacing={8} alignItems="center">
             <Grid item xs={2}>
               <IconButton
+                className="arrowback"
                 aria-label="back-to-preview"
                 onClick={this.backToPreview}
               >
