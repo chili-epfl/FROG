@@ -2,7 +2,7 @@
 import * as React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { cloneDeep } from 'lodash';
-import { generateReactiveFn, getDisplayName, uuid } from 'frog-utils';
+import { generateReactiveFn, getDisplayName } from 'frog-utils';
 
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { uploadFile } from '../../api/openUploads';
@@ -14,7 +14,6 @@ type ReactiveCompPropsT = Object;
 type ReactiveCompsStateT = {
   data: any,
   dataFn: ?Object,
-  uuid: string,
   timeout: boolean
 };
 
@@ -41,7 +40,6 @@ const ReactiveHOC = (
       this.state = {
         data: null,
         dataFn: null,
-        uuid: uuid(),
         timeout: false
       };
     }
@@ -115,7 +113,6 @@ const ReactiveHOC = (
       ) : this.state.data ? (
         <ErrorBoundary msg="Activity crashed, try reloading">
           <WrappedComponent
-            uuid={this.state.uuid}
             dataFn={this.state.dataFn}
             uploadFn={uploadFile}
             data={this.state.data}
