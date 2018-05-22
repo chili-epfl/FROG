@@ -48,8 +48,6 @@ export const checkComponent = (
       ];
     }
 
-    console.log(activityTypes.map(y => y.id));
-    console.log(type);
     if (
       !activityTypes.map(y => y.id).includes(type) &&
       !operatorTypes.map(y => y.id).includes(type)

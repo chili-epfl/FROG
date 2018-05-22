@@ -65,5 +65,3 @@ export const activityTypesObj: { [actId: string]: ActivityPackageT } = (keyBy(
   activityTypes,
   'id'
 ): any);
-
-console.log(activityTypes);
