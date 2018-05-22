@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Delete from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 
@@ -23,6 +23,11 @@ const styles = {
   iconRoot: {
     width: '0.8em',
     height: '0.8em'
+  },
+  iconRootDelete: {
+    width: '0.8em',
+    height: '0.8em',
+    color: '#FF6666'
   },
   secondaryText: {
     color: 'rgba(0, 0, 0, 0.54)'
@@ -72,13 +77,6 @@ const ListItems = ({
         </Grid>
       )}
     </Grid>
-
-    {/* <ListItemText
-      secondary={<Highlight text={object.meta.shortDesc} searchStr={searchS} />}
-    >
-
-    </ListItemText> */}
-
     <ListItemSecondaryAction>
       <Grid container direction="column" justify="center">
         <Grid item xs={6}>
@@ -112,9 +110,9 @@ const ListItems = ({
                 root: classes.iconButtonRoot
               }}
             >
-              <DeleteOutline
+              <Delete
                   classes={{
-                    root: classes.iconRoot
+                    root: classes.iconRootDelete
                   }}
               />
             </IconButton>
