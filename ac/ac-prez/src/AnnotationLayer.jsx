@@ -95,24 +95,25 @@ class AnnotationLayer extends Component {
     this.rendering = false;
     this.queuedRender = false;
     this.editorRender = false;
+    this.resetPaging = true;
   }
 
   componentWillMount() {
     if (!localStorage.getItem('savedAnnotations')) this.replaceSavedAnnotations({});
-    
+    if (this.resetPaging) this.props.dataFn.objSet(this.props.data.pageNum, ['furthestPageNum']);
     Mousetrap.bind('backspace', () => this.undo());
-    Mousetrap.bind('left', () => this.handleLeftArrow());
-    Mousetrap.bind('right', () => this.handleRightArror());
+    Mousetrap.bind('left', (e) => { e.preventDefault(); this.handleLeftArrow() });
+    Mousetrap.bind('right', (e) => { e.preventDefault(); this.handleRightArror() });
   }
 
   handleLeftArrow = () => {
-    if (this.state.studentPaging) this.prevPageStudent();
-    else if (this.checkIfTeacher()) this.prevPageAdmin();
+    if (this.checkIfTeacher()) this.prevPageAdmin();
+    else this.prevPageStudent();
   }
 
   handleRightArror = () => {
-    if (this.state.studentPaging) this.nextPageStudent();
-    else if (this.checkIfTeacher()) this.nextPageAdmin();
+    if (this.checkIfTeacher()) this.nextPageAdmin();
+    else this.nextPageStudent();
   }
 
   componentWillUnmount() {
@@ -270,7 +271,9 @@ class AnnotationLayer extends Component {
   nextPageAdmin = () => {
     if (this.props.data.pageNum + 1 > this.props.pdf.numPages) return;
     this.editorRender = true;
+    const pageNum = this.props.data.pageNum + 1;
     this.props.dataFn.numIncr(1, ['pageNum']);
+    if (this.props.activityData.config.studentCannotGoFurther && pageNum > this.props.data.furthestPageNum) this.props.dataFn.objSet(pageNum, ['furthestPageNum']);
   };
 
   prevPageAdmin = () => {
@@ -282,11 +285,13 @@ class AnnotationLayer extends Component {
   nextPageStudent = () => {
     if (this.state.studentPaging) {
       if (this.state.pageNumStudent + 1 > this.props.pdf.numPages) return;
+      if (this.props.activityData.config.studentCannotGoFurther && this.state.pageNumStudent + 1 > this.props.data.furthestPageNum) return;
       this.setState(prevstate => ({
         pageNumStudent: prevstate.pageNumStudent + 1
       }));
     } else {
       if (this.props.data.pageNum + 1 > this.props.pdf.numPages) return;
+      if (this.props.activityData.config.studentCannotGoFurther && this.props.data.pageNum + 1 > this.props.data.furthestPageNum) return;
       this.setState({
         studentPaging: true,
         pageNumStudent: this.props.data.pageNum + 1
@@ -316,6 +321,7 @@ class AnnotationLayer extends Component {
   getValidPageNum(pageNum) {
     try {
       pageNum = Number(pageNum);
+      if (pageNum < 1 || pageNum > this.props.pdf.numPages) return 0;
       return pageNum;
     }
     catch(e) {
@@ -329,12 +335,13 @@ class AnnotationLayer extends Component {
     if (pageNum) {
       this.editorRender = true;
       this.props.dataFn.objSet(pageNum, ['pageNum']);
+      if (pageNum > this.props.data.furthestPageNum) this.props.dataFn.objSet(pageNum, ['furthestPageNum']);
     }
   };
 
   changePageStudent = (pageNum) => {
     pageNum = this.getValidPageNum(pageNum);
-    if (pageNum) {
+    if (pageNum && (this.props.activityData.config.studentCannotGoFurther && (pageNum <= this.props.data.furthestPageNum))) {
       this.setState({
         studentPaging: true,
         pageNumStudent: pageNum
@@ -342,8 +349,6 @@ class AnnotationLayer extends Component {
     }
   }
   
-
-
   checkIfSamePageNum = pageNum =>
     (this.state.studentPaging && this.state.pageNumStudent === pageNum) ||
     (!this.state.studentPaging && this.props.data.pageNum === pageNum);

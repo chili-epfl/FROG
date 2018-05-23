@@ -16,7 +16,8 @@ const meta = {
 const dataStructure = {
   annotations: {},
   pageNum: 1,
-  pdf_file: ''
+  pdf_file: '',
+  furthestPageNum: 1
 };
 
 export default ({
