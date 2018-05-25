@@ -107,7 +107,7 @@ class ActivityRunner extends Component<
           hideCategory={activityData.config.hideCategory}
           guidelines={activityData.config.guidelines}
           {...{ setCategory, setZoom }}
-        />{' '}
+        />
         <ThumbList
           {...{
             images,
@@ -126,7 +126,7 @@ class ActivityRunner extends Component<
         />
         <dataFn.LearningItem
           type="create"
-          liType="li-image"
+          liType="li-cs211"
           meta={{ comment: '', votes: {}, categories: [] }}
           autoInsert
         />

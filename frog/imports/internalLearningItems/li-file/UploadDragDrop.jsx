@@ -19,10 +19,10 @@ const UploadDragDrop = ({
         imageFile,
         dataFn,
         'dragdrop-upload',
-        createLearningItem
+        createLearningItem,
+        () => setSpinner(false)
       )
     );
-    setSpinner(false);
   };
 
   return (

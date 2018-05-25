@@ -83,7 +83,6 @@ export class Doc {
 
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
-    console.log(path);
     if (typeof get(this.doc.data, path) !== 'string') {
       // eslint-disable-next-line no-console
       console.error(

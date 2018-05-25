@@ -38,8 +38,6 @@ const TextStyled = styled.h3`
 const Main = styled.div`
   width: 100%;
   height: 81px;
-  position: absolute;
-  bottom: 0;
   background-color: white;
 `;
 

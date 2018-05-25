@@ -36,9 +36,10 @@ const takePicture = ({
   const blob = new Blob([ab], { type: mimeString });
 
   setSpinner(true);
-  uploadImage(blob, dataFn, 'webcam-upload', createLearningItem);
-  setSpinner(false);
-  setWebcam(false);
+  uploadImage(blob, dataFn, 'webcam-upload', createLearningItem, () => {
+    setSpinner(false);
+    setWebcam(false);
+  });
 };
 
 const WebcamCapture = (props: Object) => {

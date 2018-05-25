@@ -3,13 +3,15 @@
 import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
 import { uploadFile } from '../../api/openUploads';
+
 const uploadBufferWithThumbnail = (
   imageBuffer,
   imageId,
   dataFn,
   type,
   filename,
-  createLearningItem
+  createLearningItem,
+  cb
 ) => {
   const ext = filename && filename.split('.').pop();
   if (!filename || ['jpg', 'png', 'jpeg'].includes(ext.toLowerCase())) {
@@ -30,6 +32,9 @@ const uploadBufferWithThumbnail = (
               undefined,
               true
             );
+            if (cb) {
+              cb();
+            }
           });
         });
       });
@@ -46,6 +51,9 @@ const uploadBufferWithThumbnail = (
         undefined,
         true
       );
+      if (cb) {
+        cb();
+      }
     });
   }
 };
@@ -54,7 +62,8 @@ export default (
   file: any,
   dataFn: Object,
   type: string,
-  createLearningItem: Function
+  createLearningItem: Function,
+  cb?: Function
 ) => {
   const fr = new FileReader();
   const imageId = uuid();
@@ -68,7 +77,8 @@ export default (
       dataFn,
       type,
       filename,
-      createLearningItem
+      createLearningItem,
+      cb
     );
   };
   fr.readAsArrayBuffer(file);
