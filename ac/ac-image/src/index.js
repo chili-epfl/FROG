@@ -1,7 +1,7 @@
 // @flow
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
-import { compact, isEmpty,isObject } from 'lodash';
+import { compact, isEmpty, isObject, values } from 'lodash';
 
 import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
@@ -13,18 +13,22 @@ export const DEFAULT_COMMENT_VALUE = '';
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
-  if (isEmpty(object.data) || !isObject(object.data)) {return}
-  entries(object.data).forEach(([k,v])=>
+  if (isEmpty(object.data) || !isObject(object.data)) {
+    return;
+  }
+  values(object.data).forEach(v => {
+    const id = uuid();
     dataFn.objInsert(
       {
+        id,
         votes: {},
-        categories: x.categories || (x.category && [x.category]),
+        categories: v.categories || (v.category && [v.category]),
         comment: DEFAULT_COMMENT_VALUE,
-        li 
+        li: v.li
       },
-      x.id || uuid()
-    )
-  );
+      id
+    );
+  });
 };
 
 const exportData = (configData, { payload }) => {

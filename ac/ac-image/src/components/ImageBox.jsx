@@ -18,18 +18,6 @@ const styles = () => ({
   }
 });
 
-const getStyle = styleCode =>
-  ({
-    chosen_by_team: {
-      border: 'solid 4px #009900',
-      borderRadius: '5px'
-    },
-    chosen_partially: {
-      border: 'solid 4px #FFFF00',
-      borderRadius: '5px'
-    }
-  }[styleCode] || { border: 'solid 2px #a0a0a0' });
-
 const ImgButton = styled.button`
   position: relative;
   border: none;
@@ -55,14 +43,20 @@ export const CenteredImg = styled.div`
 const ImageBox = ({
   children,
   onClick,
-  classes
+  classes,
+  color
 }: {
   onClick: Function,
   children: any,
-  classes: any
+  classes: any,
+  color?: string
 }) => (
   <ImgButton onClick={onClick}>
-    <Paper elevation={12} className={classes.root}>
+    <Paper
+      elevation={12}
+      className={classes.root}
+      style={{ backgroundColor: color }}
+    >
       {children}
     </Paper>
   </ImgButton>

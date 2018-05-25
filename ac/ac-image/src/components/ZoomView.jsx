@@ -29,6 +29,7 @@ const ZoomView = ({
   close,
   images,
   setIndex,
+  dataFn,
   index,
   commentBox,
   logger,
@@ -46,57 +47,56 @@ const ZoomView = ({
   });
 
   return (
-    <LearningItem
-      id={images[index].li}
-      type="view"
-      render={props => (
-        <ZoomContainer>
-          <Paper className={classes.root} elevation={24}>
-            <CenteredImg>{props.children}</CenteredImg>
-            <button
-              onClick={close}
-              className="btn btn-secondary"
-              style={{ position: 'absolute', right: '0px' }}
-            >
-              <div className="bootstrap">
-                <span className="glyphicon glyphicon-remove" />
-              </div>
-            </button>
-            {commentBox && (
-              <ReactiveText
-                type="textarea"
-                path="comment"
-                logger={logger}
-                dataFn={props.dataFn}
-                placeholder={commentGuidelines}
-                style={{
-                  fontSize: '22px',
-                  position: 'absolute',
-                  width: '50%',
-                  height: '100px',
-                  bottom: '0px'
-                }}
-              />
-            )}
-            {commentBox && (
-              <button
-                onClick={close}
-                className="btn btn-success"
-                style={{
-                  position: 'absolute',
-                  right: '0px',
-                  bottom: '0px',
-                  height: '100px',
-                  width: '100px'
-                }}
-              >
-                <i className="fa fa-check" style={{ fontSize: 'xx-large' }} />
-              </button>
-            )}
-          </Paper>
-        </ZoomContainer>
-      )}
-    />
+    <ZoomContainer>
+      <Paper className={classes.root} elevation={24}>
+        <CenteredImg>
+          <LearningItem id={images[index].li} type="view" />
+        </CenteredImg>
+        <button
+          onClick={close}
+          className="btn btn-secondary"
+          style={{ position: 'absolute', right: '0px' }}
+        >
+          <div className="bootstrap">
+            <span className="glyphicon glyphicon-remove" />
+          </div>
+        </button>
+        {commentBox && (
+          <ReactiveText
+            type="textarea"
+            path={[images[index].id, 'comment']}
+            logger={logger}
+            dataFn={dataFn}
+            placeholder={commentGuidelines}
+            style={{
+              fontSize: '22px',
+              position: 'absolute',
+              width: '50%',
+              height: '100px',
+              bottom: '0px'
+            }}
+          />
+        )}
+        {commentBox && (
+          <button
+            onClick={close}
+            className="btn btn-success"
+            style={{
+              position: 'absolute',
+              right: '0px',
+              bottom: '0px',
+              height: '100px',
+              width: '100px'
+            }}
+          >
+            <div className="bootstrap">
+              {' '}
+              <i className="fa fa-check" style={{ fontSize: 'xx-large' }} />
+            </div>
+          </button>
+        )}
+      </Paper>
+    </ZoomContainer>
   );
 };
 

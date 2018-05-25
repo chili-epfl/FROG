@@ -63,7 +63,7 @@ class ActivityRunner extends Component<
     this.state = {
       zoomOn: false,
       index: 0,
-      category: 'all',
+      category: startingCategory,
       webcamOn: false
     };
   }
@@ -98,9 +98,16 @@ class ActivityRunner extends Component<
 
     const showCategories =
       this.state.category === 'categories' && !activityData.config.hideCategory;
-
     return (
       <Main>
+        <TopBar
+          categories={[...Object.keys(this.categories)]}
+          category={this.state.category}
+          canVote={activityData.config.canVote}
+          hideCategory={activityData.config.hideCategory}
+          guidelines={activityData.config.guidelines}
+          {...{ setCategory, setZoom }}
+        />{' '}
         <ThumbList
           {...{
             images,

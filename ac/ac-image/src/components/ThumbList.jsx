@@ -66,6 +66,7 @@ const ImageList = ({
           render={props => (
             <ImageBox
               key={JSON.stringify(image.li)}
+              color={image.votes[userInfo.id] ? 'lightgreen' : 'white'}
               {...{ image, onClick, styleCode }}
               {...props}
             />
@@ -81,7 +82,6 @@ const CategoryList = ({ categories, setCategory, logger }) => (
     {Object.keys(categories).map(category => (
       <CategoryBox
         key={JSON.stringify(category)}
-        images={categories[category]}
         category={category}
         setCategory={setCategory}
         logger={logger}

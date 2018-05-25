@@ -1,109 +1,80 @@
+const learningItems = [
+  {
+    id: '1',
+    liType: 'li-idea',
+    payload: { title: 'Hi', content: 'Hello' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '2',
+    liType: 'li-idea',
+    payload: { title: 'Uber', content: 'AirBnB for taxis' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '3',
+    liType: 'li-idea',
+    payload: { title: 'Amazon Alexa', content: 'AskJeeves for speech' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '4',
+    liType: 'li-image',
+    payload: {
+      url: 'https://i.imgur.com/pfZAxeTb.jpg',
+      thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
+    },
+    createdAt: '2018-05-10T12:05:08.700Z'
+  }
+];
+
 export const meta = {
-  name: 'Image viewer',
+  name: 'Gallery',
   type: 'react-component',
-  shortDesc: 'Display images/files',
+  shortDesc: 'Display learning items',
   description:
-    'Display a list of images/files possibly categorised, option to allow upload and voting',
+    'Display a list of learning items, possibly categorised, option to allow upload and voting',
   exampleData: [
     {
       title: 'Simple view',
+      learningItems,
       config: {
-        minVote: 1,
-        images: [
-          {
-            url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg'
-          },
-          {
-            url: 'https://wpclipart.com/space/meteor/bolide.png'
-          },
-          {
-            url: 'https://wpclipart.com/space/solar_system/Earth/earth_4.png'
-          },
-          {
-            url:
-              'https://wpclipart.com/space/solar_system/sun/solar_eclipse/solar_eclipse_corona.jpg'
-          },
-          {
-            url:
-              'https://wpclipart.com/space/solar_system/sun/sun_prominence.jpg'
-          }
-        ]
+        minVote: 1
       },
-      data: {}
-    },
-    {
-      title: 'With uploads',
-      config: {
-        canUpload: true,
-        guidelines:
-          'Ajoutez des images ou bien prenez une photo avec votre webcam'
-      },
-      data: {}
+      data: {
+        a1: { id: 'a1', li: '1' },
+        a2: { id: 'a2', li: '2' },
+        a3: { id: 'a3', li: '3' },
+        a4: { id: 'a4', li: '4' }
+      }
     },
     {
       title: 'With categories',
       config: {
-        guidelines: 'Look at categories of image',
-        images: [
-          {
-            url: 'https://github.com/chili-epfl/FROG/blob/develop/README.md',
-            filename: 'README.md',
-            ext: 'md',
-            categories: ['earth']
-          },
-          {
-            url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg',
-            categories: ['moon', 'solar system']
-          },
-          {
-            url: 'https://wpclipart.com/space/meteor/bolide.png',
-            categories: ['meteor']
-          },
-          {
-            url: 'https://wpclipart.com/space/solar_system/Earth/earth_4.png',
-            categories: ['earth', 'solar system']
-          },
-          {
-            url:
-              'https://wpclipart.com/space/solar_system/sun/solar_eclipse/solar_eclipse_corona.jpg',
-            categories: ['sun', 'moon', 'solar system']
-          },
-          {
-            url:
-              'https://wpclipart.com/space/solar_system/sun/sun_prominence.jpg',
-            categories: ['sun', 'solar system']
-          }
-        ]
+        guidelines: 'Look at categories of image'
       },
-      data: {}
+      learningItems,
+      data: {
+        a1: { id: 'a1', li: '1', categories: ['tree', 'house'] },
+        a2: { id: 'a2', li: '2', category: 'tree' },
+        a3: { id: 'a3', li: '3', category: 'house' },
+        a4: { id: 'a4', li: '4', categories: ['sky', 'tree'] }
+      }
     },
     {
       title: 'With votes',
       config: {
         guidelines: 'Votez pour les images les plus interessantes',
         canVote: true,
-        minVote: 2,
-        images: [
-          {
-            url: 'https://wpclipart.com/space/moon/moon_2/moon_photo.jpg'
-          },
-          {
-            url: 'https://wpclipart.com/space/meteor/bolide.png'
-          },
-          {
-            url: 'https://wpclipart.com/space/solar_system/Earth/earth_4.png'
-          },
-          {
-            url:
-              'https://wpclipart.com/space/solar_system/sun/solar_eclipse/solar_eclipse_corona.jpg'
-          },
-          {
-            url:
-              'https://wpclipart.com/space/solar_system/sun/sun_prominence.jpg'
-          }
-        ]
+        minVote: 2
       },
-      data: {}
+      learningItems,
+      data: {
+        a1: { id: 'a1', li: '1', categories: ['tree', 'house'] },
+        a2: { id: 'a2', li: '2', category: 'tree' },
+        a3: { id: 'a3', li: '3', category: 'house' },
+        a4: { id: 'a4', li: '4', categories: ['sky', 'tree'] }
+      }
     }
   ]
 };
