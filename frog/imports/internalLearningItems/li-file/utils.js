@@ -18,7 +18,7 @@ const uploadBufferWithThumbnail = (
     resizeImg(imageBuffer, { width: 128 }).then(buffer => {
       const blob = new Blob([buffer], { type: 'image/jpeg' });
       uploadFile(blob, imageId + 'thumb').then(thumburl => {
-        resizeImg(imageBuffer, { width: 800 }).then(buffery => {
+        resizeImg(imageBuffer, { width: 800, height: 800 }).then(buffery => {
           const blob2 = new Blob([buffery], { type: 'image/jpeg' });
           uploadFile(blob2, imageId).then(url => {
             createLearningItem(

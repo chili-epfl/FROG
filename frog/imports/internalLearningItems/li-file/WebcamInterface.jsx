@@ -37,6 +37,7 @@ const takePicture = ({
 
   setSpinner(true);
   uploadImage(blob, dataFn, 'webcam-upload', createLearningItem);
+  setSpinner(false);
   setWebcam(false);
 };
 

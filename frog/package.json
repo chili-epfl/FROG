@@ -6,6 +6,8 @@
     "start": "nps"
   },
   "dependencies": {
+    "@houshuang/react-webcam": "^0.3.5",
+    "@houshuang/resize-img": "^1.2.0",
     "@babel/runtime": "^7.0.0-beta.46",
     "@material-ui/icons": "^1.0.0",
     "ac-autocode": "1.0.0",

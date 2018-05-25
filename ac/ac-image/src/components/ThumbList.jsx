@@ -56,13 +56,15 @@ const ImageList = ({
         const styleCode =
           voteCount >= minVoteT
             ? 'chosen_by_team'
-            : voteCount > 0 ? 'chosen_partially' : 'not_chosen';
+            : voteCount > 0
+              ? 'chosen_partially'
+              : 'not_chosen';
 
         return (
           <LearningItem
             key={image}
-            type="viewThumb"
-            id={image}
+            type="thumbView"
+            id={image.li}
             render={props => (
               <ImageBox
                 key={image}

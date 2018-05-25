@@ -4,8 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Mousetrap from 'mousetrap';
 import { ReactiveText } from 'frog-utils';
-import Paper from 'material-ui/Paper';
-import { withStyles } from 'material-ui/styles';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 
 import { CenteredImg } from './ImageBox';
 
@@ -19,8 +19,8 @@ const styles = theme => ({
 
 const ZoomContainer = styled.div`
   position: absolute;
-  width: 50%;
-  height: 50%;
+  width: 900px;
+  height: 900px;
   top: 25%;
   z-index: 1;
   background: rgba(50, 50, 50, 0.8);
@@ -32,20 +32,23 @@ const ZoomView = ({
   setIndex,
   index,
   commentBox,
-  dataFn,
   logger,
   commentGuidelines,
   LearningItem,
   classes
 }: Object) => {
-  Mousetrap.bind('left', () => setIndex(Math.max(index - 1, 0)));
-  Mousetrap.bind('right', () =>
-    setIndex(Math.min(index + 1, images.length - 1))
-  );
+  Mousetrap.bind('left', e => {
+    e.preventDefault();
+    setIndex(Math.max(index - 1, 0));
+  });
+  Mousetrap.bind('right', e => {
+    e.preventDefault();
+    setIndex(Math.min(index + 1, images.length - 1));
+  });
 
   return (
     <LearningItem
-      id={images[index]}
+      id={images[index].li}
       type="view"
       render={props => (
         <ZoomContainer>

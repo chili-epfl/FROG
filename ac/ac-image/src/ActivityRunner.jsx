@@ -73,25 +73,15 @@ class ActivityRunner extends Component<
   }
 
   render() {
-    const {
-      activityData,
-      data,
-      LearningItem,
-      dataFn,
-      userInfo,
-      logger,
-      stream
-    } = this.props;
+    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
     const minVoteT = activityData.config.minVote || 1;
 
     const images = Object.keys(data)
       .filter(
         key =>
-          data[key] !== undefined &&
-          data[key].url !== undefined &&
-          (this.state.category === 'all' ||
-            (data[key].categories !== undefined &&
-              data[key].categories.includes(this.state.category)))
+          this.state.category === 'all' ||
+          (data[key].categories !== undefined &&
+            data[key].categories.includes(this.state.category))
       )
       .map(key => ({ ...data[key], key }));
 
@@ -111,41 +101,33 @@ class ActivityRunner extends Component<
 
     return (
       <Main>
-          <ThumbList
-            {...{
-            images: data,
-              categories: this.categories,
-              minVoteT,
-              vote,
-              userInfo,
-              setCategory,
-              setZoom,
-              setIndex,
-              logger,
+        <ThumbList
+          {...{
+            images,
+            categories: this.categories,
+            minVoteT,
+            vote,
+            userInfo,
+            setCategory,
+            setZoom,
+            setIndex,
+            logger,
             showCategories,
-            LearningItem
-            }}
-            canVote={activityData.config.canVote}
-          />
-        <LearningItem
-          type="create"
-          li="li-image"
-          dataFn={dataFn}
-          meta={{ comment: '' }}
-          onCreate={e => {
-            dataFn.listAppend(e);
-            stream(e);
+            LearningItem: dataFn.LearningItem
           }}
+          canVote={activityData.config.canVote}
+        />
+        <dataFn.LearningItem
+          type="create"
+          liType="li-image"
+          meta={{ comment: '', votes: {}, categories: [] }}
+          autoInsert
         />
         <div style={{ position: 'absolute', bottom: '10px' }}>
-          <LearningItem
-            meta={{ comment: '' }}
+          <dataFn.LearningItem
+            meta={{ comment: '', votes: {}, categories: [] }}
             type="create"
-            dataFn={dataFn}
-            onCreate={e => {
-              dataFn.listAppend(e);
-              stream(e);
-            }}
+            autoInsert
           />
         </div>
         {this.state.category !== 'categories' &&
@@ -155,7 +137,13 @@ class ActivityRunner extends Component<
               commentBox={activityData.config.canComment}
               commentGuidelines={activityData.config.commentGuidelines}
               close={() => setZoom(false)}
-              {...{ images: data, LearningItem, setIndex, dataFn, logger }}
+              {...{
+                images,
+                LearningItem: dataFn.LearningItem,
+                setIndex,
+                dataFn,
+                logger
+              }}
             />
           )}
       </Main>
@@ -164,4 +152,4 @@ class ActivityRunner extends Component<
 }
 
 ActivityRunner.displayName = 'ActivityRunner';
-export default (props: ActivityRunnerT) => <ActivityRunner {...props} />;
+export default (props: ActivityRunnerPropsT) => <ActivityRunner {...props} />;

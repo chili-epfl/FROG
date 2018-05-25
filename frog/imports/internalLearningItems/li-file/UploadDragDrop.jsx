@@ -22,6 +22,7 @@ const UploadDragDrop = ({
         createLearningItem
       )
     );
+    setSpinner(false);
   };
 
   return (
