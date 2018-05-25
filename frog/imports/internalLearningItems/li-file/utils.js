@@ -3,7 +3,6 @@
 import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
 import { uploadFile } from '../../api/openUploads';
-
 const uploadBufferWithThumbnail = (
   imageBuffer,
   imageId,
@@ -15,10 +14,10 @@ const uploadBufferWithThumbnail = (
   const ext = filename && filename.split('.').pop();
   if (!filename || ['jpg', 'png', 'jpeg'].includes(ext.toLowerCase())) {
     // upload a thumbnail
-    resizeImg(imageBuffer, { width: 128 }).then(buffer => {
+    resizeImg(imageBuffer, { max: 128 }).then(buffer => {
       const blob = new Blob([buffer], { type: 'image/jpeg' });
       uploadFile(blob, imageId + 'thumb').then(thumburl => {
-        resizeImg(imageBuffer, { width: 800, height: 800 }).then(buffery => {
+        resizeImg(imageBuffer, { max: 800 }).then(buffery => {
           const blob2 = new Blob([buffery], { type: 'image/jpeg' });
           uploadFile(blob2, imageId).then(url => {
             createLearningItem(

@@ -11,8 +11,7 @@ const UploadBar = (props: Object) => (
     <Container>
       <UploadDragDrop {...props} />
       <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
-        <button
-          className="btn btn-secondary"
+        <div
           onClick={() => props.setWebcam(true)}
           style={{
             width: '50%',
@@ -23,7 +22,7 @@ const UploadBar = (props: Object) => (
           }}
         >
           <TextStyled>Open the webcam</TextStyled>
-        </button>
+        </div>
       </div>
     </Container>
   </Main>
@@ -31,6 +30,7 @@ const UploadBar = (props: Object) => (
 const TextStyled = styled.h3`
   position: relative;
   top: 55%;
+  text-align: center;
   margin: 0 auto;
   transform: translateY(-50%);
 `;

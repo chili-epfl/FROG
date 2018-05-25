@@ -43,6 +43,7 @@ class RenderLearningItem extends React.Component<any, any> {
     const Comp = (
       <React.Fragment>
         <span onClick={() => this.setState({ open: true })}>
+          {' '}
           <LIComponent
             data={data.payload}
             dataFn={dataFn && dataFn.specialize('payload')}

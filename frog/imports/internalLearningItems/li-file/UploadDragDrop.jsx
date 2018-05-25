@@ -33,6 +33,7 @@ const UploadDragDrop = ({
         style={{
           width: '50%',
           border: '2px dashed rgb(102, 102, 102)',
+          textAlign: 'center',
           borderRadius: '5px',
           padding: '10px',
           minWidth: 'fit-content'

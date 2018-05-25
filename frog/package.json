@@ -10,6 +10,7 @@
     "@houshuang/resize-img": "^1.2.0",
     "@babel/runtime": "^7.0.0-beta.46",
     "@material-ui/icons": "^1.0.0",
+    "downloadjs": "^1.4.7",
     "ac-autocode": "1.0.0",
     "ac-brainstorm": "1.0.0",
     "ac-chat": "1.0.0",

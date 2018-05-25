@@ -292,7 +292,7 @@ export type LIComponentPropsT =
       type: 'thumbView',
       id: string | ImmutableLIT,
       render?: LIRenderT,
-      clickZoomable?: Boolean
+      clickZoomable?: boolean
     |}
   | {|
       type: 'edit',

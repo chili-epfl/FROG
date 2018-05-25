@@ -21,7 +21,6 @@ const ZoomContainer = styled.div`
   position: absolute;
   width: 900px;
   height: 900px;
-  top: 25%;
   z-index: 1;
   background: rgba(50, 50, 50, 0.8);
 `;
@@ -59,7 +58,9 @@ const ZoomView = ({
               className="btn btn-secondary"
               style={{ position: 'absolute', right: '0px' }}
             >
-              <span className="glyphicon glyphicon-remove" />
+              <div className="bootstrap">
+                <span className="glyphicon glyphicon-remove" />
+              </div>
             </button>
             {commentBox && (
               <ReactiveText

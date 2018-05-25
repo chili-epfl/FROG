@@ -5,12 +5,17 @@ import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-  root: theme.mixins.gutters({
+const styles = () => ({
+  root: {
     marginLeft: 20,
-    paddingTop: 36,
-    paddingBottom: 16
-  })
+    paddingLeft: 16,
+    paddingRight: 24,
+    paddingTop: 20,
+    paddingBottom: 16,
+    width: '160px',
+    height: '180px',
+    overflow: 'hidden'
+  }
 });
 
 const getStyle = styleCode =>
@@ -29,9 +34,8 @@ const ImgButton = styled.button`
   position: relative;
   border: none;
   background: none;
-  max-width: 250px;
   height: 250px;
-  width: 100%;
+  width: 180px;
   margin: 5px;
   padding: 0px;
   flex: 0 1 auto;
@@ -58,7 +62,7 @@ const ImageBox = ({
   classes: any
 }) => (
   <ImgButton onClick={onClick}>
-    <Paper elevation={24} className={classes.root}>
+    <Paper elevation={12} className={classes.root}>
       {children}
     </Paper>
   </ImgButton>
