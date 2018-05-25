@@ -1,7 +1,7 @@
 // @flow
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
-import { compact, isEmpty } from 'lodash';
+import { compact, isEmpty,isObject } from 'lodash';
 
 import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
@@ -13,25 +13,16 @@ export const DEFAULT_COMMENT_VALUE = '';
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
-  if (object.config.images)
-    object.config.images.forEach((x, i) =>
-      dataFn.objInsert({ votes: {}, comment: DEFAULT_COMMENT_VALUE, ...x }, i)
-    );
-
-  if (object.data === null || object.data === {} || object.data === undefined)
-    return;
-  const dataImgs = Array.isArray(object.data)
-    ? object.data
-    : Object.keys(object.data).map(x => object.data[x]);
-  dataImgs.forEach(x =>
+  if (isEmpty(object.data) || !isObject(object.data)) {return}
+  entries(object.data).forEach(([k,v])=>
     dataFn.objInsert(
       {
         votes: {},
         categories: x.categories || (x.category && [x.category]),
         comment: DEFAULT_COMMENT_VALUE,
-        ...x
+        li 
       },
-      x.key || uuid()
+      x.id || uuid()
     )
   );
 };
