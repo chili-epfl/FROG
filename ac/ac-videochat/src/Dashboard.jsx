@@ -2,7 +2,13 @@
 
 import React from 'react';
 import { range } from 'lodash';
-import { VictoryChart, VictoryTheme, VictoryAxis, VictoryBar } from 'victory';
+import {
+  VictoryChart,
+  VictoryTheme,
+  VictoryAxis,
+  VictoryBar,
+  VictoryZoomContainer
+} from 'victory';
 import { type DashboardT, values, type LogDbT } from 'frog-utils';
 
 type StateT = { [group: string]: GroupT };
@@ -40,7 +46,7 @@ const styles = {
     }
   },
   divStyle: {
-    width: '400px',
+    width: '800px',
     display: 'flex',
     flexWrap: 'wrap'
   }
@@ -85,7 +91,7 @@ const Viewer = ({ state }) => {
     <React.Fragment>
       {values((state: any)).map((group: any) => (
         <div style={styles.divStyle} key={group.id}>
-          <VictoryChart theme={VictoryTheme.material}>
+          <VictoryChart width={600} theme={VictoryTheme.material}>
             <VictoryAxis label="Time (sec)" style={styles.axisStyle} />
             <VictoryAxis
               dependentAxis
@@ -159,10 +165,19 @@ const mergeLog = (state: StateT, log: LogDbT) => {
 
 const initData: StateT = {};
 
+const exampleLogs = [
+  {
+    type: 'logs',
+    title: 'Three person talk',
+    path: 'ac/ac-videochat/src/logExamples/vad-01.json'
+  }
+];
+
 const talkDashboard: DashboardT = {
   Viewer,
   mergeLog,
-  initData
+  initData,
+  exampleLogs
 };
 
 export default { talkDashboard };
