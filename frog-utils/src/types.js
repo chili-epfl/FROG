@@ -275,6 +275,7 @@ type LIRenderPropsT = {|
 |};
 
 export type LIRenderT = React.ComponentType<LIRenderPropsT>;
+type ImmutableLIT = { id: string, payload: Object };
 
 export type LIComponentPropsT =
   | {| type: 'history', id: string, render?: LIRenderT |}
@@ -286,10 +287,10 @@ export type LIComponentPropsT =
       autoInsert?: Boolean,
       meta?: Object
     |}
-  | {| type: 'view', id: string, render?: LIRenderT |}
+  | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
   | {|
       type: 'thumbView',
-      id: string,
+      id: string | ImmutableLIT,
       render?: LIRenderT,
       clickZoomable?: Boolean
     |}
