@@ -1,17 +1,17 @@
 // @flow
 
 import React from 'react';
-import { CountChart, type LogDbT } from 'frog-utils';
+import { CountChart, type LogDbT, type DashboardT } from 'frog-utils';
 
 const actionTypes = ['dragdrop-upload', 'webcam-upload', 'vote', 'zoom'];
 
-const Viewer = ({ data }: Object) => {
+const Viewer = ({ state }: Object) => {
   const chartData =
-    data &&
+    state &&
     actionTypes.map(actionType =>
-      Object.keys(data).reduce(
+      Object.keys(state).reduce(
         (acc, val) => {
-          const count = data[val] ? data[val][actionType] : -1;
+          const count = state[val] ? state[val][actionType] : -1;
           if (Number.isInteger(count) && count > -1) {
             acc[Math.min(Math.max(0, count), 5)] += 1;
           }
@@ -37,25 +37,21 @@ const Viewer = ({ data }: Object) => {
   );
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDbT) => {
+const mergeLog = (state: any, log: LogDbT) => {
   const action = log.type;
   if (actionTypes.includes(action)) {
-    if (!(data && data[log.instanceId])) {
-      dataFn.objInsert(
-        actionTypes.reduce((acc, i) => ({ ...acc, [i]: 0 }), {}),
-        [log.instanceId]
+    if (!(state && state[log.instanceId])) {
+      state[log.instanceId] = actionTypes.reduce(
+        (acc, i) => ({ ...acc, [i]: 0 }),
+        {}
       );
     }
-    dataFn.numIncr(1, [log.instanceId, action]);
+    state[log.instanceId][action] += 1;
   }
 };
 
 const initData = {};
 
-export default {
-  dashboard: {
-    Viewer,
-    mergeLog,
-    initData
-  }
-};
+const dashboard: DashboardT = { Viewer, mergeLog, initData };
+
+export default { dashboard };
