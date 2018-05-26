@@ -12,6 +12,7 @@ import {
   type ActivityDbT
 } from 'frog-utils';
 
+import { connection } from './Preview';
 import { mergeLog, createDashboards } from '../../api/mergeLogData';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
@@ -31,6 +32,26 @@ export const initDashboardDocuments = (
       refresh
     );
   }
+};
+
+const reactiveWrapper = (act, reactiveToDisplay: Function) => {
+  const query = connection.createSubscribeQuery('rz', {
+    _id: { $regex: '^preview-' + act.activityType + '/' }
+  });
+
+  return (_, __) => {
+    if (!query.ready) {
+      return null;
+    }
+    const data = (query.results || []).reduce(
+      (acc, res) => ({
+        ...acc,
+        [res.id.split('/')[1]]: res.data
+      }),
+      {}
+    );
+    return reactiveToDisplay(data, act);
+  };
 };
 
 export const hasDashExample = (aT: ActivityPackageT) =>
@@ -109,14 +130,27 @@ class PreviewDash extends React.Component<
   interval: any;
   oldInput: any = undefined;
   prepDataFn: Function;
+  aT: Object;
+  dash: ?Object;
 
   dashId = this.props.activity._id + '-' + this.props.name;
 
   constructor(props) {
     super(props);
-    const aT = activityTypesObj[this.props.activity.activityType];
-    const dash = aT.dashboards && aT.dashboards[this.props.name];
-    this.prepDataFn = (dash && dash.prepareDataForDisplay) || ((x, _) => x);
+    this.aT = activityTypesObj[this.props.activity.activityType];
+    this.dash = this.aT?.dashboards?.[this.props.name];
+    if (this.dash) {
+      if (this.dash.prepareDataForDisplay) {
+        this.prepDataFn = this.dash.prepareDataForDisplay;
+      } else if (this.dash.reactiveToDisplay) {
+        this.prepDataFn = reactiveWrapper(
+          this.props.activity,
+          this.dash.reactiveToDisplay
+        );
+      } else {
+        this.prepDataFn = (x, _) => x;
+      }
+    }
 
     const dashState = DashboardStates[this.dashId];
     this.state = {
@@ -126,12 +160,15 @@ class PreviewDash extends React.Component<
   }
 
   componentDidMount = () => {
-    this.interval = setInterval(this.update, 300);
+    this.interval = setInterval(
+      () => this.update(this.dash?.reactiveToDisplay),
+      1000
+    );
   };
 
-  update = () => {
+  update = reactive => {
     if (DashboardStates[this.dashId]) {
-      if (!isEqual(this.oldInput, DashboardStates[this.dashId])) {
+      if (reactive || !isEqual(this.oldInput, DashboardStates[this.dashId])) {
         const newState = this.prepDataFn(
           cloneDeep(DashboardStates[this.dashId]),
           this.props.activity
@@ -149,21 +186,19 @@ class PreviewDash extends React.Component<
   };
 
   render = () => {
-    const aT = activityTypesObj[this.props.activity.activityType];
-    if (!aT) {
+    if (!this.aT) {
       return <p>Chose an activity type</p>;
     }
-    const dash = aT.dashboards && aT.dashboards[this.props.name];
-    if (!dash) {
+    if (!this.dash) {
       return <p>This activity has no dashboard</p>;
     }
-    const Viewer = dash.Viewer;
+    const Viewer = this.dash.Viewer;
     return this.state.state ? (
       this.props.showData ? (
         <ShowInfoDash
           state={DashboardStates[this.dashId]}
           prepareDataForDisplay={
-            dash.prepareDataForDisplay ? this.state.state : null
+            this.dash.prepareDataForDisplay ? this.state.state : null
           }
         />
       ) : (

@@ -96,11 +96,11 @@ const activityMerge = {
 
 const exampleLogs = [
   {
+    type: 'logs',
     title: 'CS211 week 1',
     path: 'ac/ac-stroop/src/logExamples/progress-cs211-w1.json',
     activityMerge,
-    instances: 118,
-    type: 'logs'
+    instances: 118
   }
 ];
 

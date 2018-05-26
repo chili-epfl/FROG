@@ -17,7 +17,7 @@ import ModalImport from './RemoteControllers/ModalImport';
 import ModalDelete from './RemoteControllers/ModalDelete';
 
 import TopPanel from './TopPanel';
-import { ModalPreview } from '../Preview';
+import Preview from '../Preview';
 import TopBar from '../App/TopBar';
 
 const styles = () => ({
@@ -79,9 +79,10 @@ class Editor extends React.Component<Object, StateT> {
     const { classes } = this.props;
     if (this.props.store.ui.showPreview) {
       return (
-        <ModalPreview
+        <Preview
+          modal
           activityTypeId={this.props.store.ui.showPreview.activityTypeId}
-          _config={this.props.store.ui.showPreview.config}
+          config={this.props.store.ui.showPreview.config}
           dismiss={() => this.props.store.ui.setShowPreview(false)}
         />
       );
