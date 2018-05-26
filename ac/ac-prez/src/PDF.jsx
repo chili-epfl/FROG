@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PDFJS from '@houshuang/pdfjs-dist';
 
 import AnnotationLayer from './AnnotationLayer';
+import ScratchPad from './ScratchPad';
 
 export default class PDF extends Component {
   state = {
@@ -52,6 +53,10 @@ export default class PDF extends Component {
           <p>Error: {this.state.err}</p>
         </div>
       );
+    } else if(this.props.blankMode) {
+      layerDisplay = (
+        <ScratchPad />
+      )
     } else if (pdf) {
       layerDisplay = (
         <AnnotationLayer

@@ -58,7 +58,7 @@ class AnnotationLayer extends Component {
         const currentPageNum = that.getCurrentPageNum();
         const annotations = that.getPageAnnotations();
         const index = annotations.findIndex(x => x.uuid === annotationId);
-        console.log(index);
+
         return new Promise((resolve, reject) => {
           if (index == -1) reject(new Error('Could not find annotation!'));
           else {
@@ -162,6 +162,33 @@ class AnnotationLayer extends Component {
     }
   };
 
+  forceRenderPage = () => {
+    // console.log('RENDERING PAGE');
+    this.rendering = true;
+    const RENDER_OPTIONS = {
+      documentId: this.props.pdf.fingerprint,
+      pdfDocument: this.props.pdf,
+      scale: 1,
+      rotate: 0
+    };
+
+    const shownPageNum = this.state.studentPaging
+      ? this.state.pageNumStudent
+      : this.props.data.pageNum;
+
+    const UI = this.PDFJSAnnotate.UI;
+    UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
+      result => {
+        this.rendering = false;
+        return result;
+      },
+      err => {
+        this.rendering = false;
+        console.error('ERROR RENDERING PAGE:\n', err);
+      }
+    );
+  };
+
   checkIfTeacher = () => {
     const user = this.props.userInfo.name;
     return user === 'teacher';
@@ -239,33 +266,6 @@ class AnnotationLayer extends Component {
     }
 
     this.setState({ activeItem: item });
-  };
-
-  forceRenderPage = () => {
-    // console.log('RENDERING PAGE');
-    this.rendering = true;
-    const RENDER_OPTIONS = {
-      documentId: this.props.pdf.fingerprint,
-      pdfDocument: this.props.pdf,
-      scale: 1,
-      rotate: 0
-    };
-
-    const shownPageNum = this.state.studentPaging
-      ? this.state.pageNumStudent
-      : this.props.data.pageNum;
-
-    const UI = this.PDFJSAnnotate.UI;
-    UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
-      result => {
-        this.rendering = false;
-        return result;
-      },
-      err => {
-        this.rendering = false;
-        console.error('ERROR RENDERING PAGE:\n', err);
-      }
-    );
   };
 
   nextPageAdmin = () => {
@@ -391,8 +391,7 @@ class AnnotationLayer extends Component {
     this.setState({ penSize: size });
   };
 
-  selectPenColor = e => {
-    const color = e.target.value;
+  selectPenColor = color => {
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(this.state.penSize, color);
     this.setState({ penColor: color });
@@ -469,29 +468,32 @@ class AnnotationLayer extends Component {
 
     const colorOptions = constants.colorOptions.map(colorOption => {
       const color = colorOption[0];
-      const text = colorOption[1];
+      // const text = colorOption[1];
       const style = {
-        background: color
+        background: color,
+        color: 'white',
+        width: '5px',
+        height: '15px'
       };
       return (
-        <option key={'penColor' + color} value={color} style={style}>
-          {text}
-        </option>
+        <button key={'penColor' + color} onClick={() => this.selectPenColor(color)} style={style}>
+          {/* {text} */}
+        </button>
       );
     });
 
     const penColorItem = (
-      <select
-        key="penColor"
-        value={this.state.penColor}
-        onChange={this.selectPenColor}
-      >
+      <span key='penColor'>
         {colorOptions}
-      </select>
+      </span>
     );
 
-    annotateItems.splice(2, 0, penColorItem);
-    annotateItems.splice(2, 0, penSizeItem);
+    if (this.state.activeItem === 'draw') {
+      annotateItems.push(penColorItem);
+      annotateItems.push(penSizeItem);
+    }
+    
+    
 
     const debugItems = !activityData.config.debug ? null : (
       <span>
