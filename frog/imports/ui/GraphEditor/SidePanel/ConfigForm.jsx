@@ -16,7 +16,8 @@ import {
   SelectAnyActivityWidget,
   SelectSourceActivityWidget,
   SelectTargetActivityWidget,
-  addSocialFormSchema
+  addSocialFormSchema,
+  SelectLITypeWidget
 } from './FormUtils';
 
 type ConfigFormPropsT = {
@@ -96,7 +97,8 @@ export default class ConfigForm extends Component<
         socialAttributeWidget: SelectFormWidget,
         anyActivityWidget: SelectAnyActivityWidget,
         targetActivityWidget: SelectTargetActivityWidget,
-        sourceActivityWidget: SelectSourceActivityWidget
+        sourceActivityWidget: SelectSourceActivityWidget,
+        learningItemTypeWidget: SelectLITypeWidget
       },
       reload: this.props.reload,
       id: node._id,

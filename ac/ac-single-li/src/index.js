@@ -16,8 +16,8 @@ const config = {
   type: 'object',
   properties: {
     title: {
-      title: 'What is the title?',
-      type: 'string'
+      title: 'Learning Item Type',
+      type: 'learningItemType'
     }
   }
 };
