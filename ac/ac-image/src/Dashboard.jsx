@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { CountChart, type LogDBT } from 'frog-utils';
+import { CountChart, type LogDbT } from 'frog-utils';
 
 const actionTypes = ['dragdrop-upload', 'webcam-upload', 'vote', 'zoom'];
 
@@ -37,7 +37,7 @@ const Viewer = ({ data }: Object) => {
   );
 };
 
-const mergeLog = (data: any, dataFn: Object, log: LogDBT) => {
+const mergeLog = (data: any, dataFn: Object, log: LogDbT) => {
   const action = log.type;
   if (actionTypes.includes(action)) {
     if (!(data && data[log.instanceId])) {
