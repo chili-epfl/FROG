@@ -23,9 +23,9 @@ export default class PDF extends Component {
   }
 
   onSwitchMode = () => {
-    this.setState({
-      blankMode: !this.state.blankMode
-    });
+    this.setState(prevState => ({
+      blankMode: !prevState.blankMode
+    }));
   };
 
   getPDF = () => {
