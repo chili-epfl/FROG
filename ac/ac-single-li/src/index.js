@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityPackageT, withVisibility } from 'frog-utils';
+import { type ActivityPackageT, withVisibility, uuid } from 'frog-utils';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
@@ -30,6 +30,11 @@ const config = {
       type: 'boolean'
     }
   }
+};
+
+const formatProduct = (_, product) => {
+  const id = uuid();
+  return product.li ? { [id]: { id, li: product.li } } : {};
 };
 
 const configUI = { instructions: { 'ui:widget': 'textarea' } };
@@ -116,6 +121,7 @@ export default ({
   meta,
   config,
   configUI,
+  formatProduct,
   ActivityRunner,
   dashboard: null,
   dataStructure

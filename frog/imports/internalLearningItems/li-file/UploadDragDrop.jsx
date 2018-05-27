@@ -60,7 +60,7 @@ const UploadDragDrop = ({
       }}
     >
       <div style={{ textAlign: 'center' }}>
-        <p style={{ fontSize: '24px' }}>
+        <p style={{ fontSize: '18px' }}>
           <CloudUploadIcon /> Drag and drop a file here or click to upload
         </p>
       </div>

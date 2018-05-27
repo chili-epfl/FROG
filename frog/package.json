@@ -60,6 +60,7 @@
     "moment": "^2.22.0",
     "mousetrap": "^1.6.0",
     "op-argue": "1.0.0",
+    "op-aggregate": "1.0.0",
     "op-argue-constraint": "1.0.0",
     "op-check-concepts": "1.0.0",
     "op-control-group": "1.0.0",
