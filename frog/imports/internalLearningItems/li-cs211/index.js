@@ -53,13 +53,11 @@ const Editor = ({ data, dataFn, LearningItem }) => (
         <dataFn.LearningItem id={x} type="thumbView" />
       </span>
     ))}
-    <div style={{ position: 'absolute', right: '0px' }}>
-      <LearningItem
-        type="create"
-        liType="li-image"
-        onCreate={e => dataFn.listAppend(e, 'attachments')}
-      />
-    </div>
+    <LearningItem
+      type="create"
+      liType="li-image"
+      onCreate={e => dataFn.listAppend(e, 'attachments')}
+    />
   </React.Fragment>
 );
 

@@ -6,10 +6,18 @@ import Button from '@material-ui/core/Button';
 import UploadDragDrop from './UploadDragDrop';
 
 const UploadBar = (props: Object) => (
-  <Main>
-    <Container>
+  <>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: '50%',
+        marginBottom: '20px'
+      }}
+    >
       <UploadDragDrop {...props} />
-      <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
+      <div>
         <Button
           color="primary"
           variant="raised"
@@ -18,23 +26,9 @@ const UploadBar = (props: Object) => (
           Open the webcam
         </Button>
       </div>
-    </Container>
-  </Main>
+    </div>
+  </>
 );
-
-const Main = styled.div`
-  width: 100%;
-  height: 81px;
-  background-color: white;
-`;
-
-const Container = styled.div`
-  height: 90%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding-top: 10px;
-`;
 
 UploadBar.displayName = 'UploadBar';
 export default UploadBar;
