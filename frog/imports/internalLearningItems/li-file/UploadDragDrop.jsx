@@ -3,7 +3,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import styled from 'styled-components';
 
 import uploadWithTumbnail from './utils';
 
@@ -26,7 +25,7 @@ const UploadDragDrop = ({
     );
   };
   const baseStyle = {
-    width: '50%',
+    width: '75%',
     height: '90px',
     cursor: 'pointer'
   };

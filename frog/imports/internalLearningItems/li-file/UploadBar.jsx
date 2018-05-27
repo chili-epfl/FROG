@@ -12,7 +12,7 @@ const UploadBar = (props: Object) => (
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        width: '50%',
+        width: '100%',
         marginBottom: '20px'
       }}
     >
