@@ -41,6 +41,15 @@ const configUI = { instructions: { 'ui:widget': 'textarea' } };
 
 const dataStructure = {};
 
+const style = {
+  width: 600,
+  margin: 'auto',
+  backgroundColor: '#fff',
+  padding: 40,
+  border: 'solid 1px',
+  height: '100%'
+};
+
 // the actual component that the student sees
 const ActivityRunner = withVisibility(
   ({
@@ -62,7 +71,7 @@ const ActivityRunner = withVisibility(
     );
     if (data.li) {
       return (
-        <>
+        <div style={style}>
           {header}
           <dataFn.LearningItem
             type={visible ? 'edit' : 'view'}
@@ -98,18 +107,18 @@ const ActivityRunner = withVisibility(
               </div>
             )}
           />
-        </>
+        </div>
       );
     } else {
       return (
-        <>
+        <div style={style}>
           {header}
           <dataFn.LearningItem
             type="create"
             liType={conf.liType}
             onCreate={li => dataFn.objInsert(li, 'li')}
           />
-        </>
+        </div>
       );
     }
   }
