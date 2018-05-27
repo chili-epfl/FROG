@@ -7,7 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Webcam from '@houshuang/react-webcam';
+import Webcam from 'react-webcam';
 
 import uploadImage from './utils';
 
@@ -57,6 +57,7 @@ const WebcamCapture = (props: Object) => {
         ref={node => (webcam = node)}
         screenshotFormat="image/jpeg"
         style={{ width: '60%', height: '90%', margin: 'auto' }}
+        onUserMediaError={e => console.error(e)}
       />
       <Button
         variant="fab"
