@@ -2,7 +2,9 @@
 
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
-import Form from 'react-jsonschema-form';
+
+import TextField from '@material-ui/core/TextField';
+
 import { type LearningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ LearningItem, data }) => (
@@ -19,18 +21,14 @@ const Viewer = ({ LearningItem, data }) => (
   <React.Fragment>
     <h3>{data.group}</h3>
     <br />
-    {data.attachments.length === 1 ? (
-      <LearningItem id={data.attachments[0]} type="view" />
-    ) : (
-      data.attachments.map(x => (
-        <LearningItem
-          clickZoomable
-          key={JSON.stringify(x)}
-          id={x}
-          type="thumbView"
-        />
-      ))
-    )}
+    {data.attachments.map(x => (
+      <LearningItem
+        clickZoomable
+        key={JSON.stringify(x)}
+        id={x}
+        type="thumbView"
+      />
+    ))}
   </React.Fragment>
 );
 
@@ -63,25 +61,24 @@ const Editor = ({ data, dataFn, LearningItem }) => (
 
 class Creator extends React.Component<
   *,
-  { formData: string, attachments: any[] }
+  { group: string, attachments: any[] }
 > {
-  state = { formData: '', attachments: [] };
+  state = { group: '', attachments: [] };
 
   render() {
     const { LearningItem, createLearningItem } = this.props;
     const complete =
-      this.state.formData.length > 0 && this.state.attachments.length > 0;
+      this.state.group.length > 0 && this.state.attachments.length > 0;
     return (
       <>
-        <div className="bootstrap" style={{ width: '500px' }}>
-          <Form
-            schema={{ title: 'Group title', type: 'string' }}
-            formData={this.state.formData}
-            onChange={e => this.setState({ formData: e.formData })}
-          >
-            {' '}
-          </Form>
-        </div>
+        <TextField
+          id="name"
+          label="Group Name"
+          value={this.state.group}
+          onChange={e => this.setState({ group: e.target.value })}
+          margin="normal"
+          fullWidth
+        />
         {this.state.attachments.map((x, i) => (
           <span
             key={JSON.stringify(x)}
@@ -109,12 +106,7 @@ class Creator extends React.Component<
           }
         />
         <Button
-          onClick={() =>
-            createLearningItem('li-cs211', {
-              group: this.state.formData,
-              attachments: this.state.attachments
-            })
-          }
+          onClick={() => createLearningItem('li-cs211', this.state)}
           color="primary"
           variant="raised"
           aria-label="submit"
