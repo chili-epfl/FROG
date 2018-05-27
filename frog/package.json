@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {"start": "nps"},
   "dependencies": {
+    "material-ui-dropzone": "^1.0.3",
     "@houshuang/react-webcam": "^0.3.5",
     "@houshuang/resize-img": "^1.2.2",
     "@babel/runtime": "^7.0.0-beta.46",
