@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import UploadDragDrop from './UploadDragDrop';
 
 const UploadBar = (props: Object) => (
@@ -19,11 +19,11 @@ const UploadBar = (props: Object) => (
       <UploadDragDrop {...props} />
       <div>
         <Button
-          color="primary"
-          variant="raised"
+          variant="fab"
+          color="secondary"
           onClick={() => props.setWebcam(true)}
         >
-          Open the webcam
+          <PhotoCameraIcon />
         </Button>
       </div>
     </div>

@@ -85,13 +85,18 @@ class Creator extends React.Component<
         {this.state.attachments.map((x, i) => (
           <span
             key={JSON.stringify(x)}
-            onClick={() =>
-              // eslint-disable-next-line no-alert
-              window.confirm('Do you really want to delete this attachment?') &&
-              this.setState({
-                attachments: this.state.attachments.splice(i, 1)
-              })
-            }
+            onClick={() => {
+              if (
+                // eslint-disable-next-line no-alert
+                window.confirm('Do you really want to delete this attachment?')
+              ) {
+                const newAttach = [...this.state.attachments];
+                newAttach.splice(i, 1);
+                this.setState({
+                  attachments: newAttach
+                });
+              }
+            }}
           >
             <LearningItem id={x} type="thumbView" />
           </span>
