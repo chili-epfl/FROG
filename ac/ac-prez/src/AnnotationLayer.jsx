@@ -28,15 +28,17 @@ class AnnotationLayer extends Component {
       addAnnotation(documentId, pageNumber, annotation) {
         const currentPageNum = that.getCurrentPageNum();
         const savedAnnotations = that.getSavedAnnotations();
-        delete savedAnnotations[currentPageNum]
+        delete savedAnnotations[currentPageNum];
         that.replaceSavedAnnotations(savedAnnotations);
 
         annotation.class = 'Annotation';
         annotation.uuid = uuid();
         annotation.page = pageNumber;
         const pageAnnotations = that.getPageAnnotations();
-        if (pageAnnotations.length===0) props.dataFn.objInsert([annotation], ['annotations', currentPageNum]);
-        else props.dataFn.listAppend(annotation, ['annotations', currentPageNum]);
+        if (pageAnnotations.length === 0)
+          props.dataFn.objInsert([annotation], ['annotations', currentPageNum]);
+        else
+          props.dataFn.listAppend(annotation, ['annotations', currentPageNum]);
         return Promise.resolve(annotation);
       },
 
@@ -46,9 +48,13 @@ class AnnotationLayer extends Component {
         const index = annotations.findIndex(x => x.uuid === annotation.uuid);
 
         return new Promise((resolve, reject) => {
-          if (index == -1) reject(new Error('Could not find annotation!'));
+          if (index === -1) reject(new Error('Could not find annotation!'));
           else {
-            props.dataFn.objSet(annotation, ['annotations', currentPageNum, index.toString()]);
+            props.dataFn.objSet(annotation, [
+              'annotations',
+              currentPageNum,
+              index.toString()
+            ]);
             resolve(annotation);
           }
         });
@@ -60,16 +66,16 @@ class AnnotationLayer extends Component {
         const index = annotations.findIndex(x => x.uuid === annotationId);
 
         return new Promise((resolve, reject) => {
-          if (index == -1) reject(new Error('Could not find annotation!'));
+          if (index === -1) reject(new Error('Could not find annotation!'));
           else {
             const savedAnnotations = that.getSavedAnnotations();
-            const currentPageNum = that.getCurrentPageNum();
-            if (savedAnnotations[currentPageNum]) savedAnnotations[currentPageNum].push(annotations[index]);
-            else savedAnnotations[currentPageNum] = [annotations[index]]
+            if (savedAnnotations[currentPageNum])
+              savedAnnotations[currentPageNum].push(annotations[index]);
+            else savedAnnotations[currentPageNum] = [annotations[index]];
             that.replaceSavedAnnotations(savedAnnotations);
 
             props.dataFn.listDel(null, ['annotations', currentPageNum, index]);
-            
+
             resolve(true);
           }
         });
@@ -82,7 +88,13 @@ class AnnotationLayer extends Component {
 
     PDFJSAnnotate.setStoreAdapter(StoreAdapter);
 
+    PDFJSAnnotate.UI.disableEdit();
+    PDFJSAnnotate.UI.disablePen();
+    PDFJSAnnotate.UI.disableText();
+    PDFJSAnnotate.UI.disablePoint();
+    PDFJSAnnotate.UI.disableRect();
     PDFJSAnnotate.UI.enableEdit();
+    PDFJSAnnotate.UI.setPen(1, '#000000');
 
     this.state = {
       studentPaging: false,
@@ -99,22 +111,30 @@ class AnnotationLayer extends Component {
   }
 
   componentWillMount() {
-    if (!localStorage.getItem('savedAnnotations')) this.replaceSavedAnnotations({});
-    if (this.resetPaging) this.props.dataFn.objSet(this.props.data.pageNum, ['furthestPageNum']);
+    if (!localStorage.getItem('savedAnnotations'))
+      this.replaceSavedAnnotations({});
+    if (this.resetPaging)
+      this.props.dataFn.objSet(this.props.data.pageNum, ['furthestPageNum']);
     Mousetrap.bind('backspace', () => this.undo());
-    Mousetrap.bind('left', (e) => { e.preventDefault(); this.handleLeftArrow() });
-    Mousetrap.bind('right', (e) => { e.preventDefault(); this.handleRightArror() });
+    Mousetrap.bind('left', e => {
+      e.preventDefault();
+      this.handleLeftArrow();
+    });
+    Mousetrap.bind('right', e => {
+      e.preventDefault();
+      this.handleRightArror();
+    });
   }
 
   handleLeftArrow = () => {
     if (this.checkIfTeacher()) this.prevPageAdmin();
     else this.prevPageStudent();
-  }
+  };
 
   handleRightArror = () => {
     if (this.checkIfTeacher()) this.nextPageAdmin();
     else this.nextPageStudent();
-  }
+  };
 
   componentWillUnmount() {
     Mousetrap.unbind('backspace');
@@ -126,7 +146,7 @@ class AnnotationLayer extends Component {
     this.forceRenderPage();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate() {
     if (this.queuedRender) return false;
     return true;
   }
@@ -134,9 +154,12 @@ class AnnotationLayer extends Component {
   componentDidUpdate(prevProps) {
     if (this.checkIfTeacher() && !this.editorRender) return;
 
-    if (this.state.studentPaging && 
+    if (
+      this.state.studentPaging &&
       this.state.pageNumStudent !== this.props.data.pageNum &&
-      prevProps.data.pageNum !== this.props.data.pageNum) return;
+      prevProps.data.pageNum !== this.props.data.pageNum
+    )
+      return;
 
     if (this.rendering) {
       if (!this.queuedRender) {
@@ -197,18 +220,23 @@ class AnnotationLayer extends Component {
   getCurrentPageNum = () => {
     if (this.studentPaging) return this.state.pageNumStudent;
     else return this.props.data.pageNum;
-  }
+  };
 
-  getPageAnnotations = () => (this.props.data.annotations[this.getCurrentPageNum()] || []);
+  getPageAnnotations = () =>
+    this.props.data.annotations[this.getCurrentPageNum()] || [];
 
-  getSavedAnnotations = () => JSON.parse(localStorage.getItem('savedAnnotations')) || {};
+  getSavedAnnotations = () =>
+    JSON.parse(localStorage.getItem('savedAnnotations')) || {};
 
-  getSavedPageAnnotations = () => JSON.parse(localStorage.getItem('savedAnnotations'))[this.getCurrentPageNum()] || [];
-  
-  replaceSavedAnnotations = (savedAnnotations) => {
+  getSavedPageAnnotations = () =>
+    JSON.parse(localStorage.getItem('savedAnnotations'))[
+      this.getCurrentPageNum()
+    ] || [];
+
+  replaceSavedAnnotations = savedAnnotations => {
     localStorage.setItem('savedAnnotations', JSON.stringify(savedAnnotations));
-  }
-  
+  };
+
   clearAnnotations = () => {
     this.replaceSavedAnnotations({});
     this.props.dataFn.objSet({}, 'annotations');
@@ -271,7 +299,11 @@ class AnnotationLayer extends Component {
     this.editorRender = true;
     const pageNum = this.props.data.pageNum + 1;
     this.props.dataFn.numIncr(1, ['pageNum']);
-    if (this.props.activityData.config.studentCannotGoFurther && pageNum > this.props.data.furthestPageNum) this.props.dataFn.objSet(pageNum, ['furthestPageNum']);
+    if (
+      this.props.activityData.config.studentCannotGoFurther &&
+      pageNum > this.props.data.furthestPageNum
+    )
+      this.props.dataFn.objSet(pageNum, ['furthestPageNum']);
   };
 
   prevPageAdmin = () => {
@@ -283,13 +315,21 @@ class AnnotationLayer extends Component {
   nextPageStudent = () => {
     if (this.state.studentPaging) {
       if (this.state.pageNumStudent + 1 > this.props.pdf.numPages) return;
-      if (this.props.activityData.config.studentCannotGoFurther && this.state.pageNumStudent + 1 > this.props.data.furthestPageNum) return;
+      if (
+        this.props.activityData.config.studentCannotGoFurther &&
+        this.state.pageNumStudent + 1 > this.props.data.furthestPageNum
+      )
+        return;
       this.setState(prevstate => ({
         pageNumStudent: prevstate.pageNumStudent + 1
       }));
     } else {
       if (this.props.data.pageNum + 1 > this.props.pdf.numPages) return;
-      if (this.props.activityData.config.studentCannotGoFurther && this.props.data.pageNum + 1 > this.props.data.furthestPageNum) return;
+      if (
+        this.props.activityData.config.studentCannotGoFurther &&
+        this.props.data.pageNum + 1 > this.props.data.furthestPageNum
+      )
+        return;
       this.setState({
         studentPaging: true,
         pageNumStudent: this.props.data.pageNum + 1
@@ -316,38 +356,44 @@ class AnnotationLayer extends Component {
     this.setState({ studentPaging: false });
   };
 
-  getValidPageNum(pageNum) {
+  getValidPageNum = pageNum => {
     try {
-      pageNum = Number(pageNum);
-      if (pageNum < 1 || pageNum > this.props.pdf.numPages) return 0;
-      return pageNum;
-    }
-    catch(e) {
+      const newPageNum = Number(pageNum);
+      if (newPageNum < 1 || newPageNum > this.props.pdf.numPages) return 0;
+      return newPageNum;
+    } catch (e) {
       console.error(e);
     }
     return 0;
-  }
+  };
 
-  changePageAdmin = (pageNum) => {
-    pageNum = this.getValidPageNum(pageNum);
-    if (pageNum) {
+  changePageAdmin = pageNum => {
+    const newPageNum = this.getValidPageNum(pageNum);
+    if (newPageNum) {
       this.editorRender = true;
-      this.props.dataFn.objSet(pageNum, ['pageNum']);
-      if (pageNum > this.props.data.furthestPageNum) this.props.dataFn.objSet(pageNum, ['furthestPageNum']);
+      this.props.dataFn.objSet(newPageNum, ['pageNum']);
+      if (newPageNum > this.props.data.furthestPageNum)
+        this.props.dataFn.objSet(newPageNum, ['furthestPageNum']);
     }
   };
 
-  changePageStudent = (pageNum) => {
-    pageNum = this.getValidPageNum(pageNum);
-    const studentCannotGoFurther = this.props.activityData.config.studentCannotGoFurther;
-    if (pageNum && (!studentCannotGoFurther || (studentCannotGoFurther && (pageNum <= this.props.data.furthestPageNum)))) {
+  changePageStudent = pageNum => {
+    const newPageNum = this.getValidPageNum(pageNum);
+    const studentCannotGoFurther = this.props.activityData.config
+      .studentCannotGoFurther;
+    if (
+      newPageNum &&
+      (!studentCannotGoFurther ||
+        (studentCannotGoFurther &&
+          newPageNum <= this.props.data.furthestPageNum))
+    ) {
       this.setState({
         studentPaging: true,
-        pageNumStudent: pageNum
+        pageNumStudent: newPageNum
       });
     }
-  }
-  
+  };
+
   checkIfSamePageNum = pageNum =>
     (this.state.studentPaging && this.state.pageNumStudent === pageNum) ||
     (!this.state.studentPaging && this.props.data.pageNum === pageNum);
@@ -357,26 +403,35 @@ class AnnotationLayer extends Component {
     const pageAnnotations = this.getPageAnnotations();
     if (pageAnnotations.length === 0) return;
 
-    const index = pageAnnotations.length-1;
+    const index = pageAnnotations.length - 1;
     const annotation = pageAnnotations[index];
 
     const savedAnnotations = this.getSavedAnnotations();
-    if (savedAnnotations[currentPageNum]) savedAnnotations[currentPageNum].push(annotation);
-    else savedAnnotations[currentPageNum] = [annotation]
+    if (savedAnnotations[currentPageNum])
+      savedAnnotations[currentPageNum].push(annotation);
+    else savedAnnotations[currentPageNum] = [annotation];
     this.replaceSavedAnnotations(savedAnnotations);
-    
+
     this.editorRender = true;
-    this.props.dataFn.listDel(null, ['annotations', currentPageNum, index.toString()]);
+    this.props.dataFn.listDel(null, [
+      'annotations',
+      currentPageNum,
+      index.toString()
+    ]);
   };
 
   redo = () => {
     const savedAnnotations = this.getSavedAnnotations();
     const currentPageNum = this.getCurrentPageNum();
-    const pageAnnotations = savedAnnotations[currentPageNum]
+    const pageAnnotations = savedAnnotations[currentPageNum];
     if (pageAnnotations.length === 0) return;
 
-    const annotation = savedAnnotations[currentPageNum][pageAnnotations.length - 1];
-    savedAnnotations[currentPageNum] = savedAnnotations[currentPageNum].slice(0, -1)
+    const annotation =
+      savedAnnotations[currentPageNum][pageAnnotations.length - 1];
+    savedAnnotations[currentPageNum] = savedAnnotations[currentPageNum].slice(
+      0,
+      -1
+    );
     this.replaceSavedAnnotations(savedAnnotations);
 
     this.editorRender = true;
@@ -408,7 +463,6 @@ class AnnotationLayer extends Component {
     const pageAnnotationsLocalStorage = this.getSavedPageAnnotations();
     const pageAnnotationsDatabase = this.getPageAnnotations();
 
-    
     const test = UI.createPage(shownPageNum);
     const svgStyle = test.querySelector('svg').style;
     svgStyle.position = 'absolute';
@@ -474,24 +528,22 @@ class AnnotationLayer extends Component {
         height: '15px'
       };
       return (
-        <button key={'penColor' + color} onClick={() => this.selectPenColor(color)} style={style}>
+        <button
+          key={'penColor' + color}
+          onClick={() => this.selectPenColor(color)}
+          style={style}
+        >
           {/* {text} */}
         </button>
       );
     });
 
-    const penColorItem = (
-      <span key='penColor'>
-        {colorOptions}
-      </span>
-    );
+    const penColorItem = <span key="penColor">{colorOptions}</span>;
 
     if (this.state.activeItem === 'draw') {
       annotateItems.push(penColorItem);
       annotateItems.push(penSizeItem);
     }
-    
-    
 
     const debugItems = !activityData.config.debug ? null : (
       <span>
@@ -504,31 +556,48 @@ class AnnotationLayer extends Component {
     const editorItems = !this.checkIfTeacher() ? null : (
       <span>
         <span>Teacher/Admin: </span>
-        <button onClick={this.undo} disabled={pageAnnotationsDatabase.length===0}>UNDO</button>
-        <button onClick={this.redo} disabled={pageAnnotationsLocalStorage.length===0}>REDO</button>
+        <button
+          onClick={this.undo}
+          disabled={pageAnnotationsDatabase.length === 0}
+        >
+          UNDO
+        </button>
+        <button
+          onClick={this.redo}
+          disabled={pageAnnotationsLocalStorage.length === 0}
+        >
+          REDO
+        </button>
         <button onClick={this.clearAnnotations}>Clear All Annotations</button>
         <button onClick={this.prevPageAdmin}>Prev Page</button>
         <button onClick={this.nextPageAdmin}>Next Page</button>
         <button onClick={() => this.changePageAdmin(1)}>First</button>
-        <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>Last</button>
+        <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
+          Last
+        </button>
         <hr />
         <span>Annotate: </span>
         {annotateItems}
       </span>
     );
 
-    const studentItems = (this.checkIfTeacher() || activityData.config.studentMustFollow) ? null : (
-      <span>
-        <span>Student: </span>
-        <button onClick={this.prevPageStudent}>Prev Page</button>
-        <button onClick={this.nextPageStudent}>Next Page</button>
-        <button onClick={() => this.changePageStudent(1)}>First</button>
-        <button onClick={() => this.changePageStudent(this.props.pdf.numPages)}>Last</button>
-        {this.state.studentPaging && (
-          <button onClick={this.goBackToAdminPaging}>Back To Teacher</button>
-        )}
-      </span>
-    );
+    const studentItems =
+      this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (
+        <span>
+          <span>Student: </span>
+          <button onClick={this.prevPageStudent}>Prev Page</button>
+          <button onClick={this.nextPageStudent}>Next Page</button>
+          <button onClick={() => this.changePageStudent(1)}>First</button>
+          <button
+            onClick={() => this.changePageStudent(this.props.pdf.numPages)}
+          >
+            Last
+          </button>
+          {this.state.studentPaging && (
+            <button onClick={this.goBackToAdminPaging}>Back To Teacher</button>
+          )}
+        </span>
+      );
 
     return (
       <div>

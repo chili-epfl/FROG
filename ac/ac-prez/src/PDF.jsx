@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PDFJS from '@houshuang/pdfjs-dist';
-
 import AnnotationLayer from './AnnotationLayer';
 import ScratchPad from './ScratchPad';
 
@@ -27,7 +26,7 @@ export default class PDF extends Component {
     this.setState({
       blankMode: !this.state.blankMode
     });
-  }
+  };
 
   getPDF = () => {
     try {
@@ -53,10 +52,8 @@ export default class PDF extends Component {
 
     let layerDisplay = null;
 
-    if(this.state.blankMode) {
-      layerDisplay = (
-        <ScratchPad />
-      )
+    if (this.state.blankMode) {
+      layerDisplay = <ScratchPad />;
     } else if (this.state.err) {
       layerDisplay = (
         <div>
@@ -76,9 +73,11 @@ export default class PDF extends Component {
       );
     }
 
-    const annotationsModeItem = !this.state.blankMode ?
-      (<button onClick={this.onSwitchMode}>Switch to ScrachPad</button>) :
-      (<button onClick={this.onSwitchMode}>Switch back to PDF</button>)
+    const annotationsModeItem = !this.state.blankMode ? (
+      <button onClick={this.onSwitchMode}>Switch to ScrachPad</button>
+    ) : (
+      <button onClick={this.onSwitchMode}>Switch back to PDF</button>
+    );
 
     return (
       <div>

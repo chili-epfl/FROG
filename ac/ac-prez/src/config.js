@@ -17,12 +17,12 @@ export const config = {
       type: 'boolean'
     },
     studentCannotGoFurther: {
-      title: "Student cannot go further than teacher",
+      title: 'Student cannot go further than teacher',
       default: false,
       type: 'boolean'
     },
     studentMustFollow: {
-      title: "Students must follow teacher",
+      title: 'Students must follow teacher',
       default: false,
       type: 'boolean'
     }

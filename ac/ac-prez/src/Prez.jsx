@@ -28,7 +28,7 @@ class Prez extends Component<ActivityRunnerPropsT> {
       initialPDF = activityData.config.pdf_url;
     }
 
-    let pdfSRC = this.props.data.pdf_file
+    const pdfSRC = this.props.data.pdf_file
       ? this.props.data.pdf_file
       : initialPDF;
 
@@ -43,8 +43,7 @@ class Prez extends Component<ActivityRunnerPropsT> {
         <hr />
       </span>
     );
-    
-    
+
     return (
       <div>
         {inputItem}
