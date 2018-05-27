@@ -139,7 +139,6 @@ class AnnotationLayer extends Component {
       prevProps.data.pageNum !== this.props.data.pageNum) return;
 
     if (this.rendering) {
-      console.log('Currently rendering')
       if (!this.queuedRender) {
         this.queuedRender = true;
         setTimeout(this.queueUpRender, 500);
@@ -163,7 +162,6 @@ class AnnotationLayer extends Component {
   };
 
   forceRenderPage = () => {
-    // console.log('RENDERING PAGE');
     this.rendering = true;
     const RENDER_OPTIONS = {
       documentId: this.props.pdf.fingerprint,
@@ -341,7 +339,8 @@ class AnnotationLayer extends Component {
 
   changePageStudent = (pageNum) => {
     pageNum = this.getValidPageNum(pageNum);
-    if (pageNum && (this.props.activityData.config.studentCannotGoFurther && (pageNum <= this.props.data.furthestPageNum))) {
+    const studentCannotGoFurther = this.props.activityData.config.studentCannotGoFurther;
+    if (pageNum && (!studentCannotGoFurther || (studentCannotGoFurther && (pageNum <= this.props.data.furthestPageNum)))) {
       this.setState({
         studentPaging: true,
         pageNumStudent: pageNum
@@ -398,7 +397,6 @@ class AnnotationLayer extends Component {
   };
 
   render() {
-    // console.log('RENDERING');
     const { activityData } = this.props;
 
     const UI = this.PDFJSAnnotate.UI;

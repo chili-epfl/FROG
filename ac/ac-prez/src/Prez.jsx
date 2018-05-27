@@ -8,20 +8,6 @@ class Prez extends Component<ActivityRunnerPropsT> {
   node: any;
   pdfFileInput: any = null;
 
-  constructor() {
-    super();
-
-    this.state = {
-      blankMode: false
-    };
-  }
-
-  onSwitchMode = () => {
-    this.setState({
-      blankMode: !this.state.blankMode
-    });
-  }
-
   updateFile = () => {
     localStorage.removeItem('savedAnnotations');
     this.props.dataFn.objSet(1, ['pageNum']);
@@ -57,23 +43,17 @@ class Prez extends Component<ActivityRunnerPropsT> {
         <hr />
       </span>
     );
-
-    const annotationsModeItem = !this.state.blankMode ?
-      (<button onClick={this.onSwitchMode}>Switch to ScrachPad</button>) :
-      (<button onClick={this.onSwitchMode}>Switch back to PDF</button>)
     
     
     return (
       <div>
         {inputItem}
-        {annotationsModeItem}
         <PDF
           src={pdfSRC}
           userInfo={userInfo}
           activityData={activityData}
           data={data}
           dataFn={dataFn}
-          blankMode={this.state.blankMode}
         />
       </div>
     );

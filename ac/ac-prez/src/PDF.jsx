@@ -9,7 +9,8 @@ export default class PDF extends Component {
     pdf: null,
     pageNumber: 1,
     scale: 1,
-    err: null
+    err: null,
+    blankMode: false
   };
 
   componentDidMount() {
@@ -20,6 +21,12 @@ export default class PDF extends Component {
     if (this.props.src !== prevProps.src) {
       this.getPDF();
     }
+  }
+
+  onSwitchMode = () => {
+    this.setState({
+      blankMode: !this.state.blankMode
+    });
   }
 
   getPDF = () => {
@@ -46,17 +53,17 @@ export default class PDF extends Component {
 
     let layerDisplay = null;
 
-    if (this.state.err) {
+    if(this.state.blankMode) {
+      layerDisplay = (
+        <ScratchPad />
+      )
+    } else if (this.state.err) {
       layerDisplay = (
         <div>
           <p>Invalid PDF provided!</p>
           <p>Error: {this.state.err}</p>
         </div>
       );
-    } else if(this.props.blankMode) {
-      layerDisplay = (
-        <ScratchPad />
-      )
     } else if (pdf) {
       layerDisplay = (
         <AnnotationLayer
@@ -69,9 +76,16 @@ export default class PDF extends Component {
       );
     }
 
+    const annotationsModeItem = !this.state.blankMode ?
+      (<button onClick={this.onSwitchMode}>Switch to ScrachPad</button>) :
+      (<button onClick={this.onSwitchMode}>Switch back to PDF</button>)
+
     return (
-      <div id="viewer" className="pdf-viewer">
-        {layerDisplay}
+      <div>
+        {annotationsModeItem}
+        <div id="viewer" className="pdf-viewer">
+          {layerDisplay}
+        </div>
       </div>
     );
   }
