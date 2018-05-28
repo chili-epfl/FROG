@@ -943,9 +943,9 @@
   dependencies:
     prop-types "^15.5.8"
 
-"@houshuang/resize-img@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.2.2.tgz#94c99da6592c82906ef0ed388bc98bd44612c09a"
+"@houshuang/resize-img@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@houshuang/resize-img/-/resize-img-1.2.3.tgz#0584c9c1f06d203c5f3474140cda63b6269db042"
   dependencies:
     "@houshuang/parse-png" "^1.1.4"
     bmp-js "0.0.1"
