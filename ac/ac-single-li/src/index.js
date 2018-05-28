@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityPackageT, withVisibility, uuid } from 'frog-utils';
+import { type ActivityPackageT, type ActivityRunnerPropsT, withVisibility, uuid } from 'frog-utils';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import { ProgressDashboard } from 'frog-utils';
 
 const meta = {
   name: 'Add/edit single LI',
@@ -51,14 +52,18 @@ const style = {
 };
 
 // the actual component that the student sees
-const ActivityRunner = withVisibility(
-  ({
+class ActivityRunner extends React.Component< ActivityRunnerPropsT, {editing: boolean}>{
+state: { editing: false } 
+
+  componentDidMount = () => log({type: 'progress', value: 0})
+
+  render() {
+  const {
     activityData: { config: conf },
     data,
     dataFn,
-    visible,
-    setVisibility
-  }) => {
+  } = this.props
+
     const header = (
       <>
         {conf.title && <h1>{conf.title}</h1>}
@@ -69,12 +74,13 @@ const ActivityRunner = withVisibility(
         )}
       </>
     );
+
     if (data.li) {
       return (
         <div style={style}>
           {header}
           <dataFn.LearningItem
-            type={visible ? 'edit' : 'view'}
+            type={this.state.editing ? 'edit' : 'view'}
             id={data.li}
             render={({ editable, children }) => (
               <div>
@@ -84,7 +90,7 @@ const ActivityRunner = withVisibility(
                     <Button
                       onClick={() =>
                         editable
-                          ? setVisibility(true)
+                          ? this.setState({editing: true})
                           : dataFn.objDel(null, 'li')
                       }
                       variant="fab"
@@ -94,9 +100,9 @@ const ActivityRunner = withVisibility(
                       {editable ? <EditIcon /> : <CloseIcon />}
                     </Button>
                   )}
-                {visible && (
+                {this.state.visible && (
                   <Button
-                    onClick={() => setVisibility(false)}
+                    onClick={() => this.setState({editing: true})}
                     color="primary"
                     variant="raised"
                     aria-label="save"
@@ -132,6 +138,6 @@ export default ({
   configUI,
   formatProduct,
   ActivityRunner,
-  dashboard: null,
+  dashboards: { progress: ProgressDashboard },
   dataStructure
 }: ActivityPackageT);

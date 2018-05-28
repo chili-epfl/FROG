@@ -124,6 +124,15 @@ class ActivityRunner extends Component<
           }}
           canVote={activityData.config.canVote}
         />
+        {this.props.activityData.config.canUpload && (
+          <div style={{ position: 'absolute', bottom: '10px' }}>
+            <dataFn.LearningItem
+              meta={{ comment: '', votes: {}, categories: [] }}
+              type="create"
+              autoInsert
+            />
+          </div>
+        )}
         {this.state.category !== 'categories' &&
           this.state.zoomOn && (
             <ZoomView
