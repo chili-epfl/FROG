@@ -200,9 +200,9 @@ class ConfigPanel extends React.Component<*, *> {
                 <TagsInput
                   value={metadatas.tags}
                   onChange={e => {
-                    const newMetadatas = metadatas;
-                    newMetadatas.tags = e.target.value;
-                    setMetadatas(newMetadatas);
+                    metadatas.tags = e;
+                    setMetadatas(metadatas);
+                    this.forceUpdate()
                   }}
                 />
                 <div style={{ height: '10px' }} />
