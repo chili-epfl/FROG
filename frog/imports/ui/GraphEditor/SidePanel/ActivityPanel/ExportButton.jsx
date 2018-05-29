@@ -12,9 +12,12 @@ const StatelessExportButton = (props: Object) => (
     <Modal
       exportType="activity"
       {...props}
-      metaDatas={LibraryStates.activityList.filter(
-        x => x.uuid === props.activity.parentId
-      )}
+      metadatas={
+        props.metadatas ||
+        LibraryStates.activityList.filter(
+          x => x.uuid === props.activity.parentId
+        )[0]
+      }
     />
     <IconButton
       tooltip="Send activity to activity library"

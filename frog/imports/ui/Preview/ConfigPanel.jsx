@@ -35,6 +35,7 @@ const styles = {
 class ConfigPanel extends React.Component<*, *> {
   constructor(props: Object) {
     super(props);
+    this.state = { displaySave: false };
     if (!props.metadatas) {
       const metadatas = LibraryStates.activityList.find(
         x => x.uuid === props.state.metadatas.uuid
@@ -44,6 +45,9 @@ class ConfigPanel extends React.Component<*, *> {
   }
 
   onConfigChange = (e: any) => {
+    if (JSON.stringify(e.config) !== JSON.stringify(this.props.config)) {
+      this.setState({ displaySave: true });
+    }
     if (e.errors && e.errors.length === 0) {
       const aT = activityTypesObj[e.activityType];
       this.props.setConfig(e.config);
@@ -74,6 +78,7 @@ class ConfigPanel extends React.Component<*, *> {
   };
 
   componentDidUpdate = () => {
+    this.setState({ displaySave: false });
     if (this.props.activityTypeId && this.props.config.invalid === undefined) {
       check(
         this.props.activityTypeId,
@@ -134,27 +139,29 @@ class ConfigPanel extends React.Component<*, *> {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              {metadatas.uuid && (
-                <Button
-                  color="primary"
-                  style={{ left: '-25px' }}
-                  onClick={() => {
-                    updateActivity(metadatas.uuid, {
-                      ...metadatas,
-                      data: { ...config }
-                    });
-                  }}
-                >
-                  Save
-                </Button>
-              )}
+              {metadatas.uuid &&
+                this.state.displaySave && (
+                  <Button
+                    color="primary"
+                    style={{ left: '-25px' }}
+                    onClick={() => {
+                      updateActivity(metadatas.uuid, {
+                        ...metadatas,
+                        data: { ...config }
+                      });
+                      this.forceUpdate();
+                    }}
+                  >
+                    Save
+                  </Button>
+                )}
               <ExportButton
                 activity={{
                   title: activityTypesObj[activityTypeId].meta.name,
                   data: config,
                   activityType: activityTypeId
                 }}
-                {...{ setMetadatas }}
+                {...{ metadatas, setMetadatas }}
                 updateParent={() => this.forceUpdate()}
               />
             </Grid>
@@ -202,7 +209,7 @@ class ConfigPanel extends React.Component<*, *> {
                   onChange={e => {
                     metadatas.tags = e;
                     setMetadatas(metadatas);
-                    this.forceUpdate()
+                    this.forceUpdate();
                   }}
                 />
                 <div style={{ height: '10px' }} />

@@ -31,9 +31,9 @@ export default class ExportModal extends Component<Object, StateT> {
   }
 
   componentWillReceiveProps(nextProps: Object) {
-    if (nextProps.metaDatas)
+    if (nextProps.metadatas)
       this.setState({
-        ...nextProps.metaDatas[0]
+        ...nextProps.metadatas
       });
     else {
       const name = nextProps.activity
