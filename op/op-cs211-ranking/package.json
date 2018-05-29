@@ -2,7 +2,7 @@
   "name": "op-cs211-ranking",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {"start": "nps"},
   "author": "",
   "license": "ISC",
