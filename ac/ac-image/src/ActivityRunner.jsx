@@ -38,7 +38,7 @@ class ActivityRunner extends Component<
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
     const { data, activityData } = props;
-    this.categories = Object.keys(data).reduce(
+    this.categories = Object.keys(data || {}).reduce(
       (acc, key) => ({
         ...acc,
         all: [...(acc.all || []), data[key]],
@@ -127,7 +127,16 @@ class ActivityRunner extends Component<
         {this.props.activityData.config.canUpload && (
           <div style={{ position: 'absolute', bottom: '10px' }}>
             <dataFn.LearningItem
-              meta={{ comment: '', votes: {}, categories: [] }}
+              meta={{
+                comment: '',
+                votes: {},
+                categories:
+                  this.state.category &&
+                  this.state.category !== 'categories' &&
+                  this.state.category !== 'all'
+                    ? this.state.category
+                    : []
+              }}
               type="create"
               autoInsert
             />

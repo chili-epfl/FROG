@@ -1,3 +1,4 @@
 {
-  "token": "aab"
+  "token": "aab",
+  "Minio": { "urls": ["https://icchilisrv3.epfl.ch:9000"]}
 }

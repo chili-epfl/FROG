@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import Mousetrap from 'mousetrap';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -11,26 +13,96 @@ const ThumbViewer = ({ LearningItem, data }) => (
   <React.Fragment>
     <b>{data.group}</b>
     <br />
-    {data.attachments.map(x => (
-      <LearningItem key={JSON.stringify(x)} id={x} type="thumbView" />
-    ))}
+    <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
+      {data.attachments.map(x => (
+        <div style={{ flex: 1 }}>
+          <LearningItem key={JSON.stringify(x)} id={x} type="thumbView" />
+        </div>
+      ))}
+    </div>
   </React.Fragment>
 );
 
-const Viewer = ({ LearningItem, data }) => (
-  <React.Fragment>
-    <h3>{data.group}</h3>
-    <br />
-    {data.attachments.map(x => (
-      <LearningItem
-        clickZoomable
-        key={JSON.stringify(x)}
-        id={x}
-        type="thumbView"
-      />
-    ))}
-  </React.Fragment>
-);
+class ZoomPic extends React.Component<*, *> {
+  state = { localIndex: this.props.index };
+
+  componentDidMount() {
+    Mousetrap.bind('left', e => {
+      e.preventDefault();
+      this.setState({ localIndex: Math.max(this.state.localIndex - 1, 0) });
+    });
+    Mousetrap.bind('right', e => {
+      e.preventDefault();
+      this.setState({
+        localIndex: Math.min(
+          this.state.localIndex + 1,
+          this.props.attachments.length - 1
+        )
+      });
+    });
+    Mousetrap.bind('esc', e => {
+      e.preventDefault();
+      this.props.onClose();
+    });
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind(['right', 'left', 'esc']);
+  }
+
+  render() {
+    const { LearningItem } = this.props;
+    return (
+      <Dialog
+        maxWidth={false}
+        open
+        onClose={() => {
+          this.setState({ index: false });
+        }}
+      >
+        <LearningItem
+          id={this.props.attachments[this.state.localIndex]}
+          type="view"
+        />
+      </Dialog>
+    );
+  }
+}
+
+class Viewer extends React.Component<*, *> {
+  state = { index: null };
+  render() {
+    const { LearningItem, data } = this.props;
+    return (
+      <div>
+        <h3>{data.group}</h3>
+        <br />
+        <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
+          {data.attachments.map((x, i) => (
+            <div
+              key={JSON.stringify(x)}
+              onClick={() => this.setState({ index: i })}
+              style={{ flex: 1 }}
+            >
+              <LearningItem
+                id={x}
+                type={data.attachments.length === 1 ? 'view' : 'thumbView'}
+              />
+            </div>
+          ))}
+        </div>
+        {this.state.index !== null && (
+          <ZoomPic
+            index={this.state.index}
+            LearningItem={LearningItem}
+            attachments={data.attachments}
+            onClose={() => this.setState({ index: null })}
+          />
+        )}
+      </div>
+    );
+  }
+}
 
 const Editor = ({ data, dataFn, LearningItem }) => (
   <React.Fragment>
@@ -39,18 +111,21 @@ const Editor = ({ data, dataFn, LearningItem }) => (
       <ReactiveText type="textinput" path="group" dataFn={dataFn} />
     </div>
     <p>Click on an attachment to delete it</p>
-    {data.attachments.map((x, i) => (
-      <span
-        key={JSON.stringify(x)}
-        onClick={() =>
-          // eslint-disable-next-line no-alert
-          window.confirm('Do you really want to delete this attachment?') &&
-          dataFn.listDel(x, ['attachments', i])
-        }
-      >
-        <dataFn.LearningItem id={x} type="thumbView" />
-      </span>
-    ))}
+    <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
+      {data.attachments.map((x, i) => (
+        <div
+          style={{ flex: 1 }}
+          key={JSON.stringify(x)}
+          onClick={() =>
+            // eslint-disable-next-line no-alert
+            window.confirm('Do you really want to delete this attachment?') &&
+            dataFn.listDel(x, ['attachments', i])
+          }
+        >
+          <dataFn.LearningItem id={x} type="thumbView" />
+        </div>
+      ))}
+    </div>
     <LearningItem
       type="create"
       liType="li-image"
@@ -79,25 +154,30 @@ class Creator extends React.Component<
           margin="normal"
           fullWidth
         />
-        {this.state.attachments.map((x, i) => (
-          <span
-            key={JSON.stringify(x)}
-            onClick={() => {
-              if (
-                // eslint-disable-next-line no-alert
-                window.confirm('Do you really want to delete this attachment?')
-              ) {
-                const newAttach = [...this.state.attachments];
-                newAttach.splice(i, 1);
-                this.setState({
-                  attachments: newAttach
-                });
-              }
-            }}
-          >
-            <LearningItem id={x} type="thumbView" />
-          </span>
-        ))}
+        <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
+          {this.state.attachments.map((x, i) => (
+            <div
+              style={{ flex: 1 }}
+              key={JSON.stringify(x)}
+              onClick={() => {
+                if (
+                  // eslint-disable-next-line no-alert
+                  window.confirm(
+                    'Do you really want to delete this attachment?'
+                  )
+                ) {
+                  const newAttach = [...this.state.attachments];
+                  newAttach.splice(i, 1);
+                  this.setState({
+                    attachments: newAttach
+                  });
+                }
+              }}
+            >
+              <LearningItem id={x} type="thumbView" />
+            </div>
+          ))}
+        </div>
         <LearningItem
           type="create"
           liType="li-image"

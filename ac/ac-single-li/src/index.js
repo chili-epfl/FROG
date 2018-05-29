@@ -1,11 +1,15 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityPackageT, type ActivityRunnerPropsT, withVisibility, uuid } from 'frog-utils';
+import {
+  type ActivityPackageT,
+  type ActivityRunnerPropsT,
+  uuid,
+  ProgressDashboard
+} from 'frog-utils';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import { ProgressDashboard } from 'frog-utils';
 
 const meta = {
   name: 'Add/edit single LI',
@@ -52,17 +56,22 @@ const style = {
 };
 
 // the actual component that the student sees
-class ActivityRunner extends React.Component< ActivityRunnerPropsT, {editing: boolean}>{
-state: { editing: false } 
+class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT,
+  { editing: boolean }
+> {
+  state = { editing: false };
 
-  componentDidMount = () => log({type: 'progress', value: 0})
+  componentDidMount = () => this.props.logger({ type: 'progress', value: 0 });
 
   render() {
-  const {
-    activityData: { config: conf },
-    data,
-    dataFn,
-  } = this.props
+    const {
+      activityData: { config: conf },
+      data,
+      dataFn
+    } = this.props;
+
+    const { editing } = this.state;
 
     const header = (
       <>
@@ -85,12 +94,12 @@ state: { editing: false }
             render={({ editable, children }) => (
               <div>
                 {children}
-                {!visible &&
+                {!editing &&
                   conf.allowEditing && (
                     <Button
                       onClick={() =>
                         editable
-                          ? this.setState({editing: true})
+                          ? this.setState({ editing: true })
                           : dataFn.objDel(null, 'li')
                       }
                       variant="fab"
@@ -100,9 +109,9 @@ state: { editing: false }
                       {editable ? <EditIcon /> : <CloseIcon />}
                     </Button>
                   )}
-                {this.state.visible && (
+                {editing && (
                   <Button
-                    onClick={() => this.setState({editing: true})}
+                    onClick={() => this.setState({ editing: false })}
                     color="primary"
                     variant="raised"
                     aria-label="save"
@@ -122,13 +131,16 @@ state: { editing: false }
           <dataFn.LearningItem
             type="create"
             liType={conf.liType}
-            onCreate={li => dataFn.objInsert(li, 'li')}
+            onCreate={li => {
+              dataFn.objInsert(li, 'li');
+              this.props.logger({ type: 'progress', value: 1 });
+            }}
           />
         </div>
       );
     }
   }
-);
+}
 
 export default ({
   id: 'ac-single-li',

@@ -1,29 +1,22 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import Mousetrap from 'mousetrap';
 import { ReactiveText } from 'frog-utils';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
-import { CenteredImg } from './ImageBox';
-
-const styles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 36,
-    paddingBottom: 16,
-    height: '100%'
-  })
-});
-
-const ZoomContainer = styled.div`
-  position: absolute;
-  width: 900px;
-  height: 900px;
-  z-index: 1;
-  background: rgba(50, 50, 50, 0.8);
-`;
+const styles = {
+  dialogPaper: {
+    minWidth: '30vw',
+    maxWidth: '30vw',
+    minHeight: '70vh',
+    maxHeight: '70vh'
+  }
+};
 
 const ZoomView = ({
   close,
@@ -33,9 +26,9 @@ const ZoomView = ({
   index,
   commentBox,
   logger,
+  classes,
   commentGuidelines,
-  LearningItem,
-  classes
+  LearningItem
 }: Object) => {
   Mousetrap.bind('left', e => {
     e.preventDefault();
@@ -47,20 +40,14 @@ const ZoomView = ({
   });
 
   return (
-    <ZoomContainer>
-      <Paper className={classes.root} elevation={24}>
-        <CenteredImg>
-          <LearningItem id={images[index].li} type="view" />
-        </CenteredImg>
-        <button
-          onClick={close}
-          className="btn btn-secondary"
-          style={{ position: 'absolute', right: '0px' }}
-        >
-          <div className="bootstrap">
-            <span className="glyphicon glyphicon-remove" />
-          </div>
-        </button>
+    <Dialog open classes={{ paper: classes.dialogPaper }}>
+      <Paper depth={24}>
+        <div style={{ position: 'absolute', right: '0px' }}>
+          <IconButton color="inherit" onClick={close} aria-label="Close">
+            <CloseIcon />
+          </IconButton>
+        </div>
+        <LearningItem id={images[index].li} type="view" />
         {commentBox && (
           <ReactiveText
             type="textarea"
@@ -96,7 +83,7 @@ const ZoomView = ({
           </button>
         )}
       </Paper>
-    </ZoomContainer>
+    </Dialog>
   );
 };
 

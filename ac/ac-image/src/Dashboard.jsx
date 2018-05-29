@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { CountChart, type LogDbT, type DashboardT } from 'frog-utils';
+import leaderboard from './Leaderboard';
 
 const actionTypes = ['dragdrop-upload', 'webcam-upload', 'vote', 'zoom'];
 
@@ -54,4 +55,4 @@ const initData = {};
 
 const dashboard: DashboardT = { Viewer, mergeLog, initData };
 
-export default { dashboard };
+export default { dashboard, leaderboard };

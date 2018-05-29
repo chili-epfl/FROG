@@ -7,7 +7,7 @@ import { omit, isEqual } from 'lodash';
 import { learningItemTypesObj } from './learningItemTypes';
 
 const MaybeClickable = ({ condition, children, onClick }) =>
-  condition ? <div onClick={onClick}>{children}</div> : children;
+  condition ? <span onClick={onClick}>{children}</span> : children;
 
 class RenderLearningItem extends React.Component<any, any> {
   constructor(props: any) {

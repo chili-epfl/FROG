@@ -59,12 +59,6 @@ const TopBar = ({
               </DropdownButton>
             </div>
           )}
-        {category !== 'categories' &&
-          canVote && (
-            <i style={{ marginLeft: '20px' }}>
-              Hold shift while clicking to select a picture :
-            </i>
-          )}
       </Body>
     </Main>
   </div>

@@ -1,14 +1,14 @@
 // @flow
 
+import { keyBy } from 'lodash';
+import { type ActivityPackageT, flattenOne } from 'frog-utils';
+
 import acSingleLi from 'ac-single-li';
 import acTrain from 'ac-train';
 import acRanking from 'ac-ranking';
 import acDual from 'ac-dual';
 import acTimedQuiz from 'ac-timedQuiz';
 import acStroop from 'ac-stroop';
-import { keyBy } from 'lodash';
-import { type ActivityPackageT, flattenOne } from 'frog-utils';
-
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';

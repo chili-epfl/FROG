@@ -22,6 +22,9 @@ const uploadBufferWithThumbnail = (
         resizeImg(imageBuffer, { max: 800 }).then(buffery => {
           const blob2 = new Blob([buffery], { type: 'image/jpeg' });
           uploadFile(blob2, imageId).then(url => {
+            if (cb) {
+              cb();
+            }
             createLearningItem(
               'li-image',
               {
@@ -32,15 +35,15 @@ const uploadBufferWithThumbnail = (
               undefined,
               true
             );
-            if (cb) {
-              cb();
-            }
           });
         });
       });
     });
   } else {
     uploadFile(imageBuffer, imageId).then(url => {
+      if (cb) {
+        cb();
+      }
       createLearningItem(
         'li-file',
         {
@@ -51,9 +54,6 @@ const uploadBufferWithThumbnail = (
         undefined,
         true
       );
-      if (cb) {
-        cb();
-      }
     });
   }
 };
