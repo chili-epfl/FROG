@@ -8,8 +8,6 @@ import dashboards from './Dashboard';
 import { meta } from './meta';
 import { config, configUI } from './config';
 
-export const DEFAULT_COMMENT_VALUE = '';
-
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
@@ -21,9 +19,9 @@ const mergeFunction = (object, dataFn) => {
     dataFn.objInsert(
       {
         id,
-        votes: {},
+        votes: v.votes || {},
         categories: v.categories || (v.category && [v.category]),
-        comment: DEFAULT_COMMENT_VALUE,
+        comment: v.comment || '',
         li: v.li
       },
       id
