@@ -1,4 +1,5 @@
 *.DS_Store
+frog/node_modules
 node_modules/
 *.log
 .tern-port
