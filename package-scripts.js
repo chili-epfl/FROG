@@ -39,6 +39,10 @@ module.exports = {
       'rm -rf frog/node_modules; ln -s `pwd`/node_modules frog',
       'Relinked, you can run Meteor now'
     ),
+    yarn: fromRoot(
+      'rm -rf frog/node_modules; yarn; rm -rf frog/node_modules; ln -s `pwd`/node_modules frog',
+      'Unlinked, ran yarn, and relinked, all set to go'
+    ),
     setup: {
       default: fromRoot(
         'git clean -fdx; ./initial_setup.sh',
