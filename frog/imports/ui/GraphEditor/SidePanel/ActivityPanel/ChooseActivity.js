@@ -35,7 +35,8 @@ type PropsT = {
   setIdRemove?: Function,
   onlyHasPreview?: boolean,
   locallyChanged?: boolean,
-  changesLoaded?: Function
+  changesLoaded?: Function,
+  setActivityTypeId?: Function
 };
 
 const styles = {
@@ -223,6 +224,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
               setDelete={this.props.setDelete}
               setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
+              setActivityTypeId={this.props.setActivityTypeId}
               store={this.props.store}
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}

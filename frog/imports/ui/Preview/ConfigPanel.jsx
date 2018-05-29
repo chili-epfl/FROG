@@ -95,7 +95,6 @@ class ConfigPanel extends React.Component<*, *> {
       setShowDash,
       instances
     } = this.props;
-
     return (
       <div style={styles.side}>
         {activityTypeId && (
@@ -131,7 +130,7 @@ class ConfigPanel extends React.Component<*, *> {
         )}
         <ApiForm
           hidePreview
-          {...{ config, setConfig }}
+          {...{ config, setConfig, setActivityTypeId }}
           activityType={activityTypeId}
           onConfigChange={this.onConfigChange}
           onSelect={activityType => {

@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 
 import List from '@material-ui/core/List';
+import IconButton from '@material-ui/core/IconButton';
+import Search from '@material-ui/icons/Search';
+import Refresh from '@material-ui/icons/Refresh';
 
 import { LibraryStates } from '/imports/api/cache';
 import {
@@ -14,7 +17,7 @@ import {
   importAct,
   checkDateAct
 } from '/imports/api/remoteActivities';
-import LibraryListComponent from '../SidePanel/ListComponent';
+import ListComponent from '../SidePanel/ListComponent';
 
 const filterWithStr = (list: Array<any>, searchStr: string) =>
   list &&
@@ -74,38 +77,54 @@ class Library extends Component<Object, { searchStr: string }> {
       <div className="bootstrap">
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           {searchStr === undefined && (
-            <div className="input-group">
-              <span className="input-group-addon" id="basic-addon1">
-                <span
-                  className="glyphicon glyphicon-search"
-                  aria-hidden="true"
-                />
-              </span>
+            <div
+              style={{
+                position: 'relative',
+                borderRadius: '5px',
+                background: 'rgba(0,0,0,.05)'
+              }}
+            >
+              <div
+                style={{
+                  width: '50px',
+                  height: '100%',
+                  display: 'flex',
+                  position: 'absolute',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Search />
+              </div>
               <input
                 type="text"
                 value={this.state.searchStr}
-                style={{ zIndex: 0 }}
                 onChange={e => this.setState({ searchStr: e.target.value })}
-                className="form-control"
-                placeholder="Search for..."
+                style={{
+                  border: '0',
+                  width: '100%',
+                  padding: '8px 8px 8px 50px',
+                  background: 'none',
+                  outline: 'none',
+                  whiteSpace: 'normal',
+                  verticalAlign: 'middle',
+                  fontSize: '1rem'
+                }}
                 aria-describedby="basic-addon1"
               />
             </div>
           )}
-          <button type="button" className="btn btn-primary" onClick={onClick}>
-            <span className="glyphicon glyphicon-repeat" />
-          </button>
+          <IconButton aria-label="Refresh" {...onClick}>
+            <Refresh />
+          </IconButton>
         </div>
-        <List>
-        {/* <div
-          className="list-group"
-          style={{
-            height: '93%',
-            width: '100%',
-            overflowY: 'scroll',
-            transform: 'translateY(10px)'
-          }}
-        > */}
+        <List
+          style={
+            this.props.libraryType === 'activity'
+              ? { maxHeight: '650px', overflowY: 'scroll' }
+              : {}
+          }
+        >
           {filtered && filtered.length === 0 ? (
             <div
               style={{
@@ -119,18 +138,19 @@ class Library extends Component<Object, { searchStr: string }> {
           ) : (
             filtered &&
             filtered.map((x: Object) => (
-              <LibraryListComponent
+              <ListComponent
                 object={{
                   id: x.uuid,
-                  meta:{
+                  meta: {
                     name: x.title,
                     shortDesc: x.description
                   },
                   ...x
                 }}
                 onSelect={() => {
-                  // setConfig
                   if (libraryType === 'activity') {
+                    if (this.props.setActivityTypeId)
+                      this.props.setActivityTypeId(x.activity_type);
                     importAct(
                       x.uuid,
                       activityId,
@@ -145,7 +165,6 @@ class Library extends Component<Object, { searchStr: string }> {
                     this.props.setModal(false);
                   }
                 }}
-                // object={x}
                 key={x.uuid}
                 onPreview={() =>
                   store.ui.setShowPreview({
@@ -156,12 +175,11 @@ class Library extends Component<Object, { searchStr: string }> {
                 eventKey={x.uuid}
                 searchS={searchStr || this.state.searchStr}
                 {...{ setDelete, setIdRemove }}
-                isLibrary='true'
+                isLibrary="true"
               />
             ))
           )}
-        {/* </div> */}
-      </List>
+        </List>
       </div>
     );
   }

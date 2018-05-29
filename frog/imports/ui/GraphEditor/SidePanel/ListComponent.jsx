@@ -46,7 +46,7 @@ const ListItems = ({
   setIdRemove,
   setDelete,
   searchS
-}: any) =>(
+}: any) => (
   <ListItem button value={object.id} onClick={onSelect}>
     <Grid container>
       <Grid item xs={12}>
@@ -59,22 +59,22 @@ const ListItems = ({
           <Highlight text={object.meta.shortDesc} searchStr={searchS} />
         </Typography>
       </Grid>
-      {isLibrary ?
-        <div>
-          {object.tags.map((x) => <Chip key={x} label={x}/>)}
-        </div>
-        : showExpanded && (
-        <Grid item xs={12}>
-          <Typography
-            variant="caption"
-            gutterBottom
-            className={classes.secondaryText}
-          >
-            <i>
-              <Highlight text={object.meta.description} searchStr={searchS} />
-            </i>
-          </Typography>
-        </Grid>
+      {isLibrary ? (
+        <div>{object.tags.map(x => <Chip key={x} label={x} />)}</div>
+      ) : (
+        showExpanded && (
+          <Grid item xs={12}>
+            <Typography
+              variant="caption"
+              gutterBottom
+              className={classes.secondaryText}
+            >
+              <i>
+                <Highlight text={object.meta.description} searchStr={searchS} />
+              </i>
+            </Typography>
+          </Grid>
+        )
       )}
     </Grid>
     <ListItemSecondaryAction>
@@ -98,7 +98,7 @@ const ListItems = ({
           )}
         </Grid>
         <Grid item xs={6}>
-          {isLibrary ?
+          {isLibrary ? (
             <IconButton
               value={object.id}
               aria-label="Preview"
@@ -111,12 +111,13 @@ const ListItems = ({
               }}
             >
               <Delete
-                  classes={{
-                    root: classes.iconRootDelete
-                  }}
+                classes={{
+                  root: classes.iconRootDelete
+                }}
               />
             </IconButton>
-            : !showExpanded && (
+          ) : (
+            !showExpanded && (
               <IconButton
                 value={object.id}
                 aria-label="Preview"
@@ -132,7 +133,7 @@ const ListItems = ({
                 />
               </IconButton>
             )
-          }
+          )}
         </Grid>
       </Grid>
     </ListItemSecondaryAction>
