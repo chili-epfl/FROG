@@ -31,15 +31,15 @@ const fromRoot = (cmd, msg) =>
 
 module.exports = {
   scripts: {
+    unlink: fromRoot(
+      'rm -rf frog/node_modules',
+      'Unlinked, you can run Yarn commands now'
+    ),
+    link: fromRoot(
+      'rm -rf frog/node_modules; ln -s `pwd`/node_modules frog',
+      'Relinked, you can run Meteor now'
+    ),
     setup: {
-      unlink: fromRoot(
-        'rm -rf frog/node_modules',
-        'Unlinked, you can run Yarn commands now'
-      ),
-      link: fromRoot(
-        'rm -rf frog/node_modules; ln -s `pwd`/node_modules frog',
-        'Relinked, you can run Meteor now'
-      ),
       default: fromRoot(
         'git clean -fdx; ./initial_setup.sh',
         'Cleaning all files and running initial setup'
