@@ -182,23 +182,23 @@ class ConfigPanel extends React.Component<*, *> {
                 <TextField
                   id="name"
                   label="Title"
-                  defaultValue={metadatas.title}
+                  value={metadatas.title}
                   onChange={e => {
-                    const newMetadatas = metadatas;
-                    newMetadatas.title = e.target.value;
-                    setMetadatas(newMetadatas);
+                    metadatas.title = e.target.value;
+                    setMetadatas(metadatas);
+                    this.forceUpdate();
                   }}
                   name="title"
                   margin="normal"
                 />
                 <TextField
                   label="Description"
-                  defaultValue={metadatas.description}
+                  value={metadatas.description}
                   multiline
                   onChange={e => {
-                    const newMetadatas = metadatas;
-                    newMetadatas.description = e.target.value;
-                    setMetadatas(newMetadatas);
+                    metadatas.description = e.target.value;
+                    setMetadatas(metadatas);
+                    this.forceUpdate();
                   }}
                   id="exampleFormControlTextarea1"
                   rows="3"
