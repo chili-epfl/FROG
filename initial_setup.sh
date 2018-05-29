@@ -16,6 +16,7 @@ fi
 echo "Yarn: $YARN"
 
 "$YARN" install
+rm -rf frog/node_modules
 ln -s `pwd`/node_modules frog
 
 echo 

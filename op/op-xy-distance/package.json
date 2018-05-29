@@ -1,5 +1,5 @@
 {
-  "name": "op-xy-dist",
+  "name": "op-xy-distance",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
