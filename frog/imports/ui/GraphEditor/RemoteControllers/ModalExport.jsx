@@ -100,7 +100,7 @@ export default class ExportModal extends Component<Object, StateT> {
                 tags: []
               });
             }}
-            disabled={Boolean(!this.state.title || !this.state.description)}
+            disabled={Boolean(!this.state.title)}
           >
             Save as new
           </Button>
@@ -132,7 +132,7 @@ export default class ExportModal extends Component<Object, StateT> {
                   tags: []
                 });
               }}
-              disabled={Boolean(!this.state.title || !this.state.description)}
+              disabled={Boolean(!this.state.title)}
             >
               Overwrite parent
             </Button>
