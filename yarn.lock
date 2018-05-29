@@ -6304,6 +6304,13 @@ react-fontawesome@^1.3.1:
   dependencies:
     prop-types "^15.5.6"
 
+react-gmaps@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/react-gmaps/-/react-gmaps-1.9.0.tgz#e4911fa7dadd1de7555e7a7b7291e2975a7f2b8e"
+  dependencies:
+    create-react-class "^15.5.2"
+    object-assign "^4.0.1"
+
 react-google-charts@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-google-charts/-/react-google-charts-1.6.0.tgz#b58688341f17c81efa76378c168c2f8e3b541c1a"
@@ -7744,6 +7751,10 @@ uncontrollable@^4.1.0:
   resolved "https://registry.yarnpkg.com/uncontrollable/-/uncontrollable-4.1.0.tgz#e0358291252e1865222d90939b19f2f49f81c1a9"
   dependencies:
     invariant "^2.1.0"
+
+underscore@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.0.tgz#31dbb314cfcc88f169cd3692d9149d81a00a73e4"
 
 underscore@~1.4.4:
   version "1.4.4"

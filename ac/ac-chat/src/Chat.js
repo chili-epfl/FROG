@@ -1,16 +1,15 @@
 // @flow
 
 import * as React from 'react';
-
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import TextInput from './TextInput';
 import {
   type ActivityRunnerPropsT,
   type ActivityRunnerT,
   uuid,
   values
 } from 'frog-utils';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import TextInput from './TextInput';
 
 const styles = {
   root: {
@@ -121,6 +120,35 @@ class ChatController extends React.Component<StyledPropsT> {
               />
             ))}
         </div>
+        <Gmaps
+          width={'800px'}
+          height={'600px'}
+          lat={coords.lat}
+          lng={coords.lng}
+          zoom={12}
+          loadingMessage={'Be happy'}
+          params={params}
+          onMapCreated={this.onMapCreated}
+        >
+          <Marker
+            lat={coords.lat}
+            lng={coords.lng}
+            draggable={true}
+            onDragEnd={this.onDragEnd}
+          />
+          <InfoWindow
+            lat={coords.lat}
+            lng={coords.lng}
+            content={'Hello, React :)'}
+            onCloseClick={this.onCloseClick}
+          />
+          <Circle
+            lat={coords.lat}
+            lng={coords.lng}
+            radius={500}
+            onClick={this.onClick}
+          />
+        </Gmaps>
 
         <div className={classes.inputContainer}>
           <TextInput
