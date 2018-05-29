@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash';
 import { activityTypesObj } from '../activityTypes';
 import { Logs } from './logs';
 import { DashboardStates } from './cache';
-import { Activities, DashboardData } from './activities.js';
+import { Activities } from './activities.js';
 
 const activityCache = {};
 
@@ -102,25 +102,4 @@ export const mergeLog = (
       console.error(log, e);
     }
   });
-};
-
-export const archiveDashboardState = (activityId: string) => {
-  if (!Meteor.sendLogsToExternalDashboardServer) {
-    const act = Activities.findOne(activityId);
-    const aT = activityTypesObj[act.activityType];
-    if (aT.dashboards) {
-      Object.keys(aT.dashboards).forEach(name => {
-        const dashId = activityId + '-' + name;
-        if (DashboardStates[dashId]) {
-          const dash = aT.dashboards && aT.dashboards[name];
-          const prepDataFn =
-            (dash && dash.prepareDataForDisplay) || ((x, _) => x);
-          DashboardData.insert({
-            dashId,
-            data: prepDataFn(DashboardStates[dashId], act)
-          });
-        }
-      });
-    }
-  }
 };
