@@ -12,9 +12,7 @@
     "frog-utils": "^1.0.0",
     "react": "^16.3.1",
     "react-d3-cloud": "^0.6.0",
-    "react-dom": "^16.3.1",
-    "react-gmaps": "^1.9.0",
-    "underscore": "^1.9.0"
+    "react-dom": "^16.3.1"
   },
   "devDependencies": {
     "nps": "5.9.0"
