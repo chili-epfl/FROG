@@ -40,7 +40,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
     { name: 'Graph Editor', to: '/graph' },
     { name: 'Sessions', to: '/teacher' },
     {
-      name: 'Preview',
+      name: 'Activity Creator',
       to: '/preview'
     }
   ];

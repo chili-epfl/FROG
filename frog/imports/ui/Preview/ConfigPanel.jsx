@@ -35,7 +35,7 @@ const styles = {
 class ConfigPanel extends React.Component<*, *> {
   constructor(props: Object) {
     super(props);
-    this.state = { displaySave: false };
+    this.state = { displaySave: false, metadatas: {} };
     if (!props.metadatas) {
       const metadatas = LibraryStates.activityList.find(
         x => x.uuid === props.state.metadatas.uuid
@@ -69,7 +69,8 @@ class ConfigPanel extends React.Component<*, *> {
   shouldComponentUpdate = (nextProps: any) => {
     if (
       !isEqual(nextProps.config, this.props.config) ||
-      this.props.activityId !== nextProps.activityId
+      this.props.activityId !== nextProps.activityId ||
+      this.props.metadatas !== nextProps.metadatas
     ) {
       return true;
     } else {
@@ -173,14 +174,14 @@ class ConfigPanel extends React.Component<*, *> {
             {metadatas.uuid && (
               <div
                 style={{
-                  backgroundColor: '#A9A9A0',
+                  backgroundColor: '#dbdbdb',
                   display: 'flex',
                   flexDirection: 'column',
                   width: '100%',
                   padding: '10px'
                 }}
               >
-                <h3>Metadatas:</h3>
+                <h3>Cloud metadata:</h3>
                 <TextField
                   id="name"
                   label="Title"
@@ -224,7 +225,7 @@ class ConfigPanel extends React.Component<*, *> {
         )}
         <ApiForm
           hidePreview
-          {...{ config, setConfig, setMetadatas }}
+          {...{ config, setConfig, setActivityTypeId, setMetadatas }}
           activityType={activityTypeId}
           onConfigChange={this.onConfigChange}
           onSelect={activityType => {
@@ -240,12 +241,7 @@ class ConfigPanel extends React.Component<*, *> {
                   x => x.uuid === activityType.uuid
                 )
               : { uuid: '', title: '', description: '', tags: [] };
-            this.props.setMetadatas({
-              uuid: newMetadatas.uuid,
-              title: newMetadatas.title,
-              description: newMetadatas.description,
-              tags: newMetadatas.tags
-            });
+            this.props.setMetadatas(newMetadatas);
             if (showDash && !activityTypesObj[actTypeId].dashboard) {
               setShowDash(false);
             }

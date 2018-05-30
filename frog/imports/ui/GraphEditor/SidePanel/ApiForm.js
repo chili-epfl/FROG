@@ -270,6 +270,7 @@ const ApiForm = observer(
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
                 store={store}
+                setActivityTypeId={this.props.setActivityTypeId}
                 activity={this.state.activity}
                 hidePreview={this.props.hidePreview}
                 onPreview={this.props.onPreview}
