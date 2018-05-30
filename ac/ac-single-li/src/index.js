@@ -14,10 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 const meta = {
   name: 'Add/edit single LI',
   shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available',
-  exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
-  ]
+  description: 'New activity, no description available'
 };
 
 const config = {

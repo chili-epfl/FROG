@@ -110,16 +110,16 @@ export const archiveDashboardState = (activityId: string) => {
         if (DashboardStates[dashId]) {
           const aTDash = aT.dashboards && aT.dashboards[name];
           let prepDataForDisplayFn;
-          if (aTDash.prepareDataForDisplay) {
-            prepDataForDisplayFn = aTDash.prepareDataForDisplay;
-          } else if (aTDash.reactiveToDisplay) {
+          if (aTDash?.prepareDataForDisplay) {
+            prepDataForDisplayFn = aTDash?.prepareDataForDisplay;
+          } else if (aTDash?.reactiveToDisplay) {
             prepDataForDisplayFn = reactiveWrapper(act, aTDash);
           } else {
             prepDataForDisplayFn = (x, _) => x;
           }
           DashboardData.insert({
             dashId,
-            data: prepDataForDisplayFn(DashboardStates[dashId], act)
+            data: prepDataForDisplayFn?.(DashboardStates[dashId], act)
           });
         }
       });

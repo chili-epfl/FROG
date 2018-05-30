@@ -1,6 +1,5 @@
 // @flow
 
-import { Meteor } from 'meteor/meteor';
 import { type ActivityPackageT } from 'frog-utils';
 import { cloneDeep } from 'lodash';
 

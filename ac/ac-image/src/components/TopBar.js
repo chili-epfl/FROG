@@ -18,7 +18,6 @@ const Body = styled.div`
 const TopBar = ({
   categories,
   category,
-  canVote,
   setCategory,
   setZoom,
   hideCategory,

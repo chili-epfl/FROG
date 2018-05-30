@@ -5,7 +5,6 @@ import { Meteor } from 'meteor/meteor';
 export const uploadFile = (file: any, name: string) => {
   const prom: Promise<any> = new Promise((resolve, reject) => {
     Meteor.call('minio.signedurl', name, (err, succ) => {
-      console.log(err, succ);
       if (err) {
         reject(err);
       }
