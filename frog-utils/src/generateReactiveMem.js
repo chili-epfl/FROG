@@ -1,6 +1,17 @@
 // @flow
 import { get, set, isEmpty, omit } from 'lodash';
-import EventEmitter from 'wolfy87-eventemitter';
+
+const isNode =
+  typeof global !== 'undefined' &&
+  {}.toString.call(global) === '[object global]';
+
+let EventEmitter;
+
+if (isNode) {
+  EventEmitter = require('events');
+} else {
+  EventEmitter = require('wolfy87-eventemitter');
+}
 
 type rawPathT = string | string[];
 
@@ -13,6 +24,7 @@ const cleanPath = (defPath: rawPathT, rawPath: rawPathT = []): string[] => {
 export class MemDoc extends EventEmitter {
   data: any;
   path: rawPathT;
+  emitEvent: any;
 
   constructor(data: any, path?: rawPathT) {
     super();
@@ -83,7 +95,7 @@ export class MemDoc extends EventEmitter {
   }
 
   destroy() {}
-  setMaxListeners() {}
+  setMaxListeners(): any {}
 }
 
 export const pureObjectReactive = (initial: any) => {

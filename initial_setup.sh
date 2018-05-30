@@ -3,7 +3,7 @@
 shopt -s dotglob
 
 FROG="`pwd`"
-YARN_VERSION='1.6.0'
+YARN_VERSION='1.7.0'
 if which yarn && [[ `yarn --version` == $YARN_VERSION ]]; then 
     echo 'Using pre-installed global Yarn'; YARN=yarn 
 else
@@ -16,20 +16,8 @@ fi
 echo "Yarn: $YARN"
 
 "$YARN" install
-
-if [[ "$1" = "--single" ]]
-then
-    npm start build.ci
-else
-    npm start build.all
-fi
- 
-cd "$FROG/frog"
-ln -s "$FROG"/node_modules/* ./node_modules/ 2>/dev/null
-wait
-
-LBLUE='\033[0;36m'
-NC='\033[0m'
+rm -rf frog/node_modules
+ln -s `pwd`/node_modules frog
 
 echo 
 echo -e "\xE2\x9C\xA8  Finished Initial Setup."
