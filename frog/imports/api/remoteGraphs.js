@@ -17,6 +17,41 @@ export const removeGraph = (id: string, callback: ?Function) => {
   }).then(() => collectGraphs(callback));
 };
 
+export const updateGraph = (id: string, graph: Object, callback: ?Function) => {
+  fetch(RemoteServer + '?uuid=eq.' + id, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({ graph: graphToString(graph) })
+  }).then(() => collectGraphs(callback));
+};
+
+export const loadGraphMetaData = (id: string, callback: ?Function) => {
+  fetch(RemoteServer + '?uuid=eq.' + id)
+    .then(e => e.json())
+    .then(e => {
+      const toChangeIdx = LibraryStates.graphList.find(x => x.uuid === id);
+      if (toChangeIdx !== -1) {
+        LibraryStates.graphList[toChangeIdx] = {
+          uuid: id,
+          title: e[0].title,
+          description: e[0].description,
+          tags: e[0].tags
+        };
+      } else
+        LibraryStates.graphList.push({
+          uuid: id,
+          title: e[0].title,
+          description: e[0].description,
+          tags: e[0].tags
+        });
+      if (callback) {
+        callback();
+      }
+    });
+};
+
 export const refreshGraphDate = () =>
   (LibraryStates.lastRefreshGraph = new Date());
 

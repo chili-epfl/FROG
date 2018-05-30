@@ -14,13 +14,13 @@ const styles = {
   }
 };
 
-const TopPanel = ({ openExport, openImport }) => (
+const TopPanel = (props: Object) => (
   <div id="topPanel">
     <Grid container justify="space-between" spacing={0}>
       <Grid item>
         <Grid container>
           <Grid item>
-            <ConfigMenu {...{ openExport, openImport }} />
+            <ConfigMenu {...props} />
           </Grid>
           <Grid item>
             <GraphMenu />

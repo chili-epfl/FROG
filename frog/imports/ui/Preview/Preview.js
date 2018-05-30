@@ -71,7 +71,6 @@ const StatelessPreview = (props: Object) => {
     showDashExample,
     classes
   } = props;
-
   const activityType = activityTypesObj[activityTypeId];
   if (!activityType) {
     return (
