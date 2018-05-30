@@ -1,11 +1,12 @@
 const constants = {
   toolbarItems: [
     'cursor',
-    'draw',
     'area',
     'highlight',
-    'strikeout' /* , 'text', 'point' */
+    'strikeout',
+    'draw' /* , 'text', 'point' */
   ],
+  ScratchPadToolbarItems: ['cursor', 'area', 'draw'],
   sizeOptions: [1, 2, 3, 4, 5, 6, 7, 8],
   colorOptions: [
     ['#000000', 'Black'],

@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from 'react';
 import { hideConditional, type ActivityDbT } from 'frog-utils';
 import { extendObservable, action } from 'mobx';
@@ -91,7 +89,12 @@ class Config extends React.Component<
       formData: this.props.config,
       valid: []
     };
-    this.aT = activityTypesObj[this.props.activity.activityType || ''];
+    this.aT =
+      activityTypesObj[
+        typeof props.activity.activityType === 'object'
+          ? props.activity.activityType.activity_type
+          : props.activity.activityType
+      ];
   }
 
   componentDidMount() {
@@ -191,7 +194,7 @@ const state = new State();
 const ApiForm = observer(
   class A extends React.Component<
     PropsT,
-    { activity: ActivityDbT, idRemove: string, deleteOpen: boolean }
+    { activity: ActivityDbT, idRemove: Object, deleteOpen: boolean }
   > {
     constructor(props) {
       super(props);
@@ -203,7 +206,7 @@ const ApiForm = observer(
         startTime: 0,
         length: 5
       };
-      this.state = { activity, idRemove: '', deleteOpen: false };
+      this.state = { activity, idRemove: {}, deleteOpen: false };
     }
 
     componentWillReceiveProps = nextprops => {
@@ -267,6 +270,7 @@ const ApiForm = observer(
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
                 store={store}
+                setActivityTypeId={this.props.setActivityTypeId}
                 activity={this.state.activity}
                 hidePreview={this.props.hidePreview}
                 onPreview={this.props.onPreview}

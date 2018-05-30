@@ -49,7 +49,8 @@ class PreviewPage extends React.Component<any, any> {
         config: { ...this.props.config },
         modal: true,
         dismiss: this.props.dismiss,
-        reloadActivity: uuid()
+        reloadActivity: uuid(),
+        metadatas: { uuid: '', title: '', description: '', tags: [] }
       };
       if (!this.state.activityTypeId) {
         return null;
@@ -103,12 +104,13 @@ class PreviewPage extends React.Component<any, any> {
       setReloadActivity: reloadActivity => this.setState({ reloadActivity }),
       setPlane: plane => this.setState({ plane }),
       setConfig: config => this.setState({ config }),
+      setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform }),
+      setMetadatas: metadatas => this.setState({ metadatas }),
       setActivityTypeId: activityTypeId => {
         if (!(activityTypesObj[activityTypeId]?.meta?.preview === false)) {
           this.setState({ activityTypeId });
         }
-      },
-      setReloadAPIform: reloadAPIform => this.setState({ reloadAPIform })
+      }
     };
   }
 
