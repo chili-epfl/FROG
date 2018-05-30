@@ -52,18 +52,28 @@ export class Doc {
     this.LearningItemFn = LearningItem;
   }
 
-  createLearningItem(liType: string, payload?: Object, meta?: Object): string {
+  createLearningItem(
+    liType: string,
+    payload?: Object,
+    meta?: Object,
+    immutable: boolean = false
+  ): string | Object {
     const id = uuid();
-    const itempointer = this.doc.connection.get('li', id);
-    itempointer.create({
+    const newLI = {
       liType,
       payload,
       createdAt: new Date(),
       ...meta,
       ...this.meta
-    });
-    itempointer.subscribe();
-    return id;
+    };
+    if (immutable) {
+      return { id, liDocument: newLI };
+    } else {
+      const itempointer = this.doc.connection.get('li', id);
+      itempointer.create(newLI);
+      itempointer.subscribe();
+      return id;
+    }
   }
 
   LearningItem = (props: any) => {
@@ -98,8 +108,14 @@ export class Doc {
       li: newVal
     });
   }
-  listAppendLI(liType: string, payload: Object, meta: Object, path: rawPathT) {
-    const liID = this.createLearningItem(liType, payload, meta);
+  listAppendLI(
+    liType: string,
+    payload: Object,
+    meta: Object,
+    path: rawPathT,
+    immutable: boolean
+  ) {
+    const liID = this.createLearningItem(liType, payload, meta, immutable);
     this.submitOp({
       p: [...cleanPath(this.path, path), 999999],
       li: liID

@@ -21,22 +21,32 @@ const uploadBufferWithThumbnail = (
         resizeImg(imageBuffer, { width: 800 }).then(buffery => {
           const blob2 = new Blob([buffery], { type: 'image/jpeg' });
           uploadFile(blob2, imageId).then(url => {
-            createLearningItem('li-image', {
-              url,
-              thumburl,
-              filename
-            });
+            createLearningItem(
+              'li-image',
+              {
+                url,
+                thumburl,
+                filename
+              },
+              undefined,
+              true
+            );
           });
         });
       });
     });
   } else {
     uploadFile(imageBuffer, imageId).then(url => {
-      createLearningItem('li-file', {
-        url,
-        ext,
-        filename
-      });
+      createLearningItem(
+        'li-file',
+        {
+          url,
+          ext,
+          filename
+        },
+        undefined,
+        true
+      );
     });
   }
 };
