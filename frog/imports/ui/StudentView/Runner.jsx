@@ -170,6 +170,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
       <Activity
         key={this.props.reactiveId}
         activityData={this.props.activityData}
+        activityId={this.props.activityId}
         userInfo={{
           name: this.props.username,
           id: this.props.userid

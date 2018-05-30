@@ -150,6 +150,7 @@ const ContentController = ({
         activityType={activityType.id}
         key={reloadActivity}
         activityData={activityData}
+        activityId="preview"
         userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
         logger={logger}
