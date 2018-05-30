@@ -7,7 +7,7 @@ fs.readdir('./ac', (_, ac) => {
     const acopCP = acop
       .map(dir => `COPY ${dir}/package.json ${dir}/`)
       .join('\n');
-    const template = `FROM node:8.7.0
+    const template = `FROM node:8.9.4
 RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
@@ -26,13 +26,13 @@ RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once -
 RUN mkdir -p frog-utils/src \\
 ${acopSrc}
 
-COPY package.json yarn.lock .yarnrc babel.config.js ./
+COPY package.json yarn.lock .yarnrc ./
 COPY *.sh package-scripts.js ./
 COPY frog-utils/package.json frog-utils/
 ${acopCP}
 COPY frog/package.json frog/
 WORKDIR /usr/src/frog
-RUN /usr/src/frog/initial_setup.sh --single
+RUN /usr/src/frog/initial_setup.sh 
 
 COPY ac /usr/src/frog/ac/
 COPY op /usr/src/frog/op/
