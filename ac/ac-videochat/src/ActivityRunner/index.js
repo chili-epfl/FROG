@@ -53,6 +53,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   mediaConstraints: Object;
   screenSharingOn: boolean;
   sendOnlyParticipant: Object;
+  record: boolean;
 
   constructor(props: ActivityRunnerPropsT) {
     super(props);
