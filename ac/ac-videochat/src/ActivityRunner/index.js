@@ -53,6 +53,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   mediaConstraints: Object;
   screenSharingOn: boolean;
   sendOnlyParticipant: Object;
+  record: boolean;
 
   constructor(props: ActivityRunnerPropsT) {
     super(props);
@@ -66,9 +67,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.name = this.props.userInfo.name;
     this.id = this.props.userInfo.id;
     this.activityType = this.props.activityData.config.activityType;
-    if (!this.props.activityData.config.userMediaConstraints.audio) {
-      this.mediaConstraints.audio = false;
-    }
+    this.record = this.props.activityData.config.recordChat;
+    this.mediaConstraints.audio = !!this.props.activityData.config
+      .userMediaConstraints.audio;
     if (!this.props.activityData.config.userMediaConstraints.video) {
       this.mediaConstraints.video = false;
     } else {
@@ -88,8 +89,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       };
     }
 
-    // TODO, change in the future with activity ID + instanceId
-    this.roomId = this.props.sessionId + this.props.groupingValue;
+    this.roomId =
+      this.props.activityId + this.props.sessionId + this.props.groupingValue;
 
     if (this.activityType === 'many2many') {
       this.role = 'none';
@@ -118,7 +119,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
     this.ws.onerror = error => {
       alert(
-        "If you have AdBlock, it might be blocking connections, please put FROG on AdBlock's whitelist"
+        "Cannot connect to server. If you have AdBlock, it might be blocking connections, please put FROG on AdBlock's whitelist"
       );
       console.error(error);
     };
@@ -268,6 +269,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       name: this.name,
       userId: this.id,
       room: this.roomId,
+      record: this.record,
       role
     };
     this.sendMessage(message);

@@ -44,6 +44,11 @@ export const config = {
         'Type of activity (many2many - group call, one2many - teacher to all)',
       enum: ['many2many', 'one2many'],
       default: 'many2many'
+    },
+    recordChat: {
+      type: 'boolean',
+      title: 'Record video chat',
+      default: false
     }
   }
 };
