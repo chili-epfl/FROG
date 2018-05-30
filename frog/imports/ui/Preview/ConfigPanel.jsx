@@ -159,7 +159,9 @@ class ConfigPanel extends React.Component<*, *> {
                 activity={{
                   title: activityTypesObj[activityTypeId].meta.name,
                   data: config,
-                  activityType: activityTypeId
+                  activityType: activityTypeId,
+                  metadatas,
+                  setMetadatas
                 }}
                 {...{ metadatas, setMetadatas }}
                 updateParent={() => this.forceUpdate()}
@@ -186,6 +188,7 @@ class ConfigPanel extends React.Component<*, *> {
                   onChange={e => {
                     metadatas.title = e.target.value;
                     setMetadatas(metadatas);
+                    this.setState({ displaySave: true });
                     this.forceUpdate();
                   }}
                   name="title"
@@ -198,6 +201,7 @@ class ConfigPanel extends React.Component<*, *> {
                   onChange={e => {
                     metadatas.description = e.target.value;
                     setMetadatas(metadatas);
+                    this.setState({ displaySave: true });
                     this.forceUpdate();
                   }}
                   id="exampleFormControlTextarea1"
@@ -209,6 +213,7 @@ class ConfigPanel extends React.Component<*, *> {
                   onChange={e => {
                     metadatas.tags = e;
                     setMetadatas(metadatas);
+                    this.setState({ displaySave: true });
                     this.forceUpdate();
                   }}
                 />

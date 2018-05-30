@@ -14,9 +14,7 @@ const StatelessExportButton = (props: Object) => (
       {...props}
       metadatas={
         props.metadatas ||
-        LibraryStates.activityList.filter(
-          x => x.uuid === props.activity.parentId
-        )[0]
+        LibraryStates.activityList.find(x => x.uuid === props.activity.parentId)
       }
     />
     <IconButton

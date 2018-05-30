@@ -82,9 +82,10 @@ export default class ExportModal extends Component<Object, StateT> {
                 const id = uuid();
                 sendActivity(this.state, this.props, id);
                 if (this.props.setMetadatas) {
+                  console.log('setting metadata', id);
                   this.props.setMetadatas({
-                    uuid: id,
-                    ...this.state
+                    ...this.state,
+                    uuid: id
                   });
                   this.props.updateParent();
                 }

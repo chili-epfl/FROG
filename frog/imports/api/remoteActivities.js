@@ -97,8 +97,11 @@ export const loadActivityMetaData = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
-      if (LibraryStates.activityList.filter(x => x.uuid === id).length > 0) {
-        LibraryStates.activityList.filter(x => x.uuid === id)[0] = {
+      const toChangeIdx = LibraryStates.activityList.findIndex(
+        x => x.uuid === id
+      );
+      if (toChangeIdx !== -1) {
+        LibraryStates.activityList[toChangeIdx] = {
           uuid: id,
           title: e[0].title,
           description: e[0].description,

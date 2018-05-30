@@ -31,8 +31,9 @@ export const loadGraphMetaData = (id: string, callback: ?Function) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
-      if (LibraryStates.graphList.filter(x => x.uuid === id).length > 0) {
-        LibraryStates.graphList.filter(x => x.uuid === id)[0] = {
+      const toChangeIdx = LibraryStates.graphList.find(x => x.uuid === id);
+      if (toChangeIdx !== -1) {
+        LibraryStates.graphList[toChangeIdx] = {
           uuid: id,
           title: e[0].title,
           description: e[0].description,
