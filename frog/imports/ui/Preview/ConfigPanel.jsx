@@ -173,14 +173,14 @@ class ConfigPanel extends React.Component<*, *> {
             {metadatas.uuid && (
               <div
                 style={{
-                  backgroundColor: '#A9A9A0',
+                  backgroundColor: '#dbdbdb',
                   display: 'flex',
                   flexDirection: 'column',
                   width: '100%',
                   padding: '10px'
                 }}
               >
-                <h3>Metadatas:</h3>
+                <h3>Cloud metadata:</h3>
                 <TextField
                   id="name"
                   label="Title"

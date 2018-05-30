@@ -218,19 +218,21 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
 
         {this.props.store &&
           (this.props.store.ui.libraryOpen ? (
-            <Library
-              {...closeLibrary}
-              libraryType="activity"
-              setDelete={this.props.setDelete}
-              setIdRemove={this.props.setIdRemove}
-              activityId={this.props.activity._id}
-              setActivityTypeId={this.props.setActivityTypeId}
-              store={this.props.store}
-              locallyChanged={this.props.locallyChanged}
-              changesLoaded={this.props.changesLoaded}
-              onSelect={this.props.onSelect}
-              searchStr={this.state.searchStr}
-            />
+            <Grid item xs={12} className={classes.activityList}>
+              <Library
+                {...closeLibrary}
+                libraryType="activity"
+                setDelete={this.props.setDelete}
+                setIdRemove={this.props.setIdRemove}
+                activityId={this.props.activity._id}
+                setActivityTypeId={this.props.setActivityTypeId}
+                store={this.props.store}
+                locallyChanged={this.props.locallyChanged}
+                changesLoaded={this.props.changesLoaded}
+                onSelect={this.props.onSelect}
+                searchStr={this.state.searchStr}
+              />
+            </Grid>
           ) : (
             <Grid item xs={12} className={classes.activityList}>
               {filteredList.length === 0 ? (

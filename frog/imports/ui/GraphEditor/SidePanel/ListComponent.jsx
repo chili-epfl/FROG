@@ -9,7 +9,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import Delete from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 
@@ -43,8 +42,6 @@ const ListItems = ({
   hasPreview,
   onPreview,
   isLibrary,
-  setIdRemove,
-  setDelete,
   searchS
 }: any) => (
   <ListItem button value={object.id} onClick={onSelect}>
@@ -98,25 +95,7 @@ const ListItems = ({
           )}
         </Grid>
         <Grid item xs={6}>
-          {isLibrary ? (
-            <IconButton
-              value={object.id}
-              aria-label="Preview"
-              onClick={() => {
-                if (setIdRemove) setIdRemove(object.uuid);
-                setDelete(true);
-              }}
-              classes={{
-                root: classes.iconButtonRoot
-              }}
-            >
-              <Delete
-                classes={{
-                  root: classes.iconRootDelete
-                }}
-              />
-            </IconButton>
-          ) : (
+          {!isLibrary &&
             !showExpanded && (
               <IconButton
                 value={object.id}
@@ -132,8 +111,7 @@ const ListItems = ({
                   }}
                 />
               </IconButton>
-            )
-          )}
+            )}
         </Grid>
       </Grid>
     </ListItemSecondaryAction>

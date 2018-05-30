@@ -2,9 +2,7 @@
 import React, { Component } from 'react';
 
 import List from '@material-ui/core/List';
-import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
-import Refresh from '@material-ui/icons/Refresh';
 
 import { LibraryStates } from '/imports/api/cache';
 import {
@@ -54,7 +52,6 @@ class Library extends Component<Object, { searchStr: string }> {
 
   render() {
     const {
-      setDelete,
       setIdRemove,
       activityId,
       libraryType,
@@ -74,7 +71,7 @@ class Library extends Component<Object, { searchStr: string }> {
       else if (this.props.libraryType === 'graph') collectGraphs();
     };
     return (
-      <div className="bootstrap">
+      <div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           {searchStr === undefined && (
             <div
@@ -114,15 +111,10 @@ class Library extends Component<Object, { searchStr: string }> {
               />
             </div>
           )}
-          <IconButton aria-label="Refresh" {...onClick}>
-            <Refresh />
-          </IconButton>
         </div>
         <List
           style={
-            this.props.libraryType === 'activity'
-              ? { maxHeight: '650px', overflowY: 'scroll' }
-              : {}
+            this.props.libraryType === 'activity' ? { overflowY: 'scroll' } : {}
           }
         >
           {filtered && filtered.length === 0 ? (
@@ -161,7 +153,6 @@ class Library extends Component<Object, { searchStr: string }> {
                       this.props.onSelect
                     );
                   } else if (libraryType === 'graph') {
-                    // setParentId(x.uuid)
                     importGraph(x.uuid);
                     this.props.setModal(false);
                   }
@@ -175,7 +166,7 @@ class Library extends Component<Object, { searchStr: string }> {
                 }
                 eventKey={x.uuid}
                 searchS={searchStr || this.state.searchStr}
-                {...{ setDelete, setIdRemove }}
+                {...{ setIdRemove }}
                 isLibrary="true"
               />
             ))
