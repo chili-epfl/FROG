@@ -118,7 +118,6 @@ class Library extends Component<Object, { searchStr: string }> {
             filtered.map((x: Object) => (
               <LibraryListComponent
                 onSelect={() => {
-                  // setConfig
                   if (libraryType === 'activity') {
                     importAct(
                       x.uuid,
@@ -130,6 +129,7 @@ class Library extends Component<Object, { searchStr: string }> {
                       this.props.onSelect
                     );
                   } else if (libraryType === 'graph') {
+                    // setParentId(x.uuid)
                     importGraph(x.uuid);
                     this.props.setModal(false);
                   }
