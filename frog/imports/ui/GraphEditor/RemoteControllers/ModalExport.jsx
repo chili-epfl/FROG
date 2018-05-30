@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { uuid } from 'frog-utils';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,8 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
-import { sendActivity } from '/imports/api/remoteActivities';
-import { sendGraph } from '/imports/api/remoteGraphs';
+import { sendActivity, updateActivity } from '/imports/api/remoteActivities';
+import { sendGraph, updateGraph } from '/imports/api/remoteGraphs';
 import { Graphs } from '/imports/api/graphs';
 
 type StateT = {
@@ -30,18 +31,26 @@ export default class ExportModal extends Component<Object, StateT> {
   }
 
   componentWillReceiveProps(nextProps: Object) {
-    const name = nextProps.activity
-      ? nextProps.activity.title
-      : Graphs.findOne({ _id: nextProps.graphId }).name;
-    this.setState({
-      title: name
-    });
+    if (nextProps.metadatas)
+      this.setState({
+        ...nextProps.metadatas
+      });
+    else {
+      const name = nextProps.activity
+        ? nextProps.activity.title
+        : Graphs.findOne({ _id: nextProps.graphId }).name;
+      this.setState({
+        title: name
+      });
+    }
   }
 
   render() {
     return (
       <Dialog open={this.props.modalOpen}>
-        <DialogTitle>Export activity to the library:</DialogTitle>
+        <DialogTitle>
+          {'Export ' + this.props.exportType + ' to the Server:'}
+        </DialogTitle>
         <DialogContent>
           <h3>Title</h3>
           <TextField
@@ -70,23 +79,64 @@ export default class ExportModal extends Component<Object, StateT> {
             color="primary"
             onClick={() => {
               if (this.props.exportType === 'activity') {
-                sendActivity(this.state, this.props);
+                const id = uuid();
+                sendActivity(this.state, this.props, id);
+                if (this.props.setMetadatas) {
+                  this.props.setMetadatas({
+                    ...this.state,
+                    uuid: id
+                  });
+                  this.props.updateParent();
+                }
                 this.props.setModal(false);
               } else if (this.props.exportType === 'graph') {
                 sendGraph(this.state, this.props);
                 this.props.setModal(false);
               }
-              this.props.madeChanges();
+              if (this.props.madeChanges) this.props.madeChanges();
               this.setState({
                 title: '',
                 description: '',
                 tags: []
               });
             }}
-            disabled={Boolean(!this.state.title || !this.state.description)}
+            disabled={Boolean(!this.state.title)}
           >
-            Save
+            Save as new
           </Button>
+          {((this.props.activity && this.props.activity.parentId) ||
+            (this.props.exportType === 'graph' &&
+              Graphs.findOne(this.props.graphId).parentId)) && (
+            <Button
+              color="primary"
+              onClick={() => {
+                if (this.props.exportType === 'activity') {
+                  updateActivity(
+                    this.props.activity.parentId,
+                    {
+                      ...this.props.activity,
+                      ...this.state
+                    },
+                    () => this.props.setModal(false)
+                  );
+                } else if (this.props.exportType === 'graph')
+                  updateGraph(
+                    Graphs.findOne(this.props.graphId).parentId,
+                    this.props.graphId,
+                    () => this.props.setModal(false)
+                  );
+                if (this.props.madeChanges) this.props.madeChanges();
+                this.setState({
+                  title: '',
+                  description: '',
+                  tags: []
+                });
+              }}
+              disabled={Boolean(!this.state.title)}
+            >
+              Overwrite parent
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     );
