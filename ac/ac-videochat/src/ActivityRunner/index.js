@@ -68,11 +68,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.id = this.props.userInfo.id;
     this.activityType = this.props.activityData.config.activityType;
     this.record = this.props.activityData.config.recordChat;
-    if (!this.props.activityData.config.userMediaConstraints.audio) {
-      this.mediaConstraints.audio = false;
-    } else {
-      this.mediaConstraints.audio = true;
-    }
+    this.mediaConstraints.audio = !!this.props.activityData.config
+      .userMediaConstraints.audio;
     if (!this.props.activityData.config.userMediaConstraints.video) {
       this.mediaConstraints.video = false;
     } else {
