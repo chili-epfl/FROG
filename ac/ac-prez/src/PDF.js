@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PDFJS from '@houshuang/pdfjs-dist';
-
 import AnnotationLayer from './AnnotationLayer';
+import ScratchPad from './ScratchPad';
 
 export default class PDF extends Component {
   state = {
     pdf: null,
     pageNumber: 1,
     scale: 1,
-    err: null
+    err: null,
+    blankMode: false
   };
 
   componentDidMount() {
@@ -20,6 +21,12 @@ export default class PDF extends Component {
       this.getPDF();
     }
   }
+
+  onSwitchMode = () => {
+    this.setState(prevState => ({
+      blankMode: !prevState.blankMode
+    }));
+  };
 
   getPDF = () => {
     try {
@@ -45,7 +52,9 @@ export default class PDF extends Component {
 
     let layerDisplay = null;
 
-    if (this.state.err) {
+    if (this.state.blankMode) {
+      layerDisplay = <ScratchPad />;
+    } else if (this.state.err) {
       layerDisplay = (
         <div>
           <p>Invalid PDF provided!</p>
@@ -64,9 +73,18 @@ export default class PDF extends Component {
       );
     }
 
+    const annotationsModeItem = !this.state.blankMode ? (
+      <button onClick={this.onSwitchMode}>Switch to ScrachPad</button>
+    ) : (
+      <button onClick={this.onSwitchMode}>Switch back to PDF</button>
+    );
+
     return (
-      <div id="viewer" className="pdf-viewer">
-        {layerDisplay}
+      <div>
+        {annotationsModeItem}
+        <div id="viewer" className="pdf-viewer">
+          {layerDisplay}
+        </div>
       </div>
     );
   }
