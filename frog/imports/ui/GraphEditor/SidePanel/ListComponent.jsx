@@ -53,7 +53,10 @@ const ListItems = ({
       </Grid>
       <Grid item xs={12}>
         <Typography gutterBottom className={classes.secondaryText}>
-          <Highlight text={object.meta.shortDesc} searchStr={searchS} />
+          <Highlight
+            text={(object.meta?.activityTypeName || '') + object.meta.shortDesc}
+            searchStr={searchS}
+          />
         </Typography>
       </Grid>
       {isLibrary ? (

@@ -16,6 +16,7 @@ import {
   checkDateAct
 } from '/imports/api/remoteActivities';
 import ListComponent from '../SidePanel/ListComponent';
+import { activityTypesObj } from '../../../activityTypes';
 
 const filterWithStr = (list: Array<any>, searchStr: string) =>
   list &&
@@ -28,10 +29,7 @@ const filterWithStr = (list: Array<any>, searchStr: string) =>
         x.description.toLowerCase().includes(searchStr) ||
         x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
     )
-    .sort((x: Object, y: Object) => {
-      if (x.activity_type) return x.title < y.title ? -1 : 1;
-      else return x.timestamp > y.timestamp ? -1 : 1;
-    });
+    .sort((x, y) => (x.timestamp > y.timestamp ? -1 : 1));
 
 class Library extends Component<Object, { searchStr: string }> {
   constructor(props: Object) {
@@ -66,10 +64,6 @@ class Library extends Component<Object, { searchStr: string }> {
       list,
       searchStr || this.state.searchStr.toLowerCase()
     );
-    const onClick = () => {
-      if (this.props.libraryType === 'activity') collectActivities();
-      else if (this.props.libraryType === 'graph') collectGraphs();
-    };
     return (
       <div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -135,7 +129,9 @@ class Library extends Component<Object, { searchStr: string }> {
                   id: x.uuid,
                   meta: {
                     name: x.title,
-                    shortDesc: x.description
+                    shortDesc: x.description,
+                    activityTypeName:
+                      activityTypesObj?.[x.activity_type]?.meta?.name + ': '
                   },
                   ...x
                 }}

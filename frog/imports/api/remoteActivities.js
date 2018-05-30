@@ -46,7 +46,7 @@ export const refreshActDate = () => (LibraryStates.lastRefreshAct = new Date());
 export const collectActivities = (callback: ?Function) =>
   fetch(
     RemoteServer +
-      '?select=uuid,title,description,tags,activity_type&deleted=not.is.true'
+      '?select=uuid,title,description,tags,activity_type,timestamp&deleted=not.is.true'
   )
     .then(e => e.json())
     .then(r => {
