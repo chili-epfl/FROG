@@ -47,11 +47,9 @@ const configUI = { instructions: { 'ui:widget': 'textarea' } };
 const dataStructure = {};
 
 const style = {
-  width: 600,
   margin: 'auto',
   backgroundColor: '#fff',
   padding: 40,
-  border: 'solid 1px',
   height: '100%'
 };
 
@@ -89,8 +87,9 @@ class ActivityRunner extends React.Component<
         <div style={style}>
           {header}
           <dataFn.LearningItem
-            type={this.state.editing ? 'edit' : 'view'}
+            type={this.state.editing ? 'edit' : 'thumbView'}
             id={data.li}
+            clickZoomable
             render={({ editable, children }) => (
               <div>
                 {children}
