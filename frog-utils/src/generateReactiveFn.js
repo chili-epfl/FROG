@@ -67,7 +67,7 @@ export class Doc {
       ...this.meta
     };
     if (immutable) {
-      return { id, payload: newLI };
+      return { id, liDocument: newLI };
     } else {
       const itempointer = this.doc.connection.get('li', id);
       itempointer.create(newLI);

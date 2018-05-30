@@ -275,7 +275,7 @@ type LIRenderPropsT = {|
 |};
 
 export type LIRenderT = React.ComponentType<LIRenderPropsT>;
-type ImmutableLIT = { id: string, payload: Object };
+type ImmutableLIT = { id: string, liDocument: Object };
 
 export type LIComponentPropsT =
   | {| type: 'history', id: string, render?: LIRenderT |}
