@@ -56,5 +56,8 @@
     "prettier": "^1.12.1",
     "react-test-renderer": "^16.3.1"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "yarn": "^1.6.0"
+  }
 }
