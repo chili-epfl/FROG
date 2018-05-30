@@ -10,6 +10,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 
 import { Highlight } from 'frog-utils';
 
@@ -21,6 +22,11 @@ const styles = {
   iconRoot: {
     width: '0.8em',
     height: '0.8em'
+  },
+  iconRootDelete: {
+    width: '0.8em',
+    height: '0.8em',
+    color: '#FF6666'
   },
   secondaryText: {
     color: 'rgba(0, 0, 0, 0.54)'
@@ -35,6 +41,7 @@ const ListItems = ({
   expand,
   hasPreview,
   onPreview,
+  isLibrary,
   searchS
 }: any) => (
   <ListItem button value={object.id} onClick={onSelect}>
@@ -46,30 +53,30 @@ const ListItems = ({
       </Grid>
       <Grid item xs={12}>
         <Typography gutterBottom className={classes.secondaryText}>
-          <Highlight text={object.meta.shortDesc} searchStr={searchS} />
+          <Highlight
+            text={(object.meta?.activityTypeName || '') + object.meta.shortDesc}
+            searchStr={searchS}
+          />
         </Typography>
       </Grid>
-      {showExpanded && (
-        <Grid item xs={12}>
-          <Typography
-            variant="caption"
-            gutterBottom
-            className={classes.secondaryText}
-          >
-            <i>
-              <Highlight text={object.meta.description} searchStr={searchS} />
-            </i>
-          </Typography>
-        </Grid>
+      {isLibrary ? (
+        <div>{object.tags.map(x => <Chip key={x} label={x} />)}</div>
+      ) : (
+        showExpanded && (
+          <Grid item xs={12}>
+            <Typography
+              variant="caption"
+              gutterBottom
+              className={classes.secondaryText}
+            >
+              <i>
+                <Highlight text={object.meta.description} searchStr={searchS} />
+              </i>
+            </Typography>
+          </Grid>
+        )
       )}
     </Grid>
-
-    {/* <ListItemText
-      secondary={<Highlight text={object.meta.shortDesc} searchStr={searchS} />}
-    >
-      
-    </ListItemText> */}
-
     <ListItemSecondaryAction>
       <Grid container direction="column" justify="center">
         <Grid item xs={6}>
@@ -91,22 +98,23 @@ const ListItems = ({
           )}
         </Grid>
         <Grid item xs={6}>
-          {!showExpanded && (
-            <IconButton
-              value={object.id}
-              aria-label="Preview"
-              onClick={expand}
-              classes={{
-                root: classes.iconButtonRoot
-              }}
-            >
-              <ExpandMore
+          {!isLibrary &&
+            !showExpanded && (
+              <IconButton
+                value={object.id}
+                aria-label="Preview"
+                onClick={expand}
                 classes={{
-                  root: classes.iconRoot
+                  root: classes.iconButtonRoot
                 }}
-              />
-            </IconButton>
-          )}
+              >
+                <ExpandMore
+                  classes={{
+                    root: classes.iconRoot
+                  }}
+                />
+              </IconButton>
+            )}
         </Grid>
       </Grid>
     </ListItemSecondaryAction>

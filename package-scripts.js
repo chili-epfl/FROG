@@ -1,11 +1,9 @@
 const { sync } = require('find-up');
 const { dirname } = require('path');
-const { readdirSync } = require('fs');
 
 const help = `echo '
        FROG scripts:
 
-       watch - watch and rebuild all files outside of frog/frog
         test - run all tests
       eslint - run ESLint
   eslint.fix - run ESLint --fix, will format with Prettier
@@ -13,11 +11,7 @@ const help = `echo '
   flow.quiet - run Flow --quiet
         jest - run Jest
   jest.watch - run Jest in watch mode
-       setup - run initial setup
- setup.clean - clean all files (will delete files not added to Git) and run setup
       server - run server (can be run from any directory)
-       build - build current directory
-   build.all - build all directories
      '
 `;
 
@@ -34,29 +28,20 @@ const fromRoot = (cmd, msg) =>
   `echo ${msg ||
     ''} & cd ${dir}/ && PATH=${dir}/node_modules/.bin:$PATH ${cmd}`;
 
-const build = x => {
-  const bin = 'node_modules/.bin';
-  const pkgdir = x || dirname(sync('package.json'));
-  return `${dir}/${bin}/babel ${pkgdir}/src --root=${dir} --config-file=${dir}/babel.config.js --out-dir ${pkgdir}/dist && ${dir}/${bin}/flow-copy-source ${pkgdir}/src ${pkgdir}/dist`;
-};
-
-const acop = () => {
-  const ac = readdirSync(dir + '/ac');
-  const op = readdirSync(dir + '/op');
-  return [
-    ...ac.map(x => dir + '/ac/' + x),
-    ...op.map(x => dir + '/op/' + x),
-    dir + '/frog-utils'
-  ];
-};
-
-const buildAll = background =>
-  acop()
-    .map(x => build(x))
-    .join(background ? ' &&' : '&');
-
 module.exports = {
   scripts: {
+    unlink: fromRoot(
+      'rm -rf frog/node_modules',
+      'Unlinked, you can run Yarn commands now'
+    ),
+    link: fromRoot(
+      'rm -rf frog/node_modules; ln -s `pwd`/node_modules frog',
+      'Relinked, you can run Meteor now'
+    ),
+    yarn: fromRoot(
+      'rm -rf frog/node_modules; yarn; rm -rf frog/node_modules; ln -s `pwd`/node_modules frog',
+      'Unlinked, ran yarn, and relinked, all set to go'
+    ),
     setup: {
       default: fromRoot(
         'git clean -fdx; ./initial_setup.sh',
@@ -68,12 +53,6 @@ module.exports = {
       )
     },
     server: fromRoot('cd frog && meteor', 'Starting Meteor'),
-    build: {
-      default: build(),
-      all: buildAll(),
-      ci: buildAll(true)
-    },
-    watch: fromRoot(`node watch.js watch`, 'Watching and transpiling files'),
     test: fromRoot(
       `nps -s flow.quiet eslint jest`,
       'Running Flow, ESLint and Jest'

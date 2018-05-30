@@ -18,7 +18,7 @@ const LearningItem = (props: {
   ...{| dataFn: Doc |},
   ...LIComponentPropsT
 }) => {
-  if (props.type === 'history') {
+  if (props.type === 'history' && typeof props.id === 'string') {
     return (
       <LearningItemWithSlider
         id={props.id}
@@ -32,14 +32,19 @@ const LearningItem = (props: {
     props.type === 'thumbView' ||
     props.type === 'edit'
   ) {
-    const ToRun = ReactiveHOC(
-      props.id,
-      props.dataFn.doc.connection,
-      undefined,
-      'li',
-      undefined,
-      props.dataFn.backend
-    )(RenderLearningItem);
+    const id = props.id;
+    const ToRun =
+      typeof id === 'string'
+        ? ReactiveHOC(
+            id,
+            props.dataFn.doc.connection,
+            undefined,
+            'li',
+            undefined,
+            props.dataFn.backend
+          )(RenderLearningItem)
+        : newprops => <RenderLearningItem data={id.liDocument} {...newprops} />;
+
     return (
       <ToRun
         render={props.render}
@@ -70,8 +75,13 @@ const LearningItem = (props: {
         const dataFn = props.dataFn;
         return (
           <ToRun
-            createLearningItem={(liType, item) => {
-              const id = dataFn.createLearningItem(liType, item, dataFn.meta);
+            createLearningItem={(liType, item, _, immutable) => {
+              const id = dataFn.createLearningItem(
+                liType,
+                item,
+                dataFn.meta,
+                immutable
+              );
               if (id && onCreate) {
                 onCreate(id);
               }
@@ -84,31 +94,35 @@ const LearningItem = (props: {
         const lid = props.dataFn.createLearningItem(liT.id, liT.dataStructure, {
           draft: true
         });
-        return (
-          <LearningItem
-            id={lid}
-            type="edit"
-            dataFn={props.dataFn}
-            render={({ dataFn: childDataFn, children }) => (
-              <div style={{ marginLeft: '10px' }}>
-                {children}
-                <Button
-                  variant="raised"
-                  color="primary"
-                  onClick={() => {
-                    childDataFn.objInsert(false, 'draft');
-                    childDataFn.objInsert(new Date(), 'createdAt');
-                    if (onCreate) {
-                      onCreate(lid);
-                    }
-                  }}
-                >
-                  Add
-                </Button>
-              </div>
-            )}
-          />
-        );
+        if (typeof lid === 'string') {
+          return (
+            <LearningItem
+              id={lid}
+              type="edit"
+              dataFn={props.dataFn}
+              render={({ dataFn: childDataFn, children }) => (
+                <div style={{ marginLeft: '10px' }}>
+                  {children}
+                  <Button
+                    variant="raised"
+                    color="primary"
+                    onClick={() => {
+                      childDataFn.objInsert(false, 'draft');
+                      childDataFn.objInsert(new Date(), 'createdAt');
+                      if (onCreate) {
+                        onCreate(lid);
+                      }
+                    }}
+                  >
+                    Add
+                  </Button>
+                </div>
+              )}
+            />
+          );
+        } else {
+          return <h4>Cannot edit static learning item</h4>;
+        }
       }
     } else {
       return <LearningItemChooser dataFn={props.dataFn} onCreate={onCreate} />;
