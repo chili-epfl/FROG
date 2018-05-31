@@ -65,7 +65,7 @@ const exportData = (configData, { payload }) => {
 };
 
 export default ({
-  id: 'ac-image',
+  id: 'ac-gallery',
   type: 'react-component',
   meta,
   config,
