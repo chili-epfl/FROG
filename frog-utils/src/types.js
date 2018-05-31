@@ -89,6 +89,7 @@ export type ActivityRunnerPropsT = {
   stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, name: string) => Promise<*>,
   userInfo: { id: string, name: string },
+  activityId: string,
   groupingValue: string,
   sessionId: string
 };
@@ -275,7 +276,7 @@ type LIRenderPropsT = {|
 |};
 
 export type LIRenderT = React.ComponentType<LIRenderPropsT>;
-type ImmutableLIT = { id: string, payload: Object };
+type ImmutableLIT = { id: string, liDocument: Object };
 
 export type LIComponentPropsT =
   | {| type: 'history', id: string, render?: LIRenderT |}

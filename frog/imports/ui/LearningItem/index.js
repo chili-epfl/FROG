@@ -43,7 +43,7 @@ const LearningItem = (props: {
             undefined,
             props.dataFn.backend
           )(RenderLearningItem)
-        : newprops => <RenderLearningItem data={id.payload} {...newprops} />;
+        : newprops => <RenderLearningItem data={id.liDocument} {...newprops} />;
 
     return (
       <ToRun

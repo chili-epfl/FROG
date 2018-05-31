@@ -19,7 +19,7 @@ type OptionsT = {
 };
 
 export const onStreamAdded = (stream: MediaStream, options: OptionsT) => {
-  if (hark) {
+  if (hark && stream.getAudioTracks().length !== 0) {
     const speechEvents: any = hark(stream);
 
     speechEvents.on('speaking', () => {
