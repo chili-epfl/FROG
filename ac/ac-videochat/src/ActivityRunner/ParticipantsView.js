@@ -7,6 +7,12 @@ type ParticipantsViewPropsT = {
   giveMic?: Function
 };
 
+const styles = {
+  div: {
+    display: 'inline'
+  }
+};
+
 class ParticipantsView extends React.Component<ParticipantsViewPropsT> {
   giveMic = (participantId: string) => {
     if (this.props.giveMic) {
@@ -27,9 +33,13 @@ class ParticipantsView extends React.Component<ParticipantsViewPropsT> {
           <div key={p.id}>
             <span>{index + 1}</span>
             <span>{'  ' + p.name + '   '}</span>
-            {p.raisedHand && <span>Raised Hand </span>}
-            {giveMic && (
-              <button onClick={() => this.giveMic(p.id)}>Give Mic</button>
+            {p.raisedHand && (
+              <div style={styles.div}>
+                <span>Raised Hand </span>
+                {giveMic && (
+                  <button onClick={() => this.giveMic(p.id)}>Give Mic</button>
+                )}
+              </div>
             )}
           </div>
         ))}
