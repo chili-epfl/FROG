@@ -10,6 +10,7 @@ import { onStreamAdded } from '../analytics/AVStreamAnalysis';
 
 import Header from './Header';
 import VideoLayout from './VideoLayout';
+import ParticipantsView from './ParticipantsView';
 
 import Participant from './participant';
 
@@ -33,7 +34,8 @@ declare var RTCSessionDescription: any;
  */
 type StateT = {
   local: Object,
-  remote: Array<any>
+  remote: Array<any>,
+  participants: Array<any>
 };
 type OptionsT = { myStream?: *, ontrack?: *, configuration: * };
 
@@ -58,7 +60,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   constructor(props: ActivityRunnerPropsT) {
     super(props);
     this.participants = {};
-    this.state = { local: {}, remote: [] };
+    this.state = { local: {}, remote: [], participants: [] };
     this.mediaConstraints = WebRtcConfig.mediaConstraints;
     this.browser = AdapterJs.browserDetails;
   }
@@ -167,6 +169,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
             parsedMessage.candidate
           );
           break;
+        case 'changeRole':
+          this.onRoleChanged(message.newRole);
+          break;
+
         default:
           console.error('Unrecognized message', parsedMessage);
       }
@@ -276,32 +282,49 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   onExistingParticipants = msg => {
-    // we chach if role is watcher because of bug in safari
+    // we check if role is watcher because of bug in safari
+    // in normal situation, if there is no stream, there is no send only peer
+    // but for safari, there is stream, but role is watcher, because stream must be
+    // acquired in order to have recvonly connections in safari
     // that condition should be removed once safari fixes recvonly connections
     if (this.stream && this.role !== 'watcher') {
-      const analysisOptions = {
-        local: true,
-        name: this.name,
-        id: this.id,
-        logger: this.props.logger
-      };
-
-      // from AVStreamAnalysis
-      onStreamAdded(this.stream, analysisOptions);
-
-      this.setState({
-        local: {
-          name: this.name,
-          id: this.id,
-          srcObject: this.stream
-        }
-      });
-
-      this.createPeer('sendonly', this.name, this.id, this.role);
+      this.createSendOnlyPeer();
+    } else {
+      // if there is no stream and role is watcher, create new participant for yourself
+      const participant = new Participant(
+        this.name,
+        this.id,
+        this.role,
+        this.sendMessage
+      );
+      this.sendOnlyParticipant = participant;
+      this.participants[participant.id] = participant;
     }
 
     // for each of the existing participants, receive their video feed
     msg.data.forEach(this.receiveVideo);
+  };
+
+  createSendOnlyPeer = () => {
+    const analysisOptions = {
+      local: true,
+      name: this.name,
+      id: this.id,
+      logger: this.props.logger
+    };
+
+    // from AVStreamAnalysis
+    onStreamAdded(this.stream, analysisOptions);
+
+    this.setState({
+      local: {
+        name: this.name,
+        id: this.id,
+        srcObject: this.stream
+      }
+    });
+
+    this.createPeer('sendonly', this.name, this.id, this.role);
   };
 
   createPeer = (mode, name, id, role) => {
@@ -336,6 +359,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       }
 
       participant.createPeer(peerMode.mode, options);
+    } else {
+      const participants = this.state.participants;
+      participants.push({ name: participant.name, id: participant.id });
+      this.setState({ participants });
     }
   };
 
@@ -367,8 +394,16 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         id: participant.id,
         srcObject: stream
       });
+
+      const participants = this.state.participants;
+      participants.push({
+        name: participant.name,
+        id: participant.id
+      });
+
       this.setState({
-        remote: remotes
+        remote: remotes,
+        participants
       });
     }
   };
@@ -376,8 +411,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   removeRemoteUserFromState = (participantId: string) => {
     let remotes = this.state.remote;
     remotes = remotes.filter(r => r.id !== participantId);
+    let participants = this.state.participants;
+    participants = participants.filter(p => p.id !== participantId);
     this.setState({
-      remote: remotes
+      remote: remotes,
+      participants
     });
   };
 
@@ -451,9 +489,40 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     }
   };
 
+  onRoleChanged = (newRole: string) => {
+    console.log('Change role to: ' + newRole);
+    if (newRole === 'presenter') {
+      if (navigator.mediaDevices) {
+        navigator.mediaDevices
+          .getUserMedia(this.mediaConstraints)
+          .then(stream => {
+            const options = {
+              myStream: stream,
+              configuration: WebRtcConfig.rtcConfiguration
+            };
+            this.sendOnlyParticipant.role = newRole;
+            this.sendOnlyParticipant.createPeer('sendonly', options);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    }
+  };
+
+  giveMic = (participantId: string) => {
+    console.log('Give mic to ' + participantId);
+    this.sendMessage({
+      id: 'changeRole',
+      userId: participantId,
+      newRole: 'presenter'
+    });
+  };
+
   render() {
     const local = this.state.local;
     const remote = this.state.remote;
+    const participants = this.state.participants;
     return (
       <div id="webrtc">
         <Header {...this.props} />
@@ -466,6 +535,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           toogleScreenShare={this.toogleScreenShare}
           toogleScreenSupported={this.browser.browser === 'firefox'}
         />
+        <ParticipantsView participants={participants} giveMic={this.giveMic} />
       </div>
     );
   }
