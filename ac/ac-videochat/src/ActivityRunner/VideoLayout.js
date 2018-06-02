@@ -11,6 +11,7 @@ import Screen from '@material-ui/icons/ScreenShare';
 import ScreenOff from '@material-ui/icons/StopScreenShare';
 import FullScreen from '@material-ui/icons/Fullscreen';
 import Delete from '@material-ui/icons/Delete';
+import HandUp from '@material-ui/icons/PanTool';
 import Video from './Video';
 
 const styles = {
@@ -49,7 +50,10 @@ type VideoLayoutPropsT = {
   toogleVideo: Function,
   reloadStream: Function,
   toogleScreenShare: Function,
-  toogleScreenSupported: boolean
+  toogleScreenSupported: boolean,
+  removeLocalStream?: Function,
+  removePresenterStream?: Function,
+  raiseHand?: Function
 };
 
 type StateT = {
@@ -99,8 +103,34 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     }
   };
 
+  removeLocalStream = () => {
+    if (this.props.removeLocalStream) {
+      this.props.removeLocalStream();
+    }
+  };
+
+  removePresenterStream = (presenterId: string) => {
+    if (this.props.removePresenterStream) {
+      this.props.removePresenterStream(presenterId);
+    }
+  };
+
+  raiseHand = () => {
+    if (this.props.raiseHand) {
+      this.props.raiseHand();
+    }
+  };
+
   render() {
-    const { local, remote, reloadStream, toogleScreenSupported } = this.props;
+    const {
+      local,
+      remote,
+      reloadStream,
+      toogleScreenSupported,
+      removeLocalStream,
+      removePresenterStream,
+      raiseHand
+    } = this.props;
     const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
     return (
       <React.Fragment>
@@ -133,6 +163,14 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                     {!this.state.screen && <ScreenOff />}
                   </button>
                 )}
+                {removeLocalStream && (
+                  <button
+                    style={styles.buttonBoxS}
+                    onClick={this.removeLocalStream}
+                  >
+                    <Delete />
+                  </button>
+                )}
                 {local.name && (
                   <p>
                     <i>Local: {local.name}</i>
@@ -153,6 +191,14 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
               >
                 <Refresh />
               </button>
+              {removePresenterStream && (
+                <button
+                  style={styles.buttonBoxS}
+                  onClick={() => this.removePresenterStream(participant.id)}
+                >
+                  <Delete />
+                </button>
+              )}
               <button
                 style={styles.buttonBoxS}
                 onClick={() =>
@@ -161,6 +207,15 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
               >
                 <FullScreen />
               </button>
+              {raiseHand &&
+                participant.name === 'teacher' && (
+                  <button
+                    style={styles.buttonBoxS}
+                    onClick={() => this.raiseHand()}
+                  >
+                    <HandUp />
+                  </button>
+                )}
               <p>{participant.name}</p>
             </div>
           ))}

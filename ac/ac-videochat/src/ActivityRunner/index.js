@@ -42,6 +42,7 @@ type OptionsT = { myStream?: *, ontrack?: *, configuration: * };
 class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   name: string;
   id: string;
+  role: string;
   roomId: string;
   participants: Object;
   ws: WebSocket;
@@ -51,7 +52,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     version: number
   };
   activityType: string;
-  role: string;
   mediaConstraints: Object;
   screenSharingOn: boolean;
   sendOnlyParticipant: Object;
@@ -149,11 +149,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           this.onExistingParticipants(parsedMessage);
           break;
         case 'newParticipantArrived':
-          this.onNewParticipant(
-            parsedMessage.name,
-            parsedMessage.userId,
-            parsedMessage.role
-          );
+          this.onNewParticipant({
+            name: parsedMessage.name,
+            id: parsedMessage.userId,
+            role: parsedMessage.role
+          });
           break;
         case 'participantLeft':
           this.onParticipantLeft(parsedMessage.userId);
@@ -170,7 +170,18 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           );
           break;
         case 'changeRole':
-          this.onRoleChanged(message.newRole);
+          this.onRoleChanged(parsedMessage.userId, parsedMessage.newRole);
+          break;
+
+        case 'raisedHand':
+          if (this.id !== parsedMessage.userId) {
+            const participants = this.state.participants;
+            participants.filter(
+              p => p.id === parsedMessage.userId
+            )[0].raisedHand =
+              parsedMessage.raised;
+            this.setState({ participants });
+          }
           break;
 
         default:
@@ -282,30 +293,35 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   onExistingParticipants = msg => {
+    const participant = new Participant(
+      this.name,
+      this.id,
+      this.role,
+      this.sendMessage
+    );
+    this.sendOnlyParticipant = participant;
+    this.participants[participant.id] = participant;
+
     // we check if role is watcher because of bug in safari
     // in normal situation, if there is no stream, there is no send only peer
     // but for safari, there is stream, but role is watcher, because stream must be
     // acquired in order to have recvonly connections in safari
     // that condition should be removed once safari fixes recvonly connections
     if (this.stream && this.role !== 'watcher') {
-      this.createSendOnlyPeer();
-    } else {
-      // if there is no stream and role is watcher, create new participant for yourself
-      const participant = new Participant(
-        this.name,
-        this.id,
-        this.role,
-        this.sendMessage
-      );
-      this.sendOnlyParticipant = participant;
-      this.participants[participant.id] = participant;
+      this.startAnalysis();
+      this.setLocalState();
+      if (this.browser.browser !== 'chrome') {
+        this.createPeer('sendrecv', participant);
+      } else {
+        this.createPeer('sendonly', participant);
+      }
     }
 
     // for each of the existing participants, receive their video feed
-    msg.data.forEach(this.receiveVideo);
+    msg.data.forEach(this.onNewParticipant);
   };
 
-  createSendOnlyPeer = () => {
+  startAnalysis = () => {
     const analysisOptions = {
       local: true,
       name: this.name,
@@ -315,7 +331,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
     // from AVStreamAnalysis
     onStreamAdded(this.stream, analysisOptions);
+  };
 
+  setLocalState = () => {
     this.setState({
       local: {
         name: this.name,
@@ -323,65 +341,50 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         srcObject: this.stream
       }
     });
-
-    this.createPeer('sendonly', this.name, this.id, this.role);
-  };
-
-  createPeer = (mode, name, id, role) => {
-    const peerMode = {
-      mode
-    };
-    const participant = new Participant(name, id, role, this.sendMessage);
-
-    if (mode === 'sendonly') {
-      this.sendOnlyParticipant = participant;
-    }
-
-    this.participants[participant.id] = participant;
-
-    if (role !== 'watcher') {
-      const onAddRemoteTrack = event => {
-        const stream = event.streams[0];
-        this.addRemoteUserToState(participant, stream);
-      };
-
-      const options: OptionsT = {
-        configuration: WebRtcConfig.rtcConfiguration
-      };
-
-      if (mode === 'sendonly') {
-        options.myStream = this.stream;
-        if (this.browser.browser !== 'chrome') {
-          peerMode.mode = 'sendrecv';
-        }
-      } else if (mode === 'recvonly') {
-        options.ontrack = onAddRemoteTrack;
-      }
-
-      participant.createPeer(peerMode.mode, options);
-    } else {
-      const participants = this.state.participants;
-      participants.push({ name: participant.name, id: participant.id });
-      this.setState({ participants });
-    }
-  };
-
-  onNewParticipant = (name, userId, role) => {
-    this.receiveVideo({ name, id: userId, role });
   };
 
   // receive video from remote peer
-  receiveVideo = (newParticipant: {
+  onNewParticipant = (newParticipant: {
     name: string,
     id: string,
     role: string
   }) => {
-    this.createPeer(
-      'recvonly',
+    const participant = new Participant(
       newParticipant.name,
       newParticipant.id,
-      newParticipant.role
+      newParticipant.role,
+      this.sendMessage
     );
+    this.participants[participant.id] = participant;
+    const participants = this.state.participants;
+    participants.push({
+      name: participant.name,
+      id: participant.id,
+      raisedHand: false
+    });
+    this.setState({ participants });
+
+    if (newParticipant.role !== 'watcher') {
+      this.createPeer('recvonly', participant);
+    }
+  };
+
+  createPeer = (mode: string, participant: Participant) => {
+    const options: OptionsT = {
+      configuration: WebRtcConfig.rtcConfiguration
+    };
+
+    if (mode === 'sendonly' || mode === 'sendrecv') {
+      options.myStream = this.stream;
+    } else if (mode === 'recvonly') {
+      const onAddRemoteTrack = event => {
+        const stream = event.streams[0];
+        this.addRemoteUserToState(participant, stream);
+      };
+      options.ontrack = onAddRemoteTrack;
+    }
+
+    participant.createPeer(mode, options);
   };
 
   addRemoteUserToState = (participant: Participant, stream: MediaStream) => {
@@ -394,27 +397,24 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         id: participant.id,
         srcObject: stream
       });
-
-      const participants = this.state.participants;
-      participants.push({
-        name: participant.name,
-        id: participant.id
-      });
-
       this.setState({
-        remote: remotes,
-        participants
+        remote: remotes
       });
     }
   };
 
   removeRemoteUserFromState = (participantId: string) => {
-    let remotes = this.state.remote;
-    remotes = remotes.filter(r => r.id !== participantId);
-    let participants = this.state.participants;
-    participants = participants.filter(p => p.id !== participantId);
+    const remote = this.state.remote.filter(r => r.id !== participantId);
     this.setState({
-      remote: remotes,
+      remote
+    });
+  };
+
+  removeParticipantFromState = (participantId: string) => {
+    const participants = this.state.participants.filter(
+      p => p.id !== participantId
+    );
+    this.setState({
       participants
     });
   };
@@ -430,8 +430,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
     // remove and update state
     this.removeRemoteUserFromState(participantId);
+    this.removeParticipantFromState(participantId);
 
-    participant.dispose();
+    if (participant) {
+      participant.dispose();
+    }
+
     delete this.participants[participantId];
   };
 
@@ -489,40 +493,124 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     }
   };
 
-  onRoleChanged = (newRole: string) => {
-    console.log('Change role to: ' + newRole);
-    if (newRole === 'presenter') {
-      if (navigator.mediaDevices) {
-        navigator.mediaDevices
-          .getUserMedia(this.mediaConstraints)
-          .then(stream => {
-            const options = {
-              myStream: stream,
-              configuration: WebRtcConfig.rtcConfiguration
-            };
-            this.sendOnlyParticipant.role = newRole;
-            this.sendOnlyParticipant.createPeer('sendonly', options);
-          })
-          .catch(error => {
-            console.error(error);
-          });
+  onRoleChanged = (userId: string, newRole: string) => {
+    if (this.id === userId && this.role !== newRole) {
+      if (newRole === 'presenter') {
+        if (navigator.mediaDevices) {
+          navigator.mediaDevices
+            .getUserMedia(this.mediaConstraints)
+            .then(stream => {
+              this.stream = stream;
+
+              this.startAnalysis();
+
+              this.setState({
+                local: {
+                  name: this.name,
+                  id: this.id,
+                  srcObject: this.stream
+                }
+              });
+
+              const options = {
+                myStream: stream,
+                configuration: WebRtcConfig.rtcConfiguration
+              };
+              this.sendOnlyParticipant.role = newRole;
+              this.sendOnlyParticipant.createPeer('sendonly', options);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+      } else if (newRole === 'watcher') {
+        this.sendOnlyParticipant.dispose();
+        this.setState({ local: {} });
+      }
+      this.role = newRole;
+      this.sendOnlyParticipant.role = newRole;
+    } else {
+      const participant = this.participants[userId];
+      if (participant.role !== newRole) {
+        if (newRole === 'watcher') {
+          // remove stream from that user
+          this.removeRemoteUserFromState(participant.id);
+        } else {
+          this.createPeer('recvonly', participant);
+        }
+        participant.role = newRole;
       }
     }
   };
 
   giveMic = (participantId: string) => {
-    console.log('Give mic to ' + participantId);
     this.sendMessage({
       id: 'changeRole',
       userId: participantId,
       newRole: 'presenter'
     });
+    this.sendMessage({
+      id: 'notifyParticipants',
+      payload: {
+        id: 'raisedHand',
+        userId: participantId,
+        raised: false
+      }
+    });
+    // update state for yourself
+    const participants = this.state.participants;
+    participants.filter(p => p.id === participantId)[0].raisedHand = false;
+    this.setState({ participants });
+  };
+
+  removeLocalStream = () => {
+    this.sendMessage({
+      id: 'changeRole',
+      userId: this.id,
+      newRole: 'watcher'
+    });
+  };
+
+  removePresenterStream = (presenterId: string) => {
+    this.sendMessage({
+      id: 'changeRole',
+      userId: presenterId,
+      newRole: 'watcher'
+    });
+  };
+
+  raiseHand = () => {
+    const message = {
+      id: 'notifyParticipants',
+      payload: {
+        id: 'raisedHand',
+        userId: this.id,
+        raised: true
+      }
+    };
+    this.sendMessage(message);
   };
 
   render() {
     const local = this.state.local;
     const remote = this.state.remote;
     const participants = this.state.participants;
+    const removeLocalStream =
+      this.activityType === 'many2many' || this.name === 'teacher'
+        ? undefined
+        : this.removeLocalStream;
+    const removePresenterStream =
+      this.activityType === 'one2many' && this.name === 'teacher'
+        ? this.removePresenterStream
+        : undefined;
+    const raiseHand =
+      this.activityType === 'one2many' && this.name !== 'teacher'
+        ? this.raiseHand
+        : undefined;
+    const giveMic =
+      this.activityType === 'one2many' && this.name === 'teacher'
+        ? this.giveMic
+        : undefined;
     return (
       <div id="webrtc">
         <Header {...this.props} />
@@ -534,8 +622,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           reloadStream={this.reloadStream}
           toogleScreenShare={this.toogleScreenShare}
           toogleScreenSupported={this.browser.browser === 'firefox'}
+          removeLocalStream={removeLocalStream}
+          removePresenterStream={removePresenterStream}
+          raiseHand={raiseHand}
         />
-        <ParticipantsView participants={participants} giveMic={this.giveMic} />
+        <ParticipantsView participants={participants} giveMic={giveMic} />
       </div>
     );
   }

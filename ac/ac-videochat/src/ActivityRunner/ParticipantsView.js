@@ -4,26 +4,33 @@ import * as React from 'react';
 
 type ParticipantsViewPropsT = {
   participants: Array<any>,
-  giveMic: Function
+  giveMic?: Function
 };
 
 class ParticipantsView extends React.Component<ParticipantsViewPropsT> {
-  constructor(props: ParticipantsViewPropsT) {
-    super(props);
-  }
-
   giveMic = (participantId: string) => {
-    this.props.giveMic(participantId);
+    if (this.props.giveMic) {
+      this.props.giveMic(participantId);
+    }
   };
 
   render() {
+    const { giveMic } = this.props;
+    const participants = this.props.participants.sort(
+      (x, y) =>
+        // sort participants so that those with raised hand are first
+        y.raisedHand - x.raisedHand
+    );
     return (
       <React.Fragment>
-        {this.props.participants.map((p, index) => (
+        {participants.map((p, index) => (
           <div key={p.id}>
             <span>{index + 1}</span>
-            <span>{p.name}</span>
-            <button onClick={() => this.giveMic(p.id)}>{'Give Mic'}</button>
+            <span>{'  ' + p.name + '   '}</span>
+            {p.raisedHand && <span>Raised Hand </span>}
+            {giveMic && (
+              <button onClick={() => this.giveMic(p.id)}>Give Mic</button>
+            )}
           </div>
         ))}
       </React.Fragment>
