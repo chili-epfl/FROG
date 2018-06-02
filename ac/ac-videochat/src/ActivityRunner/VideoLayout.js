@@ -10,6 +10,7 @@ import Refresh from '@material-ui/icons/Refresh';
 import Screen from '@material-ui/icons/ScreenShare';
 import ScreenOff from '@material-ui/icons/StopScreenShare';
 import FullScreen from '@material-ui/icons/Fullscreen';
+import Delete from '@material-ui/icons/Delete';
 import Video from './Video';
 
 const styles = {
