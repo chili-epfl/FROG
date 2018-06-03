@@ -10,7 +10,7 @@ import Refresh from '@material-ui/icons/Refresh';
 import Screen from '@material-ui/icons/ScreenShare';
 import ScreenOff from '@material-ui/icons/StopScreenShare';
 import FullScreen from '@material-ui/icons/Fullscreen';
-import Delete from '@material-ui/icons/Delete';
+import Cancel from '@material-ui/icons/Cancel';
 import HandUp from '@material-ui/icons/PanTool';
 import Video from './Video';
 
@@ -168,7 +168,7 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                     style={styles.buttonBoxS}
                     onClick={this.removeLocalStream}
                   >
-                    <Delete />
+                    <Cancel />
                   </button>
                 )}
                 {local.name && (
@@ -196,7 +196,7 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                   style={styles.buttonBoxS}
                   onClick={() => this.removePresenterStream(participant.id)}
                 >
-                  <Delete />
+                  <Cancel />
                 </button>
               )}
               <button

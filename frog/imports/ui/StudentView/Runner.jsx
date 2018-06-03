@@ -3,7 +3,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { MosaicWindow } from 'react-mosaic-component';
+import { MosaicWindow, ExpandButton } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 
 import { activityTypesObj } from '../../activityTypes';
@@ -88,10 +88,9 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   if (single) {
     return Torun;
   } else {
-    const EMPTY_ARRAY: any[] = [];
     return (
       <MosaicWindow
-        toolbarControls={EMPTY_ARRAY}
+        toolbarControls={[<ExpandButton key="expandbutton" />]}
         draggable={false}
         key={activity._id}
         path={path}

@@ -1,16 +1,19 @@
 // @flow
 
 import * as React from 'react';
+import {
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar
+} from '@material-ui/core';
+import PanToolIcon from '@material-ui/icons/PanTool';
 
 type ParticipantsViewPropsT = {
   participants: Array<any>,
   giveMic?: Function
-};
-
-const styles = {
-  div: {
-    display: 'inline'
-  }
 };
 
 class ParticipantsView extends React.Component<ParticipantsViewPropsT> {
@@ -28,22 +31,35 @@ class ParticipantsView extends React.Component<ParticipantsViewPropsT> {
         y.raisedHand - x.raisedHand
     );
     return (
-      <React.Fragment>
-        {participants.map((p, index) => (
-          <div key={p.id}>
-            <span>{index + 1}</span>
-            <span>{'  ' + p.name + '   '}</span>
-            {p.raisedHand && (
-              <div style={styles.div}>
-                <span>Raised Hand </span>
-                {giveMic && (
-                  <button onClick={() => this.giveMic(p.id)}>Give Mic</button>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-      </React.Fragment>
+      <div style={{ height: 'auto', overflow: 'hidden' }}>
+        <Typography variant="title">Participants online</Typography>
+        <List
+          dense
+          style={{
+            display: 'inline-block',
+            maxHeight: '100%',
+            overflow: 'auto'
+          }}
+        >
+          {participants.map(p => (
+            <ListItem
+              key={p.id}
+              onClick={() => {
+                if (giveMic) {
+                  this.giveMic(p.id);
+                }
+              }}
+            >
+              <ListItemText primary={p.name} />
+              <ListItemAvatar>
+                <Avatar>
+                  {p.raisedHand && <PanToolIcon color="primary" />}
+                </Avatar>
+              </ListItemAvatar>
+            </ListItem>
+          ))}
+        </List>
+      </div>
     );
   }
 }

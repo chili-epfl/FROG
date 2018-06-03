@@ -923,6 +923,26 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
+"@blueprintjs/core@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-2.3.1.tgz#c998f8d22b02bfc9990b66b201f1ea095fb15450"
+  dependencies:
+    "@blueprintjs/icons" "^2.2.1"
+    "@types/dom4" "^2.0.0"
+    classnames "^2.2"
+    dom4 "^2.0.1"
+    normalize.css "^8.0.0"
+    popper.js "^1.14.1"
+    react-popper "^0.8.2"
+    tslib "^1.9.0"
+
+"@blueprintjs/icons@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-2.2.1.tgz#1b4275fc67467218a8ffec6403c87c7af24532a5"
+  dependencies:
+    classnames "^2.2"
+    tslib "^1.9.0"
+
 "@houshuang/parse-png@^1.1.4":
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/@houshuang/parse-png/-/parse-png-1.1.4.tgz#63bb8ea8ffb3b521b6ecdc2283ed31d345669111"
@@ -991,6 +1011,10 @@
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-1.0.0.tgz#0cac779257de02538be8834e1b0e45b7cd2cb898"
   dependencies:
     recompose "^0.26.0 || ^0.27.0"
+
+"@types/dom4@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/dom4/-/dom4-2.0.0.tgz#00dc42fed6b36a7a6dabb8f7a9c9e678ee644e05"
 
 "@types/jss@^9.5.3":
   version "9.5.3"
@@ -1948,7 +1972,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.1.2, classnames@^2.2.0, classnames@^2.2.5:
+classnames@^2.1.2, classnames@^2.2, classnames@^2.2.0, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -2547,6 +2571,10 @@ dom-serializer@0, dom-serializer@~0.1.0:
 dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
+
+dom4@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/dom4/-/dom4-2.0.1.tgz#03000cbea1ec33b3dde8cfd7a0cf77587d27e9d5"
 
 domain-browser@^1.1.7:
   version "1.2.0"
@@ -5361,6 +5389,10 @@ normalize-scroll-left@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/normalize-scroll-left/-/normalize-scroll-left-0.1.2.tgz#6b79691ba79eb5fb107fa5edfbdc06b55caee2aa"
 
+normalize.css@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.0.tgz#14ac5e461612538a4ce9be90a7da23f86e718493"
+
 npm-bundled@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.3.tgz#7e71703d973af3370a9591bafe3a63aca0be2308"
@@ -5814,7 +5846,7 @@ pngjs@^3.0.0, pngjs@^3.2.0:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.3.3.tgz#85173703bde3edac8998757b96e5821d0966a21b"
 
-popper.js@^1.14.1:
+popper.js@^1.12.9, popper.js@^1.14.1:
   version "1.14.3"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
 
@@ -6435,6 +6467,13 @@ react-popper@^0.10.0:
   dependencies:
     popper.js "^1.14.1"
     prop-types "^15.6.1"
+
+react-popper@^0.8.2:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.8.3.tgz#0f73333137c9fb0af6ec4074d2d0585a0a0461e1"
+  dependencies:
+    popper.js "^1.12.9"
+    prop-types "^15.6.0"
 
 react-popper@^0.9.0:
   version "0.9.5"
@@ -7682,6 +7721,10 @@ trim-right@^1.0.1:
 trim@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
+
+tslib@^1.9.0:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.2.tgz#8be0cc9a1f6dc7727c38deb16c2ebd1a2892988e"
 
 tty-browserify@0.0.0:
   version "0.0.0"

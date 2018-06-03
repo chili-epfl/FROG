@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import { type ActivityRunnerPropsT, values } from 'frog-utils';
 import * as AdapterJs from 'webrtc-adapter';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 import WebRtcConfig from '../webrtc-config/config';
 import { onStreamAdded } from '../analytics/AVStreamAnalysis';
@@ -38,6 +40,17 @@ type StateT = {
   participants: Array<any>
 };
 type OptionsT = { myStream?: *, ontrack?: *, configuration: * };
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary
+  }
+});
 
 class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   name: string;
@@ -612,21 +625,29 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         ? this.giveMic
         : undefined;
     return (
-      <div id="webrtc">
-        <Header {...this.props} />
-        <VideoLayout
-          local={local}
-          remote={remote}
-          toogleAudio={this.toogleAudio}
-          toogleVideo={this.toogleVideo}
-          reloadStream={this.reloadStream}
-          toogleScreenShare={this.toogleScreenShare}
-          toogleScreenSupported={this.browser.browser === 'firefox'}
-          removeLocalStream={removeLocalStream}
-          removePresenterStream={removePresenterStream}
-          raiseHand={raiseHand}
-        />
-        <ParticipantsView participants={participants} giveMic={giveMic} />
+      <div id="webrtc" style={{ height: 'auto', overflow: 'hidden' }}>
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Header {...this.props} />
+          </Grid>
+          <Grid item xs={3}>
+            <ParticipantsView participants={participants} giveMic={giveMic} />
+          </Grid>
+          <Grid item xs={9}>
+            <VideoLayout
+              local={local}
+              remote={remote}
+              toogleAudio={this.toogleAudio}
+              toogleVideo={this.toogleVideo}
+              reloadStream={this.reloadStream}
+              toogleScreenShare={this.toogleScreenShare}
+              toogleScreenSupported={this.browser.browser === 'firefox'}
+              removeLocalStream={removeLocalStream}
+              removePresenterStream={removePresenterStream}
+              raiseHand={raiseHand}
+            />
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -634,4 +655,4 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
 ActivityRunner.displayName = 'ActivityRunner';
 
-export default (props: ActivityRunnerPropsT) => <ActivityRunner {...props} />;
+export default withStyles(styles)(ActivityRunner);
