@@ -16,7 +16,7 @@ import Video from './Video';
 
 const styles = {
   videoBoxS: {
-    width: '400px',
+    width: '200px',
     flex: '0 1 auto',
     margin: 'auto',
     textAlign: 'center',
@@ -51,7 +51,8 @@ type VideoLayoutPropsT = {
   toogleScreenSupported: boolean,
   removeLocalStream?: Function,
   removePresenterStream?: Function,
-  raiseHand?: Function
+  raiseHand?: Function,
+  activityData: Object
 };
 
 type StateT = {
@@ -131,6 +132,53 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
     return (
       <div style={styles.layoutBoxS}>
+        {sortedRemote.map((participant, _) => (
+          <div style={styles.videoBoxS} key={participant.id}>
+            <div style={{ position: 'relative' }} className="hoverable">
+              <Video
+                videoId={'remote_' + participant.id}
+                mute={false}
+                srcObject={participant.srcObject}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '30px',
+                  left: '0%',
+                  right: '0%'
+                }}
+                className="show-on-hover"
+              >
+                {removePresenterStream && (
+                  <button
+                    style={styles.buttonBoxS}
+                    onClick={() => this.removePresenterStream(participant.id)}
+                  >
+                    <Cancel />
+                  </button>
+                )}
+                <button
+                  style={styles.buttonBoxS}
+                  onClick={() =>
+                    this.toogleFullScreen('remote_' + participant.id)
+                  }
+                >
+                  <FullScreen />
+                </button>
+                {raiseHand &&
+                  this.props.isTeacher(participant.name) && (
+                    <button
+                      style={styles.buttonBoxS}
+                      onClick={() => this.raiseHand()}
+                    >
+                      <HandUp />
+                    </button>
+                  )}
+              </div>
+              <p>{participant.name}</p>
+            </div>
+          </div>
+        ))}
         {local &&
           !isEmpty(local) && (
             <div style={styles.videoBoxS}>
@@ -181,58 +229,11 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
               </div>
               {local.name && (
                 <p>
-                  <i>Local: {local.name}</i>
+                  <i>You: {local.name}</i>
                 </p>
               )}
             </div>
           )}
-        {sortedRemote.map((participant, _) => (
-          <div style={styles.videoBoxS} key={participant.id}>
-            <div style={{ position: 'relative' }} className="hoverable">
-              <Video
-                videoId={'remote_' + participant.id}
-                mute={false}
-                srcObject={participant.srcObject}
-              />
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '30px',
-                  left: '0%',
-                  right: '0%'
-                }}
-                className="show-on-hover"
-              >
-                {removePresenterStream && (
-                  <button
-                    style={styles.buttonBoxS}
-                    onClick={() => this.removePresenterStream(participant.id)}
-                  >
-                    <Cancel />
-                  </button>
-                )}
-                <button
-                  style={styles.buttonBoxS}
-                  onClick={() =>
-                    this.toogleFullScreen('remote_' + participant.id)
-                  }
-                >
-                  <FullScreen />
-                </button>
-                {raiseHand &&
-                  participant.name === 'teacher' && (
-                    <button
-                      style={styles.buttonBoxS}
-                      onClick={() => this.raiseHand()}
-                    >
-                      <HandUp />
-                    </button>
-                  )}
-              </div>
-              <p>{participant.name}</p>
-            </div>
-          </div>
-        ))}
       </div>
     );
   }

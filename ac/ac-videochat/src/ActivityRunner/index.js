@@ -107,10 +107,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.roomId =
       this.props.activityId + this.props.sessionId + this.props.groupingValue;
 
-    if (this.activityType === 'many2many') {
+    if (this.activityType === 'group') {
       this.role = 'none';
-    } else if (this.activityType === 'one2many') {
-      if (this.name === 'teacher') {
+    } else if (this.activityType === 'webinar') {
+      if (this.isTeacher(this.name)) {
         this.role = 'teacher';
       } else {
         this.role = 'watcher';
@@ -604,24 +604,38 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.sendMessage(message);
   };
 
+  isTeacher = (name: string) => {
+    if (name === 'teacher') {
+      return true;
+    }
+    const teacherNames = this.props.activityData.config?.teacherNames;
+    if (teacherNames) {
+      return teacherNames
+        .split(',')
+        .map(x => x.trim())
+        .includes(name);
+    }
+    return false;
+  };
+
   render() {
     const local = this.state.local;
     const remote = this.state.remote;
     const participants = this.state.participants;
     const removeLocalStream =
-      this.activityType === 'many2many' || this.name === 'teacher'
+      this.activityType === 'group' || this.isTeacher(this.name)
         ? undefined
         : this.removeLocalStream;
     const removePresenterStream =
-      this.activityType === 'one2many' && this.name === 'teacher'
+      this.activityType === 'webinar' && this.isTeacher(this.name)
         ? this.removePresenterStream
         : undefined;
     const raiseHand =
-      this.activityType === 'one2many' && this.name !== 'teacher'
+      this.activityType === 'webinar' && !this.isTeacher(this.name)
         ? this.raiseHand
         : undefined;
     const giveMic =
-      this.activityType === 'one2many' && this.name === 'teacher'
+      this.activityType === 'webinar' && this.isTeacher(this.name)
         ? this.giveMic
         : undefined;
     return (
@@ -635,6 +649,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           </Grid>
           <Grid item xs={9}>
             <VideoLayout
+              activityData={this.props.activityData}
+              isTeacher={this.isTeacher}
               local={local}
               remote={remote}
               toogleAudio={this.toogleAudio}

@@ -44,6 +44,7 @@ class ParticipantsView extends React.Component<ParticipantsViewPropsT> {
           {participants.map(p => (
             <ListItem
               key={p.id}
+              style={{ cursor: p.raisedHand ? 'pointer' : 'auto' }}
               onClick={() => {
                 if (giveMic) {
                   this.giveMic(p.id);
