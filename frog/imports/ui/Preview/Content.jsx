@@ -6,8 +6,7 @@ import { uniq } from 'lodash';
 
 import {
   MosaicWithoutDragDropContext,
-  MosaicWindow,
-  ExpandButton
+  MosaicWindow
 } from 'react-mosaic-component';
 import {
   cloneDeep,
@@ -188,7 +187,7 @@ const ContentController = ({
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
-                toolbarControls={[<ExpandButton key="expandbutton" />]}
+                toolbarControls={[<div />]}
                 key={JSON.stringify({ config, showData })}
                 path={path}
               >
@@ -197,7 +196,7 @@ const ContentController = ({
             ) : (
               <MosaicWindow
                 path={path}
-                toolbarControls={[<ExpandButton key="expandbutton" />]}
+                toolbarControls={[<div />]}
                 key={JSON.stringify({ config, showData, reloadActivity })}
                 title={
                   name +
