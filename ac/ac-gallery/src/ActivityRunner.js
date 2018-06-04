@@ -127,6 +127,7 @@ class ActivityRunner extends Component<
         {this.props.activityData.config.canUpload && (
           <div style={{ position: 'absolute', bottom: '10px' }}>
             <dataFn.LearningItem
+              liType={activityData.config.onlyImages ? 'li-image' : undefined}
               meta={{
                 comment: '',
                 votes: {},
