@@ -23,10 +23,11 @@ COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.mete
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
 RUN npm install -g yarn@1.6.0
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
-RUN mkdir -p frog-utils/src \\
+RUN mkdir -p __mocks__ frog-utils/src \\
 ${acopSrc}
 
-COPY package.json yarn.lock .yarnrc babel.config.js __mocks__ ./
+COPY package.json yarn.lock .yarnrc babel.config.js ./
+COPY __mocks__ ./__mocks__
 COPY *.sh package-scripts.js ./
 COPY frog-utils/package.json frog-utils/
 ${acopCP}
