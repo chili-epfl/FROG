@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import WebRtcConfig from '../webrtc-config/config';
-import { onStreamAdded } from '../analytics/AVStreamAnalysis';
+import { onStreamAdded, onVAD } from '../analytics/AVStreamAnalysis';
 
 import Header from './Header';
 import VideoLayout from './VideoLayout';
@@ -315,6 +315,15 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.sendOnlyParticipant = participant;
     this.participants[participant.id] = participant;
 
+    const participants = this.state.participants;
+    participants.push({
+      name: this.name,
+      id: this.id,
+      raisedHand: false,
+      speaking: false
+    });
+    this.setState({ participants });
+
     // we check if role is watcher because of bug in safari
     // in normal situation, if there is no stream, there is no send only peer
     // but for safari, there is stream, but role is watcher, because stream must be
@@ -323,6 +332,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     if (this.stream && this.role !== 'watcher') {
       this.startAnalysis();
       this.setLocalState();
+      onVAD(this.stream, isSpeaking => {
+        this.setParticipantSpeaking(this.id, isSpeaking);
+      });
       if (this.browser.browser !== 'chrome') {
         this.createPeer('sendrecv', participant);
       } else {
@@ -373,7 +385,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     participants.push({
       name: participant.name,
       id: participant.id,
-      raisedHand: false
+      raisedHand: false,
+      speaking: false
     });
     this.setState({ participants });
 
@@ -393,11 +406,20 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       const onAddRemoteTrack = event => {
         const stream = event.streams[0];
         this.addRemoteUserToState(participant, stream);
+        onVAD(event.streams[0], isSpeaking => {
+          this.setParticipantSpeaking(participant.id, isSpeaking);
+        });
       };
       options.ontrack = onAddRemoteTrack;
     }
 
     participant.createPeer(mode, options);
+  };
+
+  setParticipantSpeaking = (participantId, isSpeaking) => {
+    const participants = this.state.participants;
+    participants.filter(p => p.id === participantId)[0].speaking = isSpeaking;
+    this.setState({ participants });
   };
 
   addRemoteUserToState = (participant: Participant, stream: MediaStream) => {
