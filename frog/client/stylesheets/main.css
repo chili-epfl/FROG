@@ -9,6 +9,13 @@ body,
   height: 100%;
   width: 100%;
 }
+.hoverable:not(:hover) + .show-on-hover {
+    display: none;
+}
+
+.hoverable:not(:hover) .show-on-hover {
+    display: none;
+}
 
 kbd {
   margin: 0 3px;

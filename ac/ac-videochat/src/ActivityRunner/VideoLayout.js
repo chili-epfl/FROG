@@ -16,8 +16,7 @@ import Video from './Video';
 
 const styles = {
   videoBoxS: {
-    maxWidth: '400px',
-    minWidth: '200px',
+    width: '400px',
     flex: '0 1 auto',
     margin: 'auto',
     textAlign: 'center',
@@ -48,7 +47,6 @@ type VideoLayoutPropsT = {
   remote: Array<any>,
   toogleAudio: Function,
   toogleVideo: Function,
-  reloadStream: Function,
   toogleScreenShare: Function,
   toogleScreenSupported: boolean,
   removeLocalStream?: Function,
@@ -125,7 +123,6 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     const {
       local,
       remote,
-      reloadStream,
       toogleScreenSupported,
       removeLocalStream,
       removePresenterStream,
@@ -133,94 +130,110 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     } = this.props;
     const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
     return (
-      <React.Fragment>
-        <div style={styles.layoutBoxS}>
-          {local &&
-            !isEmpty(local) && (
-              <div style={styles.videoBoxS}>
+      <div style={styles.layoutBoxS}>
+        {local &&
+          !isEmpty(local) && (
+            <div style={styles.videoBoxS}>
+              <div style={{ position: 'relative' }} className="hoverable">
                 <Video videoId={local.id} mute srcObject={local.srcObject} />
-                <button
-                  disabled={this.state.screen}
-                  style={styles.buttonBoxS}
-                  onClick={this.handleVideoToggle}
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    left: '0%',
+                    right: '0%'
+                  }}
+                  className="show-on-hover"
                 >
-                  {this.state.video && <Videocam />}
-                  {!this.state.video && <VideocamOff />}
-                </button>
-                <button
-                  style={styles.buttonBoxS}
-                  onClick={this.handleAudioToggle}
-                >
-                  {this.state.audio && <Mic />}
-                  {!this.state.audio && <MicOff />}
-                </button>
-                {toogleScreenSupported && (
+                  <button
+                    disabled={this.state.screen}
+                    style={styles.buttonBoxS}
+                    onClick={this.handleVideoToggle}
+                  >
+                    {this.state.video && <Videocam />}
+                    {!this.state.video && <VideocamOff />}
+                  </button>
                   <button
                     style={styles.buttonBoxS}
-                    onClick={this.handleScreenShareToogle}
+                    onClick={this.handleAudioToggle}
                   >
-                    {this.state.screen && <Screen />}
-                    {!this.state.screen && <ScreenOff />}
+                    {this.state.audio && <Mic />}
+                    {!this.state.audio && <MicOff />}
                   </button>
-                )}
-                {removeLocalStream && (
-                  <button
-                    style={styles.buttonBoxS}
-                    onClick={this.removeLocalStream}
-                  >
-                    <Cancel />
-                  </button>
-                )}
-                {local.name && (
-                  <p>
-                    <i>Local: {local.name}</i>
-                  </p>
-                )}
+                  {toogleScreenSupported && (
+                    <button
+                      style={styles.buttonBoxS}
+                      onClick={this.handleScreenShareToogle}
+                    >
+                      {this.state.screen && <Screen />}
+                      {!this.state.screen && <ScreenOff />}
+                    </button>
+                  )}
+                  {removeLocalStream && (
+                    <button
+                      style={styles.buttonBoxS}
+                      onClick={this.removeLocalStream}
+                    >
+                      <Cancel />
+                    </button>
+                  )}
+                </div>
               </div>
-            )}
-          {sortedRemote.map((participant, _) => (
-            <div style={styles.videoBoxS} key={participant.id}>
+              {local.name && (
+                <p>
+                  <i>Local: {local.name}</i>
+                </p>
+              )}
+            </div>
+          )}
+        {sortedRemote.map((participant, _) => (
+          <div style={styles.videoBoxS} key={participant.id}>
+            <div style={{ position: 'relative' }} className="hoverable">
               <Video
                 videoId={'remote_' + participant.id}
                 mute={false}
                 srcObject={participant.srcObject}
               />
-              <button
-                style={styles.buttonBoxS}
-                onClick={() => reloadStream(participant.id)}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '30px',
+                  left: '0%',
+                  right: '0%'
+                }}
+                className="show-on-hover"
               >
-                <Refresh />
-              </button>
-              {removePresenterStream && (
-                <button
-                  style={styles.buttonBoxS}
-                  onClick={() => this.removePresenterStream(participant.id)}
-                >
-                  <Cancel />
-                </button>
-              )}
-              <button
-                style={styles.buttonBoxS}
-                onClick={() =>
-                  this.toogleFullScreen('remote_' + participant.id)
-                }
-              >
-                <FullScreen />
-              </button>
-              {raiseHand &&
-                participant.name === 'teacher' && (
+                {removePresenterStream && (
                   <button
                     style={styles.buttonBoxS}
-                    onClick={() => this.raiseHand()}
+                    onClick={() => this.removePresenterStream(participant.id)}
                   >
-                    <HandUp />
+                    <Cancel />
                   </button>
                 )}
+                <button
+                  style={styles.buttonBoxS}
+                  onClick={() =>
+                    this.toogleFullScreen('remote_' + participant.id)
+                  }
+                >
+                  <FullScreen />
+                </button>
+                {raiseHand &&
+                  participant.name === 'teacher' && (
+                    <button
+                      style={styles.buttonBoxS}
+                      onClick={() => this.raiseHand()}
+                    >
+                      <HandUp />
+                    </button>
+                  )}
+              </div>
               <p>{participant.name}</p>
             </div>
-          ))}
-        </div>
-      </React.Fragment>
+          </div>
+        ))}
+      </div>
     );
   }
 }
