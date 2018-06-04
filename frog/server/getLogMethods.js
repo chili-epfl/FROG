@@ -4,9 +4,10 @@ import { readFileSync } from 'fs';
 import { resolve, join } from 'path';
 
 import { Logs } from '../imports/api/logs';
-import { mergeLog, archiveDashboardState } from '../imports/api/mergeLogData';
+import { mergeLog } from '../imports/api/mergeLogData';
 import { activityTypesObj } from '../imports/activityTypes';
 import { client } from './redis';
+import { archiveDashboardState } from './dashboardSubscription';
 
 Meteor.methods({
   'session.logs': function(sessionId, limit = 50) {

@@ -12,7 +12,8 @@ import {
   cloneDeep,
   getInitialState,
   generateReactiveFn,
-  withDragDropContext
+  withDragDropContext,
+  uuid
 } from 'frog-utils';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -26,6 +27,18 @@ import { getUserId } from './Controls';
 import LearningItem from '../LearningItem';
 
 const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
+
+export const generateDataFn = () => {
+  const doc = connection.get('li', uuid());
+  return generateReactiveFn(
+    doc,
+    LearningItem,
+    undefined,
+    undefined,
+    undefined,
+    backend
+  );
+};
 
 export const initActivityDocuments = (
   instances: string[],
@@ -150,6 +163,7 @@ const ContentController = ({
         activityType={activityType.id}
         key={reloadActivity}
         activityData={activityData}
+        activityId="preview"
         userInfo={{ name, id: getUserId(name) }}
         stream={() => undefined}
         logger={logger}
@@ -186,6 +200,7 @@ const ContentController = ({
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
+                toolbarControls={[<div />]}
                 key={JSON.stringify({ config, showData })}
                 path={path}
               >
@@ -194,6 +209,7 @@ const ContentController = ({
             ) : (
               <MosaicWindow
                 path={path}
+                toolbarControls={[<div />]}
                 key={JSON.stringify({ config, showData, reloadActivity })}
                 title={
                   name +

@@ -1,7 +1,7 @@
 {
   "name": "ac-timedQuiz",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "nps"
   },

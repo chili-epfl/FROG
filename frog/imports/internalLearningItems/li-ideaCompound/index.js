@@ -20,6 +20,27 @@ const ThumbViewer = ({ LearningItem, data }) => (
   </React.Fragment>
 );
 
+const Viewer = ({ LearningItem, data }) => (
+  <React.Fragment>
+    <b>{data.title}</b>
+    <br />
+    {data.content.split('\n').map((line, i) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <React.Fragment key={i}>
+        {line}
+        <br />
+      </React.Fragment>
+    ))}
+    {data.attachments.length === 1 ? (
+      <LearningItem id={data.attachments[0]} type="view" />
+    ) : (
+      data.attachments.map(x => (
+        <LearningItem clickZoomable key={x} id={x} type="thumbView" />
+      ))
+    )}
+  </React.Fragment>
+);
+
 const Editor = ({ data, dataFn, LearningItem }) => (
   <React.Fragment>
     <div className="bootstrap">
@@ -50,6 +71,7 @@ export default ({
   name: 'Idea with attachments',
   id: 'li-ideaCompound',
   ThumbViewer,
+  Viewer,
   Editor,
   dataStructure: { title: '', content: '', attachments: [] }
 }: LearningItemT<{ title: string, content: string, attachments: any[] }>);

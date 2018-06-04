@@ -247,8 +247,7 @@ Picker.route('/api/chooseActivity', (req, request, response, next) => {
   next();
 });
 
-const allowLocalUpload =
-  process.env.NODE_ENV !== 'production' || !Meteor.settings.Minio;
+const allowLocalUpload = !Meteor.settings.Minio;
 
 WebApp.connectHandlers.use('/file', (req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'PUT');

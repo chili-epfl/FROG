@@ -18,6 +18,7 @@ import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardStates } from '../../api/cache';
 import { ShowInfoDash } from './ShowInfo';
+import { generateDataFn } from './Content';
 
 export const DocumentCache = {};
 export const Logs: Object[] = [];
@@ -132,11 +133,14 @@ class PreviewDash extends React.Component<
   prepDataFn: Function;
   aT: Object;
   dash: ?Object;
+  dataFn: any;
+  oldState: any = {};
 
   dashId = this.props.activity._id + '-' + this.props.name;
 
   constructor(props) {
     super(props);
+    this.dataFn = generateDataFn();
     this.aT = activityTypesObj[this.props.activity.activityType];
     this.dash = this.aT?.dashboards?.[this.props.name];
     if (this.dash) {
@@ -173,7 +177,10 @@ class PreviewDash extends React.Component<
           cloneDeep(DashboardStates[this.dashId]),
           this.props.activity
         );
-        this.setState({ state: newState });
+        if (!isEqual(this.oldState, newState)) {
+          this.setState({ state: newState });
+        }
+        this.oldState = newState;
         this.oldInput = cloneDeep(DashboardStates[this.dashId]);
       }
     }
@@ -207,6 +214,7 @@ class PreviewDash extends React.Component<
           activity={this.props.activity}
           instances={uniq(this.props.instances)}
           users={this.props.users}
+          LearningItem={this.dataFn.LearningItem}
         />
       )
     ) : null;

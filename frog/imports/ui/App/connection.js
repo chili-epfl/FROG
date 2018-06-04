@@ -25,4 +25,4 @@ if (Meteor.isClient) {
     window.connection = _connection;
   }
 }
-export const connection = _connection;
+export const connection: any = _connection;

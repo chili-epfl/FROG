@@ -41,9 +41,18 @@ export const config = {
     activityType: {
       type: 'string',
       title:
-        'Type of activity (many2many - group call, one2many - teacher to all)',
-      enum: ['many2many', 'one2many'],
-      default: 'many2many'
+        'Type of activity (in group, everyone participats, in webinar, only admins (and invited users)',
+      enum: ['group', 'webinar'],
+      default: 'group'
+    },
+    recordChat: {
+      type: 'boolean',
+      title: 'Record video chat',
+      default: false
+    },
+    teacherNames: {
+      type: 'string',
+      title: 'Comma-separated list of user names of admins'
     }
   }
 };
@@ -62,5 +71,8 @@ export const validateConfig = [
 export const configUI = {
   activityType: {
     'ui:widget': 'radio'
+  },
+  teacherNames: {
+    conditional: (formData: any) => formData.activityType === 'webinar'
   }
 };
