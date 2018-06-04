@@ -41,7 +41,7 @@ const Viewer = ({ state }: Object) => {
 const mergeLog = (state: any, log: LogDbT) => {
   const action = log.type;
   if (actionTypes.includes(action)) {
-    if (!(state && state[log.instanceId])) {
+    if (!state[log.instanceId]) {
       state[log.instanceId] = actionTypes.reduce(
         (acc, i) => ({ ...acc, [i]: 0 }),
         {}
