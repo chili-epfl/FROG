@@ -187,14 +187,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           break;
 
         case 'raisedHand':
-          if (this.id !== parsedMessage.userId) {
-            const participants = this.state.participants;
-            participants.filter(
-              p => p.id === parsedMessage.userId
-            )[0].raisedHand =
-              parsedMessage.raised;
-            this.setState({ participants });
-          }
+          const participants = this.state.participants;
+          participants.filter(
+            p => p.id === parsedMessage.userId
+          )[0].raisedHand =
+            parsedMessage.raised;
+          this.setState({ participants });
           break;
 
         default:
@@ -624,6 +622,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       }
     };
     this.sendMessage(message);
+    const participants = this.state.participants;
+    participants.filter(p => p.id === this.id)[0].raisedHand = true;
+    this.setState({ participants });
   };
 
   isTeacher = (name: string) => {
