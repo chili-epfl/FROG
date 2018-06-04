@@ -4,12 +4,15 @@
 import React, { Component } from 'react';
 import { type ActivityRunnerPropsT, values } from 'frog-utils';
 import * as AdapterJs from 'webrtc-adapter';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 import WebRtcConfig from '../webrtc-config/config';
-import { onStreamAdded } from '../analytics/AVStreamAnalysis';
+import { onStreamAdded, onVAD } from '../analytics/AVStreamAnalysis';
 
 import Header from './Header';
 import VideoLayout from './VideoLayout';
+import ParticipantsView from './ParticipantsView';
 
 import Participant from './participant';
 
@@ -33,13 +36,26 @@ declare var RTCSessionDescription: any;
  */
 type StateT = {
   local: Object,
-  remote: Array<any>
+  remote: Array<any>,
+  participants: Array<any>
 };
 type OptionsT = { myStream?: *, ontrack?: *, configuration: * };
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary
+  }
+});
 
 class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   name: string;
   id: string;
+  role: string;
   roomId: string;
   participants: Object;
   ws: WebSocket;
@@ -49,7 +65,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     version: number
   };
   activityType: string;
-  role: string;
   mediaConstraints: Object;
   screenSharingOn: boolean;
   sendOnlyParticipant: Object;
@@ -58,7 +73,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   constructor(props: ActivityRunnerPropsT) {
     super(props);
     this.participants = {};
-    this.state = { local: {}, remote: [] };
+    this.state = { local: {}, remote: [], participants: [] };
     this.mediaConstraints = WebRtcConfig.mediaConstraints;
     this.browser = AdapterJs.browserDetails;
   }
@@ -92,10 +107,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.roomId =
       this.props.activityId + this.props.sessionId + this.props.groupingValue;
 
-    if (this.activityType === 'many2many') {
+    if (this.activityType === 'group') {
       this.role = 'none';
-    } else if (this.activityType === 'one2many') {
-      if (this.name === 'teacher') {
+    } else if (this.activityType === 'webinar') {
+      if (this.isTeacher(this.name)) {
         this.role = 'teacher';
       } else {
         this.role = 'watcher';
@@ -147,11 +162,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           this.onExistingParticipants(parsedMessage);
           break;
         case 'newParticipantArrived':
-          this.onNewParticipant(
-            parsedMessage.name,
-            parsedMessage.userId,
-            parsedMessage.role
-          );
+          this.onNewParticipant({
+            name: parsedMessage.name,
+            id: parsedMessage.userId,
+            role: parsedMessage.role
+          });
           break;
         case 'participantLeft':
           this.onParticipantLeft(parsedMessage.userId);
@@ -167,6 +182,19 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
             parsedMessage.candidate
           );
           break;
+        case 'changeRole':
+          this.onRoleChanged(parsedMessage.userId, parsedMessage.newRole);
+          break;
+
+        case 'raisedHand': {
+          const participants = this.state.participants;
+          participants.filter(
+            p => p.id === parsedMessage.userId
+          )[0].raisedHand =
+            parsedMessage.raised;
+          this.setState({ participants });
+          break;
+        }
         default:
           console.error('Unrecognized message', parsedMessage);
       }
@@ -276,85 +304,130 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   onExistingParticipants = msg => {
-    // we chach if role is watcher because of bug in safari
+    const participant = new Participant(
+      this.name,
+      this.id,
+      this.role,
+      this.sendMessage
+    );
+    this.sendOnlyParticipant = participant;
+    this.participants[participant.id] = participant;
+
+    const participants = this.state.participants;
+    participants.push({
+      name: this.name,
+      id: this.id,
+      raisedHand: false,
+      speaking: false,
+      streaming: false
+    });
+    this.setState({ participants });
+
+    // we check if role is watcher because of bug in safari
+    // in normal situation, if there is no stream, there is no send only peer
+    // but for safari, there is stream, but role is watcher, because stream must be
+    // acquired in order to have recvonly connections in safari
     // that condition should be removed once safari fixes recvonly connections
     if (this.stream && this.role !== 'watcher') {
-      const analysisOptions = {
-        local: true,
-        name: this.name,
-        id: this.id,
-        logger: this.props.logger
-      };
-
-      // from AVStreamAnalysis
-      onStreamAdded(this.stream, analysisOptions);
-
-      this.setState({
-        local: {
-          name: this.name,
-          id: this.id,
-          srcObject: this.stream
-        }
+      this.startAnalysis();
+      this.setLocalState();
+      onVAD(this.stream, isSpeaking => {
+        this.setParticipantSpeaking(this.id, isSpeaking);
       });
-
-      this.createPeer('sendonly', this.name, this.id, this.role);
+      if (this.browser.browser !== 'chrome') {
+        this.createPeer('sendrecv', participant);
+      } else {
+        this.createPeer('sendonly', participant);
+      }
     }
 
     // for each of the existing participants, receive their video feed
-    msg.data.forEach(this.receiveVideo);
+    msg.data.forEach(this.onNewParticipant);
   };
 
-  createPeer = (mode, name, id, role) => {
-    const peerMode = {
-      mode
+  startAnalysis = () => {
+    const analysisOptions = {
+      local: true,
+      name: this.name,
+      id: this.id,
+      logger: this.props.logger
     };
-    const participant = new Participant(name, id, role, this.sendMessage);
 
-    if (mode === 'sendonly') {
-      this.sendOnlyParticipant = participant;
-    }
-
-    this.participants[participant.id] = participant;
-
-    if (role !== 'watcher') {
-      const onAddRemoteTrack = event => {
-        const stream = event.streams[0];
-        this.addRemoteUserToState(participant, stream);
-      };
-
-      const options: OptionsT = {
-        configuration: WebRtcConfig.rtcConfiguration
-      };
-
-      if (mode === 'sendonly') {
-        options.myStream = this.stream;
-        if (this.browser.browser !== 'chrome') {
-          peerMode.mode = 'sendrecv';
-        }
-      } else if (mode === 'recvonly') {
-        options.ontrack = onAddRemoteTrack;
-      }
-
-      participant.createPeer(peerMode.mode, options);
-    }
+    // from AVStreamAnalysis
+    onStreamAdded(this.stream, analysisOptions);
   };
 
-  onNewParticipant = (name, userId, role) => {
-    this.receiveVideo({ name, id: userId, role });
+  setLocalState = () => {
+    this.setState({
+      local: {
+        name: this.name,
+        id: this.id,
+        srcObject: this.stream
+      }
+    });
   };
 
   // receive video from remote peer
-  receiveVideo = (newParticipant: {
+  onNewParticipant = (newParticipant: {
     name: string,
     id: string,
     role: string
   }) => {
-    this.createPeer(
-      'recvonly',
+    const participant = new Participant(
       newParticipant.name,
       newParticipant.id,
-      newParticipant.role
+      newParticipant.role,
+      this.sendMessage
     );
+    this.participants[participant.id] = participant;
+    const participants = this.state.participants;
+    participants.push({
+      name: participant.name,
+      id: participant.id,
+      raisedHand: false,
+      speaking: false,
+      streaming: false
+    });
+    this.setState({ participants });
+
+    if (newParticipant.role !== 'watcher') {
+      this.createPeer('recvonly', participant);
+    }
+  };
+
+  createPeer = (mode: string, participant: Participant) => {
+    const options: OptionsT = {
+      configuration: WebRtcConfig.rtcConfiguration
+    };
+
+    if (mode === 'sendonly' || mode === 'sendrecv') {
+      options.myStream = this.stream;
+      this.setParticipantStreaming(participant.id, true);
+    } else if (mode === 'recvonly') {
+      const onAddRemoteTrack = event => {
+        const stream = event.streams[0];
+        this.addRemoteUserToState(participant, stream);
+        onVAD(event.streams[0], isSpeaking => {
+          this.setParticipantSpeaking(participant.id, isSpeaking);
+        });
+        this.setParticipantStreaming(participant.id, true);
+      };
+      options.ontrack = onAddRemoteTrack;
+    }
+
+    participant.createPeer(mode, options);
+  };
+
+  setParticipantSpeaking = (participantId, isSpeaking) => {
+    const participants = this.state.participants;
+    participants.filter(p => p.id === participantId)[0].speaking = isSpeaking;
+    this.setState({ participants });
+  };
+
+  setParticipantStreaming = (participantId, isStreaming) => {
+    const participants = this.state.participants;
+    participants.filter(p => p.id === participantId)[0].streaming = isStreaming;
+    this.setState({ participants });
   };
 
   addRemoteUserToState = (participant: Participant, stream: MediaStream) => {
@@ -374,10 +447,18 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   removeRemoteUserFromState = (participantId: string) => {
-    let remotes = this.state.remote;
-    remotes = remotes.filter(r => r.id !== participantId);
+    const remote = this.state.remote.filter(r => r.id !== participantId);
     this.setState({
-      remote: remotes
+      remote
+    });
+  };
+
+  removeParticipantFromState = (participantId: string) => {
+    const participants = this.state.participants.filter(
+      p => p.id !== participantId
+    );
+    this.setState({
+      participants
     });
   };
 
@@ -392,8 +473,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
     // remove and update state
     this.removeRemoteUserFromState(participantId);
+    this.removeParticipantFromState(participantId);
 
-    participant.dispose();
+    if (participant) {
+      participant.dispose();
+    }
+
     delete this.participants[participantId];
   };
 
@@ -451,21 +536,177 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     }
   };
 
+  onRoleChanged = (userId: string, newRole: string) => {
+    if (this.id === userId && this.role !== newRole) {
+      if (newRole === 'presenter') {
+        if (navigator.mediaDevices) {
+          navigator.mediaDevices
+            .getUserMedia(this.mediaConstraints)
+            .then(stream => {
+              this.stream = stream;
+
+              this.startAnalysis();
+
+              this.setState({
+                local: {
+                  name: this.name,
+                  id: this.id,
+                  srcObject: this.stream
+                }
+              });
+
+              const options = {
+                myStream: stream,
+                configuration: WebRtcConfig.rtcConfiguration
+              };
+              this.sendOnlyParticipant.role = newRole;
+              this.sendOnlyParticipant.createPeer('sendonly', options);
+              this.setParticipantStreaming(this.sendOnlyParticipant.id, true);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+      } else if (newRole === 'watcher') {
+        this.setParticipantStreaming(this.sendOnlyParticipant.id, false);
+        this.sendOnlyParticipant.dispose();
+        this.setState({ local: {} });
+      }
+      this.role = newRole;
+      this.sendOnlyParticipant.role = newRole;
+    } else {
+      const participant = this.participants[userId];
+      if (participant.role !== newRole) {
+        if (newRole === 'watcher') {
+          // remove stream from that user
+          this.removeRemoteUserFromState(participant.id);
+          this.setParticipantStreaming(participant.id, false);
+        } else {
+          this.createPeer('recvonly', participant);
+        }
+        participant.role = newRole;
+      }
+    }
+  };
+
+  giveMic = (participantId: string) => {
+    this.sendMessage({
+      id: 'changeRole',
+      userId: participantId,
+      newRole: 'presenter'
+    });
+    this.sendMessage({
+      id: 'notifyParticipants',
+      payload: {
+        id: 'raisedHand',
+        userId: participantId,
+        raised: false
+      }
+    });
+    // update state for yourself
+    const participants = this.state.participants;
+    participants.filter(p => p.id === participantId)[0].raisedHand = false;
+    this.setState({ participants });
+  };
+
+  removeLocalStream = () => {
+    this.sendMessage({
+      id: 'changeRole',
+      userId: this.id,
+      newRole: 'watcher'
+    });
+  };
+
+  removePresenterStream = (presenterId: string) => {
+    this.sendMessage({
+      id: 'changeRole',
+      userId: presenterId,
+      newRole: 'watcher'
+    });
+  };
+
+  raiseHand = (e: boolean) => {
+    const message = {
+      id: 'notifyParticipants',
+      payload: {
+        id: 'raisedHand',
+        userId: this.id,
+        raised: e
+      }
+    };
+    this.sendMessage(message);
+    const participants = this.state.participants;
+    participants.filter(p => p.id === this.id)[0].raisedHand = true;
+    this.setState({ participants });
+  };
+
+  isTeacher = (name: string) => {
+    if (name === 'teacher') {
+      return true;
+    }
+    const teacherNames = this.props.activityData.config?.teacherNames;
+    if (teacherNames) {
+      return teacherNames
+        .split(',')
+        .map(x => x.trim())
+        .includes(name);
+    }
+    return false;
+  };
+
   render() {
     const local = this.state.local;
     const remote = this.state.remote;
+    const participants = this.state.participants;
+    const removeLocalStream =
+      this.activityType === 'group' || this.isTeacher(this.name)
+        ? undefined
+        : this.removeLocalStream;
+    const removePresenterStream =
+      this.activityType === 'webinar' && this.isTeacher(this.name)
+        ? this.removePresenterStream
+        : undefined;
+    const raiseHand =
+      this.activityType === 'webinar' && !this.isTeacher(this.name)
+        ? this.raiseHand
+        : undefined;
+    const giveMic =
+      this.activityType === 'webinar' && this.isTeacher(this.name)
+        ? this.giveMic
+        : undefined;
     return (
-      <div id="webrtc">
-        <Header {...this.props} />
-        <VideoLayout
-          local={local}
-          remote={remote}
-          toogleAudio={this.toogleAudio}
-          toogleVideo={this.toogleVideo}
-          reloadStream={this.reloadStream}
-          toogleScreenShare={this.toogleScreenShare}
-          toogleScreenSupported={this.browser.browser === 'firefox'}
-        />
+      <div id="webrtc" style={{ height: 'auto', overflow: 'hidden' }}>
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Header {...this.props} />
+          </Grid>
+          <Grid item xs={3}>
+            <ParticipantsView
+              participants={participants.map(
+                x => (this.isTeacher(x.name) ? { ...x, isTeacher: true } : x)
+              )}
+              isTeacher={this.isTeacher}
+              giveMic={giveMic}
+              raiseHand={raiseHand}
+              myId={this.id}
+            />
+          </Grid>
+          <Grid item xs={9}>
+            <VideoLayout
+              activityData={this.props.activityData}
+              isTeacher={this.isTeacher}
+              local={local}
+              remote={remote}
+              toogleAudio={this.toogleAudio}
+              toogleVideo={this.toogleVideo}
+              reloadStream={this.reloadStream}
+              toogleScreenShare={this.toogleScreenShare}
+              toogleScreenSupported={this.browser.browser === 'firefox'}
+              removeLocalStream={removeLocalStream}
+              removePresenterStream={removePresenterStream}
+            />
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -473,4 +714,4 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
 ActivityRunner.displayName = 'ActivityRunner';
 
-export default (props: ActivityRunnerPropsT) => <ActivityRunner {...props} />;
+export default withStyles(styles)(ActivityRunner);

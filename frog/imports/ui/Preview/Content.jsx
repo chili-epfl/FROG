@@ -187,6 +187,7 @@ const ContentController = ({
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
+                toolbarControls={[<div />]}
                 key={JSON.stringify({ config, showData })}
                 path={path}
               >
@@ -195,6 +196,7 @@ const ContentController = ({
             ) : (
               <MosaicWindow
                 path={path}
+                toolbarControls={[<div />]}
                 key={JSON.stringify({ config, showData, reloadActivity })}
                 title={
                   name +

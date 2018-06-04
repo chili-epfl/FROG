@@ -49,3 +49,17 @@ export const onStreamAdded = (stream: MediaStream, options: OptionsT) => {
     });
   }
 };
+
+export const onVAD = (stream: MediaStream, callback: Function) => {
+  if (hark && stream.getAudioTracks().length !== 0) {
+    const speechEvents: any = hark(stream);
+
+    speechEvents.on('speaking', () => {
+      callback(true);
+    });
+
+    speechEvents.on('stopped_speaking', () => {
+      callback(false);
+    });
+  }
+};
