@@ -48,7 +48,8 @@ type VideoLayoutPropsT = {
   toogleScreenShare: Function,
   toogleScreenSupported: boolean,
   removeLocalStream?: Function,
-  removePresenterStream?: Function
+  removePresenterStream?: Function,
+  muteParticipantsByDefault: boolean
 };
 
 type StateT = {
@@ -62,7 +63,15 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
   constructor(props: VideoLayoutPropsT) {
     super(props);
     const mutedRemotes = {};
-    this.props.remote.forEach(r => (mutedRemotes[r.id] = false));
+    this.props.remote.forEach(r => {
+      mutedRemotes[r.id] = this.props.muteParticipantsByDefault;
+      if (this.props.muteParticipantsByDefault) {
+        const audioTracks = r.srcObject.getAudioTracks()[0];
+        if (audioTracks) {
+          audioTracks.enabled = false;
+        }
+      }
+    });
     this.state = {
       video: true,
       audio: true,
@@ -70,6 +79,22 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
       mutedRemotes
     };
   }
+
+  componentWillReceiveProps = (nextProps: VideoLayoutPropsT) => {
+    const mutedRemotes = this.state.mutedRemotes;
+    nextProps.remote.forEach(r => {
+      if (mutedRemotes[r.id] === undefined) {
+        mutedRemotes[r.id] = this.props.muteParticipantsByDefault;
+        if (this.props.muteParticipantsByDefault) {
+          const audioTracks = r.srcObject.getAudioTracks()[0];
+          if (audioTracks) {
+            audioTracks.enabled = false;
+          }
+        }
+      }
+    });
+    this.setState({ mutedRemotes });
+  };
 
   handleVideoToggle = () => {
     if (!this.state.screen) {

@@ -511,7 +511,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     participant.reloadStream();
   };
 
-  toogleScreenShare = (screenType) => {
+  toogleScreenShare = screenType => {
     if (this.browser.browser === 'firefox') {
       if (this.screenSharingOn) {
         this.sendOnlyParticipant.stopScreenShare();
@@ -704,6 +704,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               toogleScreenSupported={this.browser.browser === 'firefox'}
               removeLocalStream={removeLocalStream}
               removePresenterStream={removePresenterStream}
+              muteParticipantsByDefault={
+                this.props.activityData.config.muteParticipantsByDefault
+              }
             />
           </Grid>
         </Grid>
