@@ -186,7 +186,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           this.onRoleChanged(parsedMessage.userId, parsedMessage.newRole);
           break;
 
-        case 'raisedHand':
+        case 'raisedHand': {
           const participants = this.state.participants;
           participants.filter(
             p => p.id === parsedMessage.userId
@@ -194,7 +194,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
             parsedMessage.raised;
           this.setState({ participants });
           break;
-
+        }
         default:
           console.error('Unrecognized message', parsedMessage);
       }
