@@ -318,7 +318,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       name: this.name,
       id: this.id,
       raisedHand: false,
-      speaking: false
+      speaking: false,
+      streaming: false
     });
     this.setState({ participants });
 
@@ -384,7 +385,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       name: participant.name,
       id: participant.id,
       raisedHand: false,
-      speaking: false
+      speaking: false,
+      streaming: false
     });
     this.setState({ participants });
 
@@ -400,6 +402,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
 
     if (mode === 'sendonly' || mode === 'sendrecv') {
       options.myStream = this.stream;
+      this.setParticipantStreaming(participant.id, true);
     } else if (mode === 'recvonly') {
       const onAddRemoteTrack = event => {
         const stream = event.streams[0];
@@ -407,6 +410,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         onVAD(event.streams[0], isSpeaking => {
           this.setParticipantSpeaking(participant.id, isSpeaking);
         });
+        this.setParticipantStreaming(participant.id, true);
       };
       options.ontrack = onAddRemoteTrack;
     }
@@ -417,6 +421,12 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   setParticipantSpeaking = (participantId, isSpeaking) => {
     const participants = this.state.participants;
     participants.filter(p => p.id === participantId)[0].speaking = isSpeaking;
+    this.setState({ participants });
+  };
+
+  setParticipantStreaming = (participantId, isStreaming) => {
+    const participants = this.state.participants;
+    participants.filter(p => p.id === participantId)[0].streaming = isStreaming;
     this.setState({ participants });
   };
 
@@ -551,12 +561,14 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               };
               this.sendOnlyParticipant.role = newRole;
               this.sendOnlyParticipant.createPeer('sendonly', options);
+              this.setParticipantStreaming(this.sendOnlyParticipant.id, true);
             })
             .catch(error => {
               console.error(error);
             });
         }
       } else if (newRole === 'watcher') {
+        this.setParticipantStreaming(this.sendOnlyParticipant.id, false);
         this.sendOnlyParticipant.dispose();
         this.setState({ local: {} });
       }
@@ -568,6 +580,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
         if (newRole === 'watcher') {
           // remove stream from that user
           this.removeRemoteUserFromState(participant.id);
+          this.setParticipantStreaming(participant.id, false);
         } else {
           this.createPeer('recvonly', participant);
         }
