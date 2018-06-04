@@ -153,7 +153,7 @@ class AnnotationLayer extends Component {
       console.log(this.queuedResize);
       if (this.queuedResize === true) return;
       this.queuedResize = true;
-      setTimeout(this.fillPage, 500);
+      setTimeout(this.fillPage, 250);
     });
   }
 
@@ -175,7 +175,7 @@ class AnnotationLayer extends Component {
     if (this.rendering) {
       if (!this.queuedRender) {
         this.queuedRender = true;
-        setTimeout(this.queueUpRender, 500);
+        setTimeout(this.queueUpRender, 250);
       }
       return;
     }
@@ -191,7 +191,7 @@ class AnnotationLayer extends Component {
       if (this.checkIfTeacher()) this.editorRender = true;
       this.forceUpdate();
     } else {
-      setTimeout(this.queueUpRender, 500);
+      setTimeout(this.queueUpRender, 250);
     }
   };
 
@@ -262,13 +262,13 @@ class AnnotationLayer extends Component {
   zoomIn = () => {
     this.savedScale += 0.2;
     this.editorRender = true;
-    this.forceRenderPage();
+    this.forceUpdate();
   }
 
   zoomOut = () => {
     this.savedScale -= 0.2;
     this.editorRender = true;
-    this.forceRenderPage();
+    this.forceUpdate();
   }
 
   checkIfTeacher = () => {
