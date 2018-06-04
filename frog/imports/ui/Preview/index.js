@@ -76,8 +76,18 @@ class PreviewPage extends React.Component<any, any> {
           console.warn('Could not parse sessionStorage', statedump, e);
         }
       }
-      if (state) {
+      if (state && state.activityTypeId) {
+        const activityType = activityTypesObj[state.activityTypeId];
         this.state = state;
+        initActivityDocuments(
+          state.instances,
+          activityType,
+          state.example,
+          state.config,
+          true
+        );
+        // resets the reactive documents for the dashboard
+        initDashboardDocuments(activityType, true);
       } else {
         this.state = defaultState;
       }

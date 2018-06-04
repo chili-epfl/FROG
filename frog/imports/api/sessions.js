@@ -176,7 +176,6 @@ export const updateOpenActivities = (
   Sessions.update(sessionId, {
     $set: { openActivities, timeInGraph, state: 'STARTED' }
   });
-  Meteor.call('reactive.listen', openActivities);
 };
 
 export const removeSession = (sessionId: string) =>

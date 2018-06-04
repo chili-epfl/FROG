@@ -1,39 +1,32 @@
 // @flow
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
-import { compact, isEmpty } from 'lodash';
+import { compact, isEmpty, isObject, values } from 'lodash';
 
 import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 import { meta } from './meta';
 import { config, configUI } from './config';
 
-export const DEFAULT_COMMENT_VALUE = '';
-
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
-  if (object.config.images)
-    object.config.images.forEach((x, i) =>
-      dataFn.objInsert({ votes: {}, comment: DEFAULT_COMMENT_VALUE, ...x }, i)
-    );
-
-  if (object.data === null || object.data === {} || object.data === undefined)
+  if (isEmpty(object.data) || !isObject(object.data)) {
     return;
-  const dataImgs = Array.isArray(object.data)
-    ? object.data
-    : Object.keys(object.data).map(x => object.data[x]);
-  dataImgs.forEach(x =>
+  }
+  values(object.data).forEach(v => {
+    const id = uuid();
     dataFn.objInsert(
       {
-        votes: {},
-        categories: x.categories || (x.category && [x.category]),
-        comment: DEFAULT_COMMENT_VALUE,
-        ...x
+        id,
+        votes: v.votes || {},
+        categories: v.categories || (v.category && [v.category]),
+        comment: v.comment || '',
+        li: v.li
       },
-      x.key || uuid()
-    )
-  );
+      id
+    );
+  });
 };
 
 const exportData = (configData, { payload }) => {
@@ -72,7 +65,7 @@ const exportData = (configData, { payload }) => {
 };
 
 export default ({
-  id: 'ac-image',
+  id: 'ac-gallery',
   type: 'react-component',
   meta,
   config,

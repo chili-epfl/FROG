@@ -12,7 +12,8 @@ import {
   cloneDeep,
   getInitialState,
   generateReactiveFn,
-  withDragDropContext
+  withDragDropContext,
+  uuid
 } from 'frog-utils';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -26,6 +27,18 @@ import { getUserId } from './Controls';
 import LearningItem from '../LearningItem';
 
 const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
+
+export const generateDataFn = () => {
+  const doc = connection.get('li', uuid());
+  return generateReactiveFn(
+    doc,
+    LearningItem,
+    undefined,
+    undefined,
+    undefined,
+    backend
+  );
+};
 
 export const initActivityDocuments = (
   instances: string[],

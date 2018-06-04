@@ -24,7 +24,8 @@ const ImageList = ({
   userInfo,
   setZoom,
   setIndex,
-  logger
+  logger,
+  LearningItem
 }) => (
   <Main>
     {images.map((image, i) => {
@@ -57,7 +58,21 @@ const ImageList = ({
             ? 'chosen_partially'
             : 'not_chosen';
 
-      return <ImageBox key={image.key} {...{ image, onClick, styleCode }} />;
+      return (
+        <LearningItem
+          key={JSON.stringify(image.li)}
+          type="thumbView"
+          id={image.li}
+          render={props => (
+            <ImageBox
+              key={JSON.stringify(image.li)}
+              color={image.votes[userInfo.id] ? 'lightgreen' : 'white'}
+              {...{ image, onClick, styleCode }}
+              {...props}
+            />
+          )}
+        />
+      );
     })}
   </Main>
 );
@@ -67,7 +82,6 @@ const CategoryList = ({ categories, setCategory, logger }) => (
     {Object.keys(categories).map(category => (
       <CategoryBox
         key={JSON.stringify(category)}
-        images={categories[category]}
         category={category}
         setCategory={setCategory}
         logger={logger}

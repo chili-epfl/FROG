@@ -3,9 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { type LogT } from 'frog-utils';
-import getFA from 'font-awesome-filetypes';
-
-import CenteredImg from './CenteredImg';
 
 const CategoryContainer = styled.button`
   position: relative;
@@ -23,27 +20,17 @@ const CategoryContainer = styled.button`
   justify-content: center;
 `;
 
-const ImgContainer = styled.div`
-  position: relative;
-  min-width: 80px;
-  min-height: 80px;
-  margin: 5px;
-  flex: 1 1 auto;
-`;
-
 const CategoryName = styled.span`
-  position: absolute;
   height: 10%;
+  font-size: 3em;
   bottom: 0px;
 `;
 
 const CategoryBox = ({
-  images,
   category,
   setCategory,
   logger
 }: {
-  images: any[],
   category: string,
   setCategory: Function,
   logger: LogT => void
@@ -54,21 +41,6 @@ const CategoryBox = ({
       setCategory(category);
     }}
   >
-    {images.slice(0, 4).map((image, i) => (
-      <ImgContainer key={image + i.toString()}>
-        {image.thumbnail || !image.filename ? (
-          <CenteredImg url={image.thumbnail || image.url} />
-        ) : (
-          <span>
-            <i
-              style={{ fontSize: '70px' }}
-              className={'fa ' + getFA(image.ext || '')}
-              aria-hidden="true"
-            />
-          </span>
-        )}
-      </ImgContainer>
-    ))}
     <CategoryName>{category}</CategoryName>
   </CategoryContainer>
 );

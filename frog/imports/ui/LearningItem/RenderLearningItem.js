@@ -6,8 +6,14 @@ import { omit, isEqual } from 'lodash';
 
 import { learningItemTypesObj } from './learningItemTypes';
 
+const MaybeClickable = ({ condition, children, onClick }) =>
+  condition ? <span onClick={onClick}>{children}</span> : children;
+
 class RenderLearningItem extends React.Component<any, any> {
-  state = { open: false };
+  constructor(props: any) {
+    super(props);
+    this.state = { open: false };
+  }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
     return (
@@ -42,32 +48,33 @@ class RenderLearningItem extends React.Component<any, any> {
     }
     const Comp = (
       <React.Fragment>
-        <span onClick={() => this.setState({ open: true })}>
+        <MaybeClickable
+          onClick={() => {
+            this.setState({ open: true });
+          }}
+          condition={type === 'thumbView' && clickZoomable && liType.Viewer}
+        >
           <LIComponent
             data={data.payload}
             dataFn={dataFn && dataFn.specialize('payload')}
             LearningItem={dataFn && dataFn.LearningItem}
           />
-        </span>
-        {(() => {
-          if (
-            this.state.open &&
-            type === 'thumbView' &&
-            clickZoomable &&
-            liType.Viewer
-          ) {
-            const View = liType.Viewer;
-            return (
-              <Dialog open onClose={() => this.setState({ open: false })}>
-                <View
-                  data={data.payload}
-                  LearningItem={dataFn && dataFn.LearningItem}
-                />
-              </Dialog>
-            );
-          }
-          return null;
-        })()}
+        </MaybeClickable>
+        {this.state.open &&
+          liType.Viewer && (
+            <Dialog
+              maxWidth={false}
+              open
+              onClose={() => {
+                this.setState({ open: false });
+              }}
+            >
+              <liType.Viewer
+                data={data.payload}
+                LearningItem={dataFn && dataFn.LearningItem}
+              />
+            </Dialog>
+          )}
       </React.Fragment>
     );
     if (render) {

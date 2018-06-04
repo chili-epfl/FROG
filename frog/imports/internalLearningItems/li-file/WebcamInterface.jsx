@@ -1,8 +1,14 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Webcam from '@houshuang/react-webcam';
+
 import uploadImage from './utils';
 
 const takePicture = ({
@@ -36,53 +42,48 @@ const takePicture = ({
   const blob = new Blob([ab], { type: mimeString });
 
   setSpinner(true);
-  uploadImage(blob, dataFn, 'webcam-upload', createLearningItem);
-  setWebcam(false);
+  uploadImage(blob, dataFn, 'webcam-upload', createLearningItem, () => {
+    setSpinner(false);
+    setWebcam(false);
+  });
 };
 
 const WebcamCapture = (props: Object) => {
   let webcam = { getScreenshot: () => null };
   return (
-    <WebcamContainer>
-      <button
-        className="btn btn-primary"
-        onClick={() => takePicture({ ...props, webcam })}
-        style={{
-          height: '100px',
-          marginTop: 'auto',
-          marginBottom: 'auto',
-          marginRight: 'auto'
-        }}
-      >
-        Take a picture
-      </button>
+    <>
       <Webcam
         audio={false}
         ref={node => (webcam = node)}
         screenshotFormat="image/jpeg"
         style={{ width: '60%', height: '90%', margin: 'auto' }}
+        onUserMediaError={e => console.error(e)}
       />
-      <button
-        onClick={() => props.setWebcam(false)}
-        className="btn btn-secondary"
-        style={{ position: 'absolute', right: '0px' }}
+      <Button
+        variant="fab"
+        color="secondary"
+        onClick={() => takePicture({ ...props, webcam })}
       >
-        <span className="glyphicon glyphicon-remove" />
-      </button>
-    </WebcamContainer>
+        <PhotoCameraIcon />
+      </Button>
+    </>
   );
 };
 
 WebcamCapture.displayName = 'WebcamCapture';
-export default WebcamCapture;
 
-const WebcamContainer = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: rgba(50, 50, 50, 0.8);
-`;
+const WebcamWrapper = (props: any) => (
+  <Dialog open onClose={() => props.setWebcam(false)} maxWidth="md">
+    <DialogTitle id="alert-dialog-slide-help">Take picture</DialogTitle>
+    <DialogContent>
+      <WebcamCapture {...props} />
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={() => props.setWebcam(false)} color="primary">
+        Close
+      </Button>
+    </DialogActions>
+  </Dialog>
+);
+
+export default WebcamWrapper;
