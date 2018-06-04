@@ -144,17 +144,12 @@ class AnnotationLayer extends Component {
     Mousetrap.unbind('backspace');
     Mousetrap.unbind('left');
     Mousetrap.unbind('right');
-    window.removeEventListener('resize', this.fillPage);
+    window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
     this.forceRenderPage();
-    window.addEventListener('resize', () => {
-      console.log(this.queuedResize);
-      if (this.queuedResize === true) return;
-      this.queuedResize = true;
-      setTimeout(this.fillPage, 250);
-    });
+    window.addEventListener('resize', this.handleResize);
   }
 
   shouldComponentUpdate() {
@@ -238,6 +233,7 @@ class AnnotationLayer extends Component {
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
       result => {
         this.rendering = false;
+        this.queuedResize = false;
         if (this.state.initialLoading === true) {
           this.editorRender = true;
           this.setState({ initialLoading: false });
@@ -255,8 +251,13 @@ class AnnotationLayer extends Component {
     this.rescaleDone = false;
     this.savedScale = 1;
     this.editorRender = true;
-    this.queuedResize = false;
     this.setState({ initialLoading: true })
+  }
+
+  handleResize = () => {
+    if (this.queuedResize === true) return;
+    this.queuedResize = true;
+    setTimeout(this.fillPage, 250);
   }
 
   zoomIn = () => {
