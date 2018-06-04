@@ -88,10 +88,9 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   if (single) {
     return Torun;
   } else {
-    const EMPTY_ARRAY: any[] = [];
     return (
       <MosaicWindow
-        toolbarControls={EMPTY_ARRAY}
+        toolbarControls={[<div />]}
         draggable={false}
         key={activity._id}
         path={path}
