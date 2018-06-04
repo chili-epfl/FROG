@@ -6,12 +6,10 @@ import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
 import Videocam from '@material-ui/icons/Videocam';
 import VideocamOff from '@material-ui/icons/VideocamOff';
-import Refresh from '@material-ui/icons/Refresh';
 import Screen from '@material-ui/icons/ScreenShare';
 import ScreenOff from '@material-ui/icons/StopScreenShare';
 import FullScreen from '@material-ui/icons/Fullscreen';
 import Cancel from '@material-ui/icons/Cancel';
-import HandUp from '@material-ui/icons/PanTool';
 import Video from './Video';
 
 const styles = {
@@ -50,9 +48,7 @@ type VideoLayoutPropsT = {
   toogleScreenShare: Function,
   toogleScreenSupported: boolean,
   removeLocalStream?: Function,
-  removePresenterStream?: Function,
-  raiseHand?: Function,
-  activityData: Object
+  removePresenterStream?: Function
 };
 
 type StateT = {
@@ -114,20 +110,13 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     }
   };
 
-  raiseHand = () => {
-    if (this.props.raiseHand) {
-      this.props.raiseHand();
-    }
-  };
-
   render() {
     const {
       local,
       remote,
       toogleScreenSupported,
       removeLocalStream,
-      removePresenterStream,
-      raiseHand
+      removePresenterStream
     } = this.props;
     const sortedRemote = remote.sort((a, b) => (a.name > b.name ? 1 : 0));
     return (
@@ -165,15 +154,6 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                 >
                   <FullScreen />
                 </button>
-                {raiseHand &&
-                  this.props.isTeacher(participant.name) && (
-                    <button
-                      style={styles.buttonBoxS}
-                      onClick={() => this.raiseHand()}
-                    >
-                      <HandUp />
-                    </button>
-                  )}
               </div>
               <p>{participant.name}</p>
             </div>

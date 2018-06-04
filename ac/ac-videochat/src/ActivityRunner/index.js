@@ -625,13 +625,13 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     });
   };
 
-  raiseHand = () => {
+  raiseHand = (e: boolean) => {
     const message = {
       id: 'notifyParticipants',
       payload: {
         id: 'raisedHand',
         userId: this.id,
-        raised: true
+        raised: e
       }
     };
     this.sendMessage(message);
@@ -681,7 +681,15 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
             <Header {...this.props} />
           </Grid>
           <Grid item xs={3}>
-            <ParticipantsView participants={participants} giveMic={giveMic} />
+            <ParticipantsView
+              participants={participants.map(
+                x => (this.isTeacher(x.name) ? { ...x, isTeacher: true } : x)
+              )}
+              isTeacher={this.isTeacher}
+              giveMic={giveMic}
+              raiseHand={raiseHand}
+              myId={this.id}
+            />
           </Grid>
           <Grid item xs={9}>
             <VideoLayout
@@ -696,7 +704,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               toogleScreenSupported={this.browser.browser === 'firefox'}
               removeLocalStream={removeLocalStream}
               removePresenterStream={removePresenterStream}
-              raiseHand={raiseHand}
             />
           </Grid>
         </Grid>
