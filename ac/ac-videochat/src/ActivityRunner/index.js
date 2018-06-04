@@ -511,7 +511,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     participant.reloadStream();
   };
 
-  toogleScreenShare = () => {
+  toogleScreenShare = (screenType) => {
     if (this.browser.browser === 'firefox') {
       if (this.screenSharingOn) {
         this.sendOnlyParticipant.stopScreenShare();
@@ -521,7 +521,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                mediaSource: 'screen'
+                mediaSource: screenType
               }
             })
             .then(screenStream => {
