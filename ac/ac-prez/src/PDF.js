@@ -7,7 +7,7 @@ export default class PDF extends Component {
   state = {
     pdf: null,
     pageNumber: 1,
-    scale: 0.5,
+    scale: 1,
     err: null,
     blankMode: false
   };
@@ -81,6 +81,7 @@ export default class PDF extends Component {
 
     return (
       <div>
+        {annotationsModeItem}
         <div id="viewer" className="pdf-viewer">
           {layerDisplay}
         </div>

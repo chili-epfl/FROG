@@ -189,7 +189,7 @@ class AnnotationLayer extends Component {
     const RENDER_OPTIONS = {
       documentId: this.props.pdf.fingerprint,
       pdfDocument: this.props.pdf,
-      scale: 0.7,
+      scale: 1,
       rotate: 0
     };
 
@@ -601,12 +601,20 @@ class AnnotationLayer extends Component {
 
     return (
       <div>
+        <hr />
+        {debugItems}
+        {editorItems}
+        {studentItems}
+        <hr />
+        <span>
+          Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
+          {pagingText}
+        </span>
         <div
           id={divIDTest}
           style={testStyle}
           dangerouslySetInnerHTML={{ __html: test.innerHTML }} // eslint-disable-line react/no-danger
         />
-        Page: {shownPageNum}/{this.props.pdf.numPages}
       </div>
     );
   }
