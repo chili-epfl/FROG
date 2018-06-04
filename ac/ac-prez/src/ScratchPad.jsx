@@ -262,7 +262,8 @@ class ScratchPad extends Component {
     svgStyle.left = '0';
 
     const testStyle = {
-      position: 'relative'
+      position: 'relative',
+      margin: '0 auto'
     };
 
     const divIDTest = 'pageContainer' + 1;
