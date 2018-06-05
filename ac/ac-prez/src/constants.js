@@ -1,9 +1,9 @@
 const constants = {
   toolbarItems: [
     'cursor',
-    'area',
     'highlight',
     'strikeout',
+    'area',
     'draw' /* , 'text', 'point' */
   ],
   ScratchPadToolbarItems: ['cursor', 'area', 'draw'],
@@ -13,7 +13,9 @@ const constants = {
     ['#FF0000', 'Red'],
     ['#FFFF00', 'Yellow'],
     ['#0000FF', 'Blue']
-  ]
+  ],
+  defaultSize: 3,
+  defaultColor: '#000000'
 };
 
 export default constants;

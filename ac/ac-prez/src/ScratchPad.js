@@ -99,10 +99,13 @@ class ScratchPad extends Component {
     PDFJSAnnotate.UI.enableEdit();
     PDFJSAnnotate.UI.setPen(1, '#000000');
 
+    localStorage.setItem('aColor', constants.defaultColor);
+    localStorage.setItem('aSize', constants.defaultSize);
+
     this.state = {
       activeItem: 'cursor',
-      penSize: 1,
-      penColor: '#000000'
+      penSize: constants.defaultSize,
+      penColor: constants.defaultColor
     };
 
     this.PDFJSAnnotate = PDFJSAnnotate;
@@ -240,12 +243,14 @@ class ScratchPad extends Component {
     const size = e.target.value;
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(size, this.state.penColor);
+    localStorage.setItem('aSize', size);
     this.setState({ penSize: size });
   };
 
   selectPenColor = color => {
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(this.state.penSize, color);
+    localStorage.setItem('aColor', color);
     this.setState({ penColor: color });
   };
 
@@ -328,7 +333,7 @@ class ScratchPad extends Component {
 
     const penColorItem = <span key="penColor">{colorOptions}</span>;
 
-    if (this.state.activeItem === 'draw') {
+    if (this.state.activeItem === 'draw' || this.state.activeItem === 'area') {
       annotateItems.push(penColorItem);
       annotateItems.push(penSizeItem);
     }
