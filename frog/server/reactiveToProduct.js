@@ -17,12 +17,21 @@ declare var Promise: any;
 
 const cleanId = id => id.split('/')[1];
 
-const formatResults = (results, formatProduct, config, initData) => {
+const formatResults = (
+  plane,
+  results,
+  formatProduct,
+  config,
+  initData,
+  users
+) => {
   const format = (data, instance) => {
     let product;
     if (formatProduct) {
+      const user = users.find(x => x._id === instance);
+      const username = user && user.username;
       try {
-        product = formatProduct(config, data, instance);
+        product = formatProduct(config, data, instance, username);
       } catch (error) {
         console.error(
           'Err: Failed to run formatProduct with reactive data',
@@ -58,6 +67,7 @@ export const getActivityDataFromReactive = (
   const aT: ActivityPackageT = activityTypesObj[activity.activityType];
   const object = Objects.findOne(activityId);
   const { structure } = doGetInstances(activity, object);
+  const users = Meteor.users.find({}).fetch();
 
   const promise = new Promise((resolve, reject) => {
     serverConnection.createFetchQuery(
@@ -70,10 +80,12 @@ export const getActivityDataFromReactive = (
         } else {
           resolve(
             formatResults(
+              activity.plane,
               results,
               aT.formatProduct,
               activity.data,
-              aT.dataStructure
+              aT.dataStructure,
+              users
             )
           );
         }
