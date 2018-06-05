@@ -1,6 +1,11 @@
 // @flow
 
-import { type dataUnitStructT, type ActivityPackageT, uuid } from 'frog-utils';
+import {
+  type dataUnitStructT,
+  type ActivityPackageT,
+  uuid,
+  values
+} from 'frog-utils';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
@@ -72,21 +77,10 @@ const meta = {
 const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
-  if (obj.data && Array.isArray(obj.data)) {
-    obj.data.forEach(box => {
-      const id = box.id || uuid();
-      const item = typeof box === 'object' ? box : { li: box };
-      dataFn.objInsert(
-        {
-          students: {},
-          score: 0,
-          id,
-          ...item
-        },
-        id
-      );
-    });
-  }
+  values(obj.data).forEach(x => {
+    const id = uuid();
+    dataFn.objInsert({ students: {}, score: 0, ...x, id }, id);
+  });
 };
 
 const outputDefinition = {

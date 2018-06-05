@@ -156,6 +156,7 @@ export type ActivityPackageT = {
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (config: Object, item: any, instanceId: string) => any,
+  LearningItems?: LearningItemT<*>[],
   ConfigComponent?: React.ComponentType<{
     configData: Object,
     setConfigData: Object => void,
@@ -201,6 +202,7 @@ export type productOperatorT = {
   config: Object,
   configUI?: Object,
   validateConfig?: validateConfigFnT[],
+  LearningItems?: LearningItemT<*>[],
   operator: (
     configData: Object,
     object: ObjectT & GlobalStructureT
