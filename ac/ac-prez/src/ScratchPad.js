@@ -4,7 +4,7 @@ import PDFJS from '@houshuang/pdfjs-dist';
 import constants from './constants.js';
 
 class ScratchPad extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     const location = window.location;
@@ -43,10 +43,11 @@ class ScratchPad extends Component {
 
         const annotations = that.getAnnotations();
         annotations.push(annotation);
-        that.replaceAnnotations(annotations);
-        that.removeSavedAnnotations();
+        if (annotations.length === 0)
+          props.dataFn.objInsert([annotation], ['scratchpadAnnotations']);
+        else props.dataFn.listAppend(annotation, ['scratchpadAnnotations']);
 
-        that.forceUpdate();
+        that.replaceSavedAnnotations([]);
         return Promise.resolve(annotation);
       },
 
@@ -58,9 +59,10 @@ class ScratchPad extends Component {
           if (index === -1) reject(new Error('Could not find annotation!'));
           else {
             annotations[index] = annotation;
-            that.replaceAnnotations(annotations);
-
-            that.forceUpdate();
+            props.dataFn.objSet(annotation, [
+              'scratchpadAnnotations',
+              index.toString()
+            ]);
             resolve(annotation);
           }
         });
@@ -72,10 +74,11 @@ class ScratchPad extends Component {
         return new Promise((resolve, reject) => {
           if (index === -1) reject(new Error('Could not find annotation!'));
           else {
-            annotations.splice(index, 1);
-            that.replaceAnnotations(annotations);
+            const savedAnnotations = that.getSavedAnnotations();
+            savedAnnotations.push(annotations[index]);
+            that.replaceSavedAnnotations(savedAnnotations);
 
-            that.forceUpdate();
+            props.dataFn.listDel(null, ['scratchpadAnnotations', index]);
             resolve(true);
           }
         });
@@ -137,22 +140,17 @@ class ScratchPad extends Component {
     );
   };
 
+  checkIfTeacher = () => {
+    const user = this.props.userInfo.name;
+    return user === 'teacher';
+  };
+
   clearAnnotations = () => {
-    localStorage.removeItem('ScratchPadAnnotations');
-    localStorage.removeItem('savedScratchPadAnnotations');
-    this.forceUpdate();
+    this.replaceSavedAnnotations([]);
+    this.props.dataFn.objSet([], 'scratchpadAnnotations');
   };
 
-  getAnnotations = () =>
-    JSON.parse(localStorage.getItem('ScratchPadAnnotations') || '[]');
-
-  replaceAnnotations = annotations => {
-    localStorage.setItem('ScratchPadAnnotations', JSON.stringify(annotations));
-  };
-
-  removeSavedAnnotations = () => {
-    localStorage.removeItem('savedScratchPadAnnotations');
-  };
+  getAnnotations = () => this.props.data.scratchpadAnnotations;
 
   getSavedAnnotations = () =>
     JSON.parse(localStorage.getItem('savedScratchPadAnnotations') || '[]');
@@ -166,26 +164,25 @@ class ScratchPad extends Component {
 
   undo = () => {
     const annotations = this.getAnnotations();
-    const annotation = annotations[annotations.length - 1];
-    annotations.splice(annotations.length - 1, 1);
-    this.replaceAnnotations(annotations);
+    const index = annotations.length - 1;
+    const annotation = annotations[index];
+    this.props.dataFn.listDel(null, [
+      'scratchpadAnnotations',
+      index.toString()
+    ]);
+
     const savedAnnotations = this.getSavedAnnotations();
     savedAnnotations.push(annotation);
     this.replaceSavedAnnotations(savedAnnotations);
-
-    this.forceUpdate();
   };
 
   redo = () => {
-    const annotations = this.getAnnotations();
     const savedAnnotations = this.getSavedAnnotations();
     const annotation = savedAnnotations[savedAnnotations.length - 1];
     savedAnnotations.splice(savedAnnotations.length - 1, 1);
-    annotations.push(annotation);
-    this.replaceAnnotations(annotations);
     this.replaceSavedAnnotations(savedAnnotations);
 
-    this.forceUpdate();
+    this.props.dataFn.listAppend(annotation, ['scratchpadAnnotations']);
   };
 
   setActiveToolbarItem = item => {
@@ -262,7 +259,8 @@ class ScratchPad extends Component {
     svgStyle.left = '0';
 
     const testStyle = {
-      position: 'relative'
+      position: 'relative',
+      margin: '0 auto'
     };
 
     const divIDTest = 'pageContainer' + 1;
@@ -335,7 +333,7 @@ class ScratchPad extends Component {
       annotateItems.push(penSizeItem);
     }
 
-    const editorItems = (
+    const editorItems = !this.checkIfTeacher() ? null : (
       <span>
         <span>Options: </span>
         <button
@@ -354,6 +352,7 @@ class ScratchPad extends Component {
         <hr />
         <span>Annotate: </span>
         {annotateItems}
+        <hr />
       </span>
     );
 
@@ -361,7 +360,6 @@ class ScratchPad extends Component {
       <div>
         <hr />
         {editorItems}
-        <hr />
         <div
           id={divIDTest}
           style={testStyle}

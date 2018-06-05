@@ -190,6 +190,29 @@ class AnnotationLayer extends Component {
     }
   };
 
+  calculateNewScale = () => {
+    const shownPageNum = this.state.studentPaging
+      ? this.state.pageNumStudent
+      : this.props.data.pageNum;
+    const containerID = '#pageContainer' + shownPageNum;
+    const container = document.querySelector(containerID);
+    // console.log(container.clientWidth, container.clientHeight);
+
+    const rect = container.getBoundingClientRect();
+    // console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+    const w = window.innerWidth;
+    const h = window.innerHeight - rect.top - 10;
+    // console.log(w, h);
+
+    const widthScale = w / container.clientWidth;
+    const heightScale = h / container.clientHeight;
+    // console.log(widthScale, heightScale);
+    const newScale = Math.min(widthScale, heightScale);
+
+    return newScale;
+  };
+
   forceRenderPage = () => {
     this.rendering = true;
 
@@ -198,21 +221,7 @@ class AnnotationLayer extends Component {
       : this.props.data.pageNum;
 
     if (!this.state.initialLoading && !this.rescaleDone) {
-      const containerID = '#pageContainer' + shownPageNum;
-      const container = document.querySelector(containerID);
-
-      const rect = container.getBoundingClientRect();
-      // console.log(rect.top, rect.right, rect.bottom, rect.left);
-
-      // console.log(container.clientWidth, container.clientHeight);
-      const w = window.innerWidth;
-      const h = window.innerHeight - rect.top - 10;
-      // console.log(w, h);
-
-      const widthScale = w / container.clientWidth;
-      const heightScale = h / container.clientHeight;
-      // console.log(widthScale, heightScale);
-      const newScale = Math.min(widthScale, heightScale);
+      const newScale = this.calculateNewScale();
       // console.log(newScale);
       this.savedScale = newScale;
       this.rescaleDone = true;
