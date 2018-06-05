@@ -1,7 +1,6 @@
 // @flow
 import queryString from 'query-string';
 import { compact } from 'lodash';
-import Twitter from 'twitter';
 import fetch from 'isomorphic-fetch';
 import {
   uuid,
@@ -45,6 +44,7 @@ export const config = {
 };
 
 export const operator = (configData: Object) => {
+  const Twitter = require('twitter');
   const client = new Twitter({
     consumer_key: configData.consumerKey,
     consumer_secret: configData.consumerSecret,
