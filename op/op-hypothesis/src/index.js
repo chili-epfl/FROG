@@ -91,6 +91,11 @@ export default ({
   operator,
   config,
   validateConfig,
+  outputDefinition: {
+    LI_title: { title: 'Title field', type: 'string' },
+    LI_content: { title: 'Content filed', type: 'string' },
+    LI_source: { title: 'Source document', type: 'string' }
+  },
   meta,
   LearningItems: [liType]
 }: productOperatorT);

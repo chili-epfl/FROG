@@ -176,6 +176,17 @@ export default class Operator extends Elem {
         } else {
           return undefined;
         }
+      },
+
+      get outputDefinition() {
+        if (!this.oT.outputDefinition) {
+          return undefined;
+        }
+        if (isFunction(this.oT.outputDefinition)) {
+          return this.oT.outputDefinition(this.data);
+        } else {
+          return this.oT.outputDefinition;
+        }
       }
     });
   }
