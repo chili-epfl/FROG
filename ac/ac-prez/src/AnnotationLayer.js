@@ -192,7 +192,7 @@ class AnnotationLayer extends Component {
 
   forceRenderPage = () => {
     this.rendering = true;
-  
+
     const shownPageNum = this.state.studentPaging
       ? this.state.pageNumStudent
       : this.props.data.pageNum;
@@ -200,7 +200,7 @@ class AnnotationLayer extends Component {
     if (!this.state.initialLoading && !this.rescaleDone) {
       const containerID = '#pageContainer' + shownPageNum;
       const container = document.querySelector(containerID);
-    
+
       const rect = container.getBoundingClientRect();
       // console.log(rect.top, rect.right, rect.bottom, rect.left);
 
@@ -209,8 +209,8 @@ class AnnotationLayer extends Component {
       const h = window.innerHeight - rect.top - 10;
       // console.log(w, h);
 
-      const widthScale = w/container.clientWidth;
-      const heightScale = h/container.clientHeight;
+      const widthScale = w / container.clientWidth;
+      const heightScale = h / container.clientHeight;
       // console.log(widthScale, heightScale);
       const newScale = Math.min(widthScale, heightScale);
       // console.log(newScale);
@@ -218,16 +218,14 @@ class AnnotationLayer extends Component {
       this.rescaleDone = true;
     }
 
-    let scale = this.savedScale;
-    
+    const scale = this.savedScale;
 
     const RENDER_OPTIONS = {
       documentId: this.props.pdf.fingerprint,
       pdfDocument: this.props.pdf,
-      scale: scale,
+      scale,
       rotate: 0
     };
-    
 
     const UI = this.PDFJSAnnotate.UI;
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
@@ -251,26 +249,26 @@ class AnnotationLayer extends Component {
     this.rescaleDone = false;
     this.savedScale = 1;
     this.editorRender = true;
-    this.setState({ initialLoading: true })
-  }
+    this.setState({ initialLoading: true });
+  };
 
   handleResize = () => {
     if (this.queuedResize === true) return;
     this.queuedResize = true;
     setTimeout(this.fillPage, 250);
-  }
+  };
 
   zoomIn = () => {
     this.savedScale += 0.2;
     this.editorRender = true;
     this.forceUpdate();
-  }
+  };
 
   zoomOut = () => {
     this.savedScale -= 0.2;
     this.editorRender = true;
     this.forceUpdate();
-  }
+  };
 
   checkIfTeacher = () => {
     const user = this.props.userInfo.name;
@@ -533,7 +531,7 @@ class AnnotationLayer extends Component {
 
     const containerStyle = {
       position: 'relative',
-      margin: '0 auto',
+      margin: '0 auto'
     };
     if (this.state.initialLoading === true) containerStyle.opacity = 0;
 
