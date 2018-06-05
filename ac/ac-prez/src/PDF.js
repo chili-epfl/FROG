@@ -6,8 +6,6 @@ import ScratchPad from './ScratchPad';
 export default class PDF extends Component {
   state = {
     pdf: null,
-    pageNumber: 1,
-    scale: 1,
     err: null,
     blankMode: false
   };
