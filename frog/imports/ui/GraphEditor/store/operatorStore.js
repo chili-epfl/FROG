@@ -15,17 +15,29 @@ export default class OperatorStore {
       mongoAdd: action((x: any) => {
         if (!store.findId({ type: 'operator', id: x._id })) {
           this.all.push(
-            new Operator(x.time, x.y, x.type, x._id, x.title, x.state)
+            new Operator(
+              x.time,
+              x.y,
+              x.type,
+              x.data,
+              x.operatorType,
+              x._id,
+              x.title,
+              x.state
+            )
           );
+          store.refreshValidate();
         }
       }),
 
       mongoChange: action((newx: Operator, oldx: { _id: string }) => {
         store.findId({ type: 'operator', id: oldx._id }).update(newx);
+        store.refreshValidate();
       }),
 
       mongoRemove: action((remx: { _id: string }) => {
         this.all = this.all.filter(x => x.id !== remx._id);
+        store.refreshValidate();
       }),
 
       place: action((type: OperatorTypes) => {
@@ -59,25 +71,15 @@ export default class OperatorStore {
         }
       }),
 
-      get mongoObservers(): {
-        added: Function,
-        changed: Function,
-        removed: Function
-      } {
-        return {
-          added: this.mongoAdd,
-          changed: this.mongoChange,
-          removed: this.mongoRemove
-        };
-      },
-
       get history(): Array<any> {
         return this.all.map(x => ({
           time: x.time,
           y: x.y,
           type: x.type,
           id: x.id,
-          title: x.id
+          title: x.id,
+          data: x.data,
+          operatorType: x.operatorType
         }));
       },
 

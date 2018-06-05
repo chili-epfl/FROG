@@ -1,20 +1,21 @@
 // @flow
 
+import { keyBy } from 'lodash';
+import { type ActivityPackageT, flattenOne } from 'frog-utils';
+
+import acSingleLi from 'ac-single-li';
 import acTrain from 'ac-train';
 import acRanking from 'ac-ranking';
 import acDual from 'ac-dual';
 import acTimedQuiz from 'ac-timedQuiz';
 import acStroop from 'ac-stroop';
-import { keyBy } from 'lodash';
-import { type ActivityPackageT, flattenOne } from 'frog-utils';
-
 import acTextarea from 'ac-textarea';
 import acAutocode from 'ac-autocode';
 import acDisplaySocial from 'ac-display-social';
 import acUploader from 'ac-uploader';
 import acProx from 'ac-prox';
 import acClassifier from 'ac-classifier';
-import acImage from 'ac-image';
+import acGallery from 'ac-gallery';
 import acInduction from 'ac-induction';
 import acBrainstorm from 'ac-brainstorm';
 import acChat from 'ac-chat';
@@ -32,6 +33,7 @@ import acH5P from './internalActivities/ac-h5p';
 import acDash from './internalActivities/ac-dash';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
+  acSingleLi,
   acTrain,
   acRanking,
   acDual,
@@ -41,7 +43,7 @@ export const activityTypes: ActivityPackageT[] = flattenOne([
   acAutocode,
   acDisplaySocial,
   acUploader,
-  acImage,
+  acGallery,
   acProx,
   acClassifier,
   acInduction,

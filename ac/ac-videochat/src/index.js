@@ -20,10 +20,7 @@ const meta = {
           audio: true,
           video: true
         },
-        activityType: {
-          many2many: true,
-          one2many: false
-        }
+        activityType: 'group'
       },
       data: []
     }

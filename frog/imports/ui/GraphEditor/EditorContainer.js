@@ -3,9 +3,12 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from 'react-tooltip';
+import { Graphs } from '/imports/api/graphs';
 import Grid from '@material-ui/core/Grid';
+
 import { removeActivity } from '/imports/api/remoteActivities';
 import { removeGraph } from '/imports/api/remoteGraphs';
+import { LibraryStates } from '/imports/api/cache';
 
 import { connect } from './store';
 import Graph from './Graph';
@@ -17,7 +20,7 @@ import ModalImport from './RemoteControllers/ModalImport';
 import ModalDelete from './RemoteControllers/ModalDelete';
 
 import TopPanel from './TopPanel';
-import { ModalPreview } from '../Preview';
+import Preview from '../Preview';
 import TopBar from '../App/TopBar';
 
 const styles = () => ({
@@ -51,7 +54,7 @@ type StateT = {
   importOpen: boolean,
   deleteOpen: boolean,
   locallyChanged: boolean,
-  idRemove: string
+  idRemove: Object
 };
 
 class Editor extends React.Component<Object, StateT> {
@@ -62,7 +65,7 @@ class Editor extends React.Component<Object, StateT> {
       importOpen: false,
       deleteOpen: false,
       locallyChanged: false,
-      idRemove: ''
+      idRemove: {}
     };
   }
 
@@ -79,16 +82,16 @@ class Editor extends React.Component<Object, StateT> {
     const { classes } = this.props;
     if (this.props.store.ui.showPreview) {
       return (
-        <ModalPreview
+        <Preview
+          modal
           activityTypeId={this.props.store.ui.showPreview.activityTypeId}
-          _config={this.props.store.ui.showPreview.config}
+          config={this.props.store.ui.showPreview.config}
           dismiss={() => this.props.store.ui.setShowPreview(false)}
         />
       );
     }
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
-
     return (
       <div className={classes.root}>
         <TopBar />
@@ -97,6 +100,10 @@ class Editor extends React.Component<Object, StateT> {
             <TopPanel
               openExport={() => this.setState({ exportOpen: true })}
               openImport={() => this.setState({ importOpen: true })}
+              {...{
+                setDelete,
+                setIdRemove
+              }}
             />
             <ModalExport
               exportType="graph"
@@ -104,6 +111,10 @@ class Editor extends React.Component<Object, StateT> {
               setModal={val => this.setState({ exportOpen: val })}
               graphId={this.props.store.graphId}
               graphName={this.props.store}
+              metadatas={LibraryStates.graphList.filter(
+                x =>
+                  x.uuid === Graphs.findOne(this.props.store.graphId).parentId
+              )}
               madeChanges={() => this.setState({ locallyChanged: true })}
             />
             <ModalImport
@@ -119,12 +130,13 @@ class Editor extends React.Component<Object, StateT> {
             <ModalDelete
               modalOpen={this.state.deleteOpen}
               setModal={setDelete}
-              remove={() => {
-                if (this.state.importOpen)
-                  removeGraph(this.state.idRemove, () => this.forceUpdate());
-                else
-                  removeActivity(this.state.idRemove, () => this.forceUpdate());
-              }}
+              remove={() =>
+                this.state.idRemove.type === 'graph'
+                  ? removeGraph(this.state.idRemove.id)
+                  : removeActivity(this.state.idRemove.id, () =>
+                      this.forceUpdate()
+                    )
+              }
             />
           </Grid>
           <Grid item xs={12}>

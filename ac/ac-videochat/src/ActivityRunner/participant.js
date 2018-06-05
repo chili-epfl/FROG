@@ -22,13 +22,20 @@ class Participant {
   rtcPeer: RTCPeerConnection;
   options: OptionsT;
   mode: string;
-  isRemoteDescriptionSet: boolean;
+  isAnswerProcessed: boolean;
+  remoteCandidates: Array<any>;
+  senderVideo: Object;
+  senderAudio: Object;
+  cameraVideoTrack: Object;
+  screenVideoTrack: Object;
+  sendOnlyStream: Object;
 
   constructor(name: string, id: string, role: string, sendMessage: Function) {
     this.name = name;
     this.id = id;
     this.role = role;
     this.sendMessage = sendMessage;
+    this.remoteCandidates = [];
   }
 
   createPeer = (mode: string, options: Object) => {
@@ -42,7 +49,22 @@ class Participant {
       this.rtcPeer = new RTCPeerConnection(options.configuration);
       this.rtcPeer.onicecandidate = this.onIceCandidate;
       if (mode === 'sendonly' || mode === 'sendrecv') {
-        this.rtcPeer.addStream(options.myStream);
+        this.sendOnlyStream = options.myStream;
+        this.cameraVideoTrack = options.myStream.getVideoTracks()[0];
+        const audioTrack = options.myStream.getAudioTracks()[0];
+
+        if (this.cameraVideoTrack) {
+          this.senderVideo = this.rtcPeer.addTrack(
+            this.cameraVideoTrack,
+            options.myStream
+          );
+        }
+        if (audioTrack) {
+          this.senderAudio = this.rtcPeer.addTrack(
+            audioTrack,
+            options.myStream
+          );
+        }
       } else if (mode === 'recvonly' && options.ontrack) {
         this.rtcPeer.ontrack = options.ontrack;
       }
@@ -69,6 +91,7 @@ class Participant {
           .catch(this.onOfferError);
       }
     } catch (error) {
+      console.error(error);
       if (options && options.onError) options.onError(error);
     }
   };
@@ -108,12 +131,19 @@ class Participant {
       sdp: answerSdp
     });
     this.rtcPeer.setRemoteDescription(answer).then(() => {
-      this.isRemoteDescriptionSet = true;
+      this.isAnswerProcessed = true;
+      this.remoteCandidates.forEach(c =>
+        this.rtcPeer.addIceCandidate(new RTCIceCandidate(c))
+      );
     });
   };
 
   onRemoteCandidate = (candidate: Object) => {
-    this.rtcPeer.addIceCandidate(new RTCIceCandidate(candidate));
+    if (this.isAnswerProcessed) {
+      this.rtcPeer.addIceCandidate(new RTCIceCandidate(candidate));
+    } else {
+      this.remoteCandidates.push(candidate);
+    }
   };
 
   onIceCandidate = (event: Object) => {
@@ -125,6 +155,28 @@ class Participant {
       };
       this.sendMessage(message);
     }
+  };
+
+  startScreenShare = (screenStream: MediaStream) => {
+    this.screenVideoTrack = screenStream.getVideoTracks()[0];
+
+    // replace track in stream that is sending to other users
+    this.senderVideo.replaceTrack(this.screenVideoTrack);
+
+    // replace track in local video stream
+    this.sendOnlyStream.removeTrack(this.cameraVideoTrack);
+    this.sendOnlyStream.addTrack(this.screenVideoTrack);
+  };
+
+  stopScreenShare = () => {
+    // replace track in stream that is sending to other users
+    this.senderVideo.replaceTrack(this.cameraVideoTrack);
+
+    // replace track in local video stream
+    this.sendOnlyStream.removeTrack(this.screenVideoTrack);
+    this.sendOnlyStream.addTrack(this.cameraVideoTrack);
+
+    this.screenVideoTrack.stop();
   };
 
   toogleAudio = () => {

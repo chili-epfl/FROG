@@ -1,6 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
+import List from '@material-ui/core/List';
+import Search from '@material-ui/icons/Search';
+
 import { LibraryStates } from '/imports/api/cache';
 import {
   importGraph,
@@ -12,7 +15,8 @@ import {
   importAct,
   checkDateAct
 } from '/imports/api/remoteActivities';
-import LibraryListComponent from './LibraryListComponent';
+import ListComponent from '../SidePanel/ListComponent';
+import { activityTypesObj } from '../../../activityTypes';
 
 const filterWithStr = (list: Array<any>, searchStr: string) =>
   list &&
@@ -25,10 +29,7 @@ const filterWithStr = (list: Array<any>, searchStr: string) =>
         x.description.toLowerCase().includes(searchStr) ||
         x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
     )
-    .sort((x: Object, y: Object) => {
-      if (x.activity_type) return x.title < y.title ? -1 : 1;
-      else return x.timestamp > y.timestamp ? -1 : 1;
-    });
+    .sort((x, y) => (x.timestamp > y.timestamp ? -1 : 1));
 
 class Library extends Component<Object, { searchStr: string }> {
   constructor(props: Object) {
@@ -49,7 +50,6 @@ class Library extends Component<Object, { searchStr: string }> {
 
   render() {
     const {
-      setDelete,
       setIdRemove,
       activityId,
       libraryType,
@@ -64,44 +64,52 @@ class Library extends Component<Object, { searchStr: string }> {
       list,
       searchStr || this.state.searchStr.toLowerCase()
     );
-    const onClick = () => {
-      if (this.props.libraryType === 'activity') collectActivities();
-      else if (this.props.libraryType === 'graph') collectGraphs();
-    };
     return (
-      <div className="bootstrap">
+      <div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           {searchStr === undefined && (
-            <div className="input-group">
-              <span className="input-group-addon" id="basic-addon1">
-                <span
-                  className="glyphicon glyphicon-search"
-                  aria-hidden="true"
-                />
-              </span>
+            <div
+              style={{
+                position: 'relative',
+                borderRadius: '5px',
+                background: 'rgba(0,0,0,.05)'
+              }}
+            >
+              <div
+                style={{
+                  width: '50px',
+                  height: '100%',
+                  display: 'flex',
+                  position: 'absolute',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Search />
+              </div>
               <input
                 type="text"
                 value={this.state.searchStr}
-                style={{ zIndex: 0 }}
                 onChange={e => this.setState({ searchStr: e.target.value })}
-                className="form-control"
-                placeholder="Search for..."
+                style={{
+                  border: '0',
+                  width: '100%',
+                  padding: '8px 8px 8px 50px',
+                  background: 'none',
+                  outline: 'none',
+                  whiteSpace: 'normal',
+                  verticalAlign: 'middle',
+                  fontSize: '1rem'
+                }}
                 aria-describedby="basic-addon1"
               />
             </div>
           )}
-          <button type="button" className="btn btn-primary" onClick={onClick}>
-            <span className="glyphicon glyphicon-repeat" />
-          </button>
         </div>
-        <div
-          className="list-group"
-          style={{
-            height: '93%',
-            width: '100%',
-            overflowY: 'scroll',
-            transform: 'translateY(10px)'
-          }}
+        <List
+          style={
+            this.props.libraryType === 'activity' ? { overflowY: 'scroll' } : {}
+          }
         >
           {filtered && filtered.length === 0 ? (
             <div
@@ -116,10 +124,21 @@ class Library extends Component<Object, { searchStr: string }> {
           ) : (
             filtered &&
             filtered.map((x: Object) => (
-              <LibraryListComponent
+              <ListComponent
+                object={{
+                  id: x.uuid,
+                  meta: {
+                    name: x.title,
+                    shortDesc: x.description,
+                    activityTypeName:
+                      activityTypesObj?.[x.activity_type]?.meta?.name + ': '
+                  },
+                  ...x
+                }}
                 onSelect={() => {
-                  // setConfig
                   if (libraryType === 'activity') {
+                    if (this.props.setActivityTypeId)
+                      this.props.setActivityTypeId(x.activity_type);
                     importAct(
                       x.uuid,
                       activityId,
@@ -134,7 +153,6 @@ class Library extends Component<Object, { searchStr: string }> {
                     this.props.setModal(false);
                   }
                 }}
-                object={x}
                 key={x.uuid}
                 onPreview={() =>
                   store.ui.setShowPreview({
@@ -143,12 +161,13 @@ class Library extends Component<Object, { searchStr: string }> {
                   })
                 }
                 eventKey={x.uuid}
-                searchStr={searchStr || this.state.searchStr}
-                {...{ setDelete, setIdRemove }}
+                searchS={searchStr || this.state.searchStr}
+                {...{ setIdRemove }}
+                isLibrary="true"
               />
             ))
           )}
-        </div>
+        </List>
       </div>
     );
   }

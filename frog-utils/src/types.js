@@ -89,6 +89,7 @@ export type ActivityRunnerPropsT = {
   stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, name: string) => Promise<*>,
   userInfo: { id: string, name: string },
+  activityId: string,
   groupingValue: string,
   sessionId: string
 };
@@ -166,6 +167,7 @@ export type DashboardT = {
   Viewer: React.ComponentType<DashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
+  reactiveToDisplay?: (reactive: any, activity: ActivityDbT) => any,
   initData: any,
   exampleLogs?: (
     | {
@@ -282,6 +284,7 @@ type LIRenderPropsT = {|
 |};
 
 export type LIRenderT = React.ComponentType<LIRenderPropsT>;
+type ImmutableLIT = { id: string, liDocument: Object };
 
 export type LIComponentPropsT =
   | {| type: 'history', id: string, render?: LIRenderT |}
@@ -293,12 +296,12 @@ export type LIComponentPropsT =
       autoInsert?: Boolean,
       meta?: Object
     |}
-  | {| type: 'view', id: string, render?: LIRenderT |}
+  | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
   | {|
       type: 'thumbView',
-      id: string,
+      id: string | ImmutableLIT,
       render?: LIRenderT,
-      clickZoomable?: Boolean
+      clickZoomable?: boolean
     |}
   | {|
       type: 'edit',

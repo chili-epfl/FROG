@@ -7,7 +7,7 @@ import { Mongo } from 'meteor/mongo';
 import { DDP } from 'meteor/ddp-client';
 import { omit } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT, generateReactiveFn } from 'frog-utils';
 
 import doGetInstances from '../../api/doGetInstances';
 import { Sessions } from '../../api/sessions';
@@ -15,6 +15,8 @@ import { Objects } from '../../api/objects';
 import { DashboardData } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
 import MultiWrapper from './MultiWrapper';
+import { connection as conn } from '../App/connection';
+import LearningItem from '../LearningItem';
 
 let connection = null;
 let dashboardCollection = null;
@@ -40,6 +42,8 @@ const RawDashboardComp = ({
     return <CircularProgress />;
   }
   const aT = activityTypesObj[activity.activityType];
+  const doc = conn.get('li', 'bookmark');
+  const dataFn = generateReactiveFn(doc, LearningItem);
   if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
     return <p>The selected activity has no dashboard</p>;
   }
@@ -51,7 +55,8 @@ const RawDashboardComp = ({
         users,
         activity,
         instances,
-        config: activity.data
+        config: activity.data,
+        LearningItem: dataFn.LearningItem
       }}
     />
   );
