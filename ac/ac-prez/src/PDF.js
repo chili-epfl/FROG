@@ -27,6 +27,15 @@ export default class PDF extends Component {
 
   getPDF = () => {
     try {
+      const location = window.location;
+      const cMapUrl =
+        location.protocol +
+        '//' +
+        location.hostname +
+        (location.port ? ':' + location.port : '') +
+        '/cmaps/';
+      PDFJS.PDFJS.cMapUrl = cMapUrl;
+      PDFJS.PDFJS.cMapPacked = true;
       PDFJS.getDocument(this.props.src).then(
         pdf => {
           this.setState({ pdf, err: null });
