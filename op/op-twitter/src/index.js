@@ -1,14 +1,13 @@
 // @flow
-import queryString from 'query-string';
-import { compact } from 'lodash';
-import fetch from 'isomorphic-fetch';
+//
 import {
   uuid,
   wrapUnitAll,
   type productOperatorT,
-  type activityDataT
+  type activityDataT,
+  isBrowser
 } from 'frog-utils';
-import liType from './liType';
+const Twitter = isBrowser ? () => {} : require('twitter');
 
 export const meta = {
   name: 'Get Tweets',
@@ -43,12 +42,11 @@ export const config = {
   }
 };
 
-export const operator = (configData: Object) => {
-  const Twitter = require('twitter');
+const operator = (configData: Object) => {
   const client = new Twitter({
     consumer_key: configData.consumerKey,
     consumer_secret: configData.consumerSecret,
-    access_token_key: configData.accessTokenKey,
+    access_token: configData.accessTokenKey,
     access_token_secret: configData.accessTokenSecret
   });
   client
@@ -61,11 +59,10 @@ export const operator = (configData: Object) => {
     });
 };
 
-export default ({
-  id: 'op-hypothesis',
+export default {
+  id: 'op-twitter',
   type: 'product',
-  operator,
   config,
   meta,
-  LearningItems: [liType]
-}: productOperatorT);
+  operator
+};

@@ -10,12 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "isomorphic-fetch": "^2.2.1",
     "react-tweet": "1.7.1",
-    "twitter": "1.7.1",
-    "jsonpath-plus": "^0.16.0",
-    "query-string": "^6.1.0",
-    "strict-uri-encode": "^2.0.0"
+    "twit": "^2.2.10",
+    "twitter": "1.7.1"
   },
   "devDependencies": {
     "nps": "5.9.0"
