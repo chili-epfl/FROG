@@ -97,6 +97,7 @@ class AnnotationLayer extends Component {
     PDFJSAnnotate.UI.setPen(1, '#000000');
 
     this.state = {
+      initialLoading: true,
       studentPaging: false,
       activeItem: 'cursor',
       penSize: 1,
@@ -108,6 +109,9 @@ class AnnotationLayer extends Component {
     this.queuedRender = false;
     this.editorRender = false;
     this.resetPaging = true;
+    this.savedScale = 1;
+    this.rescaleDone = false;
+    this.queuedResize = false;
   }
 
   componentWillMount() {
@@ -140,10 +144,12 @@ class AnnotationLayer extends Component {
     Mousetrap.unbind('backspace');
     Mousetrap.unbind('left');
     Mousetrap.unbind('right');
+    window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
     this.forceRenderPage();
+    window.addEventListener('resize', this.handleResize);
   }
 
   shouldComponentUpdate() {
@@ -164,7 +170,7 @@ class AnnotationLayer extends Component {
     if (this.rendering) {
       if (!this.queuedRender) {
         this.queuedRender = true;
-        setTimeout(this.queueUpRender, 500);
+        setTimeout(this.queueUpRender, 250);
       }
       return;
     }
@@ -180,27 +186,56 @@ class AnnotationLayer extends Component {
       if (this.checkIfTeacher()) this.editorRender = true;
       this.forceUpdate();
     } else {
-      setTimeout(this.queueUpRender, 500);
+      setTimeout(this.queueUpRender, 250);
     }
   };
 
   forceRenderPage = () => {
     this.rendering = true;
-    const RENDER_OPTIONS = {
-      documentId: this.props.pdf.fingerprint,
-      pdfDocument: this.props.pdf,
-      scale: 1,
-      rotate: 0
-    };
 
     const shownPageNum = this.state.studentPaging
       ? this.state.pageNumStudent
       : this.props.data.pageNum;
 
+    if (!this.state.initialLoading && !this.rescaleDone) {
+      const containerID = '#pageContainer' + shownPageNum;
+      const container = document.querySelector(containerID);
+
+      const rect = container.getBoundingClientRect();
+      // console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+      // console.log(container.clientWidth, container.clientHeight);
+      const w = window.innerWidth;
+      const h = window.innerHeight - rect.top - 10;
+      // console.log(w, h);
+
+      const widthScale = w / container.clientWidth;
+      const heightScale = h / container.clientHeight;
+      // console.log(widthScale, heightScale);
+      const newScale = Math.min(widthScale, heightScale);
+      // console.log(newScale);
+      this.savedScale = newScale;
+      this.rescaleDone = true;
+    }
+
+    const scale = this.savedScale;
+
+    const RENDER_OPTIONS = {
+      documentId: this.props.pdf.fingerprint,
+      pdfDocument: this.props.pdf,
+      scale,
+      rotate: 0
+    };
+
     const UI = this.PDFJSAnnotate.UI;
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
       result => {
         this.rendering = false;
+        this.queuedResize = false;
+        if (this.state.initialLoading === true) {
+          this.editorRender = true;
+          this.setState({ initialLoading: false });
+        }
         return result;
       },
       err => {
@@ -208,6 +243,31 @@ class AnnotationLayer extends Component {
         console.error('ERROR RENDERING PAGE:\n', err);
       }
     );
+  };
+
+  fillPage = () => {
+    this.rescaleDone = false;
+    this.savedScale = 1;
+    this.editorRender = true;
+    this.setState({ initialLoading: true });
+  };
+
+  handleResize = () => {
+    if (this.queuedResize === true) return;
+    this.queuedResize = true;
+    setTimeout(this.fillPage, 250);
+  };
+
+  zoomIn = () => {
+    this.savedScale += 0.2;
+    this.editorRender = true;
+    this.forceUpdate();
+  };
+
+  zoomOut = () => {
+    this.savedScale -= 0.2;
+    this.editorRender = true;
+    this.forceUpdate();
   };
 
   checkIfTeacher = () => {
@@ -463,19 +523,21 @@ class AnnotationLayer extends Component {
     const pageAnnotationsLocalStorage = this.getSavedPageAnnotations();
     const pageAnnotationsDatabase = this.getPageAnnotations();
 
-    const test = UI.createPage(shownPageNum);
-    const svgStyle = test.querySelector('svg').style;
+    const pageContainer = UI.createPage(shownPageNum);
+    const svgStyle = pageContainer.querySelector('svg').style;
     svgStyle.position = 'absolute';
     svgStyle.top = '0';
     svgStyle.left = '0';
 
-    const testStyle = {
-      position: 'relative'
+    const containerStyle = {
+      position: 'relative',
+      margin: '0 auto'
     };
+    if (this.state.initialLoading === true) containerStyle.opacity = 0;
 
     const pagingText = this.state.studentPaging ? 'Student' : 'Admin';
 
-    const divIDTest = 'pageContainer' + shownPageNum;
+    const containerID = 'pageContainer' + shownPageNum;
     const activeToolTipStyle = {
       border: '2px solid lightblue',
       borderRadius: '2px'
@@ -606,14 +668,19 @@ class AnnotationLayer extends Component {
         {editorItems}
         {studentItems}
         <hr />
+        <span>Scaling: </span>
+        <button onClick={this.fillPage}>Fill Page</button>
+        <button onClick={this.zoomOut}>Zoom Out</button>
+        <button onClick={this.zoomIn}>Zoom In</button>
+        <hr />
         <span>
           Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
           {pagingText}
         </span>
         <div
-          id={divIDTest}
-          style={testStyle}
-          dangerouslySetInnerHTML={{ __html: test.innerHTML }} // eslint-disable-line react/no-danger
+          id={containerID}
+          style={containerStyle}
+          dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
         />
       </div>
     );
