@@ -16,6 +16,7 @@ import { operatorTypesObj } from '../imports/operatorTypes';
 import { Products } from '../imports/api/products';
 import { Operators, Activities, Connections } from '../imports/api/activities';
 import { addObject } from '../imports/api/objects';
+import remote from './runRemoteOperator';
 
 declare var Promise: any;
 
@@ -116,8 +117,10 @@ const runDataflow = (
   addObject(nodeId, object);
 
   if (type === 'operator') {
-    const operatorFunction = operatorTypesObj[node.operatorType].operator;
-    const product = Promise.await(operatorFunction(node.data, object));
+    const operatorFunction = operatorTypesObj[node.operatorType].external
+      ? remote(node.operatorType)
+      : operatorTypesObj[node.operatorType].operator;
+    const product = Promise.await(operatorFunction(node.data || {}, object));
     const dataType = {
       product: 'activityData',
       social: 'socialStructure',
