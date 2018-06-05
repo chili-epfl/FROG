@@ -186,6 +186,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           this.onRoleChanged(parsedMessage.userId, parsedMessage.newRole);
           break;
 
+        case 'alert':
+          alert(parsedMessage.message);
+          break;
+
         case 'raisedHand': {
           const participants = this.state.participants;
           participants.filter(
@@ -707,7 +711,6 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               muteParticipantsByDefault={
                 this.props.activityData.config.muteParticipantsByDefault
               }
-              isTeacher={this.isTeacher}
             />
           </Grid>
         </Grid>
