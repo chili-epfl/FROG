@@ -52,16 +52,7 @@ export type StateT =
   | { mode: 'normal' }
   | { mode: 'readOnly' };
 
-const getOne = (coll: Coll, crit: Function): ?Elem => {
-  const found = coll.filter(crit);
-  if (found.size === 0) {
-    return undefined;
-  }
-  return found[0];
-};
-
-const getOneId = (coll: Coll, id: string): ?Elem =>
-  getOne(coll, x => x.id === id);
+const getOneId = (coll: Coll, id: string): ?Elem => coll.find(x => x.id === id);
 
 export default class Store {
   browserHistory: any;
@@ -143,7 +134,6 @@ export default class Store {
         this.graphId = id;
 
         this.changeDuration(graph ? graph.duration || 120 : 120);
-
         this.activityStore.all = Activities.find(
           { graphId: id },
           { reactive: false }
@@ -156,7 +146,6 @@ export default class Store {
                 x.startTime,
                 x.title,
                 x.length,
-                x.config,
                 x.data,
                 x.activityType,
                 x._id,
@@ -175,7 +164,6 @@ export default class Store {
                 x.time,
                 x.y,
                 x.type,
-                x.config,
                 x.data,
                 x.operatorType,
                 x._id,
@@ -198,6 +186,13 @@ export default class Store {
               !source ||
               !target
             ) {
+              console.error(
+                x,
+                JSON.stringify(this.activityStore.all),
+                JSON.stringify(this.operatorStore.all),
+                source,
+                target
+              );
               throw 'Cannot find connection source/target, or source/target is a connection';
             }
             return new Connection(source, target, x._id);
@@ -285,6 +280,7 @@ export default class Store {
             !source ||
             !target
           ) {
+            console.error(x, source, target);
             throw 'Cannot find connection source/target, or source/target is a connection';
           }
           return new Connection(source, target, x._id);
