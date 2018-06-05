@@ -4,9 +4,11 @@ const constants = {
     'highlight',
     'strikeout',
     'area',
-    'draw' /* , 'text', 'point' */
+    'draw',
+    'text'
+    // 'point'
   ],
-  ScratchPadToolbarItems: ['cursor', 'area', 'draw'],
+  ScratchPadToolbarItems: ['cursor', 'area', 'draw', 'text'],
   sizeOptions: [1, 2, 3, 4, 5, 6, 7, 8],
   colorOptions: [
     ['#000000', 'Black'],

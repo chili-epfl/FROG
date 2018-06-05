@@ -34,6 +34,11 @@ class AnnotationLayer extends Component {
         annotation.class = 'Annotation';
         annotation.uuid = uuid();
         annotation.page = pageNumber;
+        if (annotation.type === 'textbox') {
+          annotation.size = that.state.penSize * 6;
+          annotation.color = that.state.penColor;
+        }
+
         const pageAnnotations = that.getPageAnnotations();
         if (pageAnnotations.length === 0)
           props.dataFn.objInsert([annotation], ['annotations', currentPageNum]);
@@ -94,7 +99,8 @@ class AnnotationLayer extends Component {
     PDFJSAnnotate.UI.disablePoint();
     PDFJSAnnotate.UI.disableRect();
     PDFJSAnnotate.UI.enableEdit();
-    PDFJSAnnotate.UI.setPen(1, '#000000');
+    PDFJSAnnotate.UI.setPen(constants.defaultSize, constants.defaultColor);
+    PDFJSAnnotate.UI.setText(constants.defaultSize * 6, constants.defaultColor);
 
     localStorage.setItem('aColor', constants.defaultColor);
     localStorage.setItem('aSize', constants.defaultSize);
@@ -514,6 +520,7 @@ class AnnotationLayer extends Component {
     const size = e.target.value;
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(size, this.state.penColor);
+    UI.setText(size * 6, this.state.penColor);
     localStorage.setItem('aSize', size);
     this.setState({ penSize: size });
   };
@@ -521,6 +528,7 @@ class AnnotationLayer extends Component {
   selectPenColor = color => {
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(this.state.penSize, color);
+    UI.setText(this.state.penSize * 6, color);
     localStorage.setItem('aColor', color);
     this.setState({ penColor: color });
   };
@@ -616,7 +624,11 @@ class AnnotationLayer extends Component {
 
     const penColorItem = <span key="penColor">{colorOptions}</span>;
 
-    if (this.state.activeItem === 'draw' || this.state.activeItem === 'area') {
+    if (
+      this.state.activeItem === 'draw' ||
+      this.state.activeItem === 'area' ||
+      this.state.activeItem === 'text'
+    ) {
       annotateItems.push(penColorItem);
       annotateItems.push(penSizeItem);
     }
