@@ -157,6 +157,7 @@ export default class Store {
                 x.title,
                 x.length,
                 x.config,
+                x.data,
                 x.activityType,
                 x._id,
                 x.state
@@ -175,6 +176,7 @@ export default class Store {
                 x.y,
                 x.type,
                 x.config,
+                x.data,
                 x.operatorType,
                 x._id,
                 x.title,
