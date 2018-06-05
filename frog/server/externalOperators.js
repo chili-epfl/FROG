@@ -11,8 +11,12 @@ export default () => {
       operatorTypes.push(ext);
       operatorTypesObj[ext.id] = ext;
     });
-  const sub = redis.createClient();
-  const pub = redis.createClient();
+  const sub = redis.createClient({ retry_strategy: () => undefined });
+  const pub = redis.createClient({ retry_strategy: () => undefined });
+  sub.on('error', e =>
+    console.info('No Redis client, external operators not available', e)
+  );
+  pub.on('error', () => {});
   sub.on(
     'subscribe',
     Meteor.bindEnvironment(() => {
