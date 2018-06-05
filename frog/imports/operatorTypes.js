@@ -18,7 +18,6 @@ import opArgueConstraint from 'op-argue-constraint';
 import opHypothesis from 'op-hypothesis';
 import opCreateGroups from 'op-create-groups';
 import opDistribute from 'op-distribute';
-import opTwitter from 'op-twitter';
 
 import { type operatorPackageT, flattenOne } from 'frog-utils';
 
@@ -42,8 +41,7 @@ export const operatorTypes: operatorPackageT[] = flattenOne([
   opArgueConstraint,
   opHypothesis,
   opCreateGroups,
-  opDistribute,
-  opTwitter
+  opDistribute
 ]).map(x => Object.freeze(x));
 
 // somehow lodash.keyBy has the type {[id]: ??}, which means that the object can be null
