@@ -49,7 +49,8 @@ type VideoLayoutPropsT = {
   toogleScreenSupported: boolean,
   removeLocalStream?: Function,
   removePresenterStream?: Function,
-  muteParticipantsByDefault: boolean
+  muteParticipantsByDefault: boolean,
+  isTeacher: Function
 };
 
 type StateT = {
@@ -192,14 +193,15 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                   {!this.state.mutedRemotes[participant.id] && <Mic />}
                   {this.state.mutedRemotes[participant.id] && <MicOff />}
                 </button>
-                {removePresenterStream && (
-                  <button
-                    style={styles.buttonBoxS}
-                    onClick={() => this.removePresenterStream(participant.id)}
-                  >
-                    <Cancel />
-                  </button>
-                )}
+                {removePresenterStream &&
+                  !this.props.isTeacher(participant.name) && (
+                    <button
+                      style={styles.buttonBoxS}
+                      onClick={() => this.removePresenterStream(participant.id)}
+                    >
+                      <Cancel />
+                    </button>
+                  )}
                 <button
                   style={styles.buttonBoxS}
                   onClick={() =>

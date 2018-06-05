@@ -707,6 +707,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               muteParticipantsByDefault={
                 this.props.activityData.config.muteParticipantsByDefault
               }
+              isTeacher={this.isTeacher}
             />
           </Grid>
         </Grid>
