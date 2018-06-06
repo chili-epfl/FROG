@@ -195,6 +195,7 @@ class AnnotationLayer extends Component {
     return true;
   }
 
+<<<<<<< HEAD
   componentDidUpdate(prevProps, prevState) {
     const currentPageNum = this.getCurrentPageNum();
 
@@ -208,6 +209,27 @@ class AnnotationLayer extends Component {
       }
       else {
         this.forceRenderPage();
+=======
+  componentDidUpdate(prevProps) {
+    if (
+      !this.props.activityData.config.everyoneCanEdit &&
+      (this.checkIfTeacher() && !this.editorRender)
+    )
+      return;
+
+    if (
+      !this.props.activityData.config.everyoneCanEdit &&
+      this.state.studentPaging &&
+      this.state.pageNumStudent !== this.props.data.pageNum &&
+      prevProps.data.pageNum !== this.props.data.pageNum
+    )
+      return;
+
+    if (this.rendering) {
+      if (!this.queuedRender) {
+        this.queuedRender = true;
+        setTimeout(this.queueUpRender, 250);
+>>>>>>> develop
       }
       return;
     }
