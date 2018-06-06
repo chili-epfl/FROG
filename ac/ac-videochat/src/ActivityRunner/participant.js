@@ -161,32 +161,59 @@ class Participant {
     this.screenVideoTrack = screenStream.getVideoTracks()[0];
 
     // replace track in stream that is sending to other users
-    this.senderVideo.replaceTrack(this.screenVideoTrack);
+    if (this.senderVideo) {
+      this.senderVideo.replaceTrack(this.screenVideoTrack);
 
-    // replace track in local video stream
-    this.sendOnlyStream.removeTrack(this.cameraVideoTrack);
-    this.sendOnlyStream.addTrack(this.screenVideoTrack);
+      this.sendOnlyStream.removeTrack(this.cameraVideoTrack);
+      this.sendOnlyStream.addTrack(this.screenVideoTrack);
+    } else {
+      // web camera is not used in activity
+      // create new RTCRtpSender for video track and attack screen track and stream
+      this.senderVideo = this.rtcPeer.addTrack(
+        this.screenVideoTrack,
+        screenStream
+      );
+      // replace track in local video stream
+      this.sendOnlyStream.addTrack(this.screenVideoTrack);
+    }
   };
 
   stopScreenShare = () => {
-    // replace track in stream that is sending to other users
-    this.senderVideo.replaceTrack(this.cameraVideoTrack);
+    if (this.senderVideo) {
+      if (this.cameraVideoTrack) {
+        // there is web camera track
+        // replace track in stream that is sending to other users
+        this.senderVideo.replaceTrack(this.cameraVideoTrack);
 
-    // replace track in local video stream
-    this.sendOnlyStream.removeTrack(this.screenVideoTrack);
-    this.sendOnlyStream.addTrack(this.cameraVideoTrack);
+        // replace track in local video stream
+        this.sendOnlyStream.removeTrack(this.screenVideoTrack);
+        this.sendOnlyStream.addTrack(this.cameraVideoTrack);
+      } else {
+        // there is no camera track
+        this.rtcPeer.removeTrack(this.senderVideo);
+        this.sendOnlyStream.removeTrack(this.screenVideoTrack);
+      }
 
-    this.screenVideoTrack.stop();
+      if (this.screenVideoTrack) {
+        this.screenVideoTrack.stop();
+      }
+    }
   };
 
   toogleAudio = () => {
-    const audioTracks = this.rtcPeer.getLocalStreams()[0].getAudioTracks()[0];
-    audioTracks.enabled = !audioTracks.enabled;
+    const localStream = this.rtcPeer.getLocalStreams()[0];
+    if (localStream) {
+      const audioTrack = localStream.getAudioTracks()[0];
+      audioTrack.enabled = !audioTrack.enabled;
+    }
   };
 
   toogleVideo = () => {
-    const videoTrack = this.rtcPeer.getLocalStreams()[0].getVideoTracks()[0];
-    videoTrack.enabled = !videoTrack.enabled;
+    const localStream = this.rtcPeer.getLocalStreams()[0];
+    if (localStream) {
+      const videoTrack = localStream.getVideoTracks()[0];
+      videoTrack.enabled = !videoTrack.enabled;
+    }
   };
 
   isAudioEnabled = () => {

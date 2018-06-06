@@ -229,14 +229,16 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                   }}
                   className="show-on-hover"
                 >
-                  <button
-                    disabled={this.state.screen}
-                    style={styles.buttonBoxS}
-                    onClick={this.handleVideoToggle}
-                  >
-                    {this.state.video && <Videocam />}
-                    {!this.state.video && <VideocamOff />}
-                  </button>
+                  {local.srcObject.getVideoTracks().length > 0 && (
+                    <button
+                      disabled={this.state.screen}
+                      style={styles.buttonBoxS}
+                      onClick={this.handleVideoToggle}
+                    >
+                      {this.state.video && <Videocam />}
+                      {!this.state.video && <VideocamOff />}
+                    </button>
+                  )}
                   <button
                     style={styles.buttonBoxS}
                     onClick={this.handleAudioToggle}
@@ -244,24 +246,26 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                     {this.state.audio && <Mic />}
                     {!this.state.audio && <MicOff />}
                   </button>
-                  {toogleScreenSupported && (
-                    <button
-                      style={styles.buttonBoxS}
-                      onClick={() => this.handleScreenShareToogle('screen')}
-                    >
-                      {this.state.screen && <Screen />}
-                      {!this.state.screen && <ScreenOff />}
-                    </button>
-                  )}
-                  {toogleScreenSupported && (
-                    <button
-                      style={styles.buttonBoxS}
-                      onClick={() => this.handleScreenShareToogle('window')}
-                    >
-                      {this.state.screen && <Screen />}
-                      {!this.state.screen && <ScreenOff />}
-                    </button>
-                  )}
+                  {toogleScreenSupported &&
+                    local.srcObject.getVideoTracks().length > 0 && (
+                      <button
+                        style={styles.buttonBoxS}
+                        onClick={() => this.handleScreenShareToogle('screen')}
+                      >
+                        {this.state.screen && <Screen />}
+                        {!this.state.screen && <ScreenOff />}
+                      </button>
+                    )}
+                  {toogleScreenSupported &&
+                    local.srcObject.getVideoTracks().length > 0 && (
+                      <button
+                        style={styles.buttonBoxS}
+                        onClick={() => this.handleScreenShareToogle('window')}
+                      >
+                        {this.state.screen && <Screen />}
+                        {!this.state.screen && <ScreenOff />}
+                      </button>
+                    )}
                   {removeLocalStream && (
                     <button
                       style={styles.buttonBoxS}
