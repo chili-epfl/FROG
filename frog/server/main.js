@@ -25,10 +25,12 @@ import { GlobalSettings } from '../imports/api/globalSettings.js';
 import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';
+import initExternalOperators from './externalOperators';
 
 console.info('Meteor settings', Meteor.settings);
 
 dashboardSubscription();
+initExternalOperators();
 
 Meteor.users._ensureIndex('joinedSessions');
 Meteor.users._ensureIndex('services.frog.id');

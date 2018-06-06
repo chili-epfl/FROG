@@ -15,6 +15,8 @@ const meta = {
 
 const dataStructure = {
   annotations: {},
+  scratchpadAnnotations: [],
+  scratchpadMode: false,
   pageNum: 1,
   pdf_file: '',
   furthestPageNum: 1

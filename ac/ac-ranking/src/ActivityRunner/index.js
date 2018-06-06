@@ -4,8 +4,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { HTML } from 'frog-utils';
 import { isEqual } from 'lodash';
+import { withState } from 'recompose';
 
-import type { ActivityRunnerPropsT } from 'frog-utils';
 import Justification from './Justification';
 
 import AnswerList from './AnswerList';
@@ -55,7 +55,7 @@ const Completed = ({ dataFn }) => (
   </React.Fragment>
 );
 
-const ActivityRunner = (props: ActivityRunnerPropsT) => {
+const ActivityRunner = props => {
   const {
     activityData: { config },
     logger,
@@ -65,7 +65,8 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
   } = props;
   const { answers, justification } = data;
 
-  if (!answers[userInfo.id]) {
+  if (!props.init && !answers[userInfo.id]) {
+    props.setInit(true);
     dataFn.objInsert({}, ['answers', userInfo.id]);
     dataFn.objInsert(userInfo.name, ['group', userInfo.id]);
   }
@@ -201,4 +202,4 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
   );
 };
 
-export default ActivityRunner;
+export default withState('init', 'setInit', false)(ActivityRunner);
