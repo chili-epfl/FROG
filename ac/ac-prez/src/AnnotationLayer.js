@@ -128,15 +128,6 @@ class AnnotationLayer extends Component {
       this.replaceSavedAnnotations({});
     if (this.resetPaging)
       this.props.dataFn.objSet(this.props.data.pageNum, ['furthestPageNum']);
-    Mousetrap.bind('backspace', () => this.undo());
-    Mousetrap.bind('left', e => {
-      e.preventDefault();
-      this.handleLeftArrow();
-    });
-    Mousetrap.bind('right', e => {
-      e.preventDefault();
-      this.handleRightArror();
-    });
   }
 
   handleLeftArrow = () => {
@@ -151,14 +142,38 @@ class AnnotationLayer extends Component {
 
   componentWillUnmount() {
     Mousetrap.unbind('backspace');
+    Mousetrap.unbind('r');
     Mousetrap.unbind('left');
     Mousetrap.unbind('right');
+    Mousetrap.unbind('d');
+    Mousetrap.unbind('t');
+    Mousetrap.unbind('a');
+    Mousetrap.unbind('s');
+    Mousetrap.unbind('h');
+    Mousetrap.unbind('c');
     window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
     this.forceRenderPage();
+    
     window.addEventListener('resize', this.handleResize);
+    Mousetrap.bind('backspace', () => this.undo());
+    Mousetrap.bind('r', () => this.redo());
+    Mousetrap.bind('left', e => {
+      e.preventDefault();
+      this.handleLeftArrow();
+    });
+    Mousetrap.bind('right', e => {
+      e.preventDefault();
+      this.handleRightArror();
+    });
+    Mousetrap.bind('d', () => this.setActiveToolbarItem('draw'));
+    Mousetrap.bind('t', () => this.setActiveToolbarItem('text'));
+    Mousetrap.bind('a', () => this.setActiveToolbarItem('area'));
+    Mousetrap.bind('s', () => this.setActiveToolbarItem('strikeout'));
+    Mousetrap.bind('h', () => this.setActiveToolbarItem('highlight'));
+    Mousetrap.bind('c', () => this.setActiveToolbarItem('cursor'));
   }
 
   shouldComponentUpdate() {
@@ -479,7 +494,7 @@ class AnnotationLayer extends Component {
   undo = () => {
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = this.getPageAnnotations();
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const index = pageAnnotations.length - 1;
     const annotation = pageAnnotations[index];
@@ -502,7 +517,7 @@ class AnnotationLayer extends Component {
     const savedAnnotations = this.getSavedAnnotations();
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = savedAnnotations[currentPageNum];
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const annotation =
       savedAnnotations[currentPageNum][pageAnnotations.length - 1];
