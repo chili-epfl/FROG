@@ -7,7 +7,7 @@ class AnnotationLayer extends Component {
   constructor(props) {
     super();
 
-    const PDFJSAnnotate = require('pdf-annotate').default;
+    const PDFJSAnnotate = require('@houshuang/pdf-annotate.js');
     const that = this;
     const StoreAdapter = new PDFJSAnnotate.StoreAdapter({
       getAnnotations(documentId, pageNumber) {
@@ -34,6 +34,11 @@ class AnnotationLayer extends Component {
         annotation.class = 'Annotation';
         annotation.uuid = uuid();
         annotation.page = pageNumber;
+        if (annotation.type === 'textbox') {
+          annotation.size = that.state.penSize * 6;
+          annotation.color = that.state.penColor;
+        }
+
         const pageAnnotations = that.getPageAnnotations();
         if (pageAnnotations.length === 0)
           props.dataFn.objInsert([annotation], ['annotations', currentPageNum]);
@@ -94,13 +99,18 @@ class AnnotationLayer extends Component {
     PDFJSAnnotate.UI.disablePoint();
     PDFJSAnnotate.UI.disableRect();
     PDFJSAnnotate.UI.enableEdit();
-    PDFJSAnnotate.UI.setPen(1, '#000000');
+    PDFJSAnnotate.UI.setPen(constants.defaultSize, constants.defaultColor);
+    PDFJSAnnotate.UI.setText(constants.defaultSize * 6, constants.defaultColor);
+
+    localStorage.setItem('aColor', constants.defaultColor);
+    localStorage.setItem('aSize', constants.defaultSize);
 
     this.state = {
+      initialLoading: true,
       studentPaging: false,
       activeItem: 'cursor',
-      penSize: 1,
-      penColor: '#000000'
+      penSize: constants.defaultSize,
+      penColor: constants.defaultColor
     };
 
     this.PDFJSAnnotate = PDFJSAnnotate;
@@ -108,6 +118,9 @@ class AnnotationLayer extends Component {
     this.queuedRender = false;
     this.editorRender = false;
     this.resetPaging = true;
+    this.savedScale = 1;
+    this.rescaleDone = false;
+    this.queuedResize = false;
   }
 
   componentWillMount() {
@@ -115,15 +128,6 @@ class AnnotationLayer extends Component {
       this.replaceSavedAnnotations({});
     if (this.resetPaging)
       this.props.dataFn.objSet(this.props.data.pageNum, ['furthestPageNum']);
-    Mousetrap.bind('backspace', () => this.undo());
-    Mousetrap.bind('left', e => {
-      e.preventDefault();
-      this.handleLeftArrow();
-    });
-    Mousetrap.bind('right', e => {
-      e.preventDefault();
-      this.handleRightArror();
-    });
   }
 
   handleLeftArrow = () => {
@@ -138,12 +142,38 @@ class AnnotationLayer extends Component {
 
   componentWillUnmount() {
     Mousetrap.unbind('backspace');
+    Mousetrap.unbind('r');
     Mousetrap.unbind('left');
     Mousetrap.unbind('right');
+    Mousetrap.unbind('d');
+    Mousetrap.unbind('t');
+    Mousetrap.unbind('a');
+    Mousetrap.unbind('s');
+    Mousetrap.unbind('h');
+    Mousetrap.unbind('c');
+    window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
     this.forceRenderPage();
+
+    window.addEventListener('resize', this.handleResize);
+    Mousetrap.bind('backspace', () => this.undo());
+    Mousetrap.bind('r', () => this.redo());
+    Mousetrap.bind('left', e => {
+      e.preventDefault();
+      this.handleLeftArrow();
+    });
+    Mousetrap.bind('right', e => {
+      e.preventDefault();
+      this.handleRightArror();
+    });
+    Mousetrap.bind('d', () => this.setActiveToolbarItem('draw'));
+    Mousetrap.bind('t', () => this.setActiveToolbarItem('text'));
+    Mousetrap.bind('a', () => this.setActiveToolbarItem('area'));
+    Mousetrap.bind('s', () => this.setActiveToolbarItem('strikeout'));
+    Mousetrap.bind('h', () => this.setActiveToolbarItem('highlight'));
+    Mousetrap.bind('c', () => this.setActiveToolbarItem('cursor'));
   }
 
   shouldComponentUpdate() {
@@ -152,9 +182,14 @@ class AnnotationLayer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.checkIfTeacher() && !this.editorRender) return;
+    if (
+      !this.props.activityData.config.everyoneCanEdit &&
+      (this.checkIfTeacher() && !this.editorRender)
+    )
+      return;
 
     if (
+      !this.props.activityData.config.everyoneCanEdit &&
       this.state.studentPaging &&
       this.state.pageNumStudent !== this.props.data.pageNum &&
       prevProps.data.pageNum !== this.props.data.pageNum
@@ -164,7 +199,7 @@ class AnnotationLayer extends Component {
     if (this.rendering) {
       if (!this.queuedRender) {
         this.queuedRender = true;
-        setTimeout(this.queueUpRender, 500);
+        setTimeout(this.queueUpRender, 250);
       }
       return;
     }
@@ -180,27 +215,65 @@ class AnnotationLayer extends Component {
       if (this.checkIfTeacher()) this.editorRender = true;
       this.forceUpdate();
     } else {
-      setTimeout(this.queueUpRender, 500);
+      setTimeout(this.queueUpRender, 250);
     }
+  };
+
+  calculateNewScale = () => {
+    const shownPageNum = this.state.studentPaging
+      ? this.state.pageNumStudent
+      : this.props.data.pageNum;
+    const containerID = '#pageContainer' + shownPageNum;
+    const container = document.querySelector(containerID);
+    // console.log(container.clientWidth, container.clientHeight);
+
+    const rect = container.getBoundingClientRect();
+    // console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+    const w = window.innerWidth;
+    const h = window.innerHeight - rect.top - 10;
+    // console.log(w, h);
+
+    const widthScale = w / container.clientWidth;
+    const heightScale = h / container.clientHeight;
+    // console.log(widthScale, heightScale);
+    const newScale = Math.min(widthScale, heightScale);
+
+    return newScale;
   };
 
   forceRenderPage = () => {
     this.rendering = true;
-    const RENDER_OPTIONS = {
-      documentId: this.props.pdf.fingerprint,
-      pdfDocument: this.props.pdf,
-      scale: 1,
-      rotate: 0
-    };
 
     const shownPageNum = this.state.studentPaging
       ? this.state.pageNumStudent
       : this.props.data.pageNum;
 
+    if (!this.state.initialLoading && !this.rescaleDone) {
+      const newScale = this.calculateNewScale();
+      // console.log(newScale);
+      this.savedScale = newScale;
+      this.rescaleDone = true;
+    }
+
+    const scale = this.savedScale;
+
+    const RENDER_OPTIONS = {
+      documentId: this.props.pdf.fingerprint,
+      pdfDocument: this.props.pdf,
+      scale,
+      rotate: 0
+    };
+
     const UI = this.PDFJSAnnotate.UI;
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
       result => {
         this.rendering = false;
+        this.queuedResize = false;
+        if (this.state.initialLoading === true) {
+          this.editorRender = true;
+          this.setState({ initialLoading: false });
+        }
         return result;
       },
       err => {
@@ -208,6 +281,31 @@ class AnnotationLayer extends Component {
         console.error('ERROR RENDERING PAGE:\n', err);
       }
     );
+  };
+
+  fillPage = () => {
+    this.rescaleDone = false;
+    this.savedScale = 1;
+    this.editorRender = true;
+    this.setState({ initialLoading: true });
+  };
+
+  handleResize = () => {
+    if (this.queuedResize === true) return;
+    this.queuedResize = true;
+    setTimeout(this.fillPage, 250);
+  };
+
+  zoomIn = () => {
+    this.savedScale += 0.2;
+    this.editorRender = true;
+    this.forceUpdate();
+  };
+
+  zoomOut = () => {
+    this.savedScale -= 0.2;
+    this.editorRender = true;
+    this.forceUpdate();
   };
 
   checkIfTeacher = () => {
@@ -218,7 +316,7 @@ class AnnotationLayer extends Component {
   getAnnotations = () => this.props.data.annotations;
 
   getCurrentPageNum = () => {
-    if (this.studentPaging) return this.state.pageNumStudent;
+    if (this.state.studentPaging) return this.state.pageNumStudent;
     else return this.props.data.pageNum;
   };
 
@@ -401,7 +499,7 @@ class AnnotationLayer extends Component {
   undo = () => {
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = this.getPageAnnotations();
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const index = pageAnnotations.length - 1;
     const annotation = pageAnnotations[index];
@@ -424,7 +522,7 @@ class AnnotationLayer extends Component {
     const savedAnnotations = this.getSavedAnnotations();
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = savedAnnotations[currentPageNum];
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const annotation =
       savedAnnotations[currentPageNum][pageAnnotations.length - 1];
@@ -442,12 +540,16 @@ class AnnotationLayer extends Component {
     const size = e.target.value;
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(size, this.state.penColor);
+    UI.setText(size * 6, this.state.penColor);
+    localStorage.setItem('aSize', size);
     this.setState({ penSize: size });
   };
 
   selectPenColor = color => {
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(this.state.penSize, color);
+    UI.setText(this.state.penSize * 6, color);
+    localStorage.setItem('aColor', color);
     this.setState({ penColor: color });
   };
 
@@ -463,19 +565,21 @@ class AnnotationLayer extends Component {
     const pageAnnotationsLocalStorage = this.getSavedPageAnnotations();
     const pageAnnotationsDatabase = this.getPageAnnotations();
 
-    const test = UI.createPage(shownPageNum);
-    const svgStyle = test.querySelector('svg').style;
+    const pageContainer = UI.createPage(shownPageNum);
+    const svgStyle = pageContainer.querySelector('svg').style;
     svgStyle.position = 'absolute';
     svgStyle.top = '0';
     svgStyle.left = '0';
 
-    const testStyle = {
-      position: 'relative'
+    const containerStyle = {
+      position: 'relative',
+      margin: '0 auto'
     };
+    if (this.state.initialLoading === true) containerStyle.opacity = 0;
 
     const pagingText = this.state.studentPaging ? 'Student' : 'Admin';
 
-    const divIDTest = 'pageContainer' + shownPageNum;
+    const containerID = 'pageContainer' + shownPageNum;
     const activeToolTipStyle = {
       border: '2px solid lightblue',
       borderRadius: '2px'
@@ -540,7 +644,11 @@ class AnnotationLayer extends Component {
 
     const penColorItem = <span key="penColor">{colorOptions}</span>;
 
-    if (this.state.activeItem === 'draw') {
+    if (
+      this.state.activeItem === 'draw' ||
+      this.state.activeItem === 'area' ||
+      this.state.activeItem === 'text'
+    ) {
       annotateItems.push(penColorItem);
       annotateItems.push(penSizeItem);
     }
@@ -553,37 +661,40 @@ class AnnotationLayer extends Component {
       </span>
     );
 
-    const editorItems = !this.checkIfTeacher() ? null : (
-      <span>
-        <span>Teacher/Admin: </span>
-        <button
-          onClick={this.undo}
-          disabled={pageAnnotationsDatabase.length === 0}
-        >
-          UNDO
-        </button>
-        <button
-          onClick={this.redo}
-          disabled={pageAnnotationsLocalStorage.length === 0}
-        >
-          REDO
-        </button>
-        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-        <button onClick={this.prevPageAdmin}>Prev Page</button>
-        <button onClick={this.nextPageAdmin}>Next Page</button>
-        <button onClick={() => this.changePageAdmin(1)}>First</button>
-        <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
-          Last
-        </button>
-        <hr />
-        <span>Annotate: </span>
-        {annotateItems}
-      </span>
-    );
+    const editorItems =
+      !this.props.activityData.config.everyoneCanEdit &&
+      !this.checkIfTeacher() ? null : (
+        <span>
+          <span>Teacher/Admin: </span>
+          <button
+            onClick={this.undo}
+            disabled={pageAnnotationsDatabase.length === 0}
+          >
+            UNDO
+          </button>
+          <button
+            onClick={this.redo}
+            disabled={pageAnnotationsLocalStorage.length === 0}
+          >
+            REDO
+          </button>
+          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
+          <button onClick={this.prevPageAdmin}>Prev Page</button>
+          <button onClick={this.nextPageAdmin}>Next Page</button>
+          <button onClick={() => this.changePageAdmin(1)}>First</button>
+          <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
+            Last
+          </button>
+          <hr />
+          <span>Annotate: </span>
+          {annotateItems}
+        </span>
+      );
 
     const studentItems =
       this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (
         <span>
+          <hr />
           <span>Student: </span>
           <button onClick={this.prevPageStudent}>Prev Page</button>
           <button onClick={this.nextPageStudent}>Next Page</button>
@@ -606,14 +717,19 @@ class AnnotationLayer extends Component {
         {editorItems}
         {studentItems}
         <hr />
+        <span>Scaling: </span>
+        <button onClick={this.fillPage}>Fill Page</button>
+        <button onClick={this.zoomOut}>Zoom Out</button>
+        <button onClick={this.zoomIn}>Zoom In</button>
+        <hr />
         <span>
           Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
           {pagingText}
         </span>
         <div
-          id={divIDTest}
-          style={testStyle}
-          dangerouslySetInnerHTML={{ __html: test.innerHTML }} // eslint-disable-line react/no-danger
+          id={containerID}
+          style={containerStyle}
+          dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
         />
       </div>
     );

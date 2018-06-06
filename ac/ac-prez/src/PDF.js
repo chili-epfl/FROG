@@ -6,10 +6,7 @@ import ScratchPad from './ScratchPad';
 export default class PDF extends Component {
   state = {
     pdf: null,
-    pageNumber: 1,
-    scale: 1,
-    err: null,
-    blankMode: false
+    err: null
   };
 
   componentDidMount() {
@@ -23,13 +20,22 @@ export default class PDF extends Component {
   }
 
   onSwitchMode = () => {
-    this.setState(prevState => ({
-      blankMode: !prevState.blankMode
-    }));
+    this.props.dataFn.objSet(!this.props.data.scratchpadMode, [
+      'scratchpadMode'
+    ]);
   };
 
   getPDF = () => {
     try {
+      const location = window.location;
+      const cMapUrl =
+        location.protocol +
+        '//' +
+        location.hostname +
+        (location.port ? ':' + location.port : '') +
+        '/cmaps/';
+      PDFJS.PDFJS.cMapUrl = cMapUrl;
+      PDFJS.PDFJS.cMapPacked = true;
       PDFJS.getDocument(this.props.src).then(
         pdf => {
           this.setState({ pdf, err: null });
@@ -45,6 +51,11 @@ export default class PDF extends Component {
     }
   };
 
+  checkIfTeacher = () => {
+    const user = this.props.userInfo.name;
+    return user === 'teacher';
+  };
+
   render() {
     const { activityData, data, dataFn, userInfo } = this.props;
 
@@ -52,8 +63,15 @@ export default class PDF extends Component {
 
     let layerDisplay = null;
 
-    if (this.state.blankMode) {
-      layerDisplay = <ScratchPad />;
+    if (this.props.data.scratchpadMode) {
+      layerDisplay = (
+        <ScratchPad
+          userInfo={userInfo}
+          activityData={activityData}
+          data={data}
+          dataFn={dataFn}
+        />
+      );
     } else if (this.state.err) {
       layerDisplay = (
         <div>
@@ -73,11 +91,14 @@ export default class PDF extends Component {
       );
     }
 
-    const annotationsModeItem = !this.state.blankMode ? (
-      <button onClick={this.onSwitchMode}>Switch to ScrachPad</button>
-    ) : (
-      <button onClick={this.onSwitchMode}>Switch back to PDF</button>
-    );
+    let annotationsModeItem = null;
+    if (this.checkIfTeacher()) {
+      annotationsModeItem = !this.props.data.scratchpadMode ? (
+        <button onClick={this.onSwitchMode}>Switch to ScrachPad</button>
+      ) : (
+        <button onClick={this.onSwitchMode}>Switch back to PDF</button>
+      );
+    }
 
     return (
       <div>

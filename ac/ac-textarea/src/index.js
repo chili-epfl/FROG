@@ -104,6 +104,16 @@ const ActivityRunner = ({ activityData, dataFn }) => {
   );
 };
 
+export const formatProduct = (
+  _config: Object,
+  data: Object,
+  instanceId: string,
+  username?: string
+) => ({
+  ...data,
+  msg: `${username || 'Anonymous'} wrote ${data.text}`
+});
+
 export default ({
   id: 'ac-textarea',
   type: 'react-component',
@@ -113,5 +123,6 @@ export default ({
   Dashboard: null,
   dataStructure,
   mergeFunction,
-  exportData
+  exportData,
+  formatProduct
 }: ActivityPackageT);

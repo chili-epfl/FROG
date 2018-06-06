@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import PDFJS from '@houshuang/pdfjs-dist';
+import Mousetrap from 'mousetrap';
 import constants from './constants.js';
 
 class ScratchPad extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     const location = window.location;
@@ -16,7 +17,7 @@ class ScratchPad extends Component {
       '/file?name=ac/ac-prez/blank.pdf';
     this.pdf = null;
 
-    const PDFJSAnnotate = require('pdf-annotate').default;
+    const PDFJSAnnotate = require('@houshuang/pdf-annotate.js');
 
     const that = this;
 
@@ -40,13 +41,18 @@ class ScratchPad extends Component {
         annotation.class = 'Annotation';
         annotation.uuid = uuid();
         annotation.page = pageNumber;
+        if (annotation.type === 'textbox') {
+          annotation.size = that.state.penSize * 6;
+          annotation.color = that.state.penColor;
+        }
 
         const annotations = that.getAnnotations();
         annotations.push(annotation);
-        that.replaceAnnotations(annotations);
-        that.removeSavedAnnotations();
+        if (annotations.length === 0)
+          props.dataFn.objInsert([annotation], ['scratchpadAnnotations']);
+        else props.dataFn.listAppend(annotation, ['scratchpadAnnotations']);
 
-        that.forceUpdate();
+        that.replaceSavedAnnotations([]);
         return Promise.resolve(annotation);
       },
 
@@ -58,9 +64,10 @@ class ScratchPad extends Component {
           if (index === -1) reject(new Error('Could not find annotation!'));
           else {
             annotations[index] = annotation;
-            that.replaceAnnotations(annotations);
-
-            that.forceUpdate();
+            props.dataFn.objSet(annotation, [
+              'scratchpadAnnotations',
+              index.toString()
+            ]);
             resolve(annotation);
           }
         });
@@ -72,10 +79,11 @@ class ScratchPad extends Component {
         return new Promise((resolve, reject) => {
           if (index === -1) reject(new Error('Could not find annotation!'));
           else {
-            annotations.splice(index, 1);
-            that.replaceAnnotations(annotations);
+            const savedAnnotations = that.getSavedAnnotations();
+            savedAnnotations.push(annotations[index]);
+            that.replaceSavedAnnotations(savedAnnotations);
 
-            that.forceUpdate();
+            props.dataFn.listDel(null, ['scratchpadAnnotations', index]);
             resolve(true);
           }
         });
@@ -94,19 +102,39 @@ class ScratchPad extends Component {
     PDFJSAnnotate.UI.disablePoint();
     PDFJSAnnotate.UI.disableRect();
     PDFJSAnnotate.UI.enableEdit();
-    PDFJSAnnotate.UI.setPen(1, '#000000');
+    PDFJSAnnotate.UI.setPen(constants.defaultSize, constants.defaultColor);
+    PDFJSAnnotate.UI.setText(constants.defaultSize * 6, constants.defaultColor);
+
+    localStorage.setItem('aColor', constants.defaultColor);
+    localStorage.setItem('aSize', constants.defaultSize);
 
     this.state = {
       activeItem: 'cursor',
-      penSize: 1,
-      penColor: '#000000'
+      penSize: constants.defaultSize,
+      penColor: constants.defaultColor
     };
 
     this.PDFJSAnnotate = PDFJSAnnotate;
   }
 
+  componentWillUnmount() {
+    Mousetrap.unbind('backspace');
+    Mousetrap.unbind('r');
+    Mousetrap.unbind('d');
+    Mousetrap.unbind('t');
+    Mousetrap.unbind('a');
+    Mousetrap.unbind('c');
+    window.removeEventListener('resize', this.handleResize);
+  }
+
   componentDidMount() {
     this.getPDF();
+    Mousetrap.bind('backspace', () => this.undo());
+    Mousetrap.bind('r', () => this.redo());
+    Mousetrap.bind('d', () => this.setActiveToolbarItem('draw'));
+    Mousetrap.bind('t', () => this.setActiveToolbarItem('text'));
+    Mousetrap.bind('a', () => this.setActiveToolbarItem('area'));
+    Mousetrap.bind('c', () => this.setActiveToolbarItem('cursor'));
   }
 
   componentDidUpdate() {
@@ -137,22 +165,17 @@ class ScratchPad extends Component {
     );
   };
 
+  checkIfTeacher = () => {
+    const user = this.props.userInfo.name;
+    return user === 'teacher';
+  };
+
   clearAnnotations = () => {
-    localStorage.removeItem('ScratchPadAnnotations');
-    localStorage.removeItem('savedScratchPadAnnotations');
-    this.forceUpdate();
+    this.replaceSavedAnnotations([]);
+    this.props.dataFn.objSet([], 'scratchpadAnnotations');
   };
 
-  getAnnotations = () =>
-    JSON.parse(localStorage.getItem('ScratchPadAnnotations') || '[]');
-
-  replaceAnnotations = annotations => {
-    localStorage.setItem('ScratchPadAnnotations', JSON.stringify(annotations));
-  };
-
-  removeSavedAnnotations = () => {
-    localStorage.removeItem('savedScratchPadAnnotations');
-  };
+  getAnnotations = () => this.props.data.scratchpadAnnotations;
 
   getSavedAnnotations = () =>
     JSON.parse(localStorage.getItem('savedScratchPadAnnotations') || '[]');
@@ -166,26 +189,29 @@ class ScratchPad extends Component {
 
   undo = () => {
     const annotations = this.getAnnotations();
-    const annotation = annotations[annotations.length - 1];
-    annotations.splice(annotations.length - 1, 1);
-    this.replaceAnnotations(annotations);
+    if (annotations.length === 0) return;
+
+    const index = annotations.length - 1;
+    const annotation = annotations[index];
+    this.props.dataFn.listDel(null, [
+      'scratchpadAnnotations',
+      index.toString()
+    ]);
+
     const savedAnnotations = this.getSavedAnnotations();
     savedAnnotations.push(annotation);
     this.replaceSavedAnnotations(savedAnnotations);
-
-    this.forceUpdate();
   };
 
   redo = () => {
-    const annotations = this.getAnnotations();
     const savedAnnotations = this.getSavedAnnotations();
+    if (savedAnnotations.length === 0) return;
+
     const annotation = savedAnnotations[savedAnnotations.length - 1];
     savedAnnotations.splice(savedAnnotations.length - 1, 1);
-    annotations.push(annotation);
-    this.replaceAnnotations(annotations);
     this.replaceSavedAnnotations(savedAnnotations);
 
-    this.forceUpdate();
+    this.props.dataFn.listAppend(annotation, ['scratchpadAnnotations']);
   };
 
   setActiveToolbarItem = item => {
@@ -243,12 +269,16 @@ class ScratchPad extends Component {
     const size = e.target.value;
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(size, this.state.penColor);
+    UI.setText(size * 6, this.state.penColor);
+    localStorage.setItem('aSize', size);
     this.setState({ penSize: size });
   };
 
   selectPenColor = color => {
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(this.state.penSize, color);
+    UI.setText(this.state.penSize * 6, color);
+    localStorage.setItem('aColor', color);
     this.setState({ penColor: color });
   };
 
@@ -262,7 +292,8 @@ class ScratchPad extends Component {
     svgStyle.left = '0';
 
     const testStyle = {
-      position: 'relative'
+      position: 'relative',
+      margin: '0 auto'
     };
 
     const divIDTest = 'pageContainer' + 1;
@@ -330,38 +361,44 @@ class ScratchPad extends Component {
 
     const penColorItem = <span key="penColor">{colorOptions}</span>;
 
-    if (this.state.activeItem === 'draw') {
+    if (
+      this.state.activeItem === 'draw' ||
+      this.state.activeItem === 'area' ||
+      this.state.activeItem === 'text'
+    ) {
       annotateItems.push(penColorItem);
       annotateItems.push(penSizeItem);
     }
 
-    const editorItems = (
-      <span>
-        <span>Options: </span>
-        <button
-          onClick={this.undo}
-          disabled={this.getAnnotations().length === 0}
-        >
-          UNDO
-        </button>
-        <button
-          onClick={this.redo}
-          disabled={this.getSavedAnnotations().length === 0}
-        >
-          REDO
-        </button>
-        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-        <hr />
-        <span>Annotate: </span>
-        {annotateItems}
-      </span>
-    );
+    const editorItems =
+      !this.props.activityData.config.everyoneCanEdit &&
+      !this.checkIfTeacher() ? null : (
+        <span>
+          <span>Options: </span>
+          <button
+            onClick={this.undo}
+            disabled={this.getAnnotations().length === 0}
+          >
+            UNDO
+          </button>
+          <button
+            onClick={this.redo}
+            disabled={this.getSavedAnnotations().length === 0}
+          >
+            REDO
+          </button>
+          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
+          <hr />
+          <span>Annotate: </span>
+          {annotateItems}
+          <hr />
+        </span>
+      );
 
     return (
       <div>
         <hr />
         {editorItems}
-        <hr />
         <div
           id={divIDTest}
           style={testStyle}
