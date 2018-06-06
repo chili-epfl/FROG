@@ -186,6 +186,14 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           this.onRoleChanged(parsedMessage.userId, parsedMessage.newRole);
           break;
 
+        case 'alert':
+          if (parsedMessage.alertId === 'otherLogin') {
+            const state = { local: {}, remote: [], participants: [] };
+            this.setState(state);
+          }
+          alert(parsedMessage.message);
+          break;
+
         case 'raisedHand': {
           const participants = this.state.participants;
           participants.filter(
@@ -419,15 +427,21 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   setParticipantSpeaking = (participantId, isSpeaking) => {
-    const participants = this.state.participants;
-    participants.filter(p => p.id === participantId)[0].speaking = isSpeaking;
-    this.setState({ participants });
+    if (this.state.participants.filter(p => p.id === participantId)[0]) {
+      const participants = this.state.participants;
+      participants.filter(p => p.id === participantId)[0].speaking = isSpeaking;
+      this.setState({ participants });
+    }
   };
 
   setParticipantStreaming = (participantId, isStreaming) => {
-    const participants = this.state.participants;
-    participants.filter(p => p.id === participantId)[0].streaming = isStreaming;
-    this.setState({ participants });
+    if (this.state.participants.filter(p => p.id === participantId)[0]) {
+      const participants = this.state.participants;
+      participants.filter(
+        p => p.id === participantId
+      )[0].streaming = isStreaming;
+      this.setState({ participants });
+    }
   };
 
   addRemoteUserToState = (participant: Participant, stream: MediaStream) => {
@@ -511,7 +525,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     participant.reloadStream();
   };
 
-  toogleScreenShare = () => {
+  toogleScreenShare = screenType => {
     if (this.browser.browser === 'firefox') {
       if (this.screenSharingOn) {
         this.sendOnlyParticipant.stopScreenShare();
@@ -521,7 +535,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                mediaSource: 'screen'
+                mediaSource: screenType
               }
             })
             .then(screenStream => {
@@ -704,6 +718,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               toogleScreenSupported={this.browser.browser === 'firefox'}
               removeLocalStream={removeLocalStream}
               removePresenterStream={removePresenterStream}
+              muteParticipantsByDefault={
+                this.props.activityData.config.muteParticipantsByDefault
+              }
             />
           </Grid>
         </Grid>
