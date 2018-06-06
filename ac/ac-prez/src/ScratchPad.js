@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import PDFJS from '@houshuang/pdfjs-dist';
+import Mousetrap from 'mousetrap';
 import constants from './constants.js';
 
 class ScratchPad extends Component {
@@ -116,8 +117,24 @@ class ScratchPad extends Component {
     this.PDFJSAnnotate = PDFJSAnnotate;
   }
 
+  componentWillUnmount() {
+    Mousetrap.unbind('backspace');
+    Mousetrap.unbind('r');
+    Mousetrap.unbind('d');
+    Mousetrap.unbind('t');
+    Mousetrap.unbind('a');
+    Mousetrap.unbind('c');
+    window.removeEventListener('resize', this.handleResize);
+  }
+
   componentDidMount() {
     this.getPDF();
+    Mousetrap.bind('backspace', () => this.undo());
+    Mousetrap.bind('r', () => this.redo());
+    Mousetrap.bind('d', () => this.setActiveToolbarItem('draw'));
+    Mousetrap.bind('t', () => this.setActiveToolbarItem('text'));
+    Mousetrap.bind('a', () => this.setActiveToolbarItem('area'));
+    Mousetrap.bind('c', () => this.setActiveToolbarItem('cursor'));
   }
 
   componentDidUpdate() {
@@ -172,6 +189,8 @@ class ScratchPad extends Component {
 
   undo = () => {
     const annotations = this.getAnnotations();
+    if (annotations.length === 0) return;
+
     const index = annotations.length - 1;
     const annotation = annotations[index];
     this.props.dataFn.listDel(null, [
@@ -186,6 +205,8 @@ class ScratchPad extends Component {
 
   redo = () => {
     const savedAnnotations = this.getSavedAnnotations();
+    if (savedAnnotations.length === 0) return;
+
     const annotation = savedAnnotations[savedAnnotations.length - 1];
     savedAnnotations.splice(savedAnnotations.length - 1, 1);
     this.replaceSavedAnnotations(savedAnnotations);
@@ -349,28 +370,30 @@ class ScratchPad extends Component {
       annotateItems.push(penSizeItem);
     }
 
-    const editorItems = !this.checkIfTeacher() ? null : (
-      <span>
-        <span>Options: </span>
-        <button
-          onClick={this.undo}
-          disabled={this.getAnnotations().length === 0}
-        >
-          UNDO
-        </button>
-        <button
-          onClick={this.redo}
-          disabled={this.getSavedAnnotations().length === 0}
-        >
-          REDO
-        </button>
-        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-        <hr />
-        <span>Annotate: </span>
-        {annotateItems}
-        <hr />
-      </span>
-    );
+    const editorItems =
+      !this.props.activityData.config.everyoneCanEdit &&
+      !this.checkIfTeacher() ? null : (
+        <span>
+          <span>Options: </span>
+          <button
+            onClick={this.undo}
+            disabled={this.getAnnotations().length === 0}
+          >
+            UNDO
+          </button>
+          <button
+            onClick={this.redo}
+            disabled={this.getSavedAnnotations().length === 0}
+          >
+            REDO
+          </button>
+          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
+          <hr />
+          <span>Annotate: </span>
+          {annotateItems}
+          <hr />
+        </span>
+      );
 
     return (
       <div>

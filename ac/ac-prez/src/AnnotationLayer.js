@@ -128,15 +128,6 @@ class AnnotationLayer extends Component {
       this.replaceSavedAnnotations({});
     if (this.resetPaging)
       this.props.dataFn.objSet(this.props.data.pageNum, ['furthestPageNum']);
-    Mousetrap.bind('backspace', () => this.undo());
-    Mousetrap.bind('left', e => {
-      e.preventDefault();
-      this.handleLeftArrow();
-    });
-    Mousetrap.bind('right', e => {
-      e.preventDefault();
-      this.handleRightArror();
-    });
   }
 
   handleLeftArrow = () => {
@@ -151,14 +142,38 @@ class AnnotationLayer extends Component {
 
   componentWillUnmount() {
     Mousetrap.unbind('backspace');
+    Mousetrap.unbind('r');
     Mousetrap.unbind('left');
     Mousetrap.unbind('right');
+    Mousetrap.unbind('d');
+    Mousetrap.unbind('t');
+    Mousetrap.unbind('a');
+    Mousetrap.unbind('s');
+    Mousetrap.unbind('h');
+    Mousetrap.unbind('c');
     window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
     this.forceRenderPage();
+
     window.addEventListener('resize', this.handleResize);
+    Mousetrap.bind('backspace', () => this.undo());
+    Mousetrap.bind('r', () => this.redo());
+    Mousetrap.bind('left', e => {
+      e.preventDefault();
+      this.handleLeftArrow();
+    });
+    Mousetrap.bind('right', e => {
+      e.preventDefault();
+      this.handleRightArror();
+    });
+    Mousetrap.bind('d', () => this.setActiveToolbarItem('draw'));
+    Mousetrap.bind('t', () => this.setActiveToolbarItem('text'));
+    Mousetrap.bind('a', () => this.setActiveToolbarItem('area'));
+    Mousetrap.bind('s', () => this.setActiveToolbarItem('strikeout'));
+    Mousetrap.bind('h', () => this.setActiveToolbarItem('highlight'));
+    Mousetrap.bind('c', () => this.setActiveToolbarItem('cursor'));
   }
 
   shouldComponentUpdate() {
@@ -167,9 +182,14 @@ class AnnotationLayer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.checkIfTeacher() && !this.editorRender) return;
+    if (
+      !this.props.activityData.config.everyoneCanEdit &&
+      (this.checkIfTeacher() && !this.editorRender)
+    )
+      return;
 
     if (
+      !this.props.activityData.config.everyoneCanEdit &&
       this.state.studentPaging &&
       this.state.pageNumStudent !== this.props.data.pageNum &&
       prevProps.data.pageNum !== this.props.data.pageNum
@@ -296,7 +316,7 @@ class AnnotationLayer extends Component {
   getAnnotations = () => this.props.data.annotations;
 
   getCurrentPageNum = () => {
-    if (this.studentPaging) return this.state.pageNumStudent;
+    if (this.state.studentPaging) return this.state.pageNumStudent;
     else return this.props.data.pageNum;
   };
 
@@ -479,7 +499,7 @@ class AnnotationLayer extends Component {
   undo = () => {
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = this.getPageAnnotations();
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const index = pageAnnotations.length - 1;
     const annotation = pageAnnotations[index];
@@ -502,7 +522,7 @@ class AnnotationLayer extends Component {
     const savedAnnotations = this.getSavedAnnotations();
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = savedAnnotations[currentPageNum];
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const annotation =
       savedAnnotations[currentPageNum][pageAnnotations.length - 1];
@@ -641,37 +661,40 @@ class AnnotationLayer extends Component {
       </span>
     );
 
-    const editorItems = !this.checkIfTeacher() ? null : (
-      <span>
-        <span>Teacher/Admin: </span>
-        <button
-          onClick={this.undo}
-          disabled={pageAnnotationsDatabase.length === 0}
-        >
-          UNDO
-        </button>
-        <button
-          onClick={this.redo}
-          disabled={pageAnnotationsLocalStorage.length === 0}
-        >
-          REDO
-        </button>
-        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-        <button onClick={this.prevPageAdmin}>Prev Page</button>
-        <button onClick={this.nextPageAdmin}>Next Page</button>
-        <button onClick={() => this.changePageAdmin(1)}>First</button>
-        <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
-          Last
-        </button>
-        <hr />
-        <span>Annotate: </span>
-        {annotateItems}
-      </span>
-    );
+    const editorItems =
+      !this.props.activityData.config.everyoneCanEdit &&
+      !this.checkIfTeacher() ? null : (
+        <span>
+          <span>Teacher/Admin: </span>
+          <button
+            onClick={this.undo}
+            disabled={pageAnnotationsDatabase.length === 0}
+          >
+            UNDO
+          </button>
+          <button
+            onClick={this.redo}
+            disabled={pageAnnotationsLocalStorage.length === 0}
+          >
+            REDO
+          </button>
+          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
+          <button onClick={this.prevPageAdmin}>Prev Page</button>
+          <button onClick={this.nextPageAdmin}>Next Page</button>
+          <button onClick={() => this.changePageAdmin(1)}>First</button>
+          <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
+            Last
+          </button>
+          <hr />
+          <span>Annotate: </span>
+          {annotateItems}
+        </span>
+      );
 
     const studentItems =
       this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (
         <span>
+          <hr />
           <span>Student: </span>
           <button onClick={this.prevPageStudent}>Prev Page</button>
           <button onClick={this.nextPageStudent}>Next Page</button>
