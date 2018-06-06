@@ -7,7 +7,7 @@ class AnnotationLayer extends Component {
   constructor(props) {
     super();
 
-    const PDFJSAnnotate = require('pdf-annotate').default;
+    const PDFJSAnnotate = require('@houshuang/pdf-annotate.js');
     const that = this;
     const StoreAdapter = new PDFJSAnnotate.StoreAdapter({
       getAnnotations(documentId, pageNumber) {

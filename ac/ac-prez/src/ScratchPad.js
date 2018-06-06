@@ -16,7 +16,7 @@ class ScratchPad extends Component {
       '/file?name=ac/ac-prez/blank.pdf';
     this.pdf = null;
 
-    const PDFJSAnnotate = require('pdf-annotate').default;
+    const PDFJSAnnotate = require('@houshuang/pdf-annotate.js');
 
     const that = this;
 
