@@ -156,7 +156,7 @@ class AnnotationLayer extends Component {
 
   componentDidMount() {
     this.forceRenderPage();
-    
+
     window.addEventListener('resize', this.handleResize);
     Mousetrap.bind('backspace', () => this.undo());
     Mousetrap.bind('r', () => this.redo());
@@ -183,12 +183,13 @@ class AnnotationLayer extends Component {
 
   componentDidUpdate(prevProps) {
     if (
-      !this.props.activityData.config.everyoneCanEdit && 
-      (this.checkIfTeacher() && !this.editorRender)) 
+      !this.props.activityData.config.everyoneCanEdit &&
+      (this.checkIfTeacher() && !this.editorRender)
+    )
       return;
 
     if (
-      !this.props.activityData.config.everyoneCanEdit && 
+      !this.props.activityData.config.everyoneCanEdit &&
       this.state.studentPaging &&
       this.state.pageNumStudent !== this.props.data.pageNum &&
       prevProps.data.pageNum !== this.props.data.pageNum
@@ -660,33 +661,35 @@ class AnnotationLayer extends Component {
       </span>
     );
 
-    const editorItems = (!this.props.activityData.config.everyoneCanEdit && !this.checkIfTeacher()) ? null : (
-      <span>
-        <span>Teacher/Admin: </span>
-        <button
-          onClick={this.undo}
-          disabled={pageAnnotationsDatabase.length === 0}
-        >
-          UNDO
-        </button>
-        <button
-          onClick={this.redo}
-          disabled={pageAnnotationsLocalStorage.length === 0}
-        >
-          REDO
-        </button>
-        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-        <button onClick={this.prevPageAdmin}>Prev Page</button>
-        <button onClick={this.nextPageAdmin}>Next Page</button>
-        <button onClick={() => this.changePageAdmin(1)}>First</button>
-        <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
-          Last
-        </button>
-        <hr />
-        <span>Annotate: </span>
-        {annotateItems}
-      </span>
-    );
+    const editorItems =
+      !this.props.activityData.config.everyoneCanEdit &&
+      !this.checkIfTeacher() ? null : (
+        <span>
+          <span>Teacher/Admin: </span>
+          <button
+            onClick={this.undo}
+            disabled={pageAnnotationsDatabase.length === 0}
+          >
+            UNDO
+          </button>
+          <button
+            onClick={this.redo}
+            disabled={pageAnnotationsLocalStorage.length === 0}
+          >
+            REDO
+          </button>
+          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
+          <button onClick={this.prevPageAdmin}>Prev Page</button>
+          <button onClick={this.nextPageAdmin}>Next Page</button>
+          <button onClick={() => this.changePageAdmin(1)}>First</button>
+          <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
+            Last
+          </button>
+          <hr />
+          <span>Annotate: </span>
+          {annotateItems}
+        </span>
+      );
 
     const studentItems =
       this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (

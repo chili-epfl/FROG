@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import PDFJS from '@houshuang/pdfjs-dist';
+import Mousetrap from 'mousetrap';
 import constants from './constants.js';
 
 class ScratchPad extends Component {
@@ -369,28 +370,30 @@ class ScratchPad extends Component {
       annotateItems.push(penSizeItem);
     }
 
-    const editorItems = (!this.props.activityData.config.everyoneCanEdit && !this.checkIfTeacher()) ? null : (
-      <span>
-        <span>Options: </span>
-        <button
-          onClick={this.undo}
-          disabled={this.getAnnotations().length === 0}
-        >
-          UNDO
-        </button>
-        <button
-          onClick={this.redo}
-          disabled={this.getSavedAnnotations().length === 0}
-        >
-          REDO
-        </button>
-        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-        <hr />
-        <span>Annotate: </span>
-        {annotateItems}
-        <hr />
-      </span>
-    );
+    const editorItems =
+      !this.props.activityData.config.everyoneCanEdit &&
+      !this.checkIfTeacher() ? null : (
+        <span>
+          <span>Options: </span>
+          <button
+            onClick={this.undo}
+            disabled={this.getAnnotations().length === 0}
+          >
+            UNDO
+          </button>
+          <button
+            onClick={this.redo}
+            disabled={this.getSavedAnnotations().length === 0}
+          >
+            REDO
+          </button>
+          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
+          <hr />
+          <span>Annotate: </span>
+          {annotateItems}
+          <hr />
+        </span>
+      );
 
     return (
       <div>
