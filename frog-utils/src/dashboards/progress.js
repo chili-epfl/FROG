@@ -212,13 +212,17 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
-    if (!state.user[log.instanceId]) {
+    const userArray = state.user[log.instanceId];
+    if (!userArray) {
       state.user[log.instanceId] = [];
     }
     const totalTime =
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
-    const progress = log.value;
-    state.user[log.instanceId].push([progress, totalTime]);
+    const _progress = log.value;
+    const _last = userArray[userArray.length - 1];
+    const _previous = _last ? _last[0] : 0;
+    const progress = Math.max(_previous, _progress);
+    userArray.push([progress, totalTime]);
     state.maxTime = totalTime;
   } else if (
     activity &&
