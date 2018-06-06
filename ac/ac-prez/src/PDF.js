@@ -102,7 +102,7 @@ export default class PDF extends Component {
 
     const stylish = {
       height: '100%'
-    }
+    };
 
     return (
       <div style={stylish}>

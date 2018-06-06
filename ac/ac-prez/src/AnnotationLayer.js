@@ -31,10 +31,9 @@ class AnnotationLayer extends Component {
         const savedAnnotations = that.getSavedAnnotations();
         const pageAnnotations = that.getPageAnnotations();
 
-        if (savedAnnotations[currentPageNum] || pageAnnotations.length===0) {
+        if (savedAnnotations[currentPageNum] || pageAnnotations.length === 0) {
           that.ignoreRender = false;
-        }
-        else {
+        } else {
           that.ignoreRender = true;
         }
 
@@ -195,41 +194,18 @@ class AnnotationLayer extends Component {
     return true;
   }
 
-<<<<<<< HEAD
   componentDidUpdate(prevProps, prevState) {
-    const currentPageNum = this.getCurrentPageNum();
-
     if (
       !this.rescaleDone ||
-      (this.state.studentPaging && prevState.pageNumStudent !== this.state.pageNumStudent) ||
-      (!this.state.studentPaging && prevProps.data.pageNum !== this.props.data.pageNum)
+      (this.state.studentPaging &&
+        prevState.pageNumStudent !== this.state.pageNumStudent) ||
+      (!this.state.studentPaging &&
+        prevProps.data.pageNum !== this.props.data.pageNum)
     ) {
       if (this.rendering) {
         this.queueUpRender();
-      }
-      else {
+      } else {
         this.forceRenderPage();
-=======
-  componentDidUpdate(prevProps) {
-    if (
-      !this.props.activityData.config.everyoneCanEdit &&
-      (this.checkIfTeacher() && !this.editorRender)
-    )
-      return;
-
-    if (
-      !this.props.activityData.config.everyoneCanEdit &&
-      this.state.studentPaging &&
-      this.state.pageNumStudent !== this.props.data.pageNum &&
-      prevProps.data.pageNum !== this.props.data.pageNum
-    )
-      return;
-
-    if (this.rendering) {
-      if (!this.queuedRender) {
-        this.queuedRender = true;
-        setTimeout(this.queueUpRender, 250);
->>>>>>> develop
       }
       return;
     }
@@ -242,7 +218,7 @@ class AnnotationLayer extends Component {
   }
 
   queueUpRender = () => {
-    console.log('QUEING');
+    // console.log('QUEING');
     if (!this.rendering) {
       this.forceRenderPage();
     } else if (this.queuedRender === false) {
@@ -259,8 +235,8 @@ class AnnotationLayer extends Component {
     // console.log(viewer);
     // console.log(viewer.clientWidth, viewer.clientHeight);
 
-    const rectViewer = viewer.getBoundingClientRect();
-    const rectContainer = container.getBoundingClientRect();
+    // const rectViewer = viewer.getBoundingClientRect();
+    // const rectContainer = container.getBoundingClientRect();
     // console.log(rectViewer.top, rectViewer.right, rectViewer.bottom, rectViewer.left);
     // console.log(rectContainer.top, rectContainer.right, rectContainer.bottom, rectContainer.left);
 
@@ -277,11 +253,11 @@ class AnnotationLayer extends Component {
   };
 
   forceRenderAnnotations = () => {
-    console.log("ANNOTATIONS");
+    // console.log('RENDERING ANNOTATIONS');
     const UI = this.PDFJSAnnotate.UI;
-    
+
     const shownPageNum = this.getCurrentPageNum();
-    
+
     const RENDER_OPTIONS = {
       documentId: this.props.pdf.fingerprint,
       pdfDocument: this.props.pdf,
@@ -289,19 +265,16 @@ class AnnotationLayer extends Component {
       rotate: 0
     };
 
-    UI.renderAnnotations(shownPageNum, RENDER_OPTIONS, this.pageViewport)
-    .then(
-      result => {
-        return result;
-      },
+    UI.renderAnnotations(shownPageNum, RENDER_OPTIONS, this.pageViewport).then(
+      result => result,
       err => {
         console.error('ERROR RENDERING ANNOTATIONS:\n', err);
       }
-  );
-  }
+    );
+  };
 
   forceRenderPage = () => {
-    console.log("PAGEEEEEEE");
+    // console.log('RENDERING PAGE');
     this.rendering = true;
 
     const shownPageNum = this.getCurrentPageNum();
@@ -321,19 +294,18 @@ class AnnotationLayer extends Component {
     };
 
     const UI = this.PDFJSAnnotate.UI;
-    
+
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
       result => {
         const pdfPage = result[0];
-        const annotationsObj = result[1];
+        // const annotationsObj = result[1];
         this.pageViewport = pdfPage.getViewport(this.savedScale, 0);
         this.queuedRender = false;
         this.rendering = false;
         this.lastLoadedPageNum = shownPageNum;
         if (this.state.initialPageLoad && !this.rescaleDone) {
           this.setState({ initialPageLoad: false });
-        }
-        else this.queuedResize = false;
+        } else this.queuedResize = false;
 
         return result;
       },
