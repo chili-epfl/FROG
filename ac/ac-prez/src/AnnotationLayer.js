@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import Mousetrap from 'mousetrap';
+import ResizeAware from 'react-resize-aware';
 import constants from './constants.js';
 
 class AnnotationLayer extends Component {
@@ -128,9 +129,10 @@ class AnnotationLayer extends Component {
     this.resetPaging = true;
     this.savedScale = 1;
     this.rescaleDone = false;
-    this.queuedResize = false;
+    this.queuedResize = true;
     this.lastLoadedPageNum = 0;
     this.ignoreRender = false;
+    this.zoomed = false;
   }
 
   componentWillMount() {
@@ -161,13 +163,13 @@ class AnnotationLayer extends Component {
     Mousetrap.unbind('s');
     Mousetrap.unbind('h');
     Mousetrap.unbind('c');
-    window.removeEventListener('resize', this.handleResize);
+    // window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
     this.forceRenderPage();
 
-    window.addEventListener('resize', this.handleResize);
+    // window.addEventListener('resize', this.handleResize);
     Mousetrap.bind('backspace', () => this.undo());
     Mousetrap.bind('r', () => this.redo());
     Mousetrap.bind('left', e => {
@@ -241,7 +243,7 @@ class AnnotationLayer extends Component {
     // console.log(rectContainer.top, rectContainer.right, rectContainer.bottom, rectContainer.left);
 
     const w = viewer.clientWidth;
-    const h = viewer.clientHeight - 300;
+    const h = viewer.clientHeight - 250;
     // console.log(w, h);
 
     const widthScale = w / container.clientWidth;
@@ -305,7 +307,9 @@ class AnnotationLayer extends Component {
         this.lastLoadedPageNum = shownPageNum;
         if (this.state.initialPageLoad && !this.rescaleDone) {
           this.setState({ initialPageLoad: false });
-        } else this.queuedResize = false;
+        } else {
+          this.queuedResize = false;
+        }
 
         return result;
       },
@@ -319,23 +323,27 @@ class AnnotationLayer extends Component {
 
   fillPage = () => {
     this.rescaleDone = false;
+    this.queuedResize = true;
+    this.zoomed = false;
     this.savedScale = 1;
     this.setState({ initialPageLoad: true });
   };
 
   handleResize = () => {
-    if (this.queuedResize === true) return;
+    if (this.queuedResize || this.zoomed) return;
     this.queuedResize = true;
-    setTimeout(this.fillPage, 250);
+    setTimeout(this.fillPage, 200);
   };
 
   zoomIn = () => {
     this.savedScale += 0.2;
+    this.zoomed = true;
     this.forceRenderPage();
   };
 
   zoomOut = () => {
     this.savedScale -= 0.2;
+    this.zoomed = true;
     this.forceRenderPage();
   };
 
@@ -739,27 +747,33 @@ class AnnotationLayer extends Component {
       );
 
     return (
-      <div>
-        <hr />
-        {debugItems}
-        {editorItems}
-        {studentItems}
-        <hr />
-        <span>Scaling: </span>
-        <button onClick={this.fillPage}>Fill Page</button>
-        <button onClick={this.zoomOut}>Zoom Out</button>
-        <button onClick={this.zoomIn}>Zoom In</button>
-        <hr />
-        <span>
-          Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
-          {pagingText}
-        </span>
-        <div
-          id={containerID}
-          style={containerStyle}
-          dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
-        />
-      </div>
+      <ResizeAware
+        style={{ position: 'relative', height: '100%' }}
+        onlyEvent
+        onResize={this.handleResize}
+      >
+        <div>
+          <hr />
+          {debugItems}
+          {editorItems}
+          {studentItems}
+          <hr />
+          <span>Scaling: </span>
+          <button onClick={this.fillPage}>Fill Page</button>
+          <button onClick={this.zoomOut}>Zoom Out</button>
+          <button onClick={this.zoomIn}>Zoom In</button>
+          <hr />
+          <span>
+            Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
+            {pagingText}
+          </span>
+          <div
+            id={containerID}
+            style={containerStyle}
+            dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
+          />
+        </div>
+      </ResizeAware>
     );
   }
 }

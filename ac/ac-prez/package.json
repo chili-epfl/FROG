@@ -9,6 +9,7 @@
     "@houshuang/pdf-annotate.js": "^0.0.5",
     "@houshuang/pdfjs-dist": "1.4.162",
     "frog-utils": "^1.0.0",
+    "pdf-annotate": "0.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1"
   },
