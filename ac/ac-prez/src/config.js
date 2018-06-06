@@ -25,6 +25,11 @@ export const config = {
       title: 'Students must follow teacher',
       default: false,
       type: 'boolean'
+    },
+    everyoneCanEdit: {
+      title: 'Everyone can edit',
+      default: false,
+      type: 'boolean'
     }
   }
 };

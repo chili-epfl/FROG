@@ -369,7 +369,7 @@ class ScratchPad extends Component {
       annotateItems.push(penSizeItem);
     }
 
-    const editorItems = !this.checkIfTeacher() ? null : (
+    const editorItems = (!this.props.activityData.config.everyoneCanEdit && !this.checkIfTeacher()) ? null : (
       <span>
         <span>Options: </span>
         <button

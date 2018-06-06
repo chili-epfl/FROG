@@ -182,9 +182,13 @@ class AnnotationLayer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.checkIfTeacher() && !this.editorRender) return;
+    if (
+      !this.props.activityData.config.everyoneCanEdit && 
+      (this.checkIfTeacher() && !this.editorRender)) 
+      return;
 
     if (
+      !this.props.activityData.config.everyoneCanEdit && 
       this.state.studentPaging &&
       this.state.pageNumStudent !== this.props.data.pageNum &&
       prevProps.data.pageNum !== this.props.data.pageNum
@@ -311,7 +315,7 @@ class AnnotationLayer extends Component {
   getAnnotations = () => this.props.data.annotations;
 
   getCurrentPageNum = () => {
-    if (this.studentPaging) return this.state.pageNumStudent;
+    if (this.state.studentPaging) return this.state.pageNumStudent;
     else return this.props.data.pageNum;
   };
 
@@ -656,7 +660,7 @@ class AnnotationLayer extends Component {
       </span>
     );
 
-    const editorItems = !this.checkIfTeacher() ? null : (
+    const editorItems = (!this.props.activityData.config.everyoneCanEdit && !this.checkIfTeacher()) ? null : (
       <span>
         <span>Teacher/Admin: </span>
         <button
@@ -687,6 +691,7 @@ class AnnotationLayer extends Component {
     const studentItems =
       this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (
         <span>
+          <hr />
           <span>Student: </span>
           <button onClick={this.prevPageStudent}>Prev Page</button>
           <button onClick={this.nextPageStudent}>Next Page</button>

@@ -5,12 +5,10 @@ import ActivityRunner from './Prez';
 import { config } from './config';
 
 const meta = {
-  name: 'Presentation activity',
-  shortDesc: 'Show PDFs',
+  name: 'Presentation',
+  shortDesc: 'Present PDFs',
   description: '',
-  exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
-  ]
+  exampleData: []
 };
 
 const dataStructure = {
