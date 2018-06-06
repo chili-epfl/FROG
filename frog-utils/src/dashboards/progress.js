@@ -212,10 +212,8 @@ const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
     typeof log.value === 'number' &&
     activity.actualStartingTime !== undefined
   ) {
+    state.user[log.instanceId] = state.user[log.instanceId] || [];
     const userArray = state.user[log.instanceId];
-    if (!userArray) {
-      state.user[log.instanceId] = [];
-    }
     const totalTime =
       (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
     const _progress = log.value;
