@@ -4,27 +4,17 @@ import PDFJS from '@houshuang/pdfjs-dist';
 import Mousetrap from 'mousetrap';
 import ResizeAware from 'react-resize-aware';
 
-import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 
-import Done from '@material-ui/icons/Done';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
 import Undo from '@material-ui/icons/Undo';
 import Redo from '@material-ui/icons/Redo';
 import DeleteForever from '@material-ui/icons/DeleteForever';
-import ZoomIn from '@material-ui/icons/ZoomIn';
-import ZoomOut from '@material-ui/icons/ZoomOut';
-import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
 import TouchApp from '@material-ui/icons/TouchApp';
 import Edit from '@material-ui/icons/Edit';
 import Title from '@material-ui/icons/Title';
 import CropSquare from '@material-ui/icons/CropSquare';
 import Highlight from '@material-ui/icons/Highlight';
 import FormatStrikethrough from '@material-ui/icons/FormatStrikethrough';
-import SettingsBackupRestore from '@material-ui/icons/SettingsBackupRestore';
 import PresentToAll from '@material-ui/icons/PresentToAll';
 
 import constants from './constants.js';
@@ -366,9 +356,9 @@ class ScratchPad extends Component {
   render() {
     const pageAnnotationsLocalStorage = this.getSavedAnnotations();
     const pageAnnotationsDatabase = this.getAnnotations();
-    
+
     const UI = this.PDFJSAnnotate.UI;
-    
+
     const test = UI.createPage(1);
     const svgStyle = test.querySelector('svg').style;
     svgStyle.position = 'absolute';
@@ -381,23 +371,19 @@ class ScratchPad extends Component {
     };
 
     const divIDTest = 'pageContainer' + 1;
-    const activeToolTipStyle = {
-      border: '2px solid lightblue',
-      borderRadius: '2px'
-    };
 
     const iconMapping = {
-      'cursor': (<TouchApp />),
-      'draw': (<Edit />),
-      'text': (<Title />),
-      'area': (<CropSquare />),
-      'highlight': (<Highlight />),
-      'strikeout': (<FormatStrikethrough />)
-    }
+      cursor: <TouchApp />,
+      draw: <Edit />,
+      text: <Title />,
+      area: <CropSquare />,
+      highlight: <Highlight />,
+      strikeout: <FormatStrikethrough />
+    };
 
     const iconButtonStyle = {
       width: '48px'
-    }
+    };
 
     let annotateItems = constants.ScratchPadToolbarItems.map(item => {
       const icon = iconMapping[item];
@@ -405,7 +391,12 @@ class ScratchPad extends Component {
       if (this.state.activeItem === item) color = 'secondary';
 
       return (
-        <IconButton style={iconButtonStyle} color={color} key={item} onClick={() => this.setActiveToolbarItem(item)}>
+        <IconButton
+          style={iconButtonStyle}
+          color={color}
+          key={item}
+          onClick={() => this.setActiveToolbarItem(item)}
+        >
           {icon}
         </IconButton>
       );
@@ -423,7 +414,7 @@ class ScratchPad extends Component {
       fontSize: '14px',
       fontFamily: 'sans-serif',
       marginLeft: '10px'
-    }
+    };
 
     const penSizeItem = (
       <select
@@ -471,8 +462,7 @@ class ScratchPad extends Component {
     ) {
       drawingItems.push(penColorItem);
       drawingItems.push(penSizeItem);
-    }
-    else {
+    } else {
       drawingItems.push(penColorItem);
       drawingItems.push(penSizeItem);
     }
@@ -481,14 +471,14 @@ class ScratchPad extends Component {
       <span>
         <IconButton
           style={iconButtonStyle}
-          color={'secondary'}
+          color="secondary"
           onClick={this.props.switchMode}
         >
           <PresentToAll />
         </IconButton>
         <IconButton
           style={iconButtonStyle}
-          color={'primary'}
+          color="primary"
           onClick={this.undo}
           disabled={pageAnnotationsDatabase.length === 0}
         >
@@ -496,56 +486,65 @@ class ScratchPad extends Component {
         </IconButton>
         <IconButton
           style={iconButtonStyle}
-          color={'primary'}
+          color="primary"
           onClick={this.redo}
           disabled={pageAnnotationsLocalStorage.length === 0}
         >
           <Redo />
         </IconButton>
-        <IconButton style={iconButtonStyle} color={'primary'} onClick={this.clearAnnotations} 
-          disabled={pageAnnotationsDatabase.length === 0 && pageAnnotationsLocalStorage.length === 0}
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.clearAnnotations}
+          disabled={
+            pageAnnotationsDatabase.length === 0 &&
+            pageAnnotationsLocalStorage.length === 0
+          }
         >
           <DeleteForever />
         </IconButton>
       </span>
-    )
+    );
 
-    let toolbarStyle = {
+    const toolbarStyle = {
       minHeight: '50px',
       paddingTop: '5px',
       borderBottom: '1px solid lightblue',
-      marginBottom: '5px',
-    }
+      marginBottom: '5px'
+    };
 
-    let groupDivStyle = {
+    const groupDivStyle = {
       display: 'inline-block',
       height: '50px',
       textAlign: 'center',
       verticalAlign: 'top'
-    }
+    };
 
-    let leftyStyle = {
+    const leftyStyle = {
       width: '30%',
       minWidth: '250px'
-    }
+    };
 
-    let drawingItemsStyle = {
+    const drawingItemsStyle = {
       width: '15%',
       lineHeight: '50px',
       minWidth: '125px'
-    }
+    };
 
-    let midStyle = {
+    const midStyle = {
       width: '10%',
-      lineHeight: '50px',
-    }
+      lineHeight: '50px'
+    };
 
-    let rightyStyle = {
+    const rightyStyle = {
       width: '45%',
       minWidth: '200px'
-    }
+    };
 
-    if (!this.checkIfTeacher() && !this.props.activityData.config.everyoneCanEdit) {
+    if (
+      !this.checkIfTeacher() &&
+      !this.props.activityData.config.everyoneCanEdit
+    ) {
       annotateItems = null;
       modifyingitems = null;
       drawingItems = null;
@@ -560,39 +559,34 @@ class ScratchPad extends Component {
       rightyStyle.minWidth = '0px';
       midStyle.width = '100%';
     }
-    
-    
+
     return (
       <ResizeAware
         style={{ position: 'relative', height: '100%' }}
         onlyEvent
         onResize={this.handleResize}
       >
-      <div>
-        <div style={toolbarStyle}>
-          <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
-            {annotateItems}
+        <div>
+          <div style={toolbarStyle}>
+            <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
+              {annotateItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
+              <span>{drawingItems}</span>
+            </div>
+            <div style={Object.assign({}, groupDivStyle, midStyle)}>
+              <span>ScratchPad</span>
+            </div>
+            <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
+              {modifyingitems}
+            </div>
           </div>
-          <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
-            <span>
-              {drawingItems}
-            </span>
-          </div>
-          <div style={Object.assign({}, groupDivStyle, midStyle)}>
-            <span>
-              ScratchPad
-            </span>
-          </div>
-          <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
-            {modifyingitems}
-          </div>
+          <div
+            id={divIDTest}
+            style={testStyle}
+            dangerouslySetInnerHTML={{ __html: test.innerHTML }} // eslint-disable-line react/no-danger
+          />
         </div>
-        <div
-          id={divIDTest}
-          style={testStyle}
-          dangerouslySetInnerHTML={{ __html: test.innerHTML }} // eslint-disable-line react/no-danger
-        />
-      </div>
       </ResizeAware>
     );
   }

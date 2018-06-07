@@ -3,10 +3,8 @@ import uuid from 'uuid';
 import Mousetrap from 'mousetrap';
 import ResizeAware from 'react-resize-aware';
 
-import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 
-import Done from '@material-ui/icons/Done';
 import FirstPage from '@material-ui/icons/FirstPage';
 import LastPage from '@material-ui/icons/LastPage';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -225,7 +223,7 @@ class AnnotationLayer extends Component {
         prevState.pageNumStudent !== this.state.pageNumStudent) ||
       (!this.state.studentPaging &&
         prevProps.data.pageNum !== this.props.data.pageNum) ||
-      (prevState.studentPaging !== this.state.studentPaging)
+      prevState.studentPaging !== this.state.studentPaging
     ) {
       if (this.rendering) {
         this.queueUpRender();
@@ -399,7 +397,7 @@ class AnnotationLayer extends Component {
 
   clearAnnotations = () => {
     const currentPageNum = this.getCurrentPageNum();
-    let savedAnnotations = this.getSavedAnnotations();
+    const savedAnnotations = this.getSavedAnnotations();
     delete savedAnnotations[currentPageNum];
     this.replaceSavedAnnotations(savedAnnotations);
     this.editorRender = true;
@@ -629,17 +627,17 @@ class AnnotationLayer extends Component {
   changePage = pageNum => {
     if (this.checkIfTeacher()) this.changePageAdmin(pageNum);
     else this.changePageStudent(pageNum);
-  }
+  };
 
   nextPage = () => {
     if (this.checkIfTeacher()) this.nextPageAdmin();
     else this.nextPageStudent();
-  }
+  };
 
   prevPage = () => {
     if (this.checkIfTeacher()) this.prevPageAdmin();
     else this.prevPageStudent();
-  }
+  };
 
   render() {
     const { activityData } = this.props;
@@ -663,26 +661,20 @@ class AnnotationLayer extends Component {
     };
     if (this.state.initialPageLoad === true) containerStyle.opacity = 0;
 
-    const pagingText = this.state.studentPaging ? 'Student' : 'Admin';
-
     const containerID = 'pageContainer' + shownPageNum;
-    const activeToolTipStyle = {
-      border: '2px solid lightblue',
-      borderRadius: '2px'
-    };
 
     const iconMapping = {
-      'cursor': (<TouchApp />),
-      'draw': (<Edit />),
-      'text': (<Title />),
-      'area': (<CropSquare />),
-      'highlight': (<Highlight />),
-      'strikeout': (<FormatStrikethrough />)
-    }
+      cursor: <TouchApp />,
+      draw: <Edit />,
+      text: <Title />,
+      area: <CropSquare />,
+      highlight: <Highlight />,
+      strikeout: <FormatStrikethrough />
+    };
 
     const iconButtonStyle = {
       width: '48px'
-    }
+    };
 
     let annotateItems = constants.toolbarItems.map(item => {
       const icon = iconMapping[item];
@@ -690,7 +682,12 @@ class AnnotationLayer extends Component {
       if (this.state.activeItem === item) color = 'secondary';
 
       return (
-        <IconButton style={iconButtonStyle} color={color} key={item} onClick={() => this.setActiveToolbarItem(item)}>
+        <IconButton
+          style={iconButtonStyle}
+          color={color}
+          key={item}
+          onClick={() => this.setActiveToolbarItem(item)}
+        >
           {icon}
         </IconButton>
       );
@@ -708,7 +705,7 @@ class AnnotationLayer extends Component {
       fontSize: '14px',
       fontFamily: 'sans-serif',
       marginLeft: '10px'
-    }
+    };
 
     const penSizeItem = (
       <select
@@ -756,8 +753,7 @@ class AnnotationLayer extends Component {
     ) {
       drawingItems.push(penColorItem);
       drawingItems.push(penSizeItem);
-    }
-    else {
+    } else {
       drawingItems.push(penColorItem);
       drawingItems.push(penSizeItem);
     }
@@ -769,42 +765,42 @@ class AnnotationLayer extends Component {
         <hr />
       </span>
     );
-    
-    const disabledRight = (
-      this.props.activityData.config.studentCannotGoFurther &&
-      this.getCurrentPageNum() === this.props.pdf.furthestPageNum
-    )
 
-    let pageSpanStyle = {
+    const disabledRight =
+      this.props.activityData.config.studentCannotGoFurther &&
+      this.getCurrentPageNum() === this.props.pdf.furthestPageNum;
+
+    const pageSpanStyle = {
       display: 'inline-block',
       height: '50px',
       width: '50px',
       margin: '0 0',
       fontSize: '15px',
       textAlign: 'center'
-    }
+    };
 
     if (this.state.studentPaging) pageSpanStyle.fontSize = '11px';
 
     const goBackToAdminButtonStyle = {
       height: '24px',
       width: '24px'
-    }
+    };
 
     const goBackToAdminButton = (
-      <IconButton style={goBackToAdminButtonStyle} onClick={this.goBackToAdminPaging}>
+      <IconButton
+        style={goBackToAdminButtonStyle}
+        onClick={this.goBackToAdminPaging}
+      >
         <SettingsBackupRestore />
       </IconButton>
-    )
+    );
 
     const pagingIconStyle = {
       width: '25px'
-    }
+    };
 
     const pagingItems = this.props.activityData.config.studentMustFollow ? (
-      <span>
-        {shownPageNum+'/'+this.props.pdf.numPages}
-      </span>
+      <span>{shownPageNum + '/' + this.props.pdf.numPages}</span>
     ) : (
       <span>
         <IconButton style={pagingIconStyle} onClick={() => this.changePage(1)}>
@@ -814,60 +810,88 @@ class AnnotationLayer extends Component {
           <ChevronLeft />
         </IconButton>
         <span style={pageSpanStyle}>
-        {shownPageNum+'/'+this.props.pdf.numPages}
-        {this.state.studentPaging && goBackToAdminButton}
+          {shownPageNum + '/' + this.props.pdf.numPages}
+          {this.state.studentPaging && goBackToAdminButton}
         </span>
-        <IconButton style={pagingIconStyle} onClick={this.nextPage} disabled={disabledRight}>
+        <IconButton
+          style={pagingIconStyle}
+          onClick={this.nextPage}
+          disabled={disabledRight}
+        >
           <ChevronRight />
         </IconButton>
-        <IconButton style={pagingIconStyle} onClick={() => this.changePage(this.props.pdf.numPages)}>
+        <IconButton
+          style={pagingIconStyle}
+          onClick={() => this.changePage(this.props.pdf.numPages)}
+        >
           <LastPage />
         </IconButton>
       </span>
-    )
+    );
 
-    const cursorColor = (this.state.activeItem === 'cursor') ? 'secondary' : 'primary';
-    let cursorStyle = {}
+    const cursorColor =
+      this.state.activeItem === 'cursor' ? 'secondary' : 'primary';
+    const cursorStyle = {};
     let cursorDisable = false;
 
-    if (!this.checkIfTeacher() && !this.props.activityData.config.everyoneCanEdit) {
+    if (
+      !this.checkIfTeacher() &&
+      !this.props.activityData.config.everyoneCanEdit
+    ) {
       cursorStyle.visibility = 'hidden';
       cursorDisable = true;
     }
 
-    let cursorItem = (
-      <IconButton disabled={cursorDisable} style={Object.assign({}, cursorStyle, iconButtonStyle)} color={cursorColor} onClick={() => this.setActiveToolbarItem('cursor')}>
+    const cursorItem = (
+      <IconButton
+        disabled={cursorDisable}
+        style={Object.assign({}, cursorStyle, iconButtonStyle)}
+        color={cursorColor}
+        onClick={() => this.setActiveToolbarItem('cursor')}
+      >
         <TouchApp />
       </IconButton>
-    )
+    );
 
     const zoomingItems = (
       <span>
         {cursorItem}
-        <IconButton style={iconButtonStyle} color={'primary'} onClick={this.fillPage}>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.fillPage}
+        >
           <ZoomOutMap />
         </IconButton>
-        <IconButton style={iconButtonStyle} color={'primary'} onClick={this.zoomOut}>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.zoomOut}
+        >
           <ZoomOut />
         </IconButton>
-        <IconButton style={iconButtonStyle} color={'primary'} onClick={this.zoomIn}>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.zoomIn}
+        >
           <ZoomIn />
         </IconButton>
       </span>
-    )
+    );
 
     let modifyingitems = (
       <span>
         <IconButton
           style={iconButtonStyle}
-          color={'secondary'}
+          color="secondary"
           onClick={this.props.switchMode}
         >
           <NoteAdd />
         </IconButton>
         <IconButton
           style={iconButtonStyle}
-          color={'primary'}
+          color="primary"
           onClick={this.undo}
           disabled={pageAnnotationsDatabase.length === 0}
         >
@@ -875,65 +899,74 @@ class AnnotationLayer extends Component {
         </IconButton>
         <IconButton
           style={iconButtonStyle}
-          color={'primary'}
+          color="primary"
           onClick={this.redo}
           disabled={pageAnnotationsLocalStorage.length === 0}
         >
           <Redo />
         </IconButton>
-        <IconButton style={iconButtonStyle} color={'primary'} onClick={this.clearAnnotations} 
-          disabled={pageAnnotationsDatabase.length === 0 && pageAnnotationsLocalStorage.length === 0}
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.clearAnnotations}
+          disabled={
+            pageAnnotationsDatabase.length === 0 &&
+            pageAnnotationsLocalStorage.length === 0
+          }
         >
           <DeleteForever />
         </IconButton>
       </span>
-    )
-    
-    let toolbarStyle = {
+    );
+
+    const toolbarStyle = {
       minHeight: '50px',
       paddingTop: '5px',
       borderBottom: '1px solid lightblue',
-      marginBottom: '5px',
-    }
+      marginBottom: '5px'
+    };
 
-    let groupDivStyle = {
+    const groupDivStyle = {
       display: 'inline-block',
       height: '50px',
       textAlign: 'center',
       verticalAlign: 'top'
-    }
+    };
 
-    let leftyStyle = {
+    const leftyStyle = {
       width: '27%',
       minWidth: '250px'
-    }
+    };
 
-    let drawingItemsStyle = {
+    const drawingItemsStyle = {
       width: '15%',
       lineHeight: '50px',
       minWidth: '125px'
-    }
+    };
 
-    let midStyle = {
+    const midStyle = {
       width: '16%',
       minWidth: '160px'
-    }
+    };
 
-    let zoomyStyle = {
+    const zoomyStyle = {
       width: '21%',
       minWidth: '200px'
-    }
+    };
 
-    let rightyStyle = {
+    const rightyStyle = {
       width: '21%',
       minWidth: '200px'
-    }
+    };
 
     if (!drawingItems) {
       drawingItemsStyle.height = '10px';
     }
 
-    if (!this.checkIfTeacher() && !this.props.activityData.config.everyoneCanEdit) {
+    if (
+      !this.checkIfTeacher() &&
+      !this.props.activityData.config.everyoneCanEdit
+    ) {
       annotateItems = null;
       modifyingitems = null;
       drawingItems = null;
@@ -951,8 +984,7 @@ class AnnotationLayer extends Component {
       midStyle.width = '60%';
       midStyle.textAlign = 'right';
     }
-    
-    
+
     return (
       <ResizeAware
         style={{ position: 'relative', height: '100%' }}
@@ -960,14 +992,13 @@ class AnnotationLayer extends Component {
         onResize={this.handleResize}
       >
         <div>
+          {debugItems}
           <div style={toolbarStyle}>
             <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
               {annotateItems}
             </div>
             <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
-              <span>
-                {drawingItems}
-              </span>
+              <span>{drawingItems}</span>
             </div>
             <div style={Object.assign({}, groupDivStyle, midStyle)}>
               {pagingItems}

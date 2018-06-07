@@ -14,7 +14,7 @@ const constants = {
     ['#000000', 'Black'],
     ['#FF0000', 'Red'],
     ['#FFFF00', 'Yellow'],
-    ['#0000FF', 'Blue'],
+    ['#0000FF', 'Blue']
     // ['#32CD32', 'Green']
   ],
   defaultSize: 3,
