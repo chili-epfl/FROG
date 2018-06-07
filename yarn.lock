@@ -929,9 +929,9 @@
   dependencies:
     pngjs "^3.2.0"
 
-"@houshuang/pdf-annotate.js@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@houshuang/pdf-annotate.js/-/pdf-annotate.js-0.0.5.tgz#dbc2cdf79cc20740f83ce53a96ce81e1e55b1498"
+"@houshuang/pdf-annotate.js@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@houshuang/pdf-annotate.js/-/pdf-annotate.js-0.0.6.tgz#d2eee471317e2eb31661573dd58938c684673a94"
   dependencies:
     create-stylesheet "^0.3.0"
     object-assign "^4.0.1"
