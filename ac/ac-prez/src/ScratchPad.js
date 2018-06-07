@@ -2,6 +2,31 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 import PDFJS from '@houshuang/pdfjs-dist';
 import Mousetrap from 'mousetrap';
+import ResizeAware from 'react-resize-aware';
+
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+
+import Done from '@material-ui/icons/Done';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Undo from '@material-ui/icons/Undo';
+import Redo from '@material-ui/icons/Redo';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import ZoomIn from '@material-ui/icons/ZoomIn';
+import ZoomOut from '@material-ui/icons/ZoomOut';
+import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
+import TouchApp from '@material-ui/icons/TouchApp';
+import Edit from '@material-ui/icons/Edit';
+import Title from '@material-ui/icons/Title';
+import CropSquare from '@material-ui/icons/CropSquare';
+import Highlight from '@material-ui/icons/Highlight';
+import FormatStrikethrough from '@material-ui/icons/FormatStrikethrough';
+import SettingsBackupRestore from '@material-ui/icons/SettingsBackupRestore';
+import PresentToAll from '@material-ui/icons/PresentToAll';
+
 import constants from './constants.js';
 
 class ScratchPad extends Component {
@@ -111,10 +136,13 @@ class ScratchPad extends Component {
     this.state = {
       activeItem: 'cursor',
       penSize: constants.defaultSize,
-      penColor: constants.defaultColor
+      penColor: constants.defaultColor,
+      initalPageLoad: true
     };
 
     this.PDFJSAnnotate = PDFJSAnnotate;
+    this.rescaleDone = false;
+    this.queuedResize = true;
   }
 
   componentWillUnmount() {
@@ -148,17 +176,70 @@ class ScratchPad extends Component {
     });
   };
 
+  calculateNewScale = () => {
+    const shownPageNum = 1;
+    const containerID = '#pageContainer' + shownPageNum;
+    const container = document.querySelector(containerID);
+    const viewer = document.querySelector('#viewer');
+    // console.log(viewer);
+    // console.log(viewer.clientWidth, viewer.clientHeight);
+
+    // const rectViewer = viewer.getBoundingClientRect();
+    // const rectContainer = container.getBoundingClientRect();
+    // console.log(rectViewer.top, rectViewer.right, rectViewer.bottom, rectViewer.left);
+    // console.log(rectContainer.top, rectContainer.right, rectContainer.bottom, rectContainer.left);
+
+    const w = viewer.clientWidth;
+    const h = viewer.clientHeight - 70;
+    // console.log(w, h);
+
+    const widthScale = w / container.clientWidth;
+    const heightScale = h / container.clientHeight;
+    // console.log(widthScale, heightScale);
+    const newScale = Math.min(widthScale, heightScale);
+
+    return newScale;
+  };
+
+  fillPage = () => {
+    this.rescaleDone = false;
+    this.queuedResize = true;
+    this.savedScale = 1;
+    this.setState({ initialPageLoad: true });
+  };
+
+  handleResize = () => {
+    if (this.queuedResize) return;
+    this.queuedResize = true;
+    setTimeout(this.fillPage, 200);
+  };
+
   forceRenderPage = () => {
+    if (!this.state.initialPageLoad && !this.rescaleDone) {
+      const newScale = this.calculateNewScale();
+      // console.log(newScale);
+      this.savedScale = newScale;
+      this.rescaleDone = true;
+    }
+
     const RENDER_OPTIONS = {
       documentId: this.pdf.fingerprint,
       pdfDocument: this.pdf,
-      scale: 1,
+      scale: this.savedScale,
       rotate: 0
     };
 
     const UI = this.PDFJSAnnotate.UI;
     UI.renderPage(1, RENDER_OPTIONS).then(
-      result => result,
+      result => {
+        if (this.state.initialPageLoad && !this.rescaleDone) {
+          this.setState({ initialPageLoad: false });
+        } else {
+          this.queuedResize = false;
+        }
+
+        return result;
+      },
       err => {
         console.error('ERROR RENDERING PAGE:\n', err);
       }
@@ -283,8 +364,11 @@ class ScratchPad extends Component {
   };
 
   render() {
+    const pageAnnotationsLocalStorage = this.getSavedAnnotations();
+    const pageAnnotationsDatabase = this.getAnnotations();
+    
     const UI = this.PDFJSAnnotate.UI;
-
+    
     const test = UI.createPage(1);
     const svgStyle = test.querySelector('svg').style;
     svgStyle.position = 'absolute';
@@ -302,23 +386,28 @@ class ScratchPad extends Component {
       borderRadius: '2px'
     };
 
-    const annotateItems = constants.ScratchPadToolbarItems.map(item => {
-      if (this.state.activeItem === item)
-        return (
-          <button
-            key={item}
-            style={activeToolTipStyle}
-            className="activeTooltip"
-            onClick={() => this.setActiveToolbarItem(item)}
-          >
-            {item}
-          </button>
-        );
+    const iconMapping = {
+      'cursor': (<TouchApp />),
+      'draw': (<Edit />),
+      'text': (<Title />),
+      'area': (<CropSquare />),
+      'highlight': (<Highlight />),
+      'strikeout': (<FormatStrikethrough />)
+    }
+
+    const iconButtonStyle = {
+      width: '48px'
+    }
+
+    let annotateItems = constants.ScratchPadToolbarItems.map(item => {
+      const icon = iconMapping[item];
+      let color = 'primary';
+      if (this.state.activeItem === item) color = 'secondary';
 
       return (
-        <button key={item} onClick={() => this.setActiveToolbarItem(item)}>
-          {item}
-        </button>
+        <IconButton style={iconButtonStyle} color={color} key={item} onClick={() => this.setActiveToolbarItem(item)}>
+          {icon}
+        </IconButton>
       );
     });
 
@@ -329,11 +418,20 @@ class ScratchPad extends Component {
       </option>
     ));
 
+    const selectStyle = {
+      display: 'inline-block',
+      fontSize: '14px',
+      fontFamily: 'sans-serif',
+      marginLeft: '10px'
+    }
+
     const penSizeItem = (
       <select
         key="penSize"
+        id="sizeSelect"
         value={this.state.penSize}
         onChange={this.selectPenSize}
+        style={selectStyle}
       >
         {sizeOptions}
       </select>
@@ -345,8 +443,12 @@ class ScratchPad extends Component {
       const style = {
         background: color,
         color: 'white',
-        width: '5px',
-        height: '15px'
+        width: '16px',
+        height: '16px',
+        borderRadius: '8px',
+        border: 'none',
+        margin: '0 2px',
+        marginTop: '1px'
       };
       return (
         <button
@@ -361,51 +463,137 @@ class ScratchPad extends Component {
 
     const penColorItem = <span key="penColor">{colorOptions}</span>;
 
+    let drawingItems = [];
     if (
       this.state.activeItem === 'draw' ||
       this.state.activeItem === 'area' ||
       this.state.activeItem === 'text'
     ) {
-      annotateItems.push(penColorItem);
-      annotateItems.push(penSizeItem);
+      drawingItems.push(penColorItem);
+      drawingItems.push(penSizeItem);
+    }
+    else {
+      drawingItems.push(penColorItem);
+      drawingItems.push(penSizeItem);
     }
 
-    const editorItems =
-      !this.props.activityData.config.everyoneCanEdit &&
-      !this.checkIfTeacher() ? null : (
-        <span>
-          <span>Options: </span>
-          <button
-            onClick={this.undo}
-            disabled={this.getAnnotations().length === 0}
-          >
-            UNDO
-          </button>
-          <button
-            onClick={this.redo}
-            disabled={this.getSavedAnnotations().length === 0}
-          >
-            REDO
-          </button>
-          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-          <button onClick={this.props.switchMode}>Back to PDF</button>
-          <hr />
-          <span>Annotate: </span>
-          {annotateItems}
-          <hr />
-        </span>
-      );
+    let modifyingitems = (
+      <span>
+        <IconButton
+          style={iconButtonStyle}
+          color={'secondary'}
+          onClick={this.props.switchMode}
+        >
+          <PresentToAll />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color={'primary'}
+          onClick={this.undo}
+          disabled={pageAnnotationsDatabase.length === 0}
+        >
+          <Undo />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color={'primary'}
+          onClick={this.redo}
+          disabled={pageAnnotationsLocalStorage.length === 0}
+        >
+          <Redo />
+        </IconButton>
+        <IconButton style={iconButtonStyle} color={'primary'} onClick={this.clearAnnotations} 
+          disabled={pageAnnotationsDatabase.length === 0 && pageAnnotationsLocalStorage.length === 0}
+        >
+          <DeleteForever />
+        </IconButton>
+      </span>
+    )
 
+    let toolbarStyle = {
+      minHeight: '50px',
+      paddingTop: '5px',
+      borderBottom: '1px solid lightblue',
+      marginBottom: '5px',
+    }
+
+    let groupDivStyle = {
+      display: 'inline-block',
+      height: '50px',
+      textAlign: 'center',
+      verticalAlign: 'top'
+    }
+
+    let leftyStyle = {
+      width: '30%',
+      minWidth: '250px'
+    }
+
+    let drawingItemsStyle = {
+      width: '15%',
+      lineHeight: '50px',
+      minWidth: '125px'
+    }
+
+    let midStyle = {
+      width: '10%',
+      lineHeight: '50px',
+    }
+
+    let rightyStyle = {
+      width: '45%',
+      minWidth: '200px'
+    }
+
+    if (!this.checkIfTeacher() && !this.props.activityData.config.everyoneCanEdit) {
+      annotateItems = null;
+      modifyingitems = null;
+      drawingItems = null;
+      leftyStyle.height = '10px';
+      drawingItemsStyle.height = '10px';
+      rightyStyle.height = '10px';
+      leftyStyle.width = '0px';
+      drawingItemsStyle.width = '0px';
+      rightyStyle.width = '0px';
+      leftyStyle.minWidth = '0px';
+      drawingItemsStyle.minWidth = '0px';
+      rightyStyle.minWidth = '0px';
+      midStyle.width = '100%';
+    }
+    
+    
     return (
+      <ResizeAware
+        style={{ position: 'relative', height: '100%' }}
+        onlyEvent
+        onResize={this.handleResize}
+      >
       <div>
-        <hr />
-        {editorItems}
+        <div style={toolbarStyle}>
+          <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
+            {annotateItems}
+          </div>
+          <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
+            <span>
+              {drawingItems}
+            </span>
+          </div>
+          <div style={Object.assign({}, groupDivStyle, midStyle)}>
+            <span>
+              ScratchPad
+            </span>
+          </div>
+          <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
+            {modifyingitems}
+          </div>
+        </div>
         <div
           id={divIDTest}
           style={testStyle}
           dangerouslySetInnerHTML={{ __html: test.innerHTML }} // eslint-disable-line react/no-danger
         />
       </div>
+      </ResizeAware>
     );
   }
 }
