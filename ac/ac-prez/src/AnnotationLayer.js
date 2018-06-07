@@ -780,7 +780,8 @@ class AnnotationLayer extends Component {
       height: '50px',
       width: '50px',
       margin: '0 0',
-      fontSize: '15px'
+      fontSize: '15px',
+      textAlign: 'center'
     }
 
     if (this.state.studentPaging) pageSpanStyle.fontSize = '11px';
