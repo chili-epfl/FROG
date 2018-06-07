@@ -388,6 +388,7 @@ class ScratchPad extends Component {
             REDO
           </button>
           <button onClick={this.clearAnnotations}>Clear All Annotations</button>
+          <button onClick={this.props.switchMode}>Back to PDF</button>
           <hr />
           <span>Annotate: </span>
           {annotateItems}
