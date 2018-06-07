@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 import Mousetrap from 'mousetrap';
 import ResizeAware from 'react-resize-aware';
+
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+
+import DoneIcon from '@material-ui/icons/Done';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+
 import constants from './constants.js';
 
 class AnnotationLayer extends Component {
@@ -143,13 +151,11 @@ class AnnotationLayer extends Component {
   }
 
   handleLeftArrow = () => {
-    if (this.checkIfTeacher()) this.prevPageAdmin();
-    else this.prevPageStudent();
+    this.prevPage();
   };
 
   handleRightArror = () => {
-    if (this.checkIfTeacher()) this.nextPageAdmin();
-    else this.nextPageStudent();
+    this.nextPage();
   };
 
   componentWillUnmount() {
@@ -591,6 +597,30 @@ class AnnotationLayer extends Component {
     this.setState({ penColor: color });
   };
 
+  changePageAdmin = pageNum => {
+    const newPageNum = this.getValidPageNum(pageNum);
+    if (newPageNum) {
+      this.props.dataFn.objSet(newPageNum, ['pageNum']);
+      if (newPageNum > this.props.data.furthestPageNum)
+        this.props.dataFn.objSet(newPageNum, ['furthestPageNum']);
+    }
+  };
+
+  changePage = pageNum => {
+    if (this.checkIfTeacher()) this.changePageAdmin(pageNum);
+    else this.changePageStudent(pageNum);
+  }
+
+  nextPage = () => {
+    if (this.checkIfTeacher()) this.nextPageAdmin();
+    else this.nextPageStudent();
+  }
+
+  prevPage = () => {
+    if (this.checkIfTeacher()) this.prevPageAdmin();
+    else this.prevPageStudent();
+  }
+
   render() {
     const { activityData } = this.props;
 
@@ -701,7 +731,7 @@ class AnnotationLayer extends Component {
       !this.props.activityData.config.everyoneCanEdit &&
       !this.checkIfTeacher() ? null : (
         <span>
-          <span>Teacher/Admin: </span>
+          {annotateItems}
           <button
             onClick={this.undo}
             disabled={pageAnnotationsDatabase.length === 0}
@@ -715,37 +745,56 @@ class AnnotationLayer extends Component {
             REDO
           </button>
           <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-          <button onClick={this.prevPageAdmin}>Prev Page</button>
-          <button onClick={this.nextPageAdmin}>Next Page</button>
-          <button onClick={() => this.changePageAdmin(1)}>First</button>
-          <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
-            Last
-          </button>
-          <hr />
-          <span>Annotate: </span>
-          {annotateItems}
         </span>
       );
+
+    const pagingItems = (
+      <span>
+        <IconButton onClick={() => this.changePage(1)}>
+          <Icon>
+        </IconButton>
+        <button onClick={this.prevPage}>Prev</button>
+        <span>
+        {shownPageNum+'/'+this.props.pdf.numPages}
+        </span>
+        <button onClick={this.nextPage}>Next</button>
+        <button onClick={() => this.changePage(this.props.pdf.numPages)}>Last</button>
+      </span>
+    )
 
     const studentItems =
       this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (
         <span>
-          <hr />
-          <span>Student: </span>
-          <button onClick={this.prevPageStudent}>Prev Page</button>
-          <button onClick={this.nextPageStudent}>Next Page</button>
-          <button onClick={() => this.changePageStudent(1)}>First</button>
-          <button
-            onClick={() => this.changePageStudent(this.props.pdf.numPages)}
-          >
-            Last
-          </button>
           {this.state.studentPaging && (
             <button onClick={this.goBackToAdminPaging}>Back To Teacher</button>
           )}
         </span>
       );
+    
+    const toolbarStyle = {
+      minHeight: '50px',
+      textAlign: 'center'
+    }
 
+    const groupDivStyle = {
+      display: 'inline-block',
+      height: '50px'
+    }
+
+    const leftyStyle = {
+      float: 'left'
+    }
+
+    const midStyle = {
+      float       : 'none', 
+      marginLeft  : 'auto',
+      marginRight : 'auto'
+    }
+
+    const rightyStyle = {
+      float: 'right'
+    }
+    
     return (
       <ResizeAware
         style={{ position: 'relative', height: '100%' }}
@@ -753,8 +802,22 @@ class AnnotationLayer extends Component {
         onResize={this.handleResize}
       >
         <div>
+          <div style={toolbarStyle}>
+            <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
+              <IconButton>
+                <DoneIcon />
+              </IconButton>
+            </div>
+            <div style={Object.assign({}, groupDivStyle, midStyle)}>
+              {pagingItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
+              <IconButton>
+                <DoneIcon />
+              </IconButton>
+            </div>
+          </div>
           <hr />
-          {debugItems}
           {editorItems}
           {studentItems}
           <hr />
