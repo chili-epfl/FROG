@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import Mousetrap from 'mousetrap';
+import ResizeAware from 'react-resize-aware';
 import constants from './constants.js';
 
 class AnnotationLayer extends Component {
@@ -8,6 +9,7 @@ class AnnotationLayer extends Component {
     super();
 
     const PDFJSAnnotate = require('@houshuang/pdf-annotate.js');
+    // const PDFJSAnnotate = require('pdf-annotate').default;
     const that = this;
     const StoreAdapter = new PDFJSAnnotate.StoreAdapter({
       getAnnotations(documentId, pageNumber) {
@@ -28,6 +30,14 @@ class AnnotationLayer extends Component {
       addAnnotation(documentId, pageNumber, annotation) {
         const currentPageNum = that.getCurrentPageNum();
         const savedAnnotations = that.getSavedAnnotations();
+        const pageAnnotations = that.getPageAnnotations();
+
+        if (savedAnnotations[currentPageNum] || pageAnnotations.length === 0) {
+          that.ignoreRender = false;
+        } else {
+          that.ignoreRender = true;
+        }
+
         delete savedAnnotations[currentPageNum];
         that.replaceSavedAnnotations(savedAnnotations);
 
@@ -39,7 +49,6 @@ class AnnotationLayer extends Component {
           annotation.color = that.state.penColor;
         }
 
-        const pageAnnotations = that.getPageAnnotations();
         if (pageAnnotations.length === 0)
           props.dataFn.objInsert([annotation], ['annotations', currentPageNum]);
         else
@@ -106,7 +115,7 @@ class AnnotationLayer extends Component {
     localStorage.setItem('aSize', constants.defaultSize);
 
     this.state = {
-      initialLoading: true,
+      initialPageLoad: true,
       studentPaging: false,
       activeItem: 'cursor',
       penSize: constants.defaultSize,
@@ -120,7 +129,10 @@ class AnnotationLayer extends Component {
     this.resetPaging = true;
     this.savedScale = 1;
     this.rescaleDone = false;
-    this.queuedResize = false;
+    this.queuedResize = true;
+    this.lastLoadedPageNum = 0;
+    this.ignoreRender = false;
+    this.zoomed = false;
   }
 
   componentWillMount() {
@@ -151,13 +163,13 @@ class AnnotationLayer extends Component {
     Mousetrap.unbind('s');
     Mousetrap.unbind('h');
     Mousetrap.unbind('c');
-    window.removeEventListener('resize', this.handleResize);
+    // window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidMount() {
     this.forceRenderPage();
 
-    window.addEventListener('resize', this.handleResize);
+    // window.addEventListener('resize', this.handleResize);
     Mousetrap.bind('backspace', () => this.undo());
     Mousetrap.bind('r', () => this.redo());
     Mousetrap.bind('left', e => {
@@ -177,61 +189,61 @@ class AnnotationLayer extends Component {
   }
 
   shouldComponentUpdate() {
-    if (this.queuedRender) return false;
+    if (!this.editorRender && this.ignoreRender) {
+      this.ignoreRender = false;
+      return false;
+    }
     return true;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (
-      !this.props.activityData.config.everyoneCanEdit &&
-      (this.checkIfTeacher() && !this.editorRender)
-    )
-      return;
-
-    if (
-      !this.props.activityData.config.everyoneCanEdit &&
-      this.state.studentPaging &&
-      this.state.pageNumStudent !== this.props.data.pageNum &&
-      prevProps.data.pageNum !== this.props.data.pageNum
-    )
-      return;
-
-    if (this.rendering) {
-      if (!this.queuedRender) {
-        this.queuedRender = true;
-        setTimeout(this.queueUpRender, 250);
+      !this.rescaleDone ||
+      (this.state.studentPaging &&
+        prevState.pageNumStudent !== this.state.pageNumStudent) ||
+      (!this.state.studentPaging &&
+        prevProps.data.pageNum !== this.props.data.pageNum)
+    ) {
+      if (this.rendering) {
+        this.queueUpRender();
+      } else {
+        this.forceRenderPage();
       }
       return;
     }
 
+    // if (!this.props.activityData.config.everyoneCanEdit &&
+    //   (this.checkIfTeacher() && !this.editorRender))
+    //   return;
     this.editorRender = false;
-
-    this.forceRenderPage();
+    setTimeout(this.forceRenderAnnotations, 0);
   }
 
   queueUpRender = () => {
+    // console.log('QUEING');
     if (!this.rendering) {
-      this.queuedRender = false;
-      if (this.checkIfTeacher()) this.editorRender = true;
-      this.forceUpdate();
-    } else {
+      this.forceRenderPage();
+    } else if (this.queuedRender === false) {
+      this.queuedRender = true;
       setTimeout(this.queueUpRender, 250);
     }
   };
 
   calculateNewScale = () => {
-    const shownPageNum = this.state.studentPaging
-      ? this.state.pageNumStudent
-      : this.props.data.pageNum;
+    const shownPageNum = this.getCurrentPageNum();
     const containerID = '#pageContainer' + shownPageNum;
     const container = document.querySelector(containerID);
-    // console.log(container.clientWidth, container.clientHeight);
+    const viewer = document.querySelector('#viewer');
+    // console.log(viewer);
+    // console.log(viewer.clientWidth, viewer.clientHeight);
 
-    const rect = container.getBoundingClientRect();
-    // console.log(rect.top, rect.right, rect.bottom, rect.left);
+    // const rectViewer = viewer.getBoundingClientRect();
+    // const rectContainer = container.getBoundingClientRect();
+    // console.log(rectViewer.top, rectViewer.right, rectViewer.bottom, rectViewer.left);
+    // console.log(rectContainer.top, rectContainer.right, rectContainer.bottom, rectContainer.left);
 
-    const w = window.innerWidth;
-    const h = window.innerHeight - rect.top - 10;
+    const w = viewer.clientWidth;
+    const h = viewer.clientHeight - 250;
     // console.log(w, h);
 
     const widthScale = w / container.clientWidth;
@@ -242,42 +254,68 @@ class AnnotationLayer extends Component {
     return newScale;
   };
 
+  forceRenderAnnotations = () => {
+    // console.log('RENDERING ANNOTATIONS');
+    const UI = this.PDFJSAnnotate.UI;
+
+    const shownPageNum = this.getCurrentPageNum();
+
+    const RENDER_OPTIONS = {
+      documentId: this.props.pdf.fingerprint,
+      pdfDocument: this.props.pdf,
+      scale: this.savedScale,
+      rotate: 0
+    };
+
+    UI.renderAnnotations(shownPageNum, RENDER_OPTIONS, this.pageViewport).then(
+      result => result,
+      err => {
+        console.error('ERROR RENDERING ANNOTATIONS:\n', err);
+      }
+    );
+  };
+
   forceRenderPage = () => {
+    // console.log('RENDERING PAGE');
     this.rendering = true;
 
-    const shownPageNum = this.state.studentPaging
-      ? this.state.pageNumStudent
-      : this.props.data.pageNum;
+    const shownPageNum = this.getCurrentPageNum();
 
-    if (!this.state.initialLoading && !this.rescaleDone) {
+    if (!this.state.initialPageLoad && !this.rescaleDone) {
       const newScale = this.calculateNewScale();
       // console.log(newScale);
       this.savedScale = newScale;
       this.rescaleDone = true;
     }
 
-    const scale = this.savedScale;
-
     const RENDER_OPTIONS = {
       documentId: this.props.pdf.fingerprint,
       pdfDocument: this.props.pdf,
-      scale,
+      scale: this.savedScale,
       rotate: 0
     };
 
     const UI = this.PDFJSAnnotate.UI;
+
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
       result => {
+        const pdfPage = result[0];
+        // const annotationsObj = result[1];
+        this.pageViewport = pdfPage.getViewport(this.savedScale, 0);
+        this.queuedRender = false;
         this.rendering = false;
-        this.queuedResize = false;
-        if (this.state.initialLoading === true) {
-          this.editorRender = true;
-          this.setState({ initialLoading: false });
+        this.lastLoadedPageNum = shownPageNum;
+        if (this.state.initialPageLoad && !this.rescaleDone) {
+          this.setState({ initialPageLoad: false });
+        } else {
+          this.queuedResize = false;
         }
+
         return result;
       },
       err => {
         this.rendering = false;
+        this.queuedResize = false;
         console.error('ERROR RENDERING PAGE:\n', err);
       }
     );
@@ -285,27 +323,28 @@ class AnnotationLayer extends Component {
 
   fillPage = () => {
     this.rescaleDone = false;
+    this.queuedResize = true;
+    this.zoomed = false;
     this.savedScale = 1;
-    this.editorRender = true;
-    this.setState({ initialLoading: true });
+    this.setState({ initialPageLoad: true });
   };
 
   handleResize = () => {
-    if (this.queuedResize === true) return;
+    if (this.queuedResize || this.zoomed) return;
     this.queuedResize = true;
-    setTimeout(this.fillPage, 250);
+    setTimeout(this.fillPage, 200);
   };
 
   zoomIn = () => {
     this.savedScale += 0.2;
-    this.editorRender = true;
-    this.forceUpdate();
+    this.zoomed = true;
+    this.forceRenderPage();
   };
 
   zoomOut = () => {
     this.savedScale -= 0.2;
-    this.editorRender = true;
-    this.forceUpdate();
+    this.zoomed = true;
+    this.forceRenderPage();
   };
 
   checkIfTeacher = () => {
@@ -337,8 +376,8 @@ class AnnotationLayer extends Component {
 
   clearAnnotations = () => {
     this.replaceSavedAnnotations({});
-    this.props.dataFn.objSet({}, 'annotations');
     this.editorRender = true;
+    this.props.dataFn.objSet({}, 'annotations');
   };
 
   setActiveToolbarItem = item => {
@@ -394,7 +433,7 @@ class AnnotationLayer extends Component {
 
   nextPageAdmin = () => {
     if (this.props.data.pageNum + 1 > this.props.pdf.numPages) return;
-    this.editorRender = true;
+
     const pageNum = this.props.data.pageNum + 1;
     this.props.dataFn.numIncr(1, ['pageNum']);
     if (
@@ -406,7 +445,7 @@ class AnnotationLayer extends Component {
 
   prevPageAdmin = () => {
     if (this.props.data.pageNum <= 1) return;
-    this.editorRender = true;
+
     this.props.dataFn.numIncr(-1, ['pageNum']);
   };
 
@@ -468,7 +507,6 @@ class AnnotationLayer extends Component {
   changePageAdmin = pageNum => {
     const newPageNum = this.getValidPageNum(pageNum);
     if (newPageNum) {
-      this.editorRender = true;
       this.props.dataFn.objSet(newPageNum, ['pageNum']);
       if (newPageNum > this.props.data.furthestPageNum)
         this.props.dataFn.objSet(newPageNum, ['furthestPageNum']);
@@ -558,9 +596,7 @@ class AnnotationLayer extends Component {
 
     const UI = this.PDFJSAnnotate.UI;
 
-    const shownPageNum = this.state.studentPaging
-      ? this.state.pageNumStudent
-      : this.props.data.pageNum;
+    const shownPageNum = this.getCurrentPageNum();
 
     const pageAnnotationsLocalStorage = this.getSavedPageAnnotations();
     const pageAnnotationsDatabase = this.getPageAnnotations();
@@ -575,7 +611,7 @@ class AnnotationLayer extends Component {
       position: 'relative',
       margin: '0 auto'
     };
-    if (this.state.initialLoading === true) containerStyle.opacity = 0;
+    if (this.state.initialPageLoad === true) containerStyle.opacity = 0;
 
     const pagingText = this.state.studentPaging ? 'Student' : 'Admin';
 
@@ -711,27 +747,33 @@ class AnnotationLayer extends Component {
       );
 
     return (
-      <div>
-        <hr />
-        {debugItems}
-        {editorItems}
-        {studentItems}
-        <hr />
-        <span>Scaling: </span>
-        <button onClick={this.fillPage}>Fill Page</button>
-        <button onClick={this.zoomOut}>Zoom Out</button>
-        <button onClick={this.zoomIn}>Zoom In</button>
-        <hr />
-        <span>
-          Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
-          {pagingText}
-        </span>
-        <div
-          id={containerID}
-          style={containerStyle}
-          dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
-        />
-      </div>
+      <ResizeAware
+        style={{ position: 'relative', height: '100%' }}
+        onlyEvent
+        onResize={this.handleResize}
+      >
+        <div>
+          <hr />
+          {debugItems}
+          {editorItems}
+          {studentItems}
+          <hr />
+          <span>Scaling: </span>
+          <button onClick={this.fillPage}>Fill Page</button>
+          <button onClick={this.zoomOut}>Zoom Out</button>
+          <button onClick={this.zoomIn}>Zoom In</button>
+          <hr />
+          <span>
+            Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
+            {pagingText}
+          </span>
+          <div
+            id={containerID}
+            style={containerStyle}
+            dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
+          />
+        </div>
+      </ResizeAware>
     );
   }
 }

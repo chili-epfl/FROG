@@ -100,10 +100,14 @@ export default class PDF extends Component {
       );
     }
 
+    const stylish = {
+      height: '100%'
+    };
+
     return (
-      <div>
+      <div style={stylish}>
         {annotationsModeItem}
-        <div id="viewer" className="pdf-viewer">
+        <div id="viewer" className="pdf-viewer" style={stylish}>
           {layerDisplay}
         </div>
       </div>

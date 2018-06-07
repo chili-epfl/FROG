@@ -45,7 +45,7 @@ class Prez extends Component<ActivityRunnerPropsT> {
     );
 
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         {inputItem}
         <PDF
           src={pdfSRC}
