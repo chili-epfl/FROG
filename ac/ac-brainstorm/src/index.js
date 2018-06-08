@@ -7,6 +7,8 @@ import {
   values
 } from 'frog-utils';
 
+import { isObject } from 'lodash';
+
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
 
@@ -82,7 +84,8 @@ const meta = {
 const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
-  if (typeof obj?.data === 'object') {
+  if (isObject(obj?.data)) {
+    console.log('yep');
     values(obj.data).forEach(x => {
       const id = uuid();
       dataFn.objInsert({ students: {}, score: 0, ...x, id }, id);

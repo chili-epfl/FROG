@@ -11,6 +11,8 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import { type LearningItemT, values } from 'frog-utils';
 import { Provider } from 'mobx-react';
 import { isEqual, omit } from 'lodash';
+import InsertLink from '@material-ui/icons/InsertLink';
+import NoteAdd from '@material-ui/icons/NoteAdd';
 
 import { connect, listore } from './store';
 import { learningItemTypesObj } from '../../activityTypes';
@@ -28,18 +30,26 @@ const styles = theme => ({
 
 class ButtonRaw extends React.Component<*, *> {
   state = { selected: false };
+  mounted: boolean;
 
+  componentDidMount = () => (this.mounted = true);
+
+  componentWillUnmount = () => (this.mounted = false);
   render() {
     const { anchorEl, callback, handleClick, classes } = this.props;
     return (
       <div
-        onDragOver={() => this.setState({ selected: true })}
         onMouseOver={() => {
-          this.props.store.setOverCB(callback);
+          if (this.mounted && this.props.store.dragState) {
+            this.setState({ selected: true });
+            this.props.store.setOverCB(callback);
+          }
         }}
         onMouseLeave={() => {
-          this.setState({ selected: false });
-          this.props.store.setOverCB(null);
+          if (this.mounted) {
+            this.setState({ selected: false });
+            this.props.store.setOverCB(null);
+          }
         }}
       >
         <Button
@@ -56,6 +66,31 @@ class ButtonRaw extends React.Component<*, *> {
     );
   }
 }
+
+const DragIconRaw = ({ store }) =>
+  store.dragState && (
+    <div
+      style={{
+        position: 'fixed',
+        zIndex: 99,
+        top: store.coords[1],
+        left: store.coords[0],
+        pointerEvents: 'none'
+      }}
+    >
+      {store.dragState.shiftKey ? (
+        <NoteAdd style={{ fontSize: 36 }} />
+      ) : (
+        <InsertLink style={{ fontSize: 36 }} />
+      )}
+    </div>
+  );
+const DragIcon = connect(DragIconRaw);
+const WrappedDragIcon = props => (
+  <Provider store={listore}>
+    <DragIcon {...props} />
+  </Provider>
+);
 
 const AddButton = connect(ButtonRaw);
 const WrappedAddButton = props => (
@@ -89,6 +124,7 @@ class LearningItemChooser extends React.Component<
   callback = e => {
     this.props.onCreate(e.item);
   };
+
   shouldComponentUpdate(nextProps: any, nextState: Object) {
     return (
       !isEqual(
@@ -100,7 +136,6 @@ class LearningItemChooser extends React.Component<
 
   render() {
     const { anchorEl } = this.state;
-    console.log('render');
 
     return (
       <>
@@ -153,6 +188,7 @@ class LearningItemChooser extends React.Component<
             </div>
           </Dialog>
         )}
+        <WrappedDragIcon />
       </>
     );
   }

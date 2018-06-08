@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import { omit, isEqual } from 'lodash';
 import { DraggableCore } from 'react-draggable';
 import { listore } from './store';
 
@@ -12,17 +11,14 @@ const MaybeClickable = ({ condition, children, onClick }) =>
   condition ? <div onClick={onClick}>{children}</div> : children;
 
 class RenderLearningItem extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = { open: false };
-  }
+  state = { open: false, dragging: false };
+  mounted: boolean;
 
-  shouldComponentUpdate(nextProps: any, nextState: any) {
-    return (
-      !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn')) ||
-      nextState.open !== this.state.open
-    );
-  }
+  componentDidMount = () => (this.mounted = true);
+
+  componentWillUnmount = () => {
+    this.mounted = false;
+  };
 
   render() {
     const {
@@ -59,17 +55,28 @@ class RenderLearningItem extends React.Component<any, any> {
       <>
         <MaybeClickable
           onClick={() => {
-            this.setState({ open: true });
+            if (this.mounted && !this.state.dragging) {
+              this.setState({ open: true });
+            }
           }}
           condition={type === 'thumbView' && clickZoomable && liType.Viewer}
         >
           <DraggableCore
-            onDrag={e => {
+            disabled={type === 'edit'}
+            offsetParent={document.body}
+            onStart={e => e.preventDefault()}
+            onDrag={(e, d) => {
+              listore.setXY(d.x, d.y);
               listore.setDraggedItem(id, e.shiftKey);
+              this.setState({ dragging: true });
             }}
-            onStop={listore.stopDragging}
+            onStop={() => {
+              listore.stopDragging();
+              this.setState({ dragging: false });
+              return false;
+            }}
           >
-            <div>
+            <div style={{ zIndex: this.state.dragging ? 99 : 'auto' }}>
               <LIComponent
                 data={data.payload}
                 dataFn={dataFn && dataFn.specialize('payload')}

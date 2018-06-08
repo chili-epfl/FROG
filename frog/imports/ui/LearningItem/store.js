@@ -9,14 +9,20 @@ class LIStore {
   overCB: ?Function;
   setOverCB: (?Function) => void;
   stopDragging: () => void;
+  coords: ?[number, number];
+  setXY: (x: number, y: number) => void;
 
   constructor() {
     extendObservable(this, {
       dragState: null,
+      coords: null,
       setDraggedItem: action(
         (item, shiftKey) => (this.dragState = { item, shiftKey })
       ),
       setOverCB: action(cb => (this.overCB = cb)),
+      setXY: action((x, y) => {
+        this.coords = [x, y];
+      }),
       stopDragging: action(() => {
         if (this.overCB && this.dragState) {
           this.overCB(this.dragState);
