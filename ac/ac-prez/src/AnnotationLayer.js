@@ -2,6 +2,28 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 import Mousetrap from 'mousetrap';
 import ResizeAware from 'react-resize-aware';
+
+import IconButton from '@material-ui/core/IconButton';
+
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Undo from '@material-ui/icons/Undo';
+import Redo from '@material-ui/icons/Redo';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import ZoomIn from '@material-ui/icons/ZoomIn';
+import ZoomOut from '@material-ui/icons/ZoomOut';
+import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
+import TouchApp from '@material-ui/icons/TouchApp';
+import Edit from '@material-ui/icons/Edit';
+import Title from '@material-ui/icons/Title';
+import CropSquare from '@material-ui/icons/CropSquare';
+import Highlight from '@material-ui/icons/Highlight';
+import FormatStrikethrough from '@material-ui/icons/FormatStrikethrough';
+import SettingsBackupRestore from '@material-ui/icons/SettingsBackupRestore';
+import NoteAdd from '@material-ui/icons/NoteAdd';
+
 import constants from './constants.js';
 
 class AnnotationLayer extends Component {
@@ -143,13 +165,11 @@ class AnnotationLayer extends Component {
   }
 
   handleLeftArrow = () => {
-    if (this.checkIfTeacher()) this.prevPageAdmin();
-    else this.prevPageStudent();
+    this.prevPage();
   };
 
   handleRightArror = () => {
-    if (this.checkIfTeacher()) this.nextPageAdmin();
-    else this.nextPageStudent();
+    this.nextPage();
   };
 
   componentWillUnmount() {
@@ -202,7 +222,8 @@ class AnnotationLayer extends Component {
       (this.state.studentPaging &&
         prevState.pageNumStudent !== this.state.pageNumStudent) ||
       (!this.state.studentPaging &&
-        prevProps.data.pageNum !== this.props.data.pageNum)
+        prevProps.data.pageNum !== this.props.data.pageNum) ||
+      prevState.studentPaging !== this.state.studentPaging
     ) {
       if (this.rendering) {
         this.queueUpRender();
@@ -243,7 +264,7 @@ class AnnotationLayer extends Component {
     // console.log(rectContainer.top, rectContainer.right, rectContainer.bottom, rectContainer.left);
 
     const w = viewer.clientWidth;
-    const h = viewer.clientHeight - 250;
+    const h = viewer.clientHeight - 70;
     // console.log(w, h);
 
     const widthScale = w / container.clientWidth;
@@ -375,9 +396,12 @@ class AnnotationLayer extends Component {
   };
 
   clearAnnotations = () => {
-    this.replaceSavedAnnotations({});
+    const currentPageNum = this.getCurrentPageNum();
+    const savedAnnotations = this.getSavedAnnotations();
+    delete savedAnnotations[currentPageNum];
+    this.replaceSavedAnnotations(savedAnnotations);
     this.editorRender = true;
-    this.props.dataFn.objSet({}, 'annotations');
+    this.props.dataFn.objDel(null, ['annotations', currentPageNum]);
   };
 
   setActiveToolbarItem = item => {
@@ -591,6 +615,30 @@ class AnnotationLayer extends Component {
     this.setState({ penColor: color });
   };
 
+  changePageAdmin = pageNum => {
+    const newPageNum = this.getValidPageNum(pageNum);
+    if (newPageNum) {
+      this.props.dataFn.objSet(newPageNum, ['pageNum']);
+      if (newPageNum > this.props.data.furthestPageNum)
+        this.props.dataFn.objSet(newPageNum, ['furthestPageNum']);
+    }
+  };
+
+  changePage = pageNum => {
+    if (this.checkIfTeacher()) this.changePageAdmin(pageNum);
+    else this.changePageStudent(pageNum);
+  };
+
+  nextPage = () => {
+    if (this.checkIfTeacher()) this.nextPageAdmin();
+    else this.nextPageStudent();
+  };
+
+  prevPage = () => {
+    if (this.checkIfTeacher()) this.prevPageAdmin();
+    else this.prevPageStudent();
+  };
+
   render() {
     const { activityData } = this.props;
 
@@ -613,31 +661,35 @@ class AnnotationLayer extends Component {
     };
     if (this.state.initialPageLoad === true) containerStyle.opacity = 0;
 
-    const pagingText = this.state.studentPaging ? 'Student' : 'Admin';
-
     const containerID = 'pageContainer' + shownPageNum;
-    const activeToolTipStyle = {
-      border: '2px solid lightblue',
-      borderRadius: '2px'
+
+    const iconMapping = {
+      cursor: <TouchApp />,
+      draw: <Edit />,
+      text: <Title />,
+      area: <CropSquare />,
+      highlight: <Highlight />,
+      strikeout: <FormatStrikethrough />
     };
 
-    const annotateItems = constants.toolbarItems.map(item => {
-      if (this.state.activeItem === item)
-        return (
-          <button
-            key={item}
-            style={activeToolTipStyle}
-            className="activeTooltip"
-            onClick={() => this.setActiveToolbarItem(item)}
-          >
-            {item}
-          </button>
-        );
+    const iconButtonStyle = {
+      width: '48px'
+    };
+
+    let annotateItems = constants.toolbarItems.map(item => {
+      const icon = iconMapping[item];
+      let color = 'primary';
+      if (this.state.activeItem === item) color = 'secondary';
 
       return (
-        <button key={item} onClick={() => this.setActiveToolbarItem(item)}>
-          {item}
-        </button>
+        <IconButton
+          style={iconButtonStyle}
+          color={color}
+          key={item}
+          onClick={() => this.setActiveToolbarItem(item)}
+        >
+          {icon}
+        </IconButton>
       );
     });
 
@@ -648,11 +700,20 @@ class AnnotationLayer extends Component {
       </option>
     ));
 
+    const selectStyle = {
+      display: 'inline-block',
+      fontSize: '14px',
+      fontFamily: 'sans-serif',
+      marginLeft: '10px'
+    };
+
     const penSizeItem = (
       <select
         key="penSize"
+        id="sizeSelect"
         value={this.state.penSize}
         onChange={this.selectPenSize}
+        style={selectStyle}
       >
         {sizeOptions}
       </select>
@@ -664,8 +725,12 @@ class AnnotationLayer extends Component {
       const style = {
         background: color,
         color: 'white',
-        width: '5px',
-        height: '15px'
+        width: '16px',
+        height: '16px',
+        borderRadius: '8px',
+        border: 'none',
+        margin: '0 2px',
+        marginTop: '1px'
       };
       return (
         <button
@@ -680,13 +745,17 @@ class AnnotationLayer extends Component {
 
     const penColorItem = <span key="penColor">{colorOptions}</span>;
 
+    let drawingItems = [];
     if (
       this.state.activeItem === 'draw' ||
       this.state.activeItem === 'area' ||
       this.state.activeItem === 'text'
     ) {
-      annotateItems.push(penColorItem);
-      annotateItems.push(penSizeItem);
+      drawingItems.push(penColorItem);
+      drawingItems.push(penSizeItem);
+    } else {
+      drawingItems.push(penColorItem);
+      drawingItems.push(penSizeItem);
     }
 
     const debugItems = !activityData.config.debug ? null : (
@@ -697,54 +766,224 @@ class AnnotationLayer extends Component {
       </span>
     );
 
-    const editorItems =
-      !this.props.activityData.config.everyoneCanEdit &&
-      !this.checkIfTeacher() ? null : (
-        <span>
-          <span>Teacher/Admin: </span>
-          <button
-            onClick={this.undo}
-            disabled={pageAnnotationsDatabase.length === 0}
-          >
-            UNDO
-          </button>
-          <button
-            onClick={this.redo}
-            disabled={pageAnnotationsLocalStorage.length === 0}
-          >
-            REDO
-          </button>
-          <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-          <button onClick={this.prevPageAdmin}>Prev Page</button>
-          <button onClick={this.nextPageAdmin}>Next Page</button>
-          <button onClick={() => this.changePageAdmin(1)}>First</button>
-          <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
-            Last
-          </button>
-          <hr />
-          <span>Annotate: </span>
-          {annotateItems}
-        </span>
-      );
+    const disabledRight =
+      this.props.activityData.config.studentCannotGoFurther &&
+      this.getCurrentPageNum() === this.props.pdf.furthestPageNum;
 
-    const studentItems =
-      this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (
-        <span>
-          <hr />
-          <span>Student: </span>
-          <button onClick={this.prevPageStudent}>Prev Page</button>
-          <button onClick={this.nextPageStudent}>Next Page</button>
-          <button onClick={() => this.changePageStudent(1)}>First</button>
-          <button
-            onClick={() => this.changePageStudent(this.props.pdf.numPages)}
-          >
-            Last
-          </button>
-          {this.state.studentPaging && (
-            <button onClick={this.goBackToAdminPaging}>Back To Teacher</button>
-          )}
+    const pageSpanStyle = {
+      display: 'inline-block',
+      height: '50px',
+      width: '50px',
+      margin: '0 0',
+      fontSize: '15px',
+      textAlign: 'center'
+    };
+
+    if (this.state.studentPaging) pageSpanStyle.fontSize = '11px';
+
+    const goBackToAdminButtonStyle = {
+      height: '24px',
+      width: '24px'
+    };
+
+    const goBackToAdminButton = (
+      <IconButton
+        style={goBackToAdminButtonStyle}
+        onClick={this.goBackToAdminPaging}
+      >
+        <SettingsBackupRestore />
+      </IconButton>
+    );
+
+    const pagingIconStyle = {
+      width: '25px'
+    };
+
+    const pagingItems = this.props.activityData.config.studentMustFollow ? (
+      <span>{shownPageNum + '/' + this.props.pdf.numPages}</span>
+    ) : (
+      <span>
+        <IconButton style={pagingIconStyle} onClick={() => this.changePage(1)}>
+          <FirstPage />
+        </IconButton>
+        <IconButton style={pagingIconStyle} onClick={this.prevPage}>
+          <ChevronLeft />
+        </IconButton>
+        <span style={pageSpanStyle}>
+          {shownPageNum + '/' + this.props.pdf.numPages}
+          {this.state.studentPaging && goBackToAdminButton}
         </span>
-      );
+        <IconButton
+          style={pagingIconStyle}
+          onClick={this.nextPage}
+          disabled={disabledRight}
+        >
+          <ChevronRight />
+        </IconButton>
+        <IconButton
+          style={pagingIconStyle}
+          onClick={() => this.changePage(this.props.pdf.numPages)}
+        >
+          <LastPage />
+        </IconButton>
+      </span>
+    );
+
+    const cursorColor =
+      this.state.activeItem === 'cursor' ? 'secondary' : 'primary';
+    const cursorStyle = {};
+    let cursorDisable = false;
+
+    if (
+      !this.checkIfTeacher() &&
+      !this.props.activityData.config.everyoneCanEdit
+    ) {
+      cursorStyle.visibility = 'hidden';
+      cursorDisable = true;
+    }
+
+    const cursorItem = (
+      <IconButton
+        disabled={cursorDisable}
+        style={Object.assign({}, cursorStyle, iconButtonStyle)}
+        color={cursorColor}
+        onClick={() => this.setActiveToolbarItem('cursor')}
+      >
+        <TouchApp />
+      </IconButton>
+    );
+
+    const zoomingItems = (
+      <span>
+        {cursorItem}
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.fillPage}
+        >
+          <ZoomOutMap />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.zoomOut}
+        >
+          <ZoomOut />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.zoomIn}
+        >
+          <ZoomIn />
+        </IconButton>
+      </span>
+    );
+
+    let modifyingitems = (
+      <span>
+        <IconButton
+          style={iconButtonStyle}
+          color="secondary"
+          onClick={this.props.switchMode}
+        >
+          <NoteAdd />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.undo}
+          disabled={pageAnnotationsDatabase.length === 0}
+        >
+          <Undo />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.redo}
+          disabled={pageAnnotationsLocalStorage.length === 0}
+        >
+          <Redo />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.clearAnnotations}
+          disabled={
+            pageAnnotationsDatabase.length === 0 &&
+            pageAnnotationsLocalStorage.length === 0
+          }
+        >
+          <DeleteForever />
+        </IconButton>
+      </span>
+    );
+
+    const toolbarStyle = {
+      minHeight: '50px',
+      paddingTop: '5px',
+      borderBottom: '1px solid lightblue',
+      marginBottom: '5px'
+    };
+
+    const groupDivStyle = {
+      display: 'inline-block',
+      height: '50px',
+      textAlign: 'center',
+      verticalAlign: 'top'
+    };
+
+    const leftyStyle = {
+      width: '27%',
+      minWidth: '250px'
+    };
+
+    const drawingItemsStyle = {
+      width: '15%',
+      lineHeight: '50px',
+      minWidth: '125px'
+    };
+
+    const midStyle = {
+      width: '16%',
+      minWidth: '160px'
+    };
+
+    const zoomyStyle = {
+      width: '21%',
+      minWidth: '200px'
+    };
+
+    const rightyStyle = {
+      width: '21%',
+      minWidth: '200px'
+    };
+
+    if (!drawingItems) {
+      drawingItemsStyle.height = '10px';
+    }
+
+    if (
+      !this.checkIfTeacher() &&
+      !this.props.activityData.config.everyoneCanEdit
+    ) {
+      annotateItems = null;
+      modifyingitems = null;
+      drawingItems = null;
+      leftyStyle.height = '10px';
+      drawingItemsStyle.height = '10px';
+      rightyStyle.height = '10px';
+      leftyStyle.width = '0px';
+      drawingItemsStyle.width = '0px';
+      rightyStyle.width = '0px';
+      leftyStyle.minWidth = '0px';
+      drawingItemsStyle.minWidth = '0px';
+      rightyStyle.minWidth = '0px';
+      zoomyStyle.width = '40%';
+      zoomyStyle.textAlign = 'center';
+      midStyle.width = '60%';
+      midStyle.textAlign = 'right';
+    }
 
     return (
       <ResizeAware
@@ -753,20 +992,24 @@ class AnnotationLayer extends Component {
         onResize={this.handleResize}
       >
         <div>
-          <hr />
           {debugItems}
-          {editorItems}
-          {studentItems}
-          <hr />
-          <span>Scaling: </span>
-          <button onClick={this.fillPage}>Fill Page</button>
-          <button onClick={this.zoomOut}>Zoom Out</button>
-          <button onClick={this.zoomIn}>Zoom In</button>
-          <hr />
-          <span>
-            Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
-            {pagingText}
-          </span>
+          <div style={toolbarStyle}>
+            <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
+              {annotateItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
+              <span>{drawingItems}</span>
+            </div>
+            <div style={Object.assign({}, groupDivStyle, midStyle)}>
+              {pagingItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, zoomyStyle)}>
+              {zoomingItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
+              {modifyingitems}
+            </div>
+          </div>
           <div
             id={containerID}
             style={containerStyle}
