@@ -125,6 +125,10 @@ export type LogDbT =
   | {| ...LogExtraT, ...ActivityDefT, ...LogT, _id: string |}
   | {| ...LogExtraT, ...LogT, _id: string |};
 
+type OutputDefinitionT = {
+  [field: string]: { title: string, type: 'number' | 'string' }
+};
+
 export type ActivityPackageT = {
   id: string,
   type: 'react-component',
@@ -145,11 +149,13 @@ export type ActivityPackageT = {
   config: Object,
   configUI?: Object,
   dataStructure?: any,
+  outputDefinition: OutputDefinitionT | (Object => OutputDefinitionT),
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: ActivityRunnerT,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
+  LearningItems?: LearningItemT<*>[],
   formatProduct?: (
     config: Object,
     item: any,
@@ -202,6 +208,7 @@ export type productOperatorT = {
   config: Object,
   configUI?: Object,
   validateConfig?: validateConfigFnT[],
+  LearningItems?: LearningItemT<*>[],
   operator: (
     configData: Object,
     object: ObjectT & GlobalStructureT

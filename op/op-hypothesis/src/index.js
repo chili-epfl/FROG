@@ -8,6 +8,7 @@ import {
   type productOperatorT,
   type activityDataT
 } from 'frog-utils';
+import liType from './liType';
 
 export const meta = {
   name: 'Get ideas from Hypothesis',
@@ -26,7 +27,8 @@ export const config = {
     url: {
       type: 'string',
       title: 'URL'
-    }
+    },
+    limit: { type: 'number', title: 'Max number of items to fetch' }
   }
 };
 const validateConfig = [
@@ -39,32 +41,45 @@ const safeFirst = ary => (ary.length > 0 ? ary[0] : '');
 const getText = ary =>
   ary ? safeFirst(compact(ary.map(y => y.exact))).replace(/\t/gi, '') : '';
 
+const cleanText = x => (x || '').replace(/\t/gi, '');
+
 const mapQuery = query => {
-  const res = query.rows
-    .map(x => ({
-      id: uuid(),
-      content: x.text && x.text.replace(/\t/gi, ''),
-      title: getText(x.target && x.target.length > 0 && x.target[0].selector),
-      doc:
-        x.document &&
-        x.document.title &&
-        x.document.title[0] &&
-        x.document.title[0].replace(/\t/gi, '')
-    }))
-    .filter(x => x.title || x.content);
-  return wrapUnitAll(res);
+  const res = query.rows.map(x => ({
+    id: uuid(),
+    liDocument: {
+      liType: 'li-hypothesis',
+      createdAt: new Date(),
+      createdBy: 'op-hypothesis',
+      payload: {
+        content: cleanText(x.text),
+        title: getText(x?.target?.[0]?.selector),
+        doc: cleanText(x?.document?.title?.[0])
+      }
+    }
+  }));
+  return wrapUnitAll(
+    res.reduce((acc, x) => {
+      const id = uuid();
+      return { ...acc, [id]: { id, li: x } };
+    }, {})
+  );
 };
 
 // Obviously assumes even array
 export const operator = (configData: {
   tag?: string,
-  url?: string
+  url?: string,
+  limit?: number
 }): activityDataT => {
   const query = queryString.stringify({
     tag: configData.tag,
     source: configData.url
   });
-  const url = 'https://hypothes.is/api/search?' + query + '&limit=200';
+  const url =
+    'https://hypothes.is/api/search?' +
+    query +
+    '&limit=' +
+    (configData.limit || 20);
   return fetch(url)
     .then(e => e.json())
     .then(mapQuery);
@@ -76,5 +91,11 @@ export default ({
   operator,
   config,
   validateConfig,
-  meta
+  outputDefinition: {
+    LI_title: { title: 'Title field', type: 'string' },
+    LI_content: { title: 'Content filed', type: 'string' },
+    LI_source: { title: 'Source document', type: 'string' }
+  },
+  meta,
+  LearningItems: [liType]
 }: productOperatorT);
