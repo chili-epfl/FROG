@@ -3,17 +3,18 @@
 import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
+import { DraggableCore } from 'react-draggable';
+import { listore } from './store';
 
 import { learningItemTypesObj } from '../../activityTypes';
 
 const MaybeClickable = ({ condition, children, onClick }) =>
-  condition ? <span onClick={onClick}>{children}</span> : children;
+  condition ? <div onClick={onClick}>{children}</div> : children;
 
 class RenderLearningItem extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = { open: false };
-    console.log(learningItemTypesObj);
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -24,7 +25,14 @@ class RenderLearningItem extends React.Component<any, any> {
   }
 
   render() {
-    const { data, dataFn, render, type = 'view', clickZoomable } = this.props;
+    const {
+      data,
+      dataFn,
+      render,
+      id,
+      type = 'view',
+      clickZoomable
+    } = this.props;
     const liType = learningItemTypesObj[data.liType];
     if (!liType) {
       return <h3>Oops ! Incorrect LI-type</h3>;
@@ -48,18 +56,27 @@ class RenderLearningItem extends React.Component<any, any> {
       );
     }
     const Comp = (
-      <React.Fragment>
+      <>
         <MaybeClickable
           onClick={() => {
             this.setState({ open: true });
           }}
           condition={type === 'thumbView' && clickZoomable && liType.Viewer}
         >
-          <LIComponent
-            data={data.payload}
-            dataFn={dataFn && dataFn.specialize('payload')}
-            LearningItem={dataFn && dataFn.LearningItem}
-          />
+          <DraggableCore
+            onDrag={e => {
+              listore.setDraggedItem(id, e.shiftKey);
+            }}
+            onStop={listore.stopDragging}
+          >
+            <div>
+              <LIComponent
+                data={data.payload}
+                dataFn={dataFn && dataFn.specialize('payload')}
+                LearningItem={dataFn && dataFn.LearningItem}
+              />
+            </div>
+          </DraggableCore>
         </MaybeClickable>
         {this.state.open &&
           liType.Viewer && (
@@ -76,7 +93,7 @@ class RenderLearningItem extends React.Component<any, any> {
               />
             </Dialog>
           )}
-      </React.Fragment>
+      </>
     );
     if (render) {
       return render({

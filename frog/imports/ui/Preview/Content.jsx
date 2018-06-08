@@ -210,7 +210,12 @@ const ContentController = ({
               <MosaicWindow
                 path={path}
                 toolbarControls={[<div />]}
-                key={JSON.stringify({ config, showData, reloadActivity })}
+                key={JSON.stringify({
+                  instance,
+                  config,
+                  showData,
+                  reloadActivity
+                })}
                 title={
                   name +
                   '/' +

@@ -117,7 +117,7 @@ const IdeaListRaw = ({
     <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
         {sortBy(values(data), x => [-x.score, x.id]).map(x => (
-          <div key={x.li}>
+          <div key={x.id}>
             <LearningItem
               type={
                 edit === x.id

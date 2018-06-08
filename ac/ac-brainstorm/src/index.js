@@ -54,7 +54,12 @@ const meta = {
         formBoolean: false
       },
       learningItems,
-      data: ['1', '2', '3', '4']
+      data: {
+        '1': { id: '1', li: '1' },
+        '2': { li: '2', id: '2' },
+        '3': { id: '3', li: '3' },
+        '4': { id: '4', li: '4' }
+      }
     },
     {
       title: 'List with some items, students able to add',
@@ -64,12 +69,12 @@ const meta = {
         formBoolean: true
       },
       learningItems,
-      data: [
-        { li: '1' },
-        { li: '2' },
-        { li: '3', tags: ['should', 'not', 'break'] },
-        '4'
-      ]
+      data: {
+        '1': { id: '1', li: '1' },
+        '2': { id: '2', li: '2' },
+        '3': { id: '3', li: '3', tags: ['should', 'not', 'break'] },
+        '4': { id: '4', li: '4' }
+      }
     }
   ]
 };
@@ -77,10 +82,12 @@ const meta = {
 const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
-  values(obj.data).forEach(x => {
-    const id = uuid();
-    dataFn.objInsert({ students: {}, score: 0, ...x, id }, id);
-  });
+  if (typeof obj?.data === 'object') {
+    values(obj.data).forEach(x => {
+      const id = uuid();
+      dataFn.objInsert({ students: {}, score: 0, ...x, id }, id);
+    });
+  }
 };
 
 const outputDefinition = {

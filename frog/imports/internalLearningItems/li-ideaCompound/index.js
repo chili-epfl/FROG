@@ -41,31 +41,34 @@ const Viewer = ({ LearningItem, data }) => (
   </React.Fragment>
 );
 
-const Editor = ({ data, dataFn, LearningItem }) => (
-  <React.Fragment>
-    <div className="bootstrap">
-      <b>Title:</b>
-      <br />
-      <ReactiveText type="textinput" path="title" dataFn={dataFn} />
-      <br />
-      <br />
-      <b>Content:</b>
-      <br />
-      <ReactiveText path="content" type="textarea" dataFn={dataFn} />
-    </div>
-    {data.attachments.map((x, i) => (
-      <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
-        <dataFn.LearningItem id={x} type="thumbView" />
-      </span>
-    ))}
-    <div style={{ position: 'absolute', right: '0px' }}>
-      <LearningItem
-        type="create"
-        onCreate={e => dataFn.listAppend(e, 'attachments')}
-      />
-    </div>
-  </React.Fragment>
-);
+const Editor = ({ data, dataFn, LearningItem }) => {
+  console.log('render');
+  return (
+    <React.Fragment>
+      <div className="bootstrap">
+        <b>Title:</b>
+        <br />
+        <ReactiveText type="textinput" path="title" dataFn={dataFn} />
+        <br />
+        <br />
+        <b>Content:</b>
+        <br />
+        <ReactiveText path="content" type="textarea" dataFn={dataFn} />
+      </div>
+      {data.attachments.map((x, i) => (
+        <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
+          <dataFn.LearningItem id={x} type="thumbView" />
+        </span>
+      ))}
+      <div style={{ position: 'absolute', right: '0px' }}>
+        <LearningItem
+          type="create"
+          onCreate={e => dataFn.listAppend(e, 'attachments')}
+        />
+      </div>
+    </React.Fragment>
+  );
+};
 
 export default ({
   name: 'Idea with attachments',

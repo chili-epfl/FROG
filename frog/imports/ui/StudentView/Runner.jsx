@@ -90,7 +90,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   } else {
     return (
       <MosaicWindow
-        toolbarControls={[<div />]}
+        toolbarControls={[<div key="div" />]}
         draggable={false}
         key={activity._id}
         path={path}
