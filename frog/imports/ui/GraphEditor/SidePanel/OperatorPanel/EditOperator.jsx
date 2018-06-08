@@ -4,12 +4,11 @@ import React from 'react';
 
 import FlexView from 'react-flexview';
 import { yellow, red, lightGreen } from '@material-ui/core/colors';
-import { compact } from 'lodash';
-
 import { ChangeableText } from 'frog-utils';
 
 import { removeOperatorType } from '/imports/api/activities';
 import { operatorTypesObj } from '/imports/operatorTypes';
+import { IconButton } from '../index';
 import { ErrorList, ValidButton } from '../../Validator';
 import { type StoreProp } from '../../store';
 import ConfigForm from '../ConfigForm';
@@ -20,7 +19,8 @@ const TopPanel = ({
   operator,
   graphOperator,
   errorColor,
-  operatorType
+  operatorType,
+  ui
 }) => (
   <div style={{ backgroundColor: '#eee' }}>
     <div style={{ position: 'absolute', left: -40 }}>
@@ -45,6 +45,18 @@ const TopPanel = ({
         }}
       >
         <ValidButton activityId={operator._id} errorColor={errorColor} />
+        {operatorType.meta.preview && (
+          <IconButton
+            icon="glyphicon glyphicon-eye-open"
+            tooltip="Preview"
+            onClick={() => {
+              ui.setShowPreview({
+                operatorTypeId: operatorType.id,
+                config: graphOperator.data
+              });
+            }}
+          />
+        )}
         <DeleteButton
           tooltip="Reset operator"
           msg="Do you really want to remove the operator type, and loose all the configuration data?"
@@ -72,7 +84,8 @@ export default ({
     valid,
     operatorStore: { all },
     connectionStore: { all: connections },
-    activityStore: { all: activities }
+    activityStore: { all: activities },
+    ui
   },
   operator
 }: StoreProp & {
@@ -102,7 +115,9 @@ export default ({
           operator,
           graphOperator,
           errorColor,
-          operatorType
+          operatorType,
+          graphOperator,
+          ui
         }}
       />
       <ConfigForm

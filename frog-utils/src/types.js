@@ -87,7 +87,6 @@ export type ActivityRunnerPropsT = {
   data: any,
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
-  uploadFn: (files: Array<any>, name: string) => Promise<*>,
   userInfo: { id: string, name: string },
   activityId: string,
   groupingValue: string,
@@ -203,7 +202,8 @@ export type productOperatorT = {
     name: string,
     shortName?: string,
     shortDesc: string,
-    description: string
+    description: string,
+    preview?: boolean
   },
   config: Object,
   configUI?: Object,

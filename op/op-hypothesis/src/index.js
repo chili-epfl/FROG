@@ -14,7 +14,9 @@ export const meta = {
   name: 'Get ideas from Hypothesis',
   shortName: 'Hypothesis',
   shortDesc: 'Get ideas from Hypothesis API',
-  description: 'Collect ideas from an Hypothesis API by hashtag or document id.'
+  description:
+    'Collect ideas from an Hypothesis API by hashtag or document id.',
+  preview: true
 };
 
 export const config = {
@@ -28,7 +30,11 @@ export const config = {
       type: 'string',
       title: 'URL'
     },
-    limit: { type: 'number', title: 'Max number of items to fetch' }
+    limit: {
+      default: 20,
+      type: 'number',
+      title: 'Max number of items to fetch'
+    }
   }
 };
 const validateConfig = [
