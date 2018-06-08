@@ -55,7 +55,7 @@ export class OperatorPreview extends React.Component<
     Meteor.call(
       'run.operator',
       props.operatorTypeId,
-      props.config,
+      JSON.parse(JSON.stringify(this.props.config)),
       (err, res) => {
         if (err) {
           this.setState({ error: err });
@@ -105,7 +105,6 @@ export class OperatorPreview extends React.Component<
                 dataFn={this.dataFn}
                 activityData={{ config: {}, data: undefined }}
               />
-              )}
             </Paper>
           )}
         </List>
