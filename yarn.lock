@@ -929,9 +929,9 @@
   dependencies:
     pngjs "^3.2.0"
 
-"@houshuang/pdf-annotate.js@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@houshuang/pdf-annotate.js/-/pdf-annotate.js-0.0.3.tgz#23f6ed7a786cb7cb5572fbb4e4f0001d875c6f3d"
+"@houshuang/pdf-annotate.js@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@houshuang/pdf-annotate.js/-/pdf-annotate.js-0.0.6.tgz#d2eee471317e2eb31661573dd58938c684673a94"
   dependencies:
     create-stylesheet "^0.3.0"
     object-assign "^4.0.1"
@@ -5782,6 +5782,13 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+pdf-annotate@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/pdf-annotate/-/pdf-annotate-0.0.0.tgz#c40c799326dcb4c863a9dc4a00d921d90fae00b8"
+  dependencies:
+    create-stylesheet "^0.3.0"
+    object-assign "^4.0.1"
 
 performance-now@^2.1.0:
   version "2.1.0"

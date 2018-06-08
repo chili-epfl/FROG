@@ -48,24 +48,54 @@ type VideoLayoutPropsT = {
   toogleScreenShare: Function,
   toogleScreenSupported: boolean,
   removeLocalStream?: Function,
-  removePresenterStream?: Function
+  removePresenterStream?: Function,
+  muteParticipantsByDefault: boolean,
+  isTeacher: Function
 };
 
 type StateT = {
   video: boolean,
   audio: boolean,
-  screen: boolean
+  screen: boolean,
+  mutedRemotes: any
 };
 
 class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
   constructor(props: VideoLayoutPropsT) {
     super(props);
+    const mutedRemotes = {};
+    this.props.remote.forEach(r => {
+      mutedRemotes[r.id] = this.props.muteParticipantsByDefault;
+      if (this.props.muteParticipantsByDefault) {
+        const audioTracks = r.srcObject.getAudioTracks()[0];
+        if (audioTracks) {
+          audioTracks.enabled = false;
+        }
+      }
+    });
     this.state = {
       video: true,
       audio: true,
-      screen: false
+      screen: false,
+      mutedRemotes
     };
   }
+
+  componentWillReceiveProps = (nextProps: VideoLayoutPropsT) => {
+    const mutedRemotes = this.state.mutedRemotes;
+    nextProps.remote.forEach(r => {
+      if (mutedRemotes[r.id] === undefined) {
+        mutedRemotes[r.id] = this.props.muteParticipantsByDefault;
+        if (this.props.muteParticipantsByDefault) {
+          const audioTracks = r.srcObject.getAudioTracks()[0];
+          if (audioTracks) {
+            audioTracks.enabled = false;
+          }
+        }
+      }
+    });
+    this.setState({ mutedRemotes });
+  };
 
   handleVideoToggle = () => {
     if (!this.state.screen) {
@@ -81,10 +111,10 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
     this.props.toogleAudio();
   };
 
-  handleScreenShareToogle = () => {
+  handleScreenShareToogle = (screenType: string) => {
     const screenValue = !this.state.screen;
     this.setState({ screen: screenValue });
-    this.props.toogleScreenShare();
+    this.props.toogleScreenShare(screenType);
   };
 
   toogleFullScreen = (videoId: string) => {
@@ -107,6 +137,24 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
   removePresenterStream = (presenterId: string) => {
     if (this.props.removePresenterStream) {
       this.props.removePresenterStream(presenterId);
+    }
+  };
+
+  toggleRemoteMic = (remoteId: string) => {
+    const remote = this.props.remote.find(r => r.id === remoteId);
+    if (remote) {
+      const audioTracks = remote.srcObject.getAudioTracks()[0];
+      if (audioTracks) {
+        const mutedRemotes = this.state.mutedRemotes;
+        if (mutedRemotes[remote.id]) {
+          audioTracks.enabled = true;
+          mutedRemotes[remote.id] = false;
+        } else {
+          audioTracks.enabled = false;
+          mutedRemotes[remote.id] = true;
+        }
+        this.setState({ mutedRemotes });
+      }
     }
   };
 
@@ -138,14 +186,22 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                 }}
                 className="show-on-hover"
               >
-                {removePresenterStream && (
-                  <button
-                    style={styles.buttonBoxS}
-                    onClick={() => this.removePresenterStream(participant.id)}
-                  >
-                    <Cancel />
-                  </button>
-                )}
+                <button
+                  style={styles.buttonBoxS}
+                  onClick={() => this.toggleRemoteMic(participant.id)}
+                >
+                  {!this.state.mutedRemotes[participant.id] && <Mic />}
+                  {this.state.mutedRemotes[participant.id] && <MicOff />}
+                </button>
+                {removePresenterStream &&
+                  !this.props.isTeacher(participant.name) && (
+                    <button
+                      style={styles.buttonBoxS}
+                      onClick={() => this.removePresenterStream(participant.id)}
+                    >
+                      <Cancel />
+                    </button>
+                  )}
                 <button
                   style={styles.buttonBoxS}
                   onClick={() =>
@@ -173,14 +229,16 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                   }}
                   className="show-on-hover"
                 >
-                  <button
-                    disabled={this.state.screen}
-                    style={styles.buttonBoxS}
-                    onClick={this.handleVideoToggle}
-                  >
-                    {this.state.video && <Videocam />}
-                    {!this.state.video && <VideocamOff />}
-                  </button>
+                  {local.srcObject.getVideoTracks().length > 0 && (
+                    <button
+                      disabled={this.state.screen}
+                      style={styles.buttonBoxS}
+                      onClick={this.handleVideoToggle}
+                    >
+                      {this.state.video && <Videocam />}
+                      {!this.state.video && <VideocamOff />}
+                    </button>
+                  )}
                   <button
                     style={styles.buttonBoxS}
                     onClick={this.handleAudioToggle}
@@ -188,15 +246,26 @@ class VideoLayout extends React.Component<VideoLayoutPropsT, StateT> {
                     {this.state.audio && <Mic />}
                     {!this.state.audio && <MicOff />}
                   </button>
-                  {toogleScreenSupported && (
-                    <button
-                      style={styles.buttonBoxS}
-                      onClick={this.handleScreenShareToogle}
-                    >
-                      {this.state.screen && <Screen />}
-                      {!this.state.screen && <ScreenOff />}
-                    </button>
-                  )}
+                  {toogleScreenSupported &&
+                    local.srcObject.getVideoTracks().length > 0 && (
+                      <button
+                        style={styles.buttonBoxS}
+                        onClick={() => this.handleScreenShareToogle('screen')}
+                      >
+                        {this.state.screen && <Screen />}
+                        {!this.state.screen && <ScreenOff />}
+                      </button>
+                    )}
+                  {toogleScreenSupported &&
+                    local.srcObject.getVideoTracks().length > 0 && (
+                      <button
+                        style={styles.buttonBoxS}
+                        onClick={() => this.handleScreenShareToogle('window')}
+                      >
+                        {this.state.screen && <Screen />}
+                        {!this.state.screen && <ScreenOff />}
+                      </button>
+                    )}
                   {removeLocalStream && (
                     <button
                       style={styles.buttonBoxS}
