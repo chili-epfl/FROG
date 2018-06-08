@@ -19,7 +19,7 @@ export default class PDF extends Component {
     }
   }
 
-  onSwitchMode = () => {
+  switchMode = () => {
     this.props.dataFn.objSet(!this.props.data.scratchpadMode, [
       'scratchpadMode'
     ]);
@@ -70,6 +70,7 @@ export default class PDF extends Component {
           activityData={activityData}
           data={data}
           dataFn={dataFn}
+          switchMode={this.switchMode}
         />
       );
     } else if (this.state.err) {
@@ -87,16 +88,8 @@ export default class PDF extends Component {
           activityData={activityData}
           data={data}
           dataFn={dataFn}
+          switchMode={this.switchMode}
         />
-      );
-    }
-
-    let annotationsModeItem = null;
-    if (this.checkIfTeacher()) {
-      annotationsModeItem = !this.props.data.scratchpadMode ? (
-        <button onClick={this.onSwitchMode}>Switch to ScrachPad</button>
-      ) : (
-        <button onClick={this.onSwitchMode}>Switch back to PDF</button>
       );
     }
 
@@ -106,7 +99,6 @@ export default class PDF extends Component {
 
     return (
       <div style={stylish}>
-        {annotationsModeItem}
         <div id="viewer" className="pdf-viewer" style={stylish}>
           {layerDisplay}
         </div>
