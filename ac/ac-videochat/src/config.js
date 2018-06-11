@@ -55,6 +55,11 @@ export const config = {
       title: 'Mute participants by default',
       default: false
     },
+    useAnalysis: {
+      type: 'boolean',
+      title: 'Use analysis',
+      default: true
+    },
     teacherNames: {
       type: 'string',
       title: 'Comma-separated list of user names of admins'
