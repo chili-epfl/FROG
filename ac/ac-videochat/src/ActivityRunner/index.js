@@ -69,6 +69,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   screenSharingOn: boolean;
   sendOnlyParticipant: Object;
   record: boolean;
+  useAnalysis: boolean;
 
   constructor(props: ActivityRunnerPropsT) {
     super(props);
@@ -83,6 +84,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.id = this.props.userInfo.id;
     this.activityType = this.props.activityData.config.activityType;
     this.record = this.props.activityData.config.recordChat;
+    this.useAnalysis = this.props.activityData.config.useAnalysis;
     this.mediaConstraints.audio = !!this.props.activityData.config
       .userMediaConstraints.audio;
     if (!this.props.activityData.config.userMediaConstraints.video) {
@@ -337,11 +339,15 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     // acquired in order to have recvonly connections in safari
     // that condition should be removed once safari fixes recvonly connections
     if (this.stream && this.role !== 'watcher') {
-      this.startAnalysis();
+      if (this.useAnalysis) {
+        this.startAnalysis();
+      }
       this.setLocalState();
-      onVAD(this.stream, isSpeaking => {
-        this.setParticipantSpeaking(this.id, isSpeaking);
-      });
+      if (this.useAnalysis) {
+        onVAD(this.stream, isSpeaking => {
+          this.setParticipantSpeaking(this.id, isSpeaking);
+        });
+      }
       if (this.browser.browser !== 'chrome') {
         this.createPeer('sendrecv', participant);
       } else {
@@ -415,9 +421,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       const onAddRemoteTrack = event => {
         const stream = event.streams[0];
         this.addRemoteUserToState(participant, stream);
-        onVAD(event.streams[0], isSpeaking => {
-          this.setParticipantSpeaking(participant.id, isSpeaking);
-        });
+        if (this.useAnalysis) {
+          onVAD(event.streams[0], isSpeaking => {
+            this.setParticipantSpeaking(participant.id, isSpeaking);
+          });
+        }
         this.setParticipantStreaming(participant.id, true);
       };
       options.ontrack = onAddRemoteTrack;
