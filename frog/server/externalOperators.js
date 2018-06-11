@@ -1,7 +1,7 @@
 // @flow
 import redis from 'redis';
 import { Meteor } from 'meteor/meteor';
-import { operatorTypes, operatorTypesObj } from '../imports/operatorTypes';
+import { operatorTypes, operatorTypesObj } from './operatorTypesServer';
 import { ExternalOperators } from '../imports/api/activities';
 
 export default () => {

@@ -35,6 +35,7 @@ class ActivityRunner extends Component<
 
   constructor(props) {
     super(props);
+    console.log(this.props.data);
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
     const { data, activityData } = props;

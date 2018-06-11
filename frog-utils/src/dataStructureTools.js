@@ -8,6 +8,7 @@ import type {
   activityDataT
 } from './types';
 import { focusStudent } from './socstructTools';
+import { values } from 'frog-utils';
 
 const logFirst = (...msg) => {
   console.error(msg);
@@ -43,6 +44,10 @@ export const extractUnit = (
 ): dataUnitStructT => {
   if (!data) {
     return { data: null, config: {} };
+  } else if (values(data).every(v => v?.structure === 'all')) {
+    const val = values(data).map(x => x.payload.all.data);
+    const reduced = val.reduce((acc, x) => ({ ...acc, ...x }), {});
+    return { config: {}, data: reduced };
   } else if (data.structure === 'all') {
     return data.payload.all;
   } else if (data.structure === 'individual') {

@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
+import { default as uuid } from 'cuid';
 
 export const isBrowser = (() => {
   try {
@@ -302,3 +303,9 @@ export const values = <T>(obj: { [string]: T }): Array<T> => {
   const keys: string[] = Object.keys(obj);
   return keys.map(key => obj[key]);
 };
+
+export const idObj = (ary: Object[]) =>
+  ary.reduce((acc, x) => {
+    const id = uuid();
+    return { ...acc, [id]: { ...x, id } };
+  }, {});

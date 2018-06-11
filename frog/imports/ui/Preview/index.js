@@ -60,6 +60,7 @@ export class OperatorPreview extends React.Component<
         if (err) {
           this.setState({ error: err });
         } else {
+          console.log(res);
           this.setState({ data: res });
         }
       }
