@@ -112,7 +112,10 @@ const checkConnection = (
     return acc;
   }, []),
   ...operators.reduce((acc, op) => {
-    if (!connections.find(x => x.source.id === op._id)) {
+    if (
+      !connections.find(x => x.source.id === op._id) &&
+      !operatorTypesObj[op.operatorType].meta.sink
+    ) {
       return [
         ...acc,
         {

@@ -205,6 +205,22 @@ Picker.route(
 );
 
 Picker.route(
+  '/api/learningItem/:liId',
+  ({ liId, query }, request, response, next) => {
+    const liDocument =
+      query.liDocument &&
+      safeDecode(query.liDocument, 'Learning Item document', response);
+
+    InjectData.pushData(request, 'api', {
+      callType: 'displayLI',
+      liId,
+      liDocument
+    });
+    next();
+  }
+);
+
+Picker.route(
   '/api/config/:activityTypeId',
   ({ activityTypeId, query }, request, response, next) => {
     if (!activityTypesObj[activityTypeId]) {

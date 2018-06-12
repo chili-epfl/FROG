@@ -1,18 +1,19 @@
 // @flow
 
 export const meta = {
-  name: 'Post to blogs',
+  name: 'Post to WordPress blogs',
   shortName: '->Blog',
-  shortDesc: 'Use XML-RPC to post to any blog, like Wordpress',
-  description: ''
+  shortDesc: 'Use XML-RPC to post to WordPress blog',
+  description: '',
+  sink: true
 };
 
 export const config = {
   type: 'object',
   properties: {
-    xmlrpc: {
+    url: {
       type: 'string',
-      title: 'URL'
+      title: 'URL to XML-RPC server'
     }
   }
 };

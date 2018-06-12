@@ -1,12 +1,22 @@
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
+import { generateReactiveFn } from 'frog-utils';
 
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import LearningItem from '../LearningItem';
+import { connection } from './connection';
 
 export default ({ data }) => {
+  if (data.callType === 'displayLI') {
+    const doc = connection.get('li', 'displayLI');
+    const dataFn = generateReactiveFn(doc, LearningItem);
+    const LI = dataFn.LearningItem;
+    return <LI type="view" id={data.liId} />;
+  }
+
   if (data.callType === 'dashboard') {
     return (
       <DashMultiWrapper

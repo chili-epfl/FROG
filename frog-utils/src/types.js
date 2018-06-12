@@ -203,7 +203,8 @@ export type productOperatorT = {
     shortName?: string,
     shortDesc: string,
     description: string,
-    preview?: boolean
+    preview?: boolean,
+    sink?: boolean
   },
   config: Object,
   configUI?: Object,

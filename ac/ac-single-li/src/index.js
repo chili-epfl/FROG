@@ -146,6 +146,5 @@ export default ({
   configUI,
   formatProduct,
   ActivityRunner,
-  dashboards: { progress: ProgressDashboard },
   dataStructure
 }: ActivityPackageT);
