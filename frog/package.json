@@ -6,6 +6,8 @@
     "start": "nps"
   },
   "dependencies": {
+    "twit": "^2.2.10",
+    "twitter": "1.7.1",
     "@babel/runtime": "^7.0.0-beta.46",
     "@houshuang/react-webcam": "^0.5",
     "@houshuang/resize-img": "^1.2.3",

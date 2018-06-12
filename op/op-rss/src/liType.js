@@ -30,7 +30,7 @@ const Viewer = ({ data }) => (
 );
 
 export default ({
-  name: 'Hypothesis',
+  name: 'RSS',
   id: 'li-rss',
   dataStructure: { title: '', content: '' },
   ThumbViewer,

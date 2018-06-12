@@ -1,27 +1,12 @@
 import * as React from 'react';
 import { type LearningItemT } from 'frog-utils';
+import ReactTweet from 'react-tweet';
 
-const ThumbViewer = ({ data }) => (
-  <React.Fragment>
-    <img
-      alt="hypothesis logo"
-      src="/file?name=op/op-hypothesis/hypothesis-logo.png"
-    />
-    <b>{data.title}</b>
-    <br />
-    {data.content.split('\n').map((line, i) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <React.Fragment key={i}>
-        {line}
-        <br />
-      </React.Fragment>
-    ))}
-  </React.Fragment>
-);
+const ThumbViewer = ({ data }) => <ReactTweet data={data} />;
 
 export default ({
-  name: 'Hypothesis',
-  id: 'li-hypothesis',
+  name: 'Tweet',
+  id: 'li-twitter',
   dataStructure: { title: '', content: '' },
   ThumbViewer
 }: LearningItemT<{ title: string, content: string }>);
