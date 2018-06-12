@@ -19,7 +19,7 @@ import opHypothesis from 'op-hypothesis';
 import opCreateGroups from 'op-create-groups';
 import opDistribute from 'op-distribute';
 import opRSS from 'op-rss/src/serverIndex';
-import opRSS from 'op-twitter/src/serverIndex';
+import opTwitter from 'op-twitter/src/serverIndex';
 
 import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
