@@ -3,35 +3,13 @@
 import React from 'react';
 import FlexView from 'react-flexview';
 import { FormGroup, FormControl } from 'react-bootstrap';
-import { uniq, compact } from 'lodash';
 
 import { connect } from '../../store';
 
-export default connect(({ formContext, onChange, value = '', store }) => {
+export default connect(({ formContext, onChange, value = '' }) => {
   const options = formContext.options.filter(
     x => x !== formContext.groupingKey
   );
-  const storeOp = store.operatorStore.all.find(
-    x => x.id === formContext.nodeId
-  );
-  const targetActivities = storeOp.outgoing.filter(x => x.klass === 'activity');
-  const aTs = targetActivities.map(x => x.activityType);
-  if (uniq(aTs).length > 1) {
-    return (
-      <span style={{ color: 'red' }}>
-        Can only be connected to activities with the same activityType
-      </span>
-    );
-  }
-  if (uniq(compact(aTs)).length === 0) {
-    return (
-      <span style={{ color: 'red' }}>
-        No connected activity, please connect to one
-      </span>
-    );
-  }
-  const aT = aTs[0];
-  console.log(JSON.stringify({ targetActivities, aTs, aT }));
   return (
     <FormGroup controlId="selectGrouping">
       <FlexView>
