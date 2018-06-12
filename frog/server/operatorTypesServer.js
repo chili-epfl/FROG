@@ -20,6 +20,7 @@ import opCreateGroups from 'op-create-groups';
 import opDistribute from 'op-distribute';
 import opRSS from 'op-rss/src/serverIndex';
 import opTwitter from 'op-twitter/src/serverIndex';
+import opXMLRPC from 'op-xmlrpc/src/serverIndex';
 
 import { type operatorPackageT, flattenOne } from 'frog-utils';
 import { keyBy } from 'lodash';
@@ -44,7 +45,8 @@ export const operatorTypes: operatorPackageT[] = flattenOne([
   opCreateGroups,
   opDistribute,
   opRSS,
-  opTwitter
+  opTwitter,
+  opXMLRPC
 ]).map(x => Object.freeze(x));
 
 // somehow lodash.keyBy has the type {[id]: ??}, which means that the object can be null

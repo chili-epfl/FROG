@@ -155,7 +155,9 @@ publishComposite('session_activities', function(slug) {
 });
 
 const checkActivity = (activityId, operators, connections, userid) => {
+  console.log(activityId);
   const act = Activities.findOne(activityId);
+  console.log(act);
   const uname = Meteor.users.findOne(userid).username;
 
   if (uname === 'teacher' && ![3, 4].includes(act.plane)) {
