@@ -9,14 +9,7 @@ import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
 import ZoomView from './components/ZoomView';
 
-const Main = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-`;
+const Main = styled.div``;
 
 type ActivityRunnerStateT = {
   zoomOn: boolean,
@@ -35,7 +28,6 @@ class ActivityRunner extends Component<
 
   constructor(props) {
     super(props);
-    console.log(this.props.data);
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
     const { data, activityData } = props;

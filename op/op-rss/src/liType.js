@@ -1,33 +1,52 @@
 import * as React from 'react';
-import { type LearningItemT, HTML } from 'frog-utils';
+import { type LearningItemT, HTML, withVisibility } from 'frog-utils';
+import { Button } from '@material-ui/core';
+import Play from '@material-ui/icons/PlayCircleFilled';
+import Stop from '@material-ui/icons/Stop';
+import ReactSound from 'react-sound';
 
 const ThumbViewer = ({ data }) => (
   <React.Fragment>
     <img alt="rss logo" src="/file?name=op/op-rss/rss-logo.png" />
     <b>
-      {data.title} <i>(from {data.blogtitle}</i>
+      {data.title} <i>(from {data.blogtitle})</i>
     </b>
-    <br />
-    {data.date && `${data.date} - `}
-    {data.author && `by ${data.author}`}
   </React.Fragment>
 );
 
-const Viewer = ({ data }) => (
+const Viewer = withVisibility(({ data, visible, toggleVisibility }) => (
   <React.Fragment>
     <img alt="rss logo" src="/file?name=op/op-rss/rss-logo.png" />
-    <b>
-      <a href={data.link}>{data.title}</a> <i>(from {data.blogtitle}</i>
-    </b>
+    <h4>{data.title} </h4>
+    {data.enclosure && (
+      <>
+        <Button
+          onClick={toggleVisibility}
+          variant="fab"
+          color="primary"
+          aria-label={visible ? 'stop' : 'play'}
+        >
+          {visible ? <Stop /> : <Play />}
+        </Button>
+        <ReactSound
+          url={data.enclosure}
+          playStatus={
+            visible ? ReactSound.status.PLAYING : ReactSound.status.STOPPED
+          }
+        />
+      </>
+    )}
     <br />
-    {data.date && `${data.date} - `}
-    {data.author && `by ${data.author}`}
+    <i>
+      (from {data.blogtitle}
+      {data.date && `, ${new Date(data.date).toLocaleDateString()} - `}
+      {data.author && `by ${data.author})`})
+    </i>
     <br />
-    {data.categories && `Categories: ${data.categories}`}
     <br />
     <HTML html={data.content} />
   </React.Fragment>
-);
+));
 
 export default ({
   name: 'RSS',

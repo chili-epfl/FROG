@@ -60,7 +60,6 @@ export class OperatorPreview extends React.Component<
         if (err) {
           this.setState({ error: err });
         } else {
-          console.log(res);
           this.setState({ data: res });
         }
       }
@@ -74,7 +73,8 @@ export class OperatorPreview extends React.Component<
     return (
       <Dialog
         open
-        maxWidth="sm"
+        maxWidth="md"
+        fullWidth
         transition={Transition}
         onClose={this.props.dismiss}
       >

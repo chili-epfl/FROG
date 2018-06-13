@@ -59,7 +59,8 @@ export type activityDataT = {
 
 export type ObjectT = {
   socialStructure: socialStructureT,
-  activityData: activityDataT
+  activityData: activityDataT,
+  globalStructure: GlobalStructureT
 };
 
 export type GlobalStructureT = {

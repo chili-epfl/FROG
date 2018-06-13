@@ -6,13 +6,12 @@ import {
   type activityDataT,
   flattenOne
 } from 'frog-utils';
-import feedread from 'davefeedread';
-import liType from './liType';
 import { isEmpty } from 'lodash';
+import feedread from 'davefeedread';
 import pkg from './index';
 
 export const operator = (configData: {
-  urls?: string[],
+  urls: string[],
   limit?: number
 }): activityDataT => {
   if (!isEmpty(configData.urls)) {
@@ -38,7 +37,8 @@ export const operator = (configData: {
                         link: x.link,
                         categories: x.categories,
                         blogtitle: x.meta?.title,
-                        author: x.author
+                        author: x.author,
+                        enclosure: x.enclosures?.[0]?.url
                       }
                     }
                   }))

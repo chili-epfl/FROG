@@ -30,6 +30,7 @@ export const config = {
       type: 'string',
       title: 'URL'
     },
+    search: { type: 'string', title: 'Search term' },
     limit: {
       default: 20,
       type: 'number',
@@ -39,7 +40,9 @@ export const config = {
 };
 const validateConfig = [
   formData =>
-    formData.tag || formData.url ? null : { err: 'You need either tag or URL' }
+    formData.tag || formData.url || formData.search
+      ? null
+      : { err: 'You need either tag, URL, or search term' }
 ];
 
 const safeFirst = ary => (ary.length > 0 ? ary[0] : '');
@@ -75,11 +78,13 @@ const mapQuery = query => {
 export const operator = (configData: {
   tag?: string,
   url?: string,
+  search?: string,
   limit?: number
 }): activityDataT => {
   const query = queryString.stringify({
     tag: configData.tag,
-    source: configData.url
+    source: configData.url,
+    any: configData.search
   });
   const url =
     'https://hypothes.is/api/search?' +

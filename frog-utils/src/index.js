@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
+import Stringify from 'json-stringify-pretty-compact';
 import { default as uuid } from 'cuid';
 
 export const isBrowser = (() => {
@@ -309,3 +310,6 @@ export const idObj = (ary: Object[]) =>
     const id = uuid();
     return { ...acc, [id]: { ...x, id } };
   }, {});
+
+export const clog = (...args: any) =>
+  console.info(Stringify(args.length === 1 ? args[0] : args));

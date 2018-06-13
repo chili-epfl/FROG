@@ -57,7 +57,6 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     groupingValue,
     object.socialStructure
   );
-  console.log(activityData);
 
   const stream = (value, targetpath) => {
     Meteor.call('stream', activity, groupingValue, targetpath, value);

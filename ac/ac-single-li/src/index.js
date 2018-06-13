@@ -1,11 +1,12 @@
 // @flow
 
 import * as React from 'react';
+import { isObject } from 'lodash';
+import { values } from 'frog-utils';
 import {
   type ActivityPackageT,
   type ActivityRunnerPropsT,
-  uuid,
-  ProgressDashboard
+  uuid
 } from 'frog-utils';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
@@ -138,12 +139,22 @@ class ActivityRunner extends React.Component<
   }
 }
 
+const mergeFunction = (obj, dataFn) => {
+  if (isObject(obj?.data)) {
+    values(obj.data).forEach(x => {
+      const id = uuid();
+      dataFn.objInsert({ ...x, id });
+    });
+  }
+};
+
 export default ({
   id: 'ac-single-li',
   type: 'react-component',
   meta,
   config,
   configUI,
+  mergeFunction,
   formatProduct,
   ActivityRunner,
   dataStructure

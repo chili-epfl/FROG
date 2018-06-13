@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "react-sound": "^1.2.0",
     "davefeedread": "^0.4.14",
     "feedparser": "^2.2.9",
     "frog-utils": "^1.0.0",
