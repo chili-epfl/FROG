@@ -35,10 +35,10 @@ class RenderLearningItem extends React.Component<any, any> {
       return <h3>Oops ! Incorrect LI-type</h3>;
     }
     let LIComponent;
-    if (type === 'view' && liType.Viewer) {
+    if ((type === 'view' || type === 'history') && liType.Viewer) {
       LIComponent = liType.Viewer;
     } else if (
-      (type === 'view' || type === 'thumbView') &&
+      (type === 'view' || type === 'history' || type === 'thumbView') &&
       liType.ThumbViewer
     ) {
       LIComponent = liType.ThumbViewer;
@@ -63,7 +63,7 @@ class RenderLearningItem extends React.Component<any, any> {
           condition={type === 'thumbView' && clickZoomable && liType.Viewer}
         >
           <DraggableCore
-            disabled={type === 'edit' || disableDragging}
+            disabled={type === 'edit' || type === 'history' || disableDragging}
             offsetParent={document.body}
             onStart={e => e.preventDefault()}
             onDrag={(e, d) => {
@@ -109,7 +109,8 @@ class RenderLearningItem extends React.Component<any, any> {
         children: Comp,
         editable: liType.Editor,
         zoomable: liType.Viewer,
-        liType: liType.id
+        liType: liType.id,
+        meta: data
       });
     } else {
       return Comp;
