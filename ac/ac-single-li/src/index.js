@@ -85,7 +85,7 @@ class ActivityRunner extends React.Component<
         <div style={style}>
           {header}
           <dataFn.LearningItem
-            type={this.state.editing ? 'edit' : 'thumbView'}
+            type={this.state.editing ? 'edit' : 'view'}
             id={data.li}
             clickZoomable
             render={({ editable, children }) => (

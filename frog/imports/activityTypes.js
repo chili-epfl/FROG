@@ -41,6 +41,7 @@ import ideaLI from './internalLearningItems/li-idea';
 import imageLI from './internalLearningItems/li-image';
 import ideaCompoundLI from './internalLearningItems/li-ideaCompound';
 import cs211LI from './internalLearningItems/li-cs211';
+import spreadsheetLI from './internalLearningItems/li-spreadsheet';
 import { operatorTypes } from './operatorTypes';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
@@ -93,5 +94,6 @@ export const learningItemTypesObj: {
   'li-file': fileLI,
   'li-image': imageLI,
   'li-ideaCompound': ideaCompoundLI,
-  'li-cs211': cs211LI
+  'li-cs211': cs211LI,
+  'li-spreadsheet': spreadsheetLI
 };

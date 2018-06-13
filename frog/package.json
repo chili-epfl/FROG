@@ -6,8 +6,6 @@
     "start": "nps"
   },
   "dependencies": {
-    "twit": "^2.2.10",
-    "twitter": "1.7.1",
     "@babel/runtime": "^7.0.0-beta.46",
     "@houshuang/react-webcam": "^0.5",
     "@houshuang/resize-img": "^1.2.3",
@@ -32,6 +30,7 @@
     "jszip": "^3.1.5",
     "lodash": "^4.17.10",
     "longjohn": "^0.2.12",
+    "mathjs": "^4.4.2",
     "meteor-node-stubs": "^0.4.1",
     "minio": "^3.2.3",
     "mobx": "^4.2.1",
@@ -48,6 +47,7 @@
     "react-addons-transition-group": "^15.6.2",
     "react-bootstrap": "^0.32.1",
     "react-copy-to-clipboard": "^5.0.1",
+    "react-datasheet": "^1.3.7",
     "react-day-picker": "^7.1.9",
     "react-dom": "^16.3.1",
     "react-draggable": "^3.0.5",
@@ -69,6 +69,8 @@
     "sharedb-mongo": "^1.0.0-beta.4",
     "sharedb-redis-pubsub": "^1.0.0-beta.1",
     "styled-components": "^3.2.5",
+    "twit": "^2.2.10",
+    "twitter": "1.7.1",
     "twitter-ng": "^0.6.2",
     "unzipper": "^0.8.14",
     "utf-8-validate": "^4.0.2",

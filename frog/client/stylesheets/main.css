@@ -69,3 +69,5 @@ kbd {
 .op-cs211-ranking .table-container {
   margin-bottom: 20px;
 }
+table.data-grid { width: 800px }
+.data-grid-container .data-grid .cell > input { font-size: 1.3em; height: 100% !important; }
