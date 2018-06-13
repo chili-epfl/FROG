@@ -5,6 +5,7 @@ import { type LearningItemT, isBrowser, clog, flattenOne } from 'frog-utils';
 import mathjs from 'mathjs';
 import { mapValues, assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
+import { Button } from '@material-ui/core';
 
 if (isBrowser) {
   require('./css.js');
@@ -119,5 +120,12 @@ export default ({
   name: 'Spreadsheet',
   id: 'li-spreadsheet',
   Viewer: MathSheet,
+  ThumbViewer: () => (
+    <div>
+      <Button variant="fab" color="primary">
+        <i style={{ fontSize: '2em' }} class="fa fa-table" />
+      </Button>Spreadsheet
+    </div>
+  ),
   Editor: MathSheet
 }: LearningItemT<any>);

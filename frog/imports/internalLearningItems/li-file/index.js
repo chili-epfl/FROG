@@ -54,7 +54,7 @@ const ThumbViewer = ({ data }: { data: any }) => (
 );
 
 export default ({
-  name: 'file',
+  name: 'File',
   id: 'li-file',
   Viewer: ({ data }: { data: any }) => (
     <a href={data.url} download={data.filename}>

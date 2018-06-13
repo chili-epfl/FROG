@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { Creator } from '../li-file';
 
 export default ({
-  name: 'image',
+  name: 'Image',
   id: 'li-image',
   Viewer: ({ data }: { data: any }) => (
     <Paper elevation={24} style={{ margin: '20px' }}>
