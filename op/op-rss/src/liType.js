@@ -16,7 +16,7 @@ const ThumbViewer = ({ data }) => (
 const Viewer = withVisibility(({ data, visible, toggleVisibility }) => (
   <React.Fragment>
     <img alt="rss logo" src="/file?name=op/op-rss/rss-logo.png" />
-    <h4>{data.title} </h4>
+    <h2>{data.title} </h2>
     {data.enclosure && (
       <>
         <Button

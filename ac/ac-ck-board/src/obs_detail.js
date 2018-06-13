@@ -6,7 +6,7 @@ export default ({ children, closeInfoFn }) => {
   const actions = [<Button label="X" secondary onClick={closeInfoFn} />];
   return (
     <Dialog actions={actions} open onClose={closeInfoFn}>
-      {children}
+      <div style={{ margin: '20px' }}>{children}</div>
     </Dialog>
   );
 };

@@ -72,7 +72,7 @@ const BoardPure = ({
               x={y.x / scaleX - offsetWidth}
               y={y.y / scaleY - offsetHeight}
             >
-              <LearningItem type="thumbView" id={y.li} />
+              <LearningItem disableDragging type="thumbView" id={y.li} />
             </ObservationContainer>
           </div>
         ))}
