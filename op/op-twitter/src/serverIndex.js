@@ -5,8 +5,8 @@ import pkg from './index';
 
 const operator = (configData: Object) => {
   const client = new Twitter({
-    consumer_key: 'tXERcMS08nSLjkq4JS6bg',
-    consumer_secret: 'rufkoenUeE5MqrDZMWaAxyo5mtD1Ji9QplBiOGFNnck',
+    consumer_key: 'ZylPVybW4ewtmZaCTyzs1s0wz',
+    consumer_secret: 't7G4KlSMjvLx5ErDDuxf4WsowhTsHGbSb4sxUAV6WShGMdlCIc',
     access_token: '9588752-0X4U37AX6zxIyb1dFBcYT7UEGuhPuoLKDdMppJNkPr',
     access_token_secret: 'tipE9o730RiRYADUwgRSr6dxwYHBHmjHFecxA2XOYVlPS'
   });
