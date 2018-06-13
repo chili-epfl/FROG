@@ -116,7 +116,6 @@ export default ({
           graphOperator,
           errorColor,
           operatorType,
-          graphOperator,
           ui
         }}
       />
@@ -124,6 +123,10 @@ export default ({
         key={operator._id}
         node={operator}
         type="operator"
+        formContext={{
+          type: 'operator',
+          nodeId: operator._id
+        }}
         nodeType={operatorType}
         valid={valid}
         refreshValidate={refreshValidate}
