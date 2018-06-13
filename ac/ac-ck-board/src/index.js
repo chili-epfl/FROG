@@ -1,25 +1,41 @@
 // @flow
 
-import { type ActivityPackageT, uuid } from 'frog-utils';
+import { type ActivityPackageT, uuid, values } from 'frog-utils';
+import { isObject } from 'lodash';
 
 import Board from './board';
 import { meta, config, configUI } from './meta';
 
-const dataStructure = [];
+const dataStructure = {};
 
-const mergeFunction = (object, dataFn) => {
-  [...(object.config.boxes || []), ...(object.data || [])].forEach(box => {
-    if (!box.id) {
-      box.id = uuid();
-    }
-    if (box.title && box.content) {
-      dataFn.listAppend({
-        ...box,
-        x: Math.random() * 800,
-        y: -(Math.random() * 800)
-      });
-    }
-  });
+// from top left to bottom right, x, y
+// quadrant: 132, 369
+// 824, 1261
+//
+// qx 132-824
+// qy 369-1261
+//
+// bx 131-828
+// by -970--78
+//
+// board: 131, -970
+// board: 828, -78
+
+const mergeFunction = (obj: any, dataFn: any) => {
+  if (isObject(obj?.data)) {
+    values(obj.data).forEach(x => {
+      const id = uuid();
+      dataFn.objInsert(
+        {
+          x: Math.random() * 650 + 150,
+          y: -(Math.random() * 850) - 100,
+          ...x,
+          id
+        },
+        id
+      );
+    });
+  }
 };
 
 export default ({

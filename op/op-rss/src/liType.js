@@ -8,9 +8,8 @@ import ReactSound from 'react-sound';
 const ThumbViewer = ({ data }) => (
   <React.Fragment>
     <img alt="rss logo" src="/file?name=op/op-rss/rss-logo.png" />
-    <b>
-      {data.title} <i>(from {data.blogtitle})</i>
-    </b>
+    <b>{data.title} </b>
+    <i>(from {data.blogtitle})</i>
   </React.Fragment>
 );
 

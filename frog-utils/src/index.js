@@ -264,7 +264,13 @@ export const cloneDeep = (o: any) => {
   return newO;
 };
 
-export const Inspector = ({ data }: { data: Object | Object[] }) =>
+export const Inspector = ({
+  data,
+  collapsed
+}: {
+  data: Object | Object[],
+  collapsed?: boolean
+}) =>
   data ? (
     <ReactJsonView
       name={false}
@@ -273,6 +279,7 @@ export const Inspector = ({ data }: { data: Object | Object[] }) =>
       iconStyle="triangle"
       enableClipboard={false}
       displayObjectSize={false}
+      collapsed={collapsed}
       displayDataTypes={false}
       theme={{
         base00: '#fafafa',

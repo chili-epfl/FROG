@@ -27,7 +27,8 @@ class RenderLearningItem extends React.Component<any, any> {
       render,
       id,
       type = 'view',
-      clickZoomable
+      clickZoomable,
+      disableDragging
     } = this.props;
     const liType = learningItemTypesObj[data.liType];
     if (!liType) {
@@ -62,7 +63,7 @@ class RenderLearningItem extends React.Component<any, any> {
           condition={type === 'thumbView' && clickZoomable && liType.Viewer}
         >
           <DraggableCore
-            disabled={type === 'edit'}
+            disabled={type === 'edit' || disableDragging}
             offsetParent={document.body}
             onStart={e => e.preventDefault()}
             onDrag={(e, d) => {

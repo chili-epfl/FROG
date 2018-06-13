@@ -36,15 +36,17 @@ const InfoComponent = ({ showInfo, cancelInfo, item, object, product }) => {
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div style={{ flexBasis: 0, flexGrow: 1 }}>
           <h3>Config</h3>
-          {item.data ? <Inspector data={{ data: item.data }} /> : null}
+          {item.data ? (
+            <Inspector collapsed data={{ data: item.data }} />
+          ) : null}
         </div>
         <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
           <h3>Object</h3>
-          {object ? <Inspector data={{ object }} /> : null}
+          {object ? <Inspector collapsed data={{ object }} /> : null}
         </div>
         <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
           <h3>Product</h3>
-          {product ? <Inspector data={{ product }} /> : null}
+          {product ? <Inspector collapsed data={{ product }} /> : null}
         </div>
       </div>
     </Modal>

@@ -50,7 +50,11 @@ class LearningItem extends React.Component<{
               props.dataFn.backend
             )(RenderLearningItem)
           : newprops => (
-              <RenderLearningItem data={id.liDocument} {...newprops} />
+              <RenderLearningItem
+                disableDragging={props.disableDragging}
+                data={id.liDocument}
+                {...newprops}
+              />
             );
 
       return (
