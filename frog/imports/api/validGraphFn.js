@@ -112,9 +112,10 @@ const checkConnection = (
     return acc;
   }, []),
   ...operators.reduce((acc, op) => {
+    console.log(op.operatorType, operatorTypesObj[op.operatorType]);
     if (
       !connections.find(x => x.source.id === op._id) &&
-      !operatorTypesObj[op.operatorType].meta.sink
+      !operatorTypesObj[op.operatorType]?.meta?.sink
     ) {
       return [
         ...acc,

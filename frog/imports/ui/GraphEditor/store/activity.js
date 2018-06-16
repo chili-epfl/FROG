@@ -1,5 +1,7 @@
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
+import { isFunction } from 'lodash';
+
 import { activityTypesObj } from '/imports/activityTypes';
 import { store } from './index';
 import Elem from './elemClass';
@@ -7,7 +9,6 @@ import { timeToPx, timeToPxScreen, between } from '../utils';
 import type { AnchorT } from '../utils/path';
 import { calculateBounds } from './activityStore';
 import type { BoundsT } from './store';
-import { isFunction } from 'lodash';
 
 export default class Activity extends Elem {
   length: number;

@@ -7,7 +7,7 @@ import ReactSound from 'react-sound';
 
 const ThumbViewer = ({ data }) => (
   <React.Fragment>
-    <img alt="rss logo" src="/file?name=op/op-rss/rss-logo.png" />
+    <img alt="rss logo" src="https://i.imgur.com/t3opF7y.png" />
     <b>{data.title} </b>
     <i>(from {data.blogtitle})</i>
   </React.Fragment>
@@ -15,7 +15,7 @@ const ThumbViewer = ({ data }) => (
 
 const Viewer = withVisibility(({ data, visible, toggleVisibility }) => (
   <React.Fragment>
-    <img alt="rss logo" src="/file?name=op/op-rss/rss-logo.png" />
+    <img alt="rss logo" src="https://i.imgur.com/t3opF7y.png" />
     <h2>{data.title} </h2>
     {data.enclosure && (
       <>

@@ -2,8 +2,7 @@
 
 import React from 'react';
 import FlexView from 'react-flexview';
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import { isEmpty } from 'lodash';
+import { FormControl } from 'react-bootstrap';
 
 import { connect } from '../../store';
 
@@ -13,12 +12,11 @@ const operations = {
 };
 
 class Condition extends React.Component<*, *> {
-  state = { selected: undefined, operation: undefined, condition: undefined };
+  state = { selected: undefined, operation: '', condition: '' };
 
   render() {
     const {
       formContext: { nodeId, nodeType },
-      onChange,
       store
     } = this.props;
 

@@ -3,10 +3,7 @@ import { type LearningItemT } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (
   <React.Fragment>
-    <img
-      alt="hypothesis logo"
-      src="/file?name=op/op-hypothesis/hypothesis-logo.png"
-    />
+    <img alt="hypothesis logo" src="https://i.imgur.com/dNR3ZMs.png" />
     <b>{data.title}</b>
     <br />
     {data.content.split('\n').map((line, i) => (

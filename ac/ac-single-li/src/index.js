@@ -6,7 +6,8 @@ import { values } from 'frog-utils';
 import {
   type ActivityPackageT,
   type ActivityRunnerPropsT,
-  uuid
+  uuid,
+  ProgressDashboard
 } from 'frog-utils';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
@@ -155,6 +156,7 @@ export default ({
   config,
   configUI,
   mergeFunction,
+  dashboards: { progress: ProgressDashboard },
   formatProduct,
   ActivityRunner,
   dataStructure
