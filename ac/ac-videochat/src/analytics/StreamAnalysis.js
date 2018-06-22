@@ -25,7 +25,7 @@ type OptionsT = {
 export const anayzeStream = (stream: MediaStream, options: OptionsT) => {
   VAD.analyze(stream, options);
   AudioProperties.analyze(stream, options);
-  VideoEmotion.analyze(stream);
+  //VideoEmotion.analyze(stream);
 };
 
 export const onVAD = (stream: MediaStream, callback: Function) => {

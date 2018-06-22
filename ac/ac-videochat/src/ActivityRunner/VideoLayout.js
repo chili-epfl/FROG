@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
 import Videocam from '@material-ui/icons/Videocam';

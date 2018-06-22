@@ -44,13 +44,13 @@
           function getMaxVolume(analyser, fftBins) {
             let maxVolume = -Infinity;
             analyser.getFloatFrequencyData(fftBins);
-
+            console.log(fftBins);
             for (let i = 4, ii = fftBins.length; i < ii; i++) {
               if (fftBins[i] > maxVolume && fftBins[i] < 0) {
                 maxVolume = fftBins[i];
               }
             }
-
+            console.log(maxVolume);
             return maxVolume;
           }
 
@@ -85,6 +85,8 @@
             analyser.fftSize = 512;
             analyser.smoothingTimeConstant = smoothing;
             fftBins = new Float32Array(analyser.frequencyBinCount);
+            console.log(analyser.minDecibels);
+            console.log(analyser.maxDecibels);
 
             if (stream.jquery) stream = stream[0];
             if (

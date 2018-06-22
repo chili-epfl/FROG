@@ -6,6 +6,7 @@ import { type ActivityRunnerPropsT, values } from 'frog-utils';
 import * as AdapterJs from 'webrtc-adapter';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { isEqual } from 'lodash';
 
 import WebRtcConfig from '../webrtc-config/config';
 import { anayzeStream, onVAD } from '../analytics/StreamAnalysis';
@@ -77,6 +78,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.state = { local: {}, remote: [], participants: [] };
     this.mediaConstraints = WebRtcConfig.mediaConstraints;
     this.browser = AdapterJs.browserDetails;
+    console.log('Constructor');
   }
 
   componentDidMount() {
@@ -677,6 +679,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   render() {
+    this.componentRendered = true;
     const local = this.state.local;
     const remote = this.state.remote;
     const participants = this.state.participants;
