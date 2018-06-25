@@ -375,6 +375,7 @@ export const meta = {
 export const config = {
   type: 'object',
   properties: {
+    allowCreate: { title: 'Enable adding new Learning Items', type: 'boolean' },
     image: {
       title: 'Display background image',
       type: 'boolean'

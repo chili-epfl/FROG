@@ -82,7 +82,6 @@ class ActivityRunner extends Component<
       logger({ type: 'vote', itemId: key });
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
-      stream(!prev, [key, 'votes', userId]);
     };
 
     const setCategory = (c: string) => this.setState({ category: c });
@@ -117,10 +116,30 @@ class ActivityRunner extends Component<
           }}
           canVote={activityData.config.canVote}
         />
-        {this.props.activityData.config.canUpload && (
-          <div style={{ position: 'absolute', bottom: '10px' }}>
+        {this.props.activityData.config.provideDefault && (
+          <div style={{ position: 'absolute', bottom: '10px', width: '800px' }}>
             <dataFn.LearningItem
-              liType={activityData.config.onlyImages ? 'li-image' : undefined}
+              liType={activityData.config.liType}
+              stream={this.props.stream}
+              meta={{
+                comment: '',
+                votes: {},
+                categories:
+                  this.state.category &&
+                  this.state.category !== 'categories' &&
+                  this.state.category !== 'all'
+                    ? this.state.category
+                    : []
+              }}
+              type="create"
+              autoInsert
+            />
+          </div>
+        )}
+        {this.props.activityData.config.allowAny && (
+          <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+            <dataFn.LearningItem
+              stream={this.props.stream}
               meta={{
                 comment: '',
                 votes: {},

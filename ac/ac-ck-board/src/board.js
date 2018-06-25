@@ -38,18 +38,20 @@ const BoardPure = ({
         position: 'relative'
       }}
     >
-      <div
-        style={{ zIndex: 9, position: 'absolute', right: '0px', top: '0px' }}
-      >
-        <LearningItem
-          type="create"
-          autoInsert
-          meta={{
-            x: Math.random() * 650 + 150,
-            y: -(Math.random() * 800) - 100
-          }}
-        />
-      </div>
+      {config.allowCreate && (
+        <div
+          style={{ zIndex: 9, position: 'absolute', right: '0px', top: '0px' }}
+        >
+          <LearningItem
+            type="create"
+            autoInsert
+            meta={{
+              x: Math.random() * 650 + 150,
+              y: -(Math.random() * 800) - 100
+            }}
+          />
+        </div>
+      )}
       {config.image && (
         <img
           src={config.imageurl}

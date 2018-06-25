@@ -87,7 +87,7 @@ export type ActivityRunnerPropsT = {
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
-  stream: (value: any, path: string[]) => void,
+  stream: (value: any) => void,
   userInfo: { id: string, name: string },
   activityId: string,
   groupingValue: string,

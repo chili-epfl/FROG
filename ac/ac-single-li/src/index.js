@@ -132,6 +132,7 @@ class ActivityRunner extends React.Component<
             onCreate={li => {
               dataFn.objInsert(li, 'li');
               this.props.logger({ type: 'progress', value: 1 });
+              this.props.stream({ li: li });
             }}
           />
         </div>
