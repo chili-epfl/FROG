@@ -205,6 +205,22 @@ Picker.route(
 );
 
 Picker.route(
+  '/api/learningItem/:liId',
+  ({ liId, query }, request, response, next) => {
+    const liDocument =
+      query.liDocument &&
+      safeDecode(query.liDocument, 'Learning Item document', response);
+
+    InjectData.pushData(request, 'api', {
+      callType: 'displayLI',
+      liId,
+      liDocument
+    });
+    next();
+  }
+);
+
+Picker.route(
   '/api/config/:activityTypeId',
   ({ activityTypeId, query }, request, response, next) => {
     if (!activityTypesObj[activityTypeId]) {
@@ -270,6 +286,10 @@ WebApp.connectHandlers.use('/file', (req, res) => {
       const path = req.query.name.split('/');
       const rootPath = pathResolve('.').split('/.meteor')[0];
       fname = join(rootPath, '..', 'ac', path[1], 'clientFiles', path[2]);
+    } else if (req.query.name.startsWith('op/')) {
+      const path = req.query.name.split('/');
+      const rootPath = pathResolve('.').split('/.meteor')[0];
+      fname = join(rootPath, '..', 'op', path[1], 'clientFiles', path[2]);
     } else {
       fname = req.query.name && '/tmp/' + req.query.name.split('?')[0];
     }

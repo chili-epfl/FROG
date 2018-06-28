@@ -2,6 +2,8 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
+import Stringify from 'json-stringify-pretty-compact';
+import { default as uuid } from 'cuid';
 
 export const isBrowser = (() => {
   try {
@@ -262,7 +264,13 @@ export const cloneDeep = (o: any) => {
   return newO;
 };
 
-export const Inspector = ({ data }: { data: Object | Object[] }) =>
+export const Inspector = ({
+  data,
+  collapsed
+}: {
+  data: Object | Object[],
+  collapsed?: boolean
+}) =>
   data ? (
     <ReactJsonView
       name={false}
@@ -271,6 +279,7 @@ export const Inspector = ({ data }: { data: Object | Object[] }) =>
       iconStyle="triangle"
       enableClipboard={false}
       displayObjectSize={false}
+      collapsed={collapsed}
       displayDataTypes={false}
       theme={{
         base00: '#fafafa',
@@ -302,3 +311,12 @@ export const values = <T>(obj: { [string]: T }): Array<T> => {
   const keys: string[] = Object.keys(obj);
   return keys.map(key => obj[key]);
 };
+
+export const idObj = (ary: Object[]) =>
+  ary.reduce((acc, x) => {
+    const id = uuid();
+    return { ...acc, [id]: { ...x, id } };
+  }, {});
+
+export const clog = (...args: any) =>
+  console.info(Stringify(args.length === 1 ? args[0] : args));

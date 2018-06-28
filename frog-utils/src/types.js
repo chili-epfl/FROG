@@ -59,7 +59,8 @@ export type activityDataT = {
 
 export type ObjectT = {
   socialStructure: socialStructureT,
-  activityData: activityDataT
+  activityData: activityDataT,
+  globalStructure: GlobalStructureT
 };
 
 export type GlobalStructureT = {
@@ -86,8 +87,7 @@ export type ActivityRunnerPropsT = {
   activityData: dataUnitStructT,
   data: any,
   dataFn: Object,
-  stream: (value: any, path: string[]) => void,
-  uploadFn: (files: Array<any>, name: string) => Promise<*>,
+  stream: (value: any) => void,
   userInfo: { id: string, name: string },
   activityId: string,
   groupingValue: string,
@@ -125,6 +125,10 @@ export type LogDbT =
   | {| ...LogExtraT, ...ActivityDefT, ...LogT, _id: string |}
   | {| ...LogExtraT, ...LogT, _id: string |};
 
+type OutputDefinitionT = {
+  [field: string]: { title: string, type: 'number' | 'string' }
+};
+
 export type ActivityPackageT = {
   id: string,
   type: 'react-component',
@@ -145,11 +149,13 @@ export type ActivityPackageT = {
   config: Object,
   configUI?: Object,
   dataStructure?: any,
+  outputDefinition: OutputDefinitionT | (Object => OutputDefinitionT),
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
   ActivityRunner: ActivityRunnerT,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
+  LearningItems?: LearningItemT<*>[],
   formatProduct?: (
     config: Object,
     item: any,
@@ -197,11 +203,14 @@ export type productOperatorT = {
     name: string,
     shortName?: string,
     shortDesc: string,
-    description: string
+    description: string,
+    preview?: boolean,
+    sink?: boolean
   },
   config: Object,
   configUI?: Object,
   validateConfig?: validateConfigFnT[],
+  LearningItems?: LearningItemT<*>[],
   operator: (
     configData: Object,
     object: ObjectT & GlobalStructureT
@@ -237,7 +246,7 @@ export type socialOperatorT = {
     shortDesc: string,
     description: string
   },
-  outputDefinition: string[] | ((config: Object) => string[]),
+  socialOutputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
   configUI?: Object,

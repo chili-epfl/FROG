@@ -4,12 +4,11 @@ import React from 'react';
 
 import FlexView from 'react-flexview';
 import { yellow, red, lightGreen } from '@material-ui/core/colors';
-import { compact } from 'lodash';
-
 import { ChangeableText } from 'frog-utils';
 
 import { removeOperatorType } from '/imports/api/activities';
 import { operatorTypesObj } from '/imports/operatorTypes';
+import { IconButton } from '../index';
 import { ErrorList, ValidButton } from '../../Validator';
 import { type StoreProp } from '../../store';
 import ConfigForm from '../ConfigForm';
@@ -20,7 +19,8 @@ const TopPanel = ({
   operator,
   graphOperator,
   errorColor,
-  operatorType
+  operatorType,
+  ui
 }) => (
   <div style={{ backgroundColor: '#eee' }}>
     <div style={{ position: 'absolute', left: -40 }}>
@@ -45,6 +45,18 @@ const TopPanel = ({
         }}
       >
         <ValidButton activityId={operator._id} errorColor={errorColor} />
+        {operatorType.meta.preview && (
+          <IconButton
+            icon="glyphicon glyphicon-eye-open"
+            tooltip="Preview"
+            onClick={() => {
+              ui.setShowPreview({
+                operatorTypeId: operatorType.id,
+                config: graphOperator.data
+              });
+            }}
+          />
+        )}
         <DeleteButton
           tooltip="Reset operator"
           msg="Do you really want to remove the operator type, and loose all the configuration data?"
@@ -72,7 +84,8 @@ export default ({
     valid,
     operatorStore: { all },
     connectionStore: { all: connections },
-    activityStore: { all: activities }
+    activityStore: { all: activities },
+    ui
   },
   operator
 }: StoreProp & {
@@ -94,18 +107,6 @@ export default ({
     errorColor = lightGreen[500];
   }
 
-  const outgoingConnections = connections.filter(
-    conn => conn.source.id === operator._id
-  );
-  const incomingConnections = connections.filter(
-    conn => conn.target.id === operator._id
-  );
-  const connectedTargetActivities = compact(
-    outgoingConnections.map(x => activities.find(act => act.id === x.target.id))
-  );
-  const connectedSourceActivities = compact(
-    incomingConnections.map(x => activities.find(act => act.id === x.source.id))
-  );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel
@@ -114,22 +115,21 @@ export default ({
           operator,
           graphOperator,
           errorColor,
-          operatorType
+          operatorType,
+          ui
         }}
       />
       <ConfigForm
         key={operator._id}
         node={operator}
+        type="operator"
+        formContext={{
+          type: 'operator',
+          nodeId: operator._id
+        }}
         nodeType={operatorType}
         valid={valid}
-        connectedActivities={activities}
-        connectedSourceActivities={connectedSourceActivities}
-        connectedTargetActivities={connectedTargetActivities}
         refreshValidate={refreshValidate}
-        reload={
-          (connectedSourceActivities || []).map(x => x.id).join('') +
-          (connectedTargetActivities || []).map(x => x.id).join('')
-        }
       />
     </div>
   );

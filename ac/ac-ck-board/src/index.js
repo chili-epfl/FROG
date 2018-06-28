@@ -1,25 +1,28 @@
 // @flow
 
-import { type ActivityPackageT, uuid } from 'frog-utils';
+import { type ActivityPackageT, uuid, values } from 'frog-utils';
+import { isObject } from 'lodash';
 
 import Board from './board';
 import { meta, config, configUI } from './meta';
 
-const dataStructure = [];
+const dataStructure = {};
 
-const mergeFunction = (object, dataFn) => {
-  [...(object.config.boxes || []), ...(object.data || [])].forEach(box => {
-    if (!box.id) {
-      box.id = uuid();
-    }
-    if (box.title && box.content) {
-      dataFn.listAppend({
-        ...box,
-        x: Math.random() * 800,
-        y: -(Math.random() * 800)
-      });
-    }
-  });
+const mergeFunction = (obj: any, dataFn: any) => {
+  if (isObject(obj?.data)) {
+    values(obj.data).forEach(x => {
+      const id = uuid();
+      dataFn.objInsert(
+        {
+          x: Math.random() * 650 + 150,
+          y: -(Math.random() * 850) - 100,
+          ...x,
+          id
+        },
+        id
+      );
+    });
+  }
 };
 
 export default ({

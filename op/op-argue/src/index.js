@@ -101,5 +101,5 @@ export default ({
   operator,
   config,
   meta,
-  outputDefinition: ['group']
+  socialOutputDefinition: ['group']
 }: socialOperatorT);

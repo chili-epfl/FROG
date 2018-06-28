@@ -57,6 +57,7 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
   }
 
   render() {
+    console.log('render reactive');
     const rest = omit(this.props, ['logger', 'path', 'dataFn']);
     if (this.props.dataFn.readOnly) {
       rest.value = get(this.props.dataFn.doc.data, this.props.path);

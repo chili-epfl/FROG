@@ -157,9 +157,12 @@ export const updateOpenActivities = (
   if (Meteor.isServer) {
     Sessions.update(sessionId, { $set: { state: 'WAITINGFORNEXT' } });
     const oldOpen = Sessions.findOne(sessionId).openActivities;
-    difference(oldOpen, openActivities).forEach(activityId =>
-      Activities.update(activityId, { $set: { actualClosingTime: new Date() } })
-    );
+    difference(oldOpen, openActivities).forEach(activityId => {
+      Activities.update(activityId, {
+        $set: { actualClosingTime: new Date() }
+      });
+      Meteor.call('check.activity.sink', activityId, sessionId);
+    });
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
       Activities.update(

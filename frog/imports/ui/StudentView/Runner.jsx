@@ -58,8 +58,8 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     object.socialStructure
   );
 
-  const stream = (value, targetpath) => {
-    Meteor.call('stream', activity, groupingValue, targetpath, value);
+  const stream = value => {
+    Meteor.call('stream', activity, groupingValue, value);
   };
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
@@ -90,7 +90,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   } else {
     return (
       <MosaicWindow
-        toolbarControls={[<div />]}
+        toolbarControls={[<div key="div" />]}
         draggable={false}
         key={activity._id}
         path={path}

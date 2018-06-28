@@ -1,6 +1,8 @@
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
+import { isFunction } from 'lodash';
 
+import { activityTypesObj } from '/imports/activityTypes';
 import { store } from './index';
 import Elem from './elemClass';
 import { timeToPx, timeToPxScreen, between } from '../utils';
@@ -295,6 +297,21 @@ export default class Activity extends Elem {
 
       get bounds(): BoundsT {
         return calculateBounds(this, store.activityStore.all);
+      },
+
+      get aT() {
+        return this.activityType && activityTypesObj[this.activityType];
+      },
+
+      get outputDefinition() {
+        if (!this.aT.outputDefinition) {
+          return undefined;
+        }
+        if (isFunction(this.aT.outputDefinition)) {
+          return this.aT.outputDefinition(this.data);
+        } else {
+          return this.aT.outputDefinition;
+        }
       }
     });
   }

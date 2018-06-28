@@ -13,9 +13,17 @@ export const config = {
       title: 'Can students add new Learning Items',
       type: 'boolean'
     },
-    onlyImages: {
-      type: 'boolean',
-      title: 'Limit to images?'
+    allowAny: {
+      title: 'Can students add any Learning Item type?',
+      type: 'boolean'
+    },
+    provideDefault: {
+      title: 'Offer default Learning Item type',
+      type: 'boolean'
+    },
+    liType: {
+      title: 'Default Learning Item Type',
+      type: 'learningItemType'
     },
     canComment: {
       title: 'Should students comment on Learning Items?',
@@ -33,6 +41,8 @@ export const config = {
 };
 
 export const configUI = {
-  minVote: { conditional: 'canVote' },
-  onlyImages: { conditional: 'canUpload' }
+  provideDefault: { conditional: 'canUpload' },
+  liType: { conditional: 'provideDefault' },
+  allowAny: { conditional: 'canUpload' },
+  commentGuidelines: { conditional: 'canComment' }
 };

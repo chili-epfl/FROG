@@ -1,7 +1,7 @@
 // @flow
 
 import { shuffle, compact } from 'lodash';
-import { type productOperatorT } from 'frog-utils';
+import { type productOperatorT, values, idObj } from 'frog-utils';
 
 const meta = {
   name: 'Distribute content',
@@ -48,12 +48,20 @@ const configUI = {
 
 const operator = (configData, object) => {
   const { globalStructure, socialStructure, activityData } = object;
-  if (activityData.structure !== 'all') {
+  console.log(values(activityData));
+  if (
+    activityData.structure !== 'all' &&
+    !values(activityData).every(x => x.structure === 'all')
+  ) {
     throw 'Cannot redistribute already distributed content';
   }
-  const products = activityData.payload.all.data;
-  if (!Array.isArray(products)) {
-    throw 'Can only reshuffle an array';
+  let products;
+  if (activityData.structure === 'all') {
+    products = values(activityData.payload.all.data);
+  } else {
+    const val = values(activityData).map(x => x.payload.all.data);
+    const reduced = val.reduce((acc, x) => ({ ...acc, ...x }), {});
+    products = values(reduced);
   }
   const groups = configData.individual
     ? globalStructure.studentIds
@@ -78,6 +86,7 @@ const operator = (configData, object) => {
       );
     }
   }
+  console.log(res);
 
   res = Object.keys(res).reduce(
     (acc, x) => ({
@@ -86,10 +95,12 @@ const operator = (configData, object) => {
     }),
     {}
   );
+  console.log(res);
   res = Object.keys(res).reduce(
-    (acc, x) => ({ ...acc, [x]: { data: res[x] } }),
+    (acc, x) => ({ ...acc, [x]: { data: idObj(res[x]) } }),
     {}
   );
+  console.log(res);
 
   const structure = configData.individual
     ? 'individual'

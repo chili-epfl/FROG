@@ -76,6 +76,22 @@ export class Doc {
     }
   }
 
+  duplicateLearningItem(li: string | Object): string | Object {
+    const id = uuid();
+    if (typeof li === 'object') {
+      return {
+        id,
+        liDocument: {
+          ...li.liDocument,
+          id,
+          createdAt: new Date(),
+          parentId: li.id
+        }
+      };
+    } else {
+    }
+  }
+
   LearningItem = (props: any) => {
     const LI = this.LearningItemFn;
     return <LI {...props} dataFn={this} />;

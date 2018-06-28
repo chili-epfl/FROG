@@ -10,6 +10,9 @@ export default (schema: Object, uiSchema: ?Object): Object => {
 
   const newSchema = cloneDeep(schema);
   const paths = traverse.paths(newSchema).filter(x => x.pop() === 'type');
+  const inputPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'inputCondition'
+  );
   const anyActivityPaths = paths.filter(
     x => get(schema, [...x, 'type']) === 'anyActivity'
   );
@@ -35,7 +38,8 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...sourceActivityPaths,
     ...socialPaths,
     ...rtePaths,
-    ...LITypePaths
+    ...LITypePaths,
+    ...inputPaths
   ].forEach(x => set(newSchema, [...x, 'type'], 'string'));
 
   delete newSchema.properties.component;
@@ -43,6 +47,11 @@ export default (schema: Object, uiSchema: ?Object): Object => {
   const socialMerges = socialPaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
       'ui:widget': 'socialAttributeWidget'
+    })
+  );
+  const inputMerges = inputPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'inputConditionWidget'
     })
   );
   const LIMerges = LITypePaths.map(x =>
@@ -100,7 +109,8 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...sourceActivityMerges,
     ...targetActivityMerges,
     ...rteMerges,
-    ...LIMerges
+    ...LIMerges,
+    ...inputMerges
   );
   return { uiSchema: newUiSchema, schema: newSchema };
 };

@@ -1,6 +1,13 @@
 // @flow
 
-import { type dataUnitStructT, type ActivityPackageT, uuid } from 'frog-utils';
+import {
+  type dataUnitStructT,
+  type ActivityPackageT,
+  uuid,
+  values
+} from 'frog-utils';
+
+import { isObject } from 'lodash';
 
 import { config } from './config';
 import ActivityRunner from './ActivityRunner';
@@ -49,7 +56,12 @@ const meta = {
         formBoolean: false
       },
       learningItems,
-      data: ['1', '2', '3', '4']
+      data: {
+        '1': { id: '1', li: '1' },
+        '2': { li: '2', id: '2' },
+        '3': { id: '3', li: '3' },
+        '4': { id: '4', li: '4' }
+      }
     },
     {
       title: 'List with some items, students able to add',
@@ -59,12 +71,12 @@ const meta = {
         formBoolean: true
       },
       learningItems,
-      data: [
-        { li: '1' },
-        { li: '2' },
-        { li: '3', tags: ['should', 'not', 'break'] },
-        '4'
-      ]
+      data: {
+        '1': { id: '1', li: '1' },
+        '2': { id: '2', li: '2' },
+        '3': { id: '3', li: '3', tags: ['should', 'not', 'break'] },
+        '4': { id: '4', li: '4' }
+      }
     }
   ]
 };
@@ -72,21 +84,20 @@ const meta = {
 const dataStructure = {};
 
 const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
-  if (obj.data && Array.isArray(obj.data)) {
-    obj.data.forEach(box => {
-      const id = box.id || uuid();
-      const item = typeof box === 'object' ? box : { li: box };
-      dataFn.objInsert(
-        {
-          students: {},
-          score: 0,
-          id,
-          ...item
-        },
-        id
-      );
+  if (isObject(obj?.data)) {
+    values(obj.data).forEach(x => {
+      const id = uuid();
+      dataFn.objInsert({ students: {}, score: 0, ...x, id }, id);
     });
   }
+};
+
+const outputDefinition = {
+  score: { title: 'Vote score (can be negative)', type: 'number' },
+  rank: { title: 'Rank (1st, 2nd etc)', type: 'number' },
+  LI_title: { title: 'Title field', type: 'string' },
+  LI_content: { title: 'Content filed', type: 'string' },
+  LI_all: { title: 'All text', type: 'string' }
 };
 
 export default ({
@@ -96,5 +107,6 @@ export default ({
   config,
   meta,
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  outputDefinition
 }: ActivityPackageT);

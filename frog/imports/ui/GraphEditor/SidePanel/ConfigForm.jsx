@@ -17,15 +17,14 @@ import {
   SelectSourceActivityWidget,
   SelectTargetActivityWidget,
   addSocialFormSchema,
-  SelectLITypeWidget
+  SelectLITypeWidget,
+  InputConditionWidget
 } from './FormUtils';
 
 type ConfigFormPropsT = {
   node: Object,
   nodeType: any,
-  connectedActivities?: any,
-  connectedSourceActivities?: any,
-  connectedTargetActivities?: any,
+  nodeId: string,
   valid: any,
   refreshValidate: Function,
   reload?: any,
@@ -70,8 +69,7 @@ export default class ConfigForm extends Component<
     }
     if (
       this.props.node._id === nextProps.node._id &&
-      this.props.reload === nextProps.reload &&
-      isEqual(this.props.connectedActivities, nextProps.connectedActivities)
+      this.props.reload === nextProps.reload
     ) {
       return false;
     } else {
@@ -80,15 +78,7 @@ export default class ConfigForm extends Component<
   }
 
   render() {
-    const {
-      node,
-      nodeType,
-      valid,
-      connectedActivities,
-      connectedSourceActivities,
-      connectedTargetActivities,
-      refreshValidate
-    } = this.props;
+    const { node, nodeType, valid, nodeId, refreshValidate } = this.props;
     const props = {
       formData: this.state.formData,
       ...addSocialFormSchema(nodeType.config, nodeType.configUI),
@@ -98,15 +88,14 @@ export default class ConfigForm extends Component<
         anyActivityWidget: SelectAnyActivityWidget,
         targetActivityWidget: SelectTargetActivityWidget,
         sourceActivityWidget: SelectSourceActivityWidget,
-        learningItemTypeWidget: SelectLITypeWidget
+        learningItemTypeWidget: SelectLITypeWidget,
+        inputConditionWidget: InputConditionWidget
       },
       reload: this.props.reload,
       id: node._id,
       formContext: {
         options: valid.social[node._id] || [],
-        connectedActivities,
-        connectedSourceActivities,
-        connectedTargetActivities,
+        nodeId: node._id,
         groupingKey: node.groupingKey
       },
       onChange:

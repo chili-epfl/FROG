@@ -1,0 +1,18 @@
+
+version: '2'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 10000:80
+    environment:
+      WORDPRESS_DB_PASSWORD: example
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example

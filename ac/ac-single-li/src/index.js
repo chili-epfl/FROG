@@ -1,6 +1,8 @@
 // @flow
 
 import * as React from 'react';
+import { isObject } from 'lodash';
+import { values } from 'frog-utils';
 import {
   type ActivityPackageT,
   type ActivityRunnerPropsT,
@@ -84,7 +86,7 @@ class ActivityRunner extends React.Component<
         <div style={style}>
           {header}
           <dataFn.LearningItem
-            type={this.state.editing ? 'edit' : 'thumbView'}
+            type={this.state.editing ? 'edit' : 'view'}
             id={data.li}
             clickZoomable
             render={({ editable, children }) => (
@@ -130,6 +132,7 @@ class ActivityRunner extends React.Component<
             onCreate={li => {
               dataFn.objInsert(li, 'li');
               this.props.logger({ type: 'progress', value: 1 });
+              this.props.stream({ li: li });
             }}
           />
         </div>
@@ -138,14 +141,24 @@ class ActivityRunner extends React.Component<
   }
 }
 
+const mergeFunction = (obj, dataFn) => {
+  if (isObject(obj?.data)) {
+    values(obj.data).forEach(x => {
+      const id = uuid();
+      dataFn.objInsert({ ...x, id });
+    });
+  }
+};
+
 export default ({
   id: 'ac-single-li',
   type: 'react-component',
   meta,
   config,
   configUI,
+  mergeFunction,
+  dashboards: { progress: ProgressDashboard },
   formatProduct,
   ActivityRunner,
-  dashboards: { progress: ProgressDashboard },
   dataStructure
 }: ActivityPackageT);

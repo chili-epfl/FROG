@@ -5,7 +5,8 @@ import { type SocialT, type ErrorListT } from './validGraphFn';
 
 export const getOperator = (operator: any) => {
   const optype = operatorTypesObj[operator.operatorType];
-  const spec = optype && optype.type === 'social' && optype.outputDefinition;
+  const spec =
+    optype && optype.type === 'social' && optype.socialOutputDefinition;
   if (spec) {
     if (Array.isArray(spec)) {
       return spec;

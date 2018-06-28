@@ -12,18 +12,13 @@ import { compact } from 'lodash';
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
-import { operatorTypesObj } from '../imports/operatorTypes';
+import { operatorTypesObj } from './operatorTypesServer';
 import { Products } from '../imports/api/products';
 import { Operators, Activities, Connections } from '../imports/api/activities';
 import { addObject } from '../imports/api/objects';
 import remote from './runRemoteOperator';
 
 declare var Promise: any;
-
-Meteor.methods({
-  'dataflow.run': (type, nodeId, sessionId) =>
-    runDataflow(type, nodeId, sessionId)
-});
 
 const runAllConnecting = (connections: Object[], sessionId: string) =>
   connections.map(
@@ -37,6 +32,23 @@ const runAllConnecting = (connections: Object[], sessionId: string) =>
 const getStudents = sessionId => {
   const session = Sessions.findOne(sessionId);
   return Meteor.users.find({ joinedSessions: session.slug }).fetch();
+};
+
+export const checkActivitySink = (activityId: string, sessionId: string) => {
+  const conn = Connections.find(
+    {
+      'source.id': activityId,
+      'target.type': 'operator'
+    },
+    { reactive: false }
+  ).fetch();
+  conn.forEach(connection => {
+    const operator = Operators.findOne(connection.target.id);
+    if (operatorTypesObj[operator.operatorType].meta.sink) {
+      Promise.await(reactiveToProduct(connection.source.id));
+      runDataflow(connection.target.type, connection.target.id, sessionId);
+    }
+  });
 };
 
 // runDataflow ensures that all data required for a given node is
@@ -138,5 +150,10 @@ const runDataflow = (
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
   }
 };
+
+Meteor.methods({
+  'dataflow.run': runDataflow,
+  'check.activity.sink': checkActivitySink
+});
 
 export default runDataflow;

@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Accounts } from 'meteor/accounts-base';
 import { getInitialState, withDragDropContext } from 'frog-utils';
 import { compose, toClass } from 'recompose';
+import { nextActivity } from '../../api/engine';
 
 import { Activities } from '../../api/activities';
 import { logLogin } from '../../api/logs';
@@ -82,15 +83,28 @@ const StudentView = ({ activities, session, token, classes }) => (
           )}
           {Meteor.user() &&
             Meteor.user().username === 'teacher' && (
-              <Button
-                className={classes.button}
-                color="inherit"
-                onClick={() => {}}
-                href={`/?login=teacher&token=${(token && token.value) || ''}`}
-                target="_blank"
-              >
-                Orchestration View
-              </Button>
+              <>
+                <Button
+                  className={classes.button}
+                  color="inherit"
+                  onClick={() => {
+                    nextActivity(session._id);
+                  }}
+                  target="_blank"
+                >
+                  Next activity
+                </Button>
+
+                <Button
+                  className={classes.button}
+                  color="inherit"
+                  onClick={() => {}}
+                  href={`/?login=teacher&token=${(token && token.value) || ''}`}
+                  target="_blank"
+                >
+                  Orchestration View
+                </Button>
+              </>
             )}
           <Button
             className={classes.button}

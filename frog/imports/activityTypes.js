@@ -1,7 +1,11 @@
 // @flow
 
 import { keyBy } from 'lodash';
-import { type ActivityPackageT, flattenOne } from 'frog-utils';
+import {
+  type ActivityPackageT,
+  flattenOne,
+  type LearningItemT
+} from 'frog-utils';
 
 import acSingleLi from 'ac-single-li';
 import acTrain from 'ac-train';
@@ -31,6 +35,14 @@ import acVideoChat from 'ac-videochat';
 
 import acH5P from './internalActivities/ac-h5p';
 import acDash from './internalActivities/ac-dash';
+
+import fileLI from './internalLearningItems/li-file';
+import ideaLI from './internalLearningItems/li-idea';
+import imageLI from './internalLearningItems/li-image';
+import ideaCompoundLI from './internalLearningItems/li-ideaCompound';
+import cs211LI from './internalLearningItems/li-cs211';
+import spreadsheetLI from './internalLearningItems/li-spreadsheet';
+import { operatorTypes } from './operatorTypes';
 
 export const activityTypes: ActivityPackageT[] = flattenOne([
   acSingleLi,
@@ -67,3 +79,21 @@ export const activityTypesObj: { [actId: string]: ActivityPackageT } = (keyBy(
   activityTypes,
   'id'
 ): any);
+const packageLIs = [...activityTypes, ...operatorTypes].reduce(
+  (acc, x) => acc.concat(x.LearningItems || []),
+  []
+);
+
+const packageMerge = keyBy(packageLIs, 'id');
+
+export const learningItemTypesObj: {
+  [name: string]: LearningItemT<any>
+} = {
+  ...packageMerge,
+  'li-idea': ideaLI,
+  'li-file': fileLI,
+  'li-image': imageLI,
+  'li-ideaCompound': ideaCompoundLI,
+  'li-cs211': cs211LI,
+  'li-spreadsheet': spreadsheetLI
+};
