@@ -246,7 +246,7 @@ export type socialOperatorT = {
     shortDesc: string,
     description: string
   },
-  outputDefinition: string[] | ((config: Object) => string[]),
+  socialOutputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
   configUI?: Object,
