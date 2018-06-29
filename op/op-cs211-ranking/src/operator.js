@@ -1,4 +1,10 @@
-import { values, entries, wrapUnitAll } from 'frog-utils';
+// @flow
+import {
+  values,
+  entries,
+  wrapUnitAll,
+  type productOperatorRunnerT
+} from 'frog-utils';
 import { compact } from 'lodash';
 
 const aryToObj = ary => compact(ary).reduce((acc, x) => ({ ...acc, ...x }), {});
@@ -142,4 +148,4 @@ const operator = (configData, object) => {
   return wrapUnitAll({}, { text: htmlResult });
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

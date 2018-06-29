@@ -1,5 +1,5 @@
 // @flow
-import { getSlug } from 'frog-utils';
+import { getSlug, type socialOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData: *, object: *) => {
   const {
@@ -34,4 +34,4 @@ const operator = (configData: *, object: *) => {
   return { group: result };
 };
 
-export default operator;
+export default (operator: socialOperatorRunnerT);

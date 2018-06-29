@@ -1,4 +1,5 @@
-import { wrapUnitAll } from 'frog-utils';
+// @flow
+import { wrapUnitAll, type productOperatorRunnerT } from 'frog-utils';
 import { sortBy } from 'lodash';
 
 const operator = (configData = {}, object) => {
@@ -13,4 +14,4 @@ const operator = (configData = {}, object) => {
   return wrapUnitAll(result);
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

@@ -1,7 +1,13 @@
+// @flow
 import queryString from 'query-string';
 import { compact } from 'lodash';
 import fetch from 'isomorphic-fetch';
-import { uuid, wrapUnitAll, type activityDataT } from 'frog-utils';
+import {
+  uuid,
+  wrapUnitAll,
+  type activityDataT,
+  type productOperatorRunnerT
+} from 'frog-utils';
 
 const safeFirst = ary => (ary.length > 0 ? ary[0] : '');
 
@@ -39,4 +45,4 @@ export const operator = (configData: {
     .then(mapQuery);
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

@@ -1,4 +1,6 @@
+// @flow
 import { invert, compact } from 'lodash';
+import { type controlOperatorRunnerT } from 'frog-utils';
 
 const calcSingle = (mode, usernameString, nameToId, individuals, social) => {
   const usernames = usernameString.split(',').map(x => x.trim());
@@ -43,4 +45,4 @@ const operator = (configData, object) => {
   }
 };
 
-export default operator;
+export default (operator: controlOperatorRunnerT);

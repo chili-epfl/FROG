@@ -1,3 +1,6 @@
+// @flow
+import { type productOperatorRunnerT } from 'frog-utils';
+
 const XOR = (a, b) => (a && !b) || (!a && b);
 
 export const objFilter = (
@@ -30,4 +33,4 @@ const operator = (configData, object) => {
   return { structure, payload };
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

@@ -1,3 +1,6 @@
+// @flow
+import { type productOperatorRunnerT, type activityDataT } from 'frog-utils';
+
 const operator = (_, object) => {
   const {
     activityData: { payload },
@@ -27,4 +30,4 @@ const operator = (_, object) => {
   return toReturn;
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

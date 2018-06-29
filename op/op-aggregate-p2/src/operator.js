@@ -1,4 +1,5 @@
-import { focusStudent } from 'frog-utils';
+// @flow
+import { focusStudent, type productOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
   const { socialStructure } = object;
@@ -25,4 +26,4 @@ const operator = (configData, object) => {
   return { structure: { groupingKey: configData.grouping }, payload: res };
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

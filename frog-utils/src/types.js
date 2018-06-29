@@ -239,6 +239,21 @@ export type operatorPackageT =
   | productOperatorT
   | controlOperatorT;
 
+export type productOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => activityDataT;
+
+export type controlOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => ControlStructureT;
+
+export type socialOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => socialStructureT;
+
 export type CursorT<T> = {
   fetch: () => T[],
   map: T => void,
@@ -252,7 +267,6 @@ type UpdateQueryT<T> = {
   $inc?: { [key: $Keys<T>]: number },
   $unset?: { [key: $Keys<T>]: any }
 };
-
 export type MongoT<T> = {
   find: (
     string | $Shape<T> | { [$Keys<T>]: { $in: any } },

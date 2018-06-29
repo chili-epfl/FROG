@@ -1,4 +1,6 @@
+// @flow
 import { shuffle, compact } from 'lodash';
+import { type productOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
   const { globalStructure, socialStructure, activityData } = object;
@@ -51,4 +53,4 @@ const operator = (configData, object) => {
   return { structure, payload: res };
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

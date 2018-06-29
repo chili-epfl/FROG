@@ -1,3 +1,6 @@
+// @flow
+import { type productOperatorRunnerT } from 'frog-utils';
+
 const mapData = (aD, fn) => {
   const payload = aD.payload;
   const newPayload = Object.keys(payload).reduce(
@@ -30,4 +33,4 @@ const operator = (configData, object) => {
   }));
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

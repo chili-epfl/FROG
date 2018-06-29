@@ -1,4 +1,5 @@
-import { focusRole } from 'frog-utils';
+// @flow
+import { focusRole, type socialOperatorRunnerT } from 'frog-utils';
 
 const operator = (
   configData,
@@ -27,4 +28,4 @@ const operator = (
   return focusRole(studentStruct);
 };
 
-export default operator;
+export default (operator: socialOperatorRunnerT);

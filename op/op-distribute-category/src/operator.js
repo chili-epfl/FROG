@@ -1,5 +1,6 @@
+// @flow
 import { sample } from 'lodash';
-import { focusStudent } from 'frog-utils';
+import { focusStudent, type productOperatorRunnerT } from 'frog-utils';
 
 const checkObject = obj =>
   obj &&
@@ -58,4 +59,4 @@ const operator = (configData, object) => {
   return { structure: { groupingKey }, payload };
 };
 
-export default operator;
+export default (operator: productOperatorRunnerT);

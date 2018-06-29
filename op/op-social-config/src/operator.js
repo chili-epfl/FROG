@@ -1,3 +1,6 @@
+// @flow
+import { type socialOperatorRunnerT } from 'frog-utils';
+
 const operator = (configData, object) => {
   const findMatching = attrib => {
     const matching = configData.matchings.find(x => x.socialValue === attrib);
@@ -22,4 +25,4 @@ const operator = (configData, object) => {
   return { structure: { groupingKey: configData.socialAttribute }, payload };
 };
 
-export default operator;
+export default (operator: socialOperatorRunnerT);

@@ -1,5 +1,6 @@
+// @flow
 import { chunk } from 'lodash';
-import type { socialStructureT } from 'frog-utils';
+import type { socialStructureT, socialOperatorRunnerT } from 'frog-utils';
 
 const optim = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 
@@ -85,4 +86,4 @@ const operator = (configData, object): socialStructureT => {
   return { group: groups };
 };
 
-export default operator;
+export default (operator: socialOperatorRunnerT);

@@ -1,5 +1,6 @@
+// @flow
 import { shuffle } from 'lodash';
-import { focusRole } from 'frog-utils';
+import { focusRole, type socialOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
   const { globalStructure, socialStructure } = object;
@@ -30,4 +31,4 @@ const operator = (configData, object) => {
   return focusRole(socStruc);
 };
 
-export default operator;
+export default (operator: socialOperatorRunnerT);

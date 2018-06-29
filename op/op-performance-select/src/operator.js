@@ -1,3 +1,6 @@
+// @flow
+import { type controlOperatorRunnerT } from 'frog-utils';
+
 const operator = (configData, object) => {
   const isHighPerformer = configData.use_percentage
     ? (actual, max) => actual / max >= configData.min_percentage / 100
@@ -38,4 +41,4 @@ const operator = (configData, object) => {
   };
 };
 
-export default operator;
+export default (operator: controlOperatorRunnerT);
