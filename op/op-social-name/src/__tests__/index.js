@@ -2,9 +2,8 @@
 
 import { wrapUnitAll } from 'frog-utils';
 import { compact } from 'lodash';
+import operator from '../operatorRunner';
 import pkg from '../index';
-
-const operator = pkg.operator;
 
 const config = {
   groupingKeys: 'first,last',

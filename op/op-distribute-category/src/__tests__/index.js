@@ -1,6 +1,6 @@
 // @flow
 
-import { distributeObjects } from '..';
+import { distributeObjects } from '../operatorRunner';
 
 test('Distribute to groups', () =>
   expect(

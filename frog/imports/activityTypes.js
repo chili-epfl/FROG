@@ -12,7 +12,7 @@ export const activityTypesExt = entries(packagesRaw).reduce(
 const internal = importAll.sync('./internalActivities/*/index.js');
 
 export const activityTypesObj = entries(internal).reduce(
-  (acc, [k, v]) => ({ ...acc, [k.split('/')[1]]: v.default }),
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
   activityTypesExt
 );
 
@@ -21,7 +21,16 @@ export const activityTypes = values(activityTypesObj);
 const activityRunnersRaw = importAll.sync(
   '../node_modules/ac-*/src/ActivityRunner?(.js)'
 );
-export const activityRunners = entries(activityRunnersRaw).reduce(
+export const activityRunnersExt = entries(activityRunnersRaw).reduce(
   (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
   {}
+);
+
+const activityRunnersRawInternal = importAll.sync(
+  './internalActivities/*/ActivityRunner?(.js)'
+);
+
+export const activityRunners = entries(activityRunnersRawInternal).reduce(
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
+  activityRunnersExt
 );

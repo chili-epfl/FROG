@@ -1,6 +1,6 @@
 // @flow
 
-import { objFilter } from '..';
+import { objFilter } from '../operatorRunner';
 
 const obj = {
   selected: true,

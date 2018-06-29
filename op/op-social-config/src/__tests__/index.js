@@ -1,6 +1,6 @@
 // @flow
 
-import pkg from '../index';
+import operator from '../operatorRunner';
 
 const configData = {
   socialAttribute: 'group',
@@ -26,7 +26,7 @@ const object = {
 };
 
 test('Distribute configs without default', () =>
-  expect(pkg.operator(configData, object)).toEqual({
+  expect(operator(configData, object)).toEqual({
     payload: {
       '1': { config: { title: 'Hi, welcome' } },
       '2': { config: { title: 'How are you?' } },
@@ -37,10 +37,7 @@ test('Distribute configs without default', () =>
 
 test('Distribute configs with default', () =>
   expect(
-    pkg.operator(
-      { ...configData, provideDefault: true, default: 'Ni hao' },
-      object
-    )
+    operator({ ...configData, provideDefault: true, default: 'Ni hao' }, object)
   ).toEqual({
     payload: {
       '1': { config: { title: 'Hi, welcome' } },

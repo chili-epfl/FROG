@@ -1,4 +1,4 @@
-import pkg from '..';
+import operator from '../operatorRunner';
 
 const config = {
   use_percentage: false,
@@ -39,7 +39,7 @@ const object = {
 };
 
 test('split in two', () => {
-  expect(pkg.operator(config, object)).toEqual({
+  expect(operator(config, object)).toEqual({
     list: {
       act1: {
         mode: 'include',

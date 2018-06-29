@@ -2,7 +2,7 @@
 
 import { type activityDataT } from 'frog-utils';
 
-import op from '../index';
+import operator from '../operatorRunner';
 
 const activityData: activityDataT = {
   structure: 'all',
@@ -32,7 +32,7 @@ const config = {
 
 test('works with all', () => {
   expect(
-    op.operator(config, {
+    operator(config, {
       activityData,
       socialStructure: {},
       globalStructure
