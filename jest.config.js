@@ -5,8 +5,7 @@ module.exports = {
   moduleNameMapper: {
     '^meteor/(.*)$': '<rootDir>/frog/lib/fakeMeteor',
     '^/(.*)$': '<rootDir>/frog/$1',
-    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
-    'import-all.macro': '<rootDir>/__mocks__/importAllMock.js'
+    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
   },
   moduleDirectories: ['node_modules']
 };
