@@ -1,6 +1,6 @@
 // @flow
 
-import pkg from '../index';
+import pkg from '../operatorRunner';
 
 const object = {
   _id: 'cjgccn7m5000ik7j4g5i6uc2i',
