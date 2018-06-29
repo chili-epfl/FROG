@@ -2,7 +2,6 @@
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
 
-import ActivityRunner from './Chat';
 import dashboards from './Dashboard';
 
 const learningItems = [
@@ -130,7 +129,6 @@ const mergeFunction = (obj, dataFn) => {
 export default ({
   id: 'ac-chat',
   type: 'react-component',
-  ActivityRunner,
   config,
   configUI,
   meta,

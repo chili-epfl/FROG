@@ -1,8 +1,5 @@
 // @flow
 
-import * as React from 'react';
-import type { ActivityRunnerPropsT } from 'frog-utils';
-
 export const meta = {
   name: 'Embedded website',
   shortDesc: 'Embedding an external website in an iFrame',
@@ -29,18 +26,9 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ activityData }: ActivityRunnerPropsT) => (
-  <iframe
-    title="IFrame"
-    src={activityData.config.url}
-    style={{ width: '100%', height: '100%', overflow: 'auto' }}
-  />
-);
-
 export default {
   id: 'ac-iframe',
   type: 'react-component',
-  ActivityRunner,
   config,
   meta
 };

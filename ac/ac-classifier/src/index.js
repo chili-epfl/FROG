@@ -2,7 +2,6 @@
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
 
-import ActivityRunner from './Classifier';
 import meta from './meta';
 
 const config = {
@@ -65,7 +64,6 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  ActivityRunner,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

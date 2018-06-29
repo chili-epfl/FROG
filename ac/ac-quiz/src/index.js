@@ -3,7 +3,6 @@
 import type { ActivityPackageT } from 'frog-utils';
 
 import { config, validateConfig, configUI } from './config';
-import ActivityRunner from './ActivityRunner';
 import meta from './meta';
 import dashboards from './Dashboard';
 import { exportData, formatProduct } from './utils';
@@ -22,7 +21,6 @@ export default ({
   configUI,
   validateConfig,
   dataStructure,
-  ActivityRunner,
   dashboards,
   exportData,
   formatProduct

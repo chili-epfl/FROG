@@ -147,7 +147,6 @@ export type ActivityPackageT = {
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: ActivityRunnerT,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (

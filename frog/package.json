@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "scripts": {"start": "nps"},
   "dependencies": {
+    "babel-plugin-macros": "^2.2.2",
+    "import-all.macro": "^2.0.3",
     "@houshuang/react-webcam": "^0.5",
     "@houshuang/resize-img": "^1.2.3",
     "@babel/runtime": "^7.0.0-beta.46",

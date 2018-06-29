@@ -1,11 +1,6 @@
 // @flow
 
-import * as React from 'react';
-import {
-  type ActivityRunnerPropsT,
-  type ActivityPackageT,
-  HTML
-} from 'frog-utils';
+import { type ActivityPackageT } from 'frog-utils';
 
 export const meta = {
   name: 'Text Component',
@@ -47,19 +42,9 @@ export const config = {
   }
 };
 
-export const ActivityRunner = ({ activityData }: ActivityRunnerPropsT) => (
-  <div>
-    <h1>{activityData.config ? activityData.config.title : ''}</h1>
-    <span style={{ fontSize: '20px' }}>
-      {activityData.config ? <HTML html={activityData.config.text} /> : ''}
-    </span>
-  </div>
-);
-
 export default ({
   id: 'ac-text',
   type: 'react-component',
-  ActivityRunner,
   config,
   meta
 }: ActivityPackageT);

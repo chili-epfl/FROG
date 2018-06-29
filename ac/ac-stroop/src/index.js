@@ -2,7 +2,6 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 
 const meta = {
@@ -140,7 +139,6 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  ActivityRunner,
   dashboards,
   dataStructure
 }: ActivityPackageT);

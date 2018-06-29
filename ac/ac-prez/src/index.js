@@ -1,7 +1,6 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './Prez';
 import { config } from './config';
 
 const meta = {
@@ -25,6 +24,5 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  ActivityRunner,
   dataStructure
 }: ActivityPackageT);

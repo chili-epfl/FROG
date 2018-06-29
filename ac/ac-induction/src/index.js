@@ -20,6 +20,5 @@ export default ({
   type: 'react-component',
   config,
   meta,
-  ActivityRunner: () => <div>Activity currently broken</div>,
   dashboard
 }: ActivityPackageT);

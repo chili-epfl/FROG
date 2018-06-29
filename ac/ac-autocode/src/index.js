@@ -1,7 +1,6 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 import {
   config,
@@ -41,7 +40,6 @@ export default ({
   config,
   configUI,
   validateConfig,
-  ActivityRunner,
   dashboards,
   dataStructure,
   mergeFunction
