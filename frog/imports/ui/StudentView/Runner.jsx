@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypesObj, activityRunners } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import ReactiveHOC from './ReactiveHOC';
@@ -147,7 +147,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
       meta.createdByInstance = { [groupingKey]: groupingValue };
     }
 
-    const RunComp = activityType.ActivityRunner;
+    const RunComp = activityRunners[activityType.id];
     RunComp.displayName = activityType.id;
 
     this.ActivityToRun = ReactiveHOC(

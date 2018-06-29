@@ -20,7 +20,7 @@ import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
-import { activityTypesObj } from '../../activityTypes';
+import { activityRunners, activityTypesObj } from '../../activityTypes';
 import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
@@ -127,7 +127,7 @@ const ContentController = ({
     return <p>The config is invalid</p>;
   }
 
-  const RunComp = activityType.ActivityRunner;
+  const RunComp = activityRunners[activityType.id];
   RunComp.displayName = activityType.id;
 
   const examples = activityType.meta.exampleData || [];

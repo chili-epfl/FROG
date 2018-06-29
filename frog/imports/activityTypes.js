@@ -1,7 +1,8 @@
 // @flow
 
+import importAll from 'import-all.macro';
 import { keyBy } from 'lodash';
-import { type ActivityPackageT, flattenOne } from 'frog-utils';
+import { type ActivityPackageT, flattenOne, entries } from 'frog-utils';
 
 import acSingleLi from 'ac-single-li';
 import acTrain from 'ac-train';
@@ -67,3 +68,12 @@ export const activityTypesObj: { [actId: string]: ActivityPackageT } = (keyBy(
   activityTypes,
   'id'
 ): any);
+
+const activityRunnersRaw = importAll.sync(
+  '../node_modules/ac-*/src/ActivityRunner?(.js)'
+);
+export const activityRunners = entries(activityRunnersRaw).reduce(
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
+  {}
+);
+console.log(activityRunners);
