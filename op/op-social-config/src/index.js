@@ -41,34 +41,9 @@ const config = {
 
 const configUI = { defaultValue: { conditional: 'provideDefault' } };
 
-const operator = (configData, object) => {
-  const findMatching = attrib => {
-    const matching = configData.matchings.find(x => x.socialValue === attrib);
-    if (matching) {
-      return matching.configValue;
-    }
-    if (configData.provideDefault) {
-      return configData.default;
-    } else {
-      return null;
-    }
-  };
-  const payload = Object.keys(
-    object.socialStructure[configData.socialAttribute]
-  ).reduce(
-    (acc, x) => ({
-      ...acc,
-      [x]: { config: { [configData.path]: findMatching(x) } }
-    }),
-    {}
-  );
-  return { structure: { groupingKey: configData.socialAttribute }, payload };
-};
-
 export default ({
   id: 'op-social-config',
   type: 'product',
-  operator,
   config,
   configUI,
   meta

@@ -200,11 +200,7 @@ export type productOperatorT = {
   },
   config: Object,
   configUI?: Object,
-  validateConfig?: validateConfigFnT[],
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => activityDataT
+  validateConfig?: validateConfigFnT[]
 };
 
 export type controlOperatorT = {
@@ -219,11 +215,7 @@ export type controlOperatorT = {
   },
   config: Object,
   configUI?: Object,
-  validateConfig?: validateConfigFnT[],
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => ControlStructureT
+  validateConfig?: validateConfigFnT[]
 };
 
 export type socialOperatorT = {
@@ -239,11 +231,7 @@ export type socialOperatorT = {
   outputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
-  configUI?: Object,
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => socialStructureT
+  configUI?: Object
 };
 
 export type operatorPackageT =
