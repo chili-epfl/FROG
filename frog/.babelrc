@@ -1,35 +1,35 @@
 {
+  "plugins": [
+    "macros",
+    "@babel/plugin-transform-flow-strip-types",
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ],
+    "@babel/plugin-proposal-optional-chaining",
+    [
+      "captains-log",
+      {
+        "methods": [
+          "debug",
+          "error",
+          "exception",
+          "log",
+          "warn"
+        ]
+      }
+    ]
+  ],
   "env": {
     "test": {
-      "plugins": [
-        "macros",
-        "@babel/plugin-transform-flow-strip-types",
-        [
-          "@babel/plugin-proposal-decorators",
-          {
-            "legacy": true
-          }
-        ],
-        [
-          "@babel/plugin-proposal-class-properties",
-          {
-            "loose": true
-          }
-        ],
-        "@babel/plugin-proposal-optional-chaining",
-        [
-          "captains-log",
-          {
-            "methods": [
-              "debug",
-              "error",
-              "exception",
-              "log",
-              "warn"
-            ]
-          }
-        ]
-      ],
       "presets": [
         "@babel/preset-env",
         "@babel/preset-react",
