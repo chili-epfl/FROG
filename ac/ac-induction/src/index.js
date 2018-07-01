@@ -1,6 +1,5 @@
 // @flow
 
-import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
 import config from './config';
