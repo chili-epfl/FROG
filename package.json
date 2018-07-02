@@ -33,7 +33,7 @@
     "assert": "^1.4.1",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "8.2.1",
-    "babel-jest": "^23.2.0",
+    "@houshuang/babel-jest": "^23.2.0",
     "babel-plugin-captains-log": "^1.0.1",
     "chokidar": "^2.0.3",
     "enzyme": "^3.3.0",
