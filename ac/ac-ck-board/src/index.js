@@ -2,7 +2,6 @@
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
 
-import Board from './board';
 import { meta, config, configUI } from './meta';
 
 const dataStructure = [];
@@ -28,7 +27,6 @@ export default ({
   meta,
   config,
   configUI,
-  ActivityRunner: Board,
   Dashboard: null,
   dataStructure,
   mergeFunction

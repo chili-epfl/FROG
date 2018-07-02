@@ -3,7 +3,6 @@
 import { type dataUnitStructT, type ActivityPackageT, uuid } from 'frog-utils';
 
 import { config } from './config';
-import ActivityRunner from './ActivityRunner';
 
 const learningItems = [
   {
@@ -92,7 +91,6 @@ const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
 export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
-  ActivityRunner,
   config,
   meta,
   dataStructure,

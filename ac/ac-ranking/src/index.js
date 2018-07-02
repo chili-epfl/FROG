@@ -4,7 +4,6 @@ import { type ActivityPackageT } from 'frog-utils';
 import { sortBy } from 'lodash';
 
 import { config, configUI } from './config';
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 import meta from './meta';
 
@@ -47,7 +46,6 @@ export default ({
   meta,
   config,
   configUI,
-  ActivityRunner,
   dashboards,
   dataStructure,
   formatProduct

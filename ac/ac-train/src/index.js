@@ -1,7 +1,6 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboards';
 
 const interfaceExample = int => ({
@@ -88,7 +87,6 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  ActivityRunner,
   dashboards,
   dataStructure
 }: ActivityPackageT);

@@ -1,5 +1,5 @@
 // @flow
-import { type socialOperatorT, focusRole } from 'frog-utils';
+import { type socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Assign group by name',
@@ -67,40 +67,12 @@ const validateConfig = [
   }
 ];
 
-const operator = (
-  configData,
-  { globalStructure: { studentIds, students } }
-) => {
-  const defaultMapping = configData.defaultGroupingValues
-    .split(',')
-    .map(f => f.trim());
-  const studentmapping = configData.studentmapping
-    .split('\n')
-    .filter(x => x.trim() !== '')
-    .reduce((acc, x) => {
-      const f = x.split(',');
-      return { ...acc, [f[0]]: f.slice(1).map(z => z.trim()) };
-    }, {});
-  const groupingKeys = configData.groupingKeys.split(',');
-  const studentStruct = studentIds.reduce((acc, stud) => {
-    const mapping = studentmapping[students[stud]] || defaultMapping;
-    const attribs = groupingKeys.reduce(
-      (subacc, grp, i) => ({ ...subacc, [grp]: mapping[i] }),
-      {}
-    );
-    return { ...acc, [stud]: attribs };
-  }, {});
-
-  return focusRole(studentStruct);
-};
-
 const outputDefinition = configData =>
   configData.defaultGroupingValue.split(',').map(f => f.trim());
 
 export default ({
   id: 'op-social-name',
   type: 'social',
-  operator,
   config,
   configUI,
   validateConfig,

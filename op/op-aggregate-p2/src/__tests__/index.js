@@ -1,6 +1,6 @@
 // @flow
 
-import pkg from '../index';
+import operator from '../operatorRunner';
 
 const object = {
   _id: 'cjgccn7m5000ik7j4g5i6uc2i',
@@ -63,7 +63,7 @@ const object = {
 const config = { grouping: 'group', wholeElement: true };
 
 test('deal with whole instance data', () => {
-  expect(pkg.operator(config, object)).toEqual({
+  expect(operator(config, object)).toEqual({
     payload: {
       '1': {
         config: {},
@@ -140,7 +140,7 @@ const object2 = {
 const config2 = { grouping: 'group' };
 
 test('deal with whole instance data', () => {
-  expect(pkg.operator(config2, object2)).toEqual({
+  expect(operator(config2, object2)).toEqual({
     payload: {
       '1': {
         config: {},

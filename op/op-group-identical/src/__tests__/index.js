@@ -1,7 +1,7 @@
 // @flow
 import type { ObjectT, GlobalStructureT, socialStructureT } from 'frog-utils';
 
-import pkg from '..';
+import operator from '../operatorRunner';
 
 const data = {
   structure: 'individual',
@@ -19,7 +19,7 @@ const object: ObjectT & GlobalStructureT = {
 };
 
 test('Should work with normal structure', () => {
-  expect(pkg.operator({}, object)).toEqual(
+  expect(operator({}, object)).toEqual(
     ({
       group: {
         '0': ['aa', 'bb'],
@@ -39,5 +39,5 @@ const objectAll: ObjectT & GlobalStructureT = {
 };
 
 test('Does not work without individual structure', () => {
-  expect(() => pkg.operator({}, objectAll)).toThrow();
+  expect(() => operator({}, objectAll)).toThrow();
 });

@@ -147,7 +147,6 @@ export type ActivityPackageT = {
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: ActivityRunnerT,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (
@@ -201,11 +200,7 @@ export type productOperatorT = {
   },
   config: Object,
   configUI?: Object,
-  validateConfig?: validateConfigFnT[],
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => activityDataT
+  validateConfig?: validateConfigFnT[]
 };
 
 export type controlOperatorT = {
@@ -220,11 +215,7 @@ export type controlOperatorT = {
   },
   config: Object,
   configUI?: Object,
-  validateConfig?: validateConfigFnT[],
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => ControlStructureT
+  validateConfig?: validateConfigFnT[]
 };
 
 export type socialOperatorT = {
@@ -240,17 +231,28 @@ export type socialOperatorT = {
   outputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
-  configUI?: Object,
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => socialStructureT
+  configUI?: Object
 };
 
 export type operatorPackageT =
   | socialOperatorT
   | productOperatorT
   | controlOperatorT;
+
+export type productOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => activityDataT;
+
+export type controlOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => ControlStructureT;
+
+export type socialOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => socialStructureT;
 
 export type CursorT<T> = {
   fetch: () => T[],
@@ -265,7 +267,6 @@ type UpdateQueryT<T> = {
   $inc?: { [key: $Keys<T>]: number },
   $unset?: { [key: $Keys<T>]: any }
 };
-
 export type MongoT<T> = {
   find: (
     string | $Shape<T> | { [$Keys<T>]: { $in: any } },

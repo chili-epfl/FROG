@@ -12,7 +12,7 @@ import { compact } from 'lodash';
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
-import { operatorTypesObj } from '../imports/operatorTypes';
+import { operatorTypesObj, operators } from '../imports/operatorTypes';
 import { Products } from '../imports/api/products';
 import { Operators, Activities, Connections } from '../imports/api/activities';
 import { addObject } from '../imports/api/objects';
@@ -119,7 +119,7 @@ const runDataflow = (
   if (type === 'operator') {
     const operatorFunction = operatorTypesObj[node.operatorType].external
       ? remote(node.operatorType)
-      : operatorTypesObj[node.operatorType].operator;
+      : operators[node.operatorType];
     const product = Promise.await(operatorFunction(node.data || {}, object));
     const dataType = {
       product: 'activityData',

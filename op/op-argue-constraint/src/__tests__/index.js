@@ -2,9 +2,7 @@
 
 import { type ObjectT, type GlobalStructureT } from 'frog-utils';
 
-import pkg from '../index';
-
-const operator = pkg.operator;
+import operator from '../operatorRunner';
 
 const wrap = (
   instances,

@@ -1,7 +1,6 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './ActivityRunner';
 import dashboards from './dashboard.js';
 
 const meta = {
@@ -23,6 +22,5 @@ export default ({
   meta,
   config,
   dashboards,
-  ActivityRunner,
   dataStructure
 }: ActivityPackageT);

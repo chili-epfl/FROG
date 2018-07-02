@@ -2,8 +2,6 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './ActivityRunner';
-
 const meta = {
   name: 'File Uploader',
   type: 'react-component',
@@ -33,6 +31,5 @@ export default ({
   id: 'ac-uploader',
   type: 'react-component',
   meta,
-  config,
-  ActivityRunner
+  config
 }: ActivityPackageT);

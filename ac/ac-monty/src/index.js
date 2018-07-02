@@ -2,8 +2,6 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './ActivityRunner';
-
 const meta = {
   name: 'Monty',
   type: 'react-component',
@@ -39,7 +37,6 @@ export default ({
   type: 'react-component',
   meta,
   config,
-  ActivityRunner,
   Dashboard: null,
   dataStructure,
   mergeFunction

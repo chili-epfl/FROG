@@ -1,6 +1,5 @@
 // @flow
 
-import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
 import config from './config';
@@ -20,6 +19,5 @@ export default ({
   type: 'react-component',
   config,
   meta,
-  ActivityRunner: () => <div>Activity currently broken</div>,
   dashboard
 }: ActivityPackageT);

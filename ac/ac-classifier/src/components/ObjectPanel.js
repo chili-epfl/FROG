@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { TableView, TreeView, toTableData } from 'frog-utils';
 
-import { getType } from '../Classifier';
+import { getType } from '../ActivityRunner';
 
 const Container = styled.div`
   position: relative;
