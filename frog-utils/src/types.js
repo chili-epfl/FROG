@@ -159,7 +159,8 @@ export type ActivityPackageT = {
     configData: Object,
     setConfigData: Object => void,
     formContext: Object
-  }>
+  }>,
+  LearningItems?: LearningItemT<*>[]
 };
 
 export type DashboardT = {
@@ -200,7 +201,8 @@ export type productOperatorT = {
   },
   config: Object,
   configUI?: Object,
-  validateConfig?: validateConfigFnT[]
+  validateConfig?: validateConfigFnT[],
+  LearningItems?: LearningItemT<*>[]
 };
 
 export type controlOperatorT = {

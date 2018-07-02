@@ -3399,7 +3399,7 @@ decompress-response@^3.2.0, decompress-response@^3.3.0:
   dependencies:
     mimic-response "^1.0.0"
 
-deep-extend@^0.5.0, deep-extend@^0.5.1:
+deep-extend@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.5.1.tgz#b894a9dd90d3023fbf1c55a394fb858eb2066f1f"
 
@@ -8085,7 +8085,7 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
 
-request@*, request@^2.68.0, request@^2.72.0:
+request@*, request@^2.68.0:
   version "2.87.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
   dependencies:
@@ -9044,13 +9044,6 @@ twit@^2.2.10:
 twitter-text@1.13.2:
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/twitter-text/-/twitter-text-1.13.2.tgz#9dc21336a1819d2444811aecf59d0b037e8ce17f"
-
-twitter@1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/twitter/-/twitter-1.7.1.tgz#0762378f1dc1c050e48f666aca904e24b1a962f4"
-  dependencies:
-    deep-extend "^0.5.0"
-    request "^2.72.0"
 
 type-check@~0.3.2:
   version "0.3.2"

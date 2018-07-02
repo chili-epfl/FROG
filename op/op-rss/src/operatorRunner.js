@@ -9,6 +9,7 @@ export const operator = (configData: {
   urls: string[],
   limit?: number
 }): activityDataT => {
+  console.log(feedread);
   if (!isEmpty(configData.urls)) {
     return Promise.all(
       configData.urls.map(

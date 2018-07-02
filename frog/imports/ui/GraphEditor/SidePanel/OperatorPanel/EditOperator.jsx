@@ -11,6 +11,7 @@ import { ChangeableText } from 'frog-utils';
 import { removeOperatorType } from '/imports/api/activities';
 import { operatorTypesObj } from '/imports/operatorTypes';
 import { ErrorList, ValidButton } from '../../Validator';
+import { IconButton } from '../index';
 import { type StoreProp } from '../../store';
 import ConfigForm from '../ConfigForm';
 import DeleteButton from '../DeleteButton';
@@ -20,7 +21,8 @@ const TopPanel = ({
   operator,
   graphOperator,
   errorColor,
-  operatorType
+  operatorType,
+  ui
 }) => (
   <div style={{ backgroundColor: '#eee' }}>
     <div style={{ position: 'absolute', left: -40 }}>
@@ -45,6 +47,18 @@ const TopPanel = ({
         }}
       >
         <ValidButton activityId={operator._id} errorColor={errorColor} />
+        {operatorType.meta.preview && (
+          <IconButton
+            icon="glyphicon glyphicon-eye-open"
+            tooltip="Preview"
+            onClick={() => {
+              ui.setShowPreview({
+                operatorTypeId: operatorType.id,
+                config: operator.data
+              });
+            }}
+          />
+        )}
         <DeleteButton
           tooltip="Reset operator"
           msg="Do you really want to remove the operator type, and loose all the configuration data?"
@@ -67,6 +81,7 @@ const TopPanel = ({
 
 export default ({
   store: {
+    ui,
     graphErrors,
     refreshValidate,
     valid,
@@ -114,7 +129,8 @@ export default ({
           operator,
           graphOperator,
           errorColor,
-          operatorType
+          operatorType,
+          ui
         }}
       />
       <ConfigForm
