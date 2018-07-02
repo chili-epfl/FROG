@@ -1,7 +1,6 @@
 // @flow
 
 import type { ActivityPackageT } from 'frog-utils';
-import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
 import ConfigComponent from './config.js';
 
 export const meta = {

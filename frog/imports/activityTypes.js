@@ -11,12 +11,14 @@ export const activityTypesExt = entries(packagesRaw).reduce(
 
 const internal = importAll.sync('./internalActivities/*/index.js');
 
-export const activityTypesObj = entries(internal).reduce(
+export const activityTypesObj: { [at: string]: ActivityPackageT } = entries(
+  internal
+).reduce(
   (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
   activityTypesExt
 );
 
-export const activityTypes = values(activityTypesObj);
+export const activityTypes: ActivityPackageT[] = values(activityTypesObj);
 
 const activityRunnersRaw = importAll.sync(
   '../node_modules/ac-*/src/ActivityRunner?(.js)'
