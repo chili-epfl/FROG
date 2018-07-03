@@ -11,10 +11,7 @@ import { operatorTypesObj } from '../../operatorTypes';
 
 type PropsT = { operatorTypeId: string, config: Object, dismiss: Function };
 
-export class OperatorPreview extends React.Component<
-  PropsT,
-  { data: *, error: * }
-> {
+class OperatorPreview extends React.Component<PropsT, { data: *, error: * }> {
   dataFn: Object;
 
   constructor(props: PropsT) {
