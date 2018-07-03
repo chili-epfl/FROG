@@ -201,12 +201,8 @@ export type productOperatorT = {
   },
   config: Object,
   configUI?: Object,
-<<<<<<< HEAD
   validateConfig?: validateConfigFnT[],
   LearningItems?: LearningItemT<*>[]
-=======
-  validateConfig?: validateConfigFnT[]
->>>>>>> develop
 };
 
 export type controlOperatorT = {
