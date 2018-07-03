@@ -2,7 +2,6 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import AspectRatio from 'react-icons/lib/md/aspect-ratio';
 import Draggable from 'react-draggable';
-import { shorten } from 'frog-utils';
 
 const ObservationContainer = ({
   setXY,
@@ -11,8 +10,7 @@ const ObservationContainer = ({
   scaleY,
   scaleX,
   y,
-  title,
-  content
+  children
 }) => {
   const scaleText = (scaleX + scaleY) / 2;
   const style = {
@@ -20,13 +18,17 @@ const ObservationContainer = ({
     width: 300 / scaleX,
     margin: 20 / scaleText,
     textAlign: 'center',
-    display: 'inline-block'
+    display: 'inline-block',
+    overflow: 'hidden'
   };
 
   return (
     <Draggable
       onStart={() => true}
-      position={{ ...{ x, y } }}
+      position={{
+        x,
+        y
+      }}
       onStop={setXY}
       cancel=".nodrag"
     >
@@ -38,23 +40,13 @@ const ObservationContainer = ({
           overflow: 'hidden'
         }}
       >
-        <Paper style={style}>
+        <Paper elevation={3} style={style}>
           <div>
-            {shorten(title, 35)}
             <span style={{ float: 'right' }} className="noDrag">
               <AspectRatio onClick={openInfoFn} />
             </span>
           </div>
-          <div
-            style={{
-              fontSize: 16 / scaleText + 'px',
-              float: 'left',
-              marginTop: 5 / scaleText + 'px',
-              marginLeft: 2 / scaleText + 'px'
-            }}
-          >
-            {shorten(content, 100)}
-          </div>
+          {children}
         </Paper>
       </div>
     </Draggable>
