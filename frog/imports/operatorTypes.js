@@ -10,3 +10,12 @@ export const operatorTypesObj = entries(packagesRaw).reduce(
 );
 
 export const operatorTypes: operatorPackageT[] = values(operatorTypesObj);
+
+const operatorsRaw = importAll.sync(
+  '../node_modules/op-*/src/operatorRunner?(.js)'
+);
+
+export const operators = entries(operatorsRaw).reduce(
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
+  {}
+);
