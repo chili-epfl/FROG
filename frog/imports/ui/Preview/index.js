@@ -1,19 +1,15 @@
 // @flow
 
 import * as React from 'react';
-import { defaultConfig, uuid, entries } from 'frog-utils';
-import { omit, isEmpty } from 'lodash';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Dialog, List, Paper, DialogTitle } from '@material-ui/core';
-import { Meteor } from 'meteor/meteor';
+import { defaultConfig, uuid } from 'frog-utils';
+import { omit } from 'lodash';
 
 import Preview from './Preview';
+import { activityTypesObj } from '../../activityTypes';
 import { getUserId } from './Controls';
 import ErrorWrapper from './ErrorWrapper';
-import { initActivityDocuments, generateDataFn } from './Content';
+import { initActivityDocuments } from './Content';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
-import { activityTypesObj, activityRunners } from '../../activityTypes';
-import { operatorTypesObj } from '../../operatorTypes';
 
 export const addDefaultExample = (activityType: Object) => [
   {
@@ -40,75 +36,6 @@ const defaultState = {
   activityTypeId: null,
   reloadAPIform: ''
 };
-
-type PropsT = { operatorTypeId: string, config: Object, dismiss: Function };
-
-export class OperatorPreview extends React.Component<
-  PropsT,
-  { data: *, error: * }
-> {
-  dataFn: Object;
-
-  constructor(props: PropsT) {
-    super(props);
-    this.dataFn = generateDataFn();
-    Meteor.call(
-      'run.operator',
-      props.operatorTypeId,
-      JSON.parse(JSON.stringify(this.props.config)),
-      (err, res) => {
-        if (err) {
-          this.setState({ error: err });
-        } else {
-          this.setState({ data: res });
-        }
-      }
-    );
-    this.state = { data: {}, error: null };
-  }
-
-  render() {
-    // $FlowFixMe
-    const AT = activityRunners?.['ac-gallery'];
-    return AT ? (
-      <Dialog open maxWidth="md" fullWidth onClose={this.props.dismiss}>
-        <DialogTitle>
-          Preview of operator{' '}
-          {operatorTypesObj[this.props.operatorTypeId].meta.name}
-        </DialogTitle>
-        <List>
-          {isEmpty(this.state.data) ? (
-            <Paper>
-              <CircularProgress />
-            </Paper>
-          ) : (
-            <Paper>
-              <AT
-                activityId="preview1"
-                logger={() => {}}
-                sessionId="previeww2"
-                stream={() => {}}
-                userInfo={{ name: 'Preview', id: 'previewe3' }}
-                groupingValue="all"
-                data={entries(this.state.data.payload.all.data).reduce(
-                  (acc, [k, v]) => ({
-                    ...acc,
-                    [k]: { ...v, votes: {}, categories: [] }
-                  }),
-                  {}
-                )}
-                dataFn={this.dataFn}
-                activityData={{ config: {}, data: undefined }}
-              />
-            </Paper>
-          )}
-        </List>
-      </Dialog>
-    ) : (
-      'Cannot preview if ac-gallery is not installed'
-    );
-  }
-}
 
 class PreviewPage extends React.Component<any, any> {
   setStates: { [state: string]: Function };

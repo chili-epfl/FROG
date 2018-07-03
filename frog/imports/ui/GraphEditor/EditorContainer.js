@@ -20,7 +20,8 @@ import ModalImport from './RemoteControllers/ModalImport';
 import ModalDelete from './RemoteControllers/ModalDelete';
 
 import TopPanel from './TopPanel';
-import Preview, { OperatorPreview } from '../Preview';
+import Preview from '../Preview';
+import OperatorPreview from '../Preview/OperatorPreview';
 import TopBar from '../App/TopBar';
 
 const styles = () => ({
