@@ -66,7 +66,7 @@ class ActivityRunner extends Component<
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
+    const { activityData, data, dataFn, userInfo, logger } = this.props;
     const minVoteT = activityData.config.minVote || 1;
 
     const images = Object.keys(data)
