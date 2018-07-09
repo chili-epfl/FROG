@@ -17,6 +17,7 @@ const Main = styled.div`
 
 class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   runCode: Function;
+
   handleError: Function;
 
   componentDidMount() {

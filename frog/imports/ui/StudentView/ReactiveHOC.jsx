@@ -31,9 +31,13 @@ const ReactiveHOC = (
     ReactiveCompsStateT
   > {
     doc: any;
+
     unmounted: boolean;
+
     interval: any;
+
     intervalCount: number = 0;
+
     times: 0;
 
     constructor(props: Object) {

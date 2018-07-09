@@ -60,6 +60,7 @@ const VideoProgress = ({ state, user }) => {
 
 class Viewer extends Component<any, Object> {
   interval: any;
+
   unmounted: boolean;
 
   constructor(props: any) {

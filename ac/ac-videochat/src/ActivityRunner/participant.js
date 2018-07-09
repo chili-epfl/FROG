@@ -16,18 +16,31 @@ declare var RTCSessionDescription: any;
 
 class Participant {
   name: string;
+
   id: string;
+
   role: string;
+
   sendMessage: Function;
+
   rtcPeer: RTCPeerConnection;
+
   options: OptionsT;
+
   mode: string;
+
   isAnswerProcessed: boolean;
+
   remoteCandidates: Array<any>;
+
   senderVideo: Object;
+
   senderAudio: Object;
+
   cameraVideoTrack: Object;
+
   screenVideoTrack: Object;
+
   sendOnlyStream: Object;
 
   constructor(name: string, id: string, role: string, sendMessage: Function) {

@@ -104,12 +104,14 @@ export class Doc {
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
   }
+
   listAppend(newVal: any, path: rawPathT) {
     this.submitOp({
       p: [...cleanPath(this.path, path), 999999],
       li: newVal
     });
   }
+
   listAppendLI(
     liType: string,
     payload: Object,
@@ -123,18 +125,21 @@ export class Doc {
       li: liID
     });
   }
+
   listInsert(newVal: any, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
       li: newVal
     });
   }
+
   listDel(oldVal: any, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
       ld: oldVal
     });
   }
+
   listReplace(oldVal: any, newVal: any, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
@@ -142,13 +147,16 @@ export class Doc {
       li: newVal
     });
   }
+
   numIncr(incr: number, path: rawPathT) {
     this.doc.preventCompose = true;
     this.submitOp({ p: cleanPath(this.path, path), na: incr });
   }
+
   objInsert(newVal: any, path: rawPathT) {
     this.submitOp({ p: cleanPath(this.path, path), oi: newVal });
   }
+
   keyedObjInsert(newVal: Object, path: rawPathT) {
     const id = uuid();
     const aryPath = Array.isArray(path) ? path : [path];
@@ -157,9 +165,11 @@ export class Doc {
       oi: { id, ...newVal }
     });
   }
+
   objDel(oldVal: Object, path: rawPathT) {
     this.submitOp({ p: cleanPath(this.path, path), od: oldVal });
   }
+
   objReplace(oldVal: Object, newVal: Object, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
@@ -167,12 +177,14 @@ export class Doc {
       oi: newVal
     });
   }
+
   objSet(newVal: Object, path: rawPathT) {
     this.submitOp({
       p: [...this.path, path],
       oi: newVal
     });
   }
+
   specialize(rawPath: rawPathT) {
     const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
     return new Doc(

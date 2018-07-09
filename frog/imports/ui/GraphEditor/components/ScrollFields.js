@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { connect, store, type StoreProp } from './../store';
+import { connect, store, type StoreProp } from '../store';
 
 const scrollInterval = direction => {
   if (!store.scrollIntervalID) {

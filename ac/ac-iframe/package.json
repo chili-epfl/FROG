@@ -10,11 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "react-iframe": "^1.1.0"
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-iframe": "^1.2.0"
   },
   "devDependencies": {
-    "nps": "5.9.0"
+    "nps": "5.9.2"
   }
 }

@@ -88,6 +88,7 @@ class ChatController extends React.Component<StyledPropsT> {
       domNode.scrollTop = Math.max(maxScrollTop, 0);
     }
   };
+
   componentDidMount() {
     this.scrollToBottom();
   }

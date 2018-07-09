@@ -12,6 +12,7 @@ type ReactivePropsT = {
 
 export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
   textRef: any;
+
   binding: any;
 
   update = (props: ReactivePropsT) => {
