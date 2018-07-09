@@ -59,7 +59,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   );
 
   const stream = (value, targetpath) => {
-    Meteor.call('stream', activity, groupingValue, targetpath, value);
+    Meteor.call('stream', activity, groupingValue, value);
   };
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);

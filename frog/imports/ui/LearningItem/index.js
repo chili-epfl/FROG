@@ -63,6 +63,9 @@ const LearningItem = (props: {
         if (typeof props.onCreate === 'function') {
           props.onCreate(li);
         }
+        if (props.stream) {
+          props.stream({ li });
+        }
       };
     }
     if (!onCreate) {
