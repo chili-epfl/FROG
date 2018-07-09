@@ -22,7 +22,8 @@ const TopPanel = ({
   graphOperator,
   errorColor,
   operatorType,
-  ui
+  ui,
+  canPreview
 }) => (
   <div style={{ backgroundColor: '#eee' }}>
     <div style={{ position: 'absolute', left: -40 }}>
@@ -47,18 +48,19 @@ const TopPanel = ({
         }}
       >
         <ValidButton activityId={operator._id} errorColor={errorColor} />
-        {operatorType.meta.preview && (
-          <IconButton
-            icon="glyphicon glyphicon-eye-open"
-            tooltip="Preview"
-            onClick={() => {
-              ui.setShowPreview({
-                operatorTypeId: operatorType.id,
-                config: operator.data
-              });
-            }}
-          />
-        )}
+        {operatorType.meta.preview &&
+          canPreview && (
+            <IconButton
+              icon="glyphicon glyphicon-eye-open"
+              tooltip="Preview"
+              onClick={() => {
+                ui.setShowPreview({
+                  operatorTypeId: operatorType.id,
+                  config: operator.data
+                });
+              }}
+            />
+          )}
         <DeleteButton
           tooltip="Reset operator"
           msg="Do you really want to remove the operator type, and loose all the configuration data?"
@@ -129,6 +131,7 @@ export default ({
           operator,
           graphOperator,
           errorColor,
+          canPreview: error.length === 0,
           operatorType,
           ui
         }}
