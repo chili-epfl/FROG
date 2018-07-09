@@ -65,7 +65,9 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
 
 export default class Store {
   browserHistory: any;
+
   url: string;
+
   history: any[];
 
   constructor() {

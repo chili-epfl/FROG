@@ -10,17 +10,29 @@ import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
   length: number;
+
   startTime: number;
+
   id: string;
+
   over: boolean;
+
   data: Object;
+
   activityType: string;
+
   rawTitle: string;
+
   klass: string;
+
   state: string;
+
   wasMoved: boolean;
+
   title: string;
+
   bounds: BoundsT;
+
   endTime: number;
 
   constructor(

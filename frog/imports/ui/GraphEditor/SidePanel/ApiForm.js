@@ -173,8 +173,11 @@ type PropsT = {
 
 class State {
   showErrors: boolean;
+
   valid: any[];
+
   setShow: Function;
+
   setValid: Function;
 
   constructor() {

@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 import { type LogDbT, type DashboardT } from 'frog-utils';
 import exampleState from './dashboardExample/avion.js';
 
-const fontSizeMapper = (itMax, word) => 10 + word.value * 150 / Number(itMax);
+const fontSizeMapper = (itMax, word) => 10 + (word.value * 150) / Number(itMax);
 
 const Viewer = ({ state }: Object) => (
   <div style={{ width: '600px', height: '600px', margin: 'auto' }}>

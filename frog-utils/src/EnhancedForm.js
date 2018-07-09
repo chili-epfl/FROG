@@ -18,7 +18,9 @@ class EnhancedForm extends Component<
   { formData?: ?Object, schema?: Object }
 > {
   hides: string[];
+
   formData: ?Object;
+
   state = {};
 
   componentWillMount() {

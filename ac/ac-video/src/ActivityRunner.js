@@ -4,9 +4,11 @@ import { type ActivityRunnerPropsT } from 'frog-utils';
 
 class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   ref: any;
+
   componentDidMount() {
     this.ref.seekTo(this.props.data.play);
   }
+
   render() {
     const { activityData, logger, dataFn } = this.props;
     const url = activityData.config.url;

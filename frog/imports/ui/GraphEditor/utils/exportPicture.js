@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react';
 import { saveSvgAsPng, svgAsPngUri } from 'save-svg-as-png';
 
 import { store } from '../store';
-import { timeToPx } from '../utils';
+import { timeToPx } from '.';
 import Graph from '../Graph';
 
 export default (dataCB: string => void) => {

@@ -71,6 +71,7 @@ class ZoomPic extends React.Component<*, *> {
 
 class Viewer extends React.Component<*, *> {
   state = { index: null };
+
   render() {
     const { LearningItem, data } = this.props;
     return (
