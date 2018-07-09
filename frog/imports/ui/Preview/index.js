@@ -5,11 +5,11 @@ import { defaultConfig, uuid } from 'frog-utils';
 import { omit } from 'lodash';
 
 import Preview from './Preview';
+import { activityTypesObj } from '../../activityTypes';
 import { getUserId } from './Controls';
 import ErrorWrapper from './ErrorWrapper';
 import { initActivityDocuments } from './Content';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
-import { activityTypesObj } from '../../activityTypes';
 
 export const addDefaultExample = (activityType: Object) => [
   {
