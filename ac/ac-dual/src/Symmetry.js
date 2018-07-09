@@ -56,10 +56,10 @@ const generateFigure = c => {
     const p = {};
     p.x =
       Math.cos(points[i] * 2 * Math.PI) +
-      (Math.random() - 0.5) * complexity / 2.0;
+      ((Math.random() - 0.5) * complexity) / 2.0;
     p.y =
       Math.sin(points[i] * 2 * Math.PI) +
-      (Math.random() - 0.5) * complexity / 2.0;
+      ((Math.random() - 0.5) * complexity) / 2.0;
     figure.push(p);
   }
   return normaliseFigure(figure);
@@ -76,8 +76,8 @@ const drawFigure = (canvas, figure) => {
   c2.translate(xoffset, yoffset);
 
   const scale = {};
-  scale.x = canvas.width / 2 * 0.9;
-  scale.y = canvas.height / 2 * 0.9;
+  scale.x = (canvas.width / 2) * 0.9;
+  scale.y = (canvas.height / 2) * 0.9;
 
   const n = figure.length;
   c2.moveTo(figure[n - 1].x * scale.x, figure[n - 1].y * scale.y);
@@ -119,8 +119,11 @@ const clearFigure = canvas => {
 
 class Canvas extends React.Component<*, *> {
   canvasLeft: any;
+
   canvasRight: any;
+
   width: number;
+
   height: number;
 
   constructor(props) {

@@ -210,8 +210,9 @@ class DragDropController extends React.Component<PropsT, StateT> {
   }
 }
 
-const DragDrop = compose(withDragDropContext, withStyles(styles))(
-  DragDropController
-);
+const DragDrop = compose(
+  withDragDropContext,
+  withStyles(styles)
+)(DragDropController);
 
 export default DragDrop;
