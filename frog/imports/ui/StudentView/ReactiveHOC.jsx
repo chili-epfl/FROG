@@ -23,7 +23,8 @@ const ReactiveHOC = (
   readOnly: boolean = false,
   collection?: string,
   meta?: Object,
-  backend: any
+  backend: any,
+  stream?: Function
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
@@ -83,7 +84,8 @@ const ReactiveHOC = (
               meta,
               readOnly,
               this.update,
-              backend
+              backend,
+              stream
             )
           });
         }
