@@ -119,6 +119,7 @@ const FROGRouter = withRouter(
         }
       });
     }
+
     notReady = () => {
       this.setState({ mode: 'waiting' }, () => this.update());
     };

@@ -8,14 +8,14 @@
   "dependencies": {
     "frog-utils": "^1.0.0",
     "lodash": "^4.17.10",
-    "mousetrap": "^1.6.1",
-    "react": "^16.3.1",
+    "mousetrap": "^1.6.2",
+    "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.3.1",
-    "react-google-charts": "^1.6.0",
-    "recompose": "^0.27.0"
+    "react-dom": "^16.4.1",
+    "react-google-charts": "^1.6.6",
+    "recompose": "^0.27.1"
   },
   "devDependencies": {
-    "nps": "5.9.0"
+    "nps": "5.9.2"
   }
 }

@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { DraggableCore } from 'react-draggable';
 
-import { connect, store, type StoreProp } from './../store';
-import { timeToPx, rangeExclusive } from './../utils';
+import { connect, store, type StoreProp } from '../store';
+import { timeToPx, rangeExclusive } from '../utils';
 
 export const PanMap = connect(
   ({
@@ -72,7 +72,7 @@ export const TimeScale = connect(
     },
     scaled
   }) => {
-    let divider = Math.round(5 / scale * (graphDuration / 120)) * 5;
+    let divider = Math.round((5 / scale) * (graphDuration / 120)) * 5;
     divider = divider || 1;
     return (
       <g>

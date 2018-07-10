@@ -34,7 +34,7 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 ## Set up
 
 * install [Meteor](https://www.meteor.com/install)
-* make sure you have a recent version of Node 8 or 9 (if you have node, but not the
+* make sure you have a recent version of Node (at least 9.10) (if you have node, but not the
   latest, you can try `npm install -g n; n latest`
 
 * run the commands

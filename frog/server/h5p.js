@@ -68,8 +68,7 @@ Meteor.methods({
           if (err) {
             resolve(-1);
           } else {
-            fs
-              .createReadStream('/tmp/' + id)
+            fs.createReadStream('/tmp/' + id)
               .pipe(unzipper.Extract({ path: '/tmp/h5p/' + id }))
               .on('error', _ => {
                 console.error(`Cannot unzip /tmp/${id}`);

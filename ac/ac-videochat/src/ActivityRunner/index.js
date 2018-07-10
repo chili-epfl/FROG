@@ -54,21 +54,34 @@ const styles = theme => ({
 
 class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   name: string;
+
   id: string;
+
   role: string;
+
   roomId: string;
+
   participants: Object;
+
   ws: WebSocket;
+
   stream: MediaStream;
+
   browser: {
     browser: string,
     version: number
   };
+
   activityType: string;
+
   mediaConstraints: Object;
+
   screenSharingOn: boolean;
+
   sendOnlyParticipant: Object;
+
   record: boolean;
+
   useAnalysis: boolean;
 
   constructor(props: ActivityRunnerPropsT) {

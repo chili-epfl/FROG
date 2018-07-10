@@ -15,6 +15,8 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'jsx-a11y/aria-proptypes': 'off',
+    'react/jsx-no-target-blank': 'off',
     'flowtype/generic-spacing': 'off',
     'flowtype/no-types-missing-file-annotation': 'off',
     'class-methods-use-this': 'off',

@@ -13,7 +13,7 @@ import {
 import { CircularProgress } from '@material-ui/core/CircularProgress';
 
 import { createDashboards } from '../../api/mergeLogData';
-import { DashboardStates } from '../../../imports/api/cache';
+import { DashboardStates } from '../../api/cache';
 
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
 
@@ -43,8 +43,11 @@ type PropsT = {
 
 class ShowDashExample extends React.Component<PropsT, StateT> {
   activityDbObject: Object;
+
   timeseries: LogDbT[][];
+
   logsProcessed: number = 0;
+
   isUnmounted: boolean = false;
 
   constructor(props: PropsT) {

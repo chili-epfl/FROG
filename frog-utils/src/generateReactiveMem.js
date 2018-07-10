@@ -23,7 +23,9 @@ const cleanPath = (defPath: rawPathT, rawPath: rawPathT = []): string[] => {
 
 export class MemDoc extends EventEmitter {
   data: any;
+
   path: rawPathT;
+
   emitEvent: any;
 
   constructor(data: any, path?: rawPathT) {
@@ -32,6 +34,7 @@ export class MemDoc extends EventEmitter {
     this.path = path || [];
     this.emitEvent('load');
   }
+
   submitOp(path: rawPathT, op: Function) {
     const setpath = cleanPath(this.path, path);
     const toChange = isEmpty(path) ? this.data : get(this.data, setpath);
@@ -43,12 +46,15 @@ export class MemDoc extends EventEmitter {
     }
     this.emitEvent('op');
   }
+
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp(path, x => [newVal, ...x]);
   }
+
   listAppend(newVal: any, path: rawPathT) {
     this.submitOp(path, x => [...x, newVal]);
   }
+
   listInsert(newVal: any, path: rawPathT) {
     const idx = path[path.length - 1];
     this.submitOp(path.slice(0, path.length - 1), x => [
@@ -57,6 +63,7 @@ export class MemDoc extends EventEmitter {
       ...x.slice(idx)
     ]);
   }
+
   listDel(oldVal: any, path: rawPathT) {
     const idx = path[path.length - 1];
     this.submitOp(path.slice(0, path.length - 1), x => [
@@ -64,6 +71,7 @@ export class MemDoc extends EventEmitter {
       ...x.slice(idx)
     ]);
   }
+
   listReplace(oldVal: any, newVal: any, path: rawPathT) {
     const idx = path[path.length - 1];
     this.submitOp(path.slice(0, path.length - 1), x => [
@@ -72,12 +80,15 @@ export class MemDoc extends EventEmitter {
       ...x.slice(idx + 1)
     ]);
   }
+
   numIncr(incr: number, path: rawPathT) {
     this.submitOp(path, x => x + incr);
   }
+
   objInsert(newVal: Object, path: rawPathT) {
     this.submitOp(path, _ => newVal);
   }
+
   objDel(oldVal: Object, path: rawPathT) {
     const toDel = path[path.length - 1];
     this.submitOp(path.slice(0, path.length - 1), x => omit(x, toDel));
@@ -87,6 +98,7 @@ export class MemDoc extends EventEmitter {
     const newPath = typeof rawPath === 'string' ? [rawPath] : rawPath;
     return new MemDoc(this.data, [...this.path, ...newPath]);
   }
+
   specializeData(path: rawPathT, data: Object) {
     if (typeof path === 'string') {
       return data[[path]];
@@ -95,6 +107,7 @@ export class MemDoc extends EventEmitter {
   }
 
   destroy() {}
+
   setMaxListeners(): any {}
 }
 
