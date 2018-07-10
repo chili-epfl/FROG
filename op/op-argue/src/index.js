@@ -12,7 +12,7 @@ const config = {};
 export default ({
   id: 'op-argue',
   type: 'social',
-  version: 1,
+  configVersion: 1,
   config,
   meta,
   outputDefinition: ['group']

@@ -53,7 +53,7 @@ const outputDefinition = conf => [(conf && conf.grouping) || 'group'];
 export default ({
   id: 'op-create-groups',
   type: 'social',
-  version: 1,
+  configVersion: 1,
   config,
   configUI,
   meta,

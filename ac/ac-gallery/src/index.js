@@ -66,7 +66,7 @@ const exportData = (configData, { payload }) => {
 export default ({
   id: 'ac-gallery',
   type: 'react-component',
-  version: 1,
+  configVersion: 1,
   meta,
   config,
   configUI,

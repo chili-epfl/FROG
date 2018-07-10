@@ -36,7 +36,7 @@ const mergeFunction = (obj, dataFn) => {
 export default ({
   id: 'ac-autocode',
   type: 'react-component',
-  version: 1,
+  configVersion: 1,
   meta,
   config,
   configUI,

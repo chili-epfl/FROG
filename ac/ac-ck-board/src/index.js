@@ -27,7 +27,7 @@ const mergeFunction = (obj: any, dataFn: any) => {
 export default ({
   id: 'ac-ck-board',
   type: 'react-component',
-  version: 1,
+  configVersion: 1,
   meta,
   config,
   configUI,

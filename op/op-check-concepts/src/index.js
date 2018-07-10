@@ -37,7 +37,7 @@ const config = {
 export default ({
   id: 'op-check-concepts',
   type: 'product',
-  version: 1,
+  configVersion: 1,
   config,
   meta
 }: productOperatorT);

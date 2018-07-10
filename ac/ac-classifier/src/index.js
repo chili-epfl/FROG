@@ -62,7 +62,7 @@ const mergeFunction = (object, dataFn) => {
 export default ({
   id: 'ac-classifier',
   type: 'react-component',
-  version: 1,
+  configVersion: 1,
   meta,
   config,
   dataStructure,

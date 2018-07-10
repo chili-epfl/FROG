@@ -19,7 +19,7 @@ const dataStructure = { students: {}, groups: {} };
 export default ({
   id: 'ac-prox',
   type: 'react-component',
-  version: 1,
+  configVersion: 1,
   meta,
   config,
   dashboards,
