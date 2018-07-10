@@ -25,9 +25,11 @@ export default () => {
     });
   });
 
-  WebApp.connectHandlers.use('/H5p', (request, response, next) => {
+  WebApp.connectHandlers.use('/h5p', (request, response, next) => {
     if (request.method !== 'GET') next();
-    const id = require('url').parse(request.url).pathname;
+    const id = require('url')
+      .parse(request.url)
+      .pathname?.replace('/', '');
     const res = `
 <html>
 <head>
