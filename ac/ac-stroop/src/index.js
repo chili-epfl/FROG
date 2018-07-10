@@ -137,7 +137,7 @@ const dataStructure = {
 export default ({
   id: 'ac-stroop',
   type: 'react-component',
-  version: 1,
+  configVersion: 1,
   meta,
   config,
   dashboards,

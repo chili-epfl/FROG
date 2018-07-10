@@ -45,7 +45,7 @@ export const config = {
 export default ({
   id: 'ac-text',
   type: 'react-component',
-  version: 1,
+  configVersion: 1,
   config,
   meta
 }: ActivityPackageT);

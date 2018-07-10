@@ -40,7 +40,7 @@ const validateConfig = [
 export default ({
   id: 'op-hypothesis',
   type: 'product',
-  version: 1,
+  configVersion: 1,
   config,
   validateConfig,
   meta,

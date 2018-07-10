@@ -44,7 +44,7 @@ const configUI = { defaultValue: { conditional: 'provideDefault' } };
 export default ({
   id: 'op-social-config',
   type: 'product',
-  version: 1,
+  configVersion: 1,
   config,
   configUI,
   meta
