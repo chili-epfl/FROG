@@ -104,7 +104,7 @@ export default (props: Object) => {
   };
 
   const switchPlane = () => {
-    const newPlane = 1 + plane % 3;
+    const newPlane = 1 + (plane % 3);
     setPlane(newPlane);
     const newInstances = users.map(
       (n, i) => [getUserId(n), groupName(i), 'all'][newPlane - 1]

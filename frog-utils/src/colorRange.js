@@ -2,7 +2,7 @@
 
 // from http://stackoverflow.com/questions/11849308/generate-colors-between-red-and-green-for-an-input-range
 const interpolate = (s, e, steps, count) =>
-  Math.floor(s + (e - s) / steps * count);
+  Math.floor(s + ((e - s) / steps) * count);
 
 function Color(_r, _g, _b) {
   const r = _r;

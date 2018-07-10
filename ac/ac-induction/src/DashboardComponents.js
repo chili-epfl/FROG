@@ -18,19 +18,19 @@ export const ItemComponent = ({ x, i, data, nbInst, lineNb }: Object) => (
         className="progress-bar progress-bar-striped"
         role="progressbar"
         aria-valuenow={Math.round(
-          100 * data[partsNames[i]][lineNb] / (nbInst * x ** (1 - lineNb))
+          (100 * data[partsNames[i]][lineNb]) / (nbInst * x ** (1 - lineNb))
         )}
         aria-valuemin="0"
         aria-valuemax="100"
         style={{
           width:
             Math.round(
-              100 * data[partsNames[i]][lineNb] / (nbInst * x ** (1 - lineNb))
+              (100 * data[partsNames[i]][lineNb]) / (nbInst * x ** (1 - lineNb))
             ).toString() + '%'
         }}
       >
         {Math.round(
-          100 * data[partsNames[i]][lineNb] / (nbInst * x ** (1 - lineNb))
+          (100 * data[partsNames[i]][lineNb]) / (nbInst * x ** (1 - lineNb))
         ).toString() + '%'}
       </div>
     </div>
