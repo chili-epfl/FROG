@@ -126,7 +126,11 @@ export const ValidButtonRaw = ({
   errorColor: string,
   activityId?: string
 }) => (
-  <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
+  <svg
+    width="34px"
+    height="34px"
+    style={{ overflow: 'visible', position: 'fixed', top: 60, left: 250 }}
+  >
     <circle
       cx="17"
       cy="17"
