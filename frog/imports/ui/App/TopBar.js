@@ -104,10 +104,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
   }
 }
 
-const TopBar = compose(
-  withRouter,
-  withStyles(styles)
-)(TopBarController);
+const TopBar = compose(withRouter, withStyles(styles))(TopBarController);
 
 TopBar.displayName = 'TopBar';
 export default TopBar;

@@ -237,9 +237,6 @@ const ContentController = ({
   );
 };
 
-const Content = compose(
-  withDragDropContext,
-  toClass
-)(ContentController);
+const Content = compose(withDragDropContext, toClass)(ContentController);
 
 export default Content;

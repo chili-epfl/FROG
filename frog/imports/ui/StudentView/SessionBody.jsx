@@ -151,10 +151,9 @@ class SessionBodyController extends React.Component<
   }
 }
 
-const SessionBody = compose(
-  withDragDropContext,
-  toClass
-)(SessionBodyController);
+const SessionBody = compose(withDragDropContext, toClass)(
+  SessionBodyController
+);
 
 SessionBody.displayName = 'SessionBody';
 

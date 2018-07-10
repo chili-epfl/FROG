@@ -110,7 +110,7 @@ const RunnerController = props => {
     classes
   } = props;
 
-  const p = Math.round((iteration / (4 * iterationPerInterface)) * 100);
+  const p = Math.round(iteration / (4 * iterationPerInterface) * 100);
   return (
     <div className={classes.main}>
       <LinearProgress

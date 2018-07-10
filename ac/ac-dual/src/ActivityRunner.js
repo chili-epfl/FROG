@@ -107,7 +107,7 @@ const Main = props => {
 // the actual component that the student sees
 const Runner = (props: ActivityRunnerPropsT) => {
   const { step } = props.data;
-  const p = Math.round((step / 4) * 100);
+  const p = Math.round(step / 4 * 100);
   return (
     <div style={styles.main}>
       <ProgressBar now={p} label={`${p}%`} />

@@ -72,7 +72,7 @@ export const TimeScale = connect(
     },
     scaled
   }) => {
-    let divider = Math.round((5 / scale) * (graphDuration / 120)) * 5;
+    let divider = Math.round(5 / scale * (graphDuration / 120)) * 5;
     divider = divider || 1;
     return (
       <g>
