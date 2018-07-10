@@ -24,27 +24,6 @@ export default () => {
       }
     });
   });
-  // Picker.filter(req => req.method === 'GET').route(
-  //   '/h5pContent/:path(.*)',
-  //   (params, request, response) => {
-  //     const fname = params.path && '/tmp/h5p/' + params.path;
-  //     fs.access(fname, err => {
-  //       if (err) {
-  //         response.writeHead(404);
-  //         response.end();
-  //       } else {
-  //         const ext = fname.split('.').pop();
-  //         if (ext === 'css') {
-  //           response.writeHead(200, { 'content-type': 'text/css' });
-  //         } else if (ext === 'html') {
-  //           response.writeHead(200, { 'content-type': 'text/html' });
-  //         }
-  //         const readStream = fs.createReadStream(fname);
-  //         readStream.once('open', () => readStream.pipe(response));
-  //       }
-  //     });
-  //   }
-  // );
 
   WebApp.connectHandlers.use('/H5p', (request, response, next) => {
     if (request.method !== 'GET') next();
