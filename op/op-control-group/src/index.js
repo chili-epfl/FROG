@@ -13,6 +13,7 @@ const meta = {
 export default ({
   id: 'op-control-group',
   type: 'control',
+  version: 1,
   config,
   configUI,
   meta

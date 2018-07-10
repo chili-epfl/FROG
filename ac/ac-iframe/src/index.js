@@ -29,6 +29,7 @@ export const config = {
 export default {
   id: 'ac-iframe',
   type: 'react-component',
+  version: 1,
   config,
   meta
 };

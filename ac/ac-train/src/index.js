@@ -85,6 +85,7 @@ const dataStructure = {
 export default ({
   id: 'ac-train',
   type: 'react-component',
+  version: 1,
   meta,
   config,
   dashboards,

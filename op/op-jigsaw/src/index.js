@@ -26,6 +26,7 @@ const config = {
 export default ({
   id: 'op-jigsaw',
   type: 'social',
+  version: 1,
   meta,
   config,
   outputDefinition: ['group', 'role']

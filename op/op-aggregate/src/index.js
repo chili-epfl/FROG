@@ -22,6 +22,7 @@ const configUI = { topN: { conditional: 'chooseTop' } };
 export default ({
   id: 'op-aggregate',
   type: 'product',
+  version: 1,
   config,
   configUI,
   meta

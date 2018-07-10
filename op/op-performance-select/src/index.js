@@ -42,6 +42,7 @@ const configUI = {
 export default ({
   id: 'op-performance-select',
   type: 'control',
+  version: 1,
   config,
   configUI,
   meta

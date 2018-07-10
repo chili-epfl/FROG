@@ -17,6 +17,7 @@ const meta = {
 export default ({
   id: 'ac-induction',
   type: 'react-component',
+  version: 1,
   config,
   meta,
   dashboard

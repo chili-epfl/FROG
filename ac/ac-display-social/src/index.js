@@ -45,6 +45,7 @@ const dataStructure = [];
 export default ({
   id: 'ac-display-social',
   type: 'react-component',
+  version: 1,
   meta,
   config,
   dataStructure

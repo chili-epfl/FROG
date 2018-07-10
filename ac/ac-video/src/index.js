@@ -43,6 +43,7 @@ export const config = {
 export default {
   id: 'ac-video',
   type: 'react-component',
+  version: 1,
   config,
   meta,
   dashboards

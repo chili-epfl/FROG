@@ -129,6 +129,7 @@ const mergeFunction = (obj, dataFn) => {
 export default ({
   id: 'ac-chat',
   type: 'react-component',
+  version: 1,
   config,
   configUI,
   meta,

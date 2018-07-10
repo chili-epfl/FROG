@@ -43,6 +43,7 @@ export const formatProduct = (
 export default ({
   id: 'ac-ranking',
   type: 'react-component',
+  version: 1,
   meta,
   config,
   configUI,

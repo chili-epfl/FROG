@@ -16,6 +16,7 @@ const dataStructure = {
 export default ({
   id: 'ac-timedQuiz',
   type: 'react-component',
+  version: 1,
   meta,
   config,
   validateConfig,
