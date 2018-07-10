@@ -6,6 +6,7 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
+import bodyParser from 'body-parser';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -13,6 +14,9 @@ import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
 import { dashDocId } from '../imports/api/logs';
+
+WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
+WebApp.connectHandlers.use(bodyParser.json());
 
 setupH5PRoutes();
 
@@ -43,7 +47,6 @@ WebApp.connectHandlers.use('/lti', (request, response, next) => {
       id = uuid();
     }
     try {
-      // eslint-disable-next-line no-console
       const { userId } = Accounts.updateOrCreateUserFromExternalService(
         'frog',
         {
@@ -55,7 +58,7 @@ WebApp.connectHandlers.use('/lti', (request, response, next) => {
       Accounts._insertLoginToken(userId, stampedLoginToken);
       InjectData.pushData(request, 'login', {
         token: stampedLoginToken.token,
-        slug // not sure
+        slug
       });
       next();
     } catch (e) {
