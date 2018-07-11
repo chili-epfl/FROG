@@ -244,7 +244,7 @@ export type operatorPackageT =
 export type productOperatorRunnerT = (
   configData: Object,
   object: ObjectT & GlobalStructureT
-) => activityDataT;
+) => activityDataT | Promise<activityDataT>;
 
 export type controlOperatorRunnerT = (
   configData: Object,
