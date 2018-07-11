@@ -129,7 +129,7 @@ export type ActivityPackageT = {
   id: string,
   type: 'react-component',
   configVersion: number,
-  upgradeFunctions?: { [version: number]: (formData: Object) => Object },
+  upgradeFunctions?: { [version: string]: (formData: Object) => Object },
   meta: {
     name: string,
     shortName?: string,
