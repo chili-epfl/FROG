@@ -3,6 +3,8 @@ import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { omit } from 'lodash';
 
+import { chainUpgrades } from 'frog-utils';
+import { activityTypesObj } from '/imports/activityTypes';
 import { Activities, Operators, Connections } from '../../../api/activities';
 import { Graphs, addGraph } from '../../../api/graphs';
 import { store } from '../store';
@@ -41,11 +43,25 @@ export const exportGraph = () => {
 export const duplicateGraph = graphId =>
   doImportGraph({ target: { result: graphToString(graphId) } });
 
+export const upgradeGraph = graph => {
+  // only upgrade activities
+  const newGraph = { ...graph };
+  newGraph.activities = graph.activities.map(act => ({
+    ...act,
+    data: chainUpgrades(
+      activityTypesObj[act.activityType].upgradeFunctions,
+      act.configVersion || 0,
+      activityTypesObj[act.activityType].configVersion
+    )(act.data)
+  }));
+  return newGraph;
+};
+
 export const doImportGraph = graphStr => {
   try {
     const graph = graphStr.target ? graphStr.target.result : graphStr;
     const graphObj = JSON.parse(graph);
-    const graphId = addGraph(graphObj);
+    const graphId = addGraph(upgradeGraph(graphObj));
     store.setId(graphId);
     return graphId;
   } catch (e) {
