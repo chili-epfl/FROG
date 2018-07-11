@@ -61,29 +61,29 @@ test('exportWorks', () => {
 86ZE85kFywrkSyR4E	-1	-1		`);
 });
 
-test('upgrade0to1', () => {
-  expect(pkg.upgradeFunctions['1'](dataV0)).toEqual(dataV1);
-});
-//
 test('upgrade1to2', () => {
   expect(pkg.upgradeFunctions['2'](dataV1)).toEqual(dataV2);
 });
-
-test('upgrade0to2', () => {
-  const tmpV1 = pkg.upgradeFunctions['1'](dataV0);
-  expect(pkg.upgradeFunctions['2'](tmpV1)).toEqual(dataV2);
+//
+test('upgrade2to3', () => {
+  expect(pkg.upgradeFunctions['3'](dataV2)).toEqual(dataV3);
 });
 
-test('chainUpgrades0to1', () => {
-  expect(chainUpgrades(pkg.upgradeFunctions, 0, 1)(dataV0)).toEqual(dataV1);
+test('upgrade1to3', () => {
+  const tmpV2 = pkg.upgradeFunctions['2'](dataV1);
+  expect(pkg.upgradeFunctions['3'](tmpV2)).toEqual(dataV3);
 });
 
 test('chainUpgrades1to2', () => {
   expect(chainUpgrades(pkg.upgradeFunctions, 1, 2)(dataV1)).toEqual(dataV2);
 });
 
-test('chainUpgrades0to2', () => {
-  expect(chainUpgrades(pkg.upgradeFunctions, 0, 2)(dataV0)).toEqual(dataV2);
+test('chainUpgrades2to3', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, 2, 3)(dataV2)).toEqual(dataV3);
+});
+
+test('chainUpgrades1to3', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, 1, 3)(dataV1)).toEqual(dataV3);
 });
 
 const config = {
@@ -142,7 +142,7 @@ const data = {
   }, {})
 };
 
-const dataV0 = {
+const dataV1 = {
   title: 'test',
   guidelines: 'this is a test',
   questions: [
@@ -170,7 +170,7 @@ const dataV0 = {
   ]
 };
 
-const dataV1 = {
+const dataV2 = {
   title: 'test',
   guidelines: 'this is a test',
   questions: [
@@ -198,7 +198,7 @@ const dataV1 = {
   ]
 };
 
-const dataV2 = {
+const dataV3 = {
   title: 'test',
   guidelines: 'this is a test',
   shuffle: 'none',

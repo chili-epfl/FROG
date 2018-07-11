@@ -1,6 +1,7 @@
 // @flow
 
 import type { productOperatorT } from 'frog-utils';
+import upgradeFunctions from './upgradeFunctions';
 
 const meta = {
   name: 'Provide feedback based on concepts in text',
@@ -38,6 +39,7 @@ export default ({
   id: 'op-check-concepts',
   type: 'product',
   configVersion: 1,
+  upgradeFunctions,
   config,
   meta
 }: productOperatorT);

@@ -129,7 +129,7 @@ export type ActivityPackageT = {
   id: string,
   type: 'react-component',
   configVersion: number,
-  upgradeFunctions?: { [version: string]: (formData: Object) => Object },
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   meta: {
     name: string,
     shortName?: string,
@@ -195,7 +195,7 @@ export type productOperatorT = {
   id: string,
   type: 'product',
   configVersion: number,
-  upgradeFunctions?: { [version: number]: (Object) => Object },
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,
@@ -213,7 +213,7 @@ export type controlOperatorT = {
   id: string,
   type: 'control',
   configVersion: number,
-  upgradeFunctions?: { [version: number]: (Object) => Object },
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,
@@ -230,7 +230,7 @@ export type socialOperatorT = {
   id: string,
   type: 'social',
   configVersion: number,
-  upgradeFunctions?: { [version: number]: (Object) => Object },
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,

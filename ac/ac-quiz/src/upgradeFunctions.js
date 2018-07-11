@@ -1,15 +1,5 @@
 // @flow
 
-type version0 = {
-  title: string,
-  guidelines: string,
-  questions: Array<questionT0>
-};
-type questionT0 = {
-  question: string,
-  answers: Array<string>
-};
-
 type version1 = {
   title: string,
   guidelines: string,
@@ -17,11 +7,21 @@ type version1 = {
 };
 type questionT1 = {
   question: string,
+  answers: Array<string>
+};
+
+type version2 = {
+  title: string,
+  guidelines: string,
+  questions: Array<questionT2>
+};
+type questionT2 = {
+  question: string,
   answers: { [number]: string }
 };
 
-const upgr1: version0 => version1 = formData => {
-  const newObj: version1 = {
+const upgr2: version1 => version2 = formData => {
+  const newObj: version2 = {
     title: formData.title,
     guidelines: formData.guidelines,
     questions: []
@@ -38,19 +38,19 @@ const upgr1: version0 => version1 = formData => {
   return newObj;
 };
 
-type version2 = {
+type version3 = {
   title: string,
   guidelines: string,
   shuffle: string,
-  questions: Array<questionT2>
+  questions: Array<questionT3>
 };
-type questionT2 = {
+type questionT3 = {
   question: string,
   answers: Array<{ choice: string }>
 };
 
-const upgr2: version1 => version2 = formData => {
-  const newObj: version2 = {
+const upgr3: version2 => version3 = formData => {
+  const newObj: version3 = {
     title: formData.title,
     guidelines: formData.guidelines,
     shuffle: 'none',
@@ -59,12 +59,12 @@ const upgr2: version1 => version2 = formData => {
   formData.questions.forEach(x =>
     newObj.questions.push({
       question: x.question,
-      answers: Object.entries(x.answers).map(y => ({
-        choice: String(y[1])
+      answers: Object.values(x.answers).map(y => ({
+        choice: String(y)
       }))
     })
   );
   return newObj;
 };
 
-export default { '1': upgr1, '2': upgr2 };
+export default { '2': upgr2, '3': upgr3 };
