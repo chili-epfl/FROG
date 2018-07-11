@@ -1,3 +1,4 @@
+import { chainUpgrades } from 'frog-utils';
 import pkg from '../index';
 
 test('all correct formatProduct', () => {
@@ -71,6 +72,18 @@ test('upgrade1to2', () => {
 test('upgrade0to2', () => {
   const tmpV1 = pkg.upgradeFunctions['1'](dataV0);
   expect(pkg.upgradeFunctions['2'](tmpV1)).toEqual(dataV2);
+});
+
+test('chainUpgrades0to1', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, 0, 1)(dataV0)).toEqual(dataV1);
+});
+
+test('chainUpgrades1to2', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, 1, 2)(dataV1)).toEqual(dataV2);
+});
+
+test('chainUpgrades0to2', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, 0, 2)(dataV0)).toEqual(dataV2);
 });
 
 const config = {
