@@ -4,6 +4,8 @@ import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
 import { uuid, type MongoT, type DashboardDataDbT } from 'frog-utils';
 
+import { activityTypesObj } from '/imports/activityTypes'; // to access upgrFun
+
 import { operatorTypesObj } from '../operatorTypes';
 import { Graphs } from './graphs';
 import { Products } from './products';
@@ -17,20 +19,27 @@ export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
 );
 
+export const addActivityToMongo = (activity: Object) => Activities.insert(activity)
+export const updateActivityToMongo = (id: string, activity: Object) => Activities.update(id, activity)
+export const collectActivitiesMongo = (filter: Object) => Activities.find(filter).fetch()
+export const collectOneActivityMongo = (id: string) => Activities.findOne(id)
+
 export const addActivity = (
   activityType?: string,
   data: ?Object = {},
   id: string,
   groupingKey: ?string,
-  parentId: ?string
+  parentId: ?string,
 ) => {
+  const configVersion = activityTypesObj[activityType].configVersion
   if (id) {
-    const toSet = omitBy({ activityType, parentId, data, groupingKey }, isNil);
+    const toSet = omitBy({ activityType, parentId, data, groupingKey, configVersion }, isNil);
     Activities.update(id, { $set: toSet });
   } else {
     Activities.insert({
       _id: uuid(),
       parentId,
+      configVersion,
       activityType,
       data,
       groupingKey,
@@ -40,11 +49,11 @@ export const addActivity = (
 };
 
 export const removeActivityType = (id: string) => {
-  Activities.update(id, { $unset: { activityType: null, data: null } });
+  Activities.update(id, { $unset: { activityType: null, data: null, configVersion: null } });
 };
 
 export const removeOperatorType = (id: string) => {
-  Operators.update(id, { $unset: { operatorType: null, data: null } });
+  Operators.update(id, { $unset: { operatorType: null, data: null, configVersion: null } });
 };
 
 export const setParticipation = (
@@ -59,7 +68,7 @@ export const setStreamTarget = (activityId: string, streamTarget: string) => {
   Activities.update(activityId, { [operation]: { streamTarget } });
 };
 
-export const duplicateActivity = (actId: string) => {
+export const duplicateActivity = (actId: string) => { // should update the old activity ?
   const activity = Activities.findOne(actId);
   const newAct = {
     ...activity,
@@ -73,6 +82,7 @@ export const duplicateActivity = (actId: string) => {
 export const addGraphActivity = (params: Object) =>
   Activities.insert({
     ...params,
+    // configVersion: activityTypesObj[params.activityType].configVersion,
     createdAt: new Date(),
     _id: uuid()
   });
