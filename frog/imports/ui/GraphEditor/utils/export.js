@@ -3,8 +3,8 @@ import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { omit } from 'lodash';
 
-import { Activities, Connections } from '/imports/api/activities';
-import { Operators } from '/imports/api/operators';
+import { findActivitiesMongo, Connections } from '/imports/api/activities';
+import { findOperatorsMongo } from '/imports/api/operators';
 import { Graphs, addGraph } from '/imports/api/graphs';
 import { store } from '../store';
 
@@ -16,11 +16,9 @@ const clean = obj => {
 export const graphToString = graphId =>
   Stringify({
     graph: omit(Graphs.find({ _id: graphId }).fetch()[0], 'sessionId'),
-    activities: Activities.find({ graphId })
-      .fetch()
+    activities: findActivitiesMongo({ graphId })
       .map(x => clean(x)),
-    operators: Operators.find({ graphId })
-      .fetch()
+    operators: findOperatorsMongo({ graphId })
       .map(x => clean(x)),
     connections: Connections.find({ graphId })
       .fetch()
