@@ -42,9 +42,33 @@ export const insertActivityToMongo = (activity: Object) => {
   }
 };
 
-export const findActivitiesMongo = (filter: Object) =>
-  Activities.find(filter).fetch();
-export const findOneActivityMongo = (id: string) => Activities.findOne(id);
+// not used yet
+export const findActivitiesMongo = (query: Object, proj: Object) =>
+Activities.find(query, proj).fetch().map(x => ({
+    ...x,
+    data: activityTypesObj[x.activityType].upgradeFunctions
+      ? chainUpgrades(
+          activityTypesObj[x.activityType].upgradeFunctions,
+          x.configVersion || 1,
+          activityTypesObj[x.activityType].configVersion
+        )(x.data)
+      : x.data,
+    configVersion: activityTypesObj[x.activityType].configVersion
+  }))
+
+export const findOneActivityMongo = (id: string) => {
+  const activity = Activities.findOne(id)
+  return ({...activity,
+  data: activityTypesObj[activity.activityType].upgradeFunctions
+    ? chainUpgrades(
+        activityTypesObj[activity.activityType].upgradeFunctions,
+        activity.configVersion || 1,
+        activityTypesObj[activity.activityType].configVersion
+      )(activity.data)
+    : activity.data,
+  configVersion: activityTypesObj[activity.activityType].configVersion
+})
+};
 
 export const addActivity = (
   activityType?: string,

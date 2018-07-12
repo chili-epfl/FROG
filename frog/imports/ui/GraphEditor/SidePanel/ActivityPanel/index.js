@@ -2,11 +2,11 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { Activities } from '/imports/api/activities';
+import { findOneActivityMongo } from '/imports/api/activities';
 import ChooseActivity from './ChooseActivity';
 import EditActivity from './EditActivity';
 
-export default withTracker(({ id }) => ({ activity: Activities.findOne(id) }))(
+export default withTracker(({ id }) => ({ activity: findOneActivityMongo(id) }))(
   ({ activity, madeChanges, ...rest }) => {
     if (!activity) return null;
     if (activity.activityType)

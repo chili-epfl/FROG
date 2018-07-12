@@ -4,8 +4,8 @@ import Stringify from 'json-stable-stringify';
 
 import valid from '/imports/api/validGraphFn';
 import { Graphs, mergeGraph, setCurrentGraph } from '/imports/api/graphs';
-import { Activities, Connections } from '/imports/api/activities';
-import { Operators } from '/imports/api/operators';
+import { Activities, findActivitiesMongo, Connections } from '/imports/api/activities';
+import { Operators, findOperatorsMongo } from '/imports/api/operators';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';
@@ -133,7 +133,7 @@ export default class Store {
           this.ui.selected = null;
         }
       }),
-
+// should check for new global version of graph
       setId: action((id: string, readOnly: boolean = false) => {
         const desiredUrl = `${this.url}/${id}`;
         if (this.browserHistory.location.pathname !== desiredUrl) {
@@ -146,12 +146,10 @@ export default class Store {
         this.graphId = id;
 
         this.changeDuration(graph ? graph.duration || 120 : 120);
-//do one
-        this.activityStore.all = Activities.find(
+        this.activityStore.all = findActivitiesMongo(
           { graphId: id },
           { reactive: false }
         )
-          .fetch()
           .map(
             x =>
               new Activity(
@@ -159,25 +157,24 @@ export default class Store {
                 x.startTime,
                 x.title,
                 x.length,
-                x.config,
+                x.data,
                 x.activityType,
                 x._id,
                 x.state
               )
           );
 
-        this.operatorStore.all = Operators.find(
+        this.operatorStore.all = findOperatorsMongo(
           { graphId: id },
           { reactive: false }
         )
-          .fetch()
           .map(
             x =>
               new Operator(
                 x.time,
                 x.y,
                 x.type,
-                x.config,
+                x.data,
                 x.operatorType,
                 x._id,
                 x.title,
