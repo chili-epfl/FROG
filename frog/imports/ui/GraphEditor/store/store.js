@@ -4,7 +4,8 @@ import Stringify from 'json-stable-stringify';
 
 import valid from '/imports/api/validGraphFn';
 import { Graphs, mergeGraph, setCurrentGraph } from '/imports/api/graphs';
-import { Activities, Connections, Operators } from '/imports/api/activities';
+import { Activities, Connections } from '/imports/api/activities';
+import { Operators } from '/imports/api/operators';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';

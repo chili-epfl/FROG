@@ -3,8 +3,9 @@ import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { omit } from 'lodash';
 
-import { Activities, Operators, Connections } from '../../../api/activities';
-import { Graphs, addGraph } from '../../../api/graphs';
+import { Activities, Connections } from '/imports/api/activities';
+import { Operators } from '/imports/api/operators';
+import { Graphs, addGraph } from '/imports/api/graphs';
 import { store } from '../store';
 
 const clean = obj => {

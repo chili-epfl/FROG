@@ -19,13 +19,13 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import { removeGraph } from '/imports/api/operators';
+import { addGraph, assignGraph, Graphs } from '/imports/api/graphs';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 
 import { exportGraph, importGraph, duplicateGraph } from '../utils/export';
 import { connect, store } from '../store';
 import exportPicture from '../utils/exportPicture';
-import { removeGraph } from '../../../api/activities';
-import { addGraph, assignGraph, Graphs } from '../../../api/graphs';
 
 const submitRemoveGraph = id => {
   removeGraph(id);

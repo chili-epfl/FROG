@@ -4,13 +4,10 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 
-import {
-  Activities,
-  Connections,
-  Operators,
-  insertActivityToMongo,
-  insertOperatorToMongo
-} from './activities';
+import { Products } from './products';
+import { Sessions } from './sessions';
+import { Activities, Connections, insertActivityToMongo } from './activities';
+import { Operators, insertOperatorToMongo } from './operators';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -135,6 +132,17 @@ export const assignGraph = (wantedId: string) => {
   return graphId;
 };
 
+// Never used
+export const removeGraphActivity = (activityId: string) =>
+  Meteor.call('graph.flush.activity', activityId);
+
+// 2 with same name (in remoteGraph)
+export const removeGraph = (graphId: string) =>
+  Meteor.call('graph.flush.all', graphId);
+
+// Never used
+export const deleteDatabase = () => Meteor.call('graph.flush.db');
+
 Meteor.methods({
   'graph.merge': ({
     connections,
@@ -165,5 +173,25 @@ Meteor.methods({
       const conid = connections.map(x => x._id);
       Connections.remove({ _id: { $nin: conid }, graphId });
     }
+  },
+  'graph.flush.all': graphId => {
+    Graphs.remove(graphId);
+    Activities.remove({ graphId });
+    Operators.remove({ graphId });
+    Connections.remove({ graphId });
+    Sessions.remove({ graphId });
+  },
+  'graph.flush.db': () => {
+    Graphs.remove({});
+    Activities.remove({});
+    Operators.remove({});
+    Sessions.remove({});
+    Connections.remove({});
+    Products.remove({});
+  },
+  'graph.flush.activity': activityId => {
+    Operators.remove({ from: activityId });
+    Operators.remove({ to: activityId });
+    Activities.remove(activityId);
   }
 });

@@ -14,10 +14,10 @@ import { Logs } from '../imports/api/logs';
 import teacherImports from './teacherImports';
 import {
   Activities,
-  Operators,
   Connections,
   DashboardData
 } from '../imports/api/activities.js';
+import { Operators } from '../imports/api/operators.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';

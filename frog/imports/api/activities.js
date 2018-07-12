@@ -10,15 +10,9 @@ import {
 } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes'; // to access upgrFun
-import { operatorTypesObj } from '/imports/operatorTypes';
-import { Graphs } from './graphs';
-import { Products } from './products';
-import { Sessions } from './sessions';
 
 export const Activities = new Mongo.Collection('activities');
-export const Operators = new Mongo.Collection('operators');
 export const Connections = new Mongo.Collection('connections');
-export const ExternalOperators = new Mongo.Collection('external_operators');
 export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
 );
@@ -52,36 +46,6 @@ export const updateActivityToMongo = (id: string, activity: Object) =>
 export const findActivitiesMongo = (filter: Object) =>
   Activities.find(filter).fetch();
 export const findOneActivityMongo = (id: string) => Activities.findOne(id);
-
-export const insertOperatorToMongo = (operator: Object) => {
-  try {
-    const newOp = {
-      ...operator,
-      data: operatorTypesObj[operator.operatorType].upgradeFunctions
-        ? chainUpgrades(
-            operatorTypesObj[operator.operatorType].upgradeFunctions,
-            operator.configVersion || 1,
-            operatorTypesObj[operator.operatorType].configVersion
-          )(operator.data)
-        : operator.data,
-      configVersion: operatorTypesObj[operator.operatorType].configVersion
-    };
-    Operators.insert(newOp);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.warn(e);
-    // eslint-disable-next-line no-alert
-    window.alert(
-      'Format  error: unable to upgrade the configuration of the operator: ' +
-        operator.title
-    );
-  }
-};
-export const updateOperatorToMongo = (id: string, operator: Object) =>
-  Operators.update(id, operator);
-export const findOperatorsMongo = (filter: Object) =>
-  Operators.find(filter).fetch();
-export const findOneOperatorMongo = (id: string) => Operators.findOne(id);
 
 export const addActivity = (
   activityType?: string,
@@ -117,12 +81,6 @@ export const removeActivityType = (id: string) => {
   });
 };
 
-export const removeOperatorType = (id: string) => {
-  Operators.update(id, {
-    $unset: { operatorType: null, data: null, configVersion: null }
-  });
-};
-
 export const setParticipation = (
   activityId: string,
   participationMode: string
@@ -147,29 +105,8 @@ export const duplicateActivity = (actId: string) => {
   return newAct;
 };
 
-export const removeGraphActivity = (activityId: string) =>
-  Meteor.call('graph.flush.activity', activityId);
-
-export const addGraphOperator = (params: Object) =>
-  Operators.insert({
-    ...params,
-    createdAt: new Date(),
-    _id: uuid()
-  });
-
-export const importOperator = (params: Object) =>
-  Operators.insert({ ...params, createdAt: new Date(), _id: params._id });
-
 export const importConnection = (params: Object) =>
   Connections.insert({ ...params, createdAt: new Date(), _id: params._id });
-
-export const importGraphOperator = (params: Object, thisGraphId: string) =>
-  Operators.insert({
-    ...params,
-    graphId: thisGraphId,
-    createdAt: new Date(),
-    _id: params._id
-  });
 
 export const copyActivityIntoGraphActivity = (
   graphActivityId: string,
@@ -185,43 +122,6 @@ export const copyActivityIntoGraphActivity = (
   });
 };
 
-export const copyOperatorIntoGraphOperator = (
-  graphOperatorId: string,
-  fromOperatorId: string
-) => {
-  const fromOperator = Operators.findOne(fromOperatorId);
-  Operators.update(graphOperatorId, {
-    $set: {
-      data: fromOperator.data,
-      operatorType: fromOperator.operatorType,
-      type: fromOperator.type
-    }
-  });
-};
-
-export const removeGraph = (graphId: string) =>
-  Meteor.call('graph.flush.all', graphId);
-
-export const deleteDatabase = () => Meteor.call('graph.flush.db');
-
-export const addOperator = (
-  operatorType: string,
-  data: Object = {},
-  id: ?string
-) => {
-  if (id) {
-    Operators.update(id, { $set: { data } });
-  } else {
-    Operators.insert({
-      _id: uuid(),
-      operatorType,
-      type: operatorTypesObj[operatorType].type,
-      data,
-      createdAt: new Date()
-    });
-  }
-};
-
 export const flushActivities = () => Meteor.call('activities.flush');
 
 Meteor.methods({
@@ -233,25 +133,5 @@ Meteor.methods({
       const activity = Activities.findOne(id);
       return { activity };
     }
-  },
-  'graph.flush.all': graphId => {
-    Graphs.remove(graphId);
-    Activities.remove({ graphId });
-    Operators.remove({ graphId });
-    Connections.remove({ graphId });
-    Sessions.remove({ graphId });
-  },
-  'graph.flush.db': () => {
-    Graphs.remove({});
-    Activities.remove({});
-    Operators.remove({});
-    Sessions.remove({});
-    Connections.remove({});
-    Products.remove({});
-  },
-  'graph.flush.activity': activityId => {
-    Operators.remove({ from: activityId });
-    Operators.remove({ to: activityId });
-    Activities.remove(activityId);
   }
 });
