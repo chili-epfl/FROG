@@ -99,7 +99,7 @@ export const addActivity = (
     );
     Activities.update(id, { $set: toSet });
   } else {
-    Activities.insert({
+    insertActivityToMongo({
       _id: uuid(),
       parentId,
       configVersion,
@@ -143,28 +143,9 @@ export const duplicateActivity = (actId: string) => {
     createdAt: new Date(),
     _id: uuid()
   };
-  Activities.insert(newAct);
+  insertActivityToMongo(newAct);
   return newAct;
 };
-
-export const addGraphActivity = (params: Object) =>
-  Activities.insert({
-    ...params,
-    // configVersion: activityTypesObj[params.activityType].configVersion,
-    createdAt: new Date(),
-    _id: uuid()
-  });
-
-export const importActivity = (params: Object) =>
-  Activities.insert({ ...params, createdAt: new Date(), _id: params._id });
-
-export const importGraphActivity = (params: Object, thisGraphId: string) =>
-  Activities.insert({
-    ...params,
-    graphId: thisGraphId,
-    createdAt: new Date(),
-    _id: params._id
-  });
 
 export const removeGraphActivity = (activityId: string) =>
   Meteor.call('graph.flush.activity', activityId);
