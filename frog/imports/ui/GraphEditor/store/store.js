@@ -146,7 +146,7 @@ export default class Store {
         this.graphId = id;
 
         this.changeDuration(graph ? graph.duration || 120 : 120);
-
+//do one
         this.activityStore.all = Activities.find(
           { graphId: id },
           { reactive: false }

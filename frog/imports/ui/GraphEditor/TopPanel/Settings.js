@@ -19,8 +19,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { removeGraph } from '/imports/api/operators';
-import { addGraph, assignGraph, Graphs } from '/imports/api/graphs';
+import { addGraph, assignGraph, removeGraph, Graphs } from '/imports/api/graphs';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 
 import { exportGraph, importGraph, duplicateGraph } from '../utils/export';

@@ -41,8 +41,7 @@ export const insertActivityToMongo = (activity: Object) => {
     );
   }
 };
-export const updateActivityToMongo = (id: string, activity: Object) =>
-  Activities.update(id, activity);
+
 export const findActivitiesMongo = (filter: Object) =>
   Activities.find(filter).fetch();
 export const findOneActivityMongo = (id: string) => Activities.findOne(id);
