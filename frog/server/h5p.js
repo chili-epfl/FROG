@@ -1,66 +1,65 @@
-import { Picker } from 'meteor/meteorhacks:picker';
 import { Meteor } from 'meteor/meteor';
+import { WebApp } from 'meteor/webapp';
 import fs from 'fs';
 import unzipper from 'unzipper';
 
 export default () => {
-  Picker.filter(req => req.method === 'GET').route(
-    '/h5pContent/:path(.*)',
-    (params, request, response) => {
-      const fname = params.path && '/tmp/h5p/' + params.path;
-      fs.access(fname, err => {
-        if (err) {
-          response.writeHead(404);
-          response.end();
-        } else {
-          const ext = fname.split('.').pop();
-          if (ext === 'css') {
-            response.writeHead(200, { 'content-type': 'text/css' });
-          } else if (ext === 'html') {
-            response.writeHead(200, { 'content-type': 'text/html' });
-          }
-          const readStream = fs.createReadStream(fname);
-          readStream.once('open', () => readStream.pipe(response));
+  WebApp.connectHandlers.use('/h5pContent', (request, response, next) => {
+    if (request.method !== 'GET') next();
+    const path = require('url').parse(request.url).pathname;
+    const fname = path && '/tmp/h5p/' + path;
+    fs.access(fname, err => {
+      if (err) {
+        response.writeHead(404);
+        response.end();
+      } else {
+        const ext = fname.split('.').pop();
+        if (ext === 'css') {
+          response.writeHead(200, { 'content-type': 'text/css' });
+        } else if (ext === 'html') {
+          response.writeHead(200, { 'content-type': 'text/html' });
         }
-      });
-    }
-  );
+        const readStream = fs.createReadStream(fname);
+        readStream.once('open', () => readStream.pipe(response));
+      }
+    });
+  });
 
-  Picker.filter(req => req.method === 'GET').route(
-    '/h5p/:id',
-    (params, __, response) => {
-      const id = params.id;
-      const res = `
+  WebApp.connectHandlers.use('/h5p', (request, response, next) => {
+    if (request.method !== 'GET') next();
+    const id = require('url')
+      .parse(request.url)
+      .pathname?.replace('/', '');
+    const res = `
 <html>
 <head>
-  <link type="text/css" rel="stylesheet" media="all" href="/h5p/dist/styles/h5p.css" />
-  <meta charset="utf-8" />
-  <script type="text/javascript" src="/h5p/dist/js/h5p-standalone-main.js"></script>
+<link type="text/css" rel="stylesheet" media="all" href="/h5p/dist/styles/h5p.css" />
+<meta charset="utf-8" />
+<script type="text/javascript" src="/h5p/dist/js/h5p-standalone-main.js"></script>
 
-  <script type="text/javascript">
-    (function($) {
-      $(function() {
-        $('.h5p-container').h5p({
-          frameJs: '/h5p/dist/js/h5p-standalone-frame.js',
-          frameCss: '/h5p/dist/styles/h5p.css',
-          h5pContent: '/h5pContent/${id}'
-        });
+<script type="text/javascript">
+  (function($) {
+    $(function() {
+      $('.h5p-container').h5p({
+        frameJs: '/h5p/dist/js/h5p-standalone-frame.js',
+        frameCss: '/h5p/dist/styles/h5p.css',
+        h5pContent: '/h5pContent/${id}'
       });
-    })(H5P.jQuery);
+    });
+  })(H5P.jQuery);
 H5P.externalDispatcher.on('xAPI', function(event) {
-  window.parent.postMessage({ msg: event.data.statement, type: 'h5p-log', id: '${id}' }, '*');
+window.parent.postMessage({ msg: event.data.statement, type: 'h5p-log', id: '${id}' }, '*');
 });
-  </script>
+</script>
 </head>
-  <body>
-    <div class="h5p-container"></div>
-  </body>
+<body>
+  <div class="h5p-container"></div>
+</body>
 </html>`;
 
-      response.writeHead(200);
-      response.end(res);
-    }
-  );
+    response.writeHead(200);
+    response.end(res);
+  });
 };
 
 Meteor.methods({
