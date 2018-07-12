@@ -7,7 +7,7 @@ import { operatorTypesObj } from '/imports/operatorTypes';
 export const Operators = new Mongo.Collection('operators');
 export const ExternalOperators = new Mongo.Collection('external_operators');
 
-export const insertOperatorToMongo = (operator: Object) => {
+export const insertOperatorToMongo = (operator: Object) => {  // make sure there is an operatorType
   try {
     const newOp = {
       ...operator,

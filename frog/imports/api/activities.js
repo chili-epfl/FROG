@@ -9,7 +9,7 @@ import {
   type DashboardDataDbT
 } from 'frog-utils';
 
-import { activityTypesObj } from '/imports/activityTypes'; // to access upgrFun
+import { activityTypesObj } from '/imports/activityTypes';
 
 export const Activities = new Mongo.Collection('activities');
 export const Connections = new Mongo.Collection('connections');
@@ -17,7 +17,7 @@ export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
 );
 
-export const insertActivityToMongo = (activity: Object) => {
+export const insertActivityToMongo = (activity: Object) => { // make sure there is an activityType
   try {
     const newAct = {
       ...activity,
@@ -42,7 +42,6 @@ export const insertActivityToMongo = (activity: Object) => {
   }
 };
 
-// not used yet
 export const findActivitiesMongo = (query: Object, proj: Object) =>
 Activities.find(query, proj).fetch().map(x =>
   x.activityType && activityTypesObj[x.activityType].upgradeFunctions ? ({
@@ -78,8 +77,14 @@ export const addActivity = (
   const configVersion =
     activityType && activityTypesObj[activityType].configVersion;
   if (id) {
+    const dataTmp = activityType && activityTypesObj[activityType].upgradeFunctions ? // how to get configVersion of the activity being retrieved
+    chainUpgrades(
+          activityTypesObj[activityType].upgradeFunctions,
+          configVersion || 1,
+          activityTypesObj[activityType].configVersion
+        )(data) : data
     const toSet = omitBy(
-      { activityType, parentId, data, groupingKey, configVersion },
+      { activityType, parentId, dataTmp, groupingKey, configVersion },
       isNil
     );
     Activities.update(id, { $set: toSet });

@@ -1,6 +1,8 @@
 import { omitBy, isNil } from 'lodash';
 
-import { uuid } from 'frog-utils';
+import { uuid, chainUpgrades } from 'frog-utils';
+
+import { activityTypesObj } from '/imports/activityTypes';
 import { Activities, addActivity } from '/imports/api/activities';
 import { LibraryStates } from './cache';
 
@@ -69,7 +71,14 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
   const act = {
     title: state.title,
     description: state.description,
-    config: { ...props.activity.data },
+    config: activityTypesObj[props.activity.activityType].upgradeFunctions
+      ? chainUpgrades(
+          activityTypesObj[props.activity.activityType].upgradeFunctions,
+          props.activity.configVersion || 1,
+          activityTypesObj[props.activity.activityType].configVersion
+        )(props.activity.data)
+      : props.activity.data,
+    configVersion: activityTypesObj[props.activity.activityType].configVersion,
     tags: '{' + state.tags.join(',') + '}',
     parent_id: props.activity.parentId,
     uuid: newId,
