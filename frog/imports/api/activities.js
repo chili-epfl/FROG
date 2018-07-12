@@ -2,11 +2,15 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import { uuid, type MongoT, type DashboardDataDbT } from 'frog-utils';
+import {
+  chainUpgrades,
+  uuid,
+  type MongoT,
+  type DashboardDataDbT
+} from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes'; // to access upgrFun
-
-import { operatorTypesObj } from '../operatorTypes';
+import { operatorTypesObj } from '/imports/operatorTypes';
 import { Graphs } from './graphs';
 import { Products } from './products';
 import { Sessions } from './sessions';
@@ -19,13 +23,65 @@ export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
 );
 
-export const addActivityToMongo = (activity: Object) =>
-  Activities.insert(activity);
+export const insertActivityToMongo = (activity: Object) => {
+  try {
+    const newAct = {
+      ...activity,
+      data: activityTypesObj[activity.activityType].upgradeFunctions
+        ? chainUpgrades(
+            activityTypesObj[activity.activityType].upgradeFunctions,
+            activity.configVersion || 1,
+            activityTypesObj[activity.activityType].configVersion
+          )(activity.data)
+        : activity.data,
+      configVersion: activityTypesObj[activity.activityType].configVersion
+    };
+    Activities.insert(newAct);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(e);
+    // eslint-disable-next-line no-alert
+    window.alert(
+      'Format  error: unable to upgrade the configuration of the activity: ' +
+        activity.title
+    );
+  }
+};
 export const updateActivityToMongo = (id: string, activity: Object) =>
   Activities.update(id, activity);
-export const collectActivitiesMongo = (filter: Object) =>
+export const findActivitiesMongo = (filter: Object) =>
   Activities.find(filter).fetch();
-export const collectOneActivityMongo = (id: string) => Activities.findOne(id);
+export const findOneActivityMongo = (id: string) => Activities.findOne(id);
+
+export const insertOperatorToMongo = (operator: Object) => {
+  try {
+    const newOp = {
+      ...operator,
+      data: operatorTypesObj[operator.operatorType].upgradeFunctions
+        ? chainUpgrades(
+            operatorTypesObj[operator.operatorType].upgradeFunctions,
+            operator.configVersion || 1,
+            operatorTypesObj[operator.operatorType].configVersion
+          )(operator.data)
+        : operator.data,
+      configVersion: operatorTypesObj[operator.operatorType].configVersion
+    };
+    Operators.insert(newOp);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(e);
+    // eslint-disable-next-line no-alert
+    window.alert(
+      'Format  error: unable to upgrade the configuration of the operator: ' +
+        operator.title
+    );
+  }
+};
+export const updateOperatorToMongo = (id: string, operator: Object) =>
+  Operators.update(id, operator);
+export const findOperatorsMongo = (filter: Object) =>
+  Operators.find(filter).fetch();
+export const findOneOperatorMongo = (id: string) => Operators.findOne(id);
 
 export const addActivity = (
   activityType?: string,

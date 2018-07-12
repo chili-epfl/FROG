@@ -1,7 +1,7 @@
 // @flow
 
 const chainUpgrades = (
-  upgradeFunctions: { [version: string]: (formData: Object) => Object },
+  upgradeFunctions: { [version: string]: (Object) => Object },
   from: number,
   to: number
 ) => (x: Object) =>

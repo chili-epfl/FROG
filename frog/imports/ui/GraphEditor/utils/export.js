@@ -3,9 +3,6 @@ import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { omit } from 'lodash';
 
-import { chainUpgrades } from 'frog-utils';
-import { activityTypesObj } from '/imports/activityTypes';
-import { operatorTypesObj } from '/imports/operatorTypes';
 import { Activities, Operators, Connections } from '../../../api/activities';
 import { Graphs, addGraph } from '../../../api/graphs';
 import { store } from '../store';
@@ -44,33 +41,11 @@ export const exportGraph = () => {
 export const duplicateGraph = graphId =>
   doImportGraph({ target: { result: graphToString(graphId) } });
 
-export const upgradeGraph = graph => {
-  // only upgrade activities
-  const newGraph = { ...graph };
-  newGraph.activities = graph.activities.map(act => ({
-    ...act,
-    data: chainUpgrades(
-      activityTypesObj[act.activityType].upgradeFunctions,
-      act.configVersion || 1,
-      activityTypesObj[act.activityType].configVersion
-    )(act.data)
-  }));
-  newGraph.operators = graph.operators.map(op => ({
-    ...op,
-    data: chainUpgrades(
-      operatorTypesObj[op.operatorType].upgradeFunctions,
-      op.configVersion || 1,
-      operatorTypesObj[op.operatorType].configVersion
-    )(op.data)
-  }));
-  return newGraph;
-};
-
 export const doImportGraph = graphStr => {
   try {
     const graph = graphStr.target ? graphStr.target.result : graphStr;
     const graphObj = JSON.parse(graph);
-    const graphId = addGraph(upgradeGraph(graphObj));
+    const graphId = addGraph(graphObj);
     store.setId(graphId);
     return graphId;
   } catch (e) {

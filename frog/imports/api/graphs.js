@@ -4,7 +4,13 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from 'frog-utils';
 
-import { Activities, Connections, Operators } from './activities';
+import {
+  Activities,
+  Connections,
+  Operators,
+  insertActivityToMongo,
+  insertOperatorToMongo
+} from './activities';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -85,8 +91,8 @@ export const addGraph = (graphObj?: Object): string => {
     data: replaceFromMatching(matching, op.data)
   }));
 
-  newAc.forEach(x => Activities.insert(x));
-  newOp.forEach(x => Operators.insert(x));
+  newAc.forEach(x => insertActivityToMongo(x));
+  newOp.forEach(x => insertOperatorToMongo(x));
   newConn.forEach(x => Connections.insert(x));
   return graphId;
 };
