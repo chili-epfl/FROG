@@ -33,31 +33,28 @@ export const insertOperatorToMongo = (operator: Object) => {
 };
 
 export const findOperatorsMongo = (query: Object, proj: Object) =>
-  Operators.find(query, proj).fetch().map(x => ({
+  Operators.find(query, proj).fetch().map(x =>
+    x.operatorType && operatorTypesObj[x.operatorType].upgradeFunctions ? ({
       ...x,
-      data: operatorTypesObj[x.operatorType].upgradeFunctions
-        ? chainUpgrades(
+      data: chainUpgrades(
             operatorTypesObj[x.operatorType].upgradeFunctions,
             x.configVersion || 1,
             operatorTypesObj[x.operatorType].configVersion
-          )(x.data)
-        : x.data,
+          )(x.data),
       configVersion: operatorTypesObj[x.operatorType].configVersion
-    }))
+    }) : x)
 
 export const findOneOperatorMongo = (id: string) => {
   const operator = Operators.find(id)
-  return ({
+  return operator.operatorType && operatorTypesObj[operator.operatorType].upgradeFunctions ? ({
     ...operator,
-    data: operatorTypesObj[operator.operatorType].upgradeFunctions
-      ? chainUpgrades(
+    data: chainUpgrades(
           operatorTypesObj[operator.operatorType].upgradeFunctions,
           operator.configVersion || 1,
           operatorTypesObj[operator.operatorType].configVersion
-        )(operator.data)
-      : operator.data,
+        )(operator.data),
     configVersion: operatorTypesObj[operator.operatorType].configVersion
-  })
+  }) : operator
 }
 
 
