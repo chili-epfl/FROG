@@ -5,6 +5,7 @@ import { omit } from 'lodash';
 
 import { chainUpgrades } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
+import { operatorTypesObj } from '/imports/operatorTypes';
 import { Activities, Operators, Connections } from '../../../api/activities';
 import { Graphs, addGraph } from '../../../api/graphs';
 import { store } from '../store';
@@ -50,9 +51,17 @@ export const upgradeGraph = graph => {
     ...act,
     data: chainUpgrades(
       activityTypesObj[act.activityType].upgradeFunctions,
-      act.configVersion || 0,
+      act.configVersion || 1,
       activityTypesObj[act.activityType].configVersion
     )(act.data)
+  }));
+  newGraph.operators = graph.operators.map(op => ({
+    ...op,
+    data: chainUpgrades(
+      operatorTypesObj[op.operatorType].upgradeFunctions,
+      op.configVersion || 1,
+      operatorTypesObj[op.operatorType].configVersion
+    )(op.data)
   }));
   return newGraph;
 };

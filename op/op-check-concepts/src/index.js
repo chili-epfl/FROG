@@ -38,7 +38,7 @@ const config = {
 export default ({
   id: 'op-check-concepts',
   type: 'product',
-  configVersion: 1,
+  configVersion: 3,
   upgradeFunctions,
   config,
   meta

@@ -77,17 +77,17 @@ test('chainUpgrades1to3', () => {
 
 const dataV1 = {
   concepts: {
-    0: {
+    '0': {
       keyword: ['compte', 'nombre', 'comptage', 'dénombrage'],
       prompt:
         'Est-ce que votre solution considère correctement le comptage des arrivées?'
     },
-    1: {
+    '1': {
       keyword: ['estimation', 'moyenne', 'médiane', 'prédiction'],
       prompt:
         "Est-ce que votre solution considère correctement l'intensité des arrivées?"
     },
-    2: {
+    '2': {
       keyword: [
         'plusieurs mardis',
         'soirs',
