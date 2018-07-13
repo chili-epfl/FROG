@@ -1,27 +1,27 @@
 // @flow
 
-type version1 = {
+type version01 = {
   title: string,
   guidelines: string,
-  questions: Array<questionT1>
+  questions: Array<questionT01>
 };
-type questionT1 = {
+type questionT01 = {
   question: string,
   answers: Array<string>
 };
 
-type version2 = {
+type version02 = {
   title: string,
   guidelines: string,
-  questions: Array<questionT2>
+  questions: Array<questionT02>
 };
-type questionT2 = {
+type questionT02 = {
   question: string,
   answers: { [number]: string }
 };
 
-const upgr2: version1 => version2 = formData => {
-  const newObj: version2 = {
+const upgr0: version01 => version02 = formData => {
+  const newObj: version02 = {
     title: formData.title,
     guidelines: formData.guidelines,
     questions: []
@@ -38,19 +38,19 @@ const upgr2: version1 => version2 = formData => {
   return newObj;
 };
 
-type version3 = {
+type version1 = {
   title: string,
   guidelines: string,
   shuffle: string,
-  questions: Array<questionT3>
+  questions: Array<questionT1>
 };
-type questionT3 = {
+type questionT1 = {
   question: string,
   answers: Array<{ choice: string }>
 };
 
-const upgr3: version2 => version3 = formData => {
-  const newObj: version3 = {
+const upgr1: version02 => version1 = formData => {
+  const newObj: version1 = {
     title: formData.title,
     guidelines: formData.guidelines,
     shuffle: 'none',
@@ -67,4 +67,4 @@ const upgr3: version2 => version3 = formData => {
   return newObj;
 };
 
-export default { '2': upgr2, '3': upgr3 };
+export default { '0': upgr0, '1': upgr1 };

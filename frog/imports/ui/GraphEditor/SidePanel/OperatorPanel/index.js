@@ -12,15 +12,15 @@ import ChooseOperatorTypeComp from './ChooseOperator';
 const EditOperator = connect(EditClass);
 const ChooseOperatorType = connect(ChooseOperatorTypeComp);
 
-export default withTracker(({ id }) => ({ operator: findOneOperatorMongo(id) }))(
-  ({ operator }) => {
-    if (!operator) {
-      return null;
-    }
-    if (operator.operatorType) {
-      return <EditOperator operator={operator} />;
-    } else {
-      return <ChooseOperatorType operator={operator} />;
-    }
+export default withTracker(({ id }) => ({
+  operator: findOneOperatorMongo(id)
+}))(({ operator }) => {
+  if (!operator) {
+    return null;
   }
-);
+  if (operator.operatorType) {
+    return <EditOperator operator={operator} />;
+  } else {
+    return <ChooseOperatorType operator={operator} />;
+  }
+});

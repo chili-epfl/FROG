@@ -16,10 +16,8 @@ const clean = obj => {
 export const graphToString = graphId =>
   Stringify({
     graph: omit(Graphs.find({ _id: graphId }).fetch()[0], 'sessionId'),
-    activities: findActivitiesMongo({ graphId })
-      .map(x => clean(x)),
-    operators: findOperatorsMongo({ graphId })
-      .map(x => clean(x)),
+    activities: findActivitiesMongo({ graphId }).map(x => clean(x)),
+    operators: findOperatorsMongo({ graphId }).map(x => clean(x)),
     connections: Connections.find({ graphId })
       .fetch()
       .map(x => clean(x))

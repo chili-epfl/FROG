@@ -17,7 +17,7 @@ const dataStructure = {
 export default ({
   id: 'ac-quiz',
   type: 'react-component',
-  configVersion: 3,
+  configVersion: 1,
   upgradeFunctions,
   meta,
   config,

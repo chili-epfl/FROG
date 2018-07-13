@@ -7,7 +7,8 @@ import { operatorTypesObj } from '/imports/operatorTypes';
 export const Operators = new Mongo.Collection('operators');
 export const ExternalOperators = new Mongo.Collection('external_operators');
 
-export const insertOperatorToMongo = (operator: Object) => {  // make sure there is an operatorType
+export const insertOperatorToMongo = (operator: Object) => {
+  // make sure there is an operatorType
   try {
     const newOp = {
       ...operator,
@@ -33,30 +34,38 @@ export const insertOperatorToMongo = (operator: Object) => {  // make sure there
 };
 
 export const findOperatorsMongo = (query: Object, proj: Object) =>
-  Operators.find(query, proj).fetch().map(x =>
-    x.operatorType && operatorTypesObj[x.operatorType].upgradeFunctions ? ({
-      ...x,
-      data: chainUpgrades(
-            operatorTypesObj[x.operatorType].upgradeFunctions,
-            x.configVersion || 1,
-            operatorTypesObj[x.operatorType].configVersion
-          )(x.data),
-      configVersion: operatorTypesObj[x.operatorType].configVersion
-    }) : x)
+  Operators.find(query, proj)
+    .fetch()
+    .map(
+      x =>
+        x.operatorType && operatorTypesObj[x.operatorType].upgradeFunctions
+          ? {
+              ...x,
+              data: chainUpgrades(
+                operatorTypesObj[x.operatorType].upgradeFunctions,
+                x.configVersion || 1,
+                operatorTypesObj[x.operatorType].configVersion
+              )(x.data),
+              configVersion: operatorTypesObj[x.operatorType].configVersion
+            }
+          : x
+    );
 
 export const findOneOperatorMongo = (id: string) => {
-  const operator = Operators.find(id)
-  return operator.operatorType && operatorTypesObj[operator.operatorType].upgradeFunctions ? ({
-    ...operator,
-    data: chainUpgrades(
+  const operator = Operators.find(id);
+  return operator.operatorType &&
+    operatorTypesObj[operator.operatorType].upgradeFunctions
+    ? {
+        ...operator,
+        data: chainUpgrades(
           operatorTypesObj[operator.operatorType].upgradeFunctions,
           operator.configVersion || 1,
           operatorTypesObj[operator.operatorType].configVersion
         )(operator.data),
-    configVersion: operatorTypesObj[operator.operatorType].configVersion
-  }) : operator
-}
-
+        configVersion: operatorTypesObj[operator.operatorType].configVersion
+      }
+    : operator;
+};
 
 export const addOperator = (
   operatorType: string,

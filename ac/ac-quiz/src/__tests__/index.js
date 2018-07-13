@@ -61,29 +61,29 @@ test('exportWorks', () => {
 86ZE85kFywrkSyR4E	-1	-1		`);
 });
 
-test('upgrade1to2', () => {
-  expect(pkg.upgradeFunctions['2'](dataV1)).toEqual(dataV2);
+test('upgrade01to02', () => {
+  expect(pkg.upgradeFunctions['0'](dataV1)).toEqual(dataV2);
 });
 //
-test('upgrade2to3', () => {
-  expect(pkg.upgradeFunctions['3'](dataV2)).toEqual(dataV3);
+test('upgrade02to1', () => {
+  expect(pkg.upgradeFunctions['1'](dataV2)).toEqual(dataV3);
 });
 
-test('upgrade1to3', () => {
-  const tmpV2 = pkg.upgradeFunctions['2'](dataV1);
-  expect(pkg.upgradeFunctions['3'](tmpV2)).toEqual(dataV3);
+test('upgrade01to1', () => {
+  const tmpV2 = pkg.upgradeFunctions['0'](dataV1);
+  expect(pkg.upgradeFunctions['1'](tmpV2)).toEqual(dataV3);
 });
 
-test('chainUpgrades1to2', () => {
-  expect(chainUpgrades(pkg.upgradeFunctions, 1, 2)(dataV1)).toEqual(dataV2);
+test('chainUpgrades01to02', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, -1, 0)(dataV1)).toEqual(dataV2);
 });
 
-test('chainUpgrades2to3', () => {
-  expect(chainUpgrades(pkg.upgradeFunctions, 2, 3)(dataV2)).toEqual(dataV3);
+test('chainUpgrades02to1', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, 0, 1)(dataV2)).toEqual(dataV3);
 });
 
-test('chainUpgrades1to3', () => {
-  expect(chainUpgrades(pkg.upgradeFunctions, 1, 3)(dataV1)).toEqual(dataV3);
+test('chainUpgrades01to1', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, -1, 1)(dataV1)).toEqual(dataV3);
 });
 
 const config = {

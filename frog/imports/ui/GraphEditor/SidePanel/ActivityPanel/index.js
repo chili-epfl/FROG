@@ -6,11 +6,11 @@ import { findOneActivityMongo } from '/imports/api/activities';
 import ChooseActivity from './ChooseActivity';
 import EditActivity from './EditActivity';
 
-export default withTracker(({ id }) => ({ activity: findOneActivityMongo(id) }))(
-  ({ activity, madeChanges, ...rest }) => {
-    if (!activity) return null;
-    if (activity.activityType)
-      return <EditActivity {...{ activity, madeChanges }} />;
-    else return <ChooseActivity {...{ activity }} {...rest} />;
-  }
-);
+export default withTracker(({ id }) => ({
+  activity: findOneActivityMongo(id)
+}))(({ activity, madeChanges, ...rest }) => {
+  if (!activity) return null;
+  if (activity.activityType)
+    return <EditActivity {...{ activity, madeChanges }} />;
+  else return <ChooseActivity {...{ activity }} {...rest} />;
+});
