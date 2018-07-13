@@ -1,7 +1,7 @@
 // @flow
 
 import { type ActivityDbT } from 'frog-utils';
-import { Graphs } from './graphs';
+import { findOneGraphMongo } from './graphs';
 import { Sessions } from './sessions';
 
 export const calculateNextOpen = (
@@ -31,7 +31,7 @@ export const calculateNextOpen = (
     if (!sessionId) {
       return [-1, [], true];
     }
-    const graph = Graphs.findOne(Sessions.findOne(sessionId).graphId);
+    const graph = findOneGraphMongo(Sessions.findOne(sessionId).graphId);
     const newTime =
       (Math.max(...activities.map(x => x.startTime + x.length)) +
         graph.duration) /

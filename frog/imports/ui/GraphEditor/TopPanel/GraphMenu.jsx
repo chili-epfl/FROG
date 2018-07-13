@@ -12,7 +12,7 @@ import ModeEdit from '@material-ui/icons/ModeEdit';
 
 import { ValidButton } from '../Validator';
 import { connect, store } from '../store';
-import { Graphs, renameGraph } from '../../../api/graphs';
+import { Graphs, renameGraph, findGraphMongo } from '../../../api/graphs';
 
 const styles = theme => ({
   root: {
@@ -269,7 +269,7 @@ const GraphMenuController = connect(({ store: { graphId }, graphs }) => (
 
 const toExport = withTracker(props => ({
   ...props,
-  graphs: Graphs.find().fetch()
+  graphs: findGraphMongo({})
 }))(GraphMenuController);
 
 toExport.displayName = 'GraphMenuSimple';

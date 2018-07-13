@@ -11,7 +11,7 @@ import {
   runNextActivity,
   updateNextOpenActivities
 } from './engine';
-import { Graphs, addGraph } from './graphs';
+import { Graphs, addGraph, findOneGraphMongo } from './graphs';
 import valid from './validGraphFn';
 
 const SessionTimeouts = {};
@@ -20,7 +20,7 @@ const DEFAULT_COUNTDOWN_LENGTH = 10000;
 export const Sessions = new Mongo.Collection('sessions');
 
 export const restartSession = (session: Object) => {
-  const graph = Graphs.findOne(session.graphId);
+  const graph = findOneGraphMongo(session.graphId);
   if (!graph || graph.broken) {
     // eslint-disable-next-line no-alert
     window.alert('Cannot restart session, graph currently broken');

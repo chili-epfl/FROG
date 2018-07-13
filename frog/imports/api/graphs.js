@@ -2,11 +2,15 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
+import { uuid, chainUpgrades } from 'frog-utils';
 
 import { Sessions } from './sessions';
-import { Activities, Connections, insertActivityToMongo } from './activities';
-import { Operators, insertOperatorToMongo } from './operators';
+import { Activities, Connections, insertActivityMongo } from './activities';
+import { Operators, insertOperatorMongo } from './operators';
+import {
+  GraphCurrentVersion,
+  GraphUpgrades
+} from '../ui/GraphEditor/versionUpgrades';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -23,10 +27,47 @@ const replaceFromMatching = (matching: Object, data: any) => {
   }
 };
 
+export const insertGraphMongo = (graph: Object) => {
+  Graphs.insert({ ...graph, graphVersion: GraphCurrentVersion });
+};
+export const findGraphMongo = (query: Object, proj?: Object) =>
+  Graphs.find(query, proj)
+    .fetch()
+    .map(x => {
+      try {
+        chainUpgrades(GraphUpgrades, x.graphVersion || 1, GraphCurrentVersion)({
+          graphId: x.graphId
+        });
+        return x;
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn(e);
+        // eslint-disable-next-line no-alert
+        window.alert('Upgrade  error: unable to upgrade a graph');
+        return x; // return an empty graph ?
+      }
+    });
+
+export const findOneGraphMongo = (id: string) => {
+  const graph = Graphs.findOne(id);
+  try {
+    chainUpgrades(GraphUpgrades, graph.graphVersion || 1, GraphCurrentVersion)({
+      graphId: id
+    });
+    return graph;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(e);
+    // eslint-disable-next-line no-alert
+    window.alert('Upgrade  error: unable to upgrade the graph');
+    return graph;
+  }
+};
+
 export const addGraph = (graphObj?: Object): string => {
   const graphId = uuid();
   const name = (graphObj && graphObj.graph && graphObj.graph.name) || 'Unnamed';
-  Graphs.insert({
+  insertGraphMongo({
     ...((graphObj && graphObj.graph) || {}),
     _id: graphId,
     name,
@@ -87,8 +128,8 @@ export const addGraph = (graphObj?: Object): string => {
     data: replaceFromMatching(matching, op.data)
   }));
 
-  newAc.forEach(x => insertActivityToMongo(x));
-  newOp.forEach(x => insertOperatorToMongo(x));
+  newAc.forEach(x => insertActivityMongo(x));
+  newOp.forEach(x => insertOperatorMongo(x));
   newConn.forEach(x => Connections.insert(x));
   return graphId;
 };

@@ -17,7 +17,7 @@ export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
 );
 
-export const insertActivityToMongo = (activity: Object) => {
+export const insertActivityMongo = (activity: Object) => {
   try {
     const newAct = {
       ...activity,
@@ -44,7 +44,7 @@ export const insertActivityToMongo = (activity: Object) => {
   }
 };
 
-export const updateOneActivityToMongo = (
+export const updateOneActivityMongo = (
   id: string,
   update: Object,
   options?: Object
@@ -78,7 +78,7 @@ export const updateOneActivityToMongo = (
   else return Activities.update(id, update, options);
 };
 
-export const findActivitiesMongo = (query: Object, proj: Object) =>
+export const findActivitiesMongo = (query: Object, proj?: Object) =>
   Activities.find(query, proj)
     .fetch()
     .map(
@@ -97,6 +97,7 @@ export const findActivitiesMongo = (query: Object, proj: Object) =>
     );
 
 export const findOneActivityMongo = (id: string) => {
+  // add try catch
   const activity = Activities.findOne(id);
   return activity.activityType &&
     activityTypesObj[activity.activityType].upgradeFunctions
@@ -121,13 +122,13 @@ export const addActivity = (
   parentId: ?string
 ) =>
   id
-    ? updateOneActivityToMongo(id, {
+    ? updateOneActivityMongo(id, {
         $set: omitBy(
           { activityType, parentId, data, groupingKey, configVersion },
           isNil
         )
       })
-    : insertActivityToMongo({
+    : insertActivityMongo({
         _id: uuid(),
         parentId,
         configVersion,
@@ -163,7 +164,7 @@ export const duplicateActivity = (actId: string) => {
     createdAt: new Date(),
     _id: uuid()
   };
-  insertActivityToMongo(newAct);
+  insertActivityMongo(newAct);
   return newAct;
 };
 
