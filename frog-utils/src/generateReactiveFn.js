@@ -20,21 +20,14 @@ const cleanPath = (
 
 export class Doc {
   doc: any;
-
   path: rawPathElement[];
-
   submitOp: Function;
-
   readOnly: boolean;
-
   updateFn: ?Function;
-
   LearningItemFn: LearningItemComponentT;
-
   meta: Object;
-
   backend: any;
-
+  stream: ?Function;
   path: rawPathElement[];
 
   constructor(
@@ -44,8 +37,10 @@ export class Doc {
     updateFn?: Function,
     meta: Object = {},
     LearningItem: LearningItemComponentT,
-    backend: any
+    backend: any,
+    stream?: Function
   ) {
+    this.stream = stream;
     this.backend = backend;
     this.meta = meta;
     this.readOnly = !!readOnly;
@@ -217,10 +212,20 @@ export const generateReactiveFn = (
   meta?: Object,
   readOnly?: boolean,
   updateFn?: Function,
-  backend?: any
+  backend?: any,
+  stream?: Function
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], !!readOnly, updateFn, meta, LearningItem, backend);
+    return new Doc(
+      doc,
+      [],
+      !!readOnly,
+      updateFn,
+      meta,
+      LearningItem,
+      backend,
+      stream
+    );
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }
