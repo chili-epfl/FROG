@@ -58,8 +58,8 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     object.socialStructure
   );
 
-  const stream = (value, targetpath) => {
-    Meteor.call('stream', activity, groupingValue, targetpath, value);
+  const stream = value => {
+    Meteor.call('stream', activity, groupingValue, value);
   };
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
@@ -130,7 +130,8 @@ export class RunActivity extends React.Component<PropsT, {}> {
       userid,
       sessionId,
       groupingKey,
-      groupingValue
+      groupingValue,
+      stream
     } = props;
     const activityType = activityTypesObj[activityTypeId];
     const meta: {
@@ -155,7 +156,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
       undefined,
       readOnly,
       undefined,
-      meta
+      meta,
+      undefined,
+      stream
     )(RunComp);
   }
 
