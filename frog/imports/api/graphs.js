@@ -54,7 +54,6 @@ export const findGraphMongo = (query: Object, proj?: Object) =>
         });
         return x;
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.warn(e);
         // eslint-disable-next-line no-alert
         window.alert('Upgrade  error: unable to upgrade a graph');
@@ -74,7 +73,6 @@ export const findOneGraphMongo = (id: string) => {
     });
     return Graphs.findOne(id);
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.warn(e);
     // eslint-disable-next-line no-alert
     window.alert('Upgrade  error: unable to upgrade the graph');

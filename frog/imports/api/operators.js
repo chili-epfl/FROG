@@ -23,7 +23,6 @@ export const insertOperatorMongo = (operator: Object) => {
     };
     Operators.insert(newOp);
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.warn(e);
     // eslint-disable-next-line no-alert
     window.alert(

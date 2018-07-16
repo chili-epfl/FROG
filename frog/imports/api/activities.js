@@ -32,7 +32,6 @@ export const insertActivityMongo = (activity: Object) => {
     };
     Activities.insert(newAct);
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.warn(e);
     // eslint-disable-next-line no-alert
     window.alert(
@@ -67,7 +66,6 @@ export const updateOneActivityMongo = (
         options
       );
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.warn(e);
       // eslint-disable-next-line no-alert
       window.alert(

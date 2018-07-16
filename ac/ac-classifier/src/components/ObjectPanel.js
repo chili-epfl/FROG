@@ -56,7 +56,6 @@ export default ({ obj, small }: { obj: Object, small: boolean }) => {
       </Container>
     );
   } else {
-    // eslint-disable-next-line no-console
     console.warn('No renderer for this object type');
     return null;
   }
