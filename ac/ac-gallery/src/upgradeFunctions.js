@@ -1,6 +1,6 @@
 // @flow
 
 export default {
-  '0': obj => ({ ...obj, oldGuidelines: obj.veryOldGuidelines }),
-  '1': obj => ({ ...obj, guidelines: obj.oldGuidelines })
+  '0': (obj: Object) => ({ ...obj, oldGuidelines: obj.veryOldGuidelines }),
+  '1': (obj: Object) => ({ ...obj, guidelines: obj.oldGuidelines })
 };
