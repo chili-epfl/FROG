@@ -9,7 +9,8 @@ import { Activities, Connections, insertActivityMongo } from './activities';
 import { Operators, insertOperatorMongo } from './operators';
 import {
   GraphCurrentVersion,
-  GraphUpgrades
+  GraphIdUpgrades,
+  GraphObjUpgrades
 } from '../ui/GraphEditor/versionUpgrades';
 
 export const Graphs = new Mongo.Collection('graphs');
@@ -27,15 +28,28 @@ const replaceFromMatching = (matching: Object, data: any) => {
   }
 };
 
-export const insertGraphMongo = (graph: Object) => {
+export const upgradeGraph = (graphObj: Object) => ({
+  ...graphObj.graph,
+  ...chainUpgrades(
+    GraphObjUpgrades,
+    graphObj.graph.graphVersion === undefined ? 1 : graphObj.graph.graphVersion,
+    GraphCurrentVersion
+  )(graphObj)
+});
+
+export const insertGraphMongo = (graph: Object) =>
   Graphs.insert({ ...graph, graphVersion: GraphCurrentVersion });
-};
+
 export const findGraphMongo = (query: Object, proj?: Object) =>
   Graphs.find(query, proj)
     .fetch()
     .map(x => {
       try {
-        chainUpgrades(GraphUpgrades, x.graphVersion || 1, GraphCurrentVersion)({
+        chainUpgrades(
+          GraphIdUpgrades,
+          x.graphVersion || 1,
+          GraphCurrentVersion
+        )({
           graphId: x.graphId
         });
         return x;
@@ -51,10 +65,14 @@ export const findGraphMongo = (query: Object, proj?: Object) =>
 export const findOneGraphMongo = (id: string) => {
   const graph = Graphs.findOne(id);
   try {
-    chainUpgrades(GraphUpgrades, graph.graphVersion || 1, GraphCurrentVersion)({
+    chainUpgrades(
+      GraphIdUpgrades,
+      graph.graphVersion === undefined ? 1 : graph.graphVersion,
+      GraphCurrentVersion
+    )({
       graphId: id
     });
-    return graph;
+    return Graphs.findOne(id);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.warn(e);
@@ -65,21 +83,23 @@ export const findOneGraphMongo = (id: string) => {
 };
 
 export const addGraph = (graphObj?: Object): string => {
+  const graphObjTmp = graphObj && graphObj.graph && upgradeGraph(graphObj);
   const graphId = uuid();
-  const name = (graphObj && graphObj.graph && graphObj.graph.name) || 'Unnamed';
+  const name =
+    (graphObjTmp && graphObjTmp.graph && graphObjTmp.graph.name) || 'Unnamed';
   insertGraphMongo({
-    ...((graphObj && graphObj.graph) || {}),
+    ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,
     name,
     createdAt: new Date()
   });
-  if (!graphObj) {
+  if (!graphObjTmp) {
     return graphId;
   }
 
   const matching = {};
 
-  const copyAc = graphObj.activities.map(ac => {
+  const copyAc = graphObjTmp.activities.map(ac => {
     const id = uuid();
     matching[ac._id] = id;
     return {
@@ -91,7 +111,7 @@ export const addGraph = (graphObj?: Object): string => {
     };
   });
 
-  const copyOp = graphObj.operators.map(op => {
+  const copyOp = graphObjTmp.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
     return { ...op, _id: id, graphId, state: undefined };
@@ -99,7 +119,7 @@ export const addGraph = (graphObj?: Object): string => {
 
   // Here we change the configured ids of activities and operators which
   // have to change due to the copy
-  const newConn = graphObj.connections.map(connection => {
+  const newConn = graphObjTmp.connections.map(connection => {
     const id = uuid();
     matching[connection._id] = id;
     return {
@@ -127,7 +147,6 @@ export const addGraph = (graphObj?: Object): string => {
     ...op,
     data: replaceFromMatching(matching, op.data)
   }));
-
   newAc.forEach(x => insertActivityMongo(x));
   newOp.forEach(x => insertOperatorMongo(x));
   newConn.forEach(x => Connections.insert(x));

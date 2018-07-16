@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 
 import { findActivitiesMongo, Connections } from '/imports/api/activities';
 import { findOperatorsMongo } from '/imports/api/operators';
-import { Graphs, addGraph, findGraphMongo } from '/imports/api/graphs';
+import { addGraph, findOneGraphMongo } from '/imports/api/graphs';
 import { store } from '../store';
 
 const clean = obj => {
@@ -15,7 +15,7 @@ const clean = obj => {
 
 export const graphToString = graphId =>
   Stringify({
-    graph: omit(findGraphMongo(graphId), 'sessionId'),
+    graph: omit(findOneGraphMongo(graphId), 'sessionId'),
     activities: findActivitiesMongo({ graphId }).map(x => clean(x)),
     operators: findOperatorsMongo({ graphId }).map(x => clean(x)),
     connections: Connections.find({ graphId })
@@ -27,7 +27,7 @@ const cleanFilename = s =>
   s.replace(/[^a-z0-9_-]/gi, '_').replace(/_{2,}/g, '_');
 
 export const exportGraph = () => {
-  const name = Graphs.findOne(store.graphId).name;
+  const name = findOneGraphMongo(store.graphId).name;
   const blob = new Blob([graphToString(store.graphId)], {
     type: 'text/plain;charset=utf-8'
   });

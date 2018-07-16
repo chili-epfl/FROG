@@ -6,6 +6,7 @@ import { compact, isEmpty, isObject, values } from 'lodash';
 import dashboards from './Dashboard';
 import { meta } from './meta';
 import { config, configUI } from './config';
+import upgradeFunctions from './upgradeFunctions';
 
 const dataStructure = {};
 
@@ -69,6 +70,7 @@ export default ({
   configVersion: 1,
   meta,
   config,
+  upgradeFunctions,
   configUI,
   dataStructure,
   mergeFunction,

@@ -24,7 +24,7 @@ export const insertActivityMongo = (activity: Object) => {
       data: activityTypesObj[activity.activityType].upgradeFunctions
         ? chainUpgrades(
             activityTypesObj[activity.activityType].upgradeFunctions,
-            activity.configVersion || 1,
+            activity.configVersion === undefined ? 1 : activity.configVersion,
             activityTypesObj[activity.activityType].configVersion
           )(activity.data)
         : activity.data,
@@ -58,7 +58,7 @@ export const updateOneActivityMongo = (
           data: activityTypesObj[update.activityType].upgradeFunctions
             ? chainUpgrades(
                 activityTypesObj[update.activityType].upgradeFunctions,
-                update.configVersion || 1,
+                update.configVersion === undefined ? 1 : update.configVersion,
                 activityTypesObj[update.activityType].configVersion
               )(update.config)
             : update.config,
@@ -88,7 +88,7 @@ export const findActivitiesMongo = (query: Object, proj?: Object) =>
               ...x,
               data: chainUpgrades(
                 activityTypesObj[x.activityType].upgradeFunctions,
-                x.configVersion || 1,
+                x.configVersion === undefined ? 1 : x.configVersion,
                 activityTypesObj[x.activityType].configVersion
               )(x.data),
               configVersion: activityTypesObj[x.activityType].configVersion
@@ -105,7 +105,7 @@ export const findOneActivityMongo = (id: string) => {
         ...activity,
         data: chainUpgrades(
           activityTypesObj[activity.activityType].upgradeFunctions,
-          activity.configVersion || 1,
+          activity.configVersion === undefined ? 1 : activity.configVersion,
           activityTypesObj[activity.activityType].configVersion
         )(activity.data),
         configVersion: activityTypesObj[activity.activityType].configVersion

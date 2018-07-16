@@ -4,7 +4,7 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
-import { Activities, Connections } from './activities';
+import { Activities, Connections, findActivitiesMongo } from './activities';
 import { Operators } from './operators';
 import {
   runSessionFn,
@@ -196,7 +196,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
     }
 
     const sessionId = uuid();
-    const graph = Graphs.findOne(graphId);
+    const graph = findOneGraphMongo(graphId);
     const match = graph.name.match(/(.+)\((\d+)\)$/);
     let newName;
     if (match) {
@@ -207,7 +207,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
     if (newName[0] !== '#') {
       newName = '#' + newName;
     }
-    const activities = Activities.find({ graphId }).fetch();
+    const activities = findActivitiesMongo({ graphId });
 
     const copyGraphId = addGraph({
       graph: { ...graph, name: newName },

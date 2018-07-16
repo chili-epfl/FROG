@@ -3,7 +3,12 @@ import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
 import valid from '/imports/api/validGraphFn';
-import { Graphs, mergeGraph, setCurrentGraph } from '/imports/api/graphs';
+import {
+  Graphs,
+  mergeGraph,
+  setCurrentGraph,
+  findOneGraphMongo
+} from '/imports/api/graphs';
 import {
   Activities,
   findActivitiesMongo,
@@ -144,7 +149,7 @@ export default class Store {
           this.browserHistory.push(desiredUrl);
         }
         setCurrentGraph(id);
-        const graph = Graphs.findOne(id);
+        const graph = findOneGraphMongo(id);
 
         this.readOnly = readOnly;
         this.graphId = id;
