@@ -7,7 +7,7 @@ const chainUpgrades = (
 ) => (x: Object) =>
   from === to || upgradeFunctions[String(from + 1)] === undefined
     ? x
-    :  chainUpgrades(upgradeFunctions, from + 1, to)(
+    : chainUpgrades(upgradeFunctions, from + 1, to)(
         upgradeFunctions[String(from + 1)](x)
       );
 

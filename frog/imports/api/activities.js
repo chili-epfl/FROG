@@ -17,19 +17,17 @@ export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
 );
 
-const extractUpgradedActivityConfig = (activity: Object) =>
-   ({
-    ...activity,
-    data: activityTypesObj[activity.activityType].upgradeFunctions
-      ? chainUpgrades(
-          activityTypesObj[activity.activityType].upgradeFunctions,
-          activity.configVersion === undefined ? 1 : activity.configVersion,
-          activityTypesObj[activity.activityType].configVersion
-        )(activity.data)
-      : activity.data,
-    configVersion: activityTypesObj[activity.activityType].configVersion
-  });
-
+const extractUpgradedActivityConfig = (activity: Object) => ({
+  ...activity,
+  data: activityTypesObj[activity.activityType].upgradeFunctions
+    ? chainUpgrades(
+        activityTypesObj[activity.activityType].upgradeFunctions,
+        activity.configVersion === undefined ? 1 : activity.configVersion,
+        activityTypesObj[activity.activityType].configVersion
+      )(activity.data)
+    : activity.data,
+  configVersion: activityTypesObj[activity.activityType].configVersion
+});
 
 export const insertActivityMongo = (activity: Object) => {
   try {
@@ -54,7 +52,8 @@ export const updateOneActivityMongo = (
   if (update.config)
     try {
       return Activities.update(
-        id, extractUpgradedActivityConfig(update),
+        id,
+        extractUpgradedActivityConfig(update),
         options
       );
     } catch (e) {
@@ -81,8 +80,7 @@ export const findActivitiesMongo = (query: Object, proj?: Object) =>
 export const findOneActivityMongo = (id: string) => {
   // add try catch
   const activity = Activities.findOne(id);
-  return activity.activityType &&
-    activityTypesObj[activity.activityType]
+  return activity.activityType && activityTypesObj[activity.activityType]
     ? extractUpgradedActivityConfig(activity)
     : activity;
 };
@@ -94,23 +92,25 @@ export const addActivity = (
   configVersion: ?number,
   groupingKey: ?string,
   parentId: ?string
-) =>
-  {if(id)
-     updateOneActivityMongo(id, {
-        $set: omitBy(
-          { activityType, parentId, data, groupingKey, configVersion },
-          isNil
-        )
-      })
-  else insertActivityMongo({
-        _id: uuid(),
-        parentId,
-        configVersion,
-        activityType,
-        data,
-        groupingKey,
-        createdAt: new Date()
-      });}
+) => {
+  if (id)
+    updateOneActivityMongo(id, {
+      $set: omitBy(
+        { activityType, parentId, data, groupingKey, configVersion },
+        isNil
+      )
+    });
+  else
+    insertActivityMongo({
+      _id: uuid(),
+      parentId,
+      configVersion,
+      activityType,
+      data,
+      groupingKey,
+      createdAt: new Date()
+    });
+};
 
 export const removeActivityType = (id: string) => {
   Activities.update(id, {

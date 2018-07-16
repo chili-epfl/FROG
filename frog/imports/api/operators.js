@@ -8,16 +8,16 @@ export const Operators = new Mongo.Collection('operators');
 export const ExternalOperators = new Mongo.Collection('external_operators');
 
 const extractUpgradedOperatorConfig = (operator: Object) => ({
-    ...operator,
-    data: operatorTypesObj[operator.operatorType].upgradeFunctions
-      ? chainUpgrades(
-          operatorTypesObj[operator.operatorType].upgradeFunctions,
-          operator.configVersion || 1,
-          operatorTypesObj[operator.operatorType].configVersion
-        )(operator.data)
-      : operator.data,
-    configVersion: operatorTypesObj[operator.operatorType].configVersion
-})
+  ...operator,
+  data: operatorTypesObj[operator.operatorType].upgradeFunctions
+    ? chainUpgrades(
+        operatorTypesObj[operator.operatorType].upgradeFunctions,
+        operator.configVersion || 1,
+        operatorTypesObj[operator.operatorType].configVersion
+      )(operator.data)
+    : operator.data,
+  configVersion: operatorTypesObj[operator.operatorType].configVersion
+});
 
 export const insertOperatorMongo = (operator: Object) => {
   // make sure there is an operatorType
@@ -45,7 +45,8 @@ export const findOperatorsMongo = (query: Object, proj: Object) =>
 
 export const findOneOperatorMongo = (id: string) => {
   const operator = Operators.find(id);
-  return operator.operatorType && operatorTypesObj[operator.operatorType] &&
+  return operator.operatorType &&
+    operatorTypesObj[operator.operatorType] &&
     operatorTypesObj[operator.operatorType].upgradeFunctions
     ? extractUpgradedOperatorConfig(operator)
     : operator;

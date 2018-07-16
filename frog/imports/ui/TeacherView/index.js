@@ -29,7 +29,7 @@ const TeacherViewRunner = withTracker(() => {
   return {
     sessions: Sessions.find().fetch(),
     session,
-    graphs: findGraphMongo({ broken: { $ne: true } }).fetch(),
+    graphs: findGraphMongo({ broken: { $ne: true } }),
     activities,
     token: GlobalSettings.findOne('token'),
     students,
