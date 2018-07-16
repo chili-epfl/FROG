@@ -8,6 +8,7 @@ import {
   DashboardData,
   ExternalOperators
 } from '../imports/api/activities.js';
+import { Uploads } from '../imports/api/uploads.js'
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
@@ -34,6 +35,7 @@ export default () => {
     fields: { username: 1, joinedSessions: 1 }
   });
   teacherPublish('connections', Connections);
+  teacherPublish('uploads', Uploads);
   teacherPublish('graphs', Graphs);
   teacherPublish('objects', Objects);
   teacherPublish('products', Products);
