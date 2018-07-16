@@ -73,7 +73,7 @@ export const findActivitiesMongo = (query: Object, proj?: Object) =>
     .fetch()
     .map(
       x =>
-        x.activityType && activityTypesObj[x.activityType].upgradeFunctions
+        x.activityType && activityTypesObj[x.activityType]
           ? extractUpgradedActivityConfig(x)
           : x
     );
@@ -82,7 +82,7 @@ export const findOneActivityMongo = (id: string) => {
   // add try catch
   const activity = Activities.findOne(id);
   return activity.activityType &&
-    activityTypesObj[activity.activityType].upgradeFunctions
+    activityTypesObj[activity.activityType]
     ? extractUpgradedActivityConfig(activity)
     : activity;
 };
