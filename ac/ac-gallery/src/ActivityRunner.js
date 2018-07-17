@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import Mousetrap from 'mousetrap';
 import type { ActivityRunnerPropsT } from 'frog-utils';
 

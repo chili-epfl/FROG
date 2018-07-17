@@ -34,6 +34,6 @@ const ImageBox = ({
     {children}
   </Paper>
 );
-// style={getStyle(styleCode)}
+
 ImageBox.displayName = 'ImageBox';
 export default withStyles(styles)(ImageBox);
