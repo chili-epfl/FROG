@@ -64,7 +64,8 @@ export default withTracker(() => {
     'sessions',
     'globalSettings',
     'dashboardData',
-    'externalOperators'
+    'externalOperators',
+    'uploadList'
   ];
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   const extOp = ExternalOperators.find({}).fetch();

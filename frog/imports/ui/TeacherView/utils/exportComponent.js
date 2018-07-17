@@ -10,6 +10,7 @@ import { omit } from 'lodash';
 import { Sessions } from '../../../api/sessions';
 import { Objects } from '../../../api/objects';
 import { Activities, Operators } from '../../../api/activities';
+import { UploadList, downloadFile } from '../../../api/openUploads';
 import { Products } from '../../../api/products';
 import { activityTypesObj } from '../../../activityTypes';
 import { getActivitySequence } from '../../../api/graphSequence';
@@ -94,6 +95,7 @@ export const exportSession = (sessionId: string) => {
   const session = Sessions.findOne(sessionId);
   const activities = Activities.find({ graphId: session.graphId }).fetch();
   const operators = Operators.find({ graphId: session.graphId }).fetch();
+  const files = UploadList.find({ sessionId }).fetch();
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
   activities.forEach(act => {
@@ -121,6 +123,12 @@ export const exportSession = (sessionId: string) => {
     opfo.file('object.json', Stringify(object));
     opfo.file('config.json', Stringify(op.data));
   });
+
+  // const fileFolder = zip.folder('files')
+  files.forEach(() => {
+    downloadFile(); // don't do anything yet
+  });
+
   zip.file(slugo(session.name || '') + '.frog', graphToString(session.graphId));
 
   exportGraphPNG(url => {
