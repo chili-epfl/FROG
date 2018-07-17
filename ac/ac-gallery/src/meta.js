@@ -81,7 +81,9 @@ export const meta = {
       config: {
         guidelines: 'Here are many Hypothes.is items',
         canVote: true,
-        canComment: true
+        canComment: true,
+        canUpload: true,
+        allowAny: true
       },
       data: {
         cjjpgni2v001g6wiuf6qbgax6: {
@@ -450,6 +452,40 @@ export const meta = {
             }
           }
         },
+        3: {
+          id: '3',
+          votes: {},
+          comment: '',
+          li: {
+            id: '3a',
+            liDocument: {
+              liType: 'li-idea',
+              payload: {
+                title: 'Amazon Alexa',
+                content: 'AskJeeves for speech'
+              },
+              createdAt: '2018-05-10T12:02:07.525Z'
+            }
+          }
+        },
+        4: {
+          id: '4',
+          votes: {},
+          comment: '',
+          li: {
+            id: '4a',
+            liDocument: {
+              liType: 'li-ideaCompound',
+              payload: {
+                title: 'This is a test',
+                content: 'Big test',
+                attachments: []
+              },
+              createdAt: '2018-05-10T12:02:07.525Z'
+            }
+          }
+        },
+
         cjjpgni2x001z6wiuagnz0pck: {
           id: 'cjjpgni2x001z6wiuagnz0pck',
           votes: {},
