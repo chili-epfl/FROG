@@ -1,8 +1,15 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
-export const uploadFile = (file: any, name: string) => {
+export const UploadList = new Mongo.Collection('uploadList');
+
+export const addFile = (name: string, url: string, sessionId?: string) => {
+  UploadList.insert({uploadDate: new Date(), name, url , sessionId})
+}
+
+export const uploadFile = (file: any, name: string, sessionId?: string) => {
   const prom: Promise<any> = new Promise((resolve, reject) => {
     Meteor.call('minio.signedurl', name, (err, succ) => {
       if (err) {
@@ -20,5 +27,6 @@ export const uploadFile = (file: any, name: string) => {
       };
     });
   });
+  console.log(prom.value)
   return prom;
 };

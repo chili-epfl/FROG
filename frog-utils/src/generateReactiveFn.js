@@ -29,6 +29,7 @@ export class Doc {
   backend: any;
   stream: ?Function;
   path: rawPathElement[];
+  sessionId: string;
 
   constructor(
     doc: any,
@@ -38,7 +39,8 @@ export class Doc {
     meta: Object = {},
     LearningItem: LearningItemComponentT,
     backend: any,
-    stream?: Function
+    stream?: Function,
+    sessionId?: string
   ) {
     this.stream = stream;
     this.backend = backend;
@@ -46,6 +48,7 @@ export class Doc {
     this.readOnly = !!readOnly;
     this.doc = doc;
     this.path = path || [];
+    this.sessionId = sessionId
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
       : e => {
@@ -213,7 +216,8 @@ export const generateReactiveFn = (
   readOnly?: boolean,
   updateFn?: Function,
   backend?: any,
-  stream?: Function
+  stream?: Function,
+  sessionId?: string
 ): Object => {
   if (doc) {
     return new Doc(
@@ -224,7 +228,8 @@ export const generateReactiveFn = (
       meta,
       LearningItem,
       backend,
-      stream
+      stream,
+      sessionId
     );
   } else {
     throw 'Cannot create dataFn without sharedb doc';
