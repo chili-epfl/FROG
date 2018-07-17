@@ -33,7 +33,7 @@ export const insertOperatorMongo = (operator: Object) => {
   }
 };
 
-export const findOperatorsMongo = (query: Object, proj: Object) =>
+export const findOperatorsMongo = (query: Object, proj?: Object) =>
   Operators.find(query, proj)
     .fetch()
     .map(
