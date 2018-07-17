@@ -23,9 +23,12 @@ class ImageList extends React.Component<*, *> {
       logger,
       LearningItem
     } = this.props;
+    const masonryOptions = {
+      transitionDuration: 0
+    };
 
     return (
-      <Masonry>
+      <Masonry options={masonryOptions}>
         {images.map((image, i) => {
           const onClick = e => {
             if (canVote && e.shiftKey) {
