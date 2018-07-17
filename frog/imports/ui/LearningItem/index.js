@@ -91,6 +91,7 @@ const LearningItem = (props: {
               return id;
             }}
             LearningItem={dataFn.LearningItem}
+            dataFn={dataFn}
           />
         );
       } else {

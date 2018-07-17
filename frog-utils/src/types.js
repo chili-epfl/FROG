@@ -87,7 +87,6 @@ export type ActivityRunnerPropsT = {
   data: any,
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
-  uploadFn: (files: Array<any>, name: string) => Promise<*>,
   userInfo: { id: string, name: string },
   activityId: string,
   groupingValue: string,

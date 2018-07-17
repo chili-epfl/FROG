@@ -8,7 +8,7 @@ import {
   DashboardData,
   ExternalOperators
 } from '../imports/api/activities.js';
-import { UploadList } from '../imports/api/openUploads.js'
+import { UploadList } from '../imports/api/openUploads.js';
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';

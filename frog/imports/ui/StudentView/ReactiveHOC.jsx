@@ -5,7 +5,6 @@ import { cloneDeep } from 'lodash';
 import { generateReactiveFn, getDisplayName } from 'frog-utils';
 
 import { ErrorBoundary } from '../App/ErrorBoundary';
-import { uploadFile } from '../../api/openUploads';
 import { connection } from '../App/connection';
 import LearningItem from '../LearningItem';
 
@@ -24,7 +23,8 @@ const ReactiveHOC = (
   collection?: string,
   meta?: Object,
   backend: any,
-  stream?: Function
+  stream?: Function,
+  sessionId?: string
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
@@ -89,7 +89,8 @@ const ReactiveHOC = (
               readOnly,
               this.update,
               backend,
-              stream
+              stream,
+              sessionId
             )
           });
         }
@@ -120,7 +121,6 @@ const ReactiveHOC = (
         <ErrorBoundary msg="Activity crashed, try reloading">
           <WrappedComponent
             dataFn={this.state.dataFn}
-            uploadFn={uploadFile}
             data={this.state.data}
             {...this.props}
           />
