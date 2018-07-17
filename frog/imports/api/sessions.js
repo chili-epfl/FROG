@@ -4,14 +4,14 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
-import { Activities, Connections, findActivitiesMongo } from './activities';
+import { Activities, Connections } from './activities';
 import { Operators } from './operators';
 import {
   runSessionFn,
   runNextActivity,
   updateNextOpenActivities
 } from './engine';
-import { Graphs, addGraph, findOneGraphMongo } from './graphs';
+import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
 
 const SessionTimeouts = {};
@@ -20,7 +20,7 @@ const DEFAULT_COUNTDOWN_LENGTH = 10000;
 export const Sessions = new Mongo.Collection('sessions');
 
 export const restartSession = (session: Object) => {
-  const graph = findOneGraphMongo(session.graphId);
+  const graph = Graphs.findOne(session.graphId);
   if (!graph || graph.broken) {
     // eslint-disable-next-line no-alert
     window.alert('Cannot restart session, graph currently broken');
@@ -196,7 +196,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
     }
 
     const sessionId = uuid();
-    const graph = findOneGraphMongo(graphId);
+    const graph = Graphs.findOne(graphId);
     const match = graph.name.match(/(.+)\((\d+)\)$/);
     let newName;
     if (match) {
@@ -207,7 +207,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
     if (newName[0] !== '#') {
       newName = '#' + newName;
     }
-    const activities = findActivitiesMongo({ graphId });
+    const activities = Activities.find({ graphId }).fetch();
 
     const copyGraphId = addGraph({
       graph: { ...graph, name: newName },

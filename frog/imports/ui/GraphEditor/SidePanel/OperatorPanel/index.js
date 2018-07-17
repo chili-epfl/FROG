@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { findOneOperatorMongo } from '/imports/api/operators';
+import { Operators } from '/imports/api/operators';
 import { connect } from '../../store';
 
 import EditClass from './EditOperator';
@@ -13,7 +13,7 @@ const EditOperator = connect(EditClass);
 const ChooseOperatorType = connect(ChooseOperatorTypeComp);
 
 export default withTracker(({ id }) => ({
-  operator: findOneOperatorMongo(id)
+  operator: Operators.findOne(id)
 }))(({ operator }) => {
   if (!operator) {
     return null;
