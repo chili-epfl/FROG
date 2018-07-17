@@ -22,6 +22,7 @@ const dataStructure = {
 export default ({
   id: 'ac-prez',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   dataStructure

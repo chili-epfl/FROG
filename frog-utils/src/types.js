@@ -128,6 +128,8 @@ export type LogDbT =
 export type ActivityPackageT = {
   id: string,
   type: 'react-component',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   meta: {
     name: string,
     shortName?: string,
@@ -192,6 +194,8 @@ export type DashboardViewerPropsT = {
 export type productOperatorT = {
   id: string,
   type: 'product',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,
@@ -208,6 +212,8 @@ export type productOperatorT = {
 export type controlOperatorT = {
   id: string,
   type: 'control',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,
@@ -223,6 +229,8 @@ export type controlOperatorT = {
 export type socialOperatorT = {
   id: string,
   type: 'social',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,

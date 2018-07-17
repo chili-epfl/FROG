@@ -37,6 +37,7 @@ const dataStructure = {};
 export default ({
   id: 'ac-single-li',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   configUI,

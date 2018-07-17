@@ -14,9 +14,6 @@ import {
 import { engineLogger } from './logs';
 import { calculateNextOpen } from './graphSequence';
 
-export const runSession = (sessionId: string) =>
-  Meteor.call('run.session', sessionId);
-
 export const nextActivity = (sessionId: string) =>
   Meteor.call('next.activity', sessionId);
 
@@ -95,6 +92,5 @@ export const runSessionFn = (sessionId: string) => {
 };
 
 Meteor.methods({
-  'run.session': runSessionFn,
   'next.activity': runNextActivity
 });

@@ -19,6 +19,7 @@ const operator = (configData, object) => {};
 export default ({
   id: 'op-argue',
   type: 'product',
+  configVersion: 1,
   operator,
   config,
   meta

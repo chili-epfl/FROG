@@ -30,6 +30,7 @@ const config = {
 export default ({
   id: 'ac-uploader',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config
 }: ActivityPackageT);
