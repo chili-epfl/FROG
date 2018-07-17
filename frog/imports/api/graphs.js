@@ -40,10 +40,10 @@ export const upgradeGraph = (graphObj: Object) => ({
 export const insertGraphMongo = (graph: Object) =>
   Graphs.insert({ ...graph, graphVersion: GraphCurrentVersion });
 
-export const findGraphMongo = (query: Object, proj?: Object) =>
+export const upgradeGraphMongo = (query: Object, proj?: Object) => {
   Graphs.find(query, proj)
     .fetch()
-    .map(x => {
+    .forEach(x => {
       try {
         chainUpgrades(
           GraphIdUpgrades,
@@ -52,14 +52,11 @@ export const findGraphMongo = (query: Object, proj?: Object) =>
         )({
           graphId: x.graphId
         });
-        return x;
       } catch (e) {
         console.warn(e);
-        // eslint-disable-next-line no-alert
-        window.alert('Upgrade  error: unable to upgrade a graph');
-        return x; // return an empty graph ?
       }
     });
+};
 
 export const findOneGraphMongo = (id: string) => {
   const graph = Graphs.findOne(id);

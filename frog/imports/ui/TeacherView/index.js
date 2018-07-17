@@ -9,7 +9,7 @@ import OrchestrationView from './OrchestrationView';
 
 import { GlobalSettings } from '../../api/globalSettings';
 import { Activities } from '../../api/activities';
-import { findGraphMongo } from '../../api/graphs';
+import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
 
 const TeacherView = props => (
@@ -29,7 +29,7 @@ const TeacherViewRunner = withTracker(() => {
   return {
     sessions: Sessions.find().fetch(),
     session,
-    graphs: findGraphMongo({ broken: { $ne: true } }),
+    graphs: Graphs.find({ broken: { $ne: true } }).fetch(),
     activities,
     token: GlobalSettings.findOne('token'),
     students,

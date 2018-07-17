@@ -18,7 +18,7 @@ import {
   Connections,
   DashboardData
 } from '../imports/api/activities.js';
-import { findGraphMongo } from '../imports/api/graphs.js';
+import { upgradeGraphMongo } from '../imports/api/graphs.js';
 import { Operators, findOperatorsMongo } from '../imports/api/operators.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
@@ -47,7 +47,10 @@ Connections._ensureIndex('target.id');
 Connections._ensureIndex('source.id');
 startShareDB();
 teacherImports();
-findGraphMongo({});
+
+// upgrade graphs, activities and operators if code has changed
+upgradeGraphMongo({});
+
 findActivitiesMongo({}).forEach(x =>
   Activities.update(x._id, {
     $set: { data: x.data, configVersion: x.configVersion }
