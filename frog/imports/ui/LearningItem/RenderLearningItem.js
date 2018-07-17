@@ -4,7 +4,7 @@ import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
 
-import { learningItemTypesObj } from './learningItemTypes';
+import { learningItemTypesObj } from '../../activityTypes';
 
 const MaybeClickable = ({ condition, children, onClick }) =>
   condition ? <span onClick={onClick}>{children}</span> : children;

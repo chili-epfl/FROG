@@ -23,16 +23,21 @@ const ReactiveHOC = (
   readOnly: boolean = false,
   collection?: string,
   meta?: Object,
-  backend: any
+  backend: any,
+  stream?: Function
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT
   > {
     doc: any;
+
     unmounted: boolean;
+
     interval: any;
+
     intervalCount: number = 0;
+
     times: 0;
 
     constructor(props: Object) {
@@ -83,7 +88,8 @@ const ReactiveHOC = (
               meta,
               readOnly,
               this.update,
-              backend
+              backend,
+              stream
             )
           });
         }

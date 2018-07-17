@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddCircle from '@material-ui/icons/AddCircle';
 import { type LearningItemT, values } from 'frog-utils';
 
-import { learningItemTypesObj } from './learningItemTypes';
+import { learningItemTypesObj } from '../../activityTypes';
 import LearningItem from './index';
 
 const styles = theme => ({

@@ -9,11 +9,11 @@
     "react-masonry-component": "^6.2.1",
     "font-awesome-filetypes": "^1.2.0",
     "frog-utils": "^1.0.0",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "styled-components": "^3.2.5"
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "styled-components": "^3.3.3"
   },
   "devDependencies": {
-    "nps": "5.9.0"
+    "nps": "5.9.2"
   }
 }

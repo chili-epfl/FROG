@@ -3,7 +3,7 @@
 import React from 'react';
 import { values } from 'lodash';
 import { FormControl } from 'react-bootstrap';
-import { learningItemTypesObj } from '/imports/ui/LearningItem/learningItemTypes';
+import { learningItemTypesObj } from '/imports/activityTypes';
 
 const SelectLIType = ({ onChange, value = '' }: any) => (
   <span>

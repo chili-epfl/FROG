@@ -6,6 +6,7 @@ import PDF from './PDF';
 
 class Prez extends Component<ActivityRunnerPropsT> {
   node: any;
+
   pdfFileInput: any = null;
 
   updateFile = () => {

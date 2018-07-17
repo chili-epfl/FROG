@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import LearningItemChooser from './LearningItemChooser';
-import { learningItemTypesObj } from './learningItemTypes';
+import { learningItemTypesObj } from '../../activityTypes';
 import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
@@ -62,6 +62,9 @@ const LearningItem = (props: {
         props.dataFn.objInsert({ li, id, ...(props.meta || {}) }, id);
         if (typeof props.onCreate === 'function') {
           props.onCreate(li);
+        }
+        if (props.dataFn.stream) {
+          props.dataFn.stream({ li });
         }
       };
     }

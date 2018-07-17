@@ -27,6 +27,7 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
   }
 
   _mounted: boolean;
+
   interval: number;
 
   shouldComponentUpdate(nextProps, nextState) {
