@@ -9,8 +9,6 @@ import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
 import ZoomView from './components/ZoomView';
 
-const Main = styled.div``;
-
 type ActivityRunnerStateT = {
   zoomOn: boolean,
   index: number,
@@ -91,7 +89,7 @@ class ActivityRunner extends Component<
     const showCategories =
       this.state.category === 'categories' && !activityData.config.hideCategory;
     return (
-      <Main>
+      <>
         <TopBar
           categories={[...Object.keys(this.categories)]}
           category={this.state.category}
@@ -171,7 +169,7 @@ class ActivityRunner extends Component<
               }}
             />
           )}
-      </Main>
+      </>
     );
   }
 }
