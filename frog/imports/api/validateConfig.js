@@ -8,7 +8,6 @@ const runValidationFn = (id, fn, obj) => {
   try {
     return fn(obj);
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.warn('validator crashed', e);
     return {
       id,

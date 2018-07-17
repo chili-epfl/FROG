@@ -91,6 +91,7 @@ const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
 export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
+  configVersion: 1,
   config,
   meta,
   dataStructure,

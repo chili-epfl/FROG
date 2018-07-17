@@ -73,6 +73,7 @@ const outputDefinition = configData =>
 export default ({
   id: 'op-social-name',
   type: 'social',
+  configVersion: 1,
   config,
   configUI,
   validateConfig,

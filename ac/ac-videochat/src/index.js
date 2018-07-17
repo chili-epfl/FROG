@@ -32,6 +32,7 @@ const dataStructure = [];
 export default ({
   id: 'ac-videochat',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   configUI,

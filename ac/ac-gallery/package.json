@@ -6,6 +6,7 @@
     "start": "nps"
   },
   "dependencies": {
+    "react-masonry-component": "^6.2.1",
     "font-awesome-filetypes": "^1.2.0",
     "frog-utils": "^1.0.0",
     "react": "^16.4.1",

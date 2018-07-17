@@ -14,6 +14,7 @@ const config = {};
 export default ({
   id: 'op-prox',
   type: 'social',
+  configVersion: 1,
   config,
   meta,
   outputDefinition: ['group']

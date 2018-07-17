@@ -13,6 +13,7 @@ export const meta = {
 export default ({
   id: 'ac-h5p',
   type: 'react-component',
+  configVersion: 1,
   ConfigComponent,
   dashboards,
   config: {

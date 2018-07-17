@@ -48,6 +48,7 @@ const configUI = {
 export default ({
   id: 'op-distribute',
   type: 'product',
+  configVersion: 1,
   config,
   meta,
   configUI,

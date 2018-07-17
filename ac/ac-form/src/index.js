@@ -32,6 +32,7 @@ const meta = {
 export default ({
   id: 'ac-form',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   validateConfig

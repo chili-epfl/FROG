@@ -36,6 +36,7 @@ const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => (
 export default ({
   id: 'ac-ck-board',
   type: 'react-component',
+  configVersion: 1
   meta,
   config,
   ActivityRunner,

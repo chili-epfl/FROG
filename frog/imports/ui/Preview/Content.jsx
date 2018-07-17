@@ -15,6 +15,7 @@ import {
   withDragDropContext,
   uuid
 } from 'frog-utils';
+import Paper from '@material-ui/core/Paper';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
@@ -159,17 +160,19 @@ const ContentController = ({
     );
     logger({ type: 'activityDidMount' });
     return (
-      <ActivityToRun
-        activityType={activityType.id}
-        key={reloadActivity}
-        activityData={activityData}
-        activityId="preview"
-        userInfo={{ name, id: getUserId(name) }}
-        stream={() => undefined}
-        logger={logger}
-        groupingValue={instance}
-        sessionId={reloadActivity}
-      />
+      <Paper>
+        <ActivityToRun
+          activityType={activityType.id}
+          key={reloadActivity}
+          activityData={activityData}
+          activityId="preview"
+          userInfo={{ name, id: getUserId(name) }}
+          stream={() => undefined}
+          logger={logger}
+          groupingValue={instance}
+          sessionId={reloadActivity}
+        />
+      </Paper>
     );
   };
 

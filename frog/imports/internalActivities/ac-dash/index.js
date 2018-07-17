@@ -14,6 +14,7 @@ export const meta = {
 export default ({
   id: 'ac-dash',
   type: 'react-component',
+  configVersion: 1,
   config: {},
   ConfigComponent,
   meta

@@ -1,3 +1,4 @@
+import { chainUpgrades } from 'frog-utils';
 import pkg from '../index';
 
 test('all correct formatProduct', () => {
@@ -60,6 +61,31 @@ test('exportWorks', () => {
 86ZE85kFywrkSyR4E	-1	-1		`);
 });
 
+test('upgrade01to02', () => {
+  expect(pkg.upgradeFunctions['0'](dataV1)).toEqual(dataV2);
+});
+//
+test('upgrade02to1', () => {
+  expect(pkg.upgradeFunctions['1'](dataV2)).toEqual(dataV3);
+});
+
+test('upgrade01to1', () => {
+  const tmpV2 = pkg.upgradeFunctions['0'](dataV1);
+  expect(pkg.upgradeFunctions['1'](tmpV2)).toEqual(dataV3);
+});
+
+test('chainUpgrades01to02', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, -1, 0)(dataV1)).toEqual(dataV2);
+});
+
+test('chainUpgrades02to1', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, 0, 1)(dataV2)).toEqual(dataV3);
+});
+
+test('chainUpgrades01to1', () => {
+  expect(chainUpgrades(pkg.upgradeFunctions, -1, 1)(dataV1)).toEqual(dataV3);
+});
+
 const config = {
   title: 'Title0',
   guidelines: 'Guidelines0',
@@ -114,4 +140,101 @@ const data = {
     acc[val] = { data: pkg.formatProduct(config, reactiveData[val].data) };
     return acc;
   }, {})
+};
+
+const dataV1 = {
+  title: 'test',
+  guidelines: 'this is a test',
+  questions: [
+    {
+      question: 'Laquelle de ces expressions est juste?',
+      answers: [
+        'Une probabilité est un nombre qui prend ses valeurs entre $-1$ et $1$.',
+        'Une probabilité est un nombre qui prend ses valeurs dans $]0; 1[$.',
+        "Une probabilité est un nombre qui prend ses valeurs dans tout l'ensemble des réels.",
+        'Une probabilité est un nombre qui prend ses valeurs dans $[0; 1]$.',
+        'NA'
+      ]
+    },
+    {
+      question:
+        "On sait que la probabilité d'avoir un accident lors d'un trajet sur la route reliant Lausanne à Vevey est égale à 0.01%. On sait également que, sur ce trajet, la probabilité d'avoir un accident est deux fois plus élevée lorsque qu'il pleut que lorsqu'il ne pleut pas. On sait enfin qu'il pleut 20% du temps sur ce tronçon routier. Quelle est la probabilité d'avoir un accident lorsqu'il pleut sur la route reliant Lausanne à Vevey?",
+      answers: [
+        '$0.02 \\%$',
+        '$0.01\\bar{6} \\%$',
+        '$0.008\\bar{3} \\%$',
+        '$0.01\\bar{3} \\%$',
+        'NA'
+      ]
+    }
+  ]
+};
+
+const dataV2 = {
+  title: 'test',
+  guidelines: 'this is a test',
+  questions: [
+    {
+      question: 'Laquelle de ces expressions est juste?',
+      answers: {
+        0: 'Une probabilité est un nombre qui prend ses valeurs entre $-1$ et $1$.',
+        1: 'Une probabilité est un nombre qui prend ses valeurs dans $]0; 1[$.',
+        2: "Une probabilité est un nombre qui prend ses valeurs dans tout l'ensemble des réels.",
+        3: 'Une probabilité est un nombre qui prend ses valeurs dans $[0; 1]$.',
+        4: 'NA'
+      }
+    },
+    {
+      question:
+        "On sait que la probabilité d'avoir un accident lors d'un trajet sur la route reliant Lausanne à Vevey est égale à 0.01%. On sait également que, sur ce trajet, la probabilité d'avoir un accident est deux fois plus élevée lorsque qu'il pleut que lorsqu'il ne pleut pas. On sait enfin qu'il pleut 20% du temps sur ce tronçon routier. Quelle est la probabilité d'avoir un accident lorsqu'il pleut sur la route reliant Lausanne à Vevey?",
+      answers: {
+        0: '$0.02 \\%$',
+        1: '$0.01\\bar{6} \\%$',
+        2: '$0.008\\bar{3} \\%$',
+        3: '$0.01\\bar{3} \\%$',
+        4: 'NA'
+      }
+    }
+  ]
+};
+
+const dataV3 = {
+  title: 'test',
+  guidelines: 'this is a test',
+  shuffle: 'none',
+  questions: [
+    {
+      question: 'Laquelle de ces expressions est juste?',
+      answers: [
+        {
+          choice:
+            'Une probabilité est un nombre qui prend ses valeurs entre $-1$ et $1$.'
+        },
+        {
+          choice:
+            'Une probabilité est un nombre qui prend ses valeurs dans $]0; 1[$.'
+        },
+        {
+          choice:
+            "Une probabilité est un nombre qui prend ses valeurs dans tout l'ensemble des réels."
+        },
+        {
+          choice:
+            'Une probabilité est un nombre qui prend ses valeurs dans $[0; 1]$.'
+        },
+        { choice: 'NA' }
+      ]
+    },
+    {
+      question:
+        "On sait que la probabilité d'avoir un accident lors d'un trajet sur la route reliant Lausanne à Vevey est égale à 0.01%. On sait également que, sur ce trajet, la probabilité d'avoir un accident est deux fois plus élevée lorsque qu'il pleut que lorsqu'il ne pleut pas. On sait enfin qu'il pleut 20% du temps sur ce tronçon routier. Quelle est la probabilité d'avoir un accident lorsqu'il pleut sur la route reliant Lausanne à Vevey?",
+      answers: [
+        { choice: '$0.02 \\%$' },
+        { choice: '$0.01\\bar{6} \\%$' },
+        { choice: '$0.008\\bar{3} \\%$' },
+        { choice: '$0.01\\bar{3} \\%$' },
+        { choice: 'NA' }
+      ]
+    }
+  ]
 };

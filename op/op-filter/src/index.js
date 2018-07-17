@@ -33,6 +33,7 @@ const config = {
 export default ({
   id: 'op-filter',
   type: 'product',
+  configVersion: 1,
   config,
   meta
 }: productOperatorT);

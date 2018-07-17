@@ -14,10 +14,12 @@ import { Logs } from '../imports/api/logs';
 import teacherImports from './teacherImports';
 import {
   Activities,
-  Operators,
+  findActivitiesMongo,
   Connections,
   DashboardData
 } from '../imports/api/activities.js';
+import { upgradeGraphMongo } from '../imports/api/graphs.js';
+import { Operators, findOperatorsMongo } from '../imports/api/operators.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
@@ -45,6 +47,20 @@ Connections._ensureIndex('target.id');
 Connections._ensureIndex('source.id');
 startShareDB();
 teacherImports();
+
+// upgrade graphs, activities and operators if code has changed
+upgradeGraphMongo({});
+
+findActivitiesMongo({}).forEach(x =>
+  Activities.update(x._id, {
+    $set: { data: x.data, configVersion: x.configVersion }
+  })
+);
+findOperatorsMongo({}).forEach(x =>
+  Operators.update(x._id, {
+    $set: { data: x.data, configVersion: x.configVersion }
+  })
+);
 
 if (
   process.env.NODE_ENV === 'production' &&

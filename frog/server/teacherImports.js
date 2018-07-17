@@ -3,12 +3,11 @@ import { Meteor } from 'meteor/meteor';
 
 import {
   Activities,
-  Operators,
   Connections,
-  DashboardData,
-  ExternalOperators
+  DashboardData
 } from '../imports/api/activities.js';
 import { UploadList } from '../imports/api/openUploads.js';
+import { Operators, ExternalOperators } from '../imports/api/operators.js';
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
