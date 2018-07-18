@@ -50,6 +50,14 @@ const srcs = [
     }
   ],
   [
+    'Quiz dashboard',
+    'http://localhost:3000/api/dashboard/ac-quiz',
+    {
+      config: quizConfig,
+      instanceId: 11
+    }
+  ],
+  [
     'Quiz with activityData - completed',
     'http://localhost:3000/api/activityType/ac-quiz',
     {

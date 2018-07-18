@@ -257,7 +257,7 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    url.query,
+    request.body,
     'config',
     'Config data not valid',
     response
@@ -265,8 +265,8 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'dashboard',
     activityType: activityTypeId,
-    instances: extractParam(url.query, 'instances'),
-    activity_id: extractParam(url.query, 'activity_id') || 'default',
+    instances: request.body?.instances,
+    activity_id: request.body?.activityId || 'default',
     config
   });
   next();
