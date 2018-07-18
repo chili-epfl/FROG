@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
+import { uuid } from 'frog-utils';
 
-import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import DashMultiWrapper from '../Dashboard/MultiWrapper';
 
 export default ({ data }) => {
   if (data.callType === 'dashboard') {
@@ -21,6 +22,7 @@ export default ({ data }) => {
     );
   }
   if (data.callType === 'config') {
+    console.log('config', data);
     if (data.injectCSS) {
       DocHead.addLink({
         rel: 'stylesheet',
@@ -33,7 +35,7 @@ export default ({ data }) => {
         activityType={data.activityType}
         config={data.config}
         hidePreview
-        hideValidator={data.hideValidator}
+        hideValidator={!data.showValidator}
       />
     );
   } else {
@@ -51,31 +53,31 @@ export default ({ data }) => {
       data: data.activityData,
       config: data.config || {}
     };
-    console.log(activityData);
-    console.log(data.config);
+    const apilogger = data.readOnly
+      ? () => {}
+      : msg => {
+          logger(msg);
+          const logs = Array.isArray(msg) ? msg : [msg];
+          logs.forEach(log => {
+            window.parent.postMessage(
+              {
+                type: 'frog-log',
+                msg: {
+                  id: uuid(),
+                  activityType: data.activityType,
+                  username: data.userName,
+                  userid: data.userId,
+                  timestamp: new Date(),
+                  ...log
+                }
+              },
+              '*'
+            );
+          });
+        };
     return (
       <RunActivity
-        logger={
-          data.readOnly
-            ? () => {}
-            : msg => {
-                logger(msg);
-                window.parent.postMessage(
-                  {
-                    type: 'frog-log',
-                    msg: {
-                      activityType: data.activityType,
-                      username: data.userName,
-                      userid: data.userId,
-                      instanceId: data.instanceId,
-                      timestamp: new Date(),
-                      ...msg
-                    }
-                  },
-                  '*'
-                );
-              }
-        }
+        logger={apilogger}
         readOnly={data.readOnly}
         activityTypeId={data.activityType}
         username={data.userName || 'Anonymous'}
@@ -84,6 +86,7 @@ export default ({ data }) => {
         reactiveId={data.instanceId}
         groupingValue={data.instanceId}
         activityData={activityData}
+        rawData={data.rawData}
       />
     );
   }

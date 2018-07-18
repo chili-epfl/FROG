@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import post from './post';
+import { isEqual } from 'lodash';
 
 let i = 0;
 
@@ -13,6 +14,15 @@ export default class PostIframe extends Component {
   componentDidMount() {
     const { src, params } = this.props;
     post({ action: src, target: this.iframeName, params });
+  }
+  componentDidUpdate(prevProps) {
+    const { src, params } = this.props;
+    if (
+      !isEqual(prevProps.params, params) ||
+      prevProps.src !== this.props.src
+    ) {
+      post({ action: src, target: this.iframeName, params });
+    }
   }
 
   render() {

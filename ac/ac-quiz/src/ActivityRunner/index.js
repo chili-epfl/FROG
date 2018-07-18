@@ -33,7 +33,6 @@ const Completed = ({ dataFn }) => (
 );
 
 export default (props: ActivityRunnerPropsT) => {
-  console.log(props);
   const { activityData, data } = props;
   const { config } = activityData;
   return (

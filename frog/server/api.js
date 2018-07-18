@@ -85,10 +85,10 @@ WebApp.connectHandlers.use('/api/activityTypes', (request, response) => {
   );
 });
 
-const safeDecode = (query, field, msg, response) => {
+const safeDecode = (query, field, msg, response, returnUndef) => {
   const value = query?.[field];
   if (!value) {
-    return {};
+    return returnUndef ? undefined : {};
   }
   try {
     return value && JSON.parse(value);
@@ -110,10 +110,22 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
 
   const activityData = safeDecode(
     request?.body,
-    'activity_data',
+    'activityData',
     'Activity data not valid',
-    response
+    response,
+    true
   );
+
+  const rawData = safeDecode(
+    request?.body,
+    'rawData',
+    'Raw data not valid',
+    response,
+    true
+  );
+  if (rawData && activityData) {
+    response.end('Cannot provide both activityData and rawData');
+  }
   const config = safeDecode(
     request?.body,
     'config',
@@ -128,7 +140,10 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     request?.body?.instanceId || 'default'
   ].join('/');
 
-  if (!InstanceDone[docId] && !request?.body?.readOnly) {
+  if (
+    !InstanceDone[docId] &&
+    !(request?.body?.readOnly && request?.body?.rawData)
+  ) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
     Promise.await(
@@ -142,6 +157,9 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
           'load',
           Meteor.bindEnvironment(() => {
             if (doc.type) {
+              resolve();
+            } else if (rawData) {
+              doc.create(rawData);
               resolve();
             } else {
               mergeOneInstance(
@@ -163,7 +181,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     );
   }
 
-  const dashboardId = activityTypeId + '-' + docId[2];
+  const dashboardId = docId;
   if (!DashboardDone[dashboardId] && !request?.body?.readOnly) {
     DashboardDone[dashboardId] = true;
     const aT = activityTypesObj[activityTypeId];
@@ -205,6 +223,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     activityId: request?.body?.activityId,
     rawInstanceId: request?.body?.instanceId || 'default',
     activityData,
+    rawData,
     readOnly: request?.body?.readOnly,
     config
   });
@@ -218,7 +237,7 @@ WebApp.connectHandlers.use('/api/config', (request, response, next) => {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    url.query,
+    request.body,
     'config',
     'Config data not valid',
     response
@@ -243,7 +262,7 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
     'Config data not valid',
     response
   );
-  InjectData.pushData(response, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'dashboard',
     activityType: activityTypeId,
     instances: extractParam(url.query, 'instances'),
@@ -254,7 +273,7 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
 });
 
 WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
-  InjectData.pushData(response, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'config'
   });
   next();
