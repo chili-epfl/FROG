@@ -13,18 +13,6 @@ const styles = theme => ({
   })
 });
 
-const getStyle = styleCode =>
-  ({
-    chosen_by_team: {
-      border: 'solid 4px #009900',
-      borderRadius: '5px'
-    },
-    chosen_partially: {
-      border: 'solid 4px #FFFF00',
-      borderRadius: '5px'
-    }
-  }[styleCode] || { border: 'solid 2px #a0a0a0' });
-
 const ImgButton = styled.button`
   position: relative;
   border: none;
@@ -63,6 +51,5 @@ const ImageBox = ({
     </Paper>
   </ImgButton>
 );
-// style={getStyle(styleCode)}
 ImageBox.displayName = 'ImageBox';
 export default withStyles(styles)(ImageBox);
