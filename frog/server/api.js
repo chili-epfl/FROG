@@ -85,16 +85,11 @@ WebApp.connectHandlers.use('/api/activityTypes', (request, response) => {
   );
 });
 
-const extractParam = (query, param) =>
-  query.split('&').find(x => x.includes(param))
-    ? query
-        .split('&')
-        .find(x => x.includes(param))
-        .split('=')[1]
-    : undefined;
-
 const safeDecode = (query, field, msg, response) => {
-  const value = extractParam(query, field);
+  const value = query?.[field];
+  if (!value) {
+    return {};
+  }
   try {
     return value && JSON.parse(value);
   } catch (e) {
@@ -112,27 +107,28 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
+
   const activityData = safeDecode(
-    url.query,
+    request?.body,
     'activity_data',
     'Activity data not valid',
     response
   );
   const config = safeDecode(
-    url.query,
+    request?.body,
     'config',
     'Config data not valid',
     response
   );
 
   const docId = [
-    extractParam(url.query, 'client_id'),
+    request?.body?.clientId,
     activityTypeId,
-    extractParam(url.query, 'activity_id') || 'default',
-    extractParam(url.query, 'instance_id') || 'default'
+    request?.body?.activityId || 'default',
+    request?.body?.instanceId || 'default'
   ].join('/');
 
-  if (!InstanceDone[docId] && !extractParam(url.query, 'readOnly')) {
+  if (!InstanceDone[docId] && !request?.body?.readOnly) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
     Promise.await(
@@ -168,7 +164,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   }
 
   const dashboardId = activityTypeId + '-' + docId[2];
-  if (!DashboardDone[dashboardId] && !extractParam(url.query, 'readOnly')) {
+  if (!DashboardDone[dashboardId] && !request?.body?.readOnly) {
     DashboardDone[dashboardId] = true;
     const aT = activityTypesObj[activityTypeId];
     Promise.await(
@@ -200,16 +196,16 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
       })
     );
   }
-  InjectData.pushData(response, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'runActivity',
     activityType: activityTypeId,
-    userid: extractParam(url.query, 'userid'),
-    username: extractParam(url.query, 'username'),
-    instance_id: docId,
-    activity_id: extractParam(url.query, 'activity_id'),
-    raw_instance_id: extractParam(url.query, 'instance_id') || 'default',
-    activity_data: activityData,
-    readOnly: extractParam(url.query, 'readOnly'),
+    userId: request?.body?.userId,
+    userName: request?.body?.userName,
+    instanceId: docId,
+    activityId: request?.body?.activityId,
+    rawInstanceId: request?.body?.instanceId || 'default',
+    activityData,
+    readOnly: request?.body?.readOnly,
     config
   });
   next();

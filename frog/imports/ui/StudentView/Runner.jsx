@@ -122,6 +122,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
   constructor(props: PropsT) {
     super();
+    console.log(props);
     const {
       reactiveId,
       activityTypeId,

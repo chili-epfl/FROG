@@ -11,7 +11,7 @@ export default ({ data }) => {
     return (
       <DashMultiWrapper
         activity={{
-          _id: data.activityType + '-' + data.activity_id,
+          _id: data.activityType + '-' + data.activityId,
           activityType: data.activityType
         }}
         users={[]}
@@ -37,16 +37,22 @@ export default ({ data }) => {
       />
     );
   } else {
-    const actId = data.activityType + '-' + (data.activity_id || 'default');
+    const actId = data.activityType + '-' + (data.activityId || 'default');
     const logger = createLogger(
       'headless',
-      data.raw_instance_id,
+      data.rawInstanceId,
       {
         _id: actId,
         activityType: data.activityType
       },
-      data.raw_instance_id
+      data.rawInstanceId
     );
+    const activityData = {
+      data: data.activityData,
+      config: data.config || {}
+    };
+    console.log(activityData);
+    console.log(data.config);
     return (
       <RunActivity
         logger={
@@ -59,9 +65,9 @@ export default ({ data }) => {
                     type: 'frog-log',
                     msg: {
                       activityType: data.activityType,
-                      username: data.username,
-                      userid: data.userid,
-                      instanceId: data.instance_id,
+                      username: data.userName,
+                      userid: data.userId,
+                      instanceId: data.instanceId,
                       timestamp: new Date(),
                       ...msg
                     }
@@ -72,15 +78,12 @@ export default ({ data }) => {
         }
         readOnly={data.readOnly}
         activityTypeId={data.activityType}
-        username={data.username || 'Anonymous'}
-        userid={data.userid || '1'}
+        username={data.userName || 'Anonymous'}
+        userid={data.userId || '1'}
         stream={() => {}}
-        reactiveId={data.instance_id}
-        groupingValue={data.instance_id}
-        activityData={{
-          data: data.activity_data,
-          config: data.config || {}
-        }}
+        reactiveId={data.instanceId}
+        groupingValue={data.instanceId}
+        activityData={activityData}
       />
     );
   }
