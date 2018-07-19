@@ -12,8 +12,13 @@ export default ({ data }) => {
     return (
       <DashMultiWrapper
         activity={{
-          _id: data.activityType + '-' + data.activityId,
-          activityType: data.activityType
+          _id: [
+            data.clientId,
+            data.activityType,
+            data.activityId || 'default'
+          ].join('-'),
+          activityType: data.activityType,
+          data: data.config
         }}
         users={[]}
         config={data.config}
@@ -22,7 +27,6 @@ export default ({ data }) => {
     );
   }
   if (data.callType === 'config') {
-    console.log('config', data);
     if (data.injectCSS) {
       DocHead.addLink({
         rel: 'stylesheet',
@@ -39,9 +43,13 @@ export default ({ data }) => {
       />
     );
   } else {
-    const actId = data.activityType + '-' + (data.activityId || 'default');
+    const actId = [
+      data.clientId,
+      data.activityType,
+      data.activityId || 'default'
+    ].join('-');
     const logger = createLogger(
-      'headless',
+      'headless/' + data.clientId,
       data.rawInstanceId,
       {
         _id: actId,

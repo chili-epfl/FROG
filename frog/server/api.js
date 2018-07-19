@@ -13,7 +13,6 @@ import { Sessions } from '/imports/api/sessions';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
-import { dashDocId } from '../imports/api/logs';
 
 WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
 WebApp.connectHandlers.use(bodyParser.json());
@@ -133,12 +132,14 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     response
   );
 
-  const docId = [
-    request?.body?.clientId,
-    activityTypeId,
-    request?.body?.activityId || 'default',
-    request?.body?.instanceId || 'default'
-  ].join('/');
+  const docId =
+    [
+      request.body.clientId,
+      activityTypeId,
+      request.body.activityId || 'default'
+    ].join('-') +
+      '/' +
+      request.body.instanceId || 'default';
 
   if (
     !InstanceDone[docId] &&
@@ -181,50 +182,18 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     );
   }
 
-  const dashboardId = docId;
-  if (!DashboardDone[dashboardId] && !request?.body?.readOnly) {
-    DashboardDone[dashboardId] = true;
-    const aT = activityTypesObj[activityTypeId];
-    Promise.await(
-      new Promise(resolve => {
-        if (aT.dashboards) {
-          Object.keys(aT.dashboards).forEach(name => {
-            const dash = aT.dashboards[name];
-            const doc = serverConnection.get(
-              'rz',
-              dashDocId(dashboardId, name)
-            );
-            doc.fetch();
-            if (doc.type) {
-              resolve();
-            }
-            doc.once(
-              'load',
-              Meteor.bindEnvironment(() => {
-                if (doc.type) {
-                  resolve();
-                } else {
-                  doc.create((dash && dash.initData) || {});
-                  resolve();
-                }
-              })
-            );
-          });
-        }
-      })
-    );
-  }
   InjectData.pushData(request, 'api', {
     callType: 'runActivity',
     activityType: activityTypeId,
-    userId: request?.body?.userId,
-    userName: request?.body?.userName,
+    userId: request.body.userId,
+    userName: request.body.userName,
     instanceId: docId,
-    activityId: request?.body?.activityId,
-    rawInstanceId: request?.body?.instanceId || 'default',
+    activityId: request.body.activityId,
+    rawInstanceId: request.body.instanceId || 'default',
     activityData,
+    clientId: request.body.clientId,
     rawData,
-    readOnly: request?.body?.readOnly,
+    readOnly: request.body.readOnly,
     config
   });
   next();
@@ -264,9 +233,10 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
   );
   InjectData.pushData(request, 'api', {
     callType: 'dashboard',
+    clientId: request.body.clientId,
     activityType: activityTypeId,
-    instances: request.body?.instances,
-    activity_id: request.body?.activityId || 'default',
+    instances: request.body.instances,
+    activityId: request.body.activityId || 'default',
     config
   });
   next();

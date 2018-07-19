@@ -5,6 +5,7 @@ import { reverse } from 'lodash';
 import Viewer from './ViewerCount';
 
 const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
+  console.log(reactive);
   const questions = activity?.data?.questions;
   if (!questions) {
     return;

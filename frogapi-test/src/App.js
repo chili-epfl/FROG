@@ -84,7 +84,7 @@ const srcs = [
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { logs: [], example: 0, valid: undefined, uuid: uuid() };
+    this.state = { logs: [], example: 0, valid: undefined, uuid: '' };
   }
   componentDidMount = () => {
     var eventMethod = window.addEventListener
