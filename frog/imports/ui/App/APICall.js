@@ -2,10 +2,10 @@ import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
 import { uuid } from 'frog-utils';
 
+import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
-import DashMultiWrapper from '../Dashboard/MultiWrapper';
 
 export default ({ data }) => {
   if (data.callType === 'dashboard') {
@@ -40,6 +40,7 @@ export default ({ data }) => {
         config={data.config}
         hidePreview
         hideValidator={!data.showValidator}
+        hideLibrary={!data.showLibrary}
       />
     );
   } else {

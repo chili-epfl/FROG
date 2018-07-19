@@ -73,7 +73,17 @@ const srcs = [
     }
   ],
   ['Choose activity', 'http://localhost:3000/api/chooseActivity', {}],
-  ['Configure quiz', 'http://localhost:3000/api/config/ac-quiz', {}],
+  [
+    'Choose activity, with library',
+    'http://localhost:3000/api/chooseActivity',
+    { showLibrary: true }
+  ],
+  ['Configure quiz', 'http://localhost:3000/api/config/ac-quiz'],
+  [
+    'Configure quiz, with validator',
+    'http://localhost:3000/api/config/ac-quiz',
+    { showValidator: true }
+  ],
   [
     'Configure quiz with pre-loaded data',
     'http://localhost:3000/api/config/ac-quiz',
@@ -93,6 +103,7 @@ class App extends Component {
     var eventer = window[eventMethod];
     var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
     eventer(messageEvent, e => {
+      console.log(e.data);
       if ((e.data && e.data.type === 'frog-log') || e.data.type === 'h5p-log') {
         this.setState({ logs: [...this.state.logs, e.data] });
       }
@@ -141,7 +152,7 @@ class App extends Component {
             >
               {title}
             </a>
-            {'      '}
+            {' / '}
           </span>
         ))}
         <div style={{ display: 'flex', marginTop: '20px' }}>

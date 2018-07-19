@@ -36,7 +36,8 @@ type PropsT = {
   onlyHasPreview?: boolean,
   locallyChanged?: boolean,
   changesLoaded?: Function,
-  setActivityTypeId?: Function
+  setActivityTypeId?: Function,
+  hideLibrary?: boolean
 };
 
 const styles = {
@@ -98,7 +99,7 @@ const NoResult = ({ classes }) => (
 const StyledNoResult = withStyles(styles)(NoResult);
 
 const ChooseActivityTopPanel = connect(
-  ({ classes, onSearch, onToggle, store }) => (
+  ({ classes, onSearch, onToggle, store, hideLibrary }) => (
     <Grid
       container
       className={classes.topPanel}
@@ -123,16 +124,18 @@ const ChooseActivityTopPanel = connect(
               />
             </div>
           </Grid>
-          <Grid item xs={4} className={classes.centerButton}>
-            <Button
-              color="primary"
-              size="small"
-              variant={store.ui.libraryOpen ? 'raised' : null}
-              onClick={onToggle}
-            >
-              <Cloud className={classes.cloudIcon} /> Library
-            </Button>
-          </Grid>
+          {!hideLibrary && (
+            <Grid item xs={4} className={classes.centerButton}>
+              <Button
+                color="primary"
+                size="small"
+                variant={store.ui.libraryOpen ? 'raised' : null}
+                onClick={onToggle}
+              >
+                <Cloud className={classes.cloudIcon} /> Library
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </Grid>
       <Grid item xs={12}>
@@ -210,6 +213,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
       <Grid container>
         <Grid item xs={12}>
           <StyledChooseActivityTopPanel
+            hideLibrary={this.props.hideLibrary}
             onSearch={this.handleSearch}
             onToggle={this.handleToggle}
             {...this.props}

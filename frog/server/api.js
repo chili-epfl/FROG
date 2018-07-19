@@ -213,6 +213,8 @@ WebApp.connectHandlers.use('/api/config', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'config',
     activityType: activityTypeId,
+    showValidator: request.body.showValidator,
+    showLibrary: request.body.showLibrary,
     config
   });
   next();
@@ -243,7 +245,9 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
 
 WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
   InjectData.pushData(request, 'api', {
-    callType: 'config'
+    callType: 'config',
+    showValidator: request.body.showValidator,
+    showLibrary: request.body.showLibrary
   });
   next();
 });
