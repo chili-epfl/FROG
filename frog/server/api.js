@@ -98,7 +98,6 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 };
 
 const InstanceDone = {};
-const DashboardDone = {};
 
 WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   const url = require('url').parse(request.url);
@@ -108,7 +107,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   }
 
   const activityData = safeDecode(
-    request?.body,
+    request.body,
     'activityData',
     'Activity data not valid',
     response,
@@ -116,7 +115,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   );
 
   const rawData = safeDecode(
-    request?.body,
+    request.body,
     'rawData',
     'Raw data not valid',
     response,
@@ -126,7 +125,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     response.end('Cannot provide both activityData and rawData');
   }
   const config = safeDecode(
-    request?.body,
+    request.body,
     'config',
     'Config data not valid',
     response
@@ -143,7 +142,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
 
   if (
     !InstanceDone[docId] &&
-    !(request?.body?.readOnly && request?.body?.rawData)
+    !(request.body.readOnly && request.body.rawData)
   ) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];

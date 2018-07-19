@@ -54,7 +54,6 @@ const ReactiveHOC = (
     componentDidMount = () => {
       this.unmounted = false;
       if (readOnly && rawData !== undefined) {
-        console.log('going for it');
         this.setState({
           dataFn: generateReactiveFn(
             {},

@@ -11,7 +11,6 @@ const Viewer = (props: DashboardViewerPropsT) => {
     state,
     activity
   } = props;
-  console.log(state, config);
   if (!config) {
     return null;
   }
