@@ -162,7 +162,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
             groupingKey,
             username
           )
-      : x => x;
+      : undefined;
 
     this.ActivityToRun = ReactiveHOC(
       reactiveId,

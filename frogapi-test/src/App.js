@@ -72,6 +72,36 @@ const srcs = [
       instanceId: 12
     }
   ],
+  [
+    'CK-board quadrants',
+    'http://localhost:3000/api/activityType/ac-ck-board',
+    {
+      config: {
+        quadrants: true,
+        quadrant1: 'Constructivism',
+        quadrant2: 'Behaviourism',
+        quadrant3: 'Socio-cognitive',
+        quadrant4: 'Connectivism',
+        allowCreate: true
+      },
+      instanceId: 13
+    }
+  ],
+  [
+    'CK-board quadrants (instance 2)',
+    'http://localhost:3000/api/activityType/ac-ck-board',
+    {
+      config: {
+        quadrants: true,
+        quadrant1: 'Constructivism',
+        quadrant2: 'Behaviourism',
+        quadrant3: 'Socio-cognitive',
+        quadrant4: 'Connectivism',
+        allowCreate: true
+      },
+      instanceId: 15
+    }
+  ],
   ['Choose activity', 'http://localhost:3000/api/chooseActivity', {}],
   [
     'Choose activity, with library',
@@ -142,7 +172,7 @@ class App extends Component {
                   example: i,
                   url: undefined,
                   valid: undefined,
-                  errors: i < 4 ? undefined : [],
+                  errors: i < 6 ? undefined : [],
                   config: undefined,
                   logs: [],
                   activityType: undefined,
