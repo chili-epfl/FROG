@@ -5,6 +5,8 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
+import Loadable from 'react-loadable';
+import path from 'path';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -19,8 +21,17 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
-import APICall from './APICall';
-import TeacherLoadable from './TeacherContainer';
+
+const TeacherContainer = Loadable({
+  loader: () => import('./TeacherContainer'),
+  loading: () => null,
+  serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
+});
+const APICall = Loadable({
+  loader: () => import('./APICall'),
+  loading: () => null,
+  serverSideRequirePath: path.resolve(__dirname, './APICall')
+});
 
 Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();
@@ -175,7 +186,7 @@ const FROGRouter = withRouter(
           return (
             <Switch>
               <Route path="/projector/:slug" component={StudentView} />
-              <Route component={TeacherLoadable} />
+              <Route component={TeacherContainer} />
             </Switch>
           );
         } else {

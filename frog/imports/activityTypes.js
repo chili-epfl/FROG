@@ -1,6 +1,7 @@
 // @flow
 
 import importAll from 'import-all.macro';
+import Loadable from 'react-loadable';
 import { keyBy } from 'lodash';
 import {
   type ActivityPackageT,
@@ -28,20 +29,34 @@ export const activityTypesObj: { [at: string]: ActivityPackageT } = entries(
 
 export const activityTypes: ActivityPackageT[] = values(activityTypesObj);
 
-const activityRunnersRaw = importAll.sync(
+const activityRunnersRaw = importAll.deferred(
   '../node_modules/ac-*/src/ActivityRunner?(.js)'
 );
 export const activityRunnersExt = entries(activityRunnersRaw).reduce(
-  (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
+  (acc, [k, v]) => ({
+    ...acc,
+    [k.split('/')[2]]: Loadable({
+      loader: v,
+      loading: () => null,
+      serverSideRequirePath: k
+    })
+  }),
   {}
 );
 
-const activityRunnersRawInternal = importAll.sync(
+const activityRunnersRawInternal = importAll.deferred(
   './internalActivities/*/ActivityRunner?(.js)'
 );
 
 export const activityRunners = entries(activityRunnersRawInternal).reduce(
-  (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
+  (acc, [k, v]) => ({
+    ...acc,
+    [k.split('/')[2]]: Loadable({
+      loader: v,
+      loading: () => null,
+      serverSideRequirePath: k
+    })
+  }),
   activityRunnersExt
 );
 
