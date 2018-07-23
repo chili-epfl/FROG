@@ -78,7 +78,7 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
           activityTypesObj[props.activity.activityType].configVersion
         )(props.activity.data)
       : props.activity.data,
-    configVersion: activityTypesObj[props.activity.activityType].configVersion,
+    config_version: activityTypesObj[props.activity.activityType].configVersion,
     tags: '{' + state.tags.join(',') + '}',
     parent_id: props.activity.parentId,
     uuid: newId,
