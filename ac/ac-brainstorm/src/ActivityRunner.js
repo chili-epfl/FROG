@@ -7,13 +7,25 @@ import FlipMove from '@houshuang/react-flip-move';
 import Badge from '@material-ui/core/Badge';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ThumbDownIcon from '@material-ui/icons/ThumbDownAlt';
-import ThumbUpIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import PencilIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
+import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { sortBy } from 'lodash';
+
+const styles = theme => ({
+  badge: {
+    border: `2px solid ${
+      theme.palette.type === 'light'
+        ? theme.palette.grey[200]
+        : theme.palette.grey[900]
+    }`,
+    backgroundColor: 'gray'
+  }
+});
 
 const ListContainer = styled.div`
   padding: 2%;
@@ -45,17 +57,23 @@ const Idea = ({
   editable,
   zoomFn
 }) => (
-  <Badge badgeContent={meta.score}>
   <ListItem>
-    <font size={4}>
-      <div style={{ float: 'right' }}>
+    {children}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        right: '10px'
+      }}
+    >
+      <div style={{ flexDirection: 'row' }}>
         <A onClick={() => vote(meta.id, -1)}>
           <ThumbDownIcon
             style={{
               color: chooseColor(meta.students[userInfo.id], false),
               marginRight: '10px'
             }}
-            // glyph="thumbs-down"
           />
         </A>
         <A onClick={() => vote(meta.id, 1)}>
@@ -64,47 +82,44 @@ const Idea = ({
               color: chooseColor(meta.students[userInfo.id], true),
               marginRight: '10px'
             }}
-            glyph="thumbs-up"
           />
         </A>
       </div>
-    </font>
-    {children}
-    <div style={{ position: 'relative', top: '-15px' }}>
-      <font size={4}>
-        <A onClick={() => delFn(meta)}>
-          <DeleteIcon
-            style={{
-              float: 'right',
-              marginRight: '10px'
-            }}
-          />
-        </A>
-        {editable && (
-          <A onClick={() => editFn(meta.id)}>
-            <PencilIcon
+      <div style={{ flexDirection: 'row' }}>
+        <font size={4}>
+          <A onClick={() => delFn(meta)}>
+            <DeleteIcon
               style={{
                 float: 'right',
                 marginRight: '10px'
               }}
             />
           </A>
-        )}
-        {zoomable && (
-          <A onClick={() => zoomFn(meta.id)}>
-            <ZoomInIcon
-              glyph="zoom-in"
-              style={{
-                float: 'right',
-                marginRight: '10px'
-              }}
-            />
-          </A>
-        )}
-      </font>
+          {editable && (
+            <A onClick={() => editFn(meta.id)}>
+              <PencilIcon
+                style={{
+                  float: 'right',
+                  marginRight: '10px'
+                }}
+              />
+            </A>
+          )}
+          {zoomable && (
+            <A onClick={() => zoomFn(meta.id)}>
+              <ZoomInIcon
+                glyph="zoom-in"
+                style={{
+                  float: 'right',
+                  marginRight: '10px'
+                }}
+              />
+            </A>
+          )}
+        </font>
+      </div>
     </div>
   </ListItem>
-  </Badge>
 );
 
 const IdeaListRaw = ({
@@ -117,45 +132,60 @@ const IdeaListRaw = ({
   zoom,
   setZoom,
   LearningItem,
-  history
+  history,
+  classes
 }) => (
   <div>
     <List className="item">
       <FlipMove duration={750} easing="ease-out">
         {sortBy(values(data), x => [-x.score, x.id]).map(x => (
-          <div key={x.li}>
-            <LearningItem
-              type={
-                edit === x.id
-                  ? 'edit'
-                  : zoom === x.id
-                    ? history
-                      ? 'history'
-                      : 'view'
-                    : 'thumbView'
-              }
-              render={({ zoomable, editable, children }) => (
-                <Idea
-                  zoomable={zoomable || history}
-                  editable={editable}
-                  meta={x}
-                  vote={vote}
-                  delFn={item => dataFn.objDel(item, item.id)}
-                  editFn={e => {
-                    setZoom(false);
-                    setEdit(edit === e ? false : e);
-                  }}
-                  zoomFn={e => {
-                    setEdit(false);
-                    setZoom(zoom === e ? false : e);
-                  }}
-                  userInfo={userInfo}
-                >
-                  {children}
-                </Idea>
-              )}
-              id={x.li}
-            />
+          <div
+            key={x.li}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              border: '1px solid #DDDDDD',
+              borderRadius: '5px'
+            }}
+          >
+            <Badge
+              badgeContent={x.score}
+              color="primary"
+              classes={{ badge: classes.badge }}
+            >
+              <LearningItem
+                type={
+                  edit === x.id
+                    ? 'edit'
+                    : zoom === x.id
+                      ? history
+                        ? 'history'
+                        : 'view'
+                      : 'thumbView'
+                }
+                render={({ zoomable, editable, children }) => (
+                  <Idea
+                    zoomable={zoomable || history}
+                    editable={editable}
+                    meta={x}
+                    vote={vote}
+                    delFn={item => dataFn.objDel(item, item.id)}
+                    editFn={e => {
+                      setZoom(false);
+                      setEdit(edit === e ? false : e);
+                    }}
+                    zoomFn={e => {
+                      setEdit(false);
+                      setZoom(zoom === e ? false : e);
+                    }}
+                    userInfo={userInfo}
+                  >
+                    {children}
+                  </Idea>
+                )}
+                id={x.li}
+              />
+            </Badge>
           </div>
         ))}
       </FlipMove>
@@ -166,7 +196,7 @@ const IdeaListRaw = ({
 const IdeaList = compose(
   withState('edit', 'setEdit', undefined),
   withState('zoom', 'setZoom', undefined)
-)(IdeaListRaw);
+)(withStyles(styles)(IdeaListRaw));
 
 const ActivityRunner = ({
   userInfo,
