@@ -4,14 +4,7 @@ import * as React from 'react';
 import { values, A, type ActivityRunnerPropsT } from 'frog-utils';
 import styled from 'styled-components';
 import FlipMove from '@houshuang/react-flip-move';
-import Badge from '@material-ui/core/Badge';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ThumbDownIcon from '@material-ui/icons/ThumbDownAlt';
-import ThumbUpIcon from '@material-ui/icons/ThumbUpAlt';
-import PencilIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ZoomInIcon from '@material-ui/icons/ZoomIn';
+import { Badge, Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { withState, compose } from 'recompose';
 import { sortBy } from 'lodash';
 
@@ -45,21 +38,20 @@ const Idea = ({
   editable,
   zoomFn
 }) => (
-  <Badge badgeContent={meta.score}>
-  <ListItem>
+  <ListGroupItem>
     <font size={4}>
       <div style={{ float: 'right' }}>
         <A onClick={() => vote(meta.id, -1)}>
-          <ThumbDownIcon
+          <Glyphicon
             style={{
               color: chooseColor(meta.students[userInfo.id], false),
               marginRight: '10px'
             }}
-            // glyph="thumbs-down"
+            glyph="thumbs-down"
           />
         </A>
         <A onClick={() => vote(meta.id, 1)}>
-          <ThumbUpIcon
+          <Glyphicon
             style={{
               color: chooseColor(meta.students[userInfo.id], true),
               marginRight: '10px'
@@ -67,13 +59,15 @@ const Idea = ({
             glyph="thumbs-up"
           />
         </A>
+        <Badge>{meta.score}</Badge>
       </div>
     </font>
     {children}
     <div style={{ position: 'relative', top: '-15px' }}>
       <font size={4}>
         <A onClick={() => delFn(meta)}>
-          <DeleteIcon
+          <Glyphicon
+            glyph="scissors"
             style={{
               float: 'right',
               marginRight: '10px'
@@ -82,7 +76,8 @@ const Idea = ({
         </A>
         {editable && (
           <A onClick={() => editFn(meta.id)}>
-            <PencilIcon
+            <Glyphicon
+              glyph="pencil"
               style={{
                 float: 'right',
                 marginRight: '10px'
@@ -92,7 +87,7 @@ const Idea = ({
         )}
         {zoomable && (
           <A onClick={() => zoomFn(meta.id)}>
-            <ZoomInIcon
+            <Glyphicon
               glyph="zoom-in"
               style={{
                 float: 'right',
@@ -103,8 +98,7 @@ const Idea = ({
         )}
       </font>
     </div>
-  </ListItem>
-  </Badge>
+  </ListGroupItem>
 );
 
 const IdeaListRaw = ({
@@ -120,7 +114,7 @@ const IdeaListRaw = ({
   history
 }) => (
   <div>
-    <List className="item">
+    <ListGroup className="item">
       <FlipMove duration={750} easing="ease-out">
         {sortBy(values(data), x => [-x.score, x.id]).map(x => (
           <div key={x.li}>
@@ -159,7 +153,7 @@ const IdeaListRaw = ({
           </div>
         ))}
       </FlipMove>
-    </List>
+    </ListGroup>
   </div>
 );
 
