@@ -6,7 +6,8 @@
   "dependencies": {
     "frog-utils": "^1.0.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "plotly.js-dist": "^1.39.2"
   },
   "devDependencies": {"nps": "5.9.2"}
 }
