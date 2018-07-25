@@ -68,8 +68,7 @@
     "unzipper": "^0.9.1",
     "utf-8-validate": "^5.0.1",
     "websocket-json-stream": "0.0.3",
-    "ws": "^5.2.1",
-    "ac-hi": "1.0.0"
+    "ws": "^5.2.1"
   },
   "devDependencies": {"nps": "^5.9.2"}
 }
