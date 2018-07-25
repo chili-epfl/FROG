@@ -73,7 +73,7 @@ childProcess.execSync(
 );
 
 childProcess.execSync(
-  `git add ./${prefix}/${newActivityId} frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
+  `git add ./${prefix}/${newActivityId} ./frog/imports/packages/${newActivityId}`
 );
 
 /*eslint-disable */
