@@ -160,7 +160,7 @@ const ContentController = ({
     );
     logger({ type: 'activityDidMount' });
     return (
-      <Paper>
+      <Paper style={{ width: '100%', height: '100%' }}>
         <ActivityToRun
           activityType={activityType.id}
           key={reloadActivity}
