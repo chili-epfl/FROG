@@ -51,12 +51,12 @@ teacherImports();
 // upgrade graphs, activities and operators if code has changed
 upgradeGraphMongo({});
 
-findActivitiesMongo({}).forEach(x =>
+findActivitiesMongo({}).filter(x => x.activityType).forEach(x =>
   Activities.update(x._id, {
     $set: { data: x.data, configVersion: x.configVersion }
   })
 );
-findOperatorsMongo({}).forEach(x =>
+findOperatorsMongo({}).filter(x => x.operatorType).forEach(x =>
   Operators.update(x._id, {
     $set: { data: x.data, configVersion: x.configVersion }
   })
