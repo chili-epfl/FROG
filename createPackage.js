@@ -29,8 +29,6 @@ if (process.argv[3].slice(0, 3) !== prefix + '-') {
 }
 
 const newActivityId = process.argv[3];
-const camelCased = s => s.replace(/-([a-z])/g, g => g[1].toUpperCase());
-const newActivityName = camelCased(newActivityId);
 
 if (fs.existsSync(`./${prefix}/${newActivityId}/package.json`)) {
   // eslint-disable-next-line no-console
