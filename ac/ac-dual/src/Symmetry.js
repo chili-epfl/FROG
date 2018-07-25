@@ -202,7 +202,7 @@ class Symmetry extends React.Component<
     const {
       data: { step },
       speed,
-      logger,
+      logger
     } = this.props;
 
     const figure = this.state.figure;
@@ -265,15 +265,15 @@ class Symmetry extends React.Component<
           <Canvas figure={this.state.figure} {...this.props} />
           <div>
             <Button
-              classes={{root: this.props.classes.button1}}
-              variant='outlined'
+              classes={{ root: this.props.classes.button1 }}
+              variant="outlined"
               onClick={() => this.onClick(false)}
             >
               {texts.yes}
             </Button>
             <Button
-              classes={{root: this.props.classes.button2}}
-              variant='outlined'
+              classes={{ root: this.props.classes.button2 }}
+              variant="outlined"
               onClick={() => this.onClick(false)}
             >
               {texts.no}
@@ -298,4 +298,4 @@ export default withStyles({
     ...styles.button,
     right: '0'
   }
-  })(Symmetry)
+})(Symmetry);

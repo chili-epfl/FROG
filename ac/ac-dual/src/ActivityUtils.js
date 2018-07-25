@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button';
 
 export const styles = {
   button: {
-      width: '120px',
-      margin: '0 5px',
-      backgroundColor: '#DFDFDF'
+    width: '120px',
+    margin: '0 5px',
+    backgroundColor: '#DFDFDF'
   },
   text: { fontSize: 'xx-large' },
   container: {
@@ -53,7 +53,11 @@ const GuidelinesWS = ({
     <div style={{ ...styles.container, padding: '20px' }}>
       <HTML html={guidelines} />
       <div style={{ marginTop: '20px' }}>
-        <Button onClick={start} variant='outlined' classes={{root: classes.button}}>
+        <Button
+          onClick={start}
+          variant="outlined"
+          classes={{ root: classes.button }}
+        >
           {texts.start}
         </Button>
       </div>
@@ -61,7 +65,7 @@ const GuidelinesWS = ({
   </React.Fragment>
 );
 
-export const Guidelines = withStyles(styles)(GuidelinesWS)
+export const Guidelines = withStyles(styles)(GuidelinesWS);
 
 export const CountDownTimer = TimedComponent(
   ({ timeNow, length, start, children }) => {
