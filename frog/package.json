@@ -2,9 +2,7 @@
   "name": "frog",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "scripts": {
-    "start": "nps"
-  },
+  "scripts": {"start": "nps"},
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.52",
     "@houshuang/react-webcam": "^0.5",
@@ -70,9 +68,8 @@
     "unzipper": "^0.9.1",
     "utf-8-validate": "^5.0.1",
     "websocket-json-stream": "0.0.3",
-    "ws": "^5.2.1"
+    "ws": "^5.2.1",
+    "ac-plot": "1.0.0"
   },
-  "devDependencies": {
-    "nps": "^5.9.2"
-  }
+  "devDependencies": {"nps": "^5.9.2"}
 }
