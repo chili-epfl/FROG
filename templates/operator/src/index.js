@@ -1,7 +1,7 @@
 // @flow
 
 import { shuffle, chunk } from 'lodash';
-import { type socialOperatorT } from 'frog-utils';
+import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Argue',
@@ -16,9 +16,8 @@ const config = {
 
 export default ({
   id: 'op-argue',
-  type: 'social',
+  type: 'product',
   configVersion: 1,
   config,
-  outputDefinition: ['groups'],
   meta
-}: socialOperatorT);
+}: productOperatorT);

@@ -1,7 +1,7 @@
 // @flow
 
-import { type socialOperatorRunnerT } from 'frog-utils';
+import { type productOperatorRunnerT, wrapUnitAll } from 'frog-utils';
 
-const operator = (configData, object) => {};
+const operator = (configData, object) => wrapUnitAll({});
 
-export default (operator: socialOperatorRunnerT);
+export default (operator: productOperatorRunnerT);
