@@ -1,15 +1,46 @@
 import * as React from 'react';
 import { type ActivityRunnerPropsT } from 'frog-utils';
-import { ProgressBar } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
-import { styles, texts, Guidelines, CountDownTimer } from './ActivityUtils';
+
+import { withStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+import { texts, Guidelines, CountDownTimer } from './ActivityUtils';
 import Symmetry from './Symmetry';
 import Game from './Game';
 
 let noAnswerTimeout;
 let delayTimeout;
 let changeActivityTimeout;
+
+const styles = {
+  root: {
+    flexGrow: 1,
+    height: '25px'
+  },
+  bar1Determinate: {
+    backgroundColor: '#8994D1'
+  },
+  text: { fontSize: 'xx-large' },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  main: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#bbb',
+    position: 'absolute'
+  },
+  commands: {
+    marginTop: '20px'
+  },
+  activityCountdown: {
+    display: 'flex'
+  }
+};
 
 const Activity = withState('ready', 'setReady', false)(props => {
   const {
@@ -105,18 +136,20 @@ const Main = props => {
 };
 
 // the actual component that the student sees
-const Runner = (props: ActivityRunnerPropsT) => {
+const Runner = withStyles(styles)((props: ActivityRunnerPropsT) => {
   const { step } = props.data;
+  const { classes, ...rest} = props
   const p = Math.round((step / 4) * 100);
   return (
     <div style={styles.main}>
-      <ProgressBar now={p} label={`${p}%`} />
+      <LinearProgress variant="determinate" value={p} classes={{root: classes.root, bar1Determinate: classes.bar1Determinate}} />
+      {/* THIS DO NOT LABEL THE PROGRESS BAR */}
       <div style={styles.container}>
-        <Main {...props} />
+        <Main {...rest} />
       </div>
     </div>
   );
-};
+});
 
 export default class ActivityRunner extends React.Component<
   ActivityRunnerPropsT

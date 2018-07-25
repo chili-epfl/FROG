@@ -237,7 +237,7 @@ const ActivityRunner = ({
   const slider = activityData.config.zoomShowsHistory;
   return (
     <React.Fragment>
-      <div className="bootstrap" style={{ width: '80%' }}>
+      <div style={{ width: '80%' }}>
         <ListContainer>
           <p>{activityData.config.text}</p>
           <IdeaList
