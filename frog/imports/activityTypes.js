@@ -1,5 +1,6 @@
 // @flow
 
+import acHi from 'ac-hi';
 import importAll from 'import-all.macro';
 import { keyBy } from 'lodash';
 import {
@@ -13,6 +14,7 @@ import { operatorTypes } from './operatorTypes';
 
 const packagesRaw = importAll.sync('../node_modules/ac-*/src/index.js');
 export const activityTypesExt = entries(packagesRaw).reduce(
+  acHi,
   (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
   {}
 );

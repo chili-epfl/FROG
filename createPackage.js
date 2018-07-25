@@ -38,26 +38,6 @@ if (fs.existsSync(`./${prefix}/${newActivityId}/package.json`)) {
   process.exit();
 }
 
-// adding to frog/package.json
-const pkgjs = fs.readFileSync('./frog/package.json');
-const pkg = JSON.parse(pkgjs);
-pkg.dependencies[newActivityId] = '1.0.0';
-fs.writeFileSync('./frog/package.json', stringify(pkg));
-
-// adding to activityTypes | operatorTypes
-const fname =
-  type === 'activity'
-    ? './frog/imports/activityTypes.js'
-    : './frog/imports/operatorTypes.js';
-const act = fs
-  .readFileSync(fname)
-  .toString()
-  .split('\n');
-act.splice(2, 0, `import ${newActivityName} from '${newActivityId}';`);
-const whereToInsert = act.findIndex(x => x.startsWith('export const'));
-act.splice(whereToInsert + 1, 0, `  ${newActivityName},`);
-fs.writeFileSync(fname, act.join('\n'));
-
 fs.copySync(`./templates/${type}`, `./${prefix}/${newActivityId}`, {
   errorOnExist: true
 });
@@ -86,6 +66,10 @@ fs.writeFileSync(
   actnew.join('\n')
 );
 
+childProcess.execSync(`ln -s ../${prefix}/${newActivityId} ./node_modules/`);
+
+childProcess.execSync(`ln -s ../../${newActivityId} ./frog/node_modules/`);
+
 childProcess.execSync(
   `git add ./${prefix}/${newActivityId} frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
 );
@@ -93,12 +77,6 @@ childProcess.execSync(
 /*eslint-disable */
 console.log(
   `Package created in './${prefix}/${newActivityId}', and added to ./frog.
-
-Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh' from the
-repository root directory (this will delete all untracked files).
-
-You can then restart 'npm start watchAll' in the root directory, as well
-as 'meteor' in the './frog' directory, which should pick up the new ${type}.
 
 Use 'git diff --cached' to see all the changes that the script has made.`
 );
