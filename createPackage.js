@@ -68,7 +68,9 @@ fs.writeFileSync(
 
 childProcess.execSync(`ln -s ../${prefix}/${newActivityId} ./node_modules/`);
 
-childProcess.execSync(`ln -s ../../${newActivityId} ./frog/node_modules/`);
+childProcess.execSync(
+  `ln -s ../../node_modules/${newActivityId} ./frog/imports/packages/`
+);
 
 childProcess.execSync(
   `git add ./${prefix}/${newActivityId} frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
