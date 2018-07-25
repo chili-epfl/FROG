@@ -5,8 +5,8 @@ import ActivityRunner from './ActivityRunner'
 
 const meta = {
   name: 'Plot statistical data',
-  shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available',
+  shortDesc: 'Allow the student to see various plots of some data',
+  description: 'Allow the student to see various plots of data chosen by the teacher or the student',
   exampleData: [
     { title: 'Case with no data', config: { title: 'No data' }, data: {} }
   ]
