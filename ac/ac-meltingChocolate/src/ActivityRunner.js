@@ -31,7 +31,7 @@ class ActivityRunner extends React.Component<*, *> {
 
   screenshot = () => {
     html2canvas(
-      document.getElementById('ac-thermoCup').contentDocument.body
+      document.getElementById('ac-chocolate').contentDocument.body
     ).then(canvas => {
       const c = new Canvas2Buffer(canvas, { image: { types: ['jpeg'] } });
       this.props.dataFn.createLIPayload('li-file', c.toBuffer(), true, {
@@ -45,10 +45,10 @@ class ActivityRunner extends React.Component<*, *> {
       <div>
         <button onClick={this.screenshot}>Screenshot</button>
         <iframe
-          id="ac-thermoCup"
+          id="ac-chocolate"
           style={{ width: '600px', height: '600px' }}
           title="ac-thermoCup"
-          src="/file?name=ac/ac-thermoCup/ThermoChallenge_oneLayer.html"
+          src="/file/ac/ac-meltingChocolate/index.html"
         />
       </div>
     );

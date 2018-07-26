@@ -3,9 +3,8 @@ import * as React from 'react';
 import { withState, compose } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
-import { type LearningItemT } from 'frog-utils';
+import { type LearningItemT, uuid } from 'frog-utils';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { uuid } from 'frog-utils';
 
 import WebcamInterface from './WebcamInterface';
 import UploadBar from './UploadBar';

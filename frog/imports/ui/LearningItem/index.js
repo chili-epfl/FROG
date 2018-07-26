@@ -73,11 +73,10 @@ const LearningItem = (props: {
     }
     const dataFn = props.dataFn;
     const createLearningItem = (liType, item, _, immutable) => {
-      console.log(dataFn);
       const id = dataFn.createLearningItem(
         liType,
         item,
-        dataFn.meta,
+        { ...(dataFn.meta || {}), ...(props.meta || {}) },
         immutable
       );
       if (id && onCreate) {
