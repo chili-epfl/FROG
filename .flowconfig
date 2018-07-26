@@ -47,5 +47,3 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*/.meteor/.*/package.json
 frogapi-test
 
-# Ignore template files
-.*/templates/.*
