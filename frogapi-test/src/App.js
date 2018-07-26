@@ -32,7 +32,9 @@ const srcs = [
   [
     'Configure quiz',
     'http://localhost:3000/api/config/ac-quiz?injectCSS=http%3A%2F%2Flocalhost%3A3003%2Finject.css'
-  ]
+  ],
+  ['WISE heating', 'http://localhost:8000/ThermoChallenge_oneLayer.html'],
+  ['WISE cooling', 'http://localhost:8000?mode=cooling']
 ];
 
 class App extends Component {
@@ -47,6 +49,7 @@ class App extends Component {
     var eventer = window[eventMethod];
     var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
     eventer(messageEvent, e => {
+      console.log(e.data);
       if ((e.data && e.data.type === 'frog-log') || e.data.type === 'h5p-log') {
         this.setState({ logs: [...this.state.logs, e.data] });
       }
