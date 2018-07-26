@@ -16,6 +16,7 @@
     "body-parser": "^1.18.3",
     "buffer": "^5.1.0",
     "bufferutil": "^4.0.0",
+    "canvas-to-buffer": "^1.0.13",
     "color-hash": "^1.0.3",
     "copy-to-clipboard": "^3.0.8",
     "cuid": "^2.1.1",

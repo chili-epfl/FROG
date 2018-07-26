@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import html2canvas from 'html2canvas';
+import Canvas2Buffer from 'canvas-to-buffer';
 
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
@@ -12,7 +13,6 @@ class ActivityRunner extends React.Component<*, *> {
   }
   componentDidMount = () => {
     window.addEventListener('message', this.onEvent);
-    console.log(this.props.data);
   };
 
   onEvent = e => {
@@ -32,9 +32,8 @@ class ActivityRunner extends React.Component<*, *> {
     html2canvas(
       document.getElementById('ac-thermoCup').contentDocument.body
     ).then(canvas => {
-      document.body.appendChild(canvas);
-      this.props.dataFn.createLIPayload('li-file', canvas.toBuffer(), true);
-      console.log(canvas);
+      const c = new Canvas2Buffer(canvas, { image: { types: ['jpeg'] } });
+      this.props.dataFn.createLIPayload('li-file', c.toBuffer(), true);
     });
   };
 

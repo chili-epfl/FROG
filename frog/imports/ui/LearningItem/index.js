@@ -71,7 +71,9 @@ const LearningItem = (props: {
     if (!onCreate) {
       onCreate = props.onCreate;
     }
+    const dataFn = props.dataFn;
     const createLearningItem = (liType, item, _, immutable) => {
+      console.log(dataFn);
       const id = dataFn.createLearningItem(
         liType,
         item,
@@ -95,7 +97,6 @@ const LearningItem = (props: {
       const liT: LearningItemT<any> = learningItemTypesObj[props.liType];
       if (liT.Creator) {
         const ToRun = liT.Creator;
-        const dataFn = props.dataFn;
         return (
           <ToRun
             createLearningItem={createLearningItem}

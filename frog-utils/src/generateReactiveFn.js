@@ -84,11 +84,13 @@ export class Doc {
     return <LI {...props} dataFn={this} />;
   };
 
-  createLIPayload = (type, payload,autoInsert) =>
+  createLIPayload = (type, payload, autoInsert) =>
     this.LearningItemFn({
       liType: type,
       payload,
-      type: 'createLIPayload',autoInsert={autoInsert}
+      type: 'createLIPayload',
+      autoInsert,
+      dataFn: this
     });
 
   bindTextField(ref: any, rawpath: rawPathT) {

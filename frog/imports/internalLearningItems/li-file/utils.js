@@ -4,7 +4,7 @@ import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
 import { uploadFile } from '../../api/openUploads';
 
-const uploadBufferWithThumbnail = (
+export const uploadBufferWithThumbnail = (
   imageBuffer,
   imageId,
   dataFn,
