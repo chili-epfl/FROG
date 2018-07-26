@@ -7,7 +7,19 @@ const meta = {
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
+    {
+      title: 'Styrofoam, warm, cold',
+      config: {},
+      data: {
+        air_initial_temperature: 5,
+        liquid_initial_temperature: undefined,
+        material0: 'Styrofoam',
+        material0_initial_temperature: 25,
+        'thermometer0-temperature': '35.3',
+        'thermometer1-temperature': '5.0',
+        ticks: 180
+      }
+    }
   ]
 };
 
@@ -25,7 +37,9 @@ const config = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
+const mergeFunction = (object, dataFn) => {
+  dataFn.objInsert(object);
+};
 
 export default ({
   id: 'ac-thermoCup',
