@@ -171,7 +171,7 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
-        if (Meteor.user().username === 'teacher') {
+        if (true || Meteor.user().username === 'teacher') {
           return (
             <Switch>
               <Route path="/projector/:slug" component={StudentView} />
