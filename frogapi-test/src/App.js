@@ -50,7 +50,7 @@ class App extends Component {
     var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
     eventer(messageEvent, e => {
       console.log(e.data);
-      if ((e.data && e.data.type === 'frog-log') || e.data.type === 'h5p-log') {
+      if (e.data && (e.data.type === 'frog-log' || e.data.type === 'h5p-log')) {
         this.setState({ logs: [...this.state.logs, e.data] });
       }
       if (e.data && e.data.type === 'frog-config') {
