@@ -15,20 +15,44 @@ const styles = {
   }
 }
 
-const GraphStateless = ({data, plot, setPlot, classes}) => (
+const transformData = (data, type) => {
+  switch(type){
+    case 'dots':
+      return data.map(trace => ({type: 'scatter', mode: 'markers', ...trace}))
+    case 'lines':
+      return data.map(trace => ({type: 'scatter', mode: 'lines', ...trace}))
+    case 'dots+lines':
+      return data.map(trace => ({type: 'scatter', mode: 'lines+markers', ...trace}))
+    case 'bar':
+      return data.map(trace => ({type: 'bar', ...trace}))
+    case 'box':
+      return data.reduce((acc,cur) => [...acc, {type: 'box', y: cur.y}], [])
+    default:
+      return data
+  }
+}
+
+const GraphStateless = ({config, data, plot, setPlot, classes}) => (
   <div style={{width: '70%'}}>
     <div style={{display: 'flex', flexDirection: 'row', height: '40px'}}>
     <h3 style={{width: '100px'}}>Diagram</h3>
-    <Select
+    {config.plotType !== 'all'? config.plotType : <Select
       value={plot}
       onChange={e => setPlot(e.target.value)}
       classes={{root: classes.root}}>
-      <MenuItem value="line" selected>Line</MenuItem>
+      <MenuItem value="dots+lines" selected>Linked dots</MenuItem>
+      <MenuItem value="dots">Dots</MenuItem>
+      <MenuItem value="line">Lines</MenuItem>
       <MenuItem value='box'>Box</MenuItem>
       <MenuItem value='bar'>Bar</MenuItem>
-    </Select>
+    </Select>}
     </div>
-    <Plot config={{displayModeBar: false}} data={data} style={{position: 'sticky', left: '50%'}}/>
+    <Plot
+      config={{displayModeBar: false}}
+      data={transformData(data, config.plotType !== 'all'? config.plotType : plot)}
+      style={{position: 'sticky', left: '50%'}}
+      layout={{title: config.title, xaxis: { title: config.xLabel}, yaxis: {title: config.yLabel}}}
+    />
   </div>
 )
 
