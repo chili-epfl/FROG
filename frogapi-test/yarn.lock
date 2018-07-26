@@ -1712,6 +1712,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   dependencies:
     cssom "0.3.x"
 
+cuid@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/cuid/-/cuid-2.1.1.tgz#3b0fccbda1089ff123a127320c860b975200d62b"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -5133,6 +5137,12 @@ react-dom@^16.1.1:
 react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
+
+react-post@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-post/-/react-post-1.0.3.tgz#0f5a31891d8506775d3d4c1aca0d6126225017c9"
+  dependencies:
+    prop-types "^15.6.0"
 
 react-scripts@1.0.17:
   version "1.0.17"

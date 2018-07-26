@@ -48,11 +48,18 @@ const updateAndSend = (dashId, prepareDataForDisplayFn, activity, reactive) => {
 };
 
 export default () => {
-  Meteor.publish('dashboard', function(activityId, activityType, dashboard) {
+  Meteor.publish('dashboard', function(
+    activityId,
+    activityType,
+    dashboard,
+    config
+  ) {
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
     const aT = activityTypesObj[activityType];
-    const act = Activities.findOne(activityId);
+    const act = config
+      ? { _id: activityId, data: config }
+      : Activities.findOne(activityId);
     if (DashboardStates[dashId] === undefined) {
       const archived = DashboardData.findOne({ dashId });
       if (archived) {
