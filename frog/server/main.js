@@ -51,16 +51,20 @@ teacherImports();
 // upgrade graphs, activities and operators if code has changed
 upgradeGraphMongo({});
 
-findActivitiesMongo({}).forEach(x =>
-  Activities.update(x._id, {
-    $set: { data: x.data, configVersion: x.configVersion }
-  })
-);
-findOperatorsMongo({}).forEach(x =>
-  Operators.update(x._id, {
-    $set: { data: x.data, configVersion: x.configVersion }
-  })
-);
+findActivitiesMongo({})
+  .filter(x => x.activityType)
+  .forEach(x =>
+    Activities.update(x._id, {
+      $set: { data: x.data, configVersion: x.configVersion }
+    })
+  );
+findOperatorsMongo({})
+  .filter(x => x.operatorType)
+  .forEach(x =>
+    Operators.update(x._id, {
+      $set: { data: x.data, configVersion: x.configVersion }
+    })
+  );
 
 if (
   process.env.NODE_ENV === 'production' &&
