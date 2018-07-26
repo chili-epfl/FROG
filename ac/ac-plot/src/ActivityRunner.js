@@ -1,12 +1,17 @@
 // @flow
 
 import * as React from 'react';
-import DataForm from './DataForm'
-import Graph from './Graph'
+import type { ActivityRunnerPropsT } from 'frog-utils';
 
-export default ({ activityData, data, dataFn }) =>
-  <div style={{display: 'flex'}}>
-    <DataForm {...{ data, dataFn}}/>
-    <div style={{width: '1px', height: 'inherit', backgroundColor: '#000000'}}/>
-    <Graph data={data} config={activityData.config}/>
+import DataForm from './DataForm';
+import Graph from './Graph';
+
+export default ({ activityData, data, dataFn }: ActivityRunnerPropsT) => (
+  <div style={{ display: 'flex' }}>
+    <DataForm {...{ data, dataFn }} />
+    <div
+      style={{ width: '1px', height: 'inherit', backgroundColor: '#000000' }}
+    />
+    <Graph data={data} config={activityData.config} />
   </div>
+);
