@@ -62,5 +62,7 @@ export default ({
     </a>
   ),
   ThumbViewer,
-  Creator
+  Creator,
+  createPayload: (payload, dataFn, createLearningItem) =>
+    uploadImage(blob, dataFn, 'webcam-upload', createLearningItem)
 }: LearningItemT<any>);

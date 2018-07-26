@@ -54,7 +54,7 @@ const LearningItem = (props: {
       />
     );
   }
-  if (props.type === 'create') {
+  if (props.type === 'create' || props.type === 'createLIPayload') {
     let onCreate;
     if (props.autoInsert) {
       onCreate = li => {
@@ -71,6 +71,26 @@ const LearningItem = (props: {
     if (!onCreate) {
       onCreate = props.onCreate;
     }
+    const createLearningItem = (liType, item, _, immutable) => {
+      const id = dataFn.createLearningItem(
+        liType,
+        item,
+        dataFn.meta,
+        immutable
+      );
+      if (id && onCreate) {
+        onCreate(id);
+      }
+      return id;
+    };
+
+    if (props.type === 'createLIPayload') {
+      return learningItemTypesObj[props.liType].createPayload(
+        props.payload,
+        dataFn,
+        createLearningItem
+      );
+    }
     if (props.liType) {
       const liT: LearningItemT<any> = learningItemTypesObj[props.liType];
       if (liT.Creator) {
@@ -78,18 +98,8 @@ const LearningItem = (props: {
         const dataFn = props.dataFn;
         return (
           <ToRun
-            createLearningItem={(liType, item, _, immutable) => {
-              const id = dataFn.createLearningItem(
-                liType,
-                item,
-                dataFn.meta,
-                immutable
-              );
-              if (id && onCreate) {
-                onCreate(id);
-              }
-              return id;
-            }}
+            createLearningItem={createLearningItem}
+            payload={this.props.payload}
             LearningItem={dataFn.LearningItem}
           />
         );
