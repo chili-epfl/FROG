@@ -11,9 +11,10 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
-    title: {
-      title: 'What is the title?',
-      type: 'string'
+    mode: {
+      title: 'Mode',
+      type: 'string',
+      enum: ['heating', 'cooling']
     }
   }
 };

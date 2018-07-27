@@ -273,12 +273,20 @@ WebApp.connectHandlers.use('/file', (req, res) => {
     let fname;
     const url = req.query.name || req.url.substring(1);
     if (url.startsWith('ac/')) {
-      const path = url.split('/');
+      const path = url.split('?')[0].split('/');
       const rootPath = pathResolve('.').split('/.meteor')[0];
-      fname = join(rootPath, '..', 'ac', path[1], 'clientFiles', path[2]);
+      fname = join(
+        rootPath,
+        '..',
+        'ac',
+        path[1],
+        'clientFiles',
+        ...path.splice(2)
+      );
     } else {
       fname = url && '/tmp/' + url.split('?')[0];
     }
+    console.log(req.url, fname);
     fs.access(fname, err => {
       if (err) {
         res.writeHead(404);
