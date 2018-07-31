@@ -2,21 +2,20 @@
 
 import * as React from 'react';
 import { TimedComponent, HTML } from 'frog-utils';
-import { Button } from 'react-bootstrap';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 export const styles = {
-  button: { width: '120px', margin: '0 5px' },
+  button: {
+    width: '200px',
+    margin: '0 5px',
+    backgroundColor: '#DFDFDF'
+  },
   text: { fontSize: 'xx-large' },
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-  },
-  main: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#bbb',
-    position: 'absolute'
   },
   commands: {
     marginTop: '20px'
@@ -41,24 +40,32 @@ export const texts = {
   timeLeft: 'Time left in Task -> '
 };
 
-export const Guidelines = ({
+const GuidelinesWS = ({
   start,
-  guidelines
+  guidelines,
+  classes
 }: {
   start: Function,
-  guidelines: string
+  guidelines: string,
+  classes: Object
 }) => (
   <React.Fragment>
     <div style={{ ...styles.container, padding: '20px' }}>
       <HTML html={guidelines} />
       <div style={{ marginTop: '20px' }}>
-        <Button onClick={start} style={styles.button}>
+        <Button
+          onClick={start}
+          variant="outlined"
+          classes={{ root: classes.button }}
+        >
           {texts.start}
         </Button>
       </div>
     </div>
   </React.Fragment>
 );
+
+export const Guidelines = withStyles(styles)(GuidelinesWS);
 
 export const CountDownTimer = TimedComponent(
   ({ timeNow, length, start, children }) => {
