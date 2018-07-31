@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
+import { uuid } from 'frog-utils';
 
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { createLogger } from '../../api/logs';
@@ -11,8 +12,13 @@ export default ({ data }) => {
     return (
       <DashMultiWrapper
         activity={{
-          _id: data.activityType + '-' + data.activity_id,
-          activityType: data.activityType
+          _id: [
+            data.clientId,
+            data.activityType,
+            data.activityId || 'default'
+          ].join('-'),
+          activityType: data.activityType,
+          data: data.config
         }}
         users={[]}
         config={data.config}
@@ -33,54 +39,63 @@ export default ({ data }) => {
         activityType={data.activityType}
         config={data.config}
         hidePreview
-        hideValidator={data.hideValidator}
+        hideValidator={!data.showValidator}
+        hideLibrary={!data.showLibrary}
       />
     );
   } else {
-    const actId = data.activityType + '-' + (data.activity_id || 'default');
+    const actId = [
+      data.clientId,
+      data.activityType,
+      data.activityId || 'default'
+    ].join('-');
     const logger = createLogger(
-      'headless',
-      data.raw_instance_id,
+      'headless/' + data.clientId,
+      data.rawInstanceId,
       {
         _id: actId,
         activityType: data.activityType
       },
-      data.raw_instance_id
+      data.rawInstanceId
     );
+    const activityData = {
+      data: data.activityData,
+      config: data.config || {}
+    };
+    const apilogger = data.readOnly
+      ? () => {}
+      : msg => {
+          logger(msg);
+          const logs = Array.isArray(msg) ? msg : [msg];
+          logs.forEach(log => {
+            window.parent.postMessage(
+              {
+                type: 'frog-log',
+                msg: {
+                  id: uuid(),
+                  activityType: data.activityType,
+                  username: data.userName,
+                  userid: data.userId,
+                  timestamp: new Date(),
+                  ...log
+                }
+              },
+              '*'
+            );
+          });
+        };
     return (
       <RunActivity
-        logger={
-          data.readOnly
-            ? () => {}
-            : msg => {
-                logger(msg);
-                window.parent.postMessage(
-                  {
-                    type: 'frog-log',
-                    msg: {
-                      activityType: data.activityType,
-                      username: data.username,
-                      userid: data.userid,
-                      instanceId: data.instance_id,
-                      timestamp: new Date(),
-                      ...msg
-                    }
-                  },
-                  '*'
-                );
-              }
-        }
+        logger={apilogger}
         readOnly={data.readOnly}
         activityTypeId={data.activityType}
-        username={data.username || 'Anonymous'}
-        userid={data.userid || '1'}
+        username={data.userName || 'Anonymous'}
+        userid={data.userId || '1'}
         stream={() => {}}
-        reactiveId={data.instance_id}
-        groupingValue={data.instance_id}
-        activityData={{
-          data: data.activity_data,
-          config: data.config || {}
-        }}
+        reactiveId={data.instanceId}
+        groupingValue={data.instanceId}
+        activityData={activityData}
+        rawData={data.rawData}
       />
     );
   }

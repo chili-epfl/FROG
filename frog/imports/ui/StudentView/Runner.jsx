@@ -114,7 +114,8 @@ type PropsT = {
   activityTypeId: string,
   readOnly?: boolean,
   sessionId: string,
-  activityId: string
+  activityId: string,
+  rawData?: any
 };
 
 export class RunActivity extends React.Component<PropsT, {}> {
@@ -131,7 +132,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
       sessionId,
       groupingKey,
       groupingValue,
-      stream
+      stream,
+      username,
+      rawData
     } = props;
     const activityType = activityTypesObj[activityTypeId];
     const meta: {
@@ -150,6 +153,16 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
     const RunComp = activityRunners[activityType.id];
     RunComp.displayName = activityType.id;
+    const formatProduct = activityType.formatProduct;
+    const transform = formatProduct
+      ? x =>
+          formatProduct(
+            this.props.activityData?.config || {},
+            x,
+            groupingKey,
+            username
+          )
+      : undefined;
 
     this.ActivityToRun = ReactiveHOC(
       reactiveId,
@@ -158,7 +171,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
       undefined,
       meta,
       undefined,
-      stream
+      stream,
+      transform,
+      rawData
     )(RunComp);
   }
 
