@@ -51,6 +51,7 @@ class Library extends Component<Object, { searchStr: string }> {
   render() {
     const {
       setIdRemove,
+      setDelete,
       activityId,
       libraryType,
       searchStr,
@@ -162,7 +163,7 @@ class Library extends Component<Object, { searchStr: string }> {
                 }
                 eventKey={x.uuid}
                 searchS={searchStr || this.state.searchStr}
-                {...{ setIdRemove }}
+                {...{ setIdRemove, setDelete }}
                 isLibrary="true"
               />
             ))

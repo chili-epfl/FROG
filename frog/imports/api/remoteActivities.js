@@ -71,6 +71,7 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
   const act = {
     title: state.title,
     description: state.description,
+    owner_id: Meteor.user().username,
     config: activityTypesObj[props.activity.activityType].upgradeFunctions
       ? chainUpgrades(
           activityTypesObj[props.activity.activityType].upgradeFunctions,
