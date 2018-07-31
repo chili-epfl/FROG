@@ -174,44 +174,34 @@ const ZoomViewRaw = ({ close, id, classes }: Object) => (
           <div style={{ layout: 'flex', flexDirection: 'row' }}>
             <div style={{ marginBottom: '50px' }}>{props.children}</div>
             <hr />
-            <div>
-              <div>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Learning Item Type</TableCell>
-                      <TableCell>
-                        {learningItemTypesObj[props.liType].name}
-                      </TableCell>
-                      <TableCell>Created by</TableCell>
-                      <TableCell>
-                        {
-                          Meteor.users.findOne(props.data.createdByUser)
-                            ?.username
-                        }
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Created by group</TableCell>
-                      <TableCell>
-                        {JSON.stringify(props.data.createdByInstance)}
-                      </TableCell>
-                      <TableCell>Created in activity</TableCell>
-                      <TableCell>
-                        {
-                          Activities.findOne(props.data.createdInActivity)
-                            ?.title
-                        }
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Created at</TableCell>
-                      <TableCell>{props.data.createdAt || ''}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Learning Item Type</TableCell>
+                  <TableCell>
+                    {learningItemTypesObj[props.liType].name}
+                  </TableCell>
+                  <TableCell>Created by</TableCell>
+                  <TableCell>
+                    {Meteor.users.findOne(props.data.createdByUser)?.username}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Created by group</TableCell>
+                  <TableCell>
+                    {JSON.stringify(props.data.createdByInstance)}
+                  </TableCell>
+                  <TableCell>Created in activity</TableCell>
+                  <TableCell>
+                    {Activities.findOne(props.data.createdInActivity)?.title}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Created at</TableCell>
+                  <TableCell>{props.data.createdAt || ''}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </div>
         </Paper>
       )}
