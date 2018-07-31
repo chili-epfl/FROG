@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const stringify = require('json-stringify-pretty-compact');
 const childProcess = require('child_process');
+const rimraf = require('rimraf');
 
 if (!process.argv[4]) {
   /*eslint-disable */
@@ -77,10 +78,10 @@ childProcess.execSync(
 );
 
 [
-  './frog/.meteor/build',
-  './frog/.meteor/bundler-cache',
-  './frog/.meteor/plugin-cache'
-].forEach(x => rimraf(x));
+  './frog/.meteor/local/build',
+  './frog/.meteor/local/bundler-cache',
+  './frog/.meteor/local/plugin-cache'
+].forEach(x => rimraf.sync(x));
 
 /*eslint-disable */
 console.info(
