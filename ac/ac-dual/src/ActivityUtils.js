@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 
 export const styles = {
   button: {
-    width: '120px',
+    width: '200px',
     margin: '0 5px',
     backgroundColor: '#DFDFDF'
   },

@@ -23,7 +23,9 @@ const styles = theme => ({
         ? theme.palette.grey[200]
         : theme.palette.grey[900]
     }`,
-    backgroundColor: 'gray'
+    backgroundColor: 'gray',
+    right: '1px',
+    top: '1px'
   }
 });
 
@@ -64,7 +66,8 @@ const Idea = ({
         display: 'flex',
         flexDirection: 'column',
         position: 'absolute',
-        right: '10px'
+        right: '25px',
+        top: '5px'
       }}
     >
       <div style={{ flexDirection: 'row' }}>
@@ -91,6 +94,7 @@ const Idea = ({
             <DeleteIcon
               style={{
                 float: 'right',
+                color: 'grey',
                 marginRight: '10px'
               }}
             />
