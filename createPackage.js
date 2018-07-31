@@ -14,8 +14,7 @@ if (!process.argv[4]) {
 
   Features: 
   * Sets up a simple activity or operator package template in ./[ac|op]/<short-name>.  
-  * Adds it to the relevant files (frog/package.json and frog/imports/[activity|operator]Packages.js). 
-  * Also does the correct symlinking and yarn commands to be ready to develop.`);
+  * Also does the correct symlinking to be ready to develop.`);
   /* eslint-enable */
   process.exit();
 }
