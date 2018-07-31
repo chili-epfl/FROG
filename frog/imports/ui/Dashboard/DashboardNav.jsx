@@ -13,6 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Activities } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardReactiveWrapper } from './index';
+import LIDashboard from './LIDashboard';
 
 const drawerWidth = 220;
 
@@ -60,6 +61,12 @@ const ActivityChoiceMenu = withStyles(styles)(
     >
       <div className={classes.toolbar} />
       <List>
+        <ListItem button onClick={() => setActivityId('LI')}>
+          <ListItemText
+            primary={activityId === 'LI' && 'Learning Items Dashboard'}
+            secondary={activityId !== 'LI' && 'Learning Items Dashboard'}
+          />
+        </ListItem>
         {activities.map(ac => (
           <ActivityChoiceLI
             key={ac._id}
@@ -97,6 +104,8 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
           activityId={aId}
         />
         <main className={classes.content}>
+          {activityId === 'LI' && <LIDashboard sessionId={session._id} />}
+
           {activityToDash &&
             (activityToDash === 'blank' ? null : (
               <DashboardReactiveWrapper
