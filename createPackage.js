@@ -9,6 +9,8 @@ if (!process.argv[4]) {
   
   eg: To create an activity -> node createPackage.js activity ac-new-activity "A new activity" 
 
+  Please stop Meteor before running this command (otherwise this command will crash Meteor).
+
   Features: 
   * Sets up a simple activity or operator package template in ./[ac|op]/<short-name>.  
   * Adds it to the relevant files (frog/package.json and frog/imports/[activity|operator]Packages.js). 
@@ -74,8 +76,14 @@ childProcess.execSync(
   `git add ./${prefix}/${newActivityId} ./frog/imports/packages/${newActivityId}`
 );
 
+[
+  './frog/.meteor/build',
+  './frog/.meteor/bundler-cache',
+  './frog/.meteor/plugin-cache'
+].forEach(x => rimraf(x));
+
 /*eslint-disable */
-console.log(
+console.info(
   `Package created in './${prefix}/${newActivityId}', and added to ./frog.
 
 Use 'git diff --cached' to see all the changes that the script has made.`
