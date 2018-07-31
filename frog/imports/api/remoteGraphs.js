@@ -58,7 +58,9 @@ export const refreshGraphDate = () =>
 export const collectGraphs = (callback: ?Function) =>
   fetch(
     RemoteServer +
-      '?select=uuid,title,description,tags,timestamp&deleted=not.is.true'
+      '?select=uuid,title,description,tags,timestamp,owner_id&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
+      Meteor.user().username +
+      ')'
   )
     .then(e => e.json())
     .then(r => {
@@ -83,6 +85,7 @@ export const sendGraph = (state: Object, props: Object) => {
     description: state.description,
     tags: '{' + state.tags.join(',') + '}',
     parent_id: Graphs.findOne(props.graphId).parentId,
+    owner_id: Meteor.user().username,
     uuid: newId,
     graph: graphToString(props.graphId)
   };

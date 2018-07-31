@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -63,7 +64,17 @@ const ListItems = ({
         </Typography>
       </Grid>
       {isLibrary ? (
-        <div>{object.tags.map(x => <Chip key={x} label={x} />)}</div>
+        <div>
+          <Grid item xs={12}>
+            <Typography gutterBottom className={classes.secondaryText}>
+              <Highlight
+                text={'Owner: ' + (object.meta.owner_id || 'undefined')}
+                searchStr={searchS}
+              />
+            </Typography>
+          </Grid>
+          {object.tags.map(x => <Chip key={x} label={x} />)}
+        </div>
       ) : (
         showExpanded && (
           <Grid item xs={12}>
@@ -101,33 +112,40 @@ const ListItems = ({
           )}
         </Grid>
         <Grid item xs={6}>
-          {isLibrary ?
-            setDelete && <IconButton
-              variant="fab"
-              aria-label="Delete"
-              color='secondary'
-              onClick={() => {setIdRemove({type: 'activity', id: object.id}); setDelete(true)}}
-              classes={{
-                root: classes.iconButtonRoot
-              }}>
-              <DeleteIcon />
-            </IconButton>
-            : !showExpanded && (
-              <IconButton
-                value={object.id}
-                aria-label="Preview"
-                onClick={expand}
-                classes={{
-                  root: classes.iconButtonRoot
-                }}
-              >
-                <ExpandMore
-                  classes={{
-                    root: classes.iconRoot
+          {isLibrary
+            ? setDelete && (
+                <IconButton
+                  variant="fab"
+                  aria-label="Delete"
+                  color="secondary"
+                  disabled={Meteor.user().username !== object.owner_id}
+                  onClick={() => {
+                    setIdRemove({ type: 'activity', id: object.id });
+                    setDelete(true);
                   }}
-                />
-              </IconButton>
-            )}
+                  classes={{
+                    root: classes.iconButtonRoot
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )
+            : !showExpanded && (
+                <IconButton
+                  value={object.id}
+                  aria-label="Preview"
+                  onClick={expand}
+                  classes={{
+                    root: classes.iconButtonRoot
+                  }}
+                >
+                  <ExpandMore
+                    classes={{
+                      root: classes.iconRoot
+                    }}
+                  />
+                </IconButton>
+              )}
         </Grid>
       </Grid>
     </ListItemSecondaryAction>

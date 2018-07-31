@@ -48,7 +48,9 @@ export const refreshActDate = () => (LibraryStates.lastRefreshAct = new Date());
 export const collectActivities = (callback: ?Function) =>
   fetch(
     RemoteServer +
-      '?select=uuid,title,description,tags,activity_type,timestamp&deleted=not.is.true'
+      '?select=uuid,title,description,tags,activity_type,owner_id,timestamp&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
+      Meteor.user().username +
+      ')'
   )
     .then(e => e.json())
     .then(r => {
@@ -80,6 +82,7 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
         )(props.activity.data)
       : props.activity.data,
     config_version: activityTypesObj[props.activity.activityType].configVersion,
+    is_public: state.public,
     tags: '{' + state.tags.join(',') + '}',
     parent_id: props.activity.parentId,
     uuid: newId,
@@ -104,7 +107,12 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
 };
 
 export const loadActivityMetaData = (id: string, callback: ?Function) => {
-  fetch(RemoteServer + '?uuid=eq.' + id)
+  fetch(
+    RemoteServer +
+      '?uuid=eq.' +
+      id +
+      '&select=id,title,description,tags,owner_id'
+  )
     .then(e => e.json())
     .then(e => {
       const toChangeIdx = LibraryStates.activityList.findIndex(
@@ -114,6 +122,7 @@ export const loadActivityMetaData = (id: string, callback: ?Function) => {
         LibraryStates.activityList[toChangeIdx] = {
           uuid: id,
           title: e[0].title,
+          owner_id: e[0].owner_id,
           description: e[0].description,
           tags: e[0].tags
         };
@@ -121,6 +130,7 @@ export const loadActivityMetaData = (id: string, callback: ?Function) => {
         LibraryStates.activityList.push({
           uuid: id,
           title: e[0].title,
+          owner_id: e[0].owner_id,
           description: e[0].description,
           tags: e[0].tags
         });

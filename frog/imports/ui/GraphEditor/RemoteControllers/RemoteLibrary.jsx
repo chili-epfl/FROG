@@ -27,7 +27,8 @@ const filterWithStr = (list: Array<any>, searchStr: string) =>
           x.activity_type.toLowerCase().includes(searchStr)) ||
         x.title.toLowerCase().includes(searchStr) ||
         x.description.toLowerCase().includes(searchStr) ||
-        x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined
+        x.tags.find(y => y.toLowerCase().includes(searchStr)) !== undefined ||
+        (x.owner_id && x.owner_id.toLowerCase().includes(searchStr))
     )
     .sort((x, y) => (x.timestamp > y.timestamp ? -1 : 1));
 
@@ -131,6 +132,7 @@ class Library extends Component<Object, { searchStr: string }> {
                   meta: {
                     name: x.title,
                     shortDesc: x.description,
+                    owner_id: x.owner_id,
                     activityTypeName:
                       activityTypesObj?.[x.activity_type]?.meta?.name + ': '
                   },
