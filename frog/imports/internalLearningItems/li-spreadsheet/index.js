@@ -1,9 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { type LearningItemT, isBrowser, clog, flattenOne } from 'frog-utils';
+import { type LearningItemT, isBrowser, flattenOne } from 'frog-utils';
 import mathjs from 'mathjs';
-import { mapValues, assign, each } from 'lodash';
+import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
 import { Button } from '@material-ui/core';
 
@@ -12,10 +12,6 @@ if (isBrowser) {
 }
 
 class MathSheet extends React.Component<*, *> {
-  constructor(props) {
-    super(props);
-  }
-
   validateExp(trailKeys, expr) {
     let valid = true;
     const matches = expr.match(/[A-Z][1-9]+/g) || [];
@@ -47,7 +43,7 @@ class MathSheet extends React.Component<*, *> {
       }
 
       if (value !== null) {
-        //&& this.validateExp([key], expr))
+        // && this.validateExp([key], expr))
         return { className: 'equation', value, expr };
       } else {
         return { className: 'error', value: 'error', expr: '' };
@@ -73,7 +69,8 @@ class MathSheet extends React.Component<*, *> {
     tempData[row][col] = updatedCell;
     each(flattenOne(this.props.data), (cell, key) => {
       if (
-        cell?.expr?.charAt(0) === '=' &&
+        cell?.expr &&
+        cell.expr.charAt(0) === '=' &&
         cell.expr.indexOf(changeCell.key) > -1 &&
         key !== changeCell.key
       ) {
@@ -82,17 +79,20 @@ class MathSheet extends React.Component<*, *> {
     });
   }
 
-  onCellsChanged = (changes, additions) => {
+  onCellsChanged = changes => {
     changes.forEach(({ cell, value, col, row }) => {
       this.cellUpdate(cell, value, col, row);
     });
   };
 
   render() {
+    const data = this.props.readOnly
+      ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
+      : this.props.data;
     return (
       <div style={{ width: '800px', fontSize: '1.3em' }}>
         <Datasheet
-          data={this.props.data}
+          data={data}
           valueRenderer={cell => cell.value}
           dataRenderer={cell => cell.expr}
           onCellsChanged={this.onCellsChanged}
@@ -119,11 +119,11 @@ export default ({
   ),
   name: 'Spreadsheet',
   id: 'li-spreadsheet',
-  Viewer: MathSheet,
+  Viewer: ({ data }) => <MathSheet readOnly data={data} />,
   ThumbViewer: () => (
     <div>
       <Button variant="fab" color="primary">
-        <i style={{ fontSize: '2em' }} class="fa fa-table" />
+        <i style={{ fontSize: '2em' }} className="fa fa-table" />
       </Button>Spreadsheet
     </div>
   ),
