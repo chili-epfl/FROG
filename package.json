@@ -55,7 +55,8 @@
     "nps": "^5.9.2",
     "prettier": "^1.13.7",
     "react-test-renderer": "^16.4.1",
-    "regenerator-runtime": "^0.12.0"
+    "regenerator-runtime": "^0.12.0",
+    "rimraf": "^2.6.2"
   },
   "license": "ISC",
   "dependencies": {
