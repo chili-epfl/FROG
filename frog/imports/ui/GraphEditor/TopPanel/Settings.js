@@ -83,7 +83,8 @@ const MenuItemDeleteFromServer = ({
   setIdRemove,
   parentId,
   setDelete,
-  classes
+  classes,
+  handleClose
 }) =>
   !LibraryStates.graphList.find(x => x.uuid === parentId) ||
   LibraryStates.graphList.find(x => x.uuid === parentId).owner_id ===
@@ -92,16 +93,13 @@ const MenuItemDeleteFromServer = ({
       onClick={() => {
         if (setIdRemove) setIdRemove({ type: 'graph', id: parentId });
         setDelete(true);
-        // submitRemoveGraph(graphId); DO SOMETHING
-        this.handleClose();
+        handleClose();
       }}
     >
       <Delete className={classes.leftIcon} aria-hidden="true" />Remove Current
       Graph from the Server
     </MenuItem>
-  ) : (
-    <MenuItem />
-  );
+  ) : null;
 
 class GraphActionMenu extends React.Component {
   state = {
@@ -246,6 +244,7 @@ class GraphActionMenu extends React.Component {
                     </MenuItem>
                     <MenuItemDeleteFromServer
                       {...{ setIdRemove, parentId, setDelete, classes }}
+                      handleClose={this.handleClose}
                     />
                   </MenuList>
                 </Paper>
