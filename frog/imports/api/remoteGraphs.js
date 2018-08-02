@@ -1,10 +1,12 @@
+import { Meteor } from 'meteor/meteor';
+
 import { uuid } from 'frog-utils';
 import { Graphs } from '/imports/api/graphs';
 import { LibraryStates } from './cache';
 import { graphToString, doImportGraph } from '../ui/GraphEditor/utils/export';
 
 const RemoteServer =
-  Meteor.settings.public.remoteServer ||
+  (Meteor.settings && Meteor.settings.public.remoteServer) ||
   'https://icchilisrv4.epfl.ch:5500/graphs';
 
 export const removeGraph = (id: string, callback: ?Function) => {
