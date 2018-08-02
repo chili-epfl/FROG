@@ -28,14 +28,17 @@ export const updateGraph = (id: string, graph: Object, callback: ?Function) => {
 };
 
 export const loadGraphMetaData = (id: string, callback: ?Function) => {
-  fetch(RemoteServer + '?uuid=eq.' + id)
+  fetch(
+    RemoteServer + '?uuid=eq.' + id + '&select=title,owner_id,description,tags'
+  )
     .then(e => e.json())
     .then(e => {
-      const toChangeIdx = LibraryStates.graphList.find(x => x.uuid === id);
-      if (toChangeIdx !== -1) {
+      const toChangeIdx = LibraryStates.graphList.findIndex(x => x.uuid === id);
+      if (toChangeIdx >= 0) {
         LibraryStates.graphList[toChangeIdx] = {
           uuid: id,
           title: e[0].title,
+          owner_id: e[0].owner_id,
           description: e[0].description,
           tags: e[0].tags
         };
@@ -43,6 +46,7 @@ export const loadGraphMetaData = (id: string, callback: ?Function) => {
         LibraryStates.graphList.push({
           uuid: id,
           title: e[0].title,
+          owner_id: e[0].owner_id,
           description: e[0].description,
           tags: e[0].tags
         });

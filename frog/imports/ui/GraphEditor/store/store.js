@@ -15,6 +15,8 @@ import {
   Connections
 } from '/imports/api/activities';
 import { Operators, findOperatorsMongo } from '/imports/api/operators';
+import { LibraryStates } from '/imports/api/cache';
+import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';
@@ -149,6 +151,11 @@ export default class Store {
           this.browserHistory.push(desiredUrl);
         }
         setCurrentGraph(id);
+        // if has a parent => load its metadatas (to know if he can delete the graph)    const parentId = Graphs.findOne(props.store.graphId).parentId
+        const parentId = Graphs.findOne(id).parentId;
+        if (parentId && !LibraryStates.graphList.find(x => x.uuid === parentId))
+          loadGraphMetaData(parentId);
+
         const graph = findOneGraphMongo(id);
 
         this.readOnly = readOnly;

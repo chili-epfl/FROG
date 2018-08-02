@@ -87,6 +87,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
                 />
               ))}
             </Tabs>
+            <h3>{Meteor.user().username}</h3>
             <Button
               className={classes.button}
               color="inherit"
