@@ -1,0 +1,13 @@
+{
+  "name": "ac-select",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {"start": "nps"},
+  "dependencies": {
+    "frog-utils": "^1.0.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-highlight-words": "0.12"
+  },
+  "devDependencies": {"nps": "5.9.2"}
+}
