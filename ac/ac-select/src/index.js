@@ -2,6 +2,8 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
+import dashboard from './Dashboard'
+
 const meta = {
   name: 'Words selection',
   shortDesc: 'Reading a text and selecting some words in the text',
@@ -49,7 +51,7 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboard: null,
+  dashboard,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);
