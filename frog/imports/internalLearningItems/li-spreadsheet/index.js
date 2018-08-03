@@ -8,12 +8,27 @@ import Datasheet from 'react-datasheet';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 if (isBrowser) {
   require('./css.js');
 }
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+const removeCol = props =>
+  props.data.forEach((x, i) => {
+    if (x.length > 2) props.dataFn.listDel(x[x.length - 1], [i, x.length - 1]);
+  });
+
+const removeRow = props =>
+  props.dataFn.listDel(
+    props.data[props.data.length - 1],
+    props.data.length - 1
+  );
 
 const AddButton = ({ onClick }) => (
   <Button
@@ -38,7 +53,10 @@ const RemoveButton = ({ onClick }) => (
 );
 
 class MathSheet extends React.Component<*, *> {
-  // dimensions should be part of data
+  state = {
+    modalOpen: false,
+    deleting: ''
+  };
 
   validateExp(trailKeys, expr) {
     let valid = true;
@@ -138,6 +156,32 @@ class MathSheet extends React.Component<*, *> {
         }}
       >
         <div style={{ flexDirection: 'row', display: 'flex' }}>
+          <Dialog open={this.state.modalOpen}>
+            <DialogTitle>Warning</DialogTitle>
+            <DialogContent>
+              {' '}
+              You are about to delete a non-empty cell
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  if (this.state.deleting === 'column') removeCol(this.props);
+                  else if (this.state.deleting === 'row') removeRow(this.props);
+                  this.setState({ modalOpen: false, deleting: '' });
+                }}
+                color="secondary"
+              >
+                Continue
+              </Button>
+              <Button
+                onClick={() => {
+                  this.setState({ modalOpen: false, deleting: '' });
+                }}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Datasheet
             data={data}
             valueRenderer={cell => cell.value}
@@ -179,13 +223,14 @@ class MathSheet extends React.Component<*, *> {
             />
             <RemoveButton
               onClick={() => {
-                data.forEach((x, i) => {
-                  if (x.length > 2)
-                    this.props.dataFn.listDel(x[x.length - 1], [
-                      i,
-                      x.length - 1
-                    ]);
-                });
+                const empty = data.reduce(
+                  (acc, curr, index) =>
+                    acc && (index === 0 || curr[curr.length - 1].value === ''),
+                  true
+                );
+                if (!empty)
+                  this.setState({ modalOpen: true, deleting: 'column' });
+                else removeCol(this.props);
               }}
             />
           </div>
@@ -212,11 +257,15 @@ class MathSheet extends React.Component<*, *> {
           />
           <RemoveButton
             onClick={() => {
-              if (data.length > 2)
-                this.props.dataFn.listDel(
-                  data[data.length - 1],
-                  data.length - 1
+              if (data.length > 2) {
+                const empty = data[data.length - 1].reduce(
+                  (acc, curr, index) =>
+                    acc && (index === 0 || curr.value === ''),
+                  true
                 );
+                if (!empty) this.setState({ modalOpen: true, deleting: 'row' });
+                else removeRow(this.props);
+              }
             }}
           />
         </div>
