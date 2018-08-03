@@ -17,7 +17,14 @@ if (isBrowser) {
   require('./css.js');
 }
 
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const getLetter = index =>
+  index < 26
+    ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[index]
+    : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(index / 26) - 1] +
+      getLetter(index - Math.floor(index / 26) * 26);
+
+const createArrayAlphabet = length =>
+  length < 0 ? '' : [...createArrayAlphabet(length - 1), getLetter(length - 1)];
 
 const removeCol = props =>
   props.data.forEach((x, i) => {
@@ -95,17 +102,6 @@ class MathSheet extends React.Component<*, *> {
         return { className: 'error', value: 'error', expr: '' };
       }
     }
-  }
-
-  addRow() {
-    this.props.dataFn.listAppend(
-      ['', 'A', 'B', 'C', 'D', 'E'].map((col, j) => {
-        if (j === 0) {
-          return { readOnly: true, value: 8 };
-        }
-        return { value: '', key: col + 8, col: j, row: 8 };
-      })
-    );
   }
 
   cellUpdate(changeCell, expr, col, row, data) {
@@ -199,48 +195,51 @@ class MathSheet extends React.Component<*, *> {
             )}
             onCellsChanged={this.onCellsChanged}
           />
-          <div style={{ flexDirection: 'column', display: 'flex' }}>
+          {!this.props.readOnly && (
+            <div style={{ flexDirection: 'column', display: 'flex' }}>
+              <AddButton
+                onClick={() => {
+                  data.forEach(
+                    (x, i) =>
+                      i === 0
+                        ? this.props.dataFn.listAppend(
+                            { readOnly: true, value: getLetter(x.length - 1) },
+                            i
+                          )
+                        : this.props.dataFn.listAppend(
+                            {
+                              value: '',
+                              key: getLetter(x.length - 1) + i,
+                              col: x.length,
+                              row: i
+                            },
+                            i
+                          )
+                  );
+                }}
+              />
+              <RemoveButton
+                onClick={() => {
+                  const empty = data.reduce(
+                    (acc, curr, index) =>
+                      acc &&
+                      (index === 0 || curr[curr.length - 1].value === ''),
+                    true
+                  );
+                  if (!empty)
+                    this.setState({ modalOpen: true, deleting: 'column' });
+                  else removeCol(this.props);
+                }}
+              />
+            </div>
+          )}
+        </div>
+        {!this.props.readOnly && (
+          <div style={{ flexDirection: 'row', display: 'flex' }}>
             <AddButton
               onClick={() => {
-                data.forEach(
-                  (x, i) =>
-                    i === 0
-                      ? this.props.dataFn.listAppend(
-                          { readOnly: true, value: alphabet[x.length - 1] },
-                          i
-                        )
-                      : this.props.dataFn.listAppend(
-                          {
-                            value: '',
-                            key: alphabet[x.length - 1] + i,
-                            col: x.length,
-                            row: i
-                          },
-                          i
-                        )
-                );
-              }}
-            />
-            <RemoveButton
-              onClick={() => {
-                const empty = data.reduce(
-                  (acc, curr, index) =>
-                    acc && (index === 0 || curr[curr.length - 1].value === ''),
-                  true
-                );
-                if (!empty)
-                  this.setState({ modalOpen: true, deleting: 'column' });
-                else removeCol(this.props);
-              }}
-            />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row', display: 'flex' }}>
-          <AddButton
-            onClick={() => {
-              this.props.dataFn.listAppend(
-                ['', ...alphabet.substring(0, data[0].length - 1)].map(
-                  (col, j) => {
+                this.props.dataFn.listAppend(
+                  createArrayAlphabet(data[0].length - 1).map((col, j) => {
                     if (j === 0) {
                       return { readOnly: true, value: data.length };
                     }
@@ -250,25 +249,26 @@ class MathSheet extends React.Component<*, *> {
                       col: j,
                       row: data.length
                     };
-                  }
-                )
-              );
-            }}
-          />
-          <RemoveButton
-            onClick={() => {
-              if (data.length > 2) {
-                const empty = data[data.length - 1].reduce(
-                  (acc, curr, index) =>
-                    acc && (index === 0 || curr.value === ''),
-                  true
+                  })
                 );
-                if (!empty) this.setState({ modalOpen: true, deleting: 'row' });
-                else removeRow(this.props);
-              }
-            }}
-          />
-        </div>
+              }}
+            />
+            <RemoveButton
+              onClick={() => {
+                if (data.length > 2) {
+                  const empty = data[data.length - 1].reduce(
+                    (acc, curr, index) =>
+                      acc && (index === 0 || curr.value === ''),
+                    true
+                  );
+                  if (!empty)
+                    this.setState({ modalOpen: true, deleting: 'row' });
+                  else removeRow(this.props);
+                }
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   }
@@ -277,7 +277,6 @@ class MathSheet extends React.Component<*, *> {
 export default ({
   dataStructure: [0, 1, 2, 3, 4].map((row, i) =>
     ['', 'A', 'B', 'C', 'D'].map((col, j) => {
-      // ...alphabet.substring(0,4)
       if (i === 0 && j === 0) {
         return { readOnly: true, value: '                ' };
       }
