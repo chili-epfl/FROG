@@ -4,7 +4,18 @@ import * as React from 'react';
 import { ImageReload, type LearningItemT } from 'frog-utils';
 import Paper from '@material-ui/core/Paper';
 
+import ToolBar from './ToolBar';
 import { Creator } from '../li-file';
+
+const ImageEditor = (props) => {
+    console.log(props.data)
+    console.log(props)
+    return (<Paper elevation={24} style={{ margin: '20px' }}>
+      <ToolBar data={props.data} dataFn={props.dataFn}/>
+      <ImageReload style={{ margin: '10px' }} src={props.data.url} />
+    </Paper>)
+  }
+
 
 export default ({
   name: 'image',
@@ -24,5 +35,6 @@ export default ({
   ),
   Creator: (props: any) => (
     <Creator {...props} fileTypes="image/jpeg, image/png" />
-  )
+  ),
+  Editor: ImageEditor
 }: LearningItemT<any>);
