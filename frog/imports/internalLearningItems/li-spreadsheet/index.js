@@ -13,27 +13,29 @@ if (isBrowser) {
   require('./css.js');
 }
 
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-const AddButton = ({onClick}) =>
-<Button
-  onClick={onClick}
-  variant="fab"
-  color="primary"
-  style={{width: '35px', height: '30px'}}
->
-  <AddIcon />
-</Button>
+const AddButton = ({ onClick }) => (
+  <Button
+    onClick={onClick}
+    variant="fab"
+    color="primary"
+    style={{ width: '35px', height: '30px' }}
+  >
+    <AddIcon />
+  </Button>
+);
 
-const RemoveButton = ({onClick}) =>
-<Button
-  onClick={onClick}
-  variant="fab"
-  color="secondary"
-  style={{width: '35px', height: '30px'}}
->
-  <RemoveIcon />
-</Button>
+const RemoveButton = ({ onClick }) => (
+  <Button
+    onClick={onClick}
+    variant="fab"
+    color="secondary"
+    style={{ width: '35px', height: '30px' }}
+  >
+    <RemoveIcon />
+  </Button>
+);
 
 class MathSheet extends React.Component<*, *> {
   // dimensions should be part of data
@@ -77,13 +79,15 @@ class MathSheet extends React.Component<*, *> {
     }
   }
 
-  addRow(){
-    this.props.dataFn.listAppend(['', 'A', 'B', 'C', 'D', 'E'].map((col, j) => {
-      if (j === 0) {
-        return { readOnly: true, value: 8 };
-      }
-      return { value: '', key: col + 8, col: j, row: 8 };
-    }))
+  addRow() {
+    this.props.dataFn.listAppend(
+      ['', 'A', 'B', 'C', 'D', 'E'].map((col, j) => {
+        if (j === 0) {
+          return { readOnly: true, value: 8 };
+        }
+        return { value: '', key: col + 8, col: j, row: 8 };
+      })
+    );
   }
 
   cellUpdate(changeCell, expr, col, row, data) {
@@ -99,8 +103,6 @@ class MathSheet extends React.Component<*, *> {
       changeCell,
       this.computeExpr(changeCell.key, expr, scope)
     );
-    console.log(updatedCell)
-    console.log(row + ' , '+col)
     this.props.dataFn.listReplace(changeCell, updatedCell, [row, col]);
     const tempData = this.props.data;
     tempData[row][col] = updatedCell;
@@ -126,39 +128,98 @@ class MathSheet extends React.Component<*, *> {
     const data = this.props.readOnly
       ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
       : this.props.data;
-    console.log(this.props.data)
     return (
-      <div style={{ width: '800px', fontSize: '1.3em', display: 'flex', flexDirection: 'column' }}>
+      <div
+        style={{
+          width: '800px',
+          fontSize: '1.3em',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
         <div style={{ flexDirection: 'row', display: 'flex' }}>
-        <Datasheet
-          data={data}
-          valueRenderer={cell => cell.value}
-          dataRenderer={cell => cell.expr}
-          onCellsChanged={this.onCellsChanged}
-        />
-        <div style={{ flexDirection: 'column', display: 'flex' }}>
-        <AddButton onClick={() => {
-          data.forEach((x,i) => i === 0 ? this.props.dataFn.listAppend({ readOnly: true, value: alphabet[data[0].length-1] },i) : this.props.dataFn.listAppend({ value: '', key: alphabet[data[0].length-1] + i, col: alphabet[data[0].length-1], row: i },i))
-        }
-        }/>
-        <RemoveButton onClick={() => {
-
-        }
-        }/>
-      </div>
-      </div>
-      <div style={{ flexDirection: 'row', display: 'flex' }}>
-        <AddButton onClick={() => {
-          this.props.dataFn.listAppend(['', ...alphabet.substring(0,data[0].length)].map((col, j) => {
-            if (j === 0) {
-              return { readOnly: true, value: data.length };
-            }
-            return { value: '', key: col + data.length, col: j, row: data.length };
-          }))
-        }
-        }/>
-        <RemoveButton/>
-    </div>
+          <Datasheet
+            data={data}
+            valueRenderer={cell => cell.value}
+            dataRenderer={cell => cell.expr}
+            cellRenderer={props => (
+              <td
+                className={props.className}
+                onMouseDown={props.onMouseDown}
+                onMouseOver={props.onMouseOver}
+                onDoubleClick={props.onDoubleClick}
+                style={{ width: '40px', height: '30px' }}
+              >
+                {props.children}
+              </td>
+            )}
+            onCellsChanged={this.onCellsChanged}
+          />
+          <div style={{ flexDirection: 'column', display: 'flex' }}>
+            <AddButton
+              onClick={() => {
+                data.forEach(
+                  (x, i) =>
+                    i === 0
+                      ? this.props.dataFn.listAppend(
+                          { readOnly: true, value: alphabet[x.length - 1] },
+                          i
+                        )
+                      : this.props.dataFn.listAppend(
+                          {
+                            value: '',
+                            key: alphabet[x.length - 1] + i,
+                            col: x.length,
+                            row: i
+                          },
+                          i
+                        )
+                );
+              }}
+            />
+            <RemoveButton
+              onClick={() => {
+                data.forEach((x, i) => {
+                  if (x.length > 2)
+                    this.props.dataFn.listDel(x[x.length - 1], [
+                      i,
+                      x.length - 1
+                    ]);
+                });
+              }}
+            />
+          </div>
+        </div>
+        <div style={{ flexDirection: 'row', display: 'flex' }}>
+          <AddButton
+            onClick={() => {
+              this.props.dataFn.listAppend(
+                ['', ...alphabet.substring(0, data[0].length - 1)].map(
+                  (col, j) => {
+                    if (j === 0) {
+                      return { readOnly: true, value: data.length };
+                    }
+                    return {
+                      value: '',
+                      key: col + data.length,
+                      col: j,
+                      row: data.length
+                    };
+                  }
+                )
+              );
+            }}
+          />
+          <RemoveButton
+            onClick={() => {
+              if (data.length > 2)
+                this.props.dataFn.listDel(
+                  data[data.length - 1],
+                  data.length - 1
+                );
+            }}
+          />
+        </div>
       </div>
     );
   }
@@ -166,7 +227,8 @@ class MathSheet extends React.Component<*, *> {
 
 export default ({
   dataStructure: [0, 1, 2, 3, 4].map((row, i) =>
-    ['', 'A', 'B', 'C', 'D'].map((col, j) => { // ...alphabet.substring(0,4)
+    ['', 'A', 'B', 'C', 'D'].map((col, j) => {
+      // ...alphabet.substring(0,4)
       if (i === 0 && j === 0) {
         return { readOnly: true, value: '                ' };
       }
