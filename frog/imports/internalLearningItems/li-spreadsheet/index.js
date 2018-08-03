@@ -24,7 +24,7 @@ const getLetter = index =>
       getLetter(index - Math.floor(index / 26) * 26);
 
 const createArrayAlphabet = length =>
-  length < 0 ? '' : [...createArrayAlphabet(length - 1), getLetter(length - 1)];
+  length < 0 ? [''] : [...createArrayAlphabet(length - 1), getLetter(length - 1)];
 
 const removeCol = props =>
   props.data.forEach((x, i) => {
