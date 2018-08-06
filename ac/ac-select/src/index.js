@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import dashboard from './Dashboard'
+import dashboards from './Dashboard'
 
 const meta = {
   name: 'Words selection',
@@ -51,7 +51,7 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboard,
+  dashboards,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

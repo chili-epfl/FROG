@@ -31,7 +31,7 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo }) => {
     <Highlighter
     searchWords={Object.keys(data).filter(x => data[x].includes(userInfo.id))}
     autoEscape
-    textToHighlight={activityData.config ? activityData.config.text : ''}
+    textToHighlight={activityData.config ? activityData.config.text || '' : ''}
   />
   </div>
 )};
