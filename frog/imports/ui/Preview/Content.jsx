@@ -229,7 +229,7 @@ const ContentController = ({
           initialValue={getInitialState(
             showDash
               ? [
-                  ['dashboard','dashboard'],
+                  ['dashboard', 'dashboard'],
                   ...users.map((name, idx) => [name, instances[idx]])
                 ]
               : users.map((name, idx) => [name, instances[idx]])
