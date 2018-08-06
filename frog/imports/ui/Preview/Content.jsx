@@ -203,7 +203,7 @@ const ContentController = ({
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
-                toolbarControls={[<div />]}
+                toolbarControls={[<div key={instance} />]}
                 key={JSON.stringify({ config, showData })}
                 path={path}
               >
@@ -229,7 +229,7 @@ const ContentController = ({
           initialValue={getInitialState(
             showDash
               ? [
-                  ['dashboard'],
+                  ['dashboard', 'dashboard'],
                   ...users.map((name, idx) => [name, instances[idx]])
                 ]
               : users.map((name, idx) => [name, instances[idx]])
