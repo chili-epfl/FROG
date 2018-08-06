@@ -2,12 +2,13 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import dashboards from './Dashboard'
+import dashboards from './Dashboard';
 
 const meta = {
   name: 'Words selection',
   shortDesc: 'Reading a text and selecting some words in the text',
-  description: 'Allow the student to select words that are highlighted int the text displayed.',
+  description:
+    'Allow the student to select words that are highlighted int the text displayed.',
   exampleData: [
     {
       title: 'Sample text',
@@ -39,19 +40,11 @@ const config = {
   }
 };
 
-// default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
-
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
-
 export default ({
   id: 'ac-select',
   type: 'react-component',
   configVersion: 1,
   meta,
   config,
-  dashboards,
-  dataStructure,
-  mergeFunction
+  dashboards
 }: ActivityPackageT);
