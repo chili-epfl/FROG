@@ -24,9 +24,7 @@ const getLetter = index =>
       getLetter(index - Math.floor(index / 26) * 26);
 
 const createArrayAlphabet = length =>
-  length < 0
-    ? ['']
-    : [...createArrayAlphabet(length - 1), getLetter(length - 1)];
+  length < 0 ? [] : [...createArrayAlphabet(length - 1), getLetter(length - 1)];
 
 const removeCol = props =>
   props.data.forEach((x, i) => {
@@ -43,8 +41,7 @@ const AddButton = ({ onClick }) => (
   <Button
     onClick={onClick}
     variant="fab"
-    color="primary"
-    style={{ width: '35px', height: '30px' }}
+    style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <AddIcon />
   </Button>
@@ -54,8 +51,7 @@ const RemoveButton = ({ onClick }) => (
   <Button
     onClick={onClick}
     variant="fab"
-    color="secondary"
-    style={{ width: '35px', height: '30px' }}
+    style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <RemoveIcon />
   </Button>
@@ -198,7 +194,13 @@ class MathSheet extends React.Component<*, *> {
             onCellsChanged={this.onCellsChanged}
           />
           {!this.props.readOnly && (
-            <div style={{ flexDirection: 'column', display: 'flex' }}>
+            <div
+              style={{
+                flexDirection: 'column',
+                display: 'flex',
+                marginLeft: '5px'
+              }}
+            >
               <AddButton
                 onClick={() => {
                   data.forEach(
@@ -237,7 +239,13 @@ class MathSheet extends React.Component<*, *> {
           )}
         </div>
         {!this.props.readOnly && (
-          <div style={{ flexDirection: 'row', display: 'flex' }}>
+          <div
+            style={{
+              flexDirection: 'row',
+              display: 'flex',
+              margin: '5px'
+            }}
+          >
             <AddButton
               onClick={() => {
                 this.props.dataFn.listAppend(
