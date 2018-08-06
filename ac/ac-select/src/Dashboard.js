@@ -16,4 +16,4 @@ const dashboard: DashboardT = {
   initData
 };
 
-export default dashboard
+export default {dashboard}
