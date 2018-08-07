@@ -6,12 +6,63 @@ import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
 import { Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 if (isBrowser) {
   require('./css.js');
 }
 
+const getLetter = index =>
+  index < 26
+    ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[index]
+    : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(index / 26) - 1] +
+      getLetter(index - Math.floor(index / 26) * 26);
+
+const createArrayAlphabet = length =>
+  length < 0 ? [] : [...createArrayAlphabet(length - 1), getLetter(length - 1)];
+
+const removeCol = props =>
+  props.data.forEach((x, i) => {
+    if (x.length > 2) props.dataFn.listDel(x[x.length - 1], [i, x.length - 1]);
+  });
+
+const removeRow = props =>
+  props.dataFn.listDel(
+    props.data[props.data.length - 1],
+    props.data.length - 1
+  );
+
+const AddButton = ({ onClick }) => (
+  <Button
+    onClick={onClick}
+    variant="fab"
+    style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
+  >
+    <AddIcon />
+  </Button>
+);
+
+const RemoveButton = ({ onClick }) => (
+  <Button
+    onClick={onClick}
+    variant="fab"
+    style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
+  >
+    <RemoveIcon />
+  </Button>
+);
+
 class MathSheet extends React.Component<*, *> {
+  state = {
+    modalOpen: false,
+    deleting: ''
+  };
+
   validateExp(trailKeys, expr) {
     let valid = true;
     const matches = expr.match(/[A-Z][1-9]+/g) || [];
@@ -90,21 +141,152 @@ class MathSheet extends React.Component<*, *> {
       ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
       : this.props.data;
     return (
-      <div style={{ width: '800px', fontSize: '1.3em' }}>
-        <Datasheet
-          data={data}
-          valueRenderer={cell => cell.value}
-          dataRenderer={cell => cell.expr}
-          onCellsChanged={this.onCellsChanged}
-        />
+      <div
+        style={{
+          width: '800px',
+          fontSize: '1.3em',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        <div style={{ flexDirection: 'row', display: 'flex' }}>
+          <Dialog open={this.state.modalOpen}>
+            <DialogTitle>Warning</DialogTitle>
+            <DialogContent>
+              {' '}
+              You are about to delete a non-empty cell
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  if (this.state.deleting === 'column') removeCol(this.props);
+                  else if (this.state.deleting === 'row') removeRow(this.props);
+                  this.setState({ modalOpen: false, deleting: '' });
+                }}
+                color="secondary"
+              >
+                Continue
+              </Button>
+              <Button
+                onClick={() => {
+                  this.setState({ modalOpen: false, deleting: '' });
+                }}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Datasheet
+            data={data}
+            valueRenderer={cell => cell.value}
+            dataRenderer={cell => cell.expr}
+            cellRenderer={props => (
+              <td
+                className={props.className}
+                onMouseDown={props.onMouseDown}
+                onMouseOver={props.onMouseOver}
+                onDoubleClick={props.onDoubleClick}
+                style={{ width: '40px', height: '30px' }}
+              >
+                {props.children}
+              </td>
+            )}
+            onCellsChanged={this.onCellsChanged}
+          />
+          {!this.props.readOnly && (
+            <div
+              style={{
+                flexDirection: 'column',
+                display: 'flex',
+                marginLeft: '5px'
+              }}
+            >
+              <AddButton
+                onClick={() => {
+                  data.forEach(
+                    (x, i) =>
+                      i === 0
+                        ? this.props.dataFn.listAppend(
+                            { readOnly: true, value: getLetter(x.length - 1) },
+                            i
+                          )
+                        : this.props.dataFn.listAppend(
+                            {
+                              value: '',
+                              key: getLetter(x.length - 1) + i,
+                              col: x.length,
+                              row: i
+                            },
+                            i
+                          )
+                  );
+                }}
+              />
+              <RemoveButton
+                onClick={() => {
+                  const empty = data.reduce(
+                    (acc, curr, index) =>
+                      acc &&
+                      (index === 0 || curr[curr.length - 1].value === ''),
+                    true
+                  );
+                  if (!empty)
+                    this.setState({ modalOpen: true, deleting: 'column' });
+                  else removeCol(this.props);
+                }}
+              />
+            </div>
+          )}
+        </div>
+        {!this.props.readOnly && (
+          <div
+            style={{
+              flexDirection: 'row',
+              display: 'flex',
+              margin: '5px'
+            }}
+          >
+            <AddButton
+              onClick={() => {
+                this.props.dataFn.listAppend(
+                  createArrayAlphabet(data[0].length - 1).map((col, j) => {
+                    if (j === 0) {
+                      return { readOnly: true, value: data.length };
+                    }
+                    return {
+                      value: '',
+                      key: col + data.length,
+                      col: j,
+                      row: data.length
+                    };
+                  })
+                );
+              }}
+            />
+            <RemoveButton
+              onClick={() => {
+                if (data.length > 2) {
+                  const empty = data[data.length - 1].reduce(
+                    (acc, curr, index) =>
+                      acc && (index === 0 || curr.value === ''),
+                    true
+                  );
+                  if (!empty)
+                    this.setState({ modalOpen: true, deleting: 'row' });
+                  else removeRow(this.props);
+                }
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   }
 }
 
 export default ({
-  dataStructure: [0, 1, 2, 3, 4, 5, 6, 7].map((row, i) =>
-    ['', 'A', 'B', 'C', 'D', 'E'].map((col, j) => {
+  dataStructure: [0, 1, 2, 3, 4].map((row, i) =>
+    ['', 'A', 'B', 'C', 'D'].map((col, j) => {
       if (i === 0 && j === 0) {
         return { readOnly: true, value: '                ' };
       }
