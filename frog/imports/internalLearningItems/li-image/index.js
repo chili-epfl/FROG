@@ -8,7 +8,15 @@ import ToolBar from './ToolBar';
 import { Creator } from '../li-file';
 
 const ImageEditor = props => (
-  <Paper elevation={24} style={{ margin: '20px', overflow: 'scroll', display: 'flex', flexDirection: 'column' }}>
+  <Paper
+    elevation={24}
+    style={{
+      margin: '20px',
+      overflow: 'scroll',
+      display: 'flex',
+      flexDirection: 'column'
+    }}
+  >
     <ToolBar data={props.data} dataFn={props.dataFn} />
     <ImageReload
       style={{
