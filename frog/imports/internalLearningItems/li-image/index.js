@@ -23,12 +23,7 @@ const ImageEditor = props => (
         margin: '10px',
         width: 'fit-content',
         height: 'fit-content',
-        transform:
-          'rotate(' +
-          (props.data.rotation || 0) +
-          'deg) scale(' +
-          (props.data.scale || 1) +
-          ')'
+        transform: 'rotate(' + (props.data.rotation || 0) + 'deg)'
       }}
       src={props.data.url}
     />
@@ -48,7 +43,13 @@ export default ({
       elevation={24}
       style={{ height: '145px', width: '145px', margin: '20px' }}
     >
-      <ImageReload style={{ margin: '10px' }} src={data.thumburl} />
+      <ImageReload
+        style={{
+          margin: '10px',
+          transform: 'rotate(' + (data.rotation || 0) + 'deg)'
+        }}
+        src={data.thumburl}
+      />
     </Paper>
   ),
   Creator: (props: any) => (
