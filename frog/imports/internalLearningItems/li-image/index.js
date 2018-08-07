@@ -35,7 +35,13 @@ export default ({
   id: 'li-image',
   Viewer: ({ data }: { data: any }) => (
     <Paper elevation={24} style={{ margin: '20px' }}>
-      <ImageReload style={{ margin: '10px' }} src={data.url} />
+      <ImageReload
+        style={{
+          margin: '10px',
+          transform: 'rotate(' + (data.rotation || 0) + 'deg)'
+        }}
+        src={data.url}
+      />
     </Paper>
   ),
   ThumbViewer: ({ data }: { data: any }) => (
