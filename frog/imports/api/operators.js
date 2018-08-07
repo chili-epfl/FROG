@@ -22,7 +22,9 @@ const extractUpgradedOperatorConfig = (operator: Object) => ({
 export const insertOperatorMongo = (operator: Object) => {
   // make sure there is an operatorType
   try {
-    Operators.insert(extractUpgradedOperatorConfig(operator));
+    Operators.insert(
+      operator.operatorType ? extractUpgradedOperatorConfig(operator) : operator
+    );
   } catch (e) {
     console.warn(e);
     // eslint-disable-next-line no-alert
