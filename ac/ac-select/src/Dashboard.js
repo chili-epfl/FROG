@@ -1,33 +1,46 @@
 // @flow
 
 import * as React from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { withStyles } from '@material-ui/core/styles';
 import { type DashboardT, type LogDbT } from 'frog-utils';
 
-const Viewer = ({ state }) => (
-  <table>
-    <thead>
-      <tr>
-        <td style={{ border: 'solid 2px' }}>Word</td>
-        <td style={{ border: 'solid 2px' }}>N° of highlights</td>
-      </tr>
-    </thead>
-    <tbody>
+const styles = () => ({
+  table: {
+    minWidth: 700
+  },
+  head: {
+    fontSize: 'large'
+  }
+});
+
+const ViewerStyleless = ({ state, classes }) => (
+  <Table className={classes.table}>
+    <TableHead>
+      <TableRow>
+        <TableCell className={classes.head}>Word</TableCell>
+        <TableCell className={classes.head}>N° of highlights</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
       {Object.keys(state)
         .filter(x => state[x] > 0)
         .sort((a, b) => (state[a] > state[b] ? -1 : 1))
         .map(word => (
-          <tr key={word}>
-            <td style={{ border: 'solid 1px' }}>
+          <TableRow key={word}>
+            <TableCell>
               {word}
               <div />
-            </td>
-            <td style={{ border: 'solid 1px', borderLeft: 'none' }}>
-              {state[word]}
-            </td>
-          </tr>
+            </TableCell>
+            <TableCell>{state[word]}</TableCell>
+          </TableRow>
         ))}
-    </tbody>
-  </table>
+    </TableBody>
+  </Table>
 );
 
 const mergeLog = (state: any, log: LogDbT) => {
@@ -45,7 +58,7 @@ const mergeLog = (state: any, log: LogDbT) => {
 const initData = {};
 
 const dashboard: DashboardT = {
-  Viewer,
+  Viewer: withStyles(styles)(ViewerStyleless),
   mergeLog,
   initData
 };
