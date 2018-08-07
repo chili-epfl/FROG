@@ -25,16 +25,11 @@ const uploadBufferWithThumbnail = (
             if (cb) {
               cb();
             }
-            createLearningItem(
-              'li-image',
-              {
-                url,
-                thumburl,
-                filename
-              },
-              undefined,
-              true
-            );
+            createLearningItem('li-image', {
+              url,
+              thumburl,
+              filename
+            });
           });
         });
       });
