@@ -57,6 +57,34 @@ const RemoveButton = ({ onClick }) => (
   </Button>
 );
 
+class DataEditor extends React.Component<*, *> {
+  _input: any;
+
+  handleChange = e => {
+    this.props.onChange(e.target.value);
+  };
+
+  componentDidMount() {
+    this._input.focus();
+  }
+
+  render() {
+    const { value, onKeyDown } = this.props;
+    return (
+      <input
+        ref={input => {
+          this._input = input;
+        }}
+        className="data-editor"
+        style={{ height: '100%', width: '100%', fontSize: '20px' }}
+        value={value}
+        onChange={this.handleChange}
+        onKeyDown={onKeyDown}
+      />
+    );
+  }
+}
+
 class MathSheet extends React.Component<*, *> {
   state = {
     modalOpen: false,
@@ -180,6 +208,7 @@ class MathSheet extends React.Component<*, *> {
             data={data}
             valueRenderer={cell => cell.value}
             dataRenderer={cell => cell.expr}
+            dataEditor={DataEditor}
             cellRenderer={props => (
               <td
                 className={props.className}
