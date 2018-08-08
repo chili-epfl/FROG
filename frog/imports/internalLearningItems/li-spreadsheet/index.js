@@ -58,12 +58,7 @@ const RemoveButton = ({ onClick }) => (
 );
 
 class DataEditor extends React.Component<*, *> {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e) {
+  handleChange = e => {
     this.props.onChange(e.target.value);
   }
 
