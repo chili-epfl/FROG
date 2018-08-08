@@ -27,11 +27,12 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 [ignore]
 # Ignore the `.meteor/local` packages that aren't important
 .*/.meteor/local/build/main.js
+.*/.meteor/local/.build*
 .*/.meteor/local/build/programs/server/app/.*
 .*/.meteor/local/build/programs/server/assets/.*
 .*/.meteor/local/build/programs/server/node_modules/.*
 .*/.meteor/local/build/programs/server/npm/.*
-.*/.meteor/local/build/programs/web.browser/app/.*
+.*/.meteor/local/build/programs/web.browser/*
 .*/.meteor/local/plugin-cache/.*
 .*/.meteor/packages/.*
 .*node_modules/fbjs.*
@@ -49,4 +50,3 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/react-draggable/lib/*
 .*/.meteor/.*/package.json
 frogapi-test
-

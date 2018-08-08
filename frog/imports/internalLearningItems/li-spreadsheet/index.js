@@ -58,9 +58,11 @@ const RemoveButton = ({ onClick }) => (
 );
 
 class DataEditor extends React.Component<*, *> {
+  _input: any;
+
   handleChange = e => {
     this.props.onChange(e.target.value);
-  }
+  };
 
   componentDidMount() {
     this._input.focus();
