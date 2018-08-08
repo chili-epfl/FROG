@@ -65,7 +65,12 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
   return (
     <div
       onClick={onClick}
-      style={{ overflow: 'scroll', display: 'flex', flexDirection: 'column' }}
+      style={{
+        height: '100%',
+        overflow: 'scroll',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
     >
       <Highlighter
         searchWords={Object.keys(data).filter(x =>

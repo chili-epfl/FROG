@@ -32,10 +32,15 @@ const config = {
     text: {
       type: 'string',
       title: 'Text'
-    },
-    multicolor: {
-      type: 'boolean',
-      title: 'Highlight in multiple colors ?'
+    }
+  }
+};
+
+const configUI = {
+  text: {
+    'ui:widget': 'textarea',
+    'ui:options': {
+      rows: 5
     }
   }
 };
@@ -46,5 +51,6 @@ export default ({
   configVersion: 1,
   meta,
   config,
+  configUI,
   dashboards
 }: ActivityPackageT);
