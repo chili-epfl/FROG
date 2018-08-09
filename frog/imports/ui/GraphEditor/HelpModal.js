@@ -50,7 +50,7 @@ class HelpModal extends React.Component<*, *> {
                   key={Object.keys(log)[0]}
                   style={{ border: '1px solid #DDDDDD', padding: '10px' }}
                 >
-                  <h3>{'Version ' + (changelog.length - 1 - i)}</h3>
+                  <h3>{'Release ' + (changelog.length - 1 - i)}</h3>
                   {Object.keys(changelog[i]).map(x => (
                     <div key={x}>
                       <h4>{x}</h4>
@@ -69,7 +69,7 @@ class HelpModal extends React.Component<*, *> {
                     key={Object.keys(log)[0]}
                     style={{ border: '1px solid', padding: '10px' }}
                   >
-                    <h3>{'Version ' + (changelog.length - 1 - i)}</h3>
+                    <h3>{'Release ' + (changelog.length - 1 - i)}</h3>
                     {Object.keys(changelog[changelog.length - 1 - i]).map(x => (
                       <div key={x}>
                         <h4>{x}</h4>
