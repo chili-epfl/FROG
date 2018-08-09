@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import WebRtcConfig from '../webrtc-config/config';
-import { onStreamAdded, onVAD } from '../analytics/AVStreamAnalysis';
+import { onStreamAdded, onVAD } from '../analytics/StreamAnalysis';
 
 import Header from './Header';
 import VideoLayout from './VideoLayout';
