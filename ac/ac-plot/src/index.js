@@ -3,7 +3,6 @@
 import { type ActivityPackageT } from 'frog-utils';
 import { isEmpty, isObject } from 'lodash';
 
-import ActivityRunner from './ActivityRunner';
 import meta from './meta';
 
 const config = {
@@ -53,7 +52,6 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  ActivityRunner,
   dashboard: null,
   dataStructure,
   mergeFunction
