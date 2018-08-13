@@ -10,7 +10,6 @@ const runOperatorFn = (oTID, data) => {
   if (!oT || !oT.meta.preview) {
     throw new Meteor.Error('No operator or no preview');
   }
-  console.log(operators[oTID]);
   const product = Promise.await(operators[oTID](data || {}));
   return product;
 };
