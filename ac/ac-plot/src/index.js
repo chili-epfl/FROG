@@ -31,19 +31,33 @@ const config = {
   }
 };
 
-const dataStructure = [];
+const dataStructure = {};
 
-const mergeFunction = ({ data }, dataFn) => {
-  if (isEmpty(data) || !isObject(data)) {
+const mergeFunction = ({ data: incoming }, dataFn, data) => {
+  if (Array.isArray(incoming)) {
+    incoming.forEach(item => mergeFunction({ data: item }, dataFn, data));
+  }
+  if (isEmpty(incoming) || !isObject(incoming)) {
     return;
   }
-  Object.values(data).forEach(trace => {
-    if (Array.isArray(trace))
-      dataFn.listAppend({
-        x: trace.map(p => (Array.isArray(p) ? p[0] : 0)),
-        y: trace.map(p => (Array.isArray(p) ? p[1] : 0))
-      });
-  });
+  if (incoming['1']) {
+    mergeFunction({ data: incoming['1'] }, dataFn, data);
+  }
+  if (incoming.y) {
+    if (!data[incoming.trace]) {
+      dataFn.objInsert({ y: [] }, incoming.trace);
+    }
+    dataFn.listAppend(incoming.y, [incoming.trace, 'y']);
+  }
+  if (incoming.x) {
+    if (!data[incoming.trace]) {
+      dataFn.objInsert({ x: [] }, incoming.trace);
+    }
+    if (!data[incoming.trace].x) {
+      dataFn.objInsert({ x: [] }, incoming.trace);
+    }
+    dataFn.listAppend(incoming.x, [incoming.trace, 'x']);
+  }
 };
 
 export default ({

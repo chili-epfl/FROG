@@ -29,7 +29,7 @@
     "@babel/preset-es2017": "7.0.0-beta.52",
     "@babel/preset-react": "7.0.0-beta.52",
     "@babel/preset-stage-0": "7.0.0-beta.52",
-    "@babel/runtime": "7.0.0-beta.52",
+    "@babel/runtime": "7.0.0-rc.1",
     "@houshuang/babel-jest": "^23.2.0",
     "assert": "^1.4.1",
     "babel-core": "^7.0.0-0",

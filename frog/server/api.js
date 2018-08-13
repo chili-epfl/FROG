@@ -286,7 +286,6 @@ WebApp.connectHandlers.use('/file', (req, res) => {
     } else {
       fname = url && '/tmp/' + url.split('?')[0];
     }
-    console.log(req.url, fname);
     fs.access(fname, err => {
       if (err) {
         res.writeHead(404);

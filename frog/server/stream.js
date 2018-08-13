@@ -26,19 +26,19 @@ Meteor.methods({
 
       if (SharedbCache[docId]) {
         const [dataFn] = SharedbCache[docId];
-        mergeFunction(toSend, dataFn, user);
+        mergeFunction(toSend, dataFn, dataFn.doc.data, user);
       } else {
         const doc = serverConnection.get('rz', docId);
         doc.subscribe();
         if (doc.type) {
           const dataFn = generateReactiveFn(doc, LearningItem);
           SharedbCache[docId] = [dataFn];
-          mergeFunction(toSend, dataFn, user);
+          mergeFunction(toSend, dataFn, dataFn.doc.data, user);
         } else {
           doc.once('load', () => {
             const dataFn = generateReactiveFn(doc, LearningItem);
             SharedbCache[docId] = [dataFn];
-            mergeFunction(toSend, dataFn, user);
+            mergeFunction(toSend, dataFn, dataFn.doc.data, user);
           });
         }
       }

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import html2canvas from 'html2canvas';
 import Canvas2Buffer from 'canvas-to-buffer';
+import { throttle } from 'lodash';
 
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
@@ -15,8 +16,20 @@ class ActivityRunner extends React.Component<*, *> {
     window.addEventListener('message', this.onEvent);
   };
 
+  logDist = msg => {
+    this.props.stream({
+      trace: msg.trial?.name,
+      y: msg['thermometer0-temperature']
+    });
+  };
+
+  logDistThrottled = throttle(this.logDist, 500);
+
   onEvent = e => {
     if (e.data) {
+      if (e.data.type === 'frog-data') {
+        this.logDistThrottled(e.data.msg);
+      }
       if (e.data.type === 'wise-log') {
         this.props.logger(e.data.payload);
       } else if (e.data.messageType === 'studentDataChanged') {
