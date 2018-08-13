@@ -9,7 +9,6 @@ import {
 } from 'frog-utils';
 
 const operator = (configData: Object) => {
-  console.log(Twitter);
   const client = new Twitter({
     consumer_key: 'ZylPVybW4ewtmZaCTyzs1s0wz',
     consumer_secret: 't7G4KlSMjvLx5ErDDuxf4WsowhTsHGbSb4sxUAV6WShGMdlCIc',
