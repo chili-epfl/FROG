@@ -31,7 +31,9 @@ const extractUpgradedActivityConfig = (activity: Object) => ({
 
 export const insertActivityMongo = (activity: Object) => {
   try {
-    Activities.insert(extractUpgradedActivityConfig(activity));
+    Activities.insert(
+      activity.activityType ? extractUpgradedActivityConfig(activity) : activity
+    );
   } catch (e) {
     console.warn(e);
     // eslint-disable-next-line no-alert
