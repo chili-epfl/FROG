@@ -41,6 +41,7 @@
     "query-string": "^6.1.0",
     "rc-slider": "^8.6.1",
     "react": "^16.4.1",
+    "regression": "2.0.1", 
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-addons-test-utils": "^15.6.2",
     "react-addons-transition-group": "^15.6.2",
