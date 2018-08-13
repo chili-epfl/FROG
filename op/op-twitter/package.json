@@ -1,0 +1,19 @@
+{
+  "name": "op-twitter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nps"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "frog-utils": "^1.0.0",
+    "react-tweet": "1.7.1",
+    "twit": "^2.2.10"
+  },
+  "devDependencies": {
+    "nps": "5.9.0"
+  }
+}
