@@ -109,10 +109,12 @@ export default class Store {
         this._state = newState;
       },
 
-      setBrowserHistory: action((history: any, url: string = '/graph') => {
-        this.browserHistory = history;
-        this.url = url;
-      }),
+      setBrowserHistory: action(
+        (history: any, url: string = '/teacher/graph') => {
+          this.browserHistory = history;
+          this.url = url;
+        }
+      ),
 
       changeDuration: action((duration: number) => {
         if (duration && duration >= 30 && duration <= 1200) {

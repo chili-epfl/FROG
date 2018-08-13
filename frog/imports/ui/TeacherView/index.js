@@ -20,7 +20,7 @@ const TeacherView = props => (
 );
 
 const TeacherViewRunner = withTracker(() => {
-  const user = Meteor.users.findOne(Meteor.userId());
+  const user = Meteor.user();
   const session = user.profile && Sessions.findOne(user.profile.controlSession);
   const activities =
     session && Activities.find({ graphId: session.graphId }).fetch();
