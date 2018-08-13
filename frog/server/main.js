@@ -84,7 +84,7 @@ if (
 Meteor.publish('globalSettings', function() {
   const user = Meteor.user();
   const username = user && user.username;
-  if (username !== 'teacher') {
+  if (true || username !== 'teacher') {
     return this.ready();
   } else {
     return GlobalSettings.find({});
@@ -178,13 +178,13 @@ const checkActivity = (activityId, operators, connections, userid) => {
   const act = Activities.findOne(activityId);
   const uname = Meteor.users.findOne(userid).username;
 
-  if (uname === 'teacher' && ![3, 4].includes(act.plane)) {
+  if ((true || uname === 'teacher') && ![3, 4].includes(act.plane)) {
     return false;
   }
   if (
     ((act.plane === 3 && act.participationMode === 'projector') ||
       act.plane === 4) &&
-    uname !== 'teacher'
+    (true || uname !== 'teacher')
   ) {
     return false;
   }

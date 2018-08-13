@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,6 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
@@ -17,7 +20,8 @@ import { Graphs } from '/imports/api/graphs';
 type StateT = {
   title: string,
   description: string,
-  tags: Array<string>
+  tags: Array<string>,
+  public: boolean
 };
 
 export default class ExportModal extends Component<Object, StateT> {
@@ -26,7 +30,8 @@ export default class ExportModal extends Component<Object, StateT> {
     this.state = {
       title: '',
       description: '',
-      tags: []
+      tags: [],
+      public: false
     };
   }
 
@@ -72,6 +77,17 @@ export default class ExportModal extends Component<Object, StateT> {
             onChange={t => this.setState({ tags: t })}
           />
           <div style={{ height: '10px' }} />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.public}
+                onChange={() => this.setState({ public: !this.state.public })}
+                color="default"
+              />
+            }
+            label="Make public"
+          />
+          <div style={{ height: '10px' }} />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => this.props.setModal(false)}>Cancel</Button>
@@ -97,46 +113,49 @@ export default class ExportModal extends Component<Object, StateT> {
               this.setState({
                 title: '',
                 description: '',
-                tags: []
+                tags: [],
+                public: false
               });
             }}
             disabled={Boolean(!this.state.title)}
           >
             Save as new
           </Button>
-          {((this.props.activity && this.props.activity.parentId) ||
-            (this.props.exportType === 'graph' &&
-              Graphs.findOne(this.props.graphId).parentId)) && (
-            <Button
-              color="primary"
-              onClick={() => {
-                if (this.props.exportType === 'activity') {
-                  updateActivity(
-                    this.props.activity.parentId,
-                    {
-                      ...this.props.activity,
-                      ...this.state
-                    },
-                    () => this.props.setModal(false)
-                  );
-                } else if (this.props.exportType === 'graph')
-                  updateGraph(
-                    Graphs.findOne(this.props.graphId).parentId,
-                    this.props.graphId,
-                    () => this.props.setModal(false)
-                  );
-                if (this.props.madeChanges) this.props.madeChanges();
-                this.setState({
-                  title: '',
-                  description: '',
-                  tags: []
-                });
-              }}
-              disabled={Boolean(!this.state.title)}
-            >
-              Overwrite parent
-            </Button>
-          )}
+          {this.props.metadatas &&
+            this.props.metadatas.owner_id === Meteor.user().username &&
+            ((this.props.activity && this.props.activity.parentId) ||
+              (this.props.exportType === 'graph' &&
+                Graphs.findOne(this.props.graphId).parentId)) && (
+              <Button
+                color="primary"
+                onClick={() => {
+                  if (this.props.exportType === 'activity') {
+                    updateActivity(
+                      this.props.activity.parentId,
+                      {
+                        ...this.props.activity,
+                        ...this.state
+                      },
+                      () => this.props.setModal(false)
+                    );
+                  } else if (this.props.exportType === 'graph')
+                    updateGraph(
+                      Graphs.findOne(this.props.graphId).parentId,
+                      this.props.graphId,
+                      () => this.props.setModal(false)
+                    );
+                  if (this.props.madeChanges) this.props.madeChanges();
+                  this.setState({
+                    title: '',
+                    description: '',
+                    tags: []
+                  });
+                }}
+                disabled={Boolean(!this.state.title)}
+              >
+                Overwrite parent
+              </Button>
+            )}
         </DialogActions>
       </Dialog>
     );
