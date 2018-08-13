@@ -29,11 +29,7 @@ export default ({
   id: 'op-rss',
   type: 'product',
   config,
-  outputDefinition: {
-    LI_title: { title: 'Title field', type: 'string' },
-    LI_content: { title: 'Content filed', type: 'string' },
-    LI_source: { title: 'Source document', type: 'string' }
-  },
+  configVersion: 1,
   meta,
   LearningItems: [liType]
 }: productOperatorT);

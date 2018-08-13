@@ -25,6 +25,7 @@ export default ({
   id: 'op-twitter',
   type: 'product',
   config,
+  configVersion: 1,
   meta,
   LearningItems: [litype]
 }: productOperatorT);
