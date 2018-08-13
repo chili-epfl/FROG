@@ -40,10 +40,12 @@ const WithTopBar = () => (
     <TopBar />
     <div id="everything-except-top-bar" style={styles.subroot}>
       <Switch>
-        <Route path="/teacher/:graphId" component={TeacherView} />
         <Route path="/teacher/preview/:previewId" component={Preview} />
         <Route path="/teacher/preview" component={Preview} />
-        <Route path="/teacher" component={TeacherView} />
+        <Route path="/teacher/orchestration/:graphId" component={TeacherView} />
+        <Route path="/teacher/orchestration" component={TeacherView} />
+        <Route path="/teacher/graph/:graphId" component={GraphEditor} />
+        <Route path="/teacher/graph" component={GraphEditor} />
         <Route component={GraphEditor} />
       </Switch>
     </div>

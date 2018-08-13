@@ -38,7 +38,7 @@ const styles = theme => ({
 class TopBarController extends React.Component<{ classes: any }, {}> {
   routes = [
     { name: 'Graph Editor', to: '/teacher/graph' },
-    { name: 'Sessions', to: '/teacher' },
+    { name: 'Sessions', to: '/teacher/orchestration' },
     {
       name: 'Activity Creator',
       to: '/teacher/preview'
