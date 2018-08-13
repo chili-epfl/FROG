@@ -58,8 +58,8 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     object.socialStructure
   );
 
-  const stream = (value, targetpath) => {
-    Meteor.call('stream', activity, groupingValue, targetpath, value);
+  const stream = value => {
+    Meteor.call('stream', activity, groupingValue, value);
   };
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
@@ -114,7 +114,8 @@ type PropsT = {
   activityTypeId: string,
   readOnly?: boolean,
   sessionId: string,
-  activityId: string
+  activityId: string,
+  rawData?: any
 };
 
 export class RunActivity extends React.Component<PropsT, {}> {
@@ -130,7 +131,10 @@ export class RunActivity extends React.Component<PropsT, {}> {
       userid,
       sessionId,
       groupingKey,
-      groupingValue
+      groupingValue,
+      stream,
+      username,
+      rawData
     } = props;
     const activityType = activityTypesObj[activityTypeId];
     const meta: {
@@ -149,13 +153,27 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
     const RunComp = activityRunners[activityType.id];
     RunComp.displayName = activityType.id;
+    const formatProduct = activityType.formatProduct;
+    const transform = formatProduct
+      ? x =>
+          formatProduct(
+            this.props.activityData?.config || {},
+            x,
+            groupingKey,
+            username
+          )
+      : undefined;
 
     this.ActivityToRun = ReactiveHOC(
       reactiveId,
       undefined,
       readOnly,
       undefined,
-      meta
+      meta,
+      undefined,
+      stream,
+      transform,
+      rawData
     )(RunComp);
   }
 

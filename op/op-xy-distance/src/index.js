@@ -16,6 +16,7 @@ const config = {
 export default ({
   id: 'op-xy-distance',
   type: 'product',
+  configVersion: 1,
   config,
   meta
 }: productOperatorT);

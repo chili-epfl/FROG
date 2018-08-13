@@ -1,7 +1,14 @@
 // @flow
 
 import type { ActivityPackageT } from 'frog-utils';
-import ConfigComponent from './config.js';
+import Loadable from 'react-loadable';
+import path from 'path';
+
+const ConfigComponent = Loadable({
+  loader: () => import('./config.js'),
+  loading: () => null,
+  serverSideRequirePath: path.resolve(__dirname, './config.js')
+});
 
 export const meta = {
   name: 'Dashboard activity',
@@ -14,6 +21,7 @@ export const meta = {
 export default ({
   id: 'ac-dash',
   type: 'react-component',
+  configVersion: 1,
   config: {},
   ConfigComponent,
   meta

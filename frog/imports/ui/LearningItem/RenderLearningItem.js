@@ -80,6 +80,7 @@ class RenderLearningItem extends React.Component<any, any> {
     if (render) {
       return render({
         dataFn,
+        data,
         children: Comp,
         editable: liType.Editor,
         zoomable: liType.Viewer,

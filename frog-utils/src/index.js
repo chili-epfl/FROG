@@ -43,6 +43,7 @@ export { TextInput, ChangeableText } from './TextInput';
 export { default as ImageReload } from './ImageReload';
 export { default as cleanEmptyCols } from './cleanEmptyCols';
 export { default as strfTime } from './strfTime';
+export { default as chainUpgrades } from './chainUpgrades';
 export {
   mergeSocialStructures,
   focusStudent,

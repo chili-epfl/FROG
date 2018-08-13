@@ -87,6 +87,7 @@ export const formatProduct = (
 export default ({
   id: 'ac-textarea',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   Dashboard: null,

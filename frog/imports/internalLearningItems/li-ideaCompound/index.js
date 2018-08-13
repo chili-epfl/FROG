@@ -4,7 +4,7 @@ import * as React from 'react';
 import { type LearningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ LearningItem, data }) => (
-  <React.Fragment>
+  <div>
     <b>{data.title}</b>
     <br />
     {data.content.split('\n').map((line, i) => (
@@ -17,11 +17,11 @@ const ThumbViewer = ({ LearningItem, data }) => (
     {data.attachments.map(x => (
       <LearningItem key={x} id={x} type="thumbView" />
     ))}
-  </React.Fragment>
+  </div>
 );
 
 const Viewer = ({ LearningItem, data }) => (
-  <React.Fragment>
+  <div>
     <b>{data.title}</b>
     <br />
     {data.content.split('\n').map((line, i) => (
@@ -38,12 +38,12 @@ const Viewer = ({ LearningItem, data }) => (
         <LearningItem clickZoomable key={x} id={x} type="thumbView" />
       ))
     )}
-  </React.Fragment>
+  </div>
 );
 
 const Editor = ({ data, dataFn, LearningItem }) => (
-  <React.Fragment>
-    <div className="bootstrap">
+  <div>
+    <div>
       <b>Title:</b>
       <br />
       <ReactiveText type="textinput" path="title" dataFn={dataFn} />
@@ -64,7 +64,7 @@ const Editor = ({ data, dataFn, LearningItem }) => (
         onCreate={e => dataFn.listAppend(e, 'attachments')}
       />
     </div>
-  </React.Fragment>
+  </div>
 );
 
 export default ({

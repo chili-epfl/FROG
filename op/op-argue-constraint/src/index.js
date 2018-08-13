@@ -25,6 +25,7 @@ const config = {
 export default ({
   id: 'op-argue-constraint',
   type: 'social',
+  configVersion: 1,
   config,
   meta,
   outputDefinition: ['group']

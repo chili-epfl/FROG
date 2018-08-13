@@ -8,7 +8,7 @@ import { compact } from 'lodash';
 
 import { ChangeableText } from 'frog-utils';
 
-import { removeOperatorType } from '/imports/api/activities';
+import { removeOperatorType } from '/imports/api/operators';
 import { operatorTypesObj } from '/imports/operatorTypes';
 import { ErrorList, ValidButton } from '../../Validator';
 import { IconButton } from '../index';

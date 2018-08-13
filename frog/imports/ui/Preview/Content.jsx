@@ -15,6 +15,7 @@ import {
   withDragDropContext,
   uuid
 } from 'frog-utils';
+import Paper from '@material-ui/core/Paper';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
@@ -159,17 +160,19 @@ const ContentController = ({
     );
     logger({ type: 'activityDidMount' });
     return (
-      <ActivityToRun
-        activityType={activityType.id}
-        key={reloadActivity}
-        activityData={activityData}
-        activityId="preview"
-        userInfo={{ name, id: getUserId(name) }}
-        stream={() => undefined}
-        logger={logger}
-        groupingValue={instance}
-        sessionId={reloadActivity}
-      />
+      <Paper style={{ width: '100%', height: '100%' }}>
+        <ActivityToRun
+          activityType={activityType.id}
+          key={reloadActivity}
+          activityData={activityData}
+          activityId="preview"
+          userInfo={{ name, id: getUserId(name) }}
+          stream={() => undefined}
+          logger={logger}
+          groupingValue={instance}
+          sessionId={reloadActivity}
+        />
+      </Paper>
     );
   };
 
@@ -200,7 +203,7 @@ const ContentController = ({
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
-                toolbarControls={[<div />]}
+                toolbarControls={[<div key={instance} />]}
                 key={JSON.stringify({ config, showData })}
                 path={path}
               >
@@ -209,7 +212,7 @@ const ContentController = ({
             ) : (
               <MosaicWindow
                 path={path}
-                toolbarControls={[<div />]}
+                toolbarControls={[<div key={instance} />]}
                 key={JSON.stringify({ config, showData, reloadActivity })}
                 title={
                   name +
@@ -226,7 +229,7 @@ const ContentController = ({
           initialValue={getInitialState(
             showDash
               ? [
-                  ['dashboard'],
+                  ['dashboard', 'dashboard'],
                   ...users.map((name, idx) => [name, instances[idx]])
                 ]
               : users.map((name, idx) => [name, instances[idx]])

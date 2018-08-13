@@ -1,7 +1,7 @@
 // @flow
 
 import { shuffle, chunk } from 'lodash';
-import type { productOperatorT } from 'frog-utils';
+import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Argue',
@@ -14,12 +14,10 @@ const config = {
   properties: {}
 };
 
-const operator = (configData, object) => {};
-
 export default ({
   id: 'op-argue',
   type: 'product',
-  operator,
+  configVersion: 1,
   config,
   meta
 }: productOperatorT);

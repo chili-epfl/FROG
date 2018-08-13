@@ -1,84 +1,89 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
+import { isEqual } from 'lodash';
 import download from 'downloadjs';
-
+import Masonry from 'react-masonry-component';
 import ImageBox from './ImageBox';
 import CategoryBox from './CategoryBox';
 
-const Main = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-  top: 60px;
-  bottom: 85px;
-  overflow: auto;
-`;
+class ImageList extends React.Component<*, *> {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(nextProps.images, this.props.images);
+  }
+  render() {
+    const {
+      images,
+      vote,
+      minVoteT,
+      canVote,
+      userInfo,
+      setZoom,
+      setIndex,
+      logger,
+      LearningItem
+    } = this.props;
+    const masonryOptions = {
+      transitionDuration: 0
+    };
 
-const ImageList = ({
-  images,
-  vote,
-  minVoteT,
-  canVote,
-  userInfo,
-  setZoom,
-  setIndex,
-  logger,
-  LearningItem
-}) => (
-  <Main>
-    {images.map((image, i) => {
-      const onClick = e => {
-        if (canVote && e.shiftKey) {
-          vote(image.key, userInfo.id);
-        } else if (image.thumbnail || !image.filename) {
-          setIndex(i);
-          setZoom(true);
-          logger({ type: 'zoom', itemId: image.key });
-        } else {
-          logger({
-            type: 'download',
-            itemId: image.key,
-            value: image.filename
-          });
-          download(image.url, image.filename);
-        }
-      };
+    return (
+      <Masonry options={masonryOptions}>
+        {images.map((image, i) => {
+          const onClick = e => {
+            if (canVote && e.shiftKey) {
+              vote(image.key, userInfo.id);
+            } else if (image.thumbnail || !image.filename) {
+              setIndex(i);
+              setZoom(true);
+              logger({ type: 'zoom', itemId: image.key });
+            } else {
+              logger({
+                type: 'download',
+                itemId: image.key,
+                value: image.filename
+              });
+              download(image.url, image.filename);
+            }
+          };
 
-      const voteCount = Object.values(image.votes || {}).reduce(
-        (n, v) => (v ? n + 1 : n),
-        0
-      );
+          const voteCount = Object.values(image.votes || {}).reduce(
+            (n, v) => (v ? n + 1 : n),
+            0
+          );
 
-      const styleCode =
-        voteCount >= minVoteT
-          ? 'chosen_by_team'
-          : voteCount > 0
-            ? 'chosen_partially'
-            : 'not_chosen';
+          const styleCode =
+            voteCount >= minVoteT
+              ? 'chosen_by_team'
+              : voteCount > 0
+                ? 'chosen_partially'
+                : 'not_chosen';
 
-      return (
-        <LearningItem
-          key={JSON.stringify(image.li)}
-          type="thumbView"
-          id={image.li}
-          render={props => (
-            <ImageBox
+          return (
+            <LearningItem
               key={JSON.stringify(image.li)}
-              color={image.votes[userInfo.id] ? 'lightgreen' : 'white'}
-              {...{ image, onClick, styleCode }}
-              {...props}
+              type="thumbView"
+              id={image.li}
+              render={props => (
+                <div style={{ width: '400px', margin: '20px' }}>
+                  <ImageBox
+                    key={image.li.id || image.li}
+                    color={image.votes[userInfo.id] ? 'lightgreen' : 'white'}
+                    {...{ image, onClick, styleCode }}
+                    {...props}
+                  />
+                </div>
+              )}
             />
-          )}
-        />
-      );
-    })}
-  </Main>
-);
+          );
+        })}
+      </Masonry>
+    );
+  }
+}
 
 const CategoryList = ({ categories, setCategory, logger }) => (
-  <Main>
+  <div>
     {Object.keys(categories).map(category => (
       <CategoryBox
         key={JSON.stringify(category)}
@@ -87,7 +92,7 @@ const CategoryList = ({ categories, setCategory, logger }) => (
         logger={logger}
       />
     ))}
-  </Main>
+  </div>
 );
 
 const ThumbList = (props: Object) =>

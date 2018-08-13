@@ -22,6 +22,7 @@ const config = {
 export default ({
   id: 'op-group-identical',
   type: 'social',
+  configVersion: 1,
   config,
   meta,
   outputDefinition: ['group']

@@ -24,6 +24,7 @@ const config = {
 export default ({
   id: 'op-cs211-ranking',
   type: 'product',
+  configVersion: 1,
   config,
   meta
 }: productOperatorT);

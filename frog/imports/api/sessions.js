@@ -4,7 +4,8 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
-import { Activities, Operators, Connections } from './activities';
+import { Activities, Connections } from './activities';
+import { Operators } from './operators';
 import {
   runSessionFn,
   runNextActivity,

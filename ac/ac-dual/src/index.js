@@ -53,6 +53,7 @@ const dataStructure = {
 export default ({
   id: 'ac-dual',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   dashboards,

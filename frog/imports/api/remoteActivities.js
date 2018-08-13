@@ -1,6 +1,8 @@
 import { omitBy, isNil } from 'lodash';
 
-import { uuid } from 'frog-utils';
+import { uuid, chainUpgrades } from 'frog-utils';
+
+import { activityTypesObj } from '/imports/activityTypes';
 import { Activities, addActivity } from '/imports/api/activities';
 import { LibraryStates } from './cache';
 
@@ -69,7 +71,14 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
   const act = {
     title: state.title,
     description: state.description,
-    config: { ...props.activity.data },
+    config: activityTypesObj[props.activity.activityType].upgradeFunctions
+      ? chainUpgrades(
+          activityTypesObj[props.activity.activityType].upgradeFunctions,
+          props.activity.configVersion || 1,
+          activityTypesObj[props.activity.activityType].configVersion
+        )(props.activity.data)
+      : props.activity.data,
+    config_version: activityTypesObj[props.activity.activityType].configVersion,
     tags: '{' + state.tags.join(',') + '}',
     parent_id: props.activity.parentId,
     uuid: newId,
@@ -124,7 +133,14 @@ export const importAct = (id, activityId, callback, onSelect) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
-      addActivity(e[0].activity_type, e[0].config, activityId, null, id);
+      addActivity(
+        e[0].activity_type,
+        e[0].config,
+        activityId,
+        e[0].configVersion,
+        null,
+        id
+      );
       if (onSelect) onSelect({ id: e[0] });
       if (callback) {
         callback();

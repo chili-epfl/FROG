@@ -6,6 +6,7 @@ import { compact, isEmpty, isObject, values } from 'lodash';
 import dashboards from './Dashboard';
 import { meta } from './meta';
 import { config, configUI } from './config';
+import upgradeFunctions from './upgradeFunctions';
 
 const dataStructure = {};
 
@@ -66,8 +67,10 @@ const exportData = (configData, { payload }) => {
 export default ({
   id: 'ac-gallery',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
+  upgradeFunctions,
   configUI,
   dataStructure,
   mergeFunction,

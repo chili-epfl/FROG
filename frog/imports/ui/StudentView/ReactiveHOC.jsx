@@ -23,7 +23,10 @@ const ReactiveHOC = (
   readOnly: boolean = false,
   collection?: string,
   meta?: Object,
-  backend: any
+  backend: any,
+  stream?: Function,
+  transform?: Function,
+  rawData?: any
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
@@ -50,31 +53,46 @@ const ReactiveHOC = (
 
     componentDidMount = () => {
       this.unmounted = false;
-      this.doc = (conn || connection || {}).get(collection || 'rz', docId);
-      this.doc.setMaxListeners(3000);
-      this.doc.subscribe();
-
-      this.interval = window.setInterval(() => {
-        this.intervalCount += 1;
-        if (this.intervalCount > 10) {
-          this.setState({ timeout: true });
-          window.clearInterval(this.interval);
-          this.interval = undefined;
-        } else {
-          this.update();
-        }
-      }, 1000);
-
-      if (this.doc.type) {
-        this.update();
+      if (readOnly && rawData !== undefined) {
+        this.setState({
+          dataFn: generateReactiveFn(
+            {},
+            LearningItem,
+            meta,
+            readOnly,
+            undefined,
+            backend,
+            stream
+          ),
+          data: rawData
+        });
       } else {
-        this.doc.once('load', () => {
+        this.doc = (conn || connection || {}).get(collection || 'rz', docId);
+        this.doc.setMaxListeners(3000);
+        this.doc.subscribe();
+
+        this.interval = window.setInterval(() => {
+          this.intervalCount += 1;
+          if (this.intervalCount > 10) {
+            this.setState({ timeout: true });
+            window.clearInterval(this.interval);
+            this.interval = undefined;
+          } else {
+            this.update();
+          }
+        }, 1000);
+
+        if (this.doc.type) {
+          this.update();
+        } else {
+          this.doc.once('load', () => {
+            this.update();
+          });
+        }
+        this.doc.on('op', () => {
           this.update();
         });
       }
-      this.doc.on('op', () => {
-        this.update();
-      });
     };
 
     update = () => {
@@ -87,12 +105,32 @@ const ReactiveHOC = (
               meta,
               readOnly,
               this.update,
-              backend
+              backend,
+              stream
             )
           });
         }
         if (this.doc.data !== undefined) {
           this.setState({ data: cloneDeep(this.doc.data) });
+          // for embedded activities
+          window.parent.postMessage(
+            {
+              type: 'frog-data',
+              msg: this.doc.data
+            },
+            '*'
+          );
+
+          if (transform) {
+            window.parent.postMessage(
+              {
+                type: 'frog-data-transformed',
+                msg: transform(this.doc.data)
+              },
+              '*'
+            );
+          }
+
           if (this.interval) {
             window.clearInterval(this.interval);
             this.interval = undefined;

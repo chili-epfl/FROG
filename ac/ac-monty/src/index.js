@@ -35,6 +35,7 @@ const mergeFunction = (object, dataFn) => {
 export default ({
   id: 'ac-monty',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   Dashboard: null,

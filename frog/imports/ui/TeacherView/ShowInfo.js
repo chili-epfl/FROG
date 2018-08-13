@@ -6,7 +6,8 @@ import Modal from 'react-modal';
 
 import { connect } from '../GraphEditor/store';
 import { Objects } from '../../api/objects';
-import { Activities, Operators } from '../../api/activities';
+import { Activities } from '../../api/activities';
+import { Operators } from '../../api/operators';
 import { Products } from '../../api/products';
 import { downloadExport } from './utils/exportComponent';
 

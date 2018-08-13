@@ -13,7 +13,6 @@ import { Sessions } from '/imports/api/sessions';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
-import { dashDocId } from '../imports/api/logs';
 
 WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
 WebApp.connectHandlers.use(bodyParser.json());
@@ -85,16 +84,11 @@ WebApp.connectHandlers.use('/api/activityTypes', (request, response) => {
   );
 });
 
-const extractParam = (query, param) =>
-  query.split('&').find(x => x.includes(param))
-    ? query
-        .split('&')
-        .find(x => x.includes(param))
-        .split('=')[1]
-    : undefined;
-
-const safeDecode = (query, field, msg, response) => {
-  const value = extractParam(query, field);
+const safeDecode = (query, field, msg, response, returnUndef) => {
+  const value = query?.[field];
+  if (!value) {
+    return returnUndef ? undefined : {};
+  }
   try {
     return value && JSON.parse(value);
   } catch (e) {
@@ -104,7 +98,6 @@ const safeDecode = (query, field, msg, response) => {
 };
 
 const InstanceDone = {};
-const DashboardDone = {};
 
 WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   const url = require('url').parse(request.url);
@@ -112,27 +105,45 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
+
   const activityData = safeDecode(
-    url.query,
-    'activity_data',
+    request.body,
+    'activityData',
     'Activity data not valid',
-    response
+    response,
+    true
   );
+
+  const rawData = safeDecode(
+    request.body,
+    'rawData',
+    'Raw data not valid',
+    response,
+    true
+  );
+  if (rawData && activityData) {
+    response.end('Cannot provide both activityData and rawData');
+  }
   const config = safeDecode(
-    url.query,
+    request.body,
     'config',
     'Config data not valid',
     response
   );
 
-  const docId = [
-    extractParam(url.query, 'client_id'),
-    activityTypeId,
-    extractParam(url.query, 'activity_id') || 'default',
-    extractParam(url.query, 'instance_id') || 'default'
-  ].join('/');
+  const docId =
+    [
+      request.body.clientId,
+      activityTypeId,
+      request.body.activityId || 'default'
+    ].join('-') +
+      '/' +
+      request.body.instanceId || 'default';
 
-  if (!InstanceDone[docId] && !extractParam(url.query, 'readOnly')) {
+  if (
+    !InstanceDone[docId] &&
+    !(request.body.readOnly && request.body.rawData)
+  ) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
     Promise.await(
@@ -146,6 +157,9 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
           'load',
           Meteor.bindEnvironment(() => {
             if (doc.type) {
+              resolve();
+            } else if (rawData) {
+              doc.create(rawData);
               resolve();
             } else {
               mergeOneInstance(
@@ -167,49 +181,18 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     );
   }
 
-  const dashboardId = activityTypeId + '-' + docId[2];
-  if (!DashboardDone[dashboardId] && !extractParam(url.query, 'readOnly')) {
-    DashboardDone[dashboardId] = true;
-    const aT = activityTypesObj[activityTypeId];
-    Promise.await(
-      new Promise(resolve => {
-        if (aT.dashboards) {
-          Object.keys(aT.dashboards).forEach(name => {
-            const dash = aT.dashboards[name];
-            const doc = serverConnection.get(
-              'rz',
-              dashDocId(dashboardId, name)
-            );
-            doc.fetch();
-            if (doc.type) {
-              resolve();
-            }
-            doc.once(
-              'load',
-              Meteor.bindEnvironment(() => {
-                if (doc.type) {
-                  resolve();
-                } else {
-                  doc.create((dash && dash.initData) || {});
-                  resolve();
-                }
-              })
-            );
-          });
-        }
-      })
-    );
-  }
-  InjectData.pushData(response, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'runActivity',
     activityType: activityTypeId,
-    userid: extractParam(url.query, 'userid'),
-    username: extractParam(url.query, 'username'),
-    instance_id: docId,
-    activity_id: extractParam(url.query, 'activity_id'),
-    raw_instance_id: extractParam(url.query, 'instance_id') || 'default',
-    activity_data: activityData,
-    readOnly: extractParam(url.query, 'readOnly'),
+    userId: request.body.userId,
+    userName: request.body.userName,
+    instanceId: docId,
+    activityId: request.body.activityId,
+    rawInstanceId: request.body.instanceId || 'default',
+    activityData,
+    clientId: request.body.clientId,
+    rawData,
+    readOnly: request.body.readOnly,
     config
   });
   next();
@@ -222,7 +205,7 @@ WebApp.connectHandlers.use('/api/config', (request, response, next) => {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    url.query,
+    request.body,
     'config',
     'Config data not valid',
     response
@@ -230,6 +213,8 @@ WebApp.connectHandlers.use('/api/config', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'config',
     activityType: activityTypeId,
+    showValidator: request.body.showValidator,
+    showLibrary: request.body.showLibrary,
     config
   });
   next();
@@ -242,24 +227,27 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    url.query,
+    request.body,
     'config',
     'Config data not valid',
     response
   );
-  InjectData.pushData(response, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'dashboard',
+    clientId: request.body.clientId,
     activityType: activityTypeId,
-    instances: extractParam(url.query, 'instances'),
-    activity_id: extractParam(url.query, 'activity_id') || 'default',
+    instances: request.body.instances,
+    activityId: request.body.activityId || 'default',
     config
   });
   next();
 });
 
 WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
-  InjectData.pushData(response, 'api', {
-    callType: 'config'
+  InjectData.pushData(request, 'api', {
+    callType: 'config',
+    showValidator: request.body.showValidator,
+    showLibrary: request.body.showLibrary
   });
   next();
 });

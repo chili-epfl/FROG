@@ -27,6 +27,7 @@ const config = {
 export default ({
   id: 'op-aggregate-p2',
   type: 'product',
+  configVersion: 1,
   config,
   meta
 }: productOperatorT);

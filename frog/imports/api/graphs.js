@@ -2,9 +2,16 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid } from 'frog-utils';
+import { uuid, chainUpgrades } from 'frog-utils';
 
-import { Activities, Connections, Operators } from './activities';
+import { Sessions } from './sessions';
+import { Activities, Connections, insertActivityMongo } from './activities';
+import { Operators, insertOperatorMongo } from './operators';
+import {
+  GraphCurrentVersion,
+  GraphIdUpgrades,
+  GraphObjUpgrades
+} from '../ui/GraphEditor/versionUpgrades';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -21,22 +28,73 @@ const replaceFromMatching = (matching: Object, data: any) => {
   }
 };
 
+export const upgradeGraph = (graphObj: Object) => ({
+  ...graphObj.graph,
+  ...chainUpgrades(
+    GraphObjUpgrades,
+    graphObj.graph.graphVersion === undefined ? 1 : graphObj.graph.graphVersion,
+    GraphCurrentVersion
+  )(graphObj)
+});
+
+export const insertGraphMongo = (graph: Object) =>
+  Graphs.insert({ ...graph, graphVersion: GraphCurrentVersion });
+
+export const upgradeGraphMongo = (query: Object, proj?: Object) => {
+  Graphs.find(query, proj)
+    .fetch()
+    .forEach(x => {
+      try {
+        chainUpgrades(
+          GraphIdUpgrades,
+          x.graphVersion || 1,
+          GraphCurrentVersion
+        )({
+          graphId: x.graphId
+        });
+      } catch (e) {
+        console.warn(e);
+      }
+    });
+};
+
+export const findOneGraphMongo = (id: string) => {
+  const graph = Graphs.findOne(id);
+  try {
+    chainUpgrades(
+      GraphIdUpgrades,
+      graph.graphVersion === undefined ? 1 : graph.graphVersion,
+      GraphCurrentVersion
+    )({
+      graphId: id
+    });
+    return Graphs.findOne(id);
+  } catch (e) {
+    console.warn(e);
+    // eslint-disable-next-line no-alert
+    window.alert('Upgrade  error: unable to upgrade the graph');
+    return graph;
+  }
+};
+
 export const addGraph = (graphObj?: Object): string => {
+  const graphObjTmp = graphObj && graphObj.graph && upgradeGraph(graphObj);
   const graphId = uuid();
-  const name = (graphObj && graphObj.graph && graphObj.graph.name) || 'Unnamed';
-  Graphs.insert({
-    ...((graphObj && graphObj.graph) || {}),
+  const name =
+    (graphObjTmp && graphObjTmp.graph && graphObjTmp.graph.name) || 'Unnamed';
+  insertGraphMongo({
+    ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,
     name,
     createdAt: new Date()
   });
-  if (!graphObj) {
+  if (!graphObjTmp) {
     return graphId;
   }
 
   const matching = {};
 
-  const copyAc = graphObj.activities.map(ac => {
+  const copyAc = graphObjTmp.activities.map(ac => {
     const id = uuid();
     matching[ac._id] = id;
     return {
@@ -48,7 +106,7 @@ export const addGraph = (graphObj?: Object): string => {
     };
   });
 
-  const copyOp = graphObj.operators.map(op => {
+  const copyOp = graphObjTmp.operators.map(op => {
     const id = uuid();
     matching[op._id] = id;
     return { ...op, _id: id, graphId, state: undefined };
@@ -56,7 +114,7 @@ export const addGraph = (graphObj?: Object): string => {
 
   // Here we change the configured ids of activities and operators which
   // have to change due to the copy
-  const newConn = graphObj.connections.map(connection => {
+  const newConn = graphObjTmp.connections.map(connection => {
     const id = uuid();
     matching[connection._id] = id;
     return {
@@ -84,17 +142,10 @@ export const addGraph = (graphObj?: Object): string => {
     ...op,
     data: replaceFromMatching(matching, op.data)
   }));
-
-  newAc.forEach(x => Activities.insert(x));
-  newOp.forEach(x => Operators.insert(x));
+  newAc.forEach(x => insertActivityMongo(x));
+  newOp.forEach(x => insertOperatorMongo(x));
   newConn.forEach(x => Connections.insert(x));
   return graphId;
-};
-
-export const importGraph = (params: Object): string => {
-  const id = params._id;
-  Graphs.insert({ ...params, _id: id, createdAt: new Date() });
-  return id;
 };
 
 export const renameGraph = (graphId: string, name: string) =>
@@ -129,6 +180,10 @@ export const assignGraph = (wantedId: string) => {
   return graphId;
 };
 
+// 2 with same name (in remoteGraph)
+export const removeGraph = (graphId: string) =>
+  Meteor.call('graph.flush.all', graphId);
+
 Meteor.methods({
   'graph.merge': ({
     connections,
@@ -159,5 +214,17 @@ Meteor.methods({
       const conid = connections.map(x => x._id);
       Connections.remove({ _id: { $nin: conid }, graphId });
     }
+  },
+  'graph.flush.all': graphId => {
+    Graphs.remove(graphId);
+    Activities.remove({ graphId });
+    Operators.remove({ graphId });
+    Connections.remove({ graphId });
+    Sessions.remove({ graphId });
+  },
+  'graph.flush.activity': activityId => {
+    Operators.remove({ from: activityId });
+    Operators.remove({ to: activityId });
+    Activities.remove(activityId);
   }
 });

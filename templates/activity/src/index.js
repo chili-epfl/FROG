@@ -1,6 +1,5 @@
 // @flow
 
-import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
 const meta = {
@@ -28,17 +27,12 @@ const dataStructure = {};
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {};
 
-// the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => (
-  <div>{JSON.stringify(activityData)}</div>
-);
-
 export default ({
   id: 'ac-ck-board',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
-  ActivityRunner,
   dashboard: null,
   dataStructure,
   mergeFunction
