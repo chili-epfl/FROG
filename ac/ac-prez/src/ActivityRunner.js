@@ -17,6 +17,7 @@ class Prez extends Component<ActivityRunnerPropsT> {
   };
 
   render() {
+    console.log(this.props);
     const { activityData, data, dataFn, userInfo } = this.props;
 
     const hostname = window.location.hostname;

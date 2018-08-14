@@ -172,9 +172,9 @@ export const SessionUtilsButtonsModel = (
     }
   },
   projector: {
-    href: `/projector/${session.slug}?login=teacher&token=${(token &&
-      token.value) ||
-      ''}`
+    href: `/teacher/projector/${session.slug}?login=${
+      Meteor.user().username
+    }&token=${(token && token.value) || ''}`
   }
 });
 
