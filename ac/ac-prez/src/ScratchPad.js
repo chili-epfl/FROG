@@ -23,13 +23,7 @@ class ScratchPad extends Component {
   constructor(props) {
     super();
 
-    const location = window.location;
-    this.pdfSRC =
-      location.protocol +
-      '//' +
-      location.hostname +
-      (location.port ? ':' + location.port : '') +
-      '/file?name=ac/ac-prez/blank.pdf';
+    this.pdfSRC = '/clientFiles/ac-prez/blank.pdf';
     this.pdf = null;
 
     const PDFJSAnnotate = require('@houshuang/pdf-annotate.js');
