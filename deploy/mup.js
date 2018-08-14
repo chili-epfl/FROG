@@ -42,7 +42,7 @@ module.exports = {
     enableUploadProgressBar: true
   },
   hooks: {
-    'pre.reconfig'(api) {
+    'pre.reconfig': function(api) {
       // Same api as is given to plugin command handlers
       // If this runs asynchronous tasks, it needs to return a promise.
       const gitHash = childProcess
@@ -53,7 +53,7 @@ module.exports = {
       api.getSettings();
       api.settings.GIT_HASH = gitHash;
     },
-    'pre.deploy'(api) {
+    'pre.deploy': function() {
       rimraf.sync('../frog/frog/public/clientFiles');
       fs.mkdirSync('../frog/frog/public/clientFiles');
       fs.readdirSync('../frog/op').forEach(x => {
