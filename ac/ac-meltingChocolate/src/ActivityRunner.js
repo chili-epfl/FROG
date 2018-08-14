@@ -7,6 +7,7 @@ import Canvas2Buffer from 'canvas-to-buffer';
 
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
+  iframe: any;
   constructor(props) {
     super(props);
     this.iframe = React.createRef();
@@ -30,7 +31,9 @@ class ActivityRunner extends React.Component<*, *> {
   }
 
   screenshot = () => {
+    // eslint-disable-next-line
     html2canvas(
+      // $FlowFixMe
       document.getElementById('ac-chocolate').contentDocument.body
     ).then(canvas => {
       const c = new Canvas2Buffer(canvas, { image: { types: ['jpeg'] } });

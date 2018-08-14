@@ -5,13 +5,13 @@ import { uuid } from 'frog-utils';
 import { uploadFile } from '../../api/openUploads';
 
 export const uploadBufferWithThumbnail = (
-  imageBuffer,
-  imageId,
-  dataFn,
-  type,
-  filename,
-  createLearningItem,
-  cb
+  imageBuffer: any,
+  imageId: string,
+  dataFn: Object,
+  type: string,
+  filename: string,
+  createLearningItem: Function,
+  cb?: Function
 ) => {
   const ext = filename && filename.split('.').pop();
   if (!filename || ['jpg', 'png', 'jpeg'].includes(ext.toLowerCase())) {

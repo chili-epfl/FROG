@@ -85,12 +85,14 @@ const LearningItem = (props: {
       return id;
     };
 
-    if (props.type === 'createLIPayload') {
-      return learningItemTypesObj[props.liType].createPayload(
-        props.payload,
-        dataFn,
-        createLearningItem
-      );
+    if (props.type === 'createLIPayload' && props.liType && props.payload) {
+      if (learningItemTypesObj[props.liType].createPayload) {
+        return learningItemTypesObj[props.liType].createPayload(
+          props.payload,
+          dataFn,
+          createLearningItem
+        );
+      }
     }
     if (props.liType) {
       const liT: LearningItemT<any> = learningItemTypesObj[props.liType];
@@ -99,7 +101,6 @@ const LearningItem = (props: {
         return (
           <ToRun
             createLearningItem={createLearningItem}
-            payload={this.props.payload}
             LearningItem={dataFn.LearningItem}
           />
         );

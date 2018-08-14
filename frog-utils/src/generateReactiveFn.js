@@ -84,7 +84,13 @@ export class Doc {
     return <LI {...props} dataFn={this} />;
   };
 
-  createLIPayload = (type, payload, autoInsert, meta) =>
+  createLIPayload = (
+    type: string,
+    payload: Object,
+    autoInsert: boolean,
+    meta?: Object
+  ) =>
+    // $FlowFixMe
     this.LearningItemFn({
       liType: type,
       payload,

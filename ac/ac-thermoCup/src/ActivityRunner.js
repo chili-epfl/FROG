@@ -8,6 +8,7 @@ import { throttle } from 'lodash';
 
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
+  iframe: any;
   constructor(props) {
     super(props);
     this.iframe = React.createRef();
@@ -44,6 +45,7 @@ class ActivityRunner extends React.Component<*, *> {
 
   screenshot = () => {
     html2canvas(
+      // $FlowFixMe
       document.getElementById('ac-thermoCup').contentDocument.body
     ).then(canvas => {
       const c = new Canvas2Buffer(canvas, { image: { types: ['jpeg'] } });
