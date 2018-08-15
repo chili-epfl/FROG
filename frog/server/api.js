@@ -7,7 +7,8 @@ import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import bodyParser from 'body-parser';
-import { HTTP } from 'meteor/http'
+// import { HTTP } from 'meteor/http';
+import request from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -20,9 +21,9 @@ WebApp.connectHandlers.use(bodyParser.json());
 
 setupH5PRoutes();
 
-WebApp.connectHandlers.use('/lti', (request, response, next) => {
-  if (request.method !== 'POST') next();
-  const url = require('url').parse(request.url);
+WebApp.connectHandlers.use('/lti', (req, response, next) => {
+  if (req.method !== 'POST') next();
+  const url = require('url').parse(req.url);
   const slug = url.pathname.substring(1);
   const session = slug && Sessions.findOne({ slug: slug.toUpperCase() });
   if (!session) {
@@ -34,16 +35,16 @@ WebApp.connectHandlers.use('/lti', (request, response, next) => {
   } else {
     let user;
     try {
-      user = request.body.lis_person_name_full;
+      user = req.body.lis_person_name_full;
     } catch (e) {
-      console.error('Error parsing username in lti request', request.body, e);
+      console.error('Error parsing username in lti req', req.body, e);
       user = uuid();
     }
     let id;
     try {
-      id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
+      id = JSON.parse(req.body.lis_result_sourcedid).data.userid;
     } catch (e) {
-      console.error('Error parsing userid in lti request', request.body, e);
+      console.error('Error parsing userid in lti req', req.body, e);
       id = uuid();
     }
     try {
@@ -56,20 +57,20 @@ WebApp.connectHandlers.use('/lti', (request, response, next) => {
       Meteor.users.update(userId, { $set: { username: user, userid: id } });
       const stampedLoginToken = Accounts._generateStampedLoginToken();
       Accounts._insertLoginToken(userId, stampedLoginToken);
-      InjectData.pushData(request, 'login', {
+      InjectData.pushData(req, 'login', {
         token: stampedLoginToken.token,
         slug
       });
       next();
     } catch (e) {
-      console.error('Error responding to lti request', request.body, e);
+      console.error('Error responding to lti req', req.body, e);
       response.writeHead(400);
       response.end();
     }
   }
 });
 
-WebApp.connectHandlers.use('/api/activityTypes', (request, response) => {
+WebApp.connectHandlers.use('/api/activityTypes', (req, response) => {
   response.end(
     Stringify(
       activityTypes.map(x => ({
@@ -100,24 +101,24 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 
 const InstanceDone = {};
 
-WebApp.connectHandlers.use('/api/proxy',
-(request, response) => {
-  const url = require('url').parse(request.url);
+WebApp.connectHandlers.use('/api/proxy', (req, response, next) => {
+  const url = require('url').parse(req.url);
   const proxyUrl = url.pathname.substring(1);
-  const result = HTTP.call('GET', proxyUrl)
-  response.end(result.content);
-}
-);
+  req.pipe(request(proxyUrl).on('error', next)).pipe(response);
 
-WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
-  const url = require('url').parse(request.url);
+  // const result = HTTP.call('GET', proxyUrl)
+  // response.end(result.content);
+});
+
+WebApp.connectHandlers.use('/api/activityType', (req, response, next) => {
+  const url = require('url').parse(req.url);
   const activityTypeId = url.pathname.substring(1);
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
 
   const activityData = safeDecode(
-    request.body,
+    req.body,
     'activityData',
     'Activity data not valid',
     response,
@@ -125,7 +126,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   );
 
   const rawData = safeDecode(
-    request.body,
+    req.body,
     'rawData',
     'Raw data not valid',
     response,
@@ -135,25 +136,20 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     response.end('Cannot provide both activityData and rawData');
   }
   const config = safeDecode(
-    request.body,
+    req.body,
     'config',
     'Config data not valid',
     response
   );
 
   const docId =
-    [
-      request.body.clientId,
-      activityTypeId,
-      request.body.activityId || 'default'
-    ].join('-') +
+    [req.body.clientId, activityTypeId, req.body.activityId || 'default'].join(
+      '-'
+    ) +
       '/' +
-      request.body.instanceId || 'default';
+      req.body.instanceId || 'default';
 
-  if (
-    !InstanceDone[docId] &&
-    !(request.body.readOnly && request.body.rawData)
-  ) {
+  if (!InstanceDone[docId] && !(req.body.readOnly && req.body.rawData)) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
     Promise.await(
@@ -191,73 +187,73 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     );
   }
 
-  InjectData.pushData(request, 'api', {
+  InjectData.pushData(req, 'api', {
     callType: 'runActivity',
     activityType: activityTypeId,
-    userId: request.body.userId,
-    userName: request.body.userName,
+    userId: req.body.userId,
+    userName: req.body.userName,
     instanceId: docId,
-    activityId: request.body.activityId,
-    rawInstanceId: request.body.instanceId || 'default',
+    activityId: req.body.activityId,
+    rawInstanceId: req.body.instanceId || 'default',
     activityData,
-    clientId: request.body.clientId,
+    clientId: req.body.clientId,
     rawData,
-    readOnly: request.body.readOnly,
+    readOnly: req.body.readOnly,
     config
   });
   next();
 });
 
-WebApp.connectHandlers.use('/api/config', (request, response, next) => {
-  const url = require('url').parse(request.url);
+WebApp.connectHandlers.use('/api/config', (req, response, next) => {
+  const url = require('url').parse(req.url);
   const activityTypeId = url.pathname.substring(1);
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    request.body,
+    req.body,
     'config',
     'Config data not valid',
     response
   );
-  InjectData.pushData(request, 'api', {
+  InjectData.pushData(req, 'api', {
     callType: 'config',
     activityType: activityTypeId,
-    showValidator: request.body.showValidator,
-    showLibrary: request.body.showLibrary,
+    showValidator: req.body.showValidator,
+    showLibrary: req.body.showLibrary,
     config
   });
   next();
 });
 
-WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
-  const url = require('url').parse(request.url);
+WebApp.connectHandlers.use('/api/dashboard/', (req, response, next) => {
+  const url = require('url').parse(req.url);
   const activityTypeId = url.pathname.substring(1);
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    request.body,
+    req.body,
     'config',
     'Config data not valid',
     response
   );
-  InjectData.pushData(request, 'api', {
+  InjectData.pushData(req, 'api', {
     callType: 'dashboard',
-    clientId: request.body.clientId,
+    clientId: req.body.clientId,
     activityType: activityTypeId,
-    instances: request.body.instances,
-    activityId: request.body.activityId || 'default',
+    instances: req.body.instances,
+    activityId: req.body.activityId || 'default',
     config
   });
   next();
 });
 
-WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
-  InjectData.pushData(request, 'api', {
+WebApp.connectHandlers.use('/api/chooseActivity', (req, response, next) => {
+  InjectData.pushData(req, 'api', {
     callType: 'config',
-    showValidator: request.body.showValidator,
-    showLibrary: request.body.showLibrary
+    showValidator: req.body.showValidator,
+    showLibrary: req.body.showLibrary
   });
   next();
 });
