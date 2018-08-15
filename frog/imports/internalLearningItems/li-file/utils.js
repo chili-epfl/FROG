@@ -4,14 +4,14 @@ import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
 import { uploadFile } from '../../api/openUploads';
 
-const uploadBufferWithThumbnail = (
-  imageBuffer,
-  imageId,
-  dataFn,
-  type,
-  filename,
-  createLearningItem,
-  cb
+export const uploadBufferWithThumbnail = (
+  imageBuffer: any,
+  imageId: string,
+  dataFn: Object,
+  type: string,
+  filename: string,
+  createLearningItem: Function,
+  cb?: Function
 ) => {
   const ext = filename && filename.split('.').pop();
   if (!filename || ['jpg', 'png', 'jpeg'].includes(ext.toLowerCase())) {
