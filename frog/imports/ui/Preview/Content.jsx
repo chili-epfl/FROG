@@ -75,7 +75,7 @@ export const initActivityDocuments = (
           example === -1 || example === undefined
             ? cloneDeep(activityType.dataStructure)
             : exs[example].data;
-        mergeFunction(cloneDeep({ data, config }), dataFn);
+        mergeFunction(cloneDeep({ data, config }), dataFn, dataFn.doc.data);
       }
     };
 

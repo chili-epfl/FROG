@@ -3,11 +3,12 @@ import * as React from 'react';
 import { withState, compose } from 'recompose';
 import getFA from 'font-awesome-filetypes';
 import styled from 'styled-components';
-import { type LearningItemT } from 'frog-utils';
+import { type LearningItemT, uuid } from 'frog-utils';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import WebcamInterface from './WebcamInterface';
 import UploadBar from './UploadBar';
+import { uploadBufferWithThumbnail } from './utils';
 
 const ImgButton = styled.button`
   position: relative;
@@ -62,5 +63,14 @@ export default ({
     </a>
   ),
   ThumbViewer,
-  Creator
+  Creator,
+  createPayload: (payload, dataFn, createLearningItem) =>
+    uploadBufferWithThumbnail(
+      payload,
+      uuid(),
+      dataFn,
+      'create-li-payload',
+      'graph.jpeg',
+      createLearningItem
+    )
 }: LearningItemT<any>);
