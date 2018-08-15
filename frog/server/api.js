@@ -7,7 +7,6 @@ import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import bodyParser from 'body-parser';
-// import { HTTP } from 'meteor/http';
 import request from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
@@ -101,14 +100,17 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 
 const InstanceDone = {};
 
-WebApp.connectHandlers.use('/api/proxy', (req, response, next) => {
-  const url = require('url').parse(req.url);
-  const proxyUrl = url.pathname.substring(1);
-  req.pipe(request(proxyUrl).on('error', next)).pipe(response);
-
-  // const result = HTTP.call('GET', proxyUrl)
-  // response.end(result.content);
-});
+WebApp.connectHandlers.use('/api/proxy', (req, response, next) =>
+  req
+    .pipe(
+      request(
+        require('url')
+          .parse(req.url)
+          .pathname.substring(1)
+      ).on('error', next)
+    )
+    .pipe(response)
+);
 
 WebApp.connectHandlers.use('/api/activityType', (req, response, next) => {
   const url = require('url').parse(req.url);
