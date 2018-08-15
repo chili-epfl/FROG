@@ -71,7 +71,6 @@ export default ({
       dataFn,
       'create-li-payload',
       'graph.jpeg',
-      createLearningItem,
-      () => console.log('uploaded')
+      createLearningItem
     )
 }: LearningItemT<any>);
