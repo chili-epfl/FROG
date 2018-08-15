@@ -84,6 +84,22 @@ export class Doc {
     return <LI {...props} dataFn={this} />;
   };
 
+  createLIPayload = (
+    type: string,
+    payload: Object,
+    autoInsert: boolean,
+    meta?: Object
+  ) =>
+    // $FlowFixMe
+    this.LearningItemFn({
+      liType: type,
+      payload,
+      type: 'createLIPayload',
+      autoInsert,
+      dataFn: this,
+      meta
+    });
+
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
     if (typeof get(this.doc.data, path) !== 'string') {

@@ -16,16 +16,18 @@ const mergeFunction = (object, dataFn) => {
   }
   values(object.data).forEach(v => {
     const id = uuid();
-    dataFn.objInsert(
-      {
-        id,
-        votes: v.votes || {},
-        categories: v.categories || (v.category && [v.category]),
-        comment: v.comment || '',
-        li: v.li
-      },
-      id
-    );
+    if (v.li) {
+      dataFn.objInsert(
+        {
+          id,
+          votes: v.votes || {},
+          categories: v.categories || (v.category && [v.category]),
+          comment: v.comment || '',
+          li: v.li
+        },
+        id
+      );
+    }
   });
 };
 

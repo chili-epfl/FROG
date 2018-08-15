@@ -148,7 +148,7 @@ export type ActivityPackageT = {
   configUI?: Object,
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
-  mergeFunction?: (dataUnitStructT, Object) => void,
+  mergeFunction?: (dataUnitStructT, Object, any, ?string) => void,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (
@@ -307,6 +307,15 @@ export type LIComponentPropsT =
       autoInsert?: Boolean,
       meta?: Object
     |}
+  | {|
+      type: 'createLIPayload',
+      meta?: Object,
+      liType?: string,
+      onCreate?: Function,
+      autoInsert?: Boolean,
+      meta?: Object,
+      payload: Object
+    |}
   | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
   | {|
       type: 'thumbView',
@@ -342,5 +351,6 @@ export type LearningItemT<T> = {
   Viewer?: React.ComponentType<{
     data: T,
     LearningItem: LearningItemComponentT
-  }>
+  }>,
+  createPayload?: Function
 };
