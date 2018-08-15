@@ -85,7 +85,7 @@ class LogoutMenu extends React.Component<*, *> {
             Show changelog
           </MenuItem>
           <MenuItem onClick={this.handleClose}>Website</MenuItem>
-          <MenuItem>Change password</MenuItem>
+          <MenuItem onClick={this.handleClose}>Change password</MenuItem>
           <MenuItem
             onClick={() => {
               Meteor.logout();
@@ -102,15 +102,15 @@ class LogoutMenu extends React.Component<*, *> {
 
 class TopBarController extends React.Component<{ classes: any }, {}> {
   routes = [
-    { name: 'Graph Editor', to: '/graph' },
-    { name: 'Sessions', to: '/teacher' },
+    { name: 'Graph Editor', to: '/teacher/graph' },
+    { name: 'Sessions', to: '/teacher/orchestration' },
     {
       name: 'Activity Creator',
-      to: '/preview'
+      to: '/teacher/preview'
     }
   ];
 
-  value = '/preview';
+  value = '/teacher/preview';
 
   constructor(props) {
     super(props);
@@ -152,6 +152,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
                 />
               ))}
             </Tabs>
+            <h3>{Meteor.user().username}</h3>
             <LogoutMenu />
           </Toolbar>
         </AppBar>

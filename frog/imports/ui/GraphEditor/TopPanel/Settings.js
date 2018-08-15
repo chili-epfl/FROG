@@ -26,6 +26,7 @@ import {
   Graphs
 } from '/imports/api/graphs';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
+import { LibraryStates } from '/imports/api/cache';
 
 import { exportGraph, importGraph, duplicateGraph } from '../utils/export';
 import { connect, store } from '../store';
@@ -77,6 +78,28 @@ const UndoButtonComponent = ({ classes, store: { undo } }) => (
 );
 
 export const UndoButton = withStyles(styles)(connect(UndoButtonComponent));
+
+const MenuItemDeleteFromServer = ({
+  setIdRemove,
+  parentId,
+  setDelete,
+  classes,
+  handleClose
+}) =>
+  !LibraryStates.graphList.find(x => x.uuid === parentId) ||
+  LibraryStates.graphList.find(x => x.uuid === parentId).owner_id ===
+    Meteor.user().username ? (
+    <MenuItem
+      onClick={() => {
+        if (setIdRemove) setIdRemove({ type: 'graph', id: parentId });
+        setDelete(true);
+        handleClose();
+      }}
+    >
+      <Delete className={classes.leftIcon} aria-hidden="true" />Remove Current
+      Graph from the Server
+    </MenuItem>
+  ) : null;
 
 class GraphActionMenu extends React.Component {
   state = {
@@ -219,18 +242,10 @@ class GraphActionMenu extends React.Component {
                         aria-hidden="true"
                       />Export Graph to the Server
                     </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        if (setIdRemove)
-                          setIdRemove({ type: 'graph', id: parentId });
-                        setDelete(true);
-                        // submitRemoveGraph(graphId); DO SOMETHING
-                        this.handleClose();
-                      }}
-                    >
-                      <Delete className={classes.leftIcon} aria-hidden="true" />Remove
-                      Current Graph from the Server
-                    </MenuItem>
+                    <MenuItemDeleteFromServer
+                      {...{ setIdRemove, parentId, setDelete, classes }}
+                      handleClose={this.handleClose}
+                    />
                   </MenuList>
                 </Paper>
               </Grow>

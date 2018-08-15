@@ -38,7 +38,7 @@ const mapQuery = query => {
   );
 };
 
-export const operator = (configData: {
+const operator = (configData: {
   tag?: string,
   url?: string,
   search?: string,

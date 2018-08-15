@@ -88,7 +88,7 @@ export type ActivityRunnerPropsT = {
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, name: string) => Promise<*>,
-  userInfo: { id: string, name: string },
+  userInfo: { id: string, name: string, role: string },
   activityId: string,
   groupingValue: string,
   sessionId: string
@@ -252,7 +252,7 @@ export type operatorPackageT =
 export type productOperatorRunnerT = (
   configData: Object,
   object: ObjectT & GlobalStructureT
-) => activityDataT;
+) => activityDataT | Promise<activityDataT>;
 
 export type controlOperatorRunnerT = (
   configData: Object,

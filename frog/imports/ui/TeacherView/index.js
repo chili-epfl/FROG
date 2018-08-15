@@ -13,14 +13,14 @@ import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
 
 const TeacherView = props => (
-  <React.Fragment>
+  <>
     <OrchestrationView {...props} />
     {!props.session && <SessionList {...props} />}
-  </React.Fragment>
+  </>
 );
 
 const TeacherViewRunner = withTracker(() => {
-  const user = Meteor.users.findOne(Meteor.userId());
+  const user = Meteor.user();
   const session = user.profile && Sessions.findOne(user.profile.controlSession);
   const activities =
     session && Activities.find({ graphId: session.graphId }).fetch();

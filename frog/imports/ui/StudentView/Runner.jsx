@@ -9,6 +9,7 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj, activityRunners } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
+import { Sessions } from '../../api/sessions';
 import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {
@@ -65,23 +66,25 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   const logger = createLogger(sessionId, groupingValue, activity);
   const readOnly =
     activity.participationMode === 'readonly' &&
-    Meteor.user().username !== 'teacher';
+    Meteor.user().username !== Sessions.findOne(sessionId).ownerId;
 
   const Torun = (
     <RunActivity
       key={reactiveId}
       activityTypeId={activity.activityType}
+      {...{
+        reactiveId,
+        logger,
+        stream,
+        activityData,
+        groupingValue,
+        sessionId,
+        readOnly
+      }}
       activityId={activity._id}
-      reactiveId={reactiveId}
-      logger={logger}
-      stream={stream}
       username={Meteor.user().username}
       userid={Meteor.userId()}
-      activityData={activityData}
       groupingKey={activity.groupingKey}
-      groupingValue={groupingValue}
-      sessionId={sessionId}
-      readOnly={readOnly}
     />
   );
 
@@ -190,7 +193,12 @@ export class RunActivity extends React.Component<PropsT, {}> {
         activityId={this.props.activityId}
         userInfo={{
           name: this.props.username,
-          id: this.props.userid
+          id: this.props.userid,
+          role:
+            Sessions.findOne(this.props.sessionId).ownerId ===
+            Meteor.user().username
+              ? 'teacher'
+              : 'student'
         }}
         logger={this.props.logger}
         stream={this.props.stream}

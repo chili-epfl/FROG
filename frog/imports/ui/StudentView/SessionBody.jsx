@@ -80,18 +80,17 @@ const StudentView = ({ activities, session, token, classes }) => (
               {Meteor.user().username}
             </Typography>
           )}
-          {Meteor.user() &&
-            Meteor.user().username === 'teacher' && (
-              <Button
-                className={classes.button}
-                color="inherit"
-                onClick={() => {}}
-                href={`/?login=teacher&token=${(token && token.value) || ''}`}
-                target="_blank"
-              >
-                Orchestration View
-              </Button>
-            )}
+          {Meteor.user().username === session.ownerId && (
+            <Button
+              className={classes.button}
+              color="inherit"
+              onClick={() => {}}
+              href={`/?login=teacher&token=${(token && token.value) || ''}`}
+              target="_blank"
+            >
+              Orchestration View
+            </Button>
+          )}
           <Button
             className={classes.button}
             color="inherit"

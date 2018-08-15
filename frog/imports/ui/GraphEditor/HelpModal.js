@@ -13,7 +13,7 @@ const Transition = props => <Slide direction="up" {...props} />;
 
 class HelpModal extends React.Component<*, *> {
   componentDidUpdate() {
-    if (Meteor.user().lastVersionChangelog !== changelog.length - 1)
+    if (Meteor.user().profile.lastVersionChangelog !== changelog.length - 1)
       updateChangelogVersion();
   }
 
@@ -44,13 +44,9 @@ class HelpModal extends React.Component<*, *> {
           </Toolbar>
         </AppBar>
         <List style={{ top: '50px' }}>
-          {version === undefined || version === changelog.length - 1
+          {version === changelog.length - 1
             ? changelog.reverse().map((log, i) => (
-                <div
-                  key={Object.keys(log)[0]}
-                  style={{ border: '1px solid #DDDDDD', padding: '10px' }}
-                >
-                  <h3>{'Release ' + (changelog.length - 1 - i)}</h3>
+                <div key={Object.keys(log)[0]} style={{ padding: '10px' }}>
                   {Object.keys(changelog[i]).map(x => (
                     <div key={x}>
                       <h4>{x}</h4>
