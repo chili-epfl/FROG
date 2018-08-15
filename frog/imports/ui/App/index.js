@@ -223,8 +223,10 @@ export default class Root extends React.Component<
   }
 > {
   constructor() {
+
     super();
     this.state = { mode: 'waiting' };
+
   }
 
   componentDidMount = () => {
@@ -234,6 +236,9 @@ export default class Root extends React.Component<
   };
 
   render() {
+    console.log(Meteor.connection.status().connected)
+    if(!Meteor.connection.status().connected)
+      return <div>Offline</div>
     if (this.state.mode === 'waiting') {
       return null;
     } else if (this.state.api && this.state.data) {

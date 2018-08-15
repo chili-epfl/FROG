@@ -51,6 +51,12 @@ teacherImports();
 // upgrade graphs, activities and operators if code has changed
 upgradeGraphMongo({});
 
+// Meteor.onConnection((obj) => {
+//   obj.onClose(() => {
+//     console.log('Disconnected');
+//   });
+// });
+
 findActivitiesMongo({})
   .filter(x => x.activityType)
   .forEach(x =>
