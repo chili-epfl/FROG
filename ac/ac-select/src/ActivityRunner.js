@@ -2,7 +2,16 @@
 
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
-import Highlighter from 'react-highlight-words';
+import Highlighter from './Highlighter';
+
+const TextToColor = (text) => {
+  const c = Number(text.toLowerCase().split('').reduce((acc,cur) => acc+cur.charCodeAt(),''))
+  return ({
+    r: 90+Math.floor((c%(166*166*166)) / (166*166)),
+    g: 90+Math.floor((c%(166*166)) / 166),
+    b: 90+c % 166
+  })
+}
 
 // the actual component that the student sees
 const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
@@ -39,29 +48,6 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
     }
   };
 
-  const findChunks = ({ searchWords, textToHighlight }) =>
-    searchWords
-      .filter(searchWord => searchWord) // Remove empty words
-      .reduce((chunks, searchWord) => {
-        const regex = new RegExp('(' + searchWord + ')\\b', 'gi');
-        let match = regex.exec(textToHighlight);
-        while (match) {
-          const start = match.index;
-          const end = regex.lastIndex;
-          // We do not return zero-length matches
-          if (end > start) {
-            chunks.push({ start, end });
-          }
-          // Prevent browsers like Firefox from getting stuck in an infinite loop
-          // See http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/
-          if (match.index === regex.lastIndex) {
-            regex.lastIndex += 1;
-          }
-          match = regex.exec(textToHighlight);
-        }
-        return chunks;
-      }, []);
-
   return (
     <div
       onClick={onClick}
@@ -76,7 +62,7 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
         searchWords={Object.keys(data).filter(x =>
           data[x].includes(userInfo.id)
         )}
-        autoEscape
+        colorFun={TextToColor}
         textToHighlight={
           activityData.config ? activityData.config.title || '' : ''
         }
@@ -86,19 +72,19 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
           cursor: 'help'
         }}
         unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
-        findChunks={findChunks}
+        multicolor={activityData.config.multi}
       />
       <Highlighter
         searchWords={Object.keys(data).filter(x =>
           data[x].includes(userInfo.id)
         )}
-        autoEscape
+        colorFun={TextToColor}
         highlightStyle={{ backgroundColor: 'yellow', cursor: 'help' }}
         unhighlightStyle={{ cursor: 'help' }}
         textToHighlight={
           activityData.config ? activityData.config.text || '' : ''
         }
-        findChunks={findChunks}
+        multicolor={activityData.config.multi}
       />
     </div>
   );
