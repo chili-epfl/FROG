@@ -8,6 +8,7 @@ import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import bodyParser from 'body-parser';
 import requestFun from 'request';
+import urlPkg from 'url';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -103,17 +104,16 @@ const InstanceDone = {};
 WebApp.connectHandlers.use('/api/proxy', (request, response, next) =>
   request
     .pipe(
-      requestFun(
-        require('url')
-          .parse(request.url)
-          .pathname.substring(1)
-      ).on('error', next)
+      requestFun(urlPkg.parse(request.url).pathname.substring(1)).on(
+        'error',
+        next
+      )
     )
     .pipe(response)
 );
 
 WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
-  const url = require('url').parse(request.url);
+  const url = urlPkg.parse(request.url);
   const activityTypeId = url.pathname.substring(1);
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
