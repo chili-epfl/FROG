@@ -3,7 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
-import { type LogT, type LogDbT, uuid } from 'frog-utils';
+import { type LogT, type LogDbT } from 'frog-utils';
 
 export const Logs = new Mongo.Collection('logs');
 
@@ -19,7 +19,6 @@ export const engineLogger = (sessionId: string, type: string, value?: number) =>
   Meteor.call(
     'merge.log',
     ({
-      _id: uuid(),
       userId: Meteor.userId(),
       sessionId,
       type,

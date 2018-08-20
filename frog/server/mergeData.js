@@ -75,7 +75,7 @@ export const mergeOneInstance = (
               const dataFn = generateReactiveFn(doc, LearningItem);
               // merging in config with incoming product
               if (mergeFunction) {
-                mergeFunction(instanceActivityData, dataFn);
+                mergeFunction(instanceActivityData, dataFn, doc.data);
               }
               const docdata = doc.data;
               doc.destroy();

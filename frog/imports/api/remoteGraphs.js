@@ -92,6 +92,7 @@ export const sendGraph = (state: Object, props: Object) => {
     tags: '{' + state.tags.join(',') + '}',
     parent_id: Graphs.findOne(props.graphId).parentId,
     owner_id: Meteor.user().username,
+    is_public: state.public,
     uuid: newId,
     graph: graphToString(props.graphId)
   };

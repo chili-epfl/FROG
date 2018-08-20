@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, uuid } from 'frog-utils';
+import { type ActivityPackageT, uuid, values } from 'frog-utils';
 
 import dashboards from './Dashboard';
 
@@ -108,18 +108,21 @@ const robotFormat = (id, msg, order) => ({
   order
 });
 
-const mergeFunction = (obj, dataFn) => {
+const mergeFunction = (obj, dataFn, _, user) => {
   if (obj.config.hasRobotPrompt) {
     const id = uuid();
     dataFn.objInsert(robotFormat(id, obj.config.robotPrompt), id);
   }
   if (obj.data) {
-    obj.data.forEach((x, i) => {
+    values(obj.data).forEach((x, i) => {
       const id = uuid();
       dataFn.objInsert(
-        x.user
-          ? { id, order: i + 1, ...x }
-          : robotFormat(id, x.msg || x, i + 1),
+        {
+          ...x,
+          user: user?.username,
+          order: Object.keys(dataFn.doc.data).length + 1 + i,
+          id
+        },
         id
       );
     });

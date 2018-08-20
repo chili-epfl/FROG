@@ -368,10 +368,7 @@ class AnnotationLayer extends Component {
     this.forceRenderPage();
   };
 
-  checkIfTeacher = () => {
-    const user = this.props.userInfo.name;
-    return user === 'teacher';
-  };
+  checkIfTeacher = () => this.props.userInfo.role === 'teacher';
 
   getAnnotations = () => this.props.data.annotations;
 
