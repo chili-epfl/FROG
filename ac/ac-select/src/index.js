@@ -34,6 +34,10 @@ const config = {
       type: 'boolean',
       title: 'Multiple color highlights'
     },
+    chooseColor: {
+      type: 'boolean',
+      title: 'Let students choose which color to use for highlighting'
+    },
     text: {
       type: 'string',
       title: 'Text'
@@ -47,7 +51,9 @@ const configUI = {
     'ui:options': {
       rows: 5
     }
-  }
+  },
+  multi: { conditional: formData => !formData.chooseColor },
+  chooseColor: { conditional: formData => !formData.multi }
 };
 
 export default ({
