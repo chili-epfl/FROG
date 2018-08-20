@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { type DashboardT, type LogDbT } from 'frog-utils';
 import Highlighter from './Highlighter';
 
 const styles = () => ({
@@ -14,69 +13,86 @@ const styles = () => ({
   }
 });
 
-const VoteToColor = (vote, maxVote) =>
-  'rgb(' +
-  (Number(maxVote) > 4 ? 255 - (vote - 4) * 10 : 255) +
-  ',' +
-  (Number(maxVote) > 4 ? 255 - (vote - 4) * 10 : 255) +
-  ',' +
-  (220 - (vote / Number(maxVote)) * 180) +
-  ')';
+// const VoteToColor = (vote, maxVote) =>
+//   ({backgroundColor: '#FFFF00', filter: 'brightness('+Math.floor((maxVote-vote)/maxVote*100)+'%)'});
 
-const ViewerStyleless = ({ state, activity }) => {
-  const searchWords = Object.keys(state).map(x => ({
-    word: x,
-    color: VoteToColor(
-      state[x],
-      Object.values(state).reduce(
-        (acc, cur) => (Number(cur) > Number(acc) ? cur : acc),
-        0
-      )
-    ),
-    vote: state[x]
-  }));
-  return (
-    <div
-      style={{
-        height: '100%',
-        overflow: 'scroll',
-        display: 'flex',
-        flexDirection: 'column'
+const ViewerStyleless = ({ state, activity }) => (
+  // console.log(state)
+  // const searchWords = Object.keys(state).map(x => ({
+  //   word: x,
+  //   style: VoteToColor(
+  //     state[x],
+  //     Object.values(state).reduce(
+  //       (acc, cur) => (Number(cur) > Number(acc) ? cur : acc),
+  //       0
+  //     )
+  //   ),
+  //   vote: state[x]
+  // }));
+  <div
+    style={{
+      height: '100%',
+      overflow: 'scroll',
+      display: 'flex',
+      flexDirection: 'column'
+    }}
+  >
+    <Highlighter
+      searchWords={state}
+      textToHighlight={activity.data ? activity.data.title || '' : ''}
+      highlightStyle={{
+        fontSize: 'xx-large'
       }}
-    >
-      <Highlighter
-        searchWords={searchWords}
-        textToHighlight={activity.data ? activity.data.title || '' : ''}
-        highlightStyle={{
-          fontSize: 'xx-large'
-        }}
-        unhighlightStyle={{ fontSize: 'xx-large' }}
-      />
-      <Highlighter
-        searchWords={searchWords}
-        textToHighlight={activity.data ? activity.data.text || '' : ''}
-      />
-    </div>
-  );
-};
+      unhighlightStyle={{ fontSize: 'xx-large' }}
+    />
+    <Highlighter
+      searchWords={state}
+      textToHighlight={activity.data ? activity.data.text || '' : ''}
+    />
+  </div>
+);
 
-const mergeLog = (state: any, log: LogDbT) => {
-  switch (log.type) {
-    case 'plus':
-      state[log.value] = state[log.value] ? (state[log.value] += 1) : 1;
-      break;
-    case 'minus':
-      state[log.value] -= 1;
-      break;
-    default:
-  }
+const reactiveToDisplay = (reactive: any) => {
+  const state = {};
+  // if(activity.data.multi){
+  Object.keys(reactive)
+    .map(x => reactive[x]['highlighted'])
+    .forEach(highlighted => {
+      Object.keys(highlighted).forEach(word => {
+        if (state[word])
+          state[word] = {
+            style: {
+              ...state[word].style,
+              filter: 'brightness(' + (100 - state[word].vote * 10) + '%)'
+            },
+            vote: state[word].vote + 1
+          };
+        else
+          state[word] = {
+            style: { backgroundColor: '#FFFF00', filter: 'brightness(100%)' },
+            vote: 1
+          };
+      });
+    });
+  // }else{
+  //   Object.values(reactive).map(x => x.highlighted)
+  //   .forEach(highlighted => {
+  //     Object.keys(highlighted).forEach(word => {
+  //       if(state[word])
+  //         state[word].push(highlighted[word])
+  //       else
+  //         state[word] = highlighted[word]
+  //     })
+  //   })
+  // }
+  return state;
 };
 
 const initData = {};
 
-const dashboardText: DashboardT = {
+const dashboardText = {
   Viewer: withStyles(styles)(ViewerStyleless),
-  mergeLog,
+  reactiveToDisplay,
   initData
 };
 

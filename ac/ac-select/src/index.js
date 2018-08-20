@@ -56,10 +56,13 @@ const configUI = {
   chooseColor: { conditional: formData => !formData.multi }
 };
 
+const dataStructure = { highlighted: {}, currentColor: '#FFFF00' };
+
 export default ({
   id: 'ac-select',
   type: 'react-component',
   configVersion: 1,
+  dataStructure,
   meta,
   config,
   configUI,

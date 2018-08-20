@@ -24,7 +24,7 @@ export default ({
     autoEscape: true,
     caseSensitive,
     sanitize,
-    searchWords: searchWords.map(x => x.word),
+    searchWords: Object.keys(searchWords),
     textToHighlight
   });
   const HighlightTag = 'mark';
@@ -40,7 +40,6 @@ export default ({
     return mapped;
   };
   const memoizedLowercaseProps = memoizeOne(lowercaseProps);
-
   return (
     <span className={className}>
       {chunks.map(chunk => {
@@ -75,18 +74,17 @@ export default ({
             isActive === true && activeStyle != null
               ? Object.assign({}, highlightStyle, activeStyle)
               : highlightStyle;
-          const word = searchWords.find(x => x['word'] === text.toLowerCase());
+          const word = searchWords[text.toLowerCase()];
           return (
             <Tooltip
-              title={word && word['vote'] ? word['vote'] : ''}
+              title={word && word.vote ? word.vote.toString() : ''}
               key={chunk.start + chunk.end}
             >
               <HighlightTag
                 className={highlightClassNames}
                 style={{
                   ...highlightStyles,
-                  backgroundColor:
-                    word && word['color'] ? word['color'] : 'yellow'
+                  ...word.style
                 }}
               >
                 {text}

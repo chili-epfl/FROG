@@ -5,8 +5,8 @@ import { type ActivityRunnerT } from 'frog-utils';
 import Highlighter from './Highlighter';
 
 const ColorOptions = [
-  ['#FF0000', 'Red'],
   ['#FFFF00', 'Yellow'],
+  ['#FF0000', 'Red'],
   ['#0000FF', 'Blue'],
   ['#32CD32', 'Green']
 ];
@@ -27,7 +27,10 @@ const TextToColor = text => {
 };
 
 // the actual component that the student sees
-const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
+const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
+  const selectPenColor = color =>
+    dataFn.objReplace(data.currentColor, color, 'currentColor');
+
   const onClick = () => {
     const s = window.getSelection();
     if (s.isCollapsed) {
@@ -37,25 +40,20 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
       const selected = s.toString().toLowerCase();
       s.modify('move', 'forward', 'character'); // clear selection
 
-      if (data[selected] === undefined) {
-        dataFn.objInsert([userInfo.id], selected);
-        logger({ type: 'plus', value: selected });
-      } else if (!data[selected].includes(userInfo.id)) {
-        dataFn.objReplace(
-          data[selected],
-          [...data[selected], userInfo.id],
-          selected
+      if (data['highlighted'][selected] === undefined) {
+        dataFn.objInsert(
+          {
+            style: {
+              backgroundColor: activityData.config.multi
+                ? TextToColor(selected)
+                : data.currentColor
+            }
+          },
+          ['highlighted', selected]
         );
         logger({ type: 'plus', value: selected });
-      } else if (data[selected].length > 1) {
-        dataFn.objReplace(
-          data[selected],
-          data[selected].filter(u => u !== userInfo.id),
-          selected
-        );
-        logger({ type: 'minus', value: selected });
       } else {
-        dataFn.objDel(data[selected], selected);
+        dataFn.objDel(data['highlighted'][selected], ['highlighted', selected]);
         logger({ type: 'minus', value: selected });
       }
     }
@@ -68,23 +66,30 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
       width: '16px',
       height: '16px',
       borderRadius: '8px',
-      border: 'none',
-      margin: '0 2px',
-      marginTop: '1px'
+      border: 'none'
     };
+
     return (
-      <button
+      <div
         key={'penColor' + color}
-        onClick={() => this.selectPenColor(color)}
-        style={style}
-      />
+        style={{
+          width: '19px',
+          height: '19px',
+          border: 'solid 1px',
+          borderColor: data.currentColor === color ? 'black' : 'white',
+          margin: '2px'
+        }}
+      >
+        <button onClick={() => selectPenColor(color)} style={style} />
+      </div>
     );
   });
 
   const drawingItemsStyle = {
     width: '15%',
-    lineHeight: '50px',
-    minWidth: '125px'
+    minWidth: '125px',
+    display: 'flex',
+    flexDirection: 'row'
   };
 
   const toolbarStyle = {
@@ -110,12 +115,7 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
         }}
       >
         <Highlighter
-          searchWords={Object.keys(data)
-            .filter(x => data[x].includes(userInfo.id))
-            .map(x => ({
-              word: x,
-              color: activityData.config.multi ? TextToColor(x) : undefined
-            }))}
+          searchWords={data['highlighted']}
           textToHighlight={
             activityData.config ? activityData.config.title || '' : ''
           }
@@ -127,12 +127,7 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
           unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
         />
         <Highlighter
-          searchWords={Object.keys(data)
-            .filter(x => data[x].includes(userInfo.id))
-            .map(x => ({
-              word: x,
-              color: activityData.config.multi ? TextToColor(x) : undefined
-            }))}
+          searchWords={data['highlighted']}
           highlightStyle={{ backgroundColor: 'yellow', cursor: 'help' }}
           unhighlightStyle={{ cursor: 'help' }}
           textToHighlight={
