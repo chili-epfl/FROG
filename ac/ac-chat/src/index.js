@@ -108,7 +108,7 @@ const robotFormat = (id, msg, order) => ({
   order
 });
 
-const mergeFunction = (obj, dataFn, user) => {
+const mergeFunction = (obj, dataFn, _, user) => {
   if (obj.config.hasRobotPrompt) {
     const id = uuid();
     dataFn.objInsert(robotFormat(id, obj.config.robotPrompt), id);

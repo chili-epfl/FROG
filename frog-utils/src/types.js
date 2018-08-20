@@ -88,7 +88,7 @@ export type ActivityRunnerPropsT = {
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, name: string) => Promise<*>,
-  userInfo: { id: string, name: string },
+  userInfo: { id: string, name: string, role: string },
   activityId: string,
   groupingValue: string,
   sessionId: string
@@ -148,7 +148,7 @@ export type ActivityPackageT = {
   configUI?: Object,
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
-  mergeFunction?: (dataUnitStructT, Object, any, ?string) => void,
+  mergeFunction?: (dataUnitStructT, Object, any, ?Object) => void,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (

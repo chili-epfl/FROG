@@ -235,6 +235,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
       name: newName,
       graphId: copyGraphId,
       state: 'CREATED',
+      ownerId: Meteor.userId(),
       timeInGraph: -1,
       countdownStartTime: -1,
       countdownLength: DEFAULT_COUNTDOWN_LENGTH,

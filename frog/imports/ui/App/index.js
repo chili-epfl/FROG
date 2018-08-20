@@ -183,21 +183,13 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
-        if (Meteor.user().username === 'teacher') {
-          return (
-            <Switch>
-              <Route path="/projector/:slug" component={StudentView} />
-              <Route component={TeacherContainer} />
-            </Switch>
-          );
-        } else {
-          return (
-            <Switch>
-              <Route path="/:slug" component={StudentView} />
-              <Route component={() => <h1>No session specified</h1>} />
-            </Switch>
-          );
-        }
+        return (
+          <Switch>
+            <Route path="/teacher/projector/:slug" component={StudentView} />
+            <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/:slug" component={StudentView} />
+          </Switch>
+        );
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;

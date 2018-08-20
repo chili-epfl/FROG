@@ -37,15 +37,15 @@ const styles = theme => ({
 
 class TopBarController extends React.Component<{ classes: any }, {}> {
   routes = [
-    { name: 'Graph Editor', to: '/graph' },
-    { name: 'Sessions', to: '/teacher' },
+    { name: 'Graph Editor', to: '/teacher/graph' },
+    { name: 'Sessions', to: '/teacher/orchestration' },
     {
       name: 'Activity Creator',
-      to: '/preview'
+      to: '/teacher/preview'
     }
   ];
 
-  value = '/preview';
+  value = '/teacher/preview';
 
   constructor(props) {
     super(props);
@@ -87,6 +87,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
                 />
               ))}
             </Tabs>
+            <h3>{Meteor.user().username}</h3>
             <Button
               className={classes.button}
               color="inherit"
