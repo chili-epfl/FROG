@@ -252,12 +252,12 @@ export default class Root extends React.Component<
   constructor() {
     super();
     this.state = { mode: 'waiting', connected: Meteor.status().connected };
-    Tracker.autorun(() =>
-      this.setState({ connected: Meteor.status().connected })
-    );
   }
 
   componentDidMount = () => {
+    Tracker.autorun(() =>
+      this.setState({ connected: Meteor.status().connected })
+    );
     InjectData.getData('api', data => {
       this.setState({ mode: 'ready', api: !!data, data });
     });
