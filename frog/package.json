@@ -66,6 +66,7 @@
     "react-tagsinput": "^3.19.0",
     "react-tooltip": "^3.6.1",
     "reconnectingwebsocket": "^1.0.0",
+    "request": "^2.88.0",
     "regression": "2.0.1",
     "rws": "^0.0.1",
     "save-svg-as-png": "1.4.5",
