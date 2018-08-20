@@ -101,16 +101,20 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 
 const InstanceDone = {};
 
-WebApp.connectHandlers.use('/api/proxy', (request, response, next) =>
-  request
-    .pipe(
-      requestFun(urlPkg.parse(request.url).pathname.substring(1)).on(
-        'error',
-        next
+WebApp.connectHandlers.use('/api/proxy', (request, response, next) => {
+  try {
+    request
+      .pipe(
+        requestFun(urlPkg.parse(request.url).pathname.substring(1)).on(
+          'error',
+          next
+        )
       )
-    )
-    .pipe(response)
-);
+      .pipe(response);
+  } catch (e) {
+    console.warn(e);
+  }
+});
 
 WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   const url = urlPkg.parse(request.url);
