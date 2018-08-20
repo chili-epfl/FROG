@@ -7,7 +7,7 @@ import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import bodyParser from 'body-parser';
-import requestFun from 'requestuest';
+import requestFun from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
