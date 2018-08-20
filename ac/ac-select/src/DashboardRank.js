@@ -63,4 +63,4 @@ const dashboardRank: DashboardT = {
   initData
 };
 
-export default dashboardRank ;
+export default dashboardRank;

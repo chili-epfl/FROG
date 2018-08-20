@@ -4,15 +4,20 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import Highlighter from './Highlighter';
 
-const TextToColor = (text) => {
-  const c = Number(text.toLowerCase().split('').reduce((acc,cur) => acc+cur.charCodeAt(),''))
-  const obj = ({
-    r: 90+Math.floor((c%(166*166*166)) / (166*166)),
-    g: 90+Math.floor((c%(166*166)) / 166),
-    b: 90+c % 166
-  })
-  return 'rgb('+obj.r+','+obj.g+','+obj.b+')'
-}
+const TextToColor = text => {
+  const c = Number(
+    text
+      .toLowerCase()
+      .split('')
+      .reduce((acc, cur) => acc + cur.charCodeAt(), '')
+  );
+  const obj = {
+    r: 90 + Math.floor((c % (166 * 166 * 166)) / (166 * 166)),
+    g: 90 + Math.floor((c % (166 * 166)) / 166),
+    b: 90 + (c % 166)
+  };
+  return 'rgb(' + obj.r + ',' + obj.g + ',' + obj.b + ')';
+};
 
 // the actual component that the student sees
 const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
@@ -60,9 +65,12 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
       }}
     >
       <Highlighter
-        searchWords={Object.keys(data).filter(x =>
-          data[x].includes(userInfo.id)
-        ).map(x => ({word: x, color: TextToColor(x)}))}
+        searchWords={Object.keys(data)
+          .filter(x => data[x].includes(userInfo.id))
+          .map(x => ({
+            word: x,
+            color: activityData.config.multi ? TextToColor(x) : undefined
+          }))}
         textToHighlight={
           activityData.config ? activityData.config.title || '' : ''
         }
@@ -72,18 +80,19 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
           cursor: 'help'
         }}
         unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
-        multicolor={activityData.config.multi}
       />
       <Highlighter
-        searchWords={Object.keys(data).filter(x =>
-          data[x].includes(userInfo.id)
-        ).map(x => ({word: x, color: TextToColor(x)}))}
+        searchWords={Object.keys(data)
+          .filter(x => data[x].includes(userInfo.id))
+          .map(x => ({
+            word: x,
+            color: activityData.config.multi ? TextToColor(x) : undefined
+          }))}
         highlightStyle={{ backgroundColor: 'yellow', cursor: 'help' }}
         unhighlightStyle={{ cursor: 'help' }}
         textToHighlight={
           activityData.config ? activityData.config.text || '' : ''
         }
-        multicolor={activityData.config.multi}
       />
     </div>
   );

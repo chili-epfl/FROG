@@ -57,5 +57,5 @@ export default ({
   meta,
   config,
   configUI,
-  dashboards: {dashboardRank, dashboardText}
+  dashboards: { Ranking: dashboardRank, Text: dashboardText }
 }: ActivityPackageT);
