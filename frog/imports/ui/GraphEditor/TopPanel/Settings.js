@@ -125,7 +125,7 @@ class GraphActionMenu extends React.Component {
       }
     } = this.props;
     const { open } = this.state;
-    const parentId = Graphs.findOne(graphId).parentId;
+    const parentId = Graphs.findOne(graphId)?.parentId;
     return (
       <div className={classes.root}>
         <Manager>

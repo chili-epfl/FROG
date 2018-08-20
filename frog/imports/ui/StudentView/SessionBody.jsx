@@ -80,7 +80,7 @@ const StudentView = ({ activities, session, token, classes }) => (
               {Meteor.user().username}
             </Typography>
           )}
-          {Meteor.user().username === session.ownerId && (
+          {Meteor.userId() === session.ownerId && (
             <Button
               className={classes.button}
               color="inherit"

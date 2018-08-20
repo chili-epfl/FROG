@@ -86,7 +86,7 @@ export const addGraph = (graphObj?: Object): string => {
     ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,
     name,
-    ownerId: Meteor.user().username,
+    ownerId: Meteor.userId(),
     createdAt: new Date()
   });
   if (!graphObjTmp) {

@@ -51,11 +51,6 @@ export default class PDF extends Component {
     }
   };
 
-  checkIfTeacher = () => {
-    const user = this.props.userInfo.name;
-    return user === 'teacher';
-  };
-
   render() {
     const { activityData, data, dataFn, userInfo } = this.props;
 

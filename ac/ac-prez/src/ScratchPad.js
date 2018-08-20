@@ -230,10 +230,7 @@ class ScratchPad extends Component {
     );
   };
 
-  checkIfTeacher = () => {
-    const user = this.props.userInfo.name;
-    return user === 'teacher';
-  };
+  checkIfTeacher = () => this.props.userInfo.role === 'teacher';
 
   clearAnnotations = () => {
     this.replaceSavedAnnotations([]);
