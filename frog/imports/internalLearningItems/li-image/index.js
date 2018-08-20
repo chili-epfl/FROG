@@ -45,10 +45,7 @@ export default ({
     </Paper>
   ),
   ThumbViewer: ({ data }: { data: any }) => (
-    <Paper
-      elevation={24}
-      style={{ height: '145px', width: '145px', margin: '20px' }}
-    >
+    <Paper elevation={24} style={{ height: 'inherit', width: 'inherit' }}>
       <ImageReload
         style={{
           margin: '10px',

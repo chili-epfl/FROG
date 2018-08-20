@@ -57,9 +57,9 @@ const ZoomView = ({
               dataFn={dataFn}
               placeholder={commentGuidelines}
               style={{
-                fontSize: '22px',
-                position: 'absolute',
-                width: '50%',
+                fontSize: '16px',
+                position: 'relative',
+                width: '80%',
                 height: '100px',
                 bottom: '0px'
               }}
@@ -71,10 +71,8 @@ const ZoomView = ({
               className="btn btn-success"
               style={{
                 position: 'absolute',
-                right: '0px',
-                bottom: '0px',
-                height: '100px',
-                width: '100px'
+                right: '2px',
+                bottom: '2px'
               }}
             >
               <div className="bootstrap">
