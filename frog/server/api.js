@@ -145,13 +145,18 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   );
 
   const docId =
-    [request.body.clientId, activityTypeId, request.body.activityId || 'default'].join(
-      '-'
-    ) +
+    [
+      request.body.clientId,
+      activityTypeId,
+      request.body.activityId || 'default'
+    ].join('-') +
       '/' +
       request.body.instanceId || 'default';
 
-  if (!InstanceDone[docId] && !(request.body.readOnly && request.body.rawData)) {
+  if (
+    !InstanceDone[docId] &&
+    !(request.body.readOnly && request.body.rawData)
+  ) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
     Promise.await(
@@ -262,24 +267,24 @@ WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
 
 const allowLocalUpload = !Meteor.settings.Minio;
 
-WebApp.connectHandlers.use('/file', (request, res) => {
+WebApp.connectHandlers.use('/file', (req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'PUT');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (request.method === 'OPTIONS') {
+  if (req.method === 'OPTIONS') {
     res.writeHead(200);
     res.end();
-  } else if (request.method === 'PUT' && allowLocalUpload) {
-    request.pipe(fs.createWriteStream('/tmp/' + request.query.name));
+  } else if (req.method === 'PUT' && allowLocalUpload) {
+    req.pipe(fs.createWriteStream('/tmp/' + req.query.name));
     res.writeHead(200);
     res.end();
-  } else if (request.method === 'GET') {
-    if (!request.query.name && !request.url) {
+  } else if (req.method === 'GET') {
+    if (!req.query.name && !req.url) {
       res.writeHead(404);
       res.end();
     }
     let fname;
-    const url = request.query.name || request.url.substring(1);
+    const url = req.query.name || req.url.substring(1);
     if (url.startsWith('ac/')) {
       const path = url.split('?')[0].split('/');
       const rootPath = pathResolve('.').split('/.meteor')[0];
