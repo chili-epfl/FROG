@@ -2,7 +2,8 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import dashboards from './Dashboard';
+import dashboardText from './DashboardText';
+import dashboardRank from './DashboardRank';
 
 const meta = {
   name: 'Words selection',
@@ -29,6 +30,10 @@ const config = {
       type: 'string',
       title: 'Title'
     },
+    multi: {
+      type: 'boolean',
+      title: 'Multiple color highlights'
+    },
     text: {
       type: 'string',
       title: 'Text'
@@ -52,5 +57,5 @@ export default ({
   meta,
   config,
   configUI,
-  dashboards
+  dashboards: { Ranking: dashboardRank, Text: dashboardText }
 }: ActivityPackageT);

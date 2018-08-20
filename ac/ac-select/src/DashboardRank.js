@@ -57,10 +57,10 @@ const mergeLog = (state: any, log: LogDbT) => {
 
 const initData = {};
 
-const dashboard: DashboardT = {
+const dashboardRank: DashboardT = {
   Viewer: withStyles(styles)(ViewerStyleless),
   mergeLog,
   initData
 };
 
-export default { dashboard };
+export default dashboardRank;
