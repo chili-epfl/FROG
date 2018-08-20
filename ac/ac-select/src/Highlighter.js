@@ -8,12 +8,10 @@ export default  ({
   activeClassName = '',
   activeIndex = -1,
   activeStyle,
-  autoEscape = true,
   caseSensitive = false,
   className,
   highlightClassName = '',
   highlightStyle = {},
-  highlightTag = 'mark',
   sanitize,
   searchWords,
   textToHighlight,
@@ -23,13 +21,13 @@ export default  ({
   multicolor = false
 }) => {
   const chunks = findAll({
-    autoEscape,
+    autoEscape: true,
     caseSensitive,
     sanitize,
-    searchWords,
+    searchWords: searchWords.map(x => x.word),
     textToHighlight
   })
-  const HighlightTag = highlightTag
+  const HighlightTag = 'mark'
   let highlightCount = -1
   let highlightClassNames = ''
   let highlightStyles
@@ -67,12 +65,12 @@ export default  ({
           highlightStyles = isActive === true && activeStyle != null
             ? Object.assign({}, highlightStyle, activeStyle)
             : highlightStyle
-          const color = colorFun(text)
+          console.log(searchWords)
           return (
             <HighlightTag
               className={highlightClassNames}
               key={chunk.start+chunk.end}
-              style={multicolor ? {...highlightStyles, backgroundColor: 'rgb('+color.r+','+color.g+','+color.b+')'} : highlightStyles}
+              style={multicolor ? {...highlightStyles, backgroundColor: searchWords.find(x => x['word'] === text)['color']} : highlightStyles}
             >
               {text}
             </HighlightTag>

@@ -6,11 +6,12 @@ import Highlighter from './Highlighter';
 
 const TextToColor = (text) => {
   const c = Number(text.toLowerCase().split('').reduce((acc,cur) => acc+cur.charCodeAt(),''))
-  return ({
+  const obj = ({
     r: 90+Math.floor((c%(166*166*166)) / (166*166)),
     g: 90+Math.floor((c%(166*166)) / 166),
     b: 90+c % 166
   })
+  return 'rgb('+obj.r+','+obj.g+','+obj.b+')'
 }
 
 // the actual component that the student sees
@@ -61,8 +62,7 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
       <Highlighter
         searchWords={Object.keys(data).filter(x =>
           data[x].includes(userInfo.id)
-        )}
-        colorFun={TextToColor}
+        ).map(x => ({word: x, color: TextToColor(x)}))}
         textToHighlight={
           activityData.config ? activityData.config.title || '' : ''
         }
@@ -77,8 +77,7 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
       <Highlighter
         searchWords={Object.keys(data).filter(x =>
           data[x].includes(userInfo.id)
-        )}
-        colorFun={TextToColor}
+        ).map(x => ({word: x, color: TextToColor(x)}))}
         highlightStyle={{ backgroundColor: 'yellow', cursor: 'help' }}
         unhighlightStyle={{ cursor: 'help' }}
         textToHighlight={
