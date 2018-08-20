@@ -176,7 +176,7 @@ publishComposite('session_activities', function(slug) {
 
 const checkActivity = (session, activityId, operators, connections, userid) => {
   const act = Activities.findOne(activityId);
-  const isTeacher = Sessions.findOne(session).ownerId === userid;
+  const isTeacher = session.ownerId === userid;
 
   if (!isTeacher && ![3, 4].includes(act.plane)) {
     return false;

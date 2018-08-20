@@ -17,7 +17,6 @@ class Prez extends Component<ActivityRunnerPropsT> {
   };
 
   render() {
-    console.log(this.props);
     const { activityData, data, dataFn, userInfo } = this.props;
 
     let initialPDF = '/clientFiles/ac-prez/sample.pdf';
