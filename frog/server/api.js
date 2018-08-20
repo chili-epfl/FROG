@@ -7,7 +7,7 @@ import Stringify from 'json-stringify-pretty-compact';
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import bodyParser from 'body-parser';
-import request from 'request';
+import requestFun from 'requestuest';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -20,9 +20,9 @@ WebApp.connectHandlers.use(bodyParser.json());
 
 setupH5PRoutes();
 
-WebApp.connectHandlers.use('/lti', (req, response, next) => {
-  if (req.method !== 'POST') next();
-  const url = require('url').parse(req.url);
+WebApp.connectHandlers.use('/lti', (request, response, next) => {
+  if (request.method !== 'POST') next();
+  const url = require('url').parse(request.url);
   const slug = url.pathname.substring(1);
   const session = slug && Sessions.findOne({ slug: slug.toUpperCase() });
   if (!session) {
@@ -34,16 +34,16 @@ WebApp.connectHandlers.use('/lti', (req, response, next) => {
   } else {
     let user;
     try {
-      user = req.body.lis_person_name_full;
+      user = request.body.lis_person_name_full;
     } catch (e) {
-      console.error('Error parsing username in lti req', req.body, e);
+      console.error('Error parsing username in lti request', request.body, e);
       user = uuid();
     }
     let id;
     try {
-      id = JSON.parse(req.body.lis_result_sourcedid).data.userid;
+      id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
     } catch (e) {
-      console.error('Error parsing userid in lti req', req.body, e);
+      console.error('Error parsing userid in lti request', request.body, e);
       id = uuid();
     }
     try {
@@ -56,20 +56,20 @@ WebApp.connectHandlers.use('/lti', (req, response, next) => {
       Meteor.users.update(userId, { $set: { username: user, userid: id } });
       const stampedLoginToken = Accounts._generateStampedLoginToken();
       Accounts._insertLoginToken(userId, stampedLoginToken);
-      InjectData.pushData(req, 'login', {
+      InjectData.pushData(request, 'login', {
         token: stampedLoginToken.token,
         slug
       });
       next();
     } catch (e) {
-      console.error('Error responding to lti req', req.body, e);
+      console.error('Error responding to lti request', request.body, e);
       response.writeHead(400);
       response.end();
     }
   }
 });
 
-WebApp.connectHandlers.use('/api/activityTypes', (req, response) => {
+WebApp.connectHandlers.use('/api/activityTypes', (request, response) => {
   response.end(
     Stringify(
       activityTypes.map(x => ({
@@ -100,27 +100,27 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 
 const InstanceDone = {};
 
-WebApp.connectHandlers.use('/api/proxy', (req, response, next) =>
-  req
+WebApp.connectHandlers.use('/api/proxy', (request, response, next) =>
+  request
     .pipe(
-      request(
+      requestFun(
         require('url')
-          .parse(req.url)
+          .parse(request.url)
           .pathname.substring(1)
       ).on('error', next)
     )
     .pipe(response)
 );
 
-WebApp.connectHandlers.use('/api/activityType', (req, response, next) => {
-  const url = require('url').parse(req.url);
+WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
+  const url = require('url').parse(request.url);
   const activityTypeId = url.pathname.substring(1);
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
 
   const activityData = safeDecode(
-    req.body,
+    request.body,
     'activityData',
     'Activity data not valid',
     response,
@@ -128,7 +128,7 @@ WebApp.connectHandlers.use('/api/activityType', (req, response, next) => {
   );
 
   const rawData = safeDecode(
-    req.body,
+    request.body,
     'rawData',
     'Raw data not valid',
     response,
@@ -138,20 +138,20 @@ WebApp.connectHandlers.use('/api/activityType', (req, response, next) => {
     response.end('Cannot provide both activityData and rawData');
   }
   const config = safeDecode(
-    req.body,
+    request.body,
     'config',
     'Config data not valid',
     response
   );
 
   const docId =
-    [req.body.clientId, activityTypeId, req.body.activityId || 'default'].join(
+    [request.body.clientId, activityTypeId, request.body.activityId || 'default'].join(
       '-'
     ) +
       '/' +
-      req.body.instanceId || 'default';
+      request.body.instanceId || 'default';
 
-  if (!InstanceDone[docId] && !(req.body.readOnly && req.body.rawData)) {
+  if (!InstanceDone[docId] && !(request.body.readOnly && request.body.rawData)) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
     Promise.await(
@@ -189,97 +189,97 @@ WebApp.connectHandlers.use('/api/activityType', (req, response, next) => {
     );
   }
 
-  InjectData.pushData(req, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'runActivity',
     activityType: activityTypeId,
-    userId: req.body.userId,
-    userName: req.body.userName,
+    userId: request.body.userId,
+    userName: request.body.userName,
     instanceId: docId,
-    activityId: req.body.activityId,
-    rawInstanceId: req.body.instanceId || 'default',
+    activityId: request.body.activityId,
+    rawInstanceId: request.body.instanceId || 'default',
     activityData,
-    clientId: req.body.clientId,
+    clientId: request.body.clientId,
     rawData,
-    readOnly: req.body.readOnly,
+    readOnly: request.body.readOnly,
     config
   });
   next();
 });
 
-WebApp.connectHandlers.use('/api/config', (req, response, next) => {
-  const url = require('url').parse(req.url);
+WebApp.connectHandlers.use('/api/config', (request, response, next) => {
+  const url = require('url').parse(request.url);
   const activityTypeId = url.pathname.substring(1);
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    req.body,
+    request.body,
     'config',
     'Config data not valid',
     response
   );
-  InjectData.pushData(req, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'config',
     activityType: activityTypeId,
-    showValidator: req.body.showValidator,
-    showLibrary: req.body.showLibrary,
+    showValidator: request.body.showValidator,
+    showLibrary: request.body.showLibrary,
     config
   });
   next();
 });
 
-WebApp.connectHandlers.use('/api/dashboard/', (req, response, next) => {
-  const url = require('url').parse(req.url);
+WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
+  const url = require('url').parse(request.url);
   const activityTypeId = url.pathname.substring(1);
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
   const config = safeDecode(
-    req.body,
+    request.body,
     'config',
     'Config data not valid',
     response
   );
-  InjectData.pushData(req, 'api', {
+  InjectData.pushData(request, 'api', {
     callType: 'dashboard',
-    clientId: req.body.clientId,
+    clientId: request.body.clientId,
     activityType: activityTypeId,
-    instances: req.body.instances,
-    activityId: req.body.activityId || 'default',
+    instances: request.body.instances,
+    activityId: request.body.activityId || 'default',
     config
   });
   next();
 });
 
-WebApp.connectHandlers.use('/api/chooseActivity', (req, response, next) => {
-  InjectData.pushData(req, 'api', {
+WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
+  InjectData.pushData(request, 'api', {
     callType: 'config',
-    showValidator: req.body.showValidator,
-    showLibrary: req.body.showLibrary
+    showValidator: request.body.showValidator,
+    showLibrary: request.body.showLibrary
   });
   next();
 });
 
 const allowLocalUpload = !Meteor.settings.Minio;
 
-WebApp.connectHandlers.use('/file', (req, res) => {
+WebApp.connectHandlers.use('/file', (request, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'PUT');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     res.writeHead(200);
     res.end();
-  } else if (req.method === 'PUT' && allowLocalUpload) {
-    req.pipe(fs.createWriteStream('/tmp/' + req.query.name));
+  } else if (request.method === 'PUT' && allowLocalUpload) {
+    request.pipe(fs.createWriteStream('/tmp/' + request.query.name));
     res.writeHead(200);
     res.end();
-  } else if (req.method === 'GET') {
-    if (!req.query.name && !req.url) {
+  } else if (request.method === 'GET') {
+    if (!request.query.name && !request.url) {
       res.writeHead(404);
       res.end();
     }
     let fname;
-    const url = req.query.name || req.url.substring(1);
+    const url = request.query.name || request.url.substring(1);
     if (url.startsWith('ac/')) {
       const path = url.split('?')[0].split('/');
       const rootPath = pathResolve('.').split('/.meteor')[0];
