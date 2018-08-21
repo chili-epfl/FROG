@@ -8,6 +8,7 @@ import Slide from '@material-ui/core/Slide';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import changelog, { updateChangelogVersion } from '/imports/api/changelog';
+import { withStyle } from '@material-ui/core/styles'
 
 const Transition = props => <Slide direction="up" {...props} />;
 
@@ -26,6 +27,7 @@ class HelpModal extends React.Component<*, *> {
         open={this.props.show}
         onClose={this.props.hide}
         TransitionComponent={Transition}
+        style={{width: '1000px'}}
       >
         <AppBar>
           <Toolbar>
