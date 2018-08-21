@@ -10,6 +10,8 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
@@ -217,6 +219,21 @@ class ConfigPanel extends React.Component<*, *> {
                     this.setState({ displaySave: true });
                     this.forceUpdate();
                   }}
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={!!metadatas.is_public}
+                      onChange={() => {
+                        metadatas.is_public = !metadatas.is_public;
+                        setMetadatas(metadatas);
+                        this.setState({ displaySave: true });
+                        this.forceUpdate();
+                      }}
+                      color="default"
+                    />
+                  }
+                  label="Make public"
                 />
                 <div style={{ height: '10px' }} />
               </div>
