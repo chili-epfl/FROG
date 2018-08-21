@@ -116,7 +116,7 @@ class Editor extends React.Component<Object, StateT> {
               metadatas={LibraryStates.graphList.filter(
                 x =>
                   x.uuid === Graphs.findOne(this.props.store.graphId).parentId
-              )}
+              )[0]}
               madeChanges={() => this.setState({ locallyChanged: true })}
             />
             <ModalImport
