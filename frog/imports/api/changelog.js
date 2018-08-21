@@ -1,5 +1,6 @@
 const changelog = [
   {
+    date: new Date('06/01/2018'),
     'Adding activities': `Double-click on one of the three plane lines to add activities. Choose the
     kind of activity, and configure it, in the right sidebar.`,
     'Renaming activities': `Double-click on an activity to rename it.`,
@@ -41,10 +42,12 @@ const changelog = [
     original positions`
   },
   {
-    'new activity': `This is a big change`
+    date: new Date('07/01/2018'),
+    'new activity': `This is a big change in July`
   },
   {
-    'new operator': `This is another big change`
+    date: new Date('08/01/2018'),
+    'new operator': `This is another big change in August`
   }
 ];
 
