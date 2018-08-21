@@ -1,9 +1,15 @@
-// @flow
-
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { type DashboardT, type LogDbT } from 'frog-utils';
+import { withState, compose } from 'recompose';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+
 import Highlighter from './Highlighter';
+import ColorSelect from './ColorSelect';
 
 const styles = () => ({
   table: {
@@ -14,27 +20,33 @@ const styles = () => ({
   }
 });
 
-const VoteToColor = (vote, maxVote) =>
-  'rgb(' +
-  (Number(maxVote) > 4 ? 255 - (vote - 4) * 10 : 255) +
-  ',' +
-  (Number(maxVote) > 4 ? 255 - (vote - 4) * 10 : 255) +
-  ',' +
-  (220 - (vote / Number(maxVote)) * 180) +
-  ')';
-
-const ViewerStyleless = ({ state, activity }) => {
-  const searchWords = Object.keys(state).map(x => ({
-    word: x,
-    color: VoteToColor(
-      state[x],
-      Object.values(state).reduce(
-        (acc, cur) => (Number(cur) > Number(acc) ? cur : acc),
-        0
-      )
-    ),
-    vote: state[x]
-  }));
+const ViewerStyleless = ({
+  state,
+  activity,
+  currentColor,
+  setCurrentColor,
+  mode,
+  setMode,
+  classes
+}) => {
+  const selectPenColor = color => setCurrentColor(color);
+  const searchWords =
+    currentColor === '#FFFFFF'
+      ? Object.keys(state).reduce((acc, cur) => {
+          const tmp = { ...acc };
+          tmp[cur] = { color: '#FFFF00', vote: state[cur].colors.length };
+          return tmp;
+        }, {})
+      : Object.keys(state)
+          .filter(x => state[x].colors.includes(currentColor))
+          .reduce((acc, cur) => {
+            const tmp = { ...acc };
+            tmp[cur] = {
+              color: currentColor,
+              vote: state[cur].colors.filter(x => x === currentColor).length
+            };
+            return tmp;
+          }, {});
   return (
     <div
       style={{
@@ -44,39 +56,118 @@ const ViewerStyleless = ({ state, activity }) => {
         flexDirection: 'column'
       }}
     >
-      <Highlighter
-        searchWords={searchWords}
-        textToHighlight={activity.data ? activity.data.title || '' : ''}
-        highlightStyle={{
-          fontSize: 'xx-large'
-        }}
-        unhighlightStyle={{ fontSize: 'xx-large' }}
-      />
-      <Highlighter
-        searchWords={searchWords}
-        textToHighlight={activity.data ? activity.data.text || '' : ''}
-      />
+      {activity.data?.chooseColor && (
+        <ColorSelect
+          {...{ selectPenColor }}
+          data={{ currentColor }}
+          disableNone={false}
+        />
+      )}
+      {mode === 'ranking' ? (
+        <>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setMode('text')}
+            style={{ width: '200px' }}
+          >
+            See text
+          </Button>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell className={classes.head}>Word</TableCell>
+                <TableCell className={classes.head}>N° of highlights</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.keys(searchWords)
+                .map(x => [x, searchWords[x].vote])
+                .sort((y, z) => z[1] - y[1])
+                .map(word => (
+                  <TableRow key={word[0]}>
+                    <TableCell>
+                      {word[0]}
+                      <div />
+                    </TableCell>
+                    <TableCell>{word[1]}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </>
+      ) : (
+        <>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setMode('ranking')}
+            style={{ width: '200px' }}
+          >
+            See word ranking
+          </Button>
+
+          <Highlighter
+            {...{ searchWords }}
+            textToHighlight={activity.data ? activity.data.title || '' : ''}
+            highlightStyle={{
+              backgroundColor: currentColor,
+              fontSize: 'xx-large'
+            }}
+            unhighlightStyle={{ fontSize: 'xx-large' }}
+          />
+          {activity.data.text &&
+            activity.data.text
+              .split('\n')
+              .filter(x => x !== '')
+              .map(sub => (
+                <p key={sub}>
+                  <Highlighter
+                    {...{ searchWords }}
+                    highlightStyle={{
+                      backgroundColor: currentColor
+                    }}
+                    textToHighlight={
+                      activity.data ? activity.data.text || '' : ''
+                    }
+                  />
+                </p>
+              ))}
+        </>
+      )}
     </div>
   );
 };
 
-const mergeLog = (state: any, log: LogDbT) => {
-  switch (log.type) {
-    case 'plus':
-      state[log.value] = state[log.value] ? (state[log.value] += 1) : 1;
-      break;
-    case 'minus':
-      state[log.value] -= 1;
-      break;
-    default:
-  }
+const reactiveToDisplay = (reactive: any) => {
+  const state = {};
+  Object.keys(reactive)
+    .map(x => reactive[x]['highlighted'])
+    .forEach(highlighted => {
+      Object.keys(highlighted).forEach(word => {
+        if (state[word])
+          state[word] = {
+            colors: [...state[word].colors, highlighted[word].color]
+          };
+        else
+          state[word] = {
+            colors: [highlighted[word].color]
+          };
+      });
+    });
+  return state;
 };
 
 const initData = {};
 
-const dashboardText: DashboardT = {
-  Viewer: withStyles(styles)(ViewerStyleless),
-  mergeLog,
+const dashboardText = {
+  Viewer: withStyles(styles)(
+    compose(
+      withState('mode', 'setMode', 'ranking'),
+      withState('currentColor', 'setCurrentColor', '#FFFFFF')
+    )(ViewerStyleless)
+  ),
+  reactiveToDisplay,
   initData
 };
 
