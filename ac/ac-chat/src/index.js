@@ -119,7 +119,7 @@ const mergeFunction = (obj, dataFn, user) => {
       dataFn.objInsert(
         {
           ...x,
-          user: user?.username,
+          user: user?.username || x.user,
           order: Object.keys(dataFn.doc.data).length + 1 + i,
           id
         },

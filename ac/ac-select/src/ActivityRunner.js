@@ -61,7 +61,11 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           height: '100%',
           overflow: 'scroll',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          margin: '20px',
+          fontSize: '1.5em',
+          lineHeight: '150%',
+          fontFamily: 'serif'
         }}
       >
         <Highlighter

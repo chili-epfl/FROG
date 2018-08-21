@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
 
@@ -17,7 +24,10 @@ const ViewerStyleless = ({
   state,
   activity,
   currentColor,
-  setCurrentColor
+  setCurrentColor,
+  mode,
+  setMode,
+  classes
 }) => {
   const selectPenColor = color => setCurrentColor(color);
   const searchWords =
@@ -46,35 +56,85 @@ const ViewerStyleless = ({
         flexDirection: 'column'
       }}
     >
-      <ColorSelect
-        {...{ selectPenColor }}
-        data={{ currentColor }}
-        disableNone={false}
-      />
-      <Highlighter
-        {...{ searchWords }}
-        textToHighlight={activity.data ? activity.data.title || '' : ''}
-        highlightStyle={{
-          backgroundColor: currentColor,
-          fontSize: 'xx-large'
-        }}
-        unhighlightStyle={{ fontSize: 'xx-large' }}
-      />
-      {activity.data.text &&
-        activity.data.text
-          .split('\n')
-          .filter(x => x !== '')
-          .map(sub => (
-            <p key={sub}>
-              <Highlighter
-                {...{ searchWords }}
-                highlightStyle={{
-                  backgroundColor: currentColor
-                }}
-                textToHighlight={activity.data ? activity.data.text || '' : ''}
-              />
-            </p>
-          ))}
+      {activity.data?.chooseColor && (
+        <ColorSelect
+          {...{ selectPenColor }}
+          data={{ currentColor }}
+          disableNone={false}
+        />
+      )}
+      {mode === 'ranking' ? (
+        <>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setMode('text')}
+            style={{ width: '200px' }}
+          >
+            See text
+          </Button>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell className={classes.head}>Word</TableCell>
+                <TableCell className={classes.head}>N° of highlights</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.keys(searchWords)
+                .map(x => [x, searchWords[x].vote])
+                .sort((y, z) => z[1] - y[1])
+                .map(word => (
+                  <TableRow key={word[0]}>
+                    <TableCell>
+                      {word[0]}
+                      <div />
+                    </TableCell>
+                    <TableCell>{word[1]}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </>
+      ) : (
+        <>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setMode('ranking')}
+            style={{ width: '200px' }}
+          >
+            See word ranking
+          </Button>
+
+          <Highlighter
+            {...{ searchWords }}
+            textToHighlight={activity.data ? activity.data.title || '' : ''}
+            highlightStyle={{
+              backgroundColor: currentColor,
+              fontSize: 'xx-large'
+            }}
+            unhighlightStyle={{ fontSize: 'xx-large' }}
+          />
+          {activity.data.text &&
+            activity.data.text
+              .split('\n')
+              .filter(x => x !== '')
+              .map(sub => (
+                <p key={sub}>
+                  <Highlighter
+                    {...{ searchWords }}
+                    highlightStyle={{
+                      backgroundColor: currentColor
+                    }}
+                    textToHighlight={
+                      activity.data ? activity.data.text || '' : ''
+                    }
+                  />
+                </p>
+              ))}
+        </>
+      )}
     </div>
   );
 };
@@ -102,7 +162,10 @@ const initData = {};
 
 const dashboardText = {
   Viewer: withStyles(styles)(
-    withState('currentColor', 'setCurrentColor', '#FFFFFF')(ViewerStyleless)
+    compose(
+      withState('mode', 'setMode', 'ranking'),
+      withState('currentColor', 'setCurrentColor', '#FFFFFF')
+    )(ViewerStyleless)
   ),
   reactiveToDisplay,
   initData
