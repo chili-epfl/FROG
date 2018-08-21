@@ -66,7 +66,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   const logger = createLogger(sessionId, groupingValue, activity);
   const readOnly =
     activity.participationMode === 'readonly' &&
-    Meteor.userId() !== Sessions.findOne(sessionId).ownerId;
+    Meteor.userId() !== Sessions.findOne(sessionId)?.ownerId;
 
   const Torun = (
     <RunActivity
@@ -195,7 +195,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
           name: this.props.username,
           id: this.props.userid,
           role:
-            Sessions.findOne(this.props.sessionId).ownerId === Meteor.userId()
+            Sessions.findOne(this.props.sessionId)?.ownerId === Meteor.userId()
               ? 'teacher'
               : 'student'
         }}
