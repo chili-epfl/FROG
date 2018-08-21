@@ -1,8 +1,8 @@
-// @flow
-
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { withState } from 'recompose';
 import Highlighter from './Highlighter';
+import ColorSelect from './ColorSelect';
 
 const styles = () => ({
   table: {
@@ -13,85 +13,89 @@ const styles = () => ({
   }
 });
 
-// const VoteToColor = (vote, maxVote) =>
-//   ({backgroundColor: '#FFFF00', filter: 'brightness('+Math.floor((maxVote-vote)/maxVote*100)+'%)'});
-
-const ViewerStyleless = ({ state, activity }) => (
-  // console.log(state)
-  // const searchWords = Object.keys(state).map(x => ({
-  //   word: x,
-  //   style: VoteToColor(
-  //     state[x],
-  //     Object.values(state).reduce(
-  //       (acc, cur) => (Number(cur) > Number(acc) ? cur : acc),
-  //       0
-  //     )
-  //   ),
-  //   vote: state[x]
-  // }));
-  <div
-    style={{
-      height: '100%',
-      overflow: 'scroll',
-      display: 'flex',
-      flexDirection: 'column'
-    }}
-  >
-    <Highlighter
-      searchWords={state}
-      textToHighlight={activity.data ? activity.data.title || '' : ''}
-      highlightStyle={{
-        fontSize: 'xx-large'
+const ViewerStyleless = ({
+  state,
+  activity,
+  currentColor,
+  setCurrentColor
+}) => {
+  const selectPenColor = color => setCurrentColor(color);
+  const searchWords =
+    currentColor === '#FFFFFF'
+      ? Object.keys(state).reduce((acc, cur) => {
+          const tmp = { ...acc };
+          tmp[cur] = { color: '#FFFF00', vote: state[cur].colors.length };
+          return tmp;
+        }, {})
+      : Object.keys(state)
+          .filter(x => state[x].colors.includes(currentColor))
+          .reduce((acc, cur) => {
+            const tmp = { ...acc };
+            tmp[cur] = {
+              color: currentColor,
+              vote: state[cur].colors.filter(x => x === currentColor).length
+            };
+            return tmp;
+          }, {});
+  return (
+    <div
+      style={{
+        height: '100%',
+        overflow: 'scroll',
+        display: 'flex',
+        flexDirection: 'column'
       }}
-      unhighlightStyle={{ fontSize: 'xx-large' }}
-    />
-    <Highlighter
-      searchWords={state}
-      textToHighlight={activity.data ? activity.data.text || '' : ''}
-    />
-  </div>
-);
+    >
+      <ColorSelect
+        {...{ selectPenColor }}
+        data={{ currentColor }}
+        disableNone={false}
+      />
+      <Highlighter
+        {...{ searchWords }}
+        textToHighlight={activity.data ? activity.data.title || '' : ''}
+        highlightStyle={{
+          backgroundColor: currentColor,
+          fontSize: 'xx-large'
+        }}
+        unhighlightStyle={{ fontSize: 'xx-large' }}
+      />
+      <Highlighter
+        {...{ searchWords }}
+        highlightStyle={{
+          backgroundColor: currentColor
+        }}
+        textToHighlight={activity.data ? activity.data.text || '' : ''}
+      />
+    </div>
+  );
+};
 
 const reactiveToDisplay = (reactive: any) => {
   const state = {};
-  // if(activity.data.multi){
   Object.keys(reactive)
     .map(x => reactive[x]['highlighted'])
     .forEach(highlighted => {
       Object.keys(highlighted).forEach(word => {
         if (state[word])
           state[word] = {
-            style: {
-              ...state[word].style,
-              filter: 'brightness(' + (100 - state[word].vote * 10) + '%)'
-            },
-            vote: state[word].vote + 1
+            colors: [...state[word].colors, highlighted[word].color]
           };
         else
           state[word] = {
-            style: { backgroundColor: '#FFFF00', filter: 'brightness(100%)' },
-            vote: 1
+            colors: [highlighted[word].color]
           };
       });
     });
-  // }else{
-  //   Object.values(reactive).map(x => x.highlighted)
-  //   .forEach(highlighted => {
-  //     Object.keys(highlighted).forEach(word => {
-  //       if(state[word])
-  //         state[word].push(highlighted[word])
-  //       else
-  //         state[word] = highlighted[word]
-  //     })
-  //   })
-  // }
   return state;
 };
 
 const initData = {};
 
 const dashboardText = {
-  Viewer: withStyles(styles)(ViewerStyleless),
+  Viewer: withStyles(styles)(
+    withState('currentColor', 'setCurrentColor', '#FFFFFF')(ViewerStyleless)
+  ),
   reactiveToDisplay,
   initData
 };

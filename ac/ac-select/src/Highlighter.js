@@ -84,7 +84,11 @@ export default ({
                 className={highlightClassNames}
                 style={{
                   ...highlightStyles,
-                  ...word.style
+                  backgroundColor: word.color,
+                  filter:
+                    'brightness(' +
+                    (100 - (word.vote ? word.vote - 1 : 0) * 10) +
+                    '%)'
                 }}
               >
                 {text}
