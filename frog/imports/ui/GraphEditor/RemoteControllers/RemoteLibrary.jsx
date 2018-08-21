@@ -134,7 +134,7 @@ class Library extends Component<Object, { searchStr: string }> {
                     shortDesc: x.description,
                     owner_id: x.owner_id,
                     activityTypeName:
-                      activityTypesObj?.[x.activity_type]?.meta?.name + ': '
+                      activityTypesObj?.[x.activity_type]?.meta?.name
                   },
                   ...x
                 }}
