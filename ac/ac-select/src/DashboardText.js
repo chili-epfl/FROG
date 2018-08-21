@@ -60,13 +60,20 @@ const ViewerStyleless = ({
         }}
         unhighlightStyle={{ fontSize: 'xx-large' }}
       />
-      <Highlighter
-        {...{ searchWords }}
-        highlightStyle={{
-          backgroundColor: currentColor
-        }}
-        textToHighlight={activity.data ? activity.data.text || '' : ''}
-      />
+      {activity.data.text && activity.data.text
+        .split('\n')
+        .filter(x => x !== '')
+        .map(sub => (
+          <p key={sub}>
+            <Highlighter
+              {...{ searchWords }}
+              highlightStyle={{
+                backgroundColor: currentColor
+              }}
+              textToHighlight={activity.data ? activity.data.text || '' : ''}
+            />
+          </p>
+        ))}
     </div>
   );
 };
