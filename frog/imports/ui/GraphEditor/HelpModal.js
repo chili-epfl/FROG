@@ -63,7 +63,9 @@ class HelpModal extends React.Component<*, *> {
                     .filter(y => y !== 'date')
                     .map(x => (
                       <div key={x}>
-                        <h4>{x}</h4>
+                        <h4>
+                          {x} ({log.date.toDateString()})
+                        </h4>
                         {log[x].split('<br/>').map(y => <p key={y}>{y}</p>)}
                       </div>
                     ))}
@@ -77,12 +79,13 @@ class HelpModal extends React.Component<*, *> {
                     key={log.date}
                     style={{ border: '1px solid', padding: '10px' }}
                   >
-                    <h3>{'Release from the ' + log.date.toDateString()}</h3>
                     {Object.keys(log)
                       .filter(y => y !== 'date')
                       .map(x => (
                         <div key={x}>
-                          <h4>{x}</h4>
+                          <h4>
+                            {x} ({log.date.toDateString()})
+                          </h4>
                           {log[x].split('<br/>').map(y => <p key={y}>{y}</p>)}
                         </div>
                       ))}
