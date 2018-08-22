@@ -10,7 +10,7 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 ## Videos
 
 * [Installation and initial setup
-  (3:21)](https://www.youtube.com/watch?v=QutJR7W5ib8)
+  (3:21)](https://www.youtube.com/watch?v=QutJR7W5ib8) **Out of date**
 * [Preview functionality
   (10:49)](https://www.youtube.com/watch?v=HQDD8-T4ilU&t=18s)
 * [How to use the graph editor and teacher orchestration view
@@ -33,6 +33,8 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 
 ## Set up
 
+* clone the git repository
+* go to the root repository
 * install [Meteor](https://www.meteor.com/install)
 * make sure you have a recent version of Node (at least 9.10) (if you have node, but not the
   latest, you can try `npm install -g n; n latest`
@@ -41,23 +43,25 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 
   * `./initial_setup.sh` (if problem occur with bcrypt you can try to run
     `meteor npm install --python=python2.7` from the `frog/` directory)
-  
+
   * go to the `frog/` directory and run `meteor`
-  
+
   * see more developer scripts and details [here](https://github.com/chili-epfl/FROG/wiki/Development-workflow-and-tools), including how to automatically rebuild
     files in `ac/`, `op/` and `frog-utils`.
 
-* Go to http://localhost:3000/ on your browser
+* Connect to FROG by typing in your browser
+  * http://localhost:3000/teacher?login=username to connect as a teacher
+  * http://localhost:3000/XXXX to connect to the session with ID 'XXXX'
 
 ### Troubleshooting initial setup
 
 * Make sure Meteor works (`meteor --version`) (note that the Meteor version is
   not important, Meteor will automatically download and install the correct
   version when run the first time)
-* Make sure you have an up-to-date version of Node 8 or 9 (`node --version`), and
+* Make sure you have an up-to-date version of Node 9 (`node --version`), and
   that `npm` works (`npm --version` -- will not be the same as the Node version)
 * We do not support Windows - you might be able to get it to run, but all of our
-  scripts etc, presume OSX/Linux
+  scripts etc, presume MacOS/Linux
 * All scripts (`./initial_setup.sh` etc should be run as user, not root)
 * If you are running in a virtual machine, and the `./initial_setup.sh` script
   crashes the machine, or does not complete, try removing the parallelism from
@@ -68,9 +72,9 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
   a single port - 3000 and 3002 need to be exposed).
 * If you need to re-run `./initial_setup.sh`, execute these commands first.
   **(Note that this deletes any file that has not been checked in and
-  committed)**: `git reset --hard; git clean -fdx; ./initial_setup.sh`
+  committed). It will also remove clean all Mongo collections (i.e all graphs and activities that wene nor send to the cloud library)**: `git reset --hard; git clean -fdx; ./initial_setup.sh`
 * Some warnings when you start Meteor like missing `bcrypt`, `hiredis` etc are
-  OK, as long as the final lines are:
+  OK, as long as the following lines are displayed:
 
 ```
 => Started your app.
@@ -83,21 +87,19 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 * Learn Meteor framework with React:
   https://www.meteor.com/tutorials/react/creating-an-app
 
-* Use `npm start watchAll` to automatically have packages rebuilt after
-  editing them (otherwise your changes will not be picked up by Meteor) (more details [here](https://github.com/chili-epfl/FROG/wiki/Development-workflow-and-tools))
 * Note that we use `yarn` extensively. Unfortunately, we currently need to symlink all
 the packages from the root `node_modules` directory into `frog/`, because of a problem with
-Meteor. This means that the best way to add or update a dependency is to directly edit the 
-`package.json` file in question, and rerun `git clean -fdx; ./initial_setup.sh`. We're working
+Meteor. This means that the best way to add or update a dependency is to directly edit the
+`package.json` file in question, and run `npm start yarn`. We're working
 on improving this.
 
 * In development mode, you can use the URL shorthand `<host>?login={user}` to
   automatically login as a given user (which will be automatically created if it
   does not yet exist). For example, `http://localhost:3000/<slug>?login=peter`, will
-  open the student view logged in as peter. The user 'teacher' has access to the
-  graph editor and the teacher orchestration dashboard. If you want to see the
-  "projector mode", you log in like `<host>/projector/<slug>?login=teacher`. The slug is displayed
-  once you create a new session.
+  open the student view logged in as peter. To access to the
+  graph editor and the teacher orchestration dashboard you need to use the URL shorthand `<host>/teacher/login={user}`. If you want to see the
+  "projector mode", you log in like `<host>/teacher/projector/<slug>?login=teacher`. The slug is displayed once you create a new session.
+
 * If you open a number of windows in the same browser, they will all be
   logged in as the latest user, because of cookies. A way around this is to add
   entries like this in /etc/hosts:
@@ -108,7 +110,7 @@ on improving this.
       127.0.0.1	dev3
 
 Reload `/etc/hosts` (on
-[OSX](https://superuser.com/questions/346518/how-do-i-refresh-the-hosts-file-on-os-x)),
+[MacOS](https://superuser.com/questions/346518/how-do-i-refresh-the-hosts-file-on-os-x)),
 and then log in to different users on different "domains".
 
 ## Code style/testing
