@@ -12,7 +12,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import Settings from '@material-ui/icons/Settings';
+
+import HelpModal from '../GraphEditor/HelpModal';
 
 const styles = theme => ({
   root: {
@@ -34,6 +39,66 @@ const styles = theme => ({
     flexGrow: 1
   }
 });
+
+class LogoutMenu extends React.Component<*, *> {
+  state = {
+    anchorEl: null,
+    modal: false
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  render() {
+    const { anchorEl } = this.state;
+
+    return (
+      <div>
+        <IconButton
+          aria-owns={anchorEl ? 'simple-menu' : null}
+          aria-haspopup="true"
+          onClick={this.handleClick}
+        >
+          <Settings />
+        </IconButton>
+        <HelpModal
+          show={this.state.modal}
+          hide={() => this.setState({ modal: false })}
+        />
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
+        >
+          <MenuItem
+            onClick={() => {
+              this.setState({ modal: true });
+              this.handleClose();
+            }}
+          >
+            Show changelog
+          </MenuItem>
+          <MenuItem onClick={this.handleClose}>Website</MenuItem>
+          <MenuItem onClick={this.handleClose}>Change password</MenuItem>
+          <MenuItem
+            onClick={() => {
+              Meteor.logout();
+              window.location.assign('/');
+            }}
+          >
+            Logout
+          </MenuItem>
+        </Menu>
+      </div>
+    );
+  }
+}
 
 class TopBarController extends React.Component<{ classes: any }, {}> {
   routes = [
@@ -88,16 +153,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
               ))}
             </Tabs>
             <h3>{Meteor.user().username}</h3>
-            <Button
-              className={classes.button}
-              color="inherit"
-              onClick={() => {
-                Meteor.logout();
-                window.location.assign('/');
-              }}
-            >
-              Logout
-            </Button>
+            <LogoutMenu />
           </Toolbar>
         </AppBar>
       </div>

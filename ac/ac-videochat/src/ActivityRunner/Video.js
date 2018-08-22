@@ -46,6 +46,7 @@ class Video extends React.Component<VideoPropsT> {
         id={this.props.videoId}
         autoPlay
         muted={this.props.mute}
+        name={this.props.srcObject.id}
         height="100%"
         width="100%"
       />
